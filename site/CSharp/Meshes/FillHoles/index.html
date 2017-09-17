@@ -83,20 +83,20 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>FillHoles</span><span class=p>(</span><span class=kt>string</span> <span class=n>filePath</span><span class=p>)</span> <span class=p>{</span>
-         <span class=n>vtkPolyData</span> <span class=n>input</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=k>if</span><span class=p>(</span><span class=n>filePath</span> <span class=p>==</span> <span class=k>null</span><span class=p>)</span> <span class=p>{</span>
+<span class=hll>         <span class=n>vtkPolyData</span> <span class=n>input</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=k>if</span><span class=p>(</span><span class=n>filePath</span> <span class=p>==</span> <span class=k>null</span><span class=p>)</span> <span class=p>{</span>
             <span class=n>GenerateData</span><span class=p>(</span><span class=k>ref</span> <span class=n>input</span><span class=p>);</span>
          <span class=p>}</span>
          <span class=k>else</span> <span class=p>{</span>
-         <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
          <span class=n>reader</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
          <span class=n>input</span><span class=p>.</span><span class=n>ShallowCopy</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>());</span>
          <span class=p>}</span>
 
-         <span class=n>vtkFillHolesFilter</span> <span class=n>fillHolesFilter</span> <span class=p>=</span> <span class=n>vtkFillHolesFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkFillHolesFilter</span> <span class=n>fillHolesFilter</span> <span class=p>=</span> <span class=n>vtkFillHolesFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>fillHolesFilter</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>input</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>fillHolesFilter</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>input</span><span class=p>);</span>
@@ -105,24 +105,24 @@ function registerListener(event, func) {
          <span class=n>fillHolesFilter</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
          <span class=c1>// Create a mapper and actor</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>originalMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>originalMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>originalMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>input</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>originalMapper</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>input</span><span class=p>);</span>
 <span class=cp>#endif</span>
 
-         <span class=n>vtkActor</span> <span class=n>originalActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>originalActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>originalMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>originalActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>originalActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>originalMapper</span><span class=p>);</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>filledMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>filledMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>fillHolesFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>filledMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>filledMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>fillHolesFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
-         <span class=n>vtkActor</span> <span class=n>filledActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>filledActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>filledMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>filledActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>filledActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>filledMapper</span><span class=p>);</span>
 
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=k>this</span><span class=p>.</span><span class=n>Size</span> <span class=p>=</span> <span class=k>new</span> <span class=n>System</span><span class=p>.</span><span class=n>Drawing</span><span class=p>.</span><span class=n>Size</span><span class=p>(</span><span class=m>612</span><span class=p>,</span> <span class=m>352</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=k>this</span><span class=p>.</span><span class=n>Size</span> <span class=p>=</span> <span class=k>new</span> <span class=n>System</span><span class=p>.</span><span class=n>Drawing</span><span class=p>.</span><span class=n>Size</span><span class=p>(</span><span class=m>612</span><span class=p>,</span> <span class=m>352</span><span class=p>);</span>
 
          <span class=c1>// Define viewport ranges</span>
          <span class=c1>// (xmin, ymin, xmax, ymax)</span>
@@ -130,13 +130,13 @@ function registerListener(event, func) {
          <span class=kt>double</span><span class=p>[]</span> <span class=n>rightViewport</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>double</span><span class=p>[]</span> <span class=p>{</span> <span class=m>0.5</span><span class=p>,</span> <span class=m>0.0</span><span class=p>,</span> <span class=m>1.0</span><span class=p>,</span> <span class=m>1.0</span> <span class=p>};</span>
 
          <span class=c1>// Setup both renderers</span>
-         <span class=n>vtkRenderer</span> <span class=n>leftRenderer</span> <span class=p>=</span> <span class=n>vtkRenderer</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>renderWindow</span><span class=p>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>leftRenderer</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>leftRenderer</span> <span class=p>=</span> <span class=n>vtkRenderer</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>renderWindow</span><span class=p>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>leftRenderer</span><span class=p>);</span>
          <span class=n>leftRenderer</span><span class=p>.</span><span class=n>SetViewport</span><span class=p>(</span><span class=n>leftViewport</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>leftViewport</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>leftViewport</span><span class=p>[</span><span class=m>2</span><span class=p>],</span> <span class=n>leftViewport</span><span class=p>[</span><span class=m>3</span><span class=p>]);</span>
          <span class=n>leftRenderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(.</span><span class=m>6</span><span class=p>,</span> <span class=p>.</span><span class=m>5</span><span class=p>,</span> <span class=p>.</span><span class=m>4</span><span class=p>);</span>
 
-         <span class=n>vtkRenderer</span> <span class=n>rightRenderer</span> <span class=p>=</span> <span class=n>vtkRenderer</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>renderWindow</span><span class=p>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>rightRenderer</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>rightRenderer</span> <span class=p>=</span> <span class=n>vtkRenderer</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>renderWindow</span><span class=p>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>rightRenderer</span><span class=p>);</span>
          <span class=n>rightRenderer</span><span class=p>.</span><span class=n>SetViewport</span><span class=p>(</span><span class=n>rightViewport</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>rightViewport</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>rightViewport</span><span class=p>[</span><span class=m>2</span><span class=p>],</span> <span class=n>rightViewport</span><span class=p>[</span><span class=m>3</span><span class=p>]);</span>
          <span class=n>rightRenderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(.</span><span class=m>4</span><span class=p>,</span> <span class=p>.</span><span class=m>5</span><span class=p>,</span> <span class=p>.</span><span class=m>6</span><span class=p>);</span>
 
@@ -149,32 +149,32 @@ function registerListener(event, func) {
       <span class=p>}</span>
 
 
-      <span class=k>void</span> <span class=nf>GenerateData</span><span class=p>(</span><span class=k>ref</span> <span class=n>vtkPolyData</span> <span class=n>input</span><span class=p>)</span>
-      <span class=p>{</span>
+<span class=hll>      <span class=k>void</span> <span class=nf>GenerateData</span><span class=p>(</span><span class=k>ref</span> <span class=n>vtkPolyData</span> <span class=n>input</span><span class=p>)</span>
+</span>      <span class=p>{</span>
         <span class=c1>// Create a sphere</span>
-        <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-        <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
+<span class=hll>        <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>        <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
         <span class=c1>// Remove some cells</span>
-        <span class=n>vtkIdTypeArray</span> <span class=n>ids</span> <span class=p>=</span> <span class=n>vtkIdTypeArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-        <span class=n>ids</span><span class=p>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
+<span class=hll>        <span class=n>vtkIdTypeArray</span> <span class=n>ids</span> <span class=p>=</span> <span class=n>vtkIdTypeArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>        <span class=n>ids</span><span class=p>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
 
         <span class=c1>// Set values</span>
         <span class=n>ids</span><span class=p>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=m>2</span><span class=p>);</span>
         <span class=n>ids</span><span class=p>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=m>10</span><span class=p>);</span>
 
-        <span class=n>vtkSelectionNode</span> <span class=n>selectionNode</span> <span class=p>=</span> <span class=n>vtkSelectionNode</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>        <span class=n>vtkSelectionNode</span> <span class=n>selectionNode</span> <span class=p>=</span> <span class=n>vtkSelectionNode</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
+<span class=hll>        <span class=n>selectionNode</span><span class=p>.</span><span class=n>SetFieldType</span><span class=p>((</span><span class=kt>int</span><span class=p>)</span><span class=n>vtkSelectionNode</span><span class=p>.</span><span class=n>SelectionField</span><span class=p>.</span><span class=n>CELL</span><span class=p>);</span>
+</span><span class=hll>        <span class=n>selectionNode</span><span class=p>.</span><span class=n>SetContentType</span><span class=p>((</span><span class=kt>int</span><span class=p>)</span><span class=n>vtkSelectionNode</span><span class=p>.</span><span class=n>SelectionContent</span><span class=p>.</span><span class=n>INDICES</span><span class=p>);</span>
+</span>        <span class=n>selectionNode</span><span class=p>.</span><span class=n>SetSelectionList</span><span class=p>(</span><span class=n>ids</span><span class=p>);</span>
+<span class=hll>        <span class=n>selectionNode</span><span class=p>.</span><span class=n>GetProperties</span><span class=p>().</span><span class=n>Set</span><span class=p>(</span><span class=n>vtkSelectionNode</span><span class=p>.</span><span class=n>INVERSE</span><span class=p>(),</span> <span class=m>1</span><span class=p>);</span> <span class=c1>//invert the selection</span>
+</span>
+<span class=hll>        <span class=n>vtkSelection</span> <span class=n>selection</span> <span class=p>=</span> <span class=n>vtkSelection</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>        <span class=n>selection</span><span class=p>.</span><span class=n>AddNode</span><span class=p>(</span><span class=n>selectionNode</span><span class=p>);</span>
 
-        <span class=n>selectionNode</span><span class=p>.</span><span class=n>SetFieldType</span><span class=p>((</span><span class=kt>int</span><span class=p>)</span><span class=n>vtkSelectionNode</span><span class=p>.</span><span class=n>SelectionField</span><span class=p>.</span><span class=n>CELL</span><span class=p>);</span>
-        <span class=n>selectionNode</span><span class=p>.</span><span class=n>SetContentType</span><span class=p>((</span><span class=kt>int</span><span class=p>)</span><span class=n>vtkSelectionNode</span><span class=p>.</span><span class=n>SelectionContent</span><span class=p>.</span><span class=n>INDICES</span><span class=p>);</span>
-        <span class=n>selectionNode</span><span class=p>.</span><span class=n>SetSelectionList</span><span class=p>(</span><span class=n>ids</span><span class=p>);</span>
-        <span class=n>selectionNode</span><span class=p>.</span><span class=n>GetProperties</span><span class=p>().</span><span class=n>Set</span><span class=p>(</span><span class=n>vtkSelectionNode</span><span class=p>.</span><span class=n>INVERSE</span><span class=p>(),</span> <span class=m>1</span><span class=p>);</span> <span class=c1>//invert the selection</span>
-
-        <span class=n>vtkSelection</span> <span class=n>selection</span> <span class=p>=</span> <span class=n>vtkSelection</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-        <span class=n>selection</span><span class=p>.</span><span class=n>AddNode</span><span class=p>(</span><span class=n>selectionNode</span><span class=p>);</span>
-
-        <span class=n>vtkExtractSelection</span> <span class=n>extractSelection</span> <span class=p>=</span> <span class=n>vtkExtractSelection</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-        <span class=n>extractSelection</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>        <span class=n>vtkExtractSelection</span> <span class=n>extractSelection</span> <span class=p>=</span> <span class=n>vtkExtractSelection</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>        <span class=n>extractSelection</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#if VTK_MAJOR_VERSION_5</span>
         <span class=n>extractSelection</span><span class=p>.</span><span class=n>SetInput</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=n>selection</span><span class=p>);</span>
 <span class=cp>#else</span>
@@ -183,8 +183,8 @@ function registerListener(event, func) {
         <span class=n>extractSelection</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
         <span class=c1>// In selection</span>
-        <span class=n>vtkDataSetSurfaceFilter</span> <span class=n>surfaceFilter</span> <span class=p>=</span> <span class=n>vtkDataSetSurfaceFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-        <span class=n>surfaceFilter</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>extractSelection</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>        <span class=n>vtkDataSetSurfaceFilter</span> <span class=n>surfaceFilter</span> <span class=p>=</span> <span class=n>vtkDataSetSurfaceFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>        <span class=n>surfaceFilter</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>extractSelection</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
         <span class=n>surfaceFilter</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
         <span class=n>input</span><span class=p>.</span><span class=n>ShallowCopy</span><span class=p>(</span><span class=n>surfaceFilter</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>());</span>

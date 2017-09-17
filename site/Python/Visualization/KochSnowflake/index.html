@@ -62,25 +62,25 @@ function registerListener(event, func) {
 <span class=c1>#                                   Imports                                    #</span>
 <span class=c1>#------------------------------------------------------------------------------#</span>
 <span class=kn>from</span> <span class=nn>math</span> <span class=kn>import</span> <span class=n>pi</span><span class=p>,</span> <span class=n>cos</span><span class=p>,</span> <span class=n>sin</span><span class=p>,</span> <span class=n>sqrt</span>
-<span class=kn>import</span> <span class=nn>vtk</span>
-
+<span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
+</span>
 <span class=n>LEVEL</span> <span class=o>=</span> <span class=mi>6</span>
 
 <span class=c1>#------------------------------------------------------------------------------#</span>
-<span class=c1>#                        Koch Snowflake as vtkPolyLine                         #</span>
-<span class=c1>#------------------------------------------------------------------------------#</span>
+<span class=hll><span class=c1>#                        Koch Snowflake as vtkPolyLine                         #</span>
+</span><span class=c1>#------------------------------------------------------------------------------#</span>
 <span class=k>def</span> <span class=nf>as_polyline</span><span class=p>(</span><span class=n>points</span><span class=p>,</span> <span class=n>level</span><span class=p>):</span>
   <span class=c1># Use the points from the previous iteration to create the points of the next</span>
   <span class=c1># level. There is an assumption on my part that the curve is traversed in a</span>
   <span class=c1># counterclockwise fashion. If the initial triangle above is written to</span>
   <span class=c1># describe clockwise motion, the points will face inward instead of outward.</span>
   <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>level</span><span class=p>):</span>
-    <span class=n>temp</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
-    <span class=c1># The first point of the previous vtkPoints is the first point of the next vtkPoints.</span>
-    <span class=n>temp</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=o>*</span><span class=n>points</span><span class=o>.</span><span class=n>GetPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>))</span>
+<span class=hll>    <span class=n>temp</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
+</span><span class=hll>    <span class=c1># The first point of the previous vtkPoints is the first point of the next vtkPoints.</span>
+</span>    <span class=n>temp</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=o>*</span><span class=n>points</span><span class=o>.</span><span class=n>GetPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>))</span>
 
-    <span class=c1># Iterate over &quot;edges&quot; in the vtkPoints</span>
-    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>points</span><span class=o>.</span><span class=n>GetNumberOfPoints</span><span class=p>()):</span>
+<span class=hll>    <span class=c1># Iterate over &quot;edges&quot; in the vtkPoints</span>
+</span>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>points</span><span class=o>.</span><span class=n>GetNumberOfPoints</span><span class=p>()):</span>
       <span class=n>x0</span><span class=p>,</span> <span class=n>y0</span><span class=p>,</span> <span class=n>z0</span> <span class=o>=</span> <span class=n>points</span><span class=o>.</span><span class=n>GetPoint</span><span class=p>(</span><span class=n>i</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
       <span class=n>x1</span><span class=p>,</span> <span class=n>y1</span><span class=p>,</span> <span class=n>z1</span> <span class=o>=</span> <span class=n>points</span><span class=o>.</span><span class=n>GetPoint</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
       <span class=n>t</span> <span class=o>=</span> <span class=n>sqrt</span><span class=p>((</span><span class=n>x1</span> <span class=o>-</span> <span class=n>x0</span><span class=p>)</span><span class=o>**</span><span class=mi>2</span> <span class=o>+</span> <span class=p>(</span><span class=n>y1</span> <span class=o>-</span> <span class=n>y0</span><span class=p>)</span><span class=o>**</span><span class=mi>2</span><span class=p>)</span>
@@ -96,30 +96,30 @@ function registerListener(event, func) {
     <span class=n>points</span> <span class=o>=</span> <span class=n>temp</span>
 
   <span class=c1># draw the outline</span>
-  <span class=n>lines</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>
-  <span class=n>pl</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyLine</span><span class=p>()</span>
-  <span class=n>pl</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetNumberOfIds</span><span class=p>(</span><span class=n>points</span><span class=o>.</span><span class=n>GetNumberOfPoints</span><span class=p>())</span>
+<span class=hll>  <span class=n>lines</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>
+</span><span class=hll>  <span class=n>pl</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyLine</span><span class=p>()</span>
+</span>  <span class=n>pl</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetNumberOfIds</span><span class=p>(</span><span class=n>points</span><span class=o>.</span><span class=n>GetNumberOfPoints</span><span class=p>())</span>
   <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>points</span><span class=o>.</span><span class=n>GetNumberOfPoints</span><span class=p>()):</span>
     <span class=n>pl</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>i</span><span class=p>)</span>
   <span class=n>lines</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>pl</span><span class=p>)</span>
 
   <span class=c1># complete the polydata</span>
-  <span class=n>polydata</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
-  <span class=n>polydata</span><span class=o>.</span><span class=n>SetLines</span><span class=p>(</span><span class=n>lines</span><span class=p>)</span>
+<span class=hll>  <span class=n>polydata</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
+</span>  <span class=n>polydata</span><span class=o>.</span><span class=n>SetLines</span><span class=p>(</span><span class=n>lines</span><span class=p>)</span>
   <span class=n>polydata</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>)</span>
 
   <span class=k>return</span> <span class=n>polydata</span>
 
 <span class=c1>#------------------------------------------------------------------------------#</span>
-<span class=c1>#                 Koch Snowflake as collection of vtkTriangles                 #</span>
-<span class=c1>#------------------------------------------------------------------------------#</span>
+<span class=hll><span class=c1>#                 Koch Snowflake as collection of vtkTriangles                 #</span>
+</span><span class=c1>#------------------------------------------------------------------------------#</span>
 <span class=k>def</span> <span class=nf>as_triangles</span><span class=p>(</span><span class=n>indices</span><span class=p>,</span> <span class=n>cellarray</span><span class=p>,</span> <span class=n>level</span><span class=p>,</span> <span class=n>data</span><span class=p>):</span>
   <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>indices</span><span class=p>)</span> <span class=o>&gt;=</span> <span class=mi>3</span><span class=p>:</span>
     <span class=n>stride</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>indices</span><span class=p>)</span><span class=o>//</span><span class=mi>4</span>
     <span class=n>indices</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>indices</span><span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span>
 
-    <span class=n>triangle</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTriangle</span><span class=p>()</span>
-    <span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>indices</span><span class=p>[</span> <span class=n>stride</span><span class=p>])</span>
+<span class=hll>    <span class=n>triangle</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTriangle</span><span class=p>()</span>
+</span>    <span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>indices</span><span class=p>[</span> <span class=n>stride</span><span class=p>])</span>
     <span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>indices</span><span class=p>[</span><span class=mi>2</span><span class=o>*</span><span class=n>stride</span><span class=p>])</span>
     <span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=n>indices</span><span class=p>[</span><span class=mi>3</span><span class=o>*</span><span class=n>stride</span><span class=p>])</span>
 
@@ -137,35 +137,35 @@ function registerListener(event, func) {
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&quot;__main__&quot;</span><span class=p>:</span>
   <span class=c1># Initially, set up the points to be an equilateral triangle. Note that the</span>
   <span class=c1># first point is the same as the last point to make this a closed curve when</span>
-  <span class=c1># I create the vtkPolyLine.</span>
-  <span class=n>points</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
-  <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>4</span><span class=p>):</span>
+<span class=hll>  <span class=c1># I create the vtkPolyLine.</span>
+</span><span class=hll>  <span class=n>points</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
+</span>  <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>4</span><span class=p>):</span>
     <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>cos</span><span class=p>(</span><span class=mf>2.</span><span class=o>*</span><span class=n>pi</span><span class=o>*</span><span class=n>i</span><span class=o>/</span><span class=mi>3</span><span class=p>),</span> <span class=n>sin</span><span class=p>(</span><span class=mi>2</span><span class=o>*</span><span class=n>pi</span><span class=o>*</span><span class=n>i</span><span class=o>/</span><span class=mf>3.</span><span class=p>),</span> <span class=mf>0.</span><span class=p>)</span>
 
   <span class=n>outline_pd</span>  <span class=o>=</span> <span class=n>as_polyline</span><span class=p>(</span><span class=n>points</span><span class=p>,</span> <span class=n>LEVEL</span><span class=p>)</span>
   <span class=c1># You have already gone through the trouble of putting the points in the</span>
   <span class=c1># right places - so &quot;all&quot; you need todo now is to create polygons from the</span>
-  <span class=c1># points that are in the vtkPoints.</span>
-
+<span class=hll>  <span class=c1># points that are in the vtkPoints.</span>
+</span>
   <span class=c1># The points that are passed in, have an overlap of the beginning and the</span>
   <span class=c1># end. For this next trick, I will need a list of the indices in the</span>
-  <span class=c1># vtkPoints. They&#39;re consecutive, so thats pretty straightforward.</span>
-
+<span class=hll>  <span class=c1># vtkPoints. They&#39;re consecutive, so thats pretty straightforward.</span>
+</span>
   <span class=n>indices</span> <span class=o>=</span> <span class=p>[</span><span class=n>i</span> <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>outline_pd</span><span class=o>.</span><span class=n>GetPoints</span><span class=p>()</span><span class=o>.</span><span class=n>GetNumberOfPoints</span><span class=p>()</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)]</span>
-  <span class=n>triangles</span>   <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>
-
+<span class=hll>  <span class=n>triangles</span>   <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>
+</span>
   <span class=c1># Set this up for each of the initial sides, then call the recursive function.</span>
   <span class=n>stride</span> <span class=o>=</span> <span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>indices</span><span class=p>)</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span><span class=o>//</span><span class=mi>3</span>
 
   <span class=c1># The cell data will allow us to color the triangles based on the level of</span>
   <span class=c1># the iteration of the Koch snowflake.</span>
-  <span class=n>data</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkIntArray</span><span class=p>()</span>
-  <span class=n>data</span><span class=o>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+<span class=hll>  <span class=n>data</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkIntArray</span><span class=p>()</span>
+</span>  <span class=n>data</span><span class=o>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
   <span class=n>data</span><span class=o>.</span><span class=n>SetName</span><span class=p>(</span><span class=s2>&quot;Iteration Level&quot;</span><span class=p>)</span>
 
   <span class=c1># This is the starting triangle.</span>
-  <span class=n>t</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTriangle</span><span class=p>()</span>
-  <span class=n>t</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span>        <span class=mi>0</span><span class=p>)</span>
+<span class=hll>  <span class=n>t</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTriangle</span><span class=p>()</span>
+</span>  <span class=n>t</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span>        <span class=mi>0</span><span class=p>)</span>
   <span class=n>t</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span>   <span class=n>stride</span><span class=p>)</span>
   <span class=n>t</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=o>*</span><span class=n>stride</span><span class=p>)</span>
   <span class=n>triangles</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>t</span><span class=p>)</span>
@@ -175,50 +175,50 @@ function registerListener(event, func) {
   <span class=n>as_triangles</span><span class=p>(</span><span class=n>indices</span><span class=p>[</span>  <span class=n>stride</span><span class=p>:</span> <span class=mi>2</span><span class=o>*</span><span class=n>stride</span> <span class=o>+</span> <span class=mi>1</span><span class=p>],</span> <span class=n>triangles</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=n>data</span><span class=p>)</span>
   <span class=n>as_triangles</span><span class=p>(</span><span class=n>indices</span><span class=p>[</span><span class=mi>2</span><span class=o>*</span><span class=n>stride</span><span class=p>:</span>           <span class=o>-</span><span class=mi>1</span><span class=p>],</span> <span class=n>triangles</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=n>data</span><span class=p>)</span>
 
-  <span class=n>triangle_pd</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
-  <span class=n>triangle_pd</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>outline_pd</span><span class=o>.</span><span class=n>GetPoints</span><span class=p>())</span>
+<span class=hll>  <span class=n>triangle_pd</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
+</span>  <span class=n>triangle_pd</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>outline_pd</span><span class=o>.</span><span class=n>GetPoints</span><span class=p>())</span>
   <span class=n>triangle_pd</span><span class=o>.</span><span class=n>SetPolys</span><span class=p>(</span><span class=n>triangles</span><span class=p>)</span>
   <span class=n>triangle_pd</span><span class=o>.</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>.</span><span class=n>SetScalars</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
 
   <span class=c1>#-----------------#</span>
   <span class=c1># rendering stuff #</span>
   <span class=c1>#-----------------#</span>
-  <span class=n>outline_mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-  <span class=n>outline_mapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>outline_pd</span><span class=p>)</span>
+<span class=hll>  <span class=n>outline_mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>  <span class=n>outline_mapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>outline_pd</span><span class=p>)</span>
 
-  <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-  <span class=n>lut</span><span class=o>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=mi>256</span><span class=p>)</span>
+<span class=hll>  <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span>  <span class=n>lut</span><span class=o>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=mi>256</span><span class=p>)</span>
   <span class=n>lut</span><span class=o>.</span><span class=n>SetHueRange</span><span class=p>(</span><span class=mf>0.6</span><span class=p>,</span> <span class=mf>0.6</span><span class=p>)</span>
   <span class=n>lut</span><span class=o>.</span><span class=n>SetSaturationRange</span><span class=p>(</span><span class=mf>0.</span><span class=p>,</span> <span class=mf>1.</span><span class=p>)</span>
   <span class=n>lut</span><span class=o>.</span><span class=n>Build</span><span class=p>()</span>
 
-  <span class=n>triangle_mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-  <span class=n>triangle_mapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>triangle_pd</span><span class=p>)</span>
+<span class=hll>  <span class=n>triangle_mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>  <span class=n>triangle_mapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>triangle_pd</span><span class=p>)</span>
   <span class=n>triangle_mapper</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=n>LEVEL</span><span class=p>)</span>
   <span class=n>triangle_mapper</span><span class=o>.</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span>
 
-  <span class=n>outline_actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-  <span class=n>outline_actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outline_mapper</span><span class=p>)</span>
+<span class=hll>  <span class=n>outline_actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>  <span class=n>outline_actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outline_mapper</span><span class=p>)</span>
 
-  <span class=n>triangle_actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-  <span class=n>triangle_actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>triangle_mapper</span><span class=p>)</span>
+<span class=hll>  <span class=n>triangle_actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>  <span class=n>triangle_actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>triangle_mapper</span><span class=p>)</span>
 
-  <span class=n>outline_ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-  <span class=n>outline_ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>outline_actor</span><span class=p>)</span>
+<span class=hll>  <span class=n>outline_ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span>  <span class=n>outline_ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>outline_actor</span><span class=p>)</span>
   <span class=n>outline_ren</span><span class=o>.</span><span class=n>SetViewport</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.5</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
 
-  <span class=n>triangle_ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-  <span class=n>triangle_ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>triangle_actor</span><span class=p>)</span>
+<span class=hll>  <span class=n>triangle_ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span>  <span class=n>triangle_ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>triangle_actor</span><span class=p>)</span>
   <span class=n>triangle_ren</span><span class=o>.</span><span class=n>SetViewport</span><span class=p>(</span><span class=mf>0.5</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
   <span class=n>triangle_ren</span><span class=o>.</span><span class=n>SetActiveCamera</span><span class=p>(</span><span class=n>outline_ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>())</span>
 
-  <span class=n>renw</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
-  <span class=n>renw</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>outline_ren</span><span class=p>)</span>
+<span class=hll>  <span class=n>renw</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
+</span>  <span class=n>renw</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>outline_ren</span><span class=p>)</span>
   <span class=n>renw</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>triangle_ren</span><span class=p>)</span>
   <span class=n>renw</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>800</span><span class=p>,</span> <span class=mi>400</span><span class=p>)</span>
 
-  <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-  <span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renw</span><span class=p>)</span>
+<span class=hll>  <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
+</span>  <span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renw</span><span class=p>)</span>
 
   <span class=n>outline_ren</span><span class=o>.</span><span class=n>ResetCamera</span><span class=p>()</span>
   <span class=n>renw</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>

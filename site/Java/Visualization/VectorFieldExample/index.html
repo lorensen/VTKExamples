@@ -64,47 +64,47 @@ function registerListener(event, func) {
 <span class=kn>import</span> <span class=nn>java.util.concurrent.TimeUnit</span><span class=o>;</span>
 <span class=kn>import</span> <span class=nn>javax.swing.JFrame</span><span class=o>;</span>
 <span class=kn>import</span> <span class=nn>javax.swing.SwingUtilities</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkActor</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkArrowSource</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkCubeSource</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkGlyph3D</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkObject</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkPanel</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkPolyData</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkPolyDataMapper</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkThresholdPoints</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkUnstructuredGrid</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.vtkXMLUnstructuredGridReader</span><span class=o>;</span>
-
+<span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkActor</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkArrowSource</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkCubeSource</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkGlyph3D</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkObject</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkPanel</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkPolyData</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkPolyDataMapper</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkThresholdPoints</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkUnstructuredGrid</span><span class=o>;</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.vtkXMLUnstructuredGridReader</span><span class=o>;</span>
+</span>
 
 <span class=kd>public</span> <span class=kd>class</span> <span class=nc>VectorFieldExample</span> <span class=kd>implements</span> <span class=n>Serializable</span> <span class=o>{</span>
 
   <span class=kd>static</span>
   <span class=o>{</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkCommonCoreJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkFiltersCoreJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkFiltersSourcesJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkIOXMLJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkRenderingCoreJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkRenderingOpenGL2Java&quot;</span><span class=o>);</span>
-  <span class=o>}</span>
+<span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkCommonCoreJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkFiltersCoreJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkFiltersSourcesJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkIOXMLJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkRenderingCoreJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkRenderingOpenGL2Java&quot;</span><span class=o>);</span>
+</span>  <span class=o>}</span>
     <span class=kd>private</span> <span class=kd>static</span> <span class=kd>final</span> <span class=kt>long</span> <span class=n>serialVersionUID</span> <span class=o>=</span> <span class=mi>1L</span><span class=o>;</span>
 
-    <span class=kd>public</span> <span class=kd>static</span> <span class=n>vtkPanel</span> <span class=nf>showVectorField</span><span class=o>(</span>
-            <span class=n>File</span> <span class=n>file</span><span class=o>,</span>
+<span class=hll>    <span class=kd>public</span> <span class=kd>static</span> <span class=n>vtkPanel</span> <span class=nf>showVectorField</span><span class=o>(</span>
+</span>            <span class=n>File</span> <span class=n>file</span><span class=o>,</span>
             <span class=kt>int</span> <span class=n>elementInFile</span><span class=o>,</span>
             <span class=kt>double</span> <span class=n>threshold</span><span class=o>,</span>
             <span class=kt>double</span> <span class=n>scaleFactor</span><span class=o>)</span> <span class=o>{</span>
 
-        <span class=n>vtkXMLUnstructuredGridReader</span> <span class=n>reader</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkXMLUnstructuredGridReader</span><span class=o>();</span>
-
+<span class=hll>        <span class=n>vtkXMLUnstructuredGridReader</span> <span class=n>reader</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkXMLUnstructuredGridReader</span><span class=o>();</span>
+</span>
         <span class=n>reader</span><span class=o>.</span><span class=na>SetFileName</span><span class=o>(</span><span class=n>file</span><span class=o>.</span><span class=na>getAbsolutePath</span><span class=o>());</span>
         <span class=n>reader</span><span class=o>.</span><span class=na>Update</span><span class=o>();</span>
-        <span class=n>vtkUnstructuredGrid</span> <span class=n>image</span> <span class=o>=</span> <span class=n>reader</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>();</span>
-        <span class=n>image</span><span class=o>.</span><span class=na>GetPointData</span><span class=o>().</span><span class=na>SetVectors</span><span class=o>(</span><span class=n>image</span><span class=o>.</span><span class=na>GetPointData</span><span class=o>().</span><span class=na>GetArray</span><span class=o>(</span><span class=n>elementInFile</span><span class=o>));</span>
+<span class=hll>        <span class=n>vtkUnstructuredGrid</span> <span class=n>image</span> <span class=o>=</span> <span class=n>reader</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>();</span>
+</span>        <span class=n>image</span><span class=o>.</span><span class=na>GetPointData</span><span class=o>().</span><span class=na>SetVectors</span><span class=o>(</span><span class=n>image</span><span class=o>.</span><span class=na>GetPointData</span><span class=o>().</span><span class=na>GetArray</span><span class=o>(</span><span class=n>elementInFile</span><span class=o>));</span>
 
-        <span class=n>vtkThresholdPoints</span> <span class=n>thresholdVector</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkThresholdPoints</span><span class=o>();</span>
-        <span class=n>thresholdVector</span><span class=o>.</span><span class=na>SetInputData</span><span class=o>(</span><span class=n>image</span><span class=o>);</span>
+<span class=hll>        <span class=n>vtkThresholdPoints</span> <span class=n>thresholdVector</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkThresholdPoints</span><span class=o>();</span>
+</span>        <span class=n>thresholdVector</span><span class=o>.</span><span class=na>SetInputData</span><span class=o>(</span><span class=n>image</span><span class=o>);</span>
         <span class=n>thresholdVector</span><span class=o>.</span><span class=na>SetInputArrayToProcess</span><span class=o>(</span>
                 <span class=n>elementInFile</span><span class=o>,</span>
                 <span class=n>image</span><span class=o>.</span><span class=na>GetInformation</span><span class=o>());</span>
@@ -114,17 +114,17 @@ function registerListener(event, func) {
 
 
         <span class=c1>// represent vector field</span>
-        <span class=n>vtkGlyph3D</span> <span class=n>vectorGlyph</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkGlyph3D</span><span class=o>();</span>
-        <span class=n>vtkArrowSource</span> <span class=n>arrowSource</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkArrowSource</span><span class=o>();</span>
-        <span class=n>vtkPolyDataMapper</span> <span class=n>vectorGlyphMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
-
+<span class=hll>        <span class=n>vtkGlyph3D</span> <span class=n>vectorGlyph</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkGlyph3D</span><span class=o>();</span>
+</span><span class=hll>        <span class=n>vtkArrowSource</span> <span class=n>arrowSource</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkArrowSource</span><span class=o>();</span>
+</span><span class=hll>        <span class=n>vtkPolyDataMapper</span> <span class=n>vectorGlyphMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
+</span>
         <span class=kt>int</span> <span class=n>n</span> <span class=o>=</span> <span class=n>image</span><span class=o>.</span><span class=na>GetPointData</span><span class=o>().</span><span class=na>GetNumberOfArrays</span><span class=o>();</span>
         <span class=k>for</span> <span class=o>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=o>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>n</span><span class=o>;</span> <span class=n>i</span><span class=o>++)</span> <span class=o>{</span>
             <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&quot;name of array[&quot;</span> <span class=o>+</span> <span class=n>i</span> <span class=o>+</span> <span class=s>&quot;]: &quot;</span> <span class=o>+</span> <span class=n>image</span><span class=o>.</span><span class=na>GetPointData</span><span class=o>().</span><span class=na>GetArrayName</span><span class=o>(</span><span class=n>i</span><span class=o>));</span>
         <span class=o>}</span>
 
-        <span class=n>vtkPolyData</span> <span class=n>tmp</span> <span class=o>=</span> <span class=n>thresholdVector</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>();</span>
-        <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&quot;number of thresholded points: &quot;</span> <span class=o>+</span> <span class=n>tmp</span><span class=o>.</span><span class=na>GetNumberOfPoints</span><span class=o>());</span>
+<span class=hll>        <span class=n>vtkPolyData</span> <span class=n>tmp</span> <span class=o>=</span> <span class=n>thresholdVector</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>();</span>
+</span>        <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&quot;number of thresholded points: &quot;</span> <span class=o>+</span> <span class=n>tmp</span><span class=o>.</span><span class=na>GetNumberOfPoints</span><span class=o>());</span>
 
         <span class=n>vectorGlyph</span><span class=o>.</span><span class=na>SetInputData</span><span class=o>(</span><span class=n>image</span><span class=o>);</span>
         <span class=n>vectorGlyph</span><span class=o>.</span><span class=na>SetSourceConnection</span><span class=o>(</span><span class=n>arrowSource</span><span class=o>.</span><span class=na>GetOutputPort</span><span class=o>());</span>
@@ -143,13 +143,13 @@ function registerListener(event, func) {
         <span class=n>vectorGlyphMapper</span><span class=o>.</span><span class=na>SetInputConnection</span><span class=o>(</span><span class=n>vectorGlyph</span><span class=o>.</span><span class=na>GetOutputPort</span><span class=o>());</span>
         <span class=n>vectorGlyphMapper</span><span class=o>.</span><span class=na>Update</span><span class=o>();</span>
 
-        <span class=n>vtkActor</span> <span class=n>vectorActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
-        <span class=n>vectorActor</span><span class=o>.</span><span class=na>SetMapper</span><span class=o>(</span><span class=n>vectorGlyphMapper</span><span class=o>);</span>
+<span class=hll>        <span class=n>vtkActor</span> <span class=n>vectorActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
+</span>        <span class=n>vectorActor</span><span class=o>.</span><span class=na>SetMapper</span><span class=o>(</span><span class=n>vectorGlyphMapper</span><span class=o>);</span>
 
 
 
-        <span class=n>vtkPanel</span> <span class=n>vis</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPanel</span><span class=o>();</span>
-        <span class=n>vis</span><span class=o>.</span><span class=na>GetRenderer</span><span class=o>().</span><span class=na>AddActor</span><span class=o>(</span><span class=n>vectorActor</span><span class=o>);</span>
+<span class=hll>        <span class=n>vtkPanel</span> <span class=n>vis</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPanel</span><span class=o>();</span>
+</span>        <span class=n>vis</span><span class=o>.</span><span class=na>GetRenderer</span><span class=o>().</span><span class=na>AddActor</span><span class=o>(</span><span class=n>vectorActor</span><span class=o>);</span>
 
         <span class=k>return</span> <span class=n>vis</span><span class=o>;</span>
     <span class=o>}</span>
@@ -167,8 +167,8 @@ function registerListener(event, func) {
 
                 <span class=n>File</span> <span class=n>file</span> <span class=o>=</span> <span class=k>new</span> <span class=n>File</span><span class=o>(</span><span class=s>&quot;../src/Testing/Data/tetra.vtu&quot;</span><span class=o>);</span> <span class=c1>// needs to be replaced</span>
 
-                <span class=n>vtkPanel</span> <span class=n>panel</span> <span class=o>=</span> <span class=n>showVectorField</span><span class=o>(</span><span class=n>file</span><span class=o>,</span> <span class=mi>2</span><span class=o>,</span> <span class=mf>0.001</span><span class=o>,</span> <span class=mf>0.05</span><span class=o>);</span> <span class=c1>// values need to be replaced</span>
-
+<span class=hll>                <span class=n>vtkPanel</span> <span class=n>panel</span> <span class=o>=</span> <span class=n>showVectorField</span><span class=o>(</span><span class=n>file</span><span class=o>,</span> <span class=mi>2</span><span class=o>,</span> <span class=mf>0.001</span><span class=o>,</span> <span class=mf>0.05</span><span class=o>);</span> <span class=c1>// values need to be replaced</span>
+</span>
                 <span class=n>frame</span><span class=o>.</span><span class=na>add</span><span class=o>(</span><span class=n>panel</span><span class=o>,</span> <span class=n>BorderLayout</span><span class=o>.</span><span class=na>CENTER</span><span class=o>);</span>
                 <span class=n>frame</span><span class=o>.</span><span class=na>setSize</span><span class=o>(</span><span class=mi>600</span><span class=o>,</span> <span class=mi>600</span><span class=o>);</span>
                 <span class=n>frame</span><span class=o>.</span><span class=na>setLocationRelativeTo</span><span class=o>(</span><span class=kc>null</span><span class=o>);</span>

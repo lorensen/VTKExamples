@@ -85,15 +85,15 @@ function registerListener(event, func) {
       <span class=k>private</span> <span class=k>void</span> <span class=nf>Planes</span><span class=p>()</span> <span class=p>{</span>
          <span class=c1>// in this example we need the renderer first to retrieve the active camera</span>
          <span class=c1>// in order to get camera&#39;s frustum planes and renderer&#39;s aspectratio</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>vtkRenderer</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=n>vtkCamera</span> <span class=n>camera</span> <span class=p>=</span> <span class=n>renderer</span><span class=p>.</span><span class=n>GetActiveCamera</span><span class=p>();</span>
-         <span class=kt>double</span><span class=p>[]</span> <span class=n>aspect</span> <span class=p>=</span> <span class=n>renderer</span><span class=p>.</span><span class=n>GetAspect</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span><span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>vtkRenderer</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkCamera</span> <span class=n>camera</span> <span class=p>=</span> <span class=n>renderer</span><span class=p>.</span><span class=n>GetActiveCamera</span><span class=p>();</span>
+</span>         <span class=kt>double</span><span class=p>[]</span> <span class=n>aspect</span> <span class=p>=</span> <span class=n>renderer</span><span class=p>.</span><span class=n>GetAspect</span><span class=p>();</span>
          <span class=kt>double</span> <span class=n>aspectRatio</span> <span class=p>=</span> <span class=n>aspect</span><span class=p>[</span><span class=m>0</span><span class=p>]</span> <span class=p>/</span> <span class=n>aspect</span><span class=p>[</span><span class=m>1</span><span class=p>];</span>
 
-         <span class=n>vtkPlanes</span> <span class=n>planes</span> <span class=p>=</span> <span class=n>vtkPlanes</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=c1>// one way</span>
+<span class=hll>         <span class=n>vtkPlanes</span> <span class=n>planes</span> <span class=p>=</span> <span class=n>vtkPlanes</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=c1>// one way</span>
          <span class=p>{</span>
             <span class=c1>// allocate memory for 24 unmanaged doubles</span>
             <span class=kt>int</span> <span class=n>size</span> <span class=p>=</span> <span class=n>Marshal</span><span class=p>.</span><span class=n>SizeOf</span><span class=p>(</span><span class=k>typeof</span><span class=p>(</span><span class=kt>double</span><span class=p>))</span> <span class=p>*</span> <span class=m>24</span><span class=p>;</span>
@@ -113,8 +113,8 @@ function registerListener(event, func) {
          <span class=p>}</span>
          <span class=c1>// another way</span>
          <span class=p>{</span>
-            <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
+<span class=hll>            <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
             <span class=kt>double</span><span class=p>[]</span> <span class=n>bounds</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>double</span><span class=p>[</span><span class=m>6</span><span class=p>];</span>
             <span class=n>bounds</span> <span class=p>=</span> <span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>().</span><span class=n>GetBounds</span><span class=p>();</span>
             <span class=n>planes</span><span class=p>.</span><span class=n>SetBounds</span><span class=p>(</span><span class=n>bounds</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>2</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>3</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>4</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>5</span><span class=p>]);</span>

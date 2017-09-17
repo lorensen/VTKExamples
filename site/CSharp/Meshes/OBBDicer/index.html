@@ -83,24 +83,24 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>OBBDicer</span><span class=p>(</span><span class=kt>string</span> <span class=n>filePath</span><span class=p>)</span> <span class=p>{</span>
-         <span class=n>vtkPolyData</span> <span class=n>inputPolyData</span><span class=p>;</span>
-         <span class=k>if</span><span class=p>(</span><span class=n>filePath</span> <span class=p>!=</span> <span class=k>null</span><span class=p>)</span> <span class=p>{</span>
-            <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkPolyData</span> <span class=n>inputPolyData</span><span class=p>;</span>
+</span>         <span class=k>if</span><span class=p>(</span><span class=n>filePath</span> <span class=p>!=</span> <span class=k>null</span><span class=p>)</span> <span class=p>{</span>
+<span class=hll>            <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
             <span class=n>reader</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
             <span class=n>inputPolyData</span> <span class=p>=</span> <span class=n>reader</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
          <span class=p>}</span>
          <span class=k>else</span> <span class=p>{</span>
-            <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>sphereSource</span><span class=p>.</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=m>30</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>sphereSource</span><span class=p>.</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=m>30</span><span class=p>);</span>
             <span class=n>sphereSource</span><span class=p>.</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=m>15</span><span class=p>);</span>
             <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
             <span class=n>inputPolyData</span> <span class=p>=</span> <span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
          <span class=p>}</span>
 
          <span class=c1>// Create pipeline</span>
-         <span class=n>vtkOBBDicer</span> <span class=n>dicer</span> <span class=p>=</span> <span class=n>vtkOBBDicer</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkOBBDicer</span> <span class=n>dicer</span> <span class=p>=</span> <span class=n>vtkOBBDicer</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>dicer</span><span class=p>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>inputPolyData</span><span class=p>);</span>
 <span class=cp>#else</span>
          <span class=n>dicer</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>inputPolyData</span><span class=p>);</span>
@@ -109,36 +109,36 @@ function registerListener(event, func) {
          <span class=n>dicer</span><span class=p>.</span><span class=n>SetDiceModeToSpecifiedNumberOfPieces</span><span class=p>();</span>
          <span class=n>dicer</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>inputMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>inputMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>dicer</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>inputMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>inputMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>dicer</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>inputMapper</span><span class=p>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=n>dicer</span><span class=p>.</span><span class=n>GetNumberOfActualPieces</span><span class=p>());</span>
 
          <span class=n>Debug</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;Asked for: &quot;</span>
                    <span class=p>+</span> <span class=n>dicer</span><span class=p>.</span><span class=n>GetNumberOfPieces</span><span class=p>()</span> <span class=p>+</span> <span class=s>&quot; pieces, got: &quot;</span>
                    <span class=p>+</span> <span class=n>dicer</span><span class=p>.</span><span class=n>GetNumberOfActualPieces</span><span class=p>());</span>
 
-         <span class=n>vtkActor</span> <span class=n>inputActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>inputActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>inputMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>inputActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>inputActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>inputMapper</span><span class=p>);</span>
          <span class=n>inputActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetInterpolationToFlat</span><span class=p>();</span>
 
-         <span class=n>vtkOutlineCornerFilter</span> <span class=n>outline</span> <span class=p>=</span> <span class=n>vtkOutlineCornerFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkOutlineCornerFilter</span> <span class=n>outline</span> <span class=p>=</span> <span class=n>vtkOutlineCornerFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>outline</span><span class=p>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>inputPolyData</span><span class=p>);</span>
 <span class=cp>#else</span>
          <span class=n>outline</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>inputPolyData</span><span class=p>);</span>
 <span class=cp>#endif</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>outlineMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>outlineMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>outline</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>outlineMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>outlineMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>outline</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
-         <span class=n>vtkActor</span> <span class=n>outlineActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>outlineActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outlineMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>outlineActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>outlineActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outlineMapper</span><span class=p>);</span>
          <span class=n>outlineActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetColor</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(.</span><span class=m>2</span><span class=p>,</span> <span class=p>.</span><span class=m>3</span><span class=p>,</span> <span class=p>.</span><span class=m>4</span><span class=p>);</span>
          <span class=c1>// add our actor to the renderer</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>inputActor</span><span class=p>);</span>

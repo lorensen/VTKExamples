@@ -84,22 +84,22 @@ function registerListener(event, func) {
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>RegularPolygon</span><span class=p>()</span> <span class=p>{</span>
          <span class=c1>// Create a pentagon</span>
-         <span class=n>vtkRegularPolygonSource</span> <span class=n>polygonSource</span> <span class=p>=</span> <span class=n>vtkRegularPolygonSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkRegularPolygonSource</span> <span class=n>polygonSource</span> <span class=p>=</span> <span class=n>vtkRegularPolygonSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=c1>//polygonSource.GeneratePolygonOff();</span>
          <span class=n>polygonSource</span><span class=p>.</span><span class=n>SetNumberOfSides</span><span class=p>(</span><span class=m>5</span><span class=p>);</span>
          <span class=n>polygonSource</span><span class=p>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=m>5</span><span class=p>);</span>
          <span class=n>polygonSource</span><span class=p>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
          <span class=c1>//polygonSource.Update(); // not necessary</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>mapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>mapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>polygonSource</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
-         <span class=n>vtkActor</span> <span class=n>actor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>actor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=m>4</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>mapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>mapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>polygonSource</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>actor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>actor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=m>4</span><span class=p>);</span>
          <span class=n>actor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>);</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span><span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>);</span>
       <span class=p>}</span>
    <span class=p>}</span>

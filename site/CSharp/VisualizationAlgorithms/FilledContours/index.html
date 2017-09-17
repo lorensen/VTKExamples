@@ -74,8 +74,8 @@ function registerListener(event, func) {
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>renderWindowControl1_Load</span><span class=p>(</span><span class=kt>object</span> <span class=n>sender</span><span class=p>,</span> <span class=n>EventArgs</span> <span class=n>e</span><span class=p>)</span> <span class=p>{</span>
          <span class=k>try</span> <span class=p>{</span>
-            <span class=n>FilledContours</span><span class=p>(</span><span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\filledContours.vtp&quot;</span><span class=p>,</span> <span class=m>10</span><span class=p>);</span>
-         <span class=p>}</span>
+<span class=hll>            <span class=n>FilledContours</span><span class=p>(</span><span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\filledContours.vtp&quot;</span><span class=p>,</span> <span class=m>10</span><span class=p>);</span>
+</span>         <span class=p>}</span>
          <span class=k>catch</span><span class=p>(</span><span class=n>Exception</span> <span class=n>ex</span><span class=p>)</span> <span class=p>{</span>
             <span class=n>MessageBox</span><span class=p>.</span><span class=n>Show</span><span class=p>(</span><span class=n>ex</span><span class=p>.</span><span class=n>Message</span><span class=p>,</span> <span class=s>&quot;Exception&quot;</span><span class=p>,</span> <span class=n>MessageBoxButtons</span><span class=p>.</span><span class=n>OK</span><span class=p>);</span>
          <span class=p>}</span>
@@ -84,27 +84,27 @@ function registerListener(event, func) {
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>FilledContours</span><span class=p>(</span><span class=kt>string</span> <span class=n>filePath</span><span class=p>,</span> <span class=kt>int</span> <span class=n>numberOfContours</span><span class=p>)</span> <span class=p>{</span>
          <span class=c1>// Read the file</span>
-         <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
          <span class=n>reader</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span> <span class=c1>// Update so that we can get the scalar range</span>
 
          <span class=kt>double</span><span class=p>[]</span> <span class=n>scalarRange</span> <span class=p>=</span> <span class=n>reader</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>().</span><span class=n>GetPointData</span><span class=p>().</span><span class=n>GetScalars</span><span class=p>().</span><span class=n>GetRange</span><span class=p>();</span>
 
-         <span class=n>vtkAppendPolyData</span> <span class=n>appendFilledContours</span> <span class=p>=</span> <span class=n>vtkAppendPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkAppendPolyData</span> <span class=n>appendFilledContours</span> <span class=p>=</span> <span class=n>vtkAppendPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=kt>double</span> <span class=n>delta</span> <span class=p>=</span> <span class=p>(</span> <span class=n>scalarRange</span><span class=p>[</span><span class=m>1</span><span class=p>]</span> <span class=p>-</span> <span class=n>scalarRange</span><span class=p>[</span><span class=m>0</span><span class=p>]</span> <span class=p>)</span> <span class=p>/</span> <span class=p>(</span> <span class=n>numberOfContours</span> <span class=p>-</span> <span class=m>1</span> <span class=p>);</span>
 
          <span class=c1>// Keep the clippers alive</span>
-         <span class=n>List</span><span class=p>&lt;</span><span class=n>vtkClipPolyData</span><span class=p>&gt;</span>  <span class=n>clippersLo</span> <span class=p>=</span> <span class=k>new</span> <span class=n>List</span><span class=p>&lt;</span><span class=n>vtkClipPolyData</span><span class=p>&gt;();</span>
-         <span class=n>List</span><span class=p>&lt;</span><span class=n>vtkClipPolyData</span><span class=p>&gt;</span>  <span class=n>clippersHi</span> <span class=p>=</span> <span class=k>new</span> <span class=n>List</span><span class=p>&lt;</span><span class=n>vtkClipPolyData</span><span class=p>&gt;();</span>
-
+<span class=hll>         <span class=n>List</span><span class=p>&lt;</span><span class=n>vtkClipPolyData</span><span class=p>&gt;</span>  <span class=n>clippersLo</span> <span class=p>=</span> <span class=k>new</span> <span class=n>List</span><span class=p>&lt;</span><span class=n>vtkClipPolyData</span><span class=p>&gt;();</span>
+</span><span class=hll>         <span class=n>List</span><span class=p>&lt;</span><span class=n>vtkClipPolyData</span><span class=p>&gt;</span>  <span class=n>clippersHi</span> <span class=p>=</span> <span class=k>new</span> <span class=n>List</span><span class=p>&lt;</span><span class=n>vtkClipPolyData</span><span class=p>&gt;();</span>
+</span>
          <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>i</span> <span class=p>&lt;</span> <span class=n>numberOfContours</span><span class=p>;</span> <span class=n>i</span><span class=p>++)</span> <span class=p>{</span>
             <span class=kt>double</span> <span class=n>valueLo</span> <span class=p>=</span> <span class=n>scalarRange</span><span class=p>[</span><span class=m>0</span><span class=p>]</span> <span class=p>+</span> <span class=n>i</span> <span class=p>*</span> <span class=n>delta</span><span class=p>;</span>
             <span class=kt>double</span> <span class=n>valueHi</span> <span class=p>=</span> <span class=n>scalarRange</span><span class=p>[</span><span class=m>0</span><span class=p>]</span> <span class=p>+</span> <span class=p>(</span> <span class=n>i</span> <span class=p>+</span> <span class=m>1</span> <span class=p>)</span> <span class=p>*</span> <span class=n>delta</span><span class=p>;</span>
 
-            <span class=n>clippersLo</span><span class=p>.</span><span class=n>Add</span><span class=p>(</span><span class=n>vtkClipPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>());</span>
-            <span class=n>clippersLo</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>SetValue</span><span class=p>(</span><span class=n>valueLo</span><span class=p>);</span>
+<span class=hll>            <span class=n>clippersLo</span><span class=p>.</span><span class=n>Add</span><span class=p>(</span><span class=n>vtkClipPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>());</span>
+</span>            <span class=n>clippersLo</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>SetValue</span><span class=p>(</span><span class=n>valueLo</span><span class=p>);</span>
             <span class=k>if</span><span class=p>(</span><span class=n>i</span> <span class=p>==</span> <span class=m>0</span><span class=p>)</span> <span class=p>{</span>
                <span class=n>clippersLo</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
             <span class=p>}</span>
@@ -114,8 +114,8 @@ function registerListener(event, func) {
             <span class=n>clippersLo</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>InsideOutOff</span><span class=p>();</span>
             <span class=n>clippersLo</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>Update</span><span class=p>();</span>
 
-            <span class=n>clippersHi</span><span class=p>.</span><span class=n>Add</span><span class=p>(</span><span class=n>vtkClipPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>());</span>
-            <span class=n>clippersHi</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>SetValue</span><span class=p>(</span><span class=n>valueHi</span><span class=p>);</span>
+<span class=hll>            <span class=n>clippersHi</span><span class=p>.</span><span class=n>Add</span><span class=p>(</span><span class=n>vtkClipPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>());</span>
+</span>            <span class=n>clippersHi</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>SetValue</span><span class=p>(</span><span class=n>valueHi</span><span class=p>);</span>
             <span class=n>clippersHi</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>clippersLo</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>GetOutputPort</span><span class=p>());</span>
             <span class=n>clippersHi</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>GenerateClippedOutputOn</span><span class=p>();</span>
             <span class=n>clippersHi</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>InsideOutOn</span><span class=p>();</span>
@@ -124,8 +124,8 @@ function registerListener(event, func) {
                <span class=k>continue</span><span class=p>;</span>
             <span class=p>}</span>
 
-            <span class=n>vtkFloatArray</span> <span class=n>cd</span> <span class=p>=</span> <span class=n>vtkFloatArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>cd</span><span class=p>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkFloatArray</span> <span class=n>cd</span> <span class=p>=</span> <span class=n>vtkFloatArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>cd</span><span class=p>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
             <span class=n>cd</span><span class=p>.</span><span class=n>SetNumberOfTuples</span><span class=p>(</span><span class=n>clippersHi</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>GetOutput</span><span class=p>().</span><span class=n>GetNumberOfCells</span><span class=p>());</span>
             <span class=n>cd</span><span class=p>.</span><span class=n>FillComponent</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=n>valueLo</span><span class=p>);</span>
 
@@ -133,40 +133,40 @@ function registerListener(event, func) {
             <span class=n>appendFilledContours</span><span class=p>.</span><span class=n>AddInputConnection</span><span class=p>(</span><span class=n>clippersHi</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=p>}</span>
 
-         <span class=n>vtkCleanPolyData</span> <span class=n>filledContours</span> <span class=p>=</span> <span class=n>vtkCleanPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>filledContours</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>appendFilledContours</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkCleanPolyData</span> <span class=n>filledContours</span> <span class=p>=</span> <span class=n>vtkCleanPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>filledContours</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>appendFilledContours</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
-         <span class=n>vtkLookupTable</span> <span class=n>lut</span> <span class=p>=</span> <span class=n>vtkLookupTable</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>lut</span><span class=p>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=n>numberOfContours</span> <span class=p>+</span> <span class=m>1</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkLookupTable</span> <span class=n>lut</span> <span class=p>=</span> <span class=n>vtkLookupTable</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>lut</span><span class=p>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=n>numberOfContours</span> <span class=p>+</span> <span class=m>1</span><span class=p>);</span>
          <span class=n>lut</span><span class=p>.</span><span class=n>Build</span><span class=p>();</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>contourMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>contourMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>filledContours</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>contourMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>contourMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>filledContours</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>contourMapper</span><span class=p>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>scalarRange</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>scalarRange</span><span class=p>[</span><span class=m>1</span><span class=p>]);</span>
          <span class=n>contourMapper</span><span class=p>.</span><span class=n>SetScalarModeToUseCellData</span><span class=p>();</span>
          <span class=n>contourMapper</span><span class=p>.</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>lut</span><span class=p>);</span>
 
-         <span class=n>vtkActor</span> <span class=n>contourActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>contourActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>contourMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>contourActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>contourActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>contourMapper</span><span class=p>);</span>
          <span class=n>contourActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetInterpolationToFlat</span><span class=p>();</span>
 
-         <span class=n>vtkContourFilter</span> <span class=n>contours</span> <span class=p>=</span> <span class=n>vtkContourFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>contours</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>filledContours</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkContourFilter</span> <span class=n>contours</span> <span class=p>=</span> <span class=n>vtkContourFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>contours</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>filledContours</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>contours</span><span class=p>.</span><span class=n>GenerateValues</span><span class=p>(</span><span class=n>numberOfContours</span><span class=p>,</span> <span class=n>scalarRange</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>scalarRange</span><span class=p>[</span><span class=m>1</span><span class=p>]);</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>contourLineMapperer</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>contourLineMapperer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>contours</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>contourLineMapperer</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>contourLineMapperer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>contours</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>contourLineMapperer</span><span class=p>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>scalarRange</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>scalarRange</span><span class=p>[</span><span class=m>1</span><span class=p>]);</span>
          <span class=n>contourLineMapperer</span><span class=p>.</span><span class=n>ScalarVisibilityOff</span><span class=p>();</span>
 
-         <span class=n>vtkActor</span> <span class=n>contourLineActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>contourLineActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>contourLineMapperer</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>contourLineActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>contourLineActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>contourLineMapperer</span><span class=p>);</span>
          <span class=n>contourLineActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=m>2</span><span class=p>);</span>
 
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(.</span><span class=m>2</span><span class=p>,</span> <span class=p>.</span><span class=m>3</span><span class=p>,</span> <span class=p>.</span><span class=m>4</span><span class=p>);</span>
          <span class=c1>// add our actor to the renderer</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>contourActor</span><span class=p>);</span>

@@ -61,40 +61,40 @@ function registerListener(event, func) {
 <span class=kn>import</span> <span class=nn>java.awt.event.*</span><span class=o>;</span>
 <span class=kn>import</span> <span class=nn>javax.swing.*</span><span class=o>;</span>
 <span class=kn>import</span> <span class=nn>javax.swing.border.*</span><span class=o>;</span>
-<span class=kn>import</span> <span class=nn>vtk.*</span><span class=o>;</span>
-
+<span class=hll><span class=kn>import</span> <span class=nn>vtk.*</span><span class=o>;</span>
+</span>
 <span class=kd>public</span> <span class=kd>class</span> <span class=nc>SwingHandleMouseEvent</span> <span class=kd>extends</span> <span class=n>JFrame</span>
 <span class=o>{</span>
 
   <span class=kd>static</span>
   <span class=o>{</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkCommonJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkFilteringJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkIOJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkImagingJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkGraphicsJava&quot;</span><span class=o>);</span>
-    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkRenderingJava&quot;</span><span class=o>);</span>
-  <span class=o>}</span>
+<span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkCommonJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkFilteringJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkIOJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkImagingJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkGraphicsJava&quot;</span><span class=o>);</span>
+</span><span class=hll>    <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkRenderingJava&quot;</span><span class=o>);</span>
+</span>  <span class=o>}</span>
 
   <span class=kd>public</span> <span class=nf>SwingHandleMouseEvent</span><span class=o>()</span>
   <span class=o>{</span>
     <span class=c1>// Create a sphere source</span>
-    <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
-    <span class=n>sphere</span><span class=o>.</span><span class=na>SetRadius</span><span class=o>(</span><span class=mf>10.0</span><span class=o>);</span>
+<span class=hll>    <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
+</span>    <span class=n>sphere</span><span class=o>.</span><span class=na>SetRadius</span><span class=o>(</span><span class=mf>10.0</span><span class=o>);</span>
 
     <span class=c1>// Create a sphere mapper</span>
-    <span class=n>vtkPolyDataMapper</span> <span class=n>sphereMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
-    <span class=n>sphereMapper</span><span class=o>.</span><span class=na>SetInputConnection</span><span class=o>(</span><span class=n>sphere</span><span class=o>.</span><span class=na>GetOutputPort</span><span class=o>());</span>
+<span class=hll>    <span class=n>vtkPolyDataMapper</span> <span class=n>sphereMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
+</span>    <span class=n>sphereMapper</span><span class=o>.</span><span class=na>SetInputConnection</span><span class=o>(</span><span class=n>sphere</span><span class=o>.</span><span class=na>GetOutputPort</span><span class=o>());</span>
 
     <span class=c1>//create sphere actor</span>
-    <span class=n>vtkActor</span> <span class=n>sphereActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
-    <span class=n>sphereActor</span><span class=o>.</span><span class=na>SetMapper</span><span class=o>(</span><span class=n>sphereMapper</span><span class=o>);</span>
+<span class=hll>    <span class=n>vtkActor</span> <span class=n>sphereActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
+</span>    <span class=n>sphereActor</span><span class=o>.</span><span class=na>SetMapper</span><span class=o>(</span><span class=n>sphereMapper</span><span class=o>);</span>
 
     <span class=c1>// Create a render window panel to display the sphere</span>
-    <span class=kd>final</span> <span class=n>vtkRenderWindowPanel</span> <span class=n>renderWindowPanel</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkRenderWindowPanel</span><span class=o>();</span>
-    <span class=n>renderWindowPanel</span><span class=o>.</span><span class=na>setPreferredSize</span><span class=o>(</span><span class=k>new</span> <span class=n>Dimension</span><span class=o>(</span><span class=mi>600</span><span class=o>,</span> <span class=mi>600</span><span class=o>));</span>
-    <span class=n>renderWindowPanel</span><span class=o>.</span><span class=na>setInteractorStyle</span><span class=o>(</span><span class=k>new</span> <span class=n>vtkInteractorStyleTrackballCamera</span><span class=o>());</span>
-
+<span class=hll>    <span class=kd>final</span> <span class=n>vtkRenderWindowPanel</span> <span class=n>renderWindowPanel</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkRenderWindowPanel</span><span class=o>();</span>
+</span>    <span class=n>renderWindowPanel</span><span class=o>.</span><span class=na>setPreferredSize</span><span class=o>(</span><span class=k>new</span> <span class=n>Dimension</span><span class=o>(</span><span class=mi>600</span><span class=o>,</span> <span class=mi>600</span><span class=o>));</span>
+<span class=hll>    <span class=n>renderWindowPanel</span><span class=o>.</span><span class=na>setInteractorStyle</span><span class=o>(</span><span class=k>new</span> <span class=n>vtkInteractorStyleTrackballCamera</span><span class=o>());</span>
+</span>
     <span class=n>add</span><span class=o>(</span><span class=n>renderWindowPanel</span><span class=o>,</span> <span class=n>BorderLayout</span><span class=o>.</span><span class=na>CENTER</span><span class=o>);</span>
 
     <span class=n>renderWindowPanel</span><span class=o>.</span><span class=na>GetRenderer</span><span class=o>().</span><span class=na>AddActor</span><span class=o>(</span><span class=n>sphereActor</span><span class=o>);</span>
@@ -107,8 +107,8 @@ function registerListener(event, func) {
 
     <span class=n>add</span><span class=o>(</span><span class=n>statusBar</span><span class=o>,</span> <span class=n>BorderLayout</span><span class=o>.</span><span class=na>SOUTH</span><span class=o>);</span>
 
-    <span class=kd>final</span> <span class=n>vtkCellPicker</span> <span class=n>cellPicker</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkCellPicker</span><span class=o>();</span>
-
+<span class=hll>    <span class=kd>final</span> <span class=n>vtkCellPicker</span> <span class=n>cellPicker</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkCellPicker</span><span class=o>();</span>
+</span>
     <span class=c1>// Show the point on the sphere the mouse is hovering over in the status bar</span>
     <span class=n>renderWindowPanel</span><span class=o>.</span><span class=na>addMouseMotionListener</span><span class=o>(</span><span class=k>new</span> <span class=n>MouseMotionAdapter</span><span class=o>()</span>
     <span class=o>{</span>

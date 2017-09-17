@@ -64,14 +64,14 @@ function registerListener(event, func) {
 <span class=sd>    This example demonstrates the usage of the vtNamedColor class.</span>
 <span class=sd>&#39;&#39;&#39;</span>
 <span class=kn>from</span> <span class=nn>__future__</span> <span class=kn>import</span> <span class=n>print_function</span>
-<span class=kn>import</span> <span class=nn>vtk</span>
-<span class=kn>import</span> <span class=nn>string</span>
+<span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
+</span><span class=kn>import</span> <span class=nn>string</span>
 
 <span class=k>def</span> <span class=nf>FindSynonyms</span><span class=p>(</span><span class=n>nc</span><span class=p>,</span> <span class=n>colorName</span><span class=p>):</span>
     <span class=sd>&#39;&#39;&#39;</span>
 <span class=sd>    Find any synonyms for a specified color.</span>
-<span class=sd>    :param: nc: The vtkNamedColor class</span>
-<span class=sd>    :param: colorName: the name of the color to find the synonyms for.</span>
+<span class=hll><span class=sd>    :param: nc: The vtkNamedColor class</span>
+</span><span class=sd>    :param: colorName: the name of the color to find the synonyms for.</span>
 <span class=sd>    :return: The synonyms for colorName.</span>
 <span class=sd>    &#39;&#39;&#39;</span>
     <span class=n>availableColors</span> <span class=o>=</span> <span class=n>nc</span><span class=o>.</span><span class=n>GetColorNames</span><span class=p>()</span>
@@ -94,12 +94,12 @@ function registerListener(event, func) {
     <span class=sd>&#39;&#39;&#39;</span>
 <span class=sd>    Create a cone, contour it using the banded contour filter and</span>
 <span class=sd>        color it with the primary additive and subtractive colors.</span>
-<span class=sd>    :param: nc: The vtkNamedColor class</span>
-<span class=sd>    :return: The render window interactor.</span>
+<span class=hll><span class=sd>    :param: nc: The vtkNamedColor class</span>
+</span><span class=sd>    :return: The render window interactor.</span>
 <span class=sd>    &#39;&#39;&#39;</span>
     <span class=c1># Create a cone</span>
-    <span class=n>coneSource</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkConeSource</span><span class=p>()</span>
-    <span class=n>coneSource</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
+<span class=hll>    <span class=n>coneSource</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkConeSource</span><span class=p>()</span>
+</span>    <span class=n>coneSource</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
     <span class=n>coneSource</span><span class=o>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=mf>5.0</span><span class=p>)</span>
     <span class=n>coneSource</span><span class=o>.</span><span class=n>SetHeight</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>
     <span class=n>coneSource</span><span class=o>.</span><span class=n>SetDirection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
@@ -108,21 +108,21 @@ function registerListener(event, func) {
     <span class=n>bounds</span> <span class=o>=</span> <span class=p>[</span><span class=mf>1.0</span><span class=p>,</span><span class=o>-</span><span class=mf>1.0</span><span class=p>,</span><span class=mf>1.0</span><span class=p>,</span><span class=o>-</span><span class=mf>1.0</span><span class=p>,</span><span class=mf>1.0</span><span class=p>,</span><span class=o>-</span><span class=mf>1.0</span><span class=p>]</span>
     <span class=n>coneSource</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>(</span><span class=n>bounds</span><span class=p>)</span>
 
-    <span class=n>elevation</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkElevationFilter</span><span class=p>()</span>
-    <span class=n>elevation</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>coneSource</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>elevation</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkElevationFilter</span><span class=p>()</span>
+</span>    <span class=n>elevation</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>coneSource</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>elevation</span><span class=o>.</span><span class=n>SetLowPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=n>bounds</span><span class=p>[</span><span class=mi>2</span><span class=p>],</span><span class=mi>0</span><span class=p>)</span>
     <span class=n>elevation</span><span class=o>.</span><span class=n>SetHighPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=n>bounds</span><span class=p>[</span><span class=mi>3</span><span class=p>],</span><span class=mi>0</span><span class=p>)</span>
 
-    <span class=n>bcf</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkBandedPolyDataContourFilter</span><span class=p>()</span>
-    <span class=n>bcf</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>elevation</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>bcf</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkBandedPolyDataContourFilter</span><span class=p>()</span>
+</span>    <span class=n>bcf</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>elevation</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>bcf</span><span class=o>.</span><span class=n>SetScalarModeToValue</span><span class=p>()</span>
     <span class=n>bcf</span><span class=o>.</span><span class=n>GenerateContourEdgesOn</span><span class=p>()</span>
     <span class=n>bcf</span><span class=o>.</span><span class=n>GenerateValues</span><span class=p>(</span><span class=mi>7</span><span class=p>,</span><span class=n>elevation</span><span class=o>.</span><span class=n>GetScalarRange</span><span class=p>())</span>
 
     <span class=c1># Build a simple lookup table of</span>
     <span class=c1># primary additive and subtractive colors.</span>
-    <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-    <span class=n>lut</span><span class=o>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=mi>7</span><span class=p>)</span>
+<span class=hll>    <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span>    <span class=n>lut</span><span class=o>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=mi>7</span><span class=p>)</span>
     <span class=c1># Test setting and getting a color here.</span>
     <span class=c1># We are also modifying alpha.</span>
 
@@ -149,30 +149,30 @@ function registerListener(event, func) {
     <span class=n>lut</span><span class=o>.</span><span class=n>SetTableRange</span><span class=p>(</span><span class=n>elevation</span><span class=o>.</span><span class=n>GetScalarRange</span><span class=p>())</span>
     <span class=n>lut</span><span class=o>.</span><span class=n>Build</span><span class=p>()</span>
 
-    <span class=n>mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-    <span class=n>mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>bcf</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=n>mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>bcf</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>mapper</span><span class=o>.</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span>
     <span class=n>mapper</span><span class=o>.</span><span class=n>SetScalarModeToUseCellData</span><span class=p>()</span>
 
-    <span class=n>contourLineMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-    <span class=n>contourLineMapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>bcf</span><span class=o>.</span><span class=n>GetContourEdgesOutput</span><span class=p>())</span>
+<span class=hll>    <span class=n>contourLineMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=n>contourLineMapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>bcf</span><span class=o>.</span><span class=n>GetContourEdgesOutput</span><span class=p>())</span>
     <span class=n>contourLineMapper</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>elevation</span><span class=o>.</span><span class=n>GetScalarRange</span><span class=p>())</span>
     <span class=n>contourLineMapper</span><span class=o>.</span><span class=n>SetResolveCoincidentTopologyToPolygonOffset</span><span class=p>()</span>
 
-    <span class=n>actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-    <span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
+<span class=hll>    <span class=n>actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>    <span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
 
-    <span class=n>contourLineActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-    <span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
+<span class=hll>    <span class=n>contourLineActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>    <span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
     <span class=n>contourLineActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>contourLineMapper</span><span class=p>)</span>
     <span class=n>contourLineActor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span>
         <span class=n>nc</span><span class=o>.</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s2>&quot;black&quot;</span><span class=p>))</span>
 
-    <span class=n>renderer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-    <span class=n>renderWindow</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
-    <span class=n>renderWindow</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
-    <span class=n>renderWindowInteractor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-    <span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>)</span>
+<span class=hll>    <span class=n>renderer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>renderWindow</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
+</span>    <span class=n>renderWindow</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
+<span class=hll>    <span class=n>renderWindowInteractor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
+</span>    <span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>)</span>
 
     <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
     <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>contourLineActor</span><span class=p>)</span>
@@ -182,9 +182,9 @@ function registerListener(event, func) {
     <span class=n>renderWindow</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
 
     <span class=n>fnsave</span> <span class=o>=</span> <span class=s2>&quot;TestNamedColorsIntegration.png&quot;</span>
-    <span class=n>renLgeIm</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderLargeImage</span><span class=p>()</span>
-    <span class=n>imgWriter</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPNGWriter</span><span class=p>()</span>
-    <span class=n>renLgeIm</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
+<span class=hll>    <span class=n>renLgeIm</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderLargeImage</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>imgWriter</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPNGWriter</span><span class=p>()</span>
+</span>    <span class=n>renLgeIm</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
     <span class=n>renLgeIm</span><span class=o>.</span><span class=n>SetMagnification</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
     <span class=n>imgWriter</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>renLgeIm</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>imgWriter</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>fnsave</span><span class=p>)</span>
@@ -197,15 +197,15 @@ function registerListener(event, func) {
 <span class=sd>    Check the VTK version.</span>
 <span class=sd>    :param: requiredMajorVersion e.g. 6</span>
 <span class=sd>    &#39;&#39;&#39;</span>
-    <span class=n>version</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVersion</span><span class=p>()</span>
-    <span class=k>if</span> <span class=n>version</span><span class=o>.</span><span class=n>GetVTKMajorVersion</span><span class=p>()</span> <span class=o>&lt;</span> <span class=n>requiredMajorVersion</span><span class=p>:</span>
+<span class=hll>    <span class=n>version</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVersion</span><span class=p>()</span>
+</span>    <span class=k>if</span> <span class=n>version</span><span class=o>.</span><span class=n>GetVTKMajorVersion</span><span class=p>()</span> <span class=o>&lt;</span> <span class=n>requiredMajorVersion</span><span class=p>:</span>
         <span class=k>raise</span>
     <span class=k>else</span><span class=p>:</span>
         <span class=k>return</span>
 
 <span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
-    <span class=n>nc</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
-    <span class=n>colorNames</span> <span class=o>=</span> <span class=n>nc</span><span class=o>.</span><span class=n>GetColorNames</span><span class=p>()</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+<span class=hll>    <span class=n>nc</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
+</span>    <span class=n>colorNames</span> <span class=o>=</span> <span class=n>nc</span><span class=o>.</span><span class=n>GetColorNames</span><span class=p>()</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
     <span class=k>print</span><span class=p>(</span><span class=s2>&quot;There are&quot;</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>colorNames</span><span class=p>),</span> <span class=s2>&quot;colors:&quot;</span><span class=p>)</span>
     <span class=k>print</span><span class=p>(</span><span class=n>colorNames</span><span class=p>)</span>
     <span class=n>syn</span> <span class=o>=</span> <span class=n>nc</span><span class=o>.</span><span class=n>GetSynonyms</span><span class=p>()</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n\n</span><span class=s1>&#39;</span><span class=p>)</span>
@@ -222,7 +222,7 @@ function registerListener(event, func) {
         <span class=n>CheckVTKVersion</span><span class=p>(</span><span class=mi>6</span><span class=p>)</span>
     <span class=k>except</span><span class=p>:</span>
         <span class=k>print</span><span class=p>(</span><span class=s2>&quot;You need VTK Version 6 or greater.&quot;</span><span class=p>)</span>
-        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;The class vtkNamedColors is in VTK version 6 or greater.&quot;</span><span class=p>)</span>
-        <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+<span class=hll>        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;The class vtkNamedColors is in VTK version 6 or greater.&quot;</span><span class=p>)</span>
+</span>        <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
     <span class=n>main</span><span class=p>()</span>
 </pre></div> </article> </div> </div> </main> <footer class=md-footer> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid"> <a href=../NamedColorPatches/ title=NamedColorPatches class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i> </div> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Previous </span> NamedColorPatches </span> </div> </a> <a href=../OrientedGlyphs/ title=OrientedGlyphs class="md-flex md-footer-nav__link md-footer-nav__link--next" rel=next> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Next </span> OrientedGlyphs </span> </div> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i> </div> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright> <div class=md-footer-copyright__highlight> <font color=#666>Content is available under </font><a href=https://creativecommons.org/licenses/by/2.5/ title=Attribution2.5>Attribution2.5</a> <font color=#666>unless otherwise noted.</font> </div> powered by <a href=http://www.mkdocs.org title=MkDocs>MkDocs</a> and <a href=http://squidfunk.github.io/mkdocs-material/ title="Material for MkDocs"> Material for MkDocs</a> </div> </div> </div> </footer> </div> <script src=../../../assets/javascripts/application-6b599127bc.js></script> <script>app.initialize({url:{base:"../../.."}})</script> <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-3660134-4","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script> </body> </html>

@@ -77,8 +77,8 @@ function registerListener(event, func) {
 <span class=sd>=========================================================================</span>
 
 <span class=sd>Produce a HTML page called VTKNamedColorPatches.html showing the available</span>
-<span class=sd> colors in vtkNamedColors.</span>
-
+<span class=hll><span class=sd> colors in vtkNamedColors.</span>
+</span>
 <span class=sd>It also shows how to select the text color based on luminance.</span>
 <span class=sd>In this case Digital CCIR601 is used which gives less weight to the</span>
 <span class=sd> red and blue components of a color.</span>
@@ -87,8 +87,8 @@ function registerListener(event, func) {
 
 <span class=kn>from</span> <span class=nn>__future__</span> <span class=kn>import</span> <span class=n>print_function</span>
 
-<span class=kn>import</span> <span class=nn>vtk</span>
-
+<span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
+</span>
 
 <span class=k>def</span> <span class=nf>RGBToHTMLColor</span><span class=p>(</span><span class=n>rgb</span><span class=p>):</span>
     <span class=sd>&quot;&quot;&quot;</span>
@@ -142,8 +142,8 @@ function registerListener(event, func) {
 <span class=k>class</span> <span class=nc>HTMLTableMaker</span><span class=p>(</span><span class=nb>object</span><span class=p>):</span>
     <span class=sd>&quot;&quot;&quot;</span>
 <span class=sd>      This class creates HTML Tables displaying all the colors in</span>
-<span class=sd>      the class vtkNamedColors grouped by various categories.</span>
-<span class=sd>    &quot;&quot;&quot;</span>
+<span class=hll><span class=sd>      the class vtkNamedColors grouped by various categories.</span>
+</span><span class=sd>    &quot;&quot;&quot;</span>
 
     <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
         <span class=bp>self</span><span class=o>.</span><span class=n>cn</span> <span class=o>=</span> <span class=p>{</span>
@@ -195,8 +195,8 @@ function registerListener(event, func) {
         <span class=bp>self</span><span class=o>.</span><span class=n>cnStartTable</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;Red&#39;</span><span class=p>,</span> <span class=s1>&#39;Green&#39;</span><span class=p>,</span> <span class=s1>&#39;Brown&#39;</span><span class=p>]</span>
         <span class=bp>self</span><span class=o>.</span><span class=n>cnEndTable</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;Purple&#39;</span><span class=p>,</span> <span class=s1>&#39;Blue/Cyan&#39;</span><span class=p>,</span> <span class=s1>&#39;Gray&#39;</span><span class=p>]</span>
 
-        <span class=bp>self</span><span class=o>.</span><span class=n>vtkcn</span> <span class=o>=</span> <span class=p>{</span>
-            <span class=s1>&#39;Whites&#39;</span><span class=p>:</span> <span class=p>[</span><span class=s1>&#39;antique_white&#39;</span><span class=p>,</span> <span class=s1>&#39;azure&#39;</span><span class=p>,</span> <span class=s1>&#39;bisque&#39;</span><span class=p>,</span> <span class=s1>&#39;blanched_almond&#39;</span><span class=p>,</span>
+<span class=hll>        <span class=bp>self</span><span class=o>.</span><span class=n>vtkcn</span> <span class=o>=</span> <span class=p>{</span>
+</span>            <span class=s1>&#39;Whites&#39;</span><span class=p>:</span> <span class=p>[</span><span class=s1>&#39;antique_white&#39;</span><span class=p>,</span> <span class=s1>&#39;azure&#39;</span><span class=p>,</span> <span class=s1>&#39;bisque&#39;</span><span class=p>,</span> <span class=s1>&#39;blanched_almond&#39;</span><span class=p>,</span>
                        <span class=s1>&#39;cornsilk&#39;</span><span class=p>,</span> <span class=s1>&#39;eggshell&#39;</span><span class=p>,</span> <span class=s1>&#39;floral_white&#39;</span><span class=p>,</span> <span class=s1>&#39;gainsboro&#39;</span><span class=p>,</span>
                        <span class=s1>&#39;ghost_white&#39;</span><span class=p>,</span> <span class=s1>&#39;honeydew&#39;</span><span class=p>,</span> <span class=s1>&#39;ivory&#39;</span><span class=p>,</span> <span class=s1>&#39;lavender&#39;</span><span class=p>,</span>
                        <span class=s1>&#39;lavender_blush&#39;</span><span class=p>,</span> <span class=s1>&#39;lemon_chiffon&#39;</span><span class=p>,</span> <span class=s1>&#39;linen&#39;</span><span class=p>,</span> <span class=s1>&#39;mint_cream&#39;</span><span class=p>,</span>
@@ -257,20 +257,20 @@ function registerListener(event, func) {
         <span class=p>}</span>
         <span class=c1># Ordering of the tables and when to start and end a column of tables</span>
         <span class=c1># in the layout.</span>
-        <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnOrder</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;Whites&#39;</span><span class=p>,</span> <span class=s1>&#39;Greys&#39;</span><span class=p>,</span> <span class=s1>&#39;Blacks&#39;</span><span class=p>,</span> <span class=s1>&#39;Reds&#39;</span><span class=p>,</span> <span class=s1>&#39;Oranges&#39;</span><span class=p>,</span> <span class=s1>&#39;Browns&#39;</span><span class=p>,</span> <span class=s1>&#39;Yellows&#39;</span><span class=p>,</span> <span class=s1>&#39;Greens&#39;</span><span class=p>,</span> <span class=s1>&#39;Cyans&#39;</span><span class=p>,</span>
-                           <span class=s1>&#39;Blues&#39;</span><span class=p>,</span>
+<span class=hll>        <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnOrder</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;Whites&#39;</span><span class=p>,</span> <span class=s1>&#39;Greys&#39;</span><span class=p>,</span> <span class=s1>&#39;Blacks&#39;</span><span class=p>,</span> <span class=s1>&#39;Reds&#39;</span><span class=p>,</span> <span class=s1>&#39;Oranges&#39;</span><span class=p>,</span> <span class=s1>&#39;Browns&#39;</span><span class=p>,</span> <span class=s1>&#39;Yellows&#39;</span><span class=p>,</span> <span class=s1>&#39;Greens&#39;</span><span class=p>,</span> <span class=s1>&#39;Cyans&#39;</span><span class=p>,</span>
+</span>                           <span class=s1>&#39;Blues&#39;</span><span class=p>,</span>
                            <span class=s1>&#39;Magentas&#39;</span><span class=p>]</span>
-        <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnStartTable</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;Whites&#39;</span><span class=p>,</span> <span class=s1>&#39;Browns&#39;</span><span class=p>,</span> <span class=s1>&#39;Cyans&#39;</span><span class=p>]</span>
-        <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnEndTable</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;Oranges&#39;</span><span class=p>,</span> <span class=s1>&#39;Greens&#39;</span><span class=p>,</span> <span class=s1>&#39;Magentas&#39;</span><span class=p>]</span>
-        <span class=c1># The vtkNamedColors class.</span>
-        <span class=bp>self</span><span class=o>.</span><span class=n>nc</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
-
+<span class=hll>        <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnStartTable</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;Whites&#39;</span><span class=p>,</span> <span class=s1>&#39;Browns&#39;</span><span class=p>,</span> <span class=s1>&#39;Cyans&#39;</span><span class=p>]</span>
+</span><span class=hll>        <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnEndTable</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;Oranges&#39;</span><span class=p>,</span> <span class=s1>&#39;Greens&#39;</span><span class=p>,</span> <span class=s1>&#39;Magentas&#39;</span><span class=p>]</span>
+</span><span class=hll>        <span class=c1># The vtkNamedColors class.</span>
+</span><span class=hll>        <span class=bp>self</span><span class=o>.</span><span class=n>nc</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
+</span>
     <span class=k>def</span> <span class=nf>MakeHTMLHeader</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
         <span class=n>s</span> <span class=o>=</span> <span class=s1>&#39;&lt;!DOCTYPE html&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>s</span> <span class=o>+=</span> <span class=s1>&#39;&lt;html lang=&quot;en&quot; dir=&quot;ltr&quot; class=&quot;client-nojs&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>s</span> <span class=o>+=</span> <span class=s1>&#39;&lt;head&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>s</span> <span class=o>+=</span> <span class=s1>&#39;&lt;title&gt;vtkNamedColors&lt;/title&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>s</span> <span class=o>+=</span> <span class=s1>&#39;&lt;meta charset=&quot;UTF-8&quot; /&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+<span class=hll>        <span class=n>s</span> <span class=o>+=</span> <span class=s1>&#39;&lt;title&gt;vtkNamedColors&lt;/title&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+</span>        <span class=n>s</span> <span class=o>+=</span> <span class=s1>&#39;&lt;meta charset=&quot;UTF-8&quot; /&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>s</span> <span class=o>+=</span> <span class=s1>&#39;&lt;/head&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=k>return</span> <span class=n>s</span>
 
@@ -340,8 +340,8 @@ function registerListener(event, func) {
             <span class=k>for</span> <span class=n>val</span> <span class=ow>in</span> <span class=n>value</span><span class=p>:</span>
                 <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>val</span><span class=p>)</span> <span class=o>&gt;</span> <span class=n>maxLength</span><span class=p>:</span>
                     <span class=n>maxLength</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>val</span><span class=p>)</span>
-        <span class=k>for</span> <span class=n>key</span><span class=p>,</span> <span class=n>value</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcn</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
-            <span class=k>for</span> <span class=n>val</span> <span class=ow>in</span> <span class=n>value</span><span class=p>:</span>
+<span class=hll>        <span class=k>for</span> <span class=n>key</span><span class=p>,</span> <span class=n>value</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcn</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+</span>            <span class=k>for</span> <span class=n>val</span> <span class=ow>in</span> <span class=n>value</span><span class=p>:</span>
                 <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>val</span><span class=p>)</span> <span class=o>&gt;</span> <span class=n>maxLength</span><span class=p>:</span>
                     <span class=n>maxLength</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>val</span><span class=p>)</span>
         <span class=k>return</span> <span class=n>maxLength</span>
@@ -373,15 +373,15 @@ function registerListener(event, func) {
 
     <span class=k>def</span> <span class=nf>MakeVTKColorTables</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
         <span class=n>res</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span>
-        <span class=k>for</span> <span class=n>key</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnOrder</span><span class=p>:</span>
-            <span class=k>if</span> <span class=n>key</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnStartTable</span><span class=p>:</span>
-                <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;td&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+<span class=hll>        <span class=k>for</span> <span class=n>key</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnOrder</span><span class=p>:</span>
+</span><span class=hll>            <span class=k>if</span> <span class=n>key</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnStartTable</span><span class=p>:</span>
+</span>                <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;td&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
                 <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;table&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
                 <span class=n>res</span> <span class=o>+=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeTableHeader</span><span class=p>()</span>
             <span class=c1># Add in the name of the group in the color table.</span>
             <span class=n>res</span> <span class=o>+=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeTD</span><span class=p>(</span><span class=n>key</span><span class=p>)</span>
-            <span class=n>values</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcn</span><span class=p>[</span><span class=n>key</span><span class=p>]</span>
-            <span class=k>for</span> <span class=n>name</span> <span class=ow>in</span> <span class=n>values</span><span class=p>:</span>
+<span class=hll>            <span class=n>values</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcn</span><span class=p>[</span><span class=n>key</span><span class=p>]</span>
+</span>            <span class=k>for</span> <span class=n>name</span> <span class=ow>in</span> <span class=n>values</span><span class=p>:</span>
                 <span class=n>rgb</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>nc</span><span class=o>.</span><span class=n>GetColor3ub</span><span class=p>(</span><span class=n>name</span><span class=p>)</span>
                 <span class=n>Y</span> <span class=o>=</span> <span class=n>RGBToLumaCCIR601</span><span class=p>(</span><span class=n>rgb</span><span class=p>)</span>
                 <span class=n>textColor</span> <span class=o>=</span> <span class=s1>&#39;#000000&#39;</span>  <span class=c1># Black</span>
@@ -393,8 +393,8 @@ function registerListener(event, func) {
                 <span class=n>nameColor</span> <span class=o>=</span> <span class=n>RGBToHTMLColor</span><span class=p>(</span><span class=n>rgb</span><span class=p>)</span>
                 <span class=c1># Make the row for each color in the group.</span>
                 <span class=n>res</span> <span class=o>+=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeVTKTR</span><span class=p>(</span><span class=n>name</span><span class=p>,</span> <span class=n>nameColor</span><span class=p>,</span> <span class=n>rgb</span><span class=p>,</span> <span class=n>textColor</span><span class=p>)</span>
-            <span class=k>if</span> <span class=n>key</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnEndTable</span><span class=p>:</span>
-                <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;/table&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+<span class=hll>            <span class=k>if</span> <span class=n>key</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>vtkcnEndTable</span><span class=p>:</span>
+</span>                <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;/table&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
                 <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;/td&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=k>return</span> <span class=n>res</span>
 
@@ -440,8 +440,8 @@ function registerListener(event, func) {
     <span class=k>def</span> <span class=nf>MakeWebColorPage</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
         <span class=n>res</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeHTMLHeader</span><span class=p>()</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;body&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+<span class=hll>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+</span>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;caption style=&quot;background:lightgrey&quot;&gt;Web Color Names&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;/caption&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;tr valign=&quot;top&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
@@ -453,8 +453,8 @@ function registerListener(event, func) {
     <span class=k>def</span> <span class=nf>MakeVTKColorPage</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
         <span class=n>res</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeHTMLHeader</span><span class=p>()</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;body&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;p&gt;The web colors take precedence over colors of the same&#39;</span>
+<span class=hll>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+</span>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;p&gt;The web colors take precedence over colors of the same&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39; name in VTK Color Names.&lt;/p&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;caption style=&quot;background:lightgrey&quot;&gt;VTK Color Names&lt;/caption&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
@@ -467,8 +467,8 @@ function registerListener(event, func) {
     <span class=k>def</span> <span class=nf>MakeSynonymColorPage</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
         <span class=n>res</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeHTMLHeader</span><span class=p>()</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;body&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;h1&gt;Synonyms in vtkNamedColors&lt;/h1&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+<span class=hll>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;h1&gt;Synonyms in vtkNamedColors&lt;/h1&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+</span>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;caption style=&quot;background:lightgrey&quot;&gt;&lt;/caption&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;tr valign=&quot;top&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeSynonymColorTable</span><span class=p>()</span>
@@ -479,9 +479,9 @@ function registerListener(event, func) {
     <span class=k>def</span> <span class=nf>MakeCombinedColorPage</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
         <span class=n>res</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeHTMLHeader</span><span class=p>()</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;body&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;p&gt;The class vtkNamedColors provides color names and their&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39; values for the convenience of the user.&lt;/p&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+<span class=hll>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+</span><span class=hll>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;p&gt;The class vtkNamedColors provides color names and their&#39;</span>
+</span>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39; values for the convenience of the user.&lt;/p&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;p&gt;The following tables show the available colors along with&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39; their red, green and blue values.&lt;/p&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeHTMLIndex</span><span class=p>()</span>
@@ -494,10 +494,10 @@ function registerListener(event, func) {
         <span class=n>res</span> <span class=o>+=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeWebColorTables</span><span class=p>()</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;/table&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;h2&gt;&lt;a id=&quot;VTKColorNames&quot;&gt;VTK color Names&lt;/h2&gt;&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;p&gt;The colors mainly correspond to those in vtkColors.txt.</span><span class=se>\n</span><span class=s1>&lt;/p&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;p&gt;The web colors (above) take precedence over colors of the&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39; same name in vtkColors.txt.&lt;/p&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
-        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+<span class=hll>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;p&gt;The colors mainly correspond to those in vtkColors.txt.</span><span class=se>\n</span><span class=s1>&lt;/p&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+</span>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;p&gt;The web colors (above) take precedence over colors of the&#39;</span>
+<span class=hll>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39; same name in vtkColors.txt.&lt;/p&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
+</span>        <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;tr valign=&quot;top&quot;&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=bp>self</span><span class=o>.</span><span class=n>MakeVTKColorTables</span><span class=p>()</span>
         <span class=n>res</span> <span class=o>+=</span> <span class=s1>&#39;&lt;/table&gt;</span><span class=se>\n</span><span class=s1>&#39;</span>
@@ -512,10 +512,10 @@ function registerListener(event, func) {
 
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&quot;__main__&quot;</span><span class=p>:</span>
     <span class=n>requiredMajorVersion</span> <span class=o>=</span> <span class=mi>6</span>
-    <span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVersion</span><span class=p>()</span><span class=o>.</span><span class=n>GetVTKMajorVersion</span><span class=p>()</span> <span class=o>&lt;</span> <span class=n>requiredMajorVersion</span><span class=p>:</span>
-        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;You need VTK Version 6 or greater.&quot;</span><span class=p>)</span>
-        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;The class vtkNamedColors is in VTK version 6 or greater.&quot;</span><span class=p>)</span>
-        <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+<span class=hll>    <span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVersion</span><span class=p>()</span><span class=o>.</span><span class=n>GetVTKMajorVersion</span><span class=p>()</span> <span class=o>&lt;</span> <span class=n>requiredMajorVersion</span><span class=p>:</span>
+</span>        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;You need VTK Version 6 or greater.&quot;</span><span class=p>)</span>
+<span class=hll>        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;The class vtkNamedColors is in VTK version 6 or greater.&quot;</span><span class=p>)</span>
+</span>        <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
     <span class=n>ncp</span> <span class=o>=</span> <span class=n>HTMLTableMaker</span><span class=p>()</span>
     <span class=n>res</span> <span class=o>=</span> <span class=n>ncp</span><span class=o>.</span><span class=n>MakeCombinedColorPage</span><span class=p>()</span>
     <span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s2>&quot;VTKNamedColorPatches.html&quot;</span><span class=p>,</span> <span class=s2>&quot;wt&quot;</span><span class=p>)</span>

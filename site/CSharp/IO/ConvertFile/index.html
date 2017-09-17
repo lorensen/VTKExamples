@@ -65,12 +65,12 @@ function registerListener(event, func) {
    <span class=kt>string</span> <span class=n>inputFileName</span> <span class=p>=</span> <span class=s>&quot;test.vtu&quot;</span><span class=p>;</span>
    <span class=kt>string</span> <span class=n>outputFileName</span> <span class=p>=</span> <span class=s>&quot;test.ply&quot;</span><span class=p>;</span>
 
-   <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>inputFileName</span><span class=p>);</span>
+<span class=hll>   <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>inputFileName</span><span class=p>);</span>
    <span class=n>reader</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-   <span class=n>vtkPLYWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkPLYWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>outputFileName</span><span class=p>);</span>
+<span class=hll>   <span class=n>vtkPLYWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkPLYWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>outputFileName</span><span class=p>);</span>
    <span class=n>writer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
    <span class=n>writer</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 <span class=p>}</span>

@@ -83,14 +83,14 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>PlanesIntersection</span><span class=p>()</span> <span class=p>{</span>
-         <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
          <span class=kt>double</span><span class=p>[]</span> <span class=n>bounds</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>double</span><span class=p>[</span><span class=m>6</span><span class=p>];</span>
          <span class=n>bounds</span> <span class=p>=</span> <span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>().</span><span class=n>GetBounds</span><span class=p>();</span>
 
-         <span class=n>vtkPoints</span> <span class=n>box</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkPoints</span> <span class=n>box</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=n>box</span><span class=p>.</span><span class=n>SetNumberOfPoints</span><span class=p>(</span><span class=m>8</span><span class=p>);</span>
 
          <span class=kt>double</span> <span class=n>xMin</span><span class=p>,</span> <span class=n>xMax</span><span class=p>,</span> <span class=n>yMin</span><span class=p>,</span> <span class=n>yMax</span><span class=p>,</span> <span class=n>zMin</span><span class=p>,</span> <span class=n>zMax</span><span class=p>;</span>
@@ -107,8 +107,8 @@ function registerListener(event, func) {
          <span class=n>box</span><span class=p>.</span><span class=n>SetPoint</span><span class=p>(</span><span class=m>6</span><span class=p>,</span> <span class=n>xMin</span><span class=p>,</span> <span class=n>yMax</span><span class=p>,</span> <span class=n>zMin</span><span class=p>);</span>
          <span class=n>box</span><span class=p>.</span><span class=n>SetPoint</span><span class=p>(</span><span class=m>7</span><span class=p>,</span> <span class=n>xMin</span><span class=p>,</span> <span class=n>yMax</span><span class=p>,</span> <span class=n>zMax</span><span class=p>);</span>
 
-         <span class=n>vtkPlanesIntersection</span> <span class=n>planesIntersection</span> <span class=p>=</span> <span class=n>vtkPlanesIntersection</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>planesIntersection</span><span class=p>.</span><span class=n>SetBounds</span><span class=p>(</span><span class=n>bounds</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>2</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>3</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>4</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>5</span><span class=p>]);</span>
+<span class=hll>         <span class=n>vtkPlanesIntersection</span> <span class=n>planesIntersection</span> <span class=p>=</span> <span class=n>vtkPlanesIntersection</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>planesIntersection</span><span class=p>.</span><span class=n>SetBounds</span><span class=p>(</span><span class=n>bounds</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>2</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>3</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>4</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>5</span><span class=p>]);</span>
          <span class=kt>int</span> <span class=n>intersects</span> <span class=p>=</span> <span class=n>planesIntersection</span><span class=p>.</span><span class=n>IntersectsRegion</span><span class=p>(</span><span class=n>box</span><span class=p>);</span>
          <span class=n>Debug</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;Intersects? &quot;</span> <span class=p>+</span> <span class=p>(</span> <span class=p>(</span> <span class=n>intersects</span> <span class=p>==</span> <span class=m>1</span> <span class=p>)</span> <span class=p>?</span> <span class=k>true</span> <span class=p>:</span> <span class=k>false</span> <span class=p>).</span><span class=n>ToString</span><span class=p>());</span>
          <span class=c1>// nothing to visualize</span>

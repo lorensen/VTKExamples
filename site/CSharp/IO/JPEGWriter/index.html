@@ -84,14 +84,14 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>WriteJPEG</span><span class=p>()</span> <span class=p>{</span>
-         <span class=c1>// Path to vtk data must be set as an environment variable</span>
-         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
-         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
+<span class=hll>         <span class=c1>// Path to vtk data must be set as an environment variable</span>
+</span><span class=hll>         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+</span><span class=hll>         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
          <span class=kt>string</span> <span class=n>filePath</span> <span class=p>=</span> <span class=n>System</span><span class=p>.</span><span class=n>IO</span><span class=p>.</span><span class=n>Path</span><span class=p>.</span><span class=n>Combine</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=s>@&quot;Data\test_jpeg.jpg&quot;</span><span class=p>);</span>
          <span class=kt>int</span><span class=p>[]</span> <span class=n>extent</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>int</span><span class=p>[]</span> <span class=p>{</span> <span class=m>0</span><span class=p>,</span> <span class=m>99</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>99</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span> <span class=p>};</span>
-         <span class=n>vtkImageCanvasSource2D</span> <span class=n>imageSource</span> <span class=p>=</span> <span class=n>vtkImageCanvasSource2D</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>imageSource</span><span class=p>.</span><span class=n>SetExtent</span><span class=p>(</span><span class=n>extent</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>2</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>3</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>4</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>5</span><span class=p>]);</span>
+<span class=hll>         <span class=n>vtkImageCanvasSource2D</span> <span class=n>imageSource</span> <span class=p>=</span> <span class=n>vtkImageCanvasSource2D</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>imageSource</span><span class=p>.</span><span class=n>SetExtent</span><span class=p>(</span><span class=n>extent</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>2</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>3</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>4</span><span class=p>],</span> <span class=n>extent</span><span class=p>[</span><span class=m>5</span><span class=p>]);</span>
          <span class=n>imageSource</span><span class=p>.</span><span class=n>SetScalarTypeToUnsignedChar</span><span class=p>();</span>
          <span class=n>imageSource</span><span class=p>.</span><span class=n>SetNumberOfScalarComponents</span><span class=p>(</span><span class=m>3</span><span class=p>);</span>
          <span class=n>imageSource</span><span class=p>.</span><span class=n>SetDrawColor</span><span class=p>(</span><span class=m>127</span><span class=p>,</span> <span class=m>45</span><span class=p>,</span> <span class=m>255</span><span class=p>);</span>
@@ -100,18 +100,18 @@ function registerListener(event, func) {
          <span class=n>imageSource</span><span class=p>.</span><span class=n>FillBox</span><span class=p>(</span><span class=m>40</span><span class=p>,</span> <span class=m>70</span><span class=p>,</span> <span class=m>20</span><span class=p>,</span> <span class=m>50</span><span class=p>);</span>
          <span class=n>imageSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkImageCast</span> <span class=n>castFilter</span> <span class=p>=</span> <span class=n>vtkImageCast</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>castFilter</span><span class=p>.</span><span class=n>SetOutputScalarTypeToUnsignedChar</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkImageCast</span> <span class=n>castFilter</span> <span class=p>=</span> <span class=n>vtkImageCast</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>castFilter</span><span class=p>.</span><span class=n>SetOutputScalarTypeToUnsignedChar</span><span class=p>();</span>
          <span class=n>castFilter</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>imageSource</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>castFilter</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkJPEGWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkJPEGWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkJPEGWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkJPEGWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
          <span class=n>writer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>castFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>writer</span><span class=p>.</span><span class=n>Write</span><span class=p>();</span>
          <span class=c1>// Read and display file for verification that it was written correctly</span>
-         <span class=n>vtkJPEGReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkJPEGReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=k>if</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>CanReadFile</span><span class=p>(</span><span class=n>filePath</span><span class=p>)</span> <span class=p>==</span> <span class=m>0</span><span class=p>)</span> <span class=p>{</span>
+<span class=hll>         <span class=n>vtkJPEGReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkJPEGReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=k>if</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>CanReadFile</span><span class=p>(</span><span class=n>filePath</span><span class=p>)</span> <span class=p>==</span> <span class=m>0</span><span class=p>)</span> <span class=p>{</span>
             <span class=n>MessageBox</span><span class=p>.</span><span class=n>Show</span><span class=p>(</span><span class=s>&quot;Cannot read file \&quot;&quot;</span> <span class=p>+</span> <span class=n>filePath</span> <span class=p>+</span> <span class=s>&quot;\&quot;&quot;</span><span class=p>,</span> <span class=s>&quot;Error&quot;</span><span class=p>,</span> <span class=n>MessageBoxButtons</span><span class=p>.</span><span class=n>OK</span><span class=p>);</span>
             <span class=k>return</span><span class=p>;</span>
          <span class=p>}</span>
@@ -119,13 +119,13 @@ function registerListener(event, func) {
          <span class=n>reader</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
          <span class=c1>// Visualize</span>
-         <span class=n>vtkImageViewer2</span> <span class=n>imageViewer</span> <span class=p>=</span> <span class=n>vtkImageViewer2</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>imageViewer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkImageViewer2</span> <span class=n>imageViewer</span> <span class=p>=</span> <span class=n>vtkImageViewer2</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>imageViewer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
          <span class=n>imageViewer</span><span class=p>.</span><span class=n>SetRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>ResetCamera</span><span class=p>();</span>

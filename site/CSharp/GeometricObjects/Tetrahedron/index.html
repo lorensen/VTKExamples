@@ -83,8 +83,8 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>Tetrahedron</span><span class=p>()</span> <span class=p>{</span>
-         <span class=n>vtkPoints</span> <span class=n>points</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkPoints</span> <span class=n>points</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
          <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
          <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=m>1</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
          <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>1</span><span class=p>,</span> <span class=m>1</span><span class=p>);</span>
@@ -94,8 +94,8 @@ function registerListener(event, func) {
          <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=m>5</span><span class=p>,</span> <span class=m>6</span><span class=p>,</span> <span class=m>6</span><span class=p>);</span>
 
          <span class=c1>// Method 1</span>
-         <span class=n>vtkUnstructuredGrid</span> <span class=n>unstructuredGrid1</span> <span class=p>=</span> <span class=n>vtkUnstructuredGrid</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>unstructuredGrid1</span><span class=p>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkUnstructuredGrid</span> <span class=n>unstructuredGrid1</span> <span class=p>=</span> <span class=n>vtkUnstructuredGrid</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>unstructuredGrid1</span><span class=p>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>);</span>
 
          <span class=kt>int</span><span class=p>[]</span> <span class=n>ptIds</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>int</span><span class=p>[]</span> <span class=p>{</span> <span class=m>0</span><span class=p>,</span> <span class=m>1</span><span class=p>,</span> <span class=m>2</span><span class=p>,</span> <span class=m>3</span> <span class=p>};</span>
          <span class=n>IntPtr</span> <span class=n>ptIdsPointer</span> <span class=p>=</span> <span class=n>Marshal</span><span class=p>.</span><span class=n>AllocHGlobal</span><span class=p>(</span><span class=n>Marshal</span><span class=p>.</span><span class=n>SizeOf</span><span class=p>(</span><span class=k>typeof</span><span class=p>(</span><span class=kt>int</span><span class=p>))</span> <span class=p>*</span> <span class=m>4</span><span class=p>);</span>
@@ -104,37 +104,37 @@ function registerListener(event, func) {
          <span class=n>Marshal</span><span class=p>.</span><span class=n>FreeHGlobal</span><span class=p>(</span><span class=n>ptIdsPointer</span><span class=p>);</span>
 
          <span class=c1>// Method 2</span>
-         <span class=n>vtkUnstructuredGrid</span> <span class=n>unstructuredGrid2</span> <span class=p>=</span> <span class=n>vtkUnstructuredGrid</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>unstructuredGrid2</span><span class=p>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkUnstructuredGrid</span> <span class=n>unstructuredGrid2</span> <span class=p>=</span> <span class=n>vtkUnstructuredGrid</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>unstructuredGrid2</span><span class=p>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>);</span>
 
-         <span class=n>vtkTetra</span> <span class=n>tetra</span> <span class=p>=</span> <span class=n>vtkTetra</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkTetra</span> <span class=n>tetra</span> <span class=p>=</span> <span class=n>vtkTetra</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=n>tetra</span><span class=p>.</span><span class=n>GetPointIds</span><span class=p>().</span><span class=n>SetId</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>4</span><span class=p>);</span>
          <span class=n>tetra</span><span class=p>.</span><span class=n>GetPointIds</span><span class=p>().</span><span class=n>SetId</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=m>5</span><span class=p>);</span>
          <span class=n>tetra</span><span class=p>.</span><span class=n>GetPointIds</span><span class=p>().</span><span class=n>SetId</span><span class=p>(</span><span class=m>2</span><span class=p>,</span> <span class=m>6</span><span class=p>);</span>
          <span class=n>tetra</span><span class=p>.</span><span class=n>GetPointIds</span><span class=p>().</span><span class=n>SetId</span><span class=p>(</span><span class=m>3</span><span class=p>,</span> <span class=m>7</span><span class=p>);</span>
 
-         <span class=n>vtkCellArray</span> <span class=n>cellArray</span> <span class=p>=</span> <span class=n>vtkCellArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>cellArray</span><span class=p>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>tetra</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkCellArray</span> <span class=n>cellArray</span> <span class=p>=</span> <span class=n>vtkCellArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>cellArray</span><span class=p>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>tetra</span><span class=p>);</span>
          <span class=n>unstructuredGrid2</span><span class=p>.</span><span class=n>SetCells</span><span class=p>(</span><span class=m>10</span><span class=p>,</span> <span class=n>cellArray</span><span class=p>);</span>
 
          <span class=c1>// Create a mapper and actor</span>
-         <span class=n>vtkDataSetMapper</span> <span class=n>mapper1</span> <span class=p>=</span> <span class=n>vtkDataSetMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>mapper1</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>unstructuredGrid1</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkDataSetMapper</span> <span class=n>mapper1</span> <span class=p>=</span> <span class=n>vtkDataSetMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>mapper1</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>unstructuredGrid1</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
 
-         <span class=n>vtkActor</span> <span class=n>actor1</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>actor1</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper1</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>actor1</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>actor1</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper1</span><span class=p>);</span>
 
          <span class=c1>// Create a mapper and actor</span>
-         <span class=n>vtkDataSetMapper</span> <span class=n>mapper2</span> <span class=p>=</span> <span class=n>vtkDataSetMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>mapper2</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>unstructuredGrid2</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkDataSetMapper</span> <span class=n>mapper2</span> <span class=p>=</span> <span class=n>vtkDataSetMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>mapper2</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>unstructuredGrid2</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
 
-         <span class=n>vtkActor</span> <span class=n>actor2</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>actor2</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper2</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>actor2</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>actor2</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper2</span><span class=p>);</span>
 
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span><span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
          <span class=c1>// Add the actor to the scene</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor1</span><span class=p>);</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor2</span><span class=p>);</span>

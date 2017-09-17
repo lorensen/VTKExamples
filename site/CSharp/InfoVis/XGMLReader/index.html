@@ -84,20 +84,20 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>XGMLReader</span><span class=p>()</span> <span class=p>{</span>
-         <span class=c1>// Path to vtk data must be set as an environment variable</span>
-         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
-         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
+<span class=hll>         <span class=c1>// Path to vtk data must be set as an environment variable</span>
+</span><span class=hll>         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+</span><span class=hll>         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
          <span class=kt>string</span> <span class=n>filePath</span> <span class=p>=</span> <span class=n>System</span><span class=p>.</span><span class=n>IO</span><span class=p>.</span><span class=n>Path</span><span class=p>.</span><span class=n>Combine</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=s>@&quot;Data\Infovis\fsm.gml&quot;</span><span class=p>);</span>
 
-         <span class=n>vtkXGMLReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXGMLReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkXGMLReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXGMLReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
          <span class=n>reader</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkUndirectedGraph</span> <span class=n>g</span> <span class=p>=</span> <span class=n>reader</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
-
-         <span class=n>vtkGraphLayoutView</span> <span class=n>graphLayoutView</span> <span class=p>=</span> <span class=n>vtkGraphLayoutView</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>graphLayoutView</span><span class=p>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkUndirectedGraph</span> <span class=n>g</span> <span class=p>=</span> <span class=n>reader</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
+</span>
+<span class=hll>         <span class=n>vtkGraphLayoutView</span> <span class=n>graphLayoutView</span> <span class=p>=</span> <span class=n>vtkGraphLayoutView</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>graphLayoutView</span><span class=p>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>);</span>
          <span class=n>graphLayoutView</span><span class=p>.</span><span class=n>AddRepresentationFromInput</span><span class=p>(</span><span class=n>g</span><span class=p>);</span>
          <span class=n>graphLayoutView</span><span class=p>.</span><span class=n>SetLayoutStrategy</span><span class=p>(</span><span class=s>&quot;Simple 2D&quot;</span><span class=p>);</span>
          <span class=n>graphLayoutView</span><span class=p>.</span><span class=n>ResetCamera</span><span class=p>();</span>

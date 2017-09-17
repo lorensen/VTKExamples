@@ -83,8 +83,8 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>MarchingCubes</span><span class=p>()</span> <span class=p>{</span>
-         <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphereSource</span><span class=p>.</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=m>20</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphereSource</span><span class=p>.</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=m>20</span><span class=p>);</span>
          <span class=n>sphereSource</span><span class=p>.</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=m>20</span><span class=p>);</span>
          <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
@@ -94,8 +94,8 @@ function registerListener(event, func) {
             <span class=n>bounds</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=p>=</span> <span class=n>bounds</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=p>-</span> <span class=p>.</span><span class=m>1</span> <span class=p>*</span> <span class=n>range</span><span class=p>;</span>
             <span class=n>bounds</span><span class=p>[</span><span class=n>i</span> <span class=p>+</span> <span class=m>1</span><span class=p>]</span> <span class=p>=</span> <span class=n>bounds</span><span class=p>[</span><span class=n>i</span> <span class=p>+</span> <span class=m>1</span><span class=p>]</span> <span class=p>+</span> <span class=p>.</span><span class=m>1</span> <span class=p>*</span> <span class=n>range</span><span class=p>;</span>
          <span class=p>}</span>
-         <span class=n>vtkVoxelModeller</span> <span class=n>voxelModeller</span> <span class=p>=</span> <span class=n>vtkVoxelModeller</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>voxelModeller</span><span class=p>.</span><span class=n>SetSampleDimensions</span><span class=p>(</span><span class=m>50</span><span class=p>,</span> <span class=m>50</span><span class=p>,</span> <span class=m>50</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkVoxelModeller</span> <span class=n>voxelModeller</span> <span class=p>=</span> <span class=n>vtkVoxelModeller</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>voxelModeller</span><span class=p>.</span><span class=n>SetSampleDimensions</span><span class=p>(</span><span class=m>50</span><span class=p>,</span> <span class=m>50</span><span class=p>,</span> <span class=m>50</span><span class=p>);</span>
          <span class=n>voxelModeller</span><span class=p>.</span><span class=n>SetModelBounds</span><span class=p>(</span><span class=n>bounds</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>2</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>3</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>4</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=m>5</span><span class=p>]);</span>
          <span class=n>voxelModeller</span><span class=p>.</span><span class=n>SetScalarTypeToFloat</span><span class=p>();</span>
          <span class=n>voxelModeller</span><span class=p>.</span><span class=n>SetMaximumDistance</span><span class=p>(.</span><span class=m>1</span><span class=p>);</span>
@@ -105,8 +105,8 @@ function registerListener(event, func) {
 <span class=cp>#else</span>
          <span class=n>voxelModeller</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>sphereSource</span><span class=p>);</span>
 <span class=cp>#endif</span>
-         <span class=n>vtkMarchingCubes</span> <span class=n>surface</span> <span class=p>=</span> <span class=n>vtkMarchingCubes</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkMarchingCubes</span> <span class=n>surface</span> <span class=p>=</span> <span class=n>vtkMarchingCubes</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
 <span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>surface</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>voxelModeller</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
@@ -114,20 +114,20 @@ function registerListener(event, func) {
 <span class=cp>#endif</span>
          <span class=n>surface</span><span class=p>.</span><span class=n>ComputeNormalsOn</span><span class=p>();</span>
          <span class=n>surface</span><span class=p>.</span><span class=n>SetValue</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0.5</span><span class=p>);</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>mapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>mapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>mapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>surface</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>mapper</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>surface</span><span class=p>);</span>
 <span class=cp>#endif</span>
-         <span class=n>vtkActor</span> <span class=n>actor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>actor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>actor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>actor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>);</span>
 
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(.</span><span class=m>2</span><span class=p>,</span> <span class=p>.</span><span class=m>3</span><span class=p>,</span> <span class=p>.</span><span class=m>4</span><span class=p>);</span>
          <span class=c1>// add our actor to the renderer</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>);</span>

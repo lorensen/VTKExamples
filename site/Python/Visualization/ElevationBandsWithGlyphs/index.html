@@ -63,8 +63,8 @@ function registerListener(event, func) {
 
 <span class=kn>import</span> <span class=nn>math</span>
 
-<span class=kn>import</span> <span class=nn>vtk</span>
-
+<span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
+</span>
 <span class=c1># Available surfaces are:</span>
 <span class=n>SURFACE_TYPE</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&quot;PLANE&quot;</span><span class=p>,</span> <span class=s2>&quot;SPHERE&quot;</span><span class=p>,</span> <span class=s2>&quot;PARAMETRIC_SURFACE&quot;</span><span class=p>}</span>
 
@@ -76,9 +76,9 @@ function registerListener(event, func) {
 <span class=sd>    :param: fn - the file name.</span>
 <span class=sd>    :param: magnification - the magnification, usually 1.</span>
 <span class=sd>    &quot;&quot;&quot;</span>
-    <span class=n>renLgeIm</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderLargeImage</span><span class=p>()</span>
-    <span class=n>imgWriter</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPNGWriter</span><span class=p>()</span>
-    <span class=n>renLgeIm</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>ren</span><span class=p>)</span>
+<span class=hll>    <span class=n>renLgeIm</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderLargeImage</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>imgWriter</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPNGWriter</span><span class=p>()</span>
+</span>    <span class=n>renLgeIm</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>ren</span><span class=p>)</span>
     <span class=n>renLgeIm</span><span class=o>.</span><span class=n>SetMagnification</span><span class=p>(</span><span class=n>magnification</span><span class=p>)</span>
     <span class=n>imgWriter</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>renLgeIm</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>imgWriter</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>fn</span><span class=p>)</span>
@@ -129,13 +129,13 @@ function registerListener(event, func) {
 <span class=k>def</span> <span class=nf>MakeElevations</span><span class=p>(</span><span class=n>src</span><span class=p>):</span>
     <span class=sd>&quot;&quot;&quot;</span>
 <span class=sd>    Generate elevations over the surface.</span>
-<span class=sd>    :param: src - the vtkPolyData source.</span>
-<span class=sd>    :return: - vtkPolyData source with elevations.</span>
-<span class=sd>    &quot;&quot;&quot;</span>
+<span class=hll><span class=sd>    :param: src - the vtkPolyData source.</span>
+</span><span class=hll><span class=sd>    :return: - vtkPolyData source with elevations.</span>
+</span><span class=sd>    &quot;&quot;&quot;</span>
     <span class=n>bounds</span> <span class=o>=</span> <span class=p>[</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
     <span class=n>src</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>(</span><span class=n>bounds</span><span class=p>)</span>
-    <span class=n>elevFilter</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkElevationFilter</span><span class=p>()</span>
-    <span class=n>elevFilter</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>src</span><span class=p>)</span>
+<span class=hll>    <span class=n>elevFilter</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkElevationFilter</span><span class=p>()</span>
+</span>    <span class=n>elevFilter</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>src</span><span class=p>)</span>
     <span class=n>elevFilter</span><span class=o>.</span><span class=n>SetLowPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>2</span><span class=p>],</span> <span class=mi>0</span><span class=p>)</span>
     <span class=n>elevFilter</span><span class=o>.</span><span class=n>SetHighPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>3</span><span class=p>],</span> <span class=mi>0</span><span class=p>)</span>
     <span class=n>elevFilter</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>bounds</span><span class=p>[</span><span class=mi>2</span><span class=p>],</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span>
@@ -146,10 +146,10 @@ function registerListener(event, func) {
 <span class=k>def</span> <span class=nf>MakePlane</span><span class=p>():</span>
     <span class=sd>&quot;&quot;&quot;</span>
 <span class=sd>    Make a plane as the source.</span>
-<span class=sd>    :return: vtkPolyData with normal and scalar data.</span>
-<span class=sd>    &quot;&quot;&quot;</span>
-    <span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlaneSource</span><span class=p>()</span>
-    <span class=n>source</span><span class=o>.</span><span class=n>SetOrigin</span><span class=p>(</span><span class=o>-</span><span class=mf>10.0</span><span class=p>,</span> <span class=o>-</span><span class=mf>10.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
+<span class=hll><span class=sd>    :return: vtkPolyData with normal and scalar data.</span>
+</span><span class=sd>    &quot;&quot;&quot;</span>
+<span class=hll>    <span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlaneSource</span><span class=p>()</span>
+</span>    <span class=n>source</span><span class=o>.</span><span class=n>SetOrigin</span><span class=p>(</span><span class=o>-</span><span class=mf>10.0</span><span class=p>,</span> <span class=o>-</span><span class=mf>10.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>SetPoint2</span><span class=p>(</span><span class=o>-</span><span class=mf>10.0</span><span class=p>,</span> <span class=mf>10.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>SetPoint1</span><span class=p>(</span><span class=mf>10.0</span><span class=p>,</span> <span class=o>-</span><span class=mf>10.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>SetXResolution</span><span class=p>(</span><span class=mi>20</span><span class=p>)</span>
@@ -161,10 +161,10 @@ function registerListener(event, func) {
 <span class=k>def</span> <span class=nf>MakeSphere</span><span class=p>():</span>
     <span class=sd>&quot;&quot;&quot;</span>
 <span class=sd>    Make a sphere as the source.</span>
-<span class=sd>    :return: vtkPolyData with normal and scalar data.</span>
-<span class=sd>    &quot;&quot;&quot;</span>
-    <span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSphereSource</span><span class=p>()</span>
-    <span class=n>source</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
+<span class=hll><span class=sd>    :return: vtkPolyData with normal and scalar data.</span>
+</span><span class=sd>    &quot;&quot;&quot;</span>
+<span class=hll>    <span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSphereSource</span><span class=p>()</span>
+</span>    <span class=n>source</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=mf>10.0</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=mi>32</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=mi>32</span><span class=p>)</span>
@@ -175,36 +175,36 @@ function registerListener(event, func) {
 <span class=k>def</span> <span class=nf>MakeParametricSource</span><span class=p>():</span>
     <span class=sd>&quot;&quot;&quot;</span>
 <span class=sd>    Make a parametric surface as the source.</span>
-<span class=sd>    :return: vtkPolyData with normal and scalar data.</span>
-<span class=sd>    &quot;&quot;&quot;</span>
-    <span class=n>fn</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkParametricRandomHills</span><span class=p>()</span>
-    <span class=n>fn</span><span class=o>.</span><span class=n>AllowRandomGenerationOn</span><span class=p>()</span>
+<span class=hll><span class=sd>    :return: vtkPolyData with normal and scalar data.</span>
+</span><span class=sd>    &quot;&quot;&quot;</span>
+<span class=hll>    <span class=n>fn</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkParametricRandomHills</span><span class=p>()</span>
+</span>    <span class=n>fn</span><span class=o>.</span><span class=n>AllowRandomGenerationOn</span><span class=p>()</span>
     <span class=n>fn</span><span class=o>.</span><span class=n>SetRandomSeed</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
     <span class=n>fn</span><span class=o>.</span><span class=n>SetNumberOfHills</span><span class=p>(</span><span class=mi>30</span><span class=p>)</span>
     <span class=c1># Make the normals face out of the surface.</span>
     <span class=c1># Not needed with VTK 8.0 or later.</span>
-    <span class=c1># if fn.GetClassName() == &#39;vtkParametricRandomHills&#39;:</span>
-    <span class=c1>#    fn.ClockwiseOrderingOff()</span>
-    <span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkParametricFunctionSource</span><span class=p>()</span>
-    <span class=n>source</span><span class=o>.</span><span class=n>SetParametricFunction</span><span class=p>(</span><span class=n>fn</span><span class=p>)</span>
+<span class=hll>    <span class=c1># if fn.GetClassName() == &#39;vtkParametricRandomHills&#39;:</span>
+</span>    <span class=c1>#    fn.ClockwiseOrderingOff()</span>
+<span class=hll>    <span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkParametricFunctionSource</span><span class=p>()</span>
+</span>    <span class=n>source</span><span class=o>.</span><span class=n>SetParametricFunction</span><span class=p>(</span><span class=n>fn</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>SetUResolution</span><span class=p>(</span><span class=mi>50</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>SetVResolution</span><span class=p>(</span><span class=mi>50</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>SetScalarModeToZ</span><span class=p>()</span>
     <span class=n>source</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
-    <span class=c1># Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)</span>
-    <span class=n>source</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>.</span><span class=n>GetNormals</span><span class=p>()</span><span class=o>.</span><span class=n>SetName</span><span class=p>(</span><span class=s1>&#39;Normals&#39;</span><span class=p>)</span>
+<span class=hll>    <span class=c1># Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)</span>
+</span>    <span class=n>source</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>.</span><span class=n>GetNormals</span><span class=p>()</span><span class=o>.</span><span class=n>SetName</span><span class=p>(</span><span class=s1>&#39;Normals&#39;</span><span class=p>)</span>
     <span class=n>source</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>.</span><span class=n>GetScalars</span><span class=p>()</span><span class=o>.</span><span class=n>SetName</span><span class=p>(</span><span class=s1>&#39;Scalars&#39;</span><span class=p>)</span>
     <span class=k>return</span> <span class=n>source</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span>
 
 
 <span class=k>def</span> <span class=nf>MakeLUT</span><span class=p>():</span>
     <span class=sd>&quot;&quot;&quot;</span>
-<span class=sd>    Make a lookup table using vtkColorSeries.</span>
-<span class=sd>    :return: An indexed lookup table.</span>
+<span class=hll><span class=sd>    Make a lookup table using vtkColorSeries.</span>
+</span><span class=sd>    :return: An indexed lookup table.</span>
 <span class=sd>    &quot;&quot;&quot;</span>
     <span class=c1># Make the lookup table.</span>
-    <span class=n>colorSeries</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkColorSeries</span><span class=p>()</span>
-    <span class=c1># Select a color scheme.</span>
+<span class=hll>    <span class=n>colorSeries</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkColorSeries</span><span class=p>()</span>
+</span>    <span class=c1># Select a color scheme.</span>
     <span class=c1># colorSeriesEnum = colorSeries.BREWER_DIVERGING_BROWN_BLUE_GREEN_9</span>
     <span class=c1># colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_10</span>
     <span class=c1># colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_3</span>
@@ -214,8 +214,8 @@ function registerListener(event, func) {
     <span class=n>colorSeriesEnum</span> <span class=o>=</span> <span class=n>colorSeries</span><span class=o>.</span><span class=n>BREWER_QUALITATIVE_SET3</span>
     <span class=c1># colorSeriesEnum = colorSeries.CITRUS</span>
     <span class=n>colorSeries</span><span class=o>.</span><span class=n>SetColorScheme</span><span class=p>(</span><span class=n>colorSeriesEnum</span><span class=p>)</span>
-    <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-    <span class=n>colorSeries</span><span class=o>.</span><span class=n>BuildLookupTable</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span>
+<span class=hll>    <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span>    <span class=n>colorSeries</span><span class=o>.</span><span class=n>BuildLookupTable</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span>
     <span class=n>lut</span><span class=o>.</span><span class=n>SetNanColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
     <span class=k>return</span> <span class=n>lut</span>
 
@@ -226,8 +226,8 @@ function registerListener(event, func) {
 <span class=sd>    :param: lut - An indexed lookup table.</span>
 <span class=sd>    :return: The reversed indexed lookup table.</span>
 <span class=sd>    &quot;&quot;&quot;</span>
-    <span class=n>lutr</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-    <span class=n>lutr</span><span class=o>.</span><span class=n>DeepCopy</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span>
+<span class=hll>    <span class=n>lutr</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span>    <span class=n>lutr</span><span class=o>.</span><span class=n>DeepCopy</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span>
     <span class=n>t</span> <span class=o>=</span> <span class=n>lut</span><span class=o>.</span><span class=n>GetNumberOfTableValues</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span>
     <span class=n>revList</span> <span class=o>=</span> <span class=nb>reversed</span><span class=p>(</span><span class=nb>list</span><span class=p>(</span><span class=nb>range</span><span class=p>(</span><span class=n>t</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)))</span>
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>revList</span><span class=p>:</span>
@@ -246,8 +246,8 @@ function registerListener(event, func) {
     <span class=sd>&quot;&quot;&quot;</span>
 <span class=sd>    Count the number of scalars in each band.</span>
 <span class=sd>    :param: bands - the bands.</span>
-<span class=sd>    :param: src - the vtkPolyData source.</span>
-<span class=sd>    :return: The frequencies of the scalars in each band.</span>
+<span class=hll><span class=sd>    :param: src - the vtkPolyData source.</span>
+</span><span class=sd>    :return: The frequencies of the scalars in each band.</span>
 <span class=sd>    &quot;&quot;&quot;</span>
     <span class=n>freq</span> <span class=o>=</span> <span class=nb>dict</span><span class=p>()</span>
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>bands</span><span class=p>)):</span>
@@ -276,12 +276,12 @@ function registerListener(event, func) {
 <span class=sd>    &quot;&quot;&quot;</span>
     <span class=c1># Sometimes the contouring algorithm can create a volume whose gradient</span>
     <span class=c1># vector and ordering of polygon (using the right hand rule) are</span>
-    <span class=c1># inconsistent. vtkReverseSense cures this problem.</span>
-    <span class=n>reverse</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkReverseSense</span><span class=p>()</span>
-
+<span class=hll>    <span class=c1># inconsistent. vtkReverseSense cures this problem.</span>
+</span><span class=hll>    <span class=n>reverse</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkReverseSense</span><span class=p>()</span>
+</span>
     <span class=c1># Choose a random subset of points.</span>
-    <span class=n>maskPts</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkMaskPoints</span><span class=p>()</span>
-    <span class=n>maskPts</span><span class=o>.</span><span class=n>SetOnRatio</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
+<span class=hll>    <span class=n>maskPts</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkMaskPoints</span><span class=p>()</span>
+</span>    <span class=n>maskPts</span><span class=o>.</span><span class=n>SetOnRatio</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
     <span class=n>maskPts</span><span class=o>.</span><span class=n>RandomModeOn</span><span class=p>()</span>
     <span class=k>if</span> <span class=n>reverseNormals</span><span class=p>:</span>
         <span class=n>reverse</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>src</span><span class=p>)</span>
@@ -292,13 +292,13 @@ function registerListener(event, func) {
         <span class=n>maskPts</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>src</span><span class=p>)</span>
 
     <span class=c1># Source for the glyph filter</span>
-    <span class=n>arrow</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkArrowSource</span><span class=p>()</span>
-    <span class=n>arrow</span><span class=o>.</span><span class=n>SetTipResolution</span><span class=p>(</span><span class=mi>16</span><span class=p>)</span>
+<span class=hll>    <span class=n>arrow</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkArrowSource</span><span class=p>()</span>
+</span>    <span class=n>arrow</span><span class=o>.</span><span class=n>SetTipResolution</span><span class=p>(</span><span class=mi>16</span><span class=p>)</span>
     <span class=n>arrow</span><span class=o>.</span><span class=n>SetTipLength</span><span class=p>(</span><span class=mf>0.3</span><span class=p>)</span>
     <span class=n>arrow</span><span class=o>.</span><span class=n>SetTipRadius</span><span class=p>(</span><span class=mf>0.1</span><span class=p>)</span>
 
-    <span class=n>glyph</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkGlyph3D</span><span class=p>()</span>
-    <span class=n>glyph</span><span class=o>.</span><span class=n>SetSourceConnection</span><span class=p>(</span><span class=n>arrow</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>glyph</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkGlyph3D</span><span class=p>()</span>
+</span>    <span class=n>glyph</span><span class=o>.</span><span class=n>SetSourceConnection</span><span class=p>(</span><span class=n>arrow</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>glyph</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>maskPts</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>glyph</span><span class=o>.</span><span class=n>SetVectorModeToUseNormal</span><span class=p>()</span>
     <span class=n>glyph</span><span class=o>.</span><span class=n>SetScaleFactor</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
@@ -313,18 +313,18 @@ function registerListener(event, func) {
     <span class=sd>&quot;&quot;&quot;</span>
 <span class=sd>    Make and display the surface.</span>
 <span class=sd>    :param: st - the surface to display.</span>
-<span class=sd>    :return The vtkRenderWindowInteractor.</span>
-<span class=sd>    &quot;&quot;&quot;</span>
+<span class=hll><span class=sd>    :return The vtkRenderWindowInteractor.</span>
+</span><span class=sd>    &quot;&quot;&quot;</span>
     <span class=n>surface</span> <span class=o>=</span> <span class=n>st</span><span class=o>.</span><span class=n>upper</span><span class=p>()</span>
     <span class=k>if</span> <span class=ow>not</span> <span class=p>(</span><span class=n>surface</span> <span class=ow>in</span> <span class=n>SURFACE_TYPE</span><span class=p>):</span>
         <span class=k>print</span><span class=p>(</span><span class=n>st</span><span class=p>,</span> <span class=s2>&quot;is not a surface.&quot;</span><span class=p>)</span>
-        <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-        <span class=k>return</span> <span class=n>iren</span>
+<span class=hll>        <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
+</span>        <span class=k>return</span> <span class=n>iren</span>
     <span class=c1># ------------------------------------------------------------</span>
     <span class=c1># Create the surface, lookup tables, contour filter etc.</span>
     <span class=c1># ------------------------------------------------------------</span>
-    <span class=n>src</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
-    <span class=k>if</span> <span class=n>surface</span> <span class=o>==</span> <span class=s2>&quot;PLANE&quot;</span><span class=p>:</span>
+<span class=hll>    <span class=n>src</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
+</span>    <span class=k>if</span> <span class=n>surface</span> <span class=o>==</span> <span class=s2>&quot;PLANE&quot;</span><span class=p>:</span>
         <span class=n>src</span> <span class=o>=</span> <span class=n>MakePlane</span><span class=p>()</span>
     <span class=k>elif</span> <span class=n>surface</span> <span class=o>==</span> <span class=s2>&quot;SPHERE&quot;</span><span class=p>:</span>
         <span class=n>src</span> <span class=o>=</span> <span class=n>MakeSphere</span><span class=p>()</span>
@@ -351,18 +351,18 @@ function registerListener(event, func) {
         <span class=n>labels</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;{:4.2f}&#39;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>bands</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=mi>1</span><span class=p>]))</span>
 
     <span class=c1># Annotate</span>
-    <span class=n>values</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariantArray</span><span class=p>()</span>
-    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>labels</span><span class=p>)):</span>
-        <span class=n>values</span><span class=o>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=n>labels</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
-    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>values</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()):</span>
+<span class=hll>    <span class=n>values</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariantArray</span><span class=p>()</span>
+</span>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>labels</span><span class=p>)):</span>
+<span class=hll>        <span class=n>values</span><span class=o>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=n>labels</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
+</span>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>values</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()):</span>
         <span class=n>lut</span><span class=o>.</span><span class=n>SetAnnotation</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>values</span><span class=o>.</span><span class=n>GetValue</span><span class=p>(</span><span class=n>i</span><span class=p>)</span><span class=o>.</span><span class=n>ToString</span><span class=p>())</span>
 
     <span class=c1># Create a lookup table with the colors reversed.</span>
     <span class=n>lutr</span> <span class=o>=</span> <span class=n>ReverseLUT</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span>
 
     <span class=c1># Create the contour bands.</span>
-    <span class=n>bcf</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkBandedPolyDataContourFilter</span><span class=p>()</span>
-    <span class=n>bcf</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>src</span><span class=p>)</span>
+<span class=hll>    <span class=n>bcf</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkBandedPolyDataContourFilter</span><span class=p>()</span>
+</span>    <span class=n>bcf</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>src</span><span class=p>)</span>
     <span class=c1># Use either the minimum or maximum value for each band.</span>
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>numberOfBands</span><span class=p>):</span>
         <span class=n>bcf</span><span class=o>.</span><span class=n>SetValue</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>bands</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=mi>2</span><span class=p>])</span>
@@ -376,30 +376,30 @@ function registerListener(event, func) {
     <span class=c1># ------------------------------------------------------------</span>
     <span class=c1># Create the mappers and actors</span>
     <span class=c1># ------------------------------------------------------------</span>
-    <span class=n>srcMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-    <span class=n>srcMapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>bcf</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>srcMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=n>srcMapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>bcf</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>srcMapper</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>scalarRange</span><span class=p>)</span>
     <span class=n>srcMapper</span><span class=o>.</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span>
     <span class=n>srcMapper</span><span class=o>.</span><span class=n>SetScalarModeToUseCellData</span><span class=p>()</span>
 
-    <span class=n>srcActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-    <span class=n>srcActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>srcMapper</span><span class=p>)</span>
+<span class=hll>    <span class=n>srcActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>    <span class=n>srcActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>srcMapper</span><span class=p>)</span>
     <span class=n>srcActor</span><span class=o>.</span><span class=n>RotateX</span><span class=p>(</span><span class=o>-</span><span class=mi>45</span><span class=p>)</span>
     <span class=n>srcActor</span><span class=o>.</span><span class=n>RotateZ</span><span class=p>(</span><span class=mi>45</span><span class=p>)</span>
 
     <span class=c1># Create contour edges</span>
-    <span class=n>edgeMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-    <span class=n>edgeMapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>bcf</span><span class=o>.</span><span class=n>GetContourEdgesOutput</span><span class=p>())</span>
+<span class=hll>    <span class=n>edgeMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=n>edgeMapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>bcf</span><span class=o>.</span><span class=n>GetContourEdgesOutput</span><span class=p>())</span>
     <span class=n>edgeMapper</span><span class=o>.</span><span class=n>SetResolveCoincidentTopologyToPolygonOffset</span><span class=p>()</span>
 
-    <span class=n>edgeActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-    <span class=n>edgeActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>edgeMapper</span><span class=p>)</span>
+<span class=hll>    <span class=n>edgeActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>    <span class=n>edgeActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>edgeMapper</span><span class=p>)</span>
     <span class=n>edgeActor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
     <span class=n>edgeActor</span><span class=o>.</span><span class=n>RotateX</span><span class=p>(</span><span class=o>-</span><span class=mi>45</span><span class=p>)</span>
     <span class=n>edgeActor</span><span class=o>.</span><span class=n>RotateZ</span><span class=p>(</span><span class=mi>45</span><span class=p>)</span>
 
-    <span class=n>glyphMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-    <span class=n>glyphMapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>glyph</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>glyphMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=n>glyphMapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>glyph</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>glyphMapper</span><span class=o>.</span><span class=n>SetScalarModeToUsePointFieldData</span><span class=p>()</span>
     <span class=n>glyphMapper</span><span class=o>.</span><span class=n>SetColorModeToMapScalars</span><span class=p>()</span>
     <span class=n>glyphMapper</span><span class=o>.</span><span class=n>ScalarVisibilityOn</span><span class=p>()</span>
@@ -407,14 +407,14 @@ function registerListener(event, func) {
     <span class=c1># Colour by scalars.</span>
     <span class=n>glyphMapper</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>scalarRange</span><span class=p>)</span>
 
-    <span class=n>glyphActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-    <span class=n>glyphActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>glyphMapper</span><span class=p>)</span>
+<span class=hll>    <span class=n>glyphActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>    <span class=n>glyphActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>glyphMapper</span><span class=p>)</span>
     <span class=n>glyphActor</span><span class=o>.</span><span class=n>RotateX</span><span class=p>(</span><span class=o>-</span><span class=mi>45</span><span class=p>)</span>
     <span class=n>glyphActor</span><span class=o>.</span><span class=n>RotateZ</span><span class=p>(</span><span class=mi>45</span><span class=p>)</span>
 
     <span class=c1># Add a scalar bar.</span>
-    <span class=n>scalarBar</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkScalarBarActor</span><span class=p>()</span>
-    <span class=c1># scalarBar.SetLookupTable(lut)</span>
+<span class=hll>    <span class=n>scalarBar</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkScalarBarActor</span><span class=p>()</span>
+</span>    <span class=c1># scalarBar.SetLookupTable(lut)</span>
     <span class=c1># Use this LUT if you want the highest value at the top.</span>
     <span class=n>scalarBar</span><span class=o>.</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>lutr</span><span class=p>)</span>
     <span class=n>scalarBar</span><span class=o>.</span><span class=n>SetTitle</span><span class=p>(</span><span class=s1>&#39;Elevation (m)&#39;</span><span class=p>)</span>
@@ -422,10 +422,10 @@ function registerListener(event, func) {
     <span class=c1># ------------------------------------------------------------</span>
     <span class=c1># Create the RenderWindow, Renderer and Interactor</span>
     <span class=c1># ------------------------------------------------------------</span>
-    <span class=n>ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-    <span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
-    <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-
+<span class=hll>    <span class=n>ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
+</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren</span><span class=p>)</span>
     <span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>)</span>
 

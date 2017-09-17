@@ -63,10 +63,10 @@ function registerListener(event, func) {
 
 <span class=kn>import</span> <span class=nn>javax.swing.JFrame</span><span class=o>;</span>
 
-<span class=kn>import</span> <span class=nn>vtk.*</span><span class=o>;</span>
-
-<span class=kd>public</span> <span class=kd>class</span> <span class=nc>SphereInteractorPanel</span> <span class=kd>extends</span> <span class=n>vtkCanvas</span> <span class=o>{</span>
-    <span class=cm>/**</span>
+<span class=hll><span class=kn>import</span> <span class=nn>vtk.*</span><span class=o>;</span>
+</span>
+<span class=hll><span class=kd>public</span> <span class=kd>class</span> <span class=nc>SphereInteractorPanel</span> <span class=kd>extends</span> <span class=n>vtkCanvas</span> <span class=o>{</span>
+</span>    <span class=cm>/**</span>
 <span class=cm>     * </span>
 <span class=cm>     */</span>
     <span class=kd>private</span> <span class=kd>static</span> <span class=kd>final</span> <span class=kt>long</span> <span class=n>serialVersionUID</span> <span class=o>=</span> <span class=mi>1L</span><span class=o>;</span>
@@ -76,26 +76,26 @@ function registerListener(event, func) {
     <span class=cm>/*</span>
 <span class=cm>     * Switch style interactor</span>
 <span class=cm>     */</span>
-    <span class=n>vtkInteractorStyleSwitch</span> <span class=n>cstyle</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkInteractorStyleSwitch</span><span class=o>();</span>
-    <span class=cm>/*</span>
+<span class=hll>    <span class=n>vtkInteractorStyleSwitch</span> <span class=n>cstyle</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkInteractorStyleSwitch</span><span class=o>();</span>
+</span>    <span class=cm>/*</span>
 <span class=cm>     * Interactor state for addObserver callback reference.</span>
 <span class=cm>     */</span>
-    <span class=n>vtkActor</span> <span class=n>lineActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
-    <span class=n>vtkActor</span> <span class=n>sphereActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
-    <span class=n>vtkActor</span> <span class=n>sphActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
-
+<span class=hll>    <span class=n>vtkActor</span> <span class=n>lineActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
+</span><span class=hll>    <span class=n>vtkActor</span> <span class=n>sphereActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
+</span><span class=hll>    <span class=n>vtkActor</span> <span class=n>sphActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
+</span>
     <span class=kd>public</span> <span class=nf>SphereInteractorPanel</span><span class=o>()</span> <span class=o>{</span>
         <span class=kd>super</span><span class=o>();</span>
-        <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
-        <span class=n>sphere</span><span class=o>.</span><span class=na>SetRadius</span><span class=o>(</span><span class=mf>1.0</span><span class=o>);</span>
+<span class=hll>        <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
+</span>        <span class=n>sphere</span><span class=o>.</span><span class=na>SetRadius</span><span class=o>(</span><span class=mf>1.0</span><span class=o>);</span>
         <span class=n>sphere</span><span class=o>.</span><span class=na>SetPhiResolution</span><span class=o>(</span><span class=mi>12</span><span class=o>);</span>
         <span class=n>sphere</span><span class=o>.</span><span class=na>SetThetaResolution</span><span class=o>(</span><span class=mi>12</span><span class=o>);</span>
-        <span class=n>vtkSphereSource</span> <span class=n>sph</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
-        <span class=n>vtkPolyData</span> <span class=n>pd</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyData</span><span class=o>();</span>
-        <span class=n>vtkTubeFilter</span> <span class=n>tubes</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkTubeFilter</span><span class=o>();</span>
-        <span class=n>vtkCellArray</span> <span class=n>polys</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkCellArray</span><span class=o>();</span>
-        <span class=n>vtkPoints</span> <span class=n>points</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPoints</span><span class=o>();</span>
-        <span class=n>points</span><span class=o>.</span><span class=na>Allocate</span><span class=o>(</span><span class=mi>10</span><span class=o>,</span> <span class=mi>10</span><span class=o>);</span>
+<span class=hll>        <span class=n>vtkSphereSource</span> <span class=n>sph</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
+</span><span class=hll>        <span class=n>vtkPolyData</span> <span class=n>pd</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyData</span><span class=o>();</span>
+</span><span class=hll>        <span class=n>vtkTubeFilter</span> <span class=n>tubes</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkTubeFilter</span><span class=o>();</span>
+</span><span class=hll>        <span class=n>vtkCellArray</span> <span class=n>polys</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkCellArray</span><span class=o>();</span>
+</span><span class=hll>        <span class=n>vtkPoints</span> <span class=n>points</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPoints</span><span class=o>();</span>
+</span>        <span class=n>points</span><span class=o>.</span><span class=na>Allocate</span><span class=o>(</span><span class=mi>10</span><span class=o>,</span> <span class=mi>10</span><span class=o>);</span>
         <span class=n>polys</span><span class=o>.</span><span class=na>Allocate</span><span class=o>(</span><span class=mi>10</span><span class=o>,</span> <span class=mi>10</span><span class=o>);</span>
         <span class=n>pd</span><span class=o>.</span><span class=na>Allocate</span><span class=o>(</span><span class=mi>10</span><span class=o>,</span> <span class=mi>10</span><span class=o>);</span>
         <span class=n>sph</span><span class=o>.</span><span class=na>SetCenter</span><span class=o>(</span><span class=mi>3</span><span class=o>,</span> <span class=mi>0</span><span class=o>,</span> <span class=mi>2</span><span class=o>);</span>
@@ -130,12 +130,12 @@ function registerListener(event, func) {
 
         <span class=c1>// Create a mapper for each object.</span>
 
-        <span class=n>vtkPolyDataMapper</span> <span class=n>sphereMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
-        <span class=n>sphereMapper</span><span class=o>.</span><span class=na>SetInput</span><span class=o>(</span><span class=n>sphere</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>());</span>
-        <span class=n>vtkPolyDataMapper</span> <span class=n>sphMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
-        <span class=n>sphMapper</span><span class=o>.</span><span class=na>SetInput</span><span class=o>(</span><span class=n>sph</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>());</span>
-        <span class=n>vtkPolyDataMapper</span> <span class=n>lineMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
-        <span class=n>lineMapper</span><span class=o>.</span><span class=na>SetInput</span><span class=o>(</span><span class=n>tubes</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>());</span>
+<span class=hll>        <span class=n>vtkPolyDataMapper</span> <span class=n>sphereMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
+</span>        <span class=n>sphereMapper</span><span class=o>.</span><span class=na>SetInput</span><span class=o>(</span><span class=n>sphere</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>());</span>
+<span class=hll>        <span class=n>vtkPolyDataMapper</span> <span class=n>sphMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
+</span>        <span class=n>sphMapper</span><span class=o>.</span><span class=na>SetInput</span><span class=o>(</span><span class=n>sph</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>());</span>
+<span class=hll>        <span class=n>vtkPolyDataMapper</span> <span class=n>lineMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
+</span>        <span class=n>lineMapper</span><span class=o>.</span><span class=na>SetInput</span><span class=o>(</span><span class=n>tubes</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>());</span>
         <span class=c1>// </span>
         <span class=c1>// Create an actor for each object</span>
         <span class=c1>// this allows us to act on each actor independently when</span>
@@ -158,18 +158,18 @@ function registerListener(event, func) {
         <span class=n>rw</span><span class=o>.</span><span class=na>SetSize</span><span class=o>(</span><span class=mi>600</span><span class=o>,</span> <span class=mi>600</span><span class=o>);</span>
         <span class=n>ren</span><span class=o>.</span><span class=na>SetRenderWindow</span><span class=o>(</span><span class=n>rw</span><span class=o>);</span>
 
-        <span class=c1>// The vtkRenderWindowInteractor class watches for events (e.g.,</span>
-        <span class=c1>// keypress,</span>
-        <span class=c1>// mouse) in the vtkRenderWindow. These events are translated into</span>
-        <span class=c1>// event invocations that VTK understands (see VTK/Common/vtkCommand.h</span>
-        <span class=c1>// for all events that VTK processes). Then observers of these VTK</span>
+<span class=hll>        <span class=c1>// The vtkRenderWindowInteractor class watches for events (e.g.,</span>
+</span>        <span class=c1>// keypress,</span>
+<span class=hll>        <span class=c1>// mouse) in the vtkRenderWindow. These events are translated into</span>
+</span><span class=hll>        <span class=c1>// event invocations that VTK understands (see VTK/Common/vtkCommand.h</span>
+</span>        <span class=c1>// for all events that VTK processes). Then observers of these VTK</span>
         <span class=c1>// events can process them as appropriate.</span>
 
-        <span class=c1>// By default the vtkRenderWindowInteractor instantiates an instance</span>
-        <span class=c1>// of vtkInteractorStyle. vtkInteractorStyle translates a set of events</span>
-        <span class=c1>// it observes into operations on the camera, actors, and/or properties</span>
-        <span class=c1>// in the vtkRenderWindow associated with the vtkRenderWinodwInteractor.</span>
-        <span class=c1>// Here we specify a particular interactor style.</span>
+<span class=hll>        <span class=c1>// By default the vtkRenderWindowInteractor instantiates an instance</span>
+</span><span class=hll>        <span class=c1>// of vtkInteractorStyle. vtkInteractorStyle translates a set of events</span>
+</span>        <span class=c1>// it observes into operations on the camera, actors, and/or properties</span>
+<span class=hll>        <span class=c1>// in the vtkRenderWindow associated with the vtkRenderWinodwInteractor.</span>
+</span>        <span class=c1>// Here we specify a particular interactor style.</span>
         <span class=n>iren</span><span class=o>.</span><span class=na>SetInteractorStyle</span><span class=o>(</span><span class=n>cstyle</span><span class=o>);</span>
         <span class=c1>// add observer for key event:</span>
         <span class=n>iren</span><span class=o>.</span><span class=na>AddObserver</span><span class=o>(</span><span class=s>&quot;CharEvent&quot;</span><span class=o>,</span> <span class=k>this</span><span class=o>,</span> <span class=s>&quot;myCharEvent&quot;</span><span class=o>);</span>

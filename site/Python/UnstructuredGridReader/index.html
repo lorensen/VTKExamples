@@ -62,40 +62,40 @@ function registerListener(event, func) {
 <span class=c1>#</span>
 <span class=c1># by Panos Mavrogiorgos, email: pmav99 &lt;&gt; gmail</span>
 
-<span class=kn>from</span> <span class=nn>vtk</span> <span class=kn>import</span> <span class=o>*</span>
-
+<span class=hll><span class=kn>from</span> <span class=nn>vtk</span> <span class=kn>import</span> <span class=o>*</span>
+</span>
 <span class=c1># The source file</span>
-<span class=n>file_name</span> <span class=o>=</span> <span class=s2>&quot;uGridEx.vtk&quot;</span>
-
+<span class=hll><span class=n>file_name</span> <span class=o>=</span> <span class=s2>&quot;uGridEx.vtk&quot;</span>
+</span>
 <span class=c1># Read the source file.</span>
-<span class=n>reader</span> <span class=o>=</span> <span class=n>vtkUnstructuredGridReader</span><span class=p>()</span>
-<span class=n>reader</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>file_name</span><span class=p>)</span>
+<span class=hll><span class=n>reader</span> <span class=o>=</span> <span class=n>vtkUnstructuredGridReader</span><span class=p>()</span>
+</span><span class=n>reader</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>file_name</span><span class=p>)</span>
 <span class=n>reader</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span> <span class=c1># Needed because of GetScalarRange</span>
 <span class=n>output</span> <span class=o>=</span> <span class=n>reader</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span>
 <span class=n>scalar_range</span> <span class=o>=</span> <span class=n>output</span><span class=o>.</span><span class=n>GetScalarRange</span><span class=p>()</span>
 
-<span class=c1># Create the mapper that corresponds the objects of the vtk file</span>
-<span class=c1># into graphics elements</span>
-<span class=n>mapper</span> <span class=o>=</span> <span class=n>vtkDataSetMapper</span><span class=p>()</span>
-<span class=n>mapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>output</span><span class=p>)</span>
+<span class=hll><span class=c1># Create the mapper that corresponds the objects of the vtk file</span>
+</span><span class=c1># into graphics elements</span>
+<span class=hll><span class=n>mapper</span> <span class=o>=</span> <span class=n>vtkDataSetMapper</span><span class=p>()</span>
+</span><span class=n>mapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>output</span><span class=p>)</span>
 <span class=n>mapper</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>scalar_range</span><span class=p>)</span>
 
 <span class=c1># Create the Actor</span>
-<span class=n>actor</span> <span class=o>=</span> <span class=n>vtkActor</span><span class=p>()</span>
-<span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
+<span class=hll><span class=n>actor</span> <span class=o>=</span> <span class=n>vtkActor</span><span class=p>()</span>
+</span><span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
 
 <span class=c1># Create the Renderer</span>
-<span class=n>renderer</span> <span class=o>=</span> <span class=n>vtkRenderer</span><span class=p>()</span>
-<span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
+<span class=hll><span class=n>renderer</span> <span class=o>=</span> <span class=n>vtkRenderer</span><span class=p>()</span>
+</span><span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
 <span class=n>renderer</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span> <span class=c1># Set background to white</span>
 
 <span class=c1># Create the RendererWindow</span>
-<span class=n>renderer_window</span> <span class=o>=</span> <span class=n>vtkRenderWindow</span><span class=p>()</span>
-<span class=n>renderer_window</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
+<span class=hll><span class=n>renderer_window</span> <span class=o>=</span> <span class=n>vtkRenderWindow</span><span class=p>()</span>
+</span><span class=n>renderer_window</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
 
-<span class=c1># Create the RendererWindowInteractor and display the vtk_file</span>
-<span class=n>interactor</span> <span class=o>=</span> <span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-<span class=n>interactor</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderer_window</span><span class=p>)</span>
+<span class=hll><span class=c1># Create the RendererWindowInteractor and display the vtk_file</span>
+</span><span class=hll><span class=n>interactor</span> <span class=o>=</span> <span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
+</span><span class=n>interactor</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderer_window</span><span class=p>)</span>
 <span class=n>interactor</span><span class=o>.</span><span class=n>Initialize</span><span class=p>()</span>
 <span class=n>interactor</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
 </pre></div> </article> </div> </div> </main> <footer class=md-footer> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid"> <a href=../TriangleCorners/ title=TriangleCorners class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i> </div> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Previous </span> TriangleCorners </span> </div> </a> <a href=../UnstructuredTransientVolumeRendering/ title=UnstructuredTransientVolumeRendering class="md-flex md-footer-nav__link md-footer-nav__link--next" rel=next> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Next </span> UnstructuredTransientVolumeRendering </span> </div> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i> </div> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright> <div class=md-footer-copyright__highlight> <font color=#666>Content is available under </font><a href=https://creativecommons.org/licenses/by/2.5/ title=Attribution2.5>Attribution2.5</a> <font color=#666>unless otherwise noted.</font> </div> powered by <a href=http://www.mkdocs.org title=MkDocs>MkDocs</a> and <a href=http://squidfunk.github.io/mkdocs-material/ title="Material for MkDocs"> Material for MkDocs</a> </div> </div> </div> </footer> </div> <script src=../../assets/javascripts/application-6b599127bc.js></script> <script>app.initialize({url:{base:"../.."}})</script> <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-3660134-4","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script> </body> </html>

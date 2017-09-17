@@ -61,8 +61,8 @@ function registerListener(event, func) {
 <span class=c1># -*- coding: utf-8 -*-</span>
 
 <span class=sd>&quot;&quot;&quot;</span>
-<span class=sd>Demonstrates how to assign colors to cells in a vtkPolyData structure using</span>
-<span class=sd> lookup tables.</span>
+<span class=hll><span class=sd>Demonstrates how to assign colors to cells in a vtkPolyData structure using</span>
+</span><span class=sd> lookup tables.</span>
 <span class=sd>Two techniques are demonstrated:</span>
 <span class=sd>1) Using a lookup table of predefined colors.</span>
 <span class=sd>2) Using a lookup table generated from a color transfer function.</span>
@@ -80,8 +80,8 @@ function registerListener(event, func) {
 
 <span class=kn>from</span> <span class=nn>__future__</span> <span class=kn>import</span> <span class=n>print_function</span>
 
-<span class=kn>import</span> <span class=nn>vtk</span>
-
+<span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
+</span>
 
 <span class=k>def</span> <span class=nf>MakeLUT</span><span class=p>(</span><span class=n>tableSize</span><span class=p>):</span>
     <span class=sd>&quot;&quot;&quot;</span>
@@ -89,10 +89,10 @@ function registerListener(event, func) {
 <span class=sd>    :param: tableSize - The table size</span>
 <span class=sd>    :return: The lookup table.</span>
 <span class=sd>    &quot;&quot;&quot;</span>
-    <span class=n>nc</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
-
-    <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-    <span class=n>lut</span><span class=o>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=n>tableSize</span><span class=p>)</span>
+<span class=hll>    <span class=n>nc</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
+</span>
+<span class=hll>    <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span>    <span class=n>lut</span><span class=o>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=n>tableSize</span><span class=p>)</span>
     <span class=n>lut</span><span class=o>.</span><span class=n>Build</span><span class=p>()</span>
 
     <span class=c1># Fill in a few known colors, the rest will be generated if needed</span>
@@ -113,19 +113,19 @@ function registerListener(event, func) {
 <span class=k>def</span> <span class=nf>MakeLUTFromCTF</span><span class=p>(</span><span class=n>tableSize</span><span class=p>):</span>
     <span class=sd>&quot;&quot;&quot;</span>
 <span class=sd>    Use a color transfer Function to generate the colors in the lookup table.</span>
-<span class=sd>    See: http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html</span>
-<span class=sd>    :param: tableSize - The table size</span>
+<span class=hll><span class=sd>    See: http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html</span>
+</span><span class=sd>    :param: tableSize - The table size</span>
 <span class=sd>    :return: The lookup table.</span>
 <span class=sd>    &quot;&quot;&quot;</span>
-    <span class=n>ctf</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkColorTransferFunction</span><span class=p>()</span>
-    <span class=n>ctf</span><span class=o>.</span><span class=n>SetColorSpaceToDiverging</span><span class=p>()</span>
+<span class=hll>    <span class=n>ctf</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkColorTransferFunction</span><span class=p>()</span>
+</span>    <span class=n>ctf</span><span class=o>.</span><span class=n>SetColorSpaceToDiverging</span><span class=p>()</span>
     <span class=c1># Green to tan.</span>
     <span class=n>ctf</span><span class=o>.</span><span class=n>AddRGBPoint</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.085</span><span class=p>,</span> <span class=mf>0.532</span><span class=p>,</span> <span class=mf>0.201</span><span class=p>)</span>
     <span class=n>ctf</span><span class=o>.</span><span class=n>AddRGBPoint</span><span class=p>(</span><span class=mf>0.5</span><span class=p>,</span> <span class=mf>0.865</span><span class=p>,</span> <span class=mf>0.865</span><span class=p>,</span> <span class=mf>0.865</span><span class=p>)</span>
     <span class=n>ctf</span><span class=o>.</span><span class=n>AddRGBPoint</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.677</span><span class=p>,</span> <span class=mf>0.492</span><span class=p>,</span> <span class=mf>0.093</span><span class=p>)</span>
 
-    <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-    <span class=n>lut</span><span class=o>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=n>tableSize</span><span class=p>)</span>
+<span class=hll>    <span class=n>lut</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span>    <span class=n>lut</span><span class=o>.</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=n>tableSize</span><span class=p>)</span>
     <span class=n>lut</span><span class=o>.</span><span class=n>Build</span><span class=p>()</span>
 
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>tableSize</span><span class=p>):</span>
@@ -140,8 +140,8 @@ function registerListener(event, func) {
 <span class=sd>    Create the cell data using the colors from the lookup table.</span>
 <span class=sd>    :param: tableSize - The table size</span>
 <span class=sd>    :param: lut - The lookup table.</span>
-<span class=sd>    :param: colors - A reference to a vtkUnsignedCharArray().</span>
-<span class=sd>    &quot;&quot;&quot;</span>
+<span class=hll><span class=sd>    :param: colors - A reference to a vtkUnsignedCharArray().</span>
+</span><span class=sd>    &quot;&quot;&quot;</span>
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>tableSize</span><span class=p>):</span>
         <span class=n>rgb</span> <span class=o>=</span> <span class=p>[</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
         <span class=n>lut</span><span class=o>.</span><span class=n>GetColor</span><span class=p>(</span><span class=nb>float</span><span class=p>(</span><span class=n>i</span><span class=p>)</span> <span class=o>/</span> <span class=p>(</span><span class=n>tableSize</span> <span class=o>-</span> <span class=mi>1</span><span class=p>),</span> <span class=n>rgb</span><span class=p>)</span>
@@ -156,17 +156,17 @@ function registerListener(event, func) {
 <span class=sd>    :return: The render window interactor.</span>
 <span class=sd>    &quot;&quot;&quot;</span>
 
-    <span class=n>nc</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
-
+<span class=hll>    <span class=n>nc</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
+</span>
     <span class=c1># Provide some geometry</span>
     <span class=n>resolution</span> <span class=o>=</span> <span class=mi>3</span>
 
-    <span class=n>plane11</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlaneSource</span><span class=p>()</span>
-    <span class=n>plane11</span><span class=o>.</span><span class=n>SetXResolution</span><span class=p>(</span><span class=n>resolution</span><span class=p>)</span>
+<span class=hll>    <span class=n>plane11</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlaneSource</span><span class=p>()</span>
+</span>    <span class=n>plane11</span><span class=o>.</span><span class=n>SetXResolution</span><span class=p>(</span><span class=n>resolution</span><span class=p>)</span>
     <span class=n>plane11</span><span class=o>.</span><span class=n>SetYResolution</span><span class=p>(</span><span class=n>resolution</span><span class=p>)</span>
 
-    <span class=n>plane12</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlaneSource</span><span class=p>()</span>
-    <span class=n>plane12</span><span class=o>.</span><span class=n>SetXResolution</span><span class=p>(</span><span class=n>resolution</span><span class=p>)</span>
+<span class=hll>    <span class=n>plane12</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlaneSource</span><span class=p>()</span>
+</span>    <span class=n>plane12</span><span class=o>.</span><span class=n>SetXResolution</span><span class=p>(</span><span class=n>resolution</span><span class=p>)</span>
     <span class=n>plane12</span><span class=o>.</span><span class=n>SetYResolution</span><span class=p>(</span><span class=n>resolution</span><span class=p>)</span>
 
     <span class=n>tableSize</span> <span class=o>=</span> <span class=nb>max</span><span class=p>(</span><span class=n>resolution</span> <span class=o>*</span> <span class=n>resolution</span> <span class=o>+</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>10</span><span class=p>)</span>
@@ -179,25 +179,25 @@ function registerListener(event, func) {
     <span class=n>lut1</span> <span class=o>=</span> <span class=n>MakeLUT</span><span class=p>(</span><span class=n>tableSize</span><span class=p>)</span>
     <span class=n>lut2</span> <span class=o>=</span> <span class=n>MakeLUTFromCTF</span><span class=p>(</span><span class=n>tableSize</span><span class=p>)</span>
 
-    <span class=n>colorData1</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkUnsignedCharArray</span><span class=p>()</span>
-    <span class=n>colorData1</span><span class=o>.</span><span class=n>SetName</span><span class=p>(</span><span class=s1>&#39;colors&#39;</span><span class=p>)</span>  <span class=c1># Any name will work here.</span>
+<span class=hll>    <span class=n>colorData1</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkUnsignedCharArray</span><span class=p>()</span>
+</span>    <span class=n>colorData1</span><span class=o>.</span><span class=n>SetName</span><span class=p>(</span><span class=s1>&#39;colors&#39;</span><span class=p>)</span>  <span class=c1># Any name will work here.</span>
     <span class=n>colorData1</span><span class=o>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span>
     <span class=k>print</span><span class=p>(</span><span class=s1>&#39;Using a lookup table from a set of named colors.&#39;</span><span class=p>)</span>
     <span class=n>MakeCellData</span><span class=p>(</span><span class=n>tableSize</span><span class=p>,</span> <span class=n>lut1</span><span class=p>,</span> <span class=n>colorData1</span><span class=p>)</span>
-    <span class=c1># Then use SetScalars() to add it to the vtkPolyData structure,</span>
-    <span class=c1># this will then be interpreted as a color table.</span>
+<span class=hll>    <span class=c1># Then use SetScalars() to add it to the vtkPolyData structure,</span>
+</span>    <span class=c1># this will then be interpreted as a color table.</span>
     <span class=n>plane11</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>.</span><span class=n>SetScalars</span><span class=p>(</span><span class=n>colorData1</span><span class=p>)</span>
 
-    <span class=n>colorData2</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkUnsignedCharArray</span><span class=p>()</span>
-    <span class=n>colorData2</span><span class=o>.</span><span class=n>SetName</span><span class=p>(</span><span class=s1>&#39;colors&#39;</span><span class=p>)</span>  <span class=c1># Any name will work here.</span>
+<span class=hll>    <span class=n>colorData2</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkUnsignedCharArray</span><span class=p>()</span>
+</span>    <span class=n>colorData2</span><span class=o>.</span><span class=n>SetName</span><span class=p>(</span><span class=s1>&#39;colors&#39;</span><span class=p>)</span>  <span class=c1># Any name will work here.</span>
     <span class=n>colorData2</span><span class=o>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span>
     <span class=k>print</span><span class=p>(</span><span class=s1>&#39;Using a lookup table created from a color transfer function.&#39;</span><span class=p>)</span>
     <span class=n>MakeCellData</span><span class=p>(</span><span class=n>tableSize</span><span class=p>,</span> <span class=n>lut2</span><span class=p>,</span> <span class=n>colorData2</span><span class=p>)</span>
     <span class=n>plane12</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>.</span><span class=n>SetScalars</span><span class=p>(</span><span class=n>colorData2</span><span class=p>)</span>
 
     <span class=c1># Set up actor and mapper</span>
-    <span class=n>mapper11</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-    <span class=n>mapper11</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>plane11</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>mapper11</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=n>mapper11</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>plane11</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=c1># Now, instead of doing this:</span>
     <span class=c1># mapper11.SetScalarRange(0, tableSize - 1)</span>
     <span class=c1># mapper11.SetLookupTable(lut1)</span>
@@ -206,13 +206,13 @@ function registerListener(event, func) {
     <span class=n>mapper11</span><span class=o>.</span><span class=n>SetScalarModeToUseCellData</span><span class=p>()</span>
     <span class=n>mapper11</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 
-    <span class=n>mapper12</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-    <span class=n>mapper12</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>plane12</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>mapper12</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=n>mapper12</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>plane12</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>mapper12</span><span class=o>.</span><span class=n>SetScalarModeToUseCellData</span><span class=p>()</span>
     <span class=n>mapper12</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 
-    <span class=n>writer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkXMLPolyDataWriter</span><span class=p>()</span>
-    <span class=n>writer</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=s1>&#39;pdlut.vtp&#39;</span><span class=p>)</span>
+<span class=hll>    <span class=n>writer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkXMLPolyDataWriter</span><span class=p>()</span>
+</span>    <span class=n>writer</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=s1>&#39;pdlut.vtp&#39;</span><span class=p>)</span>
     <span class=n>writer</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>mapper11</span><span class=o>.</span><span class=n>GetInput</span><span class=p>())</span>
     <span class=c1># This is set so we can see the data in a text editor.</span>
     <span class=n>writer</span><span class=o>.</span><span class=n>SetDataModeToAscii</span><span class=p>()</span>
@@ -221,31 +221,31 @@ function registerListener(event, func) {
     <span class=n>writer</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>mapper12</span><span class=o>.</span><span class=n>GetInput</span><span class=p>())</span>
     <span class=n>writer</span><span class=o>.</span><span class=n>Write</span><span class=p>()</span>
 
-    <span class=n>actor11</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-    <span class=n>actor11</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper11</span><span class=p>)</span>
-    <span class=n>actor12</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-    <span class=n>actor12</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper12</span><span class=p>)</span>
+<span class=hll>    <span class=n>actor11</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>    <span class=n>actor11</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper11</span><span class=p>)</span>
+<span class=hll>    <span class=n>actor12</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>    <span class=n>actor12</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper12</span><span class=p>)</span>
 
     <span class=c1># Let&#39;s read in the data we wrote out.</span>
-    <span class=n>reader1</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkXMLPolyDataReader</span><span class=p>()</span>
-    <span class=n>reader1</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=s2>&quot;pdlut.vtp&quot;</span><span class=p>)</span>
+<span class=hll>    <span class=n>reader1</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkXMLPolyDataReader</span><span class=p>()</span>
+</span>    <span class=n>reader1</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=s2>&quot;pdlut.vtp&quot;</span><span class=p>)</span>
 
-    <span class=n>reader2</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkXMLPolyDataReader</span><span class=p>()</span>
-    <span class=n>reader2</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=s2>&quot;pdctf.vtp&quot;</span><span class=p>)</span>
+<span class=hll>    <span class=n>reader2</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkXMLPolyDataReader</span><span class=p>()</span>
+</span>    <span class=n>reader2</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=s2>&quot;pdctf.vtp&quot;</span><span class=p>)</span>
 
-    <span class=n>mapper21</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-    <span class=n>mapper21</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader1</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>mapper21</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=n>mapper21</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader1</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>mapper21</span><span class=o>.</span><span class=n>SetScalarModeToUseCellData</span><span class=p>()</span>
     <span class=n>mapper21</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
-    <span class=n>actor21</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-    <span class=n>actor21</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper11</span><span class=p>)</span>
+<span class=hll>    <span class=n>actor21</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>    <span class=n>actor21</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper11</span><span class=p>)</span>
 
-    <span class=n>mapper22</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-    <span class=n>mapper22</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader2</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll>    <span class=n>mapper22</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=n>mapper22</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader2</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>mapper22</span><span class=o>.</span><span class=n>SetScalarModeToUseCellData</span><span class=p>()</span>
     <span class=n>mapper22</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
-    <span class=n>actor22</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-    <span class=n>actor22</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper22</span><span class=p>)</span>
+<span class=hll>    <span class=n>actor22</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span>    <span class=n>actor22</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper22</span><span class=p>)</span>
 
     <span class=c1># Define viewport ranges.</span>
     <span class=c1># (xmin, ymin, xmax, ymax)</span>
@@ -255,14 +255,14 @@ function registerListener(event, func) {
     <span class=n>viewport22</span> <span class=o>=</span> <span class=p>[</span><span class=mf>0.5</span><span class=p>,</span> <span class=mf>0.5</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>]</span>
 
     <span class=c1># Set up the renderers.</span>
-    <span class=n>ren11</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-    <span class=n>ren12</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-    <span class=n>ren21</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-    <span class=n>ren22</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-
+<span class=hll>    <span class=n>ren11</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>ren12</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>ren21</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>ren22</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span>
     <span class=c1># Setup the render windows</span>
-    <span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
-    <span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>800</span><span class=p>,</span> <span class=mi>800</span><span class=p>)</span>
+<span class=hll>    <span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
+</span>    <span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>800</span><span class=p>,</span> <span class=mi>800</span><span class=p>)</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren11</span><span class=p>)</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren12</span><span class=p>)</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren21</span><span class=p>)</span>
@@ -280,8 +280,8 @@ function registerListener(event, func) {
     <span class=n>ren21</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor21</span><span class=p>)</span>
     <span class=n>ren22</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor22</span><span class=p>)</span>
 
-    <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-    <span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>)</span>
+<span class=hll>    <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
+</span>    <span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>)</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
 
     <span class=k>return</span> <span class=n>iren</span>
@@ -289,11 +289,11 @@ function registerListener(event, func) {
 
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
     <span class=n>requiredMajorVersion</span> <span class=o>=</span> <span class=mi>6</span>
-    <span class=k>print</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVersion</span><span class=p>()</span><span class=o>.</span><span class=n>GetVTKMajorVersion</span><span class=p>())</span>
-    <span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVersion</span><span class=p>()</span><span class=o>.</span><span class=n>GetVTKMajorVersion</span><span class=p>()</span> <span class=o>&lt;</span> <span class=n>requiredMajorVersion</span><span class=p>:</span>
-        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;You need VTK Version 6 or greater.&quot;</span><span class=p>)</span>
-        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;The class vtkNamedColors is in VTK version 6 or greater.&quot;</span><span class=p>)</span>
-        <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+<span class=hll>    <span class=k>print</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVersion</span><span class=p>()</span><span class=o>.</span><span class=n>GetVTKMajorVersion</span><span class=p>())</span>
+</span><span class=hll>    <span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVersion</span><span class=p>()</span><span class=o>.</span><span class=n>GetVTKMajorVersion</span><span class=p>()</span> <span class=o>&lt;</span> <span class=n>requiredMajorVersion</span><span class=p>:</span>
+</span>        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;You need VTK Version 6 or greater.&quot;</span><span class=p>)</span>
+<span class=hll>        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;The class vtkNamedColors is in VTK version 6 or greater.&quot;</span><span class=p>)</span>
+</span>        <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
     <span class=n>iren</span> <span class=o>=</span> <span class=n>main</span><span class=p>()</span>
     <span class=n>iren</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
 </pre></div> </article> </div> </div> </main> <footer class=md-footer> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid"> <a href=../../Utilities/LUTUtilities/ title=LUTUtilities class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i> </div> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Previous </span> LUTUtilities </span> </div> </a> <a href=../ClampGlyphSizes/ title=ClampGlyphSizes class="md-flex md-footer-nav__link md-footer-nav__link--next" rel=next> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Next </span> ClampGlyphSizes </span> </div> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i> </div> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright> <div class=md-footer-copyright__highlight> <font color=#666>Content is available under </font><a href=https://creativecommons.org/licenses/by/2.5/ title=Attribution2.5>Attribution2.5</a> <font color=#666>unless otherwise noted.</font> </div> powered by <a href=http://www.mkdocs.org title=MkDocs>MkDocs</a> and <a href=http://squidfunk.github.io/mkdocs-material/ title="Material for MkDocs"> Material for MkDocs</a> </div> </div> </div> </footer> </div> <script src=../../../assets/javascripts/application-6b599127bc.js></script> <script>app.initialize({url:{base:"../../.."}})</script> <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-3660134-4","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script> </body> </html>

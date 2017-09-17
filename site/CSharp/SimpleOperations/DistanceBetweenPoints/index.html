@@ -73,8 +73,8 @@ function registerListener(event, func) {
    <span class=n>Marshal</span><span class=p>.</span><span class=n>Copy</span><span class=p>(</span><span class=n>p1</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=n>pP1</span><span class=p>,</span> <span class=m>3</span><span class=p>);</span>
 
    <span class=c1>// Find the squared distance between the points.</span>
-   <span class=kt>double</span> <span class=n>squaredDistance</span> <span class=p>=</span> <span class=n>vtkMath</span><span class=p>.</span><span class=n>Distance2BetweenPoints</span><span class=p>(</span><span class=n>pP0</span><span class=p>,</span> <span class=n>pP1</span><span class=p>);</span>
-
+<span class=hll>   <span class=kt>double</span> <span class=n>squaredDistance</span> <span class=p>=</span> <span class=n>vtkMath</span><span class=p>.</span><span class=n>Distance2BetweenPoints</span><span class=p>(</span><span class=n>pP0</span><span class=p>,</span> <span class=n>pP1</span><span class=p>);</span>
+</span>
    <span class=c1>// Take the square root to get the Euclidean distance between the points.</span>
    <span class=kt>double</span> <span class=n>distance</span> <span class=p>=</span> <span class=n>Math</span><span class=p>.</span><span class=n>Sqrt</span><span class=p>(</span><span class=n>squaredDistance</span><span class=p>);</span>
 

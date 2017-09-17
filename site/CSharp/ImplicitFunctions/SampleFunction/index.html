@@ -83,19 +83,19 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>SampleFunction</span><span class=p>()</span> <span class=p>{</span>
-         <span class=n>vtkSphere</span> <span class=n>sphere</span> <span class=p>=</span> <span class=n>vtkSphere</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkSphere</span> <span class=n>sphere</span> <span class=p>=</span> <span class=n>vtkSphere</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=c1>// Sample the function</span>
-         <span class=n>vtkSampleFunction</span> <span class=n>sample</span> <span class=p>=</span> <span class=n>vtkSampleFunction</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sample</span><span class=p>.</span><span class=n>SetSampleDimensions</span><span class=p>(</span><span class=m>50</span><span class=p>,</span> <span class=m>50</span><span class=p>,</span> <span class=m>50</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkSampleFunction</span> <span class=n>sample</span> <span class=p>=</span> <span class=n>vtkSampleFunction</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sample</span><span class=p>.</span><span class=n>SetSampleDimensions</span><span class=p>(</span><span class=m>50</span><span class=p>,</span> <span class=m>50</span><span class=p>,</span> <span class=m>50</span><span class=p>);</span>
          <span class=n>sample</span><span class=p>.</span><span class=n>SetImplicitFunction</span><span class=p>(</span><span class=n>sphere</span><span class=p>);</span>
          <span class=kt>double</span> <span class=k>value</span> <span class=p>=</span> <span class=m>2.0</span><span class=p>;</span>
          <span class=kt>double</span> <span class=n>xmin</span> <span class=p>=</span> <span class=p>-</span><span class=k>value</span><span class=p>,</span> <span class=n>xmax</span> <span class=p>=</span> <span class=k>value</span><span class=p>,</span> <span class=n>ymin</span> <span class=p>=</span> <span class=p>-</span><span class=k>value</span><span class=p>,</span> <span class=n>ymax</span> <span class=p>=</span> <span class=k>value</span><span class=p>,</span> <span class=n>zmin</span> <span class=p>=</span> <span class=p>-</span><span class=k>value</span><span class=p>,</span> <span class=n>zmax</span> <span class=p>=</span> <span class=k>value</span><span class=p>;</span>
          <span class=n>sample</span><span class=p>.</span><span class=n>SetModelBounds</span><span class=p>(</span><span class=n>xmin</span><span class=p>,</span> <span class=n>xmax</span><span class=p>,</span> <span class=n>ymin</span><span class=p>,</span> <span class=n>ymax</span><span class=p>,</span> <span class=n>zmin</span><span class=p>,</span> <span class=n>zmax</span><span class=p>);</span>
 
          <span class=c1>// Create the 0 isosurface</span>
-         <span class=n>vtkContourFilter</span> <span class=n>contours</span> <span class=p>=</span> <span class=n>vtkContourFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkContourFilter</span> <span class=n>contours</span> <span class=p>=</span> <span class=n>vtkContourFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>contours</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>sample</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>contours</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>sample</span><span class=p>);</span>
@@ -103,8 +103,8 @@ function registerListener(event, func) {
          <span class=n>contours</span><span class=p>.</span><span class=n>GenerateValues</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=m>1</span><span class=p>,</span> <span class=m>1</span><span class=p>);</span>
 
          <span class=c1>// Map the contours to graphical primitives</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>contourMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>contourMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>contourMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>contours</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>contourMapper</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>contours</span><span class=p>);</span>
@@ -112,37 +112,37 @@ function registerListener(event, func) {
          <span class=n>contourMapper</span><span class=p>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=m>0.0</span><span class=p>,</span> <span class=m>1.2</span><span class=p>);</span>
 
          <span class=c1>// Create an actor for the contours</span>
-         <span class=n>vtkActor</span> <span class=n>contourActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>contourActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>contourMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>contourActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>contourActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>contourMapper</span><span class=p>);</span>
 
          <span class=c1>// -- create a box around the function to indicate the sampling volume --</span>
 
          <span class=c1>// Create outline</span>
-         <span class=n>vtkOutlineFilter</span> <span class=n>outline</span> <span class=p>=</span> <span class=n>vtkOutlineFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkOutlineFilter</span> <span class=n>outline</span> <span class=p>=</span> <span class=n>vtkOutlineFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>outline</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>sample</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>outline</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>sample</span><span class=p>);</span>
 <span class=cp>#endif</span>
 
          <span class=c1>// Map it to graphics primitives</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>outlineMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>outlineMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>outlineMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>outline</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>outlineMapper</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>outline</span><span class=p>);</span>
 <span class=cp>#endif</span>
 
          <span class=c1>// Create an actor for it</span>
-         <span class=n>vtkActor</span> <span class=n>outlineActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>outlineActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=n>outlineActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outlineMapper</span><span class=p>);</span>
          <span class=n>outlineActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetColor</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>1.0</span><span class=p>,</span> <span class=m>1.0</span><span class=p>,</span> <span class=m>1.0</span><span class=p>);</span>
          <span class=c1>// add our actor to the renderer</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>contourActor</span><span class=p>);</span>

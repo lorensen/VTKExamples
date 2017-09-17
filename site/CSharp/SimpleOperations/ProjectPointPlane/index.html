@@ -63,8 +63,8 @@ function registerListener(event, func) {
 <span class=k>using</span> <span class=nn>Kitware.VTK</span><span class=p>;</span>
 
 <span class=k>void</span> <span class=nf>ProjectPointPlane</span><span class=p>()</span> <span class=p>{</span>
-   <span class=n>vtkPlane</span> <span class=n>plane</span> <span class=p>=</span> <span class=n>vtkPlane</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>plane</span><span class=p>.</span><span class=n>SetOrigin</span><span class=p>(</span><span class=m>0.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>);</span>
+<span class=hll>   <span class=n>vtkPlane</span> <span class=n>plane</span> <span class=p>=</span> <span class=n>vtkPlane</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>plane</span><span class=p>.</span><span class=n>SetOrigin</span><span class=p>(</span><span class=m>0.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>);</span>
    <span class=n>plane</span><span class=p>.</span><span class=n>SetNormal</span><span class=p>(</span><span class=m>0.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>,</span> <span class=m>1.0</span><span class=p>);</span>
 
    <span class=kt>double</span><span class=p>[]</span> <span class=n>p</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>double</span><span class=p>[]</span> <span class=p>{</span> <span class=m>23.1</span><span class=p>,</span> <span class=m>54.6</span><span class=p>,</span> <span class=m>9.2</span> <span class=p>};</span>
