@@ -72,18 +72,18 @@ ScalarVisibilityFlag ... show/hide the found depth values as scalars
 ... will render the spheres using depth sorting; the sphere depth order should now be visually traceable
 </pre></div> <div class=codehilite><pre><span></span>./DepthSortPolyData 1 100 100 1
 ... will render the spheres using depth sorting; the depth values are mapped to the spheres and renderd on the surfaces
-</pre></div> <p>Using higher PHI/THETA resolutions shows how depth sorting reduces the frame rate.</p> <h3 id=code>Code<a class=headerlink href=#code title="Permanent link">&para;</a></h3> <p><strong>DepthSortPolyData.cxx</strong></p> <div class=codehilite><pre><span></span><span class=cp>#include</span> <span class=cpf>&lt;vtkSphereSource.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkAppendPolyData.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkDepthSortPolyData.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
-
+</pre></div> <p>Using higher PHI/THETA resolutions shows how depth sorting reduces the frame rate.</p> <h3 id=code>Code<a class=headerlink href=#code title="Permanent link">&para;</a></h3> <p><strong>DepthSortPolyData.cxx</strong></p> <div class=codehilite><pre><span></span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSphereSource.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkAppendPolyData.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDepthSortPolyData.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
+</span>
 <span class=kt>int</span> <span class=nf>main</span> <span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[])</span>
 <span class=p>{</span>
   <span class=k>if</span> <span class=p>(</span><span class=n>argc</span> <span class=o>!=</span> <span class=mi>5</span><span class=p>)</span>
@@ -100,16 +100,16 @@ ScalarVisibilityFlag ... show/hide the found depth values as scalars
 
   <span class=c1>// Create a bunch of spheres that overlap and cannot be easily arranged</span>
   <span class=c1>// so that the blending works without sorting. They are appended into a</span>
-  <span class=c1>// single vtkPolyData because the filter only sorts within a single</span>
-  <span class=c1>// vtkPolyData input.</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;</span> <span class=n>appendData</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>  <span class=c1>// single vtkPolyData because the filter only sorts within a single</span>
+</span><span class=hll>  <span class=c1>// vtkPolyData input.</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;</span> <span class=n>appendData</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
   <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>5</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
   <span class=p>{</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;</span> <span class=n>sphereSource</span> <span class=o>=</span>
-      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-    <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=n>theta</span><span class=p>);</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;</span> <span class=n>sphereSource</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=n>theta</span><span class=p>);</span>
     <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=n>phi</span><span class=p>);</span>
     <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>SetRadius</span><span class=p>(</span><span class=mf>0.5</span><span class=p>);</span> <span class=c1>//all sphere except the center one should have radius = 0.5</span>
     <span class=k>switch</span> <span class=p>(</span><span class=n>i</span><span class=p>)</span>
@@ -133,11 +133,11 @@ ScalarVisibilityFlag ... show/hide the found depth values as scalars
   <span class=c1>// The dephSort object is set up to generate scalars representing</span>
   <span class=c1>// the sort depth.  A camera is assigned for the sorting. The camera</span>
   <span class=c1>// defines the sort vector (position and focal point).</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCamera</span><span class=o>&gt;</span> <span class=n>camera</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCamera</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDepthSortPolyData</span><span class=o>&gt;</span> <span class=n>depthSort</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDepthSortPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCamera</span><span class=o>&gt;</span> <span class=n>camera</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCamera</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDepthSortPolyData</span><span class=o>&gt;</span> <span class=n>depthSort</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDepthSortPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
   <span class=n>depthSort</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>appendData</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>depthSort</span><span class=o>-&gt;</span><span class=n>SetDirectionToBackToFront</span><span class=p>();</span>
   <span class=n>depthSort</span><span class=o>-&gt;</span><span class=n>SetVector</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
@@ -145,9 +145,9 @@ ScalarVisibilityFlag ... show/hide the found depth values as scalars
   <span class=n>depthSort</span><span class=o>-&gt;</span><span class=n>SortScalarsOn</span><span class=p>();</span>
   <span class=n>depthSort</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>mapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=k>if</span> <span class=p>(</span><span class=n>doDepthSort</span><span class=p>)</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>mapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=k>if</span> <span class=p>(</span><span class=n>doDepthSort</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>depthSort</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=p>}</span>
@@ -162,9 +162,9 @@ ScalarVisibilityFlag ... show/hide the found depth values as scalars
     <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>depthSort</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNumberOfCells</span><span class=p>());</span>
   <span class=p>}</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>actor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>actor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetOpacity</span><span class=p>(</span><span class=mf>0.5</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
@@ -176,15 +176,15 @@ ScalarVisibilityFlag ... show/hide the found depth values as scalars
   <span class=n>depthSort</span><span class=o>-&gt;</span><span class=n>SetProp3D</span><span class=p>(</span><span class=n>actor</span><span class=p>);</span>
 
   <span class=c1>// Create the RenderWindow, Renderer and both Actors</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>renderer</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>SetActiveCamera</span><span class=p>(</span><span class=n>camera</span><span class=p>);</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renderWindow</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>renderer</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>SetActiveCamera</span><span class=p>(</span><span class=n>camera</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renderWindow</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
 
   <span class=c1>// Add the actors to the renderer, set the background and size</span>
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>);</span>

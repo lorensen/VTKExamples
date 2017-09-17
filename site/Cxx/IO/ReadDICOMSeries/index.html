@@ -62,21 +62,21 @@ function registerListener(event, func) {
 <span class=c1>// and how to scroll with the mousewheel or the up/down keys</span>
 <span class=c1>// through all slices</span>
 <span class=c1>//</span>
-<span class=c1>// some standard vtk headers</span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkObjectFactory.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
-<span class=c1>// headers needed for this example</span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkImageViewer2.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkDICOMImageReader.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkInteractorStyleImage.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkActor2D.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTextProperty.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTextMapper.h&gt;</span><span class=cp></span>
-<span class=c1>// needed to easily convert int to std::string</span>
+<span class=hll><span class=c1>// some standard vtk headers</span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkObjectFactory.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
+</span><span class=c1>// headers needed for this example</span>
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImageViewer2.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDICOMImageReader.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkInteractorStyleImage.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkActor2D.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTextProperty.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTextMapper.h&gt;</span><span class=cp></span>
+</span><span class=c1>// needed to easily convert int to std::string</span>
 <span class=cp>#include</span> <span class=cpf>&lt;sstream&gt;</span><span class=cp></span>
 
 
@@ -92,30 +92,30 @@ function registerListener(event, func) {
 
 
 <span class=c1>// Define own interaction style</span>
-<span class=k>class</span> <span class=nc>myVtkInteractorStyleImage</span> <span class=o>:</span> <span class=k>public</span> <span class=n>vtkInteractorStyleImage</span>
-<span class=p>{</span>
+<span class=hll><span class=k>class</span> <span class=nc>myVtkInteractorStyleImage</span> <span class=o>:</span> <span class=k>public</span> <span class=n>vtkInteractorStyleImage</span>
+</span><span class=p>{</span>
 <span class=k>public</span><span class=o>:</span>
    <span class=k>static</span> <span class=n>myVtkInteractorStyleImage</span><span class=o>*</span> <span class=n>New</span><span class=p>();</span>
-   <span class=n>vtkTypeMacro</span><span class=p>(</span><span class=n>myVtkInteractorStyleImage</span><span class=p>,</span> <span class=n>vtkInteractorStyleImage</span><span class=p>);</span>
-
+<span class=hll>   <span class=n>vtkTypeMacro</span><span class=p>(</span><span class=n>myVtkInteractorStyleImage</span><span class=p>,</span> <span class=n>vtkInteractorStyleImage</span><span class=p>);</span>
+</span>
 <span class=k>protected</span><span class=o>:</span>
-   <span class=n>vtkImageViewer2</span><span class=o>*</span> <span class=n>_ImageViewer</span><span class=p>;</span>
-   <span class=n>vtkTextMapper</span><span class=o>*</span> <span class=n>_StatusMapper</span><span class=p>;</span>
-   <span class=kt>int</span> <span class=n>_Slice</span><span class=p>;</span>
+<span class=hll>   <span class=n>vtkImageViewer2</span><span class=o>*</span> <span class=n>_ImageViewer</span><span class=p>;</span>
+</span><span class=hll>   <span class=n>vtkTextMapper</span><span class=o>*</span> <span class=n>_StatusMapper</span><span class=p>;</span>
+</span>   <span class=kt>int</span> <span class=n>_Slice</span><span class=p>;</span>
    <span class=kt>int</span> <span class=n>_MinSlice</span><span class=p>;</span>
    <span class=kt>int</span> <span class=n>_MaxSlice</span><span class=p>;</span>
 
 <span class=k>public</span><span class=o>:</span>
-   <span class=kt>void</span> <span class=n>SetImageViewer</span><span class=p>(</span><span class=n>vtkImageViewer2</span><span class=o>*</span> <span class=n>imageViewer</span><span class=p>)</span> <span class=p>{</span>
-      <span class=n>_ImageViewer</span> <span class=o>=</span> <span class=n>imageViewer</span><span class=p>;</span>
+<span class=hll>   <span class=kt>void</span> <span class=n>SetImageViewer</span><span class=p>(</span><span class=n>vtkImageViewer2</span><span class=o>*</span> <span class=n>imageViewer</span><span class=p>)</span> <span class=p>{</span>
+</span>      <span class=n>_ImageViewer</span> <span class=o>=</span> <span class=n>imageViewer</span><span class=p>;</span>
       <span class=n>_MinSlice</span> <span class=o>=</span> <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetSliceMin</span><span class=p>();</span>
       <span class=n>_MaxSlice</span> <span class=o>=</span> <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetSliceMax</span><span class=p>();</span>
       <span class=n>_Slice</span> <span class=o>=</span> <span class=n>_MinSlice</span><span class=p>;</span>
       <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Slicer: Min = &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>_MinSlice</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;, Max = &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>_MaxSlice</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
    <span class=p>}</span>
 
-   <span class=kt>void</span> <span class=n>SetStatusMapper</span><span class=p>(</span><span class=n>vtkTextMapper</span><span class=o>*</span> <span class=n>statusMapper</span><span class=p>)</span> <span class=p>{</span>
-      <span class=n>_StatusMapper</span> <span class=o>=</span> <span class=n>statusMapper</span><span class=p>;</span>
+<span class=hll>   <span class=kt>void</span> <span class=n>SetStatusMapper</span><span class=p>(</span><span class=n>vtkTextMapper</span><span class=o>*</span> <span class=n>statusMapper</span><span class=p>)</span> <span class=p>{</span>
+</span>      <span class=n>_StatusMapper</span> <span class=o>=</span> <span class=n>statusMapper</span><span class=p>;</span>
    <span class=p>}</span>
 
 
@@ -154,8 +154,8 @@ function registerListener(event, func) {
          <span class=n>MoveSliceBackward</span><span class=p>();</span>
       <span class=p>}</span>
       <span class=c1>// forward event</span>
-      <span class=n>vtkInteractorStyleImage</span><span class=o>::</span><span class=n>OnKeyDown</span><span class=p>();</span>
-   <span class=p>}</span>
+<span class=hll>      <span class=n>vtkInteractorStyleImage</span><span class=o>::</span><span class=n>OnKeyDown</span><span class=p>();</span>
+</span>   <span class=p>}</span>
 
 
    <span class=k>virtual</span> <span class=kt>void</span> <span class=n>OnMouseWheelForward</span><span class=p>()</span> <span class=p>{</span>
@@ -163,8 +163,8 @@ function registerListener(event, func) {
       <span class=n>MoveSliceForward</span><span class=p>();</span>
       <span class=c1>// don&#39;t forward events, otherwise the image will be zoomed </span>
       <span class=c1>// in case another interactorstyle is used (e.g. trackballstyle, ...)</span>
-      <span class=c1>// vtkInteractorStyleImage::OnMouseWheelForward();</span>
-   <span class=p>}</span>
+<span class=hll>      <span class=c1>// vtkInteractorStyleImage::OnMouseWheelForward();</span>
+</span>   <span class=p>}</span>
 
 
    <span class=k>virtual</span> <span class=kt>void</span> <span class=n>OnMouseWheelBackward</span><span class=p>()</span> <span class=p>{</span>
@@ -174,12 +174,12 @@ function registerListener(event, func) {
       <span class=p>}</span>
       <span class=c1>// don&#39;t forward events, otherwise the image will be zoomed </span>
       <span class=c1>// in case another interactorstyle is used (e.g. trackballstyle, ...)</span>
-      <span class=c1>// vtkInteractorStyleImage::OnMouseWheelBackward();</span>
-   <span class=p>}</span>
+<span class=hll>      <span class=c1>// vtkInteractorStyleImage::OnMouseWheelBackward();</span>
+</span>   <span class=p>}</span>
 <span class=p>};</span>
 
-<span class=n>vtkStandardNewMacro</span><span class=p>(</span><span class=n>myVtkInteractorStyleImage</span><span class=p>);</span>
-
+<span class=hll><span class=n>vtkStandardNewMacro</span><span class=p>(</span><span class=n>myVtkInteractorStyleImage</span><span class=p>);</span>
+</span>
 
 <span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span><span class=o>*</span> <span class=n>argv</span><span class=p>[])</span>
 <span class=p>{</span>
@@ -192,59 +192,59 @@ function registerListener(event, func) {
    <span class=p>}</span>
 
    <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>folder</span> <span class=o>=</span> <span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
-   <span class=c1>//std::string folder = &quot;C:\\VTK\\vtkdata-5.8.0\\Data\\DicomTestImages&quot;;</span>
-
+<span class=hll>   <span class=c1>//std::string folder = &quot;C:\\VTK\\vtkdata-5.8.0\\Data\\DicomTestImages&quot;;</span>
+</span>
    <span class=c1>// Read all the DICOM files in the specified directory.</span>
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDICOMImageReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
-      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDICOMImageReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetDirectoryName</span><span class=p>(</span><span class=n>folder</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDICOMImageReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDICOMImageReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetDirectoryName</span><span class=p>(</span><span class=n>folder</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
    <span class=c1>// Visualize</span>
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageViewer2</span><span class=o>&gt;</span> <span class=n>imageViewer</span> <span class=o>=</span>
-      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageViewer2</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageViewer2</span><span class=o>&gt;</span> <span class=n>imageViewer</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageViewer2</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
    <span class=c1>// slice status message</span>
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextProperty</span><span class=o>&gt;</span> <span class=n>sliceTextProp</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>sliceTextProp</span><span class=o>-&gt;</span><span class=n>SetFontFamilyToCourier</span><span class=p>();</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextProperty</span><span class=o>&gt;</span> <span class=n>sliceTextProp</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>sliceTextProp</span><span class=o>-&gt;</span><span class=n>SetFontFamilyToCourier</span><span class=p>();</span>
    <span class=n>sliceTextProp</span><span class=o>-&gt;</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span>
    <span class=n>sliceTextProp</span><span class=o>-&gt;</span><span class=n>SetVerticalJustificationToBottom</span><span class=p>();</span>
    <span class=n>sliceTextProp</span><span class=o>-&gt;</span><span class=n>SetJustificationToLeft</span><span class=p>();</span>
 
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextMapper</span><span class=o>&gt;</span> <span class=n>sliceTextMapper</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>msg</span> <span class=o>=</span> <span class=n>StatusMessage</span><span class=o>::</span><span class=n>Format</span><span class=p>(</span><span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetSliceMin</span><span class=p>(),</span> <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetSliceMax</span><span class=p>());</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextMapper</span><span class=o>&gt;</span> <span class=n>sliceTextMapper</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>msg</span> <span class=o>=</span> <span class=n>StatusMessage</span><span class=o>::</span><span class=n>Format</span><span class=p>(</span><span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetSliceMin</span><span class=p>(),</span> <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetSliceMax</span><span class=p>());</span>
    <span class=n>sliceTextMapper</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=n>msg</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
    <span class=n>sliceTextMapper</span><span class=o>-&gt;</span><span class=n>SetTextProperty</span><span class=p>(</span><span class=n>sliceTextProp</span><span class=p>);</span>
 
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;</span> <span class=n>sliceTextActor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>sliceTextActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>sliceTextMapper</span><span class=p>);</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;</span> <span class=n>sliceTextActor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>sliceTextActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>sliceTextMapper</span><span class=p>);</span>
    <span class=n>sliceTextActor</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=mi>15</span><span class=p>,</span> <span class=mi>10</span><span class=p>);</span>
 
    <span class=c1>// usage hint message</span>
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextProperty</span><span class=o>&gt;</span> <span class=n>usageTextProp</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>usageTextProp</span><span class=o>-&gt;</span><span class=n>SetFontFamilyToCourier</span><span class=p>();</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextProperty</span><span class=o>&gt;</span> <span class=n>usageTextProp</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>usageTextProp</span><span class=o>-&gt;</span><span class=n>SetFontFamilyToCourier</span><span class=p>();</span>
    <span class=n>usageTextProp</span><span class=o>-&gt;</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>14</span><span class=p>);</span>
    <span class=n>usageTextProp</span><span class=o>-&gt;</span><span class=n>SetVerticalJustificationToTop</span><span class=p>();</span>
    <span class=n>usageTextProp</span><span class=o>-&gt;</span><span class=n>SetJustificationToLeft</span><span class=p>();</span>
 
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextMapper</span><span class=o>&gt;</span> <span class=n>usageTextMapper</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>usageTextMapper</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=s>&quot;- Slice with mouse wheel</span><span class=se>\n</span><span class=s>  or Up/Down-Key</span><span class=se>\n</span><span class=s>- Zoom with pressed right</span><span class=se>\n</span><span class=s>  mouse button while dragging&quot;</span><span class=p>);</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextMapper</span><span class=o>&gt;</span> <span class=n>usageTextMapper</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>usageTextMapper</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=s>&quot;- Slice with mouse wheel</span><span class=se>\n</span><span class=s>  or Up/Down-Key</span><span class=se>\n</span><span class=s>- Zoom with pressed right</span><span class=se>\n</span><span class=s>  mouse button while dragging&quot;</span><span class=p>);</span>
    <span class=n>usageTextMapper</span><span class=o>-&gt;</span><span class=n>SetTextProperty</span><span class=p>(</span><span class=n>usageTextProp</span><span class=p>);</span>
 
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;</span> <span class=n>usageTextActor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>usageTextActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>usageTextMapper</span><span class=p>);</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;</span> <span class=n>usageTextActor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>usageTextActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>usageTextMapper</span><span class=p>);</span>
    <span class=n>usageTextActor</span><span class=o>-&gt;</span><span class=n>GetPositionCoordinate</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetCoordinateSystemToNormalizedDisplay</span><span class=p>();</span>
    <span class=n>usageTextActor</span><span class=o>-&gt;</span><span class=n>GetPositionCoordinate</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span> <span class=mf>0.05</span><span class=p>,</span> <span class=mf>0.95</span><span class=p>);</span>
 
-   <span class=c1>// create an interactor with our own style (inherit from vtkInteractorStyleImage)</span>
-   <span class=c1>// in order to catch mousewheel and key events</span>
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
-      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-
-   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>myVtkInteractorStyleImage</span><span class=o>&gt;</span> <span class=n>myInteractorStyle</span> <span class=o>=</span>
-      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>myVtkInteractorStyleImage</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>   <span class=c1>// create an interactor with our own style (inherit from vtkInteractorStyleImage)</span>
+</span>   <span class=c1>// in order to catch mousewheel and key events</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
+<span class=hll>   <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>myVtkInteractorStyleImage</span><span class=o>&gt;</span> <span class=n>myInteractorStyle</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>myVtkInteractorStyleImage</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
    <span class=c1>// make imageviewer2 and sliceTextMapper visible to our interactorstyle</span>
    <span class=c1>// to enable slice status message updates when scrolling through the slices</span>
    <span class=n>myInteractorStyle</span><span class=o>-&gt;</span><span class=n>SetImageViewer</span><span class=p>(</span><span class=n>imageViewer</span><span class=p>);</span>

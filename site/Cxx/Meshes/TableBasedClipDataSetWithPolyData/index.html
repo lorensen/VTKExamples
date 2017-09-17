@@ -69,71 +69,71 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
     Cell type <a href=http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html#details>vtkHexahedron</a> occurs 117732 times.
     Cell type <a href=http://www.vtk.org/doc/nightly/html/classvtkWedge.html#details>vtkWedge</a> occurs 1260 times.
     Cell type <a href=http://www.vtk.org/doc/nightly/html/classvtkPyramid.html#details>vtkPyramid</a> occurs 3332 times.
-</code></pre></p> <h3 id=code>Code<a class=headerlink href=#code title="Permanent link">&para;</a></h3> <p><strong>TableBasedClipDataSetWithPolyData.cxx</strong></p> <div class=codehilite><pre><span></span><span class=cp>#include</span> <span class=cpf>&lt;vtkVersion.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-
-<span class=cp>#include</span> <span class=cpf>&lt;vtkConeSource.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkImplicitPolyDataDistance.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPointData.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkUnstructuredGrid.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkFloatArray.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRectilinearGrid.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTableBasedClipDataSet.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRectilinearGridGeometryFilter.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkDataSetMapper.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
-
+</code></pre></p> <h3 id=code>Code<a class=headerlink href=#code title="Permanent link">&para;</a></h3> <p><strong>TableBasedClipDataSetWithPolyData.cxx</strong></p> <div class=codehilite><pre><span></span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkVersion.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span>
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkConeSource.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImplicitPolyDataDistance.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPointData.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkUnstructuredGrid.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkFloatArray.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRectilinearGrid.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTableBasedClipDataSet.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRectilinearGridGeometryFilter.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDataSetMapper.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
+</span>
 <span class=cp>#include</span> <span class=cpf>&lt;map&gt;</span><span class=cp></span>
 
 <span class=kt>int</span> <span class=nf>main</span> <span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=p>[])</span>
 <span class=p>{</span>
   <span class=c1>// Create polydata to slice the grid with. In this case, use a cone. This could</span>
   <span class=c1>// be any polydata including a stl file.</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;</span> <span class=n>cone</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>cone</span><span class=o>-&gt;</span><span class=n>SetResolution</span><span class=p>(</span><span class=mi>50</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;</span> <span class=n>cone</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>cone</span><span class=o>-&gt;</span><span class=n>SetResolution</span><span class=p>(</span><span class=mi>50</span><span class=p>);</span>
   <span class=n>cone</span><span class=o>-&gt;</span><span class=n>SetDirection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=o>-</span><span class=mi>1</span><span class=p>);</span>
   <span class=n>cone</span><span class=o>-&gt;</span><span class=n>SetHeight</span><span class=p>(</span><span class=mf>3.0</span><span class=p>);</span>
   <span class=n>cone</span><span class=o>-&gt;</span><span class=n>CappingOn</span><span class=p>();</span>
   <span class=n>cone</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
   <span class=c1>// Implicit function that will be used to slice the mesh</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitPolyDataDistance</span><span class=o>&gt;</span> <span class=n>implicitPolyDataDistance</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitPolyDataDistance</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>implicitPolyDataDistance</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=n>cone</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitPolyDataDistance</span><span class=o>&gt;</span> <span class=n>implicitPolyDataDistance</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitPolyDataDistance</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>implicitPolyDataDistance</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=n>cone</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
 
   <span class=c1>// create a grid</span>
   <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>dimension</span> <span class=o>=</span> <span class=mi>51</span><span class=p>;</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>xCoords</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=k>for</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>dimension</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>xCoords</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=k>for</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>dimension</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=n>xCoords</span><span class=o>-&gt;</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=o>-</span><span class=mf>1.0</span> <span class=o>+</span> <span class=n>i</span> <span class=o>*</span> <span class=mf>2.0</span> <span class=o>/</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;</span><span class=p>(</span><span class=n>dimension</span><span class=o>-</span><span class=mi>1</span><span class=p>));</span>
   <span class=p>}</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>yCoords</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=k>for</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>dimension</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>yCoords</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=k>for</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>dimension</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=n>yCoords</span><span class=o>-&gt;</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=o>-</span><span class=mf>1.0</span> <span class=o>+</span> <span class=n>i</span> <span class=o>*</span> <span class=mf>2.0</span> <span class=o>/</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;</span><span class=p>(</span><span class=n>dimension</span><span class=o>-</span><span class=mi>1</span><span class=p>));</span>
   <span class=p>}</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>zCoords</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=k>for</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>dimension</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>zCoords</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=k>for</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>dimension</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=n>zCoords</span><span class=o>-&gt;</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=o>-</span><span class=mf>1.0</span> <span class=o>+</span> <span class=n>i</span> <span class=o>*</span> <span class=mf>2.0</span> <span class=o>/</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>float</span><span class=o>&gt;</span><span class=p>(</span><span class=n>dimension</span><span class=o>-</span><span class=mi>1</span><span class=p>));</span>
   <span class=p>}</span>
   <span class=c1>// The coordinates are assigned to the rectilinear grid. Make sure that</span>
   <span class=c1>// the number of values in each of the XCoordinates, YCoordinates,</span>
   <span class=c1>// and ZCoordinates is equal to what is defined in SetDimensions().</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRectilinearGrid</span><span class=o>&gt;</span> <span class=n>rgrid</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRectilinearGrid</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>rgrid</span><span class=o>-&gt;</span><span class=n>SetDimensions</span><span class=p>(</span><span class=n>xCoords</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>(),</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRectilinearGrid</span><span class=o>&gt;</span> <span class=n>rgrid</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRectilinearGrid</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>rgrid</span><span class=o>-&gt;</span><span class=n>SetDimensions</span><span class=p>(</span><span class=n>xCoords</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>(),</span>
                        <span class=n>yCoords</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>(),</span>
                        <span class=n>zCoords</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>());</span>
   <span class=n>rgrid</span><span class=o>-&gt;</span><span class=n>SetXCoordinates</span><span class=p>(</span><span class=n>xCoords</span><span class=p>);</span>
@@ -141,14 +141,14 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
   <span class=n>rgrid</span><span class=o>-&gt;</span><span class=n>SetZCoordinates</span><span class=p>(</span><span class=n>zCoords</span><span class=p>);</span>
 
   <span class=c1>// Create an array to hold distance information</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>signedDistances</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>signedDistances</span><span class=o>-&gt;</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>signedDistances</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>signedDistances</span><span class=o>-&gt;</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
   <span class=n>signedDistances</span><span class=o>-&gt;</span><span class=n>SetName</span><span class=p>(</span><span class=s>&quot;SignedDistances&quot;</span><span class=p>);</span>
 
   <span class=c1>// Evaluate the signed distance function at all of the grid points</span>
-  <span class=k>for</span> <span class=p>(</span><span class=n>vtkIdType</span> <span class=n>pointId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>pointId</span> <span class=o>&lt;</span> <span class=n>rgrid</span><span class=o>-&gt;</span><span class=n>GetNumberOfPoints</span><span class=p>();</span> <span class=o>++</span><span class=n>pointId</span><span class=p>)</span>
-  <span class=p>{</span>
+<span class=hll>  <span class=k>for</span> <span class=p>(</span><span class=n>vtkIdType</span> <span class=n>pointId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>pointId</span> <span class=o>&lt;</span> <span class=n>rgrid</span><span class=o>-&gt;</span><span class=n>GetNumberOfPoints</span><span class=p>();</span> <span class=o>++</span><span class=n>pointId</span><span class=p>)</span>
+</span>  <span class=p>{</span>
     <span class=kt>double</span> <span class=n>p</span><span class=p>[</span><span class=mi>3</span><span class=p>];</span>
     <span class=n>rgrid</span><span class=o>-&gt;</span><span class=n>GetPoint</span><span class=p>(</span><span class=n>pointId</span><span class=p>,</span> <span class=n>p</span><span class=p>);</span>
     <span class=kt>double</span> <span class=n>signedDistance</span> <span class=o>=</span> <span class=n>implicitPolyDataDistance</span><span class=o>-&gt;</span><span class=n>EvaluateFunction</span><span class=p>(</span><span class=n>p</span><span class=p>);</span>
@@ -158,10 +158,10 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
   <span class=c1>// Add the SignedDistances to the grid</span>
   <span class=n>rgrid</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetScalars</span><span class=p>(</span><span class=n>signedDistances</span><span class=p>);</span>
 
-  <span class=c1>// Use vtkTableBasedClipDataSet to slice the grid with the polydata</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTableBasedClipDataSet</span><span class=o>&gt;</span> <span class=n>clipper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTableBasedClipDataSet</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION &lt;= 5</span>
+<span class=hll>  <span class=c1>// Use vtkTableBasedClipDataSet to slice the grid with the polydata</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTableBasedClipDataSet</span><span class=o>&gt;</span> <span class=n>clipper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTableBasedClipDataSet</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION &lt;= 5</span>
   <span class=n>clipper</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=n>rgrid</span><span class=p>);</span>
 <span class=cp>#else</span>
   <span class=n>clipper</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>rgrid</span><span class=p>);</span>
@@ -173,17 +173,17 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
 
   <span class=c1>// --- mappers, actors, render, etc. ---</span>
   <span class=c1>// mapper and actor to view the cone</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>coneMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>coneMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>cone</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>coneActor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>coneActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>coneMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>coneMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>coneMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>cone</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>coneActor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>coneActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>coneMapper</span><span class=p>);</span>
 
   <span class=c1>// geometry filter to view the background grid</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRectilinearGridGeometryFilter</span><span class=o>&gt;</span> <span class=n>geometryFilter</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRectilinearGridGeometryFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION &lt;= 5</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRectilinearGridGeometryFilter</span><span class=o>&gt;</span> <span class=n>geometryFilter</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRectilinearGridGeometryFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION &lt;= 5</span>
   <span class=n>geometryFilter</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=n>rgrid</span><span class=p>);</span>
 <span class=cp>#else</span>
   <span class=n>geometryFilter</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>rgrid</span><span class=p>);</span>
@@ -191,49 +191,49 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
   <span class=n>geometryFilter</span><span class=o>-&gt;</span><span class=n>SetExtent</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>dimension</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>dimension</span><span class=p>,</span> <span class=n>dimension</span><span class=o>/</span><span class=mi>2</span><span class=p>,</span> <span class=n>dimension</span><span class=o>/</span><span class=mi>2</span><span class=p>);</span>
   <span class=n>geometryFilter</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>rgridMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>rgridMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>geometryFilter</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>rgridMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>rgridMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>geometryFilter</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>rgridMapper</span><span class=o>-&gt;</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>rgrid</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;SignedDistances&quot;</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>GetRange</span><span class=p>());</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>wireActor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>wireActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>rgridMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>wireActor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>wireActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>rgridMapper</span><span class=p>);</span>
   <span class=n>wireActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetRepresentationToWireframe</span><span class=p>();</span>
 
   <span class=c1>// mapper and actor to view the clipped mesh</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;</span> <span class=n>clipperMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>clipperMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;</span> <span class=n>clipperMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>clipperMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>clipperMapper</span><span class=o>-&gt;</span><span class=n>ScalarVisibilityOff</span><span class=p>();</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;</span> <span class=n>clipperOutsideMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>clipperOutsideMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>1</span><span class=p>));</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;</span> <span class=n>clipperOutsideMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>clipperOutsideMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>1</span><span class=p>));</span>
   <span class=n>clipperOutsideMapper</span><span class=o>-&gt;</span><span class=n>ScalarVisibilityOff</span><span class=p>();</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>clipperActor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>clipperActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>clipperMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>clipperActor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>clipperActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>clipperMapper</span><span class=p>);</span>
   <span class=n>clipperActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mf>0.89</span><span class=p>,</span><span class=mf>0.81</span><span class=p>,</span><span class=mf>0.34</span><span class=p>);</span> <span class=c1>// banana</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>clipperOutsideActor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>clipperOutsideActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>clipperOutsideMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>clipperOutsideActor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>clipperOutsideActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>clipperOutsideMapper</span><span class=p>);</span>
   <span class=n>clipperOutsideActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mf>0.89</span><span class=p>,</span><span class=mf>0.81</span><span class=p>,</span><span class=mf>0.34</span><span class=p>);</span> <span class=c1>// banana</span>
 
   <span class=c1>// A renderer and render window</span>
   <span class=c1>// Create a renderer, render window, and interactor</span>
   <span class=kt>double</span> <span class=n>leftViewport</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.5</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>};</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>leftRenderer</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>leftRenderer</span><span class=o>-&gt;</span><span class=n>SetViewport</span><span class=p>(</span><span class=n>leftViewport</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>leftRenderer</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>leftRenderer</span><span class=o>-&gt;</span><span class=n>SetViewport</span><span class=p>(</span><span class=n>leftViewport</span><span class=p>);</span>
   <span class=n>leftRenderer</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=mf>.4</span><span class=p>,</span> <span class=mf>.5</span><span class=p>,</span> <span class=mf>.6</span><span class=p>);</span>
 
   <span class=kt>double</span> <span class=n>rightViewport</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span><span class=mf>0.5</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>};</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>rightRenderer</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>rightRenderer</span><span class=o>-&gt;</span><span class=n>SetViewport</span><span class=p>(</span><span class=n>rightViewport</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>rightRenderer</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>rightRenderer</span><span class=o>-&gt;</span><span class=n>SetViewport</span><span class=p>(</span><span class=n>rightViewport</span><span class=p>);</span>
   <span class=n>rightRenderer</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=mf>.5</span><span class=p>,</span> <span class=mf>.6</span><span class=p>,</span> <span class=mf>.6</span><span class=p>);</span>
 
   <span class=c1>// add the actors</span>
@@ -241,16 +241,16 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
   <span class=n>leftRenderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>clipperActor</span><span class=p>);</span>
   <span class=n>rightRenderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>clipperOutsideActor</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renwin</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>renwin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renwin</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renwin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>
   <span class=n>renwin</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>leftRenderer</span><span class=p>);</span>
   <span class=n>renwin</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>rightRenderer</span><span class=p>);</span>
 
   <span class=c1>// An interactor</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>interactor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renwin</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>interactor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renwin</span><span class=p>);</span>
 
   <span class=c1>// Share the camera</span>
 
@@ -266,15 +266,15 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
   <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
 
   <span class=c1>// Generate a report</span>
-  <span class=n>vtkIdType</span> <span class=n>numberOfCells</span> <span class=o>=</span> <span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNumberOfCells</span><span class=p>();</span>
-  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;------------------------&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+<span class=hll>  <span class=n>vtkIdType</span> <span class=n>numberOfCells</span> <span class=o>=</span> <span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNumberOfCells</span><span class=p>();</span>
+</span>  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;------------------------&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;The clipped dataset(inside) contains a &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span>
             <span class=o>&lt;&lt;</span> <span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetClassName</span><span class=p>()</span>
             <span class=o>&lt;&lt;</span>  <span class=s>&quot; that has &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>numberOfCells</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; cells&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=k>typedef</span> <span class=n>std</span><span class=o>::</span><span class=n>map</span><span class=o>&lt;</span><span class=kt>int</span><span class=p>,</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>CellContainer</span><span class=p>;</span>
   <span class=n>CellContainer</span> <span class=n>cellMap</span><span class=p>;</span>
-  <span class=k>for</span> <span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>numberOfCells</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
-  <span class=p>{</span>
+<span class=hll>  <span class=k>for</span> <span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>numberOfCells</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span>  <span class=p>{</span>
     <span class=n>cellMap</span><span class=p>[</span><span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetCellType</span><span class=p>(</span><span class=n>i</span><span class=p>)]</span><span class=o>++</span><span class=p>;</span>
   <span class=p>}</span>
 
@@ -282,8 +282,8 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
   <span class=k>while</span> <span class=p>(</span><span class=n>it</span> <span class=o>!=</span> <span class=n>cellMap</span><span class=p>.</span><span class=n>end</span><span class=p>())</span>
   <span class=p>{</span>
     <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;</span><span class=se>\t</span><span class=s>Cell type &quot;</span>
-              <span class=o>&lt;&lt;</span> <span class=n>vtkCellTypes</span><span class=o>::</span><span class=n>GetClassNameFromTypeId</span><span class=p>(</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>first</span><span class=p>)</span>
-              <span class=o>&lt;&lt;</span> <span class=s>&quot; occurs &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>it</span><span class=o>-&gt;</span><span class=n>second</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; times.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+<span class=hll>              <span class=o>&lt;&lt;</span> <span class=n>vtkCellTypes</span><span class=o>::</span><span class=n>GetClassNameFromTypeId</span><span class=p>(</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>first</span><span class=p>)</span>
+</span>              <span class=o>&lt;&lt;</span> <span class=s>&quot; occurs &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>it</span><span class=o>-&gt;</span><span class=n>second</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; times.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=o>++</span><span class=n>it</span><span class=p>;</span>
   <span class=p>}</span>
 
@@ -294,8 +294,8 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
             <span class=o>&lt;&lt;</span>  <span class=s>&quot; that has &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>numberOfCells</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; cells&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=k>typedef</span> <span class=n>std</span><span class=o>::</span><span class=n>map</span><span class=o>&lt;</span><span class=kt>int</span><span class=p>,</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>OutsideCellContainer</span><span class=p>;</span>
   <span class=n>CellContainer</span> <span class=n>outsideCellMap</span><span class=p>;</span>
-  <span class=k>for</span> <span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>numberOfCells</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
-  <span class=p>{</span>
+<span class=hll>  <span class=k>for</span> <span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>numberOfCells</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span>  <span class=p>{</span>
     <span class=n>outsideCellMap</span><span class=p>[</span><span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetClippedOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetCellType</span><span class=p>(</span><span class=n>i</span><span class=p>)]</span><span class=o>++</span><span class=p>;</span>
   <span class=p>}</span>
 
@@ -303,8 +303,8 @@ The clipped dataset(inside) contains a  <a href=http://www.vtk.org/doc/nightly/h
   <span class=k>while</span> <span class=p>(</span><span class=n>it</span> <span class=o>!=</span> <span class=n>outsideCellMap</span><span class=p>.</span><span class=n>end</span><span class=p>())</span>
   <span class=p>{</span>
     <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;</span><span class=se>\t</span><span class=s>Cell type &quot;</span>
-              <span class=o>&lt;&lt;</span> <span class=n>vtkCellTypes</span><span class=o>::</span><span class=n>GetClassNameFromTypeId</span><span class=p>(</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>first</span><span class=p>)</span>
-              <span class=o>&lt;&lt;</span> <span class=s>&quot; occurs &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>it</span><span class=o>-&gt;</span><span class=n>second</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; times.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+<span class=hll>              <span class=o>&lt;&lt;</span> <span class=n>vtkCellTypes</span><span class=o>::</span><span class=n>GetClassNameFromTypeId</span><span class=p>(</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>first</span><span class=p>)</span>
+</span>              <span class=o>&lt;&lt;</span> <span class=s>&quot; occurs &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>it</span><span class=o>-&gt;</span><span class=n>second</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; times.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=o>++</span><span class=n>it</span><span class=p>;</span>
   <span class=p>}</span>
 

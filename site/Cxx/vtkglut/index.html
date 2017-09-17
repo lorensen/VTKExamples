@@ -62,17 +62,17 @@ function registerListener(event, func) {
 <span class=cp>#else</span>
 <span class=cp>#include</span> <span class=cpf>&lt;glut.h&gt;</span><span class=cp></span>
 <span class=cp>#endif</span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkConeSource.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkNew.h&gt;</span><span class=cp></span>
-
-<span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>ren</span><span class=p>;</span>
-<span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renWin</span><span class=p>;</span>
-
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkConeSource.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkNew.h&gt;</span><span class=cp></span>
+</span>
+<span class=hll><span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>ren</span><span class=p>;</span>
+</span><span class=hll><span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renWin</span><span class=p>;</span>
+</span>
 <span class=kt>void</span> <span class=nf>Reshape</span><span class=p>(</span> <span class=kt>int</span> <span class=n>width</span><span class=p>,</span> <span class=kt>int</span> <span class=n>height</span> <span class=p>)</span>
 <span class=p>{</span>    
   <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span> <span class=n>width</span><span class=p>,</span> <span class=n>height</span> <span class=p>);</span>
@@ -95,13 +95,13 @@ function registerListener(event, func) {
   <span class=n>glutDisplayFunc</span><span class=p>(</span> <span class=n>Draw</span> <span class=p>);</span>
 
   <span class=c1>// Creation of a simple VTK pipeline</span>
-  <span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;</span> <span class=n>cone</span><span class=p>;</span>
+<span class=hll>  <span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;</span> <span class=n>cone</span><span class=p>;</span>
+</span>
+<span class=hll>  <span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>coneMapper</span><span class=p>;</span>
+</span>  <span class=n>coneMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>cone</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
 
-  <span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>coneMapper</span><span class=p>;</span>
-  <span class=n>coneMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>cone</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
-
-  <span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>coneActor</span><span class=p>;</span>
-  <span class=n>coneActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span> <span class=n>coneMapper</span><span class=p>.</span><span class=n>GetPointer</span><span class=p>()</span> <span class=p>);</span>
+<span class=hll>  <span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>coneActor</span><span class=p>;</span>
+</span>  <span class=n>coneActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span> <span class=n>coneMapper</span><span class=p>.</span><span class=n>GetPointer</span><span class=p>()</span> <span class=p>);</span>
 
   <span class=n>ren</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span> <span class=n>coneActor</span><span class=p>.</span><span class=n>GetPointer</span><span class=p>()</span> <span class=p>);</span>
   <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span> <span class=n>ren</span><span class=p>.</span><span class=n>GetPointer</span><span class=p>()</span> <span class=p>);</span>

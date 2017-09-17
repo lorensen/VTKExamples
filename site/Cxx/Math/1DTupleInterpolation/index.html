@@ -73,11 +73,11 @@ function registerListener(event, func) {
 <span class=cp>#endif</span>
 <span class=cp>#include</span> <span class=cpf>&lt;ctime&gt;</span><span class=cp></span>
 
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTupleInterpolator.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkCardinalSpline.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkKochanekSpline.h&gt;</span><span class=cp></span>
-
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTupleInterpolator.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCardinalSpline.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkKochanekSpline.h&gt;</span><span class=cp></span>
+</span>
 <span class=cp>#define VERBOSE(x) \</span>
 <span class=cp>{ \</span>
 <span class=cp>  if (Verbose) \</span>
@@ -129,8 +129,8 @@ function registerListener(event, func) {
 <span class=p>}</span>
 
 <span class=cm>/** Execute a specific tuple interpolation method with pre-initialized tuple interpolator. **/</span>
-<span class=kt>bool</span> <span class=nf>TestInterpolation</span><span class=p>(</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTupleInterpolator</span><span class=o>&gt;</span> <span class=n>tupInt</span><span class=p>,</span> <span class=kt>double</span>
-    <span class=n>tolerance</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>csvFileName</span><span class=p>,</span> <span class=kt>double</span> <span class=p>(</span><span class=o>*</span><span class=n>mathFunc</span><span class=p>)(</span><span class=kt>double</span><span class=p>),</span> <span class=kt>double</span> <span class=o>*</span><span class=n>x</span><span class=p>,</span>
+<span class=hll><span class=kt>bool</span> <span class=nf>TestInterpolation</span><span class=p>(</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTupleInterpolator</span><span class=o>&gt;</span> <span class=n>tupInt</span><span class=p>,</span> <span class=kt>double</span>
+</span>    <span class=n>tolerance</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>csvFileName</span><span class=p>,</span> <span class=kt>double</span> <span class=p>(</span><span class=o>*</span><span class=n>mathFunc</span><span class=p>)(</span><span class=kt>double</span><span class=p>),</span> <span class=kt>double</span> <span class=o>*</span><span class=n>x</span><span class=p>,</span>
     <span class=kt>double</span> <span class=o>*</span><span class=n>y</span><span class=p>,</span> <span class=kt>double</span> <span class=n>N</span><span class=p>,</span> <span class=kt>double</span> <span class=n>symmetricIntervalWidth</span><span class=p>)</span>
 <span class=p>{</span>
   <span class=kt>bool</span> <span class=n>ok</span> <span class=o>=</span> <span class=nb>true</span><span class=p>;</span>
@@ -258,8 +258,8 @@ function registerListener(event, func) {
 
   <span class=n>VERBOSE</span><span class=p>(</span><span class=o>&lt;&lt;</span> <span class=s>&quot;  * Interpolation of sine using linear method ... &quot;</span><span class=p>)</span>
   <span class=c1>// initialize the tuple interpolator (1D):</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTupleInterpolator</span><span class=o>&gt;</span> <span class=n>tupInt</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTupleInterpolator</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>SetInterpolationTypeToLinear</span><span class=p>();</span> <span class=c1>// linear</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTupleInterpolator</span><span class=o>&gt;</span> <span class=n>tupInt</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTupleInterpolator</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>SetInterpolationTypeToLinear</span><span class=p>();</span> <span class=c1>// linear</span>
   <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span> <span class=c1>// 1D (NOTE: set #components AFTER interpolation-type!)</span>
   <span class=n>lok</span> <span class=o>=</span> <span class=n>TestInterpolation</span><span class=p>(</span><span class=n>tupInt</span><span class=p>,</span> <span class=mf>0.04</span><span class=p>,</span> <span class=s>&quot;sin_linear_int.csv&quot;</span><span class=p>,</span> <span class=n>FSin</span><span class=p>,</span> <span class=n>xs</span><span class=p>,</span> <span class=n>ys</span><span class=p>,</span> <span class=n>N1</span><span class=p>,</span> <span class=n>M_PI</span><span class=p>);</span>
   <span class=n>ok</span> <span class=o>=</span> <span class=n>ok</span> <span class=o>&amp;&amp;</span> <span class=n>lok</span><span class=p>;</span>
@@ -268,8 +268,8 @@ function registerListener(event, func) {
   <span class=n>VERBOSE</span><span class=p>(</span><span class=o>&lt;&lt;</span> <span class=s>&quot;  * Interpolation of sine using cardinal spline method (open interval) ... &quot;</span><span class=p>)</span>
   <span class=c1>// initialize the tuple interpolator (1D):</span>
   <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>SetInterpolationTypeToSpline</span><span class=p>();</span> <span class=c1>// spline (implicit reset!)</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCardinalSpline</span><span class=o>&gt;</span> <span class=n>cardSpline</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCardinalSpline</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>cardSpline</span><span class=o>-&gt;</span><span class=n>SetClosed</span><span class=p>(</span><span class=nb>false</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCardinalSpline</span><span class=o>&gt;</span> <span class=n>cardSpline</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCardinalSpline</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>cardSpline</span><span class=o>-&gt;</span><span class=n>SetClosed</span><span class=p>(</span><span class=nb>false</span><span class=p>);</span>
   <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>SetInterpolatingSpline</span><span class=p>(</span><span class=n>cardSpline</span><span class=p>);</span>
   <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span> <span class=c1>// 1D (NOTE: set #components AFTER interpolation-type!)</span>
   <span class=n>lok</span> <span class=o>=</span> <span class=n>TestInterpolation</span><span class=p>(</span><span class=n>tupInt</span><span class=p>,</span> <span class=mf>0.1</span><span class=p>,</span> <span class=s>&quot;sin_card_spline_open_int.csv&quot;</span><span class=p>,</span> <span class=n>FSin</span><span class=p>,</span> <span class=n>xs</span><span class=p>,</span> <span class=n>ys</span><span class=p>,</span> <span class=n>N1</span><span class=p>,</span> <span class=n>M_PI</span><span class=p>);</span>
@@ -291,8 +291,8 @@ function registerListener(event, func) {
   <span class=c1>// initialize the tuple interpolator (1D):</span>
   <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>Initialize</span><span class=p>();</span> <span class=c1>// reset</span>
   <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>SetInterpolationTypeToSpline</span><span class=p>();</span> <span class=c1>// spline</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkKochanekSpline</span><span class=o>&gt;</span> <span class=n>kochSpline</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkKochanekSpline</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>kochSpline</span><span class=o>-&gt;</span><span class=n>SetClosed</span><span class=p>(</span><span class=nb>false</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkKochanekSpline</span><span class=o>&gt;</span> <span class=n>kochSpline</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkKochanekSpline</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>kochSpline</span><span class=o>-&gt;</span><span class=n>SetClosed</span><span class=p>(</span><span class=nb>false</span><span class=p>);</span>
   <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>SetInterpolatingSpline</span><span class=p>(</span><span class=n>kochSpline</span><span class=p>);</span>
   <span class=n>tupInt</span><span class=o>-&gt;</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span> <span class=c1>// 1D (NOTE: set #components AFTER interpolation-type!)</span>
   <span class=n>lok</span> <span class=o>=</span> <span class=n>TestInterpolation</span><span class=p>(</span><span class=n>tupInt</span><span class=p>,</span> <span class=mf>0.1</span><span class=p>,</span> <span class=s>&quot;sin_koch_spline_open_int.csv&quot;</span><span class=p>,</span> <span class=n>FSin</span><span class=p>,</span> <span class=n>xs</span><span class=p>,</span> <span class=n>ys</span><span class=p>,</span> <span class=n>N1</span><span class=p>,</span> <span class=n>M_PI</span><span class=p>);</span>

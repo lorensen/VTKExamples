@@ -61,18 +61,18 @@ function registerListener(event, func) {
 <span class=c1>// This example reads a volume dataset and displays it via volume rendering.</span>
 <span class=c1>//</span>
 
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkMetaImageReader.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkVolume.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkFixedPointVolumeRayCastMapper.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkVolumeProperty.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkColorTransferFunction.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPiecewiseFunction.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
-
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkMetaImageReader.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkVolume.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkFixedPointVolumeRayCastMapper.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkVolumeProperty.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkColorTransferFunction.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPiecewiseFunction.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
+</span>
 <span class=kt>int</span> <span class=nf>main</span> <span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[])</span>
 <span class=p>{</span>
   <span class=k>if</span> <span class=p>(</span><span class=n>argc</span> <span class=o>&lt;</span> <span class=mi>2</span><span class=p>)</span>
@@ -84,14 +84,14 @@ function registerListener(event, func) {
   <span class=c1>// Create the renderer, the render window, and the interactor. The renderer</span>
   <span class=c1>// draws into the render window, the interactor enables mouse- and</span>
   <span class=c1>// keyboard-based interaction with the scene.</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>ren</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renWin</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren</span><span class=p>);</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>iren</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>iren</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>ren</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renWin</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>iren</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>iren</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>);</span>
 
   <span class=c1>// The following reader is used to read a series of 2D slices (images)</span>
   <span class=c1>// that compose the volume. The slice dimensions are set, and the</span>
@@ -99,32 +99,32 @@ function registerListener(event, func) {
   <span class=c1>// uses the FilePrefix in combination with the slice number to construct</span>
   <span class=c1>// filenames using the format FilePrefix.%d. (In this case the FilePrefix</span>
   <span class=c1>// is the root name of the file: quarter.)</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMetaImageReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMetaImageReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMetaImageReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMetaImageReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
 
   <span class=c1>// The volume will be displayed by ray-cast alpha compositing.</span>
   <span class=c1>// A ray-cast mapper is needed to do the ray-casting.</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFixedPointVolumeRayCastMapper</span><span class=o>&gt;</span> <span class=n>volumeMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFixedPointVolumeRayCastMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>volumeMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFixedPointVolumeRayCastMapper</span><span class=o>&gt;</span> <span class=n>volumeMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFixedPointVolumeRayCastMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>volumeMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
   <span class=c1>// The color transfer function maps voxel intensities to colors.</span>
   <span class=c1>// It is modality-specific, and often anatomy-specific as well.</span>
   <span class=c1>// The goal is to one color for flesh (between 500 and 1000)</span>
   <span class=c1>// and another color for bone (1150 and over).</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkColorTransferFunction</span><span class=o>&gt;</span><span class=n>volumeColor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkColorTransferFunction</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>volumeColor</span><span class=o>-&gt;</span><span class=n>AddRGBPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span>    <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkColorTransferFunction</span><span class=o>&gt;</span><span class=n>volumeColor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkColorTransferFunction</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>volumeColor</span><span class=o>-&gt;</span><span class=n>AddRGBPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span>    <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>);</span>
   <span class=n>volumeColor</span><span class=o>-&gt;</span><span class=n>AddRGBPoint</span><span class=p>(</span><span class=mi>500</span><span class=p>,</span>  <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.5</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>);</span>
   <span class=n>volumeColor</span><span class=o>-&gt;</span><span class=n>AddRGBPoint</span><span class=p>(</span><span class=mi>1000</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.5</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>);</span>
   <span class=n>volumeColor</span><span class=o>-&gt;</span><span class=n>AddRGBPoint</span><span class=p>(</span><span class=mi>1150</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.9</span><span class=p>);</span>
 
   <span class=c1>// The opacity transfer function is used to control the opacity</span>
   <span class=c1>// of different tissue types.</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPiecewiseFunction</span><span class=o>&gt;</span> <span class=n>volumeScalarOpacity</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPiecewiseFunction</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>volumeScalarOpacity</span><span class=o>-&gt;</span><span class=n>AddPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span>    <span class=mf>0.00</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPiecewiseFunction</span><span class=o>&gt;</span> <span class=n>volumeScalarOpacity</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPiecewiseFunction</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>volumeScalarOpacity</span><span class=o>-&gt;</span><span class=n>AddPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span>    <span class=mf>0.00</span><span class=p>);</span>
   <span class=n>volumeScalarOpacity</span><span class=o>-&gt;</span><span class=n>AddPoint</span><span class=p>(</span><span class=mi>500</span><span class=p>,</span>  <span class=mf>0.15</span><span class=p>);</span>
   <span class=n>volumeScalarOpacity</span><span class=o>-&gt;</span><span class=n>AddPoint</span><span class=p>(</span><span class=mi>1000</span><span class=p>,</span> <span class=mf>0.15</span><span class=p>);</span>
   <span class=n>volumeScalarOpacity</span><span class=o>-&gt;</span><span class=n>AddPoint</span><span class=p>(</span><span class=mi>1150</span><span class=p>,</span> <span class=mf>0.85</span><span class=p>);</span>
@@ -134,9 +134,9 @@ function registerListener(event, func) {
   <span class=c1>// at the boundaries between tissue types.  The gradient is measured</span>
   <span class=c1>// as the amount by which the intensity changes over unit distance.</span>
   <span class=c1>// For most medical data, the unit distance is 1mm.</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPiecewiseFunction</span><span class=o>&gt;</span> <span class=n>volumeGradientOpacity</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPiecewiseFunction</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>volumeGradientOpacity</span><span class=o>-&gt;</span><span class=n>AddPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span>   <span class=mf>0.0</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPiecewiseFunction</span><span class=o>&gt;</span> <span class=n>volumeGradientOpacity</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPiecewiseFunction</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>volumeGradientOpacity</span><span class=o>-&gt;</span><span class=n>AddPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span>   <span class=mf>0.0</span><span class=p>);</span>
   <span class=n>volumeGradientOpacity</span><span class=o>-&gt;</span><span class=n>AddPoint</span><span class=p>(</span><span class=mi>90</span><span class=p>,</span>  <span class=mf>0.5</span><span class=p>);</span>
   <span class=n>volumeGradientOpacity</span><span class=o>-&gt;</span><span class=n>AddPoint</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
 
@@ -151,9 +151,9 @@ function registerListener(event, func) {
   <span class=c1>// decreased by increasing the Ambient coefficient while decreasing</span>
   <span class=c1>// the Diffuse and Specular coefficient.  To increase the impact</span>
   <span class=c1>// of shading, decrease the Ambient and increase the Diffuse and Specular.</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVolumeProperty</span><span class=o>&gt;</span> <span class=n>volumeProperty</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVolumeProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>volumeProperty</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=n>volumeColor</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVolumeProperty</span><span class=o>&gt;</span> <span class=n>volumeProperty</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVolumeProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>volumeProperty</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=n>volumeColor</span><span class=p>);</span>
   <span class=n>volumeProperty</span><span class=o>-&gt;</span><span class=n>SetScalarOpacity</span><span class=p>(</span><span class=n>volumeScalarOpacity</span><span class=p>);</span>
   <span class=n>volumeProperty</span><span class=o>-&gt;</span><span class=n>SetGradientOpacity</span><span class=p>(</span><span class=n>volumeGradientOpacity</span><span class=p>);</span>
   <span class=n>volumeProperty</span><span class=o>-&gt;</span><span class=n>SetInterpolationTypeToLinear</span><span class=p>();</span>
@@ -162,11 +162,11 @@ function registerListener(event, func) {
   <span class=n>volumeProperty</span><span class=o>-&gt;</span><span class=n>SetDiffuse</span><span class=p>(</span><span class=mf>0.6</span><span class=p>);</span>
   <span class=n>volumeProperty</span><span class=o>-&gt;</span><span class=n>SetSpecular</span><span class=p>(</span><span class=mf>0.2</span><span class=p>);</span>
 
-  <span class=c1>// The vtkVolume is a vtkProp3D (like a vtkActor) and controls the position</span>
-  <span class=c1>// and orientation of the volume in world coordinates.</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVolume</span><span class=o>&gt;</span> <span class=n>volume</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVolume</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>volume</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>volumeMapper</span><span class=p>);</span>
+<span class=hll>  <span class=c1>// The vtkVolume is a vtkProp3D (like a vtkActor) and controls the position</span>
+</span>  <span class=c1>// and orientation of the volume in world coordinates.</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVolume</span><span class=o>&gt;</span> <span class=n>volume</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVolume</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>volume</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>volumeMapper</span><span class=p>);</span>
   <span class=n>volume</span><span class=o>-&gt;</span><span class=n>SetProperty</span><span class=p>(</span><span class=n>volumeProperty</span><span class=p>);</span>
 
   <span class=c1>// Finally, add the volume to the renderer</span>
@@ -175,8 +175,8 @@ function registerListener(event, func) {
   <span class=c1>// Set up an initial view of the volume.  The focal point will be the</span>
   <span class=c1>// center of the volume, and the camera position will be 400mm to the</span>
   <span class=c1>// patient&#39;s left (which is our right).</span>
-  <span class=n>vtkCamera</span> <span class=o>*</span><span class=n>camera</span> <span class=o>=</span> <span class=n>ren</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>();</span>
-  <span class=kt>double</span> <span class=o>*</span><span class=n>c</span> <span class=o>=</span> <span class=n>volume</span><span class=o>-&gt;</span><span class=n>GetCenter</span><span class=p>();</span>
+<span class=hll>  <span class=n>vtkCamera</span> <span class=o>*</span><span class=n>camera</span> <span class=o>=</span> <span class=n>ren</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>();</span>
+</span>  <span class=kt>double</span> <span class=o>*</span><span class=n>c</span> <span class=o>=</span> <span class=n>volume</span><span class=o>-&gt;</span><span class=n>GetCenter</span><span class=p>();</span>
   <span class=n>camera</span><span class=o>-&gt;</span><span class=n>SetViewUp</span> <span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>);</span>
   <span class=n>camera</span><span class=o>-&gt;</span><span class=n>SetPosition</span> <span class=p>(</span><span class=n>c</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>c</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=mi>400</span><span class=p>,</span> <span class=n>c</span><span class=p>[</span><span class=mi>2</span><span class=p>]);</span>
   <span class=n>camera</span><span class=o>-&gt;</span><span class=n>SetFocalPoint</span> <span class=p>(</span><span class=n>c</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>c</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>c</span><span class=p>[</span><span class=mi>2</span><span class=p>]);</span>

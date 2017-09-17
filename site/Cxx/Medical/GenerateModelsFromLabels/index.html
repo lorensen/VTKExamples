@@ -69,20 +69,20 @@ function registerListener(event, func) {
 <span class=c1>//          not exist in the volume, it will be skipped.</span>
 <span class=c1>//</span>
 <span class=c1>//</span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkMetaImageReader.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkImageAccumulate.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkDiscreteMarchingCubes.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkWindowedSincPolyDataFilter.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkMaskFields.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkThreshold.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkGeometryFilter.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkXMLPolyDataWriter.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-
-<span class=cp>#include</span> <span class=cpf>&lt;vtkImageData.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPointData.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkUnstructuredGrid.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;sstream&gt;</span><span class=cp></span>
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkMetaImageReader.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImageAccumulate.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDiscreteMarchingCubes.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkWindowedSincPolyDataFilter.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkMaskFields.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkThreshold.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkGeometryFilter.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkXMLPolyDataWriter.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span>
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImageData.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPointData.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkUnstructuredGrid.h&gt;</span><span class=cp></span>
+</span><span class=cp>#include</span> <span class=cpf>&lt;sstream&gt;</span><span class=cp></span>
 
 <span class=kt>int</span> <span class=nf>main</span> <span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[])</span>
 <span class=p>{</span>
@@ -93,23 +93,23 @@ function registerListener(event, func) {
   <span class=p>}</span>
 
   <span class=c1>// Create all of the classes we will need</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMetaImageReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMetaImageReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageAccumulate</span><span class=o>&gt;</span> <span class=n>histogram</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageAccumulate</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDiscreteMarchingCubes</span><span class=o>&gt;</span> <span class=n>discreteCubes</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDiscreteMarchingCubes</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWindowedSincPolyDataFilter</span><span class=o>&gt;</span> <span class=n>smoother</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWindowedSincPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkThreshold</span><span class=o>&gt;</span> <span class=n>selector</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkThreshold</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMaskFields</span><span class=o>&gt;</span> <span class=n>scalarsOff</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMaskFields</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeometryFilter</span><span class=o>&gt;</span> <span class=n>geometry</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeometryFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataWriter</span><span class=o>&gt;</span> <span class=n>writer</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataWriter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMetaImageReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMetaImageReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageAccumulate</span><span class=o>&gt;</span> <span class=n>histogram</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageAccumulate</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDiscreteMarchingCubes</span><span class=o>&gt;</span> <span class=n>discreteCubes</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDiscreteMarchingCubes</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWindowedSincPolyDataFilter</span><span class=o>&gt;</span> <span class=n>smoother</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWindowedSincPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkThreshold</span><span class=o>&gt;</span> <span class=n>selector</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkThreshold</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMaskFields</span><span class=o>&gt;</span> <span class=n>scalarsOff</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMaskFields</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeometryFilter</span><span class=o>&gt;</span> <span class=n>geometry</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeometryFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataWriter</span><span class=o>&gt;</span> <span class=n>writer</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataWriter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
   <span class=c1>// Define all of the variables</span>
   <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>startLabel</span> <span class=o>=</span> <span class=n>atoi</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]);</span>
   <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>endLabel</span> <span class=o>=</span> <span class=n>atoi</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>3</span><span class=p>]);</span>
@@ -149,16 +149,16 @@ function registerListener(event, func) {
 
   <span class=n>selector</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>smoother</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>selector</span><span class=o>-&gt;</span><span class=n>SetInputArrayToProcess</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span>
-                                   <span class=n>vtkDataObject</span><span class=o>::</span><span class=n>FIELD_ASSOCIATION_CELLS</span><span class=p>,</span>
-                                   <span class=n>vtkDataSetAttributes</span><span class=o>::</span><span class=n>SCALARS</span><span class=p>);</span>
-
+<span class=hll>                                   <span class=n>vtkDataObject</span><span class=o>::</span><span class=n>FIELD_ASSOCIATION_CELLS</span><span class=p>,</span>
+</span><span class=hll>                                   <span class=n>vtkDataSetAttributes</span><span class=o>::</span><span class=n>SCALARS</span><span class=p>);</span>
+</span>
   <span class=c1>// Strip the scalars from the output</span>
   <span class=n>scalarsOff</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>selector</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-  <span class=n>scalarsOff</span><span class=o>-&gt;</span><span class=n>CopyAttributeOff</span><span class=p>(</span><span class=n>vtkMaskFields</span><span class=o>::</span><span class=n>POINT_DATA</span><span class=p>,</span>
-                               <span class=n>vtkDataSetAttributes</span><span class=o>::</span><span class=n>SCALARS</span><span class=p>);</span>
-  <span class=n>scalarsOff</span><span class=o>-&gt;</span><span class=n>CopyAttributeOff</span><span class=p>(</span><span class=n>vtkMaskFields</span><span class=o>::</span><span class=n>CELL_DATA</span><span class=p>,</span>
-                               <span class=n>vtkDataSetAttributes</span><span class=o>::</span><span class=n>SCALARS</span><span class=p>);</span>
-
+<span class=hll>  <span class=n>scalarsOff</span><span class=o>-&gt;</span><span class=n>CopyAttributeOff</span><span class=p>(</span><span class=n>vtkMaskFields</span><span class=o>::</span><span class=n>POINT_DATA</span><span class=p>,</span>
+</span><span class=hll>                               <span class=n>vtkDataSetAttributes</span><span class=o>::</span><span class=n>SCALARS</span><span class=p>);</span>
+</span><span class=hll>  <span class=n>scalarsOff</span><span class=o>-&gt;</span><span class=n>CopyAttributeOff</span><span class=p>(</span><span class=n>vtkMaskFields</span><span class=o>::</span><span class=n>CELL_DATA</span><span class=p>,</span>
+</span><span class=hll>                               <span class=n>vtkDataSetAttributes</span><span class=o>::</span><span class=n>SCALARS</span><span class=p>);</span>
+</span>
   <span class=n>geometry</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>scalarsOff</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
   <span class=n>writer</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>geometry</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>

@@ -62,9 +62,9 @@ function registerListener(event, func) {
 [2] M = [6](1)
 
 [3]     [1](2)
-</pre></div> <p>It currently does not work.</p> <h3 id=code>Code<a class=headerlink href=#code title="Permanent link">&para;</a></h3> <p><strong>LeastSquares.cxx</strong></p> <div class=codehilite><pre><span></span><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkMath.h&gt;</span><span class=cp></span>
-
+</pre></div> <p>It currently does not work.</p> <h3 id=code>Code<a class=headerlink href=#code title="Permanent link">&para;</a></h3> <p><strong>LeastSquares.cxx</strong></p> <div class=codehilite><pre><span></span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkMath.h&gt;</span><span class=cp></span>
+</span>
   <span class=cm>/* allocate memory for an nrow x ncol matrix */</span>
   <span class=k>template</span><span class=o>&lt;</span><span class=k>class</span> <span class=nc>TReal</span><span class=o>&gt;</span>
       <span class=n>TReal</span> <span class=o>**</span><span class=n>create_matrix</span> <span class=p>(</span> <span class=kt>long</span> <span class=n>nrow</span><span class=p>,</span> <span class=kt>long</span> <span class=n>ncol</span> <span class=p>)</span>
@@ -108,8 +108,8 @@ function registerListener(event, func) {
   <span class=n>y</span><span class=p>[</span><span class=mi>1</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=mi>6</span><span class=p>;</span>
   <span class=n>y</span><span class=p>[</span><span class=mi>2</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
 
-  <span class=n>vtkMath</span><span class=o>::</span><span class=n>SolveLeastSquares</span><span class=p>(</span><span class=n>numberOfSamples</span><span class=p>,</span> <span class=n>x</span><span class=p>,</span> <span class=n>numberOfVariables</span><span class=p>,</span> <span class=n>y</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=n>m</span><span class=p>);</span>
-
+<span class=hll>  <span class=n>vtkMath</span><span class=o>::</span><span class=n>SolveLeastSquares</span><span class=p>(</span><span class=n>numberOfSamples</span><span class=p>,</span> <span class=n>x</span><span class=p>,</span> <span class=n>numberOfVariables</span><span class=p>,</span> <span class=n>y</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=n>m</span><span class=p>);</span>
+</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Solution is: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>m</span><span class=p>[</span><span class=mi>1</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
   <span class=c1>// Solution should be [3; -1];</span>

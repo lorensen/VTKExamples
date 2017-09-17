@@ -88,41 +88,41 @@ function registerListener(event, func) {
 <span class=cm>matrix because we have already seen one item (the &#39;30&#39;) in column 2.</span>
 <span class=cm>*/</span>
 
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkVersion.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkDenseArray.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkArrayToTable.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTable.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkArrayData.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkAdjacencyMatrixToEdgeTable.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkArrayPrint.h&gt;</span><span class=cp></span>
-
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkVersion.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDenseArray.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkArrayToTable.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTable.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkArrayData.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkAdjacencyMatrixToEdgeTable.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkArrayPrint.h&gt;</span><span class=cp></span>
+</span>
 <span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=p>[])</span>
 <span class=p>{</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDenseArray</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span> <span class=o>&gt;</span> <span class=n>array</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDenseArray</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span> <span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDenseArray</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span> <span class=o>&gt;</span> <span class=n>array</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDenseArray</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span> <span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
   <span class=n>array</span><span class=o>-&gt;</span><span class=n>Resize</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span><span class=mi>3</span><span class=p>);</span>
 
   <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>counter</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
-  <span class=k>for</span><span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>array</span><span class=o>-&gt;</span><span class=n>GetExtents</span><span class=p>()[</span><span class=mi>0</span><span class=p>].</span><span class=n>GetEnd</span><span class=p>();</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
-  <span class=p>{</span>
-    <span class=k>for</span><span class=p>(</span><span class=n>vtkIdType</span> <span class=n>j</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>j</span> <span class=o>&lt;</span> <span class=n>array</span><span class=o>-&gt;</span><span class=n>GetExtents</span><span class=p>()[</span><span class=mi>1</span><span class=p>].</span><span class=n>GetEnd</span><span class=p>();</span> <span class=n>j</span><span class=o>++</span><span class=p>)</span>
-    <span class=p>{</span>
+<span class=hll>  <span class=k>for</span><span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>array</span><span class=o>-&gt;</span><span class=n>GetExtents</span><span class=p>()[</span><span class=mi>0</span><span class=p>].</span><span class=n>GetEnd</span><span class=p>();</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span>  <span class=p>{</span>
+<span class=hll>    <span class=k>for</span><span class=p>(</span><span class=n>vtkIdType</span> <span class=n>j</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>j</span> <span class=o>&lt;</span> <span class=n>array</span><span class=o>-&gt;</span><span class=n>GetExtents</span><span class=p>()[</span><span class=mi>1</span><span class=p>].</span><span class=n>GetEnd</span><span class=p>();</span> <span class=n>j</span><span class=o>++</span><span class=p>)</span>
+</span>    <span class=p>{</span>
       <span class=n>array</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>j</span><span class=p>,</span> <span class=n>counter</span><span class=o>*</span><span class=mi>10</span><span class=p>);</span>
       <span class=n>counter</span><span class=o>++</span><span class=p>;</span>
     <span class=p>}</span>
   <span class=p>}</span>
 
-  <span class=n>vtkPrintMatrixFormat</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>,</span> <span class=n>array</span><span class=p>.</span><span class=n>GetPointer</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkPrintMatrixFormat</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>,</span> <span class=n>array</span><span class=p>.</span><span class=n>GetPointer</span><span class=p>());</span>
+</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkArrayData</span><span class=o>&gt;</span> <span class=n>arrayData</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkArrayData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrayData</span><span class=o>-&gt;</span><span class=n>AddArray</span><span class=p>(</span><span class=n>array</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkArrayData</span><span class=o>&gt;</span> <span class=n>arrayData</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkArrayData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrayData</span><span class=o>-&gt;</span><span class=n>AddArray</span><span class=p>(</span><span class=n>array</span><span class=p>);</span>
-
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAdjacencyMatrixToEdgeTable</span><span class=o>&gt;</span> <span class=n>adjacencyMatrixToEdgeTable</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAdjacencyMatrixToEdgeTable</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION &lt;= 5</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAdjacencyMatrixToEdgeTable</span><span class=o>&gt;</span> <span class=n>adjacencyMatrixToEdgeTable</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAdjacencyMatrixToEdgeTable</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION &lt;= 5</span>
   <span class=n>adjacencyMatrixToEdgeTable</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrayData</span><span class=o>-&gt;</span><span class=n>GetProducerPort</span><span class=p>());</span>
 <span class=cp>#else</span>
   <span class=n>adjacencyMatrixToEdgeTable</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>arrayData</span><span class=p>);</span>

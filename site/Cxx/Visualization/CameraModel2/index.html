@@ -62,77 +62,77 @@ function registerListener(event, func) {
 <span class=cm>    Author: Chung Kai Lun Peter</span>
 <span class=cm>    Email: hkpeterpeter@gmail.com</span>
 <span class=cm>    File:</span>
-<span class=cm>        demo_vtk_camera_2.cpp</span>
-<span class=cm>    Purpose:</span>
+<span class=hll><span class=cm>        demo_vtk_camera_2.cpp</span>
+</span><span class=cm>    Purpose:</span>
 <span class=cm>        Ported from camera2.tcl.</span>
 <span class=cm>                It illustrates the camera model of VTK.</span>
 <span class=cm>*/</span>
 
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkAppendPolyData.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkCellArray.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkConeSource.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkContourFilter.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkCubeSource.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkDataSetMapper.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkImplicitModeller.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkLODActor.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPoints.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPolyData.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRotationalExtrusionFilter.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSphereSource.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTransform.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTransformFilter.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTransformPolyDataFilter.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkWarpTo.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTextActor.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTextProperty.h&gt;</span><span class=cp></span>
-
-<span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
-
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkAppendPolyData.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCellArray.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkConeSource.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkContourFilter.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCubeSource.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDataSetMapper.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImplicitModeller.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkLODActor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPoints.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyData.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRotationalExtrusionFilter.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSphereSource.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTransform.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTransformFilter.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTransformPolyDataFilter.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkWarpTo.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTextActor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTextProperty.h&gt;</span><span class=cp></span>
+</span>
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
+</span>
 <span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[])</span>
 <span class=p>{</span>
 
 
   <span class=c1>// create a camera model</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;</span> <span class=n>camCS</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>camCS</span><span class=o>-&gt;</span><span class=n>SetHeight</span><span class=p>(</span><span class=mf>1.5</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;</span> <span class=n>camCS</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkConeSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>camCS</span><span class=o>-&gt;</span><span class=n>SetHeight</span><span class=p>(</span><span class=mf>1.5</span><span class=p>);</span>
   <span class=n>camCS</span><span class=o>-&gt;</span><span class=n>SetResolution</span><span class=p>(</span><span class=mi>12</span><span class=p>);</span>
   <span class=n>camCS</span><span class=o>-&gt;</span><span class=n>SetRadius</span><span class=p>(</span><span class=mf>0.4</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCubeSource</span><span class=o>&gt;</span> <span class=n>camCBS</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCubeSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>camCBS</span><span class=o>-&gt;</span><span class=n>SetXLength</span><span class=p>(</span><span class=mf>1.5</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCubeSource</span><span class=o>&gt;</span> <span class=n>camCBS</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCubeSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>camCBS</span><span class=o>-&gt;</span><span class=n>SetXLength</span><span class=p>(</span><span class=mf>1.5</span><span class=p>);</span>
   <span class=n>camCBS</span><span class=o>-&gt;</span><span class=n>SetZLength</span><span class=p>(</span><span class=mf>0.8</span><span class=p>);</span>
   <span class=n>camCBS</span><span class=o>-&gt;</span><span class=n>SetCenter</span><span class=p>(</span><span class=mf>0.4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;</span> <span class=n>camAPD</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>camAPD</span><span class=o>-&gt;</span><span class=n>AddInputConnection</span><span class=p>(</span><span class=n>camCBS</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;</span> <span class=n>camAPD</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>camAPD</span><span class=o>-&gt;</span><span class=n>AddInputConnection</span><span class=p>(</span><span class=n>camCBS</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>camAPD</span><span class=o>-&gt;</span><span class=n>AddInputConnection</span><span class=p>(</span><span class=n>camCS</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>camMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>camMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>camAPD</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>camActor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>camActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>camMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>camMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>camMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>camAPD</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>camActor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>camActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>camMapper</span><span class=p>);</span>
   <span class=n>camActor</span><span class=o>-&gt;</span><span class=n>SetScale</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>);</span>
 
   <span class=c1>// draw the arrows</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>pd</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellArray</span><span class=o>&gt;</span> <span class=n>ca</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPoints</span><span class=o>&gt;</span> <span class=n>pts</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPoints</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>pts</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>pd</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellArray</span><span class=o>&gt;</span> <span class=n>ca</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPoints</span><span class=o>&gt;</span> <span class=n>pts</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPoints</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>pts</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>pts</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>8</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>pts</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>8</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>pts</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
@@ -150,13 +150,13 @@ function registerListener(event, func) {
   <span class=n>pd</span><span class=o>-&gt;</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>pts</span><span class=p>);</span>
   <span class=n>pd</span><span class=o>-&gt;</span><span class=n>SetPolys</span><span class=p>(</span><span class=n>ca</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>pd2</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellArray</span><span class=o>&gt;</span> <span class=n>ca2</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPoints</span><span class=o>&gt;</span> <span class=n>pts2</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPoints</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>pts2</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>pd2</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellArray</span><span class=o>&gt;</span> <span class=n>ca2</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPoints</span><span class=o>&gt;</span> <span class=n>pts2</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPoints</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>pts2</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>pts2</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>8</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>pts2</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>8</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>pts2</span><span class=o>-&gt;</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span> <span class=mf>0.01</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
@@ -168,43 +168,43 @@ function registerListener(event, func) {
   <span class=n>pd2</span><span class=o>-&gt;</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>pts2</span><span class=p>);</span>
   <span class=n>pd2</span><span class=o>-&gt;</span><span class=n>SetLines</span><span class=p>(</span><span class=n>ca2</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitModeller</span><span class=o>&gt;</span> <span class=n>arrowIM</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitModeller</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowIM</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pd</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitModeller</span><span class=o>&gt;</span> <span class=n>arrowIM</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitModeller</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowIM</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pd</span><span class=p>);</span>
   <span class=n>arrowIM</span><span class=o>-&gt;</span><span class=n>SetSampleDimensions</span><span class=p>(</span><span class=mi>50</span><span class=p>,</span> <span class=mi>20</span><span class=p>,</span> <span class=mi>8</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;</span> <span class=n>arrowCF</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowCF</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowIM</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;</span> <span class=n>arrowCF</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowCF</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowIM</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>arrowCF</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWarpTo</span><span class=o>&gt;</span> <span class=n>arrowWT</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWarpTo</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowWT</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowCF</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWarpTo</span><span class=o>&gt;</span> <span class=n>arrowWT</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWarpTo</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowWT</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowCF</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>arrowWT</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=mi>5</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>5</span><span class=p>);</span>
   <span class=n>arrowWT</span><span class=o>-&gt;</span><span class=n>SetScaleFactor</span><span class=p>(</span><span class=mf>0.85</span><span class=p>);</span>
   <span class=n>arrowWT</span><span class=o>-&gt;</span><span class=n>AbsoluteOn</span><span class=p>();</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>arrowT</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowT</span><span class=o>-&gt;</span><span class=n>RotateY</span><span class=p>(</span><span class=mi>60</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>arrowT</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowT</span><span class=o>-&gt;</span><span class=n>RotateY</span><span class=p>(</span><span class=mi>60</span><span class=p>);</span>
   <span class=n>arrowT</span><span class=o>-&gt;</span><span class=n>Translate</span><span class=p>(</span><span class=o>-</span><span class=mf>1.33198</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.479</span><span class=p>);</span>
   <span class=n>arrowT</span><span class=o>-&gt;</span><span class=n>Scale</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mf>0.5</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;</span> <span class=n>arrowTF</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowTF</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowWT</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;</span> <span class=n>arrowTF</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowTF</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowWT</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>arrowTF</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span><span class=n>arrowT</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;</span> <span class=n>arrowMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowTF</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;</span> <span class=n>arrowMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowTF</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>arrowMapper</span><span class=o>-&gt;</span><span class=n>ScalarVisibilityOff</span><span class=p>();</span>
 
   <span class=c1>// draw the azimuth arrows</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a1Actor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>a1Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a1Actor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>a1Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper</span><span class=p>);</span>
   <span class=n>a1Actor</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=mi>9</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>);</span>
   <span class=n>a1Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mf>0.3</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>);</span>
   <span class=n>a1Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetSpecularColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
@@ -213,9 +213,9 @@ function registerListener(event, func) {
   <span class=n>a1Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetAmbient</span><span class=p>(</span><span class=mf>0.2</span><span class=p>);</span>
   <span class=n>a1Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetDiffuse</span><span class=p>(</span><span class=mf>0.8</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a2Actor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>a2Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a2Actor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>a2Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper</span><span class=p>);</span>
   <span class=n>a2Actor</span><span class=o>-&gt;</span><span class=n>RotateX</span><span class=p>(</span><span class=mi>180</span><span class=p>);</span>
   <span class=n>a2Actor</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=mi>9</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
   <span class=n>a2Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mf>0.3</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>);</span>
@@ -226,9 +226,9 @@ function registerListener(event, func) {
   <span class=n>a2Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetDiffuse</span><span class=p>(</span><span class=mf>0.8</span><span class=p>);</span>
 
   <span class=c1>// draw the elevation arrows</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a3Actor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>a3Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a3Actor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>a3Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper</span><span class=p>);</span>
   <span class=n>a3Actor</span><span class=o>-&gt;</span><span class=n>RotateX</span><span class=p>(</span><span class=o>-</span><span class=mi>90</span><span class=p>);</span>
   <span class=n>a3Actor</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=mi>9</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>a3Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mf>0.3</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>);</span>
@@ -238,9 +238,9 @@ function registerListener(event, func) {
   <span class=n>a3Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetAmbient</span><span class=p>(</span><span class=mf>0.2</span><span class=p>);</span>
   <span class=n>a3Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetDiffuse</span><span class=p>(</span><span class=mf>0.8</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a4Actor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>a4Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a4Actor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>a4Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper</span><span class=p>);</span>
   <span class=n>a4Actor</span><span class=o>-&gt;</span><span class=n>RotateX</span><span class=p>(</span><span class=mi>90</span><span class=p>);</span>
   <span class=n>a4Actor</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=mi>9</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>a4Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mf>0.3</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>);</span>
@@ -251,29 +251,29 @@ function registerListener(event, func) {
   <span class=n>a4Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetDiffuse</span><span class=p>(</span><span class=mf>0.8</span><span class=p>);</span>
 
   <span class=c1>// draw the DOP</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>arrowT2</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowT2</span><span class=o>-&gt;</span><span class=n>Scale</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mf>0.6</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>arrowT2</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowT2</span><span class=o>-&gt;</span><span class=n>Scale</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mf>0.6</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
   <span class=n>arrowT2</span><span class=o>-&gt;</span><span class=n>RotateY</span><span class=p>(</span><span class=mi>90</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;</span> <span class=n>arrowTF2</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowTF2</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pd2</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;</span> <span class=n>arrowTF2</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowTF2</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pd2</span><span class=p>);</span>
   <span class=n>arrowTF2</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span><span class=n>arrowT2</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRotationalExtrusionFilter</span><span class=o>&gt;</span> <span class=n>arrowREF</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRotationalExtrusionFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowREF</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowTF2</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRotationalExtrusionFilter</span><span class=o>&gt;</span> <span class=n>arrowREF</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRotationalExtrusionFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowREF</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowTF2</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>arrowREF</span><span class=o>-&gt;</span><span class=n>CappingOff</span><span class=p>();</span>
   <span class=n>arrowREF</span><span class=o>-&gt;</span><span class=n>SetResolution</span><span class=p>(</span><span class=mi>30</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>spikeMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>spikeMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowREF</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>spikeMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>spikeMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowREF</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a5Actor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>a5Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>spikeMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a5Actor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>a5Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>spikeMapper</span><span class=p>);</span>
   <span class=n>a5Actor</span><span class=o>-&gt;</span><span class=n>SetScale</span><span class=p>(</span><span class=mf>0.3</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>,</span> <span class=mf>0.6</span><span class=p>);</span>
   <span class=n>a5Actor</span><span class=o>-&gt;</span><span class=n>RotateY</span><span class=p>(</span><span class=o>-</span><span class=mi>90</span><span class=p>);</span>
   <span class=n>a5Actor</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=mi>8</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
@@ -284,9 +284,9 @@ function registerListener(event, func) {
   <span class=n>a5Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetDiffuse</span><span class=p>(</span><span class=mf>0.8</span><span class=p>);</span>
   <span class=n>a5Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetSpecularPower</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a7Actor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>a7Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>spikeMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a7Actor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>a7Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>spikeMapper</span><span class=p>);</span>
   <span class=n>a7Actor</span><span class=o>-&gt;</span><span class=n>SetScale</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>,</span> <span class=mf>0.7</span><span class=p>);</span>
   <span class=n>a7Actor</span><span class=o>-&gt;</span><span class=n>RotateZ</span><span class=p>(</span><span class=mi>90</span><span class=p>);</span>
   <span class=n>a7Actor</span><span class=o>-&gt;</span><span class=n>RotateY</span><span class=p>(</span><span class=o>-</span><span class=mi>90</span><span class=p>);</span>
@@ -299,15 +299,15 @@ function registerListener(event, func) {
   <span class=n>a7Actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetSpecularPower</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span>
 
   <span class=c1>// focal point</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;</span> <span class=n>ss</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>ss</span><span class=o>-&gt;</span><span class=n>SetRadius</span><span class=p>(</span><span class=mf>0.5</span><span class=p>);</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>fpMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>fpMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>ss</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>fpActor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>fpActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>fpMapper</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;</span> <span class=n>ss</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>ss</span><span class=o>-&gt;</span><span class=n>SetRadius</span><span class=p>(</span><span class=mf>0.5</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>fpMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>fpMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>ss</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>fpActor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>fpActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>fpMapper</span><span class=p>);</span>
   <span class=n>fpActor</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=mi>9</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>fpActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetSpecularColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
   <span class=n>fpActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetSpecular</span><span class=p>(</span><span class=mf>0.3</span><span class=p>);</span>
@@ -316,32 +316,32 @@ function registerListener(event, func) {
   <span class=n>fpActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetSpecularPower</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span>
 
   <span class=c1>// create the roll arrows</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWarpTo</span><span class=o>&gt;</span> <span class=n>arrowWT2</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWarpTo</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowWT2</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowCF</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWarpTo</span><span class=o>&gt;</span> <span class=n>arrowWT2</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkWarpTo</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowWT2</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowCF</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>arrowWT2</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=mi>5</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>2.5</span><span class=p>);</span>
   <span class=n>arrowWT2</span><span class=o>-&gt;</span><span class=n>SetScaleFactor</span><span class=p>(</span><span class=mf>0.95</span><span class=p>);</span>
   <span class=n>arrowWT2</span><span class=o>-&gt;</span><span class=n>AbsoluteOn</span><span class=p>();</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>arrowT3</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowT3</span><span class=o>-&gt;</span><span class=n>Translate</span><span class=p>(</span><span class=o>-</span><span class=mf>2.50358</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.70408</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>arrowT3</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowT3</span><span class=o>-&gt;</span><span class=n>Translate</span><span class=p>(</span><span class=o>-</span><span class=mf>2.50358</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.70408</span><span class=p>);</span>
   <span class=n>arrowT3</span><span class=o>-&gt;</span><span class=n>Scale</span><span class=p>(</span><span class=mf>0.5</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;</span> <span class=n>arrowTF3</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowTF3</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowWT2</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;</span> <span class=n>arrowTF3</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowTF3</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowWT2</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>arrowTF3</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span><span class=n>arrowT3</span><span class=p>);</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;</span> <span class=n>arrowMapper2</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>arrowMapper2</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowTF3</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;</span> <span class=n>arrowMapper2</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>arrowMapper2</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowTF3</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>arrowMapper2</span><span class=o>-&gt;</span><span class=n>ScalarVisibilityOff</span><span class=p>();</span>
 
   <span class=c1>// draw the roll arrows</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a6Actor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>a6Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper2</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;</span> <span class=n>a6Actor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLODActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>a6Actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>arrowMapper2</span><span class=p>);</span>
   <span class=n>a6Actor</span><span class=o>-&gt;</span><span class=n>RotateZ</span><span class=p>(</span><span class=mi>90</span><span class=p>);</span>
   <span class=n>a6Actor</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>a6Actor</span><span class=o>-&gt;</span><span class=n>SetScale</span><span class=p>(</span><span class=mf>1.5</span><span class=p>,</span> <span class=mf>1.5</span><span class=p>,</span> <span class=mf>1.5</span><span class=p>);</span>
@@ -354,14 +354,14 @@ function registerListener(event, func) {
 
   <span class=c1>// Create the RenderWindow, Renderer and both Actors</span>
   <span class=c1>//</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>ren1</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renWin</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren1</span><span class=p>);</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>iren</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>iren</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>ren1</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renWin</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren1</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>iren</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>iren</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>);</span>
 
   <span class=c1>// Add the actors to the renderer, set the background and size</span>
   <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>camActor</span><span class=p>);</span>
@@ -378,19 +378,19 @@ function registerListener(event, func) {
 
   <span class=c1>// render the image</span>
 
-  <span class=n>vtkCamera</span><span class=o>*</span> <span class=n>cam1</span> <span class=o>=</span> <span class=p>(</span><span class=n>ren1</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>());</span>
-  <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>ResetCamera</span><span class=p>();</span>
+<span class=hll>  <span class=n>vtkCamera</span><span class=o>*</span> <span class=n>cam1</span> <span class=o>=</span> <span class=p>(</span><span class=n>ren1</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>());</span>
+</span>  <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>ResetCamera</span><span class=p>();</span>
   <span class=n>cam1</span><span class=o>-&gt;</span><span class=n>Azimuth</span><span class=p>(</span><span class=mi>150</span><span class=p>);</span>
   <span class=n>cam1</span><span class=o>-&gt;</span><span class=n>Elevation</span><span class=p>(</span><span class=mi>30</span><span class=p>);</span>
   <span class=n>cam1</span><span class=o>-&gt;</span><span class=n>Dolly</span><span class=p>(</span><span class=mf>1.5</span><span class=p>);</span>
   <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>ResetCameraClippingRange</span><span class=p>();</span>
 
   <span class=c1>// Create a TextActor for Yaw  (a1 and a2 actor&#39;s color)</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;</span> <span class=n>text</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>text</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=s>&quot;Yaw&quot;</span><span class=p>);</span>
-  <span class=n>vtkTextProperty</span><span class=o>*</span> <span class=n>tprop</span> <span class=o>=</span> <span class=n>text</span><span class=o>-&gt;</span><span class=n>GetTextProperty</span><span class=p>();</span>
-  <span class=n>tprop</span><span class=o>-&gt;</span><span class=n>SetFontFamilyToArial</span> <span class=p>();</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;</span> <span class=n>text</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>text</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=s>&quot;Yaw&quot;</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkTextProperty</span><span class=o>*</span> <span class=n>tprop</span> <span class=o>=</span> <span class=n>text</span><span class=o>-&gt;</span><span class=n>GetTextProperty</span><span class=p>();</span>
+</span>  <span class=n>tprop</span><span class=o>-&gt;</span><span class=n>SetFontFamilyToArial</span> <span class=p>();</span>
   <span class=n>tprop</span><span class=o>-&gt;</span><span class=n>ShadowOff</span><span class=p>();</span>
   <span class=n>tprop</span><span class=o>-&gt;</span><span class=n>SetLineSpacing</span><span class=p>(</span><span class=mf>1.0</span><span class=p>);</span>
   <span class=n>tprop</span><span class=o>-&gt;</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>36</span><span class=p>);</span>
@@ -399,9 +399,9 @@ function registerListener(event, func) {
   <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>AddActor2D</span><span class=p>(</span><span class=n>text</span><span class=p>);</span>
 
   <span class=c1>// Create a TextActor for Pitch  (a3 and a4 actor&#39;s color)</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;</span> <span class=n>text2</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>text2</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=s>&quot;Pitch&quot;</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;</span> <span class=n>text2</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>text2</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=s>&quot;Pitch&quot;</span><span class=p>);</span>
   <span class=n>tprop</span> <span class=o>=</span> <span class=n>text2</span><span class=o>-&gt;</span><span class=n>GetTextProperty</span><span class=p>();</span>
   <span class=n>tprop</span><span class=o>-&gt;</span><span class=n>SetFontFamilyToArial</span> <span class=p>();</span>
   <span class=n>tprop</span><span class=o>-&gt;</span><span class=n>ShadowOff</span><span class=p>();</span>
@@ -412,9 +412,9 @@ function registerListener(event, func) {
   <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>AddActor2D</span><span class=p>(</span><span class=n>text2</span><span class=p>);</span>
 
   <span class=c1>// Create a TextActor for roll (a6 actor&#39;s color)</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;</span> <span class=n>text3</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>text3</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=s>&quot;Roll&quot;</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;</span> <span class=n>text3</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>text3</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=s>&quot;Roll&quot;</span><span class=p>);</span>
   <span class=n>tprop</span> <span class=o>=</span> <span class=n>text3</span><span class=o>-&gt;</span><span class=n>GetTextProperty</span><span class=p>();</span>
   <span class=n>tprop</span><span class=o>-&gt;</span><span class=n>SetFontFamilyToArial</span> <span class=p>();</span>
   <span class=n>tprop</span><span class=o>-&gt;</span><span class=n>ShadowOff</span><span class=p>();</span>

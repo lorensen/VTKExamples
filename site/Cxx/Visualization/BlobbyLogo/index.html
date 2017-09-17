@@ -61,142 +61,142 @@ function registerListener(event, func) {
 <span class=c1>// use implicit modeller to create the VTK logo </span>
 <span class=c1>// </span>
 
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataReader.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTransform.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkTransformPolyDataFilter.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkAppendPolyData.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataNormals.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkImplicitModeller.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkContourFilter.h&gt; </span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt; </span><span class=cp></span>
-
-<span class=cp>#include</span> <span class=cpf>&lt;vtkNamedColors.h&gt;</span><span class=cp></span>
-
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+</span>
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataReader.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTransform.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTransformPolyDataFilter.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkAppendPolyData.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataNormals.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImplicitModeller.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkContourFilter.h&gt; </span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt; </span><span class=cp></span>
+</span>
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkNamedColors.h&gt;</span><span class=cp></span>
+</span>
 <span class=kt>int</span> <span class=nf>main</span><span class=p>(</span> <span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[]</span> <span class=p>)</span> 
 <span class=p>{</span> 
   <span class=k>if</span> <span class=p>(</span><span class=n>argc</span> <span class=o>&lt;</span> <span class=mi>4</span><span class=p>)</span>
   <span class=p>{</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Usage: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; v.vtk t.vtk k.vtk&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-    <span class=k>return</span> <span class=n>EXIT_FAILURE</span><span class=p>;</span>
+<span class=hll>    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Usage: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; v.vtk t.vtk k.vtk&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+</span>    <span class=k>return</span> <span class=n>EXIT_FAILURE</span><span class=p>;</span>
   <span class=p>}</span>
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>aRenderer</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>aRenderWindow</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>aRenderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>aRenderer</span><span class=p>);</span> 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>anInteractor</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>anInteractor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>aRenderWindow</span><span class=p>);</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>aRenderer</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>aRenderWindow</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>aRenderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>aRenderer</span><span class=p>);</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>anInteractor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>anInteractor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>aRenderWindow</span><span class=p>);</span> 
   <span class=n>aRenderWindow</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span> <span class=mi>300</span><span class=p>,</span> <span class=mi>300</span> <span class=p>);</span> 
 
   <span class=c1>// read the geometry file containing the letter v </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;</span> <span class=n>letterV</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>letterV</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;</span> <span class=n>letterV</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>letterV</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span> 
 
   <span class=c1>// read the geometry file containing the letter t </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;</span> <span class=n>letterT</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>letterT</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]);</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;</span> <span class=n>letterT</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>letterT</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]);</span> 
 
   <span class=c1>// read the geometry file containing the letter k </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;</span> <span class=n>letterK</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>letterK</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>3</span><span class=p>]);</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;</span> <span class=n>letterK</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>letterK</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>3</span><span class=p>]);</span> 
 
   <span class=c1>// create a transform and transform filter for each letter </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>VTransform</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;</span> <span class=n>VTransformFilter</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>VTransformFilter</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>letterV</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>VTransform</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;</span> <span class=n>VTransformFilter</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>VTransformFilter</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>letterV</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
   <span class=n>VTransformFilter</span><span class=o>-&gt;</span><span class=n>SetTransform</span> <span class=p>(</span><span class=n>VTransform</span><span class=p>);</span> 
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>TTransform</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;</span> <span class=n>TTransformFilter</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>TTransformFilter</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>letterT</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>TTransform</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;</span> <span class=n>TTransformFilter</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>TTransformFilter</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>letterT</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
   <span class=n>TTransformFilter</span><span class=o>-&gt;</span><span class=n>SetTransform</span> <span class=p>(</span><span class=n>TTransform</span><span class=p>);</span> 
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>KTransform</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;</span> <span class=n>KTransformFilter</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>KTransformFilter</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>letterK</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>KTransform</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;</span> <span class=n>KTransformFilter</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformPolyDataFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>KTransformFilter</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>letterK</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
   <span class=n>KTransformFilter</span><span class=o>-&gt;</span><span class=n>SetTransform</span> <span class=p>(</span><span class=n>KTransform</span><span class=p>);</span> 
 
   <span class=c1>// now append them all </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;</span> <span class=n>appendAll</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>appendAll</span><span class=o>-&gt;</span><span class=n>AddInputConnection</span> <span class=p>(</span><span class=n>VTransformFilter</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;</span> <span class=n>appendAll</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAppendPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>appendAll</span><span class=o>-&gt;</span><span class=n>AddInputConnection</span> <span class=p>(</span><span class=n>VTransformFilter</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
   <span class=n>appendAll</span><span class=o>-&gt;</span><span class=n>AddInputConnection</span> <span class=p>(</span><span class=n>TTransformFilter</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
   <span class=n>appendAll</span><span class=o>-&gt;</span><span class=n>AddInputConnection</span> <span class=p>(</span><span class=n>KTransformFilter</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
 
   <span class=c1>// create normals </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataNormals</span><span class=o>&gt;</span> <span class=n>logoNormals</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataNormals</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>logoNormals</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>appendAll</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataNormals</span><span class=o>&gt;</span> <span class=n>logoNormals</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataNormals</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>logoNormals</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>appendAll</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
   <span class=n>logoNormals</span><span class=o>-&gt;</span><span class=n>SetFeatureAngle</span> <span class=p>(</span><span class=mi>60</span><span class=p>);</span> 
 
   <span class=c1>// map to rendering primitives </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>logoMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>logoMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>logoNormals</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>logoMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>logoMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>logoNormals</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
 
   <span class=c1>// now an actor </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>logo</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>logo</span><span class=o>-&gt;</span><span class=n>SetMapper</span> <span class=p>(</span><span class=n>logoMapper</span><span class=p>);</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>logo</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>logo</span><span class=o>-&gt;</span><span class=n>SetMapper</span> <span class=p>(</span><span class=n>logoMapper</span><span class=p>);</span> 
 
   <span class=c1>// now create an implicit model of the same letter </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitModeller</span><span class=o>&gt;</span> <span class=n>blobbyLogoImp</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitModeller</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>blobbyLogoImp</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>appendAll</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitModeller</span><span class=o>&gt;</span> <span class=n>blobbyLogoImp</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitModeller</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>blobbyLogoImp</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>appendAll</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
   <span class=n>blobbyLogoImp</span><span class=o>-&gt;</span><span class=n>SetMaximumDistance</span> <span class=p>(</span><span class=mf>.075</span><span class=p>);</span> 
   <span class=n>blobbyLogoImp</span><span class=o>-&gt;</span><span class=n>SetSampleDimensions</span> <span class=p>(</span><span class=mi>64</span><span class=p>,</span><span class=mi>64</span><span class=p>,</span><span class=mi>64</span><span class=p>);</span>  
   <span class=n>blobbyLogoImp</span><span class=o>-&gt;</span><span class=n>SetAdjustDistance</span> <span class=p>(</span><span class=mf>0.05</span><span class=p>);</span> 
 
   <span class=c1>// extract an iso surface </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;</span> <span class=n>blobbyLogoIso</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>blobbyLogoIso</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>blobbyLogoImp</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;</span> <span class=n>blobbyLogoIso</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>blobbyLogoIso</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>blobbyLogoImp</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
   <span class=n>blobbyLogoIso</span><span class=o>-&gt;</span><span class=n>SetValue</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mf>1.5</span><span class=p>);</span> 
 
   <span class=c1>// map to rendering primitives </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>blobbyLogoMapper</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>blobbyLogoMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>blobbyLogoIso</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>blobbyLogoMapper</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>blobbyLogoMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>blobbyLogoIso</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span> 
   <span class=n>blobbyLogoMapper</span><span class=o>-&gt;</span><span class=n>ScalarVisibilityOff</span> <span class=p>();</span> 
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>colors</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkProperty</span><span class=o>&gt;</span> <span class=n>tomato</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>tomato</span><span class=o>-&gt;</span><span class=n>SetDiffuseColor</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;tomato&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>colors</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkProperty</span><span class=o>&gt;</span> <span class=n>tomato</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>tomato</span><span class=o>-&gt;</span><span class=n>SetDiffuseColor</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;tomato&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
   <span class=n>tomato</span><span class=o>-&gt;</span><span class=n>SetSpecular</span><span class=p>(</span><span class=mf>.3</span><span class=p>);</span> 
   <span class=n>tomato</span><span class=o>-&gt;</span><span class=n>SetSpecularPower</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span> 
 
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkProperty</span><span class=o>&gt;</span> <span class=n>banana</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>banana</span><span class=o>-&gt;</span><span class=n>SetDiffuseColor</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;banana&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkProperty</span><span class=o>&gt;</span> <span class=n>banana</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>banana</span><span class=o>-&gt;</span><span class=n>SetDiffuseColor</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;banana&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
   <span class=n>banana</span><span class=o>-&gt;</span><span class=n>SetDiffuse</span> <span class=p>(</span><span class=mf>.7</span><span class=p>);</span> 
   <span class=n>banana</span><span class=o>-&gt;</span><span class=n>SetSpecular</span><span class=p>(</span><span class=mf>.4</span><span class=p>);</span> 
   <span class=n>banana</span><span class=o>-&gt;</span><span class=n>SetSpecularPower</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span> 
 
   <span class=c1>// now an actor </span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>blobbyLogo</span> <span class=o>=</span>
-    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-  <span class=n>blobbyLogo</span><span class=o>-&gt;</span><span class=n>SetMapper</span> <span class=p>(</span><span class=n>blobbyLogoMapper</span><span class=p>);</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>blobbyLogo</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>blobbyLogo</span><span class=o>-&gt;</span><span class=n>SetMapper</span> <span class=p>(</span><span class=n>blobbyLogoMapper</span><span class=p>);</span> 
   <span class=n>blobbyLogo</span><span class=o>-&gt;</span><span class=n>SetProperty</span> <span class=p>(</span><span class=n>banana</span><span class=p>);</span> 
 
   <span class=c1>// position the letters </span>
