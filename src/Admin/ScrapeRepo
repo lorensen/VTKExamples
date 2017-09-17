@@ -88,6 +88,20 @@ def WriteCxxCode(toFile, codeName, code):
     toFile.write(code);
     toFile.write("```" + "\n")
 
+def FindLinesWithVTK(srcFileName):
+    srcFile = open(srcFileName, 'r')
+    lines = srcFile.readlines()
+    lineNumber = 1
+    reg = re.compile(r'(vtk[0-9a-zA-Z]*)')
+    hl_lines = 'hl_lines="'
+    for line in lines:
+        if reg.search(line):
+            hl_lines += str(lineNumber) + " "
+        lineNumber += 1
+    hl_lines += '"\n'
+    srcFile.close()
+    return hl_lines
+
 def AddDoxygen(S):
     global doxyCount
     reg = re.compile(r'[^\./\[s](vtk[0-9a-zA-Z]*)')
@@ -294,10 +308,15 @@ for lang, langExt in Languages.items():
                 description = AddDoxygen(description)
                 MdFile.write(description)
                 MdFile.write("\n")
+            SrcFileName = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
+            SrcFile = open(SrcFileName, 'r')
+            src = SrcFile.read()
+            SrcFile.close()
+            hiliteLines = FindLinesWithVTK(SrcFileName)
             MdFile.write("###Code\n")
             MdFile.write("**" + ExampleName + langExt + "**" + "\n")
             if langExt == ".cxx":
-                MdFile.write("```c++" + "\n")
+                MdFile.write("``` c++ " + hiliteLines + "\n")
                 cxxCount = cxxCount + 1
             elif langExt == ".cs":
                 MdFile.write("```csharp" + "\n")
@@ -308,10 +327,6 @@ for lang, langExt in Languages.items():
             elif langExt == ".java":
                 MdFile.write("```java" + "\n")
                 javaCount = javaCount + 1
-            SrcFileName = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
-            SrcFile = open(SrcFileName, 'r')
-            src = SrcFile.read()
-            SrcFile.close()
             MdFile.write(src)
             MdFile.write("```" + "\n")
 
