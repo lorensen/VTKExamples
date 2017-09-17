@@ -88,6 +88,7 @@ def WriteCxxCode(toFile, codeName, code):
     toFile.write(code);
     toFile.write("```" + "\n")
 
+# Return hl_lines to highlight lines that have vtk classes mentiones
 def FindLinesWithVTK(srcFileName):
     srcFile = open(srcFileName, 'r')
     lines = srcFile.readlines()
@@ -319,13 +320,13 @@ for lang, langExt in Languages.items():
                 MdFile.write("``` c++ " + hiliteLines + "\n")
                 cxxCount = cxxCount + 1
             elif langExt == ".cs":
-                MdFile.write("```csharp" + "\n")
+                MdFile.write("```csharp" + hiliteLines + "\n")
                 csCount = csCount + 1
             elif langExt == ".py":
-                MdFile.write("```python" + "\n")
+                MdFile.write("```python" + hiliteLines + "\n")
                 pyCount = pyCount + 1
             elif langExt == ".java":
-                MdFile.write("```java" + "\n")
+                MdFile.write("```java" + hiliteLines + "\n")
                 javaCount = javaCount + 1
             MdFile.write(src)
             MdFile.write("```" + "\n")
