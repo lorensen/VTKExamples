@@ -72,11 +72,11 @@ function registerListener(event, func) {
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>renderWindowControl1_Load</span><span class=p>(</span><span class=kt>object</span> <span class=n>sender</span><span class=p>,</span> <span class=n>EventArgs</span> <span class=n>e</span><span class=p>)</span> <span class=p>{</span>
          <span class=k>try</span> <span class=p>{</span>
-            <span class=kt>string</span> <span class=n>filePath</span> <span class=p>=</span> <span class=s>@&quot;C:\VTK\vtkdata-5.8.0\Data\quadraticTetra01.vtu&quot;</span><span class=p>;</span>
-
+<span class=hll>            <span class=kt>string</span> <span class=n>filePath</span> <span class=p>=</span> <span class=s>@&quot;C:\VTK\vtkdata-5.8.0\Data\quadraticTetra01.vtu&quot;</span><span class=p>;</span>
+</span>
             <span class=c1>// reader</span>
-            <span class=n>vtkXMLUnstructuredGridReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLUnstructuredGridReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=k>if</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>CanReadFile</span><span class=p>(</span><span class=n>filePath</span><span class=p>)</span> <span class=p>==</span> <span class=m>0</span><span class=p>)</span> <span class=p>{</span>
+<span class=hll>            <span class=n>vtkXMLUnstructuredGridReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLUnstructuredGridReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=k>if</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>CanReadFile</span><span class=p>(</span><span class=n>filePath</span><span class=p>)</span> <span class=p>==</span> <span class=m>0</span><span class=p>)</span> <span class=p>{</span>
                <span class=n>MessageBox</span><span class=p>.</span><span class=n>Show</span><span class=p>(</span><span class=s>&quot;Cannot read file \&quot;&quot;</span> <span class=p>+</span> <span class=n>filePath</span> <span class=p>+</span> <span class=s>&quot;\&quot;&quot;</span><span class=p>,</span> <span class=s>&quot;Error&quot;</span><span class=p>,</span> <span class=n>MessageBoxButtons</span><span class=p>.</span><span class=n>OK</span><span class=p>);</span>
                <span class=k>return</span><span class=p>;</span>
             <span class=p>}</span>
@@ -84,19 +84,19 @@ function registerListener(event, func) {
             <span class=n>reader</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span> <span class=c1>// here we read the file actually</span>
 
             <span class=c1>// mapper</span>
-            <span class=n>vtkDataSetMapper</span> <span class=n>gridMapper</span> <span class=p>=</span> <span class=n>vtkDataSetMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>gridMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>            <span class=n>vtkDataSetMapper</span> <span class=n>gridMapper</span> <span class=p>=</span> <span class=n>vtkDataSetMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>gridMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
             <span class=c1>// actor</span>
-            <span class=n>vtkActor</span> <span class=n>gridActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>gridActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>gridMapper</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkActor</span> <span class=n>gridActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>gridActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>gridMapper</span><span class=p>);</span>
 
             <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-            <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-
+<span class=hll>            <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>
             <span class=c1>// renderer</span>
-            <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-            <span class=c1>// set background color</span>
+<span class=hll>            <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>            <span class=c1>// set background color</span>
             <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
 
             <span class=c1>// add our actor to the renderer</span>

@@ -64,55 +64,55 @@ function registerListener(event, func) {
 <span class=c1>// typical of most VTK programs.</span>
 <span class=c1>//</span>
 
-<span class=c1>// We import the vtk wrapped classes first.</span>
-<span class=kn>import</span> <span class=nn>vtk.*</span><span class=o>;</span>
-
+<span class=hll><span class=c1>// We import the vtk wrapped classes first.</span>
+</span><span class=hll><span class=kn>import</span> <span class=nn>vtk.*</span><span class=o>;</span>
+</span>
 <span class=c1>// Then we define our class.</span>
 <span class=kd>public</span> <span class=kd>class</span> <span class=nc>Sphere</span> <span class=o>{</span>
 
   <span class=c1>// In the static contructor we load in the native code.</span>
   <span class=c1>// The libraries must be in your path to work.</span>
   <span class=kd>static</span> <span class=o>{</span> 
-      <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&quot;load vtkCommonJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkCommonJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&quot;load vtkChartsJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkChartsJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkFilteringJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkGenericFilteringJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkGeovisJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkGraphicsJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkHybridJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkImagingJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkInfovisJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkIOJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkRenderingJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkViewsJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkVolumeRenderingJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkWidgetsJava&quot;</span><span class=o>);</span>
-      <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&quot;LoadLibrary complete for vtkjava&quot;</span><span class=o>);</span>
-
+<span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&quot;load vtkCommonJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkCommonJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&quot;load vtkChartsJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkChartsJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkFilteringJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkGenericFilteringJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkGeovisJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkGraphicsJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkHybridJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkImagingJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkInfovisJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkIOJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkRenderingJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkViewsJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkVolumeRenderingJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>loadLibrary</span><span class=o>(</span><span class=s>&quot;vtkWidgetsJava&quot;</span><span class=o>);</span>
+</span><span class=hll>      <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&quot;LoadLibrary complete for vtkjava&quot;</span><span class=o>);</span>
+</span>
   <span class=o>}</span>
 
   <span class=c1>// Now the main program</span>
   <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>main</span> <span class=o>(</span><span class=n>String</span> <span class=o>[]</span><span class=n>args</span><span class=o>)</span> <span class=o>{</span>
     <span class=c1>// </span>
-    <span class=c1>// Next we create an instance of vtkSphereSource and set some of its</span>
-    <span class=c1>// properties. The instance of vtkSphereSource &quot;sphere&quot; is part of a</span>
-    <span class=c1>// visualization pipeline (it is a source process object); it produces data</span>
-    <span class=c1>// (output type is vtkPolyData) which other filters may process.</span>
-    <span class=c1>//</span>
-    <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
-    <span class=n>sphere</span><span class=o>.</span><span class=na>SetRadius</span><span class=o>(</span> <span class=mf>1.0</span> <span class=o>);</span>
+<span class=hll>    <span class=c1>// Next we create an instance of vtkSphereSource and set some of its</span>
+</span><span class=hll>    <span class=c1>// properties. The instance of vtkSphereSource &quot;sphere&quot; is part of a</span>
+</span>    <span class=c1>// visualization pipeline (it is a source process object); it produces data</span>
+<span class=hll>    <span class=c1>// (output type is vtkPolyData) which other filters may process.</span>
+</span>    <span class=c1>//</span>
+<span class=hll>    <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
+</span>    <span class=n>sphere</span><span class=o>.</span><span class=na>SetRadius</span><span class=o>(</span> <span class=mf>1.0</span> <span class=o>);</span>
     <span class=n>sphere</span><span class=o>.</span><span class=na>SetPhiResolution</span><span class=o>(</span><span class=mi>12</span><span class=o>);</span>
     <span class=n>sphere</span><span class=o>.</span><span class=na>SetThetaResolution</span><span class=o>(</span> <span class=mi>12</span> <span class=o>);</span>
 
-    <span class=n>vtkSphereSource</span> <span class=n>sph</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
-    <span class=n>vtkAppendPolyData</span> <span class=n>apf</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkAppendPolyData</span><span class=o>();</span>
-    <span class=n>vtkPolyData</span> <span class=n>pd</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyData</span><span class=o>();</span> 
-    <span class=n>vtkTubeFilter</span> <span class=n>tubes</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkTubeFilter</span><span class=o>();</span>
-    <span class=n>vtkCellArray</span> <span class=n>polys</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkCellArray</span><span class=o>();</span> 
-    <span class=n>vtkPoints</span> <span class=n>points</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPoints</span><span class=o>();</span>
-    <span class=n>points</span><span class=o>.</span><span class=na>Allocate</span><span class=o>(</span><span class=mi>10</span><span class=o>,</span> <span class=mi>10</span><span class=o>);</span>
+<span class=hll>    <span class=n>vtkSphereSource</span> <span class=n>sph</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkSphereSource</span><span class=o>();</span>
+</span><span class=hll>    <span class=n>vtkAppendPolyData</span> <span class=n>apf</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkAppendPolyData</span><span class=o>();</span>
+</span><span class=hll>    <span class=n>vtkPolyData</span> <span class=n>pd</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyData</span><span class=o>();</span> 
+</span><span class=hll>    <span class=n>vtkTubeFilter</span> <span class=n>tubes</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkTubeFilter</span><span class=o>();</span>
+</span><span class=hll>    <span class=n>vtkCellArray</span> <span class=n>polys</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkCellArray</span><span class=o>();</span> 
+</span><span class=hll>    <span class=n>vtkPoints</span> <span class=n>points</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPoints</span><span class=o>();</span>
+</span>    <span class=n>points</span><span class=o>.</span><span class=na>Allocate</span><span class=o>(</span><span class=mi>10</span><span class=o>,</span> <span class=mi>10</span><span class=o>);</span>
     <span class=n>polys</span><span class=o>.</span><span class=na>Allocate</span><span class=o>(</span><span class=mi>10</span><span class=o>,</span> <span class=mi>10</span><span class=o>);</span>
     <span class=n>pd</span><span class=o>.</span><span class=na>Allocate</span><span class=o>(</span><span class=mi>10</span><span class=o>,</span> <span class=mi>10</span><span class=o>);</span>
     <span class=n>sph</span><span class=o>.</span><span class=na>SetCenter</span><span class=o>(</span><span class=mi>3</span><span class=o>,</span> <span class=mi>0</span><span class=o>,</span> <span class=mi>2</span><span class=o>);</span>
@@ -150,22 +150,22 @@ function registerListener(event, func) {
     <span class=n>apf</span><span class=o>.</span><span class=na>AddInput</span><span class=o>(</span><span class=n>sph</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>());</span>
     <span class=c1>// </span>
     <span class=c1>// In this example we terminate the pipeline with a mapper process object.</span>
-    <span class=c1>// (Intermediate filters such as vtkShrinkPolyData could be inserted in</span>
-    <span class=c1>// between the source and the mapper.)  We create an instance of</span>
-    <span class=c1>// vtkPolyDataMapper to map the polygonal data into graphics primitives. We</span>
-    <span class=c1>// connect the output of the sphere souece to the input of this mapper.</span>
+<span class=hll>    <span class=c1>// (Intermediate filters such as vtkShrinkPolyData could be inserted in</span>
+</span>    <span class=c1>// between the source and the mapper.)  We create an instance of</span>
+<span class=hll>    <span class=c1>// vtkPolyDataMapper to map the polygonal data into graphics primitives. We</span>
+</span>    <span class=c1>// connect the output of the sphere souece to the input of this mapper.</span>
     <span class=c1>//</span>
-    <span class=n>vtkPolyDataMapper</span> <span class=n>sphereMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
-    <span class=n>sphereMapper</span><span class=o>.</span><span class=na>SetInput</span><span class=o>(</span> <span class=n>apf</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>()</span> <span class=o>);</span>
+<span class=hll>    <span class=n>vtkPolyDataMapper</span> <span class=n>sphereMapper</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkPolyDataMapper</span><span class=o>();</span>
+</span>    <span class=n>sphereMapper</span><span class=o>.</span><span class=na>SetInput</span><span class=o>(</span> <span class=n>apf</span><span class=o>.</span><span class=na>GetOutput</span><span class=o>()</span> <span class=o>);</span>
     <span class=c1>// </span>
     <span class=c1>// Create an actor to represent the sphere. The actor orchestrates rendering</span>
     <span class=c1>// of the mapper&#39;s graphics primitives. An actor also refers to properties</span>
-    <span class=c1>// via a vtkProperty instance, and includes an internal transformation</span>
-    <span class=c1>// matrix. We set this actor&#39;s mapper to be sphereMapper which we created</span>
+<span class=hll>    <span class=c1>// via a vtkProperty instance, and includes an internal transformation</span>
+</span>    <span class=c1>// matrix. We set this actor&#39;s mapper to be sphereMapper which we created</span>
     <span class=c1>// above.</span>
     <span class=c1>//</span>
-    <span class=n>vtkActor</span> <span class=n>sphereActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
-    <span class=n>sphereActor</span><span class=o>.</span><span class=na>SetMapper</span><span class=o>(</span> <span class=n>sphereMapper</span> <span class=o>);</span>
+<span class=hll>    <span class=n>vtkActor</span> <span class=n>sphereActor</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkActor</span><span class=o>();</span>
+</span>    <span class=n>sphereActor</span><span class=o>.</span><span class=na>SetMapper</span><span class=o>(</span> <span class=n>sphereMapper</span> <span class=o>);</span>
 
     <span class=c1>//</span>
     <span class=c1>// Create the Renderer and assign actors to it. A renderer is like a</span>
@@ -173,8 +173,8 @@ function registerListener(event, func) {
     <span class=c1>// responsible for drawing the actors it has.  We also set the background</span>
     <span class=c1>// color here</span>
     <span class=c1>//</span>
-    <span class=n>vtkRenderer</span> <span class=n>ren1</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkRenderer</span><span class=o>();</span>
-    <span class=n>ren1</span><span class=o>.</span><span class=na>AddActor</span><span class=o>(</span> <span class=n>sphereActor</span> <span class=o>);</span>
+<span class=hll>    <span class=n>vtkRenderer</span> <span class=n>ren1</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkRenderer</span><span class=o>();</span>
+</span>    <span class=n>ren1</span><span class=o>.</span><span class=na>AddActor</span><span class=o>(</span> <span class=n>sphereActor</span> <span class=o>);</span>
     <span class=n>ren1</span><span class=o>.</span><span class=na>SetBackground</span><span class=o>(</span> <span class=mf>0.1</span><span class=o>,</span> <span class=mf>0.2</span><span class=o>,</span> <span class=mf>0.4</span> <span class=o>);</span>
 
     <span class=c1>//</span>
@@ -182,8 +182,8 @@ function registerListener(event, func) {
     <span class=c1>// We put our renderer into the render window using AddRenderer. We also</span>
     <span class=c1>// set the size to be 300 pixels by 300</span>
     <span class=c1>//</span>
-    <span class=n>vtkRenderWindow</span> <span class=n>renWin</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkRenderWindow</span><span class=o>();</span>
-    <span class=n>renWin</span><span class=o>.</span><span class=na>AddRenderer</span><span class=o>(</span> <span class=n>ren1</span> <span class=o>);</span>
+<span class=hll>    <span class=n>vtkRenderWindow</span> <span class=n>renWin</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkRenderWindow</span><span class=o>();</span>
+</span>    <span class=n>renWin</span><span class=o>.</span><span class=na>AddRenderer</span><span class=o>(</span> <span class=n>ren1</span> <span class=o>);</span>
     <span class=n>renWin</span><span class=o>.</span><span class=na>SetSize</span><span class=o>(</span> <span class=mi>300</span><span class=o>,</span> <span class=mi>300</span> <span class=o>);</span>
 
     <span class=c1>//</span>

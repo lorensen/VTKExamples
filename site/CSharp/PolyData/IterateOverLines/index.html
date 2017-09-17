@@ -77,26 +77,26 @@ function registerListener(event, func) {
             <span class=p>{</span><span class=m>0.0</span><span class=p>,</span> <span class=m>1.0</span><span class=p>,</span> <span class=m>2.0</span><span class=p>},</span>
             <span class=p>{</span><span class=m>1.0</span><span class=p>,</span> <span class=m>2.0</span><span class=p>,</span> <span class=m>3.0</span><span class=p>}};</span>
 
-         <span class=c1>// Create a vtkPoints object and store the points in it</span>
-         <span class=n>vtkPoints</span> <span class=n>points</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>origin</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>origin</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>origin</span><span class=p>[</span><span class=m>2</span><span class=p>]);</span>
+<span class=hll>         <span class=c1>// Create a vtkPoints object and store the points in it</span>
+</span><span class=hll>         <span class=n>vtkPoints</span> <span class=n>points</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>origin</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>origin</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>origin</span><span class=p>[</span><span class=m>2</span><span class=p>]);</span>
          <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>i</span> <span class=p>&lt;</span> <span class=m>4</span><span class=p>;</span> <span class=n>i</span><span class=p>++)</span>
             <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>p</span><span class=p>[</span><span class=n>i</span><span class=p>,</span> <span class=m>0</span><span class=p>],</span> <span class=n>p</span><span class=p>[</span><span class=n>i</span><span class=p>,</span> <span class=m>1</span><span class=p>],</span> <span class=n>p</span><span class=p>[</span><span class=n>i</span><span class=p>,</span> <span class=m>2</span><span class=p>]);</span>
 
          <span class=c1>// Create a cell array to store the lines in and add the lines to it</span>
-         <span class=n>vtkCellArray</span> <span class=n>lines</span> <span class=p>=</span> <span class=n>vtkCellArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkCellArray</span> <span class=n>lines</span> <span class=p>=</span> <span class=n>vtkCellArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=c1>// Create four lines</span>
          <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>i</span> <span class=p>&lt;</span> <span class=m>4</span><span class=p>;</span> <span class=n>i</span><span class=p>++)</span> <span class=p>{</span>
-            <span class=n>vtkLine</span> <span class=n>line</span> <span class=p>=</span> <span class=n>vtkLine</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>line</span><span class=p>.</span><span class=n>GetPointIds</span><span class=p>().</span><span class=n>SetId</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=n>i</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkLine</span> <span class=n>line</span> <span class=p>=</span> <span class=n>vtkLine</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>line</span><span class=p>.</span><span class=n>GetPointIds</span><span class=p>().</span><span class=n>SetId</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=n>i</span><span class=p>);</span>
             <span class=n>line</span><span class=p>.</span><span class=n>GetPointIds</span><span class=p>().</span><span class=n>SetId</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=n>i</span> <span class=p>+</span> <span class=m>1</span><span class=p>);</span>
             <span class=n>lines</span><span class=p>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>line</span><span class=p>);</span>
          <span class=p>}</span>
 
          <span class=c1>// Create a polydata to store everything in</span>
-         <span class=n>vtkPolyData</span> <span class=n>linesPolyData</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkPolyData</span> <span class=n>linesPolyData</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=c1>// Add the points to the dataset</span>
          <span class=n>linesPolyData</span><span class=p>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>);</span>
 
@@ -105,8 +105,8 @@ function registerListener(event, func) {
 
          <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;There are &quot;</span> <span class=p>+</span> <span class=n>linesPolyData</span><span class=p>.</span><span class=n>GetNumberOfLines</span><span class=p>()</span> <span class=p>+</span> <span class=s>&quot; lines.&quot;</span><span class=p>);</span>
          <span class=n>linesPolyData</span><span class=p>.</span><span class=n>GetLines</span><span class=p>().</span><span class=n>InitTraversal</span><span class=p>();</span>
-         <span class=n>vtkIdList</span> <span class=n>idList</span> <span class=p>=</span> <span class=n>vtkIdList</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=k>while</span><span class=p>(</span><span class=n>linesPolyData</span><span class=p>.</span><span class=n>GetLines</span><span class=p>().</span><span class=n>GetNextCell</span><span class=p>(</span><span class=n>idList</span><span class=p>)</span> <span class=p>!=</span> <span class=m>0</span><span class=p>)</span> <span class=p>{</span>
+<span class=hll>         <span class=n>vtkIdList</span> <span class=n>idList</span> <span class=p>=</span> <span class=n>vtkIdList</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=k>while</span><span class=p>(</span><span class=n>linesPolyData</span><span class=p>.</span><span class=n>GetLines</span><span class=p>().</span><span class=n>GetNextCell</span><span class=p>(</span><span class=n>idList</span><span class=p>)</span> <span class=p>!=</span> <span class=m>0</span><span class=p>)</span> <span class=p>{</span>
             <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;Line has &quot;</span> <span class=p>+</span> <span class=n>idList</span><span class=p>.</span><span class=n>GetNumberOfIds</span><span class=p>()</span> <span class=p>+</span> <span class=s>&quot; points.&quot;</span><span class=p>);</span>
 
             <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>pointId</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>pointId</span> <span class=p>&lt;</span> <span class=n>idList</span><span class=p>.</span><span class=n>GetNumberOfIds</span><span class=p>();</span> <span class=n>pointId</span><span class=p>++)</span> <span class=p>{</span>

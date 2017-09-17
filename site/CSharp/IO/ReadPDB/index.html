@@ -84,14 +84,14 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>ReadPDB</span><span class=p>()</span> <span class=p>{</span>
-         <span class=c1>// Path to vtk data must be set as an environment variable</span>
-         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
-         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
+<span class=hll>         <span class=c1>// Path to vtk data must be set as an environment variable</span>
+</span><span class=hll>         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+</span><span class=hll>         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
          <span class=kt>string</span> <span class=n>filePath</span> <span class=p>=</span> <span class=n>System</span><span class=p>.</span><span class=n>IO</span><span class=p>.</span><span class=n>Path</span><span class=p>.</span><span class=n>Combine</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=s>@&quot;Data\caffeine.pdb&quot;</span><span class=p>);</span>
 
-         <span class=n>vtkPDBReader</span> <span class=n>pdb</span> <span class=p>=</span> <span class=n>vtkPDBReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>pdb</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkPDBReader</span> <span class=n>pdb</span> <span class=p>=</span> <span class=n>vtkPDBReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>pdb</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
          <span class=n>pdb</span><span class=p>.</span><span class=n>SetHBScale</span><span class=p>(</span><span class=m>1.0</span><span class=p>);</span>
          <span class=n>pdb</span><span class=p>.</span><span class=n>SetBScale</span><span class=p>(</span><span class=m>1.0</span><span class=p>);</span>
          <span class=n>pdb</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
@@ -104,14 +104,14 @@ function registerListener(event, func) {
             <span class=n>resolution</span> <span class=p>=</span> <span class=m>4</span><span class=p>;</span>
 
          <span class=n>Debug</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;Resolution is: &quot;</span> <span class=p>+</span> <span class=n>resolution</span><span class=p>);</span>
-         <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphere</span><span class=p>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphere</span><span class=p>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
          <span class=n>sphere</span><span class=p>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
          <span class=n>sphere</span><span class=p>.</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=n>resolution</span><span class=p>);</span>
          <span class=n>sphere</span><span class=p>.</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=n>resolution</span><span class=p>);</span>
 
-         <span class=n>vtkGlyph3D</span> <span class=n>glyph</span> <span class=p>=</span> <span class=n>vtkGlyph3D</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>glyph</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>pdb</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkGlyph3D</span> <span class=n>glyph</span> <span class=p>=</span> <span class=n>vtkGlyph3D</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>glyph</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>pdb</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>glyph</span><span class=p>.</span><span class=n>SetOrient</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
          <span class=n>glyph</span><span class=p>.</span><span class=n>SetColorMode</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
          <span class=c1>// glyph.ScalingOn();</span>
@@ -119,15 +119,15 @@ function registerListener(event, func) {
          <span class=n>glyph</span><span class=p>.</span><span class=n>SetScaleFactor</span><span class=p>(.</span><span class=m>25</span><span class=p>);</span>
          <span class=n>glyph</span><span class=p>.</span><span class=n>SetSourceConnection</span><span class=p>(</span><span class=n>sphere</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>atomMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>atomMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>glyph</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>atomMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>atomMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>glyph</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>atomMapper</span><span class=p>.</span><span class=n>ImmediateModeRenderingOn</span><span class=p>();</span>
          <span class=n>atomMapper</span><span class=p>.</span><span class=n>UseLookupTableScalarRangeOff</span><span class=p>();</span>
          <span class=n>atomMapper</span><span class=p>.</span><span class=n>ScalarVisibilityOn</span><span class=p>();</span>
          <span class=n>atomMapper</span><span class=p>.</span><span class=n>SetScalarModeToDefault</span><span class=p>();</span>
 
-         <span class=n>vtkLODActor</span> <span class=n>atom</span> <span class=p>=</span> <span class=n>vtkLODActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>atom</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>atomMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkLODActor</span> <span class=n>atom</span> <span class=p>=</span> <span class=n>vtkLODActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>atom</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>atomMapper</span><span class=p>);</span>
          <span class=n>atom</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetRepresentationToSurface</span><span class=p>();</span>
          <span class=n>atom</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetInterpolationToGouraud</span><span class=p>();</span>
          <span class=n>atom</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetAmbient</span><span class=p>(</span><span class=m>0.15</span><span class=p>);</span>
@@ -138,8 +138,8 @@ function registerListener(event, func) {
          <span class=n>atom</span><span class=p>.</span><span class=n>SetNumberOfCloudPoints</span><span class=p>(</span><span class=m>30000</span><span class=p>);</span>
 
 
-         <span class=n>vtkTubeFilter</span> <span class=n>tube</span> <span class=p>=</span> <span class=n>vtkTubeFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>tube</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>pdb</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkTubeFilter</span> <span class=n>tube</span> <span class=p>=</span> <span class=n>vtkTubeFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>tube</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>pdb</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>tube</span><span class=p>.</span><span class=n>SetNumberOfSides</span><span class=p>(</span><span class=n>resolution</span><span class=p>);</span>
          <span class=n>tube</span><span class=p>.</span><span class=n>CappingOff</span><span class=p>();</span>
          <span class=n>tube</span><span class=p>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=m>0.2</span><span class=p>);</span>
@@ -147,15 +147,15 @@ function registerListener(event, func) {
          <span class=n>tube</span><span class=p>.</span><span class=n>SetVaryRadius</span><span class=p>(</span><span class=m>0</span><span class=p>);</span>
          <span class=n>tube</span><span class=p>.</span><span class=n>SetRadiusFactor</span><span class=p>(</span><span class=m>10</span><span class=p>);</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>bondMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>bondMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>tube</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>bondMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>bondMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>tube</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>bondMapper</span><span class=p>.</span><span class=n>ImmediateModeRenderingOn</span><span class=p>();</span>
          <span class=n>bondMapper</span><span class=p>.</span><span class=n>UseLookupTableScalarRangeOff</span><span class=p>();</span>
          <span class=n>bondMapper</span><span class=p>.</span><span class=n>ScalarVisibilityOff</span><span class=p>();</span>
          <span class=n>bondMapper</span><span class=p>.</span><span class=n>SetScalarModeToDefault</span><span class=p>();</span>
 
-         <span class=n>vtkLODActor</span> <span class=n>bond</span> <span class=p>=</span> <span class=n>vtkLODActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>bond</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>bondMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkLODActor</span> <span class=n>bond</span> <span class=p>=</span> <span class=n>vtkLODActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>bond</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>bondMapper</span><span class=p>);</span>
          <span class=n>bond</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetRepresentationToSurface</span><span class=p>();</span>
          <span class=n>bond</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetInterpolationToGouraud</span><span class=p>();</span>
          <span class=n>bond</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetAmbient</span><span class=p>(</span><span class=m>0.15</span><span class=p>);</span>
@@ -167,10 +167,10 @@ function registerListener(event, func) {
 
 
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
          <span class=c1>// add our actor to the renderer</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>atom</span><span class=p>);</span>

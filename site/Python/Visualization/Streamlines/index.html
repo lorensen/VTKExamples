@@ -62,10 +62,10 @@ function registerListener(event, func) {
 <span class=c1># import os</span>
 <span class=c1># os.chdir(&quot;VTKData/Data&quot;)</span>
 
-<span class=kn>import</span> <span class=nn>vtk</span>
-
-<span class=n>pl3d</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkMultiBlockPLOT3DReader</span><span class=p>()</span>
-
+<span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
+</span>
+<span class=hll><span class=n>pl3d</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkMultiBlockPLOT3DReader</span><span class=p>()</span>
+</span>
 <span class=n>xyx_file</span> <span class=o>=</span> <span class=s2>&quot;combxyz.bin&quot;</span>
 <span class=n>q_file</span> <span class=o>=</span> <span class=s2>&quot;combq.bin&quot;</span>
 <span class=n>pl3d</span><span class=o>.</span><span class=n>SetXYZFileName</span><span class=p>(</span><span class=n>xyx_file</span><span class=p>)</span>
@@ -74,15 +74,15 @@ function registerListener(event, func) {
 <span class=n>pl3d</span><span class=o>.</span><span class=n>SetVectorFunctionNumber</span><span class=p>(</span><span class=mi>202</span><span class=p>)</span>
 <span class=n>pl3d</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 
-<span class=n>seeds</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlaneSource</span><span class=p>()</span>
-<span class=n>seeds</span><span class=o>.</span><span class=n>SetXResolution</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>
+<span class=hll><span class=n>seeds</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlaneSource</span><span class=p>()</span>
+</span><span class=n>seeds</span><span class=o>.</span><span class=n>SetXResolution</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>
 <span class=n>seeds</span><span class=o>.</span><span class=n>SetYResolution</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>
 <span class=n>seeds</span><span class=o>.</span><span class=n>SetOrigin</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>26</span><span class=p>)</span>
 <span class=n>seeds</span><span class=o>.</span><span class=n>SetPoint1</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span><span class=mi>26</span><span class=p>)</span>
 <span class=n>seeds</span><span class=o>.</span><span class=n>SetPoint2</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>32</span><span class=p>)</span>
 
-<span class=n>streamline</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkStreamLine</span><span class=p>()</span>
-<span class=n>streamline</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pl3d</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>))</span>
+<span class=hll><span class=n>streamline</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkStreamLine</span><span class=p>()</span>
+</span><span class=n>streamline</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pl3d</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>))</span>
 <span class=n>streamline</span><span class=o>.</span><span class=n>SetSourceConnection</span><span class=p>(</span><span class=n>seeds</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
 <span class=n>streamline</span><span class=o>.</span><span class=n>SetMaximumPropagationTime</span><span class=p>(</span><span class=mi>200</span><span class=p>)</span>
 <span class=n>streamline</span><span class=o>.</span><span class=n>SetIntegrationStepLength</span><span class=p>(</span><span class=o>.</span><span class=mi>2</span><span class=p>)</span>
@@ -91,26 +91,26 @@ function registerListener(event, func) {
 <span class=n>streamline</span><span class=o>.</span><span class=n>SetIntegrationDirectionToForward</span><span class=p>()</span>
 <span class=n>streamline</span><span class=o>.</span><span class=n>VorticityOn</span><span class=p>()</span>
 
-<span class=n>streamline_mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-<span class=n>streamline_mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>streamline</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
-<span class=n>streamline_actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-<span class=n>streamline_actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>streamline_mapper</span><span class=p>)</span>
+<span class=hll><span class=n>streamline_mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span><span class=n>streamline_mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>streamline</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll><span class=n>streamline_actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span><span class=n>streamline_actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>streamline_mapper</span><span class=p>)</span>
 <span class=n>streamline_actor</span><span class=o>.</span><span class=n>VisibilityOn</span><span class=p>()</span>
 
-<span class=n>outline</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkStructuredGridOutlineFilter</span><span class=p>()</span>
-<span class=n>outline</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pl3d</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>))</span>
-<span class=n>outline_mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-<span class=n>outline_mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>outline</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
-<span class=n>outline_actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-<span class=n>outline_actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outline_mapper</span><span class=p>)</span>
+<span class=hll><span class=n>outline</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkStructuredGridOutlineFilter</span><span class=p>()</span>
+</span><span class=n>outline</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pl3d</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>))</span>
+<span class=hll><span class=n>outline_mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span><span class=n>outline_mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>outline</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll><span class=n>outline_actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span><span class=n>outline_actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outline_mapper</span><span class=p>)</span>
 <span class=n>outline_actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
 
-<span class=n>renderer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-<span class=n>render_window</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
-<span class=n>render_window</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
-<span class=n>interactor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-<span class=n>interactor</span><span class=o>.</span><span class=n>SetInteractorStyle</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkInteractorStyleTrackballCamera</span><span class=p>())</span>
-<span class=n>render_window</span><span class=o>.</span><span class=n>SetInteractor</span><span class=p>(</span><span class=n>interactor</span><span class=p>)</span>
+<span class=hll><span class=n>renderer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span><span class=hll><span class=n>render_window</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
+</span><span class=n>render_window</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
+<span class=hll><span class=n>interactor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
+</span><span class=hll><span class=n>interactor</span><span class=o>.</span><span class=n>SetInteractorStyle</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkInteractorStyleTrackballCamera</span><span class=p>())</span>
+</span><span class=n>render_window</span><span class=o>.</span><span class=n>SetInteractor</span><span class=p>(</span><span class=n>interactor</span><span class=p>)</span>
 
 <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>streamline_actor</span><span class=p>)</span>
 <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>outline_actor</span><span class=p>)</span>

@@ -84,25 +84,25 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>VRML</span><span class=p>()</span> <span class=p>{</span>
-         <span class=c1>// Path to vtk data must be set as an environment variable</span>
-         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
-         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
+<span class=hll>         <span class=c1>// Path to vtk data must be set as an environment variable</span>
+</span><span class=hll>         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+</span><span class=hll>         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
          <span class=kt>string</span> <span class=n>filePath</span> <span class=p>=</span> <span class=n>System</span><span class=p>.</span><span class=n>IO</span><span class=p>.</span><span class=n>Path</span><span class=p>.</span><span class=n>Combine</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=s>@&quot;Data\bot2.wrl&quot;</span><span class=p>);</span>
          <span class=c1>// reader</span>
-         <span class=n>vtkVRMLImporter</span> <span class=n>importer</span> <span class=p>=</span> <span class=n>vtkVRMLImporter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>importer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkVRMLImporter</span> <span class=n>importer</span> <span class=p>=</span> <span class=n>vtkVRMLImporter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>importer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
          <span class=n>importer</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=n>renderWindow</span><span class=p>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>importer</span><span class=p>.</span><span class=n>GetRenderer</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=n>renderWindow</span><span class=p>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>importer</span><span class=p>.</span><span class=n>GetRenderer</span><span class=p>());</span>
          <span class=n>renderWindow</span><span class=p>.</span><span class=n>Render</span><span class=p>();</span>
 
-         <span class=c1>//vtkActorCollection actors = importer.GetRenderer().GetActors();</span>
-         <span class=c1>//actors.InitTraversal();</span>
-         <span class=c1>//vtkActor tmp;</span>
-         <span class=c1>//while(( tmp = actors.GetNextActor()) != null) {</span>
+<span class=hll>         <span class=c1>//vtkActorCollection actors = importer.GetRenderer().GetActors();</span>
+</span>         <span class=c1>//actors.InitTraversal();</span>
+<span class=hll>         <span class=c1>//vtkActor tmp;</span>
+</span>         <span class=c1>//while(( tmp = actors.GetNextActor()) != null) {</span>
          <span class=c1>//}</span>
       <span class=p>}</span>
    <span class=p>}</span>

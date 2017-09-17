@@ -62,26 +62,26 @@ function registerListener(event, func) {
 <span class=c1># This simple example shows how to do basic rendering and pipeline</span>
 <span class=c1># creation.</span>
 
-<span class=kn>import</span> <span class=nn>vtk</span>
-<span class=c1># The colors module defines various useful colors.</span>
-<span class=kn>from</span> <span class=nn>vtk.util.colors</span> <span class=kn>import</span> <span class=n>tomato</span>
-
+<span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
+</span><span class=c1># The colors module defines various useful colors.</span>
+<span class=hll><span class=kn>from</span> <span class=nn>vtk.util.colors</span> <span class=kn>import</span> <span class=n>tomato</span>
+</span>
 <span class=c1># This creates a polygonal cylinder model with eight circumferential</span>
 <span class=c1># facets.</span>
-<span class=n>cylinder</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCylinderSource</span><span class=p>()</span>
-<span class=n>cylinder</span><span class=o>.</span><span class=n>SetResolution</span><span class=p>(</span><span class=mi>8</span><span class=p>)</span>
+<span class=hll><span class=n>cylinder</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCylinderSource</span><span class=p>()</span>
+</span><span class=n>cylinder</span><span class=o>.</span><span class=n>SetResolution</span><span class=p>(</span><span class=mi>8</span><span class=p>)</span>
 
 <span class=c1># The mapper is responsible for pushing the geometry into the graphics</span>
 <span class=c1># library. It may also do color mapping, if scalars or other</span>
 <span class=c1># attributes are defined.</span>
-<span class=n>cylinderMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-<span class=n>cylinderMapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>cylinder</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+<span class=hll><span class=n>cylinderMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span><span class=n>cylinderMapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>cylinder</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
 
 <span class=c1># The actor is a grouping mechanism: besides the geometry (mapper), it</span>
 <span class=c1># also has a property, transformation matrix, and/or texture map.</span>
 <span class=c1># Here we set its color and rotate it -22.5 degrees.</span>
-<span class=n>cylinderActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
-<span class=n>cylinderActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>cylinderMapper</span><span class=p>)</span>
+<span class=hll><span class=n>cylinderActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
+</span><span class=n>cylinderActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>cylinderMapper</span><span class=p>)</span>
 <span class=n>cylinderActor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=n>tomato</span><span class=p>)</span>
 <span class=n>cylinderActor</span><span class=o>.</span><span class=n>RotateX</span><span class=p>(</span><span class=mf>30.0</span><span class=p>)</span>
 <span class=n>cylinderActor</span><span class=o>.</span><span class=n>RotateY</span><span class=p>(</span><span class=o>-</span><span class=mf>45.0</span><span class=p>)</span>
@@ -90,11 +90,11 @@ function registerListener(event, func) {
 <span class=c1># window. The render window interactor captures mouse events and will</span>
 <span class=c1># perform appropriate camera or actor manipulation depending on the</span>
 <span class=c1># nature of the events.</span>
-<span class=n>ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-<span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
-<span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren</span><span class=p>)</span>
-<span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-<span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>)</span>
+<span class=hll><span class=n>ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span><span class=hll><span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
+</span><span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren</span><span class=p>)</span>
+<span class=hll><span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
+</span><span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>)</span>
 
 <span class=c1># Add the actors to the renderer, set the background and size</span>
 <span class=n>ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>cylinderActor</span><span class=p>)</span>

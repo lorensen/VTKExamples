@@ -62,8 +62,8 @@ function registerListener(event, func) {
 
 <span class=kn>from</span> <span class=nn>__future__</span> <span class=kn>import</span> <span class=n>print_function</span>
 <span class=kn>import</span> <span class=nn>sys</span>
-<span class=kn>import</span> <span class=nn>vtk</span>
-
+<span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
+</span>
 <span class=k>class</span> <span class=nc>LUTUtilities</span><span class=p>(</span><span class=nb>object</span><span class=p>):</span>
     <span class=sd>&#39;&#39;&#39;</span>
 <span class=sd>    Utilities for displaying and comparing lookup tables.</span>
@@ -227,8 +227,8 @@ function registerListener(event, func) {
 <span class=sd>    :return: a map of the names keyed on their index.</span>
 <span class=sd>    &#39;&#39;&#39;</span>
     <span class=n>colorSchemes</span> <span class=o>=</span> <span class=nb>dict</span><span class=p>()</span>
-    <span class=n>colorSeries</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkColorSeries</span><span class=p>()</span>
-    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>colorSeries</span><span class=o>.</span><span class=n>GetNumberOfColorSchemes</span><span class=p>()):</span>
+<span class=hll>    <span class=n>colorSeries</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkColorSeries</span><span class=p>()</span>
+</span>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>colorSeries</span><span class=o>.</span><span class=n>GetNumberOfColorSchemes</span><span class=p>()):</span>
         <span class=n>colorSeries</span><span class=o>.</span><span class=n>SetColorScheme</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
         <span class=n>colorSchemes</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>colorSeries</span><span class=o>.</span><span class=n>GetColorSchemeName</span><span class=p>()</span>
     <span class=k>return</span> <span class=n>colorSchemes</span>
@@ -289,10 +289,10 @@ function registerListener(event, func) {
 <span class=sd>    :return: True if all tests passed.</span>
 <span class=sd>    &#39;&#39;&#39;</span>
     <span class=n>lutUtilities</span> <span class=o>=</span> <span class=n>LUTUtilities</span><span class=p>()</span>
-    <span class=n>lut1</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-    <span class=n>lut2</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-    <span class=n>colorSeries</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkColorSeries</span><span class=p>()</span>
-    <span class=n>colorSeriesEnum</span> <span class=o>=</span> <span class=n>colorSeries</span><span class=o>.</span><span class=n>SPECTRUM</span>
+<span class=hll>    <span class=n>lut1</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>lut2</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>colorSeries</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkColorSeries</span><span class=p>()</span>
+</span>    <span class=n>colorSeriesEnum</span> <span class=o>=</span> <span class=n>colorSeries</span><span class=o>.</span><span class=n>SPECTRUM</span>
     <span class=n>colorSeries</span><span class=o>.</span><span class=n>SetColorScheme</span><span class=p>(</span><span class=n>colorSeriesEnum</span><span class=p>)</span>
 
     <span class=n>colorSeries</span><span class=o>.</span><span class=n>BuildLookupTable</span><span class=p>(</span><span class=n>lut1</span><span class=p>)</span>
@@ -304,14 +304,14 @@ function registerListener(event, func) {
     <span class=n>lut2</span><span class=o>.</span><span class=n>SetNanColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
     <span class=k>if</span> <span class=ow>not</span> <span class=n>lutMode</span><span class=p>:</span>
         <span class=c1># For the annotation just use a letter of the alphabet.</span>
-        <span class=n>values1</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariantArray</span><span class=p>()</span>
-        <span class=n>values2</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariantArray</span><span class=p>()</span>
-        <span class=nb>str</span> <span class=o>=</span> <span class=s2>&quot;abcdefghijklmnopqrstuvwxyz&quot;</span>
+<span class=hll>        <span class=n>values1</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariantArray</span><span class=p>()</span>
+</span><span class=hll>        <span class=n>values2</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariantArray</span><span class=p>()</span>
+</span>        <span class=nb>str</span> <span class=o>=</span> <span class=s2>&quot;abcdefghijklmnopqrstuvwxyz&quot;</span>
         <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>lut1</span><span class=o>.</span><span class=n>GetNumberOfTableValues</span><span class=p>()):</span>
-            <span class=n>values1</span><span class=o>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=nb>str</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
-        <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>lut2</span><span class=o>.</span><span class=n>GetNumberOfTableValues</span><span class=p>()):</span>
-            <span class=n>values2</span><span class=o>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=nb>str</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
-        <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>values1</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()):</span>
+<span class=hll>            <span class=n>values1</span><span class=o>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=nb>str</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
+</span>        <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>lut2</span><span class=o>.</span><span class=n>GetNumberOfTableValues</span><span class=p>()):</span>
+<span class=hll>            <span class=n>values2</span><span class=o>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=nb>str</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
+</span>        <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>values1</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()):</span>
             <span class=n>lut1</span><span class=o>.</span><span class=n>SetAnnotation</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>values1</span><span class=o>.</span><span class=n>GetValue</span><span class=p>(</span><span class=n>i</span><span class=p>)</span><span class=o>.</span><span class=n>ToString</span><span class=p>())</span>
         <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>values2</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()):</span>
             <span class=n>lut2</span><span class=o>.</span><span class=n>SetAnnotation</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>values2</span><span class=o>.</span><span class=n>GetValue</span><span class=p>(</span><span class=n>i</span><span class=p>)</span><span class=o>.</span><span class=n>ToString</span><span class=p>())</span>
@@ -336,8 +336,8 @@ function registerListener(event, func) {
         <span class=c1># Different color</span>
         <span class=n>colorSeriesEnum</span> <span class=o>=</span> <span class=n>colorSeries</span><span class=o>.</span><span class=n>COOL</span>
         <span class=n>colorSeries</span><span class=o>.</span><span class=n>SetColorScheme</span><span class=p>(</span><span class=n>colorSeriesEnum</span><span class=p>)</span>
-        <span class=n>lut3</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-        <span class=n>colorSeries</span><span class=o>.</span><span class=n>BuildLookupTable</span><span class=p>(</span><span class=n>lut3</span><span class=p>)</span>
+<span class=hll>        <span class=n>lut3</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span>        <span class=n>colorSeries</span><span class=o>.</span><span class=n>BuildLookupTable</span><span class=p>(</span><span class=n>lut3</span><span class=p>)</span>
         <span class=n>lut3</span><span class=o>.</span><span class=n>IndexedLookupOff</span><span class=p>()</span>
         <span class=n>res</span> <span class=o>&amp;=</span> <span class=n>TestTables</span><span class=p>(</span><span class=n>lut1</span><span class=p>,</span> <span class=n>lut3</span><span class=p>,</span> <span class=bp>False</span><span class=p>)</span>
 
@@ -349,13 +349,13 @@ function registerListener(event, func) {
         <span class=c1># Different color</span>
         <span class=n>colorSeriesEnum</span> <span class=o>=</span> <span class=n>colorSeries</span><span class=o>.</span><span class=n>COOL</span>
         <span class=n>colorSeries</span><span class=o>.</span><span class=n>SetColorScheme</span><span class=p>(</span><span class=n>colorSeriesEnum</span><span class=p>)</span>
-        <span class=n>lut3</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-        <span class=n>colorSeries</span><span class=o>.</span><span class=n>BuildLookupTable</span><span class=p>(</span><span class=n>lut3</span><span class=p>)</span>
-        <span class=n>values</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariantArray</span><span class=p>()</span>
-        <span class=nb>str</span> <span class=o>=</span> <span class=s2>&quot;abcdefghijklmnopqrstuvwxyz&quot;</span>
+<span class=hll>        <span class=n>lut3</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span>        <span class=n>colorSeries</span><span class=o>.</span><span class=n>BuildLookupTable</span><span class=p>(</span><span class=n>lut3</span><span class=p>)</span>
+<span class=hll>        <span class=n>values</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariantArray</span><span class=p>()</span>
+</span>        <span class=nb>str</span> <span class=o>=</span> <span class=s2>&quot;abcdefghijklmnopqrstuvwxyz&quot;</span>
         <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>lut3</span><span class=o>.</span><span class=n>GetNumberOfTableValues</span><span class=p>()):</span>
-            <span class=n>values</span><span class=o>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=nb>str</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
-        <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>values</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()):</span>
+<span class=hll>            <span class=n>values</span><span class=o>.</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=nb>str</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
+</span>        <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>values</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()):</span>
             <span class=n>lut3</span><span class=o>.</span><span class=n>SetAnnotation</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>values</span><span class=o>.</span><span class=n>GetValue</span><span class=p>(</span><span class=n>i</span><span class=p>)</span><span class=o>.</span><span class=n>ToString</span><span class=p>())</span>
         <span class=n>colorSeries</span><span class=o>.</span><span class=n>BuildLookupTable</span><span class=p>(</span><span class=n>lut3</span><span class=p>)</span>
         <span class=n>res</span> <span class=o>&amp;=</span> <span class=n>TestTables</span><span class=p>(</span><span class=n>lut1</span><span class=p>,</span> <span class=n>lut3</span><span class=p>,</span> <span class=bp>False</span><span class=p>)</span>

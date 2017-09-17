@@ -71,12 +71,12 @@ function registerListener(event, func) {
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>PolyDataGetPoint</span><span class=p>()</span> <span class=p>{</span>
          <span class=c1>// Create a sphere</span>
-         <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
-         <span class=n>vtkPolyData</span> <span class=n>polydata</span> <span class=p>=</span> <span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
-
-         <span class=c1>// Write all of the coordinates of the points in the vtkPolyData to the console.</span>
-         <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>i</span> <span class=p>&lt;</span> <span class=n>polydata</span><span class=p>.</span><span class=n>GetNumberOfPoints</span><span class=p>();</span> <span class=n>i</span><span class=p>++)</span> <span class=p>{</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkPolyData</span> <span class=n>polydata</span> <span class=p>=</span> <span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
+</span>
+<span class=hll>         <span class=c1>// Write all of the coordinates of the points in the vtkPolyData to the console.</span>
+</span>         <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>i</span> <span class=p>&lt;</span> <span class=n>polydata</span><span class=p>.</span><span class=n>GetNumberOfPoints</span><span class=p>();</span> <span class=n>i</span><span class=p>++)</span> <span class=p>{</span>
             <span class=kt>double</span><span class=p>[]</span> <span class=n>p</span> <span class=p>=</span> <span class=n>polydata</span><span class=p>.</span><span class=n>GetPoint</span><span class=p>(</span><span class=n>i</span><span class=p>);</span>
             <span class=c1>// This is identical to:</span>
             <span class=c1>// double[] p = polydata.GetPoints().GetPoint(i);</span>

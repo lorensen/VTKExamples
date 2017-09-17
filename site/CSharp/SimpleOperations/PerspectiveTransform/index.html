@@ -62,8 +62,8 @@ function registerListener(event, func) {
 <span class=k>using</span> <span class=nn>Kitware.VTK</span><span class=p>;</span>
 
 <span class=k>void</span> <span class=nf>PerspectiveTransform</span><span class=p>()</span> <span class=p>{</span>
-   <span class=n>vtkMatrix4x4</span> <span class=n>m</span> <span class=p>=</span> <span class=n>vtkMatrix4x4</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>m</span><span class=p>.</span><span class=n>SetElement</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>1</span><span class=p>);</span>
+<span class=hll>   <span class=n>vtkMatrix4x4</span> <span class=n>m</span> <span class=p>=</span> <span class=n>vtkMatrix4x4</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>m</span><span class=p>.</span><span class=n>SetElement</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>1</span><span class=p>);</span>
    <span class=n>m</span><span class=p>.</span><span class=n>SetElement</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>1</span><span class=p>,</span> <span class=m>2</span><span class=p>);</span>
    <span class=n>m</span><span class=p>.</span><span class=n>SetElement</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>2</span><span class=p>,</span> <span class=m>3</span><span class=p>);</span>
    <span class=n>m</span><span class=p>.</span><span class=n>SetElement</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>3</span><span class=p>,</span> <span class=m>4</span><span class=p>);</span>
@@ -80,11 +80,11 @@ function registerListener(event, func) {
    <span class=n>m</span><span class=p>.</span><span class=n>SetElement</span><span class=p>(</span><span class=m>3</span><span class=p>,</span> <span class=m>2</span><span class=p>,</span> <span class=m>3</span><span class=p>);</span>
    <span class=n>m</span><span class=p>.</span><span class=n>SetElement</span><span class=p>(</span><span class=m>3</span><span class=p>,</span> <span class=m>3</span><span class=p>,</span> <span class=m>4</span><span class=p>);</span>
 
-   <span class=n>vtkPerspectiveTransform</span> <span class=n>perspectiveTransform</span> <span class=p>=</span> <span class=n>vtkPerspectiveTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>perspectiveTransform</span><span class=p>.</span><span class=n>SetMatrix</span><span class=p>(</span><span class=n>m</span><span class=p>);</span>
+<span class=hll>   <span class=n>vtkPerspectiveTransform</span> <span class=n>perspectiveTransform</span> <span class=p>=</span> <span class=n>vtkPerspectiveTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>perspectiveTransform</span><span class=p>.</span><span class=n>SetMatrix</span><span class=p>(</span><span class=n>m</span><span class=p>);</span>
 
-   <span class=n>vtkTransform</span> <span class=n>transform</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-   <span class=n>transform</span><span class=p>.</span><span class=n>SetMatrix</span><span class=p>(</span><span class=n>m</span><span class=p>);</span>
+<span class=hll>   <span class=n>vtkTransform</span> <span class=n>transform</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>   <span class=n>transform</span><span class=p>.</span><span class=n>SetMatrix</span><span class=p>(</span><span class=n>m</span><span class=p>);</span>
 
    <span class=kt>double</span><span class=p>[]</span> <span class=n>p</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>double</span><span class=p>[]{</span><span class=m>1.0</span><span class=p>,</span> <span class=m>2.0</span><span class=p>,</span> <span class=m>3.0</span><span class=p>};</span>
 

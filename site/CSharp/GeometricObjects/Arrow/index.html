@@ -84,25 +84,25 @@ function registerListener(event, func) {
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>Arrow</span><span class=p>()</span> <span class=p>{</span>
          <span class=c1>// Create two arrows.  </span>
-         <span class=n>vtkArrowSource</span> <span class=n>arrowSource01</span> <span class=p>=</span> <span class=n>vtkArrowSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>vtkArrowSource</span> <span class=n>arrowSource02</span> <span class=p>=</span> <span class=n>vtkArrowSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>arrowSource02</span><span class=p>.</span><span class=n>SetShaftResolution</span><span class=p>(</span><span class=m>24</span><span class=p>);</span>   <span class=c1>// default = 6</span>
+<span class=hll>         <span class=n>vtkArrowSource</span> <span class=n>arrowSource01</span> <span class=p>=</span> <span class=n>vtkArrowSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>         <span class=n>vtkArrowSource</span> <span class=n>arrowSource02</span> <span class=p>=</span> <span class=n>vtkArrowSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>arrowSource02</span><span class=p>.</span><span class=n>SetShaftResolution</span><span class=p>(</span><span class=m>24</span><span class=p>);</span>   <span class=c1>// default = 6</span>
          <span class=n>arrowSource02</span><span class=p>.</span><span class=n>SetTipResolution</span><span class=p>(</span><span class=m>36</span><span class=p>);</span>     <span class=c1>// default = 6</span>
 
          <span class=c1>// Visualize</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>mapper01</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>mapper02</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>mapper01</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowSource01</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>mapper01</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>mapper02</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>mapper01</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowSource01</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>mapper02</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>arrowSource02</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
-         <span class=n>vtkActor</span> <span class=n>actor01</span><span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>vtkActor</span> <span class=n>actor02</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>actor01</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper01</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>actor01</span><span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>         <span class=n>vtkActor</span> <span class=n>actor02</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>actor01</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper01</span><span class=p>);</span>
          <span class=n>actor02</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper02</span><span class=p>);</span>
          <span class=n>actor01</span><span class=p>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=m>0.0</span><span class=p>,</span>  <span class=m>0.25</span><span class=p>,</span> <span class=m>0.0</span><span class=p>);</span>
          <span class=n>actor02</span><span class=p>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=m>0.0</span><span class=p>,</span> <span class=p>-</span><span class=m>0.25</span><span class=p>,</span> <span class=m>0.0</span><span class=p>);</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span><span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor01</span><span class=p>);</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor02</span><span class=p>);</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>ResetCamera</span><span class=p>();</span>

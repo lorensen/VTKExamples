@@ -63,9 +63,9 @@ function registerListener(event, func) {
 
 <span class=k>void</span> <span class=nf>RandomSequence</span><span class=p>()</span> <span class=p>{</span>
    <span class=c1>//Create a random sequence generator.</span>
-   <span class=n>vtkMinimalStandardRandomSequence</span> <span class=n>sequence</span> <span class=p>=</span> 
-      <span class=n>vtkMinimalStandardRandomSequence</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>   <span class=n>vtkMinimalStandardRandomSequence</span> <span class=n>sequence</span> <span class=p>=</span> 
+</span><span class=hll>      <span class=n>vtkMinimalStandardRandomSequence</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
    <span class=c1>// initialize the sequence</span>
    <span class=n>sequence</span><span class=p>.</span><span class=n>SetSeed</span><span class=p>((</span><span class=kt>int</span><span class=p>)(</span><span class=n>DateTime</span><span class=p>.</span><span class=n>Now</span><span class=p>.</span><span class=n>Ticks</span> <span class=p>&amp;</span> <span class=m>0</span><span class=n>x0000FFFF</span><span class=p>));</span>
    <span class=c1>//Get 3 random numbers.</span>

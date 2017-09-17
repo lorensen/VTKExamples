@@ -74,58 +74,58 @@ function registerListener(event, func) {
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>renderWindowControl1_Load</span><span class=p>(</span><span class=kt>object</span> <span class=n>sender</span><span class=p>,</span> <span class=n>EventArgs</span> <span class=n>e</span><span class=p>)</span> <span class=p>{</span>
          <span class=k>try</span> <span class=p>{</span>
-            <span class=n>vtkPolyDataConnectivityFilter_LargestRegion</span><span class=p>();</span>
-         <span class=p>}</span>
+<span class=hll>            <span class=n>vtkPolyDataConnectivityFilter_LargestRegion</span><span class=p>();</span>
+</span>         <span class=p>}</span>
          <span class=k>catch</span><span class=p>(</span><span class=n>Exception</span> <span class=n>ex</span><span class=p>)</span> <span class=p>{</span>
             <span class=n>MessageBox</span><span class=p>.</span><span class=n>Show</span><span class=p>(</span><span class=n>ex</span><span class=p>.</span><span class=n>Message</span><span class=p>,</span> <span class=s>&quot;Exception&quot;</span><span class=p>,</span> <span class=n>MessageBoxButtons</span><span class=p>.</span><span class=n>OK</span><span class=p>);</span>
          <span class=p>}</span>
       <span class=p>}</span>
 
 
-      <span class=k>private</span> <span class=k>void</span> <span class=nf>vtkPolyDataConnectivityFilter_LargestRegion</span><span class=p>()</span> <span class=p>{</span>
-         <span class=c1>// Small sphere</span>
-         <span class=n>vtkSphereSource</span> <span class=n>sphereSource1</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphereSource1</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
+<span class=hll>      <span class=k>private</span> <span class=k>void</span> <span class=nf>vtkPolyDataConnectivityFilter_LargestRegion</span><span class=p>()</span> <span class=p>{</span>
+</span>         <span class=c1>// Small sphere</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphereSource1</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphereSource1</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
          <span class=c1>// Large sphere</span>
-         <span class=n>vtkSphereSource</span> <span class=n>sphereSource2</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphereSource2</span><span class=p>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=m>10</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphereSource2</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphereSource2</span><span class=p>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=m>10</span><span class=p>);</span>
          <span class=n>sphereSource2</span><span class=p>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=m>25</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
          <span class=n>sphereSource2</span><span class=p>.</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=m>10</span><span class=p>);</span>
          <span class=n>sphereSource2</span><span class=p>.</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=m>10</span><span class=p>);</span>
          <span class=n>sphereSource2</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkAppendPolyData</span> <span class=n>appendFilter</span> <span class=p>=</span> <span class=n>vtkAppendPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>appendFilter</span><span class=p>.</span><span class=n>AddInputConnection</span><span class=p>(</span><span class=n>sphereSource1</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkAppendPolyData</span> <span class=n>appendFilter</span> <span class=p>=</span> <span class=n>vtkAppendPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>appendFilter</span><span class=p>.</span><span class=n>AddInputConnection</span><span class=p>(</span><span class=n>sphereSource1</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>appendFilter</span><span class=p>.</span><span class=n>AddInputConnection</span><span class=p>(</span><span class=n>sphereSource2</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>appendFilter</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkPolyDataConnectivityFilter</span> <span class=n>connectivityFilter</span> <span class=p>=</span> <span class=n>vtkPolyDataConnectivityFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>connectivityFilter</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>appendFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataConnectivityFilter</span> <span class=n>connectivityFilter</span> <span class=p>=</span> <span class=n>vtkPolyDataConnectivityFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>connectivityFilter</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>appendFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>connectivityFilter</span><span class=p>.</span><span class=n>SetExtractionModeToLargestRegion</span><span class=p>();</span>
          <span class=n>connectivityFilter</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
          <span class=c1>// Create a mapper and actor for original data</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>originalMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>originalMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>appendFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>originalMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>originalMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>appendFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>originalMapper</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkActor</span> <span class=n>originalActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>originalActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>originalMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>originalActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>originalActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>originalMapper</span><span class=p>);</span>
 
          <span class=c1>// Create a mapper and actor for extracted data</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>extractedMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>extractedMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>connectivityFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>extractedMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>extractedMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>connectivityFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>extractedMapper</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkActor</span> <span class=n>extractedActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>extractedActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetColor</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>extractedActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>extractedActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetColor</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>);</span>
          <span class=n>extractedActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>extractedMapper</span><span class=p>);</span>
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
          <span class=c1>// add our actor to the renderer</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>originalActor</span><span class=p>);</span>

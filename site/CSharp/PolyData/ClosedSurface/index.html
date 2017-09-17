@@ -70,11 +70,11 @@ function registerListener(event, func) {
 
       <span class=k>private</span> <span class=k>static</span> <span class=k>void</span> <span class=nf>ClosedSurface</span><span class=p>()</span> <span class=p>{</span>
          <span class=c1>// Create a sphere</span>
-         <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkFeatureEdges</span> <span class=n>featureEdges</span> <span class=p>=</span> <span class=n>vtkFeatureEdges</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>featureEdges</span><span class=p>.</span><span class=n>FeatureEdgesOff</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkFeatureEdges</span> <span class=n>featureEdges</span> <span class=p>=</span> <span class=n>vtkFeatureEdges</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>featureEdges</span><span class=p>.</span><span class=n>FeatureEdgesOff</span><span class=p>();</span>
          <span class=n>featureEdges</span><span class=p>.</span><span class=n>BoundaryEdgesOn</span><span class=p>();</span>
          <span class=n>featureEdges</span><span class=p>.</span><span class=n>NonManifoldEdgesOn</span><span class=p>();</span>
          <span class=n>featureEdges</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>

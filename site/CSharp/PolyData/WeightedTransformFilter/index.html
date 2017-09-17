@@ -84,16 +84,16 @@ function registerListener(event, func) {
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>WeightedTransformFilter</span><span class=p>()</span> <span class=p>{</span> 
          <span class=c1>// Use a sphere as a basis of the shape</span>
-         <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphere</span><span class=p>.</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=m>40</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphere</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphere</span><span class=p>.</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=m>40</span><span class=p>);</span>
          <span class=n>sphere</span><span class=p>.</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=m>40</span><span class=p>);</span>
          <span class=n>sphere</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkPolyData</span> <span class=n>sphereData</span> <span class=p>=</span> <span class=n>sphere</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkPolyData</span> <span class=n>sphereData</span> <span class=p>=</span> <span class=n>sphere</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
+</span>
          <span class=c1>// Create a data array to hold the weighting coefficients</span>
-         <span class=n>vtkFloatArray</span> <span class=n>tfarray</span> <span class=p>=</span> <span class=n>vtkFloatArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=kt>int</span> <span class=n>npoints</span> <span class=p>=</span> <span class=n>sphereData</span><span class=p>.</span><span class=n>GetNumberOfPoints</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkFloatArray</span> <span class=n>tfarray</span> <span class=p>=</span> <span class=n>vtkFloatArray</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=kt>int</span> <span class=n>npoints</span> <span class=p>=</span> <span class=n>sphereData</span><span class=p>.</span><span class=n>GetNumberOfPoints</span><span class=p>();</span>
          <span class=n>tfarray</span><span class=p>.</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=m>2</span><span class=p>);</span>
          <span class=n>tfarray</span><span class=p>.</span><span class=n>SetNumberOfTuples</span><span class=p>(</span><span class=n>npoints</span><span class=p>);</span>
 
@@ -121,27 +121,27 @@ function registerListener(event, func) {
          <span class=n>Marshal</span><span class=p>.</span><span class=n>FreeHGlobal</span><span class=p>(</span><span class=n>pPoint</span><span class=p>);</span>
 
          <span class=c1>// Create field data to hold the array, and bind it to the sphere</span>
-         <span class=n>vtkFieldData</span> <span class=n>fd</span> <span class=p>=</span> <span class=n>vtkFieldData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>tfarray</span><span class=p>.</span><span class=n>SetName</span><span class=p>(</span><span class=s>&quot;weights&quot;</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkFieldData</span> <span class=n>fd</span> <span class=p>=</span> <span class=n>vtkFieldData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>tfarray</span><span class=p>.</span><span class=n>SetName</span><span class=p>(</span><span class=s>&quot;weights&quot;</span><span class=p>);</span>
          <span class=n>sphereData</span><span class=p>.</span><span class=n>GetPointData</span><span class=p>().</span><span class=n>AddArray</span><span class=p>(</span><span class=n>tfarray</span><span class=p>);</span>
 
          <span class=c1>// Use an ordinary transform to stretch the shape</span>
-         <span class=n>vtkTransform</span> <span class=n>stretch</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>stretch</span><span class=p>.</span><span class=n>Scale</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=m>1</span><span class=p>,</span> <span class=m>3.2</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkTransform</span> <span class=n>stretch</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>stretch</span><span class=p>.</span><span class=n>Scale</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=m>1</span><span class=p>,</span> <span class=m>3.2</span><span class=p>);</span>
 
-         <span class=n>vtkTransformFilter</span> <span class=n>stretchFilter</span> <span class=p>=</span> <span class=n>vtkTransformFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>stretchFilter</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>sphereData</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkTransformFilter</span> <span class=n>stretchFilter</span> <span class=p>=</span> <span class=n>vtkTransformFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>stretchFilter</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>sphereData</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
          <span class=n>stretchFilter</span><span class=p>.</span><span class=n>SetTransform</span><span class=p>(</span><span class=n>stretch</span><span class=p>);</span>
 
          <span class=c1>// Now, for the weighted transform stuff</span>
-         <span class=n>vtkWeightedTransformFilter</span> <span class=n>weightedTrans</span> <span class=p>=</span> <span class=n>vtkWeightedTransformFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkWeightedTransformFilter</span> <span class=n>weightedTrans</span> <span class=p>=</span> <span class=n>vtkWeightedTransformFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=c1>// Create two transforms to interpolate between</span>
-         <span class=n>vtkTransform</span> <span class=n>identity</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>identity</span><span class=p>.</span><span class=n>Identity</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkTransform</span> <span class=n>identity</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>identity</span><span class=p>.</span><span class=n>Identity</span><span class=p>();</span>
 
-         <span class=n>vtkTransform</span> <span class=n>rotated</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=kt>double</span> <span class=n>rotatedAngle</span> <span class=p>=</span> <span class=m>45</span><span class=p>;</span>
+<span class=hll>         <span class=n>vtkTransform</span> <span class=n>rotated</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=kt>double</span> <span class=n>rotatedAngle</span> <span class=p>=</span> <span class=m>45</span><span class=p>;</span>
          <span class=n>rotated</span><span class=p>.</span><span class=n>RotateX</span><span class=p>(</span><span class=n>rotatedAngle</span><span class=p>);</span>
 
          <span class=n>weightedTrans</span><span class=p>.</span><span class=n>SetNumberOfTransforms</span><span class=p>(</span><span class=m>2</span><span class=p>);</span>
@@ -152,18 +152,18 @@ function registerListener(event, func) {
 
          <span class=n>weightedTrans</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>stretchFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>weightedTransMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>weightedTransMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>weightedTrans</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
-         <span class=n>vtkActor</span> <span class=n>weightedTransActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>weightedTransActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>weightedTransMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>weightedTransMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>weightedTransMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>weightedTrans</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>weightedTransActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>weightedTransActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>weightedTransMapper</span><span class=p>);</span>
          <span class=n>weightedTransActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetDiffuseColor</span><span class=p>(</span><span class=m>0.8</span><span class=p>,</span> <span class=m>0.8</span><span class=p>,</span> <span class=m>0.1</span><span class=p>);</span>
          <span class=n>weightedTransActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetRepresentationToSurface</span><span class=p>();</span>
 
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>0.2</span><span class=p>,</span> <span class=m>0.3</span><span class=p>,</span> <span class=m>0.4</span><span class=p>);</span>
          <span class=c1>// add our actor to the renderer</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>weightedTransActor</span><span class=p>);</span>

@@ -70,29 +70,29 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>static</span> <span class=k>void</span> <span class=nf>MultiBlockMergeFilter</span><span class=p>()</span> <span class=p>{</span>
-         <span class=n>vtkSphereSource</span> <span class=n>sphereSource1</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphereSource1</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphereSource1</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphereSource1</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkSphereSource</span> <span class=n>sphereSource2</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>sphereSource2</span><span class=p>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=m>10</span><span class=p>,</span> <span class=m>10</span><span class=p>,</span> <span class=m>10</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkSphereSource</span> <span class=n>sphereSource2</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>sphereSource2</span><span class=p>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=m>10</span><span class=p>,</span> <span class=m>10</span><span class=p>,</span> <span class=m>10</span><span class=p>);</span>
          <span class=n>sphereSource2</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkMultiBlockDataSet</span> <span class=n>multiBlockDataSet1</span> <span class=p>=</span> <span class=n>vtkMultiBlockDataSet</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>multiBlockDataSet1</span><span class=p>.</span><span class=n>SetNumberOfBlocks</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkMultiBlockDataSet</span> <span class=n>multiBlockDataSet1</span> <span class=p>=</span> <span class=n>vtkMultiBlockDataSet</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>multiBlockDataSet1</span><span class=p>.</span><span class=n>SetNumberOfBlocks</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
          <span class=n>multiBlockDataSet1</span><span class=p>.</span><span class=n>SetBlock</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=n>sphereSource1</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>());</span>
 <span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>multiBlockDataSet1</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 <span class=cp>#endif</span>
 
-         <span class=n>vtkMultiBlockDataSet</span> <span class=n>multiBlockDataSet2</span> <span class=p>=</span> <span class=n>vtkMultiBlockDataSet</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>multiBlockDataSet2</span><span class=p>.</span><span class=n>SetNumberOfBlocks</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkMultiBlockDataSet</span> <span class=n>multiBlockDataSet2</span> <span class=p>=</span> <span class=n>vtkMultiBlockDataSet</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>multiBlockDataSet2</span><span class=p>.</span><span class=n>SetNumberOfBlocks</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
          <span class=n>multiBlockDataSet2</span><span class=p>.</span><span class=n>SetBlock</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=n>sphereSource2</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>());</span>
 <span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>multiBlockDataSet2</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 <span class=cp>#endif</span>
 
-         <span class=n>vtkMultiBlockMergeFilter</span> <span class=n>multiBlockMergeFilter</span> <span class=p>=</span> <span class=n>vtkMultiBlockMergeFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkMultiBlockMergeFilter</span> <span class=n>multiBlockMergeFilter</span> <span class=p>=</span> <span class=n>vtkMultiBlockMergeFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>multiBlockMergeFilter</span><span class=p>.</span><span class=n>AddInput</span><span class=p>(</span><span class=n>multiBlockDataSet1</span><span class=p>);</span>
          <span class=n>multiBlockMergeFilter</span><span class=p>.</span><span class=n>AddInput</span><span class=p>(</span><span class=n>multiBlockDataSet2</span><span class=p>);</span>
 <span class=cp>#else</span>

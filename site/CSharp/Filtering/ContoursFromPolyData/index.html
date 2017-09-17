@@ -75,39 +75,39 @@ function registerListener(event, func) {
       <span class=k>private</span> <span class=k>void</span> <span class=nf>renderWindowControl1_Load</span><span class=p>(</span><span class=kt>object</span> <span class=n>sender</span><span class=p>,</span> <span class=n>EventArgs</span> <span class=n>e</span><span class=p>)</span> <span class=p>{</span>
          <span class=k>try</span> <span class=p>{</span>
             <span class=n>ContoursFromPolyData</span><span class=p>(</span><span class=k>null</span><span class=p>);</span>
-            <span class=c1>//ContoursFromPolyData(@&quot;c:\vtk\vtkdata-5.8.0\Data\bunny.vtp&quot;);</span>
-         <span class=p>}</span>
+<span class=hll>            <span class=c1>//ContoursFromPolyData(@&quot;c:\vtk\vtkdata-5.8.0\Data\bunny.vtp&quot;);</span>
+</span>         <span class=p>}</span>
          <span class=k>catch</span><span class=p>(</span><span class=n>Exception</span> <span class=n>ex</span><span class=p>)</span> <span class=p>{</span>
             <span class=n>MessageBox</span><span class=p>.</span><span class=n>Show</span><span class=p>(</span><span class=n>ex</span><span class=p>.</span><span class=n>Message</span><span class=p>,</span> <span class=s>&quot;Exception&quot;</span><span class=p>,</span> <span class=n>MessageBoxButtons</span><span class=p>.</span><span class=n>OK</span><span class=p>);</span>
          <span class=p>}</span>
       <span class=p>}</span>
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>ContoursFromPolyData</span><span class=p>(</span><span class=kt>string</span> <span class=n>filePath</span><span class=p>)</span> <span class=p>{</span>
-         <span class=n>vtkPolyData</span> <span class=n>inputPolyData</span><span class=p>;</span>
-         <span class=k>if</span><span class=p>(</span><span class=n>filePath</span> <span class=p>!=</span> <span class=k>null</span><span class=p>)</span> <span class=p>{</span>
-            <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkPolyData</span> <span class=n>inputPolyData</span><span class=p>;</span>
+</span>         <span class=k>if</span><span class=p>(</span><span class=n>filePath</span> <span class=p>!=</span> <span class=k>null</span><span class=p>)</span> <span class=p>{</span>
+<span class=hll>            <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
             <span class=n>reader</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
             <span class=n>inputPolyData</span> <span class=p>=</span> <span class=n>reader</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
          <span class=p>}</span>
          <span class=k>else</span> <span class=p>{</span>
-            <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>sphereSource</span><span class=p>.</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=m>30</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>sphereSource</span><span class=p>.</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=m>30</span><span class=p>);</span>
             <span class=n>sphereSource</span><span class=p>.</span><span class=n>SetPhiResolution</span><span class=p>(</span><span class=m>15</span><span class=p>);</span>
             <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
             <span class=n>inputPolyData</span> <span class=p>=</span> <span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
          <span class=p>}</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>inputMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>inputMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>inputMapper</span><span class=p>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>inputPolyData</span><span class=p>);</span>
 <span class=cp>#else</span>
          <span class=n>inputMapper</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>inputPolyData</span><span class=p>);</span>
 <span class=cp>#endif</span>
 
          <span class=c1>// Create a plane to cut</span>
-         <span class=n>vtkPlane</span> <span class=n>plane</span> <span class=p>=</span> <span class=n>vtkPlane</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=kt>double</span><span class=p>[]</span> <span class=n>center</span> <span class=p>=</span> <span class=n>inputPolyData</span><span class=p>.</span><span class=n>GetCenter</span><span class=p>();</span>
+<span class=hll>         <span class=n>vtkPlane</span> <span class=n>plane</span> <span class=p>=</span> <span class=n>vtkPlane</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=kt>double</span><span class=p>[]</span> <span class=n>center</span> <span class=p>=</span> <span class=n>inputPolyData</span><span class=p>.</span><span class=n>GetCenter</span><span class=p>();</span>
          <span class=kt>double</span><span class=p>[]</span> <span class=n>bounds</span> <span class=p>=</span> <span class=n>inputPolyData</span><span class=p>.</span><span class=n>GetBounds</span><span class=p>();</span>
          <span class=n>plane</span><span class=p>.</span><span class=n>SetOrigin</span><span class=p>(</span><span class=n>center</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>center</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>center</span><span class=p>[</span><span class=m>2</span><span class=p>]);</span>
          <span class=n>plane</span><span class=p>.</span><span class=n>SetNormal</span><span class=p>(</span><span class=m>1</span><span class=p>,</span> <span class=m>1</span><span class=p>,</span> <span class=m>1</span><span class=p>);</span>
@@ -123,42 +123,42 @@ function registerListener(event, func) {
          <span class=n>Marshal</span><span class=p>.</span><span class=n>Copy</span><span class=p>(</span><span class=n>minBoundf</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=n>pMinBound</span><span class=p>,</span> <span class=m>3</span><span class=p>);</span>
          <span class=n>Marshal</span><span class=p>.</span><span class=n>Copy</span><span class=p>(</span><span class=n>maxBoundf</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=n>pMaxBound</span><span class=p>,</span> <span class=m>3</span><span class=p>);</span>
 
-         <span class=c1>// vtkMath.Distance2BetweenPoints accepts floats only</span>
-         <span class=kt>double</span> <span class=n>distanceMin</span> <span class=p>=</span> <span class=n>Math</span><span class=p>.</span><span class=n>Sqrt</span><span class=p>(</span><span class=n>vtkMath</span><span class=p>.</span><span class=n>Distance2BetweenPoints</span><span class=p>(</span><span class=n>pMinBound</span><span class=p>,</span> <span class=n>pCenter</span><span class=p>));</span>
-         <span class=kt>double</span> <span class=n>distanceMax</span> <span class=p>=</span> <span class=n>Math</span><span class=p>.</span><span class=n>Sqrt</span><span class=p>(</span><span class=n>vtkMath</span><span class=p>.</span><span class=n>Distance2BetweenPoints</span><span class=p>(</span><span class=n>pMaxBound</span><span class=p>,</span> <span class=n>pCenter</span><span class=p>));</span>
-
+<span class=hll>         <span class=c1>// vtkMath.Distance2BetweenPoints accepts floats only</span>
+</span><span class=hll>         <span class=kt>double</span> <span class=n>distanceMin</span> <span class=p>=</span> <span class=n>Math</span><span class=p>.</span><span class=n>Sqrt</span><span class=p>(</span><span class=n>vtkMath</span><span class=p>.</span><span class=n>Distance2BetweenPoints</span><span class=p>(</span><span class=n>pMinBound</span><span class=p>,</span> <span class=n>pCenter</span><span class=p>));</span>
+</span><span class=hll>         <span class=kt>double</span> <span class=n>distanceMax</span> <span class=p>=</span> <span class=n>Math</span><span class=p>.</span><span class=n>Sqrt</span><span class=p>(</span><span class=n>vtkMath</span><span class=p>.</span><span class=n>Distance2BetweenPoints</span><span class=p>(</span><span class=n>pMaxBound</span><span class=p>,</span> <span class=n>pCenter</span><span class=p>));</span>
+</span>
          <span class=n>Marshal</span><span class=p>.</span><span class=n>FreeHGlobal</span><span class=p>(</span><span class=n>pCenter</span><span class=p>);</span>
          <span class=n>Marshal</span><span class=p>.</span><span class=n>FreeHGlobal</span><span class=p>(</span><span class=n>pMinBound</span><span class=p>);</span>
          <span class=n>Marshal</span><span class=p>.</span><span class=n>FreeHGlobal</span><span class=p>(</span><span class=n>pMaxBound</span><span class=p>);</span>
          <span class=c1>// Create cutter</span>
-         <span class=n>vtkCutter</span> <span class=n>cutter</span> <span class=p>=</span> <span class=n>vtkCutter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>cutter</span><span class=p>.</span><span class=n>SetCutFunction</span><span class=p>(</span><span class=n>plane</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkCutter</span> <span class=n>cutter</span> <span class=p>=</span> <span class=n>vtkCutter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>cutter</span><span class=p>.</span><span class=n>SetCutFunction</span><span class=p>(</span><span class=n>plane</span><span class=p>);</span>
 <span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>cutter</span><span class=p>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>inputPolyData</span><span class=p>);</span>
 <span class=cp>#else</span>
          <span class=n>cutter</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>inputPolyData</span><span class=p>);</span>
 <span class=cp>#endif</span>
          <span class=n>cutter</span><span class=p>.</span><span class=n>GenerateValues</span><span class=p>(</span><span class=m>20</span><span class=p>,</span> <span class=p>-</span><span class=n>distanceMin</span><span class=p>,</span> <span class=n>distanceMax</span><span class=p>);</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>cutterMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>cutterMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>cutter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>cutterMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>cutterMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>cutter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
          <span class=n>cutterMapper</span><span class=p>.</span><span class=n>ScalarVisibilityOff</span><span class=p>();</span>
 
          <span class=c1>// Create plane actor</span>
-         <span class=n>vtkActor</span> <span class=n>planeActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>planeActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetColor</span><span class=p>(</span><span class=m>1.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>planeActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>planeActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetColor</span><span class=p>(</span><span class=m>1.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>);</span>
          <span class=n>planeActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=m>3</span><span class=p>);</span>
          <span class=n>planeActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>cutterMapper</span><span class=p>);</span>
 
          <span class=c1>// Create input actor</span>
-         <span class=n>vtkActor</span> <span class=n>inputActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>inputActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetColor</span><span class=p>(</span><span class=m>1.0</span><span class=p>,</span> <span class=m>0.8941</span><span class=p>,</span> <span class=m>0.7686</span><span class=p>);</span> <span class=c1>// bisque</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>inputActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>inputActor</span><span class=p>.</span><span class=n>GetProperty</span><span class=p>().</span><span class=n>SetColor</span><span class=p>(</span><span class=m>1.0</span><span class=p>,</span> <span class=m>0.8941</span><span class=p>,</span> <span class=m>0.7686</span><span class=p>);</span> <span class=c1>// bisque</span>
          <span class=n>inputActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>inputMapper</span><span class=p>);</span>
 
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(.</span><span class=m>2</span><span class=p>,</span> <span class=p>.</span><span class=m>3</span><span class=p>,</span> <span class=p>.</span><span class=m>4</span><span class=p>);</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>inputActor</span><span class=p>);</span> 
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>planeActor</span><span class=p>);</span> <span class=c1>//display the contour lines</span>

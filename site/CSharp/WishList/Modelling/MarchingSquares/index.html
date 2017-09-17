@@ -83,13 +83,13 @@ function registerListener(event, func) {
 
 
       <span class=k>private</span> <span class=k>void</span> <span class=nf>MarchingSquares</span><span class=p>()</span> <span class=p>{</span> 
-         <span class=c1>// Path to vtk data must be set as an environment variable</span>
-         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
-         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
+<span class=hll>         <span class=c1>// Path to vtk data must be set as an environment variable</span>
+</span><span class=hll>         <span class=c1>// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+</span><span class=hll>         <span class=n>vtkTesting</span> <span class=n>test</span> <span class=p>=</span> <span class=n>vtkTesting</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=kt>string</span> <span class=n>root</span> <span class=p>=</span> <span class=n>test</span><span class=p>.</span><span class=n>GetDataRoot</span><span class=p>();</span>
 
-         <span class=n>vtkVolume16Reader</span> <span class=n>v16</span> <span class=p>=</span> <span class=n>vtkVolume16Reader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>v16</span><span class=p>.</span><span class=n>SetDataDimensions</span><span class=p>(</span><span class=m>64</span><span class=p>,</span> <span class=m>64</span><span class=p>);</span> 
+<span class=hll>         <span class=n>vtkVolume16Reader</span> <span class=n>v16</span> <span class=p>=</span> <span class=n>vtkVolume16Reader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>v16</span><span class=p>.</span><span class=n>SetDataDimensions</span><span class=p>(</span><span class=m>64</span><span class=p>,</span> <span class=m>64</span><span class=p>);</span> 
 
          <span class=n>v16</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>().</span><span class=n>SetOrigin</span><span class=p>(</span><span class=m>0.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>,</span> <span class=m>0.0</span><span class=p>);</span>
          <span class=n>v16</span><span class=p>.</span><span class=n>SetDataByteOrderToLittleEndian</span><span class=p>();</span>
@@ -98,10 +98,10 @@ function registerListener(event, func) {
          <span class=n>v16</span><span class=p>.</span><span class=n>SetDataSpacing</span><span class=p>(</span><span class=m>3.2</span><span class=p>,</span> <span class=m>3.2</span><span class=p>,</span> <span class=m>1.5</span><span class=p>);</span>
          <span class=n>v16</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkMergePoints</span> <span class=n>myLocator</span> <span class=p>=</span> <span class=n>vtkMergePoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
-         <span class=n>vtkMarchingSquares</span> <span class=n>isoXY</span> <span class=p>=</span> <span class=n>vtkMarchingSquares</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkMergePoints</span> <span class=n>myLocator</span> <span class=p>=</span> <span class=n>vtkMergePoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
+<span class=hll>         <span class=n>vtkMarchingSquares</span> <span class=n>isoXY</span> <span class=p>=</span> <span class=n>vtkMarchingSquares</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
 <span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>isoXY</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>v16</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
@@ -111,19 +111,19 @@ function registerListener(event, func) {
          <span class=n>isoXY</span><span class=p>.</span><span class=n>SetImageRange</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>32</span><span class=p>,</span> <span class=m>32</span><span class=p>,</span> <span class=m>63</span><span class=p>,</span> <span class=m>45</span><span class=p>,</span> <span class=m>45</span><span class=p>);</span>
          <span class=n>isoXY</span><span class=p>.</span><span class=n>SetLocator</span><span class=p>(</span><span class=n>myLocator</span><span class=p>);</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>isoXYMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>isoXYMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>isoXYMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>isoXY</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>isoXYMapper</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>isoXY</span><span class=p>);</span>
 <span class=cp>#endif</span>
          <span class=n>isoXYMapper</span><span class=p>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=m>600</span><span class=p>,</span> <span class=m>1200</span><span class=p>);</span>
 
-         <span class=n>vtkActor</span> <span class=n>isoXYActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>isoXYActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>isoXYMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>isoXYActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>isoXYActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>isoXYMapper</span><span class=p>);</span>
 
-         <span class=n>vtkMarchingSquares</span> <span class=n>isoYZ</span> <span class=p>=</span> <span class=n>vtkMarchingSquares</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkMarchingSquares</span> <span class=n>isoYZ</span> <span class=p>=</span> <span class=n>vtkMarchingSquares</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>isoYZ</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>v16</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>isoYZ</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>v16</span><span class=p>);</span>
@@ -131,19 +131,19 @@ function registerListener(event, func) {
          <span class=n>isoYZ</span><span class=p>.</span><span class=n>GenerateValues</span><span class=p>(</span><span class=m>2</span><span class=p>,</span> <span class=m>600</span><span class=p>,</span> <span class=m>1200</span><span class=p>);</span>
          <span class=n>isoYZ</span><span class=p>.</span><span class=n>SetImageRange</span><span class=p>(</span><span class=m>32</span><span class=p>,</span> <span class=m>32</span><span class=p>,</span> <span class=m>32</span><span class=p>,</span> <span class=m>63</span><span class=p>,</span> <span class=m>46</span><span class=p>,</span> <span class=m>92</span><span class=p>);</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>isoYZMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>isoYZMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>isoYZMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>isoYZ</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>isoYZMapper</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>isoYZ</span><span class=p>);</span>
 <span class=cp>#endif</span>
          <span class=n>isoYZMapper</span><span class=p>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=m>600</span><span class=p>,</span> <span class=m>1200</span><span class=p>);</span>
 
-         <span class=n>vtkActor</span> <span class=n>isoYZActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>isoYZActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>isoYZMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>isoYZActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>isoYZActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>isoYZMapper</span><span class=p>);</span>
 
-         <span class=n>vtkMarchingSquares</span> <span class=n>isoXZ</span>  <span class=p>=</span> <span class=n>vtkMarchingSquares</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkMarchingSquares</span> <span class=n>isoXZ</span>  <span class=p>=</span> <span class=n>vtkMarchingSquares</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>isoXZ</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>v16</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>isoXZ</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>v16</span><span class=p>);</span>
@@ -151,38 +151,38 @@ function registerListener(event, func) {
          <span class=n>isoXZ</span><span class=p>.</span><span class=n>GenerateValues</span><span class=p>(</span><span class=m>2</span><span class=p>,</span> <span class=m>600</span><span class=p>,</span> <span class=m>1200</span><span class=p>);</span>
          <span class=n>isoXZ</span><span class=p>.</span><span class=n>SetImageRange</span><span class=p>(</span><span class=m>0</span><span class=p>,</span> <span class=m>32</span><span class=p>,</span> <span class=m>32</span><span class=p>,</span> <span class=m>32</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>46</span><span class=p>);</span>
 
-         <span class=n>vtkPolyDataMapper</span> <span class=n>isoXZMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>isoXZMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>isoXZMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>isoXZ</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>isoXZMapper</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>isoXZ</span><span class=p>);</span>
 <span class=cp>#endif</span>
          <span class=n>isoXZMapper</span><span class=p>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=m>600</span><span class=p>,</span> <span class=m>1200</span><span class=p>);</span>
 
-         <span class=n>vtkActor</span> <span class=n>isoXZActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>isoXZActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>isoXZMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>isoXZActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>isoXZActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>isoXZMapper</span><span class=p>);</span>
 
-         <span class=n>vtkOutlineFilter</span> <span class=n>outline</span>  <span class=p>=</span> <span class=n>vtkOutlineFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkOutlineFilter</span> <span class=n>outline</span>  <span class=p>=</span> <span class=n>vtkOutlineFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>outline</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>v16</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>outline</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>v16</span><span class=p>);</span>
 <span class=cp>#endif</span>
-         <span class=n>vtkPolyDataMapper</span> <span class=n>outlineMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>         <span class=n>vtkPolyDataMapper</span> <span class=n>outlineMapper</span> <span class=p>=</span> <span class=n>vtkPolyDataMapper</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
          <span class=n>outlineMapper</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>outline</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
          <span class=n>outlineMapper</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>outline</span><span class=p>);</span>
 <span class=cp>#endif</span>
-         <span class=n>vtkActor</span> <span class=n>outlineActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>outlineActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outlineMapper</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkActor</span> <span class=n>outlineActor</span> <span class=p>=</span> <span class=n>vtkActor</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>outlineActor</span><span class=p>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outlineMapper</span><span class=p>);</span>
          <span class=n>outlineActor</span><span class=p>.</span><span class=n>VisibilityOff</span><span class=p>();</span>
 
          <span class=c1>// get a reference to the renderwindow of our renderWindowControl1</span>
-         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
-         <span class=c1>// renderer</span>
-         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
-         <span class=c1>// set background color</span>
+<span class=hll>         <span class=n>vtkRenderWindow</span> <span class=n>renderWindow</span> <span class=p>=</span> <span class=n>renderWindowControl1</span><span class=p>.</span><span class=n>RenderWindow</span><span class=p>;</span>
+</span>         <span class=c1>// renderer</span>
+<span class=hll>         <span class=n>vtkRenderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>renderWindow</span><span class=p>.</span><span class=n>GetRenderers</span><span class=p>().</span><span class=n>GetFirstRenderer</span><span class=p>();</span>
+</span>         <span class=c1>// set background color</span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=m>1.0</span><span class=p>,</span> <span class=m>1.0</span><span class=p>,</span> <span class=m>1.0</span><span class=p>);</span>
          <span class=c1>//Add the actors to the renderer, set the background and size </span>
          <span class=n>renderer</span><span class=p>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>outlineActor</span><span class=p>);</span>

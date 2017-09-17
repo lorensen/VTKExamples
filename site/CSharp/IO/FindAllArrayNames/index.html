@@ -71,20 +71,20 @@ function registerListener(event, func) {
 
 
      <span class=k>private</span> <span class=k>static</span> <span class=k>void</span> <span class=nf>FindAllArrayNames</span><span class=p>(</span><span class=kt>string</span> <span class=n>filePath</span><span class=p>)</span> <span class=p>{</span>
-         <span class=n>vtkPolyData</span> <span class=n>polydata</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkPolyData</span> <span class=n>polydata</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=k>if</span><span class=p>(</span><span class=n>filePath</span> <span class=p>==</span> <span class=k>null</span><span class=p>)</span> <span class=p>{</span>
-            <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
-            <span class=n>vtkXMLPolyDataWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\testFindAllArrayNames.vtp&quot;</span><span class=p>);</span>
-            <span class=n>writer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
+<span class=hll>            <span class=n>vtkSphereSource</span> <span class=n>sphereSource</span> <span class=p>=</span> <span class=n>vtkSphereSource</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>sphereSource</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
+<span class=hll>            <span class=n>vtkXMLPolyDataWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>            <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\testFindAllArrayNames.vtp&quot;</span><span class=p>);</span>
+</span>            <span class=n>writer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
             <span class=n>writer</span><span class=p>.</span><span class=n>Write</span><span class=p>();</span>
             <span class=n>polydata</span> <span class=p>=</span> <span class=n>sphereSource</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
          <span class=p>}</span>
          <span class=k>else</span> <span class=p>{</span>
-            <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkXMLPolyDataReader</span> <span class=n>reader</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataReader</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>reader</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filePath</span><span class=p>);</span>
             <span class=n>reader</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
             <span class=n>polydata</span> <span class=p>=</span> <span class=n>reader</span><span class=p>.</span><span class=n>GetOutput</span><span class=p>();</span>
          <span class=p>}</span>
@@ -92,8 +92,8 @@ function registerListener(event, func) {
       <span class=p>}</span>
 
 
-      <span class=k>private</span> <span class=k>static</span> <span class=k>void</span> <span class=nf>FindAllData</span><span class=p>(</span><span class=k>ref</span> <span class=n>vtkPolyData</span> <span class=n>polydata</span><span class=p>)</span> <span class=p>{</span>
-         <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;Normals: &quot;</span> <span class=p>+</span> <span class=n>polydata</span><span class=p>.</span><span class=n>GetPointData</span><span class=p>().</span><span class=n>GetNormals</span><span class=p>());</span>
+<span class=hll>      <span class=k>private</span> <span class=k>static</span> <span class=k>void</span> <span class=nf>FindAllData</span><span class=p>(</span><span class=k>ref</span> <span class=n>vtkPolyData</span> <span class=n>polydata</span><span class=p>)</span> <span class=p>{</span>
+</span>         <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;Normals: &quot;</span> <span class=p>+</span> <span class=n>polydata</span><span class=p>.</span><span class=n>GetPointData</span><span class=p>().</span><span class=n>GetNormals</span><span class=p>());</span>
 
          <span class=kt>int</span> <span class=n>numberOfPointArrays</span> <span class=p>=</span> <span class=n>polydata</span><span class=p>.</span><span class=n>GetPointData</span><span class=p>().</span><span class=n>GetNumberOfArrays</span><span class=p>();</span>
          <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;Number of PointData arrays: &quot;</span> <span class=p>+</span> <span class=n>numberOfPointArrays</span><span class=p>);</span>
@@ -106,8 +106,8 @@ function registerListener(event, func) {
             <span class=s>&quot;Type table/key: &quot;</span> <span class=p>+</span> 
             <span class=n>Environment</span><span class=p>.</span><span class=n>NewLine</span> <span class=p>+</span> 
             <span class=s>&quot;-------------------------&quot;</span><span class=p>);</span>
-         <span class=c1>//more values can be found in &lt;VTK_DIR&gt;/Common/vtkSetGet.h</span>
-
+<span class=hll>         <span class=c1>//more values can be found in &lt;VTK_DIR&gt;/Common/vtkSetGet.h</span>
+</span>
          <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=m>3</span> <span class=p>+</span> <span class=s>&quot; unsigned char&quot;</span><span class=p>);</span>
          <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=m>7</span> <span class=p>+</span> <span class=s>&quot; unsigned int&quot;</span><span class=p>);</span>
          <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=m>10</span> <span class=p>+</span> <span class=s>&quot; float&quot;</span><span class=p>);</span>

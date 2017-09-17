@@ -122,17 +122,17 @@ function registerListener(event, func) {
          <span class=k>private</span> <span class=k>void</span> <span class=nf>Normalize</span><span class=p>(</span><span class=k>ref</span> <span class=kt>float</span><span class=p>[]</span> <span class=n>vector</span><span class=p>)</span> <span class=p>{</span>
             <span class=n>IntPtr</span> <span class=n>pDirection</span> <span class=p>=</span> <span class=n>Marshal</span><span class=p>.</span><span class=n>AllocHGlobal</span><span class=p>(</span><span class=n>Marshal</span><span class=p>.</span><span class=n>SizeOf</span><span class=p>(</span><span class=k>typeof</span><span class=p>(</span><span class=kt>float</span><span class=p>))</span> <span class=p>*</span> <span class=m>3</span><span class=p>);</span>
             <span class=n>Marshal</span><span class=p>.</span><span class=n>Copy</span><span class=p>(</span><span class=n>vector</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=n>pDirection</span><span class=p>,</span> <span class=m>3</span><span class=p>);</span>
-            <span class=n>vtkMath</span><span class=p>.</span><span class=n>Normalize</span><span class=p>(</span><span class=n>pDirection</span><span class=p>);</span>
-            <span class=n>Marshal</span><span class=p>.</span><span class=n>FreeHGlobal</span><span class=p>(</span><span class=n>pDirection</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkMath</span><span class=p>.</span><span class=n>Normalize</span><span class=p>(</span><span class=n>pDirection</span><span class=p>);</span>
+</span>            <span class=n>Marshal</span><span class=p>.</span><span class=n>FreeHGlobal</span><span class=p>(</span><span class=n>pDirection</span><span class=p>);</span>
          <span class=p>}</span>
 
 
-         <span class=k>internal</span> <span class=k>void</span> <span class=nf>ApplyTransform</span><span class=p>(</span><span class=k>ref</span> <span class=n>vtkTransform</span> <span class=n>transform</span><span class=p>,</span> <span class=kt>string</span> <span class=n>filename</span><span class=p>)</span> <span class=p>{</span>
-            <span class=n>vtkPolyData</span> <span class=n>polydata</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>CreatePolydata</span><span class=p>(</span><span class=k>ref</span> <span class=n>polydata</span><span class=p>);</span>
+<span class=hll>         <span class=k>internal</span> <span class=k>void</span> <span class=nf>ApplyTransform</span><span class=p>(</span><span class=k>ref</span> <span class=n>vtkTransform</span> <span class=n>transform</span><span class=p>,</span> <span class=kt>string</span> <span class=n>filename</span><span class=p>)</span> <span class=p>{</span>
+</span><span class=hll>            <span class=n>vtkPolyData</span> <span class=n>polydata</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>CreatePolydata</span><span class=p>(</span><span class=k>ref</span> <span class=n>polydata</span><span class=p>);</span>
 
-            <span class=n>vtkTransformFilter</span> <span class=n>transformFilter</span> <span class=p>=</span> <span class=n>vtkTransformFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>            <span class=n>vtkTransformFilter</span> <span class=n>transformFilter</span> <span class=p>=</span> <span class=n>vtkTransformFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
             <span class=n>transformFilter</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>polydata</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
 <span class=cp>#else</span>
             <span class=n>transformFilter</span><span class=p>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>polydata</span><span class=p>);</span>
@@ -140,8 +140,8 @@ function registerListener(event, func) {
             <span class=n>transformFilter</span><span class=p>.</span><span class=n>SetTransform</span><span class=p>(</span><span class=n>transform</span><span class=p>);</span>
             <span class=n>transformFilter</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-            <span class=n>vtkXMLPolyDataWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filename</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkXMLPolyDataWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filename</span><span class=p>);</span>
 <span class=cp>#if VTK_MAJOR_VERSION_5</span>
             <span class=n>writer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>transformFilter</span><span class=p>.</span><span class=n>GetOutputPort</span><span class=p>());</span>
 <span class=cp>#else</span>
@@ -151,9 +151,9 @@ function registerListener(event, func) {
          <span class=p>}</span>
 
 
-         <span class=k>internal</span> <span class=k>void</span> <span class=nf>CreatePolydata</span><span class=p>(</span><span class=k>ref</span> <span class=n>vtkPolyData</span> <span class=n>polydata</span><span class=p>)</span> <span class=p>{</span>
-            <span class=n>vtkPoints</span> <span class=n>points</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=k>internal</span> <span class=k>void</span> <span class=nf>CreatePolydata</span><span class=p>(</span><span class=k>ref</span> <span class=n>vtkPolyData</span> <span class=n>polydata</span><span class=p>)</span> <span class=p>{</span>
+</span><span class=hll>            <span class=n>vtkPoints</span> <span class=n>points</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
             <span class=n>points</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=n>origin</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=k>this</span><span class=p>.</span><span class=n>origin</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=k>this</span><span class=p>.</span><span class=n>origin</span><span class=p>[</span><span class=m>2</span><span class=p>]);</span>
 
             <span class=kt>float</span><span class=p>[]</span> <span class=n>x</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>float</span><span class=p>[</span><span class=m>3</span><span class=p>];</span>
@@ -170,8 +170,8 @@ function registerListener(event, func) {
 
             <span class=n>polydata</span><span class=p>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>);</span>
 
-            <span class=n>vtkVertexGlyphFilter</span> <span class=n>vertexGlyphFilter</span> <span class=p>=</span> <span class=n>vtkVertexGlyphFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION_5</span>
+<span class=hll>            <span class=n>vtkVertexGlyphFilter</span> <span class=n>vertexGlyphFilter</span> <span class=p>=</span> <span class=n>vtkVertexGlyphFilter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span><span class=cp>#if VTK_MAJOR_VERSION_5</span>
             <span class=n>vertexGlyphFilter</span><span class=p>.</span><span class=n>AddInput</span><span class=p>(</span><span class=n>polydata</span><span class=p>);</span>
 <span class=cp>#else</span>
             <span class=n>vertexGlyphFilter</span><span class=p>.</span><span class=n>AddInputData</span><span class=p>(</span><span class=n>polydata</span><span class=p>);</span>
@@ -182,11 +182,11 @@ function registerListener(event, func) {
 
 
          <span class=k>internal</span> <span class=k>void</span> <span class=nf>Write</span><span class=p>(</span><span class=kt>string</span> <span class=n>filename</span><span class=p>)</span> <span class=p>{</span>
-            <span class=n>vtkPolyData</span> <span class=n>polydata</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>CreatePolydata</span><span class=p>(</span><span class=k>ref</span> <span class=n>polydata</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkPolyData</span> <span class=n>polydata</span> <span class=p>=</span> <span class=n>vtkPolyData</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>CreatePolydata</span><span class=p>(</span><span class=k>ref</span> <span class=n>polydata</span><span class=p>);</span>
 
-            <span class=n>vtkXMLPolyDataWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-            <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filename</span><span class=p>);</span>
+<span class=hll>            <span class=n>vtkXMLPolyDataWriter</span> <span class=n>writer</span> <span class=p>=</span> <span class=n>vtkXMLPolyDataWriter</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>            <span class=n>writer</span><span class=p>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filename</span><span class=p>);</span>
 <span class=cp>#if VTK_MAJOR_VERSION_5</span>
             <span class=n>writer</span><span class=p>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>polydata</span><span class=p>.</span><span class=n>GetProducerPort</span><span class=p>());</span>
 <span class=cp>#else</span>
@@ -206,8 +206,8 @@ function registerListener(event, func) {
          <span class=n>Frame</span> <span class=n>frame1</span> <span class=p>=</span> <span class=k>new</span> <span class=n>Frame</span><span class=p>(</span><span class=n>frame1origin</span><span class=p>,</span> <span class=n>frame1XDirection</span><span class=p>,</span> <span class=n>frame1YDirection</span><span class=p>,</span> <span class=n>frame1ZDirection</span><span class=p>);</span>
          <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;\nWriting frame1.vtp...&quot;</span><span class=p>);</span>
          <span class=c1>// adjust path</span>
-         <span class=n>frame1</span><span class=p>.</span><span class=n>Write</span><span class=p>(</span><span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\frame1.vtp&quot;</span><span class=p>);</span>
-
+<span class=hll>         <span class=n>frame1</span><span class=p>.</span><span class=n>Write</span><span class=p>(</span><span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\frame1.vtp&quot;</span><span class=p>);</span>
+</span>
          <span class=kt>float</span><span class=p>[]</span> <span class=n>frame2origin</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>float</span><span class=p>[]</span> <span class=p>{</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span><span class=p>,</span> <span class=m>0</span> <span class=p>};</span>
          <span class=kt>float</span><span class=p>[]</span> <span class=n>frame2XDirection</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>float</span><span class=p>[]</span> <span class=p>{</span> <span class=p>.</span><span class=m>707f</span><span class=p>,</span> <span class=p>.</span><span class=m>707f</span><span class=p>,</span> <span class=m>0</span> <span class=p>};</span>
          <span class=kt>float</span><span class=p>[]</span> <span class=n>frame2YDirection</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>float</span><span class=p>[]</span> <span class=p>{</span> <span class=p>-.</span><span class=m>707f</span><span class=p>,</span> <span class=p>.</span><span class=m>707f</span><span class=p>,</span> <span class=m>0</span> <span class=p>};</span>
@@ -215,27 +215,27 @@ function registerListener(event, func) {
          <span class=n>Frame</span> <span class=n>frame2</span> <span class=p>=</span> <span class=k>new</span> <span class=n>Frame</span><span class=p>(</span><span class=n>frame2origin</span><span class=p>,</span> <span class=n>frame2XDirection</span><span class=p>,</span> <span class=n>frame2YDirection</span><span class=p>,</span> <span class=n>frame2ZDirection</span><span class=p>);</span>
          <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;\nWriting frame2.vtp...&quot;</span><span class=p>);</span>
          <span class=c1>// adjust path</span>
-         <span class=n>frame2</span><span class=p>.</span><span class=n>Write</span><span class=p>(</span><span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\frame2.vtp&quot;</span><span class=p>);</span>
-
-         <span class=n>vtkTransform</span> <span class=n>transform</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>AlignFrames</span><span class=p>(</span><span class=n>frame2</span><span class=p>,</span> <span class=n>frame1</span><span class=p>,</span> <span class=k>ref</span> <span class=n>transform</span><span class=p>);</span> <span class=c1>// Brings frame2 to frame1</span>
+<span class=hll>         <span class=n>frame2</span><span class=p>.</span><span class=n>Write</span><span class=p>(</span><span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\frame2.vtp&quot;</span><span class=p>);</span>
+</span>
+<span class=hll>         <span class=n>vtkTransform</span> <span class=n>transform</span> <span class=p>=</span> <span class=n>vtkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>AlignFrames</span><span class=p>(</span><span class=n>frame2</span><span class=p>,</span> <span class=n>frame1</span><span class=p>,</span> <span class=k>ref</span> <span class=n>transform</span><span class=p>);</span> <span class=c1>// Brings frame2 to frame1</span>
 
          <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;\nWriting transformed.vtp...&quot;</span><span class=p>);</span>
          <span class=c1>// adjust path</span>
-         <span class=n>frame2</span><span class=p>.</span><span class=n>ApplyTransform</span><span class=p>(</span><span class=k>ref</span> <span class=n>transform</span><span class=p>,</span> <span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\transformed.vtp&quot;</span><span class=p>);</span>
-
+<span class=hll>         <span class=n>frame2</span><span class=p>.</span><span class=n>ApplyTransform</span><span class=p>(</span><span class=k>ref</span> <span class=n>transform</span><span class=p>,</span> <span class=s>@&quot;c:\vtk\vtkdata-5.8.0\Data\transformed.vtp&quot;</span><span class=p>);</span>
+</span>
          <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&quot;\nPress any key to continue...&quot;</span><span class=p>);</span>
          <span class=n>Console</span><span class=p>.</span><span class=n>ReadKey</span><span class=p>();</span>
       <span class=p>}</span>
 
 
-      <span class=k>static</span> <span class=k>void</span> <span class=nf>AlignFrames</span><span class=p>(</span><span class=n>Frame</span> <span class=n>sourceFrame</span><span class=p>,</span> <span class=n>Frame</span> <span class=n>targetFrame</span><span class=p>,</span> <span class=k>ref</span> <span class=n>vtkTransform</span> <span class=n>transform</span><span class=p>)</span> <span class=p>{</span>
-         <span class=c1>// This function takes two frames and finds the matrix M between them.</span>
-         <span class=n>vtkLandmarkTransform</span> <span class=n>landmarkTransform</span> <span class=p>=</span> <span class=n>vtkLandmarkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>      <span class=k>static</span> <span class=k>void</span> <span class=nf>AlignFrames</span><span class=p>(</span><span class=n>Frame</span> <span class=n>sourceFrame</span><span class=p>,</span> <span class=n>Frame</span> <span class=n>targetFrame</span><span class=p>,</span> <span class=k>ref</span> <span class=n>vtkTransform</span> <span class=n>transform</span><span class=p>)</span> <span class=p>{</span>
+</span>         <span class=c1>// This function takes two frames and finds the matrix M between them.</span>
+<span class=hll>         <span class=n>vtkLandmarkTransform</span> <span class=n>landmarkTransform</span> <span class=p>=</span> <span class=n>vtkLandmarkTransform</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=c1>// Setup source points</span>
-         <span class=n>vtkPoints</span> <span class=n>sourcePoints</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-
+<span class=hll>         <span class=n>vtkPoints</span> <span class=n>sourcePoints</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>
          <span class=n>sourcePoints</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span>
             <span class=n>sourceFrame</span><span class=p>.</span><span class=n>Origin</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> 
             <span class=n>sourceFrame</span><span class=p>.</span><span class=n>Origin</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> 
@@ -254,8 +254,8 @@ function registerListener(event, func) {
          <span class=n>sourcePoints</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>sourceZ</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>sourceZ</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>sourceZ</span><span class=p>[</span><span class=m>2</span><span class=p>]);</span>
 
          <span class=c1>// Setup target points</span>
-         <span class=n>vtkPoints</span> <span class=n>targetPoints</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
-         <span class=n>targetPoints</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>targetFrame</span><span class=p>.</span><span class=n>Origin</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>targetFrame</span><span class=p>.</span><span class=n>Origin</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>targetFrame</span><span class=p>.</span><span class=n>Origin</span><span class=p>[</span><span class=m>2</span><span class=p>]);</span>
+<span class=hll>         <span class=n>vtkPoints</span> <span class=n>targetPoints</span> <span class=p>=</span> <span class=n>vtkPoints</span><span class=p>.</span><span class=n>New</span><span class=p>();</span>
+</span>         <span class=n>targetPoints</span><span class=p>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>targetFrame</span><span class=p>.</span><span class=n>Origin</span><span class=p>[</span><span class=m>0</span><span class=p>],</span> <span class=n>targetFrame</span><span class=p>.</span><span class=n>Origin</span><span class=p>[</span><span class=m>1</span><span class=p>],</span> <span class=n>targetFrame</span><span class=p>.</span><span class=n>Origin</span><span class=p>[</span><span class=m>2</span><span class=p>]);</span>
 
          <span class=kt>float</span><span class=p>[]</span> <span class=n>targetX</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>float</span><span class=p>[</span><span class=m>3</span><span class=p>];</span>
          <span class=kt>float</span><span class=p>[]</span> <span class=n>targetY</span> <span class=p>=</span> <span class=k>new</span> <span class=kt>float</span><span class=p>[</span><span class=m>3</span><span class=p>];</span>
@@ -274,8 +274,8 @@ function registerListener(event, func) {
          <span class=n>landmarkTransform</span><span class=p>.</span><span class=n>SetModeToRigidBody</span><span class=p>();</span>
          <span class=n>landmarkTransform</span><span class=p>.</span><span class=n>Update</span><span class=p>();</span>
 
-         <span class=n>vtkMatrix4x4</span> <span class=n>M</span> <span class=p>=</span> <span class=n>landmarkTransform</span><span class=p>.</span><span class=n>GetMatrix</span><span class=p>();</span>
-         <span class=n>transform</span><span class=p>.</span><span class=n>SetMatrix</span><span class=p>(</span><span class=n>M</span><span class=p>);</span>
+<span class=hll>         <span class=n>vtkMatrix4x4</span> <span class=n>M</span> <span class=p>=</span> <span class=n>landmarkTransform</span><span class=p>.</span><span class=n>GetMatrix</span><span class=p>();</span>
+</span>         <span class=n>transform</span><span class=p>.</span><span class=n>SetMatrix</span><span class=p>(</span><span class=n>M</span><span class=p>);</span>
       <span class=p>}</span>
 
       <span class=c1>// helper function</span>
