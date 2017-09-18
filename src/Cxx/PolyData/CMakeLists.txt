@@ -20,6 +20,7 @@ FILE(GLOB ALL_FILES *.cxx)
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
 
 set(VERSION_MIN "5.9.20111206")
+Requires_Version(LoopBooleanPolyDataFilter ${VERSION_MIN} ALL_FILES)
 Requires_Version(BooleanOperationPolyDataFilter ${VERSION_MIN} ALL_FILES)
 Requires_Version(DistancePolyDataFilter ${VERSION_MIN} ALL_FILES)
 Requires_Version(ImplicitPolyDataDistance ${VERSION_MIN} ALL_FILES)
@@ -37,6 +38,8 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT PolyData)
 SET(NEEDS_ARGS
+  BooleanOperationPolyDataFilter
+  LoopBooleanPolyDataFilter
   CellLocatorVisualization
   ColoredPoints
   ConvexHull
@@ -69,6 +72,12 @@ endif()
 
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+ADD_TEST(${KIT}-BooleanOperationPolyDataFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestBooleanOperationPolyDataFilter ${DATA}/Torso.vtp intersection ${DATA}/ObliqueCone.vtp)
+
+ADD_TEST(${KIT}-LoopBooleanPolyDataFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestLoopBooleanPolyDataFilter ${DATA}/Torso.vtp intersection ${DATA}/ObliqueCone.vtp)
 
 ADD_TEST(${KIT}-CellLocatorVisualization ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCellLocatorVisualization -E 50)

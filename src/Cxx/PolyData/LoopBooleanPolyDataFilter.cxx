@@ -1,5 +1,5 @@
 #include <vtkSmartPointer.h>
-#include <vtkBooleanOperationPolyDataFilter.h>
+#include <vtkLoopBooleanPolyDataFilter.h>
 
 #include <vtkCleanPolyData.h>
 #include <vtkTriangleFilter.h>
@@ -112,8 +112,8 @@ int main(int argc, char *argv[])
   input2Actor->SetPosition(
     -(input1->GetBounds()[1]-input1->GetBounds()[0]),
     0, 0);
-  vtkSmartPointer<vtkBooleanOperationPolyDataFilter> booleanOperation =
-    vtkSmartPointer<vtkBooleanOperationPolyDataFilter>::New();
+  vtkSmartPointer<vtkLoopBooleanPolyDataFilter> booleanOperation =
+    vtkSmartPointer<vtkLoopBooleanPolyDataFilter>::New();
   if (operation == "union")
   {
       booleanOperation->SetOperationToUnion();

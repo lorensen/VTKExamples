@@ -248,6 +248,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [AlignFrames](/Cxx/PolyData/AlignFrames) | vtkLandmarkTransform | Align coordinate frames.
 [AppendFilter](/Cxx/Filtering/AppendFilter) | vtkAppendFilter | Append different types of data,
 [BooleanOperationPolyDataFilter](/Cxx/PolyData/BooleanOperationPolyDataFilter) | vtkBooleanOperationPolyDataFilter|Perform boolean operations on two vtkPolyData objects.
+[LoopBooleanPolyDataFilter](/Cxx/PolyData/LoopBooleanPolyDataFilter) | vtkLoopBooleanOpPolyDataFilter|Perform boolean operations on two vtkPolyData objects.
 [CellCenters](/Cxx/PolyData/CellCenters) | vtkCellCenters |Compute points at the center of every cell.
 [CellEdgeNeighbors](/Cxx/PolyData/CellEdgeNeighbors) | vtkPolyData::GetCellNeighbors |Determine which cells share an edge with a specific cell.
 [CellPointNeighbors](/Cxx/PolyData/CellPointNeighbors) | vtkPolyData::GetCellNeighbors | Determine which cells share a single point with a specific cell.
