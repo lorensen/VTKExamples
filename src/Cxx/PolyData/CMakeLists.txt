@@ -74,10 +74,10 @@ SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 ADD_TEST(${KIT}-BooleanOperationPolyDataFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestBooleanOperationPolyDataFilter ${DATA}/Torso.vtp intersection ${DATA}/ObliqueCone.vtp)
+  TestBooleanOperationPolyDataFilter ${DATA}/Torso.vtp difference ${DATA}/ObliqueCone.vtp)
 
 ADD_TEST(${KIT}-LoopBooleanPolyDataFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestLoopBooleanPolyDataFilter ${DATA}/Torso.vtp intersection ${DATA}/ObliqueCone.vtp)
+  TestLoopBooleanPolyDataFilter ${DATA}/Torso.vtp difference ${DATA}/ObliqueCone.vtp)
 
 ADD_TEST(${KIT}-CellLocatorVisualization ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCellLocatorVisualization -E 50)
