@@ -11,3 +11,6 @@ This example can be run in three ways:
 
 !!! cite
     See [Boolean Operations on Surfaces in VTK Without External Libraries](http://www.vtkjournal.org/browse/publication/797) for details on the algorithm.
+
+!!! seealso
+    [LoopBooleanPolyDataFilter](/Cxx/PolyData/LoopBooleanPolyDataFilter) uses an alternative algorithm to do the boolean operations.
