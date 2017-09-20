@@ -74,6 +74,7 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImageMagnitude.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkNamedColors.h&gt;</span><span class=cp></span>
 </span>
 <span class=kt>int</span> <span class=nf>main</span><span class=p>(</span> <span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[]</span> <span class=p>)</span>
 <span class=p>{</span>
@@ -92,10 +93,10 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageMagnitude</span><span class=o>&gt;</span> <span class=n>magnitude</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageMagnitude</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>magnitude</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-  <span class=n>magnitude</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
-  <span class=kt>double</span> <span class=n>red</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span> <span class=p>};</span>
-
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>colors</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkIntArray</span><span class=o>&gt;</span> <span class=n>frequencies</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkIntArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
@@ -108,11 +109,12 @@ function registerListener(event, func) {
   <span class=n>histogram</span><span class=o>-&gt;</span><span class=n>IgnoreZeroOn</span><span class=p>();</span>
   <span class=n>histogram</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
+  <span class=kt>int</span> <span class=n>numberOfTuples</span> <span class=o>=</span> <span class=mi>64</span><span class=p>;</span>
   <span class=n>frequencies</span><span class=o>-&gt;</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
-  <span class=n>frequencies</span><span class=o>-&gt;</span><span class=n>SetNumberOfTuples</span><span class=p>(</span><span class=mi>256</span><span class=p>);</span>
-  <span class=kt>int</span><span class=o>*</span> <span class=n>output</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>histogram</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetScalarPointer</span><span class=p>());</span>
-
-  <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>j</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>j</span> <span class=o>&lt;</span> <span class=mi>256</span><span class=p>;</span> <span class=o>++</span><span class=n>j</span><span class=p>)</span>
+  <span class=n>frequencies</span><span class=o>-&gt;</span><span class=n>SetNumberOfTuples</span><span class=p>(</span><span class=n>numberOfTuples</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkIdType</span><span class=o>*</span> <span class=n>output</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=n>vtkIdType</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>histogram</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetScalarPointer</span><span class=p>());</span>
+</span>
+  <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>j</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>j</span> <span class=o>&lt;</span> <span class=n>numberOfTuples</span><span class=p>;</span> <span class=o>++</span><span class=n>j</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=n>frequencies</span><span class=o>-&gt;</span><span class=n>SetTuple1</span><span class=p>(</span><span class=n>j</span><span class=p>,</span> <span class=o>*</span><span class=n>output</span><span class=o>++</span><span class=p>);</span>
   <span class=p>}</span>
@@ -128,25 +130,25 @@ function registerListener(event, func) {
 </span>
   <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=n>dataObject</span><span class=p>);</span>
   <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>SetTitle</span><span class=p>(</span><span class=s>&quot;Histogram&quot;</span><span class=p>);</span>
-  <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>GetPositionCoordinate</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=mf>0.05</span><span class=p>,</span><span class=mf>0.05</span><span class=p>,</span><span class=mf>0.0</span><span class=p>);</span>
+  <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>GetPositionCoordinate</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=mf>0.1</span><span class=p>,</span><span class=mf>0.05</span><span class=p>,</span><span class=mf>0.0</span><span class=p>);</span>
   <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>GetPosition2Coordinate</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=mf>0.95</span><span class=p>,</span><span class=mf>0.85</span><span class=p>,</span><span class=mf>0.0</span><span class=p>);</span>
-  <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>);</span>
-
-  <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>GetLegendActor</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetNumberOfEntries</span><span class=p>(</span><span class=n>dataObject</span><span class=o>-&gt;</span><span class=n>GetFieldData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>());</span>
+  <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;Banana&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>GetLegendActor</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetNumberOfEntries</span><span class=p>(</span>
+    <span class=n>dataObject</span><span class=o>-&gt;</span><span class=n>GetFieldData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>());</span>
   <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>LegendVisibilityOff</span><span class=p>();</span>
   <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>LabelVisibilityOff</span><span class=p>();</span>
 
   <span class=kt>int</span> <span class=n>count</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-  <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>256</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+  <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>numberOfTuples</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
   <span class=p>{</span>
-    <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>SetBarColor</span><span class=p>(</span> <span class=n>count</span><span class=o>++</span><span class=p>,</span> <span class=n>red</span> <span class=p>);</span>
+    <span class=n>barChart</span><span class=o>-&gt;</span><span class=n>SetBarColor</span><span class=p>(</span> <span class=n>count</span><span class=o>++</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;Tomato&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
   <span class=p>}</span>
 
   <span class=c1>// Visualize the histogram</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>renderer</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>barChart</span><span class=p>);</span>
-
+  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;Peacock&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renderWindow</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
