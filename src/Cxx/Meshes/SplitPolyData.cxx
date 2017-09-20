@@ -1,8 +1,6 @@
 #include <vtkSmartPointer.h>
 
 #include <vtkOBBDicer.h>
-#include <vtkSphereSource.h>
-#include <vtkXMLPolyDataReader.h>
 #include <vtkXMLPolyDataWriter.h>
 #include <vtkThreshold.h>
 #include <vtkGeometryFilter.h>
@@ -20,6 +18,19 @@
 #include <vtksys/SystemTools.hxx>
 #include <sstream>
 
+#include <vtkBYUReader.h>
+#include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
+#include <vtkPolyDataReader.h>
+#include <vtkSTLReader.h>
+#include <vtkXMLPolyDataReader.h>
+#include <vtkSphereSource.h>
+
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+}
+
 int main(int argc, char *argv[])
 {
   vtkSmartPointer<vtkNamedColors> namedColors =
@@ -28,27 +39,17 @@ int main(int argc, char *argv[])
   std::string filename;
   std::string extension;
 
-  vtkSmartPointer<vtkPolyData> inputPolyData;
+  vtkSmartPointer<vtkPolyData> inputPolyData = ReadPolyData(argc > 1 ? argv[1] : "");;
+  vtkSmartPointer<vtkPolyData> ;
   if(argc > 1)
   {
     filename = vtksys::SystemTools::GetFilenameWithoutExtension(std::string(argv[1]));
     extension = vtksys::SystemTools::GetFilenameExtension(std::string(argv[1]));
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
-      vtkSmartPointer<vtkXMLPolyDataReader>::New();
-    reader->SetFileName(argv[1]);
-    reader->Update();
-    inputPolyData = reader->GetOutput();
   }
   else
   {
     filename = "sphere";
     extension = ".vtp";
-    vtkSmartPointer<vtkSphereSource> sphereSource =
-      vtkSmartPointer<vtkSphereSource>::New();
-    sphereSource->SetThetaResolution(30);
-    sphereSource->SetPhiResolution(15);
-    sphereSource->Update();
-    inputPolyData = sphereSource->GetOutput();
   }
 
   // Create pipeline
@@ -130,4 +131,69 @@ int main(int argc, char *argv[])
     writer->Write();
   }
   return EXIT_SUCCESS;
+}
+
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+{
+  vtkSmartPointer<vtkPolyData> polyData;
+  std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
+  if (extension == ".ply")
+  {
+    vtkSmartPointer<vtkPLYReader> reader =
+      vtkSmartPointer<vtkPLYReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".vtp")
+  {
+    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+      vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".obj")
+  {
+    vtkSmartPointer<vtkOBJReader> reader =
+      vtkSmartPointer<vtkOBJReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".stl")
+  {
+    vtkSmartPointer<vtkSTLReader> reader =
+      vtkSmartPointer<vtkSTLReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".vtk")
+  {
+    vtkSmartPointer<vtkPolyDataReader> reader =
+      vtkSmartPointer<vtkPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else
+  {
+    vtkSmartPointer<vtkSphereSource> source =
+      vtkSmartPointer<vtkSphereSource>::New();
+    source->Update();
+    polyData = source->GetOutput();
+  }
+  return polyData;
+}
 }
