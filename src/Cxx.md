@@ -987,6 +987,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageExport ](/Cxx/Images/ImageExport) | vtkImageExport | Export an image to a C array.
 [ImageGridSource](/Cxx/Images/ImageGridSource)| vtkImageGridSource |Create a image of a grid.
 [ImageHybridMedian2D](/Cxx/Images/ImageHybridMedian2D)| vtkImageHybridMedian2D | Median filter an image.
+[ImageHistogram](/Cxx/Images/ImageHistogram)| vtkImageHistogram | Compute the histogram of an image.
 [ImageIdealHighPass](/Cxx/Images/ImageIdealHighPass)| vtkImageIdealHighPass |High pass filter an image.
 [ImageImport ](/Cxx/Images/ImageImport) | vtkImageImport | Import an image from a C array.
 [ImageIslandRemoval2D](/Cxx/Images/ImageIslandRemoval2D)| vtkImageIslandRemoval2D | Remove small patches from an image.

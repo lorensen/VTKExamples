@@ -52,6 +52,7 @@ SET(NEEDS_ARGS
   ImageContinuousDilate3D
   ImageContinuousErode3D
   ImageDilateErode3D
+  ImageHistogram
   ImageHybridMedian2D
   ImageMagnify
   ImageNonMaximumSuppression
@@ -127,6 +128,9 @@ ADD_TEST(${KIT}-ImageContinuousErode3D ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}C
 
 ADD_TEST(${KIT}-ImageDilateErode3D ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestImageDilateErode3D ${DATA}/Yinyang.png -E 25)
+
+ADD_TEST(${KIT}-ImageHistogram ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestImageHistogram ${DATA}/Pileated.jpg)
 
 ADD_TEST(${KIT}-ImageHybridMedian2D ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestImageHybridMedian2D ${DATA}/Gourds.png)
