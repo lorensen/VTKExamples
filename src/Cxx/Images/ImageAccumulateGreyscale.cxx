@@ -15,6 +15,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkImageMagnitude.h>
+#include <vtkNamedColors.h>
 
 int main( int argc, char *argv[] )
 {
@@ -33,9 +34,9 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkImageMagnitude> magnitude =
     vtkSmartPointer<vtkImageMagnitude>::New();
   magnitude->SetInputConnection(reader->GetOutputPort());
-  magnitude->Update();
 
-  double red[3] = {1, 0, 0 };
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkIntArray> frequencies =
     vtkSmartPointer<vtkIntArray>::New();
@@ -49,11 +50,12 @@ int main( int argc, char *argv[] )
   histogram->IgnoreZeroOn();
   histogram->Update();
 
+  int numberOfTuples = 64;
   frequencies->SetNumberOfComponents(1);
-  frequencies->SetNumberOfTuples(256);
-  int* output = static_cast<int*>(histogram->GetOutput()->GetScalarPointer());
+  frequencies->SetNumberOfTuples(numberOfTuples);
+  vtkIdType* output = static_cast<vtkIdType*>(histogram->GetOutput()->GetScalarPointer());
 
-  for(int j = 0; j < 256; ++j)
+  for(int j = 0; j < numberOfTuples; ++j)
   {
     frequencies->SetTuple1(j, *output++);
   }
@@ -69,25 +71,25 @@ int main( int argc, char *argv[] )
 
   barChart->SetInput(dataObject);
   barChart->SetTitle("Histogram");
-  barChart->GetPositionCoordinate()->SetValue(0.05,0.05,0.0);
+  barChart->GetPositionCoordinate()->SetValue(0.1,0.05,0.0);
   barChart->GetPosition2Coordinate()->SetValue(0.95,0.85,0.0);
-  barChart->GetProperty()->SetColor(1,1,1);
-
-  barChart->GetLegendActor()->SetNumberOfEntries(dataObject->GetFieldData()->GetArray(0)->GetNumberOfTuples());
+  barChart->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
+  barChart->GetLegendActor()->SetNumberOfEntries(
+    dataObject->GetFieldData()->GetArray(0)->GetNumberOfTuples());
   barChart->LegendVisibilityOff();
   barChart->LabelVisibilityOff();
 
   int count = 0;
-  for(int i = 0; i < 256; ++i)
+  for(int i = 0; i < numberOfTuples; ++i)
   {
-    barChart->SetBarColor( count++, red );
+    barChart->SetBarColor( count++, colors->GetColor3d("Tomato").GetData());
   }
 
   // Visualize the histogram
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(barChart);
-
+  renderer->SetBackground(colors->GetColor3d("Peacock").GetData());
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
