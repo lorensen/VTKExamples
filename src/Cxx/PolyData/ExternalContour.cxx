@@ -52,11 +52,7 @@ int main(int argc, char *argv[])
   // Black and white scene with the data in order to print the view
   vtkSmartPointer<vtkPolyDataMapper> mapper_data =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper_data->SetInput(data3d);	
-#else
   mapper_data->SetInputData(data3d);	
-#endif
 
   vtkSmartPointer<vtkActor> actor_data =
     vtkSmartPointer<vtkActor>::New();
@@ -82,7 +78,11 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkWindowToImageFilter> windowToImageFilter =
     vtkSmartPointer<vtkWindowToImageFilter>::New();
   windowToImageFilter->SetInput(tmp_rW);
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 1
+  windowToImageFilter->SetScale(2); //image quality
+#else
   windowToImageFilter->SetMagnification(2); //image quality
+#endif
   windowToImageFilter->Update();
 
   // Extract the silhouette corresponding to the black limit of the image
@@ -109,11 +109,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkTransformPolyDataFilter> tfilter1 =
     vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  tfilter1->SetInput(contour);
-#else
   tfilter1->SetInputData(contour);
-#endif
   tfilter1->SetTransform(transform1);
   tfilter1->Update();
 
@@ -132,11 +128,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkTransformPolyDataFilter> tfilter2 =
     vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  tfilter2->SetInput(contour);
-#else
   tfilter2->SetInputData(contour);
-#endif
   tfilter2->SetTransform(transform2);
   tfilter2->Update();
 
@@ -150,11 +142,7 @@ int main(int argc, char *argv[])
   // Create a mapper and actor of the silhouette
   vtkSmartPointer<vtkPolyDataMapper> mapper_contour =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper_contour->SetInput(contour);
-#else
   mapper_contour->SetInputData(contour);
-#endif
 
   vtkSmartPointer<vtkActor> actor_contour =
     vtkSmartPointer<vtkActor>::New();

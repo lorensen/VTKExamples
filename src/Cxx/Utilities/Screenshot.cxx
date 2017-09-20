@@ -1,3 +1,5 @@
+#include <vtkVersion.h>
+
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkSmartPointer.h>
@@ -46,7 +48,11 @@ int main(int, char *[])
   vtkSmartPointer<vtkWindowToImageFilter> windowToImageFilter = 
     vtkSmartPointer<vtkWindowToImageFilter>::New();
   windowToImageFilter->SetInput(renderWindow);
-  windowToImageFilter->SetMagnification(3); //set the resolution of the output image (3 times the current resolution of vtk render window)
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 1
+  windowToImageFilter->SetScale(2); //image quality
+#else
+  windowToImageFilter->SetMagnification(2); //image quality
+#endif
   windowToImageFilter->SetInputBufferTypeToRGBA(); //also record the alpha (transparency) channel
   windowToImageFilter->ReadFrontBufferOff(); // read from the back buffer
   windowToImageFilter->Update();

@@ -2,6 +2,7 @@
 // exact ZBuffer values.
 #include <vtkSmartPointer.h>
 
+#include <vtkVersion.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkRenderer.h>
@@ -54,7 +55,11 @@ int main(int argc, char *argv[])
 
   // Create Depth Map
   filter->SetInput(renWin);
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 1
+  filter->SetScale(1);
+#else
   filter->SetMagnification(1);
+#endif
   filter->SetInputBufferTypeToZBuffer();        //Extract z buffer value
 
   scale->SetOutputScalarTypeToUnsignedChar();
