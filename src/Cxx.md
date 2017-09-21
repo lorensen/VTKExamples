@@ -390,7 +390,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [FitImplicitFunction](/Cxx/Points/FitImplicitFunction) | vtkFitImplicitFunction | Extract points within a distance to an implicit function.
 [MaskPointsFilter](/Cxx/Points/MaskPointsFilter) | vtkMaskPointsFilter |Extract points within an image mask.
 [NormalEstimation](/Cxx/Points/NormalEstimation) | vtkPCANormalEstimation | Estimate the normals of a random points that lie on a sphere.
-[PointOccupancy](/Cxx/Points/PointOccupancy) | vtkPointOccupancy |Show which voxels contain points.
+[PointOccupancy](/Cxx/Points/PointOccupancy) | vtkPointOccupancyFilter |Show which voxels contain points.
 [PointSource](/Cxx/PolyData/PointSource) | vtkPointSource |Generate a random point cloud.
 [PoissonExtractSurface](/Cxx/Points/PoissonExtractSurface) | | Create a surface from Unorganized Points using the PoissonReconstruction algorithm.
 [PowercrustExtractSurface](/Cxx/Points/PowercrustExtractSurface) | | Create a surface from Unorganized Points using the Powercrust algorithm.
