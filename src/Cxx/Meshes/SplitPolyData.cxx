@@ -40,7 +40,6 @@ int main(int argc, char *argv[])
   std::string extension;
 
   vtkSmartPointer<vtkPolyData> inputPolyData = ReadPolyData(argc > 1 ? argv[1] : "");;
-  vtkSmartPointer<vtkPolyData> ;
   if(argc > 1)
   {
     filename = vtksys::SystemTools::GetFilenameWithoutExtension(std::string(argv[1]));
