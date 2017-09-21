@@ -1112,7 +1112,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Diagram](/Cxx/Plotting/Diagram)| |
 [LinePlot](/Cxx/Plotting/LinePlot)| vtkChartXY |Line plot.
 [ParallelCoordinates](/Cxx/Plotting/ParallelCoordinates)| vtkChartParallelCoordinates |Parallel coordinates.
-[PieChart](/Cxx/Plotting/PieChart)| vtkChartPie vtkPlotPie |Pie chart.
+[PieChart](/Cxx/Plotting/PieChart)| vtkChartPie vtkPlotPie | Pie chart.
+[PieChartActor](/Cxx/Plotting/PieChart)| vtkPieChartActor | Pie chart.
 [ScatterPlot](/Cxx/Plotting/ScatterPlot)| vtkPlotPoints |Scatter plot.
 [SpiderPlot](/Cxx/Plotting/SpiderPlot)| vtkSpiderPlotActor |Spider plot.
 [StackedBar](/Cxx/Plotting/StackedBar)| vtkPlotBar |Stacked bar.
