@@ -84,13 +84,13 @@ function registerListener(event, func) {
   <span class=k>typedef</span> <span class=n>std</span><span class=o>::</span><span class=n>map</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>,</span> <span class=kt>int</span><span class=o>&gt;</span>  <span class=n>DataContainer</span><span class=p>;</span>
   <span class=n>DataContainer</span> <span class=n>movies</span><span class=p>;</span>
 
-  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;comedy&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>27</span><span class=p>;</span>
-  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;action&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>18</span><span class=p>;</span>
-  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;romance&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>14</span><span class=p>;</span>
-  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;drama&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>14</span><span class=p>;</span>
-  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;horror&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>11</span><span class=p>;</span>
-  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;foreign&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>8</span><span class=p>;</span>
-  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;science fiction&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>8</span><span class=p>;</span>
+  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;Comedy&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>27</span><span class=p>;</span>
+  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;Action&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>18</span><span class=p>;</span>
+  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;Romance&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>14</span><span class=p>;</span>
+  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;Drama&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>14</span><span class=p>;</span>
+  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;Horror&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>11</span><span class=p>;</span>
+  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;Foreign&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>8</span><span class=p>;</span>
+  <span class=n>movies</span><span class=p>[</span><span class=s>&quot;Scifi&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>8</span><span class=p>;</span>
 
   <span class=kt>int</span> <span class=n>numTuples</span><span class=p>;</span>
   <span class=n>numTuples</span> <span class=o>=</span> <span class=n>movies</span><span class=p>.</span><span class=n>size</span><span class=p>();</span>
@@ -122,7 +122,7 @@ function registerListener(event, func) {
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetPosition2Coordinate</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=mf>0.95</span><span class=p>,</span><span class=mf>0.85</span><span class=p>,</span><span class=mf>0.0</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=mi>2</span><span class=p>);</span>
-  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetLabelTextProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>24</span><span class=p>);</span>
+  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetLabelTextProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>18</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetLegendActor</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetNumberOfEntries</span><span class=p>(</span><span class=n>numTuples</span><span class=p>);</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkColorSeries</span><span class=o>&gt;</span> <span class=n>colorSeries</span> <span class=o>=</span>
@@ -141,7 +141,7 @@ function registerListener(event, func) {
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>LegendVisibilityOn</span><span class=p>();</span>
   <span class=c1>// Set text colors (same as actor for backward compat with test)</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetTitleTextProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;Banana&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
-  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetTitleTextProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>36</span><span class=p>);</span>
+  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetTitleTextProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>40</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetLabelTextProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;Bisque&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetLabelTextProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>24</span><span class=p>);</span>
 
@@ -157,7 +157,7 @@ function registerListener(event, func) {
 
   <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>);</span>
   <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;SlateGray&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
-  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>
+  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>1024</span><span class=p>,</span> <span class=mi>512</span><span class=p>);</span>
 
   <span class=c1>// render the image</span>
   <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
