@@ -25,13 +25,13 @@ int main( int argc, char * argv [] )
   typedef std::map<std::string, int>  DataContainer;
   DataContainer movies;
   
-  movies["comedy"] = 27;
-  movies["action"] = 18;
-  movies["romance"] = 14;
-  movies["drama"] = 14;
-  movies["horror"] = 11;
-  movies["foreign"] = 8;
-  movies["science fiction"] = 8;
+  movies["Comedy"] = 27;
+  movies["Action"] = 18;
+  movies["Romance"] = 14;
+  movies["Drama"] = 14;
+  movies["Horror"] = 11;
+  movies["Foreign"] = 8;
+  movies["Scifi"] = 8;
 
   int numTuples;
   numTuples = movies.size();
@@ -63,7 +63,7 @@ int main( int argc, char * argv [] )
   actor->GetPosition2Coordinate()->SetValue(0.95,0.85,0.0);
   actor->GetProperty()->SetColor(0, 0, 0);
   actor->GetProperty()->SetLineWidth(2);
-  actor->GetLabelTextProperty()->SetFontSize(24);
+  actor->GetLabelTextProperty()->SetFontSize(18);
   actor->GetLegendActor()->SetNumberOfEntries(numTuples);
 
   vtkSmartPointer<vtkColorSeries> colorSeries =
@@ -82,7 +82,7 @@ int main( int argc, char * argv [] )
   actor->LegendVisibilityOn();
   // Set text colors (same as actor for backward compat with test)
   actor->GetTitleTextProperty()->SetColor(colors->GetColor3d("Banana").GetData());
-  actor->GetTitleTextProperty()->SetFontSize(36);
+  actor->GetTitleTextProperty()->SetFontSize(40);
   actor->GetLabelTextProperty()->SetColor(colors->GetColor3d("Bisque").GetData());
   actor->GetLabelTextProperty()->SetFontSize(24);
 
@@ -98,7 +98,7 @@ int main( int argc, char * argv [] )
 
   ren1->AddActor(actor);
   ren1->SetBackground(colors->GetColor3d("SlateGray").GetData());
-  renWin->SetSize(640, 480);
+  renWin->SetSize(1024, 512);
 
   // render the image
   renWin->Render();
