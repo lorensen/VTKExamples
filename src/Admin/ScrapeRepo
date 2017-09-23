@@ -125,7 +125,7 @@ def AddThumbnails(repoDir, repoURL, fromFile, toFile):
     outFile = open(toFile, 'w')
     for line in mdFile:
         withDoxy = AddDoxygen(line)
-        outFile.write(withDoxy.strip())        
+        outFile.write(withDoxy.rstrip())        
         exampleLine = FindThumbnail(line.strip())[0]
         if  exampleLine != '':
             thumbCount = thumbCount + 1
