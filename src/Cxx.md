@@ -447,6 +447,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [CapClip](/Cxx/Meshes/CapClip) | vtkClipPolyData |Cap a clipped polydata with a polygon.
 [ClipClosedSurface](/Cxx/Meshes/ClipClosedSurface) | vtkClipClosedSurface |Clip a surface with multiple planes.
 [ClipDataSetWithPolyData](/Cxx/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid |Clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid. Contrast this with the next example.
+[ClipFrustum](/Cxx/Meshes/ClipFrustum) | vtkFrustumSource vtkClipPolyData | Clip a vtkPolyData with the vtkCamera's view frustum.
 [GenericClip](/Cxx/Filtering/GenericClip) | vtkGenericClip vtkBridgeDataSet vtkGenericDataSet | 
 [ImplicitDataSetClipping](/Cxx/PolyData/ImplicitDataSetClipping) | vtkImplicitDataSet |Clip using an implicit data set.
 [SolidClip](/Cxx/Meshes/SolidClip) | vtkClipPolyData |Create a "solid" clip.

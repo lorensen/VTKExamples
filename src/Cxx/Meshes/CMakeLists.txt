@@ -35,6 +35,7 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Meshes)
 SET(NEEDS_ARGS
+  ClipFrustum
   ClipDataSetWithPolyData
   Decimation
   FillHoles
@@ -47,6 +48,9 @@ SET(NEEDS_ARGS
   TableBasedClipDataSetWithPolyData
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+
+ADD_TEST(${KIT}-ClipFrustum ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestClipFrustum ${DATA}/Armadillo.ply)
 
 ADD_TEST(${KIT}-Decimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDecimation ${DATA}/Torso.vtp)
