@@ -1,8 +1,7 @@
 ### Description
 Given a filename, uses the appropriate vtkPolyData reader to read any vtkPolyData file.
 
-To use the snippet, go [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Cxx/Snippets/ReadPolyData.md)  and copy/paste the code into your example.
-
+To use the snippet, click the *Copy to clipboard* at the upper left of the code blocks.
 
 ### Declaration Section
 ``` c++

@@ -5,7 +5,7 @@ Given a filename, vtkActor and vtkCamera, save necessary variables to recreate a
 !!! note
     The snippet currently just saves the vtkCamera variables.
 
-To use the snippet, go [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Cxx/Snippets/SaveSceneToFile.md)  and copy/paste the code into your example.
+To use the snippet, click the *Copy to clipboard* at the upper left of the code blocks.
 
 ### Declaration Section
 ``` c++
