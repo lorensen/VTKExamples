@@ -111,6 +111,17 @@ def AddDoxygen(S):
         return re.sub(r'[^\./\[s](vtk[0-9a-zA-Z]*)', r' [\1](' + r'http://www.vtk.org/doc/nightly/html/class' + r'\1.html#details)', S)
     return S
 
+# add doxygen links to a file
+def AddDoxygens(repoDir, repoURL, fromFile, toFile):
+    mdFile = open(fromFile, 'r');
+    outFile = open(toFile, 'w')
+    for line in mdFile:
+        withDoxy = AddDoxygen(line)
+        outFile.write(withDoxy.rstrip())        
+        outFile.write("\n")
+    mdFile.close()
+    outFile.close()
+
 # add thumbnails to example tables
 def FindThumbnail(S):
         reg = re.compile(r'^\[[^\(]*\]\(([^)]*)')
@@ -209,10 +220,18 @@ exampleToCMake = dict()
 # Create a dict to hold the file names for each example
 exampleToFileNames = dict()
 
+if not os.path.exists(DocDir + "/Cxx/Snippets"):
+    os.makedirs(DocDir + "/Cxx/Snippets")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "/Java.md")
+AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Snippets.md")
+
+# Snippets
+snippets = ['ReadPolyData', 'SaveSceneToFieldData', 'SaveSceneToFile', 'RestoreSceneFromFieldData', 'RestoreSceneFromFile', 'ChooseContrastingColor']
+for snippet in snippets:
+    CopyFile(RepoDir + '/Cxx/Snippets/' + snippet + '.md', DocDir + '/Cxx/Snippets/' + snippet + '.md')
 
 # Convert repo .md files
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")

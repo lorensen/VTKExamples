@@ -1,7 +1,7 @@
 ### Description
 Draw the borders of a vtkRenderer's viewports.
 
-To use the snippet, go [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Cxx/Snippets/ViewPortBorders.md)  and copy/paste the code into your example.
+To use the snippet, click the *Copy to clipboard* at the upper left of the code blocks.
 
 ### Declaration Section
 ``` c++
@@ -18,9 +18,9 @@ To use the snippet, go [here](https://raw.githubusercontent.com/lorensen/VTKExam
 
 namespace
 {
-void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
-                    double *color,
-                    bool last = false);
+void ViewportBorders(vtkSmartPointer<vtkRenderer> &renderer,
+                     double *color,
+                     bool last = false);
 }
 ```
 ### Implementation Section
@@ -28,9 +28,9 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
 namespace
 {
 // Draw the borders of a renderer's viewport
-void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
-                    double *color,
-                    bool last)
+void ViewportBorders(vtkSmartPointer<vtkRenderer> &renderer,
+                     double *color,
+                     bool last)
 {
   // points start at upper right and proceed anti-clockwise
   vtkSmartPointer<vtkPoints> points =
