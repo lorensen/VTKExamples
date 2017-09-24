@@ -102,6 +102,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
     where **MyNewExample** is the name of your new example.
 
+2. Check the [available snippets](/Cxx/Snippets).
 2. Save your source code in VTKExamples/src/**LANGUAGE**/**TOPIC**/
 
     where **LANGUAGE** is Cxx, Python, CSharp or Java.
