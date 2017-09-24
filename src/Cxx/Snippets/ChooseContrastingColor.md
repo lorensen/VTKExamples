@@ -1,7 +1,7 @@
 ### Description
 Given a color, find a contrasting color. If the given color is "light", use the lightColor otherwise use the darkColor.
 
-To use the snippet, go [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Cxx/Snippets/ChooseConstrastingColor.md)  and copy/paste the code into your example.
+To use the snippet, go [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Cxx/Snippets/ChooseContrastingColor.md)  and copy/paste the code into your example.
 
 ### Declaration Section
 ``` c++
