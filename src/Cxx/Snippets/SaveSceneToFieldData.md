@@ -5,112 +5,58 @@ Given a vtkDataSet, vtkActor and vtkCamera, save necessary variables in the vtkD
 !!! note
     The snippet currently just saves the vtkCamera variables.
 
-To use the snippet, go [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Cxx/Snippets/RestorSceneFromFieldData.md)  and copy/paste the code into your example.
+To use the snippet, go [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Cxx/Snippets/SaveSceneToFieldData.md)  and copy/paste the code into your example.
 
 ### Declaration Section
 ``` c++
 namespace
 {
-void RestoreSceneFromFieldData(vtkDataSet *data,
-                               vtkActor *actor,
-                               vtkCamera *camera);
+void SaveSceneToFieldData(vtkDataSet *data,
+                          vtkActor *actor,
+                          vtkCamera *camera);
 }
 ```
 ### Implementation Section
 ``` c++
+#include <sstream>
 namespace
 {
-void  RestoreSceneFromFieldData(vtkDataSet *data,
-                               vtkActor *actor,
-                               vtkCamera *camera)
+void SaveSceneToFieldData(vtkDataSet *data,
+                          vtkActor *actor,
+                          vtkCamera *camera)
 {
-
-  std::istringstream buffer;
-
-  // Get the saved camera information from the field data
-  if (vtkStringArray::SafeDownCast(
-        data->GetFieldData()->GetAbstractArray("Camera")))
-  {
-    buffer.str(vtkStringArray::SafeDownCast(
-                 data->GetFieldData()->GetAbstractArray("Camera"))->GetValue(0));
-  }
-  else
-  {
-    return;
-  }
-
-  std::string line;
+  std::ostringstream buffer;
   double vector[3];
   double scalar;
 
-  vtksys::RegularExpression reCP("^Camera:Position");
-  vtksys::RegularExpression reCFP("^Camera:FocalPoint");
-  vtksys::RegularExpression reCVU("^Camera:ViewUp");
-  vtksys::RegularExpression reCVA("^Camera:ViewAngle");
-  vtksys::RegularExpression reCCR("^Camera:ClippingRange");
-  vtksys::RegularExpression floatNumber(
-      "[^0-9\\.\\-]*([0-9e\\.\\-]*[^,])[^0-9\\.\\-]*([0-9e\\.\\-]*[^,])[^0-9\\.\\-]*([0-9e\\.\\-]*[^,])");
-  vtksys::RegularExpression floatScalar("[^0-9\\.\\-]*([0-9\\.\\-e]*[^,])");
-
-  while (std::getline(buffer,line))
-  {
-    if (reCFP.find(line))
-    {
-      std::string rest(line, reCFP.end());
-      if (floatNumber.find(rest))
-      {
-        camera->SetFocalPoint(
-          atof(floatNumber.match(1).c_str()),
-          atof(floatNumber.match(2).c_str()),
-          atof(floatNumber.match(3).c_str()));
-      }
-    }
-    else if (reCP.find(line))
-    {
-      std::string rest(line, reCP.end());
-      if (floatNumber.find(rest))
-      {
-        camera->SetPosition(
-          atof(floatNumber.match(1).c_str()),
-          atof(floatNumber.match(2).c_str()),
-          atof(floatNumber.match(3).c_str()));
-      }
-    }
-    else if (reCVU.find(line))
-    {
-      std::string rest(line, reCVU.end());
-      if (floatNumber.find(rest))
-      {
-        camera->SetViewUp(
-          atof(floatNumber.match(1).c_str()),
-          atof(floatNumber.match(2).c_str()),
-          atof(floatNumber.match(3).c_str()));
-      }
-    }
-    else if (reCVA.find(line))
-    {
-      std::string rest(line, reCVA.end());
-      if (floatScalar.find(rest))
-      {
-        camera->SetViewAngle(
-          atof(floatScalar.match(1).c_str()));
-      }
-    }
-    else if (reCCR.find(line))
-    {
-      std::string rest(line, reCCR.end());
-      if (floatNumber.find(rest))
-      {
-        camera->SetClippingRange(
-          atof(floatNumber.match(1).c_str()),
-          atof(floatNumber.match(2).c_str()));
-      }
-    }
-    else
-    {
-      std::cout << "Unrecognized line: " << line << std::endl;
-    }
-  }
+  camera->GetFocalPoint(vector);
+  buffer << "Camera:FocalPoint "
+         << vector[0] << ", "
+         << vector[1] << ", "
+         << vector[2] << std::endl;
+  camera->GetPosition(vector);
+  buffer << "Camera:Position "
+           << vector[0] << ", "
+           << vector[1] << ", "
+           << vector[2] << std::endl;
+  camera->GetViewUp(vector);
+  buffer << "Camera:ViewUp "
+           << vector[0] << ", "
+           << vector[1] << ", "
+           << vector[2] << std::endl;
+  scalar = camera->GetViewAngle();
+  buffer << "Camera:ViewAngle "
+           << scalar << std::endl;
+  camera->GetClippingRange(vector);
+  buffer << "Camera:ClippingRange "
+           << vector[0] << ", "
+           << vector[1] << std::endl;
+  vtkSmartPointer<vtkStringArray> cameraArray = 
+    vtkSmartPointer<vtkStringArray>::New();
+  cameraArray->SetNumberOfValues(1);
+  cameraArray->SetValue(0, buffer.str());
+  cameraArray->SetName("Camera");
+  data->GetFieldData()->AddArray(cameraArray);
 }
 }
 ```
