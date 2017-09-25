@@ -137,7 +137,6 @@ int main(int, char *[])
   vtkSmartPointer<vtkPolyDataMapper> surfaceMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   surfaceMapper->SetInputConnection( transformFilter->GetOutputPort() );
   surfaceMapper->ScalarVisibilityOff();
-  surfaceMapper->ImmediateModeRenderingOn();
 
   vtkSmartPointer<vtkActor> surfaceActor = vtkSmartPointer<vtkActor>::New();
   surfaceActor->SetMapper( surfaceMapper );
