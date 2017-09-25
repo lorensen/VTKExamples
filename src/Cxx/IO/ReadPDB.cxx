@@ -72,7 +72,6 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkPolyDataMapper> atomMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   atomMapper->SetInputConnection(glyph->GetOutputPort());
-  atomMapper->ImmediateModeRenderingOn();
   atomMapper->UseLookupTableScalarRangeOff();
   atomMapper->ScalarVisibilityOn();
   atomMapper->SetScalarModeToDefault();
@@ -103,7 +102,6 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkPolyDataMapper> bondMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   bondMapper->SetInputConnection(tube->GetOutputPort());
-  bondMapper->ImmediateModeRenderingOn();
   bondMapper->UseLookupTableScalarRangeOff();
   bondMapper->ScalarVisibilityOff();
   bondMapper->SetScalarModeToDefault();

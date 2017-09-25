@@ -109,7 +109,6 @@ int main(int argc, char *argv[] )
   vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   sphereMapper->SetInputConnection(sphere->GetOutputPort());
-  sphereMapper->GlobalImmediateModeRenderingOn();
 
   vtkSmartPointer<vtkActor> sphereActor =
     vtkSmartPointer<vtkActor>::New();

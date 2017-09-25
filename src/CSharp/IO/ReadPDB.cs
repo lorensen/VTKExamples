@@ -62,7 +62,6 @@ namespace ActiViz.Examples {
 
          vtkPolyDataMapper atomMapper = vtkPolyDataMapper.New();
          atomMapper.SetInputConnection(glyph.GetOutputPort());
-         atomMapper.ImmediateModeRenderingOn();
          atomMapper.UseLookupTableScalarRangeOff();
          atomMapper.ScalarVisibilityOn();
          atomMapper.SetScalarModeToDefault();
@@ -90,7 +89,6 @@ namespace ActiViz.Examples {
 
          vtkPolyDataMapper bondMapper = vtkPolyDataMapper.New();
          bondMapper.SetInputConnection(tube.GetOutputPort());
-         bondMapper.ImmediateModeRenderingOn();
          bondMapper.UseLookupTableScalarRangeOff();
          bondMapper.ScalarVisibilityOff();
          bondMapper.SetScalarModeToDefault();
