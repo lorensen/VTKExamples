@@ -579,6 +579,8 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [PiecewiseFunction](/Cxx/Utilities/PiecewiseFunction) | vtkPiecewiseFunction |Interpolation using a piecewise function.
 [PointInPolygon](/Cxx/Utilities/PointInPolygon) | vtkPolygon | Point inside polygon test.
 [ReportRenderWindowCapabilities](/Cxx/Utilities/ReportRenderWindowCapabilities) | vtkRenderWindow | Report the capabilities of a render window.
+[SaveSceneToFieldData](/Cxx/Utilities/SaveSceneToFieldData) | vtkCamera | Save a vtkCamera's state i a vtkDataSet's vtkFieldData and restore it.
+[SaveSceneToFile](/Cxx/Utilities/SaveSceneToFile) | vtkCamera | Save a vtkCamera's state in a file and restore it.d.
 [Screenshot](/Cxx/Utilities/Screenshot) | vtkWindowToImageFilter |
 [ShallowCopy](/Cxx/Utilities/ShallowCopy) |  | Shallow copy a VTK object.
 [ShareCamera](/Cxx/Utilities/ShareCamera) | vtkRenderer vtkCamera | Share a camera between multiple renderers.

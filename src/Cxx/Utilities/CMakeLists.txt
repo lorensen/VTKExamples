@@ -34,11 +34,19 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Utilities)
 SET(NEEDS_ARGS
+  SaveSceneToFieldData
+  SaveSceneToFile
   ViewportBorders
   ZBuffer
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+ADD_TEST(${KIT}-SaveSceneToFile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestSaveSceneToFile ${DATA}/Armadillo.ply ${TEMP}/Armadillo.txt)
+
+ADD_TEST(${KIT}-SaveSceneToFieldData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestSaveSceneToFieldData ${DATA}/Armadillo.ply)
 
 ADD_TEST(${KIT}-ViewportBorders ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestViewportBorders ${DATA}/v.vtk ${DATA}/t.vtk ${DATA}/k.vtk)
