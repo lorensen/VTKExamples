@@ -37,11 +37,13 @@ SET(KIT VolumeRendering)
 if (VTK_RENDERING_BACKEND STREQUAL "OpenGL2")
   SET(NEEDS_ARGS
     MinIntensityRendering
+    IntermixedUnstructuredGrid
   )
 else()
   SET(NEEDS_ARGS
     HAVSVolumeMapper
     MinIntensityRendering
+    IntermixedUnstructuredGrid
   )
 endif()
 
@@ -58,6 +60,9 @@ ADD_TEST(${KIT}-HAVSVolumeMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 ADD_TEST(${KIT}-MinIntensityRendering ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMinIntensityRendering ${DATA}/ironProt.vtk)
 endif()
+
+ADD_TEST(${KIT}-IntermixedUnstructuredGrid ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestIntermixedUnstructuredGrid ${DATA}/ironProt.vtk ${DATA}/neghip.slc)
 
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 

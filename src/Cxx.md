@@ -923,6 +923,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [HAVS](/Cxx/VolumeRendering/HAVSVolumeMapper)| vtkHAVSVolumeMapper |
 [MinIntensityRendering](/Cxx/VolumeRendering/MinIntensityRendering)| vtkFixedPointVolumeRayCastMapper |Min intensity rendering.
 [SmartVolumeMapper](/Cxx/VolumeRendering/SmartVolumeMapper)| vtkSmartVolumeMapper |Smart volume mapper.
+[IntermixedUnstructuredGrid](/Cxx/VolumeRendering/IntermixedUnstructuredGrid)| vtkUnstructuredGridVolumeRayCastMapper vtkSLCReader |mix of poly data and unstructured grid volume mapper.
 
 
 ## User Interaction
