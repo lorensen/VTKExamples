@@ -83,6 +83,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renWin->SetSize(640,512);
   vtkSmartPointer<vtkRenderer> ren1 =
     vtkSmartPointer<vtkRenderer>::New();
 
