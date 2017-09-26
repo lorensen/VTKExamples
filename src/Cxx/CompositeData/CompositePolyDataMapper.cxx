@@ -31,22 +31,22 @@ int main( int argc, char *argv[] )
   vtkNew<vtkCompositePolyDataMapper2> mapper;
   mapper->SetInputDataObject(mbds.GetPointer());
   vtkNew<vtkCompositeDataDisplayAttributes> cdsa;
+  mapper->SetCompositeDataDisplayAttributes(cdsa.Get());
 
   // You can use the vtkCompositeDataDisplayAttributes to set the color,
   // opacity and visibiliy of individual blocks of the multiblock dataset.
   // Attributes are mapped by block pointers (vtkDataObject*), so these can
   // be queried by their flat index through a convenience function in the
   // attribute class (vtkCompositeDataDisplayAttributes::DataObjectFromIndex).
+  // Alternatively, one can set attributes directly through the mapper using
+  // flat indices.
+  //
   // This sets the block at flat index 3 red
   // Note that the index is the flat index in the tree, so the whole multiblock
   // is index 0 and the blocks are flat indexes 1, 2 and 3.  This affects
   // the block returned by mbds->GetBlock(2).
   double color[] = {1, 0, 0};
-  unsigned int top_index = 0;
-  auto dobj = cdsa->DataObjectFromIndex(3, mbds.GetPointer(), top_index);
-  cdsa->SetBlockColor(dobj, color);
-  
-  mapper->SetCompositeDataDisplayAttributes(cdsa.Get());
+  mapper->SetBlockColor(3, color);
   
   vtkNew<vtkActor> actor;
   actor->SetMapper(mapper.Get());
