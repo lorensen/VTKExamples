@@ -116,7 +116,7 @@ function registerListener(event, func) {
   <span class=n>lut</span><span class=o>-&gt;</span><span class=n>Build</span><span class=p>();</span>
 
   <span class=c1>// Fill in the lookup table</span>
-  <span class=k>for</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>tableSize</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+  <span class=k>for</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>i</span><span class=p>)</span> <span class=o>&lt;</span> <span class=n>tableSize</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=n>i</span><span class=p>,</span>
 <span class=hll>                       <span class=n>vtkMath</span><span class=o>::</span><span class=n>Random</span><span class=p>(</span><span class=mf>.25</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>),</span>

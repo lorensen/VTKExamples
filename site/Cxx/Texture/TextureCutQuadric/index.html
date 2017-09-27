@@ -83,7 +83,7 @@ function registerListener(event, func) {
 
 <span class=hll><span class=k>static</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBooleanTexture</span><span class=o>&gt;</span> <span class=n>MakeBooleanTexture</span> <span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>int</span><span class=p>,</span> <span class=kt>int</span><span class=p>);</span>
 </span>
-<span class=kt>int</span> <span class=nf>main</span> <span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[])</span>
+<span class=kt>int</span> <span class=nf>main</span> <span class=p>(</span><span class=kt>int</span> <span class=cm>/* argc */</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span> <span class=cm>/* argv */</span> <span class=p>[])</span>
 <span class=p>{</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renWin</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
@@ -129,24 +129,24 @@ function registerListener(event, func) {
 </span>  <span class=n>aMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>tcoords</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span> <span class=p>());</span>
 
   <span class=c1>// create a mapper, sphere and texture map for each case</span>
-  <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>16</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span> 
+  <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>16</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=n>aBoolean</span> <span class=o>=</span> <span class=n>MakeBooleanTexture</span> <span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=mi>64</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
 
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTexture</span><span class=o>&gt;</span> <span class=n>aTexture</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTexture</span><span class=o>&gt;</span> <span class=n>aTexture2</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTexture</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>    <span class=n>aTexture</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>aBoolean</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span> <span class=p>());</span>
-    <span class=n>aTexture</span><span class=o>-&gt;</span><span class=n>InterpolateOff</span><span class=p>();</span>
-    <span class=n>aTexture</span><span class=o>-&gt;</span><span class=n>RepeatOff</span> <span class=p>();</span>
+</span>    <span class=n>aTexture2</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span> <span class=p>(</span><span class=n>aBoolean</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span> <span class=p>());</span>
+    <span class=n>aTexture2</span><span class=o>-&gt;</span><span class=n>InterpolateOff</span><span class=p>();</span>
+    <span class=n>aTexture2</span><span class=o>-&gt;</span><span class=n>RepeatOff</span> <span class=p>();</span>
 
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>anActor</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>anActor2</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-    <span class=n>anActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span> <span class=p>(</span><span class=n>aMapper</span><span class=p>);</span>
-    <span class=n>anActor</span><span class=o>-&gt;</span><span class=n>SetTexture</span> <span class=p>(</span><span class=n>aTexture</span><span class=p>);</span>
-    <span class=n>anActor</span><span class=o>-&gt;</span><span class=n>SetPosition</span> <span class=p>(</span> <span class=o>&amp;</span><span class=n>positions</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=mi>0</span><span class=p>]);</span>
-    <span class=n>anActor</span><span class=o>-&gt;</span><span class=n>SetScale</span> <span class=p>(</span><span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>);</span>
-    <span class=n>aren</span><span class=o>-&gt;</span><span class=n>AddActor</span> <span class=p>(</span><span class=n>anActor</span><span class=p>);</span>
+    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetMapper</span> <span class=p>(</span><span class=n>aMapper</span><span class=p>);</span>
+    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetTexture</span> <span class=p>(</span><span class=n>aTexture2</span><span class=p>);</span>
+    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetPosition</span> <span class=p>(</span> <span class=o>&amp;</span><span class=n>positions</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=mi>0</span><span class=p>]);</span>
+    <span class=n>anActor2</span><span class=o>-&gt;</span><span class=n>SetScale</span> <span class=p>(</span><span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>);</span>
+    <span class=n>aren</span><span class=o>-&gt;</span><span class=n>AddActor</span> <span class=p>(</span><span class=n>anActor2</span><span class=p>);</span>
   <span class=p>}</span>
 
   <span class=n>aren</span><span class=o>-&gt;</span><span class=n>SetBackground</span> <span class=p>(</span><span class=mf>0.4392</span><span class=p>,</span><span class=mf>0.5020</span><span class=p>,</span><span class=mf>0.5647</span><span class=p>);</span>
@@ -176,7 +176,7 @@ function registerListener(event, func) {
   <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetYSize</span> <span class=p>(</span><span class=n>resolution</span><span class=p>);</span>
   <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetThickness</span> <span class=p>(</span><span class=n>thickness</span><span class=p>);</span>
 
-  <span class=k>switch</span> <span class=p>(</span><span class=n>caseNumber</span><span class=p>)</span> 
+  <span class=k>switch</span> <span class=p>(</span><span class=n>caseNumber</span><span class=p>)</span>
   <span class=p>{</span>
   <span class=k>case</span> <span class=mi>0</span><span class=o>:</span>
     <span class=n>booleanTexture</span><span class=o>-&gt;</span><span class=n>SetInIn</span> <span class=p>(</span><span class=n>solid</span><span class=p>);</span>

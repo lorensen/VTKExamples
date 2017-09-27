@@ -129,9 +129,9 @@ function registerListener(event, func) {
     <span class=p>{</span>
       <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetSpecular</span><span class=p>(</span><span class=mf>1.0</span><span class=p>);</span>
     <span class=p>}</span>
-    <span class=c1>// The VRML default ambient intensity is .2</span>
-    <span class=kt>double</span> <span class=n>ambientIntensity</span> <span class=o>=</span> <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetAmbient</span><span class=p>();</span>
 <span class=cp>#if 0</span><span class=c></span>
+<span class=c>    // The VRML default ambient intensity is .2</span>
+<span class=c>    double ambientIntensity = actor-&gt;GetProperty()-&gt;GetAmbient();</span>
 <span class=c>    if (ambientIntensity == 0.0)</span>
 <span class=c>    {</span>
 <span class=c>      actor-&gt;GetProperty()-&gt;SetAmbient(.2);</span>

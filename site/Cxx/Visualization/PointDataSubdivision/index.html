@@ -103,7 +103,7 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTextProperty.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkVersion.h&gt;</span><span class=cp></span>
 </span>
-<span class=cp>#include</span> <span class=cpf>&lt;algorithm&gt; </span><span class=cp></span>
+<span class=cp>#include</span> <span class=cpf>&lt;algorithm&gt;</span><span class=cp></span>
 
 <span class=cm>/**</span>
 <span class=cm> * @class Sources</span>
@@ -115,7 +115,7 @@ function registerListener(event, func) {
 <span class=cm> *  - An elevation filter.</span>
 <span class=cm> *  - A CleanPolyData filter.</span>
 <span class=cm> *  - For parametric sources, we may need to apply one of both of JoinUOff() or JoinVOff().</span>
-<span class=cm> * </span>
+<span class=cm> *</span>
 <span class=cm> * Use the representative sources provided here as templates.</span>
 <span class=cm>*/</span>
 <span class=hll><span class=k>class</span> <span class=nc>Sources</span> <span class=o>:</span> <span class=k>public</span> <span class=n>vtkPolyDataAlgorithm</span>
@@ -438,7 +438,7 @@ function registerListener(event, func) {
 <span class=cm>/**</span>
 <span class=cm> * Create a label.</span>
 <span class=cm> *</span>
-<span class=cm> * @param textLabel The label. </span>
+<span class=cm> * @param textLabel The label.</span>
 <span class=cm> * @param renWinSize The size of the render window. Used to set the font size.</span>
 <span class=cm> *</span>
 <span class=cm> * @return The actor for the text label.</span>
@@ -594,13 +594,13 @@ function registerListener(event, func) {
   <span class=kt>bool</span> <span class=n>displayNormals</span> <span class=o>=</span> <span class=nb>true</span><span class=p>;</span>
   <span class=k>if</span> <span class=p>(</span><span class=n>argc</span> <span class=o>&gt;</span> <span class=mi>2</span><span class=p>)</span>
   <span class=p>{</span>
-    <span class=n>displayNormals</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>bool</span><span class=o>&gt;</span><span class=p>(</span><span class=n>atoi</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]));</span>
+    <span class=n>displayNormals</span> <span class=o>=</span> <span class=p>(</span><span class=n>atoi</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>);</span>
   <span class=p>}</span>
 
   <span class=kt>bool</span> <span class=n>gouraudInterpolation</span> <span class=o>=</span> <span class=nb>true</span><span class=p>;</span>
   <span class=k>if</span> <span class=p>(</span><span class=n>argc</span> <span class=o>&gt;</span> <span class=mi>3</span><span class=p>)</span>
   <span class=p>{</span>
-    <span class=n>gouraudInterpolation</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>bool</span><span class=o>&gt;</span><span class=p>(</span><span class=n>atoi</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>3</span><span class=p>]));</span>
+    <span class=n>gouraudInterpolation</span> <span class=o>=</span> <span class=p>(</span><span class=n>atoi</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>);</span>
   <span class=p>}</span>
 
   <span class=kt>int</span> <span class=n>glyphPoints</span> <span class=o>=</span> <span class=mi>50</span><span class=p>;</span>

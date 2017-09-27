@@ -129,7 +129,7 @@ function registerListener(event, func) {
   <span class=n>newSize</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>imageData</span><span class=o>-&gt;</span><span class=n>GetDimensions</span><span class=p>()[</span><span class=mi>1</span><span class=p>]</span> <span class=o>*</span> <span class=n>factor</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;New dimensions: &quot;</span>
             <span class=o>&lt;&lt;</span> <span class=n>newSize</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;, &quot;</span>
-            <span class=o>&lt;&lt;</span> <span class=n>newSize</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> 
+            <span class=o>&lt;&lt;</span> <span class=n>newSize</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
             <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>colors</span> <span class=o>=</span>
@@ -211,7 +211,6 @@ function registerListener(event, func) {
   <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>yGridDimensions</span> <span class=o>=</span> <span class=mi>3</span><span class=p>;</span>
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span>
     <span class=n>rendererSize</span> <span class=o>*</span> <span class=n>xGridDimensions</span><span class=p>,</span> <span class=n>rendererSize</span> <span class=o>*</span> <span class=n>yGridDimensions</span><span class=p>);</span>
-  <span class=kt>int</span> <span class=n>index</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
   <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>row</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>row</span> <span class=o>&lt;</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>yGridDimensions</span><span class=p>);</span> <span class=n>row</span><span class=o>++</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>col</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>col</span> <span class=o>&lt;</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>xGridDimensions</span><span class=p>);</span> <span class=n>col</span><span class=o>++</span><span class=p>)</span>
