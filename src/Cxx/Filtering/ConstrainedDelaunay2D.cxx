@@ -84,11 +84,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkPolyDataMapper> boundaryMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  boundaryMapper->SetInputConnection(boundary->GetProducerPort());
-#else
   boundaryMapper->SetInputData(boundary);
-#endif
 
   vtkSmartPointer<vtkActor> boundaryActor =
     vtkSmartPointer<vtkActor>::New();
