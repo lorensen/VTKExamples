@@ -37,16 +37,16 @@ int main(int, char *[])
   filter->AddObserver(filter->RefreshEvent, callback);
 
   filter->Update();
-  
+
   renderWindow->Render();
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;
 }
 
-void CallbackFunction(vtkObject* caller,
-                long unsigned int eventId,
-                void* clientData, void* callData )
+void CallbackFunction(vtkObject* /* caller */,
+                long unsigned int /* eventId */,
+                void* /* clientData */, void* /* callData */)
 {
   std::cout << "CallbackFunction called." << std::endl;
 }

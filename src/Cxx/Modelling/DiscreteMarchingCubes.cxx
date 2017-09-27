@@ -20,7 +20,7 @@
 static vtkSmartPointer<vtkLookupTable> MakeColors (unsigned int n);
 static vtkSmartPointer<vtkImageData> MakeBlob(int n, double radius);
 
-int main (int argc, char *argv[])
+int main (int /*argc*/, char * /* argv */ [])
 {
   int n = 20;
   double radius = 8;
@@ -133,7 +133,7 @@ vtkSmartPointer<vtkLookupTable> MakeColors (unsigned int n)
   vtkSmartPointer<vtkMath> math =
     vtkSmartPointer<vtkMath>::New();
   math->RandomSeed(5071);
-  for ( int i = 1; i < n; ++i)
+  for ( int i = 1; i < static_cast<int>(n); ++i)
   {
     lut->SetTableValue(i, math->Random(.4, 1),
                        math->Random(.4, 1), math->Random(.4, 1), 1.0);

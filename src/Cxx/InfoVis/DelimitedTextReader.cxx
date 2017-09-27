@@ -10,6 +10,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkVersionMacros.h> // For version macros
 #include <vtkVertexGlyphFilter.h>
 
 #include <vtkNamedColors.h>

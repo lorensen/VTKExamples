@@ -19,7 +19,7 @@
 
 #include <vector>
 
-int main (int argc, char *argv[])
+int main (int /*argc*/, char * /* argv */ [])
 {
   // Create implicit functions
   vtkSmartPointer<vtkCone> cone =

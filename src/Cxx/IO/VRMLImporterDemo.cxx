@@ -53,7 +53,6 @@ int main ( int argc, char *argv[])
     vtkSmartPointer<vtkActorCollection>::New();
   actors = renderer->GetActors();
   std::cout << "There are " << actors->GetNumberOfItems() << " actors" << std::endl;
-  int m = 0;
   actors->InitTraversal();
   for (vtkIdType a = 0; a < actors->GetNumberOfItems(); ++a)
   {
