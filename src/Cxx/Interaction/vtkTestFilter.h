@@ -45,8 +45,8 @@ vtkTestFilter::vtkTestFilter()
 }
 
 int vtkTestFilter::RequestData(vtkInformation *vtkNotUsed(request),
-                                             vtkInformationVector **inputVector,
-                                             vtkInformationVector *outputVector)
+ vtkInformationVector **,
+ vtkInformationVector *)
 {
   // Get the info object
 //  vtkInformation *outInfo = outputVector->GetInformationObject(0);
@@ -54,6 +54,6 @@ int vtkTestFilter::RequestData(vtkInformation *vtkNotUsed(request),
 //  vtkPolyData *output = vtkPolyData::SafeDownCast(
 //      outInfo->Get(vtkDataObject::DATA_OBJECT()));
   this->InvokeEvent(this->RefreshEvent, NULL);
-  
+
   return 1;
 }

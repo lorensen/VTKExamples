@@ -50,7 +50,6 @@ int main (int argc, char *argv[])
   actors->InitTraversal();
   std::cout << "There are " << actors->GetNumberOfItems() << " actors" << std::endl;
 
-  int m = 0;
   for (vtkIdType a = 0; a < actors->GetNumberOfItems(); ++a)
   {
     std::cout << importer->GetOutputDescription(a) << std::endl;

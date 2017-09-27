@@ -20,11 +20,11 @@
 
 #include <map>
 
-int main( int argc, char * argv [] )
+int main( int /*argc*/, char * /*argv*/ [] )
 {
   typedef std::map<std::string, int>  DataContainer;
   DataContainer movies;
-  
+
   movies["Comedy"] = 27;
   movies["Action"] = 18;
   movies["Romance"] = 14;
@@ -33,8 +33,7 @@ int main( int argc, char * argv [] )
   movies["Foreign"] = 8;
   movies["Scifi"] = 8;
 
-  int numTuples;
-  numTuples = movies.size();
+  int numTuples = static_cast<int>(movies.size());
 
   vtkSmartPointer<vtkFloatArray> bitter  =
     vtkSmartPointer<vtkFloatArray>::New();

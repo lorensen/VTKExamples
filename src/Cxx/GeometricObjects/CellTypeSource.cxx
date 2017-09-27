@@ -77,7 +77,6 @@ int main (int argc, char *argv[])
       std::cout << "Cell type " << cellName << " is not supported." << std::endl;
       return EXIT_FAILURE;
     }
-  int dims[3] = {2, 2, 1};
   vtkSmartPointer<vtkCellTypeSource> source =
     vtkSmartPointer<vtkCellTypeSource>::New();
   source->SetCellType(cellMap[cellName]);
@@ -201,9 +200,9 @@ int main (int argc, char *argv[])
   renderer->ResetCameraClippingRange();
 
   //Render and interact
-  renderWindow->SetSize(640, 480);  
+  renderWindow->SetSize(640, 480);
   renderWindow->Render();
   renderWindowInteractor->Start();
-  
+
   return EXIT_SUCCESS;
 }

@@ -13,6 +13,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkNamedColors.h>
+#include <vtkVersionMacros.h> // For version macros
 
 int main(int, char *[])
 {
