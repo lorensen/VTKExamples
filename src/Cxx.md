@@ -521,6 +521,8 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[GenerateCubesFromLabels](/Cxx/Medical/GenerateCubesFromLabels) | vtkMetaImageReader vtkMaskFields |Create cubes from labeled volume data.
+[GenerateModelsFromLabels](/Cxx/Medical/GenerateModelsFromLabels) | vtkDiscreteMarchingCubes vtkWindowedSincPolyDataFilter | Create models from labeled volume data (vtkDiscreteMarchingCubes).
 [MedicalDemo1](/Cxx/Medical/MedicalDemo1) | vtkMarchingCubes |Create a skin surface from volume data
 [MedicalDemo2](/Cxx/Medical/MedicalDemo2) | vtkMarchingCubes |Create a skin and bone surface from volume data
 [MedicalDemo3](/Cxx/Medical/MedicalDemo3) | vtkMarchingCubes |Create skin, bone and slices from volume data
@@ -536,8 +538,6 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [ExtractSurfaceDemo](/Cxx/Points/ExtractSurfaceDemo) | vtkExtractSurface vtkPCANormalEstimation vtkSignedDistance |Create a surface from Unorganized Points using Point filters (DEMO).
 [ExtractSurface](/Cxx/Points/ExtractSurface) | vtkExtractSurface vtkPCANormalEstimation vtkSignedDistance |Create a surface from Unorganized Points using Point filters.
 [GaussianSplat](/Cxx/Filtering/GaussianSplat) | vtkGaussianSplatter |Create a surface from Unorganized Points (Gaussian Splat).
-[GenerateCubesFromLabels](/Cxx/Medical/GenerateCubesFromLabels) | vtkMetaImageReader vtkMaskFields |Create cubes from labeled volume data.
-[GenerateModelsFromLabels](/Cxx/Medical/GenerateModelsFromLabels) | vtkDiscreteMarchingCubes |Create models from labeled volume data (Discrete MarchingCubes).
 [SurfaceFromUnorganizedPointsWithPostProc](/Cxx/Filtering/SurfaceFromUnorganizedPointsWithPostProc) | vtkSurfaceReconstructionFilter |Create a surface from Unorganized Points (with post processing).
 [SurfaceFromUnorganizedPoints](/Cxx/Filtering/SurfaceFromUnorganizedPoints) | vtkSurfaceReconstructionFilter |Create a surface from Unorganized Points.
 [TriangulateTerrainMap](/Cxx/Filtering/TriangulateTerrainMap) | vtkDelaunay2D | Generate heights (z values) on a 10x10 grid (a terrain map) and then triangulate the points to form a surface.
@@ -780,6 +780,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [AmbientSpheres](/Cxx/Rendering/AmbientSpheres)| vtkProperty |Demonstrates the effect of ambient lighting on spheres.
 [CylinderRenderingProperties](/Cxx/Rendering/CylinderRenderingProperties)| vtkProperty |Change the properties of a cylinder.
 [DiffuseSpheres](/Cxx/Rendering/DiffuseSpheres)| vtkProperty |Demonstrates the effect of diffuse lighting on spheres.
+[Rainbow](/Cxx/Rendering/Rainbow)| vtkLookupTable | Use and manipulation of vtkLookupTables.
 [SpecularSpheres](/Cxx/Rendering/SpecularSpheres)| vtkProperty |Demonstrates the effect of specular lighting on spheres.
 
 
@@ -920,10 +921,11 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[FixedPointVolumeRayCastMapperCT](/Cxx/VolumeRendering/FixedPointVolumeRayCastMapperCT)| vtkFixedPointVolumeRayCastMapper vtkColorTransferFunction vtkDICOMImageReader vtkMetaImageReader | Volume render DICOM or Meta volumes with various vtkColorTransferFunction's.
 [HAVS](/Cxx/VolumeRendering/HAVSVolumeMapper)| vtkHAVSVolumeMapper |
+[IntermixedUnstructuredGrid](/Cxx/VolumeRendering/IntermixedUnstructuredGrid)| vtkUnstructuredGridVolumeRayCastMapper vtkSLCReader |mix of poly data and unstructured grid volume mapper.
 [MinIntensityRendering](/Cxx/VolumeRendering/MinIntensityRendering)| vtkFixedPointVolumeRayCastMapper |Min intensity rendering.
 [SmartVolumeMapper](/Cxx/VolumeRendering/SmartVolumeMapper)| vtkSmartVolumeMapper |Smart volume mapper.
-[IntermixedUnstructuredGrid](/Cxx/VolumeRendering/IntermixedUnstructuredGrid)| vtkUnstructuredGridVolumeRayCastMapper vtkSLCReader |mix of poly data and unstructured grid volume mapper.
 
 
 ## User Interaction

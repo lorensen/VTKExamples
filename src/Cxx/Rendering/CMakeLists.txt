@@ -27,6 +27,14 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Rendering)
 SET(NEEDS_ARGS
+  Rainbow
 )
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+ADD_TEST(${KIT}-Rainbow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestRainbow ${DATA}/combxyz.bin ${DATA}/combq.bin)
+
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
+
 endif()

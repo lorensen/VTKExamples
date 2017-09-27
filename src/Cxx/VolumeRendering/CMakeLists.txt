@@ -38,6 +38,7 @@ if (VTK_RENDERING_BACKEND STREQUAL "OpenGL2")
   SET(NEEDS_ARGS
     MinIntensityRendering
     IntermixedUnstructuredGrid
+    FixedPointVolumeRayCastMapperCT
   )
 else()
   SET(NEEDS_ARGS
@@ -53,6 +54,8 @@ SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 if (VTK_RENDERING_BACKEND STREQUAL "OpenGL2")
 ADD_TEST(${KIT}-MinIntensityRendering ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMinIntensityRendering ${DATA}/ironProt.vtk)
+ADD_TEST(${KIT}-FixedPointVolumeRayCastMapperCT ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestFixedPointVolumeRayCastMapperCT -MHA ${DATA}/FullHead.mhd -CT_Bone)
 else()
 ADD_TEST(${KIT}-HAVSVolumeMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHAVSVolumeMapper ${DATA}/ironProt.vtk ${DATA}/neghip.slc)

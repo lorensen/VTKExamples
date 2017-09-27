@@ -7,3 +7,6 @@ The example requires a .vtp file and an optional alpha.
 
 !!! seealso
     See [Delaunay3DDemo](/Cxx/Modelling/Delaunay3DDemo) to interactively adjust Alpha.
+
+!!! note
+    This original source code for this example is [here](https://gitlab.kitware.com/vtk/vtk/blob/395857190c8453508d283958383bc38c9c2999bf/Examples/Modelling/Cxx/Delaunay3D.cxx).

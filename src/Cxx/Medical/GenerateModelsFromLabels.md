@@ -9,3 +9,6 @@ cube models, see the example [GenerateCubesFromLabels](/Cxx/Medical/GenerateCube
 The input volume must be in [MetaIO format](http://www.vtk.org/Wiki/MetaIO/Documentation).
 
 Once you generate the models, you can view them with [Paraview](http://paraview.org)
+
+!!! note
+    This original source code for this example is [here](https://gitlab.kitware.com/vtk/vtk/blob/395857190c8453508d283958383bc38c9c2999bf/Examples/Medical/Cxx/GenerateModelsFromLabels.cxx).
