@@ -103,9 +103,9 @@ function registerListener(event, func) {
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>}</span>
 
-<span class=hll><span class=kt>void</span> <span class=nf>CallbackFunction</span><span class=p>(</span><span class=n>vtkObject</span><span class=o>*</span> <span class=n>caller</span><span class=p>,</span>
-</span>                <span class=kt>long</span> <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>eventId</span><span class=p>,</span>
-                <span class=kt>void</span><span class=o>*</span> <span class=n>clientData</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=n>callData</span> <span class=p>)</span>
+<span class=hll><span class=kt>void</span> <span class=nf>CallbackFunction</span><span class=p>(</span><span class=n>vtkObject</span><span class=o>*</span> <span class=cm>/* caller */</span><span class=p>,</span>
+</span>                <span class=kt>long</span> <span class=kt>unsigned</span> <span class=kt>int</span> <span class=cm>/* eventId */</span><span class=p>,</span>
+                <span class=kt>void</span><span class=o>*</span> <span class=cm>/* clientData */</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=cm>/* callData */</span><span class=p>)</span>
 <span class=p>{</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;CallbackFunction called.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 <span class=p>}</span>
@@ -156,8 +156,8 @@ function registerListener(event, func) {
 <span class=p>}</span>
 
 <span class=kt>int</span> <span class=n>vtkTestFilter</span><span class=o>::</span><span class=n>RequestData</span><span class=p>(</span><span class=n>vtkInformation</span> <span class=o>*</span><span class=n>vtkNotUsed</span><span class=p>(</span><span class=n>request</span><span class=p>),</span>
-                                             <span class=n>vtkInformationVector</span> <span class=o>**</span><span class=n>inputVector</span><span class=p>,</span>
-                                             <span class=n>vtkInformationVector</span> <span class=o>*</span><span class=n>outputVector</span><span class=p>)</span>
+ <span class=n>vtkInformationVector</span> <span class=o>**</span><span class=p>,</span>
+ <span class=n>vtkInformationVector</span> <span class=o>*</span><span class=p>)</span>
 <span class=p>{</span>
   <span class=c1>// Get the info object</span>
 <span class=c1>//  vtkInformation *outInfo = outputVector-&gt;GetInformationObject(0);</span>

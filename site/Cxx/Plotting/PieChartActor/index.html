@@ -79,7 +79,7 @@ function registerListener(event, func) {
 </span>
 <span class=cp>#include</span> <span class=cpf>&lt;map&gt;</span><span class=cp></span>
 
-<span class=kt>int</span> <span class=nf>main</span><span class=p>(</span> <span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span> <span class=n>argv</span> <span class=p>[]</span> <span class=p>)</span>
+<span class=kt>int</span> <span class=nf>main</span><span class=p>(</span> <span class=kt>int</span> <span class=cm>/*argc*/</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span> <span class=cm>/*argv*/</span> <span class=p>[]</span> <span class=p>)</span>
 <span class=p>{</span>
   <span class=k>typedef</span> <span class=n>std</span><span class=o>::</span><span class=n>map</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>,</span> <span class=kt>int</span><span class=o>&gt;</span>  <span class=n>DataContainer</span><span class=p>;</span>
   <span class=n>DataContainer</span> <span class=n>movies</span><span class=p>;</span>
@@ -92,8 +92,7 @@ function registerListener(event, func) {
   <span class=n>movies</span><span class=p>[</span><span class=s>&quot;Foreign&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>8</span><span class=p>;</span>
   <span class=n>movies</span><span class=p>[</span><span class=s>&quot;Scifi&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>8</span><span class=p>;</span>
 
-  <span class=kt>int</span> <span class=n>numTuples</span><span class=p>;</span>
-  <span class=n>numTuples</span> <span class=o>=</span> <span class=n>movies</span><span class=p>.</span><span class=n>size</span><span class=p>();</span>
+  <span class=kt>int</span> <span class=n>numTuples</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>movies</span><span class=p>.</span><span class=n>size</span><span class=p>());</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>bitter</span>  <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>

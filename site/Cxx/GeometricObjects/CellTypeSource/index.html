@@ -136,7 +136,6 @@ function registerListener(event, func) {
       <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Cell type &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>cellName</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; is not supported.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
       <span class=k>return</span> <span class=n>EXIT_FAILURE</span><span class=p>;</span>
     <span class=p>}</span>
-  <span class=kt>int</span> <span class=n>dims</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>};</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellTypeSource</span><span class=o>&gt;</span> <span class=n>source</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellTypeSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>source</span><span class=o>-&gt;</span><span class=n>SetCellType</span><span class=p>(</span><span class=n>cellMap</span><span class=p>[</span><span class=n>cellName</span><span class=p>]);</span>
@@ -260,7 +259,7 @@ function registerListener(event, func) {
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>ResetCameraClippingRange</span><span class=p>();</span>
 
   <span class=c1>//Render and interact</span>
-  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>  
+  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
 
