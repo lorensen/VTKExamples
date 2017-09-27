@@ -44,7 +44,7 @@
 #include <vtkTextProperty.h>
 #include <vtkVersion.h>
 
-#include <algorithm> 
+#include <algorithm>
 
 /**
  * @class Sources
@@ -56,7 +56,7 @@
  *  - An elevation filter.
  *  - A CleanPolyData filter.
  *  - For parametric sources, we may need to apply one of both of JoinUOff() or JoinVOff().
- * 
+ *
  * Use the representative sources provided here as templates.
 */
 class Sources : public vtkPolyDataAlgorithm
@@ -379,7 +379,7 @@ vtkSmartPointer<vtkActor> MakeSurfaceActor(vtkPolyData* surface, double *scalarR
 /**
  * Create a label.
  *
- * @param textLabel The label. 
+ * @param textLabel The label.
  * @param renWinSize The size of the render window. Used to set the font size.
  *
  * @return The actor for the text label.
@@ -535,13 +535,13 @@ int main(int argc, char * argv[])
   bool displayNormals = true;
   if (argc > 2)
   {
-    displayNormals = static_cast<bool>(atoi(argv[2]));
+    displayNormals = (atoi(argv[2]) != 0);
   }
 
   bool gouraudInterpolation = true;
   if (argc > 3)
   {
-    gouraudInterpolation = static_cast<bool>(atoi(argv[3]));
+    gouraudInterpolation = (atoi(argv[3]) != 0);
   }
 
   int glyphPoints = 50;
@@ -641,7 +641,7 @@ int main(int argc, char * argv[])
     om.push_back(MakeOrientationMarker(ren[i], iren));
   }
   renWin->SetSize(renWinXSize, renWinYSize);
-  
+
   iren->Initialize();
 
   if (gouraudInterpolation)

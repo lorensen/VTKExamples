@@ -13,7 +13,7 @@
 #include <vtkProperty.h>
 #include <vtkCamera.h>
 
-int main (int argc, char *argv[])
+int main (int /* argc */, char *argv[])
 {
   vtkSmartPointer<vtkStructuredPointsReader> reader =
     vtkSmartPointer<vtkStructuredPointsReader>::New();

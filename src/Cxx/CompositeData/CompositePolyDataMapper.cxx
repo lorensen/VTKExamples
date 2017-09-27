@@ -8,7 +8,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 
-int main( int argc, char *argv[] )
+int main( int /* argc */, char * /* argv */ [] )
 {
   vtkNew<vtkSphereSource> sphere1;
   sphere1->SetRadius(3);
@@ -47,7 +47,7 @@ int main( int argc, char *argv[] )
   // the block returned by mbds->GetBlock(2).
   double color[] = {1, 0, 0};
   mapper->SetBlockColor(3, color);
-  
+
   vtkNew<vtkActor> actor;
   actor->SetMapper(mapper.Get());
 

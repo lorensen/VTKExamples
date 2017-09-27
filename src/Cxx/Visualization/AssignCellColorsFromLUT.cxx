@@ -63,7 +63,7 @@ void MakeLUT(size_t const& tableSize, vtkLookupTable* lut)
 {
   vtkSmartPointer<vtkNamedColors> nc = vtkSmartPointer<vtkNamedColors>::New();
 
-  lut->SetNumberOfTableValues(tableSize);
+  lut->SetNumberOfTableValues(static_cast<vtkIdType>(tableSize));
   lut->Build();
 
   // Fill in a few known colors, the rest will be generated if needed
@@ -90,14 +90,14 @@ void MakeLUTFromCTF(size_t const& tableSize, vtkLookupTable* lut)
   ctf->AddRGBPoint(0.5, 0.865, 0.865, 0.865);
   ctf->AddRGBPoint(1.0, 0.677, 0.492, 0.093);
 
-  lut->SetNumberOfTableValues(tableSize);
+  lut->SetNumberOfTableValues(static_cast<vtkIdType>(tableSize));
   lut->Build();
 
   for (size_t i = 0; i < tableSize; ++i)
   {
     double* rgb;
     rgb = ctf->GetColor(static_cast<double>(i) / tableSize);
-    lut->SetTableValue(i, rgb);
+    lut->SetTableValue(static_cast<vtkIdType>(i), rgb);
   }
 }
 

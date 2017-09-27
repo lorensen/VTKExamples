@@ -36,10 +36,8 @@
 #include <vtkProperty.h>
 #include <vtkCamera.h>
 
-int main(int argc, char *argv[])
+int main(int /* argc */, char * /* argv */ [])
 {
-
-
   // create a camera model
   vtkSmartPointer<vtkConeSource> camCS =
     vtkSmartPointer<vtkConeSource>::New();

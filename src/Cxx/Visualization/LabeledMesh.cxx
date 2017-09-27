@@ -60,7 +60,7 @@ static void MoveWindow()
   }
 }
 
-int main(int argc, char *argv[] )
+int main(int /* argc */, char * /* argv */ [] )
 {
   // Create a selection window.  We will display the point and cell ids that
   // lie within this window.

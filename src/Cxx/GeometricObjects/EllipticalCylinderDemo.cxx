@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkPolyLine> line =
     vtkSmartPointer<vtkPolyLine>::New();
   line->GetPointIds()->SetNumberOfIds(id);
-  for(unsigned int i = 0; i < id; ++i)
+  for(unsigned int i = 0; i < static_cast<unsigned int>(id); ++i)
   {
     line->GetPointIds()->SetId(i,i);
   }

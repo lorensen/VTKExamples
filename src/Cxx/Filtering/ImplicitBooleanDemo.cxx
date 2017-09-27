@@ -16,24 +16,24 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 
-int main (int argc, char *[])
+int main (int /* argc */, char *[])
 {
   vtkSmartPointer<vtkNamedColors> namedColors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   // create a sphere
-  vtkSmartPointer<vtkSphere> sphere = 
+  vtkSmartPointer<vtkSphere> sphere =
     vtkSmartPointer<vtkSphere>::New();
   sphere->SetRadius(1);
   sphere->SetCenter(1,0,0);
 
   // create a box
-  vtkSmartPointer<vtkBox> box = 
+  vtkSmartPointer<vtkBox> box =
     vtkSmartPointer<vtkBox>::New();
   box->SetBounds(-1, 1, -1, 1, -1, 1);
 
   // combine the two implicit functions
-  vtkSmartPointer<vtkImplicitBoolean> boolean = 
+  vtkSmartPointer<vtkImplicitBoolean> boolean =
     vtkSmartPointer<vtkImplicitBoolean>::New();
   boolean->AddFunction(box);
   boolean->AddFunction(sphere);
@@ -69,7 +69,7 @@ int main (int argc, char *[])
 
     // The sample function generates a distance function from the implicit
     // function. This is then contoured to get a polygonal surface.
-    vtkSmartPointer<vtkSampleFunction> sample = 
+    vtkSmartPointer<vtkSampleFunction> sample =
       vtkSmartPointer<vtkSampleFunction>::New();
     sample->SetImplicitFunction(boolean);
     sample->SetModelBounds(-1, 2, -1, 1, -1, 1);
@@ -77,23 +77,23 @@ int main (int argc, char *[])
     sample->ComputeNormalsOff();
 
     // contour
-    vtkSmartPointer<vtkContourFilter> surface = 
+    vtkSmartPointer<vtkContourFilter> surface =
       vtkSmartPointer<vtkContourFilter>::New();
     surface->SetInputConnection(sample->GetOutputPort());
     surface->SetValue(0, 0.0);
     surface->Update();
-                       
+
     vtkSmartPointer<vtkPolyData> polyData =
       vtkSmartPointer<vtkPolyData>::New();
     polyData->DeepCopy(surface->GetOutput());
 
     // mapper
-    vtkSmartPointer<vtkPolyDataMapper> mapper = 
+    vtkSmartPointer<vtkPolyDataMapper> mapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
                        mapper->SetInputData(polyData);
     mapper->ScalarVisibilityOff();
 
-    vtkSmartPointer<vtkActor> actor = 
+    vtkSmartPointer<vtkActor> actor =
       vtkSmartPointer<vtkActor>::New();
     actor->SetMapper(mapper);
     actor->GetProperty()->EdgeVisibilityOn();
@@ -106,14 +106,14 @@ int main (int argc, char *[])
   }
 
   // render window
-  vtkSmartPointer<vtkRenderWindow> renwin = 
+  vtkSmartPointer<vtkRenderWindow> renwin =
     vtkSmartPointer<vtkRenderWindow>::New();
     renwin->AddRenderer(ren[0]);
     renwin->AddRenderer(ren[1]);
     renwin->AddRenderer(ren[2]);
 
   // An interactor
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor = 
+  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renwin);
 

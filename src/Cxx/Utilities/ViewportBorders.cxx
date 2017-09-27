@@ -26,13 +26,13 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
 
 int main (int argc, char *argv[])
 {
-  // 
+  //
   int numberOfFiles = argc - 1;
   if (numberOfFiles == 0)
   {
     std::cout << "Usage" << argv[0]
               << " file1 file2 file3 ... fileN" << std::endl;
-    return EXIT_FAILURE;      
+    return EXIT_FAILURE;
   }
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
@@ -42,7 +42,7 @@ int main (int argc, char *argv[])
   renderWindow->SetSize(300 * numberOfFiles, 300);
 
   double size = 1.0 / numberOfFiles;
-  for (unsigned int i = 0; i < numberOfFiles; ++i)
+  for (unsigned int i = 0; static_cast<int>(i) < numberOfFiles; ++i)
   {
     vtkSmartPointer<vtkPolyDataReader> reader =
       vtkSmartPointer<vtkPolyDataReader>::New();
@@ -70,11 +70,11 @@ int main (int argc, char *argv[])
     renderer->SetViewport(viewport);
     ViewportBorder(renderer,
                    colors->GetColor3d("Gold").GetData(),
-                   i == numberOfFiles - 1);
+                   static_cast<int>(i) == numberOfFiles - 1);
     renderWindow->AddRenderer(renderer);
   }
 
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor = 
+  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
   interactor->Initialize();
@@ -101,7 +101,7 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
   // create cells, and lines
   vtkSmartPointer<vtkCellArray> cells =
     vtkSmartPointer<vtkCellArray>::New();
-  cells->Initialize(); 
+  cells->Initialize();
 
   vtkSmartPointer<vtkPolyLine> lines =
     vtkSmartPointer<vtkPolyLine>::New();
@@ -131,28 +131,28 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
   // now make tge polydata and display it
   vtkSmartPointer<vtkPolyData> poly =
     vtkSmartPointer<vtkPolyData>::New();
-  poly->Initialize(); 
-  poly->SetPoints(points); 
-  poly->SetLines(cells); 
+  poly->Initialize();
+  poly->SetPoints(points);
+  poly->SetLines(cells);
 
   // use normalized viewport coordinates since
   // they are independent of window size
   vtkSmartPointer<vtkCoordinate> coordinate =
     vtkSmartPointer<vtkCoordinate>::New();
-  coordinate->SetCoordinateSystemToNormalizedViewport(); 
+  coordinate->SetCoordinateSystemToNormalizedViewport();
 
   vtkSmartPointer<vtkPolyDataMapper2D> mapper =
     vtkSmartPointer<vtkPolyDataMapper2D>::New();
-  mapper->SetInputData(poly); 
-  mapper->SetTransformCoordinate(coordinate); 
+  mapper->SetInputData(poly);
+  mapper->SetTransformCoordinate(coordinate);
 
   vtkSmartPointer<vtkActor2D> actor =
     vtkSmartPointer<vtkActor2D>::New();
-  actor->SetMapper(mapper); 
+  actor->SetMapper(mapper);
   actor->GetProperty()->SetColor(color);
   // line width should be at least 2 to be visible at extremes
 
-  actor->GetProperty()->SetLineWidth(4.0); // Line Width 
+  actor->GetProperty()->SetLineWidth(4.0); // Line Width
 
   renderer->AddViewProp(actor);
 }
