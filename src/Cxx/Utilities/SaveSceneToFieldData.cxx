@@ -79,7 +79,7 @@ int main (int argc, char *argv[])
   RestoreSceneFromFieldData(polyData, actor, renderer->GetActiveCamera());
   renderWindow->Render();
   renderWindowInteractor->Start();
-  
+
 return EXIT_SUCCESS;
 }
 
@@ -87,7 +87,7 @@ return EXIT_SUCCESS;
 namespace
 {
 void SaveSceneToFieldData(vtkDataSet *data,
-                          vtkActor *actor,
+                          vtkActor * /* actor */,
                           vtkCamera *camera)
 {
   std::ostringstream buffer;
@@ -116,7 +116,7 @@ void SaveSceneToFieldData(vtkDataSet *data,
   buffer << "Camera:ClippingRange "
            << vector[0] << ", "
            << vector[1] << std::endl;
-  vtkSmartPointer<vtkStringArray> cameraArray = 
+  vtkSmartPointer<vtkStringArray> cameraArray =
     vtkSmartPointer<vtkStringArray>::New();
   cameraArray->SetNumberOfValues(1);
   cameraArray->SetValue(0, buffer.str());
@@ -127,7 +127,7 @@ void SaveSceneToFieldData(vtkDataSet *data,
 namespace
 {
 void  RestoreSceneFromFieldData(vtkDataSet *data,
-                               vtkActor *actor,
+                               vtkActor * /* actor */,
                                vtkCamera *camera)
 {
 
@@ -146,8 +146,6 @@ void  RestoreSceneFromFieldData(vtkDataSet *data,
   }
 
   std::string line;
-  double vector[3];
-  double scalar;
 
   vtksys::RegularExpression reCP("^Camera:Position");
   vtksys::RegularExpression reCFP("^Camera:FocalPoint");

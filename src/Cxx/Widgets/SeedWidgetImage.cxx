@@ -18,19 +18,19 @@ class vtkSeedImageCallback : public vtkCommand
 {
   public:
     static vtkSeedImageCallback *New()
-    { 
-      return new vtkSeedImageCallback; 
+    {
+      return new vtkSeedImageCallback;
     }
-    
+
     vtkSeedImageCallback() {}
-    
+
     virtual void Execute(vtkObject*, unsigned long event, void *calldata)
     {
       if (event == vtkCommand::PlacePointEvent)
         {
 	std::cout << "Placing point..." << std::endl;
 	std::cout << "There are now " << this->SeedRepresentation->GetNumberOfSeeds() << " seeds." << std::endl;
-	for(unsigned int seedId = 0; seedId < this->SeedRepresentation->GetNumberOfSeeds(); seedId++)
+	for(unsigned int seedId = 0; static_cast<int>(seedId) < this->SeedRepresentation->GetNumberOfSeeds(); seedId++)
 	  {
 	  double pos[3];
 	  this->SeedRepresentation->GetSeedDisplayPosition(seedId, pos);
@@ -50,87 +50,87 @@ class vtkSeedImageCallback : public vtkCommand
 	return;
         }
     }
-    
+
     void SetRepresentation(vtkSmartPointer<vtkSeedRepresentation> rep)
     {
       this->SeedRepresentation = rep;
     }
-    void SetWidget(vtkSmartPointer<vtkSeedWidget> widget) 
+    void SetWidget(vtkSmartPointer<vtkSeedWidget> widget)
     {
       this->SeedWidget = widget;
     }
-    
+
   private:
     vtkSeedRepresentation* SeedRepresentation;
     vtkSeedWidget* SeedWidget;
 };
 
-int main(int argc, char *argv[])
+int main(int /* argc */, char * /* argv */ [])
 {
   // Create an image
-  vtkSmartPointer<vtkImageCanvasSource2D> drawing = 
+  vtkSmartPointer<vtkImageCanvasSource2D> drawing =
     vtkSmartPointer<vtkImageCanvasSource2D>::New();
   drawing->SetScalarTypeToUnsignedChar();
   drawing->SetNumberOfScalarComponents(3);
   drawing->SetExtent(0, 20, 0, 50, 0, 0);
   // Make a blue background
-  drawing->SetDrawColor(0, 0, 255); 
+  drawing->SetDrawColor(0, 0, 255);
   drawing->FillBox(0,20,0,50);
   // Make a red circle
   drawing->SetDrawColor(255, 0, 0, 0);
   drawing->DrawCircle(9, 10, 5);
   drawing->Update();
-  
-  vtkSmartPointer<vtkImageActor> imageActor = 
+
+  vtkSmartPointer<vtkImageActor> imageActor =
     vtkSmartPointer<vtkImageActor>::New();
   imageActor->SetInputData(drawing->GetOutput());
-  
+
   // Create a renderer and render window
-  vtkSmartPointer<vtkRenderer> renderer = 
+  vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(imageActor);
-  vtkSmartPointer<vtkRenderWindow> renderWindow = 
+  vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
-  
+
   // An interactor
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
+  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
-    
+
   // Setup interactor style
   vtkSmartPointer<vtkInteractorStyleImage> interactorStyleImage =
     vtkSmartPointer<vtkInteractorStyleImage>::New();
   renderWindowInteractor->SetInteractorStyle(interactorStyleImage);
-  
+
   // Create the representation
-  vtkSmartPointer<vtkPointHandleRepresentation2D> handle = 
+  vtkSmartPointer<vtkPointHandleRepresentation2D> handle =
     vtkSmartPointer<vtkPointHandleRepresentation2D>::New();
   handle->GetProperty()->SetColor(1,0,0);
-  vtkSmartPointer<vtkSeedRepresentation> rep = 
+  vtkSmartPointer<vtkSeedRepresentation> rep =
     vtkSmartPointer<vtkSeedRepresentation>::New();
   rep->SetHandleRepresentation(handle);
-  
+
   // Seed widget
-  vtkSmartPointer<vtkSeedWidget> seedWidget = 
+  vtkSmartPointer<vtkSeedWidget> seedWidget =
     vtkSmartPointer<vtkSeedWidget>::New();
   seedWidget->SetInteractor(renderWindowInteractor);
   seedWidget->SetRepresentation(rep);
-  
-  vtkSmartPointer<vtkSeedImageCallback> seedCallback = 
+
+  vtkSmartPointer<vtkSeedImageCallback> seedCallback =
     vtkSmartPointer<vtkSeedImageCallback>::New();
   seedCallback->SetRepresentation(rep);
   seedCallback->SetWidget(seedWidget);
   seedWidget->AddObserver(vtkCommand::PlacePointEvent,seedCallback);
   seedWidget->AddObserver(vtkCommand::InteractionEvent,seedCallback);
-  
+
   renderWindow->Render();
-  
+
   renderWindowInteractor->Initialize();
   renderWindow->Render();
   seedWidget->On();
-  
+
   renderWindowInteractor->Start();
-  
+
   return EXIT_SUCCESS;
 }

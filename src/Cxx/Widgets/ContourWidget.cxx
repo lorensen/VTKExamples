@@ -14,7 +14,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleTrackballCamera.h>
 
-int main( int argc, char *argv[] )
+int main( int /* argc */, char * /* argv */ [] )
 {
     // Create the contour widget
     vtkSmartPointer<vtkContourWidget> contourWidget =

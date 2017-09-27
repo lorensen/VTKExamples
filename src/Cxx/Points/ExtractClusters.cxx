@@ -57,7 +57,7 @@ int main (int, char *[])
   lut->Build();
 
   // Fill in the lookup table
-  for (unsigned int i = 0; i < tableSize; ++i)
+  for (unsigned int i = 0; static_cast<int>(i) < tableSize; ++i)
   {
     lut->SetTableValue(i,
                        vtkMath::Random(.25, 1.0),

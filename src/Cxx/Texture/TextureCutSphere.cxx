@@ -21,7 +21,7 @@
 #include <vtkProperty.h>
 #include <vtkPolyDataMapper.h>
 
-int main (int argc, char *argv[])
+int main (int /* argc */, char *argv[])
 {
   // hidden sphere
   vtkSmartPointer<vtkSphereSource> sphere1 =

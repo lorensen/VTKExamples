@@ -11,7 +11,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkNamedColors.h>
 
-int main (int argc, char *argv[])
+int main (int /* argc */, char * /* argv */ [])
 {
   double bounds[6];
   bounds[0] = -10.0; bounds[1] = 10.0;
@@ -69,9 +69,9 @@ int main (int argc, char *argv[])
   renderer->ResetCameraClippingRange();
 
   //Render and interact
-  renderWindow->SetSize(640, 480);  
+  renderWindow->SetSize(640, 480);
   renderWindow->Render();
   renderWindowInteractor->Start();
-  
+
   return EXIT_SUCCESS;
 }

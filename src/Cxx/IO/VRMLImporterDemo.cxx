@@ -70,9 +70,9 @@ int main ( int argc, char *argv[])
     {
       actor->GetProperty()->SetSpecular(1.0);
     }
+#if 0
     // The VRML default ambient intensity is .2
     double ambientIntensity = actor->GetProperty()->GetAmbient();
-#if 0
     if (ambientIntensity == 0.0)
     {
       actor->GetProperty()->SetAmbient(.2);

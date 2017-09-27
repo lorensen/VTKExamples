@@ -85,7 +85,7 @@ int main (int argc, char *argv[])
   RestoreSceneFromFile(argv[2], actor, renderer->GetActiveCamera());
   renderWindow->Render();
   renderWindowInteractor->Start();
-  
+
 return EXIT_SUCCESS;
 }
 
@@ -93,7 +93,7 @@ namespace
 {
 #include <fstream>
 void SaveSceneToFile(std::string fileName,
-                     vtkActor *actor,
+                     vtkActor * /* actor */,
                      vtkCamera *camera)
 {
 // Actor
@@ -133,13 +133,11 @@ namespace
 {
 #include <fstream>
 void RestoreSceneFromFile(std::string fileName,
-                          vtkActor *actor,
+                          vtkActor * /* actor */,
                           vtkCamera *camera)
 {
   std::ifstream saveFile(fileName);
   std::string line;
-  double vector[3];
-  double scalar;
 
   vtksys::RegularExpression reCP("^Camera:Position");
   vtksys::RegularExpression reCFP("^Camera:FocalPoint");

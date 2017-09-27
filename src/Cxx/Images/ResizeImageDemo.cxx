@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
   newSize[1] = imageData->GetDimensions()[1] * factor;
   std::cout << "New dimensions: "
             << newSize[0] << ", "
-            << newSize[1] 
+            << newSize[1]
             << std::endl;
 
   vtkSmartPointer<vtkNamedColors> colors =
@@ -152,7 +152,6 @@ int main(int argc, char *argv[])
   unsigned int yGridDimensions = 3;
   renderWindow->SetSize(
     rendererSize * xGridDimensions, rendererSize * yGridDimensions);
-  int index = 0;
   for (int row = 0; row < static_cast<int>(yGridDimensions); row++)
   {
     for (int col = 0; col < static_cast<int>(xGridDimensions); col++)

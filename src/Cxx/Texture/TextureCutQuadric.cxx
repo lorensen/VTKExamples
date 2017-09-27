@@ -24,7 +24,7 @@ double positions[][3] = {
 
 static vtkSmartPointer<vtkBooleanTexture> MakeBooleanTexture (int, int, int);
 
-int main (int argc, char *argv[])
+int main (int /* argc */, char * /* argv */ [])
 {
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -70,24 +70,24 @@ int main (int argc, char *argv[])
   aMapper->SetInputConnection (tcoords->GetOutputPort ());
 
   // create a mapper, sphere and texture map for each case
-  for (int i = 0; i < 16; i++) 
+  for (int i = 0; i < 16; i++)
   {
     aBoolean = MakeBooleanTexture (i, 64, 0);
 
-    vtkSmartPointer<vtkTexture> aTexture =
+    vtkSmartPointer<vtkTexture> aTexture2 =
       vtkSmartPointer<vtkTexture>::New();
-    aTexture->SetInputConnection (aBoolean->GetOutputPort ());
-    aTexture->InterpolateOff();
-    aTexture->RepeatOff ();
-    
-    vtkSmartPointer<vtkActor> anActor =
+    aTexture2->SetInputConnection (aBoolean->GetOutputPort ());
+    aTexture2->InterpolateOff();
+    aTexture2->RepeatOff ();
+
+    vtkSmartPointer<vtkActor> anActor2 =
       vtkSmartPointer<vtkActor>::New();
 
-    anActor->SetMapper (aMapper);
-    anActor->SetTexture (aTexture);
-    anActor->SetPosition ( &positions[i][0]);
-    anActor->SetScale (2.0, 2.0, 2.0);
-    aren->AddActor (anActor);
+    anActor2->SetMapper (aMapper);
+    anActor2->SetTexture (aTexture2);
+    anActor2->SetPosition ( &positions[i][0]);
+    anActor2->SetScale (2.0, 2.0, 2.0);
+    aren->AddActor (anActor2);
   }
 
   aren->SetBackground (0.4392,0.5020,0.5647);
@@ -117,7 +117,7 @@ vtkSmartPointer<vtkBooleanTexture> MakeBooleanTexture(int caseNumber,
   booleanTexture->SetYSize (resolution);
   booleanTexture->SetThickness (thickness);
 
-  switch (caseNumber) 
+  switch (caseNumber)
   {
   case 0:
     booleanTexture->SetInIn (solid);
