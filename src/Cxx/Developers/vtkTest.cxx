@@ -19,7 +19,8 @@ void vtkTest::PrintSelf( ostream& os, vtkIndent indent )
   this->Superclass::PrintSelf( os, indent );
 }
 
-void vtkTest::ShallowCopy(vtkTest* t)
+void vtkTest::ShallowCopy(vtkDataObject* t)
 {
-  this->Value = t->GetValue(); 
+  vtkTest *m = vtkTest::SafeDownCast(t);
+  this->Value = m->GetValue();
 }

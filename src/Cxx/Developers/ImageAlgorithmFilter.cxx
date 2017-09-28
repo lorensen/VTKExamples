@@ -5,7 +5,7 @@
 
 void PrintImage(vtkImageData* image);
 
-int main (int argc, char *argv[])
+int main (int /* argc */, char * /* argv */ [])
 {
   vtkSmartPointer<vtkImageData> input =
     vtkSmartPointer<vtkImageData>::New();
