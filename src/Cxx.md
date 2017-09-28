@@ -825,8 +825,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CameraModel2](/Cxx/Visualization/CameraModel2) | vtkCameraActor | Illustrate camera movement.
 [Camera](/Cxx/Visualization/Camera)| vtkCamera |Positioning and aiming the camera.
 [CaptionActor2D](/Cxx/Visualization/CaptionActor2D)| vtkCaptionActor2D |Draw a caption/bubble pointing to a particular point.
-[ChooseTextColor](/Cxx/Visualization/ChooseTextColor)| vtkTextActor vtkTextProperty::SetFontFamily vtkNamedColors | Choose a text color that contrasts with a background color.
 [ChooseTextColorDemo](/Cxx/Visualization/ChooseTextColorDemo)| vtkTextActor vtkNamedColors | Create a grid of random colored viewpports and pick a good text color.
+[ChooseTextColor](/Cxx/Visualization/ChooseTextColor)| vtkTextActor vtkTextProperty::SetFontFamily vtkNamedColors | Choose a text color that contrasts with a background color.
 [CloseWindow](/Cxx/Visualization/CloseWindow)| vtkRenderWindowInteractor vtkRenderWindow |Close a render window.
 [ColorActorEdges ](/Cxx/Visualization/ColorActorEdges) | vtkActor | Color the edges of an Actor.
 [ColorAnActor ](/Cxx/Visualization/ColorAnActor) | vtkActor | Color an Actor.
@@ -848,11 +848,11 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DrawText](/Cxx/Visualization/DrawText)| vtkTextActor vtkTextProperty |Display Text.
 [ElevationBandsWithGlyphs](/Cxx/Visualization/ElevationBandsWithGlyphs)| vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
 [ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | vtkRuledSurfaceFilter | Extrude a 2D polydata along a line in 3D space.
-[FontFile](/Cxx/Visualization/FontFile) | vtkTextProperty | Use an external font.
 [FastSplatter](/Cxx/Visualization/FastSplatter)| vtkFastSplatter |Convolve a splat image with every point in an input image.
 [FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | vtkCellLocator | Find the intersection of a line and the cells in an unstructured dataset
 [FlatShading](/Cxx/Visualization/FlatShading) | vtkActor |
 [Follower ](/Cxx/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
+[FontFile](/Cxx/Visualization/FontFile) | vtkTextProperty | Use an external font.
 [Glyph2D ](/Cxx/Filtering/Glyph2D) | vtkGlyph2D|
 [Glyph3D ](/Cxx/Filtering/Glyph3D) | vtkGlyph3D|
 [Glyph3DImage](/Cxx/Visualization/Glyph3DImage)| vtkGlyph3DMapper | Glyph the points in a vtkImageData.
@@ -865,6 +865,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageOrientation ](/Cxx/Visualization/ImageOrientation) | vtkInteractorStyleImage |Orientation of the view of an image.
 [ImageTransparency](/Cxx/Visualization/ImageTransparency)| vtkImageData|Set transparency of image pixels.
 [IsosurfaceSampling ](/Cxx/Visualization/IsosurfaceSampling) | vtkProbeFilter|Demonstrates how to create point data on an isosurface.
+[Kitchen](/Cxx/Visualization/Kitchen) | vtkStreamTracer vtkStructuredGrid| Demonstrates stream tracing in a kitchen.
 [LODProp3D ](/Cxx/Visualization/LODProp3D) | vtkLODProp3D | Level of detail rendering.
 [LabelContours](/Cxx/Visualization/LabelContours)| vtkLabeledDataMapper |Label Contours.
 [LabelPlacementMapper](/Cxx/Visualization/LabelPlacementMapper)| vtkPointSetToLabelHierarchy vtkLabelPlacementMapper | Display a non-overlapping text label at each point.
@@ -892,8 +893,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [RenderView](/Cxx/Views/RenderView)| vtkRenderView |A little bit easier rendering.
 [ReverseAccess ](/Cxx/Visualization/ReverseAccess) | vtkActor|Demonstrates how to access the source (e.g. vtkSphereSource) of an actor reversely.
 [RotateActor](/Cxx/Visualization/RotateActor)| vtkActor |Rotate an Actor.
-[ScalarBarActor](/Cxx/Visualization/ScalarBarActor)| vtkScalarBarActor | Display a color bar.
 [ScalarBarActorColorSeries](/Cxx/Visualization/ScalarBarActorColorSeries)| vtkScalarBarActor vtkColorSeries | Display a color bar with a color series lookup table.
+[ScalarBarActor](/Cxx/Visualization/ScalarBarActor)| vtkScalarBarActor | Display a color bar.
 [ScalarVisibility](/Cxx/Visualization/ScalarVisibility)| vtkDataSetMapper | Switch between coloring the actor and coloring the data.
 [ScaleGlyphs](/Cxx/Visualization/ScaleGlyphs)| vtkGlyph3D vtkGlyph3D |Scale glyphs.
 [SceneBounds](/Cxx/Visualization/SceneBounds)| vtkRenderer |Get the bounds of the whole scene.

@@ -63,6 +63,7 @@ SET(NEEDS_ARGS
   Glyph3DImage
   Glyph3DMapper
   HedgeHog
+  Kitchen
   NormalsDemo
   PointDataSubdivision
   RenderLargeImage
@@ -129,6 +130,9 @@ ADD_TEST(${KIT}-Glyph3DMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-HedgeHog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHedgeHog -E 50)
+
+ADD_TEST(${KIT}-Kitchen ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestKitchen ${DATA}/kitchen.vtk)
 
 ADD_TEST(${KIT}-NormalsDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestNormalsDemo ${DATA}/42400-IDGH.stl)
