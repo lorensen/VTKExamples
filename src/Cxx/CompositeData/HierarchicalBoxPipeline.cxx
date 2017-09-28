@@ -60,74 +60,75 @@ int main(int argc, char* argv[])
   shrink->SetInputConnection(0, geom->GetOutputPort(0));
 
   return EXIT_SUCCESS;
-  // Rendering objects
-  vtkSmartPointer<vtkHierarchicalPolyDataMapper> shMapper =
-    vtkSmartPointer<vtkHierarchicalPolyDataMapper>::New();
-  shMapper->SetInputConnection(0, shrink->GetOutputPort(0));
-  vtkSmartPointer<vtkActor> shActor =
-    vtkSmartPointer<vtkActor>::New();
-  shActor->SetMapper(shMapper);
-  shActor->GetProperty()->SetColor(0, 0, 1);
-  ren->AddActor(shActor);
 
-  // corner outline
-  vtkSmartPointer<vtkOutlineCornerFilter> ocf =
-    vtkSmartPointer<vtkOutlineCornerFilter>::New();
-  vtkSmartPointer<vtkCompositeDataPipeline> pipeline =
-    vtkSmartPointer<vtkCompositeDataPipeline>::New();
-  ocf->SetExecutive(pipeline);
-  ocf->SetInputConnection(0, reader->GetOutputPort(0));
+  // // Rendering objects
+  // vtkSmartPointer<vtkHierarchicalPolyDataMapper> shMapper =
+  //   vtkSmartPointer<vtkHierarchicalPolyDataMapper>::New();
+  // shMapper->SetInputConnection(0, shrink->GetOutputPort(0));
+  // vtkSmartPointer<vtkActor> shActor =
+  //   vtkSmartPointer<vtkActor>::New();
+  // shActor->SetMapper(shMapper);
+  // shActor->GetProperty()->SetColor(0, 0, 1);
+  // ren->AddActor(shActor);
 
-  // Rendering objects
-  // This one is actually just a vtkPolyData so it doesn't need a hierarchical
-  // mapper, but we use this one to test hierarchical mapper with polydata input
-  vtkSmartPointer<vtkHierarchicalPolyDataMapper> ocMapper =
-    vtkSmartPointer<vtkHierarchicalPolyDataMapper>::New();
-  ocMapper->SetInputConnection(0, ocf->GetOutputPort(0));
+  // // corner outline
+  // vtkSmartPointer<vtkOutlineCornerFilter> ocf =
+  //   vtkSmartPointer<vtkOutlineCornerFilter>::New();
+  // vtkSmartPointer<vtkCompositeDataPipeline> pipeline =
+  //   vtkSmartPointer<vtkCompositeDataPipeline>::New();
+  // ocf->SetExecutive(pipeline);
+  // ocf->SetInputConnection(0, reader->GetOutputPort(0));
 
-  vtkSmartPointer<vtkActor> ocActor =
-    vtkSmartPointer<vtkActor>::New();
-  ocActor->SetMapper(ocMapper);
-  ocActor->GetProperty()->SetColor(1, 0, 0);
-  ren->AddActor(ocActor);
+  // // Rendering objects
+  // // This one is actually just a vtkPolyData so it doesn't need a hierarchical
+  // // mapper, but we use this one to test hierarchical mapper with polydata input
+  // vtkSmartPointer<vtkHierarchicalPolyDataMapper> ocMapper =
+  //   vtkSmartPointer<vtkHierarchicalPolyDataMapper>::New();
+  // ocMapper->SetInputConnection(0, ocf->GetOutputPort(0));
 
-  // cell 2 point and contour
-  vtkSmartPointer<vtkExtractLevel> el =
-    vtkSmartPointer<vtkExtractLevel>::New();
-  el->SetInputConnection(0, reader->GetOutputPort(0));
-  el->AddLevel(2);
+  // vtkSmartPointer<vtkActor> ocActor =
+  //   vtkSmartPointer<vtkActor>::New();
+  // ocActor->SetMapper(ocMapper);
+  // ocActor->GetProperty()->SetColor(1, 0, 0);
+  // ren->AddActor(ocActor);
 
-  vtkSmartPointer<vtkCellDataToPointData> c2p =
-    vtkSmartPointer<vtkCellDataToPointData>::New();
-  pipeline = vtkCompositeDataPipeline::New();
-  c2p->SetExecutive(pipeline);
-  c2p->SetInputConnection(0, el->GetOutputPort(0));
+  // // cell 2 point and contour
+  // vtkSmartPointer<vtkExtractLevel> el =
+  //   vtkSmartPointer<vtkExtractLevel>::New();
+  // el->SetInputConnection(0, reader->GetOutputPort(0));
+  // el->AddLevel(2);
 
-  vtkSmartPointer<vtkContourFilter> contour =
-    vtkSmartPointer<vtkContourFilter>::New();
+  // vtkSmartPointer<vtkCellDataToPointData> c2p =
+  //   vtkSmartPointer<vtkCellDataToPointData>::New();
+  // pipeline = vtkCompositeDataPipeline::New();
+  // c2p->SetExecutive(pipeline);
+  // c2p->SetInputConnection(0, el->GetOutputPort(0));
 
-  pipeline = vtkCompositeDataPipeline::New();
-  contour->SetExecutive(pipeline);
-  contour->SetInputConnection(0, c2p->GetOutputPort(0));
-  contour->SetValue(0, -0.013);
-  contour->SetInputArrayToProcess(
-    0,0,0,vtkDataObject::FIELD_ASSOCIATION_POINTS,"phi");
+  // vtkSmartPointer<vtkContourFilter> contour =
+  //   vtkSmartPointer<vtkContourFilter>::New();
 
-  // Rendering
-  vtkSmartPointer<vtkHierarchicalPolyDataMapper> contMapper =
-    vtkSmartPointer<vtkHierarchicalPolyDataMapper>::New();
-  contMapper->SetInputConnection(0, contour->GetOutputPort(0));
-  vtkSmartPointer<vtkActor> contActor =
-    vtkSmartPointer<vtkActor>::New();
+  // pipeline = vtkCompositeDataPipeline::New();
+  // contour->SetExecutive(pipeline);
+  // contour->SetInputConnection(0, c2p->GetOutputPort(0));
+  // contour->SetValue(0, -0.013);
+  // contour->SetInputArrayToProcess(
+  //   0,0,0,vtkDataObject::FIELD_ASSOCIATION_POINTS,"phi");
 
-  contActor->SetMapper(contMapper);
-  contActor->GetProperty()->SetColor(1, 0, 0);
-  ren->AddActor(contActor);
+  // // Rendering
+  // vtkSmartPointer<vtkHierarchicalPolyDataMapper> contMapper =
+  //   vtkSmartPointer<vtkHierarchicalPolyDataMapper>::New();
+  // contMapper->SetInputConnection(0, contour->GetOutputPort(0));
+  // vtkSmartPointer<vtkActor> contActor =
+  //   vtkSmartPointer<vtkActor>::New();
 
-  ren->SetBackground(1,1,1);
-  renWin->SetSize(300,300);
-  ren->ResetCamera();
-  iren->Start();
+  // contActor->SetMapper(contMapper);
+  // contActor->GetProperty()->SetColor(1, 0, 0);
+  // ren->AddActor(contActor);
 
-  return EXIT_SUCCESS;
+  // ren->SetBackground(1,1,1);
+  // renWin->SetSize(300,300);
+  // ren->ResetCamera();
+  // iren->Start();
+
+  // return EXIT_SUCCESS;
 }

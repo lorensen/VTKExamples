@@ -9,21 +9,21 @@ class vtkTest : public vtkDataObject
     static vtkTest* New();
     vtkTypeMacro(vtkTest,vtkDataObject);
     void PrintSelf( ostream& os, vtkIndent indent );
-    void ShallowCopy(vtkTest* t);
-    
+    void ShallowCopy(vtkDataObject* t) override;
+
     vtkGetMacro(Value, double);
     vtkSetMacro(Value, double);
-    
+
   protected:
     vtkTest();
     ~vtkTest();
-    
-    
+
+
   private:
     vtkTest( const vtkTest& ); // Not implemented.
     void operator = ( const vtkTest& ); // Not implemented.
-    
+
     double Value;
 };
 
-#endif 
+#endif

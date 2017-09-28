@@ -12,10 +12,10 @@
 
 #include <vtksys/SystemTools.hxx>
 
-static vtkSmartPointer<vtkRIBProperty> spatter(const char *sizes,
-                                               const char *specksize,
-                                               const char *spattercolor,
-                                               const char *basecolor);
+// static vtkSmartPointer<vtkRIBProperty> spatter(const char *sizes,
+//                                                const char *specksize,
+//                                                const char *spattercolor,
+//                                                const char *basecolor);
 static vtkSmartPointer<vtkRIBProperty> rmarble(const char *veining);
 
 int main ( int argc, char *argv[] )
@@ -92,26 +92,26 @@ int main ( int argc, char *argv[] )
   return EXIT_SUCCESS;
 }
 
-vtkSmartPointer<vtkRIBProperty> spatter(const char *sizes,
-                                        const char *specksize,
-                                        const char *spattercolor,
-                                        const char *basecolor)
-{
-  vtkSmartPointer<vtkRIBProperty> spatterProp =
-    vtkSmartPointer<vtkRIBProperty>::New ();
-  spatterProp->SetVariable("sizes", "float");
-  spatterProp->AddVariable("specksize", "float");
-  spatterProp->AddVariable("spattercolor", "color");
-  spatterProp->AddVariable("basecolor", "color");
+// vtkSmartPointer<vtkRIBProperty> spatter(const char *sizes,
+//                                         const char *specksize,
+//                                         const char *spattercolor,
+//                                         const char *basecolor)
+// {
+//   vtkSmartPointer<vtkRIBProperty> spatterProp =
+//     vtkSmartPointer<vtkRIBProperty>::New ();
+//   spatterProp->SetVariable("sizes", "float");
+//   spatterProp->AddVariable("specksize", "float");
+//   spatterProp->AddVariable("spattercolor", "color");
+//   spatterProp->AddVariable("basecolor", "color");
 
-  spatterProp->SetSurfaceShaderParameter("sizes", sizes);
-  spatterProp->AddSurfaceShaderParameter("specksize", specksize);
-  spatterProp->AddSurfaceShaderParameter("spattercolor", spattercolor);
-  spatterProp->AddSurfaceShaderParameter("basecolor", basecolor);
-  spatterProp->SetSurfaceShader("spatter");
+//   spatterProp->SetSurfaceShaderParameter("sizes", sizes);
+//   spatterProp->AddSurfaceShaderParameter("specksize", specksize);
+//   spatterProp->AddSurfaceShaderParameter("spattercolor", spattercolor);
+//   spatterProp->AddSurfaceShaderParameter("basecolor", basecolor);
+//   spatterProp->SetSurfaceShader("spatter");
 
-  return spatterProp;
-}
+//   return spatterProp;
+// }
 
 vtkSmartPointer<vtkRIBProperty> rmarble(const char *veining)
 {

@@ -3,7 +3,7 @@
 
 #include "vtkTestMultipleInputPortsFilter.h"
 
-int main (int argc, char *argv[])
+int main (int /* argc */, char * /* argv */ [])
 {
   vtkSmartPointer<vtkSphereSource> sphereSource1 =
       vtkSmartPointer<vtkSphereSource>::New();

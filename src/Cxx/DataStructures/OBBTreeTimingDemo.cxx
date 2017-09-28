@@ -64,11 +64,11 @@ int main(int, char *[])
 
   // Fill in the table with some example values
   size_t numPoints = results.size();
-  table->SetNumberOfRows(numPoints);
+  table->SetNumberOfRows(static_cast<vtkIdType>(numPoints));
   for(size_t i = 0; i < numPoints; ++i)
   {
-    table->SetValue(i, 0, results[i].first);
-    table->SetValue(i, 1, results[i].second);
+    table->SetValue(static_cast<vtkIdType>(i), 0, results[i].first);
+    table->SetValue(static_cast<vtkIdType>(i), 1, results[i].second);
     std::cout << "Put " << results[i].first << " "
               << results[i].second << " in the table." << std::endl;
   }

@@ -749,7 +749,7 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
     // equally spaced bands works.
     bands = MakeCustomBands(scalarRange, numberOfBands);
     // Adjust the number of table values
-    numberOfBands = bands.size();
+    numberOfBands = static_cast<vtkIdType>(bands.size());
     lut->SetNumberOfTableValues(numberOfBands);
   }
   else

@@ -9,16 +9,16 @@
 
 void ProgressFunction(vtkObject* caller, long unsigned int eventId, void* clientData, void* callData);
 
-int main(int argc, char **argv)
-{ 
+int main(int /* argc */, char ** /* argv */)
+{
   vtkSmartPointer<vtkSphereSource> sphereSource =
       vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->Update();
-  
-  vtkSmartPointer<vtkTestFilterSelfProgressFilter> testFilter = 
+
+  vtkSmartPointer<vtkTestFilterSelfProgressFilter> testFilter =
       vtkSmartPointer<vtkTestFilterSelfProgressFilter>::New();
   testFilter->SetInputConnection(sphereSource->GetOutputPort());
   testFilter->Update();
-  
+
   return EXIT_SUCCESS;
 }
