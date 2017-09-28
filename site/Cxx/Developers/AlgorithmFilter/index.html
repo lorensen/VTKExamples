@@ -90,7 +90,7 @@ function registerListener(event, func) {
     <span class=k>static</span> <span class=n>vtkTest</span><span class=o>*</span> <span class=n>New</span><span class=p>();</span>
     <span class=n>vtkTypeMacro</span><span class=p>(</span><span class=n>vtkTest</span><span class=p>,</span><span class=n>vtkDataObject</span><span class=p>);</span>
     <span class=kt>void</span> <span class=nf>PrintSelf</span><span class=p>(</span> <span class=n>ostream</span><span class=o>&amp;</span> <span class=n>os</span><span class=p>,</span> <span class=n>vtkIndent</span> <span class=n>indent</span> <span class=p>);</span>
-    <span class=kt>void</span> <span class=nf>ShallowCopy</span><span class=p>(</span><span class=n>vtkTest</span><span class=o>*</span> <span class=n>t</span><span class=p>);</span>
+    <span class=kt>void</span> <span class=nf>ShallowCopy</span><span class=p>(</span><span class=n>vtkDataObject</span><span class=o>*</span> <span class=n>t</span><span class=p>)</span> <span class=k>override</span><span class=p>;</span>
 
     <span class=n>vtkGetMacro</span><span class=p>(</span><span class=n>Value</span><span class=p>,</span> <span class=kt>double</span><span class=p>);</span>
     <span class=n>vtkSetMacro</span><span class=p>(</span><span class=n>Value</span><span class=p>,</span> <span class=kt>double</span><span class=p>);</span>
@@ -107,7 +107,7 @@ function registerListener(event, func) {
     <span class=kt>double</span> <span class=n>Value</span><span class=p>;</span>
 <span class=p>};</span>
 
-<span class=cp>#endif </span>
+<span class=cp>#endif</span>
 </pre></div> <p><strong>vtkTestAlgorithmFilter.h</strong></p> <div class=codehilite><pre><span></span><span class=cp>#ifndef __vtkTestAlgorithmFilter_h</span>
 <span class=cp>#define __vtkTestAlgorithmFilter_h</span>
 
@@ -223,9 +223,10 @@ function registerListener(event, func) {
   <span class=k>this</span><span class=o>-&gt;</span><span class=n>Superclass</span><span class=o>::</span><span class=n>PrintSelf</span><span class=p>(</span> <span class=n>os</span><span class=p>,</span> <span class=n>indent</span> <span class=p>);</span>
 <span class=p>}</span>
 
-<span class=kt>void</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>ShallowCopy</span><span class=p>(</span><span class=n>vtkTest</span><span class=o>*</span> <span class=n>t</span><span class=p>)</span>
+<span class=kt>void</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>ShallowCopy</span><span class=p>(</span><span class=n>vtkDataObject</span><span class=o>*</span> <span class=n>t</span><span class=p>)</span>
 <span class=p>{</span>
-  <span class=k>this</span><span class=o>-&gt;</span><span class=n>Value</span> <span class=o>=</span> <span class=n>t</span><span class=o>-&gt;</span><span class=n>GetValue</span><span class=p>();</span> 
+  <span class=n>vtkTest</span> <span class=o>*</span><span class=n>m</span> <span class=o>=</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>t</span><span class=p>);</span>
+  <span class=k>this</span><span class=o>-&gt;</span><span class=n>Value</span> <span class=o>=</span> <span class=n>m</span><span class=o>-&gt;</span><span class=n>GetValue</span><span class=p>();</span>
 <span class=p>}</span>
 </pre></div> <p><strong>vtkTestAlgorithmFilter.cxx</strong></p> <div class=codehilite><pre><span></span><span class=cp>#include</span> <span class=cpf>&quot;vtkTestAlgorithmFilter.h&quot;</span><span class=cp></span>
 <span class=cp>#include</span> <span class=cpf>&quot;vtkTest.h&quot;</span><span class=cp></span>

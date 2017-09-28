@@ -68,13 +68,13 @@ function registerListener(event, func) {
 </span>
 <span class=hll><span class=kt>void</span> <span class=nf>ProgressFunction</span><span class=p>(</span><span class=n>vtkObject</span><span class=o>*</span> <span class=n>caller</span><span class=p>,</span> <span class=kt>long</span> <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>eventId</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=n>clientData</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=n>callData</span><span class=p>);</span>
 </span>
-<span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>**</span><span class=n>argv</span><span class=p>)</span>
-<span class=p>{</span> 
+<span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=cm>/* argc */</span><span class=p>,</span> <span class=kt>char</span> <span class=o>**</span> <span class=cm>/* argv */</span><span class=p>)</span>
+<span class=p>{</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;</span> <span class=n>sphereSource</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTestFilterSelfProgressFilter</span><span class=o>&gt;</span> <span class=n>testFilter</span> <span class=o>=</span> 
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTestFilterSelfProgressFilter</span><span class=o>&gt;</span> <span class=n>testFilter</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTestFilterSelfProgressFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>testFilter</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>testFilter</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
@@ -123,14 +123,14 @@ function registerListener(event, func) {
 
 <span class=n>vtkTestFilterSelfProgressFilter</span><span class=o>::</span><span class=n>vtkTestFilterSelfProgressFilter</span><span class=p>()</span>
 <span class=p>{</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCallbackCommand</span><span class=o>&gt;</span> <span class=n>progressCallback</span> <span class=o>=</span> 
+  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCallbackCommand</span><span class=o>&gt;</span> <span class=n>progressCallback</span> <span class=o>=</span>
       <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCallbackCommand</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
   <span class=n>progressCallback</span><span class=o>-&gt;</span><span class=n>SetCallback</span><span class=p>(</span><span class=k>this</span><span class=o>-&gt;</span><span class=n>ProgressFunction</span><span class=p>);</span>
 
   <span class=k>this</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>ProgressEvent</span><span class=p>,</span> <span class=n>progressCallback</span><span class=p>);</span>
 <span class=p>}</span>
 
-<span class=kt>void</span> <span class=n>vtkTestFilterSelfProgressFilter</span><span class=o>::</span><span class=n>ProgressFunction</span><span class=p>(</span><span class=n>vtkObject</span><span class=o>*</span> <span class=n>caller</span><span class=p>,</span> <span class=kt>long</span> <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>eventId</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=n>clientData</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=n>callData</span><span class=p>)</span>
+<span class=kt>void</span> <span class=n>vtkTestFilterSelfProgressFilter</span><span class=o>::</span><span class=n>ProgressFunction</span><span class=p>(</span><span class=n>vtkObject</span><span class=o>*</span> <span class=n>caller</span><span class=p>,</span> <span class=kt>long</span> <span class=kt>unsigned</span> <span class=kt>int</span> <span class=cm>/* eventId */</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=cm>/* clientData */</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=cm>/* callData */</span><span class=p>)</span>
 <span class=p>{</span>
   <span class=n>vtkTestFilterSelfProgressFilter</span><span class=o>*</span> <span class=n>testFilter</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=n>vtkTestFilterSelfProgressFilter</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>caller</span><span class=p>);</span>
   <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Progress: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>testFilter</span><span class=o>-&gt;</span><span class=n>GetProgress</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>

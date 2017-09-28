@@ -808,8 +808,8 @@ function registerListener(event, func) {
     <span class=c1>// equally spaced bands works.</span>
     <span class=n>bands</span> <span class=o>=</span> <span class=n>MakeCustomBands</span><span class=p>(</span><span class=n>scalarRange</span><span class=p>,</span> <span class=n>numberOfBands</span><span class=p>);</span>
     <span class=c1>// Adjust the number of table values</span>
-    <span class=n>numberOfBands</span> <span class=o>=</span> <span class=n>bands</span><span class=p>.</span><span class=n>size</span><span class=p>();</span>
-    <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=n>numberOfBands</span><span class=p>);</span>
+<span class=hll>    <span class=n>numberOfBands</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=n>vtkIdType</span><span class=o>&gt;</span><span class=p>(</span><span class=n>bands</span><span class=p>.</span><span class=n>size</span><span class=p>());</span>
+</span>    <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=n>numberOfBands</span><span class=p>);</span>
   <span class=p>}</span>
   <span class=k>else</span>
   <span class=p>{</span>

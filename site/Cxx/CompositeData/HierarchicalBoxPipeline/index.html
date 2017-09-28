@@ -119,76 +119,77 @@ function registerListener(event, func) {
   <span class=n>shrink</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>geom</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
 
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
-  <span class=c1>// Rendering objects</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkHierarchicalPolyDataMapper</span><span class=o>&gt;</span> <span class=n>shMapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkHierarchicalPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>shMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>shrink</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>shActor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>shActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>shMapper</span><span class=p>);</span>
-  <span class=n>shActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
-  <span class=n>ren</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>shActor</span><span class=p>);</span>
 
-  <span class=c1>// corner outline</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOutlineCornerFilter</span><span class=o>&gt;</span> <span class=n>ocf</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOutlineCornerFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCompositeDataPipeline</span><span class=o>&gt;</span> <span class=n>pipeline</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCompositeDataPipeline</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>ocf</span><span class=o>-&gt;</span><span class=n>SetExecutive</span><span class=p>(</span><span class=n>pipeline</span><span class=p>);</span>
-  <span class=n>ocf</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
+  <span class=c1>// // Rendering objects</span>
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkHierarchicalPolyDataMapper&gt; shMapper =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkHierarchicalPolyDataMapper&gt;::New();</span>
+</span>  <span class=c1>// shMapper-&gt;SetInputConnection(0, shrink-&gt;GetOutputPort(0));</span>
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkActor&gt; shActor =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkActor&gt;::New();</span>
+</span>  <span class=c1>// shActor-&gt;SetMapper(shMapper);</span>
+  <span class=c1>// shActor-&gt;GetProperty()-&gt;SetColor(0, 0, 1);</span>
+  <span class=c1>// ren-&gt;AddActor(shActor);</span>
 
-  <span class=c1>// Rendering objects</span>
-<span class=hll>  <span class=c1>// This one is actually just a vtkPolyData so it doesn&#39;t need a hierarchical</span>
-</span>  <span class=c1>// mapper, but we use this one to test hierarchical mapper with polydata input</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkHierarchicalPolyDataMapper</span><span class=o>&gt;</span> <span class=n>ocMapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkHierarchicalPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>ocMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>ocf</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
+  <span class=c1>// // corner outline</span>
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkOutlineCornerFilter&gt; ocf =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkOutlineCornerFilter&gt;::New();</span>
+</span><span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkCompositeDataPipeline&gt; pipeline =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkCompositeDataPipeline&gt;::New();</span>
+</span>  <span class=c1>// ocf-&gt;SetExecutive(pipeline);</span>
+  <span class=c1>// ocf-&gt;SetInputConnection(0, reader-&gt;GetOutputPort(0));</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>ocActor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>ocActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>ocMapper</span><span class=p>);</span>
-  <span class=n>ocActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
-  <span class=n>ren</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>ocActor</span><span class=p>);</span>
+  <span class=c1>// // Rendering objects</span>
+<span class=hll>  <span class=c1>// // This one is actually just a vtkPolyData so it doesn&#39;t need a hierarchical</span>
+</span>  <span class=c1>// // mapper, but we use this one to test hierarchical mapper with polydata input</span>
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkHierarchicalPolyDataMapper&gt; ocMapper =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkHierarchicalPolyDataMapper&gt;::New();</span>
+</span>  <span class=c1>// ocMapper-&gt;SetInputConnection(0, ocf-&gt;GetOutputPort(0));</span>
 
-  <span class=c1>// cell 2 point and contour</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkExtractLevel</span><span class=o>&gt;</span> <span class=n>el</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkExtractLevel</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>el</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
-  <span class=n>el</span><span class=o>-&gt;</span><span class=n>AddLevel</span><span class=p>(</span><span class=mi>2</span><span class=p>);</span>
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkActor&gt; ocActor =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkActor&gt;::New();</span>
+</span>  <span class=c1>// ocActor-&gt;SetMapper(ocMapper);</span>
+  <span class=c1>// ocActor-&gt;GetProperty()-&gt;SetColor(1, 0, 0);</span>
+  <span class=c1>// ren-&gt;AddActor(ocActor);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellDataToPointData</span><span class=o>&gt;</span> <span class=n>c2p</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellDataToPointData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>pipeline</span> <span class=o>=</span> <span class=n>vtkCompositeDataPipeline</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>c2p</span><span class=o>-&gt;</span><span class=n>SetExecutive</span><span class=p>(</span><span class=n>pipeline</span><span class=p>);</span>
-  <span class=n>c2p</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>el</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
+  <span class=c1>// // cell 2 point and contour</span>
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkExtractLevel&gt; el =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkExtractLevel&gt;::New();</span>
+</span>  <span class=c1>// el-&gt;SetInputConnection(0, reader-&gt;GetOutputPort(0));</span>
+  <span class=c1>// el-&gt;AddLevel(2);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;</span> <span class=n>contour</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkContourFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkCellDataToPointData&gt; c2p =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkCellDataToPointData&gt;::New();</span>
+</span><span class=hll>  <span class=c1>// pipeline = vtkCompositeDataPipeline::New();</span>
+</span>  <span class=c1>// c2p-&gt;SetExecutive(pipeline);</span>
+  <span class=c1>// c2p-&gt;SetInputConnection(0, el-&gt;GetOutputPort(0));</span>
+
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkContourFilter&gt; contour =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkContourFilter&gt;::New();</span>
 </span>
-<span class=hll>  <span class=n>pipeline</span> <span class=o>=</span> <span class=n>vtkCompositeDataPipeline</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>contour</span><span class=o>-&gt;</span><span class=n>SetExecutive</span><span class=p>(</span><span class=n>pipeline</span><span class=p>);</span>
-  <span class=n>contour</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>c2p</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
-  <span class=n>contour</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mf>0.013</span><span class=p>);</span>
-  <span class=n>contour</span><span class=o>-&gt;</span><span class=n>SetInputArrayToProcess</span><span class=p>(</span>
-<span class=hll>    <span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=n>vtkDataObject</span><span class=o>::</span><span class=n>FIELD_ASSOCIATION_POINTS</span><span class=p>,</span><span class=s>&quot;phi&quot;</span><span class=p>);</span>
+<span class=hll>  <span class=c1>// pipeline = vtkCompositeDataPipeline::New();</span>
+</span>  <span class=c1>// contour-&gt;SetExecutive(pipeline);</span>
+  <span class=c1>// contour-&gt;SetInputConnection(0, c2p-&gt;GetOutputPort(0));</span>
+  <span class=c1>// contour-&gt;SetValue(0, -0.013);</span>
+  <span class=c1>// contour-&gt;SetInputArrayToProcess(</span>
+<span class=hll>  <span class=c1>//   0,0,0,vtkDataObject::FIELD_ASSOCIATION_POINTS,&quot;phi&quot;);</span>
 </span>
-  <span class=c1>// Rendering</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkHierarchicalPolyDataMapper</span><span class=o>&gt;</span> <span class=n>contMapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkHierarchicalPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>contMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>contour</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>contActor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=c1>// // Rendering</span>
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkHierarchicalPolyDataMapper&gt; contMapper =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkHierarchicalPolyDataMapper&gt;::New();</span>
+</span>  <span class=c1>// contMapper-&gt;SetInputConnection(0, contour-&gt;GetOutputPort(0));</span>
+<span class=hll>  <span class=c1>// vtkSmartPointer&lt;vtkActor&gt; contActor =</span>
+</span><span class=hll>  <span class=c1>//   vtkSmartPointer&lt;vtkActor&gt;::New();</span>
 </span>
-  <span class=n>contActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>contMapper</span><span class=p>);</span>
-  <span class=n>contActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
-  <span class=n>ren</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>contActor</span><span class=p>);</span>
+  <span class=c1>// contActor-&gt;SetMapper(contMapper);</span>
+  <span class=c1>// contActor-&gt;GetProperty()-&gt;SetColor(1, 0, 0);</span>
+  <span class=c1>// ren-&gt;AddActor(contActor);</span>
 
-  <span class=n>ren</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>);</span>
-  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>300</span><span class=p>,</span><span class=mi>300</span><span class=p>);</span>
-  <span class=n>ren</span><span class=o>-&gt;</span><span class=n>ResetCamera</span><span class=p>();</span>
-  <span class=n>iren</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
+  <span class=c1>// ren-&gt;SetBackground(1,1,1);</span>
+  <span class=c1>// renWin-&gt;SetSize(300,300);</span>
+  <span class=c1>// ren-&gt;ResetCamera();</span>
+  <span class=c1>// iren-&gt;Start();</span>
 
-  <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
+  <span class=c1>// return EXIT_SUCCESS;</span>
 <span class=p>}</span>
 </pre></div> <h3 id=cmakeliststxt>CMakeLists.txt<a class=headerlink href=#cmakeliststxt title="Permanent link">&para;</a></h3> <div class=codehilite><pre><span></span><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>2.8</span><span class=p>)</span>
 

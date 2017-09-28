@@ -71,10 +71,10 @@ function registerListener(event, func) {
 </span>
 <span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtksys/SystemTools.hxx&gt;</span><span class=cp></span>
 </span>
-<span class=hll><span class=k>static</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRIBProperty</span><span class=o>&gt;</span> <span class=n>spatter</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>sizes</span><span class=p>,</span>
-</span>                                               <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>specksize</span><span class=p>,</span>
-                                               <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>spattercolor</span><span class=p>,</span>
-                                               <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>basecolor</span><span class=p>);</span>
+<span class=hll><span class=c1>// static vtkSmartPointer&lt;vtkRIBProperty&gt; spatter(const char *sizes,</span>
+</span><span class=c1>//                                                const char *specksize,</span>
+<span class=c1>//                                                const char *spattercolor,</span>
+<span class=c1>//                                                const char *basecolor);</span>
 <span class=hll><span class=k>static</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRIBProperty</span><span class=o>&gt;</span> <span class=n>rmarble</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>veining</span><span class=p>);</span>
 </span>
 <span class=kt>int</span> <span class=nf>main</span> <span class=p>(</span> <span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[]</span> <span class=p>)</span>
@@ -151,26 +151,26 @@ function registerListener(event, func) {
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>}</span>
 
-<span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRIBProperty</span><span class=o>&gt;</span> <span class=n>spatter</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>sizes</span><span class=p>,</span>
-</span>                                        <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>specksize</span><span class=p>,</span>
-                                        <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>spattercolor</span><span class=p>,</span>
-                                        <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>basecolor</span><span class=p>)</span>
-<span class=p>{</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRIBProperty</span><span class=o>&gt;</span> <span class=n>spatterProp</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRIBProperty</span><span class=o>&gt;::</span><span class=n>New</span> <span class=p>();</span>
-</span>  <span class=n>spatterProp</span><span class=o>-&gt;</span><span class=n>SetVariable</span><span class=p>(</span><span class=s>&quot;sizes&quot;</span><span class=p>,</span> <span class=s>&quot;float&quot;</span><span class=p>);</span>
-  <span class=n>spatterProp</span><span class=o>-&gt;</span><span class=n>AddVariable</span><span class=p>(</span><span class=s>&quot;specksize&quot;</span><span class=p>,</span> <span class=s>&quot;float&quot;</span><span class=p>);</span>
-  <span class=n>spatterProp</span><span class=o>-&gt;</span><span class=n>AddVariable</span><span class=p>(</span><span class=s>&quot;spattercolor&quot;</span><span class=p>,</span> <span class=s>&quot;color&quot;</span><span class=p>);</span>
-  <span class=n>spatterProp</span><span class=o>-&gt;</span><span class=n>AddVariable</span><span class=p>(</span><span class=s>&quot;basecolor&quot;</span><span class=p>,</span> <span class=s>&quot;color&quot;</span><span class=p>);</span>
+<span class=hll><span class=c1>// vtkSmartPointer&lt;vtkRIBProperty&gt; spatter(const char *sizes,</span>
+</span><span class=c1>//                                         const char *specksize,</span>
+<span class=c1>//                                         const char *spattercolor,</span>
+<span class=c1>//                                         const char *basecolor)</span>
+<span class=c1>// {</span>
+<span class=hll><span class=c1>//   vtkSmartPointer&lt;vtkRIBProperty&gt; spatterProp =</span>
+</span><span class=hll><span class=c1>//     vtkSmartPointer&lt;vtkRIBProperty&gt;::New ();</span>
+</span><span class=c1>//   spatterProp-&gt;SetVariable(&quot;sizes&quot;, &quot;float&quot;);</span>
+<span class=c1>//   spatterProp-&gt;AddVariable(&quot;specksize&quot;, &quot;float&quot;);</span>
+<span class=c1>//   spatterProp-&gt;AddVariable(&quot;spattercolor&quot;, &quot;color&quot;);</span>
+<span class=c1>//   spatterProp-&gt;AddVariable(&quot;basecolor&quot;, &quot;color&quot;);</span>
 
-  <span class=n>spatterProp</span><span class=o>-&gt;</span><span class=n>SetSurfaceShaderParameter</span><span class=p>(</span><span class=s>&quot;sizes&quot;</span><span class=p>,</span> <span class=n>sizes</span><span class=p>);</span>
-  <span class=n>spatterProp</span><span class=o>-&gt;</span><span class=n>AddSurfaceShaderParameter</span><span class=p>(</span><span class=s>&quot;specksize&quot;</span><span class=p>,</span> <span class=n>specksize</span><span class=p>);</span>
-  <span class=n>spatterProp</span><span class=o>-&gt;</span><span class=n>AddSurfaceShaderParameter</span><span class=p>(</span><span class=s>&quot;spattercolor&quot;</span><span class=p>,</span> <span class=n>spattercolor</span><span class=p>);</span>
-  <span class=n>spatterProp</span><span class=o>-&gt;</span><span class=n>AddSurfaceShaderParameter</span><span class=p>(</span><span class=s>&quot;basecolor&quot;</span><span class=p>,</span> <span class=n>basecolor</span><span class=p>);</span>
-  <span class=n>spatterProp</span><span class=o>-&gt;</span><span class=n>SetSurfaceShader</span><span class=p>(</span><span class=s>&quot;spatter&quot;</span><span class=p>);</span>
+<span class=c1>//   spatterProp-&gt;SetSurfaceShaderParameter(&quot;sizes&quot;, sizes);</span>
+<span class=c1>//   spatterProp-&gt;AddSurfaceShaderParameter(&quot;specksize&quot;, specksize);</span>
+<span class=c1>//   spatterProp-&gt;AddSurfaceShaderParameter(&quot;spattercolor&quot;, spattercolor);</span>
+<span class=c1>//   spatterProp-&gt;AddSurfaceShaderParameter(&quot;basecolor&quot;, basecolor);</span>
+<span class=c1>//   spatterProp-&gt;SetSurfaceShader(&quot;spatter&quot;);</span>
 
-  <span class=k>return</span> <span class=n>spatterProp</span><span class=p>;</span>
-<span class=p>}</span>
+<span class=c1>//   return spatterProp;</span>
+<span class=c1>// }</span>
 
 <span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRIBProperty</span><span class=o>&gt;</span> <span class=n>rmarble</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>veining</span><span class=p>)</span>
 </span><span class=p>{</span>
