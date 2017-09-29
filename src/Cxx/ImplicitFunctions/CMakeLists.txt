@@ -27,6 +27,11 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT ImplicitFunctions)
 SET(NEEDS_ARGS
+    SampleFunction
 )
+
+ADD_TEST(${KIT}-SampleFunction ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestSampleFunction -E 30)
+
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()

@@ -190,7 +190,7 @@ ADD_TEST(${KIT}-StructuredGridReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}Cxx
   TestStructuredGridReader ${DATA}/SampleStructGrid.vtk)
 
 ADD_TEST(${KIT}-VRMLImporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestVRMLImporter ${DATA}/sextant.wrl)
+  TestVRMLImporter ${DATA}/sextant.wrl -E 30)
 
 ADD_TEST(${KIT}-VRMLImporterDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestVRMLImporterDemo ${DATA}/grasshop.wrl)

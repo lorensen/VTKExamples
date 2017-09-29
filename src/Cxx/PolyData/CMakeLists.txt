@@ -142,7 +142,7 @@ ADD_TEST(${KIT}-Silhouette ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSilhouette ${DATA}/cowHead.vtp)
 
 ADD_TEST(${KIT}-ShrinkPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestShrinkPolyData ${DATA}/cowHead.vtp)
+  TestShrinkPolyData ${DATA}/cowHead.vtp -E 30)
 
 ADD_TEST(${KIT}-ThinPlateSplineTransform ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestThinPlateSplineTransform ${DATA}/masonry.bmp)

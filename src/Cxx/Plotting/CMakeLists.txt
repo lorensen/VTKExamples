@@ -35,6 +35,10 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Plotting)
 SET(NEEDS_ARGS
+    LinePlot
 )
+ADD_TEST(${KIT}-LinePlot ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestLinePlot -E 50)
+
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()

@@ -37,12 +37,20 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Filtering)
 SET(NEEDS_ARGS
+  ConstrainedDelaunay2D
   ContoursFromPolyData
+  ConstrainedDelaunay2D
   ICPRealData
   SurfaceFromUnorganizedPoints
 )
 
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+ADD_TEST(${KIT}-ConstrainedDelaunay2D ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestConstrainedDelaunay2D -E 30)
+
+ADD_TEST(${KIT}-Delaunay2D ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestDelaunay2D -E 30)
+
 ADD_TEST(${KIT}-SurfaceFromUnorganizedPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSurfaceFromUnorganizedPoints ${DATA}/Bunny.vtp -E 30)
 
