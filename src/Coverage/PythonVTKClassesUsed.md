@@ -1,6 +1,6 @@
 # VTK Classes used in the Examples
 ## Python
-Out of 2350 available VTK classes, 198 are demonstrated here.  
+Out of 2357 available VTK classes, 198 are demonstrated here.  
 These classes are excluded since they occur in the majority of the examples:  
 - [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor)
 - [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera)

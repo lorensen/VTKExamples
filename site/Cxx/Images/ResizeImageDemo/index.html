@@ -99,6 +99,7 @@ function registerListener(event, func) {
     <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
     <span class=n>imageData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
+    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Delete</span><span class=p>();</span>
     <span class=k>if</span> <span class=p>(</span><span class=n>argc</span> <span class=o>&gt;</span> <span class=mi>2</span><span class=p>)</span>
     <span class=p>{</span>
       <span class=n>factor</span> <span class=o>=</span> <span class=n>atof</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]);</span>
