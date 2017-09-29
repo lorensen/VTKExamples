@@ -23,10 +23,10 @@ int main ( int argc, char* argv[] )
   // Read the images
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkSmartPointer<vtkImageReader2> reader1 = readerFactory->CreateImageReader2(argv[1]);
+  vtkImageReader2 *reader1 = readerFactory->CreateImageReader2(argv[1]);
   reader1->SetFileName(argv[1]);
 
-  vtkSmartPointer<vtkImageReader2> reader2 = readerFactory->CreateImageReader2(argv[2]);
+  vtkImageReader2 *reader2 = readerFactory->CreateImageReader2(argv[2]);
   reader2->SetFileName(argv[2]);
 
   vtkSmartPointer<vtkImageCheckerboard> checkerboardFilter =
@@ -51,5 +51,7 @@ int main ( int argc, char* argv[] )
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
 
+  reader1->Delete();
+  reader2->Delete();
   return EXIT_SUCCESS;
 }

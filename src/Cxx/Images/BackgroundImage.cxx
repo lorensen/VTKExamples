@@ -24,10 +24,11 @@ int main(int argc, char *argv[])
     //Read the image
     vtkSmartPointer<vtkImageReader2Factory> readerFactory =
       vtkSmartPointer<vtkImageReader2Factory>::New();
-    vtkSmartPointer<vtkImageReader2> imageReader = readerFactory->CreateImageReader2(argv[1]);
+    vtkImageReader2 *imageReader = readerFactory->CreateImageReader2(argv[1]);
     imageReader->SetFileName(argv[1]);
     imageReader->Update();
     imageData = imageReader->GetOutput();
+    imageReader->Delete();
   }
   else
   {

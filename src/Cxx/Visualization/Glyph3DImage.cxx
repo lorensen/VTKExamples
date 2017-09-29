@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
   // Read file
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+  vtkImageReader2 *reader = readerFactory->CreateImageReader2(argv[1]);
   reader->SetFileName(argv[1]);
 
   // Create anything you want here, we will use a point
@@ -84,5 +84,6 @@ int main(int argc, char *argv[])
   renderWindow->Render();
   renderWindowInteractor->Start();
   
+  reader->Delete();
   return EXIT_SUCCESS;
 }

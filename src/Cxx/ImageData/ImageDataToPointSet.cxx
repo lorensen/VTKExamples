@@ -4,8 +4,6 @@
 #include <vtkImageDataToPointSet.h>
 #include <vtkSmartPointer.h>
 #include <vtkXMLStructuredGridWriter.h>
-#include <vtkImageReader2.h>
-#include <vtkImageReader2Factory.h>
 #include <vtkStructuredGrid.h>
 
 static void CreateImage(vtkImageData* image);

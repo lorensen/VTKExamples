@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
   // Read the image
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+  vtkImageReader2 *reader = readerFactory->CreateImageReader2(argv[1]);
   reader->SetFileName(argv[1]);
 
   // Create an actor
@@ -60,5 +60,6 @@ int main(int argc, char* argv[])
   // Render and start interaction
   interactor->Start();
 
+  reader->Delete();
   return EXIT_SUCCESS;
 }

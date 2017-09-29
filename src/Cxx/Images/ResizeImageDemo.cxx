@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
     reader->Update();
 
     imageData = reader->GetOutput();
+    reader->Delete();
     if (argc > 2)
     {
       factor = atof(argv[2]);

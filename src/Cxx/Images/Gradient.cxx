@@ -64,9 +64,8 @@ int main(int argc, char *argv[])
     // Read an image
     vtkSmartPointer<vtkImageReader2Factory> readerFactory =
       vtkSmartPointer<vtkImageReader2Factory>::New();
-    vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+    vtkImageReader2 *reader = readerFactory->CreateImageReader2(argv[1]);
     reader->SetFileName(argv[1]);
-    reader->Update();
 
     // Convert to HSV and extract the Value
     vtkSmartPointer<vtkImageRGBToHSV> hsvFilter =
@@ -81,6 +80,7 @@ int main(int argc, char *argv[])
 
     image = extractValue->GetOutput();
     originalImage = reader->GetOutput();
+    reader->Delete();
 
     // Use 1% of the points
     onRatio = image->GetPointData()->GetScalars()->GetNumberOfTuples() /

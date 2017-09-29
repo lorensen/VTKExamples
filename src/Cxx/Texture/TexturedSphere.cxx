@@ -82,6 +82,5 @@ int main (int argc, char *argv[])
   renWinInteractor->Start();
 
   imageReader->Delete();
-
   return EXIT_SUCCESS;
 }

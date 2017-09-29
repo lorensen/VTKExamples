@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkSmartPointer<vtkImageReader2> imgReader = readerFactory->CreateImageReader2(argv[1]);
+  vtkImageReader2 *imgReader = readerFactory->CreateImageReader2(argv[1]);
   imgReader->SetFileName(argv[1]);
 
   vtkSmartPointer<vtkImageReader2> imgReaderMoving = readerFactory->CreateImageReader2(argv[2]);
@@ -84,5 +84,7 @@ int main(int argc, char *argv[])
   imgInteractor->Initialize();
   imgInteractor->Start();
 
+  imgReader->Delete();
+  imgReaderMoving->Delete();
   return EXIT_SUCCESS;
 }
