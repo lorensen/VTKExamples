@@ -41,7 +41,7 @@ ADD_TEST(${KIT}-QuadraticHexahedron ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxT
   TestQuadraticHexahedron -E 30)
 
 ADD_TEST(${KIT}-TessellatedBoxSource ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestTessellatedBoxSource-E 30)
+  TestTessellatedBoxSource -E 30)
 
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
