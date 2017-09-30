@@ -22,7 +22,7 @@ int main( int argc, char *argv[] )
     return EXIT_FAILURE;
   }
   double range[2];
-  double maxVelocity, maxTime;
+  double maxVelocity = 0.0, maxTime = 0.0;
   
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
