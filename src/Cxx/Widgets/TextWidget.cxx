@@ -1,6 +1,5 @@
 #include <vtkSmartPointer.h>
 #include <vtkTextWidget.h>
-#include <vtkTextActor.h>
 #include <vtkSphereSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
