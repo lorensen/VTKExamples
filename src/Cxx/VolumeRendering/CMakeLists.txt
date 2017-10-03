@@ -36,6 +36,7 @@ if (BUILD_TESTING)
 SET(KIT VolumeRendering)
 if (VTK_RENDERING_BACKEND STREQUAL "OpenGL2")
   SET(NEEDS_ARGS
+    PseudoVolumeRendering
     MinIntensityRendering
     IntermixedUnstructuredGrid
     FixedPointVolumeRayCastMapperCT
@@ -63,6 +64,9 @@ ADD_TEST(${KIT}-HAVSVolumeMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 ADD_TEST(${KIT}-MinIntensityRendering ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMinIntensityRendering ${DATA}/ironProt.vtk)
 endif()
+
+ADD_TEST(${KIT}-PseudoVolumeRendering ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPseudoVolumeRendering ${DATA}/combxyz.bin ${DATA}/combq.bin)
 
 ADD_TEST(${KIT}-IntermixedUnstructuredGrid ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestIntermixedUnstructuredGrid ${DATA}/ironProt.vtk ${DATA}/neghip.slc)

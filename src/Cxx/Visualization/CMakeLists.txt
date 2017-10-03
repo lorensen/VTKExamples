@@ -46,6 +46,7 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Visualization)
 SET(NEEDS_ARGS
+  AlphaFrequency
   Arbitrary3DCursor
   BackgroundTexture
   BlobbyLogo
@@ -77,6 +78,9 @@ SET(NEEDS_ARGS
 
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testmake rebuing/Temporary)
+
+ADD_TEST(${KIT}-AlphaFrequency ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestAlphaFrequency ${DATA}/Gettysburg.txt)
 
 ADD_TEST(${KIT}-Arbitrary3DCursor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestArbitrary3DCursor ${DATA}/Bunny.vtp)

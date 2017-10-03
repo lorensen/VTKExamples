@@ -227,6 +227,7 @@ AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "/Java.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Snippets.md")
+AddThumbnails(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", DocDir + "/VTKBookFigures.md")
 
 # Snippets
 snippets = ['ReadPolyData', 'SaveSceneToFieldData', 'SaveSceneToFile', 'RestoreSceneFromFieldData', 'RestoreSceneFromFile', 'ChooseContrastingColor']

@@ -11,8 +11,7 @@ int main(int argc, char *argv[])
 
   // Specify the size of the image data
   structuredPoints->SetDimensions(2,3,1);
-  structuredPoints->SetNumberOfScalarComponents(1);
-  structuredPoints->SetScalarTypeToDouble();
+  structuredPoints->AllocateScalars(VTK_DOUBLE,1);
 
   int* dims = structuredPoints->GetDimensions();
 
@@ -56,7 +55,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkXMLUnstructuredGridWriter> writer =
     vtkSmartPointer<vtkXMLUnstructuredGridWriter>::New();
   writer->SetFileName("output.vtu");
-  writer->SetInput(ug);
+  writer->SetInputData(ug);
   writer->Write();
 
   return EXIT_SUCCESS;
