@@ -1,36 +1,40 @@
 #include <QApplication>
 
-#include <vtkSmartPointer.h>
-#include <vtkSphereSource.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
+#include <vtkGenericOpenGLRenderWindow.h>
+#include <vtkNew.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
+#include <vtkSphereSource.h>
 
-#include <QVTKWidget.h>
+#include <QVTKOpenGLWidget.h>
+#include <QSurfaceFormat>
 
 int main(int argc, char** argv)
 {
+  // needed to ensure appropriate OpenGL context is created for VTK rendering.
+  QSurfaceFormat::setDefaultFormat(QVTKOpenGLWidget::defaultFormat());
+
   QApplication app(argc, argv);
 
-  QVTKWidget widget;
+  QVTKOpenGLWidget widget;
+  vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+  widget.SetRenderWindow(renderWindow);
+
   widget.resize( 256, 256 );
 
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-      vtkSmartPointer<vtkSphereSource>::New();
+  vtkNew<vtkSphereSource> sphereSource;
 
-  vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  vtkNew<vtkPolyDataMapper> sphereMapper;
   sphereMapper->SetInputConnection( sphereSource->GetOutputPort() );
 
-  vtkSmartPointer<vtkActor> sphereActor =
-      vtkSmartPointer<vtkActor>::New();
+  vtkNew<vtkActor> sphereActor;
   sphereActor->SetMapper( sphereMapper );
 
-  vtkSmartPointer<vtkRenderer> renderer =
-      vtkSmartPointer<vtkRenderer>::New();
+  vtkNew<vtkRenderer> renderer;
   renderer->AddActor( sphereActor );
- 
+
   widget.GetRenderWindow()->AddRenderer( renderer );
   widget.show();
 

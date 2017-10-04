@@ -1,5 +1,6 @@
 #include "RenderWindowUIMultipleInheritance.h"
 
+#include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
@@ -10,6 +11,9 @@
 RenderWindowUIMultipleInheritance::RenderWindowUIMultipleInheritance()
 {
   this->setupUi(this);
+
+  vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+  qvtkWidget->SetRenderWindow(renderWindow);
 
   // Sphere
   vtkSmartPointer<vtkSphereSource> sphereSource =
