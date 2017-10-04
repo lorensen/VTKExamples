@@ -10,7 +10,7 @@
 #include <vtkCellType.h>
 #include <vtkNamedColors.h>
 
-int main( int argc, char *argv[] )
+int main( int, char *[] )
 {
   int i;
   static double x[27][3]={{0,0,0}, {1,0,0}, {2,0,0}, {0,1,0}, {1,1,0}, {2,1,0},

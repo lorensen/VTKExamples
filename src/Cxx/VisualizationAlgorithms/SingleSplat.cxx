@@ -17,7 +17,7 @@
 #include <vtkConeSource.h>
 #include <vtkNamedColors.h>
 
-int main( int argc, char *argv[] )
+int main( int, char *[] )
 {
   double x[3], n[3];
 

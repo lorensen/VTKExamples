@@ -17,7 +17,7 @@
 #include <vtkLineSource.h>
 #include <vtkNamedColors.h>
 
-int main( int argc, char *argv[] )
+int main( int, char *[] )
 {
   double range[2], c[3];
   double maxVelocity = 0.0, maxTime = 0.0;

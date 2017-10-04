@@ -3,7 +3,7 @@
 #include <vtkXMLUnstructuredGridWriter.h>
 #include <vtkUnstructuredGrid.h>
 
-int main(int argc, char *argv[])
+int main(int, char *[])
 {
   // Create a structuredpoints
   vtkSmartPointer<vtkStructuredPoints> structuredPoints =

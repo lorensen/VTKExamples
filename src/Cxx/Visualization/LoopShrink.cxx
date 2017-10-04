@@ -7,7 +7,7 @@
 #include <vtkDataSetMapper.h>
 #include <vtkActor.h>
 #include <vtkCullerCollection.h>
-int main( int argc, char *argv[] )
+int main( int, char *[] )
 {
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
