@@ -53,7 +53,7 @@ int vtkTestFilter::RequestData(vtkInformation *vtkNotUsed(request),
 
 //  vtkPolyData *output = vtkPolyData::SafeDownCast(
 //      outInfo->Get(vtkDataObject::DATA_OBJECT()));
-  this->InvokeEvent(this->RefreshEvent, NULL);
+  this->InvokeEvent(this->RefreshEvent, nullptr);
 
   return 1;
 }
