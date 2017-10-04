@@ -4,43 +4,44 @@
 // RenderWindowUISingleInheritance.h
 #include "ui_RenderWindowUISingleInheritance.h"
 
+#include <vtkGenericOpenGLRenderWindow.h>
+#include <vtkNew.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkSphereSource.h>
-#include <vtkSmartPointer.h>
- 
+
 // Constructor
-RenderWindowUISingleInheritance::RenderWindowUISingleInheritance() 
+RenderWindowUISingleInheritance::RenderWindowUISingleInheritance()
 {
   this->ui = new Ui_RenderWindowUISingleInheritance;
   this->ui->setupUi(this);
- 
+
+  vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+  this->ui->qvtkWidget->SetRenderWindow(renderWindow);
+
+
   // Sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource = 
-      vtkSmartPointer<vtkSphereSource>::New();
+  vtkNew<vtkSphereSource> sphereSource;
   sphereSource->Update();
-  vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  vtkNew<vtkPolyDataMapper> sphereMapper;
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> sphereActor = 
-      vtkSmartPointer<vtkActor>::New();
+  vtkNew<vtkActor> sphereActor;
   sphereActor->SetMapper(sphereMapper);
- 
+
   // VTK Renderer
-  vtkSmartPointer<vtkRenderer> renderer = 
-      vtkSmartPointer<vtkRenderer>::New();
+  vtkNew<vtkRenderer> renderer;
   renderer->AddActor(sphereActor);
- 
+
   // VTK/Qt wedded
   this->ui->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);
- 
+
   // Set up action signals and slots
   connect(this->ui->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
- 
+
 }
- 
-void RenderWindowUISingleInheritance::slotExit() 
+
+void RenderWindowUISingleInheritance::slotExit()
 {
   qApp->exit();
 }

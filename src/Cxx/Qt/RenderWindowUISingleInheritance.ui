@@ -14,7 +14,7 @@
    <string>RenderWindowUISingleInheritance</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QVTKWidget" name="qvtkWidget">
+   <widget class="QVTKOpenGLWidget" name="qvtkWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -56,9 +56,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QVTKWidget</class>
+   <class>QVTKOpenGLWidget</class>
    <extends>QWidget</extends>
-   <header>QVTKWidget.h</header>
+   <header>QVTKOpenGLWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

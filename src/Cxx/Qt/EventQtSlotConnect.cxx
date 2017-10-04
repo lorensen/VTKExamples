@@ -1,10 +1,11 @@
 #include "EventQtSlotConnect.h"
 
+#include "vtkGenericOpenGLRenderWindow.h"
+#include <vtkNew.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkSphereSource.h>
-#include <vtkSmartPointer.h>
 #include <vtkEventQtSlotConnect.h>
 #include <vtkInteractorStyleTrackballActor.h>
 
@@ -12,24 +13,22 @@
 EventQtSlotConnect::EventQtSlotConnect()
 {
   this->setupUi(this);
+  vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+  this->qvtkWidget->SetRenderWindow(renderWindow);
 
-  this->Connections = vtkSmartPointer<vtkEventQtSlotConnect>::New();
+  this->Connections = vtkNew<vtkEventQtSlotConnect>();
 
   // Sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-    vtkSmartPointer<vtkSphereSource>::New();
+  vtkNew<vtkSphereSource> sphereSource;
   sphereSource->Update();
-  vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  vtkNew<vtkPolyDataMapper> sphereMapper;
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> sphereActor =
-    vtkSmartPointer<vtkActor>::New();
+  vtkNew<vtkActor> sphereActor;
   sphereActor->SetMapper(sphereMapper);
 
   // VTK Renderer
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
+  vtkNew<vtkRenderer> renderer;
   renderer->AddActor(sphereActor);
 
   this->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);

@@ -2,6 +2,8 @@
 
 #include <vtkBorderWidget.h>
 #include <vtkCommand.h>
+#include <vtkGenericOpenGLRenderWindow.h>
+#include <vtkNew.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
@@ -31,27 +33,26 @@ BorderWidgetQt::BorderWidgetQt()
 {
   this->setupUi(this);
 
+  vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+  this->qvtkWidget->SetRenderWindow(renderWindow);
+
   // Sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-    vtkSmartPointer<vtkSphereSource>::New();
+  vtkNew<vtkSphereSource> sphereSource;
   sphereSource->Update();
-  vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  vtkNew<vtkPolyDataMapper> sphereMapper;
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> sphereActor =
-    vtkSmartPointer<vtkActor>::New();
+  vtkNew<vtkActor> sphereActor;
   sphereActor->SetMapper(sphereMapper);
 
   // VTK Renderer
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
+  vtkNew<vtkRenderer> renderer;
   renderer->AddActor(sphereActor);
 
   // Connect VTK with Qt
   this->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);
 
   // Add a border widget to the right renderer
-  this->BorderWidget = vtkSmartPointer<vtkBorderWidget>::New();
+  this->BorderWidget = vtkNew<vtkBorderWidget>();
   this->BorderWidget->SetInteractor(this->qvtkWidget->GetInteractor());
   this->BorderWidget->On();
 }
