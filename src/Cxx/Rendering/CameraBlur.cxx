@@ -63,7 +63,6 @@ int main( int, char *[] )
   ren1->GetActiveCamera()->Zoom(1.8);
   ren1->GetActiveCamera()->SetFocalDisk(0.05);
 
-  renWin->SetFDFrames(11);
   renWin->Render();
 
   iren->Start();
@@ -81,4 +80,5 @@ int main( int, char *[] )
   spikeMapper->Delete();
   spikeActor->Delete();
   spikeActor2->Delete();
+  return EXIT_SUCCESS;
 }
