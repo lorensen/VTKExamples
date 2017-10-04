@@ -1,5 +1,7 @@
-#include <vtkSphereSource.h>
 #include <vtkSmartPointer.h>
+#include <vtkDepthSortPolyData.h>
+
+#include <vtkSphereSource.h>
 #include <vtkAppendPolyData.h>
 #include <vtkCamera.h>
 #include <vtkPolyDataMapper.h>
@@ -10,7 +12,6 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkTimerLog.h>
 #include <vtkTransform.h>
-#include <vtkDepthSortPolyData.h>
 
 /**
  * Generate a bunch of overlapping spheres within one poly data set:

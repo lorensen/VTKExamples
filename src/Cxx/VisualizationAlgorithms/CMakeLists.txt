@@ -27,8 +27,8 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT VisualizationAlgorithms)
 SET(NEEDS_ARGS
-  BluntStreamlines
   CombustorIsosurface
+  BluntStreamlines
   CutWithCutFunction
   CutWithScalars
   FilledContours
