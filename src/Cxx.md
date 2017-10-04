@@ -1165,10 +1165,10 @@ Click [here](http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup) for a tutorial on ho
 [EventQtSlotConnect](/Cxx/Qt/EventQtSlotConnect) | vtkEventQtSlotConnect|  Connect a VTK event to a Qt slot.
 [ImageDataToQImage](/Cxx/Qt/ImageDataToQImage) | |  Convert a vtkImageData to a QImage.
 [QImageToImageSource](/Cxx/Qt/QImageToImageSource) | vtkQImageToImageSource |  Convert a QImage to a vtkImageData.
-[RenderWindowNoUiFile](/Cxx/Qt/RenderWindowNoUiFile) | QVTKWidget| This is a very basic example that shows how to create a Qt window. Typically, one would want to design a form in the QtDesigner (this is shown in [[/Qt/RenderWindowUi|RenderWindowUi]]).
-[RenderWindowUIMultipleInheritance](/Cxx/Qt/RenderWindowUIMultipleInheritance) | QMainWindow | Using a QVTKWidget with the Qt Multiple Inheritance model.
-[RenderWindowUISingleInheritance](/Cxx/Qt/RenderWindowUISingleInheritance) | QMainWindow | Using a QVTKWidget with the Qt Single Inheritance model.
-[ShareCameraQt](/Cxx/Qt/ShareCameraQt) | |  Share the camera between QVTKWidgets.
+[RenderWindowNoUiFile](/Cxx/Qt/RenderWindowNoUiFile) | QVTKOpenGLWidget| This is a very basic example that shows how to create a Qt window. Typically, one would want to design a form in the QtDesigner (this is shown in [[/Qt/RenderWindowUi|RenderWindowUi]]).
+[RenderWindowUIMultipleInheritance](/Cxx/Qt/RenderWindowUIMultipleInheritance) | QMainWindow | Using a QVTKOpenGLWidget with the Qt Multiple Inheritance model.
+[RenderWindowUISingleInheritance](/Cxx/Qt/RenderWindowUISingleInheritance) | QMainWindow | Using a QVTKOpenGLWidget with the Qt Single Inheritance model.
+[ShareCameraQt](/Cxx/Qt/ShareCameraQt) | |  Share the camera between QVTKOpenGLWidgets.
 [SideBySideRenderWindowsQt](/Cxx/Qt/SideBySideRenderWindowsQt) | QApplication | Side by side render windows.
 
 

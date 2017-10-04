@@ -1,3 +1,3 @@
 ### Description
 
-Using a QVTKWidget with the Qt Single Inheritance model
+Using a QVTKOpenGLWidget with the Qt Single Inheritance model

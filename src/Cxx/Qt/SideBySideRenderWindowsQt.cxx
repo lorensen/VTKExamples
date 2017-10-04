@@ -2,6 +2,7 @@
 
 #include <vtkDataObjectToTable.h>
 #include <vtkElevationFilter.h>
+#include "vtkGenericOpenGLRenderWindow.h"
 #include <vtkPolyDataMapper.h>
 #include <vtkQtTableView.h>
 #include <vtkRenderer.h>
@@ -11,38 +12,45 @@
 #include <vtkSmartPointer.h>
 
 // Constructor
-SideBySideRenderWindowsQt::SideBySideRenderWindowsQt() 
+SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
 {
   this->setupUi(this);
 
+  vtkNew<vtkGenericOpenGLRenderWindow> renderWindowLeft;
+  this->qvtkWidgetLeft->SetRenderWindow(renderWindowLeft);
+
+  vtkNew<vtkGenericOpenGLRenderWindow> renderWindowRight;
+  this->qvtkWidgetRight->SetRenderWindow(renderWindowRight);
+
+
   // Sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource = 
+  vtkSmartPointer<vtkSphereSource> sphereSource =
       vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->Update();
   vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> sphereActor = 
+  vtkSmartPointer<vtkActor> sphereActor =
       vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
-  
+
   // Cube
-  vtkSmartPointer<vtkCubeSource> cubeSource = 
+  vtkSmartPointer<vtkCubeSource> cubeSource =
       vtkSmartPointer<vtkCubeSource>::New();
   cubeSource->Update();
   vtkSmartPointer<vtkPolyDataMapper> cubeMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
   cubeMapper->SetInputConnection(cubeSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> cubeActor = 
+  vtkSmartPointer<vtkActor> cubeActor =
       vtkSmartPointer<vtkActor>::New();
   cubeActor->SetMapper(cubeMapper);
-  
+
   // VTK Renderer
-  vtkSmartPointer<vtkRenderer> leftRenderer = 
+  vtkSmartPointer<vtkRenderer> leftRenderer =
       vtkSmartPointer<vtkRenderer>::New();
   leftRenderer->AddActor(sphereActor);
-  
-  vtkSmartPointer<vtkRenderer> rightRenderer = 
+
+  vtkSmartPointer<vtkRenderer> rightRenderer =
       vtkSmartPointer<vtkRenderer>::New();
 
   // Add Actor to renderer
@@ -56,7 +64,7 @@ SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
   connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
 }
 
-void SideBySideRenderWindowsQt::slotExit() 
+void SideBySideRenderWindowsQt::slotExit()
 {
   qApp->exit();
 }

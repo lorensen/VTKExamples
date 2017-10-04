@@ -2,6 +2,7 @@
 
 #include <vtkDataObjectToTable.h>
 #include <vtkElevationFilter.h>
+#include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkQtTableView.h>
 #include <vtkRenderer.h>
@@ -12,9 +13,15 @@
 #include <vtkSmartPointer.h>
 
 // Constructor
-ShareCameraQt::ShareCameraQt() 
+ShareCameraQt::ShareCameraQt()
 {
   this->setupUi(this);
+
+  vtkNew<vtkGenericOpenGLRenderWindow> renderWindowLeft;
+  this->qvtkWidgetLeft->SetRenderWindow(renderWindowLeft);
+  vtkNew<vtkGenericOpenGLRenderWindow> renderWindowRight;
+  this->qvtkWidgetRight->SetRenderWindow(renderWindowRight);
+
 
   // Sphere
   vtkSmartPointer<vtkSphereSource> sphereSource = vtkSmartPointer<vtkSphereSource>::New();
@@ -23,7 +30,7 @@ ShareCameraQt::ShareCameraQt()
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
   vtkSmartPointer<vtkActor> sphereActor = vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
-  
+
   // Cube
   vtkSmartPointer<vtkCubeSource> cubeSource = vtkSmartPointer<vtkCubeSource>::New();
   cubeSource->Update();
@@ -31,11 +38,11 @@ ShareCameraQt::ShareCameraQt()
   cubeMapper->SetInputConnection(cubeSource->GetOutputPort());
   vtkSmartPointer<vtkActor> cubeActor = vtkSmartPointer<vtkActor>::New();
   cubeActor->SetMapper(cubeMapper);
-  
+
   // VTK Renderer
   vtkSmartPointer<vtkRenderer> leftRenderer = vtkSmartPointer<vtkRenderer>::New();
   leftRenderer->AddActor(sphereActor);
-  
+
   vtkSmartPointer<vtkRenderer> rightRenderer = vtkSmartPointer<vtkRenderer>::New();
 
   // Add Actor to renderer
@@ -47,23 +54,23 @@ ShareCameraQt::ShareCameraQt()
 
   rightRenderer->ResetCamera();
   leftRenderer->ResetCamera();
-  
+
   rightRenderer->SetActiveCamera(leftRenderer->GetActiveCamera());
-    
+
   // Set up action signals and slots
   connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
 
   //this->qvtkWidgetLeft->GetRenderWindow()->AddObserver(vtkCommand::ModifiedEvent, this, &ShareCameraQt::ModifiedHandler);
   this->qvtkWidgetLeft->GetRenderWindow()->AddObserver(vtkCommand::AnyEvent, this, &ShareCameraQt::ModifiedHandler);
-  
+
 }
 
-void ShareCameraQt::ModifiedHandler() 
+void ShareCameraQt::ModifiedHandler()
 {
   this->qvtkWidgetRight->GetRenderWindow()->Render();
 }
 
-void ShareCameraQt::slotExit() 
+void ShareCameraQt::slotExit()
 {
   qApp->exit();
 }
