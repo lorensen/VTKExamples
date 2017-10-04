@@ -63,7 +63,6 @@ int main( int, char *[] )
   ren1->GetActiveCamera()->Zoom(1.8);
   ren1->GetActiveCamera()->SetFocalDisk(0.05);
 
-  renWin->SetFDFrames(11);
   renWin->Render();
 
   iren->Start();
