@@ -39,7 +39,6 @@ int main(int, char *[])
     vtkSmartPointer<vtkPoints>::New();
 
   //retrieve the entries from the grid and print them to the screen
-  unsigned int counter = 0;
   for(vtkIdType i = 0; i < structuredPoints->GetNumberOfPoints(); i++)
   {
     double p[3];
