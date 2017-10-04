@@ -208,6 +208,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetSize(600, 400);
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
@@ -216,11 +217,11 @@ int main (int argc, char *argv[])
   // Add the actors to the renderer, set the background and size
   renderer->AddActor(actor);
   renderer->SetBackground(1, 1, 1);
-  renderWindow->SetSize(600, 400);
 
   // Setup view geometry
   renderer->ResetCamera();
   renderer->GetActiveCamera()->Zoom(2.2); // so the object is larger
+  renderWindow->Render();
 
   // Answer the key question: Does this box support GPU Depth Peeling?
   bool useDepthPeeling = IsDepthPeelingSupported(renderWindow, renderer, true);
