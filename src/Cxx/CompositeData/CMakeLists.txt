@@ -30,6 +30,11 @@ SET(NEEDS_ARGS
   OverlappingAMR
 )
 
+SET (EXCLUDE_TEST
+  HierarchicalBoxPipeline
+  Generate3DAMRDataSetWithPulse
+)
+
 ADD_TEST(${KIT}-OverlappingAMR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestOverlappingAMR -E 35)
 ADD_TEST(${KIT}-CompositePolyDataMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
