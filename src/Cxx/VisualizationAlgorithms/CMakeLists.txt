@@ -33,6 +33,7 @@ SET(NEEDS_ARGS
   CutWithScalars
   FilledContours
   FindCellIntersections
+  LOx
   MarchingCases
 )
 
@@ -55,6 +56,9 @@ ADD_TEST(${KIT}-FilledContours ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-FindCellIntersections ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestFindCellIntersections ${DATA}/Disc_BiQuadraticQuads_0_0.vtu)
+
+ADD_TEST(${KIT}-LOx ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestLOx ${DATA}/postxyz.bin ${DATA}/postq.bin)
 
 ADD_TEST(${KIT}-MarchingCases ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingCases 7)
