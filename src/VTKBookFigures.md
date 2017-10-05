@@ -1,16 +1,16 @@
 # VTK Book Figure Examples
 
-The [Visualization Toolkit Text Book](http://www.vtk.org/wp-content/uploads/2016/09/books_VTK_textbook.png)  was first published in 1995. At that time, the book was unique. It presented the theory behind computer graphics and visualization algorithms. It also provided a free C++ toolkit called VTK. Each theory chapter of the book wrapped up with a section called *Putting It All Together*. These sections provided examples using the VTK software. The examples were written in C++ or Tcl. As VTK matured, the Application Programming Interface (API) also matured. For example, today, C++ and Python are the preferred languages, although Java and Tcl are still available. Although the VTK software has always been free, until recently the VTK Book was only available commercially. Now, the book, like the software, is also free. View or downloas the book [here](https://www.vtk.org/vtk-textbook/).
+The [Visualization Toolkit Text Book](http://www.vtk.org/wp-content/uploads/2016/09/books_VTK_textbook.png)  was first published in 1995. At that time, the book was unique. It presented the theory behind computer graphics and visualization algorithms. It also provided a free C++ toolkit called VTK. Each theory chapter of the book wrapped up with a section called *Putting It All Together*. These sections provided examples using the VTK software. The examples were written in C++ or Tcl. As VTK matured, the Application Programming Interface (API) also matured. For example, today, C++ and Python are the preferred languages, although Java and Tcl are still available. Although the VTK software has always been free, until recently the VTK Book was only available commercially. Now, the book, like the software, is also free. View or download the book [here](https://www.vtk.org/vtk-textbook/).
 
 Even though the book is over 20 years old, the concepts in the book are still relevant. The dozens of examples in the book are also still valuable for learning and using VTK. We have begun an effort to convert all of the examples in the book into C++ and present them Chapter by Chapter. These examples supplement the hundreds of examples on this [VTKExamples web site](https://lorensen.github.io/VTKExamples/site/)..
 
-Since some of the API's have changed, the new implementations may differ from those in the book. Also, since Tcl used less frequently, the examples have been converted to C++. The examples are also enhanced by newer VTK features, like vtkNamedColors and VTkSmartPointer..
+Since some of the API's have changed, the new implementations may differ from those in the book. Also, since Tcl used less frequently, the examples have been converted to C++. The examples are also enhanced by newer VTK features, like vtkNamedColors and vtkSmartPointer.
 
 Each Figure example
 
 1. links to the source code of the new implementation,
 
-2. links to the doxygen documention for classes demonstrated,
+2. links to the doxygen documentation for classes demonstrated,
 
 3. shows the original figure caption and,
 
@@ -52,7 +52,7 @@ Figure 4-11 | | Dividing a sphere into a piece (red) with ghost level cells and 
 |--------|----------------------|---------|-------|
 [Figure 5-17](/Cxx/GeometricObjects/Cube) | vtkCubeSource  | Creation of polygonal cube ([Cube.cxx](https://gitlab.kitware.com/vtk/vtk/blob/1701059360982c495abff5b449009881748a9f19/Examples/DataManipulation/Cxx/Cube.cxx)).
 [Figure 5-18](/Cxx/StructuredPoints/Vol) | vtkStructuredPoints vtkContourFilter| Creating a image data dataset. Scalar data is generated from the equation for a sphere.  Volume dimensions are 26 3 ([Vol.cxx](https://gitlab.kitware.com/vtk/vtk/blob/3ad5fa14aaa30c57cab400a7494bd6e2eac37bf1/graphics/examplesCxx/Vol.cxx)).
-[Figure 5-19](/Cxx/StructuredGrid/SGrid) | vtkStructuredGrid | Creating a structured grid dataset of a semicylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction ([SGrid.cxx](https://gitlab.kitware.com/vtk/vtk/blob/2d323fc4f7476ad024d0f4a164a0930f005bc154/Examples/DataManipulation/Cxx/SGrid.cxx)).
+[Figure 5-19](/Cxx/StructuredGrid/SGrid) | vtkStructuredGrid | Creating a structured grid dataset of a semi-cylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction ([SGrid.cxx](https://gitlab.kitware.com/vtk/vtk/blob/2d323fc4f7476ad024d0f4a164a0930f005bc154/Examples/DataManipulation/Cxx/SGrid.cxx)).
 [Figure 5-20](/Cxx/RectilinearGrid/RGrid) | vtkRectilinearGrid | Creating a rectilinear grid dataset. The coordinates along each axis are defined using an instance of vtkDataArray ([RGrid.cxx](https://gitlab.kitware.com/vtk/vtk/blob/2d323fc4f7476ad024d0f4a164a0930f005bc154/Examples/DataManipulation/Cxx/RGrid.cxx)).
 [Figure 5-21](/Cxx/UnstructuredGrid/UGrid) | vtkUnstructuredGrid | Creation of an unstructured grid ([UGrid.cxx](https://gitlab.kitware.com/vtk/vtk/blob/3ad5fa14aaa30c57cab400a7494bd6e2eac37bf1/graphics/examplesCxx/UGrid.cxx)).
 
@@ -68,7 +68,7 @@ Figure 6-11b | | Contouring examples. (b) Marching cubes surface of human bone (
 [Figure 6-11c](/Cxx/VisualizationAlgorithms/CombustorIsosurface) | vtkContourFilter | Contouring examples. (c) Marching cubes surface of flow density ([combIso.tcl](https://gitlab.kitware.com/vtk/vtk/blob/842ce0a6e51e8a3b0eefa089e3138d073e54724b/Graphics/Testing/Tcl/combIso.tcl)).
 Figure 6-11d | | Contouring examples. (d) Marching cubes surface of iron-protein ([ironPIso.tcl](https://gitlab.kitware.com/vtk/vtk/blob/da314198bb8fbdab6f59e8a69b2d97f1611a05bd/graphics/examplesTcl/ironPIso.tcl)).
 Figure 6-12 | | Computing scalars using normalized dot product. Bottom half of figure illustrates technique applied to terrain data from Honolulu, Hawaii (hawaii.tcl)
-Figure 6-13 | | Vector visualization techniques: (a) oriented lines; (b) using oriented glyphs; (c) complex vector visualization (complexV.tcl).
+[Figure 6-13](/Cxx/Visualization/ComplexV) | vtkHedgeHog | Vector visualization techniques: (a) oriented lines; (b) using oriented glyphs; (c) complex vector visualization (complexV.tcl).
 Figure 6-15 | | Vector displacement plots. (a) Vector converted to scalar via dot product computation; (b) Surface plot of vibrating plate. Dark areas show nodal lines. Bright areas show maximum motion (dispPlot.tcl).
 [Figure 6-18](/Cxx/Visualization/Kitchen) | | Flow velocity computed for a small kitchen (top and side view). Forty streamlines start along the rake positioned under the window. Some eventually travel over the hot stove and are convected upwards ([Kitchen.cxx](https://gitlab.kitware.com/vtk/vtk/blob/d02e543345600e545ab0b416faec80b5c306cd91/graphics/examplesCxx/Kitchen.cxx)).
 [Figure 6-19](/Cxx/VisualizationAlgorithms/BluntStreamlines) | vtkStreamTracer | Dashed streamlines around a blunt fin. Each dash is a constant time increment. Fast moving particles create longer dashes than slower moving particles. The streamlines also are colored by flow density scalar (bluntStr.cxx).
@@ -164,3 +164,5 @@ Figure 12-14 | | Portion of computational grid for the LOx post (LOxGrid.tcl).
 [Figure 12-16](/Cxx/VisualizationAlgorithms/LOx) | vtkStreamTracer vtkTubeFilter | Streamtubes created by using the computational grid just in front of the post as a source for seeds ([LOx.tcl](https://gitlab.kitware.com/vtk/vtk/blob/ea6f91948c13ee930b181a2aaf5d6431ebe30eb1/graphics/examplesTcl/LOx.tcl)).
 Figure 12-17 | | Ten frames from a blow molding finite element analysis. Mold halves (shown in wireframe) are closed around a parison as the parison is inflated. Coloring indicates thickness—red areas are thinner than blue (blow.tcl)
 Figure 12-20 | | Towers of Hanoi. (a) Initial configuration. (b) Intermediate configuration.  (c) Final configuration (Hanoi.cxx).
+
+ LocalWords:  documention
