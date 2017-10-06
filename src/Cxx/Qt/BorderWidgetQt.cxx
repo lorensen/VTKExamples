@@ -52,7 +52,8 @@ BorderWidgetQt::BorderWidgetQt()
   this->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);
 
   // Add a border widget to the right renderer
-  this->BorderWidget = vtkNew<vtkBorderWidget>();
+  vtkNew<vtkBorderWidget> bw;
+  this->BorderWidget = bw;
   this->BorderWidget->SetInteractor(this->qvtkWidget->GetInteractor());
   this->BorderWidget->On();
 }
