@@ -16,7 +16,8 @@ EventQtSlotConnect::EventQtSlotConnect()
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
   this->qvtkWidget->SetRenderWindow(renderWindow);
 
-  this->Connections = vtkNew<vtkEventQtSlotConnect>();
+  vtkNew<vtkEventQtSlotConnect> slotConnector;
+  this->Connections = slotConnector;
 
   // Sphere
   vtkNew<vtkSphereSource> sphereSource;
