@@ -17,8 +17,14 @@
 #include <vtkLineSource.h>
 #include <vtkNamedColors.h>
 
-int main( int, char *argv[] )
+int main(int argc, char *argv[] )
 {
+  if (argc != 3)
+  {
+    std::cout << "Usage: " << argv[0] << " bluntfinxyz.bin bluntfinq.bin" << std::endl;
+    return EXIT_FAILURE;
+  }
+
   double range[2], c[3];
   double maxVelocity = 0.0, maxTime = 0.0;
   
