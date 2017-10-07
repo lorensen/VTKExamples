@@ -254,6 +254,7 @@ CopyFile(RepoDir + "/Instructions/ForUsers.md", DocDir + "/Instructions/ForUsers
 CopyFile(RepoDir + "/Instructions/ForDevelopers.md", DocDir + "/Instructions/ForDevelopers.md")
 CopyFile(RepoDir + "/Instructions/ForAdministrators.md", DocDir + "/Instructions/ForAdministrators.md")
 CopyFile(RepoDir + "/Instructions/Guidelines.md", DocDir + "/Instructions/Guidelines.md")
+CopyFile(RepoDir + "/Instructions/ConvertingFiguresToExamples.md", DocDir + "/Instructions/ConvertingFiguresToExamples.md")
 
 # Get list of all  examples
 Languages = dict()
