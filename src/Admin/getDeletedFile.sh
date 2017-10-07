@@ -9,7 +9,7 @@ fi
 FILE=$1
 REPO=`git remote get-url origin`
 echo "Looking for " $FILE " in repo " $REPO
-FULLNAME=`git log  --diff-filter=D --summary | grep delete | grep $FILE | cut -d" " -f5,5 | head -1`
+FULLNAME=`git log  --diff-filter=D --summary | grep delete | grep /$FILE\$ | cut -d" " -f5,5 | head -1`
 #
 # Does the file exist now or in the past
 if [ -z $FULLNAME ]; then
