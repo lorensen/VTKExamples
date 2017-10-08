@@ -120,7 +120,7 @@ class UndocumentedExamples(object):
         :return:
         """
         # Go up one level.
-        eg_pattern = re.compile(r'^.*\[ *([a-zA-Z][[a-zA-Z0-9\-_]+) *]')
+        eg_pattern = re.compile(r'^\[([a-zA-Z0-9][[a-zA-Z0-9\-_]+) *]')
         for eg in self.example_types:
             examples = set()
             curr_file = os.path.join(self.base_directory, eg + '.md')
@@ -129,8 +129,8 @@ class UndocumentedExamples(object):
                     m = eg_pattern.match(line)
                     if m:
                         examples.add(m.group(1))
+                f.close()
             self.documented_examples[eg] = examples
-
     def print_tables(self):
         self.get_all_examples()
         self.parse_markdown_files()
