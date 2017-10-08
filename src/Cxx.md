@@ -58,7 +58,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [ReadPlainTextTriangles](/Cxx/IO/ReadPlainTextTriangles)   | vtkPolyData vtkSmartPointer vtkPoints vtkCellArray vtkXMLPolyDataWriter | Read a plain text file into a polydata.
 [ReadTextFile](/Cxx/IO/ReadTextFile)   | vtkPolyData | Read a plain text file into a polydata.
 [ReadSTL](/Cxx/IO/ReadSTL)   | vtkSTLReader |Read stereo lithography STL (.stl) files
-[SimplePointsReader ](/Cxx/IO/SimplePointsReader)  | vtkSimplePointsReader |Read a simple "xyz" file of points.
+[SimplePointsReader](/Cxx/IO/SimplePointsReader)  | vtkSimplePointsReader |Read a simple "xyz" file of points.
 
 
 ###### Importers
@@ -98,9 +98,9 @@ These are fully independent, compilable examples. There is significant overlap i
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[Write an ExodusII file](/Cxx/Parallel/ExodusIIWriter)   | vtkExodusIIWriter | Write a time varying ExodusII file.
-[Write an image file to parallel files](/Cxx/IO/XMLPImageDataWriter) | vtkXMLPImageDataWriter | Write a .pvti file with 4 .vti pieces.
-[Write an unstructured grid to parallel files](/Cxx/IO/XMLPUnstructuredGridWriter) | vtkXMLPUnstructuredGridWriter | Write a .pvtu with 4 .vtu pieces.
+[ExodusIIWriter](/Cxx/Parallel/ExodusIIWriter)   | vtkExodusIIWriter | Write a time varying ExodusII file.
+[XMLPImageDataWriter](/Cxx/IO/XMLPImageDataWriter) | vtkXMLPImageDataWriter | Write a .pvti file with 4 .vti pieces.
+[XMLPUnstructuredGridWriter](/Cxx/IO/XMLPUnstructuredGridWriter) | vtkXMLPUnstructuredGridWriter | Write a .pvtu with 4 .vtu pieces.
 [WriteVTI](/Cxx/IO/WriteVTI) | vtkXMLImageDataWriter | Write a .vti file. VTI is an "ImageData".
 [WriteVTP](/Cxx/IO/WriteVTP) | vtkXMLPolyDataWriter | Write a .vtp file. VTP is a "PolyData". This format allows for the most complex geometric objects to be stored.
 [WriteVTU](/Cxx/IO/WriteVTU) | vtkXMLUnstructuredGridWriter | Write a .vtu file. VTU is an "Unstructured Grid". This format allows for 3D data to be stored.
@@ -148,7 +148,7 @@ These are fully independent, compilable examples. There is significant overlap i
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [Axes](/Cxx/GeometricObjects/Axes)  | vtkAxesActor |
-[Colored Lines](/Cxx/GeometricObjects/ColoredLines)   | vtkCellData vtkLine |
+[ColoredLines](/Cxx/GeometricObjects/ColoredLines)   | vtkCellData vtkLine |
 [Dodecahedron](/Cxx/GeometricObjects/Dodecahedron)   | vtkPolyhedron | Create a dodecahedron using vtkPolyhedron
 [EllipticalCylinder](/Cxx/GeometricObjects/EllipticalCylinder)   | vtkLinearExtrusionFilter | Create an elliptical cylinder using extrusion.
 [EllipticalCylinderDemo](/Cxx/GeometricObjects/EllipticalCylinderDemo)   | vtkLinearExtrusionFilter | Show the base and extrusion vector.
@@ -188,11 +188,11 @@ These are fully independent, compilable examples. There is significant overlap i
 [Disk](/Cxx/GeometricObjects/Disk)   | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Cxx/GeometricObjects/Frustum)   | vtkFrustumSource |
 [Line](/Cxx/GeometricObjects/Line)   | vtkLineSource |
-[Oriented Arrow](/Cxx/GeometricObjects/OrientedArrow)   | vtkArrowSource | Orient an arrow along an arbitrary vector
-[Oriented Cylinder](/Cxx/GeometricObjects/OrientedCylinder)   | vtkCylinderSource | Orient a cylinder along an arbitrary vector
+[OrientedArrow](/Cxx/GeometricObjects/OrientedArrow)   | vtkArrowSource | Orient an arrow along an arbitrary vector
+[OrientedCylinder](/Cxx/GeometricObjects/OrientedCylinder)   | vtkCylinderSource | Orient a cylinder along an arbitrary vector
 [Plane](/Cxx/GeometricObjects/Plane)  | vtkPlaneSource |
 [PlatonicSolid](/Cxx/GeometricObjects/PlatonicSolid)   | vtkPlatonicSolidSource |
-[Regular Polygon](/Cxx/GeometricObjects/RegularPolygonSource)   | vtkRegularPolygonSource |
+[RegularPolygon](/Cxx/GeometricObjects/RegularPolygonSource)   | vtkRegularPolygonSource |
 [Sphere](/Cxx/GeometricObjects/Sphere)   | vtkSphereSource |
 [TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource)   | vtkTessellatedBoxSource | Generated a box with tessellated sides.
 
@@ -257,7 +257,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [CleanPolyData](/Cxx/PolyData/CleanPolyData) | vtkCleanPolyData |Remove coincident points.
 [ColorCellsWithRGB](/Cxx/PolyData/ColorCellsWithRGB) | vtkCellData | Color individual cells of a polydata with rgb colors.
 [ColorCells](/Cxx/PolyData/ColorCells) | vtkLookupTable | Color individual cells of a polydata with scalar index.
-[Colored Points](/Cxx/PolyData/ColoredPoints) | vtkUnsignedCharArray | Add three points to a polydata and associate a color with each of them.
+[ColoredPoints](/Cxx/PolyData/ColoredPoints) | vtkUnsignedCharArray | Add three points to a polydata and associate a color with each of them.
 [CombinePolyData](/Cxx/Filtering/CombinePolyData) | vtkAppendPolyData | Combine/Append PolyData.
 [ConnectivityFilter](/Cxx/Filtering/ConnectivityFilter) | vtkConnectivityFilter | Color any dataset type based on connectivity.
 [ContoursFromPolyData](/Cxx/Filtering/ContoursFromPolyData) | vtkCutter | Create contours from PolyData.
@@ -265,7 +265,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [ConvexHull](/Cxx/PolyData/ConvexHull) | vtkHull |Convex hull using vtkHull.
 [ConvexHullShrinkWrap](/Cxx/PolyData/ConvexHullShrinkWrap) | vtkSmoothPolyDataFilter | Convex hull using shrink wrapping.
 [CopyAllArrays](/Cxx/PolyData/CopyAllArrays)| vtkPolyData |Copy all arrays from one vtkPolyData to another.
-[Data Bounds](/Cxx/PolyData/DataBounds) | vtkPolyData::GetBounds | Get the minimum and maximum value in each dimension. (Axis aligned bounding box)
+[DataBounds](/Cxx/PolyData/DataBounds) | vtkPolyData::GetBounds | Get the minimum and maximum value in each dimension. (Axis aligned bounding box)
 [DataSetSurfaceFilter](/Cxx/PolyData/DataSetSurfaceFilter) | vtkDataSetSurfaceFilter |Convert vtkUnstructuredGrid to vtkPolyData.
 [DecimatePolyline](/Cxx/PolyData/DecimatePolyline) | vtkDecimatePolylineFilter |Decimate polyline.
 [DeleteCells](/Cxx/PolyData/DeleteCells) | vtkPolyData | Delete a cell from a vtkPolyData
@@ -435,7 +435,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [SplitPolyData](/Cxx/Meshes/SplitPolyData) | vtkOBBDicer | Breakup a mesh into pieces and save the pieces into files
 [Subdivision](/Cxx/Meshes/Subdivision) | vtkButterflySubdivisionFilter vtkLoopSubdivisionFilter vtkLinearSubdivisionFilter | Increase the number of triangles in a mesh.
 [Triangulate](/Cxx/Meshes/Triangulate) | vtkTriangleFilter | Convert all polygons in a mesh to triangles.
-[WeightedTransformFilter ](/Cxx/PolyData/WeightedTransformFilter)  | vtkWeightedTransformFilter |
+[WeightedTransformFilter](/Cxx/PolyData/WeightedTransformFilter)  | vtkWeightedTransformFilter |
 [WindowedSincPolyDataFilter](/Cxx/Meshes/WindowedSincPolyDataFilter) | vtkWindowedSincPolyDataFilter | Smooth a mesh (windowed sinc filter).
 
 #### Clipping
@@ -680,7 +680,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [RandomGraphSource](/Cxx/Graphs/RandomGraphSource)| vtkRandomGraphSource |Create a random graph.
 [RemoveIsolatedVertices](/Cxx/Graphs/RemoveIsolatedVertices)| vtkRemoveIsolatedVertices |Remove vertices of degree 0 from a vtkGraph.
 [ScaleVertices](/Cxx/Graphs/ScaleVertices)| vtkGraphLayoutView vtkRenderedGraphRepresentation |Size/scale vertices based on a data array.
-[SelectedVerticesAndEdges ](/Cxx/Graphs/SelectedVerticesAndEdges)| vtkAnnotationLink |Get a list of selected vertices and edges.
+[SelectedVerticesAndEdges](/Cxx/Graphs/SelectedVerticesAndEdges)| vtkAnnotationLink |Get a list of selected vertices and edges.
 [SelectedVerticesAndEdgesObserver](/Cxx/Graphs/SelectedVerticesAndEdgesObserver)| vtkAnnotationLink |Get a list of selected vertices and edges using an observer of AnnotationChangedEvent.
 [ShortestPath](/Cxx/Graphs/ShortestPath)| vtkDijkstraGraphGeodesicPath |Find the shortest path on a graph.
 [SideBySideGraphs](/Cxx/Graphs/SideBySideGraphs)| vtkGraphLayoutView |Display two graphs side by side.
@@ -799,10 +799,10 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [BackgroundTexture](/Cxx/Visualization/BackgroundTexture)| vtkRenderer vtkTexture |Use a texture for the background of a vtkRenderer.
-[ClipArt ](/Cxx/Visualization/ClipArt) | vtkTextureMapToPlane | Generate 3D clip art from an image.
+[ClipArt](/Cxx/Visualization/ClipArt) | vtkTextureMapToPlane | Generate 3D clip art from an image.
 [TextureCutQuadric](/Cxx/Texture/TextureCutQuadric)| vtkBooleanTexture vtkImplicitTextureCoords | Cut a quadric with boolean textures.
 [TextureCutSphere](/Cxx/Texture/TextureCutSphere)| vtkImplicitTextureCoords | Cut a sphere using texture coordinates.
-[TextureMapImageData ](/Cxx/Visualization/TextureMapImageData) | vtkImageCanvasSource2D | Texture map an ImageData.
+[TextureMapImageData](/Cxx/Visualization/TextureMapImageData) | vtkImageCanvasSource2D | Texture map an ImageData.
 [TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| vtkTextureMapToPlane |Texture map a plane.
 [TextureMapQuad](/Cxx/Visualization/TextureMapQuad)| vtkPolygon vtkPolyData |Texture map a quad.
 [TexturedSphere](/Cxx/Texture/TexturedSphere)| vtkTextureMapToSphere | Texture a sphere.
@@ -816,8 +816,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Arbitrary3DCursor](/Cxx/Visualization/Arbitrary3DCursor)| vtkPointWidget |Track a 3D cursor.
 [AssignCellColorsFromLUT](/Cxx/Visualization/AssignCellColorsFromLUT)| vtkNamedColors vtkPlaneSource vtkLookupTable vtkColorTransferFunction | Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
 [BackfaceCulling](/Cxx/Visualization/BackfaceCulling)| vtkActor | Backface culling.
-[BackgroundColor ](/Cxx/Visualization/BackgroundColor) | vtkRenderer | Background color.
-[BackgroundGradient ](/Cxx/Visualization/BackgroundGradient) | vtkRenderer vtkRenderer | Background gradient.
+[BackgroundColor](/Cxx/Visualization/BackgroundColor) | vtkRenderer | Background color.
+[BackgroundGradient](/Cxx/Visualization/BackgroundGradient) | vtkRenderer vtkRenderer | Background gradient.
 [BillboardTextActor3D](/Cxx/Visualization/BillboardTextActor3D) | vtkBillboardTextActor3D | Label points with billboards.
 [BlobbyLogo](/Cxx/Visualization/BlobbyLogo) | vtkImplicitModeller | Blobby logo from VTK textbook.
 [BluntStreamlines](/Cxx/Visualization/BluntStreamlines) | vtkStructuredGridGeometryFilter vtkStreamTracer| Demonstrates airflow around a blunt fin using streamlines.
@@ -829,8 +829,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ChooseTextColorDemo](/Cxx/Visualization/ChooseTextColorDemo)| vtkTextActor vtkNamedColors | Create a grid of random colored viewpports and pick a good text color.
 [ChooseTextColor](/Cxx/Visualization/ChooseTextColor)| vtkTextActor vtkTextProperty::SetFontFamily vtkNamedColors | Choose a text color that contrasts with a background color.
 [CloseWindow](/Cxx/Visualization/CloseWindow)| vtkRenderWindowInteractor vtkRenderWindow |Close a render window.
-[ColorActorEdges ](/Cxx/Visualization/ColorActorEdges) | vtkActor | Color the edges of an Actor.
-[ColorAnActor ](/Cxx/Visualization/ColorAnActor) | vtkActor | Color an Actor.
+[ColorActorEdges](/Cxx/Visualization/ColorActorEdges) | vtkActor | Color the edges of an Actor.
+[ColorAnActor](/Cxx/Visualization/ColorAnActor) | vtkActor | Color an Actor.
 [ColorGlyphs](/Cxx/Visualization/ColorGlyphs)| vtkGlyph3D vtkGlyph3D |Color glyphs.
 [ComplexV](/Cxx/Visualization/ComplexV) | vtkHedgeHog | ComplexV from the VTK Textbook.
 [CornerAnnotation](/Cxx/Visualization/CornerAnnotation)| vtkCornerAnnotation | Write text in the corners of a window.
@@ -840,7 +840,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Cursor3D](/Cxx/Visualization/Cursor3D)| vtkCursor3D |
 [CursorShape](/Cxx/Visualization/CursorShape)| vtkRenderWindow |Change the shape of the cursor.
 [CurvatureBandsWithGlyphs](/Cxx/Visualization/CurvatureBandsWithGlyphs)| vtkCurvatures vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the gaussian curvature of a surface into bands and using arrows to display the normals on the surface.
-[CurvedReformation ](/Cxx/Visualization/CurvedReformation) | vtkProbeFilter| Sample a volume with a curved surface. In medical imaging, this is often called curved multi planar reformation.
+[CurvedReformation](/Cxx/Visualization/CurvedReformation) | vtkProbeFilter| Sample a volume with a curved surface. In medical imaging, this is often called curved multi planar reformation.
 [Cutter](/Cxx/VisualizationAlgorithms/Cutter)| vtkCutter |
 [DepthSortPolyData](/Cxx/Visualization/DepthSortPolyData)| vtkDepthSortPolyData |Poly Data Depth Sorting.
 [DisplayCoordinateAxes](/Cxx/Visualization/DisplayCoordinateAxes)| vtkOrientationMarkerWidget |Display coordinate axes.
@@ -852,34 +852,35 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [FastSplatter](/Cxx/Visualization/FastSplatter)| vtkFastSplatter |Convolve a splat image with every point in an input image.
 [FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | vtkCellLocator | Find the intersection of a line and the cells in an unstructured dataset
 [FlatShading](/Cxx/Visualization/FlatShading) | vtkActor |
-[Follower ](/Cxx/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
+[Follower](/Cxx/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [FontFile](/Cxx/Visualization/FontFile) | vtkTextProperty | Use an external font.
-[Glyph2D ](/Cxx/Filtering/Glyph2D) | vtkGlyph2D|
-[Glyph3D ](/Cxx/Filtering/Glyph3D) | vtkGlyph3D|
+[Glyph2D](/Cxx/Filtering/Glyph2D) | vtkGlyph2D|
+[Glyph3D](/Cxx/Filtering/Glyph3D) | vtkGlyph3D|
 [Glyph3DImage](/Cxx/Visualization/Glyph3DImage)| vtkGlyph3DMapper | Glyph the points in a vtkImageData.
 [Glyph3DMapper](/Cxx/Visualization/Glyph3DMapper)| vtkGlyph3DMapper |
 [HedgeHog](/Cxx/Visualization/HedgeHog)| vtkHedgeHog vtkStructuredGrid |Create oriented lines (hedgehogs) from vector data.
-[Hide an actor](/Cxx/Visualization/HideActor)| vtkPropCollection vtkProp | visible
+[HideActor](/Cxx/Visualization/HideActor)| vtkPropCollection vtkProp | visible
 [HideAllActors](/Cxx/Visualization/HideAllActors)| vtkRenderer |Hide all actors.
 [ImageMapper](/Cxx/Visualization/ImageMapper)| vtkImageMapper | Display an image in 2D.
 [ImageOrder](/Cxx/Visualization/ImageOrder)| vtkRenderer |Determine the display order of a stack of images.
-[ImageOrientation ](/Cxx/Visualization/ImageOrientation) | vtkInteractorStyleImage |Orientation of the view of an image.
+[ImageOrientation](/Cxx/Visualization/ImageOrientation) | vtkInteractorStyleImage |Orientation of the view of an image.
 [ImageTransparency](/Cxx/Visualization/ImageTransparency)| vtkImageData|Set transparency of image pixels.
-[IsosurfaceSampling ](/Cxx/Visualization/IsosurfaceSampling) | vtkProbeFilter|Demonstrates how to create point data on an isosurface.
+[IsosurfaceSampling](/Cxx/Visualization/IsosurfaceSampling) | vtkProbeFilter|Demonstrates how to create point data on an isosurface.
 [Kitchen](/Cxx/Visualization/Kitchen) | vtkStreamTracer vtkStructuredGrid| Demonstrates stream tracing in a kitchen.
-[LODProp3D ](/Cxx/Visualization/LODProp3D) | vtkLODProp3D | Level of detail rendering.
+[LODProp3D](/Cxx/Visualization/LODProp3D) | vtkLODProp3D | Level of detail rendering.
 [LabelContours](/Cxx/Visualization/LabelContours)| vtkLabeledDataMapper |Label Contours.
 [LabelPlacementMapper](/Cxx/Visualization/LabelPlacementMapper)| vtkPointSetToLabelHierarchy vtkLabelPlacementMapper | Display a non-overlapping text label at each point.
 [LabeledDataMapper](/Cxx/Visualization/LabeledDataMapper)| vtkLabeledDataMapper |Display the point ID at each point.
-[LabeledMesh ](/Cxx/Visualization/LabeledMesh) | vtkLabeledDataMapper | Label Mesh.
+[LabeledMesh](/Cxx/Visualization/LabeledMesh) | vtkLabeledDataMapper | Label Mesh.
 [LegendScaleActor](/Cxx/Visualization/LegendScaleActor)| vtkLegendScaleActor |Display the scale of a scene.
 [Legend](/Cxx/Visualization/Legend) | vtkLegendBoxActor |
 [LineWidth](/Cxx/Visualization/LineWidth)| vtkActor vtkProperty |Change the width/thickness of lines in an actor.
-[MovableAxes ](/Cxx/Visualization/MovableAxes) | vtkFollower vtkAxesActor vtkAssembly | Movable axes.
+[MovableAxes](/Cxx/Visualization/MovableAxes) | vtkFollower vtkAxesActor vtkAssembly | Movable axes.
 [MoveActor](/Cxx/Visualization/MoveActor)| vtkInteractorStyleTrackballActor |Moving an Actor.
 [MoveCamera](/Cxx/Visualization/MoveCamera)| vtkInteractorStyleTrackballCamera |Moving the Camera.
 [MultipleActors](/Cxx/Visualization/MultipleActors)| vtkActor |Multiple Actors.
-[NamedColorPatches ](/Cxx/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) | Demonstrates how to use the vtkNamedColors class.
+[NamedColors](/Cxx/Visualization/NamedColors) | vtkNamedColors | Demonstrate the use of the vtkNamedColors class.<
+[NamedColorPatches](/Cxx/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) | Demonstrates how to use the vtkNamedColors class.
 [NoShading](/Cxx/Visualization/NoShading) | vtkActor |
 [NormalsDemo](/Cxx/Visualization/NormalsDemo)| vtkPolyDataNormals | Demo different ooption to generate normals.
 [Opacity](/Cxx/Visualization/Opacity)| vtkActor | Transparency, transparent.
@@ -892,7 +893,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [RandomProbe](/Cxx/Visualization/RandomProbe)| vtkProbeFilter|Demonstrates how to probe a dataset with random points and select points inside the data set.
 [RenderLargeImage](/Cxx/Visualization/RenderLargeImage)| vtkRenderLargeImage |Render a large image, larger than a window.
 [RenderView](/Cxx/Views/RenderView)| vtkRenderView |A little bit easier rendering.
-[ReverseAccess ](/Cxx/Visualization/ReverseAccess) | vtkActor|Demonstrates how to access the source (e.g. vtkSphereSource) of an actor reversely.
+[ReverseAccess](/Cxx/Visualization/ReverseAccess) | vtkActor|Demonstrates how to access the source (e.g. vtkSphereSource) of an actor reversely.
 [RotateActor](/Cxx/Visualization/RotateActor)| vtkActor |Rotate an Actor.
 [ScalarBarActorColorSeries](/Cxx/Visualization/ScalarBarActorColorSeries)| vtkScalarBarActor vtkColorSeries | Display a color bar with a color series lookup table.
 [ScalarBarActor](/Cxx/Visualization/ScalarBarActor)| vtkScalarBarActor | Display a color bar.
@@ -909,14 +910,14 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [TubesWithVaryingRadiusAndColors](/Cxx/VisualizationAlgorithms/TubesWithVaryingRadiusAndColors)| vtkTubeFilter |Create tubes with varying radius and colors.
 [VectorOfActors](/Cxx/Visualization/VectorOfActors)| vtkActor |Multiple Actors in a Vector.
 [VectorText](/Cxx/Visualization/VectorText)| vtkVectorText |Display high resolution text.
-[VertexGlyphFilter ](/Cxx/Filtering/VertexGlyphFilter) | vtkVertexGlyphFilter | Add a vertex to each point.
+[VertexGlyphFilter](/Cxx/Filtering/VertexGlyphFilter) | vtkVertexGlyphFilter | Add a vertex to each point.
 [Visualize2DPoints](/Cxx/Visualization/Visualize2DPoints)| vtkPolyDataMapper2D vtkProperty2D | Visualize a 2D Set of Points.
 [VisualizeImageData](/Cxx/Visualization/VisualizeImageData)| vtkDataSetMapper | Visualize the points of an ImageData.
 [VisualizeVTP](/Cxx/Visualization/VisualizeVTP)| vtkXMLPolyDataReader vtkPolyDataMapper | Visualize a VTP File.
 [WindowSize](/Cxx/Visualization/WindowSize)| vtkRenderWindow:SetSize | Change the size of a window.
 [WindowTitle](/Cxx/Visualization/WindowTitle)| vtkRenderWindow | Change the title of a window.
 [Wireframe](/Cxx/Visualization/Wireframe)| vtkActor |
-[a KochSnowflake](/Cxx/Visualization/KochSnowflake) | vtkPolyData vtkPolyLine vtkTriangle vtkLookupTable| Use recursion to represent a Koch snowflake fractal.
+[KochSnowflake](/Cxx/Visualization/KochSnowflake) | vtkPolyData vtkPolyLine vtkTriangle vtkLookupTable| Use recursion to represent a Koch snowflake fractal.
 
 ## Volume Rendering
 
@@ -950,9 +951,9 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [InteractorStyleTerrain](/Cxx/Interaction/InteractorStyleTerrain)| vtkInteractorStyleTerrain |Terrain mode.
 [InteractorStyleUser](/Cxx/Interaction/InteractorStyleUser)| vtkInteractorStyleUser | Create a completely custom interactor style (no default functionality is provided)
 [KeypressEvents](/Cxx/Interaction/KeypressEvents)| vtkInteractorStyleTrackballCamera |Handle keypress events.
-[KeypressObserver ](/Cxx/Interaction/KeypressObserver) | vtkCallbackCommand | This uses a callback function rather than a derived interactor class. Handle keypress events (lightweight).
-[MouseEvents ](/Cxx/Interaction/MouseEvents) | vtkInteractorStyleTrackballCamera | Subclass the interactor style. Handle mouse events.
-[MouseEventsObserver ](/Cxx/Interaction/MouseEventsObserver) | vtkCallbackCommand | Use an observer. Handle mouse events (light weight).
+[KeypressObserver](/Cxx/Interaction/KeypressObserver) | vtkCallbackCommand | This uses a callback function rather than a derived interactor class. Handle keypress events (lightweight).
+[MouseEvents](/Cxx/Interaction/MouseEvents) | vtkInteractorStyleTrackballCamera | Subclass the interactor style. Handle mouse events.
+[MouseEventsObserver](/Cxx/Interaction/MouseEventsObserver) | vtkCallbackCommand | Use an observer. Handle mouse events (light weight).
 [MoveAGlyph](/Cxx/Interaction/MoveAGlyph)| vtkGlyph3D | Drag a glyph around.
 [MoveAVertexUnstructuredGrid](/Cxx/Interaction/MoveAVertexUnstructuredGrid)| vtkPointPicker | Click and drag a vertex of a vtkUnstructuredGrid.
 [ObserverMemberFunction](/Cxx/Interaction/ObserverMemberFunction)|  | Set observers to be class member functions.
@@ -992,12 +993,12 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageCheckerboard](/Cxx/Images/ImageCheckerboard)| vtkImageCheckerboard | Visually Compare Two Images.
 [ImageCityBlockDistance](/Cxx/Images/ImageCityBlockDistance)| vtkImageCityBlockDistance | Compute the Manhattan distance from every point to every black point in a binary image.
 [ImageDilateErode3D](/Cxx/Images/ImageDilateErode3D)| vtkImageDilateErode3D | Dilate or erode an image.
-[ImageExport ](/Cxx/Images/ImageExport) | vtkImageExport | Export an image to a C array.
+[ImageExport](/Cxx/Images/ImageExport) | vtkImageExport | Export an image to a C array.
 [ImageGridSource](/Cxx/Images/ImageGridSource)| vtkImageGridSource |Create a image of a grid.
 [ImageHybridMedian2D](/Cxx/Images/ImageHybridMedian2D)| vtkImageHybridMedian2D | Median filter an image.
 [ImageHistogram](/Cxx/Images/ImageHistogram)| vtkImageHistogram | Compute the histogram of an image.
 [ImageIdealHighPass](/Cxx/Images/ImageIdealHighPass)| vtkImageIdealHighPass |High pass filter an image.
-[ImageImport ](/Cxx/Images/ImageImport) | vtkImageImport | Import an image from a C array.
+[ImageImport](/Cxx/Images/ImageImport) | vtkImageImport | Import an image from a C array.
 [ImageIslandRemoval2D](/Cxx/Images/ImageIslandRemoval2D)| vtkImageIslandRemoval2D | Remove small patches from an image.
 [ImageMagnify](/Cxx/Images/ImageMagnify)| vtkImageMagnify | Supersample and stretch an image.
 [ImageMandelbrotSource](/Cxx/Images/ImageMandelbrotSource)| vtkImageMandelbrotSource |Create a Mandelbrot image.
@@ -1086,7 +1087,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [BoxWidget](/Cxx/Widgets/BoxWidget)| vtkBoxWidget |
 [CaptionWidget](/Cxx/Widgets/CaptionWidget)| vtkCaptionWidget |
 [CheckerboardWidget](/Cxx/Widgets/CheckerboardWidget)| vtkCheckerboardWidget vtkCheckerboardRepresentation | Compare two images using a checkerboard.
-[ContourWidget ](/Cxx/Widgets/ContourWidget) | vtkContourWidget | Create a contour from a set of points and dynamically change the contour using the points as control points.
+[ContourWidget](/Cxx/Widgets/ContourWidget) | vtkContourWidget | Create a contour from a set of points and dynamically change the contour using the points as control points.
 [Cursor2D](/Cxx/Visualization/Cursor2D)| vtkCursor2D |
 [DistanceWidget](/Cxx/Widgets/DistanceWidget) | vtkDistanceWidget |
 [HoverWidget](/Cxx/Widgets/HoverWidget)| vtkHoverWidget | How to detect a hover? 
@@ -1098,14 +1099,14 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [LineWidget2](/Cxx/Widgets/LineWidget2)| vtkLineWidget2 |
 [LogoWidget](/Cxx/Widgets/LogoWidget)| vtkLogoWidget |Logo widget.
 [OrientationMarkerWidget](/Cxx/Widgets/OrientationMarkerWidget)| vtkOrientationMarkerWidget | Display a polydata as an orientation icon.
-[PlaneWidget ](/Cxx/Widgets/PlaneWidget) | vtkPlaneWidget | Interact with a plane.
+[PlaneWidget](/Cxx/Widgets/PlaneWidget) | vtkPlaneWidget | Interact with a plane.
 [RectilinearWipeWidget](/Cxx/Widgets/RectilinearWipeWidget)| vtkImageRectilinearWipe vtkRectilinearWipeWidget vtkRectilinearWipeRepresentation | Compare two images.
 [SeedWidgetImage](/Cxx/Widgets/SeedWidgetImage)| vtkImageViewer2 vtkSeedWidget | How to start the interaction? 
 [SeedWidget](/Cxx/Widgets/SeedWidget)| vtkSeedWidget |Seed widget.
 [Slider2D](/Cxx/Widgets/Slider2D)| vtkSliderWidget vtkSliderRepresentation2D|2D Slider.
 [Slider](/Cxx/Widgets/Slider)| vtkSliderWidget vtkSliderRepresentation3D |3D Slider.
 [SphereWidget2](/Cxx/Widgets/SphereWidget2)| vtkSphereWidget2 |
-[SphereWidgetEvents ](/Cxx/Widgets/SphereWidgetEvents)| vtkSphereWidget |Sphere widget events.
+[SphereWidgetEvents](/Cxx/Widgets/SphereWidgetEvents)| vtkSphereWidget |Sphere widget events.
 [SphereWidget](/Cxx/Widgets/SphereWidget)| vtkSphereWidget |Sphere widget.
 [SplineWidget](/Cxx/Widgets/SplineWidget)| vtkSplineWidget |
 [TextWidget](/Cxx/Widgets/TextWidget)| vtkSeedWidget || vtkTextWidget |Draw movable text.
@@ -1142,7 +1143,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[CompassWidget ](/Cxx/Geovis/CompassWidget)  | vtkCompassWidget | Compass Widget.
+[CompassWidget](/Cxx/Geovis/CompassWidget)  | vtkCompassWidget | Compass Widget.
 [EarthSource](/Cxx/Geovis/EarthSource) | vtkEarthSource | Create the Earth.
 [GeoAssignCoordinates](/Cxx/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates | Convert lat/long coordinates to world coordinates.
 
@@ -1162,7 +1163,7 @@ Click [here](http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup) for a tutorial on ho
 |--------------|----------------------|-------------|-------|
 [BorderWidgetQt](/Cxx/Qt/BorderWidgetQt) | vtkBorderWidget QApplication |
 [QtBarChart](/Cxx/Qt/QtBarChart) | vtkQtBarChart |
-[ShowEvent ](/Cxx/Qt/ShowEvent) |  | Use QMainWindow::showEvent event to do things that you might want to do in the constructor 
+[ShowEvent](/Cxx/Qt/ShowEvent) |  | Use QMainWindow::showEvent event to do things that you might want to do in the constructor 
 [EventQtSlotConnect](/Cxx/Qt/EventQtSlotConnect) | vtkEventQtSlotConnect|  Connect a VTK event to a Qt slot.
 [ImageDataToQImage](/Cxx/Qt/ImageDataToQImage) | |  Convert a vtkImageData to a QImage.
 [QImageToImageSource](/Cxx/Qt/QImageToImageSource) | vtkQImageToImageSource |  Convert a QImage to a vtkImageData.
