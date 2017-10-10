@@ -782,6 +782,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [DiffuseSpheres](/Cxx/Rendering/DiffuseSpheres)| vtkProperty |Demonstrates the effect of diffuse lighting on spheres.
 [Rainbow](/Cxx/Rendering/Rainbow)| vtkLookupTable | Use and manipulation of vtkLookupTables.
 [SpecularSpheres](/Cxx/Rendering/SpecularSpheres)| vtkProperty |Demonstrates the effect of specular lighting on spheres.
+[StippledLine](/Cxx/Rendering/StippledLine)| vtkTexture | Draw a stippled line.
 
 
 ## Lighting
