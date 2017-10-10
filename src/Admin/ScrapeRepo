@@ -364,6 +364,8 @@ for lang, langExt in Languages.items():
                 ExtrasFile = open(ExtrasPath, 'r')
                 for line in ExtrasFile:
                     line = line.strip()
+                    if line == '' :
+                        continue
                     ExtraPath = RepoDir + "/" + lang + "/" + KitName + "/" + line
                     SrcFile = RepoDir + "/" + lang + "/" + KitName + "/" + line
 
