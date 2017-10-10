@@ -42,8 +42,7 @@ endif()
 ```
 
 ###Download and Build XXX
-Click [https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/XXX.tar here to download XXX]. and its *CMakeLists.txt* file.
-
+Click [here to download XXX](https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/XXX.tar) and its *CMakeLists.txt* file.
 Once the tarball *XXX.tar* has been downloaded and extracted,
 ```
  cd XXX/build
