@@ -140,30 +140,6 @@ function registerListener(event, func) {
 <span class=p>};</span>
 
 <span class=cp>#endif</span>
-</pre></div> <p><strong>BorderWidgetQt.h</strong></p> <div class=codehilite><pre><span></span><span class=cp>#ifndef BorderWidgetQt_H</span>
-<span class=cp>#define BorderWidgetQt_H</span>
-
-<span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-<span class=cp>#include</span> <span class=cpf>&lt;QMainWindow&gt;</span><span class=cp></span>
-
-<span class=k>class</span> <span class=nc>vtkBorderWidget</span><span class=p>;</span>
-
-<span class=cp>#include</span> <span class=cpf>&quot;ui_BorderWidgetQt.h&quot;</span><span class=cp></span>
-
-<span class=k>class</span> <span class=nc>BorderWidgetQt</span> <span class=o>:</span> <span class=k>public</span> <span class=n>QMainWindow</span><span class=p>,</span> <span class=k>private</span> <span class=n>Ui</span><span class=o>::</span><span class=n>BorderWidgetQt</span>
-<span class=p>{</span>
-  <span class=n>Q_OBJECT</span>
-<span class=k>public</span><span class=o>:</span>
-
-  <span class=c1>// Constructor/Destructor</span>
-  <span class=n>BorderWidgetQt</span><span class=p>();</span>
-  <span class=o>~</span><span class=n>BorderWidgetQt</span><span class=p>()</span> <span class=p>{}</span>
-
-<span class=k>private</span><span class=o>:</span>
-  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBorderWidget</span><span class=o>&gt;</span> <span class=n>BorderWidget</span><span class=p>;</span>
-<span class=p>};</span>
-
-<span class=cp>#endif</span>
 </pre></div> <p><strong>BorderWidgetQtDriver.cxx</strong></p> <div class=codehilite><pre><span></span><span class=cp>#include</span> <span class=cpf>&lt;QApplication&gt;</span><span class=cp></span>
 <span class=cp>#include</span> <span class=cpf>&lt;QSurfaceFormat&gt;</span><span class=cp></span>
 <span class=cp>#include</span> <span class=cpf>&quot;BorderWidgetQt.h&quot;</span><span class=cp></span>
@@ -180,6 +156,105 @@ function registerListener(event, func) {
 
   <span class=k>return</span> <span class=n>app</span><span class=p>.</span><span class=n>exec</span><span class=p>();</span>
 <span class=p>}</span>
+</pre></div> <p><strong>BorderWidgetQt.ui</strong></p> <div class=codehilite><pre><span></span><span class=o>&lt;?</span><span class=n>xml</span> <span class=n>version</span><span class=o>=</span><span class=s>&quot;1.0&quot;</span> <span class=n>encoding</span><span class=o>=</span><span class=s>&quot;UTF-8&quot;</span><span class=o>?&gt;</span>
+<span class=o>&lt;</span><span class=n>ui</span> <span class=n>version</span><span class=o>=</span><span class=s>&quot;4.0&quot;</span><span class=o>&gt;</span>
+ <span class=o>&lt;</span><span class=n>class</span><span class=o>&gt;</span><span class=n>BorderWidgetQt</span><span class=o>&lt;/</span><span class=n>class</span><span class=o>&gt;</span>
+ <span class=o>&lt;</span><span class=n>widget</span> <span class=n>class</span><span class=o>=</span><span class=s>&quot;QMainWindow&quot;</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;BorderWidgetQt&quot;</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;geometry&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>rect</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>x</span><span class=o>&gt;</span><span class=mi>0</span><span class=o>&lt;/</span><span class=n>x</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>y</span><span class=o>&gt;</span><span class=mi>0</span><span class=o>&lt;/</span><span class=n>y</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>width</span><span class=o>&gt;</span><span class=mi>572</span><span class=o>&lt;/</span><span class=n>width</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>height</span><span class=o>&gt;</span><span class=mi>583</span><span class=o>&lt;/</span><span class=n>height</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>rect</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;windowTitle&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>string</span><span class=o>&gt;</span><span class=n>SimpleView</span><span class=o>&lt;/</span><span class=n>string</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;windowIcon&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>iconset</span> <span class=n>resource</span><span class=o>=</span><span class=s>&quot;Icons/icons.qrc&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>help</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>help</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>iconset</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;iconSize&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>size</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>width</span><span class=o>&gt;</span><span class=mi>22</span><span class=o>&lt;/</span><span class=n>width</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>height</span><span class=o>&gt;</span><span class=mi>22</span><span class=o>&lt;/</span><span class=n>height</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>size</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>widget</span> <span class=n>class</span><span class=o>=</span><span class=s>&quot;QWidget&quot;</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;centralwidget&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>widget</span> <span class=n>class</span><span class=o>=</span><span class=s>&quot;QVTKOpenGLWidget&quot;</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;qvtkWidget&quot;</span> <span class=n>native</span><span class=o>=</span><span class=s>&quot;true&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;geometry&quot;</span><span class=o>&gt;</span>
+     <span class=o>&lt;</span><span class=n>rect</span><span class=o>&gt;</span>
+      <span class=o>&lt;</span><span class=n>x</span><span class=o>&gt;</span><span class=mi>10</span><span class=o>&lt;/</span><span class=n>x</span><span class=o>&gt;</span>
+      <span class=o>&lt;</span><span class=n>y</span><span class=o>&gt;</span><span class=mi>20</span><span class=o>&lt;/</span><span class=n>y</span><span class=o>&gt;</span>
+      <span class=o>&lt;</span><span class=n>width</span><span class=o>&gt;</span><span class=mi>511</span><span class=o>&lt;/</span><span class=n>width</span><span class=o>&gt;</span>
+      <span class=o>&lt;</span><span class=n>height</span><span class=o>&gt;</span><span class=mi>541</span><span class=o>&lt;/</span><span class=n>height</span><span class=o>&gt;</span>
+     <span class=o>&lt;/</span><span class=n>rect</span><span class=o>&gt;</span>
+    <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>widget</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>widget</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>action</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;actionOpenFile&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;enabled&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=kt>bool</span><span class=o>&gt;</span><span class=nb>true</span><span class=o>&lt;/</span><span class=kt>bool</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;icon&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>iconset</span> <span class=n>resource</span><span class=o>=</span><span class=s>&quot;Icons/icons.qrc&quot;</span><span class=o>&gt;</span>
+     <span class=o>&lt;</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>fileopen</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>fileopen</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>iconset</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;text&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>string</span><span class=o>&gt;</span><span class=n>Open</span> <span class=n>File</span><span class=p>...</span><span class=o>&lt;/</span><span class=n>string</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>action</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>action</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;actionExit&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;icon&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>iconset</span><span class=o>&gt;</span>
+     <span class=o>&lt;</span><span class=n>normaloff</span><span class=o>/&gt;</span>
+    <span class=o>&lt;/</span><span class=n>iconset</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;text&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>string</span><span class=o>&gt;</span><span class=n>Exit</span><span class=o>&lt;/</span><span class=n>string</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>action</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>action</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;actionPrint&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;icon&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>iconset</span> <span class=n>resource</span><span class=o>=</span><span class=s>&quot;Icons/icons.qrc&quot;</span><span class=o>&gt;</span>
+     <span class=o>&lt;</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>print</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>print</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>iconset</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;text&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>string</span><span class=o>&gt;</span><span class=n>Print</span><span class=o>&lt;/</span><span class=n>string</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>action</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>action</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;actionHelp&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;icon&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>iconset</span> <span class=n>resource</span><span class=o>=</span><span class=s>&quot;Icons/icons.qrc&quot;</span><span class=o>&gt;</span>
+     <span class=o>&lt;</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>help</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>help</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>iconset</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;text&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>string</span><span class=o>&gt;</span><span class=n>Help</span><span class=o>&lt;/</span><span class=n>string</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>action</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>action</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;actionSave&quot;</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;icon&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>iconset</span> <span class=n>resource</span><span class=o>=</span><span class=s>&quot;Icons/icons.qrc&quot;</span><span class=o>&gt;</span>
+     <span class=o>&lt;</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>filesave</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>normaloff</span><span class=o>&gt;:/</span><span class=n>Icons</span><span class=o>/</span><span class=n>filesave</span><span class=p>.</span><span class=n>png</span><span class=o>&lt;/</span><span class=n>iconset</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>property</span> <span class=n>name</span><span class=o>=</span><span class=s>&quot;text&quot;</span><span class=o>&gt;</span>
+    <span class=o>&lt;</span><span class=n>string</span><span class=o>&gt;</span><span class=n>Save</span><span class=o>&lt;/</span><span class=n>string</span><span class=o>&gt;</span>
+   <span class=o>&lt;/</span><span class=n>property</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>action</span><span class=o>&gt;</span>
+ <span class=o>&lt;/</span><span class=n>widget</span><span class=o>&gt;</span>
+ <span class=o>&lt;</span><span class=n>customwidgets</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>customwidget</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>class</span><span class=o>&gt;</span><span class=n>QVTKOpenGLWidget</span><span class=o>&lt;/</span><span class=n>class</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>extends</span><span class=o>&gt;</span><span class=n>QWidget</span><span class=o>&lt;/</span><span class=n>extends</span><span class=o>&gt;</span>
+   <span class=o>&lt;</span><span class=n>header</span><span class=o>&gt;</span><span class=n>QVTKOpenGLWidget</span><span class=p>.</span><span class=n>h</span><span class=o>&lt;/</span><span class=n>header</span><span class=o>&gt;</span>
+  <span class=o>&lt;/</span><span class=n>customwidget</span><span class=o>&gt;</span>
+ <span class=o>&lt;/</span><span class=n>customwidgets</span><span class=o>&gt;</span>
+ <span class=o>&lt;</span><span class=n>resources</span><span class=o>&gt;</span>
+  <span class=o>&lt;</span><span class=n>include</span> <span class=n>location</span><span class=o>=</span><span class=s>&quot;Icons/icons.qrc&quot;</span><span class=o>/&gt;</span>
+ <span class=o>&lt;/</span><span class=n>resources</span><span class=o>&gt;</span>
+ <span class=o>&lt;</span><span class=n>connections</span><span class=o>/&gt;</span>
+<span class=o>&lt;/</span><span class=n>ui</span><span class=o>&gt;</span>
 </pre></div> <h3 id=cmakeliststxt>CMakeLists.txt<a class=headerlink href=#cmakeliststxt title="Permanent link">&para;</a></h3> <div class=codehilite><pre><span></span><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>2.8</span><span class=p>)</span>
 
 <span class=nb>if</span><span class=p>(</span><span class=s>POLICY</span> <span class=s>CMP0020</span><span class=p>)</span>
