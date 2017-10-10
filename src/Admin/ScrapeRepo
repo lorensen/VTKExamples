@@ -69,9 +69,9 @@ def GetTinyUrl(CacheDict, Url):
     print "cache miss: " + Url
     return CacheDict[Url]
     
-def GetVTKCMake(S):
-    reg = re.compile(r"\{\{(VTKCMakeLists)\|(.*?)\}\}.*?", re.DOTALL)
-    return [reg.findall(S)]
+def IsQtExample(S):
+    reg = re.compile(r".*Qt.*", re.DOTALL)
+    return reg.match(S)
 
 def GetVTKQtCMake(S):
     reg = re.compile(r"\{\{(VTKQtCMakeLists)\|(.*?)\}\}.*?", re.DOTALL)
@@ -163,7 +163,7 @@ def FillCMakeLists(S, Name, ExtraNames):
     return reg
 
 def FillQtCMakeLists(S, Name):
-    reg = re.sub(r'\{\{{2\}\}\}', Name, S)
+    reg = re.sub(r'XXX', Name, S)
     return reg
 
 if len(sys.argv) < 4:
@@ -351,7 +351,7 @@ for lang, langExt in Languages.items():
                 javaCount = javaCount + 1
             MdFile.write(src)
             MdFile.write("```" + "\n")
-
+            
             # Store the full file names for the example
             if ExampleName not in exampleToFileNames:
                 exampleToFileNames[ExampleName] = set()
@@ -382,10 +382,16 @@ for lang, langExt in Languages.items():
                 cmake = CustomCMakeFile.read()
                 CustomCMakeFile.close()
             else:
-                CMakeFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
-                CMakeContents = CMakeFile.read()
-                CMakeFile.close()
-                cmake = FillCMakeLists(CMakeContents, ExampleName, ExtraNames)
+                if IsQtExample(src) :
+                    CMakeFile = open(RepoDir + "/Admin/VTKQtCMakeLists", 'r')
+                    CMakeContents = CMakeFile.read()
+                    CMakeFile.close()
+                    cmake = FillQtCMakeLists(CMakeContents, ExampleName)
+                else :
+                    CMakeFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
+                    CMakeContents = CMakeFile.read()
+                    CMakeFile.close()
+                    cmake = FillCMakeLists(CMakeContents, ExampleName, ExtraNames)
             if lang == "Cxx": 
                 exampleToCMake[ExampleName] = GetVTKCMakelists(cmake)
                 MdFile.write(cmake)

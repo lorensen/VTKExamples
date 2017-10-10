@@ -35,5 +35,7 @@ and run it:
 ```
 ./XXX
 ```
-**WINDOWS USERS PLEASE NOTE:** Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.
+
+!!! note "WINDOWS USERS"
+    Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.
 

@@ -1,13 +1,12 @@
-==CMakeLists.txt==
-{{#tag:syntaxhighlight
-|
+###CMakeLists.txt
+```cmake
 cmake_minimum_required(VERSION 2.8)
  
 if(POLICY CMP0020)
   cmake_policy(SET CMP0020 NEW)
 endif()
 
-PROJECT({{{1}}})
+PROJECT(XXX)
 
 find_package(VTK REQUIRED)
 include(${VTK_USE_FILE})
@@ -30,45 +29,47 @@ file(GLOB CXX_FILES *.cxx)
 if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
   qt5_wrap_ui(UISrcs ${UI_FILES} )
   # CMAKE_AUTOMOC in ON so the MOC headers will be automatically wrapped.
-  add_executable({{{1}}} MACOSX_BUNDLE
+  add_executable(XXX MACOSX_BUNDLE
     ${CXX_FILES} ${UISrcs} ${QT_WRAP})
-  qt5_use_modules({{{1}}} Core Gui)
-  target_link_libraries({{{1}}} ${VTK_LIBRARIES})
+  qt5_use_modules(XXX Core Gui)
+  target_link_libraries(XXX ${VTK_LIBRARIES})
 else()
   QT4_WRAP_UI(UISrcs ${UI_FILES})
   QT4_WRAP_CPP(MOCSrcs ${QT_WRAP})
-  add_executable({{{1}}} MACOSX_BUNDLE ${CXX_FILES} ${UISrcs} ${MOCSrcs})
-
-  if(VTK_LIBRARIES)
-    if(${VTK_VERSION} VERSION_LESS "6")
-      target_link_libraries({{{1}}} ${VTK_LIBRARIES} QVTK)
-    else()
-      target_link_libraries({{{1}}} ${VTK_LIBRARIES})
-    endif()
-  else()
-    target_link_libraries({{{1}}} vtkHybrid QVTK vtkViews ${QT_LIBRARIES})
-  endif()
+  add_executable(XXX MACOSX_BUNDLE ${CXX_FILES} ${UISrcs} ${MOCSrcs})
+  target_link_libraries(XXX ${VTK_LIBRARIES})
 endif()
+```
 
-|lang=cmake}}
+###Download and Build XXX
+Click [https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/XXX.tar here to download XXX]. and its *CMakeLists.txt* file.
 
-==Download and Build {{{1}}}==
-Click [https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/{{{1}}}.tar here to download {{{1}}}]. and its ''CMakeLists.txt'' file.
-
-Once the tarball ''{{{1}}}.tar'' has been downloaded and extracted,
- cd {{{1}}}/build
-
+Once the tarball *XXX.tar* has been downloaded and extracted,
+```
+ cd XXX/build
+```
 This example requires Qt and VTK.
 
-* If VTK and Qt are installed:
+If VTK and Qt are installed:
+```
  cmake ..
-* If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:
+```
+If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:
+```
  cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-* If Qt is not found on your system, you will need to tell CMake where to find qmake:
- cmake -DQT_QMAKE_EXECUTABLE:FILEPATH=/usr/something/qmake  ..
+```
+If Qt is not found on your system, you will need to tell CMake where to find qmake:
+```
+cmake -DQT_QMAKE_EXECUTABLE:FILEPATH=/usr/something/qmake  ..
+```
 
 Build the project:
- make
+```
+make
+```
 and run it:
- ./{{{1}}}
-'''WINDOWS USERS PLEASE NOTE:''' Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time. You may also need to add a Qt related path.
+```
+./XXX
+```
+!!! note "WINDOWS USERS"
+    Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time. You may also need to add a Qt related path.
