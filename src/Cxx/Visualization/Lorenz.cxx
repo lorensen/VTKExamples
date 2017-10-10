@@ -32,9 +32,7 @@ int main( int, char *[] )
   double	zmin = -10.0;
   double	zmax = 60.0;
 
-  int randomMode = 1;
   double xIncr, yIncr, zIncr;
-  short	*slice;
 
   int	i, j;
   double	xx, yy, zz;
