@@ -41,6 +41,7 @@ Figure 3-33 | | The cow rotating about a vector passing through her nose. (a) Wi
 
 | Figure | Classes Demonstrated | Caption | Image |
 |--------|----------------------|---------|-------|
+Figure 4–1 | | Visualizing a quadric function ([Sample.cxx](https://gitlab.kitware.com/vtk/vtk/blob/3ad5fa14aaa30c57cab400a7494bd6e2eac37bf1/graphics/examplesCxx/Sample.cxx))
 Figure 4-11 | | Dividing a sphere into a piece (red) with ghost level cells and points (blue and green).
 [Figure 4-13](/Cxx/IO/3DSImporter) | | Importing and exporting files in VTK. An importer creates a vtkRenderWindow that describes the scene. Exporters use an instance of vtkRenderWindow to obtain a description of the scene ([3dsToRIB.tcl](/graphics/examplesTcl/3dsToRIB.tcl) and ([flamingo.tcl](https://gitlab.kitware.com/vtk/vtk/blob/2d323fc4f7476ad024d0f4a164a0930f005bc154/Examples/IO/Tcl/flamingo.tcl)).
 [Figure 4-21](/Cxx/Rendering/Mace) | | An example of multiple inputs and outputs ([Mace.cxx](https://gitlab.kitware.com/vtk/vtk/blob/cdd4d6fdec8b4b2c143224ca1d94699c96a8b58a/Rendering/Core/Testing/Cxx/Mace.cxx)).
