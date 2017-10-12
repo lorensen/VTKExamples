@@ -34,8 +34,8 @@ Figure 3-26 | | Examples of source objects that procedurally generate polygonal 
 Figure 3-27 | | Four frames of output from Cone3.cxx 
 Figure 3-28 | | Modifying properties and transformation matrix (Cone4.cxx)
 [Figure 3-31](/Cxx/Rendering/Rotations) | vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes. In this model, the x axis is from the left to right; the y axis is from bottom to top; and the z axis emerges from the image. The camera location is the same in all four images ([rotations.tcl](https://gitlab.kitware.com/vtk/vtk/blob/cdd4d6fdec8b4b2c143224ca1d94699c96a8b58a/Rendering/Core/Testing/Tcl/rotations.tcl)).
-[Figure 3-32](/Cxx/Rendering/WalkCow)|  vtkBYUReader renWin::EraseOff() vtkActor | The cow "walking" around the global origin ([walkCow.tcl](https://gitlab.kitware.com/vtk/vtk/blob/d669b22d2fbfa9e28e348a7569eab2bea46459b0/graphics/examplesTcl/walkCow.tcl)).
-[Figure 3-33](/Cxx/Rendering/WalkCow) | vtkBYUReader renWin::EraseOff() vtkActor | The cow rotating about a vector passing through her nose. (a) With origin (0,0,0).  (b) With origin at (6.1,1.3,.02). ([walkCow.tcl](https://gitlab.kitware.com/vtk/vtk/blob/d669b22d2fbfa9e28e348a7569eab2bea46459b0/graphics/examplesTcl/walkCow.tcl)).
+[Figure 3-32](/Cxx/Rendering/WalkCow)|  vtkBYUReader vtkRenderer::EraseOff() vtkActor | The cow "walking" around the global origin ([walkCow.tcl](https://gitlab.kitware.com/vtk/vtk/blob/d669b22d2fbfa9e28e348a7569eab2bea46459b0/graphics/examplesTcl/walkCow.tcl)).
+[Figure 3-33](/Cxx/Rendering/WalkCow) | vtkBYUReader vtkRenderer::EraseOff() vtkActor | The cow rotating about a vector passing through her nose. (a) With origin (0,0,0).  (b) With origin at (6.1,1.3,.02). ([walkCow.tcl](https://gitlab.kitware.com/vtk/vtk/blob/d669b22d2fbfa9e28e348a7569eab2bea46459b0/graphics/examplesTcl/walkCow.tcl)).
 
 ## Chapter 4 - The Visualization Pipeline
 
