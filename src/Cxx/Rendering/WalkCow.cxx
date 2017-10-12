@@ -68,14 +68,20 @@ int main(int argc, char* argv[])
     return;
   };
 
-  if (argc != 2)
+  int figure = 0;
+  if (argc < 2)
   {
-    std::cout << "usage: ./WalkCow filename" << std::endl;
+    std::cout << "Usage: " << argv[0] << " filename [figure]" << std::endl;
     std::cout << "where: filename is the file cow.g" << std::endl;
+    std::cout << "       figure is 0, 1, 0r 2, default 0" << std::endl;
     return EXIT_FAILURE;
   }
 
   std::string fileName = argv[1];
+  if (argc == 3)
+  {
+    figure = atoi(argv[2]);
+  }
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
   // Set the background color. Match those in VTKTextbook.pdf.
@@ -148,10 +154,22 @@ int main(int argc, char* argv[])
   Rotate_XY(cowActor, ren, renWin);
 
   ren->SetBackground(colors->GetColor3d("BkgColor2").GetData());
-  Rotate_V_0(cowActor, ren, renWin);
-  Rotate_V_V(cowActor, ren, renWin);
-  // Walk() needs to go after Rotate_V_0() or Rotate_V_V().
-  Walk(cowActor, ren, renWin);
+  switch (figure)
+  {
+  default:
+  case 0:
+    Rotate_V_0(cowActor, ren, renWin);
+    Rotate_V_V(cowActor, ren, renWin);
+    // Walk() needs to go after Rotate_V_0() or Rotate_V_V().
+    Walk(cowActor, ren, renWin);
+    break;
+  case 1:
+    Rotate_V_0(cowActor, ren, renWin);
+    break;
+  case 2:
+    Rotate_V_V(cowActor, ren, renWin);
+    break;
+  }
 
   // Interact with data.
   // Keep the last rendered image.
