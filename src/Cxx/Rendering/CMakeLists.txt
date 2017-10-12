@@ -29,6 +29,7 @@ SET(KIT Rendering)
 SET(NEEDS_ARGS
   Rainbow
   Rotations
+  WalkCow
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
@@ -38,6 +39,9 @@ ADD_TEST(${KIT}-Rotations ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-Rainbow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestRainbow ${DATA}/combxyz.bin ${DATA}/combq.bin)
+
+ADD_TEST(${KIT}-WalkCow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestWalkCow ${DATA}/cow.g)
 
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 
