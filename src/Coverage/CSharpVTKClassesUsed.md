@@ -1,6 +1,6 @@
 # VTK Classes used in the Examples
 ## CSharp
-Out of 2363 available VTK classes, 181 are demonstrated here.  
+Out of 2365 available VTK classes, 181 are demonstrated here.  
 These classes are excluded since they occur in the majority of the examples:  
 - [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor)
 - [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera)
