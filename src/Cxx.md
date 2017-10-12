@@ -783,6 +783,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [Rainbow](/Cxx/Rendering/Rainbow)| vtkLookupTable | Use and manipulation of vtkLookupTables.
 [SpecularSpheres](/Cxx/Rendering/SpecularSpheres)| vtkProperty |Demonstrates the effect of specular lighting on spheres.
 [StippledLine](/Cxx/Rendering/StippledLine)| vtkTexture | Draw a stippled line.
+[WalkCow](/Cxx/Rendering/WalkCow) | vtkBYUReader renWin::EraseOff() vtkActor | This generates Figs. 3-31, 3-32, 3-33 found in VTKTextbook.pdf.
 
 
 ## Lighting

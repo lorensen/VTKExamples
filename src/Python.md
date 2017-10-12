@@ -161,6 +161,11 @@ This section includes examples of manipulating meshes.
 [Variant](/Python/Variant) | vtkVariant |
 vtkVersion |
 
+## Rendering
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[WalkCow](/Python/Rendering/WalkCow) | vtkBYUReader renWin::EraseOff() vtkActor | This generates Figs. 3-31, 3-32, 3-33 found in VTKTextbook.pdf.
+
 ## Visualization
 
 | Example Name | Classes Demonstrated | Description | Image |
