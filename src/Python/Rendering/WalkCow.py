@@ -6,7 +6,7 @@ import vtk
 
 
 def main():
-    file_name = get_program_parameters()
+    file_name, figure = get_program_parameters()
 
     colors = vtk.vtkNamedColors()
     # Set the background color. Match those in VTKTextbook.pdf.
@@ -58,9 +58,6 @@ def main():
     cowAxes.VisibilityOn()
     renWin.Render()
 
-    # A general comment:
-    # EraseOff() has to be called after a Render() call to work in the desired way.
-
     # Activate this if you want to see the Position and Focal point.
     # ren.GetActiveCamera().AddObserver('ModifiedEvent', CameraModifiedCallback)
 
@@ -71,10 +68,15 @@ def main():
     Rotate_XY(cowActor, ren, renWin)
 
     ren.SetBackground(colors.GetColor3d("BkgColor2"))
-    Rotate_V_0(cowActor, ren, renWin)
-    Rotate_V_V(cowActor, ren, renWin)
-    # Walk() needs to go after Rotate_V_0() or Rotate_V_V().
-    Walk(cowActor, ren, renWin)
+    if figure == 1:
+        Rotate_V_0(cowActor, ren, renWin)
+    elif figure == 2:
+        Rotate_V_V(cowActor, ren, renWin)
+    else:
+        Rotate_V_0(cowActor, ren, renWin)
+        Rotate_V_V(cowActor, ren, renWin)
+        # Walk() needs to go after Rotate_V_0() or Rotate_V_V().
+        Walk(cowActor, ren, renWin)
 
     # Interact with data.
     renWin.EraseOff()
@@ -90,8 +92,9 @@ def get_program_parameters():
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
     parser.add_argument('filename', help='The file cow.g.')
+    parser.add_argument('figure', default=0, type=int, nargs='?', help='The particular rotation that you want to view.')
     args = parser.parse_args()
-    return args.filename
+    return args.filename, args.figure
 
 
 """
@@ -264,12 +267,12 @@ def Rotate_V_0(cowActor, ren, renWin):
     Screenshot("Fig3-33a.png", renWin)
     renWin.EraseOn()
     # Put the cow back on the origin.
-    for idx in range(0, 6):
-        cowActor.RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036)
-    cowActor.SetUserMatrix(cowPos.GetMatrix())
-    ren.GetActiveCamera().SetPosition(0, 0, 1)
-    ren.GetActiveCamera().SetViewUp(0, 1, 0)
-    ren.ResetCamera()
+    # for idx in range(0, 6):
+    #     cowActor.RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036)
+    # cowActor.SetUserMatrix(cowPos.GetMatrix())
+    # ren.GetActiveCamera().SetPosition(0, 0, 1)
+    # ren.GetActiveCamera().SetViewUp(0, 1, 0)
+    # ren.ResetCamera()
 
 
 def Rotate_V_V(cowActor, ren, renWin):
@@ -306,9 +309,9 @@ def Rotate_V_V(cowActor, ren, renWin):
     Screenshot("Fig3-33b.png", renWin)
     renWin.EraseOn()
     # Put the cow back on the origin.
-    for idx in range(0, 6):
-        cowActor.RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036)
-    cowActor.SetUserMatrix(cowPos.GetMatrix())
+    # for idx in range(0, 6):
+    #     cowActor.RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036)
+    # cowActor.SetUserMatrix(cowPos.GetMatrix())
 
 
 def Walk(cowActor, ren, renWin):

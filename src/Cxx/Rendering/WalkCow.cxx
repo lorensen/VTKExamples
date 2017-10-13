@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
   {
     std::cout << "Usage: " << argv[0] << " filename [figure]" << std::endl;
     std::cout << "where: filename is the file cow.g" << std::endl;
-    std::cout << "       figure is 0, 1, 0r 2, default 0" << std::endl;
+    std::cout << "       figure is 0, 1, or 2, default 0" << std::endl;
     return EXIT_FAILURE;
   }
 
@@ -156,19 +156,19 @@ int main(int argc, char* argv[])
   ren->SetBackground(colors->GetColor3d("BkgColor2").GetData());
   switch (figure)
   {
-  default:
-  case 0:
-    Rotate_V_0(cowActor, ren, renWin);
-    Rotate_V_V(cowActor, ren, renWin);
-    // Walk() needs to go after Rotate_V_0() or Rotate_V_V().
-    Walk(cowActor, ren, renWin);
-    break;
-  case 1:
-    Rotate_V_0(cowActor, ren, renWin);
-    break;
-  case 2:
-    Rotate_V_V(cowActor, ren, renWin);
-    break;
+    default:
+    case 0:
+      Rotate_V_0(cowActor, ren, renWin);
+      Rotate_V_V(cowActor, ren, renWin);
+      // Walk() needs to go after Rotate_V_0() or Rotate_V_V().
+      Walk(cowActor, ren, renWin);
+      break;
+    case 1:
+      Rotate_V_0(cowActor, ren, renWin);
+      break;
+    case 2:
+      Rotate_V_V(cowActor, ren, renWin);
+      break;
   }
 
   // Interact with data.
@@ -354,14 +354,14 @@ void Rotate_V_0(vtkActor* cowActor, vtkRenderer* ren, vtkRenderWindow* renWin)
   Screenshot("Fig3-33a.png", renWin);
   renWin->EraseOn();
   // Put the cow back on the origin.
-  for (int idx = 0; idx < 6; idx++)
-  {
-    cowActor->RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036);
-  }
-  cowActor->SetUserMatrix(cowPos->GetMatrix());
-  ren->GetActiveCamera()->SetPosition(0, 0, 1);
-  ren->GetActiveCamera()->SetViewUp(0, 1, 0);
-  ren->ResetCamera();
+  // for (int idx = 0; idx < 6; idx++)
+  //{
+  //  cowActor->RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036);
+  //}
+  // cowActor->SetUserMatrix(cowPos->GetMatrix());
+  // ren->GetActiveCamera()->SetPosition(0, 0, 1);
+  // ren->GetActiveCamera()->SetViewUp(0, 1, 0);
+  // ren->ResetCamera();
 }
 
 void Rotate_V_V(vtkActor* cowActor, vtkRenderer* ren, vtkRenderWindow* renWin)
@@ -404,11 +404,11 @@ void Rotate_V_V(vtkActor* cowActor, vtkRenderer* ren, vtkRenderWindow* renWin)
   Screenshot("Fig3-33b.png", renWin);
   renWin->EraseOn();
   // Put the cow back on the origin.
-  for (int idx = 0; idx < 6; idx++)
-  {
-    cowActor->RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036);
-  }
-  cowActor->SetUserMatrix(cowPos->GetMatrix());
+  // for (int idx = 0; idx < 6; idx++)
+  //{
+  //  cowActor->RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036);
+  //}
+  // cowActor->SetUserMatrix(cowPos->GetMatrix());
 }
 
 void Walk(vtkActor* cowActor, vtkRenderer* ren, vtkRenderWindow* renWin)
@@ -494,5 +494,4 @@ void Screenshot(std::string fileName, vtkRenderWindow* renWin)
   writer->SetInputConnection(windowToImageFilter->GetOutputPort());
   writer->Write();
 }
-
 }
