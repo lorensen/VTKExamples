@@ -1,16 +1,17 @@
+#include <vtkActor.h>
+#include <vtkAppendFilter.h>
 #include <vtkCamera.h>
-#include <vtkRenderer.h>
+#include <vtkContourFilter.h>
+#include <vtkDataSetMapper.h>
+#include <vtkExtractVOI.h>
+#include <vtkOutlineFilter.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkQuadric.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkQuadric.h>
-#include <vtkAppendFilter.h>
-#include <vtkExtractVOI.h>
+#include <vtkRenderer.h>
 #include <vtkSampleFunction.h>
-#include <vtkContourFilter.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkDataSetMapper.h>
-#include <vtkProperty.h>
-#include <vtkActor.h>
 #include <vtkUnstructuredGrid.h>
 
 #include <vtkNamedColors.h>
@@ -24,10 +25,15 @@ void CreateIsosurface(vtkSmartPointer<vtkSampleFunction> &function,
 void CreatePlanes(vtkSmartPointer<vtkSampleFunction> &function,
                   vtkSmartPointer<vtkActor> &actor,
                   unsigned numberOfPlanes);
+
 void CreateContours(vtkSmartPointer<vtkSampleFunction> &function,
                     vtkSmartPointer<vtkActor> &actor,
                     unsigned numberOfPlanes,
                     unsigned numberOfContours);
+
+void CreateOutline(vtkSmartPointer<vtkSampleFunction> &function,
+                   vtkSmartPointer<vtkActor> &actor);
+
 }
 int main( int, char *[] )
 { 
@@ -64,23 +70,50 @@ int main( int, char *[] )
   vtkSmartPointer<vtkActor> isoActor =
     vtkSmartPointer<vtkActor>::New();
   CreateIsosurface(sample, isoActor);
+  vtkSmartPointer<vtkActor> outlineIsoActor =
+    vtkSmartPointer<vtkActor>::New();
+  CreateOutline(sample, outlineIsoActor);
 
   vtkSmartPointer<vtkActor> planesActor =
     vtkSmartPointer<vtkActor>::New();
   CreatePlanes(sample, planesActor, 3);
+  vtkSmartPointer<vtkActor> outlinePlanesActor =
+    vtkSmartPointer<vtkActor>::New();
+  CreateOutline(sample, outlinePlanesActor);
   planesActor->AddPosition(isoActor->GetBounds()[0] * 2.0, 0, 0);
+  outlinePlanesActor->AddPosition(isoActor->GetBounds()[0] * 2.0, 0, 0);
 
-  vtkSmartPointer<vtkActor> contourActor =
+  vtkSmartPointer<vtkActor> contourActor=
     vtkSmartPointer<vtkActor>::New();
   CreateContours(sample,contourActor, 3, 15);
-  contourActor->AddPosition(contourActor->GetBounds()[0] * 4.0, 0, 0);
+  vtkSmartPointer<vtkActor> outlineContourActor =
+    vtkSmartPointer<vtkActor>::New();
+  CreateOutline(sample, outlineContourActor);
+  contourActor->AddPosition(isoActor->GetBounds()[0] * 4.0, 0, 0);
+  outlineContourActor->AddPosition(isoActor->GetBounds()[0] * 4.0, 0, 0);
 
   renderer->AddActor(planesActor);
+  renderer->AddActor(outlinePlanesActor);
   renderer->AddActor(contourActor);
+  renderer->AddActor(outlineContourActor);
   renderer->AddActor(isoActor);
+  renderer->AddActor(outlineIsoActor);
+
+
   renderer->TwoSidedLightingOn();
 
   renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
+
+  // Try to set camera to match figure on book
+  renderer->GetActiveCamera()->SetPosition (0, -1, 0);
+  renderer->GetActiveCamera()->SetFocalPoint (0, 0, 0);
+  renderer->GetActiveCamera()->SetViewUp (0, 0, -1);
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Elevation(20);
+  renderer->GetActiveCamera()->Azimuth(10);
+  renderer->GetActiveCamera()->Dolly(1.2);
+  renderer->ResetCameraClippingRange();
+
   renderWindow->SetSize(640, 480);
   renderWindow->Render();
 
@@ -195,6 +228,18 @@ void CreateContours(vtkSmartPointer<vtkSampleFunction> &function,
 
   actor->SetMapper(planesMapper);
   actor->GetProperty()->SetAmbient(1.);
+  return;
+}
+void CreateOutline(vtkSmartPointer<vtkSampleFunction> &source,
+                   vtkSmartPointer<vtkActor> &actor)
+{
+  vtkSmartPointer<vtkOutlineFilter> outline =
+    vtkSmartPointer<vtkOutlineFilter>::New();
+  outline->SetInputConnection(source->GetOutputPort());
+  vtkSmartPointer<vtkPolyDataMapper> mapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
+  mapper->SetInputConnection(outline->GetOutputPort());
+  actor->SetMapper(mapper);
   return;
 }
 }
