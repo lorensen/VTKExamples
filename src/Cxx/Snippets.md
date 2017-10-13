@@ -1,5 +1,5 @@
 ### Description
-Snippets are chuncks of code that can be cut (*snipped*) and pasted into examples. We want each example tobe stand-alone, so we do not keep the snippet code in a library.
+Snippets are chunks of code that can be cut (*snipped*) and pasted into examples. We want each example to be stand-alone, so we do not keep the snippet code in a library.
 
 ### Available snippets
 
