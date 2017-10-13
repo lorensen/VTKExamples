@@ -65,7 +65,7 @@ function registerListener(event, func) {
 </span>
 
 <span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
-    <span class=n>file_name</span> <span class=o>=</span> <span class=n>get_program_parameters</span><span class=p>()</span>
+    <span class=n>file_name</span><span class=p>,</span> <span class=n>figure</span> <span class=o>=</span> <span class=n>get_program_parameters</span><span class=p>()</span>
 
 <span class=hll>    <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
 </span>    <span class=c1># Set the background color. Match those in VTKTextbook.pdf.</span>
@@ -117,9 +117,6 @@ function registerListener(event, func) {
     <span class=n>cowAxes</span><span class=o>.</span><span class=n>VisibilityOn</span><span class=p>()</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
 
-    <span class=c1># A general comment:</span>
-    <span class=c1># EraseOff() has to be called after a Render() call to work in the desired way.</span>
-
     <span class=c1># Activate this if you want to see the Position and Focal point.</span>
     <span class=c1># ren.GetActiveCamera().AddObserver(&#39;ModifiedEvent&#39;, CameraModifiedCallback)</span>
 
@@ -130,10 +127,15 @@ function registerListener(event, func) {
     <span class=n>Rotate_XY</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
 
     <span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>.</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s2>&quot;BkgColor2&quot;</span><span class=p>))</span>
-    <span class=n>Rotate_V_0</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
-    <span class=n>Rotate_V_V</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
-    <span class=c1># Walk() needs to go after Rotate_V_0() or Rotate_V_V().</span>
-    <span class=n>Walk</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
+    <span class=k>if</span> <span class=n>figure</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span>
+        <span class=n>Rotate_V_0</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
+    <span class=k>elif</span> <span class=n>figure</span> <span class=o>==</span> <span class=mi>2</span><span class=p>:</span>
+        <span class=n>Rotate_V_V</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=n>Rotate_V_0</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
+        <span class=n>Rotate_V_V</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
+        <span class=c1># Walk() needs to go after Rotate_V_0() or Rotate_V_V().</span>
+        <span class=n>Walk</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
 
     <span class=c1># Interact with data.</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>EraseOff</span><span class=p>()</span>
@@ -149,8 +151,9 @@ function registerListener(event, func) {
 <span class=s1>   &#39;&#39;&#39;</span>
     <span class=n>parser</span> <span class=o>=</span> <span class=n>argparse</span><span class=o>.</span><span class=n>ArgumentParser</span><span class=p>(</span><span class=n>description</span><span class=o>=</span><span class=n>description</span><span class=p>,</span> <span class=n>epilog</span><span class=o>=</span><span class=n>epilogue</span><span class=p>)</span>
     <span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s1>&#39;filename&#39;</span><span class=p>,</span> <span class=n>help</span><span class=o>=</span><span class=s1>&#39;The file cow.g.&#39;</span><span class=p>)</span>
+    <span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s1>&#39;figure&#39;</span><span class=p>,</span> <span class=n>default</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span> <span class=nb>type</span><span class=o>=</span><span class=nb>int</span><span class=p>,</span> <span class=n>nargs</span><span class=o>=</span><span class=s1>&#39;?&#39;</span><span class=p>,</span> <span class=n>help</span><span class=o>=</span><span class=s1>&#39;The particular rotation that you want to view.&#39;</span><span class=p>)</span>
     <span class=n>args</span> <span class=o>=</span> <span class=n>parser</span><span class=o>.</span><span class=n>parse_args</span><span class=p>()</span>
-    <span class=k>return</span> <span class=n>args</span><span class=o>.</span><span class=n>filename</span>
+    <span class=k>return</span> <span class=n>args</span><span class=o>.</span><span class=n>filename</span><span class=p>,</span> <span class=n>args</span><span class=o>.</span><span class=n>figure</span>
 
 
 <span class=sd>&quot;&quot;&quot;</span>
@@ -323,12 +326,12 @@ function registerListener(event, func) {
     <span class=n>Screenshot</span><span class=p>(</span><span class=s2>&quot;Fig3-33a.png&quot;</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>EraseOn</span><span class=p>()</span>
     <span class=c1># Put the cow back on the origin.</span>
-    <span class=k>for</span> <span class=n>idx</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>6</span><span class=p>):</span>
-        <span class=n>cowActor</span><span class=o>.</span><span class=n>RotateWXYZ</span><span class=p>(</span><span class=o>-</span><span class=mi>60</span><span class=p>,</span> <span class=mf>2.19574</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.42455</span><span class=p>,</span> <span class=o>-</span><span class=mf>0.0331036</span><span class=p>)</span>
-    <span class=n>cowActor</span><span class=o>.</span><span class=n>SetUserMatrix</span><span class=p>(</span><span class=n>cowPos</span><span class=o>.</span><span class=n>GetMatrix</span><span class=p>())</span>
-    <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
-    <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>SetViewUp</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
-    <span class=n>ren</span><span class=o>.</span><span class=n>ResetCamera</span><span class=p>()</span>
+    <span class=c1># for idx in range(0, 6):</span>
+    <span class=c1>#     cowActor.RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036)</span>
+    <span class=c1># cowActor.SetUserMatrix(cowPos.GetMatrix())</span>
+    <span class=c1># ren.GetActiveCamera().SetPosition(0, 0, 1)</span>
+    <span class=c1># ren.GetActiveCamera().SetViewUp(0, 1, 0)</span>
+    <span class=c1># ren.ResetCamera()</span>
 
 
 <span class=k>def</span> <span class=nf>Rotate_V_V</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>):</span>
@@ -365,9 +368,9 @@ function registerListener(event, func) {
     <span class=n>Screenshot</span><span class=p>(</span><span class=s2>&quot;Fig3-33b.png&quot;</span><span class=p>,</span> <span class=n>renWin</span><span class=p>)</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>EraseOn</span><span class=p>()</span>
     <span class=c1># Put the cow back on the origin.</span>
-    <span class=k>for</span> <span class=n>idx</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>6</span><span class=p>):</span>
-        <span class=n>cowActor</span><span class=o>.</span><span class=n>RotateWXYZ</span><span class=p>(</span><span class=o>-</span><span class=mi>60</span><span class=p>,</span> <span class=mf>2.19574</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.42455</span><span class=p>,</span> <span class=o>-</span><span class=mf>0.0331036</span><span class=p>)</span>
-    <span class=n>cowActor</span><span class=o>.</span><span class=n>SetUserMatrix</span><span class=p>(</span><span class=n>cowPos</span><span class=o>.</span><span class=n>GetMatrix</span><span class=p>())</span>
+    <span class=c1># for idx in range(0, 6):</span>
+    <span class=c1>#     cowActor.RotateWXYZ(-60, 2.19574, -1.42455, -0.0331036)</span>
+    <span class=c1># cowActor.SetUserMatrix(cowPos.GetMatrix())</span>
 
 
 <span class=k>def</span> <span class=nf>Walk</span><span class=p>(</span><span class=n>cowActor</span><span class=p>,</span> <span class=n>ren</span><span class=p>,</span> <span class=n>renWin</span><span class=p>):</span>
