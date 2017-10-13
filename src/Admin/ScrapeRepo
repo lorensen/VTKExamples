@@ -1,5 +1,6 @@
 #!/usr/bin/python
 #imports
+from __future__ import print_function
 import re
 import os, sys, shutil
 import tarfile
@@ -8,30 +9,30 @@ import tempfile
 try:
     import tinyurl
 except:
-    print "ScrapeRepo: " + "tinyurl package is required but not found."
-    print "ScrapeRepo: " + "install with `pip install tinyurl`"
+    print("ScrapeRepo: " + "tinyurl package is required but not found.")
+    print("ScrapeRepo: " + "install with `pip install tinyurl`")
     exit(0)
 
 try:
     import markdown
 except:
-    print "ScrapeRepo: " + "markdown package is required but not found."
-    print "ScrapeRepo: " + "install with `pip install markdown`"
+    print("ScrapeRepo: " + "markdown package is required but not found.")
+    print("ScrapeRepo: " + "install with `pip install markdown`")
     exit(0)
     
 def displayHelp():
-    print """
+    print(""")
 Usage: ScrapeRepo RepoDir DocDir RepoURL
   Create site files from the src repo
     where RepoDir is the directory containing example source core
           DocDir is the directory to receive the markdown pages
           RepoURL is the githib repo URL
-"""
+""")
     exit(0)
 
 # convert a file from markdown to html
 def ConvertAndCopyFile(fromFile, toFile):
-    mdFile = open(fromFile, 'r');
+    mdFile = open(fromFile, 'r')
     htmlFile = open(toFile, 'w')
     md = mdFile.read()
     mdFile.close()
@@ -41,7 +42,7 @@ def ConvertAndCopyFile(fromFile, toFile):
     
 # copy a file
 def CopyFile(fromFile, toFile):
-    mdFile = open(fromFile, 'r');
+    mdFile = open(fromFile, 'r')
     outFile = open(toFile, 'w')
     md = mdFile.read()
     mdFile.close()
@@ -64,9 +65,9 @@ def GetTinyUrl(CacheDict, Url):
         cacheHits = cacheHits + 1
         return CacheDict[Url]
     tinyOne = tinyurl.create_one(Url)
-    CacheDict[Url] = tinyOne;
+    CacheDict[Url] = tinyOne
     cacheMisses = cacheMisses + 1
-    print "cache miss: " + Url
+    print("cache miss: " + Url)
     return CacheDict[Url]
     
 def IsQtExample(S):
@@ -85,7 +86,7 @@ def GetVTKCMakelists(S):
 def WriteCxxCode(toFile, codeName, code):
     toFile.write("**" + codeName + "**" + "\n")
     toFile.write("```c++" + "\n")
-    toFile.write(code);
+    toFile.write(code)
     toFile.write("```" + "\n")
 
 # Return hl_lines to highlight lines that have vtk classes mentiones
@@ -113,7 +114,7 @@ def AddDoxygen(S):
 
 # add doxygen links to a file
 def AddDoxygens(repoDir, repoURL, fromFile, toFile):
-    mdFile = open(fromFile, 'r');
+    mdFile = open(fromFile, 'r')
     outFile = open(toFile, 'w')
     for line in mdFile:
         withDoxy = AddDoxygen(line)
@@ -132,7 +133,7 @@ def FindThumbnail(S):
 # add thumbnails to a file
 def AddThumbnails(repoDir, repoURL, fromFile, toFile):
     global thumbCount
-    mdFile = open(fromFile, 'r');
+    mdFile = open(fromFile, 'r')
     outFile = open(toFile, 'w')
     for line in mdFile:
         withDoxy = AddDoxygen(line)
@@ -174,13 +175,13 @@ if len(sys.argv) < 4:
 RepoDir = sys.argv[1]
 DocDir = sys.argv[2]
 RepoURL = sys.argv[3]
-cacheHits = 0;
-cacheMisses = 0;
+cacheHits = 0
+cacheMisses = 0
 
-cxxCount = 0;
-csCount = 0;
-pyCount = 0;
-javaCount = 0;
+cxxCount = 0
+csCount = 0
+pyCount = 0
+javaCount = 0
 
 thumbCount = 0
 doxyCount = 0
@@ -197,11 +198,11 @@ LoadTinyUrlCache(CacheFile, CacheDict)
 
 # Read the Wiki Templates
 VTKTemplateFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
-VTKTemplate = VTKTemplateFile.read();
+VTKTemplate = VTKTemplateFile.read()
 VTKTemplateFile.close()
 
 VTKQtTemplateFile = open(RepoDir + "/Admin/VTKQtCMakeLists", 'r')
-VTKQtTemplate = VTKQtTemplateFile.read();
+VTKQtTemplate = VTKQtTemplateFile.read()
 VTKQtTemplateFile.close()
 
 # Make the reference mtime to be the most recent of the two CMakeLists templates
@@ -222,17 +223,23 @@ exampleToFileNames = dict()
 
 if not os.path.exists(DocDir + "/Cxx/Snippets"):
     os.makedirs(DocDir + "/Cxx/Snippets")
+if not os.path.exists(DocDir + "/Python/Snippets"):
+    os.makedirs(DocDir + "/Python/Snippets")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "/Java.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Snippets.md")
+AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python/Snippets.md", DocDir + "/Python/Snippets.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", DocDir + "/VTKBookFigures.md")
 
 # Snippets
 snippets = ['ReadPolyData', 'SaveSceneToFieldData', 'SaveSceneToFile', 'RestoreSceneFromFieldData', 'RestoreSceneFromFile', 'ChooseContrastingColor']
 for snippet in snippets:
     CopyFile(RepoDir + '/Cxx/Snippets/' + snippet + '.md', DocDir + '/Cxx/Snippets/' + snippet + '.md')
+snippets = ['GetProgramParameters', 'ReadPolyData', 'WritePNG']
+for snippet in snippets:
+    CopyFile(RepoDir + '/Python/Snippets/' + snippet + '.md', DocDir + '/Python/Snippets/' + snippet + '.md')
 
 # Convert repo .md files
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
@@ -403,8 +410,8 @@ for lang, langExt in Languages.items():
 # Generate an html page that links each example code file to its Wiki Example
 # page
 indexFile = open(DocDir + "/ExampleCodeToWikiPage.html", 'w')
-indexFile.write("Navigate to the page that contains the source code of an example<br>");
-indexFile.write("\n");
+indexFile.write("Navigate to the page that contains the source code of an example<br>")
+indexFile.write("\n")
 sortedByCode = sorted(codeToPage.items())
 for item in sortedByCode:
     indexFile.write("<A HREF=" + RepoURL + "/wikis" + re.sub(" ", "_", item[1]) + ">" + item[0] + "</A>")
@@ -482,13 +489,13 @@ if cacheMisses > 0 :
     cf.close()
 
 # Report stats
-print "ScrapeRepo Summary"
-print "    C++ examples: " + str(cxxCount)
-print "    CSharp examples: " + str(csCount)
-print "    Python examples: " + str(pyCount)
-print "    Java examples: " + str(javaCount)
-print "    Total examples: " + str(cxxCount + csCount + pyCount + javaCount)
-print "    Doxygen added: " + str(doxyCount)
-print "    Thumbnails added: " + str(thumbCount)
-print "    TinyUrl Cache hits: " + str(cacheHits)
-print "    TinyUrl Cache misses: " + str(cacheMisses)
+print("ScrapeRepo Summary")
+print("    C++ examples: " + str(cxxCount))
+print("    CSharp examples: " + str(csCount))
+print("    Python examples: " + str(pyCount))
+print("    Java examples: " + str(javaCount))
+print("    Total examples: " + str(cxxCount + csCount + pyCount + javaCount))
+print("    Doxygen added: " + str(doxyCount))
+print("    Thumbnails added: " + str(thumbCount))
+print("    TinyUrl Cache hits: " + str(cacheHits))
+print("    TinyUrl Cache misses: " + str(cacheMisses))
