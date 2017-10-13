@@ -1,45 +1,82 @@
 
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkAxes.h>
-#include <vtkProperty.h>
 #include <vtkCamera.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
 
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
 #include <vtkPolyDataReader.h>
 #include <vtkSTLReader.h>
-#include <vtkXMLPolyDataReader.h>
 #include <vtkSphereSource.h>
+#include <vtkXMLPolyDataReader.h>
 #include <vtksys/SystemTools.hxx>
 
 #include <vtkNamedColors.h>
 
 namespace
 {
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
-void  RotateX (vtkSmartPointer<vtkRenderWindow> &renWin,
-               vtkSmartPointer<vtkActor> &actor);
-void  RotateY (vtkSmartPointer<vtkRenderWindow> &renWin,
-               vtkSmartPointer<vtkActor> &actor);
-void  RotateZ (vtkSmartPointer<vtkRenderWindow> &renWin,
-               vtkSmartPointer<vtkActor> &actor);
-void  RotateXY (vtkSmartPointer<vtkRenderWindow> &renWin,
-                vtkSmartPointer<vtkActor> &actor);
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName);
+void RotateX(vtkSmartPointer<vtkRenderWindow>& renWin,
+             vtkSmartPointer<vtkActor>& actor);
+void RotateY(vtkSmartPointer<vtkRenderWindow>& renWin,
+             vtkSmartPointer<vtkActor>& actor);
+void RotateZ(vtkSmartPointer<vtkRenderWindow>& renWin,
+             vtkSmartPointer<vtkActor>& actor);
+void RotateXY(vtkSmartPointer<vtkRenderWindow>& renWin,
+              vtkSmartPointer<vtkActor>& actor);
 }
-int main (int argc, char *argv[])
+
+int main(int argc, char* argv[])
 {
-// Create renderer stuff
-//
+  /*
+  To match the illustrations in VTKTextbook.pdf, use BkgColor as the background
+    and Wheat as the cow colour.
+  Also comment out the lines:
+    modelActor->GetProperty()->SetSpecular(.6);
+    modelActor->GetProperty()->SetSpecularPower(30);
+  and use cow.g as the inout data.
+  */
+
+  auto Scale = [](std::vector<double>& v, double scale) {
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scale; });
+    return;
+  };
+
+  int figure = 0;
+  if (argc < 2)
+  {
+    std::cout << "Usage: " << argv[0] << " filename [figure]" << std::endl;
+    std::cout << "where: filename is the file cow.obj" << std::endl;
+    std::cout << "       figure is 0, 1, 2, or 3, default 0" << std::endl;
+    return EXIT_FAILURE;
+  }
+
+  std::string fileName = argv[1];
+  if (argc == 3)
+  {
+    figure = atoi(argv[2]);
+  }
+
+  // Create renderer stuff
+  //
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkRenderer> ren1 =
-    vtkSmartPointer<vtkRenderer>::New();
+  // Set the background color. Match those in VTKTextbook.pdf.
+  auto scale = 256.0;
+  std::vector<double> bkg = {60, 93, 144};
+
+  Scale(bkg, scale);
+  colors->SetColor("BkgColor", bkg[0], bkg[1], bkg[2]);
+
+  vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
 
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -49,41 +86,40 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
 
-// create pipeline
-//
-  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
+  // create pipeline
+  //
+  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(fileName.c_str());
 
   vtkSmartPointer<vtkPolyDataMapper> modelMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   modelMapper->SetInputData(polyData);
-  
-  vtkSmartPointer<vtkActor> modelActor =
-    vtkSmartPointer<vtkActor>::New();
+
+  vtkSmartPointer<vtkActor> modelActor = vtkSmartPointer<vtkActor>::New();
   modelActor->SetMapper(modelMapper);
-  modelActor->GetProperty()->SetDiffuseColor(0.9608, 0.8706, 0.7020);
-  modelActor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Crimson").GetData());
+  // modelActor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Wheat").GetData());
+  modelActor->GetProperty()->SetDiffuseColor(
+    colors->GetColor3d("Crimson").GetData());
   modelActor->GetProperty()->SetSpecular(.6);
   modelActor->GetProperty()->SetSpecularPower(30);
 
-  vtkSmartPointer<vtkAxes> modelAxesSource =
-    vtkSmartPointer<vtkAxes>::New();
+  vtkSmartPointer<vtkAxes> modelAxesSource = vtkSmartPointer<vtkAxes>::New();
   modelAxesSource->SetScaleFactor(10);
   modelAxesSource->SetOrigin(0, 0, 0);
 
   vtkSmartPointer<vtkPolyDataMapper> modelAxesMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   modelAxesMapper->SetInputConnection(modelAxesSource->GetOutputPort());
- 
-  vtkSmartPointer<vtkActor> modelAxes =
-    vtkSmartPointer<vtkActor>::New();
+
+  vtkSmartPointer<vtkActor> modelAxes = vtkSmartPointer<vtkActor>::New();
   modelAxes->SetMapper(modelAxesMapper);
 
   ren1->AddActor(modelAxes);
   modelAxes->VisibilityOff();
 
-// Add the actors to the renderer, set the background and size
-//
+  // Add the actors to the renderer, set the background and size
+  //
   ren1->AddActor(modelActor);
+  // ren1->SetBackground(colors->GetColor3d("BkgColor").GetData());
   ren1->SetBackground(colors->GetColor3d("Silver").GetData());
   renWin->SetSize(640, 480);
   ren1->ResetCamera();
@@ -95,15 +131,22 @@ int main (int argc, char *argv[])
   renWin->Render();
   renWin->Render();
 
-  iren->Start();
-  RotateX(renWin, modelActor);
-  iren->Start();
-  RotateY(renWin, modelActor);
-  iren->Start();
-  RotateZ(renWin, modelActor);
-  iren->Start();
-  RotateXY(renWin, modelActor);
-
+  switch (figure)
+  {
+    default:
+    case 0:
+      RotateXY(renWin, modelActor);
+      break;
+    case 1:
+      RotateX(renWin, modelActor);
+      break;
+    case 2:
+      RotateY(renWin, modelActor);
+      break;
+    case 3:
+      RotateZ(renWin, modelActor);
+      break;
+  }
   renWin->EraseOff();
   iren->Start();
 
@@ -113,8 +156,8 @@ int main (int argc, char *argv[])
 namespace
 {
 //
-void  RotateX (vtkSmartPointer<vtkRenderWindow> &renWin,
-               vtkSmartPointer<vtkActor> &actor)
+void RotateX(vtkSmartPointer<vtkRenderWindow>& renWin,
+             vtkSmartPointer<vtkActor>& actor)
 {
   actor->SetOrientation(0, 0, 0);
   renWin->Render();
@@ -129,8 +172,8 @@ void  RotateX (vtkSmartPointer<vtkRenderWindow> &renWin,
   }
   renWin->EraseOn();
 }
-void  RotateY (vtkSmartPointer<vtkRenderWindow> &renWin,
-               vtkSmartPointer<vtkActor> &actor)
+void RotateY(vtkSmartPointer<vtkRenderWindow>& renWin,
+             vtkSmartPointer<vtkActor>& actor)
 {
   actor->SetOrientation(0, 0, 0);
   renWin->Render();
@@ -144,8 +187,8 @@ void  RotateY (vtkSmartPointer<vtkRenderWindow> &renWin,
   }
   renWin->EraseOn();
 }
-void  RotateZ (vtkSmartPointer<vtkRenderWindow> &renWin,
-               vtkSmartPointer<vtkActor> &actor)
+void RotateZ(vtkSmartPointer<vtkRenderWindow>& renWin,
+             vtkSmartPointer<vtkActor>& actor)
 {
   actor->SetOrientation(0, 0, 0);
   renWin->Render();
@@ -159,8 +202,8 @@ void  RotateZ (vtkSmartPointer<vtkRenderWindow> &renWin,
   }
   renWin->EraseOn();
 }
-void  RotateXY (vtkSmartPointer<vtkRenderWindow> &renWin,
-               vtkSmartPointer<vtkActor> &actor)
+void RotateXY(vtkSmartPointer<vtkRenderWindow>& renWin,
+              vtkSmartPointer<vtkActor>& actor)
 {
   actor->SetOrientation(0, 0, 0);
   actor->RotateX(60);
@@ -176,15 +219,15 @@ void  RotateXY (vtkSmartPointer<vtkRenderWindow> &renWin,
   }
   renWin->EraseOn();
 }
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
-  std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
+  std::string extension =
+    vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
   if (extension == ".ply")
   {
-    vtkSmartPointer<vtkPLYReader> reader =
-      vtkSmartPointer<vtkPLYReader>::New();
-    reader->SetFileName (fileName);
+    vtkSmartPointer<vtkPLYReader> reader = vtkSmartPointer<vtkPLYReader>::New();
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
@@ -192,23 +235,21 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkXMLPolyDataReader> reader =
       vtkSmartPointer<vtkXMLPolyDataReader>::New();
-    reader->SetFileName (fileName);
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".obj")
   {
-    vtkSmartPointer<vtkOBJReader> reader =
-      vtkSmartPointer<vtkOBJReader>::New();
-    reader->SetFileName (fileName);
+    vtkSmartPointer<vtkOBJReader> reader = vtkSmartPointer<vtkOBJReader>::New();
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".stl")
   {
-    vtkSmartPointer<vtkSTLReader> reader =
-      vtkSmartPointer<vtkSTLReader>::New();
-    reader->SetFileName (fileName);
+    vtkSmartPointer<vtkSTLReader> reader = vtkSmartPointer<vtkSTLReader>::New();
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
@@ -216,15 +257,14 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkPolyDataReader> reader =
       vtkSmartPointer<vtkPolyDataReader>::New();
-    reader->SetFileName (fileName);
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".g")
   {
-    vtkSmartPointer<vtkBYUReader> reader =
-      vtkSmartPointer<vtkBYUReader>::New();
-    reader->SetGeometryFileName (fileName);
+    vtkSmartPointer<vtkBYUReader> reader = vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
