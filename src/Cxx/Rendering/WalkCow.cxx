@@ -14,6 +14,7 @@
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 #include <vtkTransform.h>
+#include <vtkVersionMacros.h>
 #include <vtkWindowToImageFilter.h>
 
 #include <algorithm>
