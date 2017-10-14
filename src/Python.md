@@ -14,29 +14,30 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[Cylinder](/Python/Cylinder)| vtkPolyDataMapper vtkActor vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Cylinder example from the VTK Textbook and source code. A hello world example
+[CylinderExample](/Python/GeometricObjects/CylinderExample)| vtkPolyDataMapper vtkActor vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Cylinder example from the VTK Textbook and source code. A hello world example
 
 ## Simple Operations
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[DistanceBetweenPoints](/Python/DistanceBetweenPoints) | vtkMath::Distance2BetweenPoints |
+[DistanceBetweenPoints](/Python/SimpleOperations/DistanceBetweenPoints) | vtkMath::Distance2BetweenPoints |
 
 ## Input and Output
 ### Output
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[PLYWriter](/Python/PLYWriter)| vtkPLYWriter |
-[STLWriter](/Python/STLWriter) | vtkSTLWriter |
+[PLYWriter](/Python/IO/PLYWriter)| vtkPLYWriter |
+[STLWriter](/Python/IO/STLWriter) | vtkSTLWriter |
 
 ### Input
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[STLReader](/Python/STLReader)| vtkSTLReader |
-[UnstructuredGridReader](/Python/UnstructuredGridReader)| vtkUnstructuredGridReader | Using vtkUnstructuredGridReader to read a (legacy) *.vtk file
-VTPsReader|
+[STLReader](/Python/IO/STLReader)| vtkSTLReader |
+[UnstructuredGridReader](/Python/IO/UnstructuredGridReader)| vtkUnstructuredGridReader | Using vtkUnstructuredGridReader to read a (legacy) *.vtk file
+[VTPReader](/Python/IO/VTPReader)| vtkXMLPolyDataReader | Needs fixing.
+
 
 ## Working with Arrays
 
@@ -91,6 +92,12 @@ VTPsReader|
 [ParametricObjectsDemo](/Python/GeometricObjects/ParametricObjectsDemo) | vtkParametricBoy vtkParametricConicSpiral vtkParametricCrossCap vtkParametricDini vtkParametricEllipsoid vtkParametricEnneper vtkParametricFigure8Klein vtkParametricKlein vtkParametricMobius vtkParametricRandomHills vtkParametricRoman vtkParametricSpline vtkParametricSuperEllipsoid vtkParametricSuperToroid vtkParametricTorus| Demonstration of of the vtkParametric classes added by Andrew Maclean. All the objects are displayed in a 4X4 array. 
 [ParametricObjects](/Python/GeometricObjects/ParametricObjects) | | Uncomment the object that you wish to be displayed.
 
+## Implicit Functions and Iso-surfaces
+
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[ImplicitDataSet](/Python/ImplicitFunctions/ImplicitDataSet) | vtkImplicitDataSet | vtkIdType  n/a. This is just a typedef, Python, you can use a python "int" or "long" for vtkIdType.
 
 ## Implicit Functions
 
@@ -105,29 +112,28 @@ VTPsReader|
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [BooleanOperationPolyDataFilter](/Python/PolyData/BooleanOperationPolyDataFilter) | vtkBooleanOperationPolyDataFilter | This example performs a boolean operation (Intersection, Union, Difference) of two PolyData
-[ColoredTriangle](/Python/ColoredTriangle) | vtkTriangle |
+[ColoredTriangle](/Python/PolyData/ColoredTriangle) | vtkTriangle | Creates a file TriangleColored.vtp.
 [CombinePolyData](/Python/Filtering/CombinePolyData) | vtkAppendPolyData | This example combines Polydata objects, and displays the result to the screen.
 [Cube](/Python/DataManipulation/Cube) | vtkPolyData |
-[CurvaturesDemo](/Python/CurvaturesDemo) | vtkCurvatures  vtkColorTransferFunction  | Demonstrates how to get the Gaussian and Mean curvatures of a surface.
-[DottedLine](/Python/DottedLine) | |
-[FilledPolygon](/Python/FilledPolygon) | vtkCutter |
+[CurvaturesDemo](/Python/Polydata/CurvaturesDemo) | vtkCurvatures  vtkColorTransferFunction  | Demonstrates how to get the Gaussian and Mean curvatures of a surface.
+[FilledPolygon](/Python/Polydata/FilledPolygon) | vtkCutter |
 [ImplicitPolyDataDistance](/Python/PolyData/ImplicitPolyDataDistance) | vtkImplicitPolyDataDistance |
-[IterativeClosestPoints](/Python/IterativeClosestPoints) | vtkIterativeClosestPointTransform |
+[IterativeClosestPoints](/Python/Filtering/IterativeClosestPoints) | vtkIterativeClosestPointTransform |
 [KochSnowflake](/Python/Visualization/KochSnowflake) | vtkPolyData vtkCellArray vtkPoints vtkPolyLine | This example draws a Koch snowflake fractal using recursive functions and some of the convenient tools in the toolkit.
 [LineOnMesh](/Python/DataManipulation/LineOnMesh) | vtkCellLocator vtkParametricSpline |
-[MeshLabelImageColor](/Python/MeshLabelImageColor) | vtkDiscreteMarchingCubes |
-[Outline](/Python/Outline) | vtkOutlineFilter|
+[MeshLabelImageColor](/Python/DataManipulation/MeshLabelImageColor) | vtkDiscreteMarchingCubes |
+[Outline](/Python/PolyData/Outline) | vtkOutlineFilter|
 [PolyDataContourToImageData](/Python/PolyData/PolyDataContourToImageData) | vtkLinearExtrusionFilter vtkPolyDataToImageStencil |
 [PolyDataToImageDataStencil](/Python/PolyData/PolyDataToImageDataStencil) | vtkPolyDataToImageStencil |
-[RotationAroundLine](/Python/RotationAroundLine) | vtkTransformPolyDataFilter  |
+[RotationAroundLine](/Python/PolyData/RotationAroundLine) | vtkTransformPolyDataFilter  |
 [RuledSurfaceFilter](/Python/PolyData/RuledSurfaceFilter) | vtkRuledSurfaceFilter |
 [SmoothMeshGrid](/Python/PolyData/SmoothMeshGrid) | vtkLoopSubdivisionFilter vtkButterflySubdivisionFilter |
-[SolidColoredTriangle](/Python/SolidColoredTriangle) | vtkTriangle |
-[TriangleColoredPoints](/Python/TriangleColoredPoints) | vtkUnsignedCharArray |
-[TriangleCornerVertices](/Python/TriangleCornerVertices) | vtkCellArray |
-[TriangleCorners](/Python/TriangleCorners) | vtkXMLPolyDataWriter |
+[SolidColoredTriangle](/Python/PolyData/SolidColoredTriangle) | vtkTriangle | Writes out a file TriangleSolidColor.vtp.
+[TriangleColoredPoints](/Python/PolyData/TriangleColoredPoints) | vtkUnsignedCharArray |
+[TriangleCornerVertices](/Python/PolyData/TriangleCornerVertices) | vtkCellArray |
+[TriangleCorners](/Python/PolyData/TriangleCorners) | vtkXMLPolyDataWriter |
 [WarpVector](/Python/PolyData/WarpVector) | vtkLine vtkDoubleArray vtkPolyData vtkWarpVector | This example warps/deflects a line.
-[WriteTriangleToFile](/Python/WriteTriangleToFile) | vtkTriangle |
+[WriteTriangleToFile](/Python/IO/WriteTriangleToFile) | vtkTriangle |
 
 ## Working with 3D Data
 
@@ -138,6 +144,15 @@ VTPsReader|
 
 ### Working with Structured 3D Data
 This section includes vtkImageData, vtkStructuredGrid, and vtkRectilinearGrid.
+
+#### vtkImageData
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[ImageWeightedSum](/Python/ImageData/ImageWeightedSum) | vtkImageWeightedSum |Add two or more images.
+
+
+#### vtkRectilinearGrid
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
@@ -150,20 +165,10 @@ This section includes examples of manipulating meshes.
 |--------------|----------------------|-------------|-------|
 [ClipDataSetWithPolydata](/Python/Meshes/ClipDataSetWithPolydata) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid |clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
 
-## Miscellaneous
-
-| Example Name | Classes Demonstrated | Description | Image |
-|--------------|----------------------|-------------|-------|
-[BackgroundImage](/Python/BackgroundImage) | vtkJPEGReader vtkImageCanvasSource2D vtkImageActor vtkSuperquadricSource |
-[Cutter](/Python/Cutter) | vtkCutter |
-[ImplicitDataSet](/Python/ImplicitDataSet) | vtkImplicitDataSet | vtkIdType  n/a. This is just a typedef, Python, you can use a python "int" or "long" for vtkIdType.
-[Screenshot](/Python/Screenshot) | vtkWindowToImageFilter |
-[Variant](/Python/Variant) | vtkVariant |
-vtkVersion |
-
 ## Rendering
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[DottedLine](/Python/Rendering/DottedLine) | | This needs a re-work, see StippledLine.cxx 
 [Rotations](/Python/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [WalkCow](/Python/Rendering/WalkCow) | vtkBYUReader renWin::EraseOff() vtkActor | This generates Figs. 3-31, 3-32, 3-33 found in VTKTextbook.pdf.
 
@@ -171,36 +176,42 @@ vtkVersion |
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[Animation](/Python/Animation) | vtkTimerCallback |
 [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) | vtkNamedColors vtkPlaneSource vtkLookupTable vtkColorTransferFunction | Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
-[Camera](/Python/Camera) | vtkCamera |
+[Camera](/Python/Visualization/Camera) | vtkCamera | Positioning and aiming the camera.
 [ClampGlyphSizes](/Python/Visualization/ClampGlyphSizes) | vtkGlyph3D | Use vtkGlyph3D with ClampingOn to limit glyph sizes
-[ColorActor](/Python/ColorActor) | vtkActor::GetProperty()::SetColor |
+[ColorActor](/Python/Visualization/ColorActor) | vtkActor::GetProperty()::SetColor | Colour the actor.
 [CubeAxesActor](/Python/Visualization/CubeAxesActor) | vtkCubeAxesActor | 
 [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) | vtkCurvatures vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the gaussian curvature of a surface into bands and using arrows to display the normals on the surface.
+[Cutter](/Python/VisualizationAlgorithms/Cutter) | vtkCutter |
 [ElevationBandsWithGlyphs](/Python/Visualization/ElevationBandsWithGlyphs) | vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
 [GlyphTable](/Python/Visualization/GlyphTable) | vtkGlyph3D | Vary the shapes of glyphed points using a glyph table
 [HardwareSelector](/Python/Visualization/HardwareSelector) | vtkHardwareSelector |
-[InteractorStyleTrackballActor](/Python/InteractorStyleTrackballActor) | vtkInteractorStyleTrackBallActor |
-[InteractorStyleTrackballCamera](/Python/InteractorStyleTrackballCamera) | vtkInteractorStyleTrackBallCamera |
-[MultipleViewports](/Python/MultipleViewports) | vtkRenderer::SetViewport |
+[InteractorStyleTrackballActor](/Python/Visualization/InteractorStyleTrackballActor) | vtkInteractorStyleTrackBallActor |
+[InteractorStyleTrackballCamera](/Python/Visualization/InteractorStyleTrackballCamera) | vtkInteractorStyleTrackBallCamera |
+[MultipleViewports](/Python/Visualization/MultipleViewports) | vtkRenderer::SetViewport |
 [NamedColorPatches](/Python/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called VTKNamedColorPatches | Demonstrates how to use the vtkNamedColor class
 [OrientedGlyphs](/Python/Visualization/OrientedGlyphs)| vtkGlyph3D|Create oriented glyphs from vector data.
 [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) |  vtkLinearSubdivisionFilter | Vary the shapes of glyphed points using a programmable glyph filter
 [QuadraticSurface](/Python/Visualization/QuadraticSurface) | vtkQuadric |
 [SphereTexture](/Python/Visualization/SphereTexture) | vtkTextureMapToSphere | Apply an ImageData texture to an sphere
 [Streamlines](/Python/Visualization/Streamlines) | vtkStreamLine | Seed streamlines with vectors from a structured grid
-[TextSource](/Python/TextSource) | vtkTextSource |
-[UnstructuredTransientVolumeRendering](/Python/UnstructuredTransientVolumeRendering) | vtkUnstructuredGridVolumeRayCastMapper |
-[WindowTitle](/Python/WindowTitle) | vtkRenderWindow::SetWindowName |
+[TextSource](/Python/Visualization/TextSource) | vtkTextSource |
+[UnstructuredTransientVolumeRendering](/Python/Visualization/UnstructuredTransientVolumeRendering) | vtkUnstructuredGridVolumeRayCastMapper |
+[VectorText](/Python/Visualization/VectorText)| vtkVectorText |Display high resolution text.
+[WindowTitle](/Python/Visualization/WindowTitle) | vtkRenderWindow::SetWindowName |
+
+## Working with Images
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[BackgroundImage](/Python/BackgroundImage) | vtkJPEGReader vtkImageCanvasSource2D vtkImageActor vtkSuperquadricSource | Display an image as the "background" of a scene, and render a superquadric in front of it.
 
 ## Working with vtkImageData
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[ImageWeightedSum](/Python/ImageWeightedSum) | vtkImageWeightedSum |
-[SumVTKImages](/Python/SumVTKImages) | vtkImageWeightedSum | A function to simplify the summing of images, where you can pass a list of images and 
-[WriteReadVtkImageData](/Python/WriteReadVtkImageData) | vtkImageData vtkXMLImageDataReader vtkXMLImageDataWriter |
+[SumVTKImages](/Python/ImageData/SumVTKImages) | vtkImageWeightedSum | A function to simplify the summing of images, where you can pass a list of images and 
+[WriteReadVtkImageData](/Python/ImageData/WriteReadVtkImageData) | vtkImageData vtkXMLImageDataReader vtkXMLImageDataWriter |
 
 ## Working with ExodusII Data
 
@@ -260,6 +271,16 @@ vtkVersion |
 |--------------|----------------------|-------------|-------|
 [Delaunay2D](/Python/Filtering/Delaunay2D) | vtkDelaunay2D |
 [LUTUtilities](/Python/Utilities/LUTUtilities) | vtkLookupTable vtkColorSeries | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.
+[Screenshot](/Python/Utilities/Screenshot) | vtkWindowToImageFilter |
+[Variant](/Python/Utilities/Variant) | vtkVariant |
+[VTKWithNumpy](/Python/Utilities/VTKWithNumpy) | vtkImageImport |
+[VTKVersion](/Python/Utilities/VTKVersion) | vtkVersion |
+
+## Animation
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[Animation](/Python/Utilities/Animation) | vtkRenderWindowInteractor | Move a sphere across a scene.
 
 ## PyQt
 

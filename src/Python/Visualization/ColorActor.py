@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import vtk
 
 # create a rendering window and renderer
@@ -11,29 +9,25 @@ renWin.AddRenderer(ren)
 iren = vtk.vtkRenderWindowInteractor()
 iren.SetRenderWindow(renWin)
 
-planesArray=[0]*24 # Allocate a list of length 24
-camera = vtk.vtkCamera()
-camera.GetFrustumPlanes(1, planesArray)
-planes=vtk.vtkPlanes()
-planes.SetFrustumPlanes(planesArray)
-
-frustumSource = vtk.vtkFrustumSource()
-frustumSource.SetPlanes(planes)
-frustumSource.ShowLinesOff();
-frustumSource.Update()
+# create source
+source = vtk.vtkSphereSource()
+source.SetCenter(0, 0, 0)
+source.SetRadius(5.0)
 
 # mapper
 mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputData(frustumSource.GetOutput())
+mapper.SetInputConnection(source.GetOutputPort())
 
 # actor
 actor = vtk.vtkActor()
 actor.SetMapper(mapper)
-actor.GetProperty().SetColor(0.8,0.9,0.7)
+
+# color the actor
+actor.GetProperty().SetColor(1, 0, 0)  # (R,G,B)
 
 # assign actor to the renderer
 ren.AddActor(actor)
-ren.SetBackground(0.2,0.1,0.3)
+
 # enable user interface interactor
 iren.Initialize()
 renWin.Render()

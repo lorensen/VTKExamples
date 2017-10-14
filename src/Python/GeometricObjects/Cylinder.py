@@ -26,6 +26,7 @@ actor.SetMapper(mapper)
 
 # assign actor to the renderer
 ren.AddActor(actor)
+ren.SetBackground(0.1, 0.3,0.2); # Background color dark green
 
 # enable user interface interactor
 iren.Initialize()
