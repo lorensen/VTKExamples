@@ -351,7 +351,7 @@ def Walk(cowActor, ren, renWin):
     # cowActor.SetUserMatrix(cowPos.GetMatrix())
 
 
-def CameraModifiedCallback(caller):
+def CameraModifiedCallback(caller, ev):
     """
      Used to estimate positions similar to the book illustrations.
     :param caller:
