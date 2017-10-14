@@ -35,6 +35,7 @@ SET(NEEDS_ARGS
   FindCellIntersections
   LOx
   MarchingCases
+  WarpCombustor
 )
 
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
@@ -62,6 +63,9 @@ ADD_TEST(${KIT}-LOx ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-MarchingCases ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingCases 7)
+
+ADD_TEST(${KIT}-WarpCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestWarpCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin)
 
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
