@@ -27,8 +27,9 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT VisualizationAlgorithms)
 SET(NEEDS_ARGS
-  CombustorIsosurface
   BluntStreamlines
+  CombustorIsosurface
+  CreateBFont
   CutWithCutFunction
   CutWithScalars
   FilledContours
@@ -45,6 +46,9 @@ ADD_TEST(${KIT}-BluntStreamlines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 
 ADD_TEST(${KIT}-CombustorIsosurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCombustorIsosurface ${DATA}/combxyz.bin ${DATA}/combq.bin)
+
+ADD_TEST(${KIT}-CreateBFont ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestCreateBFont ${DATA}/B.pgm)
 
 ADD_TEST(${KIT}-CutWithCutFunction ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCutWithCutFunction ${DATA}/Torso.vtp 20)
