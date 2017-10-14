@@ -111,7 +111,7 @@ Figure 8-41c | | (c) Rotation in combination with linear displacement and radius
 | Figure | Classes Demonstrated | Caption | Image |
 |--------|----------------------|---------|-------|
 [Figure 9-4a](/Cxx/VisualizationAlgorithms/ExponentialCosine) | vtkWarpScalar | Carpet plots. (a) Visualization of an exponential cosine function. Function values are indicated by surface displacement. Colors indicate derivative values ([expCos.cxx](https://gitlab.kitware.com/vtk/vtk/blob/5881e35ac8e508ab187478234c58fcd9559ee2de/Filters/General/Testing/Cxx/expCos.cxx)).
-[Figure 9-4b](/Cxx/VisualizationAlgorithms/WarpCombuster) | vtkWarpScalar vtkMultiBlockPLOT3DReader | Carpet plots. (b) Carpet plot of combustor flow energy in a structured grid. Colors and plane displacement represent energy values ([warpComb.tcl](https://gitlab.kitware.com/vtk/vtk/blob/fdc214b9c2c6f911b66588fc898a932da0aa6755/Examples/VisualizationAlgorithms/Tcl/warpComb.tcl)).
+[Figure 9-4b](/Cxx/VisualizationAlgorithms/WarpCombustor) | vtkWarpScalar vtkMultiBlockPLOT3DReader | Carpet plots. (b) Carpet plot of combustor flow energy in a structured grid. Colors and plane displacement represent energy values ([warpComb.tcl](https://gitlab.kitware.com/vtk/vtk/blob/fdc214b9c2c6f911b66588fc898a932da0aa6755/Examples/VisualizationAlgorithms/Tcl/warpComb.tcl)).
 Figure 9-10 | | A scanned image clipped with a scalar value of 1/2 its maximum intensity produces a mixture of quadrilaterals and triangles (createBFont.tcl).
 Figure 9-12a | | The stream polygon. (a) Planar view.
 Figure 9-12b | | The stream polygon. (b) Aligned with vector.
