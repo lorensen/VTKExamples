@@ -26,6 +26,8 @@
 
 #include <map>
 
+namespace
+{
 void case1 (vtkFloatArray *, vtkVectorText *, int, int);
 void case2 (vtkFloatArray *, vtkVectorText *, int, int);
 void case3 (vtkFloatArray *, vtkVectorText *, int, int);
@@ -40,6 +42,7 @@ void case11(vtkFloatArray *, vtkVectorText *, int, int);
 void case12(vtkFloatArray *, vtkVectorText *, int, int);
 void case13(vtkFloatArray *, vtkVectorText *, int, int);
 void case14(vtkFloatArray *, vtkVectorText *, int, int);
+}
 
 int main (int argc, char *argv[])
 {
@@ -310,6 +313,8 @@ int main (int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
+namespace
+{
 void case1(vtkFloatArray *scalars,
            vtkVectorText *caseLabel,
            int IN, int OUT)
@@ -615,4 +620,4 @@ void case14(vtkFloatArray *scalars,
     caseLabel->SetText("Case 14c - 00010010");
   }
 }
-
+}
