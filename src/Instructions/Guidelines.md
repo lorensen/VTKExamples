@@ -88,7 +88,7 @@ vtkSmartPointer<vtkCutter> cutter = vtkSmartPointer<vtkCutter>::New();
     or
 
 ```c++
-vtkNew(vtkCutter> cutter;
+vtkNew<vtkCutter> cutter;
 ```
 is preferred over
 ```c++
