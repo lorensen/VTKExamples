@@ -107,8 +107,9 @@ int main(int argc, char *argv[])
     vtkSmartPointer<vtkDataSetMapper>::New();
   filledMapper->SetInputConnection(connectivity->GetOutputPort());
   filledMapper->SetScalarModeToUseCellData();
+  vtkDataSet* connectivityDataSet = vtkDataSet::SafeDownCast(connectivity->GetOutput());
   filledMapper->SetScalarRange(
-    connectivity->GetOutput()->GetCellData()->GetArray("RegionId")->GetRange());
+    connectivityDataSet->GetCellData()->GetArray("RegionId")->GetRange());
   vtkSmartPointer<vtkActor> filledActor =
     vtkSmartPointer<vtkActor>::New();
   filledActor->SetMapper(filledMapper);

@@ -87,10 +87,12 @@ int main(int argc, char *argv[])
   connectivityFilter->ColorRegionsOn();
   connectivityFilter->Update();
 
+  vtkPointSet* connectivityOutput = vtkPointSet::SafeDownCast(connectivityFilter->GetOutput());
+
   // Build a cell locator.
   vtkSmartPointer<vtkCellLocator> cellLocator =
     vtkSmartPointer<vtkCellLocator>::New();
-  cellLocator->SetDataSet(connectivityFilter->GetOutput());
+  cellLocator->SetDataSet(connectivityOutput);
   cellLocator->BuildLocator();
 
   // Now fire a ray from outside the bounds to the center and find a
@@ -116,7 +118,7 @@ int main(int argc, char *argv[])
     cellId);
 
   vtkIdTypeArray *cd =
-    vtkIdTypeArray::SafeDownCast(connectivityFilter->GetOutput()->GetCellData()->GetScalars());
+    vtkIdTypeArray::SafeDownCast(connectivityOutput->GetCellData()->GetScalars());
   vtkIdType outsideRegionId = cd->GetTuple1(cellId);
   std::cout << "Id of cell on outside surface: " << cellId << std::endl;
   std::cout << "CellData at " << cellId << ": " << outsideRegionId << std::endl;
@@ -126,11 +128,11 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkPolyData> insidePolyData =
     vtkSmartPointer<vtkPolyData>::New();
   insidePolyData->Allocate();
-  insidePolyData->SetPoints(connectivityFilter->GetOutput()->GetPoints());
+  insidePolyData->SetPoints(connectivityOutput->GetPoints());
 
   vtkSmartPointer<vtkGenericCell> cell =
     vtkSmartPointer<vtkGenericCell>::New();
-  vtkCellIterator *it = connectivityFilter->GetOutput()->NewCellIterator();
+  vtkCellIterator *it = connectivityOutput->NewCellIterator();
   vtkIdType originalCellId = 0;
   for (it->InitTraversal();
        !it->IsDoneWithTraversal();
