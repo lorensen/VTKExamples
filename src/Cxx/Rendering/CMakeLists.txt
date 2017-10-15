@@ -30,6 +30,8 @@ SET(NEEDS_ARGS
   Rainbow
   Rotations
   WalkCow
+  WalkCowA
+  WalkCowB
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
@@ -42,6 +44,12 @@ ADD_TEST(${KIT}-Rainbow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-WalkCow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestWalkCow ${DATA}/cow.g)
+
+ADD_TEST(${KIT}-WalkCowA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestWalkCowA ${DATA}/cow.g 1)
+
+ADD_TEST(${KIT}-WalkCowB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestWalkCowB ${DATA}/cow.g 2)
 
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 
