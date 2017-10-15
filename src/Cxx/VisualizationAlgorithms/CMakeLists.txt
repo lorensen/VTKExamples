@@ -36,9 +36,10 @@ SET(NEEDS_ARGS
   FindCellIntersections
   LOx
   MarchingCases
+  MarchingCasesA
+  MarchingCasesB
   WarpCombustor
 )
-
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 ADD_TEST(${KIT}-BluntStreamlines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
@@ -67,6 +68,12 @@ ADD_TEST(${KIT}-LOx ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-MarchingCases ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingCases 7)
+
+ADD_TEST(${KIT}-MarchingCasesA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMarchingCasesA 1 2 3 4 5 6 7 8 9 10 11 12 13 14)
+
+ADD_TEST(${KIT}-MarchingCasesB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMarchingCasesB -3 -6 -7 -10 -12 -13)
 
 ADD_TEST(${KIT}-WarpCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestWarpCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin)
