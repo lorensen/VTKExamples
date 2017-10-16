@@ -57,7 +57,7 @@ def main():
     iren.Initialize()
 
     # Render the image.
-    # Centered on Honolulu, O'ahu.
+    # Centered on Honolulu.
     # Diamond Head is the crater lower left.
     # Punchbowl is the crater in the centre.
     ren.Render()

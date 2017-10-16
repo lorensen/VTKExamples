@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
   renWin->SetSize(500, 500);
 
   // Render the image.
-  // Centered on Honolulu, O'ahu.
+  // Centered on Honolulu,
   // Diamond Head is the crater lower left.
   // Punchbowl is the crater in the centre.
   renWin->Render();
