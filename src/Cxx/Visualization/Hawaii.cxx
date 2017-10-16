@@ -62,6 +62,7 @@ int main(int argc, char* argv[])
 
   int colorScheme = 0;
   std::string fileName = argv[1];
+
   if (argc == 3)
   {
     colorScheme = atoi(argv[2]);
@@ -120,17 +121,17 @@ int main(int argc, char* argv[])
   // Match the window shape to the object->
   //renWin->SetSize(500, int(500 * bounds[1] / bounds[3]));
   renWin->SetSize(500, 500);
-  iren->Initialize();
 
   // Render the image.
   // Centered on Honolulu, O'ahu.
   // Diamond Head is the crater lower left.
   // Punchbowl is the crater in the centre.
-  ren->Render();
+  renWin->Render();
   ren->SetBackground(colors->GetColor3d("BkgColor").GetData());
   ren->GetActiveCamera()->Zoom(1.5);
   ren->GetActiveCamera()->Roll(-90);
-  ren->Render();
+  ren->ResetCameraClippingRange();
+
   renWin->Render();
   iren->Start();
 

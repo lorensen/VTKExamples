@@ -134,7 +134,7 @@ ADD_TEST(${KIT}-Glyph3DMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGlyph3DMapper -E 40)
 
 ADD_TEST(${KIT}-Hawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestHawaii ${DATA}/Hawaii)
+  TestHawaii ${DATA}/honolulu.vtk)
 
 ADD_TEST(${KIT}-HedgeHog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHedgeHog -E 50)
