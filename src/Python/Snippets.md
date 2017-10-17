@@ -9,7 +9,7 @@ Get the program parameters.
 #### [ReadPolyData](/Python/Snippets/ReadPolyData.md)
 Uses the appropriate vtkPolyData reader to read any vtkPolyData file.
 
-#### [WritePNG](/Python/Snippets/WritePNG)
-Takes a screen shot from the render window and writes it to a png file.
+#### [WriteImage](/Python/Snippets/WriteImage.md)
+Take a screen shot from the render window and write it to a file. The file extension selects the writer to use.
 
 

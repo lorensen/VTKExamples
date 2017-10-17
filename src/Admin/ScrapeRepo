@@ -237,7 +237,7 @@ AddThumbnails(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", DocDir + "/VTKBo
 snippets = ['ReadPolyData', 'SaveSceneToFieldData', 'SaveSceneToFile', 'RestoreSceneFromFieldData', 'RestoreSceneFromFile', 'ChooseContrastingColor']
 for snippet in snippets:
     CopyFile(RepoDir + '/Cxx/Snippets/' + snippet + '.md', DocDir + '/Cxx/Snippets/' + snippet + '.md')
-snippets = ['GetProgramParameters', 'ReadPolyData', 'WritePNG']
+snippets = ['GetProgramParameters', 'ReadPolyData', 'WriteImage']
 for snippet in snippets:
     CopyFile(RepoDir + '/Python/Snippets/' + snippet + '.md', DocDir + '/Python/Snippets/' + snippet + '.md')
 
