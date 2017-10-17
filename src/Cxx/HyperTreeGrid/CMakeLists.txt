@@ -1,4 +1,4 @@
-PROJECT (${WIKI}HyperGridtree)
+PROJECT (${WIKI}HyperTreeGrid)
 
 IF(NOT WikiExamples_BINARY_DIR)
 FIND_PACKAGE(VTK REQUIRED)
@@ -28,7 +28,7 @@ endforeach(SOURCE_FILE)
 
 if (BUILD_TESTING)
 # Testing
-SET(KIT HyperGridTree)
+SET(KIT HyperTreeGrid)
 SET(NEEDS_ARGS
 )
 

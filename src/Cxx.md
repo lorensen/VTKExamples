@@ -736,7 +736,6 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 
 ### Oriented Bounding Box (OBB) Tree
 
-
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [OBBTreeIntersectWithLine](/Cxx/DataStructures/OBBTreeIntersectWithLine)| vtkOBBTree |Intersect a line with a vtkOBBTree.
@@ -754,9 +753,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [OctreeClosestPoint](/Cxx/DataStructures/OctreeClosestPoint)| vtkOctreePointLocator |Find the closest point to a query point.
 [OctreeVisualize](/Cxx/DataStructures/OctreeVisualize)| vtkOctreePointLocator | Visualize levels of the tree.
 
-
 ### Modified BSP Tree
-
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
@@ -764,6 +761,11 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [ModifiedBSPTreeExtractCells](/Cxx/DataStructures/ModifiedBSPTreeExtractCells)| vtkModifiedBSPTree |Intersect a line with a modified BSP Tree and display all intersected cells.
 [VisualizeModifiedBSPTree](/Cxx/DataStructures/ModifiedBSPTree/VisualizeModifiedBSPTree)| vtkModifiedBSPTree | Visualize levels of the tree.
 
+### HyperTreeGrid
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[HyperTreeGridSource](/Cxx/HyperTreeGrid/HyperTreeGridSource)| vtkHyperTreeGridSource |Create a vtkHyperTreeGrid.
 
 ## VTK Concepts
 
