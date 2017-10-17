@@ -786,7 +786,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [Rotations](/Cxx/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [SpecularSpheres](/Cxx/Rendering/SpecularSpheres)| vtkProperty |Demonstrates the effect of specular lighting on spheres.
 [StippledLine](/Cxx/Rendering/StippledLine)| vtkTexture | Draw a stippled line.
-[WalkCow](/Cxx/Rendering/WalkCow) | vtkBYUReader renWin::EraseOff() vtkActor | This generates Figs. 3-31, 3-32, 3-33 found in VTKTextbook.pdf.
+[WalkCow](/Cxx/Rendering/WalkCow) | vtkBYUReader vtkRenderWindow::EraseOff() vtkActor | This generates Figs. 3-31, 3-32, 3-33 found in VTKTextbook.pdf.
 
 
 ## Lighting
