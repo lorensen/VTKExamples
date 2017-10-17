@@ -69,8 +69,8 @@ function registerListener(event, func) {
 
 <span class=hll>    <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
 </span>    <span class=c1># Set the background color. Match those in VTKTextbook.pdf.</span>
-    <span class=n>bkg1</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>256.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>25</span><span class=p>,</span> <span class=mi>51</span><span class=p>,</span> <span class=mi>102</span><span class=p>])</span>
-    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor1&quot;</span><span class=p>,</span> <span class=o>*</span><span class=n>bkg1</span><span class=p>)</span>
+    <span class=n>bkg</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>256.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>25</span><span class=p>,</span> <span class=mi>51</span><span class=p>,</span> <span class=mi>102</span><span class=p>])</span>
+    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>,</span> <span class=o>*</span><span class=n>bkg</span><span class=p>)</span>
 
 <span class=hll>    <span class=c1># Read a vtk file</span>
 </span>    <span class=c1>#</span>
@@ -111,7 +111,6 @@ function registerListener(event, func) {
     <span class=c1># Match the window shape to the object.</span>
     <span class=c1># renWin.SetSize(500, int(500 * bounds[1] / bounds[3]))</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>500</span><span class=p>,</span> <span class=mi>500</span><span class=p>)</span>
-    <span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>.</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s2>&quot;BkgColor1&quot;</span><span class=p>))</span>
 
     <span class=n>iren</span><span class=o>.</span><span class=n>Initialize</span><span class=p>()</span>
 
@@ -119,12 +118,12 @@ function registerListener(event, func) {
     <span class=c1># Centered on Honolulu.</span>
     <span class=c1># Diamond Head is the crater lower left.</span>
     <span class=c1># Punchbowl is the crater in the centre.</span>
-    <span class=n>ren</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
+    <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
+    <span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>.</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>))</span>
     <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>Zoom</span><span class=p>(</span><span class=mf>1.5</span><span class=p>)</span>
     <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>Roll</span><span class=p>(</span><span class=o>-</span><span class=mi>90</span><span class=p>)</span>
-    <span class=n>ren</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
-    <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
 
+    <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
     <span class=n>iren</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
 
 
