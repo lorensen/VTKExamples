@@ -1,10 +1,13 @@
+#include <vtkRotationalExtrusionFilter.h>
+
+#include <vtkTubeFilter.h>
+#include <vtkStripper.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkPoints.h>
 #include <vtkCellArray.h>
 #include <vtkPolyData.h>
-#include <vtkRotationalExtrusionFilter.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
@@ -77,12 +80,32 @@ int main (int, char *[])
   vtkSmartPointer<vtkActor> bottle =
     vtkSmartPointer<vtkActor>::New();
   bottle->SetMapper(map);
-
   bottle->GetProperty()->SetColor(colors->GetColor3d("Mint").GetData());
+
+// display the profile
+  vtkSmartPointer<vtkStripper> stripper =
+    vtkSmartPointer<vtkStripper>::New();
+  stripper->SetInputData(profile);
+
+  vtkSmartPointer<vtkTubeFilter> tubes =
+    vtkSmartPointer<vtkTubeFilter>::New();
+  tubes->SetInputConnection(stripper->GetOutputPort());
+  tubes->SetNumberOfSides(11);
+  tubes->SetRadius(.05);
+
+  vtkSmartPointer<vtkPolyDataMapper> profileMapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
+  profileMapper->SetInputConnection(tubes->GetOutputPort());
+
+  vtkSmartPointer<vtkActor> profileActor =
+    vtkSmartPointer<vtkActor>::New();
+  profileActor->SetMapper(profileMapper);
+  profileActor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
 
 // Add the actors to the renderer, set the background and size
 //
   renderer->AddActor(bottle);
+  renderer->AddActor(profileActor);
   renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
 
   renWin->SetSize(640,480);
@@ -92,6 +115,7 @@ int main (int, char *[])
   renderer->GetActiveCamera()->SetFocalPoint(0, 0, 0);
   renderer->GetActiveCamera()->SetViewUp(0, 0, 1);
   renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(30);
   renderer->GetActiveCamera()->Elevation(30);
 ;  
 //$cam1 SetClippingRange 3.95297 50
