@@ -10,8 +10,8 @@ def main():
 
     colors = vtk.vtkNamedColors()
     # Set the background color. Match those in VTKTextbook.pdf.
-    bkg1 = map(lambda x: x / 256.0, [25, 51, 102])
-    colors.SetColor("BkgColor1", *bkg1)
+    bkg = map(lambda x: x / 256.0, [25, 51, 102])
+    colors.SetColor("BkgColor", *bkg)
 
     # Read a vtk file
     #
@@ -52,7 +52,6 @@ def main():
     # Match the window shape to the object.
     # renWin.SetSize(500, int(500 * bounds[1] / bounds[3]))
     renWin.SetSize(500, 500)
-    ren.SetBackground(colors.GetColor3d("BkgColor1"))
 
     iren.Initialize()
 
@@ -60,12 +59,12 @@ def main():
     # Centered on Honolulu.
     # Diamond Head is the crater lower left.
     # Punchbowl is the crater in the centre.
-    ren.Render()
+    renWin.Render()
+    ren.SetBackground(colors.GetColor3d("BkgColor"))
     ren.GetActiveCamera().Zoom(1.5)
     ren.GetActiveCamera().Roll(-90)
-    ren.Render()
-    renWin.Render()
 
+    renWin.Render()
     iren.Start()
 
 

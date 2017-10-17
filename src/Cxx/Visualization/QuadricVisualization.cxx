@@ -55,7 +55,7 @@ int main( int, char *[] )
   //
   // Create surface of implicit function
   //
-  double range[2];
+  // double range[2];
 
   // Sample quadric function
   vtkSmartPointer<vtkQuadric> quadric =
@@ -161,7 +161,7 @@ void CreatePlanes(vtkSmartPointer<vtkSampleFunction> &function,
   int sliceIncr = (dims[2] - 1) / (numberOfPlanes + 1);
 
   int slice = -4;
-  for (int i = 0; i< numberOfPlanes; ++i)
+  for (unsigned int i = 0; i< numberOfPlanes; ++i)
   {
     vtkSmartPointer<vtkExtractVOI> extract =
       vtkSmartPointer<vtkExtractVOI>::New();
@@ -201,7 +201,7 @@ void CreateContours(vtkSmartPointer<vtkSampleFunction> &function,
   int sliceIncr = (dims[2] - 1) / (numberOfPlanes + 1);
 
   int slice = -4;
-  for (int i = 0; i< numberOfPlanes; ++i)
+  for (unsigned int i = 0; i< numberOfPlanes; ++i)
   {
     vtkSmartPointer<vtkExtractVOI> extract =
       vtkSmartPointer<vtkExtractVOI>::New();

@@ -94,8 +94,9 @@ int main (int argc, char *argv[])
   iren->SetRenderWindow(renWin);
 
   std::vector<vtkSmartPointer<vtkRenderer>> renderers;
-  int gridSize = ((mcCases.size() + 3) / 4) * 4;
-  gridSize = mcCases.size() < 4 ? mcCases.size() : gridSize;
+  int gridSize = ((static_cast<int>(mcCases.size()) + 3) / 4) * 4;
+  gridSize = static_cast<int>(mcCases.size()) < 4 ? 
+             static_cast<int>(mcCases.size()) : gridSize;
   std::cout << "gridSize: " << gridSize << std::endl;
   for (int i = 0; i < gridSize; ++i)
   {
@@ -344,14 +345,15 @@ int main (int argc, char *argv[])
   }
   // Setup viewports for the renderers
   int rendererSize = 300;
-  unsigned int xGridDimensions = mcCases.size() < 4 ? mcCases.size() : 4;
-  unsigned int yGridDimensions = (mcCases.size() - 1) / 4 + 1; 
+  int xGridDimensions = static_cast<int>(mcCases.size()) < 4 ?
+                        static_cast<int>(mcCases.size()) : 4;
+  int yGridDimensions = (static_cast<int>(mcCases.size()) - 1) / 4 + 1;
   std::cout << "x, y: " << xGridDimensions << " " << yGridDimensions << std::endl;
   renWin->SetSize(
     rendererSize * xGridDimensions, rendererSize * yGridDimensions);
-  for (int row = 0; row < static_cast<int>(yGridDimensions); row++)
+  for (int row = 0; row < yGridDimensions; row++)
   {
-    for (int col = 0; col < static_cast<int>(xGridDimensions); col++)
+    for (int col = 0; col < xGridDimensions; col++)
     {
       int index = row * xGridDimensions + col;
 
