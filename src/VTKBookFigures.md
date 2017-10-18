@@ -106,7 +106,7 @@ Figure 7-39 | | Using the vtkLineWidget to produce streamtubes in the combustor 
 |--------|----------------------|---------|-------|
 [Figure 8-41a](/Cxx/Visualization/AlphaFrequency) | vtkLinearExtrusionFilter vtkVectorText | (a) Linearly extruded fonts to show letter frequency in text ([alphaFreq.cxx](https://gitlab.kitware.com/vtk/vtk/blob/3ad5fa14aaa30c57cab400a7494bd6e2eac37bf1/graphics/examplesCxx/alphaFreq.cxx)).
 [Figure 8-41b](/Cxx/Modelling/Bottle) | vtkRotationalExtrusionFilter | (b) Rotationally symmetric objects([bottle.tcl](https://gitlab.kitware.com/vtk/vtk/blob/ea6f91948c13ee930b181a2aaf5d6431ebe30eb1/graphics/examplesTcl/bottle.tcl)).
-Figure 8-41c | | (c) Rotation in combination with linear displacement and radius variation (spring.tcl).
+[Figure 8-41c](/Cxx/Modelling/Spring) | vtkRotationalExtrusionFilter | (c) Rotation in combination with linear displacement and radius variation ([spring.tcl](https://gitlab.kitware.com/vtk/vtk/blob/da314198bb8fbdab6f59e8a69b2d97f1611a05bd/graphics/examplesTcl/spring.tcl)).
 
 ## Chapter 9 - Advanced Algorithms
 
