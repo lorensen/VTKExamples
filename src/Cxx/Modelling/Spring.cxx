@@ -100,6 +100,8 @@ int main (int, char *[])
 
   renderWindow->Render();
   interactor->Start();
+
+  return EXIT_SUCCESS;
 }
 
 
