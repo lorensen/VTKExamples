@@ -192,6 +192,7 @@ This section includes examples of manipulating meshes.
 [MultipleViewports](/Python/Visualization/MultipleViewports) | vtkRenderer::SetViewport |
 [NamedColorPatches](/Python/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called VTKNamedColorPatches | Demonstrates how to use the vtkNamedColor class
 [OrientedGlyphs](/Python/Visualization/OrientedGlyphs)| vtkGlyph3D|Create oriented glyphs from vector data.
+[PlateVibration](/Python/VisualizationAlgorithms/PlateVibration) | vtkWarpVector vtkVectorDot | Demonstrates the motion of a vibrating beam.
 [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) |  vtkLinearSubdivisionFilter | Vary the shapes of glyphed points using a programmable glyph filter
 [QuadraticSurface](/Python/Visualization/QuadraticSurface) | vtkQuadric |
 [SphereTexture](/Python/Visualization/SphereTexture) | vtkTextureMapToSphere | Apply an ImageData texture to an sphere
