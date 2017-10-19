@@ -1,6 +1,6 @@
 # VTK Classes used in the Examples
 ## Python
-Out of 2365 available VTK classes, 202 are demonstrated here.  
+Out of 2353 available VTK classes, 200 are demonstrated here.  
 These classes are excluded since they occur in the majority of the examples:  
 - [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor)
 - [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera)
@@ -196,8 +196,6 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex) | [Vertex](/Python/GeometricObjects/Vertex)  |
 | [vtkVolume](http://www.vtk.org/doc/nightly/html/classvtkVolume) | [UnstructuredTransientVolumeRendering](/Python/Visualization/UnstructuredTransientVolumeRendering) [VTKWithNumpy](/Python/Utilities/VTKWithNumpy)  |
 | [vtkVolumeProperty](http://www.vtk.org/doc/nightly/html/classvtkVolumeProperty) | [UnstructuredTransientVolumeRendering](/Python/Visualization/UnstructuredTransientVolumeRendering) [VTKWithNumpy](/Python/Utilities/VTKWithNumpy)  |
-| [vtkVolumeRayCastCompositeFunction](http://www.vtk.org/doc/nightly/html/classvtkVolumeRayCastCompositeFunction) | [VTKWithNumpy](/Python/Utilities/VTKWithNumpy)  |
-| [vtkVolumeRayCastMapper](http://www.vtk.org/doc/nightly/html/classvtkVolumeRayCastMapper) | [VTKWithNumpy](/Python/Utilities/VTKWithNumpy)  |
 | [vtkVoxel](http://www.vtk.org/doc/nightly/html/classvtkVoxel) | [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration)  |
 | [vtkWarpVector](http://www.vtk.org/doc/nightly/html/classvtkWarpVector) | [WarpVector](/Python/PolyData/WarpVector)  |
 | [vtkWedge](http://www.vtk.org/doc/nightly/html/classvtkWedge) | [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration)  |
