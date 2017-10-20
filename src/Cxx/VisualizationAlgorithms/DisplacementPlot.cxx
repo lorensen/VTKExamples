@@ -15,7 +15,7 @@ The color_scheme option allows you to select a series of colour schemes.
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkColorTransferFunction.h>
-#include <vtkDatasetMapper.h>
+#include <vtkDataSetMapper.h>
 #include <vtkLookupTable.h>
 #include <vtkNamedColors.h>
 #include <vtkPolyDataNormals.h>
@@ -105,8 +105,8 @@ int main(int argc, char* argv[])
   // Add the actors to the renderer, set the background and size
   //
   ren->AddActor(plateActor);
-  ren->SetBackground(colors->GetColor3d("White").GetData());
-  renWin->SetSize(250, 250);
+  ren->SetBackground(colors->GetColor3d("Wheat").GetData());
+  renWin->SetSize(512, 512);
 
   ren->GetActiveCamera()->SetPosition(13.3991, 14.0764, 9.97787);
   ren->GetActiveCamera()->SetFocalPoint(1.50437, 0.481517, 4.52992);
