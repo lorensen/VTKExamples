@@ -50,8 +50,8 @@ def main():
     # Add the actors to the renderer, set the background and size
     #
     ren.AddActor(plateActor)
-    ren.SetBackground(colors.GetColor3d("White"))
-    renWin.SetSize(250, 250)
+    ren.SetBackground(colors.GetColor3d("Wheat"))
+    renWin.SetSize(512, 512)
 
     ren.GetActiveCamera().SetPosition(13.3991, 14.0764, 9.97787)
     ren.GetActiveCamera().SetFocalPoint(1.50437, 0.481517, 4.52992)
