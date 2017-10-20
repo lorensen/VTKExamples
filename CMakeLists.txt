@@ -42,33 +42,21 @@ else()
   message(STATUS "VTKWikiExamples: Tests will not be built")
 endif ()
 
+#-----------------------------------------------------------------------------
 include(PlatformSpecificChecks)
+include(WikiOutputDirectories)
 
 include(WikiPolicies)
 # Set the CMake Policies
 WikiPolicies()
 
-#
+#-----------------------------------------------------------------------------
 # Mac specific
 IF(APPLE)
   SET(EXECUTABLE_FLAG MACOSX_BUNDLE)
 ENDIF(APPLE)
 
 #-----------------------------------------------------------------------------
-# Output directories.
-if(NOT Module_WikiExamples)
-  IF(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-    SET (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${WikiExamples_BINARY_DIR}/bin CACHE INTERNAL "Single output directory for building all libraries.")
-  ENDIF(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-  IF(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-    SET (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${WikiExamples_BINARY_DIR}/bin CACHE INTERNAL "Single output directory for building all executables.")
-  ENDIF(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-  MARK_AS_ADVANCED(CMAKE_LIBRARY_OUTPUT_DIRECTORY CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-else()
-    SET (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${VTK_BINARY_DIR}/bin)
-endif()
-message(STATUS "VTKWikiExamples: Example executables are stored in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-
 ADD_SUBDIRECTORY(src/Cxx/Animation)
 ADD_SUBDIRECTORY(src/Cxx/CompositeData)
 IF(VTK_USE_MYSQL)
