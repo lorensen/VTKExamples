@@ -45,10 +45,7 @@ endif ()
 #-----------------------------------------------------------------------------
 include(PlatformSpecificChecks)
 include(WikiOutputDirectories)
-
 include(WikiPolicies)
-# Set the CMake Policies
-WikiPolicies()
 
 #-----------------------------------------------------------------------------
 # Mac specific
