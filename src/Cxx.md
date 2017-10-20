@@ -826,7 +826,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [BackgroundGradient](/Cxx/Visualization/BackgroundGradient) | vtkRenderer vtkRenderer | Background gradient.
 [BillboardTextActor3D](/Cxx/Visualization/BillboardTextActor3D) | vtkBillboardTextActor3D | Label points with billboards.
 [BlobbyLogo](/Cxx/Visualization/BlobbyLogo) | vtkImplicitModeller | Blobby logo from VTK textbook.
-[BluntStreamlines](/Cxx/Visualization/BluntStreamlines) | vtkStructuredGridGeometryFilter vtkStreamTracer| Demonstrates airflow around a blunt fin using streamlines.
+[BluntStreamlines](/Cxx/VisualizationAlgorithms/BluntStreamlines) | vtkStructuredGridGeometryFilter vtkStreamTracer| Demonstrates airflow around a blunt fin using streamlines.
 [CameraActor](/Cxx/Visualization/CameraActor) | vtkCameraActor | Visualize a camera (frustum) in a scene.
 [CameraModel1](/Cxx/Visualization/CameraModel1) | vtkCameraActor | Illustrate camera movement.
 [CameraModel2](/Cxx/Visualization/CameraModel2) | vtkCameraActor | Illustrate camera movement.
@@ -892,6 +892,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [NormalsDemo](/Cxx/Visualization/NormalsDemo)| vtkPolyDataNormals | Demo different ooption to generate normals.
 [Opacity](/Cxx/Visualization/Opacity)| vtkActor | Transparency, transparent.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs)| vtkGlyph3D|Create oriented glyphs from vector data.
+[PlateVibration](/Cxx/VisualizationAlgorithms/PlateVibration) | vtkWarpVector vtkVectorDot | Demonstrates the motion of a vibrating beam.
 [PointDataSubdivision](/Cxx/Visualization/PointDataSubdivision) | vtkLinearSubdivisionFilter vtkButterflySubdivisionFilter | Demonstrates the effect of applying these filters on various sources.
 [PointSize](/Cxx/Visualization/PointSize) | vtkActor |
 [ProgrammableGlyphFilter](/Cxx/Visualization/ProgrammableGlyphFilter)| vtkProgrammableGlyphFilter |Generate a custom glyph at each point.

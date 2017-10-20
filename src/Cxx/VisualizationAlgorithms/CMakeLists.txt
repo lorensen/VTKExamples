@@ -38,6 +38,7 @@ SET(NEEDS_ARGS
   MarchingCases
   MarchingCasesA
   MarchingCasesB
+  PlateVibration
   WarpCombustor
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
@@ -74,6 +75,9 @@ ADD_TEST(${KIT}-MarchingCasesA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-MarchingCasesB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingCasesB -3 -6 -7 -10 -12 -13)
+
+ADD_TEST(${KIT}-PlateVibration ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPlateVibration ${DATA}/plate.vtk)
 
 ADD_TEST(${KIT}-WarpCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestWarpCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin)

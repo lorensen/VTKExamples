@@ -101,7 +101,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
     ```
 
     where **MyNewExample** is the name of your new example.
-
+    
 2. Check the [available snippets](/Cxx/Snippets).
 2. Save your source code in VTKExamples/src/**LANGUAGE**/**TOPIC**/
 
@@ -125,6 +125,11 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
     ```
     ctest -V -R MyNewExample
+    ```
+    
+    Note: If **MyNewExample** is not built, then in the directory where you put the file do:
+    ```
+    touch CMakeLists.txt
     ```
 
 4. If your C++ example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test**MyNewExample**.png.
