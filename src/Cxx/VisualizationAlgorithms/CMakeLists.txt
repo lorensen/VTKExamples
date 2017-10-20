@@ -32,6 +32,7 @@ SET(NEEDS_ARGS
   CreateBFont
   CutWithCutFunction
   CutWithScalars
+  DisplacementPlot
   FilledContours
   FindCellIntersections
   LOx
@@ -57,6 +58,9 @@ ADD_TEST(${KIT}-CutWithCutFunction ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTe
 
 ADD_TEST(${KIT}-CutWithScalars ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCutWithScalars ${DATA}/Torso.vtp 20)
+
+ADD_TEST(${KIT}-DisplacementPlot ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestDisplacementPlot ${DATA}/plate.vtk)
 
 ADD_TEST(${KIT}-FilledContours ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestFilledContours ${DATA}/filledContours.vtp 10)

@@ -849,6 +849,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CurvedReformation](/Cxx/Visualization/CurvedReformation) | vtkProbeFilter| Sample a volume with a curved surface. In medical imaging, this is often called curved multi planar reformation.
 [Cutter](/Cxx/VisualizationAlgorithms/Cutter)| vtkCutter |
 [DepthSortPolyData](/Cxx/Visualization/DepthSortPolyData)| vtkDepthSortPolyData |Poly Data Depth Sorting.
+[DisplacementPlot](/Cxx/VisualizationAlgorithms/DisplacementPlot) | vtkColorTransferFunction vtkWarpVector vtkVectorDot | Show modal lines for a vibrating beam.
 [DisplayCoordinateAxes](/Cxx/Visualization/DisplayCoordinateAxes)| vtkOrientationMarkerWidget |Display coordinate axes.
 [DisplayQuadricSurfaces](/Cxx/Visualization/DisplayQuadricSurfaces)| vtkQuadric vtkSampleFunction vtkContourFilter |Display Quadric Surfaces.
 [DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | vtkDistanceToCamera |
