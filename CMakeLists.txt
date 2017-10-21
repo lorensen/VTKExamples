@@ -5,23 +5,49 @@ endif()
 
 PROJECT(WikiExamples)
 
-if (Module_WikiExamples)
-  message(STATUS "VTKWikiExamples: Building VTKWikiExamples as a Remote VTK Module")
-  message(STATUS "VTKWikiExamples: All executables will have a \"wiki\" prefix")
-  set(WIKI wiki)
+# Display type of build
+set(_msg "VTKWikiExamples: Building VTKWikiExamples stand-alone")
+message(STATUS "${_msg}")
+if(VTK_BINARY_DIR)
+  message(STATUS "${_msg} - no")
+else()
+  message(STATUS "${_msg} - yes")
+endif()
+
+# Display build properties
+set(_msg "VTKWikiExamples: Setting executables prefix")
+message(STATUS "${_msg}")
+if(VTK_BINARY_DIR)
+  set(WIKI "wiki")
+  message(STATUS "${_msg} - yes [prefix: ${WIKI}]")
+else()
+  set(WIKI "")
+  message(STATUS "${_msg} - no")
+endif()
+
+if(Module_WikiExamples)
+  #
+  # This is a VTK remote module build
+  #
+
   vtk_module_impl()
   if(NOT EXISTS "${VTK_BINARY_DIR}/VTKConfig.cmake")
     return()
   endif()
+
   find_package(VTK PATHS ${VTK_BINARY_DIR})
   include(${VTK_USE_FILE})
 else()
-  message(STATUS "VTKWikiExamples: Building VTKWikiExamples stand-alone")
-# See if VTK is using OpenGL or OpenGL2
+  #
+  # This is a stand-alone build
+  #
+
+  # See if VTK is using OpenGL or OpenGL2
   find_package(VTK CONFIG)
   if (NOT VTK_RENDERING_BACKEND)
     set(VTK_RENDERING_BACKEND OpenGL)
   endif()
+
   find_package(VTK REQUIRED)
   include(${VTK_USE_FILE})
 endif()
