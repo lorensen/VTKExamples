@@ -94,8 +94,8 @@ def getPage(url):
             date = date[:3]
         f.close()
         return (page, date, f.url)
-    except urllib2.URLError, detail:
-        print "%s. Skipping..." % (detail)
+    except urllib2.URLError as detail:
+        print("%s. Skipping..." % detail)
         return (None, (0, 0, 0), "")
 # end def
 
@@ -113,12 +113,12 @@ def getRobotParser(startUrl):
     page, date, url = getPage(robotUrl)
 
     if page is None:
-        print "Could not read ROBOTS.TXT at:", robotUrl
+        print("Could not read ROBOTS.TXT at:", robotUrl)
         return None
     # end if
 
     rp.parse(page)
-    print "Found ROBOTS.TXT at:", robotUrl
+    print("Found ROBOTS.TXT at:", robotUrl)
     return rp
 # end def
 
@@ -154,14 +154,14 @@ class MyHTMLParser(HTMLParser):
         if (tag.upper() == "BASE"):
             if (attrs[0][0].upper() == "HREF"):
                 self.baseUrl = joinUrls(self.baseUrl, attrs[0][1])
-                print "BASE URL set to", self.baseUrl
+                print("BASE URL set to", self.baseUrl)
 
         if (tag.upper() == "A"):
-            # print "Attrs:", attrs
+            # print("Attrs:", attrs)
             url = ""
             # Let's scan the list of tag's attributes
             for attr in attrs:
-                # print "  attr:", attr
+                # print("  attr:", attr)
                 if (attr[0].upper() == "REL") and (attr[1].upper().find('NOFOLLOW') != -1):
                     # We have discovered a nofollow, so we won't continue
                     return
@@ -179,7 +179,7 @@ class MyHTMLParser(HTMLParser):
             if self.hasBlockedExtension(url) or self.redirects.count(url) > 0:
                 return
             if (self.robotParser <> None) and not(self.robotParser.can_fetch("*", url)):
-                print "URL restricted by ROBOTS.TXT: ", url
+                print("URL restricted by ROBOTS.TXT: ", url)
                 return
             # It's OK to add url to the map and fetch it later
             if not(self.pageMap.has_key(url)):
@@ -207,12 +207,12 @@ def parsePages(startUrl, maxUrls, blockExtensions):
         url = getUrlToProcess(pageMap)
         if url is None:
             break
-        print " ", url
+        print(" ", url)
         page, date, newUrl = getPage(url)
         if page is None:
             del pageMap[url]
         elif url != newUrl:
-            print "Redirect -> " + newUrl
+            print("Redirect -> " + newUrl)
             del pageMap[url]
             pageMap[newUrl] = ()
             redirects.append(url)
@@ -223,9 +223,9 @@ def parsePages(startUrl, maxUrls, blockExtensions):
                 parser.feed(page)
                 parser.close()
             except HTMLParseError:
-                print "Error parsing %s, skipping." % (url)
+                print("Error parsing %s, skipping." % url)
             except UnicodeDecodeError:
-                print "Failed decoding %s . Try to check if the page is valid." % (url)
+                print("Failed decoding %s . Try to check if the page is valid." % url)
     # end while
 
     return pageMap
@@ -259,7 +259,7 @@ def main():
             ["help", "block=", "changefreq=", "max-urls=", "priority=", "output-file="]
         )
     except getopt.GetoptError:
-        print helpText
+        print(helpText)
         return
 
     blockExtensions = []
@@ -271,7 +271,7 @@ def main():
 
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            print helpText
+            print(helpText)
             return
         elif opt in ("-b", "--block"):
             blockExtensions.append("." + arg.upper())
@@ -279,30 +279,30 @@ def main():
             if arg in allowedChangefreq:
                 changefreq = arg
             else:
-                print "Allowed changefreq values are:"
+                print("Allowed changefreq values are:")
                 for i in allowedChangefreq:
-                    print i
-                print
+                    print(i)
+                print("")
                 return
         elif opt in ("-m", "--max-urls"):
             maxUrls = int(arg)
             if (maxUrls < 0) or (maxUrls > 50000):
-                print "The maximum number of URLs must be greater than 0 and smaller than 50000"
+                print("The maximum number of URLs must be greater than 0 and smaller than 50000")
                 return
         elif opt in ("-p", "--priority"):
             priority = float(arg)
             if (priority < 0.0) or (priority > 1.0):
-                print "Priority must be between 0.0 and 1.0"
+                print("Priority must be between 0.0 and 1.0")
                 return
         elif opt in ("-o", "--output-file"):
             fileName = arg
             if fileName in ("", ".", ".."):
-                print "Please provide a sensible file name"
+                print("Please provide a sensible file name")
                 return
         # end if
 
     if len(args) == 0:
-        print "You must provide the starting URL.\nTry the -h option for help."
+        print("You must provide the starting URL.\nTry the -h option for help.")
         return
 
     # Set user agent string
@@ -311,11 +311,11 @@ def main():
     urllib2.install_opener(opener)
 
     # Start processing
-    print "Crawling the site..."
+    print("Crawling the site...")
     pageMap = parsePages(args[0], maxUrls, blockExtensions)
-    print "Generating sitemap: %d URLs" % (len(pageMap))
+    print("Generating sitemap: %d URLs" % len(pageMap))
     generateSitemapFile(pageMap, fileName, changefreq, priority)
-    print "Finished."
+    print("Finished.")
 # end def
 
 
