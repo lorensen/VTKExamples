@@ -3,9 +3,10 @@
 import sys
 import vtk
 import os
-#------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
 # Script Entry Point
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 if __name__ == "__main__":
 
     print "vtkGraph: Building a graph using Unstructured Grid & dumping it in a vtk file, vertex.vtu, to be visualized using ParaView"
@@ -28,7 +29,7 @@ if __name__ == "__main__":
 
     pointSource.GetOutput().GetPointData().AddArray(degree)
 
-   # Assign co-ordinates for vertices
+    # Assign co-ordinates for vertices
     Points = vtk.vtkPoints()
     Points.InsertNextPoint(0, 1, 0)
     Points.InsertNextPoint(0, 0, 0)

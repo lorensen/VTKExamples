@@ -66,7 +66,7 @@ class LUTUtilities(object):
         s = '[' + ', '.join(['{:0.6f}'.format(x) for x in rgba]) + ']'
         ucrgb = [int(x * 255) for x in rgba]
         t = '[' + ', '.join(['{:3d}'.format(x) for x in ucrgb]) + ']'
-        #u = '0x'+''.join(map(lambda x: '{:02X}'.format(x),ucrgb[:3]))
+        # u = '0x'+''.join(map(lambda x: '{:02X}'.format(x),ucrgb[:3]))
         u = '0x' + ''.join(['{:02x}'.format(x) for x in ucrgb])
         res = '{:s} {:s} {:s}\n'.format(s, t, u)
         return res

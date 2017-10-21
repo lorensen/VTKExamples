@@ -1,17 +1,16 @@
 #!/usr/bin/env python
-#------------------------------------------------------------------------------#
-#                                   Imports                                    #
-#------------------------------------------------------------------------------#
+# ----------------------------------------------------------------------------- #
+#                                   Imports                                     #
+# ----------------------------------------------------------------------------- #
 from math import pi, cos, sin, sqrt
 import vtk
 
 LEVEL = 6
 
-#------------------------------------------------------------------------------#
-#                        Koch Snowflake as vtkPolyLine                         #
-#------------------------------------------------------------------------------#
 
-
+# ----------------------------------------------------------------------------- #
+#                        Koch Snowflake as vtkPolyLine                          #
+# ----------------------------------------------------------------------------- #
 def as_polyline(points, level):
     # Use the points from the previous iteration to create the points of the next
     # level. There is an assumption on my part that the curve is traversed in a
@@ -53,11 +52,10 @@ def as_polyline(points, level):
 
     return polydata
 
-#------------------------------------------------------------------------------#
-#                 Koch Snowflake as collection of vtkTriangles                 #
-#------------------------------------------------------------------------------#
 
-
+# ----------------------------------------------------------------------------- #
+#                  Koch Snowflake as collection of vtkTriangles                 #
+# ----------------------------------------------------------------------------- #
 def as_triangles(indices, cellarray, level, data):
     if len(indices) >= 3:
         stride = len(indices) // 4
@@ -77,9 +75,9 @@ def as_triangles(indices, cellarray, level, data):
         as_triangles(indices[3 * stride: -1], cellarray, level + 1, data)
 
 
-#------------------------------------------------------------------------------#
-#                                 Main Method                                  #
-#------------------------------------------------------------------------------#
+# ----------------------------------------------------------------------------- #
+#                                 Main Method                                   #
+# ----------------------------------------------------------------------------- #
 if __name__ == "__main__":
     # Initially, set up the points to be an equilateral triangle. Note that the
     # first point is the same as the last point to make this a closed curve when
@@ -126,9 +124,9 @@ if __name__ == "__main__":
     triangle_pd.SetPolys(triangles)
     triangle_pd.GetCellData().SetScalars(data)
 
-    #-----------------#
-    # rendering stuff #
-    #-----------------#
+    # ---------------- #
+    # rendering stuff  #
+    # ---------------- #
     outline_mapper = vtk.vtkPolyDataMapper()
     outline_mapper.SetInputData(outline_pd)
 

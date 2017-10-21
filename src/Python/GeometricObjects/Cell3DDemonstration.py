@@ -413,5 +413,5 @@ def DisplayBodies():
 
 if __name__ == '__main__':
     iRen = DisplayBodies()
-    #WritePNG(iRen.GetRenderWindow(), "Cell3DDemonstration.png")
+    # WritePNG(iRen.GetRenderWindow(), "Cell3DDemonstration.png")
     iRen.Start()

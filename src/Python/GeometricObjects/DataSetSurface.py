@@ -2,7 +2,7 @@ from vtk import*
 
 
 # Setup the coordinates of eight points
-#(the two faces must be in counter clockwise order as viewd from the outside)
+# (the two faces must be in counter clockwise order as viewd from the outside)
 P0 = [0.0, 0.0, 0.0]
 P1 = [1.0, 0.0, 0.0]
 P2 = [1.0, 1.0, 0.0]
@@ -94,7 +94,7 @@ renderer.AddActor(aBeamActor)
 renderer.AddActor(planeActor)
 renderer.SetBackground(0, 0, 0)  # Background color white
 
-#Render and interact
+# Render and interact
 renderWindow.Render()
 
 renderWindowInteractor.Start()

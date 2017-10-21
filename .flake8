@@ -1,12 +1,6 @@
 [flake8]
 max-line-length = 150
 ignore =
-    # E114 indentation is not a multiple of four (comment)
-    E114,
-    # E241 multiple spaces after ','
-    E241,
-    # E265 block comment should start with '# '
-    E265,
     # E721 do not compare types, use 'isinstance()'
     E721,
     # E999 SyntaxError

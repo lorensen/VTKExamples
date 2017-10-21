@@ -114,6 +114,6 @@ renderer.AddActor(sphereEnd)
 renderer.SetBackground(.1, .2, .3)  # Background color dark blue
 
 
-#Render and interact
+# Render and interact
 renderWindow.Render()
 renderWindowInteractor.Start()

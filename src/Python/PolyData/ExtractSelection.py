@@ -31,15 +31,15 @@ def main():
     #  EDGE_DATA = 4
 
     selectionNode.SetContentType(4)  # INDICES
-    #SELECTIONS = 0
-    #GLOBALIDS = 1
-    #PEDIGREEIDS = 2
-    #VALUES = 3
-    #INDICES = 4
-    #FRUSTUM = 5
-    #LOCATIONS = 6
-    #THRESHOLDS = 7
-    #BLOCKS = 8
+    # SELECTIONS = 0
+    # GLOBALIDS = 1
+    # PEDIGREEIDS = 2
+    # VALUES = 3
+    # INDICES = 4
+    # FRUSTUM = 5
+    # LOCATIONS = 6
+    # THRESHOLDS = 7
+    # BLOCKS = 8
     selectionNode.SetSelectionList(ids)
 
     selection = vtk.vtkSelection()

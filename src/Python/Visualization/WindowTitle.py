@@ -26,10 +26,10 @@ def main():
     renderer.AddActor(actor)
     renderer.SetBackground(1, 1, 1)  # Background color white
 
-    #Render and interact
+    # Render and interact
     renderWindow.Render()
 
-    #*** SetWindowName after renderWindow.Render() is called***
+    # *** SetWindowName after renderWindow.Render() is called ***
     renderWindow.SetWindowName("Test")
 
     renderWindowInteractor.Start()
