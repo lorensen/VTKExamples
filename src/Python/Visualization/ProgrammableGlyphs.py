@@ -25,8 +25,6 @@ planeActor.GetProperty().SetRepresentationToWireframe()
 
 
 def Glyph():
-    ptId = glypher.GetPointId()
-    pd = glypher.GetPointData()
     xyz = glypher.GetPoint()
     x = xyz[0]
     y = xyz[1]

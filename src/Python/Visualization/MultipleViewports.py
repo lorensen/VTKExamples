@@ -3,7 +3,6 @@ import vtk
 
 def main():
     '''One render window, multiple viewports'''
-    iren_list = []
     rw = vtk.vtkRenderWindow()
     iren = vtk.vtkRenderWindowInteractor()
     iren.SetRenderWindow(rw)

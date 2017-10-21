@@ -23,7 +23,6 @@ def FindSynonyms(nc, colorName):
     # We use lower case for comparison and
     # just the red, green, and blue components
     # of the color.
-    lcolorName = colorName.lower()
     myColor = nc.GetColor3ub(colorName)
     for color in availableColors:
         rgb = nc.GetColor3ub(color)

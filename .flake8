@@ -25,15 +25,3 @@ ignore =
     F821,
     # F821 undefined name 'unicode'
     F821,
-    # F841 local variable 'iren_list' is assigned to but never used
-    F841,
-    # F841 local variable 'lcolorName' is assigned to but never used
-    F841,
-    # F841 local variable 'lutUtilities' is assigned to but never used
-    F841,
-    # F841 local variable 'pd' is assigned to but never used
-    F841,
-    # F841 local variable 'ptId' is assigned to but never used
-    F841,
-    # F841 local variable 'timerId' is assigned to but never used
-    F841,

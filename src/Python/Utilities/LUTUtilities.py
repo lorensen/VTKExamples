@@ -236,7 +236,6 @@ def TestLookupTables(lutMode):
     :param: lutMode - if True the tables are ordinal, categorical otherwise.
     :return: True if all tests passed.
     '''
-    lutUtilities = LUTUtilities()
     lut1 = vtk.vtkLookupTable()
     lut2 = vtk.vtkLookupTable()
     colorSeries = vtk.vtkColorSeries()
