@@ -1,0 +1,114 @@
+[flake8]
+exclude =
+    src/Admin/
+ignore =
+    # E111 indentation is not a multiple of four
+    E111,
+    # E114 indentation is not a multiple of four (comment)
+    E114,
+    # E122 continuation line missing indentation or outdented
+    E122,
+    # E123 closing bracket does not match indentation of opening bracket's line
+    E123,
+    # E126 continuation line over-indented for hanging indent
+    E126,
+    # E127 continuation line over-indented for visual indent
+    E127,
+    # E131 continuation line unaligned for hanging indent
+    E131,
+    # E201 whitespace after '('
+    E201,
+    # E201 whitespace after '['
+    E201,
+    # E202 whitespace before ')'
+    E202,
+    # E203 whitespace before ','
+    E203,
+    # E211 whitespace before '('
+    E211,
+    # E221 multiple spaces before operator
+    E221,
+    # E225 missing whitespace around operator
+    E225,
+    # E226 missing whitespace around arithmetic operator
+    E226,
+    # E231 missing whitespace after ','
+    E231,
+    # E241 multiple spaces after '
+    E241,
+    # E241 multiple spaces after ','
+    E241,
+    # E251 unexpected spaces around keyword / parameter equals
+    E251,
+    # E261 at least two spaces before inline comment
+    E261,
+    # E262 inline comment should start with '# '
+    E262,
+    # E265 block comment should start with '# '
+    E265,
+    # E266 too many leading '#' for block comment
+    E266,
+    # E302 expected 2 blank lines, found 1
+    E302,
+    # E303 too many blank lines (2)
+    E303,
+    # E303 too many blank lines (3)
+    E303,
+    # E303 too many blank lines (4)
+    E303,
+    # E305 expected 2 blank lines after class or function definition, found 1
+    E305,
+    # E401 multiple imports on one line
+    E401,
+    # E501 line too long
+    E501,
+    # E701 multiple statements on one line (colon)
+    E701,
+    # E702 multiple statements on one line (semicolon)
+    E702,
+    # E703 statement ends with a semicolon
+    E703,
+    # E721 do not compare types, use 'isinstance()'
+    E721,
+    # E999 SyntaxError
+    E999,
+    # F401 'PyQt4.QtCore' imported but unused
+    F401,
+    # F401 'random' imported but unused
+    F401,
+    # F401 'string' imported but unused
+    F401,
+    # F401 'vtk.*' imported but unused
+    F401,
+    # F403 'from numpy import *' used; unable to detect undefined names
+    F403,
+    # F403 'from vtk import *' used; unable to detect undefined names
+    F403,
+    # F405 'XXXX' may be undefined, or defined from star imports
+    F405,
+    # F821 undefined name 'constant'
+    F821,
+    # F821 undefined name 'os'
+    F821,
+    # F821 undefined name 'unicode'
+    F821,
+    # F841 local variable 'iren_list' is assigned to but never used
+    F841,
+    # F841 local variable 'lcolorName' is assigned to but never used
+    F841,
+    # F841 local variable 'lutUtilities' is assigned to but never used
+    F841,
+    # F841 local variable 'pd' is assigned to but never used
+    F841,
+    # F841 local variable 'ptId' is assigned to but never used
+    F841,
+    # F841 local variable 'timerId' is assigned to but never used
+    F841,
+    # W191 indentation contains tabs
+    W191,
+    # W291 trailing whitespace
+    W291,
+    # W293 blank line contains whitespace
+    W293,
+    # W391 blank line at end of file
+    W391,
