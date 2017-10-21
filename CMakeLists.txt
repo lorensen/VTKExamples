@@ -2,70 +2,58 @@ cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
 PROJECT(WikiExamples)
 
-if (Module_WikiExamples)
-  message(STATUS "VTKWikiExamples: Building VTKWikiExamples as a Remote VTK Module")
-  message(STATUS "VTKWikiExamples: All executables will have a \"wiki\" prefix")
-  set(WIKI wiki)
-  vtk_module_impl()
-  if(NOT EXISTS "${VTK_BINARY_DIR}/VTKConfig.cmake")
-    return()
-  endif()
-  find_package(VTK PATHS ${VTK_BINARY_DIR})
-  include(${VTK_USE_FILE})
+# Display type of build
+set(_msg "VTKWikiExamples: Building VTKWikiExamples stand-alone")
+message(STATUS "${_msg}")
+if(VTK_BINARY_DIR)
+  message(STATUS "${_msg} - no")
 else()
-  message(STATUS "VTKWikiExamples: Building VTKWikiExamples stand-alone")
-# See if VTK is using OpenGL or OpenGL2
-  find_package(VTK CONFIG)
-  if (NOT VTK_RENDERING_BACKEND)
-    set(VTK_RENDERING_BACKEND OpenGL)
-  endif()
-  find_package(VTK REQUIRED)
-  include(${VTK_USE_FILE})
+  message(STATUS "${_msg} - yes")
 endif()
-set(WikiExamples_TEST_LABELS "foo")
+
+# Display build properties
+set(_msg "VTKWikiExamples: Setting executables prefix")
+message(STATUS "${_msg}")
+if(VTK_BINARY_DIR)
+  set(WIKI "wiki")
+  message(STATUS "${_msg} - yes [prefix: ${WIKI}]")
+else()
+  set(WIKI "")
+  message(STATUS "${_msg} - no")
+endif()
+
+# Display VTK version
+if(NOT VTK_BINARY_DIR)
+  find_package(VTK REQUIRED)
+endif()
+if(NOT VTK_RENDERING_BACKEND)
+  set(VTK_RENDERING_BACKEND OpenGL) # Support VTK version prior to introduction of rendering backend
+endif()
 message(STATUS "VTKWikiExamples: VTK VERSION: ${VTK_VERSION}(${VTK_RENDERING_BACKEND})")
 
-set(CMAKE_MODULE_PATH ${WikiExamples_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
+#-----------------------------------------------------------------------------
+set(CMAKE_MODULE_PATH
+  ${WikiExamples_SOURCE_DIR}/CMake
+  ${CMAKE_MODULE_PATH}
+  )
 
-option(BUILD_TESTING "Build the testing tree." OFF)
-if (BUILD_TESTING)
-  ENABLE_TESTING()
-  INCLUDE(CTest)
-  CONFIGURE_FILE(
-    ${WikiExamples_SOURCE_DIR}/CMake/SampleBuildTest.cmake.in
-    ${WikiExamples_BINARY_DIR}/SampleBuildTest.cmake @ONLY)
-  message(STATUS "VTKWikiExamples: Tests will be built with label \"WikiExamples\"")
-else()
-  message(STATUS "VTKWikiExamples: Tests will not be built")
-endif ()
-
-include(PlatformSpecificChecks)
-
+#-----------------------------------------------------------------------------
+include(WikiModuleConfigLegacy)
+if(WikiModuleConfigLegacy_RETURN)
+  return()
+endif()
+include(WikiOutputDirectories)
+include(WikiPlatformSpecificChecks)
 include(WikiPolicies)
-# Set the CMake Policies
-WikiPolicies()
+include(WikiTestingConfig)
 
-#
+#-----------------------------------------------------------------------------
 # Mac specific
 IF(APPLE)
   SET(EXECUTABLE_FLAG MACOSX_BUNDLE)
 ENDIF(APPLE)
 
 #-----------------------------------------------------------------------------
-# Output directories.
-if(NOT Module_WikiExamples)
-  IF(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-    SET (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${WikiExamples_BINARY_DIR}/bin CACHE INTERNAL "Single output directory for building all libraries.")
-  ENDIF(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-  IF(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-    SET (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${WikiExamples_BINARY_DIR}/bin CACHE INTERNAL "Single output directory for building all executables.")
-  ENDIF(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-  MARK_AS_ADVANCED(CMAKE_LIBRARY_OUTPUT_DIRECTORY CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-else()
-    SET (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${VTK_BINARY_DIR}/bin)
-endif()
-message(STATUS "VTKWikiExamples: Example executables are stored in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-
 ADD_SUBDIRECTORY(src/Cxx/Animation)
 ADD_SUBDIRECTORY(src/Cxx/CompositeData)
 IF(VTK_USE_MYSQL)
