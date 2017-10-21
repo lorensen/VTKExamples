@@ -174,11 +174,11 @@ class MyHTMLParser(HTMLParser):
                 return
 
             # Check if we want to follow the link
-            if urlparse.urlsplit(url)[1] <> self.server:
+            if urlparse.urlsplit(url)[1] != self.server:
                 return
             if self.hasBlockedExtension(url) or self.redirects.count(url) > 0:
                 return
-            if (self.robotParser <> None) and not(self.robotParser.can_fetch("*", url)):
+            if (self.robotParser is not None) and not(self.robotParser.can_fetch("*", url)):
                 print("URL restricted by ROBOTS.TXT: ", url)
                 return
             # It's OK to add url to the map and fetch it later
@@ -240,7 +240,7 @@ def generateSitemapFile(pageMap, fileName, changefreq="", priority=0.0):
         fw.write('<url>\n  <loc>%s</loc>\n' % (xml.sax.saxutils.escape(i)))
         if pageMap[i] not in [(), (0, 0, 0)]:
             fw.write('  <lastmod>%4d-%02d-%02d</lastmod>\n' % pageMap[i])
-        if changefreq <> "":
+        if changefreq != "":
             fw.write('  <changefreq>%s</changefreq>\n' % (changefreq))
         if priority > 0.0:
             fw.write('  <priority>%1.1f</priority>\n' % (priority))
