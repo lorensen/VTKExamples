@@ -13,7 +13,7 @@ def GetProgramParameters():
     description = 'Demonstrates point data subdivision with the glyphing of normals on the surface.'
     epilogue = '''
         This program takes a surface and displays three surfaces.
-        
+
         The first surface is the original surface and the second and third surfaces have
          had linear and butterfly interpolation applied respectively.
         The user can control the object to use, normal generation, type of shading
@@ -215,7 +215,7 @@ def MakeLUT(scalarRange):
 
 
 def GlyphActor(source, glyphPoints, scalarRange, scaleFactor, lut):
-    """   
+    """
     Create the actor for glyphing the normals.
 
     :param: source: the surface.
@@ -281,7 +281,7 @@ def MakeLabel(textLabel, renWinSize):
     """
     Create a label.
 
-    :param textLabel: The label. 
+    :param textLabel: The label.
     :param renWinSize: The size of the render window. Used to set the font size.
 
     :return: The actor for the text label.
@@ -305,7 +305,7 @@ def MakeAxesActor():
     """
     Make an axis actor.
 
-    :return: The axis actor. 
+    :return: The axis actor.
     """
     axes = vtk.vtkAxesActor()
     axes.SetShaftTypeToCylinder()

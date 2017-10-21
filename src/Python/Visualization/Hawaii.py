@@ -76,12 +76,12 @@ def get_program_parameters():
         It is a translation of the original hawaii.tcl with a few additional enhancements.
         The image is centered on Honolulu, O'ahu.
         Diamond Head is the crater lower left. Punchbowl is the crater in the centre.
-        
+
         The color_scheme option allows you to select a series of colour schemes.
         0: The default, a lookup using a "Brewer" palette.
-        1: The original: A lookup table of 256 colours ranging from deep blue (water) to yellow-white (mountain top). 
-        2: A lookup table with a preset number of colours. 
-        
+        1: The original: A lookup table of 256 colours ranging from deep blue (water) to yellow-white (mountain top).
+        2: A lookup table with a preset number of colours.
+
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
     parser.add_argument('filename', help='honolulu.vtk.')

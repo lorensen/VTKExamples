@@ -81,7 +81,7 @@ def UpdateRenderWindows(obj, event):
 
 # Set up callback to update 3d render window when selections are changed in
 # parallel coordinates view
-annotationLink.AddObserver("AnnotationChangedEvent",  UpdateRenderWindows)
+annotationLink.AddObserver("AnnotationChangedEvent", UpdateRenderWindows)
 
 
 def ToggleInspectors(obj, event):

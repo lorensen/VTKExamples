@@ -71,7 +71,7 @@ def as_triangles(indices, cellarray, level, data):
         cellarray.InsertNextCell(triangle)
         data.InsertNextValue(level)
 
-        as_triangles(indices[0:   stride], cellarray, level + 1, data)
+        as_triangles(indices[0: stride], cellarray, level + 1, data)
         as_triangles(indices[stride: 2 * stride], cellarray, level + 1, data)
         as_triangles(indices[2 * stride: 3 * stride], cellarray, level + 1, data)
         as_triangles(indices[3 * stride: -1], cellarray, level + 1, data)
@@ -111,13 +111,13 @@ if __name__ == "__main__":
 
     # This is the starting triangle.
     t = vtk.vtkTriangle()
-    t.GetPointIds().SetId(0,        0)
-    t.GetPointIds().SetId(1,   stride)
+    t.GetPointIds().SetId(0, 0)
+    t.GetPointIds().SetId(1, stride)
     t.GetPointIds().SetId(2, 2 * stride)
     triangles.InsertNextCell(t)
     data.InsertNextValue(0)
 
-    as_triangles(indices[0:   stride + 1], triangles, 1, data)
+    as_triangles(indices[0: stride + 1], triangles, 1, data)
     as_triangles(indices[stride: 2 * stride + 1], triangles, 1, data)
     as_triangles(indices[2 * stride: -1], triangles, 1, data)
 

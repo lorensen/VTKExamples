@@ -6,11 +6,11 @@ import random
 
 '''
 There are two alternative ways to apply the transform.
- 1) Use vtkTransformPolyDataFilter to create a new transformed polydata. 
+ 1) Use vtkTransformPolyDataFilter to create a new transformed polydata.
     This method is useful if the transformed polydata is needed
       later in the pipeline
     To do this, set USER_MATRIX = True
- 2) Apply the transform directly to the actor using vtkProp3D's SetUserMatrix. 
+ 2) Apply the transform directly to the actor using vtkProp3D's SetUserMatrix.
     No new data is produced.
     To do this, set USER_MATRIX = False
 '''
