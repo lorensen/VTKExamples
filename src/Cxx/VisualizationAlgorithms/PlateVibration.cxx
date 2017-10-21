@@ -3,7 +3,7 @@
 #include <vtkActor.h>
 #include <vtkCallbackCommand.h>
 #include <vtkCamera.h>
-#include <vtkDatasetMapper.h>
+#include <vtkDataSetMapper.h>
 #include <vtkLookupTable.h>
 #include <vtkNamedColors.h>
 #include <vtkOutlineFilter.h>
@@ -11,7 +11,7 @@
 #include <vtkPolyDataMapper.h>
 #include <vtkPolyDataNormals.h>
 #include <vtkPolyDataReader.h>
-#include <vtkProp3d.h>
+#include <vtkProp3D.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
