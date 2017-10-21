@@ -131,6 +131,7 @@ class UndocumentedExamples(object):
                         examples.add(m.group(1))
                 f.close()
             self.documented_examples[eg] = examples
+
     def print_tables(self):
         self.get_all_examples()
         self.parse_markdown_files()
