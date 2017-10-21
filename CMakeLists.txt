@@ -25,6 +25,15 @@ else()
   message(STATUS "${_msg} - no")
 endif()
 
+# Display VTK version
+if(NOT VTK_BINARY_DIR)
+  find_package(VTK REQUIRED)
+endif()
+if(NOT VTK_RENDERING_BACKEND)
+  set(VTK_RENDERING_BACKEND OpenGL) # Support VTK version prior to introduction of rendering backend
+endif()
+message(STATUS "VTKWikiExamples: VTK VERSION: ${VTK_VERSION}(${VTK_RENDERING_BACKEND})")
+
 if(Module_WikiExamples)
   #
   # This is a VTK remote module build
@@ -42,17 +51,9 @@ else()
   # This is a stand-alone build
   #
 
-  # See if VTK is using OpenGL or OpenGL2
-  find_package(VTK CONFIG)
-  if (NOT VTK_RENDERING_BACKEND)
-    set(VTK_RENDERING_BACKEND OpenGL)
-  endif()
-
   find_package(VTK REQUIRED)
   include(${VTK_USE_FILE})
 endif()
-
-message(STATUS "VTKWikiExamples: VTK VERSION: ${VTK_VERSION}(${VTK_RENDERING_BACKEND})")
 
 set(CMAKE_MODULE_PATH ${WikiExamples_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
 
