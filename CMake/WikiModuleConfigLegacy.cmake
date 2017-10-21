@@ -1,5 +1,15 @@
 
 #
+# Following the improvement of VTK build system integrated in
+# commit kitware/VTK@061eff0 from October 18th 2017 the approach
+# implemented in this CMake module stopped working.
+#
+
+if(${VTK_VERSION} VERSION_EQUAL "8.1" OR ${VTK_VERSION} VERSION_GREATER "8.1")
+  return()
+endif()
+
+#
 # This CMake module implements the legacy logic that is used
 # to find and load the VTK dependencies needed by this project.
 #
