@@ -35,6 +35,7 @@ message(STATUS "VTKWikiExamples: VTK VERSION: ${VTK_VERSION}(${VTK_RENDERING_BAC
 set(CMAKE_MODULE_PATH
   ${WikiExamples_SOURCE_DIR}/CMake
   ${CMAKE_MODULE_PATH}
+  ${VTK_CMAKE_DIR}
   )
 
 #-----------------------------------------------------------------------------
@@ -42,6 +43,7 @@ include(WikiModuleConfigLegacy)
 if(WikiModuleConfigLegacy_RETURN)
   return()
 endif()
+include(WikiModuleConfig)
 include(WikiOutputDirectories)
 include(WikiPlatformSpecificChecks)
 include(WikiPolicies)
