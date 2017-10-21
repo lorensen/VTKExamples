@@ -30,22 +30,11 @@ message(STATUS "VTKWikiExamples: VTK VERSION: ${VTK_VERSION}(${VTK_RENDERING_BAC
 
 set(CMAKE_MODULE_PATH ${WikiExamples_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
 
-option(BUILD_TESTING "Build the testing tree." OFF)
-if (BUILD_TESTING)
-  ENABLE_TESTING()
-  INCLUDE(CTest)
-  CONFIGURE_FILE(
-    ${WikiExamples_SOURCE_DIR}/CMake/SampleBuildTest.cmake.in
-    ${WikiExamples_BINARY_DIR}/SampleBuildTest.cmake @ONLY)
-  message(STATUS "VTKWikiExamples: Tests will be built with label \"WikiExamples\"")
-else()
-  message(STATUS "VTKWikiExamples: Tests will not be built")
-endif ()
-
 #-----------------------------------------------------------------------------
 include(WikiOutputDirectories)
 include(WikiPlatformSpecificChecks)
 include(WikiPolicies)
+include(WikiTestingConfig)
 
 #-----------------------------------------------------------------------------
 # Mac specific
