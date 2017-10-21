@@ -182,7 +182,7 @@ class MyHTMLParser(HTMLParser):
                 print("URL restricted by ROBOTS.TXT: ", url)
                 return
             # It's OK to add url to the map and fetch it later
-            if not(self.pageMap.has_key(url)):
+            if url not in self.pageMap:
                 self.pageMap[url] = ()
         # end if
     # end def
