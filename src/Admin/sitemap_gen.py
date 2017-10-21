@@ -88,7 +88,7 @@ def getPage(url):
         for i in f.readlines():
             page += i
         date = f.info().getdate('Last-Modified')
-        if date == None:
+        if date is None:
             date = (0, 0, 0)
         else:
             date = date[:3]
@@ -112,7 +112,7 @@ def getRobotParser(startUrl):
     robotUrl = urlparse.urljoin(startUrl, "/robots.txt")
     page, date, url = getPage(robotUrl)
 
-    if page == None:
+    if page is None:
         print "Could not read ROBOTS.TXT at:", robotUrl
         return None
     # end if
@@ -205,11 +205,11 @@ def parsePages(startUrl, maxUrls, blockExtensions):
 
     while True:
         url = getUrlToProcess(pageMap)
-        if url == None:
+        if url is None:
             break
         print " ", url
         page, date, newUrl = getPage(url)
-        if page == None:
+        if page is None:
             del pageMap[url]
         elif url != newUrl:
             print "Redirect -> " + newUrl
