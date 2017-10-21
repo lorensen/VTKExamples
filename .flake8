@@ -1,6 +1,5 @@
 [flake8]
-exclude =
-    src/Admin/
+max-line-length = 150
 ignore =
     # E111 indentation is not a multiple of four
     E111,
@@ -8,10 +7,6 @@ ignore =
     E114,
     # E122 continuation line missing indentation or outdented
     E122,
-    # E123 closing bracket does not match indentation of opening bracket's line
-    E123,
-    # E126 continuation line over-indented for hanging indent
-    E126,
     # E127 continuation line over-indented for visual indent
     E127,
     # E131 continuation line unaligned for hanging indent
@@ -30,14 +25,8 @@ ignore =
     E221,
     # E225 missing whitespace around operator
     E225,
-    # E226 missing whitespace around arithmetic operator
-    E226,
     # E231 missing whitespace after ','
     E231,
-    # E241 multiple spaces after '
-    E241,
-    # E241 multiple spaces after ','
-    E241,
     # E251 unexpected spaces around keyword / parameter equals
     E251,
     # E261 at least two spaces before inline comment

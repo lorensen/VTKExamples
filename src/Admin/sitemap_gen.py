@@ -17,9 +17,7 @@
 
 """
 
-import os.path
 import sys
-import string
 import getopt
 import urllib2
 import urlparse
@@ -27,8 +25,6 @@ from HTMLParser import HTMLParser
 from HTMLParser import HTMLParseError
 import xml.sax.saxutils
 import robotparser
-import re
-import httplib
 
 
 helpText = """sitemap_gen.py version 1.1.0 (2009-09-05)
