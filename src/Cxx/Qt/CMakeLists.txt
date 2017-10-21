@@ -60,6 +60,8 @@ foreach(EXAMPLE_FILE ${ALL_UI_FILES})
     # CMAKE_AUTOMOC in ON so the MocHdrs will be automatically wrapped.
     add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}Driver.cxx ${EXAMPLE}.cxx ${UISrcs} ${EXAMPLE}.h)
     qt5_use_modules(${WIKI}${EXAMPLE} Core Gui Widgets)
+  else()
+    add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
   endif()
   TARGET_LINK_LIBRARIES(${WIKI}${EXAMPLE} ${KIT_LIBS})
   list(REMOVE_ITEM ALL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}Driver.cxx ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}.cxx)
