@@ -7,7 +7,7 @@ import math
 # vx-vy-vz triplets accessible by (point or cell) id.
 points = vtk.vtkPoints()
 points.SetNumberOfPoints(6)
-c = math.cos(math.pi/6) # helper variable
+c = math.cos(math.pi / 6)  # helper variable
 points.SetPoint(0, 0.0, -1.0, 0.0)
 points.SetPoint(1,   c, -0.5, 0.0)
 points.SetPoint(2,   c,  0.5, 0.0)

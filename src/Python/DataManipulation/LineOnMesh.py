@@ -22,17 +22,17 @@ triangles = vtk.vtkCellArray()
 
 # Build the meshgrid manually
 count = 0
-for i in range(size-1):
-    for j in range(size-1):
+for i in range(size - 1):
+    for j in range(size - 1):
 
         z1 = topography[i][j]
-        z2 = topography[i][j+1]
-        z3 = topography[i+1][j]
+        z2 = topography[i][j + 1]
+        z3 = topography[i + 1][j]
 
         # Triangle 1
         points.InsertNextPoint(i, j, z1)
-        points.InsertNextPoint(i, (j+1), z2)
-        points.InsertNextPoint((i+1), j, z3)
+        points.InsertNextPoint(i, (j + 1), z2)
+        points.InsertNextPoint((i + 1), j, z3)
 
         triangle = vtk.vtkTriangle()
         triangle.GetPointIds().SetId(0, count)
@@ -41,14 +41,14 @@ for i in range(size-1):
 
         triangles.InsertNextCell(triangle)
 
-        z1 = topography[i][j+1]
-        z2 = topography[i+1][j+1]
-        z3 = topography[i+1][j]
+        z1 = topography[i][j + 1]
+        z2 = topography[i + 1][j + 1]
+        z3 = topography[i + 1][j]
 
         # Triangle 2
-        points.InsertNextPoint(i, (j+1), z1)
-        points.InsertNextPoint((i+1), (j+1), z2)
-        points.InsertNextPoint((i+1), j, z3)
+        points.InsertNextPoint(i, (j + 1), z1)
+        points.InsertNextPoint((i + 1), (j + 1), z2)
+        points.InsertNextPoint((i + 1), j, z3)
 
         triangle = vtk.vtkTriangle()
         triangle.GetPointIds().SetId(0, count + 3)
@@ -60,7 +60,7 @@ for i in range(size-1):
         triangles.InsertNextCell(triangle)
 
         # Add some color
-        r = [int(i/float(size)*255),int(j/float(size)*255),0]
+        r = [int(i / float(size) * 255), int(j / float(size) * 255), 0]
         colors.InsertNextTypedTuple(r)
         colors.InsertNextTypedTuple(r)
         colors.InsertNextTypedTuple(r)
@@ -102,7 +102,7 @@ locator.SetDataSet(smooth_loop.GetOutput())
 locator.BuildLocator()
 
 maxloop = 1000
-dist = 20.0/maxloop
+dist = 20.0 / maxloop
 tolerance = 0.001
 
 # Make a list of points. Each point is the intersection of a vertical line
@@ -110,8 +110,8 @@ tolerance = 0.001
 points = vtk.vtkPoints()
 for i in range(maxloop):
 
-    p1 = [2+i*dist, 16, -1]
-    p2 = [2+i*dist, 16, 6]
+    p1 = [2 + i * dist, 16, -1]
+    p2 = [2 + i * dist, 16, 6]
 
     # Outputs (we need only pos which is the x, y, z position
     # of the intersection)

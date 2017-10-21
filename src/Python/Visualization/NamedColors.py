@@ -8,6 +8,7 @@ from __future__ import print_function
 import vtk
 import string
 
+
 def FindSynonyms(nc, colorName):
     '''
     Find any synonyms for a specified color.
@@ -43,22 +44,22 @@ def DisplayCone(nc):
     coneSource.SetCenter(0.0, 0.0, 0.0)
     coneSource.SetRadius(5.0)
     coneSource.SetHeight(10)
-    coneSource.SetDirection(0,1,0)
+    coneSource.SetDirection(0, 1, 0)
     coneSource.Update()
 
-    bounds = [1.0,-1.0,1.0,-1.0,1.0,-1.0]
+    bounds = [1.0, -1.0, 1.0, -1.0, 1.0, -1.0]
     coneSource.GetOutput().GetBounds(bounds)
 
     elevation = vtk.vtkElevationFilter()
     elevation.SetInputConnection(coneSource.GetOutputPort())
-    elevation.SetLowPoint(0,bounds[2],0)
-    elevation.SetHighPoint(0,bounds[3],0)
+    elevation.SetLowPoint(0, bounds[2], 0)
+    elevation.SetHighPoint(0, bounds[3], 0)
 
     bcf = vtk.vtkBandedPolyDataContourFilter()
     bcf.SetInputConnection(elevation.GetOutputPort())
     bcf.SetScalarModeToValue()
     bcf.GenerateContourEdgesOn()
-    bcf.GenerateValues(7,elevation.GetScalarRange())
+    bcf.GenerateValues(7, elevation.GetScalarRange())
 
     # Build a simple lookup table of
     # primary additive and subtractive colors.
@@ -71,22 +72,22 @@ def DisplayCone(nc):
     # SetColor(name,rgba) works.
     rgba = list(nc.GetColor4d("Red"))
     rgba[3] = 0.5
-    nc.SetColor("My Red",rgba)
+    nc.SetColor("My Red", rgba)
     rgba = nc.GetColor4d("My Red")
-    lut.SetTableValue(0,rgba)
+    lut.SetTableValue(0, rgba)
     # Does "My Red" match anything?
-    match = FindSynonyms(nc,"My Red")
+    match = FindSynonyms(nc, "My Red")
     print("Matching colors to My Red:", match)
 
     rgba = nc.GetColor4d("DarkGreen")
     rgba[3] = 0.3
-    lut.SetTableValue(1,rgba)
+    lut.SetTableValue(1, rgba)
     #  Alternatively we can use our wrapper functions:
-    lut.SetTableValue(2,nc.GetColor4d("Blue"))
-    lut.SetTableValue(3,nc.GetColor4d("Cyan"))
-    lut.SetTableValue(4,nc.GetColor4d("Magenta"))
-    lut.SetTableValue(5,nc.GetColor4d("Yellow"))
-    lut.SetTableValue(6,nc.GetColor4d("White"))
+    lut.SetTableValue(2, nc.GetColor4d("Blue"))
+    lut.SetTableValue(3, nc.GetColor4d("Cyan"))
+    lut.SetTableValue(4, nc.GetColor4d("Magenta"))
+    lut.SetTableValue(5, nc.GetColor4d("Yellow"))
+    lut.SetTableValue(6, nc.GetColor4d("White"))
     lut.SetTableRange(elevation.GetScalarRange())
     lut.Build()
 
@@ -133,6 +134,7 @@ def DisplayCone(nc):
 
     return renderWindowInteractor
 
+
 def CheckVTKVersion(requiredMajorVersion):
     '''
     Check the VTK version.
@@ -143,6 +145,7 @@ def CheckVTKVersion(requiredMajorVersion):
         raise
     else:
         return
+
 
 def main():
     nc = vtk.vtkNamedColors()
@@ -157,6 +160,7 @@ def main():
     print(synonyms)
     iren = DisplayCone(nc)
     iren.Start()
+
 
 if __name__ == "__main__":
     try:

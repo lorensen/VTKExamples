@@ -9,6 +9,7 @@ source.Update()
 view = vtk.vtkGraphLayoutView()
 view.AddRepresentationFromInputConnection(source.GetOutputPort())
 
+
 def selectionCallback(caller, event):
 
     # In C++ there is some extra data passed to the callback, but in Python
@@ -40,11 +41,12 @@ def selectionCallback(caller, event):
 def printFieldType(field_type):
 
     if field_type == 3:
-           print("Vertices Selected:")
+        print("Vertices Selected:")
     elif field_type == 4:
-           print("Edges Selected:")
+        print("Edges Selected:")
     else:
-           print("Unknown type:")
+        print("Unknown type:")
+
 
 rep = view.GetRepresentation(0)
 

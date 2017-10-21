@@ -5,10 +5,10 @@ import vtk
 # Create a pentagon
 polygonSource = vtk.vtkRegularPolygonSource()
 
-#polygonSource.GeneratePolygonOff()
+# polygonSource.GeneratePolygonOff()
 polygonSource.SetNumberOfSides(5)
 polygonSource.SetRadius(5)
-polygonSource.SetCenter(0,0,0)
+polygonSource.SetCenter(0, 0, 0)
 polygonSource.Update()
 
 mapper = vtk.vtkPolyDataMapper()
@@ -23,7 +23,7 @@ renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
 
 renderer.AddActor(actor)
-renderer.SetBackground(.3,.3,.5) # Background color purple
+renderer.SetBackground(.3, .3, .5)  # Background color purple
 
 renderWindow.Render()
 renderWindowInteractor.Start()

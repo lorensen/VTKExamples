@@ -3,28 +3,30 @@ import vtk
 import vtk.util.numpy_support as VN
 
 # Callback for when selection is changed
-def selectionCallback(caller,eventId):
-       hsel = vtk.vtkHardwareSelector()
-       hsel.SetFieldAssociation(vtk.vtkDataObject.FIELD_ASSOCIATION_CELLS)
-       hsel.SetRenderer(ren1)
 
-       x,y = caller.GetRenderWindow().GetSize()
 
-       # Create a small area around clicked point for selector area
-       hsel.SetArea(0,0,x,y)
-       res = hsel.Select()
+def selectionCallback(caller, eventId):
+    hsel = vtk.vtkHardwareSelector()
+    hsel.SetFieldAssociation(vtk.vtkDataObject.FIELD_ASSOCIATION_CELLS)
+    hsel.SetRenderer(ren1)
 
-       numNodes = res.GetNumberOfNodes()
-       if (numNodes < 1):
-               print("No visible cells")
-       else:
-               sel_node = res.GetNode(0)
-               print('Visible cell IDs: ', VN.vtk_to_numpy(sel_node.GetSelectionList()).tolist())
+    x, y = caller.GetRenderWindow().GetSize()
+
+    # Create a small area around clicked point for selector area
+    hsel.SetArea(0, 0, x, y)
+    res = hsel.Select()
+
+    numNodes = res.GetNumberOfNodes()
+    if (numNodes < 1):
+        print("No visible cells")
+    else:
+        sel_node = res.GetNode(0)
+        print('Visible cell IDs: ', VN.vtk_to_numpy(sel_node.GetSelectionList()).tolist())
 
 
 sphere = vtk.vtkSphereSource()
-sphere.SetCenter( 0, 0, 0 )
-sphere.SetRadius( 5.0 )
+sphere.SetCenter(0, 0, 0)
+sphere.SetRadius(5.0)
 
 sphereMapper = vtk.vtkPolyDataMapper()
 sphereMapper.SetInputConnection(sphere.GetOutputPort())

@@ -82,6 +82,7 @@ def main():
     renWin.EraseOff()
     iren.Start()
 
+
 def get_program_parameters():
     import argparse
     description = 'Perform rotations about the X, Y, Z and X then Y axes.'

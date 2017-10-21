@@ -1,4 +1,4 @@
-#!/usr/bin/python 
+#!/usr/bin/python
 
 import vtk
 import random
@@ -10,16 +10,16 @@ import math
 renderer = vtk.vtkRenderer()
 renderWindow = vtk.vtkRenderWindow()
 renderWindow.AddRenderer(renderer)
- 
+
 interactor = vtk.vtkRenderWindowInteractor()
 interactor.SetRenderWindow(renderWindow)
- 
+
 renderer.SetBackground(0.1, 0.2, 0.4)
 renderWindow.SetSize(600, 600)
- 
+
 contourRep = vtk.vtkOrientedGlyphContourRepresentation()
-contourRep.GetLinesProperty().SetColor(1, 0, 0) # set color to red
- 
+contourRep.GetLinesProperty().SetColor(1, 0, 0)  # set color to red
+
 contourWidget = vtk.vtkContourWidget()
 contourWidget.SetInteractor(interactor)
 contourWidget.SetRepresentation(contourRep)
@@ -31,24 +31,24 @@ for arg in sys.argv:
             vtk.vtkCommand.LeftButtonPressEvent)
         contourWidget.GetEventTranslator().SetTranslation(
             vtk.vtkCommand.LeftButtonPressEvent,
-            vtk.vtkWidgetEvent.Translate )
+            vtk.vtkWidgetEvent.Translate)
     elif "-Scale" == arg:
-        contourWidget.GetEventTranslator().RemoveTranslation( 
-            vtk.vtkCommand.LeftButtonPressEvent )
-        contourWidget.GetEventTranslator().SetTranslation( 
+        contourWidget.GetEventTranslator().RemoveTranslation(
+            vtk.vtkCommand.LeftButtonPressEvent)
+        contourWidget.GetEventTranslator().SetTranslation(
             vtk.vtkCommand.LeftButtonPressEvent,
-            vtk.vtkWidgetEvent.Scale )
- 
-        
+            vtk.vtkWidgetEvent.Scale)
+
+
 pd = vtk.vtkPolyData()
- 
+
 points = vtk.vtkPoints()
 lines = vtk.vtkCellArray()
 
-for i in range(0,21):
+for i in range(0, 21):
     angle = 2.0 * math.pi * i / 20.0
     points.InsertPoint(i, 0.1 * math.cos(angle),
-                        0.1 * math.sin(angle), 0.0 )
+                       0.1 * math.sin(angle), 0.0)
     lines.InsertNextCell(i)
 
 pd.SetPoints(points)

@@ -37,7 +37,7 @@ for i in x:
 yCoords = vtk.vtkFloatArray()
 for i in y:
     yCoords.InsertNextValue(i)
-    
+
 zCoords = vtk.vtkFloatArray()
 for i in z:
     zCoords.InsertNextValue(i)

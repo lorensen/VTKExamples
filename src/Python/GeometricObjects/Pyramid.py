@@ -17,20 +17,20 @@ points.InsertNextPoint(p3)
 points.InsertNextPoint(p4)
 
 pyramid = vtk.vtkPyramid()
-pyramid.GetPointIds().SetId(0,0)
-pyramid.GetPointIds().SetId(1,1)
-pyramid.GetPointIds().SetId(2,2)
-pyramid.GetPointIds().SetId(3,3)
-pyramid.GetPointIds().SetId(4,4)
+pyramid.GetPointIds().SetId(0, 0)
+pyramid.GetPointIds().SetId(1, 1)
+pyramid.GetPointIds().SetId(2, 2)
+pyramid.GetPointIds().SetId(3, 3)
+pyramid.GetPointIds().SetId(4, 4)
 
 cells = vtk.vtkCellArray()
-cells.InsertNextCell (pyramid)
+cells.InsertNextCell(pyramid)
 
 ug = vtk.vtkUnstructuredGrid()
 ug.SetPoints(points)
-ug.InsertNextCell(pyramid.GetCellType(),pyramid.GetPointIds())
+ug.InsertNextCell(pyramid.GetCellType(), pyramid.GetPointIds())
 
-#Create an actor and mapper
+# Create an actor and mapper
 mapper = vtk.vtkDataSetMapper()
 if vtk.VTK_MAJOR_VERSION <= 5:
     mapper.SetInput(ug)
@@ -40,7 +40,7 @@ else:
 actor = vtk.vtkActor()
 actor.SetMapper(mapper)
 
-#Create a renderer, render window, and interactor
+# Create a renderer, render window, and interactor
 renderer = vtk.vtkRenderer()
 renderWindow = vtk.vtkRenderWindow()
 renderWindow.AddRenderer(renderer)

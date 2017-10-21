@@ -29,13 +29,13 @@ colors.InsertNextTypedTuple(green)
 
 # Create the first line (between Origin and P0)
 line0 = vtk.vtkLine()
-line0.GetPointIds().SetId(0,0) # the second 0 is the index of the Origin in the vtkPoints
-line0.GetPointIds().SetId(1,1) # the second 1 is the index of P0 in the vtkPoints
+line0.GetPointIds().SetId(0, 0)  # the second 0 is the index of the Origin in the vtkPoints
+line0.GetPointIds().SetId(1, 1)  # the second 1 is the index of P0 in the vtkPoints
 
 # Create the second line (between Origin and P1)
 line1 = vtk.vtkLine()
-line1.GetPointIds().SetId(0,0) # the second 0 is the index of the Origin in the vtkPoints
-line1.GetPointIds().SetId(1,2) # 2 is the index of P1 in the vtkPoints
+line1.GetPointIds().SetId(0, 0)  # the second 0 is the index of the Origin in the vtkPoints
+line1.GetPointIds().SetId(1, 2)  # 2 is the index of P1 in the vtkPoints
 
 # Create a cell array to store the lines in and add the lines to it
 lines = vtk.vtkCellArray()

@@ -5,6 +5,7 @@ converted from:
 
 import vtk
 
+
 def main():
     pointSource = vtk.vtkPointSource()
     pointSource.SetNumberOfPoints(50)
@@ -22,14 +23,14 @@ def main():
         i += 1
 
     selectionNode = vtk.vtkSelectionNode()
-    selectionNode.SetFieldType(1) # POINT
+    selectionNode.SetFieldType(1)  # POINT
     #  CELL_DATA = 0
     #  POINT_DATA = 1
     #  FIELD_DATA = 2
     #  VERTEX_DATA = 3
     #  EDGE_DATA = 4
 
-    selectionNode.SetContentType(4) # INDICES
+    selectionNode.SetContentType(4)  # INDICES
     #SELECTIONS = 0
     #GLOBALIDS = 1
     #PEDIGREEIDS = 2
@@ -58,7 +59,7 @@ def main():
     selected.ShallowCopy(extractSelection.GetOutput())
 
     print("There are %s points in the selection" % selected.GetNumberOfPoints())
-    print("There are %s cells in the selection" %selected.GetNumberOfCells())
+    print("There are %s cells in the selection" % selected.GetNumberOfCells())
 
     # Get points that are NOT in the selection
     # invert the selection
@@ -91,7 +92,6 @@ def main():
         notSelectedMapper.SetInputData(notSelected)
     notSelectedActor = vtk.vtkActor()
     notSelectedActor.SetMapper(notSelectedMapper)
-
 
     # There will be one render window
     renderWindow = vtk.vtkRenderWindow()
@@ -133,6 +133,7 @@ def main():
 
     renderWindow.Render()
     interactor.Start()
+
 
 if __name__ == '__main__':
     main()

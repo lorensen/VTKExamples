@@ -72,7 +72,7 @@ renderWindowInteractor.SetRenderWindow(renderWindow)
 # Add the actor to the scene
 renderer.AddActor(actor1)
 renderer.AddActor(actor2)
-renderer.SetBackground(.3, .6, .3) # Background color green
+renderer.SetBackground(.3, .6, .3)  # Background color green
 
 # Render and interact
 renderWindow.Render()

@@ -3,7 +3,7 @@
 import vtk
 
 points = vtk.vtkPoints()
-points.InsertNextPoint(0,0,0)
+points.InsertNextPoint(0, 0, 0)
 
 vertex = vtk.vtkVertex()
 vertex.GetPointIds().SetId(0, 0)

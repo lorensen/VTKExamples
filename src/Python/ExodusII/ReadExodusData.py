@@ -12,9 +12,9 @@ reader = vtk.vtkExodusIIReader()
 reader.SetFileName(filename)
 reader.UpdateInformation()
 reader.SetTimeStep(10)
-reader.SetAllArrayStatus(vtk.vtkExodusIIReader.NODAL, 1) # enables all NODAL variables
+reader.SetAllArrayStatus(vtk.vtkExodusIIReader.NODAL, 1)  # enables all NODAL variables
 reader.Update()
-#print reader # uncomment this to show the file information
+# print reader # uncomment this to show the file information
 
 # Create Geometry
 geometry = vtk.vtkCompositeDataGeometryFilter()

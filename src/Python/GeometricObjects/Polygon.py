@@ -11,7 +11,7 @@ points.InsertNextPoint(0.0, 1.0, 0.0)
 
 # Create the polygon
 polygon = vtk.vtkPolygon()
-polygon.GetPointIds().SetNumberOfIds(4) #make a quad
+polygon.GetPointIds().SetNumberOfIds(4)  # make a quad
 polygon.GetPointIds().SetId(0, 0)
 polygon.GetPointIds().SetId(1, 1)
 polygon.GetPointIds().SetId(2, 2)
@@ -44,7 +44,7 @@ renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
 
 renderer.AddActor(actor)
-renderer.SetBackground(.5,.3,.31) # Background color salmon
+renderer.SetBackground(.5, .3, .31)  # Background color salmon
 
 renderWindow.Render()
 renderWindowInteractor.Start()

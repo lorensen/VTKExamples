@@ -3,18 +3,19 @@ from __future__ import print_function
 
 import vtk
 
+
 class MyInteractorStyle(vtk.vtkInteractorStyleTrackballCamera):
 
-    def __init__(self,parent=None):
-        self.AddObserver("MiddleButtonPressEvent",self.middleButtonPressEvent)
-        self.AddObserver("MiddleButtonReleaseEvent",self.middleButtonReleaseEvent)
+    def __init__(self, parent=None):
+        self.AddObserver("MiddleButtonPressEvent", self.middleButtonPressEvent)
+        self.AddObserver("MiddleButtonReleaseEvent", self.middleButtonReleaseEvent)
 
-    def middleButtonPressEvent(self,obj,event):
+    def middleButtonPressEvent(self, obj, event):
         print("Middle Button pressed")
         self.OnMiddleButtonDown()
         return
 
-    def middleButtonReleaseEvent(self,obj,event):
+    def middleButtonReleaseEvent(self, obj, event):
         print("Middle Button released")
         self.OnMiddleButtonUp()
         return

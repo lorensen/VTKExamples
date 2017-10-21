@@ -21,45 +21,45 @@ triangles = vtk.vtkCellArray()
 
 # Build the meshgrid manually
 count = 0
-for i in range(size-1):
-    for j in range(size-1):
-        
+for i in range(size - 1):
+    for j in range(size - 1):
+
         z1 = topography[i][j]
-        z2 = topography[i][j+1]
-        z3 = topography[i+1][j]
-        
+        z2 = topography[i][j + 1]
+        z3 = topography[i + 1][j]
+
         # Triangle 1
         points.InsertNextPoint(i, j, z1)
-        points.InsertNextPoint(i, (j+1), z2)
-        points.InsertNextPoint((i+1), j, z3)
-        
+        points.InsertNextPoint(i, (j + 1), z2)
+        points.InsertNextPoint((i + 1), j, z3)
+
         triangle = vtk.vtkTriangle()
         triangle.GetPointIds().SetId(0, count)
         triangle.GetPointIds().SetId(1, count + 1)
         triangle.GetPointIds().SetId(2, count + 2)
-        
+
         triangles.InsertNextCell(triangle)
-        
-        z1 = topography[i][j+1]
-        z2 = topography[i+1][j+1]
-        z3 = topography[i+1][j]
-        
+
+        z1 = topography[i][j + 1]
+        z2 = topography[i + 1][j + 1]
+        z3 = topography[i + 1][j]
+
         # Triangle 2
-        points.InsertNextPoint(i, (j+1), z1)
-        points.InsertNextPoint((i+1), (j+1), z2)
-        points.InsertNextPoint((i+1), j, z3)
-        
+        points.InsertNextPoint(i, (j + 1), z1)
+        points.InsertNextPoint((i + 1), (j + 1), z2)
+        points.InsertNextPoint((i + 1), j, z3)
+
         triangle = vtk.vtkTriangle()
         triangle.GetPointIds().SetId(0, count + 3)
         triangle.GetPointIds().SetId(1, count + 4)
         triangle.GetPointIds().SetId(2, count + 5)
-        
+
         count += 6
-        
+
         triangles.InsertNextCell(triangle)
-        
+
         # Add some color
-        r = [int(i/float(size)*255),int(j/float(size)*255),0]
+        r = [int(i / float(size) * 255), int(j / float(size) * 255), 0]
         colors.InsertNextTypedTuple(r)
         colors.InsertNextTypedTuple(r)
         colors.InsertNextTypedTuple(r)
@@ -120,7 +120,7 @@ renderer.AddActor(actor)
 renderer.AddActor(actor_loop)
 renderer.AddActor(actor_butterfly)
 
-renderer.SetBackground(1, 1, 1) # Background color white
+renderer.SetBackground(1, 1, 1)  # Background color white
 renderWindow.SetSize(900, 300)
 renderWindow.Render()
 renderWindowInteractor.Start()

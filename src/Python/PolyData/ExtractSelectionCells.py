@@ -5,6 +5,7 @@ converted from:
 
 import vtk
 
+
 def main():
     sphereSource = vtk.vtkSphereSource()
     sphereSource.Update()
@@ -26,7 +27,6 @@ def main():
     selectionNode.SetContentType(vtk.vtkSelectionNode.INDICES)
     selectionNode.SetSelectionList(ids)
 
-
     selection = vtk.vtkSelection()
     selection.AddNode(selectionNode)
 
@@ -46,7 +46,7 @@ def main():
     print("There are %s cells in the selection" % selected.GetNumberOfCells())
 
     # Get points that are NOT in the selection
-    selectionNode.GetProperties().Set(vtk.vtkSelectionNode.INVERSE(), 1) #invert the selection
+    selectionNode.GetProperties().Set(vtk.vtkSelectionNode.INVERSE(), 1)  # invert the selection
     extractSelection.Update()
 
     notSelected = vtk.vtkUnstructuredGrid()
@@ -54,7 +54,6 @@ def main():
 
     print("There are %s points NOT in the selection" % notSelected.GetNumberOfPoints())
     print("There are %s cells NOT in the selection" % notSelected.GetNumberOfCells())
-
 
     backfaces = vtk.vtkProperty()
     backfaces.SetColor(1, 0, 0)
@@ -129,6 +128,7 @@ def main():
 
     renderWindow.Render()
     interactor.Start()
+
 
 if __name__ == '__main__':
     main()

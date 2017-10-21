@@ -10,7 +10,7 @@ import vtk
 source = vtk.vtkRandomGraphSource()
 source.DirectedOff()
 source.SetNumberOfVertices(100)
-source.SetEdgeProbability(0) # Basically generates a tree
+source.SetEdgeProbability(0)  # Basically generates a tree
 source.SetUseEdgeProbability(True)
 source.SetStartWithTree(True)
 source.IncludeEdgeWeightsOn()
@@ -38,7 +38,7 @@ annotationLink = vtk.vtkAnnotationLink()
 view.GetRepresentation(0).SetAnnotationLink(annotationLink)
 
 
-def select_callback(caller,event):
+def select_callback(caller, event):
     # In this particular data representation the current selection in the
     # annotation link should always contain two nodes: one for the edges and
     # one for the vertices. Which is which is not consistent, so you need to
@@ -60,6 +60,7 @@ def select_callback(caller,event):
             print("-- empty")
 
     print("")
+
 
 # AnnotationChangedEvent will fire when the selection is changed
 annotationLink.AddObserver("AnnotationChangedEvent", select_callback)

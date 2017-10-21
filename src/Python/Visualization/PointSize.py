@@ -10,10 +10,9 @@ iren = vtk.vtkRenderWindowInteractor()
 iren.SetRenderWindow(renWin)
 
 
-
 # create source
 src = vtk.vtkPointSource()
-src.SetCenter(0,0,0)
+src.SetCenter(0, 0, 0)
 src.SetNumberOfPoints(50)
 src.SetRadius(5)
 src.Update()

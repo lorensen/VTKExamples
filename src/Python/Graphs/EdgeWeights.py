@@ -13,7 +13,7 @@ v3 = g.AddVertex()
 g.AddGraphEdge(v1, v2)
 g.AddGraphEdge(v2, v3)
 g.AddGraphEdge(v1, v3)
- 
+
 # Create the edge weight array
 weights = vtk.vtkDoubleArray()
 weights.SetNumberOfComponents(1)
@@ -23,9 +23,9 @@ weights.SetName("Weights")
 weights.InsertNextValue(1.0)
 weights.InsertNextValue(1.0)
 weights.InsertNextValue(2.0)
- 
+
 # Add the edge weight array to the graph
-g.GetEdgeData().AddArray(weights);
+g.GetEdgeData().AddArray(weights)
 
 graphLayoutView = vtk.vtkGraphLayoutView()
 graphLayoutView.AddRepresentationFromInput(g)

@@ -28,10 +28,10 @@ FeatureEdges.NonManifoldEdgesOff()
 FeatureEdges.ManifoldEdgesOff()
 FeatureEdges.Update()
 
-cutStrips = vtk.vtkStripper();  # Forms loops (closed polylines) from cutter
+cutStrips = vtk.vtkStripper()  # Forms loops (closed polylines) from cutter
 cutStrips.SetInputConnection(cutter.GetOutputPort())
 cutStrips.Update()
-cutPoly = vtk.vtkPolyData();  # This trick defines polygons as polyline loop
+cutPoly = vtk.vtkPolyData()  # This trick defines polygons as polyline loop
 cutPoly.SetPoints((cutStrips.GetOutput()).GetPoints())
 cutPoly.SetPolys((cutStrips.GetOutput()).GetLines())
 
@@ -48,7 +48,7 @@ cutActor.GetProperty().SetEdgeColor(0, 1, 0)
 
 cutActor.GetProperty().SetLineWidth(2)
 cutActor.GetProperty().EdgeVisibilityOn()
-##cutActor.GetProperty().SetOpacity(0.7)
+# cutActor.GetProperty().SetOpacity(0.7)
 cutActor.SetMapper(cutMapper)
 
 # create renderers and add actors of plane and cube
@@ -62,6 +62,6 @@ renWin.SetSize(600, 600)
 iren = vtk.vtkRenderWindowInteractor()
 iren.SetRenderWindow(renWin)
 ren.SetBackground(0, 0, 0)
-ren.GetActiveCamera().SetPosition(223 ,  -122 ,  -91)
+ren.GetActiveCamera().SetPosition(223,  -122,  -91)
 renWin.Render()
 iren.Start()

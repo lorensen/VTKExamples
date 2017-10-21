@@ -49,7 +49,8 @@ def HTMLColorToRGB(colorString):
     :return: The red, green and blue components as a list.
     """
     colorString = colorString.strip()
-    if colorString[0] == '#': colorString = colorString[1:]
+    if colorString[0] == '#':
+        colorString = colorString[1:]
     if len(colorString) != 6:
         raise ValueError("Input #%s is not in #RRGGBB format" % colorString)
     r, g, b = colorString[:2], colorString[2:4], colorString[4:]

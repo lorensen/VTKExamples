@@ -6,18 +6,18 @@ tse = vtkTimeSourceExample()
 ex = tse.GetExecutive()
 tse.UpdateInformation()
 
-#inspect available time range and time steps
+# inspect available time range and time steps
 print(ex.GetOutputInformation())
 
-#make it grow because bounds are easy to inspect
+# make it grow because bounds are easy to inspect
 # tse.SetGrowing(1)
 
-ex.SetUpdateTimeStep(0,0.0)
+ex.SetUpdateTimeStep(0, 0.0)
 tse.Update()
 print(tse.GetOutput().GetBounds())
 
-#pick some other time inside the time range
-ex.SetUpdateTimeStep(0,0.5)
+# pick some other time inside the time range
+ex.SetUpdateTimeStep(0, 0.5)
 tse.Update()
 print(tse.GetOutput().GetBounds())
 
@@ -32,7 +32,7 @@ output = tri.GetOutput()
 
 iss = output.GetPointData().SetActiveScalars("Point Label")
 # iss = gridMapper.GetInput().GetCellData().SetActiveScalars(options.scalarName)
-assert(iss>-1)
+assert(iss > -1)
 
 drange = [0, 1]
 
@@ -67,33 +67,33 @@ volume.SetProperty(volumeProperty)
 
 # create a rendering window and renderer
 renderer = vtkRenderer()
-renderer.SetBackground(0,0,0)
+renderer.SetBackground(0, 0, 0)
 
 window = vtkRenderWindow()
-window.SetSize(512,512)
+window.SetSize(512, 512)
 window.AddRenderer(renderer)
 
 interactor = vtkRenderWindowInteractor()
 interactor.SetRenderWindow(window)
 
-style = vtkInteractorStyleTrackballCamera();
-interactor.SetInteractorStyle(style);
+style = vtkInteractorStyleTrackballCamera()
+interactor.SetInteractorStyle(style)
 
 renderer.AddVolume(volume)
 
 scalarBar = vtkScalarBarActor()
-scalarBar.SetLookupTable(colorFunction);
-scalarBar.SetOrientationToVertical();
-scalarBar.SetPosition( 0.85, 0.7 );
-scalarBar.SetPosition2( 0.1, 0.3 );
+scalarBar.SetLookupTable(colorFunction)
+scalarBar.SetOrientationToVertical()
+scalarBar.SetPosition(0.85, 0.7)
+scalarBar.SetPosition2(0.1, 0.3)
 propT = vtkTextProperty()
 propL = vtkTextProperty()
 propT.SetFontFamilyToArial()
 propT.ItalicOff()
 propT.BoldOn()
 propL.BoldOff()
-scalarBar.SetTitleTextProperty(propT);
-scalarBar.SetLabelTextProperty(propL);
+scalarBar.SetTitleTextProperty(propT)
+scalarBar.SetLabelTextProperty(propL)
 scalarBar.SetLabelFormat("%5.2f")
 renderer.AddActor(scalarBar)
 
@@ -103,36 +103,36 @@ textActor.GetTextProperty().SetFontSize(12)
 textActor.SetPosition2(10, 40)
 renderer.AddActor2D(textActor)
 textActor.SetInput("time = ")
-textActor.GetTextProperty().SetColor(1.0,1.0,1.0)
+textActor.GetTextProperty().SetColor(1.0, 1.0, 1.0)
 
 renderer.ResetCameraClippingRange()
 renderer.ResetCamera()
 
 counter = 1
 time = 0
-while time<=1:
-	print("time = ", time)
-	textActor.SetInput("time = %g" % time)
+while time <= 1:
+    print("time = ", time)
+    textActor.SetInput("time = %g" % time)
 
-	window.Render()
+    window.Render()
 
-	# TODO FIXME if this block is not here than the volume renders wrongly
-	#renderer.RemoveVolume(volume)
-	# del volume
-	volume = vtkVolume()
-	volume.SetMapper(volumeMapper)
-	volume.SetProperty(volumeProperty)
-	renderer.AddVolume(volume)
+    # TODO FIXME if this block is not here than the volume renders wrongly
+    # renderer.RemoveVolume(volume)
+    # del volume
+    volume = vtkVolume()
+    volume.SetMapper(volumeMapper)
+    volume.SetProperty(volumeProperty)
+    renderer.AddVolume(volume)
 
-	counter = counter + 1
-	time = time + 1./10
-	ex.SetUpdateTimeStep(0,time)
-	tse.Modified()
-	if output.GetPointData().GetScalars():
-		print(output.GetPointData().GetScalars().GetRange())
-	# if grid.GetPointData().GetScalars():
-	# 	print(grid.GetPointData().GetScalars().GetRange())
-	# print(grid.GetPointData().GetScalars())
+    counter = counter + 1
+    time = time + 1. / 10
+    ex.SetUpdateTimeStep(0, time)
+    tse.Modified()
+    if output.GetPointData().GetScalars():
+        print(output.GetPointData().GetScalars().GetRange())
+    # if grid.GetPointData().GetScalars():
+    # 	print(grid.GetPointData().GetScalars().GetRange())
+    # print(grid.GetPointData().GetScalars())
 
 # while True:
-	# window.Render()
+    # window.Render()

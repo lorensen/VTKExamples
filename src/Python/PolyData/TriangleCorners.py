@@ -11,8 +11,8 @@ polydata.SetPoints(Points)
 if vtk.VTK_MAJOR_VERSION <= 5:
     polydata.Update()
 
-writer = vtk.vtkXMLPolyDataWriter();
-writer.SetFileName("TrianglePoints.vtp");
+writer = vtk.vtkXMLPolyDataWriter()
+writer.SetFileName("TrianglePoints.vtp")
 if vtk.VTK_MAJOR_VERSION <= 5:
     writer.SetInput(polydata)
 else:

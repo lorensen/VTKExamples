@@ -21,8 +21,8 @@ polydata.Modified()
 if vtk.VTK_MAJOR_VERSION <= 5:
     polydata.Update()
 
-writer = vtk.vtkXMLPolyDataWriter();
-writer.SetFileName("TriangleVerts.vtp");
+writer = vtk.vtkXMLPolyDataWriter()
+writer.SetFileName("TriangleVerts.vtp")
 if vtk.VTK_MAJOR_VERSION <= 5:
     writer.SetInput(polydata)
 else:

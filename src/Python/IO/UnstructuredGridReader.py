@@ -11,7 +11,7 @@ file_name = "uGridEx.vtk"
 # Read the source file.
 reader = vtkUnstructuredGridReader()
 reader.SetFileName(file_name)
-reader.Update() # Needed because of GetScalarRange
+reader.Update()  # Needed because of GetScalarRange
 output = reader.GetOutput()
 scalar_range = output.GetScalarRange()
 
@@ -28,7 +28,7 @@ actor.SetMapper(mapper)
 # Create the Renderer
 renderer = vtkRenderer()
 renderer.AddActor(actor)
-renderer.SetBackground(1, 1, 1) # Set background to white
+renderer.SetBackground(1, 1, 1)  # Set background to white
 
 # Create the RendererWindow
 renderer_window = vtkRenderWindow()

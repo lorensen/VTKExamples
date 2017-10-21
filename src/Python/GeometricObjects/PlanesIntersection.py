@@ -13,9 +13,12 @@ box = vtk.vtkPoints()
 
 box.SetNumberOfPoints(8)
 
-xMin = bounds[0]; xMax = bounds[1]
-yMin = bounds[2]; yMax = bounds[3]
-zMin = bounds[4]; zMax = bounds[5]
+xMin = bounds[0]
+xMax = bounds[1]
+yMin = bounds[2]
+yMax = bounds[3]
+zMin = bounds[4]
+zMax = bounds[5]
 
 box.SetPoint(0, xMax, yMin, zMax)
 box.SetPoint(1, xMax, yMin, zMin)
@@ -31,4 +34,4 @@ planesIntersection.SetBounds(bounds)
 
 intersects = planesIntersection.IntersectsRegion(box)
 
-print("Intersects? " , intersects == 1)
+print("Intersects? ", intersects == 1)

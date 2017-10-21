@@ -6,36 +6,36 @@ import vtk
 SELECT_FRUSTUM_METHOD = True
 
 if SELECT_FRUSTUM_METHOD:
-    # one way    
+    # one way
     camera = vtk.vtkCamera()
     planesArray = [0 for i in range(24)]
-    
+
     camera.GetFrustumPlanes(1, planesArray)
-    
+
     planes = vtk.vtkPlanes()
     planes.SetFrustumPlanes(planesArray)
 
-else:    
-    # another way    
+else:
+    # another way
     sphereSource = vtk.vtkSphereSource()
     sphereSource.Update()
     bounds = [0 for i in range(6)]
     sphereSource.GetOutput().GetBounds(bounds)
-    
+
     planes = vtk.vtkPlanes()
     planes.SetBounds(bounds)
-    
+
 # At this point we have the planes created by either of the methods above.
 # You can do whatever you want with them.
 
-# For visualisation we will produce an n-sided convex hull 
+# For visualisation we will produce an n-sided convex hull
 # and visualise it.
 
 # To generate the convex hull we supply a vtkPolyData object and a bounding box.
 # We define the bounding box to be where we expect the resulting polyhedron to lie.
 # Make it a generous fit as it is only used to create the initial
 # polygons that are eventually clipped.
-hull  = vtk.vtkHull()
+hull = vtk.vtkHull()
 hull.SetPlanes(planes)
 
 pd = vtk.vtkPolyData()
@@ -59,4 +59,4 @@ renderWindowInteractor.SetRenderWindow(renderWindow)
 renderer.AddActor(actor)
 
 renderWindow.Render()
-renderWindowInteractor.Start()       
+renderWindowInteractor.Start()

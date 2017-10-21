@@ -4,7 +4,7 @@ import sys
 
 # Unicode string for demonstration (etre with circumflex)
 if sys.hexversion >= 0x03000000:
-    unicodeEtre = '\xeatre' # unicode in Python 3
+    unicodeEtre = '\xeatre'  # unicode in Python 3
 else:
     unicodeEtre = unicode('\xeatre', 'latin1')
 
@@ -64,13 +64,13 @@ for i in range(a.GetNumberOfValues()):
 
 # Comparison
 if v2 == vtk.vtkVariant(2):
-   print("v2 is equal to 2")
+    print("v2 is equal to 2")
 if v2 > vtk.vtkVariant(1):
-   print("v2 is greater than 1")
+    print("v2 is greater than 1")
 if v2 < vtk.vtkVariant(3):
-   print("v2 is less than 3")
+    print("v2 is less than 3")
 if v2 == vtk.vtkVariant("2"):
-   print("v2 is equal to '2'")
+    print("v2 is equal to '2'")
 
 # Use as a dict key (hashed as a string)
 d = {}

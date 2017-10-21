@@ -4,17 +4,17 @@ input1 = vtk.vtkPolyData()
 input2 = vtk.vtkPolyData()
 
 sphereSource = vtk.vtkSphereSource()
-sphereSource.SetCenter(5,0,0)
+sphereSource.SetCenter(5, 0, 0)
 sphereSource.Update()
 
 input1.ShallowCopy(sphereSource.GetOutput())
 
-coneSource =vtk.vtkConeSource()
+coneSource = vtk.vtkConeSource()
 coneSource.Update()
 
 input2.ShallowCopy(coneSource.GetOutput())
 
-# Append the two meshes 
+# Append the two meshes
 appendFilter = vtk.vtkAppendPolyData()
 if vtk.VTK_MAJOR_VERSION <= 5:
     appendFilter.AddInputConnection(input1.GetProducerPort())
@@ -46,7 +46,7 @@ renderWindowInteractor.SetRenderWindow(renderWindow)
 
 # Add the actors to the scene
 renderer.AddActor(actor)
-renderer.SetBackground(.3, .2, .1) #  Background color dark red
+renderer.SetBackground(.3, .2, .1)  # Background color dark red
 
 # Render and interact
 renderWindow.Render()
