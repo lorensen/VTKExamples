@@ -25,7 +25,7 @@ else()
   find_package(VTK REQUIRED)
   include(${VTK_USE_FILE})
 endif()
-set(WikiExamples_TEST_LABELS "foo")
+
 message(STATUS "VTKWikiExamples: VTK VERSION: ${VTK_VERSION}(${VTK_RENDERING_BACKEND})")
 
 set(CMAKE_MODULE_PATH ${WikiExamples_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
