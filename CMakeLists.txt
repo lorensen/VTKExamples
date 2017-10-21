@@ -34,30 +34,17 @@ if(NOT VTK_RENDERING_BACKEND)
 endif()
 message(STATUS "VTKWikiExamples: VTK VERSION: ${VTK_VERSION}(${VTK_RENDERING_BACKEND})")
 
-if(Module_WikiExamples)
-  #
-  # This is a VTK remote module build
-  #
-
-  vtk_module_impl()
-  if(NOT EXISTS "${VTK_BINARY_DIR}/VTKConfig.cmake")
-    return()
-  endif()
-
-  find_package(VTK PATHS ${VTK_BINARY_DIR})
-  include(${VTK_USE_FILE})
-else()
-  #
-  # This is a stand-alone build
-  #
-
-  find_package(VTK REQUIRED)
-  include(${VTK_USE_FILE})
-endif()
-
-set(CMAKE_MODULE_PATH ${WikiExamples_SOURCE_DIR}/CMake ${CMAKE_MODULE_PATH})
+#-----------------------------------------------------------------------------
+set(CMAKE_MODULE_PATH
+  ${WikiExamples_SOURCE_DIR}/CMake
+  ${CMAKE_MODULE_PATH}
+  )
 
 #-----------------------------------------------------------------------------
+include(WikiModuleConfigLegacy)
+if(WikiModuleConfigLegacy_RETURN)
+  return()
+endif()
 include(WikiOutputDirectories)
 include(WikiPlatformSpecificChecks)
 include(WikiPolicies)
