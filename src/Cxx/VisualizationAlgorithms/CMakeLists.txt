@@ -35,6 +35,7 @@ SET(NEEDS_ARGS
   DisplacementPlot
   FilledContours
   FindCellIntersections
+  Hello
   LOx
   MarchingCases
   MarchingCasesA
@@ -67,6 +68,9 @@ ADD_TEST(${KIT}-FilledContours ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-FindCellIntersections ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestFindCellIntersections ${DATA}/Disc_BiQuadraticQuads_0_0.vtu)
+
+ADD_TEST(${KIT}-Hello ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestHello ${DATA}/hello.vtk)
 
 ADD_TEST(${KIT}-LOx ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestLOx ${DATA}/postxyz.bin ${DATA}/postq.bin)
