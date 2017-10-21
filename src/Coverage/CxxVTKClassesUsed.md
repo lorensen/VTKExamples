@@ -501,7 +501,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkProgrammableSource](http://www.vtk.org/doc/nightly/html/classvtkProgrammableSource) | [ProgrammableSource](/Cxx/Filtering/ProgrammableSource) [SurfaceFromUnorganizedPoints](/Cxx/Filtering/SurfaceFromUnorganizedPoints) [SurfaceFromUnorganizedPointsWithPostProc](/Cxx/Filtering/SurfaceFromUnorganizedPointsWithPostProc)  |
 | [vtkProjectSphereFilter](http://www.vtk.org/doc/nightly/html/classvtkProjectSphereFilter) | [ProjectSphere](/Cxx/Visualization/ProjectSphere)  |
 | [vtkProp](http://www.vtk.org/doc/nightly/html/classvtkProp) | [MedicalDemo3](/Cxx/Medical/MedicalDemo3)  |
-| [vtkProp3D](http://www.vtk.org/doc/nightly/html/classvtkProp3D) | [MedicalDemo4](/Cxx/Medical/MedicalDemo4) [MovableAxes](/Cxx/Visualization/MovableAxes)  |
+| [vtkProp3D](http://www.vtk.org/doc/nightly/html/classvtkProp3D) | [MedicalDemo4](/Cxx/Medical/MedicalDemo4) [MovableAxes](/Cxx/Visualization/MovableAxes) [PlateVibration](/Cxx/VisualizationAlgorithms/PlateVibration)  |
 | [vtkProp3DCollection](http://www.vtk.org/doc/nightly/html/classvtkProp3DCollection) | [AreaPicking](/Cxx/Picking/AreaPicking) [MovableAxes](/Cxx/Visualization/MovableAxes)  |
 | [vtkPropAssembly](http://www.vtk.org/doc/nightly/html/classvtkPropAssembly) | [Assembly](/Cxx/Interaction/Assembly) [DisplayCoordinateAxes](/Cxx/Visualization/DisplayCoordinateAxes) [SceneBounds](/Cxx/Visualization/SceneBounds)  |
 | [vtkPropCollection](http://www.vtk.org/doc/nightly/html/classvtkPropCollection) | [Assembly](/Cxx/Interaction/Assembly) [Game](/Cxx/Interaction/Game) [HideActor](/Cxx/Visualization/HideActor) [MovableAxes](/Cxx/Visualization/MovableAxes)  |
