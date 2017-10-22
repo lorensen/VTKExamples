@@ -1,1 +1,1 @@
-ADD_SUBDIRECTORY(SQL)
+add_subdirectory(SQL)

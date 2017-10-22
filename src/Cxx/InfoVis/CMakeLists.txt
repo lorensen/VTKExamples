@@ -1,21 +1,21 @@
-PROJECT (${WIKI}InfoVis)
+project (${WIKI}InfoVis)
 
-IF(NOT WikiExamples_BINARY_DIR)
-FIND_PACKAGE(VTK REQUIRED)
-IF(NOT VTK_USE_INFOVIS)
-  MESSAGE(FATAL_ERROR "VTKWikiExamples: Example ${PROJECT_NAME} requires VTK_USE_INFOVIS.")
-ENDIF(NOT VTK_USE_INFOVIS)
-INCLUDE(${VTK_USE_FILE})
-ENDIF(NOT WikiExamples_BINARY_DIR)
+if(NOT WikiExamples_BINARY_DIR)
+find_package(VTK REQUIRED)
+if(NOT VTK_USE_INFOVIS)
+  message(FATAL_ERROR "VTKWikiExamples: Example ${PROJECT_NAME} requires VTK_USE_INFOVIS.")
+endif()
+include(${VTK_USE_FILE})
+endif()
 
 if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
-  SET(KIT_LIBS vtkWidgets vtkRendering vtkHybrid vtkViews vtkInfovis)
+  set(KIT_LIBS vtkWidgets vtkRendering vtkHybrid vtkViews vtkInfovis)
 else()
-  SET(KIT_LIBS ${VTK_LIBRARIES})
+  set(KIT_LIBS ${VTK_LIBRARIES})
 endif()
 #
 # Build all .cxx files in the directory
-FILE(GLOB ALL_FILES *.cxx)
+file(GLOB ALL_FILES *.cxx)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresModule.cmake)
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresSettingOn.cmake)
@@ -33,40 +33,40 @@ if(NOT VTK_USE_PARALLEL)
 endif()
 
 foreach(SOURCE_FILE ${ALL_FILES})
-  STRING(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
-  STRING(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
-  ADD_EXECUTABLE(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
-  TARGET_LINK_LIBRARIES(${WIKI}${EXAMPLE} ${KIT_LIBS})
-endforeach(SOURCE_FILE)
+  string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
+  string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
+  add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
+  target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
+endforeach()
 
 if (BUILD_TESTING)
 # Testing
-SET(KIT InfoVis)
+set(KIT InfoVis)
 
-SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
-SET(NEEDS_ARGS
+set(NEEDS_ARGS
   DelimitedTextReader
   DelimitedTextWriter
   XGMLReader
 )
 if ("${ALL_FILES}" MATCHES ".*TreeMapView.*")
-  SET(NEEDS_ARGS "${NEEDS_ARGS};TreeMapView")
-  ADD_TEST(${KIT}-TreeMapView ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  set(NEEDS_ARGS "${NEEDS_ARGS};TreeMapView")
+  add_test(${KIT}-TreeMapView ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestTreeMapView ${DATA}/Infovis-XML-vtkclasses.xml ${DATA}/Infovis-XML-vtklibrary.xml)
 endif()
 
-SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
-ADD_TEST(${KIT}-DelimitedTextReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+add_test(${KIT}-DelimitedTextReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDelimitedTextReader ${DATA}/DelimitedData.txt)
 
-ADD_TEST(${KIT}-DelimitedTextWriter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+add_test(${KIT}-DelimitedTextWriter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDelimitedTextWriter ${TEMP}/foo.txt)
 
-ADD_TEST(${KIT}-XGMLReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+add_test(${KIT}-XGMLReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestXGMLReader ${DATA}/fsm.gml)
 
-INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
+include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 
 endif()
