@@ -7,13 +7,13 @@ import math
 # vx-vy-vz triplets accessible by (point or cell) id.
 points = vtk.vtkPoints()
 points.SetNumberOfPoints(6)
-c = math.cos(math.pi/6) # helper variable
-points.SetPoint(0, 0.0, -1.0, 0.0)
-points.SetPoint(1,   c, -0.5, 0.0)
-points.SetPoint(2,   c,  0.5, 0.0)
-points.SetPoint(3, 0.0,  1.0, 0.0)
-points.SetPoint(4,  -c,  0.5, 0.0)
-points.SetPoint(5,  -c, -0.5, 0.0)
+c = math.cos(math.pi / 6)  # helper variable
+points.SetPoint(0, 0.0, -1.0, 0.0)  # noqa: E241
+points.SetPoint(1,   c, -0.5, 0.0)  # noqa: E241
+points.SetPoint(2,   c,  0.5, 0.0)  # noqa: E241
+points.SetPoint(3, 0.0,  1.0, 0.0)  # noqa: E241
+points.SetPoint(4,  -c,  0.5, 0.0)  # noqa: E241
+points.SetPoint(5,  -c, -0.5, 0.0)  # noqa: E241
 
 # vtkCellArray is a supporting object that explicitly represents cell connectivity.
 # The cell array structure is a raw integer list of the form:

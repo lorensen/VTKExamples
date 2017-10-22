@@ -13,7 +13,7 @@ def GetProgramParameters():
     description = 'Demonstrates point data subdivision with the glyphing of normals on the surface.'
     epilogue = '''
         This program takes a surface and displays three surfaces.
-        
+
         The first surface is the original surface and the second and third surfaces have
          had linear and butterfly interpolation applied respectively.
         The user can control the object to use, normal generation, type of shading
@@ -42,7 +42,7 @@ class Sources(object):
      - An elevation filter.
      - A CleanPolyData filter.
      - For parametric sources, we may need to apply one of both of JoinUOff() or JoinVOff().
-    
+
     Use the representative sources provided here as templates.
     """
 
@@ -188,7 +188,7 @@ class Sources(object):
 def MakeLUT(scalarRange):
     """
     Make a lookup table using a predefined color series.
-    
+
     :param scalarRange: The range of the scalars to be coloured.
     :return:  A lookup table.
     """
@@ -215,15 +215,15 @@ def MakeLUT(scalarRange):
 
 
 def GlyphActor(source, glyphPoints, scalarRange, scaleFactor, lut):
-    """   
+    """
     Create the actor for glyphing the normals.
-    
+
     :param: source: the surface.
     :param: glyphPoints: The number of points used by the mask filter.
     :param: scalarRange: The range in terms of scalar minimum and maximum.
     :param: scaleFactor: The scaling factor for the glyph.
     :param: lut: The lookup table to use.
-    
+
     :return: The glyph actor.
     """
     arrowSource = vtk.vtkArrowSource()
@@ -259,11 +259,11 @@ def GlyphActor(source, glyphPoints, scalarRange, scaleFactor, lut):
 def MakeSurfaceActor(surface, scalarRange, lut):
     """
     Create the actor for a surface.
-    
+
     :param: surface: The surface.
     :param: scalarRange: The range in terms of scalar minimum and maximum.
     :param: lut: The lookup table to use.
-    
+
     :return: The actor for the surface.
     """
     mapper = vtk.vtkPolyDataMapper()
@@ -280,10 +280,10 @@ def MakeSurfaceActor(surface, scalarRange, lut):
 def MakeLabel(textLabel, renWinSize):
     """
     Create a label.
-    
-    :param textLabel: The label. 
+
+    :param textLabel: The label.
     :param renWinSize: The size of the render window. Used to set the font size.
-    
+
     :return: The actor for the text label.
     """
     # Create one text property for all
@@ -304,8 +304,8 @@ def MakeLabel(textLabel, renWinSize):
 def MakeAxesActor():
     """
     Make an axis actor.
-    
-    :return: The axis actor. 
+
+    :return: The axis actor.
     """
     axes = vtk.vtkAxesActor()
     axes.SetShaftTypeToCylinder()
@@ -328,10 +328,10 @@ def MakeAxesActor():
 def MakeOrientationMarker(renderer, iren):
     """
     Create an orientation marker for a given renderer.
-    
+
     :param renderer: The renderer.
     :param iren: The interactor.
-    
+
     :return: The orientation marker.
     """
     om = vtk.vtkOrientationMarkerWidget()

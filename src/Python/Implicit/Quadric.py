@@ -1,6 +1,6 @@
 import vtk
 
-#create an ellipsoid using a implicit quadric
+# create an ellipsoid using a implicit quadric
 quadric = vtk.vtkQuadric()
 quadric.SetCoefficients(.5, 1, .2, 0, .1, 0, 0, .2, 0, 0)
 

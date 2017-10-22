@@ -79,7 +79,7 @@ def get_program_parameters():
     import argparse
     description = 'Produces figure 6-14(a) Beam displacement from the VTK Textbook.'
     epilogue = '''
-        Produce figure 6–14(a) Beam displacement from the VTK Textbook.. 
+        Produce figure 6–14(a) Beam displacement from the VTK Textbook..
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
     parser.add_argument('filename', help='plate.vtk.')

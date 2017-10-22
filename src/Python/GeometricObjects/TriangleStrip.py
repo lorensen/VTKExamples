@@ -3,17 +3,17 @@
 import vtk
 
 points = vtk.vtkPoints()
-points.InsertNextPoint(0,0,0)
-points.InsertNextPoint(0,1,0)
-points.InsertNextPoint(1,0,0)
-points.InsertNextPoint(1.5,1,0)
+points.InsertNextPoint(0, 0, 0)
+points.InsertNextPoint(0, 1, 0)
+points.InsertNextPoint(1, 0, 0)
+points.InsertNextPoint(1.5, 1, 0)
 
 triangleStrip = vtk.vtkTriangleStrip()
 triangleStrip.GetPointIds().SetNumberOfIds(4)
-triangleStrip.GetPointIds().SetId(0,0)
-triangleStrip.GetPointIds().SetId(1,1)
-triangleStrip.GetPointIds().SetId(2,2)
-triangleStrip.GetPointIds().SetId(3,3)
+triangleStrip.GetPointIds().SetId(0, 0)
+triangleStrip.GetPointIds().SetId(1, 1)
+triangleStrip.GetPointIds().SetId(2, 2)
+triangleStrip.GetPointIds().SetId(3, 3)
 
 cells = vtk.vtkCellArray()
 cells.InsertNextCell(triangleStrip)

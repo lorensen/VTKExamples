@@ -1,42 +1,42 @@
 #!/usr/bin/env python
 # Sanjaya Gajurel, Computational Scientist, Case Western Reserve University, April 2015
-import sys
+
 import vtk
-import os
-#------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
 # Script Entry Point
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 if __name__ == "__main__":
 
-    print "vtkGraph: Building a graph using Unstructured Grid & dumping it in a vtk file, vertex.vtu, to be visualized using ParaView"
+    print("vtkGraph: Building a graph using Unstructured Grid & dumping it in a vtk file, vertex.vtu, to be visualized using ParaView")
 
     pointSource = vtk.vtkPointSource()
     pointSource.Update()
 
     # Create an integer array to store vertex id data & link it with its degree value as a scalar.
-    degree  = vtk.vtkIntArray()
+    degree = vtk.vtkIntArray()
     degree.SetNumberOfComponents(1)
     degree.SetName("degree")
     degree.SetNumberOfTuples(7)
-    degree.SetValue(0,2)
-    degree.SetValue(1,1)
-    degree.SetValue(2,3)
-    degree.SetValue(3,3)
-    degree.SetValue(4,4)
-    degree.SetValue(5,2)
-    degree.SetValue(6,1)
+    degree.SetValue(0, 2)
+    degree.SetValue(1, 1)
+    degree.SetValue(2, 3)
+    degree.SetValue(3, 3)
+    degree.SetValue(4, 4)
+    degree.SetValue(5, 2)
+    degree.SetValue(6, 1)
 
     pointSource.GetOutput().GetPointData().AddArray(degree)
 
-   # Assign co-ordinates for vertices
+    # Assign co-ordinates for vertices
     Points = vtk.vtkPoints()
-    Points.InsertNextPoint(0,1,0)
-    Points.InsertNextPoint(0,0,0)
-    Points.InsertNextPoint(1,1,0)
-    Points.InsertNextPoint(1,0,0)
-    Points.InsertNextPoint(2,1,0)
-    Points.InsertNextPoint(2,0,0)
-    Points.InsertNextPoint(3,0,0)
+    Points.InsertNextPoint(0, 1, 0)
+    Points.InsertNextPoint(0, 0, 0)
+    Points.InsertNextPoint(1, 1, 0)
+    Points.InsertNextPoint(1, 0, 0)
+    Points.InsertNextPoint(2, 1, 0)
+    Points.InsertNextPoint(2, 0, 0)
+    Points.InsertNextPoint(3, 0, 0)
 
     # Establish the specified edges using CellArray
     line = vtk.vtkCellArray()
@@ -77,6 +77,6 @@ if __name__ == "__main__":
     gw.SetFileName("vertex.vtu")
     gw.SetInput(G)
     gw.Write()
-    print '---> ',
+    print('---> ')
 
-    print "Feed the vertex.vtu file in ParaView/VisIt."
+    print("Feed the vertex.vtu file in ParaView/VisIt.")

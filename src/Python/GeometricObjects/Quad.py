@@ -17,10 +17,10 @@ points.InsertNextPoint(p3)
 
 # Create a quad on the four points
 quad = vtk.vtkQuad()
-quad.GetPointIds().SetId(0,0)
-quad.GetPointIds().SetId(1,1)
-quad.GetPointIds().SetId(2,2)
-quad.GetPointIds().SetId(3,3)
+quad.GetPointIds().SetId(0, 0)
+quad.GetPointIds().SetId(1, 1)
+quad.GetPointIds().SetId(2, 2)
+quad.GetPointIds().SetId(3, 3)
 
 # Create a cell array to store the quad in
 quads = vtk.vtkCellArray()

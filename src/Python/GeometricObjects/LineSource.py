@@ -12,8 +12,8 @@ iren.SetRenderWindow(renWin)
 
 # create source
 source = vtk.vtkLineSource()
-source.SetPoint1(1,-1,0)
-source.SetPoint2(2,-3,0)
+source.SetPoint1(1, -1, 0)
+source.SetPoint2(2, -3, 0)
 
 # mapper
 mapper = vtk.vtkPolyDataMapper()
@@ -24,7 +24,7 @@ actor = vtk.vtkActor()
 actor.SetMapper(mapper)
 
 # color actor
-actor.GetProperty().SetColor(1,0,1)
+actor.GetProperty().SetColor(1, 0, 1)
 
 # assign actor to the renderer
 ren.AddActor(actor)

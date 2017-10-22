@@ -23,13 +23,12 @@ Typical usage:
       VTKClassesUsedInExamples.py some_path/VTKExamples/src
    To produce tables of classes used and those not used in some_path/VTKExamples/src:
       VTKClassesUsedInExamples.py some_path/VTKExamples/src -u
-   
+
    The markdown tables are written to some_path/VTKExamples/src/Coverage
-   
-   Note:   
+
+   Note:
       To add links to the VTK class documentation on the web, just add -a as a parameter.
       To vary the number of columns for unused classes to say 8, just add -c8 as a parameter.
-   
 '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawTextHelpFormatter)
@@ -197,7 +196,7 @@ class VTKClassesInExamples(object):
             elif eg == 'Cxx':
                 class_pattern = re.compile(
                     r'^[ \t]*#include[ ]+<(vtk[A-Za-z0-9]+)+.h>$|'  # match: #include <vtkClass.h>
-                    r'.*[< ]+(vtk[A-Za-z0-9]+)[> ]|'  # match: <vtkClass> 
+                    r'.*[< ]+(vtk[A-Za-z0-9]+)[> ]|'  # match: <vtkClass>
                     r'.*[= ]+(vtk[A-Za-z0-9]+)[ ]*::New'  # match: vtkClass::New()
                 )
             elif eg == 'Java':

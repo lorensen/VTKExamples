@@ -56,7 +56,7 @@ annotationLink = vtk.vtkAnnotationLink()
 # See vtkSelectionNode doc for field and content type enum values
 annotationLink.GetCurrentSelection().GetNode(0).SetFieldType(1)  # Point
 annotationLink.GetCurrentSelection().GetNode(0).SetContentType(4)  # Indices
-# Update before passing annotationLink to vtkExtractSelection 
+# Update before passing annotationLink to vtkExtractSelection
 annotationLink.Update()
 # Connect the annotation link to the parallel coordinates representation
 rep.SetAnnotationLink(annotationLink)
@@ -78,9 +78,10 @@ def UpdateRenderWindows(obj, event):
     # ren.ResetCamera()
     renWin.Render()
 
+
 # Set up callback to update 3d render window when selections are changed in
 # parallel coordinates view
-annotationLink.AddObserver("AnnotationChangedEvent",  UpdateRenderWindows)
+annotationLink.AddObserver("AnnotationChangedEvent", UpdateRenderWindows)
 
 
 def ToggleInspectors(obj, event):
@@ -89,6 +90,7 @@ def ToggleInspectors(obj, event):
         view.SetInspectMode(1)
     else:
         view.SetInspectMode(0)
+
 
 # Set up callback to toggle between inspect modes (manip axes & select data)
 view.GetInteractor().AddObserver("UserEvent", ToggleInspectors)

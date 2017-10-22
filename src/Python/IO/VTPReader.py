@@ -1,7 +1,9 @@
 import vtk
+
+filename = "archive.vtp"
+
 reader = vtk.vtkXMLPolyDataReader()
-path = os.path.join(constant.BASE_DIR, "archive.vtp") #Archive path
-reader.SetFileName(path)
+reader.SetFileName(filename)
 reader.Update()
 
 mapper = vtk.vtkPolyDataMapper()

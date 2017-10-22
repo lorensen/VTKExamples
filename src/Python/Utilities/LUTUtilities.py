@@ -5,6 +5,7 @@ from __future__ import print_function
 import sys
 import vtk
 
+
 class LUTUtilities(object):
     '''
     Utilities for displaying and comparing lookup tables.
@@ -13,7 +14,7 @@ class LUTUtilities(object):
     def __init__(self):
         pass
 
-    def DisplayLUTAsString(self,lut):
+    def DisplayLUTAsString(self, lut):
         '''
         Display the contents of the lookup table.
         :param: lut - the lookup table.
@@ -25,13 +26,13 @@ class LUTUtilities(object):
         if lut.GetIndexedLookup():
             av = lut.GetNumberOfAnnotatedValues()
             str = "Categorical Lookup Table\n" +\
-            "Number of annotated values: {:d}".format(av) +\
-            " Number of table values: {:d}".format(tv) +\
-            "\nTable Range: {:8.6f} to {:8.6f}\n".format(dR[0],dR[1])
+                "Number of annotated values: {:d}".format(av) +\
+                " Number of table values: {:d}".format(tv) +\
+                "\nTable Range: {:8.6f} to {:8.6f}\n".format(dR[0], dR[1])
             if av > 0:
                 for i in range(av):
                     rgba = [0.0, 0.0, 0.0, 0.0]
-                    lut.GetAnnotationColor(lut.GetAnnotatedValue(i),rgba)
+                    lut.GetAnnotationColor(lut.GetAnnotatedValue(i), rgba)
                     str += "{:>5}: ".format(lut.GetAnnotation(i))
                     str += self.AssembleRGBAString(rgba)
             else:
@@ -42,19 +43,19 @@ class LUTUtilities(object):
                     str += self.AssembleRGBAString(rgba)
         else:
             str = "Ordinal Lookup Table\n" +\
-            " Number of table values: {:d}".format(tv) +\
-            "\nTable Range: {:8.6f} to {:8.6f}\n".format(dR[0],dR[1])
+                " Number of table values: {:d}".format(tv) +\
+                "\nTable Range: {:8.6f} to {:8.6f}\n".format(dR[0], dR[1])
             indices = [(dR[1] - dR[0]) *
-                           float(x)/tv + dR[0] for x in range(0,tv)]
+                       float(x) / tv + dR[0] for x in range(0, tv)]
             for i, v in enumerate(indices):
                 rgb = [0.0, 0.0, 0.0]
-                lut.GetColor(v,rgb)
+                lut.GetColor(v, rgb)
                 rgba = rgb + [lut.GetOpacity(v)]
                 str += "{:5.2f}: ".format(v)
                 str += self.AssembleRGBAString(rgba)
         return str
 
-    def AssembleRGBAString(self,rgba):
+    def AssembleRGBAString(self, rgba):
         '''
         Display the contents of the rgba as a series of strings:
         decimal [r g b a], integer [r g b a] where r,g ,b a are
@@ -62,12 +63,12 @@ class LUTUtilities(object):
         :param: The rgba string.
         :return: A string in the above format.
         '''
-        s = '['+ ', '.join(['{:0.6f}'.format(x) for x in rgba]) + ']'
+        s = '[' + ', '.join(['{:0.6f}'.format(x) for x in rgba]) + ']'
         ucrgb = [int(x * 255) for x in rgba]
-        t = '['+ ', '.join(['{:3d}'.format(x) for x in ucrgb]) + ']'
-        #u = '0x'+''.join(map(lambda x: '{:02X}'.format(x),ucrgb[:3]))
-        u = '0x'+''.join(['{:02x}'.format(x) for x in ucrgb])
-        res = '{:s} {:s} {:s}\n'.format(s,t,u)
+        t = '[' + ', '.join(['{:3d}'.format(x) for x in ucrgb]) + ']'
+        # u = '0x'+''.join(map(lambda x: '{:02X}'.format(x),ucrgb[:3]))
+        u = '0x' + ''.join(['{:02x}'.format(x) for x in ucrgb])
+        res = '{:s} {:s} {:s}\n'.format(s, t, u)
         return res
 
     def CompareLUTs(self, lut1, lut2):
@@ -83,8 +84,8 @@ class LUTUtilities(object):
             res[1] = "One table is ordinal and the other is categorical."
             return res
         if lut1.GetIndexedLookup() and\
-            lut1.GetNumberOfAnnotatedValues() !=\
-             lut2.GetNumberOfAnnotatedValues():
+                lut1.GetNumberOfAnnotatedValues() !=\
+                lut2.GetNumberOfAnnotatedValues():
             res[0] = False
             res[1] = "The number of annotated values do not match."
             return res
@@ -108,9 +109,9 @@ class LUTUtilities(object):
                         return res
                 for i in range(av):
                     rgba1 = [0.0, 0.0, 0.0, 0.0]
-                    lut1.GetAnnotationColor(lut1.GetAnnotatedValue(i),rgba1)
+                    lut1.GetAnnotationColor(lut1.GetAnnotatedValue(i), rgba1)
                     rgba2 = [0.0, 0.0, 0.0, 0.0]
-                    lut2.GetAnnotationColor(lut2.GetAnnotatedValue(i),rgba2)
+                    lut2.GetAnnotationColor(lut2.GetAnnotatedValue(i), rgba2)
                     if not self.CompareRGBA(rgba1, rgba2):
                         res[0] = False
                         res[1] = "Colors do not match."
@@ -127,13 +128,13 @@ class LUTUtilities(object):
         else:
             tv = lut1.GetNumberOfTableValues()
             indices = [(dR1[1] - dR1[0]) *
-                           float(x)/tv + dR1[0] for x in range(0,tv)]
+                       float(x) / tv + dR1[0] for x in range(0, tv)]
             for i, v in enumerate(indices):
                 rgb1 = [0.0, 0.0, 0.0]
-                lut1.GetColor(v,rgb1)
+                lut1.GetColor(v, rgb1)
                 rgba1 = rgb1 + [lut1.GetOpacity(v)]
                 rgb2 = [0.0, 0.0, 0.0]
-                lut2.GetColor(v,rgb2)
+                lut2.GetColor(v, rgb2)
                 rgba2 = rgb2 + [lut2.GetOpacity(v)]
                 if not self.CompareRGBA(rgba1, rgba2):
                     res[0] = False
@@ -153,14 +154,15 @@ class LUTUtilities(object):
         '''
         if len(rgba1) != len(rgba2):
             return False
-        if type(rgba1) == type(''):
+        if isinstance(rgba1, str):
             return rgba1 == rgba2
         if len(rgba1) == 3 or len(rgba1) == 4:
-            for i in range(0,len(rgba1)):
+            for i in range(0, len(rgba1)):
                 if rgba1[i] != rgba2[i]:
                     return False
             return True
         return False
+
 
 def GetAllColorSchemes():
     '''
@@ -174,6 +176,7 @@ def GetAllColorSchemes():
         colorSchemes[i] = colorSeries.GetColorSchemeName()
     return colorSchemes
 
+
 def AvailableColorSchemes(colorSchemes):
     '''
     The available color scheme indexes and names.
@@ -182,8 +185,9 @@ def AvailableColorSchemes(colorSchemes):
     '''
     str = ''
     for k, v in colorSchemes.items():
-        str += '{:3d}\t{:s}\n'.format(k,v)
+        str += '{:3d}\t{:s}\n'.format(k, v)
     return str
+
 
 def DisplayAvailableColorSchemes():
     '''
@@ -192,6 +196,7 @@ def DisplayAvailableColorSchemes():
     line = "-----------------------------------------------------------------------------\n"
     colorSchemes = GetAllColorSchemes()
     print(line + AvailableColorSchemes(colorSchemes) + line)
+
 
 def DisplayResults(reason, lut1, lut2):
     '''
@@ -207,7 +212,8 @@ def DisplayResults(reason, lut1, lut2):
     print(lutUtilities.DisplayLUTAsString(lut2))
     print(line)
 
-def TestTables(lut1, lut2, expected = True):
+
+def TestTables(lut1, lut2, expected=True):
     '''
     Test pairs of lookup tables.
     :param: lut1 - the first lookup table.
@@ -223,13 +229,13 @@ def TestTables(lut1, lut2, expected = True):
         return comparison[0]
     return not comparison[0]
 
+
 def TestLookupTables(lutMode):
     '''
     Test various combinations of lookup tables.
     :param: lutMode - if True the tables are ordinal, categorical otherwise.
     :return: True if all tests passed.
     '''
-    lutUtilities = LUTUtilities()
     lut1 = vtk.vtkLookupTable()
     lut2 = vtk.vtkLookupTable()
     colorSeries = vtk.vtkColorSeries()
@@ -304,9 +310,9 @@ def TestLookupTables(lutMode):
         # Different annotations.
         lut2.ResetAnnotations()
         for i in range(values.GetNumberOfTuples()):
-          if i % 3 == 0:
-              continue
-          lut2.SetAnnotation(i, values.GetValue(i).ToString())
+            if i % 3 == 0:
+                continue
+            lut2.SetAnnotation(i, values.GetValue(i).ToString())
         res &= TestTables(lut1, lut2, False)
 
         # No annotations
@@ -320,13 +326,15 @@ def TestLookupTables(lutMode):
 
     return res
 
+
 def main():
-    #DisplayAvailableColorSchemes()
+    # DisplayAvailableColorSchemes()
     # Test ordinal LUTS.
     res = TestLookupTables(True)
     # Test categorical LUTs.
     res &= TestLookupTables(False)
     return res
+
 
 if __name__ == '__main__':
     res = main()

@@ -2,6 +2,7 @@
 
 import vtk
 
+
 def MakeHexagonalPrism():
     '''
       3D: hexagonal prism: a wedge with an hexagonal base.
@@ -32,10 +33,11 @@ def MakeHexagonalPrism():
 
     ug = vtk.vtkUnstructuredGrid()
     ug.InsertNextCell(hexagonalPrism.GetCellType(),
-                       hexagonalPrism.GetPointIds())
+                      hexagonalPrism.GetPointIds())
     ug.SetPoints(points)
 
     return ug
+
 
 def MakeHexahedron():
     '''
@@ -74,6 +76,7 @@ def MakeHexahedron():
 
     return uGrid
 
+
 def MakePentagonalPrism():
 
     numberOfVertices = 10
@@ -100,9 +103,10 @@ def MakePentagonalPrism():
     uGrid = vtk.vtkUnstructuredGrid()
     uGrid.SetPoints(points)
     uGrid.InsertNextCell(pentagonalPrism.GetCellType(),
-                          pentagonalPrism.GetPointIds())
+                         pentagonalPrism.GetPointIds())
 
     return uGrid
+
 
 def MakePolyhedron():
     '''
@@ -149,7 +153,7 @@ def MakePolyhedron():
         [18, 13, 8, 12, 17],
         [19, 14, 9, 13, 18],
         [19, 18, 17, 16, 15]
-        ]
+    ]
 
     dodechedronFacesIdList = vtk.vtkIdList()
     # Number faces that make up the cell.
@@ -166,6 +170,7 @@ def MakePolyhedron():
 
     return uGrid
 
+
 def MakePyramid():
     '''
       Make a regular square pyramid.
@@ -175,12 +180,12 @@ def MakePyramid():
     points = vtk.vtkPoints()
 
     p = [
-         [1.0, 1.0, 0.0],
-         [-1.0, 1.0, 0.0],
-         [-1.0, -1.0, 0.0],
-         [1.0, -1.0, 0.0],
-         [0.0, 0.0, 1.0]
-         ]
+        [1.0, 1.0, 0.0],
+        [-1.0, 1.0, 0.0],
+        [-1.0, -1.0, 0.0],
+        [1.0, -1.0, 0.0],
+        [0.0, 0.0, 1.0]
+    ]
     for pt in p:
         points.InsertNextPoint(pt)
 
@@ -193,6 +198,7 @@ def MakePyramid():
     ug.InsertNextCell(pyramid.GetCellType(), pyramid.GetPointIds())
 
     return ug
+
 
 def MakeTetrahedron():
     '''
@@ -218,6 +224,7 @@ def MakeTetrahedron():
     unstructuredGrid.SetCells(vtk.VTK_TETRA, cellArray)
 
     return unstructuredGrid
+
 
 def MakeVoxel():
     '''
@@ -245,6 +252,7 @@ def MakeVoxel():
 
     return ug
 
+
 def MakeWedge():
     '''
       A wedge consists of two triangular ends and three rectangular faces.
@@ -271,6 +279,7 @@ def MakeWedge():
 
     return ug
 
+
 def WritePNG(renWin, fn, magnification=1):
     '''
       Screenshot
@@ -295,6 +304,7 @@ def WritePNG(renWin, fn, magnification=1):
     writer.SetFileName(fn)
     writer.SetInputConnection(windowToImageFilter.GetOutputPort())
     writer.Write()
+
 
 def DisplayBodies():
 
@@ -371,13 +381,13 @@ def DisplayBodies():
             # (xmin, ymin, xmax, ymax)
             viewport = [
                 float(col) * rendererSize /
-                                     (gridDimensions * rendererSize),
+                (gridDimensions * rendererSize),
                 float(gridDimensions - (row + 1)) * rendererSize /
-                                     (gridDimensions * rendererSize),
+                (gridDimensions * rendererSize),
                 float(col + 1) * rendererSize /
-                                     (gridDimensions * rendererSize),
+                (gridDimensions * rendererSize),
                 float(gridDimensions - row) * rendererSize /
-                                     (gridDimensions * rendererSize)]
+                (gridDimensions * rendererSize)]
 
             if index > len(actors) - 1:
                 # Add a renderer even if there is no actor.
@@ -400,7 +410,8 @@ def DisplayBodies():
     renWin.Render()
     return iRen
 
+
 if __name__ == '__main__':
     iRen = DisplayBodies()
-    #WritePNG(iRen.GetRenderWindow(), "Cell3DDemonstration.png")
+    # WritePNG(iRen.GetRenderWindow(), "Cell3DDemonstration.png")
     iRen.Start()

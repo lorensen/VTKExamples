@@ -1,11 +1,14 @@
 import vtk
 
 # Call back function to resize the cone
+
+
 def boxCallback(obj, event):
     t = vtk.vtkTransform()
     obj.GetTransform(t)
-    obj.GetProp3D().SetUserTransform( t )
-    
+    obj.GetProp3D().SetUserTransform(t)
+
+
 # Create a Cone
 cone = vtk.vtkConeSource()
 cone.SetResolution(20)
@@ -21,7 +24,7 @@ renderer.AddActor(coneActor)
 
 renwin = vtk.vtkRenderWindow()
 renwin.AddRenderer(renderer)
- 
+
 # An interactor
 interactor = vtk.vtkRenderWindowInteractor()
 interactor.SetRenderWindow(renwin)
@@ -30,13 +33,13 @@ interactor.SetRenderWindow(renwin)
 boxWidget = vtk.vtkBoxWidget()
 boxWidget.SetInteractor(interactor)
 boxWidget.SetProp3D(coneActor)
-boxWidget.SetPlaceFactor( 1.25 ) # Make the box 1.25x larger than the actor
+boxWidget.SetPlaceFactor(1.25)  # Make the box 1.25x larger than the actor
 boxWidget.PlaceWidget()
 boxWidget.On()
 
 # Connect the event to a function
 boxWidget.AddObserver("InteractionEvent", boxCallback)
- 
+
 # Start
 interactor.Initialize()
 interactor.Start()

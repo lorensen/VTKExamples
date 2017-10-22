@@ -2,7 +2,7 @@
 
 import vtk
 
-# Create five points. 
+# Create five points.
 origin = [0.0, 0.0, 0.0]
 p0 = [1.0, 0.0, 0.0]
 p1 = [0.0, 1.0, 0.0]
@@ -21,10 +21,10 @@ points.InsertNextPoint(p3)
 lines = vtk.vtkCellArray()
 
 for i in range(3):
-  line = vtk.vtkLine()
-  line.GetPointIds().SetId(0,i)
-  line.GetPointIds().SetId(1,i+1)
-  lines.InsertNextCell(line)
+    line = vtk.vtkLine()
+    line.GetPointIds().SetId(0, i)
+    line.GetPointIds().SetId(1, i + 1)
+    lines.InsertNextCell(line)
 
 # Create a polydata to store everything in
 linesPolyData = vtk.vtkPolyData()

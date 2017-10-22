@@ -11,15 +11,15 @@ renWin.AddRenderer(ren)
 iren = vtk.vtkRenderWindowInteractor()
 iren.SetRenderWindow(renWin)
 
-planesArray=[0]*24 # Allocate a list of length 24
+planesArray = [0] * 24  # Allocate a list of length 24
 camera = vtk.vtkCamera()
 camera.GetFrustumPlanes(1, planesArray)
-planes=vtk.vtkPlanes()
+planes = vtk.vtkPlanes()
 planes.SetFrustumPlanes(planesArray)
 
 frustumSource = vtk.vtkFrustumSource()
 frustumSource.SetPlanes(planes)
-frustumSource.ShowLinesOff();
+frustumSource.ShowLinesOff()
 frustumSource.Update()
 
 # mapper
@@ -29,11 +29,11 @@ mapper.SetInputData(frustumSource.GetOutput())
 # actor
 actor = vtk.vtkActor()
 actor.SetMapper(mapper)
-actor.GetProperty().SetColor(0.8,0.9,0.7)
+actor.GetProperty().SetColor(0.8, 0.9, 0.7)
 
 # assign actor to the renderer
 ren.AddActor(actor)
-ren.SetBackground(0.2,0.1,0.3)
+ren.SetBackground(0.2, 0.1, 0.3)
 # enable user interface interactor
 iren.Initialize()
 renWin.Render()

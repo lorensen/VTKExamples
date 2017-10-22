@@ -1,7 +1,7 @@
 #!/usr/bin/python
- 
+
 import vtk
- 
+
 g = vtk.vtkMutableDirectedGraph()
 latitude = vtk.vtkDoubleArray()
 latitude.SetName("latitude")
@@ -14,7 +14,7 @@ for i in range(-90, 90, 10):
         longitude.InsertNextValue(j)
 g.GetVertexData().AddArray(latitude)
 g.GetVertexData().AddArray(longitude)
- 
+
 assign = vtk.vtkGeoAssignCoordinates()
 mapper = vtk.vtkPolyDataMapper()
 if vtk.VTK_MAJOR_VERSION <= 5:
@@ -26,7 +26,7 @@ assign.SetLatitudeArrayName("latitude")
 assign.SetLongitudeArrayName("longitude")
 assign.SetGlobeRadius(1.0)
 assign.Update()
- 
+
 mapper = vtk.vtkGraphMapper()
 mapper.SetInputConnection(assign.GetOutputPort())
 actor = vtk.vtkActor()
@@ -38,7 +38,7 @@ win = vtk.vtkRenderWindow()
 win.AddRenderer(ren)
 win.SetInteractor(iren)
 ren.ResetCamera()
- 
+
 iren.Initialize()
 ren.Render()
 iren.Start()

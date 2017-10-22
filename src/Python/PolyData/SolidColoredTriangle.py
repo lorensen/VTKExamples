@@ -1,4 +1,4 @@
-from vtk import *
+import vtk
 
 # setup points and vertices
 Points = vtk.vtkPoints()

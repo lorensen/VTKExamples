@@ -16,7 +16,7 @@ cutPlane.SetOrigin(sphereSource.GetCenter())
 cutPlane.SetNormal(0, 0, 1)
 circleCutter.SetCutFunction(cutPlane)
 stripper = vtk.vtkStripper()
-stripper.SetInputConnection(circleCutter.GetOutputPort()) # valid circle
+stripper.SetInputConnection(circleCutter.GetOutputPort())  # valid circle
 stripper.Update()
 # that's our circle
 circle = stripper.GetOutput()
@@ -35,27 +35,27 @@ polyDataWriter.Write()
 
 # prepare the binary image's voxel grid
 whiteImage = vtk.vtkImageData()
-bounds = [0]*6
+bounds = [0] * 6
 circle.GetBounds(bounds)
-spacing = [0]*3 # desired volume spacing
+spacing = [0] * 3  # desired volume spacing
 spacing[0] = 0.5
 spacing[1] = 0.5
 spacing[2] = 0.5
 whiteImage.SetSpacing(spacing)
 
 # compute dimensions
-dim = [0]*3
+dim = [0] * 3
 for i in range(3):
     dim[i] = int(math.ceil((bounds[i * 2 + 1] - bounds[i * 2]) / spacing[i])) + 1
     if (dim[i] < 1):
         dim[i] = 1
 whiteImage.SetDimensions(dim)
 whiteImage.SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0, dim[2] - 1)
-origin = [0]*3
+origin = [0] * 3
 # NOTE: I am not sure whether or not we had to add some offset!
-origin[0] = bounds[0]# + spacing[0] / 2
-origin[1] = bounds[2]# + spacing[1] / 2
-origin[2] = bounds[4]# + spacing[2] / 2
+origin[0] = bounds[0]  # + spacing[0] / 2
+origin[1] = bounds[2]  # + spacing[1] / 2
+origin[2] = bounds[4]  # + spacing[2] / 2
 whiteImage.SetOrigin(origin)
 if vtk.VTK_MAJOR_VERSION <= 5:
     whiteImage.SetScalarTypeToUnsignedChar()
@@ -67,7 +67,7 @@ else:
 inval = 255
 outval = 0
 count = whiteImage.GetNumberOfPoints()
-#for (vtkIdType i = 0 i < count ++i)
+# for (vtkIdType i = 0 i < count ++i)
 for i in range(count):
     whiteImage.GetPointData().GetScalars().SetTuple1(i, inval)
 
@@ -86,7 +86,7 @@ extruder.Update()
 
 # polygonal data -. image stencil:
 pol2stenc = vtk.vtkPolyDataToImageStencil()
-pol2stenc.SetTolerance(0) # important if extruder.SetVector(0, 0, 1) !!!
+pol2stenc.SetTolerance(0)  # important if extruder.SetVector(0, 0, 1) !!!
 pol2stenc.SetInputConnection(extruder.GetOutputPort())
 pol2stenc.SetOutputOrigin(origin)
 pol2stenc.SetOutputSpacing(spacing)

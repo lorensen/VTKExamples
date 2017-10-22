@@ -11,8 +11,8 @@ iren.SetRenderWindow(renWin)
 
 # create source
 source = vtk.vtkPlaneSource()
-source.SetCenter(1,0,0)
-source.SetNormal(1,2,3)
+source.SetCenter(1, 0, 0)
+source.SetNormal(1, 2, 3)
 
 # mapper
 mapper = vtk.vtkPolyDataMapper()

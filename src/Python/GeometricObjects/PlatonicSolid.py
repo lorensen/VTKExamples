@@ -2,8 +2,9 @@
 
 import vtk
 
+
 class PlatonicSolids():
-    
+
     def PlatonicSolids(self):
 
         # Each face has a different cell scalar
@@ -33,7 +34,7 @@ class PlatonicSolids():
         lut.SetTableValue(17, 0, 0.4, 0.4)
         lut.SetTableValue(18, 0.4, 0, 0)
         lut.SetTableValue(19, 0.4, 0, 0.4)
-                
+
         PlatonicSolids = list()
         # There are five Platonic solids.
         PlatonicSolids.append(vtk.vtkPlatonicSolidSource())
@@ -44,56 +45,56 @@ class PlatonicSolids():
         # Specify the Platonic Solid to create.
         for idx, item in enumerate(PlatonicSolids):
             PlatonicSolids[idx].SetSolidType(idx)
-            names = ["Tetrahedron","Cube","Octahedron","Icosahedron", "Dodecahedron"]
-        
+            names = ["Tetrahedron", "Cube", "Octahedron", "Icosahedron", "Dodecahedron"]
+
         renderers = list()
         mappers = list()
         actors = list()
         textmappers = list()
         textactors = list()
-        
+
         # Create a common text property.
         textProperty = vtk.vtkTextProperty()
         textProperty.SetFontSize(10)
         textProperty.SetJustificationToCentered()
-        
-        # Create a parametric function source, renderer, mapper 
+
+        # Create a parametric function source, renderer, mapper
         # and actor for each object.
         for idx, item in enumerate(PlatonicSolids):
             PlatonicSolids[idx].Update()
-            
+
             mappers.append(vtk.vtkPolyDataMapper())
             mappers[idx].SetInputConnection(PlatonicSolids[idx].GetOutputPort())
             mappers[idx].SetLookupTable(lut)
             mappers[idx].SetScalarRange(0, 20)
-            
+
             actors.append(vtk.vtkActor())
             actors[idx].SetMapper(mappers[idx])
-            
+
             textmappers.append(vtk.vtkTextMapper())
             textmappers[idx].SetInput(names[idx])
             textmappers[idx].SetTextProperty(textProperty)
-            
+
             textactors.append(vtk.vtkActor2D())
             textactors[idx].SetMapper(textmappers[idx])
             textactors[idx].SetPosition(120, 16)
-            
+
             renderers.append(vtk.vtkRenderer())
-            
+
         rowDimensions = 3
         colDimensions = 2
-        
+
         for idx in range(rowDimensions * colDimensions):
             if idx >= len(PlatonicSolids):
                 renderers.append(vtk.vtkRenderer)
-        
+
         rendererSize = 300
-        
+
         # Create the RenderWindow
         #
         renderWindow = vtk.vtkRenderWindow()
-        renderWindow.SetSize(rendererSize * rowDimensions / colDimensions, rendererSize * colDimensions )
-        
+        renderWindow.SetSize(rendererSize * rowDimensions / colDimensions, rendererSize * colDimensions)
+
         # Add and position the renders to the render window.
         viewport = list()
         idx = -1
@@ -102,27 +103,28 @@ class PlatonicSolids():
                 idx += 1
                 viewport[:] = []
                 viewport.append(float(col) * rendererSize / (colDimensions * rendererSize))
-                viewport.append(float(rowDimensions - (row+1)) * rendererSize / (rowDimensions * rendererSize))
-                viewport.append(float(col+1)*rendererSize / (colDimensions * rendererSize))
+                viewport.append(float(rowDimensions - (row + 1)) * rendererSize / (rowDimensions * rendererSize))
+                viewport.append(float(col + 1) * rendererSize / (colDimensions * rendererSize))
                 viewport.append(float(rowDimensions - row) * rendererSize / (rowDimensions * rendererSize))
-                                
+
                 if idx > (len(PlatonicSolids) - 1):
                     continue
 
                 renderers[idx].SetViewport(viewport)
                 renderWindow.AddRenderer(renderers[idx])
-                
+
                 renderers[idx].AddActor(actors[idx])
                 renderers[idx].AddActor(textactors[idx])
-                renderers[idx].SetBackground(0.4,0.3,0.2)
-        
+                renderers[idx].SetBackground(0.4, 0.3, 0.2)
+
         interactor = vtk.vtkRenderWindowInteractor()
         interactor.SetRenderWindow(renderWindow)
-        
+
         renderWindow.Render()
 
         interactor.Start()
-    
+
+
 if __name__ == "__main__":
     po = PlatonicSolids()
     po.PlatonicSolids()

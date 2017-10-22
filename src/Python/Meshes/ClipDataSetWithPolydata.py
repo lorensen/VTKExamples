@@ -28,7 +28,7 @@ for z, i in enumerate(np.linspace(-1.0, 1.0, 15)):
 # the number of values in each of the XCoordinates, YCoordinates,
 # and ZCoordinates is equal to what is defined in SetDimensions().
 rgrid = vtk.vtkRectilinearGrid()
-rgrid.SetDimensions(x+1, y+1, z+1)
+rgrid.SetDimensions(x + 1, y + 1, z + 1)
 rgrid.SetXCoordinates(xCoords)
 rgrid.SetYCoordinates(yCoords)
 rgrid.SetZCoordinates(zCoords)
@@ -64,7 +64,7 @@ coneActor.SetMapper(coneMapper)
 # geometry filter to view the background grid
 geometryFilter = vtk.vtkRectilinearGridGeometryFilter()
 geometryFilter.SetInputData(rgrid)
-geometryFilter.SetExtent(0, x+1, 0, y+1, (z+1)//2, (z+1)//2)
+geometryFilter.SetExtent(0, x + 1, 0, y + 1, (z + 1) // 2, (z + 1) // 2)
 geometryFilter.Update()
 
 rgridMapper = vtk.vtkPolyDataMapper()
@@ -89,7 +89,7 @@ renderer = vtk.vtkRenderer()
 renderer.SetBackground(1, 1, 1)
 
 # add the actors
-#renderer.AddActor(coneActor)
+# renderer.AddActor(coneActor)
 renderer.AddActor(wireActor)
 renderer.AddActor(clipperActor)
 

@@ -29,8 +29,7 @@ renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
 
 renderer.AddActor(actor)
-renderer.SetBackground(.3, .6, .3) # Background color green
+renderer.SetBackground(.3, .6, .3)  # Background color green
 
 renderWindow.Render()
 renderWindowInteractor.Start()
-

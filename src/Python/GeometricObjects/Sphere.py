@@ -11,7 +11,7 @@ iren.SetRenderWindow(renWin)
 
 # create source
 source = vtk.vtkSphereSource()
-source.SetCenter(0,0,0)
+source.SetCenter(0, 0, 0)
 source.SetRadius(5.0)
 
 # mapper

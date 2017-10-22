@@ -3,7 +3,7 @@ import vtk
 # create a sphere
 sphere = vtk.vtkSphere()
 sphere.SetRadius(1)
-sphere.SetCenter(1,0,0)
+sphere.SetCenter(1, 0, 0)
 
 # create a box
 box = vtk.vtkBox()
@@ -12,8 +12,8 @@ box.SetBounds(-1, 1, -1, 1, -1, 1)
 # combine the two implicit functions
 boolean = vtk.vtkImplicitBoolean()
 boolean.SetOperationTypeToDifference()
-#boolean.SetOperationTypeToUnion()
-#boolean.SetOperationTypeToIntersection()
+# boolean.SetOperationTypeToUnion()
+# boolean.SetOperationTypeToIntersection()
 boolean.AddFunction(box)
 boolean.AddFunction(sphere)
 

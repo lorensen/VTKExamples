@@ -11,7 +11,7 @@ iren.SetRenderWindow(renWin)
 
 # create source
 source = vtk.vtkCylinderSource()
-source.SetCenter(0,0,0)
+source.SetCenter(0, 0, 0)
 source.SetRadius(5.0)
 source.SetHeight(7.0)
 source.SetResolution(100)
@@ -26,7 +26,7 @@ actor.SetMapper(mapper)
 
 # assign actor to the renderer
 ren.AddActor(actor)
-ren.SetBackground(0.1, 0.3,0.2); # Background color dark green
+ren.SetBackground(0.1, 0.3, 0.2)  # Background color dark green
 
 # enable user interface interactor
 iren.Initialize()
