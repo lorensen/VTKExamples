@@ -13,31 +13,31 @@ foreach(p
 endforeach()
 #-----------------------------------------------------------------------------
 
-PROJECT (QtVTKWikiExamples)
+project (QtVTKWikiExamples)
 
-IF(NOT WikiExamples_BINARY_DIR)
-FIND_PACKAGE(VTK REQUIRED)
-IF(NOT VTK_USE_RENDERING)
-  MESSAGE(FATAL_ERROR "Example ${PROJECT_NAME} requires VTK_USE_RENDERING.")
-ENDIF(NOT VTK_USE_RENDERING)
-INCLUDE(${VTK_USE_FILE})
-ENDIF(NOT WikiExamples_BINARY_DIR)
+if(NOT WikiExamples_BINARY_DIR)
+find_package(VTK REQUIRED)
+if(NOT VTK_USE_RENDERING)
+  message(FATAL_ERROR "Example ${PROJECT_NAME} requires VTK_USE_RENDERING.")
+endif(NOT VTK_USE_RENDERING)
+include(${VTK_USE_FILE})
+endif(NOT WikiExamples_BINARY_DIR)
 
 if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
-  SET(KIT_LIBS vtkHybrid ${QT_LIBRARIES} )
+  set(KIT_LIBS vtkHybrid ${QT_LIBRARIES} )
 else()
-  SET(KIT_LIBS ${VTK_LIBRARIES})
+  set(KIT_LIBS ${VTK_LIBRARIES})
 endif()
 
 # Let Qt find its MOCed headers in the build directory.
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 #
 # For all [example].ui files, build them together with their corresponding
 # [example]Driver.cxx and [example].cxx. Subtract these cxx files from a
 # list of all cxx files in the directory - we will build the rest in the next block.
-FILE(GLOB ALL_UI_FILES *.ui)
-FILE(GLOB ALL_FILES *.cxx)
+file(GLOB ALL_UI_FILES *.ui)
+file(GLOB ALL_FILES *.cxx)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresModule.cmake)
 
@@ -49,9 +49,9 @@ Requires_Module(QImageToImageSource vtkRenderingQt)
 
 foreach(EXAMPLE_FILE ${ALL_UI_FILES})
 
-  STRING(REPLACE ".ui" "" TMP ${EXAMPLE_FILE})
+  string(REPLACE ".ui" "" TMP ${EXAMPLE_FILE})
 
-  STRING(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
+  string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
   set(UISrcs)
   set(MOCSrcs)
 
@@ -63,21 +63,21 @@ foreach(EXAMPLE_FILE ${ALL_UI_FILES})
   else()
     add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
   endif()
-  TARGET_LINK_LIBRARIES(${WIKI}${EXAMPLE} ${KIT_LIBS})
+  target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
   list(REMOVE_ITEM ALL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}Driver.cxx ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}.cxx)
 endforeach(EXAMPLE_FILE)
 
 # Build all remaining .cxx files.
 foreach(EXAMPLE_FILE ${ALL_FILES})
-  STRING(REPLACE ".cxx" "" TMP ${EXAMPLE_FILE})
-  STRING(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
+  string(REPLACE ".cxx" "" TMP ${EXAMPLE_FILE})
+  string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
 
   if(VTK_QT_VERSION VERSION_GREATER "4")
-    ADD_EXECUTABLE(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
+    add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
     qt5_use_modules(${WIKI}${EXAMPLE} Core Gui Widgets)
-    TARGET_LINK_LIBRARIES(${WIKI}${EXAMPLE} ${KIT_LIBS})
+    target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
   else()
-    ADD_EXECUTABLE(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
-    TARGET_LINK_LIBRARIES(${WIKI}${EXAMPLE} ${KIT_LIBS})
+    add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
+    target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
   endif()
 endforeach(EXAMPLE_FILE)

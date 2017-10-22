@@ -88,10 +88,14 @@ add_test(${KIT}-MarchingCasesB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 add_test(${KIT}-PlateVibration ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestPlateVibration ${DATA}/plate.vtk)
 
-add_test(${KIT}-SpikeFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+<<<<<<< d1c12ade8600ceab4bc8346655652256407163fb
+ADD_TEST(${KIT}-SpikeFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSpikeFran ${DATA}/fran_cut.vtk)
 
+ADD_TEST(${KIT}-WarpCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+=======
 add_test(${KIT}-WarpCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+>>>>>>> STYLE: Convert CMake-language commands to lower case
   TestWarpCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)

@@ -1,4 +1,4 @@
-SET(CMAKE_TESTDRIVER_BEFORE_TESTMAIN 
+set(CMAKE_TESTDRIVER_BEFORE_TESTMAIN 
 "
     // Set defaults
     vtkTestingInteractor::ValidBaseline =
@@ -63,7 +63,7 @@ SET(CMAKE_TESTDRIVER_BEFORE_TESTMAIN
 "
 )
 
-SET(CMAKE_TESTDRIVER_AFTER_TESTMAIN
+set(CMAKE_TESTDRIVER_AFTER_TESTMAIN
 "    
    if (!interactive)
      {
@@ -82,6 +82,6 @@ SET(CMAKE_TESTDRIVER_AFTER_TESTMAIN
       }
 "
 )
-CREATE_TEST_SOURCELIST(Tests ${KIT}CxxTests.cxx ${MyTests}
+create_test_sourcelist(Tests ${KIT}CxxTests.cxx ${MyTests}
                        EXTRA_INCLUDE ${WikiExamples_SOURCE_DIR}/CMake/vtkTestingObjectFactory.hxx)
 
