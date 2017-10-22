@@ -6,7 +6,6 @@
 '''
 from __future__ import print_function
 import vtk
-import string
 
 
 def FindSynonyms(nc, colorName):

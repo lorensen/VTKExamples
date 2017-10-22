@@ -1,5 +1,4 @@
 import vtk
-from vtk import *
 
 # setup sphere
 sphereSource = vtk.vtkSphereSource()

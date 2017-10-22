@@ -1,5 +1,4 @@
 import vtk
-from vtk import *
 
 Points = vtk.vtkPoints()
 Triangles = vtk.vtkCellArray()

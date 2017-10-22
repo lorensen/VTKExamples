@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # Sanjaya Gajurel, Computational Scientist, Case Western Reserve University, April 2015
-import sys
+
 import vtk
-import os
 
 # ------------------------------------------------------------------------------
 # Script Entry Point

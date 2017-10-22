@@ -1,5 +1,4 @@
 import vtk
-from vtk import *
 
 Points = vtk.vtkPoints()
 Points.InsertNextPoint(1.0, 0.0, 0.0)

@@ -1,6 +1,6 @@
 from __future__ import print_function
+
 import vtk
-from vtk import *
 
 # setup sphere
 sphereSource = vtk.vtkSphereSource()

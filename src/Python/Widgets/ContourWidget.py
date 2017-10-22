@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import vtk
-import random
 import sys
 import math
 

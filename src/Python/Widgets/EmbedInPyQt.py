@@ -2,7 +2,7 @@
 
 import sys
 import vtk
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtGui
 from vtk.qt4.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
 
