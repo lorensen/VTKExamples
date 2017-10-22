@@ -9,9 +9,3 @@ ignore =
     F403,
     # F405 'XXXX' may be undefined, or defined from star imports
     F405,
-    # F821 undefined name 'constant'
-    F821,
-    # F821 undefined name 'os'
-    F821,
-    # F821 undefined name 'unicode'
-    F821,

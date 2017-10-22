@@ -6,7 +6,7 @@ import sys
 if sys.hexversion >= 0x03000000:
     unicodeEtre = '\xeatre'  # unicode in Python 3
 else:
-    unicodeEtre = unicode('\xeatre', 'latin1')
+    unicodeEtre = unicode('\xeatre', 'latin1')  # noqa: F821
 
 #
 # Basic vtkVariant usage
