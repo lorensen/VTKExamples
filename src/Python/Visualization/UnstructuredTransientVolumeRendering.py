@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from vtk import *
+import vtk
 
-tse = vtkTimeSourceExample()
+tse = vtk.vtkTimeSourceExample()
 ex = tse.GetExecutive()
 tse.UpdateInformation()
 
@@ -24,7 +24,7 @@ print(tse.GetOutput().GetBounds())
 grid = tse.GetOutput()
 print(grid)
 
-tri = vtkDataSetTriangleFilter()
+tri = vtk.vtkDataSetTriangleFilter()
 tri.SetInputData(grid)
 tri.SetTetrahedraOnly(1)
 tri.Update()
@@ -37,57 +37,57 @@ assert(iss > -1)
 drange = [0, 1]
 
 # Create transfer mapping scalar value to opacity.
-opacityFunction = vtkPiecewiseFunction()
+opacityFunction = vtk.vtkPiecewiseFunction()
 opacityFunction.AddPoint(drange[0], 0.0)
 opacityFunction.AddPoint(drange[1], 1.0)
 
 # Create transfer mapping scalar value to color.
-colorFunction = vtkColorTransferFunction()
+colorFunction = vtk.vtkColorTransferFunction()
 colorFunction.SetColorSpaceToHSV()
 colorFunction.HSVWrapOff()
 colorFunction.AddRGBPoint(drange[0], 0.0, 0.0, 1.0)
 colorFunction.AddRGBPoint(drange[1], 1.0, 0.0, 0.0)
 
-volumeProperty = vtkVolumeProperty()
+volumeProperty = vtk.vtkVolumeProperty()
 volumeProperty.SetScalarOpacity(opacityFunction)
 volumeProperty.SetColor(colorFunction)
 volumeProperty.ShadeOff()
 volumeProperty.SetInterpolationTypeToLinear()
 # volumeProperty.SetScalarOpacityUnitDistance(options.unit)
 
-volumeMapper = vtkUnstructuredGridVolumeRayCastMapper()
-# volumeMapper = vtkUnstructuredGridVolumeZSweepMapper()
-# volumeMapper = vtkProjectedTetrahedraMapper()
+volumeMapper = vtk.vtkUnstructuredGridVolumeRayCastMapper()
+# volumeMapper = vtk.vtkUnstructuredGridVolumeZSweepMapper()
+# volumeMapper = vtk.vtkProjectedTetrahedraMapper()
 # volumeMapper.SetBlendModeToMaximumIntensity()
 volumeMapper.SetInputData(output)
 
-volume = vtkVolume()
+volume = vtk.vtkVolume()
 volume.SetMapper(volumeMapper)
 volume.SetProperty(volumeProperty)
 
 # create a rendering window and renderer
-renderer = vtkRenderer()
+renderer = vtk.vtkRenderer()
 renderer.SetBackground(0, 0, 0)
 
-window = vtkRenderWindow()
+window = vtk.vtkRenderWindow()
 window.SetSize(512, 512)
 window.AddRenderer(renderer)
 
-interactor = vtkRenderWindowInteractor()
+interactor = vtk.vtkRenderWindowInteractor()
 interactor.SetRenderWindow(window)
 
-style = vtkInteractorStyleTrackballCamera()
+style = vtk.vtkInteractorStyleTrackballCamera()
 interactor.SetInteractorStyle(style)
 
 renderer.AddVolume(volume)
 
-scalarBar = vtkScalarBarActor()
+scalarBar = vtk.vtkScalarBarActor()
 scalarBar.SetLookupTable(colorFunction)
 scalarBar.SetOrientationToVertical()
 scalarBar.SetPosition(0.85, 0.7)
 scalarBar.SetPosition2(0.1, 0.3)
-propT = vtkTextProperty()
-propL = vtkTextProperty()
+propT = vtk.vtkTextProperty()
+propL = vtk.vtkTextProperty()
 propT.SetFontFamilyToArial()
 propT.ItalicOff()
 propT.BoldOn()
@@ -98,7 +98,7 @@ scalarBar.SetLabelFormat("%5.2f")
 renderer.AddActor(scalarBar)
 
 # setup the text and add it to the window
-textActor = vtkTextActor()
+textActor = vtk.vtkTextActor()
 textActor.GetTextProperty().SetFontSize(12)
 textActor.SetPosition2(10, 40)
 renderer.AddActor2D(textActor)
@@ -119,7 +119,7 @@ while time <= 1:
     # TODO FIXME if this block is not here than the volume renders wrongly
     # renderer.RemoveVolume(volume)
     # del volume
-    volume = vtkVolume()
+    volume = vtk.vtkVolume()
     volume.SetMapper(volumeMapper)
     volume.SetProperty(volumeProperty)
     renderer.AddVolume(volume)

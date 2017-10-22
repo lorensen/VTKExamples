@@ -3,39 +3,39 @@
 #
 # by Panos Mavrogiorgos, email: pmav99 <> gmail
 
-from vtk import *
+import vtk.vtk
 
 # The source file
 file_name = "uGridEx.vtk"
 
 # Read the source file.
-reader = vtkUnstructuredGridReader()
+reader = vtk.vtkUnstructuredGridReader()
 reader.SetFileName(file_name)
 reader.Update()  # Needed because of GetScalarRange
 output = reader.GetOutput()
 scalar_range = output.GetScalarRange()
 
-# Create the mapper that corresponds the objects of the vtk file
+# Create the mapper that corresponds the objects of the vtk.vtk file
 # into graphics elements
-mapper = vtkDataSetMapper()
+mapper = vtk.vtkDataSetMapper()
 mapper.SetInputData(output)
 mapper.SetScalarRange(scalar_range)
 
 # Create the Actor
-actor = vtkActor()
+actor = vtk.vtkActor()
 actor.SetMapper(mapper)
 
 # Create the Renderer
-renderer = vtkRenderer()
+renderer = vtk.vtkRenderer()
 renderer.AddActor(actor)
 renderer.SetBackground(1, 1, 1)  # Set background to white
 
 # Create the RendererWindow
-renderer_window = vtkRenderWindow()
+renderer_window = vtk.vtkRenderWindow()
 renderer_window.AddRenderer(renderer)
 
 # Create the RendererWindowInteractor and display the vtk_file
-interactor = vtkRenderWindowInteractor()
+interactor = vtk.vtkRenderWindowInteractor()
 interactor.SetRenderWindow(renderer_window)
 interactor.Initialize()
 interactor.Start()

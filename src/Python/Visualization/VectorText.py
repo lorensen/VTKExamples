@@ -1,24 +1,23 @@
-from vtk import*
-
+import vtk
 
 # Create a sphere
-textSource = vtkVectorText()
+textSource = vtk.vtkVectorText()
 textSource.SetText("Hello")
 textSource.Update()
 
 # Create a mapper and actor
-mapper = vtkPolyDataMapper()
+mapper = vtk.vtkPolyDataMapper()
 mapper.SetInputConnection(textSource.GetOutputPort())
 
-actor = vtkActor()
+actor = vtk.vtkActor()
 actor.SetMapper(mapper)
 actor.GetProperty().SetColor(1.0, 0.0, 0.0)
 
 # Create a renderer, render window, and interactor
-renderer = vtkRenderer()
-renderWindow = vtkRenderWindow()
+renderer = vtk.vtkRenderer()
+renderWindow = vtk.vtkRenderWindow()
 renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtkRenderWindowInteractor()
+renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
 
 # Add the actor to the scene

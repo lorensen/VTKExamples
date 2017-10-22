@@ -1,11 +1,11 @@
 #!/usr/bin/python
 
-from vtk import *
+import vtk
 
 
 def Sphere():
     # create the quadric function definition
-    quadric = vtkQuadric()
+    quadric = vtk.vtkQuadric()
     quadric.SetCoefficients(1, 1, 1, 0, 0, 0, 0, 0, 0, 0)
 
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
@@ -16,7 +16,7 @@ def Sphere():
 
 def EllipticParaboloid():
     # create the quadric function definition
-    quadric = vtkQuadric()
+    quadric = vtk.vtkQuadric()
     quadric.SetCoefficients(1, 1, 0, 0, 0, 0, 0, 0, -1, 0)
 
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
@@ -27,7 +27,7 @@ def EllipticParaboloid():
 
 def HyperbolicParaboloid():
     # create the quadric function definition
-    quadric = vtkQuadric()
+    quadric = vtk.vtkQuadric()
     quadric.SetCoefficients(1, -1, 0, 0, 0, 0, 0, 0, 0, 0)
 
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
@@ -38,7 +38,7 @@ def HyperbolicParaboloid():
 
 def Cylinder():
     # create the quadric function definition
-    quadric = vtkQuadric()
+    quadric = vtk.vtkQuadric()
     quadric.SetCoefficients(1, 1, 0, 0, 0, 0, 0, 0, 0, 0)
 
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
@@ -49,7 +49,7 @@ def Cylinder():
 
 def HyperboloidOneSheet():
     # create the quadric function definition
-    quadric = vtkQuadric()
+    quadric = vtk.vtkQuadric()
     quadric.SetCoefficients(1, 1, -1, 0, 0, 0, 0, 0, 0, 0)
 
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
@@ -60,7 +60,7 @@ def HyperboloidOneSheet():
 
 def HyperboloidTwoSheets():
     # create the quadric function definition
-    quadric = vtkQuadric()
+    quadric = vtk.vtkQuadric()
     quadric.SetCoefficients(1, 1, -1, 0, 0, 0, 0, 0, 0, 0)
 
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
@@ -71,7 +71,7 @@ def HyperboloidTwoSheets():
 
 def Ellipsoid():
     # create the quadric function definition
-    quadric = vtkQuadric()
+    quadric = vtk.vtkQuadric()
     quadric.SetCoefficients(1, 1, 2, 0, 0, 0, 0, 0, 0, 0)
 
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
@@ -82,7 +82,7 @@ def Ellipsoid():
 
 def Cone():
     # create the quadric function definition
-    quadric = vtkQuadric()
+    quadric = vtk.vtkQuadric()
     quadric.SetCoefficients(1, 1, -1, 0, 0, 0, 0, 0, 0, 0)
 
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
@@ -92,7 +92,7 @@ def Cone():
 
 def Other():
     # create the quadric function definition
-    quadric = vtkQuadric()
+    quadric = vtk.vtkQuadric()
     quadric.SetCoefficients(.5, 1, .2, 0, .1, 0, 0, .2, 0, 0)
 
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
@@ -102,7 +102,7 @@ def Other():
 
 def PlotFunction(quadric, value):
     # sample the quadric function
-    sample = vtkSampleFunction()
+    sample = vtk.vtkSampleFunction()
     sample.SetSampleDimensions(50, 50, 50)
     sample.SetImplicitFunction(quadric)
     # double xmin = 0, xmax=1, ymin=0, ymax=1, zmin=0, zmax=1
@@ -115,39 +115,39 @@ def PlotFunction(quadric, value):
     sample.SetModelBounds(xmin, xmax, ymin, ymax, zmin, zmax)
 
     # create the 0 isosurface
-    contours = vtkContourFilter()
+    contours = vtk.vtkContourFilter()
     contours.SetInputConnection(sample.GetOutputPort())
     contours.GenerateValues(1, value, value)
 
     # map the contours to graphical primitives
-    contourMapper = vtkPolyDataMapper()
+    contourMapper = vtk.vtkPolyDataMapper()
     contourMapper.SetInputConnection(contours.GetOutputPort())
     contourMapper.SetScalarRange(0.0, 1.2)
 
     # create an actor for the contours
-    contourActor = vtkActor()
+    contourActor = vtk.vtkActor()
     contourActor.SetMapper(contourMapper)
 
     # -- create a box around the function to indicate the sampling volume --
 
     # create outline
-    outline = vtkOutlineFilter()
+    outline = vtk.vtkOutlineFilter()
     outline.SetInputConnection(sample.GetOutputPort())
 
     # map it to graphics primitives
-    outlineMapper = vtkPolyDataMapper()
+    outlineMapper = vtk.vtkPolyDataMapper()
     outlineMapper.SetInputConnection(outline.GetOutputPort())
 
     # create an actor for it
-    outlineActor = vtkActor()
+    outlineActor = vtk.vtkActor()
     outlineActor.SetMapper(outlineMapper)
     outlineActor.GetProperty().SetColor(0, 0, 0)
 
     # setup the window
-    ren1 = vtkRenderer()
-    renWin = vtkRenderWindow()
+    ren1 = vtk.vtkRenderer()
+    renWin = vtk.vtkRenderWindow()
     renWin.AddRenderer(ren1)
-    iren = vtkRenderWindowInteractor()
+    iren = vtk.vtkRenderWindowInteractor()
     iren.SetRenderWindow(renWin)
 
     # add the actors to the scene

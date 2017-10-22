@@ -1,13 +1,13 @@
 # An example from scipy cookbook demonstrating the use of numpy arrys in vtk
 
 import vtk
-from numpy import *
+import numpy as np
 
 # We begin by creating the data we want to render.
 # For this tutorial, we create a 3D-image containing three overlaping cubes.
 # This data can of course easily be replaced by data from a medical CT-scan or anything else three dimensional.
 # The only limit is that the data must be reduced to unsigned 8 bit or 16 bit integers.
-data_matrix = zeros([75, 75, 75], dtype=uint8)
+data_matrix = np.zeros([75, 75, 75], dtype=np.uint8)
 data_matrix[0:35, 0:35, 0:35] = 50
 data_matrix[25:55, 25:55, 25:55] = 100
 data_matrix[45:74, 45:74, 45:74] = 150

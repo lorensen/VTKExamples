@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from vtk import *
+import vtk
 
 # ============ create source points ==============
 print("Creating source points...")
