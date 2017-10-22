@@ -27,6 +27,14 @@ endif()
 # Load up the CMake variables we need.
 vtk_module_export_info()
 
+# If available, load optional VTK modules.
+foreach(optional_dep IN LISTS WikiExamples_OPTIONAL_DEPENDS)
+  list(FIND VTK_MODULES_AVAILABLE ${optional_dep} found)
+  if (found GREATER -1)
+    list(APPEND ${vtk-module}_DEPENDS ${optional_dep})
+  endif()
+endforeach()
+
 # Load requested modules and their dependencies into
 # variables VTK_(DEFINITIONS|LIBRARIES|INCLUDE_DIRS|LIBRARY_DIRS).
 vtk_module_config(VTK ${${vtk-module}_DEPENDS})
