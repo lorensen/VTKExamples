@@ -3,8 +3,6 @@ max-line-length = 150
 ignore =
     # E721 do not compare types, use 'isinstance()'
     E721,
-    # E999 SyntaxError
-    E999,
     # F401 'PyQt4.QtCore' imported but unused
     F401,
     # F401 'random' imported but unused

@@ -9,7 +9,7 @@ import os
 # ------------------------------------------------------------------------------
 if __name__ == "__main__":
 
-    print "vtkGraph: Building a graph using Unstructured Grid & dumping it in a vtk file, vertex.vtu, to be visualized using ParaView"
+    print("vtkGraph: Building a graph using Unstructured Grid & dumping it in a vtk file, vertex.vtu, to be visualized using ParaView")
 
     pointSource = vtk.vtkPointSource()
     pointSource.Update()
@@ -78,6 +78,6 @@ if __name__ == "__main__":
     gw.SetFileName("vertex.vtu")
     gw.SetInput(G)
     gw.Write()
-    print '---> ',
+    print('---> ')
 
-    print "Feed the vertex.vtu file in ParaView/VisIt."
+    print("Feed the vertex.vtu file in ParaView/VisIt.")
