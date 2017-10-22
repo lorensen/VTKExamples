@@ -1,18 +1,12 @@
 project (${WIKI}VisualizationAlgorithms)
 
 if(NOT WikiExamples_BINARY_DIR)
-find_package(VTK REQUIRED)
-if(NOT VTK_USE_RENDERING)
-  message(FATAL_ERROR "Example ${PROJECT_NAME} requires VTK_USE_RENDERING.")
-endif()
-include(${VTK_USE_FILE})
+  find_package(VTK REQUIRED)
+  include(${VTK_USE_FILE})
 endif()
 
-if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
-  set(KIT_LIBS vtkRendering vtkHybrid)
-else()
-  set(KIT_LIBS ${VTK_LIBRARIES})
-endif()
+set(KIT_LIBS ${VTK_LIBRARIES})
+
 #
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
@@ -36,6 +30,7 @@ set(NEEDS_ARGS
   FilledContours
   FindCellIntersections
   Hello
+  IronIsoSurface
   LOx
   MarchingCases
   MarchingCasesA
@@ -72,6 +67,9 @@ add_test(${KIT}-FindCellIntersections ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}Cx
 
 add_test(${KIT}-Hello ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHello ${DATA}/hello.vtk)
+
+add_test(${KIT}-IronIsoSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestIronIsoSurface ${DATA}/ironProt.vtk)
 
 add_test(${KIT}-LOx ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestLOx ${DATA}/postxyz.bin ${DATA}/postq.bin)
