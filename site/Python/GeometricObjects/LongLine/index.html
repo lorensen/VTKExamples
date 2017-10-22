@@ -61,7 +61,7 @@ function registerListener(event, func) {
 
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
-<span class=c1># Create five points. </span>
+<span class=c1># Create five points.</span>
 <span class=n>origin</span> <span class=o>=</span> <span class=p>[</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
 <span class=n>p0</span> <span class=o>=</span> <span class=p>[</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
 <span class=n>p1</span> <span class=o>=</span> <span class=p>[</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>]</span>
@@ -80,10 +80,10 @@ function registerListener(event, func) {
 <span class=hll><span class=n>lines</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>
 </span>
 <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>3</span><span class=p>):</span>
-<span class=hll>  <span class=n>line</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLine</span><span class=p>()</span>
-</span>  <span class=n>line</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=n>i</span><span class=p>)</span>
-  <span class=n>line</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span>
-  <span class=n>lines</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>line</span><span class=p>)</span>
+<span class=hll>    <span class=n>line</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLine</span><span class=p>()</span>
+</span>    <span class=n>line</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>i</span><span class=p>)</span>
+    <span class=n>line</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span>
+    <span class=n>lines</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>line</span><span class=p>)</span>
 
 <span class=c1># Create a polydata to store everything in</span>
 <span class=hll><span class=n>linesPolyData</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>

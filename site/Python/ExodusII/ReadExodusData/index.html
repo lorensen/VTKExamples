@@ -71,9 +71,9 @@ function registerListener(event, func) {
 </span><span class=n>reader</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>filename</span><span class=p>)</span>
 <span class=n>reader</span><span class=o>.</span><span class=n>UpdateInformation</span><span class=p>()</span>
 <span class=n>reader</span><span class=o>.</span><span class=n>SetTimeStep</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>
-<span class=hll><span class=n>reader</span><span class=o>.</span><span class=n>SetAllArrayStatus</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkExodusIIReader</span><span class=o>.</span><span class=n>NODAL</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span> <span class=c1># enables all NODAL variables</span>
+<span class=hll><span class=n>reader</span><span class=o>.</span><span class=n>SetAllArrayStatus</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkExodusIIReader</span><span class=o>.</span><span class=n>NODAL</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>  <span class=c1># enables all NODAL variables</span>
 </span><span class=n>reader</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
-<span class=c1>#print reader # uncomment this to show the file information</span>
+<span class=c1># print reader # uncomment this to show the file information</span>
 
 <span class=c1># Create Geometry</span>
 <span class=hll><span class=n>geometry</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCompositeDataGeometryFilter</span><span class=p>()</span>

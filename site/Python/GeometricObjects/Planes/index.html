@@ -65,7 +65,7 @@ function registerListener(event, func) {
 <span class=n>SELECT_FRUSTUM_METHOD</span> <span class=o>=</span> <span class=bp>True</span>
 
 <span class=k>if</span> <span class=n>SELECT_FRUSTUM_METHOD</span><span class=p>:</span>
-    <span class=c1># one way    </span>
+    <span class=c1># one way</span>
 <span class=hll>    <span class=n>camera</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCamera</span><span class=p>()</span>
 </span>    <span class=n>planesArray</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span> <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>24</span><span class=p>)]</span>
 
@@ -74,8 +74,8 @@ function registerListener(event, func) {
 <span class=hll>    <span class=n>planes</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlanes</span><span class=p>()</span>
 </span>    <span class=n>planes</span><span class=o>.</span><span class=n>SetFrustumPlanes</span><span class=p>(</span><span class=n>planesArray</span><span class=p>)</span>
 
-<span class=k>else</span><span class=p>:</span>    
-    <span class=c1># another way    </span>
+<span class=k>else</span><span class=p>:</span>
+    <span class=c1># another way</span>
 <span class=hll>    <span class=n>sphereSource</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSphereSource</span><span class=p>()</span>
 </span>    <span class=n>sphereSource</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
     <span class=n>bounds</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span> <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>6</span><span class=p>)]</span>
@@ -87,14 +87,14 @@ function registerListener(event, func) {
 <span class=c1># At this point we have the planes created by either of the methods above.</span>
 <span class=c1># You can do whatever you want with them.</span>
 
-<span class=c1># For visualisation we will produce an n-sided convex hull </span>
+<span class=c1># For visualisation we will produce an n-sided convex hull</span>
 <span class=c1># and visualise it.</span>
 
 <span class=hll><span class=c1># To generate the convex hull we supply a vtkPolyData object and a bounding box.</span>
 </span><span class=c1># We define the bounding box to be where we expect the resulting polyhedron to lie.</span>
 <span class=c1># Make it a generous fit as it is only used to create the initial</span>
 <span class=c1># polygons that are eventually clipped.</span>
-<span class=hll><span class=n>hull</span>  <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkHull</span><span class=p>()</span>
+<span class=hll><span class=n>hull</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkHull</span><span class=p>()</span>
 </span><span class=n>hull</span><span class=o>.</span><span class=n>SetPlanes</span><span class=p>(</span><span class=n>planes</span><span class=p>)</span>
 
 <span class=hll><span class=n>pd</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
@@ -118,5 +118,5 @@ function registerListener(event, func) {
 <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
 
 <span class=n>renderWindow</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
-<span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>       
+<span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
 </pre></div> </article> </div> </div> </main> <footer class=md-footer> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid"> <a href=../Plane/ title=Plane class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i> </div> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Previous </span> Plane </span> </div> </a> <a href=../PlanesIntersection/ title=PlanesIntersection class="md-flex md-footer-nav__link md-footer-nav__link--next" rel=next> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Next </span> PlanesIntersection </span> </div> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i> </div> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright> <div class=md-footer-copyright__highlight> <font color=#666>Content is available under </font><a href=https://creativecommons.org/licenses/by/2.5/ title=Attribution2.5>Attribution2.5</a> <font color=#666>unless otherwise noted.</font> </div> powered by <a href=http://www.mkdocs.org title=MkDocs>MkDocs</a> and <a href=http://squidfunk.github.io/mkdocs-material/ title="Material for MkDocs"> Material for MkDocs</a> </div> </div> </div> </footer> </div> <script src=../../../assets/javascripts/application-c35428f87f.js></script> <script>app.initialize({url:{base:"../../.."}})</script> <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-3660134-4","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script> </body> </html>

@@ -76,12 +76,12 @@ function registerListener(event, func) {
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
 <span class=c1># Generate an image data set with multiple attribute arrays to probe and view</span>
-<span class=c1># We will glyph these points with cones and scale/orient/color them with the </span>
+<span class=c1># We will glyph these points with cones and scale/orient/color them with the</span>
 <span class=c1># various attributes</span>
 
 <span class=hll><span class=c1># The Wavelet Source is nice for generating a test vtkImageData set</span>
 </span><span class=hll><span class=n>rt</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRTAnalyticSource</span><span class=p>()</span>
-</span><span class=n>rt</span><span class=o>.</span><span class=n>SetWholeExtent</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+</span><span class=n>rt</span><span class=o>.</span><span class=n>SetWholeExtent</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 
 <span class=c1># Take the gradient of the only scalar &#39;RTData&#39; to get a vector attribute</span>
 <span class=hll><span class=n>grad</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkImageGradient</span><span class=p>()</span>
@@ -91,8 +91,8 @@ function registerListener(event, func) {
 <span class=c1># Elevation just to generate another scalar attribute that varies nicely over the data range</span>
 <span class=hll><span class=n>elev</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkElevationFilter</span><span class=p>()</span>
 </span><span class=c1># Elevation values will range from 0 to 1 between the Low and High Points</span>
-<span class=n>elev</span><span class=o>.</span><span class=n>SetLowPoint</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>elev</span><span class=o>.</span><span class=n>SetHighPoint</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>elev</span><span class=o>.</span><span class=n>SetLowPoint</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+<span class=n>elev</span><span class=o>.</span><span class=n>SetHighPoint</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 <span class=n>elev</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>grad</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
 
 <span class=c1># Generate the cone for the glyphs</span>
@@ -110,12 +110,12 @@ function registerListener(event, func) {
 <span class=n>glyph</span><span class=o>.</span><span class=n>OrientOn</span><span class=p>()</span>
 
 <span class=c1># Tell the filter to &quot;clamp&quot; the scalar range</span>
-<span class=n>glyph</span><span class=o>.</span><span class=n>ClampingOn</span><span class=p>()</span>  
+<span class=n>glyph</span><span class=o>.</span><span class=n>ClampingOn</span><span class=p>()</span>
 
 <span class=c1># Set the overall (multiplicative) scaling factor</span>
 <span class=n>glyph</span><span class=o>.</span><span class=n>SetScaleFactor</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
 
-<span class=c1># Set the Range to &quot;clamp&quot; the data to </span>
+<span class=c1># Set the Range to &quot;clamp&quot; the data to</span>
 <span class=c1>#   -- see equations above for nonintuitive definition of &quot;clamping&quot;</span>
 <span class=c1># The fact that I&#39;m setting the minimum value of the range below</span>
 <span class=c1>#   the minimum of my data (real min=0.0) with the equations above</span>
@@ -124,10 +124,10 @@ function registerListener(event, func) {
 <span class=n>glyph</span><span class=o>.</span><span class=n>SetRange</span><span class=p>(</span><span class=o>-</span><span class=mf>0.5</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>    <span class=c1># Change these values to see effect on cone sizes</span>
 
 <span class=c1># Tell glyph which attribute arrays to use for what</span>
-<span class=n>glyph</span><span class=o>.</span><span class=n>SetInputArrayToProcess</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=s1>&#39;Elevation&#39;</span><span class=p>)</span>       <span class=c1># scalars</span>
-<span class=n>glyph</span><span class=o>.</span><span class=n>SetInputArrayToProcess</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=s1>&#39;RTDataGradient&#39;</span><span class=p>)</span>      <span class=c1># vectors</span>
+<span class=n>glyph</span><span class=o>.</span><span class=n>SetInputArrayToProcess</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=s1>&#39;Elevation&#39;</span><span class=p>)</span>       <span class=c1># scalars</span>
+<span class=n>glyph</span><span class=o>.</span><span class=n>SetInputArrayToProcess</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=s1>&#39;RTDataGradient&#39;</span><span class=p>)</span>      <span class=c1># vectors</span>
 <span class=c1># glyph.SetInputArrayToProcess(2,0,0,0,&#39;nothing&#39;)       # normals</span>
-<span class=n>glyph</span><span class=o>.</span><span class=n>SetInputArrayToProcess</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=s1>&#39;RTData&#39;</span><span class=p>)</span>      <span class=c1># colors</span>
+<span class=n>glyph</span><span class=o>.</span><span class=n>SetInputArrayToProcess</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=s1>&#39;RTData&#39;</span><span class=p>)</span>      <span class=c1># colors</span>
 
 <span class=c1># Calling update because I&#39;m going to use the scalar range to set the color map range</span>
 <span class=n>glyph</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>

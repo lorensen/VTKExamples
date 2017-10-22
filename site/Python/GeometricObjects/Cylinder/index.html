@@ -70,7 +70,7 @@ function registerListener(event, func) {
 
 <span class=c1># create source</span>
 <span class=hll><span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCylinderSource</span><span class=p>()</span>
-</span><span class=n>source</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+</span><span class=n>source</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 <span class=n>source</span><span class=o>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=mf>5.0</span><span class=p>)</span>
 <span class=n>source</span><span class=o>.</span><span class=n>SetHeight</span><span class=p>(</span><span class=mf>7.0</span><span class=p>)</span>
 <span class=n>source</span><span class=o>.</span><span class=n>SetResolution</span><span class=p>(</span><span class=mi>100</span><span class=p>)</span>
@@ -85,7 +85,7 @@ function registerListener(event, func) {
 
 <span class=c1># assign actor to the renderer</span>
 <span class=n>ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
-<span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mf>0.1</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>,</span><span class=mf>0.2</span><span class=p>);</span> <span class=c1># Background color dark green</span>
+<span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mf>0.1</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>)</span>  <span class=c1># Background color dark green</span>
 
 <span class=c1># enable user interface interactor</span>
 <span class=n>iren</span><span class=o>.</span><span class=n>Initialize</span><span class=p>()</span>

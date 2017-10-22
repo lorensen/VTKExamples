@@ -63,9 +63,9 @@ function registerListener(event, func) {
 
 <span class=c1># Unicode string for demonstration (etre with circumflex)</span>
 <span class=k>if</span> <span class=n>sys</span><span class=o>.</span><span class=n>hexversion</span> <span class=o>&gt;=</span> <span class=mh>0x03000000</span><span class=p>:</span>
-    <span class=n>unicodeEtre</span> <span class=o>=</span> <span class=s1>&#39;</span><span class=se>\xea</span><span class=s1>tre&#39;</span> <span class=c1># unicode in Python 3</span>
+    <span class=n>unicodeEtre</span> <span class=o>=</span> <span class=s1>&#39;</span><span class=se>\xea</span><span class=s1>tre&#39;</span>  <span class=c1># unicode in Python 3</span>
 <span class=k>else</span><span class=p>:</span>
-    <span class=n>unicodeEtre</span> <span class=o>=</span> <span class=nb>unicode</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\xea</span><span class=s1>tre&#39;</span><span class=p>,</span> <span class=s1>&#39;latin1&#39;</span><span class=p>)</span>
+    <span class=n>unicodeEtre</span> <span class=o>=</span> <span class=nb>unicode</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\xea</span><span class=s1>tre&#39;</span><span class=p>,</span> <span class=s1>&#39;latin1&#39;</span><span class=p>)</span>  <span class=c1># noqa: F821</span>
 
 <span class=c1>#</span>
 <span class=hll><span class=c1># Basic vtkVariant usage</span>
@@ -123,13 +123,13 @@ function registerListener(event, func) {
 
 <span class=c1># Comparison</span>
 <span class=hll><span class=k>if</span> <span class=n>v2</span> <span class=o>==</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=mi>2</span><span class=p>):</span>
-</span>   <span class=k>print</span><span class=p>(</span><span class=s2>&quot;v2 is equal to 2&quot;</span><span class=p>)</span>
+</span>    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;v2 is equal to 2&quot;</span><span class=p>)</span>
 <span class=hll><span class=k>if</span> <span class=n>v2</span> <span class=o>&gt;</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=mi>1</span><span class=p>):</span>
-</span>   <span class=k>print</span><span class=p>(</span><span class=s2>&quot;v2 is greater than 1&quot;</span><span class=p>)</span>
+</span>    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;v2 is greater than 1&quot;</span><span class=p>)</span>
 <span class=hll><span class=k>if</span> <span class=n>v2</span> <span class=o>&lt;</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=mi>3</span><span class=p>):</span>
-</span>   <span class=k>print</span><span class=p>(</span><span class=s2>&quot;v2 is less than 3&quot;</span><span class=p>)</span>
+</span>    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;v2 is less than 3&quot;</span><span class=p>)</span>
 <span class=hll><span class=k>if</span> <span class=n>v2</span> <span class=o>==</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkVariant</span><span class=p>(</span><span class=s2>&quot;2&quot;</span><span class=p>):</span>
-</span>   <span class=k>print</span><span class=p>(</span><span class=s2>&quot;v2 is equal to &#39;2&#39;&quot;</span><span class=p>)</span>
+</span>    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;v2 is equal to &#39;2&#39;&quot;</span><span class=p>)</span>
 
 <span class=c1># Use as a dict key (hashed as a string)</span>
 <span class=n>d</span> <span class=o>=</span> <span class=p>{}</span>

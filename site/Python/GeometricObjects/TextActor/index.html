@@ -71,11 +71,11 @@ function registerListener(event, func) {
 <span class=c1># create a text actor</span>
 <span class=hll><span class=n>txt</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTextActor</span><span class=p>()</span>
 </span><span class=n>txt</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=s2>&quot;Hello World!&quot;</span><span class=p>)</span>
-<span class=n>txtprop</span><span class=o>=</span><span class=n>txt</span><span class=o>.</span><span class=n>GetTextProperty</span><span class=p>()</span>
+<span class=n>txtprop</span> <span class=o>=</span> <span class=n>txt</span><span class=o>.</span><span class=n>GetTextProperty</span><span class=p>()</span>
 <span class=n>txtprop</span><span class=o>.</span><span class=n>SetFontFamilyToArial</span><span class=p>()</span>
 <span class=n>txtprop</span><span class=o>.</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>18</span><span class=p>)</span>
-<span class=n>txtprop</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
-<span class=n>txt</span><span class=o>.</span><span class=n>SetDisplayPosition</span><span class=p>(</span><span class=mi>20</span><span class=p>,</span><span class=mi>30</span><span class=p>)</span>
+<span class=n>txtprop</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+<span class=n>txt</span><span class=o>.</span><span class=n>SetDisplayPosition</span><span class=p>(</span><span class=mi>20</span><span class=p>,</span> <span class=mi>30</span><span class=p>)</span>
 
 <span class=c1># assign actor to the renderer</span>
 <span class=n>ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>txt</span><span class=p>)</span>

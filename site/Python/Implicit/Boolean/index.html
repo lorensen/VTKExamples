@@ -62,7 +62,7 @@ function registerListener(event, func) {
 <span class=c1># create a sphere</span>
 <span class=hll><span class=n>sphere</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSphere</span><span class=p>()</span>
 </span><span class=n>sphere</span><span class=o>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
-<span class=n>sphere</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>sphere</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 
 <span class=c1># create a box</span>
 <span class=hll><span class=n>box</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkBox</span><span class=p>()</span>
@@ -71,8 +71,8 @@ function registerListener(event, func) {
 <span class=c1># combine the two implicit functions</span>
 <span class=hll><span class=n>boolean</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkImplicitBoolean</span><span class=p>()</span>
 </span><span class=n>boolean</span><span class=o>.</span><span class=n>SetOperationTypeToDifference</span><span class=p>()</span>
-<span class=c1>#boolean.SetOperationTypeToUnion()</span>
-<span class=c1>#boolean.SetOperationTypeToIntersection()</span>
+<span class=c1># boolean.SetOperationTypeToUnion()</span>
+<span class=c1># boolean.SetOperationTypeToIntersection()</span>
 <span class=n>boolean</span><span class=o>.</span><span class=n>AddFunction</span><span class=p>(</span><span class=n>box</span><span class=p>)</span>
 <span class=n>boolean</span><span class=o>.</span><span class=n>AddFunction</span><span class=p>(</span><span class=n>sphere</span><span class=p>)</span>
 

@@ -69,10 +69,9 @@ function registerListener(event, func) {
 </span><span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>)</span>
 
 
-
 <span class=c1># create source</span>
 <span class=hll><span class=n>src</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPointSource</span><span class=p>()</span>
-</span><span class=n>src</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+</span><span class=n>src</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 <span class=n>src</span><span class=o>.</span><span class=n>SetNumberOfPoints</span><span class=p>(</span><span class=mi>50</span><span class=p>)</span>
 <span class=n>src</span><span class=o>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
 <span class=n>src</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>

@@ -76,20 +76,20 @@ function registerListener(event, func) {
 <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>p4</span><span class=p>)</span>
 
 <span class=hll><span class=n>pyramid</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPyramid</span><span class=p>()</span>
-</span><span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
-<span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span>
-<span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span><span class=mi>3</span><span class=p>)</span>
-<span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>4</span><span class=p>,</span><span class=mi>4</span><span class=p>)</span>
+</span><span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+<span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+<span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>)</span>
+<span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=mi>3</span><span class=p>)</span>
+<span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>4</span><span class=p>,</span> <span class=mi>4</span><span class=p>)</span>
 
 <span class=hll><span class=n>cells</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>
-</span><span class=n>cells</span><span class=o>.</span><span class=n>InsertNextCell</span> <span class=p>(</span><span class=n>pyramid</span><span class=p>)</span>
+</span><span class=n>cells</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>pyramid</span><span class=p>)</span>
 
 <span class=hll><span class=n>ug</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkUnstructuredGrid</span><span class=p>()</span>
 </span><span class=n>ug</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>)</span>
-<span class=n>ug</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>pyramid</span><span class=o>.</span><span class=n>GetCellType</span><span class=p>(),</span><span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>())</span>
+<span class=n>ug</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>pyramid</span><span class=o>.</span><span class=n>GetCellType</span><span class=p>(),</span> <span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>())</span>
 
-<span class=c1>#Create an actor and mapper</span>
+<span class=c1># Create an actor and mapper</span>
 <span class=hll><span class=n>mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkDataSetMapper</span><span class=p>()</span>
 </span><span class=hll><span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
 </span>    <span class=n>mapper</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>ug</span><span class=p>)</span>
@@ -99,7 +99,7 @@ function registerListener(event, func) {
 <span class=hll><span class=n>actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
 </span><span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
 
-<span class=c1>#Create a renderer, render window, and interactor</span>
+<span class=c1># Create a renderer, render window, and interactor</span>
 <span class=hll><span class=n>renderer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
 </span><span class=hll><span class=n>renderWindow</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
 </span><span class=n>renderWindow</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>

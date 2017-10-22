@@ -83,8 +83,8 @@ function registerListener(event, func) {
 <span class=n>input1Mapper</span><span class=o>.</span><span class=n>ScalarVisibilityOff</span><span class=p>()</span>
 <span class=hll><span class=n>input1Actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
 </span><span class=n>input1Actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>input1Mapper</span><span class=p>)</span>
-<span class=n>input1Actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>input1Actor</span><span class=o>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=n>input1</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>()[</span><span class=mi>1</span><span class=p>]</span><span class=o>-</span><span class=n>input1</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>()[</span><span class=mi>0</span><span class=p>],</span><span class=mi>0</span> <span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>input1Actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+<span class=n>input1Actor</span><span class=o>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=n>input1</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>()[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=n>input1</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>()[</span><span class=mi>0</span><span class=p>],</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 <span class=hll><span class=n>input2Mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
 </span><span class=hll><span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
 </span>    <span class=n>input2Mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>input2</span><span class=o>.</span><span class=n>GetProducerPort</span><span class=p>())</span>
@@ -94,13 +94,13 @@ function registerListener(event, func) {
 <span class=n>input2Mapper</span><span class=o>.</span><span class=n>ScalarVisibilityOff</span><span class=p>()</span>
 <span class=hll><span class=n>input2Actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
 </span><span class=n>input2Actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>input2Mapper</span><span class=p>)</span>
-<span class=n>input2Actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>input2Actor</span><span class=o>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=p>(</span><span class=n>input2</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>()[</span><span class=mi>1</span><span class=p>]</span><span class=o>-</span><span class=n>input2</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>()[</span><span class=mi>0</span><span class=p>]),</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+<span class=n>input2Actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+<span class=n>input2Actor</span><span class=o>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=p>(</span><span class=n>input2</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>()[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=n>input2</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>()[</span><span class=mi>0</span><span class=p>]),</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 
 <span class=hll><span class=n>booleanOperation</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkBooleanOperationPolyDataFilter</span><span class=p>()</span>
-</span><span class=c1>#booleanOperation.SetOperationToUnion()</span>
+</span><span class=c1># booleanOperation.SetOperationToUnion()</span>
 <span class=n>booleanOperation</span><span class=o>.</span><span class=n>SetOperationToIntersection</span><span class=p>()</span>
-<span class=c1>#booleanOperation.SetOperationToDifference()</span>
+<span class=c1># booleanOperation.SetOperationToDifference()</span>
 
 <span class=n>booleanOperation</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>sphere1Tri</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
 <span class=n>booleanOperation</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>sphere2Tri</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
@@ -119,10 +119,10 @@ function registerListener(event, func) {
 <span class=n>renderer</span><span class=o>.</span><span class=n>AddViewProp</span><span class=p>(</span><span class=n>booleanOperationActor</span><span class=p>)</span>
 <span class=n>renderer</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=o>.</span><span class=mi>2</span><span class=p>,</span> <span class=o>.</span><span class=mi>3</span><span class=p>)</span>
 <span class=hll><span class=n>renderWindow</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
-</span><span class=n>renderWindow</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span> <span class=n>renderer</span> <span class=p>)</span>
+</span><span class=n>renderWindow</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
 
 <span class=hll><span class=n>renWinInteractor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-</span><span class=n>renWinInteractor</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span> <span class=n>renderWindow</span> <span class=p>)</span>
+</span><span class=n>renWinInteractor</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>)</span>
 
 
 <span class=n>renderWindow</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>

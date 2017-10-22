@@ -67,7 +67,7 @@ function registerListener(event, func) {
 <span class=c1># so the example also works in version 6 or later.</span>
 <span class=c1>#</span>
 <span class=c1># Lines like `obj-&gt;Delete()` have been transliterated as `del obj` to,</span>
-<span class=c1># preserve the resemblance to the original C++ example, although I </span>
+<span class=c1># preserve the resemblance to the original C++ example, although I</span>
 <span class=c1># doubt this achieves anything beyond what Python&#39;s garbage collection</span>
 <span class=c1># would do anyway.</span>
 
@@ -77,6 +77,8 @@ function registerListener(event, func) {
 </span><span class=c1># this is necessary, since I assumed that this kind of thing would</span>
 <span class=c1># have been built into the wrapper and happen transparently, but it</span>
 <span class=c1># seems not.</span>
+
+
 <span class=k>def</span> <span class=nf>mkVtkIdList</span><span class=p>(</span><span class=n>it</span><span class=p>):</span>
 <span class=hll>    <span class=n>vil</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkIdList</span><span class=p>()</span>
 </span>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>it</span><span class=p>:</span>
@@ -87,26 +89,26 @@ function registerListener(event, func) {
 <span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
     <span class=c1># x = array of 8 3-tuples of float representing the vertices of a cube:</span>
     <span class=n>x</span> <span class=o>=</span> <span class=p>[(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>),</span>
-         <span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span> <span class=p>,</span><span class=mf>1.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)]</span>
+         <span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)]</span>
 
 <span class=hll>    <span class=c1># pts = array of 6 4-tuples of vtkIdType (int) representing the faces</span>
 </span>    <span class=c1>#     of the cube in terms of the above vertices</span>
-    <span class=n>pts</span> <span class=o>=</span> <span class=p>[(</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>),</span> <span class=p>(</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>),</span> <span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>4</span><span class=p>),</span>
-           <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>5</span><span class=p>),</span> <span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>6</span><span class=p>),</span> <span class=p>(</span><span class=mi>3</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>7</span><span class=p>)]</span>
+    <span class=n>pts</span> <span class=o>=</span> <span class=p>[(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>),</span> <span class=p>(</span><span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>6</span><span class=p>,</span> <span class=mi>7</span><span class=p>),</span> <span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>4</span><span class=p>),</span>
+           <span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>6</span><span class=p>,</span> <span class=mi>5</span><span class=p>),</span> <span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>6</span><span class=p>),</span> <span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>7</span><span class=p>)]</span>
 
     <span class=c1># We&#39;ll create the building blocks of polydata including data attributes.</span>
-<span class=hll>    <span class=n>cube</span>    <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
-</span><span class=hll>    <span class=n>points</span>  <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
-</span><span class=hll>    <span class=n>polys</span>   <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>
+<span class=hll>    <span class=n>cube</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>points</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>polys</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>
 </span><span class=hll>    <span class=n>scalars</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkFloatArray</span><span class=p>()</span>
 </span>
     <span class=c1># Load the point, cell, and data attributes.</span>
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>8</span><span class=p>):</span>
         <span class=n>points</span><span class=o>.</span><span class=n>InsertPoint</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>x</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>6</span><span class=p>):</span>
-        <span class=n>polys</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span> <span class=n>mkVtkIdList</span><span class=p>(</span><span class=n>pts</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> <span class=p>)</span>
+        <span class=n>polys</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>mkVtkIdList</span><span class=p>(</span><span class=n>pts</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>8</span><span class=p>):</span>
-        <span class=n>scalars</span><span class=o>.</span><span class=n>InsertTuple1</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>i</span><span class=p>)</span>
+        <span class=n>scalars</span><span class=o>.</span><span class=n>InsertTuple1</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>i</span><span class=p>)</span>
 
 <span class=hll>    <span class=c1># We now assign the pieces to the vtkPolyData.</span>
 </span>    <span class=n>cube</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>)</span>
@@ -122,17 +124,17 @@ function registerListener(event, func) {
 </span>        <span class=n>cubeMapper</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>cube</span><span class=p>)</span>
     <span class=k>else</span><span class=p>:</span>
         <span class=n>cubeMapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>cube</span><span class=p>)</span>
-    <span class=n>cubeMapper</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>7</span><span class=p>)</span>
+    <span class=n>cubeMapper</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>7</span><span class=p>)</span>
 <span class=hll>    <span class=n>cubeActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
 </span>    <span class=n>cubeActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>cubeMapper</span><span class=p>)</span>
 
     <span class=c1># The usual rendering stuff.</span>
 <span class=hll>    <span class=n>camera</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCamera</span><span class=p>()</span>
-</span>    <span class=n>camera</span><span class=o>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
-    <span class=n>camera</span><span class=o>.</span><span class=n>SetFocalPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+</span>    <span class=n>camera</span><span class=o>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+    <span class=n>camera</span><span class=o>.</span><span class=n>SetFocalPoint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 
 <span class=hll>    <span class=n>renderer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-</span><span class=hll>    <span class=n>renWin</span>   <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
+</span><span class=hll>    <span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
 </span>    <span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>)</span>
 
 <span class=hll>    <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
@@ -141,9 +143,9 @@ function registerListener(event, func) {
     <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>cubeActor</span><span class=p>)</span>
     <span class=n>renderer</span><span class=o>.</span><span class=n>SetActiveCamera</span><span class=p>(</span><span class=n>camera</span><span class=p>)</span>
     <span class=n>renderer</span><span class=o>.</span><span class=n>ResetCamera</span><span class=p>()</span>
-    <span class=n>renderer</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+    <span class=n>renderer</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
 
-    <span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>300</span><span class=p>,</span><span class=mi>300</span><span class=p>)</span>
+    <span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>300</span><span class=p>,</span> <span class=mi>300</span><span class=p>)</span>
 
     <span class=c1># interact with data</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>

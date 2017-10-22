@@ -65,9 +65,9 @@ function registerListener(event, func) {
 <span class=hll><span class=n>ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
 </span><span class=hll><span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
 </span><span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren</span><span class=p>)</span>
-<span class=n>WIDTH</span><span class=o>=</span><span class=mi>640</span>
-<span class=n>HEIGHT</span><span class=o>=</span><span class=mi>480</span>
-<span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=n>WIDTH</span><span class=p>,</span><span class=n>HEIGHT</span><span class=p>)</span>
+<span class=n>WIDTH</span> <span class=o>=</span> <span class=mi>640</span>
+<span class=n>HEIGHT</span> <span class=o>=</span> <span class=mi>480</span>
+<span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=n>WIDTH</span><span class=p>,</span> <span class=n>HEIGHT</span><span class=p>)</span>
 
 <span class=c1># create a renderwindowinteractor</span>
 <span class=hll><span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
@@ -76,12 +76,12 @@ function registerListener(event, func) {
 <span class=c1># create cone</span>
 <span class=hll><span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkConeSource</span><span class=p>()</span>
 </span><span class=n>source</span><span class=o>.</span><span class=n>SetResolution</span><span class=p>(</span><span class=mi>60</span><span class=p>)</span>
-<span class=n>source</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>source</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 
 <span class=c1># create a transform that rotates the cone</span>
 <span class=hll><span class=n>transform</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTransform</span><span class=p>()</span>
-</span><span class=n>transform</span><span class=o>.</span><span class=n>RotateWXYZ</span><span class=p>(</span><span class=mi>45</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
-<span class=hll><span class=n>transformFilter</span><span class=o>=</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkTransformPolyDataFilter</span><span class=p>()</span>
+</span><span class=n>transform</span><span class=o>.</span><span class=n>RotateWXYZ</span><span class=p>(</span><span class=mi>45</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+<span class=hll><span class=n>transformFilter</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTransformPolyDataFilter</span><span class=p>()</span>
 </span><span class=n>transformFilter</span><span class=o>.</span><span class=n>SetTransform</span><span class=p>(</span><span class=n>transform</span><span class=p>)</span>
 <span class=n>transformFilter</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>source</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
 <span class=n>transformFilter</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
@@ -111,9 +111,9 @@ function registerListener(event, func) {
 
 
 <span class=c1># color the original cone red</span>
-<span class=n>actor1</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span> <span class=c1># (R,G,B)</span>
+<span class=n>actor1</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>  <span class=c1># (R,G,B)</span>
 <span class=c1># color rotated cone blue</span>
-<span class=n>actor2</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span> <span class=c1># (R,G,B)</span>
+<span class=n>actor2</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>  <span class=c1># (R,G,B)</span>
 
 <span class=c1># assign actor to the renderer</span>
 <span class=n>ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor1</span><span class=p>)</span>

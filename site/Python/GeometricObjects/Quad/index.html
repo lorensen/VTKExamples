@@ -76,10 +76,10 @@ function registerListener(event, func) {
 
 <span class=c1># Create a quad on the four points</span>
 <span class=hll><span class=n>quad</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkQuad</span><span class=p>()</span>
-</span><span class=n>quad</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>quad</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
-<span class=n>quad</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span>
-<span class=n>quad</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span><span class=mi>3</span><span class=p>)</span>
+</span><span class=n>quad</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+<span class=n>quad</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+<span class=n>quad</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>)</span>
+<span class=n>quad</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=mi>3</span><span class=p>)</span>
 
 <span class=c1># Create a cell array to store the quad in</span>
 <span class=hll><span class=n>quads</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>

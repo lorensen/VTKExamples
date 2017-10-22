@@ -81,17 +81,17 @@ function registerListener(event, func) {
 </span>
 <span class=c1># Build the meshgrid manually</span>
 <span class=n>count</span> <span class=o>=</span> <span class=mi>0</span>
-<span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>size</span><span class=o>-</span><span class=mi>1</span><span class=p>):</span>
-    <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>size</span><span class=o>-</span><span class=mi>1</span><span class=p>):</span>
+<span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>size</span> <span class=o>-</span> <span class=mi>1</span><span class=p>):</span>
+    <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>size</span> <span class=o>-</span> <span class=mi>1</span><span class=p>):</span>
 
         <span class=n>z1</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=n>j</span><span class=p>]</span>
-        <span class=n>z2</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=n>j</span><span class=o>+</span><span class=mi>1</span><span class=p>]</span>
-        <span class=n>z3</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>][</span><span class=n>j</span><span class=p>]</span>
+        <span class=n>z2</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=n>j</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span>
+        <span class=n>z3</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>][</span><span class=n>j</span><span class=p>]</span>
 
         <span class=c1># Triangle 1</span>
         <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>j</span><span class=p>,</span> <span class=n>z1</span><span class=p>)</span>
-        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=p>(</span><span class=n>j</span><span class=o>+</span><span class=mi>1</span><span class=p>),</span> <span class=n>z2</span><span class=p>)</span>
-        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>((</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>),</span> <span class=n>j</span><span class=p>,</span> <span class=n>z3</span><span class=p>)</span>
+        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=p>(</span><span class=n>j</span> <span class=o>+</span> <span class=mi>1</span><span class=p>),</span> <span class=n>z2</span><span class=p>)</span>
+        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>((</span><span class=n>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>),</span> <span class=n>j</span><span class=p>,</span> <span class=n>z3</span><span class=p>)</span>
 
 <span class=hll>        <span class=n>triangle</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTriangle</span><span class=p>()</span>
 </span>        <span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>count</span><span class=p>)</span>
@@ -100,14 +100,14 @@ function registerListener(event, func) {
 
         <span class=n>triangles</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>triangle</span><span class=p>)</span>
 
-        <span class=n>z1</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=n>j</span><span class=o>+</span><span class=mi>1</span><span class=p>]</span>
-        <span class=n>z2</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>][</span><span class=n>j</span><span class=o>+</span><span class=mi>1</span><span class=p>]</span>
-        <span class=n>z3</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>][</span><span class=n>j</span><span class=p>]</span>
+        <span class=n>z1</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=n>j</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span>
+        <span class=n>z2</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>][</span><span class=n>j</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span>
+        <span class=n>z3</span> <span class=o>=</span> <span class=n>topography</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>][</span><span class=n>j</span><span class=p>]</span>
 
         <span class=c1># Triangle 2</span>
-        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=p>(</span><span class=n>j</span><span class=o>+</span><span class=mi>1</span><span class=p>),</span> <span class=n>z1</span><span class=p>)</span>
-        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>((</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>),</span> <span class=p>(</span><span class=n>j</span><span class=o>+</span><span class=mi>1</span><span class=p>),</span> <span class=n>z2</span><span class=p>)</span>
-        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>((</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>),</span> <span class=n>j</span><span class=p>,</span> <span class=n>z3</span><span class=p>)</span>
+        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=p>(</span><span class=n>j</span> <span class=o>+</span> <span class=mi>1</span><span class=p>),</span> <span class=n>z1</span><span class=p>)</span>
+        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>((</span><span class=n>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>),</span> <span class=p>(</span><span class=n>j</span> <span class=o>+</span> <span class=mi>1</span><span class=p>),</span> <span class=n>z2</span><span class=p>)</span>
+        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>((</span><span class=n>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>),</span> <span class=n>j</span><span class=p>,</span> <span class=n>z3</span><span class=p>)</span>
 
 <span class=hll>        <span class=n>triangle</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTriangle</span><span class=p>()</span>
 </span>        <span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>count</span> <span class=o>+</span> <span class=mi>3</span><span class=p>)</span>
@@ -119,7 +119,7 @@ function registerListener(event, func) {
         <span class=n>triangles</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>triangle</span><span class=p>)</span>
 
         <span class=c1># Add some color</span>
-        <span class=n>r</span> <span class=o>=</span> <span class=p>[</span><span class=nb>int</span><span class=p>(</span><span class=n>i</span><span class=o>/</span><span class=nb>float</span><span class=p>(</span><span class=n>size</span><span class=p>)</span><span class=o>*</span><span class=mi>255</span><span class=p>),</span><span class=nb>int</span><span class=p>(</span><span class=n>j</span><span class=o>/</span><span class=nb>float</span><span class=p>(</span><span class=n>size</span><span class=p>)</span><span class=o>*</span><span class=mi>255</span><span class=p>),</span><span class=mi>0</span><span class=p>]</span>
+        <span class=n>r</span> <span class=o>=</span> <span class=p>[</span><span class=nb>int</span><span class=p>(</span><span class=n>i</span> <span class=o>/</span> <span class=nb>float</span><span class=p>(</span><span class=n>size</span><span class=p>)</span> <span class=o>*</span> <span class=mi>255</span><span class=p>),</span> <span class=nb>int</span><span class=p>(</span><span class=n>j</span> <span class=o>/</span> <span class=nb>float</span><span class=p>(</span><span class=n>size</span><span class=p>)</span> <span class=o>*</span> <span class=mi>255</span><span class=p>),</span> <span class=mi>0</span><span class=p>]</span>
         <span class=n>colors</span><span class=o>.</span><span class=n>InsertNextTypedTuple</span><span class=p>(</span><span class=n>r</span><span class=p>)</span>
         <span class=n>colors</span><span class=o>.</span><span class=n>InsertNextTypedTuple</span><span class=p>(</span><span class=n>r</span><span class=p>)</span>
         <span class=n>colors</span><span class=o>.</span><span class=n>InsertNextTypedTuple</span><span class=p>(</span><span class=n>r</span><span class=p>)</span>
@@ -161,7 +161,7 @@ function registerListener(event, func) {
 <span class=n>locator</span><span class=o>.</span><span class=n>BuildLocator</span><span class=p>()</span>
 
 <span class=n>maxloop</span> <span class=o>=</span> <span class=mi>1000</span>
-<span class=n>dist</span> <span class=o>=</span> <span class=mf>20.0</span><span class=o>/</span><span class=n>maxloop</span>
+<span class=n>dist</span> <span class=o>=</span> <span class=mf>20.0</span> <span class=o>/</span> <span class=n>maxloop</span>
 <span class=n>tolerance</span> <span class=o>=</span> <span class=mf>0.001</span>
 
 <span class=c1># Make a list of points. Each point is the intersection of a vertical line</span>
@@ -169,8 +169,8 @@ function registerListener(event, func) {
 <span class=hll><span class=n>points</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
 </span><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>maxloop</span><span class=p>):</span>
 
-    <span class=n>p1</span> <span class=o>=</span> <span class=p>[</span><span class=mi>2</span><span class=o>+</span><span class=n>i</span><span class=o>*</span><span class=n>dist</span><span class=p>,</span> <span class=mi>16</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>]</span>
-    <span class=n>p2</span> <span class=o>=</span> <span class=p>[</span><span class=mi>2</span><span class=o>+</span><span class=n>i</span><span class=o>*</span><span class=n>dist</span><span class=p>,</span> <span class=mi>16</span><span class=p>,</span> <span class=mi>6</span><span class=p>]</span>
+    <span class=n>p1</span> <span class=o>=</span> <span class=p>[</span><span class=mi>2</span> <span class=o>+</span> <span class=n>i</span> <span class=o>*</span> <span class=n>dist</span><span class=p>,</span> <span class=mi>16</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>]</span>
+    <span class=n>p2</span> <span class=o>=</span> <span class=p>[</span><span class=mi>2</span> <span class=o>+</span> <span class=n>i</span> <span class=o>*</span> <span class=n>dist</span><span class=p>,</span> <span class=mi>16</span><span class=p>,</span> <span class=mi>6</span><span class=p>]</span>
 
     <span class=c1># Outputs (we need only pos which is the x, y, z position</span>
     <span class=c1># of the intersection)</span>

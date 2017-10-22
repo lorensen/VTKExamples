@@ -61,6 +61,7 @@ function registerListener(event, func) {
 
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
+
 <span class=k>class</span> <span class=nc>GeometricObjects</span><span class=p>():</span>
 
     <span class=k>def</span> <span class=nf>GeometricObjects</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
@@ -86,7 +87,7 @@ function registerListener(event, func) {
 </span>        <span class=n>textProperty</span><span class=o>.</span><span class=n>SetFontSize</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>
         <span class=n>textProperty</span><span class=o>.</span><span class=n>SetJustificationToCentered</span><span class=p>()</span>
 
-        <span class=c1># Create a parametric function source, renderer, mapper </span>
+        <span class=c1># Create a parametric function source, renderer, mapper</span>
         <span class=c1># and actor for each object.</span>
         <span class=k>for</span> <span class=n>idx</span><span class=p>,</span> <span class=n>item</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>GeometricObjects</span><span class=p>):</span>
             <span class=n>GeometricObjects</span><span class=p>[</span><span class=n>idx</span><span class=p>]</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
@@ -128,8 +129,8 @@ function registerListener(event, func) {
 
                 <span class=n>viewport</span><span class=p>[:]</span> <span class=o>=</span> <span class=p>[]</span>
                 <span class=n>viewport</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>float</span><span class=p>(</span><span class=n>col</span><span class=p>)</span> <span class=o>*</span> <span class=n>rendererSize</span> <span class=o>/</span> <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>))</span>
-                <span class=n>viewport</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>float</span><span class=p>(</span><span class=n>gridDimensions</span> <span class=o>-</span> <span class=p>(</span><span class=n>row</span><span class=o>+</span><span class=mi>1</span><span class=p>))</span> <span class=o>*</span> <span class=n>rendererSize</span> <span class=o>/</span> <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>))</span>
-                <span class=n>viewport</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>float</span><span class=p>(</span><span class=n>col</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span><span class=o>*</span><span class=n>rendererSize</span> <span class=o>/</span> <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>))</span>
+                <span class=n>viewport</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>float</span><span class=p>(</span><span class=n>gridDimensions</span> <span class=o>-</span> <span class=p>(</span><span class=n>row</span> <span class=o>+</span> <span class=mi>1</span><span class=p>))</span> <span class=o>*</span> <span class=n>rendererSize</span> <span class=o>/</span> <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>))</span>
+                <span class=n>viewport</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>float</span><span class=p>(</span><span class=n>col</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>*</span> <span class=n>rendererSize</span> <span class=o>/</span> <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>))</span>
                 <span class=n>viewport</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>float</span><span class=p>(</span><span class=n>gridDimensions</span> <span class=o>-</span> <span class=n>row</span><span class=p>)</span> <span class=o>*</span> <span class=n>rendererSize</span> <span class=o>/</span> <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>))</span>
 
                 <span class=k>if</span> <span class=n>idx</span> <span class=o>&gt;</span> <span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>GeometricObjects</span><span class=p>)</span> <span class=o>-</span> <span class=mi>1</span><span class=p>):</span>
@@ -140,7 +141,7 @@ function registerListener(event, func) {
 
                 <span class=n>renderers</span><span class=p>[</span><span class=n>idx</span><span class=p>]</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actors</span><span class=p>[</span><span class=n>idx</span><span class=p>])</span>
                 <span class=n>renderers</span><span class=p>[</span><span class=n>idx</span><span class=p>]</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>textactors</span><span class=p>[</span><span class=n>idx</span><span class=p>])</span>
-                <span class=n>renderers</span><span class=p>[</span><span class=n>idx</span><span class=p>]</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mf>0.4</span><span class=p>,</span><span class=mf>0.3</span><span class=p>,</span><span class=mf>0.2</span><span class=p>)</span>
+                <span class=n>renderers</span><span class=p>[</span><span class=n>idx</span><span class=p>]</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mf>0.4</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>)</span>
 
 <span class=hll>        <span class=n>interactor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
 </span>        <span class=n>interactor</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>)</span>
@@ -148,6 +149,7 @@ function registerListener(event, func) {
         <span class=n>renderWindow</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
 
         <span class=n>interactor</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
+
 
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&quot;__main__&quot;</span><span class=p>:</span>
     <span class=n>po</span> <span class=o>=</span> <span class=n>GeometricObjects</span><span class=p>()</span>

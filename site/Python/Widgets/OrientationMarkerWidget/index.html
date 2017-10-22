@@ -83,16 +83,16 @@ function registerListener(event, func) {
 <span class=c1># assign actor to the renderer</span>
 <span class=n>ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>ca</span><span class=p>)</span>
 
-<span class=hll><span class=n>axesActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkAnnotatedCubeActor</span><span class=p>();</span>
+<span class=hll><span class=n>axesActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkAnnotatedCubeActor</span><span class=p>()</span>
 </span><span class=n>axesActor</span><span class=o>.</span><span class=n>SetXPlusFaceText</span><span class=p>(</span><span class=s1>&#39;R&#39;</span><span class=p>)</span>
 <span class=n>axesActor</span><span class=o>.</span><span class=n>SetXMinusFaceText</span><span class=p>(</span><span class=s1>&#39;L&#39;</span><span class=p>)</span>
 <span class=n>axesActor</span><span class=o>.</span><span class=n>SetYMinusFaceText</span><span class=p>(</span><span class=s1>&#39;H&#39;</span><span class=p>)</span>
 <span class=n>axesActor</span><span class=o>.</span><span class=n>SetYPlusFaceText</span><span class=p>(</span><span class=s1>&#39;F&#39;</span><span class=p>)</span>
 <span class=n>axesActor</span><span class=o>.</span><span class=n>SetZMinusFaceText</span><span class=p>(</span><span class=s1>&#39;P&#39;</span><span class=p>)</span>
 <span class=n>axesActor</span><span class=o>.</span><span class=n>SetZPlusFaceText</span><span class=p>(</span><span class=s1>&#39;A&#39;</span><span class=p>)</span>
-<span class=n>axesActor</span><span class=o>.</span><span class=n>GetTextEdgesProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>axesActor</span><span class=o>.</span><span class=n>GetTextEdgesProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 <span class=n>axesActor</span><span class=o>.</span><span class=n>GetTextEdgesProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
-<span class=n>axesActor</span><span class=o>.</span><span class=n>GetCubeProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+<span class=n>axesActor</span><span class=o>.</span><span class=n>GetCubeProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
 <span class=hll><span class=n>axes</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkOrientationMarkerWidget</span><span class=p>()</span>
 </span><span class=n>axes</span><span class=o>.</span><span class=n>SetOrientationMarker</span><span class=p>(</span><span class=n>axesActor</span><span class=p>)</span>
 <span class=n>axes</span><span class=o>.</span><span class=n>SetInteractor</span><span class=p>(</span><span class=n>iren</span><span class=p>)</span>

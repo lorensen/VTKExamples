@@ -77,9 +77,9 @@ function registerListener(event, func) {
 <span class=hll><span class=n>seeds</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlaneSource</span><span class=p>()</span>
 </span><span class=n>seeds</span><span class=o>.</span><span class=n>SetXResolution</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>
 <span class=n>seeds</span><span class=o>.</span><span class=n>SetYResolution</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>
-<span class=n>seeds</span><span class=o>.</span><span class=n>SetOrigin</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>26</span><span class=p>)</span>
-<span class=n>seeds</span><span class=o>.</span><span class=n>SetPoint1</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span><span class=mi>26</span><span class=p>)</span>
-<span class=n>seeds</span><span class=o>.</span><span class=n>SetPoint2</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>32</span><span class=p>)</span>
+<span class=n>seeds</span><span class=o>.</span><span class=n>SetOrigin</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>26</span><span class=p>)</span>
+<span class=n>seeds</span><span class=o>.</span><span class=n>SetPoint1</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>26</span><span class=p>)</span>
+<span class=n>seeds</span><span class=o>.</span><span class=n>SetPoint2</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>32</span><span class=p>)</span>
 
 <span class=hll><span class=n>streamline</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkStreamLine</span><span class=p>()</span>
 </span><span class=n>streamline</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pl3d</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>))</span>
@@ -103,7 +103,7 @@ function registerListener(event, func) {
 </span><span class=n>outline_mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>outline</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
 <span class=hll><span class=n>outline_actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
 </span><span class=n>outline_actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outline_mapper</span><span class=p>)</span>
-<span class=n>outline_actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+<span class=n>outline_actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
 
 <span class=hll><span class=n>renderer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
 </span><span class=hll><span class=n>render_window</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>

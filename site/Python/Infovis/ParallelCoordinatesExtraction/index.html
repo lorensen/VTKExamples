@@ -115,7 +115,7 @@ function registerListener(event, func) {
 <span class=hll><span class=c1># See vtkSelectionNode doc for field and content type enum values</span>
 </span><span class=n>annotationLink</span><span class=o>.</span><span class=n>GetCurrentSelection</span><span class=p>()</span><span class=o>.</span><span class=n>GetNode</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>SetFieldType</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>  <span class=c1># Point</span>
 <span class=n>annotationLink</span><span class=o>.</span><span class=n>GetCurrentSelection</span><span class=p>()</span><span class=o>.</span><span class=n>GetNode</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>SetContentType</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>  <span class=c1># Indices</span>
-<span class=hll><span class=c1># Update before passing annotationLink to vtkExtractSelection </span>
+<span class=hll><span class=c1># Update before passing annotationLink to vtkExtractSelection</span>
 </span><span class=n>annotationLink</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 <span class=c1># Connect the annotation link to the parallel coordinates representation</span>
 <span class=n>rep</span><span class=o>.</span><span class=n>SetAnnotationLink</span><span class=p>(</span><span class=n>annotationLink</span><span class=p>)</span>
@@ -137,9 +137,10 @@ function registerListener(event, func) {
 </span>    <span class=c1># ren.ResetCamera()</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
 
+
 <span class=c1># Set up callback to update 3d render window when selections are changed in</span>
 <span class=c1># parallel coordinates view</span>
-<span class=n>annotationLink</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;AnnotationChangedEvent&quot;</span><span class=p>,</span>  <span class=n>UpdateRenderWindows</span><span class=p>)</span>
+<span class=n>annotationLink</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;AnnotationChangedEvent&quot;</span><span class=p>,</span> <span class=n>UpdateRenderWindows</span><span class=p>)</span>
 
 
 <span class=k>def</span> <span class=nf>ToggleInspectors</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span> <span class=n>event</span><span class=p>):</span>
@@ -148,6 +149,7 @@ function registerListener(event, func) {
         <span class=n>view</span><span class=o>.</span><span class=n>SetInspectMode</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
     <span class=k>else</span><span class=p>:</span>
         <span class=n>view</span><span class=o>.</span><span class=n>SetInspectMode</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+
 
 <span class=c1># Set up callback to toggle between inspect modes (manip axes &amp; select data)</span>
 <span class=n>view</span><span class=o>.</span><span class=n>GetInteractor</span><span class=p>()</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;UserEvent&quot;</span><span class=p>,</span> <span class=n>ToggleInspectors</span><span class=p>)</span>

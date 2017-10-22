@@ -70,22 +70,22 @@ function registerListener(event, func) {
 
 <span class=c1># create points</span>
 <span class=hll><span class=n>points</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
-</span><span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span><span class=mf>0.0</span><span class=p>,</span><span class=mf>0.0</span><span class=p>)</span>
-<span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span><span class=mf>0.0</span><span class=p>,</span><span class=mf>0.0</span><span class=p>)</span>
-<span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span><span class=mf>1.0</span><span class=p>,</span><span class=mf>0.0</span><span class=p>)</span>
+</span><span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
+<span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
+<span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span>
 
 <span class=hll><span class=n>triangle</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkTriangle</span><span class=p>()</span>
-</span><span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
-<span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span>
+</span><span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+<span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+<span class=n>triangle</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>2</span><span class=p>)</span>
 
 <span class=hll><span class=n>triangles</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCellArray</span><span class=p>()</span>
 </span><span class=n>triangles</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>triangle</span><span class=p>)</span>
 
 <span class=c1># polydata object</span>
 <span class=hll><span class=n>trianglePolyData</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyData</span><span class=p>()</span>
-</span><span class=n>trianglePolyData</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span> <span class=n>points</span> <span class=p>)</span>
-<span class=n>trianglePolyData</span><span class=o>.</span><span class=n>SetPolys</span><span class=p>(</span> <span class=n>triangles</span> <span class=p>)</span>
+</span><span class=n>trianglePolyData</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>)</span>
+<span class=n>trianglePolyData</span><span class=o>.</span><span class=n>SetPolys</span><span class=p>(</span><span class=n>triangles</span><span class=p>)</span>
 
 <span class=c1># mapper</span>
 <span class=hll><span class=n>mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>

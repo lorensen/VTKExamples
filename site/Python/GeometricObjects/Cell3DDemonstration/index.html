@@ -61,6 +61,7 @@ function registerListener(event, func) {
 
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
+
 <span class=k>def</span> <span class=nf>MakeHexagonalPrism</span><span class=p>():</span>
     <span class=sd>&#39;&#39;&#39;</span>
 <span class=sd>      3D: hexagonal prism: a wedge with an hexagonal base.</span>
@@ -91,10 +92,11 @@ function registerListener(event, func) {
 
 <span class=hll>    <span class=n>ug</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkUnstructuredGrid</span><span class=p>()</span>
 </span>    <span class=n>ug</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>hexagonalPrism</span><span class=o>.</span><span class=n>GetCellType</span><span class=p>(),</span>
-                       <span class=n>hexagonalPrism</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>())</span>
+                      <span class=n>hexagonalPrism</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>())</span>
     <span class=n>ug</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>)</span>
 
     <span class=k>return</span> <span class=n>ug</span>
+
 
 <span class=k>def</span> <span class=nf>MakeHexahedron</span><span class=p>():</span>
     <span class=sd>&#39;&#39;&#39;</span>
@@ -133,6 +135,7 @@ function registerListener(event, func) {
 
     <span class=k>return</span> <span class=n>uGrid</span>
 
+
 <span class=k>def</span> <span class=nf>MakePentagonalPrism</span><span class=p>():</span>
 
     <span class=n>numberOfVertices</span> <span class=o>=</span> <span class=mi>10</span>
@@ -159,9 +162,10 @@ function registerListener(event, func) {
 <span class=hll>    <span class=n>uGrid</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkUnstructuredGrid</span><span class=p>()</span>
 </span>    <span class=n>uGrid</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>)</span>
     <span class=n>uGrid</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>pentagonalPrism</span><span class=o>.</span><span class=n>GetCellType</span><span class=p>(),</span>
-                          <span class=n>pentagonalPrism</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>())</span>
+                         <span class=n>pentagonalPrism</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>())</span>
 
     <span class=k>return</span> <span class=n>uGrid</span>
+
 
 <span class=k>def</span> <span class=nf>MakePolyhedron</span><span class=p>():</span>
     <span class=sd>&#39;&#39;&#39;</span>
@@ -208,7 +212,7 @@ function registerListener(event, func) {
         <span class=p>[</span><span class=mi>18</span><span class=p>,</span> <span class=mi>13</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>12</span><span class=p>,</span> <span class=mi>17</span><span class=p>],</span>
         <span class=p>[</span><span class=mi>19</span><span class=p>,</span> <span class=mi>14</span><span class=p>,</span> <span class=mi>9</span><span class=p>,</span> <span class=mi>13</span><span class=p>,</span> <span class=mi>18</span><span class=p>],</span>
         <span class=p>[</span><span class=mi>19</span><span class=p>,</span> <span class=mi>18</span><span class=p>,</span> <span class=mi>17</span><span class=p>,</span> <span class=mi>16</span><span class=p>,</span> <span class=mi>15</span><span class=p>]</span>
-        <span class=p>]</span>
+    <span class=p>]</span>
 
 <span class=hll>    <span class=n>dodechedronFacesIdList</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkIdList</span><span class=p>()</span>
 </span>    <span class=c1># Number faces that make up the cell.</span>
@@ -225,6 +229,7 @@ function registerListener(event, func) {
 
     <span class=k>return</span> <span class=n>uGrid</span>
 
+
 <span class=k>def</span> <span class=nf>MakePyramid</span><span class=p>():</span>
     <span class=sd>&#39;&#39;&#39;</span>
 <span class=sd>      Make a regular square pyramid.</span>
@@ -234,12 +239,12 @@ function registerListener(event, func) {
 <span class=hll>    <span class=n>points</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
 </span>
     <span class=n>p</span> <span class=o>=</span> <span class=p>[</span>
-         <span class=p>[</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
-         <span class=p>[</span><span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
-         <span class=p>[</span><span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
-         <span class=p>[</span><span class=mf>1.0</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
-         <span class=p>[</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>]</span>
-         <span class=p>]</span>
+        <span class=p>[</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+        <span class=p>[</span><span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+        <span class=p>[</span><span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+        <span class=p>[</span><span class=mf>1.0</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>],</span>
+        <span class=p>[</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>]</span>
+    <span class=p>]</span>
     <span class=k>for</span> <span class=n>pt</span> <span class=ow>in</span> <span class=n>p</span><span class=p>:</span>
         <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>pt</span><span class=p>)</span>
 
@@ -252,6 +257,7 @@ function registerListener(event, func) {
     <span class=n>ug</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>pyramid</span><span class=o>.</span><span class=n>GetCellType</span><span class=p>(),</span> <span class=n>pyramid</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>())</span>
 
     <span class=k>return</span> <span class=n>ug</span>
+
 
 <span class=k>def</span> <span class=nf>MakeTetrahedron</span><span class=p>():</span>
     <span class=sd>&#39;&#39;&#39;</span>
@@ -277,6 +283,7 @@ function registerListener(event, func) {
 <span class=hll>    <span class=n>unstructuredGrid</span><span class=o>.</span><span class=n>SetCells</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>VTK_TETRA</span><span class=p>,</span> <span class=n>cellArray</span><span class=p>)</span>
 </span>
     <span class=k>return</span> <span class=n>unstructuredGrid</span>
+
 
 <span class=k>def</span> <span class=nf>MakeVoxel</span><span class=p>():</span>
     <span class=sd>&#39;&#39;&#39;</span>
@@ -304,6 +311,7 @@ function registerListener(event, func) {
 
     <span class=k>return</span> <span class=n>ug</span>
 
+
 <span class=k>def</span> <span class=nf>MakeWedge</span><span class=p>():</span>
     <span class=sd>&#39;&#39;&#39;</span>
 <span class=sd>      A wedge consists of two triangular ends and three rectangular faces.</span>
@@ -330,6 +338,7 @@ function registerListener(event, func) {
 
     <span class=k>return</span> <span class=n>ug</span>
 
+
 <span class=k>def</span> <span class=nf>WritePNG</span><span class=p>(</span><span class=n>renWin</span><span class=p>,</span> <span class=n>fn</span><span class=p>,</span> <span class=n>magnification</span><span class=o>=</span><span class=mi>1</span><span class=p>):</span>
     <span class=sd>&#39;&#39;&#39;</span>
 <span class=sd>      Screenshot</span>
@@ -354,6 +363,7 @@ function registerListener(event, func) {
 </span>    <span class=n>writer</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>fn</span><span class=p>)</span>
     <span class=n>writer</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>windowToImageFilter</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
     <span class=n>writer</span><span class=o>.</span><span class=n>Write</span><span class=p>()</span>
+
 
 <span class=k>def</span> <span class=nf>DisplayBodies</span><span class=p>():</span>
 
@@ -430,13 +440,13 @@ function registerListener(event, func) {
             <span class=c1># (xmin, ymin, xmax, ymax)</span>
             <span class=n>viewport</span> <span class=o>=</span> <span class=p>[</span>
                 <span class=nb>float</span><span class=p>(</span><span class=n>col</span><span class=p>)</span> <span class=o>*</span> <span class=n>rendererSize</span> <span class=o>/</span>
-                                     <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>),</span>
+                <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>),</span>
                 <span class=nb>float</span><span class=p>(</span><span class=n>gridDimensions</span> <span class=o>-</span> <span class=p>(</span><span class=n>row</span> <span class=o>+</span> <span class=mi>1</span><span class=p>))</span> <span class=o>*</span> <span class=n>rendererSize</span> <span class=o>/</span>
-                                     <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>),</span>
+                <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>),</span>
                 <span class=nb>float</span><span class=p>(</span><span class=n>col</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>*</span> <span class=n>rendererSize</span> <span class=o>/</span>
-                                     <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>),</span>
+                <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>),</span>
                 <span class=nb>float</span><span class=p>(</span><span class=n>gridDimensions</span> <span class=o>-</span> <span class=n>row</span><span class=p>)</span> <span class=o>*</span> <span class=n>rendererSize</span> <span class=o>/</span>
-                                     <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>)]</span>
+                <span class=p>(</span><span class=n>gridDimensions</span> <span class=o>*</span> <span class=n>rendererSize</span><span class=p>)]</span>
 
             <span class=k>if</span> <span class=n>index</span> <span class=o>&gt;</span> <span class=nb>len</span><span class=p>(</span><span class=n>actors</span><span class=p>)</span> <span class=o>-</span> <span class=mi>1</span><span class=p>:</span>
                 <span class=c1># Add a renderer even if there is no actor.</span>
@@ -459,8 +469,9 @@ function registerListener(event, func) {
     <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
     <span class=k>return</span> <span class=n>iRen</span>
 
+
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
     <span class=n>iRen</span> <span class=o>=</span> <span class=n>DisplayBodies</span><span class=p>()</span>
-    <span class=c1>#WritePNG(iRen.GetRenderWindow(), &quot;Cell3DDemonstration.png&quot;)</span>
+    <span class=c1># WritePNG(iRen.GetRenderWindow(), &quot;Cell3DDemonstration.png&quot;)</span>
     <span class=n>iRen</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
 </pre></div> </article> </div> </div> </main> <footer class=md-footer> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid"> <a href=../Axes/ title=Axes class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i> </div> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Previous </span> Axes </span> </div> </a> <a href=../ColoredLines/ title=ColoredLines class="md-flex md-footer-nav__link md-footer-nav__link--next" rel=next> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Next </span> ColoredLines </span> </div> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i> </div> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright> <div class=md-footer-copyright__highlight> <font color=#666>Content is available under </font><a href=https://creativecommons.org/licenses/by/2.5/ title=Attribution2.5>Attribution2.5</a> <font color=#666>unless otherwise noted.</font> </div> powered by <a href=http://www.mkdocs.org title=MkDocs>MkDocs</a> and <a href=http://squidfunk.github.io/mkdocs-material/ title="Material for MkDocs"> Material for MkDocs</a> </div> </div> </div> </footer> </div> <script src=../../../assets/javascripts/application-c35428f87f.js></script> <script>app.initialize({url:{base:"../../.."}})</script> <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-3660134-4","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script> </body> </html>

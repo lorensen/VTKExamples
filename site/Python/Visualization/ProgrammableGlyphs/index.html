@@ -81,19 +81,20 @@ function registerListener(event, func) {
 <span class=n>planeActor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetRepresentationToWireframe</span><span class=p>()</span>
 
 <span class=c1># procedure for generating glyphs</span>
+
+
 <span class=k>def</span> <span class=nf>Glyph</span><span class=p>():</span>
-    <span class=n>ptId</span> <span class=o>=</span> <span class=n>glypher</span><span class=o>.</span><span class=n>GetPointId</span><span class=p>()</span>
-    <span class=n>pd</span> <span class=o>=</span> <span class=n>glypher</span><span class=o>.</span><span class=n>GetPointData</span><span class=p>()</span>
     <span class=n>xyz</span> <span class=o>=</span> <span class=n>glypher</span><span class=o>.</span><span class=n>GetPoint</span><span class=p>()</span>
     <span class=n>x</span> <span class=o>=</span> <span class=n>xyz</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
     <span class=n>y</span> <span class=o>=</span> <span class=n>xyz</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
     <span class=n>length</span> <span class=o>=</span> <span class=n>glypher</span><span class=o>.</span><span class=n>GetInput</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>GetLength</span><span class=p>()</span>
-    <span class=n>scale</span> <span class=o>=</span> <span class=n>length</span> <span class=o>/</span> <span class=p>(</span><span class=mf>2.0</span><span class=o>*</span><span class=n>res</span><span class=p>)</span>
+    <span class=n>scale</span> <span class=o>=</span> <span class=n>length</span> <span class=o>/</span> <span class=p>(</span><span class=mf>2.0</span> <span class=o>*</span> <span class=n>res</span><span class=p>)</span>
 
-    <span class=n>squad</span><span class=o>.</span><span class=n>SetScale</span><span class=p>(</span><span class=n>scale</span><span class=p>,</span><span class=n>scale</span><span class=p>,</span><span class=n>scale</span><span class=p>)</span>
+    <span class=n>squad</span><span class=o>.</span><span class=n>SetScale</span><span class=p>(</span><span class=n>scale</span><span class=p>,</span> <span class=n>scale</span><span class=p>,</span> <span class=n>scale</span><span class=p>)</span>
     <span class=n>squad</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=n>xyz</span><span class=p>)</span>
-    <span class=n>squad</span><span class=o>.</span><span class=n>SetPhiRoundness</span><span class=p>(</span><span class=nb>abs</span><span class=p>(</span><span class=n>x</span><span class=p>)</span><span class=o>*</span><span class=mf>5.0</span><span class=p>)</span>
-    <span class=n>squad</span><span class=o>.</span><span class=n>SetThetaRoundness</span><span class=p>(</span><span class=nb>abs</span><span class=p>(</span><span class=n>y</span><span class=p>)</span><span class=o>*</span><span class=mf>5.0</span><span class=p>)</span>
+    <span class=n>squad</span><span class=o>.</span><span class=n>SetPhiRoundness</span><span class=p>(</span><span class=nb>abs</span><span class=p>(</span><span class=n>x</span><span class=p>)</span> <span class=o>*</span> <span class=mf>5.0</span><span class=p>)</span>
+    <span class=n>squad</span><span class=o>.</span><span class=n>SetThetaRoundness</span><span class=p>(</span><span class=nb>abs</span><span class=p>(</span><span class=n>y</span><span class=p>)</span> <span class=o>*</span> <span class=mf>5.0</span><span class=p>)</span>
+
 
 <span class=c1># create simple poly data so we can apply glyph</span>
 <span class=hll><span class=n>squad</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSuperquadricSource</span><span class=p>()</span>

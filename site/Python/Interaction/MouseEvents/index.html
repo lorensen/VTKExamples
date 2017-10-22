@@ -62,18 +62,19 @@ function registerListener(event, func) {
 
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
+
 <span class=hll><span class=k>class</span> <span class=nc>MyInteractorStyle</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkInteractorStyleTrackballCamera</span><span class=p>):</span>
 </span>
-    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>parent</span><span class=o>=</span><span class=bp>None</span><span class=p>):</span>
-        <span class=bp>self</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;MiddleButtonPressEvent&quot;</span><span class=p>,</span><span class=bp>self</span><span class=o>.</span><span class=n>middleButtonPressEvent</span><span class=p>)</span>
-        <span class=bp>self</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;MiddleButtonReleaseEvent&quot;</span><span class=p>,</span><span class=bp>self</span><span class=o>.</span><span class=n>middleButtonReleaseEvent</span><span class=p>)</span>
+    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>parent</span><span class=o>=</span><span class=bp>None</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;MiddleButtonPressEvent&quot;</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>middleButtonPressEvent</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;MiddleButtonReleaseEvent&quot;</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>middleButtonReleaseEvent</span><span class=p>)</span>
 
-    <span class=k>def</span> <span class=nf>middleButtonPressEvent</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>obj</span><span class=p>,</span><span class=n>event</span><span class=p>):</span>
+    <span class=k>def</span> <span class=nf>middleButtonPressEvent</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>obj</span><span class=p>,</span> <span class=n>event</span><span class=p>):</span>
         <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Middle Button pressed&quot;</span><span class=p>)</span>
         <span class=bp>self</span><span class=o>.</span><span class=n>OnMiddleButtonDown</span><span class=p>()</span>
         <span class=k>return</span>
 
-    <span class=k>def</span> <span class=nf>middleButtonReleaseEvent</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span><span class=n>obj</span><span class=p>,</span><span class=n>event</span><span class=p>):</span>
+    <span class=k>def</span> <span class=nf>middleButtonReleaseEvent</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>obj</span><span class=p>,</span> <span class=n>event</span><span class=p>):</span>
         <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Middle Button released&quot;</span><span class=p>)</span>
         <span class=bp>self</span><span class=o>.</span><span class=n>OnMiddleButtonUp</span><span class=p>()</span>
         <span class=k>return</span>

@@ -75,7 +75,7 @@ function registerListener(event, func) {
 <span class=c1># Read the source file.</span>
 <span class=hll><span class=n>reader</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkUnstructuredGridReader</span><span class=p>()</span>
 </span><span class=n>reader</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>file_name</span><span class=p>)</span>
-<span class=n>reader</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span> <span class=c1># Needed because of GetScalarRange</span>
+<span class=n>reader</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>  <span class=c1># Needed because of GetScalarRange</span>
 <span class=n>output</span> <span class=o>=</span> <span class=n>reader</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span>
 <span class=n>scalar_range</span> <span class=o>=</span> <span class=n>output</span><span class=o>.</span><span class=n>GetScalarRange</span><span class=p>()</span>
 

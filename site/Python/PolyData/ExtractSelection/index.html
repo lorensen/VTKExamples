@@ -64,6 +64,7 @@ function registerListener(event, func) {
 
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
+
 <span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
 <span class=hll>    <span class=n>pointSource</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPointSource</span><span class=p>()</span>
 </span>    <span class=n>pointSource</span><span class=o>.</span><span class=n>SetNumberOfPoints</span><span class=p>(</span><span class=mi>50</span><span class=p>)</span>
@@ -81,23 +82,23 @@ function registerListener(event, func) {
         <span class=n>i</span> <span class=o>+=</span> <span class=mi>1</span>
 
 <span class=hll>    <span class=n>selectionNode</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSelectionNode</span><span class=p>()</span>
-</span>    <span class=n>selectionNode</span><span class=o>.</span><span class=n>SetFieldType</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=c1># POINT</span>
+</span>    <span class=n>selectionNode</span><span class=o>.</span><span class=n>SetFieldType</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>  <span class=c1># POINT</span>
     <span class=c1>#  CELL_DATA = 0</span>
     <span class=c1>#  POINT_DATA = 1</span>
     <span class=c1>#  FIELD_DATA = 2</span>
     <span class=c1>#  VERTEX_DATA = 3</span>
     <span class=c1>#  EDGE_DATA = 4</span>
 
-    <span class=n>selectionNode</span><span class=o>.</span><span class=n>SetContentType</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span> <span class=c1># INDICES</span>
-    <span class=c1>#SELECTIONS = 0</span>
-    <span class=c1>#GLOBALIDS = 1</span>
-    <span class=c1>#PEDIGREEIDS = 2</span>
-    <span class=c1>#VALUES = 3</span>
-    <span class=c1>#INDICES = 4</span>
-    <span class=c1>#FRUSTUM = 5</span>
-    <span class=c1>#LOCATIONS = 6</span>
-    <span class=c1>#THRESHOLDS = 7</span>
-    <span class=c1>#BLOCKS = 8</span>
+    <span class=n>selectionNode</span><span class=o>.</span><span class=n>SetContentType</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>  <span class=c1># INDICES</span>
+    <span class=c1># SELECTIONS = 0</span>
+    <span class=c1># GLOBALIDS = 1</span>
+    <span class=c1># PEDIGREEIDS = 2</span>
+    <span class=c1># VALUES = 3</span>
+    <span class=c1># INDICES = 4</span>
+    <span class=c1># FRUSTUM = 5</span>
+    <span class=c1># LOCATIONS = 6</span>
+    <span class=c1># THRESHOLDS = 7</span>
+    <span class=c1># BLOCKS = 8</span>
     <span class=n>selectionNode</span><span class=o>.</span><span class=n>SetSelectionList</span><span class=p>(</span><span class=n>ids</span><span class=p>)</span>
 
 <span class=hll>    <span class=n>selection</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSelection</span><span class=p>()</span>
@@ -117,7 +118,7 @@ function registerListener(event, func) {
 </span>    <span class=n>selected</span><span class=o>.</span><span class=n>ShallowCopy</span><span class=p>(</span><span class=n>extractSelection</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>
 
     <span class=k>print</span><span class=p>(</span><span class=s2>&quot;There are </span><span class=si>%s</span><span class=s2> points in the selection&quot;</span> <span class=o>%</span> <span class=n>selected</span><span class=o>.</span><span class=n>GetNumberOfPoints</span><span class=p>())</span>
-    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;There are </span><span class=si>%s</span><span class=s2> cells in the selection&quot;</span> <span class=o>%</span><span class=n>selected</span><span class=o>.</span><span class=n>GetNumberOfCells</span><span class=p>())</span>
+    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;There are </span><span class=si>%s</span><span class=s2> cells in the selection&quot;</span> <span class=o>%</span> <span class=n>selected</span><span class=o>.</span><span class=n>GetNumberOfCells</span><span class=p>())</span>
 
     <span class=c1># Get points that are NOT in the selection</span>
     <span class=c1># invert the selection</span>
@@ -150,7 +151,6 @@ function registerListener(event, func) {
         <span class=n>notSelectedMapper</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>notSelected</span><span class=p>)</span>
 <span class=hll>    <span class=n>notSelectedActor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
 </span>    <span class=n>notSelectedActor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>notSelectedMapper</span><span class=p>)</span>
-
 
     <span class=c1># There will be one render window</span>
 <span class=hll>    <span class=n>renderWindow</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
@@ -192,6 +192,7 @@ function registerListener(event, func) {
 
     <span class=n>renderWindow</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
     <span class=n>interactor</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
+
 
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
     <span class=n>main</span><span class=p>()</span>

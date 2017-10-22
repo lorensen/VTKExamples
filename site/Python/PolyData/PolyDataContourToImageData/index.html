@@ -75,7 +75,7 @@ function registerListener(event, func) {
 <span class=n>cutPlane</span><span class=o>.</span><span class=n>SetNormal</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
 <span class=n>circleCutter</span><span class=o>.</span><span class=n>SetCutFunction</span><span class=p>(</span><span class=n>cutPlane</span><span class=p>)</span>
 <span class=hll><span class=n>stripper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkStripper</span><span class=p>()</span>
-</span><span class=n>stripper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>circleCutter</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span> <span class=c1># valid circle</span>
+</span><span class=n>stripper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>circleCutter</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>  <span class=c1># valid circle</span>
 <span class=n>stripper</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 <span class=c1># that&#39;s our circle</span>
 <span class=n>circle</span> <span class=o>=</span> <span class=n>stripper</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span>
@@ -94,27 +94,27 @@ function registerListener(event, func) {
 
 <span class=c1># prepare the binary image&#39;s voxel grid</span>
 <span class=hll><span class=n>whiteImage</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkImageData</span><span class=p>()</span>
-</span><span class=n>bounds</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>*</span><span class=mi>6</span>
+</span><span class=n>bounds</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=mi>6</span>
 <span class=n>circle</span><span class=o>.</span><span class=n>GetBounds</span><span class=p>(</span><span class=n>bounds</span><span class=p>)</span>
-<span class=n>spacing</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>*</span><span class=mi>3</span> <span class=c1># desired volume spacing</span>
+<span class=n>spacing</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=mi>3</span>  <span class=c1># desired volume spacing</span>
 <span class=n>spacing</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=mf>0.5</span>
 <span class=n>spacing</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mf>0.5</span>
 <span class=n>spacing</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=mf>0.5</span>
 <span class=n>whiteImage</span><span class=o>.</span><span class=n>SetSpacing</span><span class=p>(</span><span class=n>spacing</span><span class=p>)</span>
 
 <span class=c1># compute dimensions</span>
-<span class=n>dim</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>*</span><span class=mi>3</span>
+<span class=n>dim</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=mi>3</span>
 <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>3</span><span class=p>):</span>
     <span class=n>dim</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>math</span><span class=o>.</span><span class=n>ceil</span><span class=p>((</span><span class=n>bounds</span><span class=p>[</span><span class=n>i</span> <span class=o>*</span> <span class=mi>2</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=n>bounds</span><span class=p>[</span><span class=n>i</span> <span class=o>*</span> <span class=mi>2</span><span class=p>])</span> <span class=o>/</span> <span class=n>spacing</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span> <span class=o>+</span> <span class=mi>1</span>
     <span class=k>if</span> <span class=p>(</span><span class=n>dim</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&lt;</span> <span class=mi>1</span><span class=p>):</span>
         <span class=n>dim</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span>
 <span class=n>whiteImage</span><span class=o>.</span><span class=n>SetDimensions</span><span class=p>(</span><span class=n>dim</span><span class=p>)</span>
 <span class=n>whiteImage</span><span class=o>.</span><span class=n>SetExtent</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>dim</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>dim</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>dim</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
-<span class=n>origin</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>*</span><span class=mi>3</span>
+<span class=n>origin</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=mi>3</span>
 <span class=c1># NOTE: I am not sure whether or not we had to add some offset!</span>
-<span class=n>origin</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=c1># + spacing[0] / 2</span>
-<span class=n>origin</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span><span class=c1># + spacing[1] / 2</span>
-<span class=n>origin</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span><span class=c1># + spacing[2] / 2</span>
+<span class=n>origin</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>  <span class=c1># + spacing[0] / 2</span>
+<span class=n>origin</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span>  <span class=c1># + spacing[1] / 2</span>
+<span class=n>origin</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span>  <span class=c1># + spacing[2] / 2</span>
 <span class=n>whiteImage</span><span class=o>.</span><span class=n>SetOrigin</span><span class=p>(</span><span class=n>origin</span><span class=p>)</span>
 <span class=hll><span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
 </span>    <span class=n>whiteImage</span><span class=o>.</span><span class=n>SetScalarTypeToUnsignedChar</span><span class=p>()</span>
@@ -126,7 +126,7 @@ function registerListener(event, func) {
 <span class=n>inval</span> <span class=o>=</span> <span class=mi>255</span>
 <span class=n>outval</span> <span class=o>=</span> <span class=mi>0</span>
 <span class=n>count</span> <span class=o>=</span> <span class=n>whiteImage</span><span class=o>.</span><span class=n>GetNumberOfPoints</span><span class=p>()</span>
-<span class=hll><span class=c1>#for (vtkIdType i = 0 i &lt; count ++i)</span>
+<span class=hll><span class=c1># for (vtkIdType i = 0 i &lt; count ++i)</span>
 </span><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>count</span><span class=p>):</span>
     <span class=n>whiteImage</span><span class=o>.</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>.</span><span class=n>GetScalars</span><span class=p>()</span><span class=o>.</span><span class=n>SetTuple1</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>inval</span><span class=p>)</span>
 
@@ -145,7 +145,7 @@ function registerListener(event, func) {
 
 <span class=c1># polygonal data -. image stencil:</span>
 <span class=hll><span class=n>pol2stenc</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataToImageStencil</span><span class=p>()</span>
-</span><span class=n>pol2stenc</span><span class=o>.</span><span class=n>SetTolerance</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=c1># important if extruder.SetVector(0, 0, 1) !!!</span>
+</span><span class=n>pol2stenc</span><span class=o>.</span><span class=n>SetTolerance</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>  <span class=c1># important if extruder.SetVector(0, 0, 1) !!!</span>
 <span class=n>pol2stenc</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>extruder</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
 <span class=n>pol2stenc</span><span class=o>.</span><span class=n>SetOutputOrigin</span><span class=p>(</span><span class=n>origin</span><span class=p>)</span>
 <span class=n>pol2stenc</span><span class=o>.</span><span class=n>SetOutputSpacing</span><span class=p>(</span><span class=n>spacing</span><span class=p>)</span>

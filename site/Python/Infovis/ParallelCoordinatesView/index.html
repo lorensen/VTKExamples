@@ -132,6 +132,7 @@ function registerListener(event, func) {
     <span class=k>else</span><span class=p>:</span>
         <span class=n>view</span><span class=o>.</span><span class=n>SetInspectMode</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
 
+
 <span class=c1># Hook up the callback to toggle between inspect modes</span>
 <span class=c1># (manip axes &amp; select data)</span>
 <span class=n>view</span><span class=o>.</span><span class=n>GetInteractor</span><span class=p>()</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;UserEvent&quot;</span><span class=p>,</span> <span class=n>ToggleInspectors</span><span class=p>)</span>

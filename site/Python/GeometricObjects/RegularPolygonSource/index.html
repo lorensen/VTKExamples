@@ -64,10 +64,10 @@ function registerListener(event, func) {
 <span class=c1># Create a pentagon</span>
 <span class=hll><span class=n>polygonSource</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRegularPolygonSource</span><span class=p>()</span>
 </span>
-<span class=c1>#polygonSource.GeneratePolygonOff()</span>
+<span class=c1># polygonSource.GeneratePolygonOff()</span>
 <span class=n>polygonSource</span><span class=o>.</span><span class=n>SetNumberOfSides</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
 <span class=n>polygonSource</span><span class=o>.</span><span class=n>SetRadius</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
-<span class=n>polygonSource</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>polygonSource</span><span class=o>.</span><span class=n>SetCenter</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 <span class=n>polygonSource</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 
 <span class=hll><span class=n>mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
@@ -82,7 +82,7 @@ function registerListener(event, func) {
 </span><span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>)</span>
 
 <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
-<span class=n>renderer</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=o>.</span><span class=mi>3</span><span class=p>,</span><span class=o>.</span><span class=mi>3</span><span class=p>,</span><span class=o>.</span><span class=mi>5</span><span class=p>)</span> <span class=c1># Background color purple</span>
+<span class=n>renderer</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=o>.</span><span class=mi>3</span><span class=p>,</span> <span class=o>.</span><span class=mi>3</span><span class=p>,</span> <span class=o>.</span><span class=mi>5</span><span class=p>)</span>  <span class=c1># Background color purple</span>
 
 <span class=n>renderWindow</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
 <span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>

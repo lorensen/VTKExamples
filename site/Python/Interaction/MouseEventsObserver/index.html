@@ -84,19 +84,21 @@ function registerListener(event, func) {
 </span><span class=hll><span class=n>interactor</span><span class=o>.</span><span class=n>SetInteractorStyle</span><span class=p>(</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkInteractorStyleTrackballCamera</span><span class=p>())</span>
 </span><span class=n>interactor</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renwin</span><span class=p>)</span>
 
+
 <span class=k>def</span> <span class=nf>DummyFunc1</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span> <span class=n>ev</span><span class=p>):</span>
     <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Before Event&quot;</span><span class=p>)</span>
+
 
 <span class=k>def</span> <span class=nf>DummyFunc2</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span> <span class=n>ev</span><span class=p>):</span>
     <span class=k>print</span><span class=p>(</span><span class=s2>&quot;After Event&quot;</span><span class=p>)</span>
 
 <span class=c1># Print interator gives you a list of registered observers of the current</span>
 <span class=c1># interactor style</span>
-<span class=c1>#print(interactor)</span>
+<span class=c1># print(interactor)</span>
 
 
-<span class=c1>## adding priorities allow to control the order of observer execution</span>
-<span class=c1>## (highest value first! if equal the first added observer is called first)</span>
+<span class=c1># adding priorities allow to control the order of observer execution</span>
+<span class=c1># (highest value first! if equal the first added observer is called first)</span>
 <span class=n>interactor</span><span class=o>.</span><span class=n>RemoveObservers</span><span class=p>(</span><span class=s1>&#39;LeftButtonPressEvent&#39;</span><span class=p>)</span>
 <span class=n>interactor</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s1>&#39;LeftButtonPressEvent&#39;</span><span class=p>,</span> <span class=n>DummyFunc1</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
 <span class=n>interactor</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s1>&#39;LeftButtonPressEvent&#39;</span><span class=p>,</span> <span class=n>DummyFunc2</span><span class=p>,</span> <span class=o>-</span><span class=mf>1.0</span><span class=p>)</span>

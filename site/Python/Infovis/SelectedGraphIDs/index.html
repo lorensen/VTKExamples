@@ -69,7 +69,7 @@ function registerListener(event, func) {
 <span class=hll><span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRandomGraphSource</span><span class=p>()</span>
 </span><span class=n>source</span><span class=o>.</span><span class=n>DirectedOff</span><span class=p>()</span>
 <span class=n>source</span><span class=o>.</span><span class=n>SetNumberOfVertices</span><span class=p>(</span><span class=mi>100</span><span class=p>)</span>
-<span class=n>source</span><span class=o>.</span><span class=n>SetEdgeProbability</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=c1># Basically generates a tree</span>
+<span class=n>source</span><span class=o>.</span><span class=n>SetEdgeProbability</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>  <span class=c1># Basically generates a tree</span>
 <span class=n>source</span><span class=o>.</span><span class=n>SetUseEdgeProbability</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
 <span class=n>source</span><span class=o>.</span><span class=n>SetStartWithTree</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
 <span class=n>source</span><span class=o>.</span><span class=n>IncludeEdgeWeightsOn</span><span class=p>()</span>
@@ -97,7 +97,7 @@ function registerListener(event, func) {
 </span><span class=n>view</span><span class=o>.</span><span class=n>GetRepresentation</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>SetAnnotationLink</span><span class=p>(</span><span class=n>annotationLink</span><span class=p>)</span>
 
 
-<span class=k>def</span> <span class=nf>select_callback</span><span class=p>(</span><span class=n>caller</span><span class=p>,</span><span class=n>event</span><span class=p>):</span>
+<span class=k>def</span> <span class=nf>select_callback</span><span class=p>(</span><span class=n>caller</span><span class=p>,</span> <span class=n>event</span><span class=p>):</span>
     <span class=c1># In this particular data representation the current selection in the</span>
     <span class=c1># annotation link should always contain two nodes: one for the edges and</span>
     <span class=c1># one for the vertices. Which is which is not consistent, so you need to</span>
@@ -119,6 +119,7 @@ function registerListener(event, func) {
             <span class=k>print</span><span class=p>(</span><span class=s2>&quot;-- empty&quot;</span><span class=p>)</span>
 
     <span class=k>print</span><span class=p>(</span><span class=s2>&quot;&quot;</span><span class=p>)</span>
+
 
 <span class=c1># AnnotationChangedEvent will fire when the selection is changed</span>
 <span class=n>annotationLink</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;AnnotationChangedEvent&quot;</span><span class=p>,</span> <span class=n>select_callback</span><span class=p>)</span>

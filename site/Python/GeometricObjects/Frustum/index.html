@@ -70,15 +70,15 @@ function registerListener(event, func) {
 <span class=hll><span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
 </span><span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>)</span>
 
-<span class=n>planesArray</span><span class=o>=</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>*</span><span class=mi>24</span> <span class=c1># Allocate a list of length 24</span>
+<span class=n>planesArray</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=mi>24</span>  <span class=c1># Allocate a list of length 24</span>
 <span class=hll><span class=n>camera</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkCamera</span><span class=p>()</span>
 </span><span class=n>camera</span><span class=o>.</span><span class=n>GetFrustumPlanes</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>planesArray</span><span class=p>)</span>
-<span class=hll><span class=n>planes</span><span class=o>=</span><span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlanes</span><span class=p>()</span>
+<span class=hll><span class=n>planes</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPlanes</span><span class=p>()</span>
 </span><span class=n>planes</span><span class=o>.</span><span class=n>SetFrustumPlanes</span><span class=p>(</span><span class=n>planesArray</span><span class=p>)</span>
 
 <span class=hll><span class=n>frustumSource</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkFrustumSource</span><span class=p>()</span>
 </span><span class=n>frustumSource</span><span class=o>.</span><span class=n>SetPlanes</span><span class=p>(</span><span class=n>planes</span><span class=p>)</span>
-<span class=n>frustumSource</span><span class=o>.</span><span class=n>ShowLinesOff</span><span class=p>();</span>
+<span class=n>frustumSource</span><span class=o>.</span><span class=n>ShowLinesOff</span><span class=p>()</span>
 <span class=n>frustumSource</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 
 <span class=c1># mapper</span>
@@ -88,11 +88,11 @@ function registerListener(event, func) {
 <span class=c1># actor</span>
 <span class=hll><span class=n>actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
 </span><span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
-<span class=n>actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mf>0.8</span><span class=p>,</span><span class=mf>0.9</span><span class=p>,</span><span class=mf>0.7</span><span class=p>)</span>
+<span class=n>actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=mf>0.8</span><span class=p>,</span> <span class=mf>0.9</span><span class=p>,</span> <span class=mf>0.7</span><span class=p>)</span>
 
 <span class=c1># assign actor to the renderer</span>
 <span class=n>ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
-<span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span><span class=mf>0.1</span><span class=p>,</span><span class=mf>0.3</span><span class=p>)</span>
+<span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=mf>0.1</span><span class=p>,</span> <span class=mf>0.3</span><span class=p>)</span>
 <span class=c1># enable user interface interactor</span>
 <span class=n>iren</span><span class=o>.</span><span class=n>Initialize</span><span class=p>()</span>
 <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>

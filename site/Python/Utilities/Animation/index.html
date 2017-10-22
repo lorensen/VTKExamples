@@ -110,7 +110,7 @@ function registerListener(event, func) {
 <span class=hll>    <span class=n>cb</span> <span class=o>=</span> <span class=n>vtkTimerCallback</span><span class=p>()</span>
 </span>    <span class=n>cb</span><span class=o>.</span><span class=n>actor</span> <span class=o>=</span> <span class=n>actor</span>
     <span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s1>&#39;TimerEvent&#39;</span><span class=p>,</span> <span class=n>cb</span><span class=o>.</span><span class=n>execute</span><span class=p>)</span>
-    <span class=n>timerId</span> <span class=o>=</span> <span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>CreateRepeatingTimer</span><span class=p>(</span><span class=mi>100</span><span class=p>)</span>
+    <span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>CreateRepeatingTimer</span><span class=p>(</span><span class=mi>100</span><span class=p>)</span>
 
     <span class=c1># start the interaction and timer</span>
     <span class=n>renderWindowInteractor</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>

@@ -87,7 +87,7 @@ function registerListener(event, func) {
 <span class=c1># the number of values in each of the XCoordinates, YCoordinates,</span>
 <span class=c1># and ZCoordinates is equal to what is defined in SetDimensions().</span>
 <span class=hll><span class=n>rgrid</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRectilinearGrid</span><span class=p>()</span>
-</span><span class=n>rgrid</span><span class=o>.</span><span class=n>SetDimensions</span><span class=p>(</span><span class=n>x</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span> <span class=n>y</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span> <span class=n>z</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span>
+</span><span class=n>rgrid</span><span class=o>.</span><span class=n>SetDimensions</span><span class=p>(</span><span class=n>x</span> <span class=o>+</span> <span class=mi>1</span><span class=p>,</span> <span class=n>y</span> <span class=o>+</span> <span class=mi>1</span><span class=p>,</span> <span class=n>z</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span>
 <span class=n>rgrid</span><span class=o>.</span><span class=n>SetXCoordinates</span><span class=p>(</span><span class=n>xCoords</span><span class=p>)</span>
 <span class=n>rgrid</span><span class=o>.</span><span class=n>SetYCoordinates</span><span class=p>(</span><span class=n>yCoords</span><span class=p>)</span>
 <span class=n>rgrid</span><span class=o>.</span><span class=n>SetZCoordinates</span><span class=p>(</span><span class=n>zCoords</span><span class=p>)</span>
@@ -123,7 +123,7 @@ function registerListener(event, func) {
 <span class=c1># geometry filter to view the background grid</span>
 <span class=hll><span class=n>geometryFilter</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRectilinearGridGeometryFilter</span><span class=p>()</span>
 </span><span class=n>geometryFilter</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>rgrid</span><span class=p>)</span>
-<span class=n>geometryFilter</span><span class=o>.</span><span class=n>SetExtent</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>x</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>y</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span> <span class=p>(</span><span class=n>z</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span><span class=o>//</span><span class=mi>2</span><span class=p>,</span> <span class=p>(</span><span class=n>z</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span><span class=o>//</span><span class=mi>2</span><span class=p>)</span>
+<span class=n>geometryFilter</span><span class=o>.</span><span class=n>SetExtent</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>x</span> <span class=o>+</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>y</span> <span class=o>+</span> <span class=mi>1</span><span class=p>,</span> <span class=p>(</span><span class=n>z</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>//</span> <span class=mi>2</span><span class=p>,</span> <span class=p>(</span><span class=n>z</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>//</span> <span class=mi>2</span><span class=p>)</span>
 <span class=n>geometryFilter</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 
 <span class=hll><span class=n>rgridMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
@@ -148,7 +148,7 @@ function registerListener(event, func) {
 </span><span class=n>renderer</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
 
 <span class=c1># add the actors</span>
-<span class=c1>#renderer.AddActor(coneActor)</span>
+<span class=c1># renderer.AddActor(coneActor)</span>
 <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>wireActor</span><span class=p>)</span>
 <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>clipperActor</span><span class=p>)</span>
 
