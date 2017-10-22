@@ -1,8 +1,6 @@
 [flake8]
 max-line-length = 150
 ignore =
-    # E721 do not compare types, use 'isinstance()'
-    E721,
     # F403 'from numpy import *' used; unable to detect undefined names
     F403,
     # F403 'from vtk import *' used; unable to detect undefined names

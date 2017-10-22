@@ -154,7 +154,7 @@ class LUTUtilities(object):
         '''
         if len(rgba1) != len(rgba2):
             return False
-        if type(rgba1) == type(''):
+        if isinstance(rgba1, str):
             return rgba1 == rgba2
         if len(rgba1) == 3 or len(rgba1) == 4:
             for i in range(0, len(rgba1)):
