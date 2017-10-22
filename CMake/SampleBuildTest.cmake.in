@@ -26,7 +26,7 @@ set(DASHBOARD Experimental)
 
 if(${DASHBOARD} STREQUAL Nightly)
   ctest_empty_binary_directory(${CTEST_BINARY_DIRECTORY})
-endif(${DASHBOARD} STREQUAL Nightly)
+endif()
 
 file(WRITE "${CTEST_BINARY_DIRECTORY}/CMakeCache.txt" "VTK_DIR:PATH=@VTK_DIR@")
 
@@ -35,7 +35,7 @@ set(ENV{DISPLAY} ":0")
 ctest_start(${DASHBOARD})
 if(${DASHBOARD} STREQUAL Nightly)
   ctest_update(SOURCE "${CTEST_SOURCE_DIRECTORY}")
-endif(${DASHBOARD} STREQUAL Nightly)
+endif()
 ctest_configure(BUILD "${CTEST_BINARY_DIRECTORY}")
 ctest_read_custom_files("${CTEST_BINARY_DIRECTORY}")
 ctest_build(BUILD "${CTEST_BINARY_DIRECTORY}")

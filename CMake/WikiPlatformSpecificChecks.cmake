@@ -18,8 +18,8 @@ if(WIN32)
        -D_CRT_VCCLRIT_NO_DEPRECATE
        -D_SCL_SECURE_NO_DEPRECATE
        )
-   endif(NOT MINGW)
-endif(WIN32)
+   endif()
+endif()
 
 if(WIN32)
   # Some libraries have no dllexport markup, so we can
@@ -34,5 +34,5 @@ if(WIN32)
       set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS
         "-shared -Wl,--export-all-symbols -Wl,--enable-auto-import")
       set(CMAKE_EXE_LINKER_FLAGS "-Wl,--enable-auto-import")
-    endif(MINGW)
-endif(WIN32)
+    endif()
+endif()

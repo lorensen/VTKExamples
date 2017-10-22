@@ -3,7 +3,7 @@ project (${WIKI}Lighting)
 if(NOT WikiExamples_BINARY_DIR)
 find_package(VTK REQUIRED)
 include(${VTK_USE_FILE})
-endif(NOT WikiExamples_BINARY_DIR)
+endif()
 
 if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
   set(KIT_LIBS vtkHybrid)
@@ -18,7 +18,7 @@ foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
   add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
   target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
-endforeach(SOURCE_FILE)
+endforeach()
 
 if (BUILD_TESTING)
 # Testing

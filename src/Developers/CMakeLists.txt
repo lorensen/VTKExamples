@@ -3,7 +3,7 @@ project (${WIKI}Developers)
 if(NOT WikiExamples_BINARY_DIR)
 find_package(VTK REQUIRED)
 include(${VTK_USE_FILE})
-endif(NOT WikiExamples_BINARY_DIR)
+endif()
 
 add_executable(Progress Progress.cxx vtkTestFilter.cxx)
 target_link_libraries(Progress vtkHybrid)
