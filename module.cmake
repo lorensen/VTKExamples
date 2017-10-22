@@ -50,6 +50,24 @@ set(DEPENDS
   vtkViewsInfovis
   )
 
+if(${Powercrust_LOADED})
+  list(APPEND DEPENDS
+    Powercrust
+  )
+endif()
+
+if(${SplineDrivenImageSlicer_LOADED})
+  list(APPEND DEPENDS
+    SplineDrivenImageSlicer
+  )
+endif()
+
+if(${PoissonReconstruction_LOADED})
+  list(APPEND DEPENDS
+    PoissonReconstruction
+  )
+endif()
+
 if(Module_vtkGUISupportQtOpenGL)
   list(APPEND DEPENDS
     vtkGUISupportQtOpenGL
