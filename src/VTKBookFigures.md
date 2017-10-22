@@ -159,7 +159,7 @@ Figure 10-17 | | Combining the imaging and visualization pipelines to deform an 
 [Figure 12-3](/Cxx/Medical/MedicalDemo2) | | Skin and bone isosurfaces ([Medical2.cxx](https://gitlab.kitware.com/vtk/vtk/blob/2d323fc4f7476ad024d0f4a164a0930f005bc154/Examples/Medical/Cxx/Medical2.cxx)).
 [Figure 12-4](/Cxx/Medical/MedicalDemo3) | | Composite image of three planes and translucent skin [Medical3.cxx](https://gitlab.kitware.com/vtk/vtk/blob/2d323fc4f7476ad024d0f4a164a0930f005bc154/Examples/Medical/Cxx/Medical3.cxx).
 Figure 12-6 | | Photographic slice of frog (upper left), segmented frog (upper right) and composite aof photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow (frogSlice.tcl).
-Figure 12-7 | | The frog’s brain. Model extracted without smoothing (left) and with smoothing (right).<
+Figure 12-7 | | The frog’s brain. Model extracted without smoothing (left) and with smoothing (right).
 Figure 12-10 | | Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time (stocks.tcl).
 [Figure 12-13](/Cxx/Visualization/BlobbyLogo) | vtkImplicitModeller | A logo created with vtkImplicitModeller ([vtkLogo.cxx](https://gitlab.kitware.com/vtk/vtk/blob/3ad5fa14aaa30c57cab400a7494bd6e2eac37bf1/graphics/examplesCxx/vtkLogo.cxx)).
 Figure 12-14 | | Portion of computational grid for the LOx post (LOxGrid.tcl).
