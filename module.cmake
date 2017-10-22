@@ -50,30 +50,27 @@ set(DEPENDS
   vtkViewsInfovis
   )
 
-if(${Powercrust_LOADED})
-  list(APPEND DEPENDS
-    Powercrust
+set(WikiExamples_OPTIONAL_DEPENDS
+  PoissonReconstruction
+  Powercrust
+  SplineDrivenImageSlicer
+  vtkFiltersParallelStatistics
+  vtkGUISupportQtOpenGL
+  vtkInfovisBoostGraphAlgorithms
+  vtkIOFFMPEG
+  vtkIOMySQL
+  vtkRenderingQt
+  vtkViewsQt
   )
-endif()
 
-if(${SplineDrivenImageSlicer_LOADED})
-  list(APPEND DEPENDS
-    SplineDrivenImageSlicer
-  )
-endif()
-
-if(${PoissonReconstruction_LOADED})
-  list(APPEND DEPENDS
-    PoissonReconstruction
-  )
-endif()
-
-if(Module_vtkGUISupportQtOpenGL)
-  list(APPEND DEPENDS
-    vtkGUISupportQtOpenGL
-    vtkRenderingQt
-    vtkViewsQt
-    )
+if(${VTK_VERSION} VERSION_LESS "8.1")
+  foreach(optional_dep IN LISTS WikiExamples_OPTIONAL_DEPENDS)
+    if(TARGET ${optional_dep} OR ${optional_dep}_LOADED OR Module_${optional_dep})
+      list(APPEND DEPENDS
+        ${optional_dep}
+        )
+    endif()
+  endforeach()
 endif()
 
 vtk_module( WikiExamples
