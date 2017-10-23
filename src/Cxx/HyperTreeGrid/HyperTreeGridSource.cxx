@@ -11,7 +11,7 @@
 #include <vtkRenderer.h>
 #include <vtkNamedColors.h>
 
-int main( int argc, char* argv[] )
+int main( int, char*[] )
 {
   // Set default argument values and options
   int dim = 3;
