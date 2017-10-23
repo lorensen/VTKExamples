@@ -24,7 +24,7 @@ except:
 
 
 def displayHelp():
-    print(""")
+    print("""
 Usage: ScrapeRepo RepoDir DocDir RepoURL
   Create site files from the src repo
     where RepoDir is the directory containing example source core
