@@ -29,6 +29,7 @@ set(NEEDS_ARGS
   DisplacementPlot
   FilledContours
   FindCellIntersections
+  HeadSlice
   Hello
   IronIsoSurface
   LOx
@@ -64,6 +65,9 @@ add_test(${KIT}-FilledContours ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-FindCellIntersections ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestFindCellIntersections ${DATA}/Disc_BiQuadraticQuads_0_0.vtu)
+
+add_test(${KIT}-HeadSlice ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestHeadSlice ${DATA}/FullHead.mhd)
 
 add_test(${KIT}-Hello ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHello ${DATA}/hello.vtk)
