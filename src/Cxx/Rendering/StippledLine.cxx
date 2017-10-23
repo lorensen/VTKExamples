@@ -22,7 +22,7 @@ void StippledLine(vtkSmartPointer<vtkActor> &actor,
                   int LineStippleRepeat = 1);
 }
 
-int main (int argc, char *argv[])
+int main (int, char *[])
 {
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
