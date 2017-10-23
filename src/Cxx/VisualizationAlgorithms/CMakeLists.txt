@@ -24,6 +24,7 @@ set(NEEDS_ARGS
   BluntStreamlines
   CombustorIsosurface
   CreateBFont
+  CutStructuredGrid
   CutWithCutFunction
   CutWithScalars
   DisplacementPlot
@@ -51,6 +52,9 @@ add_test(${KIT}-CombustorIsosurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxT
 
 add_test(${KIT}-CreateBFont ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCreateBFont ${DATA}/B.pgm)
+
+add_test(${KIT}-CutStructuredGrid ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestCutStructuredGrid ${DATA}/combxyz.bin ${DATA}/combq.bin)
 
 add_test(${KIT}-CutWithCutFunction ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCutWithCutFunction ${DATA}/Torso.vtp 20)
