@@ -1129,6 +1129,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [BoxChart](/Cxx/Plotting/BoxChart)| vtkChartBox |Box plot.
 [Diagram](/Cxx/Plotting/Diagram)| |
 [LinePlot](/Cxx/Plotting/LinePlot)| vtkChartXY |Line plot.
+[HistogramBarChart](/Cxx/Plotting/HistogramBarChart)| vtkBarChartActor | Histogram using bar chart.
 [ParallelCoordinates](/Cxx/Plotting/ParallelCoordinates)| vtkChartParallelCoordinates |Parallel coordinates.
 [PieChart](/Cxx/Plotting/PieChart)| vtkChartPie vtkPlotPie | Pie chart.
 [PieChartActor](/Cxx/Plotting/PieChart)| vtkPieChartActor | Pie chart.
