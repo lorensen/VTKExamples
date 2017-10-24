@@ -200,6 +200,7 @@ This section includes examples of manipulating meshes.
 [Streamlines](/Python/Visualization/Streamlines) | vtkStreamLine | Seed streamlines with vectors from a structured grid
 [TextSource](/Python/Visualization/TextSource) | vtkTextSource |
 [UnstructuredTransientVolumeRendering](/Python/Visualization/UnstructuredTransientVolumeRendering) | vtkUnstructuredGridVolumeRayCastMapper |
+[VelocityProfile](/Python/VisualizationAlgorithms/VelocityProfile) | vtkMultiBlockPLOT3DReader vtkStructuredGridGeometryFilter vtkAppendPolyData vtkWarpVector | Warping the geometry of three planes to show flow momentum.
 [VectorText](/Python/Visualization/VectorText)| vtkVectorText |Display high resolution text.
 [WindowTitle](/Python/Visualization/WindowTitle) | vtkRenderWindow::SetWindowName |
 
