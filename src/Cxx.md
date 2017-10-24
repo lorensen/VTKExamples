@@ -920,6 +920,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [VectorOfActors](/Cxx/Visualization/VectorOfActors)| vtkActor |Multiple Actors in a Vector.
 [VectorText](/Cxx/Visualization/VectorText)| vtkVectorText |Display high resolution text.
 [VertexGlyphFilter](/Cxx/Filtering/VertexGlyphFilter) | vtkVertexGlyphFilter | Add a vertex to each point.
+[VelocityProfile](/Cxx/VisualizationAlgorithms/VelocityProfile) | vtkMultiBlockPLOT3DReader vtkStructuredGridGeometryFilter vtkAppendPolyData vtkWarpVector | Warping the geometry of three planes to show flow momentum.
 [Visualize2DPoints](/Cxx/Visualization/Visualize2DPoints)| vtkPolyDataMapper2D vtkProperty2D | Visualize a 2D Set of Points.
 [VisualizeImageData](/Cxx/Visualization/VisualizeImageData)| vtkDataSetMapper | Visualize the points of an ImageData.
 [VisualizeVTP](/Cxx/Visualization/VisualizeVTP)| vtkXMLPolyDataReader vtkPolyDataMapper | Visualize a VTP File.
