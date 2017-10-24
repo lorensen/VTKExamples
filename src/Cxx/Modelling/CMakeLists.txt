@@ -31,6 +31,7 @@ set(NEEDS_ARGS
   Delaunay3D
   Delaunay3DDemo
   ExtractLargestIsosurface
+  Finance
   MarchingSquares
 )
 
@@ -48,6 +49,9 @@ add_test(${KIT}-ExtractLargestIsosurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT
 
 add_test(${KIT}-MarchingSquares ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingSquares ${DATA}/fullhead15.png 500)
+
+add_test(${KIT}-Finance ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestFinance ${DATA}/financial.txt)
 
 add_test(${KIT}-ContourTriangulator ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestContourTriangulator ${DATA}/fullhead15.png 500)
