@@ -1,6 +1,6 @@
 # VTK Classes used in the Examples
 ## Python
-Out of 2353 available VTK classes, 201 are demonstrated here.  
+Out of 2353 available VTK classes, 202 are demonstrated here.  
 These classes are excluded since they occur in the majority of the examples:  
 - [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor)
 - [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera)
@@ -14,7 +14,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkActor2D](http://www.vtk.org/doc/nightly/html/classvtkActor2D) | [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) [CurvaturesDemo](/Python/PolyData/CurvaturesDemo) [GeometricObjectsDemo](/Python/GeometricObjects/GeometricObjectsDemo) [ParametricObjectsDemo](/Python/GeometricObjects/ParametricObjectsDemo) [PlatonicSolid](/Python/GeometricObjects/PlatonicSolid) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision)  |
 | [vtkAnnotatedCubeActor](http://www.vtk.org/doc/nightly/html/classvtkAnnotatedCubeActor) | [OrientationMarkerWidget](/Python/Widgets/OrientationMarkerWidget)  |
 | [vtkAnnotationLink](http://www.vtk.org/doc/nightly/html/classvtkAnnotationLink) | [ParallelCoordinatesExtraction](/Python/Infovis/ParallelCoordinatesExtraction) [SelectedGraphIDs](/Python/Infovis/SelectedGraphIDs)  |
-| [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData) | [CombinePolyData](/Python/Filtering/CombinePolyData)  |
+| [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData) | [CombinePolyData](/Python/Filtering/CombinePolyData) [VelocityProfile](/Python/VisualizationAlgorithms/VelocityProfile)  |
 | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource) | [Arrow](/Python/GeometricObjects/Arrow) [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) [ElevationBandsWithGlyphs](/Python/Visualization/ElevationBandsWithGlyphs) [GeometricObjectsDemo](/Python/GeometricObjects/GeometricObjectsDemo) [OrientedArrow](/Python/GeometricObjects/OrientedArrow) [OrientedGlyphs](/Python/Visualization/OrientedGlyphs) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision)  |
 | [vtkAxes](http://www.vtk.org/doc/nightly/html/classvtkAxes) | [Rotations](/Python/Rendering/Rotations) [WalkCow](/Python/Rendering/WalkCow)  |
 | [vtkAxesActor](http://www.vtk.org/doc/nightly/html/classvtkAxesActor) | [Axes](/Python/GeometricObjects/Axes) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision)  |
@@ -97,9 +97,9 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkMatrix4x4](http://www.vtk.org/doc/nightly/html/classvtkMatrix4x4) | [OrientedArrow](/Python/GeometricObjects/OrientedArrow)  |
 | [vtkMetaImageReader](http://www.vtk.org/doc/nightly/html/classvtkMetaImageReader) | [MeshLabelImageColor](/Python/DataManipulation/MeshLabelImageColor)  |
 | [vtkMetaImageWriter](http://www.vtk.org/doc/nightly/html/classvtkMetaImageWriter) | [PolyDataContourToImageData](/Python/PolyData/PolyDataContourToImageData)  |
-| [vtkMultiBlockPLOT3DReader](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockPLOT3DReader) | [Streamlines](/Python/Visualization/Streamlines)  |
+| [vtkMultiBlockPLOT3DReader](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockPLOT3DReader) | [Streamlines](/Python/Visualization/Streamlines) [VelocityProfile](/Python/VisualizationAlgorithms/VelocityProfile)  |
 | [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph) | [EdgeWeights](/Python/Graphs/EdgeWeights) [GeoAssignCoordinates](/Python/Geovis/GeoAssignCoordinates) [VisualizeGraph](/Python/Graphs/VisualizeGraph)  |
-| [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors) | [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) [Hawaii](/Python/Visualization/Hawaii) [NamedColorPatches](/Python/Visualization/NamedColorPatches) [NamedColors](/Python/Visualization/NamedColors) [PlateVibration](/Python/VisualizationAlgorithms/PlateVibration) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) [Rotations](/Python/Rendering/Rotations) [WalkCow](/Python/Rendering/WalkCow)  |
+| [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors) | [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) [Hawaii](/Python/Visualization/Hawaii) [NamedColorPatches](/Python/Visualization/NamedColorPatches) [NamedColors](/Python/Visualization/NamedColors) [PlateVibration](/Python/VisualizationAlgorithms/PlateVibration) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) [Rotations](/Python/Rendering/Rotations) [VelocityProfile](/Python/VisualizationAlgorithms/VelocityProfile) [WalkCow](/Python/Rendering/WalkCow)  |
 | [vtkOBJReader](http://www.vtk.org/doc/nightly/html/classvtkOBJReader) | [Rotations](/Python/Rendering/Rotations)  |
 | [vtkOrientationMarkerWidget](http://www.vtk.org/doc/nightly/html/classvtkOrientationMarkerWidget) | [OrientationMarkerWidget](/Python/Widgets/OrientationMarkerWidget) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision)  |
 | [vtkOrientedGlyphContourRepresentation](http://www.vtk.org/doc/nightly/html/classvtkOrientedGlyphContourRepresentation) | [ContourWidget](/Python/Widgets/ContourWidget)  |
@@ -165,7 +165,8 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkSTLWriter](http://www.vtk.org/doc/nightly/html/classvtkSTLWriter) | [STLWriter](/Python/IO/STLWriter)  |
 | [vtkStringArray](http://www.vtk.org/doc/nightly/html/classvtkStringArray) | [Variant](/Python/Utilities/Variant)  |
 | [vtkStripper](http://www.vtk.org/doc/nightly/html/classvtkStripper) | [FilledPolygon](/Python/PolyData/FilledPolygon) [PolyDataContourToImageData](/Python/PolyData/PolyDataContourToImageData) [PolyDataToImageDataStencil](/Python/PolyData/PolyDataToImageDataStencil)  |
-| [vtkStructuredGridOutlineFilter](http://www.vtk.org/doc/nightly/html/classvtkStructuredGridOutlineFilter) | [Streamlines](/Python/Visualization/Streamlines)  |
+| [vtkStructuredGridGeometryFilter](http://www.vtk.org/doc/nightly/html/classvtkStructuredGridGeometryFilter) | [VelocityProfile](/Python/VisualizationAlgorithms/VelocityProfile)  |
+| [vtkStructuredGridOutlineFilter](http://www.vtk.org/doc/nightly/html/classvtkStructuredGridOutlineFilter) | [Streamlines](/Python/Visualization/Streamlines) [VelocityProfile](/Python/VisualizationAlgorithms/VelocityProfile)  |
 | [vtkSuperquadricSource](http://www.vtk.org/doc/nightly/html/classvtkSuperquadricSource) | [CubeAxesActor](/Python/Visualization/CubeAxesActor) [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) [CurvaturesDemo](/Python/PolyData/CurvaturesDemo) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) [ProgrammableGlyphs](/Python/Visualization/ProgrammableGlyphs)  |
 | [vtkTable](http://www.vtk.org/doc/nightly/html/classvtkTable) | [ScatterPlot](/Python/Plotting/ScatterPlot)  |
 | [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra) | [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) [Tetrahedron](/Python/GeometricObjects/Tetrahedron)  |
@@ -198,7 +199,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkVolume](http://www.vtk.org/doc/nightly/html/classvtkVolume) | [UnstructuredTransientVolumeRendering](/Python/Visualization/UnstructuredTransientVolumeRendering) [VTKWithNumpy](/Python/Utilities/VTKWithNumpy)  |
 | [vtkVolumeProperty](http://www.vtk.org/doc/nightly/html/classvtkVolumeProperty) | [UnstructuredTransientVolumeRendering](/Python/Visualization/UnstructuredTransientVolumeRendering) [VTKWithNumpy](/Python/Utilities/VTKWithNumpy)  |
 | [vtkVoxel](http://www.vtk.org/doc/nightly/html/classvtkVoxel) | [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration)  |
-| [vtkWarpVector](http://www.vtk.org/doc/nightly/html/classvtkWarpVector) | [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) [PlateVibration](/Python/VisualizationAlgorithms/PlateVibration) [WarpVector](/Python/PolyData/WarpVector)  |
+| [vtkWarpVector](http://www.vtk.org/doc/nightly/html/classvtkWarpVector) | [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) [PlateVibration](/Python/VisualizationAlgorithms/PlateVibration) [VelocityProfile](/Python/VisualizationAlgorithms/VelocityProfile) [WarpVector](/Python/PolyData/WarpVector)  |
 | [vtkWedge](http://www.vtk.org/doc/nightly/html/classvtkWedge) | [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration)  |
 | [vtkWindowedSincPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkWindowedSincPolyDataFilter) | [MeshLabelImageColor](/Python/DataManipulation/MeshLabelImageColor)  |
 | [vtkXMLImageDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLImageDataReader) | [WriteReadVtkImageData](/Python/ImageData/WriteReadVtkImageData)  |
