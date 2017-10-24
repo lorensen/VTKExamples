@@ -39,6 +39,7 @@ set(NEEDS_ARGS
   MarchingCasesA
   MarchingCasesB
   PlateVibration
+  ProbeCombustor
   SpikeFran
   VelocityProfile
   WarpCombustor
@@ -98,6 +99,9 @@ add_test(${KIT}-MarchingCasesB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-PlateVibration ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestPlateVibration ${DATA}/plate.vtk)
+
+add_test(${KIT}-ProbeCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestProbeCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin)
 
 add_test(${KIT}-SpikeFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSpikeFran ${DATA}/fran_cut.vtk)
