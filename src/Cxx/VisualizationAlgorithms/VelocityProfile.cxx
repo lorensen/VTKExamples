@@ -8,6 +8,7 @@
 #include <vtkMultiBlockPLOT3DReader.h>
 #include <vtkNamedColors.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkPolyDataNormals.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -103,10 +104,16 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkWarpVector> warp = vtkSmartPointer<vtkWarpVector>::New();
   warp->SetInputConnection(appendF->GetOutputPort());
   warp->SetScaleFactor(0.005);
+  warp->Update();
+
+  vtkSmartPointer<vtkPolyDataNormals> normals =
+    vtkSmartPointer<vtkPolyDataNormals>::New();
+  normals->SetInputData(warp->GetPolyDataOutput());
+  normals->SetFeatureAngle(45);
 
   vtkSmartPointer<vtkPolyDataMapper> planeMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-  planeMapper->SetInputConnection(warp->GetOutputPort());
+  planeMapper->SetInputConnection(normals->GetOutputPort());
   planeMapper->SetScalarRange(scalarRange);
 
   vtkSmartPointer<vtkActor> planeActor = vtkSmartPointer<vtkActor>::New();
