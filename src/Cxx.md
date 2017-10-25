@@ -887,8 +887,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [MoveActor](/Cxx/Visualization/MoveActor)| vtkInteractorStyleTrackballActor |Moving an Actor.
 [MoveCamera](/Cxx/Visualization/MoveCamera)| vtkInteractorStyleTrackballCamera |Moving the Camera.
 [MultipleActors](/Cxx/Visualization/MultipleActors)| vtkActor |Multiple Actors.
-[NamedColors](/Cxx/Visualization/NamedColors) | vtkNamedColors | Demonstrate the use of the vtkNamedColors class.<
-[NamedColorPatches](/Cxx/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) | Demonstrates how to use the vtkNamedColors class.
+[NamedColors](/Cxx/Visualization/NamedColors) | vtkNamedColors | Demonstrate the use of the vtkNamedColors class.
+[NamedColorPatches](/Cxx/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html)
 [NoShading](/Cxx/Visualization/NoShading) | vtkActor |
 [NormalsDemo](/Cxx/Visualization/NormalsDemo)| vtkPolyDataNormals | Demo different ooption to generate normals.
 [Opacity](/Cxx/Visualization/Opacity)| vtkActor | Transparency, transparent.
@@ -911,6 +911,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [SceneBounds](/Cxx/Visualization/SceneBounds)| vtkRenderer |Get the bounds of the whole scene.
 [SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)| vtkInteractorStyleRubberBand2D |Select a region of a window.
 [StreamLines](/Cxx/Visualization/StreamLines) | vtkStreamTracer | Streamlines.
+[TensorAxes](/Cxx/VisualizationAlgorithms/TensorAxes)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes of the stress tensor.
+[TensorEllipsoids](/Cxx/VisualizationAlgorithms/TensorEllipsoids)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes as tensor ellipsoids representing the stress tensor.
 [TensorGlyph](/Cxx/Visualization/TensorGlyph)| vtkTensorGlyph | Draw a rotated/scaled glyph at each point.
 [TextSource](/Cxx/Visualization/TextSource)| vtkTextSource |Display text.
 [TransformActorCollection](/Cxx/Visualization/TransformActorCollection)| vtkActorCollection |Transform an actor collection.

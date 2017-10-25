@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Translated from velProf.tcl.
 
 import vtk
@@ -55,9 +57,14 @@ def main():
     warp = vtk.vtkWarpVector()
     warp.SetInputConnection(appendF.GetOutputPort())
     warp.SetScaleFactor(0.005)
+    warp.Update()
+
+    normals = vtk.vtkPolyDataNormals()
+    normals.SetInputData(warp.GetPolyDataOutput())
+    normals.SetFeatureAngle(45)
 
     planeMapper = vtk.vtkPolyDataMapper()
-    planeMapper.SetInputConnection(warp.GetOutputPort())
+    planeMapper.SetInputConnection(normals.GetOutputPort())
     planeMapper.SetScalarRange(scalarRange)
 
     planeActor = vtk.vtkActor()
