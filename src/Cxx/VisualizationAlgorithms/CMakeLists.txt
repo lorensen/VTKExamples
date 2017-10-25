@@ -22,6 +22,7 @@ if (BUILD_TESTING)
 set(KIT VisualizationAlgorithms)
 set(NEEDS_ARGS
   BluntStreamlines
+  CarotidFlow
   CombustorIsosurface
   CreateBFont
   CutStructuredGrid
@@ -48,6 +49,9 @@ set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 add_test(${KIT}-BluntStreamlines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBluntStreamlines ${DATA}/bluntfinxyz.bin ${DATA}/bluntfinq.bin)
+
+add_test(${KIT}-CarotidFlow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestCarotidFlow ${DATA}/carotid.vtk)
 
 add_test(${KIT}-CombustorIsosurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCombustorIsosurface ${DATA}/combxyz.bin ${DATA}/combq.bin)

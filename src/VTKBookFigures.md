@@ -90,7 +90,7 @@ Figure 4-11 | | Dividing a sphere into a piece (red) with ghost level cells and 
 Figure 6-38 | | The cost of generality. Isosurface generation of three volumes of different sizes are compared. The results show normalized execution times for two different implementations of the marching-cubes isosurface algorithm. The specialized filter is vtkMarchingCubes . The general algorithms are first vtkContourFilter and then in combination with vtkPolyDataNormals .
 [Figure 6-39](/Cxx/VisualizationAlgorithms/ContourQuadric) | vtkQuadric vtkSampleFunction vtkContourFilter | Contouring quadric function. Pipeline topology, C++ code, and resulting image are shown ([contQuad.cxx](https://gitlab.kitware.com/vtk/vtk/blob/3ad5fa14aaa30c57cab400a7494bd6e2eac37bf1/graphics/examplesCxx/contQuad.cxx)). 
 Figure 6-43 | | Visualizing blood flow in human carotid arteries. Cone glyphs indicate flow direction and magnitude. The code fragment shown is from the Tcl script thrshldV.tcl and shows creation of vector glyphs.
-Figure 6-44 | | Visualizing blood flow in the human carotid arteries. Streamtubes of flow vectors (streamV.tcl).
+[Figure 6-44](/Cxx/VisualizationAlgorithms/CarotidFlow) | vtkStreamTracer vtkThresholdPoints | Visualizing blood flow in the human carotid arteries. Streamtubes of flow vectors ([streamV.tcl](https://gitlab.kitware.com/vtk/vtk/blob/ea6f91948c13ee930b181a2aaf5d6431ebe30eb1/graphics/examplesTcl/streamV.tcl)).
 
 ## Chapter 7 - Advanced Computer Graphics
 
