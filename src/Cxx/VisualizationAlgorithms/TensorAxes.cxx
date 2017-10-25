@@ -23,7 +23,7 @@ namespace
 void MakeLogLUT(vtkLookupTable* lut);
 }
 
-int main(int argc, char* argv[])
+int main(int, char*[])
 {
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
