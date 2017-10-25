@@ -191,13 +191,16 @@ This section includes examples of manipulating meshes.
 [InteractorStyleTrackballActor](/Python/Visualization/InteractorStyleTrackballActor) | vtkInteractorStyleTrackBallActor |
 [InteractorStyleTrackballCamera](/Python/Visualization/InteractorStyleTrackballCamera) | vtkInteractorStyleTrackBallCamera |
 [MultipleViewports](/Python/Visualization/MultipleViewports) | vtkRenderer::SetViewport |
-[NamedColorPatches](/Python/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called VTKNamedColorPatches | Demonstrates how to use the vtkNamedColor class
+[NamedColors](/Python/Visualization/NamedColors) | vtkNamedColors | Demonstrates how to use the vtkNamedColors class.
+[NamedColorPatches](/Python/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html)
 [OrientedGlyphs](/Python/Visualization/OrientedGlyphs)| vtkGlyph3D|Create oriented glyphs from vector data.
 [PlateVibration](/Python/VisualizationAlgorithms/PlateVibration) | vtkWarpVector vtkVectorDot | Demonstrates the motion of a vibrating beam.
 [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) |  vtkLinearSubdivisionFilter | Vary the shapes of glyphed points using a programmable glyph filter
 [QuadraticSurface](/Python/Visualization/QuadraticSurface) | vtkQuadric |
 [SphereTexture](/Python/Visualization/SphereTexture) | vtkTextureMapToSphere | Apply an ImageData texture to an sphere
 [Streamlines](/Python/Visualization/Streamlines) | vtkStreamLine | Seed streamlines with vectors from a structured grid
+[TensorAxes](/Python/VisualizationAlgorithms/TensorAxes)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes of the stress tensor.
+[TensorEllipsoids](/Python/VisualizationAlgorithms/TensorEllipsoids)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes as tensor ellipsoids representing the stress tensor.
 [TextSource](/Python/Visualization/TextSource) | vtkTextSource |
 [UnstructuredTransientVolumeRendering](/Python/Visualization/UnstructuredTransientVolumeRendering) | vtkUnstructuredGridVolumeRayCastMapper |
 [VelocityProfile](/Python/VisualizationAlgorithms/VelocityProfile) | vtkMultiBlockPLOT3DReader vtkStructuredGridGeometryFilter vtkAppendPolyData vtkWarpVector | Warping the geometry of three planes to show flow momentum.
