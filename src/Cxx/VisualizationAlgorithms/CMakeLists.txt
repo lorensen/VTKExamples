@@ -23,6 +23,7 @@ set(KIT VisualizationAlgorithms)
 set(NEEDS_ARGS
   BluntStreamlines
   CarotidFlow
+  CarotidFlowGlyphs
   CombustorIsosurface
   CreateBFont
   CutStructuredGrid
@@ -52,6 +53,9 @@ add_test(${KIT}-BluntStreamlines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 
 add_test(${KIT}-CarotidFlow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCarotidFlow ${DATA}/carotid.vtk)
+
+add_test(${KIT}-CarotidFlowGlyphs ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestCarotidFlowGlyphs ${DATA}/carotid.vtk)
 
 add_test(${KIT}-CombustorIsosurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCombustorIsosurface ${DATA}/combxyz.bin ${DATA}/combq.bin)
