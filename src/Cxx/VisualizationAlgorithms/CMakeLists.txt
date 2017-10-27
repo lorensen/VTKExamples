@@ -80,7 +80,7 @@ add_test(${KIT}-DecimateFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDecimateFran ${DATA}/fran_cut.vtk ${DATA}/fran_cut.png)
 
 add_test(${KIT}-DecimateHawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestDecimateHawaii ${DATA}/honolulu.vtk)
+  TestDecimateHawaii ${DATA}/honolulu.vtk -E 50)
 
 add_test(${KIT}-DisplacementPlot ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDisplacementPlot ${DATA}/plate.vtk)
@@ -128,7 +128,7 @@ add_test(${KIT}-SpikeFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSpikeFran ${DATA}/fran_cut.vtk)
 
 add_test(${KIT}-SplatFace ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestSplatFace ${DATA}/fran_cut.vtk)
+  TestSplatFace ${DATA}/fran_cut.vtk -E 50)
 
 add_test(${KIT}-VelocityProfile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestVelocityProfile ${DATA}/combxyz.bin ${DATA}/combq.bin)
