@@ -29,6 +29,8 @@ set(NEEDS_ARGS
   CutStructuredGrid
   CutWithCutFunction
   CutWithScalars
+  DecimateFran
+  DecimateHawaii
   DisplacementPlot
   FilledContours
   FindCellIntersections
@@ -72,6 +74,12 @@ add_test(${KIT}-CutWithCutFunction ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTe
 
 add_test(${KIT}-CutWithScalars ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCutWithScalars ${DATA}/Torso.vtp 20)
+
+add_test(${KIT}-DecimateFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestDecimateFran ${DATA}/fran_cut.vtk ${DATA}/fran_cut.png)
+
+add_test(${KIT}-DecimateHawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestDecimateHawaii ${DATA}/honolulu.vtk)
 
 add_test(${KIT}-DisplacementPlot ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDisplacementPlot ${DATA}/plate.vtk)

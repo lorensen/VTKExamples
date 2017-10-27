@@ -1,4 +1,6 @@
-#include <vtkVersion.h>
+#include <vtkSmartPointer.h>
+#include <vtkVoxelContoursToSurfaceFilter.h>
+
 #include <vtkActor.h>
 #include <vtkAppendPolyData.h>
 #include <vtkCellArray.h>
@@ -9,10 +11,8 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkSmartPointer.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
-#include <vtkVoxelContoursToSurfaceFilter.h>
 
 void CreateCircle(const double& z, const double& radius, const int& resolution, vtkPolyData* polyData);
 
@@ -32,7 +32,8 @@ int main(int, char *[])
 
   // Append all the discs into one polydata
   //
-  vtkSmartPointer<vtkAppendPolyData> appendFilter = vtkSmartPointer<vtkAppendPolyData>::New();
+  vtkSmartPointer<vtkAppendPolyData> appendFilter =
+    vtkSmartPointer<vtkAppendPolyData>::New();
 
   for( int i = 0; i <= numDivisions; ++i )
   {
@@ -40,13 +41,10 @@ int main(int, char *[])
     double u = i / double(numDivisions);
     z = ( 1. - u )*zmin + u*zmax;
     radius = sqrt( sphereRadius*sphereRadius - z*z );
-    vtkSmartPointer<vtkPolyData> circle = vtkSmartPointer<vtkPolyData>::New();
+    vtkSmartPointer<vtkPolyData> circle =
+      vtkSmartPointer<vtkPolyData>::New();
     CreateCircle( z, radius, resolution, circle );
-#if VTK_MAJOR_VERSION <= 5
-    appendFilter->AddInput( circle );
-#else
     appendFilter->AddInputData( circle );
-#endif
   }
 
   double deltaz = z - lastz;
@@ -69,8 +67,10 @@ int main(int, char *[])
                         (bounds[3] - bounds[2]) / 40,
                          deltaz };
 
-  vtkSmartPointer<vtkPolyData> poly = vtkSmartPointer<vtkPolyData>::New();
-  vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
+  vtkSmartPointer<vtkPolyData> poly =
+    vtkSmartPointer<vtkPolyData>::New();
+  vtkSmartPointer<vtkPoints> points =
+    vtkSmartPointer<vtkPoints>::New();
   vtkPoints* contourPoints = contours->GetPoints();
   int numPoints = contourPoints->GetNumberOfPoints();
   points->SetNumberOfPoints( numPoints );
@@ -88,12 +88,9 @@ int main(int, char *[])
 
   // Create the contour to surface filter
   //
-  vtkSmartPointer<vtkVoxelContoursToSurfaceFilter> contoursToSurface = vtkSmartPointer<vtkVoxelContoursToSurfaceFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  contoursToSurface->SetInput( poly );
-#else
+  vtkSmartPointer<vtkVoxelContoursToSurfaceFilter> contoursToSurface =
+    vtkSmartPointer<vtkVoxelContoursToSurfaceFilter>::New();
   contoursToSurface->SetInputData( poly );
-#endif
   contoursToSurface->SetSpacing( spacing[0], spacing[1], spacing[2] );
   contoursToSurface->Update();
 
@@ -106,9 +103,11 @@ int main(int, char *[])
   double center[3];
   contours->GetCenter( center );
 
-  vtkSmartPointer<vtkTransformPolyDataFilter> transformFilter = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
+  vtkSmartPointer<vtkTransformPolyDataFilter> transformFilter =
+    vtkSmartPointer<vtkTransformPolyDataFilter>::New();
   transformFilter->SetInputConnection( contoursToSurface->GetOutputPort() );
-  vtkSmartPointer<vtkTransform> transform = vtkSmartPointer<vtkTransform>::New();
+  vtkSmartPointer<vtkTransform> transform =
+    vtkSmartPointer<vtkTransform>::New();
   transformFilter->SetTransform( transform );
   transform->Translate( -scaleCenter[0], -scaleCenter[1], -scaleCenter[2] );
   transform->Scale(
@@ -119,26 +118,26 @@ int main(int, char *[])
 
   // Visualize the contours
   //
-  vtkSmartPointer<vtkPolyDataMapper> contoursMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  contoursMapper->SetInput( contours );
-#else
+  vtkSmartPointer<vtkPolyDataMapper> contoursMapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
   contoursMapper->SetInputData( contours );
-#endif
   contoursMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> contoursActor = vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> contoursActor =
+    vtkSmartPointer<vtkActor>::New();
   contoursActor->SetMapper( contoursMapper );
   contoursActor->GetProperty()->SetRepresentationToWireframe();
   contoursActor->GetProperty()->ShadingOff();
 
   // Visualize the surface
   //
-  vtkSmartPointer<vtkPolyDataMapper> surfaceMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+  vtkSmartPointer<vtkPolyDataMapper> surfaceMapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
   surfaceMapper->SetInputConnection( transformFilter->GetOutputPort() );
   surfaceMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> surfaceActor = vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> surfaceActor =
+    vtkSmartPointer<vtkActor>::New();
   surfaceActor->SetMapper( surfaceMapper );
   surfaceActor->GetProperty()->SetRepresentationToWireframe();
   surfaceActor->GetProperty()->ShadingOff();
@@ -150,21 +149,25 @@ int main(int, char *[])
   // Press 'w' for wireframe representation
   // Press 's' for surface representation
   //
-  vtkSmartPointer<vtkRenderer> renderer1 = vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderer> renderer1 =
+    vtkSmartPointer<vtkRenderer>::New();
   renderer1->SetViewport( 0., 0., 0.5, 1. );
   renderer1->SetBackground( 0.2, 0.2, 0.8 );
 
-  vtkSmartPointer<vtkRenderer> renderer2 = vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderer> renderer2 =
+    vtkSmartPointer<vtkRenderer>::New();
   renderer2->SetViewport( 0.5, 0., 1., 1. );
   renderer2->SetBackground( 0.8, 0.2, 0.2 );
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
+  vtkSmartPointer<vtkRenderWindow> renderWindow =
+    vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->SetSize( 800, 400 );
 
   renderWindow->AddRenderer( renderer1 );
   renderWindow->AddRenderer( renderer2 );
 
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow( renderWindow );
 
   renderer1->AddViewProp( surfaceActor );
@@ -178,8 +181,10 @@ int main(int, char *[])
 
 void CreateCircle( const double& z, const double& radius, const int& resolution, vtkPolyData* polyData )
 {
-  vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
-  vtkSmartPointer<vtkCellArray> cells = vtkSmartPointer<vtkCellArray>::New();
+  vtkSmartPointer<vtkPoints> points =
+    vtkSmartPointer<vtkPoints>::New();
+  vtkSmartPointer<vtkCellArray> cells =
+    vtkSmartPointer<vtkCellArray>::New();
 
   points->SetNumberOfPoints( resolution );
   cells->Allocate( 1, resolution );
