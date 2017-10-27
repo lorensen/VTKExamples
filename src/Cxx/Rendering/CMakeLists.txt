@@ -29,6 +29,7 @@ set(KIT Rendering)
 set(NEEDS_ARGS
   Rainbow
   Rotations
+  StripFran
   WalkCow
   WalkCowA
   WalkCowB
@@ -41,6 +42,9 @@ add_test(${KIT}-Rotations ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-Rainbow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestRainbow ${DATA}/combxyz.bin ${DATA}/combq.bin)
+
+add_test(${KIT}-StripFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestStripFran ${DATA}/fran_cut.vtk)
 
 add_test(${KIT}-WalkCow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestWalkCow ${DATA}/cow.g)
