@@ -46,6 +46,7 @@ set(NEEDS_ARGS
   ProbeCombustor
   OfficeTube
   SpikeFran
+  SplatFace
   VelocityProfile
   WarpCombustor
 )
@@ -125,6 +126,9 @@ add_test(${KIT}-OfficeTube ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-SpikeFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSpikeFran ${DATA}/fran_cut.vtk)
+
+add_test(${KIT}-SplatFace ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestSplatFace ${DATA}/fran_cut.vtk)
 
 add_test(${KIT}-VelocityProfile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestVelocityProfile ${DATA}/combxyz.bin ${DATA}/combq.bin)
