@@ -53,10 +53,10 @@ add_test(${KIT}-BluntStreamlines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
   TestBluntStreamlines ${DATA}/bluntfinxyz.bin ${DATA}/bluntfinq.bin)
 
 add_test(${KIT}-CarotidFlow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestCarotidFlow ${DATA}/carotid.vtk)
+  TestCarotidFlow ${DATA}/carotid.vtk -E 50)
 
 add_test(${KIT}-CarotidFlowGlyphs ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestCarotidFlowGlyphs ${DATA}/carotid.vtk)
+  TestCarotidFlowGlyphs ${DATA}/carotid.vtk -E 50)
 
 add_test(${KIT}-CombustorIsosurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCombustorIsosurface ${DATA}/combxyz.bin ${DATA}/combq.bin)
@@ -110,7 +110,7 @@ add_test(${KIT}-PlateVibration ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestPlateVibration ${DATA}/plate.vtk)
 
 add_test(${KIT}-ProbeCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestProbeCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin)
+  TestProbeCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin -E 50)
 
 add_test(${KIT}-OfficeTube ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestOfficeTube ${DATA}/office.binary.vtk)
