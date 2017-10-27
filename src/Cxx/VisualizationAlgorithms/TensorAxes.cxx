@@ -77,11 +77,7 @@ int main(int, char*[])
   tensorAxesMapper->SetInputConnection(tensorAxes->GetOutputPort());
   tensorAxesMapper->SetLookupTable(lut);
   plane->Update(); // force update for scalar range
-#if VTK_MAJOR_VERSION < 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION < 1
-  tensorAxesMapper->ImmediateModeRenderingOn();
-#endif
-  // This is deprecated from vtk 8.1 onwards.
-  // tensorAxesMapper.ImmediateModeRenderingOn();
+
   tensorAxesMapper->SetScalarRange(plane->GetOutput()->GetScalarRange());
 
   vtkSmartPointer<vtkActor> tensorActor = vtkSmartPointer<vtkActor>::New();

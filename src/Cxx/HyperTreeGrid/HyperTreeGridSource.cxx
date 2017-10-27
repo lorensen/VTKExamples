@@ -13,24 +13,6 @@
 
 int main( int, char*[] )
 {
-  // Set default argument values and options
-  int dim = 3;
-  int branch = 3;
-  int max = 3;
-  int nX = 2;
-  int nY = 3;
-  int nZ = 2;
-  double sX = 1.5;
-  double sY = 1.;
-  double sZ = .7;
-  int nContours = 1;
-  bool skipAxisCut = false;
-  bool skipContour = false;
-  bool skipCut = false;
-  bool skipGeometry = false;
-  bool skipShrink = false;
-  bool printDescriptor = false;
-
   // Create hyper tree grid source
   vtkSmartPointer<vtkHyperTreeGridSource> source =
     vtkSmartPointer<vtkHyperTreeGridSource>::New();

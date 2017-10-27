@@ -36,10 +36,6 @@ int main (int argc, char *argv[])
   reader->SetFileName(argv[1]);
   reader->Update(); //force a read to occur
 
-  double length = reader->GetOutput()->GetLength();
-  double maxVelocity = reader->GetOutput()->GetPointData()->GetVectors()->GetMaxNorm();
-  double maxTime = 35.0 * length / maxVelocity;
-
 // Now we will generate a single streamline in the data. We select the
 // integration order to use (RungeKutta order 4) and associate it with
 // the streamer. The start position is the position in world space where
