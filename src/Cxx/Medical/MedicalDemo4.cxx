@@ -121,19 +121,16 @@ int main (int argc, char *argv[])
   camera->SetViewUp (0, 0, -1);
   camera->SetPosition (c[0], c[1] - 400, c[2]);
   camera->SetFocalPoint (c[0], c[1], c[2]);
-  camera->ComputeViewPlaneNormal();
   camera->Azimuth(30.0);
   camera->Elevation(30.0);
 
   // Set a background color for the renderer
   ren->SetBackground(.2, .3, .4);
 
-  renWin->SetSize(640, 480);
   // Increase the size of the render window
   renWin->SetSize(640, 480);
 
   // Interact with the data.
-  iren->Initialize();
   iren->Start();
 
   return EXIT_SUCCESS;
