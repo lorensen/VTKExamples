@@ -97,7 +97,7 @@ Figure 4-11 | | Dividing a sphere into a piece (red) with ghost level cells and 
 |--------|----------------------|---------|-------|
 Figure 7-3 | | One frame from a vector field animation using texture maps (animVectors.tcl)
 Figure 7-33 | | Example of texture mapping (TPlane.tcl).
-Figure 7-34 | | Volume rendering of a high potential iron protein (SimpleRayCast.tcl).
+[Figure 7-34](/Cxx/VolumeRendering/SimpleRayCast) | vtkFixedPointVolumeRayCastMapper | Volume rendering of a high potential iron protein ([SimpleRayCast.tcl](https://gitlab.kitware.com/vtk/vtk/blob/6653cd058786cd7b8a69d9add61c843e4cddb945/Examples/VolumeRendering/Tcl/SimpleRayCast.tcl)).
 Figure 7-36 | | Example of motion blur (MotBlur.cxx)
 [Figure 7-37](/Cxx/Rendering/CameraBlur) | | Example of a scene rendered with focal depth (CamBlur.cxx). 
 Figure 7-39 | | Using the vtkLineWidget to produce streamtubes in the combustor dataset.  The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves (LineWidget.tcl).
