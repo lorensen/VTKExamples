@@ -141,7 +141,7 @@ Figure 9-54 | | Two-dimensional Delaunay triangulation of a random set of points
 
 | Figure | Classes Demonstrated | Caption | Image |
 |--------|----------------------|---------|-------|
-Figure 10-2 | | Low-pass filters can be implemented as convolution with a Gaussian kernel.  The Gaussian kernel displayed on top has been magnified for this figure (GaussianSmooth.tcl).
+Figure 10-2 | | Low-pass filters can be implemented as convolution with a Gaussian kernel.  The Gaussian kernel displayed on top has been magnified for this figure ([GaussianSmooth.tcl](https://gitlab.kitware.com/vtk/vtk/blob/174f279030c3ea3170023968a08b9b38426a7463/imaging/examplesTcl/GaussianSmooth.tcl)).
 Figure 10-3 | | Comparison of Gaussian and Median smoothing for reducing low-probability high-amplitude noise (MedianComparison.tcl)
 Figure 10-4 | | Comparison of median and hybrid-median filters. The hybrid filter preserves corners and thin lines, better than the median filter. The lower patterns represent the three neighborhoods used to compute the hybrid median (see the example Tcl script HybridMedianComparison.tcl)
 Figure 10-5 | | This figure demonstrates aliasing that occurs when a high-frequency signal is subsampled. High frequencies appear as low frequency artifacts. The lower left image is an isosurface of a skull after subsampling. The right image used a low-pass filter before subsampling to reduce aliasing (IsoSubsample.tcl).

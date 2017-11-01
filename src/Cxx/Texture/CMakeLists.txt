@@ -2,17 +2,11 @@ project (${WIKI}Texture)
 
 if(NOT WikiExamples_BINARY_DIR)
 find_package(VTK REQUIRED)
-if(NOT VTK_USE_RENDERING)
-  message(FATAL_ERROR "Example ${PROJECT_NAME} requires VTK_USE_RENDERING.")
-endif()
-include(${VTK_USE_FILE})
+  include(${VTK_USE_FILE})
 endif()
 
-if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
-  set(KIT_LIBS vtkWidgets vtkHybrid)
-else()
-  set(KIT_LIBS ${VTK_LIBRARIES})
-endif()
+set(KIT_LIBS ${VTK_LIBRARIES})
+
 #
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
@@ -30,12 +24,16 @@ if (BUILD_TESTING)
 # Testing
 set(KIT Texture)
 set(NEEDS_ARGS
+  ProjectedTexture
   TextureCutSphere
   TexturedSphere
 )
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+add_test(${KIT}-ProjectedTexture ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestProjectedTexture ${DATA}/fran_cut.vtk ${DATA}/fran_cut.png)
 
 add_test(${KIT}-TextureCutSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTextureCutSphere ${DATA}/texThres.vtk)

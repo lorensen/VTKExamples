@@ -806,6 +806,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 |--------------|----------------------|-------------|-------|
 [BackgroundTexture](/Cxx/Visualization/BackgroundTexture)| vtkRenderer vtkTexture |Use a texture for the background of a vtkRenderer.
 [ClipArt](/Cxx/Visualization/ClipArt) | vtkTextureMapToPlane | Generate 3D clip art from an image.
+[ProjectedTexture](/Cxx/Texture/ProjectedTexture) | vtkProjecteTexture | Project a texture onto ovtkPolyData.
 [TextureCutQuadric](/Cxx/Texture/TextureCutQuadric)| vtkBooleanTexture vtkImplicitTextureCoords | Cut a quadric with boolean textures.
 [TextureCutSphere](/Cxx/Texture/TextureCutSphere)| vtkImplicitTextureCoords | Cut a sphere using texture coordinates.
 [TextureMapImageData](/Cxx/Visualization/TextureMapImageData) | vtkImageCanvasSource2D | Texture map an ImageData.
