@@ -199,6 +199,7 @@ This section includes examples of manipulating meshes.
 [QuadraticSurface](/Python/Visualization/QuadraticSurface) | vtkQuadric |
 [SphereTexture](/Python/Visualization/SphereTexture) | vtkTextureMapToSphere | Apply an ImageData texture to an sphere
 [Streamlines](/Python/Visualization/Streamlines) | vtkStreamLine | Seed streamlines with vectors from a structured grid
+[StreamlinesWithLineWidget](/Python/VisualizationAlgorithms/StreamlinesWithLineWidget)| vtkCallbackCommand vtkLineWidget | Using the vtkLineWidget to produce streamlines in the combustor dataset.  The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves.
 [TensorAxes](/Python/VisualizationAlgorithms/TensorAxes)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes of the stress tensor.
 [TensorEllipsoids](/Python/VisualizationAlgorithms/TensorEllipsoids)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes as tensor ellipsoids representing the stress tensor.
 [TextSource](/Python/Visualization/TextSource) | vtkTextSource |

@@ -913,6 +913,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [SceneBounds](/Cxx/Visualization/SceneBounds)| vtkRenderer |Get the bounds of the whole scene.
 [SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)| vtkInteractorStyleRubberBand2D |Select a region of a window.
 [StreamLines](/Cxx/Visualization/StreamLines) | vtkStreamTracer | Streamlines.
+[StreamlinesWithLineWidget](/Cxx/VisualizationAlgorithms/StreamlinesWithLineWidget)| vtkCallbackCommand vtkLineWidget | Using the vtkLineWidget to produce streamlines in the combustor dataset.  The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves.
 [TensorAxes](/Cxx/VisualizationAlgorithms/TensorAxes)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes of the stress tensor.
 [TensorEllipsoids](/Cxx/VisualizationAlgorithms/TensorEllipsoids)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes as tensor ellipsoids representing the stress tensor.
 [TensorGlyph](/Cxx/Visualization/TensorGlyph)| vtkTensorGlyph | Draw a rotated/scaled glyph at each point.
