@@ -42,6 +42,9 @@ set(NEEDS_ARGS
   MarchingCases
   MarchingCasesA
   MarchingCasesB
+  PineRootConnectivity
+  PineRootConnectivityA
+  PineRootDecimation
   PlateVibration
   ProbeCombustor
   OfficeTube
@@ -124,6 +127,15 @@ add_test(${KIT}-ProbeCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-OfficeTube ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestOfficeTube ${DATA}/office.binary.vtk)
+
+add_test(${KIT}-PineRootConnectivity ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPineRootConnectivity ${DATA}/pine_root.tri)
+
+add_test(${KIT}-PineRootConnectivityA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPineRootConnectivityA ${DATA}/pine_root.tri 1)
+
+add_test(${KIT}-PineRootDecimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPineRootDecimation ${DATA}/pine_root.tri)
 
 add_test(${KIT}-SpikeFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSpikeFran ${DATA}/fran_cut.vtk)
