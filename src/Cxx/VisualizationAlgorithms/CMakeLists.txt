@@ -39,6 +39,7 @@ set(NEEDS_ARGS
   Hello
   IronIsoSurface
   LOx
+  Motor
   MarchingCases
   MarchingCasesA
   MarchingCasesB
@@ -115,6 +116,9 @@ add_test(${KIT}-MarchingCasesA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-MarchingCasesB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingCasesB -3 -6 -7 -10 -12 -13)
+
+add_test(${KIT}-Motor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMotor ${DATA}/texThres2.vtk ${DATA}/motor.g)
 
 add_test(${KIT}-PlateVibration ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestPlateVibration ${DATA}/plate.vtk)
