@@ -134,7 +134,7 @@ Figure 9-47 | | Using random point seeds to create streamlines (office.tcl)
 [Figure 9-50](/Cxx/Modelling/Finance) | vtkGaussianSplatter | Visualization of multidimensional financial data. ([finance.cxx](https://gitlab.kitware.com/vtk/vtk/blob/11573614c25c14167206d5d26097fbd65c147d40/Examples/Modelling/Cxx/finance.cxx)). The gray/wireframe surface represents the total data population. The dark surface represents data points delinquent on loan payment.
 Figure 9-51 | | Applying connectivity filter to remove noisy isosurfaces (connPineRoot.tcl). Data is from 256 3 volume data of the root system of a pine tree.
 Figure 9-52 | | Applying connectivity and decimation filters to remove noisy isosurfaces and reduce data size (deciPineRoot.tcl). Data is from 256 3 volume data of the root system of a pine tree.
-Figure 9-53 | | Texture cut used to reveal internal structure of a motor. Two cut planes are used in combination with transparent texture (motor.tcl). 
+[Figure 9-53](/Cxx/VisualizationAlgorithms/Motor) | vtkBYUReader vtkStructuredPointsReader vtkTexture vtkImplicitTextureCoords | Texture cut used to reveal internal structure of a motor. Two cut planes are used in combination with transparent texture ([motor.tcl](https://gitlab.kitware.com/vtk/vtk/blob//IO/Geometry/Testing/Tcl/motor.tcl)).
 Figure 9-54 | | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes (DelMesh.tcl) . Only the pipeline to generate triangulation is shown.
 
 ## Chapter 10 - Image Processing
