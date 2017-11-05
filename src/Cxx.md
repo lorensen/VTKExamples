@@ -415,6 +415,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [Decimation](/Cxx/Meshes/Decimation) | vtkDecimatePro | Reduce the number of triangles in a mesh.
 [DeformPointSet](/Cxx/Meshes/DeformPointSet) | vtkDeformPointSet | Deform a point set with a control polyhedra.
 [DijkstraGraphGeodesicPath](/Cxx/PolyData/DijkstraGraphGeodesicPath) | vtkDijkstraGraphGeodesicPath |Find the shortest path between two points on a mesh.
+[DelaunayMesh](/Cxx/Modelling/DelaunayMesh)| vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
 [ElevationFilter](/Cxx/Meshes/ElevationFilter) | vtkElevationFilter |Color a mesh by height.
 [ExtractEdges](/Cxx/Meshes/ExtractEdges) | vtkExtractEdges |
 [FillHoles](/Cxx/Meshes/FillHoles) | vtkFillHolesFilter | Close holes in a mesh.
@@ -535,7 +536,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [Delaunay3D](/Cxx/Modelling/Delaunay3D) | vtkDelaunay3D | Create a solid mesh from Unorganized Points.
-[Delaunay3DDemo](/Cxx/Modelling/Delaunay3DDemo) | vtkDelaunay3DDemo | Interactively adjust Alpha for Delaunay3D.
+[Delaunay3DDemo](/Cxx/Modelling/Delaunay3DDemo) | vtkDelaunay3D | Interactively adjust Alpha for Delaunay3D.
 [ExtractSurfaceDemo](/Cxx/Points/ExtractSurfaceDemo) | vtkExtractSurface vtkPCANormalEstimation vtkSignedDistance |Create a surface from Unorganized Points using Point filters (DEMO).
 [ExtractSurface](/Cxx/Points/ExtractSurface) | vtkExtractSurface vtkPCANormalEstimation vtkSignedDistance |Create a surface from Unorganized Points using Point filters.
 [GaussianSplat](/Cxx/Filtering/GaussianSplat) | vtkGaussianSplatter |Create a surface from Unorganized Points (Gaussian Splat).
