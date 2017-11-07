@@ -64,7 +64,7 @@ set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 if(Powercrust_LOADED AND PoissonReconstruction_LOADED)
   add_test(${KIT}-CompareExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestCompareExtractSurface ${DATA}/horsePoints.vtp)
+     TestCompareExtractSurface ${DATA}/horsePoints.vtp -E 40)
 endif()
 
 add_test(${KIT}-ExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

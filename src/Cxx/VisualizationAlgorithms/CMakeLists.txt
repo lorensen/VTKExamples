@@ -121,7 +121,7 @@ add_test(${KIT}-Motor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMotor ${DATA}/texThres2.vtk ${DATA}/motor.g)
 
 add_test(${KIT}-PlateVibration ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestPlateVibration ${DATA}/plate.vtk)
+  TestPlateVibration ${DATA}/plate.vtk -E 30)
 
 add_test(${KIT}-ProbeCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestProbeCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin -E 50)
@@ -136,7 +136,7 @@ add_test(${KIT}-SplatFace ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSplatFace ${DATA}/fran_cut.vtk -E 50)
 
 add_test(${KIT}-StreamlinesWithLineWidget ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestStreamlinesWithLineWidget ${DATA}/combxyz.bin ${DATA}/combq.bin 10 1)
+  TestStreamlinesWithLineWidget ${DATA}/combxyz.bin ${DATA}/combq.bin 10 1 -E 20)
 
 add_test(${KIT}-VelocityProfile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestVelocityProfile ${DATA}/combxyz.bin ${DATA}/combq.bin)
