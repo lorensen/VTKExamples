@@ -814,6 +814,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| vtkTextureMapToPlane |Texture map a plane.
 [TextureMapQuad](/Cxx/Visualization/TextureMapQuad)| vtkPolygon vtkPolyData |Texture map a quad.
 [TexturedSphere](/Cxx/Texture/TexturedSphere)| vtkTextureMapToSphere | Texture a sphere.
+[TextureThreshold](/Cxx/Texture/TextureThreshold)| vtkTexture vtkThresholdTextureCoords vtkStructuredGridGeometryFilter | Demonstrate the use of scalar thresholds to show values of flow density on three planes.
 
 ## Visualization
 See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a brief explanation of the VTK terminology of mappers, actors, etc.
