@@ -1,5 +1,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkQuantizePolyDataPoints.h>
+
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
 #include <vtkPointSource.h>
@@ -9,12 +10,15 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkXMLPolyDataReader.h>
+#include <vtkSphereSource.h>
+#include <vtkGlyph3DMapper.h>
+#include <vtkCamera.h>
 
 int main(int, char *[])
 {
   vtkSmartPointer<vtkPointSource> pointSource =
     vtkSmartPointer<vtkPointSource>::New();
-  pointSource->SetNumberOfPoints(10);
+  pointSource->SetNumberOfPoints(100);
   pointSource->Update();
 
   std::cout << "There are " << pointSource->GetNumberOfPoints()
@@ -43,16 +47,29 @@ int main(int, char *[])
               << ")" << std::endl;
   }
 
-  vtkSmartPointer<vtkPolyDataMapper> inputMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  double radius = .02;
+  vtkSmartPointer<vtkSphereSource> sphereSource =
+    vtkSmartPointer<vtkSphereSource>::New();
+  sphereSource->SetRadius(radius);
+
+  vtkSmartPointer<vtkGlyph3DMapper> inputMapper =
+    vtkSmartPointer<vtkGlyph3DMapper>::New();
   inputMapper->SetInputConnection(pointSource->GetOutputPort());
+  inputMapper->SetSourceConnection(sphereSource->GetOutputPort());
+  inputMapper->ScalarVisibilityOff();
+  inputMapper->ScalingOff();
+
   vtkSmartPointer<vtkActor> inputActor =
     vtkSmartPointer<vtkActor>::New();
   inputActor->SetMapper(inputMapper);
 
-  vtkSmartPointer<vtkPolyDataMapper> quantizedMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  vtkSmartPointer<vtkGlyph3DMapper> quantizedMapper =
+    vtkSmartPointer<vtkGlyph3DMapper>::New();
   quantizedMapper->SetInputConnection(quantizeFilter->GetOutputPort());
+  quantizedMapper->SetSourceConnection(sphereSource->GetOutputPort());
+  quantizedMapper->ScalarVisibilityOff();
+  quantizedMapper->ScalingOff();
+
   vtkSmartPointer<vtkActor> quantizedActor =
     vtkSmartPointer<vtkActor>::New();
   quantizedActor->SetMapper(quantizedMapper);
@@ -60,7 +77,7 @@ int main(int, char *[])
   // There will be one render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
-  renderWindow->SetSize(600, 300);
+  renderWindow->SetSize(640, 360);
 
   // And one interactor
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
@@ -91,7 +108,7 @@ int main(int, char *[])
 
   leftRenderer->ResetCamera();
 
-  rightRenderer->ResetCamera();
+  rightRenderer->SetActiveCamera(leftRenderer->GetActiveCamera());
 
   renderWindow->Render();
   interactor->Start();
