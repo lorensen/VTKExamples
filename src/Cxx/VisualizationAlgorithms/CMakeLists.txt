@@ -45,6 +45,8 @@ set(NEEDS_ARGS
   MarchingCasesB
   PlateVibration
   ProbeCombustor
+  Office
+  OfficeA
   OfficeTube
   SpikeFran
   SplatFace
@@ -125,6 +127,12 @@ add_test(${KIT}-PlateVibration ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-ProbeCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestProbeCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin -E 50)
+
+add_test(${KIT}-Office ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestOffice ${DATA}/office.binary.vtk)
+
+add_test(${KIT}-OfficeA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestOfficeA ${DATA}/office.binary.vtk 0)
 
 add_test(${KIT}-OfficeTube ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestOfficeTube ${DATA}/office.binary.vtk)
