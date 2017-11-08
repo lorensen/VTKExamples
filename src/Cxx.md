@@ -563,7 +563,8 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [Delaunay2D](/Cxx/Filtering/Delaunay2D) | vtkDelaunay2D | Perform a 2D Delaunay triangulation on a point set.
 [DetermineActorType](/Cxx/Utilities/DetermineActorType) | vtkActor vtkActorCollection |Determine the type of an actor.
 [DiscretizableColorTransferFunction](/Cxx/Utilities/DiscretizableColorTransferFunction) | vtkDiscretizableColorTransferFunction |Discretizable Color Transfer Function.
-[FileOutputWindow](/Cxx/Utilities/FileOutputWindow) | vtkFileOutputWindow | Write errors to a log file instead of the screen.
+[ExtractFaces](/Cxx/Utilities/ExtractFaces) | vtkCellIterator | Extract faces from vtkUnstructuredGrid.
+[FileOutputWindow](/Cxx/Utilities/FileOutputWindow) | vtkFileOutputWindow | Write errors to a log file  instead of the screen.
 [FilenameFunctions](/Cxx/Utilities/FilenameFunctions) | vtkDirectory vtksys/SystemTools | Do things like get the file extension, strip the file extension, etc.
 [FilterSelfProgress](/Cxx/Developers/FilterSelfProgress) |  |Monitor a filters progress.
 [FrameRate](/Cxx/Utilities/FrameRate) | | Get the frame rate of the rendering.
