@@ -27,6 +27,7 @@ set(NEEDS_ARGS
   ProjectedTexture
   TextureCutSphere
   TexturedSphere
+  TextureThreshold
 )
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
@@ -40,6 +41,9 @@ add_test(${KIT}-TextureCutSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 
 add_test(${KIT}-TexturedSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTexturedSphere ${DATA}/earth.ppm)
+
+add_test(${KIT}-TextureThreshold ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestTextureThreshold ${DATA}/bluntfinxyz.bin ${DATA}/bluntfinq.bin ${DATA}/texThres2.vtk)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
