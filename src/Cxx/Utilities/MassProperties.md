@@ -1,5 +1,5 @@
 ### Description
-This example uses vtkMassProperties to compute the volume of a closed mesh. vtkMassProperties requires triangles with consistent ordering. This example uses vtkFillHolesFilter and vtkTriangles to ensure a closed, triangulated mesh.
+This example uses vtkMassProperties to compute the volume of a closed mesh. vtkMassProperties requires triangles with consistent ordering. This example uses vtkFillHolesFilter and vtkTriangleFilter to ensure a closed, triangulated mesh. vtkPolyDataNormals enforces consistent normals.
 
 If run with no arguments, a vtkSphereSource generates the vtkPolyData. Of given a file containing vtkPolyData, it computes that data's volume and surface area.
 
