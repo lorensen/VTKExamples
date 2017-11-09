@@ -8,6 +8,10 @@ import vtk
 def main():
     file_name, color_scheme = get_program_parameters()
 
+    color_scheme = abs(color_scheme)
+    if color_scheme > 2:
+        color_scheme = 0
+
     colors = vtk.vtkNamedColors()
 
     # Read a vtk file

@@ -7,6 +7,9 @@ import vtk
 
 def main():
     file_name, figure = get_program_parameters()
+    figure = abs(figure)
+    if figure > 2:
+        figure = 0
 
     colors = vtk.vtkNamedColors()
     # Set the background color. Match those in VTKTextbook.pdf.
@@ -111,7 +114,7 @@ def get_program_parameters():
         EraseOff() has to be called after a Render() call
          to work in the desired way.
     5) Then rotate or Walk the object around the scene.
-    6) Write out the scene using Screenshot().
+    6) Optionally write out the scene using Screenshot().
     6) Set EraseOff() in the render window.
     7) Reset the object position.
 
@@ -142,7 +145,7 @@ def Rotate_X(cowActor, ren, renWin):
         cowActor.RotateX(60)
         renWin.Render()
         renWin.Render()
-    Screenshot("Fig3-31a.png", renWin)
+    # Screenshot("Fig3-31a.png", renWin)
     renWin.EraseOn()
 
 
@@ -170,7 +173,7 @@ def Rotate_Y(cowActor, ren, renWin):
         cowActor.RotateY(60)
         renWin.Render()
         renWin.Render()
-    Screenshot("Fig3-31b.png", renWin)
+    # Screenshot("Fig3-31b.png", renWin)
     renWin.EraseOn()
 
 
@@ -199,7 +202,7 @@ def Rotate_Z(cowActor, ren, renWin):
         cowActor.RotateZ(60)
         renWin.Render()
         renWin.Render()
-    Screenshot("Fig3-31c.png", renWin)
+    # Screenshot("Fig3-31c.png", renWin)
     renWin.EraseOn()
 
 
@@ -230,7 +233,7 @@ def Rotate_XY(cowActor, ren, renWin):
         renWin.Render()
         renWin.Render()
     cowActor.RotateX(-60)
-    Screenshot("Fig3-31d.png", renWin)
+    # Screenshot("Fig3-31d.png", renWin)
     renWin.EraseOn()
 
 
@@ -264,7 +267,7 @@ def Rotate_V_0(cowActor, ren, renWin):
         cowActor.RotateWXYZ(60, 2.19574, -1.42455, -0.0331036)
         renWin.Render()
         renWin.Render()
-    Screenshot("Fig3-33a.png", renWin)
+    # Screenshot("Fig3-33a.png", renWin)
     renWin.EraseOn()
     # Put the cow back on the origin.
     # for idx in range(0, 6):
@@ -306,7 +309,7 @@ def Rotate_V_V(cowActor, ren, renWin):
         cowActor.RotateWXYZ(60, 2.19574, -1.42455, -0.0331036)
         renWin.Render()
         renWin.Render()
-    Screenshot("Fig3-33b.png", renWin)
+    # Screenshot("Fig3-33b.png", renWin)
     renWin.EraseOn()
     # Put the cow back on the origin.
     # for idx in range(0, 6):
@@ -345,7 +348,7 @@ def Walk(cowActor, ren, renWin):
         cowActor.SetUserMatrix(cowTransform.GetMatrix())
         renWin.Render()
         renWin.Render()
-    Screenshot("Fig3-32.png", renWin)
+    # Screenshot("Fig3-32.png", renWin)
     renWin.EraseOn()
     # Walkies are over, put the cow back on the origin.
     # cowActor.SetUserMatrix(cowPos.GetMatrix())
