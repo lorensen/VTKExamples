@@ -563,7 +563,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [Delaunay2D](/Cxx/Filtering/Delaunay2D) | vtkDelaunay2D | Perform a 2D Delaunay triangulation on a point set.
 [DetermineActorType](/Cxx/Utilities/DetermineActorType) | vtkActor vtkActorCollection |Determine the type of an actor.
 [DiscretizableColorTransferFunction](/Cxx/Utilities/DiscretizableColorTransferFunction) | vtkDiscretizableColorTransferFunction |Discretizable Color Transfer Function.
-[ExtractFaces](/Cxx/Utilities/ExtractFaces) | vtkCellIterator | Extract faces from vtkUnstructuredGrid.
+[ExtractFaces](/Cxx/Utilities/ExtractFaces) | vtkCellIterator | Extract faces froam vtkUnstructuredGrid.
 [FileOutputWindow](/Cxx/Utilities/FileOutputWindow) | vtkFileOutputWindow | Write errors to a log file  instead of the screen.
 [FilenameFunctions](/Cxx/Utilities/FilenameFunctions) | vtkDirectory vtksys/SystemTools | Do things like get the file extension, strip the file extension, etc.
 [FilterSelfProgress](/Cxx/Developers/FilterSelfProgress) |  |Monitor a filters progress.
@@ -573,6 +573,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [GetClassName](/Cxx/Utilities/GetClassName) | GetClassName() |Determine the type of a VTK variable.
 [GetDataRoot](/Cxx/Utilities/GetDataRoot) | vtkTesting | Find the path of VTK_DATA_ROOT.
 [LUTUtilities](/Cxx/Utilities/LUTUtilities) | vtkLookupTable vtkColorSeries | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.
+[MassProperties](/Cxx/Utilities/MassProperties) | vtkMassProperties | Compute volume and surface area of a closed, triangulated mesh.
 [MultipleRenderWindows](/Cxx/Visualization/MultipleRenderWindows) | vtkRenderWindow | Multiple Render Windows
 [MultipleViewports](/Cxx/Visualization/MultipleViewports) | vtkRenderer::SetViewPort |Multiple Viewports.
 [OffScreenRendering](/Cxx/Utilities/OffScreenRendering) | vtkImagingFactory vtkGraphicsFactory |Off Screen Rendering.
