@@ -129,10 +129,10 @@ add_test(${KIT}-ProbeCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestProbeCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin -E 50)
 
 add_test(${KIT}-Office ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestOffice ${DATA}/office.binary.vtk)
+  TestOffice ${DATA}/office.binary.vtk 3 -E 80)
 
 add_test(${KIT}-OfficeA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestOfficeA ${DATA}/office.binary.vtk 0)
+  TestOfficeA ${DATA}/office.binary.vtk 0 -E 50)
 
 add_test(${KIT}-OfficeTube ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestOfficeTube ${DATA}/office.binary.vtk)
