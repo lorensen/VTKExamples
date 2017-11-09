@@ -54,7 +54,8 @@ int main(int argc, char* argv[])
 
   if (argc == 3)
   {
-    colorScheme = atoi(argv[2]);
+    colorScheme = std::abs(atoi(argv[2]));
+    colorScheme = (colorScheme > 2) ? 0 : colorScheme;
   }
 
   vtkSmartPointer<vtkNamedColors> colors =

@@ -32,8 +32,8 @@ yellow-white (mountain top).
 #include <vtkSmartPointer.h>
 
 #include <algorithm>
+#include <array>
 #include <string>
-#include <vector>
 
 namespace
 {
@@ -46,11 +46,6 @@ void MakeLUT(int const& colorScheme, vtkLookupTable* lut);
 
 int main(int argc, char* argv[])
 {
-  auto Scale = [](std::vector<double>& v, double scale) {
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scale; });
-    return;
-  };
 
   if (argc < 2)
   {
@@ -65,15 +60,24 @@ int main(int argc, char* argv[])
 
   if (argc == 3)
   {
-    colorScheme = atoi(argv[2]);
+    colorScheme = std::abs(atoi(argv[2]));
+    colorScheme = (colorScheme > 2) ? 0 : colorScheme;
   }
+
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
+
   // Set the background color. Match those in VTKTextbook.pdf.
-  auto scale = 256.0;
-  std::vector<double> bkg = {25, 51, 102};
-  Scale(bkg, scale);
-  colors->SetColor("BkgColor", bkg[0], bkg[1], bkg[2]);
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{25, 51, 102};
+  SetColor(bkg, "BkgColor");
 
   // Read a vtk file
   //
@@ -119,7 +123,7 @@ int main(int argc, char* argv[])
   //
   ren->AddActor(hawaiiActor);
   // Match the window shape to the object->
-  //renWin->SetSize(500, int(500 * bounds[1] / bounds[3]));
+  // renWin->SetSize(500, int(500 * bounds[1] / bounds[3]));
   renWin->SetSize(500, 500);
 
   // Render the image.

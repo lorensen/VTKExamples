@@ -18,7 +18,7 @@
 #include <vtkWindowToImageFilter.h>
 
 #include <algorithm>
-#include <vector>
+#include <array>
 
 namespace
 {
@@ -81,18 +81,26 @@ int main(int argc, char* argv[])
   std::string fileName = argv[1];
   if (argc == 3)
   {
-    figure = atoi(argv[2]);
+    figure = std::abs(atoi(argv[2]));
+    figure = (figure > 2) ? 0 : figure;
   }
+
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
+
   // Set the background color. Match those in VTKTextbook.pdf.
-  auto scale = 256.0;
-  std::vector<double> bkg1 = {60, 93, 144};
-  std::vector<double> bkg2 = {25, 51, 102};
-  Scale(bkg1, scale);
-  colors->SetColor("BkgColor1", bkg1[0], bkg1[1], bkg1[2]);
-  Scale(bkg2, scale);
-  colors->SetColor("BkgColor2", bkg2[0], bkg2[1], bkg2[2]);
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg1{60, 93, 144};
+  SetColor(bkg1, "BkgColor1");
+  std::array<double, 3> bkg2{25, 51, 102};
+  SetColor(bkg2, "BkgColor2");
 
   vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renWin =
