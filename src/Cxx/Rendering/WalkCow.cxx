@@ -63,12 +63,6 @@ void Screenshot(std::string fileName, vtkRenderWindow* renWin);
 
 int main(int argc, char* argv[])
 {
-  auto Scale = [](std::vector<double>& v, double scale) {
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scale; });
-    return;
-  };
-
   int figure = 0;
   if (argc < 2)
   {
