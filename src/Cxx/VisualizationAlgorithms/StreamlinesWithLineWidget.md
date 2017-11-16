@@ -14,4 +14,4 @@ If the fourth parameter is non-zero, it is used to generate an image with stream
  
 In the C++ version, note how we handle callbacks by first implementing a class, then instantiating it and then passing references to the needed variables to it. Finally we add it as an observer.
 
-For the Python version the process is slightly different. We simply define a function with references to the needed variables from the outer scope (or they could be global). Finally add it as an observer.
+For the Python version we define a class passing the needed variables in the `__init__` function and then implementing a `_call__` function that does the work.

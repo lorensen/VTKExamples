@@ -3,14 +3,16 @@
 """
 Demonstrate the use of a callback.
 
-We define the callback as the function: GetOrientation(obj, ev) in this case,
- and then add new attributes to it, for example, the camera.
+We also add call data.
 """
 
 import vtk
 
 
 def main():
+    #  Decide what approach to use.
+    use_function_callback = True
+
     colors = vtk.vtkNamedColors()
 
     # Create the Renderer, RenderWindow and RenderWindowInteractor.
@@ -77,37 +79,55 @@ def main():
     om1.InteractiveOn()
 
     # Set up the callback.
-    # We are going to output the camera position when the event is triggered
-    #  so we add the active camera as an attribute.
-    GetOrientation.cam = ren.GetActiveCamera()
+    if use_function_callback:
+         # We are going to output the camera position when the event is triggered
+        #  so we add the active camera as an attribute.
+        GetOrientation.cam = ren.GetActiveCamera()
+        # Register the callback with the object that is observing.
+        iren.AddObserver('EndInteractionEvent', GetOrientation)
+    else:
+        iren.AddObserver('EndInteractionEvent', OrientationObserver(ren.GetActiveCamera()))
+        # Or:
+        # observer = OrientationObserver(ren.GetActiveCamera())
+        # iren.AddObserver('EndInteractionEvent', observer)
 
-    # Register the callback with the object that is observing.
-    iren.AddObserver('EndInteractionEvent', GetOrientation)
     iren.Initialize()
     iren.Start()
 
 
 def GetOrientation(caller, ev):
     """
-     Print out the orientation.
+    Print out the orientation.
+
+    We must do this before we register the callback in the calling function.
+        GetOrientation.cam = ren.GetActiveCamera()
+
     :param caller:
     :param ev: The event.
     :return:
     """
     # Just do this to demonstrate who called callback and the event that triggered it.
     print(caller.GetClassName(), "Event Id:", ev)
-
-    # We must do this before we register the callback in the calling function.
-    # GetOrientation.cam = ren.GetActiveCamera()
-
     # Now print the camera orientation.
-    fmt1 = "{:>15s}"
-    fmt2 = "{:9.6g}"
-    print(fmt1.format("Position:"), ', '.join(map(fmt2.format, GetOrientation.cam.GetPosition())))
-    print(fmt1.format("Focal point:"), ', '.join(map(fmt2.format, GetOrientation.cam.GetFocalPoint())))
-    print(fmt1.format("Clipping range:"), ', '.join(map(fmt2.format, GetOrientation.cam.GetClippingRange())))
-    print(fmt1.format("View up:"), ', '.join(map(fmt2.format, GetOrientation.cam.GetViewUp())))
-    print(fmt1.format("Distance:"), fmt2.format(GetOrientation.cam.GetDistance()))
+    CameraOrientation(GetOrientation.cam)
+
+class OrientationObserver(object):
+    def __init__(self, cam):
+        self.cam = cam
+    def __call__(self, caller, ev):
+        # Just do this to demonstrate who called callback and the event that triggered it.
+        print(caller.GetClassName(), "Event Id:", ev)
+        # Now print the camera orientation.
+        CameraOrientation(self.cam)
+
+def CameraOrientation(cam):
+        fmt1 = "{:>15s}"
+        fmt2 = "{:9.6g}"
+        print(fmt1.format("Position:"), ', '.join(map(fmt2.format, cam.GetPosition())))
+        print(fmt1.format("Focal point:"), ', '.join(map(fmt2.format, cam.GetFocalPoint())))
+        print(fmt1.format("Clipping range:"), ', '.join(map(fmt2.format, cam.GetClippingRange())))
+        print(fmt1.format("View up:"), ', '.join(map(fmt2.format, cam.GetViewUp())))
+        print(fmt1.format("Distance:"), fmt2.format(cam.GetDistance()))
 
 
 def MakeAxesActor():
