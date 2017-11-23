@@ -168,6 +168,6 @@ Figure 12-10 | | Two views from the stock visualization script. The top shows cl
 Figure 12-14 | | Portion of computational grid for the LOx post (LOxGrid.tcl).
 [Figure 12-16](/Cxx/VisualizationAlgorithms/LOx) | vtkStreamTracer vtkTubeFilter | Streamtubes created by using the computational grid just in front of the post as a source for seeds ([LOx.tcl](https://gitlab.kitware.com/vtk/vtk/blob/ea6f91948c13ee930b181a2aaf5d6431ebe30eb1/graphics/examplesTcl/LOx.tcl)).
 Figure 12-17 | | Ten frames from a blow molding finite element analysis. Mold halves (shown in wireframe) are closed around a parison as the parison is inflated. Coloring indicates thickness—red areas are thinner than blue (blow.tcl)
-[Figure 12-20(a)](/Cxx/Visualization/HanoiInitial) | | Towers of Hanoi. (a) Initial configuration.
-[Figure 12-20(b)](/Cxx/Visualization/HanoiIntermediate) | | Towers of Hanoi. (b) Intermediate configuration.
-[Figure 12-20(c)](/Cxx/Visualization/Hanoi) | | Towers of Hanoi. (c) Final configuration [Hanoi.cxx](http://www.new-npac.org/projects/sv2all/sv2/vtk/graphics/examplesCxx/Hanoi.cxx).
+[Figure 12-20a](/Cxx/Visualization/HanoiInitial) | | Towers of Hanoi. (a) Initial configuration.
+[Figure 12-20b](/Cxx/Visualization/HanoiIntermediate) | | Towers of Hanoi. (b) Intermediate configuration.
+[Figure 12-20c](/Cxx/Visualization/Hanoi) | | Towers of Hanoi. (c) Final configuration [Hanoi.cxx](http://www.new-npac.org/projects/sv2all/sv2/vtk/graphics/examplesCxx/Hanoi.cxx).
