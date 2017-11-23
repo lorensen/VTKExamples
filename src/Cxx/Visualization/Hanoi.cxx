@@ -13,6 +13,8 @@ Usage:
        -c controls output of the program.
 */
 
+#include <vtkVersion.h>
+
 #include <vtkActor.h>
 #include <vtkCallbackCommand.h>
 #include <vtkCamera.h>
