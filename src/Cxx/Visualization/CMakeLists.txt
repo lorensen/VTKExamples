@@ -63,6 +63,8 @@ set(NEEDS_ARGS
   FontFile
   Glyph3DImage
   Glyph3DMapper
+  HanoiInitial
+  HanoiIntermediate
   Hawaii
   HedgeHog
   Kitchen
@@ -132,6 +134,12 @@ add_test(${KIT}-Glyph3DImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-Glyph3DMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGlyph3DMapper -E 40)
+
+add_test(${KIT}-HanoiInitial ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestHanoiInitial -c 1)
+
+add_test(${KIT}-HanoiIntermediate ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestHanoiIntermediate -c 2)
 
 add_test(${KIT}-Hawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHawaii ${DATA}/honolulu.vtk)
