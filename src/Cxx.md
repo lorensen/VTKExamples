@@ -871,6 +871,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Glyph3D](/Cxx/Filtering/Glyph3D) | vtkGlyph3D|
 [Glyph3DImage](/Cxx/Visualization/Glyph3DImage)| vtkGlyph3DMapper | Glyph the points in a vtkImageData.
 [Glyph3DMapper](/Cxx/Visualization/Glyph3DMapper)| vtkGlyph3DMapper |
+[Hanoi](/Cxx/Visualization/Hanoi)|  | Towers of Hanoi.
 [Hawaii](/Cxx/Visualization/Hawaii)| vtkElevationFilter vtkColorSeries vtkLookupTable | Visualize elevations by coloring the scalar values with a lookup table.
 [HedgeHog](/Cxx/Visualization/HedgeHog)| vtkHedgeHog vtkStructuredGrid |Create oriented lines (hedgehogs) from vector data.
 [HideActor](/Cxx/Visualization/HideActor)| vtkPropCollection vtkProp | visible
