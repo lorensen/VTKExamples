@@ -175,25 +175,25 @@ int main(int argc, char* argv[])
   // Initialize variables and check input.
   if (numberOfPucks < 2)
   {
-    cerr << "Please use more pucks!\n";
+    std::cerr << "Please use more pucks!\n";
     return EXIT_FAILURE;
   }
 
   if (numberOfPucks > maxPucks)
   {
-    cerr << "Too many pucks specified! Maximum is " << maxPucks << "\n";
+    std::cerr << "Too many pucks specified! Maximum is " << maxPucks << "\n";
     return EXIT_FAILURE;
   }
 
   if (numberOfSteps < 3)
   {
-    cerr << "Please use more steps!\n";
+    std::cerr << "Please use more steps!\n";
     return EXIT_FAILURE;
   }
 
   if (configuration > 3)
   {
-    cerr << "0>= configuration <= 3\n";
+    std::cerr << "0>= configuration <= 3\n";
     return EXIT_FAILURE;
   }
 
