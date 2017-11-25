@@ -135,6 +135,7 @@ These are fully independent, compilable examples. There is significant overlap i
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[ImageWriter](/Cxx/IO/ImageWriter) | vtkBMPWriter vtkJPEGWriter vtkPNMWriter vtkPostScriptWriter vtkTIFFWriter vtkPNGWriter vtkWindowToImageFilter | Write an imagefile based on the file extension.
 [JPEGWriter](/Cxx/IO/JPEGWriter)   | vtkJPEGWriter |Write a JPEG (.jpg) file.
 [MetaImageWriter](/Cxx/IO/MetaImageWriter)   | vtkMetaImageWriter |Write a .mha/.mhd + .raw file.
 [PNGWriter](/Cxx/IO/PNGWriter)   | vtkPNGWriter |Write a PNG (.png) file.

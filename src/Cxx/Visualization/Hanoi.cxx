@@ -13,13 +13,10 @@ Usage:
        -c controls output of the program.
 */
 
-#include <vtkVersion.h>
-
 #include <vtkActor.h>
 #include <vtkCallbackCommand.h>
 #include <vtkCamera.h>
 #include <vtkCylinderSource.h>
-#include <vtkLight.h>
 #include <vtkMath.h>
 #include <vtkMinimalStandardRandomSequence.h>
 #include <vtkNamedColors.h>
@@ -33,6 +30,7 @@ Usage:
 #include <vtkRendererCollection.h>
 #include <vtkSmartPointer.h>
 #include <vtkWindowToImageFilter.h>
+#include <vtkVersion.h>
 
 #include <algorithm>
 #include <array>
@@ -212,8 +210,6 @@ int main(int argc, char* argv[])
 
   ren->SetBackground(colors->GetColor3d("PapayaWhip").GetData());
 
-  vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
-
   vtkSmartPointer<vtkCamera> camera = vtkSmartPointer<vtkCamera>::New();
   camera->SetPosition(41.0433, 27.9637, 30.442);
   camera->SetFocalPoint(11.5603, -1.51931, 0.95899);
@@ -280,7 +276,7 @@ int main(int argc, char* argv[])
   {
     puck.push_back(vtkSmartPointer<vtkActor>::New());
     puck[i]->SetMapper(puckMapper);
-    std::array<double, 3> color = {0, 0, 0};
+    std::array<double, 3> color{{0, 0, 0}};
     for (auto j = 0; j < 3; ++j)
     {
       color[j] = randomSequence->GetValue();
