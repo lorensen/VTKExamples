@@ -29,8 +29,8 @@ Usage:
 #include <vtkRenderer.h>
 #include <vtkRendererCollection.h>
 #include <vtkSmartPointer.h>
-#include <vtkWindowToImageFilter.h>
 #include <vtkVersion.h>
+#include <vtkWindowToImageFilter.h>
 
 #include <algorithm>
 #include <array>
@@ -86,7 +86,12 @@ private:
 std::vector<std::string>::iterator FindParameter(std::string const& p,
                                                  std::vector<std::string>& v);
 
-// This routine is responsible for moving pucks from one peg to the next.
+/**
+ * This routine is responsible for moving pucks from peg1 to peg2.
+ *
+ * @param peg1 Initial peg.
+ * @param peg2 Final peg.
+ */
 void MovePuck(int peg1, int peg2);
 
 /**
@@ -95,7 +100,7 @@ void MovePuck(int peg1, int peg2);
 * @param n Number of disks.
 * @param peg1 Source.
 * @param peg2 Target.
-* @param peg3 Number of disks.
+* @param peg3 Helper.
 
 */
 void Hanoi(int n, int peg1, int peg2, int peg3);
@@ -267,7 +272,6 @@ int main(int argc, char* argv[])
   }
 
   // The pucks (using cylinder geometry). Always loaded on peg# 0.
-  auto scale = 0.0;
   std::vector<vtkSmartPointer<vtkActor>> puck;
   vtkSmartPointer<vtkMinimalStandardRandomSequence> randomSequence =
     vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
@@ -284,7 +288,7 @@ int main(int argc, char* argv[])
     }
     puck[i]->GetProperty()->SetColor(color.data());
     puck[i]->AddPosition(0, i * L + L / 2, 0);
-    scale = rMax - i * (rMax - rMin) / (numberOfPucks - 1);
+    auto scale = rMax - i * (rMax - rMin) / (numberOfPucks - 1);
     puck[i]->SetScale(scale, 1, scale);
     ren->AddActor(puck[i]);
     pegStack[0].push(puck[i]);

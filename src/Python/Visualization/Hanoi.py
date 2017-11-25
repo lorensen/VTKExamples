@@ -36,7 +36,7 @@ class GV(object):
 gv = GV()
 renWin = vtk.vtkRenderWindow()
 """
-   For the pegStack we use a list of lists where the sublists correspond to the
+   For pegStack we use a list of lists where the sublists correspond to the
       source, target and helper pegs.
    Python lists can be used as a stack since they have append() (corresponding
       to push()) and pop().
@@ -205,9 +205,9 @@ def verify_parameters(maxPucks):
 
 def MovePuck(peg1, peg2):
     """
-    This routine is responsible for moving pucks from one peg to the next.
-    :param peg1: First peg.
-    :param peg2: Next peg.
+    This routine is responsible for moving pucks from peg1 to peg2.
+    :param peg1: Initial peg.
+    :param peg2: Final peg.
     :return:
     """
     gv.numberOfMoves += 1
