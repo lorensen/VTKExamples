@@ -1,10 +1,52 @@
-### Description
-Given a filename, render window and optionally a rgba value, take a screenshot of the render window and write it to a file. The extension of the filename determines what writer to use.
+#!/usr/bin/env python
 
-To use the snippet, click the *Copy to clipboard* at the upper left of the code blocks.
+import vtk
 
-### Implementation
-```python
+
+def main():
+    colors = vtk.vtkNamedColors()
+    # Set the background color. Match those in VTKTextbook.pdf.
+    bkg = map(lambda x: x / 256.0, [25, 51, 102])
+    colors.SetColor("BkgColor", *bkg)
+
+    # create a rendering window and renderer
+    ren = vtk.vtkRenderer()
+    renWin = vtk.vtkRenderWindow()
+    renWin.AddRenderer(ren)
+
+    # create a renderwindowinteractor
+    iren = vtk.vtkRenderWindowInteractor()
+    iren.SetRenderWindow(renWin)
+
+    # create source
+    source = vtk.vtkSphereSource()
+    source.SetCenter(0, 0, 0)
+    source.SetRadius(5.0)
+
+    # mapper
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(source.GetOutputPort())
+
+    # actor
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+
+    # color the actor
+    actor.GetProperty().SetColor(colors.GetColor3d("Yellow"))
+
+    # assign actor to the renderer
+    ren.AddActor(actor)
+    ren.SetBackground(colors.GetColor3d("BkgColor"))
+
+    renWin.Render()
+    ext = ['', '.png', '.jpg', '.ps', '.tiff', '.bmp', '.pnm']
+    filenames = list(map(lambda x: 'ImageWriter' + x, ext))
+    filenames[0] = filenames[0] + '1'
+    for f in filenames:
+        WriteImage(f, renWin, rgba=False)
+
+    iren.Initialize()
+    iren.Start()
 
 
 def WriteImage(fileName, renWin, rgba=True):
@@ -63,12 +105,5 @@ def WriteImage(fileName, renWin, rgba=True):
         raise RuntimeError('Need a filename.')
 
 
-```
-
-### Usage
-
-```python
-
-  WriteImage(f, renWin, rgba=False)
-
-```
+if __name__ == '__main__':
+    main()

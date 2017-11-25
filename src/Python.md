@@ -46,7 +46,16 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [GetValues](/Python/Arrays/GetValues) | GetTuple3 |
 [RenameArray](/Python/Arrays/RenameArray) | SetName |
 
+### Image Format
+
+#### Output
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[ImageWriter](/Python/IO/ImageWriter) | vtkBMPWriter vtkJPEGWriter vtkPNMWriter vtkPostScriptWriter vtkTIFFWriter vtkPNGWriter vtkWindowToImageFilter | Write an imagefile based on the file extension.
+
 ## Geometric Objects
+
 ### Display
 
 | Example Name | Classes Demonstrated | Description | Image |
