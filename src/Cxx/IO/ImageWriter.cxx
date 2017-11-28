@@ -1,16 +1,20 @@
 
 #include <vtkActor.h>
-#include <vtkImageWriter.h>
 #include <vtkNamedColors.h>
-#include <vtkPNGWriter.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkPostScriptWriter.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+
+#include <vtkBMPWriter.h>
+#include <vtkImageWriter.h>
+#include <vtkJPEGWriter.h>
+#include <vtkPNGWriter.h>
+#include <vtkPNMWriter.h>
+#include <vtkPostScriptWriter.h>
 #include <vtkTIFFWriter.h>
 #include <vtkWindowToImageFilter.h>
 
@@ -18,7 +22,6 @@
 #include <array>
 #include <locale>
 #include <string>
-#include <vector>
 
 namespace
 {
@@ -111,7 +114,7 @@ int main(int, char* [])
 
 namespace
 {
-  
+
 void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
 {
   if (!fileName.empty())
@@ -138,15 +141,15 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
       vtkSmartPointer<vtkImageWriter>::New();
     if (ext == ".bmp")
     {
-      writer = vtkSmartPointer<vtkPNGWriter>::New();
+      writer = vtkSmartPointer<vtkBMPWriter>::New();
     }
     else if (ext == ".jpg")
     {
-      writer = vtkSmartPointer<vtkPNGWriter>::New();
+      writer = vtkSmartPointer<vtkJPEGWriter>::New();
     }
     else if (ext == ".pnm")
     {
-      writer = vtkSmartPointer<vtkPNGWriter>::New();
+      writer = vtkSmartPointer<vtkPNMWriter>::New();
     }
     else if (ext == ".ps")
     {

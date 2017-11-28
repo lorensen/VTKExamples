@@ -10,8 +10,16 @@ To use the snippet, click the *Copy to clipboard* at the upper left of the code 
 
 ```c++
 
+#include <vtkBMPWriter.h>
+#include <vtkImageWriter.h>
+#include <vtkJPEGWriter.h>
+#include <vtkPNGWriter.h>
+#include <vtkPNMWriter.h>
+#include <vtkPostScriptWriter.h>
+#include <vtkTIFFWriter.h>
+#include <vtkWindowToImageFilter.h>
+
 #include <algorithm>
-#include <array>
 #include <locale>
 #include <string>
 
@@ -69,15 +77,15 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
       vtkSmartPointer<vtkImageWriter>::New();
     if (ext == ".bmp")
     {
-      writer = vtkSmartPointer<vtkPNGWriter>::New();
+      writer = vtkSmartPointer<vtkBMPWriter>::New();
     }
     else if (ext == ".jpg")
     {
-      writer = vtkSmartPointer<vtkPNGWriter>::New();
+      writer = vtkSmartPointer<vtkJPEGWriter>::New();
     }
     else if (ext == ".pnm")
     {
-      writer = vtkSmartPointer<vtkPNGWriter>::New();
+      writer = vtkSmartPointer<vtkPNMWriter>::New();
     }
     else if (ext == ".ps")
     {
@@ -122,7 +130,7 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
 
   return;
 }
-
+}
 ```
 
 ### Usage
