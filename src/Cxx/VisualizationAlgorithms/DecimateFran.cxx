@@ -73,8 +73,8 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> decimatedActor =
     vtkSmartPointer<vtkActor>::New();
   decimatedActor->SetMapper(decimatedMapper);
-  decimatedActor->GetProperty()->SetColor(colors->GetColor3d("Flesh").GetData());
   decimatedActor->GetProperty()->SetAmbient(.5);
+  decimatedActor->GetProperty()->SetDiffuse(.5);
   decimatedActor->SetTexture(texture);
 
   vtkSmartPointer<vtkPolyDataMapper> originalMapper =
@@ -84,8 +84,8 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> originalActor =
     vtkSmartPointer<vtkActor>::New();
   originalActor->SetMapper(originalMapper);
-  originalActor->GetProperty()->SetColor(colors->GetColor3d("Flesh").GetData());
   originalActor->GetProperty()->SetAmbient(.5);
+  originalActor->GetProperty()->SetDiffuse(.5);
   originalActor->SetTexture(texture);
 
 // Create the RenderWindow, Renderer and both Actors
