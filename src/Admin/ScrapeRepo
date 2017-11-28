@@ -262,10 +262,12 @@ AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Sni
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python/Snippets.md", DocDir + "/Python/Snippets.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", DocDir + "/VTKBookFigures.md")
 
-# Snippets
-snippets = ['ReadPolyData', 'SaveSceneToFieldData', 'SaveSceneToFile', 'RestoreSceneFromFieldData', 'RestoreSceneFromFile', 'ChooseContrastingColor', 'WriteImage']
+# C++ Snippets
+snippets = ['ReadPolyData', 'SaveSceneToFieldData', 'SaveSceneToFile', 'RestoreSceneFromFieldData', 'RestoreSceneFromFile', 'ChooseContrastingColor', 'ViewportBorders', 'WriteImage']
 for snippet in snippets:
     CopyFile(RepoDir + '/Cxx/Snippets/' + snippet + '.md', DocDir + '/Cxx/Snippets/' + snippet + '.md')
+
+# Python Snippets
 snippets = ['GetProgramParameters', 'ReadPolyData', 'WriteImage']
 for snippet in snippets:
     CopyFile(RepoDir + '/Python/Snippets/' + snippet + '.md', DocDir + '/Python/Snippets/' + snippet + '.md')
