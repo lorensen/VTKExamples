@@ -19,8 +19,11 @@ Stores the current vtkCamera location in a file.
 Restores the saved vtkCamera view from a file.
 
 #### [ChooseContrastingColor](/Cxx/Snippets/ChooseContrastingColor)
-Given a color, find a contrasting color. If the goven color is "light", use the lightColor otherwise use the darkColor
+Given a color, find a contrasting color. If the given color is "light", use the lightColor otherwise use the darkColor
 
 #### [ViewportBorders](/Cxx/Snippets/ViewportBorders)
 Draw the borders of a vtkRenderer's viewports.
+
+#### [WriteImage](/Cxx/Snippets/WriteImage)
+Take a screen shot and save it to a file.
 

@@ -1,11 +1,11 @@
 ### Description
 
-Given a filename, vtkActor and vtkCamera, reads necessary variables to recreat the scene from a file.
+Given a filename, vtkActor and vtkCamera, reads necessary variables to recreate the scene from a file.
 
 !!! note
     The snippet currently just restores the vtkCamera variables.
 
-To use the snippet, click the *Copy to clipboard* at the upper left of the code blocks.
+To use the snippet, click the *Copy to clipboard* at the upper right of the code blocks.
 
 ### Declaration Section
 ``` c++
