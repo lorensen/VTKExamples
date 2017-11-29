@@ -252,6 +252,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [Bottle](/Cxx/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
 [LoopBooleanPolyDataFilter](/Cxx/PolyData/LoopBooleanPolyDataFilter) | vtkLoopBooleanOpPolyDataFilter|Perform boolean operations on two vtkPolyData objects.
 [CellCenters](/Cxx/PolyData/CellCenters) | vtkCellCenters |Compute points at the center of every cell.
+[CellCentersDemo](/Cxx/PolyData/CellCentersDemo) | vtkCellCenters vtkGlyph3DMapper |Visualize points at the center of every cell.
 [CellEdgeNeighbors](/Cxx/PolyData/CellEdgeNeighbors) | vtkPolyData::GetCellNeighbors |Determine which cells share an edge with a specific cell.
 [CellPointNeighbors](/Cxx/PolyData/CellPointNeighbors) | vtkPolyData::GetCellNeighbors | Determine which cells share a single point with a specific cell.
 [CenterOfMass](/Cxx/PolyData/CenterOfMass) | vtkCenterOfMass|Compute the center of mass of the points.

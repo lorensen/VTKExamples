@@ -40,6 +40,7 @@ set(KIT PolyData)
 set(NEEDS_ARGS
   BooleanOperationPolyDataFilter
   LoopBooleanPolyDataFilter
+  CellCentersDemo
   CellLocatorVisualization
   ColoredPoints
   ConvexHull
@@ -78,6 +79,9 @@ add_test(${KIT}-BooleanOperationPolyDataFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 
 add_test(${KIT}-LoopBooleanPolyDataFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestLoopBooleanPolyDataFilter ${DATA}/Torso.vtp difference ${DATA}/ObliqueCone.vtp)
+
+add_test(${KIT}-CellCentersDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestCellCentersDemo ${DATA}/cow.g)
 
 add_test(${KIT}-CellLocatorVisualization ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCellLocatorVisualization -E 50)
