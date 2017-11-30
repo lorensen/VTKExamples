@@ -62,6 +62,7 @@ set(NEEDS_ARGS
   ImageSeparableConvolution
   ImageToPolyDataFilter
   ImageToStructuredPoints
+  ImageWarp
   Transparency
   InteractWithImage
   PickPixel
@@ -159,9 +160,12 @@ add_test(${KIT}-ImageRotate ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-ImageSeparableConvolution ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestImageSeparableConvolution ${DATA}/Yinyang.png -E 25)
-  
+
 add_test(${KIT}-ImageToStructuredPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestImageToStructuredPoints -E 25)
+
+add_test(${KIT}-ImageWarp ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestImageWarp ${DATA}/masonry.bmp)
 
 add_test(${KIT}-Transparency ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTransparency  ${DATA}/Ox.jpg)

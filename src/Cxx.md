@@ -1092,6 +1092,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageSobel2D](/Cxx/Images/ImageSobel2D)| vtkImageSobel2D |Sobel edge detection 2D.
 [ImageValueRange](/Cxx/Images/ImageValueRange)| vtkImageData | Get the range of image pixel values (min/max).
 [ImageVariance3D](/Cxx/Images/ImageVariance3D)| vtkImageVariance3D | Construct a new image consisting of the variance of the input image at each pixel.
+[ImageWarp](/Cxx/Images/ImageWarp)| vtkBMPReader vtkImageLuminance vtkWarpScalar vtkMergeFilter | Combine the imaging and visualization pipelines to deform an image in the z-direction. The vtkMergeFilter is used to combine the warped surface with the original color data.
 [RGBToHSI](/Cxx/Images/RGBToHSI)| vtkImageRGBToHSI |Convert RGB to HSI.
 [RGBToHSV](/Cxx/Images/RGBToHSV)| vtkImageRGBToHSV |Convert RGB to HSV.
 [RGBToYIQ](/Cxx/Images/RGBToYIQ)| vtkImageRGBToYIQ |Convert RGB to YIQ.

@@ -237,6 +237,7 @@ This section includes examples of manipulating meshes.
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[ImageWarp](/Python/Images/ImageWarp)| vtkBMPReader vtkImageLuminance vtkWarpScalar vtkMergeFilter | Combine the imaging and visualization pipelines to deform an image in the z-direction. The vtkMergeFilter is used to combine the warped surface with the original color data.
 [ImageGradient](/Python/VisualizationAlgorithms/ImageGradient)| vtkImageMagnify vtkImageGaussianSmooth vtkImageGradient vtkImageEuclideanToPolar vtkImageExtractComponents vtkImageHSVToRGB | Create an imaging pipeline to visualize gradient information.
 
 ## Working with vtkImageData
