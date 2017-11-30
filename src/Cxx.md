@@ -1081,6 +1081,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageEllipsoidSource](/Cxx/Images/ImageEllipsoidSource)| vtkImageEllipsoidSource |Create an image of an ellipsoid.
 [ImageFFT](/Cxx/Images/ImageFFT)| vtkImageFFT |Compute the FFT of an image.
 [ImageGaussianSmooth](/Cxx/Images/ImageGaussianSmooth)| vtkImageGaussianSmooth |Smooth an image.
+[ImageGradient](/Cxx/VisualizationAlgorithms/ImageGradient)| vtkImageMagnify vtkImageGaussianSmooth vtkImageGradient vtkImageEuclideanToPolar vtkImageExtractComponents vtkImageHSVToRGB | Create an imaging pipeline to visualize gradient information.
 [ImageGradientMagnitude](/Cxx/Images/ImageGradientMagnitude)| vtkImageGradientMagnitude |Compute the magnitude of the gradient at each pixel of an image.
 [ImageLaplacian](/Cxx/Images/ImageLaplacian)| vtkImageLaplacian |Compute the Laplacian of an image.
 [ImageLuminance](/Cxx/Images/ImageLuminance)| vtkImageLuminance |Convert RGB image to greyscale (luminance).

@@ -11,7 +11,7 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
 
-include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})

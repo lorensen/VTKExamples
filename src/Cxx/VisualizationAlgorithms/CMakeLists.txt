@@ -37,6 +37,7 @@ set(NEEDS_ARGS
   HeadBone
   HeadSlice
   Hello
+  ImageGradient
   IronIsoSurface
   LOx
   Motor
@@ -103,6 +104,9 @@ add_test(${KIT}-HeadSlice ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-Hello ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHello ${DATA}/hello.vtk)
+
+add_test(${KIT}-ImageGradient ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestImageGradient ${DATA}/FullHead.mhd)
 
 add_test(${KIT}-IronIsoSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestIronIsoSurface ${DATA}/ironProt.vtk)
