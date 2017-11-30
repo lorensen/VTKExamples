@@ -233,6 +233,13 @@ This section includes examples of manipulating meshes.
 |--------------|----------------------|-------------|-------|
 [BackgroundImage](/Python/BackgroundImage) | vtkJPEGReader vtkImageCanvasSource2D vtkImageActor vtkSuperquadricSource | Display an image as the "background" of a scene, and render a superquadric in front of it.
 
+## Image Processing
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[ImageWarp](/Python/Images/ImageWarp)| vtkBMPReader vtkImageLuminance vtkWarpScalar vtkMergeFilter | Combine the imaging and visualization pipelines to deform an image in the z-direction. The vtkMergeFilter is used to combine the warped surface with the original color data.
+
+
 ## Working with vtkImageData
 
 | Example Name | Classes Demonstrated | Description | Image |
