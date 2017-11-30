@@ -11,7 +11,6 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
 
-include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 Requires_GitLfs(TextureThreshold ALL_FILES)
 
@@ -44,11 +43,8 @@ add_test(${KIT}-TextureCutSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 add_test(${KIT}-TexturedSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTexturedSphere ${DATA}/earth.ppm)
 
-message(STATUS "GIT_LFS ${GIT_LFS}")
-if(GIT_LFS)
-  add_test(${KIT}-TextureThreshold ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+add_test(${KIT}-TextureThreshold ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTextureThreshold ${DATA}/bluntfinxyz.bin ${DATA}/bluntfinq.bin ${DATA}/texThres2.vtk)
-endif()
 
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
