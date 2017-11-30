@@ -1,2 +1,1 @@
-GitLfsInstalled filter=lfs diff=lfs merge=lfs -text
 src/Testing/Data/GitLfsInstalled filter=lfs diff=lfs merge=lfs -text
