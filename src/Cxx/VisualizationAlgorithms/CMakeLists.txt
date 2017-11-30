@@ -106,7 +106,7 @@ add_test(${KIT}-Hello ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHello ${DATA}/hello.vtk)
 
 add_test(${KIT}-ImageGradient ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestImageGradient ${DATA}/fullHead/headsq)
+  TestImageGradient ${DATA}/FullHead.mhd)
 
 add_test(${KIT}-IronIsoSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestIronIsoSurface ${DATA}/ironProt.vtk)

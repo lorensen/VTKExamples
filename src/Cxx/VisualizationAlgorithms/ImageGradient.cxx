@@ -11,8 +11,8 @@
 #include <vtkImageGradient.h>
 #include <vtkImageHSVToRGB.h>
 #include <vtkImageMagnify.h>
-#include <vtkImageReader.h>
 #include <vtkImageViewer.h>
+#include <vtkMetaImageReader.h>
 #include <vtkNamedColors.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
@@ -26,24 +26,24 @@ int main(int argc, char* argv[])
 {
   if (argc < 2)
   {
-    std::cout << "Usage: " << argv[0] << " filePrefix" << std::endl;
-    std::cout << "where: filePrefix is the path to the headsq files."
+    std::cout << "Usage: " << argv[0] << " fileName" << std::endl;
+    std::cout << "where: fileName is FullHead.mhd." << std::endl;
+    std::cout << "Note: The file FullHead.raw.gz must also be present in the "
+                 "same folder."
               << std::endl;
     return EXIT_FAILURE;
   }
 
-  std::string filePrefix = argv[1];
+  std::string fileName = argv[1];
 
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Read the CT data of the human head.
-  vtkSmartPointer<vtkImageReader> reader =
-    vtkSmartPointer<vtkImageReader>::New();
-  reader->SetDataByteOrderToLittleEndian();
-  reader->SetDataExtent(0, 255, 0, 255, 1, 93);
-  reader->SetFilePrefix(filePrefix.c_str());
-  reader->SetDataMask(0x7fff);
+  vtkSmartPointer<vtkMetaImageReader> reader =
+    vtkSmartPointer<vtkMetaImageReader>::New();
+  reader->SetFileName(fileName.c_str());
+  reader->Update();
 
   vtkSmartPointer<vtkImageCast> cast = vtkSmartPointer<vtkImageCast>::New();
   cast->SetInputConnection(reader->GetOutputPort());

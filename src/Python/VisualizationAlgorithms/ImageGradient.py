@@ -5,15 +5,13 @@ import vtk
 
 
 def main():
-    filePrefix = get_program_parameters()
+    fileName = get_program_parameters()
     colors = vtk.vtkNamedColors()
 
     # Read the CT data of the human head.
-    reader = vtk.vtkImageReader()
-    reader.SetDataByteOrderToLittleEndian()
-    reader.SetDataExtent(0, 255, 0, 255, 1, 93)
-    reader.SetFilePrefix(filePrefix)
-    reader.SetDataMask(0x7fff)
+    reader = vtk.vtkMetaImageReader()
+    reader.SetFileName(fileName)
+    reader.Update()
 
     cast = vtk.vtkImageCast()
     cast.SetInputConnection(reader.GetOutputPort())
@@ -94,9 +92,11 @@ Visualization of gradient information.
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('filePrefix', help='Path to the headsq files.')
+    parser.add_argument('fileName',
+                        help='The file FullHead.mhd. Note: file FullHead.raw.gz must also be present in the same folder.')
     args = parser.parse_args()
-    return args.filePrefix
+    return args.fileName
+
 
 if __name__ == '__main__':
     main()
