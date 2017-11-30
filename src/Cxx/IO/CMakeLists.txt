@@ -217,5 +217,4 @@ if(GIT_LFS)
   add_test(${KIT}-DEMReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestDEMReader ${DATA}/SainteHelens.dem)
 endif()
-
 endif()
