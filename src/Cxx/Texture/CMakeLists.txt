@@ -12,7 +12,6 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 file(GLOB ALL_FILES *.cxx)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
-Requires_GitLfs(TextureThreshold ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
