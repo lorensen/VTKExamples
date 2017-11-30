@@ -151,7 +151,7 @@ Figure 10-9 | | High-pass filters can extract and enhance edges in an image. Sub
 Figure 10-10 | | The discrete Fourier transform changes an image from the spatial domain into the frequency domain, where each pixel represents a sinusoidal function. This figure show an image and its power spectrum displayed using a logarithmic transfer function (VTKSpectrum.tcl). 
 Figure 10-11 | | This figure shows two high-pass filters in the frequency domain. The Butterworth high-pass filter has a gradual attenuation that avoids ringing produced by the ideal high-pass filter with an abrupt transition (IdealHighPass.tcl). 
 Figure 10-14 | | This figure demonstrates various binary filters that can alter the shape of segmented regions (MorphComparison.tcl). 
-Figure 10-16 | | An imaging pipeline to visualize gradient information. The gradient direction is mapped into color hue value while the gradient magnitude is mapped into the color saturation (ImageGradient.tcl).
+[Figure 10-16](/Cxx/VisualizationAlgorithms/ImageGradient) | vtkImageMagnify vtkImageGaussianSmooth vtkImageGradient vtkImageEuclideanToPolar vtkImageExtractComponents vtkImageHSVToRGB | An imaging pipeline to visualize gradient information. The gradient direction is mapped into color hue value while the gradient magnitude is mapped into the color saturation (ImageGradient.tcl).
 Figure 10-17 | | Combining the imaging and visualization pipelines to deform an image in the z-direction (imageWarp.tcl). The vtkMergeFilter is used to combine the warped surface with the original color data.
 
 ## Chapter 12 - Applications

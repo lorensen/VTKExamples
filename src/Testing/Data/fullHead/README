@@ -1,0 +1,3 @@
+Warning: this dataset has a connectivity bit set (unlike the half and
+quarter resolution cases). Set the data mask in vtkVolume16Source to
+mask out the high-order bit.
