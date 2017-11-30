@@ -7,6 +7,7 @@
 #include <vtkMCubesReader.h>
 #include <vtkNamedColors.h>
 #include <vtkOutlineFilter.h>
+#include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
@@ -27,7 +28,7 @@ int main(int argc, char* argv[])
   * @param pd: vtkPolyData.
   * @return The number of triangles.
   */
-  auto NumberofTriangles = [](auto* pd) {
+  auto NumberofTriangles = [](vtkPolyData* pd) {
     vtkCellArray* cells = pd->GetPolys();
     vtkIdType npts = 0;
     vtkIdType* pts;
