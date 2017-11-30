@@ -233,6 +233,12 @@ This section includes examples of manipulating meshes.
 |--------------|----------------------|-------------|-------|
 [BackgroundImage](/Python/BackgroundImage) | vtkJPEGReader vtkImageCanvasSource2D vtkImageActor vtkSuperquadricSource | Display an image as the "background" of a scene, and render a superquadric in front of it.
 
+## Image Processing
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[ImageGradient](/Python/VisualizationAlgorithms/ImageGradient)| vtkImageMagnify vtkImageGaussianSmooth vtkImageGradient vtkImageEuclideanToPolar vtkImageExtractComponents vtkImageHSVToRGB | Create an imaging pipeline to visualize gradient information.
+
 ## Working with vtkImageData
 
 | Example Name | Classes Demonstrated | Description | Image |
