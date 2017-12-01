@@ -5,3 +5,4 @@ src/Testing/Data/honolulu.vtk filter=lfs diff=lfs merge=lfs -text
 src/Testing/Data/frog.zraw filter=lfs diff=lfs merge=lfs -text
 src/Testing/Data/frog.mhd filter=lfs diff=lfs merge=lfs -text
 src/Testing/Data/brain.vtk filter=lfs diff=lfs merge=lfs -text
+src/Testing/Data/pine_root.mhd filter=lfs diff=lfs merge=lfs -text
