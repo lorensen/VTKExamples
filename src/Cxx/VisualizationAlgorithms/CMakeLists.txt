@@ -10,6 +10,13 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 #
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
+
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
+
+Requires_GitLfs(PineRootConnectivity ALL_FILES)
+Requires_GitLfs(PineRootConnectivityA ALL_FILES)
+Requires_GitLfs(PineRootDecimation ALL_FILES)
+
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
@@ -44,6 +51,9 @@ set(NEEDS_ARGS
   MarchingCases
   MarchingCasesA
   MarchingCasesB
+  PineRootConnectivity
+  PineRootConnectivityA
+  PineRootDecimation
   PlateVibration
   ProbeCombustor
   Office
@@ -155,6 +165,17 @@ add_test(${KIT}-VelocityProfile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-WarpCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestWarpCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin)
+
+if(GIT_LFS)
+add_test(${KIT}-PineRootConnectivity ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPineRootConnectivity ${DATA}/pine_root.tri -E 20)
+
+add_test(${KIT}-PineRootConnectivityA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPineRootConnectivityA ${DATA}/pine_root.tri 1 -E 20)
+
+add_test(${KIT}-PineRootDecimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPineRootDecimation ${DATA}/pine_root.tri -E 20)
+endif()
 
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
