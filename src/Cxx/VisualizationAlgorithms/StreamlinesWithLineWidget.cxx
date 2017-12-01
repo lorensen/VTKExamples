@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
     return EXIT_FAILURE;
   }
   auto numOfStreamLines = 25;
-  auto illustration = 0;
+  auto illustration = false;
   std::string fileName1 = argv[1];
   std::string fileName2 = argv[2];
   if (argc > 3)
@@ -105,8 +105,11 @@ int main(int argc, char* argv[])
   }
   if (argc > 4)
   {
-    illustration = atoi(argv[4]);
-    numOfStreamLines = 25;
+    illustration = atoi(argv[4]) != 0;
+    if (illustration)
+    {
+      numOfStreamLines = 25;
+    }
   }
 
   vtkSmartPointer<vtkNamedColors> colors =
@@ -145,7 +148,7 @@ int main(int argc, char* argv[])
   lineWidget->SetResolution(numOfStreamLines);
   lineWidget->SetInputData(pl3d_output);
   lineWidget->GetPolyData(seeds);
-  if (illustration != 0)
+  if (illustration)
   {
     lineWidget->SetAlignToNone();
     lineWidget->SetPoint1(0.974678, 5.073630, 31.217961);
@@ -256,7 +259,7 @@ int main(int argc, char* argv[])
   ren->AddActor(streamline2);
   renWin->SetSize(512, 512);
   vtkCamera* cam = ren->GetActiveCamera();
-  if (illustration != 0)
+  if (illustration)
   {
     // We need to directly display the streamlines in this case.
     lineWidget->EnabledOn();

@@ -21,8 +21,8 @@
 #include <vtkWarpVector.h>
 
 #include <algorithm>
+#include <array>
 #include <string>
-#include <vector>
 
 int main(int argc, char* argv[])
 {
@@ -46,14 +46,20 @@ int main(int argc, char* argv[])
 
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
+
   // Set the background color and plate color. Match those in VTKTextbook.pdf.
-  auto scale = 256.0;
-  std::vector<double> bkg = {65, 99, 149};
-  Scale(bkg, scale);
-  std::vector<double> bar = {255, 160, 140};
-  Scale(bar, scale);
-  colors->SetColor("BkgColor", bkg[0], bkg[1], bkg[2]);
-  colors->SetColor("PlateColor", bar[0], bar[1], bar[2]);
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{65, 99, 149};
+  SetColor(bkg, "BkgColor");
+  std::array<double, 3> bar{255, 160, 140};
+  SetColor(bar, "PlateColor");
 
   // Read a vtk file
   //

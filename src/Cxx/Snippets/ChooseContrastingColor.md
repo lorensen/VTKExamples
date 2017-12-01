@@ -1,7 +1,7 @@
 ### Description
 Given a color, find a contrasting color. If the given color is "light", use the lightColor otherwise use the darkColor.
 
-To use the snippet, click the *Copy to clipboard* at the upper left of the code blocks.
+To use the snippet, click the *Copy to clipboard* at the upper right of the code blocks.
 
 ### Declaration Section
 ``` c++
@@ -9,7 +9,7 @@ To use the snippet, click the *Copy to clipboard* at the upper left of the code 
 #include <vtkMath.h>
 namespace
 {
-// Given a color, find a contrasting color. If the goven color is "light",
+// Given a color, find a contrasting color. If the given color is "light",
 // use the lightColor otherwise use the darkColor
 void ChooseContrastingColor(double *rgbIn,
                             double *rgbOut,

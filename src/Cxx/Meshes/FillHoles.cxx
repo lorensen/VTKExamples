@@ -1,13 +1,13 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkFillHolesFilter.h>
+#include <vtkPolyDataNormals.h>
+#include <vtkCleanPolyData.h>
 
 #include <vtkSelectionNode.h>
 #include <vtkInformation.h>
 #include <vtkUnstructuredGrid.h>
 #include <vtkPolyData.h>
-#include <vtkPolyDataNormals.h>
 #include <vtkPointData.h>
-#include <vtkXMLPolyDataReader.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
@@ -22,56 +22,49 @@
 #include <vtkExtractSelection.h>
 #include <vtkDataSetSurfaceFilter.h>
 
-#include <vtkFillHolesFilter.h>
+#include <vtkBYUReader.h>
+#include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
+#include <vtkPolyDataReader.h>
+#include <vtkSTLReader.h>
+#include <vtkXMLPolyDataReader.h>
+#include <vtkSphereSource.h>
+#include <vtksys/SystemTools.hxx>
 
 #include <vtkNamedColors.h>
 
-static void GenerateData(vtkPolyData*);
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+}
 
 int main(int argc, char *argv[])
 {
   vtkSmartPointer<vtkPolyData> input =
-    vtkSmartPointer<vtkPolyData>::New();
-  if(argc == 1)
-  {
-    GenerateData(input);
-  }
-  else
-  {
-    std::string inputFilename = argv[1];
-
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
-      vtkSmartPointer<vtkXMLPolyDataReader>::New();
-    reader->SetFileName(inputFilename.c_str());
-    reader->Update();
-
-    input->ShallowCopy(reader->GetOutput());
-  }
+    ReadPolyData(argc > 1 ? argv[1] : "");
 
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkFillHolesFilter> fillHolesFilter =
     vtkSmartPointer<vtkFillHolesFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  fillHolesFilter->SetInputConnection(input->GetProducerPort());
-#else
   fillHolesFilter->SetInputData(input);
-#endif
-  fillHolesFilter->SetHoleSize(1000.0);
+  fillHolesFilter->SetHoleSize(100000.0);
+  fillHolesFilter->Update();
 
-  // Make the triangle windong order consistent
+  // Make the triangle winding order consistent
   vtkSmartPointer<vtkPolyDataNormals> normals =
     vtkSmartPointer<vtkPolyDataNormals>::New();
-  normals->SetInputConnection(fillHolesFilter->GetOutputPort());
+  normals->SetInputData(fillHolesFilter->GetOutput());
   normals->ConsistencyOn();
   normals->SplittingOff();
   normals->Update();
 
+#if 0
   // Restore the original normals
   normals->GetOutput()->GetPointData()->
     SetNormals(input->GetPointData()->GetNormals());
-
+#endif
   // Visualize
   // Define viewport ranges
   // (xmin, ymin, xmax, ymax)
@@ -81,11 +74,7 @@ int main(int argc, char *argv[])
   // Create a mapper and actor
   vtkSmartPointer<vtkPolyDataMapper> originalMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  originalMapper->SetInputConnection(input->GetProducerPort());
-#else
   originalMapper->SetInputData(input);
-#endif
 
   vtkSmartPointer<vtkProperty> backfaceProp =
     vtkSmartPointer<vtkProperty>::New();
@@ -100,13 +89,14 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkPolyDataMapper> filledMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-  filledMapper->SetInputConnection(normals->GetOutputPort());
+  filledMapper->SetInputData(fillHolesFilter->GetOutput());
 
   vtkSmartPointer<vtkActor> filledActor =
     vtkSmartPointer<vtkActor>::New();
   filledActor->SetMapper(filledMapper);
   filledActor->GetProperty()->SetDiffuseColor(
     colors->GetColor3d("Flesh").GetData());
+  filledActor->SetBackfaceProperty(backfaceProp);
 
   // Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> leftRenderer =
@@ -184,11 +174,7 @@ void GenerateData(vtkPolyData* input)
   vtkSmartPointer<vtkExtractSelection> extractSelection =
       vtkSmartPointer<vtkExtractSelection>::New();
   extractSelection->SetInputConnection(0, sphereSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  extractSelection->SetInput(1, selection);
-#else
   extractSelection->SetInputData(1, selection);
-#endif
   extractSelection->Update();
 
   // In selection
@@ -198,4 +184,69 @@ void GenerateData(vtkPolyData* input)
   surfaceFilter->Update();
 
   input->ShallowCopy(surfaceFilter->GetOutput());
+}
+// Snippets
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+{
+  vtkSmartPointer<vtkPolyData> polyData;
+  std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
+  if (extension == ".ply")
+  {
+    vtkSmartPointer<vtkPLYReader> reader =
+      vtkSmartPointer<vtkPLYReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".vtp")
+  {
+    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+      vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".obj")
+  {
+    vtkSmartPointer<vtkOBJReader> reader =
+      vtkSmartPointer<vtkOBJReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".stl")
+  {
+    vtkSmartPointer<vtkSTLReader> reader =
+      vtkSmartPointer<vtkSTLReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".vtk")
+  {
+    vtkSmartPointer<vtkPolyDataReader> reader =
+      vtkSmartPointer<vtkPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else
+  {
+    vtkSmartPointer<vtkSphereSource> source =
+      vtkSmartPointer<vtkSphereSource>::New();
+    source->Update();
+    polyData = source->GetOutput();
+  }
+  return polyData;
+}
 }

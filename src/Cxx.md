@@ -135,6 +135,7 @@ These are fully independent, compilable examples. There is significant overlap i
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[ImageWriter](/Cxx/IO/ImageWriter) | vtkBMPWriter vtkJPEGWriter vtkPNMWriter vtkPostScriptWriter vtkTIFFWriter vtkPNGWriter vtkWindowToImageFilter | Write an imagefile based on the file extension.
 [JPEGWriter](/Cxx/IO/JPEGWriter)   | vtkJPEGWriter |Write a JPEG (.jpg) file.
 [MetaImageWriter](/Cxx/IO/MetaImageWriter)   | vtkMetaImageWriter |Write a .mha/.mhd + .raw file.
 [PNGWriter](/Cxx/IO/PNGWriter)   | vtkPNGWriter |Write a PNG (.png) file.
@@ -251,6 +252,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [Bottle](/Cxx/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
 [LoopBooleanPolyDataFilter](/Cxx/PolyData/LoopBooleanPolyDataFilter) | vtkLoopBooleanOpPolyDataFilter|Perform boolean operations on two vtkPolyData objects.
 [CellCenters](/Cxx/PolyData/CellCenters) | vtkCellCenters |Compute points at the center of every cell.
+[CellCentersDemo](/Cxx/PolyData/CellCentersDemo) | vtkCellCenters vtkGlyph3DMapper |Visualize points at the center of every cell.
 [CellEdgeNeighbors](/Cxx/PolyData/CellEdgeNeighbors) | vtkPolyData::GetCellNeighbors |Determine which cells share an edge with a specific cell.
 [CellPointNeighbors](/Cxx/PolyData/CellPointNeighbors) | vtkPolyData::GetCellNeighbors | Determine which cells share a single point with a specific cell.
 [CenterOfMass](/Cxx/PolyData/CenterOfMass) | vtkCenterOfMass|Compute the center of mass of the points.
@@ -415,6 +417,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [Decimation](/Cxx/Meshes/Decimation) | vtkDecimatePro | Reduce the number of triangles in a mesh.
 [DeformPointSet](/Cxx/Meshes/DeformPointSet) | vtkDeformPointSet | Deform a point set with a control polyhedra.
 [DijkstraGraphGeodesicPath](/Cxx/PolyData/DijkstraGraphGeodesicPath) | vtkDijkstraGraphGeodesicPath |Find the shortest path between two points on a mesh.
+[DelaunayMesh](/Cxx/Modelling/DelaunayMesh)| vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
 [ElevationFilter](/Cxx/Meshes/ElevationFilter) | vtkElevationFilter |Color a mesh by height.
 [ExtractEdges](/Cxx/Meshes/ExtractEdges) | vtkExtractEdges |
 [FillHoles](/Cxx/Meshes/FillHoles) | vtkFillHolesFilter | Close holes in a mesh.
@@ -535,7 +538,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [Delaunay3D](/Cxx/Modelling/Delaunay3D) | vtkDelaunay3D | Create a solid mesh from Unorganized Points.
-[Delaunay3DDemo](/Cxx/Modelling/Delaunay3DDemo) | vtkDelaunay3DDemo | Interactively adjust Alpha for Delaunay3D.
+[Delaunay3DDemo](/Cxx/Modelling/Delaunay3DDemo) | vtkDelaunay3D | Interactively adjust Alpha for Delaunay3D.
 [ExtractSurfaceDemo](/Cxx/Points/ExtractSurfaceDemo) | vtkExtractSurface vtkPCANormalEstimation vtkSignedDistance |Create a surface from Unorganized Points using Point filters (DEMO).
 [ExtractSurface](/Cxx/Points/ExtractSurface) | vtkExtractSurface vtkPCANormalEstimation vtkSignedDistance |Create a surface from Unorganized Points using Point filters.
 [GaussianSplat](/Cxx/Filtering/GaussianSplat) | vtkGaussianSplatter |Create a surface from Unorganized Points (Gaussian Splat).
@@ -562,7 +565,8 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [Delaunay2D](/Cxx/Filtering/Delaunay2D) | vtkDelaunay2D | Perform a 2D Delaunay triangulation on a point set.
 [DetermineActorType](/Cxx/Utilities/DetermineActorType) | vtkActor vtkActorCollection |Determine the type of an actor.
 [DiscretizableColorTransferFunction](/Cxx/Utilities/DiscretizableColorTransferFunction) | vtkDiscretizableColorTransferFunction |Discretizable Color Transfer Function.
-[FileOutputWindow](/Cxx/Utilities/FileOutputWindow) | vtkFileOutputWindow | Write errors to a log file instead of the screen.
+[ExtractFaces](/Cxx/Utilities/ExtractFaces) | vtkCellIterator | Extract faces froam vtkUnstructuredGrid.
+[FileOutputWindow](/Cxx/Utilities/FileOutputWindow) | vtkFileOutputWindow | Write errors to a log file  instead of the screen.
 [FilenameFunctions](/Cxx/Utilities/FilenameFunctions) | vtkDirectory vtksys/SystemTools | Do things like get the file extension, strip the file extension, etc.
 [FilterSelfProgress](/Cxx/Developers/FilterSelfProgress) |  |Monitor a filters progress.
 [FrameRate](/Cxx/Utilities/FrameRate) | | Get the frame rate of the rendering.
@@ -571,6 +575,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [GetClassName](/Cxx/Utilities/GetClassName) | GetClassName() |Determine the type of a VTK variable.
 [GetDataRoot](/Cxx/Utilities/GetDataRoot) | vtkTesting | Find the path of VTK_DATA_ROOT.
 [LUTUtilities](/Cxx/Utilities/LUTUtilities) | vtkLookupTable vtkColorSeries | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.
+[MassProperties](/Cxx/Utilities/MassProperties) | vtkMassProperties | Compute volume and surface area of a closed, triangulated mesh.
 [MultipleRenderWindows](/Cxx/Visualization/MultipleRenderWindows) | vtkRenderWindow | Multiple Render Windows
 [MultipleViewports](/Cxx/Visualization/MultipleViewports) | vtkRenderer::SetViewPort |Multiple Viewports.
 [OffScreenRendering](/Cxx/Utilities/OffScreenRendering) | vtkImagingFactory vtkGraphicsFactory |Off Screen Rendering.
@@ -813,6 +818,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| vtkTextureMapToPlane |Texture map a plane.
 [TextureMapQuad](/Cxx/Visualization/TextureMapQuad)| vtkPolygon vtkPolyData |Texture map a quad.
 [TexturedSphere](/Cxx/Texture/TexturedSphere)| vtkTextureMapToSphere | Texture a sphere.
+[TextureThreshold](/Cxx/Texture/TextureThreshold)| vtkTexture vtkThresholdTextureCoords vtkStructuredGridGeometryFilter | Demonstrate the use of scalar thresholds to show values of flow density on three planes.
 
 ## Visualization
 See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a brief explanation of the VTK terminology of mappers, actors, etc.
@@ -867,6 +873,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Glyph3D](/Cxx/Filtering/Glyph3D) | vtkGlyph3D|
 [Glyph3DImage](/Cxx/Visualization/Glyph3DImage)| vtkGlyph3DMapper | Glyph the points in a vtkImageData.
 [Glyph3DMapper](/Cxx/Visualization/Glyph3DMapper)| vtkGlyph3DMapper |
+[Hanoi](/Cxx/Visualization/Hanoi)|  | Towers of Hanoi.
 [Hawaii](/Cxx/Visualization/Hawaii)| vtkElevationFilter vtkColorSeries vtkLookupTable | Visualize elevations by coloring the scalar values with a lookup table.
 [HedgeHog](/Cxx/Visualization/HedgeHog)| vtkHedgeHog vtkStructuredGrid |Create oriented lines (hedgehogs) from vector data.
 [HideActor](/Cxx/Visualization/HideActor)| vtkPropCollection vtkProp | visible
@@ -885,6 +892,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [LegendScaleActor](/Cxx/Visualization/LegendScaleActor)| vtkLegendScaleActor |Display the scale of a scene.
 [Legend](/Cxx/Visualization/Legend) | vtkLegendBoxActor |
 [LineWidth](/Cxx/Visualization/LineWidth)| vtkActor vtkProperty |Change the width/thickness of lines in an actor.
+[Motor](/Cxx/VisualizationAlgorithms/Motor) | vtkBYUReader vtkStructuredPointsReader vtkTexture vtkImplicitTextureCoords | Texture cut used to reveal internal structure of a motor. Two cut planes are used in combination with transparent texture.
 [MovableAxes](/Cxx/Visualization/MovableAxes) | vtkFollower vtkAxesActor vtkAssembly | Movable axes.
 [MoveActor](/Cxx/Visualization/MoveActor)| vtkInteractorStyleTrackballActor |Moving an Actor.
 [MoveCamera](/Cxx/Visualization/MoveCamera)| vtkInteractorStyleTrackballCamera |Moving the Camera.
@@ -893,6 +901,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [NamedColorPatches](/Cxx/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html)
 [NoShading](/Cxx/Visualization/NoShading) | vtkActor |
 [NormalsDemo](/Cxx/Visualization/NormalsDemo)| vtkPolyDataNormals | Demo different ooption to generate normals.
+[Office](/Cxx/VisualizationAlgorithms/Office) | vtkPointSource vtkStreamTracer | Using random point seeds to create streamlines.
+[OfficeTube](/Cxx/VisualizationAlgorithms/OfficeTube) | vtkStreamTracer vtkTubeFilter | The stream polygon. Sweeping a polygon to form a tube.
 [Opacity](/Cxx/Visualization/Opacity)| vtkActor | Transparency, transparent.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs)| vtkGlyph3D|Create oriented glyphs from vector data.
 [PineRootConnectivity](/Cxx/VisualizationAlgorithms/PineRootConnectivity) | vtkMCubesReader vtkPolyDataConnectivityFilter | Applying the connectivity filter to remove noisy isosurfaces.
@@ -954,6 +964,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 |--------------|----------------------|-------------|-------|
 [AreaPicking](/Cxx/Picking/AreaPicking)| vtkAreaPicker |Area Picking.
 [Assembly](/Cxx/Interaction/Assembly)| vtkAssembly | Combine/group actors into an assembly.
+[CallBack](/Cxx/Interaction/CallBack)| vtkCallbackCommand vtkOrientationMarkerWidget | Setting up a callback with client data. Two different methods are demonstrated.
 [CallData](/Cxx/Interaction/CallData)| vtkCommand | Pass an observer a value (via CallData).
 [CellPicking](/Cxx/Picking/CellPicking)| vtkCellPicker | Cell Picking.
 [ClientData](/Cxx/Interaction/ClientData)| vtkCommand | Give an observer access to an object (via ClientData).
@@ -1072,6 +1083,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageEllipsoidSource](/Cxx/Images/ImageEllipsoidSource)| vtkImageEllipsoidSource |Create an image of an ellipsoid.
 [ImageFFT](/Cxx/Images/ImageFFT)| vtkImageFFT |Compute the FFT of an image.
 [ImageGaussianSmooth](/Cxx/Images/ImageGaussianSmooth)| vtkImageGaussianSmooth |Smooth an image.
+[ImageGradient](/Cxx/VisualizationAlgorithms/ImageGradient)| vtkImageMagnify vtkImageGaussianSmooth vtkImageGradient vtkImageEuclideanToPolar vtkImageExtractComponents vtkImageHSVToRGB | Create an imaging pipeline to visualize gradient information.
 [ImageGradientMagnitude](/Cxx/Images/ImageGradientMagnitude)| vtkImageGradientMagnitude |Compute the magnitude of the gradient at each pixel of an image.
 [ImageLaplacian](/Cxx/Images/ImageLaplacian)| vtkImageLaplacian |Compute the Laplacian of an image.
 [ImageLuminance](/Cxx/Images/ImageLuminance)| vtkImageLuminance |Convert RGB image to greyscale (luminance).
@@ -1082,6 +1094,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageSobel2D](/Cxx/Images/ImageSobel2D)| vtkImageSobel2D |Sobel edge detection 2D.
 [ImageValueRange](/Cxx/Images/ImageValueRange)| vtkImageData | Get the range of image pixel values (min/max).
 [ImageVariance3D](/Cxx/Images/ImageVariance3D)| vtkImageVariance3D | Construct a new image consisting of the variance of the input image at each pixel.
+[ImageWarp](/Cxx/Images/ImageWarp)| vtkBMPReader vtkImageLuminance vtkWarpScalar vtkMergeFilter | Combine the imaging and visualization pipelines to deform an image in the z-direction. The vtkMergeFilter is used to combine the warped surface with the original color data.
 [RGBToHSI](/Cxx/Images/RGBToHSI)| vtkImageRGBToHSI |Convert RGB to HSI.
 [RGBToHSV](/Cxx/Images/RGBToHSV)| vtkImageRGBToHSV |Convert RGB to HSV.
 [RGBToYIQ](/Cxx/Images/RGBToYIQ)| vtkImageRGBToYIQ |Convert RGB to YIQ.

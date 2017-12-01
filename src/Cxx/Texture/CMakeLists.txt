@@ -11,7 +11,7 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
 
-include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -27,6 +27,7 @@ set(NEEDS_ARGS
   ProjectedTexture
   TextureCutSphere
   TexturedSphere
+  TextureThreshold
 )
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
@@ -40,6 +41,9 @@ add_test(${KIT}-TextureCutSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 
 add_test(${KIT}-TexturedSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTexturedSphere ${DATA}/earth.ppm)
+
+add_test(${KIT}-TextureThreshold ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestTextureThreshold ${DATA}/bluntfinxyz.bin ${DATA}/bluntfinq.bin ${DATA}/texThres2.vtk)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()

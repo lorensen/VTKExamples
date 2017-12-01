@@ -52,21 +52,10 @@ def main():
         lineWidget.SetAlignToYAxis()
     lineWidget.ClampToBoundsOn()
     lineWidget.PlaceWidget()
-
-    # Callback functions that actually generate streamlines.
-    def EnableActorCallback(obj, event):
-        # global streamline
-        streamline.VisibilityOn()
-
-    def GenerateStreamlinesCallback(obj, event):
-        # global seeds, renWin
-        obj.GetPolyData(seeds)
-        renWin.Render()
-
     # Associate the line widget with the interactor and setup callbacks.
     lineWidget.SetInteractor(iren)
-    lineWidget.AddObserver("StartInteractionEvent", EnableActorCallback)
-    lineWidget.AddObserver("InteractionEvent", GenerateStreamlinesCallback)
+    lineWidget.AddObserver("StartInteractionEvent", EnableActorCallback(streamline))
+    lineWidget.AddObserver("InteractionEvent", GenerateStreamlinesCallback(seeds, renWin))
 
     # The second line widget is used seed more streamlines.
     lineWidget2 = vtk.vtkLineWidget()
@@ -77,19 +66,10 @@ def main():
     lineWidget2.SetAlignToZAxis()
     lineWidget.ClampToBoundsOn()
     lineWidget2.PlaceWidget()
-
-    def EnableActorCallback2(obj, event):
-        # global streamline2
-        streamline2.VisibilityOn()
-
-    def GenerateStreamlinesCallback2(obj, event):
-        # global seeds2, renWin
-        obj.GetPolyData(seeds2)
-        renWin.Render()
-
+    # Associate the line widget with the interactor and setup callbacks.
     lineWidget2.SetInteractor(iren)
-    lineWidget2.AddObserver("StartInteractionEvent", EnableActorCallback2)
-    lineWidget2.AddObserver("EndInteractionEvent", GenerateStreamlinesCallback2)
+    lineWidget2.AddObserver("StartInteractionEvent", EnableActorCallback(streamline2))
+    lineWidget2.AddObserver("InteractionEvent", GenerateStreamlinesCallback(seeds2, renWin))
 
     # Here we set up two streamlines.
     rk4 = vtk.vtkRungeKutta4()
@@ -196,6 +176,20 @@ If the fourth parameter is non-zero, it is used to generate
                         help='If non-zero, reproduce Fig 7-39 of the VTK Textbook.')
     args = parser.parse_args()
     return args.filename1, args.filename2, args.numOfStreamLines, args.illustration
+
+class EnableActorCallback(object):
+    def __init__(self, actor):
+        self.actor = actor
+    def __call__(self, caller, ev):
+        self.actor.VisibilityOn()
+
+class GenerateStreamlinesCallback(object):
+    def __init__(self, polyData, renWin):
+        self.polyData = polyData
+        self.renWin = renWin
+    def __call__(self, caller, ev):
+        caller.GetPolyData(self.polyData)
+        self.renWin.Render()
 
 
 if __name__ == '__main__':

@@ -64,3 +64,11 @@ def WriteImage(fileName, renWin, rgba=True):
 
 
 ```
+
+### Usage
+
+```python
+
+  WriteImage(f, renWin, rgba=False)
+
+```

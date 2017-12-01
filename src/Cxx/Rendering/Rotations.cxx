@@ -1,23 +1,25 @@
 
 #include <vtkActor.h>
 #include <vtkAxes.h>
+#include <vtkBYUReader.h>
 #include <vtkCamera.h>
+#include <vtkNamedColors.h>
+#include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkPolyDataReader.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
-
-#include <vtkBYUReader.h>
-#include <vtkOBJReader.h>
-#include <vtkPLYReader.h>
-#include <vtkPolyDataReader.h>
 #include <vtkSTLReader.h>
 #include <vtkSphereSource.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtksys/SystemTools.hxx>
 
-#include <vtkNamedColors.h>
+#include <algorithm>
+#include <array>
+#include <string>
 
 namespace
 {
@@ -43,12 +45,6 @@ int main(int argc, char* argv[])
   and use cow.g as the inout data.
   */
 
-  auto Scale = [](std::vector<double>& v, double scale) {
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scale; });
-    return;
-  };
-
   int figure = 0;
   if (argc < 2)
   {
@@ -70,11 +66,16 @@ int main(int argc, char* argv[])
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the background color. Match those in VTKTextbook.pdf.
-  auto scale = 256.0;
-  std::vector<double> bkg = {60, 93, 144};
-
-  Scale(bkg, scale);
-  colors->SetColor("BkgColor", bkg[0], bkg[1], bkg[2]);
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{25, 51, 102};
+  SetColor(bkg, "BkgColor");
 
   vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
 

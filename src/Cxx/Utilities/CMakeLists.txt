@@ -34,6 +34,7 @@ if (BUILD_TESTING)
 # Testing
 set(KIT Utilities)
 set(NEEDS_ARGS
+  ExtractFaces
   SaveSceneToFieldData
   SaveSceneToFile
   ViewportBorders
@@ -41,6 +42,9 @@ set(NEEDS_ARGS
 )
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+add_test(${KIT}-ExtractFaces ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestExtractFaces ${DATA}/Hexahedron.vtu ${DATA}/QuadraticPyramid.vtu ${DATA}/QuadraticTetra.vtu ${DATA}/QuadraticWedge.vtu ${DATA}/Tetrahedron.vtu ${DATA}/TriQuadraticHexahedron.vtu ${DATA}/Triangle.vtu ${DATA}/Wedge.vtu)
 
 add_test(${KIT}-SaveSceneToFile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSaveSceneToFile ${DATA}/Armadillo.ply ${TEMP}/Armadillo.txt)

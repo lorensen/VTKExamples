@@ -37,8 +37,10 @@ set(NEEDS_ARGS
   HeadBone
   HeadSlice
   Hello
+  ImageGradient
   IronIsoSurface
   LOx
+  Motor
   MarchingCases
   MarchingCasesA
   MarchingCasesB
@@ -47,6 +49,8 @@ set(NEEDS_ARGS
   PineRootDecimation
   PlateVibration
   ProbeCombustor
+  Office
+  OfficeA
   OfficeTube
   SpikeFran
   SplatFace
@@ -104,6 +108,9 @@ add_test(${KIT}-HeadSlice ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 add_test(${KIT}-Hello ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHello ${DATA}/hello.vtk)
 
+add_test(${KIT}-ImageGradient ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestImageGradient ${DATA}/FullHead.mhd)
+
 add_test(${KIT}-IronIsoSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestIronIsoSurface ${DATA}/ironProt.vtk)
 
@@ -119,11 +126,20 @@ add_test(${KIT}-MarchingCasesA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 add_test(${KIT}-MarchingCasesB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingCasesB -3 -6 -7 -10 -12 -13)
 
+add_test(${KIT}-Motor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMotor ${DATA}/texThres2.vtk ${DATA}/motor.g)
+
 add_test(${KIT}-PlateVibration ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestPlateVibration ${DATA}/plate.vtk)
+  TestPlateVibration ${DATA}/plate.vtk -E 30)
 
 add_test(${KIT}-ProbeCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestProbeCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin -E 50)
+
+add_test(${KIT}-Office ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestOffice ${DATA}/office.binary.vtk 3 -E 80)
+
+add_test(${KIT}-OfficeA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestOfficeA ${DATA}/office.binary.vtk 0 -E 50)
 
 add_test(${KIT}-OfficeTube ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestOfficeTube ${DATA}/office.binary.vtk)
@@ -144,7 +160,7 @@ add_test(${KIT}-SplatFace ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSplatFace ${DATA}/fran_cut.vtk -E 50)
 
 add_test(${KIT}-StreamlinesWithLineWidget ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestStreamlinesWithLineWidget ${DATA}/combxyz.bin ${DATA}/combq.bin 10 1)
+  TestStreamlinesWithLineWidget ${DATA}/combxyz.bin ${DATA}/combq.bin 10 1 -E 20)
 
 add_test(${KIT}-VelocityProfile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestVelocityProfile ${DATA}/combxyz.bin ${DATA}/combq.bin)
