@@ -20,6 +20,7 @@ file(GLOB ALL_FILES *.cxx)
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresModule.cmake)
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresSettingOff.cmake)
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 
 set(VERSION_MIN "6.0.0")
 Requires_Version(AssignCellColorsFromLUT ${VERSION_MIN} ALL_FILES)
@@ -34,6 +35,7 @@ Requires_Version(ProjectSphere ${VERSION_MIN} ALL_FILES)
 Requires_Version(BillboardTextActor3D "7.1.0" ALL_FILES)
 Requires_Module(Shadows vtkRenderingOpenGL)
 #Requires_Setting_Off(StreamLines VTK_LEGACY_REMOVE)
+Requires_GitLfs(Hawaii ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -141,8 +143,10 @@ add_test(${KIT}-HanoiInitial ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 add_test(${KIT}-HanoiIntermediate ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHanoiIntermediate -c 2)
 
-add_test(${KIT}-Hawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestHawaii ${DATA}/honolulu.vtk)
+if(GIT_LFS)
+  add_test(${KIT}-Hawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestHawaii ${DATA}/honolulu.vtk)
+endif()
 
 add_test(${KIT}-HedgeHog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHedgeHog -E 50)

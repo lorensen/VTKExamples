@@ -16,6 +16,7 @@ include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 Requires_GitLfs(PineRootConnectivity ALL_FILES)
 Requires_GitLfs(PineRootConnectivityA ALL_FILES)
 Requires_GitLfs(PineRootDecimation ALL_FILES)
+Requires_GitLfs(DecimateHawaii ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -94,9 +95,6 @@ add_test(${KIT}-CutWithScalars ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 add_test(${KIT}-DecimateFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDecimateFran ${DATA}/fran_cut.vtk ${DATA}/fran_cut.png)
 
-add_test(${KIT}-DecimateHawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestDecimateHawaii ${DATA}/honolulu.vtk -E 50)
-
 add_test(${KIT}-DisplacementPlot ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDisplacementPlot ${DATA}/plate.vtk)
 
@@ -167,14 +165,17 @@ add_test(${KIT}-WarpCombustor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestWarpCombustor ${DATA}/combxyz.bin ${DATA}/combq.bin)
 
 if(GIT_LFS)
-add_test(${KIT}-PineRootConnectivity ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestPineRootConnectivity ${DATA}/pine_root.tri -E 20)
+  add_test(${KIT}-DecimateHawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestDecimateHawaii ${DATA}/honolulu.vtk -E 50)
 
-add_test(${KIT}-PineRootConnectivityA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestPineRootConnectivityA ${DATA}/pine_root.tri 1 -E 20)
+  add_test(${KIT}-PineRootConnectivity ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestPineRootConnectivity ${DATA}/pine_root.tri -E 20)
 
-add_test(${KIT}-PineRootDecimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestPineRootDecimation ${DATA}/pine_root.tri -E 20)
+  add_test(${KIT}-PineRootConnectivityA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestPineRootConnectivityA ${DATA}/pine_root.tri 1 -E 20)
+
+  add_test(${KIT}-PineRootDecimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestPineRootDecimation ${DATA}/pine_root.tri -E 20)
 endif()
 
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
