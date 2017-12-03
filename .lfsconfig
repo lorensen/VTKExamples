@@ -1,0 +1,2 @@
+[remote "origin"]
+	lfsurl = https://gitlab.kitware.com/lorensen/VTKExamplesLFS.git/info/lfs
