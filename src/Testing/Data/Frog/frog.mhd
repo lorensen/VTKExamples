@@ -1,14 +1,3 @@
-ObjectType = Image
-NDims = 3
-BinaryData = True
-BinaryDataByteOrderMSB = False
-CompressedData = True
-CompressedDataSize = 5174461
-TransformMatrix = 1 0 0 0 1 0 0 0 1
-Offset = 0 0 0
-CenterOfRotation = 0 0 0
-AnatomicalOrientation = RAI
-ElementSpacing = 1 1 1.5
-DimSize = 500 470 138
-ElementType = MET_UCHAR
-ElementDataFile = frog.zraw
+version https://git-lfs.github.com/spec/v1
+oid sha256:ef2d9624e5c0ee90fe3da20bade34cdae7b491033c1a4d485ed7bc39533cf574
+size 332

@@ -1,14 +1,3 @@
-ObjectType = Image
-NDims = 3
-BinaryData = True
-BinaryDataByteOrderMSB = False
-CompressedData = True
-CompressedDataSize = 260020
-TransformMatrix = 1 0 0 0 1 0 0 0 1
-Offset = 0 0 0
-CenterOfRotation = 0 0 0
-ElementSpacing = 1 1 1.5
-DimSize = 500 470 136
-AnatomicalOrientation = ???
-ElementType = MET_UCHAR
-ElementDataFile = frogtissue.zraw
+version https://git-lfs.github.com/spec/v1
+oid sha256:1232e456485961e51db616b6f48e6dfa1c18443dd9e2b409aa0c77d5ad69d6e8
+size 337
