@@ -38,10 +38,10 @@ set(NEEDS_ARGS
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 add_test(${KIT}-GenerateCubesFromLabels ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestGenerateCubesFromLabels ${DATA}/frogtissue.mhd 1 29)
+  TestGenerateCubesFromLabels ${DATA}/Frog/frogtissue.mhd 1 29)
 
 add_test(${KIT}-GenerateModelsFromLabels ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestGenerateModelsFromLabels ${DATA}/frogtissue.mhd 1 29)
+  TestGenerateModelsFromLabels ${DATA}/Frog/frogtissue.mhd 1 29)
 
 add_test(${KIT}-MedicalDemo1 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMedicalDemo1 ${DATA}/FullHead.mhd)
