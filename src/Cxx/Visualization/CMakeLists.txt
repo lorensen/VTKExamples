@@ -63,6 +63,7 @@ set(NEEDS_ARGS
   DepthSortPolyData
   ExtrudePolyDataAlongLine
   FontFile
+  FrogSlice
   Glyph3DImage
   Glyph3DMapper
   HanoiInitial
@@ -144,6 +145,8 @@ add_test(${KIT}-HanoiIntermediate ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTes
   TestHanoiIntermediate -c 2)
 
 if(GIT_LFS)
+  add_test(${KIT}-FrogSlice ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestFrogSlice ${DATA}/Frog/frog.mhd ${DATA}/Frog/frogtissue.mhd)
   add_test(${KIT}-Hawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestHawaii ${DATA}/honolulu.vtk)
 endif()
