@@ -51,6 +51,7 @@ set(NEEDS_ARGS
   AlphaFrequency
   Arbitrary3DCursor
   BackgroundTexture
+  Blow
   BlobbyLogo
   BoxClipStructuredPoints
   BoxClipUnstructuredGrid
@@ -93,6 +94,9 @@ add_test(${KIT}-Arbitrary3DCursor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTes
 
 add_test(${KIT}-BackgroundTexture ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBackgroundTexture -E 30)
+
+add_test(${KIT}-Blow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestBlow ${DATA}/blow.vtk)
 
 add_test(${KIT}-BlobbyLogo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBlobbyLogo ${DATA}/v.vtk ${DATA}/t.vtk ${DATA}/k.vtk)
