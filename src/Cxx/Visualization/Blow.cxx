@@ -34,8 +34,8 @@ int main(int argc, char* argv[])
     std::cout << "       data_point allows you to specify which frame is to be "
                  "displayed."
               << std::endl;
-    std::cout << "       If data_point < 0 or data_point > 9 than all ten "
-                 "frames are displayed."
+    std::cout << "       If data_point < 0 or data_point > 9 all ten "
+                 "frames are then displayed."
               << std::endl;
     return EXIT_FAILURE;
   }
