@@ -11,7 +11,6 @@
 #include <vtkXMLPolyDataReader.h>
 #include <vtkXMLStructuredGridReader.h>
 #include <vtkXMLRectilinearGridReader.h>
-#include <vtkXMLHyperOctreeReader.h>
 #include <vtkXMLCompositeDataReader.h>
 #include <vtkXMLStructuredGridReader.h>
 #include <vtkXMLImageDataReader.h>
@@ -19,7 +18,6 @@
 #include <vtkDataSet.h>
 #include <vtkUnstructuredGrid.h>
 #include <vtkRectilinearGrid.h>
-#include <vtkHyperOctree.h>
 #include <vtkImageData.h>
 #include <vtkPolyData.h>
 #include <vtkStructuredGrid.h>
@@ -76,10 +74,6 @@ int main (int argc, char *argv[])
     else if (extension == ".vti")
     {
       dataSet = ReadAnXMLFile<vtkXMLImageDataReader> (argv[f]);
-    }
-    else if (extension == ".vto")
-    {
-      dataSet = ReadAnXMLFile<vtkXMLHyperOctreeReader> (argv[f]);
     }
     else if (extension == ".vtk")
     {
