@@ -2,20 +2,18 @@ project (${WIKI}Medical)
 
 if(NOT WikiExamples_BINARY_DIR)
 find_package(VTK REQUIRED)
-if(NOT VTK_USE_RENDERING)
-  message(FATAL_ERROR "Example ${PROJECT_NAME} requires VTK_USE_RENDERING.")
-endif()
 include(${VTK_USE_FILE})
 endif()
 
-if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
-  set(KIT_LIBS vtkFiltering vtkHybrid vtkVolumeRendering)
-else()
-  set(KIT_LIBS ${VTK_LIBRARIES})
-endif()
+set(KIT_LIBS ${VTK_LIBRARIES})
+
 #
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
+
+Requires_GitLfs(GenerateModelsFromLabels ALL_FILES)
+Requires_GitLfs(GenerateCubesFromLabels ALL_FILES)
+
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
@@ -37,11 +35,13 @@ set(NEEDS_ARGS
 )
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
-add_test(${KIT}-GenerateCubesFromLabels ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestGenerateCubesFromLabels ${DATA}/Frog/frogtissue.mhd 1 29)
+if(GIT_LFS)
+  add_test(${KIT}-GenerateCubesFromLabels ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestGenerateCubesFromLabels ${DATA}/Frog/frogtissue.mhd 1 29)
 
-add_test(${KIT}-GenerateModelsFromLabels ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestGenerateModelsFromLabels ${DATA}/Frog/frogtissue.mhd 1 29)
+  add_test(${KIT}-GenerateModelsFromLabels ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestGenerateModelsFromLabels ${DATA}/Frog/frogtissue.mhd 1 29)
+endif()
 
 add_test(${KIT}-MedicalDemo1 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMedicalDemo1 ${DATA}/FullHead.mhd)
