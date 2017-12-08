@@ -36,6 +36,7 @@ Requires_Version(BillboardTextActor3D "7.1.0" ALL_FILES)
 Requires_Module(Shadows vtkRenderingOpenGL)
 #Requires_Setting_Off(StreamLines VTK_LEGACY_REMOVE)
 Requires_GitLfs(Hawaii ALL_FILES)
+Requires_GitLfs(FrogSlice ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
