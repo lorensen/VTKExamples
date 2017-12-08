@@ -140,7 +140,7 @@ def get_program_parameters():
         It is a translation of the original blow.tcl.
 
         data_point allows you to specify which frame is to be displayed.
-        If data_point < 0 or data_point > 9 than all ten frames are displayed.
+        If data_point < 0 or data_point > 9 all ten frames are then displayed.
 
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)

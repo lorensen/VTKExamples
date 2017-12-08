@@ -156,7 +156,7 @@ int main(int argc, char* argv[])
   auto rendererSizeY = 400;
   auto renWinScale = 0.5;
   renWin->SetWindowName("Blow");
-  if (dataPoint >= 0 and dataPoint < 10)
+  if (dataPoint >= 0 && dataPoint < 10)
   {
     renWin->AddRenderer(ren[dataPoint]);
     renWin->SetSize(rendererSizeX, rendererSizeY);
