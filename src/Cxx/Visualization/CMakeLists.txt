@@ -35,6 +35,7 @@ Requires_GitLfs(FrogSlice ALL_FILES)
 Requires_GitLfs(ViewFrog ALL_FILES)
 Requires_GitLfs(ViewFrogA ALL_FILES)
 Requires_GitLfs(ViewFrogBoth ALL_FILES)
+Requires_GitLfs(ViewFrogSkinAndTissueBoth ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -81,6 +82,7 @@ set(NEEDS_ARGS
   ViewFrog
   ViewFrogA
   ViewFrogBoth
+  ViewFrogSkinAndTissue
   VisualizeVTP
   Visualize2DPoints
 )
@@ -161,6 +163,8 @@ if(GIT_LFS)
     TestViewFrogA ${DATA}/Frog/frogtissue.mhd blood brain duodenum eyeRetina eyeWhite heart ileum kidney intestine liver lung nerve spleen stomach)
   add_test(${KIT}-ViewFrogBoth ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestViewFrogBoth ${DATA}/Frog/frogtissue.mhd brain)
+  add_test(${KIT}-ViewFrogSkinAndTissue ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestViewFrogSkinAndTissue ${DATA}/Frog/frog.mhd ${DATA}/Frog/frogtissue.mhd)
 endif()
 
 add_test(${KIT}-HedgeHog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
