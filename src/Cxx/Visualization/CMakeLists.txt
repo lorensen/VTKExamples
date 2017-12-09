@@ -2,19 +2,14 @@ project (${WIKI}Visualization)
 
 if(NOT WikiExamples_BINARY_DIR)
 find_package(VTK REQUIRED)
-if(NOT VTK_USE_RENDERING)
-  message(FATAL_ERROR "Example ${PROJECT_NAME} requires VTK_USE_RENDERING.")
-endif()
-include(${VTK_USE_FILE})
+  include(${VTK_USE_FILE})
 endif()
 
-if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
-  set(KIT_LIBS vtkWidgets vtkRendering vtkHybrid)
-else()
-  set(KIT_LIBS ${VTK_LIBRARIES})
-endif()
+set(KIT_LIBS ${VTK_LIBRARIES})
+
 #
 # Build all .cxx files in the directory
+
 file(GLOB ALL_FILES *.cxx)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
@@ -37,6 +32,10 @@ Requires_Module(Shadows vtkRenderingOpenGL)
 #Requires_Setting_Off(StreamLines VTK_LEGACY_REMOVE)
 Requires_GitLfs(Hawaii ALL_FILES)
 Requires_GitLfs(FrogSlice ALL_FILES)
+Requires_GitLfs(ViewFrog ALL_FILES)
+Requires_GitLfs(ViewFrogA ALL_FILES)
+Requires_GitLfs(ViewFrogBoth ALL_FILES)
+Requires_GitLfs(ViewFrogSkinAndTissueBoth ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -80,6 +79,10 @@ set(NEEDS_ARGS
   StreamLines
   TextureMapPlane
   TextureMapQuad
+  ViewFrog
+  ViewFrogA
+  ViewFrogBoth
+  ViewFrogSkinAndTissue
   VisualizeVTP
   Visualize2DPoints
 )
@@ -154,6 +157,14 @@ if(GIT_LFS)
     TestFrogSlice ${DATA}/Frog/frog.mhd ${DATA}/Frog/frogtissue.mhd)
   add_test(${KIT}-Hawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestHawaii ${DATA}/honolulu.vtk)
+  add_test(${KIT}-ViewFrog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestViewFrog ${DATA}/Frog/frogtissue.mhd blood brain duodenum eyeRetina eyeWhite heart ileum kidney intestine liver lung nerve skeleton spleen stomach)
+  add_test(${KIT}-ViewFrogA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestViewFrogA ${DATA}/Frog/frogtissue.mhd blood brain duodenum eyeRetina eyeWhite heart ileum kidney intestine liver lung nerve spleen stomach)
+  add_test(${KIT}-ViewFrogBoth ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestViewFrogBoth ${DATA}/Frog/frogtissue.mhd brain)
+  add_test(${KIT}-ViewFrogSkinAndTissue ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestViewFrogSkinAndTissue ${DATA}/Frog/frog.mhd ${DATA}/Frog/frogtissue.mhd)
 endif()
 
 add_test(${KIT}-HedgeHog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

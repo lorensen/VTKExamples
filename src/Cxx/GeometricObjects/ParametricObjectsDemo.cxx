@@ -2,6 +2,7 @@
 #include <vtkActor2D.h>
 #include <vtkCamera.h>
 #include <vtkMath.h>
+#include <vtkNamedColors.h>
 #include <vtkParametricFunctionSource.h>
 #include <vtkPoints.h>
 #include <vtkPolyDataMapper.h>
@@ -28,15 +29,28 @@
 #include <vtkParametricSuperEllipsoid.h>
 #include <vtkParametricSuperToroid.h>
 #include <vtkParametricTorus.h>
-#include <vtkParametricTorus.h>
 
+#include <array>
 #include <vector>
 
 int main(int, char* [])
 {
-  // Select one of the following (matching the selection above)
-  std::vector<vtkSmartPointer<vtkParametricFunction>> parametricObjects;
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
+  // Set the background color.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{25, 51, 102}};
+  SetColor(bkg, "BkgColor");
+
+  std::vector<vtkSmartPointer<vtkParametricFunction>> parametricObjects;
   parametricObjects.push_back(vtkSmartPointer<vtkParametricBoy>::New());
   parametricObjects.push_back(vtkSmartPointer<vtkParametricConicSpiral>::New());
   parametricObjects.push_back(vtkSmartPointer<vtkParametricCrossCap>::New());
@@ -115,7 +129,7 @@ int main(int, char* [])
 
   vtkSmartPointer<vtkProperty> backProperty =
     vtkSmartPointer<vtkProperty>::New();
-  backProperty->SetColor(1.0, 0.0, 0.0);
+  backProperty->SetColor(colors->GetColor3d("Red").GetData());
 
   // Create a parametric function source, renderer, mapper, and actor
   // for each object
@@ -135,6 +149,7 @@ int main(int, char* [])
 
     actors.push_back(vtkSmartPointer<vtkActor>::New());
     actors[i]->SetMapper(mappers[i]);
+    actors[i]->GetProperty()->SetColor(colors->GetColor3d("White").GetData());
     actors[i]->SetBackfaceProperty(backProperty);
 
     textmappers.push_back(vtkSmartPointer<vtkTextMapper>::New());
@@ -146,11 +161,12 @@ int main(int, char* [])
     textactors[i]->SetPosition(100, 16);
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
   }
-  unsigned int gridDimensions = 4;
+
+  auto gridDimensions = 4;
 
   // Need a renderer even if there is no actor
-  for (size_t i = parametricObjects.size(); i < gridDimensions * gridDimensions;
-       i++)
+  for (auto i = static_cast<int>(parametricObjects.size());
+       i < gridDimensions * gridDimensions; i++)
   {
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
   }
@@ -158,34 +174,29 @@ int main(int, char* [])
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   int rendererSize = 200;
-  renderWindow->SetSize(
-    rendererSize * gridDimensions, rendererSize * gridDimensions);
+  renderWindow->SetSize(rendererSize * gridDimensions,
+                        rendererSize * gridDimensions);
 
-  for (int row = 0; row < static_cast<int>(gridDimensions); row++)
+  for (auto row = 0; row < gridDimensions; row++)
   {
-    for (int col = 0; col < static_cast<int>(gridDimensions); col++)
+    for (auto col = 0; col < gridDimensions; col++)
     {
-      int index = row * gridDimensions + col;
-
-      // (xmin, ymin, xmax, ymax)
-      double viewport[4] = {static_cast<double>(col) * rendererSize /
-                              (gridDimensions * rendererSize),
-        static_cast<double>(gridDimensions - (row + 1)) * rendererSize /
-          (gridDimensions * rendererSize),
-        static_cast<double>(col + 1) * rendererSize /
-          (gridDimensions * rendererSize),
-        static_cast<double>(gridDimensions - row) * rendererSize /
-          (gridDimensions * rendererSize)};
-
+      auto index = row * gridDimensions + col;
+      auto x0 = double(col) / gridDimensions;
+      auto y0 = double(gridDimensions - row - 1) / gridDimensions;
+      auto x1 = double(col + 1) / gridDimensions;
+      auto y1 = double(gridDimensions - row) / gridDimensions;
       renderWindow->AddRenderer(renderers[index]);
-      renderers[index]->SetViewport(viewport);
+      renderers[index]->SetViewport(x0, y0, x1, y1);
+
       if (index > static_cast<int>(parametricObjects.size() - 1))
       {
         continue;
       }
+
       renderers[index]->AddActor(actors[index]);
       renderers[index]->AddActor(textactors[index]);
-      renderers[index]->SetBackground(.2, .3, .4);
+      renderers[index]->SetBackground(colors->GetColor3d("BkgColor").GetData());
       renderers[index]->ResetCamera();
       renderers[index]->GetActiveCamera()->Azimuth(30);
       renderers[index]->GetActiveCamera()->Elevation(-30);

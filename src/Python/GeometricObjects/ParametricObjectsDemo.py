@@ -58,6 +58,14 @@ class ParametricObjects(object):
         textProperty.SetFontSize(10)
         textProperty.SetJustificationToCentered()
 
+        colors = vtk.vtkNamedColors()
+        # Set the background color. Match those in VTKTextbook.pdf.
+        bkg = map(lambda xx: xx / 256.0, [25, 51, 102])
+        colors.SetColor("BkgColor", *bkg)
+
+        backProperty = vtk.vtkProperty()
+        backProperty.SetColor(colors.GetColor3d("Red"))
+
         # Create a parametric function source, renderer, mapper
         # and actor for each object.
         for idx, item in enumerate(parametricObjects):
@@ -70,6 +78,8 @@ class ParametricObjects(object):
 
             actors.append(vtk.vtkActor())
             actors[idx].SetMapper(mappers[idx])
+            actors[idx].GetProperty().SetColor(colors.GetColor3d("White"))
+            actors[idx].SetBackfaceProperty(backProperty)
 
             textmappers.append(vtk.vtkTextMapper())
             textmappers[idx].SetInput(item.GetClassName())
@@ -83,14 +93,12 @@ class ParametricObjects(object):
 
         gridDimensions = 4
 
-        for idx in range(len(parametricObjects)):
-            if idx < gridDimensions * gridDimensions:
-                renderers.append(vtk.vtkRenderer)
+        for idx in range(len(parametricObjects), gridDimensions ** 2):
+            renderers.append(vtk.vtkRenderer)
 
         rendererSize = 200
 
         # Create the RenderWindow
-        #
         renderWindow = vtk.vtkRenderWindow()
         renderWindow.SetSize(rendererSize * gridDimensions, rendererSize * gridDimensions)
 
@@ -99,22 +107,25 @@ class ParametricObjects(object):
         for row in range(gridDimensions):
             for col in range(gridDimensions):
                 idx = row * gridDimensions + col
-
+                x0 = float(col) / gridDimensions
+                y0 = float(gridDimensions - row - 1) / gridDimensions
+                x1 = float(col + 1) / gridDimensions
+                y1 = float(gridDimensions - row) / gridDimensions
                 viewport[:] = []
-                viewport.append(float(col) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - (row + 1)) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(col + 1) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - row) * rendererSize / (gridDimensions * rendererSize))
+                viewport.append(x0)
+                viewport.append(y0)
+                viewport.append(x1)
+                viewport.append(y1)
 
                 if idx > (len(parametricObjects) - 1):
                     continue
 
-                renderers[idx].SetViewport(viewport)
                 renderWindow.AddRenderer(renderers[idx])
+                renderers[idx].SetViewport(viewport)
 
                 renderers[idx].AddActor(actors[idx])
                 renderers[idx].AddActor(textactors[idx])
-                renderers[idx].SetBackground(0.2, 0.3, 0.4)
+                renderers[idx].SetBackground(colors.GetColor3d("BkgColor"))
                 renderers[idx].ResetCamera()
                 renderers[idx].GetActiveCamera().Azimuth(30)
                 renderers[idx].GetActiveCamera().Elevation(-30)

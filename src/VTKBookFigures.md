@@ -164,7 +164,10 @@ Figure 10-14 | | This figure demonstrates various binary filters that can alter 
 [Figure 12-3](/Cxx/Medical/MedicalDemo2) | | Skin and bone isosurfaces ([Medical2.cxx](https://gitlab.kitware.com/vtk/vtk/blob/2d323fc4f7476ad024d0f4a164a0930f005bc154/Examples/Medical/Cxx/Medical2.cxx)).
 [Figure 12-4](/Cxx/Medical/MedicalDemo3) | | Composite image of three planes and translucent skin [Medical3.cxx](https://gitlab.kitware.com/vtk/vtk/blob/2d323fc4f7476ad024d0f4a164a0930f005bc154/Examples/Medical/Cxx/Medical3.cxx).
 [Figure 12-6](/Cxx/Visualization/FrogSlice) | vtkMetaImageReader | Photographic slice of frog (upper left), segmented frog (upper right) and composite aof photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow ([frogSlice.tcl](https://gitlab.kitware.com/vtk/vtk/blob/a49f004a6a9b0b1562323187e71d68f1e03d8b7e/examplesTcl/frog/frogSlice.tcl)).
-Figure 12-7 | | The frog’s brain. Model extracted without smoothing (left) and with smoothing (right).
+[Figure 12-7](/Cxx/Visualization/ViewFrogBoth) | vtkMetaImageReader vtkMarchingCubes vtkImageGaussianSmooth vtkImageGaussianSmooth| The frog’s brain. Model extracted without smoothing (left) and with smoothing (right).
+[Figure 12-9a](/Cxx/Visualization/ViewFrogSkinAndTissue) | vtkMetaImageReader vtkMarchingCubes vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth| All frog parts and translucent skin.
+[Figure 12-9b](/Cxx/Visualization/ViewFrog) | vtkMetaImageReader vtkMarchingCubes vtkImageGaussianSmooth vtkWindowedSincPolyDataFilter| The complete frog without skin.
+[Figure 12-9c](/Cxx/Visualization/ViewFrogA) | vtkMetaImageReader vtkMarchingCubes vtkImageGaussianSmooth vtkWindowedSincPolyDataFilter| No skin or skeleton.
 Figure 12-10 | | Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time (stocks.tcl).
 [Figure 12-13](/Cxx/Visualization/BlobbyLogo) | vtkImplicitModeller | A logo created with vtkImplicitModeller ([vtkLogo.cxx](https://gitlab.kitware.com/vtk/vtk/blob/3ad5fa14aaa30c57cab400a7494bd6e2eac37bf1/graphics/examplesCxx/vtkLogo.cxx)).
 Figure 12-14 | | Portion of computational grid for the LOx post (LOxGrid.tcl).

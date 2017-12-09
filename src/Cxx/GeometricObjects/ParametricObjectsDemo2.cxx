@@ -1,17 +1,18 @@
-#include <vtkSmartPointer.h>
-#include <vtkCamera.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkTextMapper.h>
 #include <vtkActor.h>
 #include <vtkActor2D.h>
-#include <vtkProperty.h>
-#include <vtkTextProperty.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkParametricFunctionSource.h>
+#include <vtkCamera.h>
 #include <vtkMath.h>
+#include <vtkNamedColors.h>
+#include <vtkParametricFunctionSource.h>
 #include <vtkPoints.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkTextMapper.h>
+#include <vtkTextProperty.h>
 
 #include <vtkParametricBohemianDome.h>
 #include <vtkParametricBour.h>
@@ -22,46 +23,52 @@
 #include <vtkParametricPluckerConoid.h>
 #include <vtkParametricPseudosphere.h>
 
+#include <array>
 #include <vector>
 
-int main(int, char *[])
+int main(int, char* [])
 {
-  // Select one of the following (matching the selection above)
-  std::vector<vtkSmartPointer<vtkParametricFunction> > parametricObjects;
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
+  // Set the background color.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{25, 51, 102}};
+  SetColor(bkg, "BkgColor");
+
+  std::vector<vtkSmartPointer<vtkParametricFunction>> parametricObjects;
   parametricObjects.push_back(
     vtkSmartPointer<vtkParametricBohemianDome>::New());
-  static_cast<vtkParametricBohemianDome*>(
-    parametricObjects.back().GetPointer())->SetA(5.0);
-  static_cast<vtkParametricBohemianDome*>(
-    parametricObjects.back().GetPointer())->SetB(1.0);
-  static_cast<vtkParametricBohemianDome*>(
-    parametricObjects.back().GetPointer())->SetC(2.0);
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricBour>::New());
+  static_cast<vtkParametricBohemianDome*>(parametricObjects.back().GetPointer())
+    ->SetA(5.0);
+  static_cast<vtkParametricBohemianDome*>(parametricObjects.back().GetPointer())
+    ->SetB(1.0);
+  static_cast<vtkParametricBohemianDome*>(parametricObjects.back().GetPointer())
+    ->SetC(2.0);
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricBour>::New());
   parametricObjects.push_back(
     vtkSmartPointer<vtkParametricCatalanMinimal>::New());
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricHenneberg>::New());
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricKuen>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricHenneberg>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricKuen>::New());
   parametricObjects.push_back(
     vtkSmartPointer<vtkParametricPluckerConoid>::New());
   parametricObjects.push_back(
     vtkSmartPointer<vtkParametricPseudosphere>::New());
 
-  std::vector<vtkSmartPointer<vtkParametricFunctionSource> >
+  std::vector<vtkSmartPointer<vtkParametricFunctionSource>>
     parametricFunctionSources;
-  std::vector<vtkSmartPointer<vtkRenderer> >
-    renderers;
-  std::vector<vtkSmartPointer<vtkPolyDataMapper> >
-    mappers;
-  std::vector<vtkSmartPointer<vtkActor> >
-    actors;
-  std::vector<vtkSmartPointer<vtkTextMapper> >
-    textmappers;
-  std::vector<vtkSmartPointer<vtkActor2D> >
-    textactors;
+  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkPolyDataMapper>> mappers;
+  std::vector<vtkSmartPointer<vtkActor>> actors;
+  std::vector<vtkSmartPointer<vtkTextMapper>> textmappers;
+  std::vector<vtkSmartPointer<vtkActor2D>> textactors;
 
   // Create one text property for all
   vtkSmartPointer<vtkTextProperty> textProperty =
@@ -71,11 +78,11 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkProperty> backProperty =
     vtkSmartPointer<vtkProperty>::New();
-  backProperty->SetColor(1.0, 0.0, 0.0);
+  backProperty->SetColor(colors->GetColor3d("Red").GetData());
 
   // Create a parametric function source, renderer, mapper, and actor
   // for each object
-  for(unsigned int i = 0; i < parametricObjects.size(); i++)
+  for (unsigned int i = 0; i < parametricObjects.size(); i++)
   {
     parametricFunctionSources.push_back(
       vtkSmartPointer<vtkParametricFunctionSource>::New());
@@ -88,6 +95,7 @@ int main(int, char *[])
 
     actors.push_back(vtkSmartPointer<vtkActor>::New());
     actors[i]->SetMapper(mappers[i]);
+    actors[i]->GetProperty()->SetColor(colors->GetColor3d("White").GetData());
     actors[i]->SetBackfaceProperty(backProperty);
 
     textmappers.push_back(vtkSmartPointer<vtkTextMapper>::New());
@@ -99,13 +107,13 @@ int main(int, char *[])
     textactors[i]->SetPosition(100, 16);
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
   }
-  unsigned int gridXDimensions = 4;
-  unsigned int gridYDimensions = 2;
+
+  auto gridDimensionsX = 4;
+  auto gridDimensionsY = 2;
 
   // Need a renderer even if there is no actor
-  for(size_t i = parametricObjects.size();
-      i < gridXDimensions * gridYDimensions;
-      i++)
+  for (auto i = static_cast<int>(parametricObjects.size());
+       i < gridDimensionsX * gridDimensionsY; i++)
   {
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
   }
@@ -113,30 +121,29 @@ int main(int, char *[])
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   int rendererSize = 200;
-  renderWindow->SetSize(
-    rendererSize*gridXDimensions, rendererSize*gridYDimensions);
+  renderWindow->SetSize(rendererSize * gridDimensionsX,
+                        rendererSize * gridDimensionsY);
 
-  for(int row = 0; row < static_cast<int>(gridYDimensions); row++)
+  for (auto row = 0; row < gridDimensionsY; ++row)
   {
-    for(int col = 0; col < static_cast<int>(gridXDimensions); col++)
+    for (auto col = 0; col < gridDimensionsX; ++col)
     {
-      int index = row*gridXDimensions + col;
-
-      // (xmin, ymin, xmax, ymax)
-      double viewport[4] =
-        {static_cast<double>(col) * rendererSize / (gridXDimensions * rendererSize),
-         static_cast<double>(gridYDimensions - (row+1)) * rendererSize / (gridYDimensions * rendererSize),
-         static_cast<double>(col+1)*rendererSize / (gridXDimensions * rendererSize),
-         static_cast<double>(gridYDimensions - row) * rendererSize / (gridYDimensions * rendererSize)};
+      auto index = row * gridDimensionsX + col;
+      auto x0 = double(col) / gridDimensionsX;
+      auto y0 = double(gridDimensionsY - row - 1) / gridDimensionsY;
+      auto x1 = double(col + 1) / gridDimensionsX;
+      auto y1 = double(gridDimensionsY - row) / gridDimensionsY;
       renderWindow->AddRenderer(renderers[index]);
-      renderers[index]->SetViewport(viewport);
-      if(index > static_cast<int>(parametricObjects.size() - 1))
+      renderers[index]->SetViewport(x0, y0, x1, y1);
+
+      if (index > static_cast<int>(parametricObjects.size() - 1))
       {
         continue;
       }
+
       renderers[index]->AddActor(actors[index]);
       renderers[index]->AddActor(textactors[index]);
-      renderers[index]->SetBackground(.2, .3, .4);
+      renderers[index]->SetBackground(colors->GetColor3d("BkgColor").GetData());
       renderers[index]->ResetCamera();
       renderers[index]->GetActiveCamera()->Azimuth(30);
       renderers[index]->GetActiveCamera()->Elevation(-30);
