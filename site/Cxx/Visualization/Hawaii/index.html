@@ -135,7 +135,7 @@ function registerListener(event, func) {
     <span class=n>colors</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=n>colorName</span><span class=p>,</span> <span class=n>v</span><span class=p>.</span><span class=n>data</span><span class=p>());</span>
     <span class=k>return</span><span class=p>;</span>
   <span class=p>};</span>
-  <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=mi>3</span><span class=o>&gt;</span> <span class=n>bkg</span><span class=p>{</span><span class=mi>25</span><span class=p>,</span> <span class=mi>51</span><span class=p>,</span> <span class=mi>102</span><span class=p>};</span>
+  <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=mi>3</span><span class=o>&gt;</span> <span class=n>bkg</span><span class=p>{{</span><span class=mi>25</span><span class=p>,</span> <span class=mi>51</span><span class=p>,</span> <span class=mi>102</span><span class=p>}};</span>
   <span class=n>SetColor</span><span class=p>(</span><span class=n>bkg</span><span class=p>,</span> <span class=s>&quot;BkgColor&quot;</span><span class=p>);</span>
 
 <span class=hll>  <span class=c1>// Read a vtk file</span>

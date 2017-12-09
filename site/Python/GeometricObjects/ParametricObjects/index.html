@@ -64,6 +64,9 @@ function registerListener(event, func) {
 
 <span class=k>class</span> <span class=nc>ParametricObjects</span><span class=p>(</span><span class=nb>object</span><span class=p>):</span>
     <span class=k>def</span> <span class=nf>ParametricObjects</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+
+<span class=hll>        <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
+</span>
         <span class=c1># Select one of the following functions.</span>
 <span class=hll>        <span class=c1># parametricObject = vtk.vtkParametricBoy()</span>
 </span><span class=hll>        <span class=c1># parametricObject = vtk.vtkParametricConicSpiral()</span>
@@ -91,6 +94,7 @@ function registerListener(event, func) {
         <span class=c1># actor</span>
 <span class=hll>        <span class=n>actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkActor</span><span class=p>()</span>
 </span>        <span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
+        <span class=n>actor</span><span class=o>.</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>.</span><span class=n>SetDiffuseColor</span><span class=p>(</span><span class=n>colors</span><span class=o>.</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s2>&quot;Burlywood&quot;</span><span class=p>))</span>
 
         <span class=c1># ------------------------------------------------------------</span>
         <span class=c1># Create the RenderWindow, Renderer and Interactor</span>
@@ -104,7 +108,7 @@ function registerListener(event, func) {
 
         <span class=c1># add actors</span>
         <span class=n>ren</span><span class=o>.</span><span class=n>AddViewProp</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
-        <span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>  <span class=c1># Background color white</span>
+        <span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>.</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s2>&quot;Beige&quot;</span><span class=p>))</span>
 
         <span class=c1># enable user interface interactor</span>
         <span class=n>iren</span><span class=o>.</span><span class=n>Initialize</span><span class=p>()</span>
