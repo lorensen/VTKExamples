@@ -50,9 +50,7 @@ int main(int, char* [])
   std::array<double, 3> bkg{{25, 51, 102}};
   SetColor(bkg, "BkgColor");
 
-  // Select one of the following (matching the selection above)
   std::vector<vtkSmartPointer<vtkParametricFunction>> parametricObjects;
-
   parametricObjects.push_back(vtkSmartPointer<vtkParametricBoy>::New());
   parametricObjects.push_back(vtkSmartPointer<vtkParametricConicSpiral>::New());
   parametricObjects.push_back(vtkSmartPointer<vtkParametricCrossCap>::New());
