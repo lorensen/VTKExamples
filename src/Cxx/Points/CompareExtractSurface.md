@@ -3,8 +3,8 @@
 This example compares three surface reconstruction algorithms:
 
 1. [ExtractSurface](/Cxx/Points/ExtractSurface)
-2. [PoissonReconstruction](/Cxx/Points/PoissonReconstruction)
-3. [Powercrust](/Cxx/Points/Powercrust)
+2. [PoissonReconstruction](/Cxx/Points/PoissonExtractSurface)
+3. [Powercrust](/Cxx/Points/PowercrustExtractSurface)
 
 We usually try to keep examples short, but this example teaches several concepts.
 

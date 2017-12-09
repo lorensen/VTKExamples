@@ -1,4 +1,4 @@
-VTKExamples Administrators have write access to the [git repository]([https://github.com/lorensen/VTKExamples). If you are a VTKExamples User [go here](/Instructions/ForUsers) or a VTKExamples Developer [go here](/Instructions/ForDevelopers).
+VTKExamples Administrators have write access to the [git repository](https://github.com/lorensen/VTKExamples). If you are a VTKExamples User [go here](/Instructions/ForUsers) or a VTKExamples Developer [go here](/Instructions/ForDevelopers).
 
 # Organization of the VTKExamples Repository
 
@@ -215,7 +215,7 @@ The *SyncSiteWithRepo.sh* shell script executes all of the steps to update the s
 
 1. Makes sure the site is up
 
-2. Pulls updates from the master repository at https://github.com/lorensen/VTKExamples
+2. Pulls updates from the [master repository](https://github.com/lorensen/VTKExamples).
 
 3. Pulls updates from the [src/Tarballs repository](https://github.com/lorensen/VTKWikiExamplesTarballs)
 
