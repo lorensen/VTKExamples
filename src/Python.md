@@ -124,8 +124,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [ColoredTriangle](/Python/PolyData/ColoredTriangle) | vtkTriangle | Creates a file TriangleColored.vtp.
 [CombinePolyData](/Python/Filtering/CombinePolyData) | vtkAppendPolyData | This example combines Polydata objects, and displays the result to the screen.
 [Cube](/Python/DataManipulation/Cube) | vtkPolyData |
-[CurvaturesDemo](/Python/Polydata/CurvaturesDemo) | vtkCurvatures  vtkColorTransferFunction  | Demonstrates how to get the Gaussian and Mean curvatures of a surface.
-[FilledPolygon](/Python/Polydata/FilledPolygon) | vtkCutter |
+[CurvaturesDemo](/Python/PolyData/CurvaturesDemo) | vtkCurvatures  vtkColorTransferFunction  | Demonstrates how to get the Gaussian and Mean curvatures of a surface.
+[FilledPolygon](/Python/PolyData/FilledPolygon) | vtkCutter |
 [ImplicitPolyDataDistance](/Python/PolyData/ImplicitPolyDataDistance) | vtkImplicitPolyDataDistance |
 [IterativeClosestPoints](/Python/Filtering/IterativeClosestPoints) | vtkIterativeClosestPointTransform |
 [KochSnowflake](/Python/Visualization/KochSnowflake) | vtkPolyData vtkCellArray vtkPoints vtkPolyLine | This example draws a Koch snowflake fractal using recursive functions and some of the convenient tools in the toolkit.
@@ -234,7 +234,7 @@ This section includes examples of manipulating meshes.
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[BackgroundImage](/Python/BackgroundImage) | vtkJPEGReader vtkImageCanvasSource2D vtkImageActor vtkSuperquadricSource | Display an image as the "background" of a scene, and render a superquadric in front of it.
+[BackgroundImage](/Python/Images/BackgroundImage) | vtkJPEGReader vtkImageCanvasSource2D vtkImageActor vtkSuperquadricSource | Display an image as the "background" of a scene, and render a superquadric in front of it.
 
 ## Image Processing
 
