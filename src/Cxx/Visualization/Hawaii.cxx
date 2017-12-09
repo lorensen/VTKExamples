@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
     colors->SetColor(colorName, v.data());
     return;
   };
-  std::array<double, 3> bkg{25, 51, 102};
+  std::array<double, 3> bkg{{25, 51, 102}};
   SetColor(bkg, "BkgColor");
 
   // Read a vtk file

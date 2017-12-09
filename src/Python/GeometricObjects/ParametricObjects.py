@@ -5,6 +5,9 @@ import vtk
 
 class ParametricObjects(object):
     def ParametricObjects(self):
+
+        colors = vtk.vtkNamedColors()
+
         # Select one of the following functions.
         # parametricObject = vtk.vtkParametricBoy()
         # parametricObject = vtk.vtkParametricConicSpiral()
@@ -32,6 +35,7 @@ class ParametricObjects(object):
         # actor
         actor = vtk.vtkActor()
         actor.SetMapper(mapper)
+        actor.GetProperty().SetDiffuseColor(colors.GetColor3d("Burlywood"))
 
         # ------------------------------------------------------------
         # Create the RenderWindow, Renderer and Interactor
@@ -45,7 +49,7 @@ class ParametricObjects(object):
 
         # add actors
         ren.AddViewProp(actor)
-        ren.SetBackground(1, 1, 1)  # Background color white
+        ren.SetBackground(colors.GetColor3d("Beige"))
 
         # enable user interface interactor
         iren.Initialize()
