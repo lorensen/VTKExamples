@@ -1,18 +1,12 @@
 project (${WIKI}GeometricObjects)
 
 if(NOT WikiExamples_BINARY_DIR)
-find_package(VTK REQUIRED)
-if(NOT VTK_USE_RENDERING)
-  message(FATAL_ERROR "Example ${PROJECT_NAME} requires VTK_USE_RENDERING.")
-endif()
-include(${VTK_USE_FILE})
+  find_package(VTK REQUIRED)
+  include(${VTK_USE_FILE})
 endif()
 
-if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
-  set(KIT_LIBS vtkRendering vtkHybrid vtkWidgets)
-else()
-  set(KIT_LIBS ${VTK_LIBRARIES})
-endif()
+set(KIT_LIBS ${VTK_LIBRARIES})
+
 #
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
