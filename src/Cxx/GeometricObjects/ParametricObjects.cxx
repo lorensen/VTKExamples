@@ -9,22 +9,21 @@
 #include <vtkSmartPointer.h>
 
 // Select one of the following:
+// #include <vtkParametricBoy.h>
+// #include <vtkParametricConicSpiral.h>
+// #include <vtkParametricCrossCap.h>
+// #include <vtkParametricDini.h>
+// #include <vtkParametricEllipsoid.h>
+// #include <vtkParametricEnneper.h>
+// #include <vtkParametricFigure8Klein.h>
+// #include <vtkParametricKlein.h>
+// #include <vtkParametricMobius.h>
+// #include <vtkParametricRandomHills.h>
+// #include <vtkParametricRoman.h>
+// #include <vtkParametricSpline.h>
+// #include <vtkParametricSuperEllipsoid.h>
+// #include <vtkParametricSuperToroid.h>
 #include <vtkParametricTorus.h>
-//#include <vtkParametricBoy.h>
-//#include <vtkParametricConicSpiral.h>
-//#include <vtkParametricCrossCap.h>
-//#include <vtkParametricDini.h>
-//#include <vtkParametricEllipsoid.h>
-//#include <vtkParametricEnneper.h>
-//#include <vtkParametricFigure8Klein.h>
-//#include <vtkParametricKlein.h>
-//#include <vtkParametricMobius.h>
-//#include <vtkParametricRandomHills.h>
-//#include <vtkParametricRoman.h>
-//#include <vtkParametricSpline.h>
-//#include <vtkParametricSuperEllipsoid.h>
-//#include <vtkParametricSuperToroid.h>
-//#include <vtkParametricTorus.h>
 
 int main(int, char* [])
 {
