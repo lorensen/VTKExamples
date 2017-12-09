@@ -6,46 +6,23 @@ import vtk
 class ParametricObjects(object):
     def ParametricObjects(self):
 
+        colors = vtk.vtkNamedColors()
+        # Set the background color.
+        bkg = map(lambda x: x / 256.0, [25, 51, 102])
+        colors.SetColor("BkgColor", *bkg)
+
         parametricObjects = list()
-        parametricObjects.append(vtk.vtkParametricBoy())
-        parametricObjects.append(vtk.vtkParametricConicSpiral())
-        parametricObjects.append(vtk.vtkParametricCrossCap())
-        parametricObjects.append(vtk.vtkParametricDini())
+        parametricObjects.append(vtk.vtkParametricBohemianDome())
+        parametricObjects[-1].SetA(0.5)
+        parametricObjects[-1].SetB(1.0)
+        parametricObjects[-1].SetC(2.0)
+        parametricObjects.append(vtk.vtkParametricBour())
+        parametricObjects.append(vtk.vtkParametricCatalanMinimal())
+        parametricObjects.append(vtk.vtkParametricHenneberg())
+        parametricObjects.append(vtk.vtkParametricKuen())
+        parametricObjects.append(vtk.vtkParametricPluckerConoid())
+        parametricObjects.append(vtk.vtkParametricPseudosphere())
 
-        parametricObjects.append(vtk.vtkParametricEllipsoid())
-        parametricObjects[-1].SetXRadius(0.5)
-        parametricObjects[-1].SetYRadius(2.0)
-        parametricObjects.append(vtk.vtkParametricEnneper())
-        parametricObjects.append(vtk.vtkParametricFigure8Klein())
-        parametricObjects.append(vtk.vtkParametricKlein())
-
-        parametricObjects.append(vtk.vtkParametricMobius())
-        parametricObjects[-1].SetRadius(2)
-        parametricObjects[-1].SetMinimumV(-0.5)
-        parametricObjects[-1].SetMaximumV(0.5)
-        parametricObjects.append(vtk.vtkParametricRandomHills())
-        parametricObjects[-1].AllowRandomGenerationOff()
-        parametricObjects.append(vtk.vtkParametricRoman())
-        parametricObjects.append(vtk.vtkParametricSuperEllipsoid())
-        parametricObjects[-1].SetN1(0.5)
-        parametricObjects[-1].SetN2(0.1)
-
-        parametricObjects.append(vtk.vtkParametricSuperToroid())
-        parametricObjects[-1].SetN1(0.2)
-        parametricObjects[-1].SetN2(3.0)
-        parametricObjects.append(vtk.vtkParametricTorus())
-        parametricObjects.append(vtk.vtkParametricSpline())
-        # Add some points to the parametric spline.
-        inputPoints = vtk.vtkPoints()
-        vtk.vtkMath.RandomSeed(8775070)
-        for i in range(10):
-            x = vtk.vtkMath.Random(0.0, 1.0)
-            y = vtk.vtkMath.Random(0.0, 1.0)
-            z = vtk.vtkMath.Random(0.0, 1.0)
-            inputPoints.InsertNextPoint(x, y, z)
-        parametricObjects[-1].SetPoints(inputPoints)
-
-        # There are only 15 objects.
         parametricFunctionSources = list()
         renderers = list()
         mappers = list()
@@ -60,7 +37,7 @@ class ParametricObjects(object):
 
         colors = vtk.vtkNamedColors()
         # Set the background color. Match those in VTKTextbook.pdf.
-        bkg = map(lambda xx: xx / 256.0, [25, 51, 102])
+        bkg = map(lambda x: x / 256.0, [25, 51, 102])
         colors.SetColor("BkgColor", *bkg)
 
         backProperty = vtk.vtkProperty()
@@ -91,26 +68,26 @@ class ParametricObjects(object):
 
             renderers.append(vtk.vtkRenderer())
 
-        gridDimensions = 4
-
-        for idx in range(len(parametricObjects), gridDimensions ** 2):
+        gridDimensionsX = 4
+        gridDimensionsY = 2
+        for idx in range(len(parametricObjects), gridDimensionsX * gridDimensionsY):
             renderers.append(vtk.vtkRenderer)
 
         rendererSize = 200
 
         # Create the RenderWindow
         renderWindow = vtk.vtkRenderWindow()
-        renderWindow.SetSize(rendererSize * gridDimensions, rendererSize * gridDimensions)
+        renderWindow.SetSize(rendererSize * gridDimensionsX, rendererSize * gridDimensionsY)
 
         # Add and position the renders to the render window.
         viewport = list()
-        for row in range(gridDimensions):
-            for col in range(gridDimensions):
-                idx = row * gridDimensions + col
-                x0 = float(col) / gridDimensions
-                y0 = float(gridDimensions - row - 1) / gridDimensions
-                x1 = float(col + 1) / gridDimensions
-                y1 = float(gridDimensions - row) / gridDimensions
+        for row in range(gridDimensionsY):
+            for col in range(gridDimensionsX):
+                idx = row * gridDimensionsX + col
+                x0 = float(col) / gridDimensionsX
+                y0 = float(gridDimensionsY - row - 1) / gridDimensionsY
+                x1 = float(col + 1) / gridDimensionsX
+                y1 = float(gridDimensionsY - row) / gridDimensionsY
                 viewport[:] = []
                 viewport.append(x0)
                 viewport.append(y0)
