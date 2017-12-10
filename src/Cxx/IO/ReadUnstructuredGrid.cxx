@@ -1,15 +1,18 @@
-#include <vtkXMLUnstructuredGridReader.h>
 #include <vtkSmartPointer.h>
+#include <vtkXMLUnstructuredGridReader.h>
+
 #include <vtkDataSetMapper.h>
 #include <vtkActor.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkProperty.h>
+#include <vtkNamedColors.h>
 
 int main ( int argc, char *argv[] )
 {
   //parse command line arguments
-  if(argc != 2)
+  if(argc < 2)
   {
     std::cerr << "Usage: " << argv[0]
               << " Filename(.vtu)" << std::endl;
@@ -24,14 +27,25 @@ int main ( int argc, char *argv[] )
   reader->SetFileName(filename.c_str());
   reader->Update();
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   //Create a mapper and actor
   vtkSmartPointer<vtkDataSetMapper> mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   mapper->SetInputConnection(reader->GetOutputPort());
+  mapper->ScalarVisibilityOff();
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->EdgeVisibilityOn();
+  actor->GetProperty()->SetLineWidth(2.0);
+
+  vtkSmartPointer<vtkProperty> backFace =
+    vtkSmartPointer<vtkProperty>::New();
+  backFace->SetColor(colors->GetColor3d("tomato").GetData());
+  actor->SetBackfaceProperty(backFace);
 
   //Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> renderer =
@@ -45,9 +59,11 @@ int main ( int argc, char *argv[] )
 
   //Add the actor to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.3, .6, .3); // Background color green
+  renderer->SetBackground(colors->GetColor3d("Wheat").GetData());
 
   //Render and interact
+  renderWindow->SetSize(640, 480);
+
   renderWindow->Render();
   renderWindowInteractor->Start();
 
