@@ -35,7 +35,7 @@ Requires_GitLfs(FrogSlice ALL_FILES)
 Requires_GitLfs(ViewFrog ALL_FILES)
 Requires_GitLfs(ViewFrogA ALL_FILES)
 Requires_GitLfs(ViewFrogBoth ALL_FILES)
-Requires_GitLfs(ViewFrogSkinAndTissueBoth ALL_FILES)
+Requires_GitLfs(ViewFrogSkinAndTissue ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
