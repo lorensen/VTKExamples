@@ -809,6 +809,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 ## Texture Mapping
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[AnimateVectors](/Cxx/Texture/AnimateVectors) | vtkTexture vtkGlyph3D | One frame from a vector field animation using texture maps ([animVectors.tcl](https://gitlab.kitware.com/vtk/vtk/blob/da314198bb8fbdab6f59e8a69b2d97f1611a05bd/graphics/examplesTcl/animVectors.tcl)).
 [BackgroundTexture](/Cxx/Visualization/BackgroundTexture)| vtkRenderer vtkTexture |Use a texture for the background of a vtkRenderer.
 [ClipArt](/Cxx/Visualization/ClipArt) | vtkTextureMapToPlane | Generate 3D clip art from an image.
 [ProjectedTexture](/Cxx/Texture/ProjectedTexture) | vtkProjectedTexture | Project a texture onto ovtkPolyData.

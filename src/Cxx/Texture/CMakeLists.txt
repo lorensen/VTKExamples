@@ -24,6 +24,7 @@ if (BUILD_TESTING)
 # Testing
 set(KIT Texture)
 set(NEEDS_ARGS
+  AnimateVectors
   ProjectedTexture
   TextureCutSphere
   TexturedSphere
@@ -32,6 +33,17 @@ set(NEEDS_ARGS
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+add_test(${KIT}-AnimateVectors ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestAnimateVectors ${DATA}/carotid.vtk
+  ${DATA}/VectorAnimation/vecAnim1.vtk
+  ${DATA}/VectorAnimation/vecAnim2.vtk
+  ${DATA}/VectorAnimation/vecAnim3.vtk
+  ${DATA}/VectorAnimation/vecAnim4.vtk
+  ${DATA}/VectorAnimation/vecAnim5.vtk
+  ${DATA}/VectorAnimation/vecAnim6.vtk
+  ${DATA}/VectorAnimation/vecAnim7.vtk
+  ${DATA}/VectorAnimation/vecAnim8.vtk)
 
 add_test(${KIT}-ProjectedTexture ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestProjectedTexture ${DATA}/fran_cut.vtk ${DATA}/fran_cut.png)
