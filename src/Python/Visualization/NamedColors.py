@@ -5,6 +5,7 @@
     This example demonstrates the usage of the vtNamedColor class.
 '''
 from __future__ import print_function
+
 import vtk
 
 
@@ -133,18 +134,6 @@ def DisplayCone(nc):
     return renderWindowInteractor
 
 
-def CheckVTKVersion(requiredMajorVersion):
-    '''
-    Check the VTK version.
-    :param: requiredMajorVersion e.g. 6
-    '''
-    version = vtk.vtkVersion()
-    if version.GetVTKMajorVersion() < requiredMajorVersion:
-        raise
-    else:
-        return
-
-
 def main():
     nc = vtk.vtkNamedColors()
     colorNames = nc.GetColorNames().split('\n')
@@ -161,9 +150,9 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        CheckVTKVersion(6)
-    except:
+    requiredMajorVersion = 6
+    print(vtk.vtkVersion().GetVTKMajorVersion())
+    if vtk.vtkVersion().GetVTKMajorVersion() < requiredMajorVersion:
         print("You need VTK Version 6 or greater.")
         print("The class vtkNamedColors is in VTK version 6 or greater.")
         exit(0)
