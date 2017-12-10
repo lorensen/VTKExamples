@@ -129,7 +129,7 @@ def DisplayCone(nc):
     renLgeIm.SetMagnification(1)
     imgWriter.SetInputConnection(renLgeIm.GetOutputPort())
     imgWriter.SetFileName(fnsave)
-    imgWriter.Write()
+    # imgWriter.Write()
 
     return renderWindowInteractor
 
