@@ -8,22 +8,24 @@
 #include <vtkRenderer.h>
 #include <vtkImageActor.h>
 #include <vtkImageCast.h>
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Create an image of noise
   vtkSmartPointer<vtkImageNoiseSource> noiseSource = 
     vtkSmartPointer<vtkImageNoiseSource>::New();
-  noiseSource->SetWholeExtent(0, 20, 0, 20, 0, 0);
+  noiseSource->SetWholeExtent(0, 200, 0, 200, 0, 0);
   noiseSource->SetMinimum(0.0);
   noiseSource->SetMaximum(255.0);
-  noiseSource->Update();
 
   vtkSmartPointer<vtkImageCast> castFilter =
     vtkSmartPointer<vtkImageCast>::New();
   castFilter->SetInputConnection(noiseSource->GetOutputPort());
   castFilter->SetOutputScalarTypeToUnsignedChar();
-  castFilter->Update();
   
   // Create an actor
   vtkSmartPointer<vtkImageActor> actor =
@@ -35,6 +37,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
   renderer->ResetCamera();
+  renderer->SetBackground(colors->GetColor3d("Wheat").GetData());
 
   // Setup render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =
@@ -51,7 +54,6 @@ int main(int, char *[])
 
   // Render and start interaction
   renderWindowInteractor->SetRenderWindow(renderWindow);
-  renderWindowInteractor->Initialize();
 
   renderWindowInteractor->Start();
   return EXIT_SUCCESS;
