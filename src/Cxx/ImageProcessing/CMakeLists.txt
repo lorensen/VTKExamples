@@ -24,6 +24,7 @@ if (BUILD_TESTING)
 set(NEEDS_ARGS
   GaussianSmooth
   HybridMedianComparison
+  IsoSubsample
   MedianComparison
 )
 
@@ -38,6 +39,9 @@ add_test(${KIT}-HybridMedianComparison ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}C
 
 add_test(${KIT}-MedianComparison ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMedianComparison ${DATA}/FullHead.mhd)
+
+add_test(${KIT}-IsoSubsample ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestIsoSubsample ${DATA}/FullHead.mhd)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
