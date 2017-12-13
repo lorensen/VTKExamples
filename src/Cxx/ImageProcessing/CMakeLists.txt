@@ -22,6 +22,7 @@ endforeach()
 if (BUILD_TESTING)
 # Testing
 set(NEEDS_ARGS
+  Attenuation
   GaussianSmooth
   HybridMedianComparison
   IsoSubsample
@@ -30,6 +31,9 @@ set(NEEDS_ARGS
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+add_test(${KIT}-Attenuation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestAttenuation ${DATA}/AttenuationArtifact.pgm)
 
 add_test(${KIT}-GaussianSmooth ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGaussianSmooth ${DATA}/Gourds.png)
