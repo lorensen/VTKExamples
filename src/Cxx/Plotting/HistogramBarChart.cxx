@@ -44,6 +44,7 @@ int main( int argc, char *argv[] )
   reader->Update();
 
   int numComponents = reader->GetOutput()->GetNumberOfScalarComponents();
+  std::cout << "Number of components: " << numComponents << std::endl;
   if( numComponents > 3 )
   {
     std::cout << "Error: cannot process an image with " << numComponents << " components!" << std::endl;
@@ -78,7 +79,7 @@ int main( int argc, char *argv[] )
     vtkSmartPointer<vtkImageAccumulate> histogram =
     vtkSmartPointer<vtkImageAccumulate>::New();
     histogram->SetInputConnection( extract->GetOutputPort() );
-    histogram->SetComponentExtent( 0,255,0,0,0,0 );
+    histogram->SetComponentExtent( 1,55,0,0,0,0 );
     histogram->SetComponentOrigin( 0,0,0 );
     histogram->SetComponentSpacing( 1,0,0 );
     histogram->SetIgnoreZero( ignoreZero );
@@ -99,11 +100,11 @@ int main( int argc, char *argv[] )
     }
 
     currentArray->SetNumberOfComponents(1);
-    currentArray->SetNumberOfTuples( 256 );
+    currentArray->SetNumberOfTuples( 54 );
 
     vtkIdType* output = static_cast<vtkIdType*>(histogram->GetOutput()->GetScalarPointer());
 
-    for( int j = 0; j < 256; ++j )
+    for( int j = 0; j < 54; ++j )
     {
       currentArray->SetTuple1( j, *output++ );
     }
@@ -132,7 +133,7 @@ int main( int argc, char *argv[] )
       rgb[1] = greenFrequencies;
       rgb[2] = blueFrequencies;
     }
-    for( int i = 0; i < 256; ++i )
+    for( int i = 0; i < 54; ++i )
     {
       for( int j = 0; j < numComponents; ++j )
       {
@@ -165,7 +166,7 @@ int main( int argc, char *argv[] )
   // BUG 3: the y-axis labels do not accurately reflect the range of data
 
   int count = 0;
-  for( int i = 0; i < 256; ++i )
+  for( int i = 0; i < 54; ++i )
   {
     for( int j = 0; j < numComponents; ++j )
     {
