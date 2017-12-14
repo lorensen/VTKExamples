@@ -4,6 +4,7 @@
 #include <vtkImageReader2Factory.h>
 
 #include <vtkDataArray.h>
+#include <vtkCamera.h>
 #include <vtkImageActor.h>
 #include <vtkImageCast.h>
 #include <vtkImageData.h>
@@ -95,7 +96,10 @@ int main (int argc, char *argv[])
   originalActor->GetProperty()->SetColorWindow(colorWindow);
   originalActor->GetProperty()->SetColorLevel(colorLevel);
   originalActor->GetProperty()->SetInterpolationTypeToNearest();
-  originalActor->SetZSlice(middleSlice);
+  originalActor->SetDisplayExtent(
+    reader->GetDataExtent()[0], reader->GetDataExtent()[1],
+    reader->GetDataExtent()[2], reader->GetDataExtent()[3],
+    middleSlice, middleSlice);
 
   vtkSmartPointer<vtkImageActor> noisyActor =
     vtkSmartPointer<vtkImageActor>::New();
@@ -103,7 +107,7 @@ int main (int argc, char *argv[])
   noisyActor->GetProperty()->SetColorWindow(colorWindow);
   noisyActor->GetProperty()->SetColorLevel(colorLevel);
   noisyActor->GetProperty()->SetInterpolationTypeToNearest();
-  noisyActor->SetZSlice(middleSlice);
+  noisyActor->SetDisplayExtent(originalActor->GetDisplayExtent());
 
   vtkSmartPointer<vtkImageActor> hybridMedianActor =
     vtkSmartPointer<vtkImageActor>::New();
@@ -111,7 +115,7 @@ int main (int argc, char *argv[])
   hybridMedianActor->GetProperty()->SetColorWindow(colorWindow);
   hybridMedianActor->GetProperty()->SetColorLevel(colorLevel);
   hybridMedianActor->GetProperty()->SetInterpolationTypeToNearest();
-  hybridMedianActor->SetZSlice(middleSlice);
+  hybridMedianActor->SetDisplayExtent(originalActor->GetDisplayExtent());
 
   vtkSmartPointer<vtkImageActor> medianActor =
     vtkSmartPointer<vtkImageActor>::New();
@@ -119,7 +123,7 @@ int main (int argc, char *argv[])
   medianActor->GetProperty()->SetColorWindow(colorWindow);
   medianActor->GetProperty()->SetColorLevel(colorLevel);
   medianActor->GetProperty()->SetInterpolationTypeToNearest();
-  medianActor->SetZSlice(middleSlice);
+  medianActor->SetDisplayExtent(originalActor->GetDisplayExtent());
 
   // Setup renderers
   vtkSmartPointer<vtkRenderer> originalRenderer =
@@ -180,6 +184,9 @@ int main (int argc, char *argv[])
 
   // Renderers share one camera
   renderWindow->Render();
+  renderers[0]->GetActiveCamera()->Dolly(1.5);
+  renderers[0]->ResetCameraClippingRange();
+
   for (size_t r = 1; r < renderers.size(); ++r)
   {
     renderers[r]->SetActiveCamera(renderers[0]->GetActiveCamera());
