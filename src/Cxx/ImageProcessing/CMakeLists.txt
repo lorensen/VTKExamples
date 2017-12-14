@@ -23,6 +23,7 @@ if (BUILD_TESTING)
 # Testing
 set(NEEDS_ARGS
   Attenuation
+  EnhanceEdges
   GaussianSmooth
   HybridMedianComparison
   IsoSubsample
@@ -34,6 +35,9 @@ set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 add_test(${KIT}-Attenuation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestAttenuation ${DATA}/AttenuationArtifact.pgm)
+
+add_test(${KIT}-EnhanceEdges ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestEnhanceEdges ${DATA}/FullHead.mhd)
 
 add_test(${KIT}-GaussianSmooth ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGaussianSmooth ${DATA}/Gourds.png)
