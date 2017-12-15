@@ -28,6 +28,7 @@ set(NEEDS_ARGS
   HybridMedianComparison
   IsoSubsample
   MedianComparison
+  VTKSpectrum
 )
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
@@ -50,6 +51,9 @@ add_test(${KIT}-MedianComparison ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 
 add_test(${KIT}-IsoSubsample ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestIsoSubsample ${DATA}/FullHead.mhd)
+
+add_test(${KIT}-VTKSpectrum ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestVTKSpectrum ${DATA}/vtks.pgm)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
