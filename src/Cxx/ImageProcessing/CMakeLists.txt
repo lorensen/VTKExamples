@@ -28,6 +28,7 @@ set(NEEDS_ARGS
   HybridMedianComparison
   IsoSubsample
   MedianComparison
+  MorphologyComparison
   VTKSpectrum
 )
 
@@ -48,6 +49,9 @@ add_test(${KIT}-HybridMedianComparison ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}C
 
 add_test(${KIT}-MedianComparison ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMedianComparison ${DATA}/FullHead.mhd)
+
+add_test(${KIT}-MorphologyComparison ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMorphologyComparison ${DATA}/binary.pgm)
 
 add_test(${KIT}-IsoSubsample ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestIsoSubsample ${DATA}/FullHead.mhd)
