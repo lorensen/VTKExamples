@@ -30,6 +30,7 @@ set(NEEDS_ARGS
   IsoSubsample
   MedianComparison
   MorphologyComparison
+  Pad
   VTKSpectrum
 )
 
@@ -59,6 +60,9 @@ add_test(${KIT}-MorphologyComparison ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}Cxx
 
 add_test(${KIT}-IsoSubsample ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestIsoSubsample ${DATA}/FullHead.mhd)
+
+add_test(${KIT}-Pad ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPad ${DATA}/FullHead.mhd)
 
 add_test(${KIT}-VTKSpectrum ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestVTKSpectrum ${DATA}/vtks.pgm)
