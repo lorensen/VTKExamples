@@ -3,8 +3,7 @@
 #include <vtkImageReader2.h>
 #include <vtkImageReader2Factory.h>
 
-#include <vtkWindowLevelLookupTable.h>
-#include <vtkImageMapToColors.h>
+#include <vtkImageMapToWindowLevelColors.h>
 #include <vtkDataArray.h>
 #include <vtkImageActor.h>
 #include <vtkImageCast.h>
@@ -74,16 +73,11 @@ int main (int argc, char *argv[])
   int colorWindow = (scalarRange[1] - scalarRange[0]);
   int colorLevel = colorWindow / 2;
 
-  vtkSmartPointer<vtkWindowLevelLookupTable> wlut =
-    vtkSmartPointer<vtkWindowLevelLookupTable>::New();
-  wlut->SetWindow(colorWindow);
-  wlut->SetLevel(colorLevel);
-  wlut->Build();
-
   // Map the image through the lookup table
-  vtkSmartPointer<vtkImageMapToColors> originalColor =
-    vtkSmartPointer<vtkImageMapToColors>::New();
-  originalColor->SetLookupTable(wlut);
+  vtkSmartPointer<vtkImageMapToWindowLevelColors> originalColor =
+    vtkSmartPointer<vtkImageMapToWindowLevelColors>::New();
+  originalColor->SetWindow(colorWindow);
+  originalColor->SetLevel(colorLevel);
   originalColor->SetInputConnection(reader->GetOutputPort());
 
   vtkSmartPointer<vtkImageActor> originalActor =
@@ -95,15 +89,10 @@ int main (int argc, char *argv[])
     reader->GetDataExtent()[2], reader->GetDataExtent()[3],
     middleSlice, middleSlice);
 
-  vtkSmartPointer<vtkWindowLevelLookupTable> wlut2 =
-    vtkSmartPointer<vtkWindowLevelLookupTable>::New();
-  wlut2->SetWindow(1000);
-  wlut2->SetLevel(0);
-  wlut2->Build();
-
-  vtkSmartPointer<vtkImageMapToColors> laplacianColor =
-    vtkSmartPointer<vtkImageMapToColors>::New();
-  laplacianColor->SetLookupTable(wlut2);
+  vtkSmartPointer<vtkImageMapToWindowLevelColors> laplacianColor =
+    vtkSmartPointer<vtkImageMapToWindowLevelColors>::New();
+  laplacianColor->SetWindow(1000);
+  laplacianColor->SetLevel(0);
   laplacianColor->SetInputConnection(laplacian->GetOutputPort());
 
   vtkSmartPointer<vtkImageActor> laplacianActor =
@@ -112,9 +101,10 @@ int main (int argc, char *argv[])
   laplacianActor->GetProperty()->SetInterpolationTypeToNearest();
   laplacianActor->SetDisplayExtent(originalActor->GetDisplayExtent());
 
-  vtkSmartPointer<vtkImageMapToColors> enhancedColor =
-    vtkSmartPointer<vtkImageMapToColors>::New();
-  enhancedColor->SetLookupTable(wlut);
+  vtkSmartPointer<vtkImageMapToWindowLevelColors> enhancedColor =
+    vtkSmartPointer<vtkImageMapToWindowLevelColors>::New();
+  enhancedColor->SetWindow(colorWindow);
+  enhancedColor->SetLevel(colorLevel);
   enhancedColor->SetInputConnection(enhance->GetOutputPort());
 
   vtkSmartPointer<vtkImageActor> enhancedActor =
