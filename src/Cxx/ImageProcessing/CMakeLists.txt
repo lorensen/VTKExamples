@@ -26,6 +26,7 @@ set(NEEDS_ARGS
   EnhanceEdges
   GaussianSmooth
   HybridMedianComparison
+  IdealHighPass
   IsoSubsample
   MedianComparison
   MorphologyComparison
@@ -43,6 +44,9 @@ add_test(${KIT}-EnhanceEdges ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-GaussianSmooth ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGaussianSmooth ${DATA}/Gourds.png)
+
+add_test(${KIT}-IdealHighPass ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestIdealHighPass ${DATA}/fullhead15.png)
 
 add_test(${KIT}-HybridMedianComparison ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHybridMedianComparison ${DATA}/TestPattern.png)
