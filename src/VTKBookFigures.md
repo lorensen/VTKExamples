@@ -170,7 +170,7 @@ Figure 7-36 | | Example of motion blur ([MotBlur.cxx](https://gitlab.kitware.com
 [Figure 12-9a](/Cxx/Visualization/ViewFrogSkinAndTissue) | vtkMetaImageReader vtkMarchingCubes vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth| All frog parts and translucent skin.
 [Figure 12-9b](/Cxx/Visualization/ViewFrog) | vtkMetaImageReader vtkMarchingCubes vtkImageGaussianSmooth vtkWindowedSincPolyDataFilter| The complete frog without skin.
 [Figure 12-9c](/Cxx/Visualization/ViewFrogA) | vtkMetaImageReader vtkMarchingCubes vtkImageGaussianSmooth vtkWindowedSincPolyDataFilter| No skin or skeleton.
-Figure 12-10 | | Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time (stocks.tcl).
+[Figure 12-11](/Cxx/VisualizationAlgorithms/Stocks) | vtkRibbonFilter vtkLinearExtrusionFilter | Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time ([stocks.tcl](https://gitlab.kitware.com/vtk/vtk/blob/0c1105d1aeb149e5f2fd11057a09551ce77f6e05/graphics/examplesTcl/stocks.tcl)).
 [Figure 12-13](/Cxx/Visualization/BlobbyLogo) | vtkImplicitModeller | A logo created with vtkImplicitModeller ([vtkLogo.cxx](https://gitlab.kitware.com/vtk/vtk/blob/3ad5fa14aaa30c57cab400a7494bd6e2eac37bf1/graphics/examplesCxx/vtkLogo.cxx)).
 Figure 12-14 | | Portion of computational grid for the LOx post (LOxGrid.tcl).
 [Figure 12-16](/Cxx/VisualizationAlgorithms/LOx) | vtkStreamTracer vtkTubeFilter | Streamtubes created by using the computational grid just in front of the post as a source for seeds ([LOx.tcl](https://gitlab.kitware.com/vtk/vtk/blob/ea6f91948c13ee930b181a2aaf5d6431ebe30eb1/graphics/examplesTcl/LOx.tcl)).
