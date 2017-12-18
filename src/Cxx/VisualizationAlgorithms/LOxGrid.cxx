@@ -148,14 +148,14 @@ int main (int argc, char *argv[])
 // a line of seed points
   vtkSmartPointer<vtkStructuredGridGeometryFilter> seedsComp =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
-  seedsComp->SetExtent(10, 10, 37, 39, 1, 27);
+  seedsComp->SetExtent(10, 10, 37, 39, 1, 35);
   seedsComp->SetInputData(sg);
   
   vtkSmartPointer<vtkStreamTracer> streamers =
     vtkSmartPointer<vtkStreamTracer>::New();
   streamers->SetInputConnection(pl3d->GetOutputPort());
 
-// streamers SetSource [rake GetOutput]
+//    streamers SetSource [rake GetOutput]
   streamers->SetSourceConnection(seedsComp->GetOutputPort());
   streamers->SetMaximumPropagation(250);
   streamers->SetInitialIntegrationStep(.2);
@@ -210,18 +210,19 @@ int main (int argc, char *argv[])
 //
   ren1->AddActor(outlineActor);
   ren1->AddActor(floorActor);
-//  ren1->AddActor(subFloorActor);
-//  ren1->AddActor(subFloor2Actor);
+  ren1->AddActor(subFloorActor);
+  ren1->AddActor(subFloor2Actor);
   ren1->AddActor(postActor);
-//  ren1->AddActor(fanActor);
+  ren1->AddActor(fanActor);
   ren1->AddActor(tubesActor);
 
   vtkSmartPointer<vtkCamera> aCam =
     vtkSmartPointer<vtkCamera>::New();
-  aCam->SetFocalPoint(2.47736, -0.150024, 2.42361);
-  aCam->SetPosition(1.57547, -13.4601, 5.47872);
-  aCam->SetViewUp(0.00197003, 0.223588, 0.974682);
-//  aCam->Dolly(4.0);
+  aCam->SetFocalPoint(0.00657892, 0, 2.41026);
+  aCam->SetPosition(-1.94838, -47.1275, 39.4607);
+  aCam->SetViewUp(0.00653193, 0.617865, 0.786257);
+  ren1->ResetCamera();
+  aCam->Dolly(1.);
   aCam->SetClippingRange(1, 100);
 
   ren1->SetBackground(colors->GetColor3d("SlateGray").GetData());

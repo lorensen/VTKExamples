@@ -48,6 +48,8 @@ set(NEEDS_ARGS
   ImageGradient
   IronIsoSurface
   LOx
+  LOxGrid
+  LOxSeeds
   Motor
   MarchingCases
   MarchingCasesA
@@ -122,6 +124,12 @@ add_test(${KIT}-IronIsoSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-LOx ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestLOx ${DATA}/postxyz.bin ${DATA}/postq.bin)
+
+add_test(${KIT}-LOxGrid ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestLOxGrid ${DATA}/postxyz.bin ${DATA}/postq.bin)
+
+add_test(${KIT}-LOxSeeds ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestLOxSeeds ${DATA}/postxyz.bin ${DATA}/postq.bin)
 
 add_test(${KIT}-MarchingCases ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingCases 7)
