@@ -22,6 +22,7 @@ if (BUILD_TESTING)
 set(KIT Rendering)
 set(NEEDS_ARGS
   FlatVersusGouraud
+  MotionBlur
   Rainbow
   Rotations
   StripFran
@@ -34,6 +35,9 @@ set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 add_test(${KIT}-FlatVersusGouraud ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestFlatVersusGouraud ${DATA}/cow.obj)
+
+add_test(${KIT}-MotionBlur ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMotionBlur ${DATA}/Armadillo.ply)
 
 add_test(${KIT}-Rotations ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestRotations ${DATA}/cow.obj)
