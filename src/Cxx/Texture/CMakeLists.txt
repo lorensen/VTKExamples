@@ -27,6 +27,7 @@ set(NEEDS_ARGS
   AnimateVectors
   ProjectedTexture
   TextureCutSphere
+  TexturePlane
   TexturedSphere
   TextureThreshold
 )
@@ -50,6 +51,9 @@ add_test(${KIT}-ProjectedTexture ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 
 add_test(${KIT}-TextureCutSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTextureCutSphere ${DATA}/texThres.vtk)
+
+add_test(${KIT}-TexturePlane ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestTexturePlane ${DATA}/masonry.bmp)
 
 add_test(${KIT}-TexturedSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTexturedSphere ${DATA}/earth.ppm)
