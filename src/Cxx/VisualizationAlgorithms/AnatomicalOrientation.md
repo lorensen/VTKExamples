@@ -20,12 +20,12 @@ The annotations on the faces of the cube actors are:
     - **I** - inferior.
     
 The annotated cube actors demonstrate the various coordinate systems:
-- The anatomical coordinate system forming a 3D basis is defined along the anatomical axes of anterior-posterior, inferior-superior, and left-right. These are the positive directions. In a cartesian system this is RPS (Right, Posterior, Superior). The top-left annotated cube actor shows this basis, this is a left-handed system.
+- The anatomical coordinate system forming a 3D basis is defined along the anatomical axes of anterior-posterior, inferior-superior, and left-right. These are the positive directions. In a Cartesian system this is RPS (Right, Posterior, Superior). The top-left annotated cube actor shows this basis, this is a left-handed system.
 - RAS (Right, Anterior, Superior), left-right, posterior-anterior, and inferior-superior. This is the usual right-handed system used by VTK and Slicer.
 The bottom left annotated cube actor shows this basis.
 - LPS (Left, Posterior, Superior), right-left, anterior-posterior, and inferior-superior. This is used in DICOM images and by the ITK toolkit.
 The bottom right annotated cube actor shows this basis.
-- The upper right cuble actor has no axes and simply shows the planes.
+- The upper right cube actor has no axes and simply shows the planes.
 
 RPS is a left-handed system whilst RAS and LPS are right-handed.
 
