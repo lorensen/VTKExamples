@@ -191,6 +191,7 @@ This section includes examples of manipulating meshes.
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[AnatomicalOrientation](/Python/VisualizationAlgorithms/AnatomicalOrientation)| vtkAnnotatedCubeActor vtkAxesActor vtkOrientationMarkerWidget vtkTransform | Show a labelled set of anatomical planes transecting a human figure.
 [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) | vtkNamedColors vtkPlaneSource vtkLookupTable vtkColorTransferFunction | Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
 [Blow](/Python/Visualization/Blow)| vtkUnstructuredGridReader vtkWarpVector vtkConnectivityFilter | Ten frames from a blow molding finite element analysis.
 [Camera](/Python/Visualization/Camera) | vtkCamera | Positioning and aiming the camera.

@@ -29,6 +29,7 @@ if (BUILD_TESTING)
 # Testing
 set(KIT VisualizationAlgorithms)
 set(NEEDS_ARGS
+  AnatomicalOrientation
   BluntStreamlines
   CarotidFlow
   CarotidFlowGlyphs
@@ -70,6 +71,9 @@ set(NEEDS_ARGS
   WarpCombustor
 )
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+
+add_test(${KIT}-AnatomicalOrientation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestAnatomicalOrientation ${DATA}/Human.vtp)
 
 add_test(${KIT}-BluntStreamlines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBluntStreamlines ${DATA}/bluntfinxyz.bin ${DATA}/bluntfinq.bin)

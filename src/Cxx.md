@@ -827,6 +827,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[AnatomicalOrientation](/Cxx/VisualizationAlgorithms/AnatomicalOrientation)| vtkAnnotatedCubeActor vtkAxesActor vtkOrientationMarkerWidget vtkTransform | Show a labelled set of anatomical planes transecting a human figure.
 [AnnotatedCubeActor](/Cxx/Visualization/AnnotatedCubeActor)| vtkAnnotatedCubeActor | Annotated cube.
 [Arbitrary3DCursor](/Cxx/Visualization/Arbitrary3DCursor)| vtkPointWidget |Track a 3D cursor.
 [AssignCellColorsFromLUT](/Cxx/Visualization/AssignCellColorsFromLUT)| vtkNamedColors vtkPlaneSource vtkLookupTable vtkColorTransferFunction | Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
