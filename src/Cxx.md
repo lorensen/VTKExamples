@@ -897,6 +897,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [LineWidth](/Cxx/Visualization/LineWidth)| vtkActor vtkProperty |Change the width/thickness of lines in an actor.
 [Motor](/Cxx/VisualizationAlgorithms/Motor) | vtkBYUReader vtkStructuredPointsReader vtkTexture vtkImplicitTextureCoords | Texture cut used to reveal internal structure of a motor. Two cut planes are used in combination with transparent texture.
 [MovableAxes](/Cxx/Visualization/MovableAxes) | vtkFollower vtkAxesActor vtkAssembly | Movable axes.
+[Morph3D](/Cxx/Visualization/Morph3D) | vtkInterpolateDataSetAttributes vtkImplicitModeller vtkContourFilter | Interpolate between datasets.
 [MoveActor](/Cxx/Visualization/MoveActor)| vtkInteractorStyleTrackballActor |Moving an Actor.
 [MoveCamera](/Cxx/Visualization/MoveCamera)| vtkInteractorStyleTrackballCamera |Moving the Camera.
 [MultipleActors](/Cxx/Visualization/MultipleActors)| vtkActor |Multiple Actors.
