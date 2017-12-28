@@ -18,7 +18,7 @@ def main():
     # Create a rendering window, renderer and interactor.
     ren = vtk.vtkRenderer()
     renWin = vtk.vtkRenderWindow()
-    renWin.SetSize(900, 1200)
+    renWin.SetSize(780, 780)
     renWin.AddRenderer(ren)
     iren = vtk.vtkRenderWindowInteractor()
     iren.SetRenderWindow(renWin)

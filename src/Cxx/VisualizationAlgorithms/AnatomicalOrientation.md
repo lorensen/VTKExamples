@@ -1,6 +1,6 @@
 ### Description
 
-This depicts a human figure by the three commonly used anatomical planes:
+This depicts a human figure transected by the three commonly used anatomical planes:
 
 - **Sagittal plane** – is perpendicular to the ground divides the body into a left section and a right section.
 - **Coronal plane** – is perpendicular to the ground and divides the body into a front (anterior) section and back (posterior) section.
