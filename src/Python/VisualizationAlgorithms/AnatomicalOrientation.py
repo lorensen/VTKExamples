@@ -77,7 +77,9 @@ def main():
 
     humanMapper = vtk.vtkPolyDataMapper()
     humanMapper.SetInputConnection(reader.GetOutputPort())
-    humanMapper.SetScalarModeToUsePointData()
+    humanMapper.SetScalarModeToUsePointFieldData()
+    humanMapper.SelectColorArray("Color")
+    humanMapper.SetColorModeToDirectScalars()
 
     humanActor = vtk.vtkActor()
     humanActor.SetMapper(humanMapper)
