@@ -223,7 +223,9 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>humanMapper</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>humanMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-  <span class=n>humanMapper</span><span class=o>-&gt;</span><span class=n>SetScalarModeToUsePointData</span><span class=p>();</span>
+  <span class=n>humanMapper</span><span class=o>-&gt;</span><span class=n>SetScalarModeToUsePointFieldData</span><span class=p>();</span>
+  <span class=n>humanMapper</span><span class=o>-&gt;</span><span class=n>SelectColorArray</span><span class=p>(</span><span class=s>&quot;Color&quot;</span><span class=p>);</span>
+  <span class=n>humanMapper</span><span class=o>-&gt;</span><span class=n>SetColorModeToDirectScalars</span><span class=p>();</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>humanActor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>humanActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>humanMapper</span><span class=p>);</span>
