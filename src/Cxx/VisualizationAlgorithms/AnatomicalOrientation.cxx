@@ -164,7 +164,9 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkPolyDataMapper> humanMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   humanMapper->SetInputConnection(reader->GetOutputPort());
-  humanMapper->SetScalarModeToUsePointData();
+  humanMapper->SetScalarModeToUsePointFieldData();
+  humanMapper->SelectColorArray("Color");
+  humanMapper->SetColorModeToDirectScalars();
 
   vtkSmartPointer<vtkActor> humanActor = vtkSmartPointer<vtkActor>::New();
   humanActor->SetMapper(humanMapper);
