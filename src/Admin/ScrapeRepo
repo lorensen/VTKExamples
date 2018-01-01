@@ -33,20 +33,7 @@ Usage: ScrapeRepo RepoDir DocDir RepoURL
 """)
     exit(0)
 
-# convert a file from markdown to html
-
-
-def ConvertAndCopyFile(fromFile, toFile):
-    mdFile = open(fromFile, 'r')
-    htmlFile = open(toFile, 'w')
-    md = mdFile.read()
-    mdFile.close()
-    html = markdown.markdown(md, extensions=['markdown.extensions.tables', 'markdown.extensions.toc(title=Contents)'])
-    htmlFile.write(html)
-    htmlFile.close()
-
 # copy a file
-
 
 def CopyFile(fromFile, toFile):
     mdFile = open(fromFile, 'r')
@@ -58,7 +45,6 @@ def CopyFile(fromFile, toFile):
 
 # load the tiny url cache into a dictionary
 
-
 def LoadTinyUrlCache(CacheFile, CacheDict):
     cf = open(CacheFile, 'r')
     for line in cf:
@@ -67,7 +53,6 @@ def LoadTinyUrlCache(CacheFile, CacheDict):
     cf.close()
 
 # if the url is not in the cache, get the tinyurl
-
 
 def GetTinyUrl(CacheDict, Url):
     global cacheHits
@@ -82,22 +67,24 @@ def GetTinyUrl(CacheDict, Url):
     return CacheDict[Url]
 
 
+# Is the example a Qt example
+
 def IsQtExample(S):
     reg = re.compile(r".*Qt.*", re.DOTALL)
     return reg.match(S)
 
+# Get the Qt CMake file
 
 def GetVTKQtCMake(S):
     reg = re.compile(r"\{\{(VTKQtCMakeLists)\|(.*?)\}\}.*?", re.DOTALL)
     return [reg.findall(S)]
 
-
+# Get the VTK CMake file
 def GetVTKCMakelists(S):
     reg = re.compile(r"```cmake(.*?)```", re.DOTALL)
     return [''.join(reg.findall(S))]
 
 # add header and code hilighting to c++ code
-
 
 def WriteCxxCode(toFile, codeName, code):
     toFile.write("**" + codeName + "**" + "\n")
@@ -106,7 +93,6 @@ def WriteCxxCode(toFile, codeName, code):
     toFile.write("```" + "\n")
 
 # Return hl_lines to highlight lines that have vtk classes mentiones
-
 
 def FindLinesWithVTK(srcFileName):
     srcFile = open(srcFileName, 'r')
@@ -123,6 +109,31 @@ def FindLinesWithVTK(srcFileName):
     return hl_lines
 
 
+# Add a link to an example in anpther language
+def AddLanguage(S, link):
+    reg = re.compile(r'(^\[[^\)]*\))')
+    if reg.findall(S):
+        return re.sub(r'(^\[[^\)]*\))', r'\1' + link, S)
+    return S
+
+# Given a Cxx example return a link to a Python example if it exists
+def FindPythonGivenCxx(repoDir, cxxExample):
+    pythonLink = re.sub(r'/Cxx/',r'/Python/', cxxExample)
+    pythonPath = repoDir + pythonLink + ".py"
+    if os.path.exists(pythonPath) :
+       return "([python](" + pythonLink + "))"
+    return ""
+
+# Given a Python example return a link to a Cxx example if it exists
+def FindCxxGivenPython(repoDir, pythonExample):
+    cxxLink = re.sub(r'/Python/',r'/Cxx/', pythonExample)
+    cxxPath = repoDir + cxxLink + ".cxx"
+    if os.path.exists(cxxPath) :
+       return "([cxx](" + cxxLink + "))"
+    return ""
+
+# If vtkXXXX is in the string, add a link to the doxygen file
+
 def AddDoxygen(S):
     global doxyCount
     reg = re.compile(r'[^\./\[s](vtk[0-9a-zA-Z]*)')
@@ -132,7 +143,6 @@ def AddDoxygen(S):
     return S
 
 # add doxygen links to a file
-
 
 def AddDoxygens(repoDir, repoURL, fromFile, toFile):
     mdFile = open(fromFile, 'r')
@@ -146,7 +156,6 @@ def AddDoxygens(repoDir, repoURL, fromFile, toFile):
 
 # add thumbnails to example tables
 
-
 def FindThumbnail(S):
     reg = re.compile(r'^\[[^\(]*\]\(([^)]*)')
     if reg.match(S):
@@ -155,15 +164,26 @@ def FindThumbnail(S):
 
 # add thumbnails to a file
 
-
-def AddThumbnails(repoDir, repoURL, fromFile, toFile):
+def AddThumbnailsAndLanguageLinks(repoDir, repoURL, fromFile, toFile):
     global thumbCount
     mdFile = open(fromFile, 'r')
     outFile = open(toFile, 'w')
     for line in mdFile:
+        exampleLine = FindThumbnail(line.strip())[0]
+        startCxx = exampleLine.find("Cxx")
+        if startCxx >= 0 :
+            pythonLink = FindPythonGivenCxx("src", exampleLine)
+            if pythonLink != '' :
+                line = AddLanguage(line, pythonLink)
+
+        startPython = exampleLine.find("Python")
+        if startPython >= 0 :
+            cxxLink = FindCxxGivenPython("src", exampleLine)
+            if cxxLink != '' :
+                line = AddLanguage(line, cxxLink)
+
         withDoxy = AddDoxygen(line)
         outFile.write(withDoxy.rstrip())
-        exampleLine = FindThumbnail(line.strip())[0]
         if exampleLine != '':
             thumbCount = thumbCount + 1
             exampleName = os.path.split(exampleLine)[1]
@@ -184,7 +204,6 @@ def AddThumbnails(repoDir, repoURL, fromFile, toFile):
 # Fill in the template parameters in a CMakeLists template file
 # The output is a CMakeLists.txt file with Name substituted for {{{1}}}
 
-
 def FillCMakeLists(S, Name, ExtraNames):
     r1 = re.sub(r'XXX', Name, S)
     reg = re.sub(r'YYY', ExtraNames, r1)
@@ -195,15 +214,19 @@ def FillQtCMakeLists(S, Name):
     reg = re.sub(r'XXX', Name, S)
     return reg
 
+#####################################################################
 
+# Check for args
 if len(sys.argv) < 4:
     displayHelp()
     exit(0)
 
-# Get Repo and Wiki
+# Get Repo, docs dir  and Wiki
 RepoDir = sys.argv[1]
 DocDir = sys.argv[2]
 RepoURL = sys.argv[3]
+
+# Initialize counts
 cacheHits = 0
 cacheMisses = 0
 
@@ -214,10 +237,12 @@ javaCount = 0
 
 thumbCount = 0
 doxyCount = 0
+
 # Make sure the wiki docs folder exists
 if not os.path.exists("docs"):
     os.makedirs("docs")
 
+# Baseline top level
 BaselineName = RepoDir + "/Testing/Baseline"
 
 # Load the TinyUrl cache
@@ -250,17 +275,22 @@ exampleToCMake = dict()
 # Create a dict to hold the file names for each example
 exampleToFileNames = dict()
 
+# Create Snippets directories for Cxx and Python
 if not os.path.exists(DocDir + "/Cxx/Snippets"):
     os.makedirs(DocDir + "/Cxx/Snippets")
+
 if not os.path.exists(DocDir + "/Python/Snippets"):
     os.makedirs(DocDir + "/Python/Snippets")
-AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
-AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
-AddThumbnails(RepoDir, RepoURL, RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
-AddThumbnails(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "/Java.md")
-AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Snippets.md")
-AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python/Snippets.md", DocDir + "/Python/Snippets.md")
-AddThumbnails(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", DocDir + "/VTKBookFigures.md")
+
+# Add thumbnails and language links to each of the lanuage summary pages, Snippets and Book figures
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "/Java.md")
+
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Snippets.md")
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Python/Snippets.md", DocDir + "/Python/Snippets.md")
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", DocDir + "/VTKBookFigures.md")
 
 # C++ Snippets
 snippets = ['ReadPolyData', 'SaveSceneToFieldData', 'SaveSceneToFile', 'RestoreSceneFromFieldData', 'RestoreSceneFromFile', 'ChooseContrastingColor', 'ViewportBorders', 'WriteImage']
@@ -272,11 +302,13 @@ snippets = ['GetProgramParameters', 'ReadPolyData', 'WriteImage']
 for snippet in snippets:
     CopyFile(RepoDir + '/Python/Snippets/' + snippet + '.md', DocDir + '/Python/Snippets/' + snippet + '.md')
 
-# Convert repo .md files
+# Copy repo .md files
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
 
+# Copy coverage files
 if not os.path.exists(DocDir + "/Coverage"):
     os.makedirs(DocDir + "/Coverage")
+
 CopyFile(RepoDir + "/Coverage/CxxVTKClassesNotUsed.md", DocDir + "/Coverage/CxxVTKClassesNotUsed.md")
 CopyFile(RepoDir + "/Coverage/CxxVTKClassesUsed.md", DocDir + "/Coverage/CxxVTKClassesUsed.md")
 CopyFile(RepoDir + "/Coverage/PythonVTKClassesNotUsed.md", DocDir + "/Coverage/PythonVTKClassesNotUsed.md")
@@ -286,6 +318,7 @@ CopyFile(RepoDir + "/Coverage/JavaVTKClassesUsed.md", DocDir + "/Coverage/JavaVT
 CopyFile(RepoDir + "/Coverage/CSharpVTKClassesNotUsed.md", DocDir + "/Coverage/CSharpVTKClassesNotUsed.md")
 CopyFile(RepoDir + "/Coverage/CSharpVTKClassesUsed.md", DocDir + "/Coverage/CSharpVTKClassesUsed.md")
 
+# Copy Instructions files
 if not os.path.exists(DocDir + "/Instructions"):
     os.makedirs(DocDir + "/Instructions")
 CopyFile(RepoDir + "/Instructions/ForUsers.md", DocDir + "/Instructions/ForUsers.md")
@@ -293,13 +326,6 @@ CopyFile(RepoDir + "/Instructions/ForDevelopers.md", DocDir + "/Instructions/For
 CopyFile(RepoDir + "/Instructions/ForAdministrators.md", DocDir + "/Instructions/ForAdministrators.md")
 CopyFile(RepoDir + "/Instructions/Guidelines.md", DocDir + "/Instructions/Guidelines.md")
 CopyFile(RepoDir + "/Instructions/ConvertingFiguresToExamples.md", DocDir + "/Instructions/ConvertingFiguresToExamples.md")
-
-# Get list of all  examples
-Languages = dict()
-Languages["Cxx"] = ".cxx"
-Languages["Python"] = ".py"
-Languages["Java"] = ".java"
-Languages["CSharp"] = ".cs"
 
 # Scan all Cxx directories and look for extras
 allExtras = set()
@@ -317,6 +343,13 @@ for root, dirs, files in os.walk(RepoDir):
                 line = line.strip()
                 allExtras.add(line)
             ExtrasFile.close()
+
+# Get list of all  examples
+Languages = dict()
+Languages["Cxx"] = ".cxx"
+Languages["Python"] = ".py"
+Languages["Java"] = ".java"
+Languages["CSharp"] = ".cs"
 
 for lang, langExt in Languages.items():
     for root, dirs, files in os.walk(RepoDir):
