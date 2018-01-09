@@ -1,11 +1,11 @@
 /*
    Adaptation of the code by
-	Author: Chung Kai Lun Peter
-	Email: hkpeterpeter@gmail.com
-	File:
-		demo_vtk_camera_1.cpp
-	Purpose:
-		Ported from camera.tcl from the VTK textbook.
+        Author: Chung Kai Lun Peter
+        Email: hkpeterpeter@gmail.com
+        File:
+                demo_vtk_camera_1.cpp
+        Purpose:
+                Ported from camera.tcl from the VTK textbook.
                 It illustrates the camera model of VTK.
 */
 
@@ -27,23 +27,49 @@
 #include <vtkRenderer.h>
 #include <vtkRotationalExtrusionFilter.h>
 #include <vtkSphereSource.h>
+#include <vtkTextActor.h>
+#include <vtkTextProperty.h>
 #include <vtkTransform.h>
 #include <vtkTransformFilter.h>
 #include <vtkTransformPolyDataFilter.h>
 #include <vtkWarpTo.h>
-#include <vtkTextActor.h>
-#include <vtkTextProperty.h>
 
-#include <vtkProperty.h>
 #include <vtkCamera.h>
+#include <vtkNamedColors.h>
+#include <vtkProperty.h>
 
-int main(int /* argc */, char * /* argv */ [])
+#include <algorithm>
+#include <array>
+
+int main(int /* argc */, char* /* argv */ [])
 {
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color. Match those in VTKTextbook.pdf.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 255.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> azArrowColor{{255, 77, 77}};
+  SetColor(azArrowColor, "AzimuthArrowColor");
+  std::array<double, 3> elevArrowColor{{77, 255, 77}};
+  SetColor(elevArrowColor, "ElevationArrowColor");
+  std::array<double, 3> rollArrowColor{{255, 255, 77}};
+  SetColor(rollArrowColor, "RollArrowColor");
+  std::array<double, 3> spikeColor{{255, 77, 255}};
+  SetColor(spikeColor, "SpikeColor");
+  std::array<double, 3> bkg{{25, 51, 102}};
+  SetColor(spikeColor, "BkgColor");
 
   // Create the RenderWindow, Renderer and both Actors
   //
-  vtkSmartPointer<vtkRenderer> ren1 =
-    vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(ren1);
@@ -52,14 +78,12 @@ int main(int /* argc */, char * /* argv */ [])
   iren->SetRenderWindow(renWin);
 
   // create a camera model
-  vtkSmartPointer<vtkConeSource> camCS =
-    vtkSmartPointer<vtkConeSource>::New();
+  vtkSmartPointer<vtkConeSource> camCS = vtkSmartPointer<vtkConeSource>::New();
   camCS->SetHeight(1.5);
   camCS->SetResolution(12);
   camCS->SetRadius(0.4);
 
-  vtkSmartPointer<vtkCubeSource> camCBS =
-    vtkSmartPointer<vtkCubeSource>::New();
+  vtkSmartPointer<vtkCubeSource> camCBS = vtkSmartPointer<vtkCubeSource>::New();
   camCBS->SetXLength(1.5);
   camCBS->SetZLength(0.8);
   camCBS->SetCenter(0.4, 0, 0);
@@ -73,18 +97,14 @@ int main(int /* argc */, char * /* argv */ [])
     vtkSmartPointer<vtkDataSetMapper>::New();
   camMapper->SetInputConnection(camAPD->GetOutputPort());
 
-  vtkSmartPointer<vtkLODActor> camActor =
-    vtkSmartPointer<vtkLODActor>::New();
+  vtkSmartPointer<vtkLODActor> camActor = vtkSmartPointer<vtkLODActor>::New();
   camActor->SetMapper(camMapper);
   camActor->SetScale(2, 2, 2);
 
   // draw the arrows
-  vtkSmartPointer<vtkPolyData> pd =
-    vtkSmartPointer<vtkPolyData>::New();
-  vtkSmartPointer<vtkCellArray> ca =
-    vtkSmartPointer<vtkCellArray>::New();
-  vtkSmartPointer<vtkPoints> fp =
-    vtkSmartPointer<vtkPoints>::New();
+  vtkSmartPointer<vtkPolyData> pd = vtkSmartPointer<vtkPolyData>::New();
+  vtkSmartPointer<vtkCellArray> ca = vtkSmartPointer<vtkCellArray>::New();
+  vtkSmartPointer<vtkPoints> fp = vtkSmartPointer<vtkPoints>::New();
   fp->InsertNextPoint(0, 1, 0);
   fp->InsertNextPoint(8, 1, 0);
   fp->InsertNextPoint(8, 2, 0);
@@ -103,12 +123,9 @@ int main(int /* argc */, char * /* argv */ [])
   pd->SetPoints(fp);
   pd->SetPolys(ca);
 
-  vtkSmartPointer<vtkPolyData> pd2 =
-    vtkSmartPointer<vtkPolyData>::New();
-  vtkSmartPointer<vtkCellArray> ca2 =
-    vtkSmartPointer<vtkCellArray>::New();
-  vtkSmartPointer<vtkPoints> fp2 =
-    vtkSmartPointer<vtkPoints>::New();
+  vtkSmartPointer<vtkPolyData> pd2 = vtkSmartPointer<vtkPolyData>::New();
+  vtkSmartPointer<vtkCellArray> ca2 = vtkSmartPointer<vtkCellArray>::New();
+  vtkSmartPointer<vtkPoints> fp2 = vtkSmartPointer<vtkPoints>::New();
   fp2->InsertNextPoint(0, 1, 0);
   fp2->InsertNextPoint(8, 1, 0);
   fp2->InsertNextPoint(8, 2, 0);
@@ -131,15 +148,13 @@ int main(int /* argc */, char * /* argv */ [])
   arrowCF->SetInputConnection(arrowIM->GetOutputPort());
   arrowCF->SetValue(0, 0.2);
 
-  vtkSmartPointer<vtkWarpTo> arrowWT =
-    vtkSmartPointer<vtkWarpTo>::New();
+  vtkSmartPointer<vtkWarpTo> arrowWT = vtkSmartPointer<vtkWarpTo>::New();
   arrowWT->SetInputConnection(arrowCF->GetOutputPort());
   arrowWT->SetPosition(5, 0, 5);
   arrowWT->SetScaleFactor(0.85);
   arrowWT->AbsoluteOn();
 
-  vtkSmartPointer<vtkTransform> arrowT =
-    vtkSmartPointer<vtkTransform>::New();
+  vtkSmartPointer<vtkTransform> arrowT = vtkSmartPointer<vtkTransform>::New();
   arrowT->RotateY(60);
   arrowT->Translate(-1.33198, 0, -1.479);
   arrowT->Scale(1, 0.5, 1);
@@ -155,61 +170,64 @@ int main(int /* argc */, char * /* argv */ [])
   arrowMapper->ScalarVisibilityOff();
 
   // draw the azimuth arrows
-  vtkSmartPointer<vtkLODActor> a1Actor =
-    vtkSmartPointer<vtkLODActor>::New();
+  vtkSmartPointer<vtkLODActor> a1Actor = vtkSmartPointer<vtkLODActor>::New();
   a1Actor->SetMapper(arrowMapper);
   a1Actor->RotateZ(180);
   a1Actor->SetPosition(1, 0, -1);
-  a1Actor->GetProperty()->SetColor(1,0.3, 0.3);
-  a1Actor->GetProperty()->SetSpecularColor(1,1, 1);
+  a1Actor->GetProperty()->SetColor(
+    colors->GetColor3d("AzimuthArrowColor").GetData());
+  a1Actor->GetProperty()->SetSpecularColor(
+    colors->GetColor3d("White").GetData());
   a1Actor->GetProperty()->SetSpecular(0.3);
   a1Actor->GetProperty()->SetSpecularPower(20);
   a1Actor->GetProperty()->SetAmbient(0.2);
   a1Actor->GetProperty()->SetDiffuse(0.8);
 
-  vtkSmartPointer<vtkLODActor> a2Actor =
-    vtkSmartPointer<vtkLODActor>::New();
+  vtkSmartPointer<vtkLODActor> a2Actor = vtkSmartPointer<vtkLODActor>::New();
   a2Actor->SetMapper(arrowMapper);
   a2Actor->RotateZ(180);
   a2Actor->RotateX(180);
   a2Actor->SetPosition(1, 0, 1);
-  a2Actor->GetProperty()->SetColor(1,0.3, 0.3);
-  a2Actor->GetProperty()->SetSpecularColor(1,1, 1);
+  a2Actor->GetProperty()->SetColor(
+    colors->GetColor3d("AzimuthArrowColor").GetData());
+  a2Actor->GetProperty()->SetSpecularColor(
+    colors->GetColor3d("White").GetData());
   a2Actor->GetProperty()->SetSpecular(0.3);
   a2Actor->GetProperty()->SetSpecularPower(20);
   a2Actor->GetProperty()->SetAmbient(0.2);
   a2Actor->GetProperty()->SetDiffuse(0.8);
 
   // draw the elevation arrows
-  vtkSmartPointer<vtkLODActor> a3Actor =
-    vtkSmartPointer<vtkLODActor>::New();
+  vtkSmartPointer<vtkLODActor> a3Actor = vtkSmartPointer<vtkLODActor>::New();
   a3Actor->SetMapper(arrowMapper);
   a3Actor->RotateZ(180);
   a3Actor->RotateX(90);
   a3Actor->SetPosition(1, -1, 0);
-  a3Actor->GetProperty()->SetColor(0.3,1, 0.3);
-  a3Actor->GetProperty()->SetSpecularColor(1,1, 1);
+  a3Actor->GetProperty()->SetColor(
+    colors->GetColor3d("ElevationArrowColor").GetData());
+  a3Actor->GetProperty()->SetSpecularColor(
+    colors->GetColor3d("White").GetData());
   a3Actor->GetProperty()->SetSpecular(0.3);
   a3Actor->GetProperty()->SetSpecularPower(20);
   a3Actor->GetProperty()->SetAmbient(0.2);
   a3Actor->GetProperty()->SetDiffuse(0.8);
 
-  vtkSmartPointer<vtkLODActor> a4Actor =
-    vtkSmartPointer<vtkLODActor>::New();
+  vtkSmartPointer<vtkLODActor> a4Actor = vtkSmartPointer<vtkLODActor>::New();
   a4Actor->SetMapper(arrowMapper);
   a4Actor->RotateZ(180);
   a4Actor->RotateX(-90);
   a4Actor->SetPosition(1, 1, 0);
-  a4Actor->GetProperty()->SetColor(0.3,1, 0.3);
-  a4Actor->GetProperty()->SetSpecularColor(1,1, 1);
+  a4Actor->GetProperty()->SetColor(
+    colors->GetColor3d("ElevationArrowColor").GetData());
+  a4Actor->GetProperty()->SetSpecularColor(
+    colors->GetColor3d("White").GetData());
   a4Actor->GetProperty()->SetSpecular(0.3);
   a4Actor->GetProperty()->SetSpecularPower(20);
   a4Actor->GetProperty()->SetAmbient(0.2);
   a4Actor->GetProperty()->SetDiffuse(0.8);
 
   // draw the DOP
-  vtkSmartPointer<vtkTransform> arrowT2 =
-    vtkSmartPointer<vtkTransform>::New();
+  vtkSmartPointer<vtkTransform> arrowT2 = vtkSmartPointer<vtkTransform>::New();
   arrowT2->Scale(1, 0.6, 1);
   arrowT2->RotateY(90);
 
@@ -228,13 +246,12 @@ int main(int /* argc */, char * /* argv */ [])
     vtkSmartPointer<vtkPolyDataMapper>::New();
   spikeMapper->SetInputConnection(arrowREF->GetOutputPort());
 
-  vtkSmartPointer<vtkLODActor> a5Actor =
-    vtkSmartPointer<vtkLODActor>::New();
+  vtkSmartPointer<vtkLODActor> a5Actor = vtkSmartPointer<vtkLODActor>::New();
   a5Actor->SetMapper(spikeMapper);
   a5Actor->SetScale(.3, .3, .6);
   a5Actor->RotateY(90);
   a5Actor->SetPosition(-2, 0, 0);
-  a5Actor->GetProperty()->SetColor(1,0.3, 1);
+  a5Actor->GetProperty()->SetColor(colors->GetColor3d("SpikeColor").GetData());
   a5Actor->GetProperty()->SetAmbient(0.2);
   a5Actor->GetProperty()->SetDiffuse(0.8);
 
@@ -245,26 +262,24 @@ int main(int /* argc */, char * /* argv */ [])
   vtkSmartPointer<vtkPolyDataMapper> fpMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   fpMapper->SetInputConnection(fps->GetOutputPort());
-  vtkSmartPointer<vtkLODActor> fpActor =
-    vtkSmartPointer<vtkLODActor>::New();
+  vtkSmartPointer<vtkLODActor> fpActor = vtkSmartPointer<vtkLODActor>::New();
   fpActor->SetMapper(fpMapper);
   fpActor->SetPosition(-9, 0, 0);
-  fpActor->GetProperty()->SetSpecularColor(1,1, 1);
+  fpActor->GetProperty()->SetSpecularColor(
+    colors->GetColor3d("White").GetData());
   fpActor->GetProperty()->SetSpecular(0.3);
   fpActor->GetProperty()->SetAmbient(0.2);
   fpActor->GetProperty()->SetDiffuse(0.8);
   fpActor->GetProperty()->SetSpecularPower(20);
 
   // create the roll arrows
-  vtkSmartPointer<vtkWarpTo> arrowWT2 =
-    vtkSmartPointer<vtkWarpTo>::New();
+  vtkSmartPointer<vtkWarpTo> arrowWT2 = vtkSmartPointer<vtkWarpTo>::New();
   arrowWT2->SetInputConnection(arrowCF->GetOutputPort());
   arrowWT2->SetPosition(5, 0, 2.5);
   arrowWT2->SetScaleFactor(0.95);
   arrowWT2->AbsoluteOn();
 
-  vtkSmartPointer<vtkTransform> arrowT3 =
-    vtkSmartPointer<vtkTransform>::New();
+  vtkSmartPointer<vtkTransform> arrowT3 = vtkSmartPointer<vtkTransform>::New();
   arrowT3->Translate(-2.50358, 0, -1.70408);
   arrowT3->Scale(0.5, 0.3, 1);
 
@@ -279,14 +294,15 @@ int main(int /* argc */, char * /* argv */ [])
   arrowMapper2->ScalarVisibilityOff();
 
   // draw the roll arrows
-  vtkSmartPointer<vtkLODActor> a6Actor =
-    vtkSmartPointer<vtkLODActor>::New();
+  vtkSmartPointer<vtkLODActor> a6Actor = vtkSmartPointer<vtkLODActor>::New();
   a6Actor->SetMapper(arrowMapper2);
   a6Actor->RotateZ(90);
   a6Actor->SetPosition(-4, 0, 0);
   a6Actor->SetScale(1.5, 1.5, 1.5);
-  a6Actor->GetProperty()->SetColor(1,1, 0.3);
-  a6Actor->GetProperty()->SetSpecularColor(1,1, 1);
+  a6Actor->GetProperty()->SetColor(
+    colors->GetColor3d("RollArrowColor").GetData());
+  a6Actor->GetProperty()->SetSpecularColor(
+    colors->GetColor3d("White").GetData());
   a6Actor->GetProperty()->SetSpecular(0.3);
   a6Actor->GetProperty()->SetSpecularPower(20);
   a6Actor->GetProperty()->SetAmbient(0.2);
@@ -301,8 +317,8 @@ int main(int /* argc */, char * /* argv */ [])
   ren1->AddActor(a5Actor);
   ren1->AddActor(a6Actor);
   ren1->AddActor(fpActor);
-  ren1->SetBackground(0.1, 0.2, 0.4);
-  ren1->SetBackground (0.4392,0.5020,0.5647);
+  ren1->SetBackground(colors->GetColor3d("BkgColor").GetData());
+  ren1->SetBackground(colors->GetColor3d("SlateGray").GetData());
   renWin->SetSize(640, 480);
 
   // render the image
@@ -315,42 +331,39 @@ int main(int /* argc */, char * /* argv */ [])
   ren1->ResetCameraClippingRange();
 
   // Create a TextActor for azimuth  (a1 and a2 actor's color)
-  vtkSmartPointer<vtkTextActor> text =
-    vtkSmartPointer<vtkTextActor>::New();
+  vtkSmartPointer<vtkTextActor> text = vtkSmartPointer<vtkTextActor>::New();
   text->SetInput("Azimuth");
   vtkTextProperty* tprop = text->GetTextProperty();
-  tprop->SetFontFamilyToArial ();
+  tprop->SetFontFamilyToArial();
   tprop->ShadowOff();
   tprop->SetLineSpacing(1.0);
   tprop->SetFontSize(36);
   tprop->SetColor(a1Actor->GetProperty()->GetColor());
-  text->SetDisplayPosition( 20, 50 );
+  text->SetDisplayPosition(20, 50);
   ren1->AddActor2D(text);
 
   // Create a TextActor for elevation  (a3 and a4 actor's color)
-  vtkSmartPointer<vtkTextActor> text2 =
-    vtkSmartPointer<vtkTextActor>::New();
+  vtkSmartPointer<vtkTextActor> text2 = vtkSmartPointer<vtkTextActor>::New();
   text2->SetInput("Elevation");
   tprop = text2->GetTextProperty();
-  tprop->SetFontFamilyToArial ();
+  tprop->SetFontFamilyToArial();
   tprop->ShadowOff();
   tprop->SetLineSpacing(1.0);
   tprop->SetFontSize(36);
   tprop->SetColor(a3Actor->GetProperty()->GetColor());
-  text2->SetDisplayPosition( 20, 100 );
+  text2->SetDisplayPosition(20, 100);
   ren1->AddActor2D(text2);
 
   // Create a TextActor for roll (a6 actor's color)
-  vtkSmartPointer<vtkTextActor> text3 =
-    vtkSmartPointer<vtkTextActor>::New();
+  vtkSmartPointer<vtkTextActor> text3 = vtkSmartPointer<vtkTextActor>::New();
   text3->SetInput("Roll");
   tprop = text3->GetTextProperty();
-  tprop->SetFontFamilyToArial ();
+  tprop->SetFontFamilyToArial();
   tprop->ShadowOff();
   tprop->SetLineSpacing(1.0);
   tprop->SetFontSize(36);
   tprop->SetColor(a6Actor->GetProperty()->GetColor());
-  text3->SetDisplayPosition( 20, 150 );
+  text3->SetDisplayPosition(20, 150);
   ren1->AddActor2D(text3);
 
   iren->Initialize();

@@ -85,15 +85,15 @@ int main(int argc, char* argv[])
   // Set the background color. Match those in VTKTextbook.pdf.
   auto SetColor = [&colors](std::array<double, 3>& v,
                             std::string const& colorName) {
-    auto const scaleFactor = 256.0;
+    auto const scaleFactor = 255.0;
     std::transform(std::begin(v), std::end(v), std::begin(v),
                    [=](double const& n) { return n / scaleFactor; });
     colors->SetColor(colorName, v.data());
     return;
   };
-  std::array<double, 3> bkg1{60, 93, 144};
+  std::array<double, 3> bkg1{{60, 93, 144}};
   SetColor(bkg1, "BkgColor1");
-  std::array<double, 3> bkg2{25, 51, 102};
+  std::array<double, 3> bkg2{{25, 51, 102}};
   SetColor(bkg2, "BkgColor2");
 
   vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();

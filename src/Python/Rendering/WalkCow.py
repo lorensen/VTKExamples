@@ -13,8 +13,8 @@ def main():
 
     colors = vtk.vtkNamedColors()
     # Set the background color. Match those in VTKTextbook.pdf.
-    bkg1 = map(lambda x: x / 256.0, [60, 93, 144])
-    bkg2 = map(lambda x: x / 256.0, [25, 51, 102])
+    bkg1 = map(lambda x: x / 255.0, [60, 93, 144])
+    bkg2 = map(lambda x: x / 255.0, [25, 51, 102])
     colors.SetColor("BkgColor1", *bkg1)
     colors.SetColor("BkgColor2", *bkg2)
 

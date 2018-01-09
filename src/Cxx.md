@@ -157,6 +157,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [PlanesIntersection](/Cxx/GeometricObjects/PlanesIntersection)  | vtkPlanesIntersection |
 [Planes](/Cxx/GeometricObjects/Planes)  | vtkPlanes |
 [PolygonIntersection](/Cxx/GeometricObjects/PolygonIntersection) | vtkPolygon |  Compute the intersection of a line segment with a polygon.
+[SourceObjectsDemo](/Cxx/GeometricObjects/SourceObjectsDemo) | vtkSphereSource vtkConeSource vtkCylinderSource vtkCubeSource vtkPlaneSource vtkTextSource vtkPointSource vtkDiskSource vtkLineSource | Examples of source objects that procedurally generate polygonal models.  These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check subclasses of vtkPolyDataAlgorithm.
 
 ### Cells
 
@@ -786,8 +787,13 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [AmbientSpheres](/Cxx/Rendering/AmbientSpheres)| vtkProperty |Demonstrates the effect of ambient lighting on spheres.
+[Cone3](/Cxx/Rendering/Cone3) | vtkRenderWindow | Four frames of output, based on the VTK example Cone3.cxx.
+[Cone4](/Cxx/Rendering/Cone4) | vtkRenderWindow | Modifying properties and transformation matrix based on the VTK example Cone4.cxx.
 [CylinderRenderingProperties](/Cxx/Rendering/CylinderRenderingProperties)| vtkProperty |Change the properties of a cylinder.
 [DiffuseSpheres](/Cxx/Rendering/DiffuseSpheres)| vtkProperty |Demonstrates the effect of diffuse lighting on spheres.
+[FlatVersusGouraud](/Cxx/Rendering/FlatVersusGouraud) | vtkProperty::SetInterpolationToFlat vtkProperty::SetInterpolationToGouraud | Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look.
+[Model](/Cxx/Rendering/Model) | vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Illustrative diagram of graphics objects.
+[Rotations](/Python/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [Rainbow](/Cxx/Rendering/Rainbow)| vtkLookupTable | Use and manipulation of vtkLookupTables.
 [Rotations](/Cxx/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [SpecularSpheres](/Cxx/Rendering/SpecularSpheres)| vtkProperty |Demonstrates the effect of specular lighting on spheres.
