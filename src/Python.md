@@ -56,6 +56,10 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 ## Geometric Objects
 
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[SourceObjectsDemo](/Python/GeometricObjects/SourceObjectsDemo) | vtkSphereSource vtkConeSource vtkCylinderSource vtkCubeSource vtkPlaneSource vtkTextSource vtkPointSource vtkDiskSource vtkLineSource | Examples of source objects that procedurally generate polygonal models.  These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check subclasses of vtkPolyDataAlgorithm.
+
 ### Display
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -178,8 +182,13 @@ This section includes examples of manipulating meshes.
 ## Rendering
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[Cone3](/Python/Rendering/Cone3) | vtkRenderWindow | Four frames of output, based on the VTK example Cone3.py.
+[Cone4](/Python/Rendering/Cone4) | vtkRenderWindow | Modifying properties and transformation matrix based on the VTK example Cone4.py.
 [DottedLine](/Python/Rendering/DottedLine) | | This needs a re-work, see StippledLine.cxx 
+[FlatVersusGouraud](/Python/Rendering/FlatVersusGouraud) | vtkProperty::SetInterpolationToFlat vtkProperty::SetInterpolationToGouraud | Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look.
+[Model](/Python/Rendering/Model) | vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Illustrative diagram of graphics objects.
 [Rotations](/Python/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
+[SpecularSpheres](/Python/Rendering/SpecularSpheres)| vtkProperty |Demonstrates the effect of specular lighting on spheres.
 [WalkCow](/Python/Rendering/WalkCow) | vtkBYUReader renWin::EraseOff() vtkActor | This generates Figs. 3-31, 3-32, 3-33 found in VTKTextbook.pdf.
 
 ## Texture Mapping
@@ -195,6 +204,8 @@ This section includes examples of manipulating meshes.
 [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) | vtkNamedColors vtkPlaneSource vtkLookupTable vtkColorTransferFunction | Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
 [Blow](/Python/Visualization/Blow)| vtkUnstructuredGridReader vtkWarpVector vtkConnectivityFilter | Ten frames from a blow molding finite element analysis.
 [Camera](/Python/Visualization/Camera) | vtkCamera | Positioning and aiming the camera.
+[CameraModel1](/Python/Visualization/CameraModel1) | vtkCameraActor | Illustrate camera movement.
+[CameraModel2](/Python/Visualization/CameraModel2) | vtkCameraActor | Illustrate camera movement.
 [ClampGlyphSizes](/Python/Visualization/ClampGlyphSizes) | vtkGlyph3D | Use vtkGlyph3D with ClampingOn to limit glyph sizes
 [ColorActor](/Python/Visualization/ColorActor) | vtkActor::GetProperty()::SetColor | Colour the actor.
 [CubeAxesActor](/Python/Visualization/CubeAxesActor) | vtkCubeAxesActor | 
