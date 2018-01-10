@@ -1,15 +1,15 @@
-#include <vtkRenderer.h>
+#include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkDataSetMapper.h>
+#include <vtkElevationFilter.h>
+#include <vtkLookupTable.h>
+#include <vtkNamedColors.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
 #include <vtkSphereSource.h>
 #include <vtkTransform.h>
 #include <vtkTransformFilter.h>
-#include <vtkElevationFilter.h>
-#include <vtkLookupTable.h>
-#include <vtkDataSetMapper.h>
-#include <vtkActor.h>
-#include <vtkCamera.h>
-#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
@@ -74,3 +74,4 @@ int main(int, char *[])
 
   return EXIT_SUCCESS;
 }
+

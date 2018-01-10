@@ -1,14 +1,20 @@
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkSphereSource.h>
-#include <vtkShrinkFilter.h>
-#include <vtkElevationFilter.h>
-#include <vtkDataSetMapper.h>
 #include <vtkActor.h>
 #include <vtkCullerCollection.h>
+#include <vtkDataSetMapper.h>
+#include <vtkElevationFilter.h>
+#include <vtkNamedColors.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkShrinkFilter.h>
+#include <vtkSphereSource.h>
+
+
 int main( int, char *[] )
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->GetCullers()->RemoveAllItems();
@@ -44,7 +50,7 @@ int main( int, char *[] )
   actor->SetMapper(mapper);
 
   renderer->AddActor(actor);
-  renderer->SetBackground(1,1,1);
+  renderer->SetBackground(colors->GetColor3d("White").GetData());
   renWin->SetSize(640, 480);
   
   renWin->Render();

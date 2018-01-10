@@ -1,13 +1,12 @@
-#include <vtkActor.h>
 #include <vtkConeSource.h>
 #include <vtkGlyph3D.h>
+#include <vtkNamedColors.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSphereSource.h>
-#include <vtkNamedColors.h>
 
 int main( int, char *[] )
 {

@@ -787,17 +787,20 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [AmbientSpheres](/Cxx/Rendering/AmbientSpheres)| vtkProperty |Demonstrates the effect of ambient lighting on spheres.
+[ColoredSphere](/Cxx/Rendering/ColoredSphere) | vtkSphereSource vtkElevationFilter | A simple sphere.
 [Cone3](/Cxx/Rendering/Cone3) | vtkRenderWindow | Four frames of output, based on the VTK example Cone3.cxx.
 [Cone4](/Cxx/Rendering/Cone4) | vtkRenderWindow | Modifying properties and transformation matrix based on the VTK example Cone4.cxx.
 [CylinderRenderingProperties](/Cxx/Rendering/CylinderRenderingProperties)| vtkProperty |Change the properties of a cylinder.
 [DiffuseSpheres](/Cxx/Rendering/DiffuseSpheres)| vtkProperty |Demonstrates the effect of diffuse lighting on spheres.
 [FlatVersusGouraud](/Cxx/Rendering/FlatVersusGouraud) | vtkProperty::SetInterpolationToFlat vtkProperty::SetInterpolationToGouraud | Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look.
+[Mace](/Cxx/Rendering/Mace) | | An example of multiple inputs and outputs.
 [Model](/Cxx/Rendering/Model) | vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Illustrative diagram of graphics objects.
 [Rotations](/Python/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [Rainbow](/Cxx/Rendering/Rainbow)| vtkLookupTable | Use and manipulation of vtkLookupTables.
 [Rotations](/Cxx/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [SpecularSpheres](/Cxx/Rendering/SpecularSpheres)| vtkProperty |Demonstrates the effect of specular lighting on spheres.
 [StippledLine](/Cxx/Rendering/StippledLine)| vtkTexture | Draw a stippled line.
+[TransformSphere](/Cxx/Rendering/TransformSphere) | vtkSphereSource vtkElevationFilter vtkTransform vkTransformFilter | The addition of a transform filter to [ColoredSphere](/Cxx/Rendering/ColoredSphere).
 [WalkCow](/Cxx/Rendering/WalkCow) | vtkBYUReader vtkRenderWindow::EraseOff() vtkActor | This generates Figs. 3-31, 3-32, 3-33 found in VTKTextbook.pdf.
 
 
@@ -901,6 +904,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [LegendScaleActor](/Cxx/Visualization/LegendScaleActor)| vtkLegendScaleActor |Display the scale of a scene.
 [Legend](/Cxx/Visualization/Legend) | vtkLegendBoxActor |
 [LineWidth](/Cxx/Visualization/LineWidth)| vtkActor vtkProperty |Change the width/thickness of lines in an actor.
+[LoopShrink](/Cxx/Visualization/LoopShrink) | |  A network with a loop. VTK 5.0 does not allow you to execute a looping visualization network; this was possible in previous versions of VTK.
 [Motor](/Cxx/VisualizationAlgorithms/Motor) | vtkBYUReader vtkStructuredPointsReader vtkTexture vtkImplicitTextureCoords | Texture cut used to reveal internal structure of a motor. Two cut planes are used in combination with transparent texture.
 [MovableAxes](/Cxx/Visualization/MovableAxes) | vtkFollower vtkAxesActor vtkAssembly | Movable axes.
 [Morph3D](/Cxx/Visualization/Morph3D) | vtkInterpolateDataSetAttributes vtkImplicitModeller vtkContourFilter | Interpolate between datasets.
@@ -923,6 +927,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ProgrammableGlyphFilter](/Cxx/Visualization/ProgrammableGlyphFilter)| vtkProgrammableGlyphFilter |Generate a custom glyph at each point.
 [QuadraticSurface](/Cxx/Visualization/QuadraticSurface)| vtkQuadric |Display a quadratic surface.
 [QuadricLODActor](/Cxx/Visualization/QuadricLODActor)| vtkQuadricLODActor | Level of detail adjustment.
+[QuadricVisualization](/Cxx/Visualization/QuadricVisualization) | vtkQuadric vtkSampleFunction vtkContourFilter | Visualizing a quadric function.
 [RandomProbe](/Cxx/Visualization/RandomProbe)| vtkProbeFilter|Demonstrates how to probe a dataset with random points and select points inside the data set.
 [RenderLargeImage](/Cxx/Visualization/RenderLargeImage)| vtkRenderLargeImage |Render a large image, larger than a window.
 [RenderView](/Cxx/Views/RenderView)| vtkRenderView |A little bit easier rendering.

@@ -4,6 +4,7 @@
 #include <vtkContourFilter.h>
 #include <vtkDataSetMapper.h>
 #include <vtkExtractVOI.h>
+#include <vtkNamedColors.h>
 #include <vtkOutlineFilter.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
@@ -13,8 +14,6 @@
 #include <vtkRenderer.h>
 #include <vtkSampleFunction.h>
 #include <vtkUnstructuredGrid.h>
-
-#include <vtkNamedColors.h>
 
 namespace
 {
@@ -35,6 +34,7 @@ void CreateOutline(vtkSmartPointer<vtkSampleFunction> &function,
                    vtkSmartPointer<vtkActor> &actor);
 
 }
+
 int main( int, char *[] )
 { 
   vtkSmartPointer<vtkNamedColors> colors =
@@ -122,6 +122,7 @@ int main( int, char *[] )
 
   return EXIT_SUCCESS;
 }
+
 namespace
 {
 void CreateIsosurface(vtkSmartPointer<vtkSampleFunction> &function,
@@ -145,6 +146,7 @@ void CreateIsosurface(vtkSmartPointer<vtkSampleFunction> &function,
   actor->SetMapper(contourMapper);
   return;
 }
+
 void CreatePlanes(vtkSmartPointer<vtkSampleFunction> &function,
                   vtkSmartPointer<vtkActor> &actor,
                   unsigned int numberOfPlanes)
@@ -184,6 +186,7 @@ void CreatePlanes(vtkSmartPointer<vtkSampleFunction> &function,
   actor->GetProperty()->SetAmbient(1.);
   return;
 }
+
 void CreateContours(vtkSmartPointer<vtkSampleFunction> &function,
                     vtkSmartPointer<vtkActor> &actor,
                     unsigned int numberOfPlanes,
@@ -230,6 +233,7 @@ void CreateContours(vtkSmartPointer<vtkSampleFunction> &function,
   actor->GetProperty()->SetAmbient(1.);
   return;
 }
+
 void CreateOutline(vtkSmartPointer<vtkSampleFunction> &source,
                    vtkSmartPointer<vtkActor> &actor)
 {
@@ -243,3 +247,5 @@ void CreateOutline(vtkSmartPointer<vtkSampleFunction> &source,
   return;
 }
 }
+
+
