@@ -1,15 +1,13 @@
-#include <vtkSmartPointer.h>
-
 #include <vtk3DSImporter.h>
-#include <vtkRenderer.h>
+#include <vtkActor.h>
+#include <vtkActorCollection.h>
+#include <vtkCamera.h>
+#include <vtkNamedColors.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkActorCollection.h>
-#include <vtkActor.h>
-#include <vtkProperty.h>
-#include <vtkCamera.h>
-
-#include <vtkNamedColors.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 
 int main (int argc, char *argv[])
 {
@@ -67,3 +65,4 @@ int main (int argc, char *argv[])
 
   return EXIT_SUCCESS;
 }
+
