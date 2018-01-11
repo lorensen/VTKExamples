@@ -1,17 +1,17 @@
 // This example shows how to create a rectilinear grid.
 //
-#include <vtkSmartPointer.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
+#include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkDoubleArray.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRectilinearGrid.h>
 #include <vtkRectilinearGridGeometryFilter.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkProperty.h>
-#include <vtkCamera.h>
-#include <vtkNamedColors.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 
 int main(int, char *[])
 {
