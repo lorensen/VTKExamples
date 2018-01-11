@@ -43,7 +43,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [3DSImporter](/Python/IO/3DSImporter) | vtk3DSImporter | Import a 3D Studio scene that includes multiple actors.
-[
+
 
 ## Working with Arrays
 
