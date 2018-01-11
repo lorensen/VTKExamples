@@ -1,16 +1,15 @@
-#include <vtkSmartPointer.h>
-#include <vtkCubeSource.h>
-#include <vtkShrinkFilter.h>
-
 #include <vtkActor.h>
-#include <vtkProperty.h>
 #include <vtkCamera.h>
-#include <vtkPolyData.h>
+#include <vtkCubeSource.h>
 #include <vtkDataSetMapper.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyData.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
-#include <vtkNamedColors.h>
+#include <vtkShrinkFilter.h>
+#include <vtkSmartPointer.h>
 
 int main(int, char *[])
 {

@@ -6,15 +6,19 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
-    # Create a cube.
-    cubeSource = vtk.vtkCubeSource()
+    bounds = [-10.0, 10.0, 10.0, 20.0, -5.0, 5.0]
+
+    boxSource = vtk.vtkTessellatedBoxSource()
+    boxSource.SetLevel(3)
+    boxSource.QuadsOn()
+    boxSource.SetBounds(bounds)
+    boxSource.SetOutputPointsPrecision(vtk.vtkAlgorithm.SINGLE_PRECISION)
 
     shrink = vtk.vtkShrinkFilter()
-    shrink.SetInputConnection(cubeSource.GetOutputPort())
-    shrink.SetShrinkFactor(.9)
+    shrink.SetInputConnection(boxSource.GetOutputPort())
+    shrink.SetShrinkFactor(.8)
 
     # Create a mapper and actor.
-
     mapper = vtk.vtkDataSetMapper()
     mapper.SetInputConnection(shrink.GetOutputPort())
 
@@ -34,7 +38,7 @@ def main():
     renderWindowInteractor = vtk.vtkRenderWindowInteractor()
     renderWindowInteractor.SetRenderWindow(renderWindow)
 
-    # Add the actors to the scene
+    # Add the actors to the scene.
     renderer.AddActor(actor)
     renderer.SetBackground(colors.GetColor3d("Silver"))
 
@@ -43,7 +47,8 @@ def main():
     renderer.GetActiveCamera().Elevation(30)
     renderer.ResetCameraClippingRange()
 
-    # Render and interact
+    # Render and interact.
+    renderWindow.SetSize(640, 480)
     renderWindow.Render()
     renderWindowInteractor.Start()
 

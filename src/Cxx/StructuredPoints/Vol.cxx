@@ -1,16 +1,15 @@
-#include <vtkSmartPointer.h>
-#include <vtkStructuredPoints.h>
-
-#include <vtkRenderer.h>
+#include <vtkActor.h>
+#include <vtkContourFilter.h>
+#include <vtkDoubleArray.h>
+#include <vtkNamedColors.h>
+#include <vtkPointData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkDoubleArray.h>
-#include <vtkPointData.h>
-#include <vtkContourFilter.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkProperty.h>
-#include <vtkNamedColors.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkStructuredPoints.h>
 
 int main( int, char *[] )
 {

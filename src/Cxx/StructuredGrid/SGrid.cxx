@@ -11,6 +11,7 @@
 #include <vtkDoubleArray.h>
 #include <vtkHedgeHog.h>
 #include <vtkMath.h>
+#include <vtkNamedColors.h>
 #include <vtkPointData.h>
 #include <vtkPoints.h>
 #include <vtkPolyDataMapper.h>
@@ -19,7 +20,6 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkStructuredGrid.h>
-#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
@@ -112,3 +112,4 @@ int main(int, char *[])
 
   return EXIT_SUCCESS;
 }
+

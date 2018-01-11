@@ -75,7 +75,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) | vtkHexagonalPrism vtkHexahedron vtkPentagonalPrism  vtkPolyhedron vtkPyramid vtkTetra vtkVoxel vtkWedge vtkUnstructuredGrid | Sample objects are generated from the classes derived from vtkCell3D and displayed.
 [ColoredLines](/Python/GeometricObjects/ColoredLines) | vtkCellData vtkLine |
 [Cone](/Python/GeometricObjects/Cone) | vtkConeSource |
-[Cube](/Python/GeometricObjects/Cube) | vtkCubeSource |
+[Cube](/Python/GeometricObjects/Cube)   | vtkCubeSource |
+[Cube1](/Python/GeometricObjects/Cube1) | vtkCubeSource |
 [Cylinder](/Python/GeometricObjects/Cylinder) | vtkCylinderSource |
 [DataSetSurface](/Python/GeometricObjects/DataSetSurface) | vtkDataSetSurfaceFilter |
 [Disk](/Python/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
@@ -98,6 +99,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Quad](/Python/GeometricObjects/Quad) | vtkQuad |
 [RegularPolygonSource](/Python/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Python/GeometricObjects/Sphere) | vtkSphereSource |
+[TessellatedBoxSource](/Python/GeometricObjects/TessellatedBoxSource)   | vtkTessellatedBoxSource | Generate a box with tessellated sides.
 [Tetrahedron](/Python/GeometricObjects/Tetrahedron) | vtkTetra |
 [TextActor](/Python/GeometricObjects/TextActor)  | vtkTextActor | 2D "HUD-type" text
 [TriangleStrip](/Python/GeometricObjects/TriangleStrip) | vtkTriangleStrip | 
@@ -170,12 +172,33 @@ This section includes vtkImageData, vtkStructuredGrid, and vtkRectilinearGrid.
 |--------------|----------------------|-------------|-------|
 [ImageWeightedSum](/Python/ImageData/ImageWeightedSum) | vtkImageWeightedSum |Add two or more images.
 
+#### vtkStructuredGrid
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[SGrid](/Python/StructuredGrid/SGrid) | vtkStructuredGrid | Creating a structured grid dataset of a semi-cylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction.
+
+#### vtkStructuredPoints
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[Vol](/Python/StructuredPoints/Vol) | vtkStructuredPoints vtkContourFilter| Creating a image data dataset. Scalar data is generated from the equation for a sphere. Volume dimensions are 26 x 26 x 26.
+
 
 #### vtkRectilinearGrid
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [RectilinearGrid](/Python/RectilinearGrid/RectilinearGrid) | vtkRectilinearGrid |create a rectilinear grid
+[RGrid](/Python/RectilinearGrid/RGrid) | vtkRectilinearGrid | Creating a rectilinear grid dataset. The coordinates along each axis are defined using an instance of vtkDataArray.
+
+### Working with Unstructured 3D Data
+This section includes vtkUnstructuredGrid.
+
+#### vtkUnstructuredGrid
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[UGrid](/Python/UnstructuredGrid/UGrid) | vtkUnstructuredGrid | Creation of an unstructured grid.
 
 ### Working with Meshes
 This section includes examples of manipulating meshes.

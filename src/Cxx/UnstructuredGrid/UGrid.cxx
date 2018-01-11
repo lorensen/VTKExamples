@@ -1,14 +1,14 @@
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkPoints.h>
-#include <vtkUnstructuredGrid.h>
-#include <vtkDataSetMapper.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
-#include <vtkProperty.h>
 #include <vtkCellType.h>
+#include <vtkDataSetMapper.h>
 #include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkUnstructuredGrid.h>
 
 int main( int, char *[] )
 {

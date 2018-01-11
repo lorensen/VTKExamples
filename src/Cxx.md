@@ -196,7 +196,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [PlatonicSolid](/Cxx/GeometricObjects/PlatonicSolid)   | vtkPlatonicSolidSource |
 [RegularPolygon](/Cxx/GeometricObjects/RegularPolygonSource)   | vtkRegularPolygonSource |
 [Sphere](/Cxx/GeometricObjects/Sphere)   | vtkSphereSource |
-[TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource)   | vtkTessellatedBoxSource | Generated a box with tessellated sides.
+[TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource)   | vtkTessellatedBoxSource | Generate a box with tessellated sides.
 
 ### Non Linear
 
@@ -496,6 +496,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [BlankPoint](/Cxx/StructuredGrid/BlankPoint) | vtkStructuredGrid |Blank a point of a vtkStructuredGrid.
+[SGrid](/Cxx/StructuredGrid/SGrid) | vtkStructuredGrid | Creating a structured grid dataset of a semi-cylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction.
 [StructuredGridOutline](/Cxx/StructuredGrid/StructuredGridOutline) | vtkStructuredGridOutlineFilter | Visualize the outline of a structured grid.
 [StructuredGrid](/Cxx/StructuredGrid/StructuredGrid) | vtkStructuredGrid |Structured Grid.
 [VisualizeStructuredGridCells](/Cxx/StructuredGrid/VisualizeStructuredGridCells) | vtkShrinkFilter | Visualize the cells of a structured grid.
@@ -506,6 +507,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [StructuredPointsToUnstructuredGrid](/Cxx/StructuredPoints/StructuredPointsToUnstructuredGrid) | vtkStructuredPoints vtkUnstructuredGrid|Convert a vtkStructuredPoints to a vtkUnstructuredGrid.
+[Vol](/Cxx/StructuredPoints/Vol) | vtkStructuredPoints vtkContourFilter| Creating a image data dataset. Scalar data is generated from the equation for a sphere. Volume dimensions are 26 x 26 x 26.
 
 #### vtkRectilinearGrid
 
@@ -513,7 +515,16 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 |--------------|----------------------|-------------|-------|
 [RectilinearGridToTetrahedra](/Cxx/RectilinearGrid/RectilinearGridToTetrahedra) | vtkRectilinearGridToTetrahedra |Convert a vtkRectilinearGrid to a vtkUnstructuredGrid mesh
 [RectilinearGrid](/Cxx/RectilinearGrid/RectilinearGrid) | vtkRectilinearGrid |Rectilinear grid
+[RGrid](/Cxx/RectilinearGrid/RGrid) | vtkRectilinearGrid | Creating a rectilinear grid dataset. The coordinates along each axis are defined using an instance of vtkDataArray.
 [VisualizeRectilinearGrid](/Cxx/RectilinearGrid/VisualizeRectilinearGrid) | vtkRectilinearGrid vtkShrinkFilter| Visualize the cells of a rectilinear grid
+
+### Working with Unstructured 3D Data
+This section includes vtkUnstructuredGrid.
+
+#### vtkUnstructuredGrid
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[UGrid](/Cxx/UnstructuredGrid/UGrid) | vtkUnstructuredGrid | Creation of an unstructured grid.
 
 ### Registration
 

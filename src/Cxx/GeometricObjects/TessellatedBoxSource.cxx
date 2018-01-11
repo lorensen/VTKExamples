@@ -1,15 +1,14 @@
-#include <vtkSmartPointer.h>
-#include <vtkTessellatedBoxSource.h>
-#include <vtkShrinkFilter.h>
-
 #include <vtkActor.h>
-#include <vtkDataSetMapper.h>
-#include <vtkProperty.h>
 #include <vtkCamera.h>
-#include <vtkRenderer.h>
+#include <vtkDataSetMapper.h>
+#include <vtkNamedColors.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkNamedColors.h>
+#include <vtkRenderer.h>
+#include <vtkShrinkFilter.h>
+#include <vtkSmartPointer.h>
+#include <vtkTessellatedBoxSource.h>
 
 int main (int /* argc */, char * /* argv */ [])
 {
