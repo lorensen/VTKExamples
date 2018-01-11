@@ -1,3 +1,5 @@
+#include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkContourFilter.h>
 #include <vtkCubeSource.h>
 #include <vtkExtractEdges.h>
@@ -5,11 +7,8 @@
 #include <vtkGlyph3D.h>
 #include <vtkIdList.h>
 #include <vtkNamedColors.h>
-#include <vtkPoints.h>
 #include <vtkPointData.h>
-
-#include <vtkActor.h>
-#include <vtkCamera.h>
+#include <vtkPoints.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
@@ -359,14 +358,10 @@ int main (int argc, char *argv[])
 
       // (xmin, ymin, xmax, ymax)
       double viewport[4] = {
-        static_cast<double>(col) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - (row + 1)) * rendererSize /
-        (yGridDimensions * rendererSize),
-        static_cast<double>(col + 1) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - row) * rendererSize /
-        (yGridDimensions * rendererSize)};
+        static_cast<double>(col) / xGridDimensions,
+        static_cast<double>(yGridDimensions - (row + 1)) / yGridDimensions,
+        static_cast<double>(col + 1) / xGridDimensions,
+        static_cast<double>(yGridDimensions - row) / yGridDimensions};
       renderers[index]->SetViewport(viewport);
     }
   }

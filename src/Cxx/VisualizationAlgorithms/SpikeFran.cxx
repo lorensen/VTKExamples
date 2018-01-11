@@ -19,7 +19,7 @@
 
 // Read a data file. This originally was a Cyberware laser digitizer scan
 // of Fran J.'s face. Surface normals are generated based on local geometry
-// (i.e., the polygon normals surrounding eash point are averaged). We flip
+// (i.e., the polygon normals surrounding each point are averaged). We flip
 // the normals because we want them to point out from Fran's face.
 //
 int main (int argc, char *argv[])
@@ -53,7 +53,7 @@ int main (int argc, char *argv[])
 
 // We subsample the dataset because we want to glyph just a subset of
 // the points. Otherwise the display is cluttered and cannot be easily
-// read. The RandonModeOn and SetOnRatio combine to random select one out
+// read. The RandomModeOn and SetOnRatio combine to random select one out
 // of every 10 points in the dataset.
 //
   vtkSmartPointer<vtkMaskPoints> ptMask =
@@ -80,7 +80,7 @@ int main (int argc, char *argv[])
 // vtkGlyph3D takes two inputs: the input point set (SetInputConnection)
 // which can be any vtkDataSet; and the glyph (SetSourceConnection) which
 // must be a vtkPolyData.  We are interested in orienting the glyphs by the
-// surface normals that we previosuly generated.
+// surface normals that we previously generated.
   vtkSmartPointer<vtkGlyph3D> glyph =
     vtkSmartPointer<vtkGlyph3D>::New();
   glyph->SetInputConnection(ptMask->GetOutputPort());
@@ -129,4 +129,3 @@ int main (int argc, char *argv[])
 
   return EXIT_SUCCESS;
 }
-

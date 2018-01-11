@@ -1,20 +1,37 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkSampleFunction.h>
+#include <vtkActor.h>
 #include <vtkContourFilter.h>
+#include <vtkImageData.h>
+#include <vtkNamedColors.h>
 #include <vtkOutlineFilter.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkImageData.h>
-
+#include <vtkRenderer.h>
+#include <vtkSampleFunction.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphere.h>
+
+#include <algorithm>
+#include <array>
 
 int main (int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color. Match those in VTKTextbook.pdf.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 255.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{51, 77, 102}};
+  SetColor(bkg, "BkgColor");
+
   vtkSmartPointer<vtkSphere> sphere = 
     vtkSmartPointer<vtkSphere>::New();
   
@@ -57,7 +74,7 @@ int main (int, char *[])
   interactor->SetRenderWindow(renderWindow);
   
   renderer->AddActor(contourActor);
-  renderer->SetBackground(.2, .3, .4);
+  renderer->SetBackground(colors->GetColor3d("BkgColor").GetData());
   
   renderWindow->Render();
   interactor->Start();

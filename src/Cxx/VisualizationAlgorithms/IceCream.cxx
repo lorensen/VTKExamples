@@ -3,6 +3,7 @@
 #include <vtkCone.h>
 #include <vtkContourFilter.h>
 #include <vtkImplicitBoolean.h>
+#include <vtkNamedColors.h>
 #include <vtkPlane.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
@@ -11,8 +12,6 @@
 #include <vtkRenderer.h>
 #include <vtkSampleFunction.h>
 #include <vtkSphere.h>
-
-#include <vtkNamedColors.h>
 
 int main (int, char *[])
 {

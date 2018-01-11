@@ -14,7 +14,7 @@ def main():
 
     colors = vtk.vtkNamedColors()
     # Set the background color. Match those in VTKTextbook.pdf.
-    bkg = map(lambda x: x / 256.0, [25, 51, 102])
+    bkg = map(lambda x: x / 255.0, [25, 51, 102])
     colors.SetColor("BkgColor", *bkg)
 
     # Read a vtk file

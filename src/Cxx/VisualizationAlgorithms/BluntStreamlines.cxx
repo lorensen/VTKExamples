@@ -1,21 +1,20 @@
-#include <vtkSmartPointer.h>
-#include <vtkStreamTracer.h>
-
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkMultiBlockPLOT3DReader.h>
-#include <vtkMultiBlockDataSet.h>
-#include <vtkStructuredGridOutlineFilter.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
-#include <vtkProperty.h>
-#include <vtkStructuredGridGeometryFilter.h>
-#include <vtkStructuredGrid.h>
-#include <vtkPointData.h>
 #include <vtkLineSource.h>
+#include <vtkMultiBlockDataSet.h>
+#include <vtkMultiBlockPLOT3DReader.h>
 #include <vtkNamedColors.h>
+#include <vtkPointData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkStreamTracer.h>
+#include <vtkStructuredGrid.h>
+#include <vtkStructuredGridGeometryFilter.h>
+#include <vtkStructuredGridOutlineFilter.h>
 
 int main(int argc, char *argv[] )
 {

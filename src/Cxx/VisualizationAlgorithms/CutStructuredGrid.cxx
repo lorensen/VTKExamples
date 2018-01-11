@@ -1,10 +1,6 @@
-#include <vtkCutter.h>
-#include <vtkStructuredGrid.h>
-#include <vtkStructuredGridGeometryFilter.h>
-#include <vtkStructuredGridOutlineFilter.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
+#include <vtkCutter.h>
 #include <vtkDataSetMapper.h>
 #include <vtkMultiBlockDataSet.h>
 #include <vtkMultiBlockPLOT3DReader.h>
@@ -16,6 +12,9 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkStructuredGrid.h>
+#include <vtkStructuredGridGeometryFilter.h>
+#include <vtkStructuredGridOutlineFilter.h>
 
 int main(int argc, char *argv[])
 {
@@ -125,4 +124,3 @@ int main(int argc, char *argv[])
 
   return EXIT_SUCCESS;
 }
-

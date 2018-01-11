@@ -1,20 +1,19 @@
-#include <vtkSmartPointer.h>
-#include <vtkXMLPolyDataReader.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkPolyData.h>
-#include <vtkDoubleArray.h>
-#include <vtkPoints.h>
-#include <vtkPointData.h>
-#include <vtkPlane.h>
-#include <vtkProperty.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
-#include <vtkRenderer.h>
+#include <vtkContourFilter.h>
+#include <vtkDoubleArray.h>
+#include <vtkNamedColors.h>
+#include <vtkPlane.h>
+#include <vtkPointData.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkNamedColors.h>
-
-#include <vtkContourFilter.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkXMLPolyDataReader.h>
 
 int main(int argc, char *argv[])
 {
