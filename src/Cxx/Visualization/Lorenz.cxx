@@ -1,20 +1,26 @@
 // 
-// create iso-surface of the Lorenz attractor
-//
+/*
+* Create an iso-surface of the Lorenz attractor.
+*
+* Here we visualize a Lorenz strange attractor by integrating the Lorenz equations in a volume.
+* The number of visits in each voxel is recorded as a scalar function.
+* The surface is extracted via marching cubes using a visit value of 50.
+* The number of integration steps is 10 million, in a volume of dimensions 200 x 200 * x 200.
+* The surface roughness is caused by the discrete nature of the evaluation function.
+*/
 
+#include <vtkActor.h>
+#include <vtkContourFilter.h>
 #include <vtkMath.h>
-#include <vtkShortArray.h>
-#include <vtkStructuredPoints.h>
-#include <vtkRenderer.h>
+#include <vtkNamedColors.h>
+#include <vtkPointData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkContourFilter.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkProperty.h>
+#include <vtkRenderer.h>
 #include <vtkShortArray.h>
-#include <vtkPointData.h>
-#include <vtkNamedColors.h>
+#include <vtkStructuredPoints.h>
 
 int main( int, char *[] )
 {
@@ -34,7 +40,6 @@ int main( int, char *[] )
 
   double xIncr, yIncr, zIncr;
 
-  int	i, j;
   double	xx, yy, zz;
   short	xxx, yyy, zzz;
   int	sliceSize;
@@ -71,11 +76,11 @@ int main( int, char *[] )
   vtkSmartPointer<vtkShortArray> scalars =
     vtkSmartPointer<vtkShortArray>::New();
   s = scalars->WritePointer(0,numPts);
-  for (i=0; i < numPts; i++)
+  for (auto i=0; i < numPts; i++)
   {
     s[i] = 0;
   }
-  for (j = 0; j < iter; j++) 
+  for (auto j = 0; j < iter; j++) 
   {
     // integrate to next time step
     xx = x + h * Pr * (y - x);
@@ -148,4 +153,5 @@ int main( int, char *[] )
 
   return EXIT_SUCCESS;
 }
+
 

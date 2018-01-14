@@ -1,18 +1,21 @@
+#include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkLineSource.h>
+#include <vtkNamedColors.h>
 #include <vtkPointData.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkStructuredGrid.h>
-#include <vtkStructuredGridReader.h>
-#include <vtkStructuredGridOutlineFilter.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
-#include <vtkActor.h>
-#include <vtkStructuredGridGeometryFilter.h>
-#include <vtkLineSource.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
 #include <vtkStreamTracer.h>
-#include <vtkCamera.h>
-#include <vtkNamedColors.h>
+#include <vtkStructuredGrid.h>
+#include <vtkStructuredGridGeometryFilter.h>
+#include <vtkStructuredGridOutlineFilter.h>
+#include <vtkStructuredGridReader.h>
+
+#include <algorithm>
+#include <array>
 
 int main( int argc, char *argv[] )
 {
@@ -26,6 +29,19 @@ int main( int argc, char *argv[] )
   
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the furniture colors.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 255.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> furnColor{{204, 204, 153}};
+  SetColor(furnColor, "Furniture");
+
   vtkSmartPointer<vtkRenderer> aren =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renWin =
@@ -80,7 +96,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> door =
     vtkSmartPointer<vtkActor>::New();
   door->SetMapper(mapDoor);
-  door->GetProperty()->SetColor(colors->GetColor3d("Burlywood").GetData());\
+  door->GetProperty()->SetColor(colors->GetColor3d("Burlywood").GetData());
 
   vtkSmartPointer<vtkStructuredGridGeometryFilter> window1Geom =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
@@ -225,7 +241,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> hood2 =
     vtkSmartPointer<vtkActor>::New();
   hood2->SetMapper(mapHood2);
-  hood2->GetProperty()->SetColor(.8,.8,.6);
+  hood2->GetProperty()->SetColor(colors->GetColor3d("Furniture").GetData());
 
   vtkSmartPointer<vtkStructuredGridGeometryFilter> hood3Geom =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
@@ -238,7 +254,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> hood3 =
     vtkSmartPointer<vtkActor>::New();
   hood3->SetMapper(mapHood3);
-  hood3->GetProperty()->SetColor(.8,.8,.6);
+  hood3->GetProperty()->SetColor(colors->GetColor3d("Furniture").GetData());
 
   vtkSmartPointer<vtkStructuredGridGeometryFilter> hood4Geom =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
@@ -251,7 +267,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> hood4 =
     vtkSmartPointer<vtkActor>::New();
   hood4->SetMapper(mapHood4);
-  hood4->GetProperty()->SetColor(.8,.8,.6);
+  hood4->GetProperty()->SetColor(colors->GetColor3d("Furniture").GetData());
 
   vtkSmartPointer<vtkStructuredGridGeometryFilter> hood6Geom =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
@@ -264,7 +280,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> hood6 =
     vtkSmartPointer<vtkActor>::New();
   hood6->SetMapper(mapHood6);
-  hood6->GetProperty()->SetColor(.8,.8,.6);
+  hood6->GetProperty()->SetColor(colors->GetColor3d("Furniture").GetData());
 
   vtkSmartPointer<vtkStructuredGridGeometryFilter> cookingPlateGeom =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
@@ -290,7 +306,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> filter =
     vtkSmartPointer<vtkActor>::New();
   filter->SetMapper(mapFilter);
-  filter->GetProperty()->SetColor(.8,.6,.6);
+  filter->GetProperty()->SetColor(colors->GetColor3d("Furniture").GetData());
 //
 // regular streamlines
 //
@@ -325,7 +341,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> lines =
     vtkSmartPointer<vtkActor>::New();
   lines->SetMapper(streamersMapper);
-  lines->GetProperty()->SetColor(0,0,0);
+  lines->GetProperty()->SetColor(colors->GetColor3d("Black").GetData());
 
   aren->TwoSidedLightingOn();
 

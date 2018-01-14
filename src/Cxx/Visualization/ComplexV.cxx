@@ -1,20 +1,28 @@
-#include <vtkSmartPointer.h>
-
+#include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkHedgeHog.h>
-#include <vtkOutlineFilter.h>
-
 #include <vtkLookupTable.h>
-#include <vtkRenderer.h>
+#include <vtkNamedColors.h>
+#include <vtkOutlineFilter.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkStructuredPointsReader.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkProperty.h>
-#include <vtkCamera.h>
 
-int main (int /* argc */, char *argv[])
+int main (int argc , char *argv[])
 {
+  if (argc < 2)
+  {
+    std::cout << "Usage: " << argv[0] << " carotid.vtk" << std::endl;
+    return EXIT_SUCCESS;
+  }
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkStructuredPointsReader> reader =
     vtkSmartPointer<vtkStructuredPointsReader>::New();
   reader->SetFileName(argv[1]);
@@ -65,7 +73,7 @@ int main (int /* argc */, char *argv[])
   aRenderer->AddActor(outlineActor);
   aRenderer->AddActor(hhogActor);
 
-  aRenderer->SetBackground(.5, .5, .5);
+  aRenderer->SetBackground(colors->GetColor3d("Gray").GetData());
 
   // Generate an interesting view
 
@@ -86,4 +94,3 @@ int main (int /* argc */, char *argv[])
 
   return EXIT_SUCCESS;
 }
-

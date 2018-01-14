@@ -1,13 +1,12 @@
-#include <vtkContourFilter.h>
-#include <vtkExtractVOI.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
+#include <vtkContourFilter.h>
+#include <vtkExtractVOI.h>
 #include <vtkMetaImageReader.h>
 #include <vtkNamedColors.h>
 #include <vtkOutlineFilter.h>
-#include <vtkProperty.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
@@ -16,7 +15,7 @@ int main (int argc, char *argv[])
 {
   if (argc < 2)
   {
-    std::cout << "Usage: " << argv[0] << " FullHaad.mhd" << std::endl;
+    std::cout << "Usage: " << argv[0] << " FullHead.mhd" << std::endl;
     return EXIT_FAILURE;
   }
 
@@ -91,4 +90,3 @@ int main (int argc, char *argv[])
   iren->Start();
   return EXIT_SUCCESS;
 }
-

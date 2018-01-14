@@ -1,21 +1,20 @@
-#include <vtkStructuredPointsReader.h>
-#include <vtkGlyph3D.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkConeSource.h>
 #include <vtkContourFilter.h>
+#include <vtkGlyph3D.h>
 #include <vtkLookupTable.h>
+#include <vtkMaskPoints.h>
 #include <vtkNamedColors.h>
 #include <vtkOutlineFilter.h>
 #include <vtkPointData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
-#include <vtkMaskPoints.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkStructuredPoints.h>
+#include <vtkStructuredPointsReader.h>
 #include <vtkThresholdPoints.h>
 
 int main (int argc, char *argv[])
@@ -119,7 +118,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> outlineActor =
     vtkSmartPointer<vtkActor>::New();
   outlineActor->SetMapper(outlineMapper);
-  outlineActor->GetProperty()->SetColor(0, 0, 0);
+  outlineActor->GetProperty()->SetColor(colors->GetColor3d("Black").GetData());
 
 // Add the actors to the renderer, set the background and size
 //
@@ -140,9 +139,8 @@ int main (int argc, char *argv[])
 
 // render the image
 //
-renWin->Render();
-iren->Start();
+  renWin->Render();
+  iren->Start();
 
-return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
-

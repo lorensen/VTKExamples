@@ -50,15 +50,15 @@ int main(int argc, char* argv[])
   // Set the background color and plate color. Match those in VTKTextbook.pdf.
   auto SetColor = [&colors](std::array<double, 3>& v,
                             std::string const& colorName) {
-    auto const scaleFactor = 256.0;
+    auto const scaleFactor = 255.0;
     std::transform(std::begin(v), std::end(v), std::begin(v),
                    [=](double const& n) { return n / scaleFactor; });
     colors->SetColor(colorName, v.data());
     return;
   };
-  std::array<double, 3> bkg{65, 99, 149};
+  std::array<double, 3> bkg{{65, 99, 149}};
   SetColor(bkg, "BkgColor");
-  std::array<double, 3> bar{255, 160, 140};
+  std::array<double, 3> bar{{255, 160, 140}};
   SetColor(bar, "PlateColor");
 
   // Read a vtk file

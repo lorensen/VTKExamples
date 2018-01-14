@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
   // Set the background color. Match those in VTKTextbook.pdf.
   auto SetColor = [&colors](std::array<double, 3>& v,
                             std::string const& colorName) {
-    auto const scaleFactor = 256.0;
+    auto const scaleFactor = 255.0;
     std::transform(std::begin(v), std::end(v), std::begin(v),
                    [=](double const& n) { return n / scaleFactor; });
     colors->SetColor(colorName, v.data());

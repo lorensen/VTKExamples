@@ -1,17 +1,15 @@
-#include <vtkQuadric.h>
-#include <vtkSampleFunction.h>
-#include <vtkContourFilter.h>
-
-#include <vtkOutlineFilter.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
-#include <vtkProperty.h>
-
+#include <vtkContourFilter.h>
 #include <vtkNamedColors.h>
+#include <vtkOutlineFilter.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkQuadric.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSampleFunction.h>
 
 int main( int, char *[] )
 {

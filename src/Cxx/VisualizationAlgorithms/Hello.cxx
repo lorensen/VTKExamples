@@ -1,17 +1,14 @@
-#include <vtkImplicitModeller.h>
-
+#include <vtkActor.h>
 #include <vtkCamera.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkActor.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkContourFilter.h>
-#include <vtkActor.h>
+#include <vtkImplicitModeller.h>
+#include <vtkNamedColors.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkPolyDataReader.h>
 #include <vtkProperty.h>
-#include <vtkNamedColors.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
 
 int main(int argc, char *argv[])
 {
@@ -104,5 +101,3 @@ int main(int argc, char *argv[])
   iren->Start();
   return EXIT_SUCCESS;
 }
-
-

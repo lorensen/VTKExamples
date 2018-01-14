@@ -18,10 +18,11 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
   }
 
-// Create the RenderWindow, Renderer and both Actors
-//
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
+
+// Create the RenderWindow, Renderer and both Actors
+//
 
   vtkSmartPointer<vtkRenderer> ren1 =
     vtkSmartPointer<vtkRenderer>::New();
@@ -83,5 +84,3 @@ int main(int argc, char *argv[])
   iren->Start();
   return EXIT_SUCCESS;
 }
-
-

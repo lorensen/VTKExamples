@@ -65,7 +65,7 @@ int main (int, char *[])
     vtkSmartPointer<vtkImplicitBoolean>::New();
   booleanUnion->AddFunction(sphere);
   booleanUnion->AddFunction(sphere2);
-  booleanUnion->SetOperationType(0); //booleanUnion
+  booleanUnion->SetOperationType(0); // boolean Union
 
   vtkSmartPointer<vtkExtractGeometry> extract =
     vtkSmartPointer<vtkExtractGeometry>::New();

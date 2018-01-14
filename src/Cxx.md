@@ -231,11 +231,15 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [CutWithCutFunction](/Cxx/VisualizationAlgorithms/CutWithCutFunction) | vtkCutter | Cut a surface with an implicit plane using vtkCutter.
 [CutWithScalars](/Cxx/VisualizationAlgorithms/CutWithScalars) | vtkContourFilter | Cut a surface with scalars.
 [DiscreteMarchingCubes](/Cxx/Modelling/DiscreteMarchingCubes) | vtkDiscreteMarchingCubes | Generate surfaces from labeled data.
+[ExtractData](/Cxx/VisualizationAlgorithms/ExtractData) | vtkSampleFunction | Implicit functions used to select data: Two ellipsoids are combined using the union operation used to select voxels from a volume. Voxels are shrunk 50 percent. 
 [ExtractLargestIsosurface](/Cxx/Modelling/ExtractLargestIsosurface) | vtkPolyDataConnectivityFilter | Extract largest isosurface.
 [FilledContours](/Cxx/VisualizationAlgorithms/FilledContours) | vtkContourFilter |Create filled contours (using vtkClipPolyData).
+[Hello](/Cxx/VisualizationAlgorithms/Hello) | vtkImplicitModeller | Implicit modelling used to thicken a stroked font.
+[IceCream](/Cxx/VisualizationAlgorithms/IceCream) | vtkImplicitBoolean vtkSampleFunction | How to use boolean combinations of implicit functions to create a model of an ice cream cone.
 [ImplicitDataSet](/Cxx/ImplicitFunctions/ImplicitDataSet) | vtkImplicitDataSet | Convert an imagedata to an implicit function.
 [ImplicitSphere](/Cxx/ImplicitFunctions/ImplicitSphere) | vtkSphere | An implicit representation of a sphere.
 [IsoContours](/Cxx/ImplicitFunctions/IsoContours) | vtkContourFunction | Visualize different isocontours using a slider.
+[Lorenz](/Cxx/Visualization/Lorenz) | vtkContourFilter | Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume.
 [MarchingCubes](/Cxx/Modelling/MarchingCubes) | vtkMarchingCubes | Create a voxelized sphere.
 [MarchingCases](/Cxx/VisualizationAlgorithms/MarchingCases) | vtkMarchingCubes | Explore the Marching Cubes cases.
 [MarchingSquares](/Cxx/Modelling/MarchingSquares) | vtkMarchingSquares | Create a contour from a structured point set (image).
@@ -863,19 +867,24 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CameraModel2](/Cxx/Visualization/CameraModel2) | vtkCameraActor | Illustrate camera movement.
 [Camera](/Cxx/Visualization/Camera)| vtkCamera |Positioning and aiming the camera.
 [CaptionActor2D](/Cxx/Visualization/CaptionActor2D)| vtkCaptionActor2D |Draw a caption/bubble pointing to a particular point.
+[CarotidFlow](/Cxx/VisualizationAlgorithms/CarotidFlow) | vtkStreamTracer vtkThresholdPoints | Visualizing blood flow in the human carotid arteries. Streamtubes of flow velocity are generated.
+[CarotidFlowGlyphs](/Cxx/VisualizationAlgorithms/CarotidFlowGlyphs) | vtkGlyph3D vtkThresholdPoints | Visualizing blood flow in human carotid arteries. Cone glyphs indicate flow direction and magnitude.
 [ChooseTextColorDemo](/Cxx/Visualization/ChooseTextColorDemo)| vtkTextActor vtkNamedColors | Create a grid of random colored viewpports and pick a good text color.
 [ChooseTextColor](/Cxx/Visualization/ChooseTextColor)| vtkTextActor vtkTextProperty::SetFontFamily vtkNamedColors | Choose a text color that contrasts with a background color.
 [CloseWindow](/Cxx/Visualization/CloseWindow)| vtkRenderWindowInteractor vtkRenderWindow |Close a render window.
 [ColorActorEdges](/Cxx/Visualization/ColorActorEdges) | vtkActor | Color the edges of an Actor.
 [ColorAnActor](/Cxx/Visualization/ColorAnActor) | vtkActor | Color an Actor.
 [ColorGlyphs](/Cxx/Visualization/ColorGlyphs)| vtkGlyph3D vtkGlyph3D |Color glyphs.
+[CombustorIsosurface](/Cxx/VisualizationAlgorithms/CombustorIsosurface) | vtkContourFilter | Marching cubes surface of flow density.
 [ComplexV](/Cxx/Visualization/ComplexV) | vtkHedgeHog | ComplexV from the VTK Textbook.
+[ContourQuadric](/Cxx/VisualizationAlgorithms/ContourQuadric) | vtkQuadric vtkSampleFunction vtkContourFilter | Contouring a quadric function.
 [CornerAnnotation](/Cxx/Visualization/CornerAnnotation)| vtkCornerAnnotation | Write text in the corners of a window.
 [CorrectlyRenderTranslucentGeometry](/Cxx/Visualization/CorrectlyRenderTranslucentGeometry)| vtkDepthSortPolyData |Correctly Rendering Translucent Geometry.
 [CubeAxesActor2D](/Cxx/Visualization/CubeAxesActor2D)| vtkCubeAxesActor2D | This example uses the vtkCubeAxesActor2D to show your scene with axes to indicate the spatial extent of your data.
 [CubeAxesActor](/Cxx/Visualization/CubeAxesActor)| vtkCubeAxesActor |Display three orthogonal axes with labels.
 [Cursor3D](/Cxx/Visualization/Cursor3D)| vtkCursor3D |
 [CursorShape](/Cxx/Visualization/CursorShape)| vtkRenderWindow |Change the shape of the cursor.
+[CutStructuredGrid](/Cxx/VisualizationAlgorithms/CutStructuredGrid) | vtkCutter | Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant k value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used.
 [CurvatureBandsWithGlyphs](/Cxx/Visualization/CurvatureBandsWithGlyphs)| vtkCurvatures vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the gaussian curvature of a surface into bands and using arrows to display the normals on the surface.
 [CurvedReformation](/Cxx/Visualization/CurvedReformation) | vtkProbeFilter| Sample a volume with a curved surface. In medical imaging, this is often called curved multi planar reformation.
 [Cutter](/Cxx/VisualizationAlgorithms/Cutter)| vtkCutter |
@@ -898,6 +907,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Glyph3DMapper](/Cxx/Visualization/Glyph3DMapper)| vtkGlyph3DMapper |
 [Hanoi](/Cxx/Visualization/Hanoi)|  | Towers of Hanoi.
 [Hawaii](/Cxx/Visualization/Hawaii)| vtkElevationFilter vtkColorSeries vtkLookupTable | Visualize elevations by coloring the scalar values with a lookup table.
+[HeadBone](/Cxx/VisualizationAlgorithms/HeadBone) | vtkMarchingCubes | Marching cubes surface of human bone.
+[HeadSlice](/Cxx/VisualizationAlgorithms/HeadSlice) | vtkContourFilter | Marching squares used to generate contour lines.
 [HedgeHog](/Cxx/Visualization/HedgeHog)| vtkHedgeHog vtkStructuredGrid |Create oriented lines (hedgehogs) from vector data.
 [HideActor](/Cxx/Visualization/HideActor)| vtkPropCollection vtkProp | visible
 [HideAllActors](/Cxx/Visualization/HideAllActors)| vtkRenderer |Hide all actors.
@@ -905,6 +916,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageOrder](/Cxx/Visualization/ImageOrder)| vtkRenderer |Determine the display order of a stack of images.
 [ImageOrientation](/Cxx/Visualization/ImageOrientation) | vtkInteractorStyleImage |Orientation of the view of an image.
 [ImageTransparency](/Cxx/Visualization/ImageTransparency)| vtkImageData|Set transparency of image pixels.
+[IronIsoSurface](/Cxx/VisualizationAlgorithms/IronIsoSurface) | vtkContourFilter | Marching cubes surface of iron-protein.
 [IsosurfaceSampling](/Cxx/Visualization/IsosurfaceSampling) | vtkProbeFilter|Demonstrates how to create point data on an isosurface.
 [Kitchen](/Cxx/Visualization/Kitchen) | vtkStreamTracer vtkStructuredGrid| Demonstrates stream tracing in a kitchen.
 [LODProp3D](/Cxx/Visualization/LODProp3D) | vtkLODProp3D | Level of detail rendering.
@@ -936,6 +948,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [PointDataSubdivision](/Cxx/Visualization/PointDataSubdivision) | vtkLinearSubdivisionFilter vtkButterflySubdivisionFilter | Demonstrates the effect of applying these filters on various sources.
 [PointSize](/Cxx/Visualization/PointSize) | vtkActor |
 [ProgrammableGlyphFilter](/Cxx/Visualization/ProgrammableGlyphFilter)| vtkProgrammableGlyphFilter |Generate a custom glyph at each point.
+[PseudoVolumeRendering](/Cxx/VolumeRendering/PseudoVolumeRendering) | vtkCutter vtkContourFilter | 100 cut planes with opacity of 0.05. Rendered back-to-front to simulate volume rendering.
 [QuadraticSurface](/Cxx/Visualization/QuadraticSurface)| vtkQuadric |Display a quadratic surface.
 [QuadricLODActor](/Cxx/Visualization/QuadricLODActor)| vtkQuadricLODActor | Level of detail adjustment.
 [QuadricVisualization](/Cxx/Visualization/QuadricVisualization) | vtkQuadric vtkSampleFunction vtkContourFilter | Visualizing a quadric function.
@@ -950,6 +963,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ScaleGlyphs](/Cxx/Visualization/ScaleGlyphs)| vtkGlyph3D vtkGlyph3D |Scale glyphs.
 [SceneBounds](/Cxx/Visualization/SceneBounds)| vtkRenderer |Get the bounds of the whole scene.
 [SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)| vtkInteractorStyleRubberBand2D |Select a region of a window.
+[SpikeFran](/Cxx/VisualizationAlgorithms/SpikeFran) | vtkGlyph3D | Glyphs indicate surface normals on model of human face. Glyph positions are randomly selected.
 [StreamLines](/Cxx/Visualization/StreamLines) | vtkStreamTracer | Streamlines.
 [StreamlinesWithLineWidget](/Cxx/VisualizationAlgorithms/StreamlinesWithLineWidget)| vtkCallbackCommand vtkLineWidget | Using the vtkLineWidget to produce streamlines in the combustor dataset.  The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves.
 [TensorAxes](/Cxx/VisualizationAlgorithms/TensorAxes)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes of the stress tensor.

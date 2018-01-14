@@ -1,19 +1,17 @@
 
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkContourFilter.h>
-#include <vtkPolyDataNormals.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
-#include <vtkProperty.h>
-#include <vtkMultiBlockPLOT3DReader.h>
+#include <vtkContourFilter.h>
 #include <vtkMultiBlockDataSet.h>
-#include <vtkStructuredGridOutlineFilter.h>
-#include <vtkPolyDataMapper.h>
-
+#include <vtkMultiBlockPLOT3DReader.h>
 #include <vtkNamedColors.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPolyDataNormals.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkStructuredGridOutlineFilter.h>
 
 int main (int argc, char *argv[])
 {
@@ -96,3 +94,4 @@ int main (int argc, char *argv[])
   iren->Start();
   return EXIT_SUCCESS;
 }
+

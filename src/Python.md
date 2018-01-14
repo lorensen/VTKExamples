@@ -118,15 +118,17 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[Boolean](/Python/ImplicitFunctions/Boolean) | vtkImplicitBoolean | Demonstrate booleans of two different implicit functions
+[CutWithScalars](/Python/VisualizationAlgorithms/CutWithScalars) | vtkContourFilter | Cut a surface with scalars.
+[ExtractData](/Python/VisualizationAlgorithms/ExtractData) | vtkSampleFunction | Implicit functions used to select data: Two ellipsoids are combined using the union operation used to select voxels from a volume. Voxels are shrunk 50 percent. 
+[Hello](/Python/VisualizationAlgorithms/Hello) | vtkImplicitModeller | Implicit modelling used to thicken a stroked font.
+[IceCream](/Cxx/[IceCream](/Python/VisualizationAlgorithms/IceCream) | vtkImplicitBoolean vtkSampleFunction | How to use boolean combinations of implicit functions to create a model of an ice cream cone.
 [ImplicitDataSet](/Python/ImplicitFunctions/ImplicitDataSet) | vtkImplicitDataSet | vtkIdType  n/a. This is just a typedef, Python, you can use a python "int" or "long" for vtkIdType.
-
-## Implicit Functions
-
-| Example Name | Classes Demonstrated | Description | Image |
-|--------------|----------------------|-------------|-------|
-[Boolean](/Python/Implicit/Boolean) | vtkImplicitBoolean | Demonstrate booleans of two different implicit functions
-[Quadric](/Python/Implicit/Quadric) | vtkQuadric | Create an ellipsoid using an implicit quadric
-[Sphere](/Python/Implicit/Sphere) | vtkSphere | Demonstrate sampling of a sphere implicit function
+[ImplicitSphere](/Python/ImplicitFunctions/ImplicitSphere) | vtkSphere | An implicit representation of a sphere.
+[Lorenz](/Python/Visualization/Lorenz) | vtkContourFilter | Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume.
+[MarchingCases](/Python/VisualizationAlgorithms/MarchingCases) | vtkMarchingCubes | Explore the Marching Cubes cases.
+[Quadric](/Python/ImplicitFunctions/Quadric) | vtkQuadric | Create an ellipsoid using an implicit quadric
+[Sphere](/Python/ImplicitFunctions/Sphere) | vtkSphere | Demonstrate sampling of a sphere implicit function
 
 ## Working with PolyData
 
@@ -218,6 +220,7 @@ This section includes examples of manipulating meshes.
 [FlatVersusGouraud](/Python/Rendering/FlatVersusGouraud) | vtkProperty::SetInterpolationToFlat vtkProperty::SetInterpolationToGouraud | Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look.
 [Mace](/Python/Rendering/Mace) | | An example of multiple inputs and outputs.
 [Model](/Python/Rendering/Model) | vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Illustrative diagram of graphics objects.
+[Rainbow](/Python/Rendering/Rainbow)| vtkLookupTable | Use and manipulation of vtkLookupTables.
 [Rotations](/Python/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [SpecularSpheres](/Python/Rendering/SpecularSpheres)| vtkProperty |Demonstrates the effect of specular lighting on spheres.
 [TransformSphere](/Python/Rendering/TransformSphere) | vtkSphereSource vtkElevationFilter vtkTransform vkTransformFilter | The addition of a transform filter to [ColoredSphere](/Python/Rendering/ColoredSphere).
@@ -235,13 +238,20 @@ This section includes examples of manipulating meshes.
 [AnatomicalOrientation](/Python/VisualizationAlgorithms/AnatomicalOrientation)| vtkAnnotatedCubeActor vtkAxesActor vtkOrientationMarkerWidget vtkTransform | Show a labelled set of anatomical planes transecting a human figure.
 [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) | vtkNamedColors vtkPlaneSource vtkLookupTable vtkColorTransferFunction | Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
 [Blow](/Python/Visualization/Blow)| vtkUnstructuredGridReader vtkWarpVector vtkConnectivityFilter | Ten frames from a blow molding finite element analysis.
+[BluntStreamlines](/Python/VisualizationAlgorithms/BluntStreamlines) | vtkStructuredGridGeometryFilter vtkStreamTracer| Demonstrates airflow around a blunt fin using streamlines.
 [Camera](/Python/Visualization/Camera) | vtkCamera | Positioning and aiming the camera.
 [CameraModel1](/Python/Visualization/CameraModel1) | vtkCameraActor | Illustrate camera movement.
 [CameraModel2](/Python/Visualization/CameraModel2) | vtkCameraActor | Illustrate camera movement.
+[CarotidFlow](/Python/VisualizationAlgorithms/CarotidFlow) | vtkStreamTracer vtkThresholdPoints | Visualizing blood flow in the human carotid arteries. Streamtubes of flow velocity are generated.
+[CarotidFlowGlyphs](/Python/VisualizationAlgorithms/CarotidFlowGlyphs) | vtkGlyph3D vtkThresholdPoints | Visualizing blood flow in human carotid arteries. Cone glyphs indicate flow direction and magnitude.
 [ClampGlyphSizes](/Python/Visualization/ClampGlyphSizes) | vtkGlyph3D | Use vtkGlyph3D with ClampingOn to limit glyph sizes
 [ColorActor](/Python/Visualization/ColorActor) | vtkActor::GetProperty()::SetColor | Colour the actor.
+[CombustorIsosurface](/Python/VisualizationAlgorithms/CombustorIsosurface) | vtkContourFilter | Marching cubes surface of flow density.
+[ComplexV](/Python/Visualization/ComplexV) | vtkHedgeHog | ComplexV from the VTK Textbook.
+[ContourQuadric](/Python/VisualizationAlgorithms/ContourQuadric) | vtkQuadric vtkSampleFunction vtkContourFilter | Contouring a quadric function.
 [CubeAxesActor](/Python/Visualization/CubeAxesActor) | vtkCubeAxesActor | 
 [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) | vtkCurvatures vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the gaussian curvature of a surface into bands and using arrows to display the normals on the surface.
+[CutStructuredGrid](/Python/VisualizationAlgorithms/CutStructuredGrid) | vtkCutter | Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant k value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used.
 [Cutter](/Python/VisualizationAlgorithms/Cutter) | vtkCutter |
 [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) | vtkColorTransferFunction vtkWarpVector vtkVectorDot | Show modal lines for a vibrating beam.
 [ElevationBandsWithGlyphs](/Python/Visualization/ElevationBandsWithGlyphs) | vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
@@ -249,8 +259,12 @@ This section includes examples of manipulating meshes.
 [Hanoi](/Python/Visualization/Hanoi)|  | Towers of Hanoi.
 [Hawaii](/Python/Visualization/Hawaii)| vtkElevationFilter vtkColorSeries vtkLookupTable | Visualize elevations by coloring the scalar values with a lookup table.
 [HardwareSelector](/Python/Visualization/HardwareSelector) | vtkHardwareSelector |
+[HeadBone](/Python/VisualizationAlgorithms/HeadBone) | vtkMarchingCubes | Marching cubes surface of human bone.
+[HeadSlice](/Python/VisualizationAlgorithms/HeadSlice) | vtkContourFilter | Marching squares used to generate contour lines.
 [InteractorStyleTrackballActor](/Python/Visualization/InteractorStyleTrackballActor) | vtkInteractorStyleTrackBallActor |
 [InteractorStyleTrackballCamera](/Python/Visualization/InteractorStyleTrackballCamera) | vtkInteractorStyleTrackBallCamera |
+[IronIsoSurface](/Python/VisualizationAlgorithms/IronIsoSurface) | vtkContourFilter | Marching cubes surface of iron-protein.
+[Kitchen](/Python/Visualization/Kitchen) | vtkStreamTracer vtkStructuredGrid| Demonstrates stream tracing in a kitchen.
 [LoopShrink](/Python/Visualization/LoopShrink) | |  A network with a loop. VTK 5.0 does not allow you to execute a looping visualization network; this was possible in previous versions of VTK.
 [Motor](/Python/VisualizationAlgorithms/Motor) | vtkBYUReader vtkStructuredPointsReader vtkTexture vtkImplicitTextureCoords | Texture cut used to reveal internal structure of a motor. Two cut planes are used in combination with transparent texture.
 [MultipleViewports](/Python/Visualization/MultipleViewports) | vtkRenderer::SetViewport |
@@ -263,8 +277,10 @@ This section includes examples of manipulating meshes.
 [PineRootDecimation](/Python/VisualizationAlgorithms/PineRootDecimation) | vtkMCubesReader vtkDecimatePro vtkConnectivityFilter | Applying the decimation and connectivity filters to remove noisy isosurfaces and reduce data size.
 [PlateVibration](/Python/VisualizationAlgorithms/PlateVibration) | vtkWarpVector vtkVectorDot | Demonstrates the motion of a vibrating beam.
 [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) |  vtkLinearSubdivisionFilter | Vary the shapes of glyphed points using a programmable glyph filter
+[PseudoVolumeRendering](/Python/VolumeRendering/PseudoVolumeRendering) | vtkCutter vtkContourFilter | 100 cut planes with opacity of 0.05. Rendered back-to-front to simulate volume rendering.
 [QuadraticSurface](/Python/Visualization/QuadraticSurface) | vtkQuadric |
 [QuadricVisualization](/Python/Visualization/QuadricVisualization) | vtkQuadric vtkSampleFunction vtkContourFilter | Visualizing a quadric function.
+[SpikeFran](/Python/VisualizationAlgorithms/SpikeFran) | vtkGlyph3D | Glyphs indicate surface normals on model of human face. Glyph positions are randomly selected.
 [SphereTexture](/Python/Visualization/SphereTexture) | vtkTextureMapToSphere | Apply an ImageData texture to an sphere
 [Streamlines](/Python/Visualization/Streamlines) | vtkStreamLine | Seed streamlines with vectors from a structured grid
 [StreamlinesWithLineWidget](/Python/VisualizationAlgorithms/StreamlinesWithLineWidget)| vtkCallbackCommand vtkLineWidget | Using the vtkLineWidget to produce streamlines in the combustor dataset.  The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves.

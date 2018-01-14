@@ -1,6 +1,3 @@
-#include <vtkStreamTracer.h>
-#include <vtkStructuredPointsReader.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkContourFilter.h>
@@ -14,6 +11,8 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkStreamTracer.h>
+#include <vtkStructuredPointsReader.h>
 #include <vtkThresholdPoints.h>
 #include <vtkTubeFilter.h>
 
@@ -121,7 +120,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> outlineActor =
     vtkSmartPointer<vtkActor>::New();
   outlineActor->SetMapper(outlineMapper);
-  outlineActor->GetProperty()->SetColor(0, 0, 0);
+  outlineActor->GetProperty()->SetColor(colors->GetColor3d("Black").GetData());
 
 // Add the actors to the renderer, set the background and size
 //
@@ -142,9 +141,8 @@ int main (int argc, char *argv[])
 
 // render the image
 //
-renWin->Render();
-iren->Start();
+  renWin->Render();
+  iren->Start();
 
-return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
-
