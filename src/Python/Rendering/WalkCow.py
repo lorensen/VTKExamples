@@ -4,9 +4,7 @@
 
 import vtk
 
-
-def main():
-    file_name, figure = get_program_parameters()
+def walk_cow(file_name, figure):
     figure = abs(figure)
     if figure > 2:
         figure = 0
@@ -85,15 +83,22 @@ def main():
     renWin.EraseOff()
     iren.Start()
 
+def main():
+    file_name, figure = get_program_parameters()
+    walk_cow(file_name, figure)
+
 
 def get_program_parameters():
     import argparse
-    description = 'Produce figures: 3-31, 3-32, 3-33 from the VTK Textbook.'
+    description = 'Produce figures: 3-32, 3-33a, 3-33b from the VTK Textbook.'
     epilogue = '''
-        Produce figures 3-31, 3-32, 3-33 from the VTK Textbook.
         It is a translation of the original WalkCow.tcl with a few additional enhancements.
+
+        If the parameter figure is 0, 1 or 2 then these correspond to
+        the VTK Textbook figures 3-32, 3-33a, 3-33b in that order.
    '''
-    parser = argparse.ArgumentParser(description=description, epilog=epilogue)
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('filename', help='The file cow.g.')
     parser.add_argument('figure', default=0, type=int, nargs='?', help='The particular rotation that you want to view.')
     args = parser.parse_args()

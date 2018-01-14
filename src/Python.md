@@ -122,8 +122,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [CutWithScalars](/Python/VisualizationAlgorithms/CutWithScalars) | vtkContourFilter | Cut a surface with scalars.
 [ExtractData](/Python/VisualizationAlgorithms/ExtractData) | vtkSampleFunction | Implicit functions used to select data: Two ellipsoids are combined using the union operation used to select voxels from a volume. Voxels are shrunk 50 percent. 
 [Hello](/Python/VisualizationAlgorithms/Hello) | vtkImplicitModeller | Implicit modelling used to thicken a stroked font.
-[IceCream](/Cxx/[IceCream](/Python/VisualizationAlgorithms/IceCream) | vtkImplicitBoolean vtkSampleFunction | How to use boolean combinations of implicit functions to create a model of an ice cream cone.
-[ImplicitDataSet](/Python/ImplicitFunctions/ImplicitDataSet) | vtkImplicitDataSet | vtkIdType  n/a. This is just a typedef, Python, you can use a python "int" or "long" for vtkIdType.
+[IceCream](/Python/VisualizationAlgorithms/IceCream) | vtkImplicitBoolean vtkSampleFunction | How to use boolean combinations of implicit functions to create a model of an ice cream cone.
+[ImplicitDataSet](/Python/ImplicitFunctions/ImplicitDataSet) | vtkImplicitDataSet | A cube is used to define an implicit function (through vtkImplicitDataSet) which is then used to clip a sphere.
 [ImplicitSphere](/Python/ImplicitFunctions/ImplicitSphere) | vtkSphere | An implicit representation of a sphere.
 [Lorenz](/Python/Visualization/Lorenz) | vtkContourFilter | Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume.
 [MarchingCases](/Python/VisualizationAlgorithms/MarchingCases) | vtkMarchingCubes | Explore the Marching Cubes cases.
