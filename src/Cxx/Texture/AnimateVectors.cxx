@@ -60,7 +60,7 @@ int main (int argc, char *argv[])
   lines->SetSourceConnection(line->GetOutputPort());
   lines->SetScaleFactor(0.005);
   lines->SetScaleModeToScaleByScalar();
-  lines->Update();//make range curinteractort
+  lines->Update();
   
   vtkSmartPointer<vtkPolyDataMapper> vectorMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -85,7 +85,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> outlineActor =
     vtkSmartPointer<vtkActor>::New();
   outlineActor->SetMapper(outlineMapper);
-  outlineActor->GetProperty()->SetColor(0, 0, 0);
+  outlineActor->GetProperty()->SetColor(colors->GetColor3d("Black").GetData());
 
 //  texture maps
   std::vector<vtkSmartPointer<vtkTexture> > textureMaps;
@@ -104,7 +104,7 @@ int main (int argc, char *argv[])
   }
   vectorActor->SetTexture(textureMaps[0]);
 
-// Add the actors to the interactorderer, set the background and size
+// Add the actors to the renderer, set the background and size
 //
   renderer->AddActor(vectorActor);
   renderer->AddActor(outlineActor);

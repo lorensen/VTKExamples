@@ -802,6 +802,7 @@ This section includes vtkUnstructuredGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [AmbientSpheres](/Cxx/Rendering/AmbientSpheres)| vtkProperty |Demonstrates the effect of ambient lighting on spheres.
+[CameraBlur](/Cxx/Rendering/CameraBlur) | | Example of a scene rendered with focal depth.
 [ColoredSphere](/Cxx/Rendering/ColoredSphere) | vtkSphereSource vtkElevationFilter | A simple sphere.
 [Cone3](/Cxx/Rendering/Cone3) | vtkRenderWindow | Four frames of output, based on the VTK example Cone3.cxx.
 [Cone4](/Cxx/Rendering/Cone4) | vtkRenderWindow | Modifying properties and transformation matrix based on the VTK example Cone4.cxx.
@@ -810,6 +811,7 @@ This section includes vtkUnstructuredGrid.
 [FlatVersusGouraud](/Cxx/Rendering/FlatVersusGouraud) | vtkProperty::SetInterpolationToFlat vtkProperty::SetInterpolationToGouraud | Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look.
 [Mace](/Cxx/Rendering/Mace) | | An example of multiple inputs and outputs.
 [Model](/Cxx/Rendering/Model) | vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Illustrative diagram of graphics objects.
+[MotionBlur](/Cxx/Rendering/MotionBlur) | vtkRenderStepsPass vtkSimpleMotionBlurPass | Example of motion blur.
 [Rotations](/Python/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [Rainbow](/Cxx/Rendering/Rainbow)| vtkLookupTable | Use and manipulation of vtkLookupTables.
 [Rotations](/Cxx/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
@@ -842,6 +844,7 @@ This section includes vtkUnstructuredGrid.
 [TextureMapImageData](/Cxx/Visualization/TextureMapImageData) | vtkImageCanvasSource2D | Texture map an ImageData.
 [TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| vtkTextureMapToPlane |Texture map a plane.
 [TextureMapQuad](/Cxx/Visualization/TextureMapQuad)| vtkPolygon vtkPolyData |Texture map a quad.
+[TexturePlane](/Cxx/Texture/TexturePlane) | vtkTexture | Example of texture mapping.
 [TexturedSphere](/Cxx/Texture/TexturedSphere)| vtkTextureMapToSphere | Texture a sphere.
 [TextureThreshold](/Cxx/Texture/TextureThreshold)| vtkTexture vtkThresholdTextureCoords vtkStructuredGridGeometryFilter | Demonstrate the use of scalar thresholds to show values of flow density on three planes.
 
@@ -995,6 +998,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [HAVS](/Cxx/VolumeRendering/HAVSVolumeMapper)| vtkHAVSVolumeMapper |
 [IntermixedUnstructuredGrid](/Cxx/VolumeRendering/IntermixedUnstructuredGrid)| vtkUnstructuredGridVolumeRayCastMapper vtkSLCReader |mix of poly data and unstructured grid volume mapper.
 [MinIntensityRendering](/Cxx/VolumeRendering/MinIntensityRendering)| vtkFixedPointVolumeRayCastMapper |Min intensity rendering.
+[SimpleRayCast](/Cxx/VolumeRendering/SimpleRayCast) | vtkFixedPointVolumeRayCastMapper | Volume rendering of a high potential iron protein.
 [SmartVolumeMapper](/Cxx/VolumeRendering/SmartVolumeMapper)| vtkSmartVolumeMapper |Smart volume mapper.
 
 

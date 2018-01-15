@@ -1,16 +1,14 @@
-#include <vtkImageReader2Factory.h>
+#include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkImageReader2.h>
-
-#include <vtkTexture.h>
+#include <vtkImageReader2Factory.h>
+#include <vtkNamedColors.h>
 #include <vtkPlaneSource.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkCamera.h>
-#include <vtkActor.h>
-#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-
-#include <vtkNamedColors.h>
+#include <vtkRenderer.h>
+#include <vtkTexture.h>
 //
 // This simple example shows how to do basic texture mapping.
 //

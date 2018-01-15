@@ -1,65 +1,85 @@
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkSphereSource.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkConeSource.h>
 #include <vtkGlyph3D.h>
+#include <vtkNamedColors.h>
+#include <vtkNew.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSphereSource.h>
 
-int main( int, char *[] )
+#include <algorithm>
+#include <array>
+
+int main(int, char* [])
 {
-  // create the rendering objects
-  vtkRenderer *ren1 = vtkRenderer::New();
-  vtkRenderWindow *renWin = vtkRenderWindow::New();
-    renWin->AddRenderer(ren1);
-  vtkRenderWindowInteractor *iren = vtkRenderWindowInteractor::New();
-    iren->SetRenderWindow(renWin);
+  vtkNew<vtkNamedColors> colors;
 
-  // create the pipline, ball and spikes
-  vtkSphereSource *sphere = vtkSphereSource::New();
-    sphere->SetPhiResolution(7); sphere->SetThetaResolution(7);
-  vtkPolyDataMapper *sphereMapper = vtkPolyDataMapper::New();
-    sphereMapper->SetInputConnection(sphere->GetOutputPort());
-  vtkActor *sphereActor = vtkActor::New();
-    sphereActor->SetMapper(sphereMapper);
-  vtkActor *sphereActor2 = vtkActor::New();
-    sphereActor2->SetMapper(sphereMapper);
+  // Set the colors.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 255.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg1{{26, 51, 102}};
+  SetColor(bkg1, "Bkg");
 
-  vtkConeSource *cone = vtkConeSource::New();
-    cone->SetResolution(5);
-  vtkGlyph3D *glyph = vtkGlyph3D::New();
-    glyph->SetInputConnection(sphere->GetOutputPort());
-    glyph->SetSourceConnection(cone->GetOutputPort());
-    glyph->SetVectorModeToUseNormal();
-    glyph->SetScaleModeToScaleByVector();
-    glyph->SetScaleFactor(0.25);
-  vtkPolyDataMapper *spikeMapper = vtkPolyDataMapper::New();
-    spikeMapper->SetInputConnection(glyph->GetOutputPort());
-  vtkActor *spikeActor = vtkActor::New();
-    spikeActor->SetMapper(spikeMapper);
-  vtkActor *spikeActor2 = vtkActor::New();
-    spikeActor2->SetMapper(spikeMapper);
+  // Create the rendering objects.
+  vtkNew<vtkRenderer> ren1;
+  vtkNew<vtkRenderWindow> renWin;
+  renWin->AddRenderer(ren1);
+  vtkNew<vtkRenderWindowInteractor> iren;
+  iren->SetRenderWindow(renWin);
 
-  spikeActor->SetPosition(0,0.7,0);
-  sphereActor->SetPosition(0,0.7,0);
-  spikeActor2->SetPosition(0,-1.0,-10);
-  sphereActor2->SetPosition(0,-1.0,-10);
-  spikeActor2->SetScale(1.5,1.5,1.5);
-  sphereActor2->SetScale(1.5,1.5,1.5);
+  // Create the pipeline, ball and spikes.
+  vtkNew<vtkSphereSource> sphere;
+  sphere->SetPhiResolution(7);
+  sphere->SetThetaResolution(7);
+  vtkNew<vtkPolyDataMapper> sphereMapper;
+  sphereMapper->SetInputConnection(sphere->GetOutputPort());
+  vtkNew<vtkActor> sphereActor;
+  sphereActor->SetMapper(sphereMapper);
+  vtkNew<vtkActor> sphereActor2;
+  sphereActor2->SetMapper(sphereMapper);
+
+  vtkNew<vtkConeSource> cone;
+  cone->SetResolution(5);
+  vtkNew<vtkGlyph3D> glyph;
+  glyph->SetInputConnection(sphere->GetOutputPort());
+  glyph->SetSourceConnection(cone->GetOutputPort());
+  glyph->SetVectorModeToUseNormal();
+  glyph->SetScaleModeToScaleByVector();
+  glyph->SetScaleFactor(0.25);
+  vtkNew<vtkPolyDataMapper> spikeMapper;
+  spikeMapper->SetInputConnection(glyph->GetOutputPort());
+  vtkNew<vtkActor> spikeActor;
+  spikeActor->SetMapper(spikeMapper);
+  vtkNew<vtkActor> spikeActor2;
+  spikeActor2->SetMapper(spikeMapper);
+
+  spikeActor->SetPosition(0, 0.7, 0);
+  sphereActor->SetPosition(0, 0.7, 0);
+  spikeActor2->SetPosition(0, -1.0, -10);
+  sphereActor2->SetPosition(0, -1.0, -10);
+  spikeActor2->SetScale(1.5, 1.5, 1.5);
+  sphereActor2->SetScale(1.5, 1.5, 1.5);
 
   ren1->AddActor(sphereActor);
   ren1->AddActor(spikeActor);
   ren1->AddActor(sphereActor2);
   ren1->AddActor(spikeActor2);
-  ren1->SetBackground(0.1,0.2,0.4);
-  renWin->SetSize(300,300);
-  renWin->DoubleBufferOff();
+  ren1->SetBackground(colors->GetColor3d("Bkg").GetData());
+  renWin->SetSize(300, 300);
+  //   renWin->DoubleBufferOff();
 
-  // do the first render and then zoom in a little
+  // Do the first render and then zoom in a little.
   renWin->Render();
-  ren1->GetActiveCamera()->SetFocalPoint(0,0,0.0);
+  ren1->GetActiveCamera()->SetFocalPoint(0, 0, 0.0);
   ren1->GetActiveCamera()->Zoom(1.8);
   ren1->GetActiveCamera()->SetFocalDisk(0.05);
 
@@ -67,18 +87,5 @@ int main( int, char *[] )
 
   iren->Start();
 
-  // Clean up allocated memory
-  ren1->Delete();
-  renWin->Delete();
-  iren->Delete();
-  sphere->Delete();
-  sphereMapper->Delete();
-  sphereActor->Delete();
-  sphereActor2->Delete();
-  cone->Delete();
-  glyph->Delete();
-  spikeMapper->Delete();
-  spikeActor->Delete();
-  spikeActor2->Delete();
   return EXIT_SUCCESS;
 }
