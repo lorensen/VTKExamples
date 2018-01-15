@@ -1,15 +1,15 @@
-#include <vtkSmartPointer.h>
-#include <vtkVolume.h>
-#include <vtkFixedPointVolumeRayCastMapper.h>
-#include <vtkVolumeProperty.h>
-#include <vtkColorTransferFunction.h>
-#include <vtkPiecewiseFunction.h>
-#include <vtkStructuredPointsReader.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
 #include <vtkCamera.h>
+#include <vtkColorTransferFunction.h>
+#include <vtkFixedPointVolumeRayCastMapper.h>
 #include <vtkNamedColors.h>
+#include <vtkPiecewiseFunction.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkStructuredPointsReader.h>
+#include <vtkVolume.h>
+#include <vtkVolumeProperty.h>
 
 int main (int argc, char *argv[])
 {

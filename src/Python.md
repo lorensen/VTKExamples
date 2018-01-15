@@ -213,6 +213,7 @@ This section includes examples of manipulating meshes.
 ## Rendering
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[CameraBlur](/Cxx/Rendering/CameraBlur) | | Example of a scene rendered with focal depth.
 [ColoredSphere](/Python/Rendering/ColoredSphere) | vtkSphereSource vtkElevationFilter | A simple sphere.
 [Cone3](/Python/Rendering/Cone3) | vtkRenderWindow | Four frames of output, based on the VTK example Cone3.py.
 [Cone4](/Python/Rendering/Cone4) | vtkRenderWindow | Modifying properties and transformation matrix based on the VTK example Cone4.py.
@@ -220,6 +221,7 @@ This section includes examples of manipulating meshes.
 [FlatVersusGouraud](/Python/Rendering/FlatVersusGouraud) | vtkProperty::SetInterpolationToFlat vtkProperty::SetInterpolationToGouraud | Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look.
 [Mace](/Python/Rendering/Mace) | | An example of multiple inputs and outputs.
 [Model](/Python/Rendering/Model) | vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Illustrative diagram of graphics objects.
+[MotionBlur](/Python/Rendering/MotionBlur) | vtkRenderStepsPass vtkSimpleMotionBlurPass | Example of motion blur.
 [Rainbow](/Python/Rendering/Rainbow)| vtkLookupTable | Use and manipulation of vtkLookupTables.
 [Rotations](/Python/Rendering/Rotations)| vtkActor::RotateX,Y,Z vtkRenderer::EraseOff | Rotations of a cow about her axes.
 [SpecularSpheres](/Python/Rendering/SpecularSpheres)| vtkProperty |Demonstrates the effect of specular lighting on spheres.
@@ -229,6 +231,8 @@ This section includes examples of manipulating meshes.
 ## Texture Mapping
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[AnimateVectors](/Python/Texture/AnimateVectors) | vtkTexture vtkGlyph3D | One frame from a vector field animation using texture maps.
+[TexturePlane](/Python/Texture/TexturePlane) | vtkTexture | Example of texture mapping.
 [TextureThreshold](/Python/Texture/TextureThreshold)| vtkTexture vtkThresholdTextureCoords vtkStructuredGridGeometryFilter | Demonstrate the use of scalar thresholds to show values of flow density on three planes.
 
 ## Visualization
@@ -326,6 +330,13 @@ This section includes examples of manipulating meshes.
 [NOVCAGraph](/Python/Graphs/NOVCAGraph)  | vtkUnstructuredGrid vtkXMLUnstructuredGridWriter | 
 [SelectedVerticesAndEdges](/Python/Graphs/SelectedVerticesAndEdges)  | vtkAnnotationLink vtkGraphLayoutView | 
 [VisualizeGraph](/Python/Graphs/VisualizeGraph)  | vtkMutableDirectedGraph vtkGraphLayoutView | 
+
+## Volume Rendering
+
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[SimpleRayCast](/Python/VolumeRendering/SimpleRayCast) | vtkFixedPointVolumeRayCastMapper | Volume rendering of a high potential iron protein.
 
 ## User Interaction
 
