@@ -162,8 +162,10 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[Bottle](/Python/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
 [ExtractSelection](/Python/PolyData/ExtractSelection) | vtkExtractSelection |
 [ExtractSelectionCells](/Python/PolyData/ExtractSelectionCells) | vtkExtractSelection | Extract cell, select cell.
+[Spring](/Python/Modelling/Spring) | vtkRotationalExtrusionFilter | Rotation in combination with linear displacement and radius variation.
 
 ### Working with Structured 3D Data
 This section includes vtkImageData, vtkStructuredGrid, and vtkRectilinearGrid.
@@ -239,6 +241,7 @@ This section includes examples of manipulating meshes.
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[AlphaFrequency](/Python/Visualization/AlphaFrequency) | vtkLinearExtrusionFilter vtkVectorText | Linearly extrude fonts to show letter frequencies in text.
 [AnatomicalOrientation](/Python/VisualizationAlgorithms/AnatomicalOrientation)| vtkAnnotatedCubeActor vtkAxesActor vtkOrientationMarkerWidget vtkTransform | Show a labelled set of anatomical planes transecting a human figure.
 [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) | vtkNamedColors vtkPlaneSource vtkLookupTable vtkColorTransferFunction | Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
 [Blow](/Python/Visualization/Blow)| vtkUnstructuredGridReader vtkWarpVector vtkConnectivityFilter | Ten frames from a blow molding finite element analysis.

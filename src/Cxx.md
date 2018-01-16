@@ -347,6 +347,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [SelectionSource](/Cxx/Filtering/SelectionSource) | vtkSelectionSource vtkExtractSelection | Specify a selection.
 [ShrinkPolyData](/Cxx/PolyData/ShrinkPolyData) | vtkShrinkPolyData|Move all items in a PolyData towards their centroid.
 [Silhouette](/Cxx/PolyData/Silhouette) | vtkPolyDataSilhouette |
+[Spring](/Cxx/Modelling/Spring) | vtkRotationalExtrusionFilter | Rotation in combination with linear displacement and radius variation.
 [Stripper](/Cxx/PolyData/Stripper) | vtkStripper |Convert triangles to triangle strips.
 [ThinPlateSplineTransform](/Cxx/PolyData/ThinPlateSplineTransform) | vtkThinPlateSplineTransform |
 [ThresholdCells](/Cxx/PolyData/ThresholdCells) | vtkThreshold |Thresholding Cells.
@@ -854,6 +855,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[AlphaFrequency](/Cxx/Visualization/AlphaFrequency) | vtkLinearExtrusionFilter vtkVectorText | Linearly extrude fonts to show letter frequencies in text.
 [AnatomicalOrientation](/Cxx/VisualizationAlgorithms/AnatomicalOrientation)| vtkAnnotatedCubeActor vtkAxesActor vtkOrientationMarkerWidget vtkTransform | Show a labelled set of anatomical planes transecting a human figure.
 [AnnotatedCubeActor](/Cxx/Visualization/AnnotatedCubeActor)| vtkAnnotatedCubeActor | Annotated cube.
 [Arbitrary3DCursor](/Cxx/Visualization/Arbitrary3DCursor)| vtkPointWidget |Track a 3D cursor.

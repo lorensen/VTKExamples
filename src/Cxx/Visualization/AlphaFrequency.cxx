@@ -1,20 +1,19 @@
 //
 // Create bar charts of frequency of letters. 
 //
-#include <vtkVectorText.h>
-#include <vtkLinearExtrusionFilter.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkCamera.h>
-#include <vtkProperty.h>
 #include <vtkActor.h>
-#include <vtkRenderer.h>
+#include <vtkCamera.h>
+#include <vtkLinearExtrusionFilter.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
 #include <vtkVectorText.h>
-#include <vtkLinearExtrusionFilter.h>
 
-#include <vtkNamedColors.h>
 #include <vector>
+
 int main( int argc, char *argv[] ) 
 {
   vtkSmartPointer<vtkNamedColors> colors =
