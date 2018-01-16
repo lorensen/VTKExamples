@@ -22,51 +22,50 @@ int main( int argc, char* argv[] )
   int lngLevel = 2;
   const char* pname = "rouss";
 
-  vtkSmartPointer<vtkGeoGraticule> ggr =
+  vtkSmartPointer<vtkGeoGraticule> geoGraticle =
     vtkSmartPointer<vtkGeoGraticule>::New();
-  vtkSmartPointer<vtkGeoTransform> xfm =
+  vtkSmartPointer<vtkGeoTransform> transformProjection =
     vtkSmartPointer<vtkGeoTransform>::New();
-  vtkSmartPointer<vtkGeoProjection> gcs =
+  vtkSmartPointer<vtkGeoProjection> destinationProjection =
     vtkSmartPointer<vtkGeoProjection>::New();
-  vtkSmartPointer<vtkGeoProjection> pcs =
+  vtkSmartPointer<vtkGeoProjection> sourceProjection =
     vtkSmartPointer<vtkGeoProjection>::New();
-  vtkSmartPointer<vtkTransformFilter> xff =
+  vtkSmartPointer<vtkTransformFilter> transformGraticle =
     vtkSmartPointer<vtkTransformFilter>::New();
-  vtkSmartPointer<vtkXMLPolyDataReader> pdr =
+  vtkSmartPointer<vtkXMLPolyDataReader> reader =
     vtkSmartPointer<vtkXMLPolyDataReader>::New();
-  vtkSmartPointer<vtkTransformFilter> xf2 =
+  vtkSmartPointer<vtkTransformFilter> transformReader =
     vtkSmartPointer<vtkTransformFilter>::New();
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
+  vtkSmartPointer<vtkPolyDataMapper> graticleMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-  vtkSmartPointer<vtkPolyDataMapper> mapper2 =
+  vtkSmartPointer<vtkPolyDataMapper> readerMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-  vtkSmartPointer<vtkActor> actor =
+  vtkSmartPointer<vtkActor> graticleActor =
     vtkSmartPointer<vtkActor>::New();
-  vtkSmartPointer<vtkActor> actor2 =
+  vtkSmartPointer<vtkActor> readerActor =
     vtkSmartPointer<vtkActor>::New();
 
-  ggr->SetGeometryType( vtkGeoGraticule::POLYLINES );
-  ggr->SetLatitudeLevel( latLevel );
-  ggr->SetLongitudeLevel( lngLevel );
-  ggr->SetLongitudeBounds( -180, 180 );
-  ggr->SetLatitudeBounds( -90, 90 );
+  geoGraticle->SetGeometryType( vtkGeoGraticule::POLYLINES );
+  geoGraticle->SetLatitudeLevel( latLevel );
+  geoGraticle->SetLongitudeLevel( lngLevel );
+  geoGraticle->SetLongitudeBounds( -180, 180 );
+  geoGraticle->SetLatitudeBounds( -90, 90 );
 
-  // gcs defaults to latlong.
-  pcs->SetName( pname );
-  pcs->SetCentralMeridian( 0. );
-  xfm->SetSourceProjection( gcs );
-  xfm->SetDestinationProjection( pcs );
-  xff->SetInputConnection( ggr->GetOutputPort() );
-  xff->SetTransform( xfm );
-  mapper->SetInputConnection( xff->GetOutputPort() );
-  actor->SetMapper( mapper );
+  // destinationProjection defaults to latlong.
+  destinationProjection->SetName( pname );
+  destinationProjection->SetCentralMeridian( 0. );
+  transformProjection->SetSourceProjection( sourceProjection );
+  transformProjection->SetDestinationProjection( destinationProjection );
+  transformGraticle->SetInputConnection( geoGraticle->GetOutputPort() );
+  transformGraticle->SetTransform( transformProjection );
+  graticleMapper->SetInputConnection( transformGraticle->GetOutputPort() );
+  graticleActor->SetMapper( graticleMapper );
 
-  pdr->SetFileName(argv[1]);
-
-  xf2->SetTransform( xfm );
-  xf2->SetInputConnection( pdr->GetOutputPort() );
-  mapper2->SetInputConnection( xf2->GetOutputPort() );
-  actor2->SetMapper( mapper2 );
+  reader->SetFileName(argv[1]);
+  transformReader->SetTransform( transformProjection );
+  transformReader->SetInputConnection( reader->GetOutputPort() );
+  readerMapper->SetInputConnection( transformReader->GetOutputPort() );
+  readerActor->SetMapper( readerMapper );
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -79,10 +78,12 @@ int main( int argc, char* argv[] )
   renderWindow->SetSize(640, 480);
   renderer->SetBackground(colors->GetColor3d("BurlyWood").GetData());
 
-  renderer->AddActor( actor );
-  renderer->AddActor( actor2 );
+  renderer->AddActor( readerActor );
+  renderer->AddActor( graticleActor );
 
   renderWindow->Render();
+  
+  interactor->Initialize();
   interactor->Start();
   return EXIT_SUCCESS;
 };
