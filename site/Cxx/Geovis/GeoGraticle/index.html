@@ -81,51 +81,50 @@ function registerListener(event, func) {
   <span class=kt>int</span> <span class=n>lngLevel</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
   <span class=k>const</span> <span class=kt>char</span><span class=o>*</span> <span class=n>pname</span> <span class=o>=</span> <span class=s>&quot;rouss&quot;</span><span class=p>;</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoGraticule</span><span class=o>&gt;</span> <span class=n>ggr</span> <span class=o>=</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoGraticule</span><span class=o>&gt;</span> <span class=n>geoGraticle</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoGraticule</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoTransform</span><span class=o>&gt;</span> <span class=n>xfm</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoTransform</span><span class=o>&gt;</span> <span class=n>transformProjection</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoProjection</span><span class=o>&gt;</span> <span class=n>gcs</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoProjection</span><span class=o>&gt;</span> <span class=n>destinationProjection</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoProjection</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoProjection</span><span class=o>&gt;</span> <span class=n>pcs</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoProjection</span><span class=o>&gt;</span> <span class=n>sourceProjection</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGeoProjection</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;</span> <span class=n>xff</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;</span> <span class=n>transformGraticle</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataReader</span><span class=o>&gt;</span> <span class=n>pdr</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;</span> <span class=n>xf2</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;</span> <span class=n>transformReader</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransformFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>mapper</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>graticleMapper</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>mapper2</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>readerMapper</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>actor</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>graticleActor</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>actor2</span> <span class=o>=</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>readerActor</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-<span class=hll>  <span class=n>ggr</span><span class=o>-&gt;</span><span class=n>SetGeometryType</span><span class=p>(</span> <span class=n>vtkGeoGraticule</span><span class=o>::</span><span class=n>POLYLINES</span> <span class=p>);</span>
-</span>  <span class=n>ggr</span><span class=o>-&gt;</span><span class=n>SetLatitudeLevel</span><span class=p>(</span> <span class=n>latLevel</span> <span class=p>);</span>
-  <span class=n>ggr</span><span class=o>-&gt;</span><span class=n>SetLongitudeLevel</span><span class=p>(</span> <span class=n>lngLevel</span> <span class=p>);</span>
-  <span class=n>ggr</span><span class=o>-&gt;</span><span class=n>SetLongitudeBounds</span><span class=p>(</span> <span class=o>-</span><span class=mi>180</span><span class=p>,</span> <span class=mi>180</span> <span class=p>);</span>
-  <span class=n>ggr</span><span class=o>-&gt;</span><span class=n>SetLatitudeBounds</span><span class=p>(</span> <span class=o>-</span><span class=mi>90</span><span class=p>,</span> <span class=mi>90</span> <span class=p>);</span>
+<span class=hll>  <span class=n>geoGraticle</span><span class=o>-&gt;</span><span class=n>SetGeometryType</span><span class=p>(</span> <span class=n>vtkGeoGraticule</span><span class=o>::</span><span class=n>POLYLINES</span> <span class=p>);</span>
+</span>  <span class=n>geoGraticle</span><span class=o>-&gt;</span><span class=n>SetLatitudeLevel</span><span class=p>(</span> <span class=n>latLevel</span> <span class=p>);</span>
+  <span class=n>geoGraticle</span><span class=o>-&gt;</span><span class=n>SetLongitudeLevel</span><span class=p>(</span> <span class=n>lngLevel</span> <span class=p>);</span>
+  <span class=n>geoGraticle</span><span class=o>-&gt;</span><span class=n>SetLongitudeBounds</span><span class=p>(</span> <span class=o>-</span><span class=mi>180</span><span class=p>,</span> <span class=mi>180</span> <span class=p>);</span>
+  <span class=n>geoGraticle</span><span class=o>-&gt;</span><span class=n>SetLatitudeBounds</span><span class=p>(</span> <span class=o>-</span><span class=mi>90</span><span class=p>,</span> <span class=mi>90</span> <span class=p>);</span>
 
-  <span class=c1>// gcs defaults to latlong.</span>
-  <span class=n>pcs</span><span class=o>-&gt;</span><span class=n>SetName</span><span class=p>(</span> <span class=n>pname</span> <span class=p>);</span>
-  <span class=n>pcs</span><span class=o>-&gt;</span><span class=n>SetCentralMeridian</span><span class=p>(</span> <span class=mf>0.</span> <span class=p>);</span>
-  <span class=n>xfm</span><span class=o>-&gt;</span><span class=n>SetSourceProjection</span><span class=p>(</span> <span class=n>gcs</span> <span class=p>);</span>
-  <span class=n>xfm</span><span class=o>-&gt;</span><span class=n>SetDestinationProjection</span><span class=p>(</span> <span class=n>pcs</span> <span class=p>);</span>
-  <span class=n>xff</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>ggr</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
-  <span class=n>xff</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span> <span class=n>xfm</span> <span class=p>);</span>
-  <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>xff</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
-  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span> <span class=n>mapper</span> <span class=p>);</span>
+  <span class=c1>// destinationProjection defaults to latlong.</span>
+  <span class=n>destinationProjection</span><span class=o>-&gt;</span><span class=n>SetName</span><span class=p>(</span> <span class=n>pname</span> <span class=p>);</span>
+  <span class=n>destinationProjection</span><span class=o>-&gt;</span><span class=n>SetCentralMeridian</span><span class=p>(</span> <span class=mf>0.</span> <span class=p>);</span>
+  <span class=n>transformProjection</span><span class=o>-&gt;</span><span class=n>SetSourceProjection</span><span class=p>(</span> <span class=n>sourceProjection</span> <span class=p>);</span>
+  <span class=n>transformProjection</span><span class=o>-&gt;</span><span class=n>SetDestinationProjection</span><span class=p>(</span> <span class=n>destinationProjection</span> <span class=p>);</span>
+  <span class=n>transformGraticle</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>geoGraticle</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
+  <span class=n>transformGraticle</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span> <span class=n>transformProjection</span> <span class=p>);</span>
+  <span class=n>graticleMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>transformGraticle</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
+  <span class=n>graticleActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span> <span class=n>graticleMapper</span> <span class=p>);</span>
 
-  <span class=n>pdr</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
-
-  <span class=n>xf2</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span> <span class=n>xfm</span> <span class=p>);</span>
-  <span class=n>xf2</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>pdr</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
-  <span class=n>mapper2</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>xf2</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
-  <span class=n>actor2</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span> <span class=n>mapper2</span> <span class=p>);</span>
+  <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
+  <span class=n>transformReader</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span> <span class=n>transformProjection</span> <span class=p>);</span>
+  <span class=n>transformReader</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
+  <span class=n>readerMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span> <span class=n>transformReader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>()</span> <span class=p>);</span>
+  <span class=n>readerActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span> <span class=n>readerMapper</span> <span class=p>);</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renderWindow</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
@@ -138,10 +137,12 @@ function registerListener(event, func) {
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;BurlyWood&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
 
-  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span> <span class=n>actor</span> <span class=p>);</span>
-  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span> <span class=n>actor2</span> <span class=p>);</span>
+  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span> <span class=n>readerActor</span> <span class=p>);</span>
+  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span> <span class=n>graticleActor</span> <span class=p>);</span>
 
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
+
+  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Initialize</span><span class=p>();</span>
   <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>};</span>
