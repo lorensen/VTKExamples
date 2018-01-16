@@ -1223,7 +1223,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CompassWidget](/Cxx/Geovis/CompassWidget)  | vtkCompassWidget | Compass Widget.
 [EarthSource](/Cxx/Geovis/EarthSource) | vtkEarthSource | Create the Earth.
 [GeoAssignCoordinates](/Cxx/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates | Convert lat/long coordinates to world coordinates.
-
+[GeoGraticle](/Cxx/Geovis/GeoGraticle) | vtkGeoGraticle | Show lat/long lines that have been distorted.
 ## Information Visualization (Infovis)
 
 | Example Name | Classes Demonstrated | Description | Image |
