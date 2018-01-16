@@ -1,19 +1,17 @@
-#include <vtkRotationalExtrusionFilter.h>
-
-#include <vtkTubeFilter.h>
-#include <vtkStripper.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkPoints.h>
-#include <vtkCellArray.h>
-#include <vtkPolyData.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
-#include <vtkProperty.h>
-
+#include <vtkCellArray.h>
 #include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkRotationalExtrusionFilter.h>
+#include <vtkStripper.h>
+#include <vtkTubeFilter.h>
 
 int main (int, char *[])
 {
@@ -117,7 +115,7 @@ int main (int, char *[])
   renderer->ResetCamera();
   renderer->GetActiveCamera()->Azimuth(30);
   renderer->GetActiveCamera()->Elevation(30);
-;  
+
 //$cam1 SetClippingRange 3.95297 50
 //$cam1 SetFocalPoint 9.71821 0.458166 29.3999
 //$cam1 SetPosition 2.7439 -37.3196 38.7167
@@ -129,5 +127,3 @@ int main (int, char *[])
 
   return EXIT_SUCCESS;
 }
-
-

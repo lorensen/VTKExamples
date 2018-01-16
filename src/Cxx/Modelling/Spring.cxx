@@ -1,17 +1,16 @@
-#include <vtkRotationalExtrusionFilter.h>
-
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkPoints.h>
-#include <vtkCellArray.h>
-#include <vtkPolyData.h>
-#include <vtkPolyDataNormals.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
-#include <vtkProperty.h>
+#include <vtkCellArray.h>
 #include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPolyDataNormals.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkRotationalExtrusionFilter.h>
 
 int main (int, char *[])
 {
@@ -103,5 +102,3 @@ int main (int, char *[])
 
   return EXIT_SUCCESS;
 }
-
-
