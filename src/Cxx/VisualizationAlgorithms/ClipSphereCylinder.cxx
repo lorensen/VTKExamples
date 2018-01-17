@@ -1,16 +1,15 @@
-#include <vtkImplicitBoolean.h>
-#include <vtkClipPolyData.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
+#include <vtkClipPolyData.h>
 #include <vtkCylinder.h>
+#include <vtkImplicitBoolean.h>
 #include <vtkNamedColors.h>
 #include <vtkPlaneSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
 #include <vtkSphere.h>
 #include <vtkTransform.h>
 
@@ -123,4 +122,3 @@ int main (int, char *[])
 
   return EXIT_SUCCESS;
 }
-

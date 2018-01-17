@@ -1,19 +1,18 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkQuadric.h>
-#include <vtkSphereSource.h>
-#include <vtkDataSetMapper.h>
-#include <vtkTexture.h>
-#include <vtkImplicitTextureCoords.h>
-#include <vtkBooleanTexture.h>
-
-#include <vtkRenderWindowInteractor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
 #include <vtkActor.h>
+#include <vtkBooleanTexture.h>
 #include <vtkCamera.h>
-#include <vtkProperty.h>
 #include <vtkDataSetMapper.h>
+#include <vtkDataSetMapper.h>
+#include <vtkImplicitTextureCoords.h>
+#include <vtkNamedColors.h>
+#include <vtkProperty.h>
+#include <vtkQuadric.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkTexture.h>
 
 double positions[][3] = {
 	{-4,4,0}, {-2,4,0}, {0,4,0}, {2,4,0},
@@ -26,6 +25,9 @@ static vtkSmartPointer<vtkBooleanTexture> MakeBooleanTexture (int, int, int);
 
 int main (int /* argc */, char * /* argv */ [])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
 
@@ -58,7 +60,7 @@ int main (int /* argc */, char * /* argv */ [])
   aSphere->SetPhiResolution(21);
   aSphere->SetThetaResolution(21);
 
-  // create texture coordianates for all
+  // create texture coordinates for all
   vtkSmartPointer<vtkImplicitTextureCoords> tcoords =
     vtkSmartPointer<vtkImplicitTextureCoords>::New();
   tcoords->SetInputConnection(aSphere->GetOutputPort());
@@ -90,7 +92,7 @@ int main (int /* argc */, char * /* argv */ [])
     aren->AddActor (anActor2);
   }
 
-  aren->SetBackground (0.4392,0.5020,0.5647);
+  aren->SetBackground(colors->GetColor3d("SlateGray").GetData());
   renWin->SetSize(500,500);
   renWin->AddRenderer(aren);
 

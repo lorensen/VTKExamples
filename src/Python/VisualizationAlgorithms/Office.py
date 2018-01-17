@@ -3,9 +3,7 @@
 import vtk
 
 
-def main():
-    fileName, center = get_program_parameters()
-
+def office(fileName, center):
     # These are the centers for the streamline seed.
     seedCenters = [
         [0.0, 2.1, 0.5],
@@ -15,7 +13,7 @@ def main():
     ]
     center = abs(center)
     if center >= len(seedCenters):
-        center = len(seedCenters) - 1;
+        center = len(seedCenters) - 1
 
     colors = vtk.vtkNamedColors()
     # Set the furniture colors, matching those in the VTKTextBook.
@@ -318,6 +316,11 @@ def get_program_parameters():
     parser.add_argument('center', default=3, type=int, nargs='?', help='seed center.')
     args = parser.parse_args()
     return args.fileName, args.center
+
+
+def main():
+    fileName, center = get_program_parameters()
+    office(fileName, center)
 
 
 if __name__ == '__main__':

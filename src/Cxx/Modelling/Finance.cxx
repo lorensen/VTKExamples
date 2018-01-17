@@ -1,23 +1,26 @@
-#include <vtkGaussianSplatter.h>
-
 #include <vtkActor.h>
 #include <vtkAxes.h>
 #include <vtkCamera.h>
 #include <vtkContourFilter.h>
 #include <vtkDataSet.h>
 #include <vtkFloatArray.h>
+#include <vtkGaussianSplatter.h>
 #include <vtkImageData.h>
 #include <vtkNamedColors.h>
 #include <vtkPointData.h>
 #include <vtkPoints.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h> 
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
 #include <vtkTubeFilter.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkSmartPointer.h>
+
+#include <algorithm>
+#include <array>
+#include <string>
 
 namespace
 {
@@ -35,6 +38,21 @@ int main( int argc, char *argv[] )
     return EXIT_FAILURE;
   }
   char* fname = argv[1];
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the color for the population.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 255.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> popColor{{230, 230, 230}};
+  SetColor(popColor, "PopColor");
 
   // read data
   vtkSmartPointer<vtkDataSet> dataSet =
@@ -61,7 +79,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> popActor = vtkSmartPointer<vtkActor>::New();
   popActor->SetMapper(popMapper);
   popActor->GetProperty()->SetOpacity(0.3);
-  popActor->GetProperty()->SetColor(.9,.9,.9);
+  popActor->GetProperty()->SetColor(colors->GetColor3d("popColor").GetData());
 
   // construct pipeline for delinquent population
   vtkSmartPointer<vtkGaussianSplatter> lateSplatter =
@@ -84,7 +102,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> lateActor =
     vtkSmartPointer<vtkActor>::New();
   lateActor->SetMapper(lateMapper);
-  lateActor->GetProperty()->SetColor(1.0,0.0,0.0);
+  lateActor->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
 
   // create axes
   popSplatter->Update();
@@ -110,9 +128,6 @@ int main( int argc, char *argv[] )
   axesActor->SetMapper(axesMapper);
 
   // graphics stuff
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
-
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
 
@@ -205,6 +220,7 @@ vtkSmartPointer<vtkDataSet> ReadFinancialData(const char* filename, const char *
   for (i=0; i<npts; i++)
   {
     xyz[0] = xV[i]; xyz[1] = yV[i]; xyz[2] = zV[i];
+//     std::cout << xV[i] << " " << yV[i] << " " << zV[i] << std::endl;
     newPts->InsertPoint(i, xyz);
     newScalars->InsertValue(i, sV[i]);
   }
@@ -238,7 +254,6 @@ int ParseFile(FILE *file, const char *label, float *data)
     std::cerr << "ERROR: IO Error " << __FILE__ << ":" << __LINE__ << std::endl;
     return 0;
   }
-
   while ( !readData && fscanf(file, "%s", tag) == 1 )
   {
     if ( ! strcmp(tag,label) )
@@ -252,7 +267,9 @@ int ParseFile(FILE *file, const char *label, float *data)
           return 0;
         }
         if ( data[i] < min ) min = data[i];
-        if ( data[i] > min ) max = data[i];
+         if ( data[i] > min ) max = data[i]; // bug here
+        // Should be:
+        // if ( data[i] > max ) max = data[i]; 
       }
       // normalize data
       for (i=0; i<npts; i++) data[i] = min + data[i]/(max-min);

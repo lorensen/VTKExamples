@@ -1,27 +1,24 @@
-#include <vtkSmartPointer.h>
-#include <vtkImplicitBoolean.h>
-
-#include <vtkPolyDataNormals.h>
-#include <vtkPolyData.h>
-#include <vtkCleanPolyData.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkProperty.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
+#include <vtkCleanPolyData.h>
+#include <vtkColor.h>
+#include <vtkImplicitBoolean.h>
+#include <vtkNamedColors.h>
+#include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPolyDataNormals.h>
+#include <vtkPolyDataReader.h>
+#include <vtkProperty.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkColor.h>
-#include <vtkNamedColors.h>
-
-#include <vtkPLYReader.h>
-#include <vtkXMLPolyDataReader.h>
-#include <vtkOBJReader.h>
-#include <vtkPolyDataReader.h>
-#include <vtkSTLReader.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
-
+#include <vtkSTLReader.h>
 #include <vtksys/SystemTools.hxx>
+#include <vtkXMLPolyDataReader.h>
 
 static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
 
@@ -30,15 +27,15 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkPolyData> polyData =
     ReadPolyData(argc > 1 ? argv[1] : "");
 
-  // A renderer and render window
-  vtkSmartPointer<vtkRenderer> renderer = 
-    vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground(1, 1, 1);
-
-  // Create background colors for each viewport
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
+  // A renderer and render window
+  vtkSmartPointer<vtkRenderer> renderer = 
+    vtkSmartPointer<vtkRenderer>::New();
+  renderer->SetBackground(colors->GetColor3d("White").GetData());
+
+  // Create background colors for each viewport
   std::vector<vtkColor3d> backgroundColors;
   backgroundColors.push_back(colors->GetColor3d("Cornsilk"));
   backgroundColors.push_back(colors->GetColor3d("NavajoWhite"));
