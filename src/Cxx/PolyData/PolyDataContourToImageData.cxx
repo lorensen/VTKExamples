@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPolyData.h>
 #include <vtkImageData.h>
@@ -13,12 +12,13 @@
 #include <vtkLinearExtrusionFilter.h>
 #include <vtkXMLPolyDataWriter.h>
 
-/**
- * This example generates a sphere, cuts it with a plane and, therefore, generates a circlular contour (vtkPolyData).
- * Subsequently a binary image representation (vtkImageData) is extracted from it. Internally vtkPolyDataToImageStencil and
- * vtkLinearExtrusionFilter are utilized. Both the circular poly data (circle.vtp) and the resultant image (labelImage.mhd)
- * are saved to disk.
- */
+// This example generates a sphere, cuts it with a plane and, therefore,
+// generates a circlular contour (vtkPolyData). Subsequently a binary
+// image representation (vtkImageData) is extracted from it. Internally
+// vtkPolyDataToImageStencil and vtkLinearExtrusionFilter are
+// utilized. Both the circular poly data (circle.vtp) and the resultant
+// image (labelImage.mhd) are saved to disk.
+
 int main(int, char *[])
 {
   // 3D source sphere
@@ -51,11 +51,7 @@ int main(int, char *[])
   // write circle out
   vtkSmartPointer<vtkXMLPolyDataWriter> polyDataWriter =
       vtkSmartPointer<vtkXMLPolyDataWriter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  polyDataWriter->SetInput(circle);
-#else
   polyDataWriter->SetInputData(circle);
-#endif
   polyDataWriter->SetFileName("circle.vtp");
   polyDataWriter->SetCompressorTypeToNone();
   polyDataWriter->SetDataModeToAscii();
@@ -90,13 +86,7 @@ int main(int, char *[])
   origin[1] = bounds[2];// + spacing[1] / 2;
   origin[2] = bounds[4];// + spacing[2] / 2;
   whiteImage->SetOrigin(origin);
-
-#if VTK_MAJOR_VERSION <= 5
-  whiteImage->SetScalarTypeToUnsignedChar();
-  whiteImage->AllocateScalars();
-#else
   whiteImage->AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
 
   // fill the image with foreground voxels:
   unsigned char inval = 255;
@@ -110,13 +100,9 @@ int main(int, char *[])
   // sweep polygonal data (this is the important thing with contours!)
   vtkSmartPointer<vtkLinearExtrusionFilter> extruder =
       vtkSmartPointer<vtkLinearExtrusionFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  extruder->SetInput(circle);
-#else
   extruder->SetInputData(circle);
-#endif
   extruder->SetScaleFactor(1.);
-  extruder->SetExtrusionTypeToNormalExtrusion();
+  extruder->SetExtrusionTypeToVectorExtrusion();
   extruder->SetVector(0, 0, 1);
   extruder->Update();
 
@@ -133,13 +119,8 @@ int main(int, char *[])
   // cut the corresponding white image and set the background:
   vtkSmartPointer<vtkImageStencil> imgstenc =
     vtkSmartPointer<vtkImageStencil>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imgstenc->SetInput(whiteImage);
-  imgstenc->SetStencil(pol2stenc->GetOutput());
-#else
   imgstenc->SetInputData(whiteImage);
   imgstenc->SetStencilConnection(pol2stenc->GetOutputPort());
-#endif
   imgstenc->ReverseStencilOff();
   imgstenc->SetBackgroundValue(outval);
   imgstenc->Update();

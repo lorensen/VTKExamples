@@ -1,30 +1,18 @@
 project (${WIKI}PolyData)
 
 if(NOT WikiExamples_BINARY_DIR)
-find_package(VTK REQUIRED)
-if(NOT VTK_USE_RENDERING)
-  message(FATAL_ERROR "Example ${PROJECT_NAME} requires VTK_USE_RENDERING.")
-endif()
-include(${VTK_USE_FILE})
+  find_package(VTK REQUIRED)
+  include(${VTK_USE_FILE})
 endif()
 
-if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
-  set(KIT_LIBS vtkWidgets vtkHybrid vtkCharts)
-else()
-  set(KIT_LIBS ${VTK_LIBRARIES})
-endif()
+set(KIT_LIBS ${VTK_LIBRARIES})
+
 #
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
 
-set(VERSION_MIN "5.9.20111206")
-Requires_Version(LoopBooleanPolyDataFilter ${VERSION_MIN} ALL_FILES)
-Requires_Version(BooleanOperationPolyDataFilter ${VERSION_MIN} ALL_FILES)
-Requires_Version(DistancePolyDataFilter ${VERSION_MIN} ALL_FILES)
-Requires_Version(ImplicitPolyDataDistance ${VERSION_MIN} ALL_FILES)
-Requires_Version(IntersectionPolyDataFilter ${VERSION_MIN} ALL_FILES)
 Requires_Version(Curvatures "6.0.0" ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
@@ -44,6 +32,7 @@ set(NEEDS_ARGS
   CellLocatorVisualization
   ColoredPoints
   ConvexHull
+  Curvatures
   DetermineArrayDataTypes
   DijkstraGraphGeodesicPath	
   EmbedPointsIntoVolume
@@ -67,9 +56,6 @@ set(NEEDS_ARGS
   TriangleSolidColor
   WarpSurface
 )
-if(NOT ${VTK_VERSION} VERSION_LESS "6")
-  list(APPEND NEEDS_ARGS Curvatures)
-endif()
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
@@ -92,10 +78,8 @@ add_test(${KIT}-ColoredPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 add_test(${KIT}-ConvexHull ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestConvexHull ${DATA}/cowHead.vtp)
 
-if(NOT ${VTK_VERSION} VERSION_LESS "6")
-  add_test(${KIT}-Curvatures ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-    TestCurvatures ${DATA}/cowHead.vtp -20 20)
-endif()
+add_test(${KIT}-Curvatures ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestCurvatures ${DATA}/cowHead.vtp -20 20)
 
 add_test(${KIT}-DijkstraGraphGeodesicPath ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDijkstraGraphGeodesicPath	-E 20)
