@@ -3,6 +3,7 @@
 #include <vtkCamera.h>
 #include <vtkMultiBlockDataSet.h>
 #include <vtkMultiBlockPLOT3DReader.h>
+#include <vtkNamedColors.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkPolyDataNormals.h>
 #include <vtkProperty.h>
@@ -13,8 +14,6 @@
 #include <vtkStructuredGridGeometryFilter.h>
 #include <vtkStructuredGridOutlineFilter.h>
 #include <vtkWarpScalar.h>
-
-#include <vtkNamedColors.h>
 
 // This example demonstrates how to extract "computational planes" from a
 // structured dataset. Structured data has a natural, logical coordinate
@@ -141,7 +140,3 @@ int main (int argc, char *argv[])
   iren->Start();
   return EXIT_SUCCESS;
 }
-
-
-
-

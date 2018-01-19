@@ -1,17 +1,16 @@
-#include <vtkGaussianSplatter.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkContourFilter.h>
+#include <vtkGaussianSplatter.h>
 #include <vtkMaskPoints.h>
 #include <vtkNamedColors.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkPolyDataNormals.h>
 #include <vtkPolyDataReader.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
 
 int main (int argc, char *argv[])
 {
@@ -20,11 +19,13 @@ int main (int argc, char *argv[])
     std::cout << "Usage: " << argv[0] << " fran_cut.vtk" << std::endl;
     return EXIT_FAILURE;
   }
-// Create the RenderWindow, Renderer and both Actors
-//
+
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
+
+// Create the RenderWindow, Renderer and both Actors
+//
   vtkSmartPointer<vtkRenderer> ren1 =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renWin =
@@ -49,8 +50,8 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkMaskPoints>::New();
   mask->SetInputConnection(normals->GetOutputPort());
   mask->SetOnRatio(8);
+//   mask->RandomModeOn();
 
-//    mask RandomModeOn
   vtkSmartPointer<vtkGaussianSplatter> splatter =
     vtkSmartPointer<vtkGaussianSplatter>::New();
   splatter->SetInputConnection(mask->GetOutputPort());
@@ -109,4 +110,3 @@ int main (int argc, char *argv[])
 
   return EXIT_SUCCESS;
 }
-

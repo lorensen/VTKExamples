@@ -3,6 +3,7 @@
 #include <vtkClipPolyData.h>
 #include <vtkImageDataGeometryFilter.h>
 #include <vtkImageGaussianSmooth.h>
+#include <vtkNamedColors.h>
 #include <vtkPNMReader.h>
 #include <vtkPointData.h>
 #include <vtkPolyDataMapper.h>
@@ -10,8 +11,6 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
-
-#include <vtkNamedColors.h>
 
 int main (int argc, char *argv[])
 {

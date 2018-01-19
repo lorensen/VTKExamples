@@ -3,7 +3,7 @@
 import vtk
 
 
-def main():
+def pine_root_connectivity(fileName, noConnectivity):
     def NumberOfTriangles(pd):
         """
         Count the number of triangles.
@@ -21,9 +21,6 @@ def main():
         return numOfTriangles
 
     colors = vtk.vtkNamedColors()
-
-    fileName, noConnectivity = get_program_parameters()
-    noConnectivity = noConnectivity != 0
 
     # Create the pipeline.
     reader = vtk.vtkMCubesReader()
@@ -87,6 +84,11 @@ def main():
     iren.Initialize()
     renWin.Render()
     iren.Start()
+
+def main():
+    fileName, noConnectivity = get_program_parameters()
+    noConnectivity = noConnectivity != 0
+    pine_root_connectivity(fileName, noConnectivity)
 
 
 def get_program_parameters():

@@ -1,16 +1,15 @@
-#include <vtkDecimatePro.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
+#include <vtkDecimatePro.h>
 #include <vtkNamedColors.h>
 #include <vtkPNGReader.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkPolyDataNormals.h>
 #include <vtkPolyDataReader.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
 
 int main (int argc, char *argv[])
 {
@@ -111,6 +110,3 @@ int main (int argc, char *argv[])
 
   return EXIT_SUCCESS;
 }
-
-
-

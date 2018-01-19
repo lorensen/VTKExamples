@@ -1,8 +1,7 @@
-#include <vtkHyperStreamline.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkConeSource.h>
+#include <vtkHyperStreamline.h>
 #include <vtkImageData.h>
 #include <vtkImageDataGeometryFilter.h>
 #include <vtkLogLookupTable.h>
