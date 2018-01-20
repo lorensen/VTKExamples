@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-Office A.
+OfficeA.
 
 Note: Make sure Office.py is in the same directory as this program.
 """

@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 
 """
-Marching cubes cases for 3D isosurface generation.
-The 256 possible cases have been reduced to 14 cases using symmetry.
-Dark vertices are greater than the selected isosurface value.
+PineRootConnectivityA
 
-Note: Make sure MarchingCases.py is in the same directory as this program.
+Note: Make sure PineRootConnectivity.py is in the same directory as this program.
 """
 
 import PineRootConnectivity
