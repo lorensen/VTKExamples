@@ -1,6 +1,6 @@
 # VTK Book Figure Examples
 
-The [Visualization Toolkit Text Book](http://www.vtk.org/wp-content/uploads/2016/09/books_VTK_textbook.png)  was first published in 1995. At that time, the book was unique. It presented the theory behind computer graphics and visualization algorithms. It also provided a free C++ toolkit called VTK. Each theory chapter of the book wrapped up with a section called *Putting It All Together*. These sections provided examples using the VTK software. The examples were written in C++ or Tcl. As VTK matured, the Application Programming Interface (API) also matured. For example, today, C++ and Python are the preferred languages, although Java and Tcl are still available. Although the VTK software has always been free, until recently the VTK Book was only available commercially. Now, the book, like the software, is also free. View or download the book [here](https://www.vtk.org/vtk-textbook/).
+The [Visualization Toolkit Text Book](http://www.vtk.org/wp-content/uploads/2016/09/books_VTK_textbook.png)  was first published in 1995. At that time, the book was unique. It presented the theory behind computer graphics and visualization algorithms. It also provided a free C++ toolkit called VTK. Each theory chapter of the book wrapped up with a section called *Putting It All Together*. These sections provided examples using the VTK software. The examples were written in C++ or Tcl. As VTK matured, the Application Programming Interface (API) also matured. For example, today, C++ and Python are the preferred languages, although Java is still available. Tcl is no longer supported. Although the VTK software has always been free, until recently the VTK Book was only available commercially. Now, the book, like the software, is also free. View or download the book [here](https://www.vtk.org/vtk-textbook/).
 
 Even though the book is over 20 years old, the concepts in the book are still relevant. The dozens of examples in the book are also still valuable for learning and using VTK. We have begun an effort to convert all of the examples in the book into C++ and present them Chapter by Chapter. These examples supplement the hundreds of examples on this [VTKExamples web site](https://lorensen.github.io/VTKExamples/site/)..
 
@@ -16,10 +16,9 @@ Each Figure example
 
 4. if the example produces an image, links to the full resolution image. If the caption includes a source file reference, e.g. [bluntStr.cxx](https://gitlab.kitware.com/vtk/vtk/blob/d72d8120513c2c856e027ec83cd3c678912e7e0d/graphics/examplesCxx/bluntStr.cxx) or [rotations.tcl](https://gitlab.kitware.com/vtk/vtk/blob/cdd4d6fdec8b4b2c143224ca1d94699c96a8b58a/Rendering/Core/Testing/Tcl/rotations.tcl), that reference links to the original source code.
 
-Please enjoy this new effort to revive the VTK Figure examples.
+5. if there is a corresponding Python example, a link to that example follows th figure lne.
 
-!!! info
-    This is a works-in-progress. Figures with links indicate that an example has been implemented. Those without links are yet to be implemented.
+Please enjoy this new effort to revive and maintain the VTK Figure examples.
 
 ## Chapter 3 - Computer Graphics
 
@@ -180,3 +179,5 @@ Figure 4-11 | | Dividing a sphere into a piece (red) with ghost level cells and 
 [Figure 12-20a](/Cxx/Visualization/HanoiInitial) | | Towers of Hanoi. (a) Initial configuration.
 [Figure 12-20b](/Cxx/Visualization/HanoiIntermediate) | | Towers of Hanoi. (b) Intermediate configuration.
 [Figure 12-20c](/Cxx/Visualization/Hanoi) | | Towers of Hanoi. (c) Final configuration [Hanoi.cxx](http://www.new-npac.org/projects/sv2all/sv2/vtk/graphics/examplesCxx/Hanoi.cxx).
+
+ LocalWords:  TCL
