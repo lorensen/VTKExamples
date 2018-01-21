@@ -1,25 +1,23 @@
-#include <vtkSmartPointer.h>
-#include <vtkImageGaussianSmooth.h>
-#include <vtkImageReader2Factory.h>
-#include <vtkImageReader2.h>
-
-#include <vtkImageCast.h>
-#include <vtkImageGaussianSmooth.h>
-#include <vtkImageMathematics.h>
-#include <vtkImageShiftScale.h>
-#include <vtkSampleFunction.h>
-#include <vtkSphere.h>
-
-#include <vtkImageMapper3D.h>
-#include <vtkImageProperty.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkInteractorStyleImage.h>
-#include <vtkRenderer.h>
 #include <vtkImageActor.h>
 #include <vtkImageCast.h>
-#include <vtkNamedColors.h>
+#include <vtkImageCast.h>
+#include <vtkImageGaussianSmooth.h>
+#include <vtkImageGaussianSmooth.h>
+#include <vtkImageMapper3D.h>
+#include <vtkImageMathematics.h>
+#include <vtkImageProperty.h>
+#include <vtkImageReader2.h>
+#include <vtkImageReader2Factory.h>
+#include <vtkImageShiftScale.h>
 #include <vtkInteractorStyleImage.h>
+#include <vtkInteractorStyleImage.h>
+#include <vtkNamedColors.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSampleFunction.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphere.h>
 
 int main (int argc, char *argv[])
 {

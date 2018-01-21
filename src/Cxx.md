@@ -1124,13 +1124,17 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[Attenuation](/Cxx/ImageProcessing/Attenuation) | vtkImageGaussianSmooth vtkImageMathematics vtkImageShiftScale | This MRI image illustrates attenuation that can occur due to sensor position.  The artifact is removed by dividing by the attenuation profile determined manually.
 [Colored2DImageFusion](/Cxx/Images/Colored2DImageFusion)| vtkImageMapToColors |Blending 2D images with different color maps.
 [CenterAnImage](/Cxx/Images/CenterAnImage)| vtkImageChangeInformation |Center an image.
 [CombineImages](/Cxx/Images/CombineImages)| vtkImageBlend |Combine two images.
 [CombiningRGBChannels](/Cxx/Images/CombiningRGBChannels)| vtkImageAppendComponents |Combine layers into an RGB image.
-[ImageMagnitude](/Cxx/Images/ImageMagnitude)| vtkImageMagnitude | grayscaleConvert RGB image to grey scale.
+[EnhanceEdges](/Cxx/ImageProcessing/EnhanceEdges) | vtkImageLaplacian vtkImageMathematics | High-pass filters can extract and enhance edges in an image. Subtraction of the Laplacian (middle) from the original image (left) results in edge enhancement or a sharpening operation (right).
 [Flip](/Cxx/Images/Flip)| vtkImageFlip | Flip an image.
+[GaussianSmooth](/Cxx/ImageProcessing/GaussianSmooth) | vtkImageGaussianSmooth | Low-pass filters can be implemented as convolution with a Gaussian kernel.
 [Gradient](/Cxx/Images/Gradient)| vtkImageGradient | Compute the gradient vector at every pixel.
+[HybridMedianComparison](/Cxx/ImageProcessing/HybridMedianComparison) | vtkImageHybridMedian2D vtkImageMedian3D | Comparison of median and hybrid-median filters. The hybrid filter preserves corners and thin lines, better than the median filter.
+[IdealHighPass](/Cxx/ImageProcessing/IdealHighPass) | vtkImageFFT vtkImageRFFT vtkImageIdealHighPass vtkImageButterworthHighPass | This figure shows two high-pass filters in the frequency domain. The Butterworth high-pass filter has a gradual attenuation that avoids ringing produced by the ideal high-pass filter with an abrupt transition.
 [ImageAccumulate](/Cxx/Images/ImageAccumulate)| vtkImageAccumulate | Histogram
 [ImageAnisotropicDiffusion2D](/Cxx/Images/ImageAnisotropicDiffusion2D)| vtkImageAnisotropicDiffusion2D |Anisotropic diffusion (2D).
 [ImageContinuousDilate3D](/Cxx/Images/ImageContinuousDilate3D)| vtkImageContinuousDilate3D |Dilate an image.
@@ -1146,6 +1150,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageGradientMagnitude](/Cxx/Images/ImageGradientMagnitude)| vtkImageGradientMagnitude |Compute the magnitude of the gradient at each pixel of an image.
 [ImageLaplacian](/Cxx/Images/ImageLaplacian)| vtkImageLaplacian |Compute the Laplacian of an image.
 [ImageLuminance](/Cxx/Images/ImageLuminance)| vtkImageLuminance |Convert RGB image to greyscale (luminance).
+[ImageMagnitude](/Cxx/Images/ImageMagnitude)| vtkImageMagnitude | grayscaleConvert RGB image to grey scale.
 [ImageMapToColors](/Cxx/Images/ImageMapToColors)| vtkImageMapToColors | Use a lookup table to map scalar (gray scale) values to colorsConvert grey scale image to RGB.
 [ImageNoiseSource](/Cxx/Images/ImageNoiseSource)| vtkImageNoiseSource |Create an image of noise.
 [ImagePermute](/Cxx/Images/ImagePermute)| vtkImagePermute |Switch axes of an image.
@@ -1154,12 +1159,17 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageValueRange](/Cxx/Images/ImageValueRange)| vtkImageData | Get the range of image pixel values (min/max).
 [ImageVariance3D](/Cxx/Images/ImageVariance3D)| vtkImageVariance3D | Construct a new image consisting of the variance of the input image at each pixel.
 [ImageWarp](/Cxx/Images/ImageWarp)| vtkBMPReader vtkImageLuminance vtkWarpScalar vtkMergeFilter | Combine the imaging and visualization pipelines to deform an image in the z-direction. The vtkMergeFilter is used to combine the warped surface with the original color data.
+[IsoSubsample](/Cxx/ImageProcessing/IsoSubsample) | vtkImageMarchingCubes vtkImageShrink3D vtkImageGaussianSmooth| This figure demonstrates aliasing that occurs when a high-frequency signal is subsampled. High frequencies appear as low frequency artifacts. The left image is an isosurface of a skull after subsampling. The right image used a low-pass filter before subsampling to reduce aliasing.
+[MedianComparison](/Cxx/ImageProcessing/MedianComparison) | vtkImageGaussianSmooth vtkImageMedian3D vtkImageNoiseSource| Comparison of Gaussian and Median smoothing for reducing low-probability high-amplitude noise.
+[MorphologyComparison](/Cxx/ImageProcessing/MorphologyComparison) | vtkImageDilateErode3D vtkImageSeedConnectivity | This figure demonstrates various binary filters that can alter the shape of segmented regions.
+[Pad](/Cxx/ImageProcessing/Pad) | vtkImageConstantPad vtkImageMirrorPad | Convolution in frequency space treats the image as a periodic function. A large kernel can pick up features from both sides of the image. The lower-left image has been padded with zeros to eliminate wraparound during convolution. On the right, mirror padding has been used to remove artificial edges introduced by borders.
 [RGBToHSI](/Cxx/Images/RGBToHSI)| vtkImageRGBToHSI |Convert RGB to HSI.
 [RGBToHSV](/Cxx/Images/RGBToHSV)| vtkImageRGBToHSV |Convert RGB to HSV.
 [RGBToYIQ](/Cxx/Images/RGBToYIQ)| vtkImageRGBToYIQ |Convert RGB to YIQ.
 [RescaleAnImage](/Cxx/ImageProcessing/RescaleAnImage) | vtkImageShiftScale | Rescale an image
 [ResizeImage](/Cxx/Images/ResizeImage)| vtkImageResize vtkImageSincInterpolator| Resize an image using a sinc interpolator.
 [ResizeImageDemo](/Cxx/Images/ResizeImageDemo)| vtkImageResize vtkImageSincInterpolator| Demonstrate allsinc interpolators to resize an image.
+[VTKSpectrum](/Cxx/ImageProcessing/VTKSpectrum) | vtkImageFFT vtkImageFourierCenter vtkImageLogarithmicScale vtkImageMagnitude | The discrete Fourier transform changes an image from the spatial domain into the frequency domain, where each pixel represents a sinusoidal function. This figure shows an image and its power spectrum displayed using a logarithmic transfer function.
 
 ## Widgets
 

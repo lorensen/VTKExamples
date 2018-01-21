@@ -1,23 +1,18 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkImageReader2Factory.h>
-#include <vtkImageReader2.h>
-
-#include <vtkImageConstantPad.h>
-#include <vtkImageMirrorPad.h>
-
-#include <vtkImageMapToWindowLevelColors.h>
-
-#include <vtkInteractorStyleImage.h>
-#include <vtkImageMapper3D.h>
-#include <vtkImageProperty.h>
-#include <vtkImageActor.h>
 #include <vtkCamera.h>
+#include <vtkImageActor.h>
+#include <vtkImageConstantPad.h>
+#include <vtkImageMapper3D.h>
+#include <vtkImageMapToWindowLevelColors.h>
+#include <vtkImageMirrorPad.h>
+#include <vtkImageProperty.h>
+#include <vtkImageReader2.h>
+#include <vtkImageReader2Factory.h>
+#include <vtkInteractorStyleImage.h>
+#include <vtkNamedColors.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
-
-#include <vtkNamedColors.h>
+#include <vtkSmartPointer.h>
 
  int main (int argc, char *argv[])
 {

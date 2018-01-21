@@ -1,19 +1,18 @@
-#include <vtkSmartPointer.h>
-#include <vtkImageGaussianSmooth.h>
-#include <vtkImageReader2Factory.h>
-#include <vtkImageReader2.h>
-
-#include <vtkImageData.h>
-#include <vtkImageMapper3D.h>
-#include <vtkImageNoiseSource.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkInteractorStyleImage.h>
-#include <vtkRenderer.h>
 #include <vtkImageActor.h>
 #include <vtkImageCast.h>
-#include <vtkNamedColors.h>
+#include <vtkImageData.h>
+#include <vtkImageGaussianSmooth.h>
+#include <vtkImageMapper3D.h>
+#include <vtkImageNoiseSource.h>
+#include <vtkImageReader2.h>
+#include <vtkImageReader2Factory.h>
 #include <vtkInteractorStyleImage.h>
+#include <vtkInteractorStyleImage.h>
+#include <vtkNamedColors.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
 
 int main( int argc, char *argv[])
 {

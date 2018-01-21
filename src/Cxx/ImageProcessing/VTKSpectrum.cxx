@@ -1,25 +1,21 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkImageReader2Factory.h>
-#include <vtkImageReader2.h>
-
+#include <vtkImageActor.h>
+#include <vtkImageData.h>
 #include <vtkImageFFT.h>
 #include <vtkImageFourierCenter.h>
 #include <vtkImageLogarithmicScale.h>
 #include <vtkImageMagnitude.h>
-
-#include <vtkWindowLevelLookupTable.h>
-#include <vtkImageMapToColors.h>
-
-#include <vtkImageData.h>
-#include <vtkInteractorStyleImage.h>
 #include <vtkImageMapper3D.h>
+#include <vtkImageMapToColors.h>
 #include <vtkImageProperty.h>
-#include <vtkImageActor.h>
+#include <vtkImageReader2.h>
+#include <vtkImageReader2Factory.h>
+#include <vtkInteractorStyleImage.h>
+#include <vtkNamedColors.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
-#include <vtkNamedColors.h>
+#include <vtkSmartPointer.h>
+#include <vtkWindowLevelLookupTable.h>
 
 namespace
 {

@@ -1,25 +1,22 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkImageReader2.h>
-#include <vtkImageReader2Factory.h>
-
-#include <vtkImageMapToWindowLevelColors.h>
+#include <vtkCamera.h>
 #include <vtkDataArray.h>
 #include <vtkImageActor.h>
 #include <vtkImageCast.h>
 #include <vtkImageData.h>
 #include <vtkImageLaplacian.h>
 #include <vtkImageMapper3D.h>
+#include <vtkImageMapToWindowLevelColors.h>
 #include <vtkImageMathematics.h>
 #include <vtkImageProperty.h>
+#include <vtkImageReader2.h>
+#include <vtkImageReader2Factory.h>
 #include <vtkImageThreshold.h>
 #include <vtkInteractorStyleImage.h>
 #include <vtkPointData.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
-#include <vtkCamera.h>
-
+#include <vtkSmartPointer.h>
 #include <vector>
 
 int main (int argc, char *argv[])
@@ -52,7 +49,7 @@ int main (int argc, char *argv[])
 
   middleSlice = 22;
 
-  // Work with double images
+  // Work with triple images
   vtkSmartPointer<vtkImageCast> cast =
     vtkSmartPointer<vtkImageCast>::New();
   cast->SetInputConnection(reader->GetOutputPort());
@@ -144,15 +141,11 @@ int main (int argc, char *argv[])
     {
       int index = row * xGridDimensions + col;
       // (xmin, ymin, xmax, ymax)
-      double viewport[4] = {
-        static_cast<double>(col) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - (row + 1)) * rendererSize /
-        (yGridDimensions * rendererSize),
-        static_cast<double>(col + 1) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - row) * rendererSize /
-        (yGridDimensions * rendererSize)};
+       double viewport[4] = {
+         static_cast<double>(col) / xGridDimensions,
+         static_cast<double>(yGridDimensions - (row + 1)) / yGridDimensions,
+         static_cast<double>(col + 1) / xGridDimensions,
+         static_cast<double>(yGridDimensions - row) / yGridDimensions};
       renderers[index]->SetViewport(viewport);
       renderWindow->AddRenderer(renderers[index]);
     }
