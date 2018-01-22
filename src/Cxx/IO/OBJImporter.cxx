@@ -46,6 +46,14 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkActorCollection> actors =
     vtkSmartPointer<vtkActorCollection>::New();
+
+  // typically obj mtl files will use textures
+  // defined in sRGB space and also assume
+  // the window is in sRGB space. This is not critical
+  // but the lighting etc will be more true etc if
+  // adjusted for linear <-> sRGB
+  renWin->UseSRGBColorSpaceOn();
+
   actors = renderer->GetActors();
   actors->InitTraversal();
   std::cout << "There are " << actors->GetNumberOfItems() << " actors" << std::endl;
@@ -60,6 +68,12 @@ int main (int argc, char *argv[])
     if (actor->GetTexture())
     {
       actor->GetTexture()->InterpolateOn();
+      // typically obj mtl files will use textures
+      // defined in sRGB space and also assume
+      // the window is in sRGB space. This is not critical
+      // but the lighting etc will be more true etc if
+      // adjusted for linear <-> sRGB
+      actor->GetTexture()->UseSRGBColorSpaceOn();
     }
 
     vtkPolyData *pd = vtkPolyData::SafeDownCast(actor->GetMapper()->GetInput());
@@ -71,7 +85,6 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkPolyDataNormals> normals =
       vtkSmartPointer<vtkPolyDataNormals>::New();
     normals->SetInputConnection(clean->GetOutputPort());
-    normals->SetInputData(pd);
     normals->SplittingOff();
     normals->Update();
     vtkPolyDataMapper *mapper = vtkPolyDataMapper::SafeDownCast(actor->GetMapper());
