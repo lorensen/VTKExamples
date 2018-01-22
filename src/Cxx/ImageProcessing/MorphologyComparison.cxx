@@ -1,22 +1,19 @@
-#include <vtkSmartPointer.h>
-
+#include <vtkCamera.h>
+#include <vtkDataArray.h>
+#include <vtkImageActor.h>
+#include <vtkImageData.h>
+#include <vtkImageDilateErode3D.h>
+#include <vtkImageMapper3D.h>
+#include <vtkImageProperty.h>
 #include <vtkImageReader2.h>
 #include <vtkImageReader2Factory.h>
-
-#include <vtkDataArray.h>
-#include <vtkImageData.h>
-#include <vtkImageMapper3D.h>
 #include <vtkImageSeedConnectivity.h>
-#include <vtkImageDilateErode3D.h>
-#include <vtkImageProperty.h>
-#include <vtkPointData.h>
-
 #include <vtkInteractorStyleImage.h>
-#include <vtkCamera.h>
-#include <vtkImageActor.h>
+#include <vtkPointData.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 
 #include <vector>
 
@@ -165,15 +162,11 @@ int main (int argc, char *argv[])
     {
       int index = row * xGridDimensions + col;
       // (xmin, ymin, xmax, ymax)
-      double viewport[4] = {
-        static_cast<double>(col) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - (row + 1)) * rendererSize /
-        (yGridDimensions * rendererSize),
-        static_cast<double>(col + 1) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - row) * rendererSize /
-        (yGridDimensions * rendererSize)};
+       double viewport[4] = {
+         static_cast<double>(col) / xGridDimensions,
+         static_cast<double>(yGridDimensions - (row + 1)) / yGridDimensions,
+         static_cast<double>(col + 1) / xGridDimensions,
+         static_cast<double>(yGridDimensions - row) / yGridDimensions};
       renderers[index]->SetViewport(viewport);
       renderWindow->AddRenderer(renderers[index]);
     }
