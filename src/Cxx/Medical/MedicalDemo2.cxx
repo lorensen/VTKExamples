@@ -3,19 +3,23 @@
 // represent the skin and bone, and then displays them.
 //
 
+#include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkMarchingCubes.h>
+#include <vtkMetaImageReader.h>
+#include <vtkNamedColors.h>
+#include <vtkOutlineFilter.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkMetaImageReader.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkProperty.h>
-#include <vtkOutlineFilter.h>
-#include <vtkCamera.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkStripper.h>
-#include <vtkMarchingCubes.h>
 #include <vtkSmartPointer.h>
+#include <vtkStripper.h>
+
+#include <algorithm>
+#include <array>
 
 int main (int argc, char *argv[])
 {
@@ -24,6 +28,23 @@ int main (int argc, char *argv[])
     cout << "Usage: " << argv[0] << " file.mhd" << endl;
     return EXIT_FAILURE;
   }
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the colors.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 255.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> skinColor{{255, 125, 64}};
+  SetColor(skinColor, "SkinColor");
+  std::array<double, 3> bkgColor{{51, 77, 102}};
+  SetColor(bkgColor, "BkgColor");
 
   // Create the renderer, the render window, and the interactor. The renderer
   // draws into the render window, the interactor enables mouse- and
@@ -42,7 +63,7 @@ int main (int argc, char *argv[])
   // The following reader is used to read a series of 2D slices (images)
   // that compose the volume. The slice dimensions are set, and the
   // pixel spacing. The data Endianness must also be specified. The reader
-  // usese the FilePrefix in combination with the slice number to construct
+  // uses the FilePrefix in combination with the slice number to construct
   // filenames using the format FilePrefix.%d. (In this case the FilePrefix
   // is the root name of the file: quarter.)
   vtkSmartPointer<vtkMetaImageReader> reader =
@@ -70,13 +91,13 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> skin =
     vtkSmartPointer<vtkActor>::New();
   skin->SetMapper(skinMapper);
-  skin->GetProperty()->SetDiffuseColor(1, .49, .25);
+  skin->GetProperty()->SetDiffuseColor(colors->GetColor3d("SkinColor").GetData());
   skin->GetProperty()->SetSpecular(.3);
   skin->GetProperty()->SetSpecularPower(20);
   skin->GetProperty()->SetOpacity(.5);
 
   // An isosurface, or contour value of 1150 is known to correspond to the
-  // skin of the patient.
+  // bone of the patient.
   // The triangle stripper is used to create triangle strips from the
   // isosurface; these render much faster on may systems.
   vtkSmartPointer<vtkMarchingCubes> boneExtractor =
@@ -96,7 +117,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> bone =
     vtkSmartPointer<vtkActor>::New();
   bone->SetMapper(boneMapper);
-  bone->GetProperty()->SetDiffuseColor(1, 1, .9412);
+  bone->GetProperty()->SetDiffuseColor(colors->GetColor3d("Ivory").GetData());
 
   // An outline provides context around the data.
   //
@@ -111,7 +132,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> outline =
     vtkSmartPointer<vtkActor>::New();
   outline->SetMapper(mapOutline);
-  outline->GetProperty()->SetColor(0,0,0);
+  outline->GetProperty()->SetColor(colors->GetColor3d("Black").GetData());
 
   // It is convenient to create an initial view of the data. The FocalPoint
   // and Position form a vector direction. Later on (ResetCamera() method)
@@ -137,7 +158,7 @@ int main (int argc, char *argv[])
 
   // Set a background color for the renderer and set the size of the
   // render window (expressed in pixels).
-  aRenderer->SetBackground(.2, .3, .4);
+  aRenderer->SetBackground(colors->GetColor3d("BkgColor").GetData());
   renWin->SetSize(640, 480);
 
   // Note that when camera movement occurs (as it does in the Dolly()

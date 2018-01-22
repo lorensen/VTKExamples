@@ -1,18 +1,22 @@
-// Derived from VTK/Examples/Cxx/Medical3.cxx
+// Derived from VTK/Examples/Cxx/Medical4.cxx
 // This example reads a volume dataset and displays it via volume rendering.
 //
 
-#include <vtkSmartPointer.h>
+#include <vtkCamera.h>
+#include <vtkColorTransferFunction.h>
+#include <vtkFixedPointVolumeRayCastMapper.h>
+#include <vtkMetaImageReader.h>
+#include <vtkNamedColors.h>
+#include <vtkPiecewiseFunction.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkMetaImageReader.h>
+#include <vtkSmartPointer.h>
 #include <vtkVolume.h>
-#include <vtkFixedPointVolumeRayCastMapper.h>
 #include <vtkVolumeProperty.h>
-#include <vtkColorTransferFunction.h>
-#include <vtkPiecewiseFunction.h>
-#include <vtkCamera.h>
+
+#include <algorithm>
+#include <array>
 
 int main (int argc, char *argv[])
 {
@@ -21,6 +25,21 @@ int main (int argc, char *argv[])
     cout << "Usage: " << argv[0] << "file.mhd" << endl;
     return EXIT_FAILURE;
   }
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the colors.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 255.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkgColor{{51, 77, 102}};
+  SetColor(bkgColor, "BkgColor");
 
   // Create the renderer, the render window, and the interactor. The renderer
   // draws into the render window, the interactor enables mouse- and
@@ -125,7 +144,7 @@ int main (int argc, char *argv[])
   camera->Elevation(30.0);
 
   // Set a background color for the renderer
-  ren->SetBackground(.2, .3, .4);
+  ren->SetBackground(colors->GetColor3d("BkgColor").GetData());
 
   // Increase the size of the render window
   renWin->SetSize(640, 480);

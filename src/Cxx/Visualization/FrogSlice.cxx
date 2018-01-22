@@ -1,20 +1,20 @@
-#include <vtkTexture.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkImageConstantPad.h>
 #include <vtkLookupTable.h>
 #include <vtkMetaImageReader.h>
+#include <vtkNamedColors.h>
 #include <vtkPlaneSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkPolyDataNormals.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
+#include <vtkTexture.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
 #include <vtkWindowLevelLookupTable.h>
-#include <vtkNamedColors.h>
 
 #include <map>
 #include <string>
@@ -206,44 +206,44 @@ void CreateFrogLut(vtkSmartPointer<vtkLookupTable> &colorLut)
   colorLut->SetTableValue(0,
                           0, 0, 0, 0);
   colorLut->SetTableValue(1,
-                          colors->GetColor4d("salmon").GetData()); //blood 
+                          colors->GetColor4d("salmon").GetData()); //blood
   colorLut->SetTableValue(2,
-                          colors->GetColor4d("beige").GetData()); //brain 
+                          colors->GetColor4d("beige").GetData()); //brain
   colorLut->SetTableValue(3,
-                          colors->GetColor4d("orange").GetData()); //duodenum 
+                          colors->GetColor4d("orange").GetData()); //duodenum
   colorLut->SetTableValue(4,
-                          colors->GetColor4d("misty_rose").GetData()); //eye_retna 
+                          colors->GetColor4d("misty_rose").GetData()); //eye_retina
   colorLut->SetTableValue(5,
-                          colors->GetColor4d("white").GetData()); //eye_white 
+                          colors->GetColor4d("white").GetData()); //eye_white
   colorLut->SetTableValue(6,
-                          colors->GetColor4d("tomato").GetData()); //heart 
+                          colors->GetColor4d("tomato").GetData()); //heart
   colorLut->SetTableValue(7,
-                          colors->GetColor4d("raspberry").GetData()); //ileum 
+                          colors->GetColor4d("raspberry").GetData()); //ileum
   colorLut->SetTableValue(8,
-                          colors->GetColor4d("banana").GetData()); //kidney 
+                          colors->GetColor4d("banana").GetData()); //kidney
   colorLut->SetTableValue(9,
-                          colors->GetColor4d("peru").GetData()); //l_intestine 
+                          colors->GetColor4d("peru").GetData()); //l_intestine
   colorLut->SetTableValue(10,
-                          colors->GetColor4d("pink").GetData()); //liver 
+                          colors->GetColor4d("pink").GetData()); //liver
   colorLut->SetTableValue(11,
-                          colors->GetColor4d("powder_blue").GetData()); //lung 
+                          colors->GetColor4d("powder_blue").GetData()); //lung
   colorLut->SetTableValue(12,
-                          colors->GetColor4d("carrot").GetData()); //nerve 
+                          colors->GetColor4d("carrot").GetData()); //nerve
   colorLut->SetTableValue(13,
-                          colors->GetColor4d("wheat").GetData()); //skeleton 
+                          colors->GetColor4d("wheat").GetData()); //skeleton
   colorLut->SetTableValue(14,
-                          colors->GetColor4d("violet").GetData()); //spleen 
+                          colors->GetColor4d("violet").GetData()); //spleen
   colorLut->SetTableValue(15,
-                          colors->GetColor4d("plum").GetData()); //stomach 
+                          colors->GetColor4d("plum").GetData()); //stomach
 }
 
 void SliceOrder(std::map<std::string, vtkSmartPointer<vtkTransform> > &sliceOrder)
 {
 //
 // these transformations permute medical image data to maintain proper orientation
-// regardless of the acqusition order. After applying these transforms with
+// regardless of the acquisition order. After applying these transforms with
 // vtkTransformFilter, a view up of 0,-1,0 will result in the body part
-// facing the viewer. 
+// facing the viewer.
 // NOTE: some transformations have a -1 scale factor for one of the components.
 //       To ensure proper polygon orientation and normal direction, you must
 //       apply the vtkPolyDataNormals filter.
@@ -291,7 +291,7 @@ void SliceOrder(std::map<std::string, vtkSmartPointer<vtkTransform> > &sliceOrde
   sliceOrder["rl"] = rl;
 
 //
-// the previous transforms assume radiological views of the slices (viewed from the feet). other
+// The previous transforms assume radiological views of the slices (viewed from the feet). other
 // modalities such as physical sectioning may view from the head. these transforms modify the original
 // with a 180 rotation about y
 //

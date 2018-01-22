@@ -9,6 +9,10 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
+    actorColor = map(lambda x: x / 255.0, [235, 235, 235])
+    colors.SetColor('ActorColor', *actorColor)
+
+
     fileName = get_program_parameters()
 
     # Read the image.
@@ -38,7 +42,7 @@ def main():
 
     isoSmoothedActor = vtk.vtkActor()
     isoSmoothedActor.SetMapper(isoSmoothedMapper)
-    isoSmoothedActor.GetProperty().SetColor(0.92, 0.92, 0.92)
+    isoSmoothedActor.GetProperty().SetColor(colors.GetColor3d("ActorColor"))
 
     # Unsmoothed pipeline.
     # Sub sample the data.
@@ -56,7 +60,7 @@ def main():
 
     isoActor = vtk.vtkActor()
     isoActor.SetMapper(isoMapper)
-    isoActor.GetProperty().SetColor(0.92, 0.92, 0.92)
+    isoActor.GetProperty().SetColor(colors.GetColor3d("ActorColor"))
 
     # The rendering Pipeline.
 

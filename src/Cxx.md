@@ -914,6 +914,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [FlatShading](/Cxx/Visualization/FlatShading) | vtkActor |
 [Follower](/Cxx/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [FontFile](/Cxx/Visualization/FontFile) | vtkTextProperty | Use an external font.
+[FrogSlice](/Cxx/Visualization/FrogSlice) | vtkMetaImageReader | Photographic slice of frog (upper left), segmented frog (upper right) and composite of photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow.
 [Glyph2D](/Cxx/Filtering/Glyph2D) | vtkGlyph2D|
 [Glyph3D](/Cxx/Filtering/Glyph3D) | vtkGlyph3D|
 [Glyph3DImage](/Cxx/Visualization/Glyph3DImage)| vtkGlyph3DMapper | Glyph the points in a vtkImageData.
@@ -934,6 +935,9 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [IsosurfaceSampling](/Cxx/Visualization/IsosurfaceSampling) | vtkProbeFilter|Demonstrates how to create point data on an isosurface.
 [Kitchen](/Cxx/Visualization/Kitchen) | vtkStreamTracer vtkStructuredGrid| Demonstrates stream tracing in a kitchen.
 [LODProp3D](/Cxx/Visualization/LODProp3D) | vtkLODProp3D | Level of detail rendering.
+[LOx](/Cxx/VisualizationAlgorithms/LOx) | vtkStreamTracer vtkTubeFilter | Streamtubes created by using the computational grid just in front of the post as a source for seeds.
+[LOxGrid](/Cxx/VisualizationAlgorithms/LOxGrid) | vtkStreamTracer vtkTubeFilter | Portion of computational grid for the LOx post.
+[LOxSeeds](/Cxx/VisualizationAlgorithms/LOxSeeds) | vtkStreamTracer vtkTubeFilter |  Streamlines seeded with spherical cloud of points. Four separate cloud positions are shown.
 [LabelContours](/Cxx/Visualization/LabelContours)| vtkLabeledDataMapper |Label Contours.
 [LabelPlacementMapper](/Cxx/Visualization/LabelPlacementMapper)| vtkPointSetToLabelHierarchy vtkLabelPlacementMapper | Display a non-overlapping text label at each point.
 [LabeledDataMapper](/Cxx/Visualization/LabeledDataMapper)| vtkLabeledDataMapper |Display the point ID at each point.
@@ -981,6 +985,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [SingleSplat](/Cxx/VisualizationAlgorithms/SingleSplat) | vtkGaussianSplatter | Elliptical splatting. (a) Single elliptical splat with eccentricity E=10.  Cone shows orientation of vector.
 [SpikeFran](/Cxx/VisualizationAlgorithms/SpikeFran) | vtkGlyph3D | Glyphs indicate surface normals on model of human face. Glyph positions are randomly selected.
 [SplatFace](/Cxx/VisualizationAlgorithms/SplatFace) | vtkGaussianSplatter | Elliptical splatting. (b) Surface reconstructed using elliptical splats into 100^3 volume followed by isosurface extraction. Points regularly subsampled and overlaid on original mesh.
+[Stocks](/Cxx/VisualizationAlgorithms/Stocks) | vtkRibbonFilter vtkLinearExtrusionFilter | Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time.
 [StreamLines](/Cxx/Visualization/StreamLines) | vtkStreamTracer | Streamlines.
 [StreamlinesWithLineWidget](/Cxx/VisualizationAlgorithms/StreamlinesWithLineWidget)| vtkCallbackCommand vtkLineWidget | Using the vtkLineWidget to produce streamlines in the combustor dataset.  The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves.
 [TensorAxes](/Cxx/VisualizationAlgorithms/TensorAxes)| vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes of the stress tensor.
@@ -995,6 +1000,9 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [VectorText](/Cxx/Visualization/VectorText)| vtkVectorText |Display high resolution text.
 [VertexGlyphFilter](/Cxx/Filtering/VertexGlyphFilter) | vtkVertexGlyphFilter | Add a vertex to each point.
 [VelocityProfile](/Cxx/VisualizationAlgorithms/VelocityProfile) | vtkMultiBlockPLOT3DReader vtkStructuredGridGeometryFilter vtkAppendPolyData vtkWarpVector | Warping the geometry of three planes to show flow momentum.
+[ViewFrogBoth](/Cxx/Visualization/ViewFrogBoth) | vtkMetaImageReader vtkMarchingCubes vtkImageGaussianSmooth vtkImageGaussianSmooth| The frog’s brain. Model extracted without smoothing (left) and with smoothing (right).
+[ViewFrogSkinAndTissue](/Cxx/Visualization/ViewFrogSkinAndTissue) | vtkMetaImageReader vtkMarchingCubes vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth| All frog parts and translucent skin.
+[ViewFrog](/Cxx/Visualization/ViewFrog) | vtkMetaImageReader vtkMarchingCubes vtkImageGaussianSmooth vtkWindowedSincPolyDataFilter| The complete frog without skin.
 [Visualize2DPoints](/Cxx/Visualization/Visualize2DPoints)| vtkPolyDataMapper2D vtkProperty2D | Visualize a 2D Set of Points.
 [VisualizeImageData](/Cxx/Visualization/VisualizeImageData)| vtkDataSetMapper | Visualize the points of an ImageData.
 [VisualizeVTP](/Cxx/Visualization/VisualizeVTP)| vtkXMLPolyDataReader vtkPolyDataMapper | Visualize a VTP File.

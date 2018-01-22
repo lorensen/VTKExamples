@@ -1,22 +1,20 @@
-#include <vtkStreamTracer.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkLookupTable.h>
-#include <vtkMultiBlockPLOT3DReader.h>
 #include <vtkMultiBlockDataSet.h>
+#include <vtkMultiBlockPLOT3DReader.h>
+#include <vtkNamedColors.h>
 #include <vtkPointSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
+#include <vtkStreamTracer.h>
 #include <vtkStructuredGrid.h>
 #include <vtkStructuredGridGeometryFilter.h>
 #include <vtkStructuredGridOutlineFilter.h>
 #include <vtkTubeFilter.h>
-
-#include <vtkNamedColors.h>
 
 //// LOx post CFD case study
 
@@ -164,15 +162,11 @@ int main (int argc, char *argv[])
     {
       int index = row * xGridDimensions + col;
       // (xmin, ymin, xmax, ymax)
-      double viewport[4] = {
-        static_cast<double>(col) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - (row + 1)) * rendererSize /
-        (yGridDimensions * rendererSize),
-        static_cast<double>(col + 1) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - row) * rendererSize /
-        (yGridDimensions * rendererSize)};
+       double viewport[4] = {
+         static_cast<double>(col) / xGridDimensions,
+         static_cast<double>(yGridDimensions - (row + 1)) / yGridDimensions,
+         static_cast<double>(col + 1) / xGridDimensions,
+         static_cast<double>(yGridDimensions - row) / yGridDimensions};
       renderers[index]->SetViewport(viewport);
     }
   }
