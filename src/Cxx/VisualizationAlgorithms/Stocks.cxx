@@ -1,26 +1,25 @@
-#include <vtkSphereSource.h>
-#include <vtkSmartPointer.h>
-
+#include <vtkActor.h>
 #include <vtkAppendPolyData.h>
+#include <vtkCamera.h>
+#include <vtkFollower.h>
 #include <vtkLinearExtrusionFilter.h>
+#include <vtkNamedColors.h>
 #include <vtkOutlineFilter.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPolyDataReader.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
 #include <vtkRibbonFilter.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
-#include <vtkPolyDataReader.h>
-
-#include <vtkFollower.h>
 #include <vtkVectorText.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkCamera.h>
-#include <vtkProperty.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkNamedColors.h>
 
 #include <vtksys/SystemTools.hxx>
+
 #include <string>
 
 namespace

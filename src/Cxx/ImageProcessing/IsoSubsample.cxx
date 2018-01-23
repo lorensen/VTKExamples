@@ -13,6 +13,9 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 
+#include <algorithm>
+#include <array>
+
 int main (int argc, char *argv[])
 {
   // Verify input arguments
@@ -22,6 +25,21 @@ int main (int argc, char *argv[])
               << " Filename" << std::endl;
     return EXIT_FAILURE;
   }
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color. Match those in VTKTextbook.pdf.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 255.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> actorColor{{235, 235, 235}};
+  SetColor(actorColor, "ActorColor");
 
   // Read the image
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
@@ -56,7 +74,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> isoSmoothedActor =
     vtkSmartPointer<vtkActor>::New();
   isoSmoothedActor->SetMapper(isoSmoothedMapper);
-  isoSmoothedActor->GetProperty()->SetColor(0.92, 0.92, 0.92);
+  isoSmoothedActor->GetProperty()->SetColor(colors->GetColor3d("ActorColor").GetData());
 
   // Unsmoothed pipeline
   // Sub sample the data
@@ -78,12 +96,9 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> isoActor =
     vtkSmartPointer<vtkActor>::New();
   isoActor->SetMapper(isoMapper);
-  isoActor->GetProperty()->SetColor(0.92, 0.92, 0.92);
+  isoActor->GetProperty()->SetColor(colors->GetColor3d("ActorColor").GetData());
 
   // Rendering Pipeline
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
-
   // Setup render window, renderer, and interactor
   double leftViewport[4] = {0.0, 0.0, 0.5, 1.0};
   double rightViewport[4] = {0.5, 0.0, 1.0, 1.0};

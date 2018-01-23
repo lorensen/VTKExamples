@@ -44,10 +44,7 @@ renWin = vtk.vtkRenderWindow()
 pegStack = [[], [], []]
 
 
-def main():
-    maxPucks = 20
-    if not verify_parameters(maxPucks):
-        return
+def hanoi():
 
     colors = vtk.vtkNamedColors()
 
@@ -153,6 +150,12 @@ def main():
     # Render the image.
     iren.Initialize()
     iren.Start()
+
+def main():
+    maxPucks = 20
+    if not verify_parameters(maxPucks):
+        return
+    hanoi()
 
 
 def get_program_parameters():

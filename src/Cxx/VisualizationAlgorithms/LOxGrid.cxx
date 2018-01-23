@@ -1,22 +1,20 @@
-#include <vtkStreamTracer.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkLookupTable.h>
-#include <vtkMultiBlockPLOT3DReader.h>
 #include <vtkMultiBlockDataSet.h>
+#include <vtkMultiBlockPLOT3DReader.h>
+#include <vtkNamedColors.h>
 #include <vtkPointSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
+#include <vtkStreamTracer.h>
 #include <vtkStructuredGrid.h>
 #include <vtkStructuredGridGeometryFilter.h>
 #include <vtkStructuredGridOutlineFilter.h>
 #include <vtkTubeFilter.h>
-
-#include <vtkNamedColors.h>
 
 //// LOx post CFD case study
 
