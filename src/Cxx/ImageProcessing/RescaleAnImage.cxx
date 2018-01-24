@@ -13,11 +13,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkImageShiftScale> shiftScaleFilter =
     vtkSmartPointer<vtkImageShiftScale>::New();
   shiftScaleFilter->SetOutputScalarTypeToUnsignedChar();
-#if VTK_MAJOR_VERSION <= 5
-  shiftScaleFilter->SetInputConnection(image->GetProducerPort());
-#else
   shiftScaleFilter->SetInputData(image);
-#endif
   shiftScaleFilter->SetShift(-1.0f * image->GetScalarRange()[0]); // brings the lower bound to 0
   float oldRange = image->GetScalarRange()[1] - image->GetScalarRange()[0];
   std::cout << "Old range: [" << image->GetScalarRange()[0] << ", " << image->GetScalarRange()[1] << "]" << std::endl;
@@ -35,14 +31,8 @@ void CreateImage(vtkImageData* const image)
 {
   // Specify the size of the image data
   image->SetDimensions(2,3,1);
-
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(1);
-  image->SetScalarTypeToDouble();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_DOUBLE,1);
-#endif
+
   int* dims = image->GetDimensions();
 
   std::cout << "Dims: " << " x: " << dims[0] << " y: " << dims[1] << " z: " << dims[2] << std::endl;

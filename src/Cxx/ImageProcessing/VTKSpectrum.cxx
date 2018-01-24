@@ -127,8 +127,6 @@ void CreateImageActor(vtkSmartPointer<vtkImageActor> &actor,
   wlut->SetLevel(colorLevel);
   wlut->Build();
 
-  vtkImageData *imageData =
-    vtkImageData::SafeDownCast(actor->GetMapper()->GetInput());
   // Map the image through the lookup table
   vtkSmartPointer<vtkImageMapToColors> color =
     vtkSmartPointer<vtkImageMapToColors>::New();
