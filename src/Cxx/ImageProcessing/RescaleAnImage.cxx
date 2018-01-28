@@ -5,7 +5,7 @@
 
 static void CreateImage(vtkImageData* const image);
 
-int main(int argc, char *argv[])
+int main(int, char *[])
 {
   vtkSmartPointer<vtkImageData> image = vtkSmartPointer<vtkImageData>::New();
   CreateImage(image);
