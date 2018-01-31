@@ -186,9 +186,7 @@ function registerListener(event, func) {
   <span class=n>wlut</span><span class=o>-&gt;</span><span class=n>SetLevel</span><span class=p>(</span><span class=n>colorLevel</span><span class=p>);</span>
   <span class=n>wlut</span><span class=o>-&gt;</span><span class=n>Build</span><span class=p>();</span>
 
-<span class=hll>  <span class=n>vtkImageData</span> <span class=o>*</span><span class=n>imageData</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkImageData</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetMapper</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetInput</span><span class=p>());</span>
-</span>  <span class=c1>// Map the image through the lookup table</span>
+  <span class=c1>// Map the image through the lookup table</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageMapToColors</span><span class=o>&gt;</span> <span class=n>color</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageMapToColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>color</span><span class=o>-&gt;</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>wlut</span><span class=p>);</span>

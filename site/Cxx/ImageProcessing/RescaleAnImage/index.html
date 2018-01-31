@@ -64,7 +64,7 @@ function registerListener(event, func) {
 </span>
 <span class=hll><span class=k>static</span> <span class=kt>void</span> <span class=nf>CreateImage</span><span class=p>(</span><span class=n>vtkImageData</span><span class=o>*</span> <span class=k>const</span> <span class=n>image</span><span class=p>);</span>
 </span>
-<span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[])</span>
+<span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=p>[])</span>
 <span class=p>{</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageData</span><span class=o>&gt;</span> <span class=n>image</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>CreateImage</span><span class=p>(</span><span class=n>image</span><span class=p>);</span>
@@ -72,11 +72,7 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageShiftScale</span><span class=o>&gt;</span> <span class=n>shiftScaleFilter</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageShiftScale</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>shiftScaleFilter</span><span class=o>-&gt;</span><span class=n>SetOutputScalarTypeToUnsignedChar</span><span class=p>();</span>
-<span class=cp>#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class=n>shiftScaleFilter</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>image</span><span class=o>-&gt;</span><span class=n>GetProducerPort</span><span class=p>());</span>
-<span class=cp>#else</span>
   <span class=n>shiftScaleFilter</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>image</span><span class=p>);</span>
-<span class=cp>#endif</span>
   <span class=n>shiftScaleFilter</span><span class=o>-&gt;</span><span class=n>SetShift</span><span class=p>(</span><span class=o>-</span><span class=mf>1.0f</span> <span class=o>*</span> <span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarRange</span><span class=p>()[</span><span class=mi>0</span><span class=p>]);</span> <span class=c1>// brings the lower bound to 0</span>
   <span class=kt>float</span> <span class=n>oldRange</span> <span class=o>=</span> <span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarRange</span><span class=p>()[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarRange</span><span class=p>()[</span><span class=mi>0</span><span class=p>];</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Old range: [&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarRange</span><span class=p>()[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;, &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>image</span><span class=o>-&gt;</span><span class=n>GetScalarRange</span><span class=p>()[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;]&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
@@ -94,14 +90,8 @@ function registerListener(event, func) {
 </span><span class=p>{</span>
   <span class=c1>// Specify the size of the image data</span>
   <span class=n>image</span><span class=o>-&gt;</span><span class=n>SetDimensions</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>1</span><span class=p>);</span>
-
-<span class=cp>#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class=n>image</span><span class=o>-&gt;</span><span class=n>SetNumberOfScalarComponents</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
-  <span class=n>image</span><span class=o>-&gt;</span><span class=n>SetScalarTypeToDouble</span><span class=p>();</span>
-  <span class=n>image</span><span class=o>-&gt;</span><span class=n>AllocateScalars</span><span class=p>();</span>
-<span class=cp>#else</span>
   <span class=n>image</span><span class=o>-&gt;</span><span class=n>AllocateScalars</span><span class=p>(</span><span class=n>VTK_DOUBLE</span><span class=p>,</span><span class=mi>1</span><span class=p>);</span>
-<span class=cp>#endif</span>
+
   <span class=kt>int</span><span class=o>*</span> <span class=n>dims</span> <span class=o>=</span> <span class=n>image</span><span class=o>-&gt;</span><span class=n>GetDimensions</span><span class=p>();</span>
 
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Dims: &quot;</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; x: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>dims</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; y: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>dims</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; z: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>dims</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
