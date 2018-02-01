@@ -1,35 +1,38 @@
+#!/usr/bin/env python
+
 import vtk
 
-# create a rendering window and renderer
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
-WIDTH = 640
-HEIGHT = 480
-renWin.SetSize(WIDTH, HEIGHT)
 
-# create a renderwindowinteractor
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
+def main():
+    colors = vtk.vtkNamedColors()
+    bkg1 = map(lambda xx: xx / 256.0, [26, 51, 77])
+    colors.SetColor("BkgColor1", *bkg1)
+    bkg2 = map(lambda xx: xx / 256.0, [77, 51, 26])
+    colors.SetColor("BkgColor2", *bkg2)
 
-# create cone
-cone = vtk.vtkConeSource()
-cone.SetResolution(60)
-cone.SetCenter(-2, 0, 0)
-cone.Update()
+    coneSource = vtk.vtkConeSource()
+    # coneSource.SetResolution(60)
+    # coneSource.SetCenter(-2,0,0)
 
-# mapper
-coneMapper = vtk.vtkPolyDataMapper()
-coneMapper.SetInputData(cone.GetOutput())
+    # Create a mapper and actor
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(coneSource.GetOutputPort())
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
 
-# actor
-coneActor = vtk.vtkActor()
-coneActor.SetMapper(coneMapper)
+    # Visualize
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
 
-# assign actor to the renderer
-ren.AddActor(coneActor)
+    renderer.AddActor(actor)
+    renderer.SetBackground(colors.GetColor3d("BkgColor1"))  # Background color dark blue
+    renderer.SetBackground(colors.GetColor3d("BkgColor2"))  # Background color dark red
+    renderWindow.Render()
+    renderWindowInteractor.Start()
 
-# enable user interface interactor
-iren.Initialize()
-renWin.Render()
-iren.Start()
+
+if __name__ == "__main__":
+    main()
