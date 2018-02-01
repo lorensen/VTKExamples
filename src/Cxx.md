@@ -234,6 +234,8 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [IsoContours](/Cxx/ImplicitFunctions/IsoContours) | vtkContourFunction | Visualize different isocontours using a slider.
 [Lorenz](/Cxx/Visualization/Lorenz) | vtkContourFilter | Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume.
 [MarchingCases](/Cxx/VisualizationAlgorithms/MarchingCases) | vtkMarchingCubes | Explore the Marching Cubes cases.
+[MarchingCasesA](/Cxx/VisualizationAlgorithms/MarchingCasesA) | vtkMarchingCubes | The 256 possible cases have been reduced to 14 cases using symmetry.
+[MarchingCasesB](/Cxx/VisualizationAlgorithms/MarchingCasesB) | vtkMarchingCubes | Marching cubes complementary cases.
 [MarchingCubes](/Cxx/Modelling/MarchingCubes) | vtkMarchingCubes | Create a voxelized sphere.
 [MarchingSquares](/Cxx/Modelling/MarchingSquares) | vtkMarchingSquares | Create a contour from a structured point set (image).
 [SampleFunction](/Cxx/ImplicitFunctions/SampleFunction) | vtkSampleFunction | Sample and visualize an implicit function.
@@ -898,6 +900,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Glyph3DImage](/Cxx/Visualization/Glyph3DImage) | vtkGlyph3DMapper | Glyph the points in a vtkImageData.
 [Glyph3DMapper](/Cxx/Visualization/Glyph3DMapper) | vtkGlyph3DMapper |
 [Hanoi](/Cxx/Visualization/Hanoi) |  | Towers of Hanoi.
+[HanoiInitial](/Cxx/Visualization/HanoiInitial) |  | Towers of Hanoi - Initial configuration.
+[HanoiIntermediate](/Cxx/Visualization/HanoiIntermediate) |  | Towers of Hanoi - Intermediate configuration.
 [Hawaii](/Cxx/Visualization/Hawaii) | vtkElevationFilter vtkColorSeries vtkLookupTable | Visualize elevations by coloring the scalar values with a lookup table.
 [HeadBone](/Cxx/VisualizationAlgorithms/HeadBone) | vtkMarchingCubes | Marching cubes surface of human bone.
 [HeadSlice](/Cxx/VisualizationAlgorithms/HeadSlice) | vtkContourFilter | Marching squares used to generate contour lines.
@@ -936,6 +940,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [NoShading](/Cxx/Visualization/NoShading) | vtkActor |
 [NormalsDemo](/Cxx/Visualization/NormalsDemo) | vtkPolyDataNormals | Demo different options to generate normals.
 [Office](/Cxx/VisualizationAlgorithms/Office) | vtkPointSource vtkStreamTracer | Using random point seeds to create streamlines.
+[OfficeA](/Cxx/VisualizationAlgorithms/OfficeA) | vtkPointSource vtkStreamTracer | Corresponds to Fig 9-47(a) in the VTK textbook.
 [OfficeTube](/Cxx/VisualizationAlgorithms/OfficeTube) | vtkStreamTracer vtkTubeFilter | The stream polygon. Sweeping a polygon to form a tube.
 [Opacity](/Cxx/Visualization/Opacity) | vtkActor | Transparency, transparent.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs) | vtkGlyph3D | Create oriented glyphs from vector data.
