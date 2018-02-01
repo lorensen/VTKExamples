@@ -3,7 +3,7 @@
 
 #
 # This example demonstrates how to use multiple renderers within a
-# render window. It is a variation of the Cone.py example. Please
+# render window. It is a variation of the Cone1.py example. Please
 # refer to that example for additional documentation.
 #
 
