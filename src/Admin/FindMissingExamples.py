@@ -52,11 +52,6 @@ Typical usage:
 class UndocumentedExamples(object):
     """
     Find undocumented examples.
-    We do this by:
-     1) Generate sets of all example names keyed on [example type][directory name]
-     2) Generate a set of all example names keyed on  [example type].
-     3) Parse  the markdown files  [example type].md generating example names keyed on [example type]
-     4) Then use set differencing to find the examples not in the [example type].md files.
     """
 
     def __init__(self, base_directory):
@@ -64,12 +59,13 @@ class UndocumentedExamples(object):
         :param base_directory: The path to the VTK Examples sources, usually some_path/VTKExamples/src
         """
         self.example_types = ['CSharp', 'Cxx', 'Java', 'Python']
+        self.excluded_dirs = ['Cxx/CMakeTechniques', 'Cxx/Developers', 'Cxx/Untested', 'Cxx/Untested/Video']
         self.base_directory = base_directory
         # A dictionary consisting of [example type][directory name][example name ...]
-        self.all_examples = dict()
-        self.documented_examples = dict()
-        # A dictionary consisting of [example type][directory name][file name ...]
-        self.example_file_paths = dict()
+        self.all_examples = defaultdict(lambda: defaultdict(set))
+        self.extras = defaultdict(lambda: defaultdict(set))
+        self.documented_examples = defaultdict(lambda: defaultdict(set))
+        self.undocumented_examples = defaultdict(lambda: defaultdict(set))
 
     def get_all_examples(self):
         """
@@ -77,19 +73,16 @@ class UndocumentedExamples(object):
         """
         for eg in self.example_types:
             # Get the paths to the examples in a particular sub directory e.g Cxx.
-            file_paths = defaultdict(set)
-            examples = set()
             directory = os.path.join(self.base_directory, eg)
             # Does the directory exist?
             if not os.path.isdir(directory):
                 raise RuntimeError('Non-existent folder: {:s}'.format(directory))
-            exclude_dirs = None
             if eg == 'CSharp':
                 fn_pattern = re.compile(r'^[0-9a-zA-Z_\-]+\.cs$')
             elif eg == 'Cxx':
                 fn_pattern = re.compile(
                     r'^[0-9a-zA-Z_\-]+\.(hxx|HXX|hpp|HPP|[hH]\+\+|[hH]|cpp|CPP|cxx|CXX|[cC]\+\+|txx|TXX)$')
-                exclude_dirs = ['CMakeTechniques', 'Untested']
+
             elif eg == 'Java':
                 fn_pattern = re.compile(r'^[0-9a-zA-Z_\-]+\.java$')
             elif eg == 'Python':
@@ -102,17 +95,40 @@ class UndocumentedExamples(object):
                 sp = path_splitter(root)
                 idx = sp.index(eg)
                 key = '/'.join(sp[idx:])
-                if exclude_dirs:
-                    if sp[idx] in exclude_dirs:
-                        continue
+                examples = set()
+                if key in self.excluded_dirs:
+                    continue
                 for filename in files:
                     m = fn_pattern.match(filename)
                     if m:
-                        example_name = os.path.splitext(filename)[0]
-                        file_paths[key].add(example_name)
-                        examples.add(example_name)
-            self.example_file_paths[eg] = file_paths
-            self.all_examples[eg] = examples
+                        examples.add(os.path.splitext(filename)[0])
+                self.all_examples[eg][key] = examples
+
+    def get_extras(self):
+        for eg in self.example_types:
+            # Get the paths to the examples in a particular sub directory e.g Cxx.
+            directory = os.path.join(self.base_directory, eg)
+            # Does the directory exist?
+            if not os.path.isdir(directory):
+                raise RuntimeError('Non-existent folder: {:s}'.format(directory))
+            fn_pattern = re.compile(r'^[0-9a-zA-Z_\-]+\.extras$')
+            if eg not in self.example_types:
+                raise RuntimeError('Unknown example type.')
+            # Walk the tree.
+            for root, directories, files in os.walk(directory):
+                sp = path_splitter(root)
+                idx = sp.index(eg)
+                key = '/'.join(sp[idx:])
+                examples = set()
+                if key in self.excluded_dirs:
+                    continue
+                for filename in files:
+                    m = fn_pattern.match(filename)
+                    if m:
+                        with open(os.path.join(root, filename), 'r') as f:
+                            for line in f:
+                                examples.add(os.path.splitext(line)[0])
+                self.extras[eg][key] = examples
 
     def parse_markdown_files(self):
         """
@@ -120,31 +136,43 @@ class UndocumentedExamples(object):
         :return:
         """
         # Go up one level.
-        eg_pattern = re.compile(r'^\[([a-zA-Z0-9][[a-zA-Z0-9\-_]+) *]')
+        row = re.compile(r'(^[^|]+[|])([^|]*[|])([^|]*[^|])?$')
+        row_key = re.compile(r'\[(.*?)\].*\((.*?)\)')
+
         for eg in self.example_types:
-            examples = set()
             curr_file = os.path.join(self.base_directory, eg + '.md')
             with open(curr_file) as f:
                 for line in f:
-                    m = eg_pattern.match(line)
-                    if m:
-                        examples.add(m.group(1))
+                    if row.match(line):
+                        kv = line.split('|')[0]
+                        m = row_key.match(kv)
+                        if m:
+                            res = m.group(2)
+                            key = res[1:res.rfind('/')]
+                            val = res[res.rfind('/') + 1:]
+                            self.documented_examples[eg][key].add(val)
                 f.close()
-            self.documented_examples[eg] = examples
+
+    def make_undocumented_examples(self):
+        for k in self.all_examples.keys():
+            for k1 in self.all_examples[k].keys():
+                self.undocumented_examples[k][k1] = self.all_examples[k][k1] - self.documented_examples[k][k1] - \
+                                                    self.extras[k][k1]
 
     def print_tables(self):
         self.get_all_examples()
+        self.get_extras()
         self.parse_markdown_files()
-        for eg in self.example_types:
-            undocumented_examples = self.all_examples[eg] - self.documented_examples[eg]
-            if undocumented_examples:
-                print(eg)
-                file_paths = self.example_file_paths[eg]
-                lst = sorted(undocumented_examples)
-                for l in lst:
-                    for p in file_paths.keys():
-                        if l in self.example_file_paths[eg][p]:
-                            print('\t', p, l)
+        self.make_undocumented_examples()
+        if self.undocumented_examples:
+            for k in sorted(self.undocumented_examples.keys()):
+                if self.undocumented_examples[k]:
+                    print(k)
+                    for k1 in sorted(self.undocumented_examples[k].keys()):
+                        if self.undocumented_examples[k][k1]:
+                            print('  ', k1)
+                            for v in sorted(self.undocumented_examples[k][k1]):
+                                print('    ', v)
             print()
         return
 
