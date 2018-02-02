@@ -325,7 +325,7 @@ This section includes examples of manipulating meshes.
 [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) | vtkLinearSubdivisionFilter | Vary the shapes of glyphed points using a programmable glyph filter
 [PointSize](/Python/Visualization/PointSize) | vtkActor |
 [ProbeCombustor](/Python/VisualizationAlgorithms/ProbeCombustor) | vtkProbeFilter | Probing data in a combustor.  Probes are regular arrays of 50 by 50 points that are then passed through a contouring filter.
-[ProgrammableGlyphs](/Python/VisualizationAlgorithms/ProgrammableGlyphs) | vtkProgrammableGlyphFilter | Generate programmable glyphs.
+[ProgrammableGlyphs](/Python/Visualization/ProgrammableGlyphs) | vtkProgrammableGlyphFilter | Generate programmable glyphs.
 [PseudoVolumeRendering](/Python/VolumeRendering/PseudoVolumeRendering) | vtkCutter vtkContourFilter | 100 cut planes with opacity of 0.05. Rendered back-to-front to simulate volume rendering.
 [QuadraticSurface](/Python/Visualization/QuadraticSurface) | vtkQuadric |
 [QuadricVisualization](/Python/Visualization/QuadricVisualization) | vtkQuadric vtkSampleFunction vtkContourFilter | Visualizing a quadric function.
@@ -333,7 +333,7 @@ This section includes examples of manipulating meshes.
 [SphereTexture](/Python/Visualization/SphereTexture) | vtkTextureMapToSphere | Apply an ImageData texture to an sphere
 [SpikeFran](/Python/VisualizationAlgorithms/SpikeFran) | vtkGlyph3D | Glyphs indicate surface normals on model of human face. Glyph positions are randomly selected.
 [SplatFace](/Python/VisualizationAlgorithms/SplatFace) | vtkGaussianSplatter | Elliptical splatting. (b) Surface reconstructed using elliptical splats into 100^3 volume followed by isosurface extraction. Points regularly subsampled and overlaid on original mesh.
-[Stocks](/Cxx/VisualizationAlgorithms/Stocks) | vtkRibbonFilter vtkLinearExtrusionFilter | Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time.
+[Stocks](/Python/VisualizationAlgorithms/Stocks) | vtkRibbonFilter vtkLinearExtrusionFilter | Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time.
 [Streamlines](/Python/Visualization/Streamlines) | vtkStreamLine | Seed streamlines with vectors from a structured grid
 [StreamlinesWithLineWidget](/Python/VisualizationAlgorithms/StreamlinesWithLineWidget) | vtkCallbackCommand vtkLineWidget | Using the vtkLineWidget to produce streamlines in the combustor dataset.  The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves.
 [TensorAxes](/Python/VisualizationAlgorithms/TensorAxes) | vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes of the stress tensor.

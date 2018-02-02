@@ -30,8 +30,37 @@ def remove_consecutive_duplicates(lines):
     return ncd
 
 
+def split_file_name(full_path):
+    """
+    Split the file name into path, file name and extension.
+    :param full_path: The full path.
+    :return: a list [path, filename, extension]
+    """
+    res = list(os.path.split(full_path))
+    if res[1].rfind('.') > 0:
+        fn = res[1][:res[1].rfind('.')]
+        ext = res[1][res[1].rfind('.') + 1:]
+        res[1] = fn
+    else:
+        ext = None
+    res.append(ext)
+    return res
+
+
 def main():
     ifn = get_program_parameters()
+    ifn = os.path.abspath(ifn)
+    allowed_files = {'CSharp': ['CSharp', 'cs'], 'Cxx': ['Cxx', 'cxx'], 'Java': ['Java', 'java'],
+                     'Python': ['Python', 'py'], 'VTKBookFigures': ['Cxx', 'cxx']}
+    # Split the input file name into [path, file name, extension, [sub directory, language]].
+    file_parameters = split_file_name(ifn)
+    if not (file_parameters[1] in allowed_files.keys() and file_parameters[2] == 'md'):
+        print('Wrong file:', ifn)
+        print('These files can only be validated:')
+        print(', '.join(s + '.md' for s in sorted(allowed_files.keys())))
+        return
+    else:
+        file_parameters.append(allowed_files[file_parameters[1]])
 
     #  These regular expressions are for VTKExamples.
     title = re.compile(r'^[#]+[ ]*\w')
@@ -39,7 +68,7 @@ def main():
     info_line = re.compile(r'^[!]{3}[ ]+info$')
     header = re.compile(r'(^\|[^|]+)(\|[^|]+)(\|[^|]+)(\|[^|]+)\|')
     row = re.compile(r'(^[^|]+[|])([^|]*[|])([^|]*[^|])?$')
-    row_key = re.compile(r'\[(.*?)\]')
+    row_key = re.compile(r'\[(.*?)\].*\((.*?)\)')
 
     with open(ifn) as f:
         """
@@ -63,8 +92,18 @@ def main():
                         sl = [x.strip() for x in ls.split('|')]
                         match = re.search(row_key, sl[0])
                         if match:
-                            j = match.group(1)
-                            tbl[j] = sl
+                            # Check the link to see if it is valid.
+                            k = match.group(1).strip()
+                            v = match.group(2).strip()
+                            if v.strip('/').split('/')[0] != file_parameters[3][0]:
+                                problems['link - wrong language'][last_title].append(ls)
+                                continue
+                            if not os.path.isfile(
+                                    os.path.join(file_parameters[0], '.'.join((v, file_parameters[3][1]))[1:])):
+                                problems['link - target not found'][last_title].append(ls)
+                                continue
+                            sl[0] = '[' + k + ']' + '(' + v + ')'
+                            tbl[k] = sl
                         else:
                             problems['No key'][last_title].append(ls)
                             continue
