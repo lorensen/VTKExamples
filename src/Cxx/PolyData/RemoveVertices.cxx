@@ -1,10 +1,10 @@
+#include <vtkCellArray.h>
+#include <vtkCellData.h>
+#include <vtkPolyData.h>
+#include <vtkSmartPointer.h>
 #include <vtkVersion.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtkXMLPolyDataWriter.h>
-#include <vtkSmartPointer.h>
-#include <vtkCellData.h>
-#include <vtkCellArray.h>
-#include <vtkPolyData.h>
 
 int main ( int argc, char *argv[] )
 {

@@ -1,22 +1,21 @@
-#include <vtkSmartPointer.h>
-#include <vtkPieChartActor.h>
-
-#include <vtkFloatArray.h>
+#include <vtkColor.h>
+#include <vtkColorSeries.h>
 #include <vtkDataObject.h>
 #include <vtkFieldData.h>
+#include <vtkFloatArray.h>
+#include <vtkIdList.h>
+#include <vtkLegendBoxActor.h>
 #include <vtkMath.h>
-#include <vtkTextProperty.h>
+#include <vtkNamedColors.h>
+#include <vtkPieChartActor.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
+#include <vtkProperty2D.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkPolyData.h>
-#include <vtkPoints.h>
-#include <vtkIdList.h>
-#include <vtkProperty2D.h>
-#include <vtkLegendBoxActor.h>
-#include <vtkNamedColors.h>
-#include <vtkColor.h>
-#include <vtkColorSeries.h>
+#include <vtkSmartPointer.h>
+#include <vtkTextProperty.h>
 
 #include <map>
 

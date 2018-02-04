@@ -1,21 +1,19 @@
-#include <vtkVersion.h>
-#include <vtkSmartPointer.h>
-
-#include <vtkRenderWindowInteractor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
 #include <vtkActor.h>
-#include <vtkPolyDataMapper.h>
-
-#include <vtkXMLPolyDataReader.h>
-#include <vtkPoints.h>
-#include <vtkMath.h>
-#include <vtkSplineFilter.h>
-#include <vtkSphereSource.h>
-#include <vtkGlyph3D.h>
-#include <vtkProperty.h>
-#include <vtkCellArray.h>
 #include <vtkCardinalSpline.h>
+#include <vtkCellArray.h>
+#include <vtkGlyph3D.h>
+#include <vtkMath.h>
+#include <vtkPoints.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkSplineFilter.h>
+#include <vtkVersion.h>
+#include <vtkXMLPolyDataReader.h>
 
 int main (int argc, char *argv[])
 {

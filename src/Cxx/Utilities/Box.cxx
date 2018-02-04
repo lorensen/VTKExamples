@@ -1,5 +1,5 @@
-#include <vtkSmartPointer.h>
 #include <vtkBox.h>
+#include <vtkSmartPointer.h>
 
 int main(int, char *[])
 {
