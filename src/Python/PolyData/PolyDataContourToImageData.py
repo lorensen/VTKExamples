@@ -1,5 +1,6 @@
-import vtk
 import math
+
+import vtk
 
 # 3D source sphere
 sphereSource = vtk.vtkSphereSource()
@@ -47,7 +48,7 @@ whiteImage.SetSpacing(spacing)
 dim = [0] * 3
 for i in range(3):
     dim[i] = int(math.ceil((bounds[i * 2 + 1] - bounds[i * 2]) / spacing[i])) + 1
-    if (dim[i] < 1):
+    if dim[i] < 1:
         dim[i] = 1
 whiteImage.SetDimensions(dim)
 whiteImage.SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0, dim[2] - 1)
@@ -70,7 +71,6 @@ count = whiteImage.GetNumberOfPoints()
 # for (vtkIdType i = 0 i < count ++i)
 for i in range(count):
     whiteImage.GetPointData().GetScalars().SetTuple1(i, inval)
-
 
 # sweep polygonal data (this is the important thing with contours!)
 extruder = vtk.vtkLinearExtrusionFilter()
