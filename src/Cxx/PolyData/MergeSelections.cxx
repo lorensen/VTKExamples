@@ -1,18 +1,18 @@
-#include <vtkVersion.h>
-#include <vtkSmartPointer.h>
+#include <vtkActor.h>
+#include <vtkDataSetMapper.h>
+#include <vtkExtractSelection.h>
+#include <vtkIdTypeArray.h>
 #include <vtkInformation.h>
 #include <vtkPointSource.h>
-#include <vtkExtractSelection.h>
+#include <vtkPolyData.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
 #include <vtkSelection.h>
 #include <vtkSelectionNode.h>
-#include <vtkPolyData.h>
+#include <vtkSmartPointer.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkIdTypeArray.h>
-#include <vtkDataSetMapper.h>
-#include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
+#include <vtkVersion.h>
 
 int main(int, char *[])
 {

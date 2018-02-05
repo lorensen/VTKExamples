@@ -1,15 +1,15 @@
-#include <vtkSmartPointer.h>
 #include <vtkActor.h>
 #include <vtkCommand.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkSphereSource.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkSeedWidget.h>
-#include <vtkSeedRepresentation.h>
 #include <vtkPointHandleRepresentation2D.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkProperty2D.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSeedRepresentation.h>
+#include <vtkSeedWidget.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
 
 class vtkSeedCallback : public vtkCommand
 {

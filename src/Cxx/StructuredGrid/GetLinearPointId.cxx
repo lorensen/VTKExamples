@@ -24,7 +24,7 @@ int main(int, char *[])
 
   std::cout << "PointId: " << pointId << std::endl; // Outputs '4'
   }
-  
+
   {
   int queryPoint[3] = {0, 1, 0};
   vtkIdType pointId = vtkStructuredData::ComputePointId(dimensions, queryPoint);

@@ -32,7 +32,6 @@ set(NEEDS_ARGS
 
 set (EXCLUDE_TEST
   HierarchicalBoxPipeline
-  Generate3DAMRDataSetWithPulse
 )
 
 add_test(${KIT}-OverlappingAMR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

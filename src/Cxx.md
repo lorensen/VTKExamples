@@ -306,6 +306,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [LoopBooleanPolyDataFilter](/Cxx/PolyData/LoopBooleanPolyDataFilter) | vtkLoopBooleanOpPolyDataFilter | Perform boolean operations on two vtkPolyData objects.
 [MaskPoints](/Cxx/PolyData/MaskPoints) | vtkMaskPoints | Select a subset (mask) of a point set.
 [MergePoints](/Cxx/PolyData/MergePoints) | vtkMergePoints | Remove duplicate (merge) points.
+[MergeSelections](/Cxx/PolyData/MergeSelections) | vtkSelection  vtkSelectionNode | Merge selected points.
 [MiscCellData](/Cxx/PolyData/MiscCellData) | vtkCellData | Add Miscellaneous Data to Cells in a Polydata.
 [MiscPointData](/Cxx/PolyData/MiscPointData) | vtkPointData vtkFloatArray | Add Miscellaneous Data to Points in a Polydata.
 [MultiBlockMergeFilter](/Cxx/PolyData/MultiBlockMergeFilter) | vtkMultiBlockMergeFilter vtkMultiBlockDataSet | Combine MultiBlockDataSets.
@@ -333,6 +334,8 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [QuantizePolyDataPoints](/Cxx/PolyData/QuantizePolyDataPoints) | vtkQuantizePolyDataPoints | Snap (quantize) points to a grid.
 [Reflection](/Cxx/PolyData/Reflection) | vtkReflectionFilter | Mirror a DataSet.
 [RemoveOutsideSurface](/Cxx/PolyData/RemoveOutsideSurface) | vtkConnectivityFilter | Remove the outer surface of a multiple surface polydata.
+[RemoveVertices](/Cxx/PolyData/RemoveVertices) |  |
+[ResamplePolyLine](/Cxx/PolyData/ResamplePolyLine) |  |
 [ReverseSense](/Cxx/PolyData/ReverseSense) | vtkReverseSense | Flip normals.
 [RibbonFilter](/Cxx/PolyData/RibbonFilter) | vtkRibbonFilter |
 [RotationAroundLine](/Cxx/PolyData/RotationAroundLine) | vtkTransform vtkTransformPolyDataFilter | Rotation around a line.
@@ -367,6 +370,8 @@ These examples demonstrate how to create an display one of the many vtkParametri
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [CompositePolyDataMapper](/Cxx/CompositeData/CompositePolyDataMapper) | vtkCompositePolyDataMapper |
+[Generate2DAMRDataSetWithPulse](/Cxx/CompositeData/Generate2DAMRDataSetWithPulse) | vtkAMRBox vtkOverlappingAMR vtkUniformGrid vtkXMLHierarchicalBoxDataSetWriter | Generates sample 2-D AMR dataset.
+[Generate3DAMRDataSetWithPulse](/Cxx/CompositeData/Generate3DAMRDataSetWithPulse) | vtkAMRBox vtkOverlappingAMR vtkUniformGrid vtkXMLHierarchicalBoxDataSetWriter | Generates sample 3-D AMR dataset.
 [MultiBlockDataSet](/Cxx/CompositeData/MultiBlockDataSet) | vtkMultiBlockDataSet | Demonstrates how to make and use VTK's MultiBlock type data
 [OverlappingAMR](/Cxx/CompositeData/OverlappingAMR) | vtkOverlappingAMR | Demonstrates how to create and populate a VTK's Overlapping AMR Grid type Data
 
@@ -459,7 +464,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 "ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK. [Here is an overview of these data structures](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes). Image data can represent at typical 2D image, but also, a 3D volume.
 
 * [Demonstration of structured data types](/Cxx/Visualization/StructuredDataTypes)
-* [Get the linear point id of a point in a grid](/Cxx/StructuredData/GetLinearPointId)
+* [Get the linear point id of a point in a grid](/Cxx/StructuredGrid/GetLinearPointId)
 
 #### vtkImageData
 
@@ -489,6 +494,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [BlankPoint](/Cxx/StructuredGrid/BlankPoint) | vtkStructuredGrid | Blank a point of a vtkStructuredGrid.
+[GetLinearPointId](/Cxx/StructuredGrid/GetLinearPointId) | vtkStructuredGrid | Get the linear point id of a point in a grid.
 [SGrid](/Cxx/StructuredGrid/SGrid) | vtkStructuredGrid | Creating a structured grid dataset of a semi-cylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction.
 [StructuredGrid](/Cxx/StructuredGrid/StructuredGrid) | vtkStructuredGrid | Structured Grid.
 [StructuredGridOutline](/Cxx/StructuredGrid/StructuredGridOutline) | vtkStructuredGridOutlineFilter | Visualize the outline of a structured grid.
@@ -559,6 +565,7 @@ This section includes vtkUnstructuredGrid.
 | -------------- | ---------------------- | ------------- | ------- |
 [BoundingBox](/Cxx/Utilities/BoundingBox) | vtkBoundingBox | Bounding Box construction.
 [BoundingBoxIntersection](/Cxx/Utilities/BoundingBoxIntersection) | vtkBoundingBox | Box intersection and Inside tests.
+[Box](/Cxx/Utilities/Box) | vtkBoundingBox | Intersect a box with a ray.
 [BrownianPoints](/Cxx/Utilities/BrownianPoints) | vtkBrownianPoints | Produce a random vector at each point in a dataset.
 [CardinalSpline](/Cxx/Utilities/CardinalSpline) | vtkCardinalSpline | Cardinal spline Interpolation.
 [Casting](/Cxx/PolyData/Casting) | vtkObject::SafeDownCast | Casting VTK objects.
@@ -973,6 +980,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Stocks](/Cxx/VisualizationAlgorithms/Stocks) | vtkRibbonFilter vtkLinearExtrusionFilter | Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time.
 [StreamLines](/Cxx/Visualization/StreamLines) | vtkStreamTracer | Streamlines.
 [StreamlinesWithLineWidget](/Cxx/VisualizationAlgorithms/StreamlinesWithLineWidget) | vtkCallbackCommand vtkLineWidget | Using the vtkLineWidget to produce streamlines in the combustor dataset.  The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves.
+[StructuredDataTypes](/Cxx/Visualization/StructuredDataTypes) |  | Demonstration of structured data types.
 [TensorAxes](/Cxx/VisualizationAlgorithms/TensorAxes) | vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes of the stress tensor.
 [TensorEllipsoids](/Cxx/VisualizationAlgorithms/TensorEllipsoids) | vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes as tensor ellipsoids representing the stress tensor.
 [TensorGlyph](/Cxx/Visualization/TensorGlyph) | vtkTensorGlyph | Draw a rotated/scaled glyph at each point.
@@ -981,6 +989,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [TransformActorCollection](/Cxx/Visualization/TransformActorCollection) | vtkActorCollection | Transform an actor collection.
 [TubesFromSplines](/Cxx/VisualizationAlgorithms/TubesFromSplines) | vtkTubeFilter vtkParametricFunctionSource  vtkTupleInterpolator | Create tubes from interpolated points and scalars.
 [TubesWithVaryingRadiusAndColors](/Cxx/VisualizationAlgorithms/TubesWithVaryingRadiusAndColors) | vtkTubeFilter | Create tubes with varying radius and colors.
+[VectorField](/Cxx/Visualization/VectorField) | vtkGlyph2D vtkImageData |
 [VectorOfActors](/Cxx/Visualization/VectorOfActors) | vtkActor | Multiple Actors in a Vector.
 [VectorText](/Cxx/Visualization/VectorText) | vtkVectorText | Display high resolution text.
 [VelocityProfile](/Cxx/VisualizationAlgorithms/VelocityProfile) | vtkMultiBlockPLOT3DReader vtkStructuredGridGeometryFilter vtkAppendPolyData vtkWarpVector | Warping the geometry of three planes to show flow momentum.
@@ -1191,6 +1200,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [RectilinearWipeWidget](/Cxx/Widgets/RectilinearWipeWidget) | vtkImageRectilinearWipe vtkRectilinearWipeWidget vtkRectilinearWipeRepresentation | Compare two images.
 [SeedWidget](/Cxx/Widgets/SeedWidget) | vtkSeedWidget | Seed widget.
 [SeedWidgetImage](/Cxx/Widgets/SeedWidgetImage) | vtkImageViewer2 vtkSeedWidget | How to start the interaction?
+[SeedWidgetWithCustomCallback](/Cxx/Widgets/SeedWidgetWithCustomCallback) | vtkCommand vtkPointHandleRepresentation2D | How to place points in a scene using a custom callback.
 [Slider](/Cxx/Widgets/Slider) | vtkSliderWidget vtkSliderRepresentation3D | 3D Slider.
 [Slider2D](/Cxx/Widgets/Slider2D) | vtkSliderWidget vtkSliderRepresentation2D | 2D Slider.
 [SphereWidget](/Cxx/Widgets/SphereWidget) | vtkSphereWidget | Sphere widget.
@@ -1211,7 +1221,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [LinePlot](/Cxx/Plotting/LinePlot) | vtkChartXY | Line plot.
 [ParallelCoordinates](/Cxx/Plotting/ParallelCoordinates) | vtkChartParallelCoordinates | Parallel coordinates.
 [PieChart](/Cxx/Plotting/PieChart) | vtkChartPie vtkPlotPie | Pie chart.
-[PieChartActor](/Cxx/Plotting/PieChart) | vtkPieChartActor | Pie chart.
+[PieChartActor](/Cxx/Plotting/PieChartActor) | vtkPieChartActor | Pie chart.
 [ScatterPlot](/Cxx/Plotting/ScatterPlot) | vtkPlotPoints | Scatter plot.
 [SpiderPlot](/Cxx/Plotting/SpiderPlot) | vtkSpiderPlotActor | Spider plot.
 [StackedBar](/Cxx/Plotting/StackedBar) | vtkPlotBar | Stacked bar.
