@@ -7,7 +7,7 @@ There are two different styles of file formats available in VTK. The simplest ar
 
 The legacy VTK file formats consist of five basic parts.
 
-1. The first part is the file version and identifier. This part contains the single line:```# vtk DataFile Version x.x.``` This line must be exactly as shown with the exception of the version number x.x, which will vary with different releases of VTK. (Note: the current version number is 3.0. Version 1.0 and 2.0 files are compatible with version 3.0 files.)
+1. The first part is the file version and identifier. This part contains the single line: ```vtk DataFile Version x.x.``` This line must be exactly as shown with the exception of the version number x.x, which will vary with different releases of VTK. (Note: the current version number is 3.0. Version 1.0 and 2.0 files are compatible with version 3.0 files.)
 
 2. The second part is the header. The header consists of a character string terminated by end-of-line character \n. The header is 256 characters maximum. The header can be used to describe the data and include any other pertinent information.
 
@@ -20,7 +20,7 @@ The legacy VTK file formats consist of five basic parts.
 An overview of the file format is shown in Figure 1. The first three parts are mandatory, but the other two are optional. Thus you have the flexibility of mixing and matching dataset attributes and geometry, either by operating system file
 manipulation or using VTK filters to merge data. Keywords are case insensitive, and may be separated by whitespace. Before describing the data file formats please note the following.
 
-* dataType is one of the types bit, unsigned_char, char, unsigned_short, short, unsigned_int, int, unsigned_long, long, float, or double. These keywords are used to describe the form of the data, both for reading from file, as well as constructing the appropriate internal objects. Not all data types are supported for all classes.
+* _dataType_ is one of the types _bit_, _unsigned_char_, _char_, _unsigned_short_, _short_, _unsigned_int_, _int_, _unsigned_long_, _long_, _float_, or _double_. These keywords are used to describe the form of the data, both for reading from file, as well as constructing the appropriate internal objects. Not all data types are supported for all classes.
 
 * All keyword phrases are written in ASCII form whether the file is binary or ASCII. The binary section of the file (if in binary form) is the data proper; i.e., the numbers that define points coordinates, scalars, cell indices, and so forth.
 
@@ -28,9 +28,9 @@ manipulation or using VTK filters to merge data. Keywords are case insensitive, 
 
 * If both the data attribute and geometry/topology part are present in the file, then the number of data values defined in the data attribute part must exactly match the number of points or cells defined in the geometry/topology part.
 
-* Cell types and indices are of type int.
+* Cell types and indices are of type _int_.
 
-* Binary data must be placed into the file immediately after the “newline” (\n) character from the previous ASCIIkeyword and parameter sequence.
+* Binary data must be placed into the file immediately after the “newline” _(\n)_ character from the previous ASCIIkeyword and parameter sequence.
 
 * The geometry/topology description must occur prior to the data attribute description.
 
@@ -414,61 +414,6 @@ POINTS 27 float
 0 1 4  1 1 4  2 1 4  0 1 5  1 1 5  2 1 5
 0 1 6  1 1 6  2 1 6
 CELLS 11 60
-0 1
-2 3
-4
-5
-7 6
-0 1
-2
-4 5
-6 7
-3
-3
-0
-1
-2
-2
-3
-1
-0 0 1
-2 3
-0 1
-n-2
-n-1
-0
-1
-n-1
-n
-0
-2
-1
-0
-1 3
-2
-n
-n+1
-x
-y
-z
-xi
-xj
-```
-
-Figure 2 Linear cell types found in VTK. Use the include file CellType.h to manipulate cell types.
-VTK_WEDGE (=13)
-2
-0
-1
-5
-3
-4
-VTK_PYRAMID (=14)
-3
-0 1
-2
-4
-10 VTK 4.2 File Formats
 8 0 1 4 3 6 7 10 9
 8 1 2 5 4 7 8 11 10
 4 6 10 9 12
@@ -480,6 +425,7 @@ VTK_PYRAMID (=14)
 3 22 19 18
 2 26 25
 1 24
+
 CELL_TYPES 11
 12
 12
@@ -492,6 +438,7 @@ CELL_TYPES 11
 5
 3
 1
+
 POINT_DATA 27
 SCALARS scalars float 1
 LOOKUP_TABLE default
@@ -501,71 +448,17 @@ LOOKUP_TABLE default
 18.0 19.0 20.0 21.0 22.0 23.0
 24.0 25.0 26.0
 VECTORS vectors float
-100 110 020 100 110 020
-Figure 3 Non-linear cell types found in VTK.
-5
-3
-7
-4
-5
-6
-17
-15 12
-11
-8
-9
-13
-18
-3
-5
-7
-6
-2
-1
-0
-4
-4
-6 7
-9
-5
-3
-0
-2 1
-0
-1
-2
-0
-2
-1
-2
-3
-1
-0
-1
-8
-14
-19
-16 10
-0
-4
-VTK_QUADRATIC_TETRA
-(=24)
-VTK_QUADRATIC_HEXAHEDRON
-(=25)
-VTK_QUADRATIC_EDGE
-(=21)
-VTK_QUADRATIC_QUAD
-(=23)
-VTK_QUADRATIC_TRIANGLE
-(=22)
-XML File Formats 11
-100 110 020 100 110 020
-001 001 001 001 001 001
-001 001 001 001 001 001
-001 001 001
-The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on
-page 158 to see how to manipulate this data. (The data file shown below can be found in its entirety in
+1 0 0  1 1 0  0 2 0  1 0 0  1 1 0  0 2 0
+1 0 0  1 1 0  0 2 0  1 0 0  1 1 0  0 2 0
+0 0 1  0 0 1  0 0 1  0 0 1  0 0 1  0 0 1
+0 0 1  0 0 1  0 0 1  0 0 1  0 0 1  0 0 1
+0 0 1  0 0 1  0 0 1
+```
+
+The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on page 158 to see how to manipulate this data. (The data file shown below can be found in its entirety in
 $VTK_DATA_ROOT/Data/financial.vtk.)
+
+```
 # vtk DataFile Version 2.0
 Financial data in vtk field format
 ASCII
@@ -588,72 +481,77 @@ INTEREST_RATE 1 3188 float
 MONTHLY_INCOME 1 3188 unsigned_short
 39 51 51 38 35 49 45 56
 ...(more stuff)...
-In this example, a field is represented using six arrays. Each array has a single component and 3,188 tuples. Five of the six
-arrays are of type float, while the last array is of type unsigned_short.
-Additional examples are available in the data directory.
-XML File Formats
-VTK provides another set of data formats using XML syntax. While these formats are much more complicated than the
-original VTK format described previously (see “Simple Legacy Formats” on page 1), they support many more features.
-The major motivation for their development was to facilitate data streaming and parallel I/O. Some features of the format
-include support for compression, portable binary encoding, random access, big endian and little endian byte order, multiple
-file representation of piece data, and new file extensions for different VTK dataset types. XML provides many features
-as well, especially the ability to extend a file format with application specific tags.
+```
+
+In this example, a field is represented using six arrays. Each array has a single component and 3,188 tuples. Five of the six arrays are of type float, while the last array is of type unsigned_short. Additional examples are available in the data directory.
+
+## XML File Formats
+
+VTK provides another set of data formats using XML syntax. While these formats are much more complicated than the original VTK format described previously (see “Simple Legacy Formats” on page 1), they support many more features. The major motivation for their development was to facilitate data streaming and parallel I/O. Some features of the format include support for compression, portable binary encoding, random access, big endian and little endian byte order, multiple file representation of piece data, and new file extensions for different VTK dataset types. XML provides many features as well, especially the ability to extend a file format with application specific tags.
+
 There are two types of VTK XML data files: parallel and serial as described in the following.
-• Serial. File types designed for reading and writing by applications of only a single process. All of the data are contained
+
+* Serial.
+
+File types designed for reading and writing by applications of only a single process. All of the data are contained
 within a single file.
-• Parallel. File types designed for reading and writing by applications with multiple processes executing in parallel.
-The dataset is broken into pieces. Each process is assigned a piece or set of pieces to read or write. An individual
-piece is stored in a corresponding serial file type. The parallel file type does not actually contain any data, but
-instead describes structural information and then references other serial files containing the data for each piece.
+
+* Parallel.
+
+File types designed for reading and writing by applications with multiple processes executing in parallel. The dataset is broken into pieces. Each process is assigned a piece or set of pieces to read or write. An individual piece is stored in a corresponding serial file type. The parallel file type does not actually contain any data, but instead describes structural information and then references other serial files containing the data for each piece.
+
 In the XML format, VTK datasets are classified into one of two categories.
-12 VTK 4.2 File Formats
-• Structured. The dataset is a topologically regular array of cells such as pixels and voxels (e.g., image data) or quadrilaterals
-and hexahedra (e.g., structured grid) (see “The Visualization Model” on page 19 for more information).
-Rectangular subsets of the data are described through extents. The structured dataset types are vtkImageData,
-vtkRectilinearGrid, and vtkStructuredGrid.
-• Unstructured. The dataset forms a topologically irregular set of points and cells. Subsets of the data are described
-using pieces. The unstructured dataset types are vtkPolyData and vtkUnstructuredGrid (see “The Visualization
-Model” on page 19 for more information).
-By convention, each data type and file type is paired with a particular file extension. The types and corresponding extensions
-are
-• ImageData (.vti) — Serial vtkImageData (structured).
-• PolyData (.vtp) — Serial vtkPolyData (unstructured).
-• RectilinearGrid (.vtr) — Serial vtkRectilinearGrid (structured).
-• StructuredGrid (.vts) — Serial vtkStructuredGrid (structured).
-• UnstructuredGrid (.vtu) — Serial vtkUnstructuredGrid (unstructured).
-• PImageData (.pvti) — Parallel vtkImageData (structured).
-• PPolyData (.pvtp) — Parallel vtkPolyData (unstructured).
-• PRectilinearGrid (.pvtr) — Parallel vtkRectilinearGrid (structured).
-• PStructuredGrid (.pvts) — Parallel vtkStructuredGrid (structured).
-• PUnstructuredGrid (.pvtu) — Parallel vtkUnstructuredGrid (unstructured).
-All of the VTK XML file types are valid XML documents.* The document-level element is VTKFile:
-<VTKFile type=”ImageData” version=”0.1” byte_order=”LittleEndian”>
-...
-</VTKFile>
+
+* Structured.
+
+The dataset is a topologically regular array of cells such as pixels and voxels (e.g., image data) or quadrilaterals and hexahedra (e.g., structured grid) (see “The Visualization Model” on page 19 for more information). Rectangular subsets of the data are described through extents. The structured dataset types are vtkImageData, vtkRectilinearGrid, and vtkStructuredGrid.
+
+* Unstructured.
+
+The dataset forms a topologically irregular set of points and cells. Subsets of the data are describedusing pieces. The unstructured dataset types are vtkPolyData and vtkUnstructuredGrid (see “The Visualization Model” on page 19 for more information).
+
+By convention, each data type and file type is paired with a particular file extension. The types and corresponding extensions are
+
+* ImageData (.vti) — Serial vtkImageData (structured).
+* PolyData (.vtp) — Serial vtkPolyData (unstructured).
+* RectilinearGrid (.vtr) — Serial vtkRectilinearGrid (structured).
+* StructuredGrid (.vts) — Serial vtkStructuredGrid (structured).
+* UnstructuredGrid (.vtu) — Serial vtkUnstructuredGrid (unstructured).
+* PImageData (.pvti) — Parallel vtkImageData (structured).
+* PPolyData (.pvtp) — Parallel vtkPolyData (unstructured).
+* PRectilinearGrid (.pvtr) — Parallel vtkRectilinearGrid (structured).
+* PStructuredGrid (.pvts) — Parallel vtkStructuredGrid (structured).
+* PUnstructuredGrid (.pvtu) — Parallel vtkUnstructuredGrid (unstructured).
+
+All of the VTK XML file types are valid XML documents.* The document-level element is _VTKFile_:
+'''
+   <VTKFile type=”ImageData” version=”0.1” byte_order=”LittleEndian”>
+     ...
+   </VTKFile>
+'''
+
 The attributes of the element are:
-type — The type of the file (the bulleted items in the previous list)..
-version — File version number in “major.minor” format.
-byte_order — Machine byte order in which data are stored. This is either “BigEndian” or “LittleEndian”.
-compressor — Some data in the file may be compressed. This specifies the subclass of vtkDataCompressor that
-was used to compress the data.
-Nested inside the VTKFile element is an element whose name corresponds to the type of the data format (i.e., the type
-attribute). This element describes the topology the dataset, and is different for the serial and parallel formats, which are
-described as follows.
-Serial XML File Formats. The VTKFile element contains one element whose name corresponds to the type of dataset
-the file describes. We refer to this as the dataset element, which is one of ImageData, RectilinearGrid,
-StructuredGrid, PolyData, or UnstructuredGrid. The dataset element contains one or more Piece elements, each
-describing a portion of the dataset. Together, the dataset element and Piece elements specify the entire dataset.
-Each piece of a dataset must specify the geometry (points and cells) of that piece along with the data associated with
-each point or cell. Geometry is specified differently for each dataset type, but every piece of every dataset contains
+
+   _type_ — The type of the file (the bulleted items in the previous list)..
+   _version_ — File version number in “major.minor” format.
+   byte_order — Machine byte order in which data are stored. This is either “BigEndian” or “LittleEndian”.
+   compressor — Some data in the file may be compressed. This specifies the subclass of vtkDataCompressor that was used to compress the data.
+
+Nested inside the VTKFile element is an element whose name corresponds to the type of the data format (i.e., the type attribute). This element describes the topology the dataset, and is different for the serial and parallel formats, which are described as follows.
+
+### **Serial XML File Formats.**
+
+The VTKFile element contains one element whose name corresponds to the type of dataset the file describes. We refer to this as the dataset element, which is one of ImageData, RectilinearGrid, StructuredGrid, PolyData, or UnstructuredGrid. The dataset element contains one or more Piece elements, each describing a portion of the dataset. Together, the dataset element and Piece elements specify the entire dataset.
+
+Each piece of a dataset must specify the geometry (points and cells) of that piece along with the data associated with each point or cell. Geometry is specified differently for each dataset type, but every piece of every dataset contains
 PointData and CellData elements specifying the data for each point and cell in the piece.
+
 The general structure for each serial dataset format is as follows:
-• ImageData — Each ImageData piece specifies its extent within the dataset’s whole extent. The points and cells
-* There is one case in which the file is not a valid XML document. When the AppendedData section is not encoded as base64,
-raw binary data is present that may violate the XML specification. This is not default behavior, and must be explicitly enabled
-by the user.
-XML File Formats 13
-are described implicitly by the extent, origin, and spacing. Note that the origin and spacing are constant across all
-pieces, so they are specified as attributes of the ImageData XML element as follows.
+
+* **ImageData** — Each ImageData piece specifies its extent within the dataset’s whole extent. The points and cells are described implicitly by the extent, origin, and spacing. Note that the origin and spacing are constant across all pieces, so they are specified as attributes of the ImageData XML element as follows.
+!!! note
+    There is one case in which the file is not a valid XML document. When the AppendedData section is not encoded as base64, raw binary data is present that may violate the XML specification. This is not default behavior, and must be explicitly enabled by the user.
+```
 <VTKFile type=”ImageData” ...>
 <ImageData WholeExtent=”x1 x2 y1 y2 z1 z2”
 Origin=”x0 y0 z0” Spacing=”dx dy dz”>
@@ -663,8 +561,10 @@ Origin=”x0 y0 z0” Spacing=”dx dy dz”>
 </Piece>
 </ImageData>
 </VTKFile>
-• RectilinearGrid — Each RectilinearGrid piece specifies its extent within the dataset’s whole extent. The
-points are described by the Coordinates element. The cells are described implicitly by the extent.
+```
+
+* **RectilinearGrid** — Each RectilinearGrid piece specifies its extent within the dataset’s whole extent. The points are described by the Coordinates element. The cells are described implicitly by the extent.
+```
 <VTKFile type=”RectilinearGrid” ...>
 <RectilinearGrid WholeExtent=”x1 x2 y1 y2 z1 z2”>
 <Piece Extent=”x1 x2 y1 y2 z1 z2”>
@@ -674,8 +574,9 @@ points are described by the Coordinates element. The cells are described implici
 </Piece>
 </RectilinearGrid>
 </VTKFile>
-• StructuredGrid — Each StructuredGrid piece specifies its extent within the dataset’s whole extent. The points
-are described explicitly by the Points element. The cells are described implicitly by the extent.
+```
+* **StructuredGrid** — Each StructuredGrid piece specifies its extent within the dataset’s whole extent. The points are described explicitly by the Points element. The cells are described implicitly by the extent.
+```
 <VTKFile type=”StructuredGrid” ...>
 <StructuredGrid WholeExtent=”x1 x2 y1 y2 z1 z2”>
 <Piece Extent=”x1 x2 y1 y2 z1 z2”>
@@ -685,9 +586,10 @@ are described explicitly by the Points element. The cells are described implicit
 </Piece>
 </StructuredGrid>
 </VTKFile>
-• PolyData — Each PolyData piece specifies a set of points and cells independently from the other pieces. The
-points are described explicitly by the Points element. The cells are described explicitly by the Verts, Lines,
-Strips, and Polys elements.
+```
+
+* **PolyData** — Each PolyData piece specifies a set of points and cells independently from the other pieces. The points are described explicitly by the Points element. The cells are described explicitly by the Verts, Lines, Strips, and Polys elements.
+```
 <VTKFile type=”PolyData” ...>
 <PolyData>
 <Piece NumberOfPoints=”#” NumberOfVerts=”#” NumberOfLines=”#”
@@ -700,12 +602,12 @@ NumberOfStrips=”#” NumberOfPolys=”#”>
 <Strips>...</Strips>
 <Polys>...</Polys>
 </Piece>
-14 VTK 4.2 File Formats
 </PolyData>
 </VTKFile>
-• UnstructuredGrid — Each UnstructuredGrid piece specifies a set of points and cells independently from the
-other pieces. The points are described explicitly by the Points element. The cells are described explicitly by the
-Cells element.
+```
+
+* **UnstructuredGrid** — Each UnstructuredGrid piece specifies a set of points and cells independently from the other pieces. The points are described explicitly by the Points element. The cells are described explicitly by the Cells element.
+```
 <VTKFile type=”UnstructuredGrid” ...>
 <UnstructuredGrid>
 <Piece NumberOfPoints=”#” NumberOfCells=”#”>
@@ -716,256 +618,271 @@ Cells element.
 </Piece>
 </UnstructuredGrid>
 </VTKFile>
-Every dataset describes the data associated with its points and cells with PointData and CellData XML elements as
-follows:
+```
+
+Every dataset describes the data associated with its points and cells with PointData and CellData XML elements as follows:
+```
 <PointData Scalars=”Temperature” Vectors=”Velocity”>
 <DataArray Name=”Velocity” .../>
 <DataArray Name=”Temperature” .../>
 <DataArray Name=”Pressure” .../>
 </PointData>
-VTK allows an arbitrary number of data arrays to be associated with the points and cells of a dataset. Each data array is
-described by a DataArray element which, among other things, gives each array a name. The following attributes of
-PointData and CellData are used to specify the active arrays by name:
-Scalars — The name of the active scalars array, if any.
-Vectors — The name of the active vectors array, if any.
-Normals — The name of the active normals array, if any.
-Tensors — The name of the active tensors array, if any.
-TCoords — The name of the active texture coordinates array, if any.
+```
+VTK allows an arbitrary number of data arrays to be associated with the points and cells of a dataset. Each data array is described by a DataArray element which, among other things, gives each array a name. The following attributes of PointData and CellData are used to specify the active arrays by name:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scalars — The name of the active scalars array, if any.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vectors — The name of the active vectors array, if any.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Normals — The name of the active normals array, if any.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tensors — The name of the active tensors array, if any.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCoords — The name of the active texture coordinates array, if any.
+
 Some datasets describe their points and cells using different combinations of the following common elements:
-• Points — The Points element explicitly defines coordinates for each point individually. It contains one
-DataArray element describing an array with three components per value, each specifying the coordinates of one
-point.
+
+* **Points** — The Points element explicitly defines coordinates for each point individually. It contains one DataArray element describing an array with three components per value, each specifying the coordinates of one point.
+```
 <Points>
 <DataArray NumberOfComponents=”3” .../>
 </Points>
-Coordinates — The Coordinates element defines point coordinates for an extent by specifying the ordinate
-along each axis for each integer value in the extent’s range. It contains three DataArray elements describing the
-ordinates along the x-y-z axes, respectively.
+```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coordinates — The Coordinates element defines point coordinates for an extent by specifying the ordinate along each axis for each integer value in the extent’s range. It contains three DataArray elements describing the ordinates along the x-y-z axes, respectively.
+```
 <Coordinates>
 <DataArray .../>
 <DataArray .../>
 <DataArray .../>
 XML File Formats 15
 </Coordinates>
-• Verts, Lines, Strips, and Polys — The Verts, Lines, Strips, and Polys elements define cells explicitly by
-specifying point connectivity. Cell types are implicitly known by the type of element in which they are specified.
-Each element contains two DataArray elements. The first array specifies the point connectivity. All the cells’ point
-lists are concatenated together. The second array specifies the offset into the connectivity array for the end of each
-cell.
+```
+* **Verts**, **Lines**, **Strips**, and **Polys** — The Verts, Lines, Strips, and Polys elements define cells explicitly by specifying point connectivity. Cell types are implicitly known by the type of element in which they are specified. Each element contains two DataArray elements. The first array specifies the point connectivity. All the cells’ point lists are concatenated together. The second array specifies the offset into the connectivity array for the end of each cell.
+```
 <Verts>
 <DataArray type=”Int32” Name=”connectivity” .../>
 <DataArray type=”Int32” Name=”offsets” .../>
 </Verts>
-• Cells — The Cells element defines cells explicitly by specifying point connectivity and cell types. It contains three
-DataArray elements. The first array specifies the point connectivity. All the cells’ point lists are concatenated
-together. The second array specifies the offset into the connectivity array for the end of each cell. The third array
-specifies the type of each cell. (Note: the cell types are defined in Figure 2 and Figure 3.)
+```
+
+* **Cells** — The Cells element defines cells explicitly by specifying point connectivity and cell types. It contains three DataArray elements. The first array specifies the point connectivity. All the cells’ point lists are concatenated together. The second array specifies the offset into the connectivity array for the end of each cell. The third array specifies the type of each cell. (Note: the cell types are defined in Figure 2 and Figure 3.)
+```
 <Cells>
 <DataArray type=”Int32” Name=”connectivity” .../>
 <DataArray type=”Int32” Name=”offsets” .../>
 <DataArray type=”UInt8” Name=”types” .../>
 </Cells>
+```
 All of the data and geometry specifications use DataArray elements to describe their actual content as follows:
-• DataArray — The DataArray element stores a sequence of values of one type. There may be one or more components
-per value.
+
+* **DataArray** — The DataArray element stores a sequence of values of one type. There may be one or more components per value.
+```
 <DataArray type=”Float32” Name=”vectors” NumberOfComponents=”3”
 format=”appended” offset=”0”/>
 <DataArray type=”Float32” Name=”scalars” format=”binary”>
 bAAAAAAAAAAAAIA/AAAAQAAAQEAAAIBA... </DataArray>
 <DataArray type=”Int32” Name=”offsets” format=”ascii”>
 10 20 30 ... </DataArray>
+```
+
 The attributes of the DataArray elements are described as follows:
-type — The data type of a single component of the array. This is one of Int8, UInt8, Int16, UInt16, Int32,
-UInt32, Int64, UInt64, Float32, Float64. Note: the 64-bit integer types are only supported if
-VTK_USE_64BIT_IDS is on (a CMake variable—see “CMake” on page 8) or the platform is 64-bit.
-Name — The name of the array. This is usually a brief description of the data stored in the array.
-NumberOfComponents — The number of components per value in the array.
-format — The means by which the data values themselves are stored in the file. This is “ascii”, “binary”, or
-“appended”.
-offset — If the format attribute is “appended”, this specifies the offset from the beginning of the appended data
-section to the beginning of this array’s data.
-The format attribute chooses among the three ways in which data values can be stored:
-format=”ascii” — The data are listed in ASCII directly inside the DataArray element. Whitespace is used for
-separation.
-format=”binary” — The data are encoded in base64 and listed contiguously inside the DataArray element.
-Data may also be compressed before encoding in base64. The byte-order of the data matches that specified by
-16 VTK 4.2 File Formats
-the byte_order attribute of the VTKFile element.
-format=”appended” — The data are stored in the appended data section. Since many DataArray elements may
-store their data in this section, the offset attribute is used to specify where each DataArray’s data begins.
-This format is the default used by VTK’s writers.
-The appended data section is stored in an AppendedData element that is nested inside VTKFile after the
-dataset element:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type — The data type of a single component of the array. This is one of Int8, UInt8, Int16, UInt16, Int32, UInt32, Int64, UInt64, Float32, Float64. Note: the 64-bit integer types are only supported if VTK_USE_64BIT_IDS is on (a CMake variable—see “CMake” on page 8) or the platform is 64-bit.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name — The name of the array. This is usually a brief description of the data stored in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NumberOfComponents — The number of components per value in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format — The means by which the data values themselves are stored in the file. This is “ascii”, “binary”, or “appended”.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;offset — If the format attribute is “appended”, this specifies the offset from the beginning of the appended data section to the beginning of this array’s data.
+
+The _format_ attribute chooses among the three ways in which data values can be stored:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_format=”ascii”_ — The data are listed in ASCII directly inside the _DataArray_ element. Whitespace is used for separation.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_format=”binary”_ — The data are encoded in base64 and listed contiguously inside the DataArray element. Data may also be compressed before encoding in base64. The byte-order of the data matches that specified by the byte_order attribute of the VTKFile element.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format=”appended” — The data are stored in the appended data section. Since many _DataArray_ elements may store their data in this section, the offset attribute is used to specify where each DataArray’s data begins. This format is the default used by VTK’s writers.
+
+The appended data section is stored in an _AppendedData_ element that is nested inside _VTKFile_ after the dataset element:
+```
 <VTKFile ...>
 ...
 <AppendedData encoding=”base64”>
 _QMwEAAAAAAAAA...
 </AppendedData>
 </VTKFile>
-The appended data section begins with the first character after the underscore inside the AppendedData element.
-The underscore is not part of the data, but is always present. Data in this section is always in binary
-form, but can be compressed and/or base64 encoded. The byte-order of the data matches that specified by the
-byte_order attribute of the VTKFile element. Each DataArray’s data are stored contiguously and
-appended immediately after the previous DataArray’s data without a seperator. The DataArray’s offset
-attribute indicates the file position offset from the first character after the underscore to the beginning its data.
-Parallel File Formats. The parallel file formats do not actually store any data in the file. Instead, the data are broken into
-pieces, each of which is stored in a serial file of the same dataset type.
-The VTKFile element contains one element whose name corresponds to the type of dataset the file describes, but
-with a “P” prefix. We refer to this as the parallel dataset element, which is one of PImageData, PRectilinearGrid,
-PStructuredGrid, PPolyData, or PUnstructuredGrid.
-The parallel dataset element and those nested inside specify the types of the data arrays used to store points, point
-data, and cell data (the type of arrays used to store cells is fixed by VTK). The element does not actually contain any data,
-but instead includes a list of Piece elements that specify the source from which to read each piece. Individual pieces are
-stored in the corresponding serial file format. The parallel file needs to specify the type and structural information so that
-readers can update pipeline information without actually reading the pieces’ files.
+```
+
+The appended data section begins with the first character after the underscore inside the _AppendedData_ element. The underscore is not part of the data, but is always present. Data in this section is always in binary form, but can be compressed and/or base64 encoded. The byte-order of the data matches that specified by the byte_order attribute of the _VTKFile_ element. Each _DataArray_’s data are stored contiguously and appended immediately after the previous _DataArray_’s data without a seperator. The _DataArray_’s _offset_ attribute indicates the file position offset from the first character after the underscore to the beginning its data.
+
+### **Parallel File Formats.**
+The parallel file formats do not actually store any data in the file. Instead, the data are broken into pieces, each of which is stored in a serial file of the same dataset type.
+
+The _VTKFile_ element contains one element whose name corresponds to the type of dataset the file describes, but with a “P” prefix. We refer to this as the parallel dataset element, which is one of _PImageData_, _PRectilinearGrid_, _PStructuredGrid_, _PPolyData_, or _PUnstructuredGrid_.
+
+The parallel dataset element and those nested inside specify the types of the data arrays used to store points, pointn data, and cell data (the type of arrays used to store cells is fixed by VTK). The element does not actually contain any data, but instead includes a list of _Piece_ elements that specify the source from which to read each piece. Individual pieces are stored in the corresponding serial file format. The parallel file needs to specify the type and structural information so that readers can update pipeline information without actually reading the pieces’ files.
+
 The general structure for each parallel dataset format is as follows:
-• PImageData — The PImageData element specifies the whole extent of the dataset and the number of ghost-levels
-by which the extents in the individual pieces overlap. The Origin and Spacing attributes implicitly specify the
-point locations. Each Piece element describes the extent of one piece and the file in which it is stored.
-<VTKFile type=”PImageData” ...>
-<PImageData WholeExtent=”x1 x2 y1 y2 z1 z2”
-GhostLevel=”#” Origin=”x0 y0 z0” Spacing=”dx dy dz”>
-<PPointData>...</PPointData>
-<PCellData>...</PCellData>
-<Piece Extent=”x1 x2 y1 y2 z1 z2” Source=”imageData0.vti”/>
-...
-</PImageData>
-</VTKFile>
-• PRectilinearGrid — The PRectilinearGrid element specifies the whole extent of the dataset and the number of
-ghost-levels by which the extents in the individual pieces overlap. The PCoordinates element describes the type
-of arrays used to specify the point ordinates along each axis, but does not actually contain the data. Each Piece element
-describes the extent of one piece and the file in which it is stored.
-<VTKFile type=”PRectilinearGrid” ...>
-<PRectilinearGrid WholeExtent=”x1 x2 y1 y2 z1 z2”
-GhostLevel=”#”>
-XML File Formats 17
-<PPointData>...</PPointData>
-<PCellData>...</PCellData>
-<PCoordinates>...</PCoordinates>
-<Piece Extent=”x1 x2 y1 y2 z1 z2”
-Source=”rectilinearGrid0.vtr”/>
-...
-</PRectilinearGrid>
-</VTKFile>
-• PStructuredGrid — The PStructuredGrid element specifies the whole extent of the dataset and the number of
-ghost-levels by which the extents in the individual pieces overlap. The PPoints element describes the type of array
-used to specify the point locations, but does not actually contain the data. Each Piece element describes the extent
-of one piece and the file in which it is stored.
-<VTKFile type=”PStructuredGrid” ...>
-<PStructuredGrid WholeExtent=”x1 x2 y1 y2 z1 z2”
-GhostLevel=”#”>
-<PPointData>...</PPointData>
-<PCellData>...</PCellData>
-<PPoints>...</PPoints>
-<Piece Extent=”x1 x2 y1 y2 z1 z2”
-Source=”structuredGrid0.vts”/>
-...
-</PStructuredGrid>
-</VTKFile>
-• PPolyData — The PPolyData element specifies the number of ghost-levels by which the individual pieces overlap.
-The PPoints element describes the type of array used to specify the point locations, but does not actually contain
-the data. Each Piece element specifies the file in which the piece is stored.
-<VTKFile type=”PPolyData” ...>
-<PPolyData GhostLevel=”#”>
-<PPointData>...</PPointData>
-<PCellData>...</PCellData>
-<PPoints>...</PPoints>
-<Piece Source=”polyData0.vtp”/>
-...
-</PPolyData>
-</VTKFile>
-• PUnstructuredGrid — The PUnstructuredGrid element specifies the number of ghost-levels by which the
-individual pieces overlap. The PPoints element describes the type of array used to specify the point locations, but
-does not actually contain the data. Each Piece element specifies the file in which the piece is stored.
-<VTKFile type=”PUnstructuredGrid” ...>
-<PUnstructuredGrid GhostLevel=”0”>
-<PPointData>...</PPointData>
-<PCellData>...</PCellData>
-<PPoints>...</PPoints>
-<Piece Source=”unstructuredGrid0.vtu”/>
-...
-</PUnstructuredGrid>
-</VTKFile>
-18 VTK 4.2 File Formats
-Every dataset uses PPointData and PCellData elements to describe the types of data arrays associated with its points and
-cells.
-• PPointData and PCellData — These elements simply mirror the PointData and CellData elements from the
-serial file formats. They contain PDataArray elements describing the data arrays, but without any actual data.
-<PPointData Scalars=”Temperature” Vectors=”Velocity”>
-<PDataArray Name=”Velocity” .../>
-<PDataArray Name=”Temperature” .../>
-<PDataArray Name=”Pressure” .../>
-</PPointData>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PImageData** — The _PImageData_ element specifies the whole extent of the dataset and the number of ghost-levels by which the extents in the individual pieces overlap. The Origin and Spacing attributes implicitly specify the point locations. Each Piece element describes the extent of one piece and the file in which it is stored.
+```
+   <VTKFile type=”PImageData” ...>
+   <PImageData WholeExtent=”x1 x2 y1 y2 z1 z2”
+   GhostLevel=”#” Origin=”x0 y0 z0” Spacing=”dx dy dz”>
+   <PPointData>...</PPointData>
+   <PCellData>...</PCellData>
+   <Piece Extent=”x1 x2 y1 y2 z1 z2” Source=”imageData0.vti”/>
+   ...
+   </PImageData>
+   </VTKFile>
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PRectilinearGrid** — The _PRectilinearGrid_ element specifies the whole extent of the dataset and the number of ghost-levels by which the extents in the individual pieces overlap. The PCoordinates element describes the type of arrays used to specify the point ordinates along each axis, but does not actually contain the data. Each Piece element describes the extent of one piece and the file in which it is stored.
+```
+   <VTKFile type=”PRectilinearGrid” ...>
+   <PRectilinearGrid WholeExtent=”x1 x2 y1 y2 z1 z2”
+   GhostLevel=”#”>
+   XML File Formats 17
+   <PPointData>...</PPointData>
+   <PCellData>...</PCellData>
+   <PCoordinates>...</PCoordinates>
+   <Piece Extent=”x1 x2 y1 y2 z1 z2”
+   Source=”rectilinearGrid0.vtr”/>
+   ...
+   </PRectilinearGrid>
+   </VTKFile>
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PStructuredGrid** — The _PStructuredGrid_ element specifies the whole extent of the dataset and the number of ghost-levels by which the extents in the individual pieces overlap. The PPoints element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element describes the extent of one piece and the file in which it is stored.
+```
+   <VTKFile type=”PStructuredGrid” ...>
+   <PStructuredGrid WholeExtent=”x1 x2 y1 y2 z1 z2”
+   GhostLevel=”#”>
+   <PPointData>...</PPointData>
+   <PCellData>...</PCellData>
+   <PPoints>...</PPoints>
+   <Piece Extent=”x1 x2 y1 y2 z1 z2”
+   Source=”structuredGrid0.vts”/>
+   ...
+   </PStructuredGrid>
+   </VTKFile>
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PPolyData** — The _PPolyData_ element specifies the number of ghost-levels by which the individual pieces overlap. The PPoints element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element specifies the file in which the piece is stored.
+```
+   <VTKFile type=”PPolyData” ...>
+   <PPolyData GhostLevel=”#”>
+   <PPointData>...</PPointData>
+   <PCellData>...</PCellData>
+   <PPoints>...</PPoints>
+   <Piece Source=”polyData0.vtp”/>
+   ...
+   </PPolyData>
+   </VTKFile>
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PUnstructuredGrid** — The _PUnstructuredGrid_ element specifies the number of ghost-levels by which the individual pieces overlap. The _PPoints_ element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element specifies the file in which the piece is stored.
+```
+   <VTKFile type=”PUnstructuredGrid” ...>
+   <PUnstructuredGrid GhostLevel=”0”>
+   <PPointData>...</PPointData>
+   <PCellData>...</PCellData>
+   <PPoints>...</PPoints>
+   <Piece Source=”unstructuredGrid0.vtu”/>
+   ...
+   </PUnstructuredGrid>
+   </VTKFile>
+```
+
+Every dataset uses PPointData and PCellData elements to describe the types of data arrays associated with its points and cells.
+
+* **PPointData** and **PCellData** — These elements simply mirror the PointData and CellData elements from the serial file formats. They contain PDataArray elements describing the data arrays, but without any actual data.
+```
+   <PPointData Scalars=”Temperature” Vectors=”Velocity”>
+     <PDataArray Name=”Velocity” .../>
+     <PDataArray Name=”Temperature” .../>
+     <PDataArray Name=”Pressure” .../>
+   </PPointData>
+```
+
 For datasets that need specification of points, the following elements mirror their counterparts from the serial file format:
-• PPoints — The PPoints element contains one PDataArray element describing an array with three components.
-The data array does not actually contain any data.
-<PPoints>
-<PDataArray NumberOfComponents=”3” .../>
-</PPoints>
-• PCoordinates — The PCoordinates element contains three PDataArray elements describing the arrays used to
-specify ordinates along each axis. The data arrays do not actually contain any data.
-<PCoordinates>
-<PDataArray .../>
-<PDataArray .../>
-<PDataArray .../>
-</PCoordinates>
-All of the data and geometry specifications use PDataArray elements to describe the data array types:
-• PDataArray — The PDataArray element specifies the type, Name, and optionally the NumberOfComponents
-attributes from the DataArray element. It does not contain the actual data. This can be used by readers to create the
-data array in their output without needing to read any real data, which is necessary for efficient pipeline updates in
-some cases.
-<PDataArray type=”Float32” Name=”vectors” NumberOfComponents=”3”/>
-Example. The following is a complete example specifying a vtkPolyData representing a cube with some scalar data on
-its points and faces.
-<?xml version="1.0"?>
-<VTKFile type="PPolyData" version="0.1" byte_order="LittleEndian">
-<PPolyData GhostLevel="0">
-<PPointData Scalars="my_scalars">
-<PDataArray type="Float32" Name="my_scalars"/>
-</PPointData>
-<PCellData Scalars="cell_scalars" Normals="cell_normals">
-<PDataArray type="Int32" Name="cell_scalars"/>
-<PDataArray type="Float32" Name="cell_normals" NumberOfComponents="3"/>
-</PCellData>
-<PPoints>
-<PDataArray type="Float32" NumberOfComponents="3"/>
-</PPoints>
-<Piece Source="polyEx0.vtp"/>
-</PPolyData>
-XML File Formats 19
-</VTKFile>
-<?xml version="1.0"?>
-<VTKFile type="PolyData" version="0.1" byte_order="LittleEndian">
-<PolyData>
-<Piece NumberOfPoints="8" NumberOfVerts="0" NumberOfLines="0"
-NumberOfStrips="0" NumberOfPolys="6">
-<Points>
-<DataArray type="Float32" NumberOfComponents="3" format="ascii">
-000100110010001101111011
-</DataArray>
-</Points>
-<PointData Scalars="my_scalars">
-<DataArray type="Float32" Name="my_scalars" format="ascii">
-01234567
-</DataArray>
-</PointData>
-<CellData Scalars="cell_scalars" Normals="cell_normals">
-<DataArray type="Int32" Name="cell_scalars" format="ascii">
-012345
-</DataArray>
-<DataArray type="Float32" Name="cell_normals"
-NumberOfComponents="3" format="ascii">
-0 0 -1 0 0 1 0 -1 0 0 1 0 -1 0 0 1 0 0
-</DataArray>
-</CellData>
-<Polys>
-<DataArray type="Int32" Name="connectivity" format="ascii">
-012345670154237604731265
-</DataArray>
-<DataArray type="Int32" Name="offsets" format="ascii">
-4 8 12 16 20 24
-</DataArray>
-</Polys>
-</Piece>
-</PolyData>
-</VTKFile>
+
+* **PPoints** — The _PPoints_ element contains one PDataArray element describing an array with three components. The data array does not actually contain any data.
+```
+   <PPoints>
+     <PDataArray NumberOfComponents=”3” .../>
+   </PPoints>
+```
+
+* **PCoordinates** — The _PCoordinates_ element contains three PDataArray elements describing the arrays used to specify ordinates along each axis. The data arrays do not actually contain any data.
+```
+   <PCoordinates>
+     <PDataArray .../>
+     <PDataArray .../>
+     <PDataArray .../>
+   </PCoordinates>
+```
+
+All of the data and geometry specifications use _PDataArray_ elements to describe the data array types:
+
+* **PDataArray** — The _PDataArray_ element specifies the type, Name, and optionally the NumberOfComponents attributes from the _DataArray_ element. It does not contain the actual data. This can be used by readers to create the data array in their output without needing to read any real data, which is necessary for efficient pipeline updates in some cases.
+```
+   <PDataArray type=”Float32” Name=”vectors” NumberOfComponents=”3”/>
+```
+
+**Example.** The following is a complete example specifying a vtkPolyData representing a cube with some scalar data on its points and faces.
+```
+   <?xml version="1.0"?>
+   <VTKFile type="PPolyData" version="0.1" byte_order="LittleEndian">
+     <PPolyData GhostLevel="0">
+       <PPointData Scalars="my_scalars">
+         <PDataArray type="Float32" Name="my_scalars"/>
+       </PPointData>
+       <PCellData Scalars="cell_scalars" Normals="cell_normals">
+         <PDataArray type="Int32" Name="cell_scalars"/>
+         <PDataArray type="Float32" Name="cell_normals" NumberOfComponents="3"/>
+       </PCellData>
+       <PPoints>
+         <PDataArray type="Float32" NumberOfComponents="3"/>
+       </PPoints>
+       <Piece Source="polyEx0.vtp"/>
+     </PPolyData>
+   </VTKFile>
+
+   <?xml version="1.0"?>
+   <VTKFile type="PolyData" version="0.1" byte_order="LittleEndian">
+     <PolyData>
+       <Piece NumberOfPoints="8" NumberOfVerts="0" NumberOfLines="0"
+              NumberOfStrips="0" NumberOfPolys="6">
+       <Points>
+         <DataArray type="Float32" NumberOfComponents="3" format="ascii">
+           0 0 0 1 0 0 1 1 0 0 1 0 0 0 1 1 0 1 1 1 1 0 1 1
+         </DataArray>
+       </Points>
+       <PointData Scalars="my_scalars">
+         <DataArray type="Float32" Name="my_scalars" format="ascii">
+           0 1 2 3 4 5 6 7
+`         </DataArray>
+       </PointData>
+       <CellData Scalars="cell_scalars" Normals="cell_normals">
+         <DataArray type="Int32" Name="cell_scalars" format="ascii">
+           0 1 2 3 4 5
+         </DataArray>
+         <DataArray type="Float32" Name="cell_normals"
+                    NumberOfComponents="3" format="ascii">
+           0 0 -1 0 0 1 0 -1 0 0 1 0 -1 0 0 1 0 0
+         </DataArray>
+       </CellData>
+          <Polys>
+            <DataArray type="Int32" Name="connectivity" format="ascii">
+              0 1 2 3 4 5 6 7 0 1 5 4 2 3 7 6 0 4 7 3 1 2 6 5
+            </DataArray>
+            <DataArray type="Int32" Name="offsets" format="ascii">
+              4 8 12 16 20 24
+            </DataArray>
+        </Polys>
+      </Piece>
+    </PolyData>
+   </VTKFile>
+```
