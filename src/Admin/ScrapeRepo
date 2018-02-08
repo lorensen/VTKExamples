@@ -291,6 +291,7 @@ AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Snippets.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Python/Snippets.md", DocDir + "/Python/Snippets.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", DocDir + "/VTKBookFigures.md")
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/VTKFileFormats.md", DocDir + "/VTKFileFormats.md")
 
 # C++ Snippets
 snippets = ['ReadPolyData', 'SaveSceneToFieldData', 'SaveSceneToFile', 'RestoreSceneFromFieldData', 'RestoreSceneFromFile', 'ChooseContrastingColor', 'ViewportBorders', 'WriteImage']
