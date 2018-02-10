@@ -20,9 +20,9 @@ The legacy VTK file formats consist of five basic parts.
 
 3. The next part is the file format. The file format describes the type of file, either ASCII or binary. On this line the single word ASCII or BINARY must appear.
 
-4. The fourth part is the dataset structure. The geometry part describes the geometry and topology of the dataset. This part begins with a line containing the keyword DATASET followed by a keyword describing the type of dataset.Then, depending upon the type of dataset, other keyword/data combinations define the actual data.
+4. The fourth part is the dataset structure. The geometry part describes the geometry and topology of the dataset. This part begins with a line containing the keyword _DATASET_ followed by a keyword describing the type of dataset.Then, depending upon the type of dataset, other keyword/data combinations define the actual data.
 
-5. The final part describes the dataset attributes. This part begins with the keywords POINT_DATA or CELL_DATA, followed by an integer number specifying the number of points or cells, respectively. (It doesn’t matter whether POINT_DATA or CELL_DATA comes first.) Other keyword/data combinations then define the actual dataset attribute values (i.e., scalars, vectors, tensors, normals, texture coordinates, or field data).
+5. The final part describes the dataset attributes. This part begins with the keywords _POINT_DATA_ or _CELL_DATA_, followed by an integer number specifying the number of points or cells, respectively. (It doesn’t matter whether _POINT_DATA_ or _CELL_DATA_ comes first.) Other keyword/data combinations then define the actual dataset attribute values (i.e., scalars, vectors, tensors, normals, texture coordinates, or field data).
 
 An overview of the file format is shown in Figure 1. The first three parts are mandatory, but the other two are optional. Thus you have the flexibility of mixing and matching dataset attributes and geometry, either by operating system file
 manipulation or using VTK filters to merge data. Keywords are case insensitive, and may be separated by whitespace. Before describing the data file formats please note the following.
@@ -74,7 +74,7 @@ SPACING s  s  s
 
 * Structured Grid
 
-The file format supports 1D, 2D, and 3D structured grid datasets. The dimensions nx, ny, nz must be greater than or equal to 1. The point coordinates are defined by the data in the POINTS section. This consists of x-y-z data values for each point.
+The file format supports 1D, 2D, and 3D structured grid datasets. The dimensions nx, ny, nz must be greater than or equal to 1. The point coordinates are defined by the data in the _POINTS_ section. This consists of x-y-z data values for each point.
 ```
 DATASET STRUCTURED_GRID
 DIMENSIONS n  n  n
@@ -112,7 +112,7 @@ z  z  ... z(
 
 * Polygonal Data
 
-The polygonal dataset consists of arbitrary combinations of surface graphics primitives vertices (and polyvertices), lines (and polylines), polygons (of various types), and triangle strips. Polygonal data is defined by the POINTS, VERTICES, LINES, POLYGONS, or TRIANGLE_STRIPS sections. The POINTS definition is the same as we saw for structured grid datasets. The VERTICES, LINES, POLYGONS, or TRIANGLE_STRIPS keywords define the polygonal dataset topology. Each of these keywords requires two parameters: the number of cells n and the size of the cell list size. The cell list size is the total number of integer values required to represent the list (i.e., sum of numPoints and connectivity indices over each cell). None of the keywords VERTICES, LINES, POLYGONS, or TRIANGLE_STRIPS is required.
+The polygonal dataset consists of arbitrary combinations of surface graphics primitives vertices (and polyvertices), lines (and polylines), polygons (of various types), and triangle strips. Polygonal data is defined by the _POINTS_, _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ sections. The _POINTS_ definition is the same as we saw for structured grid datasets. The _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ keywords define the polygonal dataset topology. Each of these keywords requires two parameters: the number of cells n and the size of the cell list size. The cell list size is the total number of integer values required to represent the list (i.e., sum of numPoints and connectivity indices over each cell). None of the keywords _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ is required.
 ```
 DATASET POLYDATA
 POINTS n dataType
@@ -495,8 +495,7 @@ VECTORS vectors float
 0 0 1  0 0 1  0 0 1
 ```
 
-The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on page 158 to see how to manipulate this data. (The data file shown below can be found in its entirety in
-$VTK_DATA_ROOT/Data/financial.vtk.)
+The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on page 158 to see how to manipulate this data. (The data file shown below can be found in its entirety [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/financial.vtk).
 
 ```
 # vtk DataFile Version 2.0
