@@ -4,6 +4,7 @@
     This is a works in progress. Stay tuned.
 
 The *Visualization Toolkit* provides a number of source and writer objects to read and write popular data file formats. The *Visualization Toolkit* also provides some of its own file formats. The main reason for creating yet another data file format is to offer a consistent data representation scheme for a variety of dataset types, and to provide a simple method to communicate data between software. Whenever possible, we recommend that you use formats that are more widely used. But if this is not possible, the *Visualization Toolkit* formats described here can be used instead. Note that these formats may not be supported by many other tools.
+
 There are two different styles of file formats available in VTK. The simplest are the legacy, serial formats that are easy to read and write either by hand or programmatically. However, these formats are less flexible than the XML based file formats described later in this section. The XML formats support random access, parallel I/O, and portable data compression and are preferred to the serial VTK file formats whenever possible.
 
 ## Simple Legacy Formats
@@ -61,9 +62,11 @@ The file format supports 1D, 2D, and 3D structured point datasets. The dimension
 
 ```
 DATASET STRUCTURED_POINTS
-DIMENSIONS nx ny nz
+DIMENSIONS n  n  n
+            x  y  z
 ORIGIN xyz
-SPACING sx sy sz
+SPACING s  s  s 
+         x  y  z
 ```
 
 * Structured Grid
@@ -71,12 +74,16 @@ SPACING sx sy sz
 The file format supports 1D, 2D, and 3D structured grid datasets. The dimensions nx, ny, nz must be greater than or equal to 1. The point coordinates are defined by the data in the POINTS section. This consists of x-y-z data values for each point.
 ```
 DATASET STRUCTURED_GRID
-DIMENSIONS nx ny nz
+DIMENSIONS n  n  n
+            x  y  z
 POINTS n dataType
-p0x p0y p0z
-p1x p1y p1z
+p   p   p
+ 0x  0y  0z
+p   p   p
+ 1x  1y  1z
 ...
-p(n-1)x p(n-1)y p(n-1)z
+p       p       p
+ (n-1)x  (n-1)y  (n-1)z
 ```
 
 * Rectilinear Grid
@@ -84,13 +91,20 @@ p(n-1)x p(n-1)y p(n-1)z
 A rectilinear grid defines a dataset with regular topology, and semi-regular geometry aligned along the x-y-z coordinate axes. The geometry is defined by three lists of monotonically increasing coordinate values, one list for each of the x-y-z coordinate axes. The topology is defined by specifying the grid dimensions, which must be greater than or equal to 1.
 ```
 DATASET RECTILINEAR_GRID
-DIMENSIONS nx ny nz
-X_COORDINATES nx dataType
-x0 x1 ... x(nx-1)
-Y_COORDINATES ny dataType
-y0 y1 ... y(ny-1)
-Z_COORDINATES nz dataType
-z0 z1 ... z(nz-1)
+DIMENSIONS n  n  n
+            x  y  z
+X_COORDINATES n  dataType
+               x
+x  x  ... x
+ 0  1      (nx-1)
+Y_COORDINATES n  dataType
+               y
+y  y  ... y
+ 0  1      (ny-1)
+Z_COORDINATES n  dataType
+               z
+z  z  ... z(
+ 0  1      (nz-1)
 ```
 
 * Polygonal Data
@@ -99,30 +113,49 @@ The polygonal dataset consists of arbitrary combinations of surface graphics pri
 ```
 DATASET POLYDATA
 POINTS n dataType
-p0x p0y p0z
-p1x p1y p1z
+p   p   p
+ 0x  0y  0z
+p   p   p
+ 1x  1y  1z
 ...
-p(n-1)x p(n-1)y p(n-1)z
+p       p       p
+ (n-1)x  (n-1)y  (n-1)z
+
 VERTICES n size
-numPoints0, i0, j0, k0, ...
-numPoints1, i1, j1, k1, ...
+numPoints, i , j , k , ...
+         0  0   0   0
+numPoints, i , j , k , ...
+         1  1   1   1
 ...
-numPointsn-1, in-1, jn-1, kn-1, ...
+numPoints   , i   , j   , k   , ...
+         n-1   n-1   n-1   n-1
+
 LINES n size
-numPoints0, i0, j0, k0, ...
-numPoints1, i1, j1, k1, ...
+numPoints , i , j , k , ...
+         0   0   0   0
+numPoints , i , j , k , ...
+         1   1   1   1
 ...
-numPointsn-1, in-1, jn-1, kn-1, ...
+numPoints   , i   , j   , k   , ...
+         n-1   n-1   n-1   n-1
+
 POLYGONS n size
-numPoints0, i0, j0, k0, ...
-numPoints1, i1, j1, k1, ...
+numPoints , i , j , k , ...
+         0   0   0   0
+numPoints , i , j , k , ...
+         1   1   1   1
 ...
-numPointsn-1, in-1, jn-1, kn-1, ...
+numPoints   , i   , j   , k   , ...
+         n-1   n-1   n-1   n-1
+
 TRIANGLE_STRIPS n size
-numPoints0, i0, j0, k0, ...
-numPoints1, i1, j1, k1, ...
+numPoints , i , j , k , ...
+         0   0   0   0
+numPoints , i , j , k , ...
+         1   1   1   1
 ...
-numPointsn-1, in-1, jn-1, kn-1, ...
+numPoints   , i   , j   , k   , ...
+         n-1   n-1   n-1   n-1
 ```
 
 * Unstructured Grid
@@ -131,23 +164,32 @@ The unstructured grid dataset consists of arbitrary combinations of any possible
 ```
 DATASET UNSTRUCTURED_GRID
 POINTS n dataType
-p0x p0y p0z
-p1x p1y p1z
+p   p   p
+ 0x  0y  0z
+p   p   p
+ 1x  1y  1z
 ...
-p(n-1)x p(n-1)y p(n-1)z
+p       p       p
+ (n-1)x  (n-1)y  (n-1)z
+
 CELLS n size
-numPoints0, i, j, k, l, ...
+numPoints , i, j, k, l, ...
+         0
 numPoints1, i, j, k, l, ...
 numPoints2, i, j, k, l, ...
 ...
 numPointsn-1, i, j, k, l, ...
-Simple Legacy Formats 5
+
 CELL_TYPES n
-type0
-type1
-type2
+type
+    0
+type
+    1
+type
+    2
 ...
-typen-1
+type
+    n-1
 ```
 
 * Field
@@ -166,18 +208,24 @@ Scalar definition includes specification of a lookup table. The definition of a 
 ```
 SCALARS dataName dataType numComp
 LOOKUP_TABLE tableName
-s0
-s1
+s
+ 0
+s
+ 1
 ...
-sn-1
+s
+ n-1
 ```
 The definition of color scalars (i.e., unsigned char values directly mapped to color) varies depending upon the number of values (nValues) per scalar. If the file format is ASCII, the color scalars are defined using nValues float values between (0,1). If the file format is BINARY, the stream of data consists of nValues unsigned char values per scalar value.
 ```
 COLOR_SCALARS dataName nValues
-c00 c01 ... c0(nValues-1)
-c10 c11 ... c1(nValues-1)
+c   c   ... c
+ 00  01      0(nValues-1)
+c   c   ... c
+ 10  11      1(nValues-1)
 ...
-c(n-1)0 c(n-1)1 ... c(n-1)(nValues-1)
+c       c       ... c
+ (n-1)0  (n-1)1 ...  (n-1)(nValues-1)
 ```
 
 * Lookup Table
@@ -187,29 +235,38 @@ The *tableName* field is a character string (without imbedded white space) used 
 Each entry in the lookup table is a rgba[4] (red-green-blue-alpha) array (alpha is opacity where alpha=0 is transparent). If the file format is ASCII, the lookup table values must be float values between (0,1). If the file format is BINARY, the stream of data must be four unsigned char values per table entry.
 ```
 LOOKUP_TABLE tableName size
-r0 g0 b0 a0
-r1 g1 b1 a1
+r  g  b  a
+ 0  0  0  0
+r  g  b  a
+ 1  1  1  1
 ...
-rsize-1 gsize-1 bsize-1 asize-1
+r      g      b      a
+ size-1 size-1 size-1 size-1
 ```
 
 * Vectors
 ```
 VECTORS dataName dataType
-v0x v0y v0z
-v1x v1y v1z
+v   v   v
+ 0x  0y  0z
+v   v   v
+ 1x  1y  1z
 ...
-v(n-1)x v(n-1)y v(n-1)z
+v      v      v
+ (n-1)x (n-1)y (n-1)z
 ```
 * Normals
 
 Normals are assumed normalized.
 ```
 NORMALS dataName dataType
-n0x n0y n0z
-n1x n1y n1z
+n   n   n
+ 0x  0y  0z
+n   n   n
+ 1x  1y  1z
 ...
-n(n-1)x n(n-1)y n(n-1)z
+n      n      n
+ (n-1)x (n-1)y (n-1)z
 ```
 
 * Texture Coordinates
@@ -217,10 +274,13 @@ n(n-1)x n(n-1)y n(n-1)z
 Texture coordinates of 1, 2, and 3 dimensions are supported.
 ```
 TEXTURE_COORDINATES dataName dim dataType
-t00 t01 ... t0(dim-1)
-t10 t11 ... t1(dim-1)
+t   t   ... t
+ 00  01      0(dim-1)
+t   t   ... t
+ 10  11      1(dim-1)
 ...
-t(n-1)0 t(n-1)1 ... t(n-1)(dim-1)
+t        t   ...  t
+ (n-1) 0  11       1(dim-1)
 ```
 
 * Tensors
@@ -228,70 +288,35 @@ t(n-1)0 t(n-1)1 ... t(n-1)(dim-1)
 Currently only real-valued, symmetric tensors are supported.
 ```
 TENSORS dataName dataType
-t
-0
-00 t
-0
-01 t
-0
-02
-t
-0
-10 t
-0
-11 t
-0
-12
-t
-0
-20 t
-0
-21 t
-0
-22
-t
-1
-00 t
-1
-01 t
-1
-02
-t
-1
-10 t
-1
-11 t
-1
-12
-t
-1
-20 t
-1
-21 t
-1
-22
+ 0    0    0
+t    t    t
+  00   01   02
+ 0    0    0
+t    t    t
+  10   11   12
+ 0    0    0
+t    t    t
+  20   21   22
+
+ 1    1    1
+t    t    t
+  00   01   02
+ 1    1    1
+t    t    t
+  10   11   12
+ 1    1    1
+t    t    t
+  20   21   22
 ...
-t
-n-1
-00 t
-n-1
-01 t
-n-1
-02
-t
-n-1
-10 t
-n-1
-11 t
-n-1
-12
-t
-n-1
-20 t
-n-1
-21 t
-n-1
-22
+ n-1    n-1   n-1
+t      t     t
+    00     01    02
+ n-1    n-1   n-1
+t      t     t
+    10     11    12
+ n-1    n-1   n-1
+t      t     t
+    20     21    22
 ```
 
 * Field Data
@@ -301,21 +326,31 @@ Field data is essentially an array of data arrays. Defining field data means giv
 ```
 FIELD dataName numArrays
 arrayName0 numComponents numTuples dataType
-f00 f01 ... f0(numComponents-1)
-f10 f11 ... f1(numComponents-1)
+f   f   ... f
+ 00  01      (numComponents-1)
+f   f   ... f
+ 10  11      (numComponents-1)
 ...
-f(numTuples-1)0 f(numTuples-1)1 ... f(numTuples-1)(numComponents-1)
+f(numTuples-1)0 f(numTuples-1)1 ... f
+ (numTuples-1)0  (numTuples-1)1 ...  (numTuples-1)(numComponents-1)
+
 arrayName1 numComponents numTuples dataType
-f00 f01 ... f0(numComponents-1)
-f10 f11 ... f1(numComponents-1)
+f   f   ... f
+ 00  01      0(numComponents-1)
+f   f   ... f
+ 10  11      1(numComponents-1)
 ...
-f(numTuples-1)0 f(numTuples-1)1 ... f(numTuples-1)(numComponents-1)
+f(numTuples-1)0 f(numTuples-1)1 ... f
+ (numTuples-1)0  (numTuples-1)1 ...  (numTuples-1)(numComponents-1)
 ...
 arrayName(numArrays-1) numComponents numTuples dataType
-f00 f01 ... f0(numComponents-1)
-f10 f11 ... f1(numComponents-1)
+f   f   ... f
+ 00  01      0(numComponents-1)
+f   f   ... f
+ 10  11      1(numComponents-1)
 ...
-f(numTuples-1)0 f(numTuples-1)1 ... f(numTuples-1)(numComponents-1)
+f(numTuples-1)0 f(numTuples-1)1 ... f
+ (numTuples-1)0  (numTuples-1)1      (numTuples-1)(numComponents-1)
 ```
 
 ### Examples.
@@ -335,12 +370,12 @@ POINTS 8 float
 1.0 1.0 1.0
 0.0 1.0 1.0
 POLYGONS 6 30
-40123
-44567
-40154
-42376
-40473
-41265
+4 0 1 2 3
+4 4 5 6 7
+4 0 1 5 4
+4 2 3 7 6
+4 0 4 7 3
+4 1 2 6 5
 CELL_DATA 6
 SCALARS cell_scalars int 1
 LOOKUP_TABLE default
@@ -351,16 +386,15 @@ LOOKUP_TABLE default
 4
 5
 NORMALS cell_normals float
-8 VTK 4.2 File Formats
 0 0 -1
-001
+0 0 1
 0 -1 0
-010
+0 1 0
 -1 0 0
-100
+1 0 0
 FIELD FieldData 2
 cellIds 1 6 int
-012345
+0 1 2 3 4 5
 faceAttributes 2 6 float
 0.0 1.0 1.0 2.0 2.0 3.0 3.0 4.0 4.0 5.0 5.0 6.0
 POINT_DATA 8
@@ -594,7 +628,6 @@ The general structure for each serial dataset format is as follows:
   </StructuredGrid>
 </VTKFile>
 ```
-
 * **PolyData** — Each PolyData piece specifies a set of points and cells independently from the other pieces. The points are described explicitly by the Points element. The cells are described explicitly by the Verts, Lines, Strips, and Polys elements.
 ```xml
 <VTKFile type=”PolyData” ...>
@@ -612,7 +645,6 @@ The general structure for each serial dataset format is as follows:
   </PolyData>
 </VTKFile>
 ```
-
 * **UnstructuredGrid** — Each UnstructuredGrid piece specifies a set of points and cells independently from the other pieces. The points are described explicitly by the Points element. The cells are described explicitly by the Cells element.
 ```xml
 <VTKFile type=”UnstructuredGrid” ...>
@@ -626,7 +658,6 @@ The general structure for each serial dataset format is as follows:
   </UnstructuredGrid>
 </VTKFile>
 ```
-
 Every dataset describes the data associated with its points and cells with PointData and CellData XML elements as follows:
 ```xml
   <PointData Scalars=”Temperature” Vectors=”Velocity”>
@@ -638,7 +669,7 @@ Every dataset describes the data associated with its points and cells with Point
 VTK allows an arbitrary number of data arrays to be associated with the points and cells of a dataset. Each data array is described by a DataArray element which, among other things, gives each array a name. The following attributes of PointData and CellData are used to specify the active arrays by name:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_Scalars_ — The name of the active scalars array, if any.
-
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_Vectors_ — The name of the active vectors array, if any.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_Normals_ — The name of the active normals array, if any.
@@ -664,7 +695,7 @@ Some datasets describe their points and cells using different combinations of th
   </Coordinates>
 ```
 * **Verts**, **Lines**, **Strips**, and **Polys** — The _Verts_, _Lines_, _Strips_, and _Polys_ elements define cells explicitly by specifying point connectivity. Cell types are implicitly known by the type of element in which they are specified. Each element contains two _DataArray_ elements. The first array specifies the point connectivity. All the cells’ point lists are concatenated together. The second array specifies the offset into the connectivity array for the end of each cell.
-```
+```xml
   <Verts>
     <DataArray type=”Int32” Name=”connectivity” .../>
     <DataArray type=”Int32” Name=”offsets” .../>
@@ -775,7 +806,7 @@ The general structure for each parallel dataset format is as follows:
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PPolyData** — The _PPolyData_ element specifies the number of ghost-levels by which the individual pieces overlap. The _PPoints_ element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element specifies the file in which the piece is stored.
-```
+```xml
   <VTKFile type=”PPolyData” ...>
     <PPolyData GhostLevel=”#”>
       <PPointData>...</PPointData>
