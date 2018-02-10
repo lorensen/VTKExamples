@@ -185,7 +185,7 @@ type
     n-1
 ```
 
-* **Field**. Field data is a general format without topological and geometric structure, and without a particular dimensionality. Typically field data is associated with the points or cells of a dataset. However, if the FIELD type is specified as the dataset type (see Figure 1), then a general VTK data object is defined. Use the format described in the next section to define a field. Also see “Working With Field Data” on page 158 and the fourth example in this chapter “Examples” on page 7.
+* **Field**. Field data is a general format without topological and geometric structure, and without a particular dimensionality. Typically field data is associated with the points or cells of a dataset. However, if the FIELD type is specified as the dataset type (see Figure 1), then a general VTK data object is defined. Use the format described in the next section to define a field. Also see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) and the fourth example in this chapter “Examples” on page 7.
 
 ### Dataset Attribute Format.
 
@@ -470,7 +470,7 @@ VECTORS vectors float
 0 0 1  0 0 1  0 0 1
 ```
 
-The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on page 158 to see how to manipulate this data. (The data file shown below can be found in its entirety [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/financial.vtk).
+The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) to see how to manipulate this data. (The data file shown below can be found in its entirety [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/financial.vtk).
 
 ```
 # vtk DataFile Version 2.0
