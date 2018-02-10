@@ -1,4 +1,7 @@
-# VTK File Formats
+# VTK File Formats [^1]
+[^1]: My Footnote
+
+
 
 !!! caution
     This is a works in progress. Stay tuned.
@@ -560,10 +563,7 @@ By convention, each data type and file type is paired with a particular file ext
 * PStructuredGrid (_.pvts_) — Parallel vtkStructuredGrid (structured).
 * PUnstructuredGrid (_.pvtu_) — Parallel vtkUnstructuredGrid (unstructured).
 
-All of the VTK XML file types are valid XML documents.
-!!! note
-    There is one case in which the file is not a valid XML document. When the AppendedData section is not encoded as base64, raw binary data is present that may violate the XML specification. This is not default behavior, and must be explicitly enabled by the user.
-
+All of the VTK XML file types are valid XML documents.[^2]
 The document-level element is _VTKFile_:
 ```xml
 <VTKFile type=”ImageData” version=”0.1” byte_order=”LittleEndian”>
@@ -923,3 +923,7 @@ The following is a complete example specifying a vtkPolyData representing a cube
     </PolyData>
    </VTKFile>
 ```
+[^1]: 
+Taken from [The VTK User’s Guide](https://www.kitware.com/products/books/VTKUsersGuide.pdf).
+[^2]:
+There is one case in which the file is not a valid XML document. When the AppendedData section is not encoded as base64, raw binary data is present that may violate the XML specification. This is not default behavior, and must be explicitly enabled by the user.
