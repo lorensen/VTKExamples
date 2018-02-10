@@ -635,11 +635,11 @@ VTK allows an arbitrary number of data arrays to be associated with the points a
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_Scalars_ — The name of the active scalars array, if any.
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_Vectors_ — The name of the active vectors array, if any.
-
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_Normals_ — The name of the active normals array, if any.
-
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_Tensors_ — The name of the active tensors array, if any.
-
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_TCoords_ — The name of the active texture coordinates array, if any.
 
 Some datasets describe their points and cells using different combinations of the following common elements:
@@ -700,9 +700,9 @@ The attributes of the _DataArray_ elements are described as follows:
 The _format_ attribute chooses among the three ways in which data values can be stored:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_format=”ascii”_ — The data are listed in ASCII directly inside the _DataArray_ element. Whitespace is used for separation.
-
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_format=”binary”_ — The data are encoded in base64 and listed contiguously inside the _DataArray_ element. Data may also be compressed before encoding in base64. The byte-order of the data matches that specified by the byte_order attribute of the _VTKFile_ element.
-
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format=”appended” — The data are stored in the appended data section. Since many _DataArray_ elements may store their data in this section, the offset attribute is used to specify where each DataArray’s data begins. This format is the default used by VTK’s writers.
 
 The appended data section is stored in an _AppendedData_ element that is nested inside _VTKFile_ after the dataset element:
