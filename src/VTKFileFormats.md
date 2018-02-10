@@ -56,12 +56,10 @@ SetDataByteOrderToLittleEndian()
 
 Another problem with binary files is that systems may use a different number of bytes to represent an integer or other native type. For example, some 64-bit systems will represent an integer with 8-bytes, while others represent an integer with 4-bytes. Currently, the *Visualization Toolkit* cannot handle transporting binary files across systems with incompatible data length. In this case, use ASCII file formats instead.
 
-### Dataset Format
+### Dataset Format.
 The *Visualization Toolkit* supports five different dataset formats: structured points, structured grid, rectilinear grid, unstructured grid, and polygonal data. Data with implicit topology (structured data such as vtkImageData and vtkStructuredGrid) are ordered with x increasing fastest, then y, then z. These formats are as follows.
 
-* Structured Points
-
-The file format supports 1D, 2D, and 3D structured point datasets. The dimensions nx, ny, nz must be greater than or equal to 1. The data spacing sx, sy, sz must be greater than 0. (Note: in the version 1.0 data file, spacing was referred to as “aspect ratio”. ASPECT_RATIO can still be used in version 2.0 data files, but is discouraged.)
+* **Structured Points**. The file format supports 1D, 2D, and 3D structured point datasets. The dimensions nx, ny, nz must be greater than or equal to 1. The data spacing sx, sy, sz must be greater than 0. (Note: in the version 1.0 data file, spacing was referred to as “aspect ratio”. ASPECT_RATIO can still be used in version 2.0 data files, but is discouraged.)
 
 ```
 DATASET STRUCTURED_POINTS
@@ -72,9 +70,7 @@ SPACING s  s  s
          x  y  z
 ```
 
-* Structured Grid
-
-The file format supports 1D, 2D, and 3D structured grid datasets. The dimensions nx, ny, nz must be greater than or equal to 1. The point coordinates are defined by the data in the _POINTS_ section. This consists of x-y-z data values for each point.
+* **Structured Grid**. The file format supports 1D, 2D, and 3D structured grid datasets. The dimensions nx, ny, nz must be greater than or equal to 1. The point coordinates are defined by the data in the _POINTS_ section. This consists of x-y-z data values for each point.
 ```
 DATASET STRUCTURED_GRID
 DIMENSIONS n  n  n
@@ -89,9 +85,7 @@ p       p       p
  (n-1)x  (n-1)y  (n-1)z
 ```
 
-* Rectilinear Grid
-
-A rectilinear grid defines a dataset with regular topology, and semi-regular geometry aligned along the x-y-z coordinate axes. The geometry is defined by three lists of monotonically increasing coordinate values, one list for each of the x-y-z coordinate axes. The topology is defined by specifying the grid dimensions, which must be greater than or equal to 1.
+* **Rectilinear Grid**. A rectilinear grid defines a dataset with regular topology, and semi-regular geometry aligned along the x-y-z coordinate axes. The geometry is defined by three lists of monotonically increasing coordinate values, one list for each of the x-y-z coordinate axes. The topology is defined by specifying the grid dimensions, which must be greater than or equal to 1.
 ```
 DATASET RECTILINEAR_GRID
 DIMENSIONS n  n  n
@@ -110,9 +104,7 @@ z  z  ... z(
  0  1      (nz-1)
 ```
 
-* Polygonal Data
-
-The polygonal dataset consists of arbitrary combinations of surface graphics primitives vertices (and polyvertices), lines (and polylines), polygons (of various types), and triangle strips. Polygonal data is defined by the _POINTS_, _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ sections. The _POINTS_ definition is the same as we saw for structured grid datasets. The _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ keywords define the polygonal dataset topology. Each of these keywords requires two parameters: the number of cells n and the size of the cell list size. The cell list size is the total number of integer values required to represent the list (i.e., sum of numPoints and connectivity indices over each cell). None of the keywords _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ is required.
+* **Polygonal Data**. The polygonal dataset consists of arbitrary combinations of surface graphics primitives vertices (and polyvertices), lines (and polylines), polygons (of various types), and triangle strips. Polygonal data is defined by the _POINTS_, _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ sections. The _POINTS_ definition is the same as we saw for structured grid datasets. The _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ keywords define the polygonal dataset topology. Each of these keywords requires two parameters: the number of cells n and the size of the cell list size. The cell list size is the total number of integer values required to represent the list (i.e., sum of numPoints and connectivity indices over each cell). None of the keywords _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ is required.
 ```
 DATASET POLYDATA
 POINTS n dataType
@@ -161,9 +153,7 @@ numPoints   , i   , j   , k   , ...
          n-1   n-1   n-1   n-1
 ```
 
-* Unstructured Grid
-
-The unstructured grid dataset consists of arbitrary combinations of any possible cell type. Unstructured grids are defined by points, cells, and cell types. The CELLS keyword requires two parameters: the number of cells n and the size of the cell list size. The cell list size is the total number of integer values required to represent the list (i.e., sum of numPoints and connectivity indices over each cell). The CELL_TYPES keyword requires a single parameter: the number of cells n. This value should match the value specified by the CELLS keyword. The cell types data is a single integer value per cell that specified cell type (see vtkCell.h or Figure 2).
+* **Unstructured Grid**. The unstructured grid dataset consists of arbitrary combinations of any possible cell type. Unstructured grids are defined by points, cells, and cell types. The CELLS keyword requires two parameters: the number of cells n and the size of the cell list size. The cell list size is the total number of integer values required to represent the list (i.e., sum of numPoints and connectivity indices over each cell). The CELL_TYPES keyword requires a single parameter: the number of cells n. This value should match the value specified by the CELLS keyword. The cell types data is a single integer value per cell that specified cell type (see vtkCell.h or Figure 2).
 ```
 DATASET UNSTRUCTURED_GRID
 POINTS n dataType
@@ -195,9 +185,7 @@ type
     n-1
 ```
 
-* Field
-
-Field data is a general format without topological and geometric structure, and without a particular dimensionality. Typically field data is associated with the points or cells of a dataset. However, if the FIELD type is specified as the dataset type (see Figure 1), then a general VTK data object is defined. Use the format described in the next section to define a field. Also see “Working With Field Data” on page 158 and the fourth example in this chapter “Examples” on page 7.
+* **Field**. Field data is a general format without topological and geometric structure, and without a particular dimensionality. Typically field data is associated with the points or cells of a dataset. However, if the FIELD type is specified as the dataset type (see Figure 1), then a general VTK data object is defined. Use the format described in the next section to define a field. Also see “Working With Field Data” on page 158 and the fourth example in this chapter “Examples” on page 7.
 
 ### Dataset Attribute Format.
 
@@ -205,9 +193,7 @@ The Visualization Toolkit supports the following dataset attributes: scalars (on
 
 Each type of attribute data has a dataName associated with it. This is a character string (without embedded whitespace) used to identify a particular data. The dataName is used by the VTK readers to extract data. As a result, more than one attribute data of the same type can be included in a file. For example, two different scalar fields defined on the dataset points, pressure and temperature, can be contained in the same file. (If the appropriate dataName is not specified in the VTK reader, then the first data of that type is extracted from the file.)
 
-* Scalars
-
-Scalar definition includes specification of a lookup table. The definition of a lookup table is optional. If not specified, the default VTK table will be used (and tableName should be “default”). Also note that the numComp variable is optional—by default the number of components is equal to one. (The parameter numComp must range between (1,4) inclusive; in versions of VTK prior to vtk2.3 this parameter was not supported.)
+* **Scalars**. Scalar definition includes specification of a lookup table. The definition of a lookup table is optional. If not specified, the default VTK table will be used (and tableName should be “default”). Also note that the numComp variable is optional—by default the number of components is equal to one. (The parameter numComp must range between (1,4) inclusive; in versions of VTK prior to vtk2.3 this parameter was not supported.)
 ```
 SCALARS dataName dataType numComp
 LOOKUP_TABLE tableName
@@ -231,10 +217,7 @@ c       c       ... c
  (n-1)0  (n-1)1 ...  (n-1)(nValues-1)
 ```
 
-* Lookup Table
-
-The *tableName* field is a character string (without imbedded white space) used to identify the lookup table. This label is used by the VTK reader to extract a specific table.
-
+* **Lookup Table**. The *tableName* field is a character string (without imbedded white space) used to identify the lookup table. This label is used by the VTK reader to extract a specific table.
 Each entry in the lookup table is a rgba[4] (red-green-blue-alpha) array (alpha is opacity where alpha=0 is transparent). If the file format is ASCII, the lookup table values must be float values between (0,1). If the file format is BINARY, the stream of data must be four unsigned char values per table entry.
 ```
 LOOKUP_TABLE tableName size
@@ -247,7 +230,7 @@ r      g      b      a
  size-1 size-1 size-1 size-1
 ```
 
-* Vectors
+* **Vectors**.
 ```
 VECTORS dataName dataType
 v   v   v
@@ -258,9 +241,7 @@ v   v   v
 v      v      v
  (n-1)x (n-1)y (n-1)z
 ```
-* Normals
-
-Normals are assumed normalized.
+* **Normals**. Normals are assumed normalized.
 ```
 NORMALS dataName dataType
 n   n   n
@@ -272,9 +253,7 @@ n      n      n
  (n-1)x (n-1)y (n-1)z
 ```
 
-* Texture Coordinates
-
-Texture coordinates of 1, 2, and 3 dimensions are supported.
+* **Texture Coordinates**. Texture coordinates of 1, 2, and 3 dimensions are supported.
 ```
 TEXTURE_COORDINATES dataName dim dataType
 t   t   ... t
@@ -286,9 +265,7 @@ t        t   ...  t
  (n-1) 0  11       1(dim-1)
 ```
 
-* Tensors
-
-Currently only real-valued, symmetric tensors are supported.
+* **Tensors**. Currently only real-valued, symmetric tensors are supported.
 ```
 TENSORS dataName dataType
  0    0    0
@@ -322,9 +299,7 @@ t      t     t
     20     21    22
 ```
 
-* Field Data
-
-Field data is essentially an array of data arrays. Defining field data means giving a name to the field and specifying the number of arrays it contains. Then, for each array, the name of the array arrayName(i), the number of components of the array, numComponents, the number of tuples in the array, numTuples, and the data type, dataType, are defined.
+* **Field Data**. Field data is essentially an array of data arrays. Defining field data means giving a name to the field and specifying the number of arrays it contains. Then, for each array, the name of the array arrayName(i), the number of components of the array, numComponents, the number of tuples in the array, numTuples, and the data type, dataType, are defined.
 
 ```
 FIELD dataName numArrays
@@ -530,24 +505,16 @@ VTK provides another set of data formats using XML syntax. While these formats a
 
 There are two types of VTK XML data files: parallel and serial as described in the following.
 
-* Serial.
-
-File types designed for reading and writing by applications of only a single process. All of the data are contained
+* **Serial**. File types designed for reading and writing by applications of only a single process. All of the data are contained
 within a single file.
 
-* Parallel.
-
-File types designed for reading and writing by applications with multiple processes executing in parallel. The dataset is broken into pieces. Each process is assigned a piece or set of pieces to read or write. An individual piece is stored in a corresponding serial file type. The parallel file type does not actually contain any data, but instead describes structural information and then references other serial files containing the data for each piece.
+* **Parallel**. File types designed for reading and writing by applications with multiple processes executing in parallel. The dataset is broken into pieces. Each process is assigned a piece or set of pieces to read or write. An individual piece is stored in a corresponding serial file type. The parallel file type does not actually contain any data, but instead describes structural information and then references other serial files containing the data for each piece.
 
 In the XML format, VTK datasets are classified into one of two categories.
 
-* Structured.
+* **Structured**. The dataset is a topologically regular array of cells such as pixels and voxels (e.g., image data) or quadrilaterals and hexahedra (e.g., structured grid) (see “The Visualization Model” on page 19 for more information). Rectangular subsets of the data are described through extents. The structured dataset types are vtkImageData, vtkRectilinearGrid, and vtkStructuredGrid.
 
-The dataset is a topologically regular array of cells such as pixels and voxels (e.g., image data) or quadrilaterals and hexahedra (e.g., structured grid) (see “The Visualization Model” on page 19 for more information). Rectangular subsets of the data are described through extents. The structured dataset types are vtkImageData, vtkRectilinearGrid, and vtkStructuredGrid.
-
-* Unstructured.
-
-The dataset forms a topologically irregular set of points and cells. Subsets of the data are describedusing pieces. The unstructured dataset types are vtkPolyData and vtkUnstructuredGrid (see “The Visualization Model” on page 19 for more information).
+* **Unstructured**. The dataset forms a topologically irregular set of points and cells. Subsets of the data are describedusing pieces. The unstructured dataset types are vtkPolyData and vtkUnstructuredGrid (see “The Visualization Model” on page 19 for more information).
 
 By convention, each data type and file type is paired with a particular file extension. The types and corresponding extensions are
 
