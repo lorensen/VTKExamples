@@ -394,7 +394,7 @@ LOOKUP_TABLE my_table 8
 0.0 1.0 1.0 1.0
 1.0 1.0 1.0 1.0
 ```
-The next example is a volume of dimension . Since no lookup table is defined, either the user must create one in VTK, or the default lookup table will be used.
+The next example is a volume of dimension 3 by 4 by 5. Since no lookup table is defined, either the user must create one in VTK, or the default lookup table will be used.
 ```
 # vtk DataFile Version 2.0
 Volume example
@@ -555,7 +555,8 @@ _PointData_ and _CellData_ elements specifying the data for each point and cell 
 
 The general structure for each serial dataset format is as follows:
 
-* **ImageData** — Each ImageData piece specifies its extent within the dataset’s whole extent. The points and cells are described implicitly by the extent, origin, and spacing. Note that the origin and spacing are constant across all pieces, so they are specified as attributes of the _ImageData_ XML element as follows.
+#### **ImageData**
+Each ImageData piece specifies its extent within the dataset’s whole extent. The points and cells are described implicitly by the extent, origin, and spacing. Note that the origin and spacing are constant across all pieces, so they are specified as attributes of the _ImageData_ XML element as follows.
 ```xml
 <VTKFile type=”ImageData” ...>
   <ImageData WholeExtent=”x1 x2 y1 y2 z1 z2”
@@ -568,7 +569,8 @@ The general structure for each serial dataset format is as follows:
 </VTKFile>
 ```
 
-* **RectilinearGrid** — Each RectilinearGrid piece specifies its extent within the dataset’s whole extent. The points are described by the _Coordinates_ element. The cells are described implicitly by the extent.
+#### **RectilinearGrid**
+Each RectilinearGrid piece specifies its extent within the dataset’s whole extent. The points are described by the _Coordinates_ element. The cells are described implicitly by the extent.
 ```xml
 <VTKFile type=”RectilinearGrid” ...>
   <RectilinearGrid WholeExtent=”x1 x2 y1 y2 z1 z2”>
@@ -580,7 +582,8 @@ The general structure for each serial dataset format is as follows:
   </RectilinearGrid>
 </VTKFile>
 ```
-* **StructuredGrid** — Each StructuredGrid piece specifies its extent within the dataset’s whole extent. The points are described explicitly by the Points element. The cells are described implicitly by the extent.
+#### **StructuredGrid**
+Each StructuredGrid piece specifies its extent within the dataset’s whole extent. The points are described explicitly by the Points element. The cells are described implicitly by the extent.
 ```xml
 <VTKFile type=”StructuredGrid” ...>
   <StructuredGrid WholeExtent=”x1 x2 y1 y2 z1 z2”>
@@ -592,7 +595,8 @@ The general structure for each serial dataset format is as follows:
   </StructuredGrid>
 </VTKFile>
 ```
-* **PolyData** — Each PolyData piece specifies a set of points and cells independently from the other pieces. The points are described explicitly by the Points element. The cells are described explicitly by the Verts, Lines, Strips, and Polys elements.
+#### **PolyData**
+Each PolyData piece specifies a set of points and cells independently from the other pieces. The points are described explicitly by the Points element. The cells are described explicitly by the Verts, Lines, Strips, and Polys elements.
 ```xml
 <VTKFile type=”PolyData” ...>
   <PolyData>
@@ -609,7 +613,8 @@ The general structure for each serial dataset format is as follows:
   </PolyData>
 </VTKFile>
 ```
-* **UnstructuredGrid** — Each UnstructuredGrid piece specifies a set of points and cells independently from the other pieces. The points are described explicitly by the Points element. The cells are described explicitly by the Cells element.
+#### **UnstructuredGrid**
+Each UnstructuredGrid piece specifies a set of points and cells independently from the other pieces. The points are described explicitly by the Points element. The cells are described explicitly by the Cells element.
 ```xml
 <VTKFile type=”UnstructuredGrid” ...>
   <UnstructuredGrid>
@@ -726,7 +731,8 @@ The parallel dataset element and those nested inside specify the types of the da
 
 The general structure for each parallel dataset format is as follows:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PImageData** — The _PImageData_ element specifies the whole extent of the dataset and the number of ghost-levels by which the extents in the individual pieces overlap. The Origin and Spacing attributes implicitly specify the point locations. Each _Piece_ element describes the extent of one piece and the file in which it is stored.
+#### **PImageData**
+The _PImageData_ element specifies the whole extent of the dataset and the number of ghost-levels by which the extents in the individual pieces overlap. The Origin and Spacing attributes implicitly specify the point locations. Each _Piece_ element describes the extent of one piece and the file in which it is stored.
 ```xml
   <VTKFile type=”PImageData” ...>
     <PImageData WholeExtent=”x1 x2 y1 y2 z1 z2”
@@ -739,7 +745,8 @@ The general structure for each parallel dataset format is as follows:
   </VTKFile>
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PRectilinearGrid** — The _PRectilinearGrid_ element specifies the whole extent of the dataset and the number of ghost-levels by which the extents in the individual pieces overlap. The _PCoordinates_ element describes the type of arrays used to specify the point ordinates along each axis, but does not actually contain the data. Each _Piece_ element describes the extent of one piece and the file in which it is stored.
+#### **PRectilinearGrid**
+The _PRectilinearGrid_ element specifies the whole extent of the dataset and the number of ghost-levels by which the extents in the individual pieces overlap. The _PCoordinates_ element describes the type of arrays used to specify the point ordinates along each axis, but does not actually contain the data. Each _Piece_ element describes the extent of one piece and the file in which it is stored.
 ```xml
   <VTKFile type=”PRectilinearGrid” ...>
     <PRectilinearGrid WholeExtent=”x1 x2 y1 y2 z1 z2”
@@ -753,8 +760,8 @@ The general structure for each parallel dataset format is as follows:
     </PRectilinearGrid>
   </VTKFile>
 ```
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PStructuredGrid** — The _PStructuredGrid_ element specifies the whole extent of the dataset and the number of ghost-levels by which the extents in the individual pieces overlap. The _PPoints_ element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element describes the extent of one piece and the file in which it is stored.
+#### **PStructuredGrid**
+The _PStructuredGrid_ element specifies the whole extent of the dataset and the number of ghost-levels by which the extents in the individual pieces overlap. The _PPoints_ element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element describes the extent of one piece and the file in which it is stored.
 ```xml
   <VTKFile type=”PStructuredGrid” ...>
     <PStructuredGrid WholeExtent=”x1 x2 y1 y2 z1 z2”
@@ -769,7 +776,8 @@ The general structure for each parallel dataset format is as follows:
   </VTKFile>
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PPolyData** — The _PPolyData_ element specifies the number of ghost-levels by which the individual pieces overlap. The _PPoints_ element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element specifies the file in which the piece is stored.
+#### **PPolyData**
+The _PPolyData_ element specifies the number of ghost-levels by which the individual pieces overlap. The _PPoints_ element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element specifies the file in which the piece is stored.
 ```xml
   <VTKFile type=”PPolyData” ...>
     <PPolyData GhostLevel=”#”>
@@ -782,7 +790,8 @@ The general structure for each parallel dataset format is as follows:
   </VTKFile>
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **PUnstructuredGrid** — The _PUnstructuredGrid_ element specifies the number of ghost-levels by which the individual pieces overlap. The _PPoints_ element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element specifies the file in which the piece is stored.
+#### **PUnstructuredGrid**
+The _PUnstructuredGrid_ element specifies the number of ghost-levels by which the individual pieces overlap. The _PPoints_ element describes the type of array used to specify the point locations, but does not actually contain the data. Each _Piece_ element specifies the file in which the piece is stored.
 ```xml
   <VTKFile type=”PUnstructuredGrid” ...>
     <PUnstructuredGrid GhostLevel=”0”>
@@ -831,7 +840,7 @@ All of the data and geometry specifications use _PDataArray_ elements to describ
     <PDataArray type=”Float32” Name=”vectors” NumberOfComponents=”3”/>
 ```
 
-### Example.
+### XML File Example.
 The following is a complete example specifying a vtkPolyData representing a cube with some scalar data on its points and faces.
 ```xml
   <?xml version="1.0"?>
