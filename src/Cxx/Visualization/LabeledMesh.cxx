@@ -21,41 +21,44 @@
 
 static int xLength;
 static int yLength;
-static vtkSmartPointer<vtkSelectVisiblePoints> visPts;
-static vtkSmartPointer<vtkSelectVisiblePoints> visCells;
-static vtkSmartPointer<vtkPoints> pts;
-static vtkSmartPointer<vtkRenderWindow> renWin;
+typedef struct
+{
+  vtkSmartPointer<vtkSelectVisiblePoints> visPts;
+  vtkSmartPointer<vtkSelectVisiblePoints> visCells;
+  vtkSmartPointer<vtkPoints> pts;
+  vtkSmartPointer<vtkRenderWindow> renWin;
+} VTKData;
 
 // Create a procedure to draw the selection window at each location it
 // is moved to.
-static void PlaceWindow( int xmin, int ymin )
+static void PlaceWindow( VTKData const& data, int xmin, int ymin )
 {
   int xmax = xmin + xLength;
   int ymax = ymin + yLength;
 
-  visPts->SetSelection( xmin, xmax, ymin, ymax );
-  visCells->SetSelection( xmin, xmax, ymin, ymax );
+  data.visPts->SetSelection( xmin, xmax, ymin, ymax );
+  data.visCells->SetSelection( xmin, xmax, ymin, ymax );
 
-  pts->InsertPoint( 0, xmin, ymin, 0 );
-  pts->InsertPoint( 1, xmin, ymin, 0 );
-  pts->InsertPoint( 2, xmin, ymin, 0 );
-  pts->InsertPoint( 3, xmin, ymin, 0 );
+  data.pts->InsertPoint( 0, xmin, ymin, 0 );
+  data.pts->InsertPoint( 1, xmin, ymin, 0 );
+  data.pts->InsertPoint( 2, xmin, ymin, 0 );
+  data.pts->InsertPoint( 3, xmin, ymin, 0 );
 
   // Call Modified because InsertPoints does not modify vtkPoints
   // (for performance reasons).
-  pts->Modified();
+  data.pts->Modified();
 
-  renWin->Render();
+  data.renWin->Render();
 }
 
 // Create a procedure to move the selection window across the data set.
-static void MoveWindow()
+static void MoveWindow(VTKData const& data)
 {
   for( int y = 100; y < 300; y += 25 )
   {
     for( int x = 100; x < 300; x += 25 )
     {
-      PlaceWindow( x, y );
+      PlaceWindow( data, x, y );
     }
   }
 }
@@ -71,7 +74,7 @@ int main(int /* argc */, char * /* argv */ [] )
   yLength = 100;
   int ymax = ymin + yLength;
 
-  pts = vtkSmartPointer<vtkPoints>::New();
+  vtkSmartPointer<vtkPoints> pts = vtkSmartPointer<vtkPoints>::New();
   pts->InsertPoint( 0, xmin, ymin, 0 );
   pts->InsertPoint( 1, xmax, ymin, 0 );
   pts->InsertPoint( 2, xmax, ymax, 0 );
@@ -127,7 +130,7 @@ int main(int /* argc */, char * /* argv */ [] )
     vtkSmartPointer<vtkRenderer>::New();
 
   // Create labels for points
-  visPts = vtkSmartPointer<vtkSelectVisiblePoints>::New();
+  vtkSmartPointer<vtkSelectVisiblePoints> visPts = vtkSmartPointer<vtkSelectVisiblePoints>::New();
   visPts->SetInputConnection( ids->GetOutputPort() );
   visPts->SetRenderer( ren1 );
   visPts->SelectionWindowOn();
@@ -149,7 +152,7 @@ int main(int /* argc */, char * /* argv */ [] )
     vtkSmartPointer<vtkCellCenters>::New();
   cc->SetInputConnection( ids->GetOutputPort() );
 
-  visCells = vtkSmartPointer<vtkSelectVisiblePoints>::New();
+  vtkSmartPointer<vtkSelectVisiblePoints> visCells = vtkSmartPointer<vtkSelectVisiblePoints>::New();
   visCells->SetInputConnection( cc->GetOutputPort() );
   visCells->SetRenderer( ren1 );
   visCells->SelectionWindowOn();
@@ -168,7 +171,7 @@ int main(int /* argc */, char * /* argv */ [] )
   cellLabels->SetMapper( cellMapper );
 
   // Create the RenderWindow and RenderWindowInteractor
-  renWin = vtkSmartPointer<vtkRenderWindow>::New();
+  vtkSmartPointer<vtkRenderWindow> renWin = vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer( ren1 );
 
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
@@ -185,13 +188,15 @@ int main(int /* argc */, char * /* argv */ [] )
   renWin->SetSize( 500, 500 );
   renWin->Render();
 
+  VTKData data = { visPts, visCells, pts, renWin };
+
   // Move the selection window across the data set.
-  MoveWindow();
+  MoveWindow(data);
 
   // Put the selection window in the center of the render window.
   // This works because the xmin = ymin = 200, xLength = yLength = 100, and
   // the render window size is 500 x 500.
-  PlaceWindow( xmin, ymin );
+  PlaceWindow( data, xmin, ymin );
 
   iren->Initialize();
   iren->Start();
