@@ -58,130 +58,80 @@ Another problem with binary files is that systems may use a different number of 
 The *Visualization Toolkit* supports five different dataset formats: structured points, structured grid, rectilinear grid, unstructured grid, and polygonal data. Data with implicit topology (structured data such as vtkImageData and vtkStructuredGrid) are ordered with x increasing fastest, then y, then z. These formats are as follows.
 
 * **Structured Points**. The file format supports 1D, 2D, and 3D structured point datasets. The dimensions nx, ny, nz must be greater than or equal to 1. The data spacing sx, sy, sz must be greater than 0. (Note: in the version 1.0 data file, spacing was referred to as “aspect ratio”. ASPECT_RATIO can still be used in version 2.0 data files, but is discouraged.)
-
-```
-DATASET STRUCTURED_POINTS
-DIMENSIONS n  n  n
-            x  y  z
-ORIGIN xyz
-SPACING s  s  s 
-         x  y  z
-```
+<br><br>DATASET STRUCTURED_POINTS<br>
+DIMENSIONS <b><i>n<sub>x</sub> n<sub>y</sub> n<sub>z</sub></i></b><br>
+ORIGIN <b><i>x y z</i></b><br>
+SPACING <b><i>s<sub>x</sub> s<sub>y</sub> y<sub>z</i></b></sub>
 
 * **Structured Grid**. The file format supports 1D, 2D, and 3D structured grid datasets. The dimensions nx, ny, nz must be greater than or equal to 1. The point coordinates are defined by the data in the _POINTS_ section. This consists of x-y-z data values for each point.
-```
-DATASET STRUCTURED_GRID
-DIMENSIONS n  n  n
-            x  y  z
-POINTS n dataType
-p   p   p
- 0x  0y  0z
-p   p   p
- 1x  1y  1z
-...
-p       p       p
- (n-1)x  (n-1)y  (n-1)z
-```
+<br><br>DATASET STRUCTURED_GRID<br>
+DIMENSIONS <b><i>n<sub>x</sub> n<sub>y</sub> n<sub>z</sub></i></b><br>
+POINTS <b><i>n dataType<br>
+p<sub>0x</sub> p<sub>0y</sub> p<sub>0z</sub><br>
+p<sub>1x</sub> p<sub>1y</sub> p<sub>1z</sub><br>
+...<br>
+p<sub>(n-1)x</sub> p<sub>(n-1)y</sub> p<sub>(n-1)z</sub></i></b><br>
+
 
 * **Rectilinear Grid**. A rectilinear grid defines a dataset with regular topology, and semi-regular geometry aligned along the x-y-z coordinate axes. The geometry is defined by three lists of monotonically increasing coordinate values, one list for each of the x-y-z coordinate axes. The topology is defined by specifying the grid dimensions, which must be greater than or equal to 1.
-```
-DATASET RECTILINEAR_GRID
-DIMENSIONS n  n  n
-            x  y  z
-X_COORDINATES n  dataType
-               x
-x  x  ... x
- 0  1      (nx-1)
-Y_COORDINATES n  dataType
-               y
-y  y  ... y
- 0  1      (ny-1)
-Z_COORDINATES n  dataType
-               z
-z  z  ... z(
- 0  1      (nz-1)
-```
+<br><br>DATASET RECTILINEAR_GRID<br>
+DIMENSIONS <b><i>n<sub>x</sub> n<sub>y</sub> n<sub>z</sub></i></b><br>
+X_COORDINATES <b><i>n<sub>x</sub> dataType</i></b><br>
+<b><i>x<sub>0</sub> x<sub>1</sub> ... x<sub>(nx-1)</sub></i></b><br>
+Y_COORDINATES <b><i>n<sub>y</sub> dataType</i></b><br>
+<b><i>y<sub>0</sub> y<sub>1</sub> ... y<sub>(ny-1)</sub></i></b><br>
+Z_COORDINATES <b><i>n<sub>z</sub> dataType</i></b><br>
+<b><i>z<sub>0</sub> z<sub>1</sub> ... z<sub>(nz-1)</sub></i></b><br>
+
 
 * **Polygonal Data**. The polygonal dataset consists of arbitrary combinations of surface graphics primitives vertices (and polyvertices), lines (and polylines), polygons (of various types), and triangle strips. Polygonal data is defined by the _POINTS_, _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ sections. The _POINTS_ definition is the same as we saw for structured grid datasets. The _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ keywords define the polygonal dataset topology. Each of these keywords requires two parameters: the number of cells n and the size of the cell list size. The cell list size is the total number of integer values required to represent the list (i.e., sum of numPoints and connectivity indices over each cell). None of the keywords _VERTICES_, _LINES_, _POLYGONS_, or _TRIANGLE_STRIPS_ is required.
-```
-DATASET POLYDATA
-POINTS n dataType
-p   p   p
- 0x  0y  0z
-p   p   p
- 1x  1y  1z
-...
-p       p       p
- (n-1)x  (n-1)y  (n-1)z
+<br><br>DATASET POLYDATA<br>
+POINTS <b><i>n dataType<br>
+p<sub>0x</sub> p<sub>0y</sub> p<sub>0z</sub><br>
+p<sub>1x</sub> p<sub>1y</sub> p<sub>1z</sub><br>
+...<br>
+p<sub>(n-1)x</sub> p<sub>(n-1)y</sub> p<sub>(n-1)z</sub></i></b><br>
+<br>VERTICES <b><i>n size<br>
+numPoints<sub>0</sub>, i<sub>0</sub>, j<sub>0</sub>, k<sub>0</sub>, ...<br>
+numPoints<sub>1</sub>, i<sub>1</sub>, j<sub>1</sub>, k<sub>1</sub>, ...<br>
+...<br>
+numPoints<sub>n-1</sub>, i<sub>n-1</sub>, j<sub>n-1</sub>, k<sub>n-1</sub>, ...</i></b><br>
+<br>LINES <b><i>n size<br>
+numPoints<sub>0</sub>, i<sub>0</sub>, j<sub>0</sub>, k<sub>0</sub>, ...<br>
+numPoints<sub>1</sub>, i<sub>1</sub>, j<sub>1</sub>, k<sub>1</sub>, ...<br>
+...<br>
+numPoints<sub>n-1</sub>, i<sub>n-1</sub>, j<sub>n-1</sub>, k<sub>n-1</sub>, ...</i></b><br>
+<br>POLYGONS <b><i>n size<br>
+numPoints<sub>0</sub>, i<sub>0</sub>, j<sub>0</sub>, k<sub>0</sub>, ...<br>
+numPoints<sub>1</sub>, i<sub>1</sub>, j<sub>1</sub>, k<sub>1</sub>, ...<br>
+...<br>
+numPoints<sub>n-1</sub>, i<sub>n-1</sub>, j<sub>n-1</sub>, k<sub>n-1</sub>, ...</i></b><br>
+<br>TRIANGLE_STRIPS <b><i>n size<br>
+numPoints<sub>0</sub>, i<sub>0</sub>, j<sub>0</sub>, k<sub>0</sub>, ...<br>
+numPoints<sub>1</sub>, i<sub>1</sub>, j<sub>1</sub>, k<sub>1</sub>, ...<br>
+...<br>
+numPoints<sub>n-1</sub>, i<sub>n-1</sub>, j<sub>n-1</sub>, k<sub>n-1</sub>, ...</i></b><br>
 
-VERTICES n size
-numPoints, i , j , k , ...
-         0  0   0   0
-numPoints, i , j , k , ...
-         1  1   1   1
-...
-numPoints   , i   , j   , k   , ...
-         n-1   n-1   n-1   n-1
-
-LINES n size
-numPoints , i , j , k , ...
-         0   0   0   0
-numPoints , i , j , k , ...
-         1   1   1   1
-...
-numPoints   , i   , j   , k   , ...
-         n-1   n-1   n-1   n-1
-
-POLYGONS n size
-numPoints , i , j , k , ...
-         0   0   0   0
-numPoints , i , j , k , ...
-         1   1   1   1
-...
-numPoints   , i   , j   , k   , ...
-         n-1   n-1   n-1   n-1
-
-TRIANGLE_STRIPS n size
-numPoints , i , j , k , ...
-         0   0   0   0
-numPoints , i , j , k , ...
-         1   1   1   1
-...
-numPoints   , i   , j   , k   , ...
-         n-1   n-1   n-1   n-1
-```
 
 * **Unstructured Grid**. The unstructured grid dataset consists of arbitrary combinations of any possible cell type. Unstructured grids are defined by points, cells, and cell types. The CELLS keyword requires two parameters: the number of cells n and the size of the cell list size. The cell list size is the total number of integer values required to represent the list (i.e., sum of numPoints and connectivity indices over each cell). The CELL_TYPES keyword requires a single parameter: the number of cells n. This value should match the value specified by the CELLS keyword. The cell types data is a single integer value per cell that specified cell type (see vtkCell.h or Figure 2).
-```
-DATASET UNSTRUCTURED_GRID
-POINTS n dataType
-p   p   p
- 0x  0y  0z
-p   p   p
- 1x  1y  1z
-...
-p       p       p
- (n-1)x  (n-1)y  (n-1)z
-
-CELLS n size
-numPoints , i, j, k, l, ...
-         0
-numPoints1, i, j, k, l, ...
-numPoints2, i, j, k, l, ...
-...
-numPointsn-1, i, j, k, l, ...
-
-CELL_TYPES n
-type
-    0
-type
-    1
-type
-    2
-...
-type
-    n-1
-```
+<br><br>DATASET UNSTRUCTURED_GRID<br>
+POINTS <b><i>n dataType<br>
+p<sub>0x</sub> p<sub>0y</sub> p<sub>0z</sub><br>
+p<sub>1x</sub> p<sub>1y</sub> p<sub>1z</sub><br>
+...<br>
+p<sub>(n-1)x</sub> p<sub>(n-1)y</sub> p<sub>(n-1)z</sub></i></b><br>
+<br>CELLS <b><i>n size<br>
+numPoints<sub>0</sub>, i<sub>0</sub>, j<sub>0</sub>, k<sub>0</sub>, ...<br>
+numPoints<sub>1</sub>, i<sub>1</sub>, j<sub>1</sub>, k<sub>1</sub>, ...<br>
+numPoints<sub>2</sub>, i<sub>2</sub>, j<sub>2</sub>, k<sub>2</sub>, ...<br>
+...<br>
+numPoints<sub>n-1</sub>, i<sub>n-1</sub>, j<sub>n-1</sub>, k<sub>n-1</sub>, ...</i></b><br>
+<br>CELL_TYPES <b><i>n<br>
+type<sub>0</sub><br>
+type<sub>1</sub><br>
+type<sub>2</sub><br>
+...<br>
+type<sub>n-1</sub></i></b><br>
 
 * **Field**. Field data is a general format without topological and geometric structure, and without a particular dimensionality. Typically field data is associated with the points or cells of a dataset. However, if the FIELD type is specified as the dataset type (see Figure 1), then a general VTK data object is defined. Use the format described in the next section to define a field. Also see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) and the fourth example in this chapter “[Legacy File Examples](#legacy-file-examples).
 
