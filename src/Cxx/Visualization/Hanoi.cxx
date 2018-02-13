@@ -86,13 +86,15 @@ private:
 std::vector<std::string>::iterator FindParameter(std::string const& p,
                                                  std::vector<std::string>& v);
 
+typedef std::array<std::stack<vtkSmartPointer<vtkActor>>, 3> PegArray;
+
 /**
  * This routine is responsible for moving pucks from peg1 to peg2.
  *
  * @param peg1 Initial peg.
  * @param peg2 Final peg.
  */
-void MovePuck(int peg1, int peg2);
+void MovePuck(vtkRenderWindow* renWin, PegArray& pegStack, int peg1, int peg2);
 
 /**
 * Tower of Hanoi.
@@ -103,7 +105,7 @@ void MovePuck(int peg1, int peg2);
 * @param peg3 Helper.
 
 */
-void Hanoi(int n, int peg1, int peg2, int peg3);
+void Hanoi(vtkRenderWindow* renWin, PegArray& pegStack, int n, int peg1, int peg2, int peg3);
 
 // Save a screenshot.
 void Screenshot(std::string fileName, vtkRenderWindow* renWin);
@@ -122,13 +124,6 @@ auto rMax = 12.0 * R; // The maximum allowable radius of disks
 auto D = 1.1 * 1.25 * rMax; // The distance between the pegs.
 auto numberOfMoves = 0;
 auto const maxPucks = 20;
-
-// Our rendering window.
-vtkSmartPointer<vtkRenderWindow> renWin =
-  vtkSmartPointer<vtkRenderWindow>::New();
-
-// Three pegs, each a stack of a vector of actors.
-std::array<std::stack<vtkSmartPointer<vtkActor>>, 3> pegStack;
 }
 
 int main(int argc, char* argv[])
@@ -205,6 +200,10 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
+  // Our rendering window.
+  vtkSmartPointer<vtkRenderWindow> renWin =
+    vtkSmartPointer<vtkRenderWindow>::New();
+
   // Create renderer and render window interactor.
   vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();
   renWin->AddRenderer(ren);
@@ -271,6 +270,9 @@ int main(int argc, char* argv[])
     peg[i]->SetScale(1, H, 1);
   }
 
+  // Three pegs, each a stack of a vector of actors.
+  PegArray pegStack;
+
   // The pucks (using cylinder geometry). Always loaded on peg# 0.
   std::vector<vtkSmartPointer<vtkActor>> puck;
   vtkSmartPointer<vtkMinimalStandardRandomSequence> randomSequence =
@@ -305,11 +307,11 @@ int main(int argc, char* argv[])
   if (configuration != 1)
   {
     // Begin recursion.
-    Hanoi(numberOfPucks - 1, 0, 2, 1);
-    Hanoi(1, 0, 1, 2);
+    Hanoi(renWin, pegStack, numberOfPucks - 1, 0, 2, 1);
+    Hanoi(renWin, pegStack, 1, 0, 1, 2);
     if (!gotFigure2)
     {
-      Hanoi(numberOfPucks - 1, 2, 1, 0);
+      Hanoi(renWin, pegStack, numberOfPucks - 1, 2, 1, 0);
 
       renWin->Render();
       if (configuration == 3)
@@ -345,7 +347,7 @@ std::vector<std::string>::iterator FindParameter(std::string const& p,
   return std::find(v.begin(), v.end(), p);
 }
 
-void MovePuck(int peg1, int peg2)
+void MovePuck(vtkRenderWindow* renWin, PegArray& pegStack, int peg1, int peg2)
 {
   numberOfMoves++;
 
@@ -418,7 +420,7 @@ void MovePuck(int peg1, int peg2)
   pegStack[peg2].push(movingActor);
 }
 
-void Hanoi(int n, int peg1, int peg2, int peg3)
+void Hanoi(vtkRenderWindow* renWin, PegArray& pegStack, int n, int peg1, int peg2, int peg3)
 {
   // If gotFigure2 is true, we break out of the recursion.
   if (gotFigure2)
@@ -427,26 +429,26 @@ void Hanoi(int n, int peg1, int peg2, int peg3)
   }
   if (n != 1)
   {
-    Hanoi(n - 1, peg1, peg3, peg2);
+    Hanoi(renWin, pegStack, n - 1, peg1, peg3, peg2);
     if (gotFigure2)
     {
       return;
     }
-    Hanoi(1, peg1, peg2, peg3);
-    Hanoi(n - 1, peg3, peg2, peg1);
+    Hanoi(renWin, pegStack, 1, peg1, peg2, peg3);
+    Hanoi(renWin, pegStack, n - 1, peg3, peg2, peg1);
   }
   else
   {
-    MovePuck(peg1, peg2);
+    MovePuck(renWin, pegStack, peg1, peg2);
   }
   return;
 }
 
-void Screenshot(std::string fileName, vtkRenderWindow* renWin1)
+void Screenshot(std::string fileName, vtkRenderWindow* renWin)
 {
   vtkSmartPointer<vtkWindowToImageFilter> windowToImageFilter =
     vtkSmartPointer<vtkWindowToImageFilter>::New();
-  windowToImageFilter->SetInput(renWin1);
+  windowToImageFilter->SetInput(renWin);
 
 #if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 1
   windowToImageFilter->SetScale(1); // image quality
