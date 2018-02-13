@@ -8,6 +8,7 @@
 #include <vtkPolyDataNormals.h>
 #include <vtkCleanPolyData.h>
 #include <vtkPolyData.h>
+#include <vtkTexture.h>
 #include <vtkNamedColors.h>
 
 int main (int argc, char *argv[])
