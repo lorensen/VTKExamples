@@ -143,12 +143,14 @@ int main(int, char*[])
 
   // Project all of the points onto the eigenvector with
   // the largest eigenvalues
-  double p0[2];
+  double p0[3];
   p0[0] = -100*evec1->GetValue(0);
   p0[1] = -100*evec1->GetValue(1);
-  double p1[2];
+  p0[2] = 0;
+  double p1[3];
   p1[0] = 100*evec1->GetValue(0);
   p1[1] = 100*evec1->GetValue(1);
+  p1[2] = 0;
 
   vtkSmartPointer<vtkPoints> projectedPoints =
     vtkSmartPointer<vtkPoints>::New();
