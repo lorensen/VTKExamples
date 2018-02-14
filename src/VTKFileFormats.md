@@ -345,17 +345,19 @@ The third example is an unstructured grid containing twelve of the nineteen VTK 
 Unstructured Grid Example
 ASCII
 DATASET UNSTRUCTURED_GRID
+
 POINTS 27 float
 0 0 0  1 0 0  2 0 0  0 1 0  1 1 0  2 1 0
 0 0 1  1 0 1  2 0 1  0 1 1  1 1 1  2 1 1
 0 1 2  1 1 2  2 1 2  0 1 3  1 1 3  2 1 3
 0 1 4  1 1 4  2 1 4  0 1 5  1 1 5  2 1 5
 0 1 6  1 1 6  2 1 6
+
 CELLS 11 60
 8 0 1 4 3 6 7 10 9
 8 1 2 4 5 7 8 10 11
 4 6 10 9 12
-4 5 11 4 10
+4 11 14 10 13
 6 15 16 17 14 13 12
 6 18 15 19 16 20 17
 4 22 23 20 19
@@ -385,12 +387,33 @@ LOOKUP_TABLE default
 12.0 13.0 14.0 15.0 16.0 17.0
 18.0 19.0 20.0 21.0 22.0 23.0
 24.0 25.0 26.0
+
 VECTORS vectors float
 1 0 0  1 1 0  0 2 0  1 0 0  1 1 0  0 2 0
 1 0 0  1 1 0  0 2 0  1 0 0  1 1 0  0 2 0
 0 0 1  0 0 1  0 0 1  0 0 1  0 0 1  0 0 1
 0 0 1  0 0 1  0 0 1  0 0 1  0 0 1  0 0 1
 0 0 1  0 0 1  0 0 1
+
+CELL_DATA 11
+SCALARS scalars float 1
+LOOKUP_TABLE CellColors
+0.0 1.0 2.0 3.0 4.0 5.0
+6.0 7.0 8.0 9.0 10.0
+
+LOOKUP_TABLE CellColors 11
+.4 .4 1 1
+.4 1 .4 1
+.4 1 1 1
+1 .4 .4 1
+1 .4 1 1
+1 1 .4 1
+1 1 1 1
+1 .5 .5 1
+.5 1 .5 1
+.5 .5 .5 1
+1 .5 .4 1
+
 ```
 
 The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) to see how to manipulate this data. (The data file shown below can be found in its entirety [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/financial.vtk).

@@ -46,6 +46,7 @@ set(NEEDS_ARGS
   ReadDICOM
   ReadDICOMSeries
   ReadImageData
+  ReadLegacyUnstructuredGrid
   ReadOBJ
   ReadPDB
   ReadPlainTextTriangles
@@ -133,6 +134,9 @@ add_test(${KIT}-ReadDICOMSeries ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-ReadImageData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestReadImageData ${DATA}/vase.vti)
+
+add_test(${KIT}-ReadLegacyUnstructuredGrid ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestReadLegacyUnstructuredGrid ${DATA}/VTKCellTypes.vtk)
 
 add_test(${KIT}-ReadOBJ ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestReadOBJ ${DATA}/trumpet.obj)
