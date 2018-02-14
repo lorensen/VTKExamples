@@ -1,4 +1,4 @@
-# VTK File Formats
+# VTK File Formats <sup>[1](#VTKUsersGuide)</sup>
 
 !!! caution
     This is a work in progress. Stay tuned.
