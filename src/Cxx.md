@@ -163,6 +163,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [CellTypeSource](/Cxx/GeometricObjects/CellTypeSource) | vtkCellTypeSource vtkTessellatorFilter | Generate tessellated cells.
 [ConvexPointSet](/Cxx/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | Generate a ConvexPointSetCell.
 [Hexahedron](/Cxx/GeometricObjects/Hexahedron) | vtkHexahedron |
+[LinearCellDemo](/Cxx/GeometricObjects/LinearCellDemo) | | Linear cell types in VTK.
 [LongLine](/Cxx/GeometricObjects/LongLine) | vtkLine | Manually create a polyline
 [Point](/Cxx/GeometricObjects/Point) | vtkPoints |
 [PolyLine](/Cxx/GeometricObjects/PolyLine) | vtkPolyLine |
