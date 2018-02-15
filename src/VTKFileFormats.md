@@ -24,7 +24,7 @@ The legacy VTK file formats consist of five basic parts.
 An overview of the file format is shown in Figure 1:
 
 
-**Figure 1** Overview of five parts of VTK data file format.
+<a name="Figure1">**Figure 1**</a> Overview of five parts of VTK data file format.
 
 <table border-collapse="collapse" border="0" cellspacing="0" cellpadding="0">
     <tr><td width="1px">#&nbsp;vtk&nbsp;DataFile&nbsp;Version&nbsp;2.0</td><td>(1)</td></tr>
@@ -164,7 +164,7 @@ type<sub>2</sub><br>
 ...<br>
 type<sub>n-1</sub></i></b><br>
 
-* **Field**. Field data is a general format without topological and geometric structure, and without a particular dimensionality. Typically field data is associated with the points or cells of a dataset. However, if the FIELD type is specified as the dataset type (see Figure 1), then a general VTK data object is defined. Use the format described in the next section to define a field. Also see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) and the fourth example in this chapter “[Legacy File Examples](#legacy-file-examples).
+* **Field**. Field data is a general format without topological and geometric structure, and without a particular dimensionality. Typically field data is associated with the points or cells of a dataset. However, if the FIELD type is specified as the dataset type (see [Figure 1](#Figure1), then a general VTK data object is defined. Use the format described in the next section to define a field. Also see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) and the fourth example in this chapter [Legacy File Examples](#legacy-file-examples).
 
 ### Dataset Attribute Format.
 
@@ -172,7 +172,7 @@ The *Visualization Toolkit* supports the following dataset attributes: scalars (
 
 Each type of attribute data has a dataName associated with it. This is a character string (without embedded whitespace) used to identify a particular data. The dataName is used by the VTK readers to extract data. As a result, more than one attribute data of the same type can be included in a file. For example, two different scalar fields defined on the dataset points, pressure and temperature, can be contained in the same file. (If the appropriate dataName is not specified in the VTK reader, then the first data of that type is extracted from the file.)
 
-* **Scalars**. Scalar definition includes specification of a lookup table. The definition of a lookup table is optional. If not specified, the default VTK table will be used (and tableName should be “default”). Also note that the numComp variable is optional—by default the number of components is equal to one. (The parameter numComp must range between (1,4) inclusive; in versions of VTK prior to vtk2.3 this parameter was not supported.)
+* **Scalars**. Scalar definition includes specification of a lookup table. The definition of a lookup table is optional. If not specified, the default VTK table will be used (and tableName should be “default”). Also note that the numComp variable is optional—by default the number of components is equal to one. (The parameter numComp must range between 1 and 4 inclusive; in versions of VTK prior to 2.3 this parameter was not supported.)
 <br><br>SCALARS <b><i>dataName dataType numComp</i></b><br>
 LOOKUP_TABLE <b><i>tableName<br>
 s<sub>0</sub><br>
@@ -421,7 +421,7 @@ LOOKUP_TABLE CellColors 11
 
 ```
 
-The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) to see how to manipulate this data. (The data file shown below can be found in its entirety [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/financial.vtk).
+The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) to see how to manipulate this data. The data file shown below can be found in its entirety [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/financial.vtk).
 
 ```
 # vtk DataFile Version 2.0
@@ -452,7 +452,7 @@ In this example, a field is represented using six arrays. Each array has a singl
 
 ## XML File Formats
 
-VTK provides another set of data formats using XML syntax. While these formats are much more complicated than the original VTK format described previously (see [“Simple Legacy Formats”](#simple-legacy-formats)), they support many more features. The major motivation for their development was to facilitate data streaming and parallel I/O. Some features of the format include support for compression, portable binary encoding, random access, big endian and little endian byte order, multiple file representation of piece data, and new file extensions for different VTK dataset types. XML provides many features as well, especially the ability to extend a file format with application specific tags.
+VTK provides another set of data formats using XML syntax. While these formats are much more complicated than the original VTK format described previously (see [Simple Legacy Formats](#simple-legacy-formats)), they support many more features. The major motivation for their development was to facilitate data streaming and parallel I/O. Some features of the format include support for compression, portable binary encoding, random access, big endian and little endian byte order, multiple file representation of piece data, and new file extensions for different VTK dataset types. XML provides many features as well, especially the ability to extend a file format with application specific tags.
 
 There are two types of VTK XML data files: parallel and serial as described in the following.
 
