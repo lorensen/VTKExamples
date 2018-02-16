@@ -163,7 +163,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [CellTypeSource](/Cxx/GeometricObjects/CellTypeSource) | vtkCellTypeSource vtkTessellatorFilter | Generate tessellated cells.
 [ConvexPointSet](/Cxx/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | Generate a ConvexPointSetCell.
 [Hexahedron](/Cxx/GeometricObjects/Hexahedron) | vtkHexahedron |
-[LinearCellDemo](/Cxx/GeometricObjects/LinearCellDemo) | | Linear cell types in VTK.
+[LinearCellDemo](/Cxx/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
 [LongLine](/Cxx/GeometricObjects/LongLine) | vtkLine | Manually create a polyline
 [Point](/Cxx/GeometricObjects/Point) | vtkPoints |
 [PolyLine](/Cxx/GeometricObjects/PolyLine) | vtkPolyLine |
@@ -199,6 +199,7 @@ These are fully independent, compilable examples. There is significant overlap i
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[IsoparametricCellsDemo](/Cxx/GeometricObjects/IsoparametricCellsDemo) | vtkNonLinearCell | Nonlinear isoparametric cell types in VTK.
 [QuadraticHexahedron](/Cxx/GeometricObjects/QuadraticHexahedron) | vtkQuadraticHexahedron vtkTessellatorFilter | Create and tessellate a nonlinear cell.
 [QuadraticHexahedronDemo](/Cxx/GeometricObjects/QuadraticHexahedronDemo) | vtkQuadraticHexahedron vtkTessellatorFilter | Interactively adjust chord error.
 [QuadraticTetra](/Cxx/GeometricObjects/QuadraticTetra) | vtkTetra vtkTessellatorFilter | Create and tessellate a nonlinear cell.
