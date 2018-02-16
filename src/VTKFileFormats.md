@@ -21,12 +21,10 @@ The legacy VTK file formats consist of five basic parts.
 
 5. The final part describes the dataset attributes. This part begins with the keywords _POINT_DATA_ or _CELL_DATA_, followed by an integer number specifying the number of points or cells, respectively. (It doesn’t matter whether _POINT_DATA_ or _CELL_DATA_ comes first.) Other keyword/data combinations then define the actual dataset attribute values (i.e., scalars, vectors, tensors, normals, texture coordinates, or field data).
 
-An overview of the file format is shown in Figure 1:
+An overview of the file format is shown in [Figure 1](#Figure1):
 
 
-<a name="Figure1">**Figure 1**</a> Overview of five parts of VTK data file format.
-
-<table border-collapse="collapse" border="0" cellspacing="0" cellpadding="0">
+<table style="border-collapse: collapse; margin-left: 40px; margin-right: auto;">
     <tr><td width="1px">#&nbsp;vtk&nbsp;DataFile&nbsp;Version&nbsp;2.0</td><td>(1)</td></tr>
     <tr><td width="1px">Really cool data</td><td>(2)</td></tr>
     <tr><td width="1px">ASCII | BINARY</td><td>(3)</td></tr>
@@ -34,8 +32,8 @@ An overview of the file format is shown in Figure 1:
     <tr><td width="1px">POINT_DATA <b><i>type</i></b><br>...<br>CELL_DATA <b><i>type</i></b><br>...</td><td>(5)</td></tr>
 </table>
 Key:
-<table border-collapse="collapse" border="0" cellspacing="0" cellpadding="0">
-        <tr><td><b>Part 1:</b> Header</td><td><b>Part 4:</b> Geometry/Topology. <b><i>Type</i></b> is one of
+<table style="border-collapse: collapse; margin-left: 40px; margin-right: auto;">
+        <tr><td style="width: 1px; white-space: nowrap;"><b>Part 1:</b> Header</td><td><b>Part 4:</b> Geometry/Topology. <b><i>Type</i></b> is one of
             <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRUCTURED_POINTS
             <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRUCTURED_GRID
             <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNSTRUCTURED_GRID
@@ -43,13 +41,16 @@ Key:
             <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRUCTURED_POINTS
             <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RECTILINEAR_GRID
             <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELD</td></tr>
-        <tr><td><b>Part 2:</b>Title (256 characters maximum, terminated
-            <br>with newline \n character)</td><td><b>Part 5:</b> Dataset attributes. The number of data
+        <tr><td style="width: 1px; white-space: nowrap;"><b>Part 2:</b>Title (256 characters
+            <br> maximum, terminated with
+            <br> newline \n character)</td><td><b>Part 5:</b> Dataset attributes. The number of data
             <br>items n of each type must match the number
             <br>of points or cells in the dataset. (If <i>type</i> is
             <br>FIELD, point and cell data should be omitted.</td></tr>
-        <tr><td><b>Part 3:</b>Data type, either ASCII or BINARY</td><td><b></b></td></tr>
+        <tr><td style="width: 1px; white-space: nowrap;"><b>Part 3:</b>Data type, either<br> ASCII or BINARY</td><td><b></b></td></tr>
 </table>
+
+<a name="Figure1">**Figure 1:**</a> **Overview of five parts of VTK data file format.**
 
 
 
