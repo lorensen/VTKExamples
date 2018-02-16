@@ -34,6 +34,8 @@
 #include <vtkHexahedron.h>
 #include <vtkWedge.h>
 #include <vtkPyramid.h>
+#include <vtkPentagonalPrism.h>
+#include <vtkHexagonalPrism.h>
 
 #include <vtkNamedColors.h>
 
@@ -59,6 +61,8 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeVoxel();
 vtkSmartPointer<vtkUnstructuredGrid> MakeHexahedron();
 vtkSmartPointer<vtkUnstructuredGrid> MakeWedge();
 vtkSmartPointer<vtkUnstructuredGrid> MakePyramid();
+vtkSmartPointer<vtkUnstructuredGrid> MakePentagonalPrism();
+vtkSmartPointer<vtkUnstructuredGrid> MakeHexagonalPrism();
 }
 
 int main(int, char *[])
@@ -100,6 +104,10 @@ int main(int, char *[])
   titles.push_back("VTK_WEDGE (=13)");
   uGrids.push_back(MakePyramid());
   titles.push_back("VTK_PYRAMID (=14)");
+  uGrids.push_back(MakePentagonalPrism());
+  titles.push_back("VTK_PENTAGONAL_PRISM (=15)");
+  uGrids.push_back(MakeHexagonalPrism());
+  titles.push_back("VTK_HEXAGONAL_PRISM (=16)");
 
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
@@ -179,9 +187,9 @@ int main(int, char *[])
   }
 
   // Setup the viewports
-  int xGridDimensions = 3;
-  int yGridDimensions = 5;
-  int rendererSize = 200;
+  int xGridDimensions = 4;
+  int yGridDimensions = 4;
+  int rendererSize = 240;
 
   renWin->SetSize(
     rendererSize * xGridDimensions, rendererSize * yGridDimensions);
@@ -658,6 +666,79 @@ vtkSmartPointer<vtkUnstructuredGrid> MakePyramid()
 
   return ug;
 }
+vtkSmartPointer<vtkUnstructuredGrid> MakePentagonalPrism()
+{
+  vtkSmartPointer<vtkPentagonalPrism> pentagonalPrism =
+    vtkSmartPointer<vtkPentagonalPrism>::New();
 
+  pentagonalPrism->GetPointIds()->SetId(0,0);
+  pentagonalPrism->GetPointIds()->SetId(1,1);
+  pentagonalPrism->GetPointIds()->SetId(2,2);
+  pentagonalPrism->GetPointIds()->SetId(3,3);
+  pentagonalPrism->GetPointIds()->SetId(4,4);
+  pentagonalPrism->GetPointIds()->SetId(5,5);
+  pentagonalPrism->GetPointIds()->SetId(6,6);
+  pentagonalPrism->GetPointIds()->SetId(7,7);
+  pentagonalPrism->GetPointIds()->SetId(8,8);
+  pentagonalPrism->GetPointIds()->SetId(9,9);
+
+  double scale = 2.0;
+  pentagonalPrism->GetPoints()->SetPoint(0, 11/scale, 10/scale, 10/scale);
+  pentagonalPrism->GetPoints()->SetPoint(1, 13/scale, 10/scale, 10/scale);
+  pentagonalPrism->GetPoints()->SetPoint(2, 14/scale, 12/scale, 10/scale);
+  pentagonalPrism->GetPoints()->SetPoint(3, 12/scale, 14/scale, 10/scale);
+  pentagonalPrism->GetPoints()->SetPoint(4, 10/scale, 12/scale, 10/scale);
+  pentagonalPrism->GetPoints()->SetPoint(5, 11/scale, 10/scale, 14/scale);
+  pentagonalPrism->GetPoints()->SetPoint(6, 13/scale, 10/scale, 14/scale);
+  pentagonalPrism->GetPoints()->SetPoint(7, 14/scale, 12/scale, 14/scale);
+  pentagonalPrism->GetPoints()->SetPoint(8, 12/scale, 14/scale, 14/scale);
+  pentagonalPrism->GetPoints()->SetPoint(9, 10/scale, 12/scale, 14/scale);
+
+  vtkSmartPointer<vtkUnstructuredGrid> ug =
+    vtkSmartPointer<vtkUnstructuredGrid>::New();
+  ug->SetPoints(pentagonalPrism->GetPoints());
+  ug->InsertNextCell(pentagonalPrism->GetCellType(),pentagonalPrism->GetPointIds());
+
+  return ug;
+}
+
+vtkSmartPointer<vtkUnstructuredGrid> MakeHexagonalPrism()
+{
+  vtkSmartPointer<vtkHexagonalPrism> hexagonalPrism =
+    vtkSmartPointer<vtkHexagonalPrism>::New();
+  hexagonalPrism->GetPointIds()->SetId(0,0);
+  hexagonalPrism->GetPointIds()->SetId(1,1);
+  hexagonalPrism->GetPointIds()->SetId(2,2);
+  hexagonalPrism->GetPointIds()->SetId(3,3);
+  hexagonalPrism->GetPointIds()->SetId(4,4);
+  hexagonalPrism->GetPointIds()->SetId(5,5);
+  hexagonalPrism->GetPointIds()->SetId(6,6);
+  hexagonalPrism->GetPointIds()->SetId(7,7);
+  hexagonalPrism->GetPointIds()->SetId(8,8);
+  hexagonalPrism->GetPointIds()->SetId(9,9);
+  hexagonalPrism->GetPointIds()->SetId(10,10);
+  hexagonalPrism->GetPointIds()->SetId(11,11);
+
+  double scale = 2.0;
+  hexagonalPrism->GetPoints()->SetPoint(0, 11/scale, 10/scale, 10/scale);
+  hexagonalPrism->GetPoints()->SetPoint(1, 13/scale, 10/scale, 10/scale);
+  hexagonalPrism->GetPoints()->SetPoint(2, 14/scale, 12/scale, 10/scale);
+  hexagonalPrism->GetPoints()->SetPoint(3, 13/scale, 14/scale, 10/scale);
+  hexagonalPrism->GetPoints()->SetPoint(4, 11/scale, 14/scale, 10/scale);
+  hexagonalPrism->GetPoints()->SetPoint(5, 10/scale, 12/scale, 10/scale);
+  hexagonalPrism->GetPoints()->SetPoint(6, 11/scale, 10/scale, 14/scale);
+  hexagonalPrism->GetPoints()->SetPoint(7, 13/scale, 10/scale, 14/scale);
+  hexagonalPrism->GetPoints()->SetPoint(8, 14/scale, 12/scale, 14/scale);
+  hexagonalPrism->GetPoints()->SetPoint(9, 13/scale, 14/scale, 14/scale);
+  hexagonalPrism->GetPoints()->SetPoint(10, 11/scale, 14/scale, 14/scale);
+  hexagonalPrism->GetPoints()->SetPoint(11, 10/scale, 12/scale, 14/scale);
+
+  vtkSmartPointer<vtkUnstructuredGrid> ug =
+    vtkSmartPointer<vtkUnstructuredGrid>::New();
+  ug->SetPoints(hexagonalPrism->GetPoints());
+  ug->InsertNextCell(hexagonalPrism->GetCellType(),hexagonalPrism->GetPointIds());
+
+  return ug;
+}
 
 }
