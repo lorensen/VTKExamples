@@ -202,8 +202,8 @@ These are fully independent, compilable examples. There is significant overlap i
 [IsoparametricCellsDemo](/Cxx/GeometricObjects/IsoparametricCellsDemo) | vtkNonLinearCell | Nonlinear isoparametric cell types in VTK.
 [QuadraticHexahedron](/Cxx/GeometricObjects/QuadraticHexahedron) | vtkQuadraticHexahedron vtkTessellatorFilter | Create and tessellate a nonlinear cell.
 [QuadraticHexahedronDemo](/Cxx/GeometricObjects/QuadraticHexahedronDemo) | vtkQuadraticHexahedron vtkTessellatorFilter | Interactively adjust chord error.
-[QuadraticTetra](/Cxx/GeometricObjects/QuadraticTetra) | vtkTetra vtkTessellatorFilter | Create and tessellate a nonlinear cell.
-[QuadraticTetraDemo](/Cxx/GeometricObjects/QuadraticTetraDemo) | vtkTetra vtkTessellatorFilter | Interactively adjust chord error.
+[QuadraticTetra](/Cxx/GeometricObjects/QuadraticTetra) | vtkQuadraticTetra vtkTessellatorFilter | Create and tessellate a nonlinear cell.
+[QuadraticTetraDemo](/Cxx/GeometricObjects/QuadraticTetraDemo) | vtkQuadraticTetra vtkTessellatorFilter | Interactively adjust chord error.
 
 ### Parametric Objects
 

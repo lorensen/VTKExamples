@@ -340,7 +340,7 @@ LOOKUP_TABLE default
 ```
 
 The third example is an unstructured grid containing twelve of the nineteen VTK cell types (see Figure 2 and Figure 3).
-Figure 2 shows all 16 of the linear cell types and was generated with the [LinearCellDemo](/Cxx/IO/LinearCellDemo).
+Figure 2 shows all 16 of the linear cell types and was generated with the [LinearCellDemo](/Cxx/GeometricObjects/LinearCellDemo).
 <figure>
   <img src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestLinearCellDemo.png?raw=true" width="640" alt="LinearCellDemo">
   <figcaption>Figure 2. - Linear cell types found in VTK. Use the include file vtkCellType.h to manipulate cell types..</figcaption>
