@@ -164,7 +164,7 @@ type<sub>2</sub><br>
 ...<br>
 type<sub>n-1</sub></i></b><br>
 
-* **Field**. Field data is a general format without topological and geometric structure, and without a particular dimensionality. Typically field data is associated with the points or cells of a dataset. However, if the FIELD type is specified as the dataset type (see [Figure 1](#Figure1), then a general VTK data object is defined. Use the format described in the next section to define a field. Also see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) and the fourth example in this chapter [Legacy File Examples](#legacy-file-examples).
+* **Field**. Field data is a general format without topological and geometric structure, and without a particular dimensionality. Typically field data is associated with the points or cells of a dataset. However, if the FIELD type is specified as the dataset type (see [Figure 1](#Figure1)), then a general VTK data object is defined. Use the format described in the next section to define a field. Also see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) and the fourth example in this chapter [Legacy File Examples](#legacy-file-examples).
 
 ### Dataset Attribute Format.
 
@@ -317,7 +317,7 @@ LOOKUP_TABLE my_table 8
 1.0 1.0 1.0 1.0
 ```
 
-The next example is a volume of dimension 3 by 4 by 5. Since no lookup table is defined, either the user must create one in VTK, or the default lookup table will be used.
+The next example is a volume of dimension 3 by 4 by 6. Since no lookup table is defined, either the user must create one in VTK, or the default lookup table will be used.
 
 ```
 # vtk DataFile Version 2.0
