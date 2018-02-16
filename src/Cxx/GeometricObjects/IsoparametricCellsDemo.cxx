@@ -47,23 +47,8 @@
 // These functions return a vtkUnstructured grid corresponding to the object.
 namespace
 {
-
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticEdge();
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTriangle();
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticQuad();
+template<typename T> vtkSmartPointer<vtkUnstructuredGrid> MakeUnstructuredGrid(vtkSmartPointer<T>);
 vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticPolygon();
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTetra();
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron();
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticWedge();
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticPyramid();
-vtkSmartPointer<vtkUnstructuredGrid> MakeBiQuadraticQuad();
-vtkSmartPointer<vtkUnstructuredGrid> MakeTriQuadraticHexahedron();
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticLinearQuad();
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticLinearWedge();
-vtkSmartPointer<vtkUnstructuredGrid> MakeBiQuadraticQuadraticWedge();
-vtkSmartPointer<vtkUnstructuredGrid> MakeBiQuadraticQuadraticHexahedron();
-vtkSmartPointer<vtkUnstructuredGrid> MakeBiQuadraticTriangle();
-vtkSmartPointer<vtkUnstructuredGrid> MakeCubicLine();
 }
 
 int main(int, char *[])
@@ -77,37 +62,67 @@ int main(int, char *[])
   std::vector<vtkSmartPointer<vtkActor> > actors;
   std::vector<vtkSmartPointer<vtkRenderer> > renderers;
 
-  uGrids.push_back(MakeQuadraticEdge());
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkQuadraticEdge>::New()));
   titles.push_back("VTK_QUADRATIC_EDGE (= 21)");
-  uGrids.push_back(MakeQuadraticTriangle());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkQuadraticTriangle>::New()));
   titles.push_back("VTK_QUADRATIC_TRIANGLE (= 22)");
-  uGrids.push_back(MakeQuadraticQuad());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkQuadraticQuad>::New()));
   titles.push_back("VTK_QUADRATIC_QUAD (= 23)");
+
   uGrids.push_back(MakeQuadraticPolygon());
   titles.push_back("VTK_QUADRATIC_POLYGON (= 36)");
-  uGrids.push_back(MakeQuadraticTetra());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkQuadraticTetra>::New()));
   titles.push_back("VTK_QUADRATIC_TETRA (= 24)");
-  uGrids.push_back(MakeQuadraticHexahedron());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkQuadraticHexahedron>::New()));
   titles.push_back("VTK_QUADRATIC_HEXAHEDRON (= 25)");
-  uGrids.push_back(MakeQuadraticWedge());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkQuadraticWedge>::New()));
   titles.push_back("VTK_QUADRATIC_WEDGE (= 26)");
-  uGrids.push_back(MakeQuadraticPyramid());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkQuadraticPyramid>::New()));
   titles.push_back("VTK_QUADRATIC_PYRAMID (= 27)");
-  uGrids.push_back(MakeBiQuadraticQuad());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkBiQuadraticQuad>::New()));
   titles.push_back("VTK_BIQUADRATIC_QUAD (= 28)");
-  uGrids.push_back(MakeTriQuadraticHexahedron());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkTriQuadraticHexahedron>::New()));
   titles.push_back("VTK_TRIQUADRATIC_HEXAHEDRON (= 29)");
-  uGrids.push_back(MakeQuadraticLinearQuad());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkQuadraticLinearQuad>::New()));
   titles.push_back("VTK_QUADRATIC_LINEAR_QUAD (= 30)");
-  uGrids.push_back(MakeQuadraticLinearWedge());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkQuadraticLinearWedge>::New()));
   titles.push_back("VTK_QUADRATIC_LINEAR_WEDGE (= 31)");
-  uGrids.push_back(MakeBiQuadraticQuadraticWedge());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkBiQuadraticQuadraticWedge>::New()));
   titles.push_back("VTK_BIQUADRATIC_QUADRATIC_WEDGE (= 32)");
-  uGrids.push_back(MakeBiQuadraticQuadraticHexahedron()); 
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkBiQuadraticQuadraticHexahedron>::New()));
   titles.push_back("VTK_BIQUADRATIC_QUADRATIC_HEXAHEDRON (= 33)");
-  uGrids.push_back(MakeBiQuadraticTriangle());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkBiQuadraticTriangle>::New()));
   titles.push_back("VTK_BIQUADRATIC_TRIANGLE (= 34)");
-  uGrids.push_back(MakeCubicLine());
+
+  uGrids.push_back(MakeUnstructuredGrid(
+                     vtkSmartPointer<vtkCubicLine>::New()));
   titles.push_back("VTK_CUBIC_LINE (= 35)");
 
   vtkSmartPointer<vtkNamedColors> colors =
@@ -206,14 +221,12 @@ int main(int, char *[])
       // (xmin, ymin, xmax, ymax)
       // (xmin, ymin, xmax, ymax)
       double viewport[4] = {
-        static_cast<double>(col) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - (row + 1)) * rendererSize /
-        (yGridDimensions * rendererSize),
-        static_cast<double>(col + 1) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - row) * rendererSize /
-        (yGridDimensions * rendererSize)};
+        static_cast<double>(col) / xGridDimensions,
+        static_cast<double>(yGridDimensions - (row + 1))/ yGridDimensions,
+        static_cast<double>(col + 1) / xGridDimensions,
+        static_cast<double>(yGridDimensions - row) / yGridDimensions
+      };
+
       if(index > int(actors.size()) - 1)
       {
         // Add a renderer even if there is no actor.
@@ -245,15 +258,13 @@ int main(int, char *[])
 }
 namespace
 {
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticEdge()
+template<typename T> vtkSmartPointer<vtkUnstructuredGrid> MakeUnstructuredGrid(vtkSmartPointer<T> aCell)
 {
-  vtkSmartPointer<vtkQuadraticEdge> quadraticEdge =
-    vtkSmartPointer<vtkQuadraticEdge>::New();
-  double *pcoords = quadraticEdge->GetParametricCoords();
-  for (int i = 0; i < quadraticEdge->GetNumberOfPoints(); ++i)
+  double *pcoords = aCell->GetParametricCoords();
+  for (int i = 0; i < aCell->GetNumberOfPoints(); ++i)
   {
-    quadraticEdge->GetPointIds()->SetId(i, i);
-    quadraticEdge->GetPoints()->SetPoint(i,
+    aCell->GetPointIds()->SetId(i, i);
+    aCell->GetPoints()->SetPoint(i,
                                      *(pcoords + 3 * i),
                                      *(pcoords + 3 * i + 1),
                                      *(pcoords + 3 * i + 2));
@@ -261,51 +272,11 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticEdge()
 
   vtkSmartPointer<vtkUnstructuredGrid> ug =
     vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(quadraticEdge->GetPoints());
-  ug->InsertNextCell(quadraticEdge->GetCellType(),quadraticEdge->GetPointIds());
+  ug->SetPoints(aCell->GetPoints());
+  ug->InsertNextCell(aCell->GetCellType(),aCell->GetPointIds());
   return ug;
 }
 
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTriangle()
-{
-  vtkSmartPointer<vtkQuadraticTriangle> quadraticTriangle =
-    vtkSmartPointer<vtkQuadraticTriangle>::New();
-  double *pcoords = quadraticTriangle->GetParametricCoords();
-  for (int i = 0; i < quadraticTriangle->GetNumberOfPoints(); ++i)
-  {
-    quadraticTriangle->GetPointIds()->SetId(i, i);
-    quadraticTriangle->GetPoints()->SetPoint(i,
-                                     *(pcoords + 3 * i),
-                                     *(pcoords + 3 * i + 1),
-                                     *(pcoords + 3 * i + 2));
-  }
-
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(quadraticTriangle->GetPoints());
-  ug->InsertNextCell(quadraticTriangle->GetCellType(),quadraticTriangle->GetPointIds());
-  return ug;
-}
-
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticQuad()
-{
-  vtkSmartPointer<vtkQuadraticQuad> quadraticQuad =
-    vtkSmartPointer<vtkQuadraticQuad>::New();
-  double *pcoords = quadraticQuad->GetParametricCoords();
-  for (int i = 0; i < 8; ++i)
-  {
-    quadraticQuad->GetPointIds()->SetId(i, i);
-    quadraticQuad->GetPoints()->SetPoint(i,
-                                         *(pcoords + 3 * i),
-                                         *(pcoords + 3 * i + 1),
-                                         *(pcoords + 3 * i + 2));
-  }
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(quadraticQuad->GetPoints());
-  ug->InsertNextCell(quadraticQuad->GetCellType(),quadraticQuad->GetPointIds());
-  return ug;
-}
 vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticPolygon()
 {
   vtkSmartPointer<vtkQuadraticPolygon> quadraticPolygon =
@@ -336,243 +307,6 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticPolygon()
     vtkSmartPointer<vtkUnstructuredGrid>::New();
   ug->SetPoints(quadraticPolygon->GetPoints());
   ug->InsertNextCell(quadraticPolygon->GetCellType(),quadraticPolygon->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTetra()
-{
-  vtkSmartPointer<vtkQuadraticTetra> quadraticTetra =
-    vtkSmartPointer<vtkQuadraticTetra>::New();
-  double *pcoords = quadraticTetra->GetParametricCoords();
-  for (int i = 0; i < 10; ++i)
-  {
-    quadraticTetra->GetPointIds()->SetId(i, i);
-    quadraticTetra->GetPoints()->SetPoint(i,
-                                  *(pcoords + 3 * i),
-                                 *(pcoords + 3 * i + 1),
-                                 *(pcoords + 3 * i + 2));
-  }
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(quadraticTetra->GetPoints());
-  ug->InsertNextCell(quadraticTetra->GetCellType(),quadraticTetra->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron()
-{
-  vtkSmartPointer<vtkQuadraticHexahedron> quadraticHexahedron =
-    vtkSmartPointer<vtkQuadraticHexahedron>::New();
-  double *pcoords = quadraticHexahedron->GetParametricCoords();
-  for (int i = 0; i < quadraticHexahedron->GetNumberOfPoints(); ++i)
-  {
-    quadraticHexahedron->GetPointIds()->SetId(i, i);
-    quadraticHexahedron->GetPoints()->SetPoint(i,
-                                       *(pcoords + 3 * i),
-                                       *(pcoords + 3 * i + 1),
-                                       *(pcoords + 3 * i + 2));
-  }
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(quadraticHexahedron->GetPoints());
-  ug->InsertNextCell(quadraticHexahedron->GetCellType(),quadraticHexahedron->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticWedge()
-{
-  vtkSmartPointer<vtkQuadraticWedge> quadraticWedge =
-    vtkSmartPointer<vtkQuadraticWedge>::New();
-  double *pcoords = quadraticWedge->GetParametricCoords();
-  for (int i = 0; i < quadraticWedge->GetNumberOfPoints(); ++i)
-  {
-    quadraticWedge->GetPointIds()->SetId(i, i);
-    quadraticWedge->GetPoints()->SetPoint(i,
-                                  *(pcoords + 3 * i),
-                                  *(pcoords + 3 * i + 1),
-                                  *(pcoords + 3 * i + 2));
-  }
-
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(quadraticWedge->GetPoints());
-  ug->InsertNextCell(quadraticWedge->GetCellType(),quadraticWedge->GetPointIds());
-  return ug;
-}
-
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticPyramid()
-{
-  vtkSmartPointer<vtkQuadraticPyramid> quadraticPyramid =
-    vtkSmartPointer<vtkQuadraticPyramid>::New();
-  double *pcoords = quadraticPyramid->GetParametricCoords();
-  for (int i = 0; i < quadraticPyramid->GetNumberOfPoints(); ++i)
-  {
-    quadraticPyramid->GetPointIds()->SetId(i, i);
-    quadraticPyramid->GetPoints()->SetPoint(i,
-                                  *(pcoords + 3 * i),
-                                  *(pcoords + 3 * i + 1),
-                                  *(pcoords + 3 * i + 2));
-  }
-
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(quadraticPyramid->GetPoints());
-  ug->InsertNextCell(quadraticPyramid->GetCellType(),quadraticPyramid->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeBiQuadraticQuad()
-{
-  vtkSmartPointer<vtkBiQuadraticQuad> biQuadraticQuad =
-    vtkSmartPointer<vtkBiQuadraticQuad>::New();
-  double *pcoords = biQuadraticQuad->GetParametricCoords();
-  for (int i = 0; i < biQuadraticQuad->GetNumberOfPoints(); ++i)
-  {
-    biQuadraticQuad->GetPointIds()->SetId(i, i);
-    biQuadraticQuad->GetPoints()->SetPoint(i,
-                                 *(pcoords + 3 * i),
-                                 *(pcoords + 3 * i + 1),
-                                 *(pcoords + 3 * i + 2));
-  }
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(biQuadraticQuad->GetPoints());
-  ug->InsertNextCell(biQuadraticQuad->GetCellType(),biQuadraticQuad->GetPointIds());
-  return ug;
-}
-
-vtkSmartPointer<vtkUnstructuredGrid> MakeTriQuadraticHexahedron()
-{
-  vtkSmartPointer<vtkTriQuadraticHexahedron> triQuadraticHexahedron =
-    vtkSmartPointer<vtkTriQuadraticHexahedron>::New();
-  double *pcoords = triQuadraticHexahedron->GetParametricCoords();
-  for (int i = 0; i < triQuadraticHexahedron->GetNumberOfPoints(); ++i)
-  {
-    triQuadraticHexahedron->GetPointIds()->SetId(i, i);
-    triQuadraticHexahedron->GetPoints()->SetPoint(i,
-                                       *(pcoords + 3 * i),
-                                       *(pcoords + 3 * i + 1),
-                                       *(pcoords + 3 * i + 2));
-  }
-
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(triQuadraticHexahedron->GetPoints());
-  ug->InsertNextCell(triQuadraticHexahedron->GetCellType(),triQuadraticHexahedron->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticLinearQuad()
-{
-  vtkSmartPointer<vtkQuadraticLinearQuad> quadraticLinearQuad =
-    vtkSmartPointer<vtkQuadraticLinearQuad>::New();
-  double *pcoords = quadraticLinearQuad->GetParametricCoords();
-  for (int i = 0; i < quadraticLinearQuad->GetNumberOfPoints(); ++i)
-  {
-    quadraticLinearQuad->GetPointIds()->SetId(i, i);
-    quadraticLinearQuad->GetPoints()->SetPoint(i,
-                                       *(pcoords + 3 * i),
-                                       *(pcoords + 3 * i + 1),
-                                       *(pcoords + 3 * i + 2));
-  }
-
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(quadraticLinearQuad->GetPoints());
-  ug->InsertNextCell(quadraticLinearQuad->GetCellType(),quadraticLinearQuad->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticLinearWedge()
-{
-  vtkSmartPointer<vtkQuadraticLinearWedge> quadraticLinearWedge =
-    vtkSmartPointer<vtkQuadraticLinearWedge>::New();
-  double *pcoords = quadraticLinearWedge->GetParametricCoords();
-  for (int i = 0; i < 12; ++i)
-  {
-    quadraticLinearWedge->GetPointIds()->SetId(i, i);
-    quadraticLinearWedge->GetPoints()->SetPoint(i,
-                                       *(pcoords + 3 * i),
-                                       *(pcoords + 3 * i + 1),
-                                       *(pcoords + 3 * i + 2));
-  }
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(quadraticLinearWedge->GetPoints());
-  ug->InsertNextCell(quadraticLinearWedge->GetCellType(),quadraticLinearWedge->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeBiQuadraticQuadraticWedge()
-{
-  vtkSmartPointer<vtkBiQuadraticQuadraticWedge> biQuadraticQuadraticWedge =
-    vtkSmartPointer<vtkBiQuadraticQuadraticWedge>::New();
-  double *pcoords = biQuadraticQuadraticWedge->GetParametricCoords();
-  for (int i = 0; i < biQuadraticQuadraticWedge->GetNumberOfPoints(); ++i)
-  {
-    biQuadraticQuadraticWedge->GetPointIds()->SetId(i, i);
-    biQuadraticQuadraticWedge->GetPoints()->SetPoint(i,
-                                  *(pcoords + 3 * i),
-                                  *(pcoords + 3 * i + 1),
-                                  *(pcoords + 3 * i + 2));
-  }
-
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(biQuadraticQuadraticWedge->GetPoints());
-  ug->InsertNextCell(biQuadraticQuadraticWedge->GetCellType(),biQuadraticQuadraticWedge->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeBiQuadraticQuadraticHexahedron()
-{
-  vtkSmartPointer<vtkBiQuadraticQuadraticHexahedron> biQuadraticQuadraticHexahedron =
-    vtkSmartPointer<vtkBiQuadraticQuadraticHexahedron>::New();
-  double *pcoords = biQuadraticQuadraticHexahedron->GetParametricCoords();
-  for (int i = 0; i < biQuadraticQuadraticHexahedron->GetNumberOfPoints(); ++i)
-  {
-    biQuadraticQuadraticHexahedron->GetPointIds()->SetId(i, i);
-    biQuadraticQuadraticHexahedron->GetPoints()->SetPoint(i,
-                                       *(pcoords + 3 * i),
-                                       *(pcoords + 3 * i + 1),
-                                       *(pcoords + 3 * i + 2));
-  }
-
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(biQuadraticQuadraticHexahedron->GetPoints());
-  ug->InsertNextCell(biQuadraticQuadraticHexahedron->GetCellType(),biQuadraticQuadraticHexahedron->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeBiQuadraticTriangle()
-{
-  vtkSmartPointer<vtkQuadraticTriangle> biQuadraticTriangle =
-    vtkSmartPointer<vtkQuadraticTriangle>::New();
-  double *pcoords = biQuadraticTriangle->GetParametricCoords();
-  for (int i = 0; i < biQuadraticTriangle->GetNumberOfPoints(); ++i)
-  {
-    biQuadraticTriangle->GetPointIds()->SetId(i, i);
-    biQuadraticTriangle->GetPoints()->SetPoint(i,
-                                     *(pcoords + 3 * i),
-                                     *(pcoords + 3 * i + 1),
-                                     *(pcoords + 3 * i + 2));
-  }
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(biQuadraticTriangle->GetPoints());
-  ug->InsertNextCell(biQuadraticTriangle->GetCellType(),biQuadraticTriangle->GetPointIds());
-  return ug;
-}
-vtkSmartPointer<vtkUnstructuredGrid> MakeCubicLine()
-{
-  vtkSmartPointer<vtkCubicLine> cubicLine =
-    vtkSmartPointer<vtkCubicLine>::New();
-  double *pcoords = cubicLine->GetParametricCoords();
-  for (int i = 0; i < cubicLine->GetNumberOfPoints(); ++i)
-  {
-    cubicLine->GetPointIds()->SetId(i, i);
-    cubicLine->GetPoints()->SetPoint(i,
-                                 *(pcoords + 3 * i),
-                                 *(pcoords + 3 * i + 1),
-                                 *(pcoords + 3 * i + 2));
-  }
-
-  vtkSmartPointer<vtkUnstructuredGrid> ug =
-    vtkSmartPointer<vtkUnstructuredGrid>::New();
-  ug->SetPoints(cubicLine->GetPoints());
-  ug->InsertNextCell(cubicLine->GetCellType(),cubicLine->GetPointIds());
   return ug;
 }
 }
