@@ -14,6 +14,19 @@
 #include <vtkTextMapper.h>
 #include <vtkShrinkFilter.h>
 
+#include <vtkCategoryLegend.h>
+#include <vtkContextTransform.h>
+#include <vtkContextScene.h>
+#include <vtkColor.h>
+#include <vtkBrush.h>
+
+#include <vtkContextView.h>
+#include <vtkLookupTable.h>
+#include <vtkScalarsToColors.h>
+#include <vtkVariant.h>
+#include <vtkVariantArray.h>
+#include <vtkCellData.h>
+
 #include <vtkActor.h>
 #include <vtkActor2D.h>
 #include <vtkCamera.h>
@@ -45,6 +58,8 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkExtractEdges>::New();
   extractEdges->SetInputConnection(reader->GetOutputPort());
 
+  vtkSmartPointer<vtkVariantArray> legendValues =
+    vtkSmartPointer<vtkVariantArray>::New();
   vtkCellIterator *it = reader->GetOutput()->NewCellIterator();
   for (it->InitTraversal(); !it->IsDoneWithTraversal(); it->GoToNextCell())
   {
@@ -56,6 +71,7 @@ int main (int argc, char *argv[])
               << " NumberOfPoints: " << cell->GetNumberOfPoints()
               << " CellDimension: " << cell->GetCellDimension()
               << std::endl;
+    legendValues->InsertNextValue(vtkVariant(cellName));
   }
   it->Delete();
 
@@ -115,11 +131,23 @@ int main (int argc, char *argv[])
   geometryShrink->SetInputConnection(reader->GetOutputPort());
   geometryShrink->SetShrinkFactor(.8);
 
+// NOTE: We must copy the originalLut because the CategorialLegend
+// needs an indexed lookup table, but the geometryMapper uses a
+// non-index lookup table
+  vtkSmartPointer<vtkLookupTable> categoricalLut =
+    vtkSmartPointer<vtkLookupTable>::New();
+  vtkSmartPointer<vtkLookupTable> originalLut =
+    reader->GetOutput()->GetCellData()->GetScalars()->GetLookupTable();
+
+  categoricalLut->DeepCopy(originalLut);
+  categoricalLut->IndexedLookupOn();
+
   vtkSmartPointer<vtkDataSetMapper> geometryMapper = 
     vtkSmartPointer<vtkDataSetMapper>::New();
   geometryMapper->SetInputConnection(geometryShrink->GetOutputPort());
   geometryMapper->SetScalarModeToUseCellData();
   geometryMapper->SetScalarRange(0,11);
+
   vtkSmartPointer<vtkActor> geometryActor = 
     vtkSmartPointer<vtkActor>::New();
   geometryActor->SetMapper(geometryMapper);
@@ -127,11 +155,34 @@ int main (int argc, char *argv[])
   geometryActor->GetProperty()->EdgeVisibilityOn();
   geometryActor->GetProperty()->SetEdgeColor(0,0,0);
 
+  // Legend
+  for (int v = 0; v < legendValues->GetNumberOfTuples(); ++v)
+  {
+    categoricalLut->SetAnnotation(legendValues->GetValue(v),
+                       legendValues->GetValue(v).ToString());
+  }
+  vtkSmartPointer<vtkCategoryLegend> legend =
+    vtkSmartPointer<vtkCategoryLegend>::New();
+  legend->SetScalarsToColors(categoricalLut);
+  legend->SetValues(legendValues);
+  legend->SetTitle("Cell Type");
+  legend->GetBrush()->SetColor(colors->GetColor4ub("Silver").GetData());
+
+  vtkSmartPointer<vtkContextTransform> placeLegend =
+    vtkSmartPointer<vtkContextTransform>::New();
+  placeLegend->AddItem(legend);
+  placeLegend->Translate(640 - 20, 480 - 12 * 16);
+
+  vtkSmartPointer<vtkContextView> contextView =
+    vtkSmartPointer<vtkContextView>::New();
+  contextView->GetScene()->AddItem(placeLegend);
+
   vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
+    contextView->GetRenderer();
+
   vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
-  renderWindow->AddRenderer(renderer);
+    contextView->GetRenderWindow();
+
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
