@@ -67,7 +67,7 @@ manipulation or using VTK filters to merge data. Keywords are case insensitive, 
 
 * Cell types and indices are of type _int_.
 
-* Binary data must be placed into the file immediately after the “newline” _(\n)_ character from the previous ASCIIkeyword and parameter sequence.
+* Binary data must be placed into the file immediately after the “newline” _(\n)_ character from the previous ASCII keyword and parameter sequence.
 
 * The geometry/topology description must occur prior to the data attribute description.
 
@@ -344,6 +344,11 @@ Figure 2 shows all 16 of the linear cell types and was generated with the [Linea
 <figure>
   <img src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestLinearCellDemo.png?raw=true" width="640" alt="LinearCellDemo">
   <figcaption>Figure 2. - Linear cell types found in VTK. Use the include file vtkCellType.h to manipulate cell types..</figcaption>
+</figure>
+Figure 3 shows 16 of the non-linear cells and was generated with the [IsoparametricCellsDemo](/Cxx/GeometricObjects/IsoparametricCellsDemo).
+<figure>
+  <img src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestIsoparametricCellsDemo.png?raw=true" width="640" alt="LinearCellDemo">
+  <figcaption>Figure 3. - Non-linear cell types found in VTK.</figcaption>
 </figure>
 
 The file contains scalar and vector data.
