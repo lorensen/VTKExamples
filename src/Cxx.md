@@ -288,6 +288,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [ExtractVisibleCells](/Cxx/Filtering/ExtractVisibleCells) | vtkHardwareSelector | Extract and highlight visible cells.
 [FieldData](/Cxx/PolyData/FieldData) | vtkFieldData | Add Global Miscellaneous Data (FieldData) to a Polydata.
 [Finance](/Cxx/Modelling/Finance) | vtkGaussianSplatter | Visualization of multidimensional financial data. The gray/wireframe surface represents the total data population. The red surface represents data points delinquent on loan payment.
+[FinanceFieldData](/Cxx/Modelling/FinanceFieldData) | vtkGaussianSplatter | Visualization of multidimensional financial data. The yellow surface represents the total data population. The red surface represents data points delinquent on loan payment.
 [FindAllArrayNames](/Cxx/IO/FindAllArrayNames) | vtkPolyData | Get the names of all of the data arrays.
 [FitSplineToCutterOutput](/Cxx/PolyData/FitSplineToCutterOutput) | vtkKochanekSpline vtkSplineFilter vtkSpline | Fit a spline to cutter output.
 [GeometryFilter](/Cxx/PolyData/GeometryFilter) | vtkGeometryFilter | Convert vtkUnstructuredGrid to vtkPolyData (another way).
