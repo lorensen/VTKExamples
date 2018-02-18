@@ -9,4 +9,6 @@ This example displays a vtkUnstructuredGrid that contains eleven linear cells. W
 6. vtkProperty::EdgeVisibilityOn() shows the edges of the cells after shrinking.
 7. vtkCellData colors each cell with a different color.
 
-The sample file is taken from the [VTKFileFormats](/VTKFileFormats#legacy-file-examples) document.
+The example also shows how to add a vtkCategoryLegend to a visualization. The vtkCategoryLegend has a vtkLookupTable that **must** be Indexed for categorical data. Since the vtkDataSetMapper for the geometry uses the lookup table to color each cell, we use vtkLookupTable::DeepCopy to copy the input vtkLookupTable and apply vtkLookupTable::IndexedLookupOn().
+
+The [sample file](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/VTKCellTypes.vtk) is taken from the [VTKFileFormats](/VTKFileFormats#legacy-file-examples) document.

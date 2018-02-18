@@ -15,28 +15,27 @@
 #include <vtkShrinkFilter.h>
 
 #include <vtkCategoryLegend.h>
-#include <vtkContextTransform.h>
-#include <vtkContextScene.h>
-#include <vtkColor.h>
 #include <vtkBrush.h>
-
+#include <vtkCellData.h>
+#include <vtkColor.h>
+#include <vtkContextScene.h>
+#include <vtkContextTransform.h>
 #include <vtkContextView.h>
 #include <vtkLookupTable.h>
 #include <vtkScalarsToColors.h>
 #include <vtkVariant.h>
 #include <vtkVariantArray.h>
-#include <vtkCellData.h>
 
 #include <vtkActor.h>
 #include <vtkActor2D.h>
 #include <vtkCamera.h>
-
 #include <vtkDataSetMapper.h>
 #include <vtkNamedColors.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
 #include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+
 #include <vtkCellIterator.h>
 #include <vtkCellTypes.h>
 #include <vtkLabeledDataMapper.h>
