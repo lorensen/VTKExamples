@@ -435,6 +435,11 @@ LOOKUP_TABLE CellColors 11
 ```
 
 The fourth and final example is data represented as a field. You may also wish to see “Working With Field Data” on [page 249](https://www.kitware.com/products/books/VTKUsersGuide.pdf#page=263) to see how to manipulate this data. The data file shown below can be found in its entirety [here](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/financial.vtk).
+The example [FinanceFieldData(/Cxx/Modelling/FinanceFieldData) generated Figure 5.
+<figure>
+  <img src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Modelling/TestFinanceFieldData.png?raw=true" width="640" alt="FinanceFieldData">
+  <figcaption>Figure 5. - Visualizing financial field data.</figcaption>
+</figure>
 
 ```
 # vtk DataFile Version 2.0
