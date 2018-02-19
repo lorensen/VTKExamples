@@ -111,6 +111,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [StructuredGridReader](/Cxx/IO/StructuredGridReader) | vtkStructuredGridReader | Read a structured grid (.vtk) file.
 [StructuredPointsReader](/Cxx/IO/StructuredPointsReader) | vtkStructuredPointsReader | Read a structured points (.vtk) file.
 [ReadLegacyUnstructuredGrid](/Cxx/IO/ReadLegacyUnstructuredGrid) | vtkUnstructuredGridReader | Read an unstructured grid that contains 11 linear cells.
+[WriteLegacyLinearCells](/Cxx/IO/WriteLegacyLinearCells) | vtkUnstructuredGridWriter | Write each linear cell into a legacy UnstructuredGrid file.
 
 ### Image Format
 

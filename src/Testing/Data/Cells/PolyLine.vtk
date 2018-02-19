@@ -1,0 +1,13 @@
+# vtk DataFile Version 4.2
+vtk output
+ASCII
+DATASET UNSTRUCTURED_GRID
+POINTS 5 float
+0 0.5 0 0.5 0 0 1 0.3 0 
+1.5 0.4 0 2 0.4 0 
+CELLS 1 6
+5 0 1 2 3 4 
+
+CELL_TYPES 1
+4
+
