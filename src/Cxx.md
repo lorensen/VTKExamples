@@ -108,9 +108,9 @@ These are fully independent, compilable examples. There is significant overlap i
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [GenericDataObjectReader](/Cxx/IO/GenericDataObjectReader) | vtkGenericDataObjectReader | Read any type of legacy .vtk file.
+[ReadLegacyUnstructuredGrid](/Cxx/IO/ReadLegacyUnstructuredGrid) | vtkUnstructuredGridReader | Read an unstructured grid that contains 11 linear cells.
 [StructuredGridReader](/Cxx/IO/StructuredGridReader) | vtkStructuredGridReader | Read a structured grid (.vtk) file.
 [StructuredPointsReader](/Cxx/IO/StructuredPointsReader) | vtkStructuredPointsReader | Read a structured points (.vtk) file.
-[ReadLegacyUnstructuredGrid](/Cxx/IO/ReadLegacyUnstructuredGrid) | vtkUnstructuredGridReader | Read an unstructured grid that contains 11 linear cells.
 [WriteLegacyLinearCells](/Cxx/IO/WriteLegacyLinearCells) | vtkUnstructuredGridWriter | Write each linear cell into a legacy UnstructuredGrid file.
 [WriteXMLLinearCells](/Cxx/IO/WriteXMLLinearCells) | vtkXMLDataSetWriter | Write each linear cell into an XML UnstructuredGrid file (.vtu).
 
