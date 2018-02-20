@@ -45,6 +45,16 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | -------------- | ---------------------- | ------------- | ------- |
 [3DSImporter](/Python/IO/3DSImporter) | vtk3DSImporter | Import a 3D Studio scene that includes multiple actors.
 
+#### VTK Formats
+
+#### Legacy VTK Formats
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ReadLegacyUnstructuredGrid](/Python/IO/ReadLegacyUnstructuredGrid) | vtkUnstructuredGridReader | Read an unstructured grid that contains 11 linear cells.
+[WriteLegacyLinearCells](/Python/IO/WriteLegacyLinearCells) | vtkUnstructuredGridWriter | Write each linear cell into a legacy UnstructuredGrid file.
+[WriteXMLLinearCells](/Python/IO/WriteXMLLinearCells) | vtkXMLDataSetWriter | Write each linear cell into an XML UnstructuredGrid file (.vtu).
+
 ## Working with Arrays
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -65,6 +75,12 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [SourceObjectsDemo](/Python/GeometricObjects/SourceObjectsDemo) | vtkSphereSource vtkConeSource vtkCylinderSource vtkCubeSource vtkPlaneSource vtkTextSource vtkPointSource vtkDiskSource vtkLineSource | Examples of source objects that procedurally generate polygonal models.  These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check subclasses of vtkPolyDataAlgorithm.
+
+### Cells
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[LinearCellDemo](/Python/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
 
 ### Display
 
@@ -106,6 +122,12 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Triangle](/Python/GeometricObjects/Triangle) | vtkTriangle |
 [TriangleStrip](/Python/GeometricObjects/TriangleStrip) | vtkTriangleStrip |
 [Vertex](/Python/GeometricObjects/Vertex) | vtkVertex |
+
+### Non Linear
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[IsoparametricCellsDemo](/Python/GeometricObjects/IsoparametricCellsDemo) | vtkNonLinearCell | Nonlinear isoparametric cell types in VTK.
 
 ### Parametric Objects
 
