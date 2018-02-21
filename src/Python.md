@@ -24,14 +24,13 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 ## Input and Output
 
-### Output
+### Graph Formats
 
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[PLYWriter](/Python/IO/PLYWriter) | vtkPLYWriter |
-[STLWriter](/Python/IO/STLWriter) | vtkSTLWriter |
+### 3D File Formats
 
-### Input
+#### Standard Formats
+
+##### Input
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
@@ -45,7 +44,18 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | -------------- | ---------------------- | ------------- | ------- |
 [3DSImporter](/Python/IO/3DSImporter) | vtk3DSImporter | Import a 3D Studio scene that includes multiple actors.
 
+##### Output
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[PLYWriter](/Python/IO/PLYWriter) | vtkPLYWriter |
+[STLWriter](/Python/IO/STLWriter) | vtkSTLWriter |
+
 #### VTK Formats
+
+##### Input
+
+##### Output
 
 #### Legacy VTK Formats
 
@@ -55,14 +65,9 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [WriteLegacyLinearCells](/Python/IO/WriteLegacyLinearCells) | vtkUnstructuredGridWriter | Write each linear cell into a legacy UnstructuredGrid file.
 [WriteXMLLinearCells](/Python/IO/WriteXMLLinearCells) | vtkXMLDataSetWriter | Write each linear cell into an XML UnstructuredGrid file (.vtu).
 
-## Working with Arrays
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[GetValues](/Python/Arrays/GetValues) | GetTuple3 |
-[RenameArray](/Python/Arrays/RenameArray) | SetName |
-
 ### Image Format
+
+#### Input
 
 #### Output
 
@@ -74,22 +79,35 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[Axes](/Python/GeometricObjects/Axes) | vtkAxesActor |
+[ColoredLines](/Python/GeometricObjects/ColoredLines) | vtkCellData vtkLine |
+[GeometricObjectsDemo](/Python/GeometricObjects/GeometricObjectsDemo) |  |
+[Planes](/Python/GeometricObjects/Planes) | vtkPlanes vtkHull | We create a convex hull of the planes for display purposes.
+[PlanesIntersection](/Python/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection |
+[PolygonIntersection](/Python/GeometricObjects/PolygonIntersection) | vtkPolygon | IntersectWithLine()
 [SourceObjectsDemo](/Python/GeometricObjects/SourceObjectsDemo) | vtkSphereSource vtkConeSource vtkCylinderSource vtkCubeSource vtkPlaneSource vtkTextSource vtkPointSource vtkDiskSource vtkLineSource | Examples of source objects that procedurally generate polygonal models.  These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check subclasses of vtkPolyDataAlgorithm.
 
 ### Cells
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) | vtkHexagonalPrism vtkHexahedron vtkPentagonalPrism  vtkPolyhedron vtkPyramid vtkTetra vtkVoxel vtkWedge vtkUnstructuredGrid | Sample objects are generated from the classes derived from vtkCell3D and displayed.
+[Hexahedron](/Python/GeometricObjects/Hexahedron) | vtkHexahedron |
 [LinearCellDemo](/Python/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
+[LongLine](/Python/GeometricObjects/LongLine) | vtkLine |
+[Point](/Python/GeometricObjects/Point) | vtkPoints |
+[Polygon](/Python/GeometricObjects/Polygon) | vtkPolygon |
+[Pyramid](/Python/GeometricObjects/Pyramid) | vtkPyramid |
+[Quad](/Python/GeometricObjects/Quad) | vtkQuad |
+[Tetrahedron](/Python/GeometricObjects/Tetrahedron) | vtkTetra |
+[Triangle](/Python/GeometricObjects/Triangle) | vtkTriangle |
+[Vertex](/Python/GeometricObjects/Vertex) | vtkVertex |
 
-### Display
+### Sources
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Arrow](/Python/GeometricObjects/Arrow) | vtkArrowSource |
-[Axes](/Python/GeometricObjects/Axes) | vtkAxesActor |
-[Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) | vtkHexagonalPrism vtkHexahedron vtkPentagonalPrism  vtkPolyhedron vtkPyramid vtkTetra vtkVoxel vtkWedge vtkUnstructuredGrid | Sample objects are generated from the classes derived from vtkCell3D and displayed.
-[ColoredLines](/Python/GeometricObjects/ColoredLines) | vtkCellData vtkLine |
 [Cone](/Python/GeometricObjects/Cone) | vtkConeSource |
 [ConeA](/Python/GeometricObjects/ConeA) | vtkConeSource |
 [Cube](/Python/GeometricObjects/Cube) | vtkCubeSource |
@@ -98,30 +116,16 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [DataSetSurface](/Python/GeometricObjects/DataSetSurface) | vtkDataSetSurfaceFilter |
 [Disk](/Python/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Python/GeometricObjects/Frustum) | vtkFrustumSource |
-[GeometricObjectsDemo](/Python/GeometricObjects/GeometricObjectsDemo) |  |
-[Hexahedron](/Python/GeometricObjects/Hexahedron) | vtkHexahedron |
 [LineSource](/Python/GeometricObjects/LineSource) | vtkLineSource |
-[LongLine](/Python/GeometricObjects/LongLine) | vtkLine |
 [OrientedArrow](/Python/GeometricObjects/OrientedArrow) | vtkArrowSource |
 [Plane](/Python/GeometricObjects/Plane) | vtkPlaneSource |
-[Planes](/Python/GeometricObjects/Planes) | vtkPlanes vtkHull | We create a convex hull of the planes for display purposes.
-[PlanesIntersection](/Python/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection |
 [PlatonicSolid](/Python/GeometricObjects/PlatonicSolid) | vtkPlatonicSolidSource | All five platonic solids are displayed.
-[Point](/Python/GeometricObjects/Point) | vtkPoints |
-[PointSource](/Python/GeometricObjects/PointSource) | vtkPointSource |
-[Polygon](/Python/GeometricObjects/Polygon) | vtkPolygon |
-[PolygonIntersection](/Python/GeometricObjects/PolygonIntersection) | vtkPolygon | IntersectWithLine()
 [Polyline](/Python/GeometricObjects/Polyline) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
-[Pyramid](/Python/GeometricObjects/Pyramid) | vtkPyramid |
-[Quad](/Python/GeometricObjects/Quad) | vtkQuad |
 [RegularPolygonSource](/Python/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Python/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Python/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
-[Tetrahedron](/Python/GeometricObjects/Tetrahedron) | vtkTetra |
 [TextActor](/Python/GeometricObjects/TextActor) | vtkTextActor | 2D "HUD-type" text
-[Triangle](/Python/GeometricObjects/Triangle) | vtkTriangle |
 [TriangleStrip](/Python/GeometricObjects/TriangleStrip) | vtkTriangleStrip |
-[Vertex](/Python/GeometricObjects/Vertex) | vtkVertex |
 
 ### Non Linear
 
@@ -155,19 +159,22 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Quadric](/Python/ImplicitFunctions/Quadric) | vtkQuadric | Create an ellipsoid using an implicit quadric
 [Sphere](/Python/ImplicitFunctions/Sphere) | vtkSphere | Demonstrate sampling of a sphere implicit function
 
-## Working with PolyData
+## Working with 3D Data
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [BooleanOperationPolyDataFilter](/Python/PolyData/BooleanOperationPolyDataFilter) | vtkBooleanOperationPolyDataFilter | This example performs a boolean operation (Intersection, Union, Difference) of two PolyData
+[Bottle](/Python/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
 [ColoredTriangle](/Python/PolyData/ColoredTriangle) | vtkTriangle | Creates a file TriangleColored.vtp.
 [CombinePolyData](/Python/Filtering/CombinePolyData) | vtkAppendPolyData | This example combines Polydata objects, and displays the result to the screen.
 [Cube](/Python/DataManipulation/Cube) | vtkPolyData |
 [CurvaturesDemo](/Python/PolyData/CurvaturesDemo) | vtkCurvatures  vtkColorTransferFunction | Demonstrates how to get the Gaussian and Mean curvatures of a surface.
+[ExtractSelection](/Python/PolyData/ExtractSelection) | vtkExtractSelection |
+[ExtractSelectionCells](/Python/PolyData/ExtractSelectionCells) | vtkExtractSelection | Extract cell, select cell.
 [FilledPolygon](/Python/PolyData/FilledPolygon) | vtkCutter |
+[Finance](/Python/Modelling/Finance) | vtkGaussianSplatter | Visualization of multidimensional financial data. The gray/wireframe surface represents the total data population. The red surface represents data points delinquent on loan payment.
 [ImplicitPolyDataDistance](/Python/PolyData/ImplicitPolyDataDistance) | vtkImplicitPolyDataDistance |
 [IterativeClosestPoints](/Python/Filtering/IterativeClosestPoints) | vtkIterativeClosestPointTransform |
-[KochSnowflake](/Python/Visualization/KochSnowflake) | vtkPolyData vtkCellArray vtkPoints vtkPolyLine | This example draws a Koch snowflake fractal using recursive functions and some of the convenient tools in the toolkit.
 [LineOnMesh](/Python/DataManipulation/LineOnMesh) | vtkCellLocator vtkParametricSpline |
 [MeshLabelImageColor](/Python/DataManipulation/MeshLabelImageColor) | vtkDiscreteMarchingCubes |
 [Outline](/Python/PolyData/Outline) | vtkOutlineFilter |
@@ -177,31 +184,47 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [RuledSurfaceFilter](/Python/PolyData/RuledSurfaceFilter) | vtkRuledSurfaceFilter |
 [SmoothMeshGrid](/Python/PolyData/SmoothMeshGrid) | vtkLoopSubdivisionFilter vtkButterflySubdivisionFilter |
 [SolidColoredTriangle](/Python/PolyData/SolidColoredTriangle) | vtkTriangle | Writes out a file TriangleSolidColor.vtp.
+[Spring](/Python/Modelling/Spring) | vtkRotationalExtrusionFilter | Rotation in combination with linear displacement and radius variation.
 [TriangleColoredPoints](/Python/PolyData/TriangleColoredPoints) | vtkUnsignedCharArray |
 [TriangleCornerVertices](/Python/PolyData/TriangleCornerVertices) | vtkCellArray |
 [TriangleCorners](/Python/PolyData/TriangleCorners) | vtkXMLPolyDataWriter |
 [WarpVector](/Python/PolyData/WarpVector) | vtkLine vtkDoubleArray vtkPolyData vtkWarpVector | This example warps/deflects a line.
 [WriteTriangleToFile](/Python/IO/WriteTriangleToFile) | vtkTriangle |
 
-## Working with 3D Data
+### Data Types
+
+### Data Type Conversions
+
+### Point Cloud Operations
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[Bottle](/Python/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
-[ExtractSelection](/Python/PolyData/ExtractSelection) | vtkExtractSelection |
-[ExtractSelectionCells](/Python/PolyData/ExtractSelectionCells) | vtkExtractSelection | Extract cell, select cell.
-[Finance](/Python/Modelling/Finance) | vtkGaussianSplatter | Visualization of multidimensional financial data. The gray/wireframe surface represents the total data population. The red surface represents data points delinquent on loan payment.
-[Spring](/Python/Modelling/Spring) | vtkRotationalExtrusionFilter | Rotation in combination with linear displacement and radius variation.
+[PointSource](/Python/GeometricObjects/PointSource) | vtkPointSource |
+
+### Working with Meshes
+
+This section includes examples of manipulating meshes.
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ClipDataSetWithPolydata](/Python/Meshes/ClipDataSetWithPolydata) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
+[DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
+
+#### Clipping
 
 ### Working with Structured 3D Data
 
-This section includes vtkImageData, vtkStructuredGrid, and vtkRectilinearGrid.
+This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
+
+"ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK.
 
 #### vtkImageData
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ImageWeightedSum](/Python/ImageData/ImageWeightedSum) | vtkImageWeightedSum | Add two or more images.
+
+#### Conversions
 
 #### vtkStructuredGrid
 
@@ -232,14 +255,7 @@ This section includes vtkUnstructuredGrid.
 | -------------- | ---------------------- | ------------- | ------- |
 [UGrid](/Python/UnstructuredGrid/UGrid) | vtkUnstructuredGrid | Creation of an unstructured grid.
 
-### Working with Meshes
-
-This section includes examples of manipulating meshes.
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[ClipDataSetWithPolydata](/Python/Meshes/ClipDataSetWithPolydata) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
-[DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
+### Registration
 
 ### Medical
 
@@ -249,6 +265,51 @@ This section includes examples of manipulating meshes.
 [MedicalDemo2](/Python/Medical/MedicalDemo2) | vtkMarchingCubes | Create a skin and bone surface from volume data
 [MedicalDemo3](/Python/Medical/MedicalDemo3) | vtkMarchingCubes | Create skin, bone and slices from volume data
 [MedicalDemo4](/Python/Medical/MedicalDemo4) | vtkFixedPointVolumeRayCastMapper | Create a volume rendering
+
+### Surface reconstruction
+
+## Utilities
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Delaunay2D](/Python/Filtering/Delaunay2D) | vtkDelaunay2D |
+[LUTUtilities](/Python/Utilities/LUTUtilities) | vtkLookupTable vtkColorSeries | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.
+[MultipleViewports](/Python/Visualization/MultipleViewports) | vtkRenderer::SetViewport |
+[Screenshot](/Python/Utilities/Screenshot) | vtkWindowToImageFilter |
+[VTKVersion](/Python/Utilities/VTKVersion) | vtkVersion |
+[VTKWithNumpy](/Python/Utilities/VTKWithNumpy) | vtkImageImport |
+[Variant](/Python/Utilities/Variant) | vtkVariant |
+
+### Arrays
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[GetValues](/Python/Arrays/GetValues) | GetTuple3 |
+[RenameArray](/Python/Arrays/RenameArray) | SetName |
+
+### Events
+
+## Math Operations
+
+## Graphs
+
+### Graph Conversions
+
+## Data Structures
+
+### Timing Demonstrations
+
+### KD-Tree
+
+### Oriented Bounding Box (OBB) Tree
+
+### Octree
+
+### Modified BSP Tree
+
+### HyperTreeGrid
+
+## VTK Concepts
 
 ## Rendering
 
@@ -272,6 +333,8 @@ This section includes examples of manipulating meshes.
 [WalkCowA](/Python/Rendering/WalkCowA) | vtkBYUReader vtkRenderWindow::EraseOff() vtkActor | This generates Fig. 3-33a found in VTKTextbook.pdf.
 [WalkCowB](/Python/Rendering/WalkCowB) | vtkBYUReader vtkRenderWindow::EraseOff() vtkActor | This generates Fig. 3-33b found in VTKTextbook.pdf.
 
+## Lighting
+
 ## Texture Mapping
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -283,6 +346,8 @@ This section includes examples of manipulating meshes.
 [TextureThreshold](/Python/Texture/TextureThreshold) | vtkTexture vtkThresholdTextureCoords vtkStructuredGridGeometryFilter | Demonstrate the use of scalar thresholds to show values of flow density on three planes.
 
 ## Visualization
+
+See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a brief explanation of the VTK terminology of mappers, actors, etc.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
@@ -327,12 +392,12 @@ This section includes examples of manipulating meshes.
 [InteractorStyleTrackballCamera](/Python/Visualization/InteractorStyleTrackballCamera) | vtkInteractorStyleTrackBallCamera |
 [IronIsoSurface](/Python/VisualizationAlgorithms/IronIsoSurface) | vtkContourFilter | Marching cubes surface of iron-protein.
 [Kitchen](/Python/Visualization/Kitchen) | vtkStreamTracer vtkStructuredGrid | Demonstrates stream tracing in a kitchen.
+[KochSnowflake](/Python/Visualization/KochSnowflake) | vtkPolyData vtkCellArray vtkPoints vtkPolyLine | This example draws a Koch snowflake fractal using recursive functions and some of the convenient tools in the toolkit.
 [LOx](/Python/VisualizationAlgorithms/LOx) | vtkStreamTracer vtkTubeFilter | Streamtubes created by using the computational grid just in front of the post as a source for seeds.
 [LOxGrid](/Python/VisualizationAlgorithms/LOxGrid) | vtkStreamTracer vtkTubeFilter | Portion of computational grid for the LOx post.
 [LOxSeeds](/Python/VisualizationAlgorithms/LOxSeeds) | vtkStreamTracer vtkTubeFilter | Streamlines seeded with spherical cloud of points. Four separate cloud positions are shown.
 [LoopShrink](/Python/Visualization/LoopShrink) |  | A network with a loop. VTK 5.0 does not allow you to execute a looping visualization network; this was possible in previous versions of VTK.
 [Motor](/Python/VisualizationAlgorithms/Motor) | vtkBYUReader vtkStructuredPointsReader vtkTexture vtkImplicitTextureCoords | Texture cut used to reveal internal structure of a motor. Two cut planes are used in combination with transparent texture.
-[MultipleViewports](/Python/Visualization/MultipleViewports) | vtkRenderer::SetViewport |
 [NamedColorPatches](/Python/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html)
 [NamedColors](/Python/Visualization/NamedColors) | vtkNamedColors | Demonstrates how to use the vtkNamedColors class.
 [NormalsDemo](/Python/Visualization/NormalsDemo) | vtkPolyDataNormals | Demo different options to generate normals.
@@ -371,29 +436,6 @@ This section includes examples of manipulating meshes.
 [WarpCombustor](/Python/VisualizationAlgorithms/WarpCombustor) | vtkWarpScalar vtkMultiBlockPLOT3DReader | Carpet plots. Carpet plot of combustor flow energy in a structured grid. Colors and plane displacement represent energy values.
 [WindowTitle](/Python/Visualization/WindowTitle) | vtkRenderWindow::SetWindowName |
 
-## Working with Images
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[BackgroundImage](/Python/Images/BackgroundImage) | vtkJPEGReader vtkImageCanvasSource2D vtkImageActor vtkSuperquadricSource | Display an image as the "background" of a scene, and render a superquadric in front of it.
-
-## Image Processing
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[Attenuation](/Python/ImageProcessing/Attenuation) | vtkImageGaussianSmooth vtkImageMathematics vtkImageShiftScale | This MRI image illustrates attenuation that can occur due to sensor position.  The artifact is removed by dividing by the attenuation profile determined manually.
-[EnhanceEdges](/Python/ImageProcessing/EnhanceEdges) | vtkImageLaplacian vtkImageMathematics | High-pass filters can extract and enhance edges in an image. Subtraction of the Laplacian (middle) from the original image (left) results in edge enhancement or a sharpening operation (right).
-[GaussianSmooth](/Python/ImageProcessing/GaussianSmooth) | vtkImageGaussianSmooth | Low-pass filters can be implemented as convolution with a Gaussian kernel.
-[HybridMedianComparison](/Python/ImageProcessing/HybridMedianComparison) | vtkImageHybridMedian2D vtkImageMedian3D | Comparison of median and hybrid-median filters. The hybrid filter preserves corners and thin lines, better than the median filter.
-[IdealHighPass](/Python/ImageProcessing/IdealHighPass) | vtkImageFFT vtkImageRFFT vtkImageIdealHighPass vtkImageButterworthHighPass | This figure shows two high-pass filters in the frequency domain. The Butterworth high-pass filter has a gradual attenuation that avoids ringing produced by the ideal high-pass filter with an abrupt transition.
-[ImageGradient](/Python/VisualizationAlgorithms/ImageGradient) | vtkImageMagnify vtkImageGaussianSmooth vtkImageGradient vtkImageEuclideanToPolar vtkImageExtractComponents vtkImageHSVToRGB | Create an imaging pipeline to visualize gradient information.
-[ImageWarp](/Python/Images/ImageWarp) | vtkBMPReader vtkImageLuminance vtkWarpScalar vtkMergeFilter | Combine the imaging and visualization pipelines to deform an image in the z-direction. The vtkMergeFilter is used to combine the warped surface with the original color data.
-[IsoSubsample](/Python/ImageProcessing/IsoSubsample) | vtkImageMarchingCubes vtkImageShrink3D vtkImageGaussianSmooth | This figure demonstrates aliasing that occurs when a high-frequency signal is subsampled. High frequencies appear as low frequency artifacts. The left image is an isosurface of a skull after subsampling. The right image used a low-pass filter before subsampling to reduce aliasing.
-[MedianComparison](/Python/ImageProcessing/MedianComparison) | vtkImageGaussianSmooth vtkImageMedian3D vtkImageNoiseSource | Comparison of Gaussian and Median smoothing for reducing low-probability high-amplitude noise.
-[MorphologyComparison](/Python/ImageProcessing/MorphologyComparison) | vtkImageDilateErode3D vtkImageSeedConnectivity | This figure demonstrates various binary filters that can alter the shape of segmented regions.
-[Pad](/Python/ImageProcessing/Pad) | vtkImageConstantPad vtkImageMirrorPad | Convolution in frequency space treats the image as a periodic function. A large kernel can pick up features from both sides of the image. The lower-left image has been padded with zeros to eliminate wraparound during convolution. On the right, mirror padding has been used to remove artificial edges introduced by borders.
-[VTKSpectrum](/Python/ImageProcessing/VTKSpectrum) | vtkImageFFT vtkImageFourierCenter vtkImageLogarithmicScale vtkImageMagnitude | The discrete Fourier transform changes an image from the spatial domain into the frequency domain, where each pixel represents a sinusoidal function. This figure shows an image and its power spectrum displayed using a logarithmic transfer function.
-
 ## Working with vtkImageData
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -431,21 +473,28 @@ This section includes examples of manipulating meshes.
 [MouseEvents](/Python/Interaction/MouseEvents) | vtkInteractorStyleTrackballCamera | Subclass the interactor style.
 [MouseEventsObserver](/Python/Interaction/MouseEventsObserver) | vtkCallbackCommand | Use an observer.
 
-## Infovis
+## Working with Images
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[ParallelCoordinatesExtraction](/Python/Infovis/ParallelCoordinatesExtraction) | vtkExtractSelection vtkAnnotationLink | Extract data based on a selection in a Parallel Coordinates View
-[ParallelCoordinatesView](/Python/Infovis/ParallelCoordinatesView) | vtkRTAnalyticSource vtkParallelCoordinatesView vtkParallelCoordinatesRepresentation | Plotting data attributes in a Parallel Coordinates View
-[ScatterPlot](/Python/Plotting/ScatterPlot) | vtkChartXY |
-[SelectedGraphIDs](/Python/Infovis/SelectedGraphIDs) | vtkAnnotationLink vtkRandomGraphSource vtkGraphLayoutView | Callback on vtkAnnotationLink in a Graph Layout View when selection is changed
-[SpiderPlot](/Python/Plotting/SpiderPlot) | vtkSpiderPlotActor |
+[BackgroundImage](/Python/Images/BackgroundImage) | vtkJPEGReader vtkImageCanvasSource2D vtkImageActor vtkSuperquadricSource | Display an image as the "background" of a scene, and render a superquadric in front of it.
 
-## Geovis
+## Image Processing
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[GeoAssignCoordinates](/Python/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates vtkMutableDirectedGraph vtkGraphMapper | Draws a sphere, based on longituds and latitudes.
+[Attenuation](/Python/ImageProcessing/Attenuation) | vtkImageGaussianSmooth vtkImageMathematics vtkImageShiftScale | This MRI image illustrates attenuation that can occur due to sensor position.  The artifact is removed by dividing by the attenuation profile determined manually.
+[EnhanceEdges](/Python/ImageProcessing/EnhanceEdges) | vtkImageLaplacian vtkImageMathematics | High-pass filters can extract and enhance edges in an image. Subtraction of the Laplacian (middle) from the original image (left) results in edge enhancement or a sharpening operation (right).
+[GaussianSmooth](/Python/ImageProcessing/GaussianSmooth) | vtkImageGaussianSmooth | Low-pass filters can be implemented as convolution with a Gaussian kernel.
+[HybridMedianComparison](/Python/ImageProcessing/HybridMedianComparison) | vtkImageHybridMedian2D vtkImageMedian3D | Comparison of median and hybrid-median filters. The hybrid filter preserves corners and thin lines, better than the median filter.
+[IdealHighPass](/Python/ImageProcessing/IdealHighPass) | vtkImageFFT vtkImageRFFT vtkImageIdealHighPass vtkImageButterworthHighPass | This figure shows two high-pass filters in the frequency domain. The Butterworth high-pass filter has a gradual attenuation that avoids ringing produced by the ideal high-pass filter with an abrupt transition.
+[ImageGradient](/Python/VisualizationAlgorithms/ImageGradient) | vtkImageMagnify vtkImageGaussianSmooth vtkImageGradient vtkImageEuclideanToPolar vtkImageExtractComponents vtkImageHSVToRGB | Create an imaging pipeline to visualize gradient information.
+[ImageWarp](/Python/Images/ImageWarp) | vtkBMPReader vtkImageLuminance vtkWarpScalar vtkMergeFilter | Combine the imaging and visualization pipelines to deform an image in the z-direction. The vtkMergeFilter is used to combine the warped surface with the original color data.
+[IsoSubsample](/Python/ImageProcessing/IsoSubsample) | vtkImageMarchingCubes vtkImageShrink3D vtkImageGaussianSmooth | This figure demonstrates aliasing that occurs when a high-frequency signal is subsampled. High frequencies appear as low frequency artifacts. The left image is an isosurface of a skull after subsampling. The right image used a low-pass filter before subsampling to reduce aliasing.
+[MedianComparison](/Python/ImageProcessing/MedianComparison) | vtkImageGaussianSmooth vtkImageMedian3D vtkImageNoiseSource | Comparison of Gaussian and Median smoothing for reducing low-probability high-amplitude noise.
+[MorphologyComparison](/Python/ImageProcessing/MorphologyComparison) | vtkImageDilateErode3D vtkImageSeedConnectivity | This figure demonstrates various binary filters that can alter the shape of segmented regions.
+[Pad](/Python/ImageProcessing/Pad) | vtkImageConstantPad vtkImageMirrorPad | Convolution in frequency space treats the image as a periodic function. A large kernel can pick up features from both sides of the image. The lower-left image has been padded with zeros to eliminate wraparound during convolution. On the right, mirror padding has been used to remove artificial edges introduced by borders.
+[VTKSpectrum](/Python/ImageProcessing/VTKSpectrum) | vtkImageFFT vtkImageFourierCenter vtkImageLogarithmicScale vtkImageMagnitude | The discrete Fourier transform changes an image from the spatial domain into the frequency domain, where each pixel represents a sinusoidal function. This figure shows an image and its power spectrum displayed using a logarithmic transfer function.
 
 ## Widgets
 
@@ -453,29 +502,39 @@ This section includes examples of manipulating meshes.
 | -------------- | ---------------------- | ------------- | ------- |
 [BalloonWidget](/Python/Widgets/BalloonWidget) | vtkBalloonWidget vtkBalloonRepresentation | Uses a vtkBalloonWidget to draw labels when the mouse stays above an actor.
 [BoxWidget](/Python/Widgets/BoxWidget) | vtkBoxWidget | This 3D widget defines a region of interest that is represented by an arbitrarily oriented hexahedron with interior face angles of 90 degrees (orthogonal faces). The object creates 7 handles that can be moused on and manipulated.
-[CompassWidget](/Python/Widgets/CompassWidget) | vtkCompassWidget vtkCompassRepresentation | Draws an interactive compass.
 [ContourWidget](/Python/Widgets/ContourWidget) | vtkContourWidget vtkOrientedGlyphContourRepresentation | Draw a contour (line) which can be deformed by the user
 [OrientationMarkerWidget](/Python/Widgets/OrientationMarkerWidget) | vtkAnnotatedCubeActor vtkOrientationWidget | Draws two cubes. One of them can be clicked to be rotated, and will rotate the second one. The second one has annotations on it, and can also be moved.
 [ScalarBarWidget](/Python/Widgets/ScalarBarWidget) | vtkScalarBarWidget | The ScalarBarWidget displays a scalar bar that is movable and changes orientation automatically when close to the borders of the image. It needs a ScalarBarActor
 [SphereWidget](/Python/Widgets/SphereWidget) | vtkSphereWidget | This 3D widget defines a sphere that can be interactively placed in a scene.
 [TextWidget](/Python/Widgets/TextWidget) | vtkTextWidget | Annotate a VTK image with movable text
 
-## Utilities
+## Plotting
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[Delaunay2D](/Python/Filtering/Delaunay2D) | vtkDelaunay2D |
-[LUTUtilities](/Python/Utilities/LUTUtilities) | vtkLookupTable vtkColorSeries | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.
-[Screenshot](/Python/Utilities/Screenshot) | vtkWindowToImageFilter |
-[VTKVersion](/Python/Utilities/VTKVersion) | vtkVersion |
-[VTKWithNumpy](/Python/Utilities/VTKWithNumpy) | vtkImageImport |
-[Variant](/Python/Utilities/Variant) | vtkVariant |
+[ScatterPlot](/Python/Plotting/ScatterPlot) | vtkChartXY |
+[SpiderPlot](/Python/Plotting/SpiderPlot) | vtkSpiderPlotActor |
 
 ## Animation
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Animation](/Python/Utilities/Animation) | vtkRenderWindowInteractor | Move a sphere across a scene.
+
+## Geographic Visualization (Geovis)
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[CompassWidget](/Python/Widgets/CompassWidget) | vtkCompassWidget vtkCompassRepresentation | Draws an interactive compass.
+[GeoAssignCoordinates](/Python/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates vtkMutableDirectedGraph vtkGraphMapper | Draws a sphere, based on longituds and latitudes.
+[ParallelCoordinatesView](/Python/Infovis/ParallelCoordinatesView) | vtkRTAnalyticSource vtkParallelCoordinatesView vtkParallelCoordinatesRepresentation | Plotting data attributes in a Parallel Coordinates View
+
+## Infovis
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ParallelCoordinatesExtraction](/Python/Infovis/ParallelCoordinatesExtraction) | vtkExtractSelection vtkAnnotationLink | Extract data based on a selection in a Parallel Coordinates View
+[SelectedGraphIDs](/Python/Infovis/SelectedGraphIDs) | vtkAnnotationLink vtkRandomGraphSource vtkGraphLayoutView | Callback on vtkAnnotationLink in a Graph Layout View when selection is changed
 
 ## PyQt
 
