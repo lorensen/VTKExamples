@@ -1,5 +1,4 @@
 #include <vtkSmartPointer.h>
-
 #include <vtkPlatonicSolidSource.h>
 #include <vtkLookupTable.h>
 #include <vtkPolyDataMapper.h>
@@ -7,9 +6,20 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+
+#include <vector>
+#include <string>
  
 int main(int, char *[])
 {
+  // There are five platonic solids.
+  std::vector<std::string> names{"Tetrahedron", "Cube", "Octahedron", "Icosahedron", "Dodecahedron"};
+  std::vector<vtkSmartPointer<vtkPlatonicSolidSource>> PlatonicSolids;
+  for (auto i = 0; i < 5; ++i)
+  {
+    PlatonicSolids.push_back(vtkSmartPointer<vtkPlatonicSolidSource>::New());
+  }
+   
   vtkSmartPointer<vtkPlatonicSolidSource> platonicSolidSource = 
     vtkSmartPointer<vtkPlatonicSolidSource>::New();
   platonicSolidSource->SetSolidTypeToOctahedron();
@@ -17,8 +27,8 @@ int main(int, char *[])
   // Each face has a different cell scalar
   vtkSmartPointer<vtkLookupTable> lut =
     vtkSmartPointer<vtkLookupTable>::New();
-  lut->SetNumberOfTableValues(8);
-  lut->SetTableRange(0.0, 7.0);
+  lut->SetNumberOfTableValues(20);
+  lut->SetTableRange(0.0, 19.0);
   lut->Build();
   lut->SetTableValue(0, 0, 0, 0);
   lut->SetTableValue(1, 0, 0, 1);
@@ -28,6 +38,18 @@ int main(int, char *[])
   lut->SetTableValue(5, 1, 0, 1);
   lut->SetTableValue(6, 1, 1, 0);
   lut->SetTableValue(7, 1, 1, 1);
+  lut->SetTableValue(8, 0.7, 0.7, 0.7);
+  lut->SetTableValue(9, 0, 0, 0.7);
+  lut->SetTableValue(10, 0, 0.7, 0);
+  lut->SetTableValue(11, 0, 0.7, 0.7);
+  lut->SetTableValue(12, 0.7, 0, 0);
+  lut->SetTableValue(13, 0.7, 0, 0.7);
+  lut->SetTableValue(14, 0.7, 0.7, 0);
+  lut->SetTableValue(15, 0, 0, 0.4);
+  lut->SetTableValue(16, 0, 0.4, 0);
+  lut->SetTableValue(17, 0, 0.4, 0.4);
+  lut->SetTableValue(18, 0.4, 0, 0);
+  lut->SetTableValue(19, 0.4, 0, 0.4);
 
   //Create a mapper and actor.
   vtkSmartPointer<vtkPolyDataMapper> mapper = 
