@@ -173,6 +173,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [ExtractSelectionCells](/Python/PolyData/ExtractSelectionCells) | vtkExtractSelection | Extract cell, select cell.
 [FilledPolygon](/Python/PolyData/FilledPolygon) | vtkCutter |
 [Finance](/Python/Modelling/Finance) | vtkGaussianSplatter | Visualization of multidimensional financial data. The gray/wireframe surface represents the total data population. The red surface represents data points delinquent on loan payment.
+[FinanceFieldData](/Python/Modelling/FinanceFieldData) | vtkGaussianSplatter | Visualization of multidimensional financial data. The yellow surface represents the total data population. The red surface represents data points delinquent on loan payment.
 [ImplicitPolyDataDistance](/Python/PolyData/ImplicitPolyDataDistance) | vtkImplicitPolyDataDistance |
 [IterativeClosestPoints](/Python/Filtering/IterativeClosestPoints) | vtkIterativeClosestPointTransform |
 [LineOnMesh](/Python/DataManipulation/LineOnMesh) | vtkCellLocator vtkParametricSpline |
