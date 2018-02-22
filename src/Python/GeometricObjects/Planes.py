@@ -7,19 +7,14 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
-    # Use this variable to select one of the two methods below.
-    SELECT_FRUSTUM_METHOD = True
-
     planes = list()
     titles = list()
 
     # Using frustum planes.
     titles.append('Using frustum planes')
     camera = vtk.vtkCamera()
-    planesArray = [0]*24
-
+    planesArray = [0] * 24
     camera.GetFrustumPlanes(1, planesArray)
-
     planes.append(vtk.vtkPlanes())
     planes[0].SetFrustumPlanes(planesArray)
 
@@ -27,13 +22,12 @@ def main():
     titles.append('Using bounds')
     sphereSource = vtk.vtkSphereSource()
     sphereSource.Update()
-    bounds = [0]*6
+    bounds = [0] * 6
     sphereSource.GetOutput().GetBounds(bounds)
-
     planes.append(vtk.vtkPlanes())
     planes[1].SetBounds(bounds)
 
-    # At this point we have the planes created by either of the methods above.
+    # At this point we have the planes created by both of the methods above.
     # You can do whatever you want with them.
 
     # For visualisation we will produce an n-sided convex hull
@@ -45,7 +39,6 @@ def main():
 
     iRen = vtk.vtkRenderWindowInteractor()
     iRen.SetRenderWindow(renWin)
-
 
     hulls = list()
     pds = list()
@@ -121,6 +114,7 @@ def main():
     iRen.Initialize()
     renWin.Render()
     iRen.Start()
+
 
 if __name__ == '__main__':
     main()
