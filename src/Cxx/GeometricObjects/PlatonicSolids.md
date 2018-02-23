@@ -6,8 +6,14 @@ Platonic solids are regular, convex polyhedrons. They are constructed by congrue
 
 Five solids satisfy the above criteria:
 
-| Figure | Tetrahedron | Octahedron | Cube | Icosahedron | Dodecahedron|
+| Figure | Tetrahedron | Cube  | Octahedron| Icosahedron | Dodecahedron|
 | :------: | :------: | :------: | :------: | :------: | :------: |
-| Vertices | 4 | 6 (2 × 3) | 8 | 12 (4 × 3) | 20 (8 + 4 × 3) |
+| Vertices | 4 | 8  | 6 (2 × 3) | 12 (4 × 3) | 20 (8 + 4 × 3) |
 | Edges | 6 | 12 | 12| 30 | 30 |
-| Faces | 4 | 8 | 6 | 20 | 12|
+| Faces | 4 |6 | 8  | 20 | 12|
+
+The relationship between vertices, edges and faces is given by Euler's formula:
+
+```
+V - E + F = 2
+```
