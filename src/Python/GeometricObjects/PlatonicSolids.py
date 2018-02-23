@@ -7,23 +7,24 @@ def main():
     colors = vtk.vtkNamedColors()
 
     # Each face has a different cell scalar
-    # So create a lookup table with a different colour
-    # for each face.
+    # Here we create a lookup table with a different colour
+    # for each face. The colors have been carefully
+    # chosen so that adjacent cells are colored distinctly.
     lut = vtk.vtkLookupTable()
     lut.SetNumberOfTableValues(20)
     lut.SetTableRange(0.0, 19.0)
     lut.Build()
-    lut.SetTableValue(0, 0, 0, 0)
+    lut.SetTableValue(0, 0.1, 0.1, 0.1)
     lut.SetTableValue(1, 0, 0, 1)
     lut.SetTableValue(2, 0, 1, 0)
     lut.SetTableValue(3, 0, 1, 1)
     lut.SetTableValue(4, 1, 0, 0)
     lut.SetTableValue(5, 1, 0, 1)
     lut.SetTableValue(6, 1, 1, 0)
-    lut.SetTableValue(7, 1, 1, 1)
-    lut.SetTableValue(8, 0.7, 0.7, 0.7)
-    lut.SetTableValue(9, 0, 0, 0.7)
-    lut.SetTableValue(10, 0, 0.7, 0)
+    lut.SetTableValue(7, 0.9, 0.7, 0.9)
+    lut.SetTableValue(8, 0.5, 0.5, 0.5)
+    lut.SetTableValue(9, 0.0, 0.0, 0.7)
+    lut.SetTableValue(10, 0.5, 0.7, 0.5)
     lut.SetTableValue(11, 0, 0.7, 0.7)
     lut.SetTableValue(12, 0.7, 0, 0)
     lut.SetTableValue(13, 0.7, 0, 0.7)
@@ -36,8 +37,8 @@ def main():
 
     mappers = list()
     actors = list()
-    textmappers = list()
-    textactors = list()
+    textMappers = list()
+    textActors = list()
     renderers = list()
 
     # Create a common text property.
@@ -69,17 +70,17 @@ def main():
         actors.append(vtk.vtkActor())
         actors[i].SetMapper(mappers[i])
 
-        textmappers.append(vtk.vtkTextMapper())
-        textmappers[i].SetInput(names[i])
-        textmappers[i].SetTextProperty(textProperty)
+        textMappers.append(vtk.vtkTextMapper())
+        textMappers[i].SetInput(names[i])
+        textMappers[i].SetTextProperty(textProperty)
 
-        textactors.append(vtk.vtkActor2D())
-        textactors[i].SetMapper(textmappers[i])
-        textactors[i].SetPosition(120, 16)
+        textActors.append(vtk.vtkActor2D())
+        textActors[i].SetMapper(textMappers[i])
+        textActors[i].SetPosition(120, 16)
 
         renderers.append(vtk.vtkRenderer())
         renderers[i].AddActor(actors[i])
-        renderers[i].AddViewProp(textactors[i])
+        renderers[i].AddViewProp(textActors[i])
 
         renWin.AddRenderer(renderers[i])
 
@@ -102,16 +103,16 @@ def main():
                 # Add a renderer even if there is no actor.
                 # This makes the render window background all the same color.
                 ren = vtk.vtkRenderer()
-                ren.SetBackground(colors.GetColor3d("SaddleBrown"))
+                ren.SetBackground(colors.GetColor3d("SlateGray"))
                 ren.SetViewport(viewport)
                 renWin.AddRenderer(ren)
                 continue
 
             renderers[index].SetViewport(viewport)
-            renderers[index].SetBackground(colors.GetColor3d("SaddleBrown"))
+            renderers[index].SetBackground(colors.GetColor3d("SlateGray"))
             renderers[index].ResetCamera()
-            # renderers[index].GetActiveCamera().Azimuth(30)
-            # renderers[index].GetActiveCamera().Elevation(-30)
+            renderers[index].GetActiveCamera().Azimuth(4.5)
+            renderers[index].GetActiveCamera().Elevation(-18)
             renderers[index].ResetCameraClippingRange()
 
     iRen.Initialize()

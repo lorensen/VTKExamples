@@ -33,6 +33,11 @@ def main():
     # For visualisation we will produce an n-sided convex hull
     # and visualise it.
 
+    # Create a common text property.
+    textProperty = vtk.vtkTextProperty()
+    textProperty.SetFontSize(16)
+    textProperty.SetJustificationToCentered()
+
     renWin = vtk.vtkRenderWindow()
     renWin.SetSize(600, 600)
     renWin.SetWindowName("Planes")
@@ -73,6 +78,8 @@ def main():
 
         textMappers.append(vtk.vtkTextMapper())
         textMappers[i].SetInput(titles[i])
+        textMappers[i].SetTextProperty(textProperty)
+
         textActors.append(vtk.vtkActor2D())
         textActors[i].SetMapper(textMappers[i])
         textActors[i].SetPosition(100, 10)
