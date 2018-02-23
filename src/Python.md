@@ -119,7 +119,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [LineSource](/Python/GeometricObjects/LineSource) | vtkLineSource |
 [OrientedArrow](/Python/GeometricObjects/OrientedArrow) | vtkArrowSource |
 [Plane](/Python/GeometricObjects/Plane) | vtkPlaneSource |
-[PlatonicSolid](/Python/GeometricObjects/PlatonicSolid) | vtkPlatonicSolidSource | All five platonic solids are displayed.
+[PlatonicSolids](/Python/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource | All five platonic solids are displayed.
 [Polyline](/Python/GeometricObjects/Polyline) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
 [RegularPolygonSource](/Python/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Python/GeometricObjects/Sphere) | vtkSphereSource |

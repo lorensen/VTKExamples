@@ -1,17 +1,14 @@
 #include <vtkActor.h>
-#include <vtkActor2D.h>
 #include <vtkCamera.h>
-#include <vtkHull.h>
+#include <vtkLookupTable.h>
 #include <vtkNamedColors.h>
-#include <vtkPlanes.h>
-#include <vtkPolyData.h>
+#include <vtkPlatonicSolidSource.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
-#include <vtkSphereSource.h>
+#include <vtkTextActor.h>
 #include <vtkTextMapper.h>
 #include <vtkTextProperty.h>
 
@@ -23,34 +20,41 @@ int main(int, char* [])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  // These are the two methods we will use.
-  std::vector<std::string> titles{"Using frustum planes", "Using bounds"};
-  std::vector<vtkSmartPointer<vtkPlanes>> planes;
-  for (auto i = 0; i < titles.size(); ++i)
-  {
-    planes.push_back(vtkSmartPointer<vtkPlanes>::New());
-  }
+  // Each face has a different cell scalar
+  // Here we create a lookup table with a different colour
+  // for each face. The colors have been carefully
+  // chosen so that adjacent cells are colored distinctly.
+  vtkSmartPointer<vtkLookupTable> lut =
+    vtkSmartPointer<vtkLookupTable>::New();
+  lut->SetNumberOfTableValues(20);
+  lut->SetTableRange(0.0, 19.0);
+  lut->Build();
+  lut->SetTableValue(0, 0.1, 0.1, 0.1);
+  lut->SetTableValue(1, 0, 0, 1);
+  lut->SetTableValue(2, 0, 1, 0);
+  lut->SetTableValue(3, 0, 1, 1);
+  lut->SetTableValue(4, 1, 0, 0);
+  lut->SetTableValue(5, 1, 0, 1);
+  lut->SetTableValue(6, 1, 1, 0);
+  lut->SetTableValue(7, 0.9, 0.7, 0.9);
+  lut->SetTableValue(8, 0.5, 0.5, 0.5);
+  lut->SetTableValue(9, 0.0, 0.0, 0.7);
+  lut->SetTableValue(10, 0.5, 0.7, 0.5);
+  lut->SetTableValue(11, 0, 0.7, 0.7);
+  lut->SetTableValue(12, 0.7, 0, 0);
+  lut->SetTableValue(13, 0.7, 0, 0.7);
+  lut->SetTableValue(14, 0.7, 0.7, 0);
+  lut->SetTableValue(15, 0, 0, 0.4);
+  lut->SetTableValue(16, 0, 0.4, 0);
+  lut->SetTableValue(17, 0, 0.4, 0.4);
+  lut->SetTableValue(18, 0.4, 0, 0);
+  lut->SetTableValue(19, 0.4, 0, 0.4);
 
-  // Using frustum planes.
-  vtkSmartPointer<vtkCamera> camera =
-    vtkSmartPointer<vtkCamera>::New();
-  double planesArray[24];
-  camera->GetFrustumPlanes(1, planesArray);
-  planes[0]->SetFrustumPlanes(planesArray);
-
-  // Using bounds.
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-    vtkSmartPointer<vtkSphereSource>::New();
-  sphereSource->Update();
-  double bounds[6];
-  sphereSource->GetOutput()->GetBounds(bounds);
-  planes[1]->SetBounds(bounds);
-
-  // At this point we have the planes created by both of the methods above.
-  // You can do whatever you want with them.
-
-  // For visualisation we will produce an n-sided convex hull
-  // and visualise it.
+  std::vector<vtkSmartPointer<vtkPolyDataMapper>> mappers;
+  std::vector<vtkSmartPointer<vtkActor>> actors;
+  std::vector<vtkSmartPointer<vtkTextMapper>> textMappers;
+  std::vector<vtkSmartPointer<vtkActor2D>> textActors;
+  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
 
   // Create a common text property.
   vtkSmartPointer<vtkTextProperty> textProperty =
@@ -61,46 +65,30 @@ int main(int, char* [])
   // Create the render window and interactor.
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
-  renWin->SetWindowName("Planes");
+  renWin->SetWindowName("Platonic Solids");
   vtkSmartPointer<vtkRenderWindowInteractor> iRen =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iRen->SetRenderWindow(renWin);
 
-  std::vector<vtkSmartPointer<vtkHull>> hulls;
-  std::vector<vtkSmartPointer<vtkPolyData>> pds;
-  std::vector<vtkSmartPointer<vtkPolyDataMapper>> mappers;
-  std::vector<vtkSmartPointer<vtkActor>> actors;
-  std::vector<vtkSmartPointer<vtkTextMapper>> textMappers;
-  std::vector<vtkSmartPointer<vtkActor2D>> textActors;
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
-
-  for (auto i = 0; i < titles.size(); ++i)
+  // There are five platonic solids.
+  std::vector<std::string> names{"Tetrahedron", "Cube", "Octahedron",
+                                 "Icosahedron", "Dodecahedron"};
+  std::vector<vtkSmartPointer<vtkPlatonicSolidSource>> PlatonicSolids;
+  for (auto i = 0; i < names.size(); ++i)
   {
-    hulls.push_back(vtkSmartPointer<vtkHull>::New());
-    hulls[i]->SetPlanes(planes[i]);
-
-    pds.push_back(vtkSmartPointer<vtkPolyData>::New());
-
-    // To generate the convex hull we supply a vtkPolyData object and a bounding
-    // box.
-    // We define the bounding box to be where we expect the resulting polyhedron
-    // to lie.
-    // Make it a generous fit as it is only used to create the initial
-    // polygons that are eventually clipped.
-    hulls[i]->GenerateHull(pds[i], -200, 200, -200, 200, -200, 200);
+    PlatonicSolids.push_back(vtkSmartPointer<vtkPlatonicSolidSource>::New());
+    PlatonicSolids[i]->SetSolidType(i);
 
     mappers.push_back(vtkSmartPointer<vtkPolyDataMapper>::New());
-    mappers[i]->SetInputData(pds[i]);
+    mappers[i]->SetInputConnection(PlatonicSolids[i]->GetOutputPort());
+    mappers[i]->SetLookupTable(lut);
+    mappers[i]->SetScalarRange(0, 19);
 
     actors.push_back(vtkSmartPointer<vtkActor>::New());
     actors[i]->SetMapper(mappers[i]);
-    actors[i]->GetProperty()->SetColor(
-      colors->GetColor3d("Moccasin").GetData());
-    actors[i]->GetProperty()->SetSpecular(0.8);
-    actors[i]->GetProperty()->SetSpecularPower(30);
 
     textMappers.push_back(vtkSmartPointer<vtkTextMapper>::New());
-    textMappers[i]->SetInput(titles[i].c_str());
+    textMappers[i]->SetInput(names[i].c_str());
     textMappers[i]->SetTextProperty(textProperty);
 
     textActors.push_back(vtkSmartPointer<vtkActor2D>::New());
@@ -115,8 +103,8 @@ int main(int, char* [])
   }
 
   // Setup the viewports
-  auto xGridDimensions = 2;
-  auto yGridDimensions = 1;
+  auto xGridDimensions = 3;
+  auto yGridDimensions = 2;
   auto rendererSize = 300;
   renWin->SetSize(rendererSize * xGridDimensions,
                   rendererSize * yGridDimensions);
@@ -137,7 +125,7 @@ int main(int, char* [])
         // Add a renderer even if there is no actor.
         // This makes the render window background all the same color.
         vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();
-        ren->SetBackground(colors->GetColor3d("DarkSlateGray").GetData());
+        ren->SetBackground(colors->GetColor3d("SlateGray").GetData());
         ren->SetViewport(viewport);
         renWin->AddRenderer(ren);
         continue;
@@ -145,10 +133,10 @@ int main(int, char* [])
 
       renderers[index]->SetViewport(viewport);
       renderers[index]->SetBackground(
-        colors->GetColor3d("DarkSlateGray").GetData());
+        colors->GetColor3d("SlateGray").GetData());
       renderers[index]->ResetCamera();
-      renderers[index]->GetActiveCamera()->Azimuth(30);
-      renderers[index]->GetActiveCamera()->Elevation(-30);
+      renderers[index]->GetActiveCamera()->Azimuth(4.5);
+      renderers[index]->GetActiveCamera()->Elevation(-18);
       renderers[index]->ResetCameraClippingRange();
     }
   }

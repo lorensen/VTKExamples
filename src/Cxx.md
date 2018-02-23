@@ -192,7 +192,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [OrientedArrow](/Cxx/GeometricObjects/OrientedArrow) | vtkArrowSource | Orient an arrow along an arbitrary vector
 [OrientedCylinder](/Cxx/GeometricObjects/OrientedCylinder) | vtkCylinderSource | Orient a cylinder along an arbitrary vector
 [Plane](/Cxx/GeometricObjects/Plane) | vtkPlaneSource |
-[PlatonicSolid](/Cxx/GeometricObjects/PlatonicSolid) | vtkPlatonicSolidSource |
+[PlatonicSolids](/Cxx/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource |
 [RegularPolygon](/Cxx/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Cxx/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
