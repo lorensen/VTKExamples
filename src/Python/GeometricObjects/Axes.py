@@ -1,49 +1,63 @@
+#!/usr/bin/env python
+
 import vtk
 
-# create a Sphere
-sphereSource = vtk.vtkSphereSource()
-sphereSource.SetCenter(0.0, 0.0, 0.0)
-sphereSource.SetRadius(0.5)
 
-# create a mapper
-sphereMapper = vtk.vtkPolyDataMapper()
-sphereMapper.SetInputConnection(sphereSource.GetOutputPort())
+def main():
+    colors = vtk.vtkNamedColors()
 
-# create an actor
-sphereActor = vtk.vtkActor()
-sphereActor.SetMapper(sphereMapper)
+    # create a Sphere
+    sphereSource = vtk.vtkSphereSource()
+    sphereSource.SetCenter(0.0, 0.0, 0.0)
+    sphereSource.SetRadius(0.5)
 
-# a renderer and render window
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
+    # create a mapper
+    sphereMapper = vtk.vtkPolyDataMapper()
+    sphereMapper.SetInputConnection(sphereSource.GetOutputPort())
 
-# an interactor
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+    # create an actor
+    sphereActor = vtk.vtkActor()
+    sphereActor.SetMapper(sphereMapper)
 
-# add the actors to the scene
-renderer.AddActor(sphereActor)
-renderer.SetBackground(.1, .2, .3)  # Background dark blue
+    # a renderer and render window
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Axes")
+    renderWindow.AddRenderer(renderer)
 
-transform = vtk.vtkTransform()
-transform.Translate(1.0, 0.0, 0.0)
+    # an interactor
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
 
-axes = vtk.vtkAxesActor()
-#  The axes are positioned with a user transform
-axes.SetUserTransform(transform)
+    # add the actors to the scene
+    renderer.AddActor(sphereActor)
+    renderer.SetBackground(colors.GetColor3d("SlateGray"))
 
-# properties of the axes labels can be set as follows
-# this sets the x axis label to red
-# axes->GetXAxisCaptionActor2D()->GetCaptionTextProperty()->SetColor(1,0,0);
+    transform = vtk.vtkTransform()
+    transform.Translate(1.0, 0.0, 0.0)
 
-# the actual text of the axis label can be changed:
-# axes->SetXAxisLabelText("test");
+    axes = vtk.vtkAxesActor()
+    #  The axes are positioned with a user transform
+    axes.SetUserTransform(transform)
 
-renderer.AddActor(axes)
+    # properties of the axes labels can be set as follows
+    # this sets the x axis label to red
+    # axes.GetXAxisCaptionActor2D().GetCaptionTextProperty().SetColor(colors.GetColor3d("Red"));
 
-renderer.ResetCamera()
-renderWindow.Render()
+    # the actual text of the axis label can be changed:
+    # axes->SetXAxisLabelText("test");
 
-# begin mouse interaction
-renderWindowInteractor.Start()
+    renderer.AddActor(axes)
+
+    renderer.GetActiveCamera().Azimuth(50)
+    renderer.GetActiveCamera().Elevation(-30)
+
+    renderer.ResetCamera()
+    renderWindow.Render()
+
+    # begin mouse interaction
+    renderWindowInteractor.Start()
+
+
+if __name__ == "__main__":
+    main()

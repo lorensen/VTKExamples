@@ -1,78 +1,90 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import vtk
 
-# Create three points. Join (Origin and P0) with a red line and
-# (Origin and P1) with a green line
-origin = [0.0, 0.0, 0.0]
-p0 = [1.0, 0.0, 0.0]
-p1 = [0.0, 1.0, 0.0]
 
-# Create a vtkPoints object and store the points in it
-pts = vtk.vtkPoints()
-pts.InsertNextPoint(origin)
-pts.InsertNextPoint(p0)
-pts.InsertNextPoint(p1)
+def main():
+    # Create the polydata where we will store all the geometric data
+    linesPolyData = vtk.vtkPolyData()
 
-# Setup two colors - one for each line
-red = [255, 0, 0]
-green = [0, 255, 0]
+    # Create three points
+    origin = [0.0, 0.0, 0.0]
+    p0 = [1.0, 0.0, 0.0]
+    p1 = [0.0, 1.0, 0.0]
 
-# Setup the colors array
-colors = vtk.vtkUnsignedCharArray()
-colors.SetNumberOfComponents(3)
-colors.SetName("Colors")
+    # Create a vtkPoints container and store the points in it
+    pts = vtk.vtkPoints()
+    pts.InsertNextPoint(origin)
+    pts.InsertNextPoint(p0)
+    pts.InsertNextPoint(p1)
 
-# Add the colors we created to the colors array
-colors.InsertNextTypedTuple(red)
-colors.InsertNextTypedTuple(green)
+    # Add the points to the polydata container
+    linesPolyData.SetPoints(pts)
 
-# Create the first line (between Origin and P0)
-line0 = vtk.vtkLine()
-line0.GetPointIds().SetId(0, 0)  # the second 0 is the index of the Origin in the vtkPoints
-line0.GetPointIds().SetId(1, 1)  # the second 1 is the index of P0 in the vtkPoints
+    # Create the first line (between Origin and P0)
+    line0 = vtk.vtkLine()
+    line0.GetPointIds().SetId(0, 0)  # the second 0 is the index of the Origin in linesPolyData's points
+    line0.GetPointIds().SetId(1, 1)  # the second 1 is the index of P0 in linesPolyData's points
 
-# Create the second line (between Origin and P1)
-line1 = vtk.vtkLine()
-line1.GetPointIds().SetId(0, 0)  # the second 0 is the index of the Origin in the vtkPoints
-line1.GetPointIds().SetId(1, 2)  # 2 is the index of P1 in the vtkPoints
+    # Create the second line (between Origin and P1)
+    line1 = vtk.vtkLine()
+    line1.GetPointIds().SetId(0, 0)  # the second 0 is the index of the Origin in linesPolyData's points
+    line1.GetPointIds().SetId(1, 2)  # 2 is the index of P1 in linesPolyData's points
 
-# Create a cell array to store the lines in and add the lines to it
-lines = vtk.vtkCellArray()
-lines.InsertNextCell(line0)
-lines.InsertNextCell(line1)
+    # Create a vtkCellArray container and store the lines in it
+    lines = vtk.vtkCellArray()
+    lines.InsertNextCell(line0)
+    lines.InsertNextCell(line1)
 
-# Create a polydata to store everything in
-linesPolyData = vtk.vtkPolyData()
+    # Add the lines to the polydata container
+    linesPolyData.SetLines(lines)
 
-# Add the points to the dataset
-linesPolyData.SetPoints(pts)
+    namedColors = vtk.vtkNamedColors()
 
-# Add the lines to the dataset
-linesPolyData.SetLines(lines)
+    # Create a vtkUnsignedCharArray container and store the colors in it
+    colors = vtk.vtkUnsignedCharArray()
+    colors.SetNumberOfComponents(3)
+    try:
+        colors.InsertNextTupleValue(namedColors.GetColor3ub("Tomato"))
+        colors.InsertNextTupleValue(namedColors.GetColor3ub("Mint"))
+    except AttributeError:
+        # For compatibility with new VTK generic data arrays.
+        colors.InsertNextTypedTuple(namedColors.GetColor3ub("Tomato"))
+        colors.InsertNextTypedTuple(namedColors.GetColor3ub("Mint"))
 
-# Color the lines - associate the first component (red) of the
-# colors array with the first component of the cell array (line 0)
-# and the second component (green) of the colors array with the
-# second component of the cell array (line 1)
-linesPolyData.GetCellData().SetScalars(colors)
+    # Color the lines.
+    # SetScalars() automatically associates the values in the data array passed as parameter
+    # to the elements in the same indices of the cell data array on which it is called.
+    # This means the first component (red) of the colors array
+    # is matched with the first component of the cell array (line 0)
+    # and the second component (green) of the colors array
+    # is matched with the second component of the cell array (line 1)
+    linesPolyData.GetCellData().SetScalars(colors)
 
-# Visualize
-mapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION <= 5:
-    mapper.SetInput(linesPolyData)
-else:
+    # Setup the visualization pipeline
+    mapper = vtk.vtkPolyDataMapper()
     mapper.SetInputData(linesPolyData)
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetLineWidth(4)
 
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
-renderer.AddActor(actor)
+    renderer = vtk.vtkRenderer()
+    renderer.AddActor(actor)
+    renderer.SetBackground(namedColors.GetColor3d("SlateGray"))
 
-renderWindow.Render()
-renderWindowInteractor.Start()
+    window = vtk.vtkRenderWindow()
+    window.SetWindowName("Colored Lines")
+    window.AddRenderer(renderer)
+
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(window)
+
+    # Visualize
+    window.Render()
+    interactor.Start()
+
+
+if __name__ == '__main__':
+    main()

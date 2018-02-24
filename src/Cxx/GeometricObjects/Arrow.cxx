@@ -1,14 +1,18 @@
-#include <vtkArrowSource.h>
-#include <vtkPolyData.h>
-#include <vtkSmartPointer.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
+#include <vtkArrowSource.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
- 
+#include <vtkSmartPointer.h>
+
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Create an arrow.
   vtkSmartPointer<vtkArrowSource> arrowSource =
     vtkSmartPointer<vtkArrowSource>::New();
@@ -29,13 +33,14 @@ int main(int, char *[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Arrow");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
  
   renderer->AddActor(actor);
-  renderer->SetBackground(.1, .2, .3); // Background color dark blue
+  renderer->SetBackground(colors->GetColor3d("MidnightBlue").GetData());
  
   renderWindow->Render();
   renderWindowInteractor->Start();

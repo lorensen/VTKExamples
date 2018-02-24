@@ -81,6 +81,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | -------------- | ---------------------- | ------------- | ------- |
 [Axes](/Python/GeometricObjects/Axes) | vtkAxesActor |
 [ColoredLines](/Python/GeometricObjects/ColoredLines) | vtkCellData vtkLine |
+[Dodecahedron](/Python/GeometricObjects/Dodecahedron) | vtkPolyhedron | Create a dodecahedron using vtkPolyhedron.
 [GeometricObjectsDemo](/Python/GeometricObjects/GeometricObjectsDemo) |  |
 [Planes](/Python/GeometricObjects/Planes) | vtkPlanes vtkHull | We create a convex hull of the planes for display purposes.
 [PlanesIntersection](/Python/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection |
@@ -94,7 +95,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) | vtkHexagonalPrism vtkHexahedron vtkPentagonalPrism  vtkPolyhedron vtkPyramid vtkTetra vtkVoxel vtkWedge vtkUnstructuredGrid | Sample objects are generated from the classes derived from vtkCell3D and displayed.
 [Hexahedron](/Python/GeometricObjects/Hexahedron) | vtkHexahedron |
 [LinearCellDemo](/Python/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
-[LongLine](/Python/GeometricObjects/LongLine) | vtkLine |
+[LongLine](/Python/GeometricObjects/LongLine) | vtkLine | Manually create a polyline.
 [Point](/Python/GeometricObjects/Point) | vtkPoints |
 [Polygon](/Python/GeometricObjects/Polygon) | vtkPolygon |
 [Pyramid](/Python/GeometricObjects/Pyramid) | vtkPyramid |
@@ -377,6 +378,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DecimateFran](/Python/VisualizationAlgorithms/DecimateFran) | vtkDecimatePro | Examples of decimation algorithm. (a) Decimation of laser digitizer data.
 [DecimateHawaii](/Python/VisualizationAlgorithms/DecimateHawaii) | vtkDecimatePro | Examples of decimation algorithm. (b) Decimation of terrain data.
 [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) | vtkColorTransferFunction vtkWarpVector vtkVectorDot | Show modal lines for a vibrating beam.
+[DisplayCoordinateAxes](/Python/Visualization/DisplayCoordinateAxes) | vtkOrientationMarkerWidget | Display coordinate axes.
 [ElevationBandsWithGlyphs](/Python/Visualization/ElevationBandsWithGlyphs) | vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
 [ExponentialCosine](/Python/VisualizationAlgorithms/ExponentialCosine) | vtkWarpScalar | Carpet plots. Visualization of an exponential cosine function. Function values are indicated by surface displacement. Colors indicate derivative values.
 [FrogSlice](/Python/Visualization/FrogSlice) | vtkMetaImageReader | Photographic slice of frog (upper left), segmented frog (upper right) and composite of photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow.

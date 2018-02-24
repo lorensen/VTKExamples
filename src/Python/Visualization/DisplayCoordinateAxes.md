@@ -2,4 +2,4 @@
 This example shows how to display the coordinate axes in the render window.
 
 !!! see also
-    [Axes](/Cxx/GeometricObjects/Axes).
+    [Axes](/Python/GeometricObjects/Axes).
