@@ -2,6 +2,6 @@
 
 Connect several points with a line.
 
-!!! see also
+!!! seealso
     [ColoredLines](/Python/GeometricObjects/ColoredLines).
 

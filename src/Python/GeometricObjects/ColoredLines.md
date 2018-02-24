@@ -2,5 +2,5 @@
 
 Displays two lines, each with a different color.
 
-!!! see also
+!!! seealso
     [LongLine](/Python/GeometricObjects/LongLine).
