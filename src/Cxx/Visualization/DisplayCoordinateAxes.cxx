@@ -1,18 +1,23 @@
-#include <vtkVersion.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkPolyData.h>
-#include <vtkSphereSource.h>
-#include <vtkOrientationMarkerWidget.h>
 #include <vtkAxesActor.h>
+#include <vtkCamera.h>
+#include <vtkNamedColors.h>
+#include <vtkOrientationMarkerWidget.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkPropAssembly.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkVersion.h>
 
 int main (int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkSphereSource> sphereSource = 
     vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->SetCenter(0.0, 0.0, 0.0);
@@ -40,6 +45,7 @@ int main (int, char *[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Display Coordinate Axes");
   renderWindow->AddRenderer(renderer);
 
   // An interactor
@@ -49,20 +55,25 @@ int main (int, char *[])
 
   // Add the actors to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.2, .3, .4);
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
   vtkSmartPointer<vtkAxesActor> axes = 
     vtkSmartPointer<vtkAxesActor>::New();
 
   vtkSmartPointer<vtkOrientationMarkerWidget> widget = 
     vtkSmartPointer<vtkOrientationMarkerWidget>::New();
-  widget->SetOutlineColor( 0.9300, 0.5700, 0.1300 );
+  double rgba[4]{0.0, 0.0, 0.0, 0.0};
+  colors->GetColor("Carrot",rgba);
+  widget->SetOutlineColor(rgba[0], rgba[1], rgba[2]);
   widget->SetOrientationMarker( axes );
   widget->SetInteractor( renderWindowInteractor );
   widget->SetViewport( 0.0, 0.0, 0.4, 0.4 );
   widget->SetEnabled( 1 );
   widget->InteractiveOn();
   
+  renderer->GetActiveCamera()->Azimuth(50);
+  renderer->GetActiveCamera()->Elevation(-30);
+
   renderer->ResetCamera();
   renderWindow->Render();
 

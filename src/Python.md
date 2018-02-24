@@ -377,6 +377,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DecimateFran](/Python/VisualizationAlgorithms/DecimateFran) | vtkDecimatePro | Examples of decimation algorithm. (a) Decimation of laser digitizer data.
 [DecimateHawaii](/Python/VisualizationAlgorithms/DecimateHawaii) | vtkDecimatePro | Examples of decimation algorithm. (b) Decimation of terrain data.
 [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) | vtkColorTransferFunction vtkWarpVector vtkVectorDot | Show modal lines for a vibrating beam.
+[DisplayCoordinateAxes](/Python/Visualization/DisplayCoordinateAxes) | vtkOrientationMarkerWidget | Display coordinate axes.
 [ElevationBandsWithGlyphs](/Python/Visualization/ElevationBandsWithGlyphs) | vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
 [ExponentialCosine](/Python/VisualizationAlgorithms/ExponentialCosine) | vtkWarpScalar | Carpet plots. Visualization of an exponential cosine function. Function values are indicated by surface displacement. Colors indicate derivative values.
 [FrogSlice](/Python/Visualization/FrogSlice) | vtkMetaImageReader | Photographic slice of frog (upper left), segmented frog (upper right) and composite of photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow.
