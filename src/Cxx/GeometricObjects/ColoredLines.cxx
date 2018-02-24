@@ -1,18 +1,17 @@
-#include <vtkSmartPointer.h>
-#include <vtkLine.h>
-
+#include <vtkActor.h>
 #include <vtkCellArray.h>
 #include <vtkCellData.h>
-#include <vtkUnsignedCharArray.h>
+#include <vtkLine.h>
+#include <vtkNamedColors.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
 #include <vtkProperty.h>
-#include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkNamedColors.h>
+#include <vtkSmartPointer.h>
+#include <vtkUnsignedCharArray.h>
 
 // For compatibility with new VTK generic data arrays
 #ifdef vtkGenericDataArray_h
@@ -99,6 +98,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkRenderWindow> window =
     vtkSmartPointer<vtkRenderWindow>::New();
+  window->SetWindowName("Colored Lines");
   window->AddRenderer(renderer);
   
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =

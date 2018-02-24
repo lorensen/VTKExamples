@@ -166,7 +166,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [ConvexPointSet](/Cxx/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | Generate a ConvexPointSetCell.
 [Hexahedron](/Cxx/GeometricObjects/Hexahedron) | vtkHexahedron |
 [LinearCellDemo](/Cxx/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
-[LongLine](/Cxx/GeometricObjects/LongLine) | vtkLine | Manually create a polyline
+[LongLine](/Cxx/GeometricObjects/LongLine) | vtkLine | Manually create a polyline.
 [Point](/Cxx/GeometricObjects/Point) | vtkPoints |
 [PolyLine](/Cxx/GeometricObjects/PolyLine) | vtkPolyLine |
 [Polygon](/Cxx/GeometricObjects/Polygon) | vtkPolygon |
