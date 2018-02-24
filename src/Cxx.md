@@ -148,7 +148,7 @@ These are fully independent, compilable examples. There is significant overlap i
 | -------------- | ---------------------- | ------------- | ------- |
 [Axes](/Cxx/GeometricObjects/Axes) | vtkAxesActor |
 [ColoredLines](/Cxx/GeometricObjects/ColoredLines) | vtkCellData vtkLine |
-[Dodecahedron](/Cxx/GeometricObjects/Dodecahedron) | vtkPolyhedron | Create a dodecahedron using vtkPolyhedron
+[Dodecahedron](/Cxx/GeometricObjects/Dodecahedron) | vtkPolyhedron | Create a dodecahedron using vtkPolyhedron.
 [EllipticalCylinder](/Cxx/GeometricObjects/EllipticalCylinder) | vtkLinearExtrusionFilter | Create an elliptical cylinder using extrusion.
 [EllipticalCylinderDemo](/Cxx/GeometricObjects/EllipticalCylinderDemo) | vtkLinearExtrusionFilter | Show the base and extrusion vector.
 [GeometricObjectsDemo](/Cxx/GeometricObjects/GeometricObjectsDemo) |  | A demonstration of all geometric objects that work the same way.

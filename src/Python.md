@@ -81,6 +81,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | -------------- | ---------------------- | ------------- | ------- |
 [Axes](/Python/GeometricObjects/Axes) | vtkAxesActor |
 [ColoredLines](/Python/GeometricObjects/ColoredLines) | vtkCellData vtkLine |
+[Dodecahedron](/Python/GeometricObjects/Dodecahedron) | vtkPolyhedron | Create a dodecahedron using vtkPolyhedron.
 [GeometricObjectsDemo](/Python/GeometricObjects/GeometricObjectsDemo) |  |
 [Planes](/Python/GeometricObjects/Planes) | vtkPlanes vtkHull | We create a convex hull of the planes for display purposes.
 [PlanesIntersection](/Python/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection |
@@ -94,7 +95,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) | vtkHexagonalPrism vtkHexahedron vtkPentagonalPrism  vtkPolyhedron vtkPyramid vtkTetra vtkVoxel vtkWedge vtkUnstructuredGrid | Sample objects are generated from the classes derived from vtkCell3D and displayed.
 [Hexahedron](/Python/GeometricObjects/Hexahedron) | vtkHexahedron |
 [LinearCellDemo](/Python/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
-[LongLine](/Python/GeometricObjects/LongLine) | vtkLine |  Manually create a polyline.
+[LongLine](/Python/GeometricObjects/LongLine) | vtkLine | Manually create a polyline.
 [Point](/Python/GeometricObjects/Point) | vtkPoints |
 [Polygon](/Python/GeometricObjects/Polygon) | vtkPolygon |
 [Pyramid](/Python/GeometricObjects/Pyramid) | vtkPyramid |
