@@ -23,6 +23,7 @@
 #include <vtkVoxel.h>
 #include <vtkWedge.h>
 
+#include <array>
 #include <cstdlib>
 #include <string>
 #include <vector>
@@ -47,6 +48,18 @@ int main(int, char *[])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
+  // Set the background color.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{51, 77, 102}};
+  // std::array<double, 3> bkg{{26, 51, 77}};
+  SetColor(bkg, "BkgColor");
 
   std::vector<std::string> titles;
   std::vector<vtkSmartPointer<vtkTextMapper> > textMappers;
@@ -107,7 +120,7 @@ int main(int, char *[])
 #endif
     actors[i]->SetMapper(mappers[i]);
     actors[i]->GetProperty()->SetColor(
-      colors->GetColor3d("Cornsilk").GetData());
+      colors->GetColor3d("Seashell").GetData());
 
     renderers[i]->AddViewProp(actors[i]);
 
@@ -149,14 +162,14 @@ int main(int, char *[])
         // Add a renderer even if there is no actor.
         // This makes the render window background all the same color.
         vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();
-        ren->SetBackground(colors->GetColor3d("DarkSlateGray").GetData());
+        ren->SetBackground(colors->GetColor3d("BkgColor").GetData());
         ren->SetViewport(viewport);
         renWin->AddRenderer(ren);
         continue;
       }
 
       renderers[index]->SetViewport(viewport);
-      renderers[index]->SetBackground(colors->GetColor3d("DarkSlateGray").GetData());
+      renderers[index]->SetBackground(colors->GetColor3d("BkgColor").GetData());
       renderers[index]->ResetCamera();
       renderers[index]->GetActiveCamera()->Azimuth(30);
       renderers[index]->GetActiveCamera()->Elevation(-30);

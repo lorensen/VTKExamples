@@ -31,6 +31,19 @@ int main(int, char* [])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
+  // Set the background color.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{51, 77, 102}};
+  // std::array<double, 3> bkg{{26, 51, 77}};
+  SetColor(bkg, "BkgColor");
+
   std::vector<vtkSmartPointer<vtkPolyDataAlgorithm>> sourceObjects;
   sourceObjects.push_back(vtkSmartPointer<vtkSphereSource>::New());
   static_cast<vtkSphereSource *>(sourceObjects.back().GetPointer())
@@ -90,7 +103,7 @@ int main(int, char* [])
 
     actors.push_back(vtkSmartPointer<vtkActor>::New());
     actors[i]->SetMapper(mappers[i]);
-    actors[i]->GetProperty()->SetColor(colors->GetColor3d("Cornsilk").GetData());
+    actors[i]->GetProperty()->SetColor(colors->GetColor3d("Seashell").GetData());
     actors[i]->SetBackfaceProperty(backProperty);
 
     textmappers.push_back(vtkSmartPointer<vtkTextMapper>::New());
@@ -139,7 +152,7 @@ int main(int, char* [])
 
       renderers[index]->AddActor(actors[index]);
       renderers[index]->AddActor(textactors[index]);
-      renderers[index]->SetBackground(colors->GetColor3d("DarkSlateGray").GetData());
+      renderers[index]->SetBackground(colors->GetColor3d("BkgColor").GetData());
       renderers[index]->ResetCamera();
       renderers[index]->GetActiveCamera()->Azimuth(30);
       renderers[index]->GetActiveCamera()->Elevation(30);

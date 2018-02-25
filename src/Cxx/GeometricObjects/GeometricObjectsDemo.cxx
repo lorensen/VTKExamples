@@ -18,6 +18,7 @@
 #include <vtkTextMapper.h>
 #include <vtkTextProperty.h>
 
+#include <array>
 #include <vector>
 #include <vtkCamera.h>
 
@@ -25,6 +26,19 @@ int main(int, char *[])
 {
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{51, 77, 102}};
+  // std::array<double, 3> bkg{{26, 51, 77}};
+  SetColor(bkg, "BkgColor");
 
   // Create container to hold the 3D object generators (sources)
   std::vector<vtkSmartPointer<vtkPolyDataAlgorithm> > geometricObjectSources;
@@ -62,7 +76,7 @@ int main(int, char *[])
     actors.push_back( vtkSmartPointer<vtkActor>::New() );
     actors[i]->SetMapper( mappers[i] );
     actors[i]->GetProperty()->SetColor(
-      colors->GetColor3d("Cornsilk").GetData());
+      colors->GetColor3d("Seashell").GetData());
     
     textmappers.push_back( vtkSmartPointer<vtkTextMapper>::New() );
     textmappers[i]->SetInput( geometricObjectSources[i]->GetClassName() ); // set text label to the name of the object source
@@ -93,7 +107,7 @@ int main(int, char *[])
       
       // Create a renderer for this grid cell
       vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-      renderer->SetBackground(colors->GetColor3d("DarkSlateGray").GetData());
+      renderer->SetBackground(colors->GetColor3d("BkgColor").GetData());
       
       // Set the renderer's viewport dimensions (xmin, ymin, xmax, ymax) within the render window.
       // Note that for the Y values, we need to subtract the row index from gridRows

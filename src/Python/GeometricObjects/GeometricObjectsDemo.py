@@ -7,6 +7,11 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
+    # Set the background color. Match those in VTKTextbook.pdf.
+    bkg = map(lambda x: x / 256.0, [51, 77, 102])
+    # bkg = map(lambda x: x / 256.0, [26, 51, 77])
+    colors.SetColor("BkgColor", *bkg)
+
     # Create container to hold the 3D object generators (sources)
     geometricObjectSources = list()
 
@@ -41,7 +46,7 @@ def main():
         actors.append(vtk.vtkActor())
         actors[i].SetMapper(mappers[i])
         actors[i].GetProperty().SetColor(
-            colors.GetColor3d("Cornsilk"))
+            colors.GetColor3d("Seashell"))
 
         textmappers.append(vtk.vtkTextMapper())
         textmappers[i].SetInput(
@@ -69,7 +74,7 @@ def main():
 
             # Create a renderer for this grid cell
             renderer = vtk.vtkRenderer()
-            renderer.SetBackground(colors.GetColor3d("DarkSlateGray"))
+            renderer.SetBackground(colors.GetColor3d("BkgColor"))
 
             # Set the renderer's viewport dimensions (xmin, ymin, xmax, ymax) within the render window.
             # Note that for the Y values, we need to subtract the row index from gridRows

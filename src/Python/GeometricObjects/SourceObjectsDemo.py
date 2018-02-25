@@ -7,6 +7,11 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
+    # Set the background color. Match those in VTKTextbook.pdf.
+    bkg = map(lambda x: x / 256.0, [51, 77, 102])
+    # bkg = map(lambda x: x / 256.0, [26, 51, 77])
+    colors.SetColor("BkgColor", *bkg)
+
     sourceObjects = list()
     sourceObjects.append(vtk.vtkSphereSource())
     sourceObjects[-1].SetPhiResolution(21)
@@ -54,7 +59,7 @@ def main():
 
         actors.append(vtk.vtkActor())
         actors[i].SetMapper(mappers[i])
-        actors[i].GetProperty().SetColor(colors.GetColor3d("Cornsilk"))
+        actors[i].GetProperty().SetColor(colors.GetColor3d("Seashell"))
         actors[i].SetBackfaceProperty(backProperty)
 
         textmappers.append(vtk.vtkTextMapper())
@@ -92,7 +97,7 @@ def main():
 
             renderers[index].AddActor(actors[index])
             renderers[index].AddActor(textactors[index])
-            renderers[index].SetBackground(colors.GetColor3d("DarkSlateGray"))
+            renderers[index].SetBackground(colors.GetColor3d("BkgColor"))
             renderers[index].ResetCamera()
             renderers[index].GetActiveCamera().Azimuth(30)
             renderers[index].GetActiveCamera().Elevation(30)

@@ -6,6 +6,11 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
+    # Set the background color. Match those in VTKTextbook.pdf.
+    bkg = map(lambda x: x / 256.0, [51, 77, 102])
+    # bkg = map(lambda x: x / 256.0, [26, 51, 77])
+    colors.SetColor("BkgColor", *bkg)
+
     titles = list()
     textMappers = list()
     textActors = list()
@@ -57,7 +62,7 @@ def main():
         mappers[i].SetInputData(uGrids[i])
         actors[i].SetMapper(mappers[i])
         actors[i].GetProperty().SetColor(
-            colors.GetColor3d("Cornsilk"))
+            colors.GetColor3d("Seashell"))
         renderers[i].AddViewProp(actors[i])
 
         textMappers[i].SetInput(titles[i])
@@ -94,13 +99,13 @@ def main():
                 # Add a renderer even if there is no actor.
                 # This makes the render window background all the same color.
                 ren = vtk.vtkRenderer()
-                ren.SetBackground(colors.GetColor3d("DarkSlateGray"))
+                ren.SetBackground(colors.GetColor3d("BkgColor"))
                 ren.SetViewport(viewport)
                 renWin.AddRenderer(ren)
                 continue
 
             renderers[index].SetViewport(viewport)
-            renderers[index].SetBackground(colors.GetColor3d("DarkSlateGray"))
+            renderers[index].SetBackground(colors.GetColor3d("BkgColor"))
             renderers[index].ResetCamera()
             renderers[index].GetActiveCamera().Azimuth(30)
             renderers[index].GetActiveCamera().Elevation(-30)
