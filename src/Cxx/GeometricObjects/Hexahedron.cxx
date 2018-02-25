@@ -1,66 +1,80 @@
-#include <vtkVersion.h>
-#include <vtkCellArray.h>
-#include <vtkPoints.h>
-#include <vtkHexahedron.h>
-#include <vtkUnstructuredGrid.h>
-
-#include <vtkSmartPointer.h>
-#include <vtkDataSetMapper.h>
 #include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkCellArray.h>
+#include <vtkDataSetMapper.h>
+#include <vtkHexahedron.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkVersion.h>
 
-int main(int, char *[])
+#include <array>
+#include <vector>
+
+int main(int, char* [])
 {
-  // Setup the coordinates of eight points 
-  // (the two faces must be in counter clockwise order as viewd from the outside)
-  double P0[3] = {0.0, 0.0, 0.0};
-  double P1[3] = {1.0, 0.0, 0.0};
-  double P2[3] = {1.0, 1.0, 0.0};
-  double P3[3] = {0.0, 1.0, 0.0};
-  double P4[3] = {0.0, 0.0, 1.0};
-  double P5[3] = {1.0, 0.0, 1.0};
-  double P6[3] = {1.0, 1.0, 1.0};
-  double P7[3] = {0.0, 1.0, 1.0};
- 
- 
-  // Create the points
-  vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
-  points->InsertNextPoint(P0);
-  points->InsertNextPoint(P1);
-  points->InsertNextPoint(P2);
-  points->InsertNextPoint(P3);
-  points->InsertNextPoint(P4);
-  points->InsertNextPoint(P5);
-  points->InsertNextPoint(P6);
-  points->InsertNextPoint(P7);
- 
-  // Create a hexahedron from the points
-  vtkSmartPointer<vtkHexahedron> hex = 
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{51, 77, 102}};
+  // std::array<double, 3> bkg{{26, 51, 77}};
+  SetColor(bkg, "BkgColor");
+
+  // For the hexahedron; setup the coordinates of eight points.
+  // The two faces must be in counter clockwise order as viewed from the
+  // outside.
+  std::vector<std::array<double, 3>> pointCoordinates;
+  pointCoordinates.push_back({{0.0, 0.0, 0.0}}); // Face 1
+  pointCoordinates.push_back({{1.0, 0.0, 0.0}});
+  pointCoordinates.push_back({{1.0, 1.0, 0.0}});
+  pointCoordinates.push_back({{0.0, 1.0, 0.0}});
+  pointCoordinates.push_back({{0.0, 0.0, 1.0}}); // Face 2
+  pointCoordinates.push_back({{1.0, 0.0, 1.0}});
+  pointCoordinates.push_back({{1.0, 1.0, 1.0}});
+  pointCoordinates.push_back({{0.0, 1.0, 1.0}});
+
+  // Create the points.
+  vtkSmartPointer<vtkPoints> points =
+    vtkSmartPointer<vtkPoints>::New();
+
+  // Create a hexahedron from the points.
+  vtkSmartPointer<vtkHexahedron> hex =
     vtkSmartPointer<vtkHexahedron>::New();
-  hex->GetPointIds()->SetId(0,0);
-  hex->GetPointIds()->SetId(1,1);
-  hex->GetPointIds()->SetId(2,2);
-  hex->GetPointIds()->SetId(3,3);
-  hex->GetPointIds()->SetId(4,4);
-  hex->GetPointIds()->SetId(5,5);
-  hex->GetPointIds()->SetId(6,6);
-  hex->GetPointIds()->SetId(7,7);
- 
-  // Add the hexahedron to a cell array
-  vtkSmartPointer<vtkCellArray> hexs = 
+
+  for (auto i = 0; i < pointCoordinates.size(); ++i)
+  {
+    points->InsertNextPoint(pointCoordinates[i].data());
+    hex->GetPointIds()->SetId(i, i);
+  }
+
+  // Add the hexahedron to a cell array.
+  vtkSmartPointer<vtkCellArray> hexs =
     vtkSmartPointer<vtkCellArray>::New();
   hexs->InsertNextCell(hex);
- 
-  // Add the points and hexahedron to an unstructured grid
+
+  // Add the points and hexahedron to an unstructured grid.
   vtkSmartPointer<vtkUnstructuredGrid> uGrid =
     vtkSmartPointer<vtkUnstructuredGrid>::New();
   uGrid->SetPoints(points);
   uGrid->InsertNextCell(hex->GetCellType(), hex->GetPointIds());
- 
-  // Visualize
-  vtkSmartPointer<vtkDataSetMapper> mapper = 
+
+  // Visualize.
+  vtkSmartPointer<vtkDataSetMapper> mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
 #if VTK_MAJOR_VERSION <= 5
   mapper->SetInputConnection(uGrid->GetProducerPort());
@@ -68,24 +82,29 @@ int main(int, char *[])
   mapper->SetInputData(uGrid);
 #endif
 
-  vtkSmartPointer<vtkActor> actor = 
+  vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
+  actor->GetProperty()->SetColor(colors->GetColor3d("Cornsilk").GetData());
   actor->SetMapper(mapper);
 
-  vtkSmartPointer<vtkRenderer> renderer = 
+  vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow = 
+  vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Hexahedron");
   renderWindow->AddRenderer(renderer);
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
+  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
-  renderer->SetBackground(.2, .3, .4);
+  renderer->SetBackground(colors->GetColor3d("BkgColor").GetData());
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(30);
+  renderer->GetActiveCamera()->Elevation(30);
 
   renderWindow->Render();
   renderWindowInteractor->Start();
-  
+
   return EXIT_SUCCESS;
 }
