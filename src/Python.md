@@ -82,6 +82,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Axes](/Python/GeometricObjects/Axes) | vtkAxesActor |
 [ColoredLines](/Python/GeometricObjects/ColoredLines) | vtkCellData vtkLine |
 [Dodecahedron](/Python/GeometricObjects/Dodecahedron) | vtkPolyhedron | Create a dodecahedron using vtkPolyhedron.
+[EllipticalCylinder](/Python/GeometricObjects/EllipticalCylinder) | vtkLinearExtrusionFilter | Create an elliptical cylinder using extrusion.
+[EllipticalCylinderDemo](/Python/GeometricObjects/EllipticalCylinderDemo) | vtkLinearExtrusionFilter | Show the base and extrusion vector.
 [GeometricObjectsDemo](/Python/GeometricObjects/GeometricObjectsDemo) |  |
 [Planes](/Python/GeometricObjects/Planes) | vtkPlanes vtkHull | We create a convex hull of the planes for display purposes.
 [PlanesIntersection](/Python/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection |

@@ -1,30 +1,27 @@
 #include <vtkActor.h>
 #include <vtkActor2D.h>
 #include <vtkCamera.h>
-#include <vtkMath.h>
-
-#include <vtkNamedColors.h>
-#include <vtkPolyDataAlgorithm.h>
-
-#include <vtkPoints.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkProperty.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
-#include <vtkSmartPointer.h>
-#include <vtkTextMapper.h>
-#include <vtkTextProperty.h>
-
-#include <vtkSphereSource.h>
 #include <vtkConeSource.h>
-#include <vtkCylinderSource.h>
 #include <vtkCubeSource.h>
-#include <vtkPlaneSource.h>
-#include <vtkTextSource.h>
-#include <vtkPointSource.h>
+#include <vtkCylinderSource.h>
 #include <vtkDiskSource.h>
 #include <vtkLineSource.h>
+#include <vtkMath.h>
+#include <vtkNamedColors.h>
+#include <vtkPlaneSource.h>
+#include <vtkPoints.h>
+#include <vtkPointSource.h>
+#include <vtkPolyDataAlgorithm.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkTextMapper.h>
+#include <vtkTextProperty.h>
+#include <vtkTextSource.h>
 
 #include <array>
 #include <vector>
@@ -76,7 +73,7 @@ int main(int, char* [])
   // Create one text property for all
   vtkSmartPointer<vtkTextProperty> textProperty =
     vtkSmartPointer<vtkTextProperty>::New();
-  textProperty->SetFontSize(10);
+  textProperty->SetFontSize(16);
   textProperty->SetJustificationToCentered();
 
   vtkSmartPointer<vtkProperty> backProperty =
@@ -93,7 +90,7 @@ int main(int, char* [])
 
     actors.push_back(vtkSmartPointer<vtkActor>::New());
     actors[i]->SetMapper(mappers[i]);
-    actors[i]->GetProperty()->SetColor(colors->GetColor3d("White").GetData());
+    actors[i]->GetProperty()->SetColor(colors->GetColor3d("Cornsilk").GetData());
     actors[i]->SetBackfaceProperty(backProperty);
 
     textmappers.push_back(vtkSmartPointer<vtkTextMapper>::New());
@@ -102,7 +99,7 @@ int main(int, char* [])
 
     textactors.push_back(vtkSmartPointer<vtkActor2D>::New());
     textactors[i]->SetMapper(textmappers[i]);
-    textactors[i]->SetPosition(100, 16);
+    textactors[i]->SetPosition(120, 16);
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
   }
 
@@ -110,14 +107,16 @@ int main(int, char* [])
 
   // Need a renderer even if there is no actor
   for (auto i = static_cast<int>(sourceObjects.size());
-       i < gridDimensions * gridDimensions; i++)
+       i < gridDimensions * gridDimensions; ++i)
   {
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
   }
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
-  int rendererSize = 200;
+  renderWindow->SetWindowName("Source Objects Demo");
+
+  int rendererSize = 300;
   renderWindow->SetSize(rendererSize * gridDimensions,
                         rendererSize * gridDimensions);
 
@@ -140,11 +139,11 @@ int main(int, char* [])
 
       renderers[index]->AddActor(actors[index]);
       renderers[index]->AddActor(textactors[index]);
-      renderers[index]->SetBackground(colors->GetColor3d("SlateGray").GetData());
+      renderers[index]->SetBackground(colors->GetColor3d("DarkSlateGray").GetData());
       renderers[index]->ResetCamera();
       renderers[index]->GetActiveCamera()->Azimuth(30);
       renderers[index]->GetActiveCamera()->Elevation(30);
-      renderers[index]->GetActiveCamera()->Zoom(0.9);
+      renderers[index]->GetActiveCamera()->Zoom(0.8);
       renderers[index]->ResetCameraClippingRange();
     }
   }

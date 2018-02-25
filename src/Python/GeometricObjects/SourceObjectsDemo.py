@@ -40,7 +40,7 @@ def main():
 
     # Create one text property for all.
     textProperty = vtk.vtkTextProperty()
-    textProperty.SetFontSize(10)
+    textProperty.SetFontSize(16)
     textProperty.SetJustificationToCentered()
 
     backProperty = vtk.vtkProperty()
@@ -54,7 +54,7 @@ def main():
 
         actors.append(vtk.vtkActor())
         actors[i].SetMapper(mappers[i])
-        actors[i].GetProperty().SetColor(colors.GetColor3d("White"))
+        actors[i].GetProperty().SetColor(colors.GetColor3d("Cornsilk"))
         actors[i].SetBackfaceProperty(backProperty)
 
         textmappers.append(vtk.vtkTextMapper())
@@ -63,7 +63,7 @@ def main():
 
         textactors.append(vtk.vtkActor2D())
         textactors[i].SetMapper(textmappers[i])
-        textactors[i].SetPosition(100, 16)
+        textactors[i].SetPosition(120, 16)
         renderers.append(vtk.vtkRenderer())
 
     gridDimensions = 3
@@ -73,7 +73,8 @@ def main():
         renderers.append(vtk.vtkRenderer())
 
     renderWindow = vtk.vtkRenderWindow()
-    rendererSize = 200
+    renderWindow.SetWindowName("Source Objects Demo")
+    rendererSize = 300
     renderWindow.SetSize(rendererSize * gridDimensions, rendererSize * gridDimensions)
 
     for row in range(0, gridDimensions):
@@ -91,11 +92,11 @@ def main():
 
             renderers[index].AddActor(actors[index])
             renderers[index].AddActor(textactors[index])
-            renderers[index].SetBackground(colors.GetColor3d("SlateGray"))
+            renderers[index].SetBackground(colors.GetColor3d("DarkSlateGray"))
             renderers[index].ResetCamera()
             renderers[index].GetActiveCamera().Azimuth(30)
             renderers[index].GetActiveCamera().Elevation(30)
-            renderers[index].GetActiveCamera().Zoom(0.9)
+            renderers[index].GetActiveCamera().Zoom(0.8)
             renderers[index].ResetCameraClippingRange()
 
     interactor = vtk.vtkRenderWindowInteractor()
