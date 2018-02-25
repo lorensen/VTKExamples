@@ -3,11 +3,120 @@
 import vtk
 
 
+def main():
+    colors = vtk.vtkNamedColors()
+
+    titles = list()
+    textMappers = list()
+    textActors = list()
+
+    uGrids = list()
+    mappers = list()
+    actors = list()
+    renderers = list()
+
+    uGrids.append(MakeHexagonalPrism())
+    titles.append('Hexagonal Prism')
+    uGrids.append(MakeHexahedron())
+    titles.append('Hexahedron')
+    uGrids.append(MakePentagonalPrism())
+    titles.append('Pentagonal Prism')
+
+    uGrids.append(MakePolyhedron())
+    titles.append('Polyhedron')
+    uGrids.append(MakePyramid())
+    titles.append('Pyramid')
+    uGrids.append(MakeTetrahedron())
+    titles.append('Tetrahedron')
+
+    uGrids.append(MakeVoxel())
+    titles.append('Voxel')
+    uGrids.append(MakeWedge())
+    titles.append('Wedge')
+
+    renWin = vtk.vtkRenderWindow()
+    renWin.SetWindowName('Cell3D Demonstration')
+
+    iRen = vtk.vtkRenderWindowInteractor()
+    iRen.SetRenderWindow(renWin)
+
+    # Create one text property for all
+    textProperty = vtk.vtkTextProperty()
+    textProperty.SetFontSize(16)
+    textProperty.SetJustificationToCentered()
+
+    # Create and link the mappers actors and renderers together.
+    for i in range(0, len(uGrids)):
+        textMappers.append(vtk.vtkTextMapper())
+        textActors.append(vtk.vtkActor2D())
+
+        mappers.append(vtk.vtkDataSetMapper())
+        actors.append(vtk.vtkActor())
+        renderers.append(vtk.vtkRenderer())
+
+        mappers[i].SetInputData(uGrids[i])
+        actors[i].SetMapper(mappers[i])
+        actors[i].GetProperty().SetColor(
+            colors.GetColor3d("Cornsilk"))
+        renderers[i].AddViewProp(actors[i])
+
+        textMappers[i].SetInput(titles[i])
+        textMappers[i].SetTextProperty(textProperty)
+
+        textActors[i].SetMapper(textMappers[i])
+        textActors[i].SetPosition(120, 16)
+        renderers[i].AddViewProp(textActors[i])
+
+        renWin.AddRenderer(renderers[i])
+
+    gridDimensions = 3
+    rendererSize = 300
+
+    renWin.SetSize(rendererSize * gridDimensions,
+                   rendererSize * gridDimensions)
+
+    for row in range(0, gridDimensions):
+        for col in range(0, gridDimensions):
+            index = row * gridDimensions + col
+
+            # (xmin, ymin, xmax, ymax)
+            viewport = [
+                float(col) * rendererSize /
+                (gridDimensions * rendererSize),
+                float(gridDimensions - (row + 1)) * rendererSize /
+                (gridDimensions * rendererSize),
+                float(col + 1) * rendererSize /
+                (gridDimensions * rendererSize),
+                float(gridDimensions - row) * rendererSize /
+                (gridDimensions * rendererSize)]
+
+            if index > len(actors) - 1:
+                # Add a renderer even if there is no actor.
+                # This makes the render window background all the same color.
+                ren = vtk.vtkRenderer()
+                ren.SetBackground(colors.GetColor3d("DarkSlateGray"))
+                ren.SetViewport(viewport)
+                renWin.AddRenderer(ren)
+                continue
+
+            renderers[index].SetViewport(viewport)
+            renderers[index].SetBackground(colors.GetColor3d("DarkSlateGray"))
+            renderers[index].ResetCamera()
+            renderers[index].GetActiveCamera().Azimuth(30)
+            renderers[index].GetActiveCamera().Elevation(-30)
+            renderers[index].GetActiveCamera().Zoom(0.85)
+            renderers[index].ResetCameraClippingRange()
+
+    iRen.Initialize()
+    renWin.Render()
+    iRen.Start()
+
+
 def MakeHexagonalPrism():
-    '''
+    """
       3D: hexagonal prism: a wedge with an hexagonal base.
       Be careful, the base face ordering is different from wedge.
-    '''
+    """
 
     numberOfVertices = 12
 
@@ -40,7 +149,7 @@ def MakeHexagonalPrism():
 
 
 def MakeHexahedron():
-    '''
+    """
       A regular hexagon (cube) with all faces square and three squares around
        each vertex is created below.
 
@@ -50,7 +159,7 @@ def MakeHexahedron():
 
       As an exercise you can modify the coordinates of the points to create
        seven topologically distinct convex hexahedras.
-    '''
+    """
     numberOfVertices = 8
 
     # Create the points
@@ -78,7 +187,6 @@ def MakeHexahedron():
 
 
 def MakePentagonalPrism():
-
     numberOfVertices = 10
 
     # Create the points
@@ -109,10 +217,10 @@ def MakePentagonalPrism():
 
 
 def MakePolyhedron():
-    '''
+    """
       Make a regular dodecahedron. It consists of twelve regular pentagonal
       faces with three faces meeting at each vertex.
-    '''
+    """
     # numberOfVertices = 20
     numberOfFaces = 12
     # numberOfFaceVertices = 5
@@ -172,9 +280,9 @@ def MakePolyhedron():
 
 
 def MakePyramid():
-    '''
+    """
       Make a regular square pyramid.
-    '''
+    """
     numberOfVertices = 5
 
     points = vtk.vtkPoints()
@@ -201,9 +309,9 @@ def MakePyramid():
 
 
 def MakeTetrahedron():
-    '''
+    """
       Make a tetrahedron.
-    '''
+    """
     numberOfVertices = 4
 
     points = vtk.vtkPoints()
@@ -227,9 +335,9 @@ def MakeTetrahedron():
 
 
 def MakeVoxel():
-    '''
+    """
       A voxel is a representation of a regular grid in 3-D space.
-    '''
+    """
     numberOfVertices = 8
 
     points = vtk.vtkPoints()
@@ -254,9 +362,9 @@ def MakeVoxel():
 
 
 def MakeWedge():
-    '''
+    """
       A wedge consists of two triangular ends and three rectangular faces.
-    '''
+    """
 
     numberOfVertices = 6
 
@@ -281,7 +389,7 @@ def MakeWedge():
 
 
 def WritePNG(renWin, fn, magnification=1):
-    '''
+    """
       Screenshot
 
       Write out a png corresponding to the render window.
@@ -289,7 +397,7 @@ def WritePNG(renWin, fn, magnification=1):
       :param: renWin - the render window.
       :param: fn - the file name.
       :param: magnification - the magnification.
-    '''
+    """
     windowToImageFilter = vtk.vtkWindowToImageFilter()
     windowToImageFilter.SetInput(renWin)
     windowToImageFilter.SetMagnification(magnification)
@@ -306,112 +414,5 @@ def WritePNG(renWin, fn, magnification=1):
     writer.Write()
 
 
-def DisplayBodies():
-
-    titles = list()
-    textMappers = list()
-    textActors = list()
-
-    uGrids = list()
-    mappers = list()
-    actors = list()
-    renderers = list()
-
-    uGrids.append(MakeHexagonalPrism())
-    titles.append('Hexagonal Prism')
-    uGrids.append(MakeHexahedron())
-    titles.append('Hexahedron')
-    uGrids.append(MakePentagonalPrism())
-    titles.append('Pentagonal Prism')
-
-    uGrids.append(MakePolyhedron())
-    titles.append('Polyhedron')
-    uGrids.append(MakePyramid())
-    titles.append('Pyramid')
-    uGrids.append(MakeTetrahedron())
-    titles.append('Tetrahedron')
-
-    uGrids.append(MakeVoxel())
-    titles.append('Voxel')
-    uGrids.append(MakeWedge())
-    titles.append('Wedge')
-
-    renWin = vtk.vtkRenderWindow()
-    renWin.SetSize(600, 600)
-    renWin.SetWindowName('Cell3D Demonstration')
-
-    iRen = vtk.vtkRenderWindowInteractor()
-    iRen.SetRenderWindow(renWin)
-
-    # Create one text property for all
-    textProperty = vtk.vtkTextProperty()
-    textProperty.SetFontSize(10)
-    textProperty.SetJustificationToCentered()
-
-    # Create and link the mappers actors and renderers together.
-    for i in range(0, len(uGrids)):
-        textMappers.append(vtk.vtkTextMapper())
-        textActors.append(vtk.vtkActor2D())
-
-        mappers.append(vtk.vtkDataSetMapper())
-        actors.append(vtk.vtkActor())
-        renderers.append(vtk.vtkRenderer())
-
-        mappers[i].SetInputData(uGrids[i])
-        actors[i].SetMapper(mappers[i])
-        renderers[i].AddViewProp(actors[i])
-
-        textMappers[i].SetInput(titles[i])
-        textActors[i].SetMapper(textMappers[i])
-        textActors[i].SetPosition(50, 10)
-        renderers[i].AddViewProp(textActors[i])
-
-        renWin.AddRenderer(renderers[i])
-
-    gridDimensions = 3
-    rendererSize = 200
-
-    renWin.SetSize(rendererSize * gridDimensions,
-                   rendererSize * gridDimensions)
-
-    for row in range(0, gridDimensions):
-        for col in range(0, gridDimensions):
-            index = row * gridDimensions + col
-
-            # (xmin, ymin, xmax, ymax)
-            viewport = [
-                float(col) * rendererSize /
-                (gridDimensions * rendererSize),
-                float(gridDimensions - (row + 1)) * rendererSize /
-                (gridDimensions * rendererSize),
-                float(col + 1) * rendererSize /
-                (gridDimensions * rendererSize),
-                float(gridDimensions - row) * rendererSize /
-                (gridDimensions * rendererSize)]
-
-            if index > len(actors) - 1:
-                # Add a renderer even if there is no actor.
-                # This makes the render window background all the same color.
-                ren = vtk.vtkRenderer()
-                ren.SetBackground(.2, .3, .4)
-                ren.SetViewport(viewport)
-                renWin.AddRenderer(ren)
-                continue
-
-            renderers[index].SetViewport(viewport)
-            renderers[index].SetBackground(.2, .3, .4)
-            renderers[index].ResetCamera()
-            renderers[index].GetActiveCamera().Azimuth(30)
-            renderers[index].GetActiveCamera().Elevation(-30)
-            renderers[index].GetActiveCamera().Zoom(0.85)
-            renderers[index].ResetCameraClippingRange()
-
-    iRen.Initialize()
-    renWin.Render()
-    return iRen
-
-
 if __name__ == '__main__':
-    iRen = DisplayBodies()
-    # WritePNG(iRen.GetRenderWindow(), "Cell3DDemonstration.png")
-    iRen.Start()
+    main()
