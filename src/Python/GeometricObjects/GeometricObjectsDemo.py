@@ -1,97 +1,106 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import vtk
 
 
-class GeometricObjects():
+def main():
+    colors = vtk.vtkNamedColors()
 
-    def GeometricObjects(self):
+    # Set the background color. Match those in VTKTextbook.pdf.
+    bkg = map(lambda x: x / 256.0, [51, 77, 102])
+    # bkg = map(lambda x: x / 256.0, [26, 51, 77])
+    colors.SetColor("BkgColor", *bkg)
 
-        GeometricObjects = list()
-        GeometricObjects.append(vtk.vtkArrowSource())
-        GeometricObjects.append(vtk.vtkConeSource())
-        GeometricObjects.append(vtk.vtkCubeSource())
-        GeometricObjects.append(vtk.vtkCylinderSource())
-        GeometricObjects.append(vtk.vtkDiskSource())
-        GeometricObjects.append(vtk.vtkLineSource())
-        GeometricObjects.append(vtk.vtkRegularPolygonSource())
-        GeometricObjects.append(vtk.vtkSphereSource())
+    # Create container to hold the 3D object generators (sources)
+    geometricObjectSources = list()
 
-        renderers = list()
-        mappers = list()
-        actors = list()
-        textmappers = list()
-        textactors = list()
+    # Populate the container with the various object sources to be demonstrated
+    geometricObjectSources.append(vtk.vtkArrowSource())
+    geometricObjectSources.append(vtk.vtkConeSource())
+    geometricObjectSources.append(vtk.vtkCubeSource())
+    geometricObjectSources.append(vtk.vtkCylinderSource())
+    geometricObjectSources.append(vtk.vtkDiskSource())
+    geometricObjectSources.append(vtk.vtkLineSource())
+    geometricObjectSources.append(vtk.vtkRegularPolygonSource())
+    geometricObjectSources.append(vtk.vtkSphereSource())
 
-        # Create a common text property.
-        textProperty = vtk.vtkTextProperty()
-        textProperty.SetFontSize(10)
-        textProperty.SetJustificationToCentered()
+    # Create containers for the remaining nodes of each pipeline
+    mappers = list()
+    actors = list()
+    textmappers = list()
+    textactors = list()
 
-        # Create a parametric function source, renderer, mapper
-        # and actor for each object.
-        for idx, item in enumerate(GeometricObjects):
-            GeometricObjects[idx].Update()
+    # Create a common text property.
+    textProperty = vtk.vtkTextProperty()
+    textProperty.SetFontSize(16)
+    textProperty.SetJustificationToCentered()
 
-            mappers.append(vtk.vtkPolyDataMapper())
-            mappers[idx].SetInputConnection(GeometricObjects[idx].GetOutputPort())
+    # Create a mapper and actor for each object and the corresponding text label
+    for i in range(0, len(geometricObjectSources)):
+        geometricObjectSources[i].Update()
 
-            actors.append(vtk.vtkActor())
-            actors[idx].SetMapper(mappers[idx])
+        mappers.append(vtk.vtkPolyDataMapper())
+        mappers[i].SetInputConnection(geometricObjectSources[i].GetOutputPort())
 
-            textmappers.append(vtk.vtkTextMapper())
-            textmappers[idx].SetInput(item.GetClassName())
-            textmappers[idx].SetTextProperty(textProperty)
+        actors.append(vtk.vtkActor())
+        actors[i].SetMapper(mappers[i])
+        actors[i].GetProperty().SetColor(
+            colors.GetColor3d("Seashell"))
 
-            textactors.append(vtk.vtkActor2D())
-            textactors[idx].SetMapper(textmappers[idx])
-            textactors[idx].SetPosition(150, 16)
+        textmappers.append(vtk.vtkTextMapper())
+        textmappers[i].SetInput(
+            geometricObjectSources[i].GetClassName())  # set text label to the name of the object source
+        textmappers[i].SetTextProperty(textProperty)
 
-            renderers.append(vtk.vtkRenderer())
+        textactors.append(vtk.vtkActor2D())
+        textactors[i].SetMapper(textmappers[i])
+        textactors[i].SetPosition(120, 16)  # Note: the position of an Actor2D is specified in display coordinates
 
-        gridDimensions = 3
+    # Define size of the grid that will hold the objects
+    gridCols = 3
+    gridRows = 3
+    # Define side length (in pixels) of each renderer square
+    rendererSize = 300
 
-        for idx in range(len(GeometricObjects)):
-            if idx < gridDimensions * gridDimensions:
-                renderers.append(vtk.vtkRenderer)
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Geometric Objects Demo")
+    renderWindow.SetSize(rendererSize * gridCols, rendererSize * gridRows)
 
-        rendererSize = 300
+    # Set up a grid of viewports for each renderer
+    for row in range(0, gridRows):
+        for col in range(0, gridCols):
+            index = row * gridCols + col
 
-        # Create the RenderWindow
-        #
-        renderWindow = vtk.vtkRenderWindow()
-        renderWindow.SetSize(rendererSize * gridDimensions, rendererSize * gridDimensions)
+            # Create a renderer for this grid cell
+            renderer = vtk.vtkRenderer()
+            renderer.SetBackground(colors.GetColor3d("BkgColor"))
 
-        # Add and position the renders to the render window.
-        viewport = list()
-        for row in range(gridDimensions):
-            for col in range(gridDimensions):
-                idx = row * gridDimensions + col
+            # Set the renderer's viewport dimensions (xmin, ymin, xmax, ymax) within the render window.
+            # Note that for the Y values, we need to subtract the row index from gridRows
+            # because the viewport Y axis points upwards, but we want to draw the grid from top to down
+            viewport = [
+                float(col) / gridCols,
+                float(gridRows - row - 1) / gridRows,
+                float(col + 1) / gridCols,
+                float(gridRows - row) / gridRows
+            ]
+            renderer.SetViewport(viewport)
 
-                viewport[:] = []
-                viewport.append(float(col) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - (row + 1)) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(col + 1) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - row) * rendererSize / (gridDimensions * rendererSize))
+            # Add the corresponding actor and label for this grid cell, if they exist
+            if index < len(geometricObjectSources):
+                renderer.AddActor(actors[index])
+                renderer.AddActor(textactors[index])
+                renderer.ResetCameraClippingRange()
 
-                if idx > (len(GeometricObjects) - 1):
-                    continue
+            renderWindow.AddRenderer(renderer)
 
-                renderers[idx].SetViewport(viewport)
-                renderWindow.AddRenderer(renderers[idx])
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(renderWindow)
 
-                renderers[idx].AddActor(actors[idx])
-                renderers[idx].AddActor(textactors[idx])
-                renderers[idx].SetBackground(0.4, 0.3, 0.2)
-
-        interactor = vtk.vtkRenderWindowInteractor()
-        interactor.SetRenderWindow(renderWindow)
-
-        renderWindow.Render()
-
-        interactor.Start()
+    renderWindow.Render()
+    interactor.Start()
 
 
-if __name__ == "__main__":
-    po = GeometricObjects()
-    po.GeometricObjects()
+if __name__ == '__main__':
+    main()

@@ -1,32 +1,35 @@
-#include <vtkSmartPointer.h>
-#include <vtkVersion.h>
-
-#include <vtkPoints.h>
-#include <vtkCellArray.h>
-#include <vtkUnstructuredGrid.h>
-#include <vtkDataSetMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkCamera.h>
-#include <vtkTextProperty.h>
-#include <vtkTextMapper.h>
 #include <vtkActor2D.h>
-
+#include <vtkCamera.h>
+#include <vtkCellArray.h>
+#include <vtkDataSetMapper.h>
 #include <vtkHexagonalPrism.h>
 #include <vtkHexahedron.h>
+#include <vtkNamedColors.h>
 #include <vtkPentagonalPrism.h>
+#include <vtkPoints.h>
 #include <vtkPolyhedron.h>
+#include <vtkProperty.h>
 #include <vtkPyramid.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
 #include <vtkTetra.h>
+#include <vtkTextMapper.h>
+#include <vtkTextProperty.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkVersion.h>
 #include <vtkVoxel.h>
 #include <vtkWedge.h>
 
-#include <vector>
-#include <string>
+#include <array>
 #include <cstdlib>
+#include <string>
+#include <vector>
 
+namespace
+{
 // These functions return a vtkUnstructured grid corresponding to the object.
 vtkSmartPointer<vtkUnstructuredGrid> MakeHexagonalPrism();
 vtkSmartPointer<vtkUnstructuredGrid> MakeHexahedron();
@@ -38,9 +41,26 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeTetrahedron();
 
 vtkSmartPointer<vtkUnstructuredGrid> MakeVoxel();
 vtkSmartPointer<vtkUnstructuredGrid> MakeWedge();
+}
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{51, 77, 102}};
+  // std::array<double, 3> bkg{{26, 51, 77}};
+  SetColor(bkg, "BkgColor");
+
   std::vector<std::string> titles;
   std::vector<vtkSmartPointer<vtkTextMapper> > textMappers;
   std::vector<vtkSmartPointer<vtkActor2D> > textActors;
@@ -71,7 +91,6 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
-  renWin->SetSize(600, 600);
   renWin->SetWindowName("Cell3D Demonstration");
 
   vtkSmartPointer<vtkRenderWindowInteractor> iRen =
@@ -81,7 +100,7 @@ int main(int, char *[])
   // Create one text property for all
   vtkSmartPointer<vtkTextProperty> textProperty =
     vtkSmartPointer<vtkTextProperty>::New();
-  textProperty->SetFontSize(10);
+  textProperty->SetFontSize(16);
   textProperty->SetJustificationToCentered();
 
   // Create and link the mappers actors and renderers together.
@@ -100,18 +119,23 @@ int main(int, char *[])
     mappers[i]->SetInputData(uGrids[i]);
 #endif
     actors[i]->SetMapper(mappers[i]);
+    actors[i]->GetProperty()->SetColor(
+      colors->GetColor3d("Seashell").GetData());
+
     renderers[i]->AddViewProp(actors[i]);
 
     textMappers[i]->SetInput(titles[i].c_str());
+    textMappers[i]->SetTextProperty(textProperty);
+
     textActors[i]->SetMapper(textMappers[i]);
-    textActors[i]->SetPosition(50, 10);
+    textActors[i]->SetPosition(120, 16);
     renderers[i]->AddViewProp(textActors[i]);
 
     renWin->AddRenderer(renderers[i]);
   }
 
   int gridDimensions = 3;
-  int rendererSize = 200;
+  int rendererSize = 300;
 
   renWin->SetSize(
     rendererSize*gridDimensions, rendererSize*gridDimensions);
@@ -138,14 +162,14 @@ int main(int, char *[])
         // Add a renderer even if there is no actor.
         // This makes the render window background all the same color.
         vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();
-        ren->SetBackground(.2, .3, .4);
+        ren->SetBackground(colors->GetColor3d("BkgColor").GetData());
         ren->SetViewport(viewport);
         renWin->AddRenderer(ren);
         continue;
       }
 
       renderers[index]->SetViewport(viewport);
-      renderers[index]->SetBackground(.2, .3, .4);
+      renderers[index]->SetBackground(colors->GetColor3d("BkgColor").GetData());
       renderers[index]->ResetCamera();
       renderers[index]->GetActiveCamera()->Azimuth(30);
       renderers[index]->GetActiveCamera()->Elevation(-30);
@@ -163,6 +187,8 @@ int main(int, char *[])
   return EXIT_SUCCESS;
 }
 
+namespace
+{
 vtkSmartPointer<vtkUnstructuredGrid> MakeHexagonalPrism()
 {
   // 3D: hexagonal prism: a wedge with an hexagonal base.
@@ -479,4 +505,5 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeWedge()
   ug->InsertNextCell(wedge->GetCellType(),wedge->GetPointIds());
 
   return ug;
+}
 }

@@ -1,22 +1,20 @@
-#include <vtkSmartPointer.h>
-#include <vtkPolyLine.h>
-#include <vtkPoints.h>
-#include <vtkLinearExtrusionFilter.h>
-#include <vtkTubeFilter.h>
-#include <vtkArrowSource.h>
-#include <vtkTransform.h>
-#include <vtkTransformPolyDataFilter.h>
-
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkProperty.h>
+#include <vtkArrowSource.h>
 #include <vtkCamera.h>
+#include <vtkInteractorStyleTrackballCamera.h>
+#include <vtkLinearExtrusionFilter.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPolyLine.h>
+#include <vtkProperty.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkInteractorStyleTrackballCamera.h>
-
-#include <vtkNamedColors.h>
+#include <vtkSmartPointer.h>
+#include <vtkTransform.h>
+#include <vtkTransformPolyDataFilter.h>
+#include <vtkTubeFilter.h>
 
 int main(int argc, char *argv[])
 {
@@ -173,13 +171,14 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkRenderer> ren =
     vtkSmartPointer<vtkRenderer>::New();
-  ren->SetBackground(colors->GetColor3d("Slate_grey").GetData());
+  ren->SetBackground(colors->GetColor3d("SlateGray").GetData());
   ren->AddActor(actor);
   ren->AddActor(lineActor);
   ren->AddActor(arrowActor);
 
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renWin->SetWindowName("Elliptical Cylinder Demo");
   renWin->AddRenderer(ren);
   renWin->SetSize(600, 600);
 
@@ -199,11 +198,12 @@ int main(int argc, char *argv[])
   camera->Azimuth(30);
   camera->Elevation(30);
 
-  renWin->Render();
 
   ren->SetActiveCamera(camera);
   ren->ResetCamera();
   ren->ResetCameraClippingRange();
+
+  renWin->Render();
   iren->Start();
 
   return EXIT_SUCCESS;
