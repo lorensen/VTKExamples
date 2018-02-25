@@ -1,43 +1,51 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import vtk
 
-# Create the geometry of a point (the coordinate)
-points = vtk.vtkPoints()
-p = [1.0, 2.0, 3.0]
 
-# Create the topology of the point (a vertex)
-vertices = vtk.vtkCellArray()
+def main():
+    colors = vtk.vtkNamedColors()
 
-id = points.InsertNextPoint(p)
-vertices.InsertNextCell(1)
-vertices.InsertCellPoint(id)
+    # Create the geometry of a point (the coordinate)
+    points = vtk.vtkPoints()
+    p = [1.0, 2.0, 3.0]
 
-# Create a polydata object
-point = vtk.vtkPolyData()
+    # Create the topology of the point (a vertex)
+    vertices = vtk.vtkCellArray()
+    # We need an an array of point id's for InsertNextCell.
+    pid = [0]
+    pid[0] = points.InsertNextPoint(p)
+    vertices.InsertNextCell(1, pid)
 
-# Set the points and vertices we created as the geometry and topology of the polydata
-point.SetPoints(points)
-point.SetVerts(vertices)
+    # Create a polydata object
+    point = vtk.vtkPolyData()
 
-# Visualize
-mapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION <= 5:
-    mapper.SetInput(point)
-else:
+    # Set the points and vertices we created as the geometry and topology of the polydata
+    point.SetPoints(points)
+    point.SetVerts(vertices)
+
+    # Visualize
+    mapper = vtk.vtkPolyDataMapper()
     mapper.SetInputData(point)
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
-actor.GetProperty().SetPointSize(20)
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetColor(colors.GetColor3d("Tomato"))
+    actor.GetProperty().SetPointSize(20)
 
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
 
-renderer.AddActor(actor)
+    renderer.AddActor(actor)
+    renderer.SetBackground(colors.GetColor3d("DarkOliveGreen"))
 
-renderWindow.Render()
-renderWindowInteractor.Start()
+    renderWindow.Render()
+    renderWindowInteractor.Start()
+
+
+if __name__ == '__main__':
+    main()
