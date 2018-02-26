@@ -1,16 +1,21 @@
-#include <vtkVersion.h>
-#include <vtkSmartPointer.h>
-#include <vtkPolygon.h>
+#include <vtkActor.h>
 #include <vtkCellArray.h>
+#include <vtkNamedColors.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkRenderWindow.h>
+#include <vtkPolygon.h>
+#include <vtkProperty.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkVersion.h>
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Setup four points
   vtkSmartPointer<vtkPoints> points =
     vtkSmartPointer<vtkPoints>::New();
@@ -51,6 +56,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(
+    colors->GetColor3d("Silver").GetData());
 
   // Visualize
   vtkSmartPointer<vtkRenderer> renderer =
@@ -63,8 +70,7 @@ int main(int, char *[])
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
-  renderer->SetBackground(.5,.3,.31); // Background color salmon
-
+  renderer->SetBackground(colors->GetColor3d("Salmon").GetData());
   renderWindow->Render();
   renderWindowInteractor->Start();
 
