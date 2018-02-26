@@ -101,6 +101,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Point](/Python/GeometricObjects/Point) | vtkPoints |
 [PolyLine](/Python/GeometricObjects/PolyLine) | vtkPolyLine |
 [Polygon](/Python/GeometricObjects/Polygon) | vtkPolygon |
+[Polyhedron](/Python/GeometricObjects/Polyhedron) | vtkPolyhedron | Create an unstructured grid representation of a polyhedron (cube) and write it out to a file.
 [Pyramid](/Python/GeometricObjects/Pyramid) | vtkPyramid |
 [Quad](/Python/GeometricObjects/Quad) | vtkQuad |
 [Tetrahedron](/Python/GeometricObjects/Tetrahedron) | vtkTetra |

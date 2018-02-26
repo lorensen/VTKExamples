@@ -170,7 +170,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [Point](/Cxx/GeometricObjects/Point) | vtkPoints |
 [PolyLine](/Cxx/GeometricObjects/PolyLine) | vtkPolyLine |
 [Polygon](/Cxx/GeometricObjects/Polygon) | vtkPolygon |
-[Polyhedron](/Cxx/GeometricObjects/Polyhedron) | vtkPolyhedron |
+[Polyhedron](/Cxx/GeometricObjects/Polyhedron) |  | Create an unstructured grid representation of a polyhedron (cube) and write it out to a file.
 [Pyramid](/Cxx/GeometricObjects/Pyramid) | vtkPyramid |
 [Quad](/Cxx/GeometricObjects/Quad) | vtkQuad |
 [Tetrahedron](/Cxx/GeometricObjects/Tetrahedron) | vtkTetra |
