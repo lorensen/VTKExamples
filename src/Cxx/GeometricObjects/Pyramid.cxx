@@ -1,17 +1,16 @@
-#include <vtkSmartPointer.h>
-#include <vtkPyramid.h>
-
 #include <vtkActor.h>
-#include <vtkProperty.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkDataSetMapper.h>
+#include <vtkNamedColors.h>
 #include <vtkPoints.h>
+#include <vtkProperty.h>
+#include <vtkPyramid.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkNamedColors.h>
 
 int main(int , char *[])
 {
