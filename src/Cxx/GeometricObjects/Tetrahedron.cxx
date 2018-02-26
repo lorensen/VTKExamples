@@ -1,18 +1,24 @@
-#include <vtkVersion.h>
-#include <vtkSmartPointer.h>
+#include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkCellArray.h>
-#include <vtkTetra.h>
-#include <vtkUnstructuredGrid.h>
-#include <vtkPoints.h>
 #include <vtkCellType.h>
 #include <vtkDataSetMapper.h>
-#include <vtkActor.h>
-#include <vtkRenderWindow.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkProperty.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkTetra.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkVersion.h>
 
 int main(int, char*[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer< vtkPoints > points =
     vtkSmartPointer< vtkPoints > :: New();
   points->InsertNextPoint(0, 0, 0);
@@ -62,6 +68,7 @@ int main(int, char*[])
   vtkSmartPointer<vtkActor> actor1 = 
     vtkSmartPointer<vtkActor>::New();
   actor1->SetMapper(mapper1);
+  actor1->GetProperty()->SetColor(colors->GetColor3d("Cyan").GetData());
   
   // Create a mapper and actor
   vtkSmartPointer<vtkDataSetMapper> mapper2 = 
@@ -75,12 +82,14 @@ int main(int, char*[])
   vtkSmartPointer<vtkActor> actor2 = 
     vtkSmartPointer<vtkActor>::New();
   actor2->SetMapper(mapper2);
+  actor2->GetProperty()->SetColor(colors->GetColor3d("Yellow").GetData());
  
   // Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Tetrahedron");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
@@ -89,7 +98,10 @@ int main(int, char*[])
   // Add the actor to the scene
   renderer->AddActor(actor1);
   renderer->AddActor(actor2);
-  renderer->SetBackground(.3, .6, .3); // Background color green
+  renderer->SetBackground(colors->GetColor3d("DarkGreen").GetData());
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(-10);
+  renderer->GetActiveCamera()->Elevation(-20);
  
   // Render and interact
   renderWindow->Render();

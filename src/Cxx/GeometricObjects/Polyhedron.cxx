@@ -1,18 +1,28 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkVersion.h>
-#include <vtkUnstructuredGrid.h>
-#include <vtkPolyhedron.h>
+#include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkCellArray.h>
-#include <vtkPointData.h>
 #include <vtkCellData.h>
-#include <vtkIdList.h>
-#include <vtkPoints.h>
 #include <vtkDataArray.h>
+#include <vtkDataSetMapper.h>
+#include <vtkIdList.h>
+#include <vtkNamedColors.h>
+#include <vtkPointData.h>
+#include <vtkPoints.h>
+#include <vtkPolyhedron.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkVersion.h>
 #include <vtkXMLUnstructuredGridWriter.h>
 
 int main( int, char*[] )
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // create polyhedron (cube)
   vtkIdType pointIds[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 
@@ -50,6 +60,7 @@ int main( int, char*[] )
     VTK_POLYHEDRON, 8, pointIds,
     6, faces->GetPointer());
 
+  // Here we write out the cube.
   vtkSmartPointer<vtkXMLUnstructuredGridWriter> writer =
     vtkSmartPointer<vtkXMLUnstructuredGridWriter>::New();
 #if VTK_MAJOR_VERSION <= 5
@@ -60,6 +71,40 @@ int main( int, char*[] )
   writer->SetFileName("polyhedron.vtu");
   writer->SetDataModeToAscii();
   writer->Update();
+
+  // Create a mapper and actor
+  vtkSmartPointer<vtkDataSetMapper> mapper =
+    vtkSmartPointer<vtkDataSetMapper>::New();
+#if VTK_MAJOR_VERSION <= 5
+  mapper->SetInput(ugrid);
+#else
+  mapper->SetInputData(ugrid);
+#endif
+
+  vtkSmartPointer<vtkActor> actor =
+    vtkSmartPointer<vtkActor>::New();
+  actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(
+    colors->GetColor3d("Silver").GetData());
+
+  // Visualize
+  vtkSmartPointer<vtkRenderer> renderer =
+    vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderWindow> renderWindow =
+    vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Polyhedron");
+  renderWindow->AddRenderer(renderer);
+  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  renderWindowInteractor->SetRenderWindow(renderWindow);
+
+  renderer->AddActor(actor);
+  renderer->SetBackground(colors->GetColor3d("Salmon").GetData());
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(30);
+  renderer->GetActiveCamera()->Elevation(30);
+  renderWindow->Render();
+  renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;
 }

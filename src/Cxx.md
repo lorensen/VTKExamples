@@ -170,7 +170,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [Point](/Cxx/GeometricObjects/Point) | vtkPoints |
 [PolyLine](/Cxx/GeometricObjects/PolyLine) | vtkPolyLine |
 [Polygon](/Cxx/GeometricObjects/Polygon) | vtkPolygon |
-[Polyhedron](/Cxx/GeometricObjects/Polyhedron) | vtkPolyhedron |
+[Polyhedron](/Cxx/GeometricObjects/Polyhedron) |  | Create an unstructured grid representation of a polyhedron (cube) and write it out to a file.
 [Pyramid](/Cxx/GeometricObjects/Pyramid) | vtkPyramid |
 [Quad](/Cxx/GeometricObjects/Quad) | vtkQuad |
 [Tetrahedron](/Cxx/GeometricObjects/Tetrahedron) | vtkTetra |
@@ -193,6 +193,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [OrientedCylinder](/Cxx/GeometricObjects/OrientedCylinder) | vtkCylinderSource | Orient a cylinder along an arbitrary vector
 [Plane](/Cxx/GeometricObjects/Plane) | vtkPlaneSource |
 [PlatonicSolids](/Cxx/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource |
+[PolyLine1](/Cxx/GeometricObjects/PolyLine1) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
 [RegularPolygon](/Cxx/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Cxx/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.

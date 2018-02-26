@@ -1,17 +1,21 @@
-#include <vtkVersion.h>
-#include <vtkSmartPointer.h>
-#include <vtkPoints.h>
+#include <vtkActor.h>
 #include <vtkCellArray.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
 #include <vtkProperty.h>
-#include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkVersion.h>
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Create the geometry of a point (the coordinate)
   vtkSmartPointer<vtkPoints> points =
     vtkSmartPointer<vtkPoints>::New();
@@ -20,6 +24,7 @@ int main(int, char *[])
   // Create the topology of the point (a vertex)
   vtkSmartPointer<vtkCellArray> vertices =
     vtkSmartPointer<vtkCellArray>::New();
+  // We need an an array of point id's for InsertNextCell.
   vtkIdType pid[1];
   pid[0] = points->InsertNextPoint(p);
   vertices->InsertNextCell(1,pid);
@@ -44,18 +49,21 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
   actor->GetProperty()->SetPointSize(20);
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Point");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
+  renderer->SetBackground(colors->GetColor3d("DarkOliveGreen").GetData());
   
   renderWindow->Render();
   renderWindowInteractor->Start();

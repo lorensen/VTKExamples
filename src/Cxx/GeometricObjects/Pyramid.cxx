@@ -1,17 +1,16 @@
-#include <vtkSmartPointer.h>
-#include <vtkPyramid.h>
-
 #include <vtkActor.h>
-#include <vtkProperty.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkDataSetMapper.h>
+#include <vtkNamedColors.h>
 #include <vtkPoints.h>
+#include <vtkProperty.h>
+#include <vtkPyramid.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkNamedColors.h>
 
 int main(int , char *[])
 {
@@ -64,6 +63,7 @@ int main(int , char *[])
       vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
       vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Pyramid");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
@@ -73,8 +73,8 @@ int main(int , char *[])
 
   // Create a nice view
   renderer->ResetCamera();
-  renderer->GetActiveCamera()->Azimuth(150);
-  renderer->GetActiveCamera()->Elevation(20);
+  renderer->GetActiveCamera()->Azimuth(180);
+  renderer->GetActiveCamera()->Elevation(-20);
   renderer->ResetCameraClippingRange();
 
 renderer->SetBackground(colors->GetColor3d("Silver").GetData());

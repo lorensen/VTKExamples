@@ -1,61 +1,72 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import vtk
 
-points = vtk.vtkPoints()
 
-p0 = [1.0, 1.0, 1.0]
-p1 = [-1.0, 1.0, 1.0]
-p2 = [-1.0, -1.0, 1.0]
-p3 = [1.0, -1.0, 1.0]
-p4 = [0.0, 0.0, 0.0]
+def main():
+    colors = vtk.vtkNamedColors()
 
-points.InsertNextPoint(p0)
-points.InsertNextPoint(p1)
-points.InsertNextPoint(p2)
-points.InsertNextPoint(p3)
-points.InsertNextPoint(p4)
+    points = vtk.vtkPoints()
 
-pyramid = vtk.vtkPyramid()
-pyramid.GetPointIds().SetId(0, 0)
-pyramid.GetPointIds().SetId(1, 1)
-pyramid.GetPointIds().SetId(2, 2)
-pyramid.GetPointIds().SetId(3, 3)
-pyramid.GetPointIds().SetId(4, 4)
+    p0 = [1.0, 1.0, 1.0]
+    p1 = [-1.0, 1.0, 1.0]
+    p2 = [-1.0, -1.0, 1.0]
+    p3 = [1.0, -1.0, 1.0]
+    p4 = [0.0, 0.0, 0.0]
 
-cells = vtk.vtkCellArray()
-cells.InsertNextCell(pyramid)
+    points.InsertNextPoint(p0)
+    points.InsertNextPoint(p1)
+    points.InsertNextPoint(p2)
+    points.InsertNextPoint(p3)
+    points.InsertNextPoint(p4)
 
-ug = vtk.vtkUnstructuredGrid()
-ug.SetPoints(points)
-ug.InsertNextCell(pyramid.GetCellType(), pyramid.GetPointIds())
+    pyramid = vtk.vtkPyramid()
+    pyramid.GetPointIds().SetId(0, 0)
+    pyramid.GetPointIds().SetId(1, 1)
+    pyramid.GetPointIds().SetId(2, 2)
+    pyramid.GetPointIds().SetId(3, 3)
+    pyramid.GetPointIds().SetId(4, 4)
 
-# Create an actor and mapper
-mapper = vtk.vtkDataSetMapper()
-if vtk.VTK_MAJOR_VERSION <= 5:
-    mapper.SetInput(ug)
-else:
-    mapper.SetInputData(ug)
+    cells = vtk.vtkCellArray()
+    cells.InsertNextCell(pyramid)
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    ug = vtk.vtkUnstructuredGrid()
+    ug.SetPoints(points)
+    ug.InsertNextCell(pyramid.GetCellType(), pyramid.GetPointIds())
 
-# Create a renderer, render window, and interactor
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+    # Create an actor and mapper
+    mapper = vtk.vtkDataSetMapper()
+    if vtk.VTK_MAJOR_VERSION <= 5:
+        mapper.SetInput(ug)
+    else:
+        mapper.SetInputData(ug)
 
-renderer.AddActor(actor)
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetColor(colors.GetColor3d("Tomato"))
 
-# Create a nice view
-renderer.ResetCamera()
-renderer.GetActiveCamera().Azimuth(180)
-renderer.GetActiveCamera().Elevation(-20)
-renderer.ResetCameraClippingRange()
+    # Create a renderer, render window, and interactor
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Pyramid")
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
 
-renderer.SetBackground(0.2, 0.3, 0.4)
+    renderer.AddActor(actor)
 
-renderWindow.Render()
-renderWindowInteractor.Start()
+    # Create a nice view
+    renderer.ResetCamera()
+    renderer.GetActiveCamera().Azimuth(180)
+    renderer.GetActiveCamera().Elevation(-20)
+    renderer.ResetCameraClippingRange()
+
+    renderer.SetBackground(colors.GetColor3d("Silver"))
+
+    renderWindow.Render()
+    renderWindowInteractor.Start()
+
+
+if __name__ == '__main__':
+    main()

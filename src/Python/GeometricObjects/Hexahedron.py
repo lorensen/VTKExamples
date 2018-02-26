@@ -1,61 +1,73 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import vtk
 
-P0 = [0.0, 0.0, 0.0]
-P1 = [1.0, 0.0, 0.0]
-P2 = [1.0, 1.0, 0.0]
-P3 = [0.0, 1.0, 0.0]
-P4 = [0.0, 0.0, 1.0]
-P5 = [1.0, 0.0, 1.0]
-P6 = [1.0, 1.0, 1.0]
-P7 = [0.0, 1.0, 1.0]
+
+def main():
+    colors = vtk.vtkNamedColors()
+
+    # Set the background color. Match those in VTKTextbook.pdf.
+    bkg = map(lambda x: x / 256.0, [51, 77, 102])
+    # bkg = map(lambda x: x / 256.0, [26, 51, 77])
+    colors.SetColor("BkgColor", *bkg)
+
+    # For the hexahedron setup the coordinates of eight points.
+    # The two faces must be in counter clockwise order as viewed from the
+    # outside.
+    pointCoordinates = list()
+    pointCoordinates.append([0.0, 0.0, 0.0])  # Face 1
+    pointCoordinates.append([1.0, 0.0, 0.0])
+    pointCoordinates.append([1.0, 1.0, 0.0])
+    pointCoordinates.append([0.0, 1.0, 0.0])
+    pointCoordinates.append([0.0, 0.0, 1.0])  # Face 2
+    pointCoordinates.append([1.0, 0.0, 1.0])
+    pointCoordinates.append([1.0, 1.0, 1.0])
+    pointCoordinates.append([0.0, 1.0, 1.0])
+
+    # Create the points.
+    points = vtk.vtkPoints()
+
+    # Create a hexahedron from the points.
+    hexahedron = vtk.vtkHexahedron()
+
+    for i in range(0, len(pointCoordinates)):
+        points.InsertNextPoint(pointCoordinates[i])
+        hexahedron.GetPointIds().SetId(i, i)
+
+    # Add the hexahedron to a cell array.
+    hexs = vtk.vtkCellArray()
+    hexs.InsertNextCell(hexahedron)
+
+    # Add the points and hexahedron to an unstructured grid.
+    uGrid = vtk.vtkUnstructuredGrid()
+    uGrid.SetPoints(points)
+    uGrid.InsertNextCell(hexahedron.GetCellType(), hexahedron.GetPointIds())
+
+    # Visualize.
+    mapper = vtk.vtkDataSetMapper()
+    mapper.SetInputData(uGrid)
+
+    actor = vtk.vtkActor()
+    actor.GetProperty().SetColor(colors.GetColor3d("Cornsilk"))
+    actor.SetMapper(mapper)
+
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Hexahedron")
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
+
+    renderer.AddActor(actor)
+    renderer.SetBackground(colors.GetColor3d("BkgColor"))
+    renderer.ResetCamera()
+    renderer.GetActiveCamera().Azimuth(30)
+    renderer.GetActiveCamera().Elevation(30)
+
+    renderWindow.Render()
+    renderWindowInteractor.Start()
 
 
-# Create the points
-points = vtk.vtkPoints()
-points.InsertNextPoint(P0)
-points.InsertNextPoint(P1)
-points.InsertNextPoint(P2)
-points.InsertNextPoint(P3)
-points.InsertNextPoint(P4)
-points.InsertNextPoint(P5)
-points.InsertNextPoint(P6)
-points.InsertNextPoint(P7)
-
-# Create a hexahedron from the points
-hex = vtk.vtkHexahedron()
-hex.GetPointIds().SetId(0, 0)
-hex.GetPointIds().SetId(1, 1)
-hex.GetPointIds().SetId(2, 2)
-hex.GetPointIds().SetId(3, 3)
-hex.GetPointIds().SetId(4, 4)
-hex.GetPointIds().SetId(5, 5)
-hex.GetPointIds().SetId(6, 6)
-hex.GetPointIds().SetId(7, 7)
-
-# Add the hexahedron to a cell array
-hexs = vtk.vtkCellArray()
-hexs.InsertNextCell(hex)
-
-# Add the points and hexahedron to an unstructured grid
-uGrid = vtk.vtkUnstructuredGrid()
-uGrid.SetPoints(points)
-uGrid.InsertNextCell(hex.GetCellType(), hex.GetPointIds())
-
-# Visualize
-mapper = vtk.vtkDataSetMapper()
-mapper.SetInputData(uGrid)
-
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
-
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
-
-renderer.AddActor(actor)
-renderer.SetBackground(.2, .3, .4)
-
-renderWindow.Render()
-renderWindowInteractor.Start()
+if __name__ == '__main__':
+    main()
