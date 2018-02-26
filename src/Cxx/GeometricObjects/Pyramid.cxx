@@ -64,6 +64,7 @@ int main(int , char *[])
       vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
       vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Pyramid");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
@@ -73,8 +74,8 @@ int main(int , char *[])
 
   // Create a nice view
   renderer->ResetCamera();
-  renderer->GetActiveCamera()->Azimuth(150);
-  renderer->GetActiveCamera()->Elevation(20);
+  renderer->GetActiveCamera()->Azimuth(180);
+  renderer->GetActiveCamera()->Elevation(-20);
   renderer->ResetCameraClippingRange();
 
 renderer->SetBackground(colors->GetColor3d("Silver").GetData());
