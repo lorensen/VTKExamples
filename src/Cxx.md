@@ -829,6 +829,8 @@ This section includes vtkUnstructuredGrid.
 [Shadows](/Cxx/Visualization/Shadows) | vtkShadowMapPass | Create shadows.
 [SpotLights](/Cxx/Lighting/SpotLights) | vtkLight | Create two positional(spot) lights.
 
+## Shaders
+
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ColorByNormal](/Cxx/Shaders/ColorByNormal) | vtkOpenGLPolyDataMapper vtkTriangleMeshPointNormals | Modify the shader to color based on model normal.
