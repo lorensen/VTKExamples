@@ -36,6 +36,7 @@ def main():
 
     renderer = vtk.vtkRenderer()
     renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Point")
     renderWindow.AddRenderer(renderer)
     renderWindowInteractor = vtk.vtkRenderWindowInteractor()
     renderWindowInteractor.SetRenderWindow(renderWindow)

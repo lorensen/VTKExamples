@@ -13,6 +13,7 @@
 #include <vtkUnstructuredGrid.h>
 #include <vtkVersion.h>
 
+#include <algorithm>
 #include <array>
 #include <vector>
 

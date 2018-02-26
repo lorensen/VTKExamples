@@ -99,6 +99,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [LinearCellDemo](/Python/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
 [LongLine](/Python/GeometricObjects/LongLine) | vtkLine | Manually create a polyline.
 [Point](/Python/GeometricObjects/Point) | vtkPoints |
+[PolyLine](/Python/GeometricObjects/PolyLine) | vtkPolyLine |
 [Polygon](/Python/GeometricObjects/Polygon) | vtkPolygon |
 [Pyramid](/Python/GeometricObjects/Pyramid) | vtkPyramid |
 [Quad](/Python/GeometricObjects/Quad) | vtkQuad |
@@ -123,7 +124,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [OrientedArrow](/Python/GeometricObjects/OrientedArrow) | vtkArrowSource |
 [Plane](/Python/GeometricObjects/Plane) | vtkPlaneSource |
 [PlatonicSolids](/Python/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource | All five platonic solids are displayed.
-[Polyline](/Python/GeometricObjects/Polyline) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
+[PolyLine1](/Python/GeometricObjects/PolyLine1) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
 [RegularPolygonSource](/Python/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Python/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Python/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
