@@ -1,4 +1,5 @@
 #include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkCellType.h>
 #include <vtkDataSetMapper.h>
@@ -98,6 +99,9 @@ int main(int, char*[])
   renderer->AddActor(actor1);
   renderer->AddActor(actor2);
   renderer->SetBackground(colors->GetColor3d("DarkGreen").GetData());
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(-10);
+  renderer->GetActiveCamera()->Elevation(-20);
  
   // Render and interact
   renderWindow->Render();

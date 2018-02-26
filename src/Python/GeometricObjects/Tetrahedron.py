@@ -80,6 +80,10 @@ def main():
     renderer.AddActor(actor1)
     renderer.AddActor(actor2)
     renderer.SetBackground(colors.GetColor3d("DarkGreen"))
+    renderer.ResetCamera()
+    renderer.GetActiveCamera().Azimuth(-10)
+    renderer.GetActiveCamera().Elevation(-20)
+
 
     # Render and interact
     renderWindow.Render()
