@@ -1,32 +1,38 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import vtk
 
-# create a rendering window and renderer
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
 
-# create a renderwindowinteractor
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
+def main():
+    colors = vtk.vtkNamedColors()
 
-# create source
-source = vtk.vtkDiskSource()
-source.SetInnerRadius(1)
-source.SetOuterRadius(2)
-source.SetRadialResolution(10)
-source.SetCircumferentialResolution(10)
+    diskSource = vtk.vtkDiskSource()
 
-# mapper
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(source.GetOutputPort())
+    # Create a mapper and actor.
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(diskSource.GetOutputPort())
 
-# actor
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    actor = vtk.vtkActor()
+    actor.GetProperty().SetColor(colors.GetColor3d("Cornsilk"))
+    actor.SetMapper(mapper)
 
-# assign actor to the renderer
-ren.AddActor(actor)
+    # Create a renderer, render window, and interactor
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Disk")
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
 
-# enable user interface interactor
-iren.Initialize()
-iren.Start()
+    # Add the actors to the scene
+    renderer.AddActor(actor)
+    renderer.SetBackground(colors.GetColor3d("DarkGreen"))
+
+    # Render and interact
+    renderWindow.Render()
+    renderWindowInteractor.Start()
+
+
+if __name__ == '__main__':
+    main()

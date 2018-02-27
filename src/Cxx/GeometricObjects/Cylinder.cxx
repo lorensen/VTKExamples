@@ -1,14 +1,19 @@
-#include <vtkCylinderSource.h>
-#include <vtkPolyData.h>
-#include <vtkSmartPointer.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
+#include <vtkCylinderSource.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
- 
+#include <vtkSmartPointer.h>
+
 int main(int, char *argv[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Create a sphere
   vtkSmartPointer<vtkCylinderSource> cylinderSource =
     vtkSmartPointer<vtkCylinderSource>::New();
@@ -23,6 +28,7 @@ int main(int, char *argv[])
   mapper->SetInputConnection(cylinderSource->GetOutputPort());
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
+  actor->GetProperty()->SetColor(colors->GetColor3d("Cornsilk").GetData());
   actor->SetMapper(mapper);
  
   //Create a renderer, render window, and interactor
@@ -30,6 +36,7 @@ int main(int, char *argv[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Cylinder");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
@@ -37,10 +44,10 @@ int main(int, char *argv[])
  
   // Add the actor to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.1, .3,.2); // Background color dark green
- 
+  renderer->SetBackground(colors->GetColor3d("DarkGreen").GetData());
+
   // Render and interact
-  renderWindow->SetWindowName(argv[0]);
+  // renderWindow->SetWindowName(argv[0]);
   renderWindow->Render();
   renderWindowInteractor->Start();
  
