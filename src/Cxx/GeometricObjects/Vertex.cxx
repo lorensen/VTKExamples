@@ -1,18 +1,22 @@
-#include <vtkVersion.h>
-#include <vtkSmartPointer.h>
-#include <vtkPolyData.h>
-#include <vtkPoints.h>
+#include <vtkActor.h>
 #include <vtkCellArray.h>
-#include <vtkVertex.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
-#include <vtkActor.h>
-#include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkVersion.h>
+#include <vtkVertex.h>
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPoints> points =
     vtkSmartPointer<vtkPoints>::New();
   points->InsertNextPoint(0,0,0);
@@ -44,18 +48,21 @@ int main(int, char *[])
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetPointSize(10);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Cyan").GetData());
 
   // Setup render window, renderer, and interactor
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Vertex");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
   renderer->AddActor(actor);
- 
+  renderer->SetBackground(colors->GetColor3d("DarkGreen").GetData());
+
   renderWindow->Render();
   renderWindowInteractor->Start();
   

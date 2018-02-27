@@ -95,6 +95,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) | vtkHexagonalPrism vtkHexahedron vtkPentagonalPrism  vtkPolyhedron vtkPyramid vtkTetra vtkVoxel vtkWedge vtkUnstructuredGrid | Sample objects are generated from the classes derived from vtkCell3D and displayed.
+[CellTypeSource](/Python/GeometricObjects/CellTypeSource) | vtkCellTypeSource vtkTessellatorFilter | Generate tessellated cells.
+[ConvexPointSet](/Python/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | Generate a ConvexPointSetCell.
 [Hexahedron](/Python/GeometricObjects/Hexahedron) | vtkHexahedron |
 [LinearCellDemo](/Python/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
 [LongLine](/Python/GeometricObjects/LongLine) | vtkLine | Manually create a polyline.
@@ -106,6 +108,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Quad](/Python/GeometricObjects/Quad) | vtkQuad |
 [Tetrahedron](/Python/GeometricObjects/Tetrahedron) | vtkTetra |
 [Triangle](/Python/GeometricObjects/Triangle) | vtkTriangle |
+[TriangleStrip](/Python/GeometricObjects/TriangleStrip) | vtkTriangleStrip |
 [Vertex](/Python/GeometricObjects/Vertex) | vtkVertex |
 
 ### Sources
@@ -130,7 +133,6 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Sphere](/Python/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Python/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
 [TextActor](/Python/GeometricObjects/TextActor) | vtkTextActor | 2D "HUD-type" text
-[TriangleStrip](/Python/GeometricObjects/TriangleStrip) | vtkTriangleStrip |
 
 ### Non Linear
 
