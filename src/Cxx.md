@@ -78,6 +78,12 @@ These are fully independent, compilable examples. There is significant overlap i
 [WritePLY](/Cxx/IO/WritePLY) | vtkPLYWriter | Write PLY (.ply) files
 [WriteSTL](/Cxx/IO/WriteSTL) | vtkSTLWriter | Write stereo lithography STL (.stl) files
 
+###### Exporters
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ExportPolyDataScene](/Cxx/IO/ExportPolyDataScene) | vtkXMLMultiBlockDataWriter | Export a polydata scene using multiblock datasets.
+
 #### VTK Formats
 
 ##### Input

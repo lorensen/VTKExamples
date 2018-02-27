@@ -30,6 +30,7 @@ set(NEEDS_ARGS
   ConvertFile
   DEMReader
   DumpXMLFile
+  ExportPolyDataScene
   GenericDataObjectReader
   ImageReader2Factory
   IndividualVRML
@@ -86,6 +87,9 @@ add_test(${KIT}-ConvertFile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-DumpXMLFile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDumpXMLFile ${DATA}/Bunny.vtp)
+
+add_test(${KIT}-ExportPolyDataScene ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestExportPolyDataScene ${DATA}/Bunny.vtp)
 
 add_test(${KIT}-GenericDataObjectReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGenericDataObjectReader ${DATA}/Bunny.vtp)
