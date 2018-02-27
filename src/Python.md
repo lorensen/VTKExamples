@@ -96,6 +96,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | -------------- | ---------------------- | ------------- | ------- |
 [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) | vtkHexagonalPrism vtkHexahedron vtkPentagonalPrism  vtkPolyhedron vtkPyramid vtkTetra vtkVoxel vtkWedge vtkUnstructuredGrid | Sample objects are generated from the classes derived from vtkCell3D and displayed.
 [CellTypeSource](/Python/GeometricObjects/CellTypeSource) | vtkCellTypeSource vtkTessellatorFilter | Generate tessellated cells.
+[ConvexPointSet](/Python/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | Generate a ConvexPointSetCell.
 [Hexahedron](/Python/GeometricObjects/Hexahedron) | vtkHexahedron |
 [LinearCellDemo](/Python/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
 [LongLine](/Python/GeometricObjects/LongLine) | vtkLine | Manually create a polyline.
