@@ -108,6 +108,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Quad](/Python/GeometricObjects/Quad) | vtkQuad |
 [Tetrahedron](/Python/GeometricObjects/Tetrahedron) | vtkTetra |
 [Triangle](/Python/GeometricObjects/Triangle) | vtkTriangle |
+[TriangleStrip](/Python/GeometricObjects/TriangleStrip) | vtkTriangleStrip |
 [Vertex](/Python/GeometricObjects/Vertex) | vtkVertex |
 
 ### Sources
@@ -132,7 +133,6 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Sphere](/Python/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Python/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
 [TextActor](/Python/GeometricObjects/TextActor) | vtkTextActor | 2D "HUD-type" text
-[TriangleStrip](/Python/GeometricObjects/TriangleStrip) | vtkTriangleStrip |
 
 ### Non Linear
 
