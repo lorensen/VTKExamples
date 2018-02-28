@@ -39,12 +39,14 @@ void ExportMultiBlockScene(vtkRenderer *renderer, std::string fileName, bool bin
 void SaveCameraAsFieldData(std::string, vtkCamera *, vtkPolyData *);
 void SavePropertyAsFieldData(std::string, vtkProperty *, vtkPolyData *);
 void SaveMapperAsFieldData(std::string, vtkPolyDataMapper *, vtkPolyData *);
+void SaveActorAsFieldData(std::string, vtkActor *, vtkPolyData *);
 void SaveLookupTableAsFieldData(std::string, vtkScalarsToColors *, vtkPolyData *);
 }
 
 int main (int argc, char *argv[])
 {
-  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
+  vtkSmartPointer<vtkPolyData> polyData =
+    ReadPolyData(argc > 1 ? argv[1] : "");
 
   // Visualize
   vtkSmartPointer<vtkNamedColors> colors =
@@ -67,7 +69,8 @@ int main (int argc, char *argv[])
   actor->GetProperty()->SetSpecularPower(30);
   actor->GetProperty()->EdgeVisibilityOn();
   actor->GetProperty()->SetEdgeColor(colors->GetColor3d("Banana").GetData());
-  actor->GetProperty()->FrontfaceCullingOn();
+  actor->GetProperty()->BackfaceCullingOn();
+  actor->GetProperty()->SetInterpolationToFlat();
 ;
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
@@ -84,7 +87,7 @@ int main (int argc, char *argv[])
   renderer->GetActiveCamera()->Elevation(30);
   renderer->GetActiveCamera()->Yaw(10);
   renderer->SetBackground(colors->GetColor3d("Silver").GetData());
-
+  renderer->GetActiveCamera()->Print(std::cout);
   renderWindow->SetSize(640, 480);
   renderWindow->Render();
   renderWindowInteractor->Start();
@@ -96,7 +99,7 @@ int main (int argc, char *argv[])
   }
   else
   {
-    prefix = vtksys::SystemTools::GetFilenameName(argv[1]);
+    prefix = "Export" + vtksys::SystemTools::GetFilenameName(argv[1]);;
   }
   ExportMultiBlockScene (renderer.GetPointer(), prefix);
 
@@ -145,6 +148,10 @@ void ExportMultiBlockScene (vtkRenderer *renderer,
     // Save Mapper
     SaveMapperAsFieldData("PolyDataMapper",
                           vtkPolyDataMapper::SafeDownCast(actor->GetMapper()),
+                          pd);
+    // Save Actor
+    SaveActorAsFieldData("Actor",
+                          actor,
                           pd);
   }
 
@@ -200,6 +207,14 @@ void SaveCameraAsFieldData(std::string arrayPrefix,
   clippingRange->SetTuple(0, camera->GetClippingRange());
   clippingRange->SetName(std::string(arrayPrefix + ":" + "ClippingRange").c_str());
   pd->GetFieldData()->AddArray(clippingRange);
+
+  vtkSmartPointer<vtkDoubleArray> viewAngle =
+    vtkSmartPointer<vtkDoubleArray>::New();
+  viewAngle->SetNumberOfComponents(1);
+  viewAngle->SetNumberOfTuples(1);
+  viewAngle->SetValue(0, camera->GetViewAngle());
+  viewAngle->SetName(std::string(arrayPrefix + ":" + "ViewAngle").c_str());
+  pd->GetFieldData()->AddArray(viewAngle);
 }
 void SavePropertyAsFieldData(std::string arrayPrefix,
                              vtkProperty * property,
@@ -310,6 +325,14 @@ void SavePropertyAsFieldData(std::string arrayPrefix,
     SpecularColor->SetTuple(0, property->GetSpecularColor());
     SpecularColor->SetName(std::string(arrayPrefix + ":" + "SpecularColor").c_str());
     pd->GetFieldData()->AddArray(SpecularColor);
+
+    vtkSmartPointer<vtkDoubleArray> SpecularPower =
+      vtkSmartPointer<vtkDoubleArray>::New();
+    SpecularPower->SetNumberOfComponents(1);
+    SpecularPower->SetNumberOfTuples(1);
+    SpecularPower->SetValue(0, property->GetSpecularPower());
+    SpecularPower->SetName(std::string(arrayPrefix + ":" + "SpecularPower").c_str());
+    pd->GetFieldData()->AddArray(SpecularPower);
 
     vtkSmartPointer<vtkIntArray> BackfaceCulling =
       vtkSmartPointer<vtkIntArray>::New();
@@ -676,6 +699,88 @@ void SaveMapperAsFieldData(std::string arrayPrefix,
     pd->GetFieldData()->AddArray(CoincidentPolygonFactor);
 #endif
   }
+}
+
+void SaveActorAsFieldData(std::string arrayPrefix,
+                          vtkActor *actor,
+                          vtkPolyData *pd)
+{
+  vtkSmartPointer<vtkIntArray> dragable =
+    vtkSmartPointer<vtkIntArray>::New();
+  dragable->SetNumberOfComponents(1);
+  dragable->SetNumberOfTuples(1);
+  dragable->SetValue(0, actor->GetDragable());
+  dragable->SetName(std::string(arrayPrefix + ":" + "Dragable").c_str());
+  pd->GetFieldData()->AddArray(dragable);
+
+  vtkSmartPointer<vtkIntArray> pickable =
+    vtkSmartPointer<vtkIntArray>::New();
+  pickable->SetNumberOfComponents(1);
+  pickable->SetNumberOfTuples(1);
+  pickable->SetValue(0, actor->GetPickable());
+  pickable->SetName(std::string(arrayPrefix + ":" + "Pickable").c_str());
+  pd->GetFieldData()->AddArray(pickable);
+
+  vtkSmartPointer<vtkIntArray> visibility =
+    vtkSmartPointer<vtkIntArray>::New();
+  visibility->SetNumberOfComponents(1);
+  visibility->SetNumberOfTuples(1);
+  visibility->SetValue(0, actor->GetVisibility());
+  visibility->SetName(std::string(arrayPrefix + ":" + "Visibility").c_str());
+  pd->GetFieldData()->AddArray(visibility);
+
+  vtkSmartPointer<vtkDoubleArray> position =
+    vtkSmartPointer<vtkDoubleArray>::New();
+  position->SetNumberOfComponents(3);
+  position->SetNumberOfTuples(1);
+  position->SetTuple(0, actor->GetPosition());
+  position->SetName(std::string(arrayPrefix + ":" + "Position").c_str());
+  pd->GetFieldData()->AddArray(position);
+
+  vtkSmartPointer<vtkDoubleArray> orientation =
+    vtkSmartPointer<vtkDoubleArray>::New();
+  orientation->SetNumberOfComponents(3);
+  orientation->SetNumberOfTuples(1);
+  orientation->SetTuple(0, actor->GetOrientation());
+  orientation->SetName(std::string(arrayPrefix + ":" + "Orientation").c_str());
+  pd->GetFieldData()->AddArray(orientation);
+
+  vtkSmartPointer<vtkDoubleArray> origin =
+    vtkSmartPointer<vtkDoubleArray>::New();
+  origin->SetNumberOfComponents(3);
+  origin->SetNumberOfTuples(1);
+  origin->SetTuple(0, actor->GetOrigin());
+  origin->SetName(std::string(arrayPrefix + ":" + "Origin").c_str());
+  pd->GetFieldData()->AddArray(origin);
+
+  vtkSmartPointer<vtkDoubleArray> scale =
+    vtkSmartPointer<vtkDoubleArray>::New();
+  scale->SetNumberOfComponents(3);
+  scale->SetNumberOfTuples(1);
+  scale->SetTuple(0, actor->GetScale());
+  scale->SetName(std::string(arrayPrefix + ":" + "Scale").c_str());
+  pd->GetFieldData()->AddArray(scale);
+
+  vtkSmartPointer<vtkIntArray> forceOpaque =
+    vtkSmartPointer<vtkIntArray>::New();
+  forceOpaque->SetNumberOfComponents(1);
+  forceOpaque->SetNumberOfTuples(1);
+  forceOpaque->SetValue(0, actor->GetForceOpaque());
+  forceOpaque->SetName(std::string(arrayPrefix + ":" + "ForceOpaque").c_str());
+  pd->GetFieldData()->AddArray(forceOpaque);
+
+  vtkSmartPointer<vtkIntArray> forceTranslucent =
+    vtkSmartPointer<vtkIntArray>::New();
+  forceTranslucent->SetNumberOfComponents(1);
+  forceTranslucent->SetNumberOfTuples(1);
+  forceTranslucent->SetValue(0, actor->GetForceTranslucent());
+  forceTranslucent->SetName(std::string(arrayPrefix + ":" + "ForceTranslucent").c_str());
+  pd->GetFieldData()->AddArray(forceTranslucent);
+#if 0
+UserTransform
+UserMatrix
+Texture
+#endif
 }
 vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
 {
