@@ -1,14 +1,14 @@
-#include <vtkSmartPointer.h>
+#include <vtkActor.h>
 #include <vtkLineSource.h>
+#include <vtkNamedColors.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
 #include <vtkProperty.h>
-#include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkNamedColors.h>
- 
+#include <vtkSmartPointer.h>
+
 int main(int, char *[])
 {
   // Create two points, P0 and P1
