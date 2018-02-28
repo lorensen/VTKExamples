@@ -132,33 +132,33 @@ void RestorePropertyFromFieldData(std::string arrayPrefix,
 {
   if (property)
   {
-  vtkFieldData *fd = pd->GetFieldData();
+    vtkFieldData *fd = pd->GetFieldData();
 
-  property->SetAmbient(fd->GetArray(std::string(arrayPrefix + ":" + "Ambient").c_str())->GetTuple1(0));
-  property->SetAmbientColor(fd->GetArray(std::string(arrayPrefix + ":" + "AmbientColor").c_str())->GetTuple(0));
-  property->SetAmbientColor(fd->GetArray(std::string(arrayPrefix + ":" + "AmbientColor").c_str())->GetTuple(0));
-  property->SetDiffuse(fd->GetArray(std::string(arrayPrefix + ":" + "Diffuse").c_str())->GetTuple1(0));
-  property->SetDiffuseColor(fd->GetArray(std::string(arrayPrefix + ":" + "DiffuseColor").c_str())->GetTuple(0));
-  property->SetSpecular(fd->GetArray(std::string(arrayPrefix + ":" + "Specular").c_str())->GetTuple1(0));
-  property->SetSpecularColor(fd->GetArray(std::string(arrayPrefix + ":" + "SpecularColor").c_str())->GetTuple(0));
-  property->SetSpecularPower(fd->GetArray(std::string(arrayPrefix + ":" + "SpecularPower").c_str())->GetTuple1(0));
-  property->SetEdgeColor(fd->GetArray(std::string(arrayPrefix + ":" + "EdgeColor").c_str())->GetTuple(0));
-  property->SetEdgeVisibility(fd->GetArray(std::string(arrayPrefix + ":" + "EdgeVisibility").c_str())->GetTuple1(0));
-  property->SetVertexColor(fd->GetArray(std::string(arrayPrefix + ":" + "VertexColor").c_str())->GetTuple(0));
-  property->SetVertexVisibility(fd->GetArray(std::string(arrayPrefix + ":" + "VertexVisibility").c_str())->GetTuple1(0));
-  property->SetInterpolation(fd->GetArray(std::string(arrayPrefix + ":" + "Interpolation").c_str())->GetTuple1(0));
-  property->SetOpacity(fd->GetArray(std::string(arrayPrefix + ":" + "Opacity").c_str())->GetTuple1(0));
-  property->SetRepresentation(fd->GetArray(std::string(arrayPrefix + ":" + "Representation").c_str())->GetTuple1(0));
-  property->SetBackfaceCulling(fd->GetArray(std::string(arrayPrefix + ":" + "BackfaceCulling").c_str())->GetTuple1(0));
-  property->SetFrontfaceCulling(fd->GetArray(std::string(arrayPrefix + ":" + "FrontfaceCulling").c_str())->GetTuple1(0));
-  property->SetPointSize(fd->GetArray(std::string(arrayPrefix + ":" + "PointSize").c_str())->GetTuple1(0));
-  property->SetLineWidth(fd->GetArray(std::string(arrayPrefix + ":" + "LineWidth").c_str())->GetTuple1(0));
-  property->SetLineStipplePattern(fd->GetArray(std::string(arrayPrefix + ":" + "LineStipplePattern").c_str())->GetTuple1(0));
-  property->SetLineStippleRepeatFactor(fd->GetArray(std::string(arrayPrefix + ":" + "LineStippleRepeatFactor").c_str())->GetTuple1(0));
-  property->SetLighting(fd->GetArray(std::string(arrayPrefix + ":" + "Lighting").c_str())->GetTuple1(0));
-  property->SetRenderPointsAsSpheres(fd->GetArray(std::string(arrayPrefix + ":" + "RenderPointsAsSpheres").c_str())->GetTuple1(0));
-  property->SetRenderLinesAsTubes(fd->GetArray(std::string(arrayPrefix + ":" + "RenderLinesAsTubes").c_str())->GetTuple1(0));
-  property->SetShading(fd->GetArray(std::string(arrayPrefix + ":" + "Shading").c_str())->GetTuple1(0));
+    property->SetAmbient(fd->GetArray(std::string(arrayPrefix + ":" + "Ambient").c_str())->GetTuple1(0));
+    property->SetAmbientColor(fd->GetArray(std::string(arrayPrefix + ":" + "AmbientColor").c_str())->GetTuple(0));
+    property->SetAmbientColor(fd->GetArray(std::string(arrayPrefix + ":" + "AmbientColor").c_str())->GetTuple(0));
+    property->SetDiffuse(fd->GetArray(std::string(arrayPrefix + ":" + "Diffuse").c_str())->GetTuple1(0));
+    property->SetDiffuseColor(fd->GetArray(std::string(arrayPrefix + ":" + "DiffuseColor").c_str())->GetTuple(0));
+    property->SetSpecular(fd->GetArray(std::string(arrayPrefix + ":" + "Specular").c_str())->GetTuple1(0));
+    property->SetSpecularColor(fd->GetArray(std::string(arrayPrefix + ":" + "SpecularColor").c_str())->GetTuple(0));
+    property->SetSpecularPower(fd->GetArray(std::string(arrayPrefix + ":" + "SpecularPower").c_str())->GetTuple1(0));
+    property->SetEdgeColor(fd->GetArray(std::string(arrayPrefix + ":" + "EdgeColor").c_str())->GetTuple(0));
+    property->SetEdgeVisibility(fd->GetArray(std::string(arrayPrefix + ":" + "EdgeVisibility").c_str())->GetTuple1(0));
+    property->SetVertexColor(fd->GetArray(std::string(arrayPrefix + ":" + "VertexColor").c_str())->GetTuple(0));
+    property->SetVertexVisibility(fd->GetArray(std::string(arrayPrefix + ":" + "VertexVisibility").c_str())->GetTuple1(0));
+    property->SetInterpolation(fd->GetArray(std::string(arrayPrefix + ":" + "Interpolation").c_str())->GetTuple1(0));
+    property->SetOpacity(fd->GetArray(std::string(arrayPrefix + ":" + "Opacity").c_str())->GetTuple1(0));
+    property->SetRepresentation(fd->GetArray(std::string(arrayPrefix + ":" + "Representation").c_str())->GetTuple1(0));
+    property->SetBackfaceCulling(fd->GetArray(std::string(arrayPrefix + ":" + "BackfaceCulling").c_str())->GetTuple1(0));
+    property->SetFrontfaceCulling(fd->GetArray(std::string(arrayPrefix + ":" + "FrontfaceCulling").c_str())->GetTuple1(0));
+    property->SetPointSize(fd->GetArray(std::string(arrayPrefix + ":" + "PointSize").c_str())->GetTuple1(0));
+    property->SetLineWidth(fd->GetArray(std::string(arrayPrefix + ":" + "LineWidth").c_str())->GetTuple1(0));
+    property->SetLineStipplePattern(fd->GetArray(std::string(arrayPrefix + ":" + "LineStipplePattern").c_str())->GetTuple1(0));
+    property->SetLineStippleRepeatFactor(fd->GetArray(std::string(arrayPrefix + ":" + "LineStippleRepeatFactor").c_str())->GetTuple1(0));
+    property->SetLighting(fd->GetArray(std::string(arrayPrefix + ":" + "Lighting").c_str())->GetTuple1(0));
+    property->SetRenderPointsAsSpheres(fd->GetArray(std::string(arrayPrefix + ":" + "RenderPointsAsSpheres").c_str())->GetTuple1(0));
+    property->SetRenderLinesAsTubes(fd->GetArray(std::string(arrayPrefix + ":" + "RenderLinesAsTubes").c_str())->GetTuple1(0));
+    property->SetShading(fd->GetArray(std::string(arrayPrefix + ":" + "Shading").c_str())->GetTuple1(0));
   }
 }
 void RestoreActorFromFieldData(std::string arrayPrefix,

@@ -3,7 +3,7 @@
   <PolyData>
     <FieldData>
       <DataArray type="Float64" Name="Camera:ViewUp" NumberOfComponents="3" NumberOfTuples="1" format="ascii" RangeMin="1" RangeMax="1">
-        -0.31402902345 0.88518878098 -0.34325878643
+        0 1 0
         <InformationKey name="L2_NORM_RANGE" location="vtkDataArray" length="2">
           <Value index="0">
             1
@@ -13,14 +13,14 @@
           </Value>
         </InformationKey>
       </DataArray>
-      <DataArray type="Float64" Name="Camera:Position" NumberOfComponents="3" NumberOfTuples="1" format="ascii" RangeMin="0.94143656014" RangeMax="0.94143656014">
-        0.6586564056 0.46551810331 0.48555888584
+      <DataArray type="Float64" Name="Camera:Position" NumberOfComponents="3" NumberOfTuples="1" format="ascii" RangeMin="0.97855647615" RangeMax="0.97855647615">
+        0.44295815919 0.51702744876 0.70288225434
         <InformationKey name="L2_NORM_RANGE" location="vtkDataArray" length="2">
           <Value index="0">
-            0.94143656014
+            0.97855647615
           </Value>
           <Value index="1">
-            0.94143656014
+            0.97855647615
           </Value>
         </InformationKey>
       </DataArray>
@@ -35,14 +35,14 @@
           </Value>
         </InformationKey>
       </DataArray>
-      <DataArray type="Float64" Name="Camera:ClippingRange" NumberOfComponents="2" NumberOfTuples="1" format="ascii" RangeMin="1.5892417709" RangeMax="1.5892417709">
-        0.41698859215 1.533561189
+      <DataArray type="Float64" Name="Camera:ClippingRange" NumberOfComponents="2" NumberOfTuples="1" format="ascii" RangeMin="1.4704288432" RangeMax="1.4704288432">
+        0.7168694151 1.2838454832
         <InformationKey name="L2_NORM_RANGE" location="vtkDataArray" length="2">
           <Value index="0">
-            1.5892417709
+            1.4704288432
           </Value>
           <Value index="1">
-            1.5892417709
+            1.4704288432
           </Value>
         </InformationKey>
       </DataArray>

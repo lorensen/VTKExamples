@@ -87,11 +87,11 @@ int main (int argc, char *argv[])
   renderer->GetActiveCamera()->Elevation(30);
   renderer->GetActiveCamera()->Yaw(10);
   renderer->SetBackground(colors->GetColor3d("Silver").GetData());
-  renderer->GetActiveCamera()->Print(std::cout);
   renderWindow->SetSize(640, 480);
   renderWindow->Render();
   renderWindowInteractor->Start();
 
+  renderer->GetActiveCamera()->Print(std::cout);
   std::string prefix;
   if (argc < 2)
   {
@@ -138,7 +138,7 @@ void ExportMultiBlockScene (vtkRenderer *renderer,
                           renderer->GetActiveCamera(),
                           pd);
                                                    
-    // Save Camera
+    // Save Property
     SavePropertyAsFieldData("Property",
                             actor->GetProperty(),
                             pd);
@@ -160,18 +160,19 @@ void ExportMultiBlockScene (vtkRenderer *renderer,
     vtkSmartPointer<vtkXMLMultiBlockDataWriter>::New();
   if (binary)
   {
-  writer->SetDataModeToBinary();
-  writer->SetCompressorTypeToZLib();
+    writer->SetDataModeToBinary();
+    writer->SetCompressorTypeToZLib();
   }
   else
   {
-  writer->SetDataModeToAscii();
+    writer->SetDataModeToAscii();
   }
   writer->SetInputData(multiBlockDataset);
   writer->SetFileName(fileName.c_str());
   writer->Update();
   return;
 }
+
 void SaveCameraAsFieldData(std::string arrayPrefix,
                            vtkCamera *camera,
                            vtkPolyData *pd)
