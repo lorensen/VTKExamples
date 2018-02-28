@@ -195,8 +195,8 @@ These are fully independent, compilable examples. There is significant overlap i
 [Disk](/Cxx/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Cxx/GeometricObjects/Frustum) | vtkFrustumSource |
 [Line](/Cxx/GeometricObjects/Line) | vtkLineSource |
-[OrientedArrow](/Cxx/GeometricObjects/OrientedArrow) | vtkArrowSource | Orient an arrow along an arbitrary vector
-[OrientedCylinder](/Cxx/GeometricObjects/OrientedCylinder) | vtkCylinderSource | Orient a cylinder along an arbitrary vector
+[OrientedArrow](/Cxx/GeometricObjects/OrientedArrow) | vtkArrowSource | Orient an arrow along an arbitrary vector.
+[OrientedCylinder](/Cxx/GeometricObjects/OrientedCylinder) | vtkCylinderSource | Orient a cylinder along an arbitrary vector.
 [Plane](/Cxx/GeometricObjects/Plane) | vtkPlaneSource |
 [PlatonicSolids](/Cxx/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource |
 [PolyLine1](/Cxx/GeometricObjects/PolyLine1) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
@@ -904,6 +904,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CurvedReformation](/Cxx/Visualization/CurvedReformation) | vtkProbeFilter | Sample a volume with a curved surface. In medical imaging, this is often called curved multi planar reformation.
 [CutStructuredGrid](/Cxx/VisualizationAlgorithms/CutStructuredGrid) | vtkCutter | Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant k value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used.
 [Cutter](/Cxx/VisualizationAlgorithms/Cutter) | vtkCutter |
+[DataSetSurface](/Cxx/VisualizationAlgorithms/DataSetSurface) | vtkDataSetSurfaceFilter | Cutting a hexahedron with a plane. The red line on the surface shows the cut.
 [DecimateFran](/Cxx/VisualizationAlgorithms/DecimateFran) | vtkDecimatePro | Examples of decimation algorithm. (a) Decimation of laser digitizer data.
 [DecimateHawaii](/Cxx/VisualizationAlgorithms/DecimateHawaii) | vtkDecimatePro | Examples of decimation algorithm. (b) Decimation of terrain data.
 [DepthSortPolyData](/Cxx/Visualization/DepthSortPolyData) | vtkDepthSortPolyData | Poly Data Depth Sorting.

@@ -1,14 +1,18 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkDiskSource.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
+#include <vtkDiskSource.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkDiskSource> diskSource = 
     vtkSmartPointer<vtkDiskSource>::New();
   
@@ -19,6 +23,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkActor> actor = 
     vtkSmartPointer<vtkActor>::New();
+  actor->GetProperty()->SetColor(colors->GetColor3d("Cornsilk").GetData());
   actor->SetMapper(mapper);
 
   // Create a renderer, render window, and interactor
@@ -26,6 +31,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Disk");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
@@ -33,7 +39,7 @@ int main(int, char *[])
 
   // Add the actors to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.2, .3, .4);
+  renderer->SetBackground(colors->GetColor3d("DarkGreen").GetData());
 
   // Render and interact
   renderWindow->Render();
