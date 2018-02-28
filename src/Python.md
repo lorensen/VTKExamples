@@ -121,7 +121,6 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Cube](/Python/GeometricObjects/Cube) | vtkCubeSource |
 [Cube1](/Python/GeometricObjects/Cube1) | vtkCubeSource |
 [Cylinder](/Python/GeometricObjects/Cylinder) | vtkCylinderSource |
-[DataSetSurface](/Python/GeometricObjects/DataSetSurface) | vtkDataSetSurfaceFilter |
 [Disk](/Python/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Python/GeometricObjects/Frustum) | vtkFrustumSource |
 [LineSource](/Python/GeometricObjects/LineSource) | vtkLineSource |
@@ -381,6 +380,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) | vtkCurvatures vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the gaussian curvature of a surface into bands and using arrows to display the normals on the surface.
 [CutStructuredGrid](/Python/VisualizationAlgorithms/CutStructuredGrid) | vtkCutter | Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant k value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used.
 [Cutter](/Python/VisualizationAlgorithms/Cutter) | vtkCutter |
+[DataSetSurface](/Python/VisualizationAlgorithms/DataSetSurface) | vtkDataSetSurfaceFilter | Cutting a hexahedron with a plane. The red line on the surface shows the cut.
 [DecimateFran](/Python/VisualizationAlgorithms/DecimateFran) | vtkDecimatePro | Examples of decimation algorithm. (a) Decimation of laser digitizer data.
 [DecimateHawaii](/Python/VisualizationAlgorithms/DecimateHawaii) | vtkDecimatePro | Examples of decimation algorithm. (b) Decimation of terrain data.
 [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) | vtkColorTransferFunction vtkWarpVector vtkVectorDot | Show modal lines for a vibrating beam.
