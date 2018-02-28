@@ -1,5 +1,5 @@
 ### Description
-This example illustrates how to create and display an arrow that passes through two points.
+This example illustrates how to create and display a cylinder that passes through two points.
 
 It demonstrates two different ways to apply the transform:
 
@@ -7,8 +7,7 @@ It demonstrates two different ways to apply the transform:
 
 2. Apply the transform directly to the actor using [vtkProp3D's SetUserMatrix](http://www.vtk.org/doc/nightly/html/classvtkProp3D.html#a950378fc70405a58bd998c00f84a39a3). No new data is produced.
 
-Switch between the two methods by #defining USER_MATRIX or leaving out the #define.
+Switch between the two methods by setting USER_MATRIX to **True** or **False**.
 
 !!! See also
-    Compare this example with [OrientedCylinder](/Cxx/GeometricObjects/OrientedCylinder). The transform is different because the cylinder height direction is along the y-axis and the arrow height is along the x axis.
- 
+    Compare this example with [OrientedArrow](/Python/GeometricObjects/OrientedArrow). The transform is different because the cylinder height direction is along the y-axis and the arrow height is along the x axis.

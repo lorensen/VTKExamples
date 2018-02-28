@@ -38,6 +38,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
+  renderWindow->SetWindowName("Line");
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);

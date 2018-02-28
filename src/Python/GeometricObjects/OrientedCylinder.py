@@ -24,8 +24,11 @@ def main():
     bkg = map(lambda x: x / 256.0, [26, 51, 77])
     colors.SetColor("BkgColor", *bkg)
 
-    # Create an arrow.
-    arrowSource = vtk.vtkArrowSource()
+    # Create a cylinder.
+    # Cylinder height vector is (0,1,0).
+    # Cylinder center is in the middle of the cylinder
+    cylinderSource = vtk.vtkCylinderSource()
+    cylinderSource.SetResolution(15)
 
     # Generate a random start and end point
     startPoint = [0] * 3
@@ -69,20 +72,22 @@ def main():
 
     # Apply the transforms
     transform = vtk.vtkTransform()
-    transform.Translate(startPoint)
-    transform.Concatenate(matrix)
-    transform.Scale(length, length, length)
+    transform.Translate(startPoint)  # translate to starting point
+    transform.Concatenate(matrix)  # apply direction cosines
+    transform.RotateZ(-90.0)  # align cylinder to x axis
+    transform.Scale(1.0, length, 1.0)  # scale along the height vector
+    transform.Translate(0, .5, 0)  # translate to start of cylinder
 
     # Transform the polydata
     transformPD = vtk.vtkTransformPolyDataFilter()
     transformPD.SetTransform(transform)
-    transformPD.SetInputConnection(arrowSource.GetOutputPort())
+    transformPD.SetInputConnection(cylinderSource.GetOutputPort())
 
     # Create a mapper and actor for the arrow
     mapper = vtk.vtkPolyDataMapper()
     actor = vtk.vtkActor()
     if USER_MATRIX:
-        mapper.SetInputConnection(arrowSource.GetOutputPort())
+        mapper.SetInputConnection(cylinderSource.GetOutputPort())
         actor.SetUserMatrix(transform.GetMatrix())
     else:
         mapper.SetInputConnection(transformPD.GetOutputPort())
@@ -111,8 +116,8 @@ def main():
     # Create a renderer, render window, and interactor
     renderer = vtk.vtkRenderer()
     renderWindow = vtk.vtkRenderWindow()
-    renderWindow.SetWindowName("Oriented Arrow")
     renderWindow.AddRenderer(renderer)
+    renderWindow.SetWindowName("Oriented Cylinder")
     renderWindowInteractor = vtk.vtkRenderWindowInteractor()
     renderWindowInteractor.SetRenderWindow(renderWindow)
 

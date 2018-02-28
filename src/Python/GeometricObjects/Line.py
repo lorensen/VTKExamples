@@ -25,6 +25,7 @@ def main():
 
     renderer = vtk.vtkRenderer()
     renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Line")
     renderWindow.AddRenderer(renderer)
     renderWindowInteractor = vtk.vtkRenderWindowInteractor()
     renderWindowInteractor.SetRenderWindow(renderWindow)
