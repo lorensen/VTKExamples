@@ -91,7 +91,6 @@ int main (int argc, char *argv[])
   renderWindow->Render();
   renderWindowInteractor->Start();
 
-  renderer->GetActiveCamera()->Print(std::cout);
   std::string prefix;
   if (argc < 2)
   {
@@ -99,8 +98,11 @@ int main (int argc, char *argv[])
   }
   else
   {
-    prefix = "Export" + vtksys::SystemTools::GetFilenameName(argv[1]);;
+    prefix = "Export" +
+      vtksys::SystemTools::GetFilenameWithoutExtension(argv[1]) + 
+      ".vtp";
   }
+  std::cout << "Scene is exported to " << vtksys::SystemTools::GetCurrentWorkingDirectory() + "/" + prefix << std::endl;
   ExportMultiBlockScene (renderer.GetPointer(), prefix);
 
   return EXIT_SUCCESS;

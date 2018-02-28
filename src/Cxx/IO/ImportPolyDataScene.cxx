@@ -92,7 +92,6 @@ void ImportMultiBlockScene(vtkRenderer *renderer, std::string fileName)
     RestoreCameraFromFieldData("Camera",
                                camera,
                                pd);
-    camera->Print(std::cout);
     vtkSmartPointer<vtkPolyDataMapper> mapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
     mapper->SetInputData(pd);
