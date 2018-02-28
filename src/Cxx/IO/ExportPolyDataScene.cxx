@@ -56,22 +56,6 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputData(polyData);
 
-  vtkSmartPointer<vtkProperty> backProperty =
-    vtkSmartPointer<vtkProperty>::New();
-  backProperty->SetColor(colors->GetColor3d("peacock").GetData());
-
-  vtkSmartPointer<vtkActor> actor =
-    vtkSmartPointer<vtkActor>::New();
-  actor->SetMapper(mapper);
-  actor->SetBackfaceProperty(backProperty);
-  actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Crimson").GetData());
-  actor->GetProperty()->SetSpecular(.6);
-  actor->GetProperty()->SetSpecularPower(30);
-  actor->GetProperty()->EdgeVisibilityOn();
-  actor->GetProperty()->SetEdgeColor(colors->GetColor3d("Banana").GetData());
-  actor->GetProperty()->BackfaceCullingOn();
-  actor->GetProperty()->SetInterpolationToFlat();
-;
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
@@ -81,11 +65,57 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
-  renderer->AddActor(actor);
-  renderer->ResetCamera();
+  double bounds[6];
+  polyData->GetBounds(bounds);
+  double delta[3];
+  delta[0] = bounds[1] - bounds[0];
+  for (int a = 0; a < 10; ++a)
+  {
+    vtkSmartPointer<vtkPolyDataMapper> mapper =
+      vtkSmartPointer<vtkPolyDataMapper>::New();
+    mapper->SetInputData(polyData);
+
+    vtkSmartPointer<vtkProperty> backProperty =
+      vtkSmartPointer<vtkProperty>::New();
+    backProperty->SetColor(colors->GetColor3d("peacock").GetData());
+
+    vtkSmartPointer<vtkActor> actor =
+      vtkSmartPointer<vtkActor>::New();
+    actor->SetMapper(mapper);
+    actor->SetBackfaceProperty(backProperty);
+    actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Crimson").GetData());
+    actor->GetProperty()->SetSpecular(.1 * a);
+    actor->GetProperty()->SetSpecularPower(10.0 * a);
+    if ((a % 3) == 0)
+    {
+      actor->GetProperty()->EdgeVisibilityOn();
+      actor->GetProperty()->SetEdgeColor(colors->GetColor3d("SlateGray").GetData());
+      actor->GetProperty()->SetLineWidth(1.5);
+    }
+    else
+    {
+      actor->GetProperty()->EdgeVisibilityOff();
+    }
+    if ((a % 4) == 0)
+    {
+      actor->GetProperty()->FrontfaceCullingOn();
+    }
+    if ((a % 3) == 0)
+    {
+      actor->GetProperty()->SetRepresentationToWireframe();
+    }
+    else
+    {
+      actor->GetProperty()->SetRepresentationToSurface();
+    }
+    actor->GetProperty()->SetInterpolationToFlat();
+    actor->AddPosition(a * delta[0], 0.0, 0.0);
+    renderer->AddActor(actor);
+  }
   renderer->GetActiveCamera()->Azimuth(30);
   renderer->GetActiveCamera()->Elevation(30);
   renderer->GetActiveCamera()->Yaw(10);
+  renderer->ResetCamera();
   renderer->SetBackground(colors->GetColor3d("Silver").GetData());
   renderWindow->SetSize(640, 480);
   renderWindow->Render();
@@ -103,7 +133,7 @@ int main (int argc, char *argv[])
       ".vtp";
   }
   std::cout << "Scene is exported to " << vtksys::SystemTools::GetCurrentWorkingDirectory() + "/" + prefix << std::endl;
-  ExportMultiBlockScene (renderer.GetPointer(), prefix);
+  ExportMultiBlockScene (renderer.GetPointer(), prefix, true);
 
   return EXIT_SUCCESS;
 }
@@ -129,8 +159,10 @@ void ExportMultiBlockScene (vtkRenderer *renderer,
   {
     vtkActor * actor = actors->GetNextActor();
 
-    vtkPolyData *pd =
-      vtkPolyData::SafeDownCast(actor->GetMapper()->GetInput());
+    // Deep copy the polydata because it may be shared with other actors
+    vtkSmartPointer<vtkPolyData> pd =
+      vtkSmartPointer<vtkPolyData>::New();
+    pd->DeepCopy(vtkPolyData::SafeDownCast(actor->GetMapper()->GetInput()));
 
     // Set metadata for block
     multiBlockDataset->SetBlock(a, pd);

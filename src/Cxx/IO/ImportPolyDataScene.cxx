@@ -50,6 +50,7 @@ int main (int argc, char *argv[])
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   ImportMultiBlockScene (renderer.GetPointer(),std::string(argv[1]));
+  renderWindow->Render();
 
   renderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
@@ -74,7 +75,7 @@ void ImportMultiBlockScene(vtkRenderer *renderer, std::string fileName)
     vtkSmartPointer<vtkXMLMultiBlockDataReader>::New();
   reader->SetFileName(fileName.c_str());
   reader->Update();
-  std::cout << "NumberOfBlocks: " << vtkMultiBlockDataSet::SafeDownCast(reader->GetOutput())->GetNumberOfBlocks() << std::endl;
+  std::cout << "Importing " << vtkMultiBlockDataSet::SafeDownCast(reader->GetOutput())->GetNumberOfBlocks() << " actors" << std::endl;
 
   vtkCompositeDataSet *input =
     vtkCompositeDataSet::SafeDownCast(reader->GetOutput());
