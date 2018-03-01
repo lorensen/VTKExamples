@@ -63,7 +63,7 @@ def main():
 
     # Create one text property for all
     textProperty = vtk.vtkTextProperty()
-    textProperty.SetFontSize(10)
+    textProperty.SetFontSize(12)
     textProperty.SetJustificationToCentered()
 
     backProperty = vtk.vtkProperty()

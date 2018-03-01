@@ -130,7 +130,7 @@ int main(int, char* [])
   // Create one text property for all
   vtkSmartPointer<vtkTextProperty> textProperty =
     vtkSmartPointer<vtkTextProperty>::New();
-  textProperty->SetFontSize(10);
+  textProperty->SetFontSize(12);
   textProperty->SetJustificationToCentered();
 
   vtkSmartPointer<vtkProperty> backProperty =
@@ -172,7 +172,7 @@ int main(int, char* [])
     renderers[i]->AddActor(actors[i]);
     renderers[i]->AddActor(textactors[i]);
     renderers[i]->SetBackground(colors->GetColor3d("BkgColor").GetData());
- }
+  }
 
   // Setup the viewports
   auto xGridDimensions = 4;
