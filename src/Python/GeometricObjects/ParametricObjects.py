@@ -1,62 +1,55 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import vtk
 
 
-class ParametricObjects(object):
-    def ParametricObjects(self):
+def main():
+    namedColors = vtk.vtkNamedColors()
 
-        colors = vtk.vtkNamedColors()
+    # Uncomment one of the following.
+    # parametricObject = vtk.vtkParametricBoy()
+    # parametricObject = vtk.vtkParametricConicSpiral()
+    # parametricObject = vtk.vtkParametricCrossCap()
+    # parametricObject = vtk.vtkParametricDini()
+    # parametricObject = vtk.vtkParametricEllipsoid()
+    # parametricObject = vtk.vtkParametricEnneper()
+    # parametricObject = vtk.vtkParametricFigure8Klein()
+    # parametricObject = vtk.vtkParametricKlein()
+    # parametricObject = vtk.vtkParametricMobius()
+    # parametricObject = vtk.vtkParametricRandomHills()
+    # parametricObject = vtk.vtkParametricRoman()
+    # parametricObject = vtk.vtkParametricSpline()
+    # parametricObject = vtk.vtkParametricSuperEllipsoid()
+    # parametricObject = vtk.vtkParametricSuperToroid()
+    parametricObject = vtk.vtkParametricTorus()
 
-        # Select one of the following functions.
-        # parametricObject = vtk.vtkParametricBoy()
-        # parametricObject = vtk.vtkParametricConicSpiral()
-        # parametricObject = vtk.vtkParametricCrossCap()
-        # parametricObject = vtk.vtkParametricDini()
-        # parametricObject = vtk.vtkParametricEllipsoid()
-        # parametricObject = vtk.vtkParametricEnneper()
-        # parametricObject = vtk.vtkParametricFigure8Klein()
-        # parametricObject = vtk.vtkParametricKlein()
-        # parametricObject = vtk.vtkParametricMobius()
-        # parametricObject = vtk.vtkParametricRandomHills()
-        # parametricObject = vtk.vtkParametricRoman()
-        # parametricObject = vtk.vtkParametricSpline()
-        # parametricObject = vtk.vtkParametricSuperEllipsoid()
-        # parametricObject = vtk.vtkParametricSuperToroid()
-        parametricObject = vtk.vtkParametricTorus()
+    parametricFunctionSource = vtk.vtkParametricFunctionSource()
+    parametricFunctionSource.SetParametricFunction(parametricObject)
+    parametricFunctionSource.Update()
 
-        parametricSource = vtk.vtkParametricFunctionSource()
-        parametricSource.SetParametricFunction(parametricObject)
+    # Visualize
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(parametricFunctionSource.GetOutputPort())
 
-        # mapper
-        mapper = vtk.vtkPolyDataMapper()
-        mapper.SetInputConnection(parametricSource.GetOutputPort())
+    # Create an actor for the contours
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetDiffuseColor(
+        namedColors.GetColor3d("Burlywood"))
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Parametric Objects")
+    renderWindow.AddRenderer(renderer)
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(renderWindow)
 
-        # actor
-        actor = vtk.vtkActor()
-        actor.SetMapper(mapper)
-        actor.GetProperty().SetDiffuseColor(colors.GetColor3d("Burlywood"))
+    renderer.AddActor(actor)
+    renderer.SetBackground(namedColors.GetColor3d("Beige"))
 
-        # ------------------------------------------------------------
-        # Create the RenderWindow, Renderer and Interactor
-        # ------------------------------------------------------------
-        ren = vtk.vtkRenderer()
-        renWin = vtk.vtkRenderWindow()
-        iren = vtk.vtkRenderWindowInteractor()
-
-        renWin.AddRenderer(ren)
-        iren.SetRenderWindow(renWin)
-
-        # add actors
-        ren.AddViewProp(actor)
-        ren.SetBackground(colors.GetColor3d("Beige"))
-
-        # enable user interface interactor
-        iren.Initialize()
-        renWin.Render()
-        iren.Start()
+    renderWindow.Render()
+    interactor.Start()
 
 
-if __name__ == "__main__":
-    po = ParametricObjects()
-    po.ParametricObjects()
+if __name__ == '__main__':
+    main()

@@ -3,12 +3,13 @@
 #include <vtkParametricFunctionSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 
-// Select one of the following:
+// Uncomment one of the following includes that correspond
+//  to the object that you have selected below:
 // #include <vtkParametricBoy.h>
 // #include <vtkParametricConicSpiral.h>
 // #include <vtkParametricCrossCap.h>
@@ -30,9 +31,8 @@ int main(int, char* [])
   vtkSmartPointer<vtkNamedColors> namedColors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  // Select one of the following (matching the selection above)
-  vtkSmartPointer<vtkParametricTorus> parametricObject =
-    vtkSmartPointer<vtkParametricTorus>::New();
+  // Uncomment one of the following and
+  //   ensure the matching include (above) is umcommented).
   // vtkSmartPointer<vtkParametricBoy> parametricObject =
   // vtkSmartPointer<vtkParametricBoy>::New();
   // vtkSmartPointer<vtkParametricConicSpiral> parametricObject =
@@ -61,8 +61,8 @@ int main(int, char* [])
   // vtkSmartPointer<vtkParametricSuperEllipsoid>::New();
   // vtkSmartPointer<vtkParametricSuperToroid> parametricObject =
   // vtkSmartPointer<vtkParametricSuperToroid>::New();
-  // vtkSmartPointer<vtkParametricTorus> parametricObject =
-  // vtkSmartPointer<vtkParametricTorus>::New();
+  vtkSmartPointer<vtkParametricTorus> parametricObject =
+  vtkSmartPointer<vtkParametricTorus>::New();
 
   vtkSmartPointer<vtkParametricFunctionSource> parametricFunctionSource =
     vtkSmartPointer<vtkParametricFunctionSource>::New();
@@ -82,6 +82,7 @@ int main(int, char* [])
   vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Parametric Objects");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
