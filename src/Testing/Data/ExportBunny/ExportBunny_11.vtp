@@ -66,14 +66,14 @@
       <DataArray type="Float64" Name="Property:Diffuse" NumberOfTuples="1" format="binary" RangeMin="0.5" RangeMax="0.5">
         AQAAAACAAAAIAAAADQAAAA==eF5jYACBB/YAAgcBIA==
       </DataArray>
-      <DataArray type="Float64" Name="Property:DiffuseColor" NumberOfComponents="3" NumberOfTuples="1" format="binary" RangeMin="0.89768808959" RangeMax="0.89768808959">
-        AQAAAACAAAAYAAAAFwAAAA==eF6bMxsEXtuLgMEWezkwOGcPAHhMB/o=
+      <DataArray type="Float64" Name="Property:DiffuseColor" NumberOfComponents="3" NumberOfTuples="1" format="binary" RangeMin="1.188694663" RangeMax="1.188694663">
+        AQAAAACAAAAYAAAAGAAAAA==eF6LjweB9/YCYPDAfu4cELhjDwBrFgms
         <InformationKey name="L2_NORM_RANGE" location="vtkDataArray" length="2">
           <Value index="0">
-            0.89768808959
+            1.188694663
           </Value>
           <Value index="1">
-            0.89768808959
+            1.188694663
           </Value>
         </InformationKey>
       </DataArray>
@@ -134,8 +134,8 @@
       <DataArray type="Int32" Name="Property:BackfaceCulling" NumberOfTuples="1" format="binary" RangeMin="0" RangeMax="0">
         AQAAAACAAAAEAAAADAAAAA==eF5jYGBgAAAABAAB
       </DataArray>
-      <DataArray type="Int32" Name="Property:FrontfaceCulling" NumberOfTuples="1" format="binary" RangeMin="1" RangeMax="1">
-        AQAAAACAAAAEAAAADAAAAA==eF5jZGBgAAAACAAC
+      <DataArray type="Int32" Name="Property:FrontfaceCulling" NumberOfTuples="1" format="binary" RangeMin="0" RangeMax="0">
+        AQAAAACAAAAEAAAADAAAAA==eF5jYGBgAAAABAAB
       </DataArray>
       <DataArray type="Float64" Name="Property:PointSize" NumberOfTuples="1" format="binary" RangeMin="1" RangeMax="1">
         AQAAAACAAAAIAAAADQAAAA==eF5jYACBD/YAAicBMA==
@@ -446,14 +446,14 @@
       <DataArray type="Int32" Name="Actor:Visibility" NumberOfTuples="1" format="binary" RangeMin="1" RangeMax="1">
         AQAAAACAAAAEAAAADAAAAA==eF5jZGBgAAAACAAC
       </DataArray>
-      <DataArray type="Float64" Name="Actor:Position" NumberOfComponents="3" NumberOfTuples="1" format="binary" RangeMin="0" RangeMax="0">
-        AQAAAACAAAAYAAAACwAAAA==eF5jYMAOAAAYAAE=
+      <DataArray type="Float64" Name="Actor:Position" NumberOfComponents="3" NumberOfTuples="1" format="binary" RangeMin="1.6800286953" RangeMax="1.6800286953">
+        AQAAAACAAAAYAAAAGwAAAA==eF5jYGBYsLbwmz0DA0PFralvQTQYAABaygYH
         <InformationKey name="L2_NORM_RANGE" location="vtkDataArray" length="2">
           <Value index="0">
-            0
+            1.6800286953
           </Value>
           <Value index="1">
-            0
+            1.6800286953
           </Value>
         </InformationKey>
       </DataArray>
@@ -479,14 +479,14 @@
           </Value>
         </InformationKey>
       </DataArray>
-      <DataArray type="Float64" Name="Actor:Scale" NumberOfComponents="3" NumberOfTuples="1" format="binary" RangeMin="0.86602540378" RangeMax="0.86602540378">
-        AQAAAACAAAAYAAAAEAAAAA==eF5jYACBB/YMaDQAIP0DXg==
+      <DataArray type="Float64" Name="Actor:Scale" NumberOfComponents="3" NumberOfTuples="1" format="binary" RangeMin="2.5495097568" RangeMax="2.5495097568">
+        AQAAAACAAAAYAAAAFAAAAA==eF5jYAADBwj1wx5CP7AHABI+Apc=
         <InformationKey name="L2_NORM_RANGE" location="vtkDataArray" length="2">
           <Value index="0">
-            0.86602540378
+            2.5495097568
           </Value>
           <Value index="1">
-            0.86602540378
+            2.5495097568
           </Value>
         </InformationKey>
       </DataArray>

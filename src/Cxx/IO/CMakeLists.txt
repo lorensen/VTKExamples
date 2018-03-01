@@ -90,10 +90,10 @@ add_test(${KIT}-DumpXMLFile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDumpXMLFile ${DATA}/Bunny.vtp)
 
 add_test(${KIT}-ExportPolyDataScene ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestExportPolyDataScene ${DATA}/trumpet.obj)
+  TestExportPolyDataScene ${DATA}/Bunny.vtp)
 
 add_test(${KIT}-ImportPolyDataScene ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestImportPolyDataScene ${DATA}/Exporttrumpet.vtp)
+  TestImportPolyDataScene ${DATA}/ExportBunny.vtp)
 
 add_test(${KIT}-GenericDataObjectReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGenericDataObjectReader ${DATA}/Bunny.vtp)
