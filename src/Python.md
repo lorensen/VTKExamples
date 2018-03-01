@@ -124,9 +124,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Disk](/Python/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Python/GeometricObjects/Frustum) | vtkFrustumSource |
 [Line](/Python/GeometricObjects/Line) | vtkLineSource |
-[LineSource](/Python/GeometricObjects/LineSource) | vtkLineSource |
 [OrientedArrow](/Python/GeometricObjects/OrientedArrow) | vtkArrowSource | Orient an arrow along an arbitrary vector.
-[OrientedCylinder](/Cxx/GeometricObjects/OrientedCylinder) | vtkCylinderSource | Orient a cylinder along an arbitrary vector.
+[OrientedCylinder](/Python/GeometricObjects/OrientedCylinder) | vtkCylinderSource | Orient a cylinder along an arbitrary vector.
 [Plane](/Python/GeometricObjects/Plane) | vtkPlaneSource |
 [PlatonicSolids](/Python/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource | All five platonic solids are displayed.
 [PolyLine1](/Python/GeometricObjects/PolyLine1) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
@@ -149,6 +148,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [ParametricObjects](/Python/GeometricObjects/ParametricObjects) |  | Uncomment the object that you wish to be displayed.
 [ParametricObjectsDemo](/Python/GeometricObjects/ParametricObjectsDemo) | vtkParametricBoy vtkParametricConicSpiral vtkParametricCrossCap vtkParametricDini vtkParametricEllipsoid vtkParametricEnneper vtkParametricFigure8Klein vtkParametricKlein vtkParametricMobius vtkParametricRandomHills vtkParametricRoman vtkParametricSpline vtkParametricSuperEllipsoid vtkParametricSuperToroid vtkParametricTorus | Demonstration of of the vtkParametric classes added by Andrew Maclean. All the objects are displayed in a 4X4 array.
 [ParametricObjectsDemo2](/Python/GeometricObjects/ParametricObjectsDemo2) | vtkParametricBohemianDome vtkParametricBour vtkParametricCatalanMinimal vtkParametricHenneberg vtkParametricKuen vtkParametricPluckerConoid vtkParametricPseudosphere | Demonstration of additional vtkParametric* classes added by  Tim Meehan. All the objects are displayed in a 4X2 array.
+[ParametricSuperEllipsoidDemo](/Python/GeometricObjects/ParametricSuperEllipsoidDemo) | vtkParametricSuperEllipsoid | Interactively change the parameters for a SuperEllipsoid Surface.
+[ParametricSuperToroidDemo](/Python/GeometricObjects/ParametricSuperToroidDemo) | vtkParametricSuperToroid | Interactively change the parameters for a SuperToroid Surface.
 
 ## Implicit Functions and Iso-surfaces
 

@@ -173,8 +173,8 @@ int main(int, char *[])
   interactor->SetRenderWindow(renderWindow);
 
   // Setup a slider widget for each varying parameter
-  double tubeWidth(.004);
-  double sliderLength(.004);
+  double tubeWidth(.008);
+  double sliderLength(.008);
   double titleHeight(.02);
   double labelHeight(.02);
 

@@ -49,8 +49,8 @@ def main():
     interactor.SetRenderWindow(renderWindow)
 
     # Setup a slider widget for each varying parameter
-    tubeWidth = 0.004
-    sliderLength = 0.004
+    tubeWidth = 0.008
+    sliderLength = 0.008
     titleHeight = 0.02
     labelHeight = 0.02
 
@@ -172,7 +172,7 @@ def main():
 
 # These callbacks do the actual work.
 # Callbacks for the interactions
-class SliderCallbackMinimumU(object):
+class SliderCallbackMinimumU():
     def __init__(self, kuen):
         self.kuen = kuen
 
@@ -185,7 +185,7 @@ class SliderCallbackMinimumU(object):
         self.kuen.SetMinimumU(value)
 
 
-class SliderCallbackMaximumU(object):
+class SliderCallbackMaximumU():
     def __init__(self, kuen):
         self.kuen = kuen
 
@@ -198,7 +198,7 @@ class SliderCallbackMaximumU(object):
         self.kuen.SetMaximumU(value)
 
 
-class SliderCallbackMinimumV(object):
+class SliderCallbackMinimumV():
     def __init__(self, kuen):
         self.kuen = kuen
 
@@ -211,7 +211,7 @@ class SliderCallbackMinimumV(object):
         self.kuen.SetMinimumV(value)
 
 
-class SliderCallbackMaximumV(object):
+class SliderCallbackMaximumV():
     def __init__(self, kuen):
         self.kuen = kuen
 
