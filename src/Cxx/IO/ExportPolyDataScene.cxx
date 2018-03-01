@@ -69,48 +69,86 @@ int main (int argc, char *argv[])
   polyData->GetBounds(bounds);
   double delta[3];
   delta[0] = bounds[1] - bounds[0];
-  for (int a = 0; a < 10; ++a)
+  delta[1] = bounds[3] - bounds[2];
+  delta[2] = bounds[5] - bounds[4];
+  for (int c = 0; c < 4; ++c)
   {
-    vtkSmartPointer<vtkPolyDataMapper> mapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
-    mapper->SetInputData(polyData);
+    for (int b = 0; b < 4; ++b)
+    {
+      for (int a = 0; a < 4; ++a)
+      {
+        vtkSmartPointer<vtkPolyDataMapper> mapper =
+          vtkSmartPointer<vtkPolyDataMapper>::New();
+        mapper->SetInputData(polyData);
 
-    vtkSmartPointer<vtkProperty> backProperty =
-      vtkSmartPointer<vtkProperty>::New();
-    backProperty->SetColor(colors->GetColor3d("peacock").GetData());
+        vtkSmartPointer<vtkProperty> backProperty =
+          vtkSmartPointer<vtkProperty>::New();
+        backProperty->SetColor(colors->GetColor3d("peacock").GetData());
 
-    vtkSmartPointer<vtkActor> actor =
-      vtkSmartPointer<vtkActor>::New();
-    actor->SetMapper(mapper);
-    actor->SetBackfaceProperty(backProperty);
-    actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Crimson").GetData());
-    actor->GetProperty()->SetSpecular(.1 * a);
-    actor->GetProperty()->SetSpecularPower(10.0 * a);
-    if ((a % 3) == 0)
-    {
-      actor->GetProperty()->EdgeVisibilityOn();
-      actor->GetProperty()->SetEdgeColor(colors->GetColor3d("SlateGray").GetData());
-      actor->GetProperty()->SetLineWidth(1.5);
+        vtkSmartPointer<vtkActor> actor =
+          vtkSmartPointer<vtkActor>::New();
+        actor->SetMapper(mapper);
+        actor->SetBackfaceProperty(backProperty);
+        if (b == 1)
+        {
+        actor->GetProperty()->
+          SetDiffuseColor(colors->GetColor3d("Orchid").GetData());
+        }
+        else if (b == 2)
+        {
+        actor->GetProperty()->
+          SetDiffuseColor(colors->GetColor3d("Salmon").GetData());
+        }
+        else if (b == 3)
+        {
+        actor->GetProperty()->
+          SetDiffuseColor(colors->GetColor3d("SandyBrown").GetData());
+        }
+        else
+        {
+          actor->GetProperty()->
+            SetDiffuseColor(colors->GetColor3d("Crimson").GetData());
+        }
+        actor->GetProperty()->SetSpecular(.5);
+        actor->GetProperty()->SetDiffuse(.5);
+        actor->GetProperty()->SetSpecularPower(a * b * c);
+        if ((a % 3) == 0)
+        {
+          actor->GetProperty()->EdgeVisibilityOn();
+          actor->GetProperty()->SetEdgeColor(colors->GetColor3d("SlateGray").GetData());
+          actor->GetProperty()->SetLineWidth(1.0);
+        }
+        else
+        {
+          actor->GetProperty()->EdgeVisibilityOff();
+        }
+        if ((a % 4) == 0)
+        {
+          actor->GetProperty()->FrontfaceCullingOn();
+        }
+        if ((a % 3) == 0 && (c & 3) == 0)
+        {
+          actor->GetProperty()->SetRepresentationToWireframe();
+        }
+        else
+        {
+          actor->GetProperty()->SetRepresentationToSurface();
+        }
+        if (c == 3)
+        {
+          actor->GetProperty()->SetInterpolationToGouraud();
+        }
+        else
+        {
+          actor->GetProperty()->SetInterpolationToFlat();
+        }
+        actor->AddPosition(1.5 * a * delta[0],
+                           1.5 * b * delta[1],
+                           1.5 * c * delta[2]);
+        actor->SetScale((a + 1) * .5, (b + 1) * .5, (c + 1) * .5);
+        renderer->AddActor(actor);
+      }
     }
-    else
-    {
-      actor->GetProperty()->EdgeVisibilityOff();
-    }
-    if ((a % 4) == 0)
-    {
-      actor->GetProperty()->FrontfaceCullingOn();
-    }
-    if ((a % 3) == 0)
-    {
-      actor->GetProperty()->SetRepresentationToWireframe();
-    }
-    else
-    {
-      actor->GetProperty()->SetRepresentationToSurface();
-    }
-    actor->GetProperty()->SetInterpolationToFlat();
-    actor->AddPosition(a * delta[0], 0.0, 0.0);
-    renderer->AddActor(actor);
   }
   renderer->GetActiveCamera()->Azimuth(30);
   renderer->GetActiveCamera()->Elevation(30);
