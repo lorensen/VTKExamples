@@ -13,7 +13,6 @@
 #include <vtkSimpleMotionBlurPass.h>
 #include <vtkTextureObject.h>
 
-#include <algorithm>
 #include <array>
 
 //----------------------------------------------------------------------------
@@ -22,24 +21,16 @@ int main(int, char *argv[])
   vtkNew<vtkNamedColors> colors;
 
   // Set the colors.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> bkg1{{77, 102, 153}};
-  SetColor(bkg1, "Bkg");
-  std::array<double, 3> a1Diff{{255, 204, 77}};
-  SetColor(a1Diff, "A1Diff");
-  std::array<double, 3> a2Amb{{51, 51, 255}};
-  SetColor(a1Diff, "A2Amb");
-  std::array<double, 3> a2Diff{{51, 255, 204}};
-  SetColor(a1Diff, "A2Diff");
-  std::array<double, 3> a3Amb{{128, 166, 255}};
-  SetColor(a1Diff, "A3Amb");
+  std::array<unsigned char , 4> a1Diff{{255, 204, 77, 255}};
+    colors->SetColor("A1Diff", a1Diff.data());
+  std::array<unsigned char , 4> a2Amb{{51, 51, 255, 255}};
+    colors->SetColor("A2Amb", a2Amb.data());
+  std::array<unsigned char , 4> a2Diff{{51, 255, 204, 255}};
+    colors->SetColor("A2Diff", a2Diff.data());
+  std::array<unsigned char , 4> a3Amb{{128, 166, 255, 255}};
+    colors->SetColor("A3Amb", a3Amb.data());
+  std::array<unsigned char , 4> bkg{{77, 102, 153}};
+    colors->SetColor("Bkg", bkg.data());
 
   vtkNew<vtkRenderer> renderer;
   renderer->SetBackground(colors->GetColor3d("Bkg").GetData());

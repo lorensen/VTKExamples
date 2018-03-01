@@ -43,16 +43,8 @@ int main( int argc, char *argv[] )
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the color for the population.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> popColor{{230, 230, 230}};
-  SetColor(popColor, "PopColor");
+  std::array<unsigned char , 4> popColor{{230, 230, 230, 255}};
+    colors->SetColor("PopColor", popColor.data());
 
   // read data
   vtkSmartPointer<vtkDataSet> dataSet =

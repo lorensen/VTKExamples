@@ -14,7 +14,6 @@
 #include <vtkStructuredGridOutlineFilter.h>
 #include <vtkStructuredGridReader.h>
 
-#include <algorithm>
 #include <array>
 
 int main( int argc, char *argv[] )
@@ -31,16 +30,8 @@ int main( int argc, char *argv[] )
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the furniture colors.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> furnColor{{204, 204, 153}};
-  SetColor(furnColor, "Furniture");
+  std::array<unsigned char , 4> furnColor{{204, 204, 153}};
+    colors->SetColor("Furniture", furnColor.data());
 
   vtkSmartPointer<vtkRenderer> aren =
     vtkSmartPointer<vtkRenderer>::New();

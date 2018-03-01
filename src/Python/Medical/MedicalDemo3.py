@@ -11,10 +11,8 @@ def main():
 
     fileName = get_program_parameters()
 
-    skinColor = map(lambda x: x / 255.0, [255, 125, 64])
-    colors.SetColor('SkinColor', *skinColor)
-    bkgColor = map(lambda x: x / 255.0, [51, 77, 102])
-    colors.SetColor('BkgColor', *bkgColor)
+    colors.SetColor("SkinColor", [255, 125, 64, 255])
+    colors.SetColor("BkgColor", [51, 77, 102, 255])
 
     # Create the renderer, the render window, and the interactor. The
     # renderer draws into the render window, the interactor enables

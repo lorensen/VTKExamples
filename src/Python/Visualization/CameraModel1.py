@@ -8,16 +8,11 @@ def main():
     colors = vtk.vtkNamedColors()
 
     # Set the colors.
-    azArrowColor = map(lambda x: x / 255.0, [255, 77, 77])
-    colors.SetColor('AzimuthArrowColor', *azArrowColor)
-    elevArrowColor = map(lambda x: x / 255.0, [77, 255, 77])
-    colors.SetColor('ElevationArrowColor', *elevArrowColor)
-    rollArrowColor = map(lambda x: x / 255.0, [255, 255, 77])
-    colors.SetColor('RollArrowColor', *rollArrowColor)
-    spikeColor = map(lambda x: x / 255.0, [255, 77, 255])
-    colors.SetColor('SpikeColor', *spikeColor)
-    bkg = map(lambda x: x / 255.0, [25, 51, 102])
-    colors.SetColor('BkgColor', *bkg)
+    colors.SetColor("AzimuthArrowColor", [255, 77, 77, 255])
+    colors.SetColor("ElevationArrowColor", [77, 255, 77, 255])
+    colors.SetColor("RollArrowColor", [255, 255, 77, 255])
+    colors.SetColor("SpikeColor", [255, 77, 255, 255])
+    colors.SetColor("BkgColor", [26, 51, 102, 255])
 
     # Create a rendering window, renderer and interactor.
     ren = vtk.vtkRenderer()

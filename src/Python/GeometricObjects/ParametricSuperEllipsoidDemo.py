@@ -8,8 +8,7 @@ def main():
     colors = vtk.vtkNamedColors()
 
     # Set the background color.
-    bkg = map(lambda x: x / 256.0, [26, 51, 102])
-    colors.SetColor("BkgColor", *bkg)
+    colors.SetColor("BkgColor", [26, 51, 102, 255])
 
     surface = vtk.vtkParametricSuperEllipsoid()
     source = vtk.vtkParametricFunctionSource()

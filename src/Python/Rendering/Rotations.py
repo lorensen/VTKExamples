@@ -17,9 +17,8 @@ def main():
     # Create renderer stuff
     #
     colors = vtk.vtkNamedColors()
-    # Set the background color. Match those in VTKTextbook.pdf.
-    bkg = map(lambda x: x / 256.0, [60, 93, 144])
-    colors.SetColor("BkgColor", *bkg)
+    # Set the background color.
+    colors.SetColor("BkgColor", [60, 93, 144, 255])
 
     ren1 = vtk.vtkRenderer()
     renWin = vtk.vtkRenderWindow()

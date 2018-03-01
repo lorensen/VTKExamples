@@ -47,25 +47,18 @@ int main(int /* argc */, char* /* argv */ [])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  // Set the background color. Match those in VTKTextbook.pdf.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> azArrowColor{{255, 77, 77}};
-  SetColor(azArrowColor, "AzimuthArrowColor");
-  std::array<double, 3> elevArrowColor{{77, 255, 77}};
-  SetColor(elevArrowColor, "ElevationArrowColor");
-  std::array<double, 3> rollArrowColor{{255, 255, 77}};
-  SetColor(rollArrowColor, "RollArrowColor");
-  std::array<double, 3> spikeColor{{255, 77, 255}};
-  SetColor(spikeColor, "SpikeColor");
-  std::array<double, 3> bkg{{25, 51, 102}};
-  SetColor(spikeColor, "BkgColor");
+  // Set the colors.
+  std::array<unsigned char , 4> azArrowColor{{255, 77, 77}};
+    colors->SetColor("AzimuthArrowColor", azArrowColor.data());
+  std::array<unsigned char , 4> elevArrowColor{{77, 255, 77}};
+    colors->SetColor("ElevationArrowColor", elevArrowColor.data());
+  std::array<unsigned char , 4> rollArrowColor{{255, 255, 77}};
+    colors->SetColor("RollArrowColor", rollArrowColor.data());
+  std::array<unsigned char , 4> spikeColor{{255, 77, 255}};
+    colors->SetColor("SpikeColor", spikeColor.data());
+  // Set the background color.
+  std::array<unsigned char , 4> bkg{{26, 51, 102}};
+    colors->SetColor("BkgColor", bkg.data());
 
   // Create the RenderWindow, Renderer and both Actors
   //
