@@ -7,9 +7,8 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
-    # Set the background color. Match those in VTKTextbook.pdf.
-    bkg = map(lambda x: x / 256.0, [51, 77, 102])
-    # bkg = map(lambda x: x / 256.0, [26, 51, 77])
+    # Set the background color.
+    bkg = map(lambda x: x / 256.0, [26, 51, 102])
     colors.SetColor("BkgColor", *bkg)
 
     surface = vtk.vtkParametricKuen()

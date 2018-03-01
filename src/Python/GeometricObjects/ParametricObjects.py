@@ -5,7 +5,11 @@ import vtk
 
 
 def main():
-    namedColors = vtk.vtkNamedColors()
+    colors = vtk.vtkNamedColors()
+
+    # Set the background color.
+    bkg = map(lambda x: x / 256.0, [26, 51, 102])
+    colors.SetColor("BkgColor", *bkg)
 
     # Uncomment one of the following.
     # parametricObject = vtk.vtkParametricBoy()
@@ -14,7 +18,7 @@ def main():
     # parametricObject = vtk.vtkParametricDini()
     # parametricObject = vtk.vtkParametricEllipsoid()
     # parametricObject = vtk.vtkParametricEnneper()
-    # parametricObject = vtk.vtkParametricFigure8Klein()
+    parametricObject = vtk.vtkParametricFigure8Klein()
     # parametricObject = vtk.vtkParametricKlein()
     # parametricObject = vtk.vtkParametricMobius()
     # parametricObject = vtk.vtkParametricRandomHills()
@@ -22,21 +26,26 @@ def main():
     # parametricObject = vtk.vtkParametricSpline()
     # parametricObject = vtk.vtkParametricSuperEllipsoid()
     # parametricObject = vtk.vtkParametricSuperToroid()
-    parametricObject = vtk.vtkParametricTorus()
+    # parametricObject = vtk.vtkParametricTorus()
 
     parametricFunctionSource = vtk.vtkParametricFunctionSource()
     parametricFunctionSource.SetParametricFunction(parametricObject)
     parametricFunctionSource.Update()
 
     # Visualize
+    backProperty = vtk.vtkProperty()
+    backProperty.SetColor(colors.GetColor3d("Tomato"))
+
     mapper = vtk.vtkPolyDataMapper()
     mapper.SetInputConnection(parametricFunctionSource.GetOutputPort())
 
     # Create an actor for the contours
     actor = vtk.vtkActor()
     actor.SetMapper(mapper)
-    actor.GetProperty().SetDiffuseColor(
-        namedColors.GetColor3d("Burlywood"))
+    actor.GetProperty().SetColor(colors.GetColor3d("Banana"))
+    actor.GetProperty().SetSpecular(.5)
+    actor.GetProperty().SetSpecularPower(20)
+    actor.SetBackfaceProperty(backProperty)
     renderer = vtk.vtkRenderer()
     renderWindow = vtk.vtkRenderWindow()
     renderWindow.SetWindowName("Parametric Objects")
@@ -45,7 +54,7 @@ def main():
     interactor.SetRenderWindow(renderWindow)
 
     renderer.AddActor(actor)
-    renderer.SetBackground(namedColors.GetColor3d("Beige"))
+    renderer.SetBackground(colors.GetColor3d("BkgColor"))
 
     renderWindow.Render()
     interactor.Start()

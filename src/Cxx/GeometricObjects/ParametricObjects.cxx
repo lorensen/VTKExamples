@@ -16,7 +16,7 @@
 // #include <vtkParametricDini.h>
 // #include <vtkParametricEllipsoid.h>
 // #include <vtkParametricEnneper.h>
-// #include <vtkParametricFigure8Klein.h>
+#include <vtkParametricFigure8Klein.h>
 // #include <vtkParametricKlein.h>
 // #include <vtkParametricMobius.h>
 // #include <vtkParametricRandomHills.h>
@@ -24,12 +24,27 @@
 // #include <vtkParametricSpline.h>
 // #include <vtkParametricSuperEllipsoid.h>
 // #include <vtkParametricSuperToroid.h>
-#include <vtkParametricTorus.h>
+// #include <vtkParametricTorus.h>
+
+#include <algorithm>
+#include <array>
 
 int main(int, char* [])
 {
-  vtkSmartPointer<vtkNamedColors> namedColors =
+  vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{26, 51, 102}};
+  SetColor(bkg, "BkgColor");
 
   // Uncomment one of the following and
   //   ensure the matching include (above) is umcommented).
@@ -45,8 +60,8 @@ int main(int, char* [])
   // vtkSmartPointer<vtkParametricEllipsoid>::New();
   // vtkSmartPointer<vtkParametricEnneper> parametricObject =
   // vtkSmartPointer<vtkParametricEnneper>::New();
-  // vtkSmartPointer<vtkParametricFigure8Klein> parametricObject =
-  // vtkSmartPointer<vtkParametricFigure8Klein>::New();
+  vtkSmartPointer<vtkParametricFigure8Klein> parametricObject =
+  vtkSmartPointer<vtkParametricFigure8Klein>::New();
   // vtkSmartPointer<vtkParametricKlein> parametricObject =
   // vtkSmartPointer<vtkParametricKlein>::New();
   // vtkSmartPointer<vtkParametricMobius> parametricObject =
@@ -61,8 +76,8 @@ int main(int, char* [])
   // vtkSmartPointer<vtkParametricSuperEllipsoid>::New();
   // vtkSmartPointer<vtkParametricSuperToroid> parametricObject =
   // vtkSmartPointer<vtkParametricSuperToroid>::New();
-  vtkSmartPointer<vtkParametricTorus> parametricObject =
-  vtkSmartPointer<vtkParametricTorus>::New();
+  // vtkSmartPointer<vtkParametricTorus> parametricObject =
+  // vtkSmartPointer<vtkParametricTorus>::New();
 
   vtkSmartPointer<vtkParametricFunctionSource> parametricFunctionSource =
     vtkSmartPointer<vtkParametricFunctionSource>::New();
@@ -70,6 +85,11 @@ int main(int, char* [])
   parametricFunctionSource->Update();
 
   // Visualize
+  
+  vtkSmartPointer<vtkProperty> backProperty =
+    vtkSmartPointer<vtkProperty>::New();
+  backProperty->SetColor(colors->GetColor3d("Tomato").GetData());
+
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(parametricFunctionSource->GetOutputPort());
@@ -78,7 +98,10 @@ int main(int, char* [])
   vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetDiffuseColor(
-    namedColors->GetColor3d("Burlywood").GetData());
+    colors->GetColor3d("Banana").GetData());
+  actor->GetProperty()->SetSpecular(.5);
+  actor->GetProperty()->SetSpecularPower(20);
+  actor->SetBackfaceProperty(backProperty);
   vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -89,7 +112,7 @@ int main(int, char* [])
   interactor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
-  renderer->SetBackground(namedColors->GetColor3d("Beige").GetData());
+  renderer->SetBackground(colors->GetColor3d("BkgColor").GetData());
 
   renderWindow->Render();
   interactor->Start();

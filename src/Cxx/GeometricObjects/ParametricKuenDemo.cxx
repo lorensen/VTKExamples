@@ -14,6 +14,9 @@
 #include <vtkSliderWidget.h>
 #include <vtkSmartPointer.h>
 
+#include <algorithm>
+#include <array>
+
 // These callbacks do the actual work.
 // Callbacks for the interactions
 class SliderCallbackMinimumU : public vtkCommand
@@ -122,8 +125,7 @@ int main(int, char *[])
     colors->SetColor(colorName, v.data());
     return;
   };
-  std::array<double, 3> bkg{{51, 77, 102}};
-  // std::array<double, 3> bkg{{26, 51, 77}};
+  std::array<double, 3> bkg{{26, 51, 102}};
   SetColor(bkg, "BkgColor");
 
   vtkSmartPointer<vtkParametricKuen> surface =
