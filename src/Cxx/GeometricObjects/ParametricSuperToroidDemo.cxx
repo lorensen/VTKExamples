@@ -1,21 +1,22 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkParametricSuperToroid.h>
-#include <vtkParametricFunctionSource.h>
-
-#include <vtkCamera.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkActor2D.h>
-#include <vtkProperty.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkMath.h>
-
+#include <vtkCamera.h>
 #include <vtkCommand.h>
-#include <vtkSliderWidget.h>
+#include <vtkMath.h>
+#include <vtkNamedColors.h>
+#include <vtkParametricFunctionSource.h>
+#include <vtkParametricSuperToroid.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
 #include <vtkSliderRepresentation2D.h>
+#include <vtkSliderWidget.h>
+#include <vtkSmartPointer.h>
+
+#include <algorithm>
+#include <array>
 
 // These callbacks do the actual work.
 // Callbacks for the interactions
@@ -57,6 +58,21 @@ public:
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color.
+  auto SetColor = [&colors](std::array<double, 3>& v,
+                            std::string const& colorName) {
+    auto const scaleFactor = 256.0;
+    std::transform(std::begin(v), std::end(v), std::begin(v),
+                   [=](double const& n) { return n / scaleFactor; });
+    colors->SetColor(colorName, v.data());
+    return;
+  };
+  std::array<double, 3> bkg{{26, 51, 102}};
+  SetColor(bkg, "BkgColor");
+
   vtkSmartPointer<vtkParametricSuperToroid> surface =
     vtkSmartPointer<vtkParametricSuperToroid>::New();
   vtkSmartPointer<vtkParametricFunctionSource> source =
@@ -71,7 +87,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkProperty> backProperty =
     vtkSmartPointer<vtkProperty>::New();
-  backProperty->SetColor(1.0000, 0.3882, 0.2784);
+  backProperty->SetColor(colors->GetColor3d("Tomato").GetData());
 
   // Create a parametric function source, renderer, mapper, and actor
   source->SetParametricFunction(surface);
@@ -80,14 +96,17 @@ int main(int, char *[])
 
   actor->SetMapper(mapper);
   actor->SetBackfaceProperty(backProperty);
-  actor->GetProperty()->SetDiffuseColor(0.8900, 0.8100, 0.3400);
+  actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Banana").GetData());
+  actor->GetProperty()->SetSpecular(.5);
+  actor->GetProperty()->SetSpecularPower(20);
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Parametric Objects Super Toroid Demo");
   renderWindow->AddRenderer(renderer);
   renderWindow->SetSize(640,480);
   renderer->AddActor(actor);
-  renderer->SetBackground(.2, .3, .4);
+  renderer->SetBackground(colors->GetColor3d("BkgColor").GetData());
   renderer->ResetCamera();
   renderer->GetActiveCamera()->Azimuth(30);
   renderer->GetActiveCamera()->Elevation(-30);
@@ -99,10 +118,10 @@ int main(int, char *[])
   interactor->SetRenderWindow(renderWindow);
 
   // Setup a slider widget for each varying parameter
-  double tubeWidth(.004);
-  double sliderLength(.004);
-  double titleHeight(.02);
-  double labelHeight(.02);
+  double tubeWidth(.008);
+  double sliderLength(.008);
+  double titleHeight(.04);
+  double labelHeight(.04);
 
   vtkSmartPointer<vtkSliderRepresentation2D> sliderRepN1 =
     vtkSmartPointer<vtkSliderRepresentation2D>::New();
