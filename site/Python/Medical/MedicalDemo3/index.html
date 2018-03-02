@@ -70,10 +70,8 @@ function registerListener(event, func) {
 </span>
     <span class=n>fileName</span> <span class=o>=</span> <span class=n>get_program_parameters</span><span class=p>()</span>
 
-    <span class=n>skinColor</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>255.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>255</span><span class=p>,</span> <span class=mi>125</span><span class=p>,</span> <span class=mi>64</span><span class=p>])</span>
-    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s1>&#39;SkinColor&#39;</span><span class=p>,</span> <span class=o>*</span><span class=n>skinColor</span><span class=p>)</span>
-    <span class=n>bkgColor</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>255.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>51</span><span class=p>,</span> <span class=mi>77</span><span class=p>,</span> <span class=mi>102</span><span class=p>])</span>
-    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s1>&#39;BkgColor&#39;</span><span class=p>,</span> <span class=o>*</span><span class=n>bkgColor</span><span class=p>)</span>
+    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;SkinColor&quot;</span><span class=p>,</span> <span class=p>[</span><span class=mi>255</span><span class=p>,</span> <span class=mi>125</span><span class=p>,</span> <span class=mi>64</span><span class=p>,</span> <span class=mi>255</span><span class=p>])</span>
+    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>,</span> <span class=p>[</span><span class=mi>51</span><span class=p>,</span> <span class=mi>77</span><span class=p>,</span> <span class=mi>102</span><span class=p>,</span> <span class=mi>255</span><span class=p>])</span>
 
     <span class=c1># Create the renderer, the render window, and the interactor. The</span>
     <span class=c1># renderer draws into the render window, the interactor enables</span>

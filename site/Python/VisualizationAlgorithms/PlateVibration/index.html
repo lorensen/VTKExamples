@@ -66,11 +66,10 @@ function registerListener(event, func) {
     <span class=n>file_name</span> <span class=o>=</span> <span class=n>get_program_parameters</span><span class=p>()</span>
 
 <span class=hll>    <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
-</span>    <span class=c1># Set the background color and plate color. Match those in VTKTextbook.pdf.</span>
-    <span class=n>bkg</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>255.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>65</span><span class=p>,</span> <span class=mi>99</span><span class=p>,</span> <span class=mi>149</span><span class=p>])</span>
-    <span class=n>bar</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>255.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>255</span><span class=p>,</span> <span class=mi>160</span><span class=p>,</span> <span class=mi>140</span><span class=p>])</span>
-    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>,</span> <span class=o>*</span><span class=n>bkg</span><span class=p>)</span>
-    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;PlateColor&quot;</span><span class=p>,</span> <span class=o>*</span><span class=n>bar</span><span class=p>)</span>
+</span>
+    <span class=c1># Set the colors.</span>
+    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;PlateColor&quot;</span><span class=p>,</span> <span class=p>[</span><span class=mi>255</span><span class=p>,</span> <span class=mi>160</span><span class=p>,</span> <span class=mi>140</span><span class=p>,</span> <span class=mi>255</span><span class=p>])</span>
+    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>,</span> <span class=p>[</span><span class=mi>65</span><span class=p>,</span> <span class=mi>99</span><span class=p>,</span> <span class=mi>149</span><span class=p>,</span> <span class=mi>255</span><span class=p>])</span>
 
 <span class=hll>    <span class=c1># Read a vtk file</span>
 </span>    <span class=c1>#</span>

@@ -67,10 +67,8 @@ function registerListener(event, func) {
 <span class=hll>    <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
 </span>
     <span class=c1># Set the colors.</span>
-    <span class=n>cubeColor</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>255.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>250</span><span class=p>,</span> <span class=mi>128</span><span class=p>,</span> <span class=mi>114</span><span class=p>])</span>
-    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s1>&#39;CubeColor&#39;</span><span class=p>,</span> <span class=o>*</span><span class=n>cubeColor</span><span class=p>)</span>
-    <span class=n>bkg</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>255.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>230</span><span class=p>,</span> <span class=mi>230</span><span class=p>,</span> <span class=mi>230</span><span class=p>])</span>
-    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s1>&#39;BkgColor&#39;</span><span class=p>,</span> <span class=o>*</span><span class=n>bkg</span><span class=p>)</span>
+    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;CubeColor&quot;</span><span class=p>,</span> <span class=p>[</span><span class=mi>250</span><span class=p>,</span> <span class=mi>128</span><span class=p>,</span> <span class=mi>114</span><span class=p>,</span> <span class=mi>255</span><span class=p>])</span>
+    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>,</span> <span class=p>[</span><span class=mi>230</span><span class=p>,</span> <span class=mi>230</span><span class=p>,</span> <span class=mi>230</span><span class=p>,</span> <span class=mi>255</span><span class=p>])</span>
 
     <span class=c1># Create the rendering windows and three renderers.</span>
 

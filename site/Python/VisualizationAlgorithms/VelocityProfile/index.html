@@ -68,9 +68,9 @@ function registerListener(event, func) {
     <span class=n>fileName1</span><span class=p>,</span> <span class=n>fileName2</span> <span class=o>=</span> <span class=n>get_program_parameters</span><span class=p>()</span>
 
 <span class=hll>    <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
-</span>    <span class=c1># Set the background color. Match those in VTKTextbook.pdf.</span>
-    <span class=n>bkg</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>255.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>65</span><span class=p>,</span> <span class=mi>99</span><span class=p>,</span> <span class=mi>149</span><span class=p>])</span>
-    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>,</span> <span class=o>*</span><span class=n>bkg</span><span class=p>)</span>
+</span>
+    <span class=c1># Set the background color.</span>
+    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>,</span> <span class=p>[</span><span class=mi>65</span><span class=p>,</span> <span class=mi>99</span><span class=p>,</span> <span class=mi>149</span><span class=p>,</span> <span class=mi>255</span><span class=p>])</span>
 
 <span class=hll>    <span class=c1># Read a vtk file</span>
 </span>    <span class=c1>#</span>
@@ -164,6 +164,7 @@ function registerListener(event, func) {
     <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>SetFocalPoint</span><span class=p>(</span><span class=mf>8.255</span><span class=p>,</span> <span class=mf>0.147815</span><span class=p>,</span> <span class=mf>29.7631</span><span class=p>)</span>
     <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>SetViewUp</span><span class=p>(</span><span class=o>-</span><span class=mf>0.0333325</span><span class=p>,</span> <span class=mf>0.465756</span><span class=p>,</span> <span class=mf>0.884285</span><span class=p>)</span>
     <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>SetClippingRange</span><span class=p>(</span><span class=mf>17.3078</span><span class=p>,</span> <span class=mf>64.6375</span><span class=p>)</span>
+    <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
 
     <span class=n>iren</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
 

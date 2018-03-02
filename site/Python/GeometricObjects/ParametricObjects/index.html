@@ -66,9 +66,7 @@ function registerListener(event, func) {
 <span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
 <span class=hll>    <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
 </span>
-    <span class=c1># Set the background color.</span>
-    <span class=n>bkg</span> <span class=o>=</span> <span class=nb>map</span><span class=p>(</span><span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>x</span> <span class=o>/</span> <span class=mf>256.0</span><span class=p>,</span> <span class=p>[</span><span class=mi>26</span><span class=p>,</span> <span class=mi>51</span><span class=p>,</span> <span class=mi>102</span><span class=p>])</span>
-    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>,</span> <span class=o>*</span><span class=n>bkg</span><span class=p>)</span>
+    <span class=n>colors</span><span class=o>.</span><span class=n>SetColor</span><span class=p>(</span><span class=s2>&quot;BkgColor&quot;</span><span class=p>,</span> <span class=p>[</span><span class=mi>26</span><span class=p>,</span> <span class=mi>51</span><span class=p>,</span> <span class=mi>102</span><span class=p>,</span> <span class=mi>255</span><span class=p>])</span>
 
     <span class=c1># Uncomment one of the following.</span>
 <span class=hll>    <span class=c1># parametricObject = vtk.vtkParametricBoy()</span>
