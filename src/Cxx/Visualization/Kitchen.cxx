@@ -30,7 +30,7 @@ int main( int argc, char *argv[] )
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the furniture colors.
-  std::array<unsigned char , 4> furnColor{{204, 204, 153}};
+  std::array<unsigned char , 4> furnColor{{204, 204, 153, 255}};
     colors->SetColor("Furniture", furnColor.data());
 
   vtkSmartPointer<vtkRenderer> aren =

@@ -31,7 +31,6 @@ yellow-white (mountain top).
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 
-#include <algorithm>
 #include <array>
 #include <string>
 
@@ -68,7 +67,7 @@ int main(int argc, char* argv[])
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the background color.
-  std::array<unsigned char , 4> bkg{{26, 51, 102}};
+  std::array<unsigned char , 4> bkg{{26, 51, 102, 255}};
     colors->SetColor("BkgColor", bkg.data());
 
   // Read a vtk file
