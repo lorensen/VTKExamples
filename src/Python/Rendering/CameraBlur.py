@@ -6,8 +6,8 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
-    bkg1 = map(lambda x: x / 255.0, [26, 51, 102])
-    colors.SetColor("Bkg", *bkg1)
+    # Set the background color.
+    colors.SetColor("Bkg", [26, 51, 102, 255])
 
     # Create the rendering objects.
     ren1 = vtk.vtkRenderer()

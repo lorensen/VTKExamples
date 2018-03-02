@@ -7,6 +7,9 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
+    # Set the background color.
+    colors.SetColor("BkgColor", [26, 51, 102, 255])
+
     # The following lines create a sphere represented by polygons.
     sphere = vtk.vtkSphereSource()
     sphere.SetThetaResolution(100)
@@ -117,9 +120,6 @@ def main():
     ren.AddActor(sphere6)
     ren.AddActor(sphere7)
     ren.AddActor(sphere8)
-    # Set the background color.
-    bkg = map(lambda x: x / 255.0, [25, 51, 102])
-    colors.SetColor('BkgColor', *bkg)
     ren.SetBackground(colors.GetColor3d("BkgColor"))
     renWin.SetSize(640, 480)
 

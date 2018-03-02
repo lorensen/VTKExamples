@@ -10,7 +10,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 
-#include <algorithm>
 #include <array>
 
 int main(int, char* [])
@@ -20,16 +19,8 @@ int main(int, char* [])
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the background color.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> bkg{{25, 51, 102}};
-  SetColor(bkg, "BkgColor");
+  std::array<unsigned char , 4> bkg{{26, 51, 102, 255}};
+    colors->SetColor("BkgColor", bkg.data());
 
   // The following lines create a sphere represented by polygons.
   //

@@ -7,11 +7,10 @@ def main():
     file_name = get_program_parameters()
 
     colors = vtk.vtkNamedColors()
-    # Set the background color and plate color. Match those in VTKTextbook.pdf.
-    bkg = map(lambda x: x / 255.0, [65, 99, 149])
-    bar = map(lambda x: x / 255.0, [255, 160, 140])
-    colors.SetColor("BkgColor", *bkg)
-    colors.SetColor("PlateColor", *bar)
+
+    # Set the colors.
+    colors.SetColor("PlateColor", [255, 160, 140, 255])
+    colors.SetColor("BkgColor", [65, 99, 149, 255])
 
     # Read a vtk file
     #

@@ -14,7 +14,6 @@
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
 
-#include <algorithm>
 #include <array>
 
 #define USER_MATRIX
@@ -25,17 +24,9 @@ int main(int, char *[])
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the background color.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 256.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  //std::array<double, 3> bkg{{51, 77, 102}};
-  std::array<double, 3> bkg{{26, 51, 77}};
-  SetColor(bkg, "BkgColor");
+  std::array<unsigned char , 4> bkg{{26, 51, 77, 255}};
+    colors->SetColor("BkgColor", bkg.data());
+
 
   // Create a cylinder.
   // Cylinder height vector is (0,1,0).

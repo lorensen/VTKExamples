@@ -5,9 +5,9 @@ import vtk
 
 def main():
     colors = vtk.vtkNamedColors()
-    # Set the background color. Match those in VTKTextbook.pdf.
-    bkg = map(lambda x: x / 256.0, [25, 51, 102])
-    colors.SetColor("BkgColor", *bkg)
+
+    # Set the background color.
+    colors.SetColor("BkgColor", [26, 51, 102, 255])
 
     # create a rendering window and renderer
     ren = vtk.vtkRenderer()

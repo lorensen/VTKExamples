@@ -19,17 +19,16 @@
 #include <vtkStructuredGridOutlineFilter.h>
 #include <vtkWarpVector.h>
 
-#include <algorithm>
 #include <array>
 #include <string>
 
 int main(int argc, char* argv[])
 {
-  auto Scale = [](std::vector<double>& v, double scale) {
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scale; });
-    return;
-  };
+//   auto Scale = [](std::vector<double>& v, double scale) {
+//     std::transform(std::begin(v), std::end(v), std::begin(v),
+//                    [=](double const& n) { return n / scale; });
+//     return;
+//   };
 
   if (argc < 2)
   {
@@ -47,17 +46,8 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  // Set the background color, match those in VTKTextbook.pdf.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> bkg{{65, 99, 149}};
-  SetColor(bkg, "BkgColor");
+  std::array<unsigned char , 4> bkg{{65, 99, 149}};
+    colors->SetColor("BkgColor", bkg.data());
 
   // Read a vtk file
   //
@@ -165,6 +155,7 @@ int main(int argc, char* argv[])
   ren->GetActiveCamera()->SetFocalPoint(8.255, 0.147815, 29.7631);
   ren->GetActiveCamera()->SetViewUp(-0.0333325, 0.465756, 0.884285);
   ren->GetActiveCamera()->SetClippingRange(17.3078, 64.6375);
+  renWin->Render();
 
   iren->Start();
 

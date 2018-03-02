@@ -9,8 +9,7 @@ def main():
     colors = vtk.vtkNamedColors()
 
     # Set the furniture colors.
-    furnColor = [0.8, 0.8, 0.6]
-    colors.SetColor("Furniture", *furnColor)
+    colors.SetColor("Furniture", [204, 204, 153, 255])
 
     scalarRange = [0.0, 0.0]
     maxTime = 0

@@ -11,8 +11,7 @@ def main():
 
     fileName = get_program_parameters()
 
-    bkgColor = map(lambda x: x / 255.0, [51, 77, 102])
-    colors.SetColor('BkgColor', *bkgColor)
+    colors.SetColor("BkgColor", [51, 77, 102, 255])
 
     # Create the renderer, the render window, and the interactor. The renderer
     # draws into the render window, the interactor enables mouse- and

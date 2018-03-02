@@ -7,10 +7,8 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
-    # Set the background color. Match those in VTKTextbook.pdf.
-    bkg = map(lambda x: x / 256.0, [51, 77, 102])
-    # bkg = map(lambda x: x / 256.0, [26, 51, 77])
-    colors.SetColor("BkgColor", *bkg)
+    # Set the background color.
+    colors.SetColor("BkgColor", [51, 77, 102, 255])
 
     # For the hexahedron setup the coordinates of eight points.
     # The two faces must be in counter clockwise order as viewed from the
