@@ -171,7 +171,7 @@ int main (int argc, char *argv[])
       ".vtp";
   }
   std::cout << "Scene is exported to " << vtksys::SystemTools::GetCurrentWorkingDirectory() + "/" + prefix << std::endl;
-  ExportMultiBlockScene (renderer.GetPointer(), prefix, true);
+  ExportMultiBlockScene (renderer.GetPointer(), prefix, false);
 
   return EXIT_SUCCESS;
 }
