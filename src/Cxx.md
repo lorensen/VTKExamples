@@ -204,6 +204,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [RegularPolygon](/Cxx/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Cxx/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
+[TextActor](/Cxx/GeometricObjects/TextActor) | vtkTextActor | 2D "HUD-type" text
 
 ### Non Linear
 

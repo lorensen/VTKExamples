@@ -1,18 +1,17 @@
-#include <vtkSmartPointer.h>
-#include <vtkFrustumSource.h>
-#include <vtkShrinkPolyData.h>
-
-#include <vtkNamedColors.h>
-#include <vtkPolyData.h>
-#include <vtkProperty.h>
-#include <vtkCamera.h>
-#include <vtkPlanes.h>
-#include <vtkMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
+#include <vtkCamera.h>
+#include <vtkFrustumSource.h>
+#include <vtkMapper.h>
+#include <vtkNamedColors.h>
+#include <vtkPlanes.h>
+#include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkShrinkPolyData.h>
+#include <vtkSmartPointer.h>
 
 int main(int, char *[])
 {
@@ -60,6 +59,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Frustum");
   renderWindow->AddRenderer(renderer);
 
   // an interactor
