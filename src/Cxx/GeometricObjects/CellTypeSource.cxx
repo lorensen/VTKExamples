@@ -93,7 +93,7 @@ int main (int argc, char *argv[])
     for (auto j = 0; j < 3; ++j)
     {
       rng->Next();
-      perturbation[j] = rng->GetRangeValue(-.1,.1);
+      perturbation[j] = rng->GetRangeValue(-0.1,0.1);
     }
     double currentPoint[3];
     originalPoints->GetPoint(i, currentPoint);

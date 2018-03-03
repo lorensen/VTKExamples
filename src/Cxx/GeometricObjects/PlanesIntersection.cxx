@@ -1,6 +1,6 @@
-#include <vtkSmartPointer.h>
-#include <vtkPoints.h>
 #include <vtkPlanesIntersection.h>
+#include <vtkPoints.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 
 int main(int, char *[])

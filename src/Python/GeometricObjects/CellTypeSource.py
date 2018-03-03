@@ -45,7 +45,7 @@ def main():
         perturbation = [0.0] * 3
         for j in range(0, 3):
             rng.Next()
-            perturbation[j] = rng.GetRangeValue(-.1, .1)
+            perturbation[j] = rng.GetRangeValue(-0.1, 0.1)
         currentPoint = [0.0] * 3
         originalPoints.GetPoint(i, currentPoint)
         points.SetPoint(i, currentPoint[0] + perturbation[0],
