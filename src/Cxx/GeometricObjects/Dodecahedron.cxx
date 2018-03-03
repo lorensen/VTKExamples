@@ -1,16 +1,16 @@
+#include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkLookupTable.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPolyhedron.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 #include <vtkVersion.h>
-#include <vtkPolyhedron.h>
-#include <vtkPolyData.h>
-#include <vtkLookupTable.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkCamera.h>
-#include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkNamedColors.h>
-#include <vtkProperty.h>
 
 namespace
 {

@@ -139,6 +139,10 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [IsoparametricCellsDemo](/Python/GeometricObjects/IsoparametricCellsDemo) | vtkNonLinearCell | Nonlinear isoparametric cell types in VTK.
+[QuadraticHexahedron](/Python/GeometricObjects/QuadraticHexahedron) | vtkQuadraticHexahedron vtkTessellatorFilter | Create and tessellate a nonlinear cell.
+[QuadraticHexahedronDemo](/Python/GeometricObjects/QuadraticHexahedronDemo) | vtkQuadraticHexahedron vtkTessellatorFilter | Interactively adjust chord error.
+[QuadraticTetra](/Python/GeometricObjects/QuadraticTetra) | vtkQuadraticTetra vtkTessellatorFilter | Create and tessellate a nonlinear cell.
+[QuadraticTetraDemo](/Python/GeometricObjects/QuadraticTetraDemo) | vtkQuadraticTetra vtkTessellatorFilter | Interactively adjust chord error.
 
 ### Parametric Objects
 

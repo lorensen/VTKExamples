@@ -1,25 +1,23 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkUnstructuredGrid.h>
-#include <vtkQuadraticTetra.h>
-#include <vtkTessellatorFilter.h>
-#include <vtkNamedColors.h>
-
-#include <vtkSphereSource.h>
-#include <vtkGlyph3D.h>
-
-#include <vtkDataSetMapper.h>
 #include <vtkActor.h>
+#include <vtkDataSetMapper.h>
+#include <vtkGlyph3D.h>
+#include <vtkMinimalStandardRandomSequence.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
 #include <vtkProperty.h>
+#include <vtkQuadraticTetra.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkTessellatorFilter.h>
+#include <vtkUnstructuredGrid.h>
 
-#include <vtkMath.h>
-
-#include <vtkPoints.h>
-
-static vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTetra();
+namespace
+{
+vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTetra();
+}
 
 int main (int, char *[])
 {
@@ -50,7 +48,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkSphereSource> sphereSource =
     vtkSmartPointer<vtkSphereSource>::New();
-  sphereSource->SetRadius(.02);
+  sphereSource->SetRadius(0.02);
 
   vtkSmartPointer<vtkGlyph3D> glyph3D =
     vtkSmartPointer<vtkGlyph3D>::New();
@@ -75,6 +73,7 @@ int main (int, char *[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Quadratic Tetra");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> interactor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
@@ -90,23 +89,33 @@ int main (int, char *[])
   return EXIT_SUCCESS;
 }
 
+namespace
+{
 vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTetra()
 {
   vtkSmartPointer<vtkQuadraticTetra> aTetra =
     vtkSmartPointer<vtkQuadraticTetra>::New();
   vtkSmartPointer<vtkPoints> points =
     vtkSmartPointer<vtkPoints>::New();
-  double *pcoords = aTetra->GetParametricCoords();
 
-  vtkMath::RandomSeed(5070); // for testing
+  double *pcoords = aTetra->GetParametricCoords();
+  vtkSmartPointer<vtkMinimalStandardRandomSequence> rng =
+    vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
   points->SetNumberOfPoints(aTetra->GetNumberOfPoints());
-  for (int i = 0; i < aTetra->GetNumberOfPoints(); ++i)
+  rng->SetSeed(5070); // for testing
+  for (auto i = 0; i < aTetra->GetNumberOfPoints(); ++i)
   {
+    double perturbation[3];
+    for (auto j = 0; j < 3; ++j)
+    {
+      rng->Next();
+      perturbation[j] = rng->GetRangeValue(-0.1, 0.1);
+    }
     aTetra->GetPointIds()->SetId(i, i);
     points->SetPoint(i,
-                     *(pcoords + 3 * i) + vtkMath::Random(-.1, .1),
-                     *(pcoords + 3 * i + 1) + vtkMath::Random(-.1, .1),
-                     *(pcoords + 3 * i + 2) + vtkMath::Random(-.1, .1));
+                     *(pcoords + 3 * i) + perturbation[0],
+                     *(pcoords + 3 * i + 1) + perturbation[1],
+                     *(pcoords + 3 * i + 2) + perturbation[2]);
   }
 
   // Add the points and tetra to an unstructured grid
@@ -117,4 +126,4 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTetra()
 
   return uGrid;
 }
-
+}

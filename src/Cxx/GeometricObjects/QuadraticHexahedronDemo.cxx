@@ -1,38 +1,33 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkUnstructuredGrid.h>
-#include <vtkQuadraticHexahedron.h>
-#include <vtkTessellatorFilter.h>
-#include <vtkNamedColors.h>
-
-#include <vtkSphereSource.h>
-#include <vtkGlyph3D.h>
-#include <vtkPoints.h>
-#include <vtkCellIterator.h>
-#include <vtkGenericCell.h>
-
-#include <vtkDataSetMapper.h>
 #include <vtkActor.h>
+#include <vtkActor2D.h>
+#include <vtkCellIterator.h>
+#include <vtkCommand.h>
+#include <vtkDataSetMapper.h>
+#include <vtkGenericCell.h>
+#include <vtkGlyph3D.h>
+#include <vtkMinimalStandardRandomSequence.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
 #include <vtkProperty.h>
+#include <vtkQuadraticHexahedron.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-
-#include <vtkTextProperty.h>
-#include <vtkTextMapper.h>
-#include <vtkActor2D.h>
-
-#include <vtkCommand.h>
-#include <vtkSliderWidget.h>
 #include <vtkSliderRepresentation2D.h>
+#include <vtkSliderWidget.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkTessellatorFilter.h>
+#include <vtkTextMapper.h>
+#include <vtkTextProperty.h>
+#include <vtkUnstructuredGrid.h>
 
-#include <vtkMath.h>
 #include <map>
 #include <sstream>
 
 namespace
 {
-static vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron();
+vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron();
 void MakeWidget(vtkSmartPointer<vtkSliderWidget> &,
                 vtkSmartPointer<vtkTessellatorFilter> &,
                 vtkSmartPointer<vtkTextMapper> &,
@@ -50,7 +45,7 @@ int main (int, char *[])
   vtkSmartPointer<vtkTessellatorFilter> tessellate =
     vtkSmartPointer<vtkTessellatorFilter>::New();
   tessellate->SetInputData(uGrid);
-  tessellate->SetChordError(.035);
+  tessellate->SetChordError(0.035);
   tessellate->Update();
 
   typedef std::map<const char *,int> CellContainer;
@@ -87,7 +82,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkSphereSource> sphereSource =
     vtkSmartPointer<vtkSphereSource>::New();
-  sphereSource->SetRadius(.02);
+  sphereSource->SetRadius(0.02);
 
   vtkSmartPointer<vtkGlyph3D> glyph3D =
     vtkSmartPointer<vtkGlyph3D>::New();
@@ -109,7 +104,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkTextProperty> textProperty =
     vtkSmartPointer<vtkTextProperty>::New();
-  textProperty->SetFontSize(16);
+  textProperty->SetFontSize(24);
 
   std::stringstream ss;
   ss << "# of Tetras: " << numTets << std::endl;
@@ -121,13 +116,14 @@ int main (int, char *[])
   vtkSmartPointer<vtkActor2D> textActor =
     vtkSmartPointer<vtkActor2D>::New();
   textActor->SetMapper(textMapper);
-  textActor->SetPosition(10, 250);
+  textActor->SetPosition(10, 400);
 
   // Visualize
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Quadratic Hexahedron Demo");
   renderWindow->AddRenderer(renderer);
   renderWindow->SetSize(640, 512);
   vtkSmartPointer<vtkRenderWindowInteractor> interactor = 
@@ -203,23 +199,23 @@ MakeWidget(vtkSmartPointer<vtkSliderWidget> &widget,
            vtkSmartPointer<vtkRenderWindowInteractor> &interactor)
 {
   // Setup a slider widget for each varying parameter
-  double tubeWidth(.004);
-  double sliderLength(.004);
-  double titleHeight(.02);
-  double labelHeight(.02);
+  double tubeWidth(0.008);
+  double sliderLength(0.008);
+  double titleHeight(0.04);
+  double labelHeight(0.04);
 
   vtkSmartPointer<vtkSliderRepresentation2D> sliderRepChordError =
     vtkSmartPointer<vtkSliderRepresentation2D>::New();
 
   sliderRepChordError->SetMinimumValue(0.0);
-  sliderRepChordError->SetMaximumValue(.07);
+  sliderRepChordError->SetMaximumValue(0.07);
   sliderRepChordError->SetValue(tessellate->GetChordError());
   sliderRepChordError->SetTitleText("Chord error");
 
   sliderRepChordError->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
-  sliderRepChordError->GetPoint1Coordinate()->SetValue(.1, .1);
+  sliderRepChordError->GetPoint1Coordinate()->SetValue(0.1, 0.1);
   sliderRepChordError->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedDisplay();
-  sliderRepChordError->GetPoint2Coordinate()->SetValue(.9, .1);
+  sliderRepChordError->GetPoint2Coordinate()->SetValue(0.9, 0.1);
 
   sliderRepChordError->SetTubeWidth(tubeWidth);
   sliderRepChordError->SetSliderLength(sliderLength);
@@ -246,17 +242,26 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron()
   vtkSmartPointer<vtkPoints> points =
     vtkSmartPointer<vtkPoints>::New();
 
-  vtkMath::RandomSeed(5070); // for testing
   double *pcoords = aHexahedron->GetParametricCoords();
+  vtkSmartPointer<vtkMinimalStandardRandomSequence> rng =
+    vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
   points->SetNumberOfPoints(aHexahedron->GetNumberOfPoints());
-  for (int i = 0; i < aHexahedron->GetNumberOfPoints(); ++i)
+  rng->SetSeed(5070); // for testing
+  for (auto i = 0; i < aHexahedron->GetNumberOfPoints(); ++i)
   {
+    double perturbation[3];
+    for (auto j = 0; j < 3; ++j)
+    {
+      rng->Next();
+      perturbation[j] = rng->GetRangeValue(-0.1, 0.1);
+    }
     aHexahedron->GetPointIds()->SetId(i, i);
     points->SetPoint(i,
-                     *(pcoords + 3 * i) + vtkMath::Random(-.1,.1),
-                     *(pcoords + 3 * i + 1) + vtkMath::Random(-.1,.1),
-                     *(pcoords + 3 * i + 2) + vtkMath::Random(-.1,.1));
+                     *(pcoords + 3 * i) + perturbation[0],
+                     *(pcoords + 3 * i + 1) + perturbation[1],
+                     *(pcoords + 3 * i + 2) + perturbation[2]);
   }
+
   // Add the points and hexahedron to an unstructured grid
   vtkSmartPointer<vtkUnstructuredGrid> uGrid =
     vtkSmartPointer<vtkUnstructuredGrid>::New();

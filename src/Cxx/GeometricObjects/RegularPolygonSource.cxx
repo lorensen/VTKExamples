@@ -1,15 +1,14 @@
-#include <vtkSmartPointer.h>
-#include <vtkRegularPolygonSource.h>
-
-#include <vtkShrinkPolyData.h>
-#include <vtkProperty.h>
+#include <vtkActor.h>
+#include <vtkNamedColors.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkRenderWindow.h>
+#include <vtkProperty.h>
+#include <vtkRegularPolygonSource.h>
 #include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkNamedColors.h>
+#include <vtkShrinkPolyData.h>
+#include <vtkSmartPointer.h>
 
 int main(int , char *[])
 {
@@ -48,6 +47,7 @@ int main(int , char *[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Regular Polygon Source");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
