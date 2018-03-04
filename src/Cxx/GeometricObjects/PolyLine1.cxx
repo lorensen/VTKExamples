@@ -120,4 +120,7 @@ int main(int, char* [])
   iren->SetRenderWindow(renWin);
   iren->Initialize();
   iren->Start();
+
+  return EXIT_SUCCESS;
+
 }

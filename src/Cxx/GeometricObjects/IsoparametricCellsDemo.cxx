@@ -173,10 +173,10 @@ int main(int, char *[])
     renderers[i]->AddViewProp(textActors[i]);
 
     // Label the points
-    vtkSmartPointer<vtkLabeledDataMapper> labelMapper = 
+    vtkSmartPointer<vtkLabeledDataMapper> labelMapper =
       vtkSmartPointer<vtkLabeledDataMapper>::New();
     labelMapper->SetInputData(uGrids[i]);
-    vtkSmartPointer<vtkActor2D> labelActor = 
+    vtkSmartPointer<vtkActor2D> labelActor =
       vtkSmartPointer<vtkActor2D>::New();
     labelActor->SetMapper(labelMapper);
     renderers[i]->AddViewProp(labelActor);
@@ -253,6 +253,7 @@ int main(int, char *[])
 
   return EXIT_SUCCESS;
 }
+
 namespace
 {
 template<typename T> vtkSmartPointer<vtkUnstructuredGrid> MakeUnstructuredGrid(vtkSmartPointer<T> aCell)
