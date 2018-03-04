@@ -232,10 +232,10 @@ function registerListener(event, func) {
     <span class=n>renderers</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>AddViewProp</span><span class=p>(</span><span class=n>textActors</span><span class=p>[</span><span class=n>i</span><span class=p>]);</span>
 
     <span class=c1>// Label the points</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLabeledDataMapper</span><span class=o>&gt;</span> <span class=n>labelMapper</span> <span class=o>=</span> 
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLabeledDataMapper</span><span class=o>&gt;</span> <span class=n>labelMapper</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLabeledDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>labelMapper</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>uGrids</span><span class=p>[</span><span class=n>i</span><span class=p>]);</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;</span> <span class=n>labelActor</span> <span class=o>=</span> 
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;</span> <span class=n>labelActor</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor2D</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>labelActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>labelMapper</span><span class=p>);</span>
     <span class=n>renderers</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>AddViewProp</span><span class=p>(</span><span class=n>labelActor</span><span class=p>);</span>
@@ -312,6 +312,7 @@ function registerListener(event, func) {
 
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>}</span>
+
 <span class=k>namespace</span>
 <span class=p>{</span>
 <span class=hll><span class=k>template</span><span class=o>&lt;</span><span class=k>typename</span> <span class=n>T</span><span class=o>&gt;</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUnstructuredGrid</span><span class=o>&gt;</span> <span class=n>MakeUnstructuredGrid</span><span class=p>(</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=n>aCell</span><span class=p>)</span>
