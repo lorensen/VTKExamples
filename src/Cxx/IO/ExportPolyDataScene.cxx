@@ -245,49 +245,33 @@ void ExportMultiBlockScene (vtkRenderer *renderer,
   return;
 }
 
+#define SAVE_SCALAR(arrayPrefix,instance,pd,name,T)      \
+  vtkSmartPointer<T> name = \
+    vtkSmartPointer<T>::New(); \
+  name->SetNumberOfComponents(1); \
+  name->SetNumberOfTuples(1); \
+  name->SetValue(0, instance->Get##name()); \
+  name->SetName(std::string(arrayPrefix + ":" + "#name").c_str()); \
+  pd->GetFieldData()->AddArray(name)
+
+#define SAVE_VECTOR(arrayPrefix,instance,pd,name,T,components,tuples) \
+  vtkSmartPointer<T> name = \
+    vtkSmartPointer<T>::New(); \
+  name->SetNumberOfComponents(components); \
+  name->SetNumberOfTuples(tuples); \
+  name->SetTuple(0, instance->Get##name()); \
+  name->SetName(std::string(arrayPrefix + ":" + "#name").c_str()); \
+  pd->GetFieldData()->AddArray(name)
+
 void SaveCameraAsFieldData(std::string arrayPrefix,
                            vtkCamera *camera,
                            vtkPolyData *pd)
 {
-  vtkSmartPointer<vtkDoubleArray> viewUp =
-    vtkSmartPointer<vtkDoubleArray>::New();
-  viewUp->SetNumberOfComponents(3);
-  viewUp->SetNumberOfTuples(1);
-  viewUp->SetTuple(0, camera->GetViewUp());
-  viewUp->SetName(std::string(arrayPrefix + ":" + "ViewUp").c_str());
-  pd->GetFieldData()->AddArray(viewUp);
-
-  vtkSmartPointer<vtkDoubleArray> position =
-    vtkSmartPointer<vtkDoubleArray>::New();
-  position->SetNumberOfComponents(3);
-  position->SetNumberOfTuples(1);
-  position->SetTuple(0, camera->GetPosition());
-  position->SetName(std::string(arrayPrefix + ":" + "Position").c_str());
-  pd->GetFieldData()->AddArray(position);
-
-  vtkSmartPointer<vtkDoubleArray> focalPoint =
-    vtkSmartPointer<vtkDoubleArray>::New();
-  focalPoint->SetNumberOfComponents(3);
-  focalPoint->SetNumberOfTuples(1);
-  focalPoint->SetTuple(0, camera->GetFocalPoint());
-  focalPoint->SetName(std::string(arrayPrefix + ":" + "FocalPoint").c_str());
-  pd->GetFieldData()->AddArray(focalPoint);
-
-  vtkSmartPointer<vtkDoubleArray> clippingRange =
-    vtkSmartPointer<vtkDoubleArray>::New();
-  clippingRange->SetNumberOfComponents(2);
-  clippingRange->SetNumberOfTuples(1);
-  clippingRange->SetTuple(0, camera->GetClippingRange());
-  clippingRange->SetName(std::string(arrayPrefix + ":" + "ClippingRange").c_str());
-  pd->GetFieldData()->AddArray(clippingRange);
-
-  vtkSmartPointer<vtkDoubleArray> viewAngle =
-    vtkSmartPointer<vtkDoubleArray>::New();
-  viewAngle->SetNumberOfComponents(1);
-  viewAngle->SetNumberOfTuples(1);
-  viewAngle->SetValue(0, camera->GetViewAngle());
-  viewAngle->SetName(std::string(arrayPrefix + ":" + "ViewAngle").c_str());
-  pd->GetFieldData()->AddArray(viewAngle);
+  SAVE_VECTOR(arrayPrefix, camera, pd, ViewUp, vtkDoubleArray, 3, 1);
+  SAVE_VECTOR(arrayPrefix, camera, pd, Position, vtkDoubleArray, 3, 1);
+  SAVE_VECTOR(arrayPrefix, camera, pd, FocalPoint, vtkDoubleArray, 3, 1);
+  SAVE_VECTOR(arrayPrefix, camera, pd, ClippingRange, vtkDoubleArray, 2, 1);
+  SAVE_SCALAR(arrayPrefix, camera, pd, ViewAngle, vtkDoubleArray);
 }
 void SavePropertyAsFieldData(std::string arrayPrefix,
                              vtkProperty * property,
@@ -295,207 +279,32 @@ void SavePropertyAsFieldData(std::string arrayPrefix,
 {
   if (property)
   {
-    vtkSmartPointer<vtkDoubleArray> ambient =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    ambient->SetNumberOfComponents(1);
-    ambient->SetNumberOfTuples(1);
-    ambient->SetValue(0, property->GetAmbient());
-    ambient->SetName(std::string(arrayPrefix + ":" + "Ambient").c_str());
-    pd->GetFieldData()->AddArray(ambient);
-
-    vtkSmartPointer<vtkDoubleArray> ambientColor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    ambientColor->SetNumberOfComponents(3);
-    ambientColor->SetNumberOfTuples(1);
-    ambientColor->SetTuple(0, property->GetAmbientColor());
-    ambientColor->SetName(std::string(arrayPrefix + ":" + "AmbientColor").c_str());
-    pd->GetFieldData()->AddArray(ambientColor);
-
-    vtkSmartPointer<vtkDoubleArray> diffuse =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    diffuse->SetNumberOfComponents(1);
-    diffuse->SetNumberOfTuples(1);
-    diffuse->SetValue(0, property->GetDiffuse());
-    diffuse->SetName(std::string(arrayPrefix + ":" + "Diffuse").c_str());
-    pd->GetFieldData()->AddArray(diffuse);
-
-    vtkSmartPointer<vtkDoubleArray> diffuseColor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    diffuseColor->SetNumberOfComponents(3);
-    diffuseColor->SetNumberOfTuples(1);
-    diffuseColor->SetTuple(0, property->GetDiffuseColor());
-    diffuseColor->SetName(std::string(arrayPrefix + ":" + "DiffuseColor").c_str());
-    pd->GetFieldData()->AddArray(diffuseColor);
-
-    vtkSmartPointer<vtkDoubleArray> EdgeColor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    EdgeColor->SetNumberOfComponents(3);
-    EdgeColor->SetNumberOfTuples(1);
-    EdgeColor->SetTuple(0, property->GetEdgeColor());
-    EdgeColor->SetName(std::string(arrayPrefix + ":" + "EdgeColor").c_str());
-    pd->GetFieldData()->AddArray(EdgeColor);
-
-    vtkSmartPointer<vtkIntArray> EdgeVisibility =
-      vtkSmartPointer<vtkIntArray>::New();
-    EdgeVisibility->SetNumberOfComponents(1);
-    EdgeVisibility->SetNumberOfTuples(1);
-    EdgeVisibility->SetValue(0, property->GetEdgeVisibility());
-    EdgeVisibility->SetName(std::string(arrayPrefix + ":" + "EdgeVisibility").c_str());
-    pd->GetFieldData()->AddArray(EdgeVisibility);
-
-    vtkSmartPointer<vtkDoubleArray> VertexColor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    VertexColor->SetNumberOfComponents(3);
-    VertexColor->SetNumberOfTuples(1);
-    VertexColor->SetTuple(0, property->GetVertexColor());
-    VertexColor->SetName(std::string(arrayPrefix + ":" + "VertexColor").c_str());
-    pd->GetFieldData()->AddArray(VertexColor);
-
-    vtkSmartPointer<vtkIntArray> VertexVisibility =
-      vtkSmartPointer<vtkIntArray>::New();
-    VertexVisibility->SetNumberOfComponents(1);
-    VertexVisibility->SetNumberOfTuples(1);
-    VertexVisibility->SetValue(0, property->GetVertexVisibility());
-    VertexVisibility->SetName(std::string(arrayPrefix + ":" + "VertexVisibility").c_str());
-    pd->GetFieldData()->AddArray(VertexVisibility);
-
-    vtkSmartPointer<vtkIntArray> Interpolation =
-      vtkSmartPointer<vtkIntArray>::New();
-    Interpolation->SetNumberOfComponents(1);
-    Interpolation->SetNumberOfTuples(1);
-    Interpolation->SetValue(0, property->GetInterpolation());
-    Interpolation->SetName(std::string(arrayPrefix + ":" + "Interpolation").c_str());
-    pd->GetFieldData()->AddArray(Interpolation);
-
-    vtkSmartPointer<vtkDoubleArray> Opacity =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    Opacity->SetNumberOfComponents(1);
-    Opacity->SetNumberOfTuples(1);
-    Opacity->SetValue(0, property->GetOpacity());
-    Opacity->SetName(std::string(arrayPrefix + ":" + "Opacity").c_str());
-    pd->GetFieldData()->AddArray(Opacity);
-
-    vtkSmartPointer<vtkIntArray> Representation =
-      vtkSmartPointer<vtkIntArray>::New();
-    Representation->SetNumberOfComponents(1);
-    Representation->SetNumberOfTuples(1);
-    Representation->SetValue(0, property->GetRepresentation());
-    Representation->SetName(std::string(arrayPrefix + ":" + "Representation").c_str());
-    pd->GetFieldData()->AddArray(Representation);
-
-    vtkSmartPointer<vtkDoubleArray> Specular =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    Specular->SetNumberOfComponents(1);
-    Specular->SetNumberOfTuples(1);
-    Specular->SetValue(0, property->GetSpecular());
-    Specular->SetName(std::string(arrayPrefix + ":" + "Specular").c_str());
-    pd->GetFieldData()->AddArray(Specular);
-
-    vtkSmartPointer<vtkDoubleArray> SpecularColor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    SpecularColor->SetNumberOfComponents(3);
-    SpecularColor->SetNumberOfTuples(1);
-    SpecularColor->SetTuple(0, property->GetSpecularColor());
-    SpecularColor->SetName(std::string(arrayPrefix + ":" + "SpecularColor").c_str());
-    pd->GetFieldData()->AddArray(SpecularColor);
-
-    vtkSmartPointer<vtkDoubleArray> SpecularPower =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    SpecularPower->SetNumberOfComponents(1);
-    SpecularPower->SetNumberOfTuples(1);
-    SpecularPower->SetValue(0, property->GetSpecularPower());
-    SpecularPower->SetName(std::string(arrayPrefix + ":" + "SpecularPower").c_str());
-    pd->GetFieldData()->AddArray(SpecularPower);
-
-    vtkSmartPointer<vtkIntArray> BackfaceCulling =
-      vtkSmartPointer<vtkIntArray>::New();
-    BackfaceCulling->SetNumberOfComponents(1);
-    BackfaceCulling->SetNumberOfTuples(1);
-    BackfaceCulling->SetValue(0, property->GetBackfaceCulling());
-    BackfaceCulling->SetName(std::string(arrayPrefix + ":" + "BackfaceCulling").c_str());
-    pd->GetFieldData()->AddArray(BackfaceCulling);
-
-    vtkSmartPointer<vtkIntArray> FrontfaceCulling =
-      vtkSmartPointer<vtkIntArray>::New();
-    FrontfaceCulling->SetNumberOfComponents(1);
-    FrontfaceCulling->SetNumberOfTuples(1);
-    FrontfaceCulling->SetValue(0, property->GetFrontfaceCulling());
-    FrontfaceCulling->SetName(std::string(arrayPrefix + ":" + "FrontfaceCulling").c_str());
-    pd->GetFieldData()->AddArray(FrontfaceCulling);
-
-    vtkSmartPointer<vtkDoubleArray> PointSize =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    PointSize->SetNumberOfComponents(1);
-    PointSize->SetNumberOfTuples(1);
-    PointSize->SetValue(0, property->GetPointSize());
-    PointSize->SetName(std::string(arrayPrefix + ":" + "PointSize").c_str());
-    pd->GetFieldData()->AddArray(PointSize);
-
-    vtkSmartPointer<vtkDoubleArray> LineWidth =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    LineWidth->SetNumberOfComponents(1);
-    LineWidth->SetNumberOfTuples(1);
-    LineWidth->SetValue(0, property->GetLineWidth());
-    LineWidth->SetName(std::string(arrayPrefix + ":" + "LineWidth").c_str());
-    pd->GetFieldData()->AddArray(LineWidth);
-
-    vtkSmartPointer<vtkIntArray> LineStipplePattern =
-      vtkSmartPointer<vtkIntArray>::New();
-    LineStipplePattern->SetNumberOfComponents(1);
-    LineStipplePattern->SetNumberOfTuples(1);
-    LineStipplePattern->SetValue(0, property->GetLineStipplePattern());
-    LineStipplePattern->SetName(std::string(arrayPrefix + ":" + "LineStipplePattern").c_str());
-    pd->GetFieldData()->AddArray(LineStipplePattern);
-
-    vtkSmartPointer<vtkIntArray> LineStippleRepeatFactor =
-      vtkSmartPointer<vtkIntArray>::New();
-    LineStippleRepeatFactor->SetNumberOfComponents(1);
-    LineStippleRepeatFactor->SetNumberOfTuples(1);
-    LineStippleRepeatFactor->SetValue(0, property->GetLineStippleRepeatFactor());
-    LineStippleRepeatFactor->SetName(std::string(arrayPrefix + ":" + "LineStippleRepeatFactor").c_str());
-    pd->GetFieldData()->AddArray(LineStippleRepeatFactor);
-
-    vtkSmartPointer<vtkIntArray> Lighting =
-      vtkSmartPointer<vtkIntArray>::New();
-    Lighting->SetNumberOfComponents(1);
-    Lighting->SetNumberOfTuples(1);
-    Lighting->SetValue(0, property->GetLighting());
-    Lighting->SetName(std::string(arrayPrefix + ":" + "Lighting").c_str());
-    pd->GetFieldData()->AddArray(Lighting);
-
-    vtkSmartPointer<vtkIntArray> RenderPointsAsSpheres =
-      vtkSmartPointer<vtkIntArray>::New();
-    RenderPointsAsSpheres->SetNumberOfComponents(1);
-    RenderPointsAsSpheres->SetNumberOfTuples(1);
-    RenderPointsAsSpheres->SetValue(0, property->GetRenderPointsAsSpheres());
-    RenderPointsAsSpheres->SetName(std::string(arrayPrefix + ":" + "RenderPointsAsSpheres").c_str());
-    pd->GetFieldData()->AddArray(RenderPointsAsSpheres);
-
-    vtkSmartPointer<vtkIntArray> RenderLinesAsTubes =
-      vtkSmartPointer<vtkIntArray>::New();
-    RenderLinesAsTubes->SetNumberOfComponents(1);
-    RenderLinesAsTubes->SetNumberOfTuples(1);
-    RenderLinesAsTubes->SetValue(0, property->GetRenderLinesAsTubes());
-    RenderLinesAsTubes->SetName(std::string(arrayPrefix + ":" + "RenderLinesAsTubes").c_str());
-    pd->GetFieldData()->AddArray(RenderLinesAsTubes);
-
-    vtkSmartPointer<vtkIntArray> Shading =
-      vtkSmartPointer<vtkIntArray>::New();
-    Shading->SetNumberOfComponents(1);
-    Shading->SetNumberOfTuples(1);
-    Shading->SetValue(0, property->GetShading());
-    Shading->SetName(std::string(arrayPrefix + ":" + "Shading").c_str());
-    pd->GetFieldData()->AddArray(Shading);
+    SAVE_SCALAR(arrayPrefix, property, pd, Ambient, vtkDoubleArray);
+    SAVE_VECTOR(arrayPrefix, property, pd, AmbientColor, vtkDoubleArray,3, 1);
+    SAVE_SCALAR(arrayPrefix, property, pd, Diffuse, vtkDoubleArray);
+    SAVE_VECTOR(arrayPrefix, property, pd, DiffuseColor, vtkDoubleArray,3, 1);
+    SAVE_SCALAR(arrayPrefix, property, pd, Specular, vtkDoubleArray);
+    SAVE_VECTOR(arrayPrefix, property, pd, SpecularColor, vtkDoubleArray,3, 1);
+    SAVE_SCALAR(arrayPrefix, property, pd, SpecularPower, vtkDoubleArray);
+    SAVE_VECTOR(arrayPrefix, property, pd, EdgeColor, vtkDoubleArray,3, 1);
+    SAVE_SCALAR(arrayPrefix, property, pd, EdgeVisibility, vtkIntArray);
+    SAVE_VECTOR(arrayPrefix, property, pd, VertexColor, vtkDoubleArray,3, 1);
+    SAVE_SCALAR(arrayPrefix, property, pd, Interpolation, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, Opacity, vtkDoubleArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, Representation, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, BackfaceCulling, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, FrontfaceCulling, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, PointSize, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, LineWidth, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, LineStipplePattern, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, LineStippleRepeatFactor, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, Lighting, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, RenderPointsAsSpheres, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, property, pd, Shading, vtkIntArray);
 
     if (property->GetMaterialName())
     {
-      vtkSmartPointer<vtkStringArray> MaterialName =
-        vtkSmartPointer<vtkStringArray>::New();
-      MaterialName->SetNumberOfComponents(1);
-      MaterialName->SetNumberOfTuples(1);
-      MaterialName->SetValue(0, property->GetMaterialName());
-      MaterialName->SetName(std::string(arrayPrefix + ":" + "MaterialName").c_str());
-      pd->GetFieldData()->AddArray(MaterialName);
+      SAVE_SCALAR(arrayPrefix, property, pd, MaterialName, vtkStringArray);
     }
   }
 }
@@ -505,158 +314,30 @@ void SaveMapperAsFieldData(std::string arrayPrefix,
 {
   if (mapper->GetLookupTable())
   {
-    vtkScalarsToColors *lut = mapper->GetLookupTable();
-    vtkSmartPointer<vtkDoubleArray> Alpha =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    Alpha->SetNumberOfComponents(1);
-    Alpha->SetNumberOfTuples(1);
-    Alpha->SetValue(0, lut->GetAlpha());
-    Alpha->SetName(std::string(arrayPrefix + ":LookupTable:" + "Alpha").c_str());
-    pd->GetFieldData()->AddArray(Alpha);
+    std::string prefix = arrayPrefix + "LookupTable:";
+    vtkScalarsToColors *scalarsToColors = mapper->GetLookupTable();
 
-    vtkSmartPointer<vtkDoubleArray> VectorMode =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    VectorMode->SetNumberOfComponents(1);
-    VectorMode->SetNumberOfTuples(1);
-    VectorMode->SetValue(0, lut->GetVectorMode());
-    VectorMode->SetName(std::string(arrayPrefix + ":LookupTable:" + "VectorMode").c_str());
-    pd->GetFieldData()->AddArray(VectorMode);
+    SAVE_SCALAR(prefix, scalarsToColors, pd, Alpha, vtkDoubleArray);
+    SAVE_SCALAR(prefix, scalarsToColors, pd, VectorMode, vtkIntArray);
+    SAVE_SCALAR(prefix, scalarsToColors, pd, VectorComponent, vtkIntArray);
+    SAVE_SCALAR(prefix, scalarsToColors, pd, VectorSize, vtkIntArray);
+    SAVE_SCALAR(prefix, scalarsToColors, pd, IndexedLookup, vtkIntArray);
 
-    vtkSmartPointer<vtkDoubleArray> VectorComponent =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    VectorComponent->SetNumberOfComponents(1);
-    VectorComponent->SetNumberOfTuples(1);
-    VectorComponent->SetValue(0, lut->GetVectorComponent());
-    VectorComponent->SetName(std::string(arrayPrefix + ":LookupTable:" + "VectorComponent").c_str());
-    pd->GetFieldData()->AddArray(VectorComponent);
-
-    vtkSmartPointer<vtkDoubleArray> VectorSize =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    VectorSize->SetNumberOfComponents(1);
-    VectorSize->SetNumberOfTuples(1);
-    VectorSize->SetValue(0, lut->GetVectorSize());
-    VectorSize->SetName(std::string(arrayPrefix + ":LookupTable:" + "VectorSize").c_str());
-    pd->GetFieldData()->AddArray(VectorSize);
-
-    vtkSmartPointer<vtkIntArray> IndexedLookup =
-      vtkSmartPointer<vtkIntArray>::New();
-    IndexedLookup->SetNumberOfComponents(1);
-    IndexedLookup->SetNumberOfTuples(1);
-    IndexedLookup->SetValue(0, lut->GetIndexedLookup());
-    IndexedLookup->SetName(std::string(arrayPrefix + ":LookupTable:" + "IndexedLookup").c_str());
-    pd->GetFieldData()->AddArray(IndexedLookup);
-
-    vtkSmartPointer<vtkDoubleArray> TableRange =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    TableRange->SetNumberOfComponents(2);
-    TableRange->SetNumberOfTuples(1);
-    TableRange->SetTuple(0, vtkLookupTable::SafeDownCast(lut)->GetTableRange());
-    TableRange->SetName(std::string(arrayPrefix + ":LookupTable:" + "TableRange").c_str());
-    pd->GetFieldData()->AddArray(TableRange);
-
-    vtkSmartPointer<vtkIntArray> Scale =
-      vtkSmartPointer<vtkIntArray>::New();
-    Scale->SetNumberOfComponents(1);
-    Scale->SetNumberOfTuples(1);
-    Scale->SetValue(0, vtkLookupTable::SafeDownCast(lut)->GetScale());
-    Scale->SetName(std::string(arrayPrefix + ":LookupTable:" + "Scale").c_str());
-    pd->GetFieldData()->AddArray(Scale);
-
-    vtkSmartPointer<vtkDoubleArray> HueRange =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    HueRange->SetNumberOfComponents(2);
-    HueRange->SetNumberOfTuples(1);
-    HueRange->SetTuple(0, vtkLookupTable::SafeDownCast(lut)->GetHueRange());
-    HueRange->SetName(std::string(arrayPrefix + ":LookupTable:" + "HueRange").c_str());
-    pd->GetFieldData()->AddArray(HueRange);
-
-    vtkSmartPointer<vtkDoubleArray> SaturationRange =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    SaturationRange->SetNumberOfComponents(2);
-    SaturationRange->SetNumberOfTuples(1);
-    SaturationRange->SetTuple(0, vtkLookupTable::SafeDownCast(lut)->GetSaturationRange());
-    SaturationRange->SetName(std::string(arrayPrefix + ":LookupTable:" + "SaturationRange").c_str());
-    pd->GetFieldData()->AddArray(SaturationRange);
-
-    vtkSmartPointer<vtkDoubleArray> ValueRange =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    ValueRange->SetNumberOfComponents(2);
-    ValueRange->SetNumberOfTuples(1);
-    ValueRange->SetTuple(0, vtkLookupTable::SafeDownCast(lut)->GetValueRange());
-    ValueRange->SetName(std::string(arrayPrefix + ":LookupTable:" + "ValueRange").c_str());
-    pd->GetFieldData()->AddArray(ValueRange);
-
-    vtkSmartPointer<vtkDoubleArray> AlphaRange =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    AlphaRange->SetNumberOfComponents(2);
-    AlphaRange->SetNumberOfTuples(1);
-    AlphaRange->SetTuple(0, vtkLookupTable::SafeDownCast(lut)->GetAlphaRange());
-    AlphaRange->SetName(std::string(arrayPrefix + ":LookupTable:" + "AlphaRange").c_str());
-    pd->GetFieldData()->AddArray(AlphaRange);
-
-    vtkSmartPointer<vtkDoubleArray> NanColor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    NanColor->SetNumberOfComponents(4);
-    NanColor->SetNumberOfTuples(1);
-    NanColor->SetTuple(0, vtkLookupTable::SafeDownCast(lut)->GetNanColor());
-    NanColor->SetName(std::string(arrayPrefix + ":LookupTable:" + "NanColor").c_str());
-    pd->GetFieldData()->AddArray(NanColor);
-
-    vtkSmartPointer<vtkDoubleArray> BelowRangeColor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    BelowRangeColor->SetNumberOfComponents(4);
-    BelowRangeColor->SetNumberOfTuples(1);
-    BelowRangeColor->SetTuple(0, vtkLookupTable::SafeDownCast(lut)->GetBelowRangeColor());
-    BelowRangeColor->SetName(std::string(arrayPrefix + ":LookupTable:" + "BelowRangeColor").c_str());
-    pd->GetFieldData()->AddArray(BelowRangeColor);
-
-    vtkSmartPointer<vtkIntArray> UseBelowRangeColor =
-      vtkSmartPointer<vtkIntArray>::New();
-    UseBelowRangeColor->SetNumberOfComponents(1);
-    UseBelowRangeColor->SetNumberOfTuples(1);
-    UseBelowRangeColor->SetValue(0, vtkLookupTable::SafeDownCast(lut)->GetUseBelowRangeColor());
-    UseBelowRangeColor->SetName(std::string(arrayPrefix + ":LookupTable:" + "UseBelowRangeColor").c_str());
-    pd->GetFieldData()->AddArray(UseBelowRangeColor);
-
-    vtkSmartPointer<vtkDoubleArray> AboveRangeColor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    AboveRangeColor->SetNumberOfComponents(4);
-    AboveRangeColor->SetNumberOfTuples(1);
-    AboveRangeColor->SetTuple(0, vtkLookupTable::SafeDownCast(lut)->GetAboveRangeColor());
-    AboveRangeColor->SetName(std::string(arrayPrefix + ":LookupTable:" + "AboveRangeColor").c_str());
-    pd->GetFieldData()->AddArray(AboveRangeColor);
-
-    vtkSmartPointer<vtkIntArray> UseAboveRangeColor =
-      vtkSmartPointer<vtkIntArray>::New();
-    UseAboveRangeColor->SetNumberOfComponents(1);
-    UseAboveRangeColor->SetNumberOfTuples(1);
-    UseAboveRangeColor->SetValue(0, vtkLookupTable::SafeDownCast(lut)->GetUseAboveRangeColor());
-    UseAboveRangeColor->SetName(std::string(arrayPrefix + ":LookupTable:" + "UseAboveRangeColor").c_str());
-    pd->GetFieldData()->AddArray(UseAboveRangeColor);
-
-    vtkSmartPointer<vtkIdTypeArray> NumberOfTableValues =
-      vtkSmartPointer<vtkIdTypeArray>::New();
-    NumberOfTableValues->SetNumberOfComponents(1);
-    NumberOfTableValues->SetNumberOfTuples(1);
-    NumberOfTableValues->SetValue(0, vtkLookupTable::SafeDownCast(lut)->GetNumberOfTableValues());
-    NumberOfTableValues->SetName(std::string(arrayPrefix + ":LookupTable:" + "NumberOfTableValues").c_str());
-    pd->GetFieldData()->AddArray(NumberOfTableValues);
-
-    vtkSmartPointer<vtkIdTypeArray> NumberOfColors =
-      vtkSmartPointer<vtkIdTypeArray>::New();
-    NumberOfColors->SetNumberOfComponents(1);
-    NumberOfColors->SetNumberOfTuples(1);
-    NumberOfColors->SetValue(0, vtkLookupTable::SafeDownCast(lut)->GetNumberOfColors());
-    NumberOfColors->SetName(std::string(arrayPrefix + ":LookupTable:" + "NumberOfColors").c_str());
-    pd->GetFieldData()->AddArray(NumberOfColors);
-
-    vtkSmartPointer<vtkIntArray> Ramp =
-      vtkSmartPointer<vtkIntArray>::New();
-    Ramp->SetNumberOfComponents(1);
-    Ramp->SetNumberOfTuples(1);
-    Ramp->SetValue(0, vtkLookupTable::SafeDownCast(lut)->GetRamp());
-    Ramp->SetName(std::string(arrayPrefix + ":LookupTable:" + "Ramp").c_str());
-    pd->GetFieldData()->AddArray(Ramp);
+    vtkLookupTable *lut = vtkLookupTable::SafeDownCast(mapper->GetLookupTable());
+    SAVE_VECTOR(prefix, lut, pd, TableRange, vtkDoubleArray, 2, 1);
+    SAVE_SCALAR(prefix, lut, pd, Scale, vtkIntArray);
+    SAVE_VECTOR(prefix, lut, pd, HueRange, vtkDoubleArray, 2, 1);
+    SAVE_VECTOR(prefix, lut, pd, SaturationRange, vtkDoubleArray, 2, 1);
+    SAVE_VECTOR(prefix, lut, pd, ValueRange, vtkDoubleArray, 2, 1);
+    SAVE_VECTOR(prefix, lut, pd, AlphaRange, vtkDoubleArray, 2, 1);
+    SAVE_VECTOR(prefix, lut, pd, NanColor, vtkDoubleArray, 4, 1);
+    SAVE_VECTOR(prefix, lut, pd, BelowRangeColor, vtkDoubleArray, 4, 1);
+    SAVE_SCALAR(prefix, lut, pd, UseBelowRangeColor, vtkIntArray);
+    SAVE_VECTOR(prefix, lut, pd, AboveRangeColor, vtkDoubleArray, 4, 1);
+    SAVE_SCALAR(prefix, lut, pd, UseAboveRangeColor, vtkIntArray);
+    SAVE_SCALAR(prefix, lut, pd, NumberOfTableValues, vtkIntArray);
+    SAVE_SCALAR(prefix, lut, pd, Ramp, vtkIntArray);
+    SAVE_SCALAR(prefix, lut, pd, NumberOfColors, vtkIntArray);
 
     vtkSmartPointer<vtkUnsignedCharArray> Table =
       vtkSmartPointer<vtkUnsignedCharArray>::New();
@@ -666,111 +347,14 @@ void SaveMapperAsFieldData(std::string arrayPrefix,
     Table->SetName(std::string(arrayPrefix + ":LookupTable:" + "Table").c_str());
     pd->GetFieldData()->AddArray(Table);
 
-    vtkSmartPointer<vtkIntArray> ScalarVisibility =
-      vtkSmartPointer<vtkIntArray>::New();
-    ScalarVisibility->SetNumberOfComponents(1);
-    ScalarVisibility->SetNumberOfTuples(1);
-    ScalarVisibility->SetValue(0, mapper->GetScalarVisibility());
-    ScalarVisibility->SetName(std::string(arrayPrefix + ":" + "ScalarVisibility").c_str());
-    pd->GetFieldData()->AddArray(ScalarVisibility);
-
-    vtkSmartPointer<vtkIntArray> Static =
-      vtkSmartPointer<vtkIntArray>::New();
-    Static->SetNumberOfComponents(1);
-    Static->SetNumberOfTuples(1);
-    Static->SetValue(0, mapper->GetStatic());
-    Static->SetName(std::string(arrayPrefix + ":" + "Static").c_str());
-    pd->GetFieldData()->AddArray(Static);
-
-    vtkSmartPointer<vtkDoubleArray> ScalarRange =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    ScalarRange->SetNumberOfComponents(2);
-    ScalarRange->SetNumberOfTuples(1);
-    ScalarRange->SetTuple(0, mapper->GetScalarRange());
-    ScalarRange->SetName(std::string(arrayPrefix + ":" + "ScalarRange").c_str());
-    pd->GetFieldData()->AddArray(ScalarRange);
-
-    vtkSmartPointer<vtkIntArray> UseLookupTableScalarRange =
-      vtkSmartPointer<vtkIntArray>::New();
-    UseLookupTableScalarRange->SetNumberOfComponents(1);
-    UseLookupTableScalarRange->SetNumberOfTuples(1);
-    UseLookupTableScalarRange->SetValue(0, mapper->GetUseLookupTableScalarRange());
-    UseLookupTableScalarRange->SetName(std::string(arrayPrefix + ":" + "UseLookupTableScalarRange").c_str());
-    pd->GetFieldData()->AddArray(UseLookupTableScalarRange);
-
-    vtkSmartPointer<vtkIntArray> ColorMode =
-      vtkSmartPointer<vtkIntArray>::New();
-    ColorMode->SetNumberOfComponents(1);
-    ColorMode->SetNumberOfTuples(1);
-    ColorMode->SetValue(0, mapper->GetColorMode());
-    ColorMode->SetName(std::string(arrayPrefix + ":" + "ColorMode").c_str());
-    pd->GetFieldData()->AddArray(ColorMode);
-
-    vtkSmartPointer<vtkIntArray> InterpolateScalarsBeforeMapping =
-      vtkSmartPointer<vtkIntArray>::New();
-    InterpolateScalarsBeforeMapping->SetNumberOfComponents(1);
-    InterpolateScalarsBeforeMapping->SetNumberOfTuples(1);
-    InterpolateScalarsBeforeMapping->SetValue(0, mapper->GetInterpolateScalarsBeforeMapping());
-    InterpolateScalarsBeforeMapping->SetName(std::string(arrayPrefix + ":" + "InterpolateScalarsBeforeMapping").c_str());
-    pd->GetFieldData()->AddArray(InterpolateScalarsBeforeMapping);
-
-    vtkSmartPointer<vtkIntArray> ScalarMode =
-      vtkSmartPointer<vtkIntArray>::New();
-    ScalarMode->SetNumberOfComponents(1);
-    ScalarMode->SetNumberOfTuples(1);
-    ScalarMode->SetValue(0, mapper->GetScalarMode());
-    ScalarMode->SetName(std::string(arrayPrefix + ":" + "ScalarMode").c_str());
-    pd->GetFieldData()->AddArray(ScalarMode);
-
-    vtkSmartPointer<vtkIntArray> ResolveCoincidentTopology =
-      vtkSmartPointer<vtkIntArray>::New();
-    ResolveCoincidentTopology->SetNumberOfComponents(1);
-    ResolveCoincidentTopology->SetNumberOfTuples(1);
-    ResolveCoincidentTopology->SetValue(0, mapper->GetResolveCoincidentTopology());
-    ResolveCoincidentTopology->SetName(std::string(arrayPrefix + ":" + "ResolveCoincidentTopology").c_str());
-    pd->GetFieldData()->AddArray(ResolveCoincidentTopology);
-
-#if 0
-    vtkSmartPointer<vtkDoubleArray> CoincidentPointOffset =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    CoincidentPointOffset->SetNumberOfComponents(1);
-    CoincidentPointOffset->SetNumberOfTuples(1);
-    CoincidentPointOffset->SetValue(0, mapper->GetCoincidentPointOffset());
-    CoincidentPointOffset->SetName(std::string(arrayPrefix + ":" + "CoincidentPointOffset").c_str());
-    pd->GetFieldData()->AddArray(CoincidentPointOffset);
-
-    vtkSmartPointer<vtkDoubleArray> CoincidentLineOffset =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    CoincidentLineOffset->SetNumberOfComponents(1);
-    CoincidentLineOffset->SetNumberOfTuples(1);
-    CoincidentLineOffset->SetValue(0, mapper->GetCoincidentLineOffset());
-    CoincidentLineOffset->SetName(std::string(arrayPrefix + ":" + "CoincidentLineOffset").c_str());
-    pd->GetFieldData()->AddArray(CoincidentLineOffset);
-
-    vtkSmartPointer<vtkDoubleArray> CoincidentPolygonOffset =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    CoincidentPolygonOffset->SetNumberOfComponents(1);
-    CoincidentPolygonOffset->SetNumberOfTuples(1);
-    CoincidentPolygonOffset->SetValue(0, mapper->GetCoincidentPolygonOffset());
-    CoincidentPolygonOffset->SetName(std::string(arrayPrefix + ":" + "CoincidentPolygonOffset").c_str());
-    pd->GetFieldData()->AddArray(CoincidentPolygonOffset);
-
-    vtkSmartPointer<vtkDoubleArray> CoincidentLineFactor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    CoincidentLineFactor->SetNumberOfComponents(1);
-    CoincidentLineFactor->SetNumberOfTuples(1);
-    CoincidentLineFactor->SetValue(0, mapper->GetCoincidentLineFactor());
-    CoincidentLineFactor->SetName(std::string(arrayPrefix + ":" + "CoincidentLineFactor").c_str());
-    pd->GetFieldData()->AddArray(CoincidentLineFactor);
-
-    vtkSmartPointer<vtkDoubleArray> CoincidentPolygonFactor =
-      vtkSmartPointer<vtkDoubleArray>::New();
-    CoincidentPolygonFactor->SetNumberOfComponents(1);
-    CoincidentPolygonFactor->SetNumberOfTuples(1);
-    CoincidentPolygonFactor->SetValue(0, mapper->GetCoincidentPolygonFactor());
-    CoincidentPolygonFactor->SetName(std::string(arrayPrefix + ":" + "CoincidentPolygonFactor").c_str());
-    pd->GetFieldData()->AddArray(CoincidentPolygonFactor);
-#endif
+    SAVE_SCALAR(arrayPrefix, mapper, pd, ScalarVisibility, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, mapper, pd, Static, vtkIntArray);
+    SAVE_VECTOR(arrayPrefix, mapper, pd, ScalarRange, vtkDoubleArray, 2, 1);
+    SAVE_SCALAR(arrayPrefix, mapper, pd, UseLookupTableScalarRange, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, mapper, pd, ColorMode, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, mapper, pd, InterpolateScalarsBeforeMapping, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, mapper, pd, ScalarMode, vtkIntArray);
+    SAVE_SCALAR(arrayPrefix, mapper, pd, ResolveCoincidentTopology, vtkIntArray);
   }
 }
 
@@ -778,77 +362,15 @@ void SaveActorAsFieldData(std::string arrayPrefix,
                           vtkActor *actor,
                           vtkPolyData *pd)
 {
-  vtkSmartPointer<vtkIntArray> dragable =
-    vtkSmartPointer<vtkIntArray>::New();
-  dragable->SetNumberOfComponents(1);
-  dragable->SetNumberOfTuples(1);
-  dragable->SetValue(0, actor->GetDragable());
-  dragable->SetName(std::string(arrayPrefix + ":" + "Dragable").c_str());
-  pd->GetFieldData()->AddArray(dragable);
+  SAVE_SCALAR(arrayPrefix, actor, pd, Dragable, vtkIntArray);
+  SAVE_SCALAR(arrayPrefix, actor, pd, Pickable, vtkIntArray);
+  SAVE_SCALAR(arrayPrefix, actor, pd, Visibility, vtkIntArray);
+  SAVE_VECTOR(arrayPrefix, actor, pd, Orientation, vtkDoubleArray, 3, 1);
+  SAVE_VECTOR(arrayPrefix, actor, pd, Origin, vtkDoubleArray, 3, 1);
+  SAVE_VECTOR(arrayPrefix, actor, pd, Scale, vtkDoubleArray, 3, 1);
+  SAVE_SCALAR(arrayPrefix, actor, pd, ForceOpaque, vtkIntArray);
+  SAVE_SCALAR(arrayPrefix, actor, pd, ForceTranslucent, vtkIntArray);
 
-  vtkSmartPointer<vtkIntArray> pickable =
-    vtkSmartPointer<vtkIntArray>::New();
-  pickable->SetNumberOfComponents(1);
-  pickable->SetNumberOfTuples(1);
-  pickable->SetValue(0, actor->GetPickable());
-  pickable->SetName(std::string(arrayPrefix + ":" + "Pickable").c_str());
-  pd->GetFieldData()->AddArray(pickable);
-
-  vtkSmartPointer<vtkIntArray> visibility =
-    vtkSmartPointer<vtkIntArray>::New();
-  visibility->SetNumberOfComponents(1);
-  visibility->SetNumberOfTuples(1);
-  visibility->SetValue(0, actor->GetVisibility());
-  visibility->SetName(std::string(arrayPrefix + ":" + "Visibility").c_str());
-  pd->GetFieldData()->AddArray(visibility);
-
-  vtkSmartPointer<vtkDoubleArray> position =
-    vtkSmartPointer<vtkDoubleArray>::New();
-  position->SetNumberOfComponents(3);
-  position->SetNumberOfTuples(1);
-  position->SetTuple(0, actor->GetPosition());
-  position->SetName(std::string(arrayPrefix + ":" + "Position").c_str());
-  pd->GetFieldData()->AddArray(position);
-
-  vtkSmartPointer<vtkDoubleArray> orientation =
-    vtkSmartPointer<vtkDoubleArray>::New();
-  orientation->SetNumberOfComponents(3);
-  orientation->SetNumberOfTuples(1);
-  orientation->SetTuple(0, actor->GetOrientation());
-  orientation->SetName(std::string(arrayPrefix + ":" + "Orientation").c_str());
-  pd->GetFieldData()->AddArray(orientation);
-
-  vtkSmartPointer<vtkDoubleArray> origin =
-    vtkSmartPointer<vtkDoubleArray>::New();
-  origin->SetNumberOfComponents(3);
-  origin->SetNumberOfTuples(1);
-  origin->SetTuple(0, actor->GetOrigin());
-  origin->SetName(std::string(arrayPrefix + ":" + "Origin").c_str());
-  pd->GetFieldData()->AddArray(origin);
-
-  vtkSmartPointer<vtkDoubleArray> scale =
-    vtkSmartPointer<vtkDoubleArray>::New();
-  scale->SetNumberOfComponents(3);
-  scale->SetNumberOfTuples(1);
-  scale->SetTuple(0, actor->GetScale());
-  scale->SetName(std::string(arrayPrefix + ":" + "Scale").c_str());
-  pd->GetFieldData()->AddArray(scale);
-
-  vtkSmartPointer<vtkIntArray> forceOpaque =
-    vtkSmartPointer<vtkIntArray>::New();
-  forceOpaque->SetNumberOfComponents(1);
-  forceOpaque->SetNumberOfTuples(1);
-  forceOpaque->SetValue(0, actor->GetForceOpaque());
-  forceOpaque->SetName(std::string(arrayPrefix + ":" + "ForceOpaque").c_str());
-  pd->GetFieldData()->AddArray(forceOpaque);
-
-  vtkSmartPointer<vtkIntArray> forceTranslucent =
-    vtkSmartPointer<vtkIntArray>::New();
-  forceTranslucent->SetNumberOfComponents(1);
-  forceTranslucent->SetNumberOfTuples(1);
-  forceTranslucent->SetValue(0, actor->GetForceTranslucent());
-  forceTranslucent->SetName(std::string(arrayPrefix + ":" + "ForceTranslucent").c_str());
-  pd->GetFieldData()->AddArray(forceTranslucent);
 #if 0
 UserTransform
 UserMatrix
