@@ -20,10 +20,19 @@ endforeach()
 set(KIT Shaders)
 set(NEEDS_ARGS
   ColorByNormal
+  CubeMap
+  SphereMap
 )
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 add_test(${KIT}-ColorByNormal ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestColorByNormal ${DATA}/Armadillo.ply)
+
+add_test(${KIT}-CubeMap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestCubeMap ${DATA}/horse.ply ${DATA}/skybox-px.jpg ${DATA}/skybox-nx.jpg ${DATA}/skybox-py.jpg ${DATA}/skybox-ny.jpg ${DATA}/skybox-pz.jpg ${DATA}/skybox-nz.jpg)
+
+add_test(${KIT}-SphereMap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestSphereMap ${DATA}/Bunny.vtp ${DATA}/wintersun.jpg)
+
 
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)

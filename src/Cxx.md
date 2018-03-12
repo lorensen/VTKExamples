@@ -842,6 +842,8 @@ This section includes vtkUnstructuredGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ColorByNormal](/Cxx/Shaders/ColorByNormal) | vtkOpenGLPolyDataMapper vtkTriangleMeshPointNormals | Modify the shader to color based on model normal.
+[CubeMap](/Cxx/Shaders/CubeMap) | vtkShaderProperty vtkOpenGLPolyDataMapper | Modify the Vertex and Frament shaders to apply a 6-sided cube map.
+[SphereMap](/Cxx/Shaders/SphereMap) | vtkShaderProperty vtkOpenGLPolyDataMapper | Modify the Vertex and Frament shaders to apply a spherical map.
 
 ## Texture Mapping
 
