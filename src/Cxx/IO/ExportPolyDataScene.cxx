@@ -20,6 +20,8 @@
 #include <vtkIdTypeArray.h>
 #include <vtkLookupTable.h>
 #include <vtkScalarsToColors.h>
+#include <vtkLinearTransform.h>
+#include <vtkTransform.h>
 
 #include <vtksys/SystemTools.hxx>
 #include <vtkNamedColors.h>
@@ -136,7 +138,11 @@ int main (int argc, char *argv[])
         }
         if (c == 3)
         {
+          vtkSmartPointer<vtkTransform> rotateTransform =
+            vtkSmartPointer<vtkTransform>::New();
+          rotateTransform->RotateZ(30.0);
           actor->GetProperty()->SetInterpolationToGouraud();
+          actor->SetUserTransform(rotateTransform);
         }
         else
         {
@@ -146,6 +152,7 @@ int main (int argc, char *argv[])
                            1.5 * b * delta[1],
                            1.5 * c * delta[2]);
         actor->SetScale((a + 1) * .5, (b + 1) * .5, (c + 1) * .5);
+
         renderer->AddActor(actor);
       }
     }
@@ -370,6 +377,12 @@ void SaveActorAsFieldData(std::string arrayPrefix,
   SAVE_VECTOR(arrayPrefix, actor, pd, Scale, vtkDoubleArray, 3, 1);
   SAVE_SCALAR(arrayPrefix, actor, pd, ForceOpaque, vtkIntArray);
   SAVE_SCALAR(arrayPrefix, actor, pd, ForceTranslucent, vtkIntArray);
+
+  if (actor->GetUserTransform())
+  {
+    vtkLinearTransform *userTransform = actor->GetUserTransform();
+    userTransform->Print(std::cout);
+  }
 
 #if 0
 UserTransform
