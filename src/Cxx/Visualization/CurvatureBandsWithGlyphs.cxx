@@ -1,43 +1,36 @@
-// The source
+#include <vtkActor.h>
+#include <vtkArrowSource.h>
+#include <vtkBandedPolyDataContourFilter.h>
+#include <vtkCamera.h>
 #include <vtkCleanPolyData.h>
+#include <vtkClipPolyData.h>
+#include <vtkColorSeries.h>
+#include <vtkCurvatures.h>
 #include <vtkElevationFilter.h>
+#include <vtkGlyph3D.h>
+#include <vtkImplicitBoolean.h>
+#include <vtkLookupTable.h>
+#include <vtkMaskPoints.h>
+#include <vtkNamedColors.h>
 #include <vtkParametricFunctionSource.h>
 #include <vtkParametricRandomHills.h>
 #include <vtkParametricTorus.h>
+#include <vtkPlane.h>
 #include <vtkPlaneSource.h>
 #include <vtkPointData.h>
 #include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkReverseSense.h>
+#include <vtkScalarBarActor.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 #include <vtkSuperquadricSource.h>
 #include <vtkTriangleFilter.h>
-// Curvatures
-#include <vtkClipPolyData.h>
-#include <vtkCurvatures.h>
-#include <vtkImplicitBoolean.h>
-#include <vtkPlane.h>
-// For annotating
 #include <vtkVariantArray.h>
-// Lookup table
-#include <vtkColorSeries.h>
-#include <vtkLookupTable.h>
-// For glyphing
-#include <vtkArrowSource.h>
-#include <vtkGlyph3D.h>
-#include <vtkMaskPoints.h>
-#include <vtkReverseSense.h>
-// For contouring
-#include <vtkBandedPolyDataContourFilter.h>
-// Mappers, actors, renderers etc.
-#include <vtkActor.h>
-#include <vtkCamera.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkProperty.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
-#include <vtkScalarBarActor.h>
-
-#include <vtkSmartPointer.h>
 
 #include <algorithm>
 #include <cctype>
@@ -167,19 +160,19 @@ void MakeElevations(vtkPolyData* src, vtkPolyData* elev);
 
 //! Make a torus as the source.
 /*!
-@param The vtkPolyData source with normal and scalar data.
+@param src - The vtkPolyData source with normal and scalar data.
 */
 void MakeTorus(vtkPolyData* src);
 
 //! Make a parametric torus as the source.
 /*!
-@param The vtkPolyData source with normal and scalar data.
+@param src - The vtkPolyData source with normal and scalar data.
 */
 void MakeParametricTorus(vtkPolyData* src);
 
 //! Make a parametric hills surface as the source.
 /*!
-@param The vtkPolyData source with normal and scalar data.
+@param src - The vtkPolyData source with normal and scalar data.
 */
 void MakeParametricHills(vtkPolyData* src);
 
@@ -248,7 +241,28 @@ void MakeGlyphs(
 @param iren - the interactor.
 */
 void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren);
+//-----------------------------------------------------------------------------
 
+}
+
+//-----------------------------------------------------------------------------
+//! Make and display the surface.
+int main(int, char* [])
+{
+  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  // Select the surface you want displayed.
+  // Display(TORUS, iren);
+  // Display(PARAMETRIC_TORUS, iren);
+  Display(PARAMETRIC_HILLS, iren);
+  iren->Render();
+  iren->Start();
+
+  return EXIT_SUCCESS;
+}
+
+namespace
+{
 //-----------------------------------------------------------------------------
 std::vector<std::vector<double>> MakeBands(
   double const dR[2], int const& numberOfBands, bool const& nearestInteger)
@@ -693,6 +707,14 @@ void MakeGlyphs(vtkPolyData* src, bool const& reverseNormals, vtkGlyph3D* glyph)
 //-----------------------------------------------------------------------------
 void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
 {
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color.
+  std::array<unsigned char , 4> bkg{{179, 204, 255, 255}};
+    colors->SetColor("BkgColor", bkg.data());
+
   // ------------------------------------------------------------
   // Create the surface, lookup tables, contour filter etc.
   // ------------------------------------------------------------
@@ -839,7 +861,7 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   vtkSmartPointer<vtkActor> edgeActor =
     vtkSmartPointer<vtkActor>::New();
   edgeActor->SetMapper(edgeMapper);
-  edgeActor->GetProperty()->SetColor(0, 0, 0);
+  edgeActor->GetProperty()->SetColor(colors->GetColor3d("Black").GetData());
   edgeActor->RotateX(-45);
   edgeActor->RotateZ(45);
 
@@ -887,27 +909,12 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   ren->AddViewProp(glyphActor);
   ren->AddActor2D(scalarBar);
 
-  ren->SetBackground(0.7, 0.8, 1.0);
+  ren->SetBackground(colors->GetColor3d("BkgColor").GetData());
   renWin->SetSize(800, 800);
   renWin->Render();
 
   ren->GetActiveCamera()->Zoom(1.5);
 }
 
-} // end of unnamed namespace
 
-//-----------------------------------------------------------------------------
-//! Make and display the surface.
-int main(int, char* [])
-{
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  // Select the surface you want displayed.
-  // Display(TORUS, iren);
-  // Display(PARAMETRIC_TORUS, iren);
-  Display(PARAMETRIC_HILLS, iren);
-  iren->Render();
-  iren->Start();
-
-  return EXIT_SUCCESS;
 }
