@@ -357,6 +357,7 @@ def ReverseLUT(lut):
         rgba.append(lut.GetOpacity(v))
         lutr.SetTableValue(t - i, rgba)
     t = lut.GetNumberOfAnnotatedValues() - 1
+    revRange = reversed(list(range(t + 1)))
     for i in revRange:
         lutr.SetAnnotation(t - i, lut.GetAnnotation(i))
     return lutr
