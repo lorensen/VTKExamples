@@ -75,7 +75,7 @@ if __name__ == "__main__":
     # Dump the graph in VTK unstructured format (.vtu)
     gw = vtk.vtkXMLUnstructuredGridWriter()
     gw.SetFileName("vertex.vtu")
-    gw.SetInput(G)
+    gw.SetInputData(G)
     gw.Write()
     print('---> ')
 
