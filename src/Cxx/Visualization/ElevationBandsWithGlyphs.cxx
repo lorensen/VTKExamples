@@ -181,6 +181,26 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren);
 
 //-----------------------------------------------------------------------------
 
+}
+
+//-----------------------------------------------------------------------------
+//! Make and display the surface.
+int main(int, char* [])
+{
+  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  // Select the surface you want displayed.
+  // Display(PLANE, iren);
+  // Display(SPHERE, iren);
+  Display(PARAMETRIC_SURFACE, iren);
+  iren->Render();
+  iren->Start();
+
+  return EXIT_SUCCESS;
+}
+
+namespace
+{
 //-----------------------------------------------------------------------------
 std::vector<std::vector<double>> MakeBands(
   double const dR[2], int const& numberOfBands, bool const& nearestInteger)
@@ -654,20 +674,4 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   ren->GetActiveCamera()->Zoom(1.5);
 }
 
-} // end of unnamed namespace
-
-//-----------------------------------------------------------------------------
-//! Make and display the surface.
-int main(int, char* [])
-{
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  // Select the surface you want displayed.
-  // Display(PLANE, iren);
-  // Display(SPHERE, iren);
-  Display(PARAMETRIC_SURFACE, iren);
-  iren->Render();
-  iren->Start();
-
-  return EXIT_SUCCESS;
 }

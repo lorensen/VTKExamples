@@ -167,19 +167,19 @@ void MakeElevations(vtkPolyData* src, vtkPolyData* elev);
 
 //! Make a torus as the source.
 /*!
-@param The vtkPolyData source with normal and scalar data.
+@param src - The vtkPolyData source with normal and scalar data.
 */
 void MakeTorus(vtkPolyData* src);
 
 //! Make a parametric torus as the source.
 /*!
-@param The vtkPolyData source with normal and scalar data.
+@param src - The vtkPolyData source with normal and scalar data.
 */
 void MakeParametricTorus(vtkPolyData* src);
 
 //! Make a parametric hills surface as the source.
 /*!
-@param The vtkPolyData source with normal and scalar data.
+@param src - The vtkPolyData source with normal and scalar data.
 */
 void MakeParametricHills(vtkPolyData* src);
 
@@ -248,7 +248,28 @@ void MakeGlyphs(
 @param iren - the interactor.
 */
 void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren);
+//-----------------------------------------------------------------------------
 
+}
+
+//-----------------------------------------------------------------------------
+//! Make and display the surface.
+int main(int, char* [])
+{
+  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  // Select the surface you want displayed.
+  // Display(TORUS, iren);
+  // Display(PARAMETRIC_TORUS, iren);
+  Display(PARAMETRIC_HILLS, iren);
+  iren->Render();
+  iren->Start();
+
+  return EXIT_SUCCESS;
+}
+
+namespace
+{
 //-----------------------------------------------------------------------------
 std::vector<std::vector<double>> MakeBands(
   double const dR[2], int const& numberOfBands, bool const& nearestInteger)
@@ -894,20 +915,5 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   ren->GetActiveCamera()->Zoom(1.5);
 }
 
-} // end of unnamed namespace
 
-//-----------------------------------------------------------------------------
-//! Make and display the surface.
-int main(int, char* [])
-{
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  // Select the surface you want displayed.
-  // Display(TORUS, iren);
-  // Display(PARAMETRIC_TORUS, iren);
-  Display(PARAMETRIC_HILLS, iren);
-  iren->Render();
-  iren->Start();
-
-  return EXIT_SUCCESS;
 }
