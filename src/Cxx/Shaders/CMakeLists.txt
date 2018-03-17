@@ -19,12 +19,17 @@ endforeach()
 # Testing
 set(KIT Shaders)
 set(NEEDS_ARGS
+  BozoShader
   ColorByNormal
   CubeMap
   SphereMap
 )
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+
+add_test(${KIT}-BozoShader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestBozoShader ${DATA}/horse.ply)
+
 add_test(${KIT}-ColorByNormal ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestColorByNormal ${DATA}/Armadillo.ply)
 
