@@ -22,19 +22,23 @@ set(NEEDS_ARGS
   BozoShader
   ColorByNormal
   CubeMap
+  MarbleShader
   SphereMap
 )
 
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 add_test(${KIT}-BozoShader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestBozoShader ${DATA}/horse.ply)
+  TestBozoShader ${DATA}/Shaders/PerlinNoise.glsl ${DATA}/horse.ply)
 
 add_test(${KIT}-ColorByNormal ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestColorByNormal ${DATA}/Armadillo.ply)
 
 add_test(${KIT}-CubeMap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCubeMap ${DATA}/horse.ply ${DATA}/skybox-px.jpg ${DATA}/skybox-nx.jpg ${DATA}/skybox-py.jpg ${DATA}/skybox-ny.jpg ${DATA}/skybox-pz.jpg ${DATA}/skybox-nz.jpg)
+
+add_test(${KIT}-MarbleShader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMarbleShader ${DATA}/Shaders/PerlinNoise.glsl ${DATA}/horse.ply)
 
 add_test(${KIT}-SphereMap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSphereMap ${DATA}/Bunny.vtp ${DATA}/wintersun.jpg)

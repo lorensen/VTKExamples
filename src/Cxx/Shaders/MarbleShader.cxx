@@ -12,7 +12,8 @@
 #include <vtkTriangleFilter.h>
 #include <vtkNamedColors.h>
 #include <vtkRenderWindowInteractor.h>
-
+#include <vtkTransform.h>
+#include <vtkTransformPolyDataFilter.h>
 #include <vtksys/SystemTools.hxx>
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
@@ -24,7 +25,6 @@
 
 #include <fstream>
 #include <sstream>
-
 namespace
 {
 vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
@@ -40,11 +40,19 @@ int main(int argc, char *argv[])
   std::ostringstream shaderCode;
   shaderCode << shaderFile.rdbuf();
 
+// Create a transform to rescale model
+  double center[3];
+  polyData->GetCenter(center);
+  double bounds[6];
+  polyData->GetBounds(bounds);
+  double maxBound = std::max(std::max(bounds[1] - bounds[0],  bounds[3] - bounds[2]), bounds[5] - bounds[4]);
+
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
+
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkOpenGLPolyDataMapper> mapper =
@@ -61,24 +69,32 @@ int main(int argc, char *argv[])
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
 
+  // Rescale polydata to [-1,1]
+  vtkSmartPointer<vtkTransform> userTransform =
+    vtkSmartPointer<vtkTransform>::New();
+  userTransform->Translate(-center[0], -center[1], -center[2]);
+  userTransform->Scale(1.0/maxBound, 1.0/maxBound, 1.0/maxBound);
+  vtkSmartPointer<vtkTransformPolyDataFilter> transform =
+    vtkSmartPointer<vtkTransformPolyDataFilter>::New();
+  transform->SetTransform(userTransform);
+  transform->SetInputData(polyData);
+
   vtkSmartPointer<vtkTriangleFilter> triangles =
     vtkSmartPointer<vtkTriangleFilter>::New();
-  triangles->SetInputData(polyData);
+  triangles->SetInputConnection(transform->GetOutputPort());
 
   vtkSmartPointer<vtkTriangleMeshPointNormals> norms =
     vtkSmartPointer<vtkTriangleMeshPointNormals>::New();
   norms->SetInputConnection(triangles->GetOutputPort());
 
   mapper->SetInputConnection(norms->GetOutputPort());
+  mapper->ScalarVisibilityOff();
+
   actor->SetMapper(mapper);
-  actor->GetProperty()->SetAmbientColor(0.2, 0.2, 1.0);
-  actor->GetProperty()->SetDiffuseColor(1.0, 1.0, 1.0);
-  actor->GetProperty()->SetSpecularColor(1.0, 1.0, 1.0);
-  actor->GetProperty()->SetSpecular(0.5);
-  actor->GetProperty()->SetDiffuse(0.7);
-  actor->GetProperty()->SetAmbient(0.1);
-  actor->GetProperty()->SetSpecularPower(100.0);
-  actor->GetProperty()->SetOpacity(1.0);
+  actor->GetProperty()->SetDiffuse(1.0);
+  actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("ivoryblack").GetData());
+  actor->GetProperty()->SetSpecular(.5);
+  actor->GetProperty()->SetSpecularPower(5);
 
   // Modify the vertex shader to pass the position of the vertex
   mapper->AddShaderReplacement(
@@ -125,35 +141,51 @@ int main(int argc, char *argv[])
     "//VTK::Light::Impl", // replace the light block
     false, // after the standard replacements
     "//VTK::Light::Impl\n" // we still want the default calc
-    "  float k = 5.0;\n"
-    "  vec3 noisyColor;\n"
-    "  noisyColor.r = noise(k * 10.0 * myVertexMC);\n"
-    "  noisyColor.g = noise(k * 11.0 * myVertexMC);\n"
-    "  noisyColor.b = noise(k * 12.0 * myVertexMC);\n"
-    "  /* map ranges of noise values into different colors */\n"
-    "  int i;\n"
-    "  float lowerValue = .3;\n"
-    "  float upperValue = .6;\n"
-    "  for ( i=0; i<3; i+=1)\n"
-    "  {\n"
-    "    noisyColor[i] = (noisyColor[i] + 1.0) / 2.0;\n"
-    "    if (noisyColor[i] < lowerValue) \n"
-    "    {\n"
-    "      noisyColor[i] = lowerValue;\n"
+    "  float veinfreq = 10.0;\n"
+    "  float veinlevels = 2.0;\n"
+    "  float warpFreq = 1;\n"
+    "  float warping = .5;\n"
+    "  float sharpness = 8.0;\n"
+    "  vec3 veincolor = vec3(1.0, 1.0, 1.0);\n"
+    "\n"
+    "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
+    "#define snoise(x) (2.0 * pnoise(x) - 1.0)\n"
+    "  vec3 Ct;\n"
+    "  float i, j;\n"
+    "  float turb, freq;\n"
+    "  float turbsum;\n"
+    "  /* perturb the lookup */\n"
+    "  freq = 1.0;\n"
+    "  vec4 offset = vec4(0.0,0.0,0.0,0.0);\n"
+    "  vec4 noisyPoint;\n"
+    "  vec4 myLocalVertexMC = myVertexMC;\n"
+    "\n"
+    "    for (i = 0.0;  i < 6.0;  i += 1.0) {\n"
+    "      noisyPoint[0] = pnoise(warpFreq * freq * myLocalVertexMC);\n"
+    "      noisyPoint[1] = pnoise(warpFreq * freq * myLocalVertexMC);\n"
+    "      noisyPoint[2] = pnoise(warpFreq * freq * myLocalVertexMC);\n"
+    "      noisyPoint[3] = 1.0;\n"
+    "      offset += 2.0 * warping * (noisyPoint - 0.5)  / freq;\n"
+    "      freq *= 2.0;\n"
     "    }\n"
-    "    else\n"
-    "    {\n"
-    "      if (noisyColor[i] < upperValue)\n"
-    "      {\n"
-    "        noisyColor[i] = upperValue;\n"
-    "      }\n"
-    "      else\n"
-    "      {\n"
-    "        noisyColor[i] = 1.0;\n"
-    "      }\n"
-    "    }\n"
-    "  }\n"
-    "  fragOutput0.rgb = opacity * vec3(ambientColor + (noisyColor * diffuse + specular));\n"
+    "    myLocalVertexMC.x += offset.x;\n"
+    "    myLocalVertexMC.y += offset.y;\n"
+    "    myLocalVertexMC.z += offset.z;\n"
+    "\n"
+"    /* Now calculate the veining function for the lookup area */\n"
+"    turbsum = 0.0;  freq = 1.0;\n"
+"    myLocalVertexMC *= veinfreq;\n"
+"    for (i = 0.0;  i < veinlevels;  i += 1.0) {\n"
+"      turb = abs (snoise (myLocalVertexMC));\n"
+"      turb = pow (smoothstep (0.8, 1.0, 1.0 - turb), sharpness) / freq;\n"
+"      turbsum += (1.0-turbsum) * turb;\n"
+"      freq *= 3.0;\n"
+"      myLocalVertexMC *= 3.0;\n"
+"    }\n"
+"\n"
+"    Ct = mix (diffuseColor, veincolor, turbsum);\n"
+"\n"
+    "  fragOutput0.rgb = opacity * (ambientColor + Ct + specular);\n"
     "  fragOutput0.a = opacity;\n"    
     ,
     false // only do it once
@@ -167,8 +199,7 @@ int main(int argc, char *argv[])
   renderWindow->Render();
   interactor->Start();
 
-  double bounds[6];
-  polyData->GetBounds(bounds);
+  transform->GetOutput()->GetBounds(bounds);
   std::cout << "Range: "
             << " x " << bounds[1] - bounds[0]
             << " y " << bounds[3] - bounds[2]
