@@ -37,6 +37,11 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
 //----------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
+  if (argc < 2)
+  {
+    std::cout << "Usage: " << argv[0] << " PerlnNoise.glsl " << "[polydataFile]" << std::endl;
+    return EXIT_FAILURE;
+  }
   vtkSmartPointer<vtkPolyData> polyData =
     ReadPolyData(argc > 2 ? argv[2] : "");
 
@@ -176,7 +181,7 @@ int main(int argc, char *argv[])
     "      }\n"
     "    }\n"
     "  }\n"
-    "  fragOutput0.rgb = opacity * vec3(ambientColor + (noisyColor * diffuse + specular));\n"
+    "  fragOutput0.rgb = opacity * vec3(ambientColor + noisyColor * diffuse + specular);\n"
     "  fragOutput0.a = opacity;\n"    
     ,
     false // only do it once
