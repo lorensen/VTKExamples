@@ -23,6 +23,7 @@ set(NEEDS_ARGS
   ColorByNormal
   CubeMap
   MarbleShader
+  SpatterShader
   SphereMap
 )
 
@@ -39,6 +40,9 @@ add_test(${KIT}-CubeMap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-MarbleShader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarbleShader ${DATA}/Shaders/PerlinNoise.glsl ${DATA}/horse.ply)
+
+add_test(${KIT}-SpatterShader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestSpatterShader ${DATA}/Shaders/PerlinNoise.glsl ${DATA}/horse.ply)
 
 add_test(${KIT}-SphereMap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSphereMap ${DATA}/Bunny.vtp ${DATA}/wintersun.jpg)
