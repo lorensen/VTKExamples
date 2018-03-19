@@ -7,13 +7,12 @@
 #include <vtkActor.h>
 #include <vtkOpenGLPolyDataMapper.h>
 #include <vtkProperty.h>
-#include <vtkPolyDataNormals.h>
+#include <vtkTransform.h>
+#include <vtkTransformPolyDataFilter.h>
 #include <vtkTriangleMeshPointNormals.h>
 #include <vtkTriangleFilter.h>
 #include <vtkNamedColors.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkTransform.h>
-#include <vtkTransformPolyDataFilter.h>
 #include <vtksys/SystemTools.hxx>
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>

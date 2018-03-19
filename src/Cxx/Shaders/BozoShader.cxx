@@ -8,8 +8,12 @@
 #include <vtkOpenGLPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkPolyDataNormals.h>
+
+#include <vtkTransform.h>
+#include <vtkTransformPolyDataFilter.h>
 #include <vtkTriangleMeshPointNormals.h>
 #include <vtkTriangleFilter.h>
+
 #include <vtkNamedColors.h>
 #include <vtkRenderWindowInteractor.h>
 
@@ -40,6 +44,13 @@ int main(int argc, char *argv[])
   std::ostringstream shaderCode;
   shaderCode << shaderFile.rdbuf();
 
+// Create a transform to rescale model
+  double center[3];
+  polyData->GetCenter(center);
+  double bounds[6];
+  polyData->GetBounds(bounds);
+  double maxBound = std::max(std::max(bounds[1] - bounds[0],  bounds[3] - bounds[2]), bounds[5] - bounds[4]);
+
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
@@ -61,15 +72,27 @@ int main(int argc, char *argv[])
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
 
+  // Rescale polydata to [-1,1]
+  vtkSmartPointer<vtkTransform> userTransform =
+    vtkSmartPointer<vtkTransform>::New();
+  userTransform->Translate(-center[0], -center[1], -center[2]);
+  userTransform->Scale(1.0/maxBound, 1.0/maxBound, 1.0/maxBound);
+  vtkSmartPointer<vtkTransformPolyDataFilter> transform =
+    vtkSmartPointer<vtkTransformPolyDataFilter>::New();
+  transform->SetTransform(userTransform);
+  transform->SetInputData(polyData);
+
   vtkSmartPointer<vtkTriangleFilter> triangles =
     vtkSmartPointer<vtkTriangleFilter>::New();
-  triangles->SetInputData(polyData);
+  triangles->SetInputConnection(transform->GetOutputPort());
 
   vtkSmartPointer<vtkTriangleMeshPointNormals> norms =
     vtkSmartPointer<vtkTriangleMeshPointNormals>::New();
   norms->SetInputConnection(triangles->GetOutputPort());
 
   mapper->SetInputConnection(norms->GetOutputPort());
+  mapper->ScalarVisibilityOff();
+
   actor->SetMapper(mapper);
   actor->GetProperty()->SetAmbientColor(0.2, 0.2, 1.0);
   actor->GetProperty()->SetDiffuseColor(1.0, 1.0, 1.0);
@@ -125,7 +148,7 @@ int main(int argc, char *argv[])
     "//VTK::Light::Impl", // replace the light block
     false, // after the standard replacements
     "//VTK::Light::Impl\n" // we still want the default calc
-    "  float k = 5.0;\n"
+    "  float k = 1.0;\n"
     "  vec3 noisyColor;\n"
     "  noisyColor.r = noise(k * 10.0 * myVertexMC);\n"
     "  noisyColor.g = noise(k * 11.0 * myVertexMC);\n"
@@ -167,8 +190,7 @@ int main(int argc, char *argv[])
   renderWindow->Render();
   interactor->Start();
 
-  double bounds[6];
-  polyData->GetBounds(bounds);
+  transform->GetOutput()->GetBounds(bounds);
   std::cout << "Range: "
             << " x " << bounds[1] - bounds[0]
             << " y " << bounds[3] - bounds[2]
