@@ -31,6 +31,31 @@
 
 namespace
 {
+// -----------------------------------------------------------------------
+// Update a uniform in the shader for each render. We do this with a
+// callback for the UpdateShaderEvent
+class vtkShaderCallback : public vtkCommand
+{
+public:
+  static vtkShaderCallback *New()
+    { return new vtkShaderCallback; }
+  vtkRenderer *Renderer;
+  float k;
+  void Execute(vtkObject *, unsigned long, void* calldata) override
+  {
+    vtkShaderProgram *program = reinterpret_cast<vtkShaderProgram*>(calldata);
+    if (program)
+    {
+      program->SetUniformf("k", k);
+    }
+  }
+  vtkShaderCallback() { this->Renderer = nullptr; this->k = 5;}
+
+};
+}
+
+namespace
+{
 vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
 }
 
@@ -39,7 +64,7 @@ int main(int argc, char *argv[])
 {
   if (argc < 2)
   {
-    std::cout << "Usage: " << argv[0] << " PerlnNoise.glsl " << "[polydataFile]" << std::endl;
+    std::cout << "Usage: " << argv[0] << " PerlnNoise.glsl " << "[polydataFile] [k]" << std::endl;
     return EXIT_FAILURE;
   }
   vtkSmartPointer<vtkPolyData> polyData =
@@ -138,12 +163,15 @@ int main(int argc, char *argv[])
     shaderCode.str(),
     false // only do it once
     );
+
+  // define varying and uniforms for the fragment shader here
   mapper->AddShaderReplacement(
     vtkShader::Fragment,  // in the fragment shader
     "//VTK::Normal::Dec", // replace the normal block
     true, // before the standard replacements
     "//VTK::Normal::Dec\n" // we still want the default
     "  varying vec4 myVertexMC;\n"
+    "  uniform float k = 1.0;\n"
     ,
     false // only do it once
     );
@@ -153,7 +181,6 @@ int main(int argc, char *argv[])
     "//VTK::Light::Impl", // replace the light block
     false, // after the standard replacements
     "//VTK::Light::Impl\n" // we still want the default calc
-    "  float k = 1.0;\n"
     "  vec3 noisyColor;\n"
     "  noisyColor.r = noise(k * 10.0 * myVertexMC);\n"
     "  noisyColor.g = noise(k * 11.0 * myVertexMC);\n"
@@ -186,6 +213,19 @@ int main(int argc, char *argv[])
     ,
     false // only do it once
     );
+  vtkSmartPointer<vtkShaderCallback> myCallback =
+    vtkSmartPointer<vtkShaderCallback>::New();
+  myCallback->Renderer = renderer;
+  if (argc == 2 || argc == 3)
+  {
+    myCallback->k = 1;
+  }
+  else
+  {
+  myCallback->k = atof(argv[3]);
+  }
+  mapper->AddObserver(vtkCommand::UpdateShaderEvent, myCallback);
+
   renderWindow->Render();
   renderer->GetActiveCamera()->SetPosition(-.3, 0, .08);
   renderer->GetActiveCamera()->SetFocalPoint(0,0,0);

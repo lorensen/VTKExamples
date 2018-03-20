@@ -24,6 +24,63 @@
 
 #include <fstream>
 #include <sstream>
+
+namespace
+{
+// -----------------------------------------------------------------------
+// Update uniform variables in the shader for each render. We do this with a
+// callback for the UpdateShaderEvent
+class ShaderCallback : public vtkCommand
+{
+public:
+  static ShaderCallback *New()
+  { return new ShaderCallback; }
+  vtkRenderer *Renderer;
+  float veincolor[3];
+  float veinfreq;
+  float veinlevels;
+  float warpfreq;
+  float warping;
+  float sharpness;
+
+  void Execute(vtkObject *, unsigned long, void* calldata) override
+  {
+    vtkShaderProgram *program = reinterpret_cast<vtkShaderProgram*>(calldata);
+    if (program)
+    {
+      program->SetUniform3f("veincolor", veincolor);
+      program->SetUniformf("veinfreq", veinfreq);
+      program->SetUniformf("veinlevels", veinlevels);
+      program->SetUniformf("warpfreq", warpfreq);
+      program->SetUniformf("warping", warping);
+      program->SetUniformf("sharpness", sharpness);
+    }
+  }
+  void Print(std::ostream &os)
+  {
+    os << "veincolor: "
+       << veincolor[0] << ", "
+       << veincolor[1] << ", "
+       << veincolor[2] << std::endl;
+    os << "veinfreq: " << veinfreq << std::endl;
+    os << "veinlevels: " << veinlevels << std::endl;
+    os << "warpfreq: " << warpfreq << std::endl;
+    os << "warping: " << warping << std::endl;
+    os << "sharpness: " << sharpness << std::endl;
+  }
+
+  ShaderCallback()
+  {
+    this->Renderer = nullptr;
+    this->veincolor[0] = this->veincolor[1] = this->veincolor[2] = 1.0;
+    this->veinfreq = 10.0;
+    this->veinlevels = 2.0;
+    this->warpfreq = 1.0;
+    this->warping = .5;
+    this->sharpness = 8.0;
+  }
+};
+}
 namespace
 {
 vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
@@ -131,12 +188,19 @@ int main(int argc, char *argv[])
     shaderCode.str(),
     false // only do it once
     );
+  // Define varying and uniforms for the fragment shader here
   mapper->AddShaderReplacement(
     vtkShader::Fragment,  // in the fragment shader
     "//VTK::Normal::Dec", // replace the normal block
     true, // before the standard replacements
     "//VTK::Normal::Dec\n" // we still want the default
     "  varying vec4 myVertexMC;\n"
+    "  uniform vec3 veincolor = vec3(1.0, 1.0, 1.0);\n"
+    "  uniform float veinfreq = 10.0;\n"
+    "  uniform float veinlevels = 2.0;\n"
+    "  uniform float warpfreq = 1;\n"
+    "  uniform float warping = .5;\n"
+    "  uniform float sharpness = 8.0;\n"
     ,
     false // only do it once
     );
@@ -146,12 +210,6 @@ int main(int argc, char *argv[])
     "//VTK::Light::Impl", // replace the light block
     false, // after the standard replacements
     "//VTK::Light::Impl\n" // we still want the default calc
-    "  float veinfreq = 10.0;\n"
-    "  float veinlevels = 2.0;\n"
-    "  float warpFreq = 1;\n"
-    "  float warping = .5;\n"
-    "  float sharpness = 8.0;\n"
-    "  vec3 veincolor = vec3(1.0, 1.0, 1.0);\n"
     "\n"
     "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
     "#define snoise(x) (2.0 * pnoise(x) - 1.0)\n"
@@ -166,9 +224,9 @@ int main(int argc, char *argv[])
     "  vec4 myLocalVertexMC = myVertexMC;\n"
     "\n"
     "    for (i = 0.0;  i < 6.0;  i += 1.0) {\n"
-    "      noisyPoint[0] = pnoise(warpFreq * freq * myLocalVertexMC);\n"
-    "      noisyPoint[1] = pnoise(warpFreq * freq * myLocalVertexMC);\n"
-    "      noisyPoint[2] = pnoise(warpFreq * freq * myLocalVertexMC);\n"
+    "      noisyPoint[0] = pnoise(warpfreq * freq * myLocalVertexMC);\n"
+    "      noisyPoint[1] = pnoise(warpfreq * freq * myLocalVertexMC);\n"
+    "      noisyPoint[2] = pnoise(warpfreq * freq * myLocalVertexMC);\n"
     "      noisyPoint[3] = 1.0;\n"
     "      offset += 2.0 * warping * (noisyPoint - 0.5)  / freq;\n"
     "      freq *= 2.0;\n"
@@ -195,6 +253,64 @@ int main(int argc, char *argv[])
     ,
     false // only do it once
     );
+
+  vtkSmartPointer<ShaderCallback> myCallback =
+    vtkSmartPointer<ShaderCallback>::New();
+  myCallback->Renderer = renderer;
+  if (argc == 6)
+  {
+    myCallback->veincolor[0] = atof(argv[3]);
+    myCallback->veincolor[1] = atof(argv[4]);
+    myCallback->veincolor[2] = atof(argv[5]);
+  }
+  if (argc == 7)
+  {
+    myCallback->veincolor[0] = atof(argv[3]);
+    myCallback->veincolor[1] = atof(argv[4]);
+    myCallback->veincolor[2] = atof(argv[5]);
+    myCallback->veinfreq = atof(argv[6]);
+  }
+  if (argc == 8)
+  {
+    myCallback->veincolor[0] = atof(argv[3]);
+    myCallback->veincolor[1] = atof(argv[4]);
+    myCallback->veincolor[2] = atof(argv[5]);
+    myCallback->veinfreq = atof(argv[6]);
+    myCallback->veinlevels = atof(argv[7]);
+  }
+  if (argc == 9)
+  {
+    myCallback->veincolor[0] = atof(argv[3]);
+    myCallback->veincolor[1] = atof(argv[4]);
+    myCallback->veincolor[2] = atof(argv[5]);
+    myCallback->veinfreq = atof(argv[6]);
+    myCallback->veinlevels = atof(argv[7]);
+    myCallback->warpfreq = atof(argv[8]);
+  }
+  if (argc == 10)
+  {
+    myCallback->veincolor[0] = atof(argv[3]);
+    myCallback->veincolor[1] = atof(argv[4]);
+    myCallback->veincolor[2] = atof(argv[5]);
+    myCallback->veinfreq = atof(argv[6]);
+    myCallback->veinlevels = atof(argv[7]);
+    myCallback->warpfreq = atof(argv[8]);
+    myCallback->warping = atof(argv[9]);
+  }
+  if (argc == 11)
+  {
+    myCallback->veincolor[0] = atof(argv[3]);
+    myCallback->veincolor[1] = atof(argv[4]);
+    myCallback->veincolor[2] = atof(argv[5]);
+    myCallback->veinfreq = atof(argv[6]);
+    myCallback->veinlevels = atof(argv[7]);
+    myCallback->warpfreq = atof(argv[8]);
+    myCallback->warping = atof(argv[9]);
+    myCallback->sharpness = atof(argv[10]);
+  }
+  myCallback->Print(std::cout);
+  mapper->AddObserver(vtkCommand::UpdateShaderEvent, myCallback);
+
   renderWindow->Render();
   renderer->GetActiveCamera()->SetPosition(-.3, 0, .08);
   renderer->GetActiveCamera()->SetFocalPoint(0,0,0);

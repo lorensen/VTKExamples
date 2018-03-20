@@ -25,6 +25,49 @@
 
 #include <fstream>
 #include <sstream>
+
+namespace
+{
+// -----------------------------------------------------------------------
+// Update uniform variables in the shader for each render. We do this with a
+// callback for the UpdateShaderEvent
+class ShaderCallback : public vtkCommand
+{
+public:
+  static ShaderCallback *New()
+    { return new ShaderCallback; }
+  vtkRenderer *Renderer;
+  float specksize;
+  int sizes;
+  float basecolor[3];
+  float spattercolor[3];
+
+  void Execute(vtkObject *, unsigned long, void* calldata) override
+  {
+    vtkShaderProgram *program = reinterpret_cast<vtkShaderProgram*>(calldata);
+    if (program)
+    {
+      program->SetUniformf("specksize", specksize);
+      program->SetUniformi("sizes", sizes);
+      program->SetUniform3f("basecolor", basecolor);
+      program->SetUniform3f("spattercolor", spattercolor);
+      std::cout << "specksize: " << specksize << std::endl;
+    }
+  }
+  ShaderCallback()
+  {
+    this->Renderer = nullptr;
+    // size of the smallest paint specks
+    this->specksize = .05;
+    // number of different sizes of paint specks (each doubles the previous size)   
+    this->sizes = 3;
+    // the background color on which to spatter paint
+    this->basecolor[0] = this->basecolor[1] = this->basecolor[2]  = .7;
+    //  the color of the paint spatters
+    this->spattercolor[0] = this->spattercolor[1] = this->spattercolor[2]  = 0.0;
+  }
+};
+}
 namespace
 {
 vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
@@ -136,12 +179,17 @@ int main(int argc, char *argv[])
     shaderCode.str(),
     false // only do it once
     );
+  // Define varying and uniforms for the fragment shader here
   mapper->AddShaderReplacement(
     vtkShader::Fragment,  // in the fragment shader
     "//VTK::Normal::Dec", // replace the normal block
     true, // before the standard replacements
     "//VTK::Normal::Dec\n" // we still want the default
     "  varying vec4 myVertexMC;\n"
+    "uniform float specksize = .05;\n"
+    "uniform int sizes = 3;\n"
+    "uniform vec3 basecolor = vec3(.7,.7,.7);\n"
+    "uniform vec3 spattercolor = vec3(0.0, 0.0, 0.0);\n"
     ,
     false // only do it once
     );
@@ -152,10 +200,6 @@ int main(int argc, char *argv[])
     false, // after the standard replacements
     "//VTK::Light::Impl\n" // we still want the default calc
     "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
-    "float specksize = .05;\n"
-    "int sizes = 3;\n"
-    "vec3 basecolor = vec3(.7,.7,.7);\n"
-    "vec3 spattercolor = vec3(0.0, 0.0, 0.0);\n"
     "\n"
     "float speckle, size, threshold = 0.7;\n"
     "vec3 paint;\n"
@@ -177,6 +221,40 @@ int main(int argc, char *argv[])
     ,
     false // only do once
     );
+
+  vtkSmartPointer<ShaderCallback> myCallback =
+    vtkSmartPointer<ShaderCallback>::New();
+  myCallback->Renderer = renderer;
+  if (argc == 4)
+  {
+    myCallback->specksize = atof(argv[3]);
+  }
+  if (argc == 5)
+  {
+    myCallback->specksize = atof(argv[3]);
+    myCallback->sizes = atoi(argv[4]);
+  }
+  if (argc == 8)
+  {
+    myCallback->specksize = atof(argv[3]);
+    myCallback->sizes = atoi(argv[4]);
+    myCallback->basecolor[0] = atof(argv[5]);
+    myCallback->basecolor[1] = atof(argv[6]);
+    myCallback->basecolor[2] = atof(argv[7]);
+  }
+  if (argc == 11)
+  {
+    myCallback->specksize = atof(argv[3]);
+    myCallback->sizes = atoi(argv[4]);
+    myCallback->basecolor[0] = atof(argv[5]);
+    myCallback->basecolor[1] = atof(argv[6]);
+    myCallback->basecolor[2] = atof(argv[7]);
+    myCallback->spattercolor[0] = atof(argv[8]);
+    myCallback->spattercolor[1] = atof(argv[9]);
+    myCallback->spattercolor[2] = atof(argv[10]);
+  }
+  mapper->AddObserver(vtkCommand::UpdateShaderEvent, myCallback);
+
   renderWindow->Render();
   renderer->GetActiveCamera()->SetPosition(-.3, 0, .08);
   renderer->GetActiveCamera()->SetFocalPoint(0,0,0);
