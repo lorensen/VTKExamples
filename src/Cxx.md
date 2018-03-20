@@ -841,11 +841,12 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[BozoShader](/Cxx/Shaders/BozoShader) | vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
+[BozoShader](/Cxx/Shaders/BozoShader) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
+[BozoShaderDemo](/Cxx/Shaders/BozoShaderDemo) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Show the bozo shader on a variety of polydata models.
 [ColorByNormal](/Cxx/Shaders/ColorByNormal) | vtkOpenGLPolyDataMapper vtkTriangleMeshPointNormals | Modify the shader to color based on model normal.
 [CubeMap](/Cxx/Shaders/CubeMap) | vtkShaderProgram vtkOpenGLPolyDataMapper | Modify the Vertex and Frament shaders to apply a 6-sided cube map.
-[MarbleShader](/Cxx/Shaders/MarbleShader) | vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
-[SpatterShader](/Cxx/Shaders/SpatterShader) | vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
+[MarbleShader](/Cxx/Shaders/MarbleShader) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
+[SpatterShader](/Cxx/Shaders/SpatterShader) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
 [SphereMap](/Cxx/Shaders/SphereMap) | vtkShaderProgram vtkOpenGLPolyDataMapper | Modify the Vertex and Frament shaders to apply a spherical map.
 
 ## Texture Mapping

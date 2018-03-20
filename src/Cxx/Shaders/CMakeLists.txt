@@ -20,6 +20,7 @@ endforeach()
 set(KIT Shaders)
 set(NEEDS_ARGS
   BozoShader
+  BozoShaderDemo
   ColorByNormal
   CubeMap
   MarbleShader
@@ -31,6 +32,18 @@ set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 add_test(${KIT}-BozoShader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBozoShader ${DATA}/Shaders/PerlinNoise.glsl ${DATA}/horse.ply)
+
+add_test(${KIT}-BozoShaderDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestBozoShaderDemo ${DATA}/Shaders/PerlinNoise.glsl
+  ${DATA}/horse.ply
+  ${DATA}/teapot.g
+  ${DATA}/trumpet.obj
+  ${DATA}/shark.ply
+  ${DATA}/Torso.vtp
+  ${DATA}/cow.g
+  ${DATA}/Armadillo.ply
+  ${DATA}/42400-IDGH.stl
+  ${DATA}/doorman/doorman.obj )
 
 add_test(${KIT}-ColorByNormal ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestColorByNormal ${DATA}/Armadillo.ply)
