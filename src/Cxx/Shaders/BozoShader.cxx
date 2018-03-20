@@ -49,7 +49,16 @@ public:
       program->SetUniformf("k", k);
     }
   }
-  vtkShaderCallback() { this->Renderer = nullptr; this->k = 5;}
+  void Print(std::ostream &os)
+  {
+    os << "k: " << k << std::endl;
+  }
+
+  vtkShaderCallback()
+  {
+    this->Renderer = nullptr;
+    this->k = 5;
+  }
 
 };
 }
@@ -64,7 +73,9 @@ int main(int argc, char *argv[])
 {
   if (argc < 2)
   {
-    std::cout << "Usage: " << argv[0] << " PerlnNoise.glsl " << "[polydataFile] [k]" << std::endl;
+    std::cout << "Usage: " << argv[0] << " PerlnNoise.glsl "
+              << "[polydataFile] "
+              << "[k(5)]" << std::endl;
     return EXIT_FAILURE;
   }
   vtkSmartPointer<vtkPolyData> polyData =
@@ -124,7 +135,7 @@ int main(int argc, char *argv[])
   mapper->ScalarVisibilityOff();
 
   actor->SetMapper(mapper);
-  actor->GetProperty()->SetAmbientColor(0.2, 0.2, 1.0);
+  actor->GetProperty()->SetAmbientColor(0.2, 0.2, 0.2);
   actor->GetProperty()->SetDiffuseColor(1.0, 1.0, 1.0);
   actor->GetProperty()->SetSpecularColor(1.0, 1.0, 1.0);
   actor->GetProperty()->SetSpecular(0.5);
@@ -164,7 +175,7 @@ int main(int argc, char *argv[])
     false // only do it once
     );
 
-  // define varying and uniforms for the fragment shader here
+  // Define varying and uniforms for the fragment shader here
   mapper->AddShaderReplacement(
     vtkShader::Fragment,  // in the fragment shader
     "//VTK::Normal::Dec", // replace the normal block
@@ -181,6 +192,7 @@ int main(int argc, char *argv[])
     "//VTK::Light::Impl", // replace the light block
     false, // after the standard replacements
     "//VTK::Light::Impl\n" // we still want the default calc
+    "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
     "  vec3 noisyColor;\n"
     "  noisyColor.r = noise(k * 10.0 * myVertexMC);\n"
     "  noisyColor.g = noise(k * 11.0 * myVertexMC);\n"
@@ -224,6 +236,8 @@ int main(int argc, char *argv[])
   {
   myCallback->k = atof(argv[3]);
   }
+  std::cout << "Input: " << (argc > 2 ? argv[2] : "Generated Sphere") << std::endl;
+  myCallback->Print(std::cout);
   mapper->AddObserver(vtkCommand::UpdateShaderEvent, myCallback);
 
   renderWindow->Render();

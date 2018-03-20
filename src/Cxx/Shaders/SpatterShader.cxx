@@ -51,9 +51,23 @@ public:
       program->SetUniformi("sizes", sizes);
       program->SetUniform3f("basecolor", basecolor);
       program->SetUniform3f("spattercolor", spattercolor);
-      std::cout << "specksize: " << specksize << std::endl;
     }
   }
+
+  void Print(std::ostream &os)
+  {
+    os << "specksize: " << specksize << std::endl;
+    os << "sizes: " << sizes << std::endl;
+    os << "basecolor: "
+       << basecolor[0] << ", "
+       << basecolor[1] << ", "
+       << basecolor[2] << std::endl;
+    os << "spattercolor: "
+       << spattercolor[0] << ", "
+       << spattercolor[1] << ", "
+       << spattercolor[2] << std::endl;
+  }
+
   ShaderCallback()
   {
     this->Renderer = nullptr;
@@ -78,7 +92,13 @@ int main(int argc, char *argv[])
 {
   if (argc < 2)
   {
-    std::cout << "Usage: " << argv[0] << " PerlnNoise.glsl " << "[polydataFile] " << std::endl;
+    std::cout << "Usage: " << argv[0] << " PerlnNoise.glsl "
+              << "[polydataFile] "
+              << "[specksize(.05)] "
+              << "[sizes(3)] "
+              << "[basecolor{.7,.7,.7)] "
+              << "[spattercolor(0.0,0.0,0.0)] "
+              << std::endl;
     return EXIT_FAILURE;
   }
 
@@ -253,6 +273,8 @@ int main(int argc, char *argv[])
     myCallback->spattercolor[1] = atof(argv[9]);
     myCallback->spattercolor[2] = atof(argv[10]);
   }
+  std::cout << "Input: " << (argc > 2 ? argv[2] : "Generated Sphere") << std::endl;
+  myCallback->Print(std::cout);
   mapper->AddObserver(vtkCommand::UpdateShaderEvent, myCallback);
 
   renderWindow->Render();

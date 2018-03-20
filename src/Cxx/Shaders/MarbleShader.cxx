@@ -316,6 +316,7 @@ int main(int argc, char *argv[])
     myCallback->warping = atof(argv[9]);
     myCallback->sharpness = atof(argv[10]);
   }
+  std::cout << "Input: " << (argc > 2 ? argv[2] : "Generated Sphere") << std::endl;
   myCallback->Print(std::cout);
   mapper->AddObserver(vtkCommand::UpdateShaderEvent, myCallback);
 
