@@ -91,7 +91,15 @@ int main(int argc, char *argv[])
 {
   if (argc < 2)
   {
-    std::cout << "Usage: " << argv[0] << " PerlnNoise.glsl " << "[polydataFile]" << std::endl;
+    std::cout << "Usage: " << argv[0] << " PerlnNoise.glsl "
+              << "[polydataFile] "
+              << "[veincolor(1,1,1)] "
+              << "[veinfreq(10)] "
+              << "[veinlevels(2)] "
+              << "[warpfreq(1)] "
+              << "[warping(.5)] "
+              << "[sharpness(8)]"
+              << std::endl;
     return EXIT_FAILURE;
   }
 
