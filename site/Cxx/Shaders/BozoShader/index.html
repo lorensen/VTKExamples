@@ -108,8 +108,17 @@ function registerListener(event, func) {
       <span class=n>program</span><span class=o>-&gt;</span><span class=n>SetUniformf</span><span class=p>(</span><span class=s>&quot;k&quot;</span><span class=p>,</span> <span class=n>k</span><span class=p>);</span>
     <span class=p>}</span>
   <span class=p>}</span>
-<span class=hll>  <span class=n>vtkShaderCallback</span><span class=p>()</span> <span class=p>{</span> <span class=k>this</span><span class=o>-&gt;</span><span class=n>Renderer</span> <span class=o>=</span> <span class=k>nullptr</span><span class=p>;</span> <span class=k>this</span><span class=o>-&gt;</span><span class=n>k</span> <span class=o>=</span> <span class=mi>5</span><span class=p>;}</span>
-</span>
+  <span class=kt>void</span> <span class=nf>Print</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>ostream</span> <span class=o>&amp;</span><span class=n>os</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;k: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>k</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+  <span class=p>}</span>
+
+<span class=hll>  <span class=n>vtkShaderCallback</span><span class=p>()</span>
+</span>  <span class=p>{</span>
+    <span class=k>this</span><span class=o>-&gt;</span><span class=n>Renderer</span> <span class=o>=</span> <span class=k>nullptr</span><span class=p>;</span>
+    <span class=k>this</span><span class=o>-&gt;</span><span class=n>k</span> <span class=o>=</span> <span class=mi>5</span><span class=p>;</span>
+  <span class=p>}</span>
+
 <span class=p>};</span>
 <span class=p>}</span>
 
@@ -123,7 +132,9 @@ function registerListener(event, func) {
 <span class=p>{</span>
   <span class=k>if</span> <span class=p>(</span><span class=n>argc</span> <span class=o>&lt;</span> <span class=mi>2</span><span class=p>)</span>
   <span class=p>{</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Usage: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; PerlnNoise.glsl &quot;</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;[polydataFile] [k]&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Usage: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; PerlnNoise.glsl &quot;</span>
+              <span class=o>&lt;&lt;</span> <span class=s>&quot;[polydataFile] &quot;</span>
+              <span class=o>&lt;&lt;</span> <span class=s>&quot;[k(5)]&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=k>return</span> <span class=n>EXIT_FAILURE</span><span class=p>;</span>
   <span class=p>}</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>polyData</span> <span class=o>=</span>
@@ -183,7 +194,7 @@ function registerListener(event, func) {
   <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>ScalarVisibilityOff</span><span class=p>();</span>
 
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>);</span>
-  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetAmbientColor</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
+  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetAmbientColor</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetDiffuseColor</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetSpecularColor</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetSpecular</span><span class=p>(</span><span class=mf>0.5</span><span class=p>);</span>
@@ -223,7 +234,7 @@ function registerListener(event, func) {
     <span class=nb>false</span> <span class=c1>// only do it once</span>
     <span class=p>);</span>
 
-  <span class=c1>// define varying and uniforms for the fragment shader here</span>
+  <span class=c1>// Define varying and uniforms for the fragment shader here</span>
   <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>AddShaderReplacement</span><span class=p>(</span>
 <span class=hll>    <span class=n>vtkShader</span><span class=o>::</span><span class=n>Fragment</span><span class=p>,</span>  <span class=c1>// in the fragment shader</span>
 </span>    <span class=s>&quot;//VTK::Normal::Dec&quot;</span><span class=p>,</span> <span class=c1>// replace the normal block</span>
@@ -240,6 +251,7 @@ function registerListener(event, func) {
 </span>    <span class=s>&quot;//VTK::Light::Impl&quot;</span><span class=p>,</span> <span class=c1>// replace the light block</span>
     <span class=nb>false</span><span class=p>,</span> <span class=c1>// after the standard replacements</span>
     <span class=s>&quot;//VTK::Light::Impl</span><span class=se>\n</span><span class=s>&quot;</span> <span class=c1>// we still want the default calc</span>
+    <span class=s>&quot;#define pnoise(x) ((noise(x) + 1.0) / 2.0)</span><span class=se>\n</span><span class=s>&quot;</span>
     <span class=s>&quot;  vec3 noisyColor;</span><span class=se>\n</span><span class=s>&quot;</span>
     <span class=s>&quot;  noisyColor.r = noise(k * 10.0 * myVertexMC);</span><span class=se>\n</span><span class=s>&quot;</span>
     <span class=s>&quot;  noisyColor.g = noise(k * 11.0 * myVertexMC);</span><span class=se>\n</span><span class=s>&quot;</span>
@@ -283,6 +295,8 @@ function registerListener(event, func) {
   <span class=p>{</span>
   <span class=n>myCallback</span><span class=o>-&gt;</span><span class=n>k</span> <span class=o>=</span> <span class=n>atof</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>3</span><span class=p>]);</span>
   <span class=p>}</span>
+  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Input: &quot;</span> <span class=o>&lt;&lt;</span> <span class=p>(</span><span class=n>argc</span> <span class=o>&gt;</span> <span class=mi>2</span> <span class=o>?</span> <span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>:</span> <span class=s>&quot;Generated Sphere&quot;</span><span class=p>)</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+  <span class=n>myCallback</span><span class=o>-&gt;</span><span class=n>Print</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>);</span>
 <span class=hll>  <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>UpdateShaderEvent</span><span class=p>,</span> <span class=n>myCallback</span><span class=p>);</span>
 </span>
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>

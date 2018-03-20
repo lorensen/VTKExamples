@@ -110,9 +110,23 @@ function registerListener(event, func) {
       <span class=n>program</span><span class=o>-&gt;</span><span class=n>SetUniformi</span><span class=p>(</span><span class=s>&quot;sizes&quot;</span><span class=p>,</span> <span class=n>sizes</span><span class=p>);</span>
       <span class=n>program</span><span class=o>-&gt;</span><span class=n>SetUniform3f</span><span class=p>(</span><span class=s>&quot;basecolor&quot;</span><span class=p>,</span> <span class=n>basecolor</span><span class=p>);</span>
       <span class=n>program</span><span class=o>-&gt;</span><span class=n>SetUniform3f</span><span class=p>(</span><span class=s>&quot;spattercolor&quot;</span><span class=p>,</span> <span class=n>spattercolor</span><span class=p>);</span>
-      <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;specksize: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>specksize</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=p>}</span>
   <span class=p>}</span>
+
+  <span class=kt>void</span> <span class=nf>Print</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>ostream</span> <span class=o>&amp;</span><span class=n>os</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;specksize: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>specksize</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;sizes: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>sizes</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;basecolor: &quot;</span>
+       <span class=o>&lt;&lt;</span> <span class=n>basecolor</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;, &quot;</span>
+       <span class=o>&lt;&lt;</span> <span class=n>basecolor</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;, &quot;</span>
+       <span class=o>&lt;&lt;</span> <span class=n>basecolor</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;spattercolor: &quot;</span>
+       <span class=o>&lt;&lt;</span> <span class=n>spattercolor</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;, &quot;</span>
+       <span class=o>&lt;&lt;</span> <span class=n>spattercolor</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;, &quot;</span>
+       <span class=o>&lt;&lt;</span> <span class=n>spattercolor</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+  <span class=p>}</span>
+
   <span class=n>ShaderCallback</span><span class=p>()</span>
   <span class=p>{</span>
     <span class=k>this</span><span class=o>-&gt;</span><span class=n>Renderer</span> <span class=o>=</span> <span class=k>nullptr</span><span class=p>;</span>
@@ -137,7 +151,13 @@ function registerListener(event, func) {
 <span class=p>{</span>
   <span class=k>if</span> <span class=p>(</span><span class=n>argc</span> <span class=o>&lt;</span> <span class=mi>2</span><span class=p>)</span>
   <span class=p>{</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Usage: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; PerlnNoise.glsl &quot;</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;[polydataFile] &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Usage: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; PerlnNoise.glsl &quot;</span>
+              <span class=o>&lt;&lt;</span> <span class=s>&quot;[polydataFile] &quot;</span>
+              <span class=o>&lt;&lt;</span> <span class=s>&quot;[specksize(.05)] &quot;</span>
+              <span class=o>&lt;&lt;</span> <span class=s>&quot;[sizes(3)] &quot;</span>
+              <span class=o>&lt;&lt;</span> <span class=s>&quot;[basecolor{.7,.7,.7)] &quot;</span>
+              <span class=o>&lt;&lt;</span> <span class=s>&quot;[spattercolor(0.0,0.0,0.0)] &quot;</span>
+              <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=k>return</span> <span class=n>EXIT_FAILURE</span><span class=p>;</span>
   <span class=p>}</span>
 
@@ -312,6 +332,8 @@ function registerListener(event, func) {
     <span class=n>myCallback</span><span class=o>-&gt;</span><span class=n>spattercolor</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>atof</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>9</span><span class=p>]);</span>
     <span class=n>myCallback</span><span class=o>-&gt;</span><span class=n>spattercolor</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=n>atof</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>10</span><span class=p>]);</span>
   <span class=p>}</span>
+  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Input: &quot;</span> <span class=o>&lt;&lt;</span> <span class=p>(</span><span class=n>argc</span> <span class=o>&gt;</span> <span class=mi>2</span> <span class=o>?</span> <span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>:</span> <span class=s>&quot;Generated Sphere&quot;</span><span class=p>)</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+  <span class=n>myCallback</span><span class=o>-&gt;</span><span class=n>Print</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>);</span>
 <span class=hll>  <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>UpdateShaderEvent</span><span class=p>,</span> <span class=n>myCallback</span><span class=p>);</span>
 </span>
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
