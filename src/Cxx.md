@@ -846,6 +846,7 @@ This section includes vtkUnstructuredGrid.
 [ColorByNormal](/Cxx/Shaders/ColorByNormal) | vtkOpenGLPolyDataMapper vtkTriangleMeshPointNormals | Modify the shader to color based on model normal.
 [CubeMap](/Cxx/Shaders/CubeMap) | vtkShaderProgram vtkOpenGLPolyDataMapper | Modify the Vertex and Frament shaders to apply a 6-sided cube map.
 [MarbleShader](/Cxx/Shaders/MarbleShader) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
+[MarbleShaderDemo](/Cxx/Shaders/MarbleShaderDemo) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Explore parameter space with sliders.
 [SpatterShader](/Cxx/Shaders/SpatterShader) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
 [SphereMap](/Cxx/Shaders/SphereMap) | vtkShaderProgram vtkOpenGLPolyDataMapper | Modify the Vertex and Frament shaders to apply a spherical map.
 
