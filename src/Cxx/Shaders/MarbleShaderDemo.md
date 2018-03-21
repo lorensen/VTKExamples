@@ -5,7 +5,7 @@ Explore the parameter space with the vtkSliderWidget.
 
 #### Parameters:
 
-* _veinfreq_ - controls fhe lowest frequency of the color veins
+* _veinfreq_ - controls the lowest frequency of the color veins
 
 * _veinlevels_ - how many "levels" of vein tendrills it has
 
