@@ -4,8 +4,15 @@ This example shows how to add user functions to a VTK shader. The example's frag
 
 The file for the shader code is [here](https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Data/Shaders/PerlinNoise.glsl)..
 
-!!! example "usage"
-    MarbleShader PerlinNoise.glsl horse.ply
+!!! example "Usage"
+    MarbleShader PerlnNoise.glsl
+     [polydataFile]
+     [veincolor(1,1,1)]
+     [veinfreq(10)]
+     [veinlevels(2)]
+     [warpfreq(1)]
+     [warping(.5)]
+     [sharpness(8)]
 
 !!! cite
     [Perlin's original Siggraph Paper](Perlin, K. 1985. "An Image Synthesizer." Computer Graphics 19(3)).

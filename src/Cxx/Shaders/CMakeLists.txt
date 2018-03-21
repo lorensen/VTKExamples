@@ -24,6 +24,7 @@ set(NEEDS_ARGS
   ColorByNormal
   CubeMap
   MarbleShader
+  MarbleShaderDemo
   SpatterShader
   SphereMap
 )
@@ -53,6 +54,9 @@ add_test(${KIT}-CubeMap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-MarbleShader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarbleShader ${DATA}/Shaders/PerlinNoise.glsl ${DATA}/horse.ply)
+
+add_test(${KIT}-MarbleShaderDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMarbleShaderDemo ${DATA}/Shaders/PerlinNoise.glsl ${DATA}/teapot.g)
 
 add_test(${KIT}-SpatterShader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSpatterShader ${DATA}/Shaders/PerlinNoise.glsl ${DATA}/horse.ply)

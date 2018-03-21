@@ -1,5 +1,6 @@
 #include <vtkSmartPointer.h>
 
+#include <vtkNamedColors.h>
 #include <vtkCamera.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
@@ -7,12 +8,13 @@
 #include <vtkActor.h>
 #include <vtkOpenGLPolyDataMapper.h>
 #include <vtkProperty.h>
+
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
 #include <vtkTriangleMeshPointNormals.h>
 #include <vtkTriangleFilter.h>
-#include <vtkNamedColors.h>
 #include <vtkRenderWindowInteractor.h>
+
 #include <vtksys/SystemTools.hxx>
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
@@ -21,6 +23,9 @@
 #include <vtkSTLReader.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtkSphereSource.h>
+
+#include <vtkSliderRepresentation2D.h>
+#include <vtkSliderWidget.h>
 
 #include <fstream>
 #include <sstream>
@@ -38,7 +43,7 @@ public:
   vtkRenderer *Renderer;
   float veincolor[3];
   float veinfreq;
-  int veinlevels;
+  float veinlevels;
   float warpfreq;
   float warping;
   float sharpness;
@@ -54,6 +59,8 @@ public:
       program->SetUniformf("warpfreq", warpfreq);
       program->SetUniformf("warping", warping);
       program->SetUniformf("sharpness", sharpness);
+      std::cout << "------------" << std::endl;
+      Print(std::cout);
     }
   }
   void Print(std::ostream &os)
@@ -80,6 +87,88 @@ public:
     this->sharpness = 8.0;
   }
 };
+
+// These callbacks do the actual work.
+// Callbacks for the interactions
+class SliderCallbackVeinFreq : public vtkCommand
+{
+public:
+  static SliderCallbackVeinFreq *New()
+  {
+    return new SliderCallbackVeinFreq;
+  }
+  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  {
+    vtkSliderWidget *sliderWidget =
+      reinterpret_cast<vtkSliderWidget*>(caller);
+
+    float value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
+    this->Shader->veinfreq = value;
+  }
+  SliderCallbackVeinFreq():Shader(0) {}
+  ShaderCallback *Shader;
+};
+
+// These callbacks do the actual work.
+// Callbacks for the interactions
+class SliderCallbackVeinLevels : public vtkCommand
+{
+public:
+  static SliderCallbackVeinLevels *New()
+  {
+    return new SliderCallbackVeinLevels;
+  }
+  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  {
+    vtkSliderWidget *sliderWidget =
+      reinterpret_cast<vtkSliderWidget*>(caller);
+
+    int value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
+    static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->SetValue(value);
+    this->Shader->veinlevels = value;
+  }
+  SliderCallbackVeinLevels():Shader(0) {}
+  ShaderCallback *Shader;
+};
+
+class SliderCallbackWarpFreq : public vtkCommand
+{
+public:
+  static SliderCallbackWarpFreq *New()
+  {
+    return new SliderCallbackWarpFreq;
+  }
+  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  {
+    vtkSliderWidget *sliderWidget =
+      reinterpret_cast<vtkSliderWidget*>(caller);
+
+    float value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
+    this->Shader->warpfreq = value;
+  }
+  SliderCallbackWarpFreq():Shader(0) {}
+  ShaderCallback *Shader;
+};
+
+class SliderCallbackWarping : public vtkCommand
+{
+public:
+  static SliderCallbackWarping *New()
+  {
+    return new SliderCallbackWarping;
+  }
+  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  {
+    vtkSliderWidget *sliderWidget =
+      reinterpret_cast<vtkSliderWidget*>(caller);
+
+    float value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
+    this->Shader->warping = value;
+  }
+  SliderCallbackWarping():Shader(0) {}
+  ShaderCallback *Shader;
+};
+
 }
 namespace
 {
@@ -162,9 +251,9 @@ int main(int argc, char *argv[])
 
   actor->SetMapper(mapper);
   actor->GetProperty()->SetDiffuse(1.0);
-  actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("ivoryblack").GetData());
+  actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("wheat").GetData());
   actor->GetProperty()->SetSpecular(.5);
-  actor->GetProperty()->SetSpecularPower(5);
+  actor->GetProperty()->SetSpecularPower(50);
 
   // Modify the vertex shader to pass the position of the vertex
   mapper->AddShaderReplacement(
@@ -265,65 +354,144 @@ int main(int argc, char *argv[])
   vtkSmartPointer<ShaderCallback> myCallback =
     vtkSmartPointer<ShaderCallback>::New();
   myCallback->Renderer = renderer;
-  if (argc == 6)
-  {
-    myCallback->veincolor[0] = atof(argv[3]);
-    myCallback->veincolor[1] = atof(argv[4]);
-    myCallback->veincolor[2] = atof(argv[5]);
-  }
-  if (argc == 7)
-  {
-    myCallback->veincolor[0] = atof(argv[3]);
-    myCallback->veincolor[1] = atof(argv[4]);
-    myCallback->veincolor[2] = atof(argv[5]);
-    myCallback->veinfreq = atof(argv[6]);
-  }
-  if (argc == 8)
-  {
-    myCallback->veincolor[0] = atof(argv[3]);
-    myCallback->veincolor[1] = atof(argv[4]);
-    myCallback->veincolor[2] = atof(argv[5]);
-    myCallback->veinfreq = atof(argv[6]);
-    myCallback->veinlevels = atoi(argv[7]);
-  }
-  if (argc == 9)
-  {
-    myCallback->veincolor[0] = atof(argv[3]);
-    myCallback->veincolor[1] = atof(argv[4]);
-    myCallback->veincolor[2] = atof(argv[5]);
-    myCallback->veinfreq = atof(argv[6]);
-    myCallback->veinlevels = atoi(argv[7]);
-    myCallback->warpfreq = atof(argv[8]);
-  }
-  if (argc == 10)
-  {
-    myCallback->veincolor[0] = atof(argv[3]);
-    myCallback->veincolor[1] = atof(argv[4]);
-    myCallback->veincolor[2] = atof(argv[5]);
-    myCallback->veinfreq = atof(argv[6]);
-    myCallback->veinlevels = atoi(argv[7]);
-    myCallback->warpfreq = atof(argv[8]);
-    myCallback->warping = atof(argv[9]);
-  }
-  if (argc == 11)
-  {
-    myCallback->veincolor[0] = atof(argv[3]);
-    myCallback->veincolor[1] = atof(argv[4]);
-    myCallback->veincolor[2] = atof(argv[5]);
-    myCallback->veinfreq = atof(argv[6]);
-    myCallback->veinlevels = atoi(argv[7]);
-    myCallback->warpfreq = atof(argv[8]);
-    myCallback->warping = atof(argv[9]);
-    myCallback->sharpness = atof(argv[10]);
-  }
+
   std::cout << "Input: " << (argc > 2 ? argv[2] : "Generated Sphere") << std::endl;
   myCallback->Print(std::cout);
   mapper->AddObserver(vtkCommand::UpdateShaderEvent, myCallback);
 
+  // Setup a slider widget for each varying parameter
+  double tubeWidth(.015);
+  double sliderLength(.008);
+  double titleHeight(.02);
+  double labelHeight(.02);
+
+  vtkSmartPointer<vtkSliderRepresentation2D> sliderRepVeinFreq =
+    vtkSmartPointer<vtkSliderRepresentation2D>::New();
+
+  sliderRepVeinFreq->SetMinimumValue(1.0);
+  sliderRepVeinFreq->SetMaximumValue(15.0);
+  sliderRepVeinFreq->SetValue(7.5);
+  sliderRepVeinFreq->SetTitleText("Vein Frequency");
+
+  sliderRepVeinFreq->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepVeinFreq->GetPoint1Coordinate()->SetValue(.1, .1);
+  sliderRepVeinFreq->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepVeinFreq->GetPoint2Coordinate()->SetValue(.9, .1);
+
+  sliderRepVeinFreq->SetTubeWidth(tubeWidth);
+  sliderRepVeinFreq->SetSliderLength(sliderLength);
+  sliderRepVeinFreq->SetTitleHeight(titleHeight);
+  sliderRepVeinFreq->SetLabelHeight(labelHeight);
+
+  vtkSmartPointer<vtkSliderWidget> sliderWidgetVeinFreq =
+    vtkSmartPointer<vtkSliderWidget>::New();
+  sliderWidgetVeinFreq->SetInteractor(interactor);
+  sliderWidgetVeinFreq->SetRepresentation(sliderRepVeinFreq);
+  sliderWidgetVeinFreq->SetAnimationModeToJump();
+  sliderWidgetVeinFreq->EnabledOn();
+
+  vtkSmartPointer<SliderCallbackVeinFreq> callbackVeinFreq =
+    vtkSmartPointer<SliderCallbackVeinFreq>::New();
+  callbackVeinFreq->Shader = myCallback;
+
+  sliderWidgetVeinFreq->AddObserver(vtkCommand::InteractionEvent,callbackVeinFreq);
+
+  vtkSmartPointer<vtkSliderRepresentation2D> sliderRepVeinLevels =
+    vtkSmartPointer<vtkSliderRepresentation2D>::New();
+
+  sliderRepVeinLevels->SetMinimumValue(1);
+  sliderRepVeinLevels->SetMaximumValue(5);
+  sliderRepVeinLevels->SetValue(3);
+  sliderRepVeinLevels->SetTitleText("Vein Levels");
+
+  sliderRepVeinLevels->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepVeinLevels->GetPoint1Coordinate()->SetValue(.1, .9);
+  sliderRepVeinLevels->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepVeinLevels->GetPoint2Coordinate()->SetValue(.9, .9);
+
+  sliderRepVeinLevels->SetTubeWidth(tubeWidth);
+  sliderRepVeinLevels->SetSliderLength(sliderLength);
+  sliderRepVeinLevels->SetTitleHeight(titleHeight);
+  sliderRepVeinLevels->SetLabelHeight(labelHeight);
+
+  vtkSmartPointer<vtkSliderWidget> sliderWidgetVeinLevels =
+    vtkSmartPointer<vtkSliderWidget>::New();
+  sliderWidgetVeinLevels->SetInteractor(interactor);
+  sliderWidgetVeinLevels->SetRepresentation(sliderRepVeinLevels);
+  sliderWidgetVeinLevels->SetAnimationModeToJump();
+  sliderWidgetVeinLevels->EnabledOn();
+
+  vtkSmartPointer<SliderCallbackVeinLevels> callbackVeinLevels =
+    vtkSmartPointer<SliderCallbackVeinLevels>::New();
+  callbackVeinLevels->Shader = myCallback;
+  myCallback->veincolor[0] = colors->GetColor3d("Green").GetData()[0];
+  myCallback->veincolor[1] = colors->GetColor3d("Green").GetData()[1];
+  myCallback->veincolor[2] = colors->GetColor3d("Green").GetData()[2];
+  sliderWidgetVeinLevels->AddObserver(vtkCommand::InteractionEvent,callbackVeinLevels);
+
+  vtkSmartPointer<vtkSliderRepresentation2D> sliderRepWarpFreq =
+    vtkSmartPointer<vtkSliderRepresentation2D>::New();
+
+  sliderRepWarpFreq->SetMinimumValue(1.0);
+  sliderRepWarpFreq->SetMaximumValue(2.0);
+  sliderRepWarpFreq->SetValue(1.5);
+  sliderRepWarpFreq->SetTitleText("Warp Frequency");
+
+  sliderRepWarpFreq->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepWarpFreq->GetPoint1Coordinate()->SetValue(.1, .1);
+  sliderRepWarpFreq->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepWarpFreq->GetPoint2Coordinate()->SetValue(.1, .9);
+
+  sliderRepWarpFreq->SetTubeWidth(tubeWidth);
+  sliderRepWarpFreq->SetSliderLength(sliderLength);
+  sliderRepWarpFreq->SetTitleHeight(titleHeight);
+  sliderRepWarpFreq->SetLabelHeight(labelHeight);
+
+  vtkSmartPointer<vtkSliderWidget> sliderWidgetWarpFreq =
+    vtkSmartPointer<vtkSliderWidget>::New();
+  sliderWidgetWarpFreq->SetInteractor(interactor);
+  sliderWidgetWarpFreq->SetRepresentation(sliderRepWarpFreq);
+  sliderWidgetWarpFreq->SetAnimationModeToJump();
+  sliderWidgetWarpFreq->EnabledOn();
+
+  vtkSmartPointer<SliderCallbackWarpFreq> callbackWarpFreq =
+    vtkSmartPointer<SliderCallbackWarpFreq>::New();
+  callbackWarpFreq->Shader = myCallback;
+
+  sliderWidgetWarpFreq->AddObserver(vtkCommand::InteractionEvent,callbackWarpFreq);
+
+  vtkSmartPointer<vtkSliderRepresentation2D> sliderRepWarping =
+    vtkSmartPointer<vtkSliderRepresentation2D>::New();
+
+  sliderRepWarping->SetMinimumValue(0.0);
+  sliderRepWarping->SetMaximumValue(1.0);
+  sliderRepWarping->SetValue(.5);
+  sliderRepWarping->SetTitleText("Warping");
+
+  sliderRepWarping->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepWarping->GetPoint1Coordinate()->SetValue(.9, .1);
+  sliderRepWarping->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepWarping->GetPoint2Coordinate()->SetValue(.9, .9);
+
+  sliderRepWarping->SetTubeWidth(tubeWidth);
+  sliderRepWarping->SetSliderLength(sliderLength);
+  sliderRepWarping->SetTitleHeight(titleHeight);
+  sliderRepWarping->SetLabelHeight(labelHeight);
+
+  vtkSmartPointer<vtkSliderWidget> sliderWidgetWarping =
+    vtkSmartPointer<vtkSliderWidget>::New();
+  sliderWidgetWarping->SetInteractor(interactor);
+  sliderWidgetWarping->SetRepresentation(sliderRepWarping);
+  sliderWidgetWarping->SetAnimationModeToJump();
+  sliderWidgetWarping->EnabledOn();
+
+  vtkSmartPointer<SliderCallbackWarping> callbackWarping =
+    vtkSmartPointer<SliderCallbackWarping>::New();
+  callbackWarping->Shader = myCallback;
+
+  sliderWidgetWarping->AddObserver(vtkCommand::InteractionEvent,callbackWarping);
+
   renderWindow->Render();
-  renderer->GetActiveCamera()->SetPosition(-.3, 0, .08);
-  renderer->GetActiveCamera()->SetFocalPoint(0,0,0);
-  renderer->GetActiveCamera()->SetViewUp(.26, 0.0, .96);
   renderer->ResetCamera();
   renderer->GetActiveCamera()->Zoom(1.5);
   renderWindow->Render();
