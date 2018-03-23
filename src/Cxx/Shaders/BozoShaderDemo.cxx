@@ -258,7 +258,7 @@ int main(int argc, char *argv[])
   }
 
   // Setup viewports for the renderers
-  int rendererSize = 300;
+  int rendererSize = 250;
   unsigned int xGridDimensions = 3;
   unsigned int yGridDimensions = 3;
   renderWindow->SetSize(
