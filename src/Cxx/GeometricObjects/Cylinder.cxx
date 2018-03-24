@@ -9,7 +9,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 
-int main(int, char *argv[])
+int main(int, char *[])
 {
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
@@ -47,7 +47,6 @@ int main(int, char *argv[])
   renderer->SetBackground(colors->GetColor3d("DarkGreen").GetData());
 
   // Render and interact
-  // renderWindow->SetWindowName(argv[0]);
   renderWindow->Render();
   renderWindowInteractor->Start();
  
