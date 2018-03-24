@@ -155,10 +155,13 @@ void RestorePropertyFromFieldData(std::string arrayPrefix,
     property->SetLineWidth(fd->GetArray(std::string(arrayPrefix + ":" + "LineWidth").c_str())->GetTuple1(0));
     property->SetLineStipplePattern(fd->GetArray(std::string(arrayPrefix + ":" + "LineStipplePattern").c_str())->GetTuple1(0));
     property->SetLineStippleRepeatFactor(fd->GetArray(std::string(arrayPrefix + ":" + "LineStippleRepeatFactor").c_str())->GetTuple1(0));
-    property->SetLighting(fd->GetArray(std::string(arrayPrefix + ":" + "Lighting").c_str())->GetTuple1(0));
-    property->SetRenderPointsAsSpheres(fd->GetArray(std::string(arrayPrefix + ":" + "RenderPointsAsSpheres").c_str())->GetTuple1(0));
-    property->SetRenderLinesAsTubes(fd->GetArray(std::string(arrayPrefix + ":" + "RenderLinesAsTubes").c_str())->GetTuple1(0));
-    property->SetShading(fd->GetArray(std::string(arrayPrefix + ":" + "Shading").c_str())->GetTuple1(0));
+    property->SetLighting(
+      fd->GetArray(std::string(arrayPrefix + ":" + "Lighting").c_str())->GetTuple1(0) == 1.0 ? true: false);
+    property->SetRenderPointsAsSpheres(
+      fd->GetArray(std::string(arrayPrefix + ":" + "RenderPointsAsSpheres").c_str())->GetTuple1(0));
+    property->SetRenderLinesAsTubes(fd->GetArray(std::string(arrayPrefix + ":" + "RenderLinesAsTubes").c_str())->GetTuple1(0) == 1.0 ? true: false);
+    property->SetShading(
+      fd->GetArray(std::string(arrayPrefix + ":" + "Shading").c_str())->GetTuple1(0) == 1.0 ? true: false);
   }
 }
 void RestoreActorFromFieldData(std::string arrayPrefix,
@@ -167,8 +170,10 @@ void RestoreActorFromFieldData(std::string arrayPrefix,
 {
   vtkFieldData *fd = pd->GetFieldData();
 
-  actor->SetDragable(fd->GetArray(std::string(arrayPrefix + ":" + "Dragable").c_str())->GetTuple1(0));
-  actor->SetPickable(fd->GetArray(std::string(arrayPrefix + ":" + "Pickable").c_str())->GetTuple1(0));
+  actor->SetDragable(
+    fd->GetArray(std::string(arrayPrefix + ":" + "Dragable").c_str())->GetTuple1(0) == 1.0 ? true: false);
+  actor->SetPickable(
+    fd->GetArray(std::string(arrayPrefix + ":" + "Pickable").c_str())->GetTuple1(0) == 1.0 ? true: false);
   actor->SetVisibility(fd->GetArray(std::string(arrayPrefix + ":" + "Visibility").c_str())->GetTuple1(0));
   actor->SetPosition(fd->GetArray(std::string(arrayPrefix + ":" + "Position").c_str())->GetTuple(0));
   actor->SetOrientation(fd->GetArray(std::string(arrayPrefix + ":" + "Orientation").c_str())->GetTuple(0));
