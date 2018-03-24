@@ -37,6 +37,12 @@
 //----------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
+  if (argc < 3)
+  {
+    std::cout << "Usage: " << argv[0] << " file.vtp wintersun.jpg" << std::endl;
+    return EXIT_SUCCESS;
+  }
+
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->SetBackground(0.0, 0.0, 0.0);
