@@ -43,6 +43,17 @@ def CopyFile(fromFile, toFile):
     outFile.write(md)
     outFile.close()
 
+# copy a file and add doxygen links
+
+def CopyFileAndAddDoxygen(fromFile, toFile):
+    mdFile = open(fromFile, 'r')
+    outFile = open(toFile, 'w')
+    md = mdFile.read()
+    md = AddDoxygen(md)
+    mdFile.close()
+    outFile.write(md)
+    outFile.close()
+
 # load the tiny url cache into a dictionary
 
 def LoadTinyUrlCache(CacheFile, CacheDict):
@@ -327,6 +338,12 @@ CopyFile(RepoDir + "/Instructions/ForDevelopers.md", DocDir + "/Instructions/For
 CopyFile(RepoDir + "/Instructions/ForAdministrators.md", DocDir + "/Instructions/ForAdministrators.md")
 CopyFile(RepoDir + "/Instructions/Guidelines.md", DocDir + "/Instructions/Guidelines.md")
 CopyFile(RepoDir + "/Instructions/ConvertingFiguresToExamples.md", DocDir + "/Instructions/ConvertingFiguresToExamples.md")
+
+# Copy VTKBook files
+if not os.path.exists(DocDir + "/VTKBook"):
+    os.makedirs(DocDir + "/VTKBook")
+CopyFileAndAddDoxygen(RepoDir + "/VTKBook/Introduction.md", DocDir + "/VTKBook/Introduction.md")
+CopyFileAndAddDoxygen(RepoDir + "/VTKBook/Chapter6.md", DocDir + "/VTKBook/Chapter6.md")
 
 # Scan all Cxx directories and look for extras
 allExtras = set()
