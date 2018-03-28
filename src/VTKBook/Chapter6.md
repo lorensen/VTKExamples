@@ -167,12 +167,6 @@ as shown in lar is normalized using the magnitude of the oriented line, and may 
 
 **Figure 6--11** Contouring examples. (a) Marching squares used to
 generate contour lines ( headSlic.tcl ); (b) Marching cubes surface of human bone  (headBone.tcl ); (c) Marching cubes surface of flow density ( combIso.tcl ); (d)  Marching cubes surface of ironprotein ( ironPIso.tcl ).
-
-+---------+---------+---------+---------+---------+---------+---------+
-| vation  | *i*     | at    | produ | **Fig |         |
-| scalar  |         | point | ctz     | ure6--1 |         |
-| *s*     |         | using | as    | 2**     |         |
-|         |         | p=      | shown | . The |         |
 |         |         | the() | in    | sca-  |         |
 |         |         | x       |         |         |         |
 |         |         | dot,, |         |         |         |
@@ -1203,10 +1197,6 @@ Although writers and mappers do not create visualization data, they both have me
 Color maps are created in the Visualization Toolkit using instances of the class vtkLookupTable . This class allows you to create a lookup table using HSVA (e.g., hue, saturation, value, and alpha Chapter 3 , we opacity value) specification. Although we discussed the HSV color system in Chapter 7 , but until then consider the alpha haven’t yet defined alpha opacity. We shall do so in value to be the opacity of an object. Alpha values of one indicate that the object is opaque, while alpha values of zero indicate that the object is transparent.
 
 The procedure for generating lookup table entries is to define pairs of values for HSVA. These pairs define a linear ramp for hue, saturation, value, and opacity. When the Build() method is invoked, these linear ramps are used to generate a table with the number of table entries requested. Alternatively, vtkLookupTable also enables you to load colors directly into the table. Thus, you build custom tables that cannot be simply expressed as linear ramps of HSVA values. To demonstrate this procedure, we specify a starting and ending value for each of the components of HSVA, then we will create a rainbow lookup table from blue to red by using the following
-+-----------------+-----------------+-----------------+-----------------+
-|Color maps are  | using         | vtkLookupTabl |
-| created in the  | instances of  | e               |
-| *Visualization  | the class     | .             |
 | Toolkit*        |                 |                 |
 +-----------------+-----------------+-----------------+-----------------+
 | This class      |
