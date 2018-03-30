@@ -68,7 +68,7 @@ The key to color mapping for scalar visualization is to choose the lookup table 
 
 Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light. (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (**Figure6-1** ), the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes. improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
 
-<figure>
+<figure id="Figure6-3">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestRainbow.png?raw=true width="640" alt="Figure 6-3">
  <figcaption><b>Figure 6-3</b>. Flow density colored with different lookup tables. Top-left: grayscale; Top-right rainbow (blue to red); lower-left rainbow (red to blue); lower-right large contrast.<a href="../../Cxx/Rendering/Rainbow/" title="Rainbow"> See Rainbow.cxx</a><a href="../../Python/Rendering/Rainbow/" title="Rainbow"> and Rainbow.py</a>.</figcaption>
 </figure>
@@ -107,14 +107,14 @@ There are advantages and disadvantages to both the edge-tracking and marching cu
 
 **Figure 6-5** Sixteen different marching squares cases. Dark vertices indicate scalar value is above contour value. Cases 5 and 10 are ambiguous.
 
-<figure>
+<figure id="Figure6-6">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMarchingCasesA.png?raw=true width="640" alt="Figure 6-6">
  <figcaption><b>Figure 6-6</b>. Marching Cubes cases for 3D isosurface generation. The 256 possible cases have been reduced to 15 cases usin symmetry. Red vertices are greater than the selected isosurface value. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesA/" title="MarchingCasesA"> See MarchingCasesA.cxx</a> and <a href="../../Python/VisualizationAlgorithms/MarchingCasesA/" title="MarchingCasesA"> See MarchingCasesA.py</a>.</figcaption>
 </figure>
 
 As mentioned previously, the 3D analogy of marching squares is marching cubes. Here, there are 256 different combinations of scalar value, given that there are eight points in a cubical cell (i.e., 2 *^8^* combinations). **Figure6-6** shows these combinations reduced to 15 cases by using arguments of symmetry. We use combinations of rotation and mirroring to produce topologically equivalent cases.
 
-<figure>
+<figure id="Figure6-10">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMarchingCasesB.png?raw=true width="640" alt="Figure 6-10">
  <figcaption><b>Figure 6-10</b> Marching Cubes cases for 3D isosurface generation. The 256 possible cases have been reduced to 15 cases using symmetry. Dark vertices are greater than the selected isosurface value. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> See MarchingCasesB.cxx</a> <a href="../../Python/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> and MarchingCasesB.py</a>.</figcaption>
 </figure>
@@ -139,20 +139,20 @@ We can extend the general approach of marching squares and marching cubes to oth
 
 **Figure6-11** shows four applications of contouring. In **Figure6-11** (a) we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. **Figure6-11** (b) through **Figure6-11** (d) are isosurfaces created by marching cubes. **Figure6-11** (b) is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. ( **Figure6-11** (a) is a 2D subset of this data.) The intensity level corresponds to human bone. **Figure6-11** (c) is an isosurface of constant flow density. **Figure6-11** (d) is an isosurface of electron potential of an iron protein molecule. The image shown in **Figure6-11** (b) is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, **Figure6-11** (c) and **Figure6-11** (d) are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
 
-<figure>
- <figure>
+<figure id="Figure6-11">
+ <figure id="Figure6-11a">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHeadSlice.png?raw=true width="640" alt="Figure 6-11a">
   <figcaption>(a) Marching squares used to generate contour lines.</figcaption>
  </figure>
-<figure>
+<figure id="Figure6-11b">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHeadBone.png?raw=true width="640" alt="Figure 6-11b">
  <figcaption>(b) Marching Cubes surface of human bone</figcaption>
 </figure>
-<figure>
+<figure id="Figure6-11c">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCombustorIsosurface.png?raw=true width="640" alt="Figure 6-11c">
 <figcaption>(c) Marching Cubes surface of flow density.</figcaption>
 </figure>
-<figure>
+<figure id="Figure6-3d">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIronIsoSurface.png?raw=true width="640" alt="Figure 6-11d">
  <figcaption>(d) Marching Cubes surface of iron-protein</figcaption>
 </figure>
@@ -170,7 +170,7 @@ This example can be made more interesting by generalizing the problem. Although 
 
 Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
 
-<figure>
+<figure id="Figure6-12">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestHawaii.png?raw=true width="640" alt="Figure 6-12">
  <figcaption><b>Figure 6-12</b>. Computing scalars using normalized dot product. Bottom half of figure illustrates technique applied to terrain data from Honolulu, Hawaii.<a href="../../Cxx/Visualization/Hawaii/" title="Hawaii"> See Hawaii.cxx</a><a href="../../Python/Visualization/Hawaii/" title="Hawaii"> See Hawaii.py</a>.</figcaption>
 </figure>
@@ -187,7 +187,7 @@ scaled line for each vector (**Figure6-13** (a)). The line begins at the point w
 There are many variations of this technique ( **Figure6-13** (b)). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented "glyphs" can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
 
 
-<figure>
+<figure id="Figure6-13">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestComplexV.png?raw=true width="640" alt="Figure 6-13">
  <figcaption><b>Figure 6-13</b>. Vector visualization techniques: (a) oriented lines; (b) using oriented glyphs; (c) complex vector visualization.<a href="../../Cxx/Visualization/ComplexV" title="ComplexVw"> See ComplexV.cxx</a> and <a href="../../Python/Visualization/ComplexV" title="ComplexV"> ComplexV.py</a>.</figcaption>
 </figure>
@@ -200,12 +200,12 @@ Scaling glyphs also poses interesting problems. In what Tufte has termed a "visu
 
 Vector data is often associated with "motion." The motion is in the form of velocity or displacement. An effective technique for displaying such vector data is to "warp" or deform geometry according to the vector field. For example, imagine representing the displacement of a structure under load by deforming the structure. Or if we are visualizing the flow of fluid, we can create a flow profile by distorting a straight line inserted perpendicular to the flow.
 
-<figure>
+<figure id="Figure6-14">
 <figure>
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestPlateVibration.png?raw=true width="640" alt="Figure 6-14a">
 <figcaption>(a) Vibration of beam.</figcaption>
 </figure>
-<figure>
+<figure id="Figure6-14b">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestVelocityProfile.png?raw=true width="640" alt="Figure 6-14b">
 <figcaption>(b) Momentum profiles.</figcaption>
 </figure>
@@ -237,7 +237,7 @@ Vector displacement plots draw on the ideas in "Scalar Generation" on page171. V
 
 A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the socalled *modal* lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
 
-<figure>
+<figure id="Figure6-15">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDisplacementPlot.png?raw=true width="640" alt="Figure 6-15">
 </figure>
 <figcaption><b>Figure 6-15</b>. Vector displacement plots. (a) Vector converted to scalar via dot product computation; (b) Surface plot of vibrating plate. Dark areas show nodal lines. Bright areas show maximum motion.<a href="../../Cxx/VisualizationAlgorithms/DisplacementPlot" title="DisplacementPlot"> See DisplacementPlot.cxx</a> and <a href="../../Python/VisualizationAlgorithms/DisplacementPlot" title="DisplacementPlot"> DisplacementPlot.py</a>.</figcaption>
@@ -271,6 +271,7 @@ To evaluate **Equation6-1** we can express it as an integral:
 Although this form cannot be solved analytically for most real world data, its solution can be approximated using numerical integration techniques. Accurate numerical integration is a topic beyond the scope of this book, but it is known that the accuracy of the integration is a function of the step size *dt*. Since the path is an integration throughout the dataset, the accuracy of the cell interpolation functions, as well as the accuracy of the original vector data, plays an important role in realizing accurate solutions. No definitive study is yet available that relates cell size or interpolation function characteristics to visualization error. But the lesson is clear: the result of numerical integration must be examined carefully, especially in regions of large vector field gradient. However, as with many other visualization algorithms, the insight gained by using vector integration techniques is qualitatively beneficial, despite the unavoidable numerical errors.
 
 The simplest form of numerical integration is Euler's method,
+
 ```
 xi1+ = xi + ViDt   **(6-3)**
 ```
@@ -313,7 +314,7 @@ Streamlines, streaklines, and particle traces are equivalent to one another if t
 
 **Figure6-18** shows forty streamlines in a small kitchen. The room has two windows, a door (with air leakage), and a cooking area with a hot stove. The air leakage and temperature variation combine to produce air convection currents throughout the kitchen. The starting positions of the streamlines were defined by creating a *rake*, or curve (and its associated points). Here the rake was a straight line. These streamlines clearly show features of the flow field. By releasing many streamlines simultaneously we obtain even more information, as the eye tends to assemble nearby streamlines into a "global" understanding of flow field features.
 
-<figure>
+<figure id="Figure6-18">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestKitchen.png?raw=true width="640" alt="Figure 6-18">
  <figcaption><b>Figure 6-18</b>. Flow velocity computed for a small kitchen (top and side view). Forty streamlines start along the rake positioned under the window. Some eventually travel over the hot stove and are convected upwards.<a href="../../Cxx/Visualization/Kitchen" title="Kitchen"> See Kitchen.cxx</a> and <a href="../../Python/Visualization/Kitchen" title="Kitchen"> See Kitchen.py</a>.</figcaption>
 </figure>
@@ -326,20 +327,18 @@ As we mentioned earlier, tensor visualization is an active area of research. How
 
 In these tensors the diagonal coefficients are the socalled normal stresses and strains, and the offdiagonal terms are the shear stresses and strains. Normal stresses and strains act perpendicular to a specified surface, while shear stresses and strains act tangentially to the surface. Normal stress is either compression or tension, depending on the sign of the coefficient.
 
-<figure>
+<figure id="Figure6-19">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestBluntStreamlines.png?raw=true width="640" alt="Figure 6-19">
  <figcaption><b>Figure 6-19</b>. Vector visualization techniques.<a href="../../Cxx/VisualizationAlgorithms/BluntStreamlines" title="BluntStreamlines"> See BluntStreamlines.cxx</a> and <a href="../../Python/Visualization/BluntStreamlines" title="BluntStreamlines"> See BluntStreamlines.py</a>.</figcaption>
 </figure>
 
 A 3x3 real symmetric matrix can be characterized by three vectors in 3D called the eigenvectors, and three numbers called the eigenvalues of the matrix. The eigenvectors form a 3D coordinate system whose axes are mutually perpendicular. In some applications, particularly the study of materials, these axes also are referred to as the principle axes of the tensor and are physically significant. For example, if the tensor is a stress tensor, then the principle axes are the directions of normal stress and no shear stress. Associated with each eigenvector is an eigenvalue. The eigenvalues are often physically significant as well. In the study of vibration, eigenvalues correspond to the resonant frequencies of a structure, and the eigenvectors are the associated mode shapes.
 
-Mathemati[c]{.underline}ally we can represent eigenvalues and
-eigenvectors as follows. Given a matrix the eigenvector andx
-eigenvalue mustl satisfy the relation
+Mathematically we can represent eigenvalues and eigenvectors as follows. Given a matrix the eigenvector and eigenvalue mustl satisfy the relation 
 
 For **Equation6-6** to hold, the matrix determinate must satisfy ```det(A) = 0```.
 
-Expanding this equation yields a *nth* degree polynomial in whosel roots are the eigenvalues. Thus, there are always *n* eigenvalues, although they may not be distinct. In general, **Equation6-7** is not solved using polynomial root searching because of poor computational performance. (For matrices of order 3 root searching is acceptable because we can solve for the eigenvalues analytically.) Once we determine the eigenvalues, we can substitute each into **Equation6-7** to solve for the associated eigenvectors.
+Expanding this equation yields a *nth* degree polynomial in whose roots are the eigenvalues. Thus, there are always *n* eigenvalues, although they may not be distinct. In general, **Equation6-7** is not solved using polynomial root searching because of poor computational performance. (For matrices of order 3 root searching is acceptable because we can solve for the eigenvalues analytically.) Once we determine the eigenvalues, we can substitute each into **Equation6-7** to solve for the associated eigenvectors.
 
 We can express the eigenvectors of the system33´ as vi = liei, with i123= with eai unit vector in the direction of the eigenvalue, and the eigenvalues~i~ of the system. If we order eigenvalues such that l1 ³³l2 l3 then we refer to the corresponding eigenvectors , , andv1 asv2 the v3 *major*, *medium* , and *minor* eigenvectors.
 
@@ -351,13 +350,13 @@ To form the ellipsoid we begin by positioning a sphere at the tensor location. T
 
 **Figure6-21** (a) depicts the tensor ellipsoid technique. In **Figure6-21** (b) we show this technique to visualize material stress near a point load on the surface of a semiinfinite domain. (This is the socalled Boussinesq's problem.) From Saada \[Saada74\] we have the analytic expression for the stress components in Cartesian coordinates shown in **Figure6-21** (c). Note that the *z*-direction is defined as the axis originating at the point of application of the force *P*. The variable isr the distance from the point of load application to a point *xyz*. The orientation of the *x* and *y* axes are incthe plane perpendicular to the *z* axis. (The rotation in the plane of these axes is unimportant since the solution is symmetric around the *z* axis.) (The parameter is Poisson's ratio which is a property of the material. Poisson's ratio relates the lateral contraction of a material to axial elongation under a uniaxial stress condition. See \[Saada74\] or \[Timoshenko70\] for more information.)
 
-<figure>
-  <figure>
-   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorAxes.png?raw=true width="640" alt="Figure 6-22">
+<figure id="Figure6-22">
+  <figure  id="Figure6-22a">
+   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorAxes.png?raw=true width="640" alt="Figure 6-22a">
    <figcaption>(a) Tensor axes</figcaption>
   </figure>
-  <figure>
-   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorEllipsoids.png?raw=true width="640" alt="Figure 6-22">
+  <figure id="Figure6-22b">
+   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorEllipsoids.png?raw=true width="640" alt="Figure 6-22b">
    <figcaption>(b) Tensor ellipsiods</figcaption>
   </figure>
  <figcaption><b>Figure 6-22</b>. Tensor visualization techniques; (a) Tensor axes.<a href="../../Cxx/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> See TensorAxes.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> See TensorAxes.py</a> (b) Tensor ellipsoids.<a href="../../Cxx/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> See TensorEllipsoids.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> See TensorEllipsoids.py</a></figcaption>
@@ -398,7 +397,7 @@ important properties.
 - *Simple geometric description.* Implicit functions are convenient tools to describe common geometric shapes. This includes planes, spheres, cylinders, cones, ellipsoids, and quadrics.
 
 - *Region separation.* Implicit functions separate 3D Euclidean space into three distinct regions. These regions are inside, on, and outside the implicit function. These regions are defined as
-Fxyz(),, \< 0 , , Fxyzand(),**,** respectively=0. Fxyz(),, \0
+Fxyz(),, < 0 , , Fxyzand(),**,** respectively=0. Fxyz(),, 
 
 - *Scalar generation.* Implicit functions convert a position in space into a scalar value. That is, given an implicit function we can sample it at a point to generate()x~i~,,y~i~ za~i~ scalar value c~i~.
 
@@ -428,6 +427,7 @@ Implicit functions can be used alone or in combination to model geometric object
 
 Implicit functions can be combined to create complex objects using the boolean operators union, intersection, and difference. The union operation between
 FGÈ two functions
+
 ```
 Fxyz
 ()
@@ -447,6 +447,7 @@ FGÈ
 ```
 
 The intersection between two implicit functions is given by
+
 ```
 () () 0,,y 0 z 0 , Gx() 0 ,,y 0 z 0
 = maxFx
@@ -455,6 +456,7 @@ The intersection between two implicit functions is given by
 ```
 
 The difference of two implicit functions is given by
+
 ```
 () () 0 ,,y 0 z 0 , – Gx() 0 ,,y 0 z 0
 = maxFx
@@ -540,7 +542,7 @@ Glyphs, sometimes referred to as icons, are a versatile technique to visualize d
 
 More elaborate glyphs are possible. In one creative visualization technique Chernoff \[Chernoff73\] tied data values to an iconic representation of the human face. Eyebrows, nose, mouth, and other features were modified according to financial data values. This interesting technique builton the human capability to recognize facial expression. By tying appropriate data values to facial characteristics, rapid identification of important data points is possible.
 
-<figure>
+<figure id="Figure6-30">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestSpikeFran.png?raw=true width="640" alt="Figure 6-30">
 </figure>
 <figcaption><b>Figure 6-30</b> Glyphs indicate surface normals on model of human face. Glyph positions are randomly selected. <a href="../../Cxx/VisualizationAlgorithms/SpikeFran" title="SpikeFran"> See SpikeFran.cxx</a> and <a href="../../Python/VisualizationAlgorithms/SpikeFran" title="SpikeFran"> SpikeFran.py</a>.</figcaption>
@@ -557,7 +559,7 @@ In a sense, glyphs represent the fundamental result of the visualization process
 
 This classification scheme can be extended to other visualization techniques such as vector and tensor data, or even to nonvisual forms such as sound or tactile feedback. We have found this classification scheme to be helpful when designing visualizations or creating visualization techniques. Often it gives insight into ways of representing data that can be overlooked.
 
-**Figure6-30** is an example of glyphing. Small 3D cones are oriented on a surface to indicate the direction of the surface normal. A similar approach could be used to show other surface properties such as curvature or anatomical keypoints.
+<a href="#Figure6-30">**Figure6-30**</a> is an example of glyphing. Small 3D cones are oriented on a surface to indicate the direction of the surface normal. A similar approach could be used to show other surface properties such as curvature or anatomical keypoints.
 
 ### Cutting
 
@@ -627,8 +629,9 @@ Although writers and mappers do not create visualization data, they both have me
 Color maps are created in the Visualization Toolkit using instances of the class vtkLookupTable. This class allows you to create a lookup table using HSVA (e.g., hue, saturation, value, and alpha Chapter 3 , we opacity value) specification. Although we discussed the HSV color system in Chapter 7 , but until then consider the alpha haven’t yet defined alpha opacity. We shall do so in value to be the opacity of an object. Alpha values of one indicate that the object is opaque, while alpha values of zero indicate that the object is transparent.
 
 The procedure for generating lookup table entries is to define pairs of values for HSVA. These pairs define a linear ramp for hue, saturation, value, and opacity. When the Build() method is invoked, these linear ramps are used to generate a table with the number of table entries requested. Alternatively, vtkLookupTable also enables you to load colors directly into the table. Thus, you build custom tables that cannot be simply expressed as linear ramps of HSVA values. To demonstrate this procedure, we specify a starting and ending value for each of the components of HSVA, then we will create a rainbow lookup table from blue to red by using the following C++ code.
+
 ```
-vtkLookupTable *lut=vtkLookupTable::New();
+vtkLookupTable *lut = vtkLookupTable::New();
 lut->SetHueRange(0.6667, 0.0);
 lut->SetSaturationRange(1.0, 1.0);
 lut->SetValueRange(1.0, 1.0);
@@ -638,24 +641,27 @@ lut->Build();
 ```
 
 Since the default values for SaturationRange , ValueRange , AlphaRange , and the number of lookup table colors are (1,1), (1,1), (1,1), and 256, respectively, we can simplify this process to the following
+
 ```
-vtkLookupTable *lut=vtkLookupTable::New();
+vtkLookupTable *lut = vtkLookupTable::New();
 lut->SetHueRange(0.6667, 0.0);
 lut->Build();
 ```
 (The default values for HueRange are (0.0, 0.6667) --- a red to blue color table.)
 
 To build a black and white lookup table of 256 entries we use
+
 ```
-vtkLookupTable *lut=vtkLookupTable::New();
+vtkLookupTable *lut = vtkLookupTable::New();
 lut->SetHueRange(0.0, 0.0);
 lut->SetSaturationRange(0.0, 0.0);
 lut->SetValueRange(0.0, 1.0)
 ```
 
 In some cases you may want to specify colors directly. You can do this by specifying the number of colors, building the table, and then inserting new colors. When you insert colors, the RGBA color description system is used. For example, to create a lookup table of the three colors red, green, and blue, use the following C++ code.
+
 ```
-vtkLookupTable *lut=vtkLookupTable::New();
+vtkLookupTable *lut = vtkLookupTable::New();
 lut->SetNumberOfColors(3);
 lut->Build();
 lut->SetTableValue(0, 1.0, 0.0, 0.0, 1.0);
@@ -663,13 +669,13 @@ lut->SetTableValue(0, 0.0, 1.0, 0.0, 1.0);
 lut->SetTableValue(0, 0.0, 0.0, 1.0, 1.0);
 ```
 
-Lookup tables in the *Visualization Toolkit* are associated with the graphics mappers. Mappers will automatically create a red to blue lookup table if no table is specified, but if you want to create your own, use the mapper-\>SetLookupTable(lut) operation where mapper is an instance of vtkMapper or its subclasses.
+Lookup tables in the *Visualization Toolkit* are associated with the graphics mappers. Mappers will automatically create a red to blue lookup table if no table is specified, but if you want to create your own, use the mapper->SetLookupTable(lut) operation where mapper is an instance of vtkMapper or its subclasses.
 
 A few final notes on using lookup tables.
 
 - Mappers use their lookup table to map scalar values to colors. If no scalars are present, the mappers and their lookup tables do not control the color of the object. Instead the vtkProperty object associated with the vtkActor class does. Use vtkProperty's method ```actor->GetProperty()->SetColor(r,g,b)``` where r, g, and b are floatingpoint values specifying color.
 
-**•** If you want to prevent scalars from coloring your object, use vtkMapper's method mapper-\>ScalarVisibilityOff() to turn off color mapping. Then the actor's color will control the color of the object.
+**•** If you want to prevent scalars from coloring your object, use vtkMapper's method mapper->ScalarVisibilityOff() to turn off color mapping. Then the actor's color will control the color of the object.
 
 - The scalar range (i.e., the range into which the colors are mapped) is specified with the mapper. Use the method ```mapper->SetScalarRange(min, max)```.
 
@@ -721,7 +727,7 @@ vtkPolyDataMapper *outlineMapper = vtkPolyDataMapper::New();
   outlineMapper->SetInputConnection(outline->GetOutputPort());
 vtkActor *outlineActor = vtkActor::New();
   outlineActor->SetMapper(outlineMapper);
-  outlineActor->GetProperty()-\>SetColor(0,0,0);
+  outlineActor->GetProperty()->SetColor(0,0,0);
 ```
 <figure>
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestContourQuadric.png?raw=true width="640" alt="Figure 6-39">
@@ -786,25 +792,25 @@ In the next part of this example we'll generate streamtubes of blood velocity. A
 
 ```
 vtkStructuredPointsReader reader
-reader SetFileName \"\$env(VTK\_TEXTBOOK\_DATA)/carotid.vtk\"
+ reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"
 vtkThresholdPoints threshold
-threshold SetInputConnection \[reader GetOutputPort\] threshold
+threshold SetInputConnection [reader GetOutputPort] threshold
 ThresholdByUpper 200
 vtkMaskPoints mask
-mask SetInputConnection \[Threshold GetOutputPort\] mask SetOnRatio 10
+mask SetInputConnection [Threshold GetOutputPort] mask SetOnRatio 10
 vtkConeSource cone
 cone SetResolution 3
 cone SetHeight 1
 cone SetRadius 0.25
 vtkGlyph3D cones
-cones SetInputConnection \[mask GetOutputPort\] cones
-SetSourceConnection \[cone GetOutputPort\] cones SetScaleFactor 0.5
+cones SetInputConnection [mask GetOutputPort] cones
+SetSourceConnection [cone GetOutputPort] cones SetScaleFactor 0.5
 cones SetScaleModeToScaleByVector
 vtkLookupTable lut
 lut SetHueRange.667 0.0
 lut Build
 vtkPolyDataMapper vecMapper
-vecMapper SetInputConnection \[cones GetOutputPort\] vecMapper
+vecMapper SetInputConnection [cones GetOutputPort] vecMapper
 SetScalarRange 2 10 vecMapper SetLookupTable lut
 ```
 
