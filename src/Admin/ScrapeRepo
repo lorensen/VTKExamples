@@ -43,10 +43,21 @@ def CopyFile(fromFile, toFile):
     outFile.write(md)
     outFile.close()
 
+# create a list of html id's
+def CreateHtmlIds(fromFile):
+    global htmlIdSet
+    with open(fromFile, 'r') as chapterLine:
+        for line in chapterLine:
+            idFound = re.findall(r'<figure[ ]*id="([^\"]*)">', line)
+            if len(idFound) > 0:
+                htmlIdSet.add(idFound[0])
+            
 # copy a file and add figure and doxygen links
-# only add links if we are outside code blocks
+# only add links to doxygen if we are outside code blocks
 # delimited by ```
+# only add links to a figure if the figure exists
 def CopyChapterAndAddLinks(fromFile, toFile):
+    global htmlIdSet
     inCode = False
     outFile = open(toFile, 'w')
     with open(fromFile, 'r') as chapterLine:
@@ -55,6 +66,12 @@ def CopyChapterAndAddLinks(fromFile, toFile):
                 inCode = not inCode
             if not inCode :
                 line = AddDoxygen(line)
+                figureFound = sorted(re.findall(r'\*\*(Figure[^\*]*)\*\*', line), reverse=True)
+                if len(figureFound) > 0:
+                    for figure in figureFound:
+                        if figure in htmlIdSet :
+                            line = line.replace(figure, r'<a href="#' + figure.replace("Figure","FIGURE") + '">**'+ figure.replace("Figure","FIGURE") + r'**</a>')
+            line = line.replace("FIGURE", "Figure")
             outFile.write(line)
     outFile.close()
 
@@ -346,6 +363,10 @@ CopyFile(RepoDir + "/Instructions/ConvertingFiguresToExamples.md", DocDir + "/In
 # Copy VTKBook files
 if not os.path.exists(DocDir + "/VTKBook"):
     os.makedirs(DocDir + "/VTKBook")
+htmlIdSet = set()
+CreateHtmlIds(RepoDir + "/VTKBook/Chapter6.md")
+
+print("Found ", len(htmlIdSet), " figures with html ids")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Introduction.md", DocDir + "/VTKBook/Introduction.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter6.md", DocDir + "/VTKBook/Chapter6.md")
 

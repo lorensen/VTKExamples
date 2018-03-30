@@ -137,7 +137,7 @@ A simple and effective solution extends the original 15 marching cubes cases by 
 
 We can extend the general approach of marching squares and marching cubes to other topological types. In VTK we use marching lines, triangles, and tetrahedra to contour cells of these types (or composite cells that are composed of these types). In addition, although we speak of regular types such as squares and cubes, marching cubes can be applied to any cell type topologically equivalent to a cube (e.g., hexahedron or noncubical voxel).
 
-**Figure6-11** shows four applications of contouring. In **Figure6-11** (a) we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. **Figure6-11** (b) through **Figure6-11** (d) are isosurfaces created by marching cubes. **Figure6-11** (b) is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. ( **Figure6-11** (a) is a 2D subset of this data.) The intensity level corresponds to human bone. **Figure6-11** (c) is an isosurface of constant flow density. **Figure6-11** (d) is an isosurface of electron potential of an iron protein molecule. The image shown in **Figure6-11** (b) is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, **Figure6-11** (c) and **Figure6-11** (d) are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
+**Figure6-11** shows four applications of contouring. In **Figure6-11a** (a) we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. **Figure6-11b** (b) through **Figure6-11d** (d) are isosurfaces created by marching cubes. **Figure6-11b** (b) is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. ( **Figure6-11a** (a) is a 2D subset of this data.) The intensity level corresponds to human bone. **Figure6-11c** (c) is an isosurface of constant flow density. **Figure6-11d** (d) is an isosurface of electron potential of an iron protein molecule. The image shown in **Figure6-11b** (b) is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, **Figure6-11c** (c) and **Figure6-11d** (d) are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
 
 <figure id="Figure6-11">
  <figure id="Figure6-11a">
@@ -152,12 +152,12 @@ We can extend the general approach of marching squares and marching cubes to oth
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCombustorIsosurface.png?raw=true width="640" alt="Figure 6-11c">
 <figcaption>(c) Marching Cubes surface of flow density.</figcaption>
 </figure>
-<figure id="Figure6-3d">
+<figure id="Figure6-11d">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIronIsoSurface.png?raw=true width="640" alt="Figure 6-11d">
  <figcaption>(d) Marching Cubes surface of iron-protein</figcaption>
 </figure>
-<figcaption><b>Figure 6-13</b>. Contouring examples. (a) Marching squares used to generate contour lines <a href="../../Cxx/VisualizationAlgorithms/HeadSlice" title="HeadSlice"> See HeadSlice.cxx</a> and <a href="../../Python/VisualizationAlgorithms/HeadSlice" title="HeadSlice"> HeadSlice.py</a>.; (b) Marching Cubes surface of human bone.<a href="../../Cxx/VisualizationAlgorithms/HeadBone" title="HeadBone"> See HeadBone.cxx</a> and <a href="../../Python/VisualizationAlgorithms/HeadBone" title="HeadBone"> HeadBone.py</a>.; (c) Marching Cubes surface of flow density<a href="../../Cxx/VisualizationAlgorithms/CombustorIsosurface" title="CombustorIsosurface"> See CombustorIsosurface.cxx</a> and <a href="
-../../Python/VisualizationAlgorithms/CombustorIsosurface" title="CombustorIsosurface"> CombustorIsosurface.py</a>.; (d) Marching Cubes surface of ironprotein.<a href="../../Cxx/VisualizationAlgorithms/IronIsoSurface" title="IronIsoSurface"> See IronIsoSurface.cxx</a> and <a href="../../Python/VisualizationAlgorithms" title="IronIsoSurface"> IronIsoSurface.py</a>.</figcaption>
+<figcaption><b>Figure 6-13</b>. Contouring examples. (a) Marching squares used to generate contour lines <a href="../../Cxx/VisualizationAlgorithms/HeadSlice" title="HeadSlice"> See HeadSlice.cxx</a> and <a href="../../Python/VisualizationAlgorithms/HeadSlice" title="HeadSlice"> HeadSlice.py</a>; (b) Marching Cubes surface of human bone.<a href="../../Cxx/VisualizationAlgorithms/HeadBone" title="HeadBone"> See HeadBone.cxx</a> and <a href="../../Python/VisualizationAlgorithms/HeadBone" title="HeadBone"> HeadBone.py</a>; (c) Marching Cubes surface of flow density<a href="../../Cxx/VisualizationAlgorithms/CombustorIsosurface" title="CombustorIsosurface"> See CombustorIsosurface.cxx</a> and <a href="
+../../Python/VisualizationAlgorithms/CombustorIsosurface" title="CombustorIsosurface"> CombustorIsosurface.py</a>; (d) Marching Cubes surface of ironprotein.<a href="../../Cxx/VisualizationAlgorithms/IronIsoSurface" title="IronIsoSurface"> See IronIsoSurface.cxx</a> and <a href="../../Python/VisualizationAlgorithms" title="IronIsoSurface"> IronIsoSurface.py</a>.</figcaption>
 </figure>
 
 ### Scalar Generation
@@ -201,7 +201,7 @@ Scaling glyphs also poses interesting problems. In what Tufte has termed a "visu
 Vector data is often associated with "motion." The motion is in the form of velocity or displacement. An effective technique for displaying such vector data is to "warp" or deform geometry according to the vector field. For example, imagine representing the displacement of a structure under load by deforming the structure. Or if we are visualizing the flow of fluid, we can create a flow profile by distorting a straight line inserted perpendicular to the flow.
 
 <figure id="Figure6-14">
-<figure>
+<figure id="Figure6-14a">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestPlateVibration.png?raw=true width="640" alt="Figure 6-14a">
 <figcaption>(a) Vibration of beam.</figcaption>
 </figure>
@@ -362,7 +362,7 @@ To form the ellipsoid we begin by positioning a sphere at the tensor location. T
  <figcaption><b>Figure 6-22</b>. Tensor visualization techniques; (a) Tensor axes.<a href="../../Cxx/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> See TensorAxes.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> See TensorAxes.py</a> (b) Tensor ellipsoids.<a href="../../Cxx/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> See TensorEllipsoids.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> See TensorEllipsoids.py</a></figcaption>
 </figure>
 
-In **Figure6-22** we visualize the analytical results of Boussinesq's problem from Saada. The lefthand portion of the figure shows the results by displaying the scaled and oriented principal axes of the stress tensor. (These are called *tensor axes*.) In the righthand portion we use tensor ellipsoids to show the same result. Tensor ellipsoids and tensor axes are a form of *glyph* (see "Glyphs" on page190 ) specialized to tensor visualization.
+In **Figure6-22** we visualize the analytical results of Boussinesq's problem from Saada. The top portion of the figure shows the results by displaying the scaled and oriented principal axes of the stress tensor. (These are called *tensor axes*.) In the bottom portion we use tensor ellipsoids to show the same result. Tensor ellipsoids and tensor axes are a form of *glyph* (see "Glyphs" on page190 ) specialized to tensor visualization.
 
 A certain amount of care must be taken to visualize this result since there is a stress singularity at the point of contact of the load. In a real application loads are applied over a small area and not at a single point. Also, plastic behavior prevents stress levels from exceeding a certain point. The results of the visualization, as with any computer process, are only as good as the underlying model.
 
@@ -409,16 +409,16 @@ Fxyz() = x^2 + y^2 + z^2
 
 This simple relationship defines the three regions (on Fxyz the=of 0the sphere), Fxyz < 0 (inside the sphere), and Fxyz (outside the sphere). Any point may be classified inside, on, or outside the sphere simply by evaluating Equation6-12 .
 
-<figure>
- <figure>
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImplicitFunctions/TestImplicitSphere.png?raw=true width="640" alt="Figure 6-23a">
+<figure id="Figure6-23">
+ <figure id="Figure6-23b">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImplicitFunctions/TestImplicitSphere.png?raw=true width="640" alt="Figure 6-23b">
   <figcaption>(b) Isosurface of Sphere</figcaption>
  </figure>
-<figure>
- <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIceCream.png?raw=true width="640" alt="Figure 6-23b">
+<figure id="Figure6-23c">
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIceCream.png?raw=true width="640" alt="Figure 6-23c">
  <figcaption>(c) BooleanCombinations</figcaption>
 </figure>
-<figcaption><b>Figure 6-23</b>. Sampling functions. (b) Isosurface of sampled sphere;<a href="../../Cxx/ImplicitFunctions/ImplicitSphere" title="ImplicitSphere"> See ImplicitSphere.cxx</a> and <a href="../../Python/ImplicitFunctions/ImplicitSphere" title="ImplicitSphere"> ImplicitSphere.py</a>.; (c) Boolean combination of two spheres, a cone, and two planes. (One sphere intersects the other, the planes clip the cone.<a href="../../Cxx/VisualizationAlgorithms/IceCream" title="IceCream"> See IceCream.cxx</a> and <a href="../../Python/ImplicitFunctions/IceCream" title="IceCream"> IceCream.py</a>.</figcaption>
+<figcaption><b>Figure 6-23</b>. Sampling functions. (b) Isosurface of sampled sphere;<a href="../../Cxx/ImplicitFunctions/ImplicitSphere" title="ImplicitSphere"> See ImplicitSphere.cxx</a> and <a href="../../Python/ImplicitFunctions/ImplicitSphere" title="ImplicitSphere"> ImplicitSphere.py</a>; (c) Boolean combination of two spheres, a cone, and two planes. (One sphere intersects the other, the planes clip the cone.<a href="../../Cxx/VisualizationAlgorithms/IceCream" title="IceCream"> See IceCream.cxx</a> and <a href="../../Python/ImplicitFunctions/IceCream" title="IceCream"> IceCream.py</a>.</figcaption>
 </figure>
 
 **Modelling Objects.**
@@ -469,7 +469,7 @@ The difference of two implicit functions is given by
 (a) Selecting data with implicit function (b) Selecting data with
 boolean combination
 
-<figure>
+<figure id="Figure6-24">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestExtractData.png?raw=true width="640" alt="Figure 6-24">
 </figure>
 <figcaption><b>Figure 6-24</b>. Implicit functions used to select data: (a) 2D cells lying in ellipse are selected; (b) Two ellipsoids combined using the union operation used to select voxels from a volume. Voxels shrunk 50 percent. <a href="../../Cxx/VisualizationAlgorithms/ExtractData" title="ExtractData"> See ExtractData.cxx</a> and <a href="../../Python/VisualizationAlgorithms/ExtractData" title="ExtractData"> ExtractData.py</a>.</figcaption>
@@ -489,7 +489,7 @@ Some functions, often discrete or probabilistic in nature, cannot be cast into t
 
 Strange attractors arise in the study of nonlinear dynamics and chaotic systems. In these systems, the usual types of dynamic motion --- equilibrium, periodic motion, or quasiperiodic motion --- are not present. Instead, the system exhibits chaotic motion. The resulting behavior of the system can change radically as a result of small perturbations in its initial conditions.
 
-<figure>
+<figure id="Figure6-25">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestLorenz.png?raw=true width="640" alt="Figure 6-25">
 </figure>
 <figcaption><b>Figure 6-25</b>. Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume. The number of visits in each voxel is recorded as a scalar function. The surface is extracted via marching cubes using a visit value of 50. The number of integration steps is 10 million, in a volume of dimensions 200 *^3^*. The surface roughness is caused by the discrete nature of the evaluation function (Lorenz.cxx ). <a href="../../Cxx/Visualization/Lorenz" title="Lorenz"> See Lorenz.cxx</a> and <a href="../../Python/Visualization/Lorenz" title="Lorenz"> Lorenz.py</a>.</figcaption>
@@ -528,7 +528,7 @@ Used alone the generating primitives are limited in their ability to model compl
 
 **Figure 6-27** Boolean operations using points and lines as generating primitives.
 
-<figure>
+<figure id="Figure6-28">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHello.png?raw=true width="640" alt="Figure 6-28">
 </figure>
 <figcaption><b>Figure 6-28</b>. Implicit modelling used to thicken a stroked font. Original lines can be seen within the translucent implicit surface.<a href="../../Cxx/VisualizationAlgorithms/Hello" title="Hello"> See Hello.cxx</a> and <a href="../../Python/VisualizationAlgorithms/Hello" title="Hello"> Hello.py</a>.</figcaption>
@@ -559,13 +559,13 @@ In a sense, glyphs represent the fundamental result of the visualization process
 
 This classification scheme can be extended to other visualization techniques such as vector and tensor data, or even to nonvisual forms such as sound or tactile feedback. We have found this classification scheme to be helpful when designing visualizations or creating visualization techniques. Often it gives insight into ways of representing data that can be overlooked.
 
-<a href="#Figure6-30">**Figure6-30**</a> is an example of glyphing. Small 3D cones are oriented on a surface to indicate the direction of the surface normal. A similar approach could be used to show other surface properties such as curvature or anatomical keypoints.
+**Figure6-30** is an example of glyphing. Small 3D cones are oriented on a surface to indicate the direction of the surface normal. A similar approach could be used to show other surface properties such as curvature or anatomical keypoints.
 
 ### Cutting
 
 Often we want to cut through a dataset with a surface and then display the interpolated data values on the surface. We refer to this technique as *data cutting* or simply *cutting*. The data cutting operation requires two pieces of information: a definition for the surface and a dataset to cut. We will assume that the cutting surface is defined by an implicit function. A typical application of cutting is to slice through a dataset with a plane, and color map the scalar data and/or warp the plane according to vector value.
 
-<figure>
+<figure id="Figure6-31">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCutStructuredGrid.png?raw=true width="640" alt="Figure 6-31">
 </figure>
 <figcaption><b>Figure 6-31</b>. Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used. <a href="../../Cxx/VisualizationAlgorithms/CutStructuredGrid" title="CutStructuredGrid"> See CutStructuredGrid.cxx</a> and <a href="../../Python/VisualizationAlgorithms/CutStructuredGrid" title="CutStructuredGrid"> CutStructuredGrid.py</a>.</figcaption>
@@ -579,7 +579,7 @@ The cutting algorithm proceeds as follows. For each cell, function values are ge
 
 We can easily make multiple planar cuts through a structured grid dataset by specifying multiple isovalues for the cutting algorithm. **Figure6-32** shows 100 cut planes generated perpendicular to the camera's view plane normal. Rendering the planes from back to front with an opacity of 0.05 produces a simulation of volume rendering (see "Volume Rendering" on page218 ).
 
-<figure>
+<figure id="Figure6-32">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VolumeRendering/TestPseudoVolumeRendering.png?raw=true width="640" alt="Figure 6-32">
 </figure>
 <figcaption><b>Figure 6-32</b>. 100 cut planes with opacity of 0.05. Rendered back-to-front to simulate
@@ -588,7 +588,7 @@ volume rendering. <a href="../../Cxx/VolumeRendering/PseudoVolumeRendering" titl
 
 This example illustrates that cutting the volumetric data in a structured grid dataset produced polygonal cells. Similarly, cutting polygonal data produces lines. Using a single plane equation, we can extract "contour lines" from a surface model defined with polygons. **Figure6-33** shows contours extracted from a surface model of the skin. At each vertex in the surface model we evaluate the equation of the plane andFxyz()store,, the= valuec of the function as a scalar value. Cutting the data with 46 isovalues from 1.5 to 136.5 produces contour lines that are 3 units apart.
 
-<figure>
+<figure id="Figure6-33">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCutWithScalars.png?raw=true width="640" alt="Figure 6-33">
 </figure>
 <figcaption><b>Figure 6-33</b>. Cutting a surface model of the skin with a series of planes produces contour lines. Lines are wrapped with tubes for clarity. <a href="../../Cxx/VisualizationAlgorithms/CutWithScalars" title="CutWithScalars"> See CutWithScalars.cxx</a> and <a href="../../Python/VisualizationAlgorithms/CutWithScalars" title="CutWithScalars"> CutWithScalars.py</a>.</figcaption>
@@ -729,7 +729,7 @@ vtkActor *outlineActor = vtkActor::New();
   outlineActor->SetMapper(outlineMapper);
   outlineActor->GetProperty()->SetColor(0,0,0);
 ```
-<figure>
+<figure id="Figure6-39">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestContourQuadric.png?raw=true width="640" alt="Figure 6-39">
 </figure>
 <figcaption><b>Figure 6-39</b>. Contouring quadric function. Pipeline topology, C++ code, and resulting image are shown.<a href="../../Cxx/VisualizationAlgorithms/ContourQuadric" title="ContourQuadric"> See ContourQuadric.cxx</a> and <a href="../../Python/VisualizationAlgorithms/ContourQuadric" title="ContourQuadric"> ContourQuadric.py</a>.</figcaption>
@@ -814,13 +814,13 @@ vecMapper SetInputConnection [cones GetOutputPort] vecMapper
 SetScalarRange 2 10 vecMapper SetLookupTable lut
 ```
 
-<figure>
+<figure id="Figure6-43">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCarotidFlowGlyphs.png?raw=true width="640" alt="Figure 6-43">
 </figure>
 <figcaption><b>Figure 6-43</b>. Visualizing blood flow in human carotid arteries. Cone glyphs indicate flow direction and magnitude.<a href="../../Cxx/VisualizationAlgorithms/CarotidFlowGlyphs" title="CarotidFlowGlyphs"> See CarotidFlowGlyphs.cxx</a> and <a href="../../Python/VisualizationAlgorithms/CarotidFlowGlyphs" title="CarotidFlowGlyphs"> CarotidFlowGlyphs.py</a>.</figcaption>
 </figure>
 
-<figure>
+<figure id="Figure6-44">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCarotidFlow.png?raw=true width="640" alt="Figure 6-44">
 </figure>
 <figcaption><b>Figure 6-44</b>. Visualizing blood flow in the human carotid arteries. Streamtubes of flow vectors (streamV.tcl ).<a href="../../Cxx/VisualizationAlgorithms/CarotidFlow" title="CarotidFlow"> See CarotidFlow.cxx</a> and <a href="../../Python/VisualizationAlgorithms/CarotidFlow" title="CarotidFlow"> CarotidFlow.py</a>.</figcaption>
