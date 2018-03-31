@@ -364,11 +364,13 @@ CopyFile(RepoDir + "/Instructions/ConvertingFiguresToExamples.md", DocDir + "/In
 if not os.path.exists(DocDir + "/VTKBook"):
     os.makedirs(DocDir + "/VTKBook")
 htmlIdSet = set()
+CreateHtmlIds(RepoDir + "/VTKBook/Preface.md")
+CreateHtmlIds(RepoDir + "/VTKBook/Introduction.md")
 CreateHtmlIds(RepoDir + "/VTKBook/Chapter3.md")
 CreateHtmlIds(RepoDir + "/VTKBook/Chapter6.md")
-CreateHtmlIds(RepoDir + "/VTKBook/Introduction.md")
 
 print("Found ", len(htmlIdSet), " figures with html ids")
+CopyChapterAndAddLinks(RepoDir + "/VTKBook/Preface.md", DocDir + "/VTKBook/Preface.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Introduction.md", DocDir + "/VTKBook/Introduction.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter3.md", DocDir + "/VTKBook/Chapter3.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter6.md", DocDir + "/VTKBook/Chapter6.md")
