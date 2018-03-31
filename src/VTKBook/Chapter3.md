@@ -6,7 +6,7 @@
 
 Computer graphics is the process of generating images using computers. We call this process *rendering*. There are many types of rendering processes, ranging from 2D paint programs to sophisticated 3D techniques. In this chapter we focus on basic 3D techniques for visualization.
 
-We can view rendering as the process of converting graphical data into an image. In data visualization our goal is to transform data into graphical data, or *graphics primitives* , that are then  rendered. The goal of our rendering is not so much photo realism as it is information content. We also strive for interactive graphical displays with which it is possible to directly manipulate the underlying data. This chapter explains the process of rendering an image from graphical data. We begin by looking at the way lights, cameras, and objects (or actors) interact in the world around us. From this foundation we explain how to simulate this process on a computer.
+We can view rendering as the process of converting graphical data into an image. In data visualization our goal is to transform data into graphical data, or *graphics primitives* , that are then rendered. The goal of our rendering is not so much photo realism as it is information content. We also strive for interactive graphical displays with which it is possible to directly manipulate the underlying data. This chapter explains the process of rendering an image from graphical data. We begin by looking at the way lights, cameras, and objects (or actors) interact in the world around us. From this foundation we explain how to simulate this process on a computer.
 
 **A Physical Description of Rendering**
 
@@ -152,11 +152,11 @@ with the specular power are part of the surface material properties. (Other prop
 
 ## 3.5 Cameras
 
-We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see **Figure3-11** ). These are the position, orientation, and focal  point of the camera, the method of camera *projection* , and the location of the camera *clipping* *planes*.
+We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see **Figure3-11** ). These are the position, orientation, and focal point of the camera, the method of camera *projection* , and the location of the camera *clipping* *planes*.
 
 The position and focal point of the camera define the location of the camera and where it points. The vector defined from the camera position to the focal point is called the *direction of projection* . The camera image plane is located at the focal point and is typically perpendicular to the projection vector. The camera orientation is controlled by the position and focal point plus the camera *view-up* vector. Together these completely define the camera view.
 
-The method of projection controls how the actors are mapped to the image plane. *Orthographic projection* is a parallel mapping process. In orthographic projection (or parallel projection)  all rays of light entering the camera are parallel to the projection vector.
+The method of projection controls how the actors are mapped to the image plane. *Orthographic projection* is a parallel mapping process. In orthographic projection (or parallel projection) all rays of light entering the camera are parallel to the projection vector.
 
 <figure id="Figure3-11">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-11.png?raw=true width="640" alt="Figure 3-11">
@@ -181,7 +181,7 @@ planes that are not perpendicular to the direction of projection.
 
 Taken together these camera parameters define a rectangular pyramid, with its apex at the camera's position and extending along the direction of projection. The pyramid is truncated at the top with the front clipping plane and at the bottom by the back clipping plane. The resulting *view* *frustum* defines the region of 3D space visible to the camera.
 
-While a camera can be manipulated by directly setting the attributes mentioned above, there  are some common operations that make the job easier. **Figure3-12** and **Figure3-13** will help illustrate these operations. Changing the *azimuth* of a camera rotates its position around its view up vector, centered at the focal point *.* Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera's *elevation* rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To *roll* the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
+While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. **Figure3-12** and **Figure3-13** will help illustrate these operations. Changing the *azimuth* of a camera rotates its position around its view up vector, centered at the focal point *.* Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera's *elevation* rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To *roll* the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
 
 The next two motions keep the camera's position constant and instead
 modify the focal point. Changing the *yaw* rotates the focal point
@@ -257,7 +257,7 @@ four by four transformation matrix (to be described shortly), which is
 used to convert from world coordinates into view coordinates. This is
 where the perspective effects of a camera are introduced.
 
-The display coordinate system uses the same basis as the view coordinate system, but instead  of using negative one to one as the range, the coordinates are actual *x, y* pixel locations on the image plane. Factors such as the window's size on the display determine how the view coordinate  range of (-1,1) is mapped into pixel locations. This is also where the *viewport* comes into effect.
+The display coordinate system uses the same basis as the view coordinate system, but instead of using negative one to one as the range, the coordinates are actual *x, y* pixel locations on the image plane. Factors such as the window's size on the display determine how the view coordinate range of (-1,1) is mapped into pixel locations. This is also where the *viewport* comes into effect.
 
 ```
 *Model A's*
@@ -329,109 +329,14 @@ The usual way of representing a point in 3D is the three element Cartesian vecto
 +-----------------+-------------------+---------------+-----------+--+
 ```
 
-Using homogeneous coordinates we can represent an infinite point by setting *w~h~* to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 44´ *transformation matrix* . Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a matrix33´.
-
-For example, suppose we wanted to create a transformation matrix that
-translates a point ( *x*, *y*, *z*) in Cartesian space by the vector (
-*t~x~, t~y~, t~z~).* We need only construct the translation matrix
+Using homogeneous coordinates we can represent an infinite point by setting *w~h~* to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 *transformation matrix* . Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a matrix. For example, suppose we wanted to create a transformation matrix that translates a point ( *x*, *y*, *z*) in Cartesian space by the vector ( *t~x~, t~y~, t~z~).* We need only construct the translation matrix
 given by
 
 ```
-| homogen | carry   |         |
-| eous    | this    |         |
-| coordin | example |         |
-| ate     |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| through | *x*,    |         |
-| ,       | *y*,    |         |
-| we      | *z*) by |         |
-| constru | setting |         |
-| ct      |         |         |
-| the     |         |         |
-| homogen |         |         |
-| eous    |         |         |
-| coordin |         |         |
-| ate     |         |         |
-| from    |         |         |
-| the     |         |         |
-| Cartesi |         |         |
-| an      |         |         |
-| coordin |         |         |
-| ate     |         |         |
-| (       |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| w~h~  | we    |         |         |
-| = 1   | premu |         |         |
-| to    | ltiply( |         |         |
-| yield | )x'y' |         |         |
-| .()Th | z'the, |         |         |
-| en,xyz1 | ,       |         |         |
-| ,,,     |         |         |         |
-| to    |         |         |         |
-| deter |         |         |         |
-| mine    |         |         |         |
-| the   |         |         |         |
-| trans |         |         |         |
-| lated   |         |         |         |
-| point |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| current | to      |         |
-| positio | yieldT  |         |
-| n       | the     |         |
-| by the  | transla |         |
-| transfo | ted     |         |
-| rmation | coordin |         |
-| matrix  | ate.    |         |
-|         | Substit |         |
-|         | uting   |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| into    |         | T     |         |         |         |         |
-| **Equat |         |         |         |         |         |         |
-| ion3-6* |         |         |         |         |         |         |
-| *       |         |         |         |         |         |         |
-| we have |         |         |         |         |         |         |
-| the     |         |         |         |         |         |         |
-| result  |         |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-|         |         |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| x'   | 100t  | x     | x     |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-|         |         |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| y'   | 010t  | y ~×~ | y     | **(3-7) |         |
-| ~=~   |         |         |         | **      |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| z'   | 001t  | z     | z     |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| w['] |         |         |         | 1     |         |         |
-| {.under |         |         |         |         |         |         |
-| line}   |         |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-|         | 0001  |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-|         |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Convert |         | **Equat |         |
-| ing     |         | ion3-5* |         |
-| back to |         | *       |         |
-| Cartesi |         | we have |         |
-| an      |         | the     |         |
-| coordin |         | expecte |         |
-| ates    |         | d       |         |
-| via     |         | solutio |         |
-|         |         | n       |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| x'xt | +    | x     |         |         |         |
-| =       |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| y'yt | +    | y     |         | **(3-8) |         |
-| =       |         |         |         | **      |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| z'zt | +    | z     |         |         |         |
-| =       |         |         |         |         |         |
 +---------+---------+---------+---------+---------+---------+---------+
 ```
+
+and then postmultiply it with the homogeneous coordinate (xh, y h , z h, w h). To carry this example through, we construct the homogeneous coordinate from the Cartesian coordinate ( x, y, z) by setting ,,, to determine the translated point we premultiply ()x'y'z' ,, w h = 1 to yield .()Then,
 
 The same procedure is used to scale or rotate an object. To scale an
 object we use the transforma-tion matrix
@@ -576,11 +481,21 @@ useful because we can rotate the actor around its center or some other
 meaningful point.
 
 The orientation of an actor is determined by rotations stored in an
-orientation vector
-
-( O~x~ *,,*O~y~ O~z~ ). This vector defines a series of rotational
+orientation vector ( O~x~ *,,*O~y~ O~z~ ). This vector defines a series of rotational
 transformation matrices. As we saw in the
-3.9 Graphics Hardware
+previous section on transformation matrices, the order of application of the transformations is not
+arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of
+transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (**Figure3–15**).
+
+All of these rotations take place around the origin of the actor. Typically this is set to the center of its bounding box, but it can be set to any convenient point. There are many different methods for changing an actor’s orientation. RotateX() , RotateY() , and RotateZ() are common methods that rotate about their respective axes. Many systems also include a method to rotate about a userdefined axis. In the Visualization Toolkit the RotateXYZ() method is used to rotate around an arbitrary vector passing through the origin.
+
+<figure id="Figure3-15">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-1.png?raw=true width="640" alt="Figure 3-15">
+</figure>
+<figcaption><b>Figure 3-15</b>. Actor coordinate system.</figcaption>
+</figure>
+
+## Graphics Hardware
 
 Earlier we mentioned that advances in graphics hardware have had a
 large impact on how rendering is performed. Now that we have covered
@@ -595,7 +510,11 @@ line/surface removal, and *z*-buffering.
 
 The results of computer graphics is pervasive in today's world---digital images (generated with computer graphics) may be found on cell phones, displayed on computer monitors, broadcast on TV, shown at the movie theatre and presented on electronic billboards. All of these, and many more, display mediums are raster devices. A raster device represents an image using a two dimensional array of picture elements called pixels. For example, the word "hello" can be represented as an array of pixels. as shown in **Figure3-16** . Here the word "hello" is written within a pixel array that is twenty-five pixels wide and ten pixels high. Each pixel stores one bit of information, whether it is black or white. This is how a black and white laser printer works, for each point on the paper it either prints a black dot or leaves it the color of the paper. Due to hardware limitations, raster devices such as laser printers and computer monitors do not actually draw accurate square pixels like those in **Figure3-16** . Instead, they tend to be slightly blurred and overlapping. Another hardware limitation of raster devices is their resolution. This is what causes a 300 dpi (dots per inch) laser printer to produce more detailed output than a nine pin dot matrix printer. A 300 dpi laser printer has a resolution of 300 pixels per inch compared to roughly 50 dpi for the dot matrix printer.
 
-**Figure 3-16** A pixel array for the word "hello."
+<figure id="Figure3-16">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-16.png?raw=true width="640" alt="Figure 3-16">
+</figure>
+<figcaption><b>Figure 3-16</b>. A pixel array for the word "hello."</figcaption>
+</figure>
 
 **Figure 3-17** Black and white dithering.
 
@@ -869,26 +788,15 @@ visible geometry as possible.
 This section provides an overview of the graphics objects and how to
 use them in VTK.
 
-One vtkCamera defines view for each renderer
-
-<figure id="Figure3-24">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true width="640" alt="Figure 3-24">
-</figure>
-<figcaption><b>Figure 3-24</b>. Contouring examples. <a href="../../Cxx/KIT/ONE" title="ONE"> See ONE.cxx</a> and <a href="../../Python/KIT/ONE" title="ONE"> ONE.py</a>.</figcaption>
-</figure>
-
-
 **The Graphics Model**
-
-We have discussed many of the objects that play a part in the
-rendering of a scene. Now it's time to put them together into a
-comprehensive object model for graphics and visualization.
 
 <figure id="Figure3-24">a
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestModel.png?raw=true width="640" alt="Figure 3-24">
 </figure>
 <figcaption><b>Figure 3-24</b>. Illustrative diagram of graphics objects. <a href="../../Cxx/Rendering/Model" title="Model"> See Model.cxx</a> and <a href="../../Python/Rendering/Model" title="Model"> Model.py</a>.</figcaption>
 </figure>
+
+We have discussed many of the objects that play a part in the rendering of a scene. Now it's time to put them together into a comprehensive object model for graphics and visualization.
 
 In the *Visualization Toolkit* there are seven basic objects that we use to render a scene. There are many more objects behind the scenes, but these seven are the ones we use most frequently. The objects are listed in the following and illustrated in **Figure3-24**.
 
