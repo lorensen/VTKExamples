@@ -75,8 +75,7 @@ cones in the human retina \[Dartnall83\].
 | Cyan      | 0,1,1     | 1/2,1,1   |
 | Magenta   | 1,0,1     | 5/6,1,1   |
 | Sky Blue  | 1/2,1/2,1 | 2/3,1/2,1 |
-
-**Figure 3-4** Common colors in RGB and HSV space.
+|**Figure 3-4** Common colors in RGB and HSV space.|
 
 <figure id="Figure3-5">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5.png?raw=true width="640" alt="Figure 3-5">
@@ -88,7 +87,7 @@ cones in the human retina \[Dartnall83\].
 
 One of the major factors controlling the rendering process is the interaction of light with the actors in the scene. If there are no lights, the resulting image will be black and rather uninformative. To a great extent it is the interaction between the emitted light and the surface (and in some cases the interior) of the actors in the scene that defines what we see. Once rays of light interact with the actors in a scene, we have something for our camera to view.
 
-Of the many different types of lights used in computer graphics, we will discuss the simplest, the infinitely distant, point light source. This is a simplified model compared to the lights we use at home and work. The light sources that we are accustomed to typically radiate from a region in space (a filament in an incandescent bulb, or a light-emitting gas in a fluorescent light). The point source lighting model assumes that the light is emitted in all directions from a single point in space. For an infinite light source, we assume that it is positioned infinitely far away from what it is illu-minating. This is significant because it implies that the incoming rays from such a source will be parallel to each other. The emissions of a local light source, such as a lamp in a room, are not paral-lel. **Figure3-6** illustrates the differences between a local light source with a finite volume, versus an infinite point light source. The intensity of the light emitted by our infinite light sources also remains constant as it travels, in contrast to the actual 1/distance ^2^ relationship physical lights obey. As you can see this is a great simplification, which later will allow us to use less complex lighting equations.
+Of the many different types of lights used in computer graphics, we will discuss the simplest, the infinitely distant, point light source. This is a simplified model compared to the lights we use at home and work. The light sources that we are accustomed to typically radiate from a region in space (a filament in an incandescent bulb, or a light-emitting gas in a fluorescent light). The point source lighting model assumes that the light is emitted in all directions from a single point in space. For an infinite light source, we assume that it is positioned infinitely far away from what it is illuminating. This is significant because it implies that the incoming rays from such a source will be parallel to each other. The emissions of a local light source, such as a lamp in a room, are not parallel. **Figure3-6** illustrates the differences between a local light source with a finite volume, versus an infinite point light source. The intensity of the light emitted by our infinite light sources also remains constant as it travels, in contrast to the actual 1/distance ^2^ relationship physical lights obey. As you can see this is a great simplification, which later will allow us to use less complex lighting equations.
 
 **Figure 3-6** Local light source with a finite volume versus an
 infinite point light source.
@@ -97,7 +96,7 @@ infinite point light source.
 
 As rays of light travel through space, some of them intersect our actors. When this happens, the rays of light interact with the surface of the actor to produce a color. Part of this resulting color is actually not due to direct light, but rather from *ambient* light that is being reflected or scattered from other objects. An ambient lighting model accounts for this and is a simple approximation of the complex scattering of light that occurs in the real world. It applies the intensity curve of the light source to the color of the object, also expressed as an intensity curve. The result is the color of the light we see when we look at that object. With such a model, it is important to realize that a white light shining on a blue ball is indistinguishable from a blue light shining on a white ball. The ambient lighting equation is ambient light, and *O~a~* is the color curve of the object. To help keep the equations simple we assume that all of the direction vectors are normalized (i.e., have a magnitude of one).
 
-
+```
 +-----------------------------------+-----------------------------------+
 | R~a~ = L~c~ × O~a~              | **(3-1)**                         |
 +-----------------------------------+-----------------------------------+
@@ -105,8 +104,9 @@ As rays of light travel through space, some of them intersect our actors. When t
 | intensity curve due to ambient    | the                               |
 | lighting,                         |                                   |
 +-----------------------------------+-----------------------------------+
+```
 
-Two components of the resulting color depend on direct lighting. *Diffuse lighting* , which is also known as Lambertian reflection, takes into account the angle of incidence of the light onto an object. **Figure3-7** shows the image of a cylinder that becomes darker as you move laterally from its center. The cylinder's color is constant; the amount of light hitting the surface of the cylinder changes. At the center, where the incoming light is nearly perpendicular to the surface of the cylin-der, it receives more rays of light per surface area. As we move towards the side, this drops until finally the incoming light is parallel to the side of the cylinder and the resulting intensity is zero.
+Two components of the resulting color depend on direct lighting. *Diffuse lighting* , which is also known as Lambertian reflection, takes into account the angle of incidence of the light onto an object. **Figure3-7** shows the image of a cylinder that becomes darker as you move laterally from its center. The cylinder's color is constant; the amount of light hitting the surface of the cylinder changes. At the center, where the incoming light is nearly perpendicular to the surface of the cylinder, it receives more rays of light per surface area. As we move towards the side, this drops until finally the incoming light is parallel to the side of the cylinder and the resulting intensity is zero.
 
 <figure id="Figure3-7">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestFlatVersusGouraud.png?raw=true width="640" alt="Figure 3-7">
@@ -123,27 +123,24 @@ R d = L c Od []O n × ()– L n
 where R d is the resulting intensity curve due to diffuse lighting,
 Lc is the intensity curve for the
 light, and Oc is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector andL nthe surface normal of the object . As a result
-On diffuse lighting is independent of viewer position. Figure3 Specular lighting represents direct reflections of a light source off a shiny object. 10 shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, , O indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to Figure3–9 , the equation for specular lighting is light, and *O~c~* is the color curve for the obje[c]{.underline}t. Notice that the diffuse light is a function of the rela-tive angle between incident light vector andL nthe surface normal of the object . As a resultOn diffuse lighting is independent of viewer position.
+On diffuse lighting is independent of viewer position. Figure3 Specular lighting represents direct reflections of a light source off a shiny object. 10 shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, , O indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to Figure3–9 , the equation for specular lighting is light, and *O~c~* is the color curve for the obje[c]{.underline}t. Notice that the diffuse light is a function of the relative angle between incident light vector andL nthe surface normal of the object . As a resultOn diffuse lighting is independent of viewer position.
 
 ```
 R s = L c O s []SC× ()–
 ```
 
-*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power indicates how shiny an object is, more specifically it indicates how quickly specular reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure3-9** , the equation for spec-ular lighting is
+*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power indicates how shiny an object is, more specifically it indicates how quickly specular reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure3-9** , the equation for specular lighting is
 
 where Cis nthe direction of projection for the camera and is theSdirection of specular reflection.
 
 **Figure 3-8** Diffuse lighting.
 
 
-We have presented the equations for the different lighting models
-independently. We can apply all lighting models simultaneously or in
-combination. **Equation3-4** combines ambient, dif-fuse and specular
-lighting into one equation.
+We have presented the equations for the different lighting models independently. We can apply all lighting models simultaneously or in combination. **Equation3-4** combines ambient, diffuse and specular lighting into one equation.
 
 The result is a color at a point on the surface of the object. The constants Oai, Odi, and Osi control the relative amounts of ambient, diffuse and specular lighting for an object. The constants Oac Odc and Osc specify the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in “Lights ” on page39 . However the equation can be easily modified to incorporate other types of directional lighting.
 
-trol the relative amounts of ambient, diffuse and specular lighting for an object. The constants , O~ac~ O , and specifyO the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as trans-parency will be covered in later sections of the text.) Different combinations of these property val-ues can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in "Lights" on page39 . However the equation can be easily modified to incor-porate other types of directional lighting.
+trol the relative amounts of ambient, diffuse and specular lighting for an object. The constants , O~ac~ O , and specifyO the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in "Lights" on page39 . However the equation can be easily modified to incorporate other types of directional lighting.
 
 <figure id="Figure3-10">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestSpecularSpheres.png?raw=true width="640" alt="Figure 3-10">
@@ -151,7 +148,7 @@ trol the relative amounts of ambient, diffuse and specular lighting for an objec
 <figcaption><b>Figure 3-10</b>. Effects of specular coefficients. Specular coefficients control the apparent "shininess" of objects. The top row has a specular intensity value of 0.5; the bottom row 1.0. Along the horizontal direction the specular power changes. The values (from left to right) are 5, 10, 20, and 40. <a href="../../Cxx/Rendering/SpecularSpheres" title="SpecularSpheres"> See SpecularSpheres.cxx</a> and <a href="../../Python/Rendering/SpecularSpheres" title="SpecularSpheres"> SpecularSpheres.py</a>.</figcaption>
 </figure>
 
-with the specular power are part of the surface material properties. (Other properties such as trans-parency will be covered in later sections of the text.) Different combinations of these property val-ues can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in "Lights" on page39 . However the equation can be easily modified to incor-porate other types of directional lighting.
+with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in "Lights" on page39 . However the equation can be easily modified to incorporate other types of directional lighting.
 
 ## 3.5 Cameras
 
@@ -170,10 +167,10 @@ The method of projection controls how the actors are mapped to the image plane. 
 *Perspective projection* occurs when all light rays go through a common point (i.e., the viewpoint or center of projection). To apply perspective projection we must specify a perspective angle or camera view angle.
 
 The front and back *clipping planes* intersect the projection vector,
-and are usually perpendic-ular to it. The clipping planes are used to
+and are usually perpendicular to it. The clipping planes are used to
 eliminate data either too close to the camera or too far away. As a
 result only actors or portions of actors within the clipping planes
-are (potentially) visi-ble. Clipping planes are typically
+are (potentially) visible. Clipping planes are typically
 perpendicular to the direction of projection. Their locations can be
 set using the camera's clipping range. The location of the planes are
 measured from the camera's position along the direction of projection.
@@ -231,7 +228,7 @@ image. Now we will look at some of the details of this process.
 There are four coordinate systems commonly used in computer graphics and two different ways of representing points within them ( **Figure3-14** ). While this may seem excessive, each one serves a purpose. The four coordinate systems we use are: *model* , *world* , *view*, and *display* .
 
 The model coordinate system is the coordinate system in which the
-model is defined, typi-cally a local Cartesian coordinate system. If
+model is defined, typically a local Cartesian coordinate system. If
 one of our actors represents a football, it will be based on a
 coordinate system natural to the football geometry (e.g., a
 cylindrical system). This model has an inherent coordinate system
@@ -247,7 +244,7 @@ Each actor must scale, rotate, and translate its model into the world
 coordinate system. (It may also be necessary for the modeller to
 transform from its natural coordinate system into a local Cartesian
 system. This is because actors typically assume that the model
-coordinate system is a local Carte-sian system.) The world coordinate
+coordinate system is a local Cartesian system.) The world coordinate
 system is also the system in which the position and orientation of
 cameras and lights are specified.
 
@@ -260,16 +257,9 @@ four by four transformation matrix (to be described shortly), which is
 used to convert from world coordinates into view coordinates. This is
 where the perspective effects of a camera are introduced.
 
-The display coordinate system uses the same basis as the view
-coordinate system, but instead
+The display coordinate system uses the same basis as the view coordinate system, but instead  of using negative one to one as the range, the coordinates are actual *x, y* pixel locations on the image plane. Factors such as the window's size on the display determine how the view coordinate  range of (-1,1) is mapped into pixel locations. This is also where the *viewport* comes into effect.
 
-of using negative one to one as the range, the coordinates are actual
-*x, y* pixel locations on the image plane. Factors such as the
-window's size on the display determine how the view coordinate
-
-range of (-1,1) is mapped into pixel locations. This is also where the
-*viewport* comes into effect.
-
+```
 *Model A's*
 
 *Coordinate System*
@@ -285,143 +275,9 @@ range of (-1,1) is mapped into pixel locations. This is also where the
 *Actor A's*
 
 *Transform*
+```
 
-<table>
-<tbody>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><em>B</em></td>
-<td><blockquote>
-<p><em>’</em></p>
-</blockquote></td>
-<td><em>s</em></td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p><em>m</em></p>
-</blockquote></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p><em>r</em></p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><em>r</em></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td><em>to</em></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><em>fo</em></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><em>c</em></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p><em>n s</em></p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>A</em></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><em>a</em></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><em>r</em></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td><em>T</em></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
+```
 **World Coordinates**
 
 -   Light Positions
@@ -449,36 +305,21 @@ range of (-1,1) is mapped into pixel locations. This is also where the
 *View to Display Transform*
 
 *(viewport, window size, and position)*
+```
 
 **Figure 3-14** Modelling,
 
 world, view, and display coor-dinate systems.
 
-You may want to render two different scenes, but display them in the
-same window. This can be done by dividing the window into rectangular
-viewports. Then, each renderer can be told what por-
-
-tion of the window it should use for rendering. The viewport ranges
-from (0,1) in both the *x* and *y* axis. Similar to the view
-coordinate system, the *z*-value in the display coordinate system also
-repre-sents depth into the window. The meaning of this *z*-value will
-be further described in the section
-
-titled "Z-Buffer" on page57 .
+You may want to render two different scenes, but display them in the same window. This can be done by dividing the window into rectangular viewports. Then, each renderer can be told what portion of the window it should use for rendering. The viewport ranges from (0,1) in both the *x* and *y* axis. Similar to the view coordinate system, the *z*-value in the display coordinate system also repre-sents depth into the window. The meaning of this *z*-value will be further described in the section titled "Z-Buffer" on page57 .
 
 ## 3.7 Coordinate Transformation
 
-When we create images with computer graphics, we project objects
-defined in three dimensions onto a two-dimensional image plane. As we
-saw earlier, this projection naturally includes perspective. To include projection effects such as vanishing points we use a
-special coordinate system called *homogeneous coordinates* .
+When we create images with computer graphics, we project objects defined in three dimensions onto a two-dimensional image plane. As we saw earlier, this projection naturally includes perspective. To include projection effects such as vanishing points we use a special coordinate system called *homogeneous coordinates*.
 
-The usual way of representing a point in 3D is the three element
-Cartesian vector ( *x*, *y*, *z*). Homogeneous coordinates are
-represented by a four element vector ( *x~h~, y~h~, z~h~, w~h~*). The
-conversion between Cartesian coordinates and homogeneous coordinates
-is given by:
+The usual way of representing a point in 3D is the three element Cartesian vector ( *x*, *y*, *z*). Homogeneous coordinates are represented by a four element vector ( *x~h~, y~h~, z~h~, w~h~*). The conversion between Cartesian coordinates and homogeneous coordinates is given by:
 
+```
 +-----------------+-------------------+---------------+-----------+--+
 | x~h~          | y~h~            | z~h~          | **(3-5)** |  |
 +-----------------+-------------------+---------------+-----------+--+
@@ -486,22 +327,16 @@ is given by:
 +-----------------+-------------------+---------------+-----------+--+
 | w~h~          | w~h~            | w~h~          |           |  |
 +-----------------+-------------------+---------------+-----------+--+
+```
 
-Using homogeneous coordinates we can represent an infinite point by
-setting *w~h~* to zero. This capa-bility is used by the camera for
-perspective transformations. The transformations are applied by using
-a 44´ *transformation matrix* . Transformation matrices are widely
-used in computer graph-ics because they allow us to perform
-translation, scaling, and rotation of objects by repeated matrix
-multiplication. Not all of these operations can be performed using a
-matrix33´.
+Using homogeneous coordinates we can represent an infinite point by setting *w~h~* to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 44´ *transformation matrix* . Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a matrix33´.
 
 For example, suppose we wanted to create a transformation matrix that
 translates a point ( *x*, *y*, *z*) in Cartesian space by the vector (
 *t~x~, t~y~, t~z~).* We need only construct the translation matrix
 given by
 
-
+```
 | homogen | carry   |         |
 | eous    | this    |         |
 | coordin | example |         |
@@ -596,10 +431,11 @@ given by
 | z'zt | +    | z     |         |         |         |
 | =       |         |         |         |         |         |
 +---------+---------+---------+---------+---------+---------+---------+
+```
 
 The same procedure is used to scale or rotate an object. To scale an
 object we use the transforma-tion matrix
-
+```
 s~x~ 000
 
 ~TS~ ~=~ ^0s^ y ^00^
@@ -607,15 +443,12 @@ s~x~ 000
 00s ~z~ 0
 
 0001
-
-where the parameters *s~x~*, *s~y~*, and *s~z~* are scale factors
-along the rotate an object around the *x* axes by angle usingq the
-matrix
-
-**(3-9)**
+```
+where the parameters *s~x~*, *s~y~*, and *s~z~* are scale factors along the rotate an object around the *x* axes by angle usingq the matrix
 
 *x, y*, and *z* axes. Similarly, we can
 
+```
 +--------------------------------+---+---+----------------+--------------------+---------+--+
 |                                |   |   |                | 1000             |         |  |
 +--------------------------------+---+---+----------------+--------------------+---------+--+
@@ -657,28 +490,19 @@ matrix
 +--------------------------------+---+---+----------------+--------------------+---------+--+
 |                                |   |   |                | 0001               |         |  |
 +--------------------------------+---+---+----------------+--------------------+---------+--+
+```
 
-Another useful rotation matrix is used to transform one coordinate
-axes toxyanother----zcoordi-nate axes .x'y'To-- derive--z' the
-transformation matrix we assume that the unit axis makes thex'
-
-angles around()q,,qthe axesq (these are calledxy--direction--z
-cosines). Similarly, x'x x'y x'z
-
-**(3-10)**
-
-**(3-11)**
-
-**(3-12)**
-
-the unit axisy' makes the angles and the unit()q axis,,q makesq the
+Another useful rotation matrix is used to transform one coordinate axes toxyanother----zcoordi-nate axes .x'y'To-- derive--z' the transformation matrix we assume that the unit axis makes thex'  angles around()q,,qthe axesq (these are calledxy--direction--z cosines). Similarly, x'x x'y x'z the unit axisy' makes the angles and the unit()q axis,,q makesq the
 angles z'
-
+```
 y'x y'y y'z
 
-()q~z'x~ ,,q~z'y~ q~z'z~ . The resulting rotation matrix is formed
-by placing the direction cosines along the
+()q~z'x~ ,,q~z'y~ q~z'z~ .
+```
 
+ The resulting rotation matrix is formed
+by placing the direction cosines along the
+```
 +-----------+-----------+-----------+-----------+-----------+-----------+
 | rows of   |           |           |           |           |
 | the       |           |           |           |           |
@@ -698,27 +522,11 @@ by placing the direction cosines along the
 +-----------+-----------+-----------+-----------+-----------+-----------+
 |           |           |           |           |           |           |
 +-----------+-----------+-----------+-----------+-----------+-----------+
+```
 
-0001
+Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object's center . To O~c~  rotate around weO must first translate the object from to theOorigin, apply rotations, and then c c translate the object back to . O~c~
 
-Rotations occur about the coordinate origin. It is often more
-convenient to rotate around the center of the object (or a
-user-specified point). Assume that we call this point the object's
-center . To O~c~
-
-rotate around weO must first translate the object from to theOorigin,
-apply rotations, and then c c
-
-translate the object back to . O~c~
-
-Transformation matrices can be combined by matrix multiplication to
-achieve combinations of translation, rotation, and scaling. It is
-possible for a single transformation matrix to represent all types of
-transformation simultaneously. This matrix is the result of repeated
-matrix multiplications. A word of warning: The order of the
-multiplication is important. For example, multiplying a trans-lation
-matrix by a rotation matrix will not yield the same result as
-multiplying the rotation matrix by the translation matrix.
+Transformation matrices can be combined by matrix multiplication to achieve combinations of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all types of transformation simultaneously. This matrix is the result of repeated matrix multiplications. A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix by the translation matrix.
 
 ## 3.8 Actor Geometry
 
@@ -731,26 +539,26 @@ coordinate system.
 **Modelling**
 
 A major topic in the study of computer graphics is modelling or
-representing the geometry of phys-ical objects. Various mathematical
+representing the geometry of physical objects. Various mathematical
 techniques have been applied including combinations of points, lines,
 polygons, curves, and splines of various forms, and even implicit
 mathematical functions.
 
 This topic is beyond the scope of the text. The important point here
 is that there is an underlying geometric model that specifies what the
-object's shape is and where it is located in the model coor-dinate
+object's shape is and where it is located in the model coordinate
 system.
 
 In data visualization, modelling takes a different role. Instead of
 directly creating geometry to represent an object, visualization
 algorithms *compute* these forms. Often the geometry is abstract (like
 a contour line) and has little relationship to real world geometry. We
-will see how these mod-els are computed when we describe visualization
+will see how these models are computed when we describe visualization
 algorithms in Chapter 6 and Chapter 9 .
 
 The representation of geometry for data visualization tends to be
-simple, even though com-puting the representations is not. These forms
-are most often primitives like points, lines, and poly-gons, or
+simple, even though computing the representations is not. These forms
+are most often primitives like points, lines, and polygons, or
 visualization data such as volume data. We use simple forms because we
 desire high performance and interactive systems. Thus we take
 advantage of computer hardware (to be covered in "Graphics Hardware "
@@ -763,7 +571,7 @@ Every actor has a transformation matrix that controls its location and
 scaling in world space. The actor's geometry is defined by a model in
 model coordinates. We specify the actor's location using orientation,
 position, and scale factors along the coordinate axes. In addition, we
-can define an ori-gin around which the actor rotates. This feature is
+can define an origin around which the actor rotates. This feature is
 useful because we can rotate the actor around its center or some other
 meaningful point.
 
@@ -778,7 +586,7 @@ Earlier we mentioned that advances in graphics hardware have had a
 large impact on how rendering is performed. Now that we have covered
 the fundamentals of rendering a scene, we look at some of the hardware
 issues. First, we discuss raster devices that have replaced vector
-displays as the pri-mary output device. Then, we look at how our
+displays as the primary output device. Then, we look at how our
 programs communicate to the graphics hardware. We also examine the
 different coordinate systems used in computer graphics, hidden
 line/surface removal, and *z*-buffering.
@@ -818,8 +626,6 @@ Graphics Hardware
 Display Hardware
 
 **Figure 3-18** Typical graphics interface hierarchy.
-
-**54** Computer Graphics Primer
 
 **Triangle Strip** --- a series of triangles where each
 
@@ -923,6 +729,7 @@ of hidden-surface methods for polygon rendering.
 
 One method is to sort all of our polygons from back to front
 
+```
 +-------------+-------------+-------------+-------------+-------------+
 | (along the  |             |             |             |
 | camera's    |             |             |             |
@@ -999,7 +806,7 @@ One method is to sort all of our polygons from back to front
 | primi-      |             |             |             |
 +-------------+-------------+-------------+-------------+-------------+
 | tives       | **Figure  | Problem   |             |
-| change      | 3--23**   | with      |             |
+| change      | 3-23**   | with      |             |
 | between     |             |             |             |
 | images or   |             |             |             |
 | the camera  |             |             |             |
@@ -1034,23 +841,22 @@ One method is to sort all of our polygons from back to front
 |             | (i.e.,    |             |
 |             | depth     |             |
 +-------------+-------------+-------------+-------------+-------------+
+```
 
 value along direction of projection) in the view coordinate system.
 Before a new pixel is drawn, its *z*-value is compared against the
 current *z*-value for that pixel location. If the new pixel would be
 in front of the current pixel, then it is drawn and the *z*-value for
-that pixel location is updated. Other-wise the current pixel remains
+that pixel location is updated. Otherwise the current pixel remains
 and the new pixel is ignored.
 
 *Z*-buffering has been widely implemented in hardware because of its
-simplicity and robust-ness. The downside to *z*-buffering is that it
+simplicity and robustness. The downside to *z*-buffering is that it
 requires a large amount of memory, called a *z*-buffer, to store a
 *z*-value of every pixel. Most systems use a *z*-buffer with a depth
 of 24 or 32 bits. For a 1000 by 1000 display that translates into
-three to four megabytes just for the *z*-buffer. Another problem
-
-with *z*-buffering is that its accuracy is limited depending on its
-depth. A 24-bit *z*-buffer yields a pre-cision of one part in
+three to four megabytes just for the *z*-buffer. Another problem with *z*-buffering is that its accuracy is limited depending on its
+depth. A 24-bit *z*-buffer yields a precision of one part in
 16,777,216 over the height of the viewing frustum. This resolution is
 often insufficient if objects are close together. If you do run into
 situations with *z*-buffering accuracy,
@@ -1126,7 +932,7 @@ displayed without the user seeing the actual rendering of the
 primitives. High-end graphics systems perform double buffering in
 hardware. A typical system would have a rendering window with a depth
 of 72 bits. The first 24 bits are used to store the red, green, and
-blue (RGB) pixel com-ponents for the front buffer. The next 24 bits
+blue (RGB) pixel components for the front buffer. The next 24 bits
 store the RGB values for the back buffer. The last 24 bits are used as
 a *z*-buffer.
 
@@ -1145,7 +951,7 @@ One important aspect of a renderer is that it must be associated with
 an instance of the vtkRenderWindow class into which it is to draw, and
 the area in the render window into which it draws must be defined by a
 rectangular *viewport* . The viewport is defined by normalized
-coordi-nates (0,1) in both the *x* and *y* image coordinate axes. By
+coordinates (0,1) in both the *x* and *y* image coordinate axes. By
 default, the renderer draws into the full extent of the rendering
 window (viewpoint coordinates (0,0,1,1)). It is possible to specify a
 smaller viewport. and to have more than one renderer draw into the
@@ -1161,8 +967,8 @@ Positional lights have an associated cone angle and attenuation
 factors. Infinite lights project light rays parallel to one another.
 
 Cameras are constructed by the class vtkCamera . Important parameters
-include camera posi-tion, focal point, location of front and back
-clipping planes, view up vector, and field of view. Cam-eras also have
+include camera position, focal point, location of front and back
+clipping planes, view up vector, and field of view. Cameras also have
 special methods to simplify manipulation as described previously in
 this chapter.
 
@@ -1170,15 +976,14 @@ These include elevation, azimuth, zoom, and roll. Similar to vtkLight
 , an instance of vtkCamera will be created automatically by the
 renderer if none is defined.
 
-**60** Computer Graphics Primer
-
 Instances of the class vtkActor represent objects in the scene. In
-particular, vtkActor com-bines object properties (color, shading type,
+particular, vtkActor combines object properties (color, shading type,
 etc.), geometric definition, and orientation in the world coordinate
 system. This is implemented behind the scenes by maintaining instance
 variables that refer to instances of vtkProperty , vtkMapper , and
 vtkTransform . Normally you need not create
 
+```
 +-----------------+-----------------+-----------------+-----------------+
 | properties or   |                 |
 | transformations |                 |
@@ -1241,21 +1046,14 @@ vtkTransform . Normally you need not create
 |                 | One example   |
 |                 | is            |
 +-----------------+-----------------+-----------------+-----------------+
+```
 
-vtkFollower . Instances of this class always face the active camera.
-This is useful when designing signs or text that must be readable from
-any camera position in the scene.
+vtkFollower . Instances of this class always face the active camera. This is useful when designing signs or text that must be readable from any camera position in the scene.
 
-Instances of the class vtkProperty affect the rendered appearance of
-an actor. When actors are created, a property instance is
-automatically created with them. It is also possible to create
-property objects directly and then associate the property object with
-one or more actors. In this way actors can share common properties.
+Instances of the class vtkProperty affect the rendered appearance of an actor. When actors are created, a property instance is automatically created with them. It is also possible to create property objects directly and then associate the property object with one or more actors. In this way actors can share common properties.
 
 Finally, vtkMapper (and its subclasses) defines object geometry and,
-optionally, vertex col-
-
-ors. In addition, vtkMapper refers to a table of colors (i.e.,
+optionally, vertex colors. In addition, vtkMapper refers to a table of colors (i.e.,
 vtkLookupTable ) that are used to color the geometry. (We discuss
 mapping of data to colors in "Color Mapping " on page163 .) We will
 
@@ -1275,7 +1073,7 @@ the SetRenderWindow() method.
 
 A desirable property of applications built with VTK is that they are
 device independent. This means that computer code that runs on one
-operating system with a particular software/hardware configu-ration
+operating system with a particular software/hardware configuration
 runs unchanged on a different operating system and software/hardware
 configuration. The advantage of this is that the programmer does not
 need to expend effort porting an application between different
@@ -1328,7 +1126,7 @@ return vtkOpenGLActor::New();
     vtkGraphicsFactory::CreateInstance(vtkclassname).
 ```
 
-**Figure 3--25** Achieving device independence using (a) inheritance
+**Figure 3-25** Achieving device independence using (a) inheritance
 and object factories (b) and (c).
 
 to create a device dependent instance of vtkActor . The user sees no
@@ -1344,11 +1142,11 @@ The use of object factories as implemented using the New() method
 allows us to create
 
 device independent code that can move from computer to computer and
-adapt to changing technol-ogy. For example, if a new graphics library
+adapt to changing technology. For example, if a new graphics library
 became available, we would only have to create a new device dependent
 subclass, and then modify the graphics factory to instantiate the
 appropriate sub-class based on environment variables or other system
-information. This extension would be local-ized and only done once,
+information. This extension would be localized and only done once,
 and all applications based on these object factories would be
 automatically ported without change.
 
@@ -1360,7 +1158,7 @@ renderers, lights, cameras, and actors. Later chapters tie together
 these basic principles to create applications for data visualization.
 
 **Render a Cone.** The following C++ code uses most of the objects
-introduced in this section to cre-ate an image of a cone. The
+introduced in this section to create an image of a cone. The
 vtkConeSource generates a polygonal representation of a cone and
 vtkPolyDataMapper maps the geometry (in conjunction with the actor) to
 the underlying graphics
@@ -1369,88 +1167,59 @@ library. (The source code to this example can be found in Cone.cxx .
 The source code contains additional documentation as well.)
 ```
 #include "vtkConeSource.h"
-
 #include "vtkPolyDataMapper.h"
-
 #include "vtkRenderWindow.h"
-
 #include "vtkCamera.h"
-
 #include "vtkActor.h"
-
 #include "vtkRenderer.h"
 
 int main( int argc, char *argv[] )
-
 {
+  vtkConeSource *cone = vtkConeSource::New();
+  cone->SetHeight( 3.0 );
+  cone->SetRadius( 1.0 );
+  cone->SetResolution( 10 );
 
-vtkConeSource *cone = vtkConeSource::New();
+  vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
+  coneMapper->SetInputConnection( cone->GetOutputPort() );
+  vtkActor *coneActor = vtkActor::New();
+  coneActor->SetMapper( coneMapper );
 
-cone->SetHeight( 3.0 );
+  vtkRenderer *ren1= vtkRenderer::New();
+  ren1->AddActor( coneActor );
+  ren1->SetBackground( 0.1, 0.2, 0.4 );
 
-cone->SetRadius( 1.0 );
+  vtkRenderWindow *renWin = vtkRenderWindow::New();
+  renWin->AddRenderer( ren1 ); renWin->SetSize( 300, 300 );
 
-cone->SetResolution( 10 );
+  int i;
+  for (i = 0; i < 360; ++i)
+    {
+// render the image
+     renWin->Render();
+// rotate the active camera by one degree
+     ren1->GetActiveCamera()->Azimuth( 1 );
+    }
+  cone->Delete();
+  coneMapper->Delete();
+  coneActor->Delete();
+// cleanup
+  ren1->Delete();
+  renWin->Delete();
 
-vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
-coneMapper->SetInputConnection( cone->GetOutputPort() );
-
-vtkActor *coneActor = vtkActor::New();
-
-coneActor->SetMapper( coneMapper );
-
-vtkRenderer *ren1= vtkRenderer::New();
-
-ren1->AddActor( coneActor );
-
-ren1->SetBackground( 0.1, 0.2, 0.4 );
-
-vtkRenderWindow *renWin = vtkRenderWindow::New();
-renWin->AddRenderer( ren1 ); renWin->SetSize( 300, 300 );
-
-int i;
-
-for (i = 0; i < 360; ++i)
-
-{
-
--   render the image renWin->Render();
-
--   rotate the active camera by one degree
-    ren1->GetActiveCamera()->Azimuth( 1 );
-
+  return 0;
 }
-
-cone->Delete();
-
-coneMapper->Delete();
-
-coneActor->Delete();
-
-ren1->Delete();
-
-renWin->Delete();
 ```
 
-**Figure 3--26** Examples of source objects that procedurally generate
-polygonal models. These nine images represent just some of the
-capability of VTK. From upper left in read-ing order: sphere, cone,
-cylinder, cube, plane, text, random point cloud, disk (with or
-with-out hole), and line source. Other polygonal source objects are
-available; check sub-classes of vtkPolyDataAlgorithm.
+<figure id="Figure3-26">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/GeometricObjects/TestSourceObjectsDemo.png?raw=true width="640" alt="Figure 3-26">
+</figure>
+<figcaption><b>Figure 3-26</b>. Examples of source objects that procedurally generate polygonal models.  These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check subclasses of vtkPolyDataAlgorithm. <a href="../../Cxx/GeometricObjects/SourceObjectsDemo" title="SourceObjectsDemo"> See SourceObjectsDemo.cxx</a> and <a href="../../Python/GeometricObjects/SourceObjectsDemo" title="SourceObjectsDemo"> SourceObjectsDemo.py</a>.</figcaption>
+</figure>
 
-return 0;
+Some comments about this example. The include files vtk__. h include class definitions for the objects in VTK necessary to compile this example. We use the constructor New() to create the objects in this example, and the method Delete() to destroy the objects. In VTK the use of New() and Delete() is mandatory to insure device independence and properly manage reference counting.
 
-}
-
-Some comments about this example. The include files vtk__. h include
-class definitions for the objects in VTK necessary to compile this
-example. We use the constructor New() to create the
-
-objects in this example, and the method Delete() to destroy the
-objects. In VTK the use of New() and Delete() is mandatory to insure
-device independence and properly manage reference counting.
-
+```
 +-----------------+-----------------+-----------------+-----------------+
 | (See *VTK       | for details.) | Delete() is     |
 | User's Guide*   | In this       | really not      |
@@ -1505,105 +1274,43 @@ device independence and properly manage reference counting.
 | created with a  | input to the    |
 |                 | data mapper     |
 +-----------------+-----------------+-----------------+-----------------+
+```
 
-as specified with the SetInput() method . The SetMapper() method
-associates the mapper's data with the coneActor . The next line adds
-coneActor to the renderer's list of actors. The cone is ren-
+as specified with the SetInput() method . The SetMapper() method associates the mapper's data with the coneActor . The next line adds coneActor to the renderer's list of actors. The cone is rendered in a loop running over 360 o. Since there are no cameras or lights defined in the above exam-ple, VTK automatically generates a default light and camera as a convenience to the user. The camera is accessed through the GetActiveCamera() method, and a one degree azimuth is applied as shown. Each time a change is made to any objects a Render() method is invoked to produce the cor-responding image. Once the loop is complete all allocated objects are destroyed and the program exits.
 
-dered in a loop running over 360 o. Since there are no cameras or
-lights defined in the above exam-ple, VTK automatically generates a
-default light and camera as a convenience to the user. The camera is
-accessed through the GetActiveCamera() method, and a one degree
-azimuth is applied as
+There are many different types of source objects in VTK similar to vtkConeSource as shown in **Figure3-26** . In the next chapter we will learn more about source and other types of filters.
 
-shown. Each time a change is made to any objects a Render() method is
-invoked to produce the cor-responding image. Once the loop is complete
-all allocated objects are destroyed and the program exits.
-
-There are many different types of source objects in VTK similar to
-vtkConeSource as shown in **Figure3-26** . In the next chapter we
-will learn more about source and other types of filters.
-
-**Events and Observers.** A visualization toolkit like VTK is
-frequently used in interactive applica-tions or may be required to
-provide status during operation. In addition, integration with other
-packages such as GUI toolkits is a common task. Supporting such
-features requires a mechanism
-
-for inserting user functionality into the software. In VTK, the
-
-*command/observer*
-
-design pattern
+**Events and Observers.** A visualization toolkit like VTK is frequently used in interactive applica-tions or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the *command/observer* design pattern
 
 \[Gamma95\] is used for this purpose.
 
-Fundamental to this design pattern as implemented in VTK is the
-concept of *events* . An event signals that an important operation has
-occurred in the software. For example, if the user presses
+Fundamental to this design pattern as implemented in VTK is the concept of *events* . An event signals that an important operation has occurred in the software. For example, if the user presses the left mouse button in the render window, VTK will invoke the LeftButtonPressEvent . Observers are objects that register their interest in a particular event or events. When one of these events is invoked, the observer receives notification and may perform any valid operation at that point; that is, execute the command associated with the observer. The benefit of the command/observer design pattern is that is simple in concept and implementation, yet provides significant power to the user. However it does require the software implementation to invoke events as it operates.
 
-the left mouse button in the render window, VTK will invoke the
-LeftButtonPressEvent . Observers are objects that register their
-interest in a particular event or events. When one of these events is
-invoked, the observer receives notification and may perform any valid
-operation at that point; that
-
-is, execute the command associated with the observer. The benefit of
-the command/observer design pattern is that is simple in concept and
-implementation, yet provides significant power to the user. However it
-does require the software implementation to invoke events as it
-operates.
-
-In the next example, an observer watches for the StartEvent invoked by
-the renderer just as it begins the rendering process. The observer in
-turn executes its associated command which simply prints out the
-camera's current position.
+In the next example, an observer watches for the StartEvent invoked by the renderer just as it begins the rendering process. The observer in turn executes its associated command which simply prints out the camera's current position.
 
 ```
 #include "vtkCommand.h"
-
 // Callback for the interaction
-
 class vtkMyCallback : public vtkCommand
-
 {
-
 public:
-
 static vtkMyCallback *New()
-
 { return new vtkMyCallback; }
-
 virtual void Execute(vtkObject *caller, unsigned long, void*)
-
 {
-
 vtkRenderer *ren =
-
 reinterpret_cast<vtkRenderer*>(caller);
-
 cout << ren->GetActiveCamera()->GetPosition()[0] << " "
-
--   ren->GetActiveCamera()->GetPosition()[1] << " "
-
-<!-- -->
-
--   ren->GetActiveCamera()->GetPosition()[2] << "n";
-
+   ren->GetActiveCamera()->GetPosition()[1] << " "
+   ren->GetActiveCamera()->GetPosition()[2] << "n";
 }
-
 };
 
 int main( int argc, char *argv[] )
-
 {
-
 vtkConeSource *cone = vtkConeSource::New();
-
 cone->SetHeight( 3.0 );
-
 cone->SetRadius( 1.0 );
-
 cone->SetResolution( 10 );
 
 vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
@@ -1611,9 +1318,7 @@ coneMapper->SetInputConnection( cone->GetOutputPort() ); vtkActor
 *coneActor = vtkActor::New(); coneActor->SetMapper( coneMapper );
 
 vtkRenderer *ren1= vtkRenderer::New();
-
 ren1->AddActor( coneActor );
-
 ren1->SetBackground( 0.1, 0.2, 0.4 );
 
 vtkRenderWindow *renWin = vtkRenderWindow::New();
@@ -1623,69 +1328,48 @@ vtkMyCallback *mo1 = vtkMyCallback::New();
 ren1->AddObserver(vtkCommand::StartEvent,mo1); mo1->Delete();
 
 int i;
-
 for (i = 0; i < 360; ++i)
 
 {
-
--   render the image renWin->Render();
-
--   rotate the active camera by one degree
-    ren1->GetActiveCamera()->Azimuth( 1 );
-
+//   render the image
+  renWin->Render();
+// rotate the active camera by one degree
+  ren1->GetActiveCamera()->Azimuth( 1 );
 }
 
 cone->Delete();
-
 coneMapper->Delete();
-
 coneActor->Delete();
-
 ren1->Delete();
-
 renWin->Delete();
-
 return 0;
 
 }
 ```
 
-The observer is created by deriving from the class vtkCommand. The
-Execute() method is required to be implemented by any concrete subclass of vtkCommand (i.e., the
-method is pure virtual). The resulting subclass, vtkMyCommand , is instantiated and registered with
-the renderer instance ren1 using the AddObserver() method. In this case the StartEvent is the
-observed event.
+The observer is created by deriving from the class vtkCommand. The Execute() method is required to be implemented by any concrete subclass of vtkCommand (i.e., the method is pure virtual). The resulting subclass, vtkMyCommand , is instantiated and registered with the renderer instance ren1 using the AddObserver() method. In this case the StartEvent is the observed event.
 
-This simple example does not demonstrate the true power of the
-command/observer design pattern. Later in this chapter ( "Interpreted
-Code " on page68 ) we will see how this functionality is used to
-integrate a simple GUI into VTK. In Chapter 7 three-dimensional
-interaction widgets will be introduced ( "3D Widgets and User
-Interaction " on page252 ).
+This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( "Interpreted Code " on page68 ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three-dimensional interaction widgets will be introduced ( "3D Widgets and User Interaction " on page252 ).
 
-**Creating Multiple Renderers.** The next example is a bit more
-complex and uses multiple render-ers that share a single rendering
-window. We use viewports to define where the renderers should draw in
-the render window. (This C++ code can be found in Cone3.cxx .)
+**Creating Multiple Renderers.** The next example is a bit more complex and uses multiple render-ers that share a single rendering window. We use viewports to define where the renderers should draw in the render window. (This C++ code can be found in Cone3.cxx.)
+
+<figure id="Figure3-27">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestCone3.png?raw=true width="640" alt="Figure 3-27">
+</figure>
+<figcaption><b>Figure 3-27</b>. Four frames of output from Cone3.cxx.<a href="../../Cxx/Rendering/Cone3" title="Cone3"> See Cone3.cxx</a> and <a href="../../Python/Rendering/Cone3" title="Cone3"> Cone3.py</a>.</figcaption>
+</figure>
+
 
 ```
 vtkRenderer *ren1= vtkRenderer::New();
-
 ren1->AddActor( coneActor );
-
 ren1->SetBackground( 0.1, 0.2, 0.4 );
-
 ren1->SetViewport(0.0, 0.0, 0.5, 1.0);
 
 vtkRenderer *ren2= vtkRenderer::New();
-
 ren2->AddActor( coneActor );
-
 ren2->SetBackground( 0.2, 0.3, 0.5 );
-
 ren2->SetViewport(0.5, 0.0, 1.0, 1.0);
-
-**Figure 3--27** Four frames of output from Cone3.cxx .
 
 vtkRenderWindow *renWin = vtkRenderWindow::New();
 renWin->AddRenderer( ren1 ); renWin->AddRenderer( ren2 );
@@ -1694,48 +1378,28 @@ renWin->SetSize( 600, 300 );
 ren1->GetActiveCamera()->Azimuth(90);
 
 int i;
-
 for (i = 0; i < 360; ++i)
-
-{
-
--   render the image renWin->Render();
-
--   rotate the active camera by one degree
+  {
+// render the image renWin->Render();
+// rotate the active camera by one degree
     ren1->GetActiveCamera()->Azimuth( 1 );
     ren2->GetActiveCamera()->Azimuth( 1 );
-
-}
+  }
 ```
 
-As you can see, much of the code is the same as the previous example.
-The first difference is that we create two renderers instead of one.
-We assign the same actor to both renderers, but set each renderer's
-background to a different color. We set the viewport of the two
-renderers so that one is on the left half of the rendering window and
-the other is on the right. The rendering window's size is specified as
-600 by 300 pixels, which results in each renderer drawing into a
-viewport of 300 by 300 pixels.
+As you can see, much of the code is the same as the previous example. The first difference is that we create two renderers instead of one. We assign the same actor to both renderers, but set each renderer's background to a different color. We set the viewport of the two renderers so that one is on the left half of the rendering window and the other is on the right. The rendering window's size is specified as 600 by 300 pixels, which results in each renderer drawing into a viewport of 300 by 300 pixels.
 
-A good application of multiple renderers is to display different views
-of the same world as demonstrated in this example. Here we adjust the
-first renderer's camera with a 90 degree azimuth. We then start a loop
-that rotates the two cameras around the cone. **Figure3-27** shows
-four frames from this animation.
+A good application of multiple renderers is to display different views of the same world as demonstrated in this example. Here we adjust the first renderer's camera with a 90 degree azimuth. We then start a loop that rotates the two cameras around the cone. **Figure3-27** shows four frames from this animation. 
 
-**Properties and Transformations.** The previous examples did not
-explicitly create property or transformation objects or apply actor
-methods that affect these objects. Instead, we accepted default instance variable values. This procedure is typical of VTK
-applications. Most instance variables have been preset to generate
-acceptable results, but methods are always available for you to
-over-ride the default values.
+**Properties and Transformations.** The previous examples did not explicitly create property or transformation objects or apply actor methods that affect these objects. Instead, we accepted default instance variable values. This procedure is typical of VTK applications. Most instance variables have been preset to generate acceptable results, but methods are always available for you to over-ride the default values. 
 
-**Figure 3--28** Modifying prop-erties and transformation matrixm(Cone4.cxx ).
+<figure id="Figure3-28">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestCone4.png?raw=true width="640" alt="Figure 3-28">
+</figure>
+<figcaption><b>Figure 3-28</b>. Modifying properties and transformation matrix.<a href="../../Cxx/Rendering/Cone4" title="Cone4"> See Cone4.cxx</a> and <a href="../../Python/Rendering/Cone4" title="Cone4"> Cone4.py</a>.</figcaption>
+</figure>
 
-This example creates an image of two cones of different colors and
-specular properties. In addition, we transform one of the objects to
-lay next to the other. The C++ source code for this example can be
-found in Cone4.cxx .
+This example creates an image of two cones of different colors and specular properties. In addition, we transform one of the objects to lay next to the other. The C++ source code for this example can be found in Cone4.cxx.
 
 ```
 vtkActor *coneActor = vtkActor::New(); coneActor->SetMapper(
@@ -1768,28 +1432,13 @@ ren1->AddActor( coneActor2 );
 ren1->SetBackground( 0.1, 0.2, 0.4 );
 ```
 
-We set the actor coneActor properties by modifying the property object
-automatically created by the actor. This differs from actor coneActor2
-, where we create a property directly and then assign it to the actor.
-ConeActor2 is moved from its default position by applying the
-SetPosition() method. This method affects the transformation matrix
-that is an instance variable of the actor. The resulting image is
-shown in **Figure3-28** .
+We set the actor coneActor properties by modifying the property object automatically created by the actor. This differs from actor coneActor2 , where we create a property directly and then assign it to the actor. ConeActor2 is moved from its default position by applying the SetPosition() method. This method affects the transformation matrix that is an instance variable of the actor. The resulting image is shown in **Figure3-28**.
 
-**Introducing vtkRenderWindowInteractor.** The previous examples are
-not interactive. That is, it is not possible to directly interact with
-the data without modifying and recompiling the C++ code. One common
-type of interaction is to change camera position so that we can view
-our scene from different vantage points. In the *Visualization
-Toolkit* we have provided a suite of convenient objects to do this:
-vtkRenderWindowInteractor, vtkInteractorStyle and their derived
-classes .
+**Introducing vtkRenderWindowInteractor.** The previous examples are not interactive. That is, it is not possible to directly interact with the data without modifying and recompiling the C++ code. One common type of interaction is to change camera position so that we can view our scene from different vantage points. In the *Visualization Toolkit* we have provided a suite of convenient objects to do this: vtkRenderWindowInteractor, vtkInteractorStyle and their derived classes.
 
-Instances of the class vtkRenderWindowInteractor capture windowing
-system specific mouse and keyboard events in the rendering window, and
-then translate these events into VTK events. For example, mouse motion
-in an X11 or Windows application (occurring in a render window) would
+Instances of the class vtkRenderWindowInteractor capture windowing system specific mouse and keyboard events in the rendering window, and then translate these events into VTK events. For example, mouse motion in an X11 or Windows application (occurring in a render window) would
 
+```
 +-----------------------+-----------------------+-----------------------+
 | be translated by      | into VTK's          | MouseMoveEvent .    |
 | vtkRenderWindowIntera |                       | Any observers       |
@@ -1805,67 +1454,26 @@ in an X11 or Windows application (occurring in a render window) would
 | used in combination   | to define a         |
 | with                  |                       |
 +-----------------------+-----------------------+-----------------------+
-
-behavior associated with particular events. For example, we can
-perform camera dolly, pan, and rotation by using different mouse
-button and motion combinations. The following code fragment shows how
-to instantiate and use these objects. This example is the same as our
-first example with the addition of the interactor and interactor
-style. The complete example C++ code is in Cone5.cxx .
+```
+]behavior associated with particular events. For example, we can perform camera dolly, pan, and rotation by using different mouse button and motion combinations. The following code fragment shows how to instantiate and use these objects. This example is the same as our first example with the addition of the interactor and interactor style. The complete example C++ code is in Cone5.cxx.
 
 ```
 vtkRenderWindowInteractor *iren = vtkRenderWindowInteractor::New();
 iren->SetRenderWindow(renWin);
 
 vtkInteractorStyleTrackballCamera *style =
-
-vtkInteractorStyleTrackballCamera::New();
+  vtkInteractorStyleTrackballCamera::New();
 
 iren->SetInteractorStyle(style);
-
 iren->Initialize();
-
 iren->Start();
 ```
 
-After the interactor is created using its New() method, we must tell
-it what render window to cap-ture events in using the
-SetRenderWindow() method. In order to use the interactor we have to
-initialize and start the event loop using the Initialize() and Start()
-methods, which works with the event loop of the windowing system to
-begin to catch events. Some of the more useful events include the " w"
-key, which draws all actors in wireframe; the " s" key, which draws
-the actors in surface form; the " 3" key, which toggles in and out of 3D stereo for
-those systems that support this; the "r" key, which resets camera
-view; and the " e" key, which exits the application. In addition, the
-mouse buttons rotate, pan, and dolly about the camera's focal point.
-Two advanced features are the "u" key, which executes a user-defined
-function; and the " p" key, which picks the actor under the mouse
-pointer.
+After the interactor is created using its New() method, we must tell it what render window to capture events in using the SetRenderWindow() method. In order to use the interactor we have to initialize and start the event loop using the Initialize() and Start() methods, which works with the event loop of the windowing system to begin to catch events. Some of the more useful events include the " w" key, which draws all actors in wireframe; the " s" key, which draws the actors in surface form; the " 3" key, which toggles in and out of 3D stereo for those systems that support this; the "r" key, which resets camera view; and the " e" key, which exits the application. In addition, the mouse buttons rotate, pan, and dolly about the camera's focal point. Two advanced features are the "u" key, which executes a user-defined function; and the " p" key, which picks the actor under the mouse pointer.
 
-**Interpreted Code.** In the previous example we saw how to create an
-interactor style object in con-junction with vtkRenderWindowInteractor
-to enable us to manipulate the camera by mousing in the render window.
-Although this provides flexibility and interactivity for a large
-number of applica-tions, there are examples throughout this text where
-we want to modify other parameters. These parameters range from actor
-properties, such as color, to the name of an input file. Of course we
-can always write or modify C++ code to do this, but in many cases the
-turn-around time between mak-ing the change and seeing the result is
-too long. One way to improve the overall interactivity of the system
-is to use an interpreted interface. Interpreted systems allow us to
-modify objects and imme-
+**Interpreted Code.** In the previous example we saw how to create an interactor style object in conjunction with vtkRenderWindowInteractor to enable us to manipulate the camera by mousing in the render window. Although this provides flexibility and interactivity for a large number of applications, there are examples throughout this text where we want to modify other parameters. These parameters range from actor properties, such as color, to the name of an input file. Of course we can always write or modify C++ code to do this, but in many cases the turn-around time between making the change and seeing the result is too long. One way to improve the overall interactivity of the system is to use an interpreted interface. Interpreted systems allow us to modify objects and immediately see the result, without the need to recompile and relink source code. Interpreted languages also provide many tools, such as GUI (Graphical User Interface) tools, that simplify the creation of applications.
 
-  ------------------------------ --------
-  3.10 Putting It All Together   **69**
-                                 
-  ------------------------------ --------
-
-diately see the result, without the need to recompile and relink
-source code. Interpreted languages also provide many tools, such as
-GUI (Graphical User Interface) tools, that simplify the creation of
-applications.
-
+```
 +---------+---------+---------+---------+---------+---------+---------+
 | The   |         |         |         |         |         |         |
 | *Visu |         |         |         |         |         |         |
@@ -1930,7 +1538,7 @@ applications.
 | ated    |         |         |         |         |         |         |
 | in      |         |         |         |         |         |         |
 | **Figur |         |         |         |         |         |         |
-| e3--**  |         |         |         |         |         |         |
+| e3-**  |         |         |         |         |         |         |
 +---------+---------+---------+---------+---------+---------+---------+
 |         |         |         |         |         |         |         |
 +---------+---------+---------+---------+---------+---------+---------+
@@ -1992,7 +1600,7 @@ applications.
 +---------+---------+---------+---------+---------+---------+---------+
 |         | **Fig |         |
 |         | ure     |         |
-|         | 3--29 |         |
+|         | 3-29 |         |
 |         | **      |         |
 |         | In    |         |
 |         | VTK   |         |
@@ -2048,71 +1656,41 @@ applications.
 | n       |         |         |         |         |         |         |
 | 10    |         |         |         |         |         |         |
 +---------+---------+---------+---------+---------+---------+---------+
-
+```
+```
 vtkPolyDataMapper coneMapper
-
 coneMapper SetInputConnection [cone GetOutputPort]
 
 vtkActor coneActor
-
 coneActor SetMapper coneMapper
 
 vtkRenderer ren1
-
 ren1 AddActor coneActor
-
 ren1 SetBackground 0.1 0.2 0.4
 
 vtkRenderWindow renWin
-
 renWin AddRenderer ren1
-
 renWin SetSize 300 300
 
 vtkRenderWindowInteractor iren
-
 iren SetRenderWindow renWin
 
 vtkInteractorStyleTrackballCamera style
-
 iren SetInteractorStyle style
-
 iren AddObserver UserEvent {wm deiconify .vtkInteract}
-
 iren Initialize
 
 wm withdraw .
+```
 
-**70** Computer Graphics Primer
-
-**Figure 3--30** Using Tcl and Tk to build an interpreted application
+**Figure 3-30** Using Tcl and Tk to build an interpreted application
 ( Cone5.tcl ).
 
-The example begins by loading some shared libraries defining various
-VTK classes. Next the stan-dard visualization pipeline is created from
-the vtkConeSource and vtkPolyDataMapper . The ren-dering classes are
-created exactly the same as with the C++ example. One major addition
-is an observer to watch for a UserEvent in the rendering window (by
-default a "keypress-u"). The observer triggers the invocation of a Tcl
-script to raise a Tk interactor GUI widget called
+The example begins by loading some shared libraries defining various VTK classes. Next the stan-dard visualization pipeline is created from the vtkConeSource and vtkPolyDataMapper . The ren-dering classes are created exactly the same as with the C++ example. One major addition is an observer to watch for a UserEvent in the rendering window (by default a "keypress-u"). The observer triggers the invocation of a Tcl script to raise a Tk interactor GUI widget called .vtkInteract . This GUI, which allows the direct typing of Tcl statements, is shown in **Figure3-30** and is defined by the Tcl command package require vtkinteraction which was executed earlier in the script. (Note: Tk is a popular GUI toolkit for interpreted languages and is distributed as part of Tcl.)
 
-.vtkInteract . This GUI, which allows the direct typing of Tcl
-statements, is shown in **Figure3-30** and is defined by the Tcl
-command package require vtkinteraction which was executed earlier in
-the script. (Note: Tk is a popular GUI toolkit for interpreted
-languages and is distributed as part of Tcl.)
+As we can see from this example, the number of lines of code is less for the Tcl example than for equivalent C++ code. Also, many of the complexities of C++ are hidden using the interpreted language. Using this user-interface GUI we can create, modify, and delete objects, and modify their instance variables. The resulting changes appear as soon as a Render() method is applied or mouse events in the rendering window cause a render to occur. We encourage you to use Tcl (or one of the other interpreters) for rapid creation of graphics and visualization examples. C++ is best used when you desire higher performing applications.
 
-As we can see from this example, the number of lines of code is less
-for the Tcl example than for equivalent C++ code. Also, many of the
-complexities of C++ are hidden using the interpreted language. Using
-this user-interface GUI we can create, modify, and delete objects, and
-modify their instance variables. The resulting changes appear as soon
-as a Render() method is applied or mouse events in the rendering
-window cause a render to occur. We encourage you to use Tcl (or one of
-the other interpreters) for rapid creation of graphics and
-visualization examples. C++ is best used when you desire higher
-performing applications.
-
+```
 +-----------------------+-----------------------+-----------------------+
 | **Transformation    |                       |                       |
 | Matrices**          |                       |                       |
@@ -2130,69 +1708,31 @@ performing applications.
 | Various filters,      | vtkTransformFilter  |
 | including             | , use transforma-   |
 +-----------------------+-----------------------+-----------------------+
+```
 
-tion matrices to implement their own functionality. As a user you may
-never use transformation matrices directly, but understanding them is
-important to successful use of many VTK classes.
+tion matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
 
-The most important aspect to applying transformation matrices is to
-understand the order in which the transformations are applied. If you
-break down a complex series of transformations into simple
-combinations of translation, scaling, and rotation, and keep careful
-track of the order of application, you will have gone a long way to
-mastering their use.
+The most important aspect to applying transformation matrices is to understand the order in which the transformations are applied. If you break down a complex series of transformations into simple combinations of translation, scaling, and rotation, and keep careful track of the order of application, you will have gone a long way to mastering their use.
 
-A good demonstration example of transformation matrices is to examine
-how vtkActor uses its internal matrix. vtkActor has an internal
-instance variable Transform to which it delegates many of its methods
-or uses the matrix to implement its methods. For example, the
-RotateX() , RotateY() ,
+A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX() , RotateY() , and RotateZ() methods are all delegated to Transform . The method SetOrientation() uses Transform to orient the actor.
 
-  ------------------------------ --------
-  3.10 Putting It All Together   **71**
-                                 
-  ------------------------------ --------
+The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The ply the transformation matrix times the position vector. This means the transformations are read from right to left. In other words,
 
-and RotateZ() methods are all delegated to Transform . The method
-SetOrientation() uses
-
-Transform to orient the actor.
-
-The vtkActor class applies transformations in an order that we feel is
-natural to most users. As a convenience, we have created instance
-variables that abstract the transformation matrices. The
-
-ply the transformation matrix times the position vector. This means
-the transformations are read from right to left. In other words,
 **Equation3-14** proceeds as follows:
 
-1.  Translate the actor to its origin. Scaling and rotation will occur
-    about this point. The initial translation will be countered by a
-    translation in the opposite direction after scaling and rota-tions
-    are applied.
+1.  Translate the actor to its origin. Scaling and rotation will occur about this point. The initial translation will be countered by a translation in the opposite direction after scaling and rotations are applied.
 
 2.  Scale the geometry.
 
 3.  Rotate the actor about the *y*, then *x*, and then *z* axes.
 
-4.  Undo the translation of step 1 and move the actor to its final
-    location.
+4.  Undo the translation of step 1 and move the actor to its final location.
 
-The order of the transformations is important. In VTK the rotations
-are ordered to what is natural in most cases. We recommend that you
-spend some time with the software to learn how these transfor-mations
-work with your own data.
+The order of the transformations is important. In VTK the rotations are ordered to what is natural in most cases. We recommend that you spend some time with the software to learn how these transfor-mations work with your own data.
 
-Probably the most confusing aspect of transformations are rotations
-and their effect on the Orientation instance variable. Generally
-orientations are not set directly by the user, and most users will
-prefer to specify rotations with the RotateX() , RotateY() , and
-RotateZ() methods. These meth-ods perform rotations about the *x*,
-*y*, and *z* axes in an order specified by the user. New rotations are
-applied to the right of the rotation transformation. If you need to
-rotate your actor about a single axis, the actor will rotate exactly
-as you expect it will, and the resulting orientation vector will be as
+Probably the most confusing aspect of transformations are rotations and their effect on the Orientation instance variable. Generally orientations are not set directly by the user, and most users will prefer to specify rotations with the RotateX() , RotateY() , and RotateZ() methods. These meth-ods perform rotations about the *x*, *y*, and *z* axes in an order specified by the user. New rotations are applied to the right of the rotation transformation. If you need to rotate your actor about a single axis, the actor will rotate exactly as you expect it will, and the resulting orientation vector will be as
 
+```
 +-----------------------------------+-----------------------------------+
 | expected. For example, the        | RotateY(20) will produce an       |
 | operation                         | orientation of (0,20,0) and a     |
@@ -2221,20 +1761,10 @@ as you expect it will, and the resulting orientation vector will be as
 | to (0,0,0) or to set just one of  | RotateX() , RotateY() , and       |
 | the rotations. The                | RotateZ() methods are             |
 +-----------------------------------+-----------------------------------+
+```
 
-preferred to SetOrientation() when multiple angles are needed.
-Remember that these rotations are applied in reverse order.
-**Figure3-31** illustrates the use of the rotation methods. We turn
-off the erase between frames using the render window's EraseOff()
-method so we can see the effects of the
-
-rotations. Note that in the fourth image the cow still rotates about
-her own *y* axis even though an *x* axis rotation preceded the *y*
-rotation.
-
-**72** Computer Graphics Primer
-
-
+preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. **Figure3-31** illustrates the use of the rotation methods. We turn off the erase between frames using the render window's EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own *y* axis even though an *x* axis rotation preceded the *y* rotation.
+```
 (a) Six rotations about the *x* axis. (b) Six rotations about the *y*
 axis.
 
@@ -2249,36 +1779,19 @@ axis.
 six rotations about the
 
 *y* axis.
+```
 
-**Figure 3--31** Rotations of a cow about her axes. In this model, the
-*x* axis is from the left to right; the *y* axis is from bottom to
-top; and the *z* axis emerges from the image. The camera location is
-the same in all four images ( rotations.tcl ).
+<figure id="Figure3-31">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestRotations.png?raw=true width="640" alt="Figure 3-31">
+</figure>
+<figcaption><b>Figure 3-31</b>. Rotations of a cow about her axes. In this model, the *x* axis is from the left to right; the *y* axis is from bottom to top; and the *z* axis emerges from the image. The camera location is the same in all four images. <a href="../../Cxx/Rendering/Rotations" title="Rotations"> See Rotations.cxx</a> and <a href="../../Python/Rendering/Rotations" title="Rotations"> Rotations.py</a>.</figcaption>
+</figure>
 
-We have seen that VTK hides some of the complexities of matrix
-transformations by using
+We have seen that VTK hides some of the complexities of matrix transformations by using instance variables that are more natural than a transformation matrix. But there will be times when the predefined order of transformations performed by the actor will not be sufficient. vtkActor has an instance variable UserMatrix that contains a 4 x 4 transformation matrix. This matrix is applied before the transformation composed by the actor. As you become more comfortable with 4 x 4 transformation matrices you may want to build your own matrix. The object vtkTransform creates and manipulates these matrices. Unlike an actor, an instance of vtkTransform does not have an instance variable for position, scale, origin, etc. You control the composition of the matrix directly.
 
-instance variables that are more natural than a transformation matrix.
-But there will be times when
+The following statements create an identical 4 x 4 matrix that the actor creates:
 
-the predefined order of transformations performed by the actor will
-not be sufficient. vtkActor has
-
-an instance variable UserMatrix that contains a 4 x 4 transformation
-matrix. This matrix is applied
-
-before the transformation composed by the actor. As you become more
-comfortable with 4 x 4 transformation matrices you may want to build
-your own matrix. The object vtkTransform creates and manipulates these
-matrices. Unlike an actor, an instance of vtkTransform does not have
-an
-
-instance variable for position, scale, origin, etc. You control the
-composition of the matrix directly.
-
-The following statements create an identical 4 x 4 matrix that the
-actor creates:
-
+```
 vtkTransform *myTrans = vtkTransform::New (); myTrans->Translate
 (position[0],position[1],position[2]); myTrans->Translate
 (origin[0],origin[1],origin[2]); myTrans->RotateZ
@@ -2286,273 +1799,139 @@ vtkTransform *myTrans = vtkTransform::New (); myTrans->Translate
 
 myTrans->RotateX (orientation[0]); myTrans->RotateZ
 (orientation[1]; myTrans->Scale (scale[0],scale[1],scale[2]);
-
-  ------------------------------ --------
-  3.10 Putting It All Together   **73**
-                                 
-  ------------------------------ --------
-
 myTrans->Translate (-origin[0],-origin[1],-origin[2]);
+```
 
 Compare this sequence of transform operations with the transformation
 in **Equation3-14** .
 
-Our final example shows how the transform built with vtkTransform
-compares with a trans-form built by vtkActor . In this example, we
-will transform our cow so that she rotates about the world coordinate
-origin (0,0,0). She will appear to be walking around the origin. We
-accomplish
+Our final example shows how the transform built with vtkTransform compares with a trans-form built by vtkActor . In this example, we will transform our cow so that she rotates about the world coordinate origin (0,0,0). She will appear to be walking around the origin. We accomplish this in two ways: one using vtkTransform and the actor's UserMatrix , then using the actor's instance variables.
 
-this in two ways: one using vtkTransform and the actor's UserMatrix ,
-then using the actor's
+First, we will move the cow five feet along the *z* axis then rotate her about the origin. We always specify transformations in the reverse order of their application:
 
-instance variables.
-
-First, we will move the cow five feet along the *z* axis then rotate
-her about the origin. We
-
-always specify transformations in the reverse order of their
-application:
-
+```
 vtkTransform *walk = vtkTransform::New(); walk->RotateY(0,20,0);
 walk->Translate(0,0,5);
 
 vtkActor *cow=vtkActor::New();
 cow->SetUserMatrix(walk->GetMatrix());
+```
 
 These operations produce the transformation sequence:
-
+```
 TT= ~Ry~ T~S~ T~T~ ()005,,
+```
 
 Now we do the same using the cow's instance variables:
-
+```
 vtkActor *cow=vtkActor::New();
-
 cow->SetOrigin(0,0,-5);
-
 cow->RotateY(20);
-
 cow->SetPosition(0,0,5);
+```
 
 When the actor builds its transform it will be:
-
+```
 TT= ~T~()0055,, -- ()-- T~Ry~T~S~T~T~()005,, --()--
+```
 
-**(3-15)**
+Canceling the minus signs in the right-most translation matrix and combining the position and origin translation produce the equivalent transform that we built with vtkTranform . **Figure3-32** shows the cow rotating with the specified transformation order. Your preference is a matter of taste and how comfortable you are with matrix transformations. As you become more skilled (and your demands are greater) you may prefer to always build your transformations. VTK gives you the choice.
 
-**(3-16)**
+There is one final and powerful operation that affects an actor's orientation. You can rotate an actor about an arbitrary vector positioned at the actor's origin. This is done with the actor's (and transform's) RotateWXYZ() method. The first argument of the operation specifies the number of degrees to rotate about the vector specified by the next three arguments. **Figure3-33** shows how to rotate the cow about a vector passing through her nose. At first, we leave the origin at (0,0,0). This is obviously not what we wanted. The second figure shows the rotation when we change the cow's rotation origin to the tip of her nose.
 
-Canceling the minus signs in the right-most translation matrix and
-combining the position and ori-
+<figure id="Figure3-32">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestWalkCow.png?raw=true width="640" alt="Figure 3-32">
+</figure>
+<figcaption><b>Figure 3-32</b>. The cow "walking" around the global origin. <a href="../../Cxx/Rendering/WalkCow" title="WalkCow"> See WalkCow.cxx</a> and <a href="../../Python/Rendering/WalkCow" title="WalkCow"> WalkCow.py</a>.</figcaption>
+</figure>
 
-gin translation produce the equivalent transform that we built with
-vtkTranform . **Figure3-32** shows the cow rotating with the
-specified transformation order. Your preference is a matter of taste
-and how comfortable you are with matrix transformations. As you become
-more skilled (and your demands are greater) you may prefer to always
-build your transformations. VTK gives you the choice.
-
-There is one final and powerful operation that affects an actor's
-orientation. You can rotate an actor about an arbitrary vector
-positioned at the actor's origin. This is done with the actor's (and
-transform's) RotateWXYZ() method. The first argument of the operation
-specifies the number of degrees to rotate about the vector specified
-by the next three arguments. **Figure3-33** shows how to rotate the
-cow about a vector passing through her nose. At first, we leave the
-origin at (0,0,0). This
-
-is obviously not what we wanted. The second figure shows the rotation
-when we change the cow's rotation origin to the tip of her nose.
-
-**74** Computer Graphics Primer
-
-**Figure 3--32** The cow "walking" around the global origin (
-walkCow.tcl ).
-
-**Figure 3--33** The cow rotating about a vector passing through her
-nose. (a) With origin (0,0,0).
-
-(b) With origin at (6.1,1.3,.02). ( walkCow.tcl ).
+<figure id="Figure3-33">
+ <figure id="Figure3-33a">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestWalkCowA.png?raw=true width="640" alt="Figure 3-33a">
+  <figcaption>(a)</figcaption>
+ </figure>
+<figure id="Figure3-33"b>
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestWalkCowB.png?raw=true width="640" alt="Figure 3-33b">
+ <figcaption>(b)</figcaption>
+</figure>
+<figcaption><b>Figure 3-33</b>. The cow rotating about a vector passing through her nose. (a) With origin (0,0,0). (b) With origin at (6.1,1.3,.02).<a href="../../Cxx/Rendering/WalkCowA" title="WalkCowA"> See WalkCowA.cxx</a> and <a href="../../Python/Rendering/WalkCowA" title="WalkCowA"> WalkCowA.py</a>.; (b).<a href="../../Cxx/Rendering/WalkCowB" title="WalkCowB"> See WalkCowB.cxx</a> and <a href="../../Python/Rendering/WalkCowB" title="WalkCowB"> WalkCowB.py</a>.</figcaption>
+</figure>
 
 **Assemblies and Other Types of vtkProp**
 
-Often it is desirable to collect actors into a hierarchy of
-transform-dependent groups. For example, a robot arm may be
-represented by rigid links connected at joints such as the shoulder
-joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a
-configuration, when the shoulder joint rotates, the expected behavior
-is that the entire arm rotates since the links are connected together.
-This is an example of what is referred to as an *assembly* in VTK.
-vtkAssembly is just one of many actor-like classes in VTK. As **Figure3-34** shows, these classes are
-arranged into a hierarchy of vtkProps. (In stage and film terminology,
-a prop is something that appears or is used on stage.) Assemblies are
-formed in VTK by instantiating a vtkAssembly and then adding *parts*
-to it. A part is any instance of vtkProp3D ---including other
-assemblies. This means that assemblies can be
-
-formed into hierarchies (as long as they do not contain
-self-referencing loops). Assemblies obey the rules of transformation
-concatenation illustrated in the previous section (see "Transformation
-Matri-ces" on page70 ). Here is an example of how to create a simple
-assembly hierarchy (from assembly.tcl ).
+Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an *assembly* in VTK. vtkAssembly is just one of many actor-like classes in VTK. As **Figure3-34** shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding *parts* to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see "Transformation Matri-ces" on page70 ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
 
 ```
 vtkSphereSource sphere
-
 vtkPolyDataMapper sphereMapper
-
 sphereMapper SetInputConnection [sphere GetOutputPort] vtkActor
 sphereActor
-
 sphereActor SetMapper sphereMapper
-
 sphereActor SetOrigin 2 1 3
-
 sphereActor RotateY 6
-
 sphereActor SetPosition 2.25 0 0
-
 [sphereActor GetProperty] SetColor 1 0 1
 
 vtkCubeSource cube
-
 vtkPolyDataMapper cubeMapper
-
 cubeMapper SetInputConnection [cube GetOutputPort] vtkActor
 cubeActor
-
 cubeActor SetMapper cubeMapper
-
 cubeActor SetPosition 0.0 .25 0
-
 [cubeActor GetProperty] SetColor 0 0 1
-
 vtkConeSource cone
-
 vtkPolyDataMapper coneMapper
-
 coneMapper SetInputConnection [cone GetOutputPort] vtkActor
 coneActor
-
 coneActor SetMapper coneMapper
-
 coneActor SetPosition 0 0 .25
-
 [coneActor GetProperty] SetColor 0 1 0
-
 vtkCylinderSource cylinder
-
 vtkPolyDataMapper cylinderMapper
-
 cylinderMapper SetInputConnection [cylinder GetOutputPort]
 cylinderMapper SetResolveCoincidentTopologyToPolygonOffset
 
 vtkActor cylinderActor
-
 cylinderActor SetMapper cylinderMapper
-
 [cylinderActor GetProperty] SetColor 1 0 0
 
 vtkAssembly assembly
-
 assembly AddPart cylinderActor
-
 assembly AddPart sphereActor
-
 assembly AddPart cubeActor
-
 assembly AddPart coneActor
-
 assembly SetOrigin 5 10 15
 
 // allows faces a specified camera and is used for billboards.
-
 assembly AddPosition 5 0 0
-
 assembly RotateX 15
-
 ren1 AddActor assembly
-
 ren1 AddActor coneActor
 ```
 
-Note that in this example various actors are added to the assembly
-with the AddPart() method. The top-level element of the assembly is
-the only prop in the hierarchy added to the renderer (with AddActor()
-). Note also that the coneActor appears twice: once as a part of the
-assembly, and once as a separate actor added to the renderer with
-AddActor() . As you might imagine, this means that the rendering of
-assemblies requires concatenation of transformation matrices to insure
-the correct positioning of each vtkProp3D. Furthermore, hierarchical
-assemblies require special treatment dur-ing picking (i.e.,
-graphically selecting props) since a vtkProp can appear more than once
-in differ-ent assembly hierarchies. Picking issues are discussed in
-more detail in "Picking" on page308 .
+Note that in this example various actors are added to the assembly with the AddPart() method. The top-level element of the assembly is the only prop in the hierarchy added to the renderer (with AddActor() ). Note also that the coneActor appears twice: once as a part of the assembly, and once as a separate actor added to the renderer with AddActor() . As you might imagine, this means that the rendering of assemblies requires concatenation of transformation matrices to insure the correct positioning of each vtkProp3D. Furthermore, hierarchical assemblies require special treatment during picking (i.e., graphically selecting props) since a vtkProp can appear more than once in differ-ent assembly hierarchies. Picking issues are discussed in more detail in "Picking" on page308 .
 
-As **Figure3-34** indicates, there are other types of vtkProp as
-well. Most of these will be informally described in the many examples
-found in this book. In particular, extensive coverage is given to
-vtkVolume when we describe volume rendering (see "Volume Rendering "
-on page218 ).
+As **Figure3-34** indicates, there are other types of vtkProp as well. Most of these will be informally described in the many examples found in this book. In particular, extensive coverage is given to vtkVolume when we describe volume rendering (see "Volume Rendering " on page218 ).
 
 ## 3.11 Chapter Summary
 
-Rendering is the process of generating an image using a computer.
-Computer graphics is the field of study that encompasses rendering
-techniques, and forms the foundation of data visualization.
+Rendering is the process of generating an image using a computer. Computer graphics is the field of study that encompasses rendering techniques, and forms the foundation of data visualization.
 
-Three-dimensional rendering techniques simulate the interaction of
-lights and cameras with objects, or actors, to generate images. A
-scene consists of a combination of lights, cameras, and actors.
-Object-order rendering techniques generate images by rendering actors
-in a scene in order. Image-order techniques render the image one pixel
-at a time. Polygon-based graphics hardware is based on object-order
-techniques. Ray tracing or ray-casting is an image-order technique.
+Three-dimensional rendering techniques simulate the interaction of lights and cameras with objects, or actors, to generate images. A scene consists of a combination of lights, cameras, and actors. Object-order rendering techniques generate images by rendering actors in a scene in order. Image-order techniques render the image one pixel at a time. Polygonbased graphics hardware is based on object-order techniques. Ray tracing or ray-casting is an image-order technique.
 
-Lighting models require a specification of color. We saw both the RGB
-(red-green-blue) and HSV (hue-saturation-value) color models. The HSV
-model is a more natural model than the RGB model for most users. Lighting models also include effects due to
-ambient, diffuse, and specular lighting.
+Lighting models require a specification of color. We saw both the RGB (red-green-blue) and HSV (hue-saturation-value) color models. The HSV model is a more natural model than the RGB model for most users. Lighting models also include effects due to ambient, diffuse, and specular lighting.
 
-There are four important coordinate systems in computer graphics. The
-model system is the 3D coordinate system where our geometry is
-defined. The world system is the global Cartesian sys-tem. All modeled
-data is eventually transformed into the world system. The view
-coordinate system represents what is visible to the camera. It is a 2D
-system scaled from (-1,1). The display coordi-nate system uses actual
-pixel locations on the computer display.
+There are four important coordinate systems in computer graphics. The model system is the 3D coordinate system where our geometry is defined. The world system is the global Cartesian system. All modeled data is eventually transformed into the world system. The view coordinate system represents what is visible to the camera. It is a 2D system scaled from (-1,1). The display coordinate system uses actual pixel locations on the computer display.
 
-Homogeneous coordinates are a 4D coordinate system in which we can
-include the effects of perspective transformation. Transformation
-matrices are matrices44´ that operate on homoge-neous coordinates.
-Transformation matrices can represent the effects of translation,
-scaling, and rotation of an actor. These matrices can be multiplied
-together to give combined transformations.
+Homogeneous coordinates are a 4D coordinate system in which we can include the effects of perspective transformation. Transformation matrices are matrices44´ that operate on homogeneous coordinates. Transformation matrices can represent the effects of translation, scaling, and rotation of an actor. These matrices can be multiplied together to give combined transformations.
 
-Graphics programming is usually implemented using higher-level
-graphics libraries and spe-cialized hardware systems. These dedicated
-systems offer better performance and easier implemen-tation of
-graphics applications. Common techniques implemented in these systems
-include dithering and *z*-buffering. Dithering is a technique to
-simulate colors by mixing combinations of available colors *.
-Z*-buffering is a technique to perform hidden-line and hidden-surface
-removal.
+Graphics programming is usually implemented using higher-level graphics libraries and specialized hardware systems. These dedicated systems offer better performance and easier implemen-tation of graphics applications. Common techniques implemented in these systems include dithering and *z*-buffering. Dithering is a technique to simulate colors by mixing combinations of available colors *. Z*-buffering is a technique to perform hidden-line and hidden-surface removal.
 
 The *Visualization Toolkit* uses a graphics model based on lights, cameras, actors, and render-ers. The renderers draw into rendering windows. Actor properties are represented by a property object and their geometry by a mapper object. Taken together, the instantiations of these various classes form a scene. Interaction with the objects in a scene is facilitated by the vtkRenderWindowInteractor and vtkInteractorStyle classes. These use the command/observer design pattern that triggers and responds to events. Users can observe particular events and write callbacks that can perform arbitrary tasks, easily extending the toolkit for a particular application.
 
 ## 3.12 Bibliographic Notes
 
-This chapter provides the reader with enough information to understand
-the basic issues and terms used in computer graphics. There are a
-number of good text books that cover computer graphics in more detail
-and are recommended to readers who would like a more thorough
-understanding. The bible of computer graphics is \[FoleyVanDam90\] .
-For those wishing for less intimidating books \[BurgerGillies89\] and
-\[Watt93\] are also useful references. You also may wish to peruse
-proceedings of the ACM SIGGRAPH conferences. These include papers and
-references to other papers for some of the most important work in
-computer graphics. \[Carlson85\] provides a good introduction for
-those who wish to learn more about the human vision system.
+This chapter provides the reader with enough information to understand the basic issues and terms used in computer graphics. There are a number of good text books that cover computer graphics in more detail and are recommended to readers who would like a more thorough understanding. The bible of computer graphics is \[FoleyVanDam90\] . For those wishing for less intimidating books \[BurgerGillies89\] and \[Watt93\] are also useful references. You also may wish to peruse proceedings of the ACM SIGGRAPH conferences. These include papers and references to other papers for some of the most important work in computer graphics. \[Carlson85\] provides a good introduction for those who wish to learn more about the human vision system.
 
 ## 3.13 References
 
@@ -2614,7 +1993,7 @@ Reading, MA, 1993.
 \[Whitted80\]
 
 T. Whitted. "An Improved Illumination Model for Shaded Display."
-*Communications of the ACM* , 23(6):343--349, 1980.
+*Communications of the ACM* , 23(6):343-349, 1980.
 
 ## 3.14 Exercises
 
@@ -2624,12 +2003,11 @@ can assume that the sun is a point light source that emits light
 uniformly in all directions. The approximate distance from the sun to
 the earth is 150,000,000 km.
 
-a)  What are the odds when the sun is directly overhead?
+a) What are the odds when the sun is directly overhead?
 
-b)  What are the odds when the sun is inclined 45 degrees relative to
-    the surface normal of the picnic blanket?
+b) What are the odds when the sun is inclined 45 degrees relative to the surface normal of the picnic blanket?
 
-c)  What assumptions or approximations did you make?
+c) What assumptions or approximations did you make?
 
 3.2 Proceeding from your result of Exercise 3.1, what are the
 difficulties in determining the odds of a ray of light traveling from
@@ -2649,6 +2027,7 @@ color goes from blue to green. You might also try adjusting other
 lighting parameters such as specular color, ambient, diffuse, and
 specular intensity.
 
+```
 +-----------------+-----------------+-----------------+-----------------+
 | 3.5             | Using the     | 3.4, create a |
 |                 | vtkSphereSour | program to    |
@@ -2745,12 +2124,14 @@ specular intensity.
 |                 | useful        |                 |
 |                 | methods.      |                 |
 +-----------------+-----------------+-----------------+-----------------+
+```
 
 a)  Are there any world coordinates that you would expect to be
     undefined in display coordi-nates?
 
 b)  What happens when the world coordinates are behind the camera?
 
+```
 +-------------+-------------+-------------+-------------+-------------+
 | 3.7         | Consider  |             |
 |             | rasterizi |             |
@@ -2869,24 +2250,16 @@ b)  What happens when the world coordinates are behind the camera?
 |             | matrix is |             |             |
 |             | the same. |             |             |
 +-------------+-------------+-------------+-------------+-------------+
+```
 
 3.10 vtkTransform , by default, applies new transformations at the
-right of the current transforma-tion. The method PostMultiply()
+right of the current transformation. The method PostMultiply()
 changes the behavior so that the transformations are applied to the
 left.
 
-a\) Use vtkTransform to create a transform using a variety of
-transformation operators includ-ing Scale(), RotateXYZ() , and
-Translate() . Then create the same matrix with PostMultiplyOn() .
+a) Use vtkTransform to create a transform using a variety of transformation operators including Scale(), RotateXYZ() , and Translate() . Then create the same matrix with PostMultiplyOn().
 
-b)  Applying rotations at the right of a series of transformations in
-    effect rotates the object about its own coordinate system. Use the
-    rotations.tcl script to verify this. Can you explain this?
+b)  Applying rotations at the right of a series of transformations in effect rotates the object about its own coordinate system. Use the rotations.tcl script to verify this. Can you explain this?
 
-c)  Applying rotations at the left of a series of transformations in
-    effect rotates the object about
-
-the world coordinate system. Modify the rotations.tcl script to
-illustrate this. (Hint: you will have to create an explicit transform with vtkTransform and set the
-actor's transform with SetUserMatrix() .)
+c)  Applying rotations at the left of a series of transformations in     effect rotates the object about the world coordinate system. Modify the rotations.tcl script to illustrate this. (Hint: you will have to create an explicit transform with vtkTransform and set the actor's transform with SetUserMatrix() .)
 
