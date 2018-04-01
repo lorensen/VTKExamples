@@ -88,7 +88,7 @@ cones in the human retina \[Dartnall83\].
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5a.png?raw=true width="640" alt="Figure 3-5a">
   </figure>
   <figure id="Figure3-5b">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5b.png?raw=true width="640" alt="Figure 3-5">
+s    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5a.png?raw=true width="640" alt="Figure 3-5">
   </figure>
 <figcaption><b>Figure 3-5</b>. On the top, circular representation of hue. The other two images on the bottom are slices through the HSV color space. The first slice has a value of 1.0, the other has a value of 0.5.</figcaption>
 </figure>
@@ -150,15 +150,11 @@ We have presented the equations for the different lighting models independently.
 
 The result is a color at a point on the surface of the object. The constants Oai, Odi, and Osi control the relative amounts of ambient, diffuse and specular lighting for an object. The constants Oac Odc and Osc specify the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in “Lights ” on page39 . However the equation can be easily modified to incorporate other types of directional lighting.
 
-trol the relative amounts of ambient, diffuse and specular lighting for an object. The constants , O~ac~ O , and specifyO the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in "Lights" on page39 . However the equation can be easily modified to incorporate other types of directional lighting.
-
 <figure id="Figure3-10">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestSpecularSpheres.png?raw=true width="640" alt="Figure 3-10">
 </figure>
 <figcaption><b>Figure 3-10</b>. Effects of specular coefficients. Specular coefficients control the apparent "shininess" of objects. The top row has a specular intensity value of 0.5; the bottom row 1.0. Along the horizontal direction the specular power changes. The values (from left to right) are 5, 10, 20, and 40. <a href="../../Cxx/Rendering/SpecularSpheres" title="SpecularSpheres"> See SpecularSpheres.cxx</a> and <a href="../../Python/Rendering/SpecularSpheres" title="SpecularSpheres"> SpecularSpheres.py</a>.</figcaption>
 </figure>
-
-with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in "Lights" on page39 . However the equation can be easily modified to incorporate other types of directional lighting.
 
 ## 3.5 Cameras
 
