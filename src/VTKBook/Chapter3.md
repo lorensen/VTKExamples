@@ -490,7 +490,7 @@ transformation is a rotation by O y around the y axis, then by around Ox the x a
 All of these rotations take place around the origin of the actor. Typically this is set to the center of its bounding box, but it can be set to any convenient point. There are many different methods for changing an actor’s orientation. RotateX() , RotateY() , and RotateZ() are common methods that rotate about their respective axes. Many systems also include a method to rotate about a userdefined axis. In the Visualization Toolkit the RotateXYZ() method is used to rotate around an arbitrary vector passing through the origin.
 
 <figure id="Figure3-15">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-1.png?raw=true width="640" alt="Figure 3-15">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-15.png?raw=true width="640" alt="Figure 3-15">
 </figure>
 <figcaption><b>Figure 3-15</b>. Actor coordinate system.</figcaption>
 </figure>
