@@ -84,8 +84,12 @@ cones in the human retina \[Dartnall83\].
 |**Figure 3-4** Common colors in RGB and HSV space.|
 
 <figure id="Figure3-5">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5.png?raw=true width="640" alt="Figure 3-5">
-</figure>
+  <figure id="Figure3-5a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5a.png?raw=true width="640" alt="Figure 3-5a">
+  </figure>
+  <figure id="Figure3-5b">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5b.png?raw=true width="640" alt="Figure 3-5">
+  </figure>
 <figcaption><b>Figure 3-5</b>. On the top, circular representation of hue. The other two images on the bottom are slices through the HSV color space. The first slice has a value of 1.0, the other has a value of 0.5.</figcaption>
 </figure>
 
