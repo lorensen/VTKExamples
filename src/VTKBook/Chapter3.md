@@ -359,7 +359,7 @@ use them in VTK.
 
 **The Graphics Model**
 
-<figure id="Figure3-24">a
+<figure id="Figure3-24">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestModel.png?raw=true width="640" alt="Figure 3-24">
 </figure>
 <figcaption><b>Figure 3-24</b>. Illustrative diagram of graphics objects. <a href="../../Cxx/Rendering/Model" title="Model"> See Model.cxx</a> and <a href="../../Python/Rendering/Model" title="Model"> Model.py</a>.</figcaption>
@@ -705,19 +705,7 @@ The most important aspect to applying transformation matrices is to understand t
 
 A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(),and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor. The vtkActor class applies transformations in an order that we feel is natural to most users.
 
-```
-As a convenience, we have created instance variables that abstract the transformation matrices. The ()o x,,o y othe
-Origin specifies
-Position
-z point that is the center of rotation and scaling. The
-()p x,, p y p z specifies a final translation of the object.
-()r x,,r ythe
-Orientation defines
-rz rota()s x,, s y scale
-tions about the x, y and z axes. Scale defines
-s z factors for the
-x, y, and z axes. Internally, the actor uses these instance variables to create the following sequence of transformations
-(see Equation3-6, Equation3-9, Equation3-13 ).
+As a convenience, we have created instance variables that abstract the transformation matrices. The ()o x,,o y othe Origin specifies Position z point that is the center of rotation and scaling. The ()p x,, p y p z specifies a final translation of the object. ()r x,,r ythe Orientation defines rz rota()s x,, s y scale tions about the x, y and z axes. Scale defines s z factors for the x, y, and z axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see Equation3-6, Equation3-9, Equation3-13 ). 
 
 tion matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
 ```
@@ -726,7 +714,11 @@ The most important aspect to applying transformation matrices is to understand t
 
 A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(), and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor.
 
-The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The ply the transformation matrix times the position vector. This means the transformations are read from right to left. In other words,
+The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The ()o x,,o y othe Origin specifies Position z point that is the center of rotation and scaling. The ()p x,, p y p z specifies a final translation of the object. ()r x,,r ythe Orientation defines rz rota()s x,, s y scale tions about the x, y and z axes. Scale defines s z factors for the x, y, and z axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see Equation3-6 , Equation3-9 , Equation3-13 ).
+
+!!! danger "Equation 3-14 is missing"
+
+The term denotes T T ()xyz x, y, and z directions. Recall that we premultiply the transformation matrix times the position vector. This means the transformations are read from right to left. In other words, Equation3-14 proceeds as follows:
 
 **Equation3-14** proceeds as follows:
 
@@ -784,7 +776,6 @@ cow->SetUserMatrix(walk->GetMatrix());
 
 These operations produce the transformation sequence:
 
-!!! danger "Equation 3-14 is missing"
 
 Now we do the same using the cow's instance variables:
 
