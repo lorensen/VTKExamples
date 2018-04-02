@@ -66,8 +66,8 @@ The two simplified component systems that we use to describe colors are RGB and 
 
 The HSV system represents colors based on their hue, saturation, and value. The value component is also known as the brightness or intensity component, and represents how much light is in the color. A value of 0.0 will always give you black and a value of 1.0 will give you something bright. The hue represents the dominant wavelength of the color and is often illustrated using a circle as in **Figure3-5**. Each location on the circumference of this circle represents a different hue and can be specified using an angle. When we specify a hue we use the range from zero to one, where zero corresponds to zero degrees on the hue circle and one corresponds to 360 degrees. The saturation indicates how much of the hue is mixed into the color. For example, we can set the value to one, which gives us a bright color, and the hue to 0.66, to give us a dominant wavelength of blue. Now if we set the saturation to one, the color will be a bright primary blue. If we set the saturation to 0.5, the color will be sky blue, a blue with more white mixed in. If we set the saturation to zero, this indicates that there is no more of the dominant wavelength (hue) in the color than any other wavelength. As a result, the final color will be white (regardless of hue value). **Figure3-4** lists HSV values for some common colors.
 
-**Figure 3-3** Relative absorbance of light by the three types of
-cones in the human retina \[Dartnall83\].
+!!! warning "Missing Figure"
+    **Figure 3-3** Relative absorbance of light by the three types of cones in the human retina \[Dartnall83\].
 
 
 | **Color** | **RGB**   | **HSV**   |
@@ -88,7 +88,7 @@ cones in the human retina \[Dartnall83\].
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5a.png?raw=true width="640" alt="Figure 3-5a">
   </figure>
   <figure id="Figure3-5b">
-s    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5a.png?raw=true width="640" alt="Figure 3-5">
+s    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5b.png?raw=true width="640" alt="Figure 3-5b">
   </figure>
 <figcaption><b>Figure 3-5</b>. On the top, circular representation of hue. The other two images on the bottom are slices through the HSV color space. The first slice has a value of 1.0, the other has a value of 0.5.</figcaption>
 </figure>
@@ -699,13 +699,13 @@ The example begins by loading some shared libraries defining various VTK classes
 
 As we can see from this example, the number of lines of code is less for the Tcl example than for equivalent C++ code. Also, many of the complexities of C++ are hidden using the interpreted language. Using this user-interface GUI we can create, modify, and delete objects, and modify their instance variables. The resulting changes appear as soon as a Render() method is applied or mouse events in the rendering window cause a render to occur. We encourage you to use Tcl (or one of the other interpreters) for rapid creation of graphics and visualization examples. C++ is best used when you desire higher performing applications.
 
+**Transform Matrices**
+
 Transformation matrices are used throughout Visualization Toolkit. Actors (subclasses of vtkProp3D—see “Assemblies and Other Types of vtkProp ” on page74 ) use them to position and orient themselves. Various filters, including vtkGlyph3D and vtkTransformFilter, use transformation matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
 
 The most important aspect to applying transformation matrices is to understand the order in which the transformations are applied. If you break down a complex series of transformations into simple combinations of translation, scaling, and rotation, and keep careful track of the order of application, you will have gone a long way to mastering their use.
 
 A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(),and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor. The vtkActor class applies transformations in an order that we feel is natural to most users.
-
-As a convenience, we have created instance variables that abstract the transformation matrices. The ()o x,,o y othe Origin specifies Position z point that is the center of rotation and scaling. The ()p x,, p y p z specifies a final translation of the object. ()r x,,r ythe Orientation defines rz rota()s x,, s y scale tions about the x, y and z axes. Scale defines s z factors for the x, y, and z axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see Equation3-6, Equation3-9, Equation3-13 ). 
 
 The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The ()o x,,o y othe Origin specifies Position z point that is the center of rotation and scaling. The ()p x,, p y p z specifies a final translation of the object. ()r x,,r ythe Orientation defines rz rota()s x,, s y scale tions about the x, y and z axes. Scale defines s z factors for the x, y, and z axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see Equation3-6 , Equation3-9 , Equation3-13 ).
 
