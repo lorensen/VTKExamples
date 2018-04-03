@@ -159,6 +159,12 @@ The result is a color at a point on the surface of the object. The constants Oai
 
 We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see **Figure3-11**). These are the position, orientation, and focal point of the camera, the method of camera projection , and the location of the camera clipping planes.
 
+<figure id="Figure3-11">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-11.png?raw=true width="640" alt="Figure 3-1">
+</figure>
+<figcaption><b>Figure 3-11</b> Camera attributes.</figcaption>.
+</figure>
+
 The position and focal point of the camera define the location of the camera and where it points. The vector defined from the camera position to the focal point is called the direction of projection . The camera image plane is located at the focal point and is typically perpendicular to the projection vector. The camera orientation is controlled by the position and focal point plus the camera view-up vector. Together these completely define the camera view. 
 
 The method of projection controls how the actors are mapped to the image plane. *Orthographic projection* is a parallel mapping process. In orthographic projection (or parallel projection) all rays of light entering the camera are parallel to the projection vector. *Perspective projection* occurs when all light rays go through a common point (i.e., the viewpoint or center of projection). To apply perspective projection we must specify a perspective angle or camera view angle.
@@ -265,8 +271,6 @@ sin0q
 – sin q 0 cos0q
 0001
 
-(3-11)
-
 Around the y axis we use
 
 y
@@ -319,24 +323,9 @@ cos qy'x cos qy'y cos0qy'z
 cos q z'x cos q z'y cos0q z'z
 0001
 
-(3-13)
+Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object’s center . To rotate around we Oc must first translate the object to the Oorigin, apply rotations, and then translate the object back.
 
-50
-
-Computer Graphics Primer
-
-Rotations occur about the coordinate origin. It is often more convenient to rotate around the center
-of the object (or a user-specified point). Assume that we call this point the object’s center . To O c
-rotate around we
-Oc must first translate the object from to theOorigin,
-apply rotations, and then
-c
-translate the object back to . O c
-Transformation matrices can be combined by matrix multiplication to achieve combinations
-of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all
-types of transformation simultaneously. This matrix is the result of repeated matrix multiplications.
-A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix
-by the translation matrix.
+Transformation matrices can be combined by matrix multiplication to achieve combinations of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all types of transformation simultaneously. This matrix is the result of repeated matrix multiplications. A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix by the translation matrix.
 
 ## 3.8 Actor Geometry
 
@@ -356,7 +345,7 @@ The representation of geometry for data visualization tends to be simple, even t
 
 Every actor has a transformation matrix that controls its location and scaling in world space. The actor's geometry is defined by a model in model coordinates. We specify the actor's location using orientation, position, and scale factors along the coordinate axes. In addition, we can define an origin around which the actor rotates. This feature is useful because we can rotate the actor around its center or some other meaningful point.
 
-The orientation of an actor is determined by rotations stored in an orientation vector ( O~x~ *,,*O~y~ O~z~ ). This vector defines a series of rotational transformation matrices. As we saw in the previous section on transformation matrices, the order of application of the transformations is not arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (**Figure3-15**).
+The orientation of an actor is determined by rotations stored in an orientation vector (Ox,Oy, Oz). This vector defines a series of rotational transformation matrices. As we saw in the previous section on transformation matrices, the order of application of the transformations is not arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (**Figure3-15**).
 
 All of these rotations take place around the origin of the actor. Typically this is set to the center of its bounding box, but it can be set to any convenient point. There are many different methods for changing an actor’s orientation. RotateX(), RotateY(), and RotateZ() are common methods that rotate about their respective axes. Many systems also include a method to rotate about a userdefined axis. In the Visualization Toolkit the RotateXYZ() method is used to rotate around an arbitrary vector passing through the origin.
 
