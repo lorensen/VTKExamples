@@ -184,6 +184,12 @@ The view coordinate system represents what is visible to the camera. This consis
 
 The display coordinate system uses the same basis as the view coordinate system, but instead of using negative one to one as the range, the coordinates are actual x, y pixel locations on the image plane. Factors such as the window’s size on the display determine how the view coordinate range of (-1,1) is mapped into pixel locations. This is also where the viewport comes into effect.
 
+<figure id="Figure3-14">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-14.png?raw=true width="640" alt="Figure 3-14">
+</figure>
+<figcaption><b>Figure 3-14</b>. Modelling, world, view and display coordinate system.</figcaption>
+</figure>
+
 You may want to render two different scenes, but display them in the same window. This can be done by dividing the window into rectangular viewports. Then, each renderer can be told what portion of the window it should use for rendering. The viewport ranges from (0,1) in both the x and y axis. Similar to the view coordinate system, the z-value in the display coordinate system also represents depth into the window. The meaning of this z-value will be further described in the section titled “Z-Buffer ” on page57.
 
 
@@ -774,8 +780,6 @@ The most important aspect to applying transformation matrices is to understand t
 A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(),and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor. The vtkActor class applies transformations in an order that we feel is natural to most users.
 
 The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The ()o x,,o y othe Origin specifies Position z point that is the center of rotation and scaling. The ()p x,, p y p z specifies a final translation of the object. ()r x,,r ythe Orientation defines rz rota()s x,, s y scale tions about the x, y and z axes. Scale defines s z factors for the x, y, and z axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see Equation3-6 , Equation3-9 , Equation3-13 ).
-
-!!! danger "Equation 3-14 is missing"
 
 The term denotes T T ()xyz x, y, and z directions. Recall that we premultiply the transformation matrix times the position vector. This means the transformations are read from right to left. In other words, Equation3-14 proceeds as follows:
 
