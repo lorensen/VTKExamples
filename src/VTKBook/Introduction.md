@@ -1,4 +1,4 @@
-## Introduction
+# Introduction
 
 *Visualization transforms numbers to images.*
 
@@ -8,7 +8,7 @@
 
 Visualization is a part of our everyday life. From weather maps to the exciting computer graphics of the entertainment industry, examples of visualization abound. But what is visualization? Informally, visualization is the transformation of data or information into pictures. Visualization engages the primary human sensory apparatus, *vision,* as well as the processing power of the human mind. The result is a simple and effective medium for communicating complex and/or voluminous information.
 
-**Terminology**
+### Terminology
 
 Different terminology is used to describe visualization. *Scientific visualization* is the formal name given to the field in computer science that encompasses user interface, data representation and processing algorithms, visual representations, and other sensory presentation such as sound or touch \[McCormick87\] . The term *data visualization* is another phrase used to describe visualization. Data visualization is generally interpreted to be more general than scientific visualization, since it implies treatment of data sources beyond the sciences and engineering. Such data sources include financial, marketing, or business data. In addition, the term data visualization is broad enough to include application of statistical methods and other standard data analysis techniques
 
@@ -18,7 +18,7 @@ Another way to classify visualization technology is to examine the context in wh
 
 In this text we use the term data visualization instead of the more specific terms scientific visualization or information visualization. We feel that scientific visualization is too narrow a description of the field, since visualization techniques have moved beyond the scientific domain and into areas of business, social science, demographics, and information management in general. We also feel that the term data visualization is broad enough to encompass the term information visualization.
 
-**Examples of Visualization**
+### Examples of Visualization
 
 Perhaps the best definition of visualization is offered by example. In many cases visualization is influencing peoples' lives and performing feats that a few years ago would have been unimaginable. A prime example of this is its application to modern medicine.
 
@@ -40,15 +40,16 @@ There is another important element to visualization: It takes advantage of the n
 
 With the introduction of computers and the ability to generate enormous amounts of data, visualization offers the technology to make the best use of our highly developed visual senses. Certainly other technologies such as statistical analysis, artificial intelligence, mathematical filtering, and sampling theory will play a role in large-scale data processing. However, because visualization directly engages the vision system and human brain, it remains an unequaled technology for understanding and communicating data.
 
-Visualization offers significant financial advantages as well. In today's competitive markets, computer simulation teamed with visualization can reduce product cost and improve time to market. A large cost of product design has been the expense and time required to create and test design prototypes. Current design methods strive to eliminate these physical prototypes, and replace them with digital equivalents. This digital prototyping requires the ability to create and manipulate product geometry, simulate the design under a variety of operating conditions, develop manufacturing techniques, demonstrate product maintenance and service procedures, and even train operators on the proper use of the product before it is built. Visualization plays a role in each case. Already CAD systems are used routinely to model product geometry and design manufacturing procedures. Visualization enables us to view the geometry, and see special characteristics such as surface curvature. For instance, analysis techniques such as finite element, finite difference, and boundary element techniques are used to simulate product performance; and visualization is used to view the results. Recently, human ergonomics and anthropometry are being analyzed using computer techniques in combination with visualization \[MDHMS\] . Three-dimensional graphics and visualization are being used to create training sequences. Often these are incorporated into a hypertext document or World Wide Web (WWW) pages. Another practical use of graphics and visualization has been in-flight simulators. This has been shown to be a significant cost-savings as compared to flying real air-planes and is an effective training method.
+Visualization offers significant financial advantages as well. In today's competitive markets, computer simulation teamed with visualization can reduce product cost and improve time to market. A large cost of product design has been the expense and time required to create and test design prototypes. Current design methods strive to eliminate these physical prototypes, and replace them with digital equivalents. This digital prototyping requires the ability to create and manipulate product geometry, simulate the design under a variety of operating conditions, develop manufacturing techniques, demonstrate product maintenance and service procedures, and even train operators on the proper use of the product before it is built. Visualization plays a role in each case. Already CAD systems are used routinely to model product geometry and design manufacturing procedures. Visualization enables us to view the geometry, and see special characteristics such as surface curvature. For instance, analysis techniques such as finite element, finite difference, and boundary element techniques are used to simulate product performance; and visualization is used to view the results. Recently, human ergonomics and anthropometry are being analyzed using computer techniques in combination with visualization \[MDHMS\] . Three-dimensional graphics and visualization are being used to create training sequences. Often these are incorporated into a hypertext document or World Wide Web (WWW) pages. Another practical use of graphics and visualization has been in-flight simulators. This has been shown to be a significant cost savings as compared to flying real airplanes and is an effective training method.
+
 ## 1.3 Imaging, Computer Graphics, and Visualization
 
 There is confusion surrounding the difference between imaging, computer graphics, and visualization. We offer these definitions.
 
 - *Imaging* , or image processing, is the study of 2D pictures, or images. This includes techniques to transform (e.g., rotate, scale, shear), extract information from, analyze, and enhance images.
 
-**Figure 1--1** The visualization process. Data from various sources
-is repeatedly transformed to extract, derive, and enhance information.
+!!! warning "Missing Figure"
+    **Figure 1--1** The visualization process. Data from various sources is repeatedly transformed to extract, derive, and enhance information.
 
 The resulting data is mapped to a graphics system for display.
 
@@ -66,11 +67,11 @@ Generally speaking we distinguish visualization from computer graphics and image
 
 3. Visualization is naturally interactive, including the human directly in the process of creating, transforming, and viewing data.
 
-Another perspective is that visualization is an activity that encompasses the process of exploring and understanding data. This includes both imaging and computer graphics as well as data processing and filtering, user interface methodology, computational techniques, and software design. **Figure1--1** depicts this process.
+Another perspective is that visualization is an activity that encompasses the process of exploring and understanding data. This includes both imaging and computer graphics as well as data processing and filtering, user interface methodology, computational techniques, and software design. **Figure1-1** depicts this process.
 
 As this figure illustrates we see that the visualization process focuses on data. In the first step data is acquired from some source. Next, the data is transformed by various methods, and then mapped to a form appropriate for presentation to the user. Finally, the data is rendered or displayed, completing the process. Often, the process repeats as the data is better understood or new models are developed. Sometimes the results of the visualization can directly control the generation of the data. This is often referred to as *analysis steering* . Analysis steering is an important goal of visualization because it enhances the interactivity of the overall process.
 
-## Origins of Data Visualization
+## 1.4 Origins of Data Visualization
 
 The origin of visualization as a formal discipline dates to the 1987 NSF report *Visualization in Scientific Computing* \[McCormick87\] . That report coined the term *scientific visualization.* Since then the field has grown rapidly with major conferences, such as IEEE Visualization, becoming well established. Many large computer graphics conferences, for example ACM SIGGRAPH, devote large portions of their program to visualization technology.
 
@@ -102,16 +103,16 @@ The purpose of this book is not to provide a rigorous academic treatise on data 
 
 Our primary audience is computer users who create, analyze, quantify, and/or process data. We assume a minimal level of programming skill. If you can write simple computer code to import data and know how to run a computer program, you can practice data visualization with the software accompanying this book.
 
-As we wrote this book we also had in mind educators and students of introductory computer graphics and visualization courses. In more advanced courses this text may not be rigorous enough to serve as asole reference. In these instances, this book will serve well as a companion text, and the software is well suited as a foundation for programming projects and class exercises.
+As we wrote this book we also had in mind educators and students of introductory computer graphics and visualization courses. In more advanced courses this text may not be rigorous enough to serve as sole reference. In these instances, this book will serve well as a companion text, and the software is well suited as a foundation for programming projects and class exercises.
 
 Educators and students in other disciplines may also find the text and software to be valuable tools for presenting results. Courses in numerical analysis, computer science, business simulation, chemistry, dynamic systems, and engineering simulations, to name a few, often require large-scale programming projects that create large amounts of data. The software tools provided here are easy to learn and readily adapted to different data sources. Students can incorporate this software into their work to display and analyze their
 results.
 
-## How to Use This Book
+### How to Use This Book
 
 There are a number of approaches you can take to make effective use of this book. The particular approach depends on your skill level and goals. Three likely paths are as follows:
 
-*Novice.* You're a novice if you lack basic knowledge of graphics, visualization, or object-ori-ented principles. Start by reading Chapter 2 if you are unfamiliar with object-oriented principles, Chapter 3 if you are unfamiliar with computer graphics, and Chapter 4 if you are unfamiliar with visualization. Continue by reading the application studies in Chapter 12 . You can then move on to the CD-ROM and try out some programming examples. Leave the more detailed treatment of algorithms and data representation until you are familiar with the basics and plan to develop your own applications.
+*Novice.* You're a novice if you lack basic knowledge of graphics, visualization, or object-oriented principles. Start by reading Chapter 2 if you are unfamiliar with object-oriented principles, Chapter 3 if you are unfamiliar with computer graphics, and Chapter 4 if you are unfamiliar with visualization. Continue by reading the application studies in Chapter 12 . You can then move on to the CD-ROM and try out some programming examples. Leave the more detailed treatment of algorithms and data representation until you are familiar with the basics and plan to develop your own applications.
 
 *Hacker.* You're a hacker if you are comfortable writing your own code and editing other's. Review the examples in Chapter 3 , Chapter 4 , and Chapter 12 . At this point you will want to acquire the companion software guide to this text ( *The VTK User's Guide* ) or become familiar with the programming resources at http://www.vtk.org . Then retrieve the examples from the CD-ROM and start practicing.1
 
@@ -125,7 +126,7 @@ In writing this book we have attempted to strike a balance between practice and 
 
 *Theory versus Implementation.* Whenever possible, we separate the theory of data visualization from our implementation of it. We felt that the book would serve best as a reference tool if the theory sections were independent of software issues and terminology. Toward the end of each chapter there are separate implementation or example sections that are implementation specific. Earlier sections are implementation free.
 
-*Documentation* . This text contains documentation considered essential to understanding the software architecture, including object diagrams and condensed object descriptions. More extensive documentation of object methods and data members is embedded in the software (in the .h header files) and on CD-ROM or on-line at http://www.vtk.org . In particular, the Doxygen generated manual pages contain detailed descriptions of class relationships, methods, and other attributes.
+*Documentation* . This text contains documentation considered essential to understanding the software architecture, including object diagrams and condensed object descriptions. More extensive documentation of object methods and data members is embedded in the software (in the .h header files) and on CD-ROM or online at http://www.vtk.org . In particular, the Doxygen generated manual pages contain detailed descriptions of class relationships, methods, and other attributes.
 
 We use a number of conventions in this text. Imported computer code is denoted with a typewriter font, as are external programs and computer files. To avoid conflict with other C++ class libraries, all class names in VTK begin with the " vtk" prefix. Methods are differentiated from variables with the addition of the " ()" postfix. (Other conventions are listed in *VTK User's Guide* .)
 
@@ -135,47 +136,47 @@ To find the example code you will want to search in one of three areas. The stan
 
 ## 1.10 Chapter-by-Chapter Overview
 
-Chapter 2 **: Object-Oriented Design**
+### Chapter 2: Object-Oriented Design
 
 This chapter discusses some of the problems with developing large and/or complex software systems and describes how object-oriented design addresses many of these problems. This chapter defines the key terms used in object-oriented modelling and design and works through a real-world example. The chapter concludes with a brief look at some object-oriented languages and some of the issues associated with object-oriented visualization.
 
-Chapter 3 **: Computer Graphics Primer**
+### Chapter 3: Computer Graphics Primer*
 
 Computer graphics is the means by which our visualizations are created. This chapter covers the fundamental concepts of computer graphics from an application viewpoint. Common graphical entities such as cameras, lights, and geometric primitives are described along with some of the underlying physical equations that govern lighting and image generation. Issues related to currently available graphics hardware are presented, as they affect how and what we choose to render. Methods for interacting with data are introduced.
 
-Chapter 4 **: The Visualization Pipeline**
+### Chapter 4: The Visualization Pipeline
 
 This chapter explains our methodology for transforming raw data into a meaningful representation that can than be rendered by the graphics system. We introduce the notion of a visualization pipeline, which is similar to a data flow diagram from software engineering. The differences between process objects and data objects are covered, as well as how we resolved issues between performance and memory usage. We explain the advantages to a pipeline network topology regarding execution ordering, result caching, and reference counting.
 
-Chapter 5 **: Basic Data Representation**
+### Chapter 5: Basic Data Representation
 
 There are many types of data produced by the variety of fields that apply visualization. This chapter describes the data objects that we use to represent and access such data. A flexible design is introduced where the programmer can interact with most any type of data using one consistent interface. The three high level components of data (structure, cells, and data attributes) are introduced, and their specific subclasses and components are discussed.
 
-Chapter 6 **: Fundamental Algorithms**
+### Chapter 6: Fundamental Algorithms
 
 Where the preceding chapter deals with data objects, this one introduces process objects. These objects encompass the algorithms that transform and manipulate data. This chapter looks at commonly used techniques for isocontour extraction, scalar generation, color mapping, and vector field display, among others. The emphasis of this chapter is to provide the reader with a basic understanding of the more common and important visualization algorithms.
 
-Chapter 7 **: Advanced Computer Graphics**
+### Chapter 7: Advanced Computer Graphics
 
 This chapter covers advanced topics in computer graphics. The chapter begins by introducing transparency and texture mapping, two topics important to the main thrust of the chapter: volume rendering. Volume rendering is a powerful technique to see inside of 3D objects, and is used to visualize volumetric data. We conclude the chapter with other advanced topics such as stereoscopic rendering, special camera effects, and 3D widgets.
 
-Chapter 8 **: Advanced Data Representation**
+### Chapter 8: Advanced Data Representation
 
 Part of the function of a data object is to store the data. The first chapter on data representation discusses this aspect of data objects. This chapter focuses on basic geometric and topological access methods, and computational operations implemented by the various data objects. The chapter covers such methods as coordinate transformations for data sets, interpolation functions, derivative calculations, topological adjacency operations, and geometric operations such as line intersection and searching.
 
-Chapter 9 **: Advanced Algorithms**
+### Chapter 9: Advanced Algorithms
 
 This chapter is a continuation of *Fundamental Algorithms* and covers algorithms that are either more complex or less widely used. Scalar algorithms such as dividing cubes are covered along with vector algorithms such as stream ribbons. A large collection of modelling algorithms is discussed, including triangle strip generation, polygon decimation, feature extraction, and implicit modelling. We conclude with a look at some visualization algorithms that utilize texture mapping.
 
-Chapter 10 **: Image Processing**
+### Chapter 10: Image Processing
 
-While 3D graphics and visualization is the focus of the book, image processing is an important tool for preprocessing and manipulating data. In this chapter we focus on several important image pro-cessing algorithms, as well as describe how we use a streaming data representation to process large datasets. 
+While 3D graphics and visualization is the focus of the book, image processing is an important tool for preprocessing and manipulating data. In this chapter we focus on several important image processing algorithms, as well as describe how we use a streaming data representation to process large datasets. 
 
-Chapter 11 **: Visualization on the Web**
+### Chapter 11: Visualization on the Web
 
 The Web is one of the best places to share your visualizations. In this chapter we show you how to write Java-based visualization applications, and how to create VRML (Virtual Reality Modelling Language) data files for inclusion in your own Web content.
 
-Chapter 12 **: Applications**
+### Chapter 12: Application*
 
 In this chapter we tie the previous chapters together by working through a series of case studies from a variety of application areas. For each case, we briefly describe the application and what information we expect to obtain through the use of visualization. Then, we walk through the design and resulting source code to demonstrate the use of the tools described earlier in the text.
 

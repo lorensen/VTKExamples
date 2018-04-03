@@ -1,4 +1,4 @@
-**Preface**
+# Preface
 
 *V*isualization is a great field to work in these days.
 
@@ -14,7 +14,7 @@ The additions of these features required the support of three special contributo
 
 Especially satisfying has been the response from users of the text and software. Not only have we received a warm welcome from these wonderful people, but many of them have contributed code, bug fixes, data, and ideas that greatly improved the system. In fact, it would be best to categorize these people as co-developers rather than users of the system. We would like to encourage anyone else who is interested in sharing their ideas, code, or data to contact the VTK user community at http://www.vtk.org , or one of the authors. We would very much welcome any contributions you have to make. Contact us at http://www.kitware.com.
 
-**Acknowledgments**
+# Acknowledgments
 
 *D*uring the creation of the *Visualization Toolkit* we were fortunate to have the help of many people. Without their aid this book and the associated software might never have existed. Their contributions included performing book reviews, discussing software ideas, creating a supportive environment, and providing key suggestions for some of our algorithms and software implementations.
 

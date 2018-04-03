@@ -8,7 +8,7 @@ Computer graphics is the process of generating images using computers. We call t
 
 We can view rendering as the process of converting graphical data into an image. In data visualization our goal is to transform data into graphical data, or *graphics primitives*, that are then rendered. The goal of our rendering is not so much photo realism as it is information content. We also strive for interactive graphical displays with which it is possible to directly manipulate the underlying data. This chapter explains the process of rendering an image from graphical data. We begin by looking at the way lights, cameras, and objects (or actors) interact in the world around us. From this foundation we explain how to simulate this process on a computer.
 
-**A Physical Description of Rendering**
+## A Physical Description of Rendering
 
 <figure id="Figure3-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-1.png?raw=true width="640" alt="Figure 3-1">
@@ -24,7 +24,7 @@ A common and effective technique for 3D computer graphics is called *ray-tracing
 
 Having described ray tracing as a rendering process, it may be surprising that many members of the graphics community do not use it. This is because ray tracing is a relatively slow image generation method since it is typically implemented in software. Other graphics techniques have been developed that generate images using dedicated computer hardware. To understand why this situation has emerged, it is instructive to briefly examine the taxonomy and history of computer graphics.
 
-**Image-Order and Object-Order Methods**
+## Image-Order and Object-Order Methods
 
 Rendering processes can be broken into two categories: *image-order* and *object-order*. Ray tracing is an image-order process. It works by determining what happens to each ray of light, one at a time. An object-order process works by rendering each object, one at a time. In the above example, an object-order technique would proceed by first rendering the ground and then the cube.
 
@@ -36,7 +36,7 @@ The field of computer graphics started out using object-order processes. Much of
 
 It wasn't until the early 1980s that a paper by Turner Whitted \[Whitted80\] prompted many people to look at rendering from a more physical perspective. Eventually ray tracing became a serious competitor to the traditional object-order rendering techniques, due in part to the highly realistic images it can produce. Object-order rendering has maintained its popularity because there is a wealth of graphics hardware designed to quickly render objects. Ray tracing tends to be done without any specialized hardware and therefore is a time-consuming process.
 
-**Surface versus Volume Rendering**
+## Surface versus Volume Rendering
 
 The discussion to this point in the text has tacitly assumed that when we render an object, we are viewing the surfaces of objects and their interactions with light. However, common objects such as clouds, water, and fog, are translucent, or scatter light that passes through them. Such objects cannot be rendered using a model based exclusively on surface interactions. Instead, we need to consider the changing properties inside the object to properly render them. We refer to these two rendering models as *surface rendering* (i.e., render the surfaces of an object) and *volume rendering* (i.e., render the surface and interior of an object).
 
@@ -46,13 +46,15 @@ Volume rendering techniques allow us to see the inhomogeneity inside objects. In
 
 In this chapter we focus on surface rendering techniques. While not as powerful as volume rendering, surface rendering is widely used because it is relatively fast compared to volumetric techniques, and allows us to create images for a wide variety of data and objects. Chapter 7 describes volume rendering in more detail. 
 
-**Visualization Not Graphics**
+## Visualization Not Graphics
 
 Although the authors would enjoy providing a thorough treatise on computer graphics, such a discourse is beyond the scope of this text. Instead we make the distinction between visualization (exploring, transforming, and mapping data) and computer graphics (mapping and rendering). The focus will be on the principles and practice of visualization, and not on 3D computer graphics. In this chapter and Chapter 7 we introduce basic concepts and provide a working knowledge of 3D computer graphics. For those more interested in this field, we refer you to the texts recommended in the "Bibliographic Notes" on page77 at the end of this chapter.
 
 One of the regrets we have regarding this posture is that certain rendering techniques are essentially visualization techniques. We see this hinted at in the previous paragraph, where we use the term "mapping" to describe both visualization and computer graphics. There is not currently and will likely never be a firm distinction between visualization and graphics. For example, many researchers consider volume rendering to be squarely in the field of visualization because it addresses one of the most important forms of visualization data. Our distinction is mostly for our own convenience, and offers us the opportunity to finish this text. We recommend that a serious student of visualization supplement the material presented here with deeper books on computer graphics and volume rendering.
 
-3.2 Color
+In the next few pages we describe the rendering process in more detail. We start by describing several color models. Next we examine the primary components of the rendering process. There are sources of light such as the sun, objects we wish to render such as a cube or sphere (we refer to these objects as actors ), and there is a camera that looks out into the world. These terms are taken from the movie industry and tend to be familiar to most people. Actors represent graphical data or objects, lights illuminate the actors, and the camera constructs a picture by projecting the actors onto a view plane. We call the combination of lights, camera, and actors the scene, and refer to the rendering process as rendering the scene.
+
+## 3.2 Color
 
 The electromagnetic spectrum visible to humans contains wavelengths ranging from about 400 to 700 nanometers. The light that enters our eyes consists of different *intensities* of these wavelengths, an example of which is shown in **Figure3-2**. This intensity plot defines the color of the light, therefore a different plot results in a different color. Unfortunately, we may not notice the difference since the human eye throws out most of this information. There are three types of color receptors in the human eye called *cones*. Each type responds to a subset of the 400 to 700 nanometer wave-length range as shown in **Figure3-3**. Any color we see is encoded by our eyes into these three overlapping responses. This is a great reduction from the amount of information that actually comes into our eyes. As a result, the human eye is incapable of recognizing differences in any colors whose intensity curves, when applied to the human eye's response curves, result in the same triplet of responses. This also implies that we can store and represent colors in a computer using a simplified form without the human eye being able to recognize the difference.
 
@@ -66,9 +68,11 @@ The two simplified component systems that we use to describe colors are RGB and 
 
 The HSV system represents colors based on their hue, saturation, and value. The value component is also known as the brightness or intensity component, and represents how much light is in the color. A value of 0.0 will always give you black and a value of 1.0 will give you something bright. The hue represents the dominant wavelength of the color and is often illustrated using a circle as in **Figure3-5**. Each location on the circumference of this circle represents a different hue and can be specified using an angle. When we specify a hue we use the range from zero to one, where zero corresponds to zero degrees on the hue circle and one corresponds to 360 degrees. The saturation indicates how much of the hue is mixed into the color. For example, we can set the value to one, which gives us a bright color, and the hue to 0.66, to give us a dominant wavelength of blue. Now if we set the saturation to one, the color will be a bright primary blue. If we set the saturation to 0.5, the color will be sky blue, a blue with more white mixed in. If we set the saturation to zero, this indicates that there is no more of the dominant wavelength (hue) in the color than any other wavelength. As a result, the final color will be white (regardless of hue value). **Figure3-4** lists HSV values for some common colors.
 
-!!! warning "Missing Figure"
-    **Figure 3-3** Relative absorbance of light by the three types of cones in the human retina \[Dartnall83\].
-
+<figure id="Figure3-3">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-3.png?raw=true width="640" alt="Figure 3-3">
+</figure>
+<figcaption><b>Figure 3-3</b>.Relative absorbance of light by the three types of cones in the human retina \[Dartnall83\]. </figcaption>
+</figure>
 
 | **Color** | **RGB**   | **HSV**   |
 |-----------|-----------|-----------|
@@ -97,10 +101,13 @@ s    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src
 
 One of the major factors controlling the rendering process is the interaction of light with the actors in the scene. If there are no lights, the resulting image will be black and rather uninformative. To a great extent it is the interaction between the emitted light and the surface (and in some cases the interior) of the actors in the scene that defines what we see. Once rays of light interact with the actors in a scene, we have something for our camera to view.
 
-Of the many different types of lights used in computer graphics, we will discuss the simplest, the infinitely distant, point light source. This is a simplified model compared to the lights we use at home and work. The light sources that we are accustomed to typically radiate from a region in space (a filament in an incandescent bulb, or a light-emitting gas in a fluorescent light). The point source lighting model assumes that the light is emitted in all directions from a single point in space. For an infinite light source, we assume that it is positioned infinitely far away from what it is illuminating. This is significant because it implies that the incoming rays from such a source will be parallel to each other. The emissions of a local light source, such as a lamp in a room, are not parallel. **Figure3-6** illustrates the differences between a local light source with a finite volume, versus an infinite point light source. The intensity of the light emitted by our infinite light sources also remains constant as it travels, in contrast to the actual 1/distance ^2^ relationship physical lights obey. As you can see this is a great simplification, which later will allow us to use less complex lighting equations.
+Of the many different types of lights used in computer graphics, we will discuss the simplest, the infinitely distant, point light source. This is a simplified model compared to the lights we use at home and work. The light sources that we are accustomed to typically radiate from a region in space (a filament in an incandescent bulb, or a light-emitting gas in a fluorescent light). The point source lighting model assumes that the light is emitted in all directions from a single point in space. For an infinite light source, we assume that it is positioned infinitely far away from what it is illuminating. This is significant because it implies that the incoming rays from such a source will be parallel to each other. The emissions of a local light source, such as a lamp in a room, are not parallel. **Figure3-6** illustrates the differences between a local light source with a finite volume, versus an infinite point light source. The intensity of the light emitted by our infinite light sources also remains constant as it travels, in contrast to the actual distance^2 relationship physical lights obey. As you can see this is a great simplification, which later will allow us to use less complex lighting equations.
 
-**Figure 3-6** Local light source with a finite volume versus an
-infinite point light source.
+<figure id="Figure3-6">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-6.png?raw=true width="640" alt="Figure 3-6">
+</figure>
+<figcaption><b>Figure 3-6</b>. Local light source with a finite volume versus an infinite point light source.</figcaption>
+</figure>
 
 ## 3.4 Surface Properties
 
@@ -108,9 +115,7 @@ As rays of light travel through space, some of them intersect our actors. When t
 
 !!! danger "Equation 3-1 is missing"
 
-where Ra is the resulting intensity curve due to ambient lighting,
-Lc is the intensity curve of the
-ambient light, and Oa is the color curve of the object. To help keep the equations simple we assume that all of the direction vectors are normalized (i.e., have a magnitude of one).
+where Ra is the resulting intensity curve due to ambient lighting, Lc is the intensity curve of the ambient light, and Oa is the color curve of the object. To help keep the equations simple we assume that all of the direction vectors are normalized (i.e., have a magnitude of one).
 
 Two components of the resulting color depend on direct lighting. *Diffuse lighting*, which is also known as Lambertian reflection, takes into account the angle of incidence of the light onto an object. **Figure3-7** shows the image of a cylinder that becomes darker as you move laterally from its center. The cylinder's color is constant; the amount of light hitting the surface of the cylinder changes. At the center, where the incoming light is nearly perpendicular to the surface of the cylinder, it receives more rays of light per surface area. As we move towards the side, this drops until finally the incoming light is parallel to the side of the cylinder and the resulting intensity is zero.
 
@@ -124,15 +129,16 @@ The contribution from diffuse lighting is expressed in **Equation3-2** and illus
 
 !!! danger "Equation 3-2 is missing"
 
-where Rd is the resulting intensity curve due to diffuse lighting, Lc is the intensity curve for the light, and Oc is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector andL nthe surface normal of the object. As a result On diffuse lighting is independent of viewer position. Figure3 Specular lighting represents direct reflections of a light source off a shiny object. 10 shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, O, indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to Figure3–9, the equation for specular lighting is light, and *O~c~* is the color curve for the obje[c]{.underline}t. Notice that the diffuse light is a function of the relative angle between incident light vector andL nthe surface normal of the object. As a resultOn diffuse lighting is independent of viewer position.
+where Rd is the resulting intensity curve due to diffuse lighting, Lc is the intensity curve for the light, and Oc is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector andL nthe surface normal of the object. As a result On diffuse lighting is independent of viewer position.
 
-*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power indicates how shiny an object is, more specifically it indicates how quickly specular reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure3-9**, the equation for specular lighting is
+*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, *Osp*, indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure3–9**, the equation for specular lighting is
 
 !!! danger "Equation 3-3 is missing"
 
 where Ci is the direction of projection for the camera and is the S is the direction of specular reflection.
 
-**Figure 3-8** Diffuse lighting.
+!!! warning "Missing Figure"
+    **Figure 3-8** Diffuse lighting.
 
 We have presented the equations for the different lighting models independently. We can apply all lighting models simultaneously or in combination. **Equation3-4** combines ambient, diffuse and specular lighting into one equation.
 
@@ -148,120 +154,176 @@ The result is a color at a point on the surface of the object. The constants Oai
 
 ## 3.5 Cameras
 
-We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see **Figure3-11** ). These are the position, orientation, and focal point of the camera, the method of camera *projection*, and the location of the camera *clipping* *planes*.
+We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see **Figure3–11**). These are the position, orientation, and focal point of the camera, the method of camera projection , and the location of the camera clipping planes.
 
-The position and focal point of the camera define the location of the camera and where it points. The vector defined from the camera position to the focal point is called the *direction of projection*. The camera image plane is located at the focal point and is typically perpendicular to the projection vector. The camera orientation is controlled by the position and focal point plus the camera *view-up* vector. Together these completely define the camera view.
+The position and focal point of the camera define the location of the camera and where it points. The vector defined from the camera position to the focal point is called the direction of projection . The camera image plane is located at the focal point and is typically perpendicular to the projection vector. The camera orientation is controlled by the position and focal point plus the camera view-up vector. Together these completely define the camera view. 
 
-The method of projection controls how the actors are mapped to the image plane. *Orthographic projection* is a parallel mapping process. In orthographic projection (or parallel projection) all rays of light entering the camera are parallel to the projection vector.
+The method of projection controls how the actors are mapped to the image plane. *Orthographic projection* is a parallel mapping process. In orthographic projection (or parallel projection) all rays of light entering the camera are parallel to the projection vector. *Perspective projection* occurs when all light rays go through a common point (i.e., the viewpoint or center of projection). To apply perspective projection we must specify a perspective angle or camera view angle.
 
-<figure id="Figure3-11">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-11.png?raw=true width="640" alt="Figure 3-11">
-</figure>
-<figcaption><b>Figure 3-11</b>. Camera attributes.</figcaption>
-</figure>
+The front and back clipping planes intersect the projection vector, and are usually perpendicular to it. The clipping planes are used to eliminate data either too close to the camera or too far away. As a result only actors or portions of actors within the clipping planes are (potentially) visible. Clipping planes are typically perpendicular to the direction of projection. Their locations can be set using the camera’s clipping range. The location of the planes are measured from the camera’s position along the direction of projection. The front clipping plane is at the minimum range value, and the back clipping plane is at the maximum range value. Later on in Chapter 7 , when we discuss stereo rendering, we will see examples of clipping planes that are not perpendicular to the direction of projection.
 
-*Perspective projection* occurs when all light rays go through a common point (i.e., the viewpoint or center of projection). To apply perspective projection we must specify a perspective angle or camera view angle.
+Taken together these camera parameters define a rectangular pyramid, with its apex at the camera’s position and extending along the direction of projection. The pyramid is truncated at the top with the front clipping plane and at the bottom by the back clipping plane. The resulting view frustum defines the region of 3D space visible to the camera.
 
-The front and back *clipping planes* intersect the projection vector, and are usually perpendicular to it. The clipping planes are used to eliminate data either too close to the camera or too far away. As a result only actors or portions of actors within the clipping planes are (potentially) visible. Clipping planes are typically perpendicular to the direction of projection. Their locations can be set using the camera's clipping range. The location of the planes are measured from the camera's position along the direction of projection. The front clipping plane is at the minimum range value, and the back clipping plane is at the maximum range value. Later on in Chapter 7, when we discuss stereo rendering, we will see examples of clipping planes that are not perpendicular to the direction of projection.
+While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. Figure3–12 and Figure3–13 will help illustrate these operations. Changing the azimuth of a camera rotates its position around its view up vector, centered at the focal point . Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera’s elevation rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To roll the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
 
-Taken together these camera parameters define a rectangular pyramid, with its apex at the camera's position and extending along the direction of projection. The pyramid is truncated at the top with the front clipping plane and at the bottom by the back clipping plane. The resulting *view* *frustum* defines the region of 3D space visible to the camera.
+The next two motions keep the camera’s position constant and instead modify the focal point. Changing the yaw rotates the focal point about the view up centered at the camera’s position. This is like an azimuth, except that the focal point moves instead of the position. Changes in pitch rotate the focal point about the cross product of the direction of projection and view up centered at the camera’s position. Dollying in and out moves the camera’s position along the direction of projection, either closer or farther from the focal point. This operation is specified as the ratio of its current distance to its new distance. A value greater than one will dolly in, while a value less than one will dolly out. Finally, zooming changes the camera’s view angle, so that more or less of the scene falls within the view frustum.
 
-While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. **Figure3-12** and **Figure3-13** will help illustrate these operations. Changing the *azimuth* of a camera rotates its position around its view up vector, centered at the focal point *.* Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera's *elevation* rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To *roll* the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
-
-The next two motions keep the camera's position constant and instead modify the focal point. Changing the *yaw* rotates the focal point about the view up centered at the camera's position. This is like an azimuth, except that the focal point moves instead of the position. Changes in *pitch* rotate the focal point about the cross product of the direction of projection and view up centered at the camera's position. *Dollying* in and out moves the camera's position along the direction of projection, either closer or farther from the focal point. This operation is specified as the ratio of its current distance to its new distance. A value greater than one will dolly in, while a value less than one will dolly out. Finally, *zooming* changes the camera's view angle, so that more or less of the scene falls within the view frustum.
-
-<figure id="Figure3-12">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestCameraModel1.png?raw=true width="640" alt="Figure 3-12">
-</figure>
-<figcaption><b>Figure 3-12</b>. Camera movements around focal point. <a href="../../Cxx/Visualization/CameraModel1" title="CameraModel1"> See CameraModel1.cxx</a> and <a href="../../Python/Visualization/CameraModel1" title="CameraModel1"> CameraModel1.py</a>.</figcaption>
-</figure>
-
-<figure id="Figure3-13">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestCameraModel2.png?raw=true width="640" alt="Figure 3-13">
-</figure>
-<figcaption><b>Figure 3-13</b>. Camera movements centered at camera position. <a href="../../Cxx/Visualization/CameraModel2" title="CameraModel2"> See CameraModel2.cxx</a> and <a href="../../Python/Visualization/CameraModel2" title="CameraModel2"> CameraModel2.py</a>.</figcaption>
-</figure>
-
-Once we have the camera situated, we can generate our 2D image. Some of the rays of light traveling through our 3D space will pass through the lens on the camera. These rays then strike a flat surface to produce an image. This effectively projects our 3D scene into a 2D image. The camera's position and other properties determine which rays of light get captured and projected. More specifically, only rays of light that intersect the camera's position, and are within its viewing frustum, will affect the resulting 2D image.
+Once we have the camera situated, we can generate our 2D image. Some of the rays of light traveling through our 3D space will pass through the lens on the camera. These rays then strike a flat surface to produce an image. This effectively projects our 3D scene into a 2D image. The camera’s position and other properties determine which rays of light get captured and projected. More specifically, only rays of light that intersect the camera’s position, and are within its viewing frustum, will affect the resulting 2D image.
 
 This concludes our brief rendering overview. The light has traveled from its sources to the actors, where it is reflected and scattered. Some of this light gets captured by the camera and produces a 2D image. Now we will look at some of the details of this process.
 
 ## 3.6 Coordinate Systems
 
-There are four coordinate systems commonly used in computer graphics and two different ways of representing points within them ( **Figure3-14** ). While this may seem excessive, each one serves a purpose. The four coordinate systems we use are: *model*, *world*, *view*, and *display*.
+There are four coordinate systems commonly used in computer graphics and two different ways of representing points within them (**Figure3–14**). While this may seem excessive, each one serves a purpose. The four coordinate systems we use are: *model*, *world* , *view*, and *display*.
 
 The model coordinate system is the coordinate system in which the model is defined, typically a local Cartesian coordinate system. If one of our actors represents a football, it will be based on a coordinate system natural to the football geometry (e.g., a cylindrical system). This model has an inherent coordinate system determined by the decisions of whoever generated it. They may have used inches or meters as their units, and the football may have been modeled with any arbitrary axis as its major axis.
 
-The world coordinate system is the 3D space in which the actors are positioned. One of the actor's responsibilities is to convert from the model's coordinates into world coordinates. Each model may have its own coordinate system but there is only one world coordinate system. Each actor must scale, rotate, and translate its model into the world coordinate system. (It may also be necessary for the modeller to transform from its natural coordinate system into a local Cartesian system. This is because actors typically assume that the model coordinate system is a local Cartesian system.) The world coordinate system is also the system in which the position and orientation of cameras and lights are specified.
+The world coordinate system is the 3D space in which the actors are positioned. One of the actor’s responsibilities is to convert from the model’s coordinates into world coordinates. Each model may have its own coordinate system but there is only one world coordinate system. Each actor must scale, rotate, and translate its model into the world coordinate system. (It may also be necessary for the modeller to transform from its natural coordinate system into a local Cartesian system. This is because actors typically assume that the model coordinate system is a local Cartesian system.) The world coordinate system is also the system in which the position and orientation of cameras and lights are specified.
 
-The view coordinate system represents what is visible to the camera. This consists of a pair of *x* and *y* values, ranging between (-1,1), and a *z* depth coordinate. The *x*, *y* values specify location in the image plane, while the *z* coordinate represents the distance, or range, from the camera. The camera's properties are represented by a four by four transformation matrix (to be described shortly), which is used to convert from world coordinates into view coordinates. This is where the perspective effects of a camera are introduced.
+The view coordinate system represents what is visible to the camera. This consists of a pair of x and y values, ranging between (-1,1), and a z depth coordinate. The x, y values specify location in the image plane, while the z coordinate represents the distance, or range, from the camera. The camera’s properties are represented by a four by four transformation matrix (to be described shortly), which is used to convert from world coordinates into view coordinates. This is where the perspective effects of a camera are introduced.
 
-The display coordinate system uses the same basis as the view coordinate system, but instead of using negative one to one as the range, the coordinates are actual *x, y* pixel locations on the image plane. Factors such as the window's size on the display determine how the view coordinate range of (-1,1) is mapped into pixel locations. This is also where the *viewport* comes into effect.
+The display coordinate system uses the same basis as the view coordinate system, but instead of using negative one to one as the range, the coordinates are actual x, y pixel locations on the image plane. Factors such as the window’s size on the display determine how the view coordinate range of (-1,1) is mapped into pixel locations. This is also where the viewport comes into effect.
 
-**Figure 3-14** Modelling, world, view, and display coordinate systems.
+You may want to render two different scenes, but display them in the same window. This can be done by dividing the window into rectangular viewports. Then, each renderer can be told what portion of the window it should use for rendering. The viewport ranges from (0,1) in both the x and y axis. Similar to the view coordinate system, the z-value in the display coordinate system also represents depth into the window. The meaning of this z-value will be further described in the section titled “Z-Buffer ” on page57.
 
-You may want to render two different scenes, but display them in the same window. This can be done by dividing the window into rectangular viewports. Then, each renderer can be told what portion of the window it should use for rendering. The viewport ranges from (0,1) in both the *x* and *y* axis. Similar to the view coordinate system, the *z*-value in the display coordinate system also represents depth into the window. The meaning of this *z*-value will be further described in the section titled "Z-Buffer" on page57.
 
 ## 3.7 Coordinate Transformation
 
-When we create images with computer graphics, we project objects defined in three dimensions onto a two-dimensional image plane. As we saw earlier, this projection naturally includes perspective. To include projection effects such as vanishing points we use a special coordinate system called *homogeneous coordinates*.
+When we create images with computer graphics, we project objects defined in three dimensions onto a two-dimensional image plane. As we saw earlier, this projection naturally includes perspective. To include projection effects such as vanishing points we use a special coordinate system called homogeneous coordinates.
 
-The usual way of representing a point in 3D is the three element Cartesian vector ( *x*, *y*, *z*). Homogeneous coordinates are represented by a four element vector ( *x~h~, y~h~, z~h~, w~h~*). The conversion between Cartesian coordinates and homogeneous coordinates is given by:
+The usual way of representing a point in 3D is the three element Cartesian vector (x, y, z). Homogeneous coordinates are represented by a four element vector ( xh, yh, zh, wh ). The conversion between Cartesian coordinates and homogeneous coordinates is given by:
 
 !!! danger "Equation 3-5 is missing"
 
-Using homogeneous coordinates we can represent an infinite point by setting *w~h~* to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 *transformation matrix*. Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a matrix.
+Using homogeneous coordinates we can represent an infinite point by setting w h to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 transformation matrix . Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a 3x3 matrix.
 
-For example, suppose we wanted to create a transformation matrix that translates a point ( *x*, *y*, *z*) in Cartesian space by the vector ( *t~x~, t~y~, t~z~).* We need only construct the translation matrix
-given by
+For example, suppose we wanted to create a transformation matrix that translates a point ( x, y, z) in Cartesian space by the vector ( tx , ty, tz). We need only construct the translation matrix given by
+
+!!! danger "Equation 3-5 is missing"
+
+and then postmultiply it with the homogeneous coordinate (xh, yh, zh, wh). To carry this example through, we construct the homogeneous coordinate from the Cartesian coordinate ( x, y, z) by setting wh = 1 to yield ???. Then to determine the translated point we premultiply ()x'y'z'
+,,
+w h = 1 to yield .()Then,
+xyz1
+the
+current position by the transformation matrix to yield
+T T the translated coordinate. Substituting
+into Equation3-6 we have the result
 
 !!! danger "Equation 3-6 is missing"
 
-and then postmultiply it with the homogeneous coordinate (xh, yh, zh, wh). To carry this example through, we construct the homogeneous coordinate from the Cartesian coordinate ( x, y, z) by setting wh = 1. Then, to determine the translated point we premultiply x,y,z by the current position to yield the translated coordinate. Substituting
-into Equation3-6 we have the result
+Converting back to Cartesian coordinates via Equation3-5 we have the expected solution
 
 !!! danger "Equation 3-7 is missing"
 
-Converting back to Cartesian coordinates via *Equation3-5* we have the expected solution
-
-!!! danger "Equation 3-8 is missing"
-
-The same procedure is used to scale or rotate an object. To scale an
-object we use the transformation matrix
+The same procedure is used to scale or rotate an object. To scale an object we use the transformation matrix
 
 !!! danger "Equation 3-9 is missing"
 
-where the parameters *s~x~*, *s~y~*, and *s~z~* are scale factors along the x, y and z axes. Similarly we can rotate an object around the *x* axes by angle theta using the matrix
+where the parameters s x, sy, and sz are scale factors along the q rotate an object around the x axes by angle using the matrix
 
 !!! danger "Equation 3-10 is missing"
 
+x, y, and z axes. Similarly, we can
+
+TR x
+
+1000
+= 0 cos q – sin q 0
+0 sin q cos0q
+0001
+
+(3-10)
+
+TR
+
+cos0q
+sin0q
+0100
+=
+– sin q 0 cos0q
+0001
+
+(3-11)
+
 Around the y axis we use
 
-!!! danger "Equation 3-11 is missing"
+y
 
 and around the z axis we use
 
-!!! danger "Equation 3-12 is missing"
+T Rz =
 
-Another useful rotation matrix is used to transform one coordinate axes to another coordinate axes
+cos q – sin q 00
+q
+sin q cos00
+0010
+0001
 
-!!! warning "These lines need attention"
-  .x'y'To-- derive--z' the transformation matrix we assume that the unit axis makes thex' angles around()q,,qthe axesq (these are calledxy--direction--z cosines). Similarly, x'x x'y x'z the unit axisy' makes the angles and the unit()q axis,,q makesq the angles z'
+(3-12)
 
- The resulting rotation matrix is formed by placing the direction cosines along the
-rows of the transformation matrix as follows:
+Another useful rotation matrix is used to transform one coordinate axes toxy–
+another
+– zcoordinate axes .x'y'
+To– derive
+– z' the transformation matrix we assume that the unit axis makes the
+x'
+()q x'x ,, qthe
+q
+angles around
+axes
+(these
+are
+called
+xy
+–
+direction
+–
+z
+cosines).
+Similarly,
+x'y
+x'z
+()qy'xaxis
+,, qy'y
+qy'z the angles
+the unit axis
+y' makes the angles and the unit
+makes
+z'
+()q z'x ,,q z'y q z'z . The resulting rotation matrix is formed by placing the direction cosines along the
+rows of the transformation matrix as follows
+cos qx'x cos qx'y cos0qx'z
+TR =
 
-!!! danger "Equation 3-13 is missing"
+cos qy'x cos qy'y cos0qy'z
+cos q z'x cos q z'y cos0q z'z
+0001
 
-Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object's center Oc. To rotate around Oc we must first translate the object to the origin, apply rotations, and then translate the object back.
+(3-13)
 
-Transformation matrices can be combined by matrix multiplication to achieve combinations of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all types of transformation simultaneously. This matrix is the result of repeated matrix multiplications. A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix by the translation matrix.
+50
+
+Computer Graphics Primer
+
+Rotations occur about the coordinate origin. It is often more convenient to rotate around the center
+of the object (or a user-specified point). Assume that we call this point the object’s center . To O c
+rotate around we
+Oc must first translate the object from to theOorigin,
+apply rotations, and then
+c
+translate the object back to . O c
+Transformation matrices can be combined by matrix multiplication to achieve combinations
+of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all
+types of transformation simultaneously. This matrix is the result of repeated matrix multiplications.
+A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix
+by the translation matrix.
 
 ## 3.8 Actor Geometry
 
 We have seen how lighting properties control the appearance of an actor, and how the camera in combination with transformation matrices is used to project an actor to the image plane. What is left to define is the geometry of the actor, and how we position it in the world coordinate system.
 
-**Modelling**
+## Modelling
 
 A major topic in the study of computer graphics is modelling or representing the geometry of physical objects. Various mathematical techniques have been applied including combinations of points, lines, polygons, curves, and splines of various forms, and even implicit mathematical functions.
 
@@ -271,7 +333,7 @@ In data visualization, modelling takes a different role. Instead of directly cre
 
 The representation of geometry for data visualization tends to be simple, even though computing the representations is not. These forms are most often primitives like points, lines, and polygons, or visualization data such as volume data. We use simple forms because we desire high performance and interactive systems. Thus we take advantage of computer hardware (to be covered in "Graphics Hardware " on page51 ) or special rendering techniques like volume rendering (see "Volume Rendering " on page218 ).
 
-**Actor Location and Orientation**
+## Actor Location and Orientation
 
 Every actor has a transformation matrix that controls its location and scaling in world space. The actor's geometry is defined by a model in model coordinates. We specify the actor's location using orientation, position, and scale factors along the coordinate axes. In addition, we can define an origin around which the actor rotates. This feature is useful because we can rotate the actor around its center or some other meaningful point.
 
@@ -285,11 +347,11 @@ All of these rotations take place around the origin of the actor. Typically this
 <figcaption><b>Figure 3-15</b>. Actor coordinate system.</figcaption>
 </figure>
 
-## Graphics Hardware
+## 3.9 Graphics Hardware
 
 Earlier we mentioned that advances in graphics hardware have had a large impact on how rendering is performed. Now that we have covered the fundamentals of rendering a scene, we look at some of the hardware issues. First, we discuss raster devices that have replaced vector displays as the primary output device. Then, we look at how our programs communicate to the graphics hardware. We also examine the different coordinate systems used in computer graphics, hidden line/surface removal, and *z*-buffering.
 
-**Raster Devices**
+## Raster Devices
 
 The results of computer graphics is pervasive in today's world---digital images (generated with computer graphics) may be found on cell phones, displayed on computer monitors, broadcast on TV, shown at the movie theatre and presented on electronic billboards. All of these, and many more, display mediums are raster devices. A raster device represents an image using a two dimensional array of picture elements called pixels. For example, the word "hello" can be represented as an array of pixels. as shown in **Figure3-16**. Here the word "hello" is written within a pixel array that is twenty-five pixels wide and ten pixels high. Each pixel stores one bit of information, whether it is black or white. This is how a black and white laser printer works, for each point on the paper it either prints a black dot or leaves it the color of the paper. Due to hardware limitations, raster devices such as laser printers and computer monitors do not actually draw accurate square pixels like those in **Figure3-16**. Instead, they tend to be slightly blurred and overlapping. Another hardware limitation of raster devices is their resolution. This is what causes a 300 dpi (dots per inch) laser printer to produce more detailed output than a nine pin dot matrix printer. A 300 dpi laser printer has a resolution of 300 pixels per inch compared to roughly 50 dpi for the dot matrix printer.
 
@@ -299,13 +361,17 @@ The results of computer graphics is pervasive in today's world---digital images 
 <figcaption><b>Figure 3-16</b>. A pixel array for the word "hello."</figcaption>
 </figure>
 
-**Figure 3-17** Black and white dithering.
+<figure id="Figure3-17">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-17.png?raw=true width="640" alt="Figure 3-17">
+</figure>
+<figcaption><b>Figure 3-17</b>. Black and white dithering.</figcaption>
+</figure>
 
 Color computer monitors typically have a resolution of about 80 pixels per inch, making the screen a pixel array roughly one thousand pixels in width and height. This results in over one million pixels, each with a value that indicates what color it should be. Since the hardware in color monitors uses the RGB system, it makes sense to use that to describe the colors in the pixels. Unfortunately, having over one million pixels, each with a red, green, and blue component, can take up a lot of memory. This is part of what differentiates the variety of graphics hardware on the market. Some companies use 24 bits of storage per pixel, others use eight, some advanced systems use more than 100 bits of storage per pixel. Typically, the more bits per pixel the more accurate the colors will be.
 
 One way to work around color limitations in the graphics hardware is by using a technique called *dithering*. Say, for example, that you want to use some different shades of gray, but your graphics hardware only supports black and white. Dithering lets you approximate shades of gray by using a mixture of both black and white pixels. In **Figure3-17**, seven gray squares are drawn using a mixture of black and white pixels. From a distance the seven squares look like different shades of gray even though up close, it's clear that they are just different mixtures of black and white pixels. This same technique works just as well for other colors. For example, if your graphics hardware supports primary blue, primary green, and white but not a pastel sea green, you can approximate this color by dithering the green, blue, and white that the hardware does support.
 
-**Interfacing to the Hardware**
+## Interfacing to the Hardware
 
 Now that we have covered the basics of display hardware, the good news is that you rarely need to worry about them. Most graphics programming is done using higher-level primitives than individual pixels. **Figure3-18** shows a typical arrangement for a visualization program. At the bottom of the hierarchy is the display hardware that we already discussed; chances are your programs will not interact directly with it. The top three layers above the hardware are the layers you may need to be concerned with.
 
@@ -324,7 +390,7 @@ The fundamental building block of the primitives in **Figure3-19** is a point (o
 
 When you limit yourself to the types of primitives described above, there are some additional properties that many graphics systems support. Edge color and edge visibility can be used to highlight the polygon primitives that make up an actor. Another way to do this is by adjusting the representation from *surface* to *wireframe* or *points*. This replaces surfaces such as polygons with either their boundary edges or points respectively. While this may not make much sense from a physical perspective, it can help in some illustrations. Using edge visibility when rendering a CAD model can help to show the different pieces that comprise the model.
 
-**Rasterization**
+## Rasterization
 
 At this point in the text we have described how to represent graphics data using rendering primi-tives, and we have described how to represent images using raster display devices. The question remains, how do we convert graphics primitives into a raster image? This is the topic we address in this section. Although a thorough treatise on this topic is beyon1d the scope of this text, we will do our best to provide a high-level overview.
 
@@ -344,7 +410,7 @@ With the polygon clipped and projected to the image plane, we can begin scan-lin
 
 The shading of the polygon (i.e., color interpolation across the polygon) varies depending on the actor's interpolation attribute. There are three possibilities: *flat*, *Gouraud*, or *Phong shading*. **Figure3-7** illustrates the difference between flat and Gouraud interpolation. Flat shading calcu-lates the color of a polygon by applying the lighting equations to just one normal (typically the sur-face normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
 
-**Z-Buffer**
+## Z-Buffer
 
 In our earlier description of the rendering process, we followed rays of light from our eye through a pixel in the image plane to the actors and back to the light source. A nice side effect of ray tracing is that viewing rays strike the first actor they encounter and ignore any actors that are hidden behind it. When rendering actors using the polygonal methods described above, we have no such method of computing which polygons are hidden and which are not. We cannot generally count on the polygons being ordered correctly. Instead, we can use a number of hidden-surface methods for polygon rendering.
 
@@ -357,7 +423,7 @@ Another hidden surface algorithm, z-buffering, takes care of this problem and do
 This section provides an overview of the graphics objects and how to
 use them in VTK.
 
-**The Graphics Model**
+## The Graphics Model
 
 <figure id="Figure3-24">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestModel.png?raw=true width="640" alt="Figure 3-24">
@@ -408,7 +474,7 @@ Finally, vtkMapper (and its subclasses) defines object geometry and, optionally,
 
 There is another important object, vtkRenderWindowInteractor, that captures events (such as mouse clicks and mouse motion) for a renderer in the rendering window. vtkRenderWindowInteractor captures these events and then triggers certain operations like camera dolly, pan, and rotate, actor picking, into/out of stereo mode, and so on. Instances of this class are associated with a rendering window using the SetRenderWindow() method.
 
-**Achieving Device Independence**
+## Achieving Device Independence
 
 A desirable property of applications built with VTK is that they are device independent. This means that computer code that runs on one operating system with a particular software/hardware configuration runs unchanged on a different operating system and software/hardware configuration. The advantage of this is that the programmer does not need to expend effort porting an application between different computer systems. Also, existing applications do not need to be rewritten to take advantage of new developments in hardware or software technology. Instead, VTK handles this transparently by a combination of inheritance and a technique known as *object factories*.
 
@@ -429,7 +495,7 @@ to create a device dependent instance of vtkActor. The user sees no device depen
 
 The use of object factories as implemented using the New() method allows us to create device independent code that can move from computer to computer and adapt to changing technology. For example, if a new graphics library became available, we would only have to create a new device dependent subclass, and then modify the graphics factory to instantiate the appropriate sub-class based on environment variables or other system information. This extension would be localized and only done once, and all applications based on these object factories would be automatically ported without change.
 
-**Examples**
+## Examples
 
 This section works through some simple applications implemented with VTK graphics objects. The focus is on the basics: how to create renderers, lights, cameras, and actors. Later chapters tie together these basic principles to create applications for data visualization.
 
@@ -699,7 +765,7 @@ The example begins by loading some shared libraries defining various VTK classes
 
 As we can see from this example, the number of lines of code is less for the Tcl example than for equivalent C++ code. Also, many of the complexities of C++ are hidden using the interpreted language. Using this user-interface GUI we can create, modify, and delete objects, and modify their instance variables. The resulting changes appear as soon as a Render() method is applied or mouse events in the rendering window cause a render to occur. We encourage you to use Tcl (or one of the other interpreters) for rapid creation of graphics and visualization examples. C++ is best used when you desire higher performing applications.
 
-**Transform Matrices**
+## Transform Matrices
 
 Transformation matrices are used throughout Visualization Toolkit. Actors (subclasses of vtkProp3D—see “Assemblies and Other Types of vtkProp ” on page74 ) use them to position and orient themselves. Various filters, including vtkGlyph3D and vtkTransformFilter, use transformation matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
 
@@ -806,7 +872,7 @@ There is one final and powerful operation that affects an actor's orientation. Y
 <figcaption><b>Figure 3-33</b>. The cow rotating about a vector passing through her nose. (a) With origin (0,0,0). (b) With origin at (6.1,1.3,.02).<a href="../../Cxx/Rendering/WalkCowA" title="WalkCowA"> See WalkCowA.cxx</a> and <a href="../../Python/Rendering/WalkCowA" title="WalkCowA"> WalkCowA.py</a>.; (b).<a href="../../Cxx/Rendering/WalkCowB" title="WalkCowB"> See WalkCowB.cxx</a> and <a href="../../Python/Rendering/WalkCowB" title="WalkCowB"> WalkCowB.py</a>.</figcaption>
 </figure>
 
-**Assemblies and Other Types of vtkProp**
+## Assemblies and Other Types of vtkProp
 
 Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an *assembly* in VTK. vtkAssembly is just one of many actor-like classes in VTK. As **Figure3-34** shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding *parts* to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see "Transformation Matri-ces" on page70 ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
 
