@@ -85,7 +85,10 @@ The HSV system represents colors based on their hue, saturation, and value. The 
 | Cyan      | 0,1,1     | 1/2,1,1   |
 | Magenta   | 1,0,1     | 5/6,1,1   |
 | Sky Blue  | 1/2,1/2,1 | 2/3,1/2,1 |
-|**Figure 3-4** Common colors in RGB and HSV space.|
+<figure id="Figure3-4">
+</figure>
+<figcaption><b>Figure 3-4</b>. Common colors in RGB and HSV space.</figcaption>
+</figure>
 
 <figure id="Figure3-5">
   <figure id="Figure3-5a">
@@ -125,7 +128,7 @@ Two components of the resulting color depend on direct lighting. *Diffuse lighti
 <figcaption><b>Figure 3-7</b>. Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look. <a href="../../Cxx/Rendering/FlatVersusGouraud" title="FlatVersusGouraud"> See FlatVersusGouraud.cxx</a> and <a href="../../Python/Rendering/FlatVersusGouraud" title="FlatVersusGouraud"> FlatVersusGouraud.py</a>.</figcaption>
 </figure>
 
-The contribution from diffuse lighting is expressed in **Equation3-2** and illustrated in **Figure3–8**.
+The contribution from diffuse lighting is expressed in **Equation3-2** and illustrated in **Figure3-8**.
 
 !!! danger "Equation 3-2 is missing"
 
@@ -154,7 +157,7 @@ The result is a color at a point on the surface of the object. The constants Oai
 
 ## 3.5 Cameras
 
-We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see **Figure3–11**). These are the position, orientation, and focal point of the camera, the method of camera projection , and the location of the camera clipping planes.
+We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see **Figure3-11**). These are the position, orientation, and focal point of the camera, the method of camera projection , and the location of the camera clipping planes.
 
 The position and focal point of the camera define the location of the camera and where it points. The vector defined from the camera position to the focal point is called the direction of projection . The camera image plane is located at the focal point and is typically perpendicular to the projection vector. The camera orientation is controlled by the position and focal point plus the camera view-up vector. Together these completely define the camera view. 
 
@@ -164,9 +167,21 @@ The front and back clipping planes intersect the projection vector, and are usua
 
 Taken together these camera parameters define a rectangular pyramid, with its apex at the camera’s position and extending along the direction of projection. The pyramid is truncated at the top with the front clipping plane and at the bottom by the back clipping plane. The resulting view frustum defines the region of 3D space visible to the camera.
 
-While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. **Figure3–12** and **Figure3–13** will help illustrate these operations. Changing the azimuth of a camera rotates its position around its view up vector, centered at the focal point . Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera’s elevation rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To roll the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
+While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. **Figure3-12** and **Figure3-13** will help illustrate these operations. Changing the azimuth of a camera rotates its position around its view up vector, centered at the focal point . Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera’s elevation rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To roll the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
 
 The next two motions keep the camera’s position constant and instead modify the focal point. Changing the yaw rotates the focal point about the view up centered at the camera’s position. This is like an azimuth, except that the focal point moves instead of the position. Changes in pitch rotate the focal point about the cross product of the direction of projection and view up centered at the camera’s position. Dollying in and out moves the camera’s position along the direction of projection, either closer or farther from the focal point. This operation is specified as the ratio of its current distance to its new distance. A value greater than one will dolly in, while a value less than one will dolly out. Finally, zooming changes the camera’s view angle, so that more or less of the scene falls within the view frustum.
+
+<figure id="Figure3-12">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestCameraModel1.png?raw=true width="640" alt="Figure 3-12">
+</figure>
+<figcaption><b>Figure 3-12</b>. Camera movements around focal point. <a href="../../Cxx/Visualization/CameraModel1" title="CameraModel1"> See CameraModel1.cxx</a> and <a href="../../Python/Visualization/CameraModel1" title="CameraModel1"> CameraModel1.py</a>.</figcaption>
+</figure>
+
+<figure id="Figure3-13">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestCameraModel2.png?raw=true width="640" alt="Figure 3-13">
+</figure>
+<figcaption><b>Figure 3-13</b>. Camera movements around camera position. <a href="../../Cxx/Visualization/CameraModel2" title="CameraModel2"> See CameraModel2.cxx</a> and <a href="../../Python/Visualization/CameraModel2" title="CameraModel2"> CameraModel2.py</a>.</figcaption>
+</figure>
 
 Once we have the camera situated, we can generate our 2D image. Some of the rays of light traveling through our 3D space will pass through the lens on the camera. These rays then strike a flat surface to produce an image. This effectively projects our 3D scene into a 2D image. The camera’s position and other properties determine which rays of light get captured and projected. More specifically, only rays of light that intersect the camera’s position, and are within its viewing frustum, will affect the resulting 2D image.
 
@@ -174,7 +189,7 @@ This concludes our brief rendering overview. The light has traveled from its sou
 
 ## 3.6 Coordinate Systems
 
-There are four coordinate systems commonly used in computer graphics and two different ways of representing points within them (**Figure3–14**). While this may seem excessive, each one serves a purpose. The four coordinate systems we use are: *model*, *world* , *view*, and *display*.
+There are four coordinate systems commonly used in computer graphics and two different ways of representing points within them (**Figure3-14**). While this may seem excessive, each one serves a purpose. The four coordinate systems we use are: *model*, *world* , *view*, and *display*.
 
 The model coordinate system is the coordinate system in which the model is defined, typically a local Cartesian coordinate system. If one of our actors represents a football, it will be based on a coordinate system natural to the football geometry (e.g., a cylindrical system). This model has an inherent coordinate system determined by the decisions of whoever generated it. They may have used inches or meters as their units, and the football may have been modeled with any arbitrary axis as its major axis.
 
@@ -266,8 +281,6 @@ sin q cos00
 0010
 0001
 
-(3-12)
-
 Another useful rotation matrix is used to transform one coordinate axes toxy–
 another
 – zcoordinate axes .x'y'
@@ -343,7 +356,7 @@ The representation of geometry for data visualization tends to be simple, even t
 
 Every actor has a transformation matrix that controls its location and scaling in world space. The actor's geometry is defined by a model in model coordinates. We specify the actor's location using orientation, position, and scale factors along the coordinate axes. In addition, we can define an origin around which the actor rotates. This feature is useful because we can rotate the actor around its center or some other meaningful point.
 
-The orientation of an actor is determined by rotations stored in an orientation vector ( O~x~ *,,*O~y~ O~z~ ). This vector defines a series of rotational transformation matrices. As we saw in the previous section on transformation matrices, the order of application of the transformations is not arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (**Figure3–15**).
+The orientation of an actor is determined by rotations stored in an orientation vector ( O~x~ *,,*O~y~ O~z~ ). This vector defines a series of rotational transformation matrices. As we saw in the previous section on transformation matrices, the order of application of the transformations is not arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (**Figure3-15**).
 
 All of these rotations take place around the origin of the actor. Typically this is set to the center of its bounding box, but it can be set to any convenient point. There are many different methods for changing an actor’s orientation. RotateX(), RotateY(), and RotateZ() are common methods that rotate about their respective axes. Many systems also include a method to rotate about a userdefined axis. In the Visualization Toolkit the RotateXYZ() method is used to rotate around an arbitrary vector passing through the origin.
 
@@ -437,7 +450,7 @@ The shading of the polygon (i.e., color interpolation across the polygon) varies
 
 In our earlier description of the rendering process, we followed rays of light from our eye through a pixel in the image plane to the actors and back to the light source. A nice side effect of ray tracing is that viewing rays strike the first actor they encounter and ignore any actors that are hidden behind it. When rendering actors using the polygonal methods described above, we have no such method of computing which polygons are hidden and which are not. We cannot generally count on the polygons being ordered correctly. Instead, we can use a number of hidden-surface methods for polygon rendering.
 
-One method is to sort all of our polygons from back to front (along the camera’s view vector) and then render them in that order. This is called the painter’s algorithm or painter’s sort, and has one major weakness illustrated in **Figure3–23**. Regardless of the order in which we draw these three triangles, we cannot obtain the desired result, since each triangle is both in front of, and behind, another triangle. There are algorithms that sort and split polygons as necessary to treat such a situation [Carlson85]. This requires more initial processing to perform the sorting and splitting. If the geometric primitives change between images or the camera view changes, then this processing must be performed before each render.
+One method is to sort all of our polygons from back to front (along the camera’s view vector) and then render them in that order. This is called the painter’s algorithm or painter’s sort, and has one major weakness illustrated in **Figure3-23**. Regardless of the order in which we draw these three triangles, we cannot obtain the desired result, since each triangle is both in front of, and behind, another triangle. There are algorithms that sort and split polygons as necessary to treat such a situation [Carlson85]. This requires more initial processing to perform the sorting and splitting. If the geometric primitives change between images or the camera view changes, then this processing must be performed before each render.
 
 Another hidden surface algorithm, z-buffering, takes care of this problem and does not require sorting. Z-buffering takes advantage of the z-value (i.e., depth value along direction of projection) in the view coordinate system. Before a new pixel is drawn, its z-value is compared against the current z-value for that pixel location. If the new pixel would be in front of the current pixel, then it is drawn and the z-value for that pixel location is updated. Otherwise the current pixel remains and the new pixel is ignored. Z-buffering has been widely implemented in hardware because of its simplicity and robustness. The downside to z-buffering is that it requires a large amount of memory, called a z-buffer, to store a z-value of every pixel. Most systems use a z-buffer with a depth of 24 or 32 bits. For a 1000 by 1000 display that translates into three to four megabytes just for the z-buffer. Another problem with z-buffering is that its accuracy is limited depending on its depth. A 24-bit z-buffer yields a precision of one part in 16,777,216 over the height of the viewing frustum. This resolution is often insufficient if objects are close together. If you do run into situations with z-buffering accuracy, make sure that the front and back clipping planes are as close to the visible geometry as possible.
 
@@ -746,7 +759,7 @@ After the interactor is created using its New() method, we must tell it what ren
 
 **Interpreted Code.** In the previous example we saw how to create an interactor style object in conjunction with vtkRenderWindowInteractor to enable us to manipulate the camera by mousing in the render window. Although this provides flexibility and interactivity for a large number of applications, there are examples throughout this text where we want to modify other parameters. These parameters range from actor properties, such as color, to the name of an input file. Of course we can always write or modify C++ code to do this, but in many cases the turn-around time between making the change and seeing the result is too long. One way to improve the overall interactivity of the system is to use an interpreted interface. Interpreted systems allow us to modify objects and immediately see the result, without the need to recompile and relink source code. Interpreted languages also provide many tools, such as GUI (Graphical User Interface) tools, that simplify the creation of applications.
 
-The Visualization Toolkit has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in **Figure3–29**. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl.)
+The Visualization Toolkit has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in **Figure3-29**. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl.)
 
 !!! warning "Missing Figure"
     **Figure 3–29**In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.
@@ -785,7 +798,7 @@ wm withdraw .
 ```
 
 !!! warning "Missing Figure"
-**Figure 3-30** Using Tcl and Tk to build an interpreted application ( Cone5.tcl ).
+    **Figure 3-30** Using Tcl and Tk to build an interpreted application ( Cone5.tcl ).
 
 The example begins by loading some shared libraries defining various VTK classes. Next the standard visualization pipeline is created from the vtkConeSource and vtkPolyDataMapper. The rendering classes are created exactly the same as with the C++ example. One major addition is an observer to watch for a UserEvent in the rendering window (by default a "keypress-u"). The observer triggers the invocation of a Tcl script to raise a Tk interactor GUI widget called.vtkInteract. This GUI, which allows the direct typing of Tcl statements, is shown in **Figure3-30** and is defined by the Tcl command package require vtkinteraction which was executed earlier in the script. (Note: Tk is a popular GUI toolkit for interpreted languages and is distributed as part of Tcl.) 
 
@@ -817,7 +830,7 @@ The order of the transformations is important. In VTK the rotations are ordered 
 
 Probably the most confusing aspect of transformations are rotations and their effect on the Orientation instance variable. Generally orientations are not set directly by the user, and most users will prefer to specify rotations with the RotateX(), RotateY(), and RotateZ() methods. These methods perform rotations about the *x*, *y*, and *z* axes in an order specified by the user. New rotations are applied to the right of the rotation transformation. If you need to rotate your actor about a single axis, the actor will rotate exactly as you expect it will, and the resulting orientation vector will be as expected. For example, the operation RotateY(20) will produce an orientation of (0,20,0) and a RotateZ(20) will produce (0,0,20). However, a RotateY(20) followed by a RotateZ(20) will not produce (0,20,20) but produce an orientation of (6.71771, 18.8817, 18.8817)! This is because the rotation portion of Equation3-14 is built from the rotation order z, then x, and then y. To verify this, a RotateZ(20) followed by a RotateY(20) does produce an orientation of (0,20,20). Adding a third rotation can be even more confusing.
 
-A good rule of thumb is to only use the SetOrientation() method to either reset the orientation to (0,0,0) or to set just one of the rotations. The RotateX(), RotateY(), and RotateZ() methods are preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. **Figure3–31** illustrates the use of the rotation methods. We turn off the erase between frames using the render window’s EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own y axis even though an x axis rotation preceded the y rotation.
+A good rule of thumb is to only use the SetOrientation() method to either reset the orientation to (0,0,0) or to set just one of the rotations. The RotateX(), RotateY(), and RotateZ() methods are preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. **Figure3-31** illustrates the use of the rotation methods. We turn off the erase between frames using the render window’s EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own y axis even though an x axis rotation preceded the y rotation.
 
 <figure id="Figure3-31">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestRotations.png?raw=true width="640" alt="Figure 3-31">
