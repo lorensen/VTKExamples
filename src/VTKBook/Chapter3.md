@@ -164,7 +164,7 @@ The front and back clipping planes intersect the projection vector, and are usua
 
 Taken together these camera parameters define a rectangular pyramid, with its apex at the camera’s position and extending along the direction of projection. The pyramid is truncated at the top with the front clipping plane and at the bottom by the back clipping plane. The resulting view frustum defines the region of 3D space visible to the camera.
 
-While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. Figure3–12 and Figure3–13 will help illustrate these operations. Changing the azimuth of a camera rotates its position around its view up vector, centered at the focal point . Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera’s elevation rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To roll the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
+While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. **Figure3–12** and **Figure3–13** will help illustrate these operations. Changing the azimuth of a camera rotates its position around its view up vector, centered at the focal point . Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera’s elevation rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To roll the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
 
 The next two motions keep the camera’s position constant and instead modify the focal point. Changing the yaw rotates the focal point about the view up centered at the camera’s position. This is like an azimuth, except that the focal point moves instead of the position. Changes in pitch rotate the focal point about the cross product of the direction of projection and view up centered at the camera’s position. Dollying in and out moves the camera’s position along the direction of projection, either closer or farther from the focal point. This operation is specified as the ratio of its current distance to its new distance. A value greater than one will dolly in, while a value less than one will dolly out. Finally, zooming changes the camera’s view angle, so that more or less of the scene falls within the view frustum.
 
@@ -409,9 +409,17 @@ When you limit yourself to the types of primitives described above, there are so
 
 At this point in the text we have described how to represent graphics data using rendering primi-tives, and we have described how to represent images using raster display devices. The question remains, how do we convert graphics primitives into a raster image? This is the topic we address in this section. Although a thorough treatise on this topic is beyon1d the scope of this text, we will do our best to provide a high-level overview.
 
-**Figure 3-20** An example polygon.
+<figure id="Figure3-20">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-20.png?raw=true width="640" alt="Figure 3-20">
+</figure>
+<figcaption><b>Figure 3-20</b>. An example polygon.</figcaption>
+</figure>
 
-**Figure 3-21** Vertex and polygon normals.
+<figure id="Figure3-21">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-21.png?raw=true width="640" alt="Figure 3-21">
+</figure>
+<figcaption><b>Figure 3-21</b>. Vertex and polygon normals.</figcaption>
+</figure>
 
 The process of converting a geometric representation into a raster image is called *rasterization* or *scan conversion*. In the description that follows we assume that the graphics primitives are triangle polygons. This is not as limiting as you might think, because any general polygon can be tessellated into a set of triangles. Moreover, other surface representations such as splines are usu-ally tessellated by the graphics system into triangles or polygons. (The method described here is actually applicable to convex polygons.)
 
@@ -493,7 +501,8 @@ There is another important object, vtkRenderWindowInteractor, that captures even
 
 A desirable property of applications built with VTK is that they are device independent. This means that computer code that runs on one operating system with a particular software/hardware configuration runs unchanged on a different operating system and software/hardware configuration. The advantage of this is that the programmer does not need to expend effort porting an application between different computer systems. Also, existing applications do not need to be rewritten to take advantage of new developments in hardware or software technology. Instead, VTK handles this transparently by a combination of inheritance and a technique known as *object factories*.
 
-**Figure 3-25** Achieving device independence using (a) inheritance and object factories (b) and (c).
+!!! warning "Missing Figure"
+    **Figure 3-25** Achieving device independence using (a) inheritance and object factories (b) and (c).
 
 **Figure3-25** (a) illustrates the use of inheritance to achieve
 device independence. Certain classes like vtkActor are broken into two
@@ -739,7 +748,8 @@ After the interactor is created using its New() method, we must tell it what ren
 
 The Visualization Toolkit has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in **Figure3–29**. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl.)
 
-**Figure 3–29**In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.
+!!! warning "Missing Figure"
+    **Figure 3–29**In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.
 
 ``` tcl
 package require vtk
@@ -774,6 +784,7 @@ iren Initialize
 wm withdraw .
 ```
 
+!!! warning "Missing Figure"
 **Figure 3-30** Using Tcl and Tk to build an interpreted application ( Cone5.tcl ).
 
 The example begins by loading some shared libraries defining various VTK classes. Next the standard visualization pipeline is created from the vtkConeSource and vtkPolyDataMapper. The rendering classes are created exactly the same as with the C++ example. One major addition is an observer to watch for a UserEvent in the rendering window (by default a "keypress-u"). The observer triggers the invocation of a Tcl script to raise a Tk interactor GUI widget called.vtkInteract. This GUI, which allows the direct typing of Tcl statements, is shown in **Figure3-30** and is defined by the Tcl command package require vtkinteraction which was executed earlier in the script. (Note: Tk is a popular GUI toolkit for interpreted languages and is distributed as part of Tcl.) 
@@ -806,7 +817,7 @@ The order of the transformations is important. In VTK the rotations are ordered 
 
 Probably the most confusing aspect of transformations are rotations and their effect on the Orientation instance variable. Generally orientations are not set directly by the user, and most users will prefer to specify rotations with the RotateX(), RotateY(), and RotateZ() methods. These methods perform rotations about the *x*, *y*, and *z* axes in an order specified by the user. New rotations are applied to the right of the rotation transformation. If you need to rotate your actor about a single axis, the actor will rotate exactly as you expect it will, and the resulting orientation vector will be as expected. For example, the operation RotateY(20) will produce an orientation of (0,20,0) and a RotateZ(20) will produce (0,0,20). However, a RotateY(20) followed by a RotateZ(20) will not produce (0,20,20) but produce an orientation of (6.71771, 18.8817, 18.8817)! This is because the rotation portion of Equation3-14 is built from the rotation order z, then x, and then y. To verify this, a RotateZ(20) followed by a RotateY(20) does produce an orientation of (0,20,20). Adding a third rotation can be even more confusing.
 
-A good rule of thumb is to only use the SetOrientation() method to either reset the orientation to (0,0,0) or to set just one of the rotations. The RotateX(), RotateY(), and RotateZ() methods are preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. Figure3–31 illustrates the use of the rotation methods. We turn off the erase between frames using the render window’s EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own y axis even though an x axis rotation preceded the y rotation.
+A good rule of thumb is to only use the SetOrientation() method to either reset the orientation to (0,0,0) or to set just one of the rotations. The RotateX(), RotateY(), and RotateZ() methods are preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. **Figure3–31** illustrates the use of the rotation methods. We turn off the erase between frames using the render window’s EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own y axis even though an x axis rotation preceded the y rotation.
 
 <figure id="Figure3-31">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestRotations.png?raw=true width="640" alt="Figure 3-31">
