@@ -451,13 +451,7 @@ use them in VTK.
 ## The Graphics Model
 
 <figure id="Figure3-24">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-24.png?raw=true width="640" alt="Figure 3-24">
-</figure>
-<figcaption><b>Figure 3-24</b>. Illustrative diagram of graphics objects. <a href="../../Cxx/Rendering/Model" title="Model"> See Model.cxx</a> and <a href="../../Python/Rendering/Model" title="Model"> Model.py</a>.</figcaption>
-</figure>
-
-<figure id="Figure3-24">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestModel.png?raw=true width="640" alt="Figure 3-24">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3_24.png?raw=true width="640" alt="Figure 3-24">
 </figure>
 <figcaption><b>Figure 3-24</b>. Illustrative diagram of graphics objects. <a href="../../Cxx/Rendering/Model" title="Model"> See Model.cxx</a> and <a href="../../Python/Rendering/Model" title="Model"> Model.py</a>.</figcaption>
 </figure>
