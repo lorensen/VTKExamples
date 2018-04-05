@@ -140,8 +140,17 @@ where Rd is the resulting intensity curve due to diffuse lighting, Lc is the int
 
 where Ci is the direction of projection for the camera and is the S is the direction of specular reflection.
 
-!!! warning "Missing Figure"
-    **Figure 3-8** Diffuse lighting.
+<figure id="Figure3-8">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-8.png?raw=true width="640" alt="Figure 3-81">
+</figure>
+<figcaption><b>Figure 3-8</b>. Diffuse lighting.</figcaption>
+</figure>
+
+<figure id="Figure3-9">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-9.png?raw=true width="640" alt="Figure 3-9">
+</figure>
+<figcaption><b>Figure 3-9</b>. Specular lighting.</figcaption>
+</figure>
 
 We have presented the equations for the different lighting models independently. We can apply all lighting models simultaneously or in combination. **Equation3-4** combines ambient, diffuse and specular lighting into one equation.
 
@@ -429,9 +438,13 @@ Most of today's hardware is based on object-order rasterization techniques. As w
 
 The first step is to transform the polygon using the appropriate transformation matrix. We also project the polygon to the image plane using either parallel or orthographic projection. Part of this process involves clipping the polygons. Not only do we use the front and back clipping planes to clip polygons too close or too far, but we must also clip polygons crossing the boundaries of the image plane. Clipping polygons that cross the boundary of the view frustum means we have to generate new polygonal boundaries.
 
-**Figure 3-22** Rasterizing a convex polygon. Pixels are processed in horizontal spans (or scan-lines) in the image plane. Data values *d~i~* at point *p~i~* are interpolated along the edges and then along the scan-line using delta data values. Typical data values are RGB components of color.
+<figure id="Figure3-22">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-22.png?raw=true style="float:right;width:100px" alt="Figure 3-22">
+</figure>
+<figcaption><b>Figure 3-22</b>. Rasterizing a convex polygon. Pixels are processed in horizontal spans (or scan-lines) in the image plane. Data values d<sub>i</sub> at point p<sub>i</sub> are interpolated along the edges and then along the scan-line using delta data values. Typical data values are RGB components of color.</figcaption>
+</figure>
 
-With the polygon clipped and projected to the image plane, we can begin scan-line processing (**Figure3-22** ). The first step identifies the initial scan-line intersected by the projected polygon. This is found by sorting the vertices' *y* values. We then find the two edges joining the vertex on the left and right sides. Using the slopes of the edges along with the data values we compute delta data values. These data are typically the *R*, *G*, and *B* color components. Other data values include transparency values and *z* depth values. (The *z* values are necessary if we are using a *z*-buffer, described in the next section.) The row of pixels within the polygon (i.e., starting at the left and right edges) is called a *span*. Data values are interpolated from the edges on either side of the span to compute the internal pixel values. This process continues span-by-span, until the entire polygon is filled. Note that as new vertices are encountered, it is necessary to recompute the delta data values.
+With the polygon clipped and projected to the image plane, we can begin scan-line processing (**Figure3-22**). The first step identifies the initial scan-line intersected by the projected polygon. This is found by sorting the vertices' *y* values. We then find the two edges joining the vertex on the left and right sides. Using the slopes of the edges along with the data values we compute delta data values. These data are typically the *R*, *G*, and *B* color components. Other data values include transparency values and *z* depth values. (The *z* values are necessary if we are using a *z*-buffer, described in the next section.) The row of pixels within the polygon (i.e., starting at the left and right edges) is called a *span*. Data values are interpolated from the edges on either side of the span to compute the internal pixel values. This process continues span-by-span, until the entire polygon is filled. Note that as new vertices are encountered, it is necessary to recompute the delta data values.
 
 The shading of the polygon (i.e., color interpolation across the polygon) varies depending on the actor's interpolation attribute. There are three possibilities: *flat*, *Gouraud*, or *Phong shading*. **Figure3-7** illustrates the difference between flat and Gouraud interpolation. Flat shading calcu-lates the color of a polygon by applying the lighting equations to just one normal (typically the sur-face normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
 
@@ -440,6 +453,12 @@ The shading of the polygon (i.e., color interpolation across the polygon) varies
 In our earlier description of the rendering process, we followed rays of light from our eye through a pixel in the image plane to the actors and back to the light source. A nice side effect of ray tracing is that viewing rays strike the first actor they encounter and ignore any actors that are hidden behind it. When rendering actors using the polygonal methods described above, we have no such method of computing which polygons are hidden and which are not. We cannot generally count on the polygons being ordered correctly. Instead, we can use a number of hidden-surface methods for polygon rendering.
 
 One method is to sort all of our polygons from back to front (along the camera’s view vector) and then render them in that order. This is called the painter’s algorithm or painter’s sort, and has one major weakness illustrated in **Figure3-23**. Regardless of the order in which we draw these three triangles, we cannot obtain the desired result, since each triangle is both in front of, and behind, another triangle. There are algorithms that sort and split polygons as necessary to treat such a situation [Carlson85]. This requires more initial processing to perform the sorting and splitting. If the geometric primitives change between images or the camera view changes, then this processing must be performed before each render.
+
+<figure id="Figure3-23">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-23.png?raw=true style="float:right;width:100px" alt="Figure 3-23">
+</figure>
+<figcaption><b>Figure 3-23</b>. Problem with Painter's algorithm.</figcaption>
+</figure>
 
 Another hidden surface algorithm, z-buffering, takes care of this problem and does not require sorting. Z-buffering takes advantage of the z-value (i.e., depth value along direction of projection) in the view coordinate system. Before a new pixel is drawn, its z-value is compared against the current z-value for that pixel location. If the new pixel would be in front of the current pixel, then it is drawn and the z-value for that pixel location is updated. Otherwise the current pixel remains and the new pixel is ignored. Z-buffering has been widely implemented in hardware because of its simplicity and robustness. The downside to z-buffering is that it requires a large amount of memory, called a z-buffer, to store a z-value of every pixel. Most systems use a z-buffer with a depth of 24 or 32 bits. For a 1000 by 1000 display that translates into three to four megabytes just for the z-buffer. Another problem with z-buffering is that its accuracy is limited depending on its depth. A 24-bit z-buffer yields a precision of one part in 16,777,216 over the height of the viewing frustum. This resolution is often insufficient if objects are close together. If you do run into situations with z-buffering accuracy, make sure that the front and back clipping planes are as close to the visible geometry as possible.
 
