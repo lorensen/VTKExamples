@@ -860,185 +860,114 @@ Blinn \[Blinn82\] , Bloomental \[Bloomenthal88\] \[Bloomenthal97\] and Wyvill \[
 
 ## 6.9 References
 
-\[Abraham85\]
-
-R. H. Abraham and Christopher D. Shaw. *Dynamics The Geometry of
+\[Abraham85\] R. H. Abraham and Christopher D. Shaw. *Dynamics The Geometry of
 Behavior.* Aerial Press, Santa Cruz, CA, 1985.
 
-\[Blinn82\]
+\[Blinn82\] J. F. Blinn. "A Generalization of Algebraic Surface Drawing." *ACM
+Transactions on Graphics*. 1(3):235--256, July 1982.
 
-J. F. Blinn. "A Generalization of Algebraic Surface Drawing." *ACM
-Transactions on Graphics*.
+\[Bloomenthal88\] J. Bloomenthal. "Polygonization of Implicit Surfaces." *Computer Aided Geometric Design* *.* 5(4):341--355, November 1982.
 
-1(3):235--256, July 1982.
-
-\[Bloomenthal88\]
-
-J. Bloomenthal. "Polygonization of Implicit Surfaces." *Computer Aided
-Geometric Design* *.*
-
-5(4):341--355, November 1982.
-
-\[Bloomenthal97\]
-
-J. Bloomenthal, editor. *Introduction to Implicit Surfaces*. Morgan
+\[Bloomenthal97\] J. Bloomenthal, editor. *Introduction to Implicit Surfaces*. Morgan
 Kaufmann Publishers, Inc., San Francisco, CA., 1997.
 
-\[Chernoff73\]
-
-H. Chernoff. "Using Faces to Represent Pints in *K*-Dimensional Space
+\[Chernoff73\] H. Chernoff. "Using Faces to Represent Pints in *K*-Dimensional Space
 Graphically." *J. American* *Statistical Association.* 68:361--368,
 1973.
 
-\[Cline93\]
-
-H. Cline, W. Lorensen, and W. Schroeder. "3D Phase Contrast MRI of
+\[Cline93\] H. Cline, W. Lorensen, and W. Schroeder. "3D Phase Contrast MRI of
 Cerebral Blood FLow and Surface Anatomy." *Journal of Computer
 Assisted Tomography.* 17(2):173--177, March/April 1993.
 
-\[Conte72\]
-
-S. D. Conte and C. de Boor. *Elementary Numerical Analysis*.
+\[Conte72\] S. D. Conte and C. de Boor. *Elementary Numerical Analysis*.
 McGrawHill Book Company, 1972.
 
-\[deLeeuw93\]
-
-W. C. de Leeuw and J. J. van Wijk. "A Probe for Local Flow Field
+\[deLeeuw93\ W. C. de Leeuw and J. J. van Wijk. "A Probe for Local Flow Field
 Visualization." In *Proceedings* *of Visualization '93*. pp. 39--45,
 IEEE Computer Society Press, Los Alamitos, CA, 1993.
 
-\[Delmarcelle95\]
+\[Delmarcelle95\] T. Delmarcelle and L. Hesselink. "A Unified Framework for Flow
+Visualization." In Computer Visualization Graphics Techniques for Scientific and Engineering
+Analysis*. R. S. Gallagher, ed. CRC Press, Boca Raton, FL, 1995.
 
-T. Delmarcelle and L. Hesselink. "A Unified Framework for Flow
-Visualization." In *Computer*
-
-*Visualization Graphics Techniques for Scientific and Engineering
-Analysis*. R. S. Gallagher, ed *.*
-
-CRC Press, Boca Raton, FL, 1995.
-
-\[Durrett87\]
-
-H. J. Durrett, ed. *Color and the Computer.* Academic Press, Boston,
+\[Durrett87\] H. J. Durrett, ed. *Color and the Computer.* Academic Press, Boston,
 MA, 1987.
 
-\[Durst88\]
-
-M. J. Durst. "Additional Reference to Marching Cubes." *Computer
+\[Durst88\] M. J. Durst. "Additional Reference to Marching Cubes." *Computer
 Graphics*. 22(2):72--73, 1988.
 
-\[Fuchs77\]
-
-H. Fuchs, Z. M. Kedem, and S. P. Uselton. "Optimal Surface
+\[Fuchs77\] H. Fuchs, Z. M. Kedem, and S. P. Uselton. "Optimal Surface
 Reconstruction from Planar Contours." *Communications of the ACM*.
 20(10):693--702, 1977.
 
-\[Fuller80\]
-
-A. J. Fuller and M.L.X. dosSantos. "Computer Generated Display of 3D
+\[Fuller80\]cA. J. Fuller and M.L.X. dosSantos. "Computer Generated Display of 3D
 Vector Fields." *Computer* *Aided Design*. 12(2):61--66, 1980.
 
-\[Haber90\]
-
-R. B. Haber and D. A. McNabb. "Visualization Idioms: A Conceptual
+\[Haber90\] R. B. Haber and D. A. McNabb. "Visualization Idioms: A Conceptual
 Model to Scientific Visualization Systems." *Visualization in
 Scientific Computing,* G. M. Nielson, B. Shriver, L. J. Rosenblum,
 ed. IEEE Computer Society Press, pp. 61--73, 1990.
 
-\[Helman90\]
-
-J. Helman and L. Hesselink. "Representation and Display of Vector
+\[Helman90\] J. Helman and L. Hesselink. "Representation and Display of Vector
 Field Topology in Fluid Flow Data Sets." *Visualization in Scientific
 Computing.* G. M. Nielson, B. Shriver, L. J. Rosenblum, eds. IEEE
 Computer Society Press, pp. 61--73, 1990.
 
-\[Livnat96\]
-
-Y. Livnat, H. W. Shen, C. R. Johnson. "A Near Optimal Isosurface
+\[Livnat96\] Y. Livnat, H. W. Shen, C. R. Johnson. "A Near Optimal Isosurface
 Extraction Algorithm for Structured and Unstructured Grids." *IEEE
 Transactions on Visualization and Computer Graphics*. Vol. 2, No. 1,
 March 1996.
 
-\[Lorensen87\]
-
-W. E. Lorensen and H. E. Cline. "Marching Cubes: A High Resolution 3D
+\[Lorensen87\ W. E. Lorensen and H. E. Cline. "Marching Cubes: A High Resolution 3D
 Surface Construction Algorithm." *Computer Graphics*. 21(3):163--169,
 July 1987.
 
-\[Lorenz63\]
-
-E. N. Lorenz. "Deterministic NonPeriodic Flow." *Journal of
+\[Lorenz63\] E. N. Lorenz. "Deterministic NonPeriodic Flow." *Journal of
 Atmospheric Science*. 20:130--141, 1963.
 
-\[Montani94\]
-
-C. Montani, R. Scateni, and R. Scopigno. "A Modified LookUp Table for
+\[Montani94\]cC. Montani, R. Scateni, and R. Scopigno. "A Modified LookUp Table for
 Implicit Disambiguation of Marching Cubes." *Visual Computer* *.*
 (10):353--355, 1994.
 
-\[Moon87\]
-
-F. C. Moon. *Chaotic Vibrations* *.* WileyInterscience, New York, NY,
+\[Moon87\] F. C. Moon. *Chaotic Vibrations* *.* WileyInterscience, New York, NY,
 1987.
 
-\[Nielson91\]
-
-G. M. Nielson and B. Hamann. "The Asymptotic Decider: Resolving the
+\[Nielson91\] G. M. Nielson and B. Hamann. "The Asymptotic Decider: Resolving the
 Ambiguity in Marching Cubes." In *Proceedings of Visualization '91*.
 pp. 83--91, IEEE Computer Society Press, Los Alamitos, CA, 1991.
 
-\[Rheingans92\]
-
-P. Rheingans. "Color, Change, and Control for Quantitative Data
+\[Rheingans92\] P. Rheingans. "Color, Change, and Control for Quantitative Data
 Display." In *Proceedings of Visualization '92*. pp. 252--259, IEEE
 Computer Society Press, Los Alamitos, CA, 1992.
 
-\[Richter90\]
-
-R. Richter, J. B. Vos, A. Bottaro, and S. Gavrilakis. "Visualization
+\[Richter90\] R. Richter, J. B. Vos, A. Bottaro, and S. Gavrilakis. "Visualization
 of Flow Simulations." *Scientific* *Visualization and Graphics
 Simulation*. D. Thalmann editor, pp. 161--171, John Wiley and Sons,
 1990.
 
-\[Saada74\]
-
-A. S. Saada. *Elasticity Theory and Applications.* Pergamon Press,
+\[Saada74\] A. S. Saada. *Elasticity Theory and Applications.* Pergamon Press,
 Inc., New York, NY, 1974.
 
-\[Timoshenko70\]
-
-S. P. Timoshenko and J. N. Goodier. *Theory of Elasticity, 3d Edition*
+\[Timoshenko70\] S. P. Timoshenko and J. N. Goodier. *Theory of Elasticity, 3d Edition*
 . McGrawHill Book Company, New York, NY, 1970.
 
-\[Tufte83\]
-
-E. R. Tufte. *The Visual Display of Quantitative Information.*
+\[Tufte83\] E. R. Tufte. *The Visual Display of Quantitative Information.*
 Graphics Press, Cheshire, CT, 1990.
 
-\[Volpe89\]
-
-G. Volpe. "Streamlines and Streamribbons in Aerodynamics." Technical
+\[Volpe89\] G. Volpe. "Streamlines and Streamribbons in Aerodynamics." Technical
 Report AIAA-89-0140, 27th Aerospace Sciences Meeting, 1989.
 
-\[Ware88\]
-
-C. Ware. "Color Sequences for Univariate Maps: Theory, Experiments and
+\[Ware88\] C. Ware. "Color Sequences for Univariate Maps: Theory, Experiments and
 Principles." *IEEE* *Computer Graphics and Applications*.
 8(5):41--49, 1988.
 
-\[Watson92\]
-
-D. F. Watson. *Contouring: A Guide to the Analysis and Display of
+\[Watson92\] D. F. Watson. *Contouring: A Guide to the Analysis and Display of
 Spatial Data*. Pergamon Press, 1992.
 
-\[Wyszecki82\]
-
-G. Wyszecki and W. Stiles. *Color Science: Concepts and Methods,
+\[Wyszecki82\] G. Wyszecki and W. Stiles. *Color Science: Concepts and Methods,
 Quantitative Data and Formulae*. John Wiley and Sons, 1982.
 
-\[Wyvill86\]
-
-G. Wyvill, C. McPheeters, B. Wyvill. "Data Structure for Soft Objects." *Visual Computer*. 2(4):227--234, 1986.
+\[Wyvill86\] G. Wyvill, C. McPheeters, B. Wyvill. "Data Structure for Soft Objects." *Visual Computer*. 2(4):227--234, 1986.
 
 ## 6.10 Exercises
 
