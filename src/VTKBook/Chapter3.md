@@ -118,6 +118,7 @@ As rays of light travel through space, some of them intersect our actors. When t
 
 $$
 R_a = L_c \cdot O_a
+\bf\tag{3-1}
 $$
 
 where $R_a$ is the resulting intensity curve due to ambient lighting, $L_c$ is the intensity curve of the ambient light, and $O_a$ is the color curve of the object. To help keep the equations simple we assume that all of the direction vectors are normalized (i.e., have a magnitude of one).
@@ -134,6 +135,7 @@ The contribution from diffuse lighting is expressed in **Equation3-2** and illus
 
 $$
 R_d = L_cO_d[\overrightarrow{O}_n \cdot (-\overrightarrow{L}_n)]
+\bf\tag{3-2}
 $$
 
 where $R_d$ is the resulting intensity curve due to diffuse lighting, $L_c$ is the intensity curve for the light, and $O_c$ is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector andL nthe surface normal of the object. As a result On diffuse lighting is independent of viewer position.
@@ -143,9 +145,8 @@ where $R_d$ is the resulting intensity curve due to diffuse lighting, $L_c$ is t
 $$
 R_s . = L_cO_s[\overrightarrow{S} \cdot (-\overrightarrow{C}_n)] ^{O_{sp}}\\
 \overrightarrow{S} = 2[\overrightarrow{O}_n \cdot (-\overrightarrow{L}_n)]\overrightarrow{O}_n + \overrightarrow{L}_n
+\bf\tag{3-3}
 $$
-
-!!! danger "Equation 3-3 needs a number"
 
 where Ci is the direction of projection for the camera and is the S is the direction of specular reflection.
 
@@ -165,9 +166,8 @@ We have presented the equations for the different lighting models independently.
 
 $$
 R_c = O_{ai}O_{ac}L_c - O_{di}O_{dc}L_c(\overrightarrow{O}_n \cdot \overrightarrow{L}_n) + O_{si}O_{sc}L_c[\overrightarrow{S} \cdot(-\overrightarrow{C}_n)]^{O_{sp}}
+\bf\tag{3-4}
 $$
-
-!!! danger "Equation 3-4 is missing"
 
 The result is a color at a point on the surface of the object. The constants Oai, Odi, and Osi control the relative amounts of ambient, diffuse and specular lighting for an object. The constants Oac Odc and Osc specify the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in “Lights ” on page39. However the equation can be easily modified to incorporate other types of directional lighting.
 
@@ -240,110 +240,118 @@ You may want to render two different scenes, but display them in the same window
 
 When we create images with computer graphics, we project objects defined in three dimensions onto a two-dimensional image plane. As we saw earlier, this projection naturally includes perspective. To include projection effects such as vanishing points we use a special coordinate system called homogeneous coordinates.
 
-The usual way of representing a point in 3D is the three element Cartesian vector (x, y, z). Homogeneous coordinates are represented by a four element vector ( xh, yh, zh, wh ). The conversion between Cartesian coordinates and homogeneous coordinates is given by:
+The usual way of representing a point in 3D is the three element Cartesian vector $(x, y, z)$. Homogeneous coordinates are represented by a four element vector $( x_hh, y_h, z_h, w_h )$. The conversion between Cartesian coordinates and homogeneous coordinates is given by:
 
-!!! danger "Equation 3-5 is missing"
+$$
+x = \frac{x_h}{w_h}\ \ \ \  x = \frac{y_h}{w_h}\ \ \ \ x = \frac{z_h}{w_h}
+\bf\tag{3-5}
+$$
 
 Using homogeneous coordinates we can represent an infinite point by setting w h to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 transformation matrix . Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a 3x3 matrix.
 
-For example, suppose we wanted to create a transformation matrix that translates a point ( x, y, z) in Cartesian space by the vector ( tx , ty, tz). We need only construct the translation matrix given by
+For example, suppose we wanted to create a transformation matrix that translates a point $( x, y, z)$ in Cartesian space by the vector $( t_x , t_y, t_z). We need only construct the translation matrix given by
 
-!!! danger "Equation 3-5 is missing"
+$$
+T_T = \left[\begin{array}{cccc}
+1 & 0 & 0 & t_x       \\
+0 & 1 & 0 & t_y      \\
+0 & 0 & 1 & t_z      \\
+0 & 0 & 0 & 1
+\end{array}\right]
+\bf\tag{3-6}
+$$
 
-and then postmultiply it with the homogeneous coordinate (xh, yh, zh, wh). To carry this example through, we construct the homogeneous coordinate from the Cartesian coordinate ( x, y, z) by setting wh = 1 to yield ???. Then to determine the translated point we premultiply ()x'y'z'
-,,
-w h = 1 to yield .()Then,
-xyz1
-the
-current position by the transformation matrix to yield
-T T the translated coordinate. Substituting
-into Equation3-6 we have the result
+and then postmultiply it with the homogeneous coordinate $(x_h, y_h, z_h, w_h)$. To carry this example through, we construct the homogeneous coordinate from the Cartesian coordinate $( x, y, z)$ by setting $w_h = 1$ to yield $(x, y, z, 1)$. Then to determine the translated point ${x' , y', z') we premultiply current position by the transformation matrix $T_T$ to yield the translated coordinate. Substituting into **Equation3-6** we have the result
 
-!!! danger "Equation 3-6 is missing"
+$$
+\left[\begin{array}{c}
+x'      \\
+y'       \\
+z'      \\
+w'
+\end{array}\right] =\left[\begin{array}{cccc}
+1 & 0 & 0 & t_x       \\
+0 & 1 & 0 & t_y       \\
+0 & 0 & 1 & 0      \\
+0 & 0 & 0 & 1
+\end{array}\right] \cdot
+\left[\begin{array}{c}
+x      \\
+y       \\
+z      \\
+1
+\end{array}\right] 
+\bf\tag{3-7}
+$$
 
-Converting back to Cartesian coordinates via Equation3-5 we have the expected solution
+Converting back to Cartesian coordinates via **Equation3-5** we have the expected solution
 
-!!! danger "Equation 3-7 is missing"
+$$
+x' = x +t_x \\
+y' = y + t_y \\
+z' = z + t_z
+\bf\tag{3-8}
+$$
 
 The same procedure is used to scale or rotate an object. To scale an object we use the transformation matrix
 
-!!! danger "Equation 3-9 is missing"
+$$
+T_s = \left[\begin{array}{cccc}
+s_x & 0 & 0 & 0 \\
+0 & s_y & 0 & 0 \\
+0 & 0 & s_z & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+\bf\tag{3-9}
+$$
 
-where the parameters s x, sy, and sz are scale factors along the q rotate an object around the x axes by angle using the matrix
+where the parameters $s_x, s_y$, and $s_z$ are scale factors along the $x, y, z$ axes. Similaryly we can rotate an object around the $x$ axes by angle $\theta$ using the matrix
 
-!!! danger "Equation 3-10 is missing"
+$$
+T_{R_x} = \left[\begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & \cos\theta & -\sin\theta & 0 \\
+0 & \sin\theta & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+\bf\tag{3-10}
+$$
 
-x, y, and z axes. Similarly, we can
+Around the $y$ axis we use
 
-TR x
+$$
+TT_{R_y} = \left[\begin{array}{cccc}
+\cos\theta & 0 & \sin\theta0 & 0 \\
+0 & 1 & 0 & 0 \\
+-\sin\theta & 0 & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+\bf\tag{3-11}
+$$
 
-1000
-= 0 cos q – sin q 0
-0 sin q cos0q
-0001
+and around the $z$ axis we use
 
-(3-10)
+$$
+T_{R_z} = \left[\begin{array}{cccc}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+\bf\tag{3-12}
+$$
 
-TR
+Another useful rotation matrix is used to transform one coordinate axes $x-y-z$ to aanother coordinate axes $x'-y'-z'$. To derive the transformation matrix we assume that the unit $x'$. To derive the transformation matrix we assume that the unit $x'$ axis make the angles $(\theta_{x'x},\theta_{x'y},\theta_{x'z})$ around the x-y-z axes (these are called direction cosines). Similarly, the unit $y'$ axis makes the angles $(\theta_{y'x},\theta_{y'y},\theta_{y'z})$ and the unit $z'$ axis makes the angles $(\theta_{z'x},\theta_{z'y},\theta_{z'z})$. The resulting rotation matrix is formed by placing the direction cosines along the rows of the transformation matrix as follows
 
-cos0q
-sin0q
-0100
-=
-– sin q 0 cos0q
-0001
-
-Around the y axis we use
-
-y
-
-and around the z axis we use
-
-T Rz =
-
-cos q – sin q 00
-q
-sin q cos00
-0010
-0001
-
-Another useful rotation matrix is used to transform one coordinate axes toxy–
-another
-– zcoordinate axes .x'y'
-To– derive
-– z' the transformation matrix we assume that the unit axis makes the
-x'
-()q x'x ,, qthe
-q
-angles around
-axes
-(these
-are
-called
-xy
-–
-direction
-–
-z
-cosines).
-Similarly,
-x'y
-x'z
-()qy'xaxis
-,, qy'y
-qy'z the angles
-the unit axis
-y' makes the angles and the unit
-makes
-z'
-()q z'x ,,q z'y q z'z . The resulting rotation matrix is formed by placing the direction cosines along the
-rows of the transformation matrix as follows
-cos qx'x cos qx'y cos0qx'z
-TR =
-
-cos qy'x cos qy'y cos0qy'z
-cos q z'x cos q z'y cos0q z'z
-0001
+$$
+T_R = \left[\begin{array}{cccc}
+\cos\theta_{x'x} & \cos\theta_{x'y} & \cos\theta_{x'z} & 0 \\
+\cos\theta_{y'x} & \cos\theta_{z'y} & \cos\theta_{y'z} & 0 \\
+\cos\theta_{z'x} & \cos\theta_{z'y} & \cos\theta_{z'z} & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+\bf\tag{3-13}
+$$
 
 Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object’s center . To rotate around we Oc must first translate the object to the Oorigin, apply rotations, and then translate the object back.
 
@@ -833,11 +841,14 @@ The most important aspect to applying transformation matrices is to understand t
 
 A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(),and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor. The vtkActor class applies transformations in an order that we feel is natural to most users.
 
-The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The ()o x,,o y othe Origin specifies Position z point that is the center of rotation and scaling. The ()p x,, p y p z specifies a final translation of the object. ()r x,,r ythe Orientation defines rz rota()s x,, s y scale tions about the x, y and z axes. Scale defines s z factors for the x, y, and z axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see Equation3-6 , Equation3-9 , Equation3-13 ).
+The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The he Origin $(o_x,o_y,o_z)$ specifies the point that is the center of rotation and scaling. The Position $(p_x, p_y, p_z)$p specifies a final translation of the object. Orientation $(r_x, r_y, r_z)$ defines the rotation about the $x, y$ and $z$ axes. Scale $(s_x, s_y, s_z)$ defines scale factors for the $x, y,$ and $z$ axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see **Equation3-6**, **Equation3-9**, **Equation3-13**).
 
-The term denotes T T ()xyz x, y, and z directions. Recall that we premultiply the transformation matrix times the position vector. This means the transformations are read from right to left. In other words, Equation3-14 proceeds as follows:
+$$
+T = T_T(p_x + o_{x'}p_y + o_{y'}p_y + o_z)T_{R_z}T_{R_x}T_{R_z}T_ST_T(-o_x,-o_y,-o_z)
+\bf\tag{3-14}
+$$
 
-**Equation3-14** proceeds as follows:
+The term $T_T(x, y, z)$ denotes the translations in the $x,y$ and $z$ direction. Recall that we premultiply the transformation matrix times the position vector. This means the transformations are read from right to left. In other words, **Equation3-14** proceeds as follows:
 
 1. Translate the actor to its origin. Scaling and rotation will occur about this point. The initial translation will be countered by a translation in the opposite direction after scaling and rotations are applied.
 
@@ -849,7 +860,7 @@ The term denotes T T ()xyz x, y, and z directions. Recall that we premultiply th
 
 The order of the transformations is important. In VTK the rotations are ordered to what is natural in most cases. We recommend that you spend some time with the software to learn how these transfor-mations work with your own data.
 
-Probably the most confusing aspect of transformations are rotations and their effect on the Orientation instance variable. Generally orientations are not set directly by the user, and most users will prefer to specify rotations with the RotateX(), RotateY(), and RotateZ() methods. These methods perform rotations about the *x*, *y*, and *z* axes in an order specified by the user. New rotations are applied to the right of the rotation transformation. If you need to rotate your actor about a single axis, the actor will rotate exactly as you expect it will, and the resulting orientation vector will be as expected. For example, the operation RotateY(20) will produce an orientation of (0,20,0) and a RotateZ(20) will produce (0,0,20). However, a RotateY(20) followed by a RotateZ(20) will not produce (0,20,20) but produce an orientation of (6.71771, 18.8817, 18.8817)! This is because the rotation portion of Equation3-14 is built from the rotation order z, then x, and then y. To verify this, a RotateZ(20) followed by a RotateY(20) does produce an orientation of (0,20,20). Adding a third rotation can be even more confusing.
+Probably the most confusing aspect of transformations are rotations and their effect on the Orientation instance variable. Generally orientations are not set directly by the user, and most users will prefer to specify rotations with the RotateX(), RotateY(), and RotateZ() methods. These methods perform rotations about the *x*, *y*, and *z* axes in an order specified by the user. New rotations are applied to the right of the rotation transformation. If you need to rotate your actor about a single axis, the actor will rotate exactly as you expect it will, and the resulting orientation vector will be as expected. For example, the operation RotateY(20) will produce an orientation of (0,20,0) and a RotateZ(20) will produce (0,0,20). However, a RotateY(20) followed by a RotateZ(20) will not produce (0,20,20) but produce an orientation of (6.71771, 18.8817, 18.8817)! This is because the rotation portion of **Equation3-14** is built from the rotation order z, then x, and then y. To verify this, a RotateZ(20) followed by a RotateY(20) does produce an orientation of (0,20,20). Adding a third rotation can be even more confusing.
 
 A good rule of thumb is to only use the SetOrientation() method to either reset the orientation to (0,0,0) or to set just one of the rotations. The RotateX(), RotateY(), and RotateZ() methods are preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. **Figure3-31** illustrates the use of the rotation methods. We turn off the erase between frames using the render window’s EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own y axis even though an x axis rotation preceded the y rotation.
 
@@ -893,6 +904,10 @@ cow->SetUserMatrix(walk->GetMatrix());
 
 These operations produce the transformation sequence:
 
+$$
+T=T_{R_y}T_ST_T(0, 0, 5)
+\bf\tag{3-15}
+$$
 
 Now we do the same using the cow's instance variables:
 
@@ -904,9 +919,11 @@ cow->SetPosition(0,0,5);
 ```
 
 When the actor builds its transform it will be:
-```
-TT= ~T~()0055,, -- ()-- T~Ry~T~S~T~T~()005,, --()--
-```
+
+$$
+T=T_T(0,0,5-(-5))T_{R_y}T_ST_T(0,0,-(-5))
+\bf\tag{3-16}
+$$
 
 Canceling the minus signs in the right-most translation matrix and combining the position and origin translation produce the equivalent transform that we built with vtkTranform. **Figure3-32** shows the cow rotating with the specified transformation order. Your preference is a matter of taste and how comfortable you are with matrix transformations. As you become more skilled (and your demands are greater) you may prefer to always build your transformations. VTK gives you the choice.
 
