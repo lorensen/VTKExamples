@@ -1,12 +1,11 @@
 Figure 6-21c - PNG generated with http://latex2png.com/
 
 $$
-\sigma{_x} = -\frac{P}{2 \pi \rho ^2}\left(\frac{3zx^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
+\large\sigma{_x} = -\frac{P}{2 \pi \rho ^2}\left(\frac{3zx^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
 } - \frac{\rho}{\rho+z}+\frac{x ^2 (2 \rho + z)}{\rho ( \rho + z) ^2} \right) \right) \\
-
-\sigma{_y} = -\frac{P}{2 \pi \rho ^2}\left(\frac{3zy^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
-} - \frac{\rho}{\rho+z}+\frac{y ^2 (2 \rho + z)}{\rho ( \rho + z) ^2} \right) \right) \\
-\sigma{_z} = -\frac{3Pz^3}{2 \pi \rho ^5}\\
+\large\sigma{_y} = -\frac{P}{2 \pi \rho ^2}\left(\frac{3zy^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
+} - \frac{\rho}{\rho+z}+\frac{y ^2 (2 \rho + z)}{\rho ( \rho + z) ^2} \right) \right) \\ \\
+\large\sigma{_z} = -\frac{3Pz^3}{2 \pi \rho ^5}
 $$
 
 $$

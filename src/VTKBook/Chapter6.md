@@ -35,8 +35,6 @@ In the text that follows, we will use the attribute type classification scheme: 
 !!! warning "Missing Figure"
     **Figure 6-1** Mapping scalars to colors via a lookup table.
 
-## 6.2 Scalar Algorithms
-
 ### Generality Versus Efficiency
 
 Most algorithms can be written specifically for a particular dataset type, or more generally, treating any dataset type. The advantage of a specific algorithm is that it is usually faster than a comparable general algorithm. (See "Other Data Abstractions" on page138 where we discussed the tradeoff between abstract and concrete forms.) An implementation of a specific algorithm also may be more memory efficient and its implementation may better reflect the relationship between the algorithm and the dataset type it operates on.
@@ -381,6 +379,12 @@ $$
 
 Expanding this equation yields a $n^{th}$ degree polynomial in $\lambda$ whose roots are the eigenvalues. Thus, there are always $n$ eigenvalues, although they may not be distinct. In general, **Equation6-7** is not solved using polynomial root searching because of poor computational performance. (For matrices of order 3 root searching is acceptable because we can solve for the eigenvalues analytically.) Once we determine the eigenvalues, we can substitute each into **Equation6-7** to solve for the associated eigenvectors.
 
+<figure id="Figure6-20">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-20.png?raw=true width="640" alt="Figure6-20">
+</figure>
+<figcaption><b>Figure 6-20</b>. Stress and strain tensors. Normal stresses in the x-y-z coordinate directions indicated as *sigma*, shear stresses indicated as *tau*. Material displacement represented by (u, v, w) components.</figcaption>
+</figure>
+
 We can express the eigenvectors of the $3 \times 3$ system as
 
 $$
@@ -410,10 +414,10 @@ $$
 
  (remember to read righttoleft). The eigenvectors can be directly plugged in to create the rotation matrix, while the point coordinates $x-y-z$ and eigenvalues $\lambda{_1} \geq \lambda{_2} \geq \lambda{_3}$ are inserted into the translation and scaling matrices. A concatenation of these matrices forms the final transformation matrix $T$.
 
-<figure id="Figure6-21c">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-21c.png?raw=true width="640" alt="Figure6-21c">
+<figure id="Figure6-21">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-21.png?raw=true width="640" alt="Figure6-21">
 </figure>
-<figcaption><b>Figure 6-21c</b>. Tensor ellipsoids. (a) Ellipsoid oriented along eigenvalues (i.e., principle axes) of tensor; (b) Pictorial description of Boussinesq’s problem; (c) Analytic results according to Saada.</figcaption>
+<figcaption><b>Figure 6-21</b>. Tensor ellipsoids. (a) Ellipsoid oriented along eigenvalues (i.e., principle axes) of tensor; (b) Pictorial description of Boussinesq’s problem; (c) Analytic results according to Saada.</figcaption>
 </figure>
 
 
