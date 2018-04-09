@@ -120,7 +120,7 @@ There are advantages and disadvantages to both the edge-tracking and marching cu
 </figure>
 
 !!! warning "Missing Figure"
-    Figure *6-7* Using marching triangles or marching tetrahedra to resolve ambiguous cases on rectangular lattice (only face of cube is shown). Choice of diagonal orientation may result in "bumps" in contour surface. In 2D, diagonal orientation can be chosen arbitrarily, but in 3D diagonal is constrained by neighbor.
+    **Figure 6-7** Using marching triangles or marching tetrahedra to resolve ambiguous cases on rectangular lattice (only face of cube is shown). Choice of diagonal orientation may result in "bumps" in contour surface. In 2D, diagonal orientation can be chosen arbitrarily, but in 3D diagonal is constrained by neighbor.
 
 
 As mentioned previously, the 3D analogy of marching squares is marching cubes. Here, there are 256 different combinations of scalar value, given that there are eight points in a cubical cell (i.e., $2^8$ combinations). **Figure6-6** shows these combinations reduced to 15 cases by using arguments of symmetry. We use combinations of rotation and mirroring to produce topologically equivalent cases.
@@ -479,14 +479,14 @@ important properties.
 
 - *Scalar generation.* Implicit functions convert a position in space into a scalar value. That is, given an implicit function we can sample it at a point $(x_i,y_i,z_i)$ to generate a scalar value $c_i$.
 
-An example of an implicit function is the equation for a sphere of radius *R*() ,, Fxyz.
+An example of an implicit function is the equation for a sphere of radius $R$.
 
 $$
 F(x,y,z) = x^2 + y^2 + z^2 - R^2
 \bf\tag{6-12}
 $$
 
-This simple relationship defines the three regions (on Fxyz the=of 0the sphere), Fxyz < 0 (inside the sphere), and Fxyz (outside the sphere). Any point may be classified inside, on, or outside the sphere simply by evaluating Equation6-12 .
+This simple relationship defines the three regions (on Fxyz the=of 0the sphere), Fxyz < 0 (inside the sphere), and Fxyz (outside the sphere). Any point may be classified inside, on, or outside the sphere simply by evaluating *Equation6-12*.
 
 <figure id="Figure6-23">
  <figure id="Figure6-23b">
@@ -569,7 +569,8 @@ where $x$ is proportional to the fluid velocity in the fluid ring, $y$ and $z$z 
 
 Certainly these equations are not in the implicit form of **Equation6-11**, so how do we visualize them? Our solution is to treat the variables x, y, and z as the coordinates of a three-dimensional space, and integrate **Equation6-16** to generate the system “trajectory”, that is, the state of the system through time. The integration is carried out within a volume and scalars are created by counting the number of times each voxel is visited. By integrating long enough, we can create a volume representing the “surface” of the strange attractor, **Figure6-25**. The surface of the strange attractor is extracted by using marching cubes and a scalar value specifying the number of visits in a voxel.
 
-**Figure 6-26** Distance functions to a point, line, and triangle.
+!!! warning "Missing Figure"
+    **Figure 6-26** Distance functions to a point, line, and triangle.
 
 ### Implicit Modelling
 
@@ -579,7 +580,8 @@ An extension of this approach, called implicit modeling, is similar to modeling 
 
 Used alone the generating primitives are limited in their ability to model complex geometry. By using boolean combinations of the primitives, however, complex geometry can be easily modeled. The boolean operations union, intersection, and difference ( **Equation6-13** , **Equation6-14** , and **Equation6-15** , respectively) are illustrated in **Figure6-27**. **Figure6-28** shows the application of implicit modeling to "thicken" the line segments in the text symbol "HELLO". The isosurface is generated on a volume1104020´at ´a distance offset of 0.25 units. The generating primitives were combined using the boolean union operator. Although Euclidean distance is always a nonnegative value, it is possible to use a signed distance function for objects that have an outside and an inside. A negative distance is the negated distance of a point inside the object to the surface of the object. Using a signed distance function allows us to create offset surfaces that are contained within the actual surface. Another interesting feature of implicit modeling is that when isosurfaces are generated, more than one connected surface can result. These situations occur when the generating primitives form concave features. **Figure6-29** illustrates this situation. If desired, multiple surfaces can be separated by using the connectivity algorithm described in "Connectivity" on page373.
 
-**Figure 6-27** Boolean operations using points and lines as generating primitives.
+!!! warning "Missing Figure"
+    **Figure 6-27** Boolean operations using points and lines as generating primitives.
 
 <figure id="Figure6-28">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHello.png?raw=true width="640" alt="Figure 6-28">
@@ -587,7 +589,8 @@ Used alone the generating primitives are limited in their ability to model compl
 <figcaption><b>Figure 6-28</b>. Implicit modelling used to thicken a stroked font. Original lines can be seen within the translucent implicit surface.<a href="../../Cxx/VisualizationAlgorithms/Hello" title="Hello"> See Hello.cxx</a> and <a href="../../Python/VisualizationAlgorithms/Hello" title="Hello"> Hello.py</a>.</figcaption>
 </figure>
 
-**Figure 6–29** Concave features can result in multiple contour lines/surfaces.
+!!! warning "Missing Figure"
+    **Figure 6–29** Concave features can result in multiple contour lines/surfaces.
 
 ### Glyphs
 
@@ -754,7 +757,8 @@ The execution times are normalized to the smallest dataset using the vtkMarching
 
 Although these results do not represent all implementations or the behavior of other algorithms, they do point to the cost of generality. Of course, there is a cost to specialization as well. This cost is typically in programmer time, since the programmer must rewrite code to adapt to new circumstances and data. Like all trade-offs, resolution of this issue requires knowledge of the application.
 
-**Figure 6-38** The cost of generality. Isosurface generation of three volumes of different sizes are compared. The results show normalized execution times for two different implementations of the marchingcubes isosurface algorithm. The specialized filter is vtkMarchingCubes. The general algorithms are first vtkContourFilter and then in combination with vtkPolyDataNormals.
+!!! warning "Missing Figure"
+    **Figure 6-38** The cost of generality. Isosurface generation of three volumes of different sizes are compared. The results show normalized execution times for two different implementations of the marchingcubes isosurface algorithm. The specialized filter is vtkMarchingCubes. The general algorithms are first vtkContourFilter and then in combination with vtkPolyDataNormals.
 
 An example use of vtkContourFilter is shown in **Figure6-39**. This example is taken from **Figure4-1** , which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As **Figure6-39** shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals to create surface normals. (We describe normal generation in Chapter 9.)
 
@@ -789,7 +793,8 @@ vtkActor *outlineActor = vtkActor::New();
 <figcaption><b>Figure 6-39</b>. Contouring quadric function. Pipeline topology, C++ code, and resulting image are shown.<a href="../../Cxx/VisualizationAlgorithms/ContourQuadric" title="ContourQuadric"> See ContourQuadric.cxx</a> and <a href="../../Python/VisualizationAlgorithms/ContourQuadric" title="ContourQuadric"> ContourQuadric.py</a>.</figcaption>
 </figure>
 
-**Figure 6-40** Data flow into and out of the vtkGlyph3D class.
+!!! warning "Missing Figure"
+    **Figure 6-40** Data flow into and out of the vtkGlyph3D class.
 
 ### Cutting
 
@@ -803,7 +808,8 @@ The behavior of an instance of vtkGlyph3D depends on the nature of the input dat
 
 We saw how to use vtkGlyph3D in the example given in **Figure4--20**. Cones were used as the glyph and were located at each point on the sphere, oriented along the sphere's surface normal.
 
-**Figure 6-41** Inheritance hierarchy for vtkStreamer and subclasses.
+!!! warning "Missing Figure"
+    **Figure 6-41** Inheritance hierarchy for vtkStreamer and subclasses.
 
 ### Streamlines
 
@@ -819,8 +825,8 @@ Attribute transformations create or modify data attributes without changing the 
 
 Fortunately, there is a a solution to this dilemma. The solution is to use the "virtual constructor" NewInstance(). Although C++ does not allow virtual constructors, we can simulate it by creating a special virtual function that constructs a copy of the object that it is invoked on. For example, if this function is applied to a dataset instance of type vtkPolyData , the result will be a copy of that instance ( **Figure6-42** ). (Note that we use reference counting to make copies and avoid duplicating memory.) The virtual constructor function NewInstance() is implemented in a number of VTK classes including datasets and cells.
 
-
-**Figure 6-42** Depiction of data flow for abstract filter output. The output object type is the same as the input type.
+!!! warning "Missing Figure"
+    **Figure 6-42** Depiction of data flow for abstract filter output. The output object type is the same as the input type.
 
 Using the virtual constructor we can construct filters that output abstract data types like vtkDataSet. We simply apply NewInstance() to the input of the filter. This will then return a pointer to a concrete object that is the output of the filter. The result is a general filter object that can accept any dataset type for input and creates the general vtkDataSet type as output. In VTK, this functionality has been implemented in the abstract class vtkDataSetAlgorithm.
 
