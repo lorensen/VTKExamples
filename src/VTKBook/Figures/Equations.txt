@@ -15,3 +15,21 @@ $$
 \tau_{yz}=\tau_{zy} = -\frac{3Pyz^2}{2 \pi \rho ^5}
 $$
 
+
+Figure 6-20a
+
+\huge\left[\begin{array}{ccc}
+\sigma{_x} & \tau{_{xy}} & \tau{_{xz}}  \\
+\tau{_{yx}} & \sigma{_y} & \tau{_{yz}}    \\
+\tau{_{zx}} & \tau{_{zy}} & \sigma{_z}
+\end{array}\right]
+
+Figure 6-20b
+
+\huge\left[\begin{array}{ccc}
+\frac{\partial u}{\partial x} & (\frac{\partial u}{\partial y} + \frac{\partial v}{\partial z})&   (\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x})\\ \\
+(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial z}) & \frac{\partial v}{\partial y} & (\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y})    \\ \\
+(\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x}) & (\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y})&
+\frac{\partial w}{\partial z}
+\end{array}\right]
+
