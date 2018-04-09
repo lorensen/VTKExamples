@@ -1,0 +1,100 @@
+
+%%% ----------------------------------------------------------------------
+
+% Packages
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%\usepackage{mathrsfs}
+\usepackage{tocloft}
+
+\usepackage{txfonts}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array}
+\usepackage{lettrine}
+\usepackage{indentfirst}
+\usepackage{titlesec}
+\titleformat{\chapter}{\large\bfseries}{\thesection}{1em}{\hrule}
+
+\usepackage[
+    refsection=chapter,
+    backend=biber,
+%    bibstyle=numeric,
+]{biblatex}
+\DeclareFieldFormat{labelalpha}{\thefield{entrykey}}
+\DeclareFieldFormat{extraalpha}{}
+
+\addbibresource{Bibliography.bib}
+
+% Make an index
+\usepackage{makeidx}
+
+\usepackage{url}
+%% Load the hyperref package last.
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    linkbordercolor = {white},
+    urlcolor = {Blue},
+    linkcolor = {Maroon},
+    citecolor = {BlueViolet}
+}
+
+%%% ----------------------------------------------------------------------
+% Some general global declarations
+
+% Graphics paths and extensions.
+\graphicspath{{Art/}{Art/Scraped/}{Figures/}{Figures/Scraped/}}
+\DeclareGraphicsExtensions{.eps,.ps,.tif,.tiff,.png}
+
+
+\addtolength{\textwidth}{50pt}
+\addtolength{\evensidemargin}{-25pt}
+\addtolength{\oddsidemargin}{-25pt}
+
+\def\displayandname#1{\rlap{$\displaystyle\csname #1\endcsname$}%
+                      \qquad \texttt{\char92 #1}}
+\def\mathlexicon#1{$$\vcenter{\halign{\displayandname{##}\hfil&&\qquad
+                   \displayandname{##}\hfil\cr #1}}$$}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
+
+
+
+%\newcommand {\myfrac } [2] { \frac{\displaystyle #1}{\displaystyle #2} }
+\newcommand {\half} {\dfrac{1}{2}}
+\newcommand {\onehalf} {\dfrac{3}{2}}
+\newcommand{\firstletter}[1] {\lettrine[lines=2, lraise=0.7]{\color{Sepia}\textit{#1}}}
+
+
+%%% ----------------------------------------------------------------------
+
+  % Horizontal spacing.
+  % \, small space 3/18 quad.
+  % \: medium space 4/18 quad.
+  % \; large space 5/18 quad.
+  % \! negative space -3/18 quad.
+%%% ----------------------------------------------------------------------
