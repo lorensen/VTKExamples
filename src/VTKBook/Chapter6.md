@@ -1,4 +1,4 @@
-## Chapter 6
+# Chapter 6
 
 ## Fundamental Algorithms
 
@@ -53,7 +53,7 @@ Scalars are single data values associated with each point and/or cell of a datas
 
 *Color mapping* is a common scalar visualization technique that maps scalar data to colors, and displays the colors on the computer system. The scalar mapping is implemented by indexing into a *color lookup table*. Scalar values serve as indices into the lookup table.
 
-The mapping proceeds as follows. The lookup table holds an array of colors (e.g., red, green, blue components or other comparable representations). Associated with the table is a minimum and maximum *scalar range (min, max)* into which the scalar values are mapped. Scalar values greater than the maximum range are clamped to the maximum color, scalar values less than the minimum range are clamped to the minimum color value. Then, for each scalar value si, the index i into the color table with n entries (and 0-offset) is given by **Figure6–1**.
+The mapping proceeds as follows. The lookup table holds an array of colors (e.g., red, green, blue components or other comparable representations). Associated with the table is a minimum and maximum *scalar range (min, max)* into which the scalar values are mapped. Scalar values greater than the maximum range are clamped to the maximum color, scalar values less than the minimum range are clamped to the minimum color value. Then, for each scalar value $x_i$, the index $i$ into the color table with n entries (and 0-offset) is given by **Figure6–1**.
 
 A more general form of the lookup table is called a transfer function. A transfer function is **Figure6–2** maps any expression that maps scalar value into a color specification. For example, scalar values into separate intensity values for the red, green, and blue color components. We can also use transfer functions to map scalar data into other information such as local transparency. (Transfer functions are discussed in more detail in “Transparency and Alpha Values” on page213. **Figure6–2** maps
 any expression that maps scalar value into a color specification. For example,
@@ -71,7 +71,7 @@ The key to color mapping for scalar visualization is to choose the lookup table 
 Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light. (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (**Figure6-1** ), the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes. improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
 
 !!! warning "Missing Figure"
-    Figure *6-2*. TranSfer function for color components red, green and blue as a function of scalr value.
+    Figure *6-2*. Transfer function for color components red, green and blue as a function of scalar value.
 
 <figure id="Figure6-3">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestRainbow.png?raw=true width="640" alt="Figure 6-3">
@@ -118,7 +118,7 @@ There are advantages and disadvantages to both the edge-tracking and marching cu
 
 <figure id="Figure6-6">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMarchingCasesA.png?raw=true width="640" alt="Figure 6-6">
- <figcaption><b>Figure 6-6</b>. Marching Cubes cases for 3D isosurface generation. The 256 possible cases have been reduced to 15 cases usin symmetry. Red vertices are greater than the selected isosurface value. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesA/" title="MarchingCasesA"> See MarchingCasesA.cxx</a> and <a href="../../Python/VisualizationAlgorithms/MarchingCasesA/" title="MarchingCasesA"> See MarchingCasesA.py</a>.</figcaption>
+ <figcaption><b>Figure 6-6</b>. Marching Cubes cases for 3D isosurface generation. The 256 possible cases have been reduced to 15 cases using symmetry. Red vertices are greater than the selected isosurface value. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesA/" title="MarchingCasesA"> See MarchingCasesA.cxx</a> and <a href="../../Python/VisualizationAlgorithms/MarchingCasesA/" title="MarchingCasesA"> See MarchingCasesA.py</a>.</figcaption>
 </figure>
 
 !!! warning "Missing Figure"
@@ -128,7 +128,7 @@ There are advantages and disadvantages to both the edge-tracking and marching cu
 As mentioned previously, the 3D analogy of marching squares is marching cubes. Here, there are 256 different combinations of scalar value, given that there are eight points in a cubical cell (i.e., $2^8$ combinations). **Figure6-6** shows these combinations reduced to 15 cases by using arguments of symmetry. We use combinations of rotation and mirroring to produce topologically equivalent cases.
 
 <figure id="Figure6-10">
- <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMarchingCasesB.png?raw=true width="640" alt="Figure 6-10">
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMarchingCasesB.png?raw=true width="640" Walt="Figure 6-10">
  <figcaption><b>Figure 6-10</b> Marching Cubes cases for 3D isosurface generation. The 256 possible cases have been reduced to 15 cases using symmetry. Dark vertices are greater than the selected isosurface value. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> See MarchingCasesB.cxx</a> <a href="../../Python/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> and MarchingCasesB.py</a>.</figcaption>
 </figure>
 
@@ -151,7 +151,7 @@ Several different approaches have been taken to remedy this problem. One approac
 
 A simple and effective solution extends the original 15 marching cubes cases by adding additional complementary cases. These cases are designed to be compatible with neighboring cases and prevent the creation of holes in the isosurface. There are six complementary cases required, corresponding to the marching cubes cases 3, 6, 7, 10, 12, and 13. The complementary marching cubes cases are shown in **Figure6-10**.
 
-We can extend the general approach of marching squares and marching cubes to other topological types. In VTK we use marching lines, triangles, and tetrahedra to contour cells of these types (or composite cells that are composed of these types). In addition, although we speak of regular types such as squares and cubes, marching cubes can be applied to any cell type topologically equivalent to a cube (e.g., hexahedron or noncubical voxel).
+We can extend the general approach of marching squares and marching cubes to other topological types. In VTK we use marching lines, triangles, and tetrahedra to contour cells of these types (or composite cells that are composed of these types). In addition, although we speak of regular types such as squares and cubes, marching cubes can be applied to any cell type topologically equivalent to a cube (e.g., hexahedron or non-cubical voxel).
 
 **Figure6-11** shows four applications of contouring. In **Figure6-11a** (a) we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. **Figure6-11b** (b) through **Figure6-11d** (d) are isosurfaces created by marching cubes. **Figure6-11b** (b) is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. ( **Figure6-11a** (a) is a 2D subset of this data.) The intensity level corresponds to human bone. **Figure6-11c** (c) is an isosurface of constant flow density. **Figure6-11d** (d) is an isosurface of electron potential of an iron protein molecule. The image shown in **Figure6-11b** (b) is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, **Figure6-11c** (c) and **Figure6-11d** (d) are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
 
@@ -182,7 +182,7 @@ The two visualization techniques presented thus far, color mapping and contourin
 
 For example, consider terrain data. We assume that the data is *xyz* coordinates, where *x* and *y* represent the coordinates in the plane, and *z* represents the elevation above sea level. Our desired visualization is to color the terrain according to elevation. This requires creating a color map --- possibly using white for high altitudes, blue for sea level and below, and various shades of green and brown corresponding to elevation between sea level and high altitude. We also need scalars to index into the color map. The obvious choice here is to extract the *z* coordinate. That is, scalars are simply the *z*-coordinate value.
 
-This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the *z*-coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point *p~l~* (e.g., sea level) and ending at the (high) point *p~h~* (e.g., mountain top), we compute the elevation scalar si at point using p i = the zi as shown in lar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 ranging from deep blue (water) to yellow-white (mountain top) is used to color map this figure. Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
+This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the *z*-coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point *p~l~* (e.g., sea level) and ending at the (high) point *p~h~* (e.g., mountain top), we compute the elevation scalar xi at point using p i = the zi as shown in lar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 ranging from deep blue (water) to yellow-white (mountain top) is used to color map this figure. Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
 
 Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
 
@@ -409,6 +409,12 @@ T = T_T \cdot T_R \cdot T_S
 $$
 
  (remember to read righttoleft). The eigenvectors can be directly plugged in to create the rotation matrix, while the point coordinates $x-y-z$ and eigenvalues $\lambda{_1} \geq \lambda{_2} \geq \lambda{_3}$ are inserted into the translation and scaling matrices. A concatenation of these matrices forms the final transformation matrix $T$.
+
+<figure id="Figure6-21c">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-21c.png?raw=true width="640" alt="Figure6-21c">
+</figure>
+<figcaption><b>Figure 6-21c</b>. Tensor ellipsoids. (a) Ellipsoid oriented along eigenvalues (i.e., principle axes) of tensor; (b) Pictorial description of Boussinesq’s problem; (c) Analytic results according to Saada.</figcaption>
+</figure>
 
 
 **Figure6-21** (a) depicts the tensor ellipsoid technique. In **Figure6-21** (b) we show this technique to visualize material stress near a point load on the surface of a semiinfinite domain. (This is the so-called Boussinesq's problem.) From Saada \[Saada74\] we have the analytic expression for the stress components in Cartesian coordinates shown in **Figure6-21** (c). Note that the $z$-direction is defined as the axis originating at the point of application of the force $P$. The variable $\rho$ is the distance from the point of load application to a point $x-y-z$. The orientation of the $x$ and $y$ axes are in the plane perpendicular to the $z$ axis. (The rotation in the plane of these axes is unimportant since the solution is symmetric around the $z$ axis.) (The parameter $\nu$ is Poisson's ratio which is a property of the material. Poisson's ratio relates the lateral contraction of a material to axial elongation under a uniaxial stress condition. See \[Saada74\] or \[Timoshenko70\] for more information.)
@@ -1042,7 +1048,7 @@ b) Discuss potential problems caused by orientation dependent viewing of visuali
 
 6.8 Visualize the following functions.
 
-a) Scalar.Sxyz(),, = sin ()xy , for x,y between 0 and p
+a) Scalar $S(x,y,z)=sin(xy)$ for $x,y$, between $0$ and $\pi$.
 
 b) The effective stress field (a scalar field) from **Figure6-21**.
 
@@ -1074,3 +1080,6 @@ a) Prove that 3D Gaussian smoothing can be decomposed into three 1D operations.
 b) Give the complexity of the decomposed filter and the same filter implemented as a 3D convolution.
 
 c) Under what conditions can constant smoothing be decomposed into 1D operations.
+
+ LocalWords:  palettes cxx href MarchingCasesA py figcaption cubical alt
+ LocalWords:  grayscale stuctured

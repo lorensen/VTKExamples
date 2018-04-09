@@ -1,0 +1,72 @@
+https://www.pdftohtml.net/
+
+<figure id="FigureNUMBER">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/FigureNUMBER.png?raw=true width="640" alt="FigureNUMBER">
+</figure>
+<figcaption><b>Figure NUMBER</b>. Physical generation of an image.</figcaption>
+</figure>
+
+Template for autmatically created figures
+
+One figure
+
+<figure id="FigureNUMBER">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true width="640" alt="Figure NUMBER">
+</figure>
+<figcaption><b>Figure NUMBER</b>. Contouring examples. <a href="../../Cxx/KIT/ONE" title="ONE"> See ONE.cxx</a> and <a href="../../Python/KIT/ONE" title="ONE"> ONE.py</a>.</figcaption>
+</figure>
+
+Two figures a,b
+
+<figure id="FigureNUMBER">
+ <figure id="FigureNUMBERa">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true width="640" alt="Figure NUMBERa">
+  <figcaption>(a)</figcaption>
+ </figure>
+<figure id="FigureNUMBER"b>
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTWO.png?raw=true width="640" alt="Figure NUMBERb">
+ <figcaption>(b)</figcaption>
+</figure>
+<figcaption><b>Figure NUMBER</b>. Contouring examples. (a) <a href="../../Cxx/KIT/ONE" title="ONE"> See ONE.cxx</a> and <a href="../../Python/KIT/ONE" title="ONE"> ONE.py</a>.; (b).<a href="../../Cxx/KIT/TWO" title="TWO"> See TWO.cxx</a> and <a href="../../Python/KIT/TWO" title="TWO"> TWO.py</a>.</figcaption>
+</figure>
+
+Three figures a,b,c
+
+<figure id="FigureNUMBER">
+ <figure id="FigureNUMBER"a>
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true width="640" alt="Figure NUMBERa">
+  <figcaption>(a)</figcaption>
+ </figure>
+<figure id="FigureNUMBERb">
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTWO.png?raw=true width="640" alt="Figure NUMBERb">
+ <figcaption>(b)</figcaption>
+</figure>
+<figure>
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTHREE.png?raw=true width="640" alt="Figure NUMBERc">
+<figcaption>(c)</figcaption>
+</figure>
+<figcaption><b>Figure NUMBER</b>. Contouring examples. (a) <a href="../../Cxx/KIT/ONE" title="ONE"> See ONE.cxx</a> and <a href="../../Python/KIT/ONE" title="ONE"> ONE.py</a>.; (b).<a href="../../Cxx/KIT/TWO" title="TWO"> See TWO.cxx</a> and <a href="../../Python/KIT/TWO" title="TWO"> TWO.py</a>.; (c)<a href="../../Cxx/KIT/THREE" title="THREE"> See THREE.cxx</a> and <a href="../../Python/KIT/THREE" title="THREE"> THREE.py</a>.</figcaption>
+</figure>
+
+Four Figures a,b,c,d
+
+<figure id="FigureNUMBER">
+ <figure id="FigureNUMBERa">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true width="640" alt="Figure NUMBERa">
+  <figcaption>(a)</figcaption>
+ </figure>
+<figure id="FigureNUMBERb">
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTWO.png?raw=true width="640" alt="Figure NUMBERb">
+ <figcaption>(b)</figcaption>
+</figure>
+<figure id="FigureNUMBERc">
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTHREE.png?raw=true width="640" alt="Figure NUMBERc">
+<figcaption>(c)</figcaption>
+</figure>
+<figure id="FigureNUMBERd">
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestFOUR.png?raw=true width="640" alt="Figure NUMBERd">
+ <figcaption>(d)</figcaption>
+</figure>
+<figcaption><b>Figure NUMBER</b>. Contouring examples. (a) <a href="../../Cxx/KIT/ONE" title="ONE"> See ONE.cxx</a> and <a href="../../Python/KIT/ONE" title="ONE"> ONE.py</a>.; (b).<a href="../../Cxx/KIT/TWO" title="TWO"> See TWO.cxx</a> and <a href="../../Python/KIT/TWO" title="TWO"> TWO.py</a>.; (c)<a href="../../Cxx/KIT/THREE" title="THREE"> See THREE.cxx</a> and <a href="
+../../Python/KIT/THREE" title="THREE"> THREE.py</a>.; (d)<a href="../../Cxx/KIT/FOUR" title="FOUR"> See FOUR.cxx</a> and <a href="../../Python/KIT" title="FOUR"> FOUR.py</a>.</figcaption>
+</figure>
