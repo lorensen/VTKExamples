@@ -22,9 +22,6 @@ int main(int, char *[])
     vtkSmartPointer<vtkPolyData>::New();
   polydata->SetPoints(points);
   
-  vtkSmartPointer<vtkPolyData> glyph = 
-    vtkSmartPointer<vtkPolyData>::New();
-
   // Create anything you want here, we will use a cube for the demo.
   vtkSmartPointer<vtkCubeSource> cubeSource = 
     vtkSmartPointer<vtkCubeSource>::New();
