@@ -66,7 +66,7 @@ Color mapping is a one-dimensional visualization technique. It maps one piece of
 
 The key to color mapping for scalar visualization is to choose the lookup table entries carefully. **Figure6-3** shows four different lookup tables used to visualize gas density as fluid flows through a combustion chamber. The first lookup table is gray-scale. Gray-scale tables often provide better structural detail to the eye. The other three images in **Figure6-3** use different color lookup tables. The second uses rainbow hues from blue to red. The third uses rainbow hues arranged from red to blue. The last table uses a table designed to enhance contrast. Careful use of colors can often enhance important features of a dataset. However, any type of lookup table can exaggerate unimportant details or create visual artifacts because of unforeseen interactions between data, color choice, and human physiology.
 
-Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light. (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (**Figure6-1** ), the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes. improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
+Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (**Figure6-1** ), the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes, improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
 
 !!! warning "Missing Figure"
     Figure *6-2*. Transfer function for color components red, green and blue as a function of scalar value.
@@ -85,7 +85,7 @@ A natural extension to color mapping is *contouring*. When we see a surface colo
 
 Examples of 2D contour displays include weather maps annotated with lines of constant temperature (isotherms), or topological maps drawn with lines of constant elevation. Three-dimensional contours are called *isosurfaces*, and can be approximated by many polygonal primitives. Examples of isosurfaces include constant medical image intensity corresponding to body tissues such as skin, bone, or other organs. Other abstract isosurfaces such as surfaces of constant pressure or temperature in fluid flow also may be created.
 
-Consider the 2D structured grid shown in **Figure6-4**. Scalar values are shown next to the points that define the grid. Contouring always begins by selecting a scalar value, or contour value, that corresponds to the contour lines or surfaces generated. To generate the contours, some form of interpolation must be used. This is because we have scalar values at a finite set of points in the dataset, and our contour value may lie between the point values. Since the most common interpolation technique is linear, we generate points on the contour surface by linear interpolation along the edges. If an edge has scalar values 10 and 0 at its two end points, and if we are trying to generate a contour line of value 5, then edge interpolation computes that the contour passes through the midpoint of the edge.
+Consider the 2D structured grid shown in **Figure6-4**. Scalar values are shown next to the points that define the grid. Contouring always begins by selecting a scalar value, or contour value, that corresponds to the contour lines or surfaces generated. To generate the contours, some form of interpolation must be used. This is because we have scalar values at a finite set of points in the dataset, and our contour value may lie between the point values. Since the most common interpolation technique is linear, we generate points on the contour surface by linear interpolation along the edges. If an edge has scalar values 10 and 0 at its two endpoints, and if we are trying to generate a contour line of value 5, then edge interpolation computes that the contour passes through the midpoint of the edge.
 
 Once the points on cell edges are generated, we can connect these points into contours using a few different approaches. One approach detects an edge intersection (i.e., the contour passes through an edge) and then "tracks" this contour as it moves across cell boundaries. We know that if a contour edge enters a cell, it must exit a cell as well. The contour is tracked until it closes back on itself, or exits a dataset boundary. If it is known that only a single contour exists, then the process stops. Otherwise, every edge in the dataset must be checked to see whether other contour lines exist. Another approach uses a divide and conquer technique, treating cells
 independently. This is the *marching squares* algorithm in 2D, and *marching cubes*
@@ -127,7 +127,7 @@ As mentioned previously, the 3D analogy of marching squares is marching cubes. H
 
 <figure id="Figure6-10">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMarchingCasesB.png?raw=true width="640" Walt="Figure 6-10">
- <figcaption><b>Figure 6-10</b> Marching Cubes cases for 3D isosurface generation. The 256 possible cases have been reduced to 15 cases using symmetry. Dark vertices are greater than the selected isosurface value. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> See MarchingCasesB.cxx</a> <a href="../../Python/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> and MarchingCasesB.py</a>.</figcaption>
+ <figcaption><b>Figure 6-10</b> Marching Cubes complemetary cases. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> See MarchingCasesB.cxx</a> <a href="../../Python/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> and MarchingCasesB.py</a>.</figcaption>
 </figure>
 
 An important issue is *contouring ambiguity*. Careful observation of marching squares cases numbered 5 and 10 and marching cubes cases numbered 3, 6, 7, 10, 12, and 13 show that there are configurations where a cell can be contoured in more than one way. (This ambiguity also exists when using an edge tracking approach to contouring.) Contouring ambiguity arises on a 2D square or the face of a 3D cube when adjacent edge points are in different states, but diagonal vertices are in the same state.
@@ -143,9 +143,6 @@ Several different approaches have been taken to remedy this problem. One approac
 
 !!! warning "Missing Figure"
     **Figure 6-9** Arbitrarily choosing marching cubes cases leads to holes in the isosurface.
-
-!!! warning "Missing Figure"
-    **Figure 6-10** Marching Cubes complementary cases.
 
 A simple and effective solution extends the original 15 marching cubes cases by adding additional complementary cases. These cases are designed to be compatible with neighboring cases and prevent the creation of holes in the isosurface. There are six complementary cases required, corresponding to the marching cubes cases 3, 6, 7, 10, 12, and 13. The complementary marching cubes cases are shown in **Figure6-10**.
 
@@ -180,26 +177,26 @@ The two visualization techniques presented thus far, color mapping and contourin
 
 For example, consider terrain data. We assume that the data is *xyz* coordinates, where *x* and *y* represent the coordinates in the plane, and *z* represents the elevation above sea level. Our desired visualization is to color the terrain according to elevation. This requires creating a color map --- possibly using white for high altitudes, blue for sea level and below, and various shades of green and brown corresponding to elevation between sea level and high altitude. We also need scalars to index into the color map. The obvious choice here is to extract the *z* coordinate. That is, scalars are simply the *z*-coordinate value.
 
-This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the *z*-coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point *p~l~* (e.g., sea level) and ending at the (high) point *p~h~* (e.g., mountain top), we compute the elevation scalar xi at point using p i = the zi as shown in lar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 ranging from deep blue (water) to yellow-white (mountain top) is used to color map this figure. Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
-
-Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
+This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the *z*-coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point $p_l$ (e.g., sea level) and ending at the (high) point $p_h$ (e.g., mountain top), we compute the elevation scalar $s_i$ at point $p_i = (x_i, y_i,z_i)$ using the dot product as shown in **Figure6-12. The scalar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 ranging from deep blue (water) to yellow-white (mountain top) is used to color map this figure.
 
 !!! warning "Missing Figure"
     Part of Figure *6-12* missing
 
 <figure id="Figure6-12">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestHawaii.png?raw=true width="640" alt="Figure 6-12">
- <figcaption><b>Figure 6-12</b>. Computing scalars using normalized dot product. Bottom half of figure illustrates technique applied to terrain data from Honolulu, Hawaii.<a href="../../Cxx/Visualization/Hawaii/" title="Hawaii"> See Hawaii.cxx</a><a href="../../Python/Visualization/Hawaii/" title="Hawaii"> See Hawaii.py</a>.</figcaption>
+ <figcaption><b>Figure 6-12</b>. Computing scalars using normalized dot product. Bottom half of figure illustrates technique applied to terrain data from Honolulu, Hawaii.<a href="../../Cxx/Visualization/Hawaii/" title="Hawaii"> See Haaii.cxx</a> and <a href="../../Python/Visualization/Hawaii/" title="Hawaii">Hawaii.py</a>.</figcaption>
 </figure>
+
+Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
 
 ## 6.3 Vector Algorithms
 
-Vector data is a threedimensional representation of direction and magnitude. Vector data often results from the study of fluid flow, or when examining derivatives (i.e., rate of change) of some quantity.
+Vector data is a three-dimensional representation of direction and magnitude. Vector data often results from the study of fluid flow, or when examining derivatives (i.e., rate of change) of some quantity.
 
 ### Hedgehogs and Oriented Glyphs
 
 A natural vector visualization technique is to draw an oriented,
-scaled line for each vector (**Figure6-13** (a)). The line begins at the point with which the vector is associated and is oriented in the direction of the vector components. Typically,()v,,vv the resulting line must be scaled up x y z or down to control the size of its visual representation. This technique is often referred to as a *hedgehog* because of the bristly result.
+scaled line for each vector (**Figure6-13** (a)). The line begins at the point with which the vector is associated and is oriented in the direction of the vector components $(v_x, v_y, v_z)$. Typically, the resulting line must be scaled up or down to control the size of its visual representation. This technique is often referred to as a *hedgehog* because of the bristly result.
 
 There are many variations of this technique ( **Figure6-13** (b)). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented "glyphs" can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
 
@@ -260,10 +257,12 @@ A useful application of this technique is the study of vibration. In vibration a
 
 ### Time Animation
 
-Some of the techniques described so far can be thought of as moving a point or object over a small time step. The hedgehog line is an approximation of a point's motion over a time period whose duration is given by the scale factor. In other words, if velocity $\overrightarrow{V} = dx/dt$, then displacement of a point is
+Some of the techniques described so far can be thought of as moving a point or object over a small time step. The hedgehog line is an approximation of a point's motion over a time period whose duration is given by the scale factor. In other words, if velocity $\vec{V} = dx/dt$, then displacement of a point is
 
 $$
-dx = \overrightarrow{V} dt
+\begin{equation*}
+\text{d}\vec{x} = \vec{V} \text{d}t
+\end{equation*}
 \bf\tag{6-1}
 $$
 
@@ -271,7 +270,7 @@ This suggests an extension to our previous techniques: repeatedly displace point
 
 !!! warning "Missing Figure"
     **Figure 6-16** Time animation of a point *C*. Although the spacing between points varies, the time increment between each point is constant.
-
+g
 Such an approach can be misused. For one thing, the velocity at a point is instantaneous.
 
 Once we move away from the point the velocity is likely to change. Using **Equation6-1** above assumes that the velocity is constant over the entire step. By taking large steps we are likely to jump over changes in the velocity. Using smaller steps we will end in a different position. Thus the choice of step size is a critical parameter in constructing accurate visualization of particle paths in a vector field.
@@ -279,7 +278,7 @@ Once we move away from the point the velocity is likely to change. Using **Equat
 To evaluate **Equation6-1** we can express it as an integral:
 
 $$
-\overrightarrow{x}(t) = \int_{t}\overrightarrow{V}dt
+\vec{x}(t) = \int_{t}\vec{V}dt
 \bf\tag{6-2}
 $$
 
@@ -288,11 +287,11 @@ Although this form cannot be solved analytically for most real world data, its s
 The simplest form of numerical integration is Euler's method,
 
 $$
-\overrightarrow{x}_{i+1} = \overrightarrow{x}_i + \overrightarrow{V}_i\Delta{t}
+\vec{x}_{i+1} = \vec{x}_i + \vec{V}_i\Delta{t}
 \bf\tag{6-3}
 $$
 
-where the position at time is the $\overrightarrow{x}_{i+}$ vector sum of the previous
+where the position at time is the $\vec{x}_{i+}$ vector sum of the previous
 position plus the instantaneous velocity times the incremental time
 step $\Delta{t}$.
 
@@ -304,11 +303,11 @@ Euler's method has error on the order of $O(\Delta{t}^2)$, which is not accurate
 In this text we will use the RungeKutta technique of order 2 \[Conte72\]. This is given by the expression
 
 $$
-\overrightarrow{x}_{i+1} = \overrightarrow{x}_i +\frac{\Delta t}{2}(\overrightarrow{V}_i + \overrightarrow{V}_{i+1})
+\vec{x}_{i+1} = \vec{x}_i +\frac{\Delta t}{2}(\vec{V}_i + \vec{V}_{i+1})
 \bf\tag{6-4}
 $$
 
-where the velocity $\overrightarrow{V}_{i+1}$ is computed using Euler's method. The error of this method is $O(\Delta{t^3})$. Compared to Euler's method, the RungeKutta technique allows us to take a larger integration step at the expense of one additional function evaluation. Generally this tradeoff is beneficial, but like any numerical technique, the best method to use depends on the particular nature of the data. Higherorder techniques are also available, but generally not necessary, because the higher accuracy is countered by error in interpolation function or inherent in the data values. If you are interested in other integration formulas, please check the references at the end of the chapter.
+where the velocity $\vec{V}_{i+1}$ is computed using Euler's method. The error of this method is $O(\Delta{t^3})$. Compared to Euler's method, the RungeKutta technique allows us to take a larger integration step at the expense of one additional function evaluation. Generally this tradeoff is beneficial, but like any numerical technique, the best method to use depends on the particular nature of the data. Higherorder techniques are also available, but generally not necessary, because the higher accuracy is countered by error in interpolation function or inherent in the data values. If you are interested in other integration formulas, please check the references at the end of the chapter.
 
 One final note about accuracy concerns. The errors involved in either perception or computation of visualizations is an open research area. The discussion in the preceding paragraph is a good example of this. There we characterized the error in streamline integration using conventional numerical integration arguments. But there is a problem with this argument. In visualization applications, we are integrating across cells whose function values are continuous, but whose derivatives are not. As the streamline crosses the cell boundary, subtle effects may occur that are not treated by the standard numerical analysis. Thus the standard arguments need to be extended for visualization applications.
 
@@ -333,7 +332,11 @@ Borrowing terminology from the study of fluid flow, we can define three related 
 *Streamlines* are integral curves along a curve $s$ satisfying the equation
 
 $$
-s = \int_{t} \overrightarrow{V} ds, with \ s = s(x,t)
+% EQUATION 6-5
+% just my $0.02 worth - stationary velocity field V, streamline S
+\begin{equation*}
+\vec{s}(t) = \int_{\tau = t_0}^{t} \vec{V}\left(\vec{s}\left(\tau\right)\right)\text{d}\tau
+\end{equation*}
 \bf\tag{6-5}
 $$
 
@@ -345,7 +348,7 @@ Streamlines, streaklines, and particle traces are equivalent to one another if t
 
 <figure id="Figure6-18">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestKitchen.png?raw=true width="640" alt="Figure 6-18">
- <figcaption><b>Figure 6-18</b>. Flow velocity computed for a small kitchen (top and side view). Forty streamlines start along the rake positioned under the window. Some eventually travel over the hot stove and are convected upwards.<a href="../../Cxx/Visualization/Kitchen" title="Kitchen"> See Kitchen.cxx</a> and <a href="../../Python/Visualization/Kitchen" title="Kitchen"> See Kitchen.py</a>.</figcaption>
+ <figcaption><b>Figure 6-18</b>. Flow velocity computed for a small kitchen (top and side view). Forty streamlines start along the rake positioned under the window. Some eventually travel over the hot stove and are convected upwards.<a href="../../Cxx/Visualization/Kitchen" title="Kitchen"> See Kitchen.cxx</a> and <a href="../../Python/Visualization/Kitchen" title="Kitchen">Kitchen.py</a>.</figcaption>
 </figure>
 
 Many enhancements of streamline visualization exist. Lines can be colored according to velocity magnitude to indicate speed of flow. Other scalar quantities such as temperature or pressure also may be used to color the lines. We also may create constant time dashed lines. Each dash represents a constant time increment. Thus, in areas of high velocity, the length of the dash will be greater relative to regions of lower velocity. These techniques are illustrated in **Figure6-19** for airflow around a blunt fin. This example consists of a wall with half a rounded fin projecting into the fluid flow. (Using arguments of symmetry, only half of the domain was modeled.) Twentyfive streamlines are released upstream of the fin. The boundary layer effects near the junction of the fin and wall are clearly evident from the streamlines. In this area, flow recirculation is apparent, as well as the reduced flow speed.
@@ -366,7 +369,7 @@ A $3 \times 3$ real symmetric matrix can be characterized by three vectors in 3D
 Mathematically we can represent eigenvalues and eigenvectors as follows. Given a matrix the eigenvector and eigenvalue mustl satisfy the relation 
 
 $$
-A \cdot \overrightarrow{x} = \lambda \overrightarrow{x}
+A \cdot \vec{x} = \lambda \vec{x}
 \bf\tag{6-6}
 $$
 
@@ -388,18 +391,18 @@ Expanding this equation yields a $n^{th}$ degree polynomial in $\lambda$ whose r
 We can express the eigenvectors of the $3 \times 3$ system as
 
 $$
-\overrightarrow{v_i} = \lambda _i \overrightarrow{e_i} \ with\  i = 1,2,3
+\vec{v_i} = \lambda _i \vec{e_i} \ with\  i = 1,2,3
 \bf\tag{6-8}
 $$
 
-$\overrightarrow{e_i}$ a unit vector in the direction of the eigenvalue, and $\lambda{_i}$ the eigenvalues of the system. If we order eigenvalues such that
+$\vec{e_i}$ a unit vector in the direction of the eigenvalue, and $\lambda{_i}$ the eigenvalues of the system. If we order eigenvalues such that
 
 $$
 \lambda{_1} \geq \lambda{_2} \geq \lambda{_3}
 \bf\tag{6-9}
 $$
 
-then we refer to the corresponding eigenvectors $\overrightarrow{v_1}$, $\overrightarrow{v_2}$ and $\overrightarrow{v_1}$ as the *major*, *medium* , and *minor* eigenvectors.
+then we refer to the corresponding eigenvectors $\vec{v_1}$, $\vec{v_2}$ and $\vec{v_1}$ as the *major*, *medium* , and *minor* eigenvectors.
 
 ### Tensor Ellipsoids
 
@@ -432,7 +435,7 @@ $$
    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorEllipsoids.png?raw=true width="640" alt="Figure 6-22b">
    <figcaption>(b) Tensor ellipsiods</figcaption>
   </figure>
- <figcaption><b>Figure 6-22</b>. Tensor visualization techniques; (a) Tensor axes.<a href="../../Cxx/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> See TensorAxes.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> See TensorAxes.py</a> (b) Tensor ellipsoids.<a href="../../Cxx/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> See TensorEllipsoids.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> See TensorEllipsoids.py</a></figcaption>
+ <figcaption><b>Figure 6-22</b>. Tensor visualization techniques; (a) Tensor axes.<a href="../../Cxx/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> See TensorAxes.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> TensorAxes.py</a> (b) Tensor ellipsoids.<a href="../../Cxx/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> See TensorEllipsoids.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> TensorEllipsoids.py</a></figcaption>
 </figure>
 
 In **Figure6-22** we visualize the analytical results of Boussinesq's problem from Saada. The top portion of the figure shows the results by displaying the scaled and oriented principal axes of the stress tensor. (These are called *tensor axes*.) In the bottom portion we use tensor ellipsoids to show the same result. Tensor ellipsoids and tensor axes are a form of *glyph* (see "Glyphs" on page190 ) specialized to tensor visualization.
@@ -449,9 +452,9 @@ As we have seen in previous examples, source objects begin the visualization pip
 
 **Modelling Simple Geometry.**
 
- Spheres, cones, cubes, and other simple geometric objects can be used alone or in combination to model geometry. Often we visualize realworld applications such as air flow in a room and need to show realworld objects such as furniture, windows, or doors.
+ Spheres, cones, cubes, and other simple geometric objects can be used alone or in combination to model geometry. Often we visualize real-world applications such as air flow in a room and need to show real-world objects such as furniture, windows, or doors.
 
-Realworld objects often can be represented using these simple geometric representations. These source objects generate their data procedurally. Alternatively, we may use reader objects to access geometric data defined in data files. These data files may contain more complex geometry such as that produced by a 3D CAD (ComputerAided Design) system.
+Real-world objects often can be represented using these simple geometric representations. These source objects generate their data procedurally. Alternatively, we may use reader objects to access geometric data defined in data files. These data files may contain more complex geometry such as that produced by a 3D CAD (ComputerAided Design) system.
 
 **Supporting Geometry.**
 
@@ -507,21 +510,27 @@ Implicit functions can be used alone or in combination to model geometric object
 Implicit functions can be combined to create complex objects using the boolean operators union, intersection, and difference. The union operation between $F\cup G$ between two functions $F(x,y,z)$ and $G(x,y,z)$ is the minimum value 
 
 $$
-F\cup G = min(F(x_0,y_0,z_0),G(x_0,y_0,z_0))
+\begin{equation*}
+F \cup G = \lbrace \max\left(F\left(\vec{x}\right), G\left(\vec{x}\right)\right)\, \vert \, \vec{x} \in \mathbb{R}^n \rbrace
+\end{equation*}
 \bf\tag{6-13}
 $$
 
 The intersection between two implicit functions is given by
 
 $$
-F\cap G =max(F(x_0,y_0,z_0),G(x_0,y_0,z_0))
+\begin{equation*}
+F \cap G = \lbrace \min\left(F\left(\vec{x}\right), G\left(\vec{x}\right)\right)\, \vert \, \vec{x} \in \mathbb{R}^n  \rbrace
+\end{equation*}
 \bf\tag{6-14}
 $$
 
 The difference of two implicit functions is given by
 
 $$
-F-G =max(F(x_0,y_0,z_0),-G(x_0,y_0,z_0))
+\begin{equation*}
+F - G = \lbrace \min\left(F\left(\vec{x}\right), -G\left(\vec{x}\right)\right)\, \vert \, \vec{x} \in \mathbb{R}^n  \rbrace
+\end{equation*}
 \bf\tag{6-15}
 $$
 
@@ -559,9 +568,11 @@ Strange attractors arise in the study of nonlinear dynamics and chaotic systems.
 A classical strange attractor was developed by Lorenz in 1963 \[Lorenz63\]. Lorenz developed a simple model for thermally induced fluid convection in the atmosphere. Convection causes rings of rotating fluid and can be developed from the general NavierStokes partial differential equations for fluid flow. The Lorenz equations can be expressed in nondimensional form as
 
 $$
-\frac{dx}{dt} = \sigma(y-z) \\
-\frac{dy}{dt} = \rho x - y -xz \\
-\frac{dz}{dt} = xy-\beta z \\
+\begin{eqnarray*}
+\frac{\text{d}x}{\text{d}t} &=& \sigma (y - z) \\
+\frac{\text{d}y}{\text{d}t} &=& \rho x - y - x z \\
+\frac{\text{d}z}{\text{d}t} &=& x y - \beta z
+\end{eqnarray*}
 \bf\tag{6-16}
 $$
 
@@ -911,7 +922,7 @@ Implicit functions and sampling techniques can be used to make geometry, cut dat
 
 Color mapping is a widely studied topic in imaging, computer graphics, visualization, and human factors. References \[Durrett87\] \[Ware88\] \[Rheingans92\] provide samples of the available literature. You also may want to learn about the physiological and psychological effects of color on perception. The text by Wyszecki and Stiles \[Wyszecki82\] serves as an introductory reference.
 
-Contouring is a widely studied technique in visualization because of its importance and popularity. Early techniques were developed for 2D data \[Watson92\]. Three dimensional techniques were developed initially as contour connecting methods \[Fuchs77\] --- that is, given a series of 2D contours on evenly spaced planes, connect the contours to create a closed surface. Since the introduction of marching cubes \[Lorensen87\], many other techniques have been implemented. (A few of these include \[Nielson91\] \[Montani94\] and \[Durst88\] ). A particularly interesting reference is given by Livnat et al. \[Livnat96\]. They show a contouring method with the addition of a preprocessing step that generates isocontours in near optimal time.
+Contouring is a widely studied technique in visualization because of its importance and popularity. Early techniques were developed for 2D data \[Watson92\]. Three-dimensional techniques were developed initially as contour connecting methods \[Fuchs77\] --- that is, given a series of 2D contours on evenly spaced planes, connect the contours to create a closed surface. Since the introduction of marching cubes \[Lorensen87\], many other techniques have been implemented. (A few of these include \[Nielson91\] \[Montani94\] and \[Durst88\] ). A particularly interesting reference is given by Livnat et al. \[Livnat96\]. They show a contouring method with the addition of a preprocessing step that generates isocontours in near optimal time.
 
 Although we barely touched the topic, the study of chaos and chaotic vibrations is a delightfully interesting topic. Besides the original paper by Lorenz \[Lorenz63\] , the book by Moon \[Moon87\] is a good place to start.
 

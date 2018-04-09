@@ -32,3 +32,94 @@ Figure 6-20b
 \frac{\partial w}{\partial z}
 \end{array}\right]
 
+
+------- Chapter 7
+from Bernard Mehan
+
+% EQUATION 7-1
+    \begin{eqnarray*}
+    R &=& (1 - A_s) R_b + A_s R_s \\
+    G &=& (1 - A_s) G_b + A_s G_s \\
+    B &=& (1 - A_s) B_b + A_s B_s \\
+    A &=& (1 - A_s) A_b + A_s
+    \end{eqnarray*}
+    \bf\tag{7-1}
+
+    % EQUATION 7-2
+    \begin{equation*}
+    (x, y, z) = (x_0, y_0, z_0) + (a, b, c) t
+    \end{equation*}
+    \bf\tag{7-2}
+
+    % EQUATION 7-3
+    \begin{eqnarray*}
+    g_x &=& \frac{f(x + \Delta x, y, z) - f(x - \Delta x, y, z)}{2 \Delta x} \\
+    g_y &=& \frac{f(x, y + \Delta y, z) - f(x, y - \Delta y, z)}{2 \Delta y} \\
+    g_z &=& \frac{f(x, y, z + \Delta z) - f(x, y, z - \Delta z)}{2 \Delta z}
+    \end{eqnarray*}
+    \bf\tag{7-3}
+
+    % EQUATION 7-4
+    \begin{equation*}
+    I(t_0, \vec{\omega}) = \int_{t_0}^{\infty} Q(\tau) \exp\left(-\int_{t_0}^{t} \sigma_\text{a}(\tau) + \sigma_\text{sc}(\tau) \, \text{d} \tau \right) \, \text{d}\tau
+    \end{equation*}
+    \bf\tag{7-4}
+
+    % EQUATION 7-5
+    % perhaps with a note that capital omega is "over all solid angles"
+    \begin{equation*}
+    Q(t) = E(t) + \sigma_\text{sc}(t) \int_{\Omega} \rho_{sc}(\omega' \to \omega) I(t, \omega') \, \text{d}\omega'
+    \end{equation*}
+    \bf\tag{7-5}
+
+    % EQUATION 7-6
+    \begin{equation*}
+    I(t_0, \vec{\omega}) = \int_{t_0}^{\infty} E(\tau) \exp\left(-\int_{t_0}^{t} \sigma_\text{a}(\tau) \, \text{d} \tau \right) \, \text{d}\tau
+    \end{equation*}
+    \bf\tag{7-6}
+
+    % EQUATION 7-7
+    \begin{equation*}
+    I(t_\text{near}, \vec{\omega}) = \sum_{t = t_\text{near}}^{t \leq t_\text{far}} \alpha(t) \prod_{t' = t_\text{near}}^{t' < t_\text{far}}\left(1 - a(t') \right)
+    \end{equation*}
+    \bf\tag{7-7}
+
+    % EQUATION 7-8
+    \begin{equation*}
+    I(t_n, \vec{\omega}) = \alpha(t_n) + \left(1 - \alpha(t_n) \right) I(t_{n + 1}, \vec{\omega})
+    \end{equation*}
+    \bf\tag{7-8}
+
+    % EQUATION 7-9
+    \begin{eqnarray*}
+    \frac{\partial Z}{\partial x} &\simeq& \frac{Z(x_p + \Delta x, y_p) - Z(x_p - \Delta x, y_p)}{2 \Delta x} \\
+    \frac{\partial Z}{\partial y} &\simeq& \frac{Z(x_p, y_p + \Delta y) - Z(x_p, y_p - \Delta y)}{2 \Delta y} \\
+    \frac{\partial Z}{\partial z} &\simeq& 1
+    \end{eqnarray*}
+    \bf\tag{7-9}
+
+    % EQUATION 7-10
+    \begin{equation*}
+    \frac{\partial Z}{\partial x} \simeq \frac{Z(x_p + \Delta x, y_p) - Z(x_p, y_p)}{\Delta x}
+    \end{equation*}
+    \bf\tag{7-10}
+
+    % EQUATION 7-11
+    \begin{equation*}
+    \frac{\partial Z}{\partial x} \simeq \frac{Z(x_p, y_p) - Z(x_p - \Delta x, y_p)}{\Delta x}
+    \end{equation*}
+    \bf\tag{7-11}
+
+    % EQUATION 7-12
+    \begin{equation*}
+    I(t_\text{near}, \vec{\omega}) =  \sum_{t = t_\text{near}}^{t \leq t_\text{far}} \alpha(t)\left(I_\text{a} + I_\text{d} + I_\text{s}\right) \prod_{t' = t_\text{near}}^{t' < t_\text{far}}\left(1 - a(t') \right)
+    \end{equation*}
+    \bf\tag{7-12}
+
+    % EQUATION 7-13
+    \begin{eqnarray*}
+    \vec{f}_\text{new} &=& \left(\vec{f}\cdot \textbf{M}_\text{WD} + \vec{O}_\text{p}\right)\cdot \textbf{M}_\text{DW} \\
+    \vec{O}_\text{w} &=& \vec{f}_\text{new} - \vec{f} \\
+    \vec{p}_\text{new} &=& \vec{p} + \vec{O}_\text{w}
+    \end{eqnarray*}
+    \bf\tag{7-13}
