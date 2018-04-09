@@ -1,0 +1,17 @@
+Figure 6-21c - PNG generated with http://latex2png.com/
+
+$$
+\sigma{_x} = -\frac{P}{2 \pi \rho ^2}\left(\frac{3zx^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
+} - \frac{\rho}{\rho+z}+\frac{x ^2 (2 \rho + z)}{\rho ( \rho + z) ^2} \right) \right) \\
+
+\sigma{_y} = -\frac{P}{2 \pi \rho ^2}\left(\frac{3zy^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
+} - \frac{\rho}{\rho+z}+\frac{y ^2 (2 \rho + z)}{\rho ( \rho + z) ^2} \right) \right) \\
+\sigma{_z} = -\frac{3Pz^3}{2 \pi \rho ^5}\\
+$$
+
+$$
+\tau_{xy} = \tau_{yx}=-\frac{P}{2 \pi \rho ^2}\left( \frac{3xyz}{\rho ^3} - (1-2v)\left(\frac{xy(2 \rho + z)}{\rho ( \rho + z) ^2}\right)\right) \\
+\tau_{xz}=\tau_{zx} = -\frac{3Pxz^2}{2 \pi \rho ^5}\\
+\tau_{yz}=\tau_{zy} = -\frac{3Pyz^2}{2 \pi \rho ^5}
+$$
+
