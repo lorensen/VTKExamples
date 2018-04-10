@@ -489,7 +489,7 @@ F(x,y,z) = x^2 + y^2 + z^2 - R^2
 \bf\tag{6-12}
 $$
 
-This simple relationship defines the three regions (on Fxyz the=of 0the sphere), Fxyz < 0 (inside the sphere), and Fxyz (outside the sphere). Any point may be classified inside, on, or outside the sphere simply by evaluating *Equation6-12*.
+This simple relationship defines the three regions (on $F(x,y,z = 0)s on$the sphere), $F(x,y,z) < 0$ (inside the sphere), and $F(x,y,z)$ (outside the sphere). Any point may be classified inside, on, or outside the sphere simply by evaluating *Equation6-12*.
 
 <figure id="Figure6-23">
  <figure id="Figure6-23b">
