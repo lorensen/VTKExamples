@@ -35,7 +35,7 @@ In the text that follows, we will use the attribute type classification scheme: 
 <figure id="Figure6-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-1.png?raw=true width="640" alt="Figure6-1">
 </figure>
-<figcaption><b>Figure 6-1</b>Mapping scalars to colors via a lookup table. </figcaption>
+<figcaption><b>Figure 6-1</b> Mapping scalars to colors via a lookup table. </figcaption>
 </figure>
 
 ### Generality Versus Efficiency
@@ -71,16 +71,22 @@ The key to color mapping for scalar visualization is to choose the lookup table 
 
 Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (**Figure6-1** ), the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes, improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
 
-!!! warning "Missing Figure"
-    Figure *6-2*. Transfer function for color components red, green and blue as a function of scalar value.
+<figure id="Figure6-2">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-2.png?raw=true width="640" alt="Figure6-2">
+</figure>
+<figcaption><b>Figure 6-2</b>. Transfer function for color components red, green and blue as a function of scalar value.</figcaption>
+</figure>
 
 <figure id="Figure6-3">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestRainbow.png?raw=true width="640" alt="Figure 6-3">
  <figcaption><b>Figure 6-3</b>. Flow density colored with different lookup tables. Top-left: grayscale; Top-right rainbow (blue to red); lower-left rainbow (red to blue); lower-right large contrast.<a href="../../Cxx/Rendering/Rainbow/" title="Rainbow"> See Rainbow.cxx</a><a href="../../Python/Rendering/Rainbow/" title="Rainbow"> and Rainbow.py</a>.</figcaption>
 </figure>
 
-!!! warning "Missing Figure"
-    **Figure 6-4** Contouring a 2D stuctured grid with contour line vaue = 5.
+<figure id="Figure6-4">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-4.png?raw=true width="640" alt="Figure6-4">
+</figure>
+<figcaption><b>Figure 6-4</b>. Contouring a 2D stuctured grid with contour line value = 5.</figcaption>
+</figure>
 
 ### Contouring
 
@@ -114,17 +120,22 @@ This procedure will construct independent geometric primitives in each cell. At 
 
 There are advantages and disadvantages to both the edge-tracking and marching cubes approaches. The marching squares algorithm is easy to implement. This is particularly important when we extend the technique into three dimensions, where isosurface tracking becomes much more difficult. On the other hand, the algorithm creates disconnected line segments and points, and the required merging operation requires extra computation resources. The tracking algorithm can be implemented to generate a single polyline per contour line, avoiding the need to merge coincident points.
 
-!!! warning "Missing Figure"
-    **Figure 6-5** Sixteen different marching squares cases. Dark vertices indicate scalar value is above contour value. Cases 5 and 10 are ambiguous.
+<figure id="Figure6-5">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-5.png?raw=true width="640" alt="Figure6-5">
+</figure>
+<figcaption><b>Figure 6-5</b>. Sixteen different marching squares cases. Dark vertices indicate scalar value is above contour value. Cases 5 and 10 are ambiguous.</figcaption>
+</figure>
 
 <figure id="Figure6-6">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMarchingCasesA.png?raw=true width="640" alt="Figure 6-6">
  <figcaption><b>Figure 6-6</b>. Marching Cubes cases for 3D isosurface generation. The 256 possible cases have been reduced to 15 cases using symmetry. Red vertices are greater than the selected isosurface value. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesA/" title="MarchingCasesA"> See MarchingCasesA.cxx</a> and <a href="../../Python/VisualizationAlgorithms/MarchingCasesA/" title="MarchingCasesA"> See MarchingCasesA.py</a>.</figcaption>
 </figure>
 
-!!! warning "Missing Figure"
-    **Figure 6-7** Using marching triangles or marching tetrahedra to resolve ambiguous cases on rectangular lattice (only face of cube is shown). Choice of diagonal orientation may result in "bumps" in contour surface. In 2D, diagonal orientation can be chosen arbitrarily, but in 3D diagonal is constrained by neighbor.
-
+<figure id="Figure6-7">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-7.png?raw=true width="640" alt="Figure6-7">
+</figure>
+<figcaption><b>Figure 6-7</b>. Using marching triangles or marching tetrahedra to resolve ambiguous cases on rectangular lattice (only face of cube is shown). Choice of diagonal orientation may result in "bumps" in contour surface. In 2D, diagonal orientation can be chosen arbitrarily, but in 3D diagonal is constrained by neighbor.</figcaption>
+</figure>
 
 As mentioned previously, the 3D analogy of marching squares is marching cubes. Here, there are 256 different combinations of scalar value, given that there are eight points in a cubical cell (i.e., $2^8$ combinations). **Figure6-6** shows these combinations reduced to 15 cases by using arguments of symmetry. We use combinations of rotation and mirroring to produce topologically equivalent cases.
 
@@ -141,8 +152,11 @@ In three dimensions the problem is more complex. We cannot simply choose an ambi
 
 Several different approaches have been taken to remedy this problem. One approach tessellates the cubes with tetrahedron, and uses a *marching tetrahedra* technique *.* This works because the marching tetrahedra exhibit no ambiguous cases. Unfortunately, the marching tetrahedra algorithm generates isosurfaces consisting of more triangles, and the tessellation of a cube with tetrahedra requires making a choice regarding the orientation of the tetrahedra. This choice may result in artificial "bumps" in the isosurface because of interpolation along the face diagonals as shown in **Figure6-7**. Another approach evaluates the asymptotic behavior of the surface, and then chooses the cases to either join or break the contour. Nielson and Hamann \[Nielson91\] have developed a technique based on this approach they call the *asymptotic decider*. It is based on an analysis of the variation of the scalar variable across an ambiguous face. The analysis determines how the edges of isosurface polygons should be connected.
 
-!!! warning "Missing Figure"
-    **Figure 6-8** Choosing a particular contour case will break (a) or join (b) the current contour. Case shown is marching squares case 10.
+<figure id="Figure6-8">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-8.png?raw=true width="640" alt="Figure6-8">
+</figure>
+<figcaption><b>Figure 6-8</b>. Choosing a particular contour case will break (a) or join (b) the current contour. Case shown is marching squares case 10.</figcaption>
+</figure>
 
 !!! warning "Missing Figure"
     **Figure 6-9** Arbitrarily choosing marching cubes cases leads to holes in the isosurface.
