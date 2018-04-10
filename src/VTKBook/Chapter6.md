@@ -32,8 +32,11 @@ Algorithms also can be classified according to the type of data they process. Th
 
 In the text that follows, we will use the attribute type classification scheme: scalar, vector, tensor, and modelling. In cases where the algorithms operate on a particular dataset type, we place them in the appropriate category according to our best judgment. Be forewarned, though, that alternative classification schemes do exist, and may be better suited to describing the true nature of the algorithm.
 
-!!! warning "Missing Figure"
-    **Figure 6-1** Mapping scalars to colors via a lookup table.
+<figure id="Figure6-1">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-1.png?raw=true width="640" alt="Figure6-1">
+</figure>
+<figcaption><b>Figure 6-1</b>Mapping scalars to colors via a lookup table. </figcaption>
+</figure>
 
 ### Generality Versus Efficiency
 
@@ -489,7 +492,7 @@ F(x,y,z) = x^2 + y^2 + z^2 - R^2
 \bf\tag{6-12}
 $$
 
-This simple relationship defines the three regions (on $F(x,y,z = 0)s on$the sphere), $F(x,y,z) < 0$ (inside the sphere), and $F(x,y,z)$ (outside the sphere). Any point may be classified inside, on, or outside the sphere simply by evaluating *Equation6-12*.
+This simple relationship defines the three regions (on $F(x,y,z = 0)s on$the sphere), $F(x,y,z) < 0$ (inside the sphere), and $F(x,y,z)$ (outside the sphere). Any point m≈bay be classified inside, on, or outside the sphere simply by evaluating *Equation6-12*.
 
 <figure id="Figure6-23">
  <figure id="Figure6-23b">
