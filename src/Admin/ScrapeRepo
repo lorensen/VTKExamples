@@ -51,7 +51,7 @@ def CreateHtmlIds(fromFile):
             idFound = re.findall(r'<figure[ ]*id="([^\"]*)">', line)
             if len(idFound) > 0:
                 htmlIdSet.add(idFound[0])
-            
+
 # copy a file and add figure and doxygen links
 # only add links to doxygen if we are outside code blocks
 # delimited by ```
@@ -378,6 +378,11 @@ CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter3.md", DocDir + "/VTKBook/Chap
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter6.md", DocDir + "/VTKBook/Chapter6.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter12.md", DocDir + "/VTKBook/Chapter12.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Glossary.md", DocDir + "/VTKBook/Glossary.md")
+
+# Copy VTKBookLaTex files
+if not os.path.exists(DocDir + "/VTKBookLaTex"):
+    os.makedirs(DocDir + "/VTKBookLaTex")
+CopyFile(RepoDir + "/VTKBookLaTex/VTKTextBook.md", DocDir + "/VTKBookLaTex/VTKTextBook.md")
 
 # Scan all Cxx directories and look for extras
 allExtras = set()
