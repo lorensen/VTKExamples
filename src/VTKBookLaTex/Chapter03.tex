@@ -217,6 +217,7 @@ Once we have the camera situated, we can generate our 2D image. Some of the rays
 This concludes our brief rendering overview. The light has traveled from its sources to the actors, where it is reflected and scattered. Some of this light gets captured by the camera and produces a 2D image. Now we will look at some of the details of this process.
 
 \section{Coordinate Systems}
+\label{sec:coordinate_systems}
 
 There are four coordinate systems commonly used in computer graphics and two different ways of representing points within them (Figure \ref{fig:Figure3-14}). While this may seem excessive, each one serves a purpose. The four coordinate systems we use are: \emph{model}, \emph{world} , \emph{view}, and \emph{display}.
 
@@ -352,7 +353,7 @@ Transformation matrices can be combined by matrix multiplication to achieve comb
 \section{Actor Geometry}
 We have seen how lighting properties control the appearance of an actor, and how the camera in combination with transformation matrices is used to project an actor to the image plane. What is left to define is the geometry of the actor, and how we position it in the world coordinate system.
 
-\subsection*{Modelling}
+\subsection{Modelling}
 A major topic in the study of computer graphics is modelling or representing the geometry of physical objects. Various mathematical techniques have been applied including combinations of points, lines, polygons, curves, and splines of various forms, and even implicit mathematical functions.
 
 This topic is beyond the scope of the text. The important point here is that there is an underlying geometric model that specifies what the object's shape is and where it is located in the model coordinate system.
@@ -361,7 +362,7 @@ In data visualization, modelling takes a different role. Instead of directly cre
 
 The representation of geometry for data visualization tends to be simple, even though computing the representations is not. These forms are most often primitives like points, lines, and polygons, or visualization data such as volume data. We use simple forms because we desire high performance and interactive systems. Thus we take advantage of computer hardware (to be covered in ``Graphics Hardware'' on \ref{sec:gh} ) or special rendering techniques like volume rendering (see ``Volume Rendering'' on \ref{chap:acg} ).
 
-\subsection*{Actor Location and Orientation}
+\subsection{Actor Location and Orientation}
 
 Every actor has a transformation matrix that controls its location and scaling in world space. The actor's geometry is defined by a model in model coordinates. We specify the actor's location using orientation, position, and scale factors along the coordinate axes. In addition, we can define an origin around which the actor rotates. This feature is useful because we can rotate the actor around its center or some other meaningful point.
 
@@ -379,7 +380,7 @@ All of these rotations take place around the origin of the actor. Typically this
 \label{sec:gh}
 Earlier we mentioned that advances in graphics hardware have had a large impact on how rendering is performed. Now that we have covered the fundamentals of rendering a scene, we look at some of the hardware issues. First, we discuss raster devices that have replaced vector displays as the primary output device. Then, we look at how our programs communicate to the graphics hardware. We also examine the different coordinate systems used in computer graphics, hidden line/surface removal, and \emph{z}-buffering.
 
-\subsection*{Raster Devices}
+\subsection{Raster Devices}
 
 The results of computer graphics is pervasive in today's world---digital images (generated with computer graphics) may be found on cell phones, displayed on computer monitors, broadcast on TV, shown at the movie theatre and presented on electronic billboards. All of these, and many more, display mediums are raster devices. A raster device represents an image using a two dimensional array of picture elements called pixels. For example, the word "hello" can be represented as an array of pixels. as shown in Figure \ref{fig:Figure3-16}. Here the word "hello" is written within a pixel array that is twenty-five pixels wide and ten pixels high. Each pixel stores one bit of information, whether it is black or white. This is how a black and white laser printer works, for each point on the paper it either prints a black dot or leaves it the color of the paper. Due to hardware limitations, raster devices such as laser printers and computer monitors do not actually draw accurate square pixels like those in Figure \ref{fig:Figure3-16}. Instead, they tend to be slightly blurred and overlapping. Another hardware limitation of raster devices is their resolution. This is what causes a 300 dpi (dots per inch) laser printer to produce more detailed output than a nine pin dot matrix printer. A 300 dpi laser printer has a resolution of 300 pixels per inch compared to roughly 50 dpi for the dot matrix printer.
 
@@ -399,7 +400,7 @@ Color computer monitors typically have a resolution of about 80 pixels per inch,
 
 One way to work around color limitations in the graphics hardware is by using a technique called \emph{dithering}. Say, for example, that you want to use some different shades of gray, but your graphics hardware only supports black and white. Dithering lets you approximate shades of gray by using a mixture of both black and white pixels. In Figure \ref{fig:Figure3-17}, seven gray squares are drawn using a mixture of black and white pixels. From a distance the seven squares look like different shades of gray even though up close, it's clear that they are just different mixtures of black and white pixels. This same technique works just as well for other colors. For example, if your graphics hardware supports primary blue, primary green, and white but not a pastel sea green, you can approximate this color by dithering the green, blue, and white that the hardware does support.
 
-\subsection*{Interfacing to the Hardware}
+\subsection{Interfacing to the Hardware}
 Now that we have covered the basics of display hardware, the good news is that you rarely need to worry about them. Most graphics programming is done using higher-level primitives than individual pixels. Figure \ref{fig:Figure3-18} shows a typical arrangement for a visualization program. At the bottom of the hierarchy is the display hardware that we already discussed; chances are your programs will not interact directly with it. The top three layers above the hardware are the layers you may need to be concerned with.
 
 \begin{figure}[!htb]
@@ -426,7 +427,7 @@ A polygon is built by connecting a series of points or vertices as shown in Figu
 
 When you limit yourself to the types of primitives described above, there are some additional properties that many graphics systems support. Edge color and edge visibility can be used to highlight the polygon primitives that make up an actor. Another way to do this is by adjusting the representation from \emph{surface} to \emph{wireframe} or \emph{points}. This replaces surfaces such as polygons with either their boundary edges or points respectively. While this may not make much sense from a physical perspective, it can help in some illustrations. Using edge visibility when rendering a CAD model can help to show the different pieces that comprise the model.
 
-\subsection*{Rasterization}
+\subsection{Rasterization}
 
 At this point in the text we have described how to represent graphics data using rendering primitives, and we have described how to represent images using raster display devices. The question remains, how do we convert graphics primitives into a raster image? This is the topic we address in this section. Although a thorough treatise on this topic is beyond the scope of this text, we will do our best to provide a high-level overview.
 
@@ -458,7 +459,7 @@ With the polygon clipped and projected to the image plane, we can begin scan-lin
 
 The shading of the polygon (i.e., color interpolation across the polygon) varies depending on the actor's interpolation attribute. There are three possibilities: \emph{flat}, \emph{Gouraud}, or \emph{Phong shading}. Figure \ref{fig:Figure3-7} illustrates the difference between flat and Gouraud interpolation. Flat shading calculates the color of a polygon by applying the lighting equations to just one normal (typically the surface normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
 
-\subsection*{Z-Buffer}
+\subsection{Z-Buffer}
 \label{Z-Buffer}
 In our earlier description of the rendering process, we followed rays of light from our eye through a pixel in the image plane to the actors and back to the light source. A nice side effect of ray tracing is that viewing rays strike the first actor they encounter and ignore any actors that are hidden behind it. When rendering actors using the polygonal methods described above, we have no such method of computing which polygons are hidden and which are not. We cannot generally count on the polygons being ordered correctly. Instead, we can use a number of hidden-surface methods for polygon rendering.
 
@@ -476,7 +477,7 @@ Another hidden surface algorithm, z-buffering, takes care of this problem and do
 This section provides an overview of the graphics objects and how to
 use them in VTK.
 
-\subsection*{The Graphics Model}
+\subsection{The Graphics Model}
 
 \begin{figure}[!htb]
   \centering
@@ -529,7 +530,7 @@ Finally, vtkMapper (and its subclasses) defines object geometry and, optionally,
 
 There is another important object, vtkRenderWindowInteractor, that captures events (such as mouse clicks and mouse motion) for a renderer in the rendering window. vtkRenderWindowInteractor captures these events and then triggers certain operations like camera dolly, pan, and rotate, actor picking, into/out of stereo mode, and so on. Instances of this class are associated with a rendering window using the SetRenderWindow() method.
 
-\subsection*{Achieving Device Independence}
+\subsection{Achieving Device Independence}
 \label{sec:adi}
 A desirable property of applications built with VTK is that they are device independent. This means that computer code that runs on one operating system with a particular software/hardware configuration runs unchanged on a different operating system and software/hardware configuration. The advantage of this is that the programmer does not need to expend effort porting an application between different computer systems. Also, existing applications do not need to be rewritten to take advantage of new developments in hardware or software technology. Instead, VTK handles this transparently by a combination of inheritance and a technique known as \emph{object factories}.
 
@@ -554,7 +555,7 @@ The use of object factories as implemented using the New() method allows us to c
 
 This section works through some simple applications implemented with VTK graphics objects. The focus is on the basics: how to create renderers, lights, cameras, and actors. Later chapters tie together these basic principles to create applications for data visualization.
 
-\subsection*{Examples}
+\subsection{Examples}
 \subsubsection*{Render a Cone.}
 The following C++ code uses most of the objects introduced in this section to create an image of a cone. The vtkConeSource generates a polygonal representation of a cone and vtkPolyDataMapper maps the geometry (in conjunction with the actor) to the underlying graphics library. (The source code to this example can be found in \href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/Cone/}{Cone.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/Cone/}{Cone.py}. The source code contains additional documentation as well.)
 
@@ -615,7 +616,7 @@ The data representing the cone (a set of polygons) in this example is created by
 There are many different types of source objects in VTK similar to vtkConeSource as shown in Figure \ref{fig:Figure3-26}. In the next chapter we will learn more about source and other types of filters.
 
 \subsubsection*{Events and Observers.}
-A visualization toolkit like VTK is frequently used in interactive applications or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the \emph{command/observer} design pattern \cite{Gamma9} is used for this purpose.
+A visualization toolkit like VTK is frequently used in interactive applications or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the \emph{command/observer} design pattern \cite{Gamma95} is used for this purpose.
 
 Fundamental to this design pattern as implemented in VTK is the concept of *events*. An event signals that an important operation has occurred in the software. For example, if the user presses the left mouse button in the render window, VTK will invoke the LeftButtonPressEvent. Observers are objects that register their interest in a particular event or events. When one of these events is invoked, the observer receives notification and may perform any valid operation at that point; that is, execute the command associated with the observer. The benefit of the command/observer design pattern is that is simple in concept and implementation, yet provides significant power to the user. However it does require the software implementation to invoke events as it operates.
 
