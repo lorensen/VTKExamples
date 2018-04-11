@@ -350,24 +350,383 @@ Rotations occur about the coordinate origin. It is often more convenient to rota
 Transformation matrices can be combined by matrix multiplication to achieve combinations of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all types of transformation simultaneously. This matrix is the result of repeated matrix multiplications. A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix by the translation matrix.
 
 \section{Actor Geometry}
+We have seen how lighting properties control the appearance of an actor, and how the camera in combination with transformation matrices is used to project an actor to the image plane. What is left to define is the geometry of the actor, and how we position it in the world coordinate system.
 
 \subsection*{Modelling}
+A major topic in the study of computer graphics is modelling or representing the geometry of physical objects. Various mathematical techniques have been applied including combinations of points, lines, polygons, curves, and splines of various forms, and even implicit mathematical functions.
+
+This topic is beyond the scope of the text. The important point here is that there is an underlying geometric model that specifies what the object's shape is and where it is located in the model coordinate system.
+
+In data visualization, modelling takes a different role. Instead of directly creating geometry to represent an object, visualization algorithms \emph{compute} these forms. Often the geometry is abstract (like a contour line) and has little relationship to real world geometry. We will see how these models are computed when we describe visualization algorithms in Chapter 6 and Chapter 9.
+
+The representation of geometry for data visualization tends to be simple, even though computing the representations is not. These forms are most often primitives like points, lines, and polygons, or visualization data such as volume data. We use simple forms because we desire high performance and interactive systems. Thus we take advantage of computer hardware (to be covered in ``Graphics Hardware'' on \ref{sec:gh} ) or special rendering techniques like volume rendering (see ``Volume Rendering'' on \ref{chap:acg} ).
 
 \subsection*{Actor Location and Orientation}
 
+Every actor has a transformation matrix that controls its location and scaling in world space. The actor's geometry is defined by a model in model coordinates. We specify the actor's location using orientation, position, and scale factors along the coordinate axes. In addition, we can define an origin around which the actor rotates. This feature is useful because we can rotate the actor around its center or some other meaningful point.
+
+The orientation of an actor is determined by rotations stored in an orientation vector (Ox,Oy, Oz). This vector defines a series of rotational transformation matrices. As we saw in the previous section on transformation matrices, the order of application of the transformations is not arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (Figure\ref{fig:Figure3-15}).
+
+All of these rotations take place around the origin of the actor. Typically this is set to the center of its bounding box, but it can be set to any convenient point. There are many different methods for changing an actor’s orientation. RotateX(), RotateY(), and RotateZ() are common methods that rotate about their respective axes. Many systems also include a method to rotate about a userdefined axis. In the Visualization Toolkit the RotateXYZ() method is used to rotate around an arbitrary vector passing through the origin.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-15}\\
+  \caption{Actor coordinate system.}\label{fig:Figure3-15}
+\end{figure}
+
 \section{Graphics Hardware}
+\label{sec:gh}
+Earlier we mentioned that advances in graphics hardware have had a large impact on how rendering is performed. Now that we have covered the fundamentals of rendering a scene, we look at some of the hardware issues. First, we discuss raster devices that have replaced vector displays as the primary output device. Then, we look at how our programs communicate to the graphics hardware. We also examine the different coordinate systems used in computer graphics, hidden line/surface removal, and \emph{z}-buffering.
 
 \subsection*{Raster Devices}
 
+The results of computer graphics is pervasive in today's world---digital images (generated with computer graphics) may be found on cell phones, displayed on computer monitors, broadcast on TV, shown at the movie theatre and presented on electronic billboards. All of these, and many more, display mediums are raster devices. A raster device represents an image using a two dimensional array of picture elements called pixels. For example, the word "hello" can be represented as an array of pixels. as shown in Figure \ref{fig:Figure3-16}. Here the word "hello" is written within a pixel array that is twenty-five pixels wide and ten pixels high. Each pixel stores one bit of information, whether it is black or white. This is how a black and white laser printer works, for each point on the paper it either prints a black dot or leaves it the color of the paper. Due to hardware limitations, raster devices such as laser printers and computer monitors do not actually draw accurate square pixels like those in Figure \ref{fig:Figure3-16}. Instead, they tend to be slightly blurred and overlapping. Another hardware limitation of raster devices is their resolution. This is what causes a 300 dpi (dots per inch) laser printer to produce more detailed output than a nine pin dot matrix printer. A 300 dpi laser printer has a resolution of 300 pixels per inch compared to roughly 50 dpi for the dot matrix printer.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-16}\\
+  \caption{A pixel array for the word "hello".}\label{fig:Figure3-16}
+\end{figure}
+
+Color computer monitors typically have a resolution of about 80 pixels per inch, making the screen a pixel array roughly one thousand pixels in width and height. This results in over one million pixels, each with a value that indicates what color it should be. Since the hardware in color monitors uses the RGB system, it makes sense to use that to describe the colors in the pixels. Unfortunately, having over one million pixels, each with a red, green, and blue component, can take up a lot of memory. This is part of what differentiates the variety of graphics hardware on the market. Some companies use 24 bits of storage per pixel, others use eight, some advanced systems use more than 100 bits of storage per pixel. Typically, the more bits per pixel the more accurate the colors will be.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-17}\\
+  \caption{Black and white dithering.}\label{fig:Figure3-17}
+\end{figure}
+
+One way to work around color limitations in the graphics hardware is by using a technique called \emph{dithering}. Say, for example, that you want to use some different shades of gray, but your graphics hardware only supports black and white. Dithering lets you approximate shades of gray by using a mixture of both black and white pixels. In Figure \ref{fig:Figure3-17}, seven gray squares are drawn using a mixture of black and white pixels. From a distance the seven squares look like different shades of gray even though up close, it's clear that they are just different mixtures of black and white pixels. This same technique works just as well for other colors. For example, if your graphics hardware supports primary blue, primary green, and white but not a pastel sea green, you can approximate this color by dithering the green, blue, and white that the hardware does support.
+
 \subsection*{Interfacing to the Hardware}
+Now that we have covered the basics of display hardware, the good news is that you rarely need to worry about them. Most graphics programming is done using higher-level primitives than individual pixels. Figure \ref{fig:Figure3-18} shows a typical arrangement for a visualization program. At the bottom of the hierarchy is the display hardware that we already discussed; chances are your programs will not interact directly with it. The top three layers above the hardware are the layers you may need to be concerned with.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-18}\\
+  \caption{Typical graphics interface hierarchy.}\label{fig:Figure3-18}
+\end{figure}
+
+Many programs take advantage of application libraries as a high-level interface to the graphics capabilities of a system. The \emph{Visualization Toolkit} accompanying this book is a prime example of this. It allows you to display a complex object or graph using just a few commands. It is also possible to interface to a number of different graphics libraries, since different libraries may be supported on different hardware platforms.
+
+The graphics library and graphics hardware layers both perform similar functions. They are responsible for taking high-level commands from an application library or program, and executing them. This makes programming much easier by providing more complex primitives to work with. Instead of drawing pixels one at a time, we can draw primitives like polygons, triangles, and lines, without worrying about the details of which pixels are being set to which colors. Figure \ref{fig:Figure3-19} illustrates some high-level primitives that all mainstream graphics libraries support.
+
+This functionality is broken into two different layers because different machines may have vastly different graphics hardware. If you write a program that draws a red polygon, either the graphics library or the graphics hardware must be able to execute that command. On high-end systems, this may be done in the graphics hardware, on others it will be done by the graphics library in software. So the same commands can be used with a wide variety of machines, without worrying about the underlying graphics hardware.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-19}\\
+  \caption{Graphics primitives.}\label{fig:Figure3-19}
+\end{figure}
+
+The fundamental building block of the primitives in Figure \ref{fig:Figure3-19} is a point (or vertex). A vertex has a position, normal, and color, each of which is a three element vector. The position specifies where the vertex is located, its normal specifies which direction the vertex is facing, and its color specifies the vertex's red, green, and blue components.
+
+A polygon is built by connecting a series of points or vertices as shown in Figure \ref{fig:Figure3-20}. You may be wondering why each vertex has a normal, instead of having just one normal for the entire polygon. A planar polygon can only be facing one direction regardless of what the normals of its vertices indicate. The reason is that sometimes a polygon is used as an approximation of something else, like a curve. Figure \ref{fig:Figure3-21} shows a top-down view of a cylinder. As you can see, it's not really a cylinder but rather a polygonal approximation of the cylinder drawn in gray. Each vertex is shared by two polygons and the correct normal for the vertex is not the same as the normal for the polygon. Similar logic explains why each vertex has a color instead of just having one color for an entire polygon.
+
+When you limit yourself to the types of primitives described above, there are some additional properties that many graphics systems support. Edge color and edge visibility can be used to highlight the polygon primitives that make up an actor. Another way to do this is by adjusting the representation from \emph{surface} to \emph{wireframe} or \emph{points}. This replaces surfaces such as polygons with either their boundary edges or points respectively. While this may not make much sense from a physical perspective, it can help in some illustrations. Using edge visibility when rendering a CAD model can help to show the different pieces that comprise the model.
 
 \subsection*{Rasterization}
 
-\subsection*{Z-Buffer}
+At this point in the text we have described how to represent graphics data using rendering primitives, and we have described how to represent images using raster display devices. The question remains, how do we convert graphics primitives into a raster image? This is the topic we address in this section. Although a thorough treatise on this topic is beyond the scope of this text, we will do our best to provide a high-level overview.
 
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-20}\\
+  \caption{An example polygon.}\label{fig:Figure3-20}
+\end{figure}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-21}\\
+  \caption{Vertex and polygon normals.}\label{fig:Figure3-21}
+\end{figure}
+
+The process of converting a geometric representation into a raster image is called \emph{rasterization} or \emph{scan conversion}. In the description that follows we assume that the graphics primitives are triangle polygons. This is not as limiting as you might think, because any general polygon can be tessellated into a set of triangles. Moreover, other surface representations such as splines are usually tessellated by the graphics system into triangles or polygons. (The method described here is actually applicable to convex polygons.)
+
+Most of today's hardware is based on object-order rasterization techniques. As we saw earlier in this chapter, this means processing our actors in order. And since our actors are represented by polygon primitives, we process polygons one at a time. So although we describe the processing of one polygon, bear in mind that many polygons and possibly many actors are processed.
+
+The first step is to transform the polygon using the appropriate transformation matrix. We also project the polygon to the image plane using either parallel or orthographic projection. Part of this process involves clipping the polygons. Not only do we use the front and back clipping planes to clip polygons too close or too far, but we must also clip polygons crossing the boundaries of the image plane. Clipping polygons that cross the boundary of the view frustum means we have to generate new polygonal boundaries.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-22}\\
+  \caption{Rasterizing a convex polygon. Pixels are processed in horizontal spans (or scan-lines) in the image plane. Data values $d_i$ at point $p_i$ are interpolated along the edges and then along the scan-line using delta data values. Typical data values are RGB components of color.}\label{fig:Figure3-22}
+\end{figure}
+
+With the polygon clipped and projected to the image plane, we can begin scan-line processing (Figure \ref{fig:Figure3-22}). The first step identifies the initial scan-line intersected by the projected polygon. This is found by sorting the vertices' \emph{y} values. We then find the two edges joining the vertex on the left and right sides. Using the slopes of the edges along with the data values we compute delta data values. These data are typically the \emph{R}, \emph{G}, and \emph{B} color components. Other data values include transparency values and \emph{z} depth values. (The \emph{z} values are necessary if we are using a \emph{z}-buffer, described in the next section.) The row of pixels within the polygon (i.e., starting at the left and right edges) is called a \emph{span}. Data values are interpolated from the edges on either side of the span to compute the internal pixel values. This process continues span-by-span, until the entire polygon is filled. Note that as new vertices are encountered, it is necessary to recompute the delta data values.
+
+The shading of the polygon (i.e., color interpolation across the polygon) varies depending on the actor's interpolation attribute. There are three possibilities: \emph{flat}, \emph{Gouraud}, or \emph{Phong shading}. Figure \ref{fig:Figure3-7} illustrates the difference between flat and Gouraud interpolation. Flat shading calculates the color of a polygon by applying the lighting equations to just one normal (typically the surface normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
+
+\subsection*{Z-Buffer}
 \label{Z-Buffer}
+In our earlier description of the rendering process, we followed rays of light from our eye through a pixel in the image plane to the actors and back to the light source. A nice side effect of ray tracing is that viewing rays strike the first actor they encounter and ignore any actors that are hidden behind it. When rendering actors using the polygonal methods described above, we have no such method of computing which polygons are hidden and which are not. We cannot generally count on the polygons being ordered correctly. Instead, we can use a number of hidden-surface methods for polygon rendering.
+
+One method is to sort all of our polygons from back to front (along the camera’s view vector) and then render them in that order. This is called the painter’s algorithm or painter’s sort, and has one major weakness illustrated in Figure \ref{fig:Figure3-23}. Regardless of the order in which we draw these three triangles, we cannot obtain the desired result, since each triangle is both in front of, and behind, another triangle. There are algorithms that sort and split polygons as necessary to treat such a situation [Carlson85]. This requires more initial processing to perform the sorting and splitting. If the geometric primitives change between images or the camera view changes, then this processing must be performed before each render.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-23}\\
+  \caption{Problem with Painter's algorithm.}\label{fig:Figure3-23}
+\end{figure}
+
+Another hidden surface algorithm, z-buffering, takes care of this problem and does not require sorting. Z-buffering takes advantage of the z-value (i.e., depth value along direction of projection) in the view coordinate system. Before a new pixel is drawn, its z-value is compared against the current z-value for that pixel location. If the new pixel would be in front of the current pixel, then it is drawn and the z-value for that pixel location is updated. Otherwise the current pixel remains and the new pixel is ignored. Z-buffering has been widely implemented in hardware because of its simplicity and robustness. The downside to z-buffering is that it requires a large amount of memory, called a z-buffer, to store a z-value of every pixel. Most systems use a z-buffer with a depth of 24 or 32 bits. For a 1000 by 1000 display that translates into three to four megabytes just for the z-buffer. Another problem with z-buffering is that its accuracy is limited depending on its depth. A 24-bit z-buffer yields a precision of one part in 16,777,216 over the height of the viewing frustum. This resolution is often insufficient if objects are close together. If you do run into situations with z-buffering accuracy, make sure that the front and back clipping planes are as close to the visible geometry as possible.
 
 \section{Putting It All Together}
+This section provides an overview of the graphics objects and how to
+use them in VTK.
+
+\subsection*{The Graphics Model}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-24}\\
+  \caption{Illustrative diagram of graphics objects (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/Model/}{Model.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/Model/}{Model.py}).}\label{fig:Figure3-24}
+\end{figure}
+
+We have discussed many of the objects that play a part in the rendering of a scene. Now it's time to put them together into a comprehensive object model for graphics and visualization.
+
+In the \emph{Visualization Toolkit} there are seven basic objects that we use to render a scene. There are many more objects behind the scenes, but these seven are the ones we use most frequently. The objects are listed in the following and illustrated in Figure \ref{fig:Figure3-24}.
+
+\begin{itemize}
+\item vtkRenderWindow --- manages a window on the display device; one or   more renderers draw into an instance of vtkRenderWindow.
+
+\item vtkRenderer --- coordinates the rendering process involving lights,   cameras, and actors.
+
+\item vtkLight --- a source of light to illuminate the scene. 
+
+\item vtkCamera --- defines the view position, focal point, and other viewing properties of the scene.
+
+\item vtkActor --- represents an object rendered in the scene, including its properties and position in the world coordinate system. (\emph{Note}: vtkActor is a subclass of vtkProp. vtkProp is a more general form of actor that includes annotation and 2D drawing classes. See ``Assemblies and Other Types of vtkProp'' on page74 for more
+information.)
+
+\item vtkProperty --- defines the appearance properties of an actor including color, transparency, and lighting properties such as specular and diffuse. Also representational properties like wireframe and solid surface.
+
+\item vtkMapper --- the geometric representation for an actor. More than one actor may refer to the same mapper.
+\end{itemize}
+
+The class vtkRenderWindow ties the rendering process together. It is responsible for managing a window on the display device. For PCs running Windows, this will be a Microsoft display window, for Linux and UNIX systems this will be an X window, and on the Mac (OSX) a Quartz window. In VTK, instances of vtkRenderWindow are device independent. This means that you do not need to be concerned about what underlying graphics hardware or software is being used, the software automatically adapts to your computer as instances of vtkRenderWindow are created. (See ``Achieving Device Independence'' on page \pageref{sec:adi} for more information.)
+
+In addition to window management, vtkRenderWindow objects are used to manage renderers and store graphics specific characteristics of the display window such as size, position, window title, \emph{window depth}, and the d\emph{ouble buffering} flag. The depth of a window indicates how many bits are allocated per pixel. Double buffering is a technique where a window is logically divided into two buffers. At any given time one buffer is currently visible to the user. Meanwhile, the second buffer can be used to draw the next image in an animation. Once the rendering is complete, the two buffers can be swapped so that the new image is visible. This common technique allows animations to be displayed without the user seeing the actual rendering of the primitives. High-end graphics systems perform double buffering in hardware. A typical system would have a rendering window with a depth of 72 bits. The first 24 bits are used to store the red, green, and blue (RGB) pixel components for the front buffer. The next 24 bits store the RGB values for the back buffer. The last 24 bits are used as a \emph{z}-buffer.
+
+The class vtkRenderer is responsible for coordinating its lights, camera, and actors to produce an image. Each instance maintains a list of the actors, lights, and an active camera in a particular scene. At least one actor must be defined, but if lights and a camera are not defined, they will be created automatically by the renderer. In such a case the actors are centered in the image and the default camera view is down the \emph{z}-axis. Instances of the class vtkRenderer also provide methods to specify the background and ambient lighting colors. Methods are also available to convert to and from world, view, and display coordinate systems.
+
+One important aspect of a renderer is that it must be associated with an instance of the vtkRenderWindow class into which it is to draw, and the area in the render window into which it draws must be defined by a rectangular \emph{viewport}. The viewport is defined by normalized coordinates (0,1) in both the \emph{x} and \emph{y} image coordinate axes. By default, the renderer draws into the full extent of the rendering window (viewpoint coordinates (0,0,1,1)). It is possible to specify a smaller viewport. and to have more than one renderer draw into the same rendering window.
+
+Instances of the class vtkLight illuminate the scene. Various instance variables for orienting and positioning the light are available. It is also possible to turn on/off lights as well as setting their color. Normally at least one light is "on" to illuminate the scene. If no lights are defined and turned on, the renderer constructs a light automatically. Lights in VTK can be either positional or infinite. Positional lights have an associated cone angle and attenuation factors. Infinite lights project light rays parallel to one another.
+
+Cameras are constructed by the class vtkCamera. Important parameters include camera position, focal point, location of front and back clipping planes, view up vector, and field of view. Cameras also have special methods to simplify manipulation as described previously in this chapter.
+
+These include elevation, azimuth, zoom, and roll. Similar to vtkLight, an instance of vtkCamera will be created automatically by the renderer if none is defined.
+
+Instances of the class vtkActor represent objects in the scene. In particular, vtkActor combines object properties (color, shading type, etc.), geometric definition, and orientation in the world coordinate system. This is implemented behind the scenes by maintaining instance variables that refer to instances of vtkProperty, vtkMapper, and vtkTransform. Normally you need not create properties or transformations explicitly, since these are automatically created and manipulated using vtkActor's methods. You do need to create an instance of vtkMapper (or one of its subclasses). The mapper ties the data visualization pipeline to the graphics device. (We will say more about the pipeline in the next chapter.)
+
+ In VTK, actors are actually subclasses of vtkProp (arbitrary props) and vtkProp3D (those that can be transformed in 3D space. (The word “prop” is derived from the stage, where a props is an object in the scene.) There are other subclasses of props and actors with specialized behavior (see ``Assemblies and Other Types of vtkProp'' on page74 for more information). One example is vtkFollower. Instances of this class always face the active camera. This is useful when designing signs or text that must be readable from any camera position in the scene.
+
+Instances of the class vtkProperty affect the rendered appearance of an actor. When actors are created, a property instance is automatically created with them. It is also possible to create property objects directly and then associate the property object with one or more actors. In this way actors can share common properties.
+
+Finally, vtkMapper (and its subclasses) defines object geometry and, optionally, vertex colors. In addition, vtkMapper refers to a table of colors (i.e., vtkLookupTable ) that are used to color the geometry. (We discuss mapping of data to colors in ``Color Mapping'' on page163.) We will examine the mapping process in more detail in ``Mapper Design'' on page195. For now assume that vtkMapper is an object that represents geometry and other types of visualization data.
+
+There is another important object, vtkRenderWindowInteractor, that captures events (such as mouse clicks and mouse motion) for a renderer in the rendering window. vtkRenderWindowInteractor captures these events and then triggers certain operations like camera dolly, pan, and rotate, actor picking, into/out of stereo mode, and so on. Instances of this class are associated with a rendering window using the SetRenderWindow() method.
+
+\subsection*{Achieving Device Independence}
+\label{sec:adi}
+A desirable property of applications built with VTK is that they are device independent. This means that computer code that runs on one operating system with a particular software/hardware configuration runs unchanged on a different operating system and software/hardware configuration. The advantage of this is that the programmer does not need to expend effort porting an application between different computer systems. Also, existing applications do not need to be rewritten to take advantage of new developments in hardware or software technology. Instead, VTK handles this transparently by a combination of inheritance and a technique known as \emph{object factories}.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-25}\\
+  \caption{Achieving device independence using (a) inheritance and object factories (b) and (c).}\label{fig:Figure3-25}
+\end{figure}
+
+Figure \ref{fig:Figure3-25} (a) illustrates the use of inheritance to achieve device independence. Certain classes like vtkActor are broken into two parts: a device independent superclass and a device dependent subclass.
+
+\begin{samepage}
+The trick here is that the user creates a device dependent
+subclass by invoking the special constructor New() in the device independent superclass. For example we would use (in C++)
+\begin{lstlisting}[language=C++]
+vtkActor *anActor = vtkActor::New()
+\end{lstlisting}
+\noindent to create a device dependent instance of vtkActor. The user sees no device dependent code, but in actuality anActor is a pointer to a device dependent subclass of vtkActor. Figure \ref{fig:Figure3-25} (b) is a code fragment of the constructor method New() which uses VTK's object factory mechanism. In turn, the vtkGraphicsFactory (used to instantiate graphical classes) produces the appropriate concrete subclass when requested to instantiate an actor as shown in Figure \ref{fig:Figure3-25}.
+\end{samepage}
+
+The use of object factories as implemented using the New() method allows us to create device independent code that can move from computer to computer and adapt to changing technology. For example, if a new graphics library became available, we would only have to create a new device dependent subclass, and then modify the graphics factory to instantiate the appropriate sub-class based on environment variables or other system information. This extension would be localized and only done once, and all applications based on these object factories would be automatically ported without change.
+
+This section works through some simple applications implemented with VTK graphics objects. The focus is on the basics: how to create renderers, lights, cameras, and actors. Later chapters tie together these basic principles to create applications for data visualization.
+
+\subsection*{Examples}
+\subsubsection*{Render a Cone.}
+The following C++ code uses most of the objects introduced in this section to create an image of a cone. The vtkConeSource generates a polygonal representation of a cone and vtkPolyDataMapper maps the geometry (in conjunction with the actor) to the underlying graphics library. (The source code to this example can be found in \href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/Cone/}{Cone.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/Cone/}{Cone.py}. The source code contains additional documentation as well.)
+
+\begin{lstlisting}[language=C++, caption={Cone.cxx}]
+#include "vtkConeSource.h"
+#include "vtkPolyDataMapper.h"
+#include "vtkRenderWindow.h"
+#include "vtkCamera.h"
+#include "vtkActor.h"
+#include "vtkRenderer.h"
+
+int main( int argc, char *argv[] )
+{
+  vtkConeSource *cone = vtkConeSource::New();
+  cone->SetHeight( 3.0 );
+  cone->SetRadius( 1.0 );
+  cone->SetResolution( 10 );
+
+  vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
+  coneMapper->SetInputConnection( cone->GetOutputPort() );
+  vtkActor *coneActor = vtkActor::New();
+  coneActor->SetMapper( coneMapper );
+
+  vtkRenderer *ren1= vtkRenderer::New();
+  ren1->AddActor( coneActor );
+  ren1->SetBackground( 0.1, 0.2, 0.4 );
+
+  vtkRenderWindow *renWin = vtkRenderWindow::New();
+  renWin->AddRenderer( ren1 ); renWin->SetSize( 300, 300 );
+
+  int i;
+  for (i = 0; i < 360; ++i)
+    {
+// render the image
+     renWin->Render();
+// rotate the active camera by one degree
+     ren1->GetActiveCamera()->Azimuth( 1 );
+    }
+  cone->Delete();
+  coneMapper->Delete();
+  coneActor->Delete();
+// cleanup
+  ren1->Delete();
+  renWin->Delete();
+
+  return 0;
+}\end{lstlisting}
+Some comments about this example. The include files vtk*.h include class definitions for the objects in VTK necessary to compile this example. We use the constructor New() to create the objects in this example, and the method Delete() to destroy the objects. In VTK the use of New() and Delete() is mandatory to insure device independence and properly manage reference counting. (See VTK User’s Guide for details.) In this example the use of Delete() is really not necessary because the objects are automatically deleted upon program termination. But generally speaking, you should always use a Delete() for every invocation of New(). (Future examples will not show the Delete() methods in the scope of the main() program to conserve space, nor show the required \#include statements.)
+
+The data representing the cone (a set of polygons) in this example is created by linking together a series of objects into a pipeline (which is the topic of the next chapter). First a polygonal representation of the cone is created with a vtkConeSource and serves as input to the data mapper as specified with the SetInput() method. The SetMapper() method associates the mapper's data with the coneActor. The next line adds coneActor to the renderer's list of actors. The cone is rendered in a loop running over $360^\circ$. Since there are no cameras or lights defined in the above example, VTK automatically generates a default light and camera as a convenience to the user. The camera is accessed through the GetActiveCamera() method, and a one degree azimuth is applied as shown. Each time a change is made to any objects a Render() method is invoked to produce the corresponding image. Once the loop is complete all allocated objects are destroyed and the program exits.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-26}\\
+  \caption{Examples of source objects that procedurally generate polygonal models. These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check the subclasses of vtkPolyDataAlgorithm. See  \href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/SourceObjectsDemo/}{SourceObjectsDemo.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/SourceObjectsDemo/}{SourceObjectsDemo.py}}\label{fig:Figure3-26}
+\end{figure}
+
+There are many different types of source objects in VTK similar to vtkConeSource as shown in Figure \ref{fig:Figure3-26}. In the next chapter we will learn more about source and other types of filters.
+
+\subsubsection*{Events and Observers.}
+A visualization toolkit like VTK is frequently used in interactive applications or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the \emph{command/observer} design pattern \cite{Gamma9} is used for this purpose.
+
+Fundamental to this design pattern as implemented in VTK is the concept of *events*. An event signals that an important operation has occurred in the software. For example, if the user presses the left mouse button in the render window, VTK will invoke the LeftButtonPressEvent. Observers are objects that register their interest in a particular event or events. When one of these events is invoked, the observer receives notification and may perform any valid operation at that point; that is, execute the command associated with the observer. The benefit of the command/observer design pattern is that is simple in concept and implementation, yet provides significant power to the user. However it does require the software implementation to invoke events as it operates.
+
+In the next example, an observer watches for the StartEvent invoked by the renderer just as it begins the rendering process. The observer in turn executes its associated command which simply prints out the camera's current position.
+
+\begin{lstlisting}[language=C++, caption={}]
+#include "vtkCommand.h"
+// Callback for the interaction
+class vtkMyCallback : public vtkCommand
+{
+public:
+  static vtkMyCallback *New()
+    { return new vtkMyCallback; }
+  virtual void Execute(vtkObject *caller, unsigned long, void*)
+    {
+      vtkRenderer *ren =
+               reinterpret_cast<vtkRenderer*>(caller);
+      cout << ren->GetActiveCamera()->GetPosition()[0] << " "
+      ren->GetActiveCamera()->GetPosition()[1] << " "
+      ren->GetActiveCamera()->GetPosition()[2] << "n";
+    }
+};
+
+int main( int argc, char *argv[] )
+{
+  vtkConeSource *cone = vtkConeSource::New();
+  cone->SetHeight( 3.0 );
+  cone->SetRadius( 1.0 );
+  cone->SetResolution( 10 );
+
+  vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
+  coneMapper->SetInputConnection( cone->GetOutputPort() ); vtkActor
+  *coneActor = vtkActor::New(); coneActor->SetMapper( coneMapper );
+
+  vtkRenderer *ren1= vtkRenderer::New();
+  ren1->AddActor( coneActor );
+  ren1->SetBackground( 0.1, 0.2, 0.4 );
+
+  vtkRenderWindow *renWin = vtkRenderWindow::New();
+  renWin->AddRenderer( ren1 ); renWin->SetSize( 300, 300 );
+
+  vtkMyCallback *mo1 = vtkMyCallback::New();
+  ren1->AddObserver(vtkCommand::StartEvent,mo1); mo1->Delete();
+
+  int i;
+  for (i = 0; i < 360; ++i)
+  {
+  //   render the image
+    renWin->Render();
+  // rotate the active camera by one degree
+    ren1->GetActiveCamera()->Azimuth( 1 );
+  }
+
+  cone->Delete();
+  coneMapper->Delete();
+  coneActor->Delete();
+  ren1->Delete();
+  renWin->Delete();
+  return 0;
+}
+\end{lstlisting}
+
+The observer is created by deriving from the class vtkCommand. The Execute() method is required to be implemented by any concrete subclass of vtkCommand (i.e., the method is pure virtual). The resulting subclass, vtkMyCommand, is instantiated and registered with the renderer instance ren1 using the AddObserver() method. In this case the StartEvent is the observed event.
+
+This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( ``Interpreted Code'' on page \pageref{pg:ic} ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three-dimensional interaction widgets will be introduced ( ``3D Widgets and User Interaction''  on page \pageref{sec:3dwui} ).
+
+\subsubsection*{Creating Multiple Renderers.}
+The next example is a bit more complex and uses multiple renderers that share a single rendering window. We use viewports to define where the renderers should draw in the render window. (This C++ code can be found in Cone3.cxx.)
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure3-27}\\
+  \caption{Two frames of output from Cone3.cxx. See  \href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/Cone3/}{Cone3.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/Cone3/}{Cone3.py}}\label{fig:Figure3-27}
+\end{figure}
+
+\begin{lstlisting}[language=C++, caption={Cone3.cxx}]
+vtkRenderer *ren1= vtkRenderer::New();
+ren1->AddActor( coneActor );
+ren1->SetBackground( 0.1, 0.2, 0.4 );
+ren1->SetViewport(0.0, 0.0, 0.5, 1.0);
+
+vtkRenderer *ren2= vtkRenderer::New();
+ren2->AddActor( coneActor );
+ren2->SetBackground( 0.2, 0.3, 0.5 );
+ren2->SetViewport(0.5, 0.0, 1.0, 1.0);
+
+vtkRenderWindow *renWin = vtkRenderWindow::New();
+renWin->AddRenderer( ren1 ); renWin->AddRenderer( ren2 );
+renWin->SetSize( 600, 300 );
+
+ren1->GetActiveCamera()->Azimuth(90);
+
+int i;
+for (i = 0; i < 360; ++i)
+  {
+  // render the image renWin->Render();
+  // rotate the active camera by one degree
+    ren1->GetActiveCamera()->Azimuth( 1 );
+    ren2->GetActiveCamera()->Azimuth( 1 );
+  }
+\end{lstlisting}
+
+As you can see, much of the code is the same as the previous example. The first difference is that we create two renderers instead of one. We assign the same actor to both renderers, but set each renderer's background to a different color. We set the viewport of the two renderers so that one is on the left half of the rendering window and the other is on the right. The rendering window's size is specified as 600 by 300 pixels, which results in each renderer drawing into a viewport of 300 by 300 pixels.
+
+A good application of multiple renderers is to display different views of the same world as demonstrated in this example. Here we adjust the first renderer's camera with a 90 degree azimuth. We then start a loop that rotates the two cameras around the cone. Figure \ref{fig:Figure3-26} shows two frames from this animation.
+
+\subsubsection*{Introducing vtkRenderWindowInteractor.}
+\label{pg:rwi}
+
+\subsubsection*{Interpreted Code.}
+\label{pg:ic}
 
 \section{Chapter Summary}
 
