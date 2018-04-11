@@ -21,6 +21,17 @@
 \usepackage{indentfirst}
 \usepackage{titlesec}
 \titleformat{\chapter}{\large\bfseries}{\thesection}{1em}{\hrule}
+\usepackage{listings}
+% Set the default code style.
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=2, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
 
 \usepackage[
     refsection=chapter,
@@ -89,7 +100,7 @@
 \newcommand {\onehalf} {\dfrac{3}{2}}
 \newcommand{\firstletter}[1] {\lettrine[lines=2, lraise=0.7]{\color{Sepia}\textit{#1}}}
 
-
+\newcommand{\listcpp}[1] {{\lstlisting[style=mycpp]{#1}}}
 %%% ----------------------------------------------------------------------
 
   % Horizontal spacing.
