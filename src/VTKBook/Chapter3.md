@@ -140,7 +140,7 @@ $$
 
 where $R_d$ is the resulting intensity curve due to diffuse lighting, $L_c$ is the intensity curve for the light, and $O_c$ is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector andL nthe surface normal of the object. As a result On diffuse lighting is independent of viewer position.
 
-*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, *Osp*, indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure3–9**, the equation for specular lighting is
+*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, *Osp*, indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure3-9**, the equation for specular lighting is
 
 $$
 R_s . = L_cO_s[\overrightarrow{S} \cdot (-\overrightarrow{C}_n)] ^{O_{sp}}\\
@@ -791,7 +791,7 @@ After the interactor is created using its New() method, we must tell it what ren
 The Visualization Toolkit has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in **Figure3-29**. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl.)
 
 !!! warning "Missing Figure"
-    **Figure 3–29**In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.
+    **Figure 3-29**In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.
 
 ``` tcl
 package require vtk
