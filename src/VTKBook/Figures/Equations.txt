@@ -1,3 +1,15 @@
+Figure 6-1
+$$
+\left. \begin{aligned}
+&s_i = min, i = 0 \\
+&s_i > max, i = n-1 \\
+&i =n \left(\frac{s_i - min}{max - min}\right)
+\end{aligned}\right.
+
+Figure 6-12 - PNG generated with http://latex2png.com/
+Figure 6-12
+s_i = \frac{(p_i-p_j) \cdot (p_h-p_l)}{|p_h-p_l|^2}
+
 Figure 6-21c - PNG generated with http://latex2png.com/
 
 $$

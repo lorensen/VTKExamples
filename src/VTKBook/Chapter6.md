@@ -158,8 +158,11 @@ Several different approaches have been taken to remedy this problem. One approac
 <figcaption><b>Figure 6-8</b>. Choosing a particular contour case will break (a) or join (b) the current contour. Case shown is marching squares case 10.</figcaption>
 </figure>
 
-!!! warning "Missing Figure"
-    **Figure 6-9** Arbitrarily choosing marching cubes cases leads to holes in the isosurface.
+<figure id="Figure6-9">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-9.png?raw=true width="640" alt="Figure6-9">
+</figure>
+<figcaption><b>Figure 6-9</b>. Arbitrarily choosing marching cubes cases leads to holes in the isosurface. </figcaption>
+</figure>
 
 A simple and effective solution extends the original 15 marching cubes cases by adding additional complementary cases. These cases are designed to be compatible with neighboring cases and prevent the creation of holes in the isosurface. There are six complementary cases required, corresponding to the marching cubes cases 3, 6, 7, 10, 12, and 13. The complementary marching cubes cases are shown in **Figure6-10**.
 
@@ -196,12 +199,14 @@ For example, consider terrain data. We assume that the data is *xyz* coordinates
 
 This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the *z*-coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point $p_l$ (e.g., sea level) and ending at the (high) point $p_h$ (e.g., mountain top), we compute the elevation scalar $s_i$ at point $p_i = (x_i, y_i,z_i)$ using the dot product as shown in **Figure6-12. The scalar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 ranging from deep blue (water) to yellow-white (mountain top) is used to color map this figure.
 
-!!! warning "Missing Figure"
-    Part of Figure *6-12* missing
-
 <figure id="Figure6-12">
- <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestHawaii.png?raw=true width="640" alt="Figure 6-12">
- <figcaption><b>Figure 6-12</b>. Computing scalars using normalized dot product. Bottom half of figure illustrates technique applied to terrain data from Honolulu, Hawaii.<a href="../../Cxx/Visualization/Hawaii/" title="Hawaii"> See Haaii.cxx</a> and <a href="../../Python/Visualization/Hawaii/" title="Hawaii">Hawaii.py</a>.</figcaption>
+  <figure id="Figure6-12a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-12a.png?raw=true width="640" alt="Figure6-12a">
+  </figure>
+  <figure>
+     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestHawaii.png?raw=true width="640" alt="Figure 6-12">
+  </figure>
+  <figcaption><b>Figure 6-12</b>. Computing scalars using normalized dot product. Bottom half of figure illustrates technique applied to terrain data from Honolulu, Hawaii.<a href="../../Cxx/Visualization/Hawaii/" title="Hawaii"> See Hawaii.cxx</a> and <a href="../../Python/Visualization/Hawaii/" title="Hawaii">Hawaii.py</a>.</figcaption>
 </figure>
 
 Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
@@ -217,16 +222,15 @@ scaled line for each vector (**Figure6-13** (a)). The line begins at the point w
 
 There are many variations of this technique ( **Figure6-13** (b)). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented "glyphs" can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
 
-!!! warning "Missing Figure"
-    Figure *6-13a
-
-!!! warning "Missing Figure"
-    Figure *6-13b
-
-
 <figure id="Figure6-13">
- <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestComplexV.png?raw=true width="640" alt="Figure 6-13">
- <figcaption><b>Figure 6-13</b>. Vector visualization techniques: (a) oriented lines; (b) using oriented glyphs; (c) complex vector visualization.<a href="../../Cxx/Visualization/ComplexV" title="ComplexVw"> See ComplexV.cxx</a> and <a href="../../Python/Visualization/ComplexV" title="ComplexV"> ComplexV.py</a>.</figcaption>
+  <figure id="Figure6-13a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-13.png?raw=true width="640" alt="Figure6-13a">
+  </figure>
+  <figure>
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestComplexV.png?raw=true width="640" alt="Figure 6-13">
+    <figcaption>(c) Complex display. </figcaption>
+  </figure>
+<figcaption><b>Figure 6-13</b>. Vector visualization techniques: (a) oriented lines; (b) using oriented glyphs; (c) complex vector visualization.<a href="../../Cxx/Visualization/ComplexV" title="ComplexVw"> See ComplexV.cxx</a> and <a href="../../Python/Visualization/ComplexV" title="ComplexV"> ComplexV.py</a>.</figcaption>
 </figure>
 
 Care should be used in applying these techniques. In 3D it is often difficult to understand the position and orientation of a vector because of its projection into a 2D image. Also, using large numbers of vectors can clutter the display to the point where the visualization becomes meaningless. **Figure6-13** (c) shows 167,000 3D vectors (using oriented and scaled lines) in the region of the human carotid artery. The larger vectors lie inside the arteries, the smaller vectors lie outside the arteries and are randomly oriented (measurement error) but small in magnitude. Clearly the details of the vector field are not discernible from this image.
@@ -351,9 +355,7 @@ Borrowing terminology from the study of fluid flow, we can define three related 
 $$
 % EQUATION 6-5
 % just my $0.02 worth - stationary velocity field V, streamline S
-\begin{equation*}
 \vec{s}(t) = \int_{\tau = t_0}^{t} \vec{V}\left(\vec{s}\left(\tau\right)\right)\text{d}\tau
-\end{equation*}
 \bf\tag{6-5}
 $$
 
