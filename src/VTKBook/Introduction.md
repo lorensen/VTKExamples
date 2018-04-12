@@ -48,8 +48,11 @@ There is confusion surrounding the difference between imaging, computer graphics
 
 - *Imaging* , or image processing, is the study of 2D pictures, or images. This includes techniques to transform (e.g., rotate, scale, shear), extract information from, analyze, and enhance images.
 
-!!! warning "Missing Figure"
-    **Figure 1--1** The visualization process. Data from various sources is repeatedly transformed to extract, derive, and enhance information.
+<figure id="Figure1-1">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure1-1.png?raw=true width="640" alt="Figure1-1">
+</figure>
+<figcaption><b>Figure 1-1</b>. The visualization process. Data from various sources is repeatedly transformed to extract, derive, and enhance information.</figcaption>
+</figure>
 
 The resulting data is mapped to a graphics system for display.
 

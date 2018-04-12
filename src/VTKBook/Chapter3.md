@@ -543,8 +543,11 @@ There is another important object, vtkRenderWindowInteractor, that captures even
 
 A desirable property of applications built with VTK is that they are device independent. This means that computer code that runs on one operating system with a particular software/hardware configuration runs unchanged on a different operating system and software/hardware configuration. The advantage of this is that the programmer does not need to expend effort porting an application between different computer systems. Also, existing applications do not need to be rewritten to take advantage of new developments in hardware or software technology. Instead, VTK handles this transparently by a combination of inheritance and a technique known as *object factories*.
 
-!!! warning "Missing Figure"
-    **Figure 3-25** Achieving device independence using (a) inheritance and object factories (b) and (c).
+<figure id="Figure3-25">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-25.png?raw=true width="640" alt="Figure3-25">
+</figure>
+<figcaption><b>Figure 3-25</b>. Achieving device independence using (a) inheritance and object factories (b) and (c).</figcaption>
+</figure>
 
 **Figure3-25** (a) illustrates the use of inheritance to achieve
 device independence. Certain classes like vtkActor are broken into two
@@ -616,7 +619,7 @@ int main( int argc, char *argv[] )
 <figure id="Figure3-26">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/GeometricObjects/TestSourceObjectsDemo.png?raw=true width="640" alt="Figure 3-26">
 </figure>
-<figcaption><b>Figure 3-26</b>. Examples of source objects that procedurally generate polygonal models. These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check subclasses of vtkPolyDataAlgorithm. <a href="../../Cxx/GeometricObjects/SourceObjectsDemo" title="SourceObjectsDemo"> See SourceObjectsDemo.cxx</a> and <a href="../../Python/GeometricObjects/SourceObjectsDemo" title="SourceObjectsDemo"> SourceObjectsDemo.py</a>.</figcaption>
+<figcaption><b>Figure 3-26</b>. Examples of source objects that procedurally generate polygonal models. These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check subclasses of &#118;tkPolyDataAlgorithm. <a href="../../Cxx/GeometricObjects/SourceObjectsDemo" title="SourceObjectsDemo"> See SourceObjectsDemo.cxx</a> and <a href="../../Python/GeometricObjects/SourceObjectsDemo" title="SourceObjectsDemo"> SourceObjectsDemo.py</a>.</figcaption>
 </figure>
 
 Some comments about this example. The include files *vtk__*.h include class definitions for the objects in VTK necessary to compile this example. We use the constructor New() to create the objects in this example, and the method Delete() to destroy the objects. In VTK the use of New() and Delete() is mandatory to insure device independence and properly manage reference counting. (See VTK User’s Guide for details.) In this example the use of Delete() is really not necessary because the objects are automatically deleted upon program termination. But generally speaking, you should always use a Delete() for every invocation of New(). (Future examples will not show the Delete() methods in the scope of the main() program to conserve space, nor show the required #include statements.)
@@ -790,8 +793,11 @@ After the interactor is created using its New() method, we must tell it what ren
 
 The Visualization Toolkit has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in **Figure3-29**. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl.)
 
-!!! warning "Missing Figure"
-    **Figure 3-29**In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.
+<figure id="Figure3-29">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-29.png?raw=true width="640" alt="Figure3-29">
+</figure>
+<figcaption><b>Figure 3-29</b>. In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.</figcaption>
+</figure>
 
 ``` tcl
 package require vtk
@@ -826,8 +832,11 @@ iren Initialize
 wm withdraw .
 ```
 
-!!! warning "Missing Figure"
-    **Figure 3-30** Using Tcl and Tk to build an interpreted application ( Cone5.tcl ).
+<figure id="Figure3-30">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-30.png?raw=true width="640" alt="Figure3-30">
+</figure>
+<figcaption><b>Figure 3-30</b>. Using Tcl and Tk to build an interpreted application. </figcaption>
+</figure>
 
 The example begins by loading some shared libraries defining various VTK classes. Next the standard visualization pipeline is created from the vtkConeSource and vtkPolyDataMapper. The rendering classes are created exactly the same as with the C++ example. One major addition is an observer to watch for a UserEvent in the rendering window (by default a "keypress-u"). The observer triggers the invocation of a Tcl script to raise a Tk interactor GUI widget called.vtkInteract. This GUI, which allows the direct typing of Tcl statements, is shown in **Figure3-30** and is defined by the Tcl command package require vtkinteraction which was executed earlier in the script. (Note: Tk is a popular GUI toolkit for interpreted languages and is distributed as part of Tcl.) 
 
@@ -998,6 +1007,12 @@ assembly RotateX 15
 ren1 AddActor assembly
 ren1 AddActor coneActor
 ```
+
+<figure id="Figure3-34">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-34.png?raw=true width="640" alt="Figure3-34">
+</figure>
+<figcaption><b>Figure 3-34</b>. Figure 3–34 The &#118;tkProp hierarchy. Props that can be transformed in 3D space are a subclass of &#118;tkProp3D. Images can be drawn effectively with &#118;tkImageActor. Overlay text and graphics use &#118;tkActor2D. Hierarchical groups of &#118;tkProps are gathered into a &#118;tkPropAssembly. Volume rendering uses &#118;tkVolume. Collections of transformable props create a &#118;tkAssembly. Level-of-detail rendering uses &#118;tkLODProp3D and &#118;tkLODActor. A &#118;tkFollower allows faces a specified camera and is used for billboards.</figcaption>
+</figure>
 
 Note that in this example various actors are added to the assembly with the AddPart() method. The top-level element of the assembly is the only prop in the hierarchy added to the renderer (with AddActor() ). Note also that the coneActor appears twice: once as a part of the assembly, and once as a separate actor added to the renderer with AddActor(). As you might imagine, this means that the rendering of assemblies requires concatenation of transformation matrices to insure the correct positioning of each vtkProp3D. Furthermore, hierarchical assemblies require special treatment during picking (i.e., graphically selecting props) since a vtkProp can appear more than once in differ-ent assembly hierarchies. Picking issues are discussed in more detail in "Picking" on page308.
 
