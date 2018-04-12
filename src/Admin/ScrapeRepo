@@ -68,6 +68,8 @@ def CopyChapterAndAddLinks(fromFile, toFile):
                 line = AddDoxygen(line)
                 figureFound = sorted(re.findall(r'\*\*(Figure[^\*]*)\*\*', line), reverse=True)
                 if len(figureFound) > 0:
+                    print(figureFound)
+                    print(line)
                     for figure in figureFound:
                         if figure in htmlIdSet :
                             line = line.replace(figure, r'<a href="#' + figure.replace("Figure","FIGURE") + '">**'+ figure.replace("Figure","FIGURE") + r'**</a>')
