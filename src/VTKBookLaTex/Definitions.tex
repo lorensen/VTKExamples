@@ -14,6 +14,8 @@
 
 \usepackage{txfonts}
 \usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{floatrow}
 \usepackage{subcaption}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{array}
@@ -24,13 +26,14 @@
 \usepackage{listings}
 % Set the default code style.
 \lstset{
+basicstyle=\normalsize\ttfamily\color{Sepia},
     frame=tb, % draw a frame at the top and bottom of the code block
     tabsize=2, % tab space width
     showstringspaces=false, % don't mark spaces in strings
     numbers=left, % display line numbers on the left
-    commentstyle=\color{green}, % comment color
-    keywordstyle=\color{blue}, % keyword color
-    stringstyle=\color{red} % string color
+    commentstyle=\color{Green}, % comment color
+    keywordstyle=\color{Blue}, % keyword color
+    stringstyle=\color{Maroon} % string color
 }
 
 \usepackage[
@@ -51,9 +54,9 @@
 \usepackage{hyperref}
 \hypersetup{
     colorlinks = true,
-    linkbordercolor = {white},
+    linkbordercolor = {White},
     urlcolor = {Blue},
-    linkcolor = {Maroon},
+    linkcolor = {RoyalPurple},
     citecolor = {BlueViolet}
 }
 
