@@ -16,9 +16,14 @@ Original/*
 *.bbl
 *.bcf
 *.blg
+*.equ
+*.glg
+*.glo
+*.gls
 *.idx
 *.ilg
 *.ind
+*.ist
 *.lof
 *.log
 *.lot
