@@ -90,6 +90,12 @@ from Bernard Mehan
     \end{equation*}
     \bf\tag{7-6}
 
+    % EQUATION 7-6 repaired
+    \begin{equation*}
+    I(t_0, \vec{\omega}) = \int_{t_0}^{\infty} E(\tau) e^{-\int_{t_0}^{t} \sigma_\text{a}(t') \, \text{d}t'}dt
+    \end{equation*}
+    \bf\tag{7-6}
+
     % EQUATION 7-7
     \begin{equation*}
     I(t_\text{near}, \vec{\omega}) = \sum_{t = t_\text{near}}^{t \leq t_\text{far}} \alpha(t) \prod_{t' = t_\text{near}}^{t' < t_\text{far}}\left(1 - a(t') \right)

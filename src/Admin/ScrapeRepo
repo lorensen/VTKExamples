@@ -68,8 +68,6 @@ def CopyChapterAndAddLinks(fromFile, toFile):
                 line = AddDoxygen(line)
                 figureFound = sorted(re.findall(r'\*\*(Figure[^\*]*)\*\*', line), reverse=True)
                 if len(figureFound) > 0:
-                    print(figureFound)
-                    print(line)
                     for figure in figureFound:
                         if figure in htmlIdSet :
                             line = line.replace(figure, r'<a href="#' + figure.replace("Figure","FIGURE") + '">**'+ figure.replace("Figure","FIGURE") + r'**</a>')
@@ -370,6 +368,7 @@ CreateHtmlIds(RepoDir + "/VTKBook/Preface.md")
 CreateHtmlIds(RepoDir + "/VTKBook/Introduction.md")
 CreateHtmlIds(RepoDir + "/VTKBook/Chapter3.md")
 CreateHtmlIds(RepoDir + "/VTKBook/Chapter6.md")
+CreateHtmlIds(RepoDir + "/VTKBook/Chapter7.md")
 CreateHtmlIds(RepoDir + "/VTKBook/Chapter12.md")
 CreateHtmlIds(RepoDir + "/VTKBook/Glossary.md")
 
@@ -378,6 +377,7 @@ CopyChapterAndAddLinks(RepoDir + "/VTKBook/Preface.md", DocDir + "/VTKBook/Prefa
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Introduction.md", DocDir + "/VTKBook/Introduction.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter3.md", DocDir + "/VTKBook/Chapter3.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter6.md", DocDir + "/VTKBook/Chapter6.md")
+CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter7.md", DocDir + "/VTKBook/Chapter7.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Chapter12.md", DocDir + "/VTKBook/Chapter12.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/Glossary.md", DocDir + "/VTKBook/Glossary.md")
 
