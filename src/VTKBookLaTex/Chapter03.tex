@@ -125,6 +125,7 @@ As rays of light travel through space, some of them intersect our actors. When t
 \begin{equation}\label{eq:3.1}
   R_a = L_c \cdot O_a
 \end{equation}
+\myequations{Ambient Lighting}
 
 where $R_a$ is the resulting intensity curve due to ambient lighting, $L_c$ is the intensity curve of the ambient light, and $O_a$ is the color curve of the object. To help keep the equations simple we assume that all of the direction vectors are normalized (i.e., have a magnitude of one).
 
@@ -141,6 +142,7 @@ The contribution from diffuse lighting is expressed in Equation \ref{eq:3.2} and
 \begin{equation}\label{eq:3.2}
   R_d = L_cO_d[\overrightarrow{O}_n \cdot (-\overrightarrow{L}_n)]
 \end{equation}
+\myequations{Diffuse Lighting Contribution}
 
 where $R_d$ is the resulting intensity curve due to diffuse lighting, $L_c$ is the intensity curve for the light, and $O_c$ is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector and $\overrightarrow{L}_n$ and the surface normal of the object $\overrightarrow{O}_n$. As a result diffuse lighting is independent of viewer position.
 
@@ -150,6 +152,8 @@ where $R_d$ is the resulting intensity curve due to diffuse lighting, $L_c$ is t
   R_s . = L_cO_s[\overrightarrow{S} \cdot (-\overrightarrow{C}_n)] ^{O_{sp}}\\
 \overrightarrow{S} = 2[\overrightarrow{O}_n \cdot (-\overrightarrow{L}_n)]\overrightarrow{O}_n + \overrightarrow{L}_n
 \end{equation}
+\myequations{Specular Lighting}
+
 where $\overrightarrow{C}_n$ is the direction of projection for the camera and $\overrightarrow{S}$ is the direction of specular reflection.
 
 \begin{figure}[!htb]
@@ -169,6 +173,8 @@ We have presented the equations for the different lighting models independently.
 \begin{equation}\label{eq:3.4}
   R_c = O_{ai}O_{ac}L_c - O_{di}O_{dc}L_c(\overrightarrow{O}_n \cdot \overrightarrow{L}_n) + O_{si}O_{sc}L_c[\overrightarrow{S} \cdot(-\overrightarrow{C}_n)]^{O_{sp}}
 \end{equation}
+\myequations{Ambient, Diffuse and Specular Lighting}
+
 
 The result is a color at a point on the surface of the object. The constants $O_{ai}$, $O_{di}$, and $O_{si}$ control the relative amounts of ambient, diffuse and specular lighting for an object. The constants $O_{ac}$ $O_{dc}$ and $O_{sc}$ specify the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in “Lights” on \ref{Lights}. However the equation can be easily modified to incorporate other types of directional lighting.
 
@@ -247,6 +253,7 @@ The usual way of representing a point in 3D is the three element Cartesian vecto
 \begin{equation}\label{eq:3.5}
 x = \frac{x_h}{w_h}\ \ \ \  x = \frac{y_h}{w_h}\ \ \ \ x = \frac{z_h}{w_h}
 \end{equation}
+\myequations{Cartesian to Homogenous Conversion}
 
 Using homogeneous coordinates we can represent an infinite point by setting w h to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 transformation matrix . Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a 3x3 matrix.
 
@@ -260,6 +267,7 @@ T_T = \left[\begin{array}{cccc}
 0 & 0 & 0 & 1
 \end{array}\right]
 \end{equation}
+\myequations{Translation}
 
 and then postmultiply it with the homogeneous coordinate $(x_h, y_h, z_h, w_h)$. To carry this example through, we construct the homogeneous coordinate from the Cartesian coordinate $( x, y, z)$ by setting $w_h = 1$ to yield $(x, y, z, 1)$. Then to determine the translated point $(x' , y', z')$ we premultiply current position by the transformation matrix $T_T$ to yield the translated coordinate. Substituting into Equation \ref{eq:3.6} we have the result
 
@@ -283,13 +291,14 @@ z      \\
 \end{array}\right] 
 \end{equation}
 
-Converting back to Cartesian coordinates via Equation\ref{eq:3.5} we have the expected solution
+Converting back to Cartesian coordinates via Equation \ref{eq:3.5} we have the expected solution
 
 \begin{equation}\label{eq:3.8}
 x' = x +t_x \\
 y' = y + t_y \\
 z' = z + t_z
 \end{equation}
+\myequations{Homogenous to Cartesian}
 
 The same procedure is used to scale or rotate an object. To scale an object we use the transformation matrix
 
@@ -301,6 +310,8 @@ s_x & 0 & 0 & 0 \\
 0 & 0 & 0 & 1
 \end{array}\right]
 \end{equation}
+\myequations{Scaling}
+
 
 where the parameters $s_x, s_y$, and $s_z$ are scale factors along the $x, y, z$ axes. Similarly we can rotate an object around the $x$ axes by angle $\theta$ using the matrix
 
@@ -312,6 +323,8 @@ T_{R_x} = \left[\begin{array}{cccc}
 0 & 0 & 0 & 1
 \end{array}\right]
 \end{equation}
+\myequations{$X-$axis rotation }
+
 
 Around the $y$ axis we use
 
@@ -323,6 +336,7 @@ TT_{R_y} = \left[\begin{array}{cccc}
 0 & 0 & 0 & 1
 \end{array}\right]
 \end{equation}
+\myequations{$Y-$axis rotation }
 
 and around the $z$ axis we use
 
@@ -334,6 +348,7 @@ T_{R_z} = \left[\begin{array}{cccc}
 0 & 0 & 0 & 1
 \end{array}\right]
 \end{equation}
+\myequations{$Z-$axis rotation }
 
 Another useful rotation matrix is used to transform one coordinate axes $x-y-z$ to another coordinate axes $x'-y'-z'$. To derive the transformation matrix we assume that the unit $x'$. To derive the transformation matrix we assume that the unit $x'$ axis make the angles $(\theta_{x'x},\theta_{x'y},\theta_{x'z})$ around the x-y-z axes (these are called direction cosines). Similarly, the unit $y'$ axis makes the angles $(\theta_{y'x},\theta_{y'y},\theta_{y'z})$ and the unit $z'$ axis makes the angles $(\theta_{z'x},\theta_{z'y},\theta_{z'z})$. The resulting rotation matrix is formed by placing the direction cosines along the rows of the transformation matrix as follows
 
@@ -345,6 +360,8 @@ T_R = \left[\begin{array}{cccc}
 0 & 0 & 0 & 1
 \end{array}\right]
 \end{equation}
+\myequations{Transform from $x-y-z$ to $x'-y'-z'$ }
+
 
 Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object’s center . To rotate around we Oc must first translate the object to the Oorigin, apply rotations, and then translate the object back.
 
@@ -685,7 +702,7 @@ int main( int argc, char *argv[] )
 
 The observer is created by deriving from the class vtkCommand. The Execute() method is required to be implemented by any concrete subclass of vtkCommand (i.e., the method is pure virtual). The resulting subclass, vtkMyCommand, is instantiated and registered with the renderer instance ren1 using the AddObserver() method. In this case the StartEvent is the observed event.
 
-This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( ``Interpreted Code'' on page \pageref{pg:ic} ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three-dimensional interaction widgets will be introduced ( ``3D Widgets and User Interaction''  on page \pageref{sec:3dwui} ).
+This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( ``Interpreted Code'' on page \pageref{pg:ic} ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three-dimensional interaction widgets will be introduced ( ``\gls{3D Widget}s and User Interaction''  on page \pageref{sec:3dwui} ).
 
 \subsubsection{Creating Multiple Renderers.}
 The next example is a bit more complex and uses multiple renderers that share a single rendering window. We use viewports to define where the renderers should draw in the render window. (This C++ code can be found in Cone3.cxx.)
@@ -856,6 +873,7 @@ The vtkActor class applies transformations in an order that we feel is natural t
 \begin{equation}\label{eq:3.14}
 T = T_T(p_x + o_{x'}p_y + o_{y'}p_y + o_z)T_{R_z}T_{R_x}T_{R_z}T_ST_T(-o_x,-o_y,-o_z)
 \end{equation}
+\myequations{vtkActor transforms}
 
 The term $T_T(x, y, z)$ denotes the translations in the $x,y$ and $z$ direction. Recall that we premultiply the transformation matrix times the position vector. This means the transformations are read from right to left. In other words, Equation \eqref{eq:3.14} proceeds as follows:
 

@@ -10,7 +10,13 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 %\usepackage{mathrsfs}
+
 \usepackage{tocloft}
+\newcommand{\listequationsname}{List of Equations}
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+\setlength{\cftmyequationsnumwidth}{2.5em}% Width of equation number in List of Equations
 
 \usepackage{txfonts}
 \usepackage{graphicx}
@@ -56,7 +62,7 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
     colorlinks = true,
     linkbordercolor = {White},
     urlcolor = {Blue},
-    linkcolor = {RoyalPurple},
+    linkcolor = {Brown},
     citecolor = {BlueViolet}
 }
 
@@ -103,7 +109,7 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
 \newcommand {\onehalf} {\dfrac{3}{2}}
 \newcommand{\firstletter}[1] {\lettrine[lines=2, lraise=0.7]{\color{Sepia}\textit{#1}}}
 
-\newcommand{\listcpp}[1] {{\lstlisting[style=mycpp]{#1}}}
+%\newcommand{\listcpp}[1] {{\lstlisting[style=mycpp]{#1}}}
 %%% ----------------------------------------------------------------------
 
   % Horizontal spacing.
