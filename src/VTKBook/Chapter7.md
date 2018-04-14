@@ -1,4 +1,4 @@
-# Chapter 7*
+# Chapter 7 - Advanced Computer Graphics
 
 *C*hapter 3 introduced fundamental concepts of computer graphics. A major topic in that chapter was how to represent and render geometry using surface primitives such as points, lines, and polygons. In this chapter our primary focus is on volume graphics. Compared to surface graphics, volume graphics has a greater expressive range in its ability to render inhomogeneous materials, and is a dominant technique for visualizing 3D image (volume) datasets.
 
@@ -13,7 +13,6 @@ Transparency and its complement, opacity, are often referred to as *alpha* in co
 Unfortunately, having transparent actors introduces some complications into the rendering process. If you think back to the process of ray tracing, viewing rays are projected from the camera out into the world, where they intersect the first actor they come to. With an opaque actor, the lighting equations are applied and the resulting color is drawn to the screen. With a semitransparent actor we must solve the lighting equations for this actor, and then continue projecting the ray farther to see if it intersects any other actors. The resulting color is a composite of all the actors it has intersected. For each surface intersection this can be expressed as **Equation7-1**.
 
 $$
-% EQUATION 7-1
 \begin{eqnarray*}
 R &=& (1 - A_s) R_b + A_s R_s \\
 G &=& (1 - A_s) G_b + A_s G_s \\
@@ -181,7 +180,7 @@ The ray is typically represented in parametric form as
 
 $$
 \begin{equation*}
-(x, y, z) = (x_0, y_0, z_0) + (a, b, c) t
+\left(x, y, z\right) = \left(x_0, y_0, z_0\right) + \left(a, b, c\right) t
 \end{equation*}
 \bf\tag{7-2}
 $$
@@ -380,7 +379,6 @@ Classifying a volume based on scalar value alone is often not capable of isolati
 If we are using a higher-order interpolation function such as tri-cubic interpolation then we can analytically compute the gradient vector at any location in the dataset by evaluating the first derivative of the interpolation function. Although we can use this approach for trilinear interpolation, it may produce undesirable artifacts since trilinear interpolation is not continuous in its first derivative across voxel boundaries. An alternative approach is to employ a finite differences technique to approximate the gradient vector:
 
 $$
-% EQUATION 7-3
 \begin{eqnarray*}
 g_x &=& \frac{f(x + \Delta x, y, z) - f(x - \Delta x, y, z)}{2 \Delta x} \\
 g_y &=& \frac{f(x, y + \Delta y, z) - f(x, y - \Delta y, z)}{2 \Delta y} \\
@@ -408,21 +406,18 @@ Maximum intensity Composite (unshaded) Composite (shaded)
 To accurately capture lighting effects, we could use a transport theory illumination model \[Krueger91\] that describes the intensity of light $I$ arriving at a pixel by the path integral along the ray:
 
 $$
-% EQUATION 7-4
 \begin{equation*}
-I(t_0, \vec{\omega}) = \int_{t_0}^{\infty} Q(\tau) \exp\left(-\int_{t_0}^{t} \sigma_\text{a}(\tau) + \sigma_\text{sc}(\tau) \, \text{d} \tau \right) \, \text{d}\tau
+I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} Q\left(\tau\right) e^{\left(-\int_{t_0}^{t} \sigma_\text{a}\left(\tau\right) + \sigma_\text{sc}\left(\tau\right) \, \text{d} \tau\right)}) \, \text{d}\tau
 \end{equation*}
 \bf\tag{7-4}
 $$
 
-If we are using camera clipping planes, then $t_0$ and $iinfty$ would be replaced
+If we are using camera clipping planes, then $t_0$ and $\infty$ would be replaced
 by the distance to the near clip plane $t_{near}$ and the distance to
 the far cl[ip] $t_{far}$ respectively. The contribution $Q(t)$ from each sample at a distance $t$ along the ray is attenuated according to how much intensity is lost on the way from $t$ to $t_0$ due to absorption $\sigma_a(t')$ and scattering $\sigma_{sc}(t')$. The
 contributions at $t$ can be defined as:
 
 $$
-% EQUATION 7-5
-% perhaps with a note that capital omega is "over all solid angles"
 \begin{equation*}
 Q(t) = E(t) + \sigma_\text{sc}(t) \int_{\Omega} \rho_{sc}(\omega' \to \omega) I(t, \omega') \, \text{d}\omega'
 \end{equation*}
@@ -434,9 +429,8 @@ The contribution consists of the amount of light directly emitted by the sample 
 If scattering is accurately modelled, then basing the ray function on the transport theory illumination model will produce images with realistic lighting effects. Unfortunately, this illumination model is too complex to evaluate, therefore approximations are necessary for a practical implementation. One of the simplest approximations is to ignore scattering completely, yielding the following intensity equation:
 
 $$
-% EQUATION 7-6 repaired
 \begin{equation*}
-I(t_0, \vec{\omega}) = \int_{t_0}^{\infty} E(\tau) e^{-\int_{t_0}^{t} \sigma_\text{a}(t') \, \text{d}t'}dt
+I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} E\left(\tau\right) e^\left(-\int_{t_0}^{t} \sigma_\text{a}\left(\tau\right) \, \text{d} \tau \right) \, \text{d}\tau
 \end{equation*}
 \bf\tag{7-6}
 $$
@@ -458,191 +452,35 @@ along the ray. The outer integral can be replaced by a summation over
 samples along the ray within some clipping range, while the inner
 integral can be approximated using an over operator:
 
-<table
-<tbody
-<tr class="odd"
-<td<blockquote
-<pnear</p
-</blockquote</td
-<td</td
-<td<blockquote
-<ptt£</p
-</blockquote</td
-<td<blockquote
-<pfar</p
-</blockquote</td
-<td</td
-<td<blockquote
-<pt't&lt;</p
-</blockquote</td
-<td</td
-<td</td
-<td</td
-<td</td
-</tr
-<tr class="even"
-<td</td
-<td</td
-<tdå</td
-<td</td
-<td<blockquote
-<pÕ</p
-</blockquote</td
-<td</td
-<td</td
-<td</td
-<td</td
-</tr
-<tr class="odd"
-<tdIt()a , <delw</del</td
-<td=</td
-<td</td
-<td</td
-<td<blockquote
-<p()t</p
-</blockquote</td
-<td</td
-<td</td
-<td<blockquote
-<p()1at'–</p
-</blockquote</td
-<td()</td
-<td<strong(7-7)</strong</td
-<td</td
-</tr
-<tr class="even"
-<td</td
-<td</td
-<td<blockquote
-<ptt=</p
-</blockquote</td
-<td<blockquote
-<pnear</p
-</blockquote</td
-<td</td
-<td<blockquote
-<pt't=</p
-</blockquote</td
-<td<blockquote
-<pnear</p
-</blockquote</td
-<td</td
-<td</td
-<td</td
-<td</td
-</tr
-</tbody
-</table
-
-![](media/image578.jpeg){width="6.111111111111111e-2in"
-height="8.75e-2in"}
+$$
+\begin{equation*}
+I(t_\text{near}, \vec{\omega}) = \sum_{t = t_\text{near}}^{t \leq t_\text{far}} \alpha(t) \prod_{t' = t_\text{near}}^{t' < t_\text{far}}\left(1 - a(t') \right)
+\end{equation*}
+\bf\tag{7-7}
+$$
 
 This equation is typically expressed in its recursive form:
 
-![](media/image579.jpeg){width="0.1076388888888889in"
-height="9.444444444444444e-2in"}
+$$
+\begin{equation*}
+I(t_n, \vec{\omega}) = \alpha(t_n) + \left(1 - \alpha(t_n) \right) I(t_{n + 1}, \vec{\omega})
+\end{equation*}
+\bf\tag{7-8}
+$$
 
-<table
-<tbody
-<tr class="odd"
-<tdIt()a, w</td
-<td=</td
-<td<blockquote
-<p()t</p
-</blockquote</td
-<tdn</td
-<td<blockquote
-<p+ ()1 – a()t</p
-</blockquote</td
-<tdn</td
-<td<blockquote
-<pIt()</p
-</blockquote</td
-<tdn1+</td
-<td<blockquote
-<p, w</p
-</blockquote</td
-<td<strong(7-8)</strong</td
-<td</td
-</tr
-<tr class="even"
-<tdn</td
-<td</td
-<td</td
-<td</td
-<td</td
-<td</td
-<td</td
-<td</td
-<td</td
-<td</td
-<td</td
-</tr
-</tbody
-</table
+which is equivalent to the simple compositing method using the over operator that was described previously. Clearly in this case we have simplified the illumination model to the point that this ray function does not produce images that appear to be realistic.
 
-which is equivalent to the simple compositing method using the over
-operator that was described previously. Clearly in this case we have
-simplified the illumination model to the point that this ray function
-does not produce images that appear to be realistic.
-
-If we are visualizing an isosurface within the volumetric data, then
-we can employ the surface illumination model described in Chapter 3
-to capture ambient and diffuse lighting as well as specular
-highlights. There are a variety of techniques for estimating the
-surface normal needed to evaluate the shading equation. If the image
-that is produced as a result of volume rendering contains the
-distance from the view plane to the surface for every pixel, then we
-can post-process the image with a 2D gradient estimator to obtain
-surface normals. The gradient at some pixel ()x~p~, y~p~ can be
+If we are visualizing an isosurface within the volumetric data, then we can employ the surface illumination model described in Chapter 3 to capture ambient and diffuse lighting as well as specular highlights. There are a variety of techniques for estimating the surface normal needed to evaluate the shading equation. If the image that is produced as a result of volume rendering contains the distance from the view plane to the surface for every pixel, then we can post-process the image with a 2D gradient estimator to obtain surface normals. The gradient at some pixel ()x~p~, y~p~ can be
 estimated with a central difference technique by:
 
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| ^¶^\-\-\- | =         | Zx()    | ~p~ --    |           |           |
-| \-\--^Z^  |           | ~p~ +   | Zx() ~p~  |           |           |
-|           |           | Dxy,    | -- Dxy,   |           |           |
-|           |           |           | ~p~       |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| ¶x      |           | \-\-\-\ | 2xD     |           |           |
-|           |           | -\-\-\-\- |           |           |           |
-|           |           | \-\-\-\-\ |           |           |           |
-|           |           | -\-\-\-\- |           |           |           |
-|           |           | \-\-\-\-\ |           |           |           |
-|           |           | -\-\-\-\- |           |           |           |
-|           |           | \-\-\-\-\ |           |           |           |
-|           |           | -\-\-\-\- |           |           |           |
-|           |           | \-\-\-\-\ |           |           |           |
-|           |           | --        |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-|           |           |           |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| ^¶^\-\-\- | =         | Zx()    | **(7-9)** |           |
-| \-\--^Z^  |           | ~p~,    |           |           |
-|           |           | y~p~ +  |           |           |
-|           |           | Dy --   |           |           |
-|           |           | Zx()    |           |           |
-|           |           | ~p~,    |           |           |
-|           |           | y~p~ -- |           |           |
-|           |           | Dy      |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| ¶y      |           | \-\-\-\ | 2yD     |           |           |
-|           |           | -\-\-\-\- |           |           |           |
-|           |           | \-\-\-\-\ |           |           |           |
-|           |           | -\-\-\-\- |           |           |           |
-|           |           | \-\-\-\-\ |           |           |           |
-|           |           | -\-\-\-\- |           |           |           |
-|           |           | \-\-\-\-\ |           |           |           |
-|           |           | -\-\-\-\- |           |           |           |
-|           |           | \-\-\-\-\ |           |           |           |
-|           |           | --        |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| ^¶^\-\-\- | =1        |           |           |           |           |
-| \-\--^Z^  |           |           |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| ¶z      |           |           |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-
-Disjoint volumetric objects
+$$
+\begin{eqnarray*}
+\frac{\partial Z}{\partial x} &\simeq& \frac{Z\left(x_p + \Delta x, y_p\right) - Z\left(x_p - \Delta x, y_p\right)}{2 \Delta x} \\
+\frac{\partial Z}{\partial y} &\simeq& \frac{Z\left(x_p, y_p + \Delta y\right) - Z\left(x_p, y_p - \Delta y\right)}{2 \Delta y} \\
+\frac{\partial Z}{\partial z} &\simeq& 1
+\end{eqnarray*}
+\bf\tag{7-9}
+$$
 
 **Figure 7--21** A scene (left) and the corre-sponding depth image
 (right) used in 2D gra-dient estimation.
@@ -666,83 +504,23 @@ One problem with the 2D gradient estimation technique described above
 is that normals are computed from depth values that may represent
 disjoint regions in the volume, as shown in **Figure7--21** . This may
 lead to a blurring of sharp features on the edges of objects. To
-reduce this effect, we can locate regions of continuous curvature in
-the depth image, then estimate the normal
+reduce this effect, we can locate regions of continuous curvature in the depth image, then estimate the normal for a pixel using only other pixel values that fall within the same curvature region [Yagel92a]. This may require reducing our Δx and Δy values, or using an off-centered differences technique to estimate the components of the gradient. For example, the x component of the gradient could be computed with a forward difference:
 
-+-------------+-------------+-------------+-------------+-------------+
-| for a pixel | \[Yagel92a\ |             |
-| using only  | ]           |             |
-| other pixel | . This      |             |
-| values that |             |             |
-| fall within |             |             |
-| the same    |             |             |
-| curvature   |             |             |
-| region      |             |             |
-+-------------+-------------+-------------+-------------+-------------+
-| may require |             |
-| reducing    |             |
-| our andDx   |             |
-| values,Dy   |             |
-| or using an |             |
-| off-centere |             |
-| d           |             |
-| differences |             |
-| technique   |             |
-| to esti-    |             |
-+-------------+-------------+-------------+-------------+-------------+
-| mate the    |             |
-| components  |             |
-| of the      |             |
-| gradient.   |             |
-| For         |             |
-| example,    |             |
-| the         |             |
-| componentx  |             |
-| of the      |             |
-| gradient    |             |
-| could be    |             |
-| com-        |             |
-+-------------+-------------+-------------+-------------+-------------+
-| puted with  |             |             |             |             |
-| a forward   |             |             |             |             |
-| difference: |             |             |             |             |
-+-------------+-------------+-------------+-------------+-------------+
-| ^¶^\-\-\- | =           | Zx() ~p~  | **(7-10)**  |             |
-| \-\--^Z^    |             | + Dxy,    |             |             |
-|             |             | ~p~ --    |             |             |
-|             |             | Zx() ~p~, |             |             |
-|             |             | y~p~      |             |             |
-+-------------+-------------+-------------+-------------+-------------+
-| ¶x        |             | \-\-\-\-\ |             |             |
-|             |             | -\-\-\-\-\- |             |             |
-|             |             | \-\-\-\-\-\ |             |             |
-|             |             | -\-\-\-\-\- |             |             |
-|             |             | \-\-\-\-\-\ |             |             |
-|             |             | -\-\-\-\-\- |             |             |
-|             |             | \-\--~Dx~   |             |             |
-+-------------+-------------+-------------+-------------+-------------+
-|             |             |             |             |             |
-+-------------+-------------+-------------+-------------+-------------+
-| or a        |             |             |             |             |
-| backward    |             |             |             |             |
-| difference: |             |             |             |             |
-+-------------+-------------+-------------+-------------+-------------+
-| ^¶^\-\-\- | =           | Zx() ~p~, | **(7-11)**  |             |
-| \-\--^Z^    |             | y~p~ --   |             |             |
-|             |             | Zx() ~p~  |             |             |
-|             |             | -- Dx,    |             |             |
-|             |             | y~p~      |             |             |
-+-------------+-------------+-------------+-------------+-------------+
-| ¶x        |             | \-\-\-\-\ |             |             |
-|             |             | -\-\-\-\-\- |             |             |
-|             |             | \-\-\-\-\-\ |             |             |
-|             |             | -\-\-\-\-\- |             |             |
-|             |             | \-\-\-\-\-\ |             |             |
-|             |             | -\-\-\-\-\- |             |             |
-|             |             | \-\--~Dx~   |             |             |
-+-------------+-------------+-------------+-------------+-------------+
-|             |             |             |             |             |
-+-------------+-------------+-------------+-------------+-------------+
+$$
+\begin{equation*}
+\frac{\partial Z}{\partial x} \simeq \frac{Z(x_p + \Delta x, y_p) - Z(x_p, y_p)}{\Delta x}
+\end{equation*}
+\bf\tag{7-10}
+$$
+
+or a backward difference
+
+$$
+\begin{equation*}
+\frac{\partial Z}{\partial x} \simeq \frac{Z(x_p, y_p) - Z(x_p - \Delta x, y_p)}{\Delta x}
+\end{equation*}
+\bf\tag{7-11}
+$$
 
 Although 2D gradient estimation is not as accurate as the 3D version,
 it is generally faster and allows for quick lighting and surface
@@ -753,61 +531,14 @@ locations within the volume for each pixel. A 3D gradient estimation
 technique is more suitable for this purpose. An illumination equation
 for compositing could be written as:
 
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| where the | I       | s       |           |
-| ambient   |           |           |           |
-| illuminat |           |           |           |
-| ion       |           |           |           |
-| , theI    |           |           |           |
-| diffuse   |           |           |           |
-| illuminat |           |           |           |
-| ion       |           |           |           |
-| , and     |           |           |           |
-| theI      |           |           |           |
-| specular  |           |           |           |
-| illuminat |           |           |           |
-| ion       |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-|           | a       | d       |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| are       |           |           |           |
-| computed  |           |           |           |
-| as in     |           |           |           |
-| surface   |           |           |           |
-| shading   |           |           |           |
-| using the |           |           |           |
-| estimated |           |           |           |
-| volume    |           |           |           |
-| gradient  |           |           |           |
-| in place  |           |           |           |
-| of the    |           |           |           |
-| surface   |           |           |           |
-| nor-      |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| mal. In   | the     |           |           |           |
-| this      | amount  |           |           |           |
-| equation, | of      |           |           |           |
-| represent | light   |           |           |           |
-| sa()      | reflect |           |           |           |
-|           | ed        |           |           |           |
-|           | per     |           |           |           |
-|           | unit    |           |           |           |
-|           | length  |           |           |           |
-|           | along   |           |           |           |
-|           | the     |           |           |           |
-|           | ray,    |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
-| with      |           |           |           |           |
-| 1indicati |           |           |           |           |
-| ng--()    |           |           |           |           |
-| the       |           |           |           |           |
-| fraction  |           |           |           |           |
-| of light  |           |           |           |           |
-| transmitt |           |           |           |           |
-| ed        |           |           |           |           |
-| per unit  |           |           |           |           |
-| length.   |           |           |           |           |
-+-----------+-----------+-----------+-----------+-----------+-----------+
+$$
+\begin{equation*}
+I(t_\text{near}, \vec{\omega}) =  \sum_{t = t_\text{near}}^{t \leq t_\text{far}} \alpha(t)\left(I_\text{a} + I_\text{d} + I_\text{s}\right) \prod_{t' = t_\text{near}}^{t' < t_\text{far}}\left(1 - a(t') \right)
+\end{equation*}
+\bf\tag{7-12}
+$$
+
+where the ambient illumination $I_a$, the diffuse illumination $I_d$, and the specular illumination $I_s$ are computed as in surface shading using the estimated volume gradient in place of the surface normal. In this equation, $\alpha(t)$ represents the amount of light reflected per unit length along the ray, with $1 – \alpha*(t)$ indicating the fraction of light transmitted per unit length.
 
 As in classification, we have to make a decision about whether to
 directly compute illumination at an arbitrary location in the volume,
@@ -821,63 +552,17 @@ increase rendering performance for both classification and
 illumination. The main problem is the amount of memory required to
 store the precomputed gradients. A naive implementation would store a
 floating-point value (typically four bytes) per component of the
-gradient per scalar value. For a dataset with one-256byte^3^ scalars,
+gradient per scalar value. For a dataset with one $256^3$ one-byte scalars,
 this would increase the storage requirement from 16 Mbytes to 218
 Mbytes.
 
-In order to reduce the storage requirements, we could quantize the
-precomputed gradients by using some number of bits to represent the
-magnitude of the vector, and some other number of bits to encode the
-direction of the vector. Quantization works well for storing the
-magnitude of the gradient, but does not provide a good distribution
-of directions if we simply divide the bits among the three components
-of the vector. A better solution is to use the uniform fractal
-subdivision of an
+In order to reduce the storage requirements, we could quantize the precomputed gradients by using some number of bits to represent the magnitude of the vector, and some other number of bits to encode the direction of the vector. Quantization works well for storing the magnitude of the gradient, but does not provide a good distribution of directions if we simply divide the bits among the three components of the vector. A better solution is to use the uniform fractal subdivision of an  octahedron into a sphere as the basis of the direction encoding, as shown in **Figure7--22** . The top left image shows the results obtained after the recursive replacement of each triangle with four new triangles, with a recursion depth of two. The vector directions encoded in this representation are all directions formed by creating a ray originating at the sphere's center and passing through a vertex of the sphere. The remaining images in this figure illustrate how these directions are mapped into an index. First we push all vertices back onto the original faces of the octahedron, then we flatten this sphere onto the planez0=. Finally, we rotate the resulting grid by . We label45the° vertices in the grid with indices starting at 0 at the top left vertex and continue across the rows then down the columns to index 40 at the lower right vertex. These indices represent only half of the encoded normals because when we flattened the octahedron, we placed two vertices on top of each other on all but the edge locations. Thus, we can use indices 41 through 81 to represent vectors with a negative *z* component. Vertices on the edges represent vectors with out a *z* component, and although we could represent them with a single index, using two keeps the indexing scheme more consistent and, therefore, easier to implement.
 
-octahedron into a sphere as the basis of the direction encoding, as
-shown in **Figure7--22** . The top left image shows the results
-obtained after the recursive replacement of each triangle with four
-new triangles, with a recursion depth of two. The vector directions
-encoded in this representation are all directions formed by creating a
-ray originating at the sphere's center and passing through a vertex
+The simple example above requires only 82 values to encode the 66 unique vector directions. If we use an unsigned short to store the encoded direction, then we can use a recursion depth of 6 when generating the vertices. This leads to 16,642 indices representing 16,386 unique directions.
 
-of the sphere. The remaining images in this figure illustrate how
-these directions are mapped into an index. First we push all vertices
-back onto the original faces of the octahedron, then we flatten this
-sphere onto the planez0=. Finally, we rotate the resulting grid by .
-We label45the° vertices
+Once the gradients have been encoded for our volume, we need only compute the illumination once for each possible index and store the results in a table. Since data samples with the same encoded gradient direction may have different colors, this illumination value represents the portion of the shading equation that is independent of color. Each scalar value may have separate colors defined for ambient, diffuse, and specular illumination; therefore, the precomputed illumination is typically an array of values.
 
-in the grid with indices starting at 0 at the top left vertex and
-continue across the rows then down the columns to index 40 at the
-lower right vertex. These indices represent only half of the encoded
-normals because when we flattened the octahedron, we placed two
-vertices on top of each other on all but the edge locations. Thus, we
-can use indices 41 through 81 to represent vectors with a negative
-*z* component. Vertices on the edges represent vectors with out a *z*
-component, and although we could represent them with a single index,
-using two keeps the indexing scheme more consistent and, therefore,
-easier to implement.
-
-The simple example above requires only 82 values to encode the 66
-unique vector directions. If we use an unsigned short to store the
-encoded direction, then we can use a recursion depth of 6 when
-generating the vertices. This leads to 16,642 indices representing
-16,386 unique directions.
-
-Once the gradients have been encoded for our volume, we need only
-compute the illumination once for each possible index and store the
-results in a table. Since data samples with the same encoded gradient
-direction may have different colors, this illumination value
-represents the portion of the shading equation that is independent of
-color. Each scalar value may have separate colors defined for ambient,
-diffuse, and specular illumination; therefore, the precomputed
-illumination is typically an array of values.
-
-Although using a shading table leads to faster rendering times, there
-are some limitations to this method. Only infinite light sources can
-be supported accurately since positional light sources would result in
-different light vectors for data samples with the same gradient due to
-their different
+Although using a shading table leads to faster rendering times, there are some limitations to this method. Only infinite light sources can be supported accurately since positional light sources would result in different light vectors for data samples with the same gradient due to their different
 
 Sphere at recursion level 2 Vertices pushed onto octahedron
 
@@ -1436,12 +1121,14 @@ camera position and focal point (i.e., *p~new~* and *f~new~*) from the
 offset to avoid difficulties surrounding the transformation matrix at
 the camera's position.
 
-f.  ~new~ = ()fM ~WD~ + O~p~ M ~DW~
-
-  -------------------- ------------
-  O~w~ = f~new~ -- f   **(7-13)**
-  p~new~ = pO+ ~w~     
-  -------------------- ------------
+$$
+\begin{eqnarray*}
+\vec{f}_\text{new} &=& \left(\vec{f}\cdot \textbf{M}_\text{WD} + \vec{O}_\text{p}\right)\cdot \textbf{M}_\text{DW} \\
+\vec{O}_\text{w} &=& \vec{f}_\text{new} - \vec{f} \\
+\vec{p}_\text{new} &=& \vec{p} + \vec{O}_\text{w}
+\end{eqnarray*}
+\bf\tag{7-13}
+$$
 
 **Figure 7--29** Three images showing focal depth. The first has no
 focal depth, the second is focused on the center object, the third
