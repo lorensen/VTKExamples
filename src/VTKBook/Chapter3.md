@@ -187,7 +187,7 @@ We have light sources that are emitting rays of light and actors with surface pr
 <figcaption style="color:blue"><b>Figure 3-11</b> Camera attributes.</figcaption>.
 </figure>
 
-The position and focal point of the camera define the location of the camera and where it points. The vector defined from the camera position to the focal point is called the direction of projection . The camera image plane is located at the focal point and is typically perpendicular to the projection vector. The camera orientation is controlled by the position and focal point plus the camera view-up vector. Together these completely define the camera view. 
+The position and focal point of the camera define the location of the camera and where it points. The vector defined from the camera position to the focal point is called the direction of projection. The camera image plane is located at the focal point and is typically perpendicular to the projection vector. The camera orientation is controlled by the position and focal point plus the camera view-up vector. Together these completely define the camera view. 
 
 The method of projection controls how the actors are mapped to the image plane. *Orthographic projection* is a parallel mapping process. In orthographic projection (or parallel projection) all rays of light entering the camera are parallel to the projection vector. *Perspective projection* occurs when all light rays go through a common point (i.e., the viewpoint or center of projection). To apply perspective projection we must specify a perspective angle or camera view angle.
 
@@ -195,7 +195,7 @@ The front and back clipping planes intersect the projection vector, and are usua
 
 Taken together these camera parameters define a rectangular pyramid, with its apex at the camera’s position and extending along the direction of projection. The pyramid is truncated at the top with the front clipping plane and at the bottom by the back clipping plane. The resulting view frustum defines the region of 3D space visible to the camera.
 
-While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. **Figure3-12** and **Figure3-13** will help illustrate these operations. Changing the azimuth of a camera rotates its position around its view up vector, centered at the focal point . Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera’s elevation rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To roll the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
+While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. **Figure3-12** and **Figure3-13** will help illustrate these operations. Changing the azimuth of a camera rotates its position around its view up vector, centered at the focal point. Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera’s elevation rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To roll the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
 
 The next two motions keep the camera’s position constant and instead modify the focal point. Changing the yaw rotates the focal point about the view up centered at the camera’s position. This is like an azimuth, except that the focal point moves instead of the position. Changes in pitch rotate the focal point about the cross product of the direction of projection and view up centered at the camera’s position. Dollying in and out moves the camera’s position along the direction of projection, either closer or farther from the focal point. This operation is specified as the ratio of its current distance to its new distance. A value greater than one will dolly in, while a value less than one will dolly out. Finally, zooming changes the camera’s view angle, so that more or less of the scene falls within the view frustum.
 
@@ -247,7 +247,7 @@ x = \frac{x_h}{w_h}\ \ \ \  x = \frac{y_h}{w_h}\ \ \ \ x = \frac{z_h}{w_h}
 \bf\tag{3-5}
 $$
 
-Using homogeneous coordinates we can represent an infinite point by setting w h to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 transformation matrix . Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a 3x3 matrix.
+Using homogeneous coordinates we can represent an infinite point by setting w h to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 transformation matrix. Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a 3x3 matrix.
 
 For example, suppose we wanted to create a transformation matrix that translates a point $( x, y, z)$ in Cartesian space by the vector $( t_x , t_y, t_z). We need only construct the translation matrix given by
 
@@ -353,7 +353,7 @@ T_R = \left[\begin{array}{cccc}
 \bf\tag{3-13}
 $$
 
-Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object’s center . To rotate around we Oc must first translate the object to the Oorigin, apply rotations, and then translate the object back.
+Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object’s center. To rotate around we Oc must first translate the object to the Oorigin, apply rotations, and then translate the object back.
 
 Transformation matrices can be combined by matrix multiplication to achieve combinations of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all types of transformation simultaneously. This matrix is the result of repeated matrix multiplications. A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix by the translation matrix.
 

@@ -104,7 +104,7 @@ The two main steps of ray casting are determining the values encountered along t
 <figure id="Figure7-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-4.png?raw=true width="640" alt="Figure7-4">
 </figure>
-<figcaption style="color:blue"><b>Figure 7-4</b>Image-order volume rendering. High potential iron protein data courtesy of Scripps Clinic, La Jolla, CA.. </figcaption>
+<figcaption style="color:blue"><b>Figure 7-4</b> Image-order volume rendering. High potential iron protein data courtesy of Scripps Clinic, La Jolla, CA.. </figcaption>
 </figure>
 
 **Figure7-5** shows the data value profile of a ray as it passes through 8 bit volumetric data where the data values can range between 0 and 255. The *x*-axis of the profile indicates distance from the view plane while the *y*-axis represents data value. The results obtained from four different simple ray functions are shown below the profile. For display purposes we convert the raw result values to gray scale values using a method similar to the one in the previous example.
@@ -213,7 +213,7 @@ If we are using a parallel viewing transformation and our ray function can be ef
 Object-order volume rendering methods process samples in the volume based on the organization of the voxels in the dataset and the current camera parameters. When an alpha compositing method is used, the voxels must be traversed in either a front-to-back or back-to-front order to obtain correct results. This process is analogous to sorting translucent polygons before each projection in order to ensure correct blending. When graphics hardware is employed for compositing, a back-to-front ordering is typically preferred since it is then possible to perform alpha blending without the need for alpha bitplanes in the frame buffer. If a software compositing method is used, a front-to-back ordering is more common since partial image results are more visually meaningful, and can be used to avoid additional processing when a pixel reaches full opacity. Voxel ordering based on distance to the view plane is not always necessary since some volume rendering operations, such as MIP or average, can be processed in any order and still yield correct results.
 
 <figure id="Figure7-12">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-12.png?raw=true width="640" alt="Figure7-12">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-12.png?raw=true width=640  alt="Figure7-12">
 </figure>
 <figcaption style="color:blue"><b>Figure 7-12</b>. Object-order, back-to-front volume rendering.</figcaption>
 </figure>
