@@ -1,4 +1,4 @@
-# Applications
+# Chapter 12 - Applications
 
 *W*e have described the design and implementation of an extensive toolkit of visualization techniques. In this chapter we examine several case studies to show how to use these tools to gain insight into important application areas. These areas are medical imaging, financial visualization, modelling, computational fluid dynamics, finite element analysis, and algorithm visualization. For each case, we briefly describe the problem domain and what information we expect to obtain through visualization. Then we craft an approach to show the results. Many times we will extend the functionality of the *Visualization Toolkit* with application-specific tools. Finally, we present a sample program and show resulting images.
 
@@ -11,7 +11,7 @@ Radiology is a medical discipline that deals with images of human anatomy. These
 <figure id="Figure12-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure12-1.png?raw=true width="640" alt="Figure 12-1">
 </figure>
-<figcaption><b>Figure 12-1</b>. A CT slice through a human head.</figcaption>
+<figcaption style="color:blue"><b>Figure 12-1</b>. A CT slice through a human head.</figcaption>
 </figure>
 
 This case study deals with CT data. Computed tomography measures the attenuation of X-rays as they pass through the body. A CT image consists of levels of gray that vary from black (for air), to gray (for soft tissue), to white (for bone). **Figure12--1** shows a CT cross section through a head. This slice is taken perpendicular to the spine approximately through the middle of the ears.  The gray boundary around the head clearly shows the ears and bridge of the nose. The dark regions on the interior of the slice are the nasal passages and ear canals. The bright areas are bone. This study contains 93 such slices, spaced 1.5 mm apart. Each slice has $256*^2$ pixels spaced 0.8 mm apart with 12 bits of gray level.
@@ -120,7 +120,7 @@ iren->Start();
 <figure id="Figure12-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png?raw=true width="640" alt="Figure 12-2">
 </figure>
-<figcaption><b>Figure 12-2</b>. The skin extracted from a CT dataset of the head. <a href="../../Cxx/Medical/MedicalDemo1" title="MedicalDemo1"> See MedicalDemo1.cxx</a> and <a href="../../Python/Medicala/MedicalDemo1" title="MedicalDemo1"> MedicalDemo1.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 12-2</b>. The skin extracted from a CT dataset of the head. <a href="../../Cxx/Medical/MedicalDemo1" title="MedicalDemo1"> See MedicalDemo1.cxx</a> and <a href="../../Python/Medicala/MedicalDemo1" title="MedicalDemo1"> MedicalDemo1.py</a>.</figcaption>
 </figure>
 
 To provide context for the isosurface an outline is created around the data. An initial view is set up  in a window size of 640 x 480 pixels. Since the dolly command moves the camera towards the data, the clipping planes are reset to insure that the isosurface is
@@ -131,7 +131,7 @@ We can improve this visualization in a number of ways. First, we can choose a mo
 <figure id="Figure12-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png?raw=true width="640" alt="Figure 12-3">
 </figure>
-<figcaption><b>Figure 12-3</b>. Skin and bone isosurfaces. <a href="../../Cxx/Medical/MedicalDemo2" title="MedicalDemo2"> See MedicalDemo2.cxx</a> and <a href="../../Python/Medical/MedicalDemo2" title="MedicalDemo2"> MedicalDemo2.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 12-3</b>. Skin and bone isosurfaces. <a href="../../Cxx/Medical/MedicalDemo2" title="MedicalDemo2"> See MedicalDemo2.cxx</a> and <a href="../../Python/Medical/MedicalDemo2" title="MedicalDemo2"> MedicalDemo2.py</a>.</figcaption>
 </figure>
 
 **Figure12--3** shows the resulting image, and the following is the
@@ -191,7 +191,7 @@ vtkLookupTable *satLut = vtkLookupTable::New();
 <figure id="Figure12-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo3.png?raw=true width="640" alt="Figure 12-4">
 </figure>
-<figcaption><b>Figure 12-4</b>. Composite image of three planes and translucent skin. <a href="../../Cxx/Medical/MedicalDemo3" title="MedicalDemo3"> See MedicalDemo3.cxx</a> and <a href="../../Python/Medical/MedicalDemo3" title="MedicalDemo3"> MedicalDemo3.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 12-4</b>. Composite image of three planes and translucent skin. <a href="../../Cxx/Medical/MedicalDemo3" title="MedicalDemo3"> See MedicalDemo3.cxx</a> and <a href="../../Python/Medical/MedicalDemo3" title="MedicalDemo3"> MedicalDemo3.py</a>.</figcaption>
 </figure>
 
 The image data is mapped to colors using the filter vtkImageMapToColors in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor (see "Assemblies and Other Types of vtkProp" on page74 for more information) . This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageA-ctor is set appropriately. The C++ code is as follows:
@@ -250,7 +250,7 @@ For our purposes we assume that someone (or many graduate students) have laborio
 <figure id="Figure12-5">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure12-5.png?raw=true width="640" alt="Figure 3-1">
 </figure>
-<figcaption><b>Figure 12-5</b>. Magnetic Resonance Image  of a knee(left); segmented tissue(right); composite (bottom).(Data and segmentation courtesy of Brigham and Women’s Hospital Surgical Planning Lab.)</figcaption>
+<figcaption style="color:blue"><b>Figure 12-5</b>. Magnetic Resonance Image  of a knee(left); segmented tissue(right); composite (bottom).(Data and segmentation courtesy of Brigham and Women’s Hospital Surgical Planning Lab.)</figcaption>
 </figure>
 
 Notice the difference in the information presented by each representation. The original slice shows gradual changes at organ borders, while the segmented slice has abrupt changes. The images we processed in the previous CT example used marching cubes isocontouring algorithm and an intensity threshold to extract the isosurfaces. The segmented study we present has integer labels that have a somewhat arbitrary numeric value. Our goal in this example is to somehow take the tissue labels and create grayscale slices that we can process with the same techniques we used previ-ously. Another goal is to show how image processing and visualization can work together in an application.
@@ -262,7 +262,7 @@ To demonstrate the processing of segmented data we will use a dataset derived fr
 <figure id="Figure12-6">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestFrogSlice.png?raw=true width="640" alt="Figure 12-6">
 </figure>
-<figcaption><b>Figure 12-6</b>. Photographic slice of frog (upper left), segmented frog (upper right) and composite of photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow. <a href="../../Cxx/Visualization/FrogSlice" title="FrogSlice"> See FrogSlice.cxx</a> and <a href="../../Python/Visualization/FrogSlice" title="FrogSlice"> FrogSlice.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 12-6</b>. Photographic slice of frog (upper left), segmented frog (upper right) and composite of photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow. <a href="../../Cxx/Visualization/FrogSlice" title="FrogSlice"> See FrogSlice.cxx</a> and <a href="../../Python/Visualization/FrogSlice" title="FrogSlice"> FrogSlice.py</a>.</figcaption>
 </figure>
 
 Before we describe the process to go from binary labeled tissues to gray-scale data suitable for isosurface extraction, compare the two images of the frog's brain shown in **Figure12--7** . On the left is a surface extracted using a binary labeling of the brain. The right image was created using the visualization pipeline that we will develop in this example.
@@ -291,7 +291,7 @@ We start by developing Tcl scripts to process the volume data. In these scripts,
 <figure id="Figure12-7">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestViewFrogBoth.png?raw=true width="640" alt="Figure 12-7">
 </figure>
-<figcaption><b>Figure 12-7</b>. The frog's brain. Model extracted without smoothing (left) and with smoothing (right). <a href="../../Cxx/Visualization/ViewFrogBoth" title="ViewFrogBoth"> See ViewFrogBoth.cxx</a> and <a href="../../Python/Visualization/ViewFrogBoth" title="ViewFrogBoth"> ViewFrogBoth.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 12-7</b>. The frog's brain. Model extracted without smoothing (left) and with smoothing (right). <a href="../../Cxx/Visualization/ViewFrogBoth" title="ViewFrogBoth"> See ViewFrogBoth.cxx</a> and <a href="../../Python/Visualization/ViewFrogBoth" title="ViewFrogBoth"> ViewFrogBoth.py</a>.</figcaption>
 </figure>
 
 **Read the Segmented Volume Data**
@@ -622,17 +622,17 @@ iren SetUserMethod {wm deiconify .vtkInteract}
 <figure id="Figure12-9">
  <figure id="Figure12-9"a>
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestViewFrogSkinAndTissue.png?raw=true width="640" alt="Figure 12-9a">
-  <figcaption>(a) All frog parts and translucent skin.</figcaption>
+  <figcaption style="color:blue">(a) All frog parts and translucent skin.</figcaption>
  </figure>
 <figure id="Figure12-9b">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestViewFrog.png?raw=true width="640" alt="Figure 12-9b">
- <figcaption>(b) The comnplete frog without skin.</figcaption>
+ <figcaption style="color:blue">(b) The comnplete frog without skin.</figcaption>
 </figure>
 <figure>
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestViewFrogA.png?raw=true width="640" alt="Figure 12-9c">
-<figcaption>(c) No skin or skeleton.</figcaption>
+<figcaption style="color:blue">(c) No skin or skeleton.</figcaption>
 </figure>
-<figcaption><b>Figure 12-9</b>. Various frog images. (a) <a href="../../Cxx/Visualization/ViewFrogSkinAndTissue" title="ViewFrogSkinAndTissue"> See ViewFrogSkinAndTissue.cxx</a> and <a href="../../Python/Visualization/ViewFrogSkinAndTissue" title="ViewFrogSkinAndTissue"> ViewFrogSkinAndTissue.py</a>.; (b).<a href="../../Cxx/Visualization/ViewFrog" title="ViewFrog"> See ViewFrog.cxx</a> and <a href="../../Python/Visualization/ViewFrog" title="ViewFrog"> ViewFrog.py</a>.; (c)<a href="../../Cxx/Visualization/ViewFrogA" title="ViewFrogA"> See ViewFrogA.cxx</a> and <a href="../../Python/Visualization/ViewFrogA" title="ViewFrogA"> ViewFrogA.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 12-9</b>. Various frog images. (a) <a href="../../Cxx/Visualization/ViewFrogSkinAndTissue" title="ViewFrogSkinAndTissue"> See ViewFrogSkinAndTissue.cxx</a> and <a href="../../Python/Visualization/ViewFrogSkinAndTissue" title="ViewFrogSkinAndTissue"> ViewFrogSkinAndTissue.py</a>.; (b).<a href="../../Cxx/Visualization/ViewFrog" title="ViewFrog"> See ViewFrog.cxx</a> and <a href="../../Python/Visualization/ViewFrog" title="ViewFrog"> ViewFrog.py</a>.; (c)<a href="../../Cxx/Visualization/ViewFrogA" title="ViewFrogA"> See ViewFrogA.cxx</a> and <a href="../../Python/Visualization/ViewFrogA" title="ViewFrogA"> ViewFrogA.py</a>.</figcaption>
 </figure>
 
 **Figure12--9** shows three views of the frog.
