@@ -1,3 +1,5 @@
+Chapter 6
+
 Figure 6-1
 $$
 \left. \begin{aligned}
@@ -9,7 +11,6 @@ $$
 Figure 6-12 - PNG generated with http://latex2png.com/
 Figure 6-12
 s_i = \frac{(p_i-p_j) \cdot (p_h-p_l)}{|p_h-p_l|^2}
-
 Figure 6-21c - PNG generated with http://latex2png.com/
 
 $$
@@ -26,9 +27,7 @@ $$
 \tau_{yz}&=&=\tau_{zy} = -\frac{3Pyz^2}{2 \pi \rho ^5}
 $$
 
-
 Figure 6-20a
-
 \huge\left[\begin{array}{ccc}
 \sigma{_x} & \tau{_{xy}} & \tau{_{xz}}  \\
 \tau{_{yx}} & \sigma{_y} & \tau{_{yz}}    \\
@@ -36,7 +35,6 @@ Figure 6-20a
 \end{array}\right]
 
 Figure 6-20b
-
 \huge\left[\begin{array}{ccc}
 \frac{\partial u}{\partial x} & (\frac{\partial u}{\partial y} + \frac{\partial v}{\partial z})&   (\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x})\\ \\
 (\frac{\partial u}{\partial y} + \frac{\partial v}{\partial z}) & \frac{\partial v}{\partial y} & (\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y})    \\ \\
@@ -44,18 +42,17 @@ Figure 6-20b
 \frac{\partial w}{\partial z}
 \end{array}\right]
 
-
 ------- Chapter 7
 from Bernard Mehan
 
 % EQUATION 7-1
-    \begin{eqnarray*}
-    R &=& (1 - A_s) R_b + A_s R_s \\
-    G &=& (1 - A_s) G_b + A_s G_s \\
-    B &=& (1 - A_s) B_b + A_s B_s \\
-    A &=& (1 - A_s) A_b + A_s
-    \end{eqnarray*}
-    \bf\tag{7-1}
+\begin{eqnarray*}
+R &=& (1 - A_s) R_b + A_s R_s \\
+G &=& (1 - A_s) G_b + A_s G_s \\
+B &=& (1 - A_s) B_b + A_s B_s \\
+A &=& (1 - A_s) A_b + A_s
+\end{eqnarray*}
+\bf\tag{7-1}
 
 % EQUATION 7-2
 \begin{equation*}
@@ -143,8 +140,6 @@ Chapter 8
 x(r) = (1 - r) x_i + r x_{i + 1}
 \end{equation*}
 
- 
-
 % EQUATION 8-2
 \begin{equation*}
 p_\text{id} = i_p +j_p n_x + k_p n_y
@@ -195,7 +190,6 @@ W_3 &=& (1 - r)s
 \end{eqnarray*}
 
 % FIGURE 8-6
-
 \begin{eqnarray*}
 W_0 &=& 1 - r - s \\
 W_1 &=& r \\
@@ -640,3 +634,254 @@ n_T &=& 8^{\ell} \\
 n_O &=& \sum_i 8^i \\
 n_P &=& n_O - n_T
 \end{eqnarray*}
+
+Chapter 9
+
+% EQUATION 9-1
+\begin{equation*}
+n_i = \frac{w_i}{R}
+\end{equation*}
+\bf\tag{9-1}
+
+% EQUATION 9-2
+\begin{equation*}
+F(r) = e^{-r}\cos(10\, r)
+\end{equation*}
+\bf\tag{9-2}
+
+% EQUATION 9-3
+\begin{equation*}
+\Omega = \frac{\vec{v} \cdot \vec{\omega}}{\vert \vec{v} \vert \vert \vec{\omega} \vert}
+\end{equation*}
+\bf\tag{9-3}
+
+% EQUATION 9-4
+\begin{equation*}
+e_{ij} = \epsilon_{ij} + \omega_{ij}
+\end{equation*}
+\bf\tag{9-4}
+
+% EQUATION 9-5
+\begin{equation*}
+\mathbf{\epsilon} = \left(
+\begin{array}{c c c}
+  \frac{\partial u}{\partial x} &
+  \frac{1}{2}\left(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial x}\right) &
+  \frac{1}{2}\left(\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x}\right) \\
+  \frac{1}{2}\left(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial x}\right) &
+  \frac{\partial v}{\partial y} &
+  \frac{1}{2}\left(\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y}\right) \\
+  \frac{1}{2}\left(\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x}\right) &
+  \frac{1}{2}\left(\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y}\right) &
+  \frac{\partial w}{\partial z}
+\end{array}\right)
+\end{equation*}
+\bf\tag{9-5}
+
+% EQUATION 9-6
+\begin{equation*}
+\mathbf{\omega} = \left(
+\begin{array}{c c c}
+  0 &
+  \frac{1}{2}\left(\frac{\partial u}{\partial y} - \frac{\partial v}{\partial x}\right) &
+  \frac{1}{2}\left(\frac{\partial u}{\partial z} - \frac{\partial w}{\partial x}\right) \\
+  \frac{1}{2}\left(\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}\right) &
+  0 &
+  \frac{1}{2}\left(\frac{\partial v}{\partial z} - \frac{\partial w}{\partial y}\right) \\
+  \frac{1}{2}\left(\frac{\partial w}{\partial x} - \frac{\partial u}{\partial z}\right) &
+  \frac{1}{2}\left(\frac{\partial w}{\partial y} - \frac{\partial v}{\partial z}\right) &
+  0
+\end{array}\right)
+\end{equation*}
+\bf\tag{9-6}
+
+% EQUATION 9-7
+\begin{equation*}
+\omega_{ij} = -\frac{1}{2}\sum_{k} \epsilon_{ijk}\, \omega_{k}
+\end{equation*}
+\bf\tag{9-7}
+
+% EQUATION 9-8
+\begin{equation*}
+\vec{\omega} = \left(
+\begin{array}{c}
+\frac{\partial w}{\partial y} - \frac{\partial v}{\partial z} \\
+\frac{\partial u}{\partial z} - \frac{\partial w}{\partial x} \\
+\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}
+\end{array}
+\right)
+\end{equation*}
+\bf\tag{9-8}
+
+% EQUATION 9-9
+\begin{equation*}
+r(\vec{v}) = r_\text{max} \sqrt{\frac{\vert\vec{v}_\text{min}\vert}{\vert\vec{v}\vert}}
+\end{equation*}
+\bf\tag{9-9}
+
+% EQUATION 9-10
+\begin{eqnarray*}
+u &\simeq& \frac{\partial u}{\partial x}\text{d}x
+         + \frac{\partial u}{\partial y}\text{d}y
+         + \frac{\partial u}{\partial z}\text{d}z \\
+v &\simeq& \frac{\partial v}{\partial x}\text{d}x
+         + \frac{\partial v}{\partial y}\text{d}y
+         + \frac{\partial v}{\partial z}\text{d}z \\
+w &\simeq& \frac{\partial w}{\partial x}\text{d}x
+         + \frac{\partial w}{\partial y}\text{d}y
+         + \frac{\partial w}{\partial z}\text{d}z
+\end{eqnarray*}
+\bf\tag{9-10}
+
+% EQUATION 9-11
+\begin{equation*}
+\vec{u} = \mathbf{J}\cdot\text{d}\vec{x},\quad \text{where} \quad \mathbf{J} = \left(
+\begin{array}{c c c}
+\frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} & \frac{\partial u}{\partial z} \\
+\frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} & \frac{\partial v}{\partial z} \\
+\frac{\partial w}{\partial x} & \frac{\partial w}{\partial y} & \frac{\partial w}{\partial z}
+\end{array}
+\right) 
+\end{equation*}
+\bf\tag{9-11}
+
+% EQUATION 9-12
+\begin{equation*}
+H_d = \vec{v} \cdot \vec{w} = \vert \vec{v} \vert \vert \vec{w} \vert \cos(\phi)
+\end{equation*}
+\bf\tag{9-12}
+
+% EQUATION 9-13
+\begin{equation*}
+\vec{v} = \sum_i \lambda_i \vec{e}_i
+\end{equation*}
+\bf\tag{9-13}
+
+% EQUATION 9-14
+\begin{equation*}
+\left(\hat{M} = M^n \right) \to M^{n - 1} \to \ldots \to M^1 \to M^0
+\end{equation*}
+\bf\tag{9-14}
+
+% EQUATION 9-15
+\begin{equation*}
+M^0 \to M^1 \to \ldots \to M^{n - 1} \to M^n
+\end{equation*}
+\bf\tag{9-15}
+
+% EQUATION 9-16
+\begin{equation*}
+\text{edge collapse/split}(v_s, v_t, v_\ell, v_r, A)
+\end{equation*}
+\bf\tag{9-16}
+
+% EQUATION 9-17
+\begin{equation*}
+\left(\hat{M} = M^n \right) \to M^{n - 1} \to \ldots \to M^1 \to \left(M^0 = M(V, \varnothing)\right)
+\end{equation*}
+\bf\tag{9-17}
+
+% EQUATION 9-18
+\begin{equation*}
+\text{vertex split/merge}(v_s, v_t, v_\ell, v_r)
+\end{equation*}
+\bf\tag{9-18}
+ 
+% EQUATION 9-19
+\begin{equation*}
+\vec{x}_{i+1} = \vec{x}_i + \lambda \vec{V}(i, j) = \vec{x}_i + \lambda \sum_{j = 0}^{n}\vec{x}_j - \vec{x}_i
+\end{equation*}
+\bf\tag{9-19}
+
+% EQUATION 9-20
+\begin{equation*}
+e \leq \frac{\sqrt{3}}{2} \frac{L}{D}
+\end{equation*}
+\bf\tag{9-20}
+
+% EQUATION 9-21
+\begin{equation*}
+e_\text{tot} \leq \frac{\sqrt{3}}{2}\left( \frac{L_\text{I}}{D_\text{I}}
+  + \frac{L_\text{W}}{D_\text{W}}\right) + \frac{\Delta x}{2}
+\end{equation*}
+\bf\tag{9-21}
+
+% EQUATION 9-22
+\begin{equation*}
+\text{SF}(x, y, z) = s\, \exp\left( -f(r/R)^2 \right)
+\end{equation*}
+\bf\tag{9-22}
+
+% EQUATION 9-23
+\begin{equation*}
+\text{SF}(x, y, z) = s\, \exp\left( -f\left(\frac{(r_{xy}/E)^2 + z^2}{R^2}\right) \right)
+\end{equation*}
+\bf\tag{9-23}
+
+% EQUATION 9-24
+\begin{eqnarray*}
+z &=& \vec{v}\cdot(\vec{p} - \vec{p}_i), \quad \text{where} \quad \vert \vec{v} \vert = 1 \\
+r_{xy} &=& r^2 - z^2
+\end{eqnarray*}
+\bf\tag{9-24}
+
+% EQUATION 9-25
+\begin{equation*}
+F(\vec{p}) = \frac{\sum_i^n \frac{F_i}{\vert\vec{p} - \vec{p}_i\vert^2}}{\sum_i^n \frac{1}{\vert\vec{p} - \vec{p}_i \vert^2}}
+\end{equation*}
+\bf\tag{9-25}
+
+% EQUATION 9-26
+\begin{equation*}
+\frac{\partial F}{\partial x} =
+\frac{\partial F}{\partial y} =
+\frac{\partial F}{\partial z} = 0
+\end{equation*}
+\bf\tag{9-26}
+
+ Chapter 10
+
+% EQUATION 10-1
+\begin{equation*}
+g(i, j) = \frac{1}{2\pi \sigma^2} \exp\left(-\frac{i^2 + j^2}{2\sigma^2} \right)
+        = \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{i^2}{2\sigma^2} \right)
+          \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{j^2}{2\sigma^2} \right)
+\end{equation*}
+\bf\tag{10-1}
+
+% FIGURE 10-2
+\begin{equation*}
+f \star k(x, y) = \sum_{i, j} f(i, j) k(x - i, y - j)
+\end{equation*}
+\bf\tag{10-2}
+
+% EQUATION 10-2
+\begin{equation*}
+H(u, v) = \frac{1}{1 + \left(\frac{C^2}{u^2 + v^2}\right)^n}
+\end{equation*}
+\bf\tag{10-2}
+
+% FIGURE 10-10
+\begin{equation*}
+F(u, v) = \frac{1}{MN} \sum_{x=0}^{M-1}\sum_{y=0}^{N-1} f(x, y)\,
+\exp\left(-2\pi j \left(\frac{x u}{M} + \frac{y v}{N}\right)\right)
+\end{equation*}
+\bf\tag{10-10}
+
+% FIGURE 10-11
+\begin{equation*}
+H(u, v) =
+\begin{cases}
+1 & u^2 + v^2 < C^2 \\
+0 & \text{otherwise}
+\end{cases}
+\end{equation*}
+\bf\tag{10-11}
+
+% The Butterworth filter is equation 10-2 above.
+
+% EQUATION 10-3
+\begin{equation*}
+F(x, y) = \sin\left(\frac{x}{10}\right) + \sin\left(\frac{y}{10}\right)
+\end{equation*}
+\bf\tag{10-3}
