@@ -81,7 +81,7 @@ While texture maps are generally used to add detail to rendered images, there ar
 
 These techniques will be covered in greater detail in Chapter 9. (See"Texture Algorithms" on page362 for more information.)
 
-**7.3 Volume Rendering**
+## 7.3 Volume Rendering
 
 Until now we have concentrated on the visualization of data through the use of geometric primitives such as points, lines, and polygons. For many applications such as architectural walk-throughs or terrain visualization, this is obviously the most efficient and effective representation for the data. In contrast, some applications require us to visualize data that is inherently volumetric (which we refer to as 3D image or volume datasets). For example, in biomedical imaging we may need to visualize data obtained from an MR or CT scanner, a confocal microscope, or an ultrasound study. Weather analysis and other simulations also produce large quantities of volumetric data in three or more dimensions that require effective visualization techniques. As a result of the popularity and usefulness of volume data over the last several decades, a broad class of rendering techniques known as volume rendering has emerged. The purpose of volume rendering is to effectively convey information within volumetric data.
 
@@ -557,7 +557,7 @@ for accurate illumination.
 <figcaption style="color:blue"><b>Figure 7-23</b>. Volume rendering with regions of interest. On the upper left, full-resolution volume rendering. On the upper right, the use of axis-aligned cropping planes. Lower left, the use of arbitrary clipping planes. Renderings performed using Kitware's VolView product; Visible Human Data is courtesy of The National Library of Medicine.</figcaption>
 </figure>
 
-**7.9 Regions of Interest**
+## 7.9 Regions of Interest
 
 One difficulty in visualizing volumetric data with the methods
 presented thus far is that in order to study some feature in the
@@ -606,7 +606,7 @@ being utilized for the object- order volume rendering as is the case
 with a texture mapping approach, hardware clipping planes may be
 available to help support regions of interest.
 
-**7.10 Intermixing Volumes and Geometry**
+## 7.10 Intermixing Volumes and Geometry
 
 Although the volume is typically the focus of the image in volume
 visualization, it is often helpful to add geometric objects to the
@@ -625,11 +625,7 @@ geometric isosurface and volume rendering techniques.
 
 When using graphics hardware to perform volume rendering, as is the
 case with a texture mapping approach, intermixing opaque geometry in
-the scene is trivial. All opaque geometry is
-
-**242** Advanced Computer Graphics
-
-rendered first, then the semitransparent texture-mapped polygons are
+the scene is trivial. All opaque geometry is rendered first, then the semitransparent texture-mapped polygons are
 blended in a back-to-front order into the image. If we wish to include
 semitransparent geometry in the scene, then this geometry and the
 texture-mapped polygons must be sorted before rendering. Similar to a
@@ -653,7 +649,7 @@ contribution to the volume rendered image at each pixel only if the
 sample is in front of the geometry for that pixel. Finally, the volume
 rendered image is blended over the geometric image.
 
-**7.11 Efficient Volume Rendering**
+## 7.11 Efficient Volume Rendering
 
 Rendering a volumetric dataset is a computationally intensive task. If
 is nthe size of the volume on
@@ -720,7 +716,7 @@ up of high-frequency information such as a typical ultrasound
 dataset, these techniques break down and will usually cause rendering
 times to increase rather than decrease.
 
-**7.12 Interactive Volume Rendering**
+## 7.12 Interactive Volume Rendering
 
 Generating a volume rendered image may take anywhere from a fraction
 of a second to tens of minutes depending on a variety of factors
@@ -765,11 +761,7 @@ include an approximate scalar value and an error value in each parent
 node where the error value indicates how much the scalar values in the
 child nodes deviate from the approximate value in the parent node.
 Hierarchical splatting \[Laur91\] can be performed by descending the
-octree only until a node with less than a
-
-**244** Advanced Computer Graphics
-
-given error tolerance is encountered. The contribution of this region
+octree only until a node with less than a given error tolerance is encountered. The contribution of this region
 of the volume on the image can be approximated by rendering geometric
 primitives for the splat \[Shirley90\] , \[Wilhelms91\] . Increasing
 the allowed error will decrease the time required to render the data
@@ -786,7 +778,7 @@ the volume can be loaded into texture memory for interaction. This is
 similar to reducing both the number of rays cast and the number of
 samples taken along a ray in an image-order method.
 
-**7.13 Volume Rendering Future**
+## 7.13 Volume Rendering Future
 
 In the past two decades, volume rendering has evolved from a research
 topic with algorithms that required many minutes to generate an image
@@ -813,7 +805,7 @@ these methods. Rendering techniques for these data
 types continues to be an area of active research in volume
 visualization \[Cignoni96\] , \[Silva96\] , \[Wilhelms96\] .
 
-**7.14 Stereo Rendering**
+## 7.14 Stereo Rendering
 
 In our practice of computer graphics so far, we have used a number of
 techniques to simulate 3D graphics on a 2D display device. These
@@ -895,11 +887,7 @@ standards use interlacing, which means that first the even lines are
 drawn on the screen and then the odd. By rendering the left eye image
 to the even lines of the screen and the right eye image to the odd, we
 can generate a stereo video stream that is suitable for display on a
-standard television. When this is viewed with both eyes, it appears
-
-**246** Advanced Computer Graphics
-
-as one image that keeps jumping from left to right. A special set of
+standard television. When this is viewed with both eyes, it appears as one image that keeps jumping from left to right. A special set of
 glasses must be worn so that when the left eye image is being
 displayed, the user's left eye can see and similarly for the right
 eye. The glasses are designed so that each lens consists of a liquid
@@ -1012,7 +1000,7 @@ advantages and disadvantages, typically revolving around cost and
 image quality. At the end of this chapter we will look at an example
 program that renders stereo images using the red-blue technique.
 
-**7.15 Aliasing**
+## 7.15 Aliasing
 
 At one point or another most computer users have run into aliasing
 problems. This "stair-stepping" occurs because we represent continuous
@@ -1125,7 +1113,7 @@ respectively.
 
 M.  DW
 
-**7.16 Camera Tricks**
+## 7.16 Camera Tricks
 
 In the previous section we saw how to combine an accumulation buffer
 and small camera translations to produce an antialiased image. In
@@ -1174,7 +1162,7 @@ objects over a finite time.
 <figcaption style="color:blue"><b>Figure 7-30</b>. Motion blur. Rapidly moving objects appear blurry when recorded on film or videotape. To simulate motion blur with a computer camera, multiple images (or subframes) can be accumulated and averaged. This figure was generated by accumulating 21 subframes.</figcaption>
 </figure>
 
-**7.17 Mouse-Based Interaction**
+## 7.17 Mouse-Based Interaction
 
 There's no doubt that being able to interactively view an object aids
 in understanding and recognizing its important features. Using a
@@ -1218,7 +1206,7 @@ keep it orthogonal to the direction of projection.
 <figcaption style="color:blue"><b>Figure 7-31</b>. Rotations using an orthogonalized view-up vector (left) and a constant view-up vector (right).</figcaption>
 </figure>
 
-**7.18 3D Widgets and User Interaction**
+## 7.18 3D Widgets and User Interaction
 
 Chapter 3 provided an introduction to interaction techniques for
 graphics (see derWindowInteractor" on page68 ). In the context of
@@ -1305,7 +1293,7 @@ The key to widget design is careful implementation of intuitive, simple user int
 </figure>
 
 
-**7.19 Putting It All Together**
+## 7.19 Putting It All Together
 
 This chapter has covered a wide variety of topics. In this section we demonstrate applications of each topic to some simple problems.
 
@@ -1611,11 +1599,7 @@ the object on which they operate. By default, widgets are enabled with
 a "keypress-i" event, but the specific event to enable the widget can
 be modified.
 
-**260** Advanced Computer Graphics
-
-![](media/image608.jpeg){width="2.011111111111111in"
-height="1.979861111111111in"}
-
+``` c++
 -   changes to the preceding example
 
 -   set the actors position and scale spikeActor->SetPosition(0,0.7,0);
@@ -1630,16 +1614,9 @@ height="1.979861111111111in"}
 ren1->GetActiveCamera()->SetFocalPoint(0,0,0);
 ren1->GetActiveCamera()->Zoom(1.8);
 ren1->GetActiveCamera()->SetFocalDisk(0.05);
-
-+---------------------------+-----------------------------------+----------------+
-| renWin->SetFDFrames(11); | **Figure 7-37**                | Example of a |
-+---------------------------+-----------------------------------+----------------+
-| renWin->Render();        | scene rendered with focal depth |
-+---------------------------+-----------------------------------+----------------+
-|                           | (CamBlur.cxx ).                 |
-+---------------------------+-----------------------------------+----------------+
-
+renWin->Render();
 iren->Start();
+```
 
 **vtkLineWidget**
 
@@ -1710,7 +1687,7 @@ combustor dataset. The StartInteractionEvent turns the visibility of
 the streamlines on; the InteractionEvent causes the streamlines to
 regenerate themselves ( LineWidget.tcl ).
 
-**7.20 Chapter Summary**
+## 7.20 Chapter Summary
 
 Alpha opacity is a graphics method to simulate transparent objects.
 Compositing is the process of blending translucent samples in order.
@@ -1731,10 +1708,6 @@ back-to-front order. Image-order techniques cast rays through pixels
 in the image plane to sample the volume. Other methods may traverse
 both the image and the volume at the same time or may operate in the
 frequency domain.
-
-http://www-
-
-**262** Advanced Computer Graphics
 
 For effective visualization of volumetric data, classification and
 shading are important considerations. Regions of interest may be used
@@ -1767,7 +1740,7 @@ that can be easily manipulated. 3D widgets also generate supplemental
 information such as implicit functions, output polygonal data, and
 transformation matrices that may be applied to objects in the scene.
 
-**7.21 Bibliographic Notes**
+## 7.21 Bibliographic Notes
 
 An overview of volume rendering and volume visualization techniques
 can be found in a tutorial by Kaufman \[Kaufman91\] . Many of the
@@ -1795,7 +1768,7 @@ top of The Visualization Toolkit, is available from Kitware for a
 
 www.kitware.com/products/volview.html
 
-**7.22 References**
+## 7.22 References
 
 \[Cabral94\]
 
@@ -1886,8 +1859,6 @@ Irregular Grids." In *Proceedings of* *1996 Symposium on Volume
 Visualization* . pp. 15--22, IEEE Computer Society Press, Los
 Alami-tos, CA, October 1996.
 
-**264** Advanced Computer Graphics
-
 \[Sobierajski95\]
 
 L. Sobierajski and R. Avila. "A Hardware Acceleration Method for
@@ -1944,7 +1915,7 @@ K. J. Zuiderveld, A. h. j. Koning, and M. A. Viergever. "Acceleration
 of Ray-Casting Using 3D Distance Transforms." In *Proceedings of
 Visualization and Biomedical Computing,* pp. 324--335, October 1992.
 
-**7.23 Exercises**
+## 7.23 Exercises
 
 7.1 In astronomy, photographs can be taken that show the movements of
 the stars over a period of time by keeping the camera's shutter open.
