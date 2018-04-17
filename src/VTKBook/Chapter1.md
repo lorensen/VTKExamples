@@ -10,7 +10,7 @@
 
 ### Terminology
 
-Different terminology is used to describe visualization. *Scientific visualization* is the formal name given to the field in computer science that encompasses user interface, data representation and processing algorithms, visual representations, and other sensory presentation such as sound or touch \[McCormick87\]. The term *data visualization* is another phrase used to describe visualization. Data visualization is generally interpreted to be more general than scientific visualization, since it implies treatment of data sources beyond the sciences and engineering. Such data sources include financial, marketing, or business data. In addition, the term data visualization is broad enough to include application of statistical methods and other standard data analysis techniques \[Rosenblum94\]. Another recently emerging term is *information visualization*. This field endeavors to visualize abstract information such as hypertext documents on the World Wide Web, directory/ file structures on a computer, or abstract data structures \[InfoVis95\]. A major challenge facing information visualization researchers is to develop coordinate systems, transformation methods, or structures that meaningfully organize and represent data.
+Different terminology is used to describe visualization. *Scientific visualization* is the formal name given to the field in computer science that encompasses user interface, data representation and processing algorithms, visual representations, and other sensory presentation such as sound or touch <em style="color:blue;background-color: white">\[McCormick87\]</em>. The term *data visualization* is another phrase used to describe visualization. Data visualization is generally interpreted to be more general than scientific visualization, since it implies treatment of data sources beyond the sciences and engineering. Such data sources include financial, marketing, or business data. In addition, the term data visualization is broad enough to include application of statistical methods and other standard data analysis techniques <em style="color:blue;background-color: white">\[Rosenblum94\]</em>. Another recently emerging term is *information visualization*. This field endeavors to visualize abstract information such as hypertext documents on the World Wide Web, directory/ file structures on a computer, or abstract data structures <em style="color:blue;background-color: white">\[InfoVis95\]</em>. A major challenge facing information visualization researchers is to develop coordinate systems, transformation methods, or structures that meaningfully organize and represent data.
 
 Another way to classify visualization technology is to examine the context in which the data exists. If the data is spatial-temporal in nature (up to three spatial coordinates and the time dimension) then typically methods from scientific visualization are used. If the data exists in higher-dimensional spaces, or abstract spaces, then methods from information visualization are used. This distinction is important, because the human perceptual system is highly tuned to space-time relationships. Data expressed in this coordinate system is inherently understood with little need for explanation. Visualization of abstract data typically requires extensive explanations as to what is being viewed. This is not to say that there is no overlap between scientific and information visualization---often the first step in the information visualization process is to project abstract data into the spatial-temporal domain, and then use the methods of scientific visualization to view the results. The projection process can be quite complex, involving methods of statistical graphics, data mining, and other techniques, or it may be as simple as selecting a lower-dimensional subset of the original data.
 
@@ -22,7 +22,7 @@ Perhaps the best definition of visualization is offered by example. In many case
 
 Computer imaging techniques have become an important diagnostic tool in the practice of modern medicine. These include techniques such as X-ray *Computed Tomography* (CT) and *Magnetic Resonance Imaging* (MRI). These techniques use a sampling or data acquisition process to capture information about the internal anatomy of a living patient. This information is in the form of *slice-planes* or cross-sectional images of a patient, similar to conventional photographic X-rays. CT imaging uses many pencil thin X-rays to acquire the data, while MRI combines large magnetic fields with pulsed radio waves. Sophisticated mathematical techniques are used to reconstruct the slice-planes. Typically, many such closely spaced slices are gathered together into a *volume* of data to complete the study.
 
-As acquired from the imaging system, a slice is a series of numbers representing the attenuation of X-rays (CT) or the relaxation of nuclear spin magnetization (MRI) \[Krestel90\]. On any given slice these numbers are arranged in a matrix, or regular array. The amount of data is large, so large that it is not possible to understand the data in its raw form. However, by assigning to these numbers a gray scale value, and then displaying the data on a computer screen, structure emerges. This structure results from the interaction of the human visual system with the spatial organization of the data and the gray-scale values we have chosen. What the computer represents as a series of numbers, we see as a cross section through the human body: skin, bone, and muscle. Even more impressive results are possible when we extend these techniques into three dimensions. Image slices can be gathered into volumes and the volumes can be processed to reveal complete anatomical structures. Using modern techniques, we can view the entire brain, skeletal system, and vascular system on a living patient without interventional surgery. Such capability has revolutionized modern medical diagnostics, and will increase in importance as imaging and visualization technology matures.
+As acquired from the imaging system, a slice is a series of numbers representing the attenuation of X-rays (CT) or the relaxation of nuclear spin magnetization (MRI) <em style="color:blue;background-color: white">\[Krestel90\]</em>. On any given slice these numbers are arranged in a matrix, or regular array. The amount of data is large, so large that it is not possible to understand the data in its raw form. However, by assigning to these numbers a gray scale value, and then displaying the data on a computer screen, structure emerges. This structure results from the interaction of the human visual system with the spatial organization of the data and the gray-scale values we have chosen. What the computer represents as a series of numbers, we see as a cross section through the human body: skin, bone, and muscle. Even more impressive results are possible when we extend these techniques into three dimensions. Image slices can be gathered into volumes and the volumes can be processed to reveal complete anatomical structures. Using modern techniques, we can view the entire brain, skeletal system, and vascular system on a living patient without interventional surgery. Such capability has revolutionized modern medical diagnostics, and will increase in importance as imaging and visualization technology matures.
 
 Another everyday application of visualization is in the entertainment industry. Movie and television producers routinely use computer graphics and visualization to create entire worlds that we could never visit in our physical bodies. In these cases we are visualizing other worlds as we imagine them, or past worlds we suppose existed. It's hard to watch the movies such as *Jurassic* *Park* and *Toy Story* and not gain a deeper appreciation for the awesome Tyrannosaurus Rex, or to be charmed by *Toy Story* 's heroic Buzz Lightyear.
 
@@ -32,13 +32,13 @@ Many early uses of visualization were in the engineering and scientific communit
 
 ## 1.2 Why Visualize?
 
-Visualization is a necessary tool to make sense of the flood of information in today's world of computers. Satellites, supercomputers, laser digitizing systems, and digital data acquisition systems acquire, generate, and transmit data at prodigious rates. The Earth-Orbiting Satellite (EOS) transmits terabytes of data every day. Laser scanning systems generate over 500,000 points in a 15 second scan \[Waters91\]. Supercomputers model weather patterns over the entire earth \[Chen93\]. In the first four months of 1995, the New York Stock Exchange processed, on average, 333 million transactions per day \[NYTimes\]. Without visualization, most of this data would sit unseen on computer disks and tapes. Visualization offers some hope that we can extract the important information hidden within the data.
+Visualization is a necessary tool to make sense of the flood of information in today's world of computers. Satellites, supercomputers, laser digitizing systems, and digital data acquisition systems acquire, generate, and transmit data at prodigious rates. The Earth-Orbiting Satellite (EOS) transmits terabytes of data every day. Laser scanning systems generate over 500,000 points in a 15 second scan <em style="color:blue;background-color: white">\[Waters91\]</em>. Supercomputers model weather patterns over the entire earth <em style="color:blue;background-color: white">\[Chen93\]</em>. In the first four months of 1995, the New York Stock Exchange processed, on average, 333 million transactions per day <em style="color:blue;background-color: white">\[NYTimes\]</em>. Without visualization, most of this data would sit unseen on computer disks and tapes. Visualization offers some hope that we can extract the important information hidden within the data.
 
 There is another important element to visualization: It takes advantage of the natural abilities of the human vision system. Our vision system is a complex and powerful part of our bodies. We use it and rely on it in almost everything we do. Given the environment in which our ancestors lived, it is not surprising that certain senses developed to help them survive. As we described earlier in the example of a 2D MRI scan, visual representations are easier to work with. Not only do we have strong 2D visual abilities, but also we are adept at integrating different viewpoints and other visual clues into a mental image of a 3D object or plot. This leads to interactive visualization, where we can manipulate our viewpoint. Rotating about the object helps to achieve a better understanding. Likewise, we have a talent for recognizing temporal changes in an image. Given an animation consisting of hundreds of frames, we have an uncanny ability to recognize trends and spot areas of rapid change.
 
 With the introduction of computers and the ability to generate enormous amounts of data, visualization offers the technology to make the best use of our highly developed visual senses. Certainly other technologies such as statistical analysis, artificial intelligence, mathematical filtering, and sampling theory will play a role in large-scale data processing. However, because visualization directly engages the vision system and human brain, it remains an unequaled technology for understanding and communicating data.
 
-Visualization offers significant financial advantages as well. In today's competitive markets, computer simulation teamed with visualization can reduce product cost and improve time to market. A large cost of product design has been the expense and time required to create and test design prototypes. Current design methods strive to eliminate these physical prototypes, and replace them with digital equivalents. This digital prototyping requires the ability to create and manipulate product geometry, simulate the design under a variety of operating conditions, develop manufacturing techniques, demonstrate product maintenance and service procedures, and even train operators on the proper use of the product before it is built. Visualization plays a role in each case. Already CAD systems are used routinely to model product geometry and design manufacturing procedures. Visualization enables us to view the geometry, and see special characteristics such as surface curvature. For instance, analysis techniques such as finite element, finite difference, and boundary element techniques are used to simulate product performance; and visualization is used to view the results. Recently, human ergonomics and anthropometry are being analyzed using computer techniques in combination with visualization \[MDHMS\]. Three-dimensional graphics and visualization are being used to create training sequences. Often these are incorporated into a hypertext document or World Wide Web (WWW) pages. Another practical use of graphics and visualization has been in-flight simulators. This has been shown to be a significant cost savings as compared to flying real airplanes and is an effective training method.
+Visualization offers significant financial advantages as well. In today's competitive markets, computer simulation teamed with visualization can reduce product cost and improve time to market. A large cost of product design has been the expense and time required to create and test design prototypes. Current design methods strive to eliminate these physical prototypes, and replace them with digital equivalents. This digital prototyping requires the ability to create and manipulate product geometry, simulate the design under a variety of operating conditions, develop manufacturing techniques, demonstrate product maintenance and service procedures, and even train operators on the proper use of the product before it is built. Visualization plays a role in each case. Already CAD systems are used routinely to model product geometry and design manufacturing procedures. Visualization enables us to view the geometry, and see special characteristics such as surface curvature. For instance, analysis techniques such as finite element, finite difference, and boundary element techniques are used to simulate product performance; and visualization is used to view the results. Recently, human ergonomics and anthropometry are being analyzed using computer techniques in combination with visualization <em style="color:blue;background-color: white">\[MDHMS\]</em>. Three-dimensional graphics and visualization are being used to create training sequences. Often these are incorporated into a hypertext document or World Wide Web (WWW) pages. Another practical use of graphics and visualization has been in-flight simulators. This has been shown to be a significant cost savings as compared to flying real airplanes and is an effective training method.
 
 ## 1.3 Imaging, Computer Graphics, and Visualization
 
@@ -74,9 +74,9 @@ As this figure illustrates we see that the visualization process focuses on data
 
 ## 1.4 Origins of Data Visualization
 
-The origin of visualization as a formal discipline dates to the 1987 NSF report *Visualization in Scientific Computing* \[McCormick87\]. That report coined the term *scientific visualization.* Since then the field has grown rapidly with major conferences, such as IEEE Visualization, becoming well established. Many large computer graphics conferences, for example ACM SIGGRAPH, devote large portions of their program to visualization technology.
+The origin of visualization as a formal discipline dates to the 1987 NSF report *Visualization in Scientific Computing* <em style="color:blue;background-color: white">\[McCormick87\]</em>. That report coined the term *scientific visualization.* Since then the field has grown rapidly with major conferences, such as IEEE Visualization, becoming well established. Many large computer graphics conferences, for example ACM SIGGRAPH, devote large portions of their program to visualization technology.
 
-Of course, data visualization technology had existed for many years before the 1987 report referenced \[Tufte83\]. The first practitioners recognized the value of presenting data as images. Early pictorial data representations were created during the eighteenth century with the arrival of statistical graphics. It was only with the arrival of the digital computer and the development of the field of computer graphics, that visualization became a practicable discipline.
+Of course, data visualization technology had existed for many years before the 1987 report referenced <em style="color:blue;background-color: white">\[Tufte83\]</em>. The first practitioners recognized the value of presenting data as images. Early pictorial data representations were created during the eighteenth century with the arrival of statistical graphics. It was only with the arrival of the digital computer and the development of the field of computer graphics, that visualization became a practicable discipline.
 
 The future of data visualization and graphics appears to be explosive. Just a few decades ago, the field of data visualization did not exist and computer graphics was viewed as an offshoot of the more formal discipline of computer science. As techniques were created and computer power increased, engineers, scientists, and other researchers began to use graphics to understand and communicate data. At the same time, user interface tools were being developed. These forces have now converged to the point where we expect computers to adapt to humans rather than the other way around. As such, computer graphics and data visualization serve as the window into the computer, and more importantly, into the data that computers manipulate. Now, with the visualization window, we can extract information from data and analyze, understand, and manage more complex systems than ever before.
 
@@ -193,104 +193,104 @@ Several registered trademarks are used in this text. UNIX is a trademark of UNIX
 
 ## 1.12 Bibliographic Notes
 
-A number of visualization texts are available. The first six texts listed in the reference section are good general references ( [Nielson90] , [Patrikalakis91] , [Brodlie92] , [Wolff93] , [Rosenblum94] , and [Gallagher95] ). Gallagher [Gallagher95] is particularly valuable if you are from a computational background. Wolff and Yaeger \[Wolff93\] contains many beautiful images and is oriented towards Apple Macintosh users. The text includes a CD-ROM with images and software.
+A number of visualization texts are available. The first six texts listed in the reference section are good general references ( [Nielson90] , [Patrikalakis91] , [Brodlie92] , [Wolff93] , [Rosenblum94] , and [Gallagher95] ). Gallagher [Gallagher95] is particularly valuable if you are from a computational background. Wolff and Yaeger <em style="color:blue;background-color: white">\[Wolff93\]</em> contains many beautiful images and is oriented towards Apple Macintosh users. The text includes a CD-ROM with images and software.
 
 You may also wish to learn more about computer graphics and imaging. Foley and van Dam [FoleyVanDam90] is the basic reference for computer graphics. Another recommended text is [BurgerGillies89]. Suggested reference books on computer imaging are [Pavlidis82] and [Wolberg90].
 
 Two texts by Tufte [Tufte83] [Tufte90] are particularly impressive. Not only are the graphics superbly done, but the fundamental philosophy of data visualization is articulated. He also describes the essence of good and bad visualization techniques.
 
-Another interesting text is available from Siemens, a large company offering medical imaging systems \[Krestel90\]. This text describes the basic concepts of imaging technology, including MRI and CT. This text is only for those users with a strong mathematical background. A less mathematical overview of MRI is available from \[SmithRanallo89\].
+Another interesting text is available from Siemens, a large company offering medical imaging systems <em style="color:blue;background-color: white">\[Krestel90\]</em>. This text describes the basic concepts of imaging technology, including MRI and CT. This text is only for those users with a strong mathematical background. A less mathematical overview of MRI is available from <em style="color:blue;background-color: white">\[SmithRanallo89\]</em>.
 
-To learn more about programming with *Visualization Toolkit* , we recommend the text *The* *VTK User's Guide* \[UsersGuide\]. This text has an extensive example suite as well as descriptions of the internals of the software. Programming resources including a detailed description of API's, VTK file formats, and class descriptions are provided.
+To learn more about programming with *Visualization Toolkit* , we recommend the text *The* *VTK User's Guide* <em style="color:blue;background-color: white">\[UsersGuide\]</em>. This text has an extensive example suite as well as descriptions of the internals of the software. Programming resources including a detailed description of API's, VTK file formats, and class descriptions are provided.
 
 ## 1.13 References
 
-\[Brodlie92\]1
+<em style="color:blue;background-color: white">\[Brodlie92\]</em>1
 K. W. Brodlie 1et al. *Scientific Visualization Techniques and
 Applications*. Springer-Verlag, Berlin, 1992.
 
-\[BurgerGillies89\]
+<em style="color:blue;background-color: white">\[BurgerGillies89\]</em>
 P. Burger and D. Gillies. *Interactive Computer Graphics Functional,
 Procedural and Device-Level Methods*. Addison-Wesley Publishing
 Company, Reading, MA, 1989.
 
-\[Chen93\]
+<em style="color:blue;background-color: white">\[Chen93\]</em>
 P. C. Chen. "A Climate Simulation Case Study." In *Proceedings of
 Visualization '93*. pp. 397--401, IEEE Computer Society Press, Los
 Alamitos, CA, 1993.
 
-\[FoleyVanDam90\]
+<em style="color:blue;background-color: white">\[FoleyVanDam90\]</em>
 J. D. Foley, A. van Dam, S. K. Feiner, and J. F. Hughes. *Computer
 Graphics Principles and Practice (2d Ed)*. Addison-Wesley, Reading,
 MA, 1990.
 
-\[Gallagher95\]
+<em style="color:blue;background-color: white">\[Gallagher95\]</em>
 R. S. Gallagher (ed). *Computer Visualization Graphics Techniques for
 Scientific and Engineering* *Analysis.* CRC Press, Boca Raton, FL,
 1995.
 
-\[Krestel90\]
+<em style="color:blue;background-color: white">\[Krestel90\]</em>
 E. Krestel (ed). *Imaging Systems for Medical Diagnostics*.
 Siemens-Aktienges, Munich, 1990.
 
-\[InfoVis95\]
+<em style="color:blue;background-color: white">\[InfoVis95\]</em>
 *The First Information Visualization Symposium*. IEEE Computer
 Society Press, Los Alamitos, CA, 1995.
 
-\[McCormick87\]
+<em style="color:blue;background-color: white">\[McCormick87\]</em>
 B. H. McCormick, T. A. DeFanti, and M. D. Brown. "Visualization in
 Scientific Computing." Report of the NSF Advisory Panel on Graphics,
 Image Processing and Workstations *,* 1987.
 
-\[MDHMS\]
+<em style="color:blue;background-color: white">\[MDHMS\]</em>
 *McDonnell Douglas Human Modeling System Reference Manual*. Report
 MDC 93K0281. McDonnell Douglas Corporation, Human Factors Technology,
 Version 2.1, July 1993.
 
-\[Nielson90\]
+<em style="color:blue;background-color: white">\[Nielson90\]</em>
 G. M. Nielson and B. Shriver (eds). *Visualization in Scientific
 Computing*. IEEE Computer Society Press, Los Alamitos, CA, 1990.
 
-\[NYTimes\]
+<em style="color:blue;background-color: white">\[NYTimes\]</em>
 *The New York Times Business Day,* Tuesday, May 2, 1995.
 
-\[Patrikalakis91\]
+<em style="color:blue;background-color: white">\[Patrikalakis91\]</em>
 N. M. Patrikalakis (ed). *Scientific Visualization of Physical
 Phenomena.* Springer-Verlag, Berlin, 1991.
 
-\[Pavlidis82\]
+<em style="color:blue;background-color: white">\[Pavlidis82\]</em>
 T. Pavlidis. *Graphics and Image Processing*. Computer Science Press,
 Rockville, MD, 1982.
 
-\[Rosenblum94\]
+<em style="color:blue;background-color: white">\[Rosenblum94\]</em>
 L. Rosenblum et al. *Scientific Visualization Advances and
 Challenges.* Harcourt Brace & Company, London, 1994.
 
-\[SmithRanallo89\]
+<em style="color:blue;background-color: white">\[SmithRanallo89\]</em>
 H. J. Smith and F. N. Ranallo. *A Non-Mathematical Approach to Basic
 MRI*. Medical Physics Publishing Corporation, Madison, WI, 1989.
 
-\[Tufte83\]
+<em style="color:blue;background-color: white">\[Tufte83\]</em>
 E. R. Tufte. *The Visual Display of Quantitative Information.*
 Graphics Press, Cheshire, CT, 1990.
 
-\[Tufte90\]
+<em style="color:blue;background-color: white">\[Tufte90\]</em>
 E. R. Tufte. *Envisioning Information.* Graphics Press, Cheshire, CT,
 1990.
 
-\[UsersGuide\]
+<em style="color:blue;background-color: white">\[UsersGuide\]</em>
 W. Schroeder, ed. *The VTK User's Guide*. Kitware, Inc.
 http://www.kitware.com.
 
-\[Waters91\]
+<em style="color:blue;background-color: white">\[Waters91\]</em>
 K. Waters and D. Terzopoulos. "Modeling and Animating Faces Using
 Scanned Data." *Visualization and Computer Animation*. 2:123--128,
 1991.
 
-\[Wolberg90\]
+<em style="color:blue;background-color: white">\[Wolberg90\]</em>
 G. Wolberg. *Digital Image Warping*. IEEE Computer Society Press, Los
 Alamitos, CA, 1990.
 
-\[Wolff93\]
+<em style="color:blue;background-color: white">\[Wolff93\]</em>
 R. S. Wolff and L. Yaeger. *Visualization of Natural Phenomena.*
 TELOS, Springer-Verlag, Santa Clara, CA, 1993.

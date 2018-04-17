@@ -35,7 +35,7 @@ with the its z-buffer value. When the red polygon is rendered, a comparison of i
 
 One solution to this problem is to sort the polygons from back to front and then render them in this order. Typically, this must be done in software requiring additional computational overhead. Sorting also interferes with actor properties (such as specular power), which are typically sent to the graphics engine just before rendering the actor's polygons. Once we start mixing up the polygons of different actors, we must make sure that the correct actor properties are set for each polygon rendered.
 
-Another solution is to store more than one set of RGBAZ values in the frame buffer. This is costly because of the additional memory requirements, and is still limited by the number of RGBAZ values you can store. Some new techniques use a combination of multiple RGBAZ value storage and multipass rendering to yield correct results with a minimum performance hit \[Hodges92\] .
+Another solution is to store more than one set of RGBAZ values in the frame buffer. This is costly because of the additional memory requirements, and is still limited by the number of RGBAZ values you can store. Some new techniques use a combination of multiple RGBAZ value storage and multipass rendering to yield correct results with a minimum performance hit <em style="color:blue;background-color: white">\[Hodges92\]</em> .
 
 The second technical problem with rendering transparent objects occurs less frequently, but can still have disastrous effects. In certain applications, such as volume rendering, it is desirable to have thousands of polygons with small alpha values. If the RGBA quad is stored in the frame buffer as four eight-bit values, then the round-off can accumulate over many polygons, resulting in gross errors in the output image. This may be less of a problem in the future if graphics hardware begins to store 16 or more bits per component for texture and the frame buffer.
 
@@ -206,7 +206,7 @@ In some cases it may make more sense to examine each voxel along the ray rather 
 
 A 3D scan conversion technique, such as a modified Bresenham method, can be used to transform the continuous ray into a discrete representation. The discrete ray is an ordered sequence of voxels $v_1, v_2, ... v_n$ and can be classified as 6-connected, 18-connected, or 26-connected as shown in **Figure7-10**. Each voxel contains 6 faces, 12 edges, and 8 vertices. If each pair of voxels  $v_i, v_{i+1}$ along the ray share a face then the ray is 6-connected, if they share a face or an edge the ray is 18-connected, and if they share a face, an edge, or a vertex the ray is 26-connected. Scan converting and traversing a 26-connected ray requires less time than a 6-connected ray but is more likely to miss small features in the volume dataset.
 
-If we are using a parallel viewing transformation and our ray function can be efficiently computed using a voxel by voxel traversal method, then we can employ a templated ray casting technique \[Yagel92b\] with 26-connected rays to generate the image. All rays are identical in direction; therefore, we only need to scan convert once, using this "template" for every ray. When these rays are cast from pixels on the image plane, as shown in the left image of **Figure7-11** , then some voxels in the dataset will not contribute to the image. If instead we cast the rays from the voxels in the base plane of the volume that is most parallel to the image plane, as shown in the right image, then the rays fit together snugly such that every voxel in the dataset is visited exactly once. The image will appear warped because it is generated from the base plane, so a final resampling step is required to project this image back onto the image plane.
+If we are using a parallel viewing transformation and our ray function can be efficiently computed using a voxel by voxel traversal method, then we can employ a templated ray casting technique <em style="color:blue;background-color: white">\[Yagel92b\]</em> with 26-connected rays to generate the image. All rays are identical in direction; therefore, we only need to scan convert once, using this "template" for every ray. When these rays are cast from pixels on the image plane, as shown in the left image of **Figure7-11** , then some voxels in the dataset will not contribute to the image. If instead we cast the rays from the voxels in the base plane of the volume that is most parallel to the image plane, as shown in the right image, then the rays fit together snugly such that every voxel in the dataset is visited exactly once. The image will appear warped because it is generated from the base plane, so a final resampling step is required to project this image back onto the image plane.
 
 ## 7.5 Object-Order Volume Rendering
 
@@ -228,7 +228,7 @@ Object-order volume rendering methods process samples in the volume based on the
 
 When a voxel is processed, its projected position on the view plane is determined and an operation is performed at that pixel location using the voxel and image information. This operator is similar to the ray function used in image-order ray casting techniques. Although this approach to projecting voxels is both fast and efficient, it often yields image artifacts due to the discrete selection of the projected image pixel. For instance, as we move the camera closer to the volume in a perspective projection, neighboring voxels will project to increasingly distant pixels on the view plane, resulting in distracting "holes" in the image.
 
-A volume rendering technique, called splatting, addresses this problem by distributing the energy of a voxel across many pixels. Splatting is an object-order volume rendering technique proposed by Westover \[Westover90\] and, as its name implies, it projects the energy of a voxel onto the image plane one splat, or footprint, at a time. A kernel with finite extent is placed around each data sample. The footprint is the projected contribution of this sample onto the image plane, and is computed by integrating the kernel along the viewing direction and storing the results in a 2D footprint table. **Figure7-13** illustrates the projection of a Gaussian kernel onto the image plane that may then be used as a splatting footprint. For a parallel viewing transform and a spherically symmetric kernel, the footprint of every voxel is identical except for an image space offset. Therefore, the evaluation of the footprint table and the image space extent of a sample can be performed once as a preprocessing step to volume rendering. Splatting is more difficult for perspective volume rendering since the image space extent is not identical for all samples. Accurately correcting for perspective effects in a splatting approach would make the algorithm far less efficient. However, with a small loss of accuracy we can still use the generic footprint table if we approximate the image plane extent of an ellipsoid with an ellipse.
+A volume rendering technique, called splatting, addresses this problem by distributing the energy of a voxel across many pixels. Splatting is an object-order volume rendering technique proposed by Westover <em style="color:blue;background-color: white">\[Westover90\]</em> and, as its name implies, it projects the energy of a voxel onto the image plane one splat, or footprint, at a time. A kernel with finite extent is placed around each data sample. The footprint is the projected contribution of this sample onto the image plane, and is computed by integrating the kernel along the viewing direction and storing the results in a 2D footprint table. **Figure7-13** illustrates the projection of a Gaussian kernel onto the image plane that may then be used as a splatting footprint. For a parallel viewing transform and a spherically symmetric kernel, the footprint of every voxel is identical except for an image space offset. Therefore, the evaluation of the footprint table and the image space extent of a sample can be performed once as a preprocessing step to volume rendering. Splatting is more difficult for perspective volume rendering since the image space extent is not identical for all samples. Accurately correcting for perspective effects in a splatting approach would make the algorithm far less efficient. However, with a small loss of accuracy we can still use the generic footprint table if we approximate the image plane extent of an ellipsoid with an ellipse.
 
 There are several important considerations when utilizing a splatting approach for volume rendering. The type of kernel, the radius of the kernel, and the resolution of the footprint table will all impact the appearance of the final image. For example, a kernel radius that is smaller than the distance between neighboring samples may lead to gaps in the image, while a larger radius will lead to a blurry image. Also, a low resolution footprint table is faster to precompute, but a high resolution table allows us to use nearest neighbor sampling for faster rendering times without a signifi-cant loss in image accuracy.
 
@@ -238,7 +238,7 @@ There are several important considerations when utilizing a splatting approach f
 <figcaption style="color:blue"><b>Figure 7-14</b>. Volume rendering using a 2D (left) and 3D (right) texture mapping technique.</figcaption>
 </figure>
 
-Texture mapping as described earlier in this chapter was originally developed to provide the appearance of high surface complexity when rendering geometric surfaces. As texture mapping methods matured and found their way into standard graphics hardware, researchers began utilizing these new capabilities to perform volume rendering \[Cabral94\] . There are two main texture-mapped volume rendering techniques based on the two main types of texture hardware currently available. Two-dimensional texture-mapped volume rendering makes use of 2D texture mapping hardware whereas 3D texture-mapped volume rendering makes use less commonly available 3D texture mapping graphics hardware.
+Texture mapping as described earlier in this chapter was originally developed to provide the appearance of high surface complexity when rendering geometric surfaces. As texture mapping methods matured and found their way into standard graphics hardware, researchers began utilizing these new capabilities to perform volume rendering <em style="color:blue;background-color: white">\[Cabral94\]</em> . There are two main texture-mapped volume rendering techniques based on the two main types of texture hardware currently available. Two-dimensional texture-mapped volume rendering makes use of 2D texture mapping hardware whereas 3D texture-mapped volume rendering makes use less commonly available 3D texture mapping graphics hardware.
 
 We can decompose texture-mapped volume rendering into two basic steps. The first is a sampling step where the data samples are extracted from the volume using some form of interpolation. Depending on the type of texture hardware available, this may be nearest neighbor, bilinear, or tri-linear interpolation and may be performed exclusively in hardware or through a combination of both software and hardware techniques. The second step is a blending step where the sampled values are combined with the current image in the frame buffer. This may be a simple maximum operator or it may be a more complex alpha compositing operator.
 
@@ -269,11 +269,11 @@ In theory, a 3D texture-mapped volume renderer and a ray casting volume renderer
 
 ## 7.6 Other Volume Rendering Methods
 
-Not all volume rendering methods fall cleanly into the image-order or object-order categories. For example, the shear-warp method \[Lacroute94\] of volume rendering traverses both image and object space at the same time. The basic idea behind this method is similar to that of templated ray casting. If we cast rays from the base plane of the volume for an orthographic projection, then it is possible to shear the volume such that the rays become perpendicular to the base plane, as shown in **Figure7-16** . Looking at the problem this way, it is clear to see that if all rays originate from the same place within the voxels on the base plane, then these rays intersect the voxels on each subsequent plane of the volume at consistent locations. Using bilinear interpolation on the 2D planes of the dataset, we can precompute one set of interpolation weights for each plane. Instead of traversing the volume by evaluating samples along each ray, an object-order traversal method can be used to visit voxels along each row in each plane in a front-to-back order through the volume. There is a one-to-one correspondence between samples in a plane of the volume and pixels on the image plane, making it possible to traverse both the samples and the pixels simultaneously. As in templated ray casting, a final resampling (warping) operation must be performed to transform the image from sheared space on the base plane to cartesian space on the image plane.
+Not all volume rendering methods fall cleanly into the image-order or object-order categories. For example, the shear-warp method <em style="color:blue;background-color: white">\[Lacroute94\]</em> of volume rendering traverses both image and object space at the same time. The basic idea behind this method is similar to that of templated ray casting. If we cast rays from the base plane of the volume for an orthographic projection, then it is possible to shear the volume such that the rays become perpendicular to the base plane, as shown in **Figure7-16** . Looking at the problem this way, it is clear to see that if all rays originate from the same place within the voxels on the base plane, then these rays intersect the voxels on each subsequent plane of the volume at consistent locations. Using bilinear interpolation on the 2D planes of the dataset, we can precompute one set of interpolation weights for each plane. Instead of traversing the volume by evaluating samples along each ray, an object-order traversal method can be used to visit voxels along each row in each plane in a front-to-back order through the volume. There is a one-to-one correspondence between samples in a plane of the volume and pixels on the image plane, making it possible to traverse both the samples and the pixels simultaneously. As in templated ray casting, a final resampling (warping) operation must be performed to transform the image from sheared space on the base plane to cartesian space on the image plane.
 
 Shear-warp volume rendering is essentially an efficient variant of ray casting. The correspondence between samples and pixels allows us to take advantage of a standard ray casting technique known as early ray termination. When we have determined that a pixel has reached full opacity during compositing, we no longer need to consider the remaining samples that project onto this pixel since they do not contribute to the final pixel value. The biggest efficiency improvement in shear-warp volume rendering comes from run-length encoding the volume. This compression method removes all empty voxels from the dataset, leaving only voxels that can potentially contribute to the image. Depending on the classification of the data, it is possible to achieve a greater than 10:1 reduction in voxels. As we step through the compressed volume, the number of voxels skipped due to run-length encoding also indicates the number of pixels to skip in the image. One drawback to this method is that it requires three copies of the compressed volume to allow for front-to-back traversal from all view directions. In addition, if we wish to use a perspective viewing transformation then we may need to traverse all three compressed copies of the volume in order to achieve the correct traversal order.
 
-Volume rendering can also be performed using the Fourier slice projection theorem \[Totsuka92\] that states that if we extract a slice of the volume in the frequency domain that contains the center and is parallel to the image plane, then the 2D spectrum of that slice is equivalent to the 2D image obtained by taking line integrals through the volume from the pixels on the image plane. Therefore we can volume render the dataset by extracting the appropriate slice from the 3D Fourier
+Volume rendering can also be performed using the Fourier slice projection theorem <em style="color:blue;background-color: white">\[Totsuka92\]</em> that states that if we extract a slice of the volume in the frequency domain that contains the center and is parallel to the image plane, then the 2D spectrum of that slice is equivalent to the 2D image obtained by taking line integrals through the volume from the pixels on the image plane. Therefore we can volume render the dataset by extracting the appropriate slice from the 3D Fourier
 
 +-----------------+-----------------+-----------------+-----------------+
 | volume, then    |                 |
@@ -300,7 +300,7 @@ Two problems that must be addressed when implementing a frequency domain volume 
 
 ## 7.7 Volume Classification
 
-Classifying the relevant objects of interest within a dataset is a critical step in producing a volume rendered image. This information is used to determine the contribution of an object to the image as well as the object's material properties and appearance. For example, a simple binary classification of whether a data sample corresponds to bone within a CT dataset is often performed by specifying a density threshold. When the scalar value at a voxel is greater than this threshold, it is classified as bone, otherwise it is considered air. This essentially specifies an isosurface in the volume at the transition between air and bone. If we plot this operation over all possible scalar values we will get the binary step function shown on the left in **Figure7-17** . In volume rendering we refer to this function as a transfer function. A transfer function is responsible for mapping the information at a voxel location into different values such as material, color, or opacity. The strength of volume rendering is that it can handle transfer functions of much greater complexity than a binary step function. This is often necessary since datasets contain multiple materials and classification methods cannot always assign a single material to a sample with 100 percent probability. Using advanced image segmentation and classification techniques, the single component volume can be processed into multiple material percentage volumes \[Drebin88\] . Referring back to our CT example, we can now specify a material percentage transfer function that defines a gradual transition from air to muscle, then from muscle to bone, as shown on the right in **Figure7-17** .
+Classifying the relevant objects of interest within a dataset is a critical step in producing a volume rendered image. This information is used to determine the contribution of an object to the image as well as the object's material properties and appearance. For example, a simple binary classification of whether a data sample corresponds to bone within a CT dataset is often performed by specifying a density threshold. When the scalar value at a voxel is greater than this threshold, it is classified as bone, otherwise it is considered air. This essentially specifies an isosurface in the volume at the transition between air and bone. If we plot this operation over all possible scalar values we will get the binary step function shown on the left in **Figure7-17** . In volume rendering we refer to this function as a transfer function. A transfer function is responsible for mapping the information at a voxel location into different values such as material, color, or opacity. The strength of volume rendering is that it can handle transfer functions of much greater complexity than a binary step function. This is often necessary since datasets contain multiple materials and classification methods cannot always assign a single material to a sample with 100 percent probability. Using advanced image segmentation and classification techniques, the single component volume can be processed into multiple material percentage volumes <em style="color:blue;background-color: white">\[Drebin88\]</em> . Referring back to our CT example, we can now specify a material percentage transfer function that defines a gradual transition from air to muscle, then from muscle to bone, as shown on the right in **Figure7-17** .
 
   ------------------
   ***Material %***
@@ -326,7 +326,7 @@ Classifying the relevant objects of interest within a dataset is a critical step
 
 In addition to material percentage transfer functions, we can define four independent transfer functions that map scalar values into red, green, blue, and opacity values for each material in the dataset. For simplicity, these sets of transfer functions are typically preprocessed into one function each for red, green, blue and opacity at the end of the classification phase. During rendering we must decide how to perform interpolation to compute the opacity and color at an arbitrary location in the volume. We could interpolate scalar value then evaluate the transfer functions, or we could evaluate the transfer functions at the grid points then interpolate the resulting opacities and colors. These two methods will produce different image results. It is generally considered more accurate to classify at the grid points then interpolate to obtain color and opacity; although if we interpolate then classify, the image often appears more pleasing since high frequencies may be removed by the interpolation.
 
-Classifying a volume based on scalar value alone is often not capable of isolating an object of interest. A technique introduced by Levoy \[Levoy88\] adds a gradient magnitude dimension to the specification of a transfer function. With this technique we can specify an object in the volume based on a combination of scalar value and the gradient magnitude. This allows us to define an opacity transfer function that can target voxels with scalar values in a range of densities and gradients within a range of gradient magnitudes. This is useful for avoiding the selection of homogeneous regions in a volume and highlighting fast-changing regions. **Figure7-18** shows a CT scan of a human foot. The sharp changes in the volume, such as the transition from air to skin and flesh to bone, are shown. However, the homogeneous regions, such as the internal muscle, are mostly transparent.
+Classifying a volume based on scalar value alone is often not capable of isolating an object of interest. A technique introduced by Levoy <em style="color:blue;background-color: white">\[Levoy88\]</em> adds a gradient magnitude dimension to the specification of a transfer function. With this technique we can specify an object in the volume based on a combination of scalar value and the gradient magnitude. This allows us to define an opacity transfer function that can target voxels with scalar values in a range of densities and gradients within a range of gradient magnitudes. This is useful for avoiding the selection of homogeneous regions in a volume and highlighting fast-changing regions. **Figure7-18** shows a CT scan of a human foot. The sharp changes in the volume, such as the transition from air to skin and flesh to bone, are shown. However, the homogeneous regions, such as the internal muscle, are mostly transparent.
 
 <figure id="Figure7-18">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-18.png?raw=true width="640" alt="Figure7-18">
@@ -347,7 +347,7 @@ $$
 
 where $f(x,y,z)$ represents the scalar value at $(x,y,z)$ location in the dataset according to the interpolation function, and $g_x, g_y$ and $g_z$ are the partial derivatives of this function along the x, y, and z axes respectively. The magnitude of the gradient at $(x,y,z)$ is the length of the resulting vector $(g_x, g_y, g_z)$. This vector can also be normalized to produce a unit normal vector. The  $\Delta x, \Delta y, $ and $\Delta z$ are critical as shown in **Figure7-19** . If these values are too small, then  the gradient vector field derived from **Equation7-3** may contain high frequencies, yet if these values are too large we will lose small features in the dataset.
 
-It is often the case that transfer functions based on scalar value and even gradient magnitude are not capable of fully classifying a volume. Ultrasound data is an example of particularly difficult data that does not perform well with simple segmentation techniques. While no one technique exists that is universally applicable, there exists a wide variety of techniques that produce classification information at each sample. For instance, \[Kikinis96\] provides techniques for classifying the human brain. In order to properly handle this information a volume renderer must access the original volume and a classification volume. The classification volume usually contains material percentages for each sample, with a set of color and opacity transfer functions for each material used to define appearance.
+It is often the case that transfer functions based on scalar value and even gradient magnitude are not capable of fully classifying a volume. Ultrasound data is an example of particularly difficult data that does not perform well with simple segmentation techniques. While no one technique exists that is universally applicable, there exists a wide variety of techniques that produce classification information at each sample. For instance, <em style="color:blue;background-color: white">\[Kikinis96\]</em> provides techniques for classifying the human brain. In order to properly handle this information a volume renderer must access the original volume and a classification volume. The classification volume usually contains material percentages for each sample, with a set of color and opacity transfer functions for each material used to define appearance.
 
 <figure id="Figure7-19">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-19.png?raw=true width="640" alt="Figure7-19">
@@ -370,7 +370,7 @@ Maximum intensity Composite (unshaded) Composite (shaded)
 </figure>
 **Figure 7-20** 
 
-To accurately capture lighting effects, we could use a transport theory illumination model \[Krueger91\] that describes the intensity of light $I$ arriving at a pixel by the path integral along the ray:
+To accurately capture lighting effects, we could use a transport theory illumination model <em style="color:blue;background-color: white">\[Krueger91\]</em> that describes the intensity of light $I$ arriving at a pixel by the path integral along the ray:
 
 $$
 \begin{equation*}
@@ -686,7 +686,7 @@ Similarly, an image-order ray casting technique would cast rays
 through the leaf nodes, with the regular structure of the octree
 allowing us to quickly step over empty nodes.
 
-A hybrid space leaping technique \[Sobierajski95\] makes use of
+A hybrid space leaping technique <em style="color:blue;background-color: white">\[Sobierajski95\]</em> makes use of
 graphics hardware to skip some of the empty regions of the volume
 during software ray casting. First, a polygonal representation is
 created that completely contains or encloses all important regions in
@@ -699,7 +699,7 @@ relevant data for every pixel in the image. These distances are then
 used to clip the rays during ray casting.
 
 An alternate space-leaping technique for ray casting involves the use
-of an auxiliary distance volume \[Zuiderveld92\] , with each value
+of an auxiliary distance volume <em style="color:blue;background-color: white">\[Zuiderveld92\]</em> , with each value
 indicating the closest distance to a nontransparent sample in the
 dataset. These distance values are used to take larger steps in empty
 regions of the volume while ensuring that we do not step over any
@@ -760,10 +760,10 @@ a splatting method based on an octree representation, then we can
 include an approximate scalar value and an error value in each parent
 node where the error value indicates how much the scalar values in the
 child nodes deviate from the approximate value in the parent node.
-Hierarchical splatting \[Laur91\] can be performed by descending the
+Hierarchical splatting <em style="color:blue;background-color: white">\[Laur91\]</em> can be performed by descending the
 octree only until a node with less than a given error tolerance is encountered. The contribution of this region
 of the volume on the image can be approximated by rendering geometric
-primitives for the splat \[Shirley90\] , \[Wilhelms91\] . Increasing
+primitives for the splat <em style="color:blue;background-color: white">\[Shirley90\]</em> , <em style="color:blue;background-color: white">\[Wilhelms91\]</em> . Increasing
 the allowed error will decrease the time required to render the data
 by allowing larger regions to be approximated at a higher level in the
 octree.
@@ -787,7 +787,7 @@ commercial software available for home computers. Yet as the demand
 for volume rendering increases, so do the challenges. The number of
 voxels in a typical dataset is growing, both due to advances in
 acquisition hardware and increased popularity of volume rendering in
-areas such as simulation and volume graphics \[Kaufman93\] . New
+areas such as simulation and volume graphics <em style="color:blue;background-color: white">\[Kaufman93\]</em> . New
 methods are needed in order to satisfy the conflicting needs of high
 quality images and interactivity on these large datasets. In addition,
 time dependent datasets that contain volumetric data sampled at
@@ -803,7 +803,7 @@ difficult to provide both high quality images and interactivity with
 these methods. Rendering techniques for these data
 
 types continues to be an area of active research in volume
-visualization \[Cignoni96\] , \[Silva96\] , \[Wilhelms96\] .
+visualization <em style="color:blue;background-color: white">\[Cignoni96\]</em> , <em style="color:blue;background-color: white">\[Silva96\]</em> , <em style="color:blue;background-color: white">\[Wilhelms96\]</em> .
 
 ## 7.14 Stereo Rendering
 
@@ -868,7 +868,7 @@ view plane as in **Figure7-25** . Our earlier camera model assumed
 that the view plane was perpendicular to the direction of projection.
 To handle this non-perpendicular case, we must translate and shear the
 camera's viewing frustum. Hodges provides some of the details of this
-operation as well as a good overview on stereo rendering \[Hodges92\].
+operation as well as a good overview on stereo rendering <em style="color:blue;background-color: white">\[Hodges92\]</em>.
 
 Now let's look at some of the different methods for presenting
 stereoscopic images to the user. Most methods are based on one of two main categories: *time
@@ -1237,12 +1237,12 @@ widgets, however, 3D widgets are relatively new technology, and
 because their application is in the context of a richer space, there
 is no consensus as to what widgets might constitute a complete set of
 functionality. Several popular 3D widget sets,
-and the University of Utah's SCIRUN 3D widgets \[Purciful95\] , have
+and the University of Utah's SCIRUN 3D widgets <em style="color:blue;background-color: white">\[Purciful95\]</em> , have
 distinctly different components in their widget toolbox. The widget
 sets vary according to the perceived purpose of the graphical
 environment in which they exist
-for example Open Inventor \[Wernecke94\] , the Brown University 3D
-Widgets Library \[Zeleznik93\] ,
+for example Open Inventor <em style="color:blue;background-color: white">\[Wernecke94\]</em> , the Brown University 3D
+Widgets Library <em style="color:blue;background-color: white">\[Zeleznik93\]</em> ,
 
 3D widgets are a recent addition (see **Figure7-32** ) to VTK. In
 principal, the core functionality is simple: events captured by the
@@ -1386,13 +1386,13 @@ vtkBMPReader bmpReader
   bmpReader SetFileName \"\$VTK\_DATA\_ROOT/Data/masonry.bmp\"
 
 vtkTexture atext
- atext SetInputConnection \[bmpReader GetOutputPort\]
+ atext SetInputConnection <em style="color:blue;background-color: white">\[bmpReader GetOutputPort\]</em>
  atext InterpolateOn
 
 vtkPlaneSource plane
 
 vtkPolyDataMapper planeMapper
-  planeMapper SetInputConnection \[plane GetOutputPort\]
+  planeMapper SetInputConnection [plane GetOutputPort\]</em>
 vtkActor planeActor
   planeActor SetMapper planeMapper
   planeActor SetTexture atext
@@ -1651,14 +1651,14 @@ vtkPolyData seeds
 
 vtkStreamTracer streamer
 
-streamer SetInputConnection \\ \[reader GetOutputPort\]
+streamer SetInputConnection \\ \[reader GetOutputPort\]</em>
 
 streamer SetSource seeds vtkRenderWindowInteractor iren
 
 iren SetRenderWindow renWin
 
 vtkLineWidget lineWidget lineWidget SetInteractor iren lineWidget
-SetInput \[reader GetOutput\] lineWidget SetAlignToYAxis lineWidget
+SetInput \[reader GetOutput\]</em> lineWidget SetAlignToYAxis lineWidget
 PlaceWidget
 
 lineWidget GetPolyData seeds
@@ -1667,7 +1667,7 @@ lineWidget ClampToBoundsOn
 
 lineWidget SetResolution 25
 
-\[lineWidget GetLineProperty\] SetColor 0 0 0 lineWidget AddObserver
+\[lineWidget GetLineProperty\]</em> SetColor 0 0 0 lineWidget AddObserver
 StartInteractionEvent
 
 BeginInteraction
@@ -1743,7 +1743,7 @@ transformation matrices that may be applied to objects in the scene.
 ## 7.21 Bibliographic Notes
 
 An overview of volume rendering and volume visualization techniques
-can be found in a tutorial by Kaufman \[Kaufman91\] . Many of the
+can be found in a tutorial by Kaufman <em style="color:blue;background-color: white">\[Kaufman91\]</em> . Many of the
 volume rendering techniques discussed in this chapter are also
 accessible from research institutions as source code. The shear-warp
 algorithm is provided within the VolPack rendering library and is
@@ -1770,147 +1770,122 @@ www.kitware.com/products/volview.html
 
 ## 7.22 References
 
-\[Cabral94\]
-
+<em style="color:blue;background-color: white">\[Cabral94\]</em>
 B. Cabral, N. Cam, J. Foran. "Accelerated Volume Rendering and
 Tomographic Reconstruction Using Texture Mapping Hardware." In
 *Proceedings of 1994 Symposium on Volume Visualization* . pp. 91--98,
 October 1994.
 
-\[Cignoni96\]
-
+<em style="color:blue;background-color: white">\[Cignoni96\]</em>
 P. Cignoni, C. Montani, E. Puppo, R. Scopigno. "Optimal Isosurface
 Extraction from Irregular Volume Data." In *Proceedings of 1996
 Symposium on Volume Visualization* . pp. 31--38, IEEE Computer Society
 Press, Los Alamitos, CA, October 1996.
 
-\[Drebin88\]
-
+<em style="color:blue;background-color: white">\[Drebin88\]</em>
 R. A. Drebin, L. Carpenter, P. Hanrahan. "Volume Rendering." *Computer
 Graphics* . 22(4):64--75 (Siggraph 1988).
 
-\[Hodges92\]
-
+<em style="color:blue;background-color: white">\[Hodges92\]</em>
 L. F. Hodges. "Tutorial: Time-Multiplexed Stereoscopic Computer
 Graphics." *IEEE Computer* *Graphics & Applications .* March 1992.
 
-\[Kaufman91\]
-
+<em style="color:blue;background-color: white">\[Kaufman91\]</em>
 A. Kaufman (ed.). *Volume Visualization.* IEEE Computer Society Press,
 Los Alamitos, CA, 1991.
 
-\[Kaufman93\]
-
+<em style="color:blue;background-color: white">\[Kaufman93\]</em>
 A. Kaufman, R. Yagel, D. Cohen. "Volume Graphics." *IEEE Computer* .
 26(7):51--64, July 1993.
 
-\[Kelly94\]
-
+<em style="color:blue;background-color: white">\[Kelly94\]</em>
 M. Kelly, K. Gould, S. Winner, A. Yen. "Hardware Accelerated Rendering
 of CSG and Transpar-ency." *Computer Graphics (SIGGRAPH '94* ). pp.
 177-184.
 
-\[Kikinis96\]
-
+<em style="color:blue;background-color: white">\[Kikinis96\]</em>
 R. Kikinis, M. Shenton, D. Iosifescu, R. McCarley, P. Saiviroonporn,
 H. Hokama, A. Robatino, D. Metcalf, C. Wible, C. Portas, R. Donnino,
-F. Jolesz. "A Digital Brain Atlas for Surgical Plan-ning, Model Driven
+F. Jolesz. "A Digital Brain Atlas for Surgical Planning, Model Driven
 Segmentation and Teaching." *IEEE Transactions on Visualization and
-Com-puter Graphics* . 2(3), September 1996.
+Computer Graphics* . 2(3), September 1996.
 
-\[Krueger91\]
-
+<em style="color:blue;background-color: white">\[Krueger91\]</em>
 W. Krueger. "The Application of Transport Theory to Visualization of
 3D Scalar Data Fields." *Computers in Physics* . pp. 397-406,
 July/August 1994.
 
-\[Lacroute94\]
-
+<em style="color:blue;background-color: white">\[Lacroute94\]</em>
 P. Lacroute and M. Levoy. "Fast Volume Rendering Using a Shear-Warp
 Factorization of the Viewing Transformation." In *Proceedings of
 SIGGRAPH '94* . pp. 451-458, Addison-Wesley, Reading, MA, 1994.
 
-\[Laur91\]
-
+<em style="color:blue;background-color: white">\[Laur91\]</em>
 D. Laur and P. Hanrahan. "Hierarchical Splatting: A Progressive
 Refinement Algorithm for Vol-ume Rendering." In *Proceedings of
 SIGGRAPH '91* . 25:285--288, 1991.
 
-\[Levoy88\]
-
+<em style="color:blue;background-color: white">\[Levoy88\]</em>
 M. Levoy. "Display of Surfaces from Volumetric Data." *IEEE Computer
 Graphics & Applica-tions* . **8**(3), pp. 29--37, May 1988.
 
-\[Purciful95\]
-
+<em style="color:blue;background-color: white">\[Purciful95\]</em>
 J.T. Purciful. \"Three-Dimensional Widgets for Scientific
 Visualization and Animation.\" Masters Thesis, Dept. of Computer
 Science, Univ. of Utah, 1995.
 
-\[Shirley90\]
-
+<em style="color:blue;background-color: white">\[Shirley90\]</em>
 P. Shirley and A. Tuchman. "A Polygonal Approximation to Direct Volume
 Rendering." *Comput-er Graphics* . 24(5):63--70, 1990.
 
-\[Silva96\]
-
+<em style="color:blue;background-color: white">\[Silva96\]</em>
 C. Silva, J. S. B. Mitchell, A. E. Kaufman. "Fast Rendering of
 Irregular Grids." In *Proceedings of* *1996 Symposium on Volume
 Visualization* . pp. 15--22, IEEE Computer Society Press, Los
 Alami-tos, CA, October 1996.
 
-\[Sobierajski95\]
-
+<em style="color:blue;background-color: white">\[Sobierajski95\]</em>
 L. Sobierajski and R. Avila. "A Hardware Acceleration Method for
 Volumetric Ray Tracing." In *Proceedings of Visualization '95* . pp.
 27-34, IEEE Computer Society Press, Los Alamitos, CA, October 1995.
 
-\[Totsuka92\]
-
+<em style="color:blue;background-color: white">\[Totsuka92\]</em>
 T. Totsuka and M. Levoy. "Frequency Domain Volume Rendering."
 *Computer Graphics (SIG-GRAPH '93).* pp. 271--278, August 1993.
 
-\[Wernecke94\]
-
+<em style="color:blue;background-color: white">\[Wernecke94\]</em>
 J. Wernecke. *The Inventor Mentor* . Addison-Wesley, Reading MA,1994.
 
-\[Westover90\]
-
+<em style="color:blue;background-color: white">\[Westover90\]</em>
 L. Westover. "Footprint Evaluation for Volume Rendering." *Computer
 Graphics (SIGGRAPH* *'90).* 24(4):36, 1990.
 
-\[Wilhelms91\]
-
+<em style="color:blue;background-color: white">\[Wilhelms91\]</em>
 J. Wilhelms and A. Van Gelder. "A Coherent Projection Approach for
 Direct Volume Rendering." *Computer Graphics (SIGGRAPH '91).*
 25(4):275--284, 1991.
 
-\[Wilhelms96\]
-
+<em style="color:blue;background-color: white">\[Wilhelms96\]</em>
 J. P. Wilhelms, A. Van Gelder, P. Tarantino, J. Gibbs. "Hierarchical
 and Parallelizable Direct Vol-ume Rendering for Irregular and Multiple
 Grids." In *Proceedings of Visualization '96* . pp. 73ê80, IEEE
 Computer Society Press, Los Alamitos, CA, October 1996.
 
-\[Yagel92a\]
-
+<em style="color:blue;background-color: white">\[Yagel92a\]</em>
 R. Yagel, D. Cohen, and A. Kaufman. "Normal Estimation in 3D Discrete
 Space." *The Visual* *Computer.* pp. 278--291, 1992.
 
-\[Yagel92b\]
-
+<em style="color:blue;background-color: white">\[Yagel92b\]</em>
 R. Yagel and A. Kaufman. "Template-based Volume Viewing." In
 *Proceedings of Eurographics* *'92.* pp. 153--167, September 1992.
 
-\[Zeleznik93\]
-
+<em style="color:blue;background-color: white">\[Zeleznik93\]</em>
 R. C. Zeleznik, K. P. Herndon, D. C. Robbins, N. Huang, T. Meyer, N.
 Parker, J. F. Hughes. "An Interactive Toolkit for Constructing 3D
 Interfaces." *Computer Graphics (Proceedings of Siggraph* *'93).*
 27(4):81--84. July 1993.
 
-\[Zuiderveld92\]
-
+<em style="color:blue;background-color: white">\[Zuiderveld92\]</em>
 K. J. Zuiderveld, A. h. j. Koning, and M. A. Viergever. "Acceleration
 of Ray-Casting Using 3D Distance Transforms." In *Proceedings of
 Visualization and Biomedical Computing,* pp. 324--335, October 1992.

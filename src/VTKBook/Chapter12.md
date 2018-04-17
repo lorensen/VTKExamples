@@ -1180,7 +1180,7 @@ includes the following:
 
 For this case study, we use a dataset from NASA called the LOx Post.
 It simulates the flow of liquid oxygen across a flat plate with a
-cylindrical post perpendicular to the flow \[Rogers86\] . This
+cylindrical post perpendicular to the flow <em style="color:blue;background-color: white">\[Rogers86\]</em> . This
 analy-sis models the flow in a rocket engine. The post promotes mixing
 of the liquid oxygen.
 
@@ -1537,7 +1537,7 @@ warp SetInputConnection \[reader GetOutputPort\]
 **Figure 12--18** Tcl script to generate blow molding image. Network
 topology and ini-tial portion of script are shown (Part one of two).
 
-al. \[Robertson91\] have shown 3D techniques for visualizing directory
+al. <em style="color:blue;background-color: white">\[Robertson91\]</em> have shown 3D techniques for visualizing directory
 structures and navigating through them. Their approach involves
 building three dimensional models (the so-called "cone trees") to
 represent files, directories, and associations between files and
@@ -1667,7 +1667,7 @@ move the disks from one peg to another, moving the disks one at a
 time, and never placing a larger disk on top of a smaller disk.
 
 The classical solution to this puzzle is based on a divide-and-conquer
-approach \[AhoHopUll83\] . The problem of moving *n* disks from the
+approach <em style="color:blue;background-color: white">\[AhoHopUll83\]</em> . The problem of moving *n* disks from the
 initial peg to the second peg can be thought of as solving two
 subproblems of size *n--1*. First move *n--1* disks from the initial
 peg to the third peg. Then move the *nth* disk to the second peg.
@@ -1816,93 +1816,78 @@ informa-tion into visual form.
 The case studies presented in the chapter rely on having interesting
 data to visualize. Sometimes the hardest part of practicing
 visualizing is finding relevant data. The Internet is a tremendous
-resource for this task. Paul Gilster \[Gilster94\] has written an
+resource for this task. Paul Gilster <em style="color:blue;background-color: white">\[Gilster94\]</em> has written an
 excellent introduction to many of the tools for accessing information
 on the Internet. There are many more books available on this subject
 in the local bookstore.
 
 In the stock case study we used a programming tool called AWK to
 convert our data into a form suitable for VTK. More information on AWK
-can be found in *The AWK Programming Lan-guage* \[Aho88\]. Another
-popular text processing languages is Perl \[Perl95\] .
+can be found in *The AWK Programming Lan-guage* <em style="color:blue;background-color: white">\[Aho88\]</em>. Another
+popular text processing languages is Perl <em style="color:blue;background-color: white">\[Perl95\]</em> .
 
 If you would like to know more about information visualization you can
-start with the refer-ences listed here \[Becker95\] \[Ding90\]
-\[Eick93\] \[Feiner88\] \[Johnson91\] \[Robertson91\] . This is a
+start with the refer-ences listed here <em style="color:blue;background-color: white">\[Becker95\]</em> <em style="color:blue;background-color: white">\[Ding90\]</em>
+<em style="color:blue;background-color: white">\[Eick93\]</em> <em style="color:blue;background-color: white">\[Feiner88\]</em> <em style="color:blue;background-color: white">\[Johnson91\]</em> <em style="color:blue;background-color: white">\[Robertson91\]</em> . This is a
 rela-tively new field but will certainly grow in the near future.
 
 **12.10 References**
 
-\[Aho88\]
-
+<em style="color:blue;background-color: white">\[Aho88\]</em>
 A. V. Aho, B. W. Kernighan, and P. J. Weinberger. *The AWK Programming
 Language* . Addison-Wesley, Reading, MA, 1988.
 
-\[AhoHopUll83\]
-
+<em style="color:blue;background-color: white">\[AhoHopUll83\]</em>
 A. V. Aho, J. E. Hopcroft, and J. D. Ullman. *Data Structures and
 Algorithm* s. Addison-Wesley, Reading, MA, 1983.
 
-\[Becker95\]
-
+<em style="color:blue;background-color: white">\[Becker95\]</em>
 R. A. Becker, S. G. Eick, and A. R. Wilks. "Visualizing Network Data."
 *IEEE Transactions on Vi-sualization and Graphics* . 1(1):16--28,1995.
 
-\[deLorenzi93\]
-
+<em style="color:blue;background-color: white">\[deLorenzi93\]</em>
 H. G. deLorenzi and C. A. Taylor. "The Role of Process Parameters in
-Blow Molding and Corre-
-
-lation of 3-D Finite Element Analysis with Experiment." *International
+Blow Molding and Correlation of 3-D Finite Element Analysis with Experiment." *International
 Polymer Processing.*
-
 3(4):365--374, 1993.
 
-\[Ding90\]
-
+<em style="color:blue;background-color: white">\[Ding90\]</em>
 C. Ding and P. Mateti. "A Framework for the Automated Drawing of Data
 Structure Diagrams." *IEEE Transactions on Software Engineering* .
 16(5):543--557, May 1990.
 
-\[Eick93\]
-
+<em style="color:blue;background-color: white">\[Eick93\]</em>
 S. G. Eick and G. J. Wills. "Navigating Large Networks with
 Hierarchies." In *Proceedings of Vi-sualization '93* . pp. 204--210,
 IEEE Computer Society Press, Los Alamitos, CA, October 1993.
 
-\[Feiner88\]
-
+<em style="color:blue;background-color: white">\[Feiner88\]</em>
 S. Feiner. "Seeing the Forest for the Trees: Hierarchical Displays of
 Hypertext Structures." In *Conference on Office Information Systems* .
 Palo Alto, CA, 1988.
 
-\[Gilster94\]
-
+<em style="color:blue;background-color: white">\[Gilster94\]</em>
 P. Gilster. *Finding It on the Internet: The Essential Guide to
 Archie, Veronica, Gopher, WAIS,* *WWW (including Mosaic), and Other
 Search and Browsing Tools .* John Wiley & Sons, Inc., 1994.
 
-\[Johnson91\]
-
+<em style="color:blue;background-color: white">\[Johnson91\]</em>
 B. Johnson and B. Shneiderman. "Tree-Maps: A Space-Filling Approach to
 the Visualization of Hierarchical Information Structure *s*." In
 *Proceedings of Visualization '91* . pp. 284--291, IEEE Computer
 Society Press, Los Alamitos, CA, October 1991.
 
-\[Perl95\]
-
+<em style="color:blue;background-color: white">\[Perl95\]</em>
 D. Till. *Teach Yourself Perl in 21 Days* . Sams Publishing,
 Indianapolis, Indiana, 1995.
 
-\[Robertson91\]
-
+<em style="color:blue;background-color: white">\[Robertson91\]</em>
 G. G. Robertson, J. D. Mackinlay, and S. K. Card. "Cone Trees:
 Animated 3D Visualizations of Hierarchical Information." In
 *Proceedings of ACM CHI '91 Conference on Human Factors in* *Computing
 Systems* . pp. 189--194, 1991.
 
-\[Rogers86\]
-
+<em style="color:blue;background-color: white">\[Rogers86\]</em>
 S. E. Rogers, D. Kwak, and U. K. Kaul, "A Numerical Study of
 Three-Dimensional Incompress-ible Flow Around Multiple Post." in
 *Proceedings of AIAA Aerospace Sciences Conference* . vol. AIAA Paper

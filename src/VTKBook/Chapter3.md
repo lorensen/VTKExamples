@@ -32,9 +32,9 @@ To look at it another way consider painting a picture of a barn. Using an image-
 
 An alternative approach is based on the more natural (at least for many people) object-order process. We work by painting the different objects in our scene, independent of where the objects actually are located on the scene. We may paint from back to front, front-to-back, or in arbitrary order. For example, we could start by painting the sky and then add in the ground. After these two objects were painted we would then add in the barn. In the image-order process we worked on the canvas in a very orderly fashion; left to right, top to bottom. With an object-order process we tend to jump from one part of the canvas to another, depending on what object we are drawing.
 
-The field of computer graphics started out using object-order processes. Much of the early work was closely tied to the hardware display device, initially a vector display. This was little more than an oscilloscope, but it encouraged graphical data to be drawn as a series of line segments. As the original vector displays gave way to the currently ubiquitous raster displays, the notion of representing graphical data as a series of objects to be drawn was preserved. Much of the early work pioneered by Bresenham \[Bresenham65\] at IBM focused on how to properly convert line segments into a form that would be suitable for line plotters. The same work was applied to the task of rendering lines onto the raster displays that replaced the oscilloscope. Since then the hardware has become more powerful and capable of displaying much more complex primitives than lines.
+The field of computer graphics started out using object-order processes. Much of the early work was closely tied to the hardware display device, initially a vector display. This was little more than an oscilloscope, but it encouraged graphical data to be drawn as a series of line segments. As the original vector displays gave way to the currently ubiquitous raster displays, the notion of representing graphical data as a series of objects to be drawn was preserved. Much of the early work pioneered by Bresenham <em style="color:blue;background-color: white">\[Bresenham65\]</em> at IBM focused on how to properly convert line segments into a form that would be suitable for line plotters. The same work was applied to the task of rendering lines onto the raster displays that replaced the oscilloscope. Since then the hardware has become more powerful and capable of displaying much more complex primitives than lines.
 
-It wasn't until the early 1980s that a paper by Turner Whitted \[Whitted80\] prompted many people to look at rendering from a more physical perspective. Eventually ray tracing became a serious competitor to the traditional object-order rendering techniques, due in part to the highly realistic images it can produce. Object-order rendering has maintained its popularity because there is a wealth of graphics hardware designed to quickly render objects. Ray tracing tends to be done without any specialized hardware and therefore is a time-consuming process.
+It wasn't until the early 1980s that a paper by Turner Whitted <em style="color:blue;background-color: white">\[Whitted80\]</em> prompted many people to look at rendering from a more physical perspective. Eventually ray tracing became a serious competitor to the traditional object-order rendering techniques, due in part to the highly realistic images it can produce. Object-order rendering has maintained its popularity because there is a wealth of graphics hardware designed to quickly render objects. Ray tracing tends to be done without any specialized hardware and therefore is a time-consuming process.
 
 ## Surface versus Volume Rendering
 
@@ -71,7 +71,7 @@ The HSV system represents colors based on their hue, saturation, and value. The 
 <figure id="Figure3-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-3.png?raw=true width="640" alt="Figure 3-3">
 </figure>
-<figcaption style="color:blue"><b>Figure 3-3</b>.Relative absorbance of light by the three types of cones in the human retina \[Dartnall83\]. </figcaption>
+<figcaption style="color:blue"><b>Figure 3-3</b>.Relative absorbance of light by the three types of cones in the human retina <em style="color:blue;background-color: white">\[Dartnall83\]</em>. </figcaption>
 </figure>
 
 | **Color** | **RGB**   | **HSV**   |
@@ -628,7 +628,7 @@ The data representing the cone (a set of polygons) in this example is created by
 
 There are many different types of source objects in VTK similar to vtkConeSource as shown in **Figure3-26**. In the next chapter we will learn more about source and other types of filters.
 
-**Events and Observers.** A visualization toolkit like VTK is frequently used in interactive applications or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the *command/observer* design pattern \[Gamma95\] is used for this purpose.
+**Events and Observers.** A visualization toolkit like VTK is frequently used in interactive applications or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the *command/observer* design pattern <em style="color:blue;background-color: white">\[Gamma95\]</em> is used for this purpose.
 
 Fundamental to this design pattern as implemented in VTK is the concept of *events*. An event signals that an important operation has occurred in the software. For example, if the user presses the left mouse button in the render window, VTK will invoke the LeftButtonPressEvent. Observers are objects that register their interest in a particular event or events. When one of these events is invoked, the observer receives notification and may perform any valid operation at that point; that is, execute the command associated with the observer. The benefit of the command/observer design pattern is that is simple in concept and implementation, yet provides significant power to the user. However it does require the software implementation to invoke events as it operates.
 
@@ -1036,29 +1036,29 @@ The *Visualization Toolkit* uses a graphics model based on lights, cameras, acto
 
 ## 3.12 Bibliographic Notes
 
-This chapter provides the reader with enough information to understand the basic issues and terms used in computer graphics. There are a number of good text books that cover computer graphics in more detail and are recommended to readers who would like a more thorough understanding. The bible of computer graphics is \[FoleyVanDam90\]. For those wishing for less intimidating books \[BurgerGillies89\] and \[Watt93\] are also useful references. You also may wish to peruse proceedings of the ACM SIGGRAPH conferences. These include papers and references to other papers for some of the most important work in computer graphics. \[Carlson85\] provides a good introduction for those who wish to learn more about the human vision system.
+This chapter provides the reader with enough information to understand the basic issues and terms used in computer graphics. There are a number of good text books that cover computer graphics in more detail and are recommended to readers who would like a more thorough understanding. The bible of computer graphics is <em style="color:blue;background-color: white">\[FoleyVanDam90\]</em>. For those wishing for less intimidating books <em style="color:blue;background-color: white">\[BurgerGillies89\]</em> and <em style="color:blue;background-color: white">\[Watt93\]</em> are also useful references. You also may wish to peruse proceedings of the ACM SIGGRAPH conferences. These include papers and references to other papers for some of the most important work in computer graphics. <em style="color:blue;background-color: white">\[Carlson85\]</em> provides a good introduction for those who wish to learn more about the human vision system.
 
 ## 3.13 References
 
-\[Bresenham65\] J. E. Bresenham."Algorithm for Computer Control of a Digital Plotter." *IBM Systems Journal* , 4(1): 25--30, January 1965.
+<em style="color:blue;background-color: white">\[Bresenham65\]</em> J. E. Bresenham."Algorithm for Computer Control of a Digital Plotter." *IBM Systems Journal* , 4(1): 25--30, January 1965.
 
-\[BurgerGillies89\] P. Burger and D. Gillies. *Interactive Compute Graphics Functional, Procedural and Device-Level* *Methods*. Addison-Wesley, Reading, MA, 1989.
+<em style="color:blue;background-color: white">\[BurgerGillies89\]</em> P. Burger and D. Gillies. *Interactive Compute Graphics Functional, Procedural and Device-Level* *Methods*. Addison-Wesley, Reading, MA, 1989.
 
-\[Carlson85\] N. R. Carlson. *Physiology of Behaviour (3d Edition)*. Allyn and Bacon Inc., Newton, MA, 1985.
+<em style="color:blue;background-color: white">\[Carlson85\]</em> N. R. Carlson. *Physiology of Behaviour (3d Edition)*. Allyn and Bacon Inc., Newton, MA, 1985.
 
-\[Dartnall83\] H. J. A. Dartnall, J. K. Bowmaker, and J. D. Mollon. "Human Visual Pigments: Microspectropho-tometric Results from the Eyes of Seven Persons." *Proceedings of the Royal Society,* London, 1983.
+<em style="color:blue;background-color: white">\[Dartnall83\]</em> H. J. A. Dartnall, J. K. Bowmaker, and J. D. Mollon. "Human Visual Pigments: Microspectropho-tometric Results from the Eyes of Seven Persons." *Proceedings of the Royal Society,* London, 1983.
 
-\[FoleyVanDam90\] J. D. Foley, A. van Dam, S. K. Feiner, and J. F. Hughes. *Computer Graphics Principles and Practice (2d Edition)*. Addison-Wesley, Reading, MA, 1990.
+<em style="color:blue;background-color: white">\[FoleyVanDam90\]</em> J. D. Foley, A. van Dam, S. K. Feiner, and J. F. Hughes. *Computer Graphics Principles and Practice (2d Edition)*. Addison-Wesley, Reading, MA, 1990.
 
-\[Fuchs80\] H. Fuchs, Z. M. Kedem, and B. F. Naylor. "On Visible Surface Generation By A Priori Tree Structure." *Computer Graphics* (*SIGGRAPH '80)*, 14(3):124--133, 1980.
+<em style="color:blue;background-color: white">\[Fuchs80\]</em> H. Fuchs, Z. M. Kedem, and B. F. Naylor. "On Visible Surface Generation By A Priori Tree Structure." *Computer Graphics* (*SIGGRAPH '80)*, 14(3):124--133, 1980.
 
-\[Gamma95\] E. Gamma, R. Helm, R. Johnson, J. Vlissides. *Design Patterns Elements of Reusable Object-Oriented Software*. Addison-Wesley 1995. ISBN0-201-63361-2.
+<em style="color:blue;background-color: white">\[Gamma95\]</em> E. Gamma, R. Helm, R. Johnson, J. Vlissides. *Design Patterns Elements of Reusable Object-Oriented Software*. Addison-Wesley 1995. ISBN0-201-63361-2.
 
-\[Ousterhout94\] J. K.Ousterhout. *Tcl and the Tk Toolkit.* Addison-Wesley Publishing Company, Reading, MA, 1994.
+<em style="color:blue;background-color: white">\[Ousterhout94\]</em> J. K.Ousterhout. *Tcl and the Tk Toolkit.* Addison-Wesley Publishing Company, Reading, MA, 1994.
 
-\[Watt93\] A. Watt. *3D Computer Graphics (2d Edition)*. Addison-Wesley, Reading, MA, 1993.
+<em style="color:blue;background-color: white">\[Watt93\]</em> A. Watt. *3D Computer Graphics (2d Edition)*. Addison-Wesley, Reading, MA, 1993.
 
-\[Whitted80\] T. Whitted. "An Improved Illumination Model for Shaded Display." *Communications of the ACM*, 23(6):343-349, 1980. 
+<em style="color:blue;background-color: white">\[Whitted80\]</em> T. Whitted. "An Improved Illumination Model for Shaded Display." *Communications of the ACM*, 23(6):343-349, 1980. 
 
 ## 3.14 Exercises
 
