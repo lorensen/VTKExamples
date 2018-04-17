@@ -70,7 +70,7 @@ g_z &=& \frac{f(x, y, z + \Delta z) - f(x, y, z - \Delta z)}{2 \Delta z}
 
 % EQUATION 7-4
 \begin{equation*}
-I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} Q\left(\tau\right) e^{\left(-\int_{t_0}^{t} \sigma_\text{a}\left(\tau\right) + \sigma_\text{sc}\left(\tau\right) \, \text{d} \tau\right)}) \, \text{d}\tau
+I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} Q\left(\tau\right) e^{\left(-\int_{t_0}^{t} \sigma_\text{a}\left(\tau\right) + \sigma_\text{sc}\left(\tau\right) \, \text{d} \tau\right)} \, \text{d}\tau
 \end{equation*}
 \bf\tag{7-4}
 
