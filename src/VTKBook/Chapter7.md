@@ -1,16 +1,16 @@
 # Chapter 7 - Advanced Computer Graphics
 
-*C*hapter 3 introduced fundamental concepts of computer graphics. A major topic in that chapter was how to represent and render geometry using surface primitives such as points, lines, and polygons. In this chapter our primary focus is on volume graphics. Compared to surface graphics, volume graphics has a greater expressive range in its ability to render inhomogeneous materials, and is a dominant technique for visualizing 3D image (volume) datasets.
+**C**hapter 3 introduced fundamental concepts of computer graphics. A major topic in that chapter was how to represent and render geometry using surface primitives such as points, lines, and polygons. In this chapter our primary focus is on volume graphics. Compared to surface graphics, volume graphics has a greater expressive range in its ability to render inhomogeneous materials, and is a dominant technique for visualizing 3D image (volume) datasets.
 
 We begin the chapter by describing two techniques that are important to both surface and volume graphics. These are simulating object transparency using simple blending functions, and using texture maps to add realism without excessive computational cost. We also describe various problems and challenges inherent to these techniques. We then follow with a focused discussion on volume graphics, including both object-order and image-order techniques, illumination models, approaches to mixing surface and volume graphics, and methods to improve performance. Finally, the chapter concludes with an assortment of important techniques for creating more realistic visualizations. These techniques include stereo viewing, antialiasing, and advanced camera techniques such as motion blur, focal blur, and camera motion.
 
 ## 7.1 Transparency and Alpha Values
 
-Up to this point in the text we have focused on rendering opaque objects --- that is, we have assumed that objects reflect, scatter, or absorb light at their surface, and no light is transmitted through to their interior. Although rendering opaque objects is certainly useful, there are many  applications that can benefit from the ability to render objects that transmit light. One important application of transparency is volume rendering, which we will explore in greater detail later in the chapter. Another simple example makes objects translucent so that we can see inside of the region bounded by the surface, as shown in **Figure12--4** . As demonstrated in this example, by making the skin semitransparent, it becomes possible to see the internal organs.
+Up to this point in the text we have focused on rendering opaque objects --- that is, we have assumed that objects reflect, scatter, or absorb light at their surface, and no light is transmitted through to their interior. Although rendering opaque objects is certainly useful, there are many  applications that can benefit from the ability to render objects that transmit light. One important application of transparency is volume rendering, which we will explore in greater detail later in the chapter. Another simple example makes objects translucent so that we can see inside of the region bounded by the surface, as shown in **Figure 12-4** . As demonstrated in this example, by making the skin semitransparent, it becomes possible to see the internal organs.
 
 Transparency and its complement, opacity, are often referred to as *alpha* in computer graphics. For example, a polygon that is 50 percent opaque will have an alpha value of 0.5 on a scale from zero to one. An alpha value of one represents an opaque object and zero represents a completely transparent object. Frequently, alpha is specified as a property for the entire actor, but it also can be done on a vertex basis just like colors. In such cases, the RGB specification of a color is extended to RGBA where A represents the alpha component. On many graphics cards the frame buffer can store the alpha value along with the RGB values. More typically, an application will request storage for only red, green, and blue on the graphics card and use back-to-front blending to avoid the need for storing alpha.
 
-Unfortunately, having transparent actors introduces some complications into the rendering process. If you think back to the process of ray tracing, viewing rays are projected from the camera out into the world, where they intersect the first actor they come to. With an opaque actor, the lighting equations are applied and the resulting color is drawn to the screen. With a semitransparent actor we must solve the lighting equations for this actor, and then continue projecting the ray farther to see if it intersects any other actors. The resulting color is a composite of all the actors it has intersected. For each surface intersection this can be expressed as **Equation7-1**.
+Unfortunately, having transparent actors introduces some complications into the rendering process. If you think back to the process of ray tracing, viewing rays are projected from the camera out into the world, where they intersect the first actor they come to. With an opaque actor, the lighting equations are applied and the resulting color is drawn to the screen. With a semitransparent actor we must solve the lighting equations for this actor, and then continue projecting the ray farther to see if it intersects any other actors. The resulting color is a composite of all the actors it has intersected. For each surface intersection this can be expressed as **Equation7-1*.
 
 $$
 \begin{eqnarray*}
@@ -22,15 +22,14 @@ A &=& (1 - A_s) A_b + A_s
 \bf\tag{7-1}
 $$
 
-In this equation subscript $s$ refers to the surface of the actor, while subscript $b$ refers to what is behind the actor. The term is1Acalled-- the transmissivity, and represents the amount of light s that is transmitted through the actor. As an example, consider starting with three polygons colored red, green, and blue each with a transparency of 0.5. If the red polygon is in the front and the background is black, the resulting RGBA color will be (0.4, 0.2, 0.1, 0.875) on a scale from zero to one (**Figure7-1** ).
+In this equation subscript $s$ refers to the surface of the actor, while subscript $b$ refers to what is behind the actor. The term is called-- the transmissivity, and represents the amount of light that is transmitted through the actor. As an example, consider starting with three polygons colored red, green, and blue each with a transparency of 0.5. If the red polygon is in the front and the background is black, the resulting RGBA color will be (0.4, 0.2, 0.1, 0.875) on a scale from zero to one (**Figure7-1**).
 
-It is important to note that if we switch the ordering of the polygons, the resulting color will change. This underlies a major technical problem in using transparency. If we ray-trace a scene, we will intersect the surfaces in a well-defined manner --- from front to back. Using this knowledge we can trace a ray back to the last surface it intersects, and then composite the color by applying **Equation7-1** to all the surfaces in reverse order (i.e., from back to front). In objectorder rendering methods, this compositing is commonly supported in hardware, but unfortunately we are not guaranteed to render the polygons in any specific order. Even though our polygons are situated as in **Figure7-1** , the order in which the polygons are rendered might be the blue polygon, followed by the red, and finally the green polygon. Consequently, the resulting color is incorrect.  If we look at the RGBA value for one pixel we can see the problem. When the blue polygon is rendered, the frame buffer and *z*-buffer are empty, so the RGBA quad (0,0,0.8,0.5) is stored along
-with the its z-buffer value. When the red polygon is rendered, a comparison of its z-value and the current z-buffer indicates that it is in front of the previous pixel entry. So Equation 7-1 is applied using the frame buffer’s RGBA value. This results in the RGBA value (0.4,0,0.2,0.75) being writ- ten to the buffer. Now, the green polygon is rendered and the z comparison indicates that it is behind the current pixel’s value. Again this equation is applied, this time using the frame buffer’s RGBA value for the surface and the polygon’s values from behind. This results in a final pixel color of (0.3,0.2, 0.175,0.875), which is different from what we previously calculated. Once the red and blue polygons have been composited and written to the frame buffer, there is no way to insert the final green polygon into the middle where it belongs.
+It is important to note that if we switch the ordering of the polygons, the resulting color will change. This underlies a major technical problem in using transparency. If we ray-trace a scene, we will intersect the surfaces in a well-defined manner --- from front to back. Using this knowledge we can trace a ray back to the last surface it intersects, and then composite the color by applying **Equation7-1** to all the surfaces in reverse order (i.e., from back to front). In objectorder rendering methods, this compositing is commonly supported in hardware, but unfortunately we are not guaranteed to render the polygons in any specific order. Even though our polygons are situated as in **Figure7-1** , the order in which the polygons are rendered might be the blue polygon, followed by the red, and finally the green polygon. Consequently, the resulting color is incorrect.  If we look at the RGBA value for one pixel we can see the problem. When the blue polygon is rendered, the frame buffer and *z*-buffer are empty, so the RGBA quad (0,0,0.8,0.5) is stored along with the its z-buffer value. When the red polygon is rendered, a comparison of its z-value and the current z-buffer indicates that it is in front of the previous pixel entry. So Equation 7-1 is applied using the frame buffer’s RGBA value. This results in the RGBA value (0.4,0,0.2,0.75) being writ- ten to the buffer. Now, the green polygon is rendered and the z comparison indicates that it is behind the current pixel’s value. Again this equation is applied, this time using the frame buffer’s RGBA value for the surface and the polygon’s values from behind. This results in a final pixel color of (0.3,0.2, 0.175,0.875), which is different from what we previously calculated. Once the red and blue polygons have been composited and written to the frame buffer, there is no way to insert the final green polygon into the middle where it belongs.
 
 <figure id="Figure7-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-1.png?raw=true width="640" alt="Figure7-1">
 </figure>
-<figcaption style="color:blue"><b>Figure 7-1</b>. Physical generation of an image.</figcaption>
+<figcaption style="color:blue"><b>Figure7-1</b>. Physical generation of an image.</figcaption>
 </figure>
 
 One solution to this problem is to sort the polygons from back to front and then render them in this order. Typically, this must be done in software requiring additional computational overhead. Sorting also interferes with actor properties (such as specular power), which are typically sent to the graphics engine just before rendering the actor's polygons. Once we start mixing up the polygons of different actors, we must make sure that the correct actor properties are set for each polygon rendered.
@@ -56,7 +55,7 @@ While we have been focusing on 2D texture maps, they can be of any dimension, th
 <figure id="Figure7-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-2.png?raw=true width="640" alt="Figure7-2">
 </figure>
-<figcaption style="color:blue"><b>Figure 7-2</b>. Vertex texture coordinates.</figcaption>
+<figcaption style="color:blue"><b>Figure7-2</b>. Vertex texture coordinates.</figcaption>
 </figure>
 
 Techniques for performing volume rendering using texture mapping hardware will be discussed later in this chapter.
@@ -71,12 +70,12 @@ While texture maps are generally used to add detail to rendered images, there ar
 
 -   Texture coordinates can be generated procedurally as a function of data. For example, we can *threshold* geometry by creating a special texture map and then setting texture coordinates based on local data value. The texture map consists of two entries: fully transparent () a = 0 and fully opaque (). aThe= texture1 coordinate is then set to index into the transparent portion of the map if the scalar value is less than some threshold, or into the opaque portion otherwise.
 
--   Texture maps can be animated as a function of time. By choosing a texture map whose intensity varies monotonically from dark to light, and then "moving" the texture along an object, the object appears to crawl in the direction of the texture map motion. We can use this technique to add apparent motion to things like hedgehogs to show vector magnitude. **Figure 7-3** is an example of a texture map animation used to simulate vector field motion.
+-   Texture maps can be animated as a function of time. By choosing a texture map whose intensity varies monotonically from dark to light, and then "moving" the texture along an object, the object appears to crawl in the direction of the texture map motion. We can use this technique to add apparent motion to things like hedgehogs to show vector magnitude. **Figure7-3** is an example of a texture map animation used to simulate vector field motion.
 
 <figure id="Figure7-3">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Texture/TestAnimateVectors.png?raw=true width="640" alt="Figure 7-3">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Texture/TestAnimateVectors.png?raw=true width="640" alt="Figure7-3">
 </figure>
-<figcaption style="color:blue"><b>Figure 7-3</b>. One frame from a vector field animation using texture. <a href="../../Cxx/Texture/AnimateVectors" title="AnimateVectors"> See AnimateVectors.cxx</a> and <a href="../../Python/Texture/AnimateVectors" title="AnimateVectors"> AnimateVectors.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure7-3</b>. One frame from a vector field animation using texture. <a href="../../Cxx/Texture/AnimateVectors" title="AnimateVectors"> See AnimateVectors.cxx</a> and <a href="../../Python/Texture/AnimateVectors" title="AnimateVectors"> AnimateVectors.py</a>.</figcaption>
 </figure>
 
 These techniques will be covered in greater detail in Chapter 9. (See"Texture Algorithms" on page362 for more information.)
@@ -104,14 +103,14 @@ The two main steps of ray casting are determining the values encountered along t
 <figure id="Figure7-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-4.png?raw=true width="640" alt="Figure7-4">
 </figure>
-<figcaption style="color:blue"><b>Figure 7-4</b> Image-order volume rendering. High potential iron protein data courtesy of Scripps Clinic, La Jolla, CA.. </figcaption>
+<figcaption style="color:blue"><b>Figure7-4</b> Image-order volume rendering. High potential iron protein data courtesy of Scripps Clinic, La Jolla, CA.. </figcaption>
 </figure>
 
 **Figure7-5** shows the data value profile of a ray as it passes through 8 bit volumetric data where the data values can range between 0 and 255. The *x*-axis of the profile indicates distance from the view plane while the *y*-axis represents data value. The results obtained from four different simple ray functions are shown below the profile. For display purposes we convert the raw result values to gray scale values using a method similar to the one in the previous example.
 
 The first two ray functions, maximum value and average value, are basic operations on the scalar values themselves. The third ray function computes the distance along the ray at which a scalar value at or above 30 is first encountered, while the fourth uses an alpha compositing technique, treating the values along the ray as samples of opacity accumulated per unit distance. Unlike the first three ray functions, the result of the compositing technique is not a scalar value or distance that can be represented on the ray profile.
 
-The maximum intensity projection, or MIP, is probably the simplest way to visualize volumetric data. This technique is fairly forgiving when it comes to noisy data, and produces images that provide an intuitive understanding of the underlying data. One problem with this method is that it is not possible to tell from a still image where the maximum value occurred along the ray. For example, consider the image of a carotid artery shown in **Figure7-6** . We are unable to fully understand the structure of the blood vessels from this still image since we cannot determine whether some vessel is in front of or behind some other vessel. This problem can be solved by generating a small sequence of images showing the data rotating, although for parallel camera projections even this animation will be ambiguous. This is due to the fact that two images generated from cameras 
+The maximum intensity projection, or MIP, is probably the simplest way to visualize volumetric data. This technique is fairly forgiving when it comes to noisy data, and produces images that provide an intuitive understanding of the underlying data. One problem with this method is that it is not possible to tell from a still image where the maximum value occurred along the ray. For example, consider the image of a carotid artery shown in **Figure 7-6** . We are unable to fully understand the structure of the blood vessels from this still image since we cannot determine whether some vessel is in front of or behind some other vessel. This problem can be solved by generating a small sequence of images showing the data rotating, although for parallel camera projections even this animation will be ambiguous. This is due to the fact that two images generated from cameras 
 that view the data from opposite directions will be identical except
 for a reflection about the Y axis of the image.
 
@@ -223,7 +222,7 @@ Object-order volume rendering methods process samples in the volume based on the
 <figure id="Figure7-13">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-13.png?raw=true width="640" alt="Figure7-13">
 </figure>
-<figcaption style="color:blue"><b>Figure 7-13</b>. A Gaussian kernel is projected onto the view plane to produce a splat footprint.</figcaption>
+<figcaption style="color:blue"><b>Figure7-13</b>. A Gaussian kernel is projected onto the view plane to produce a splat footprint.</figcaption>
 </figure>
 
 When a voxel is processed, its projected position on the view plane is determined and an operation is performed at that pixel location using the voxel and image information. This operator is similar to the ray function used in image-order ray casting techniques. Although this approach to projecting voxels is both fast and efficient, it often yields image artifacts due to the discrete selection of the projected image pixel. For instance, as we move the camera closer to the volume in a perspective projection, neighboring voxels will project to increasingly distant pixels on the view plane, resulting in distracting "holes" in the image.
@@ -273,49 +272,13 @@ Not all volume rendering methods fall cleanly into the image-order or object-ord
 
 Shear-warp volume rendering is essentially an efficient variant of ray casting. The correspondence between samples and pixels allows us to take advantage of a standard ray casting technique known as early ray termination. When we have determined that a pixel has reached full opacity during compositing, we no longer need to consider the remaining samples that project onto this pixel since they do not contribute to the final pixel value. The biggest efficiency improvement in shear-warp volume rendering comes from run-length encoding the volume. This compression method removes all empty voxels from the dataset, leaving only voxels that can potentially contribute to the image. Depending on the classification of the data, it is possible to achieve a greater than 10:1 reduction in voxels. As we step through the compressed volume, the number of voxels skipped due to run-length encoding also indicates the number of pixels to skip in the image. One drawback to this method is that it requires three copies of the compressed volume to allow for front-to-back traversal from all view directions. In addition, if we wish to use a perspective viewing transformation then we may need to traverse all three compressed copies of the volume in order to achieve the correct traversal order.
 
-Volume rendering can also be performed using the Fourier slice projection theorem <em style="color:blue;background-color: white">\[Totsuka92\]</em> that states that if we extract a slice of the volume in the frequency domain that contains the center and is parallel to the image plane, then the 2D spectrum of that slice is equivalent to the 2D image obtained by taking line integrals through the volume from the pixels on the image plane. Therefore we can volume render the dataset by extracting the appropriate slice from the 3D Fourier
-
-+-----------------+-----------------+-----------------+-----------------+
-| volume, then    |                 |
-| computing the   |                 |
-| 2D inverse      |                 |
-| Fourier         |                 |
-| transform of    |                 |
-| this slice.     |                 |
-| This allows us  |                 |
-| to render the   |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| 2               | complexity    | 3             |                 |
-|                 | requiredOn()  |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| image in        |                 | by most other |                 |
-| timeOn()        |                 | volume        |                 |
-| aslogopposedn   |                 |                 |                 |
-| to the          |                 |                 |                 |
-+-----------------+-----------------+-----------------+-----------------+
-
-rendering algorithms.
+Volume rendering can also be performed using the Fourier slice projection theorem <em style="color:blue;background-color: white">\[Totsuka92\]</em> that states that if we extract a slice of the volume in the frequency domain that contains the center and is parallel to the image plane, then the 2D spectrum of that slice is equivalent to the 2D image obtained by taking line integrals through the volume from the pixels on the image plane. Therefore we can volume render the dataset by extracting the appropriate slice from the 3D Fourier volume, then computing the 2D inverse Fourier transform of this slice. This allows us to render the image in O(n2logn) time as opposed to the O(n3) complexity required by most other volume rendering algorithms.
 
 Two problems that must be addressed when implementing a frequency domain volume renderer are the high cost of interpolation when extracting a slice from the Fourier volume, and the high memory requirements (usually two double precision floating-point values per sample) required to store the Fourier volume. Although some shading and depth cues can be provided with this method, occlusion is not possible.
 
 ## 7.7 Volume Classification
 
 Classifying the relevant objects of interest within a dataset is a critical step in producing a volume rendered image. This information is used to determine the contribution of an object to the image as well as the object's material properties and appearance. For example, a simple binary classification of whether a data sample corresponds to bone within a CT dataset is often performed by specifying a density threshold. When the scalar value at a voxel is greater than this threshold, it is classified as bone, otherwise it is considered air. This essentially specifies an isosurface in the volume at the transition between air and bone. If we plot this operation over all possible scalar values we will get the binary step function shown on the left in **Figure7-17** . In volume rendering we refer to this function as a transfer function. A transfer function is responsible for mapping the information at a voxel location into different values such as material, color, or opacity. The strength of volume rendering is that it can handle transfer functions of much greater complexity than a binary step function. This is often necessary since datasets contain multiple materials and classification methods cannot always assign a single material to a sample with 100 percent probability. Using advanced image segmentation and classification techniques, the single component volume can be processed into multiple material percentage volumes <em style="color:blue;background-color: white">\[Drebin88\]</em> . Referring back to our CT example, we can now specify a material percentage transfer function that defines a gradual transition from air to muscle, then from muscle to bone, as shown on the right in **Figure7-17** .
-
-  ------------------
-  ***Material %***
-  ------------------
-
-*Air* *Bone* 100
-100
-
-  ---- ------ ------------ --
-  50          50           
-  0           0            
-       1230                
-              *CT Value*   
-                           
-  ---- ------ ------------ --
 
 <figure id="Figure7-17">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-17.png?raw=true width="640" alt="Figure7-17">
@@ -374,7 +337,7 @@ To accurately capture lighting effects, we could use a transport theory illumina
 
 $$
 \begin{equation*}
-I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} Q\left(\tau\right) e^{\left(-\int_{t_0}^{t} \sigma_\text{a}\left(\tau\right) + \sigma_\text{sc}\left(\tau\right) \, \text{d} \tau\right)}) \, \text{d}\tau
+I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} Q\left(\tau\right) e^{\left(-\int_{t_0}^{t} \sigma_\text{a}\left(\tau\right) + \sigma_\text{sc}\left(\tau\right) \, \text{d} \tau\right)} \, \text{d}\tau
 \end{equation*}
 \bf\tag{7-4}
 $$
@@ -391,7 +354,7 @@ Q(t) = E(t) + \sigma_\text{sc}(t) \int_{\Omega} \rho_{sc}(\omega' \to \omega) I(
 \bf\tag{7-5}
 $$
 
-The contribution consists of the amount of light directly emitted by the sample $E(t)$, plus the amount of light coming from all directions that is scattered by this sample back along the ray. The fraction of light arriving from the $\vec{\omega\'}$ direction that is scattered into the direction $\vec{\omega}$ is defined by the scattering function $\rho_{sc}(\vec{\omega'}\rightarrow \vec{\omega})$. To compute the light arriving from all directions due to multiple bounce scattering, we must recursively compute the illumination function.
+The contribution consists of the amount of light directly emitted by the sample $E(t)$, plus the amount of light coming from all directions that is scattered by this sample back along the ray. The fraction of light arriving from the $\vec{\omega'}$ direction that is scattered into the direction $\vec{\omega}$ is defined by the scattering function $\rho_{sc}(\vec{\omega'}\rightarrow \vec{\omega})$. To compute the light arriving from all directions due to multiple bounce scattering, we must recursively compute the illumination function.
 
 If scattering is accurately modelled, then basing the ray function on the transport theory illumination model will produce images with realistic lighting effects. Unfortunately, this illumination model is too complex to evaluate, therefore approximations are necessary for a practical implementation. One of the simplest approximations is to ignore scattering completely, yielding the following intensity equation:
 
@@ -402,22 +365,7 @@ I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} E\left(\tau\right) e^\left
 \bf\tag{7-6}
 $$
 
-| We can  | toa() |         |         |
-| further | represe |         |         |
-| simplif | nt      |         |         |
-| y       | both  |         |         |
-| this    | the   |         |         |
-| equatio | amoun |         |         |
-| n       | t       |         |         |
-| by      | of    |         |         |
-| allowin | light |         |         |
-| g       | emit- |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-
-ted per unit length and the amount of light absorbed per unit length
-along the ray. The outer integral can be replaced by a summation over
-samples along the ray within some clipping range, while the inner
-integral can be approximated using an over operator:
+We can further simplify this equation by allowing α(t) to represent both the amount of light emitted per unit length and the amount of light absorbed per unit length along the ray. The outer integral can be replaced by a summation over samples along the ray within some clipping range, while the inner integral can be approximated using an over operator:
 
 $$
 \begin{equation*}
@@ -456,10 +404,6 @@ $$
 </figure>
 
 continuous curvature regions
-
-![](media/image582.jpeg){width="2.4451388888888888in"
-height="9.444444444444444e-2in"}
-
 Corresponding depth image
 
 The results are normalized to produce a unit normal vector. As with
@@ -526,17 +470,13 @@ gradient per scalar value. For a dataset with one $256^3$ one-byte scalars,
 this would increase the storage requirement from 16 Mbytes to 218
 Mbytes.
 
-In order to reduce the storage requirements, we could quantize the precomputed gradients by using some number of bits to represent the magnitude of the vector, and some other number of bits to encode the direction of the vector. Quantization works well for storing the magnitude of the gradient, but does not provide a good distribution of directions if we simply divide the bits among the three components of the vector. A better solution is to use the uniform fractal subdivision of an  octahedron into a sphere as the basis of the direction encoding, as shown in **Figure7-22** . The top left image shows the results obtained after the recursive replacement of each triangle with four new triangles, with a recursion depth of two. The vector directions encoded in this representation are all directions formed by creating a ray originating at the sphere's center and passing through a vertex of the sphere. The remaining images in this figure illustrate how these directions are mapped into an index. First we push all vertices back onto the original faces of the octahedron, then we flatten this sphere onto the planez0=. Finally, we rotate the resulting grid by . We label45the° vertices in the grid with indices starting at 0 at the top left vertex and continue across the rows then down the columns to index 40 at the lower right vertex. These indices represent only half of the encoded normals because when we flattened the octahedron, we placed two vertices on top of each other on all but the edge locations. Thus, we can use indices 41 through 81 to represent vectors with a negative *z* component. Vertices on the edges represent vectors with out a *z* component, and although we could represent them with a single index, using two keeps the indexing scheme more consistent and, therefore, easier to implement.
+In order to reduce the storage requirements, we could quantize the precomputed gradients by using some number of bits to represent the magnitude of the vector, and some other number of bits to encode the direction of the vector. Quantization works well for storing the magnitude of the gradient, but does not provide a good distribution of directions if we simply divide the bits among the three components of the vector. A better solution is to use the uniform fractal subdivision of an  octahedron into a sphere as the basis of the direction encoding, as shown in **Figure7-22** . The top left image shows the results obtained after the recursive replacement of each triangle with four new triangles, with a recursion depth of two. The vector directions encoded in this representation are all directions formed by creating a ray originating at the sphere's center and passing through a vertex of the sphere. The remaining images in this figure illustrate how these directions are mapped into an index. First we push all vertices back onto the original faces of the octahedron, then we flatten this sphere onto the plane $z=0$. Finally, we rotate the resulting grid by 45$^\circ$. We label the vertices in the grid with indices starting at 0 at the top left vertex and continue across the rows then down the columns to index 40 at the lower right vertex. These indices represent only half of the encoded normals because when we flattened the octahedron, we placed two vertices on top of each other on all but the edge locations. Thus, we can use indices 41 through 81 to represent vectors with a negative *z* component. Vertices on the edges represent vectors with out a *z* component, and although we could represent them with a single index, using two keeps the indexing scheme more consistent and, therefore, easier to implement.
 
 The simple example above requires only 82 values to encode the 66 unique vector directions. If we use an unsigned short to store the encoded direction, then we can use a recursion depth of 6 when generating the vertices. This leads to 16,642 indices representing 16,386 unique directions.
 
 Once the gradients have been encoded for our volume, we need only compute the illumination once for each possible index and store the results in a table. Since data samples with the same encoded gradient direction may have different colors, this illumination value represents the portion of the shading equation that is independent of color. Each scalar value may have separate colors defined for ambient, diffuse, and specular illumination; therefore, the precomputed illumination is typically an array of values.
 
-Although using a shading table leads to faster rendering times, there are some limitations to this method. Only infinite light sources can be supported accurately since positional light sources would result in different light vectors for data samples with the same gradient due to their different
-
-Sphere at recursion level 2 Vertices pushed onto octahedron
-
-Flattened onto *z*=0 plane Rotated 45 degrees
+Although using a shading table leads to faster rendering times, there are some limitations to this method. Only infinite light sources can be supported accurately since positional light sources would result in different light vectors for data samples with the same gradient due to their different positions in the volume. In addition, specular highlights are only captured accurately for orthographic viewing directions where the view vector does not vary based on sample position. In practice, positional light sources are often approximated by infinite light sources, and a single view direction is used for computing specular highlights since the need for fast rendering often outweighs the need for accurate illumination.
 
 <figure id="Figure7-22">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-22.png?raw=true width="640" alt="Figure7-22">
@@ -544,13 +484,6 @@ Flattened onto *z*=0 plane Rotated 45 degrees
 <figcaption style="color:blue"><b>Figure 7-22</b>. Gradient direction encoding.</figcaption>
 </figure>
 
-positions in the volume. In addition, specular highlights are only
-captured accurately for orthographic viewing directions where the
-view vector does not vary based on sample position. In practice,
-positional light sources are often approximated by infinite light
-sources, and a single view direction is used for computing specular
-highlights since the need for fast rendering often outweighs the need
-for accurate illumination.
 <figure id="Figure7-23">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-23.png?raw=true width="640" alt="Figure7-23">
 </figure>
@@ -569,20 +502,7 @@ surrounding pulp. Even using a compositing technique, it is difficult
 to visualize the seeds since full opacity may be obtained before
 reaching this area of the dataset.
 
-We can solve the problem of visualizing internal features by defining
-a region of interest
-within our volume, and rendering only this portion of the dataset as
-shown in **Figure7-23** . There are many techniques for defining a
-region of interest. We could use the near and far clipping planes of
-the camera to exclude portions of the volume. Alternatively, we could
-use six orthographic clipping planes that would define a rectangular
-subvolume; we could use a set of arbitrarily oriented half-space
-clipping planes; or we could define the region of interest as the
-portion of the volume
-contained within some set of closed geometric objects. Another
-approach would be to create an auxiliary volume with binary scalar
-values that define a mask indicating which values in the volume
-should be considered during rendering.
+We can solve the problem of visualizing internal features by defining a region of interest within our volume, and rendering only this portion of the dataset as shown in **Figure7-23** . There are many techniques for defining a region of interest. We could use the near and far clipping planes of the camera to exclude portions of the volume. Alternatively, we could use six orthographic clipping planes that would define a rectangular subvolume; we could use a set of arbitrarily oriented half-space clipping planes; or we could define the region of interest as the portion of the volume contained within some set of closed geometric objects. Another approach would be to create an auxiliary volume with binary scalar values that define a mask indicating which values in the volume should be considered during rendering.
 
 <figure id="Figure7-24">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-24.png?raw=true width="640" alt="Figure7-24">
@@ -591,73 +511,23 @@ should be considered during rendering.
 </figure>
 
 
-All of these region of interest methods are fairly simple to implement
-using an image-order ray casting approach. As a preprocessing step to
-ray casting, the ray is clipped against all geometric region
-definitions. The ray function is then evaluated only along segments of
-the ray that are within the region of interest. The mask values are
-consulted at each sample to determine if its contribution should be
-included or excluded.
+All of these region of interest methods are fairly simple to implement using an image-order ray casting approach. As a preprocessing step to ray casting, the ray is clipped against all geometric region definitions. The ray function is then evaluated only along segments of the ray that are within the region of interest. The mask values are consulted at each sample to determine if its contribution should be included or excluded.
 
-For object-order methods we must determine for each sample whether or
-not it is within the region of interest before incorporating its
-contribution into the image. If the underlying graphics hardware is
-being utilized for the object- order volume rendering as is the case
-with a texture mapping approach, hardware clipping planes may be
-available to help support regions of interest.
+For object-order methods we must determine for each sample whether or not it is within the region of interest before incorporating its contribution into the image. If the underlying graphics hardware is being utilized for the object- order volume rendering as is the case with a texture mapping approach, hardware clipping planes may be available to help support regions of interest.
 
 ## 7.10 Intermixing Volumes and Geometry
 
-Although the volume is typically the focus of the image in volume
-visualization, it is often helpful to add geometric objects to the
-scene. For example, showing the bounding box of the dataset or the
-position and orientation of cut planes can improve the viewer's
-understanding of the volumetric data. Also, it can be useful to
-visualize volumetric data using both geometric and volumetric methods
-within the same image. The left image in **Figure7-24** shows a CT
-scan of a human knee where a contouring method is used to extract the
-skin isosurface. This isosurface is rendered as triangles using
-standard graphics hardware. The upper-right portion of the skin is cut
-to reveal the bone beneath, which is rendered using a software ray
-casting technique with a compositing ray function. In the right image,
-the wave function values of an iron protein are visualized using both
-geometric isosurface and volume rendering techniques.
+Although the volume is typically the focus of the image in volume visualization, it is often helpful to add geometric objects to the scene. For example, showing the bounding box of the dataset or the position and orientation of cut planes can improve the viewer's understanding of the volumetric data. Also, it can be useful to visualize volumetric data using both geometric and volumetric methods within the same image. The left image in **Figure7-24** shows a CT scan of a human knee where a contouring method is used to extract the skin isosurface. This isosurface is rendered as triangles using standard graphics hardware. The upper-right portion of the skin is cut to reveal the bone beneath, which is rendered using a software ray casting technique with a compositing ray function. In the right image, the wave function values of an iron protein are visualized using both geometric isosurface and volume rendering techniques.
 
-When using graphics hardware to perform volume rendering, as is the
-case with a texture mapping approach, intermixing opaque geometry in
-the scene is trivial. All opaque geometry is rendered first, then the semitransparent texture-mapped polygons are
-blended in a back-to-front order into the image. If we wish to include
-semitransparent geometry in the scene, then this geometry and the
-texture-mapped polygons must be sorted before rendering. Similar to a
-purely geometric scene, this may involve splitting polygons to obtain
-a sorted order.
+When using graphics hardware to perform volume rendering, as is the case with a texture mapping approach, intermixing opaque geometry in the scene is trivial. All opaque geometry is rendered first, then the semitransparent texture-mapped polygons are blended in a back-to-front order into the image. If we wish to include semitransparent geometry in the scene, then this geometry and the texture-mapped polygons must be sorted before rendering. Similar to a purely geometric scene, this may involve splitting polygons to obtain a sorted order.
 
-If a software volume rendering approach is used, such as an
-object-order splatting method or an image-order ray casting method,
-opaque geometry can be incorporated into the image by rendering the
-geometry, capturing the results stored in the hardware depth buffer,
-and then using these results during the volume rendering phase. For
-ray casting, we would simply convert the depth value for a pixel into
-a distance along the view ray and use this to bound the segment of the
-ray that we consider during volume rendering. The final color computed
-for a pixel during volume rendering is then blended with the color
-produced by geometric rendering using the over operator. In an
-object-order method, we must consider the depth of every sample and
-compare this to the value stored in the depth buffer at each pixel
-within the image extent of this sample. We accumulate this sample's
-contribution to the volume rendered image at each pixel only if the
-sample is in front of the geometry for that pixel. Finally, the volume
-rendered image is blended over the geometric image.
+If a software volume rendering approach is used, such as an object-order splatting method or an image-order ray casting method, opaque geometry can be incorporated into the image by rendering the geometry, capturing the results stored in the hardware depth buffer, and then using these results during the volume rendering phase. For ray casting, we would simply convert the depth value for a pixel into a distance along the view ray and use this to bound the segment of the ray that we consider during volume rendering. The final color computed for a pixel during volume rendering is then blended with the color produced by geometric rendering using the over operator. In an object-order method, we must consider the depth of every sample and compare this to the value stored in the depth buffer at each pixel within the image extent of this sample. We accumulate this sample's contribution to the volume rendered image at each pixel only if the sample is in front of the geometry for that pixel. Finally, the volume rendered image is blended over the geometric image.
 
 ## 7.11 Efficient Volume Rendering
 
 Rendering a volumetric dataset is a computationally intensive task. If
-is nthe size of the volume on
-
-all three dimensions and we visit every voxel once during a
-projection, the complexity of volume () ^3^
-
-rendering is . OnEven a highly optimized software algorithm will have
+is nthe size of the volume on all three dimensions and we visit every voxel once during a
+projection, the complexity of volume rendering is $O(n^3)$. Even a highly optimized software algorithm will have
 great difficulty projecting a moderately sized volume of or512512512approximately´´ 134
 million voxels at interactive rates. If every voxel in the volume contributes in some way to
 the final image and we are unwilling to compromise image quality, our
@@ -830,143 +700,27 @@ for introducing binocular parallax into renderings. We will refer to
 the overall process as *stereo ren-dering*, since at some point in the
 process a stereo pair of images is involved.
 
-
-Focal Point
-
-View Angle
-
-+------------+-------------------+---------------+--+
-|            | Two View Planes | Sharing One |  |
-+------------+-------------------+---------------+--+
-| Left Eye   | Right Eye         | View Plane  |  |
-+------------+-------------------+---------------+--+
-|            |                   |               |  |
-+------------+-------------------+---------------+--+
-| Position | Position          |               |  |
-+------------+-------------------+---------------+--+
-
 <figure id="Figure7-25">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-25.png?raw=true width="640" alt="Figure7-25">
 </figure>
 <figcaption style="color:blue"><b>Figure 7-25</b>. Stereo rendering and binocular parallax.</figcaption>
 </figure>
 
+To generate correct left and right eye images, we need information beyond the camera parameters that we introduced in Chapter 3 . The first piece of information we need is the separation distance between the eyes. The amount of parallax generated can be controlled by adjusting this distance. We also need to know if the resulting images will be viewed on one or two displays. For systems that use two displays (and hence two view planes), the parallax can be correctly produced by performing camera azimuths to reach the left and right eye positions. Head mounted displays and booms are examples of two display systems. Unfortunately, this doesn't work as well for systems that have only one view plane. If you try to display both the left and right views on a single display, they are forced to share the same view plane as in **Figure7-25** . Our earlier camera model assumed that the view plane was perpendicular to the direction of projection. To handle this non-perpendicular case, we must translate and shear the camera's viewing frustum. Hodges provides some of the details of this operation as well as a good overview on stereo rendering <em style="color:blue;background-color: white">\[Hodges92\]</em>.  Now let's look at some of the different methods for presenting stereoscopic images to the user. Most methods are based on one of two main categories: *time multiplexed* and *time parallel* techniques. Time multiplexed methods work by alternating between the left and right eye images. Time parallel methods display both images at once in combination with a process to extract left and right eye views. Some methods can be implemented as either a time multiplexed or a time parallel technique.
 
-To generate correct left and right eye images, we need information
-beyond the camera parameters that we introduced in Chapter 3 . The
-first piece of information we need is the separation distance between
-the eyes. The amount of parallax generated can be controlled by
-adjusting this distance. We also need to know if the resulting images
-will be viewed on one or two displays. For systems that use two
-displays (and hence two view planes), the parallax can be correctly
-produced by performing camera azimuths to reach the left and right eye
-positions. Head mounted displays and booms are examples of two display
-systems. Unfortunately, this doesn't work as well for systems that
-have only one view plane. If you try to display both the left and
-right views on a single display, they are forced to share the same
-view plane as in **Figure7-25** . Our earlier camera model assumed
-that the view plane was perpendicular to the direction of projection.
-To handle this non-perpendicular case, we must translate and shear the
-camera's viewing frustum. Hodges provides some of the details of this
-operation as well as a good overview on stereo rendering <em style="color:blue;background-color: white">\[Hodges92\]</em>.
+Time multiplexed techniques are most commonly found in single display systems, since they rely on alternating images. Typically this is combined with a method for also alternating which eye views the image. One cost-effective time multiplexed technique takes advantage of existing television standards such as NTSC and PAL. Both of these standards use interlacing, which means that first the even lines are drawn on the screen and then the odd. By rendering the left eye image to the even lines of the screen and the right eye image to the odd, we can generate a stereo video stream that is suitable for display on a standard television. When this is viewed with both eyes, it appears as one image that keeps jumping from left to right. A special set of glasses must be worn so that when the left eye image is being displayed, the user's left eye can see and similarly for the right eye. The glasses are designed so that each lens consists of a liquid crystal shutter that can either be transparent or opaque, depending on what voltage is applied to it. By shuttering the glasses at the same rate as the television is interlacing, we can assure that the correct eye is viewing the correct image.
 
-Now let's look at some of the different methods for presenting
-stereoscopic images to the user. Most methods are based on one of two main categories: *time
-multiplexed* and *time parallel* techniques. Time multiplexed methods
-work by alternating between the left and right eye images. Time
-parallel methods display both images at once in combination with a
-process to extract left and right eye views. Some methods can be
-implemented as either a time multiplexed or a time parallel technique.
+There are a couple of disadvantages to this system. The resolutions of NTSC and PAL are both low compared to a computer monitor. The refresh rate of NTSC (60 Hz) and PAL (50 Hz) produces a fair amount of flicker, especially when you consider that each eye is updated at half this rate. Also, this method requires viewing your images on a television, not the monitor connected to your computer.
 
-Time multiplexed techniques are most commonly found in single display
-systems, since they rely on alternating images. Typically this is
-combined with a method for also alternating which eye views the image.
-One cost-effective time multiplexed technique takes advantage of
-existing television standards such as NTSC and PAL. Both of these
-standards use interlacing, which means that first the even lines are
-drawn on the screen and then the odd. By rendering the left eye image
-to the even lines of the screen and the right eye image to the odd, we
-can generate a stereo video stream that is suitable for display on a
-standard television. When this is viewed with both eyes, it appears as one image that keeps jumping from left to right. A special set of
-glasses must be worn so that when the left eye image is being
-displayed, the user's left eye can see and similarly for the right
-eye. The glasses are designed so that each lens consists of a liquid
-crystal shutter that can either be transparent or opaque, depending on
-what voltage is applied to it. By shuttering the glasses at the same
-rate as the television is interlacing, we can assure that the correct
-eye is viewing the correct image.
+To overcome these difficulties, some computer manufacturers offer stereo ready graphics cards. These systems use liquid crystal shuttered glasses to directly view the computer monitor. To obtain the alternating stereo images, the left eye image is rendered to the top half of the screen and the right eye image to the bottom. Then the graphics card enters a special stereo mode where it doubles the refresh rate of the monitor. So a monitor that initially displays both images at 60Hz begins to alternate between the left and right eye at a rate of 120Hz. This results in each eye getting updated at 60Hz, with its original horizontal resolution and half of its original vertical resolution. For this process to work, your application must take up the entire screen while rendering.
 
-There are a couple of disadvantages to this system. The resolutions of
-NTSC and PAL are both low compared to a computer monitor. The refresh
-rate of NTSC (60 Hz) and PAL (50 Hz) produces a fair amount of
-flicker, especially when you consider that each eye is updated at half
-this rate. Also, this method requires viewing your images on a
-television, not the monitor connected to your computer.
+Some more recent graphics cards have a left image buffer and a right image buffer for stereo rendering. While this requires either more memory or a lower resolution, it does provide for stereo rendering without having to take over the entire screen. For such a card, double buffering combined with stereo rendering results in quad buffering, which can result in a large number of bits per pixel. For example: 24 bits for an RGB color, another 24 bits for the back buffer's color, plus 24 bits for the z-buffer results in 72 bits per pixel. Now double that for the two different views and you have 144 bits per pixel or 18 megabytes for a 1K by 1K display.
 
-To overcome these difficulties, some computer manufacturers offer
-stereo ready graphics cards. These systems use liquid crystal
-shuttered glasses to directly view the computer monitor. To obtain the
-alternating stereo images, the left eye image is rendered to the top
-half of the screen and the right eye image to the bottom. Then the
-graphics card enters a special stereo mode where it doubles the
-refresh rate of the monitor. So a monitor that initially displays both
-images at 60Hz begins to alternate between the left and right eye at a
-rate of 120Hz. This results in each eye getting updated at 60Hz, with
-its original horizontal resolution and half of its original vertical
-resolution. For this process to work, your application must take up
-the entire screen while rendering.
+Time parallel techniques display both images at the same time. Headmounted displays and booms have two separate screens, one for each eye. To generate the two video streams requires either two graphics cards or one that can generate two separate outputs. The rendering process then involves just rendering each eye to the correct graphics card or output. Currently, the biggest disadvantage to this approach is the cost of the hardware required.
 
-Some more recent graphics cards have a left image buffer and a right
-image buffer for stereo rendering. While this requires either more
-memory or a lower resolution, it does provide for stereo rendering
-without having to take over the entire screen. For such a card, double
-buffering combined with stereo rendering results in quad buffering,
-which can result in a large number of bits per pixel. For example: 24
-bits for an RGB color, another 24 bits for the back buffer's color,
-plus 24 bits for the z-buffer results in 72 bits per pixel. Now double
-that for the two different views and you have 144 bits per pixel or 18
-megabytes for a 1K by 1K display.
+In contrast, SIRDS (Single Image Random Dot Stereograms) require no special hardware. Both views are displayed in a single image, as in **Figure7-26** . To view such an image the user must focus either in front of, or behind, the image. When the user's focal point is correct, the two triangular cutouts in the top of the image will appear as one and the image should appear focused. This works because dot patterns repeat at certain intervals. Here, only the depth information is present in the resulting image. This is incorporated by changing the interval between patterns just as our ocular disparity changes with depth.
 
-Time parallel techniques display both images at the same time.
-Headmounted displays and booms have two separate screens, one for each
-eye. To generate the two video streams requires either two graphics
-cards or one that can generate two separate outputs. The rendering
-process then involves just rendering each eye to the correct graphics
-card or output. Currently, the biggest disadvantage to this approach
-is the cost of the hardware required.
-
-In contrast, SIRDS (Single Image Random Dot Stereograms) require no
-special hardware. Both views are displayed in a single image, as in
-**Figure7-26** . To view such an image the user must focus either in
-front of, or behind, the image. When the user's focal point is
-correct, the two triangular cutouts in the top of the image will
-appear as one and the image should appear focused. This works because
-dot patterns repeat at certain intervals. Here, only the depth
-information is present in the resulting image. This is incorporated by
-changing the interval between patterns just as our ocular disparity
-changes with depth.
-
-The next two techniques for stereo rendering can be implemented using
-either the time parallel or time multiplexed methods. The distinction
-is slightly blurred because most of the time parallel methods can be
-multiplexed, though typically there is no advantage to it. Both of
-these methods have been used by the movie industry to produce "3D"
-movies. The first is commonly called red-blue (or red-green or
-red-cyan) stereo and requires the user to wear a pair of glasses that
-filter entering light. The left eye can only see the image through a
-red filter, the right through a blue filter. The rendering process
-typically involves generating images for the two views, converting
-their RGB
-values into intensity, and then creating a resulting image. This
-image's red values are taken from the left eye image intensities.
-Likewise the blue values (a mixture of blue and green) are taken from
-the right eye image intensities. The resulting image has none of the
-original hue or saturation, but it does contain both original images'
-intensities. (An additional note: redgreen methods are also used
-because the human eye is more sensitive to green than blue.) The
-benefits of this technique are that the resulting images can be
-displayed on a monitor, paper, or film, and all one needs to view them
-is an inexpensive pair of glasses.
+The next two techniques for stereo rendering can be implemented using either the time parallel or time multiplexed methods. The distinction is slightly blurred because most of the time parallel methods can be multiplexed, though typically there is no advantage to it. Both of these methods have been used by the movie industry to produce "3D" movies. The first is commonly called red-blue (or red-green or red-cyan) stereo and requires the user to wear a pair of glasses that filter entering light. The left eye can only see the image through a red filter, the right through a blue filter. The rendering process typically involves generating images for the two views, converting their RGB values into intensity, and then creating a resulting image. This image's red values are taken from the left eye image intensities. Likewise the blue values (a mixture of blue and green) are taken from the right eye image intensities. The resulting image has none of the original hue or saturation, but it does contain both original images' intensities. (An additional note: redgreen methods are also used because the human eye is more sensitive to green than blue.) The benefits of this technique are that the resulting images can be displayed on a monitor, paper, or film, and all one needs to view them is an inexpensive pair of glasses.
 
 <figure id="Figure7-26">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-26.png?raw=true width="640" alt="Figure7-26">
@@ -974,20 +728,7 @@ is an inexpensive pair of glasses.
 <figcaption style="color:blue"><b>Figure 7-26</b>. Single image random dot stereogram of a tetrahedron.</figcaption>
 </figure>
 
-The second technique is similar to the first but it preserves all the
-color information from the original images. It separates the different
-views by using polarized light. Normally, the light we see has a
-mixture of polarization angles, but there are lenses that can filter
-out a subset of these angles. If we project a color image through a
-vertical polarizing filter, and then view it through another vertical
-filter, we will see the original image, just slightly dimmer because
-we've filtered out all the horizontally polarized light. If we place a
-horizontal filter and a vertical filter together, all the light is
-blocked. Polarized stereo rendering typically projects one eye's image
-through a vertical filter
-and the other through a horizontal filter. The user wears a pair of
-glasses containing a vertical filter over one eye and a horizontal
-filter over the other. This way each eye views the correct image.
+The second technique is similar to the first but it preserves all the color information from the original images. It separates the different views by using polarized light. Normally, the light we see has a mixture of polarization angles, but there are lenses that can filter out a subset of these angles. If we project a color image through a vertical polarizing filter, and then view it through another vertical filter, we will see the original image, just slightly dimmer because we've filtered out all the horizontally polarized light. If we place a horizontal filter and a vertical filter together, all the light is blocked. Polarized stereo rendering typically projects one eye's image through a vertical filter and the other through a horizontal filter. The user wears a pair of glasses containing a vertical filter over one eye and a horizontal filter over the other. This way each eye views the correct image.
 
 <figure id="Figure7-27">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-27.png?raw=true width="640" alt="Figure7-27">
@@ -995,55 +736,17 @@ filter over the other. This way each eye views the correct image.
 <figcaption style="color:blue"><b>Figure 7-27</b>. Wireframe image and antialiased equivalent.</figcaption>
 </figure>
 
-All the methods we have discussed for stereo rendering have their
-advantages and disadvantages, typically revolving around cost and
-image quality. At the end of this chapter we will look at an example
-program that renders stereo images using the red-blue technique.
+All the methods we have discussed for stereo rendering have their advantages and disadvantages, typically revolving around cost and image quality. At the end of this chapter we will look at an example program that renders stereo images using the red-blue technique.
 
 ## 7.15 Aliasing
 
-At one point or another most computer users have run into aliasing
-problems. This "stair-stepping" occurs because we represent continuous
-surface geometry with discrete pixels. In computer graphics the most
-common aliasing problem is jagged edges when rendering lines or
-surface boundaries, as in **Figure7-27** .
+At one point or another most computer users have run into aliasing problems. This "stair-stepping" occurs because we represent continuous surface geometry with discrete pixels. In computer graphics the most common aliasing problem is jagged edges when rendering lines or surface boundaries, as in **Figure7-27** .
 
-The aliasing problem stems from the rasterization process as the
-graphics system converts primitives, such as line segments, into
-pixels on the screen. For example, the quickest way to rasterize a
-line is to use an all or nothing strategy. If the line passes through
-the pixel, then the pixel is set
+The aliasing problem stems from the rasterization process as the graphics system converts primitives, such as line segments, into pixels on the screen. For example, the quickest way to rasterize a line is to use an all or nothing strategy. If the line passes through the pixel, then the pixel is set to the line's color; otherwise, it is not altered. As can be seen in **Figure7-28** , this results in the stair-stepped appearance.
 
-to the line's color; otherwise, it is not altered. As can be seen in
-**Figure7-28** , this results in the stair-stepped appearance.
+There are several techniques for handling aliasing problems, and they are collectively known as *antialiasing* techniques. One approach to antialiasing is to change how the graphics system rasterizes primitives. Instead of rasterizing a line using an all or nothing approach, we look at how much of the pixel the line occupies. The resulting color for that pixel is a mixture of its original color and the line's color. The ratio of these two colors is determined by the line's occupancy. This works especially well when working primarily with wireframe models. A similar approach breaks each pixel down into smaller subpixels. Primitives are rendered using an all or nothing strategy, but at subpixel resolutions. Then the subpixels are averaged to determine the resulting pixel's color. This tends to require much more memory.
 
-There are several techniques for handling aliasing problems, and they
-are collectively known as *antialiasing* techniques. One approach to
-antialiasing is to change how the graphics system rasterizes
-primitives. Instead of rasterizing a line using an all or nothing
-approach, we look at how much of the pixel the line occupies. The
-resulting color for that pixel is a mixture of its original color and
-the line's color. The ratio of these two colors is determined by the
-line's occupancy. This works especially well when working primarily
-with wireframe models. A similar approach breaks each pixel down into
-smaller subpixels. Primitives are rendered using an all or nothing
-strategy, but at subpixel resolutions. Then the subpixels are averaged
-to determine the resulting pixel's color. This tends to require much
-more memory.
-
-A good result can be obtained by breaking each pixel into 10
-subpixels, which requires about 10 times the memory and rendering
-time. If you don't have access to hardware subpixel rendering, you can
-approximate it by rendering a large image and then scaling it down.
-Using a program such
-as pnmscale , which does bilinear interpolation, you can take a 1000
-by 1000 pixel image and scale it down to a 500 by 500 antialiased
-image. If you have a graphics library that can render into memory
-instead of the screen, large images such as 6000 by 6000 pixels can be
-scaled down into high quality results, still at high resolutions such
-as 2000 by 2000. This may seem like overkill, but on a standard 600dpi
-color printer this would result in a picture just over three inches on
-a side.
+A good result can be obtained by breaking each pixel into 10 subpixels, which requires about 10 times the memory and rendering time. If you don't have access to hardware subpixel rendering, you can approximate it by rendering a large image and then scaling it down. Using a program such as pnmscale , which does bilinear interpolation, you can take a 1000 by 1000 pixel image and scale it down to a 500 by 500 antialiased image. If you have a graphics library that can render into memory instead of the screen, large images such as 6000 by 6000 pixels can be scaled down into high quality results, still at high resolutions such as 2000 by 2000. This may seem like overkill, but on a standard 600dpi color printer this would result in a picture just over three inches on a side.
 
 <figure id="Figure7-28">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-28.png?raw=true width="640" alt="Figure7-28">
@@ -1051,11 +754,7 @@ a side.
 <figcaption style="color:blue"><b>Figure 7-28</b>. A one pixel wide line (outlined in gray) draw using a winner take all approach (left) and a coverage approach (right).</figcaption>
 </figure>
 
-The last method of antialiasing we will look at uses an accumulation
-buffer to average a few possibly aliased images together to produce
-one antialiased result. An accumulation buffer is just a segment of
-memory that is set aside for performing image operations and storage.
-The following fragment of C++ code illustrates this process.
+The last method of antialiasing we will look at uses an accumulation buffer to average a few possibly aliased images together to produce one antialiased result. An accumulation buffer is just a segment of memory that is set aside for performing image operations and storage. The following fragment of C++ code illustrates this process.
 
 ``` c++
 for (imageNum = 0; imageNum \< imageTotal; imageNum++)
@@ -1073,16 +772,7 @@ for (imageNum = 0; imageNum \< imageTotal; imageNum++)
 //   Display the resulting antialiased image
 ```
 
-Instead of using one image with eight subpixels per pixel, we can use
-eight images without subpixels. The antialiasing is achieved by
-slightly translating the camera's position and focal point between
-each image. The amount of translation should be within one pixel of
-magnitude and perpendicular to the direction of projection. Of
-course, the camera's position is specified in world coordinates not
-pixels, but **Equation7-13** will do the trick. We calculate the new
-camera position and focal point (i.e., *p~new~* and *f~new~*) from the
-offset to avoid difficulties surrounding the transformation matrix at
-the camera's position.
+Instead of using one image with eight subpixels per pixel, we can use eight images without subpixels. The antialiasing is achieved by slightly translating the camera's position and focal point between each image. The amount of translation should be within one pixel of magnitude and perpendicular to the direction of projection. Of course, the camera's position is specified in world coordinates not pixels, but **Equation7-13** will do the trick. We calculate the new camera position and focal point (i.e., *p~new~* and *f~new~*) from the offset to avoid difficulties surrounding the transformation matrix at the camera's position.
 
 $$
 \begin{eqnarray*}
@@ -1099,19 +789,11 @@ $$
 <figcaption style="color:blue"><b>Figure 7-29</b>. Three images showing focal depth. The first has no focal depth, the second is focused on the center object, the third image is focused on the farthest object.</figcaption>
 </figure>
 
-In this equation isO the offset in pixel coordinates, is the Ooffset
-in world coordinates,
-
-p w
-
-camera focal point, *p* is the camera position, and the transformation
-matrices and M~WD~ transform from world coordinates to display
+In this equation is $O_p$ the offset in pixel coordinates, $O_w$ is the offset ain world coordinates,
+$f$ camera focal point, $p$ is the camera position, and the transformation
+matrices $M_{WD}$ and  $M_(DW} transform from world coordinates to display
 coordinates and from display coordinates to world coordinates,
 respectively.
-
-*f* is the
-
-M.  DW
 
 ## 7.16 Camera Tricks
 
@@ -1159,7 +841,7 @@ objects over a finite time.
 <figure id="Figure7-30">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-30.png?raw=true width="640" alt="Figure7-30">
 </figure>
-<figcaption style="color:blue"><b>Figure 7-30</b>. Motion blur. Rapidly moving objects appear blurry when recorded on film or videotape. To simulate motion blur with a computer camera, multiple images (or subframes) can be accumulated and averaged. This figure was generated by accumulating 21 subframes.</figcaption>
+<figcaption style="color:blue"><b>Figure7-30</b>. Motion blur. Rapidly moving objects appear blurry when recorded on film or videotape. To simulate motion blur with a computer camera, multiple images (or subframes) can be accumulated and averaged. This figure was generated by accumulating 21 subframes.</figcaption>
 </figure>
 
 ## 7.17 Mouse-Based Interaction
@@ -1336,63 +1018,22 @@ object to map the scalar values to color. These two transfer functions
 are referenced from the vtkVolumeProperty object. In addition, we use
 the ShadeOn() method of vtkVolumeProperty to enable shading for this
 volume, and the SetInterpolationTypeToLinear() method to request
-trilinear interpolation. Since we are using a ray
+trilinear interpolation. Since we are using a ray casting approach, we need to create a ray function. In this example we use a vtkVolumeRayCastCompositeFunction object for this purpose. The output of the reader is given to the vtkVolumeRayCastMapper as the scalar input, and the SetVolumeRayCastFunction() method is used to assign the ray function. The vtkVolume object is quite similar to a vtkActor, and the SetVolumeMapper() and SetVolumeProperty() methods are used just like the SetMapper() and SetProperty() methods of vtkActor. Finally, we add this volume to the renderer, adjust the camera, set the desired image update rate and start the interactor.
 
-+-----------------------+-----------------------+-----------------------+
-| casting approach, we  |                       |
-| need to create a ray  |                       |
-| function. In this     |                       |
-| example we use a      |                       |
-+-----------------------+-----------------------+-----------------------+
-| vtkVolumeRayCastCompo | object for this       |
-| siteFunction          | purpose. The output   |
-|                       | of the reader is      |
-|                       | given to              |
-+-----------------------+-----------------------+-----------------------+
-| the                   | as the scalar input,  |
-| vtkVolumeRayCastMappe | and the               |
-| r                     | SetVolumeRayCastFunct |
-|                       | ion()                 |
-|                       | method is             |
-+-----------------------+-----------------------+-----------------------+
-| used to assign the    | vtkVolume object is | vtkActor , and the    |
-| ray function. The     | quite similar to a  |                       |
-+-----------------------+-----------------------+-----------------------+
-| SetVolumeMapper() and | SetVolumeProperty() | SetMapper() and       |
-|                       | methods are used    |                       |
-|                       | just like the       |                       |
-+-----------------------+-----------------------+-----------------------+
-| SetProperty() methods | vtkActor . Finally,   |
-| of                    | we add this volume to |
-|                       | the renderer, adjust  |
-|                       | the camera,           |
-+-----------------------+-----------------------+-----------------------+
-| set the desired image |                       |                       |
-| update rate and start |                       |                       |
-| the interactor.       |                       |                       |
-+-----------------------+-----------------------+-----------------------+
-| To produce a        | **Figure7-34** , we  |
-| maximum intensity   | would simply change   |
-| projection in       | the                   |
-+-----------------------+-----------------------+-----------------------+
-| type of the ray       | vtkVolumeRayCastMIPFu |
-| function to a         | nction                |
-|                       | . We could also       |
-|                       | produce a surface     |
-+-----------------------+-----------------------+-----------------------+
+To produce a maximum intensity projection in Figure7–34, we would simply change the type of the ray function to a vtkVolumeRayCastMIPFunction. We could also produce a surface image using a vtkVolumeRayCastIsosurfaceFunction where the IsoValue instance variable would be set to define the surface.
 
 ``` tcl
 vtkBMPReader bmpReader
   bmpReader SetFileName \"\$VTK\_DATA\_ROOT/Data/masonry.bmp\"
 
 vtkTexture atext
- atext SetInputConnection <em style="color:blue;background-color: white">\[bmpReader GetOutputPort\]</em>
+ atext SetInputConnection [bmpReader GetOutputPort]
  atext InterpolateOn
 
 vtkPlaneSource plane
 
 vtkPolyDataMapper planeMapper
-  planeMapper SetInputConnection [plane GetOutputPort\]</em>
+  planeMapper SetInputConnection [plane GetOutputPort]
 vtkActor planeActor
   planeActor SetMapper planeMapper
   planeActor SetTexture atext
@@ -1403,14 +1044,12 @@ vtkRenderWindow renWin
 
 vtkRenderWindowInteractor iren
   iren SetRenderWindow renWin
+
+-   Add the actors to the renderer ]
+ren1 AddActor planeActor
 ```
 
--   Add the actors to the renderer ren1 AddActor planeActor
-
 **Figure 7-33** Example of texture mapping (TPlane.tcl ).
-
-image using a vtkVolumeRayCastIsosurfaceFunction where the IsoValue
-instance variable would be set to define the surface.
 
 **Red-Blue Stereo**
 
@@ -1433,7 +1072,7 @@ top of the rendering window and the second mace at the bottom. We then
 use the SetSubFrames() method to start performing subframe
 accumulation. Here, we will perform 21 renders to produce the final
 image. For motion blur to be noticeable, something must be moving, so
-we set up a loop to
+we set up a loop to rotate the bottom mace by two degrees between each subframe. Over the 21 subframes it will rotate 40 degrees from its initial position. It is important to remember that the resulting image is not displayed until the required number of subframes have been rendered.
 
 ``` tcl
 //  Create the standard renderer, render window and interactor
@@ -1485,34 +1124,35 @@ we set up a loop to
   ren1 AddVolume volume
   renWin Render
 ```
+
 <figure id="Figure7-34">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Volumerendering/TestSimpleRayCast.png?raw=true width="640" alt="Figure 7-34">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VolumeRendering/TestSimpleRayCast.png?raw=true width="640" alt="Figure 7-34">
 </figure>
-<figcaption style="color:blue"><b>Figure 7-34</b>. Volume rendering of a high potential iron protein. <a href="../../Cxx/Volumerendering/SimpleRayCast" title="SimpleRayCast"> See SimpleRayCast.cxx</a> and <a href="../../Python/Volumerendering/SimpleRayCast" title="SimpleRayCast"> SimpleRayCast.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 7-34</b>. Volume rendering of a high potential iron protein. <a href="../../Cxx/VolumeRendering/SimpleRayCast" title="SimpleRayCast"> See SimpleRayCast.cxx</a> and <a href="../../Python/VolumeRendering/SimpleRayCast" title="SimpleRayCast"> SimpleRayCast.py</a>.</figcaption>
 </figure>
 
 ``` c++
-vtkRenderer \*ren1 = vtkRenderer::New(); vtkRenderWindow \*renWin =
+vtkRenderer *ren1 = vtkRenderer::New(); vtkRenderWindow *renWin =
 vtkRenderWindow::New(); renWin->AddRenderer(ren1);
-vtkRenderWindowInteractor \*iren = vtkRenderWindowInteractor::New();
+vtkRenderWindowInteractor *iren = vtkRenderWindowInteractor::New();
 iren->SetRenderWindow(renWin);
-//   create the pipline, ball and spikes vtkSphereSource \*sphere =
+//   create the pipline, ball and spikes vtkSphereSource *sphere =
 vtkSphereSource::New(); sphere->SetThetaResolution(7);
 sphere->SetPhiResolution(7);
-vtkPolyDataMapper \*sphereMapper = vtkPolyDataMapper::New();
+vtkPolyDataMapper *sphereMapper = vtkPolyDataMapper::New();
 sphereMapper->SetInputConnection(sphere->GetOutputPort());
-vtkActor \*sphereActor = vtkActor::New();
+vtkActor*sphereActor = vtkActor::New();
 sphereActor->SetMapper(sphereMapper);
-vtkConeSource \*cone = vtkConeSource::New();
+vtkConeSource *cone = vtkConeSource::New();
 cone->SetResolution(5);
-vtkGlyph3D \*glyph = vtkGlyph3D::New();
+vtkGlyph3D *glyph = vtkGlyph3D::New();
 glyph->SetInputConnection(sphere->GetOutputPort());
 glyph->SetSourceConnection(cone->GetOutputPort());
 glyph->SetVectorModeToUseNormal();
 glyph->SetScaleModeToScaleByVector(); glyph->SetScaleFactor(0.25);
-vtkPolyDataMapper \*spikeMapper = vtkPolyDataMapper::New();
+vtkPolyDataMapper *spikeMapper = vtkPolyDataMapper::New();
 spikeMapper->SetInputConnection(glyph->GetOutputPort());
-vtkActor \*spikeActor = vtkActor::New();
+vtkActor *spikeActor = vtkActor::New();
 spikeActor->SetMapper(spikeMapper);
 ren1->AddActor(sphereActor);
 ren1->AddActor(spikeActor);
@@ -1528,16 +1168,13 @@ renWin->Render();
 **Figure 7-35** An example of red-blue stereo rendering ( Mace3.cxx
 ).
 
-rotate the bottom mace by two degrees between each subframe. Over the
-21 subframes it will rotate 40 degrees from its initial position. It
-is important to remember that the resulting image is not displayed
-until the required number of subframes have been rendered.
 
+``` c++
 //changes and additions to the
 
 // preceding example's source
 
-vtkActor \*spikeActor2 = vtkActor::New();
+vtkActor *spikeActor2 = vtkActor::New();
 
 spikeActor2->SetMapper(spikeMapper);
 
@@ -1563,8 +1200,9 @@ renWin->Render();
 }
 
 iren->Start();
-
-**Figure 7-36** Example of motion blur ( MotBlur.cxx ).
+```
+**F
+igure 7-36** Example of motion blur ( MotBlur.cxx ).
 
 **Focal Depth**
 
@@ -1575,29 +1213,11 @@ scale it by a factor of two to maintain reasonable image size. We then
 remove the code for rendering the subframes and instead set the
 number of frames for focal depth rendering. We also set the camera's
 focal point and focal disk to appropriate values. The resulting image
-and the required changes to the source code are shown in
-**Figure7-37** .
+and the required changes to the source code are shown in **Figure7-37** .
 
 **vtkLineWidget**
 
-There are a variety of 3D widgets in VTK all of which function in a
-similar fashion. 3D widgets are a subclass of vtkInteractorObserver
-meaning that they are associated with a vtkRenderWindow and observe
-events in the render window (). (Note: vtkInteractorStyle---see
-"Introducing vtkRenderWindowInteractor" on page68 ---is also a
-subclass of vtkInteractorObserver. The interactor style differs
-
-from a 3D widget in that it does not have a representation in the
-scene.) The following example
-
-shows the general approach to using a 3D widget using vtkLineWidget as
-an example (**Figure7-**
-
-**39**). First the widget is instantiated and then placed. Placing
-means positioning, scaling, and orienting the widget consistent with
-the object on which they operate. By default, widgets are enabled with
-a "keypress-i" event, but the specific event to enable the widget can
-be modified.
+There are a variety of 3D widgets in VTK all of which function in a similar fashion. 3D widgets are a subclass of vtkInteractorObserver meaning that they are associated with a vtkRenderWindow and observe events in the render window (). (Note: vtkInteractorStyle---see "Introducing vtkRenderWindowInteractor" on page68 ---is also a subclass of vtkInteractorObserver. The interactor style differs from a 3D widget in that it does not have a representation in the scene.) The following example  shows the general approach to using a 3D widget using vtkLineWidget as an example (**Figure7-39-**). First the widget is instantiated and then placed. Placing means positioning, scaling, and orienting the widget consistent with the object on which they operate. By default, widgets are enabled with a "keypress-i" event, but the specific event to enable the widget can be modified.
 
 ``` c++
 -   changes to the preceding example
@@ -1626,7 +1246,7 @@ iren->Start();
 <figcaption style="colaor:blue"><b>Figure 7-38</b>. Partial class hierarchy for 3D widgets. Each 3D widget observes a particular &#118;tkRenderWindow similar to &#118;tkInteractorStyle. Unlike the &#118;tkInteractorStyle which is used to manipulate the camera, 3D widgets have a representation in the scene that can be directly manipulated. More than one &#118;tkInteractorObserver can watch a &#118;tkRenderWindow at a given time, so classes like &#118;tkInteractorEventRecorder can record an event and pass them on to the next &#118;tkInteractorObserver observing the &#118;tkRenderWindow.</figcaption>
 </figure>
 
-**Figure 7-38** 
+**Figure7-38** 
 
 The widget interfaces with the application through the
 command/observer event handling mechanism (see "Events and Observers"
@@ -1642,23 +1262,23 @@ invoked using the GetPolyData() method. The pipeline update mechanism
 then automatically executes on the next render since the input to the
 streamline is modified.
 
+``` tcl
 vtkRungeKutta4 rk4
-
-![](media/image610.jpeg){width="1.7909722222222222in"
-height="1.7868055555555555in"}
 
 vtkPolyData seeds
 
 vtkStreamTracer streamer
 
-streamer SetInputConnection \\ \[reader GetOutputPort\]</em>
+streamer SetInputConnection [reader GetOutputPort]
 
 streamer SetSource seeds vtkRenderWindowInteractor iren
 
 iren SetRenderWindow renWin
 
-vtkLineWidget lineWidget lineWidget SetInteractor iren lineWidget
-SetInput \[reader GetOutput\]</em> lineWidget SetAlignToYAxis lineWidget
+vtkLineWidget lineWidget
+lineWidget SetInteractor iren
+lineWidget SetInput [reader GetOutput]
+lineWidget SetAlignToYAxis lineWidget
 PlaceWidget
 
 lineWidget GetPolyData seeds
@@ -1667,264 +1287,133 @@ lineWidget ClampToBoundsOn
 
 lineWidget SetResolution 25
 
-\[lineWidget GetLineProperty\]</em> SetColor 0 0 0 lineWidget AddObserver
-StartInteractionEvent
+[lineWidget GetLineProperty] SetColor 0 0 0
+lineWidget AddObserver StartInteractionEvent
 
-BeginInteraction
+-- BeginInteraction
 
-lineWidget AddObserver InteractionEvent
+lineWidget AddObserver InteractionEvent GenerateStreamlines
 
-GenerateStreamlines
-
-(skipping material\...)
+(skipping material...)
 
 proc BeginInteraction {} { streamline VisibilityOn }
 
 proc GenerateStreamlines {} { lineWidget GetPolyData seeds }
+```
 
-**Figure 7-39** Using the vtkLineWidget to produce streamtubes in the
+**Figure7-39** Using the vtkLineWidget to produce streamtubes in the
 combustor dataset. The StartInteractionEvent turns the visibility of
 the streamlines on; the InteractionEvent causes the streamlines to
 regenerate themselves ( LineWidget.tcl ).
 
 ## 7.20 Chapter Summary
 
-Alpha opacity is a graphics method to simulate transparent objects.
-Compositing is the process of blending translucent samples in order.
-Alpha compositing requires the data to be ordered properly.
+Alpha opacity is a graphics method to simulate transparent objects. Compositing is the process of blending translucent samples in order. Alpha compositing requires the data to be ordered properly.
 
-Texture mapping is a powerful technique to introduce additional detail
-into an image without extensive geometric modelling. Applying 2D
-texture maps to the surface of an object is analogous to pasting a
-picture. The location of the texture map is specified via texture
-coordinates.
+Texture mapping is a powerful technique to introduce additional detail into an image without extensive geometric modelling. Applying 2D texture maps to the surface of an object is analogous to pasting a picture. The location of the texture map is specified via texture coordinates.
 
-Volume rendering is a powerful rendering technique to view the
-interior of inhomogeneous objects. Most volume rendering techniques
-can be classified as image-order or object-order, although some are a
-combination of the two while others do not fall into either category.
-Object-order techniques generally composite voxels in front-to-back or
-back-to-front order. Image-order techniques cast rays through pixels
-in the image plane to sample the volume. Other methods may traverse
-both the image and the volume at the same time or may operate in the
-frequency domain.
+Volume rendering is a powerful rendering technique to view the interior of inhomogeneous objects. Most volume rendering techniques can be classified as image-order or object-order, although some are a combination of the two while others do not fall into either category. Object-order techniques generally composite voxels in front-to-back or back-to-front order. Image-order techniques cast rays through pixels in the image plane to sample the volume. Other methods may traverse both the image and the volume at the same time or may operate in the frequency domain.
 
-For effective visualization of volumetric data, classification and
-shading are important considerations. Regions of interest may be used
-to reduce the amount of data visible in an image. Due to the
-complexity of volume rendering algorithms, efficiency and methods that
-allow for interactivity are critical.
+For effective visualization of volumetric data, classification and shading are important considerations. Regions of interest may be used to reduce the amount of data visible in an image. Due to the complexity of volume rendering algorithms, efficiency and methods that allow for interactivity are critical.
 
-Stereo rendering techniques create two separate views for the right
-and left eyes. This simulates binocular parallax and allows us to see
-depth in the image. Time multiplexed techniques alternate left and
-right eye views in rapid succession. Time parallel techniques display
-both images at the same time.
+Stereo rendering techniques create two separate views for the right and left eyes. This simulates binocular parallax and allows us to see depth in the image. Time multiplexed techniques alternate left and right eye views in rapid succession. Time parallel techniques display both images at the same time.
 
-Raster devices often suffer from aliasing effects. Antialiasing
-techniques are used to minimize the effects of aliasing. These
-techniques create blended images that soften the boundary of hard
-edges.
+Raster devices often suffer from aliasing effects. Antialiasing techniques are used to minimize the effects of aliasing. These techniques create blended images that soften the boundary of hard edges.
 
-By using an accumulation buffer we can create interesting effects,
-including motion blur and focal blur. In motion blurring we accumulate
-multiple renders as the actors move. To simulate focal blur, we jitter
-the camera position and hold its focal point constant.
+By using an accumulation buffer we can create interesting effects, including motion blur and focal blur. In motion blurring we accumulate multiple renders as the actors move. To simulate focal blur, we jitter the camera position and hold its focal point constant.
 
-Effective visualizations are inherently interactive. Not only are
-camera manipulation models required for different types of data, but
-methods to interact, query, and modify data are essential. 3D widgets
-are important contributions to this end. They provide intuitive
-graphical interface to the data through a representation in the scene
-that can be easily manipulated. 3D widgets also generate supplemental
-information such as implicit functions, output polygonal data, and
-transformation matrices that may be applied to objects in the scene.
+Effective visualizations are inherently interactive. Not only are camera manipulation models required for different types of data, but methods to interact, query, and modify data are essential. 3D widgets are important contributions to this end. They provide intuitive graphical interface to the data through a representation in the scene that can be easily manipulated. 3D widgets also generate supplemental information such as implicit functions, output polygonal data, and transformation matrices that may be applied to objects in the scene.
 
 ## 7.21 Bibliographic Notes
 
-An overview of volume rendering and volume visualization techniques
-can be found in a tutorial by Kaufman <em style="color:blue;background-color: white">\[Kaufman91\]</em> . Many of the
-volume rendering techniques discussed in this chapter are also
-accessible from research institutions as source code. The shear-warp
-algorithm is provided within the VolPack rendering library and is
-available on the Web at
-
-graphics.stanford.edu/software/volpack/ . SUNY Stony Brook offers a
-turnkey volume visualization system called VolVis to nonprofit and
-government organizations. Source code and executable versions are
-available at http://www.cs.sunysb.edu/\~volvis . In addition, an
-
-application called Vis5D is available that applies volume
-visualization techniques to time varying
-
-atmospheric weather data. Vis5D may be obtained from the Web location
-http://
-
-vis5d.sourceforge.net . A commercial volume rendering application,
-VolView, developed on
-
-top of The Visualization Toolkit, is available from Kitware for a
-30-day trial at http://
-
-www.kitware.com/products/volview.html
+An overview of volume rendering and volume visualization techniques can be found in a tutorial by Kaufman <em style="color:blue;background-color: white">\[Kaufman91\]</em> . Many of the volume rendering techniques discussed in this chapter are also accessible from research institutions as source code. The shear-warp algorithm is provided within the VolPack rendering library and is available on the Web at graphics.stanford.edu/software/volpack/ . SUNY Stony Brook offers a turnkey volume visualization system called VolVis to nonprofit and government organizations. Source code and executable versions are available at http://www.cs.sunysb.edu/\~volvis . In addition, an application called Vis5D is available that applies volume visualization techniques to time varying atmospheric weather data. Vis5D may be obtained from the Web location http://vis5d.sourceforge.net . A commercial volume rendering application, VolView, developed on top of The Visualization Toolkit, is available from Kitware for a 30-day trial at http://www.kitware.com/products/volview.html
 
 ## 7.22 References
 
 <em style="color:blue;background-color: white">\[Cabral94\]</em>
-B. Cabral, N. Cam, J. Foran. "Accelerated Volume Rendering and
-Tomographic Reconstruction Using Texture Mapping Hardware." In
-*Proceedings of 1994 Symposium on Volume Visualization* . pp. 91--98,
-October 1994.
+B. Cabral, N. Cam, J. Foran. "Accelerated Volume Rendering and Tomographic Reconstruction Using Texture Mapping Hardware." In *Proceedings of 1994 Symposium on Volume Visualization* . pp. 91--98, October 1994.
 
 <em style="color:blue;background-color: white">\[Cignoni96\]</em>
-P. Cignoni, C. Montani, E. Puppo, R. Scopigno. "Optimal Isosurface
-Extraction from Irregular Volume Data." In *Proceedings of 1996
-Symposium on Volume Visualization* . pp. 31--38, IEEE Computer Society
-Press, Los Alamitos, CA, October 1996.
+P. Cignoni, C. Montani, E. Puppo, R. Scopigno. "Optimal Isosurface Extraction from Irregular Volume Data." In *Proceedings of 1996 Symposium on Volume Visualization* . pp. 31--38, IEEE Computer Society Press, Los Alamitos, CA, October 1996.
 
 <em style="color:blue;background-color: white">\[Drebin88\]</em>
-R. A. Drebin, L. Carpenter, P. Hanrahan. "Volume Rendering." *Computer
-Graphics* . 22(4):64--75 (Siggraph 1988).
+R. A. Drebin, L. Carpenter, P. Hanrahan. "Volume Rendering." *Computer Graphics* . 22(4):64--75 (Siggraph 1988).
 
 <em style="color:blue;background-color: white">\[Hodges92\]</em>
-L. F. Hodges. "Tutorial: Time-Multiplexed Stereoscopic Computer
-Graphics." *IEEE Computer* *Graphics & Applications .* March 1992.
+L. F. Hodges. "Tutorial: Time-Multiplexed Stereoscopic Computer Graphics." *IEEE Computer* *Graphics & Applications .* March 1992.
 
 <em style="color:blue;background-color: white">\[Kaufman91\]</em>
-A. Kaufman (ed.). *Volume Visualization.* IEEE Computer Society Press,
-Los Alamitos, CA, 1991.
+A. Kaufman (ed.). *Volume Visualization.* IEEE Computer Society Press, Los Alamitos, CA, 1991.
 
 <em style="color:blue;background-color: white">\[Kaufman93\]</em>
-A. Kaufman, R. Yagel, D. Cohen. "Volume Graphics." *IEEE Computer* .
-26(7):51--64, July 1993.
+A. Kaufman, R. Yagel, D. Cohen. "Volume Graphics." *IEEE Computer* . 26(7):51--64, July 1993.
 
 <em style="color:blue;background-color: white">\[Kelly94\]</em>
-M. Kelly, K. Gould, S. Winner, A. Yen. "Hardware Accelerated Rendering
-of CSG and Transpar-ency." *Computer Graphics (SIGGRAPH '94* ). pp.
-177-184.
+M. Kelly, K. Gould, S. Winner, A. Yen. "Hardware Accelerated Rendering of CSG and Transpar-ency." *Computer Graphics (SIGGRAPH '94* ). pp. 177-184.
 
 <em style="color:blue;background-color: white">\[Kikinis96\]</em>
-R. Kikinis, M. Shenton, D. Iosifescu, R. McCarley, P. Saiviroonporn,
-H. Hokama, A. Robatino, D. Metcalf, C. Wible, C. Portas, R. Donnino,
-F. Jolesz. "A Digital Brain Atlas for Surgical Planning, Model Driven
-Segmentation and Teaching." *IEEE Transactions on Visualization and
-Computer Graphics* . 2(3), September 1996.
+R. Kikinis, M. Shenton, D. Iosifescu, R. McCarley, P. Saiviroonporn, H. Hokama, A. Robatino, D. Metcalf, C. Wible, C. Portas, R. Donnino, F. Jolesz. "A Digital Brain Atlas for Surgical Planning, Model Driven Segmentation and Teaching." *IEEE Transactions on Visualization and Computer Graphics* . 2(3), September 1996.
 
 <em style="color:blue;background-color: white">\[Krueger91\]</em>
-W. Krueger. "The Application of Transport Theory to Visualization of
-3D Scalar Data Fields." *Computers in Physics* . pp. 397-406,
-July/August 1994.
+W. Krueger. "The Application of Transport Theory to Visualization of 3D Scalar Data Fields." *Computers in Physics* . pp. 397-406, July/August 1994.
 
 <em style="color:blue;background-color: white">\[Lacroute94\]</em>
-P. Lacroute and M. Levoy. "Fast Volume Rendering Using a Shear-Warp
-Factorization of the Viewing Transformation." In *Proceedings of
-SIGGRAPH '94* . pp. 451-458, Addison-Wesley, Reading, MA, 1994.
+P. Lacroute and M. Levoy. "Fast Volume Rendering Using a Shear-Warp Factorization of the Viewing Transformation." In *Proceedings of SIGGRAPH '94* . pp. 451-458, Addison-Wesley, Reading, MA, 1994.
 
 <em style="color:blue;background-color: white">\[Laur91\]</em>
-D. Laur and P. Hanrahan. "Hierarchical Splatting: A Progressive
-Refinement Algorithm for Vol-ume Rendering." In *Proceedings of
-SIGGRAPH '91* . 25:285--288, 1991.
+D. Laur and P. Hanrahan. "Hierarchical Splatting: A Progressive Refinement Algorithm for Vol-ume Rendering." In *Proceedings of SIGGRAPH '91* . 25:285--288, 1991.
 
 <em style="color:blue;background-color: white">\[Levoy88\]</em>
-M. Levoy. "Display of Surfaces from Volumetric Data." *IEEE Computer
-Graphics & Applica-tions* . **8**(3), pp. 29--37, May 1988.
+M. Levoy. "Display of Surfaces from Volumetric Data." *IEEE Computer Graphics & Applica-tions* . **8**(3), pp. 29--37, May 1988. 
 
 <em style="color:blue;background-color: white">\[Purciful95\]</em>
-J.T. Purciful. \"Three-Dimensional Widgets for Scientific
-Visualization and Animation.\" Masters Thesis, Dept. of Computer
-Science, Univ. of Utah, 1995.
+J.T. Purciful. \"Three-Dimensional Widgets for Scientific Visualization and Animation.\" Masters Thesis, Dept. of Computer Science, Univ. of Utah, 1995.
 
 <em style="color:blue;background-color: white">\[Shirley90\]</em>
-P. Shirley and A. Tuchman. "A Polygonal Approximation to Direct Volume
-Rendering." *Comput-er Graphics* . 24(5):63--70, 1990.
+P. Shirley and A. Tuchman. "A Polygonal Approximation to Direct Volume Rendering." *Comput-er Graphics* . 24(5):63--70, 1990.
 
 <em style="color:blue;background-color: white">\[Silva96\]</em>
-C. Silva, J. S. B. Mitchell, A. E. Kaufman. "Fast Rendering of
-Irregular Grids." In *Proceedings of* *1996 Symposium on Volume
-Visualization* . pp. 15--22, IEEE Computer Society Press, Los
-Alami-tos, CA, October 1996.
+C. Silva, J. S. B. Mitchell, A. E. Kaufman. "Fast Rendering of Irregular Grids." In *Proceedings of* *1996 Symposium on Volume Visualization* . pp. 15--22, IEEE Computer Society Press, Los Alamitos, CA, October 1996.
 
 <em style="color:blue;background-color: white">\[Sobierajski95\]</em>
-L. Sobierajski and R. Avila. "A Hardware Acceleration Method for
-Volumetric Ray Tracing." In *Proceedings of Visualization '95* . pp.
-27-34, IEEE Computer Society Press, Los Alamitos, CA, October 1995.
+L. Sobierajski and R. Avila. "A Hardware Acceleration Method for Volumetric Ray Tracing." In *Proceedings of Visualization '95* . pp. 27-34, IEEE Computer Society Press, Los Alamitos, CA, October 1995.
 
 <em style="color:blue;background-color: white">\[Totsuka92\]</em>
-T. Totsuka and M. Levoy. "Frequency Domain Volume Rendering."
-*Computer Graphics (SIG-GRAPH '93).* pp. 271--278, August 1993.
+T. Totsuka and M. Levoy. "Frequency Domain Volume Rendering." *Computer Graphics (SIG-GRAPH '93).* pp. 271--278, August 1993.
 
 <em style="color:blue;background-color: white">\[Wernecke94\]</em>
 J. Wernecke. *The Inventor Mentor* . Addison-Wesley, Reading MA,1994.
 
 <em style="color:blue;background-color: white">\[Westover90\]</em>
-L. Westover. "Footprint Evaluation for Volume Rendering." *Computer
-Graphics (SIGGRAPH* *'90).* 24(4):36, 1990.
+L. Westover. "Footprint Evaluation for Volume Rendering." *Computer Graphics (SIGGRAPH* *'90).* 24(4):36, 1990.
 
 <em style="color:blue;background-color: white">\[Wilhelms91\]</em>
-J. Wilhelms and A. Van Gelder. "A Coherent Projection Approach for
-Direct Volume Rendering." *Computer Graphics (SIGGRAPH '91).*
-25(4):275--284, 1991.
+J. Wilhelms and A. Van Gelder. "A Coherent Projection Approach for Direct Volume Rendering." *Computer Graphics (SIGGRAPH '91).* 25(4):275--284, 1991.
 
 <em style="color:blue;background-color: white">\[Wilhelms96\]</em>
-J. P. Wilhelms, A. Van Gelder, P. Tarantino, J. Gibbs. "Hierarchical
-and Parallelizable Direct Vol-ume Rendering for Irregular and Multiple
-Grids." In *Proceedings of Visualization '96* . pp. 73ê80, IEEE
-Computer Society Press, Los Alamitos, CA, October 1996.
+J. P. Wilhelms, A. Van Gelder, P. Tarantino, J. Gibbs. "Hierarchical and Parallelizable Direct Vol-ume Rendering for Irregular and Multiple Grids." In *Proceedings of Visualization '96* . pp. 73ê80, IEEE Computer Society Press, Los Alamitos, CA, October 1996.
 
 <em style="color:blue;background-color: white">\[Yagel92a\]</em>
-R. Yagel, D. Cohen, and A. Kaufman. "Normal Estimation in 3D Discrete
-Space." *The Visual* *Computer.* pp. 278--291, 1992.
+R. Yagel, D. Cohen, and A. Kaufman. "Normal Estimation in 3D Discrete Space." *The Visual* *Computer.* pp. 278--291, 1992.
 
 <em style="color:blue;background-color: white">\[Yagel92b\]</em>
-R. Yagel and A. Kaufman. "Template-based Volume Viewing." In
-*Proceedings of Eurographics* *'92.* pp. 153--167, September 1992.
+R. Yagel and A. Kaufman. "Template-based Volume Viewing." In *Proceedings of Eurographics* *'92.* pp. 153--167, September 1992.
 
 <em style="color:blue;background-color: white">\[Zeleznik93\]</em>
-R. C. Zeleznik, K. P. Herndon, D. C. Robbins, N. Huang, T. Meyer, N.
-Parker, J. F. Hughes. "An Interactive Toolkit for Constructing 3D
-Interfaces." *Computer Graphics (Proceedings of Siggraph* *'93).*
-27(4):81--84. July 1993.
+R. C. Zeleznik, K. P. Herndon, D. C. Robbins, N. Huang, T. Meyer, N. Parker, J. F. Hughes. "An Interactive Toolkit for Constructing 3D Interfaces." *Computer Graphics (Proceedings of Siggraph* *'93).* 27(4):81--84. July 1993.
 
 <em style="color:blue;background-color: white">\[Zuiderveld92\]</em>
-K. J. Zuiderveld, A. h. j. Koning, and M. A. Viergever. "Acceleration
-of Ray-Casting Using 3D Distance Transforms." In *Proceedings of
-Visualization and Biomedical Computing,* pp. 324--335, October 1992.
+K. J. Zuiderveld, A. h. j. Koning, and M. A. Viergever. "Acceleration of Ray-Casting Using 3D Distance Transforms." In *Proceedings of Visualization and Biomedical Computing,* pp. 324--335, October 1992.
 
 ## 7.23 Exercises
 
-7.1 In astronomy, photographs can be taken that show the movements of
-the stars over a period of time by keeping the camera's shutter open.
-Without accounting for the rotation of the earth, these photographs
-display a swirl of circular arcs all centered about a common point.
-Such time lapse photography is essentially capturing motion blur. If
-we tried to simulate these images using the motion blur technique
-described in this chapter, they would look dif-ferent from the
-photographs. Why is this? How could you change the simple motion blur
-algorithm to correct this?
+7.1 In astronomy, photographs can be taken that show the movements of the stars over a period of time by keeping the camera's shutter open. Without accounting for the rotation of the earth, these photographs display a swirl of circular arcs all centered about a common point. Such time lapse photography is essentially capturing motion blur. If we tried to simulate these images using the motion blur technique described in this chapter, they would look dif-ferent from the photographs. Why is this? How could you change the simple motion blur algorithm to correct this?
 
-7.2 In **Figure7-25** we show the difference between stereo rendering
-with two or one view planes. If you were viewing a rectangle head-on
-(its surface normal parallel to your direc-
-tion), what artifacts would be introduced by rendering onto one view
-plane while using the equations for two planes?
+7.2 In **Figure7-25** we show the difference between stereo rendering with two or one view planes. If you were viewing a rectangle head-on (its surface normal parallel to your direction), what artifacts would be introduced by rendering onto one view plane while using the equations for two planes?
 
-7.3 On some graphics systems transparent objects are rendered using a
-technique called screen door transparency. Basically, every pixel is
-either completely opaque or completely transpar-ent. Any value in
-between is approximated using dithering. So a polygon that was 50
-percent opaque would be rendered by drawing only half of the pixels.
-What visual artifacts does this introduce? What blending problems can
-arise in using such a technique?
+7.3 On some graphics systems transparent objects are rendered using a technique called screen door transparency. Basically, every pixel is either completely opaque or completely transpar-ent. Any value in between is approximated using dithering. So a polygon that was 50 percent opaque would be rendered by drawing only half of the pixels. What visual artifacts does this introduce? What blending problems can arise in using such a technique?
 
-7.4 In this chapter we describe a few different techniques for
-antialiased rendering. One tech-nique involved rendering a large image
-and then scaling it down to the desired size using bilinear
-interpolation. Another technique involved rendering multiple images at
-the desired size using small camera movements and then accumulating
-them into a final image. When rendering a model with a surface
-representation, these two techniques will produce roughly the same
-result. When rendering a model with a wireframe representation there
-will be signif-icant differences. Why is this?
+7.4 In this chapter we describe a few different techniques for antialiased rendering. One tech-nique involved rendering a large image and then scaling it down to the desired size using bilinear interpolation. Another technique involved rendering multiple images at the desired size using small camera movements and then accumulating them into a final image. When rendering a model with a surface representation, these two techniques will produce roughly the same result. When rendering a model with a wireframe representation there will be signif-icant differences. Why is this?
 
 7.5 You need to create a small image of a volume dataset to include on
 your web page. The
@@ -1932,38 +1421,15 @@ your web page. The
 3 2
 
 dataset contains voxels,512 and the desired image size is
-pixels.You100can use a soft-
-
-ware object-order method that projects each voxel onto the image, or a
+pixels.You100can use a software object-order method that projects each voxel onto the image, or a
 software ray casting method that casts one ray for each pixel.
 Assuming that identical images are created, which method would you
 select, and why?
 
-7.6 Two software developers implement volume rendering methods. The
-first developer uses a software ray casting approach, while the second
-uses a graphics hardware texture mapping approach. The grayscale
-images are generated and displayed on a workstation with an 8 bit
-frame buffer (256 levels of gray). They both use the same
-interpolation method and the same compositing scheme, yet the two
-methods produce different images even though the same number of
-samples from identical locations were used to generate the images. Why
-is this?
+7.6 Two software developers implement volume rendering methods. The first developer uses a software ray casting approach, while the second uses a graphics hardware texture mapping approach. The grayscale images are generated and displayed on a workstation with an 8 bit frame buffer (256 levels of gray). They both use the same interpolation method and the same compositing scheme, yet the two methods produce different images even though the same number of samples from identical locations were used to generate the images. Why is this?
 
-7.7 In the classification of some medical dataset, scalar values from
-100 to 200 represent skin, 200 to 300 represent muscle and 300 to 400
-represent bone. The color transfer functions define skin as tan,
-muscle as red, and bone as white. If we interpolate scalar value and
-then perform classification, what classification artifacts may appear
-in the image?
+7.7 In the classification of some medical dataset, scalar values from 100 to 200 represent skin, 200 to 300 represent muscle and 300 to 400 represent bone. The color transfer functions define skin as tan, muscle as red, and bone as white. If we interpolate scalar value and then perform classification, what classification artifacts may appear in the image?
 
-7.8 The normal encoding example illustrated in **Figure7-22**
-produced 82 indices at a recursion depth of two, which would require
-seven bits of storage. If we instead use a recursion depth of three,
-how many indices are there? How many unique vector directions does
-this repre-sent? How many bits of storage does this require?
+7.8 The normal encoding example illustrated in **Figure7-22** produced 82 indices at a recursion depth of two, which would require seven bits of storage. If we instead use a recursion depth of three, how many indices are there? How many unique vector directions does this repre-sent? How many bits of storage does this require?
 
-7.9 Writing an object-order back-to-front projection algorithm is more
-difficult for a perspective viewing transformation than a parallel
-viewing transformation. Explain why this is and draw a 2D diagram of
-the volume and the viewing frustum that illustrates the issues.
-
+7.9 Writing an object-order back-to-front projection algorithm is more difficult for a perspective viewing transformation than a parallel viewing transformation. Explain why this is and draw a 2D diagram of the volume and the viewing frustum that illustrates the issues.

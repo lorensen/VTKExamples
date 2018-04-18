@@ -6,7 +6,7 @@
 
 ## 1.1 What Is Visualization?
 
-*V*isualization is a part of our everyday life. From weather maps to the exciting computer graphics of the entertainment industry, examples of visualization abound. But what is visualization? Informally, visualization is the transformation of data or information into pictures. Visualization engages the primary human sensory apparatus, *vision,* as well as the processing power of the human mind. The result is a simple and effective medium for communicating complex and/or voluminous information.
+**V**isualization is a part of our everyday life. From weather maps to the exciting computer graphics of the entertainment industry, examples of visualization abound. But what is visualization? Informally, visualization is the transformation of data or information into pictures. Visualization engages the primary human sensory apparatus, *vision,* as well as the processing power of the human mind. The result is a simple and effective medium for communicating complex and/or voluminous information.
 
 ### Terminology
 

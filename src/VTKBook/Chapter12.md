@@ -1,6 +1,6 @@
 # Chapter 12 - Applications
 
-*W*e have described the design and implementation of an extensive toolkit of visualization techniques. In this chapter we examine several case studies to show how to use these tools to gain insight into important application areas. These areas are medical imaging, financial visualization, modelling, computational fluid dynamics, finite element analysis, and algorithm visualization. For each case, we briefly describe the problem domain and what information we expect to obtain through visualization. Then we craft an approach to show the results. Many times we will extend the functionality of the *Visualization Toolkit* with application-specific tools. Finally, we present a sample program and show resulting images.
+**W**e have described the design and implementation of an extensive toolkit of visualization techniques. In this chapter we examine several case studies to show how to use these tools to gain insight into important application areas. These areas are medical imaging, financial visualization, modelling, computational fluid dynamics, finite element analysis, and algorithm visualization. For each case, we briefly describe the problem domain and what information we expect to obtain through visualization. Then we craft an approach to show the results. Many times we will extend the functionality of the *Visualization Toolkit* with application-specific tools. Finally, we present a sample program and show resulting images.
 
 The visualization design process we go through is similar in each case. First, we read or generate application-specific data and transform it into one of the data representation types in the *Visualization Toolkit* . Often this first step is the most difficult one because we have to write custom computer code, and decide what form of visualization data to use. In the next step, we choose visualizations for the relevant data within the application. Sometimes this means choosing or creating models corresponding to the physical structure. Examples include spheres for atoms, polygonal surfaces to model physical objects, or computational surfaces to model flow boundaries. Other times we generate more abstract models, such as isosurfaces or glyphs, corresponding to important application data. In the last step we combine the physical components with the abstract components to create a visualization that aids the user in understanding the data.
 
@@ -872,19 +872,11 @@ so that it has a constant thickness.
 
 The resulting views are shown in **Figure12--11** .
 
-  ------------------------- ---------
-  12.4 Implicit Modelling   **463**
-                            
-  ------------------------- ---------
-
-![](media/image1161.jpeg){width="3.995138888888889in"
-height="5.167361111111111in"}
-
 **Figure 12--11** Two more views of the stock case study. Here the
 tube filter has been replaced by a ribbon filter followed with a
 linear extrusion filter.
 
-**12.4 Implicit Modelling**
+## 12.4 Implicit Modelling
 
 The *Visualization Toolkit* has some useful geometric modelling
 capabilities. One of the most pow-erful features is implicit
@@ -969,11 +961,7 @@ First, we read the geometry files that contain polygonal models of
 each letter in the logo. The data is in VTK polygonal format, so we
 use vtkPolyDataReader .
 
-  ------------------------- ---------
-  12.4 Implicit Modelling   **465**
-                            
-  ------------------------- ---------
-
+``` c++
 vtkPolyDataReader *letterV = vtkPolyDataReader::New();
 letterV->SetFileName ("v.vtk");
 
@@ -982,12 +970,14 @@ letterT->SetFileName ("t.vtk");
 
 vtkPolyDataReader *letterK = vtkPolyDataReader::New();
 letterK->SetFileName ("k.vtk");
+```
 
 We want to transform each letter into its appropriate location and
 orientation within the logo. We create the transform filters here, but
 defer specifying the location and orientation until later in the
 program.
 
+``` c++
 vtkTransform *VTransform = vtkTransform::New();
 vtkTransformPolyDataFilter *VTransformFilter =
 vtkTransformPolyDataFilter::New();
@@ -1008,19 +998,23 @@ vtkTransformPolyDataFilter::New();
 
 KTransformFilter->SetInputConnection (letterK->GetOutputPort());
 KTransformFilter->SetTransform (KTransform);
+```
 
 We collect all of the transformed letters into one set of polygons by
 using an instance of the class vtkAppendPolyData .
 
+``` c++
 vtkAppendPolyData *appendAll = vtkAppendPolyData::New();
 appendAll->AddInputConnection (VTransformFilter->GetOutputPort());
 appendAll->AddInputConnection (TTransformFilter->GetOutputPort());
 appendAll->AddInputConnection (KTransformFilter->GetOutputPort());
+```
 
 Since the geometry for each letter did not have surface normals, we
 add them here. We use vtkPolyDataNormals . Then we complete this
 portion of the pipeline by creating a mapper and an actor.
 
+``` c++
 // create normals
 
 vtkPolyDataNormals *logoNormals = vtkPolyDataNormals::New();
@@ -1038,11 +1032,13 @@ logoMapper->SetInputConnection (logoNormals->GetOutputPort());
 vtkActor *logo = vtkActor::New();
 
 logo->SetMapper (logoMapper);
+```
 
 We create the blobby logo with the implicit modeller, and then extract
 the logo with vtkContourFilter . The pipeline is completed by creating
 a mapper and an actor.
 
+``` c++
 -   now create an implicit model of the letters vtkImplicitModeller
     *blobbyLogoImp = vtkImplicitModeller::New();
 
@@ -1073,11 +1069,13 @@ blobbyLogoMapper->ScalarVisibilityOff ();
 
 vtkActor *blobbyLogo = vtkActor::New(); blobbyLogo->SetMapper
 (blobbyLogoMapper); blobbyLogo->SetProperty (banana);
+```
 
 To improve the look of our resulting visualization, we define a couple
 of organic colors. Softer col-ors show up better on some electronic
 media (e.g., VHS video tape) and are pleasing to the eye.
 
+``` c++
 vtkProperty *tomato = vtkProperty::New(); tomato->SetDiffuseColor(1,
 .3882, .2784); tomato->SetSpecular(.3);
 tomato->SetSpecularPower(20);
@@ -1091,27 +1089,24 @@ banana->SetDiffuse (.7);
 banana->SetSpecular(.4);
 
 banana->SetSpecularPower(20);
+```
 
 These colors are then assigned to the appropriate actors.
-
-  ----------------------------------- ---------
-  12.5 Computational Fluid Dynamics   **467**
-                                      
-  ----------------------------------- ---------
-
-![](media/image1163.jpeg){width="4.9944444444444445in" height="2.5in"}
 
 **Figure 12--13** A logo created with vtkImplicitModeller(vtkLogo.cxx)
 .
 
+``` c+++
 logo->SetProperty(tomato);
 
 blobbyLogo->SetProperty(banana);
+```
 
 And finally, we position the letters in the logo and move the
 polygonal logo out in front of the blobby logo by modifying the
 actor's position.
 
+``` c++
 VTransform->Translate (-16,0,12.5);
 
 VTransform->RotateY (40);
@@ -1123,17 +1118,16 @@ KTransform->RotateY (-40);
 // move the polygonal letters to the front
 
 logo->SetPosition(0,0,6);
+```
 
 An image made from the techniques described in this section is shown
 in
 
 **Figure12--13**
 
-. Note that
+. Note that the image on the left has been augmented with a texture map.
 
-the image on the left has been augmented with a texture map.
-
-**12.5 Computational Fluid Dynamics**
+## 12.5 Computational Fluid Dynamics
 
 Computational Fluid Dynamics (CFD) visualization poses a challenge to
 any visualization toolkit. CFD studies the flow of fluids in and
@@ -1181,7 +1175,7 @@ includes the following:
 For this case study, we use a dataset from NASA called the LOx Post.
 It simulates the flow of liquid oxygen across a flat plate with a
 cylindrical post perpendicular to the flow <em style="color:blue;background-color: white">\[Rogers86\]</em> . This
-analy-sis models the flow in a rocket engine. The post promotes mixing
+analysis models the flow in a rocket engine. The post promotes mixing
 of the liquid oxygen.
 
 We start by exploring the scalar and vector fields in the data. By
@@ -1197,6 +1191,7 @@ line or rake back and forth behind the post.
 Following our own advice, we first display the computational grid. The
 following Tcl code produced the right image of **Figure12--14** .
 
+``` tcl
 -   read data vtkPLOT3DReader pl3d
 
 pl3d SetXYZFileName \"\$env(VTK\_TEXTBOOK\_DATA)/postxyz.bin\" pl3d
@@ -1215,18 +1210,13 @@ floorMapper
 floorMapper SetInputConnection \[floorComp GetOutputPort\] floorMapper
 ScalarVisibilityOff
 
-  ----------------------------------- ---------
-  12.5 Computational Fluid Dynamics   **469**
-                                      
-  ----------------------------------- ---------
-
 vtkActor floorActor
 
 floorActor SetMapper floorMapper
 
-\[floorActor GetProperty\] SetColor 0 0 0
+[floorActor GetProperty] SetColor 0 0 0
 
-\[floorActor GetProperty\] SetRepresentationToWireframe
+[floorActor GetProperty] SetRepresentationToWireframe
 
 -   the post vtkStructuredGridGeometryFilter postComp
 
@@ -1243,7 +1233,7 @@ vtkActor postActor
 postActor SetMapper postMapper \[postActor GetProperty\] SetColor 0 0
 0
 
-\[postActor GetProperty\] SetRepresentationToWireframe
+[postActor GetProperty] SetRepresentationToWireframe
 
 -   plane upstream of the flow vtkStructuredGridGeometryFilter fanComp
 
@@ -1257,23 +1247,23 @@ ScalarVisibilityOff
 
 vtkActor fanActor
 
-fanActor SetMapper fanMapper \[fanActor GetProperty\] SetColor 0 0 0
+fanActor SetMapper fanMapper [fanActor GetProperty] SetColor 0 0 0
 
-\[fanActor GetProperty\] SetRepresentationToWireframe
+[fanActor GetProperty] SetRepresentationToWireframe
 
 -   outline
 
 vtkStructuredGridOutlineFilter outline
 
-outline SetInputConnection \[pl3d GetOutputPort\] vtkPolyDataMapper
+outline SetInputConnection [pl3d GetOutputPor] vtkPolyDataMapper
 outlineMapper
 
-outlineMapper SetInputConnection \[outline GetOutputPort\] vtkActor
+outlineMapper SetInputConnection [outline GetOutputPort] vtkActor
 outlineActor
 
 outlineActor SetMapper outlineMapper
 
-\[outlineActor GetProperty\] SetColor 0 0 0
+[outlineActor GetProperty] SetColor 0 0 0
 
 -   Create graphics stuff vtkRenderer ren1 vtkRenderWindow renWin
 
@@ -1286,16 +1276,15 @@ iren SetRenderWindow renWin
 -   
 
 ren1 AddActor outlineActor ren1 AddActor floorActor
-
-**Figure 12--14**
-
-Portion of computational grid for the LOx post (
-
-LOxGrid.tcl ).
-
 ren1 AddActor postActor
 
 ren1 AddActor fanActor
+
+```
+
+**Figure 12--14**
+
+Portion of computational grid for the LOx post (LOxGrid.tcl ).
 
 To display the scalar field using color mapping, we must change the
 actor's representation from wireframe to surface, turn on scalar
@@ -1303,6 +1292,7 @@ visibility for each vtkPolyDataMapper , set each mapper's sca-lar
 range, and render again, producing the right image of **Figure12--14**
 .
 
+``` tcl
 postActor SetRepresentationToSurface
 
 fanActor SetRepresentationToSurface
@@ -1318,6 +1308,7 @@ fanMapper SetScalarRange \[\[pl3d GetOutput\] GetScalarRange\]
 floorMapper ScalarVisibilityOn
 
 floorMapper SetScalarRange \[\[pl3d GetOutput\] GetScalarRange\]
+```
 
 Now, we explore the vector field using vtkPointSource . Recall that
 this object generates a random cloud of points around a spherical
@@ -1327,6 +1318,7 @@ this is where the velocity seems to be changing most rapidly. During
 this exploration, we use streamlines rather than streamtubes for
 rea-sons of efficiency. The Tcl code is as follows.
 
+``` tcl
 -   spherical seed points vtkPointSource rake
 
 rake SetCenter -0.74 0 0.3 rake SetNumberOfPoints 10
@@ -1334,18 +1326,6 @@ rake SetCenter -0.74 0 0.3 rake SetNumberOfPoints 10
 vtkStreamLine streamers
 
 streamers SetInputConnection \[pl3d GetOutputPort\]
-
-  ----------------------------------- ---------
-  12.5 Computational Fluid Dynamics   **471**
-                                      
-  ----------------------------------- ---------
-
-![](media/image1165.jpeg){width="4.9944444444444445in"
-height="4.980555555555555in"}
-
-**Figure 12--15** Streamlines seeded with spherical cloud of points.
-Four separate cloud positions are shown.
-
 streamers SetSourceConnection \[rake GetOutputPort\] streamers
 SetMaximumPropagationTime 250 streamers SpeedScalarsOn
 
@@ -1361,6 +1341,11 @@ eval mapTubes SetScalarRange \[\[pl3d GetOutput\] GetScalarRange\]
 vtkActor tubesActor
 
 tubesActor SetMapper mapTubes
+```
+
+**Figure 12--15** Streamlines seeded with spherical cloud of points.
+Four separate cloud positions are shown.
+
 
 **Figure 12--16** Streamtubes created by using the computational grid
 just in front of the post as a source for seeds (LOx.tcl ).
@@ -1379,6 +1364,7 @@ regions where the analyst constructed a denser grid. The only change
 we need to make is to replace the rake from the sphere source with a
 portion of the grid geometry.
 
+``` tcl
 vtkStructuredGridGeometryFilter seedsComp
 
 seedsComp SetExtent 10 10 37 39 1 35
@@ -1397,6 +1383,7 @@ tubes SetRadius .08 tubes SetVaryRadiusOff
 -   change input to streamtubes
 
 mapTubes SetInputConnection \[tubes GetOutputPort\]
+```
 
 There are a number of other methods we could use to visualize this
 data. A 3D widget such as the vtkLineWidget could be used to seed the
@@ -1410,12 +1397,7 @@ visualization would be to identify regions of vorticity. We could use
 (e.g., vtkContourFilter ) to creates isosurfaces of large
 helical-density.
 
-  ------------------------------ ---------
-  12.6 Finite Element Analysis   **473**
-                                 
-  ------------------------------ ---------
-
-**12.6 Finite Element Analysis**
+## 12.6 Finite Element Analysis
 
 Finite element analysis is a widely used numerical technique for
 finding solutions of partial differ-ential equations. Applications of
@@ -1475,7 +1457,7 @@ filter, we have to convert the data type from vtkUnstructuredGrid
 (output of vtkConnectivityFilter ) to type vtkPolyData . The fil-ter
 vtkGeometryFilter does this nicely.
 
-**12.7 Algorithm Visualization**
+## 12.7 Algorithm Visualization
 
 Visualization can be used to display algorithms and data structures.
 Representing this information often requires creative work on the part
@@ -1486,14 +1468,7 @@ analysis. Mold halves (shown in wire-frame) are closed around a
 parison as the parison is inflated. Coloring indicates thickness---red
 areas are thinner than blue ( blow.tcl )*.*
 
-  ------------------------------ ---------
-  12.7 Algorithm Visualization   **475**
-                                 
-  ------------------------------ ---------
-
-![](media/image1168.jpeg){width="4.815277777777778in"
-height="2.4347222222222222in"}
-
+``` tcl
 vtkUnstructuredGridReader
 ![](media/image1169.jpeg){width="0.13402777777777777in"
 height="3.4722222222222224e-2in"} vtkConnectivityFilter
@@ -1533,6 +1508,7 @@ SetScalarsName \"thickness9\"
 reader SetVectorsName \"displacement9\" vtkWarpVector warp
 
 warp SetInputConnection \[reader GetOutputPort\]
+```
 
 **Figure 12--18** Tcl script to generate blow molding image. Network
 topology and ini-tial portion of script are shown (Part one of two).
@@ -1610,13 +1586,6 @@ iren AddObserver UserEvent {wm deiconify .vtkInteract}
 **Figure 12--19** Tcl script to generate blow molding image (Part two
 of two).
 
-  ------------------------------ ---------
-  12.7 Algorithm Visualization   **477**
-                                 
-  ------------------------------ ---------
-
-![](media/image1170.jpeg){width="4.235416666666667in"
-height="6.9006944444444445in"}
 
 \(a) Initial
 
@@ -1695,7 +1664,7 @@ advertising/entertainment in large market segments. This type of
 visualization, known as information visualization, is likely to emerge
 in the future as an important research chal-lenge.
 
-**12.8 Chapter Summary**
+## 12.8 Chapter Summary
 
 This chapter presented several case studies covering a variety of
 visualization techniques. The examples used different data
@@ -1706,11 +1675,6 @@ the case studies.
 Medical imaging is a demanding application area due to the size of the
 input data. Three-dimensional visualization of anatomy is generally
 regarded by radiologists as a communication tool
-
-  ---------------------- ---------
-  12.8 Chapter Summary   **479**
-                         
-  ---------------------- ---------
 
 -   Routineisresponsibleformovingdisksfromonepegtothenext
 
@@ -1811,7 +1775,7 @@ with the visualization capabilities in VTK. We saw how visualization
 often requires our creative resources to cast data structures and
 informa-tion into visual form.
 
-**12.9 Bibliographic Notes**
+## 12.9 Bibliographic Notes
 
 The case studies presented in the chapter rely on having interesting
 data to visualize. Sometimes the hardest part of practicing
@@ -1831,7 +1795,7 @@ start with the refer-ences listed here <em style="color:blue;background-color: w
 <em style="color:blue;background-color: white">\[Eick93\]</em> <em style="color:blue;background-color: white">\[Feiner88\]</em> <em style="color:blue;background-color: white">\[Johnson91\]</em> <em style="color:blue;background-color: white">\[Robertson91\]</em> . This is a
 rela-tively new field but will certainly grow in the near future.
 
-**12.10 References**
+## 12.10 References
 
 <em style="color:blue;background-color: white">\[Aho88\]</em>
 A. V. Aho, B. W. Kernighan, and P. J. Weinberger. *The AWK Programming
@@ -1893,7 +1857,7 @@ Three-Dimensional Incompress-ible Flow Around Multiple Post." in
 *Proceedings of AIAA Aerospace Sciences Conference* . vol. AIAA Paper
 86-0353. Reno, Nevada, 1986.
 
-**12.11 Exercises**
+## 12.11 Exercises
 
 12.1 The medical example did nothing to transform the original data
 into a standard coordinate system. Many medical systems use RAS
