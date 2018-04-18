@@ -15,6 +15,7 @@ List of files and original paths:
 | Figure3-32.png | src/Testing/Baseline/Cxx/Rendering/TestWalkCow.png |
 | Figure3-33a.png | src/Testing/Baseline/Cxx/Rendering/TestWalkCowA.png |
 | Figure3-33b.png | src/Testing/Baseline/Cxx/Rendering/TestWalkCowB.png |
+| Figure4-1a.png | src/Testing/Baseline/Cxx/Visualization/QuadricVisualization.png |
 | Figure6-6.png | src/Testing/Baseline/Cxx/Rendering/TestMarchingCasesA.png |
 | Figure6-10.png | src/Testing/Baseline/Cxx/Rendering/TestMarchingCasesB.png |
 | Figure6-11a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHeadSlice.png |
