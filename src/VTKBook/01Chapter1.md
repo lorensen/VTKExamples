@@ -49,10 +49,8 @@ There is confusion surrounding the difference between imaging, computer graphics
 <figure id="Figure1-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure1-1.png?raw=true width="640" alt="Figure1-1">
 </figure>
-<figcaption style="color:blue"><b>Figure 1-1</b>. The visualization process. Data from various sources is repeatedly transformed to extract, derive, and enhance information.</figcaption>
+<figcaption style="color:blue"><b>Figure 1-1</b>. The visualization process. Data from various sources is repeatedly transformed to extract, derive, and enhance information. The resulting data is mapped to a graphics system for display.</figcaption>
 </figure>
-
-The resulting data is mapped to a graphics system for display.
 
 - *Computer graphics* is the process of creating images using a computer. This includes both 2D paint-and-draw techniques as well as more sophisticated 3D drawing (or rendering) techniques.
 
@@ -109,13 +107,13 @@ As we wrote this book we also had in mind educators and students of introductory
 Educators and students in other disciplines may also find the text and software to be valuable tools for presenting results. Courses in numerical analysis, computer science, business simulation, chemistry, dynamic systems, and engineering simulations, to name a few, often require large-scale programming projects that create large amounts of data. The software tools provided here are easy to learn and readily adapted to different data sources. Students can incorporate this software into their work to display and analyze their
 results.
 
-### How to Use This Book
+## 1.8 How to Use This Book
 
 There are a number of approaches you can take to make effective use of this book. The particular approach depends on your skill level and goals. Three likely paths are as follows:
 
 *Novice.* You're a novice if you lack basic knowledge of graphics, visualization, or object-oriented principles. Start by reading Chapter 2 if you are unfamiliar with object-oriented principles, Chapter 3 if you are unfamiliar with computer graphics, and Chapter 4 if you are unfamiliar with visualization. Continue by reading the application studies in Chapter 12. You can then move on to the CD-ROM and try out some programming examples. Leave the more detailed treatment of algorithms and data representation until you are familiar with the basics and plan to develop your own applications.
 
-*Hacker.* You're a hacker if you are comfortable writing your own code and editing other's. Review the examples in Chapter 3 , Chapter 4 , and Chapter 12. At this point you will want to acquire the companion software guide to this text ( *The VTK User's Guide* ) or become familiar with the programming resources at http://www.vtk.org. Then retrieve the examples from the CD-ROM and start practicing.1
+*Hacker.* You're a hacker if you are comfortable writing your own code and editing other's. Review the examples in Chapter 3 , Chapter 4 , and Chapter 12. At this point you will want to acquire the companion software guide to this text ( *The VTK User's Guide* ) or become familiar with the programming resources at http://www.vtk.org. Then retrieve the examples from the CD-ROM and start practicing.
 
 *Researcher/Educator.* You're a researcher if you develop computer graphics and/or visualization algorithms or if you are actively involved in using and evaluating such systems. You're an educator if you cover aspects of computer graphics and/or visualization within your courses. Start by reading Chapter 2 , Chapter 3 , and Chapter 4. Select appropriate algorithms from the text and examine the associated source code. If you wish to extend the system, we recommend that you acquire the companion software guide to this text ( *The VTK User's* *Guide* ) or become familiar with the programming resources at http://www.vtk.org.
 
@@ -177,7 +175,7 @@ While 3D graphics and visualization is the focus of the book, image processing i
 
 The Web is one of the best places to share your visualizations. In this chapter we show you how to write Java-based visualization applications, and how to create VRML (Virtual Reality Modelling Language) data files for inclusion in your own Web content.
 
-### Chapter 12: Application*
+### Chapter 12: Application
 
 In this chapter we tie the previous chapters together by working through a series of case studies from a variety of application areas. For each case, we briefly describe the application and what information we expect to obtain through the use of visualization. Then, we walk through the design and resulting source code to demonstrate the use of the tools described earlier in the text.
 
@@ -193,11 +191,11 @@ Several registered trademarks are used in this text. UNIX is a trademark of UNIX
 
 ## 1.12 Bibliographic Notes
 
-A number of visualization texts are available. The first six texts listed in the reference section are good general references ( [Nielson90] , [Patrikalakis91] , [Brodlie92] , [Wolff93] , [Rosenblum94] , and [Gallagher95] ). Gallagher [Gallagher95] is particularly valuable if you are from a computational background. Wolff and Yaeger <em style="color:blue;background-color: white">\[Wolff93\]</em> contains many beautiful images and is oriented towards Apple Macintosh users. The text includes a CD-ROM with images and software.
+A number of visualization texts are available. The first six texts listed in the reference section are good general references ( <em style="color:blue;background-color: white">\[Nielson90\]</em> , <em style="color:blue;background-color: white">\[Patrikalakis91\]</em> , <em style="color:blue;background-color: white">\[Brodlie92\]</em> , <em style="color:blue;background-color: white">\[Wolff93\]</em> , <em style="color:blue;background-color: white">\[Rosenblum94\]</em> , and <em style="color:blue;background-color: white">\[Gallagher95\]</em> ). Gallagher <em style="color:blue;background-color: white">\[Gallagher95\]</em> is particularly valuable if you are from a computational background. Wolff and Yaeger <em style="color:blue;background-color: white">\[Wolff93\]</em> contains many beautiful images and is oriented towards Apple Macintosh users. The text includes a CD-ROM with images and software.
 
-You may also wish to learn more about computer graphics and imaging. Foley and van Dam [FoleyVanDam90] is the basic reference for computer graphics. Another recommended text is [BurgerGillies89]. Suggested reference books on computer imaging are [Pavlidis82] and [Wolberg90].
+You may also wish to learn more about computer graphics and imaging. Foley and van Dam <em style="color:blue;background-color: white">\[FoleyVanDam90\]</em> is the basic reference for computer graphics. Another recommended text is <em style="color:blue;background-color: white">\[BurgerGillies89\]</em>. Suggested reference books on computer imaging are <em style="color:blue;background-color: white">\[Pavlidis82\]</em> and <em style="color:blue;background-color: white">\[Wolberg90\]</em>.
 
-Two texts by Tufte [Tufte83] [Tufte90] are particularly impressive. Not only are the graphics superbly done, but the fundamental philosophy of data visualization is articulated. He also describes the essence of good and bad visualization techniques.
+Two texts by Tufte <em style="color:blue;background-color: white">\[Tufte83\]</em> <em style="color:blue;background-color: white">\[Tufte90\]</em> are particularly impressive. Not only are the graphics superbly done, but the fundamental philosophy of data visualization is articulated. He also describes the essence of good and bad visualization techniques.
 
 Another interesting text is available from Siemens, a large company offering medical imaging systems <em style="color:blue;background-color: white">\[Krestel90\]</em>. This text describes the basic concepts of imaging technology, including MRI and CT. This text is only for those users with a strong mathematical background. A less mathematical overview of MRI is available from <em style="color:blue;background-color: white">\[SmithRanallo89\]</em>.
 
