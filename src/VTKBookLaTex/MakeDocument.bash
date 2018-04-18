@@ -1,5 +1,4 @@
 #!/bin/bash
-
 lualatex VTKTextBook
 makeglossaries VTKTextBook
 biber VTKTextBook

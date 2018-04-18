@@ -41,3 +41,4 @@ Original/*
 *.tcp
 *.run.xml
 *.bib.bak
+*.synctex.gz

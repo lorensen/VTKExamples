@@ -18,3 +18,4 @@ rm -f *.lot
 rm -f *.out
 rm -f *.toc
 rm -f *.run.xml
+rm -f *.synctex.gz

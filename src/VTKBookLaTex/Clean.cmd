@@ -17,3 +17,4 @@ del *.lot
 del *.out
 del *.toc
 del *.run.xml
+del *.synctex.gz
