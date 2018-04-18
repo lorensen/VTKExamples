@@ -76,21 +76,17 @@ Scalars are single data values associated with each point and/or cell of a datas
 
 \emph{Color mapping} is a common scalar visualization technique that maps scalar data to colors, and displays the colors on the computer system. The scalar mapping is implemented by indexing into a \emph{color lookup table}. Scalar values serve as indices into the lookup table.
 
-The mapping proceeds as follows. The lookup table holds an array of colors (e.g., red, green, blue components or other comparable representations). Associated with the table is a minimum and maximum \emph{scalar range (min, max)} into which the scalar values are mapped. Scalar values greater than the maximum range are clamped to the maximum color, scalar values less than the minimum range are clamped to the minimum color value. Then, for each scalar value $x_i$, the index $i$ into the color table with n entries (and 0-offset) is given by \ref{fig:Figure6-1}.
+The mapping proceeds as follows. The lookup table holds an array of colors (e.g., red, green, blue components or other comparable representations). Associated with the table is a minimum and maximum \emph{scalar range (min, max)} into which the scalar values are mapped. Scalar values greater than the maximum range are clamped to the maximum color, scalar values less than the minimum range are clamped to the minimum color value. Then, for each scalar value $x_i$, the index $i$ into the color table with n entries (and 0-offset) is given by Figure \ref{fig:Figure6-1}.
 
-A more general form of the lookup table is called a transfer function. A transfer function is \ref{fig:Figure6-2} maps any expression that maps scalar value into a color specification. For example, scalar values into separate intensity values for the red, green, and blue color components. We can also use transfer functions to map scalar data into other information such as local transparency. (Transfer functions are discussed in more detail in ``Transparency and Alpha Values'' on \pageref{sec:transparency_alpha} and ``Volume Rendering'' on \pageref{sec:volume_rendering}.
-\ref{fig:Figure6-2} maps any expression that maps scalar value into a color specification. For example, scalar values into separate intensity values for the red, green, and blue color components.
-We can also use transfer functions to map scalar data into other information such as local transparency.
-(Transfer functions are discussed in more detail in ``Transparency and Alpha Values`` on page213
-and “Volume Rendering” on \pageref{sec:volume_rendering}.)
+A more general form of the lookup table is called a transfer function. A transfer function is any expression that maps scalar values into a color specification. For example, Figure \ref{fig:Figure6-2} maps scalar values into separate intensity values for the red, green, and blue color components. We can also use transfer functions to map scalar data into other information such as local transparency. (Transfer functions are discussed in more detail in ``Transparency and Alpha Values'' on page \pageref{sec:transparency_alpha} and ``Volume Rendering'' on page \pageref{sec:volume_rendering}).
 A lookup table is a discrete sampling of a transfer function.
 We can create a lookup table from any transfer function by sampling the transfer function at a set of discrete points.
 
 Color mapping is a one-dimensional visualization technique. It maps one piece of information (i.e., a scalar value) into a color specification. However, the display of color information is not limited to one-dimensional displays. Often we use color information mapped onto 1D, 2D, or 3D objects. This is a simple way to increase the information content of our visualizations.
 
-The key to color mapping for scalar visualization is to choose the lookup table entries carefully. \ref{fig:Figure6-3} shows four different lookup tables used to visualize gas density as fluid flows through a combustion chamber. The first lookup table is gray-scale. Grayscale tables often provide better structural detail to the eye. The other three images in \ref{fig:Figure6-3} use different color lookup tables. The second uses rainbow hues from blue to red. The third uses rainbow hues arranged from red to blue. The last table uses a table designed to enhance contrast. Careful use of colors can often enhance important features of a dataset. However, any type of lookup table can exaggerate unimportant details or create visual artifacts because of unforeseen interactions between data, color choice, and human physiology.
+The key to color mapping for scalar visualization is to choose the lookup table entries carefully. Figure \ref{fig:Figure6-3} shows four different lookup tables used to visualize gas density as fluid flows through a combustion chamber. The first lookup table is gray-scale. Grayscale tables often provide better structural detail to the eye. The other three images in Figure \ref{fig:Figure6-3} uses different colored lookup tables. The second uses rainbow hues from blue to red. The third uses rainbow hues arranged from red to blue. The last table uses a table designed to enhance contrast. Careful use of colors can often enhance important features of a dataset. However, any type of lookup table can exaggerate unimportant details or create visual artifacts because of unforeseen interactions between data, color choice, and human physiology.
 
-Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (\ref{fig:Figure6-1}, the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes, improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
+Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (Figure \ref{fig:Figure6-1}, the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes, improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
 
 \begin{figure}[!htb]
 	\centering
@@ -106,11 +102,12 @@ Designing lookup tables is as much art as it is science. From a practical point 
 	\label{fig:Figure6-3}
 \end{figure}
 
-\subsection{Contourning}
+\subsection{Contouring}
 
 A natural extension to color mapping is \emph{contouring}. When we see a surface colored with data values, the eye often separates similarly colored areas into distinct regions. When we contour data, we are effectively constructing the boundary between these regions. These boundaries correspond to contour lines (2D) or surfaces (3D) of constant scalar value.
 
 Examples of 2D contour displays include weather maps annotated with lines of constant temperature (isotherms), or topological maps drawn with lines of constant elevation. Three-dimensional contours are called \emph{isosurfaces}, and can be approximated by many polygonal primitives. Examples of isosurfaces include constant medical image intensity corresponding to body tissues such as skin, bone, or other organs. Other abstract isosurfaces such as surfaces of constant pressure or temperature in fluid flow also may be created.
+
 
 \begin{figure}[!htb]
 	\centering
@@ -119,10 +116,172 @@ Examples of 2D contour displays include weather maps annotated with lines of con
 	\label{fig:Figure6-4}
 \end{figure}
 
-Consider the 2D structured grid shown in \ref{fig:Figure6-4}. Scalar values are shown next to the points that define the grid. Contouring always begins by selecting a scalar value, or contour value, that corresponds to the contour lines or surfaces generated. To generate the contours, some form of interpolation must be used. This is because we have scalar values at a finite set of points in the dataset, and our contour value may lie between the point values. Since the most common interpolation technique is linear, we generate points on the contour surface by linear interpolation along the edges. If an edge has scalar values 10 and 0 at its two endpoints, and if we are trying to generate a contour line of value 5, then edge interpolation computes that the contour passes through the midpoint of the edge.
+Consider the 2D structured grid shown in Figure \ref{fig:Figure6-4}. Scalar values are shown next to the points that define the grid. Contouring always begins by selecting a scalar value, or contour value, that corresponds to the contour lines or surfaces generated. To generate the contours, some form of interpolation must be used. This is because we have scalar values at a finite set of points in the dataset, and our contour value may lie between the point values. Since the most common interpolation technique is linear, we generate points on the contour surface by linear interpolation along the edges. If an edge has scalar values 10 and 0 at its two endpoints, and if we are trying to generate a contour line of value 5, then edge interpolation computes that the contour passes through the midpoint of the edge.
+
+Once the points on cell edges are generated, we can connect these points into contours using a few different approaches. One approach detects an edge intersection (i.e., the contour passes through an edge) and then "tracks" this contour as it moves across cell boundaries. We know that if a contour edge enters a cell, it must exit a cell as well. The contour is tracked until it closes back on itself, or exits a dataset boundary. If it is known that only a single contour exists, then the process stops. Otherwise, every edge in the dataset must be checked to see whether other contour lines exist. Another approach uses a divide and conquer technique, treating cells
+independently. This is the \emph{marching squares} algorithm in 2D, and \emph{marching cubes} \cite{Lorensen87} in 3D. The basic assumption of these techniques is that a contour can only pass through a
+cell in a finite number of ways. A case table is constructed that enumerates all possible topological \emph{states} of a cell, given combinations of scalar values at the cell points. The number of topological states depends on the number of cell vertices, and the number of inside / outside relationships a vertex can have with respect to the contour value. A vertex is considered inside a contour if its scalar value is larger than the scalar value of the contour line. Vertices with scalar values less than the contour value are said to be outside the contour. For example, if a cell has four vertices and each vertex can be either inside or outside the contour, there are $2^4 = 16$ possible ways that the contour passes through the cell. In the case table we are not interested in where the contour passes through the cell (e.g., geometric intersection), just how it passes through the cell (i.e., topology of the contour in the cell).
+
+Figure \ref{fig:Figure6-5} shows the sixteen combinations for a square cell. An index into the case table can be computed by encoding the state of each vertex as a binary digit. For 2D data represented on a rectangular grid, we can represent the 16 cases with 4 bit index. Once the proper case is selected, the location of the contour line / cell edge intersection can be calculated using interpolation. The algorithm processes a cell and then moves, or \emph{marches t} o the next cell. After all cells are visited, the contour will be completed. In summary, the marching algorithms proceed as follows:
+
+\begin {enumerate}
+
+\item Select a cell.
+
+\item Calculate the inside / outside state of each vertex of the cell.
+
+\item Create an index by storing the binary state of each vertex in a separate bit.
+
+\item Use the index to look up the topological state of the cell in a case
+table.
+
+\item Calculate the contour location (via interpolation) for each edge in  the case table.
+
+\end{enumerate}
+
+This procedure will construct independent geometric primitives in each cell. At the cell boundaries duplicate vertices and edges may be created. These duplicates can be eliminated by using a special coincident point merging operation. Note that interpolation along each edge should be done in the same direction. If not, numerical roundoff will likely cause points to be generated that are not precisely coincident, and will not merge properly.
+
+There are advantages and disadvantages to both the edge-tracking and marching cubes approaches. The marching squares algorithm is easy to implement. This is particularly important when we extend the technique into three dimensions, where isosurface tracking becomes much more difficult. On the other hand, the algorithm creates disconnected line segments and points, and the required merging operation requires extra computation resources. The tracking algorithm can be implemented to generate a single polyline per contour line, avoiding the need to merge coincident points.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.8\textwidth]{Figure6-5}\\
+\caption{ Sixteen different marching squares cases. Dark vertices indicate scalar value is above contour value. Cases 5 and 10 are ambiguous.}
+\label{fig:Figure6-5}
+\end{figure}
 
 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure6-6}\\
+	\caption{Marching Cubes cases for 3D isosurface generation. The 256 possible cases have been reduced to 15 cases using symmetry. Red vertices are greater than the selected isosurface value. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/MarchingCasesA/}{MarchingCasesA.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/MarchingCasesA/}{MarchingCasesA.py})}
+	\label{fig:Figure6-6}
+\end{figure}
 
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure6-7}\\
+	\caption{Using marching triangles or marching tetrahedra to resolve ambiguous cases on rectangular lattice (only face of cube is shown). Choice of diagonal orientation may result in ``bumps'' in contour surface. In 2D, diagonal orientation can be chosen arbitrarily, but in 3D diagonal is constrained by neighbor.}
+	\label{fig:Figure6-7}
+\end{figure}
+
+As mentioned previously, the 3D analogy of marching squares is marching cubes. Here, there are 256 different combinations of scalar value, given that there are eight points in a cubical cell (i.e., $2^8$ combinations). Figure \ref{fig:Figure6-6} shows these combinations reduced to 15 cases by using arguments of symmetry. We use combinations of rotation and mirroring to produce topologically equivalent cases.
+
+In two dimensions, contour ambiguity is simple to treat: for each ambiguous case we implement one of the two possible cases. The choice for a particular case is independent of all other choices. Depending on the choice, the contour may either extend or break the current contour as illustrated in Figure \ref{fig:Figure6-9}. Either choice is acceptable since the resulting contour lines will be continuous and closed (or will end at the dataset boundary).
+
+In three dimensions the problem is more complex. We cannot simply choose an ambiguous case independent of all other ambiguous cases. For example Figure \ref{fig:Figure6-9} shows what happens if we carelessly implement two cases independent of one another. In this figure we have used the usual case 3 but replaced case 6 with its \emph{complementary} case. Complementary cases are formed by exchanging the ``dark'' vertices with ``light'' vertices. (This is equivalent to swapping vertex scalar value from above the isosurface value to below the isosurface value, and vice versa.) The result of pairing these two cases is that a hole is left in the isosurface.
+
+Several different approaches have been taken to remedy this problem. One approach tessellates the cubes with tetrahedron, and uses a \emph{marching tetrahedra} technique. This works because the marching tetrahedra exhibit no ambiguous cases. Unfortunately, the marching tetrahedra algorithm generates isosurfaces consisting of more triangles, and the tessellation of a cube with tetrahedra requires making a choice regarding the orientation of the tetrahedra. This choice may result in artificial ``bumps'' in the isosurface because of interpolation along the face diagonals as shown in Figure \ref{fig:Figure6-7}. Another approach evaluates the asymptotic behavior of the surface, and then chooses the cases to either join or break the contour. Nielson and Hamann \cite{Nielson91} have developed a technique based on this approach they call the \emph{asymptotic decider}. It is based on an analysis of the variation of the scalar variable across an ambiguous face. The analysis determines how the edges of isosurface polygons should be connected.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure6-8}\\
+	\caption{Choosing a particular contour case will break (a) or join (b) the current contour. Case shown is marching squares case 10.}
+	\label{fig:Figure6-8}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure6-9}\\
+	\caption{Arbitrarily choosing marching cubes cases leads to holes in the isosurface.}
+	\label{fig:Figure6-9}
+\end{figure}
+
+A simple and effective solution extends the original 15 marching cubes cases by adding additional complementary cases. These cases are designed to be compatible with neighboring cases and prevent the creation of holes in the isosurface. There are six complementary cases required, corresponding to the marching cubes cases 3, 6, 7, 10, 12, and 13. The complementary marching cubes cases are shown in Figure \ref{fig:Figure6-10}.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure6-10}\\
+	\caption{Marching cubes complementary cases.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/MarchingCasesB/}{MarchingCasesB.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/MarchingCasesB/}{MarchingCasesB.py})}
+	\label{fig:Figure6-10}
+\end{figure}
+
+We can extend the general approach of marching squares and marching cubes to other topological types. In VTK we use marching lines, triangles, and tetrahedra to contour cells of these types (or composite cells that are composed of these types). In addition, although we speak of regular types such as squares and cubes, marching cubes can be applied to any cell type topologically equivalent to a cube (e.g., hexahedron or non-cubical voxel).
+
+Figure \ref{fig:Figure6-11} shows four applications of contouring. In Figure \ref{fig:Figure6-11a} we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. Figure \ref{fig:Figure6-11b} through Figure \ref{fig:Figure6-11d} are isosurfaces created by marching cubes. Figure \ref{fig:Figure6-11b} is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. ( Figure \ref{fig:Figure6-11a} is a 2D subset of this data.) The intensity level corresponds to human bone. Figure \ref{fig:Figure6-11c} is an isosurface of constant flow density. Figure \ref{fig:Figure6-11d} is an isosurface of electron potential of an iron protein molecule. The image shown in Figure \ref{fig:Figure6-11b} is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, Figure \ref{fig:Figure6-11c} and Figure \ref{fig:Figure6-11d} are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
+
+\begin{figure}
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-11a}
+		\caption{Marching squares used to generate contour lines.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/HeadSlice}{HeadSlice.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/HeadSlice/}{HeadSlice.py})}\label{fig:Figure6-11a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-11b}
+		\caption{Marching Cubes surface of human bone.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/HeadBone}{HeadBone.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/HeadBone/}{HeadBone.py})}\label{fig:Figure6-11b}
+	\end{subfigure}%
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-11c}
+		\caption{Marching squares used to generate contour lines.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/CombustorIsosurface}{CombustorIsosurface.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/CombustorIsosurface/}{CombustorIsosurface.py})}\label{fig:Figure6-11c}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-11d}
+		\caption{Marching Cubes surface of human bone.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/IronIsoSurface}{IronIsoSurface.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/IronIsoSurface/}{IronIsoSurface.py})}\label{fig:Figure6-11d}
+	\end{subfigure}%
+	\caption{Contouring examples.}\label{fig:Figure6-11}
+\end{figure}
+
+\subsection{Scalar Generation}
+
+The two visualization techniques presented thus far, color mapping and contouring, are simple, effective methods to display scalar information. It is natural to turn to these techniques first when visualizing data. However, often our data is not in a form convenient to these techniques. The data may not be single-valued (i.e., a scalar), or it may be a mathematical or other complex relationship. That is part of the fun and creative challenge of visualization: We must tap our creative resources to convert data into a form we can visualize.
+
+For example, consider terrain data. We assume that the data is \emph{xyz} coordinates, where \emph{x} and \emph{y} represent the coordinates in the plane, and \emph{z} represents the elevation above sea level. Our desired visualization is to color the terrain according to elevation. This requires creating a color map --- possibly using white for high altitudes, blue for sea level and below, and various shades of green and brown corresponding to elevation between sea level and high altitude. We also need scalars to index into the color map. The obvious choice here is to extract the \emph{z} coordinate. That is, scalars are simply the \emph{z}-coordinate value.
+
+This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the \emph{z}-coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point $p_l$ (e.g., sea level) and ending at the (high) point $p_h$ (e.g., mountain top), we compute the elevation scalar $s_i$ at point $p_i = (x_i, y_i,z_i)$ using the dot product as shown in Figure \ref{fig:Figure6-12}. The scalar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 colors ranging from deep brown (water) to dark turquoise (mountain top) is used to color map this figure.
+
+\begin{figure}
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-12a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-12b}
+		\caption*{Applying the technique to terrain data from Honolulu, Hawaii.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/Hawaii}{Hawaii.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/Hawaii/}{Hawaii.py})}
+	\end{subfigure}%
+	\caption{Computing scalars using normalized dot product.}\label{fig:Figure6-12}
+\end{figure}
+
+Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
+
+\section{Vector Algorithms}
+
+Vector data is a three-dimensional representation of direction and magnitude. Vector data often results from the study of fluid flow, or when examining derivatives (i.e., rate of change) of some quantity.
+
+\subsection{Hedgehogs and Oriented Glyphs}
+
+A natural vector visualization technique is to draw an oriented,
+scaled line for each vector (Figure \ref{fig:Figure6-13a}). The line begins at the point with which the vector is associated and is oriented in the direction of the vector components $(v_x, v_y, v_z)$. Typically, the resulting line must be scaled up or down to control the size of its visual representation. This technique is often referred to as a *hedgehog* because of the bristly result.
+
+There are many variations of this technique Figure \ref{fig:Figure6-13b}). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented ``glyphs'' can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
+
+\begin{figure}
+	\begin{subfigure}[h]{0.24\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-13a}
+		\caption{Oriented lines.}\label{fig:Figure6-13a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.24\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-13b}
+		\caption{Glyphs}\label{fig:Figure6-13b}
+	\end{subfigure}%
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-13c}
+		\caption{Complex vector visualization. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/TestComplexV}{TestComplexV.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/TestComplexV/}{TestComplexV.py})}\label{fig:Figure6-13c}
+	\end{subfigure}
+	\caption{Vector visualization techniques.}\label{fig:Figure6-13}
+\end{figure}
+
+Care should be used in applying these techniques. In 3D it is often difficult to understand the position and orientation of a vector because of its projection into a 2D image. Also, using large numbers of vectors can clutter the display to the point where the visualization becomes meaningless. Figure \ref{fig:Figure6-13c} shows 167,000 3D vectors (using oriented and scaled lines) in the region of the human carotid artery. The larger vectors lie inside the arteries, the smaller vectors lie outside the arteries and are randomly oriented (measurement error) but small in magnitude. Clearly the details of the vector field are not discernible from this image.
+
+Scaling glyphs also poses interesting problems. In what Tufte has termed a ``visualization lie'', \cite{Tufte83} scaling a 2D or 3D glyph results in nonlinear differences in appearance. The surface area of an object increases with the square of its scale factor, so two vectors differing by a factor of two in magnitude may appear up to four times different based on surface area. Such scaling issues are common in data visualization, and great care must be taken to avoiding misleading viewers.
+
+\subsection{Warping}
+
+Vector data is often associated with ``motion''. The motion is in the form of velocity or displacement. An effective technique for displaying such vector data is to ``warp'' or deform geometry according to the vector field. For example, imagine representing the displacement of a structure under load by deforming the structure. Or if we are visualizing the flow of fluid, we can create a flow profile by distorting a straight line inserted perpendicular to the flow.
 \section{Bibliographic Notes}
 
 Color mapping is a widely studied topic in imaging, computer graphics, visualization, and human factors. References \cite{Durrett87} \cite{Ware88} \cite{Rheingans92} provide samples of the available literature. You also may want to learn about the physiological and psychological effects of color on perception. The text by Wyszecki and Stiles \cite{Wyszecki82} serves as an introductory reference.
@@ -135,7 +294,7 @@ Two- and three-dimensional vector plots have been used by computer analysts for 
 
 Tensor visualization techniques are relatively few in number. Most techniques are glyph oriented \cite{Haber90} \cite{deLeeuw93}. We will see a few more techniques in Chapter 9.
 
-Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and Wyvill \cite{Wyvill86} have been important contributors to implicit modeling. Implicit modeling is currently popular in computer graphics for modeling "soft" or "blobby" objects. These techniques are simple, powerful, and are becoming widely used for advanced computer graphics modeling.
+Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and Wyvill \cite{Wyvill86} have been important contributors to implicit modeling. Implicit modeling is currently popular in computer graphics for modeling ``soft'' or ``blobby'' objects. These techniques are simple, powerful, and are becoming widely used for advanced computer graphics modeling.
 
 
 \printbibliography
@@ -154,9 +313,9 @@ Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and W
 	\item Create an animation sequence for the head sequence ( **Figure6-11** (b))
 \end{enumerate}
 
-\item Marching Cubes visits each cell during algorithm execution. Many of these cells do not contain the isosurface. Describe a technique to improve the performance of isosurface extraction by eliminating visits to cells not containing isosurface. ( *Hint:* use a preprocessing step to analyze data. Assume that many isosurfaces will be extracted and that the preprocessing step will not count against execution time.)
+\item Marching Cubes visits each cell during algorithm execution. Many of these cells do not contain the isosurface. Describe a technique to improve the performance of isosurface extraction by eliminating visits to cells not containing isosurface. ( \emph{Hint}: use a preprocessing step to analyze data. Assume that many isosurfaces will be extracted and that the preprocessing step will not count against execution time.)
 
-\item Scanline rasterization proceeds along horizontal spans in graphics hardware (see tion" on page54 ). Interpolation of color occurs along horizontal spans as well.
+\item Scanline rasterization proceeds along horizontal spans in graphics hardware (see ``Rasterization'' on page \pageref{subsec:rasterization}. Interpolation of color occurs along horizontal spans as well.
 \begin{enumerate}
 	\item Show how the orientation of a polygon affects interpolated color.
 	\item Discuss potential problems caused by orientation dependent viewing of visualizations.
