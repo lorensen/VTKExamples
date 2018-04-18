@@ -105,7 +105,7 @@ concepts. The function
 </tbody
 </table
 
-is the mathematical representation of a quadric. **Figure4--1** (a)
+is the mathematical representation of a quadric. **Figure 4-1** (a)
 shows a visualization of **Equation4-**
 
 **1** in the region . The--1£visualizationxyz£,,1 process is as
@@ -123,7 +123,7 @@ Around each we place a wireframe outline.
 
 **The Functional Model**
 
-The functional model in **Figure4--1** (b) illustrates the steps to
+The functional model in **Figure 4-1** (b) illustrates the steps to
 create the visualization. The oval blocks indicate operations
 (processes) we performed on the data, and the rectangular blocks
 repre-sent data stores (objects) that represent and provide access to
@@ -147,16 +147,16 @@ mecha-nism to insure that the correct output will be generated.
 In the examples that follow we will frequently use a simplified
 representation of the functional
 
-model to describe visualization processes ( **Figure4--1** (c)). We
+model to describe visualization processes ( **Figure 4-1** (c)). We
 will not explicitly distinguish between sources, sinks, data stores,
 and process objects. Sources and sinks are implied based on the number
 of inputs or outputs. Sources will be process objects with no input.
 Sinks will be process objects with no output. Filters will be process
 objects with at least one input and one output. Inter-mediate data
 stores will not be represented. Instead we will assume that they exist
-as necessary to support the data flow. Thus, as **Figure4--1** (c)
+as necessary to support the data flow. Thus, as **Figure 4-1** (c)
 shows, the *Lines* data store that the *Outline* object generates (
-**Figure4--1** (b)) are combined into the single object *Outline*. We
+**Figure 4-1** (b)) are combined into the single object *Outline*. We
 use oval shapes to repre-sent objects in the visualization model.
 
   -------------- --------
@@ -813,7 +813,7 @@ height="0.2611111111111111in"}
 </tbody
 </table
 
-**Figure 4--1** Visualizing a quadric function *F(x,y,z) = c* .
+**Figure 4-1** Visualizing a quadric function *F(x,y,z) = c* .
 
 **84** The Visualization Pipeline
 
@@ -1132,7 +1132,7 @@ Process
 ![](media/image180.jpeg){width="4.083333333333333in"
 height="1.1479166666666667in"}
 
-**Figure 4--2** Object model design choices. One basic choice is to
+**Figure 4-2** Object model design choices. One basic choice is to
 combine processes and data stores into a single object. This is the
 usual object-oriented choice. Another choice creates separate data
 objects and process objects.
@@ -1142,7 +1142,7 @@ objects and process objects.
 The functional model describes the flow of data in our visualization,
 the object model describes which modules operate on it. But what *are*
 the objects in the system? At first glance, we have two choices (
-**Figure4--2** ).
+**Figure 4-2** ).
 
 The first choice combines data stores (object attributes) with
 processes (object methods) into a single object. In the second choice
@@ -1222,7 +1222,7 @@ each.
 **4.2 The Visualization Pipeline**
 
 In the context of data visualization, the functional model of
-**Figure4--1** (c) is referred to as the *visu-alization pipeline* or
+**Figure 4-1** (c) is referred to as the *visu-alization pipeline* or
 *visualization network* . The pipeline consists of objects to
 represent data (data objects), objects to operate on data (process
 objects), and an indicated direction of data flow (arrow connections
@@ -1271,7 +1271,7 @@ data flow.
 Source objects interface to external data sources or generate data
 from local parameters. Source objects that generate data from local
 parameters are called *procedural* objects. The previous example of
-**Figure4--1** uses a procedural object to generate function values
+**Figure 4-1** uses a procedural object to generate function values
 for the quadric function of **Equation4-1** . Source objects that
 interface to external data are called *reader* objects since the
 external file must be read and converted to an internal form. Source
@@ -1316,7 +1316,7 @@ objects might take as input polygonal, triangle strip, line, or point
 geometric representations. The input to a process object must be
 specified correctly for successful operation.
 
-**Figure4--3** (b)).
+**Figure 4-3** (b)).
 
   ----------------------- --------
   4.3 Pipeline Topology   **87**
@@ -1342,7 +1342,7 @@ Output Type
 
 *Input Type = Output Type*
 
-**Figure 4--3** Maintaining compatible data type. (a) Single-type
+**Figure 4-3** Maintaining compatible data type. (a) Single-type
 systems require no type checking. (b)
 
 In multiple-type systems only compatible types can be connected
@@ -1354,7 +1354,7 @@ approach is to design
 with type-less or single-type systems. That is, create a single type
 of data object and create filters
 
-that operate only on this one type ( **Figure4--3** (a)). For example,
+that operate only on this one type ( **Figure 4-3** (a)). For example,
 we could design a general *DataSet*
 
 that represents any form of data that we're interested in, and the
@@ -1397,7 +1397,7 @@ computationally and memory wasteful systems.
 
 The issue of multiplicity deals with the number of input data objects
 allowed, and the number of output data objects created during the
-operation of a process object ( **Figure4--4** ). We know that all
+operation of a process object ( **Figure 4-4** ). We know that all
 filter and mapper objects require at minimum one input data object,
 but in general these filters can operate sequentially across a list of
 input. Some filters may naturally require a specific number of inputs.
@@ -1666,7 +1666,7 @@ height="0.6277777777777778in"}
 ![](media/image188.jpeg){width="0.9131944444444444in"
 height="0.6208333333333333in"}
 
-**Figure 4--4** Multiplicity of input and output. (a) Definition of
+**Figure 4-4** Multiplicity of input and output. (a) Definition of
 source, filter, and mapper objects. (b) Various types of input and
 output.
 
@@ -1676,7 +1676,7 @@ occurs when an object generates an output that is used for input by
 more than one object. This would occur, for example, when a source
 object is used to read a data file, and the resulting data is used to
 generate a wireframe outline of the data, plus contours of the data
-(e.g., **Figure4--1** (a)). *Multiple output* occurs when an object
+(e.g., **Figure 4-1** (a)). *Multiple output* occurs when an object
 generates two or more out-put data objects. An example of multiple
 output is generating *x*, *y*, and *z* components of a gradient
 function as distinct data objects. Combinations of multiple fan-out
@@ -1691,7 +1691,7 @@ loops into our visualization networks. Feedback loops in a
 visualization network allow us to direct the output of a process
 object upstream to affect its input.
 
-**Figure4--5** shows an example of a feedback loop in a visualization
+**Figure 4-5** shows an example of a feedback loop in a visualization
 network. We seed a velocity field with an initial set of random
 points. A probe filter is used to determine the velocity (and possibly
 other data) at each point. Each point is then repositioned in the
@@ -1743,7 +1743,7 @@ height="0.9208333333333333in"}
 |        |        |        |        |        |        |        |        |
 +--------+--------+--------+--------+--------+--------+--------+--------+
 
-**Figure 4--5** Looping in a visualization network. This example
+**Figure 4-5** Looping in a visualization network. This example
 implements linear integration. The sample points are created to
 initialize the looping process. The output of the integration filter
 is used in place of the sample points once the process begins.
@@ -1787,7 +1787,7 @@ For highest performance, the process objects in the visualization
 network must execute *only*
 
 if a change occurs to their input. In some networks, as shown in
-**Figure4--6** , we may have parallel branches that need not execute
+**Figure 4-6** , we may have parallel branches that need not execute
 if objects are modified local to a particular branch. In this figure,
 we see that object *D* and the downstream objects *E* and *F* must
 execute because *D'*s input parameter is changed, and objects *E* and
@@ -1943,7 +1943,7 @@ height="2.214583333333333in"}
 
 *reexecutes* *~F~*
 
-**Figure 4--6** Network execution. Parallel branches need not execute
+**Figure 4-6** Network execution. Parallel branches need not execute
 if changes are local to a particular branch.
 
 without intermediate computation (i.e., data is processed only after
@@ -1955,7 +1955,7 @@ The execution of the network requires synchronization between process
 objects. We want to execute a process object only when all of its
 input objects are up to date. There are generally two ways to
 synchronize network execution: explicit or implicit control (
-**Figure4--7** ).
+**Figure 4-7** ).
 
 **Explicit Execution**
 
@@ -1965,7 +1965,7 @@ based on an explicit dependency analysis. The major character-istic of
 this approach is that a centralized *executive* is used to coordinate
 network execution. This executive must track changes to the parameters
 and inputs of each object, including subsequent changes to the network
-topology ( **Figure4--7** (a)).
+topology ( **Figure 4-7** (a)).
 
 The advantage of this approach is that synchronization analysis and
 update methods are local to the single executive object. In addition,
@@ -2041,7 +2041,7 @@ RequestData() method
 
 (a) Explicit (b) Implicit
 
-**Figure 4--7** Explicit and implicit network execution.
+**Figure 4-7** Explicit and implicit network execution.
 
 demand.
 
@@ -2055,7 +2055,7 @@ computation is essential.
 **Implicit Execution**
 
 Implicit control means that a process object executes only if its
-local input or parameters change (**Figure4--7** (b)). Implicit
+local input or parameters change (**Figure 4-7** (b)). Implicit
 control is implemented using a two-pass process. First, when output is
 requested from a particular object, that object requests input from
 its input objects. This process is recursively repeated until source
@@ -2099,7 +2099,7 @@ Data *Range?*
 
 *Table 2*
 
-**Figure 4--8** Examples of conditional execution. Depending upon
+**Figure 4-8** Examples of conditional execution. Depending upon
 range, data is mapped through dif-ferent color lookup tables.
 
 change to object parameter).
@@ -2127,10 +2127,10 @@ execution. For example, we may wish to map data through different
 color lookup tables depending upon the variation of range in the data.
 Small variations can be amplified by assigning more colors within the
 data range, while we may compress our color display by assigning a
-small number of colors to the data range (**Figure4--8** ).
+small number of colors to the data range (**Figure 4-8** ).
 
 The conditional execution of visualization models (such as that shown
-**Figure4--1** (c)) can be realized in principle. However, in practice
+**Figure 4-1** (c)) can be realized in principle. However, in practice
 we must supplement the visualization network with a conditional
 language to express the rules for network execution. Hence,
 conditional execution of visualization networks is a function of
@@ -2356,7 +2356,7 @@ memory and computational
 ![](media/image196.jpeg){width="1.8520833333333333in"
 height="1.5409722222222222in"}
 
-**Figure 4--9** Comparison of static versus dynamic memory models for
+**Figure 4-9** Comparison of static versus dynamic memory models for
 typical network. Execution begins when output is requested from
 objects *C* and *D*. In more complex dynamic models, we can pre-vent
 *B* from executing twice by performing a more thorough dependency
@@ -2404,7 +2404,7 @@ intermedi-ate results, since they are never reused. On the other hand,
 we may wish to save an intermediate result at a branch point in the
 network, since the data will more likely be reused. A comparison of
 the static and dynamic memory model for a specific network is shown in
-**Figure4--9** .
+**Figure 4-9** .
 
 **94** The Visualization Pipeline
 
@@ -2834,7 +2834,7 @@ using reference counting. To use reference counting, we allow more
 than one process object to refer to the same data object and keep
 track of the number of references. For example, assume that we have
 three objects *A*, *B*, and *C* that form a portion of a visualization
-network as shown in **Figure4--10** . Also assume that these objects
+network as shown in **Figure 4-10** . Also assume that these objects
 modify only part of their input data, leaving the data object that
 specifies *x-y-z* coordinate position unchanged. Then to conserve
 memory resources we can allow the output of each process object to
@@ -2883,11 +2883,11 @@ example, consider a general purpose VTK reader that can read any type
 of VTK data file. Such a class is convenient because the user need not
 concern himself with the type of dataset, instead the user may want to
 set up a single pipeline that processes whatever type is found. As
-indicated by **Figure4--3** , such an approach works well if the
+indicated by **Figure 4-3** , such an approach works well if the
 system is of a single dataset type, however in practice, and due to
 performance/efficiency concerns, there typically exist many different
 types of data in a visualization system. The other alternative shown
-in **Figure4--3** is enforced type checking. However, in situations
+in **Figure 4-3** is enforced type checking. However, in situations
 like the reader example described above, it is not possible to enforce
 type checking at compile-time because the type is determined by the
 data. As a result, type checking must be performed at run-time.
@@ -2960,7 +2960,7 @@ range, a typical desktop computer system is incapable of processing
 such datasets. Thus alterna-tive strategies must be adopted when
 processing large data. One such approach is based on breaking data
 into pieces, and then *streaming* the pieces through the visualization
-pipeline <em style="color:blue;background-color: white">\[Martin2001\]</em> . **Figure4--11** illustrates how a dataset
+pipeline <em style="color:blue;background-color: white">\[Martin2001\]</em> . **Figure 4-11** illustrates how a dataset
 can be divided into pieces.
 
 ![](media/image198.jpeg){width="2.004166666666667in"
@@ -2969,7 +2969,7 @@ height="2.0069444444444446in"}
 Streaming data through a visualization pipeline offers
 
 +-----------------------+-----------------------+-----------------------+
-| two major benefits.   | **Figure 4--11**    |                       |
+| two major benefits.   | **Figure 4-11**    |                       |
 | The first is that     | Dividing a sphere   |                       |
 | visualization data    | into                |                       |
 | that                  |                       |                       |
@@ -3044,7 +3044,7 @@ gradient calcula-tions or boundary analysis (e.g., do I have a cell
 face neighbor?) require one level of boundary
 
 information. In rare cases, two or more levels are required.
-**Figure4--11** illustrates boundary cells and points corresponding to
+**Figure 4-11** illustrates boundary cells and points corresponding to
 the central red piece of the sphere.
 
 Finally, it should be noted that the ability to divide data into
@@ -3059,7 +3059,7 @@ simultaneous write operations. Thus streaming and parallel processing
 are complementary technologies used in large data computing.
 
 **Complex Execution Strategies.** In many cases the simple execution
-model of **Figure4--7** (b) is not suitable for complex data
+model of **Figure 4-7** (b) is not suitable for complex data
 processing tasks. For example, as discussed in the previous section,
 streaming data is a complex execution strategy required when a dataset
 becomes too large to fit into
@@ -3091,7 +3091,7 @@ Addressing these requirements implies that the execution model must be
 extended. Thus we revisit the object-oriented design in the next
 section.
 
-**Object-Oriented Design Revisited. Figure4--2** illustrates two
+**Object-Oriented Design Revisited. Figure 4-2** illustrates two
 choices relative to the design of the visualization object model. The
 first choice, which was discarded, was to combine data and opera-tions
 on the data into a single object, a typical object-oriented design
@@ -3107,7 +3107,7 @@ explicit mechanism to implement a particular strat-
 As the execution model becomes more complex, execution strate-gies are
 separated from the data and pro-cess objects as separate classes.
 
-**Figure 4--12**
+**Figure 4-12**
 
 **Process Object**
 
@@ -3137,7 +3137,7 @@ The advanced design re-introduces the notion of an executive (see
 ![](media/image199.jpeg){width="2.2319444444444443in"
 height="0.28125in"}
 
-However, the design differs from that of **Figure4--7** . As that
+However, the design differs from that of **Figure 4-7** . As that
 figure illustrated, a single, centralized executive introduces
 dependencies into the pipeline that will not scale as pipeline
 complexity increases, or in parallel processing applications. In the
@@ -3157,7 +3157,7 @@ demand-driven, streaming pipeline is one such strategy. Other
 important classes include executives that coordinate the execution of
 filters on composite datasets.
 
-**Figure4--12** is a high-level view of the executive and its
+**Figure 4-12** is a high-level view of the executive and its
 relationship to data and process
 
 objects. In "Pipeline Design and Implementation " on page103 the design
@@ -3367,7 +3367,7 @@ at http://www.vtk.org for the current Doxygen manual pages. If the
 exporter you are looking for does not exist, you will have to develop
 your own using the programming interface.
 
-**Figure4--13** shows an image created from a *3D Studio* model and
+**Figure 4-13** shows an image created from a *3D Studio* model and
 saved as a *Renderman* RIB file.
 
 **Application Interface**
@@ -3393,10 +3393,10 @@ devices, for example generating images on large dis-plays
 <em style="color:blue;background-color: white">\[Humphreys99\]</em> or in a Cave <em style="color:blue;background-color: white">\[CruzNeira93\]</em> environment. In some
 cases user interaction is required, and demands on parallel processing
 or data handling capacities further complicates the selection. For
-example, while a general purpose tool like ParaView ( **Figure4--14**
+example, while a general purpose tool like ParaView ( **Figure 4-14**
 (a)) can be used to visualize most types of data, including providing
 support for large data and parallel computing, a specialized tool such
-as VolView ( **Figure4--14** (b)) may be better suited for the a
+as VolView ( **Figure 4-14** (b)) may be better suited for the a
 particular type task such as viewing medical data shown in the figure.
 It is imperative that users have a familiarity with the visualization
 process if they are to successfully choose the right application for
@@ -3451,7 +3451,7 @@ exporter BackgroundOn
 
 exporter Write
 
-**Figure 4--13** Importing and exporting files in VTK. An importer
+**Figure 4-13** Importing and exporting files in VTK. An importer
 creates a vtkRenderWindow that describes the scene. Exporters use an
 instance of vtkRenderWindow to obtain a description of the scene (
 3dsToRIB.tcl and flamingo.tcl ).
@@ -3489,7 +3489,7 @@ height="1.5465277777777777in"}
 \(b) ParaView parallel visualization application. (b) VolView volume
 rendering application.
 
-**Figure 4--14** The choice of an appropriate visualization
+**Figure 4-14** The choice of an appropriate visualization
 application depends on the type of dataset(s) it must support,
 required interaction techniques, rendering capabilities, and support
 for large data, including parallel processing. While both applications
@@ -3871,7 +3871,7 @@ height="4.097222222222222e-2in"}
 ![](media/image215.jpeg){width="3.323611111111111in"
 height="0.12777777777777777in"}
 
-**Figure 4--15** Description of implicit execution process implemented
+**Figure 4-15** Description of implicit execution process implemented
 in VTK. The Update() method is initiated via the Render() method from
 the actor. Data flows back to the mapper via the RequestData() method.
 Arrows connecting filter and data objects indicate direction of the
@@ -3887,7 +3887,7 @@ the following figures is not completely accurate, rather they are
 presented as depictions whose purpose is to describe the important
 features of the process.
 
-**Figure4--15** shows a simplified description of VTK's execution
+**Figure 4-15** shows a simplified description of VTK's execution
 process. Generally the exe-cution of the pipeline is triggered by a
 mapper's Render() method invocation, typically in response to a
 Render() method invocation on an associated vtkActor (which in turn
@@ -3909,11 +3909,11 @@ the direction of flow---here we define the direction of data flow as
 the *downstream* direction, and the direction of the Update()
 invocation the *upstream* direction.
 
-The next figure, **Figure4--16** , shows the relationship between the
+The next figure, **Figure 4-16** , shows the relationship between the
 executive and the algo-rithm, which are paired to form a filter. This
 view of the filter is independent of the pipeline and contains all the
 information about the interface of the algorithm, namely the number
-and availabil-ity of inputs and outputs. Finally **Figure4--17** shows
+and availabil-ity of inputs and outputs. Finally **Figure 4-17** shows
 the connections between filters. Notice that the output data object is
 not directly wired to the input connection. Rather the downstream
 filters's input connection is associated with the upstream filter's
@@ -3963,7 +3963,7 @@ Executive
 
 *Filter*
 
-**Figure 4--16** The logical relationship of the algorithm, executive
+**Figure 4-16** The logical relationship of the algorithm, executive
 and ports constituting a filter. The executive is responsible for
 managing the execution of the algorithm, and coordinating with
 informa-tion requests traveling through the pipeline. Ports correspond
@@ -3988,7 +3988,7 @@ requirements.
 
 **Prior to VTK 5.0.** In earlier versions of VTK (i.e., prior to
 version 5.0), the visualization pipeline architecture was accurately
-depicted by **Figure4--15** . In this figure, which shows how filters
+depicted by **Figure 4-15** . In this figure, which shows how filters
 and data objects were connected to form a visualization network, the
 input data was represented by the Input instance variable and was set
 using the SetInput() method. The output data was represented by the
@@ -4284,7 +4284,7 @@ height="2.9347222222222222in"}
 
 *Another Filter*
 
-**Figure 4--17** The logical relationship of ports and connections An
+**Figure 4-17** The logical relationship of ports and connections An
 input port may have more than one connection associated with it.
 Multiple connections are possible in certain filters such as the
 append filter, where a single logical input port represents all the
@@ -4320,9 +4320,9 @@ change and grow with advances in technology.
 SetInput()/GetOutput(), its use is
 
 discouraged. Rather, the newer pipeline architecture should be used.
-Referring to **Figure4--16** and
+Referring to **Figure 4-16** and
 
-**Figure4--17** , we use connections and ports to configure VTK's
+**Figure 4-17** , we use connections and ports to configure VTK's
 visualization pipeline:
 
   ----------------------------- ---------
@@ -4509,7 +4509,7 @@ request
                                               
   ------------------ -- ------------------ -- ------------------
 
-**Figure 4--18** Path of a request sent through a pipeline. For
+**Figure 4-18** Path of a request sent through a pipeline. For
 example, assume the consumer (at the far right) needs only a single
 piece of this data (e.g., piece 1 of 4); also assume that the producer
 (on the far left) is a reader that can partition its data into pieces.
@@ -4541,7 +4541,7 @@ operation (or \"pipeline pass\") that generally asks for partic-
 
 ular piece of information to be propagated through the pipeline. An
 *execution model* is a set of requests defined by a specific
-executive. Refer to **Figure4--18** in the following description of
+executive. Refer to **Figure 4-18** in the following description of
 the execution process.
 
 Requests are generated by the executive object of a filter that has
@@ -4583,7 +4583,7 @@ An algorithm is not allowed to ask its executive for any additional
 information. This insures that the algorithms are independent of the
 executives.
 
-**Figure4--18** shows a typical path taken by a request as it is sent
+**Figure 4-18** shows a typical path taken by a request as it is sent
 through a pipeline. Typically the request originates in a consumer at
 the end of the pipeline. It is sent back through the pipeline by the
 executives. Each executive asks its algorithm to help handle the
@@ -4658,7 +4658,7 @@ vtkActor \*actor = vtkActor::New();
 
 actor-\SetMapper(mapper);
 
-**Figure 4--19** A simple sphere example ( ColorSph.cxx ).
+**Figure 4-19** A simple sphere example ( ColorSph.cxx ).
 
 **Examples**
 
@@ -4680,7 +4680,7 @@ vtkDataSetMapper ) through a lookup table. The mapping process
 converts height value into colors, and interfaces the sphere geometry
 to the rendering library. The mapper is assigned to an actor, and then
 the actor is displayed. The visualization network, a portion of code,
-and output image are shown in **Figure4--19** .
+and output image are shown in **Figure 4-19** .
 
 The execution of the pipeline occurs implicitly when we render the
 actor. Each actor asks its mapper to update itself. The mapper in turn
@@ -4771,7 +4771,7 @@ the elevation filter generates the more general form vtkDataSet as
 output. Hence we cannot connect the transform filter to the elevation
 filter. But we can connect the transform filter to the sphere source,
 and then the elevation filter to the transform filter. The result is
-shown in **Figure4--20** . (Note: an alternative method is to use
+shown in **Figure 4-20** . (Note: an alternative method is to use
 vtkCastToConcrete to perform run-time casting.)
 
 The C++ compiler enforces the proper connections of sources, filters,
@@ -4789,7 +4789,7 @@ is specified with the instance variable Source, and the input points
 are obtained from the Input instance variable. Each glyph may be
 oriented and scaled in a variety of ways, depending upon the input and
 instance variables. In our example we place cones oriented in the
-direction of the point normals ( **Figure4--21** ).
+direction of the point normals ( **Figure 4-21** ).
 
 The visualization network branches at vtkGlyph3D . If either branch is
 modified, then this fil-ter will reexecute. Network updates must
@@ -4844,7 +4844,7 @@ vtkActor \*actor = vtkActor::New();
 
 actor-\SetMapper(mapper);
 
-**Figure 4--20** The addition of a transform filter to the previous
+**Figure 4-20** The addition of a transform filter to the previous
 example ( StrSph.cxx ).
 
 to date when vtkGlyph3D executes. These requirements are enforced by
@@ -4894,7 +4894,7 @@ vtkActor \*spikeActor = vtkActor::New();
 
 spikeActor-\SetMapper(spikeMapper);
 
-**Figure 4--21** An example of multiple inputs and outputs ( Mace.cxx
+**Figure 4-21** An example of multiple inputs and outputs ( Mace.cxx
 ).
 
 vtkShrinkFilter to shrink the polygons and create a gap or space
@@ -4903,7 +4903,7 @@ between neighbors,
 vtkElevationFilter to color the geometry according to height above the
 *x-y* plane, and vtkDataSetMapper to map the data through a lookup
 table and interface to the rendering library. The network topology, a
-portion of the C++ code, and output are shown in **Figure4--22** .
+portion of the C++ code, and output are shown in **Figure 4-22** .
 
 After vtkSphereSource generates an initial geometry (in response to a
 render request), the input of vtkShrinkFilter is changed to the output
@@ -4958,7 +4958,7 @@ shrink-\SetInputConnection(colorIt-\GetOutputPort());
 
 renWin-\Render(); // begin looping
 
-**Figure 4--22** A network with a loop ( LoopShrk.cxx ). VTK 5.0 does
+**Figure 4-22** A network with a loop ( LoopShrk.cxx ). VTK 5.0 does
 not allow you to execute a looping visualization network; this was
 possible in previous versions of VTK.
 
@@ -5052,7 +5052,7 @@ Multiple-View Visualizations." In *Proceedings of IEEE Visualization*
 <em style="color:blue;background-color: white">\[Berger84\]</em>
 M. Berger and J. Oliger. Adaptive Mesh Refinement for Hyperbolic
 Partial Differential Equations.
-*Journal of Computational Physics* , 53:484--512, March 1984.
+*Journal of Computational Physics* , 53:484-512, March 1984.
 
 <em style="color:blue;background-color: white">\[Charal90\]</em>
 S. Charalamides. "New Wave Technical Graphics Is Welcome." *DEC USER*
@@ -5074,7 +5074,7 @@ CA, 1990.
 <em style="color:blue;background-color: white">\[FAST90\]</em>
 G. V. Bancroft, F. J. Merritt, T. C. Plessell, P. G. Kelaita, R. K.
 McCabe, and A.Globus. "FAST: A Multi-Processed Environment for
-Visualization." In *Proceedings of Visualization '90* . pp. 14--27,
+Visualization." In *Proceedings of Visualization '90* . pp. 14-27,
 IEEE Computer Society Press, Los Alamitos, CA, 1990.
 
 <em style="color:blue;background-color: white">\[Favre94\]</em>
@@ -5118,7 +5118,7 @@ M. Levoy. "Spreadsheets for Images." In *Proceedings of SIGGRAPH '94*
 <em style="color:blue;background-color: white">\[Martin2001\]</em>
 K.M. Martin, B. Geveci, J. Ahrens, C. Law. "Large Scale Data
 Visualization Using Parallel Data Streaming." *IEEE Computer Graphics
-& Applications* , 21(4):34--41, July 2001.
+& Applications* , 21(4):34-41, July 2001.
 
 <em style="color:blue;background-color: white">\[PLOT3D\]</em>
 P. P. Walatka and P. G. Buning. *PLOT3D User's Manual* . NASA Fluid
@@ -5208,7 +5208,7 @@ f)  How would you distribute network execution across two or more
 
 4.5 Place oriented cylinders (instead of cones) on the mace in
 
-**Figure4--20**
+**Figure 4-20**
 
 . (
 
@@ -5220,7 +5220,7 @@ vtkCylinderSource .)
 VTK is simple to imple-ment and understand. However, it is prone to a
 common programming error. What is this error?
 
-4.7 Experiment with the transformation object in **Figure4--20** .
+4.7 Experiment with the transformation object in **Figure 4-20** .
 
 a\) Translate the actor with vtkTransform 's Translate() method.
 
@@ -5244,7 +5244,7 @@ d)  Try combinations of these methods. Does the actor transform in ways
 | nction      |
 | and refer   |
 | to          |
-| **Figure4-- |
+| **Figure 4- |
 | 1**         |
 | .)          |
 +-------------+-------------+-------------+-------------+-------------+

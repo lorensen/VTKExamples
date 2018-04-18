@@ -10,13 +10,13 @@ We can view rendering as the process of converting graphical data into an image.
 
 ## A Physical Description of Rendering
 
-<figure id="Figure3-1">
+<figure id="Figure 3-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-1.png?raw=true width="640" alt="Figure 3-1">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-1</b>. Physical generation of an image.</figcaption>
 </figure>
 
-**Figure3-1** presents a simplified view of what happens when we look at an object, in this case a cube. Rays of light are emitted from a light source in all directions. (In this example we assume that the light source is the sun.) Some of these rays happen to strike the cube whose surface absorbs some of the incident light and reflects the rest of it. Some of this reflected light may head towards us and enter our eyes. If this happens, then we "see" the object. Likewise, some of the light from the sun will strike the ground and some small percentage of it will be reflected into our eyes.
+**Figure 3-1** presents a simplified view of what happens when we look at an object, in this case a cube. Rays of light are emitted from a light source in all directions. (In this example we assume that the light source is the sun.) Some of these rays happen to strike the cube whose surface absorbs some of the incident light and reflects the rest of it. Some of this reflected light may head towards us and enter our eyes. If this happens, then we "see" the object. Likewise, some of the light from the sun will strike the ground and some small percentage of it will be reflected into our eyes.
 
 As you can imagine, the chances of a ray of light traveling from the sun through space to hit a small object on a relatively small planet are low. This is compounded by the slim odds that the ray of light will reflect off the object and into our eyes. The only reason we can see is that the sun produces such an enormous amount of light that it overwhelms the odds. While this may work in real life, trying to simulate it with a computer can be difficult. Fortunately, there are other ways to look at this problem.
 
@@ -56,22 +56,22 @@ In the next few pages we describe the rendering process in more detail. We start
 
 ## 3.2 Color
 
-The electromagnetic spectrum visible to humans contains wavelengths ranging from about 400 to 700 nanometers. The light that enters our eyes consists of different *intensities* of these wavelengths, an example of which is shown in **Figure3-2**. This intensity plot defines the color of the light, therefore a different plot results in a different color. Unfortunately, we may not notice the difference since the human eye throws out most of this information. There are three types of color receptors in the human eye called *cones*. Each type responds to a subset of the 400 to 700 nanometer wave-length range as shown in **Figure3-3**. Any color we see is encoded by our eyes into these three overlapping responses. This is a great reduction from the amount of information that actually comes into our eyes. As a result, the human eye is incapable of recognizing differences in any colors whose intensity curves, when applied to the human eye's response curves, result in the same triplet of responses. This also implies that we can store and represent colors in a computer using a simplified form without the human eye being able to recognize the difference.
+The electromagnetic spectrum visible to humans contains wavelengths ranging from about 400 to 700 nanometers. The light that enters our eyes consists of different *intensities* of these wavelengths, an example of which is shown in **Figure 3-2**. This intensity plot defines the color of the light, therefore a different plot results in a different color. Unfortunately, we may not notice the difference since the human eye throws out most of this information. There are three types of color receptors in the human eye called *cones*. Each type responds to a subset of the 400 to 700 nanometer wave-length range as shown in **Figure 3-3**. Any color we see is encoded by our eyes into these three overlapping responses. This is a great reduction from the amount of information that actually comes into our eyes. As a result, the human eye is incapable of recognizing differences in any colors whose intensity curves, when applied to the human eye's response curves, result in the same triplet of responses. This also implies that we can store and represent colors in a computer using a simplified form without the human eye being able to recognize the difference.
 
-<figure id="Figure3-2">
+<figure id="Figure 3-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-2.png?raw=true width="640" alt="Figure 3-21">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-2</b>. Wavelength versus Intensity plot.</figcaption>
 </figure>
 
-The two simplified component systems that we use to describe colors are RGB and HSV color systems. The RGB system represents colors based on their red, green, and blue intensities. This can be thought of as a three dimensional space with the axes being red, green, and blue. Some common colors and their RGB components are shown in **Figure3-4**.
+The two simplified component systems that we use to describe colors are RGB and HSV color systems. The RGB system represents colors based on their red, green, and blue intensities. This can be thought of as a three dimensional space with the axes being red, green, and blue. Some common colors and their RGB components are shown in **Figure 3-4**.
 
-The HSV system represents colors based on their hue, saturation, and value. The value component is also known as the brightness or intensity component, and represents how much light is in the color. A value of 0.0 will always give you black and a value of 1.0 will give you something bright. The hue represents the dominant wavelength of the color and is often illustrated using a circle as in **Figure3-5**. Each location on the circumference of this circle represents a different hue and can be specified using an angle. When we specify a hue we use the range from zero to one, where zero corresponds to zero degrees on the hue circle and one corresponds to 360 degrees. The saturation indicates how much of the hue is mixed into the color. For example, we can set the value to one, which gives us a bright color, and the hue to 0.66, to give us a dominant wavelength of blue. Now if we set the saturation to one, the color will be a bright primary blue. If we set the saturation to 0.5, the color will be sky blue, a blue with more white mixed in. If we set the saturation to zero, this indicates that there is no more of the dominant wavelength (hue) in the color than any other wavelength. As a result, the final color will be white (regardless of hue value). **Figure3-4** lists HSV values for some common colors.
+The HSV system represents colors based on their hue, saturation, and value. The value component is also known as the brightness or intensity component, and represents how much light is in the color. A value of 0.0 will always give you black and a value of 1.0 will give you something bright. The hue represents the dominant wavelength of the color and is often illustrated using a circle as in **Figure 3-5**. Each location on the circumference of this circle represents a different hue and can be specified using an angle. When we specify a hue we use the range from zero to one, where zero corresponds to zero degrees on the hue circle and one corresponds to 360 degrees. The saturation indicates how much of the hue is mixed into the color. For example, we can set the value to one, which gives us a bright color, and the hue to 0.66, to give us a dominant wavelength of blue. Now if we set the saturation to one, the color will be a bright primary blue. If we set the saturation to 0.5, the color will be sky blue, a blue with more white mixed in. If we set the saturation to zero, this indicates that there is no more of the dominant wavelength (hue) in the color than any other wavelength. As a result, the final color will be white (regardless of hue value). **Figure 3-4** lists HSV values for some common colors.
 
-<figure id="Figure3-3">
+<figure id="Figure 3-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-3.png?raw=true width="640" alt="Figure 3-3">
 </figure>
-<figcaption style="color:blue"><b>Figure 3-3</b>.Relative absorbance of light by the three types of cones in the human retina <em style="color:blue;background-color: white">\[Dartnall83\]</em>. </figcaption>
+<figcaption style="color:blue"><b>Figure 3-3</b>.Relative absorbance of light by the three types of cones in the human retina <em.</figcaption>
 </figure>
 
 | **Color** | **RGB**   | **HSV**   |
@@ -85,16 +85,16 @@ The HSV system represents colors based on their hue, saturation, and value. The 
 | Cyan      | 0,1,1     | 1/2,1,1   |
 | Magenta   | 1,0,1     | 5/6,1,1   |
 | Sky Blue  | 1/2,1/2,1 | 2/3,1/2,1 |
-<figure id="Figure3-4">
+<figure id="Figure 3-4">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-4</b>. Common colors in RGB and HSV space.</figcaption>
 </figure>
 
-<figure id="Figure3-5">
-  <figure id="Figure3-5a">
+<figure id="Figure 3-5">
+  <figure id="Figure 3-5a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5a.png?raw=true width="640" alt="Figure 3-5a">
   </figure>
-  <figure id="Figure3-5b">
+  <figure id="Figure 3-5b">
 s    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-5b.png?raw=true width="640" alt="Figure 3-5b">
   </figure>
 <figcaption style="color:blue"><b>Figure 3-5</b>. On the top, circular representation of hue. The other two images on the bottom are slices through the HSV color space. The first slice has a value of 1.0, the other has a value of 0.5.</figcaption>
@@ -104,9 +104,9 @@ s    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src
 
 One of the major factors controlling the rendering process is the interaction of light with the actors in the scene. If there are no lights, the resulting image will be black and rather uninformative. To a great extent it is the interaction between the emitted light and the surface (and in some cases the interior) of the actors in the scene that defines what we see. Once rays of light interact with the actors in a scene, we have something for our camera to view.
 
-Of the many different types of lights used in computer graphics, we will discuss the simplest, the infinitely distant, point light source. This is a simplified model compared to the lights we use at home and work. The light sources that we are accustomed to typically radiate from a region in space (a filament in an incandescent bulb, or a light-emitting gas in a fluorescent light). The point source lighting model assumes that the light is emitted in all directions from a single point in space. For an infinite light source, we assume that it is positioned infinitely far away from what it is illuminating. This is significant because it implies that the incoming rays from such a source will be parallel to each other. The emissions of a local light source, such as a lamp in a room, are not parallel. **Figure3-6** illustrates the differences between a local light source with a finite volume, versus an infinite point light source. The intensity of the light emitted by our infinite light sources also remains constant as it travels, in contrast to the actual 1/ distance<sup>2</sup> relationship physical lights obey. As you can see this is a great simplification, which later will allow us to use less complex lighting equations.
+Of the many different types of lights used in computer graphics, we will discuss the simplest, the infinitely distant, point light source. This is a simplified model compared to the lights we use at home and work. The light sources that we are accustomed to typically radiate from a region in space (a filament in an incandescent bulb, or a light-emitting gas in a fluorescent light). The point source lighting model assumes that the light is emitted in all directions from a single point in space. For an infinite light source, we assume that it is positioned infinitely far away from what it is illuminating. This is significant because it implies that the incoming rays from such a source will be parallel to each other. The emissions of a local light source, such as a lamp in a room, are not parallel. **Figure 3-6** illustrates the differences between a local light source with a finite volume, versus an infinite point light source. The intensity of the light emitted by our infinite light sources also remains constant as it travels, in contrast to the actual 1/ distance<sup>2</sup> relationship physical lights obey. As you can see this is a great simplification, which later will allow us to use less complex lighting equations.
 
-<figure id="Figure3-6">
+<figure id="Figure 3-6">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-6.png?raw=true width="640" alt="Figure 3-6">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-6</b>. Local light source with a finite volume versus an infinite point light source.</figcaption>
@@ -123,15 +123,15 @@ $$
 
 where $R_a$ is the resulting intensity curve due to ambient lighting, $L_c$ is the intensity curve of the ambient light, and $O_a$ is the color curve of the object. To help keep the equations simple we assume that all of the direction vectors are normalized (i.e., have a magnitude of one).
 
-Two components of the resulting color depend on direct lighting. *Diffuse lighting*, which is also known as Lambertian reflection, takes into account the angle of incidence of the light onto an object. **Figure3-7** shows the image of a cylinder that becomes darker as you move laterally from its center. The cylinder's color is constant; the amount of light hitting the surface of the cylinder changes. At the center, where the incoming light is nearly perpendicular to the surface of the cylinder, it receives more rays of light per surface area. As we move towards the side, this drops until finally the incoming light is parallel to the side of the cylinder and the resulting intensity is zero.
+Two components of the resulting color depend on direct lighting. *Diffuse lighting*, which is also known as Lambertian reflection, takes into account the angle of incidence of the light onto an object. **Figure 3-7** shows the image of a cylinder that becomes darker as you move laterally from its center. The cylinder's color is constant; the amount of light hitting the surface of the cylinder changes. At the center, where the incoming light is nearly perpendicular to the surface of the cylinder, it receives more rays of light per surface area. As we move towards the side, this drops until finally the incoming light is parallel to the side of the cylinder and the resulting intensity is zero.
 
-<figure id="Figure3-7">
+<figure id="Figure 3-7">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestFlatVersusGouraud.png?raw=true width="640" alt="Figure 3-7">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-7</b>. Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look. <a href="../../Cxx/Rendering/FlatVersusGouraud" title="FlatVersusGouraud"> See FlatVersusGouraud.cxx</a> and <a href="../../Python/Rendering/FlatVersusGouraud" title="FlatVersusGouraud"> FlatVersusGouraud.py</a>.</figcaption>
 </figure>
 
-The contribution from diffuse lighting is expressed in **Equation3-2** and illustrated in **Figure3-8**.
+The contribution from diffuse lighting is expressed in **Equation3-2** and illustrated in **Figure 3-8**.
 
 $$
 R_d = L_cO_d[\overrightarrow{O}_n \cdot (-\overrightarrow{L}_n)]
@@ -140,7 +140,7 @@ $$
 
 where $R_d$ is the resulting intensity curve due to diffuse lighting, $L_c$ is the intensity curve for the light, and $O_c$ is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector andL nthe surface normal of the object. As a result On diffuse lighting is independent of viewer position.
 
-*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, *Osp*, indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure3-9**, the equation for specular lighting is
+*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure 3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, *Osp*, indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure 3-9**, the equation for specular lighting is
 
 $$
 R_s . = L_cO_s[\overrightarrow{S} \cdot (-\overrightarrow{C}_n)] ^{O_{sp}}\\
@@ -150,13 +150,13 @@ $$
 
 where Ci is the direction of projection for the camera and is the S is the direction of specular reflection.
 
-<figure id="Figure3-8">
+<figure id="Figure 3-8">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-8.png?raw=true width="640" alt="Figure 3-81">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-8</b>. Diffuse lighting.</figcaption>
 </figure>
 
-<figure id="Figure3-9">
+<figure id="Figure 3-9">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-9.png?raw=true width="640" alt="Figure 3-9">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-9</b>. Specular lighting.</figcaption>
@@ -171,7 +171,7 @@ $$
 
 The result is a color at a point on the surface of the object. The constants Oai, Odi, and Osi control the relative amounts of ambient, diffuse and specular lighting for an object. The constants Oac Odc and Osc specify the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in “Lights ” on page39. However the equation can be easily modified to incorporate other types of directional lighting.
 
-<figure id="Figure3-10">
+<figure id="Figure 3-10">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestSpecularSpheres.png?raw=true width="640" alt="Figure 3-10">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-10</b>. Effects of specular coefficients. Specular coefficients control the apparent "shininess" of objects. The top row has a specular intensity value of 0.5; the bottom row 1.0. Along the horizontal direction the specular power changes. The values (from left to right) are 5, 10, 20, and 40. <a href="../../Cxx/Rendering/SpecularSpheres" title="SpecularSpheres"> See SpecularSpheres.cxx</a> and <a href="../../Python/Rendering/SpecularSpheres" title="SpecularSpheres"> SpecularSpheres.py</a>.</figcaption>
@@ -179,9 +179,9 @@ The result is a color at a point on the surface of the object. The constants Oai
 
 ## 3.5 Cameras
 
-We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see **Figure3-11**). These are the position, orientation, and focal point of the camera, the method of camera projection , and the location of the camera clipping planes.
+We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see **Figure 3-11**). These are the position, orientation, and focal point of the camera, the method of camera projection , and the location of the camera clipping planes.
 
-<figure id="Figure3-11">
+<figure id="Figure 3-11">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-11.png?raw=true width="640" alt="Figure 3-1">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-11</b> Camera attributes.</figcaption>.
@@ -195,17 +195,17 @@ The front and back clipping planes intersect the projection vector, and are usua
 
 Taken together these camera parameters define a rectangular pyramid, with its apex at the camera’s position and extending along the direction of projection. The pyramid is truncated at the top with the front clipping plane and at the bottom by the back clipping plane. The resulting view frustum defines the region of 3D space visible to the camera.
 
-While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. **Figure3-12** and **Figure3-13** will help illustrate these operations. Changing the azimuth of a camera rotates its position around its view up vector, centered at the focal point. Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera’s elevation rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To roll the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
+While a camera can be manipulated by directly setting the attributes mentioned above, there are some common operations that make the job easier. **Figure 3-12** and **Figure 3-13** will help illustrate these operations. Changing the azimuth of a camera rotates its position around its view up vector, centered at the focal point. Think of this as moving the camera to the left or right while always keeping the distance to the focal point constant. Changing a camera’s elevation rotates its position around the cross product of its direction of projection and view up centered at the focal point. This corresponds to moving the camera up and down. To roll the camera, we rotate the view up vector about the view plane normal. Roll is sometimes called twist.
 
 The next two motions keep the camera’s position constant and instead modify the focal point. Changing the yaw rotates the focal point about the view up centered at the camera’s position. This is like an azimuth, except that the focal point moves instead of the position. Changes in pitch rotate the focal point about the cross product of the direction of projection and view up centered at the camera’s position. Dollying in and out moves the camera’s position along the direction of projection, either closer or farther from the focal point. This operation is specified as the ratio of its current distance to its new distance. A value greater than one will dolly in, while a value less than one will dolly out. Finally, zooming changes the camera’s view angle, so that more or less of the scene falls within the view frustum.
 
-<figure id="Figure3-12">
+<figure id="Figure 3-12">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestCameraModel1.png?raw=true width="640" alt="Figure 3-12">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-12</b>. Camera movements around focal point. <a href="../../Cxx/Visualization/CameraModel1" title="CameraModel1"> See CameraModel1.cxx</a> and <a href="../../Python/Visualization/CameraModel1" title="CameraModel1"> CameraModel1.py</a>.</figcaption>
 </figure>
 
-<figure id="Figure3-13">
+<figure id="Figure 3-13">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestCameraModel2.png?raw=true width="640" alt="Figure 3-13">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-13</b>. Camera movements around camera position. <a href="../../Cxx/Visualization/CameraModel2" title="CameraModel2"> See CameraModel2.cxx</a> and <a href="../../Python/Visualization/CameraModel2" title="CameraModel2"> CameraModel2.py</a>.</figcaption>
@@ -217,7 +217,7 @@ This concludes our brief rendering overview. The light has traveled from its sou
 
 ## 3.6 Coordinate Systems
 
-There are four coordinate systems commonly used in computer graphics and two different ways of representing points within them (**Figure3-14**). While this may seem excessive, each one serves a purpose. The four coordinate systems we use are: *model*, *world* , *view*, and *display*.
+There are four coordinate systems commonly used in computer graphics and two different ways of representing points within them (**Figure 3-14**). While this may seem excessive, each one serves a purpose. The four coordinate systems we use are: *model*, *world* , *view*, and *display*.
 
 The model coordinate system is the coordinate system in which the model is defined, typically a local Cartesian coordinate system. If one of our actors represents a football, it will be based on a coordinate system natural to the football geometry (e.g., a cylindrical system). This model has an inherent coordinate system determined by the decisions of whoever generated it. They may have used inches or meters as their units, and the football may have been modeled with any arbitrary axis as its major axis.
 
@@ -227,7 +227,7 @@ The view coordinate system represents what is visible to the camera. This consis
 
 The display coordinate system uses the same basis as the view coordinate system, but instead of using negative one to one as the range, the coordinates are actual x, y pixel locations on the image plane. Factors such as the window’s size on the display determine how the view coordinate range of (-1,1) is mapped into pixel locations. This is also where the viewport comes into effect.
 
-<figure id="Figure3-14">
+<figure id="Figure 3-14">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-14.png?raw=true width="640" alt="Figure 3-14">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-14</b>. Modelling, world, view and display coordinate system.</figcaption>
@@ -375,11 +375,11 @@ The representation of geometry for data visualization tends to be simple, even t
 
 Every actor has a transformation matrix that controls its location and scaling in world space. The actor's geometry is defined by a model in model coordinates. We specify the actor's location using orientation, position, and scale factors along the coordinate axes. In addition, we can define an origin around which the actor rotates. This feature is useful because we can rotate the actor around its center or some other meaningful point.
 
-The orientation of an actor is determined by rotations stored in an orientation vector (Ox,Oy, Oz). This vector defines a series of rotational transformation matrices. As we saw in the previous section on transformation matrices, the order of application of the transformations is not arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (**Figure3-15**).
+The orientation of an actor is determined by rotations stored in an orientation vector (Ox,Oy, Oz). This vector defines a series of rotational transformation matrices. As we saw in the previous section on transformation matrices, the order of application of the transformations is not arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (**Figure 3-15**).
 
 All of these rotations take place around the origin of the actor. Typically this is set to the center of its bounding box, but it can be set to any convenient point. There are many different methods for changing an actor’s orientation. RotateX(), RotateY(), and RotateZ() are common methods that rotate about their respective axes. Many systems also include a method to rotate about a userdefined axis. In the Visualization Toolkit the RotateXYZ() method is used to rotate around an arbitrary vector passing through the origin.
 
-<figure id="Figure3-15">
+<figure id="Figure 3-15">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-15.png?raw=true width="640" alt="Figure 3-15">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-15</b>. Actor coordinate system.</figcaption>
@@ -391,15 +391,15 @@ Earlier we mentioned that advances in graphics hardware have had a large impact 
 
 ## Raster Devices
 
-The results of computer graphics is pervasive in today's world---digital images (generated with computer graphics) may be found on cell phones, displayed on computer monitors, broadcast on TV, shown at the movie theatre and presented on electronic billboards. All of these, and many more, display mediums are raster devices. A raster device represents an image using a two dimensional array of picture elements called pixels. For example, the word "hello" can be represented as an array of pixels. as shown in **Figure3-16**. Here the word "hello" is written within a pixel array that is twenty-five pixels wide and ten pixels high. Each pixel stores one bit of information, whether it is black or white. This is how a black and white laser printer works, for each point on the paper it either prints a black dot or leaves it the color of the paper. Due to hardware limitations, raster devices such as laser printers and computer monitors do not actually draw accurate square pixels like those in **Figure3-16**. Instead, they tend to be slightly blurred and overlapping. Another hardware limitation of raster devices is their resolution. This is what causes a 300 dpi (dots per inch) laser printer to produce more detailed output than a nine pin dot matrix printer. A 300 dpi laser printer has a resolution of 300 pixels per inch compared to roughly 50 dpi for the dot matrix printer.
+The results of computer graphics is pervasive in today's world---digital images (generated with computer graphics) may be found on cell phones, displayed on computer monitors, broadcast on TV, shown at the movie theatre and presented on electronic billboards. All of these, and many more, display mediums are raster devices. A raster device represents an image using a two dimensional array of picture elements called pixels. For example, the word "hello" can be represented as an array of pixels. as shown in **Figure 3-16**. Here the word "hello" is written within a pixel array that is twenty-five pixels wide and ten pixels high. Each pixel stores one bit of information, whether it is black or white. This is how a black and white laser printer works, for each point on the paper it either prints a black dot or leaves it the color of the paper. Due to hardware limitations, raster devices such as laser printers and computer monitors do not actually draw accurate square pixels like those in **Figure 3-16**. Instead, they tend to be slightly blurred and overlapping. Another hardware limitation of raster devices is their resolution. This is what causes a 300 dpi (dots per inch) laser printer to produce more detailed output than a nine pin dot matrix printer. A 300 dpi laser printer has a resolution of 300 pixels per inch compared to roughly 50 dpi for the dot matrix printer.
 
-<figure id="Figure3-16">
+<figure id="Figure 3-16">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-16.png?raw=true width="640" alt="Figure 3-16">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-16</b>. A pixel array for the word "hello."</figcaption>
 </figure>
 
-<figure id="Figure3-17">
+<figure id="Figure 3-17">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-17.png?raw=true width="640" alt="Figure 3-17">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-17</b>. Black and white dithering.</figcaption>
@@ -407,29 +407,29 @@ The results of computer graphics is pervasive in today's world---digital images 
 
 Color computer monitors typically have a resolution of about 80 pixels per inch, making the screen a pixel array roughly one thousand pixels in width and height. This results in over one million pixels, each with a value that indicates what color it should be. Since the hardware in color monitors uses the RGB system, it makes sense to use that to describe the colors in the pixels. Unfortunately, having over one million pixels, each with a red, green, and blue component, can take up a lot of memory. This is part of what differentiates the variety of graphics hardware on the market. Some companies use 24 bits of storage per pixel, others use eight, some advanced systems use more than 100 bits of storage per pixel. Typically, the more bits per pixel the more accurate the colors will be.
 
-One way to work around color limitations in the graphics hardware is by using a technique called *dithering*. Say, for example, that you want to use some different shades of gray, but your graphics hardware only supports black and white. Dithering lets you approximate shades of gray by using a mixture of both black and white pixels. In **Figure3-17**, seven gray squares are drawn using a mixture of black and white pixels. From a distance the seven squares look like different shades of gray even though up close, it's clear that they are just different mixtures of black and white pixels. This same technique works just as well for other colors. For example, if your graphics hardware supports primary blue, primary green, and white but not a pastel sea green, you can approximate this color by dithering the green, blue, and white that the hardware does support.
+One way to work around color limitations in the graphics hardware is by using a technique called *dithering*. Say, for example, that you want to use some different shades of gray, but your graphics hardware only supports black and white. Dithering lets you approximate shades of gray by using a mixture of both black and white pixels. In **Figure 3-17**, seven gray squares are drawn using a mixture of black and white pixels. From a distance the seven squares look like different shades of gray even though up close, it's clear that they are just different mixtures of black and white pixels. This same technique works just as well for other colors. For example, if your graphics hardware supports primary blue, primary green, and white but not a pastel sea green, you can approximate this color by dithering the green, blue, and white that the hardware does support.
 
 ## Interfacing to the Hardware
 
-Now that we have covered the basics of display hardware, the good news is that you rarely need to worry about them. Most graphics programming is done using higher-level primitives than individual pixels. **Figure3-18** shows a typical arrangement for a visualization program. At the bottom of the hierarchy is the display hardware that we already discussed; chances are your programs will not interact directly with it. The top three layers above the hardware are the layers you may need to be concerned with.
+Now that we have covered the basics of display hardware, the good news is that you rarely need to worry about them. Most graphics programming is done using higher-level primitives than individual pixels. **Figure 3-18** shows a typical arrangement for a visualization program. At the bottom of the hierarchy is the display hardware that we already discussed; chances are your programs will not interact directly with it. The top three layers above the hardware are the layers you may need to be concerned with.
 
 Many programs take advantage of application libraries as a high-level interface to the graphics capabilities of a system. The *Visualization Toolkit* accompanying this book is a prime example of this. It allows you to display a complex object or graph using just a few commands. It is also possible to interface to a number of different graphics libraries, since different libraries may be supported on different hardware platforms.
 
-The graphics library and graphics hardware layers both perform similar functions. They are responsible for taking high-level commands from an application library or program, and executing them. This makes programming much easier by providing more complex primitives to work with. Instead of drawing pixels one at a time, we can draw primitives like polygons, triangles, and lines, without worrying about the details of which pixels are being set to which colors. **Figure3-19** illustrates some high-level primitives that all mainstream graphics libraries support.
+The graphics library and graphics hardware layers both perform similar functions. They are responsible for taking high-level commands from an application library or program, and executing them. This makes programming much easier by providing more complex primitives to work with. Instead of drawing pixels one at a time, we can draw primitives like polygons, triangles, and lines, without worrying about the details of which pixels are being set to which colors. **Figure 3-19** illustrates some high-level primitives that all mainstream graphics libraries support.
 
 This functionality is broken into two different layers because different machines may have vastly different graphics hardware. If you write a program that draws a red polygon, either the graphics library or the graphics hardware must be able to execute that command. On high-end systems, this may be done in the graphics hardware, on others it will be done by the graphics library in software. So the same commands can be used with a wide variety of machines, without worrying about the underlying graphics hardware.
 
-The fundamental building block of the primitives in **Figure3-19** is a point (or vertex). A vertex has a position, normal, and color, each of which is a three element vector. The position specifies where the vertex is located, its normal specifies which direction the vertex is facing, and its color specifies the vertex's red, green, and blue components.
+The fundamental building block of the primitives in **Figure 3-19** is a point (or vertex). A vertex has a position, normal, and color, each of which is a three element vector. The position specifies where the vertex is located, its normal specifies which direction the vertex is facing, and its color specifies the vertex's red, green, and blue components.
 
-A polygon is built by connecting a series of points or vertices as shown in **Figure3-20**. You may be wondering why each vertex has a normal, instead of having just one normal for the entire polygon. A planar polygon can only be facing one direction regardless of what the normals of its vertices indicate. The reason is that sometimes a polygon is used as an approximation of something else, like a curve. **Figure3-21** shows a top-down view of a cylinder. As you can see, it's not really a cylinder but rather a polygonal approximation of the cylinder drawn in gray. Each vertex is shared by two polygons and the correct normal for the vertex is not the same as the normal for the polygon. Similar logic explains why each vertex has a color instead of just having one color for an entire polygon.
+A polygon is built by connecting a series of points or vertices as shown in **Figure 3-20**. You may be wondering why each vertex has a normal, instead of having just one normal for the entire polygon. A planar polygon can only be facing one direction regardless of what the normals of its vertices indicate. The reason is that sometimes a polygon is used as an approximation of something else, like a curve. **Figure 3-21** shows a top-down view of a cylinder. As you can see, it's not really a cylinder but rather a polygonal approximation of the cylinder drawn in gray. Each vertex is shared by two polygons and the correct normal for the vertex is not the same as the normal for the polygon. Similar logic explains why each vertex has a color instead of just having one color for an entire polygon.
 
-<figure id="Figure3-18">
+<figure id="Figure 3-18">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-18.png?raw=true width="640" alt="Figure 3-18">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-18</b>. Typical graphics interface hierarchy.</figcaption>
 </figure>
 
-<figure id="Figure3-19">
+<figure id="Figure 3-19">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-19.png?raw=true width="640" alt="Figure 3-19">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-19</b>. Graphics primitives.</figcaption>
@@ -441,13 +441,13 @@ When you limit yourself to the types of primitives described above, there are so
 
 At this point in the text we have described how to represent graphics data using rendering primi-tives, and we have described how to represent images using raster display devices. The question remains, how do we convert graphics primitives into a raster image? This is the topic we address in this section. Although a thorough treatise on this topic is beyon1d the scope of this text, we will do our best to provide a high-level overview.
 
-<figure id="Figure3-20">
+<figure id="Figure 3-20">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-20.png?raw=true width="640" alt="Figure 3-20">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-20</b>. An example polygon.</figcaption>
 </figure>
 
-<figure id="Figure3-21">
+<figure id="Figure 3-21">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-21.png?raw=true width="640" alt="Figure 3-21">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-21</b>. Vertex and polygon normals.</figcaption>
@@ -459,23 +459,23 @@ Most of today's hardware is based on object-order rasterization techniques. As w
 
 The first step is to transform the polygon using the appropriate transformation matrix. We also project the polygon to the image plane using either parallel or orthographic projection. Part of this process involves clipping the polygons. Not only do we use the front and back clipping planes to clip polygons too close or too far, but we must also clip polygons crossing the boundaries of the image plane. Clipping polygons that cross the boundary of the view frustum means we have to generate new polygonal boundaries.
 
-<figure id="Figure3-22">
+<figure id="Figure 3-22">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-22.png?raw=true style="float:right;width:100px" alt="Figure 3-22">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-22</b>. Rasterizing a convex polygon. Pixels are processed in horizontal spans (or scan-lines) in the image plane. Data values $d_i$ at point $p_i$ are interpolated along the edges and then along the scan-line using delta data values. Typical data values are RGB components of color.</figcaption>
 </figure>
 
-With the polygon clipped and projected to the image plane, we can begin scan-line processing (**Figure3-22**). The first step identifies the initial scan-line intersected by the projected polygon. This is found by sorting the vertices' *y* values. We then find the two edges joining the vertex on the left and right sides. Using the slopes of the edges along with the data values we compute delta data values. These data are typically the *R*, *G*, and *B* color components. Other data values include transparency values and *z* depth values. (The *z* values are necessary if we are using a *z*-buffer, described in the next section.) The row of pixels within the polygon (i.e., starting at the left and right edges) is called a *span*. Data values are interpolated from the edges on either side of the span to compute the internal pixel values. This process continues span-by-span, until the entire polygon is filled. Note that as new vertices are encountered, it is necessary to recompute the delta data values.
+With the polygon clipped and projected to the image plane, we can begin scan-line processing (**Figure 3-22**). The first step identifies the initial scan-line intersected by the projected polygon. This is found by sorting the vertices' *y* values. We then find the two edges joining the vertex on the left and right sides. Using the slopes of the edges along with the data values we compute delta data values. These data are typically the *R*, *G*, and *B* color components. Other data values include transparency values and *z* depth values. (The *z* values are necessary if we are using a *z*-buffer, described in the next section.) The row of pixels within the polygon (i.e., starting at the left and right edges) is called a *span*. Data values are interpolated from the edges on either side of the span to compute the internal pixel values. This process continues span-by-span, until the entire polygon is filled. Note that as new vertices are encountered, it is necessary to recompute the delta data values.
 
-The shading of the polygon (i.e., color interpolation across the polygon) varies depending on the actor's interpolation attribute. There are three possibilities: *flat*, *Gouraud*, or *Phong shading*. **Figure3-7** illustrates the difference between flat and Gouraud interpolation. Flat shading calcu-lates the color of a polygon by applying the lighting equations to just one normal (typically the sur-face normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
+The shading of the polygon (i.e., color interpolation across the polygon) varies depending on the actor's interpolation attribute. There are three possibilities: *flat*, *Gouraud*, or *Phong shading*. **Figure 3-7** illustrates the difference between flat and Gouraud interpolation. Flat shading calcu-lates the color of a polygon by applying the lighting equations to just one normal (typically the sur-face normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
 
 ## Z-Buffer
 
 In our earlier description of the rendering process, we followed rays of light from our eye through a pixel in the image plane to the actors and back to the light source. A nice side effect of ray tracing is that viewing rays strike the first actor they encounter and ignore any actors that are hidden behind it. When rendering actors using the polygonal methods described above, we have no such method of computing which polygons are hidden and which are not. We cannot generally count on the polygons being ordered correctly. Instead, we can use a number of hidden-surface methods for polygon rendering.
 
-One method is to sort all of our polygons from back to front (along the camera’s view vector) and then render them in that order. This is called the painter’s algorithm or painter’s sort, and has one major weakness illustrated in **Figure3-23**. Regardless of the order in which we draw these three triangles, we cannot obtain the desired result, since each triangle is both in front of, and behind, another triangle. There are algorithms that sort and split polygons as necessary to treat such a situation [Carlson85]. This requires more initial processing to perform the sorting and splitting. If the geometric primitives change between images or the camera view changes, then this processing must be performed before each render.
+One method is to sort all of our polygons from back to front (along the camera’s view vector) and then render them in that order. This is called the painter’s algorithm or painter’s sort, and has one major weakness illustrated in **Figure 3-23**. Regardless of the order in which we draw these three triangles, we cannot obtain the desired result, since each triangle is both in front of, and behind, another triangle. There are algorithms that sort and split polygons as necessary to treat such a situation [Carlson85]. This requires more initial processing to perform the sorting and splitting. If the geometric primitives change between images or the camera view changes, then this processing must be performed before each render.
 
-<figure id="Figure3-23">
+<figure id="Figure 3-23">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-23.png?raw=true style="float:right;width:100px" alt="Figure 3-23">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-23</b>. Problem with Painter's algorithm.</figcaption>
@@ -490,7 +490,7 @@ use them in VTK.
 
 ## The Graphics Model
 
-<figure id="Figure3-24">
+<figure id="Figure 3-24">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3_24.png?raw=true width="640" alt="Figure 3-24">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-24</b>. Illustrative diagram of graphics objects. <a href="../../Cxx/Rendering/Model" title="Model"> See Model.cxx</a> and <a href="../../Python/Rendering/Model" title="Model"> Model.py</a>.</figcaption>
@@ -498,7 +498,7 @@ use them in VTK.
 
 We have discussed many of the objects that play a part in the rendering of a scene. Now it's time to put them together into a comprehensive object model for graphics and visualization.
 
-In the *Visualization Toolkit* there are seven basic objects that we use to render a scene. There are many more objects behind the scenes, but these seven are the ones we use most frequently. The objects are listed in the following and illustrated in **Figure3-24**.
+In the *Visualization Toolkit* there are seven basic objects that we use to render a scene. There are many more objects behind the scenes, but these seven are the ones we use most frequently. The objects are listed in the following and illustrated in **Figure 3-24**.
 
 1. vtkRenderWindow --- manages a window on the display device; one or   more renderers draw into an instance of vtkRenderWindow.
 
@@ -543,13 +543,13 @@ There is another important object, vtkRenderWindowInteractor, that captures even
 
 A desirable property of applications built with VTK is that they are device independent. This means that computer code that runs on one operating system with a particular software/hardware configuration runs unchanged on a different operating system and software/hardware configuration. The advantage of this is that the programmer does not need to expend effort porting an application between different computer systems. Also, existing applications do not need to be rewritten to take advantage of new developments in hardware or software technology. Instead, VTK handles this transparently by a combination of inheritance and a technique known as *object factories*.
 
-<figure id="Figure3-25">
+<figure id="Figure 3-25">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-25.png?raw=true width="640" alt="Figure3-25">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-25</b>. Achieving device independence using (a) inheritance and object factories (b) and (c).</figcaption>
 </figure>
 
-**Figure3-25** (a) illustrates the use of inheritance to achieve
+**Figure 3-25** (a) illustrates the use of inheritance to achieve
 device independence. Certain classes like vtkActor are broken into two
 parts: a device independent superclass and a device dependent
 subclass. The trick here is that the user creates a device dependent
@@ -560,7 +560,7 @@ independent superclass. For example we would use (in C++)
 vtkActor \*anActor = vtkActor::New()
 ```
 
-to create a device dependent instance of vtkActor. The user sees no device dependent code, but in actuality anActor is a pointer to a device dependent subclass of vtkActor. **Figure3-25** (b) is a code fragment of the constructor method New() which uses VTK's object factory mechanism. In turn, the vtkGraphicsFactory (used to instantiate graphical classes) produces the appropriate concrete subclass when requested to instantiate an actor as shown in **Figure3-25c**.
+to create a device dependent instance of vtkActor. The user sees no device dependent code, but in actuality anActor is a pointer to a device dependent subclass of vtkActor. **Figure 3-25** (b) is a code fragment of the constructor method New() which uses VTK's object factory mechanism. In turn, the vtkGraphicsFactory (used to instantiate graphical classes) produces the appropriate concrete subclass when requested to instantiate an actor as shown in **Figure 3-25c**.
 
 The use of object factories as implemented using the New() method allows us to create device independent code that can move from computer to computer and adapt to changing technology. For example, if a new graphics library became available, we would only have to create a new device dependent subclass, and then modify the graphics factory to instantiate the appropriate sub-class based on environment variables or other system information. This extension would be localized and only done once, and all applications based on these object factories would be automatically ported without change.
 
@@ -616,7 +616,7 @@ int main( int argc, char *argv[] )
 }
 ```
 
-<figure id="Figure3-26">
+<figure id="Figure 3-26">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/GeometricObjects/TestSourceObjectsDemo.png?raw=true width="640" alt="Figure 3-26">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-26</b>. Examples of source objects that procedurally generate polygonal models. These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check subclasses of &#118;tkPolyDataAlgorithm. <a href="../../Cxx/GeometricObjects/SourceObjectsDemo" title="SourceObjectsDemo"> See SourceObjectsDemo.cxx</a> and <a href="../../Python/GeometricObjects/SourceObjectsDemo" title="SourceObjectsDemo"> SourceObjectsDemo.py</a>.</figcaption>
@@ -626,7 +626,7 @@ Some comments about this example. The include files *vtk__*.h include class defi
 
 The data representing the cone (a set of polygons) in this example is created by linking together a series of objects into a pipeline (which is the topic of the next chapter). First a polygonal representation of the cone is created with a vtkConeSource and serves as input to the data mapper as specified with the SetInput() method. The SetMapper() method associates the mapper's data with the coneActor. The next line adds coneActor to the renderer's list of actors. The cone is rendered in a loop running over 360 o. Since there are no cameras or lights defined in the above example, VTK automatically generates a default light and camera as a convenience to the user. The camera is accessed through the GetActiveCamera() method, and a one degree azimuth is applied as shown. Each time a change is made to any objects a Render() method is invoked to produce the corresponding image. Once the loop is complete all allocated objects are destroyed and the program exits.
 
-There are many different types of source objects in VTK similar to vtkConeSource as shown in **Figure3-26**. In the next chapter we will learn more about source and other types of filters.
+There are many different types of source objects in VTK similar to vtkConeSource as shown in **Figure 3-26**. In the next chapter we will learn more about source and other types of filters.
 
 **Events and Observers.** A visualization toolkit like VTK is frequently used in interactive applications or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the *command/observer* design pattern <em style="color:blue;background-color: white">\[Gamma95\]</em> is used for this purpose.
 
@@ -697,7 +697,7 @@ This simple example does not demonstrate the true power of the command/observer 
 
 **Creating Multiple Renderers.** The next example is a bit more complex and uses multiple renderers that share a single rendering window. We use viewports to define where the renderers should draw in the render window. (This C++ code can be found in Cone3.cxx.)
 
-<figure id="Figure3-27">
+<figure id="Figure 3-27">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestCone3.png?raw=true width="640" alt="Figure 3-27">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-27</b>. Four frames of output from Cone3.cxx.<a href="../../Cxx/Rendering/Cone3" title="Cone3"> See Cone3.cxx</a> and <a href="../../Python/Rendering/Cone3" title="Cone3"> Cone3.py</a>.</figcaption>
@@ -732,11 +732,11 @@ for (i = 0; i < 360; ++i)
 
 As you can see, much of the code is the same as the previous example. The first difference is that we create two renderers instead of one. We assign the same actor to both renderers, but set each renderer's background to a different color. We set the viewport of the two renderers so that one is on the left half of the rendering window and the other is on the right. The rendering window's size is specified as 600 by 300 pixels, which results in each renderer drawing into a viewport of 300 by 300 pixels.
 
-A good application of multiple renderers is to display different views of the same world as demonstrated in this example. Here we adjust the first renderer's camera with a 90 degree azimuth. We then start a loop that rotates the two cameras around the cone. **Figure3-27** shows four frames from this animation. 
+A good application of multiple renderers is to display different views of the same world as demonstrated in this example. Here we adjust the first renderer's camera with a 90 degree azimuth. We then start a loop that rotates the two cameras around the cone. **Figure 3-27** shows four frames from this animation. 
 
 **Properties and Transformations.** The previous examples did not explicitly create property or transformation objects or apply actor methods that affect these objects. Instead, we accepted default instance variable values. This procedure is typical of VTK applications. Most instance variables have been preset to generate acceptable results, but methods are always available for you to overide the default values. 
 
-<figure id="Figure3-28">
+<figure id="Figure 3-28">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestCone4.png?raw=true width="640" alt="Figure 3-28">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-28</b>. Modifying properties and transformation matrix.<a href="../../Cxx/Rendering/Cone4" title="Cone4"> See Cone4.cxx</a> and <a href="../../Python/Rendering/Cone4" title="Cone4"> Cone4.py</a>.</figcaption>
@@ -769,7 +769,7 @@ ren1->AddActor( coneActor2 );
 ren1->SetBackground( 0.1, 0.2, 0.4 );
 ```
 
-We set the actor coneActor properties by modifying the property object automatically created by the actor. This differs from actor coneActor2, where we create a property directly and then assign it to the actor. ConeActor2 is moved from its default position by applying the SetPosition() method. This method affects the transformation matrix that is an instance variable of the actor. The resulting image is shown in **Figure3-28**.
+We set the actor coneActor properties by modifying the property object automatically created by the actor. This differs from actor coneActor2, where we create a property directly and then assign it to the actor. ConeActor2 is moved from its default position by applying the SetPosition() method. This method affects the transformation matrix that is an instance variable of the actor. The resulting image is shown in **Figure 3-28**.
 
 **Introducing vtkRenderWindowInteractor.** The previous examples are not interactive. That is, it is not possible to directly interact with the data without modifying and recompiling the C++ code. One common type of interaction is to change camera position so that we can view our scene from different vantage points. In the *Visualization Toolkit* we have provided a suite of convenient objects to do this: vtkRenderWindowInteractor, vtkInteractorStyle and their derived classes.
 
@@ -791,9 +791,9 @@ After the interactor is created using its New() method, we must tell it what ren
 
 **Interpreted Code.** In the previous example we saw how to create an interactor style object in conjunction with vtkRenderWindowInteractor to enable us to manipulate the camera by mousing in the render window. Although this provides flexibility and interactivity for a large number of applications, there are examples throughout this text where we want to modify other parameters. These parameters range from actor properties, such as color, to the name of an input file. Of course we can always write or modify C++ code to do this, but in many cases the turn-around time between making the change and seeing the result is too long. One way to improve the overall interactivity of the system is to use an interpreted interface. Interpreted systems allow us to modify objects and immediately see the result, without the need to recompile and relink source code. Interpreted languages also provide many tools, such as GUI (Graphical User Interface) tools, that simplify the creation of applications.
 
-The Visualization Toolkit has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in **Figure3-29**. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl.)
+The Visualization Toolkit has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in **Figure 3-29**. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl.)
 
-<figure id="Figure3-29">
+<figure id="Figure 3-29">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-29.png?raw=true width="640" alt="Figure3-29">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-29</b>. In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.</figcaption>
@@ -832,13 +832,13 @@ iren Initialize
 wm withdraw .
 ```
 
-<figure id="Figure3-30">
+<figure id="Figure 3-30">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-30.png?raw=true width="640" alt="Figure3-30">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-30</b>. Using Tcl and Tk to build an interpreted application. </figcaption>
 </figure>
 
-The example begins by loading some shared libraries defining various VTK classes. Next the standard visualization pipeline is created from the vtkConeSource and vtkPolyDataMapper. The rendering classes are created exactly the same as with the C++ example. One major addition is an observer to watch for a UserEvent in the rendering window (by default a "keypress-u"). The observer triggers the invocation of a Tcl script to raise a Tk interactor GUI widget called.vtkInteract. This GUI, which allows the direct typing of Tcl statements, is shown in **Figure3-30** and is defined by the Tcl command package require vtkinteraction which was executed earlier in the script. (Note: Tk is a popular GUI toolkit for interpreted languages and is distributed as part of Tcl.) 
+The example begins by loading some shared libraries defining various VTK classes. Next the standard visualization pipeline is created from the vtkConeSource and vtkPolyDataMapper. The rendering classes are created exactly the same as with the C++ example. One major addition is an observer to watch for a UserEvent in the rendering window (by default a "keypress-u"). The observer triggers the invocation of a Tcl script to raise a Tk interactor GUI widget called.vtkInteract. This GUI, which allows the direct typing of Tcl statements, is shown in **Figure 3-30** and is defined by the Tcl command package require vtkinteraction which was executed earlier in the script. (Note: Tk is a popular GUI toolkit for interpreted languages and is distributed as part of Tcl.) 
 
 As we can see from this example, the number of lines of code is less for the Tcl example than for equivalent C++ code. Also, many of the complexities of C++ are hidden using the interpreted language. Using this user-interface GUI we can create, modify, and delete objects, and modify their instance variables. The resulting changes appear as soon as a Render() method is applied or mouse events in the rendering window cause a render to occur. We encourage you to use Tcl (or one of the other interpreters) for rapid creation of graphics and visualization examples. C++ is best used when you desire higher performing applications.
 
@@ -871,9 +871,9 @@ The order of the transformations is important. In VTK the rotations are ordered 
 
 Probably the most confusing aspect of transformations are rotations and their effect on the Orientation instance variable. Generally orientations are not set directly by the user, and most users will prefer to specify rotations with the RotateX(), RotateY(), and RotateZ() methods. These methods perform rotations about the *x*, *y*, and *z* axes in an order specified by the user. New rotations are applied to the right of the rotation transformation. If you need to rotate your actor about a single axis, the actor will rotate exactly as you expect it will, and the resulting orientation vector will be as expected. For example, the operation RotateY(20) will produce an orientation of (0,20,0) and a RotateZ(20) will produce (0,0,20). However, a RotateY(20) followed by a RotateZ(20) will not produce (0,20,20) but produce an orientation of (6.71771, 18.8817, 18.8817)! This is because the rotation portion of **Equation3-14** is built from the rotation order z, then x, and then y. To verify this, a RotateZ(20) followed by a RotateY(20) does produce an orientation of (0,20,20). Adding a third rotation can be even more confusing.
 
-A good rule of thumb is to only use the SetOrientation() method to either reset the orientation to (0,0,0) or to set just one of the rotations. The RotateX(), RotateY(), and RotateZ() methods are preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. **Figure3-31** illustrates the use of the rotation methods. We turn off the erase between frames using the render window’s EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own y axis even though an x axis rotation preceded the y rotation.
+A good rule of thumb is to only use the SetOrientation() method to either reset the orientation to (0,0,0) or to set just one of the rotations. The RotateX(), RotateY(), and RotateZ() methods are preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. **Figure 3-31** illustrates the use of the rotation methods. We turn off the erase between frames using the render window’s EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own y axis even though an x axis rotation preceded the y rotation.
 
-<figure id="Figure3-31">
+<figure id="Figure 3-31">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestRotations.png?raw=true width="640" alt="Figure 3-31">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-31</b>. Rotations of a cow about her axes. In this model, the *x* axis is from the left to right; the *y* axis is from bottom to top; and the *z* axis emerges from the image. The camera location is the same in all four images. <a href="../../Cxx/Rendering/Rotations" title="Rotations"> See Rotations.cxx</a> and <a href="../../Python/Rendering/Rotations" title="Rotations"> Rotations.py</a>.</figcaption>
@@ -934,22 +934,22 @@ T=T_T(0,0,5-(-5))T_{R_y}T_ST_T(0,0,-(-5))
 \bf\tag{3-16}
 $$
 
-Canceling the minus signs in the right-most translation matrix and combining the position and origin translation produce the equivalent transform that we built with vtkTranform. **Figure3-32** shows the cow rotating with the specified transformation order. Your preference is a matter of taste and how comfortable you are with matrix transformations. As you become more skilled (and your demands are greater) you may prefer to always build your transformations. VTK gives you the choice.
+Canceling the minus signs in the right-most translation matrix and combining the position and origin translation produce the equivalent transform that we built with vtkTranform. **Figure 3-32** shows the cow rotating with the specified transformation order. Your preference is a matter of taste and how comfortable you are with matrix transformations. As you become more skilled (and your demands are greater) you may prefer to always build your transformations. VTK gives you the choice.
 
-There is one final and powerful operation that affects an actor's orientation. You can rotate an actor about an arbitrary vector positioned at the actor's origin. This is done with the actor's (and transform's) RotateWXYZ() method. The first argument of the operation specifies the number of degrees to rotate about the vector specified by the next three arguments. **Figure3-33** shows how to rotate the cow about a vector passing through her nose. At first, we leave the origin at (0,0,0). This is obviously not what we wanted. The second figure shows the rotation when we change the cow's rotation origin to the tip of her nose.
+There is one final and powerful operation that affects an actor's orientation. You can rotate an actor about an arbitrary vector positioned at the actor's origin. This is done with the actor's (and transform's) RotateWXYZ() method. The first argument of the operation specifies the number of degrees to rotate about the vector specified by the next three arguments. **Figure 3-33** shows how to rotate the cow about a vector passing through her nose. At first, we leave the origin at (0,0,0). This is obviously not what we wanted. The second figure shows the rotation when we change the cow's rotation origin to the tip of her nose.
 
-<figure id="Figure3-32">
+<figure id="Figure 3-32">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestWalkCow.png?raw=true width="640" alt="Figure 3-32">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-32</b>. The cow "walking" around the global origin. <a href="../../Cxx/Rendering/WalkCow" title="WalkCow"> See WalkCow.cxx</a> and <a href="../../Python/Rendering/WalkCow" title="WalkCow"> WalkCow.py</a>.</figcaption>
 </figure>
 
-<figure id="Figure3-33">
- <figure id="Figure3-33a">
+<figure id="Figure 3-33">
+ <figure id="Figure 3-33a">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestWalkCowA.png?raw=true width="640" alt="Figure 3-33a">
   <figcaption style="color:blue">(a)</figcaption>
  </figure>
-<figure id="Figure3-33"b>
+<figure id="Figure 3-33"b>
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestWalkCowB.png?raw=true width="640" alt="Figure 3-33b">
  <figcaption style="color:blue">(b)</figcaption>
 </figure>
@@ -958,7 +958,7 @@ There is one final and powerful operation that affects an actor's orientation. Y
 
 ## Assemblies and Other Types of vtkProp
 
-Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an *assembly* in VTK. vtkAssembly is just one of many actor-like classes in VTK. As **Figure3-34** shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding *parts* to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see "Transformation Matri-ces" on page70 ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
+Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an *assembly* in VTK. vtkAssembly is just one of many actor-like classes in VTK. As **Figure 3-34** shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding *parts* to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see "Transformation Matri-ces" on page70 ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
 
 ``` tcl
 vtkSphereSource sphere
@@ -1008,7 +1008,7 @@ ren1 AddActor assembly
 ren1 AddActor coneActor
 ```
 
-<figure id="Figure3-34">
+<figure id="Figure 3-34">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-34.png?raw=true width="640" alt="Figure3-34">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-34</b>. Figure 3–34 The &#118;tkProp hierarchy. Props that can be transformed in 3D space are a subclass of &#118;tkProp3D. Images can be drawn effectively with &#118;tkImageActor. Overlay text and graphics use &#118;tkActor2D. Hierarchical groups of &#118;tkProps are gathered into a &#118;tkPropAssembly. Volume rendering uses &#118;tkVolume. Collections of transformable props create a &#118;tkAssembly. Level-of-detail rendering uses &#118;tkLODProp3D and &#118;tkLODActor. A &#118;tkFollower allows faces a specified camera and is used for billboards.</figcaption>
@@ -1016,7 +1016,7 @@ ren1 AddActor coneActor
 
 Note that in this example various actors are added to the assembly with the AddPart() method. The top-level element of the assembly is the only prop in the hierarchy added to the renderer (with AddActor() ). Note also that the coneActor appears twice: once as a part of the assembly, and once as a separate actor added to the renderer with AddActor(). As you might imagine, this means that the rendering of assemblies requires concatenation of transformation matrices to insure the correct positioning of each vtkProp3D. Furthermore, hierarchical assemblies require special treatment during picking (i.e., graphically selecting props) since a vtkProp can appear more than once in differ-ent assembly hierarchies. Picking issues are discussed in more detail in "Picking" on page308.
 
-As **Figure3-34** indicates, there are other types of vtkProp as well. Most of these will be informally described in the many examples found in this book. In particular, extensive coverage is given to vtkVolume when we describe volume rendering (see "Volume Rendering " on page218 ).
+As **Figure 3-34** indicates, there are other types of vtkProp as well. Most of these will be informally described in the many examples found in this book. In particular, extensive coverage is given to vtkVolume when we describe volume rendering (see "Volume Rendering " on page218 ).
 
 ## 3.11 Chapter Summary
 
@@ -1079,7 +1079,7 @@ difficulties in determining the odds of a ray of light traveling from
 the sun to hit the picnic blanket and then entering a viewer's eye?
 
 3.3 The color cyan can be represented in both the HSV and RGB color
-spaces as shown in **Figure3-4**. These two representations for cyan
+spaces as shown in **Figure 3-4**. These two representations for cyan
 do not yield the same wavelength intensity plots. How do they differ?
 
 3.4 The vtkSphereSource class generates a polygonal model of a sphere.

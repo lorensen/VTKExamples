@@ -2,19 +2,19 @@
 
 **W**e have described the design and implementation of an extensive toolkit of visualization techniques. In this chapter we examine several case studies to show how to use these tools to gain insight into important application areas. These areas are medical imaging, financial visualization, modelling, computational fluid dynamics, finite element analysis, and algorithm visualization. For each case, we briefly describe the problem domain and what information we expect to obtain through visualization. Then we craft an approach to show the results. Many times we will extend the functionality of the *Visualization Toolkit* with application-specific tools. Finally, we present a sample program and show resulting images.
 
-The visualization design process we go through is similar in each case. First, we read or generate application-specific data and transform it into one of the data representation types in the *Visualization Toolkit* . Often this first step is the most difficult one because we have to write custom computer code, and decide what form of visualization data to use. In the next step, we choose visualizations for the relevant data within the application. Sometimes this means choosing or creating models corresponding to the physical structure. Examples include spheres for atoms, polygonal surfaces to model physical objects, or computational surfaces to model flow boundaries. Other times we generate more abstract models, such as isosurfaces or glyphs, corresponding to important application data. In the last step we combine the physical components with the abstract components to create a visualization that aids the user in understanding the data.
+The visualization design process we go through is similar in each case. First, we read or generate application-specific data and transform it into one of the data representation types in the *Visualization Toolkit*. Often this first step is the most difficult one because we have to write custom computer code, and decide what form of visualization data to use. In the next step, we choose visualizations for the relevant data within the application. Sometimes this means choosing or creating models corresponding to the physical structure. Examples include spheres for atoms, polygonal surfaces to model physical objects, or computational surfaces to model flow boundaries. Other times we generate more abstract models, such as isosurfaces or glyphs, corresponding to important application data. In the last step we combine the physical components with the abstract components to create a visualization that aids the user in understanding the data.
 
 ## 12.1 3D Medical Imaging
 
 Radiology is a medical discipline that deals with images of human anatomy. These images come from a variety of medical imaging devices, including X-ray, X-ray Computed Tomography (CT), Magnetic Resonance Imaging (MRI), and ultrasound. Each imaging technique, called an imaging modality, has particular diagnostic strengths. The choice of modality is the job of the radiologist and the referring physician. For the most part, radiologists deal with two-dimensional images, but there are situations when three-dimensional models can assist the radiologist's diagnosis. Radiologists have special training to interpret the two dimensional images and understand the complex anatomical relationships in these two-dimensional representations. However, in dealing with referring physicians and surgeons, the radiologist sometimes has difficulty communicating these relationships. After all, a surgeon works in three-dimensions during the planning and execution of an operation; moreover, they are much more comfortable looking at and working with three-dimensional models.
 
-<figure id="Figure12-1">
+<figure id="Figure 12-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure12-1.png?raw=true width="640" alt="Figure 12-1">
 </figure>
 <figcaption style="color:blue"><b>Figure 12-1</b>. A CT slice through a human head.</figcaption>
 </figure>
 
-This case study deals with CT data. Computed tomography measures the attenuation of X-rays as they pass through the body. A CT image consists of levels of gray that vary from black (for air), to gray (for soft tissue), to white (for bone). **Figure12--1** shows a CT cross section through a head. This slice is taken perpendicular to the spine approximately through the middle of the ears.  The gray boundary around the head clearly shows the ears and bridge of the nose. The dark regions on the interior of the slice are the nasal passages and ear canals. The bright areas are bone. This study contains 93 such slices, spaced 1.5 mm apart. Each slice has $256*^2$ pixels spaced 0.8 mm apart with 12 bits of gray level.
+This case study deals with CT data. Computed tomography measures the attenuation of X-rays as they pass through the body. A CT image consists of levels of gray that vary from black (for air), to gray (for soft tissue), to white (for bone). **Figure 12-1** shows a CT cross section through a head. This slice is taken perpendicular to the spine approximately through the middle of the ears.  The gray boundary around the head clearly shows the ears and bridge of the nose. The dark regions on the interior of the slice are the nasal passages and ear canals. The bright areas are bone. This study contains 93 such slices, spaced 1.5 mm apart. Each slice has $256*^2$ pixels spaced 0.8 mm apart with 12 bits of gray level.
 
 Our challenge is to take this gray scale data (over 12 megabytes) and convert it into information that will aid the surgeon. Fortunately, our visualization toolkit has just the right techniques. We will use isocontouring techniques to extract the skin and bone surfaces and display orthogonal cross-sections to put the isosurface in context. From experience we know that a density value of 500 will define the air/skin boundary, and a value of 1150 will define the soft tissue/bone boundary. In VTK terminology, medical imaging slice data is image data. Recall from Chapter 5 that for image data, the topology and geometry of the data is implicitly known, requiring only dimensions, an origin, and the data spacing.
 
@@ -29,13 +29,13 @@ three-dimensional medical studies.
 
 4.  Render the models.
 
-This case study describes in detail how to read input data and extract anatomical features using iso-contouring. Orthogonal planes will be shown using a texture-based technique. Along the way we will also show you how to render the data. We finish with a brief discussion of medical data transformations. This complete source code for the examples shown in this section are available from Medical1.cxx , Medical2.cxx , and Medical3.cxx.
+This case study describes in detail how to read input data and extract anatomical features using iso-contouring. Orthogonal planes will be shown using a texture-based technique. Along the way we will also show you how to render the data. We finish with a brief discussion of medical data transformations. This complete source code for the examples shown in this section are available from Medical1.cxx, Medical2.cxx, and Medical3.cxx.
 
 **Read the Input**
 
-Medical images come in many flavors of file formats. This study is stored as flat files without header information. Each 16-bit pixel is stored with little-endian byte order. Also, as is often the case, each slice is stored in a separate file with the file suffix being the slice number of the form prefix.1 , prefix.2 *,* and so on. Medical imaging files often have a header of a certain size before the image data starts. The size of the header varies from file format to file format. Finally, another complication is that sometimes one or more bits in each 16-bit pixel is used to mark connectivity between voxels. It is important to be able to mask out bits as they are read.
+Medical images come in many flavors of file formats. This study is stored as flat files without header information. Each 16-bit pixel is stored with little-endian byte order. Also, as is often the case, each slice is stored in a separate file with the file suffix being the slice number of the form prefix.1, prefix.2 *,* and so on. Medical imaging files often have a header of a certain size before the image data starts. The size of the header varies from file format to file format. Finally, another complication is that sometimes one or more bits in each 16-bit pixel is used to mark connectivity between voxels. It is important to be able to mask out bits as they are read.
 
-VTK provides several image readers including one that can read raw formats of the type described above--- vtkVolume16Reader . To read this data we instantiate the class and set the appropriate instance variables as follows.
+VTK provides several image readers including one that can read raw formats of the type described above--- vtkVolume16Reader. To read this data we instantiate the class and set the appropriate instance variables as follows.
 
 ``` c++
 vtkVolume16Reader *v16 = vtkVolume16Reader::New();
@@ -65,8 +65,8 @@ The flow in the program is similar to most VTK applications.
 
 5.  Render the results.
 
-The filter we have chosen to use is vtkMarchingCubes . We could also use vtkContourFilter since it will automatically create an instance of vtkMarchingCubes as it delegates to the fastest subclass for a particular dataset type. The class vtkPolyDataNormals is used to generate nice surface normals for the data. vtkMarchingCubes can also generate normals, but sometimes better results are achieved when the normals are directly from the surface (vtkPolyDataNormals ) versus from the data (vtkMarchingCubes ). To complete this example, we take the output from the isosurface generator vtkMarchingCubes and connect it to a mapper and actor via
-vtkPolyDataMapper and vtkActor . The C++ code follows.
+The filter we have chosen to use is vtkMarchingCubes. We could also use vtkContourFilter since it will automatically create an instance of vtkMarchingCubes as it delegates to the fastest subclass for a particular dataset type. The class vtkPolyDataNormals is used to generate nice surface normals for the data. vtkMarchingCubes can also generate normals, but sometimes better results are achieved when the normals are directly from the surface (vtkPolyDataNormals ) versus from the data (vtkMarchingCubes ). To complete this example, we take the output from the isosurface generator vtkMarchingCubes and connect it to a mapper and actor via
+vtkPolyDataMapper and vtkActor. The C++ code follows.
 
 ``` c++
 vtkContourFilter *skinExtractor = vtkContourFilter::New();
@@ -117,24 +117,24 @@ iren->Initialize();
 iren->Start();
 ```
 
-<figure id="Figure12-2">
+<figure id="Figure 12-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png?raw=true width="640" alt="Figure 12-2">
 </figure>
 <figcaption style="color:blue"><b>Figure 12-2</b>. The skin extracted from a CT dataset of the head. <a href="../../Cxx/Medical/MedicalDemo1" title="MedicalDemo1"> See MedicalDemo1.cxx</a> and <a href="../../Python/Medicala/MedicalDemo1" title="MedicalDemo1"> MedicalDemo1.py</a>.</figcaption>
 </figure>
 
 To provide context for the isosurface an outline is created around the data. An initial view is set up  in a window size of 640 x 480 pixels. Since the dolly command moves the camera towards the data, the clipping planes are reset to insure that the isosurface is
-completely visible. **Figure12--2** shows the resulting image of the patient's skin.
+completely visible. **Figure 12-2** shows the resulting image of the patient's skin.
 
-We can improve this visualization in a number of ways. First, we can choose a more appropriate color (and other surface properties) for the skin. We use the vtkProperty method SetDiffuseColor() to set the skin color to a fleshy tone. We also add a specular component to the skin surface. Next, we can add additional isosurfaces corresponding to various anatomical features. Here we choose to extract the bone surface by adding an additional pipeline segment. This consists of the filters vtkMarchingCubes , vtkPolyDataMapper , and vtkActor , just as we did with the skin. Finally, to improve rendering performance on our system, we create triangle strips from the output of the contouring process. This requires adding vtkStripper.
+We can improve this visualization in a number of ways. First, we can choose a more appropriate color (and other surface properties) for the skin. We use the vtkProperty method SetDiffuseColor() to set the skin color to a fleshy tone. We also add a specular component to the skin surface. Next, we can add additional isosurfaces corresponding to various anatomical features. Here we choose to extract the bone surface by adding an additional pipeline segment. This consists of the filters vtkMarchingCubes, vtkPolyDataMapper, and vtkActor, just as we did with the skin. Finally, to improve rendering performance on our system, we create triangle strips from the output of the contouring process. This requires adding vtkStripper.
 
-<figure id="Figure12-3">
+<figure id="Figure 12-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png?raw=true width="640" alt="Figure 12-3">
 </figure>
 <figcaption style="color:blue"><b>Figure 12-3</b>. Skin and bone isosurfaces. <a href="../../Cxx/Medical/MedicalDemo2" title="MedicalDemo2"> See MedicalDemo2.cxx</a> and <a href="../../Python/Medical/MedicalDemo2" title="MedicalDemo2"> MedicalDemo2.py</a>.</figcaption>
 </figure>
 
-**Figure12--3** shows the resulting image, and the following is the
+**Figure 12-3** shows the resulting image, and the following is the
 C++ code for the pipeline.
 
 ``` c++
@@ -188,13 +188,13 @@ vtkLookupTable *satLut = vtkLookupTable::New();
    satLut->SetValueRange (1, 1);
 ```
 
-<figure id="Figure12-4">
+<figure id="Figure 12-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo3.png?raw=true width="640" alt="Figure 12-4">
 </figure>
 <figcaption style="color:blue"><b>Figure 12-4</b>. Composite image of three planes and translucent skin. <a href="../../Cxx/Medical/MedicalDemo3" title="MedicalDemo3"> See MedicalDemo3.cxx</a> and <a href="../../Python/Medical/MedicalDemo3" title="MedicalDemo3"> MedicalDemo3.py</a>.</figcaption>
 </figure>
 
-The image data is mapped to colors using the filter vtkImageMapToColors in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor (see "Assemblies and Other Types of vtkProp" on page74 for more information) . This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageA-ctor is set appropriately. The C++ code is as follows:
+The image data is mapped to colors using the filter vtkImageMapToColors in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor (see "Assemblies and Other Types of vtkProp" on page74 for more information). This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageActor is set appropriately. The C++ code is as follows:
 
 ``` c++
 // saggital
@@ -235,7 +235,7 @@ aRenderer->AddActor(bone);
 aRenderer->AddActor(skin);
 ```
 
-**Figure12--4** shows the resulting composite image.
+**Figure 12-4** shows the resulting composite image.
 
 In this example, the actor named skin is rendered last because we are using a translucent surface. Recall from "Transparency and Alpha Values" on page213 that we must order the polygons  composing transparent surfaces for proper results. We render the skin last by adding it to aRenderer's actor list last.
 
@@ -245,27 +245,27 @@ We need to make one last point about processing medical imaging data. Medical im
 
 The previous example described how to create models from gray-scale medical imaging data. The techniques for extracting bone and skin models is straightforward compared to the task of generating models of other soft tissue. The reason is that magnetic resonance and, to some extent, computed tomography, generates similar gray-scale values for different tissue types. For example, the liver and kidney in a medical computed tomography volume often have overlapping intensities. Likewise, many different tissues in the brain have overlapping intensities when viewed with magnetic resonance imaging. To deal with these problems researchers apply a process called *segmentation* to identify different tissues. These processes vary in sophistication from almost completely automatic methods to manual tracing of images. Segmentation continues to be a hot research area. Although the segmentation process itself is beyond the scope of this text, in this case study we show how to process segmented medical data.
 
-For our purposes we assume that someone (or many graduate students) have laboriously labeled each pixel in each slice of a volume of data with a tissue identifier. This identifier is an integer number that describes which tissue class each pixel belongs to. For example, we may be given a series of MRI slices of the knee with tissue numbers defining the meniscus, femur, muscles, and so forth. **Figure12--5** shows two representations of a slice from a volume acquired from a patient's knee. The image on the left is the original MRI slice; the image on the right contains tissue labels for a number of important organs. The bottom image is a composite of the two images.
+For our purposes we assume that someone (or many graduate students) have laboriously labeled each pixel in each slice of a volume of data with a tissue identifier. This identifier is an integer number that describes which tissue class each pixel belongs to. For example, we may be given a series of MRI slices of the knee with tissue numbers defining the meniscus, femur, muscles, and so forth. **Figure 12-5** shows two representations of a slice from a volume acquired from a patient's knee. The image on the left is the original MRI slice; the image on the right contains tissue labels for a number of important organs. The bottom image is a composite of the two images.
 
-<figure id="Figure12-5">
+<figure id="Figure 12-5">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure12-5.png?raw=true width="640" alt="Figure 3-1">
 </figure>
 <figcaption style="color:blue"><b>Figure 12-5</b>. Magnetic Resonance Image  of a knee(left); segmented tissue(right); composite (bottom).(Data and segmentation courtesy of Brigham and Women’s Hospital Surgical Planning Lab.)</figcaption>
 </figure>
 
-Notice the difference in the information presented by each representation. The original slice shows gradual changes at organ borders, while the segmented slice has abrupt changes. The images we processed in the previous CT example used marching cubes isocontouring algorithm and an intensity threshold to extract the isosurfaces. The segmented study we present has integer labels that have a somewhat arbitrary numeric value. Our goal in this example is to somehow take the tissue labels and create grayscale slices that we can process with the same techniques we used previ-ously. Another goal is to show how image processing and visualization can work together in an application.
+Notice the difference in the information presented by each representation. The original slice shows gradual changes at organ borders, while the segmented slice has abrupt changes. The images we processed in the previous CT example used marching cubes isocontouring algorithm and an intensity threshold to extract the isosurfaces. The segmented study we present has integer labels that have a somewhat arbitrary numeric value. Our goal in this example is to somehow take the tissue labels and create grayscale slices that we can process with the same techniques we used previously. Another goal is to show how image processing and visualization can work together in an application.
 
 **The Virtual Frog**
 
-To demonstrate the processing of segmented data we will use a dataset derived from a frog. This data was prepared at Lawrence Berkeley National Laboratories and is included with their permission on the CD-ROM accompanying this book. The data was acquired by physically slicing the frog and photographing the slices. The original segmented data is in the form of tissue masks with one file per tissue. There are 136 slices per tissue and 15 different tissues. Each slice is 470 by 500 pixels. (To accommodate the volume readers we have in VTK, we processed the mask files and combined them all in one file for each slice.) We used integer numbers 1--15 to represent the 15 tissues. **Figure12--6** shows an original slice, a labeled slice, and a composite of the two representations.
+To demonstrate the processing of segmented data we will use a dataset derived from a frog. This data was prepared at Lawrence Berkeley National Laboratories and is included with their permission on the CD-ROM accompanying this book. The data was acquired by physically slicing the frog and photographing the slices. The original segmented data is in the form of tissue masks with one file per tissue. There are 136 slices per tissue and 15 different tissues. Each slice is 470 by 500 pixels. (To accommodate the volume readers we have in VTK, we processed the mask files and combined them all in one file for each slice.) We used integer numbers 1--15 to represent the 15 tissues. **Figure 12-6** shows an original slice, a labeled slice, and a composite of the two representations.
 
-<figure id="Figure12-6">
+<figure id="Figure 12-6">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestFrogSlice.png?raw=true width="640" alt="Figure 12-6">
 </figure>
 <figcaption style="color:blue"><b>Figure 12-6</b>. Photographic slice of frog (upper left), segmented frog (upper right) and composite of photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow. <a href="../../Cxx/Visualization/FrogSlice" title="FrogSlice"> See FrogSlice.cxx</a> and <a href="../../Python/Visualization/FrogSlice" title="FrogSlice"> FrogSlice.py</a>.</figcaption>
 </figure>
 
-Before we describe the process to go from binary labeled tissues to gray-scale data suitable for isosurface extraction, compare the two images of the frog's brain shown in **Figure12--7** . On the left is a surface extracted using a binary labeling of the brain. The right image was created using the visualization pipeline that we will develop in this example.
+Before we describe the process to go from binary labeled tissues to gray-scale data suitable for isosurface extraction, compare the two images of the frog's brain shown in **Figure 12-7**. On the left is a surface extracted using a binary labeling of the brain. The right image was created using the visualization pipeline that we will develop in this example.
 
 **Developing a Strategy**
 
@@ -280,15 +280,15 @@ PIXEL\_SIZE 1
 SPACING 1.5
 ```
 
-plus possibly many more parameters to control decimation, smoothing, and so forth. Working in C++, we would have to design the format of the file and write code to interpret the statements. We make the job easier here by using Tcl interpreter. Another decision is to separate the modelling from the rendering. Our script will generate models in a "batch" mode. We will run one VTK Tcl script for each tissue. That script will create a .vtk output file containing the polygonal representation of each tissue. Later, we can render the models with a separate script.
+plus possibly many more parameters to control decimation, smoothing, and so forth. Working in C++, we would have to design the format of the file and write code to interpret the statements. We make the job easier here by using Tcl interpreter. Another decision is to separate the modelling from the rendering. Our script will generate models in a "batch" mode. We will run one VTK Tcl script for each tissue. That script will create a vtk output file containing the polygonal representation of each tissue. Later, we can render the models with a separate script.
 
 **Overview of the Pipeline**
 
-**Figure12--8** shows the design of the pipeline. This generic pipeline has been developed over the years in our laboratory and in the Brigham and Women's Hospital Surgical Planning Lab. We find that it produces reasonable models from segmented datasets. Do not be intimidated by the number of filters (twelve in all). Before we developed VTK, we did similar processing with a hodgepodge of programs all written with different interfaces. We used intermediate files to pass data from one filter to the next. The new pipeline, implemented in VTK, is more efficient in time and computing resources.
+**Figure 12-8** shows the design of the pipeline. This generic pipeline has been developed over the years in our laboratory and in the Brigham and Women's Hospital Surgical Planning Lab. We find that it produces reasonable models from segmented datasets. Do not be intimidated by the number of filters (twelve in all). Before we developed VTK, we did similar processing with a hodgepodge of programs all written with different interfaces. We used intermediate files to pass data from one filter to the next. The new pipeline, implemented in VTK, is more efficient in time and computing resources.
 
 We start by developing Tcl scripts to process the volume data. In these scripts, we use the convention that user-specified variables are in capital letters. First we show the elements of the pipeline and subsequently show sample files that extract 3D models of the frog's tissues.
 
-<figure id="Figure12-7">
+<figure id="Figure 12-7">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestViewFrogBoth.png?raw=true width="640" alt="Figure 12-7">
 </figure>
 <figcaption style="color:blue"><b>Figure 12-7</b>. The frog's brain. Model extracted without smoothing (left) and with smoothing (right). <a href="../../Cxx/Visualization/ViewFrogBoth" title="ViewFrogBoth"> See ViewFrogBoth.cxx</a> and <a href="../../Python/Visualization/ViewFrogBoth" title="ViewFrogBoth"> ViewFrogBoth.py</a>.</figcaption>
@@ -302,7 +302,7 @@ The SetTransform() method defines how to arrange the data in memory. Medical ima
 
 All the other parameters are self-explanatory except for the last. In this script, we know that the pipeline will only be executed once. To conserve memory, we invoke the ReleaseDataFlagOn() method. This allows the VTK pipeline to release data once it has been processed by a filter. For large medical datasets, this can mean the difference between being able to process a dataset or not.
 
-**Figure 12--8** The segmented volume to triangle pipeline. Volume
+**Figure 12-8** The segmented volume to triangle pipeline. Volume
 passes through image pipeline before isosurface extraction (
 frogSegmentation.tcl ).
 
@@ -328,7 +328,7 @@ reader SetTransform \$SLICE\_ORDER
 
 **Remove Islands**
 
-Some segmentation techniques, especially those that are automatic, may generate islands of mis-classified voxels. This filter looks for connected pixels with the ISLAND\_REPLACE label, and if the number of connected pixels is less than ISLAND\_AREA , it replaces them with the label TISSUE . Note that this filter is only executed if ISLAND\_REPLACE is positive.
+Some segmentation techniques, especially those that are automatic, may generate islands of misclassified voxels. This filter looks for connected pixels with the ISLAND\_REPLACE label, and if the number of connected pixels is less than ISLAND\_AREA, it replaces them with the label TISSUE. Note that this filter is only executed if ISLAND\_REPLACE is positive.
 
 ``` tcl
 set lastConnection reader
@@ -360,7 +360,7 @@ selectTissue SetInputConnection \[\$lastConnection GetOutputPort\]
 
 **Resample the Volume**
 
-Lower resolution volumes produce fewer polygons. For experimentation we often reduce the reso-lution of the data with this filter. However, details can be lost during this process. Averaging creates new pixels in the resampled volume by averaging neighboring pixels. If averaging is turned off, every SAMPLE\_RATE pixel will be passed through to the output.
+Lower resolution volumes produce fewer polygons. For experimentation we often reduce the resolution of the data with this filter. However, details can be lost during this process. Averaging creates new pixels in the resampled volume by averaging neighboring pixels. If averaging is turned off, every SAMPLE\_RATE pixel will be passed through to the output.
 
 ``` tcl
 vtkImageShrink3D shrinker
@@ -392,7 +392,7 @@ lastConnection gaussian
 
 **Generate Triangles**
 
-Now we can process the volume with marching cubes just as though we had obtained gray-scale data from a scanner. We added a few more bells and whistles to the pipeline. The filter runs faster if we turn off gradient and normal calculations. Marching cubes normally calculates vertex normals from the gradient of the volume data. In our pipeline, we have concocted a gray-scale representa-tion and will subsequently decimate the triangle mesh and smooth the resulting vertices. This pro-cessing invalidates the normals that are calculated by marching cubes. 
+Now we can process the volume with marching cubes just as though we had obtained gray-scale data from a scanner. We added a few more bells and whistles to the pipeline. The filter runs faster if we turn off gradient and normal calculations. Marching cubes normally calculates vertex normals from the gradient of the volume data. In our pipeline, we have concocted a gray-scale representation and will subsequently decimate the triangle mesh and smooth the resulting vertices. This processing invalidates the normals that are calculated by marching cubes. 
 ``` tcl
 vtkMarchingCubes mcubes
 mcubes SetInputConnection \[toStructuredPoints GetOutputPort\]
@@ -407,7 +407,7 @@ eval mcubes SetValue 0 \$VALUE
 
 **Reduce the Number of Triangles**
 
-There are often many more triangles generated by the isosurfacing algorithm than we need for ren-dering. Here we reduce the triangle count by eliminating triangle vertices that lie within a user-specified distance to the plane formed by neighboring vertices. We preserve any edges of triangles that are considered "features."
+There are often many more triangles generated by the isosurfacing algorithm than we need for rendering. Here we reduce the triangle count by eliminating triangle vertices that lie within a user-specified distance to the plane formed by neighboring vertices. We preserve any edges of triangles that are considered "features."
 
 ``` tcl
 vtkDecimatePro decimator
@@ -441,7 +441,7 @@ smoother SetConvergence 0
 
 **Generate Normals**
 
-To generate smooth shaded models during rendering, we need normals at each vertex. As in deci-mation, sharp edges can be retained by setting the feature angle.
+To generate smooth shaded models during rendering, we need normals at each vertex. As in decimation, sharp edges can be retained by setting the feature angle.
 
 ``` tcl
 vtkPolyDataNormals normals
@@ -486,7 +486,7 @@ causes the pipeline to execute. In practice we do a bit more than just Update th
 **Specifying Parameters for the Pipeline**
 
 All of the variables mentioned above must be defined for each tissue
-to be processed. The parameters fall into two general categories. Some are specific to the particular study while some are specific to each tissue. For the frog, we collected the study-specific parameters in a file frog.tcl that contains:
+to be processed. The parameters fall into two general categories. Some are specific to the particular study while some are specific to each tissue. For the frog, we collected the studyspecific parameters in a file frog.tcl that contains:
 
 ``` tcl
 set SLICE\_ORDER hfsi
@@ -506,7 +506,7 @@ set SMOOTH\_FACTOR .01
 set FEATURE\_ANGLE 60
 ```
 
-There is a specific file for each tissue type. This tissue-specific file reads in the frog-specific param-eters, sets tissue-specific parameters, and then reads the pipeline script (we call it  frogSegmentation.tcl ). For example, liver.tcl contains:
+There is a specific file for each tissue type. This tissue-specific file reads in the frog-specific parameters, sets tissue-specific parameters, and then reads the pipeline script (we call it  frogSegmentation.tcl ). For example, liver.tcl contains:
 
 ``` tcl
 source frog.tcl
@@ -518,7 +518,7 @@ set VOI "167 297 154 304 \$START\_SLICE \$END\_SLICE"
 source frogSegmentation.tcl
 ```
 
-Parameters in frog.tcl can also be overridden. For example, skeleton.tcl overrides the stan-dard deviation for the Gaussian filter.
+Parameters in frog.tcl can also be overridden. For example, skeleton.tcl overrides the standard deviation for the Gaussian filter.
 
 ``` tcl
 source frog.tcl
@@ -535,9 +535,9 @@ source frogSegmentation.tcl
 
 Note that both of these examples specify a volume of interest. This improves performance of the imaging and visualization algorithms by eliminating empty space.
 
-Another script, marchingFrog.tcl , uses similar parameters but processes the original gray-scale volume rather than the segmented volume. This script is used in skin.tcl to extract the skin. The file marchingFrog.tcl does not have the island removal or threshold pipeline elements since the data is already has gray-scale information.
+Another script, marchingFrog.tcl, uses similar parameters but processes the original gray-scale volume rather than the segmented volume. This script is used in skin.tcl to extract the skin. The file marchingFrog.tcl does not have the island removal or threshold pipeline elements since the data is already has gray-scale information.
 
-Once the models are generated with the process just outlined, they can be rendered using the following tcl script called ViewFrog.tcl . First we create a Tcl procedure to automate the creation of actors from the model files. All the pipeline elements are named consistently with the name of the part followed by the name of the pipeline element. This makes it easy for the user to identify each object in more sophisticated user interfaces.
+Once the models are generated with the process just outlined, they can be rendered using the following tcl script called ViewFrog.tcl. First we create a Tcl procedure to automate the creation of actors from the model files. All the pipeline elements are named consistently with the name of the part followed by the name of the pipeline element. This makes it easy for the user to identify each object in more sophisticated user interfaces.
 
 ``` tcl
 proc mkname {a b} {return \$a\$b}
@@ -619,12 +619,12 @@ iren SetUserMethod {wm deiconify .vtkInteract}
 -   prevent the tk window from showing up wm withdraw .
 ```
 
-<figure id="Figure12-9">
- <figure id="Figure12-9"a>
+<figure id="Figure 12-9">
+ <figure id="Figure 12-9"a>
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestViewFrogSkinAndTissue.png?raw=true width="640" alt="Figure 12-9a">
   <figcaption style="color:blue">(a) All frog parts and translucent skin.</figcaption>
  </figure>
-<figure id="Figure12-9b">
+<figure id="Figure 12-9b">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestViewFrog.png?raw=true width="640" alt="Figure 12-9b">
  <figcaption style="color:blue">(b) The comnplete frog without skin.</figcaption>
 </figure>
@@ -635,7 +635,7 @@ iren SetUserMethod {wm deiconify .vtkInteract}
 <figcaption style="color:blue"><b>Figure 12-9</b>. Various frog images. (a) <a href="../../Cxx/Visualization/ViewFrogSkinAndTissue" title="ViewFrogSkinAndTissue"> See ViewFrogSkinAndTissue.cxx</a> and <a href="../../Python/Visualization/ViewFrogSkinAndTissue" title="ViewFrogSkinAndTissue"> ViewFrogSkinAndTissue.py</a>.; (b).<a href="../../Cxx/Visualization/ViewFrog" title="ViewFrog"> See ViewFrog.cxx</a> and <a href="../../Python/Visualization/ViewFrog" title="ViewFrog"> ViewFrog.py</a>.; (c)<a href="../../Cxx/Visualization/ViewFrogA" title="ViewFrogA"> See ViewFrogA.cxx</a> and <a href="../../Python/Visualization/ViewFrogA" title="ViewFrogA"> ViewFrogA.py</a>.</figcaption>
 </figure>
 
-**Figure12--9** shows three views of the frog.
+**Figure 12-9** shows three views of the frog.
 
 This lengthy example shows the power of a comprehensive visualization system like VTK.
 
@@ -647,13 +647,13 @@ This lengthy example shows the power of a comprehensive visualization system lik
 
 **Other Frog-Related Information**
 
-The folks at Lawrence Berkeley National Laboratory have an impressive Web site that features the frog used in this example. The site describes how the frog data was obtained and also permits users to create mpeg movies of the frog. There are also other datasets available. Further details on "The Whole Frog Project" can be found at http://www-itg.lbl.gov/Frog . Also, the Stanford University Medical Media and Information Technologies (SUMMIT) group has on-going work using the Berkeley frog. They are early VTK users. Enjoy their *Virtual Creatures* project at: http://summit.stanford.edu/creatures.
+The folks at Lawrence Berkeley National Laboratory have an impressive Web site that features the frog used in this example. The site describes how the frog data was obtained and also permits users to create mpeg movies of the frog. There are also other datasets available. Further details on "The Whole Frog Project" can be found at http://www-itg.lbl.gov/Frog. Also, the Stanford University Medical Media and Information Technologies (SUMMIT) group has on-going work using the Berkeley frog. They are early VTK users. Enjoy their *Virtual Creatures* project at: http://summit.stanford.edu/creatures.
 
 ## 12.3 Financial Visualization
 
-The application of 3D visualization techniques to financial data is relatively new. Historically, financial data has been represented using 2D plotting techniques such as line, scatter plots, bar charts, and pie charts. These techniques are especially well suited for the display of price and vol-ume information for stocks, bonds, and mutual funds. Three-dimensional techniques are becoming more important due to the increased volume of information in recent years, and 3D graphics and visualization techniques are becoming interactive. Interactive rates mean that visualization can be applied to the day-to-day processing of data. Our belief is that this will allow deeper understanding of today's complex financial data and other more timely decisions.
+The application of 3D visualization techniques to financial data is relatively new. Historically, financial data has been represented using 2D plotting techniques such as line, scatter plots, bar charts, and pie charts. These techniques are especially well suited for the display of price and volume information for stocks, bonds, and mutual funds. Three-dimensional techniques are becoming more important due to the increased volume of information in recent years, and 3D graphics and visualization techniques are becoming interactive. Interactive rates mean that visualization can be applied to the day-to-day processing of data. Our belief is that this will allow deeper understanding of today's complex financial data and other more timely decisions.
 
-In this example we go through the process of obtaining data, converting it to a form that we can use, and then using visualization techniques to view it. Some of the external software tools used in this example may be unfamiliar to you. This should not be a large concern. We have simply cho-sen the tools with which we are familiar. Where we have used an Awk script, you might choose to write a small C program to do the same thing. The value of the example lies in illustrating the high-level process of solving a visualization problem.
+In this example we go through the process of obtaining data, converting it to a form that we can use, and then using visualization techniques to view it. Some of the external software tools used in this example may be unfamiliar to you. This should not be a large concern. We have simply chosen the tools with which we are familiar. Where we have used an Awk script, you might choose to write a small C program to do the same thing. The value of the example lies in illustrating the high-level process of solving a visualization problem.
 
 The first step is to obtain the data. We obtained our data from a public site on the World Wide Web (WWW) that archives stock prices and volumes for many publicly traded stocks. (This Web site has closed down since publication of the first edition. The data for this example are available on the CD-ROM.)
 
@@ -664,9 +664,9 @@ Once we have obtained the data, we convert it to a format that can be read into 
 1360.4 66.8297 930902 49.188 48.688 48.750 1247.2 60.801 \...
 ```
 
-Each line stores the data for one day of trading. The first number is the date, stored as the last two digits of the year, followed by a two-digit month and finally the day of the month. The next three values represent the high, low, and closing price of the stock for that day. The next value is the vol-ume of trading in thousands of shares. The final value is the volume of trading in millions of dollars.
+Each line stores the data for one day of trading. The first number is the date, stored as the last two digits of the year, followed by a two-digit month and finally the day of the month. The next three values represent the high, low, and closing price of the stock for that day. The next value is the volume of trading in thousands of shares. The final value is the volume of trading in millions of dollars.
 
-We used an Awk script to convert the original data format into a VTK data file. (See the *VTK*  *User's Guide* for information on VTK file formats; or refer to the Web page http:// www.vtk.org/VTK/pdf/file-formats.pdf .) This conversion could be done using many other approaches, such as writing a C program or a Tcl script.
+We used an Awk script to convert the original data format into a VTK data file. (See the *VTK*  *User's Guide* for information on VTK file formats; or refer to the Web page http:// www.vtk.org/VTK/pdf/file-formats.pdf.) This conversion could be done using many other approaches, such as writing a C program or a Tcl script.
 
 ``` awk
 BEGIN {print "\# vtk DataFile Version 2.0\\n
@@ -701,13 +701,13 @@ print "\\nPOINT\_DATA " count "\\nSCALARS volume float"; print
 for (i = 1; i \<= count; i++) print volumes\[i\]; }
 ```
 
-The above Awk script performs the conversion. Its first line outputs the required header informa-tion indicating that the file is a VTK data file containing polygonal data. It also includes a comment indicating that the data represents stock values. There are a few different VTK data formats that we could have selected. It is up to you to decide which format best suits the data you are visualizing. We have judged the polygonal format ( vtkPolyData ) as best suited for this particular stock visualization.
+The above Awk script performs the conversion. Its first line outputs the required header information indicating that the file is a VTK data file containing polygonal data. It also includes a comment indicating that the data represents stock values. There are a few different VTK data formats that we could have selected. It is up to you to decide which format best suits the data you are visualizing. We have judged the polygonal format ( vtkPolyData ) as best suited for this particular stock visualization.
 
 The next line of the Awk script creates a variable named count that keeps track of how many days worth of information is in the file. This is equivalent to the number of lines in the original data file.
 
 The next fourteen lines convert the six digit date into a more useful format, since the original format has a number of problems. If we were to blindly use the original format and plot the data using the date as the independent variable, there would be large gaps in our plot. For example,  931231 is the last day of 1993 and 940101 is the first day of 1994. Chronologically, these two dates are sequential, but mathematically there are (940101--931231=) 8870 values between them. A simple solution would be to use the line number as our independent variable. This would work as long as we knew that every trading day was recorded in the data file. It would not properly handle the situation where the market was open, but for some reason data was not recorded. A better solution is to convert the dates into numerically ordered days. The preceding Awk script sets January 1, 1993, as day number one, and then numbers all the following days from there. At the end of these 14 lines the variable, d, will contain the resulting value.
 
-The next line in our Awk script stores the converted date, closing price, and dollar volume  into arrays indexed by the line number stored in the variable count . Once all the lines have been read and stored into the arrays, we write out the rest of the VTK data file. We have selected the date as our independent variable and *x* coordinate. The closing price we store as the *y* coordinate, and the *z* coordinate we set to zero. After indicating the number and type of points to be stored, the Awk script loops through all the points and writes them out to the VTK data file. It then writes out the line connectivity list. In this case we just connect one point to the next to form a polyline for each stock. Finally, we write out the volume information as scalar data associated with the points. Por-tions of the resulting VTK data file are shown below.
+The next line in our Awk script stores the converted date, closing price, and dollar volume  into arrays indexed by the line number stored in the variable count. Once all the lines have been read and stored into the arrays, we write out the rest of the VTK data file. We have selected the date as our independent variable and *x* coordinate. The closing price we store as the *y* coordinate, and the *z* coordinate we set to zero. After indicating the number and type of points to be stored, the Awk script loops through all the points and writes them out to the VTK data file. It then writes out the line connectivity list. In this case we just connect one point to the next to form a polyline for each stock. Finally, we write out the volume information as scalar data associated with the points. Portions of the resulting VTK data file are shown below.
 
 ```
 -   vtk DataFile Version 2.0 Data values for stock
@@ -736,7 +736,7 @@ LOOKUP\_TABLE default
 \...
 ```
 
-Now that we have generated the VTK data file, we can start the process of creating a visualization for the stock data. To do this, we wrote a Tcl script to be used with the Tcl-based VTK executable. At a high level the script reads in the stock data, sends it through a tube filter, creates a label for it, and then creates an outline around the resulting dataset. Ideally, we would like to display multiple stocks in the same window. To facilitate this, we designed the Tcl script to use a procedure to per-form operations on a per stock basis. The resulting script is listed below.
+Now that we have generated the VTK data file, we can start the process of creating a visualization for the stock data. To do this, we wrote a Tcl script to be used with the Tcl-based VTK executable. At a high level the script reads in the stock data, sends it through a tube filter, creates a label for it, and then creates an outline around the resulting dataset. Ideally, we would like to display multiple stocks in the same window. To facilitate this, we designed the Tcl script to use a procedure to perform operations on a per stock basis. The resulting script is listed below.
 
 ``` tcl
 package require vtk
@@ -849,18 +849,18 @@ iren Initialize
     withdraw .
 ```
 
-The first part of this script consists of the standard procedure for renderer and interactor creation that can be found in almost all of the VTK Tcl scripts. The next section creates the objects necessary for drawing an outline around all of the stock data. A vtkAppendPolyData filter is used to append all of the stock data together. This is then sent through a vtkOutlineFilter to create a bounding box around the data. A mapper and actor are created to display the result. In the next part of this script, we define the procedure to add stock data to this visualization. The procedure takes five arguments: the name of the stock, the label we want displayed, and the x, y, z coordinates defining where to position the label. The first line of the procedure indicates that the variable ren1 should be visible to this procedure. By default the procedure can only access its own local variables. Next, we create the label using a vtkTextSource , vtkPolyDataMapper , and vtkFollower . The names of these objects are all prepended with the variable “ $prefix. ” so that the instance names will be unique. An instance of vtkFollower is used instead of the usual vtkActor , because we always want the text to be right-side up and facing the camera. The vtkFollower class provides this functionality. The remaining lines position and scale the label appropriately. We set the origin of the label to the center of its data. This insures that the follower will rotate about its center point. The next group of lines creates the required objects to read in the data, pass it through a tube filter and a transform filter, and finally display the result. The tube filter uses the scalar data (stock volume in this example) to determine the radius of the tube. The mapper also uses the scalar data to determine the coloring of the tube. The transform filter uses a transform object to set the stock’s position based on the value of the variable zpos. For each stock, we will increment zpos by 10, effectively shifting the next stock over 10 units from the current stock. This prevents the stocks from being stacked on top of each other. We also use the transform to compress the x-axis to make the data easier to view. Next, we add this stock as an input to the append filter and add the actors and followers to the renderer. The last line of the procedure sets the follower’s camera to be the active camera of the renderer. Back in the main body of the Tcl script, we invoke the AddStock procedure four times with four different stocks. Finally, we add the outline actor and customize the renderer and camera to  four different stocks. Finally, we add the outline actor and customize the renderer and camera to
+The first part of this script consists of the standard procedure for renderer and interactor creation that can be found in almost all of the VTK Tcl scripts. The next section creates the objects necessary for drawing an outline around all of the stock data. A vtkAppendPolyData filter is used to append all of the stock data together. This is then sent through a vtkOutlineFilter to create a bounding box around the data. A mapper and actor are created to display the result. In the next part of this script, we define the procedure to add stock data to this visualization. The procedure takes five arguments: the name of the stock, the label we want displayed, and the x, y, z coordinates defining where to position the label. The first line of the procedure indicates that the variable ren1 should be visible to this procedure. By default the procedure can only access its own local variables. Next, we create the label using a vtkTextSource, vtkPolyDataMapper, and vtkFollower. The names of these objects are all prepended with the variable “ $prefix. ” so that the instance names will be unique. An instance of vtkFollower is used instead of the usual vtkActor, because we always want the text to be right-side up and facing the camera. The vtkFollower class provides this functionality. The remaining lines position and scale the label appropriately. We set the origin of the label to the center of its data. This insures that the follower will rotate about its center point. The next group of lines creates the required objects to read in the data, pass it through a tube filter and a transform filter, and finally display the result. The tube filter uses the scalar data (stock volume in this example) to determine the radius of the tube. The mapper also uses the scalar data to determine the coloring of the tube. The transform filter uses a transform object to set the stock’s position based on the value of the variable zpos. For each stock, we will increment zpos by 10, effectively shifting the next stock over 10 units from the current stock. This prevents the stocks from being stacked on top of each other. We also use the transform to compress the x-axis to make the data easier to view. Next, we add this stock as an input to the append filter and add the actors and followers to the renderer. The last line of the procedure sets the follower’s camera to be the active camera of the renderer. Back in the main body of the Tcl script, we invoke the AddStock procedure four times with four different stocks. Finally, we add the outline actor and customize the renderer and camera to  four different stocks. Finally, we add the outline actor and customize the renderer and camera to
 
-**Figure 12--10** Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time ( stocks.tcl ).
+**Figure 12-10** Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time ( stocks.tcl ).
 
 produce a nice initial view. Two different views of the result are
-displayed in **Figure12--10** . The top image shows a history of stock
+displayed in **Figure 12-10**. The top image shows a history of stock
 closing prices for our four stocks. The color and width of these lines
 correspond to the volume of the stock on that day. The lower image
 more clearly illustrates the changes in stock volume by looking at the
 data from above.
 
-A legitimate complaint with **Figure12--10** is that the changing
+A legitimate complaint with **Figure 12-10** is that the changing
 width of the tube makes it more difficult to see the true shape of the
 price verses the time curve. We can solve this problem by using a
 ribbon filter followed by a linear extrusion filter, instead of the
@@ -870,16 +870,16 @@ vary in proportion to the scalar value of the data. We then use
 the linear extrusion filter to extrude this ribbon along the *y*-axis
 so that it has a constant thickness.
 
-The resulting views are shown in **Figure12--11** .
+The resulting views are shown in **Figure 12-11**.
 
-**Figure 12--11** Two more views of the stock case study. Here the
+**Figure 12-11** Two more views of the stock case study. Here the
 tube filter has been replaced by a ribbon filter followed with a
 linear extrusion filter.
 
 ## 12.4 Implicit Modelling
 
 The *Visualization Toolkit* has some useful geometric modelling
-capabilities. One of the most pow-erful features is implicit
+capabilities. One of the most powerful features is implicit
 modelling. In this example we show how to use polygonal descriptions
 of objects and create "blobby" models of them using the implicit
 modelling objects in VTK. This example generates a logo for the
@@ -904,10 +904,10 @@ vtkContourFilter vtkPolyDataMapper
 
 vtkPolyDataMapper
 
-**Figure 12--12** The visualization pipeline for the VTK blobby logo.
+**Figure 12-12** The visualization pipeline for the VTK blobby logo.
 
 +-----------------------------------+-----------------------------------+
-| We create three separate        | **Figure12--12** shows the        |
+| We create three separate        | **Figure12-12** shows the        |
 | visualization pipelines, one    |                                   |
 | for each letter.                |                                   |
 +-----------------------------------+-----------------------------------+
@@ -939,9 +939,9 @@ that the implicit modelling algorithm lets us specify the region of
 influence of each polygon. Here
 
 we specify this using the SetMaximumDistance() method of the
-vtkImplicitModeller . By restricting the region of influence, we can
+vtkImplicitModeller. By restricting the region of influence, we can
 significantly improve performance of the implicit modelling
-algo-rithm. Then we use vtkContourFilter to extract an isosurface that
+algorithm. Then we use vtkContourFilter to extract an isosurface that
 approximates a distance of 1.0 from each polygon. We create two
 actors: one for the blobby logo and one for the original polygon
 
@@ -1001,7 +1001,7 @@ KTransformFilter->SetTransform (KTransform);
 ```
 
 We collect all of the transformed letters into one set of polygons by
-using an instance of the class vtkAppendPolyData .
+using an instance of the class vtkAppendPolyData.
 
 ``` c++
 vtkAppendPolyData *appendAll = vtkAppendPolyData::New();
@@ -1011,7 +1011,7 @@ appendAll->AddInputConnection (KTransformFilter->GetOutputPort());
 ```
 
 Since the geometry for each letter did not have surface normals, we
-add them here. We use vtkPolyDataNormals . Then we complete this
+add them here. We use vtkPolyDataNormals. Then we complete this
 portion of the pipeline by creating a mapper and an actor.
 
 ``` c++
@@ -1035,7 +1035,7 @@ logo->SetMapper (logoMapper);
 ```
 
 We create the blobby logo with the implicit modeller, and then extract
-the logo with vtkContourFilter . The pipeline is completed by creating
+the logo with vtkContourFilter. The pipeline is completed by creating
 a mapper and an actor.
 
 ``` c++
@@ -1093,7 +1093,7 @@ banana->SetSpecularPower(20);
 
 These colors are then assigned to the appropriate actors.
 
-**Figure 12--13** A logo created with vtkImplicitModeller(vtkLogo.cxx)
+**Figure 12-13** A logo created with vtkImplicitModeller(vtkLogo.cxx)
 .
 
 ``` c+++
@@ -1121,11 +1121,7 @@ logo->SetPosition(0,0,6);
 ```
 
 An image made from the techniques described in this section is shown
-in
-
-**Figure12--13**
-
-. Note that the image on the left has been augmented with a texture map.
+in **Figure 12-13**  Note that the image on the left has been augmented with a texture map.
 
 ## 12.5 Computational Fluid Dynamics
 
@@ -1139,14 +1135,14 @@ combine multiple representations into meaningful visualizations that
 extract information without overwhelming the user.
 
 CFD analysts often employ finite difference grids. A finite difference
-grid represents the dis-cretization of the problem domain into small
+grid represents the discretization of the problem domain into small
 computational cells. The grid allows the analyst to create a large system of equations that can then be solved on a
 computer. The grid is topologically uniform in *i-j-k* space, but the
 corresponding physical coordinates need not be uniformly distrib-uted.
 This is what we call a structured grid dataset in VTK.
 
 There are a number of techniques we can use when we first look at the
-complex data pre-sented by CFD applications. Since we need to apply
+complex data presented by CFD applications. Since we need to apply
 several algorithms to the data, and since there will be many parameter
 changes for these algorithms, we suggest using the Tcl interpreter
 rather than C++ code. Our strategy for visualizing this CFD data
@@ -1154,7 +1150,7 @@ includes the following:
 
 1.  Display the computational grid. The analyst carefully constructed
     the finite difference grid to have a higher density in regions
-    where rapid changes occur in the flow variables. We will dis-play
+    where rapid changes occur in the flow variables. We will display
     the grid in wireframe so we can see the computational cells.
 
 2.  Display the scalar fields on the computational grid. This will give
@@ -1174,7 +1170,7 @@ includes the following:
 
 For this case study, we use a dataset from NASA called the LOx Post.
 It simulates the flow of liquid oxygen across a flat plate with a
-cylindrical post perpendicular to the flow <em style="color:blue;background-color: white">\[Rogers86\]</em> . This
+cylindrical post perpendicular to the flow <em style="color:blue;background-color: white">\[Rogers86\]</em>. This
 analysis models the flow in a rocket engine. The post promotes mixing
 of the liquid oxygen.
 
@@ -1189,7 +1185,7 @@ the post. We animate the streamline creation by moving the seeding
 line or rake back and forth behind the post.
 
 Following our own advice, we first display the computational grid. The
-following Tcl code produced the right image of **Figure12--14** .
+following Tcl code produced the right image of **Figure 12-14**.
 
 ``` tcl
 -   read data vtkPLOT3DReader pl3d
@@ -1282,14 +1278,14 @@ ren1 AddActor fanActor
 
 ```
 
-**Figure 12--14**
+**Figure 12-14**
 
 Portion of computational grid for the LOx post (LOxGrid.tcl ).
 
 To display the scalar field using color mapping, we must change the
 actor's representation from wireframe to surface, turn on scalar
-visibility for each vtkPolyDataMapper , set each mapper's sca-lar
-range, and render again, producing the right image of **Figure12--14**
+visibility for each vtkPolyDataMapper, set each mapper's scalar
+range, and render again, producing the right image of **Figure 12-14**
 .
 
 ``` tcl
@@ -1310,13 +1306,13 @@ floorMapper ScalarVisibilityOn
 floorMapper SetScalarRange \[\[pl3d GetOutput\] GetScalarRange\]
 ```
 
-Now, we explore the vector field using vtkPointSource . Recall that
+Now, we explore the vector field using vtkPointSource. Recall that
 this object generates a random cloud of points around a spherical
 center point. We will use this cloud of points to generate
 stream-lines. We place the center of the cloud near the post since
 this is where the velocity seems to be changing most rapidly. During
 this exploration, we use streamlines rather than streamtubes for
-rea-sons of efficiency. The Tcl code is as follows.
+reasons of efficiency. The Tcl code is as follows.
 
 ``` tcl
 -   spherical seed points vtkPointSource rake
@@ -1343,22 +1339,22 @@ vtkActor tubesActor
 tubesActor SetMapper mapTubes
 ```
 
-**Figure 12--15** Streamlines seeded with spherical cloud of points.
+**Figure 12-15** Streamlines seeded with spherical cloud of points.
 Four separate cloud positions are shown.
 
 
-**Figure 12--16** Streamtubes created by using the computational grid
+**Figure 12-16** Streamtubes created by using the computational grid
 just in front of the post as a source for seeds (LOx.tcl ).
 
-**Figure12--15** shows streamlines seeded from four locations along
-the post. Notice how the struc-ture of the flow begins to emerge as
+**Figure 12-15** shows streamlines seeded from four locations along
+the post. Notice how the structure of the flow begins to emerge as
 the starting positions for the streamlines are moved up and down in
 front of the post. This is particularly true if we do this
 interactively; the mind assembles the behavior of the streamlines into
 a global understanding of the flow field.
 
 For a final example, we use the computational grid to seed streamlines
-and then generate streamtubes as is shown in **Figure12--16** . A nice
+and then generate streamtubes as is shown in **Figure 12-16**. A nice
 feature of this approach is that we generate more streamlines in
 regions where the analyst constructed a denser grid. The only change
 we need to make is to replace the rake from the sphere source with a
@@ -1387,27 +1383,27 @@ mapTubes SetInputConnection \[tubes GetOutputPort\]
 
 There are a number of other methods we could use to visualize this
 data. A 3D widget such as the vtkLineWidget could be used to seed the
-streamlines interactively (see "3D Widgets and User Inter-action" on
-page252 ). As we saw in "Point Probe" on page312 , probing the data
-for numerical val-ues is a valuable technique. In particular, if the
+streamlines interactively (see "3D Widgets and User Interaction" on
+page252 ). As we saw in "Point Probe" on page312, probing the data
+for numerical values is a valuable technique. In particular, if the
 probe is a line we can use it in combination with vtkXYPlotActor to
 graph the variation of data value along the line. Another useful
 visualization would be to identify regions of vorticity. We could use
-**Equation9-12** in conjunction with an isoc-ontouring algorithm
+**Equation9-12** in conjunction with an isocontouring algorithm
 (e.g., vtkContourFilter ) to creates isosurfaces of large
 helical-density.
 
 ## 12.6 Finite Element Analysis
 
 Finite element analysis is a widely used numerical technique for
-finding solutions of partial differ-ential equations. Applications of
+finding solutions of partial differential equations. Applications of
 finite element analysis include linear and nonlinear structural,
 thermal, dynamic, electromagnetic, and flow analysis. In this
 application we will visualize the results of a blow molding process.
 
 In the extrusion blow molding process, a material is extruded through
 an annular die to form a hollow cylinder. This cylinder is called a
-*parison* . Two mold halves are then closed on the pari-son, while at
+*parison*. Two mold halves are then closed on the parison, while at
 the same time the parison is inflated with air. Some of the parison
 material remains within the mold while some becomes waste material.
 The material is typically a polymer plastic softened with heat, but
@@ -1420,7 +1416,7 @@ part may fail in thin-walled regions. As a result, analysis tools
 based on finite element techniques have been developed to assist in
 the design of molds and dies.
 
-The results of one such analysis are shown in **Figure12--17** . The
+The results of one such analysis are shown in **Figure 12-17**. The
 polymer was molded using an isothermal, nonlinear-elastic,
 incompressible (rubber-like) material. Triangular membrane finite
 elements were used to model the parison, while a combination of
@@ -1430,31 +1426,29 @@ assumed to attach to the mold upon contact. Thus the thinning of the
 parison is controlled by its stretching during inflation and the
 sequence in which it contacts the mold.
 
-**Figure12--17** illustrates 10 steps of one analysis. The color of
-the parison indicates its thick-ness. Using a rainbow scale, red areas
+**Figure 12-17** illustrates 10 steps of one analysis. The color of
+the parison indicates its thickness. Using a rainbow scale, red areas
 are thinnest while blue regions are thickest. Our visualization shows
 clearly one problem with the analysis technique we are using. Note
 that while the nodes (i.e., points) of the finite element mesh are
 prevented from passing through the mold, the interior of the
 triangular elements are not. This is apparent from the occlusion of
-the mold wireframe by the pari-son mesh.
+the mold wireframe by the parison mesh.
 
 To generate these images, we used a Tcl script shown in
-**Figure12--18** and **Figure12--19** .
+**Figure 12-18** and **Figure 12-19**.
 
 The input data is in VTK format, so a vtkUnstructuredGridReader was
 used as a source object. The mesh displacement is accomplished using
-an instance of vtkWarpVector . At this point the pipeline splits. We
+an instance of vtkWarpVector. At this point the pipeline splits. We
 wish to treat the mold and parison differently (different properties
-such as wireframe ver-sus surface), but the data for both mold and
-parison is combined. Fortunately, we can easily sepa-
-
-rate the data using two instances of class vtkConnectivityFilter . One
+such as wireframe versus surface), but the data for both mold and
+parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter. One
 filter extracts the parison, while the other extracts both parts of
 the mold. Finally, to achieve a smooth surface appearance on the
 parison, we use a vtkPolyDataNormals filter. In order to use this
 filter, we have to convert the data type from vtkUnstructuredGrid
-(output of vtkConnectivityFilter ) to type vtkPolyData . The fil-ter
+(output of vtkConnectivityFilter ) to type vtkPolyData. The filter
 vtkGeometryFilter does this nicely.
 
 ## 12.7 Algorithm Visualization
@@ -1463,16 +1457,13 @@ Visualization can be used to display algorithms and data structures.
 Representing this information often requires creative work on the part
 of the application programmer. For example, Robertson et
 
-**Figure 12--17** Ten frames from a blow molding finite element
+**Figure 12-17** Ten frames from a blow molding finite element
 analysis. Mold halves (shown in wire-frame) are closed around a
 parison as the parison is inflated. Coloring indicates thickness---red
 areas are thinner than blue ( blow.tcl )*.*
 
 ``` tcl
 vtkUnstructuredGridReader
-![](media/image1169.jpeg){width="0.13402777777777777in"
-height="3.4722222222222224e-2in"} vtkConnectivityFilter
-
 *Extract parison*
 
 ^vtkWarpVector^ vtkGeometryFilter
@@ -1510,8 +1501,8 @@ reader SetVectorsName \"displacement9\" vtkWarpVector warp
 warp SetInputConnection \[reader GetOutputPort\]
 ```
 
-**Figure 12--18** Tcl script to generate blow molding image. Network
-topology and ini-tial portion of script are shown (Part one of two).
+**Figure 12-18** Tcl script to generate blow molding image. Network
+topology and initial portion of script are shown (Part one of two).
 
 al. <em style="color:blue;background-color: white">\[Robertson91\]</em> have shown 3D techniques for visualizing directory
 structures and navigating through them. Their approach involves
@@ -1522,14 +1513,12 @@ queues, linked lists, trees, and other data structures.
 
 In this example we will visualize the operation of the recursive
 Towers of Hanoi puzzle. In this puzzle there are three pegs (
-**Figure12--20** ). In the initial position there are one or more
+**Figure 12-20** ). In the initial position there are one or more
 disks (or pucks) of varying diameter on the pegs. The disks are sorted
 according to disk diameter, so that the largest disk is on the bottom,
-followed by the next largest, and so on. The goal of the puzzle is to
+followed by the next largest, and so on. The goal of the puzzle is to extract mold from mesh using connectivity vtkConnectivityFilter
 
--   extract mold from mesh using connectivity vtkConnectivityFilter
-    connect
-
+``` tcl
 connect SetInputConnection \[warp GetOutputPort\] connect
 SetExtractionModeToSpecifiedRegions connect AddSpecifiedRegion 0
 
@@ -1582,18 +1571,12 @@ iren AddObserver UserEvent {wm deiconify .vtkInteract}
 
 -   prevent the tk window from showing up then start the event loop wm
     withdraw .
+```
 
-**Figure 12--19** Tcl script to generate blow molding image (Part two
+**Figure 12-19** Tcl script to generate blow molding image (Part two
 of two).
 
-
-\(a) Initial
-
-\(b) Intermediate
-
-\(c) Final
-
-**Figure 12--20** Towers of Hanoi. (a) Initial configuration. (b)
+**Figure 12-20** Towers of Hanoi. (a) Initial configuration. (b)
 Intermediate configuration.
 
 \(c) Final configuration ( Hanoi.cxx ).
@@ -1636,7 +1619,7 @@ move the disks from one peg to another, moving the disks one at a
 time, and never placing a larger disk on top of a smaller disk.
 
 The classical solution to this puzzle is based on a divide-and-conquer
-approach <em style="color:blue;background-color: white">\[AhoHopUll83\]</em> . The problem of moving *n* disks from the
+approach <em style="color:blue;background-color: white">\[AhoHopUll83\]</em>. The problem of moving *n* disks from the
 initial peg to the second peg can be thought of as solving two
 subproblems of size *n--1*. First move *n--1* disks from the initial
 peg to the third peg. Then move the *nth* disk to the second peg.
@@ -1644,25 +1627,25 @@ Finally, move the *n--1* disks on the third peg back to the second
 peg.
 
 The solution to this problem can be elegantly implemented using
-recursion. We have shown portions of the C++ code in **Figure12--21**
-and **Figure12--22** . In the first part of the solution (which is not
-shown in **Figure12--21** ) the table top, pegs, and disks are created
-using the two classes vtkPlaneSource and vtkCylinderSource . The
+recursion. We have shown portions of the C++ code in **Figure 12-21**
+and **Figure 12-22**. In the first part of the solution (which is not
+shown in **Figure 12-21** ) the table top, pegs, and disks are created
+using the two classes vtkPlaneSource and vtkCylinderSource. The
 function Hanoi() is then called to begin the recursion. The routine
 MovePuck() is responsible for moving a disk from one peg to another.
 It has been jazzed up to move the disk in small, user-specified
 increments, and to flip the disc over as it moves from one peg to the
 next. This gives a pleasing visual effect and adds the element of fun
-to the visu-alization.
+to the visualization.
 
 Because of the clear relationship between algorithm and physical
 reality, the Towers of Hanoi puzzle is relatively easy to visualize. A
-major challenge facing visualization researchers is to visu-alize more
+major challenge facing visualization researchers is to visualize more
 abstract information, such as information on the Internet, the
 structure of documents, or the effectiveness of
 advertising/entertainment in large market segments. This type of
 visualization, known as information visualization, is likely to emerge
-in the future as an important research chal-lenge.
+in the future as an important research challenge.
 
 ## 12.8 Chapter Summary
 
@@ -1733,12 +1716,12 @@ pegStack\[peg2\].Push(movingActor);
 
 }
 
-**Figure 12--22** Function to move disks from one peg to another in
+**Figure 12-22** Function to move disks from one peg to another in
 the Towers of Hanoi example. The resulting motion is in small steps
 with an additional flip of the disk.
 
 for referring physicians and surgeons. Medical datasets are typically
-image data---volumes or lay-ered stacks of 2D images that form
+image data---volumes or layered stacks of 2D images that form
 volumes. Common visualization tools for medical imaging include
 isosurfaces, cut planes, and image display on volume slices.
 
@@ -1752,8 +1735,8 @@ from the front, we saw a conventional price display. Then, by viewing
 the visualization from above, we saw trade volume.
 
 In the modelling case study we showed how to use polygonal models and
-the implicit model-ling facilities in VTK to create a stylistic logo.
-The final model was created by extracting an isosur-face at a
+the implicit modelling facilities in VTK to create a stylistic logo.
+The final model was created by extracting an isosurface at a
 user-selected offset.
 
 Computational fluid dynamics analysts frequently employ structured
@@ -1767,13 +1750,13 @@ In the finite element case study, we looked at unstructured grids used
 in a simulation of a blow molding process. We displayed the
 deformation of the geometry using displacement plots, and represented
 the material thickness using color mapping. We saw how we can create
-simple ani-mations by generating a sequence of images.
+simple animations by generating a sequence of images.
 
 We concluded the case studies by visualizing the Towers of Hanoi
 algorithm. Here we showed how to combine the procedural power of C++
 with the visualization capabilities in VTK. We saw how visualization
 often requires our creative resources to cast data structures and
-informa-tion into visual form.
+information into visual form.
 
 ## 12.9 Bibliographic Notes
 
@@ -1787,27 +1770,26 @@ in the local bookstore.
 
 In the stock case study we used a programming tool called AWK to
 convert our data into a form suitable for VTK. More information on AWK
-can be found in *The AWK Programming Lan-guage* <em style="color:blue;background-color: white">\[Aho88\]</em>. Another
-popular text processing languages is Perl <em style="color:blue;background-color: white">\[Perl95\]</em> .
+can be found in *The AWK Programming Language* <em style="color:blue;background-color: white">\[Aho88\]</em>. Another
+popular text processing languages is Perl <em style="color:blue;background-color: white">\[Perl95\]</em>.
 
 If you would like to know more about information visualization you can
-start with the refer-ences listed here <em style="color:blue;background-color: white">\[Becker95\]</em> <em style="color:blue;background-color: white">\[Ding90\]</em>
-<em style="color:blue;background-color: white">\[Eick93\]</em> <em style="color:blue;background-color: white">\[Feiner88\]</em> <em style="color:blue;background-color: white">\[Johnson91\]</em> <em style="color:blue;background-color: white">\[Robertson91\]</em> . This is a
-rela-tively new field but will certainly grow in the near future.
+start with the references listed here <em style="color:blue;background-color: white">\[Becker95\]</em> <em style="color:blue;background-color: white">\[Ding90\]</em>
+<em style="color:blue;background-color: white">\[Eick93\]</em> <em style="color:blue;background-color: white">\[Feiner88\]</em> <em style="color:blue;background-color: white">\[Johnson91\]</em> <em style="color:blue;background-color: white">\[Robertson91\]</em>. This is a relatively new field but will certainly grow in the near future.
 
 ## 12.10 References
 
 <em style="color:blue;background-color: white">\[Aho88\]</em>
 A. V. Aho, B. W. Kernighan, and P. J. Weinberger. *The AWK Programming
-Language* . Addison-Wesley, Reading, MA, 1988.
+Language*. AddisonWesley, Reading, MA, 1988.
 
 <em style="color:blue;background-color: white">\[AhoHopUll83\]</em>
 A. V. Aho, J. E. Hopcroft, and J. D. Ullman. *Data Structures and
-Algorithm* s. Addison-Wesley, Reading, MA, 1983.
+Algorithm* s. AddisonWesley, Reading, MA, 1983.
 
 <em style="color:blue;background-color: white">\[Becker95\]</em>
 R. A. Becker, S. G. Eick, and A. R. Wilks. "Visualizing Network Data."
-*IEEE Transactions on Vi-sualization and Graphics* . 1(1):16--28,1995.
+*IEEE Transactions on Visualization and Graphics*. 1(1):16--28,1995.
 
 <em style="color:blue;background-color: white">\[deLorenzi93\]</em>
 H. G. deLorenzi and C. A. Taylor. "The Role of Process Parameters in
@@ -1817,44 +1799,44 @@ Polymer Processing.*
 
 <em style="color:blue;background-color: white">\[Ding90\]</em>
 C. Ding and P. Mateti. "A Framework for the Automated Drawing of Data
-Structure Diagrams." *IEEE Transactions on Software Engineering* .
+Structure Diagrams." *IEEE Transactions on Software Engineering*.
 16(5):543--557, May 1990.
 
 <em style="color:blue;background-color: white">\[Eick93\]</em>
 S. G. Eick and G. J. Wills. "Navigating Large Networks with
-Hierarchies." In *Proceedings of Vi-sualization '93* . pp. 204--210,
+Hierarchies." In *Proceedings of Visualization '93*. pp. 204--210,
 IEEE Computer Society Press, Los Alamitos, CA, October 1993.
 
 <em style="color:blue;background-color: white">\[Feiner88\]</em>
 S. Feiner. "Seeing the Forest for the Trees: Hierarchical Displays of
-Hypertext Structures." In *Conference on Office Information Systems* .
+Hypertext Structures." In *Conference on Office Information Systems*.
 Palo Alto, CA, 1988.
 
 <em style="color:blue;background-color: white">\[Gilster94\]</em>
 P. Gilster. *Finding It on the Internet: The Essential Guide to
 Archie, Veronica, Gopher, WAIS,* *WWW (including Mosaic), and Other
-Search and Browsing Tools .* John Wiley & Sons, Inc., 1994.
+Search and Browsing Tools.* John Wiley & Sons, Inc., 1994.
 
 <em style="color:blue;background-color: white">\[Johnson91\]</em>
 B. Johnson and B. Shneiderman. "Tree-Maps: A Space-Filling Approach to
 the Visualization of Hierarchical Information Structure *s*." In
-*Proceedings of Visualization '91* . pp. 284--291, IEEE Computer
+*Proceedings of Visualization '91*. pp. 284--291, IEEE Computer
 Society Press, Los Alamitos, CA, October 1991.
 
 <em style="color:blue;background-color: white">\[Perl95\]</em>
-D. Till. *Teach Yourself Perl in 21 Days* . Sams Publishing,
+D. Till. *Teach Yourself Perl in 21 Days*. Sams Publishing,
 Indianapolis, Indiana, 1995.
 
 <em style="color:blue;background-color: white">\[Robertson91\]</em>
 G. G. Robertson, J. D. Mackinlay, and S. K. Card. "Cone Trees:
 Animated 3D Visualizations of Hierarchical Information." In
 *Proceedings of ACM CHI '91 Conference on Human Factors in* *Computing
-Systems* . pp. 189--194, 1991.
+Systems*. pp. 189--194, 1991.
 
 <em style="color:blue;background-color: white">\[Rogers86\]</em>
 S. E. Rogers, D. Kwak, and U. K. Kaul, "A Numerical Study of
 Three-Dimensional Incompress-ible Flow Around Multiple Post." in
-*Proceedings of AIAA Aerospace Sciences Conference* . vol. AIAA Paper
+*Proceedings of AIAA Aerospace Sciences Conference*. vol. AIAA Paper
 86-0353. Reno, Nevada, 1986.
 
 ## 12.11 Exercises
@@ -1863,30 +1845,30 @@ Three-Dimensional Incompress-ible Flow Around Multiple Post." in
 into a standard coordinate system. Many medical systems use RAS
 coordinates. R is right/left, A is anterior/posterior and S is
 Superior/Inferior. This is the patient coordinate system. Discuss and
-compare the fol-lowing alternatives for transforming volume data into
+compare the following alternatives for transforming volume data into
 RAS coordinates.
 
 a)  vtkActor transformation methods.
 
-b)  vtkTransformFilter .
+b)  vtkTransformFilter.
 
 c)  Reader transformations.
 
 12.2 Modify the last example found in the medical application (
 Medical3.cxx ) to use vtkImageDataGeometryFilter instead of
-vtkImageActor . Compare the performance of using geometry with using
+vtkImageActor. Compare the performance of using geometry with using
 texture. How does the performance change as the resolution of the
-vol-ume data changes?
+volume data changes?
 
 12.3 Modify the last medical example ( Medical3.cxx ) to use v
-tkTexture and vtkPlaneSource instead of vtkImageActor .
+tkTexture and vtkPlaneSource instead of vtkImageActor.
 
 12.4 Change the medical case study to use dividing cubes for the skin
 surface.
 
 12.5 Combine the two scripts frogSegmentation.tcl and marchingFrog.tcl
 into one script that will handle either segmented or grayscale files.
-What other parameters and pipeline com-ponents might be useful in
+What other parameters and pipeline components might be useful in
 general for this application?
 
 12.6 Create polygonal / line stroked models of your initials and build
