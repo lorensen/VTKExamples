@@ -15,6 +15,7 @@ List of files and original paths:
 | Figure3-32.png | src/Testing/Baseline/Cxx/Rendering/TestWalkCow.png |
 | Figure3-33a.png | src/Testing/Baseline/Cxx/Rendering/TestWalkCowA.png |
 | Figure3-33b.png | src/Testing/Baseline/Cxx/Rendering/TestWalkCowB.png |
+| Figure4-1a.png | src/Testing/Baseline/Cxx/Visualization/QuadricVisualization.png |
 | Figure6-6.png | src/Testing/Baseline/Cxx/Rendering/TestMarchingCasesA.png |
 | Figure6-10.png | src/Testing/Baseline/Cxx/Rendering/TestMarchingCasesB.png |
 | Figure6-11a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHeadSlice.png |
@@ -23,5 +24,12 @@ List of files and original paths:
 | Figure6-11d.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIronIsoSurface.png |
 | Figure6-12b.png | src/Testing/Baseline/Cxx/Visualization/Hawaii.png |
 | Figure6-13c.png | src/Testing/Baseline/Cxx/Visualization/TestComplexV.png |
+| Figure6-14a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/PlateVibration.png |
+| Figure6-14b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestVelocityProfile.png |
+| Figure6-15b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDisplacementPlot.png |
+| Figure6-18.png | src/Testing/Baseline/Cxx/Visualization/TestKitchen.png |
+| Figure6-19.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestBluntStreamlines.png |
+| Figure6-22a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorAxes.png |
+| Figure6-22b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorEllipsoids.png |
 | | |
 | | |

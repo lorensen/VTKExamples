@@ -201,7 +201,7 @@ We can extend the general approach of marching squares and marching cubes to oth
 
 Figure \ref{fig:Figure6-11} shows four applications of contouring. In Figure \ref{fig:Figure6-11a} we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. Figure \ref{fig:Figure6-11b} through Figure \ref{fig:Figure6-11d} are isosurfaces created by marching cubes. Figure \ref{fig:Figure6-11b} is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. ( Figure \ref{fig:Figure6-11a} is a 2D subset of this data.) The intensity level corresponds to human bone. Figure \ref{fig:Figure6-11c} is an isosurface of constant flow density. Figure \ref{fig:Figure6-11d} is an isosurface of electron potential of an iron protein molecule. The image shown in Figure \ref{fig:Figure6-11b} is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, Figure \ref{fig:Figure6-11c} and Figure \ref{fig:Figure6-11d} are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
 
-\begin{figure}
+\begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
 		\includegraphics[width=\linewidth]{Figure6-11a}
 		\caption{Marching squares used to generate contour lines.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/HeadSlice}{HeadSlice.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/HeadSlice/}{HeadSlice.py})}\label{fig:Figure6-11a}
@@ -225,6 +225,7 @@ Figure \ref{fig:Figure6-11} shows four applications of contouring. In Figure \re
 \end{figure}
 
 \subsection{Scalar Generation}
+\label{subsec:scalar_generation}
 
 The two visualization techniques presented thus far, color mapping and contouring, are simple, effective methods to display scalar information. It is natural to turn to these techniques first when visualizing data. However, often our data is not in a form convenient to these techniques. The data may not be single-valued (i.e., a scalar), or it may be a mathematical or other complex relationship. That is part of the fun and creative challenge of visualization: We must tap our creative resources to convert data into a form we can visualize.
 
@@ -232,13 +233,18 @@ For example, consider terrain data. We assume that the data is \emph{xyz} coordi
 
 This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the \emph{z}-coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point $p_l$ (e.g., sea level) and ending at the (high) point $p_h$ (e.g., mountain top), we compute the elevation scalar $s_i$ at point $p_i = (x_i, y_i,z_i)$ using the dot product as shown in Figure \ref{fig:Figure6-12}. The scalar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 colors ranging from deep brown (water) to dark turquoise (mountain top) is used to color map this figure.
 
-\begin{figure}
-	\begin{subfigure}[h]{0.96\linewidth}
-		\includegraphics[width=\linewidth]{Figure6-12a}
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\begin{equation*}
+			s_i = \frac{(p_i-p_j) \cdot (p_h-p_l)}{|p_h-p_l|^2}
+		\end{equation*}
+	\end{subfigure}
+	\begin{subfigure}[h]{0.48\linewidth}
+	\includegraphics[width=\linewidth]{Figure6-12b}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=\linewidth]{Figure6-12b}
+		\includegraphics[width=\linewidth]{Figure6-12c}
 		\caption*{Applying the technique to terrain data from Honolulu, Hawaii.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/Hawaii}{Hawaii.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/Hawaii/}{Hawaii.py})}
 	\end{subfigure}%
 	\caption{Computing scalars using normalized dot product.}\label{fig:Figure6-12}
@@ -257,7 +263,7 @@ scaled line for each vector (Figure \ref{fig:Figure6-13a}). The line begins at t
 
 There are many variations of this technique Figure \ref{fig:Figure6-13b}). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented ``glyphs'' can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
 
-\begin{figure}
+\begin{figure}[htb]
 	\begin{subfigure}[h]{0.24\linewidth}
 		\includegraphics[width=\linewidth]{Figure6-13a}
 		\caption{Oriented lines.}\label{fig:Figure6-13a}
@@ -282,6 +288,310 @@ Scaling glyphs also poses interesting problems. In what Tufte has termed a ``vis
 \subsection{Warping}
 
 Vector data is often associated with ``motion''. The motion is in the form of velocity or displacement. An effective technique for displaying such vector data is to ``warp'' or deform geometry according to the vector field. For example, imagine representing the displacement of a structure under load by deforming the structure. Or if we are visualizing the flow of fluid, we can create a flow profile by distorting a straight line inserted perpendicular to the flow.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+	\includegraphics[width=\linewidth]{Figure6-14a}
+	\caption{Vibration of beam. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/PlateVibration}{PlateVibration.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/PlateVibration/}{PlateVibration.py})}\label{fig:Figure6-14a}
+\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-14b}
+		\caption{Momentum profiles. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/VelocityProfile}{VelocityProfile.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/VelocityProfile/}{VelocityProfile.py})}\label{fig:Figure6-14b}
+	\end{subfigure}
+	\caption{Warping geometry to show vector field.}\label{fig:Figure6-14}
+\end{figure}
+
+Figure \ref{fig:Figure6-14} shows two examples of vector warping. In the first example the motion of a vibrating beam is shown. The original undeformed outline is shown in wireframe. The second example shows warped planes in a structured grid dataset. The planes are warped according to flow momentum. The relative back and forward flow are clearly visible in the deformation of the planes.
+
+Typically, we must scale the vector field to control geometric distortion. Too small a distortion may not be visible, while too large a distortion can cause the structure to turn inside out or selfintersect. In such a case the viewer of the visualization is likely to lose context, and the visualization will become ineffective.
+
+\subsection{Displacement Plots}
+
+Vector displacement on the surface of an object can be visualized with displacement plots. A displacement plot shows the motion of an object in the direction perpendicular to its surface. The object motion is caused by an applied vector field. In a typical application the vector field is a displacement or strain field.
+
+Vector displacement plots draw on the ideas in ``Scalar Generation'' on  page \pageref{subsec:scalar_generation}. Vectors are converted to scalars by computing the dot product between the surface normal and vector at each point (Figure \ref{fig:Figure6-15a}). If positive values result, the motion at the point is in the direction of the surface normal (i.e., positive displacement). Negative values indicate that the motion is opposite the surface normal (i.e., negative displacement).
+
+A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called *modal* lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-15a}
+		\caption{Scalar computation $S = \overrightarrow{v\ } \cdot \overrightarrow{n\ }$.}\label{fig:Figure6-15a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-15b}
+		\caption{Displacement plot. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/DisplacementPlot}{DisplacementPlot.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/DisplacementPlot/}{DisplacementPlot.py})}\label{fig:Figure6-15b}
+	\end{subfigure}
+	\caption{Vector displacement plots. (a) Vector converted to scalar via dot product computation; (b) Surface plot of vibrating plate. Dark areas show nodal lines. Bright areas show maximum motion.}\label{fig:Figure6-15}
+\end{figure}
+
+Figure \ref{fig:Figure6-15b}  shows modal lines for a vibrating rectangular beam. The vibration mode in this figure is the second torsional mode, clearly indicated by the crossing modal lines. (The aliasing in the figure is because of the coarseness of the analysis mesh.) To create the figure we combined the procedure of Figure \ref{fig:Figure6-15a}  with a special lookup table. The lookup table was arranged with white areas in the center (i.e., corresponds to zero dot product) and dark areas at the beginning and end of the table (corresponds to $1$ or $-1$ dot product). As a result, regions of large normal displacement are dark and regions near the modal lines are light.
+
+\subsection{Time Animation}
+Some of the techniques described so far can be thought of as moving a point or object over a small time step. The hedgehog line is an approximation of a point's motion over a time period whose duration is given by the scale factor. In other words, if velocity $\vec{V} = dx/dt$, then displacement of a point is
+
+\begin{equation}\label{eq:6.1}
+dx = \overrightarrow{V\ }dt
+\end{equation}
+\myequations{Displacement of a point with respect to time. }
+
+This suggests an extension to our previous techniques: repeatedly displace points over many time steps. Figure \ref{fig:Figure6-16} shows such an approach. Beginning with a sphere \emph{S} centered about some point \emph{C}, we move \emph{S} repeatedly to generate the bubbles shown. The eye tends to trace out a path by connecting the bubbles, giving the observer a qualitative understanding of the fluid flow in that area. The bubbles may be displayed as an animation over time (giving the illusion of motion) or as a multiple exposure sequence (giving the appearance of a path).
+
+\begin{figure}[htb]
+	\includegraphics[width=0.96\linewidth]{Figure6-16}
+	\caption{Time animation of a point \emph{C}. Although the spacing between points varies, the time increment between each point is constant.}\label{fig:Figure6-16}
+\end{figure}
+
+Such an approach can be misused. For one thing, the velocity at a point is instantaneous.
+
+Once we move away from the point the velocity is likely to change. Using Equation \ref{eq:6.1} assumes that the velocity is constant over the entire step. By taking large steps we are likely to jump over changes in the velocity. Using smaller steps we will end in a different position. Thus the choice of step size is a critical parameter in constructing accurate visualization of particle paths in a vector field.
+
+To evaluate Equation \ref{eq:6.1} we can express it as an integral:
+
+\begin{equation}\label{eq:6.2}
+\overrightarrow{x\ }(t) = \bigintssss_{t}\overrightarrow{V\ }dt
+\end{equation}
+\myequations{Integrating velocity with respect to time. }
+
+Although this form cannot be solved analytically for most real world data, its solution can be approximated using numerical integration techniques. Accurate numerical integration is a topic beyond the scope of this book, but it is known that the accuracy of the integration is a function of the step size \emph{$dt$}. Since the path is an integration throughout the dataset, the accuracy of the cell interpolation functions, as well as the accuracy of the original vector data, plays an important role in realizing accurate solutions. No definitive study is yet available that relates cell size or interpolation function characteristics to visualization error. But the lesson is clear: the result of numerical integration must be examined carefully, especially in regions of large vector field gradient. However, as with many other visualization algorithms, the insight gained by using vector integration techniques is qualitatively beneficial, despite the unavoidable numerical errors.
+
+The simplest form of numerical integration is Euler's method,
+
+\begin{equation}\label{eq:6.3}
+\overrightarrow{x\ }_{i+1} = \overrightarrow{x\ }_i + \overrightarrow{V\ }_i \Delta{t}
+\end{equation}
+\myequations{Euler's method. }
+
+where the position at time is the $\overrightarrow{x\ }_{i+1}$ vector sum of the previous position plus the instantaneous velocity times the incremental time step $\Delta{t}$.
+
+Euler's method has error on the order of $O(\Delta{t}^2)$, which is not accurate enough for some applications. One such example is shown in Figure \ref{fig:Figure6-17}. The velocity field describes perfect rotation about a central point. Using Euler's method we find that we will always diverge and, instead of generating circles, will generate spirals instead.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-17a}
+		\caption{Rotational vector field.}\label{fig:Figure6-17a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+	\includegraphics[width=\linewidth]{Figure6-17b}
+	\caption{Euler’s method.}\label{fig:Figure6-17b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+	\includegraphics[width=\linewidth]{Figure6-17c}
+	\caption{Runge-Kutta..}\label{fig:Figure6-17c}
+\end{subfigure}
+	\caption{Euler’s integration (b) and Runge-Kutta integration of order 2 (c) applied to uniform rotational vector field (a). Euler’s method will always diverge.}\label{fig:Figure6-17}
+\end{figure}
+
+In this text we will use the Runge-Kutta technique of order $2$ \cite{Conte72}. This is given by the expression
+
+\begin{equation}\label{eq:6.4}
+\overrightarrow{x\ }_{i+1} = \overrightarrow{x\ }_i +\frac{\Delta t}{2}(\overrightarrow{V\ }_i + \overrightarrow{V\ }_{i+1})
+\end{equation}
+\myequations{Runge-Kutta technique of order $2$. }
+
+One final note about accuracy concerns. The errors involved in either perception or computation of visualizations is an open research area. The discussion in the preceding paragraph is a good example of this. There we characterized the error in streamline integration using conventional numerical integration arguments. But there is a problem with this argument. In visualization applications, we are integrating across cells whose function values are continuous, but whose derivatives are not. As the streamline crosses the cell boundary, subtle effects may occur that are not treated by the standard numerical analysis. Thus the standard arguments need to be extended for visualization applications.
+
+Integration formulas require repeated transformation from global to local coordinates. Consider moving a point through a dataset under the influence of a vector field. The first step is to identify the cell that contains the point. This operation is a search (see ``Searching'' on page \pageref{sec:searching} ), plus a conversion to local coordinates. Once the cell is found, then the next step is to compute the velocity at that point by interpolating the velocity from the cell points. The point is then incrementally repositioned (using the integration formula Equation \ref{eq:6.4}).
+The process is then repeated until the point exits the dataset or the distance or time traversed exceeds some specified value.
+
+This process can be computationally demanding. There are two important steps we can take to improve performance.
+
+\begin{enumerate}
+
+\item \emph{Improving search procedures.} There are two distinct types of searches. Initially, the starting location of the particle must be determined by a global search procedure. Once the initial location of the point is determined in the dataset, an incremental search procedure can then be used. Incremental searching is efficient because the motion of the point is limited within a single cell, or at most across a cell boundary. Thus, the search space is greatly limited, and the incremental search is faster relative to the global search.
+
+\item \emph{Coordinate transformation.} The cost of a coordinate transformation from global to local coordinates can be reduced if either of the following conditions are true: the local and global coordinate systems are identical with one another (or vary by \emph{xyz} translation), or if the vector field is transformed from global space to local coordinate space. The image data coordinate system is an example of a local coordinates which are parallel to global coordinates, hence global to local coordinate transformation can be greatly accelerated. If the vector field is transformed into local coordinates (either as a preprocessing step or on a cell by cell basis), then the integration can proceed completely in local space. Once the integration path is computed, selected points along the path can be transformed into global space for the sake of visualization.
+
+\end{enumerate}
+
+\subsection{Streamlines}
+
+A natural extension of the previous time animation techniques is to connect the point position over many time steps. The result is a numerical approximation to a particle trace represented as a line.
+
+Borrowing terminology from the study of fluid flow, we can define three related line representation schemes for vector fields.
+
+\begin{itemize}
+
+\item \emph{Particle traces} are trajectories traced by fluid particles over time.
+
+\item \emph{Streaklines} are the set of particle traces at a particular time $t_i$ through a specified point $x_i$.
+
+\item \emph{Streamlines} are integral curves along a curve $s$ satisfying the equation
+
+\begin{equation}\label{eq:6.5}
+s = \bigintssss_{t}\overrightarrow{V\ }ds, \ \text{with}\ s = (x,t)
+\end{equation}
+\myequations{Streamline.}
+for a particular time $t$.
+\end{itemize}
+
+Streamlines, streaklines, and particle traces are equivalent to one another if the flow is steady. In time--varying flow, a given streamline exists only at one moment in time. Visualization systems generally provide facilities to compute particle traces. However, if time is fixed, the same facility can be used to compute streamlines. In general, we will use the term streamline to refer to the method of tracing trajectories in a vector field. Please bear in mind the differences in these representations if the flow is time--varying.
+
+Figure \ref{fig:Figure6-18} shows forty streamlines in a small kitchen. The room has two windows, a door (with air leakage), and a cooking area with a hot stove. The air leakage and temperature variation combine to produce air convection currents throughout the kitchen. The starting positions of the streamlines were defined by creating a \emph{rake}, or curve (and its associated points). Here the rake was a straight line. These streamlines clearly show features of the flow field. By releasing many streamlines simultaneously we obtain even more information, as the eye tends to assemble nearby streamlines into a ``global'' understanding of flow field features.
+
+\begin{figure}[htb]
+	\includegraphics[width=0.96\linewidth]{Figure6-18}
+	\caption{Flow velocity computed for a small kitchen. Forty streamlines start along the rake positioned under the window. Some eventually travel over the hot stove and are convected upwards. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/Kitchen}{Kitchen.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/Kitchen/}{Kitchen.py})}\label{fig:Figure6-18}
+\end{figure}
+
+Many enhancements of streamline visualization exist. Lines can be colored according to velocity magnitude to indicate speed of flow. Other scalar quantities such as temperature or pressure also may be used to color the lines. We also may create constant time dashed lines. Each dash represents a constant time increment. Thus, in areas of high velocity, the length of the dash will be greater relative to regions of lower velocity. These techniques are illustrated in Figure \ref{fig:Figure6-19} for airflow around a blunt fin. This example consists of a wall with half a rounded fin projecting into the fluid flow. (Using arguments of symmetry, only half of the domain was modeled.) Twenty five streamlines are released upstream of the fin. The boundary layer effects near the junction of the fin and wall are clearly evident from the streamlines. In this area, flow recirculation is apparent, as well as the reduced flow speed.
+
+\begin{figure}[htb]
+	\includegraphics[width=0.96\linewidth]{Figure6-19}
+	\caption{airflow around a blunt fin. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/BluntStreamlines}{BluntStreamlines.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/BluntStreamlines/}{BluntStreamlines.py})}\label{fig:Figure6-19}
+\end{figure}
+
+\section{Tensor Algorithms}
+
+As we mentioned earlier, tensor visualization is an active area of research. However there are a few simple techniques that we can use to visualize real $3 \times 3$ symmetric tensors. Such tensors are used to describe the state of displacement or stress in a 3D material. The stress and strain tensors for an elastic material are shown in Figure \ref{fig:Figure6-20}*.
+
+In these tensors the diagonal coefficients are the so-called normal stresses and strains, and the off-diagonal terms are the shear stresses and strains. Normal stresses and strains act perpendicular to a specified surface, while shear stresses and strains act tangentially to the surface. Normal stress is either compression or tension, depending on the sign of the coefficient.
+
+A $3 \times 3$ real symmetric matrix can be characterized by three vectors in 3D called the eigenvectors, and three numbers called the eigenvalues of the matrix. The eigenvectors form a 3D coordinate system whose axes are mutually perpendicular. In some applications, particularly the study of materials, these axes also are referred to as the principle axes of the tensor and are physically significant. For example, if the tensor is a stress tensor, then the principle axes are the directions of normal stress and no shear stress. Associated with each eigenvector is an eigenvalue. The eigenvalues are often physically significant as well. In the study of vibration, eigenvalues correspond to the resonant frequencies of a structure, and the eigenvectors are the associated mode shapes.
+
+Mathematically we can represent eigenvalues and eigenvectors as follows. Given a matrix $A$ the eigenvector $\overrightarrow{x\ }$ and eigenvalue $\lambda$ must satisfy the relation 
+
+\begin{equation}\label{eq:6.6}
+A \cdot x = \lambda\ \  \overrightarrow{x\ }
+\end{equation}
+\myequations{Relation between eigenvalues and eigenvectors.}
+
+For Equation \ref{eq:6.6} to hold, the matrix determinant must satisfy
+
+\begin{equation}\label{eq:6.7}
+det |A-\lambda I| = 0
+\end{equation}
+\myequations{Condition for Equation \ref{eq:6.6} to hold.}
+
+Expanding this equation yields a $n^{th}$ degree polynomial in $\lambda$ whose roots are the eigenvalues. Thus, there are always $n$ eigenvalues, although they may not be distinct. In general, Equation \ref{eq:6.7} is not solved using polynomial root searching because of poor computational performance. (For matrices of order 3 root searching is acceptable because we can solve for the eigenvalues analytically.) Once we determine the eigenvalues, we can substitute each into Equation \ref{eq:6.7} to solve for the associated eigenvectors.
+
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\LARGE
+		\begin{equation*}
+		\left[\begin{array}{ccc}
+		\sigma{_x} & \tau{_{xy}} & \tau{_{xz}}  \\
+		\tau{_{yx}} & \sigma{_y} & \tau{_{yz}}    \\
+		\tau{_{zx}} & \tau{_{zy}} & \sigma{_z}
+		\end{array}\right]
+		\end{equation*}
+		\caption{Stress tensor.}
+		\label{fig:Figure6-20a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\LARGE
+		\begin{equation*}
+		\left[\begin{array}{ccc}
+		\frac{\partial u}{\partial x} & (\frac{\partial u}{\partial y} + \frac{\partial v}{\partial z})&   (\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x})\\ \\
+		(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial z}) & \frac{\partial v}{\partial y} & (\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y})    \\ \\
+		(\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x}) & (\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y})&
+		\frac{\partial w}{\partial z}
+		\end{array}\right]
+		\end{equation*}
+		\caption{Strain tensor}\label{fig:Figure6-20b}
+	\end{subfigure}
+	\caption{Stress and strain tensors. Normal stresses in the $x-y-z$ coordinate directions indicated as $(\sigma_x, \sigma_y, \sigma_z)$, shear stresses indicated as $t_{ij}$. Material displacement represented by $(u, v, w)$ components.}\label{fig:Figure6-20}
+\end{figure}
+
+
+We can express the eigenvectors of the $3 \times 3$ system as
+
+\begin{equation}\label{eq:6.8}
+\vec{v_i} = \lambda _i \vec{e_i} \ with\  i = 1,2,3
+\end{equation}
+\myequations{Eigenvectors of the  $3 \times 3$ system.}
+
+with $\vec{e_i}$ a unit vector in the direction of the eigenvalue, and $\lambda{_i}$ the eigenvalues of the system. If we order eigenvalues such that
+
+\begin{equation}\label{eq:6.9}
+\lambda{_1} \geq \lambda{_2} \geq \lambda{_3}
+\end{equation}
+\myequations{Ordering of eigenvalues.}
+
+then we refer to the corresponding eigenvectors $\vec{v_1}$, $\vec{v_2}$ and $\vec{v_1}$ as the \emph{major}, \emph{medium} and \emph{minor} eigenvectors.
+
+\subsection{Tensor Ellipsoids}
+
+This leads us to the tensor ellipsoid technique for the visualization of real, symmetric $3 \times 3$ matrices. The first step is to extract eigenvalues and eigenvectors as described in the previous section. Since eigenvectors are known to be orthogonal, the eigenvectors form a local coordinate system. These axes can be taken as the \emph{minor}, \emph{medium} and \emph{major} axes of an ellipsoid. Thus, the shape and orientation of the ellipsoid represents the relative size of the eigenvalues and the orientation of the eigenvectors.
+
+To form the ellipsoid we begin by positioning a sphere at the tensor location. The sphere is then rotated around its origin using the eigenvectors, which in the form of Equation \ref{eq:6.8} are direction cosines. The eigenvalues are used to scale the sphere. Using $4 \times 4$ transformation matrices and referring to Equation \ref{eq:3.6}, Equation \ref{eq:3.9} and Equation \ref{eq:3.13}, we form the ellipsoid by transforming the sphere centered at the origin using the matrix $T$
+
+\begin{equation}\label{eq:6.10}
+T = T_T \cdot T_R \cdot T_S
+\end{equation}
+\myequations{Transforming the sphere.}
+
+(remember to read right to left). The eigenvectors can be directly plugged in to create the rotation matrix, while the point coordinates $x-y-z$ and eigenvalues $\lambda{_1} \geq \lambda{_2} \geq \lambda{_3}$ are inserted into the translation and scaling matrices. A concatenation of these matrices forms the final transformation matrix $T$.
+
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics{Figure6-21a}
+		\caption{Tensor ellipsoid.}
+		\label{fig:Figure6-21a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics{Figure6-21b}
+		\caption{Point load on semifinite domain.}
+		\label{fig:Figure6-21b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\LARGE
+		\begin{equation*}
+		\begin{array}{l}
+				\begin{array}{lll}
+				\sigma{_x} & = &  -\frac{P}{2 \pi \rho ^2}\left(\frac{3zx^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
+				} - \frac{\rho}{\rho+z}+\frac{x ^2 (2 \rho + z)}{\rho ( \rho + z) ^2} \right) \right)\\
+				\sigma{_y}  & = & -\frac{P}{2 \pi \rho ^2}\left(\frac{3zy^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
+				} - \frac{\rho}{\rho+z}+\frac{y ^2 (2 \rho + z)}{\rho ( \rho + z) ^2} \right) \right)  \\
+			    \sigma{_z}  & = & \frac{3Pz^3}{2\pi\rho^5}
+				\end{array} \\
+				\begin{array}{lllll}
+				\tau_{xy} &=& \tau_{yx} &=& -\frac{P}{2 \pi \rho ^2}\left( \frac{3xyz}{\rho ^3} - (1-2v)\left(\frac{xy(2 \rho + z)}{\rho ( \rho + z) ^2}\right)\right) \\
+				\tau_{xz}&=&\tau_{zx} &=& -\frac{3Pxz^2}{2 \pi \rho ^5}\\
+				\tau_{yz}&=&\tau_{zy} &=& -\frac{3Pyz^2}{2 \pi \rho ^5}
+				\end{array}
+		\end{array}
+	\end{equation*}
+		\caption{Analytic solution}\label{fig:Figure6-21c}
+	\end{subfigure}
+	\caption{Stress and strain tensors. Normal stresses in the $x-y-z$ coordinate directions indicated as $(\sigma_x, \sigma_y, \sigma_z)$, shear stresses indicated as $t_{ij}$. Material displacement represented by $(u, v, w)$ components.}\label{fig:Figure6-21}
+\end{figure}
+
+Figure \ref{fig:Figure6-21a} depicts the tensor ellipsoid technique. In Figure \ref{fig:Figure6-21b}) we show this technique to visualize material stress near a point load on the surface of a semiinfinite domain. (This is the so-called Boussinesq's problem.) From Saada \cite{Saada74} we have the analytic expression for the stress components in Cartesian coordinates shown in Figure \ref{fig:Figure6-21c}. Note that the $z$-direction is defined as the axis originating at the point of application of the force $P$. The variable $\rho$ is the distance from the point of load application to a point $x-y-z$. The orientation of the $x$ and $y$ axes are in the plane perpendicular to the $z$ axis. (The rotation in the plane of these axes is unimportant since the solution is symmetric around the $z$ axis.) (The parameter $\nu$ is Poisson's ratio which is a property of the material. Poisson's ratio relates the lateral contraction of a material to axial elongation under a uniaxial stress condition. See \cite{Saada74} or \cite{Timoshenko70} for more information.)
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure6-22a}
+		\caption{Tensor axes. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/TensorAxes}{TensorAxes.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/TensorAxes/}{TensorAxes.py})}
+		\label{fig:Figure6-22a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure6-22b}
+		\caption{Tensor ellipsiods. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/TensorEllipsoids}{TensorEllipsoids.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/TensorEllipsoids/}{TensorEllipsoids.py})}
+		\label{fig:Figure6-22b}
+	\end{subfigure}
+	\caption{Tensor visualization techniques; (a) Tensor axes, (b) Tensor ellipsiods.}\label{fig:Figure6-22}
+\end{figure}
+
+In Figure \ref{fig:Figure6-21a} we visualize the analytical results of Boussinesq's problem from Saada. The top portion of the figure shows the results by displaying the scaled and oriented principal axes of the stress tensor. (These are called \emph{tensor axes}.) In the bottom portion we use tensor ellipsoids to show the same result. Tensor ellipsoids and tensor axes are a form of \emph{glyph} (see "Glyphs" on page \pageref{subsec:glyphs} ) specialized to tensor visualization.
+
+A certain amount of care must be taken to visualize this result since there is a stress singularity at the point of contact of the load. In a real application loads are applied over a small area and not at a single point. Also, plastic behavior prevents stress levels from exceeding a certain point. The results of the visualization, as with any computer process, are only as good as the underlying model.
+
+\section{Modelling Algorithms}
+\subsection{Glyphs}
+\label{subsec:glyphs}
+
+
 \section{Bibliographic Notes}
 
 Color mapping is a widely studied topic in imaging, computer graphics, visualization, and human factors. References \cite{Durrett87} \cite{Ware88} \cite{Rheingans92} provide samples of the available literature. You also may want to learn about the physiological and psychological effects of color on perception. The text by Wyszecki and Stiles \cite{Wyszecki82} serves as an introductory reference.
@@ -296,7 +606,6 @@ Tensor visualization techniques are relatively few in number. Most techniques ar
 
 Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and Wyvill \cite{Wyvill86} have been important contributors to implicit modeling. Implicit modeling is currently popular in computer graphics for modeling ``soft'' or ``blobby'' objects. These techniques are simple, powerful, and are becoming widely used for advanced computer graphics modeling.
 
-
 \printbibliography
 
 
@@ -309,8 +618,8 @@ Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and W
 
 \item A common visualization technique is to animate isosurface value. The procedure is to smoothly vary isosurface value over a specified range.	
 \begin{enumerate}
-	\item Create an animation sequence for the quadric example ( **Figure4--1** )
-	\item Create an animation sequence for the head sequence ( **Figure6-11** (b))
+	\item Create an animation sequence for the quadric example (Figure \ref{fig:Figure4-1a})
+	\item Create an animation sequence for the head sequence (Figure \ref{fig:Figure6-11b})
 \end{enumerate}
 
 \item Marching Cubes visits each cell during algorithm execution. Many of these cells do not contain the isosurface. Describe a technique to improve the performance of isosurface extraction by eliminating visits to cells not containing isosurface. ( \emph{Hint}: use a preprocessing step to analyze data. Assume that many isosurfaces will be extracted and that the preprocessing step will not count against execution time.)
@@ -321,7 +630,7 @@ Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and W
 	\item Discuss potential problems caused by orientation dependent viewing of visualizations.
 \end{enumerate}
 
-\item Write a program to simulate beam vibration. Use the code associated with **Figure6-14** (a) as your starting point.
+\item Write a program to simulate beam vibration. Use the code associated with Figure \ref{fig:Figure6-14a} as your starting point.
 
 \item 	 Using the filters vtkStreamLine, vtkMaskPoints, and vtkGlyph3D, create a visualization consisting of oriented glyphs along a streamline.
 
