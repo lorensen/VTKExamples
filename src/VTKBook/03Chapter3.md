@@ -249,7 +249,7 @@ $$
 
 Using homogeneous coordinates we can represent an infinite point by setting w h to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 transformation matrix. Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a 3x3 matrix.
 
-For example, suppose we wanted to create a transformation matrix that translates a point $( x, y, z)$ in Cartesian space by the vector $( t_x , t_y, t_z). We need only construct the translation matrix given by
+For example, suppose we wanted to create a transformation matrix that translates a point $( x, y, z)$ in Cartesian space by the vector $( t_x , t_y, t_z)$. We need only construct the translation matrix given by
 
 $$
 T_T = \left[\begin{array}{cccc}
