@@ -24,5 +24,8 @@ List of files and original paths:
 | Figure6-11d.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIronIsoSurface.png |
 | Figure6-12b.png | src/Testing/Baseline/Cxx/Visualization/Hawaii.png |
 | Figure6-13c.png | src/Testing/Baseline/Cxx/Visualization/TestComplexV.png |
+| Figure6-14a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/PlateVibration.png |
+| Figure6-14b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestVelocityProfile.png |
+| Figure6-15b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDisplacementPlot.png |
 | | |
 | | |

@@ -201,7 +201,7 @@ We can extend the general approach of marching squares and marching cubes to oth
 
 Figure \ref{fig:Figure6-11} shows four applications of contouring. In Figure \ref{fig:Figure6-11a} we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. Figure \ref{fig:Figure6-11b} through Figure \ref{fig:Figure6-11d} are isosurfaces created by marching cubes. Figure \ref{fig:Figure6-11b} is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. ( Figure \ref{fig:Figure6-11a} is a 2D subset of this data.) The intensity level corresponds to human bone. Figure \ref{fig:Figure6-11c} is an isosurface of constant flow density. Figure \ref{fig:Figure6-11d} is an isosurface of electron potential of an iron protein molecule. The image shown in Figure \ref{fig:Figure6-11b} is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, Figure \ref{fig:Figure6-11c} and Figure \ref{fig:Figure6-11d} are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
 
-\begin{figure}
+\begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
 		\includegraphics[width=\linewidth]{Figure6-11a}
 		\caption{Marching squares used to generate contour lines.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/HeadSlice}{HeadSlice.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/HeadSlice/}{HeadSlice.py})}\label{fig:Figure6-11a}
@@ -225,6 +225,7 @@ Figure \ref{fig:Figure6-11} shows four applications of contouring. In Figure \re
 \end{figure}
 
 \subsection{Scalar Generation}
+\label{subsec:scalar_generation}
 
 The two visualization techniques presented thus far, color mapping and contouring, are simple, effective methods to display scalar information. It is natural to turn to these techniques first when visualizing data. However, often our data is not in a form convenient to these techniques. The data may not be single-valued (i.e., a scalar), or it may be a mathematical or other complex relationship. That is part of the fun and creative challenge of visualization: We must tap our creative resources to convert data into a form we can visualize.
 
@@ -232,7 +233,7 @@ For example, consider terrain data. We assume that the data is \emph{xyz} coordi
 
 This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the \emph{z}-coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point $p_l$ (e.g., sea level) and ending at the (high) point $p_h$ (e.g., mountain top), we compute the elevation scalar $s_i$ at point $p_i = (x_i, y_i,z_i)$ using the dot product as shown in Figure \ref{fig:Figure6-12}. The scalar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 colors ranging from deep brown (water) to dark turquoise (mountain top) is used to color map this figure.
 
-\begin{figure}
+\begin{figure}[htb]
 	\begin{subfigure}[h]{0.96\linewidth}
 		\includegraphics[width=\linewidth]{Figure6-12a}
 	\end{subfigure}
@@ -257,7 +258,7 @@ scaled line for each vector (Figure \ref{fig:Figure6-13a}). The line begins at t
 
 There are many variations of this technique Figure \ref{fig:Figure6-13b}). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented ``glyphs'' can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
 
-\begin{figure}
+\begin{figure}[htb]
 	\begin{subfigure}[h]{0.24\linewidth}
 		\includegraphics[width=\linewidth]{Figure6-13a}
 		\caption{Oriented lines.}\label{fig:Figure6-13a}
@@ -282,6 +283,47 @@ Scaling glyphs also poses interesting problems. In what Tufte has termed a ``vis
 \subsection{Warping}
 
 Vector data is often associated with ``motion''. The motion is in the form of velocity or displacement. An effective technique for displaying such vector data is to ``warp'' or deform geometry according to the vector field. For example, imagine representing the displacement of a structure under load by deforming the structure. Or if we are visualizing the flow of fluid, we can create a flow profile by distorting a straight line inserted perpendicular to the flow.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+	\includegraphics[width=\linewidth]{Figure6-14a}
+	\caption{Vibration of beam. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/PlateVibration}{PlateVibration.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/PlateVibration/}{PlateVibration.py})}\label{fig:Figure6-14a}
+\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-14b}
+		\caption{Momentum profiles. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/VelocityProfile}{VelocityProfile.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/VelocityProfile/}{VelocityProfile.py})}\label{fig:Figure6-14b}
+	\end{subfigure}
+	\caption{Warping geometry to show vector field.}\label{fig:Figure6-14}
+\end{figure}
+
+Figure \ref{fig:Figure6-14} shows two examples of vector warping. In the first example the motion of a vibrating beam is shown. The original undeformed outline is shown in wireframe. The second example shows warped planes in a structured grid dataset. The planes are warped according to flow momentum. The relative back and forward flow are clearly visible in the deformation of the planes.
+
+Typically, we must scale the vector field to control geometric distortion. Too small a distortion may not be visible, while too large a distortion can cause the structure to turn inside out or selfintersect. In such a case the viewer of the visualization is likely to lose context, and the visualization will become ineffective.
+
+\subsection{Displacement Plots}
+
+Vector displacement on the surface of an object can be visualized with displacement plots. A displacement plot shows the motion of an object in the direction perpendicular to its surface. The object motion is caused by an applied vector field. In a typical application the vector field is a displacement or strain field.
+
+Vector displacement plots draw on the ideas in ``Scalar Generation'' on  page \pageref{subsec:scalar_generation}. Vectors are converted to scalars by computing the dot product between the surface normal and vector at each point (Figure \ref{fig:Figure6-15a}). If positive values result, the motion at the point is in the direction of the surface normal (i.e., positive displacement). Negative values indicate that the motion is opposite the surface normal (i.e., negative displacement).
+
+A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called *modal* lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-15a}
+		\caption{Scalar computation $S = \overrightarrow{v} \cdot \overrightarrow{n}$.}\label{fig:Figure6-15a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-15b}
+		\caption{Displacement plot. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/DisplacementPlot}{DisplacementPlot.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/DisplacementPlot/}{DisplacementPlot.py})}\label{fig:Figure6-15b}
+	\end{subfigure}
+	\caption{Vector displacement plots. (a) Vector converted to scalar via dot product computation; (b) Surface plot of vibrating plate. Dark areas show nodal lines. Bright areas show maximum motion.}\label{fig:Figure6-15}
+\end{figure}
+
+Figure \ref{fig:Figure6-15b}  shows modal lines for a vibrating rectangular beam. The vibration mode in this figure is the second torsional mode, clearly indicated by the crossing modal lines. (The aliasing in the figure is because of the coarseness of the analysis mesh.) To create the figure we combined the procedure of Figure \ref{fig:Figure6-15a}  with a special lookup table. The lookup table was arranged with white areas in the center (i.e., corresponds to zero dot product) and dark areas at the beginning and end of the table (corresponds to $1$ or $-1$ dot product). As a result, regions of large normal displacement are dark and regions near the modal lines are light.
+
 \section{Bibliographic Notes}
 
 Color mapping is a widely studied topic in imaging, computer graphics, visualization, and human factors. References \cite{Durrett87} \cite{Ware88} \cite{Rheingans92} provide samples of the available literature. You also may want to learn about the physiological and psychological effects of color on perception. The text by Wyszecki and Stiles \cite{Wyszecki82} serves as an introductory reference.
