@@ -588,6 +588,122 @@ In Figure \ref{fig:Figure6-21a} we visualize the analytical results of Boussines
 A certain amount of care must be taken to visualize this result since there is a stress singularity at the point of contact of the load. In a real application loads are applied over a small area and not at a single point. Also, plastic behavior prevents stress levels from exceeding a certain point. The results of the visualization, as with any computer process, are only as good as the underlying model.
 
 \section{Modelling Algorithms}
+
+Modelling algorithms are the catchall category for our taxonomy of visualization techniques. Modelling algorithms have one thing in common: They create or change dataset geometry or topology.
+
+\subsection{Source Objects}
+
+As we have seen in previous examples, source objects begin the visualization pipeline. Source objects are used to create geometry such as spheres, cones, or cubes to support visualization context or are used to read in data files. Source objects also may be used to create dataset attributes. Some examples of source objects and their use are as follows.
+
+\begin{itemize}
+
+\item[] \textbf{Modelling Simple Geometry.}
+Spheres, cones, cubes, and other simple geometric objects can be used alone or in combination to model geometry. Often we visualize real-world applications such as air flow in a room and need to show real-world objects such as furniture, windows, or doors.
+Real-world objects often can be represented using these simple geometric representations. These source objects generate their data procedurally. Alternatively, we may use reader objects to access geometric data defined in data files. These data files may contain more complex geometry such as that produced by a 3D CAD (ComputerAided Design) system.
+
+\item[] \textbf{Supporting Geometry.}
+During the visualization process we may use source objects to create supporting geometry. This may be as simple as three lines to represent a coordinate axis or as complex as tubes wrapped around line segments to thicken and enhance their appearance. Another common use is as supplemental input to objects such as streamlines or probe filters. These filters take a second input that defines a set of points. For streamlines, the points determine the initial positions for generating the streamlines. The probe filter uses the points as the position to compute attribute values such as scalars, vectors, or tensors.
+
+\item[] \textbf{Data Attribute Creation.}
+Source objects can be used as procedures to create data attributes. For example, we can procedurally create textures and texture coordinates. Another use is to create scalar values over a uniform grid. If the scalar values are generated from a mathematical function, then we can use the visualization techniques described here to visualize the function. In fact, this leads us to a very important class of source objects: implicit functions.
+
+\end{itemize}
+
+\subsection{Implicit Functions}
+
+Implicit functions are functions of the form
+
+\begin{equation}\label{eq:6.11}
+F(x,y,z) = c
+\end{equation}
+\myequations{Implicit function.}
+
+where $c$ is an arbitrary constant. Implicit functions have three
+important properties.
+
+\begin{itemize}
+
+\item \emph{Simple geometric description.} Implicit functions are convenient tools to describe common geometric shapes. This includes planes, spheres, cylinders, cones, ellipsoids, and quadrics.
+
+\item \emph{Region separation.} Implicit functions separate 3D Euclidean space into three distinct regions. These regions are inside, on, and outside the implicit function. These regions are defined as $F(x,y,z) < 0$, $F(x,y,z) = 0$ and $F(x,y,z) > 0$, respectively.
+
+\item \emph{Scalar generation.} Implicit functions convert a position in space into a scalar value. That is, given an implicit function we can sample it at a point $(x_i,y_i,z_i)$ to generate a scalar value $c_i$.
+
+\end{itemize}
+
+An example of an implicit function is the equation for a sphere of radius $R$.
+
+\begin{equation}\label{eq:6.12}
+F(x,y,z) = x^2 + y^2 + z^2 - R^2
+\end{equation}
+\myequations{Implicit function for a sphere.}
+
+This simple relationship defines the three regions (on $F(x,y,z = 0)$ on the sphere), $F(x,y,z) < 0$ (inside the sphere), and $F(x,y,z) > 0$ (outside the sphere). Any point maybe be classified as inside, on, or outside the sphere simply by evaluating Equation \ref{eq:6.12}.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure6-23a}
+		\caption{2D depiction of sphere sampling.}
+		\label{fig:Figure6-23a}
+	\end{subfigure}
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure6-23b}
+		\caption{Isosurface of a sphere. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/ImplicitFunctions/ImplicitSphere}{ImplicitSphere.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/ImplicitFunctions/ImplicitSphere/}{ImplicitSphere.py})}
+		\label{fig:Figure6-23b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure6-23c}
+		\caption{Boolean combination of two spheres. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/IceCream}{IceCream.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/IceCream/}{IceCream.py})}
+		\label{fig:Figure6-23c}
+	\end{subfigure}
+	\caption{Sampling functions: (a) 2D depiction of sphere sampling] (b) Isosurface of sampled sphere; (c) Boolean combination of two spheres, a cone, and two planes. (One sphere intersects the other, the planes clip the cone).}\label{fig:Figure6-23}
+\end{figure}
+
+Implicit functions have a variety of uses. This includes geometric modelling, selecting data, and visualizing complex mathematical descriptions.
+
+\subsection{Modelling Objects.}
+
+Implicit functions can be used alone or in combination to model geometric objects. For example, to model a surface described by an implicit function, we sample $F$ on a dataset and generate an isosurface at a contour value $c_i$. The result is a polygonal representation of the function. Figure \ref{fig:Figure6-23b} shows an isosurface for a sphere of radius=1 sampled on a volume. Note that we can choose nonzero contour values to generate a family of offset surfaces. This is useful for creating blending functions and other special effects.
+
+Implicit functions can be combined to create complex objects using the boolean operators union, intersection, and difference. The union operation between $F\cup G$ between two functions $F(x,y,z)$ and $G(x,y,z)$ is the minimum value
+
+\begin{equation}\label{eq:6.13}
+F \cup G = \lbrace \max\left(F\left(\overrightarrow{\ x\ }\right), G\left(\overrightarrow{\ x\ }\right)\right)\, \vert \, \overrightarrow{\ x\ } \in \mathbb{R}^n \rbrace
+\end{equation}
+\myequations{Union.}
+
+The intersection between two implicit functions is given by
+
+\begin{equation}\label{eq:6.14}
+F \cap G = \lbrace \min\left(F\left(\overrightarrow{\ x\ }\right), G\left(\overrightarrow{\ x\ }\right)\right)\, \vert \, \overrightarrow{\ x\ } \in \mathbb{R}^n  \rbrace
+\end{equation}
+\myequations{Intersection.}
+
+The difference of two implicit functions is given by
+
+\begin{equation}\label{eq:6.15}
+F - G = \lbrace \min\left(F\left(\overrightarrow{\ x\ }\right), -G\left(\overrightarrow{\ x\ }\right)\right)\, \vert \, \overrightarrow{\ x\ } \in \mathbb{R}^n  \rbrace
+\end{equation}
+\myequations{Difference.}
+
+Figure \ref{fig:Figure6-23c} shows a combination of simple implicit functions to create an ice-cream cone. The cone is created by clipping the (infinite) cone function with two planes. The ice cream is constructed by performing a difference operation on a larger sphere with a smaller offset sphere to create the ``bite.'' The resulting surface was extracted using surface contouring with isosurface value $0.0$.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure6-24a}
+		\caption{Selecting data with implicit function}
+		\label{fig:Figure6-24a}
+	\end{subfigure}
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure6-24b}
+		\caption{Isosurface of a sphere. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/ExtractData}{ExtractData.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/ExtractData/}{ExtractData.py})}
+		\label{fig:Figure6-24b}
+	\end{subfigure}
+	\caption{Implicit functions used to select data: (a) 2D cells lying in ellipse are selected; (b) Two ellipsoids combined using the union operation used to select voxels from a volume. Voxels shrunk 50 percent.}\label{fig:Figure6-24}
+\end{figure}
+
+
 \subsection{Glyphs}
 \label{subsec:glyphs}
 

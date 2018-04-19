@@ -31,5 +31,8 @@ List of files and original paths:
 | Figure6-19.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestBluntStreamlines.png |
 | Figure6-22a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorAxes.png |
 | Figure6-22b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorEllipsoids.png |
+| Figure6-23b.png | src/Testing/Baseline/Cxx/ImplicitFunctions/TestImplicitSphere.png |
+| Figure6-23c.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIceCream.png |
+| Figure6-24b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestExtractData.png |
 | | |
 | | |
