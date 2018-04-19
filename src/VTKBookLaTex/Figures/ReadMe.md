@@ -27,5 +27,9 @@ List of files and original paths:
 | Figure6-14a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/PlateVibration.png |
 | Figure6-14b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestVelocityProfile.png |
 | Figure6-15b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDisplacementPlot.png |
+| Figure6-18.png | src/Testing/Baseline/Cxx/Visualization/TestKitchen.png |
+| Figure6-19.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestBluntStreamlines.png |
+| Figure6-22a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorAxes.png |
+| Figure6-22b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorEllipsoids.png |
 | | |
 | | |
