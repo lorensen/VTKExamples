@@ -312,7 +312,7 @@ A useful application of this technique is the study of vibration. In vibration a
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
 		\includegraphics[width=\linewidth]{Figure6-15a}
-		\caption{Scalar computation $S = \overrightarrow{v} \cdot \overrightarrow{n}$.}\label{fig:Figure6-15a}
+		\caption{Scalar computation $S = \overrightarrow{v\ } \cdot \overrightarrow{n\ }$.}\label{fig:Figure6-15a}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -323,6 +323,124 @@ A useful application of this technique is the study of vibration. In vibration a
 \end{figure}
 
 Figure \ref{fig:Figure6-15b}  shows modal lines for a vibrating rectangular beam. The vibration mode in this figure is the second torsional mode, clearly indicated by the crossing modal lines. (The aliasing in the figure is because of the coarseness of the analysis mesh.) To create the figure we combined the procedure of Figure \ref{fig:Figure6-15a}  with a special lookup table. The lookup table was arranged with white areas in the center (i.e., corresponds to zero dot product) and dark areas at the beginning and end of the table (corresponds to $1$ or $-1$ dot product). As a result, regions of large normal displacement are dark and regions near the modal lines are light.
+
+\subsection{Time Animation}
+Some of the techniques described so far can be thought of as moving a point or object over a small time step. The hedgehog line is an approximation of a point's motion over a time period whose duration is given by the scale factor. In other words, if velocity $\vec{V} = dx/dt$, then displacement of a point is
+
+\begin{equation}\label{eq:6.1}
+dx = \overrightarrow{V\ }dt
+\end{equation}
+\myequations{Displacement of a point with respect to time. }
+
+This suggests an extension to our previous techniques: repeatedly displace points over many time steps. Figure \ref{fig:Figure6-16} shows such an approach. Beginning with a sphere \emph{S} centered about some point \emph{C}, we move \emph{S} repeatedly to generate the bubbles shown. The eye tends to trace out a path by connecting the bubbles, giving the observer a qualitative understanding of the fluid flow in that area. The bubbles may be displayed as an animation over time (giving the illusion of motion) or as a multiple exposure sequence (giving the appearance of a path).
+
+\begin{figure}[htb]
+	\includegraphics[width=0.96\linewidth]{Figure6-16}
+	\caption{Time animation of a point \emph{C}. Although the spacing between points varies, the time increment between each point is constant.}\label{fig:Figure6-16}
+\end{figure}
+
+Such an approach can be misused. For one thing, the velocity at a point is instantaneous.
+
+Once we move away from the point the velocity is likely to change. Using Equation \ref{eq:6.1} assumes that the velocity is constant over the entire step. By taking large steps we are likely to jump over changes in the velocity. Using smaller steps we will end in a different position. Thus the choice of step size is a critical parameter in constructing accurate visualization of particle paths in a vector field.
+
+To evaluate Equation \ref{eq:6.1} we can express it as an integral:
+
+\begin{equation}\label{eq:6.2}
+\overrightarrow{x\ }(t) = \bigintssss_{t}\overrightarrow{V\ }dt
+\end{equation}
+\myequations{Integrating velocity with respect to time. }
+
+Although this form cannot be solved analytically for most real world data, its solution can be approximated using numerical integration techniques. Accurate numerical integration is a topic beyond the scope of this book, but it is known that the accuracy of the integration is a function of the step size \emph{$dt$}. Since the path is an integration throughout the dataset, the accuracy of the cell interpolation functions, as well as the accuracy of the original vector data, plays an important role in realizing accurate solutions. No definitive study is yet available that relates cell size or interpolation function characteristics to visualization error. But the lesson is clear: the result of numerical integration must be examined carefully, especially in regions of large vector field gradient. However, as with many other visualization algorithms, the insight gained by using vector integration techniques is qualitatively beneficial, despite the unavoidable numerical errors.
+
+The simplest form of numerical integration is Euler's method,
+
+\begin{equation}\label{eq:6.3}
+\overrightarrow{x\ }_{i+1} = \overrightarrow{x\ }_i + \overrightarrow{V\ }_i \Delta{t}
+\end{equation}
+\myequations{Euler's method. }
+
+where the position at time is the $\overrightarrow{x\ }_{i+1}$ vector sum of the previous position plus the instantaneous velocity times the incremental time step $\Delta{t}$.
+
+Euler's method has error on the order of $O(\Delta{t}^2)$, which is not accurate enough for some applications. One such example is shown in Figure \ref{fig:Figure6-17}. The velocity field describes perfect rotation about a central point. Using Euler's method we find that we will always diverge and, instead of generating circles, will generate spirals instead.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=\linewidth]{Figure6-17a}
+		\caption{Rotational vector field.}\label{fig:Figure6-17a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+	\includegraphics[width=\linewidth]{Figure6-17b}
+	\caption{Euler’s method.}\label{fig:Figure6-17b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+	\includegraphics[width=\linewidth]{Figure6-17c}
+	\caption{Runge-Kutta..}\label{fig:Figure6-17c}
+\end{subfigure}
+	\caption{Euler’s integration (b) and Runge-Kutta integration of order 2 (c) applied to uniform rotational vector field (a). Euler’s method will always diverge.}\label{fig:Figure6-17}
+\end{figure}
+
+In this text we will use the Runge-Kutta technique of order $2$ \cite{Conte72}. This is given by the expression
+
+\begin{equation}\label{eq:6.4}
+\overrightarrow{x\ }_{i+1} = \overrightarrow{x\ }_i +\frac{\Delta t}{2}(\overrightarrow{V\ }_i + \overrightarrow{V\ }_{i+1})
+\end{equation}
+\myequations{Runge-Kutta technique of order $2$. }
+
+One final note about accuracy concerns. The errors involved in either perception or computation of visualizations is an open research area. The discussion in the preceding paragraph is a good example of this. There we characterized the error in streamline integration using conventional numerical integration arguments. But there is a problem with this argument. In visualization applications, we are integrating across cells whose function values are continuous, but whose derivatives are not. As the streamline crosses the cell boundary, subtle effects may occur that are not treated by the standard numerical analysis. Thus the standard arguments need to be extended for visualization applications.
+
+Integration formulas require repeated transformation from global to local coordinates. Consider moving a point through a dataset under the influence of a vector field. The first step is to identify the cell that contains the point. This operation is a search (see ``Searching'' on page \pageref{sec:searching} ), plus a conversion to local coordinates. Once the cell is found, then the next step is to compute the velocity at that point by interpolating the velocity from the cell points. The point is then incrementally repositioned (using the integration formula Equation \ref{eq:6.4}).
+The process is then repeated until the point exits the dataset or the distance or time traversed exceeds some specified value.
+
+This process can be computationally demanding. There are two important steps we can take to improve performance.
+
+\begin{enumerate}
+
+\item \emph{Improving search procedures.} There are two distinct types of searches. Initially, the starting location of the particle must be determined by a global search procedure. Once the initial location of the point is determined in the dataset, an incremental search procedure can then be used. Incremental searching is efficient because the motion of the point is limited within a single cell, or at most across a cell boundary. Thus, the search space is greatly limited, and the incremental search is faster relative to the global search.
+
+\item \emph{Coordinate transformation.} The cost of a coordinate transformation from global to local coordinates can be reduced if either of the following conditions are true: the local and global coordinate systems are identical with one another (or vary by \emph{xyz} translation), or if the vector field is transformed from global space to local coordinate space. The image data coordinate system is an example of a local coordinates which are parallel to global coordinates, hence global to local coordinate transformation can be greatly accelerated. If the vector field is transformed into local coordinates (either as a preprocessing step or on a cell by cell basis), then the integration can proceed completely in local space. Once the integration path is computed, selected points along the path can be transformed into global space for the sake of visualization.
+
+\end{enumerate}
+
+\subsection{Streamlines}
+
+A natural extension of the previous time animation techniques is to connect the point position over many time steps. The result is a numerical approximation to a particle trace represented as a line.
+
+Borrowing terminology from the study of fluid flow, we can define three related line representation schemes for vector fields.
+
+\begin{itemize}
+
+\item \emph{Particle traces} are trajectories traced by fluid particles over time.
+
+\item \emph{Streaklines} are the set of particle traces at a particular time $t_i$ through a specified point $x_i$.
+
+\item \emph{Streamlines} are integral curves along a curve $s$ satisfying the equation
+
+\begin{equation}\label{eq:6.5}
+s = \bigintssss_{t}\overrightarrow{V\ }ds, \ \text{with}\ s = (x,t)
+\end{equation}
+\myequations{Streamline.}
+for a particular time $t$.
+\end{itemize}
+
+Streamlines, streaklines, and particle traces are equivalent to one another if the flow is steady. In time--varying flow, a given streamline exists only at one moment in time. Visualization systems generally provide facilities to compute particle traces. However, if time is fixed, the same facility can be used to compute streamlines. In general, we will use the term streamline to refer to the method of tracing trajectories in a vector field. Please bear in mind the differences in these representations if the flow is time--varying.
+
+Figure \ref{fig:Figure6-18} shows forty streamlines in a small kitchen. The room has two windows, a door (with air leakage), and a cooking area with a hot stove. The air leakage and temperature variation combine to produce air convection currents throughout the kitchen. The starting positions of the streamlines were defined by creating a \emph{rake}, or curve (and its associated points). Here the rake was a straight line. These streamlines clearly show features of the flow field. By releasing many streamlines simultaneously we obtain even more information, as the eye tends to assemble nearby streamlines into a ``global'' understanding of flow field features.
+
+\begin{figure}[htb]
+	\includegraphics[width=0.96\linewidth]{Figure6-18}
+	\caption{Flow velocity computed for a small kitchen. Forty streamlines start along the rake positioned under the window. Some eventually travel over the hot stove and are convected upwards. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/Kitchen}{Kitchen.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/Kitchen/}{Kitchen.py})}\label{fig:Figure6-18}
+\end{figure}
+
+Many enhancements of streamline visualization exist. Lines can be colored according to velocity magnitude to indicate speed of flow. Other scalar quantities such as temperature or pressure also may be used to color the lines. We also may create constant time dashed lines. Each dash represents a constant time increment. Thus, in areas of high velocity, the length of the dash will be greater relative to regions of lower velocity. These techniques are illustrated in Figure \ref{fig:Figure6-19} for airflow around a blunt fin. This example consists of a wall with half a rounded fin projecting into the fluid flow. (Using arguments of symmetry, only half of the domain was modeled.) Twenty five streamlines are released upstream of the fin. The boundary layer effects near the junction of the fin and wall are clearly evident from the streamlines. In this area, flow recirculation is apparent, as well as the reduced flow speed.
+
+\begin{figure}[htb]
+	\includegraphics[width=0.96\linewidth]{Figure6-19}
+	\caption{airflow around a blunt fin. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/BluntStreamlines}{BluntStreamlines.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/BluntStreamlines/}{BluntStreamlines.py})}\label{fig:Figure6-19}
+\end{figure}
+
+
 
 \section{Bibliographic Notes}
 
