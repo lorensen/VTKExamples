@@ -103,7 +103,7 @@ The two main steps of ray casting are determining the values encountered along t
 <figure id="Figure 7-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-4.png?raw=true width="640" alt="Figure7-4">
 </figure>
-<figcaption style="color:blue"><b>Figure7-4</b> Image-order volume rendering. High potential iron protein data courtesy of Scripps Clinic, La Jolla, CA.. </figcaption>
+<figcaption style="color:blue"><b>Figure 7-4</b> Image-order volume rendering. High potential iron protein data courtesy of Scripps Clinic, La Jolla, CA.. </figcaption>
 </figure>
 
 **Figure 7-5** shows the data value profile of a ray as it passes through 8 bit volumetric data where the data values can range between 0 and 255. The *x*-axis of the profile indicates distance from the view plane while the *y*-axis represents data value. The results obtained from four different simple ray functions are shown below the profile. For display purposes we convert the raw result values to gray scale values using a method similar to the one in the previous example.

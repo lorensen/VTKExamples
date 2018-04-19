@@ -71,7 +71,7 @@ The HSV system represents colors based on their hue, saturation, and value. The 
 <figure id="Figure 3-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-3.png?raw=true width="640" alt="Figure 3-3">
 </figure>
-<figcaption style="color:blue"><b>Figure 3-3</b>.Relative absorbance of light by the three types of cones in the human retina <em.</figcaption>
+<figcaption style="color:blue"><b>Figure 3-3</b>. Relative absorbance of light by the three types of cones in the human retina. </figcaption>
 </figure>
 
 | **Color** | **RGB**   | **HSV**   |
