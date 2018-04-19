@@ -337,6 +337,7 @@ for snippet in snippets:
 
 # Copy repo .md files
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
+CopyFile(RepoDir + "/VTKBook.md", DocDir + "/VTKBook.md")
 
 # Copy coverage files
 if not os.path.exists(DocDir + "/Coverage"):
