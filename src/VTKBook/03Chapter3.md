@@ -46,7 +46,7 @@ Volume rendering techniques allow us to see the inhomogeneity inside objects. In
 
 In this chapter we focus on surface rendering techniques. While not as powerful as volume rendering, surface rendering is widely used because it is relatively fast compared to volumetric techniques, and allows us to create images for a wide variety of data and objects. Chapter 7 describes volume rendering in more detail. 
 
-## Visualization Not Graphics
+### Visualization Not Graphics
 
 Although the authors would enjoy providing a thorough treatise on computer graphics, such a discourse is beyond the scope of this text. Instead we make the distinction between visualization (exploring, transforming, and mapping data) and computer graphics (mapping and rendering). The focus will be on the principles and practice of visualization, and not on 3D computer graphics. In this chapter and Chapter 7 we introduce basic concepts and provide a working knowledge of 3D computer graphics. For those more interested in this field, we refer you to the texts recommended in the "Bibliographic Notes" on page77 at the end of this chapter.
 
@@ -491,7 +491,7 @@ use them in VTK.
 ## The Graphics Model
 
 <figure id="Figure 3-24">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3_24.png?raw=true width="640" alt="Figure 3-24">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-24.png?raw=true width="640" alt="Figure 3-24">
 </figure>
 <figcaption style="color:blue"><b>Figure 3-24</b>. Illustrative diagram of graphics objects. <a href="../../Cxx/Rendering/Model" title="Model"> See Model.cxx</a> and <a href="../../Python/Rendering/Model" title="Model"> Model.py</a>.</figcaption>
 </figure>
@@ -557,7 +557,7 @@ subclass by invoking the special constructor New() in the device
 independent superclass. For example we would use (in C++)
 
 ```
-vtkActor \*anActor = vtkActor::New()
+vtkActor *anActor = vtkActor::New()
 ```
 
 to create a device dependent instance of vtkActor. The user sees no device dependent code, but in actuality anActor is a pointer to a device dependent subclass of vtkActor. **Figure 3-25** (b) is a code fragment of the constructor method New() which uses VTK's object factory mechanism. In turn, the vtkGraphicsFactory (used to instantiate graphical classes) produces the appropriate concrete subclass when requested to instantiate an actor as shown in **Figure 3-25c**.

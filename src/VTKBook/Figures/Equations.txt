@@ -1,3 +1,13 @@
+Chapter 4
+% Equation 4-1
+
+$$
+\begin{equation*}
+F(x,y,z) = a_0 x^2 + a_1 y^2 + a_2 z^2 + a_3 x y + a_4 y z + a_5 x z + a_6 x + a_7 y + a_8 z + a_9
+\end{equation*}
+\bf\tag{4-1}
+$$
+
 Chapter 6
 
 Figure 6-1
