@@ -34,5 +34,11 @@ List of files and original paths:
 | Figure6-23b.png | src/Testing/Baseline/Cxx/ImplicitFunctions/TestImplicitSphere.png |
 | Figure6-23c.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIceCream.png |
 | Figure6-24b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestExtractData.png |
+| Figure6-25a.png | src/Testing/Baseline/Cxx/Visualization/TestLorenz.png |
+| Figure6-28.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHello.png |
+| Figure6-30.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestSpikeFran.png |
+| Figure6-31.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCutStructuredGrid.png |
+| Figure6-32b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCutStructuredGrid.png |
+| Figure6-33.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCutWithScalars.png |
 | | |
 | | |
