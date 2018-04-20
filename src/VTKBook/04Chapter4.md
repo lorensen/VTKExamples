@@ -36,7 +36,7 @@ The functional model shows how data flows through the system. It also describes 
 In the examples that follow we will frequently use a simplified representation of the functional model to describe visualization processes ( **Figure 4-1** (c)). We will not explicitly distinguish between sources, sinks, data stores, and process objects. Sources and sinks are implied based on the number of inputs or outputs. Sources will be process objects with no input. Sinks will be process objects with no output. Filters will be process objects with at least one input and one output. Inter-mediate data stores will not be represented. Instead we will assume that they exist as necessary to support the data flow. Thus, as **Figure 4-1** (c) shows, the *Lines* data store that the *Outline* object generates ( **Figure 4-1** (b)) are combined into the single object *Outline*. We use oval shapes to repre-sent objects in the visualization model. (b) Functional model *Sample F(x,y,z)*
 
 <figure id="Figure 4-1">
- <figure id="Figure 4-1"a>
+ <figure id="Figure 4-1a">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestQuadricVisualization.png?raw=true width="640" alt="Figure 4-1a">
   <figcaption style="color:blue"><b>Figure 4-1</b>. Visualizing a quadric function *F(x,y,z) = c*. <a href="../../Cxx/Visualization/QuadricVisualization" title="QuadricVisualization"> See QuadricVisualization.cxx</a> and <a href="../../Python/Visualization/QuadricVisualization" title="QuadricVisualization"> QuadricVisualization.py</a>.</figcaption>
   </figure>
@@ -190,7 +190,7 @@ To be useful, a visualization network must process data to generate a desired re
 
 Most often the visualization network is executed more than once. For example, we may change the parameters of, or the input to, a process object. This is typically due to user interaction: The user may be exploring or methodically varying input to observe results. After one or more changes to the process object or its input, we must execute the network to generate up-to-date results.
 
-For highest performance, the process objects in the visualization network must execute only if a change occurs to their input. In some networks, as shown in Figure 4–6, we may have parallel branches that need not execute if objects are modified local to a particular branch. In this figure, we see that object D and the downstream objects E and F must execute because D’s input parameter is changed, and objects E and F depend on D for their input. The other objects need not execute because there is no change to their input.
+For highest performance, the process objects in the visualization network must execute only if a change occurs to their input. In some networks, as shown in **Figure 4–6**, we may have parallel branches that need not execute if objects are modified local to a particular branch. In this figure, we see that object D and the downstream objects E and F must execute because D’s input parameter is changed, and objects E and F depend on D for their input. The other objects need not execute because there is no change to their input.
 
 We can control the execution of the network using either a demand-driven or event-driven approach. In the demand-driven approach, we execute the network only when output is requested, and only that portion of the network affecting the result. In the event-driven approach, every change to a process object or its input causes the network to reexecute. The advantage of the eventdriven approach is that the output is always up to date (except during short periods of computation). The advantage of the demand-driven approach is that large numbers of changes can be processed without intermediate computation (i.e., data is processed only after the request for data is received). The demand-driven approach minimizes computation and results in more interactive visualization networks.
 
@@ -265,379 +265,92 @@ The disadvantage of implicit control is that it is harder to distribute network 
 
 **Conditional Execution**
 
-Another important capability of visualization networks is conditional
-execution. For example, we may wish to map data through different
-color lookup tables depending upon the variation of range in the data.
-Small variations can be amplified by assigning more colors within the
-data range, while we may compress our color display by assigning a
-small number of colors to the data range (**Figure 4-8** ).
+Another important capability of visualization networks is conditional execution. For example, we may wish to map data through different color lookup tables depending upon the variation of range in the data. Small variations can be amplified by assigning more colors within the data range, while we may compress our color display by assigning a small number of colors to the data range (**Figure 4-8** ).
 
-The conditional execution of visualization models (such as that shown
-**Figure 4-1** (c)) can be realized in principle. However, in practice
-we must supplement the visualization network with a conditional
-language to express the rules for network execution. Hence,
-conditional execution of visualization networks is a function of
-implementation language. Many visualization systems are programmed
-using the visual programming style. This approach is basically a
-visual editor to con-struct data flow diagrams directly. It is
-difficult to express conditional execution of networks using this
-approach. Alternatively, in a procedural programming language,
-conditional execution of net-
-
-+-----------------------------------+-----------------------------------+
-| works is straightforward. We      | "Putting It All Together " on   |
-| defer discussion of this topic    |                                   |
-| until                             |                                   |
-+-----------------------------------+-----------------------------------+
-| page101 .                         |                                   |
-+-----------------------------------+-----------------------------------+
+The conditional execution of visualization models (such as that shown **Figure 4-1**(c)) can be realized in principle. However, in practice we must supplement the visualization network with a conditional language to express the rules for network execution. Hence, conditional execution of visualization networks is a function of implementation language. Many visualization systems are programmed using the visual programming style. This approach is basically a visual editor to con-struct data flow diagrams directly. It is difficult to express conditional execution of networks using this approach. Alternatively, in a procedural programming language, conditional execution of networks is straightforward. We defer discussions of the topic until “Putting It All Together” on page 101.
 
 ## 4.5 Memory and Computation Trade-off
 
-Visualization is a demanding application, both in terms of computer
-memory and computational
+Visualization is a demanding application, both in terms of computer memory and computational requirements. Data streams on the order of one megabyte to one gigabyte are not uncommon. Many visualization algorithms are computationally expensive, in part due to input size, but also due to the inherent algorithm complexity. In order to create applications that have reasonable performance, most visualization systems have various mechanisms to trade off memory and computation costs.
 
-**Figure 4-9** Comparison of static versus dynamic memory models for
-typical network. Execution begins when output is requested from
-objects *C* and *D*. In more complex dynamic models, we can pre-vent
-*B* from executing twice by performing a more thorough dependency
-analysis.
-
-requirements. Data streams on the order of one megabyte to one
-gigabyte are not uncommon. Many visualization algorithms are
-computationally expensive, in part due to input size, but also due to
-the inherent algorithm complexity. In order to create applications
-that have reasonable performance, most visualization systems have
-various mechanisms to trade off memory and computation costs.
+<figure id="Figure 4-9">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-9.png?raw=true width="640" alt="Figure4-9">
+</figure>
+<figcaption style="color:blue"><b>Figure 4-9</b>. Comparison of static versus dynamic memory models for typical network. Execution begins when output is requested from objects *C* and *D*. In more complex dynamic models, we can prevent *B* from executing twice by performing a more thorough dependency analysis image.</figcaption>
+</figure>
 
 **Static and Dynamic Memory Models**
 
-Memory and computation trade-offs are important performance issues
-when executing visualiza-tion networks. In the networks presented thus
-far, the output of a process object is assumed to be available to
-downstream process objects at all times. Thus, network computation is
-minimized.
+Memory and computation trade-offs are important performance issues when executing visualiza-tion networks. In the networks presented thus far, the output of a process object is assumed to be available to downstream process objects at all times. Thus, network computation is minimized.
 
-However, the computer memory requirement to preserve filter output can
-be huge. Networks of only a few objects can tie up extensive computer
-memory resources.
+However, the computer memory requirement to preserve filter output can be huge. Networks of only a few objects can tie up extensive computer memory resources.
 
-An alternative approach is to save intermediate results only as long
-as they are needed by other objects. Once these objects finish
-processing, the intermediate result can be discarded. This approach
-results in extra computation each time output is requested. The memory
-resources required are greatly reduced at the expense of increased
-computation. Like all trade-offs, the proper solution depends upon the
-particular application and the nature of the computer system executing
-the visualization network.
+An alternative approach is to save intermediate results only as long as they are needed by other objects. Once these objects finish processing, the intermediate result can be discarded. This approach results in extra computation each time output is requested. The memory resources required are greatly reduced at the expense of increased computation. Like all trade-offs, the proper solution depends upon the particular application and the nature of the computer system executing the visualization network.
 
-We term these two approaches as *static* and *dynamic* memory models.
-In the static model intermediate data is saved to reduce overall
-computation. In the dynamic model intermediate data is discarded when
-it is no longer needed. The static model serves best when small,
-variable portions of the network reexecute, and when the data sizes
-are manageable by the computer system. The dynamic model serves best
-when the data flows are large, or the same part of the network
-executes each time. Often, it is desirable to combine both the static
-and dynamic models into the same net-work. If an entire leg of the
-network must execute each time, it makes no sense to store
-intermedi-ate results, since they are never reused. On the other hand,
-we may wish to save an intermediate result at a branch point in the
-network, since the data will more likely be reused. A comparison of
-the static and dynamic memory model for a specific network is shown in
-**Figure 4-9** .
+We term these two approaches as *static* and *dynamic* memory models. In the static model intermediate data is saved to reduce overall computation. In the dynamic model intermediate data is discarded when it is no longer needed. The static model serves best when small, variable portions of the network reexecute, and when the data sizes are manageable by the computer system. The dynamic model serves best when the data flows are large, or the same part of the network executes each time. Often, it is desirable to combine both the static and dynamic models into the same network. If an entire leg of the network must execute each time, it makes no sense to store intermedi-ate results, since they are never reused. On the other hand, we may wish to save an intermediate result at a branch point in the network, since the data will more likely be reused. A comparison of the static and dynamic memory model for a specific network is shown in **Figure 4-9** .
 
-As this figure shows, the static model executes each process object
-only once, storing inter-mediate results. In the dynamic model, each
-process object releases memory after downstream objects complete
-execution. Depending upon the implementation of the dynamic model,
-process object B may execute once or twice. If a thorough dependency
-analysis is performed, process B will release memory only after both
-objects C and D execute. In a simpler implementation, object B will
-release memory after C and subsequently, D executes.
+<figure id="Figure 4-10">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-10.png?raw=true width="640" alt="Figure4-10">
+</figure>
+<figcaption style="color:blue"><b>Figure 4-10</b>. Reference counting to conserve memory resource. Each filter A, B, and C shares a common point representation. Other data is local to each object. </figcaption>
+</figure>
+
+As this figure shows, the static model executes each process object only once, storing intermediate results. In the dynamic model, each process object releases memory after downstream objects complete execution. Depending upon the implementation of the dynamic model, process object B may execute once or twice. If a thorough dependency analysis is performed, process B will release memory only after both objects C and D execute. In a simpler implementation, object B will release memory after C and subsequently, D executes.
 
 **Reference Counting & Garbage Collection**
 
-Another valuable tool to minimize memory cost is to share storage
-using reference counting. To use reference counting, we allow more
-than one process object to refer to the same data object and keep
-track of the number of references. For example, assume that we have
-three objects *A*, *B*, and *C* that form a portion of a visualization
-network as shown in **Figure 4-10** . Also assume that these objects
-modify only part of their input data, leaving the data object that
-specifies *x-y-z* coordinate position unchanged. Then to conserve
-memory resources we can allow the output of each process object to
-refer to the single data object representing these points. Data that
-is changed remains local to each filter and is not shared. It is only
-when the reference count goes to zero that the object is deleted.
+Another valuable tool to minimize memory cost is to share storage using reference counting. To use reference counting, we allow more than one process object to refer to the same data object and keep track of the number of references. For example, assume that we have three objects *A*, *B*, and *C* that form a portion of a visualization network as shown in **Figure 4-10** . Also assume that these objects modify only part of their input data, leaving the data object that specifies *x-y-z* coordinate position unchanged. Then to conserve memory resources we can allow the output of each process object to refer to the single data object representing these points. Data that is changed remains local to each filter and is not shared. It is only when the reference count goes to zero that the object is deleted.
 
-Garbage collection is an alternative memory management strategy that
-is not well suited to visualization applications. The garbage
-collection process is automatic; it attempts to reclaim mem-ory used
-by objects that will never again be accessed by the running
-application. While convenient due to its automated nature, in general
-garbage collection introduces overhead that may inadvert-ently
-introduce pauses into software execution at inopportune times (during
-an interactive process). Of more concern, however, is that released,
-unused memory may not be reclaimed by the system until some time after
-the last reference to the memory is dropped, and in visualization
-pipelines this memory may be too large to leave around for any length
-of time. That is, in some applications if memory usage in a filter is
-not released immediately, downstream filters may not have enough
-memory resource available to them to successfully execute.
+Garbage collection is an alternative memory management strategy that is not well suited to visualization applications. The garbage collection process is automatic; it attempts to reclaim memory used by objects that will never again be accessed by the running application. While convenient due to its automated nature, in general garbage collection introduces overhead that may inadvertently introduce pauses into software execution at inopportune times (during an interactive process). Of more concern, however, is that released, unused memory may not be reclaimed by the system until some time after the last reference to the memory is dropped, and in visualization pipelines this memory may be too large to leave around for any length of time. That is, in some applications if memory usage in a filter is not released immediately, downstream filters may not have enough memory resource available to them to successfully execute.
 
 ## 4.6 Advanced Visualization Pipeline Models
 
-The preceding sections have provided a general framework for the
-implementation of a useful visu-alization pipeline model. However,
-there are several advanced capabilities that complex applica-tions
-often require. These capabilities are driven by deficiencies in the
-simpler design described previously. The principle drivers for
-developing advanced models include: processing unknown dataset types,
-managing complex execution strategies including processing pieces of
-data, and extending the visualization pipeline to propagate new
-information. These concerns are discussed in the following three
-sections.
+The preceding sections have provided a general framework for the implementation of a useful visualization pipeline model. However, there are several advanced capabilities that complex applications often require. These capabilities are driven by deficiencies in the simpler design described previously. The principle drivers for developing advanced models include: processing unknown dataset types, managing complex execution strategies including processing pieces of data, and extending the visualization pipeline to propagate new information. These concerns are discussed in the following three sections.
 
 **Processing Unknown Dataset Types**
 
-There exist data files and data sources where the type of dataset
-represented by the file or source is unknown until run-time. For
-example, consider a general purpose VTK reader that can read any type
-of VTK data file. Such a class is convenient because the user need not
-concern himself with the type of dataset, instead the user may want to
-set up a single pipeline that processes whatever type is found. As
-indicated by **Figure 4-3** , such an approach works well if the
-system is of a single dataset type, however in practice, and due to
-performance/efficiency concerns, there typically exist many different
-types of data in a visualization system. The other alternative shown
-in **Figure 4-3** is enforced type checking. However, in situations
-like the reader example described above, it is not possible to enforce
-type checking at compile-time because the type is determined by the
-data. As a result, type checking must be performed at run-time.
+There exist data files and data sources where the type of dataset represented by the file or source is unknown until run-time. For example, consider a general purpose VTK reader that can read any type of VTK data file. Such a class is convenient because the user need not concern himself with the type of dataset, instead the user may want to set up a single pipeline that processes whatever type is found. As indicated by **Figure 4-3**, such an approach works well if the system is of a single dataset type, however in practice, and due to performance/efficiency concerns, there typically exist many different types of data in a visualization system. The other alternative shown in **Figure 4-3** is enforced type checking. However, in situations like the reader example described above, it is not possible to enforce type checking at compile-time because the type is determined by the data. As a result, type checking must be performed at run-time.
 
-Run-time type checking of a multiple dataset type visualization system
-requires that the data passed between filters is a generic dataset
-container (i.e., it appears like a single type but contains the actual
-data and methods to determine what type of data it is). Run-time type
-checking has the advantage of flexibility, but the trade-off is that a
-pipeline may not execute properly until the pro-gram executes. For
-example, a generic pipeline may be designed that can process
-structured data (see "Types of Datasets " on page134 ), but the data
-file may contain unstructured data. In this case, the pipeline will be
-unable to execute at run-time, producing empty output. Thus pipelines
-designed to process any type of data must be carefully assembled to
-create robust applications.
+Run-time type checking of a multiple dataset type visualization system requires that the data passed between filters is a generic dataset container (i.e., it appears like a single type but contains the actual data and methods to determine what type of data it is). Run-time type checking has the advantage of flexibility, but the trade-off is that a pipeline may not execute properly until the pro-gram executes. For example, a generic pipeline may be designed that can process structured data (see "Types of Datasets " on page134 ), but the data file may contain unstructured data. In this case, the pipeline will be unable to execute at run-time, producing empty output. Thus pipelines designed to process any type of data must be carefully assembled to create robust applications.
 
 **Extending the Data Object Representation**
 
-As described earlier in this chapter, a pipeline consists of data
-objects that are operated on by pro-cess objects. Further, because the
-process objects are separate from the data objects on which they
-operate, there is necessarily an expected interface through which
-these objects exchange informa-tion. Defining this interface has the
-side effect of cementing the data representation, implying that it is
-difficult to extend it without modifying the corresponding interface,
-and hence all the classes that depend on the interface (of which there
-are many). Fortunately what tends to change is not the basic data
-representations (these are generally well established), rather the
-metadata associated with the dataset itself changes. (In the context
-of visualization, metadata are data that describe datasets.) While it
-is feasible to represent new datasets by creating new classes (since
-the addition of new dataset types occurs infrequently); the diversity
-of metadata precludes creating new classes because the resulting
-explosion of data types, and the potential change to programming
-interfaces, would adversely affect the stability of the visualization
-system. Hence a general mechanism to support metadata is required.
-Packaging metadata into a generic container that contains both the
-dataset andcmetadata is a obvious design, and is compatible with the design
-described in the previous section. Examples of metadata include time
-step information, data ranges or other data characteristics, acquisition protocols, patient names, and annotation. In an extensible visualization pipeline, a specific data reader (or other data source)
-may read such information and associate it with the output data that
-it produces. While many filters may ignore the metadata, they can be
-configured to pass the information along the pipeline. Alternatively,
-a pipeline sink (or mapper) may request that specific metadata be
-passed through the pipeline so it can be processed appropriately. For
-example, a mapper may request annotations, and if available, place
-them on the final image.
+As described earlier in this chapter, a pipeline consists of data objects that are operated on by process objects. Further, because the process objects are separate from the data objects on which they operate, there is necessarily an expected interface through which these objects exchange information. Defining this interface has the side effect of cementing the data representation, implying that it is difficult to extend it without modifying the corresponding interface, and hence all the classes that depend on the interface (of which there are many). Fortunately what tends to change is not the basic data representations (these are generally well established), rather the metadata associated with the dataset itself changes. (In the context of visualization, metadata are data that describe datasets.) While it is feasible to represent new datasets by creating new classes (since the addition of new dataset types occurs infrequently); the diversity of metadata precludes creating new classes because the resulting explosion of data types, and the potential change to programming interfaces, would adversely affect the stability of the visualization system. Hence a general mechanism to support metadata is required. Packaging metadata into a generic container that contains both the dataset andcmetadata is a obvious design, and is compatible with the design described in the previous section. Examples of metadata include time step information, data ranges or other data characteristics, acquisition protocols, patient names, and annotation. In an extensible visualization pipeline, a specific data reader (or other data source) may read such information and associate it with the output data that it produces. While many filters may ignore the metadata, they can be configured to pass the information along the pipeline. Alternatively, a pipeline sink (or mapper) may request that specific metadata be passed through the pipeline so it can be processed appropriately. For example, a mapper may request annotations, and if available, place them on the final image.
 
 **Managing Complex Execution Strategies**
 
-In real-world applications the pipeline design described thus far may
-not adequately support com-plex execution strategies, or may fail to
-execute successfully when data sizes become large. In the next
-sections we address these issues by considering alternative design
-possibilities.
+In real-world applications the pipeline design described thus far may not adequately support complex execution strategies, or may fail to execute successfully when data sizes become large. In the next sections we address these issues by considering alternative design possibilities.
 
-**Large Data.** Previous discussions relative to the visualiza-tion
-pipeline have assumed that the size of a particular dataset does not
-exceed the total memory resource of a computer sys-tem. However, with
-modern dataset sizes pushing into the ter-abyte and even petabyte
-range, a typical desktop computer system is incapable of processing
-such datasets. Thus alterna-tive strategies must be adopted when
-processing large data. One such approach is based on breaking data
-into pieces, and then *streaming* the pieces through the visualization
-pipeline <em style="color:blue;background-color: white">\[Martin2001\]</em> . **Figure 4-11** illustrates how a dataset
+**Large Data.** Previous discussions relative to the visualization pipeline have assumed that the size of a particular dataset does not exceed the total memory resource of a computer system. However, with modern dataset sizes pushing into the terabyte and even petabyte range, a typical desktop computer system is incapable of processing such datasets. Thus alternative strategies must be adopted when processing large data. One such approach is based on breaking data into pieces, and then *streaming* the pieces through the visualization pipeline <em style="color:blue;background-color: white">\[Martin2001\]</em>. **Figure 4-11** illustrates how a dataset
 can be divided into pieces.
 
-Streaming data through a visualization pipeline offers
+<figure id="Figure 4-11">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-11.png?raw=true width="640" alt="Figure4-11">
+</figure>
+<figcaption style="color:blue"><b>Figure 4-11</b>. Dividing a sphere into a piece (red) with ghost level cells and points (blue and green).</figcaption>
+</figure>
 
-+-----------------------+-----------------------+-----------------------+
-| two major benefits.   | **Figure 4-11**    |                       |
-| The first is that     | Dividing a sphere   |                       |
-| visualization data    | into                |                       |
-| that                  |                       |                       |
-+-----------------------+-----------------------+-----------------------+
-| would not normally    |                       |                       |
-| fit into memory can   |                       |                       |
-| be processed. The     |                       |                       |
-+-----------------------+-----------------------+-----------------------+
-|                       | a piece (red) with  |                       |
-|                       | ghost level cells   |                       |
-+-----------------------+-----------------------+-----------------------+
-| second is that        | and points (blue    |                       |
-| visualizations can be | and green).         |                       |
-| run with a smaller    |                       |                       |
-| mem-                  |                       |                       |
-+-----------------------+-----------------------+-----------------------+
-| ory footprint         |                       |                       |
-| resulting in higher   |                       |                       |
-| cache hits, and       |                       |                       |
-| little or no          |                       |                       |
-+-----------------------+-----------------------+-----------------------+
+Streaming data through a visualization pipeline offers two major benefits. The first is that visualization data that would not normally fit into memory can be processed. The second is that visualizations can be run with a smaller memory footprint resulting in higher cache hits, and little or no swapping to disk. To realize these benefits the visualization software must support breaking the dataset into pieces and correctly processing those pieces. This requires that the dataset and the algorithms that operate on it are *separable* , *mappable* , and *result invariant* as described in the following <em style="color:blue;background-color: white">\[Law99\]</em> .
 
-swapping to disk. To realize these benefits the visualization software
-must support breaking the dataset into pieces and correctly processing
-those pieces. This requires that the dataset and the algo-rithms that
-operate on it are *separable* , *mappable* , and *result invariant* as
-described in the following <em style="color:blue;background-color: white">\[Law99\]</em> .
+1.  **Separable.** The data must be separable. That is, the data can be broken into pieces. Ideally, each piece should be coherent in geometry, topology, and/or data structure. The separation of the data should be simple and efficient. In addition, the algorithms in this architecture must be able to correctly process pieces of data.
 
-1.  **Separable.** The data must be separable. That is, the data can be
-    broken into pieces. Ideally, each piece should be coherent in
-    geometry, topology, and/or data structure. The separation of the
-    data should be simple and efficient. In addition, the algorithms
-    in this architecture must be able to correctly process pieces of
-    data.
+2.  **Mappable.** In order to control the streaming of the data through a pipeline, we must be able to determine what portion of the input data is required to generate a given portion of the out-put. This allows us to control the size of the data through the pipeline, and configure the algorithms.
+3.  **Result Invariant.** The results should be independent of the number of pieces, and independent of the execution mode (i.e., single- or multi-threaded). This means proper handling of boundaries and developing algorithms that are multi-thread safe across pieces that may over-lap on their boundaries.
 
-2.  **Mappable.** In order to control the streaming of the data through
-    a pipeline, we must be able to determine what portion of the input
-    data is required to generate a given portion of the out-put. This
-    allows us to control the size of the data through the pipeline,
-    and configure the algo-rithms.
+Separating data into pieces is relatively straightforward if the data is structured, i.e., topologically regular (see "Types of Datasets " on page134 ). Such datasets can be topological described by a rect-angular extent in a regularly *x-y-z* subdivided cubical domain (see **Figure5--7** (a)-(c)). However, if the data is unstructured (e.g. a mesh of triangles or polygons), then specifying pieces is difficult. Generally an unstructured extent is defined by grouping adjacent data (e.g., cells) into pieces, and then addressing each piece using a *N* of *M* notation, where *N* is the n *^th^* piece out of a total of *M* pieces. The exact organizational structure of a piece is left unspecified and depends on the particu-lar application and algorithm used to group the data.
 
-3.  **Result Invariant.** The results should be independent of the
-    number of pieces, and indepen-
+To satisfy the third requirement of results invariancy, processing pieces also requires the abi-ity to generate boundary data, or *ghost levels* . Boundary information is necessary when information from the neighbors of a piece is needed to perform a computation. For example, gradient calcula-tions or boundary analysis (e.g., do I have a cell face neighbor?) require one level of boundary information. In rare cases, two or more levels are required. **Figure 4-11** illustrates boundary cells and points corresponding to the central red piece of the sphere.
 
-  -------------------------------------------- --------
-  4.6 Advanced Visualization Pipeline Models   **97**
-                                               
-  -------------------------------------------- --------
+Finally, it should be noted that the ability to divide data into pieces for streaming is exactly the same capability required for data parallel processing. In such methods, data is subdivided and sent to different processors to be operated on in parallel. Boundary information may also be required to perform certain computations. Parallel processing has the added complexity that the data must be communicated to processors (in the case of distributed computing) or mutual exclusion (i.e., mutexing) must be employed to avoid simultaneous write operations. Thus streaming and parallel processing are complementary technologies used in large data computing.
 
-dent of the execution mode (i.e., single- or multi-threaded). This
-means proper handling of boundaries and developing algorithms that are
-multi-thread safe across pieces that may over-lap on their boundaries.
+**Complex Execution Strategies.** In many cases the simple execution model of Figure 4–7(b) is not suitable for complex data processing tasks. For example, as discussed in the previous section, streaming data is a complex execution strategy required when a dataset becomes too large to fit into memory, or when parallel computing is used. In some cases event-driven (see “Executing the Pipeline” on page 89) or “push” pipelines (i.e., those that receive data and push the data through the pipeline for processing) may be preferred. Finally, there exist hierarchical data structures such as multi-block or adaptive mesh refinement (AMR) [Berger84] grids. Processing such datasets in a pipeline requires hierarchical traversal as filters process each block in the grid (an advanced research topic in the visualization field and not covered in this edition of the book).
 
-Separating data into pieces is relatively straightforward if the data
-is structured, i.e., topologically regular (see "Types of Datasets "
-on page134 ). Such datasets can be topological described by a
-rect-angular extent in a regularly *x-y-z* subdivided cubical domain
-(see **Figure5--7** (a)-(c)). However, if the data is unstructured
-(e.g. a mesh of triangles or polygons), then specifying pieces is
-difficult. Generally an unstructured extent is defined by grouping
-adjacent data (e.g., cells) into pieces, and then addressing each
-piece using a *N* of *M* notation, where *N* is the n *^th^* piece out
-of a total of *M* pieces. The exact organizational structure of a
-piece is left unspecified and depends on the particu-lar application
-and algorithm used to group the data.
+Addressing these requirements implies that the execution model must be extended. Thus we revisit the object-oriented design in the next section.
 
-To satisfy the third requirement of results invariancy, processing
-pieces also requires the abil-ity to generate boundary data, or *ghost
-levels* . Boundary information is necessary when information from the
-neighbors of a piece is needed to perform a computation. For example,
-gradient calcula-tions or boundary analysis (e.g., do I have a cell
-face neighbor?) require one level of boundary
-
-information. In rare cases, two or more levels are required.
-**Figure 4-11** illustrates boundary cells and points corresponding to
-the central red piece of the sphere.
-
-Finally, it should be noted that the ability to divide data into
-pieces for streaming is exactly the same capability required for data
-parallel processing. In such methods, data is subdivided and sent to
-different processors to be operated on in parallel. Boundary
-information may also be required to perform certain computations.
-Parallel processing has the added complexity that the data must be
-communicated to processors (in the case of distributed computing) or
-mutual exclu-sion (i.e., mutexing) must be employed to avoid
-simultaneous write operations. Thus streaming and parallel processing
-are complementary technologies used in large data computing.
-
-**Complex Execution Strategies.** In many cases the simple execution
-model of **Figure 4-7** (b) is not suitable for complex data
-processing tasks. For example, as discussed in the previous section,
-streaming data is a complex execution strategy required when a dataset
-becomes too large to fit into
-
-+-----------------------------------+-----------------------------------+
-| memory, or when parallel          | "Executing the Pipe-            |
-| computing is used. In some cases  |                                   |
-| event-driven (see                 |                                   |
-+-----------------------------------+-----------------------------------+
-| line" on page89 ) or "push"       |
-| pipelines (i.e., those that       |
-| receive data and push the data    |
-| through the                       |
-+-----------------------------------+-----------------------------------+
-| pipeline for processing) may be   |
-| preferred. Finally, there exist   |
-| hierarchical data structures such |
-| as                                |
-+-----------------------------------+-----------------------------------+
-| multi-block or adaptive mesh      | <em style="color:blue;background-color: white">\[Berger84\]</em> grids. Processing  |
-| refinement (AMR)                  | such datasets in a              |
-+-----------------------------------+-----------------------------------+
-
-pipeline requires hierarchical traversal as filters process each block
-in the grid (an advanced research topic in the visualization field and
-not covered in this edition of the book).
-
-Addressing these requirements implies that the execution model must be
-extended. Thus we revisit the object-oriented design in the next
-section.
-
-**Object-Oriented Design Revisited. Figure 4-2** illustrates two choices relative to the design of the visualization object model. The first choice, which was discarded, was to combine data and operations on the data into a single object, a typical object-oriented design
-pattern. The second choice, which was advocated, was to create a
-design consisting of two classes---data objects and process
-objects---which were then combined into visualization pipelines. While
-this second strategy works well for simple pipelines, when complex
-execution strategies are introduced, this design begins to break down.
-This is because the execution strategy is necessarily, and implicitly,
-distributed across the data objects and process objects; there is no
-explicit mechanism to implement a particular strategy. Thus the design is problematic because new strategies cannot be
-introduced without modifying the interface to both the data and
-process objects. Good design demands that the execution strategy is
-separated from the data objects and process objects. The benefits of
-such a design include reducing the complexity of the data and process
-objects, encapsulating execution strategies, performing run-time type
-checking (see "Processing Unknown Dataset Types " on page95 ) and even
-managing metadata (see "Extending the Data Object Representation " on
-page95 ).
+**Object-Oriented Design Revisited. Figure 4-2** illustrates two choices relative to the design of the visualization object model. The first choice, which was discarded, was to combine data and operations on the data into a single object, a typical object-oriented design pattern. The second choice, which was advocated, was to create a design consisting of two classes---data objects and process objects---which were then combined into visualization pipelines. While this second strategy works well for simple pipelines, when complex execution strategies are introduced, this design begins to break down. This is because the execution strategy is necessarily, and implicitly, distributed across the data objects and process objects; there is no explicit mechanism to implement a particular strategy. Thus the design is problematic because new strategies cannot be introduced without modifying the interface to both the data and process objects. Good design demands that the execution strategy is separated from the data objects and process objects. The benefits of such a design include reducing the complexity of the data and process objects, encapsulating execution strategies, performing run-time type checking (see "Processing Unknown Dataset Types " on page95 ) and even managing metadata (see "Extending the Data Object Representation " on page95 ).
 
 As the execution model becomes more complex, execution strategies are
 separated from the data and pro-cess objects as separate classes.
-
-**Figure 4-12**
-
-**Process Object**
-
-**Process Object**
-
-**Data Object**
-
-**Executive**
-
-**Data Object**
-
 
 The advanced design re-introduces the notion of an executive (see
 "Executing the Pipeline " on page89 ).
