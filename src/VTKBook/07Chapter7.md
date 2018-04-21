@@ -451,7 +451,7 @@ I(t_\text{near}, \vec{\omega}) =  \sum_{t = t_\text{near}}^{t \leq t_\text{far}}
 \bf\tag{7-12}
 $$
 
-where the ambient illumination $I_a$, the diffuse illumination $I_d$, and the specular illumination $I_s$ are computed as in surface shading using the estimated volume gradient in place of the surface normal. In this equation, $\alpha(t)$ represents the amount of light reflected per unit length along the ray, with $1 – \alpha*(t)$ indicating the fraction of light transmitted per unit length.
+where the ambient illumination $I_a$, the diffuse illumination $I_d$, and the specular illumination $I_s$ are computed as in surface shading using the estimated volume gradient in place of the surface normal. In this equation, $\alpha(t)$ represents the amount of light reflected per unit length along the ray, with $1 - \alpha*(t)$ indicating the fraction of light transmitted per unit length.
 
 As in classification, we have to make a decision about whether to
 directly compute illumination at an arbitrary location in the volume,
@@ -1019,7 +1019,7 @@ the ShadeOn() method of vtkVolumeProperty to enable shading for this
 volume, and the SetInterpolationTypeToLinear() method to request
 trilinear interpolation. Since we are using a ray casting approach, we need to create a ray function. In this example we use a vtkVolumeRayCastCompositeFunction object for this purpose. The output of the reader is given to the vtkVolumeRayCastMapper as the scalar input, and the SetVolumeRayCastFunction() method is used to assign the ray function. The vtkVolume object is quite similar to a vtkActor, and the SetVolumeMapper() and SetVolumeProperty() methods are used just like the SetMapper() and SetProperty() methods of vtkActor. Finally, we add this volume to the renderer, adjust the camera, set the desired image update rate and start the interactor.
 
-To produce a maximum intensity projection in Figure 7–34, we would simply change the type of the ray function to a vtkVolumeRayCastMIPFunction. We could also produce a surface image using a vtkVolumeRayCastIsosurfaceFunction where the IsoValue instance variable would be set to define the surface.
+To produce a maximum intensity projection in **Figure 7-34**, we would simply change the type of the ray function to a vtkVolumeRayCastMIPFunction. We could also produce a surface image using a vtkVolumeRayCastIsosurfaceFunction where the IsoValue instance variable would be set to define the surface.
 
 ``` tcl
 vtkBMPReader bmpReader
