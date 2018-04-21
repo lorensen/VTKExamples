@@ -20,6 +20,10 @@
 \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
 \setlength{\cftmyequationsnumwidth}{2.5em}% Width of equation number in List of Equations
 
+% For decimal aligned columns.
+\usepackage{dcolumn}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+
 \usepackage{txfonts}
 \usepackage{graphicx}
 \usepackage{caption}
