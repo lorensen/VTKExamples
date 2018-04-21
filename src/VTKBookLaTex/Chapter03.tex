@@ -369,7 +369,7 @@ T_R = \left[\begin{array}{cccc}
 0 & 0 & 0 & 1
 \end{array}\right]
 \end{equation}
-\myequations{Transform from $x-y-z$ to $x'-y'-z'$ }
+\myequations{Transform from $(x,y,z)$ to $(x',y',z')$ }
 
 
 Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object’s center . To rotate around we Oc must first translate the object to the Oorigin, apply rotations, and then translate the object back.
@@ -562,9 +562,46 @@ There is another important object, vtkRenderWindowInteractor, that captures even
 A desirable property of applications built with VTK is that they are device independent. This means that computer code that runs on one operating system with a particular software/hardware configuration runs unchanged on a different operating system and software/hardware configuration. The advantage of this is that the programmer does not need to expend effort porting an application between different computer systems. Also, existing applications do not need to be rewritten to take advantage of new developments in hardware or software technology. Instead, VTK handles this transparently by a combination of inheritance and a technique known as \emph{object factories}.
 
 \begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{Figure3-25}\\
-  \caption{Achieving device independence using (a) inheritance and object factories (b) and (c).}\label{fig:Figure3-25}
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure3-25a}
+		\caption{Inheritance of device classes.}
+		\label{fig:Figure3-25a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\caption*{}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\begin{lstlisting}[language=C++, caption={}]
+		vtkActor *vtkActor::New()
+		{
+		vtkObject* ret = vtkGraphicsFactory::CreateInstance("vtkActor");
+		return (vtkActor*)ret;
+		}
+		\end{lstlisting}
+		\caption{Code fragment from vtkActor::New().}
+		\label{fig:Figure3-25b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\caption*{}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\begin{lstlisting}[language=C++, caption={}]
+		if (!strcmp("OpenGL",rl) || !strcmp("Win32OpenGL",rl) ||
+		!strcmp("CarbonOpenGL",rl) || !strcmp("CocoaOpenGL",rl))
+		{
+		if(strcmp(vtkclassname, "vtkActor") == 0)
+		{
+		return vtkOpenGLActor::New();
+		}
+		\end{lstlisting}
+		\caption{Code fragment from vtkGraphicsFactory::CreateInstance(vtkclassname).}
+		\label{fig:Figure3-25cc}
+	\end{subfigure}
+	\caption{Achieving device independence using (a) inheritance and object factories (b) and (c)..}\label{fig:Figure3-25}
 \end{figure}
 
 Figure \ref{fig:Figure3-25} (a) illustrates the use of inheritance to achieve device independence. Certain classes like vtkActor are broken into two parts: a device independent superclass and a device dependent subclass.
@@ -599,21 +636,21 @@ The following C++ code uses most of the objects introduced in this section to cr
 int main( int argc, char *argv[] )
 {
   vtkConeSource *cone = vtkConeSource::New();
-  cone->SetHeight( 3.0 );
-  cone->SetRadius( 1.0 );
-  cone->SetResolution( 10 );
+    cone->SetHeight( 3.0 );
+    cone->SetRadius( 1.0 );
+    cone->SetResolution( 10 );
 
   vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
-  coneMapper->SetInputConnection( cone->GetOutputPort() );
+    coneMapper->SetInputConnection( cone->GetOutputPort() );
   vtkActor *coneActor = vtkActor::New();
-  coneActor->SetMapper( coneMapper );
+    coneActor->SetMapper( coneMapper );
 
   vtkRenderer *ren1= vtkRenderer::New();
-  ren1->AddActor( coneActor );
-  ren1->SetBackground( 0.1, 0.2, 0.4 );
+    ren1->AddActor( coneActor );
+    ren1->SetBackground( 0.1, 0.2, 0.4 );
 
   vtkRenderWindow *renWin = vtkRenderWindow::New();
-  renWin->AddRenderer( ren1 ); renWin->SetSize( 300, 300 );
+    renWin->AddRenderer( ren1 ); renWin->SetSize( 300, 300 );
 
   int i;
   for (i = 0; i < 360; ++i)
@@ -674,23 +711,24 @@ public:
 int main( int argc, char *argv[] )
 {
   vtkConeSource *cone = vtkConeSource::New();
-  cone->SetHeight( 3.0 );
-  cone->SetRadius( 1.0 );
-  cone->SetResolution( 10 );
+    cone->SetHeight( 3.0 );
+    cone->SetRadius( 1.0 );
+    cone->SetResolution( 10 );
 
   vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
-  coneMapper->SetInputConnection( cone->GetOutputPort() ); vtkActor
-  *coneActor = vtkActor::New(); coneActor->SetMapper( coneMapper );
+   coneMapper->SetInputConnection(cone->GetOutputPort());
+  vtkActor *coneActor = vtkActor::New();
+  coneActor->SetMapper( coneMapper );
 
   vtkRenderer *ren1= vtkRenderer::New();
-  ren1->AddActor( coneActor );
-  ren1->SetBackground( 0.1, 0.2, 0.4 );
+    ren1->AddActor( coneActor );
+    ren1->SetBackground( 0.1, 0.2, 0.4 );
 
   vtkRenderWindow *renWin = vtkRenderWindow::New();
-  renWin->AddRenderer( ren1 ); renWin->SetSize( 300, 300 );
+    renWin->AddRenderer( ren1 ); renWin->SetSize( 300, 300 );
 
   vtkMyCallback *mo1 = vtkMyCallback::New();
-  ren1->AddObserver(vtkCommand::StartEvent,mo1); mo1->Delete();
+    ren1->AddObserver(vtkCommand::StartEvent,mo1); mo1->Delete();
 
   int i;
   for (i = 0; i < 360; ++i)
@@ -725,18 +763,19 @@ The next example is a bit more complex and uses multiple renderers that share a 
 
 \begin{lstlisting}[language=C++, caption={Cone3.cxx}]
 vtkRenderer *ren1= vtkRenderer::New();
-ren1->AddActor( coneActor );
-ren1->SetBackground( 0.1, 0.2, 0.4 );
-ren1->SetViewport(0.0, 0.0, 0.5, 1.0);
+  ren1->AddActor( coneActor );
+  ren1->SetBackground( 0.1, 0.2, 0.4 );
+  ren1->SetViewport(0.0, 0.0, 0.5, 1.0);
 
 vtkRenderer *ren2= vtkRenderer::New();
-ren2->AddActor( coneActor );
-ren2->SetBackground( 0.2, 0.3, 0.5 );
-ren2->SetViewport(0.5, 0.0, 1.0, 1.0);
+  ren2->AddActor( coneActor );
+  ren2->SetBackground( 0.2, 0.3, 0.5 );
+  ren2->SetViewport(0.5, 0.0, 1.0, 1.0);
 
 vtkRenderWindow *renWin = vtkRenderWindow::New();
-renWin->AddRenderer( ren1 ); renWin->AddRenderer( ren2 );
-renWin->SetSize( 600, 300 );
+  renWin->AddRenderer( ren1 );
+  renWin->AddRenderer( ren2 );
+  renWin->SetSize( 600, 300 );
 
 ren1->GetActiveCamera()->Azimuth(90);
 
@@ -768,27 +807,28 @@ This example creates an image of two cones of different colors and specular prop
 
 \begin{lstlisting}[language=C++, caption={Cone4.cxx}]
 vtkActor *coneActor = vtkActor::New();
-coneActor->SetMapper(coneMapper);
-coneActor->GetProperty()->SetColor(0.2, 0.63, 0.79);
-coneActor->GetProperty()->SetDiffuse(0.7);
-coneActor->GetProperty()->SetSpecular(0.4);
-coneActor->GetProperty()->SetSpecularPower(20);
+  coneActor->SetMapper(coneMapper);
+  coneActor->GetProperty()->SetColor(0.2, 0.63, 0.79);
+  coneActor->GetProperty()->SetDiffuse(0.7);
+  coneActor->GetProperty()->SetSpecular(0.4);
+  coneActor->GetProperty()->SetSpecularPower(20);
 
 vtkProperty *property = vtkProperty::New();
-property->SetColor(1.0, 0.3882, 0.2784);
-property->SetDiffuse(0.7);
-property->SetSpecular(0.4);
-property->SetSpecularPower(20);
+  property->SetColor(1.0, 0.3882, 0.2784);
+  property->SetDiffuse(0.7);
+  property->SetSpecular(0.4);
+  property->SetSpecularPower(20);
 
 vtkActor *coneActor2 = vtkActor::New();
-coneActor2->SetMapper(coneMapper);
-coneActor2->GetProperty()->SetColor(0.2, 0.63, 0.79);
-coneActor2->SetProperty(property); coneActor2->SetPosition(0, 2, 0);
+  coneActor2->SetMapper(coneMapper);
+  coneActor2->GetProperty()->SetColor(0.2, 0.63, 0.79);
+  coneActor2->SetProperty(property);
+  coneActor2->SetPosition(0, 2, 0);
 
 vtkRenderer *ren1= vtkRenderer::New();
-ren1->AddActor( coneActor );
-ren1->AddActor( coneActor2 );
-ren1->SetBackground( 0.1, 0.2, 0.4 );
+  ren1->AddActor( coneActor );
+  ren1->AddActor( coneActor2 );
+  ren1->SetBackground( 0.1, 0.2, 0.4 );
 \end{lstlisting}
 
 We set the actor coneActor properties by modifying the property object automatically created by the actor. This differs from actor coneActor2, where we create a property directly and then assign it to the actor. ConeActor2 is moved from its default position by applying the SetPosition() method. This method affects the transformation matrix that is an instance variable of the actor. The resulting image is shown in Figure \ref{fig:Figure3-28}.
@@ -801,15 +841,17 @@ The previous examples are not interactive. That is, it is not possible to direct
 Instances of the class vtkRenderWindowInteractor capture windowing system specific mouse and keyboard events in the rendering window, and then translate these events into VTK events. For example, mouse motion in an X11 or Windows application (occurring in a render window) would be translated by vtkRenderWindowInteractor into VTK's MouseMoveEvent. Any observers registerered for this event would be notified (see ``Events and Observers'' on \pageref{sub:events_obdervers} ). Typically an instance of vtkInteractorStyle is used in combination with vtkRenderWindowInteractor to define a behavior associated with particular events. For example, we can perform camera dolly, pan, and rotation by using different mouse button and motion combinations. The following code fragment shows how to instantiate and use these objects. This example is the same as our first example with the addition of the interactor and interactor style. The complete example C++ code is in Cone5.cxx.
 
 \begin{lstlisting}[language=C++, caption={Cone5.cxx}]
-vtkRenderWindowInteractor *iren = vtkRenderWindowInteractor::New();
-iren->SetRenderWindow(renWin);
+vtkRenderWindowInteractor *iren =
+  vtkRenderWindowInteractor::New();
+
+  iren->SetRenderWindow(renWin);
 
 vtkInteractorStyleTrackballCamera *style =
  vtkInteractorStyleTrackballCamera::New();
 
-iren->SetInteractorStyle(style);
-iren->Initialize();
-iren->Start();
+  iren->SetInteractorStyle(style);
+  iren->Initialize();
+  iren->Start();
 \end{lstlisting}
 
 After the interactor is created using its New() method, we must tell it what render window to capture events in using the SetRenderWindow() method. In order to use the interactor we have to initialize and start the event loop using the Initialize() and Start() methods, which works with the event loop of the windowing system to begin to catch events. Some of the more useful events include the ``w'' key, which draws all actors in wireframe; the ``s'' key, which draws the actors in surface form; the ``3'' key, which toggles in and out of 3D stereo for those systems that support this; the ``r'' key, which resets camera view; and the " e" key, which exits the application. In addition, the mouse buttons rotate, pan, and dolly about the camera's focal point. Two advanced features are the ``u'' key, which executes a user-defined function; and the ``p'' key, which picks the actor under the mouse pointer.
@@ -830,31 +872,31 @@ The Visualization Toolkit has built into its compilation process the ability to 
 package require vtk
 package require vtkinteraction
 vtkConeSource cone
-cone SetHeight 3.0
-cone SetRadius 1.0
-cone SetResolution 10
+  cone SetHeight 3.0
+  cone SetRadius 1.0
+  cone SetResolution 10
 
 vtkPolyDataMapper coneMapper
-coneMapper SetInputConnection [cone GetOutputPort]
+  coneMapper SetInputConnection [cone GetOutputPort]
 
 vtkActor coneActor
-coneActor SetMapper coneMapper
+  coneActor SetMapper coneMapper
 
 vtkRenderer ren1
-ren1 AddActor coneActor
-ren1 SetBackground 0.1 0.2 0.4
+  ren1 AddActor coneActor
+  ren1 SetBackground 0.1 0.2 0.4
 
 vtkRenderWindow renWin
-renWin AddRenderer ren1
-renWin SetSize 300 300
+  renWin AddRenderer ren1
+  renWin SetSize 300 300
 
 vtkRenderWindowInteractor iren
-iren SetRenderWindow renWin
+  iren SetRenderWindow renWin
 
 vtkInteractorStyleTrackballCamera style
-iren SetInteractorStyle style
-iren AddObserver UserEvent {wm deiconify .vtkInteract}
-iren Initialize
+  iren SetInteractorStyle style
+  iren AddObserver UserEvent {wm deiconify .vtkInteract}
+  iren Initialize
 
 wm withdraw .
 \end{lstlisting}
@@ -870,9 +912,9 @@ The example begins by loading some shared libraries defining various VTK classes
 As we can see from this example, the number of lines of code is less for the Tcl example than for equivalent C++ code. Also, many of the complexities of C++ are hidden using the interpreted language. Using this user-interface GUI we can create, modify, and delete objects, and modify their instance variables. The resulting changes appear as soon as a Render() method is applied or mouse events in the rendering window cause a render to occur. We encourage you to use Tcl (or one of the other interpreters) for rapid creation of graphics and visualization examples. C++ is best used when you desire higher performing applications.
 
 \subsubsection{Transform Matrices}
-\label{sec:transform_matrices}
+\label{subsec:transform_matrices}
 
-Transformation matrices are used throughout the  Visualization Toolkit. Actors (subclasses of vtkProp3D—see ``Assemblies and Other Types of vtkProp'' on **pageref???? ) use them to position and orient themselves. Various filters, including vtkGlyph3D and vtkTransformFilter, use transformation matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
+Transformation matrices are used throughout the  Visualization Toolkit. Actors (subclasses of vtkProp3D --- see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsec:assemblies_vtkprop} ) use them to position and orient themselves. Various filters, including vtkGlyph3D and vtkTransformFilter, use transformation matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
 
 The most important aspect to applying transformation matrices is to understand the order in which the transformations are applied. If you break down a complex series of transformations into simple combinations of translation, scaling, and rotation, and keep careful track of the order of application, you will have gone a long way to mastering their use.
 
@@ -916,15 +958,13 @@ The following statements create an identical 4 x 4 matrix that the actor creates
 
 \begin{lstlisting}[language=TCL, caption={}]
 vtkTransform *myTrans = vtkTransform::New ();
-myTrans->Translate;
-(position[0],position[1],position[2]);
-myTrans->Translate(origin[0],origin[1],origin[2]);
-myTrans->RotateZ(orientation[2]);
-
-myTrans->RotateX (orientation[0]);
-myTrans->RotateZ(orientation[1]; 
-myTrans->Scale (scale[0],scale[1],scale[2]);
-myTrans->Translate (-origin[0],-origin[1],-origin[2]);
+  myTrans->Translate(position[0],position[1],position[2]);
+  myTrans->Translate(origin[0],origin[1],origin[2]);
+  myTrans->RotateZ(orientation[2]);
+  myTrans->RotateX (orientation[0]);
+  myTrans->RotateZ(orientation[1];
+  myTrans->Scale (scale[0],scale[1],scale[2]);
+  myTrans->Translate (-origin[0],-origin[1],-origin[2]);
 \end{lstlisting}
 
 Compare this sequence of transform operations with the transformation in Equation \eqref{eq:3.14}.
@@ -935,10 +975,10 @@ First, we will move the cow five feet along the $z$ axis then rotate her about t
 
 \begin{lstlisting}[language=C++, caption={}]
 vtkTransform *walk = vtkTransform::New(); walk->RotateY(0,20,0);
-walk->Translate(0,0,5);
+  walk->Translate(0,0,5);
 
 vtkActor *cow=vtkActor::New();
-cow->SetUserMatrix(walk->GetMatrix());
+  cow->SetUserMatrix(walk->GetMatrix());
 \end{lstlisting}
 
 These operations produce the transformation sequence:
@@ -951,9 +991,9 @@ Now we do the same using the cow's instance variables:
 
 \begin{lstlisting}[language=C++, caption={}]
 vtkActor *cow=vtkActor::New();
-cow->SetOrigin(0,0,-5);
-cow->RotateY(20);
-cow->SetPosition(0,0,5);
+  cow->SetOrigin(0,0,-5);
+  cow->RotateY(20);
+  cow->SetPosition(0,0,5);
 \end{lstlisting}
 
 These operations produce the transformation sequence:
@@ -986,57 +1026,58 @@ There is one final and powerful operation that affects an actor's orientation. Y
 \end{figure}
 
 \subsubsection{Assemblies and Other Types of vtkProp}
-\label{sec:assemblies_vtkprop}
+\label{subsec:assemblies_vtkprop}
 
-Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an \emph{assembly} in VTK. vtkAssembly is just one of many actor-like classes in VTK. As Figure \ref{fig:Figure3-34} shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding \emph{parts} to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see ``Transformation Matrices'' on \pageref{sec:transform_matrices} ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
+Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an \emph{assembly} in VTK. vtkAssembly is just one of many actor-like classes in VTK. As Figure \ref{fig:Figure3-34} shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding \emph{parts} to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see ``Transformation Matrices'' on \pageref{subsec:transform_matrices} ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
 
 \begin{lstlisting}[language=TCL, caption={Part of assembly.tcl}]
 vtkSphereSource sphere
 vtkPolyDataMapper sphereMapper
-sphereMapper SetInputConnection [sphere GetOutputPort] vtkActor
+  sphereMapper SetInputConnection [sphere GetOutputPort] vtkActor
 sphereActor
-sphereActor SetMapper sphereMapper
-sphereActor SetOrigin 2 1 3
-sphereActor RotateY 6
-sphereActor SetPosition 2.25 0 0
-[sphereActor GetProperty] SetColor 1 0 1
+  sphereActor SetMapper sphereMapper
+  sphereActor SetOrigin 2 1 3
+  sphereActor RotateY 6
+  sphereActor SetPosition 2.25 0 0
+  [sphereActor GetProperty] SetColor 1 0 1
 
 vtkCubeSource cube
 vtkPolyDataMapper cubeMapper
-cubeMapper SetInputConnection [cube GetOutputPort] vtkActor
+  cubeMapper SetInputConnection [cube GetOutputPort] vtkActor
 cubeActor
-cubeActor SetMapper cubeMapper
-cubeActor SetPosition 0.0 .25 0
-[cubeActor GetProperty] SetColor 0 0 1
+  cubeActor SetMapper cubeMapper
+  cubeActor SetPosition 0.0 .25 0
+  [cubeActor GetProperty] SetColor 0 0 1
 vtkConeSource cone
 vtkPolyDataMapper coneMapper
-coneMapper SetInputConnection [cone GetOutputPort] vtkActor
+  coneMapper SetInputConnection [cone GetOutputPort] vtkActor
 coneActor
-coneActor SetMapper coneMapper
-coneActor SetPosition 0 0 .25
-[coneActor GetProperty] SetColor 0 1 0
+  coneActor SetMapper coneMapper
+  coneActor SetPosition 0 0 .25
+  [coneActor GetProperty] SetColor 0 1 0
 vtkCylinderSource cylinder
 vtkPolyDataMapper cylinderMapper
-cylinderMapper SetInputConnection [cylinder GetOutputPort]
-cylinderMapper SetResolveCoincidentTopologyToPolygonOffset
+  cylinderMapper SetInputConnection [cylinder GetOutputPort]
+  cylinderMapper SetResolveCoincidentTopologyToPolygonOffset
 
 vtkActor cylinderActor
-cylinderActor SetMapper cylinderMapper
-[cylinderActor GetProperty] SetColor 1 0 0
+  cylinderActor SetMapper cylinderMapper
+  [cylinderActor GetProperty] SetColor 1 0 0
 
 vtkAssembly assembly
-assembly AddPart cylinderActor
-assembly AddPart sphereActor
-assembly AddPart cubeActor
-assembly AddPart coneActor
-assembly SetOrigin 5 10 15
+  assembly AddPart cylinderActor
+  assembly AddPart sphereActor
+  assembly AddPart cubeActor
+  assembly AddPart coneActor
+  assembly SetOrigin 5 10 15
 
 // allows faces a specified camera and is used for billboards.
-assembly AddPosition 5 0 0
-assembly RotateX 15
-ren1 AddActor assembly
-ren1 AddActor coneActor
-}\end{lstlisting}
+  assembly AddPosition 5 0 0
+  assembly RotateX 15
+  ren1 AddActor assembly
+  ren1 AddActor coneActor
+}
+\end{lstlisting}
 
 \begin{figure}[!htb]
 \floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]

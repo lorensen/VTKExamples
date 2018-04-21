@@ -93,3 +93,66 @@ Thus, as Figure \ref{fig:Figure4-1c} shows, the \emph{Lines} data store that the
 	\end{subfigure}
 	\caption{Visualizing a quadric function $F(x,y,z) = c$.}\label{fig:Figure4-1}
 \end{figure}
+
+\section{The Visualization Pipeline}
+\label{sec:visualization_pipeline}
+
+\subsection{Pipeline Design and Implementation}
+\label{subsec:pipeline_design_implemnentaion}
+
+\section{Putting it All Together}
+
+\subsection{Warped Sphere}
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure4-20a}
+		\caption*{}
+		\label{fig:Figure4-20a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure4-20b}
+		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/TransformSphere/}{TransformSphere.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/TransformSphere/}{TransformSphere.py})}
+		\label{fig:Figure4-20b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\caption*{}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\begin{lstlisting}[language=C++, caption={Warped Sphere.}]
+		vtkSphereSource *sphere = vtkSphereSource::New();
+		  sphere->SetThetaResolution(12);
+		  sphere->SetPhiResolution(12);
+
+		vtkTransform *aTransform = vtkTransform::New();
+		  aTransform->Scale(1,1.5,2);
+
+		vtkTransformFilter *transFilter = vtkTransformFilter::New();
+		  transFilter->SetInputConnection(sphere->GetOutputPort());
+		  transFilter->SetTransform(aTransform);
+
+		vtkElevationFilter *colorIt = vtkElevationFilter::New();
+		  colorIt->SetInputConnection(transFilter->GetOutputPort());
+		  colorIt->SetLowPoint(0,0,-1);
+		  colorIt->SetHighPoint(0,0,1);
+
+		vtkLookupTable *lut = vtkLookupTable::New();
+		  lut->SetHueRange(0.667,0.0); lut->SetSaturationRange(1,1);
+		  lut->SetValueRange(1,1);
+
+		vtkDataSetMapper *mapper = vtkDataSetMapper::New();
+		  mapper->SetLookupTable(lut);
+		  mapper->SetInputConnection(colorIt->GetOutputPort());
+
+		vtkActor *actor = vtkActor::New();
+		  actor->SetMapper(mapper);
+		\end{lstlisting}
+		\caption*{}
+		\label{fig:Figure4-20c}
+	\end{subfigure}
+	\caption{The addition of a transform filter to the previous
+		example.}\label{fig:Figure4-20}
+\end{figure}
