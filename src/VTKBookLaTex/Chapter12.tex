@@ -40,3 +40,46 @@ If you would like to know more about information visualization you can start wit
 \printbibliography
 
 \section{Exercises}
+
+\begin{enumerate}
+
+	\item The medical example did nothing to transform the original data into a standard coordinate system. Many medical systems use RAS coordinates. R is right/left, A is anterior/posterior and S is Superior/Inferior. This is the patient coordinate system. Discuss and compare the following alternatives for transforming volume data into RAS coordinates. See (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/AnatomicalOrientation/}{AnatomicalOrientation.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/AnatomicalOrientation/}{AnatomicalOrientation.py}).
+	\begin{enumerate}
+		\item vtkActor transformation methods.
+		\item vtkTransformFilter.
+		\item Reader transformations.
+	\end{enumerate}
+
+	\item Modify the last example found in the medical application (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/Medical3/}{Medical3.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/Medical3/}{Medical3.py}) to use vtkImageDataGeometryFilter instead of
+	vtkImageActor. Compare the performance of using geometry with using
+	texture. How does the performance change as the resolution of the
+	volume data changes?
+
+	\item Modify the last medical example (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/Medical3/}{Medical3.cxx}) to use vtkTexture and vtkPlaneSource instead of vtkImageActor.
+
+	\item Change the medical case study to use dividing cubes for the skin surface.
+
+	\item Combine the two scripts frogSegmentation.tcl and marchingFrog.tcl into one script that will handle either segmented or grayscale files. What other parameters and pipeline components might be useful in general for this application?
+
+	\item Create polygonal / line stroked models of your initials and build your own logo. Experiment with different transformations.
+
+	\item Enhance the appearance of Towers of Hanoi visualization.
+	\begin{enumerate}
+		\item Texture map the disks, base plane, and pegs.
+		\item Create disks with central holes.
+	\end{enumerate}
+
+	\item Use the blow molding example as a starting point for the
+	following.
+	\begin{enumerate}
+		\item Create an animation of the blow molding sequence. Is it possible to interpolate between time steps? How would you do this?
+		\item Create the second half of the parison using symmetry. What   transformation matrix do you need to use?
+	\end{enumerate}
+
+	\item Start with the stock visualization example presented in this chapter.
+	\begin{enumerate}
+		\item Modify the example code to use a ribbon filter and linear extrusion filter as described in the text. Be careful of the width of the   generated ribbons.
+		\item Can you think of a way to present high/low trade values for each day?
+	\end{enumerate}
+
+\end{enumerate}
