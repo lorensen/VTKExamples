@@ -6,6 +6,9 @@ repo_url: https://github.com/lorensen/VTKExamples
 theme_dir: custom_theme
 markdown_extensions:
   - pymdownx.arithmatex
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.magiclink
   - admonition
   - codehilite(guess_lang=false)
   - footnotes

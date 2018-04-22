@@ -803,28 +803,29 @@ The Visualization Toolkit has built into its compilation process the ability to 
 package require vtk
 package require vtkinteraction
 vtkConeSource cone
-cone SetHeight 3.0
-cone SetRadius 1.0
-cone SetResolution 10
+  cone SetHeight 3.0
+  cone SetRadius 1.0
+  cone SetResolution 10
 
 vtkPolyDataMapper coneMapper
-coneMapper SetInputConnection [cone GetOutputPort]
+  coneMapper SetInputConnection [cone GetOutputPort]
 
 vtkActor coneActor
-coneActor SetMapper coneMapper
+  coneActor SetMapper coneMapper
 
 vtkRenderer ren1
-ren1 AddActor coneActor
-ren1 SetBackground 0.1 0.2 0.4
+  ren1 AddActor coneActor
+  ren1 SetBackground 0.1 0.2 0.4
 
 vtkRenderWindow renWin
-renWin AddRenderer ren1
-renWin SetSize 300 300
+  renWin AddRenderer ren1
+  renWin SetSize 300 300
 
 vtkRenderWindowInteractor iren
-iren SetRenderWindow renWin
+  iren SetRenderWindow renWin
 
 vtkInteractorStyleTrackballCamera style
+
 iren SetInteractorStyle style
 iren AddObserver UserEvent {wm deiconify .vtkInteract}
 iren Initialize
@@ -963,47 +964,50 @@ Often it is desirable to collect actors into a hierarchy of transform-dependent 
 ``` tcl
 vtkSphereSource sphere
 vtkPolyDataMapper sphereMapper
-sphereMapper SetInputConnection [sphere GetOutputPort] vtkActor
-sphereActor
-sphereActor SetMapper sphereMapper
-sphereActor SetOrigin 2 1 3
-sphereActor RotateY 6
-sphereActor SetPosition 2.25 0 0
-[sphereActor GetProperty] SetColor 1 0 1
+   sphereMapper SetInputConnection [sphere GetOutputPort]
+vtkActor sphereActor
+  sphereActor SetMapper sphereMapper
+  sphereActor SetOrigin 2 1 3
+  sphereActor RotateY 6
+  sphereActor SetPosition 2.25 0 0
+  [sphereActor GetProperty] SetColor 1 0 1
 
 vtkCubeSource cube
 vtkPolyDataMapper cubeMapper
-cubeMapper SetInputConnection [cube GetOutputPort] vtkActor
-cubeActor
-cubeActor SetMapper cubeMapper
-cubeActor SetPosition 0.0 .25 0
-[cubeActor GetProperty] SetColor 0 0 1
+  cubeMapper SetInputConnection [cube GetOutputPort]
+vtkActor cubeActor
+  cubeActor SetMapper cubeMapper
+  cubeActor SetPosition 0.0 .25 0
+  [cubeActor GetProperty] SetColor 0 0 1
+
 vtkConeSource cone
 vtkPolyDataMapper coneMapper
-coneMapper SetInputConnection [cone GetOutputPort] vtkActor
-coneActor
-coneActor SetMapper coneMapper
-coneActor SetPosition 0 0 .25
-[coneActor GetProperty] SetColor 0 1 0
+  coneMapper SetInputConnection [cone GetOutputPort]
+vtkActor coneActor
+  coneActor SetMapper coneMapper
+  coneActor SetPosition 0 0 .25
+  [coneActor GetProperty] SetColor 0 1 0
+
 vtkCylinderSource cylinder
 vtkPolyDataMapper cylinderMapper
-cylinderMapper SetInputConnection [cylinder GetOutputPort]
-cylinderMapper SetResolveCoincidentTopologyToPolygonOffset
+  cylinderMapper SetInputConnection [cylinder GetOutputPort]
+  cylinderMapper SetResolveCoincidentTopologyToPolygonOffset
 
 vtkActor cylinderActor
-cylinderActor SetMapper cylinderMapper
-[cylinderActor GetProperty] SetColor 1 0 0
+  cylinderActor SetMapper cylinderMapper
+  [cylinderActor GetProperty] SetColor 1 0 0
 
 vtkAssembly assembly
-assembly AddPart cylinderActor
-assembly AddPart sphereActor
-assembly AddPart cubeActor
-assembly AddPart coneActor
-assembly SetOrigin 5 10 15
+  assembly AddPart cylinderActor
+  assembly AddPart sphereActor
+  assembly AddPart cubeActor
+  assembly AddPart coneActor
+  assembly SetOrigin 5 10 15
 
-// allows faces a specified camera and is used for billboards.
-assembly AddPosition 5 0 0
-assembly RotateX 15
+# allows faces a specified camera and is used for billboards.
+  assembly AddPosition 5 0 0
+  assembly RotateX 15
+
 ren1 AddActor assembly
 ren1 AddActor coneActor
 ```
