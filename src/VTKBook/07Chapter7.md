@@ -24,7 +24,7 @@ $$
 
 In this equation subscript $s$ refers to the surface of the actor, while subscript $b$ refers to what is behind the actor. The term is called-- the transmissivity, and represents the amount of light that is transmitted through the actor. As an example, consider starting with three polygons colored red, green, and blue each with a transparency of 0.5. If the red polygon is in the front and the background is black, the resulting RGBA color will be (0.4, 0.2, 0.1, 0.875) on a scale from zero to one (**Figure 7-1**).
 
-It is important to note that if we switch the ordering of the polygons, the resulting color will change. This underlies a major technical problem in using transparency. If we ray-trace a scene, we will intersect the surfaces in a well-defined manner --- from front to back. Using this knowledge we can trace a ray back to the last surface it intersects, and then composite the color by applying **Equation7-1** to all the surfaces in reverse order (i.e., from back to front). In objectorder rendering methods, this compositing is commonly supported in hardware, but unfortunately we are not guaranteed to render the polygons in any specific order. Even though our polygons are situated as in **Figure 7-1**, the order in which the polygons are rendered might be the blue polygon, followed by the red, and finally the green polygon. Consequently, the resulting color is incorrect.  If we look at the RGBA value for one pixel we can see the problem. When the blue polygon is rendered, the frame buffer and *z*-buffer are empty, so the RGBA quad (0,0,0.8,0.5) is stored along with the its z-buffer value. When the red polygon is rendered, a comparison of its z-value and the current z-buffer indicates that it is in front of the previous pixel entry. So Equation 7-1 is applied using the frame buffer’s RGBA value. This results in the RGBA value (0.4,0,0.2,0.75) being writ- ten to the buffer. Now, the green polygon is rendered and the z comparison indicates that it is behind the current pixel’s value. Again this equation is applied, this time using the frame buffer’s RGBA value for the surface and the polygon’s values from behind. This results in a final pixel color of (0.3,0.2, 0.175,0.875), which is different from what we previously calculated. Once the red and blue polygons have been composited and written to the frame buffer, there is no way to insert the final green polygon into the middle where it belongs.
+It is important to note that if we switch the ordering of the polygons, the resulting color will change. This underlies a major technical problem in using transparency. If we ray-trace a scene, we will intersect the surfaces in a well-defined manner --- from front to back. Using this knowledge we can trace a ray back to the last surface it intersects, and then composite the color by applying **Equation7-1** to all the surfaces in reverse order (i.e., from back to front). In objectorder rendering methods, this compositing is commonly supported in hardware, but unfortunately we are not guaranteed to render the polygons in any specific order. Even though our polygons are situated as in **Figure 7-1**, the order in which the polygons are rendered might be the blue polygon, followed by the red, and finally the green polygon. Consequently, the resulting color is incorrect.  If we look at the RGBA value for one pixel we can see the problem. When the blue polygon is rendered, the frame buffer and *z*-buffer are empty, so the RGBA quad (0,0,0.8,0.5) is stored along with the its z-buffer value. When the red polygon is rendered, a comparison of its z-value and the current z-buffer indicates that it is in front of the previous pixel entry. So Equation 7-1 is applied using the frame buffer’s RGBA value. This results in the RGBA value (0.4,0,0.2,0.75) being written to the buffer. Now, the green polygon is rendered and the z comparison indicates that it is behind the current pixel’s value. Again this equation is applied, this time using the frame buffer’s RGBA value for the surface and the polygon’s values from behind. This results in a final pixel color of (0.3,0.2, 0.175,0.875), which is different from what we previously calculated. Once the red and blue polygons have been composited and written to the frame buffer, there is no way to insert the final green polygon into the middle where it belongs.
 
 <figure id="Figure 7-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-1.png?raw=true width="640" alt="Figure7-1">
@@ -512,7 +512,7 @@ We can solve the problem of visualizing internal features by defining a region o
 
 All of these region of interest methods are fairly simple to implement using an image-order ray casting approach. As a preprocessing step to ray casting, the ray is clipped against all geometric region definitions. The ray function is then evaluated only along segments of the ray that are within the region of interest. The mask values are consulted at each sample to determine if its contribution should be included or excluded.
 
-For object-order methods we must determine for each sample whether or not it is within the region of interest before incorporating its contribution into the image. If the underlying graphics hardware is being utilized for the object- order volume rendering as is the case with a texture mapping approach, hardware clipping planes may be available to help support regions of interest.
+For object-order methods we must determine for each sample whether or not it is within the region of interest before incorporating its contribution into the image. If the underlying graphics hardware is being utilized for the object-order volume rendering as is the case with a texture mapping approach, hardware clipping planes may be available to help support regions of interest.
 
 ## 7.10 Intermixing Volumes and Geometry
 
@@ -1216,7 +1216,7 @@ and the required changes to the source code are shown in **Figure 7-37**.
 
 **vtkLineWidget**
 
-There are a variety of 3D widgets in VTK all of which function in a similar fashion. 3D widgets are a subclass of vtkInteractorObserver meaning that they are associated with a vtkRenderWindow and observe events in the render window (). (Note: vtkInteractorStyle---see "Introducing vtkRenderWindowInteractor" on page68 ---is also a subclass of vtkInteractorObserver. The interactor style differs from a 3D widget in that it does not have a representation in the scene.) The following example  shows the general approach to using a 3D widget using vtkLineWidget as an example (**Figure 7-39-**). First the widget is instantiated and then placed. Placing means positioning, scaling, and orienting the widget consistent with the object on which they operate. By default, widgets are enabled with a "keypress-i" event, but the specific event to enable the widget can be modified.
+There are a variety of 3D widgets in VTK all of which function in a similar fashion. 3D widgets are a subclass of vtkInteractorObserver meaning that they are associated with a vtkRenderWindow and observe events in the render window (). (Note: vtkInteractorStyle---see "Introducing vtkRenderWindowInteractor" on page68 ---is also a subclass of vtkInteractorObserver. The interactor style differs from a 3D widget in that it does not have a representation in the scene.) The following example  shows the general approach to using a 3D widget using vtkLineWidget as an example (**Figure 7-39**). First the widget is instantiated and then placed. Placing means positioning, scaling, and orienting the widget consistent with the object on which they operate. By default, widgets are enabled with a "keypress-i" event, but the specific event to enable the widget can be modified.
 
 ``` c++
 -   changes to the preceding example
@@ -1261,33 +1261,28 @@ streamline is modified.
 
 ``` tcl
 vtkRungeKutta4 rk4
-
 vtkPolyData seeds
 
 vtkStreamTracer streamer
+  streamer SetInputConnection [reader GetOutputPort]
+  streamer SetSource seeds
 
-streamer SetInputConnection [reader GetOutputPort]
-
-streamer SetSource seeds vtkRenderWindowInteractor iren
-
-iren SetRenderWindow renWin
+vtkRenderWindowInteractor iren
+  iren SetRenderWindow renWin
 
 vtkLineWidget lineWidget
-lineWidget SetInteractor iren
-lineWidget SetInput [reader GetOutput]
-lineWidget SetAlignToYAxis lineWidget
-PlaceWidget
-
-lineWidget GetPolyData seeds
-
-lineWidget ClampToBoundsOn
-
-lineWidget SetResolution 25
+  lineWidget SetInteractor iren
+  lineWidget SetInput [reader GetOutput]
+  lineWidget SetAlignToYAxis
+  lineWidget PlaceWidget
+  lineWidget GetPolyData seeds
+  lineWidget ClampToBoundsOn
+  lineWidget SetResolution 25
 
 [lineWidget GetLineProperty] SetColor 0 0 0
 lineWidget AddObserver StartInteractionEvent
 
--- BeginInteraction
+# BeginInteraction
 
 lineWidget AddObserver InteractionEvent GenerateStreamlines
 
