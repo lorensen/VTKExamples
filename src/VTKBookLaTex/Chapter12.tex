@@ -498,7 +498,7 @@ vtkPolyDataWriter writer
 
 If you have gotten this far in the book, you know that the *Visualization Toolkit* uses a demand-driven pipeline architecture and so far we have not demanded anything. We have just specified the pipeline topology and the parameters for each pipeline element.
 
-\begin{lstlisting}[language=TCL, caption={}]
+\begin{lstlisting}[language=TCL, caption={}, numbers=none, frame=none]
 writer Update
 \end{lstlisting}
 
@@ -628,21 +628,6 @@ iren SetUserMethod {wm deiconify .vtkInteract}
 wm withdraw .
 \end{lstlisting}
 
-\subsection{}
-
-\begin{lstlisting}[language=TCL, caption={.}]
-\end{lstlisting}
-
-\subsection{}
-
-\begin{lstlisting}[language=TCL, caption={.}]
-\end{lstlisting}
-
-\subsection{}
-
-\begin{lstlisting}[language=TCL, caption={.}]
-\end{lstlisting}
-
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
 		\includegraphics[width=\linewidth]{Figure12-9a}
@@ -660,6 +645,214 @@ wm withdraw .
 	\end{subfigure}
 	\caption{Various frog images.}\label{fig:Figure12-9}
 \end{figure}
+
+Figure \ref{fig:Figure12-9} shows three views of the frog.
+
+This lengthy example shows the power of a comprehensive visualization system like VTK.
+
+\begin{itemize}
+
+    \item We mixed image processing and computer graphics algorithms to process data created by an external segmentation process.
+
+    \item We developed a generic approach that allows users to control the elements of the pipeline with a familiar scripting language, tcl.
+
+    \item We separated the task into a ``batch'' portion and an ``interactive'' portion.
+
+\end{itemize}
+
+\subsection{Other Frog-Related Information}
+
+The folks at Lawrence Berkeley National Laboratory have an impressive Web site that features the frog used in this example. The site describes how the frog data was obtained and also permits users to create mpeg movies of the frog. There are also other datasets available. Further details on ``The Whole Frog Project'' can be found at \href{http://www-itg.lbl.gov/Frog}{Frog}. Also, the Stanford University Medical Media and Information Technologies (SUMMIT) group has on-going work using the Berkeley frog. They are early VTK users. Enjoy their \emph{Virtual Creatures} project at: \href{http://summit.stanford.edu/creatures}{creatures}.
+
+\section{Financial Visualization}
+
+The application of 3D visualization techniques to financial data is relatively new. Historically, financial data has been represented using 2D plotting techniques such as line, scatter plots, bar charts, and pie charts. These techniques are especially well suited for the display of price and volume information for stocks, bonds, and mutual funds. Three-dimensional techniques are becoming more important due to the increased volume of information in recent years, and 3D graphics and visualization techniques are becoming interactive. Interactive rates mean that visualization can be applied to the day-to-day processing of data. Our belief is that this will allow deeper understanding of today's complex financial data and other more timely decisions.
+
+In this example we go through the process of obtaining data, converting it to a form that we can use, and then using visualization techniques to view it. Some of the external software tools used in this example may be unfamiliar to you. This should not be a large concern. We have simply chosen the tools with which we are familiar. Where we have used an Awk script, you might choose to write a small C program to do the same thing. The value of the example lies in illustrating the high-level process of solving a visualization problem.
+
+The first step is to obtain the data. We obtained our data from a public site on the World Wide Web (WWW) that archives stock prices and volumes for many publicly traded stocks. (This Web site has closed down since publication of the first edition. The data for this example are available on the CD-ROM.)
+
+Once we have obtained the data, we convert it to a format that can be read into VTK. While VTK can read in a variety of data formats, frequently your data will not be in one of those. The data files we obtained are stored in the following format:
+
+\begin{lstlisting}[numbers=none]
+930830 49.375 48.812 49.250 1139.2 56.1056
+930831 49.375 48.938 49.125 1360.4 66.8297
+930902 49.188 48.688 48.750 1247.2 60.801
+...
+\end{lstlisting}
+
+Each line stores the data for one day of trading. The first number is the date, stored as the last two digits of the year, followed by a two-digit month and finally the day of the month. The next three values represent the high, low, and closing price of the stock for that day. The next value is the volume of trading in thousands of shares. The final value is the volume of trading in millions of dollars.
+
+We used an Awk script to convert the original data format into a VTK data file. (See the \emph{VTK User's Guide} for information on VTK file formats; or refer to the Web page \href{https://lorensen.github.io/VTKExamples/site/VTKFileFormats/}{VTKFileFormats}). This conversion could be done using many other approaches, such as writing a C program or a Tcl script.
+
+\begin{lstlisting}[language=Awk, caption={Awk: converting data file to VTK.}]
+BEGIN {print "\# vtk DataFile Version 2.0\\n
+Data values for stock\nASCII\n\nDATASET POLYDATA"}
+{count += 1}
+{ d = $1%100}
+{ m = int(($1%10000)/100)}
+{ if (m == 2) d += 31}
+{ if (m == 3) d += 59}
+{ if (m == 4) d += 90}
+{ if (m == 5) d += 120}
+{ if (m == 6) d += 151}
+{ if (m == 7) d += 181}
+{ if (m == 8) d += 212}
+{ if (m == 9) d += 243}
+{ if (m == 10) d += 273}
+{ if (m == 11) d += 304}
+{ if (m == 12) d += 334}
+{ d = d + (int($1/10000) - 93)*365}
+{dates[count] = d; prices[count] = $4; volumes[count] = $5}
+END {
+  print "POINTS " count " float";
+  for (i = 1; i \<= count; i++) print dates[i] " " prices[i] " 0 ";
+  print "\nLINES 1 " (count + 1) " " count;
+  for (i = 0; i \< count; i++) print i;
+  print "\nPOINT\_DATA " count "\nSCALARS volume float";
+  print "LOOKUP\_TABLE default";
+  for (i = 1; i \<= count; i++) print volumes[i];
+  }
+\end{lstlisting}
+
+The above Awk script performs the conversion. Its first line outputs the required header information indicating that the file is a VTK data file containing polygonal data. It also includes a comment indicating that the data represents stock values. There are a few different VTK data formats that we could have selected. It is up to you to decide which format best suits the data you are visualizing. We have judged the polygonal format ( vtkPolyData ) as best suited for this particular stock visualization.
+
+The next line of the Awk script creates a variable named count that keeps track of how many days worth of information is in the file. This is equivalent to the number of lines in the original data file.
+
+The next fourteen lines convert the six digit date into a more useful format, since the original format has a number of problems. If we were to blindly use the original format and plot the data using the date as the independent variable, there would be large gaps in our plot. For example,  $931231$ is the last day of $1993$ and $940101$ is the first day of $1994$. Chronologically, these two dates are sequential, but mathematically there are $(940101 - 931231 = 8870$ values between them. A simple solution would be to use the line number as our independent variable. This would work as long as we knew that every trading day was recorded in the data file. It would not properly handle the situation where the market was open, but for some reason data was not recorded. A better solution is to convert the dates into numerically ordered days. The preceding Awk script sets January 1, 1993, as day number one, and then numbers all the following days from there. At the end of these $14$ lines the variable, d, will contain the resulting value.
+
+The next line in our Awk script stores the converted date, closing price, and dollar volume  into arrays indexed by the line number stored in the variable count. Once all the lines have been read and stored into the arrays, we write out the rest of the VTK data file. We have selected the date as our independent variable and \emph{x} coordinate. The closing price we store as the \emph{y} coordinate, and the \emph{z} coordinate we set to zero. After indicating the number and type of points to be stored, the Awk script loops through all the points and writes them out to the VTK data file. It then writes out the line connectivity list. In this case we just connect one point to the next to form a polyline for each stock. Finally, we write out the volume information as scalar data associated with the points. Portions of the resulting VTK data file are shown below.
+
+\begin{lstlisting}[numbers=none]
+# vtk DataFile Version 2.0 Data values for stock
+ASCII
+DATASET POLYDATA
+POINTS 348 float
+242 49.250 0
+243 49.125 0
+245 48.750 0
+246 48.625 0
+...
+LINES 1 349 348
+0
+1
+2
+3
+...
+POINT_DATA 348
+SCALARS volume float
+LOOKUP_TABLE default
+1139.2
+1360.4
+1247.2
+1745.4
+...
+\end{lstlisting}
+
+Now that we have generated the VTK data file, we can start the process of creating a visualization for the stock data. To do this, we wrote a Tcl script to be used with the Tcl-based VTK executable. At a high level the script reads in the stock data, sends it through a tube filter, creates a label for it, and then creates an outline around the resulting dataset. Ideally, we would like to display multiple stocks in the same window. To facilitate this, we designed the Tcl script to use a procedure to perform operations on a per stock basis. The resulting script is listed below.
+
+\begin{lstlisting}[language=TCL, caption={.}]
+\end{lstlisting}
+
+\subsection{}
+
+\begin{lstlisting}[language=TCL, caption={.}]
+package require vtk
+#  this is a tcl script for the stock case study
+#  Create the RenderWindow, Renderer and both Actors vtkRenderer ren1
+vtkRenderWindow renWin
+  renWin AddRenderer ren1
+vtkRenderWindowInteractor iren
+  iren SetRenderWindow renWin
+
+# create the outline
+vtkAppendPolyData apf
+vtkOutlineFilter olf
+  olf SetInputConnection [apf GetOutputPort]
+vtkPolyDataMapper outlineMapper
+  outlineMapper SetInputConnection [olf GetOutputPort]
+vtkActor outlineActor
+  outlineActor SetMapper outlineMapper
+
+set zpos 0
+# create the stocks
+proc AddStock {prefix name x y z} {
+  global zpos
+
+  # create labels
+  vtkTextSource $prefix.TextSrc
+    $prefix.TextSrc SetText "$name"
+    $prefix.TextSrc SetBacking 0
+  vtkPolyDataMapper $prefix.LabelMapper
+    $prefix.LabelMapper SetInput [$prefix.TextSrc GetOutput]
+  vtkFollower $prefix.LabelActor
+    $prefix.LabelActor SetMapper $prefix.LabelMapper
+    $prefix.LabelActor SetPosition $x $y $z
+    $prefix.LabelActor SetScale 0.25 0.25 0.25
+    eval $prefix.LabelActor SetOrigin
+        [$prefix.LabelMapper GetCenter]
+  #  create a sphere source and actor
+  vtkPolyDataReader $prefix.PolyDataRead
+    $prefix.PolyDataRead SetFileName
+		"../../../vtkdata/$prefix.vtk"
+  vtkTubeFilter $prefix.TubeFilter
+    $prefix.TubeFilter
+    SetInputConnection \
+        [$prefix.PolyDataRead GetOutputPort]
+	$prefix.TubeFilter SetNumberOfSides 8
+	$prefix.TubeFilter SetRadius 0.5
+    $prefix.TubeFilter SetRadiusFactor 10000
+  vtkTransform $prefix.Transform
+	$prefix.Transform Translate 0 0 $zpos
+	$prefix.Transform Scale 0.15 1 1
+  vtkTransformPolyDataFilter $prefix.TransformFilter
+    $prefix.TransformFilter SetInputConnection
+        [$prefix.TubeFilter GetOutputPort]
+    $prefix.TransformFilter SetTransform
+    $prefix.Transform
+  # increment zpos
+  set zpos [expr $zpos + 10]
+  vtkPolyDataMapper $prefix.StockMapper
+    $prefix.StockMapper SetInputConnection
+        [$prefix.TransformFilter GetOutputPort]
+  vtkActor $prefix.StockActor
+    $prefix.StockActor SetMapper $prefix.StockMapper
+    $prefix.StockMapper SetScalarRange 0 8000
+    [$prefix.StockActor GetProperty] SetAmbient 0.5
+    [$prefix.StockActor GetProperty] SetDiffuse 0.5
+
+  apf AddInput [$prefix.TransformFilter GetOutput]
+
+  ren1 AddActor $prefix.StockActor
+  ren1 AddActor $prefix.LabelActor
+  $prefix.LabelActor SetCamera [ren1 GetActiveCamera]
+}
+
+#  set up the stocks
+ddStock GE "GE" 94 46 4
+AddStock GM "GM" 107 39 14
+AddStock IBM "IBM" 92 70 16
+AddStock DEC "DEC" 70 19 26
+
+#  Add the actors to the renderer, set the background and size
+#
+ren1 AddActor outlineActor
+ren1 SetBackground 0.1 0.2 0.4
+renWin SetSize 1200 600
+
+#  render the image
+[ren1 GetActiveCamera] SetViewAngle 10
+ren1 ResetCamera
+[ren1 GetActiveCamera] Zoom 2.8
+[ren1 GetActiveCamera] Elevation 90
+[ren1 GetActiveCamera] SetViewUp 0 0 -1
+iren Initialize
+
+#  prevent the tk window from showing up then start the event loop
+wm withdraw .
+\end{lstlisting}
+
+The first part of this script consists of the standard procedure for renderer and interactor creation that can be found in almost all of the VTK Tcl scripts. The next section creates the objects necessary for drawing an outline around all of the stock data. A vtkAppendPolyData filter is used to append all of the stock data together. This is then sent through a vtkOutlineFilter to create a bounding box around the data. A mapper and actor are created to display the result. In the next part of this script, we define the procedure to add stock data to this visualization. The procedure takes five arguments: the name of the stock, the label we want displayed, and the x, y, z coordinates defining where to position the label. The first line of the procedure indicates that the variable ren1 should be visible to this procedure. By default the procedure can only access its own local variables. Next, we create the label using a vtkTextSource, vtkPolyDataMapper, and vtkFollower. The names of these objects are all prepended with the variable ``\$prefix.'' so that the instance names will be unique. An instance of vtkFollower is used instead of the usual vtkActor, because we always want the text to be right-side up and facing the camera. The vtkFollower class provides this functionality. The remaining lines position and scale the label appropriately. We set the origin of the label to the center of its data. This insures that the follower will rotate about its center point. The next group of lines creates the required objects to read in the data, pass it through a tube filter and a transform filter, and finally display the result. The tube filter uses the scalar data (stock volume in this example) to determine the radius of the tube. The mapper also uses the scalar data to determine the coloring of the tube. The transform filter uses a transform object to set the stock’s position based on the value of the variable zpos. For each stock, we will increment zpos by 10, effectively shifting the next stock over 10 units from the current stock. This prevents the stocks from being stacked on top of each other. We also use the transform to compress the x-axis to make the data easier to view. Next, we add this stock as an input to the append filter and add the actors and followers to the renderer. The last line of the procedure sets the follower’s camera to be the active camera of the renderer. Back in the main body of the Tcl script, we invoke the AddStock procedure four times with four different stocks. Finally, we add the outline actor and customize the renderer and camera to  four different stocks. Finally, we add the outline actor and customize the renderer and camera to produce a nice initial view.
 
 \section{Bibliographic Notes}
 
