@@ -1118,6 +1118,3 @@ a) Prove that 3D Gaussian smoothing can be decomposed into three 1D operations.
 b) Give the complexity of the decomposed filter and the same filter implemented as a 3D convolution.
 
 c) Under what conditions can constant smoothing be decomposed into 1D operations.
-
- LocalWords:  palettes cxx href MarchingCasesA py figcaption cubical alt
- LocalWords:  grayscale stuctured
