@@ -14,6 +14,7 @@ rm -f *.ind
 rm -f *.ist
 rm -f *.lof
 rm -f *.log
+rm -f *.lol
 rm -f *.lot
 rm -f *.out
 rm -f *.toc
