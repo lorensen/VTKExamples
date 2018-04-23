@@ -17,6 +17,7 @@ These areas are medical imaging, financial visualization, modeling, computationa
 Then we craft an approach to show the results.
 Many times we will extend the functionality of the Visualization Toolkit with application specific tools.
 Finally, we present a sample program and show resulting images.
+
 The visualization design process we go through is similar in each case.
 First, we read or generate application-specific data and transform it into one of the data representation types in the Visualization Toolkit.
 Often this first step is the most difficult one because we have to write custom computer code, and decide what form of visualization data to use.
@@ -29,6 +30,620 @@ In the last step we combine the physical components with the abstract components
 Radiology is a medical discipline that deals with images of human anatomy.
 These images come from a variety of medical imaging devices, including X-ray, X-ray Computed Tomography (CT), Magnetic Resonance Imaging (MRI), and ultrasound. Each imaging technique, called an imaging modality, has particular diagnostic strengths.
 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-1}
+	\caption{A CT slice through a human head.}
+	\label{fig:Figure12-1}
+\end{figure}
+
+This case study deals with CT data. Computed tomography measures the attenuation of X-rays as they pass through the body. A CT image consists of levels of gray that vary from black (for air), to gray (for soft tissue), to white (for bone).  Figure \ref{fig:Figure12-1} shows a CT cross section through a head. This slice is taken perpendicular to the spine approximately through the middle of the ears.  The gray boundary around the head clearly shows the ears and bridge of the nose. The dark regions on the interior of the slice are the nasal passages and ear canals. The bright areas are bone. This study contains 93 such slices, spaced $1.5$ mm apart. Each slice has $256*^2$ pixels spaced 0.8 mm apart with $12$ bits of gray level.
+
+Our challenge is to take this gray scale data (over $12$ megabytes) and convert it into information that will aid the surgeon. Fortunately, our visualization toolkit has just the right techniques. We will use isocontouring techniques to extract the skin and bone surfaces and display orthogonal cross-sections to put the isosurface in context. From experience we know that a density value of $500$ will define the air/skin boundary, and a value of 1150 will define the soft tissue/bone boundary. In VTK terminology, medical imaging slice data is image data. Recall from Chapter 5: \nameref{chap:basic_data_representation} that for image data, the topology and geometry of the data is implicitly known, requiring only dimensions, an origin, and the data spacing.
+
+The steps we follow in this case study are common to many
+three-dimensional medical studies.
+\begin{enumerate}
+
+    \item Read the input.
+
+    \item For each anatomical feature of interest, create an isosurface.
+
+    \item Transform the models from patient space to world space.
+
+    \item Render the models.
+
+\end{enumerate}
+
+This case study describes in detail how to read input data and extract anatomical features using iso-contouring. Orthogonal planes will be shown using a texture-based technique. Along the way we will also show you how to render the data. We finish with a brief discussion of medical data transformations. This complete source code for the examples shown in this section are available from 
+\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo1/}{MedicalDemo1.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo1/}{MedicalDemo1.py}, 
+\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo2/}{MedicalDemo2.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo2/}{MedicalDemo2.py}, and
+\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py}.
+
+\subsection{Read the Input}
+
+Medical images come in many flavors of file formats. This study is stored as flat files without header information. Each 16-bit pixel is stored with little-endian byte order. Also, as is often the case, each slice is stored in a separate file with the file suffix being the slice number of the form \texttt{prefix.1}, \texttt{prefix.2}, and so on. Medical imaging files often have a header of a certain size before the image data starts. The size of the header varies from file format to file format. Finally, another complication is that sometimes one or more bits in each 16-bit pixel is used to mark connectivity between voxels. It is important to be able to mask out bits as they are read.
+
+VTK provides several image readers including one that can read raw formats of the type described above --- vtkVolume16Reader. To read this data we instantiate the class and set the appropriate instance variables as follows.
+
+\begin{lstlisting}[language=C++, caption={Reading raw formatted files.}]
+vtkVolume16Reader *v16 = vtkVolume16Reader::New();
+  v16->SetDataDimensions (64,64); v16->SetImageRange (1,93);
+  v16->SetDataByteOrderToLittleEndian();
+  v16->SetFilePrefix ("headsq/quarter");
+  v16->SetDataSpacing (3.2, 3.2, 1.5);
+\end{lstlisting}
+
+The FilePrefix and FilePattern instance variable work together to produce the name of files in a series of slices. The FilePattern --- which by default is \%s.\%d --- generates the filename to read by performing a C-language sprintf() of the FilePrefix and the current file number into the FilePattern format specifier.
+
+\subsection{Create an Isosurface}
+
+We can choose from three techniques for isosurface visualization: volume rendering, marching cubes, and dividing cubes. We assume that we want to interact with our data at the highest possible speed, so we will not use volume rendering. We prefer marching cubes if we have polygonal rendering hardware available, or if we need to move up close to or inside the extracted surfaces. Even with hardware assisted rendering, we may have to reduce the polygon count to get reasonable rendering speeds. Dividing cubes is appropriate for software rendering. For this application we'll use marching cubes.
+
+For medical volumes, marching cubes generates a large number of triangles. To be practical,  we'll do this case study with a reduced resolution dataset. We took the original $256^2$ data and reduced it to $64^2$ slices by averaging neighboring pixels twice in the slice plane. We call the resulting dataset *quarter* since it has 1/4 the resolution of the original data. We adjust the DataSpacing for the reduced resolution dataset to 3.2 mm per pixel. Our first program will generate an isosurface for the skin.
+
+The flow in the program is similar to most VTK applications.
+
+\begin{itemize}
+
+	\item Generate some data.
+
+	\item Process it with filters.
+
+	\item Create a mapper to generate rendering primitives.
+
+	\item Create actors for all mappers.
+
+	\item Create actors for all mappers.
+
+\end{itemize}
+
+The filter we have chosen to use is vtkMarchingCubes. We could also use vtkContourFilter since it will automatically create an instance of vtkMarchingCubes as it delegates to the fastest subclass for a particular dataset type. The class vtkPolyDataNormals is used to generate nice surface normals for the data. vtkMarchingCubes can also generate normals, but sometimes better results are achieved when the normals are directly from the surface (vtkPolyDataNormals ) versus from the data (vtkMarchingCubes ). To complete this example, we take the output from the isosurface generator vtkMarchingCubes and connect it to a mapper and actor via
+vtkPolyDataMapper and vtkActor. The C++ code follows.
+
+\begin{lstlisting}[language=C++, caption={Creating an isosurface.}]
+vtkContourFilter *skinExtractor = vtkContourFilter::New();
+  skinExtractor->SetInputConnection(v16->GetOutputPort());
+  skinExtractor->SetValue(0, 500);
+
+vtkPolyDataNormals *skinNormals = vtkPolyDataNormals::New();
+  skinNormals->SetInputConnection(skinExtractor->GetOutputPort());
+  skinNormals->SetFeatureAngle(60.0);
+
+vtkPolyDataMapper *skinMapper = vtkPolyDataMapper::New();
+  skinMapper->SetInputConnection(skinNormals->GetOutputPort());
+  skinMapper->ScalarVisibilityOff();
+
+vtkActor *skin = vtkActor::New();
+  skin->SetMapper(skinMapper);
+
+vtkOutlineFilter *outlineData = vtkOutlineFilter::New();
+  outlineData->SetInputConnection(v16->GetOutputPort());
+  vtkPolyDataMapper *mapOutline = vtkPolyDataMapper::New();
+  mapOutline->SetInputConnection(outlineData->GetOutputPort());
+
+vtkActor *outline = vtkActor::New();
+  outline->SetMapper(mapOutline);
+  outline->GetProperty()->SetColor(0,0,0);
+
+vtkCamera *aCamera = vtkCamera::New();
+  aCamera->SetViewUp (0, 0, -1);
+  aCamera->SetPosition (0, 1, 0);
+  aCamera->SetFocalPoint (0, 0, 0);
+  aCamera->ComputeViewPlaneNormal();
+
+  aRenderer->AddActor(outline);
+  aRenderer->AddActor(skin);
+  aRenderer->SetActiveCamera(aCamera);
+  aRenderer->ResetCamera ();
+
+  aCamera->Dolly(1.5);
+
+  aRenderer->SetBackground(1,1,1);
+
+  renWin->SetSize(640, 480);
+
+  aRenderer->ResetCameraClippingRange ();
+
+  // Initialize the event loop and then start it.
+  iren->Initialize();
+  iren->Start();
+\end{lstlisting}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-2}
+	\caption{The skin extracted from a CT dataset of the head.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo1/}{MedicalDemo1.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo1/}{MedicalDemo1.py})}
+	\label{fig:Figure12-2}
+\end{figure}
+
+To provide context for the isosurface an outline is created around the data. An initial view is set up  in a window size of $640 \times 480$ pixels. Since the dolly command moves the camera towards the data, the clipping planes are reset to insure that the isosurface is
+completely visible. Figure \ref{fig:Figure12-2} shows the resulting image of the patient's skin.
+
+We can improve this visualization in a number of ways. First, we can choose a more appropriate color (and other surface properties) for the skin. We use the vtkProperty method SetDiffuseColor() to set the skin color to a fleshy tone. We also add a specular component to the skin surface. Next, we can add additional isosurfaces corresponding to various anatomical features. Here we choose to extract the bone surface by adding an additional pipeline segment. This consists of the filters vtkMarchingCubes, vtkPolyDataMapper, and vtkActor, just as we did with the skin. Finally, to improve rendering performance on our system, we create triangle strips from the output of the contouring process. This requires adding vtkStripper.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-3}
+	\caption{Skin and bone isosurfaces.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo2/}{MedicalDemo2.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo2/}{MedicalDemo2.py})}
+	\label{fig:Figure12-3}
+\end{figure}
+
+Figure \ref{fig:Figure12-3} shows the resulting image, and the following is the C++ code for the pipeline.
+
+\begin{lstlisting}[language=C++, caption={Improving the visualizarion of the isosurface.}]
+vtkActor *skin = vtkActor::New();
+  skin->SetMapper(skinMapper);
+  skin->GetProperty()->SetDiffuseColor(1, .49, .25);
+  skin->GetProperty()->SetSpecular(.3);
+  skin->GetProperty()->SetSpecularPower(20);
+  skin->GetProperty()->SetOpacity(1.0);
+
+vtkContourFilter *boneExtractor = vtkContourFilter::New();
+  boneExtractor->SetInputConnection(v16->GetOutputPort());
+  boneExtractor->SetValue(0, 1150);
+
+vtkPolyDataNormals *boneNormals = vtkPolyDataNormals::New();
+  boneNormals->SetInputConnection(boneExtractor->GetOutputPort());
+  boneNormals->SetFeatureAngle(60.0);
+
+vtkStripper *boneStripper = vtkStripper::New();
+  boneStripper->SetInputConnection(boneNormals->GetOutputPort());
+
+vtkPolyDataMapper *boneMapper = vtkPolyDataMapper::New();
+  boneMapper->SetInputConnection(boneStripper->GetOutputPort());
+  boneMapper->ScalarVisibilityOff();
+
+vtkActor *bone = vtkActor::New(); bone->SetMapper(boneMapper);
+  bone->GetProperty()->SetDiffuseColor(1, 1, .9412);
+\end{lstlisting}
+
+The \emph{Visualization Toolkit} provides other useful techniques besides isocontouring for exploring volume data. One popular technique used in medical imaging is to view orthogonal slices, or planes, through the data. Because computer graphics hardware supports texture mapping, an approach using texture mapping gives the best result in terms or interactive performance.
+
+We will extract three orthogonal planes corresponding to the axial, sagittal, and coronal cross sections that are familiar to radiologists. The axial plane is perpendicular to the patient's neck, sagittal passes from left to right, and coronal passes from front to back. For illustrative purposes, we render each of these planes with a different color lookup table. For the sagittal plane, we use a gray scale. The coronal and axial planes vary the saturation and hue table, respectively. We combine this with a translucent rendering of the skin (we turn off the bone with the C++ statement bone->VisibilityOff() ). The following VTK code creates the three lookup tables that are used in the texture mapping process.
+
+\begin{lstlisting}[language=C++, caption={Lookup tables for the sectioning planes.}]
+vtkLookupTable *bwLut = vtkLookupTable::New();
+  bwLut->SetTableRange (0, 2000);
+  bwLut->SetSaturationRange (0, 0);
+  bwLut->SetHueRange (0, 0);
+  bwLut->SetValueRange (0, 1);
+
+vtkLookupTable *hueLut = vtkLookupTable::New();
+  hueLut->SetTableRange (0, 2000);
+  hueLut->SetHueRange (0, 1);
+  hueLut->SetSaturationRange (1, 1);
+  hueLut->SetValueRange (1, 1);
+
+vtkLookupTable *satLut = vtkLookupTable::New();
+  satLut->SetTableRange (0, 2000);
+  satLut->SetHueRange (.6, .6);
+  satLut->SetSaturationRange (0, 1);
+  satLut->SetValueRange (1, 1);
+\end{lstlisting}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-4}
+	\caption{Composite image of three planes and translucent skin.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py})}
+	\label{fig:Figure12-4}
+\end{figure}
+
+The image data is mapped to colors using the filter vtkImageMapToColors in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsec:assemblies_vtkprop} for more information). This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageActor is set appropriately. The C++ code is as follows:
+
+\begin{lstlisting}[language=C++, caption={Mapping the image data and displaying the image slices.}]
+// saggital
+
+vtkImageMapToColors *saggitalColors = vtkImageMapToColors::New();
+  saggitalColors->SetInputConnection(v16->GetOutputPort());
+  saggitalColors->SetLookupTable(bwLut);
+
+vtkImageActor *saggital = vtkImageActor::New();
+  saggital->SetInputConnection(saggitalColors->GetOutputPort());
+  saggital->SetDisplayExtent(32,32, 0,63, 0,92);
+
+// axial
+
+vtkImageMapToColors *axialColors = vtkImageMapToColors::New();
+  axialColors->SetInputConnection(v16->GetOutputPort());
+  axialColors->SetLookupTable(hueLut);
+
+vtkImageActor *axial = vtkImageActor::New();
+  axial->SetInputConnection(axialColors->GetOutputPort());
+  axial->SetDisplayExtent(0,63, 0,63, 46,46);
+
+// coronal
+
+vtkImageMapToColors *coronalColors = vtkImageMapToColors::New();
+  coronalColors->SetInputConnection(v16->GetOutputPort());
+  coronalColors->SetLookupTable(satLut);
+
+vtkImageActor *coronal = vtkImageActor::New();
+  coronal->SetInputConnection(coronalColors->GetOutputPort());
+  coronal->SetDisplayExtent(0,63, 32,32, 0,92);
+
+  aRenderer->AddActor(outline);
+  aRenderer->AddActor(saggital);
+  aRenderer->AddActor(axial);
+  aRenderer->AddActor(coronal);
+  aRenderer->AddActor(bone);
+  aRenderer->AddActor(skin);
+\end{lstlisting}
+
+Figure \ref{fig:Figure12-4} shows the resulting composite image.
+
+In this example, the actor named skin is rendered last because we are using a translucent surface. Recall from "Transparency and Alpha Values" on page213 that we must order the polygons  composing transparent surfaces for proper results. We render the skin last by adding it to aRenderer's actor list last.
+
+We need to make one last point about processing medical imaging data. Medical images can be acquired in a variety of orders that refer to the relationship of consecutive slices to the patient. Radiologists view an image as though they were looking at the patient's feet. This means that on the display, the patient's left appears on the right. For CT there are two standard orders: top to bottom or bottom to top. In a top to bottom acquisition, slice \emph{i} is farther from the patient's feet than slice emph{i} - 1. Why do we worry about this order? It is imperative in medical applications that we retain the left / right relationship. Ignoring the slice acquisition order can result in a flipping of left and right. To correct this, we need to transform either the original dataset or the geometry we have extracted. (See ``Exercises'' on page \pageref{exercises:ch_12} for more information.) Also, you may wish to examine the implementation of the classes vtkVolume16Reader and vtkVolumeReader (the superclass of vtkVolume16Reader). These classes have special methods that deal with transforming image data.
+
+\section{Creating Models from Segmented Volume Data}
+
+The previous example described how to create models from gray-scale medical imaging data. The techniques for extracting bone and skin models is straightforward compared to the task of generating models of other soft tissue. The reason is that magnetic resonance and, to some extent, computed tomography, generates similar gray-scale values for different tissue types. For example, the liver and kidney in a medical computed tomography volume often have overlapping intensities. Likewise, many different tissues in the brain have overlapping intensities when viewed with magnetic resonance imaging. To deal with these problems researchers apply a process called *segmentation* to identify different tissues. These processes vary in sophistication from almost completely automatic methods to manual tracing of images. Segmentation continues to be a hot research area. Although the segmentation process itself is beyond the scope of this text, in this case study we show how to process segmented medical data.
+
+For our purposes we assume that someone (or many graduate students) have laboriously labeled each pixel in each slice of a volume of data with a tissue identifier. This identifier is an integer number that describes which tissue class each pixel belongs to. For example, we may be given a series of MRI slices of the knee with tissue numbers defining the meniscus, femur, muscles, and so forth. Figure \ref{fig:Figure12-5} shows two representations of a slice from a volume acquired from a patient's knee. The image on the left is the original MRI slice; the image on the right contains tissue labels for a number of important organs. The bottom image is a composite of the two images.
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,center},capbesidewidth=0.3\textwidth}}]{figure}[\FBwidth]
+	{\caption{Magnetic Resonance Image of a knee(left); segmented tissue(right); composite (bottom).(Data and segmentation courtesy of Brigham and Women's Hospital Surgical Planning Lab.}\label{fig:Figure12-5}}
+	{\includegraphics[width=0.7\textwidth]{Figure12-5}}
+\end{figure}
+
+Notice the difference in the information presented by each representation. The original slice shows gradual changes at organ borders, while the segmented slice has abrupt changes. The images we processed in the previous CT example used marching cubes isocontouring algorithm and an intensity threshold to extract the isosurfaces. The segmented study we present has integer labels that have a somewhat arbitrary numeric value. Our goal in this example is to somehow take the tissue labels and create grayscale slices that we can process with the same techniques we used previously. Another goal is to show how image processing and visualization can work together in an application.
+
+\subsection{The Virtual Frog}
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.3\textwidth}}]{figure}[\FBwidth]
+	{\caption{Photographic slice of frog (upper left), segmented frog (upper right) and composite of photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/TestFrogSlice/}{TestFrogSlice.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/TestFrogSlice/}{TestFrogSlice.py})}\label{fig:Figure12-6}}
+	{\includegraphics[width=0.7\textwidth]{Figure12-6}}
+\end{figure}
+
+To demonstrate the processing of segmented data we will use a dataset derived from a frog. This data was prepared at Lawrence Berkeley National Laboratories and is included with their permission on the CD-ROM accompanying this book. The data was acquired by physically slicing the frog and photographing the slices. The original segmented data is in the form of tissue masks with one file per tissue. There are $136$ slices per tissue and $15$ different tissues. Each slice is $470 \times 500$ pixels. (To accommodate the volume readers we have in VTK, we processed the mask files and combined them all in one file for each slice.) We used integer numbers $1$ -- $15$ to represent the 15 tissues. Figure \ref{fig:Figure12-6} shows an original slice, a labeled slice, and a composite of the two representations.
+
+Before we describe the process to go from binary labeled tissues to gray-scale data suitable for isosurface extraction, compare the two images of the frog's brain shown in Figure \ref{fig:Figure12-7}. On the left is a surface extracted using a binary labeling of the brain. The right image was created using the visualization pipeline that we will develop in this example.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-7}
+	\caption{The frog's brain. Model extracted without smoothing (left) and with smoothing (right).(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/ViewFrogBoth/}{ViewFrogBoth.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/ViewFrogBoth/}{ViewFrogBoth.py})}
+	\label{fig:Figure12-7}
+\end{figure}
+
+\subsection{Developing a Strategy}
+
+In the last example, we used C++ and created a program that was tailored to extract two surfaces: one of the skin and one of the bone. All the parameters for the surface extraction were hardcoded in the source. Since our frog has 15 different tissues; we seek a more general solution to this problem. We may have to experiment with a number of different parameters for a number of visualization and imaging filters. Our goal is to develop a general pipeline that will work not only our 15 tissues but on other medical datasets as well. We'll design the program to work with a set of user-specified parameters to control the elements of the pipeline. A reasonable description might look like:
+
+\begin{lstlisting}[language=TCL, caption={User specified parameters to control the elements of the pipeline.}]
+SLICE_ORDER hfsi
+ROWS 470
+COLUMNS 500
+STUDY ../frogMasks/frogTissue
+PIXEL_SIZE 1
+SPACING 1.5
+\end{lstlisting}
+
+plus possibly many more parameters to control decimation, smoothing, and so forth. Working in C++, we would have to design the format of the file and write code to interpret the statements. We make the job easier here by using Tcl interpreter. Another decision is to separate the modelling from the rendering. Our script will generate models in a ``batch'' mode. We will run one VTK Tcl script for each tissue. That script will create a \texttt{.vtk} output file containing the polygonal representation of each tissue. Later, we can render the models with a separate script.
+
+\subsection{Overview of the Pipeline}
+
+Figure \ref{fig:Figure12-8} shows the design of the pipeline. This generic pipeline has been developed over the years in our laboratory and in the Brigham and Women's Hospital Surgical Planning Lab. We find that it produces reasonable models from segmented datasets. Do not be intimidated by the number of filters (twelve in all). Before we developed VTK, we did similar processing with a hodgepodge of programs all written with different interfaces. We used intermediate files to pass data from one filter to the next. The new pipeline, implemented in VTK, is more efficient in time and computing resources.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure12-8a}
+		\caption*{}
+		\label{fig:Figure12-8a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure12-8b}
+		\caption*{}
+		\label{fig:Figure12-8b}
+	\end{subfigure}
+	\caption{The segmented volume to triangle pipeline. Volume passes through image pipeline before isosurface extraction.}\label{fig:Figure12-8}
+\end{figure}
+
+\subsection{Read the Segmented Volume Data}
+
+We assume here that all the data to be processed was acquired with a constant center landmark. In VTK, the origin of the data applies to the lower left of an image volume. In this pipeline, we calculate the origin such that the \emph{x,y} center of the volume will be $(0,0)$. The DataSpacing describes the size of each pixel and the distance between slices. DataVOI selects a volume of interest (VOI). A VOI lets us select areas of interest, sometimes eliminating extraneous structures like the CT table bed. For the frog, we have written a small C program that reads the tissue label file and finds the volume of interest for each tissue.
+
+The SetTransform() method defines how to arrange the data in memory. Medical images can be acquired in a variety of orders. For example, in CT, the data can be gathered from top to bottom (superior to inferior), or bottom to top (inferior to superior). In addition, MRI data can be acquired from left to right, right to left, front-to-back (anterior to posterior) or back-to-front. This filter transforms triangle vertices such that the resulting models will all ``face'' the viewer with a view up of $(0,-1,0)$, looking down the positive \emph{z} axis. Also, proper left-right correspondence will be maintained. That means the patient's left will always be left on the generated models. Look in \texttt{SliceOrder.tcl} to see the permutations and rotations for each order.
+
+All the other parameters are self-explanatory except for the last. In this script, we know that the pipeline will only be executed once. To conserve memory, we invoke the ReleaseDataFlagOn() method. This allows the VTK pipeline to release data once it has been processed by a filter. For large medical datasets, this can mean the difference between being able to process a dataset or not.
+
+\begin{lstlisting}[language=TCL, caption={Read the Segmented Volume Data.}]
+set originx [expr ( $COLUMNS / 2.0 ) * $PIXEL_SIZE * -1.0]
+set originy [expr ( $ROWS / 2.0 ) * $PIXEL_SIZE * -1.0]
+vtkPNMReader reader
+  reader SetFilePrefix $STUDY
+  reader SetDataSpacing $PIXEL_SIZE $PIXEL_SIZE $SPACING
+  reader SetDataOrigin $originx $originy
+[expr $START_SLICE * $SPACING]
+  reader SetDataVOI $VOI
+  reader SetTransform $SLICE_ORDER
+  [reader GetOutput] ReleaseDataFlagOn
+\end{lstlisting}
+
+\subsection{Remove Islands}
+
+Some segmentation techniques, especially those that are automatic, may generate islands of misclassified voxels. This filter looks for connected pixels with the ISLAND\_REPLACE label, and if the number of connected pixels is less than ISLAND\_AREA, it replaces them with the label TISSUE. Note that this filter is only executed if ISLAND\_REPLACE is positive.
+
+\begin{lstlisting}[language=TCL, caption={Remove Islands.}]
+set lastConnection reader
+if {$ISLAND_REPLACE = 0} {
+  vtkImageIslandRemoval2D islandRemover
+    islandRemover SetAreaThreshold $ISLAND_AREA
+    islandRemover SetIslandValue $ISLAND_REPLACE
+    islandRemover SetReplaceValue $TISSUE
+    islandRemover SetInputConnection [$lastConnection GetOutputPort]
+  set lastConnection islandRemover
+}
+\end{lstlisting}
+
+\subsection{Select a Tissue}
+
+The rest of the pipeline requires gray-scale data. To convert the volume that now contains integer tissue labels to a gray-scale volume containing only one tissue, we use the threshold filter to set all pixels with the value TISSUE (the tissue of choice for this pipeline) to $255$ and all other pixels to $0$. The choice of $255$ is somewhat arbitrary.
+
+\begin{lstlisting}[language=TCL, caption={Select a Tissue.}]
+vtkImageThreshold selectTissue
+  selectTissue ThresholdBetween $TISSUE $TISSUE
+  selectTissue SetInValue 255
+  selectTissue SetOutValue 0
+  selectTissue SetInputConnection [$lastConnection GetOutputPort]
+\end{lstlisting}
+
+\subsection{Resample the Volume}
+
+Lower resolution volumes produce fewer polygons. For experimentation we often reduce the resolution of the data with this filter. However, details can be lost during this process. Averaging creates new pixels in the resampled volume by averaging neighboring pixels. If averaging is turned off, every SAMPLE\_RATE pixel will be passed through to the output.
+
+\begin{lstlisting}[language=TCL, caption={Resample the Volume.}]
+vtkImageShrink3D shrinker
+  shrinker SetInputConnection [selectTissue GetOutputPort] eval
+  shrinker SetShrinkFactors $SAMPLE_RATE
+  shrinker AveragingOn
+\end{lstlisting}
+
+\subsection{Smooth the Volume Data}
+
+To this point, unless we have resampled the data, the volume is labeled with a value of $255$ in pixels of the selected tissue and $0$ elsewhere. This ``binary'' volume would produce stepped surfaces if we did not blur it. The Gaussian kernel specified in this filter accomplishes the smoothing we require to extract surfaces. The amount of smoothing is controlled by  GAUSSIAN\_STANDARD\_DEVIATION that can be independently specified for each axis of the volume data. We only run this filter if some smoothing is requested,
+
+\begin{lstlisting}[language=TCL, caption={Smooth the Volume Data.}]
+set lastConnection shrinker
+if {$GAUSSIAN_STANDARD_DEVIATION != "0 0 0"} {
+  vtkImageGaussianSmooth gaussian
+  gaussian SetDimensionality 3
+  gaussian SetStandardDeviation $GAUSSIAN_STANDARD_DEVIATION gaussian
+  SetRadiusFactor 1
+  gaussian SetInputConnection [shrinker GetOutputPort]
+  set lastConnection gaussian
+}
+\end{lstlisting}
+
+\subsection{Generate Triangles}
+
+Now we can process the volume with marching cubes just as though we had obtained gray-scale data from a scanner. We added a few more bells and whistles to the pipeline. The filter runs faster if we turn off gradient and normal calculations. Marching cubes normally calculates vertex normals from the gradient of the volume data. In our pipeline, we have concocted a gray-scale representation and will subsequently decimate the triangle mesh and smooth the resulting vertices. This processing invalidates the normals that are calculated by marching cubes. 
+
+\begin{lstlisting}[language=TCL, caption={Generate Triangles.}]
+vtkMarchingCubes mcubes
+  mcubes SetInputConnection [toStructuredPoints GetOutputPort]
+  mcubes ComputeScalarsOff
+  mcubes ComputeGradientsOff
+  mcubes ComputeNormalsOff
+  eval mcubes SetValue 0 $VALUE
+  [mcubes GetOutput] ReleaseDataFlagOn
+\end{lstlisting}
+
+\subsection{Reduce the Number of Triangles}
+There are often many more triangles generated by the isosurfacing algorithm than we need for rendering. Here we reduce the triangle count by eliminating triangle vertices that lie within a user-specified distance to the plane formed by neighboring vertices. We preserve any edges of triangles that are considered ``features''.
+
+\begin{lstlisting}[language=TCL, caption={Reduce the Number of Triangles.}]
+vtkDecimatePro decimator
+  decimator SetInputConnection [mcubes GetOutputPort]
+  eval decimator SetFeatureAngle $DECIMATE_ANGLE
+  decimator PreserveTopologyOn
+  decimator SetTargetReduction $DECIMATE_REDUCTION
+  [decimator GetOutput] ReleaseDataFlagOn
+\end{lstlisting}
+
+\subsection{Smooth the Triangle Vertices}
+
+This filter uses Laplacian smoothing described in ``Mesh Smoothing'' on page \pageref{subsec:mesh_smoothing} to adjust triangle vertices as an ``average'' of neighboring vertices. Typically, the movement will be less than a voxel.
+
+Of course we have already smoothed the image data with a Gaussian kernel so this step may not give much improvement; however, models that are heavily decimated can sometimes be improved with additional polygonal smoothing.
+
+\begin{lstlisting}[language=TCL, caption={Smooth the Triangle Vertices.}]
+vtkSmoothPolyDataFilter smoother
+  smoother SetInputConnection [decimator GetOutputPort]
+  eval smoother SetNumberOfIterations $SMOOTH_ITERATIONS
+  eval smoother SetRelaxationFactor $SMOOTH_FACTOR
+  eval smoother SetFeatureAngle $SMOOTH_ANGLE
+  smoother FeatureEdgeSmoothingOff
+  smoother BoundarySmoothingOff
+  smoother SetConvergence 0
+  [smoother GetOutput] ReleaseDataFlagOn
+\end{lstlisting}
+
+\subsection{Generate Normals}
+To generate smooth shaded models during rendering, we need normals at each vertex. As in decimation, sharp edges can be retained by setting the feature angle.
+
+\begin{lstlisting}[language=TCL, caption={Generate Normals.}]
+vtkPolyDataNormals normals
+  normals SetInputConnection
+  [smoother GetOutputPort] eval normals
+  SetFeatureAngle $FEATURE_ANGLE
+  [normals GetOutput] ReleaseDataFlagOn
+\end{lstlisting}
+
+\subsection{Generate Triangle Strips}
+
+Triangle strips are a compact representation of large numbers of triangles. This filter processes our independent triangles before we write them to a file.
+
+\begin{lstlisting}[language=TCL, caption={Generate Triangle Strips.}]
+vtkStripper stripper
+  stripper SetInputConnection [normals GetOutputPort]
+  [stripper GetOutput] ReleaseDataFlagOn
+\end{lstlisting}
+
+\subsection{Write the Triangles to a File}
+
+Finally, the last component of the pipeline writes the triangles strips to a file.
+
+\begin{lstlisting}[language=TCL, caption={Write the Triangles to a File.}]
+vtkPolyDataWriter writer
+  writer SetInputConnection [stripper GetOutputPort]
+  eval writer SetFileName $NAME.vtk
+\end{lstlisting}
+
+\subsection{Execute the Pipeline}
+
+If you have gotten this far in the book, you know that the *Visualization Toolkit* uses a demand-driven pipeline architecture and so far we have not demanded anything. We have just specified the pipeline topology and the parameters for each pipeline element.
+
+\begin{lstlisting}[language=TCL, caption={}]
+writer Update
+\end{lstlisting}
+
+causes the pipeline to execute. In practice we do a bit more than just Update the last element of the pipeline. We explicitly Update each element so that we can time the individual steps. The script \texttt{frogSegmentation.tcl} contains the more sophisticated approach.
+
+\subsection{Specifying Parameters for the Pipeline}
+
+All of the variables mentioned above must be defined for each tissue
+to be processed. The parameters fall into two general categories. Some are specific to the particular study while some are specific to each tissue. For the frog, we collected the study--specific parameters in a file \texttt{frog.tcl} that contains:
+
+\begin{lstlisting}[language=TCL, caption={Specifying Parameters for the Pipeline.}]
+set SLICE_ORDER hfsi
+set ROWS 470
+set COLUMNS 500
+set STUDY ../frogMasks/frogTissue
+set PIXEL_SIZE 1
+set SPACING 1.5
+set VALUE 511.5
+set SAMPLE_RATE "1 1 1"
+set DECIMATE_REDUCTION .95
+set DECIMATE_ITERATIONS 5
+set DECIMATE_ERROR .0002
+set DECIMATE_ERROR_INCREMENT .0002
+set SMOOTH_ITERATIONS 0
+set SMOOTH_FACTOR .01
+set FEATURE_ANGLE 60
+\end{lstlisting}
+
+There is a specific file for each tissue type. This tissue-specific file reads in the frog-specific parameters, sets tissue-specific parameters, and then reads the pipeline script (we call it  \texttt{frogSegmentation.tcl}). For example, \texttt{liver.tcl} contains:
+
+\begin{lstlisting}[language=TCL, caption={Tissue specific file.}]
+source frog.tcl
+set NAME liver
+set TISSUE 10
+set START_SLICE 25
+set END_SLICE 126
+set VOI "167 297 154 304 $START_SLICE $END_SLICE"
+source frogSegmentation.tcl
+\end{lstlisting}
+
+Parameters in frog.tcl can also be overridden. For example, skeleton.tcl overrides the standard deviation for the Gaussian filter.
+
+\begin{lstlisting}[language=TCL, caption={Overriding parameters.}]
+source frog.tcl
+set NAME skeleton
+set TISSUE 13
+set VALUE 368.5
+set START_SLICE 1
+set END_SLICE 136
+set ZMAX [expr $END_SLICE - $START_SLICE]
+set VOI "23 479 8 473 0 $ZMAX"
+set GAUSSIAN_STANDARD_DEVIATION "1.5 1.5 1"
+source frogSegmentation.tcl
+\end{lstlisting}
+
+Note that both of these examples specify a volume of interest. This improves performance of the imaging and visualization algorithms by eliminating empty space.
+
+Another script, \texttt{marchingFrog.tcl}, uses similar parameters but processes the original gray-scale volume rather than the segmented volume. This script is used in \texttt{skin.tcl} to extract the skin. The file \texttt{marchingFrog.tcl} does not have the island removal or threshold pipeline elements since the data is already has gray-scale information.
+
+Once the models are generated with the process just outlined, they can be rendered using the following tcl script called \texttt{ViewFrog.tcl}. First we create a Tcl procedure to automate the creation of actors from the model files. All the pipeline elements are named consistently with the name of the part followed by the name of the pipeline element. This makes it easy for the user to identify each object in more sophisticated user interfaces.
+
+\begin{lstlisting}[language=TCL, caption={Automating the creation of actors.}]
+proc mkname {a b} {return $a$b}
+
+# proc to make actors and create pipeline
+proc MakeActor { name r g b}
+{
+set filename [eval mkname $name .vtk]
+set reader [eval mkname $name PolyDataReader]
+vtkPolyDataReader $reader
+  $reader SetFileName $filename
+set mapper [eval mkname $name PolyDataMapper]
+vtkPolyDataMapper $mapper
+  $mapper SetInputConnection [$reader GetOutputPort]
+   $mapper ScalarVisibilityOff
+set actor [ eval mkname $name Actor]
+vtkLODActor $actor
+  $actor SetMapper $mapper
+  eval [$actor GetProperty] SetDiffuseColor $r $g $b eval
+  [$actor GetProperty] SetSpecularPower 50
+  eval [$actor GetProperty] SetSpecular .5
+  eval [$actor GetProperty] SetDiffuse .8
+  return $actor
+}
+\end{lstlisting}
+
+After the usual code to create required rendering objects, a single statement for each part creates an actor we can add to the renderer:
+
+\begin{lstlisting}[language=TCL, caption={Create the actors.}]
+# Now create the RenderWindow, Renderer and Interactor
+vtkRenderer ren1
+vtkRenderWindow renWin
+renWin AddRenderer ren1
+vtkRenderWindowInteractor iren
+iren SetRenderWindow renWin
+
+# Add the actors to the renderer using the MakeActor proc
+ren1 AddActor [eval MakeActor lung $powder_blue]
+ren1 AddActor [eval MakeActor heart $tomato]
+ren1 AddActor [eval MakeActor liver $pink]
+ren1 AddActor [eval MakeActor duodenum $orange]
+ren1 AddActor [eval MakeActor blood $salmon]
+ren1 AddActor [eval MakeActor brain $beige]
+ren1 AddActor [eval MakeActor eye_retna $misty_rose]
+ren1 AddActor [eval MakeActor eye_white $white]
+ren1 AddActor [eval MakeActor ileum $raspberry]
+ren1 AddActor [eval MakeActor kidney $banana]
+ren1 AddActor [eval MakeActor l_intestine $peru]
+ren1 AddActor [eval MakeActor nerve $carrot]
+ren1 AddActor [eval MakeActor spleen $violet]
+ren1 AddActor [eval MakeActor stomach $plum] ren1
+AddActor [eval MakeActor skeleton $wheat]
+\end{lstlisting}
+
+The rest of the script defines a standard view.
+
+\begin{lstlisting}[language=TCL, caption={Create the view.}]
+ren1 SetBackground 0.2 0.3 0.4
+renWin SetSize 450 450
+[ren1 GetActiveCamera] SetViewUp 0 -1 0
+[ren1 GetActiveCamera] Azimuth 30
+[ren1 GetActiveCamera] Elevation 30
+[ren1 GetActiveCamera] Dolly 1.75
+iren Initialize
+iren SetUserMethod {wm deiconify .vtkInteract}
+# prevent the tk window from showing up
+wm withdraw .
+\end{lstlisting}
+
+\subsection{}
+
+\begin{lstlisting}[language=TCL, caption={.}]
+\end{lstlisting}
+
+\subsection{}
+
+\begin{lstlisting}[language=TCL, caption={.}]
+\end{lstlisting}
+
+\subsection{}
+
+\begin{lstlisting}[language=TCL, caption={.}]
+\end{lstlisting}
+
+
 \section{Bibliographic Notes}
 
 The case studies presented in the chapter rely on having interesting data to visualize. Sometimes the hardest part of practicing visualizing is finding relevant data. The Internet is a tremendous resource for this task. Paul Gilste \cite{Gilster94} has written an excellent introduction to many of the tools for accessing information on the Internet. There are many more books available on this subject in the local bookstore.
@@ -40,6 +655,7 @@ If you would like to know more about information visualization you can start wit
 \printbibliography
 
 \section{Exercises}
+\label{exercises:ch_12}
 
 \begin{enumerate}
 
@@ -50,12 +666,12 @@ If you would like to know more about information visualization you can start wit
 		\item Reader transformations.
 	\end{enumerate}
 
-	\item Modify the last example found in the medical application (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/Medical3/}{Medical3.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/Medical3/}{Medical3.py}) to use vtkImageDataGeometryFilter instead of
+	\item Modify the last example found in the medical application (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py}) to use vtkImageDataGeometryFilter instead of
 	vtkImageActor. Compare the performance of using geometry with using
 	texture. How does the performance change as the resolution of the
 	volume data changes?
 
-	\item Modify the last medical example (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/Medical3/}{Medical3.cxx}) to use vtkTexture and vtkPlaneSource instead of vtkImageActor.
+	\item Modify the last medical example (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py}) to use vtkTexture and vtkPlaneSource instead of vtkImageActor.
 
 	\item Change the medical case study to use dividing cubes for the skin surface.
 
