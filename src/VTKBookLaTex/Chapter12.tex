@@ -751,12 +751,8 @@ LOOKUP_TABLE default
 
 Now that we have generated the VTK data file, we can start the process of creating a visualization for the stock data. To do this, we wrote a Tcl script to be used with the Tcl-based VTK executable. At a high level the script reads in the stock data, sends it through a tube filter, creates a label for it, and then creates an outline around the resulting dataset. Ideally, we would like to display multiple stocks in the same window. To facilitate this, we designed the Tcl script to use a procedure to perform operations on a per stock basis. The resulting script is listed below.
 
-\begin{lstlisting}[language=TCL, caption={.}]
-\end{lstlisting}
 
-\subsection{}
-
-\begin{lstlisting}[language=TCL, caption={.}]
+\begin{lstlisting}[language=TCL, caption={Tcl script for stock case study.}]
 package require vtk
 #  this is a tcl script for the stock case study
 #  Create the RenderWindow, Renderer and both Actors vtkRenderer ren1
@@ -852,7 +848,422 @@ iren Initialize
 wm withdraw .
 \end{lstlisting}
 
-The first part of this script consists of the standard procedure for renderer and interactor creation that can be found in almost all of the VTK Tcl scripts. The next section creates the objects necessary for drawing an outline around all of the stock data. A vtkAppendPolyData filter is used to append all of the stock data together. This is then sent through a vtkOutlineFilter to create a bounding box around the data. A mapper and actor are created to display the result. In the next part of this script, we define the procedure to add stock data to this visualization. The procedure takes five arguments: the name of the stock, the label we want displayed, and the x, y, z coordinates defining where to position the label. The first line of the procedure indicates that the variable ren1 should be visible to this procedure. By default the procedure can only access its own local variables. Next, we create the label using a vtkTextSource, vtkPolyDataMapper, and vtkFollower. The names of these objects are all prepended with the variable ``\$prefix.'' so that the instance names will be unique. An instance of vtkFollower is used instead of the usual vtkActor, because we always want the text to be right-side up and facing the camera. The vtkFollower class provides this functionality. The remaining lines position and scale the label appropriately. We set the origin of the label to the center of its data. This insures that the follower will rotate about its center point. The next group of lines creates the required objects to read in the data, pass it through a tube filter and a transform filter, and finally display the result. The tube filter uses the scalar data (stock volume in this example) to determine the radius of the tube. The mapper also uses the scalar data to determine the coloring of the tube. The transform filter uses a transform object to set the stock’s position based on the value of the variable zpos. For each stock, we will increment zpos by 10, effectively shifting the next stock over 10 units from the current stock. This prevents the stocks from being stacked on top of each other. We also use the transform to compress the x-axis to make the data easier to view. Next, we add this stock as an input to the append filter and add the actors and followers to the renderer. The last line of the procedure sets the follower’s camera to be the active camera of the renderer. Back in the main body of the Tcl script, we invoke the AddStock procedure four times with four different stocks. Finally, we add the outline actor and customize the renderer and camera to  four different stocks. Finally, we add the outline actor and customize the renderer and camera to produce a nice initial view.
+The first part of this script consists of the standard procedure for renderer and interactor creation that can be found in almost all of the VTK Tcl scripts. The next section creates the objects necessary for drawing an outline around all of the stock data. A vtkAppendPolyData filter is used to append all of the stock data together. This is then sent through a vtkOutlineFilter to create a bounding box around the data. A mapper and actor are created to display the result.
+
+In the next part of this script, we define the procedure to add stock data to this visualization. The procedure takes five arguments: the name of the stock, the label we want displayed, and the x, y, z coordinates defining where to position the label. The first line of the procedure indicates that the variable ren1 should be visible to this procedure. By default the procedure can only access its own local variables. Next, we create the label using a vtkTextSource, vtkPolyDataMapper, and vtkFollower. The names of these objects are all prepended with the variable ``\$prefix.'' so that the instance names will be unique. An instance of vtkFollower is used instead of the usual vtkActor, because we always want the text to be right-side up and facing the camera. The vtkFollower class provides this functionality. The remaining lines position and scale the label appropriately. We set the origin of the label to the center of its data. This insures that the follower will rotate about its center point.
+
+The next group of lines creates the required objects to read in the data, pass it through a tube filter and a transform filter, and finally display the result. The tube filter uses the scalar data (stock volume in this example) to determine the radius of the tube. The mapper also uses the scalar data to determine the coloring of the tube. The transform filter uses a transform object to set the stock’s position based on the value of the variable zpos. For each stock, we will increment zpos by 10, effectively shifting the next stock over 10 units from the current stock. This prevents the stocks from being stacked on top of each other. We also use the transform to compress the x-axis to make the data easier to view. Next, we add this stock as an input to the append filter and add the actors and followers to the renderer. The last line of the procedure sets the follower’s camera to be the active camera of the renderer.
+
+Back in the main body of the Tcl script, we invoke the AddStock procedure four times with four different stocks. Finally, we add the outline actor and customize the renderer and camera to  four different stocks. Finally, we add the outline actor and customize the renderer and camera to produce a nice initial view.
+
+Two different views of the result are displayed in Figure \ref{fig:Figure12-10}. The top image shows a history of stock closing prices for our four stocks. The color and width of these lines correspond to the volume of the stock on that day. The lower image more clearly illustrates the changes in stock volume by looking at the data from above.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-10}
+	\caption{Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time ( stocks.tcl ).}
+	\label{fig:Figure12-10}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-11}
+	\caption{Two more views of the stock case study. Here the
+		tube filter has been replaced by a ribbon filter followed with a
+		linear extrusion filter.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/Stocks/}{Stocks.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python//VisualizationAlgorithms/Stocks/}{Stocks.py})}
+	\label{fig:Figure12-11}
+\end{figure}
+
+A legitimate complaint with Figure \ref{fig:Figure12-10} is that the changing
+width of the tube makes it more difficult to see the true shape of the
+price verses the time curve. We can solve this problem by using a
+ribbon filter followed by a linear extrusion filter, instead of the
+tube filter. The ribbon filter will create a ribbon whose width will
+vary in proportion to the scalar value of the data. We then use
+
+the linear extrusion filter to extrude this ribbon along the \emph{y}-axis
+so that it has a constant thickness.
+
+The resulting views are shown in Figure \ref{fig:Figure12-11}.
+
+\section{Implicit Modelling}
+
+The \emph{Visualization Toolkit} has some useful geometric modelling capabilities. One of the most powerful features is implicit modelling. In this example we show how to use polygonal descriptions of objects and create `blobby'' models of them using the implicit modelling objects in VTK. This example generates a logo for the \emph{Visualization Toolkit} from polygonal representations of the letters \emph{v}, \emph{t}, and \emph{k}.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-12}
+	\caption{The visualization pipeline for the VTK blobby logo.}
+	\label{fig:Figure12-12}
+\end{figure}
+
+We create three separate visualization pipelines, one for each letter. Figure \ref{fig:Figure12-12} shows the visualization pipeline.
+As is common in VTK applications, we design a pipeline and fill in the details of the instance variables just before we render.
+We pass the letters through a vtkTransformPolyDataFilter to position them relative to each other.
+Then we combine all of the polygons from the transformed letters into one polygon dataset using the vtkAppendPolyData filter.
+The vtkImplicitModeller creates a volume dataset of dimension $64^3$ with each voxel containing a scalar value that is the distance to the nearest polygon.
+Recall from ``Implicit Modelling'' on page \pageref{subsec:implicit_modelling} that the implicit modelling algorithm lets us specify the region of influence of each polygon. Here we specify this using the SetMaximumDistance() method of the vtkImplicitModeller.
+By restricting the region of influence, we can significantly improve performance of the implicit modelling algorithm.
+Then we use vtkContourFilter to extract an isosurface that approximates a distance of 1.0 from each polygon.
+We create two actors: one for the blobby logo and one for the original polygon letters.
+Notice that both actors share the polygon data created by vtkAppendPolyData. Because of the nature of the VTK visualization pipeline (see ``Implicit Execution'' on page \pageref{subsec:implicit_execution} ), the appended data will only be created once by the portion of the pipeline that is executed first.
+As a final touch, we move the polygonal logo in front of the blobby logo. Now we will go through the example in detail.
+
+First, we read the geometry files that contain polygonal models of each letter in the logo. The data is in VTK polygonal format, so we use vtkPolyDataReader.
+
+\begin{lstlisting}[language=C++, caption={Reading the polygonal models of each letter.}]
+vtkPolyDataReader *letterV = vtkPolyDataReader::New();
+  letterV->SetFileName ("v.vtk");
+
+vtkPolyDataReader *letterT = vtkPolyDataReader::New();
+  letterT->SetFileName ("t.vtk");
+
+vtkPolyDataReader *letterK = vtkPolyDataReader::New();
+  letterK->SetFileName ("k.vtk");
+\end{lstlisting}
+
+We want to transform each letter into its appropriate location and orientation within the logo. We create the transform filters here, but defer specifying the location and orientation until later in the program.
+
+\begin{lstlisting}[language=C++, caption={Transform each letter into ita appropriate location.}]
+vtkTransform *VTransform = vtkTransform::New();
+  vtkTransformPolyDataFilter *VTransformFilter =
+  vtkTransformPolyDataFilter::New();
+
+VTransformFilter->SetInputConnection (letterV->GetOutputPort());
+  VTransformFilter->SetTransform (VTransform);
+
+vtkTransform *TTransform = vtkTransform::New();
+  vtkTransformPolyDataFilter *TTransformFilter =
+  vtkTransformPolyDataFilter::New();
+
+TTransformFilter->SetInputConnection (letterT->GetOutputPort());
+  TTransformFilter->SetTransform (TTransform);
+
+vtkTransform *KTransform = vtkTransform::New();
+  vtkTransformPolyDataFilter *KTransformFilter =
+  vtkTransformPolyDataFilter::New();
+
+  KTransformFilter->SetInputConnection (letterK->GetOutputPort());
+  KTransformFilter->SetTransform (KTransform);
+\end{lstlisting}
+
+We collect all of the transformed letters into one set of polygons by using an instance of the class vtkAppendPolyData.
+
+\begin{lstlisting}[language=C++, caption={Collect the transformed letters into one set of polygons.}]
+vtkAppendPolyData *appendAll = vtkAppendPolyData::New();
+  appendAll->AddInputConnection (VTransformFilter->GetOutputPort());
+  appendAll->AddInputConnection (TTransformFilter->GetOutputPort());
+  appendAll->AddInputConnection (KTransformFilter->GetOutputPort());
+\end{lstlisting}
+
+Since the geometry for each letter did not have surface normals, we add them here. We use vtkPolyDataNormals. Then we complete this portion of the pipeline by creating a mapper and an actor.
+
+\begin{lstlisting}[language=C++, caption={Add surface normals and create mapper and actor.}]
+// create normals
+vtkPolyDataNormals *logoNormals = vtkPolyDataNormals::New();
+  logoNormals->SetInputConnection (appendAll->GetOutputPort());
+  logoNormals->SetFeatureAngle (60);
+
+// map to rendering primitives
+vtkPolyDataMapper *logoMapper = vtkPolyDataMapper::New();
+  logoMapper->SetInputConnection (logoNormals->GetOutputPort());
+
+// now an actor
+vtkActor *logo = vtkActor::New();
+  logo->SetMapper (logoMapper);
+\end{lstlisting}
+
+We create the blobby logo with the implicit modeller, and then extract the logo with vtkContourFilter. The pipeline is completed by creating a mapper and an actor.
+
+\begin{lstlisting}[language=C++, caption={Create an implicit model of the letters and extract the logo.}]
+// now create an implicit model of the letters
+vtkImplicitModeller *blobbyLogoImp = vtkImplicitModeller::New();
+  blobbyLogoImp->SetInputConnection (appendAll->GetOutputPort());
+  blobbyLogoImp->SetMaximumDistance (.075);
+  blobbyLogoImp->SetSampleDimensions (64,64,64);
+  blobbyLogoImp->SetAdjustDistance (0.05);
+
+// extract an iso surface
+vtkContourFilter *blobbyLogoIso = vtkContourFilter::New();
+  blobbyLogoIso->SetInputConnection (blobbyLogoImp->GetOutputPort());
+  blobbyLogoIso->SetValue (1, 1.5);
+
+// map to rendering primitives
+vtkPolyDataMapper *blobbyLogoMapper = vtkPolyDataMapper::New();
+  blobbyLogoMapper->SetInputConnection (blobbyLogoIso->GetOutputPort());
+  blobbyLogoMapper->ScalarVisibilityOff ();
+
+// now an actor
+vtkActor *blobbyLogo = vtkActor::New();
+  blobbyLogo->SetMapper(blobbyLogoMapper);
+  blobbyLogo->SetProperty(banana);
+\end{lstlisting}
+
+To improve the look of our resulting visualization, we define a couple of organic colors. Softer colors show up better on some electronic media (e.g., VHS video tape) and are pleasing to the eye.
+
+\begin{lstlisting}[language=C++, caption={Define colors.}]
+vtkProperty *tomato = vtkProperty::New();
+  tomato->SetDiffuseColor(1, 0.3882, 0.2784);
+  tomato->SetSpecular(0.3);
+  tomato->SetSpecularPower(20);
+vtkProperty *banana = vtkProperty::New();
+  banana->SetDiffuseColor(0.89, 0.81, 0.34);
+  banana->SetDiffuse (0.7);
+  banana->SetSpecular(0.4);
+  banana->SetSpecularPower(20);
+\end{lstlisting}
+
+These colors are then assigned to the appropriate actors.
+
+\begin{lstlisting}[language=C++, caption={Assign colors to the appropriate actors.}]
+  logo->SetProperty(tomato);
+  blobbyLogo->SetProperty(banana);
+\end{lstlisting}
+
+And finally, we position the letters in the logo and move the
+polygonal logo out in front of the blobby logo by modifying the
+actor's position.
+
+\begin{lstlisting}[language=C++, caption={Position the letters and move the polygonal logo.}]
+  VTransform->Translate (-16,0,12.5);
+  VTransform->RotateY (40);
+  KTransform->Translate (14, 0, 0);
+  KTransform->RotateY (-40);
+
+  // move the polygonal letters to the front
+  logo->SetPosition(0,0,6);
+\end{lstlisting}
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure12-13a}
+		\caption*{}
+		\label{fig:Figure12-13a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure12-13b}
+		\caption*{}
+		\label{fig:Figure12-13b}
+	\end{subfigure}
+	\caption{A logo created with vtkImplicitModeller.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/BlobbyLogo/}{BlobbyLogo.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/BlobbyLogo/}{BlobbyLogo.py})}\label{fig:Figure12-13}
+\end{figure}
+
+
+An image made from the techniques described in this section is shown
+in Figure \ref{fig:Figure12-13}  Note that the image on the left has been augmented with a texture map.
+
+\subsection{Computational Fluid Dynamics}
+
+Computational Fluid Dynamics (CFD) visualization poses a challenge to any visualization toolkit.
+CFD studies the flow of fluids in and around complex structures.
+Often, large amounts of super-computer time is used to derive scalar and vector data in the flow field.
+Since CFD computations produce multiple scalar and vector data types, we will apply many of the tools described in this book.
+The challenge is to combine multiple representations into meaningful visualizations that extract information without overwhelming the user.
+
+CFD analysts often employ finite difference grids.
+A finite difference grid represents the discretization of the problem domain into small computational cells.
+The grid allows the analyst to create a large system of equations that can then be solved on a computer.
+The grid is topologically uniform in \emph{i-j-k} space, but the corresponding physical coordinates need not be uniformly distributed.
+This is what we call a structured grid dataset in VTK.
+
+There are a number of techniques we can use when we first look at the complex data presented by CFD applications.
+Since we need to apply several algorithms to the data, and since there will be many parameter changes for these algorithms, we suggest using the Tcl interpreter rather than C++ code.
+Our strategy for visualizing this CFD data includes the following:
+
+\begin{itemize}
+
+    \item Display the computational grid. The analyst carefully constructed the finite difference grid to have a higher density in regions where rapid changes occur in the flow variables. We will display the grid in wireframe so we can see the computational cells.
+
+    \item Display the scalar fields on the computational grid. This will give us an overview of where the scalar data is changing. We will experiment with the extents of the grid extraction to focus on interesting areas.
+
+    \item Explore the vector field by seeding streamlines with a spherical cloud of points. Move the sphere through areas of rapidly changing velocity.
+
+    \item Try using the computational grid itself as seeds for the streamlines. Of course we will have to restrict the extent of the grid you use for this purpose. Using the grid, we will be able to place more seeds in regions where the analyst expected more action.
+
+\end{itemize}
+
+For this case study, we use a dataset from NASA called the LOx Post.
+It simulates the flow of liquid oxygen across a flat plate with a cylindrical post perpendicular to the flow \cite{Rogers86}.
+This analysis models the flow in a rocket engine.
+The post promotes mixing of the liquid oxygen.
+
+We start by exploring the scalar and vector fields in the data. By calculating the magnitude of the velocity vectors, we derive a scalar field.
+This study has a particularly interesting vector field around the post.
+We seed the field with multiple starting points (using points arranged along a curve, referred to as a *rake*) and experiment with parameters for the streamlines.
+Streampolygons are particularly appropriate here and do a nice job of showing the flow downstream from the post.
+We animate the streamline creation by moving the seeding line or rake back and forth behind the post.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure12-14a}
+		\caption*{}
+		\label{fig:Figure12-14a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure12-14b}
+		\caption*{}
+		\label{fig:Figure12-14b}
+	\end{subfigure}
+	\caption{Portion of computational grid for the LOx post.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/LOxGrid/}{LOxGrid.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/LOxGrid/}{LOxGrid.py})}\label{fig:Figure12-14}
+\end{figure}
+
+Following our own advice, we first display the computational grid. The
+following Tcl code produced the left image of Figure \ref{fig:Figure12-14}.
+
+\begin{lstlisting}[language=TCL, caption={Display the computational grid.}]
+# read data
+vtkPLOT3DReader pl3d
+  pl3d SetXYZFileName "$env(VTK_TEXTBOOK_DATA)/postxyz.bin"
+  pl3d SetQFileName "$env(VTK_TEXTBOOK_DATA)/postq.bin"
+  pl3d IBlankingOn
+  pl3d Update
+# computational planes: the floor
+vtkStructuredGridGeometryFilter floorComp
+  floorComp SetExtent 0 37 0 75 0 0
+  floorComp SetInputConnection [pl3d GetOutputPort]
+vtkPolyDataMapper floorMapper
+  floorMapper SetInputConnection [floorComp GetOutputPort]
+  floorMapper ScalarVisibilityOff
+vtkActor floorActor
+  floorActor SetMapper floorMapper
+  [floorActor GetProperty] SetColor 0 0 0
+  [floorActor GetProperty] SetRepresentationToWireframe
+# the post
+vtkStructuredGridGeometryFilter postComp
+  postComp SetExtent 10 10 0 75 0 37
+  postComp SetInputConnection [pl3d GetOutputPort]
+vtkPolyDataMapper postMapper
+  postMapper SetInputConnection [postComp GetOutputPort]
+  postMapper ScalarVisibilityOff
+vtkActor postActor
+  postActor SetMapper postMapper
+  [postActor GetProperty] SetColor 0 0 0
+  [postActor GetProperty] SetRepresentationToWireframe
+# plane upstream of the flow
+vtkStructuredGridGeometryFilter fanComp
+  fanComp SetExtent 0 37 38 38 0 37
+  fanComp SetInputConnection [pl3d GetOutputPort]
+vtkPolyDataMapper fanMapper
+  fanMapper SetInputConnection [fanComp GetOutputPort]
+  fanMapper ScalarVisibilityOff
+vtkActor fanActor
+  fanActor SetMapper fanMapper
+  [fanActor GetProperty] SetColor 0 0 0
+  [fanActor GetProperty] SetRepresentationToWireframe
+# outline
+vtkStructuredGridOutlineFilter outline
+  outline SetInputConnection [pl3d GetOutputPort]
+vtkPolyDataMapper outlineMapper
+  outlineMapper SetInputConnection [outline GetOutputPort]
+vtkActor outlineActor
+  outlineActor SetMapper outlineMapper
+  [outlineActor GetProperty] SetColor 0 0 0
+# Create graphics stuff
+vtkRenderer ren1
+vtkRenderWindow renWin
+  renWin AddRenderer ren1
+vtkRenderWindowInteractor iren
+  iren SetRenderWindow renWin
+# Add the actors to the renderer, set the background and size
+#
+  ren1 AddActor outlineActor
+  ren1 AddActor floorActor
+  ren1 AddActor postActor
+  ren1 AddActor fanAct
+\end{lstlisting}
+
+To display the scalar field using color mapping, we must change the
+actor's representation from wireframe to surface, turn on scalar
+visibility for each vtkPolyDataMapper, set each mapper's scalar
+range, and render again, producing the right image of Figure \ref{fig:Figure12-14}.
+
+\begin{lstlisting}[language=TCL, caption={Dicplay the scalar field.}]
+  postActor SetRepresentationToSurface
+  fanActor SetRepresentationToSurface
+  floorActor SetRepresentationToSurface
+  postMapper ScalarVisibilityOn
+  postMapper SetScalarRange [[pl3d GetOutput] GetScalarRange]
+  fanMapper ScalarVisibilityOn
+  fanMapper SetScalarRange [[pl3d GetOutput] GetScalarRange]
+  floorMapper ScalarVisibilityOn
+  floorMapper SetScalarRange [[pl3d GetOutput] GetScalarRange]
+\end{lstlisting}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-15}
+	\caption{Streamlines seeded with spherical cloud of points. Four separate cloud positions are shown.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/LOxSeeds/}{LOxSeeds.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/LOxSeeds/}{LOxSeeds.py})}
+	\label{fig:Figure12-15}
+\end{figure}
+
+
+Now, we explore the vector field using vtkPointSource.
+Recall that this object generates a random cloud of points around a spherical center point.
+We will use this cloud of points to generate stream-lines.
+We place the center of the cloud near the post since this is where the velocity seems to be changing most rapidly.
+During this exploration, we use streamlines rather than streamtubes for reasons of efficiency.
+The Tcl code is as follows.
+
+\begin{lstlisting}[language=TCL, caption={Explore the vector field using a point source.}]
+# spherical seed points
+vtkPointSource rake
+  rake SetCenter -0.74 0 0.3
+  rake SetNumberOfPoints 10
+vtkStreamLine streamers
+  streamers SetInputConnection [pl3d GetOutputPort]
+  streamers SetSourceConnection [rake GetOutputPort]
+  streamers SetMaximumPropagationTime 250
+  streamers SpeedScalarsOn
+  streamers SetIntegrationStepLength 0.2
+  streamers SetStepLength 0.25
+vtkPolyDataMapper mapTubes
+  mapTubes SetInputConnection [streamers GetOutputPort]
+  eval mapTubes SetScalarRange [[pl3d GetOutput] GetScalarRange]
+vtkActor tubesActor
+  tubesActor SetMapper mapTubes
+\end{lstlisting}
+
+Figure \ref{fig:Figure12-15} shows streamlines seeded from four locations along the post.
+Notice how the structure of the flow begins to emerge as the starting positions for the streamlines are moved up and down in front of the post.
+This is particularly true if we do this interactively; the mind assembles the behavior of the streamlines into a global understanding of the flow field.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-16}
+	\caption{Streamlines seeded with spherical cloud of points. Four separate cloud positions are shown.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/LOx/}{LOx.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/LOx/}{LOx.py})}
+	\label{fig:Figure12-16}
+\end{figure}
+
+For a final example, we use the computational grid to seed streamlines and then generate streamtubes as is shown in Figure \ref{fig:Figure12-16}. A nice feature of this approach is that we generate more streamlines in regions where the analyst constructed a denser grid. The only change
+we need to make is to replace the rake from the sphere source with a portion of the grid geometry.
+
+\begin{lstlisting}[language=TCL, caption={Use the computational grid to seed streamlines and then generate streamtubes.}]
+vtkStructuredGridGeometryFilter seedsComp
+  seedsComp SetExtent 10 10 37 39 1 35
+  seedsComp SetInput [pl3d GetOutput]
+  streamers SetSourceConnection [seedsComp GetOutputPort]
+# create tubes
+vtkTubeFilter tubes
+  tubes SetInputConnection [streamers GetOutputPort]
+  tubes SetNumberOfSides 8
+  tubes SetRadius 0.08
+  tubes SetVaryRadiusOff
+# change input to streamtubes
+  mapTubes SetInputConnection [tubes GetOutputPort]
+\end{lstlisting}
+
+There are a number of other methods we could use to visualize this data.
+A 3D widget such as the vtkLineWidget could be used to seed the streamlines interactively (see ``3D Widgets and User Interaction'' on
+page \pageref{sec:3dwui}). As we saw in ``Point Probe'' on page \pageref{subsec:point_probe}, probing the data
+for numerical values is a valuable technique. In particular, if the
+probe is a line we can use it in combination with vtkXYPlotActor to
+graph the variation of data value along the line. Another useful
+visualization would be to identify regions of vorticity. We could use
+Equation \ref{eq:9.12} in conjunction with an isocontouring algorithm
+(e.g., vtkContourFilter ) to creates isosurfaces of large
+helical-density.
 
 \section{Bibliographic Notes}
 

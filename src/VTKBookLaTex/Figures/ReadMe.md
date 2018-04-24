@@ -50,9 +50,14 @@ List of files and original paths:
 | Figure12-4.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo3.png |
 | Figure12-6.png | src/Testing/Baseline/Cxx/Visualization/TestFrogSlice.png |
 | Figure12-7.png | src/Testing/Baseline/Cxx/Visualization/TestViewFrogBoth.png |
-| Figure12-9a.png | src/Testing/Baseline/Cxx/Visualization/ViewFrogSkinAndTissue.png |
-| Figure12-9b.png | src/Testing/Baseline/Cxx/Visualization/ViewFrog.png |
-| Figure12-9c.png | src/Testing/Baseline/Cxx/Visualization/ViewFrogA.png |
+| Figure12-9a.png | src/Testing/Baseline/Cxx/Visualization/TestViewFrogSkinAndTissue.png |
+| Figure12-9b.png | src/Testing/Baseline/Cxx/Visualization/TestViewFrog.png |
+| Figure12-9c.png | src/Testing/Baseline/Cxx/Visualization/TestViewFrogA.png |
+| Figure12-11.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestStocks.png |
+| Figure12-13b.png | src/Testing/Baseline/Cxx/Visualization/TestBlobbyLogo.png |
+| Figure12-14b.png | src/Testing/Baseline/Cxx/Visualization/TestLOxGrid.png |
+| Figure12-15.png | src/Testing/Baseline/Cxx/Visualization/TestLOxSeeds.png |
+| Figure12-16.png | src/Testing/Baseline/Cxx/Visualization/TestLOx.png |
 | | |
 | | |
 | | |
