@@ -13,6 +13,7 @@ del *.ind
 del *.ist
 del *.lof
 del *.log
+del *.lol
 del *.lot
 del *.out
 del *.toc
