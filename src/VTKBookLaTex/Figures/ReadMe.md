@@ -55,9 +55,13 @@ List of files and original paths:
 | Figure12-9c.png | src/Testing/Baseline/Cxx/Visualization/TestViewFrogA.png |
 | Figure12-11.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestStocks.png |
 | Figure12-13b.png | src/Testing/Baseline/Cxx/Visualization/TestBlobbyLogo.png |
-| Figure12-14b.png | src/Testing/Baseline/Cxx/Visualization/TestLOxGrid.png |
-| Figure12-15.png | src/Testing/Baseline/Cxx/Visualization/TestLOxSeeds.png |
-| Figure12-16.png | src/Testing/Baseline/Cxx/Visualization/TestLOx.png |
+| Figure12-14b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestLOxGrid.png |
+| Figure12-15.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestLOxSeeds.png |
+| Figure12-16.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestLOx.png |
+| Figure12-17.png | src/Testing/Baseline/Cxx/Visualization/TestBlow.png |
+| Figure12-20a.png | src/Testing/Baseline/Cxx/Visualization/TestHanoiInitial.png |
+| Figure12-20b.png | src/Testing/Baseline/Cxx/Visualization/TestHanoiIntermediate.png |
+| Figure12-20c.png | src/Testing/Baseline/Cxx/Visualization/TestHanoi.png |
 | | |
 | | |
 | | |

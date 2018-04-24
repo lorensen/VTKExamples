@@ -1265,6 +1265,222 @@ Equation \ref{eq:9.12} in conjunction with an isocontouring algorithm
 (e.g., vtkContourFilter ) to creates isosurfaces of large
 helical-density.
 
+\section{Finite Element Analysis}
+Finite element analysis is a widely used numerical technique for finding solutions of partial differential equations. Applications of finite element analysis include linear and nonlinear structural, thermal, dynamic, electromagnetic, and flow analysis. In this application we will visualize the results of a blow molding process.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-17}
+	\caption{Ten frames from a blow molding finite element analysis. Mold halves (shown in wireframe) are closed around a parison as the parison is inflated. Coloring indicates thickness—red areas are thinner than blue.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/Blow/}{Blow.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/Blow/}{Blow.py})}
+	\label{fig:Figure12-17}
+\end{figure}
+
+In the extrusion blow molding process, a material is extruded through an annular die to form a hollow cylinder. This cylinder is called a \emph{parison}. Two mold halves are then closed on the parison, while at the same time the parison is inflated with air. Some of the parison material remains within the mold while some becomes waste material. The material is typically a polymer plastic softened with heat, but blow molding has been used to form metal parts. Plastic bottles are often manufactured using a blow molding process.
+
+Designing the parison die and molds is not easy. Improper design results in large variations in the wall thickness. In some cases the part may fail in thin-walled regions. As a result, analysis tools based on finite element techniques have been developed to assist in the design of molds and dies.
+
+The results of one such analysis are shown in Figure \ref{fig:Figure12-17}. The polymer was molded using an isothermal, nonlinear-elastic, incompressible (rubber-like) material. Triangular membrane finite elements were used to model the parison, while a combination of triangular and quadrilateral finite elements were used to model the mold. The mold surface is assumed to be rigid, and the parison is assumed to attach to the mold upon contact. Thus the thinning of the parison is controlled by its stretching during inflation and the sequence in which it contacts the mold.
+
+Figure \ref{fig:Figure12-17} illustrates 10 steps of one analysis. The color of the parison indicates its thickness. Using a rainbow scale, red areas are thinnest while blue regions are thickest. Our visualization shows
+clearly one problem with the analysis technique we are using. Note that while the nodes (i.e., points) of the finite element mesh are prevented from passing through the mold, the interior of the triangular elements are not. This is apparent from the occlusion of the mold wireframe by the parison mesh.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure12-18}
+	\caption{The network topology for the generation of the blow molding image.}
+	\label{fig:Figure12-18}
+\end{figure}
+
+The network topology used to generate these images is shown in Figure \ref{fig:Figure12-18} with the corresponding Tcl script shown below
+
+\begin{lstlisting}[language=TCL, caption={Script to generate the blow molding image.}]
+# Create blow molding image (datapoint 5)
+package require vtk
+package require vtkinteraction
+
+# Create graphics stuff
+vtkRenderer ren1
+vtkRenderWindow renWin
+  renWin AddRenderer ren1
+vtkRenderWindowInteractor iren
+  iren SetRenderWindow renWin
+
+# create reader and warp data with vectors
+vtkUnstructuredGridReader reader
+  reader SetFileName "$VTK_DATA_ROOT/Data/blow.vtk"
+  reader SetScalarsName "thickness9"
+  reader SetVectorsName "displacement9"
+vtkWarpVector warp
+  warp SetInputConnection [reader GetOutputPort]
+
+# extract mold from mesh using connectivity
+vtkConnectivityFilter connect
+  connect SetInputConnection [warp GetOutputPort]
+  connect SetExtractionModeToSpecifiedRegions
+  connect AddSpecifiedRegion 0
+  connect AddSpecifiedRegion 1
+vtkDataSetMapper moldMapper
+  moldMapper SetInputConnection [connect GetOutputPort]
+  moldMapper ScalarVisibilityOff
+vtkActor moldActor
+  moldActor SetMapper moldMapper
+  [moldActor GetProperty] SetColor .2 .2 .2
+  [moldActor GetProperty] SetRepresentationToWireframe
+
+# extract parison from mesh using connectivity
+vtkConnectivityFilter connect2
+  connect2 SetInputConnection [warp GetOutputPort]
+  connect2 SetExtractionModeToSpecifiedRegions
+  connect2 AddSpecifiedRegion 2
+vtkGeometryFilter parison
+  parison SetInputConnection [connect2 GetOutputPort]
+vtkPolyDataNormals normals2
+  normals2 SetInputConnection [parison GetOutputPort]
+  normals2 SetFeatureAngle 60
+vtkLookupTable lut
+  lut SetHueRange 0.0 0.66667
+vtkPolyDataMapper parisonMapper
+  parisonMapper SetInputConnection [normals2 GetOutputPort]
+  parisonMapper SetLookupTable lut
+  parisonMapper SetScalarRange 0.12 1.0
+vtkActor parisonActor
+  parisonActor SetMapper parisonMapper
+
+# Add the actors to the renderer, set the background and size
+  ren1 AddActor moldActor
+  ren1 AddActor parisonActor
+  ren1 SetBackground 1 1 1
+  renWin SetSize 750 400
+  iren Initialize
+  iren AddObserver UserEvent {wm deiconify .vtkInteract}
+
+# prevent the tk window from showing up then start the event loop
+  wm withdraw .
+\end{lstlisting}
+
+The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter does this nicely.
+
+\section{Algorithm Visualization}
+
+Visualization can be used to display algorithms and data structures. Representing this information often requires creative work on the part of the application programmer. For example, Robertson et. al. \cite{Robertson91} have shown 3D techniques for visualizing directory structures and navigating through them. Their approach involves building three dimensional models (the so-called "cone trees") to represent files, directories, and associations between files and
+directories. Similar approaches can be used to visualize stacks, queues, linked lists, trees, and other data structures.
+
+\begin{figure}[!h]
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.86\linewidth]{Figure12-20a}
+		\caption{Initial (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/HanoiInitial/}{HanoiInitial.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/HanoiInitial/}{HanoiInitial.py})}
+		\label{fig:Figure12-20a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.86\linewidth]{Figure12-20b}
+		\caption{Intermediate (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/HanoiIntermediate/}{HanoiIntermediate.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/HanoiIntermediate/}{HanoiIntermediate.py})}
+		\label{fig:Figure12-20b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.86\linewidth]{Figure12-20c}
+		\caption{Final (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/Hanoi/}{Hanoi.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/Hanoi/}{Hanoi.py})}
+		\label{fig:Figure12-20c}
+	\end{subfigure}
+	\caption{Towers of Hanoi. (a) Initial configuration. (b) Intermediate configuration. (c) Final configuration.}\label{fig:Figure12-20}
+\end{figure}
+
+In this example we will visualize the operation of the recursive Towers of Hanoi puzzle. In this puzzle there are three pegs (Figure \ref{fig:Figure12-20}). In the initial position there are one or more disks (or pucks) of varying diameter on the pegs. The disks are sorted according to disk diameter, so that the largest disk is on the bottom, followed by the next largest, and so on. The goal of the puzzle is to move the disks from one peg to another, moving the disks one at a time, and never placing a larger disk on top of a smaller disk.
+
+The classical solution to this puzzle is based on a divide-and-conquer
+approach \cite{AhoHopUll83}. The problem of moving \emph{$n$} disks from the
+initial peg to the second peg can be thought of as solving two subproblems of size \emph{$n - 1$}. First move \emph{$n - 1$} disks from the initial peg to the third peg. Then move the $n$th disk to the second peg. Finally, move the \emph{$n - 1$} disks on the third peg back to the second
+peg.
+
+The solution to this problem can be elegantly implemented using
+recursion. We have shown portions of the C++ code below.
+In the first part of the solution (which is not shown in the following ) the table top, pegs, and disks are created using the two classes vtkPlaneSource and vtkCylinderSource. The function Hanoi() is then called to begin the recursion.
+
+\begin{lstlisting}[language=C++, caption={Recursive solution for the Towers of Hanoi.}]
+// Recursive solution of Towers of Hanoi. Parameters are number
+// of disks,originating peg, final peg, and intermediate peg.
+staticvoidHanoi(intn,intpeg1,intpeg2,intpeg3)
+{
+  if(n!=1)
+  {
+  Hanoi(n-1,peg1,peg3,peg2);
+  Hanoi(1,peg1,peg2,peg3);
+  Hanoi(n-1,peg3,peg2,peg1);
+  }
+  else
+  {
+  MovePuck(peg1,peg2);
+  }
+}
+\end{lstlisting}
+
+The routine MovePuck() is responsible for moving a disk from one peg to another. It has been jazzed up to move the disk in small, user-specified increments, and to flip the disc over as it moves from one peg to the next. This gives a pleasing visual effect and adds the element of fun to the visualization.
+
+\begin{lstlisting}[language=C++, caption={Moving the puck.}]
+// Routine is responsible for moving disks from one peg to the next.
+voidMovePuck(intpeg1,intpeg2)
+{
+  doubledistance, flipAngle;
+  vtkActor*movingActor;
+  int i;
+
+  NumberOfMoves++;
+  //get the actor t omove
+  movingActor=(vtkActor*)pegStack[peg1].Pop();
+  //get th edistance to move up
+  distance=(H-(L*(pegStack[peg1].GetNumberOfItems()-1)) + rMax) /
+    NumberOfSteps;
+  for(i=0;i<NumberOfSteps;i++)
+  {
+  movingActor->AddPosition(0,distance,0);
+  Renwin->Render();
+  }
+
+  //get the distance to move across
+  distance=(peg2-peg1)*D/NumberOfSteps;
+  flipAngle=180.0/NumberOfSteps;
+  for(i=0;i<NumberOfSteps;i++)
+  {
+  movingActor->AddPosition(distance,0,0);
+  movingActor->RotateX(flipAngle);
+  Renwin->Render();
+  }
+
+  //get the distance to move down
+  distance=((L*(pegStack[peg2].GetNumberOfItems()-1))-HrMax) /
+    NumberOfSteps;
+  for(i=0;i<NumberOfSteps;i++)
+  {
+  movingActor->AddPosition(0,distance,0);
+  Renwin->Render();
+  }
+  pegStack[peg2].Push(movingActor);
+}
+\end{lstlisting}
+
+Because of the clear relationship between algorithm and physical reality, the Towers of Hanoi puzzle is relatively easy to visualize. A major challenge facing visualization researchers is to visualize more abstract information, such as information on the Internet, the structure of documents, or the effectiveness of advertising/entertainment in large market segments. This type of visualization, known as information visualization, is likely to emerge in the future as an important research challenge.
+
+\section{Chapter Summary}
+
+This chapter presented several case studies covering a variety of visualization techniques. The examples used different data representations including polygonal data, volumes, structured grids, and unstructured grids. Both C++ and Tcl code was used to implement the case studies.
+
+Medical imaging is a demanding application area due to the size of the input data. Three-dimensional visualization of anatomy is generally regarded by radiologists as a communication tool
+
+for referring physicians and surgeons. Medical datasets are typically
+image data---volumes or layered stacks of 2D images that form volumes. Common visualization tools for medical imaging include isosurfaces, cut planes, and image display on volume slices.
+
+Next, we presented an example that applied 3D visualization techniques to financial data. In this case study, we began by showing how to import data from an external source. We applied tube filters to the data and varied the width of the tube to show the volume of stock trading. We saw how different views can be used to present different pieces of information. In this case, we saw that by viewing the visualization from the front, we saw a conventional price display. Then, by viewing the visualization from above, we saw trade volume.
+
+In the modelling case study we showed how to use polygonal models and the implicit modelling facilities in VTK to create a stylistic logo. The final model was created by extracting an isosurface at a user-selected offset.
+
+Computational fluid dynamics analysts frequently employ structured grid data. We examined some strategies for exploring the scalar and vector fields. The computational grid created by the analyst serves as a starting point for analyzing the data. We displayed geometry extracted from the finite difference grid, scalar color mapping, and streamlines and streamtubes to investigate the data.
+
+In the finite element case study, we looked at unstructured grids used in a simulation of a blow molding process. We displayed the deformation of the geometry using displacement plots, and represented the material thickness using color mapping. We saw how we can create simple animations by generating a sequence of images.
+
+We concluded the case studies by visualizing the Towers of Hanoi algorithm. Here we showed how to combine the procedural power of C++ with the visualization capabilities in VTK. We saw how visualization often requires our creative resources to cast data structures and information into visual form.
+
+
 \section{Bibliographic Notes}
 
 The case studies presented in the chapter rely on having interesting data to visualize. Sometimes the hardest part of practicing visualizing is finding relevant data. The Internet is a tremendous resource for this task. Paul Gilste \cite{Gilster94} has written an excellent introduction to many of the tools for accessing information on the Internet. There are many more books available on this subject in the local bookstore.
