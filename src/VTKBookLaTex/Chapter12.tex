@@ -1365,24 +1365,27 @@ The input data is in VTK format, so a vtkUnstructuredGridReader was used as a so
 Visualization can be used to display algorithms and data structures. Representing this information often requires creative work on the part of the application programmer. For example, Robertson et. al. \cite{Robertson91} have shown 3D techniques for visualizing directory structures and navigating through them. Their approach involves building three dimensional models (the so-called "cone trees") to represent files, directories, and associations between files and
 directories. Similar approaches can be used to visualize stacks, queues, linked lists, trees, and other data structures.
 
-\begin{figure}[!h]
-	\begin{subfigure}[h]{0.96\linewidth}
-		\includegraphics[width=0.86\linewidth]{Figure12-20a}
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.68\linewidth}
+		\includegraphics[width=\linewidth]{Figure12-20a}
 		\caption{Initial (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/HanoiInitial/}{HanoiInitial.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/HanoiInitial/}{HanoiInitial.py})}
 		\label{fig:Figure12-20a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\includegraphics[width=0.86\linewidth]{Figure12-20b}
+	\begin{subfigure}[h]{0.68\linewidth}
+		\includegraphics[width=\linewidth]{Figure12-20b}
+		\captionsetup{justification=centering}
 		\caption{Intermediate (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/HanoiIntermediate/}{HanoiIntermediate.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/HanoiIntermediate/}{HanoiIntermediate.py})}
 		\label{fig:Figure12-20b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\includegraphics[width=0.86\linewidth]{Figure12-20c}
+	\begin{subfigure}[h]{0.68\linewidth}
+		\includegraphics[width=\linewidth]{Figure12-20c}
+        \captionsetup{justification=centering}
 		\caption{Final (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/Hanoi/}{Hanoi.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/Hanoi/}{Hanoi.py})}
 		\label{fig:Figure12-20c}
 	\end{subfigure}
+    \captionsetup{justification=centering}
 	\caption{Towers of Hanoi. (a) Initial configuration. (b) Intermediate configuration. (c) Final configuration.}\label{fig:Figure12-20}
 \end{figure}
 
