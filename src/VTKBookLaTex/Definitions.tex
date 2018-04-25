@@ -27,6 +27,8 @@
 \usepackage[section]{placeins}
 \usepackage{txfonts}
 \usepackage{graphicx}
+\usepackage{grfext}
+\PrependGraphicsExtensions*{.png,.PNG}
 \usepackage{caption}
 \usepackage{floatrow}
 \usepackage{wrapfig}
@@ -80,8 +82,11 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
 
 % Graphics paths and extensions.
 \graphicspath{{Art/}{Art/Scraped/}{Figures/}{Figures/Scraped/}{Figures/Headings/}}
-\DeclareGraphicsExtensions{.eps,.ps,.tif,.tiff,.png}
-
+% Prefer pdf over png.
+\DeclareGraphicsExtensions{%
+    .pdf,.PDF,%
+    .png,.PNG,%
+    .jpg,.mps,.jpeg,.jbig2,.jb2,.JPG,.JPEG,.JBIG2,.JB2}
 
 \addtolength{\textwidth}{50pt}
 \addtolength{\evensidemargin}{-25pt}
