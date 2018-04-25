@@ -13,8 +13,12 @@ Original/*
 
 # For latex.
 *~
+*.aux
+*.backup
 *.bbl
 *.bcf
+*.bib.bak
+*.bib.sav
 *.blg
 *.equ
 *.glg
@@ -24,22 +28,19 @@ Original/*
 *.ilg
 *.ind
 *.ist
+*.kilepr
 *.lof
 *.log
 *.lol
 *.lot
+*.nav
 *.out
-*.toc
-*.aux
-*.backup
-*.tex.bak
 *.prj.bak
 *.prj
-*.kilepr
-*.wsp
-*.nav
-*.snm
-*.tcp
 *.run.xml
-*.bib.bak
+*.snm
 *.synctex.gz
+*.tcp
+*.tex.bak
+*.toc
+*.wsp

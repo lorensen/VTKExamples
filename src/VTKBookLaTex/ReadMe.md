@@ -25,6 +25,49 @@ In **Configure TeXstudio|Build** change the **Default Compiler** to `LuaLaTex` a
 
 Maybe useful for producing the drawings.
 
+## Procedure for adding chapters
+
+1. When starting a chapter, copy the relevant figures across from `src/VTKBook/Figures` into `src/VTKLaTex/Figures`. After that just add figures into `src/VTKLaTex/Figures`.
+
+2. Do the bibliography at the end of the chapter using JabRef (load the existing Bibliography.tex first) and then do the Bibliographic Notes section to confirm all references are correct.
+
+3. Where examples exist in https://lorensen.github.io/VTKExamples/site/VTKBookFigures/ these are added to  `src/VTKLaTex/Figures` and  `src/VTKLaTex/Figures/ReadMe.md` is updated with the figure name and the path to the testing image. The intent is to create a script to ensure the figures are in sync with the testing images.
+
+4. If there is no drawing or figure available th scrape it from the original pdf and place it in  `src/VTKLaTex/Figures/Scraped`. When better images become available they are placed into  `src/VTKLaTex/Figures` and the corresponding image in  `src/VTKLaTex/Figures/Scraped` is removed.
+
+5. For equations use Bernard's excellent work in `Equatins.txt` with one minor change, instead of `\vec{v}` use `\overrightarrow{v\ }` to improve appearances. At the end of each equation you need to add the following line:
+
+
+    ```
+    \myequations{Description of the Equation}
+    ```
+    This means the equation listings will have a short description for each equation.
+
+6. For code listings add a short description. See Chapter 12 for examples.
+
+7. In doing the chapter you will find references to pages and sections in other chapters. As these occur, add the relevant labels into the other chapters. 
+
+8. Look at chapters 3, 6, 12 for guidance.
+
+## Completed Chapters
+
+| Chapter | Completed |
+| --------------: | :---------:|
+| Preface   | Yes |
+| Chapter01 | Yes |
+| Chapter02 | Yes |
+| Chapter03 | Yes |
+| Chapter04 | No |
+| Chapter05 | No |
+| Chapter06 | Yes |
+| Chapter07 | No |
+| Chapter08 | No |
+| Chapter09 | No |
+| Chapter10 | No |
+| Chapter11 | No |
+| Chapter12 | Yes |
+| GLossary  | Yes |
+
 ## ToDo
 
 ### Introduction
