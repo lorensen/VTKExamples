@@ -373,6 +373,7 @@ CreateHtmlIds(RepoDir + "/VTKBook/04Chapter4.md")
 CreateHtmlIds(RepoDir + "/VTKBook/05Chapter5.md")
 CreateHtmlIds(RepoDir + "/VTKBook/06Chapter6.md")
 CreateHtmlIds(RepoDir + "/VTKBook/07Chapter7.md")
+CreateHtmlIds(RepoDir + "/VTKBook/08Chapter8.md")
 CreateHtmlIds(RepoDir + "/VTKBook/12Chapter12.md")
 CreateHtmlIds(RepoDir + "/VTKBook/13Glossary.md")
 
@@ -385,6 +386,7 @@ CopyChapterAndAddLinks(RepoDir + "/VTKBook/04Chapter4.md", DocDir + "/VTKBook/04
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/05Chapter5.md", DocDir + "/VTKBook/05Chapter5.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/06Chapter6.md", DocDir + "/VTKBook/06Chapter6.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/07Chapter7.md", DocDir + "/VTKBook/07Chapter7.md")
+CopyChapterAndAddLinks(RepoDir + "/VTKBook/08Chapter8.md", DocDir + "/VTKBook/08Chapter8.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/12Chapter12.md", DocDir + "/VTKBook/12Chapter12.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/13Glossary.md", DocDir + "/VTKBook/13Glossary.md")
 
