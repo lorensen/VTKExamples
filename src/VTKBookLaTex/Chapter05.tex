@@ -37,9 +37,66 @@ If you are interested in more details on finite element methods see the classic 
 
 \begin{enumerate}
 
-\item Item 1
+\item Consider a pixmap of dimensions 1002. Compare the memory requirements to represent this data using:
 
-\item Item 2
+\begin{enumerate}
 
+	\item an image dataset,
+
+	\item a structured grid dataset,
+
+	\item a polygonal mesh of quadrilaterals,
+
+	\item an unstructured grid of quadrilateral cells,
+
+	\item and a triangle strip mesh of 100 strips of 200 triangles each.
+
+\end{enumerate}
+
+\item Consider a volume of dimensions 1003. Compare the memory requirements to represent this data using:
+
+\begin{enumerate}
+
+	\item an image dataset,
+
+	\item a structured grid dataset,
+
+	\item and an unstructured grid of hexahedral cells.
+
+\end{enumerate}
+
+\item Develop a representational scheme for a rectilinear grid. How does this compare (in memory requirement) to a structured grid?
+
+\item Consider a volume of dimensions 1003. Compute the memory requirements for the following point attribute types:
+
+\begin{enumerate}
+
+	\item unsigned character scalars (1 byte per scalar),
+
+	\item float scalars (4 bytes per scalar),
+
+	\item float vectors,
+
+	\item and double-precision tensors (3x3 tensors).
+
+\end{enumerate}
+
+\item List three examples of scalar data.
+
+\item List three examples of vector data.
+
+\item List three examples of tensor data.
+
+\item Is it possible to have more than one scalar field in a dataset? If so, how would this information be represented?
+
+\item  A common method to represent cell connectivity is to list point ids with the last id negated. For example, triangle (8,7,3) would be represented (8,7,-3). The negative index represents end of cell definition. What are the advantages and disadvantages of this scheme as compared to the VTK cell array structure?
+
+\item  How many different ways can a hexahedral cell be decomposed into tetrahedron? Are there compatibility issues between neighboring hexahedra?
+
+\item Write a program to create and display a structured grid in the form of a hollow cylinder (i.e., cylinder with a hole through it).
+
+\item Write a program to create and display an unstructured grid in the form of a hollow cylinder.
+
+\item Write a program to create and display a polygonal octahedron.
 
 \end{enumerate}
