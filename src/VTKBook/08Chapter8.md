@@ -185,7 +185,7 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-9</b>. Parametric coordinate system and interpolation functions for a tetrahedron.</figcaption>
 </figure>
 
-**Voxel.** **Figure 8-10** shows the parametric coordinate system and interpolation functions for a voxel cell type. The voxel is described using the three parametric coordinates (r,s,t). Note that the voxel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as tri- linear interpolation functions.
+**Voxel.** **Figure 8-10** shows the parametric coordinate system and interpolation functions for a voxel cell type. The voxel is described using the three parametric coordinates (r,s,t). Note that the voxel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as tri-linear interpolation functions.
 
 <figure id="Figure 8-10">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-10.png?raw=true width="640" alt="Figure8-10">
@@ -265,12 +265,12 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-19</b>. Parametric coordinate system and interpolation functions for a quadratic tetrahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1).</figcaption>
 </figure>
 
-**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the (ξ, η, ζ) coordinates defined in this range. Also, the notation ξi , ηi and ζi is introduced. These are the parametric coordinates at the ith point.
+**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the (ξ, η, ζ) coordinates defined in this range. Also, the notation ξi, ηi and ζi is introduced. These are the parametric coordinates at the ith point.
 
 <figure id="Figure 8-20">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-20.png?raw=true width="640" alt="Figure8-20">
 </figure>
-<figcaption style="color:blue"><b>Figure 8-20</b>. Parametric coordinate system and interpolation functions for a quadratic hexahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi , ηi and ζi refer to the parametric coordinates of the ith point.</figcaption>
+<figcaption style="color:blue"><b>Figure 8-20</b>. Parametric coordinate system and interpolation functions for a quadratic hexahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi, ηi and ζi refer to the parametric coordinates of the ith point.</figcaption>
 </figure>
 
 **Quadratic Wedge.** **Figure 8-21** shows the parametric coordinate system and interpolation functions for a quadratic wedge cell type. The quadratic wedge is described using the three parametric coordinate (r,s,t).
@@ -281,17 +281,17 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-21</b>. Parametric coordinate system and interpolation functions for a quadratic wedge.</figcaption>
 </figure>
 
-**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the (ξ, η, ζ) coordinates system defined in this range. Also, the notation ξi , ηi and ζi is introduced, these are the parametric coordinate at the ith point. (The shape functions and derivatives were implemented thanks to the Center For Aerospace Structures http://www.colorado.edu/engineering/CAS.)
+**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the (ξ, η, ζ) coordinates system defined in this range. Also, the notation ξi, ηi and ζi is introduced, these are the parametric coordinate at the ith point. (The shape functions and derivatives were implemented thanks to the Center For Aerospace Structures http://www.colorado.edu/engineering/CAS.)
 
 <figure id="Figure 8-22">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-22.png?raw=true width="640" alt="Figure8-22">
 </figure>
-<figcaption style="color:blue"><b>Figure 8-22</b>.  Parametric coordinate system and interpolation functions for a quadratic pyramid. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi , ηi and ζi refer to the parametric.</figcaption>
+<figcaption style="color:blue"><b>Figure 8-22</b>.  Parametric coordinate system and interpolation functions for a quadratic pyramid. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi, ηi and ζi refer to the parametric.</figcaption>
 </figure>
 
 ## 8.3 Cell Tessellation
 
-  As briefly introduced in Chapter 5, nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically onlyquadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework (see **Figure 8-23**) that enables users to interface their own simulation system to the visualization system [Schroeder06]. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho-rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
+  As briefly introduced in Chapter 5, nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically onlyquadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework (see **Figure 8-23**) that enables users to interface their own simulation system to the visualization system <em style="color:blue;background-color: white">\[Schroeder06\]</em>. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho-rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
 
 <figure id="Figure 8-23">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-23.png?raw=true width="640" alt="Figure8-23">
@@ -299,7 +299,7 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-23</b>. Cell adaptor framework.</figcaption>
 </figure>
 
-**Basic Approach*
+**Basic Approach**
 
 The basic approach is to dynamically tessellate the cells of the GenericDataSet, and then operate on the resulting linear tessellation. As expressed in pseudo-code, a typical algorithm looks like this:
 
@@ -354,7 +354,7 @@ The following paragraphs describes several error measures that have been found t
 
 * _Object-Based Flatness Error Measure._ This error measure is the angle α between the chords (AC) and (CB) passing through the real mid-point C. As the angle approaches 180° the edge becomes flat. The threshold is the angle over which the edge is viewed as flat.
 
-* _Attribute-Based Error Measure._ Referring to **Figure 8-25**(right), this error measure is the distance between ai the linearly interpolated value of an attribute at the midpoint and the actual value of this attribute at the edge midpoint am .
+* _Attribute-Based Error Measure._ Referring to **Figure 8-25**(right), this error measure is the distance between ai the linearly interpolated value of an attribute at the midpoint and the actual value of this attribute at the edge midpoint am.
 
 * _Image-Based Geometric Error Measure._ This error measure is the distance, in pixels, between the line (AB) projected in image space to the midpoint C also projected in image space. Because the computation involves projection through the current camera matrix, this error measure is view-dependent. As a result, the tessellation may be crude in portions of the mesh away from the camera. Note that one of the disadvantages of this approach is that tessellation may be required each time the camera is repositioned relative to the mesh.
 
@@ -412,7 +412,7 @@ $$
 
 Similar relations exist for any cell whose interpolation functions are linear combinations of parametric coordinates. This includes vertices, lines, triangles, and tetrahedra. The quadrilateral and hexahedron interpolation functions are nonlinear because they are products of linear expressions for the parametric coordinates. As a result, we must resort to numerical techniques to compute global to dataset coordinate transformations. The interpolation functions for pixels and voxels are nonlinear as well, but because of their special orientation with respect to the x, y, and z coordinate axes, we can solve them exactly. (We will treat pixel and voxel types in greater depth in “Special Techniques for Image Data” on page 295.)
 
-To solve the interpolation functions for parametric coordinates we must use nonlinear techniques for the solution of a system of equations. A simple and effective technique is Newton’s method [Conte72].
+To solve the interpolation functions for parametric coordinates we must use nonlinear techniques for the solution of a system of equations. A simple and effective technique is Newton’s method <em style="color:blue;background-color: white">\[Conte72\]</em>.
 
 To use Newton’s method we begin by defining three functions for the known global coordinate p = p(x,y,z) in terms of the interpolation functions $W_i = W_i(r,s,t)$
 
@@ -500,7 +500,7 @@ $$
 \bf\tag{8-13}
 $$
 
-where $s_i$ is the data value at point $i$. In the local coordinate system $x'$ , which is parallel to the $r$ coordinate system (that is, it lies along the vector $vec(x_1) - vec(x_0))$$, the derivative is
+where $s_i$ is the data value at point $i$. In the local coordinate system $x'$, which is parallel to the $r$ coordinate system (that is, it lies along the vector $vec(x_1) - vec(x_0))$$, the derivative is
 
 $$
 \begin{equation*}
@@ -560,7 +560,7 @@ $$
 \bf\tag{8-19}
 $$
 
-To summarize this process, derivatives are computed in the local r-s-t parametric space using cell interpolation. These are then transformed into a local x' - y' - z' Cartesian system. Then, if the x' - y' - z' system is not aligned with the global x - y - z coordinate system, another transformation is required to generate the result.
+To summarize this process, derivatives are computed in the local $r-s-t$ parametric space using cell interpolation. These are then transformed into a local $x'-y'-z'$ Cartesian system. Then, if the $x'-y'-z'$ system is not aligned with the global $x-y-z$ coordinate system, another transformation is required to generate the result.
 
 We can generalize this process to three dimensions. From the chain rule for partial derivatives
 
@@ -632,19 +632,19 @@ $$
 \bf\tag{8-22}
 $$
 
-The inverse of the Jacobian always exists as long as there is a one-to-one correspondence between the parametric and global coordinate systems. This means that for any (r, s, t) coordinate, there cor- responds only one (x, y, z) coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self-intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
+The inverse of the Jacobian always exists as long as there is a one-to-one correspondence between the parametric and global coordinate systems. This means that for any (r, s, t) coordinate, there corresponds only one (x, y, z) coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self-intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
 
 In our one-dimensional example, the derivatives along the line were constant. However, other interpolation functions (e.g., **Figure 8-5**) may yield non-constant derivatives. Here, the Jacobian is a function of position in the cell and must be evaluated at a particular (r, s, t) coordinate value.
 
 ## 8.6 Topological Operations
 
-Many visualization algorithms require information about the topology of a cell or dataset. Opera- tions that provide such information are called topological operations. Examples of these operations include obtaining the topological dimension of a cell, or accessing neighboring cells that share common edges or faces. We might use these operations to decide whether to render a cell (e.g., ren- der only one-dimensional lines) or to propagate particles through a flow field (e.g., traversing cells across common boundaries).
+Many visualization algorithms require information about the topology of a cell or dataset. Operations that provide such information are called topological operations. Examples of these operations include obtaining the topological dimension of a cell, or accessing neighboring cells that share common edges or faces. We might use these operations to decide whether to render a cell (e.g., render only one-dimensional lines) or to propagate particles through a flow field (e.g., traversing cells across common boundaries).
 
 Before proceeding we need to define some terms from topology. Manifold topology describes a region surrounding a point that is topologically connected. That is, a region around the point is topologically equivalent to a small “disk” (in two-dimensions) or “ball” (in three-dimensions). Topology that is not manifold is termed nonmanifold. Examples of manifold and nonmanifold geometry are shown in **Figure 8-27**.
 
-There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or nonmanifold. In two dimensions, if every edge of a two-dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three-dimensional cell is used by exactly one other cell, than the region is locally mani- fold.
+There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or nonmanifold. In two dimensions, if every edge of a two-dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three-dimensional cell is used by exactly one other cell, than the region is locally manifold.
 
-We also will use the term simplex on some occasions. A simplex of dimension n is the convex region defined by a set of n+1 independent points. A vertex, line, triangle, and tetrahedron are sim- plices of dimension 0, 1, 2, and 3, respectively as shown in **Figure 8-28**.
+We also will use the term simplex on some occasions. A simplex of dimension n is the convex region defined by a set of n+1 independent points. A vertex, line, triangle, and tetrahedron are simplices of dimension 0, 1, 2, and 3, respectively as shown in **Figure 8-28**.
 
 The $3 \times 3$ matrix $J$ is called the Jacobian matrix, and it relates the parametric coordinate derivatives to the global coordinate derivatives. We can rewrite Equation 8-21 into more compact form
 
@@ -704,7 +704,7 @@ $$
 \bf\tag{8-23}
 $$
 
-The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points and a point list $vec(P) = (vec(p_1), vec(p_2), ..., vec(p_n))$  with $P \subset P$ , where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of Ci are the adjacency set A(C, P) . The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$.
+The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points and a point list $vec(P) = (vec(p_1), vec(p_2), ..., vec(p_n))$  with $P \subset P$, where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of Ci are the adjacency set A(C, P). The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$.
 
 $$
 \begin{equation*}
@@ -753,7 +753,7 @@ Line/cell intersection for 0D, 1D, and 2D cells follows standard approaches. Int
 <figure id="Figure 8-31">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-31.png?raw=true width="640" alt="Figure8-31">
 </figure>
-<figcaption style="color:blue"><b>Figure 8-31</b>. Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate t with 0 ≤ t ≤ 1 .</figcaption>
+<figcaption style="color:blue"><b>Figure 8-31</b>. Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate t with 0 ≤ t ≤ 1.</figcaption>
 </figure>
 
 ## 8.9 Scalars and Colors
@@ -831,6 +831,7 @@ k &=& \frac{\text{id}}{(n_x - 1)(n_y - 1)}
 $$
 
 Face neighbors are determined by incrementing one of the i, j, or k indices. Edge neighbors are determined by incrementing any two indices, while vertex neighbors are found by incrementing all three indices. Care must be taken while incrementing to insure that the indices fall in the range
+
 $$
 \begin{eqnarray*}
 0 \leq i < n_x - 1 \\
@@ -870,7 +871,7 @@ The reason for this inefficiency is that the data representation is a “downwar
 <figure id="Figure 8-34">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-34.png?raw=true width="640" alt="Figure8-34">
 </figure>
-<figcaption style="color:blue"><b>Figure 8-34</b>. Enhancing hierarchical unstructured data representation. (a) Conventional topological hierarchy for geometric model. (b) Basic unstructured data hierarchy. (c) Full unstructured data hierar- chy. By introducing upward references from points to cells, the unstructured data hierarchy may be efficiently traversed in both directions, and is more compact than conventional topological hierarchies.</figcaption>
+<figcaption style="color:blue"><b>Figure 8-34</b>. Enhancing hierarchical unstructured data representation. (a) Conventional topological hierarchy for geometric model. (b) Basic unstructured data hierarchy. (c) Full unstructured data hierarchy. By introducing upward references from points to cells, the unstructured data hierarchy may be efficiently traversed in both directions, and is more compact than conventional topological hierarchies.</figcaption>
 </figure>
                 
 <figure id="Figure 8-35">
@@ -889,7 +890,7 @@ There are several important characteristics of this data representation.
 
 * Building the cell links is a linear O(n) operation. Each cell is traversed and for every point that the cell uses, the list of using cells for that point is extended to include the current cell. Building the cell links is only needed once as an initialization step.
 
-* The data representation is compact relative to other topology representation schemes (e.g., the winged-edge structure and the radial-edge structures [Baumgart74] [Weiler88]). These other data structures contain explicit representation of intermediate topology such as edges, loops, faces, or special adjacency information such as adjacent edges (winged-edge structure) or extensive “use” descriptions (radial-edge structure). The compactness of representation is particularly important for visualization, since the data size is typically large.
+* The data representation is compact relative to other topology representation schemes (e.g., the winged-edge structure and the radial-edge structures <em style="color:blue;background-color: white">\[Baumgart74\]</em> <em style="color:blue;background-color: white">\[Weiler88\]</em>). These other data structures contain explicit representation of intermediate topology such as edges, loops, faces, or special adjacency information such as adjacent edges (winged-edge structure) or extensive “use” descriptions (radial-edge structure). The compactness of representation is particularly important for visualization, since the data size is typically large.
 
 The unstructured data structure in the Visualization Toolkit is implemented using the four classes vtkPoints (and subclasses), vtkCellArray, vtkCellTypes, and vtkCellLinks. The building of this data structure is incremental. At a minimum, the points and cells are represented using vtkPoints and vtkCellArray. If random access or extra type information is required, then the object vtkCellTypes is used. If adjacency information is required, an instance of the class vtkCellLinks is created. These operations are carried out behind the scenes, and generally do not require extra knowledge by the application programmer.
 
@@ -1164,13 +1165,13 @@ Determining closest point to a point $p$ using vtkPointLocator (as well as other
 <figure id="Figure 8-36">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-36.png?raw=true width="640" alt="Figure8-36">
 </figure>
-<figcaption style="color:blue"><b>Figure 8-36</b>. Determining closest point to $p$ in vtkPointLocator. Initial search in bucket results in point a. Search must extend beyond local bucket as a function of search radius R, resulting in point b.</figcaption>
+<figcaption style="color:blue"><b>Figure 8-36</b>. Determining closest point to $p$ in &#118;tkPointLocator. Initial search in bucket results in point a. Search must extend beyond local bucket as a function of search radius R, resulting in point b.</figcaption>
 </figure>
 
 <figure id="Figure 8-37">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-37.png?raw=true width="640" alt="Figure8-37">
 </figure>
-<figcaption style="color:blue"><b>Figure 8-37</b>. Structure of spatial search såtructure vtkCellLocator. The data structure represents a uniformly subdivided octree.</figcaption>
+<figcaption style="color:blue"><b>Figure 8-37</b>. Structure of spatial search structure &#118;tkCellLocator. The data structure represents a uniformly subdivided octree.</figcaption>
 </figure>
 
 vtkCellLocator is implemented as a uniformly subdivided octree with some peculiar characteristics (**Figure 8-37**). Conventional octree representations use upward parent and downward children pointers to track parent and children octants. Besides the required list of entities (i.e., points or cells) in each octant, additional information about octant level, center, and size may also be maintained. This results in a flexible structure with significant overhead. The overhead is the memory resources to maintain pointers, plus the cost to allocate and delete memory.
@@ -1208,33 +1209,43 @@ To conclude this section, we will examine how some of the dataset, cell, and poi
 
 **Find Free Edges.** In our first example we will take a peek inside the filter vtkLinearExtrusionFilter. This filter implements the following modelling operation. Given a polygonal mesh, extrude the mesh in a given direction, constructing a “skirt” or “walls” from the free edges. If the polygonal example is a single square, the result of this operation is a cube. Or, if the polygonal data consists of a single line, the result of the operation is a quadrilateral. A point will generate a line as shown in **Figure 8-40**(a).
 
-**Figure 8-39** Summary of picking operations. The top three pick classes (a)-(c) use software ray casting. The bottom two pick classes (d)-(e) use hardware acceleration.
+<figure id="Figure 8-39">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-39.png?raw=true width="640" alt="Figure8-39">
+</figure>
+<figcaption style="color:blue"><b>Figure 8-39</b>. Summary of picking operations. The top three pick classes (a)-(c) use software ray casting. The bottom two pick classes (d)-(e) use hardware acceleration.</figcaption>
+</figure>
 
-**Figure 8-40** Depiction of linear and rotational extrusion.
+<figure id="Figure 8-40">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-40.png?raw=true width="640" alt="Figure8-40">
+</figure>
+<figcaption style="color:blue"><b>Figure 8-40</b>. Depiction of linear and rotational extrusion.</figcaption>
+</figure>
 
 Recall that free edges are edges used by only one polygon. We can determine this information using the dataset topology operation GetCellEdgeNeigbors(). We use Equation 8-25 and the two points defining the edge of the polygon to determine the adjacency set (i.e., the polygons sharing this edge). If no other polygon uses this edge, then the edge is extruded to generate a triangle strip. The C++ pseudo code is as follows.
 
 ``` c++
 for (cellId=0; cellId < numCells; cellId++) {
-cell = mesh->GetCell(cellId);
-if ((dim=cell->GetCellDimension()) == 0)
-//create lines from points
-else if ( dim == 1 )
-// create strips from lines
-else if ( dim == 2 ) // create strips from boundary edges
-{
-numEdges = cell->GetNumberOfEdges(); for (i=0; i<numEdges; i++)
-{
-edge = cell->GetEdge(i);
-for (j=0; j<(edge->GetNumberOfPoints()-1); j++)
-{
-p1 = edge->PointIds->GetId(j);
-p2 = edge->PointIds->GetId(j+1); mesh.GetCellEdgeNeighbors(cellId, p1, p2, cellIds); if ( cellIds->GetNumberOfIds() < 1 )
-                 {
-                 //generate triangle strip
-                 }
-              } //for each subedge
-            } //for each edge
+  cell = mesh->GetCell(cellId);
+  if ((dim=cell->GetCellDimension()) == 0)
+  //create lines from points
+  else if ( dim == 1 )
+  // create strips from lines
+  else if ( dim == 2 ) // create strips from boundary edges
+    {
+    numEdges = cell->GetNumberOfEdges(); for (i=0; i<numEdges; i++)
+    {
+  edge = cell->GetEdge(i);
+  for (j=0; j<(edge->GetNumberOfPoints()-1); j++)
+    {
+    p1 = edge->PointIds->GetId(j);
+    p2 = edge->PointIds->GetId(j+1);
+    mesh.GetCellEdgeNeighbors(cellId, p1, p2, cellIds);
+    if ( cellIds->GetNumberOfIds() < 1 )
+      {
+      //generate triangle strip
+      }
+    } //for each subedge
+  } //for each edge
 } //for each polygon or triangle strip } //for each cell
 ```
 
@@ -1266,12 +1277,19 @@ The picking process is conveniently managed in vtkRenderWindowInteractor. This o
 
 The point probe is implemented using the dataset operation FindCell(). This method requires a point specified in global coordinates (our (x,y,z) value) and a tolerance. The tolerance is often necessary because of numerical precision or when picking near the surface of 3D cells, or on 0D, 1D, and 2D cells. The FindCell() operation returns the information we require, plus the interpolation weights of the cell containing our point probe. To determine the data value at our probe point, we need to retrieve the data values on the cell points. We can then use the interpolation functions of Equation 8-4 to determine the probe scalar value.
 
+<figure id="Figure 8-42">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-42.png?raw=true width="640" alt="Figure8-42">
+</figure>
+<figcaption style="color:blue"><b>Figure 8-42</b>. Selecting group of cells sharing a common point. (a) Original data. (b) Selected cells sharing point on corner. Cells shrunk for clarity. The small sphere indicates the selected point. (c) C++ code fragment in pick routine.</figcaption>
+</figure>
+
 **Figure 8-43** depicts this process and includes C++ code. In the example we use the combustor dataset with the objects vtkCursor3D, vtkProbeFilter, and vtkGlyph3D. The purpose of the cursor is to control the position of the probe point. The class vtkProbeFilter performs the probing  operation just described. (This filter has been generalized so that it can handle more than one input point.) vtkGlyph3D is used to place an oriented, scaled cone at the cursor focal point. This gives us visual feedback about the scalar and vector quantities at the probe. Of course, we can extract numeric values and display them to the user if this is important.
 
-**Figure 8-42** Selecting group of cells sharing a common point. (a) Original data. (b) Selected cells sharing point on corner. Cells shrunk for clarity. The small sphere indicates the selected point. (c) C++ code fragment in pick routine.
-
-   **Figure 8-43** Creating a point probe. Visualization network shown in diagram above. C++ code shows inner loop of vtkProbeFilter and resulting image for combustor data (probe.cxx).
-
+<figure id="Figure 8-43">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-43.png?raw=true width="640" alt="Figure8-43">
+</figure>
+<figcaption style="color:blue"><b>Figure 8-43</b>. Creating a point probe. Visualization network shown in diagram above. C++ code shows inner loop of &#118;tkProbeFilter and resulting image for combustor data (probe.cxx).</figcaption>
+</figure>
 
 ## 8.12 Chapter Summary
 
@@ -1285,45 +1303,50 @@ Because of the inherent regularity of image datasets, operations can be efficien
 
 ## 8.13 Bibliographic Notes
 
-Interpolation functions are employed in a number of numerical techniques. The finite element method, in particular, depends on interpolation functions. If you want more information about interpolation functions refer to the finite element references suggested below [Cook89] [Gallagher75] [Zienkiewicz87]. These texts also discuss derivative computation in the context of interpolation functions.
+Interpolation functions are employed in a number of numerical techniques. The finite element method, in particular, depends on interpolation functions. If you want more information about interpolation functions refer to the finite element references suggested below <em style="color:blue;background-color: white">\[Cook89\]</em> <em style="color:blue;background-color: white">\[Gallagher75\]</em> <em style="color:blue;background-color: white">\[Zienkiewicz87\]</em>. These texts also discuss derivative computation in the context of interpolation functions.
 
-Visualizing higher-order datasets is an oepn research issue. While [Schroeder06] describes one approach, methods based on GPU programs are emerging. Other approaches include tailored algorithms for a particular cell type.
+Visualizing higher-order datasets is an oepn research issue. While <em style="color:blue;background-color: white">\[Schroeder06\]</em> describes one approach, methods based on GPU programs are emerging. Other approaches include tailored algorithms for a particular cell type.
 
-Basic topology references are available from a number of sources. Two good descriptions of topological data structures are available from Weiler [Weiler86] [Weiler88] and Baumgart [Baumgart74]. Weiler describes the radial-edge structure. This data structure can represent manifold and nonmanifold geometry. The winged-edge structure described by Baumgart is widely known. It is used to represent manifold geometry. Shephard [Shephard88] describes general finite element data structures — these are similar to visualization structures but with extra information related to analysis and geometric modelling.
+Basic topology references are available from a number of sources. Two good descriptions of topological data structures are available from Weiler <em style="color:blue;background-color: white">\[Weiler86\]</em> <em style="color:blue;background-color: white">\[Weiler88\]</em> and Baumgart <em style="color:blue;background-color: white">\[Baumgart74\]</em>. Weiler describes the radial-edge structure. This data structure can represent manifold and nonmanifold geometry. The winged-edge structure described by Baumgart is widely known. It is used to represent manifold geometry. Shephard <em style="color:blue;background-color: white">\[Shephard88\]</em> describes general finite element data structures — these are similar to visualization structures but with extra information related to analysis and geometric modelling.
 
-There are extensive references regarding spatial search structures. Samet [Samet90] provides a general overview of some. Octrees were originally developed by Meagher [Meagher82] for 3D imaging. See [Williams83], [Bentley75], and [Quinlan94] for information about MIP maps, kd-trees, and binary sphere trees, respectively.
+There are extensive references regarding spatial search structures. Samet <em style="color:blue;background-color: white">\[Samet90\]</em> provides a general overview of some. Octrees were originally developed by Meagher <em style="color:blue;background-color: white">\[Meagher82\]</em> for 3D imaging. See <em style="color:blue;background-color: white">\[Williams83\]</em>, <em style="color:blue;background-color: white">\[Bentley75\]</em>, and <em style="color:blue;background-color: white">\[Quinlan94\]</em> for information about MIP maps, kd-trees, and binary sphere trees, respectively.
 
 ##8.14 References
-[Baumgart74] B. G. Baumgart. “Geometric Modeling for Computer Vision.” Ph.D. thesis, Stanford University, Palo Alto, CA, 1974.
+<em style="color:blue;background-color: white">\[Baumgart74\]</em> B. G. Baumgart. “Geometric Modeling for Computer Vision.” Ph.D. thesis, Stanford University, Palo Alto, CA, 1974.
                    
-[Bentley75] J. L. Bentley. “Multidimensional Binary Search Trees Used for Associative Search.” Communications of the ACM. 18(9):509-516, 1975.
+<em style="color:blue;background-color: white">\[Bentley75\]</em> J. L. Bentley. “Multidimensional Binary Search Trees Used for Associative Search.” Communications of the ACM. 18(9):509-516, 1975.
 
-[Conte72] S. D. Conte and C. de Boor. Elementary Numerical Analysis. McGraw-Hill Book Company, 1972.
+<em style="color:blue;background-color: white">\[Conte72\]</em> S. D. Conte and C. de Boor. Elementary Numerical Analysis. McGraw-Hill Book Company, 1972.
 
-[Cook89] R. D. Cook, D. S. Malkus, and M. E. Plesha. Concepts and Applications of Finite Element Analysis. John Wiley and Sons, New York, 1989.
+<em style="color:blue;background-color: white">\[Cook89\]</em> R. D. Cook, D. S. Malkus, and M. E. Plesha. Concepts and Applications of Finite Element Analysis. John Wiley and Sons, New York, 1989.
 
-[Gallagher75]R. H. Gallagher. Finite Element Analysis: Fundamentals. Prentice Hall, Upper Saddle River, NJ, 1975.
+<em style="color:blue;background-color: white">\[Gallagher75\]</em>R. H. Gallagher. Finite Element Analysis: Fundamentals. Prentice Hall, Upper Saddle River, NJ, 1975.
 
-[Meagher82] D. J. Meagher. “Efficient Synthetic Image Generation of Arbitrary 3D Objects.” In Proceedings of the IEEE Conference on Pattern Recognition and Image Processing. pp. 473-478, 1982.
+<em style="color:blue;background-color: white">\[Meagher82\]</em> D. J. Meagher. “Efficient Synthetic Image Generation of Arbitrary 3D Objects.” In Proceedings of the IEEE Conference on Pattern Recognition and Image Processing. pp. 473-478, 1982.
 
-[Quinlan94] S. Quinlan. “Efficient Distance Computation Between Non-Convex Objects.” In Proceedings of IEEE International Conference on Robotics and Automation. 1994.
+<em style="color:blue;background-color: white">\[Quinlan94\]</em> S. Quinlan. “Efficient Distance Computation Between Non-Convex Objects.” In Proceedings of IEEE International Conference on Robotics and Automation. 1994.
 
-[Samet90] H. Samet. Design and Analysis of Spatial Data Structures. Addison-Wesley, Reading, MA, 1990.
+<em style="color:blue;background-color: white">\[Samet90\]</em> H. Samet. Design and Analysis of Spatial Data Structures. Addison-Wesley, Reading, MA, 1990.
 
-[Schroeder06] W. J. Schroeder, F. Bertel, M. Malaterre, D. Thompson, P. P. Pébay, R. O'Bara and S. Tendulkar. “Methods and Framework for Visualizing Higher-Order Finite Elements.” IEEE Transactions on Visualization and Computer Graphics, 12(4):446-460, July/August 2006.
+<em style="color:blue;background-color: white">\[Schroeder06\]</em> W. J. Schroeder, F. Bertel, M. Malaterre, D. Thompson, P. P. Pébay, R. O'Bara and S. Tendulkar. “Methods and Framework for Visualizing Higher-Order Finite Elements.” IEEE Transactions on Visualization and Computer Graphics, 12(4):446-460, July/August 2006.
 
-[Shephard88] M. S. Shephard and P. M. Finnigan. “Toward Automatic Model Generation.” State-of-the-Art Surveys on Computational Mechanics. A. K. Noor and J. T. Oden, eds., ASME, pp. 335-366, 1989.
+<em style="color:blue;background-color: white">\[Shephard88\]</em> M. S. Shephard and P. M. Finnigan. “Toward Automatic Model Generation.” State-of-the-Art Surveys on Computational Mechanics. A. K. Noor and J. T. Oden, eds., ASME, pp. 335-366, 1989.
 
-[Weiler86] K. J. Weiler. Topological Structures for Geometric Modeling. Ph.D. thesis, Rensselaer Polytechnic Institute, Troy, NY, May 1986.
+<em style="color:blue;background-color: white">\[Weiler86\]</em> K. J. Weiler. Topological Structures for Geometric Modeling. Ph.D. thesis, Rensselaer Polytechnic Institute, Troy, NY, May 1986.
 
-[Weiler88] K. J. Weiler. “The Radial-Edge Structure: A Topological Representation for Non-Manifold Geometric Boundary Representations.” In M. J. Wozny, H. W. McLaughlin, and J. L. Encarnacao, eds., Geometric Modeling for CAD Applications. pp. 3-36, North Holland, 1988.
+<em style="color:blue;background-color: white">\[Weiler88\]</em> K. J. Weiler. “The Radial-Edge Structure: A Topological Representation for Non-Manifold Geometric Boundary Representations.” In M. J. Wozny, H. W. McLaughlin, and J. L. Encarnacao, eds., Geometric Modeling for CAD Applications. pp. 3-36, North Holland, 1988.
 
-[Williams83] L. Williams. “Pyramidal Parametrics.” Computer Graphics (SIGGRAPH ’83). 17(3):1-11, 1983.
+<em style="color:blue;background-color: white">\[Williams83\]</em> L. Williams. “Pyramidal Parametrics.” Computer Graphics (SIGGRAPH ’83). 17(3):1-11, 1983.
 
-[Zienkiewicz87] O. C. Zienkiewicz and R. L. Taylor. The Finite Element Method — Vol. 1. McGraw Hill Book Co., NY, 4th ed., 1987.
+<em style="color:blue;background-color: white">\[Zienkiewicz87\]</em> O. C. Zienkiewicz and R. L. Taylor. The Finite Element Method — Vol. 1. McGraw Hill Book Co., NY, 4th ed., 1987.
 
 ## 8.15 Exercises
-**Figure 8-44** Exercise figures.
+
+<figure id="Figure 8-44">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-44.png?raw=true width="640" alt="Figure8-44">
+</figure>
+<figcaption style="color:blue"><b>Figure 8-44</b>. Exercise figures.</figcaption>
+</figure>
 
 8.1 Given a volume of dimensions 5 × 10 × 15 with origin (1.0, 2.0,3.0) and voxel spacing (0.5, 0.5, 1.0).
 
@@ -1335,7 +1358,7 @@ c) For cell id 342, compute cell minimum point position and maximum point
 
 d) What points (list ids) define cell id 342?
 
-e) Given point specified in structured coordinates as i, j, k = (3, 6, 4) ;r, s, t = (0.1, 0.2, 0.5) , compute global coordinates.
+e) Given point specified in structured coordinates as i, j, k = (3, 6, 4) ;r, s, t = (0.1, 0.2, 0.5), compute global coordinates.
 
 f) Given point id 342; compute global coordinates.
 
@@ -1343,27 +1366,29 @@ f) Given point id 342; compute global coordinates.
 
 a) Line with r = 0.5.
 
-b) Triangle with r, s = (0.25, 0.33) .
+b) Triangle with r, s = (0.25, 0.33).
 
-c) Voxel with r, s, t = (0.25, 0.33, 0.5) .
+c) Voxel with r, s, t = (0.25, 0.33, 0.5).
 
 8.3 Compute parametric coordinates for cells shown in **Figure 8-44**(a-d).
 
-a) Line with x, y, z = (0.3, 0.6, 0.9) .
+a) Line with x, y, z = (0.3, 0.6, 0.9).
 
-b) Triangle with x, y, z = (0.5, 0.25, 0.0) .
-c) Voxel with x, y, z = (0.5, 0.4, 2.0) .
-8.4 Given the line shown in **Figure 8-44**(a), if scalar data values are (s0, s1) = (0.0, 0.25) , what are the derivatives in the x, y, z directions?
+b) Triangle with x, y, z = (0.5, 0.25, 0.0).
+c) Voxel with x, y, z = (0.5, 0.4, 2.0).
+8.4 Given the line shown in **Figure 8-44**(a), if scalar data values are (s0, s1) = (0.0, 0.25), what are the derivatives in the x, y, z directions?
 
 8.5 Refer to **Figure 8-44**(d) and let the numbers indicate cell ids and the letters indicate point ids. a) List the cells using point A.
 
 b) List the cells using point B.
 
-c) List cells using edge (A, B) . How does this list correspond to your answers in parts a) and b) above?
+c) List cells using edge (A, B). How does this list correspond to your answers in parts a) and b) above?
                
 8.6 Refer to **Figure 8-44**(e).
 
-a) How many boundary faces are there? b) How many “internal” faces?
+a) How many boundary faces are there?
+
+b) How many “internal” faces?
 
 8.7 Describe a procedure to intersect two finite lines. How does tolerance value come into play?
 
