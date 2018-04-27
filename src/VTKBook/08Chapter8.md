@@ -41,9 +41,6 @@ The number of parametric coordinates corresponds to the topological dimension of
 
 Every cell type will have its own parametric coordinate system. Later in this chapter we will describe the parametric coordinate systems in detail. But first we will examine another coordinate system, the structured coordinate system.
                 
-## 8.2 Interpolation Functions
-
-Every cell type will have its own parametric coordinate system. Later in this chapter we will describe the parametric coordinate systems in detail. But first we will examine another coordinate system, the structured coordinate system.
 
 **Structured Coordinate System**
 
@@ -72,6 +69,7 @@ $$
 Here we’ve taken into account that there are one fewer cells along each topological axes than thereare points.
 
 ## 8.2 Interpolation Functions
+
 Computer visualization deals with discrete data. The data is either supplied at a finite number of points or created by sampling continuous data at a finite number of points. But we often need information at positions other than these discrete point locations. This may be for rendering or for sub-sampling the data during algorithm execution. We need to interpolate data from known points to some intermediate point using interpolation functions.
 
 Interpolation functions relate the values at cell points to the interior of the cell. Thus, we assume that information is defined at cell points, and that we must interpolate from these points. We can express the result as a weighted average of the data values at each cell point.
@@ -82,7 +80,9 @@ Interpolation functions relate the values at cell points to the interior of the 
 <figcaption style="color:blue"><b>Figure 8-2</b>. Interpolation is a linear combination of local interpolation functions. Interpolation functions are scaled by data values at cell points.</figcaption>
 </figure>
 
-To interpolate data from the cell points pi to a point p that is inside the cell, we need three pieces of information:
+**General Form**
+
+To interpolate data from the cell points $p_i$ to a point $p$ that is inside the cell, we need three pieces of information:
 
 1. the data values at each cell point,
 
@@ -108,7 +108,7 @@ W_i = 1, W_{j \neq i} = 0 \quad \text{when} \quad p = p_i
 \bf\tag{8-5}
 $$
 
-We also desire the interpolated data value $d$ to be no smaller than the minimum $d_i$ and no larger thana—  the maximum $d_i$i. Thus the weights should also satisfy
+We also desire the interpolated data value $d$ to be no smaller than the minimum $d_i$ and no larger thana—  the maximum $d_i$. Thus the weights should also satisfy
 
 $$
 \begin{equation*}
@@ -119,11 +119,11 @@ $$
 
 The interpolation functions are of a characteristic shape. They reach their maximum value $W_i = 1$ at cell point $p_i$, and are zero at all other points. Examining Equation 8-1, we draw **Figure 8-2** and see that each interpolation function has the shape of a peaked “hat,” and that interpolation is a linear combination of these hat functions, scaled by the data value at each point.
 
-Equation 8-4 is the general form for cell interpolation. It is used to interpolate any data value defined at the cell points to any other point within the cell. We have only to define the specific interpolation functions Wi for each cell type.
+Equation 8-4 is the general form for cell interpolation. It is used to interpolate any data value defined at the cell points to any other point within the cell. We have only to define the specific interpolation functions $W_i$ for each cell type.
 
 **Specific Forms**
 
-Each cell type has its own interpolation functions. The weights Wi are functions of the parametric coordinates r, s, and t. In this section we will define the parametric coordinate system and interpolation function for each primary cell type. Composite cells use the interpolation functions and parametric coordinates of their composing primary cells. The only difference in coordinate system specification between primary and composite cells is that composite cells use the additional sub-id to specify a particular primary cell.
+Each cell type has its own interpolation functions. The weights $W_i$ are functions of the parametric coordinates r, s, and t. In this section we will define the parametric coordinate system and interpolation function for each primary cell type. Composite cells use the interpolation functions and parametric coordinates of their composing primary cells. The only difference in coordinate system specification between primary and composite cells is that composite cells use the additional sub-id to specify a particular primary cell.
 
 **Vertex.** Vertex cells do not require parametric coordinates or interpolation functions since they are zero-dimensional. The single weighting function is $W_0 = 1.$
 
@@ -135,7 +135,7 @@ Each cell type has its own interpolation functions. The weights Wi are functions
 <figcaption style="color:blue"><b>Figure 8-3</b>. Parametric coordinate system and interpolation functions for a line.</figcaption>
 </figure>
 
-**Pixel.** **Figure 8-4** shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as bilinear interpolation functions.
+**Pixel.** **Figure 8-4** shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as _bilinear interpolation_ functions.
 
 <figure id="Figure 8-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-4.png?raw=true width="640" alt="Figure8-4">
@@ -249,7 +249,7 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-17</b> Parametric coordinate system and interpolation functions for a quadratic triangle. </figcaption>
 </figure>
 
-**Quadratic Quadrilateral.** **Figure 8-18** shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates (r,s). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the (ξ, η) coordinates defined in this range. Also, the notation ξi and ηi is introduced. These are the parametric coordinates at the ith point.
+**Quadratic Quadrilateral.** **Figure 8-18** shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates (r,s). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the (ξ, η) coordinates defined in this range. Also, the notation $\epsilon_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the ith point.
 
 <figure id="Figure 8-18">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-18.png?raw=true width="640" alt="Figure8-18">
@@ -265,7 +265,7 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-19</b>. Parametric coordinate system and interpolation functions for a quadratic tetrahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1).</figcaption>
 </figure>
 
-**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the (ξ, η, ζ) coordinates defined in this range. Also, the notation ξi, ηi and ζi is introduced. These are the parametric coordinates at the ith point.
+**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\epsilin_i, \eta_i and \zeta_i$ is introduced. These are the parametric coordinates at the ith point.
 
 <figure id="Figure 8-20">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-20.png?raw=true width="640" alt="Figure8-20">
@@ -281,7 +281,7 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-21</b>. Parametric coordinate system and interpolation functions for a quadratic wedge.</figcaption>
 </figure>
 
-**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the (ξ, η, ζ) coordinates system defined in this range. Also, the notation ξi, ηi and ζi is introduced, these are the parametric coordinate at the ith point. (The shape functions and derivatives were implemented thanks to the Center For Aerospace Structures http://www.colorado.edu/engineering/CAS.)
+**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i, \eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the ith point. (The shape functions and derivatives were implemented thanks to the Center For Aerospace Structures http://www.colorado.edu/engineering/CAS.)
 
 <figure id="Figure 8-22">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-22.png?raw=true width="640" alt="Figure8-22">
@@ -304,19 +304,22 @@ The weighted distance squared interpolation functions work well in practice. How
 The basic approach is to dynamically tessellate the cells of the GenericDataSet, and then operate on the resulting linear tessellation. As expressed in pseudo-code, a typical algorithm looks like this:
 
 ``` c++
-for each cell c to be processed {
-if cell c meets selection criteria {
-linearDataSet = TessellateCell(c)
-for each linear cell cl in linearDataSet
-          {
-          OperateOn(cl)
-          }
-} }
+for each cell c to be processed
+  {
+  if cell c meets selection criteria
+    {
+    linearDataSet = TessellateCell(c)
+    for each linear cell cl in linearDataSet
+      {
+      OperateOn(cl)
+      }
+    }
+ }
 ```
 
 It is important not to tessellate the entire dataset all at once, since this may produce excessive demands on memory resources, and many algorithms visit only a subset of a dataset’s cells. Thus the pseudo-code above refers to a selection criterion, which varies depending on the nature of the algorithm. For example, an isocontouring algorithm may check to see whether the cell’s scalar values span the current isocontour value.
 
-While many tessellation algorithms are possible, those based on edge subdivision are particularly simple. The idea behind the algorithm is simple: each cell edge $e$ is evaluated via an error metric $E$ and may be marked for subdivision if any error measure $\epsilon_i$ exceeds a corresponding error threshold $\epsilon $epsilon{^i}
+While many tessellation algorithms are possible, those based on edge subdivision are particularly simple. The idea behind the algorithm is simple: each cell edge $e$ is evaluated via an error metric $E$ and may be marked for subdivision if any error measure $\epsilon_i$ exceeds a corresponding error threshold $\epsilon $epsilon{^i}$  
 
 $$
 \begin{equation*}
@@ -351,10 +354,9 @@ The following paragraphs describes several error measures that have been found t
 
 * _Object-Based Geometric Error Measure._ Referring to Figure8-25(left), this error measure is the perpendicular distance, d, from the edge center point C to the straight line passing through the cell edge vertices (A and B). Note that d is computed in world coordinates, but C is computed by evaluation at the parametric center of the edge. The perpendicular distance is used rather than the distance between C and D because if C lies on (AB) but is not coincident with D the error is non-zero, resulting in many useless edge subdivisions.
 
-
 * _Object-Based Flatness Error Measure._ This error measure is the angle α between the chords (AC) and (CB) passing through the real mid-point C. As the angle approaches 180° the edge becomes flat. The threshold is the angle over which the edge is viewed as flat.
 
-* _Attribute-Based Error Measure._ Referring to **Figure 8-25**(right), this error measure is the distance between ai the linearly interpolated value of an attribute at the midpoint and the actual value of this attribute at the edge midpoint am.
+* _Attribute-Based Error Measure._ Referring to **Figure 8-25**(right), this error measure is the distance between ai the linearly interpolated value of an attribute at the midpoint and the actual value of this attribute at the edge midpoint $a^m$.
 
 * _Image-Based Geometric Error Measure._ This error measure is the distance, in pixels, between the line (AB) projected in image space to the midpoint C also projected in image space. Because the computation involves projection through the current camera matrix, this error measure is view-dependent. As a result, the tessellation may be crude in portions of the mesh away from the camera. Note that one of the disadvantages of this approach is that tessellation may be required each time the camera is repositioned relative to the mesh.
 
@@ -393,9 +395,9 @@ In the formulation presented here, we have used the same order interpolation fun
 
 **Global to Dataset Coordinates**
 
-Global to dataset coordinate transformations are expensive compared to dataset to global transformations. There are two reasons for this. First, we must identify the particular cell Ci that contains the global point p. Second, we must solve Equation 8-4 for the parametric coordinates of p.
+Global to dataset coordinate transformations are expensive compared to dataset to global transformations. There are two reasons for this. First, we must identify the particular cell $C_i$ that contains the global point p. Second, we must solve Equation 8-4 for the parametric coordinates of p.
 
-To identify the cell Ci means doing some form of searching. A simple but inefficient approach is to visit every cell in a dataset and determine whether p lies inside any cell. If so, then we have found the correct cell and stop the search. Otherwise, we check the next cell in the list.
+To identify the cell $C_i$ means doing some form of searching. A simple but inefficient approach is to visit every cell in a dataset and determine whether p lies inside any cell. If so, then we have found the correct cell and stop the search. Otherwise, we check the next cell in the list.
 
 This simple technique is not fast enough for large data. Instead, we use accelerated search techniques. These are based on spatially organizing structures such as an octree or three-dimensional hash table. The idea is as follows: we create a number of “buckets,” or data place holders, that are accessed by their location in global space. Inside each bucket we tag all the points or cells that are partially or completely inside the bucket. Then, to find a particular cell that contains point p, we find the bucket that contains p, and obtain all the cells associated with the bucket. We then evaluate inside/outside for this abbreviated cell list to find the single cell containing p. (See “Searching” on page 292 for a more detailed description.)
 
@@ -500,7 +502,7 @@ $$
 \bf\tag{8-13}
 $$
 
-where $s_i$ is the data value at point $i$. In the local coordinate system $x'$, which is parallel to the $r$ coordinate system (that is, it lies along the vector $vec(x_1) - vec(x_0))$$, the derivative is
+where $s_i$ is the data value at point $i$. In the local coordinate system $x'$, which is parallel to the $r$ coordinate system (that is, it lies along the vector $vec{x_1} - vec{x_0})$, the derivative is
 
 $$
 \begin{equation*}
@@ -540,7 +542,7 @@ $$
 
 which, when combined with Equation 8-16 and Equation 8-13 for the s derivatives, yields Equation 8-14.
 
-One final step remains. The derivatives in the x coordinate system must be converted to the global x-y-z system. We can do this by creating a unit vector v as
+One final step remains. The derivatives in the $vec{x}$ coordinate system must be converted to the global x-y-z system. We can do this by creating a unit vector $vec{v}$ as
 
 $$
 \begin{equation*}
@@ -549,7 +551,7 @@ $$
 \bf\tag{8-18}
 $$
 
-where $vec(x_0)$ and $vec(x_1)$ are the locations of the two end points of the line. Then the derivatives in the x, y, and z directions can be computed by taking the dot products along the axes.
+where $vec{x_0}$ and $vec{x_1}$ are the locations of the two end points of the line. Then the derivatives in the x, y, and z directions can be computed by taking the dot products along the axes.
 
 $$
 \begin{eqnarray*}
@@ -646,18 +648,12 @@ There are some simple rules we can use to decide whether a surface or region app
 
 We also will use the term simplex on some occasions. A simplex of dimension n is the convex region defined by a set of n+1 independent points. A vertex, line, triangle, and tetrahedron are simplices of dimension 0, 1, 2, and 3, respectively as shown in **Figure 8-28**.
 
-The $3 \times 3$ matrix $J$ is called the Jacobian matrix, and it relates the parametric coordinate derivatives to the global coordinate derivatives. We can rewrite Equation 8-21 into more compact form
-
 $$
 \begin{equation*}
 \frac{\partial}{\partial x_i} = \sum_{j} J_{ij}^{-1} \frac{\partial}{\partial r_j}
 \end{equation*}
 \bf\tag{8-23}
 $$
-
-The inverse of the Jacobian always exists as long as there is a one-to-one correspondence between the parametric and global coordinate systems. This means that for any (r, s, t) coordinate, there corresponds only one (x, y, z) coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self-intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
-
-In our one-dimensional example, the derivatives along the line were constant. However, other interpolation functions (e.g., **Figure 8-5**) may yield non-constant derivatives. Here, the Jacobian is a function of position in the cell and must be evaluated at a particular (r, s, t) coordinate value.
 
 <figure id="Figure 8-27">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-27.png?raw=true width="640" alt="Figure8-27">
@@ -671,15 +667,11 @@ In our one-dimensional example, the derivatives along the line were constant. Ho
 <figcaption style="color:blue"><b>Figure 8-28</b>. Simplices of dimension three and lower.</figcaption>
 </figure>
 
-There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or nonmanifold. In two dimensions, if every edge of a two-dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three-dimensional cell is used by exactly one other cell, than the region is locally manifold.
-
-We also will use the term simplex on some occasions. A simplex of dimension n is the convex region defined by a set of n+1 independent points. A vertex, line, triangle, and tetrahedron are simplices of dimension 0, 1, 2, and 3, respectively as shown in **Figure 8-28**.
-
 **Cell Operation**
 
 Cell operations return information about the topology of a cell. Typically, we want to know the topological order of the cell or the topology of the cell boundary.
 
-Given a cell Ci of topological dimension d, the cell is (implicitly) composed of boundary cells of topological order d-1 and lower. For example, a tetrahedron is composed of four two-dimensional triangles, six one-dimensional edges, and four zero-dimensional vertices. Cell operations return information about the number of boundary cells of a particular topological dimension, as well as the ordered list of points that define each bounding cell.
+Given a cell $C_i$ of topological dimension d, the cell is (implicitly) composed of boundary cells of topological order d-1 and lower. For example, a tetrahedron is composed of four two-dimensional triangles, six one-dimensional edges, and four zero-dimensional vertices. Cell operations return information about the number of boundary cells of a particular topological dimension, as well as the ordered list of points that define each bounding cell.
 
 Another useful cell operation returns the closest boundary cell of dimension d-1 given the parametric coordinates of the cell. This operation ties the geometry to the topology of the cell, as compared to the parametric coordinate system, which ties the topology to the geometry. The closest boundary cell operation is implemented by partitioning each cell into various regions, as illustrated in **Figure 8-29**. To determine the closest boundary cell we need only to identify the parametric region that the point lies in, and then return the appropriate boundary cell.
 
@@ -695,23 +687,20 @@ Another useful cell operation is cell decomposition into simplices. Every cell c
 
 Dataset operations return information about the topology of a dataset or topological information about the adjacency of cells. Typical operations include determining the neighbors of a cell or returning a list of all cells that use a particular point.
 
-We can formalize the adjacency operations by continuing the discussion of “Cell Types” on page 124. Adjacency methods are used to obtain information about the neighbors of a cell. A neighbor of a particular cell Ci is simply a cell that shares one or more points in common with Ci. A vertex neighbor is a neighbor that shares one or more vertices. An edge neighbor is a neighbor that shares one or more edges. A face neighbor is a cell that shares vertices that define one of the faces of the cell. Note that a face neighbor is also an edge neighbor, and an edge neighbor is also a vertex neighbor.
+We can formalize the adjacency operations by continuing the discussion of “Cell Types” on page 124. Adjacency methods are used to obtain information about the neighbors of a cell. A neighbor of a particular cell $C_i$ is simply a cell that shares one or more points in common with $C_i$. A vertex neighbor is a neighbor that shares one or more vertices. An edge neighbor is a neighbor that shares one or more edges. A face neighbor is a cell that shares vertices that define one of the faces of the cell. Note that a face neighbor is also an edge neighbor, and an edge neighbor is also a vertex neighbor.
+
+The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points and a point list $vec{P} = (vec{p_1}, vec{p_2}, ..., vec{p_n})$  with $P \subset P$, where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set A(C, P).
+
+The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$.
 
 $$
-\begin{equation*}
-\frac{\partial}{\partial x_i} = \sum_{j} J_{ij}^{-1} \frac{\partial}{\partial r_j}
-\end{equation*}
-\bf\tag{8-23}
-$$
-
-The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points and a point list $vec(P) = (vec(p_1), vec(p_2), ..., vec(p_n))$  with $P \subset P$, where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of Ci are the adjacency set A(C, P). The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$.
-
-$$
-\begin{equation*}
+\begin{equatiqon*}
 C_i = \lbrace p_1, p_2, \ldots, p_n \rbrace = P
 \end{equation*}
 \bf\tag{8-24}
 $$
+
+and a point list $vec{P} = (vec{p}_1, vec{p}_2, ..., vec{p}_n)$ with $vec{P}\subset P$ , where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set $A(vec{C}, vec{P})$ . The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$i.
 
 The adjacency set represents a variety of useful information. In a manifold object represented by a polyhedra, for example, each polygon must have exactly one edge neighbor for each of its edges. Edges that have no neighbors are boundary edges; edges that have more than one edge neighbor represent nonmanifold topology. Datasets that consist of three-dimensional cells (e.g., unstructured grids) are topologically consistent only if, for each cell, there is exactly one face neighbor for each face. Faces that have no neighbors are on the boundary of the dataset. More than one face neighbor implies that the neighbors are self-intersecting (in 3D space).
 
@@ -746,7 +735,7 @@ Inserting points into a search structure is easier because points can be uniquel
 
 An important geometric operation is intersection of a line with a cell. This operation can be used to interactively select a cell from the rendering window, to perform ray-casting for rendering, or to geometrically query data.
 
-In the Visualization Toolkit each cell must be capable of intersecting itself against a line. **Figure 8-31** summarizes these operations for the nine linear primary cell types supported by VTK. (Intersections on composite cells are implemented by intersecting each primitive cell in turn.) Note that the procedure for intersecting higher order cells is the same.
+In the _Visualization Toolkit_ each cell must be capable of intersecting itself against a line. **Figure 8-31** summarizes these operations for the nine linear primary cell types supported by VTK. (Intersections on composite cells are implemented by intersecting each primitive cell in turn.) Note that the procedure for intersecting higher order cells is the same.
 
 Line/cell intersection for 0D, 1D, and 2D cells follows standard approaches. Intersection against 3D cells is difficult. This is because the surfaces of these cells are described parametrically and are not necessarily planar. For example, to intersect a line with a tetrahedron, we can intersect the line against the four triangular faces of the tetrahedron. Hexahedron, however, may have non-planar faces. Thus, we cannot intersect the line against six quadrilateral, planar faces. Instead, we use line/face intersection as an initial guess, and project the intersection point onto the surface of the cell. This produces an approximate result, but is accurate enough for most applications.
 
@@ -860,7 +849,7 @@ $$
 
 ##8.11 Putting It All Together
 
-In this section we will finish our earlier description of an implementation for unstructured data. We also define a high-level, abstract interface for cells and datasets. This interface allows us to implement the general (i.e., dataset specific) algorithms in the Visualization Toolkit. We also describe implementations for color scalars, searching and picking, and conclude with a series of examples to demonstrate some of these concepts.
+In this section we will finish our earlier description of an implementation for unstructured data. We also define a high-level, abstract interface for cells and datasets. This interface allows us to implement the general (i.e., dataset specific) algorithms in the _Visualization Toolkit_. We also describe implementations for color scalars, searching and picking, and conclude with a series of examples to demonstrate some of these concepts.
 
 **Unstructured Topology**
 
@@ -880,9 +869,7 @@ The reason for this inefficiency is that the data representation is a “downwar
 <figcaption style="color:blue"><b>Figure 8-35</b>. Complete unstructured data representation including link lists. There are m cells and n points. The n structures in the link list are lists of cells that use each vertex. Each link list is variable in length.</figcaption>
 </figure>
 
-The solution to this problem is to extend the unstructured data structure with cell links. The cell links array is a list of lists of cells that use each point and corresponds to the upward links of **Figure 8-34**(c).
-
-The cell links array transforms the hierarchical structure of **Figure 5-13** into a ring structure. Cells reference their composing points, and points in turn reference the cells that use them. The full unstructured data structure is shown in **Figure 8-35**.The cell links array is in fact an implementation of the use sets of Equation 5-1. We can use this equation to compute adjacency operation in constant time, if the maximum number of cells using a point is much smaller than the number of points in a dataset. To see this, we refer to Equation 8-25 and see that the adjacency operations consist of a finite number of set intersections. Each operation is an intersection of the link lists for each point. If the number of cells in each link list is “small,” then the intersection operation can be bounded by a fixed constant in time, and the total operation can be considered a constant time operation.
+The solution to this problem is to extend the unstructured data structure with cell links. The cell links array is a list of lists of cells that use each point and corresponds to the upward links of **Figure 8-34**(c). The cell links array transforms the hierarchical structure of **Figure 5-13** into a ring structure. Cells reference their composing points, and points in turn reference the cells that use them. The full unstructured data structure is shown in **Figure 8-35**.The cell links array is in fact an implementation of the use sets of Equation 5-1. We can use this equation to compute adjacency operation in constant time, if the maximum number of cells using a point is much smaller than the number of points in a dataset. To see this, we refer to Equation 8-25 and see that the adjacency operations consist of a finite number of set intersections. Each operation is an intersection of the link lists for each point. If the number of cells in each link list is “small,” then the intersection operation can be bounded by a fixed constant in time, and the total operation can be considered a constant time operation.
 
 There are several important characteristics of this data representation.
 
@@ -892,7 +879,7 @@ There are several important characteristics of this data representation.
 
 * The data representation is compact relative to other topology representation schemes (e.g., the winged-edge structure and the radial-edge structures <em style="color:blue;background-color: white">\[Baumgart74\]</em> <em style="color:blue;background-color: white">\[Weiler88\]</em>). These other data structures contain explicit representation of intermediate topology such as edges, loops, faces, or special adjacency information such as adjacent edges (winged-edge structure) or extensive “use” descriptions (radial-edge structure). The compactness of representation is particularly important for visualization, since the data size is typically large.
 
-The unstructured data structure in the Visualization Toolkit is implemented using the four classes vtkPoints (and subclasses), vtkCellArray, vtkCellTypes, and vtkCellLinks. The building of this data structure is incremental. At a minimum, the points and cells are represented using vtkPoints and vtkCellArray. If random access or extra type information is required, then the object vtkCellTypes is used. If adjacency information is required, an instance of the class vtkCellLinks is created. These operations are carried out behind the scenes, and generally do not require extra knowledge by the application programmer.
+The unstructured data structure in the _Visualization Toolkit_ is implemented using the four classes vtkPoints (and subclasses), vtkCellArray, vtkCellTypes, and vtkCellLinks. The building of this data structure is incremental. At a minimum, the points and cells are represented using vtkPoints and vtkCellArray. If random access or extra type information is required, then the object vtkCellTypes is used. If adjacency information is required, an instance of the class vtkCellLinks is created. These operations are carried out behind the scenes, and generally do not require extra knowledge by the application programmer.
 
 **Abstract Interfaces**
 
@@ -1142,7 +1129,7 @@ To illustrate this process consider visiting the edges of a triangle mesh. We be
                    
 **Color Scalar Data**
 
-Multivalued scalar data, or scalars represented by various color representations, are treated specially by the Visualization Toolkit. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See “Color Mapping” on page 163 for more information.)
+Multivalued scalar data, or scalars represented by various color representations, are treated specially by the _Visualization Toolkit_. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See “Color Mapping” on page 163 for more information.)
 
 By default, the mapping of scalars into colors proceeds as follows (vtkMapper and subclasses are responsible for implementing this behavior):
 
@@ -1156,7 +1143,7 @@ It is possible to force unsigned char data to be mapped through a lookup table. 
 
 **Searching**
 
-The Visualization Toolkit provides two classes to perform searches for dataset points and cells. These are vtkPointLocator and vtkCellLocator. (Both of these classes are subclasses of vtkLocator, which is an abstract base class for spatial search objects.) vtkPointLocator is used to search for points and, if used with the topological dataset operator GetPointCells(), to search for cells as well. vtkCellLocator is used to search for cells.
+The _Visualization Toolkit_ provides two classes to perform searches for dataset points and cells. These are vtkPointLocator and vtkCellLocator. (Both of these classes are subclasses of vtkLocator, which is an abstract base class for spatial search objects.) vtkPointLocator is used to search for points and, if used with the topological dataset operator GetPointCells(), to search for cells as well. vtkCellLocator is used to search for cells.
 
 vtkPointLocator is implemented as a regular grid of buckets (i.e., same topology and geometry as an image dataset). The number of buckets can be user-specified, or more conveniently, automatically computed based on the number of dataset points. On average, vtkPointLocator provides constant time access to points. However, in cases where the point distribution is not uniform, the number of points in a bucket may vary widely, giving O(n) worst-case behavior. In practice this is rarely a problem, but adaptive spatial search structures (e.g., an octree) may sometimes be a better choice.
 
@@ -1175,9 +1162,14 @@ Determining closest point to a point $p$ using vtkPointLocator (as well as other
 </figure>
 
 vtkCellLocator is implemented as a uniformly subdivided octree with some peculiar characteristics (**Figure 8-37**). Conventional octree representations use upward parent and downward children pointers to track parent and children octants. Besides the required list of entities (i.e., points or cells) in each octant, additional information about octant level, center, and size may also be maintained. This results in a flexible structure with significant overhead. The overhead is the memory resources to maintain pointers, plus the cost to allocate and delete memory.
+
 In contrast, vtkCellLocator uses a single array to represent the octree. The array is divided into two parts. The first part contains a list of parent octants, ordered according to level and octant child number. In the second part are the terminal, or leaf octants. The terminal octants are ordered on a regular array of buckets, just the same as vtkLocator. The terminal octants contain a list of the entities inside the octant. The parent octants maintain a value indicating whether the octant is empty, or whether something is inside it. (Both types of information are represented in the same portion of the octant structure.) Because the octree is uniformly subdivided, parent-child relationships, as well as octant locations, can be computed quickly using simple division operations.
 
-**Figure 8-38** The picking hierarchy in VTK. All subclasses of vtkAbstractPropPicker return the picked instance of vtkProp. The information is returned as a vtkAssemblyPath. The assembly path is necessary because some props may exist in an assembly hierarchy. The classes vtkWorldPointPicker and vtkPropPicker are hardware accelerated picking classes. All others use software ray casting.
+<figure id="Figure 8-38">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-38.png?raw=true width="640" alt="Figure8-38">
+</figure>
+<figcaption style="color:blue"><b>Figure 8-38</b>. The picking hierarchy in VTK. All subclasses of &#118;tkAbstractPropPicker return the picked instance of &#118;tkProp. The information is returned as a &#118;tkAssemblyPath. The assembly path is necessary because some props may exist in an assembly hierarchy. The classes &#118;tkWorldPointPicker and &#118;tkPropPicker are hardware accelerated picking classes. All others use software ray casting.</figcaption>
+</figure>
 
 The advantage of this structure is that memory can be allocated and deleted quickly. In addition, insertion into the octree is exactly the same as with vtkLocator, and is simpler than conventional octrees. The parent octants provide quick culling capability, since their status (empty or nonempty) allows us to stop certain types of search operations. On the downside, because the octree is uniformly subdivided, this structure is wasteful of memory resources if the data is nonuniformly distributed.
 
@@ -1185,7 +1177,7 @@ Our experience with the search structures described here is that they work well 
 
 **Picking**
 
-The Visualization Toolkit provides a variety of classes to perform actor (or vtkProp), point, cell, and world point picking (**Figure 8-38**). Depending on which picker is used, either software-based geometric intersection or hardware picking is used. The following describes each of the picker types in detail.
+The _Visualization Toolkit_ provides a variety of classes to perform actor (or vtkProp), point, cell, and world point picking (**Figure 8-38**). Depending on which picker is used, either software-based geometric intersection or hardware picking is used. The following describes each of the picker types in detail.
 
 All pickers are subclasses of vtkAbstractPicker which defines the basic pick interface. The user must specify a selection point in display coordinates for a specified instance of vtkRenderWindow and invoke the Pick() method. At a minimum, the class must return an x-y-z pick position in world coordinates. It is possible to limit the pick candidates to a list of vtkProps (the PickList). The class also invokes the StartPickEvent, PickEvent, and EndPickEvent events that are invoked prior to picking, during picking, and after picking, respectively.
 
@@ -1392,7 +1384,7 @@ b) How many “internal” faces?
 
 8.7 Describe a procedure to intersect two finite lines. How does tolerance value come into play?
 
-8.8 Describe a procedure to intersect a line and triangle. Are there special characteristics of a triangle that can be used to speed this operation?
+    8.8 Describe a procedure to intersect a line and triangle. Are there special characteristics of a triangle that can be used to speed this operation?
 
 8.9 Compare memory requirements for the three unstructured grid data structures shown in **Figure 8-34**. Assume that two cells use each face, four faces use each edge, and six edges use each vertex (i.e., a structured dataset).
 
