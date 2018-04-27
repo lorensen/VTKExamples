@@ -1,4 +1,4 @@
-# Chapter - Advanced Data Representation
+# Chapter 8 - Advanced Data Representation
 
 **T**his chapter examines advanced topics in data representation. Topics include topological and geometric relationships and computational methods for cells and datasets.
 
