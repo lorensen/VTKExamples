@@ -26,7 +26,7 @@ The topological coordinate is an “id”: a unique, nonnegative integer number 
 
 To specify a location within the primary cell, we use geometric coordinates. These geometric coordinates, or parametric coordinates, are coordinates “natural” or canonical to the particular topology and dimension of a cell.
 
-We can best explain local coordinates by referring to an example. If we consider the polyline cell type shown in **Figure 8-2**, we can specify the position of a point by indicating 1) the polyline cell id, 2) the primary cell (i.e., line) sub-id and 3) the parametric coordinate of the line. Because the line is one-dimensional, the natural or parametric coordinate is based on the one-dimensional parameter r. Then any point along the line is given by a linear combination of the two end points of the line $x_i$ and $x_{i+1}
+We can best explain local coordinates by referring to an example. If we consider the polyline cell type shown in **Figure 8-2**, we can specify the position of a point by indicating 1) the polyline cell id, 2) the primary cell (i.e., line) sub-id and 3) the parametric coordinate of the line. Because the line is one-dimensional, the natural or parametric coordinate is based on the one-dimensional parameter r. Then any point along the line is given by a linear combination of the two end points of the line $x_i$ and $x_{i+1}$
 
 $$
 \begin{equation*}
@@ -99,7 +99,7 @@ d = \sum_{i = 0}^{n - 1}W_i\,  d_i
 \bf\tag{8-4}
 $$
 
-where $d$ is the data value at the interior cell location $(r,s,t)$, $d_i$ is the data value at the $i^{th}$ cell point, and $W_$i is a weight at the $i^{th}$ cell point. The interpolation weights are functions of the parametric coordinates $W_i = W(r,s,t)$. In addition, because we want $d = d_i$i when the interior point coincides with a cell point, we can place additional constraints on the weights
+where $d$ is the data value at the interior cell location $(r,s,t)$, $d_i$ is the data value at the $i^{th}$ cell point, and $W_i$ is a weight at the $i^{th}$ cell point. The interpolation weights are functions of the parametric coordinates $W_i = W(r,s,t)$. In addition, because we want $d = d_i$ when the interior point coincides with a cell point, we can place additional constraints on the weights
 
 $$
 \begin{equation*}
@@ -265,7 +265,7 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-19</b>. Parametric coordinate system and interpolation functions for a quadratic tetrahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1).</figcaption>
 </figure>
 
-**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\epsilin_i, \eta_i and \zeta_i$ is introduced. These are the parametric coordinates at the ith point.
+**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\epsilon_i, \eta_i and \zeta_i$ is introduced. These are the parametric coordinates at the ith point.
 
 <figure id="Figure 8-20">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-20.png?raw=true width="640" alt="Figure8-20">
@@ -281,7 +281,7 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-21</b>. Parametric coordinate system and interpolation functions for a quadratic wedge.</figcaption>
 </figure>
 
-**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i, \eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the ith point. (The shape functions and derivatives were implemented thanks to the Center For Aerospace Structures http://www.colorado.edu/engineering/CAS.)
+**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i$, \eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the ith point. (The shape functions and derivatives were implemented thanks to the Center For Aerospace Structures http://www.colorado.edu/engineering/CAS.)
 
 <figure id="Figure 8-22">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-22.png?raw=true width="640" alt="Figure8-22">
