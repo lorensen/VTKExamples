@@ -25,23 +25,197 @@ These techniques include stereo viewing, antialiasing, and advanced camera techn
 \section{Transparency and Alpha Values}
 \label{sec:transparency_alpha}
 
-Up to this point in the text we have focused on rendering opaque objects — that is, we have assumed that objects reflect, scatter, or absorb light at their surface, and no light is transmitted through to their interior. Although rendering opaque objects is certainly useful, there are many applications that can benefit from the ability to render objects that transmit light. One important
-application of transparency is volume rendering, which we will explore in greater detail later in the chapter.
+Up to this point in the text we have focused on rendering opaque objects --- that is, we have assumed that objects reflect, scatter, or absorb light at their surface, and no light is transmitted through to their interior. Although rendering opaque objects is certainly useful, there are many applications that can benefit from the ability to render objects that transmit light. One important application of transparency is volume rendering, which we will explore in greater detail later in the chapter. Another simple example makes objects translucent so that we can see inside of the region bounded by the surface, as shown in Figure \ref{fig:Figure12-4}. As demonstrated in this example, by making the skin semitransparent, it becomes possible to see the internal organs.
+
+Transparency and its complement, opacity, are often referred to as *alpha* in computer graphics. For example, a polygon that is 50 percent opaque will have an alpha value of 0.5 on a scale from zero to one. An alpha value of one represents an opaque object and zero represents a completely transparent object. Frequently, alpha is specified as a property for the entire actor, but it also can be done on a vertex basis just like colors. In such cases, the RGB specification of a color is extended to RGBA where A represents the alpha component. On many graphics cards the frame buffer can store the alpha value along with the RGB values. More typically, an application will request storage for only red, green, and blue on the graphics card and use back-to-front blending to avoid the need for storing alpha.
+
+Unfortunately, having transparent actors introduces some complications into the rendering process. If you think back to the process of ray tracing, viewing rays are projected from the camera out into the world, where they intersect the first actor they come to. With an opaque actor, the lighting equations are applied and the resulting color is drawn to the screen. With a semitransparent actor we must solve the lighting equations for this actor, and then continue projecting the ray farther to see if it intersects any other actors. The resulting color is a composite of all the actors it has intersected. For each surface intersection this can be expressed as Equation \ref{eq:7.1}.
+
+\begin{equation}\label{eq:7.1}
+\begin{array}{lll}
+R &=& (1 - A_s) R_b + A_s R_s\\
+G &=& (1 - A_s) G_b + A_s G_s\\
+B &=& (1 - A_s) B_b + A_s B_s\\
+A &=& (1 - A_s) A_b + A_s
+\end{array}
+\end{equation}
+\myequations{Surface interaction of colors with transparent actors.}
+
+In this equation subscript $s$ refers to the surface of the actor, while subscript $b$ refers to what is behind the actor. The term is called the transmissivity, and represents the amount of light that is transmitted through the actor. As an example, consider starting with three polygons colored red, green, and blue each with a transparency of $0.5$. If the red polygon is in the front and the background is black, the resulting RGBA color will be $(0.4, 0.2, 0.1, 0.875)$ on a scale from zero to one (Figure \ref{fig:Figure7-1}).
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure7-1}\\
+	\caption{Alpha compositing.}\label{fig:Figure7-1}
+\end{figure}
+
+It is important to note that if we switch the ordering of the polygons, the resulting color will change. This underlies a major technical problem in using transparency. If we ray-trace a scene, we will intersect the surfaces in a well-defined manner --- from front to back. Using this knowledge we can trace a ray back to the last surface it intersects, and then composite the color by applying Equation \ref{eq:7.1} to all the surfaces in reverse order (i.e., from back to front). In object order rendering methods, this compositing is commonly supported in hardware, but unfortunately we are not guaranteed to render the polygons in any specific order. Even though our polygons are situated as in Figure \ref{fig:Figure7-1}, the order in which the polygons are rendered might be the blue polygon, followed by the red, and finally the green polygon. Consequently, the resulting color is incorrect.
+
+If we look at the RGBA value for one pixel we can see the problem. When the blue polygon is rendered, the frame buffer and \emph{z}-buffer are empty, so the RGBA quad $(0,0,0.8,0.5)$ is stored along with the its \emph{z}-buffer value. When the red polygon is rendered, a comparison of its \emph{z}-value and the current \emph{z}-buffer indicates that it is in front of the previous pixel entry. So Equation \ref{eq:7.1} is applied using the frame buffer’s RGBA value. This results in the RGBA value $(0.4,0,0.2,0.75)$ being written to the buffer. Now, the green polygon is rendered and the z comparison indicates that it is behind the current pixel's value. Again this equation is applied, this time using the frame buffer's RGBA value for the surface and the polygon’s values from behind. This results in a final pixel color of $(0.3,0.2, 0.175,0.875)$, which is different from what we previously calculated. Once the red and blue polygons have been composited and written to the frame buffer, there is no way to insert the final green polygon into the middle where it belongs.
+
+One solution to this problem is to sort the polygons from back to front and then render them in this order. Typically, this must be done in software requiring additional computational overhead. Sorting also interferes with actor properties (such as specular power), which are typically sent to the graphics engine just before rendering the actor's polygons. Once we start mixing up the polygons of different actors, we must make sure that the correct actor properties are set for each polygon rendered.
+
+Another solution is to store more than one set of RGBAZ values in the frame buffer. This is costly because of the additional memory requirements, and is still limited by the number of RGBAZ values you can store. Some new techniques use a combination of multiple RGBAZ value storage and multipass rendering to yield correct results with a minimum performance hit \cite{Hodges92}.
+
+The second technical problem with rendering transparent objects occurs less frequently, but can still have disastrous effects. In certain applications, such as volume rendering, it is desirable to have thousands of polygons with small alpha values. If the RGBA quad is stored in the frame buffer as four eight-bit values, then the round-off can accumulate over many polygons, resulting in gross errors in the output image. This may be less of a problem in the future if graphics hardware begins to store 16 or more bits per component for texture and the frame buffer.
 
 \section{Texture Mapping}
 
-Texture mapping is a technique to add detail to an image without requiring modelling detail. Texture mapping can be thought of as pasting a picture to the surface of an object. The use of texture mapping requires two pieces of information: a \emph{texture map} and \emph{texture coordinates}. The texture map is the picture we paste, and the texture coordinates specify the location where the picture is pasted. More generally, texture mapping is a table lookup for color, intensity, and/or transparency that is applied to an object as it is rendered. Textures maps and coordinates are most often two-dimensional,
-but three-dimensional texture maps and coordinates are supported by most new graphics hardware.
+\emph{Texture mapping} is a technique to add detail to an image without requiring modelling detail. Texture mapping can be thought of as pasting a picture to the surface of an object. The use of texture mapping requires two pieces of information: a \emph{texture map} and \emph{texture coordinates}. The texture map is the picture we paste, and the texture coordinates specify the location where the picture is pasted. More generally, texture mapping is a table lookup for color, intensity, and/or transparency that is applied to an object as it is rendered. Textures maps and coordinates are most often two-dimensional, but three-dimensional texture maps and coordinates are supported by most new graphics hardware.
+
+The value of texture mapping can be shown through the simple example of rendering a wooden table. The basic geometry of a table can be easily created, but achieving the wood grain details is difficult. Coloring the table brown is a good start, but the image is still unrealistic. To simulate the wood grain we need to have many small color changes across the surface of the table. Using vertex colors would require us to have millions of extra vertices just to get the small color changes. The solution to this is to apply a wood grain texture map to the original polygons. This is like applying an oak veneer onto inexpensive particleboard, and this is the strategy used by video games to provide realistic scenes with low numbers of polygons for interactivity.
+
+There are several ways in which we can apply texture data. For each pixel in the texture map (commonly called a \emph{texel} for texture element), there may be one to four components that affect how the texture map is pasted onto the surface of the underlying geometry. A texture map with one component is called an \emph{intensity map}. Applying an intensity map results in changes to the intensity (or value in HSV) of the resulting pixels. If we took a gray scale image of wood grain, and then texture-mapped it onto a brown polygon, we would have a reasonable looking table. The hue and saturation of the polygon would still be determined by the brown color, but the intensity would be determined from the texture map. A better looking table could be obtained by using a color image of the wood. This is a three component texture map, where each texel is represented as a RGB triplet. Using an RGB map allows us to obtain more realistic images, since we would have more than just the intensity changes of the wood.
+
+By adding alpha values to an intensity map we get two components. We can do the same to an RGB texture map to get a four component RGBA texture map. In these cases, the alpha value can be used to make parts of the underlying geometry transparent. A common trick in computer graphics is to use RGBA textures to render trees. Instead of trying to model the complex geometry of a tree, we just render a rectangle with an RGBA texture map applied to it. Where there are leaves or branches, the alpha is one, where there are gaps and open space, the alpha is zero. As a result, we can see through portions of the rectangle, giving the illusion of viewing through the branches and leaves of a tree.
+
+Besides the different ways in which a texture map can be defined, there are options in how it interacts with the original color of the object. A common option for RGB and RGBA maps is to ignore the original color; that is, just apply the texture color as specified. Another option is to modulate the original color by the texture map color (or intensity) to produce the final color.
+
+While we have been focusing on 2D texture maps, they can be of any dimension, though the most common are 2D and 3D. Three-dimensional texture maps are used for textures that are a function of 3D space, such as wood grain, stone, or X-ray intensity (i.e., CT scan). In fact, a volumetric dataset is essentially a 3D texture. We can perform high-speed volume rendering by passing planes through a 3D texture and compositing them using translucent alpha values in the correct order.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure7-2}\\
+	\caption{Vertex texture coordinates.}\label{fig:Figure7-2}
+\end{figure}
+
+Techniques for performing volume rendering using texture mapping hardware will be discussed later in this chapter.
+
+A fundamental step in the texture mapping process is determining how to map the texture onto the geometry. To accomplish this, each vertex has an associated texture coordinate in addition to its position, surface normal, color, and other point attributes. The texture coordinate maps the vertex into the texture map as shown in Figure \ref{fig:Figure7-2}. The texture coordinate system uses the parameters $(u,v)$ and $(u,v,t)$ or equivalently ($r,s$) or ($r,s,t$) for specifying 2D and 3D texture values. Points between the vertices are linearly interpolated to determine texture map values.
+
+Another approach to texture mapping uses procedural texture definitions instead of a texture map. In this approach, as geometry is rendered, a procedure is called for each pixel to calculate a texel value. Instead of using the $(u,v,t)$ texture coordinates to index into an image, they are passed as arguments to the procedural texture that uses them to calculate its result. This method provides almost limitless flexibility in the design of a texture; therefore, it is almost impossible to implement in dedicated hardware. Most commonly, procedural textures are used with software rendering systems that do not make heavy use of existing graphics hardware.
+
+While texture maps are generally used to add detail to rendered images, there are important visualization applications.
+
+\begin{itemize}
+
+	\item Texture maps can be generated procedurally as a function of data. One example is to change the appearance of a surface based on local data value.
+
+	\item Texture coordinates can be generated procedurally as a function of data. For example, we can threshold geometry by creating a special texture map and then setting texture coordinates based on local data value. The texture map consists of two entries: fully transparent ($\alpha = 0$) and fully opaque ($\alpha = 1$). The texture coordinate is then set to index into the transparent portion of the map if the scalar value is less than some threshold, or into the opaque portion otherwise.
+
+	\item Texture maps can be animated as a function of time. By choosing a texture map whose intensity varies monotonically from dark to light, and then "moving" the texture along an object, the object appears to crawl in the direction of the texture map motion. We can use this technique to add apparent motion to things like hedgehogs to show vector magnitude. Figure \ref{fig:Figure7-3} is an example of a texture map animation used to simulate vector field motion.
+
+\end{itemize}
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
+	{\caption{One frame from a vector field animation using texture.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/AnimateVectors/}{AnimateVectors.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Texture/AnimateVectors/}{AnimateVectors.py})}\label{fig:Figure7-3}}
+	{\includegraphics[width=0.6\textwidth]{Figure7-3}}
+\end{figure}
+
+These techniques will be covered in greater detail in Chapter 9: \nameref{chap:advanced_algorithms}. (See``Texture Algorithms'' on page \pageref{subsec:texture_algorithms} for more information.)
 
 \section{Volume Rendering}
 \label{sec:volume_rendering}
 
 Until now we have concentrated on the visualization of data through the use of geometric primitives such as points, lines, and polygons.
-For many applications such as architectural walk-throughs or terrain visualization, this is obviously the most efficient and effective representation for the data.
+For many applications such as architectural walk--throughs or terrain visualization, this is obviously the most efficient and effective representation for the data.
 In contrast, some applications require us to visualize data that is inherently volumetric (which we refer to as 3D image or volume datasets).
 For example, in biomedical imaging we may need to visualize data obtained from an MR or CT scanner, a confocal microscope, or an ultrasound study.
 Weather analysis and other simulations also produce large quantities of volumetric data in three or more dimensions that require effective visualization techniques.
 As a result of the popularity and usefulness of volume data over the last several decades, a broad class of rendering techniques known as volume rendering has emerged. The purpose of volume rendering is to effectively convey information within volumetric data.
+
+In the past, researchers have attempted to define volume rendering as a process that operates directly on the dataset to produce an image without generating an intermediate geometric representation. With recent advances in graphics hardware and clever implementations, developers have been able to use geometric primitives to produce images that are identical to those generated by direct volume rendering techniques. Due to these new techniques, it is nearly impossible to define volume rendering in a manner that is clearly distinct from geometric rendering. Therefore, we choose a broad definition of volume rendering as any method that operates on volumetric data to produce an image.
+
+The next several sections cover a variety of volume rendering methods that use direct rendering techniques, geometric primitive rendering techniques, or a combination of these two methods, to produce an image. Some of the direct volume rendering techniques discussed in this chapter generate images that are nearly identical to those produced by geometric rendering techniques discussed in earlier chapters. For example, using a ray casting method to produce an isosurface image is similar, though not truly equivalent, to rendering geometric primitives that were extracted with the marching cubes contouring technique described in Chapter 6.
+
+The two basic surface rendering approaches described in Chapter 3, image-order and object-order, apply to volume rendering techniques as well. In an image-order method, rays are cast for each pixel in the image plane through the volume to compute pixel values, while in an object--order method the volume is traversed, typically in a front--to--back or back--to--front order, with each voxel processed to determine its contribution to the image. In addition, there are other volume rendering techniques that cannot easily be classified as image-order or object--order. For example, a volume rendering technique may traverse both the image and the volume simultaneously, or the image may be computed in the frequency domain rather than the spatial domain.
+
+Since volume rendering is typically used to generate images that represent an entire 3D dataset in a 2D image, several new challenges are introduced. Classification must be performed to assign color and opacity to regions within the volume, and volumetric illumination models must be defined to support shading. Furthermore, efficiency and compactness are of great importance due to the complexity of volume rendering methods and the size of typical volumetric datasets. A geometric model that consists of one million primitives is generally considered large, while a volumetric dataset with one million voxels is quite small. Typical volumes contain between ten and several hundred million voxels, with datasets of a billion or more voxels becoming more common. Clearly care must be taken when deciding to store auxiliary information at each voxel or to increase the time required to process each voxel.
+
+\section{Image-Order Volume Rendering}
+
+Image-order volume rendering is often referred to as ray casting or ray tracing. The basic idea is that we determine the value of each pixel in the image by sending a ray through the pixel into the scene according to the current camera parameters. We then evaluate the data encountered along the ray using some specified function in order to compute the pixel value. As we will demonstrate throughout this chapter, ray casting is a flexible technique that can be used to render any 3D image dataset, and can produce a variety images. Also, it is relatively easy to extend a basic ray casting technique designed for volumetric data sets that have uniform voxels to work on rectilinear or structured grids. Unfortunately, basic ray casting is also fairly slow; therefore, later in this chapter we will discuss a number of acceleration methods that can be used to improve performance, though often with some additional memory requirements or loss in flexibility.
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
+	{\caption{A maximum intensity projection created with a ray casting technique. Intensity values are mapped through the color lookup table shown at the bottom of the image before display.}\label{fig:Figure7-4}}
+	{\includegraphics[width=0.6\textwidth]{Figure7-4}}
+\end{figure}
+
+
+The ray casting process is illustrated in Figure \ref{fig:Figure7-4}. This example uses a standard orthographic camera projection; consequently, all rays are parallel to each other and perpendicular to the view plane. The data values along each ray are processed according to the ray function, which in this case determines the maximum value along the ray and converts it to a gray scale pixel value where the minimum scalar value in the volume maps to transparent black, and the maximum scalar value maps to opaque white.
+
+The two main steps of ray casting are determining the values encountered along the ray, and then processing these values according to a ray function. Although in implementation these two steps are typically combined, we will treat them independently for the moment. Since the specific ray function often determines the method used to extract values along the ray, we will begin by considering some of the basic ray function types.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-5a}
+		\caption*{}\label{fig:Figure7-5a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-5b}
+		\caption*{Maximum value}\label{fig:Figure7-5b}
+	\end{subfigure}%
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-5c}
+		\caption*{Average value}\label{fig:Figure7-5c}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-5d}
+		\caption*{Distance to value 30}\label{fig:Figure7-5d}
+	\end{subfigure}%
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-5e}
+		\caption*{Composite}\label{fig:Figure7-5e}
+	\end{subfigure}
+	\caption{A ray profile and four example ray functions. MRI head data courtesy of Siemens Medical Systems, Inc., Iselin, NJ.}\label{fig:Figure7-5}
+\end{figure}
+
+Figure \ref{fig:Figure7-5} shows the data value profile of a ray as it passes through 8 bit volumetric data where the data values can range between 0 and 255. The \emph{x}-axis of the profile indicates distance from the view plane while the \emph{y}-axis represents data value. The results obtained from four different simple ray functions are shown below the profile. For display purposes we convert the raw result values to gray scale values using a method similar to the one in the previous example.
+
+The first two ray functions, maximum value and average value, are basic operations on the scalar values themselves. The third ray function computes the distance along the ray at which a scalar value at or above 30 is first encountered, while the fourth uses an alpha compositing technique, treating the values along the ray as samples of opacity accumulated per unit distance. Unlike the first three ray functions, the result of the compositing technique is not a scalar value or distance that can be represented on the ray profile.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure7-6}\\
+	\caption{Image-order volume rendering. High potential iron protein data courtesy of Scripps Clinic, La Jolla, CA.}\label{fig:Figure7-6}
+\end{figure}
+
+The maximum intensity projection, or MIP, is probably the simplest way to visualize volumetric data. This technique is fairly forgiving when it comes to noisy data, and produces images that provide an intuitive understanding of the underlying data. One problem with this method is that it is not possible to tell from a still image where the maximum value occurred along the ray. For example, consider the image of a carotid artery shown in Figure \ref{fig:Figure7-6}. We are unable to fully understand the structure of the blood vessels from this still image since we cannot determine whether some vessel is in front of or behind some other vessel. This problem can be solved by generating a small sequence of images showing the data rotating, although for parallel camera projections even this animation will be ambiguous. This is due to the fact that two images generated from cameras that view the data from opposite directions will be identical except for a reflection about the Y axis of the image.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-7a}
+		\caption*{}\label{fig:Figure7-7a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-7b}
+		\caption*{}\label{fig:Figure7-7b}
+	\end{subfigure}%
+	\caption{A 2D example of nearest neighbor interpolation (left) and a 3D example of trilinear interpolation (right).}\label{fig:Figure7-7}
+\end{figure}
+
+Later in this chapter, during the classification and illumination discussions, we will consider more complex ray functions. Although the colorful, shaded images produced by the new methods may contain more information, they may also be more difficult to interpret, and often easier to misinterpret, than the simple images of the previous examples. For that reason, it is beneficial to use multiple techniques to visualize your volumetric data.
+
+A volume is represented as a 3D image dataset where scalar values are defined at the points of the regular grid, yet in ray casting we often need to sample the volume at arbitrary locations. To do this we must define an interpolation function that can return a scalar value for any location between grid points. The simplest interpolation function, which is called zero-order, constant, or nearest neighbor interpolation, returns the value of the closest grid point. This function defines a grid of identical rectangular boxes of uniform value centered on grid points, as illustrated in 2D on the left side of Figure \ref{fig:Figure7-7}. In the image on the right we see an example of trilinear interpolation where the value at some location is defined by using linear interpolation based on distance along each of the three axes. In general, we refer to the region defined by eight neighboring grid points as a voxel. In the special case where a discrete algorithm is used in conjunction with nearest neighbor interpolation, we may instead refer to the constant-valued regions as voxels.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-8a}
+		\caption*{}\label{fig:Figure7-8a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-8b}
+		\caption*{}\label{fig:Figure7-8b}
+	\end{subfigure}%
+	\caption{Two basic ray traversal methods for volume rendering.}\label{fig:Figure7-8}
+\end{figure}
+
+To traverse the data along a ray, we could sample the volume at uniform intervals or we could traverse a discrete representation of the ray through the volume, examining each voxel encountered, as illustrated in Figure \ref{fig:Figure7-8}. The selection of a method depends upon factors such as the interpolation technique, the ray function, and the desired trade-off between image accuracy and speed.
+
+The ray is typically represented in parametric form as
+
+\begin{equation}\label{eq:7.2}
+\left(x, y, z\right) = \left(x_0, y_0, z_0\right) + \left(a, b, c\right) t
+\end{equation}
+\myequations{Parametric equation of a ray.}
 
 \section{3D Widgets and User Interaction}
 \label{sec:3dwui}
@@ -50,6 +224,24 @@ Chapter 3 provided an introduction to interaction techniques for graphics (see `
 In the context of visualization, interaction is an essential featureof systems that provide methods for data exploration and query. The classes
 vtkRenderWindowInteractor and vtkInteractorStyle are core constructs used in VTK to capturewindowing-system specific events in the render window, translate them into VTK events, and then take action as appropriate to that event invocation.
 In Chapter 3 we saw how these classes could be used to manipulate the camera and actors to interactively produce a desired view. This functionality, however, is relatively limited in its ability to interact with data. For example, users often wish tointeractively control the positioning of streamline starting points, control the orientation of a clipping plane, or transform an actor. While using interpreted languages (see ``Interpreted Code'' on page \pageref{pg:rwi} ) can go a long way to provide this interaction, in some situations the ability to see what you are doing when placing objects is essential. Therefore, it is apparent that a variety of user interaction techniques is required by the visualization system if it is to successfully support real-world applications.
+
+\section{Chapter Summary}
+
+Alpha opacity is a graphics method to simulate transparent objects. Compositing is the process of blending translucent samples in order. Alpha compositing requires the data to be ordered properly.
+
+Texture mapping is a powerful technique to introduce additional detail into an image without extensive geometric modelling. Applying 2D texture maps to the surface of an object is analogous to pasting a picture. The location of the texture map is specified via texture coordinates.
+
+Volume rendering is a powerful rendering technique to view the interior of inhomogeneous objects. Most volume rendering techniques can be classified as image-order or object-order, although some are a combination of the two while others do not fall into either category. Object-order techniques generally composite voxels in front-to-back or back-to-front order. Image-order techniques cast rays through pixels in the image plane to sample the volume. Other methods may traverse both the image and the volume at the same time or may operate in the frequency domain.
+
+For effective visualization of volumetric data, classification and shading are important considerations. Regions of interest may be used to reduce the amount of data visible in an image. Due to the complexity of volume rendering algorithms, efficiency and methods that allow for interactivity are critical.
+
+Stereo rendering techniques create two separate views for the right and left eyes. This simulates binocular parallax and allows us to see depth in the image. Time multiplexed techniques alternate left and right eye views in rapid succession. Time parallel techniques display both images at the same time.
+
+Raster devices often suffer from aliasing effects. Antialiasing techniques are used to minimize the effects of aliasing. These techniques create blended images that soften the boundary of hard edges.
+
+By using an accumulation buffer we can create interesting effects, including motion blur and focal blur. In motion blurring we accumulate multiple renders as the actors move. To simulate focal blur, we jitter the camera position and hold its focal point constant.
+
+Effective visualizations are inherently interactive. Not only are camera manipulation models required for different types of data, but methods to interact, query, and modify data are essential. 3D widgets are important contributions to this end. They provide intuitive graphical interface to the data through a representation in the scene that can be easily manipulated. 3D widgets also generate supplemental information such as implicit functions, output polygonal data, and transformation matrices that may be applied to objects in the scene.
 
 \section{Bibliographic Notes}
 
@@ -64,7 +256,7 @@ An overview of volume rendering and volume visualization techniques can be found
 
 \item In astronomy, photographs can be taken that show the movements of the stars over a period of time by keeping the camera's shutter open. Without accounting for the rotation of the earth, these photographs display a swirl of circular arcs all centered about a common point. Such time lapse photography is essentially capturing motion blur. If we tried to simulate these images using the motion blur technique described in this chapter, they would look different from the photographs. Why is this? How could you change the simple motion blur algorithm to correct this?
 
-\item In **Figure 7-25** we show the difference between stereo rendering with two or one view planes. If you were viewing a rectangle head-on (its surface normal parallel to your direction), what artifacts would be introduced by rendering onto one view plane while using the equations for two planes
+\item In Figure \ref{fig:Figure7-25} we show the difference between stereo rendering with two or one view planes. If you were viewing a rectangle head-on (its surface normal parallel to your direction), what artifacts would be introduced by rendering onto one view plane while using the equations for two planes
 
 \item On some graphics systems transparent objects are rendered using a technique called screen door transparency. Basically, every pixel is either completely opaque or completely transparent. Any value in between is approximated using dithering. So a polygon that was 50 percent opaque would be rendered by drawing only half of the pixels. What visual artifacts does this introduce? What blending problems can arise in using such a technique?
 
@@ -76,7 +268,7 @@ An overview of volume rendering and volume visualization techniques can be found
 
 \item In the classification of some medical dataset, scalar values from 100 to 200 represent skin, 200 to 300 represent muscle and 300 to 400 represent bone. The color transfer functions define skin as tan, muscle as red, and bone as white. If we interpolate scalar value and then perform classification, what classification artifacts may appear in the image?
 
-\item The normal encoding example illustrated in **Figure 7-22** produced 82 indices at a recursion depth of two, which would require seven bits of storage. If we instead use a recursion depth of three, how many indices are there? How many unique vector directions does this represent? How many bits of storage does this require?
+\item The normal encoding example illustrated in Figure \ref{fig:Figure7-22} produced 82 indices at a recursion depth of two, which would require seven bits of storage. If we instead use a recursion depth of three, how many indices are there? How many unique vector directions does this represent? How many bits of storage does this require?
 
 \item Writing an object-order back-to-front projection algorithm is more difficult for a perspective viewing transformation than a parallel viewing transformation. Explain why this is and draw a 2D diagram of the volume and the viewing frustum that illustrates the issues.
 
