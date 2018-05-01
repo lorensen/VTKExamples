@@ -14,3 +14,6 @@ Connectivity filters can also remove small regions without affecting the remaini
 
 This example demonstrates various binary filters that can alter the shape of
 segmented regions. From left to right, top to bottom: original image, connectivity, erosion, dilation, opeoing, closing.
+
+!!! info
+    See [this figure](/VTKBook/10Chapter10/#Figure%2010-14) in [Chapter 10](/VTKBook/10Chapter10) the [VTK Textbook](/VTKBook/01Chapter1).
