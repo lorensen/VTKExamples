@@ -51,6 +51,9 @@ List of files and original paths:
 | Figure6-33.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCutWithScalars.png |
 | Figure6-39b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestContourQuadric.png |
 | | |
+| Figure7-3.png | src/Testing/Baseline/Cxx/Texture/TestAnimateVectors.png |
+
+| | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |
 | Figure12-4.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo3.png |
