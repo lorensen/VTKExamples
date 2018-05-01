@@ -1,6 +1,6 @@
 # Chapter 10 - Image Processing
 
-**I**n this chapter we describe the image processing components of the _Visualization Toolkit_. The focus is on key representational ideas, pipeline issues such as data streaming, and useful algorithms for improving the appearance and effectiveness of image data visualizations.
+<em style="font-size:300%">I</em>n this chapter we describe the image processing components of the _Visualization Toolkit_. The focus is on key representational ideas, pipeline issues such as data streaming, and useful algorithms for improving the appearance and effectiveness of image data visualizations.
 
 ## 10.1 Introduction
 Image processing has been a mainstay of computing since the advent of the digital computer. Early efforts focused on improving image content for human interpretation. More recently image processing has been utilized by practitioners of computer vision, the goal being the processing of image data for autonomous machine perception <em style="color:blue;background-color: white">\[Gonzalez92\]</em>. From the perspective of data visualization, image processing is used to manipulate image content to improve the results of subsequent processing and interpretation. For example, a CT or MRI scan may generate spurious signal noise or require image segmentation. Using the techniques of image processing, noise can be removed and automatic and semi-automatic segmentation can be performed on a slice by slice (i.e., image by image basis). As a result, isosurface generation, volume rendering, and other 3D techniques can be improved in appearance, accuracy, and effectiveness by applying techniques from image processing.
@@ -11,11 +11,11 @@ The material presented here was selected to demonstrate a number of important po
 
 ## 10.2 Data Representation
 
-In this section we will briefly describe the data representation behind the imaging pipeline. As we saw earlier (in [“The Dataset”](https://lorensen.github.io/VTKExamples/site//VTKBook/05Chapter5/#53-the-dataset) in [Chapter 5](//VTKBook/05Chapter5)), a dataset consists of both a structure (topology and geometry) and data attributes. Although in principle an image can be represented as a image data dataset, the special nature of image processing suggests a more complex representation, as we will soon see.
+In this section we will briefly describe the data representation behind the imaging pipeline. As we saw earlier (in [“The Dataset”](https://lorensen.github.io/VTKExamples/site//VTKBook/05Chapter5/#53-the-dataset) in [Chapter 5](/VTKBook/05Chapter5)), a dataset consists of both a structure (topology and geometry) and data attributes. Although in principle an image can be represented as a image data dataset, the special nature of image processing suggests a more complex representation, as we will soon see.
 
 An image is typically used to refer to a 2D structured point dataset. More generally, in this chapter we will define an image as consisting of up to four dimensions: three spatial dimensions x, y, and z, and time t. The reason we add the time dimension is that images are frequently generated as a time series, and we often wish to access the data along the time axis. For example, we may plot the value at a point as a function of time.
 
-As described in <a href="/VTKBook/05Chapter5/#Chapter 5 Image Data">“Image Data”</a> on page 136, an image has both regular topology and geometry. The regularity of the data lends itself to many special operations. In particular, we can support data caching and streaming, and operating on regions of interest in the data.
+As described in ["Image Data"](/VTKBook/05Chapter5/#Chapter 5 Image Data) in [Chapter 5](/VTKBook/05Chapter5), an image has both regular topology and geometry. The regularity of the data lends itself to many special operations. In particular, we can support data caching and streaming, and operating on regions of interest in the data.
 
 **Regions of Interest**
 
@@ -39,7 +39,7 @@ With the region-processing model, the data objects can be thought of as caches t
 
 Given the ability to operate on regions of data, it is a small step to stream operations on a whole dataset. Streaming is the process of pulling regions of data in a continual flow through the pipeline. For instance, a pixel histogram mapper could request single pixels as it accumulates values in its bins. Large datasets can be processed in this manner without ever having to load more than a few pixels at a time. If multiple processors are available, region processing can also be used to split a task into multiple pieces for load balancing and faster execution.
 
-**Attribute Data and Components**a
+**Attribute Data and Components**
 
 Unlike visualization algorithms that may generate normals, vectors, tensors, and texture coordinates, image processing algorithms generally process attribute data consisting of scalar data. Often the data is a single component (e.g., a gray-scale image), but frequently color images (three components of RGB, for example) may also be processed.
 
@@ -229,7 +229,7 @@ From everyday experience we know that it is easier to see structure and informat
 
 By using multiple thresholds combined with multiple levels of logic filters, it is possible to specify arbitrary areas in the component’s space for segmentation. However, it can be easier and more efficient to transform the components into a different coordinate system before the threshold operation. The simplest example of this is to threshold a projection of the components. This is equivalent to a threshold after performing a dot product between the components of a pixel and a constant-direction vector. This divides the component space into two areas separated by a hyperplane.
 
-Another example of a coordinate transformation is conversion from red, green, blue (RGB) color component to hue, saturation, value (HSV) representation (see “Color” on page 37). Segmentation of images based on hue and color saturation is difficult in RGB space, but trivial in HSV space.
+Another example of a coordinate transformation is convrsion from red, green, blue (RGB) color component to hue, saturation, value (HSV) representation (see ["Color"](/VTKBook/03Chapter3/#32-color) in [Chapter 3](/VTKBook/03Chapter3). Segmentation of images based on hue and color saturation is difficult in RGB space, but trivial in HSV space.
 
 Color is not the only multispectral information that can be used for segmentation. It is possible to take advantage of multispectral segmentation even if the original dataset has only one component. Additional images can be created from spatial information of the images using spatial filters. These multiple images can then be combined into one multicomponent image, then multicomponent segmentation can proceed.
                    
@@ -241,7 +241,7 @@ We suggest that you review the code accompanying the images in this chapter to s
 
 **Data Representation**
 
-In the imaging pipeline, the class for representing and manipulating data is vtkImageData (see “Types of Datasets” on page 134 for more information). In addition, the data extent (topological extent specification) plays a vital role in controlling how images are processed.
+In the imaging pipeline, the class for representing and manipulating data is vtkImageData (["Types of Datasets"](/VTKBook/05Chapter5/#56-types-of-datasets) in [Chapter 5](/VTKBook/05Chapter5) for more information). In addition, the data extent (topological extent specification) plays a vital role in controlling how images are processed.
 
 vtkImageData actually represents the image data. Internally, it refers to an instance of vtkDataArray. Therefore, its native representation data type may be any one of unsigned char, char, unsigned short, short, int, float, or any concrete type of vtkDataArray. Please remember that vtkImageData can represent 1D, 2D (image), and 3D (volume) data.
 
@@ -292,7 +292,7 @@ In this example we demonstrate a lengthy imaging pipeline. The basic purpose of 
 
 The pipeline demonstrates some interesting tricks. The first three filters read CT data of the human head (i.e., using vtkImageReader), magnify the image by a factor of four (vtkImageMagnify), and then smooth the data (since magnification uses linear interpolation, introducing some sharp edges). The next filter actually computes the 2D gradient (vtkImageGradient), placing the x-y gradient components into its output.
 
-The next series of filters is where the fun begins. First, the data is converted to polar coordinates (vtkImageEuclideanToPolar). We use this filter because we want to operate in color HSV space (see “Color” on page 37). The image magnitude is to be mapped into saturation value, while the gradient direction is mapped into hue value (remember hue is represented as an angle on the HSV color wheel). The filter vtkImageConstantPad is used to add a third component to the data, since the gradient filter only generated two components, and we need three components to represent color. The vtkImageExtractComponents is used to rearrange the components into HSV order. Finally, the data is converted back into RGB color space with vtkImageHSVToRGB. (This is necessary because the image viewer expects RGB values.)
+The next series of filters is where the fun begins. First, the data is converted to polar coordinates (vtkImageEuclideanToPolar). We use this filter because we want to operate in color HSV space (see ["Color"](/VTKBook/03Chapter3/#32-color) in [Chapter 3](/VTKBook/03Chapter3)). The image magnitude is to be mapped into saturation value, while the gradient direction is mapped into hue value (remember hue is represented as an angle on the HSV color wheel). The filter vtkImageConstantPad is used to add a third component to the data, since the gradient filter only generated two components, and we need three components to represent color. The vtkImageExtractComponents is used to rearrange the components into HSV order. Finally, the data is converted back into RGB color space with vtkImageHSVToRGB. (This is necessary because the image viewer expects RGB values.)
 
 **Image Warping**
 
