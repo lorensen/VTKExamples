@@ -332,7 +332,7 @@ Texture-mapped volume renderers sample and blend a volume to produce an image by
 
 \begin{figure}[!htb]
 	\includegraphics[width=0.96\linewidth]{Figure7-15}
-	\caption{2D texture-mapped volume rendering. The images were generated using three different mappings of scalar value to opacity. CT data $(256 \times 256 \times 225)$ courtesy of North Carolina Memorial Hospital}\label{fig:Figure7-15}
+	\caption{2D texture-mapped volume rendering. The images were generated using three different mappings of scalar value to opacity. CT data $(256 \times 256 \times 225)$ courtesy of North Carolina Memorial Hospital.}\label{fig:Figure7-15}
 \end{figure}
 
 The performance of this algorithm can be decomposed into the software sampling rate, the texture download rate, and the texture-mapped polygon scan conversion rate. The software sampling step is required to create the texture image, and is typically dependent on view direction due to cache locality when accessing volumetric data stored in a linear array. Some implementations minimize the software sampling cost at the expense of memory by precomputing and saving images for the three major volume orientations. The texture download rate is the rate at which this image can be transferred from main memory to texture mapping memory. The scan conversion of the polygon is usually limited by the rate at which the graphics hardware can process pixels in the image, or the pixel fill rate. For a given hardware implementation, the download time for a volume is fixed and will not change based on viewing parameters. However, reducing the relative size of the projected volume will reduce the number of samples processed by the graphics hardware that, in turn, will increase volume rendering rates at the expense of image quality.
@@ -368,14 +368,213 @@ Volume rendering can also be performed using the Fourier slice projection theore
 
 Two problems that must be addressed when implementing a frequency domain volume renderer are the high cost of interpolation when extracting a slice from the Fourier volume, and the high memory requirements (usually two double precision floating-point values per sample) required to store the Fourier volume. Although some shading and depth cues can be provided with this method, occlusion is not possible.
 
+\section{Volume Classification}
+
+\begin{figure}[!htb]
+	\includegraphics[width=0.96\linewidth]{Figure7-17}
+	\caption{Transfer functions that classify CT densities into material percentages. A simple binary classification used to define a bone isosurface (left) and a gradual transition from air to muscle to bone (right) is shown.}\label{fig:Figure7-17}
+\end{figure}
+
+Classifying the relevant objects of interest within a dataset is a critical step in producing a volume rendered image. This information is used to determine the contribution of an object to the image as well as the object's material properties and appearance. For example, a simple binary classification of whether a data sample corresponds to bone within a CT dataset is often performed by specifying a density threshold. When the scalar value at a voxel is greater than this threshold, it is classified as bone, otherwise it is considered air. This essentially specifies an isosurface in the volume at the transition between air and bone. If we plot this operation over all possible scalar values we will get the binary step function shown on the left in Figure \ref{fig:Figure7-17}. In volume rendering we refer to this function as a transfer function. A transfer function is responsible for mapping the information at a voxel location into different values such as material, color, or opacity. The strength of volume rendering is that it can handle transfer functions of much greater complexity than a binary step function. This is often necessary since datasets contain multiple materials and classification methods cannot always assign a single material to a sample with 100 percent probability. Using advanced image segmentation and classification techniques, the single component volume can be processed into multiple material percentage volumes cite{Drebin88}. Referring back to our CT example, we can now specify a material percentage transfer function that defines a gradual transition from air to muscle, then from muscle to bone, as shown on the right in Figure \ref{fig:Figure7-17}.
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
+	{\caption{Volume rendering using a gradient magnitude opacity transfer function. Rendering performed with Kitware's VolView volume rendering system. The Visible Man CT data is courtesy of The National Library of Medicine}\label{fig:Figure7-18}}
+	{\includegraphics[width=0.6\textwidth]{Figure7-18}}
+\end{figure}
+
+In addition to material percentage transfer functions, we can define four independent transfer functions that map scalar values into red, green, blue, and opacity values for each material in the dataset. For simplicity, these sets of transfer functions are typically preprocessed into one function each for red, green, blue and opacity at the end of the classification phase. During rendering we must decide how to perform interpolation to compute the opacity and color at an arbitrary location in the volume. We could interpolate scalar value then evaluate the transfer functions, or we could evaluate the transfer functions at the grid points then interpolate the resulting opacities and colors. These two methods will produce different image results. It is generally considered more accurate to classify at the grid points then interpolate to obtain color and opacity; although if we interpolate then classify, the image often appears more pleasing since high frequencies may be removed by the interpolation.
+
+Classifying a volume based on scalar value alone is often not capable of isolating an object of interest. A technique introduced by Levoy \cite{Levoy88} adds a gradient magnitude dimension to the specification of a transfer function. With this technique we can specify an object in the volume based on a combination of scalar value and the gradient magnitude. This allows us to define an opacity transfer function that can target voxels with scalar values in a range of densities and gradients within a range of gradient magnitudes. This is useful for avoiding the selection of homogeneous regions in a volume and highlighting fast-changing regions. Figure \ref{fig:Figure7-18} shows a CT scan of a human foot. The sharp changes in the volume, such as the transition from air to skin and flesh to bone, are shown. However, the homogeneous regions, such as the internal muscle, are mostly transparent.
+
+If we are using a higher-order interpolation function such as tri-cubic interpolation then we can analytically compute the gradient vector at any location in the dataset by evaluating the first derivative of the interpolation function. Although we can use this approach for trilinear interpolation, it may produce undesirable artifacts since trilinear interpolation is not continuous in its first derivative across voxel boundaries. An alternative approach is to employ a finite differences technique to approximate the gradient vector:
+
+\begin{equation}\label{eq:7.3}
+\begin{array}{lll}
+g_x &=& \dfrac{f(x + \Delta x, y, z) - f(x - \Delta x, y, z)}{2 \Delta x} \\ \\
+g_y &=& \dfrac{f(x, y + \Delta y, z) - f(x, y - \Delta y, z)}{2 \Delta y} \\ \\
+g_z &=& \dfrac{f(x, y, z + \Delta z) - f(x, y, z - \Delta z)}{2 \Delta z}
+\end{array}
+\end{equation}
+\myequations{Finite difference approximation of a gradient vector.}
+
+where $f(x,y,z)$ represents the scalar value at $(x,y,z)$ location in the dataset according to the interpolation function, and $g_x, g_y$ and $g_z$ are the partial derivatives of this function along the x, y, and z axes respectively. The magnitude of the gradient at $(x,y,z)$ is the length of the resulting vector $(g_x, g_y, g_z)$. This vector can also be normalized to produce a unit normal vector. The  $\Delta x, \Delta y, $ and $\Delta z$ are critical as shown in Figure \ref{fig:Figure7-19}. If these values are too small, then  the gradient vector field derived from Equation \ref{eq:7.3} may contain high frequencies, yet if these values are too large we will lose small features in the dataset.
+
+\begin{figure}[!htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-19a}
+		\caption*{$\Delta x = \Delta y = \Delta z = 1.0$}\label{fig:Figure7-19a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-19b}
+		\caption*{$\Delta x = \Delta y = \Delta z = 2.0$}\label{fig:Figure7-19b}
+	\end{subfigure}%
+	\caption{A comparison of shaded images with two different step sizes used during normal estimation. Confocal microscopy data courtesy of Howard Hughes Medical Institute, SUNY Stony Brook.}\label{fig:Figure7-19}
+\end{figure}
+
+
+It is often the case that transfer functions based on scalar value and even gradient magnitude are not capable of fully classifying a volume. Ultrasound data is an example of particularly difficult data that does not perform well with simple segmentation techniques. While no one technique exists that is universally applicable, there exists a wide variety of techniques that produce classification information at each sample. For instance, \cite{Kikinis96} provides techniques for classifying the human brain. In order to properly handle this information a volume renderer must access the original volume and a classification volume. The classification volume usually contains material percentages for each sample, with a set of color and opacity transfer functions for each material used to define appearance.
+
+\section{Volumetric Illumination}
+
+The volume rendered images that we have shown so far in this chapter do not include any lighting effects. Scientist sometimes prefer to visualize their volumes using these simpler methods because they fear that adding lighting effects to the image will interfere with their interpretation. For example, in a maximum intensity projection, a dark region in the image clearly indicates the lack of high opacity values in the corresponding region of the volume, while a dark feature in a shaded image may indicate either low opacity values or values with gradient directions that point away from the light source.
+
+\begin{figure}[!htb]
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-20a}
+		\caption*{Maximum intensity}\label{fig:Figure7-20a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-20b}
+		\caption*{Composite (unshaded)}\label{fig:Figure7-20b}
+	\end{subfigure}%
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-20c}
+		\caption*{Composite (shaded)}\label{fig:Figure7-20c}
+	\end{subfigure}%
+	\caption{A comparison of three volume rendering techniques. A maximum intensity projection does not include occlusion or shading. A composite image includes occlusion and can include shading.}\label{fig:Figure7-20}
+\end{figure}
+
+There are several advantages to lighting that can often justify the additional complexity in the image. First, consider the fact that volume rendering is a process of creating a 2D image from 3D data. The person viewing that data would like to be able to understand the 3D structure of the volume from that image. Of course, if you were to look at a photograph of a skeleton it would be easy to understand its structure from the 2D representation. The two main clues that you received from the picture are occlusion and lighting effects. If you were to view a video of the skeleton, you would receive the additional clue of motion parallax. A static image showing a maximum intensity projection does not include occlusion or lighting effects, making it difficult to understand structure. An image generated with a compositing technique does include occlusion, and the compositing ray function can be modified to include shading as well. A comparison of these three methods is shown in Figure \ref{fig:Figure7-19} for a CT scan of a human foot.
+
+To accurately capture lighting effects, we could use a transport theory illumination model \cite{Krueger91} that describes the intensity of light $I$ arriving at a pixel by the path integral along the ray:
+
+\begin{equation}\label{eq:7.4}
+I\left(t_0, \overrightarrow{\omega\ }\right) = \bigintssss_{t_0}^{\infty} Q\left(\tau\right) e^{\left(-\bigintsss_{\ t_0}^{\ t} \sigma_\text{a}\left(\tau'\right) + \sigma_\text{sc}\left(\tau'\right) \, \text{d} \tau'\right)} \, \text{d}\tau
+\end{equation}
+\myequations{Path integral for light intensity.}
+
+If we are using camera clipping planes, then $t_0$ and $\infty$ would be replaced
+by the distance to the near clip plane $t_{near}$ and the distance to
+the far cl[ip] $t_{far}$ respectively. The contribution $Q(t)$ from each sample at a distance $t$ along the ray is attenuated according to how much intensity is lost on the way from $t$ to $t_0$ due to absorption $\sigma_a(t')$ and scattering $\sigma_{sc}(t')$. The
+contributions at $t$ can be defined as:
+
+\begin{equation}\label{eq:7.5}
+Q(t) = E(t) + \sigma_\text{sc}(t) \bigintssss_{4\pi} \rho_{sc}(\overrightarrow{\omega\ }' \to \overrightarrow{\omega\ }) I(t, \overrightarrow{\omega\ }') \, \text{d}\overrightarrow{\omega\ }'
+\end{equation}
+\myequations{The contribution from each sample using camera clipping planes.}
+
+The contribution consists of the amount of light directly emitted by the sample $E(t)$, plus the amount of light coming from all directions that is scattered by this sample back along the ray. The fraction of light arriving from the $\vec{\omega'}$ direction that is scattered into the direction $\vec{\omega}$ is defined by the scattering function $\rho_{sc}(\vec{\omega'}\rightarrow \vec{\omega})$. To compute the light arriving from all directions due to multiple bounce scattering, we must recursively compute the illumination function.
+
+If scattering is accurately modelled, then basing the ray function on the transport theory illumination model will produce images with realistic lighting effects. Unfortunately, this illumination model is too complex to evaluate, therefore approximations are necessary for a practical implementation. One of the simplest approximations is to ignore scattering completely, yielding the following intensity equation:
+
+\begin{equation}\label{eq:7.6}
+I\left(t_0, \overrightarrow{\omega\ }\right) = \bigintssss_{t_0}^{\infty} E\left(\tau\right) e^{\left(-\bigintsss_{\ t_0}^{\ t} \sigma_\text{a}\left(\tau'\right)\text{d} \tau'\right)} \, \text{d}\tau
+\end{equation}
+\myequations{Path integral for light intensity ignoring scattering.}
+
+We can further simplify this equation by allowing $α(t)$ to represent both the amount of light emitted per unit length and the amount of light absorbed per unit length along the ray. The outer integral can be replaced by a summation over samples along the ray within some clipping range, while the inner integral can be approximated using an over operator:
+
+\begin{equation}\label{eq:7.7}
+I(t_\text{near}, \overrightarrow{\omega\ }) = \sum_{t\ =\ t_\text{near}}^{t\ \leq\ t_\text{far}} \alpha(t) \prod_{t'\ =\ t_\text{near}}^{t'\ <\ t}\left(1 - a(t') \right)
+\end{equation}
+\myequations{Simplifying Equation \ref{eq:7.6}.}
+
+This equation is typically expressed in its recursive form:
+
+\begin{equation}\label{eq:7.8}
+I(t_n, \overrightarrow{\omega\ }) = \alpha(t_n) + \left(1 - \alpha(t_n) \right) I(t_{n + 1}, \overrightarrow{\omega\ })
+\end{equation}
+\myequations{The recursive form of Equation \ref{eq:7.7}.}
+
+which is equivalent to the simple compositing method using the over operator that was described previously. Clearly in this case we have simplified the illumination model to the point that this ray function does not produce images that appear to be realistic.
+
+If we are visualizing an isosurface within the volumetric data, then we can employ the surface illumination model described in Chapter 3 to capture ambient and diffuse lighting as well as specular highlights. There are a variety of techniques for estimating the surface normal needed to evaluate the shading equation. If the image that is produced as a result of volume rendering contains the distance from the view plane to the surface for every pixel, then we can post-process the image with a 2D gradient estimator to obtain surface normals. The gradient at some pixel $(x_p, y_p)$ can be estimated with a central difference technique by:
+
+\begin{equation}\label{eq:7.9}
+\begin{array}{lll}
+\dfrac{\partial Z}{\partial x} &\simeq& \dfrac{Z\left(x_p + \Delta x, y_p\right) - Z\left(x_p - \Delta x, y_p\right)}{2 \Delta x} \\ \\
+\dfrac{\partial Z}{\partial y} &\simeq& \dfrac{Z\left(x_p, y_p + \Delta y\right) - Z\left(x_p, y_p - \Delta y\right)}{2 \Delta y} \\ \\
+\dfrac{\partial Z}{\partial z} &\simeq& 1
+\end{array}
+\end{equation}
+\myequations{Estimating the gradient at $(x_p, y_p)$.}
+
+\begin{figure}[!htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-21a}
+		\caption*{Disjoint volumetric objects}\label{fig:Figure7-21a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-21b}
+		\captionsetup{justification=centering}
+		\caption*{continuous curvature regions\\Corresponding depth image}\label{fig:Figure7-21b}
+	\end{subfigure}%
+	\caption{A scene (left) and the corresponding depth image (right) used in 2D gradient estimation.}\label{fig:Figure7-21}
+\end{figure}
+
+The results are normalized to produce a unit normal vector. As with the 3D finite differences gradient estimator given in Equation \ref{eq:7.3} , care must be taken when selecting $\Delta x$ and $\Delta y$. Typically these values are simply the pixel spacing in $x$ and $y$ so that neighboring pixel values are used to estimate the gradient, although larger values can be used to smooth the image.
+
+One problem with the 2D gradient estimation technique described above is that normals are computed from depth values that may represent disjoint regions in the volume, as shown in Figure \ref{fig:Figure7-21}. This may lead to a blurring of sharp features on the edges of objects. To reduce this effect, we can locate regions of continuous curvature in the depth image, then estimate the normal for a pixel using only other pixel values that fall within the same curvature region \cite{Yagel92a}. This may require reducing our $\Delta x$ and $\Delta y$ values, or using an off-centered differences technique to estimate the components of the gradient. For example, the $x$ component of the gradient could be computed with a forward difference:
+
+\begin{equation}\label{eq:7.10}
+\dfrac{\partial Z}{\partial x} \simeq \dfrac{Z(x_p + \Delta x, y_p) - Z(x_p, y_p)}{\Delta x}
+\end{equation}
+\myequations{Forward difference approximation of the $x$ component.}
+
+or a backward difference
+
+\begin{equation}\label{eq:7.11}
+\dfrac{\partial Z}{\partial x} \simeq \dfrac{Z(x_p, y_p) - Z(x_p - \Delta x, y_p)}{\Delta x}
+\end{equation}
+\myequations{Backward difference approximation of the $x$ component.}
+
+Although 2D gradient estimation is not as accurate as the 3D version, it is generally faster and allows for quick lighting and surface property changes without requiring us to recompute the depth image. However, if we wish to include shading effects in an image computed with a compositing technique, we need to estimate gradients at many locations within the volume for each pixel. A 3D gradient estimation technique is more suitable for this purpose. An illumination equation for compositing could be written as:
+
+\begin{equation}\label{eq:7.12}
+I(t_\text{near}, \overrightarrow{\omega\ }) =  \sum_{t\ =\ t_\text{near}}^{t\ \leq\ t_\text{far}} \alpha(t)\left(I_\text{a} + I_\text{d} + I_\text{s}\right) \prod_{t'\ =\ t_\text{near}}^{t'\ <\ t}\left(1 - a(t') \right)
+\end{equation}
+\myequations{Illumination equation for compositing.}
+
+where the ambient illumination $I_a$, the diffuse illumination $I_d$, and the specular illumination $I_s$ are computed as in surface shading using the estimated volume gradient in place of the surface normal. In this equation, $\alpha(t)$ represents the amount of light reflected per unit length along the ray, with $1 - \alpha(t)$ indicating the fraction of light transmitted per unit length.
+
+\begin{figure}[!htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-22a}
+		\caption*{Sphere at recursion level 2}\label{fig:Figure7-22a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-22b}
+		\caption*{Vertices pushed onto octahedron}\label{fig:Figure7-22b}
+	\end{subfigure}%
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-22c}
+		\caption*{Flattened onto $z = 0$ plane}\label{fig:Figure7-22c}
+	\end{subfigure}%
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{Figure7-22d}
+		\caption*{Rotated 45 degrees}\label{fig:Figure7-22d}
+	\end{subfigure}%
+	\caption{Gradient direction encoding.}\label{fig:Figure7-22}
+\end{figure}
+
+
+As in classification, we have to make a decision about whether to directly compute illumination at an arbitrary location in the volume, or to compute illumination at the grid points and then interpolate. This is not a difficult decision to make on the basis of accuracy since it is clearly better to estimate the gradient at the desired location rather than interpolate from neighboring estimations. On the other hand, if we do interpolate from the grid points then we can precompute the gradients for the entire dataset once, and use this to increase rendering performance for both classification and illumination. The main problem is the amount of memory required to store the precomputed gradients. A naive implementation would store a floating-point value (typically four bytes) per component of the gradient per scalar value. For a dataset with one $256^3$ one-byte scalars, this would increase the storage requirement from 16 Mbytes to 218 Mbytes.
+
+In order to reduce the storage requirements, we could quantize the precomputed gradients by using some number of bits to represent the magnitude of the vector, and some other number of bits to encode the direction of the vector. Quantization works well for storing the magnitude of the gradient, but does not provide a good distribution of directions if we simply divide the bits among the three components of the vector. A better solution is to use the uniform fractal subdivision of an  octahedron into a sphere as the basis of the direction encoding, as shown in Figure \ref{fig:Figure7-22}. The top left image shows the results obtained after the recursive replacement of each triangle with four new triangles, with a recursion depth of two. The vector directions encoded in this representation are all directions formed by creating a ray originating at the sphere's center and passing through a vertex of the sphere. The remaining images in this figure illustrate how these directions are mapped into an index. First we push all vertices back onto the original faces of the octahedron, then we flatten this sphere onto the plane $z=0$. Finally, we rotate the resulting grid by 45$^\circ$. We label the vertices in the grid with indices starting at 0 at the top left vertex and continue across the rows then down the columns to index 40 at the lower right vertex. These indices represent only half of the encoded normals because when we flattened the octahedron, we placed two vertices on top of each other on all but the edge locations. Thus, we can use indices 41 through 81 to represent vectors with a negative \emph{z} component. Vertices on the edges represent vectors with out a \emph{z} component, and although we could represent them with a single index, using two keeps the indexing scheme more consistent and, therefore, easier to implement.
+
+The simple example above requires only 82 values to encode the 66 unique vector directions. If we use an unsigned short to store the encoded direction, then we can use a recursion depth of 6 when generating the vertices. This leads to 16,642 indices representing 16,386 unique directions.
+
+Once the gradients have been encoded for our volume, we need only compute the illumination once for each possible index and store the results in a table. Since data samples with the same encoded gradient direction may have different colors, this illumination value represents the portion of the shading equation that is independent of color. Each scalar value may have separate colors defined for ambient, diffuse, and specular illumination; therefore, the precomputed illumination is typically an array of values.
+
+Although using a shading table leads to faster rendering times, there are some limitations to this method. Only infinite light sources can be supported accurately since positional light sources would result in different light vectors for data samples with the same gradient due to their different positions in the volume. In addition, specular highlights are only captured accurately for orthographic viewing directions where the view vector does not vary based on sample position. In practice, positional light sources are often approximated by infinite light sources, and a single view direction is used for computing specular highlights since the need for fast rendering often outweighs the need for accurate illumination.
+
+\section{Regions of Interest}
 
 \section{3D Widgets and User Interaction}
 \label{sec:3dwui}
 
-Chapter 3 provided an introduction to interaction techniques for graphics (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{pg:rwi} ).
-In the context of visualization, interaction is an essential featureof systems that provide methods for data exploration and query. The classes
+Chapter 3: \nameref{chap:computer_graphics_primer} provided an introduction to interaction techniques for graphics (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{pg:rwi} ).
+In the context of visualization, interaction is an essential feature of systems that provide methods for data exploration and query. The classes
 vtkRenderWindowInteractor and vtkInteractorStyle are core constructs used in VTK to capturewindowing-system specific events in the render window, translate them into VTK events, and then take action as appropriate to that event invocation.
-In Chapter 3 we saw how these classes could be used to manipulate the camera and actors to interactively produce a desired view. This functionality, however, is relatively limited in its ability to interact with data. For example, users often wish tointeractively control the positioning of streamline starting points, control the orientation of a clipping plane, or transform an actor. While using interpreted languages (see ``Interpreted Code'' on page \pageref{pg:rwi} ) can go a long way to provide this interaction, in some situations the ability to see what you are doing when placing objects is essential. Therefore, it is apparent that a variety of user interaction techniques is required by the visualization system if it is to successfully support real-world applications.
+In Chapter 3: \nameref{chap:computer_graphics_primer} we saw how these classes could be used to manipulate the camera and actors to interactively produce a desired view. This functionality, however, is relatively limited in its ability to interact with data. For example, users often wish tointeractively control the positioning of streamline starting points, control the orientation of a clipping plane, or transform an actor. While using interpreted languages (see ``Interpreted Code'' on page \pageref{pg:rwi} ) can go a long way to provide this interaction, in some situations the ability to see what you are doing when placing objects is essential. Therefore, it is apparent that a variety of user interaction techniques is required by the visualization system if it is to successfully support real-world applications.
 
 \section{Chapter Summary}
 
