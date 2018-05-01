@@ -5,17 +5,17 @@
 ## 10.1 Introduction
 Image processing has been a mainstay of computing since the advent of the digital computer. Early efforts focused on improving image content for human interpretation. More recently image processing has been utilized by practitioners of computer vision, the goal being the processing of image data for autonomous machine perception <em style="color:blue;background-color: white">\[Gonzalez92\]</em>. From the perspective of data visualization, image processing is used to manipulate image content to improve the results of subsequent processing and interpretation. For example, a CT or MRI scan may generate spurious signal noise or require image segmentation. Using the techniques of image processing, noise can be removed and automatic and semi-automatic segmentation can be performed on a slice by slice (i.e., image by image basis). As a result, isosurface generation, volume rendering, and other 3D techniques can be improved in appearance, accuracy, and effectiveness by applying techniques from image processing.
 
-Since the focus of this text is on 3D graphics and visualization, this chapter treats image processing in a limited way. However, we would like to emphasize the interrelationship of image processing, computer graphics, and visualization. Often texts and courses treat these as distinctly separate disciplines, when in fact they are closely related (see “Imaging, Computer Graphics, and Visualization” on page 4).
+Since the focus of this text is on 3D graphics and visualization, this chapter treats image processing in a limited way. However, we would like to emphasize the interrelationship of image processing, computer graphics, and visualization. Often texts and courses treat these as distinctly separate disciplines, when in fact they are closely related (see [“Imaging, Computer Graphics, and Visualization”](/VTKBook/01Chapter1/#13-imaging-computer-graphics-and-visualization) in [Chapter 1](/VTKBook/01Chapter1)).
 
 The material presented here was selected to demonstrate a number of important points. First, the data flow or pipeline approach presented earlier is directly applicable to image processing, with the added benefit that we can easily implement data streaming and caching due to the regular nature of image data. Second, image processing algorithms can improve the results of visualization. We will show this through a number of useful examples. And finally, from a practical point of view, we wanted to demonstrate a system architecture that includes imaging, graphics, and visualization.
 
 ## 10.2 Data Representation
 
-In this section we will briefly describe the data representation behind the imaging pipeline. As we saw earlier (in “The Dataset” on page 124), a dataset consists of both a structure (topology and geometry) and data attributes. Although in principle an image can be represented as a image data dataset, the special nature of image processing suggests a more complex representation, as we will soon see.
+In this section we will briefly describe the data representation behind the imaging pipeline. As we saw earlier (in [“The Dataset”](https://lorensen.github.io/VTKExamples/site//VTKBook/05Chapter5/#53-the-dataset) in [Chapter 5](//VTKBook/05Chapter5)), a dataset consists of both a structure (topology and geometry) and data attributes. Although in principle an image can be represented as a image data dataset, the special nature of image processing suggests a more complex representation, as we will soon see.
 
 An image is typically used to refer to a 2D structured point dataset. More generally, in this chapter we will define an image as consisting of up to four dimensions: three spatial dimensions x, y, and z, and time t. The reason we add the time dimension is that images are frequently generated as a time series, and we often wish to access the data along the time axis. For example, we may plot the value at a point as a function of time.
 
-As described in “Image Data” on page 136, an image has both regular topology and geometry. The regularity of the data lends itself to many special operations. In particular, we can support data caching and streaming, and operating on regions of interest in the data.
+As described in <a href="/VTKBook/05Chapter5/#Chapter 5 Image Data">“Image Data”</a> on page 136, an image has both regular topology and geometry. The regularity of the data lends itself to many special operations. In particular, we can support data caching and streaming, and operating on regions of interest in the data.
 
 **Regions of Interest**
 
@@ -43,7 +43,7 @@ Given the ability to operate on regions of data, it is a small step to stream op
 
 Unlike visualization algorithms that may generate normals, vectors, tensors, and texture coordinates, image processing algorithms generally process attribute data consisting of scalar data. Often the data is a single component (e.g., a gray-scale image), but frequently color images (three components of RGB, for example) may also be processed.
 
-In the _Visualization Toolkit_ imaging pipeline, attribute data is represented as n-dimensional component data. Refer to “Putting It All Together” on page 405 to see the implementation details for component data, regions of interest, streaming, and caching.
+In the _Visualization Toolkit_ imaging pipeline, attribute data is represented as n-dimensional component data. Refer to [“Putting It All Together”](/VTKBook/10Chapter10/#104-putting-it-all-together) to see the implementation details for component data, regions of interest, streaming, and caching.
 
 ## 10.3 Algorithms
 This section provides an overview and examples for important image processing algorithms. The importance of the algorithms is measured on their relevance to 3D data visualization. Topics include: removing noise, smoothing, reducing sampling artifacts, image enhancement, segmentation, and morphological operators such as erosion and dilation.
@@ -130,7 +130,7 @@ To achieve the goal of a uniform scalar histogram, transfer functions can be use
 
 Histogram equalization is an algorithm that automatically generates a tailored transfer function to increase contrast in an image. For continuous images, the transfer function is simply the cumulative distribution function (CDF) which is defined as the integral of the PDF. By definition, the CDF function has a large slope where the PDF has the largest value, and therefore gives the greatest contrast to scalar ranges that occur most frequently in an image. The result of using the CDF as a transfer function is an image with an ideal constant scalar distribution. For discrete images and image histograms, a discrete version of the CDF function can be used. However, because of the discrete approximation, the resulting image is not guaranteed to have a constant histogram (**Figure 10-8**).
 
-<figure id="Figure10-8">
+<figure id="Figure 10-8">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-8.png?raw=true width="640" alt="Figure10-8">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-8</b>. Histogram equalization automatically computes a transfer function that produces an image with a nearly constant scalar histogram.</figcaption>
@@ -210,9 +210,9 @@ Although preprocessing can do a lot to improve segmentation results, postprocess
 </figure>
 
 <figure id="Figure 10-14">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestMorphComparison.png?raw=true width="640" alt="Figure 10-14">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestMorphologyComparison.png?raw=true width="640" alt="Figure 10-14">
 </figure>
-<figcaption style="color:blue"><b>Figure 10-14</b>. This figure demonstrates various binary filters that can alter the shape of segmented regions (MorphComparison.tcl).<a href="../../Cxx/ImageProcessing/MorphComparison" title="MorphComparison"> See MorphComparison.cxx</a> and <a href="../../Python/ImageProcessing/MorphComparison" title="MorphComparison"> MorphComparison.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 10-14</b>. This figure demonstrates various binary filters that can alter the shape of segmented regions.<a href="../../Cxx/ImageProcessing/MorphologyComparison" title="MorphologyComparison"> See MorphologyComparison.cxx</a> and <a href="../../Python/ImageProcessing/MorphologyComparison" title="MorphologyComparison"> MorphologyComparison.py</a>.</figcaption>
 </figure>
 
 The opposite of erosion is dilation. This filter grows the area of segmented regions. Small holes in the segmented region are completely closed. Any pixel not in the segmented region but near the region is turned on. Dilation and erosion are dual filters with nearly identical implementations. Dilating the “on” pixels is equivalent to eroding “off” pixels in a binary image (see **Figure 10-14**).

@@ -6,3 +6,6 @@ Another approach removes these artificial edges by smoothing only along the bord
 In both of these approaches, a portion of the original image is lost, so only the central portion of an image can be processed. If this is unacceptable, another solution is to double the dimensions of the original image with a mirror-padding filter. The intermediate image is periodic and continuous.
 
 The lower-left image has been padded with a constant (800). On the right, mirror padding has been used to remove artificial edges introduced by borders.
+
+!!! info
+    See [this figure](/VTKBook/10Chapter10/#Figure%2010-12) in [Chapter 10](/VTKBook/10Chapter10) the [VTK Textbook](/VTKBook/01Chapter1).

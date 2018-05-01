@@ -1,4 +1,9 @@
-https://www.pdftohtml.net/
+Template for example references to he VTK Book figures.
+
+!!! info
+    See [this figure](/VTKBook/XXChapterXX/#Figure%20YY) in [Chapter XX](/VTKBook/XXChapterXX) the [VTK Textbook](/VTKBook/01Chapter1).
+
+Template for manually created figures
 
 <figure id="Figure NUMBER">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/FigureNUMBER.png?raw=true width="640" alt="FigureNUMBER">
