@@ -891,6 +891,7 @@ H(u, v) =
 % The Butterworth filter is equation 10-2 above.
 
 % EQUATION 10-3
+
 \begin{equation*}
 F(x, y) = \sin\left(\frac{x}{10}\right) + \sin\left(\frac{y}{10}\right)
 \end{equation*}

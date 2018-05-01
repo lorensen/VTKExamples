@@ -997,7 +997,7 @@ Other effects are possible by modifying the texture map. **Figure 9-46**(b) show
 
 ## 9.5 Putting It All Together
 
-With the conclusion of this chapter we have provided an overview of the basics of data visualization. In this section we show you how to use some of the advanced algorithms as implemented in the Visualization Toolkit.
+With the conclusion of this chapter we have provided an overview of the basics of data visualization. In this section we show you how to use some of the advanced algorithms as implemented in the _Visualization Toolkit_.
 
 **Dividing Cubes / Point Generation**
 
@@ -1005,7 +1005,7 @@ Dividing cubes is implemented in VTK with the class vtkDividingCubes. It has bee
 
 The separation distance controls the accuracy of point generation. It is possible to generate points that appear to form a solid surface when rendered, but are not accurately located on the contour surface. Although this usually is not an issue when viewing contour surfaces, if the accuracy of the point positions is important, the distance value must be set smaller. However, this can result in huge numbers of points. To reduce the number of points, you can use the SetIncrement() method, which specifies that every nth point is to be generated. Using this approach, you can obtain good accuracy and control the total number of points. An example where point positions are important is when the points are used to locate glyphs or as seed points for streamline generation.
 
-The Visualization Toolkit provides other point generation techniques. The source object vtkPointSource generates a user-specified number of points within a spherical region. The point positions are random within the sphere. (Note that there is a natural tendency for higher point density near the center of the sphere because the points are randomly generated along the radius and spherical angles $\phi$ and $\theta$.)
+The _Visualization Toolkit_ provides other point generation techniques. The source object vtkPointSource generates a user-specified number of points within a spherical region. The point positions are random within the sphere. (Note that there is a natural tendency for higher point density near the center of the sphere because the points are randomly generated along the radius and spherical angles $\phi$ and $\theta$.)
 
 **Figure 9-47** is an example use of vtkPointSource to generate streamlines. The dataset is a structured grid of dimensions 21 $\times$ 20 $\times$ 20 with flow velocity and a scalar pressure field. The dataset is a CFD simulation of flow in a small office. As this picture shows, there are a couple of bookcases, desks, a window, and an inlet and outlet for the ventilation system. On one of the desks is a small, intense heat source (e.g., a cigarette). In the left image 25 streamlines are started near the inlet using a vtkPointSource point generator. The second image shows what happens when we move the point source slightly to the left. By adjusting a single parameter (e.g., the center of the point source) it is possible to quickly explore our simulation data.
 
@@ -1060,7 +1060,7 @@ Once vtkSweptSurface executes, we extract the swept surface using an isosurfacin
 
 **Multidimensional Visualization**
 
-An important characteristic of multidimensional datasets is that they cannot be categorized according to any of the types defined in the Visualization Toolkit. This implies that source objects interfacing with multidimensional data are responsible for converting the data they interface with into one of the types defined in VTK. This can be a difficult process, requiring you to write interface code.
+An important characteristic of multidimensional datasets is that they cannot be categorized according to any of the types defined in the _Visualization Toolkit_. This implies that source objects interfacing with multidimensional data are responsible for converting the data they interface with into one of the types defined in VTK. This can be a difficult process, requiring you to write interface code.
 
 Other visualization systems treat this problem differently. In these systems a dataset type is defined that can represent multidimensional data. This dataset type is essentially an n-dimensional matrix. Additional filters are defined that allow the user to extract pieces of the dataset and assemble them into a more conventional dataset type, such as a volume or structured grid. After mapping the data from multidimensional form to conventional form, standard visualization techniques can be applied. (Future implementations of VTK may include this functionality. At the current time you must map multidimensional data into a known VTK form.)
 

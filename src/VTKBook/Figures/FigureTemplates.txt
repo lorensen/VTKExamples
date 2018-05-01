@@ -6,7 +6,7 @@ https://www.pdftohtml.net/
 <figcaption style="color:blue"><b>Figure NUMBER</b>. Physical generation of an image.</figcaption>
 </figure>
 
-Template for autmatically created figures
+Templates for automaticaly created figures
 
 One figure
 
