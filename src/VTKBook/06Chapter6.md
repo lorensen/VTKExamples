@@ -263,9 +263,6 @@ Vector displacement plots draw on the ideas in "Scalar Generation" on page171. V
 
 A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called *modal* lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
 
-!!! warning "Missing Figure"
-    Part of Figure *6-15* is missing.
-
 <figure id="Figure 6-15">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDisplacementPlot.png?raw=true width="640" alt="Figure 6-15">
 </figure>
