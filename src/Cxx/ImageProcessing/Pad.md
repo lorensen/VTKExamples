@@ -8,4 +8,4 @@ In both of these approaches, a portion of the original image is lost, so only th
 The lower-left image has been padded with a constant (800). On the right, mirror padding has been used to remove artificial edges introduced by borders.
 
 !!! info
-    See [this figure](/VTKBook/10Chapter10/#Figure%2010-12) in [Chapter 10](/VTKBook/10Chapter10) the [VTK Textbook](/VTKBook/01Chapter1).
+    See [Figure 10-12](/VTKBook/10Chapter10/#Figure%2010-12) in [Chapter 10](/VTKBook/10Chapter10) the [VTK Textbook](/VTKBook/01Chapter1).

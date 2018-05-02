@@ -3,27 +3,31 @@
 In Chapter 4 we developed a pragmatic definition of the visualization process: mapping information into graphics primitives. We saw how this mapping proceeds through one or more steps, each step transforming data from one form, or data representation, into another. In this chapter we examine common data forms for visualization. The goal is to familiarize you with these forms, so that you can visualize your own data using the tools and tech niques provided in this text.
 
 ## 5.1 Introduction
-To design representational schemes for data we need to know something about the data we might encounter. We also need to keep in mind design goals, so that we can design efficient data structures and access methods. The next two sections address these issues. Characterizing Visualization Data Since our aim is to visualize data, clearly we need to know something about the character of the data. This knowledge will help us create useful data models and powerful visualization systems. Without a clear understanding of the data, we risk designing inflexible and limited visualization systems. In the following we describe important characteristics of data. These characteristics are the discrete nature of data, whether it is regular or irregular, and its topological dimension.
+To design representational schemes for data we need to know something about the data we might encounter. We also need to keep in mind design goals, so that we can design efficient data structures and access methods. The next two sections address these issues.
 
-First, visualization data is discrete. This is because we use digital computers to acquire, ana lyze, and represent our data, and typically measure or sample information at a finite number of points. Hence, all information is necessarily represented in discrete form. 
+**Characterizing Visualization Data**
 
-Consider visualizing the simple continuous function y = x2. If we are using a conventional digital computer, we must discretize this equation to operate on the data it represents (we are ignoring symbolic/analog computers and methods). For example, to plot this equation we would sample the function in some interval, say (-1,1), and then compute the value y of the function at a series of discrete points x = xi in this interval. The resulting points ((x0,y0), (x1,y1), (x2,y2), ... (xn,yn)) connect the points with straight line segments. Thus, our (continuous) data is represented by a discrete sampling.
+ Since our aim is to visualize data, clearly we need to know something about the character of the data. This knowledge will help us create useful data models and powerful visualization systems. Without a clear understanding of the data, we risk designing inflexible and limited visualization systems. In the following we describe important characteristics of data. These characteristics are the discrete nature of data, whether it is regular or irregular, and its topological dimension.
 
-Because of the discrete character of the data we do not know anything about regions in between data values. In our previous example, we know that data is generated from the function y = x2 , but, generally speaking, when we measure and even compute data, we cannot infer data values between points. This poses a serious problem, because an important visualization activity is to determine data values at arbitrary positions. For example, we might probe our data and desire data values even though the probe position does not fall on a known point.
+First, visualization data is _discrete_. This is because we use digital computers to acquire, ana lyze, and represent our data, and typically measure or sample information at a finite number of points. Hence, all information is necessarily represented in discrete form. 
 
-There is an obvious solution to this problem: interpolation. We presume a relationship between neighboring data values. Often this is a linear function, but we can use quadratic, cubic, spline, or other interpolation functions. Chapter 8 discusses interpolation functions in greater detail, but for now suffice it to say that interpolation functions generate data values in between known points.
+Consider visualizing the simple continuous function $y = x^2*. If we are using a conventional digital computer, we must discretize this equation to operate on the data it represents (we are ignoring symbolic/analog computers and methods). For example, to plot this equation we would sample the function in some interval, say (-1,1), and then compute the value y of the function at a series of discrete points $x = x_i$ in this interval. The resulting points $((x_0,y_0), (x_1,y_1), (x_2,y_2), ... (x_n,y_n))$ connect the points with straight line segments. Thus, our (continuous) data is represented by a discrete sampling.
 
-A second important characteristic of visualization data is that its structure may be regular or irregular (alternatively, structured or unstructured). Regular data has an inherent relationship between data points. For example, if we sample on an evenly spaced set of points, we do not need to store all the point coordinates, only the beginning position of the interval, the spacing between points, and the total number of points. The point positions are then known implicitly, which can be taken of advantage of to save computer memory.
+Because of the discrete character of the data we do not know anything about regions in between data values. In our previous example, we know that data is generated from the function $y = x^2$, but, generally speaking, when we measure and even compute data, we cannot infer data values between points. This poses a serious problem, because an important visualization activity is to determine data values at arbitrary positions. For example, we might probe our data and desire data values even though the probe position does not fall on a known point.
+
+There is an obvious solution to this problem: interpolation. We presume a relationship between neighboring data values. Often this is a linear function, but we can use quadratic, cubic, spline, or other interpolation functions. [Chapter 8](/VTKBook/08Chapter8) discusses interpolation functions in greater detail, but for now suffice it to say that interpolation functions generate data values in between known points.
+
+A second important characteristic of visualization data is that its structure may be _regular_ or _irregular_ (alternatively, _structured_ or _unstructured_). Regular data has an inherent relationship between data points. For example, if we sample on an evenly spaced set of points, we do not need to store all the point coordinates, only the beginning position of the interval, the spacing between points, and the total number of points. The point positions are then known implicitly, which can be taken of advantage of to save computer memory.
 
 Data that is not regular is irregular data. The advantage of irregular data is that we can represent information more densely where it changes quickly and less densely where the change is not so great. Thus, irregular data allows us to create adaptive representational forms, which can be beneficial given limited computing resources.
 
 Characterizing data as regular or irregular allows us to make useful assumptions about the data. As we saw a moment ago, we can store regular data more compactly. Typically, we can also compute with regular data more efficiently relative to irregular data. On the other hand, irregular data gives us more freedom in representing data and can represent data that has no regular patterns.
 
-Finally, data has a topological dimension. In our example y = x2 , the dimension of the data is one, since we have the single independent variable x. Data is potentially of any dimension from 0D points, to 1D curves, 2D surfaces, 3D volumes, and even higher dimensional regions.
+Finally, data has a topological dimension. In our example $y = x^2$, the dimension of the data is one, since we have the single independent variable x. Data is potentially of any dimension from 0D points, to 1D curves, 2D surfaces, 3D volumes, and even higher dimensional regions.
 
-The dimension of the data is important because it implies appropriate methods for visualization and data representation. For example, in 1D we naturally use x-y plots, bar charts, or pie charts, and store the data as a 1D list of values. For 2D data we might store the data in a matrix, and visualize it with a deformed surface plot (i.e., a height field — see Exercise 4.2).
+The dimension of the data is important because it implies appropriate methods for visualization and data representation. For example, in 1D we naturally use _x-y_ plots, bar charts, or pie charts, and store the data as a 1D list of values. For 2D data we might store the data in a matrix, and visualize it with a deformed surface plot (i.e., a _height field — see Exercise 4.2).
 
-In this chapter and Chapter 8, we show how these characteristics: discrete, regular/irregular, and data dimension, shape our model of visualization data. Keep these features in mind as you read these chapters.
+In this chapter and [Chapter 8](/VTKBook/08Chapter8), we show how these characteristics: discrete, regular/irregular, and data dimension, shape our model of visualization data. Keep these features in mind as you read these chapters.
 
 <figure id="Figure 5-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-1.png?raw=true width="640" alt="Figure5-1">
@@ -36,7 +40,7 @@ Visualizing data involves interfacing to external data, mapping into internal fo
 
 *Compact.* Visualization data tends to be large, so we need compact storage schemes to minimize computer memory requirements.
 
-*Efficient.* Data must be computationally accessible. We want to retrieve and store data in constant time (i.e., independent of data size). This requirement offers us the opportunity to develop algorithms that are linear, or O(n), in time complexity.
+*Efficient.* Data must be computationally accessible. We want to retrieve and store data in constant time (i.e., independent of data size). This requirement offers us the opportunity to develop algorithms that are linear, or _O(n)_, in time complexity.
 
 *Mappable.* There are two types of mappings. First, data representations need to efficiently map into graphics primitives. This ensures fast, interactive display of our data. Second, we must be able to easily convert external data into internal visualization data structures. Otherwise, we suffer the burden of complex conversion processes or inflexible software
 
@@ -50,24 +54,24 @@ The remainder of this chapter describes common visualization data forms based on
 The most general form of data found in VTK is the data object. A data object can be thought of as a collection of data without any form. Data objects represent the data that is processed by the visualization pipeline (see the previous chapter and **Figure 4-2**). Taken by themselves, data objects carry little useful information. It is only when they are organized into some structure that they provide a form that we can operate on with visualization algorithms.
 
 ## 5.3 The Dataset
-Data objects with an organizing structure and associated data attributes (**Figure 5-11**) form datasets. The dataset is an abstract form; we leave the representation and implementation of the structure to its concrete subclasses. Most algorithms (or process objects) in VTK operate on datasets.
+Data objects with an organizing _structure_ and associated _data attributes_ (**Figure 5-11**) form _datasets_. The dataset is an abstract form; we leave the representation and implementation of the structure to its concrete subclasses. Most algorithms (or process objects) in VTK operate on datasets.
 
-The structure has two parts: topology and geometry. Topology is the set of properties invariant under certain geometric transformations <em style="color:blue;background-color: white">\[Weiler86\]</em>. Here we consider the transformations: rotation, translation, and nonuniform scaling. Geometry is the instantiation of the topology, the specification of position in 3D space. For example, saying that a polygon is a “triangle,” specifies topology. By providing point coordinates, we specify geometry.
+The structure has two parts: _topology_ and _geometry_. Topology is the set of properties invariant under certain geometric transformations <em style="color:blue;background-color: white">\[Weiler86\]</em>. Here we consider the transformations: rotation, translation, and nonuniform scaling. Geometry is the instantiation of the topology, the specification of position in 3D space. For example, saying that a polygon is a “triangle,” specifies topology. By providing point coordinates, we specify geometry.
 
 Dataset attributes are supplemental information associated with geometry and/or topology. This information might be a temperature value at a point or the inertial mass of a cell.
 
-Our model of a dataset assumes that the structure consists of cells and points. The cells specify the topology, while the points specify the geometry. Typical attributes include scalars, vectors, normals, texture coordinates, and tensors.
+Our model of a dataset assumes that the structure consists of _cells_ and _points_. The cells specify the topology, while the points specify the geometry. Typical attributes include scalars, vectors, normals, texture coordinates, and tensors.
 
 The definition of the structure of a dataset as a collection of cells and points is a direct consequence of the discrete nature of our data. Points are located where data is known and the cells allow us to interpolate between points. We give detailed descriptions of dataset structure and attributes in the following sections.
 
 ## 5.4 Cell Types
 
-A dataset consists of one or more cells (**Figure 5-2** and **Figure 5-4**). Cells are the fundamental building blocks of visualization systems. Cells are defined by specifying a type in combination with an ordered list of points. The ordered list, often referred to as the connectivity list, combined with the type specification, implicitly defines the topology of the cell. The x-y-z point coordinates define the cell geometry.
+A dataset consists of one or more cells (**Figure 5-2** and **Figure 5-4**). Cells are the fundamental building blocks of visualization systems. Cells are defined by specifying a _type_ in combination with an ordered list of points. The ordered list, often referred to as the _connectivity list_, combined with the type specification, implicitly defines the topology of the cell. The _x-y-z_ point coordinates define the cell geometry.
 
 **Figure 5-3** shows one cell type, a hexahedron. The ordered list is a sequence of point ids that index into a point coordinate list. The topology of this cell is implicitly known: we know that (8,10) is one of the 12 edges of the hexahedron, and that (8,10,22,21) is one of its six faces.
 
-Mathematically, we represent a cell by the symbol $C_i$. Then the cell is an ordered set of points $C_1 = {p_1, p_2,..., p_n}$ with $p_i \in P$ is a set of n-dimensional points (here $n=3$). The number of points using the cell is the _size_ of the cell.
-$U(p_i) is the collection of all cells using $p_i$:
+Mathematically, we represent a cell by the symbol $C_i$. Then the cell is an ordered set of points $C_1 = {p_1, p_2,..., p_n}$ with $p_i \in P$ is a set of _n_-dimensional points (here $n=3$). The number of points _n_ using the cell is the _size_ of the cell.
+$U(p_i)$ is the collection of all cells using $p_i$:
 
 $$
 U(p_i) = {C_i:p_i \in C_i}
@@ -85,7 +89,7 @@ $$
 <afigcaption style="color:blue"><b>Figure 5-3</b>. Example of a hexahedron cell. The topology is implicitly defined by the ordering of the point list. Physical generation of an image.</figcaption>
 </figure>
 
-The importance of “uses” and “use sets” will become evident in Chapter 8 when we explore the topology of datasets.
+The importance of “uses” and “use sets” will become evident in [Chapter 8](/vtkBook/08Chapter8) when we explore the topology of datasets.
 
 Although we define points in three dimensions, cells may vary in topological dimension. Vertices, lines, triangles, and tetrahedron are examples of topologically 0, 1, 2, and 3-D cells, respectively, embedded in three-dimensional geometric space. Cells can also be primary or composite. Composite cells consist of one or more primary cells, while primary cells cannot be decomposed into combinations of other primary cell types. A triangle strip, for example, consists of one or more triangles arranged in compact form. The triangle strip is a composite cell because it can be broken down into triangles, which are primary cells.
 
@@ -93,7 +97,7 @@ Certainly there are an infinite variety of possible cell types. In the _Visualiz
 
 **Linear Cells**
 
-Linear cells are characterized by linear or constant interpolation functions (see “Interpolation Functions” on page 269 for more information). As a result, cells of dimension one or greater are characterized by straight edges. Thus any edge may be characterized by two vertex id’s (v1,v2). The following are the linear cells currently found in VTK.
+Linear cells are characterized by linear or constant interpolation functions (see “Interpolation Functions” on page 269 for more information). As a result, cells of dimension one or greater are characterized by straight edges. Thus any edge may be characterized by two vertex id’s $(v_1,v_2)$. The following are the linear cells currently found in VTK.
 
 **Vertex.** The vertex is a primary zero-dimensional cell. It is defined by a single point.
 
@@ -101,27 +105,29 @@ Linear cells are characterized by linear or constant interpolation functions (se
 
 **Line.** The line is a primary one-dimensional cell. It is defined by two points. The direction along the line is from the first point to the second point.
 
-**Polyline.** The polyline is a composite one-dimensional cell consisting of one or more connected lines. The polyline is defined by an ordered list of n+1 points, where n is the number of lines in the polyline. Each pair of points (i, i+1) defines a line.
+**Polyline.** The polyline is a composite one-dimensional cell consisting of one or more connected lines. The polyline is defined by an ordered list of _n+1_ points, where n is the number of lines in the polyline. Each pair of points _(i, i+1)_ defines a line.
 
 **Triangle.** The triangle is a primary two-dimensional cell. The triangle is defined by a counterclockwise ordered list of three points. The order of the points specifies the direction of the surface normal using the right-hand rule.
 
-**Triangle Strip.** The triangle strip is a composite two-dimensional cell consisting of one or more triangles. The points defining the triangle strip need not lie in a plane. The triangle strip is defined by an ordered list of n+2 points, where n is the number of triangles. The ordering of the points is such thateachsetofthreepoints (i,i+1,i+2) with 0≤i≤n definesatriangle.
+**Triangle Strip.** The triangle strip is a composite two-dimensional cell consisting of one or more triangles. The points defining the triangle strip need not lie in a plane. The triangle strip is defined by an ordered list of _n+2_ points, where _n_ is the number of triangles. The ordering of the points is such that each set of three points _(i,i+1,i+2_) with $0 \leq i \leq n$ defines a triangle.
 
-**Quadrilateral.** The quadrilateral is a primary two-dimensional cell. It is defined by an ordered list of four points lying in a plane. The quadrilateral is convex and its edges must not intersect. The points are ordered counterclockwise around the quadrilateral, defining a surface normal using the right-hand rule. Pixel. The pixel is a primary two-dimensional cell defined by an ordered list of four points. The cell is topologically equivalent to the quadrilateral with the addition of geometric constraints. Each edge of the pixel is perpendicular to its adjacent edges, and lies parallel to one of the coordinate axes x-y-z. Hence, the normal to the pixel is also parallel to one of the coordinate axes.
+**Quadrilateral.** The quadrilateral is a primary two-dimensional cell. It is defined by an ordered list of four points lying in a plane. The quadrilateral is convex and its edges must not intersect. The points are ordered counterclockwise around the quadrilateral, defining a surface normal using the right-hand rule.
 
-The ordering of the points defining the pixel is different from the quadrilateral cell. The points are ordered in the direction of increasing axis coordinate, starting with x, then y, then z. The pixel is a special case of the quadrilateral and is used to improve computational performance.
+**Pixel.** The pixel is a primary two-dimensional cell defined by an ordered list of four points. The cell is topologically equivalent to the quadrilateral with the addition of geometric constraints. Each edge of the pixel is perpendicular to its adjacent edges, and lies parallel to one of the coordinate axes _x-y-z_. Hence, the normal to the pixel is also parallel to one of the coordinate axes.
+
+The ordering of the points defining the pixel is different from the quadrilateral cell. The points are ordered in the direction of increasing axis coordinate, starting with _x_, then _y_, then _z_. The pixel is a special case of the quadrilateral and is used to improve computational performance.
 
 One important note is that the definition of the pixel cell given here is different from the usual definition for a pixel. Normally pixels are thought of as constant-valued “picture-elements” in an image (see “Graphics Hardware” on page 51). The definition given here implies that four pictureelements form the four corner points of the pixel cell. We normally use the term pixel to describe a pixel cell, but the meaning of the term will vary depending on context.
 
 **Polygon.** The polygon is a primary two-dimensional cell. The polygon is defined by an ordered list of three or more points lying in a plane. The polygon normal is implicitly defined by a counterclockwise ordering of its points using the right-hand rule.
 
-The polygon may be nonconvex, but may not have internal loops, and it cannot self-intersect. The polygon has n edges, where n is the number of points in the polygon.
+The polygon may be nonconvex, but may not have internal loops, and it cannot self-intersect. The polygon has _n_ edges, where _n_ is the number of points in the polygon.
 
 **Tetrahedron.** The tetrahedron is a primary three-dimensional cell. The tetrahedron is defined by a list of four nonplanar points. The tetrahedron has six edges and four triangular faces as shown in **Figure 5-2**.
 
 **Hexahedron.** The hexahedron is a primary three-dimensional cell consisting of six quadrilateral faces, twelve edges, and eight vertices. The hexahedron is defined by an ordered list of eight points as shown in **Figure 5-2**. The faces and edges must not intersect any other faces and edges, and the hexahedron must be convex.
 
-**Voxel.** The voxel is a primary three-dimensional cell. The voxel is topologically equivalent to the hexahedron with additional geometric constraints. Each face of the voxel is perpendicular to one of the coordinate x-y-z axes. The defining point list is ordered in the direction of increasing coordinate value as shown in **Figure 5-2**. The voxel is a special case of the hexahedron and is used to improve computational performance.
+**Voxel.** The voxel is a primary three-dimensional cell. The voxel is topologically equivalent to the hexahedron with additional geometric constraints. Each face of the voxel is perpendicular to one of the coordinate _x-y-z_ axes. The defining point list is ordered in the direction of increasing coordinate value as shown in **Figure 5-2**. The voxel is a special case of the hexahedron and is used to improve computational performance.
 
 Similar to pixels, our definition of a voxel cell differs from the conventional definition of the term voxel. Typically, a voxel is referred to as a constant-valued “volume element”. Using our definition, eight volume elements form the eight corner points of the voxel cell. We normally use the term voxel to describe a voxel cell, but the meaning of the term will vary depending on the context.
 
@@ -135,7 +141,7 @@ Similar to pixels, our definition of a voxel cell differs from the conventional 
 
 **NonLinear Types**
 
-It is common in numerical analysis to use nonlinear cells, i.e., cell formulations that use nonlinear basis functions. These basis functions are generally formed by combinations of polynomials. Nonlinear cells provide more accurate interpolation functions (see “Interpolation Functions” on page 269) and better approximate curved geometry. However, the number of possible nonlinear basis functions is unlimited, which poses a combinatorial problem to any visualization system (i.e., it is not possible to implement all non-linear cell types). To address this problem, VTK takes a dual approach. First, VTK directly supports nonlinear cell types with quadratic interpolation functions(see **Figure 5-4**). Such cells are constructed by adding mid-edge nodes, and occasionally mid-face and interior nodes, requiring extending the connectivity list to reflect the addition of these extra entries. Second, VTK has a sophisticated cell adaptor framework, enabling users to interface any basis function to VTK as long as the basis function can be uniquely characterized in an r-s-t parametric coordinates system. (Note: we will describe the cell adaptor framework in more detail in Chapter 8.)
+It is common in numerical analysis to use nonlinear cells, i.e., cell formulations that use nonlinear basis functions. These basis functions are generally formed by combinations of polynomials. Nonlinear cells provide more accurate interpolation functions (see “Interpolation Functions” on page 269) and better approximate curved geometry. However, the number of possible nonlinear basis functions is unlimited, which poses a combinatorial problem to any visualization system (i.e., it is not possible to implement all non-linear cell types). To address this problem, VTK takes a dual approach. First, VTK directly supports nonlinear cell types with quadratic interpolation functions(see **Figure 5-4**). Such cells are constructed by adding mid-edge nodes, and occasionally mid-face and interior nodes, requiring extending the connectivity list to reflect the addition of these extra entries. Second, VTK has a sophisticated cell adaptor framework, enabling users to interface any basis function to VTK as long as the basis function can be uniquely characterized in an r-s-t parametric coordinates system. (Note: we will describe the cell adaptor framework in more detail in [Chapter 8](/VTKBook/08Chapter8).)
 
 <figure id="Figure 5-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-4.png?raw=true width="640" alt="Figure5-4">
@@ -149,7 +155,7 @@ One significant difference between linear and nonlinear cells is the way they ar
 
 2. Develop custom rendering and visualization algorithms to operate directly on nonlinearcells.
 
-3. Program custom rendering operations in the graphics library. These issues are active topics in visualization research <em style="color:blue;background-color: white">\[Schroeder05\]</em>. In VTK, tessellation methods are currently employed since once tessellated, a cell can be processed by existing linear algorithms. The difficulty with solutions 2) and 3) above is that the effort to create new rendering and visualization algorithms is significant, possibly requiring different solutions for each type of nonlinear cell. Furthermore, it is likely that the performance found in dedicated rendering hardware (e.g., processing linear cells) would far outstrip any software rendering solution for higher order cells. The difficulty with 1) above is that the tessellation must be performed carefully or unacceptable error can be introduced into visualization. Or, if the cell is over-tessellated, an excessive number of linear primitives will result. Future research points to developing adaptive methods that tessellate on a selected error metric (please see Chapter 8 for more information).
+3. Program custom rendering operations in the graphics library. These issues are active topics in visualization research <em style="color:blue;background-color: white">\[Schroeder05\]</em>. In VTK, tessellation methods are currently employed since once tessellated, a cell can be processed by existing linear algorithms. The difficulty with solutions 2) and 3) above is that the effort to create new rendering and visualization algorithms is significant, possibly requiring different solutions for each type of nonlinear cell. Furthermore, it is likely that the performance found in dedicated rendering hardware (e.g., processing linear cells) would far outstrip any software rendering solution for higher order cells. The difficulty with 1) above is that the tessellation must be performed carefully or unacceptable error can be introduced into visualization. Or, if the cell is over-tessellated, an excessive number of linear primitives will result. Future research points to developing adaptive methods that tessellate on a selected error metric (please see [Chapter 8](/VTKBook/08Chapter8) for more information).
  
 VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in **Figure 5-5**. This generally works well for quadratic cells due to the lower order of interpolation, and the few number of points defining the cell.
 
@@ -213,7 +219,7 @@ Normals are direction vectors: that is, they are vectors of magnitude |n|=1. Nor
 
 **Texture Coordinates** Texture coordinates are used to map a point from Cartesian space into a 1-, 2-, or 3-dimensional texture space. The texture space is usually referred to as a texture map. Texture maps are regular arrays of color, intensity, and/or transparency values that provide extra detail to rendered objects.
 
-One application of texturing in two dimensions is to “paste” a photograph onto one or more polygons, yielding a detailed image without a large number of graphics primitives. (Texture mapping is covered in more detail in Chapter 7.)
+One application of texturing in two dimensions is to “paste” a photograph onto one or more polygons, yielding a detailed image without a large number of graphics primitives. (Texture mapping is covered in more detail in [Chapter 7](/VTKBook/07Chapter7).)
 
 **Tensors**
 Tensors are complex mathematical generalizations of vectors and matrices. A tensor of rank k can be considered a k-dimensional table. A tensor of rank 0 is a scalar, rank 1 is a vector, rank 2 is a matrix, and a tensor of rank 3 is a three-dimensional rectangular array. Tensors of higher rank are kdimensional rectangular arrays.
@@ -226,9 +232,9 @@ A dataset consists of an organizing structure plus associated attribute data. Th
 A dataset is characterized according to whether its structure is regular or irregular. A dataset is regular if there is a single mathematical relationship within the composing points and cells. If the points are regular, then the geometry of the dataset is regular. If the topological relationship of cells is regular, then the topology of the dataset is regular. Regular (or structured) data can be implicitly represented, at great savings in memory and computation. Irregular (or unstructured) data must be explicitly represented, since there is no inherent pattern that can be compactly described. Unstructured data tends to be more general, but requires greater memory and computational resources.
 
 **Polygonal Data**
-We have already seen how graphics libraries are designed to render such geometric primitives as lines and polygons. These primitives also are frequently generated or consumed by computational geometry and visualization algorithms. In the _Visualization Toolkit_, we call this collection of graphics primitives polygonal data. The polygonal dataset consists of vertices, polyvertices, lines, polylines, polygons, and triangle strips. The topology and geometry of polygonal data is unstructured, and the cells that compose that dataset vary in topological dimension. The polygonal dataset forms a bridge between data, algorithms, and high-speed computer graphics.
+We have already seen how graphics libraries are designed to render such geometric primitives as lines and polygons. These primitives also are frequently generated or consumed by computational geometry and visualization algorithms. In the _Visualization Toolkit_, we call this collection of graphics primitives _polygonal data_. The polygonal dataset consists of vertices, polyvertices, lines, polylines, polygons, and triangle strips. The topology and geometry of polygonal data is unstructured, and the cells that compose that dataset vary in topological dimension. The polygonal dataset forms a bridge between data, algorithms, and high-speed computer graphics.
 
-Vertices, lines, and polygons form a minimal set of primitives to represent 0-, 1-, and 2-dimensional geometry. We have included polyvertex, polyline, and triangle strip cells for convenience, compactness, and performance. Triangle strips in particular are high-performing primitives. To represent n triangles with a triangle strip requires just n+2 points, compared to the 3n points for conventional representations. In addition, many graphics libraries can render triangle strips at higher speeds than triangle polygons.
+Vertices, lines, and polygons form a minimal set of primitives to represent 0-, 1-, and 2-dimensional geometry. We have included polyvertex, polyline, and triangle strip cells for convenience, compactness, and performance. Triangle strips in particular are high-performing primitives. To represent _n_ triangles with a triangle strip requires just _n+2_ points, compared to the _3n_ points for conventional representations. In addition, many graphics libraries can render triangle strips at higher speeds than triangle polygons.
 
 <figure id="Figure 5-7">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-7.png?raw=true width="640" alt="Figure5-7">
@@ -240,9 +246,9 @@ Our minimal selection of cells is based on common application and performance, r
 
 **<em id="Chapter 5 Image Data">Image Data</em>**
 
-An image dataset is a collection of points and cells arranged on a regular, rectangular lattice. The rows, columns, and planes of the lattice are parallel to the global x-y-z coordinate system. If the points and cells are arranged on a plane (i.e., two-dimensional) the dataset is referred to as a pixmap, bitmap, or image. If the points and cells are arranged as stacked planes (i.e., three-dimensional) the dataset is referred to as a volume. Keep in mind that the term image data refers to images, volumes, or one-dimensional point arrays collectively. Note that some authors have referred to image data as uniform grids and structured points. (Structured points was the terminology used in earlier versions of VTK.)
+An image dataset is a collection of points and cells arranged on a regular, rectangular lattice. The rows, columns, and planes of the lattice are parallel to the global _x-y-z_ coordinate system. If the points and cells are arranged on a plane (i.e., two-dimensional) the dataset is referred to as a pixmap, bitmap, or image. If the points and cells are arranged as stacked planes (i.e., three-dimensional) the dataset is referred to as a volume. Keep in mind that the term image data refers to images, volumes, or one-dimensional point arrays collectively. Note that some authors have referred to image data as uniform grids and structured points. (Structured points was the terminology used in earlier versions of VTK.)
 
-Image data consist of line elements (1D), pixels (2D), or voxels (3D). Image data is regular in both geometry and topology and can be implicitly represented. The representational scheme requires only data dimensions, an origin point, and the data spacing. The dimension of the data is a 3-vector ($n_x,n_y,n_z)$) , specifying the number of points in the $x$, $y$, and $z$ directions. The origin point is the position in three-dimensional space of the minimum $x-y-z$ point. Each pixel (2D) or voxel (3D) in a image dataset is identical in shape, the spacing specifying the length in the $x-y-z$ directions.
+Image data consist of line elements (1D), pixels (2D), or voxels (3D). Image data is regular in both geometry and topology and can be implicitly represented. The representational scheme requires only data dimensions, an origin point, and the data spacing. The dimension of the data is a 3-vector ($n_x,n_y,n_z)$), specifying the number of points in the $x$, $y$, and $z$ directions. The origin point is the position in three-dimensional space of the minimum _x-y-z_ point. Each pixel (2D) or voxel (3D) in a image dataset is identical in shape, the spacing specifying the length in the _x-y-z_ directions.
 
 The regular nature of the topology and geometry of the image dataset suggests a natural $i-j-k$ coordinate system. The number of points in the dataset is $n_x \times n_y \times n_z$ while the number of cells is $(n_x – 1) \times (n_y – 1) \times (n_z – 1)$. A particular point or cell can be selected by specifying the three indices $i-j-k$. Similarly, a line is defined by specifying two out of three indices, and a plane by specifying a single index.
 
@@ -252,7 +258,7 @@ Image datasets are often used in imaging and computer graphics. Volumes are freq
 
 **Rectilinear Grid**
 
-The rectilinear grid dataset is a collection of points and cells arranged on a regular lattice. The rows, columns, and planes of the lattice are parallel to the global $x-y-z$ coordinate system. While the topology of the dataset is regular, the geometry is only partially regular. That is, the points are aligned along the coordinate axis, but the spacing between points may vary.
+The rectilinear grid dataset is a collection of points and cells arranged on a regular lattice. The rows, columns, and planes of the lattice are parallel to the global _x-y-z_ coordinate system. While the topology of the dataset is regular, the geometry is only partially regular. That is, the points are aligned along the coordinate axis, but the spacing between points may vary.
 
 Like the image dataset, rectilinear grids consist of pixels (2D) or voxels (3D). The topology is represented implicitly by specifying grid dimensions. The geometry is represented by maintaining a list of separate x, y, and z coordinates. To obtain the coordinates of a particular point, values from each of the three lists must be appropriately combined.
 
@@ -334,9 +340,10 @@ The class vtkFloatArray is an example of a contiguous array. We will use this cl
 
 **The Tuple Abstraction**
 
-Many visualization data are defined by multiple component values. An x-y-z coordinate triplet or RGBA color pixel value are two such examples. To represent such data in a contiguous data array, the tuple data abstraction is introduced. As **Figure 5-8** illustrates, the contiguous array is grouped into smaller subarrays with NumberOfComponents components. These subarrays are called tuples, and for a given array the tuple size, or NumberOfComponents, is constant for all tuples as shown in **Figure 5-9**.
+Many visualization data are defined by multiple component values. An _x-y-z_ coordinate triplet or RGBA color pixel value are two such examples. To represent such data in a contiguous data array, the tuple data abstraction is introduced. As **Figure 5-8** illustrates, the contiguous array is grouped into smaller subarrays with NumberOfComponents components. These subarrays are called tuples, and for a given array the tuple size, or NumberOfComponents, is constant for all tuples as shown in **Figure 5-9**.
 
 **Representing Data With Data Arrays**
+
 Attribute data and points, as well as several other data objects, are represented with data arrays in VTK. Certain attribute data, such as points, vectors, normals, and tensors, are required to have a tuple size consistent with their definition. For example, points, vectors and normals require a data array with a tuple size of three; tensors a tuple size of nine (i.e., a 3 × 3 matrix). Scalars do not place any requirement on the tuple size. Algorithms that process such scalar data generally operate on the first component of each tuple. (Filters exist in VTK to split multi-component data arrays into separate arrays, and to combine separate data arrays into a single array. See vtkSplitField and vtkMergeFields.)
 
 <figure id="Figure 5-9">
@@ -376,7 +383,6 @@ switch (outData->GetScalarType())
     break;
 
     ...for all types.....
-
 ```
 
 <figure id="Figure 5-11">
@@ -405,7 +411,7 @@ There is an implicit ordering of both the points and cells composing vtkImageDat
 
 *&#118;tkRectilinearGrid.* While the topology of vtkRectilinearGrid is regular, the geometry can be described as “semi-regular.” The topology is implicitly represented by specifying data dimensions along the x, y, and z coordinate axes. The geometry is defined using three arrays of coordinate values along these axes. These three coordinate arrays can be combined to determine the coordinates of any point in the dataset. In VTK, we represent the arrays using three instances of vtkDataArray. The numbering of points and cells is implicit in exactly the same way as described for vtkImageData.
 
-**&#118;tkStructuredGrid.** Like vtkImageData, the topology of vtkStructuredGrid is regular and is defined by specifying dimensions in the topological i-j-k coordinate system. However, the geometry of vtkStructuredGrid is realized by specifying point coordinates in the global x-y-z coordinate system.
+**&#118;tkStructuredGrid.** Like vtkImageData, the topology of vtkStructuredGrid is regular and is defined by specifying dimensions in the topological i-j-k coordinate system. However, the geometry of vtkStructuredGrid is realized by specifying point coordinates in the global _x-y-z_ coordinate system.
 
 The abstract data class vtkPoints is used to represent the point coordinates. vtkPoints refers to an underlying instance of vtkDataArray which actually holds the representation of the points as a contiguous array of three-component tuples. A particular point coordinate may be retrieved or inserted by specifying a particular point id. The numbering of the points and cells is implicit in the same fashion as vtkImageData. Care must be taken to insure that the number of points in the data array is the same as that implied by the dimensions of the grid.
 
@@ -431,7 +437,7 @@ The vtkCellTypes is an array of supplemental information. For each cell, an inte
 
 Besides representing cell type, this design also enables random access to cells. Because the length of a cell connectivity list varies, the vtkCellArray class cannot locate a particular cell without traversing its data structure from the origin. With the added class vtkCellTypes, however, it is possible to directly access a cell with a single dereference (i.e., using the offset value).
 
-The vtkCellTypes may also be added to the vtkPolyData data representation — and indeed it has. However, our reasons for this addition are not to represent type explicitly, but rather to provide random access to the cells and enable many topological operations. We will expand on this idea in Chapter 8.
+The vtkCellTypes may also be added to the vtkPolyData data representation — and indeed it has. However, our reasons for this addition are not to represent type explicitly, but rather to provide random access to the cells and enable many topological operations. We will expand on this idea in [Chapter 8](/VTKBook/08Chapter8).
 
 **Object Model.** The five datasets are implemented as shown in **Figure 5-14**. As this object diagram illustrates, these concrete datasets are subclasses of the abstract class vtkDataSet. Two additional classes are introduced as well. The class vtkStructuredData contributes instance variables and methods for structured data. vtkStructuredData is not in an inheritance relationship with the datasets; rather the structured datasets shown delegate to it in order to implement some of their methods. (This was done to avoid multiple inheritance.) Subclasses of the class vtkPointSet represent their points explicitly, that is, through an instance of vtkPoints or its subclasses. vtkPointSet provides methods and instance variables to manipulate the point data, as well as a general searching capability to find points and cells. (See “Searching” on page 297 for more information.)
 
@@ -453,6 +459,12 @@ The vtkCellTypes may also be added to the vtkPolyData data representation — an
 </figure>
 <figcaption style="color:blue"><b>Figure 5-15</b>. Object diagram for twenty concrete cell types in VTK. &#118;tkEmptyCell represents NULL cells. &#118;tkGenericCell can represent any type of cell. Three-dimensional cells are subclasses of &#118;tkCell3D. Higher order cells are subclasses of &#118;tkNonLinearCell.</figcaption>
 </figure>
+
+**Cell Representation**
+
+In the _Visualization Toolkit_ each cell type has been implemented by creating specific classes. Each cell is a subclass of the abstract type vtkCell. Cell topology is represented by a list of ordered point ids, and cell geometry is represented by a list of point coordinates. The object diagram for vtkCell and its subclasses is shown in **Figure 5-15**.
+
+The abstract class vtkCell specifies methods that each cell must implement. These methods provide a defined interface to the cell’s geometry and topology. Additional methods perform com- putation on the cell. These methods will be discussed in detail in [Chapter 8](/VTKBook/08Chapter8).
 
 **Data Attributes**
 
@@ -490,7 +502,7 @@ Creation of datasets is a two step process. First the geometry and topology of t
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/GeometricObjects/TestCube.png?raw=true width="640" alt="Figure 5-17">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-17</b>. Creation of polygonal cube. <a href="../../Cxx/GeometricObjects/Cube" title="Cube"> See Cube.cxx</a> and <a href="../../Python/GeometricObjects/Cube" title="Cube"> Cube.py</a>.</figcaption>
-</figure>
+attribue data.</figure>
 
 **Create a Polygonal Dataset.** In our first example we create a polygonal representation of a cube. The cube is defined by eight points and six quadrilateral faces. We also create eight scalar values associated with the eight vertices of the cube. **Figure 5-17** shows the key C++ code fragments used to create the data, and the resulting image.
 
@@ -508,7 +520,7 @@ Polygonal data supports the following cell types: vertices, polyvertices, lines,
 
 The most confusing aspect of this example is the Delete() method. To prevent memory leaks we must use a Delete() method (VTK’s destructor) after every New() method. It is apparent from the example that the instance’s points, polys, and scalars are referred to by another object (e.g., cube). So doesn’t invocation of the Delete() method pose a problem?
 
-The answer is no. Certain data objects in VTK are reference counted to conserve memory resources (i.e., subclasses of vtkObjectBase). That means they can be shared between objects. For most objects the Delete() will invoke the destructor. Reference counted objects act a little differently. The Delete() method simply decrements the reference count. This may or may not destroy the object depending on whether it is being used by another object. In this example the points, polys, and scalars are used by the polygonal dataset cube, so they are not deleted when Delete() is invoked. They will be freed once we free the dataset cube, that is, when their reference count drops to zero. (See the VTK User’s Guide for more information about memory management.)
+The answer is no. Certain data objects in VTK are reference counted to conserve memory resources (i.e., subclasses of vtkObjectBase). That means they can be shared between objects. For most objects the Delete() will invoke the destructor. Reference counted objects act a little differently. The Delete() method simply decrements the reference count. This may or may not destroy the object depending on whether it is being used by another object. In this example the points, polys, and scalars are used by the polygonal dataset cube, so they are not deleted when Delete() is invoked. They will be freed once we free the dataset cube, that is, when their reference count drops to zero. (See the _VTK User’s Guide_ for more information about memory management.)
 
 **Create an Image Data Dataset.** In this example, we create an image dataset (i.e., an instance of vtkImageData). The topology of the dataset is defined by specifying the data dimensions. The geometry is defined by the data spacing and origin. The spacing specifies the length, width, and height of each voxel. The origin specifies the position in 3D space of the “lower-left” corner of the data. In our example we set the origin and spacing of the dataset so that its center lies at the origin, and the bounds of the dataset are (-0.5,0.5, -0.5,0.5, -0.5,0.5).
 
@@ -533,7 +545,7 @@ $$
 
 with the radius R = 0.4. The scalar data is stored in an instance of vtkFloatArray and assigned to the point attribute data of the dataset.
 
-To complete this example, a contour filter is used to generate a surface of scalar value F(x, y, z) = 0. Note that this functionality (in a more general form) is available from the source object vtkSampleFunction in combination with vtkSphere. **Figure 5-18** shows the key C++ code fragment used to create the data and contour the scalar field, and the resulting image.
+To complete this example, a contour filter is used to generate a surface of scalar value $F(x, y, z) = 0$. Note that this functionality (in a more general form) is available from the source object vtkSampleFunction in combination with vtkSphere. **Figure 5-18** shows the key C++ code fragment used to create the data and contour the scalar field, and the resulting image.
 
 Image data datasets are easy to construct because both the geometry and topology are implicitly defined. If the name of the instance of vtkImageData is vol, we can summarize the steps to cre-ate the dataset as follows:
 
@@ -543,7 +555,7 @@ Image data datasets are easy to construct because both the geometry and topology
 
 3. Create point and/or attribute data and associate it with the dataset.
 
-You do not need to specify origin and data spacing. By default the data spacing is (1,1,1) in the x-y-z directions, and the origin is (0,0,0). Thus if the dimensions of the dataset are $(n_x \times n_y \times n_z)$ , the default length, width, and height of the dataset will be $(n_x – 1, n_y – 1, n_z – 1)$.
+You do not need to specify origin and data spacing. By default the data spacing is (1,1,1) in the _x-y-z_ directions, and the origin is (0,0,0). Thus if the dimensions of the dataset are $(n_x \times n_y \times n_z)$, the default length, width, and height of the dataset will be $(n_x – 1, n_y – 1, n_z – 1)$.
 
 The topological dimension of the dataset is implicitly known from its instance variables. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one (and the other two are greater than one), the topological dimension of the dataset is two.
 
@@ -566,7 +578,7 @@ $$
   <figcaption style="color:blue"><b>Figure 5-19</b>. Creating a structured grid dataset of a semicylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction.<a href="../../Cxx/StructuredGrid/SGrid" title="SGrid"> See SGrid.cxx</a> and <a href="../../Python/StructuredGrid/SGrid" title="SGrid"> SGrid.py</a>.</figcaption>
 </figure>
 
-We arbitrarily choose the number of points in the tangential direction to be thirteen, the number of points in the radial direction to be eleven, and the number of points in the axis direction to be eleven (i.e., dimensions are 13 × 11 × 11 ).
+We arbitrarily choose the number of points in the tangential direction to be thirteen, the number of points in the radial direction to be eleven, and the number of points in the axis direction to be eleven (i.e., dimensions are $13 \times 11 \times 11$).
 
 Vectors are generated tangential to the cylinder and of magnitude proportional to the radius. To display the data we draw small, oriented lines at each point as shown in **Figure 5-19**. (This technique is called a hedgehog. See “Hedgehogs and Oriented Glyphs” on page 173 for more information.)
 
@@ -578,7 +590,7 @@ The creation of a structured grid dataset is partially explicit and partially im
 
 3. Create point and/or cell attribute data and associate it with the dataset.The topological dimension of the dataset is implied by the specified dimensions. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one, the topological dimension of the dataset is two. If two of the three dimensions (nx, ny, nz) are equal to one, the topological dimension of the dataset is one.
 
-**Create a Rectilinear Grid Dataset.** A rectilinear grid is regular in topology and semi-regular in geometry. Similar to a structured grid or image data dataset, topology is implicitly represented by specifying grid dimensions. Because the grid is axis-aligned but the point coordinates along each axis may vary, we need three data arrays to represent the geometry of the dataset, one array for each of the x-y-z axes. Note that the cell types of the rectilinear dataset are pixels and voxels.
+**Create a Rectilinear Grid Dataset.** A rectilinear grid is regular in topology and semi-regular in geometry. Similar to a structured grid or image data dataset, topology is implicitly represented by specifying grid dimensions. Because the grid is axis-aligned but the point coordinates along each axis may vary, we need three data arrays to represent the geometry of the dataset, one array for each of the _x-y-z_ axes. Note that the cell types of the rectilinear dataset are pixels and voxels.
 
 <figure>
   <figure id="Figure 5-20">
@@ -594,7 +606,7 @@ For maximum flexibility when creating rectilinear grids, in VTK we use three vtk
 
 To summarize the process of creating an instance of vtkRectilinearGrid, we follow four steps. In this example (shown in **Figure 5-20**), we assume that the name of the vtkRectilinearGrid instance is rgrid.
 
-1. Create the dataset geometry by creating three instances of vtkDataArray, one for each of the $x-y-z$ coordinate axes. We will assume that the number of values in each scalar is $n_x$, $n_y$, and $n_z$.
+1. Create the dataset geometry by creating three instances of vtkDataArray, one for each of the _x-y-z_ coordinate axes. We will assume that the number of values in each scalar is $n_x$, $n_y$, and $n_z$.
 
 2. Each of the three instances is assigned to the x, y,and z axes using ther grid->SetXCoordinates(), rgrid->SetYCoordinates(), and rgrid->SetZCoordinates() methods, respectively.
 

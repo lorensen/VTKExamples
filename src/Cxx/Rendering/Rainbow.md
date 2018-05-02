@@ -9,3 +9,5 @@ First a simple pipeline that reads a vtkStructuredGrid and then extracts a plane
 !!! note
     This original tcl source code for this example is [here](https://gitlab.kitware.com/vtk/vtk/blob/395857190c8453508d283958383bc38c9c2999bf/Examples/Rendering/Tcl/rainbow.tcl).
 
+!!! info
+    See [Figure 6-3](/VTKBook/06Chapter6/#Figure%206-3) in [Chapter 6](/VTKBook/06Chapter6) the [VTK Textbook](/VTKBook/01Chapter1).

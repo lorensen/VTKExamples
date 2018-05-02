@@ -3,3 +3,6 @@ This example generates streamtubes of blood velocity. an isosurface of speed pro
 
 !!! cite
     See [*3D Phase Contrast MRI of Cerebral Blood Flow and Surface Anatomy*](http://marchingcubes.org/images/c/c6/3DPhaseContrastMRIofCerebralBloodFlowandSurfaceAnatomy.pdf) for background.
+
+!!! info
+    See [Figure 6-44](/VTKBook/06Chapter6/#Figure%206-44) in [Chapter 6](/VTKBook/06Chapter6) the [VTK Textbook](/VTKBook/01Chapter1).
