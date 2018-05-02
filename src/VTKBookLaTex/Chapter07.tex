@@ -840,10 +840,10 @@ The advantage of a constant view-up vector is that some objects have a natural s
 \section{3D Widgets and User Interaction}
 \label{sec:3D_widgets_user_interaction}
 
-Chapter 3: \nameref{chap:computer_graphics_primer} provided an introduction to interaction techniques for graphics (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{pg:rwi} ).
+Chapter 3: \nameref{chap:computer_graphics_primer} provided an introduction to interaction techniques for graphics (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:introducing_vtkRenderWindowInteractor} ).
 In the context of visualization, interaction is an essential feature of systems that provide methods for data exploration and query. The classes
 vtkRenderWindowInteractor and vtkInteractorStyle are core constructs used in VTK to capturewindowing-system specific events in the render window, translate them into VTK events, and then take action as appropriate to that event invocation.
-In Chapter 3: \nameref{chap:computer_graphics_primer} we saw how these classes could be used to manipulate the camera and actors to interactively produce a desired view. This functionality, however, is relatively limited in its ability to interact with data. For example, users often wish tointeractively control the positioning of streamline starting points, control the orientation of a clipping plane, or transform an actor. While using interpreted languages (see ``Interpreted Code'' on page \pageref{pg:rwi} ) can go a long way to provide this interaction, in some situations the ability to see what you are doing when placing objects is essential. Therefore, it is apparent that a variety of user interaction techniques is required by the visualization system if it is to successfully support real-world applications.
+In Chapter 3: \nameref{chap:computer_graphics_primer} we saw how these classes could be used to manipulate the camera and actors to interactively produce a desired view. This functionality, however, is relatively limited in its ability to interact with data. For example, users often wish tointeractively control the positioning of streamline starting points, control the orientation of a clipping plane, or transform an actor. While using interpreted languages (see ``Interpreted Code'' on page \pageref{subsec:interpreted_code} ) can go a long way to provide this interaction, in some situations the ability to see what you are doing when placing objects is essential. Therefore, it is apparent that a variety of user interaction techniques is required by the visualization system if it is to successfully support real-world applications.
 
 \begin{figure}[!htb]
 	\centering
@@ -932,8 +932,290 @@ It is the implementation of 3D widgets, that is, what they can do with the event
 
 The key to widget design is careful implementation of intuitive, simple user interaction techniques. For example, the end points on the vtkLineWidget (represented as small spheres) can be selected and dragged to a new position. The vtkLineWidget supports the modifier "Shift" key to lock motion of the end points along the coordinate \emph{x--y--z} axes. The initial direction of motion is used to determine which of the axes the user is moving the end point along. Such attention to detail is essential to successful widget design and will continue to change as the technology evolves in the future.
 
-
 \section{Putting It All Together}
+
+This chapter has covered a wide variety of topics. In this section we demonstrate applications of each topic to some simple problems.
+
+\subsection{Texture Mapping}
+
+\begin{minipage}[b]{0.5\linewidth}
+	The following listing shows the complete source code for a simple texture mapping example the resultant image is shown in Figure \ref{fig:Figure7-33}. You will notice that most of the code is similar to what we used in the preceding examples. The key step here is the creation of a vtkTexture object. This object interfaces between its data input and the texture mapping functions of the graphics library.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.4\linewidth}
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure7-33}
+	\captionof{figure}{Example of texture mapping.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TexturePlane/}{TexturePlane.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TexturePlane/}{TexturePlane.py})}
+	\label{fig:Figure7-33}
+\end{minipage}
+
+\begin{lstlisting}[language=TCL, caption={Example of texture mapping.}]
+vtkBMPReader bmpReader
+  bmpReader SetFileName "$VTK_DATA_ROOT/Data/masonry.bmp"
+
+vtkTexture atext
+  atext SetInputConnection [bmpReader GetOutputPort]
+  atext InterpolateOn
+
+vtkPlaneSource plane
+vtkPolyDataMapper planeMapper
+  planeMapper SetInputConnection [plane GetOutputPort]
+vtkActor planeActor
+  planeActor SetMapper planeMapper
+  planeActor SetTexture atext
+
+vtkRenderer ren1
+  vtkRenderWindow renWin
+  renWin AddRenderer ren1
+
+vtkRenderWindowInteractor iren
+  iren SetRenderWindow renWin
+
+#   Add the actors to the renderer
+  ren1 AddActor planeActor
+\end{lstlisting}
+
+One interesting note regarding the vtkTexture object. Instances of this class are mappers that have an Input instance variable that is updated during each render. The input type is a vtkImageData dataset type. Thus, a visualization pipeline can be constructed to read, process, and/or generate the texture map. This includes using the object vtkRendererSource , which converts the renderer's image into an image data dataset. The input texture map can be either 2D (a pixmap) or 3D (a volume).
+
+A few words of warning when using textures. Some renderers only support 2D texture, or may not support alpha textures. Also, many rendering systems require that each dimension of the image dataset is an exact power of two. In VTK, non-power of two textures are automatically converted to power of two at the expense of extra computation.
+
+\subsection{Volume Rendering}
+
+\begin{wrapfigure}{R}{0.4\textwidth}
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure7-34}
+	\caption{Volume rendering of a high potential iron protein.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VolumeRendering/SimpleRayCast/}{SimpleRayCast.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/VolumeRendering/SimpleRayCast/}{SimpleRayCast.py})}
+	\label{fig:Figure7-34}
+\end{wrapfigure}
+
+This example focuses on volume rendering. The source code corresponding to example Figure \ref{fig:Figure7-34} is shown below and begins by creating the usual objects. Then we use a vtkStructuredPointsReader to read in a volume dataset for a high potential iron protein. We create a vtkPiecewiseFunction object to map the scalar values in the volume dataset to opacity, and a vtkColorTransferFunction object to map the scalar values to color. These two transfer functions are referenced from the vtkVolumeProperty object. In addition, we use the ShadeOn() method of vtkVolumeProperty to enable shading for this volume, and the SetInterpolationTypeToLinear() method to request trilinear interpolation. Since we are using a ray casting approach, we need to create a ray function. In this example we use a vtkVolumeRayCastCompositeFunction object for this purpose. The output of the reader is given to the vtkVolumeRayCastMapper as the scalar input, and the SetVolumeRayCastFunction() method is used to assign the ray function. The vtkVolume object is quite similar to a vtkActor, and the SetVolumeMapper() and SetVolumeProperty() methods are used just like the SetMapper() and SetProperty() methods of vtkActor. Finally, we add this volume to the renderer, adjust the camera, set the desired image update rate and start the interactor.
+
+\begin{lstlisting}[language=TCL, caption={Volume rendering of a high potential iron protein.}]
+#  Create the standard renderer, render window and interactor
+vtkRenderer ren1
+vtkRenderWindow renWin
+  renWin AddRenderer ren1
+vtkRenderWindowInteractor iren
+  iren SetRenderWindow renWin
+
+#  Create the reader for the data
+vtkStructuredPointsReader reader
+reader SetFileName "$VTK_DATA_ROOT/Data/ironProt.vtk"
+
+#  Create transfer mapping scalar value to opacity
+vtkPiecewiseFunction opacityTransferFunction
+  opacityTransferFunction AddPoint 20 0.0
+  opacityTransferFunction AddPoint 255 0.2
+
+#  Create transfer mapping scalar value to color
+vtkColorTransferFunction colorTransferFunction
+  colorTransferFunction AddRGBPoint 0.0 0.0 0.0 0.0
+  colorTransferFunction AddRGBPoint 64.0 1.0 0.0 0.0
+  colorTransferFunction AddRGBPoint 128.0 0.0 0.0 1.0
+  colorTransferFunction AddRGBPoint 192.0 0.0 1.0 0.0
+  colorTransferFunction AddRGBPoint 255.0 0.0 0.2 0.0
+
+#  The property describes how the data will look
+vtkVolumeProperty volumeProperty
+  volumeProperty SetColor colorTransferFunction
+  volumeProperty SetScalarOpacity opacityTransferFunction
+  volumeProperty ShadeOn
+  volumeProperty SetInterpolationTypeToLinear
+
+#  The mapper / ray cast function know how to render the data
+vtkVolumeRayCastCompositeFunction compositeFunction
+vtkVolumeRayCastMapper volumeMapper
+  volumeMapper SetVolumeRayCastFunction compositeFunction
+  volumeMapper SetInputConnection [reader GetOutputPort]
+
+#  Set the mapper and the property and
+vtkVolume volume
+  volume SetMapper volumeMapper
+  volume SetProperty volumeProperty
+
+  ren1 AddVolume volume
+  renWin Render
+\end{lstlisting}
+
+To produce a maximum intensity projection in Figure \ref{fig:Figure7-34}, we would simply change the type of the ray function to a vtkVolumeRayCastMIPFunction. We could also produce a surface image using a vtkVolumeRayCastIsosurfaceFunction where the IsoValue instance variable would be set to define the surface.
+
+
+\subsection{Red-Blue Stereo}
+
+\begin{minipage}[b]{0.5\linewidth}
+	In our first example, we will be looking at using red-blue stereo rendering. We start off with the example shown in Figure \ref{fig:Figure7-35}, which renders something akin to a mace. Then, in Figure \ref{fig:Figure7-35} we add in red-blue stereo rendering by adding two lines near the bottom that invoke the StereoRenderOn() and SetStereoType() methods. Once these two methods have been invoked, further rendering will be done in stereo. The picture in the upper right corner displays a grayscale version of the resulting image.
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.4\linewidth}
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure7-35}
+	\captionof{figure}{An example of red-blue stereo rendering. (Mace3.cxx)}
+	\label{fig:Figure7-35}
+\end{minipage}
+
+\begin{lstlisting}[language=C++, caption={An example of red-blue stereo rendering.}]
+vtkRenderer *ren1 = vtkRenderer::New();
+vtkRenderWindow *renWin = vtkRenderWindow::New();
+  renWin->AddRenderer(ren1);
+vtkRenderWindowInteractor *iren = vtkRenderWindowInteractor::New();
+  iren->SetRenderWindow(renWin);
+
+//   create the pipline, ball and spikes
+vtkSphereSource *sphere = vtkSphereSource::New();
+  sphere->SetThetaResolution(7);
+  sphere->SetPhiResolution(7);
+vtkPolyDataMapper *sphereMapper = vtkPolyDataMapper::New();
+  sphereMapper->SetInputConnection(sphere->GetOutputPort());
+vtkActor*sphereActor = vtkActor::New();
+  sphereActor->SetMapper(sphereMapper);
+
+vtkConeSource *cone = vtkConeSource::New();
+  cone->SetResolution(5);
+vtkGlyph3D *glyph = vtkGlyph3D::New();
+  glyph->SetInputConnection(sphere->GetOutputPort());
+  glyph->SetSourceConnection(cone->GetOutputPort());
+  glyph->SetVectorModeToUseNormal();
+  glyph->SetScaleModeToScaleByVector(); glyph->SetScaleFactor(0.25);
+vtkPolyDataMapper *spikeMapper = vtkPolyDataMapper::New();
+  spikeMapper->SetInputConnection(glyph->GetOutputPort());
+vtkActor *spikeActor = vtkActor::New();
+  spikeActor->SetMapper(spikeMapper);
+
+  ren1->AddActor(sphereActor);
+  ren1->AddActor(spikeActor);
+  ren1->SetBackground(0.2,0.3,0.4);
+  renWin->SetSize(300,300);
+
+  renWin->Render();
+  ren1->GetActiveCamera()->Zoom(1.4);
+  renWin->StereoRenderOn();
+  renWin->SetStereoTypeToRedBlue();
+  renWin->Render();
+\end{lstlisting}
+
+\subsection{Motion Blur}
+
+\begin{minipage}[b]{0.5\linewidth}
+	In our second example, we show how to simulate motion blur using the \emph{Visualization Toolkit}. As shown in Figure \ref{fig:Figure7-36}, we begin with our previous example. We then remove the two lines controlling stereo rendering and add a few lines to create another mace. We position the first mace in the top of the rendering window and the second mace at the bottom. We then use the SetSubFrames() method to start performing subframe accumulation. Here, we will perform 21 renders to produce the final image. For motion blur to be noticeable, something must be moving, so we set up a loop to rotate the bottom mace by two degrees between each subframe. Over the 21 subframes it will rotate 40 degrees from its initial position. It is important to remember that the resulting image is not displayed until the required number of subframes have been rendered.
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.4\linewidth}
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure7-36}
+	\captionof{figure}{Example of motion blur.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/MotionBlur/}{MotionBlur.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/MotionBlur/}{MotionBlur.py})}
+	\label{fig:Figure7-36}
+\end{minipage}
+
+\begin{lstlisting}[language=C++, caption={An example of motion blur.}]
+//changes and additions to the
+// preceding example's source
+vtkActor *spikeActor2 = vtkActor::New();
+  spikeActor2->SetMapper(spikeMapper);
+  spikeActor2->SetPosition(0,-0.7,0);
+  sphereActor2->SetPosition(0,-0.7,0);
+
+  ren1->AddActor(sphereActor2);
+  ren1->AddActor(spikeActor2);
+
+// zoom in a little
+  ren1->GetActiveCamera()->Zoom(1.5);
+  renWin->SetSubFrames(21);
+
+  for (i = 0; i <= 1.0; i = i + 0.05)
+    {
+    spikeActor2->RotateY(2);
+    sphereActor2->RotateY(2);
+    renWin->Render();
+    }
+
+  iren->Start();
+\end{lstlisting}
+
+\subsection{Focal Depth}
+
+\begin{minipage}[b]{0.5\linewidth}
+	Now we will change the previous example to illustrate focal depth. First, we change the position of the bottom mace, moving it farther away from us. Since it is farther away it will appear smaller, so we scale it by a factor of two to maintain reasonable image size. We then remove the code for rendering the subframes and instead set the number of frames for focal depth rendering. We also set the camera's focal point and focal disk to appropriate values. The resulting image and the required changes to the source code are shown in Figure \ref{fig:Figure7-37} and the following listing.
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.4\linewidth}
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure7-37}
+	\captionof{figure}{Example of a scene rendered with focal depth.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/CameraBlur/}{CameraBlur.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/CameraBlur/}{CameraBlur.py})}
+	\label{fig:Figure7-37}
+\end{minipage}
+
+\begin{lstlisting}[language=C++, caption={An example of a scene rendered with focal depth.}]
+// changes to the preceding example
+
+// set the actors position and scale spikeActor->SetPosition(0,0.7,0);
+  sphereActor->SetPosition(0,0.7,0);
+  spikeActor2->SetPosition(0,-1,-10);
+  sphereActor2->SetPosition(0,-1,-10);
+  spikeActor2->SetScale(1.5,1.5,1.5);
+  sphereActor2->SetScale(1.5,1.5,1.5);
+
+// zoom in a little
+  ren1->GetActiveCamera()->SetFocalPoint(0,0,0);
+  ren1->GetActiveCamera()->Zoom(1.8);
+  ren1->GetActiveCamera()->SetFocalDisk(0.05);
+  renWin->Render();
+  iren->Start();}
+\end{lstlisting}
+
+\subsection{vtkLineWidget}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Figure7-38}\\
+	\caption{Partial class hierarchy for 3D widgets. Each 3D widget observes a particular vtkRenderWindow similar to vtkInteractorStyle. Unlike the vtkInteractorStyle which is used to manipulate the camera, 3D widgets have a representation in the scene that can be directly manipulated. More than one vtkInteractorObserver can watch a vtkRenderWindow at a given time, so classes like vtkInteractorEventRecorder can record an event and pass them on to the next vtkInteractorObserver observing the vtkRenderWindow.}\label{fig:Figure7-38}
+\end{figure}
+
+There are a variety of 3D widgets in VTK all of which function in a similar fashion. 3D widgets are a subclass of vtkInteractorObserver meaning that they are associated with a vtkRenderWindow and observe events in the render window (). (Note: vtkInteractorStyle --- see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:introducing_vtkRenderWindowInteractor} --- is also a subclass of vtkInteractorObserver. The interactor style differs from a 3D widget in that it does not have a representation in the scene.) 
+
+The following example  shows the general approach to using a 3D widget using vtkLineWidget as an example (Figure \ref{fig:Figure7-39}). First the widget is instantiated and then placed. Placing means positioning, scaling, and orienting the widget consistent with the object on which they operate. By default, widgets are enabled with a ``keypress-i'' event, but the specific event to enable the widget can be modified.
+
+\begin{wrapfigure}{R}{0.4\textwidth}
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figure7-39}
+	\caption{Using the vtkLineWidget to produce streamtubes in the combustor dataset. The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/StreamlinesWithLineWidget/}{StreamlinesWithLineWidget.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/PythonVisualizationAlgorithms/StreamlinesWithLineWidget/}{StreamlinesWithLineWidget.py})}
+	\label{fig:Figure7-39}
+\end{wrapfigure}
+
+
+The widget interfaces with the application through the command/observer event handling mechanism (see ``Events and Observers'' on page \pageref{sub:events_observers}). 3D widgets invoke several events, the most important being the StartInteractionEvent, InteractionEvent, and EndInteractionEvent. These events are typically invoked, for example, on mouse down, mouse move, and mouse up, respectively. In the example shown here, Tcl procedures are tied to the StartInteractionEvent and InteractionEvent using the AddObserver() method to produce streamlines as the widget is manipulated. Note that the streamline is seeded with a polygonal dataset each time an InteractionEvent is invoked using the GetPolyData() method. The pipeline update mechanism then automatically executes on the next render since the input to the
+streamline is modified.
+
+\clearpage
+
+\begin{lstlisting}[language=TCL, caption={An example of using vtkLineWidget to produce sreamlines.}]
+vtkRungeKutta4 rk4
+vtkPolyData seeds
+vtkStreamTracer streamer
+  streamer SetInputConnection [reader GetOutputPort]
+  streamer SetSource seeds
+
+vtkRenderWindowInteractor iren
+  iren SetRenderWindow renWin
+
+vtkLineWidget lineWidget
+  lineWidget SetInteractor iren
+  lineWidget SetInput [reader GetOutput]
+  lineWidget SetAlignToYAxis
+  lineWidget PlaceWidget
+  lineWidget GetPolyData seeds
+  lineWidget ClampToBoundsOn
+  lineWidget SetResolution 25
+  [lineWidget GetLineProperty] SetColor 0 0 0
+  lineWidget AddObserver StartInteractionEvent
+    BeginInteraction
+  lineWidget AddObserver InteractionEvent
+    GenerateStreamlines
+
+(skipping material...)
+
+proc BeginInteraction {} { streamline VisibilityOn }
+proc GenerateStreamlines {} { lineWidget GetPolyData seeds }
+\end{lstlisting}
 
 
 \section{Chapter Summary}

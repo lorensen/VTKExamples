@@ -35,7 +35,7 @@ Maybe useful for producing the drawings.
 
 4. If there is no drawing or figure available th scrape it from the original pdf and place it in  `src/VTKLaTex/Figures/Scraped`. When better images become available they are placed into  `src/VTKLaTex/Figures` and the corresponding image in  `src/VTKLaTex/Figures/Scraped` is removed.
 
-5. For equations use Bernard's excellent work in `Equatinns.txt` with one minor change, instead of `\vec{v}` use `\overrightarrow{v\ }` to improve appearances. At the end of each equation you need to add the following line:
+5. For equations use Bernard's excellent work in `Equations.txt` with one minor change, instead of `\vec{v}` use `\overrightarrow{v\ }` to improve appearances. At the end of each equation you need to add the following line:
 
 
     ```
@@ -60,7 +60,7 @@ Maybe useful for producing the drawings.
 | Chapter04 | No |
 | Chapter05 | Yes |
 | Chapter06 | Yes |
-| Chapter07 | Partial |
+| Chapter07 | Yes |
 | Chapter08 | No |
 | Chapter09 | No |
 | Chapter10 | No |

@@ -29,7 +29,10 @@
 \usepackage{graphicx}
 %\usepackage{grfext}
 %\PrependGraphicsExtensions*{.png,.PNG}
-\usepackage{caption}
+% [hypcap=false] gets rid of this message:
+% The option `hypcap=true' will be ignored for this(caption) particular \caption
+% when \captionof is used.
+\usepackage[hypcap=false]{caption}
 \usepackage{floatrow}
 \usepackage{wrapfig}
 \usepackage{floatrow}
