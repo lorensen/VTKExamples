@@ -12,7 +12,7 @@ Representation includes both the internal data structures used to depict the dat
 
 From an object-oriented viewpoint, transformations are processes in the functional model, while representations are the objects in the object model. Therefore, we characterize the visualization model with both functional models and object models.
 
-**A Data Visualization Example**
+### A Data Visualization Example
 
 A simple mathematical function for a quadric will clarify these concepts. The function
 
@@ -25,13 +25,13 @@ $$
 
 is the mathematical representation of a quadric. **Figure 4-1**(a) shows a visualization of **Equation 4-1** in the region $-1 \leq x, y, z \leq 1$. The visualization process is as follows. We sample the data on a regular grid at a resolution of $50 \times 50 \times 50$. Three different visualization techniques are then used. On the left, we generate 3D surfaces corresponding to the function $F(x, y, z) = c$ where c is an arbitrary constant (i.e., the isosurface value). In the center, we show three different planes that cut through the data and are colored by function value. On the right we show the same three planes that have been contoured with constant valued lines. Around each we place a wireframe outline.
 
-** The Functional Model**
+### The Functional Model
 
 The functional model in **Figure 4-1**(b) illustrates the steps to create the visualization. The oval blocks indicate operations (processes) we performed on the data, and the rectangular blocks represent data stores (objects) that represent and provide access to data. Arrows indicate the direction of data movement. Arrows that point into a block are inputs; data flowing out of a block indicate outputs. The blocks also may have local parameters that serve as additional input. Processes that create data with no input are called data source objects, or simply sources. Processes that consume data with no output are called sinks (the are also called mappers because these processes map data to a final image or output). Processes with both an input and an output are called filters. The functional model shows how data flows through the system. It also describes the dependency of the various parts upon one another. For any given process to execute correctly, all the inputs must be up to date. This suggests that functional models require a synchronization mechanism to insure that the correct output will be generated.
 
 The functional model shows how data flows through the system. It also describes the dependency of the various parts upon one another. For any given process to execute correctly, all the inputs must be up to date. This suggests that functional models require a synchronization mechanism to insure that the correct output will be generated.
 
-**The Visualization Model**
+### The Visualization Model
 
 In the examples that follow we will frequently use a simplified representation of the functional model to describe visualization processes ( **Figure 4-1**(c)). We will not explicitly distinguish between sources, sinks, data stores, and process objects. Sources and sinks are implied based on the number of inputs or outputs. Sources will be process objects with no input. Sinks will be process objects with no output. Filters will be process objects with at least one input and one output. Intermediate data stores will not be represented. Instead we will assume that they exist as necessary to support the data flow. Thus, as **Figure 4-1**(c) shows, the *Lines* data store that the *Outline* object generates ( **Figure 4-1**(b)) are combined into the single object *Outline*. We use oval shapes to represent objects in the visualization model. (b) Functional model *Sample F(x,y,z)*
 
@@ -52,7 +52,7 @@ In the examples that follow we will frequently use a simplified representation o
 <figcaption style="color:blue"><b>Figure 4-2</b>. Object model design choices. One basic choice is to combine processes and data stores into a single object. This is the usual object-oriented choice. Another choice creates separate data objects and process objects.</figcaption>
 </figure>
 
-**The Object Model**
+### The Object Model
 
 The functional model describes the flow of data in our visualization,
 the object model describes which modules operate on it. But what *are*
@@ -78,13 +78,13 @@ As a result of these concerns we use the hybrid approach in the *Visualization T
 
 In the context of data visualization, the functional model of **Figure 4-1**(c) is referred to as the *visualization pipeline* or *visualization network*. The pipeline consists of objects to represent data (data objects), objects to operate on data (process objects), and an indicated direction of data flow (arrow connections between objects). In the text that follows, we will frequently use visualization networks to describe the implementation of a particular visualization technique.
 
-**Data Objects**
+### Data Objects
 
 *Data objects* represent information. Data objects also provide methods to create, access, and delete this information. Direct modification of the data represented by the data objects is not allowed except through formal object methods. This capability is reserved for process objects. Additional methods are also available to obtain characteristic features of the data. This includes determining the minimum and maximum data values, or determining the size or the number of data values in the object.
 
 Data objects differ depending upon their internal representation. The internal representation has significant impact on the access methods to the data, as well as on the storage efficiency or computational performance of process objects that interact with the data object. Hence, different data objects may be used to represent the same data depending on demands for efficiency and process generality.
 
-**Process Objects**
+### Process Objects
 
 *Process objects* operate on input data to generate output data. A process object either derives new data from its inputs, or transforms the input data into a new form. For example, a process object might derive pressure gradient data from a pressure field or transform the pressure field into constant value pressure contours. The input to a process object includes both one or more data objects as well as local parameters to control its operation. Local parameters include both instance variables or associations and references to other objects. For example, the center and radius are local parameters to control the generation of sphere primitives.
 
@@ -100,7 +100,7 @@ Mapper objects correspond to the sinks in the functional model. Mapper objects r
 
 In this section we describe how to connect data and process objects to form visualization networks.
 
-**Pipeline Connections**
+### Pipeline Connections
 
 The elements of the pipeline (sources, filters, and mappers) can be
 connected in a variety of ways to create visualization networks.
@@ -136,7 +136,7 @@ The issue of multiplicity deals with the number of input data objects allowed, a
 
 We need to distinguish what is meant by multiplicity of output. Most sources and filters generate a single output. Multiple fan-out occurs when an object generates an output that is used for input by more than one object. This would occur, for example, when a source object is used to read a data file, and the resulting data is used to generate a wireframe outline of the data, plus contours of the data (e.g., **Figure 4-1**(a)). Multiple output occurs when an object generates two or more output data objects. An example of multiple output is generating x, y, and z components of a gradient function as distinct data objects. Combinations of multiple fan-out and multiple output are possible.
 
-**Loops**
+### Loops
 
 In the examples described so far, the visualization networks have been free of cycles. In graph theory these are termed directed, acyclic graphs. However, in some cases it is desirable to introduce feedback loops into our visualization networks. Feedback loops in a visualization network allow us to direct the output of a process object upstream to affect its input.
 
@@ -170,7 +170,7 @@ We can control the execution of the network using either a demand-driven or even
 
 The execution of the network requires synchronization between process objects. We want to execute a process object only when all of its input objects are up to date. There are generally two ways to synchronize network execution: explicit or implicit control (**Figure 4-7**).
 
-**Explicit Execution**
+### Explicit Execution
 
 Explicit control means directly tracking the changes to the network, and then directly controlling the execution of the process objects based on an explicit dependency analysis. The major characteristic of this approach is that a centralized *executive* is used to coordinate network execution. This executive must track changes to the parameters and inputs of each object, including subsequent changes to the network topology (**Figure 4-7**(a)).
 
@@ -188,7 +188,7 @@ The explicit approach may be either demand-driven or event-driven. In the event-
 
 The explicit approach with a central executive is typical of many commercial visualization systems such as AVS, Irix Explorer, and IBM Data Explorer. Typically these systems use a visual-programming interface to construct the visualization network. Often these systems are implemented on parallel computers, and the ability to distribute computation is essential.
 
-**Implicit Execution**
+### Implicit Execution
 
 Implicit control means that a process object executes only if its local input or parameters change (**Figure 4-7** (b)). Implicit control is implemented using a two-pass process. First, when output is requested from a particular object, that object requests input from its input objects. This process is recursively repeated until source objects are encountered. The source objects then execute if they have changed or their external inputs have changed. Then the recursion unwinds as each process object examines its inputs and determines whether to execute. This procedure repeats until the initial requesting object executes and terminates the process. These two steps are called the *update* and *execution* passes.
 
@@ -204,7 +204,7 @@ The primary advantage of the implicit control scheme is its simplicity. Each obj
 
 The disadvantage of implicit control is that it is harder to distribute network execution across computers or to implement sophisticated execution strategies. One simple approach is to create a queue that executes process objects in order of network execution (possibly in a distributed fash-ion). Of course, once a central object is introduced back into the system, the lines between implicit and explicit control are blurred.
 
-**Conditional Execution**
+### Conditional Execution
 
 Another important capability of visualization networks is conditional execution. For example, we may wish to map data through different color lookup tables depending upon the variation of range in the data. Small variations can be amplified by assigning more colors within the data range, while we may compress our color display by assigning a small number of colors to the data range (**Figure 4-8** ).
 
@@ -220,7 +220,7 @@ Visualization is a demanding application, both in terms of computer memory and c
 <figcaption style="color:blue"><b>Figure 4-9</b>. Comparison of static versus dynamic memory models for typical network. Execution begins when output is requested from objects *C* and *D*. In more complex dynamic models, we can prevent *B* from executing twice by performing a more thorough dependency analysis image.</figcaption>
 </figure>
 
-**Static and Dynamic Memory Models**
+### Static and Dynamic Memory Models
 
 Memory and computation trade-offs are important performance issues when executing visualization networks. In the networks presented thus far, the output of a process object is assumed to be available to downstream process objects at all times. Thus, network computation is minimized. However, the computer memory requirement to preserve filter output can be huge. Networks of only a few objects can tie up extensive computer memory resources.
 
@@ -236,7 +236,7 @@ We term these two approaches as *static* and *dynamic* memory models. In the sta
 
 As this figure shows, the static model executes each process object only once, storing intermediate results. In the dynamic model, each process object releases memory after downstream objects complete execution. Depending upon the implementation of the dynamic model, process object B may execute once or twice. If a thorough dependency analysis is performed, process B will release memory only after both objects C and D execute. In a simpler implementation, object B will release memory after C and subsequently, D executes.
 
-**Reference Counting & Garbage Collection**
+### Reference Counting & Garbage Collection
 
 Another valuable tool to minimize memory cost is to share storage using reference counting. To use reference counting, we allow more than one process object to refer to the same data object and keep track of the number of references. For example, assume that we have three objects *A*, *B*, and *C* that form a portion of a visualization network as shown in **Figure 4-10**. Also assume that these objects modify only part of their input data, leaving the data object that specifies *x-y-z* coordinate position unchanged. Then to conserve memory resources we can allow the output of each process object to refer to the single data object representing these points. Data that is changed remains local to each filter and is not shared. It is only when the reference count goes to zero that the object is deleted.
 
@@ -246,19 +246,19 @@ Garbage collection is an alternative memory management strategy that is not well
 
 The preceding sections have provided a general framework for the implementation of a useful visualization pipeline model. However, there are several advanced capabilities that complex applications often require. These capabilities are driven by deficiencies in the simpler design described previously. The principle drivers for developing advanced models include: processing unknown dataset types, managing complex execution strategies including processing pieces of data, and extending the visualization pipeline to propagate new information. These concerns are discussed in the following three sections.
 
-**Processing Unknown Dataset Types**
+### Processing Unknown Dataset Types
 
 There exist data files and data sources where the type of dataset represented by the file or source is unknown until run-time. For example, consider a general purpose VTK reader that can read any type of VTK data file. Such a class is convenient because the user need not concern himself with the type of dataset, instead the user may want to set up a single pipeline that processes whatever type is found. As indicated by **Figure 4-3**, such an approach works well if the system is of a single dataset type, however in practice, and due to performance/efficiency concerns, there typically exist many different types of data in a visualization system. The other alternative shown in **Figure 4-3** is enforced type checking. However, in situations like the reader example described above, it is not possible to enforce type checking at compile-time because the type is determined by the data. As a result, type checking must be performed at run-time.
 
 Run-time type checking of a multiple dataset type visualization system requires that the data passed between filters is a generic dataset container (i.e., it appears like a single type but contains the actual data and methods to determine what type of data it is). Run-time type checking has the advantage of flexibility, but the trade-off is that a pipeline may not execute properly until the program executes. For example, a generic pipeline may be designed that can process structured data (see "Types of Datasets " on page134 ), but the data file may contain unstructured data. In this case, the pipeline will be unable to execute at run-time, producing empty output. Thus pipelines designed to process any type of data must be carefully assembled to create robust applications.
 
-**Extending the Data Object Representation**
+### Extending the Data Object Representation
 
 As described earlier in this chapter, a pipeline consists of data objects that are operated on by process objects. Further, because the process objects are separate from the data objects on which they operate, there is necessarily an expected interface through which these objects exchange information. Defining this interface has the side effect of cementing the data representation, implying that it is difficult to extend it without modifying the corresponding interface, and hence all the classes that depend on the interface (of which there are many). Fortunately what tends to change is not the basic data representations (these are generally well established), rather the metadata associated with the dataset itself changes. (In the context of visualization, metadata are data that describe datasets.) While it is feasible to represent new datasets by creating new classes (since the addition of new dataset types occurs infrequently); the diversity of metadata precludes creating new classes because the resulting explosion of data types, and the potential change to programming interfaces, would adversely affect the stability of the visualization system. Hence a general mechanism to support metadata is required. Packaging metadata into a generic container that contains both the dataset andcmetadata is a obvious design, and is compatible with the design described in the previous section.
 
 Examples of metadata include time step information, data ranges or other data characteristics, acquisition protocols, patient names, and annotation. In an extensible visualization pipeline, a specific data reader (or other data source) may read such information and associate it with the output data that it produces. While many filters may ignore the metadata, they can be configured to pass the information along the pipeline. Alternatively, a pipeline sink (or mapper) may request that specific metadata be passed through the pipeline so it can be processed appropriately. For example, a mapper may request annotations, and if available, place them on the final image.
 
-**Managing Complex Execution Strategies**
+### Managing Complex Execution Strategies
 
 In real-world applications the pipeline design described thus far may not adequately support complex execution strategies, or may fail to execute successfully when data sizes become large. In the next sections we address these issues by considering alternative design possibilities.
 
@@ -313,7 +313,7 @@ visualization systems must readily adapt to new data, and must be
 flexible enough to allow rapid data exploration. To meet these
 demands, a variety of programming models have been developed.
 
-**Visualization Models**
+### Visualization Models
 
 At the highest level are applications. Visualization applications have
 finely tailored user-interfaces that are specific to an application
@@ -327,10 +327,9 @@ At the opposite end of the spectrum are programming libraries. A conventional pr
 
 Many visualization systems lie between these two extremes. These typically use a *visual programming* approach to construct visualization networks. The basic idea is to provide graphical tools and libraries of modules or process objects. Modules may be connected subject to input/output type constraints, using simple graphical layout tools. In addition, user interface tools allow association of interface widgets with object input parameters. System execution is generally transparent to the user by way of an internal execution executive.
 
-**Alternative Visual Programming Models**
+### Alternative Visual Programming Models
 
-There are two other graphics and visualization programming models that
-bear mentioning. These are *scene graphs* and the *spreadsheet* model.
+There are two other graphics and visualization programming models that bear mentioning. These are *scene graphs* and the *spreadsheet* model. 
 
 Scene graphs are typically found in 3D graphics systems such as OpenInventor <em style="color:blue;background-color: white">\[Wernecke94\]</em>. Scene graphs are acyclic tree-structures that represent objects, or nodes, in an order defined by the tree layout. The nodes may be geometry (called shape nodes), graphics properties, transformations, manipulators, lights, cameras, and so forth, that define a complete scene. The parent/child relationship controls how properties and transformations are applied to the nodes as they are rendered, or how the objects relate to other objects in the scene (e.g., which objects the lights shine on). Scene graphs are not used to control the execution of a visualization pipeline, rather they are used to control the rendering process. Scene graphs and visualization pipelines may be used together in the same application. In such a case the visualization pipeline is the generator of the shape nodes, and the scene graph controls the rendering of the scene including the shapes.
 
@@ -344,7 +343,7 @@ Although visual programming systems are widely successful, they suffer two drawb
 
 At this point in the text you may be wondering how to apply a visualization pipeline towards your own data. The answer depends on the type of data you have, preferences in programming style, and required complexity. Although we have not yet described particular types of data (we will in the next chapter), there are two general approaches you may wish to consider when interfacing your data to a visualization system: a programming interface and an application interface.
 
-**Programming Interface**
+### Programming Interface
 
 The most powerful and flexible approach is to directly program your application to read, write, and process data. There is almost no limit to what you can achieve using this approach. Unfortunately, in a complex system like VTK this requires a level of expertise that may be beyond your time budget to obtain. (If you are interested in this approach using VTK, you'll have to become familiar with the objects in the system. You will also want to refer to the Doxygen-generated manual pages ---on-line at http://www.vtk.org or CD-ROM. The companion text *The VTK User's Guide* is also helpful.)
 
@@ -372,7 +371,7 @@ In the *Visualization Toolkit*, there are several importers and exporters. To se
 
 **Figure 4-13** shows an image created from a *3D Studio* model and saved as a *Renderman* RIB file.
 
-**Application Interface**
+### Application Interface
 
 The majority of users interface to their data by using an existing application. Rather than programming pipelines or writing their own readers and writers, users acquire an application that suits their particular visualization needs. Then to interface to their data, users simply identify the reader, writer, importer, and/or exporter that can successfully process it. In some cases, users may have to modify the program used to generate the data so that it exports it in a standard data format. The advantage of using existing applications is that the user interface and pipeline are pre-programmed, insuring that the user can focus on their data, rather than expending the significant resources required to write visualization programs. The disadvantage of using existing applications is that necessary features are often missing, and applications typically lack the flexibility that a general purpose tool can provide.
 
@@ -396,7 +395,7 @@ exporter BackgroundOn
 exporter Write
 ```
 
-**Procedural Language Implementation**
+### Procedural Language Implementation
 
 The *Visualization Toolkit* is implemented in the procedural language C++. Automated wrapping technology creates language bindings to the Python, Tcl and Java interpretive programming languages <em style="color:blue;background-color: white">\[King03\]</em>. The class library contains data objects, filters (i.e., process objects) and executives to facilitate the construction of visualization applications. A variety of supporting abstract super-classes are available to derive new objects including data objects and filters. The visualization pipe-line is designed to connect directly to the graphics subsystem described in the previous chapter. This connection is via VTK's mappers, which are the sinks of the pipeline and interface to the VTK's actors.
 
@@ -408,7 +407,7 @@ A visual programming interface could be (and has been) implemented using the cla
 <figcaption style="color:blue"><b>Figure 4-14</b>. The choice of an appropriate visualization application depends on the type of dataset(s) it must support, required interaction techniques, rendering capabilities, and support for large data, including parallel processing. While both applications above are built using the VTK visualization toolkit, they provide very different user experiences. ParaView (paraview.org) is a general purpose visualization system that can process large data in a distributed, parallel environment (as well as on single processor systems), with the ability to display on a Cave or tiled display. VolView (volview.com) focuses on volumetric and image data and uses multi-threading and sophisticated level-of-detail methods to achieve interactive performance.</figcaption>
 </figure>
 
-**Pipeline Design and Implementation**
+### Pipeline Design and Implementation
 
 The *Visualization Toolkit* implements a general execution mechanism. Filters are divided into two basic parts: algorithm and executive objects. An algorithm object, whose class is derived from vtkAlgorithm, is responsible for processing information and data. An executive object, whose class is derived from vtkExecutive, is responsible for telling an algorithm when to execute and what information and data to process. The executive component of a filter may be created independently of the algorithm component allowing custom pipeline execution mechanisms without modifying core VTK classes.
 
@@ -434,7 +433,8 @@ To understand the execution of the VTK pipeline, it is useful to view the proces
 
 The next figure, **Figure 4-16**, shows the relationship between the executive and the algorithm, which are paired to form a filter. This view of the filter is independent of the pipeline and contains all the information about the interface of the algorithm, namely the number and availability of inputs and outputs. Finally **Figure 4-17** shows the connections between filters. Notice that the output data object is not directly wired to the input connection. Rather the downstream filters's input connection is associated with the upstream filter's output port. This separation of data object from the input port means that data type checking can be deferred until run-time, when the consuming filter requests data from the producer of the data. Thus the producer can generate different types of data (e.g., it is a reader that produces different data types), and as long as the consumer supports these different data types, the pipeline will Qexecute without error.
 
-**Connecting Pipeline Objects**
+### Connecting Pipeline Objects
+
 This leads us to the method of making connections between filters and data objects to form a visualization pipeline. As is evident from the previous figures, the _Visualization Toolkit_ pipeline architecture has been designed to support multiple inputs and outputs. In practice, you will find that most filters and sources actually generate a single output and filters accept a single input. This is because most algorithms tend to be single input/output in nature. There are exceptions and we will describe some of these shortly. However, first we would like to provide a brief history lesson relative to the evolution of VTK’s pipeline architecture. This lesson is instructive because it sheds light on the evolution of the pipeline design in response to new requirements.
 
 Prior to VTK 5.0. In earlier versions of VTK (i.e., prior to version 5.0), the visualization pipeline architecture was accurately depicted by **Figure4-15**. In this figure, which shows how filters and data objects were connected to form a visualization network, the input data was represented by the Input instance variable and was set using the SetInput() method. The output data was represented by the Output instance variable and was accessed using the GetOutput() method. To connect filters
@@ -500,7 +500,7 @@ Another important filtering class is vtkProbeFilter. This filter takes two input
 
 For more details regarding the object design of filters and data objects, please see Chapter 5 and Chapter 6.
 
-**Pipeline Execution and Information Objects**
+### Pipeline Execution and Information Objects
 
 Until now, we have used the terms metadata and information objects rather informally. As described previously, in the context of VTK, these terms refer to data that describes datasets. In this section, we show how these objects, which are subclasses of vtkInformation, are used to facilitate the execution of the VTK pipeline.
 
@@ -534,13 +534,13 @@ Requests are propagated through the pipeline by the executives of each filter. T
 
 An executive often asks its algorithm object for help in fulfilling a request. It sends the request to the algorithm object by invoking the vtkAlgorithm::ProcessRequest() method. This method is implemented by all algorithms and is responsible for handling the request. Input and output pipeline information objects are provided as arguments to the method. The algorithm must handle the request using only its own filter parameter settings and the pipeline information objects given. An algorithm is not allowed to ask its executive for any additional information. This insures that the algorithms are independent of the executives. **Figure 4-18** shows a typical path taken by a request as it is sent through a pipeline. Typically the request originates in a consumer at the end of the pipeline. It is sent back through the pipeline by the executives. Each executive asks its algorithm to help handle the request.
 
-**Flexible Computation / Memory Trade-off**
+### Flexible Computation / Memory Trade-off
 
 By default, networks constructed using the _Visualization Toolkit_ store intermediate computational results (i.e., favor computation). However, a single class variable can be set to discard intermediate data when they are no longer needed (i.e., favor memory). In addition, a local parameter can be set within each process object to control this trade-off at object level.
 
 This global variable is set as follows. Given the data object O, (or the output of a filter obtained using O=filter->GetOutput()), invoke O->SetGlobalReleaseDataFlagOn() to enable data release. To enable data release for a particular object use O->SetReleaseDataFlagOn(). Appropriate methods exist to disable memory release as well.
 
-**High-Level Object Design**
+### High-Level Object Design
 
  At this point in the text it is premature to describe design details of the various objects making up the visualization pipeline. However, there are two important classes that affect many of the objects in the text. These are the classes vtkObject and vtkObjectBase.
 
@@ -550,7 +550,7 @@ vtkObject is a subclass of vtkObjectBase. It provides methods and instance varia
 
 Note that we do not always include vtkObject and vtkObjectBase in object diagrams to conserve space. Refer to the source code for a definitive statement.
 
-**Examples**
+### Examples
 
 We will now demonstrate some of the features of the visualization pipeline with four examples. Some of the objects used here will be unfamiliar to you. Please overlook missing details until we cover the information later in the book. The goal here is to provide a flavor and familiarity with the software architecture and its use.
 

@@ -17,7 +17,7 @@ An image is typically used to refer to a 2D structured point dataset. More gener
 
 As described in ["Image Data"](/VTKBook/05Chapter5/#Chapter 5 Image Data) in [Chapter 5](/VTKBook/05Chapter5), an image has both regular topology and geometry. The regularity of the data lends itself to many special operations. In particular, we can support data caching and streaming, and operating on regions of interest in the data.
 
-**Regions of Interest**
+###Regions of Interest
 
 When data has a regular spatial organization, it is possible to request the data in pieces or regions of interest. For example, a mapper may need only a region of the data for its display, so loading or processing the whole dataset would be inefficient. An example of this is a two-dimensional viewer that displays only one slice of a large structured volume. By loading slices only as they are needed, disk access can be reduced, and memory conserved.
 
@@ -29,7 +29,7 @@ Although regions of interest can have arbitrary shapes, the regular structure of
 <figcaption style="color:blue"><b>Figure 10-1</b>. Axis aligned matrices naturally lend themselves to rectangular regions, and polar coordinate grids to pie-shaped regions.</figcaption>
 </figure>
 
-**Streaming and Caching**
+### Streaming and Caching
 
 The disadvantage of processing regions of interest is that the same data may be read and processed multiple times. If the viewer described above needs to cine (i.e., loop) through the slices, or interactively pan around a large image, it would be beneficial to have all the data loaded at once.
 
@@ -39,7 +39,7 @@ With the region-processing model, the data objects can be thought of as caches t
 
 Given the ability to operate on regions of data, it is a small step to stream operations on a whole dataset. Streaming is the process of pulling regions of data in a continual flow through the pipeline. For instance, a pixel histogram mapper could request single pixels as it accumulates values in its bins. Large datasets can be processed in this manner without ever having to load more than a few pixels at a time. If multiple processors are available, region processing can also be used to split a task into multiple pieces for load balancing and faster execution.
 
-**Attribute Data and Components**
+### Attribute Data and Components
 
 Unlike visualization algorithms that may generate normals, vectors, tensors, and texture coordinates, image processing algorithms generally process attribute data consisting of scalar data. Often the data is a single component (e.g., a gray-scale image), but frequently color images (three components of RGB, for example) may also be processed.
 
@@ -48,7 +48,7 @@ In the _Visualization Toolkit_ imaging pipeline, attribute data is represented a
 ## 10.3 Algorithms
 This section provides an overview and examples for important image processing algorithms. The importance of the algorithms is measured on their relevance to 3D data visualization. Topics include: removing noise, smoothing, reducing sampling artifacts, image enhancement, segmentation, and morphological operators such as erosion and dilation.
 
-**Image Restoration**
+### Image Restoration
 
 Noise and other artifacts are inherent in all methods of data acquisition. Since artifacts can degrade the visual appearance and analysis of images, the first step of image processing is often restoration. Knowledge of the statistical properties of artifacts allows filters to selectively remove them with minimal impact on the underlying data. For example, most of the power of typical images lie in low frequencies, while white noise is evenly distributed across the frequency spectrum. In this situation, low-pass filters eliminate much of the noise, but leave most of the image intact.
 
@@ -73,7 +73,7 @@ smoothing along the x axis and then along the y axis with 1D Gaussian kernels is
 <figcaption style="color:blue"><b>Figure 10-2</b>. Low-pass filters can be implemented as convolution with a Gaussian kernel. The Gaussian kernel displayed on top has been magnified for this figure.<a href="../../Cxx/ImageProcessing/GaussianSmooth" title="GaussianSmooth"> See GaussianSmooth.cxx</a> and <a href="../../Python/ImageProcessing/GaussianSmooth" title="GaussianSmooth"> GaussianSmooth.py</a>.</figcaption>
 </figure>
 
-** Nonlinear Smoothing**
+### Nonlinear Smoothing
 
 One problem with simple smoothing to remove noise is that edges are blurred. Although high frequencies make up a small part of images, the human visual system is acutely sensitive to high frequencies in the spatial form of edges. In fact, most of the low frequencies in an image are discarded by the visual system before it even leaves the retina. One approach to smoothing that preserves edges is anisotropic diffusion. This filter smooths relatively flat regions of an image, but does not diffuse across abrupt transitions. The diffusion is iterated until the desired level of noise reduction is reached. Two possible diffusion criteria are: Diffuse only when the gradient magnitude is below a specified value, or diffuse two pixels only when the difference between the pixels is lower than a specified constant.
 A median filter also smooths while preserving edges. This filter replaces each pixel with the median value of the scalar values in a neighborhood centered on the pixel. Median filters are most effective on high amplitude noise that has a low probability of occurring (see **Figure 10-3**). There are two ways to control the amount and scale of noise removed: The size of the neighborhood can be varied, or the filter can be applied multiple times. This median filter preserves edges; however, it does round corners and remove thin lines. The hybrid median filter was developed to address this behavior. It operates on a 5 x 5 neighborhood around each pixel. The algorithm consists of two steps: first the median values of an “x”-shaped and “+”-shaped neighborhoods are computed, then the median of these two values and the center-pixel value is computed to give the final result. The hybrid median has a fixed size neighborhood, but can be applied multiple times to further reduce noise (**Figure 10-4**).
@@ -84,7 +84,7 @@ A median filter also smooths while preserving edges. This filter replaces each p
 <figcaption style="color:blue"><b>Figure 10-3</b>. Comparison of Gaussian and Median smoothing for reducing low-probability high-amplitude noise.<a href="../../Cxx/ImageProcessing/MedianComparison" title="MedianComparison"> See MedianComparison.cxx</a> and <a href="../../Python/ImageProcessing/MedianComparison" title="MedianComparison"> MedianComparison.py</a>.</figcaption>
 </figure>
 
-**Low Frequency Artifacts**
+### Low Frequency Artifacts
 
 An artifact called aliasing occurs when subsampling and is often associated with stair-stepping edges. Sampling theory proves that discrete sampled signals with spacing S, completely describe continuous functions composed of frequencies less than S/2. When a signal is subsampled, its capacity to hold high frequency information is reduced. However, the high frequency energy does not disappear. It wraps around the frequency spectrum appearing as a low frequency alias artifact (**Figure 10-5**). The solution, which eliminates this artifact, is to low-pass filter before subsampling. Low-pass smoothing reduces the high frequency range of an image that would cause aliasing.
 
@@ -106,7 +106,7 @@ Low-frequency artifacts, other than aliasing, can also occur when acquiring data
 
 Another gradual change across an image is caused by sensor position. The amplitude of a measured signal usually attenuates as the source moves away from the sensor. An example of this attenuation artifact is seen in surface-coil-MRI images as shown in **Figure 10-6**. If the attenuation profile is known, then the artifact can be removed by dividing the original data with the profile. Since this artifact can be characterized by a small set of parameters like sensor position and range, it is possible to automatically determine the attenuation profile from the data. Like most artifacts, nonuniform attenuation tends to hide the information in an image. Given a function that measures the amount of information in an image, gradient descent and other search strategies can find the optimal attenuation parameters.
 
-**Image Enhancement**
+### Image Enhancement
 
 Often datasets contain information or have dynamic range that cannot be completely displayed in a single image. X-Ray Computed Tomography (CT) datasets, for example, can have 10 times the scalar resolution of the typical computer monitor capable of displaying 256 shades of gray. One method used for conveying information buried in the large dynamic range of these medical datasets is to allow a user to interactively set the color map with a window-level transfer function. The user can then choose to display the range of data they find most important as shown in **Figure 10-7**. The slope of the transfer function determines the amount of contrast in the final image. Slopes greater than one increase contrast, and slopes less than one decrease contrast. All contrast and information is lost in the scalar ranges where the transfer function is constant and has zero slope.
 
@@ -138,7 +138,7 @@ Histogram equalization is an algorithm that automatically generates a tailored t
 
 High-pass filters can also be used to compress the range of an image. Since low frequencies account for much of the dynamic range of an image but carry little information, a high-pass filter can significantly decrease an image’s scalar range and emphasize hidden details. The Laplacian filter, which is a second derivative operation, is one implementation of a high-pass filter. It eliminates constant and low frequencies leaving only high-frequency edges. The output of the Laplacian can be subtracted from the original image to produce edge enhancement or sharpening of an image (**Figure 10-9**).
 
-**Frequency Domain**
+### Frequency Domain
 
 The Fourier transform belongs to a class of filters that fundamentally change the representation of an image without changing its information. The output of the Fourier transform is in the frequency domain. Each pixel is a complex number describing the contribution of a sinusoidal function to the original image. The magnitude of the pixel encodes the amplitude of the sinusoid, and the orientation of the complex pixel encodes the sinusoid’s phase. Each pixel represents a sinusoid with different orientation and frequency. The reverse Fourier transform converts a frequency domain image back to the original spatial domain (**Figure 10-10**).
 
@@ -181,7 +181,7 @@ An important point about the discrete Fourier transform is that it treats the im
 
 In both of these approaches, a portion of the original image is lost, so only the central portion of an image can be processed. If this is unacceptable, another solution is to double the dimensions of the original image with a mirror-padding filter. The intermediate image is periodic and continuous (**Figure 10-12**).
 
-**Image Segmentation**
+### Image Segmentation
 
 Segmentation is the process of classifying pixels in an image or volume. It can be one of the most difficult tasks in the visualization process. One form of segmentation takes an image as input, and outputs a map that contains a classification for each pixel. The output of such a segmentation filter usually has binary or discrete values for each pixel; however, it is also possible to output a fuzzy classification where the pixel’s scalar value represents a measure of confidence in the classification.
 
@@ -199,7 +199,7 @@ Images can be preprocessed to segment images based on more complex features such
 
 **Figure 10-13** shows an example of how a correlation filter can be used for segmentation. A correlation filter is similar to convolution. The kernel is shifted across the image, and for each location the dot product between the image and the kernel gives a measure of correlation between the two. The output of the correlation filter is large everywhere the pattern occurs in the image, but small at other locations. Because the resulting map is sparse, additional postprocessing is required to find a uniform, segmented region. In this example, dilation followed by erosion was used to close the gaps between the patterns. (Dilations and erosion are discussed in the next section.)
 
-**Postprocessing**
+### Postprocessing
 
 Although preprocessing can do a lot to improve segmentation results, postprocessing can also be useful. Morphological filters, which operate on binary or discrete images, can be useful for manipulating the shape of the segmented regions. In this brief discussion we will only consider operations that use circular footprints, even though these morphological filters can be defined much more generally. Erosion is implemented by removing pixels within a specified distance of a border. For each pixel not in the segmented region, all the neighbors in a circular region around the pixels are turned off. This erosion filter shrinks the segmented region and small isolated regions disappear.
 
@@ -223,7 +223,7 @@ Connectivity filters can also remove small regions without affecting the remaini
 
 After the pixels have been assigned an equivalence class, various methods are used to determine which groups of pixels will pass through the filter, and which classes will be eliminated. The island-removal filter is a connectivity filter that removes groups that have too few pixels. Seed connectivity allows the user to explicitly specify which groups will pass through the filter. The user or application specifies a set of seeds. Any group that includes a seed makes it through the filter. Groups that do not contain seeds are removed. This filter is similar to the seed-connectivity filter; however, the seeds are supplied in a second image. First the intersection between the segmented image and the seed image is taken. Each remaining pixel is then added to a set of seeds.
 
-**Multispectral Segmentation**
+### Multispectral Segmentation
 
 From everyday experience we know that it is easier to see structure and information in color images than in gray-scale images. This is because each pixel contains more information in the red, blue, and green components than a single component gray-scale pixel. One way to segment multispectral images is to separate the components and threshold them individually and then combine the resulting binary images with logic filters. This allows selection of rectangular patched areas in the color/ component space of the pixels.
 
@@ -239,7 +239,7 @@ Typically, the number of free parameters in a filter is directly correlated to t
 
 We suggest that you review the code accompanying the images in this chapter to see how to use the VTK imaging pipeline. In this section we will explain some of the implementation details of image data. We will also show how to mix the imaging and visualization pipelines, and how to use imaging filters to perform regression testing.
 
-**Data Representation**
+### Data Representation
 
 In the imaging pipeline, the class for representing and manipulating data is vtkImageData (["Types of Datasets"](/VTKBook/05Chapter5/#56-types-of-datasets) in [Chapter 5](/VTKBook/05Chapter5) for more information). In addition, the data extent (topological extent specification) plays a vital role in controlling how images are processed.
 
@@ -251,7 +251,7 @@ Extents are used to manage the streaming of data through the visualization pipel
 
 In the VTK imaging pipeline, point attribute data is represented differently than in the visualization pipeline. In the imaging pipeline point attribute data is represented as n components per data point. Typically n is one for gray-scale data, or three for color data but, in general, can be any positive number.
 
-**Create an Image**
+### Create an Image
 
 This example demonstrates how to directly create an image using C++ code. Typically, you will use an image reader or procedurally create an image from a source object. The example shown here creates an vtkImageData and then fills it with an image of interfering sinusoidal grids
 
@@ -286,7 +286,7 @@ viewer->Render();
 
  Note that direct pointer access is used to fill the image. The AllocateScalars() method allocates enough memory for the dimensions provided.
 
-**Gradient Magnitude**
+### Gradient Magnitude
 
 In this example we demonstrate a lengthy imaging pipeline. The basic purpose of the pipeline is to visualize information about the image gradient. The gradient direction and magnitude are mapped into the hue and saturation components of the color HSV space, respectively. The pipeline, resulting image, and a portion of the code are shown in **Figure 10-16**.
 
@@ -294,11 +294,11 @@ The pipeline demonstrates some interesting tricks. The first three filters read 
 
 The next series of filters is where the fun begins. First, the data is converted to polar coordinates (vtkImageEuclideanToPolar). We use this filter because we want to operate in color HSV space (see ["Color"](/VTKBook/03Chapter3/#32-color) in [Chapter 3](/VTKBook/03Chapter3)). The image magnitude is to be mapped into saturation value, while the gradient direction is mapped into hue value (remember hue is represented as an angle on the HSV color wheel). The filter vtkImageConstantPad is used to add a third component to the data, since the gradient filter only generated two components, and we need three components to represent color. The vtkImageExtractComponents is used to rearrange the components into HSV order. Finally, the data is converted back into RGB color space with vtkImageHSVToRGB. (This is necessary because the image viewer expects RGB values.)
 
-**Image Warping**
+### Image Warping
 
 In this example we combine the imaging and visualization pipelines. Imaging filters are used to read in an image (vtkBMPReader) and then convert it to grayscale (vtkImageLuminance). The data, which is a image data dataset, is then passed down the visualization pipeline as polygons using vtkImageDataGeometryFilter. Next we warp the data in the direction perpendicular to the image plane using the visualization filter vtkWarpScalar. The vtkMergeFilter is used to combine the warped geometry (now vtkPolyData) with the original image data from the reader. (Note that in this example the vtkMergeFilter takes two inputs.) The pipeline, example output, and sample code are shown in **Figure 10-17**.
 
-**Regression Testing**
+### Regression Testing
 
 In our work with VTK, we often need to perform software testing. The testing may be necessary because we’ve added new classes or features to the system, modified old code, or are simply testing a graphics library or new piece of hardware. We use a powerful testing procedure based on processing the output of the system, which is typically an image. We refer to the testing process as regression testing.
 

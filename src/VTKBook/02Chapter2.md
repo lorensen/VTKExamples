@@ -64,7 +64,7 @@ Before describing object-oriented design and programming in more detail, we prov
 
 As with any software engineering design methodology, object-oriented design has its own terminology. Unfortunately, not everyone agrees on what that is. We adopt much of our terminology from Rumbaugh <em style="color:blue;background-color: white">\[Rumbaugh91\]</em> and, since the *Visualization Toolkit* is written in C++, from Stroustrup <em style="color:blue;background-color: white">\[Stroustrup84\]</em>. For the most part, Rumbaugh's terminology is independent of programming language, while Stroustrup is specific to implementation in C++. The transition from design to programming will be painless though, and the mappings between the two terminologies are mostly obvious. Where we think there might be confusion, we will point out the correspondences.
 
-**What Is an Object?**
+### What Is an Object?
 
 An *object* is an abstraction that models the state and behavior of entities in a system. Abstraction is a mental process that extracts the essential aspects of a situation for a particular purpose. Entities are things in the system that have identity. Chairs, airplanes, and cameras are objects that correspond to physical entities in the real world. Binary trees, symbol tables, and ordered collections are objects that exist only within the world of computer science.
 
@@ -108,7 +108,7 @@ vtkActor *aBall = new vtkActor;
 ```
 which creates the object from the program heap.
 
-**Inheritance**
+### Inheritance
 
 *Inheritance* is a programming mechanism that simplifies adding new classes to a system when they differ in small ways from currently existing classes. The notion of inheritance is adopted from the observation that most systems can be specified using a hierarchical classification system. A fine example of a classification system is the phyla of life on earth.
 
@@ -157,7 +157,7 @@ Modelling is a step in most design processes regardless of whether we are design
 
 We use the Object Modeling Technique (OMT) developed at GE by Jim Rumbaugh and his colleagues <em style="color:blue;background-color:white">\[Rumbaugh91\]</em>. OMT uses three models to specify an object-oriented design: an object model, a dynamic model, and a functional model. Each model describes a different aspect of the system and each has a corresponding diagramming technique that helps us analyze, design, and implement software systems.
 
-**The Object Model**
+### The Object Model
 
 The object model identifies each object in the system, its properties, and its relationships to other objects in the system. For most software systems, the object model dominates the design. The OMT graphical technique uses rectangles to depict object classes, and a variety of connectors to depict inheritance and other object-object relations. Object classes are represented as solid rectangles. Instances are represented as dotted rectangles. The name of the class or instance occupies the top of the rectangle. A line separates the class name from the next section that contains the attributes; a third section describes the methods. Relationships between objects are shown with line segments connecting the two related objects. In OMT, relationships are called associations and they can have various cardinalities: one-to-one, one-to-many, and many-to-many. Special associations that represent containers of other objects are called aggregations. Associations can be labeled with roles. (Roles are names given to associations and are used to further describe the nature of the association.) OMT represents inheritance with a triangle, with the superclass attached to the apex, and sub-classes attached to the base of the triangle. **Figure 2-3** shows an object model for locator devices in a virtual reality system.
 
@@ -171,7 +171,7 @@ Later, during implementation, we will convert these object models into software 
 <figcaption style="color:blue"><b>Figure 2-3</b>. Object model for locator devices.</figcaption>
 </figure>
 
-**The Dynamic Model**
+### The Dynamic Model
 
 The object model describes the static portion of a system while the dynamic model details the sequences of events and time dependencies of the system. OMT uses state diagrams to model system dynamics. Dynamic models are frequently used to design control systems and user interfaces. Our visualization system has limited sequence and control aspects, so we will not dwell on state diagrams. But, if we were designing a user-friendly interface for a digital wristwatch, the state diagram in **Figure2-4** would be useful.
 
@@ -183,7 +183,7 @@ The object model describes the static portion of a system while the dynamic mode
 
 The ovals in the diagram show a state; the arrows show a transition from one state to another; and the labels on the arrows show an event that causes the state transition. This example shows three display states and multiple setting states. The event b1 means button one is pressed. This watch has three buttons. The diagram shows what happens in each state when any of the three buttons is pressed. The diagram clearly shows that b1 is used to move between display modes for time, date, and alarm. B2 changes from display mode into setting mode or selects the field to change in a given mode. B3 increments the selected field by one unit. The state diagram also shows what happens when illegal buttons are pressed. If the watch is displaying time and button 3 is pressed, nothing happens. If button 3 is pressed when the watch is displaying the alarm, the alarm on/off is toggled.
 
-**The Functional Model**
+### The Functional Model
 
 The functional model shows how data flows through the system and how processes and algorithms transform the data. It also shows functional dependencies between processes. Exposing these relationships will affect the associations in the object model. The major components of a data flow diagram (DFD) are data sources, data sinks, and processes. Data sources and sinks are represented as rectangles. Ellipses show processes. Data stores are shown within two horizontal lines. DFDs are useful to describe the overall flow in the system. They can also be used to describe any process that transforms one data representation into another. Processes identified in the DFD during function modelling may turn up as operations or objects in the object model.
 
