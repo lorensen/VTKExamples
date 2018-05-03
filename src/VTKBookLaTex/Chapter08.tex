@@ -56,3 +56,28 @@ world point picking ( Figure8–38 ).
 
 \subsection{Point Probe}
 \label{subsec:point_probe}
+
+\section{Chapter Summary}
+
+Three important visualization coordinate systems are the world, dataset, and structured coordinate systems. The world coordinate system is an x--y--z Cartesian three-dimensional space. The dataset coordinate system consists of a cell id, subcell id, and parametric coordinates. The structured coordinate system consists of $(i,j,k)$ integer indices into a rectangular topological domain.
+
+Visualization data is generally in discrete form. Interpolation functions are used to obtain data at points between the known data values. Interpolation functions vary depending on the particular cell type. The form of the interpolation functions are weighting values located at each of the cells points. The interpolations functions form the basis for conversion from dataset to global coordinates and vice versa. The interpolation functions also are used to compute data derivatives.
+
+Topological operators provide information about the topology of a cell or dataset. Obtaining neighboring cells to a particular cell is an important visualization operation. This operation can be used to determine whether cell boundaries are on the boundary of a dataset or to traverse datasets on a cell-by-cell basis.
+
+Because of the inherent regularity of image datasets, operations can be efficiently implemented compared to other dataset types. These operations include coordinate transformation, derivative computation, topological query, and searching.
+
+\section{Bibliographic Notes}
+
+Interpolation functions are employed in a number of numerical techniques. The finite element method, in particular, depends on interpolation functions. If you want more information about interpolation functions refer to the finite element references suggested below \cite{Cook89} \cite{Gallagher75} \cite{Zienkiewicz87}. These texts also discuss derivative computation in the context of interpolation functions.
+
+Visualizing higher-order datasets is an oepn research issue. While \cite{Schroeder06} describes one approach, methods based on GPU programs are emerging. Other approaches include tailored algorithms for a particular cell type.
+
+Basic topology references are available from a number of sources. Two good descriptions of topological data structures are available from Weiler \cite{Weiler86} \cite{Weiler88} and Baumgart \cite{Baumgart74}. Weiler describes the radial-edge structure. This data structure can represent manifold and nonmanifold geometry. The winged-edge structure described by Baumgart is widely known. It is used to represent manifold geometry. Shephard \cite{Shephard88} describes general finite element data structures — these are similar to visualization structures but with extra information related to analysis and geometric modelling.
+
+There are extensive references regarding spatial search structures. Samet \cite{Samet90} provides a general overview of some. Octrees were originally developed by Meagher \cite{Meagher82} for 3D imaging. See \cite{Williams83}, \cite{Bentley75}, and \cite{Quinlan94} for information about MIP maps, kd-trees, and binary sphere trees, respectively.
+
+\printbibliography
+
+
+\section{Exercises}
