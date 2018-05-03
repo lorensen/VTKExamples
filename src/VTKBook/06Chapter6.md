@@ -975,114 +975,68 @@ Blinn <em style="color:blue;background-color: white">\[Blinn82\]</em>, Bloomenta
 
 ## 6.9 References
 
-<em style="color:blue;background-color: white">\[Abraham85\]</em> R. H. Abraham and Christopher D. Shaw. *Dynamics The Geometry of
-Behavior.* Aerial Press, Santa Cruz, CA, 1985.
+<em style="color:blue;background-color: white">\[Abraham85\]</em> R. H. Abraham and Christopher D. Shaw. *Dynamics The Geometry of Behavior.* Aerial Press, Santa Cruz, CA, 1985.
 
-<em style="color:blue;background-color: white">\[Blinn82\]</em> J. F. Blinn. "A Generalization of Algebraic Surface Drawing." *ACM
-Transactions on Graphics*. 1(3):235--256, July 1982.
+<em style="color:blue;background-color: white">\[Blinn82\]</em> J. F. Blinn. "A Generalization of Algebraic Surface Drawing." *ACM Transactions on Graphics*. 1(3):235--256, July 1982.
 
-<em style="color:blue;background-color: white">\[Bloomenthal88\]</em> J. Bloomenthal. "Polygonization of Implicit Surfaces." *Computer Aided Geometric Design* *.* 5(4):341--355, November 1982.
+<em style="color:blue;background-color: white">\[Bloomenthal88\]</em> J. Bloomenthal. "Polygonization of Implicit Surfaces." *Computer Aided Geometric Design* *.* 5(4):341--355, November 1982. 
 
-<em style="color:blue;background-color: white">\[Bloomenthal97\]</em> J. Bloomenthal, editor. *Introduction to Implicit Surfaces*. Morgan
-Kaufmann Publishers, Inc., San Francisco, CA., 1997.
+<em style="color:blue;background-color: white">\[Bloomenthal97\]</em> J. Bloomenthal, editor. *Introduction to Implicit Surfaces*. Morgan Kaufmann Publishers, Inc., San Francisco, CA., 1997.
 
-<em style="color:blue;background-color: white">\[Chernoff73\]</em> H. Chernoff. "Using Faces to Represent Pints in *K*-Dimensional Space
-Graphically." *J. American* *Statistical Association.* 68:361--368,
+<em style="color:blue;background-color: white">\[Chernoff73\]</em> H. Chernoff. "Using Faces to Represent Points in *K*-Dimensional Space Graphically." *J. American* *Statistical Association.* 68:361--368,
 1973.
 
-<em style="color:blue;background-color: white">\[Cline93\]</em> H. Cline, W. Lorensen, and W. Schroeder. "3D Phase Contrast MRI of
-Cerebral Blood FLow and Surface Anatomy." *Journal of Computer
-Assisted Tomography.* 17(2):173--177, March/April 1993.
+<em style="color:blue;background-color: white">\[Cline93\]</em> H. Cline, W. Lorensen, and W. Schroeder. "3D Phase Contrast MRI of Cerebral Blood Flow and Surface Anatomy." *Journal of Computer Assisted Tomography.* 17(2):173--177, March/April 1993.
 
-<em style="color:blue;background-color: white">\[Conte72\]</em> S. D. Conte and C. de Boor. *Elementary Numerical Analysis*.
-McGrawHill Book Company, 1972.
+<em style="color:blue;background-color: white">\[Conte72\]</em> S. D. Conte and C. de Boor. *Elementary Numerical Analysis*. McGrawHill Book Company, 1972.
 
-<em style="color:blue;background-color: white">\[deLeeuw93\ W. C. de Leeuw and J. J. van Wijk. "A Probe for Local Flow Field
-Visualization." In *Proceedings* *of Visualization '93*. pp. 39--45,
-IEEE Computer Society Press, Los Alamitos, CA, 1993.
+<em style="color:blue;background-color: white">\[deLeeuw93\] W. C. de Leeuw and J. J. van Wijk. "A Probe for Local Flow Field Visualization." In *Proceedings* *of Visualization '93*. pp. 39--45, IEEE Computer Society Press, Los Alamitos, CA, 1993.
 
-<em style="color:blue;background-color: white">\[Delmarcelle95\]</em> T. Delmarcelle and L. Hesselink. "A Unified Framework for Flow
-Visualization." In Computer Visualization Graphics Techniques for Scientific and Engineering
-Analysis*. R. S. Gallagher, ed. CRC Press, Boca Raton, FL, 1995.
+<em style="color:blue;background-color: white">\[Delmarcelle95\]</em> T. Delmarcelle and L. Hesselink. "A Unified Framework for Flow Visualization." In Computer Visualization Graphics Techniques for Scientific and Engineering Analysis*. R. S. Gallagher, ed. CRC Press, Boca Raton, FL, 1995.
 
-<em style="color:blue;background-color: white">\[Durrett87\]</em> H. J. Durrett, ed. *Color and the Computer.* Academic Press, Boston,
-MA, 1987.
+<em style="color:blue;background-color: white">\[Durrett87\]</em> H. J. Durrett, ed. *Color and the Computer.* Academic Press, Boston, MA, 1987.
 
-<em style="color:blue;background-color: white">\[Durst88\]</em> M. J. Durst. "Additional Reference to Marching Cubes." *Computer
-Graphics*. 22(2):72--73, 1988.
+<em style="color:blue;background-color: white">\[Durst88\]</em> M. J. Durst. "Additional Reference to Marching Cubes." *Computer Graphics*. 22(2):72--73, 1988.
 
-<em style="color:blue;background-color: white">\[Fuchs77\]</em> H. Fuchs, Z. M. Kedem, and S. P. Uselton. "Optimal Surface
-Reconstruction from Planar Contours." *Communications of the ACM*.
-20(10):693--702, 1977.
+<em style="color:blue;background-color: white">\[Fuchs77\]</em> H. Fuchs, Z. M. Kedem, and S. P. Uselton. "Optimal Surface Reconstruction from Planar Contours." *Communications of the ACM*. 20(10):693--702, 1977.
 
-<em style="color:blue;background-color: white">\[Fuller80\]</em>cA. J. Fuller and M.L.X. dosSantos. "Computer Generated Display of 3D
-Vector Fields." *Computer* *Aided Design*. 12(2):61--66, 1980.
+<em style="color:blue;background-color: white">\[Fuller80\]</em>cA. J. Fuller and M.L.X. dosSantos. "Computer Generated Display of 3D Vector Fields." *Computer* *Aided Design*. 12(2):61--66, 1980. 
 
-<em style="color:blue;background-color: white">\[Haber90\]</em> R. B. Haber and D. A. McNabb. "Visualization Idioms: A Conceptual
-Model to Scientific Visualization Systems." *Visualization in
-Scientific Computing,* G. M. Nielson, B. Shriver, L. J. Rosenblum,
-ed. IEEE Computer Society Press, pp. 61--73, 1990.
+<em style="color:blue;background-color: white">\[Haber90\]</em> R. B. Haber and D. A. McNabb. "Visualization Idioms: A Conceptual Model to Scientific Visualization Systems." *Visualization in Scientific Computing,* G. M. Nielson, B. Shriver, L. J. Rosenblum, ed. IEEE Computer Society Press, pp. 61--73, 1990.
 
-<em style="color:blue;background-color: white">\[Helman90\]</em> J. Helman and L. Hesselink. "Representation and Display of Vector
-Field Topology in Fluid Flow Data Sets." *Visualization in Scientific
-Computing.* G. M. Nielson, B. Shriver, L. J. Rosenblum, eds. IEEE
-Computer Society Press, pp. 61--73, 1990.
+<em style="color:blue;background-color: white">\[Helman90\]</em> J. Helman and L. Hesselink. "Representation and Display of Vector Field Topology in Fluid Flow Data Sets." *Visualization in Scientific Computing.* G. M. Nielson, B. Shriver, L. J. Rosenblum, eds. IEEE Computer Society Press, pp. 61--73, 1990.
 
-<em style="color:blue;background-color: white">\[Livnat96\]</em> Y. Livnat, H. W. Shen, C. R. Johnson. "A Near Optimal Isosurface
-Extraction Algorithm for Structured and Unstructured Grids." *IEEE
-Transactions on Visualization and Computer Graphics*. Vol. 2, No. 1,
-March 1996.
+<em style="color:blue;background-color: white">\[Livnat96\]</em> Y. Livnat, H. W. Shen, C. R. Johnson. "A Near Optimal Isosurface Extraction Algorithm for Structured and Unstructured Grids." *IEEE Transactions on Visualization and Computer Graphics*. Vol. 2, No. 1, March 1996.
 
-<em style="color:blue;background-color: white">\[Lorensen87\ W. E. Lorensen and H. E. Cline. "Marching Cubes: A High Resolution 3D
-Surface Construction Algorithm." *Computer Graphics*. 21(3):163--169,
-July 1987.
+<em style="color:blue;background-color: white">\[Lorensen87\ W. E. Lorensen and H. E. Cline. "Marching Cubes: A High Resolution 3D Surface Construction Algorithm." *Computer Graphics*. 21(3):163--169, July 1987.
 
-<em style="color:blue;background-color: white">\[Lorenz63\]</em> E. N. Lorenz. "Deterministic NonPeriodic Flow." *Journal of
-Atmospheric Science*. 20:130--141, 1963.
+<em style="color:blue;background-color: white">\[Lorenz63\]</em> E. N. Lorenz. "Deterministic NonPeriodic Flow." *Journal of Atmospheric Science*. 20:130--141, 1963.
 
-<em style="color:blue;background-color: white">\[Montani94\]</em>cC. Montani, R. Scateni, and R. Scopigno. "A Modified LookUp Table for
-Implicit Disambiguation of Marching Cubes." *Visual Computer* *.*
-(10):353--355, 1994.
+<em style="color:blue;background-color: white">\[Montani94\]</em>cC. Montani, R. Scateni, and R. Scopigno. "A Modified LookUp Table for Implicit Disambiguation of Marching Cubes." *Visual Computer* *.* (10):353--355, 1994.
 
-<em style="color:blue;background-color: white">\[Moon87\]</em> F. C. Moon. *Chaotic Vibrations* *.* WileyInterscience, New York, NY,
-1987.
+<em style="color:blue;background-color: white">\[Moon87\]</em> F. C. Moon. *Chaotic Vibrations* *.* WileyInterscience, New York, NY, 1987. 
 
-<em style="color:blue;background-color: white">\[Nielson91\]</em> G. M. Nielson and B. Hamann. "The Asymptotic Decider: Resolving the
-Ambiguity in Marching Cubes." In *Proceedings of Visualization '91*.
-pp. 83--91, IEEE Computer Society Press, Los Alamitos, CA, 1991.
+<em style="color:blue;background-color: white">\[Nielson91\]</em> G. M. Nielson and B. Hamann. "The Asymptotic Decider: Resolving the Ambiguity in Marching Cubes." In *Proceedings of Visualization '91*. pp. 83--91, IEEE Computer Society Press, Los Alamitos, CA, 1991. 
 
-<em style="color:blue;background-color: white">\[Rheingans92\]</em> P. Rheingans. "Color, Change, and Control for Quantitative Data
-Display." In *Proceedings of Visualization '92*. pp. 252--259, IEEE
-Computer Society Press, Los Alamitos, CA, 1992.
+<em style="color:blue;background-color: white">\[Rheingans92\]</em> P. Rheingans. "Color, Change, and Control for Quantitative Data Display." In *Proceedings of Visualization '92*. pp. 252--259, IEEE Computer Society Press, Los Alamitos, CA, 1992.
 
-<em style="color:blue;background-color: white">\[Richter90\]</em> R. Richter, J. B. Vos, A. Bottaro, and S. Gavrilakis. "Visualization
-of Flow Simulations." *Scientific* *Visualization and Graphics
-Simulation*. D. Thalmann editor, pp. 161--171, John Wiley and Sons,
-1990.
+<em style="color:blue;background-color: white">\[Richter90\]</em> R. Richter, J. B. Vos, A. Bottaro, and S. Gavrilakis. "Visualization of Flow Simulations." *Scientific* *Visualization and Graphics Simulation*. D. Thalmann editor, pp. 161--171, John Wiley and Sons, 1990.
 
-<em style="color:blue;background-color: white">\[Saada74\]</em> A. S. Saada. *Elasticity Theory and Applications.* Pergamon Press,
-Inc., New York, NY, 1974.
+<em style="color:blue;background-color: white">\[Saada74\]</em> A. S. Saada. *Elasticity Theory and Applications.* Pergamon Press, Inc., New York, NY, 1974. 
 
-<em style="color:blue;background-color: white">\[Timoshenko70\]</em> S. P. Timoshenko and J. N. Goodier. *Theory of Elasticity, 3d Edition*
-. McGrawHill Book Company, New York, NY, 1970.
+<em style="color:blue;background-color: white">\[Timoshenko70\]</em> S. P. Timoshenko and J. N. Goodier. *Theory of Elasticity, 3d Edition* . McGrawHill Book Company, New York, NY, 1970. 
 
-<em style="color:blue;background-color: white">\[Tufte83\]</em> E. R. Tufte. *The Visual Display of Quantitative Information.*
-Graphics Press, Cheshire, CT, 1990.
+<em style="color:blue;background-color: white">\[Tufte83\]</em> E. R. Tufte. *The Visual Display of Quantitative Information.* Graphics Press, Cheshire, CT, 1990. 
 
-<em style="color:blue;background-color: white">\[Volpe89\]</em> G. Volpe. "Streamlines and Streamribbons in Aerodynamics." Technical
-Report AIAA-89-0140, 27th Aerospace Sciences Meeting, 1989.
+<em style="color:blue;background-color: white">\[Volpe89\]</em> G. Volpe. "Streamlines and Streamribbons in Aerodynamics." Technical Report AIAA-89-0140, 27th Aerospace Sciences Meeting, 1989. 
 
-<em style="color:blue;background-color: white">\[Ware88\]</em> C. Ware. "Color Sequences for Univariate Maps: Theory, Experiments and
-Principles." *IEEE* *Computer Graphics and Applications*.
-8(5):41--49, 1988.
+ <em style="color:blue;background-color: white">\[Ware88\]</em> C. Ware. "Color Sequences for Univariate Maps: Theory, Experiments and Principles." *IEEE* *Computer Graphics and Applications*. 8(5):41--49, 1988.
 
-<em style="color:blue;background-color: white">\[Watson92\]</em> D. F. Watson. *Contouring: A Guide to the Analysis and Display of
-Spatial Data*. Pergamon Press, 1992.
+<em style="color:blue;background-color: white">\[Watson92\]</em> D. F. Watson. *Contouring: A Guide to the Analysis and Display of Spatial Data*. Pergamon Press, 1992.
 
-<em style="color:blue;background-color: white">\[Wyszecki82\]</em> G. Wyszecki and W. Stiles. *Color Science: Concepts and Methods,
-Quantitative Data and Formulae*. John Wiley and Sons, 1982.
+<em style="color:blue;background-color: white">\[Wyszecki82\]</em> G. Wyszecki and W. Stiles. *Color Science: Concepts and Methods, Quantitative Data and Formulae*. John Wiley and Sons, 1982. 
 
-<em style="color:blue;background-color: white">\[Wyvill86\]</em> G. Wyvill, C. McPheeters, B. Wyvill. "Data Structure for Soft Objects." *Visual Computer*. 2(4):227--234, 1986.
+<em style="color:blue;background-color: white">\[Wyvill86\]</em> G. Wyvill, C. McPheeters, B. Wyvill. "Data Structure for Soft Objects." *Visual Computer*. 2(4):227--234, 1986. 
 
 ## 6.10 Exercises
 
