@@ -1024,7 +1024,7 @@ Blinn <em style="color:blue;background-color: white">\[Blinn82\]</em>, Bloomenta
 
 <em style="color:blue;background-color: white">\[Saada74\]</em> A. S. Saada. *Elasticity Theory and Applications.* Pergamon Press, Inc., New York, NY, 1974. 
 
-<em style="color:blue;background-color: white">\[Timoshenko70\]</em> S. P. Timoshenko and J. N. Goodier. *Theory of Elasticity, 3d Edition* . McGrawHill Book Company, New York, NY, 1970. 
+<em style="color:blue;background-color: white">\[Timoshenko70\]</em> S. P. Timoshenko and J. N. Goodier. *Theory of Elasticity, 3d Edition*. McGrawHill Book Company, New York, NY, 1970. 
 
 <em style="color:blue;background-color: white">\[Tufte83\]</em> E. R. Tufte. *The Visual Display of Quantitative Information.* Graphics Press, Cheshire, CT, 1990. 
 
