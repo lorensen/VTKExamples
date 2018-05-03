@@ -284,9 +284,12 @@ $$
 
 This suggests an extension to our previous techniques: repeatedly displace points over many time steps. **Figure 6-16** shows such an approach. Beginning with a sphere *S* centered about some point *C*, we move *S* repeatedly to generate the bubbles shown. The eye tends to trace out a path by connecting the bubbles, giving the observer a qualitative understanding of the fluid flow in that area. The bubbles may be displayed as an animation over time (giving the illusion of motion) or as a multiple exposure sequence (giving the appearance of a path).
 
-!!! warning "Missing Figure"
-    **Figure 6-16** Time animation of a point *C*. Although the spacing between points varies, the time increment between each point is constant.
-g
+<figure id="Figure 6-16">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-16.png?raw=true width="640" alt="Figure6-16">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-16</b>. Time animation of a point <b>C</b>. Although the spacing between points varies, the time increment between each point is constant.</figcaption>
+</figure>
+
 Such an approach can be misused. For one thing, the velocity at a point is instantaneous.
 
 Once we move away from the point the velocity is likely to change. Using **Equation6-1** above assumes that the velocity is constant over the entire step. By taking large steps we are likely to jump over changes in the velocity. Using smaller steps we will end in a different position. Thus the choice of step size is a critical parameter in constructing accurate visualization of particle paths in a vector field.
@@ -313,8 +316,11 @@ step $\Delta{t}$.
 
 Euler's method has error on the order of $O(\Delta{t}^2)$, which is not accurate enough for some applications. One such example is shown in **Figure 6-17**. The velocity field describes perfect rotation about a central point. Using Euler's method we find that we will always diverge and, instead of generating circles, will generate spirals instead.
 
-!!! warning "Missing Figure"
-    **Figure 6-17** Euler's integration (b) and RungeKutta integration of order 2 (c) applied to uniform rotational vector field (a). Euler's method will always diverge.
+<figure id="Figure 6-17">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-17.png?raw=true width="640" alt="Figure6-17">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-17</b>. Euler's integration (b) and RungeKutta integration of order 2 (c) applied to uniform rotational vector field (a). Euler's method will always diverge.</figcaption>
+</figure>
 
 In this text we will use the RungeKutta technique of order 2 <em style="color:blue;background-color: white">\[Conte72\]</em>. This is given by the expression
 
@@ -697,7 +703,7 @@ We encourage you to examine the source code carefully for a few filter and sourc
 
 The architecture is simple enough that you can grasp it quickly.
 
-**Mapper Design.**
+### Mapper Design
 
 Mapper objects have one or more inputs and no visualization data output, **Figure 6-36**. Two different types of mappers are available in the *Visualization Toolkit* : graphics mappers and writers. Graphics mappers interface geometric structure and data attributes to the graphics library; writers write datasets to disk or other I/O devices.
 
@@ -707,7 +713,7 @@ Although writers and mappers do not create visualization data, they both have me
 
 ###Color Maps
 
-Color maps are created in the _Visualization Toolkit_ using instances of the class vtkLookupTable. This class allows you to create a lookup table using HSVA (e.g., hue, saturation, value, and alpha Chapter 3, we opacity value) specification. Although we discussed the HSV color system in Chapter 7, but until then consider the alpha haven’t yet defined alpha opacity. We shall do so in value to be the opacity of an object. Alpha values of one indicate that the object is opaque, while alpha values of zero indicate that the object is transparent.
+Color maps are created in the _Visualization Toolkit_ using instances of the class vtkLookupTable. This class allows you to create a lookup table using HSVA (e.g., hue, saturation, value, and alpha opacity value) specification. Although we discussed the HSV color system in [Chapter 3 - Computer Graphics Primer](/VTKBook/03Chapter3), we haven’t yet defined alpha opacity. We shall do so in [Chapter 7 - Advanced Computer Graphics](/VTKBook/07Chapter7), but until then consider the alpha value to be the opacity of an object. Alpha values of one indicate that the object is opaque, while alpha values of zero indicate that the object is transparent.
 
 The procedure for generating lookup table entries is to define pairs of values for HSVA. These pairs define a linear ramp for hue, saturation, value, and opacity. When the Build() method is invoked, these linear ramps are used to generate a table with the number of table entries requested. Alternatively, vtkLookupTable also enables you to load colors directly into the table. Thus, you build custom tables that cannot be simply expressed as linear ramps of HSVA values. To demonstrate this procedure, we specify a starting and ending value for each of the components of HSVA, then we will create a rainbow lookup table from blue to red by using the following C++ code.
 
@@ -782,10 +788,13 @@ The execution times are normalized to the smallest dataset using the vtkMarching
 
 Although these results do not represent all implementations or the behavior of other algorithms, they do point to the cost of generality. Of course, there is a cost to specialization as well. This cost is typically in programmer time, since the programmer must rewrite code to adapt to new circumstances and data. Like all trade-offs, resolution of this issue requires knowledge of the application.
 
-!!! warning "Missing Figure"
-    **Figure 6-38** The cost of generality. Isosurface generation of three volumes of different sizes are compared. The results show normalized execution times for two different implementations of the marchingcubes isosurface algorithm. The specialized filter is vtkMarchingCubes. The general algorithms are first vtkContourFilter and then in combination with vtkPolyDataNormals.
+<figure id="Figure 6-38">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-38.png?raw=true width="640" alt="Figure6-38">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-38</b>. The cost of generality. Isosurface generation of three volumes of different sizes are compared. The results show normalized execution times for two different implementations of the marchingcubes isosurface algorithm. The specialized filter is vtkMarchingCubes. The general algorithms are first vtkContourFilter and then in combination with vtkPolyDataNormals.</figcaption>
+</figure>
 
-An example use of vtkContourFilter is shown in **Figure 6-39**. This example is taken from **Figure4-1**, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As **Figure 6-39** shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals to create surface normals. (We describe normal generation in Chapter 9.)
+An example use of vtkContourFilter is shown in **Figure 6-39**. This example is taken from **Figure4-1**, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As **Figure 6-39** shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals to create surface normals. (We describe normal generation in [Chapter 9 - Advanced Algorithms](/VTKBook/09Chapter9).)
 
 ``` c++
 // Define implicit function
@@ -823,7 +832,7 @@ vtkActor *outlineActor = vtkActor::New();
 
 ### Cutting
 
-vtkCutter performs cutting of all VTK cell types. The SetValue() and GenerateValues() methods permit the user to specify which multiple scalar values to use for the cutting. vtkCutter requires an implicit function that will be evaluated at each point in the dataset. Then each cell is cut using the cell's Contour method. Any point attributes are interpolated to the resulting cut vertices. The sorting order for the generated polygonal data can be controlled with the SortBy method. The default sorting order, SortByValue(), processes cells in the inner loop for each contour value. SortByCell() processes the cutting value in the inner loop and produces polygonal data that is suitable for backtofront rendering (see **Figure 6-32** ). (The sorting order is useful when rendering with opacity as discussed in Chapter 7.) Notice the similarity of this filter to the vtkContourFilter. Both of these objects contour datasets with multiple isovalues. vtkCutter uses an implicit function to calculate scalar values while vtkContourFilter uses the scalar data associated with the dataset's point data.
+vtkCutter performs cutting of all VTK cell types. The SetValue() and GenerateValues() methods permit the user to specify which multiple scalar values to use for the cutting. vtkCutter requires an implicit function that will be evaluated at each point in the dataset. Then each cell is cut using the cell's Contour method. Any point attributes are interpolated to the resulting cut vertices. The sorting order for the generated polygonal data can be controlled with the SortBy method. The default sorting order, SortByValue(), processes cells in the inner loop for each contour value. SortByCell() processes the cutting value in the inner loop and produces polygonal data that is suitable for backtofront rendering (see **Figure 6-32** ). (The sorting order is useful when rendering with opacity as discussed in [Chapter 7 - Advanced Computer Graphics](/VTKBook/07Chapter7).) Notice the similarity of this filter to the vtkContourFilter. Both of these objects contour datasets with multiple isovalues. vtkCutter uses an implicit function to calculate scalar values while vtkContourFilter uses the scalar data associated with the dataset's point data.
 
 ### Glyphs
 
@@ -869,7 +878,7 @@ vtkThresholdPoints allows us to extract points that satisfy a certain threshold 
 
 The filter vtkMaskPoints allows us to select a subset of the available points. We specify the subset with the OnRatio instance variable. This instance variable indicates that every OnRatio point is to be selected. Thus, if the OnRatio is equal to one, all points will be selected, and if the OnRatio is equal to ten, every tenth point will be selected. This selection can be either uniform or random. Random point selection is set using the RandomModeOn() and RandomModeOff() methods.
 
-After selecting a subset of the original points, we can use the vtkGlyph3D filter in the usual way. A cone's orientation indicates blood flow direction, and its size and color correspond to the velocity magnitude. **Figure 6-43** shows the pipeline, sample code, and a resulting image from this visualization. Note that we've implemented the example using the interpreted language Tcl. See Chapter 11 if you want more information about Tcl.
+After selecting a subset of the original points, we can use the vtkGlyph3D filter in the usual way. A cone's orientation indicates blood flow direction, and its size and color correspond to the velocity magnitude. **Figure 6-43** shows the pipeline, sample code, and a resulting image from this visualization. Note that we've implemented the example using the interpreted language Tcl. See [Chapter 11 - Visualization on the Web](/VTKBook/11Chapter11) if you want more information about Tcl.
 
 In the next part of this example we'll generate streamtubes of blood velocity. Again we use an isosurface of speed to provide us with context. The starting positions for the streamtubes were determined by experimenting with the data. Because of the way the data was measured and the resolution of the velocity field, many streamers travel outside the artery. This is because the boundary layer of the blood flow is not captured due to limitations in data resolution. Consequently, as the blood flows around curves, there is a component of the velocity field that directs the streamtube outside the artery. As a result it is hard to find starting positions for the streamtubes that yield interesting results. We use the source object vtkPointSource in combination with vtkThresholdPoints to work around this problem. vtkPointSource generates random points centered around a sphere of a specified radius. We need only find an approximate position for the starting points of the streamtubes and then generate a cloud of random seed points. vtkThresholdPoints is used to cull points that may be generated outside the regions of high flow velocity.
 
@@ -942,7 +951,7 @@ Although we barely touched the topic, the study of chaos and chaotic vibrations 
 
 Two- and three-dimensional vector plots have been used by computer analysts for many years <em style="color:blue;background-color: white">\[Fuller80\]</em>. Streamlines and streamribbons also have been applied to the visualization of complex flows <em style="color:blue;background-color: white">\[Volpe89\]</em>. Good general references on vector visualization techniques are given in <em style="color:blue;background-color: white">\[Helman90\]</em> and <em style="color:blue;background-color: white">\[Richter90\]</em>.
 
-Tensor visualization techniques are relatively few in number. Most techniques are glyph oriented <em style="color:blue;background-color: white">\[Haber90\]</em> <em style="color:blue;background-color: white">\[deLeeuw93\]</em>. We will see a few more techniques in Chapter 9.
+Tensor visualization techniques are relatively few in number. Most techniques are glyph oriented <em style="color:blue;background-color: white">\[Haber90\]</em> <em style="color:blue;background-color: white">\[deLeeuw93\]</em>. We will see a few more techniques in [Chapter 9 - Advanced Algorithms](/VTKBook/09Chapter9).
 
 Blinn <em style="color:blue;background-color: white">\[Blinn82\]</em>, Bloomental <em style="color:blue;background-color: white">\[Bloomenthal88\]</em> <em style="color:blue;background-color: white">\[Bloomenthal97\]</em> and Wyvill <em style="color:blue;background-color: white">\[Wyvill86\]</em> have been important contributors to implicit modeling. Implicit modeling is currently popular in computer graphics for modeling "soft" or "blobby" objects. These techniques are simple, powerful, and are becoming widely used for advanced computer graphics modeling.
 

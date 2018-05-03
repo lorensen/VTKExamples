@@ -12,13 +12,13 @@ We will examine three different coordinate systems: the global, dataset, and str
 <figcaption style="color:blue"><b>Figure 8-1</b>. Local and global coordinate systems.</figcaption>
 </figure>
 
-**Global Coordinate System**
+### Global Coordinate System
 
-The global coordinate system is a Cartesian, three-dimensional space. Each point is expressed as a triplet of values (x,y,z) along the x, y, and z axes. This is the same system that was described in Chapter 3 (see “Coordinate Systems” on page 46).
+The global coordinate system is a Cartesian, three-dimensional space. Each point is expressed as a triplet of values (x,y,z) along the x, y, and z axes. This is the same system that was described in [“Coordinate Systems”](/VTKBook/03Chapter3/#37-coordinate-transformation) in [Chapter 3 - Computer Graphics Primer](/VTKBook/03Chapter3)).
 
 The global coordinate system is always used to specify dataset geometry (i.e., the point coordinates), and data attributes such as normals and vectors. We will use the word “position” to indicate that we are using global coordinates.
                
-**Dataset Coordinate System**
+### Dataset Coordinate System
 
 The dataset, or local, coordinate system is based on combined topological and geometric coordinates. The topological coordinate is used to identify a particular cell (or possibly a subcell), and the geometric coordinate is used to identify a particular location within the cell. Together they uniquely specify a location in the dataset. Here we will use the word “location” to refer to local or dataset coordinates.
 
@@ -42,9 +42,9 @@ The number of parametric coordinates corresponds to the topological dimension of
 Every cell type will have its own parametric coordinate system. Later in this chapter we will describe the parametric coordinate systems in detail. But first we will examine another coordinate system, the structured coordinate system.
                 
 
-**Structured Coordinate System**
+### Structured Coordinate System
 
-Many dataset types are structured. This includes image data and structured grids. Because of their inherent structure, they have their own natural coordinate system. This coordinate system is based on the i-j-k indexing scheme that we touched on in Chapter 5 (see “Image Data” on page 136).
+Many dataset types are structured. This includes image data and structured grids. Because of their inherent structure, they have their own natural coordinate system. This coordinate system is based on the i-j-k indexing scheme that we touched on in ["Image Data"](/VTKBook/05Chapter5/#image-data) in [Chapter 5](/VTKBook/05Chapter5).
 
 The structured coordinate system is a natural way to describe components of a structured dataset. By fixing some indices, and allowing the others to vary within a limited range, we can specify points, lines, surfaces, and volumes. For example, by fixing the i index i = i0, and allowing the j and k indices to range between their minimum and maximum values, we specify a surface. If we fix three indices, we specify a point, if we fix two indices, we specify a line, and if we allow three indices to vary, we specify a volume (or sub-volume). The structured coordinate system is generally used to specify a region of interest (or ROI). The region of interest is an area that we want to visualize, or to operate on.
 
@@ -80,7 +80,7 @@ Interpolation functions relate the values at cell points to the interior of the 
 <figcaption style="color:blue"><b>Figure 8-2</b>. Interpolation is a linear combination of local interpolation functions. Interpolation functions are scaled by data values at cell points.</figcaption>
 </figure>
 
-**General Form**
+### General Form
 
 To interpolate data from the cell points $p_i$ to a point $p$ that is inside the cell, we need three pieces of information:
 
@@ -121,7 +121,7 @@ The interpolation functions are of a characteristic shape. They reach their maxi
 
 Equation 8-4 is the general form for cell interpolation. It is used to interpolate any data value defined at the cell points to any other point within the cell. We have only to define the specific interpolation functions $W_i$ for each cell type.
 
-**Specific Forms**
+### Specific Forms
 
 Each cell type has its own interpolation functions. The weights $W_i$ are functions of the parametric coordinates r, s, and t. In this section we will define the parametric coordinate system and interpolation function for each primary cell type. Composite cells use the interpolation functions and parametric coordinates of their composing primary cells. The only difference in coordinate system specification between primary and composite cells is that composite cells use the additional sub-id to specify a particular primary cell.
 
@@ -291,7 +291,7 @@ The weighted distance squared interpolation functions work well in practice. How
 
 ## 8.3 Cell Tessellation
 
-  As briefly introduced in Chapter 5, nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically onlyquadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework (see **Figure 8-23**) that enables users to interface their own simulation system to the visualization system <em style="color:blue;background-color: white">\[Schroeder06\]</em>. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho-rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
+  As briefly introduced in [Chapter 5 - Data Representation](/VTKBook/05Chapter5), nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically onlyquadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework (see **Figure 8-23**) that enables users to interface their own simulation system to the visualization system <em style="color:blue;background-color: white">\[Schroeder06\]</em>. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho-rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
 
 <figure id="Figure 8-23">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-23.png?raw=true width="640" alt="Figure8-23">
@@ -299,7 +299,7 @@ The weighted distance squared interpolation functions work well in practice. How
 <figcaption style="color:blue"><b>Figure 8-23</b>. Cell adaptor framework.</figcaption>
 </figure>
 
-**Basic Approach**
+### Basic Approach
 
 The basic approach is to dynamically tessellate the cells of the GenericDataSet, and then operate on the resulting linear tessellation. As expressed in pseudo-code, a typical algorithm looks like this:
 
@@ -338,7 +338,7 @@ Some templates for cell subdivision are shown in **Figure 8-24**. Note that in s
 <figcaption style="color:blue"><b>Figure 8-24</b>. Three cases from the subdivision table for a triangle. Filled circles indicate that the edge is marked for subdivision.</figcaption>
 </figure>
 
-**Error Measures**
+### Error Measures
 
 The algorithm described above is adaptive because edge splitting is controlled by local mesh properties and/or its relation to the view position. Since the goal is to insure that the quality of the tessellation is consistent with the particular requirements of the visualization, we expect the adapted tessellation to be of better quality as compared to a fixed subdivision with the same number of simplices, or have fewer simplices for tessellations of equal quality.
 
@@ -360,7 +360,7 @@ The following paragraphs describes several error measures that have been found t
 
 * _Image-Based Geometric Error Measure._ This error measure is the distance, in pixels, between the line (AB) projected in image space to the midpoint C also projected in image space. Because the computation involves projection through the current camera matrix, this error measure is view-dependent. As a result, the tessellation may be crude in portions of the mesh away from the camera. Note that one of the disadvantages of this approach is that tessellation may be required each time the camera is repositioned relative to the mesh.
 
-** Advanced Methods **
+### Advanced Methods
 
 Attentive readers will have noticed that the subdivision scheme described previously may fail to capture all the features of the higher-order basis. For example, imagine a scalar function across a triangle where the peak value of the function occurs in the center of the triangle, and the variation across the edges is zero. The edge subdivision algorithm described previously will not capture the peak, hence an algorithm such as isocontouring will produce inaccurate results. Linear isocontouring algorithms require that the following conditions are met in order to produce topologically correct results.
 
@@ -378,7 +378,7 @@ To address this problem, a pre-triangulation of the basis must be performed. The
 
 Coordinate transformation is a common visualization operation. This may be either transformation from dataset coordinates to global coordinates, or global coordinates to dataset coordinates.
 
-**Dataset to Global Coordinates**
+### Dataset to Global Coordinates
 
 Transforming between dataset coordinates and global coordinates is straightforward. We start by identifying a primary cell using the cell id and sub-id. Then the global coordinates are generated from the parametric coordinates by using the interpolation functions of Equation 8-4. Given cell points $p_i = p_i(x_i, y_i, z_i)$ the global coordinate $p$ is simply
 
@@ -393,7 +393,7 @@ where the interpolation weights $W_i$i are evaluated at the parametric coordinat
 
 In the formulation presented here, we have used the same order interpolation functions for both data and cell geometry. (By order we mean the polynomial degree of the interpolating polynomials.) This is termed iso-parametric interpolation. It is possible to use different interpolation functions for geometry and data. Super-parametric interpolation is used when the order of the interpolation functions for geometry is greater than those used for data. Sub-parametric interpolation is used when the order of the interpolation functions for geometry is less than those used for data. Using different interpolation functions is commonly used in numerical analysis techniques such as the finite element method. We will always use the iso-parametric interpolation for visualization applications.
 
-**Global to Dataset Coordinates**
+### Global to Dataset Coordinates
 
 Global to dataset coordinate transformations are expensive compared to dataset to global transformations. There are two reasons for this. First, we must identify the particular cell $C_i$ that contains the global point p. Second, we must solve Equation 8-4 for the parametric coordinates of p.
 
@@ -667,7 +667,7 @@ $$
 <figcaption style="color:blue"><b>Figure 8-28</b>. Simplices of dimension three and lower.</figcaption>
 </figure>
 
-**Cell Operation**
+### Cell Operation
 
 Cell operations return information about the topology of a cell. Typically, we want to know the topological order of the cell or the topology of the cell boundary.
 
@@ -683,7 +683,7 @@ Another useful cell operation is cell decomposition into simplices. Every cell c
 <figcaption style="color:blue"><b>Figure 8-29</b>. Closest boundary cell operation for quadrilateral cell.</figcaption>
 </figure>
 
-**Dataset Operations**
+### Dataset Operations
 
 Dataset operations return information about the topology of a dataset or topological information about the adjacency of cells. Typical operations include determining the neighbors of a cell or returning a list of all cells that use a particular point.
 
@@ -777,7 +777,7 @@ Using this abstraction allows us to treat single-valued scalars and scalars cons
 
 A significant attraction of using 2and 3-dimensional image data is the speed and simplicity of computation. In this section, we will explore specific techniques that exploit the special regular topology and geometry of image data.
 
-**Coordinate Transformation**
+### Coordinate Transformation
 
 Given a point $p$ we can find the structured coordinates by performing three division operations (**Figure 8-32**). Taking the integer floor function yields the structured coordinates. Taking the fractional part of the result yields the parametric coordinates of the cell. We can then use Equation 8-3 to convert to dataset coordinates.
                    
@@ -787,7 +787,8 @@ Given a point $p$ we can find the structured coordinates by performing three div
 <figcaption style="color:blue"><b>Figure 8-32</b>. Image data coordinate transformation.</figcaption>
 </figure>
 
-**Derivative Computation**
+### Derivative Computation
+
 Because the image dataset is oriented parallel to the coordinate x, y, and z axes, and because the spacing of points in each of these directions is regular, finite difference schemes can be used to compute partial derivatives at the cell points. Referring to **Figure 8-33**, we see that central differences can be used in each of the three directions according to the equation:
 
 $$
@@ -806,7 +807,8 @@ $$
 </figure>
 <figcaption style="color:blue"><b>Figure 8-33</b>. Using finite differences to compute derivatives on image data.</figcaption>
 </figure>
-**Topology**
+
+### Topology
 
 Structured datasets lend themselves to efficient topological operations (i.e., both image data and structured grids). Given a cell id, it is possible to determine vertex, edge, or face neighbors using simple constant time operations. First, given the cell id in a three-dimensional structured dataset, we use a combination of division and modulo arithmetic to compute the structured coordinates
 
@@ -832,7 +834,7 @@ $$
 
 An attempt to index outside these ranges indicates that the neighbor in question does not exist.
 
-**Searching**
+### Searching
 
 Given a point $p = (x, y, z)$ we can determine the cell containing $p$ by using the equations given in **Figure 8-32**. These equations generate the structured coordinates $(i, j, k)$, which can then be converted to cell id (i.e., dataset coordinates) using Equation 8-3.
 
@@ -851,9 +853,9 @@ $$
 
 In this section we will finish our earlier description of an implementation for unstructured data. We also define a high-level, abstract interface for cells and datasets. This interface allows us to implement the general (i.e., dataset specific) algorithms in the _Visualization Toolkit_. We also describe implementations for color scalars, searching and picking, and conclude with a series of examples to demonstrate some of these concepts.
 
-**Unstructured Topology**
+### Unstructured Topology
 
-In Chapter 5 we described data representations for the unstructured dataset types vtkPolyData and vtkUnstructuredGrid. Close examination of this data structure reveals that operations to retrieve topological adjacency are inefficient. In fact, to implement any operation to retrieve vertex, edge, or face neighbors requires a search of the cell array, resulting in O(n) time complexity. This is unacceptable for all but the smallest applications, since any algorithm traversing the cell array and retrieving adjacency information is at a minimum O(n2).
+In [Chapter 5 - Data Representation](/VTKBook/05Chapter5) we described data representations for the unstructured dataset types vtkPolyData and vtkUnstructuredGrid. Close examination of this data structure reveals that operations to retrieve topological adjacency are inefficient. In fact, to implement any operation to retrieve vertex, edge, or face neighbors requires a search of the cell array, resulting in O(n) time complexity. This is unacceptable for all but the smallest applications, since any algorithm traversing the cell array and retrieving adjacency information is at a minimum O(n2).
 
 The reason for this inefficiency is that the data representation is a “downward” hierarchy (**Figure 8-34**(b)). That is, given a cell we can quickly determine the topological features lower in the topological hierarchy such as faces, edges, and points. However, given a face, edge, or point we must search the cell array to determine the owning cells. To improve the efficiency of this data representation, we must introduce additional information into the hierarchy that allows “upward” hierarchy traversal (similar to that shown in **Figure 8-34**(a)).
 
@@ -881,7 +883,7 @@ There are several important characteristics of this data representation.
 
 The unstructured data structure in the _Visualization Toolkit_ is implemented using the four classes vtkPoints (and subclasses), vtkCellArray, vtkCellTypes, and vtkCellLinks. The building of this data structure is incremental. At a minimum, the points and cells are represented using vtkPoints and vtkCellArray. If random access or extra type information is required, then the object vtkCellTypes is used. If adjacency information is required, an instance of the class vtkCellLinks is created. These operations are carried out behind the scenes, and generally do not require extra knowledge by the application programmer.
 
-**Abstract Interfaces**
+### Abstract Interfaces
 
 With the completion of Chapters 5 and 8, we can summarize the abstract interface for cells, datasets, and the point data attributes. These pseudo-code descriptions encapsulate the core functionality of the classes vtkDataSet, vtkCell, and vtkPointData, and their subclasses. All algorithms presented in this text can be implemented using combinations of these methods.
 
@@ -1117,7 +1119,7 @@ Many of the methods described below deal with moving data from the input to the 
           NULL value, in which case the texture coordinates are not defined.
 ```
 
-**Traversing Intermediate Topology**
+### Traversing Intermediate Topology
 
 The dataset abstraction implemented by VTK provides simple techniques to traverse points and cells. Sometimes we want to traverse intermediate topology such as edges or faces. For example, to identify boundary edges in a triangular mesh we must traverse each edge, counting the number of triangles that use each edge. (Recall that boundary edges are used by just one triangle.) Unfortunately, there is no obvious way to traverse edges. The same problem holds true if we want to traverse the faces of a dataset containing 3D cells.
 
@@ -1127,7 +1129,7 @@ A better solution to this problem is to traverse each cell as before, but only p
 
 To illustrate this process consider visiting the edges of a triangle mesh. We begin by visiting the first triangle, t, and then its edges. For each edge we determine the adjacent triangle(s) (if any) that use the edge. If the id of the adjacent triangle(s) is greater than triangle t’s id, or there are no adjacent triangles, then we know to process the current edge. (Of course the first triangle will always have the smallest id — but this will change as the traversal proceeds.) We then continue traversing the triangle list for new t’s. In this way all the edges of the mesh will be visited.
                    
-**Color Scalar Data**
+### Color Scalar Data
 
 Multivalued scalar data, or scalars represented by various color representations, are treated specially by the _Visualization Toolkit_. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See “Color Mapping” on page 163 for more information.)
 
@@ -1141,7 +1143,7 @@ By default, the mapping of scalars into colors proceeds as follows (vtkMapper an
 
 It is possible to force unsigned char data to be mapped through a lookup table. The vtkMapper method SetColorModeToMapScalars() forces all data—regardless of type—to be mapped through the lookup table.
 
-**Searching**
+### Searching
 
 The _Visualization Toolkit_ provides two classes to perform searches for dataset points and cells. These are vtkPointLocator and vtkCellLocator. (Both of these classes are subclasses of vtkLocator, which is an abstract base class for spatial search objects.) vtkPointLocator is used to search for points and, if used with the topological dataset operator GetPointCells(), to search for cells as well. vtkCellLocator is used to search for cells.
 
@@ -1175,7 +1177,7 @@ The advantage of this structure is that memory can be allocated and deleted quic
 
 Our experience with the search structures described here is that they work well for many types of visualization data. However, if your data is non-uniform, you may want to implement your own special search classes.
 
-**Picking**
+### Picking
 
 The _Visualization Toolkit_ provides a variety of classes to perform actor (or vtkProp), point, cell, and world point picking (**Figure 8-38**). Depending on which picker is used, either software-based geometric intersection or hardware picking is used. The following describes each of the picker types in detail.
 
@@ -1195,7 +1197,7 @@ By default picking is performed with the class vtkPropPicker. This class uses ha
 
 Figure8-39 summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the “p” key (see “Introducing vtkRenderWindowInteractor” on page 68). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
 
-**Examples**
+### Examples
 
 To conclude this section, we will examine how some of the dataset, cell, and point attribute operations are used. These operations tend to be used by class developers. You will not need to use them if you build applications by constructing visualization pipelines with existing filters.
 

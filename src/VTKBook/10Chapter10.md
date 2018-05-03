@@ -15,9 +15,9 @@ In this section we will briefly describe the data representation behind the imag
 
 An image is typically used to refer to a 2D structured point dataset. More generally, in this chapter we will define an image as consisting of up to four dimensions: three spatial dimensions x, y, and z, and time t. The reason we add the time dimension is that images are frequently generated as a time series, and we often wish to access the data along the time axis. For example, we may plot the value at a point as a function of time.
 
-As described in ["Image Data"](/VTKBook/05Chapter5/#Chapter 5 Image Data) in [Chapter 5](/VTKBook/05Chapter5), an image has both regular topology and geometry. The regularity of the data lends itself to many special operations. In particular, we can support data caching and streaming, and operating on regions of interest in the data.
+As described in ["Image Data"](/VTKBook/05Chapter5/#image-data) in [Chapter 5](/VTKBook/05Chapter5), an image has both regular topology and geometry. The regularity of the data lends itself to many special operations. In particular, we can support data caching and streaming, and operating on regions of interest in the data.
 
-###Regions of Interest
+### Regions of Interest
 
 When data has a regular spatial organization, it is possible to request the data in pieces or regions of interest. For example, a mapper may need only a region of the data for its display, so loading or processing the whole dataset would be inefficient. An example of this is a two-dimensional viewer that displays only one slice of a large structured volume. By loading slices only as they are needed, disk access can be reduced, and memory conserved.
 
