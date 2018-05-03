@@ -92,10 +92,14 @@ Here we list tasks that need to be done.
 
 ### Chapter 06
 
-- Figure 6.3: Code needs to be written to generate the four plates here. `Rainbow.cxx`and `Rainbow.py`already exist.
+- Figure 6-3: Code needs to be written to generate the four plates here. `Rainbow.cxx`and `Rainbow.py`already exist.
 
-- Figure 6.6: Modify `MarchingCasesA` so that the last two cases are centered and the black backgrounds are changed to match the other backgrounds.
+- Figure 6-6: Modify `MarchingCasesA` so that the last two cases are centered and the black backgrounds are changed to match the other backgrounds.
 
 - Figure 6-10: Modify `MarchingCasesB` so that the last two cases are centered and the black backgrounds are changed to match the other backgrounds.
 
-- Figure 6.25: Need the alternate view here.
+- Figure 6-25: Need the alternate view here.
+
+### Chapter 08
+
+- Figure 8-2: Equation needs fixing.
