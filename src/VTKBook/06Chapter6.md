@@ -67,7 +67,7 @@ Color mapping is a one-dimensional visualization technique. It maps one piece of
 
 The key to color mapping for scalar visualization is to choose the lookup table entries carefully. **Figure 6-3** shows four different lookup tables used to visualize gas density as fluid flows through a combustion chamber. The first lookup table is gray-scale. Gray-scale tables often provide better structural detail to the eye. The other three images in **Figure 6-3** use different color lookup tables. The second uses rainbow hues from blue to red. The third uses rainbow hues arranged from red to blue. The last table uses a table designed to enhance contrast. Careful use of colors can often enhance important features of a dataset. However, any type of lookup table can exaggerate unimportant details or create visual artifacts because of unforeseen interactions between data, color choice, and human physiology.
 
-Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (**Figure 6-1** ), the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes, improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
+Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (**Figure 6-1**), the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes, improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
 
 <figure id="Figure 6-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-2.png?raw=true width="640" alt="Figure6-2">
@@ -166,7 +166,7 @@ A simple and effective solution extends the original 15 marching cubes cases by 
 
 We can extend the general approach of marching squares and marching cubes to other topological types. In VTK we use marching lines, triangles, and tetrahedra to contour cells of these types (or composite cells that are composed of these types). In addition, although we speak of regular types such as squares and cubes, marching cubes can be applied to any cell type topologically equivalent to a cube (e.g., hexahedron or non-cubical voxel).
 
-**Figure 6-11** shows four applications of contouring. In **Figure 6-11a** (a) we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. **Figure 6-11b** (b) through **Figure 6-11d** (d) are isosurfaces created by marching cubes. **Figure 6-11b** (b) is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. ( **Figure 6-11a** (a) is a 2D subset of this data.) The intensity level corresponds to human bone. **Figure 6-11c** (c) is an isosurface of constant flow density. **Figure 6-11d** (d) is an isosurface of electron potential of an iron protein molecule. The image shown in **Figure 6-11b** (b) is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, **Figure 6-11c** (c) and **Figure 6-11d** (d) are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
+**Figure 6-11** shows four applications of contouring. In **Figure 6-11a** (a) we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. **Figure 6-11b** (b) through **Figure 6-11d** (d) are isosurfaces created by marching cubes. **Figure 6-11b** (b) is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. (**Figure 6-11a** (a) is a 2D subset of this data.) The intensity level corresponds to human bone. **Figure 6-11c** (c) is an isosurface of constant flow density. **Figure 6-11d** (d) is an isosurface of electron potential of an iron protein molecule. The image shown in **Figure 6-11b** (b) is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, **Figure 6-11c** (c) and **Figure 6-11d** (d) are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
 
 <figure id="Figure 6-11">
  <figure id="Figure 6-11a">
@@ -218,7 +218,7 @@ Vector data is a three-dimensional representation of direction and magnitude. Ve
 A natural vector visualization technique is to draw an oriented,
 scaled line for each vector (**Figure 6-13** (a)). The line begins at the point with which the vector is associated and is oriented in the direction of the vector components $(v_x, v_y, v_z)$. Typically, the resulting line must be scaled up or down to control the size of its visual representation. This technique is often referred to as a *hedgehog* because of the bristly result.
 
-There are many variations of this technique ( **Figure 6-13** (b)). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented "glyphs" can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
+There are many variations of this technique (**Figure 6-13** (b)). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented "glyphs" can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
 
 <figure id="Figure 6-13">
   <figure id="Figure 6-13a">
@@ -259,7 +259,7 @@ Typically, we must scale the vector field to control geometric distortion. Too s
 
 Vector displacement on the surface of an object can be visualized with displacement plots. A displacement plot shows the motion of an object in the direction perpendicular to its surface. The object motion is caused by an applied vector field. In a typical application the vector field is a displacement or strain field.
 
-Vector displacement plots draw on the ideas in "Scalar Generation" on page171. Vectors are converted to scalars by computing the dot product between the surface normal and vector at each point ( **Figure 6-15** (a)). If positive values result, the motion at the point is in the direction of the surface normal (i.e., positive displacement). Negative values indicate that the motion is opposite the surface normal (i.e., negative displacement).
+Vector displacement plots draw on the ideas in "Scalar Generation" on page171. Vectors are converted to scalars by computing the dot product between the surface normal and vector at each point (**Figure 6-15** (a)). If positive values result, the motion at the point is in the direction of the surface normal (i.e., positive displacement). Negative values indicate that the motion is opposite the surface normal (i.e., negative displacement).
 
 A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called *modal* lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
 
@@ -333,7 +333,7 @@ where the velocity $\vec{V}_{i+1}$ is computed using Euler's method. The error o
 
 One final note about accuracy concerns. The errors involved in either perception or computation of visualizations is an open research area. The discussion in the preceding paragraph is a good example of this. There we characterized the error in streamline integration using conventional numerical integration arguments. But there is a problem with this argument. In visualization applications, we are integrating across cells whose function values are continuous, but whose derivatives are not. As the streamline crosses the cell boundary, subtle effects may occur that are not treated by the standard numerical analysis. Thus the standard arguments need to be extended for visualization applications.
 
-Integration formulas require repeated transformation from global to local coordinates. Consider moving a point through a dataset under the influence of a vector field. The first step is to identify the cell that contains the point. This operation is a search (see "Searching" on page292 ), plus a conversion to local coordinates. Once the cell is found, then the next step is to compute the velocity at that point by interpolating the velocity from the cell points. The point is then incrementally repositioned (using the integration formula **Equation6-4** ). The process is then repeated until the point exits the dataset or the distance or time traversed exceeds some specified value.
+Integration formulas require repeated transformation from global to local coordinates. Consider moving a point through a dataset under the influence of a vector field. The first step is to identify the cell that contains the point. This operation is a search (see "Searching" on page292), plus a conversion to local coordinates. Once the cell is found, then the next step is to compute the velocity at that point by interpolating the velocity from the cell points. The point is then incrementally repositioned (using the integration formula **Equation6-4**). The process is then repeated until the point exits the dataset or the distance or time traversed exceeds some specified value.
 
 This process can be computationally demanding. There are two important steps we can take to improve performance.
 
@@ -458,7 +458,7 @@ $$
  <figcaption style="color:blue"><b>Figure 6-22</b>. Tensor visualization techniques; (a) Tensor axes.<a href="../../Cxx/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> See TensorAxes.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> TensorAxes.py</a> (b) Tensor ellipsoids.<a href="../../Cxx/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> See TensorEllipsoids.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> TensorEllipsoids.py</a></figcaption>
 </figure>
 
-In **Figure 6-22** we visualize the analytical results of Boussinesq's problem from Saada. The top portion of the figure shows the results by displaying the scaled and oriented principal axes of the stress tensor. (These are called *tensor axes*.) In the bottom portion we use tensor ellipsoids to show the same result. Tensor ellipsoids and tensor axes are a form of *glyph* (see "Glyphs" on page190 ) specialized to tensor visualization.
+In **Figure 6-22** we visualize the analytical results of Boussinesq's problem from Saada. The top portion of the figure shows the results by displaying the scaled and oriented principal axes of the stress tensor. (These are called *tensor axes*.) In the bottom portion we use tensor ellipsoids to show the same result. Tensor ellipsoids and tensor axes are a form of *glyph* (see "Glyphs" on page190) specialized to tensor visualization.
 
 A certain amount of care must be taken to visualize this result since there is a stress singularity at the point of contact of the load. In a real application loads are applied over a small area and not at a single point. Also, plastic behavior prevents stress levels from exceeding a certain point. The results of the visualization, as with any computer process, are only as good as the underlying model.
 
@@ -582,7 +582,7 @@ Strange attractors arise in the study of nonlinear dynamics and chaotic systems.
 <figure id="Figure 6-25">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestLorenz.png?raw=true width="640" alt="Figure 6-25">
 </figure>
-<figcaption style="color:blue"><b>Figure 6-25</b>. Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume. The number of visits in each voxel is recorded as a scalar function. The surface is extracted via marching cubes using a visit value of 50. The number of integration steps is 10 million, in a volume of dimensions $200^3$. The surface roughness is caused by the discrete nature of the evaluation function (Lorenz.cxx ). <a href="../../Cxx/Visualization/Lorenz" title="Lorenz"> See Lorenz.cxx</a> and <a href="../../Python/Visualization/Lorenz" title="Lorenz"> Lorenz.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 6-25</b>. Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume. The number of visits in each voxel is recorded as a scalar function. The surface is extracted via marching cubes using a visit value of 50. The number of integration steps is 10 million, in a volume of dimensions $200^3$. The surface roughness is caused by the discrete nature of the evaluation function (Lorenz.cxx). <a href="../../Cxx/Visualization/Lorenz" title="Lorenz"> See Lorenz.cxx</a> and <a href="../../Python/Visualization/Lorenz" title="Lorenz"> Lorenz.py</a>.</figcaption>
 </figure>
 
 A classical strange attractor was developed by Lorenz in 1963 <em style="color:blue;background-color: white">\[Lorenz63\]</em>. Lorenz developed a simple model for thermally induced fluid convection in the atmosphere. Convection causes rings of rotating fluid and can be developed from the general NavierStokes partial differential equations for fluid flow. The Lorenz equations can be expressed in nondimensional form as
@@ -600,19 +600,25 @@ where $x$ is proportional to the fluid velocity in the fluid ring, $y$ and $z$z 
 
 Certainly these equations are not in the implicit form of **Equation6-11**, so how do we visualize them? Our solution is to treat the variables x, y, and z as the coordinates of a three-dimensional space, and integrate **Equation6-16** to generate the system “trajectory”, that is, the state of the system through time. The integration is carried out within a volume and scalars are created by counting the number of times each voxel is visited. By integrating long enough, we can create a volume representing the “surface” of the strange attractor, **Figure 6-25**. The surface of the strange attractor is extracted by using marching cubes and a scalar value specifying the number of visits in a voxel.
 
-!!! warning "Missing Figure"
-    **Figure 6-26** Distance functions to a point, line, and triangle.
+<figure id="Figure 6-26">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-26.png?raw=true width="640" alt="Figure6-26">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-26</b>. Distance functions to a point, line, and triangle.</figcaption>
+</figure>
 
 ### Implicit Modelling
 
-In the previous section we saw how implicit functions, or boolean combinations of implicit functions, could be used to model geometric objects. The basic approach is to evaluate these functions on a regular array of points, or volume, and then to generate scalar values at each point in the volume. Then either volume rendering (see "Volume Rendering" on page218 ), or isosurface generation in combination with surface rendering, is used to display the model.
+In the previous section we saw how implicit functions, or boolean combinations of implicit functions, could be used to model geometric objects. The basic approach is to evaluate these functions on a regular array of points, or volume, and then to generate scalar values at each point in the volume. Then either volume rendering (see "Volume Rendering" on page218), or isosurface generation in combination with surface rendering, is used to display the model.
 
 An extension of this approach, called implicit modeling, is similar to modeling with implicit functions. The difference lies in the fact that scalars are generated using a distance function instead of the usual implicit function. The distance function is computed as a Euclidean distance to a set of generating primitives such as points, lines, or polygons. For example, **Figure 6-26** shows the distance functions to a point, line, and triangle. Because distance functions are wellbehaved monotonic functions, we can define a series of offset surfaces by specifying different isosurface values, where the value is the distance to the generating primitive. The isosurfaces form approximations to the true offset surfaces, but using high volume resolution we can achieve satisfactory results.
 
-Used alone the generating primitives are limited in their ability to model complex geometry. By using boolean combinations of the primitives, however, complex geometry can be easily modeled. The boolean operations union, intersection, and difference ( **Equation6-13**, **Equation6-14**, and **Equation6-15**, respectively) are illustrated in **Figure 6-27**. **Figure 6-28** shows the application of implicit modeling to "thicken" the line segments in the text symbol "HELLO". The isosurface is generated on a volume1104020´at ´a distance offset of 0.25 units. The generating primitives were combined using the boolean union operator. Although Euclidean distance is always a nonnegative value, it is possible to use a signed distance function for objects that have an outside and an inside. A negative distance is the negated distance of a point inside the object to the surface of the object. Using a signed distance function allows us to create offset surfaces that are contained within the actual surface. Another interesting feature of implicit modeling is that when isosurfaces are generated, more than one connected surface can result. These situations occur when the generating primitives form concave features. **Figure 6-29** illustrates this situation. If desired, multiple surfaces can be separated by using the connectivity algorithm described in "Connectivity" on page373.
+Used alone the generating primitives are limited in their ability to model complex geometry. By using boolean combinations of the primitives, however, complex geometry can be easily modeled. The boolean operations union, intersection, and difference (**Equation6-13**, **Equation6-14**, and **Equation6-15**, respectively) are illustrated in **Figure 6-27**. **Figure 6-28** shows the application of implicit modeling to "thicken" the line segments in the text symbol "HELLO". The isosurface is generated on a volume1104020´at ´a distance offset of 0.25 units. The generating primitives were combined using the boolean union operator. Although Euclidean distance is always a nonnegative value, it is possible to use a signed distance function for objects that have an outside and an inside. A negative distance is the negated distance of a point inside the object to the surface of the object. Using a signed distance function allows us to create offset surfaces that are contained within the actual surface. Another interesting feature of implicit modeling is that when isosurfaces are generated, more than one connected surface can result. These situations occur when the generating primitives form concave features. **Figure 6-29** illustrates this situation. If desired, multiple surfaces can be separated by using the connectivity algorithm described in "Connectivity" on page373.
 
-!!! warning "Missing Figure"
-    **Figure 6-27** Boolean operations using points and lines as generating primitives.
+<figure id="Figure 6-27">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-27.png?raw=true width="640" alt="Figure6-27">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-27</b>. Boolean operations using points and lines as generating primitives.</figcaption>
+</figure>
 
 <figure id="Figure 6-28">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHello.png?raw=true width="640" alt="Figure 6-28">
@@ -620,8 +626,11 @@ Used alone the generating primitives are limited in their ability to model compl
 <figcaption style="color:blue"><b>Figure 6-28</b>. Implicit modelling used to thicken a stroked font. Original lines can be seen within the translucent implicit surface.<a href="../../Cxx/VisualizationAlgorithms/Hello" title="Hello"> See Hello.cxx</a> and <a href="../../Python/VisualizationAlgorithms/Hello" title="Hello"> Hello.py</a>.</figcaption>
 </figure>
 
-!!! warning "Missing Figure"
-    **Figure 6-29** Concave features can result in multiple contour lines/surfaces.
+<figure id="Figure 6-29">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-29.png?raw=true width="640" alt="Figure6-29">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-29</b>. Concave features can result in multiple contour lines/surfaces.</figcaption>
+</figure>
 
 ### Glyphs
 
@@ -658,13 +667,13 @@ Often we want to cut through a dataset with a surface and then display the inter
 <figcaption style="color:blue"><b>Figure 6-31</b>. Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used. <a href="../../Cxx/VisualizationAlgorithms/CutStructuredGrid" title="CutStructuredGrid"> See CutStructuredGrid.cxx</a> and <a href="../../Python/VisualizationAlgorithms/CutStructuredGrid" title="CutStructuredGrid"> CutStructuredGrid.py</a>.</figcaption>
 </figure>
 
-A property of implicit functions is to convert a position into a scalar value (see tions" on page185 ). We can use this property in combination with a contouring algorithm (e.g., marching cubes) to generate cut surfaces. The basic idea is to generate scalars for each point of each cell of a dataset (using the implicit cut function), and then contour the surface value $F(x,y,z) = 0$.
+A property of implicit functions is to convert a position into a scalar value (see tions" on page185). We can use this property in combination with a contouring algorithm (e.g., marching cubes) to generate cut surfaces. The basic idea is to generate scalars for each point of each cell of a dataset (using the implicit cut function), and then contour the surface value $F(x,y,z) = 0$.
 
 The cutting algorithm proceeds as follows. For each cell, function values are generated by evaluating $F(x,y,z)$ for each cell point. If all the points evaluate positive or negative, then the surface does not cut the cell. However, if the points evaluate positive and negative, then the surface passes through the cell. We can use the cell contouring operation to generate the isosurface $F(x,y,z) = 0$. Data attribute values can then be computed by interpolating along cut edges.
 
 **Figure 6-31** illustrates a plane cut through a structured grid dataset. The plane passes through the center of the dataset with normal (--0.287, 0, 0.9579). For comparison purposes a portion of the grid geometry is also shown. The grid geometry is the grid surface *k*=9 (shown in wireframe). A benefit of cut surfaces is that we can view data on (nearly) arbitrary surfaces. Thus, the structure of the dataset does not constrain how we view the data.
 
-We can easily make multiple planar cuts through a structured grid dataset by specifying multiple isovalues for the cutting algorithm. **Figure 6-32** shows 100 cut planes generated perpendicular to the camera's view plane normal. Rendering the planes from back to front with an opacity of 0.05 produces a simulation of volume rendering (see "Volume Rendering" on page218 ).
+We can easily make multiple planar cuts through a structured grid dataset by specifying multiple isovalues for the cutting algorithm. **Figure 6-32** shows 100 cut planes generated perpendicular to the camera's view plane normal. Rendering the planes from back to front with an opacity of 0.05 produces a simulation of volume rendering (see "Volume Rendering" on page218).
 
 <figure id="Figure 6-32">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VolumeRendering/TestPseudoVolumeRendering.png?raw=true width="640" alt="Figure 6-32">
@@ -685,7 +694,7 @@ This example illustrates that cutting the volumetric data in a structured grid d
 
 ### Process Object Design
 
-Algorithms are implemented in the *Visualization Toolkit* as process objects. These objects may be either sources, filters, or mappers (see "The Visualization Pipeline" on page85 ). In this section we will describe how these objects are implemented.
+Algorithms are implemented in the *Visualization Toolkit* as process objects. These objects may be either sources, filters, or mappers (see "The Visualization Pipeline" on page85). In this section we will describe how these objects are implemented.
 
 **Source Design.**
 Source objects have no visualization data for input and one or more outputs, **Figure 6-34**. To create a source object, inheritance is used to specify the type of dataset that the process object creates for output. vtkSphereSource. This class inherits from vtkPolyDataAlgorithm, indicating that it creates polygonal data on output.
@@ -693,7 +702,7 @@ Source objects have no visualization data for input and one or more outputs, **F
 **Filter Design**
 Filter objects have one or more inputs and one or more outputs as shown in **Figure 6-35**. (You may also refer to “Pipeline Design and Implementation” on page103.) To create **Figure 6-35** a filter object, inheritance is used to specify the type of input and output data objects. illustrates this for the concrete source object vtkContourFilter (which implements marching cubes and other contouring techniques). It is worth examining this object diagram in detail since it is the basis for the architecture of the visualization pipeline.
 
-The superclasses of vtkContourFilter are vtkAlgorithm and vtkPolyDataAlgorithm. The class vtkPolyDataAlgorithm specifies the type of data vtkContourFilter produces on output (i.e., a vtkPolyData ). Because this filter should take any subclass of vtkDataSet as input, it must override its superclasses implementation of the FillInputPortInformation() method to specify this. Note that inheritance from vtkPolyDataAlgorithm is optional---this functionality could be implemented directly in vtkContourFilter. This optional superclass is simply a convenience object to make class derivation a little easier.
+The superclasses of vtkContourFilter are vtkAlgorithm and vtkPolyDataAlgorithm. The class vtkPolyDataAlgorithm specifies the type of data vtkContourFilter produces on output (i.e., a vtkPolyData). Because this filter should take any subclass of vtkDataSet as input, it must override its superclasses implementation of the FillInputPortInformation() method to specify this. Note that inheritance from vtkPolyDataAlgorithm is optional---this functionality could be implemented directly in vtkContourFilter. This optional superclass is simply a convenience object to make class derivation a little easier.
 
 What is left for vtkContourFilter to implement is its RequestData() method (as well as constructor, print method, and any other methods special to this class). Thus the primary difference between classes with equivalent inheritance hierarchies is the implementation of the RequestData() method.
 
@@ -770,9 +779,9 @@ You can also derive your own lookup table types. Look at vtkLogLookupTable for a
 
 ### Implicit Functions
 
-As we have seen, implicit functions can be used for visualizing functions, creating geometry, and cutting or selecting datasets. VTK includes several implicit functions including a single plane (vtkPlane ), multiple convex planes ( vtkPlanes ), spheres ( vtkSphere ), cones ( vtkCone ), cylinders (vtkCylinder ), and the general quadric ( vtkQuadric ). The class vtkImplicitBoolean allows you to create boolean combinations of these implicit function primitives. Other implicit functions can be added to VTK by deriving from the abstract base class vtkImplicitFunction.
+As we have seen, implicit functions can be used for visualizing functions, creating geometry, and cutting or selecting datasets. VTK includes several implicit functions including a single plane (vtkPlane), multiple convex planes (vtkPlanes), spheres (vtkSphere), cones (vtkCone), cylinders (vtkCylinder), and the general quadric (vtkQuadric). The class vtkImplicitBoolean allows you to create boolean combinations of these implicit function primitives. Other implicit functions can be added to VTK by deriving from the abstract base class vtkImplicitFunction.
 
-The existing inheritance hierarchy for implicit functions is shown in **Figure 6-37**. Subclasses of vtkImplicitFunction must implement the two methods Evaluate() and Gradient(x). The method Evaluate() returns the value of the function at point ( x,y,z), while the method Gradient() returns the gradient vector to the function at point ( x,y,z).
+The existing inheritance hierarchy for implicit functions is shown in **Figure 6-37**. Subclasses of vtkImplicitFunction must implement the two methods Evaluate() and Gradient(x). The method Evaluate() returns the value of the function at point (x,y,z), while the method Gradient() returns the gradient vector to the function at point (x,y,z).
 
 ### Contouring
 
@@ -791,7 +800,7 @@ Although these results do not represent all implementations or the behavior of o
 <figure id="Figure 6-38">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-38.png?raw=true width="640" alt="Figure6-38">
 </figure>
-<figcaption style="color:blue"><b>Figure 6-38</b>. The cost of generality. Isosurface generation of three volumes of different sizes are compared. The results show normalized execution times for two different implementations of the marchingcubes isosurface algorithm. The specialized filter is vtkMarchingCubes. The general algorithms are first vtkContourFilter and then in combination with vtkPolyDataNormals.</figcaption>
+<figcaption style="color:blue"><b>Figure 6-38</b>. The cost of generality. Isosurface generation of three volumes of different sizes are compared. The results show normalized execution times for two different implementations of the marchingcubes isosurface algorithm. The specialized filter is &#118;tkMarchingCubes. The general algorithms are first &#118;tkContourFilter and then in combination with &#118;tkPolyDataNormals.</figcaption>
 </figure>
 
 An example use of vtkContourFilter is shown in **Figure 6-39**. This example is taken from **Figure4-1**, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As **Figure 6-39** shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals to create surface normals. (We describe normal generation in [Chapter 9 - Advanced Algorithms](/VTKBook/09Chapter9).)
@@ -827,27 +836,33 @@ vtkActor *outlineActor = vtkActor::New();
 <figcaption style="color:blue"><b>Figure 6-39</b>. Contouring quadric function. Pipeline topology, C++ code, and resulting image are shown.<a href="../../Cxx/VisualizationAlgorithms/ContourQuadric" title="ContourQuadric"> See ContourQuadric.cxx</a> and <a href="../../Python/VisualizationAlgorithms/ContourQuadric" title="ContourQuadric"> ContourQuadric.py</a>.</figcaption>
 </figure>
 
-!!! warning "Missing Figure"
-    **Figure 6-40** Data flow into and out of the vtkGlyph3D class.
+<figure id="Figure 6-40">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-40.png?raw=true width="640" alt="Figure6-40">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-40</b>. Data flow into and out of the vtkGlyph3D class.</figcaption>
+</figure>
 
 ### Cutting
 
-vtkCutter performs cutting of all VTK cell types. The SetValue() and GenerateValues() methods permit the user to specify which multiple scalar values to use for the cutting. vtkCutter requires an implicit function that will be evaluated at each point in the dataset. Then each cell is cut using the cell's Contour method. Any point attributes are interpolated to the resulting cut vertices. The sorting order for the generated polygonal data can be controlled with the SortBy method. The default sorting order, SortByValue(), processes cells in the inner loop for each contour value. SortByCell() processes the cutting value in the inner loop and produces polygonal data that is suitable for backtofront rendering (see **Figure 6-32** ). (The sorting order is useful when rendering with opacity as discussed in [Chapter 7 - Advanced Computer Graphics](/VTKBook/07Chapter7).) Notice the similarity of this filter to the vtkContourFilter. Both of these objects contour datasets with multiple isovalues. vtkCutter uses an implicit function to calculate scalar values while vtkContourFilter uses the scalar data associated with the dataset's point data.
+vtkCutter performs cutting of all VTK cell types. The SetValue() and GenerateValues() methods permit the user to specify which multiple scalar values to use for the cutting. vtkCutter requires an implicit function that will be evaluated at each point in the dataset. Then each cell is cut using the cell's Contour method. Any point attributes are interpolated to the resulting cut vertices. The sorting order for the generated polygonal data can be controlled with the SortBy method. The default sorting order, SortByValue(), processes cells in the inner loop for each contour value. SortByCell() processes the cutting value in the inner loop and produces polygonal data that is suitable for backtofront rendering (see **Figure 6-32**). (The sorting order is useful when rendering with opacity as discussed in [Chapter 7 - Advanced Computer Graphics](/VTKBook/07Chapter7).) Notice the similarity of this filter to the vtkContourFilter. Both of these objects contour datasets with multiple isovalues. vtkCutter uses an implicit function to calculate scalar values while vtkContourFilter uses the scalar data associated with the dataset's point data.
 
 ### Glyphs
 
-The vtkGlyph3D class provides a simple, yet powerful glyph capability in the *Visualization Toolkit*. vtkGlyph3D is an example of an object that takes multiple inputs ( **Figure 6-40** ). One input, specified with the SetInputConnection() method, defines a set of points and possible attribute data at those points. The second input, specified with the SetSourceConnection() method, defines a geometry to be copied to every point in the input dataset. The source is of type vtkPolyData. Hence, any filter, sequence of filters creating polygonal data, or a polygonal dataset may be used to describe the glyph's geometry.
+The vtkGlyph3D class provides a simple, yet powerful glyph capability in the *Visualization Toolkit*. vtkGlyph3D is an example of an object that takes multiple inputs (**Figure 6-40**). One input, specified with the SetInputConnection() method, defines a set of points and possible attribute data at those points. The second input, specified with the SetSourceConnection() method, defines a geometry to be copied to every point in the input dataset. The source is of type vtkPolyData. Hence, any filter, sequence of filters creating polygonal data, or a polygonal dataset may be used to describe the glyph's geometry.
 
 The behavior of an instance of vtkGlyph3D depends on the nature of the input data and the value of its instance variables. Generally, the input Source geometry will be copied to each point of the Input dataset. The geometry will be aligned along the input vector data and scaled according to the magnitude of the vector or the scalar value. In some cases, the point normal is used rather than the vector. Also, scaling can be turned on or off.
 
 We saw how to use vtkGlyph3D in the example given in **Figure4--20**. Cones were used as the glyph and were located at each point on the sphere, oriented along the sphere's surface normal.
 
-!!! warning "Missing Figure"
-    **Figure 6-41** Inheritance hierarchy for vtkStreamer and subclasses.
+<figure id="Figure 6-41">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-41.png?raw=true width="640" alt="Figure6-41">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-41</b>. Inheritance hierarchy for &#118;tkStreamer and subclasses.</figcaption>
+</figure>
 
 ### Streamlines
 
-Streamlines and particle motion require numerical integration to guide a point through the vector field. Vector visualization algorithms that we will see in later chapters also require numerical integration. As a result, we designed an object hierarchy that isolates the numerical integration process into a single base class. The base class is vtkStreamer and it is responsible for generating a particle path through a vector field of specified length (expressed as elapsed time). Each derived class of vtkStreamer takes advantage of this capability to move through the vector field but implements its own particular representational technique to depict particle motion. Streamlines ( vtkStreamLine ) draw connected lines while particle motion is shown by combining the output of vtkStreamPoints with the vtkGlyph3D object. Using vtkGlyph3D we can place spheres or oriented objects such as cones or arrows at points on the particle path created by vtkStreamPoints. The inheritance hierarchy for vtkStreamer and subclasses is shown in **Figure 6-41**.
+Streamlines and particle motion require numerical integration to guide a point through the vector field. Vector visualization algorithms that we will see in later chapters also require numerical integration. As a result, we designed an object hierarchy that isolates the numerical integration process into a single base class. The base class is vtkStreamer and it is responsible for generating a particle path through a vector field of specified length (expressed as elapsed time). Each derived class of vtkStreamer takes advantage of this capability to move through the vector field but implements its own particular representational technique to depict particle motion. Streamlines (vtkStreamLine) draw connected lines while particle motion is shown by combining the output of vtkStreamPoints with the vtkGlyph3D object. Using vtkGlyph3D we can place spheres or oriented objects such as cones or arrows at points on the particle path created by vtkStreamPoints. The inheritance hierarchy for vtkStreamer and subclasses is shown in **Figure 6-41**.
 
 The integration method in vtkStreamer is implemented as a virtual function. Thus it can be overloaded as necessary. Possible reasons for overloading include implementing an integration technique of higher or lower accuracy, or creating a technique specialized to a particular dataset type. For example, the search process in a volume is much faster than it is for other dataset types, therefore, highly efficient vector integration techniques can be constructed.
 
@@ -855,16 +870,19 @@ The vector integration technique in VTK will accommodate any cell type. Thus, in
 
 ### Abstract Filters
 
-Attribute transformations create or modify data attributes without changing the topology or geometry of a dataset. Hence filters that implement attribute transformation (e.g., vtkElevationFilter ) can accept any dataset type as input, and may generate any dataset type on output. Unfortunately, because filters must specialize the particular type of data they output, at first glance it appears that filters that create general dataset types on output are not feasible. This is because the type vtkDataSet is an abstract type and must be specialized to allow instantiation.
+Attribute transformations create or modify data attributes without changing the topology or geometry of a dataset. Hence filters that implement attribute transformation (e.g., vtkElevationFilter) can accept any dataset type as input, and may generate any dataset type on output. Unfortunately, because filters must specialize the particular type of data they output, at first glance it appears that filters that create general dataset types on output are not feasible. This is because the type vtkDataSet is an abstract type and must be specialized to allow instantiation.
 
-Fortunately, there is a a solution to this dilemma. The solution is to use the "virtual constructor" NewInstance(). Although C++ does not allow virtual constructors, we can simulate it by creating a special virtual function that constructs a copy of the object that it is invoked on. For example, if this function is applied to a dataset instance of type vtkPolyData, the result will be a copy of that instance ( **Figure 6-42** ). (Note that we use reference counting to make copies and avoid duplicating memory.) The virtual constructor function NewInstance() is implemented in a number of VTK classes including datasets and cells.
+Fortunately, there is a a solution to this dilemma. The solution is to use the "virtual constructor" NewInstance(). Although C++ does not allow virtual constructors, we can simulate it by creating a special virtual function that constructs a copy of the object that it is invoked on. For example, if this function is applied to a dataset instance of type vtkPolyData, the result will be a copy of that instance (**Figure 6-42**). (Note that we use reference counting to make copies and avoid duplicating memory.) The virtual constructor function NewInstance() is implemented in a number of VTK classes including datasets and cells.
 
-!!! warning "Missing Figure"
-    **Figure 6-42** Depiction of data flow for abstract filter output. The output object type is the same as the input type.
+<figure id="Figure 6-42">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-42.png?raw=true width="640" alt="Figure6-42">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-42</b>. Depiction of data flow for abstract filter output. The output object type is the same as the input type.</figcaption>
+</figure>
 
 Using the virtual constructor we can construct filters that output abstract data types like vtkDataSet. We simply apply NewInstance() to the input of the filter. This will then return a pointer to a concrete object that is the output of the filter. The result is a general filter object that can accept any dataset type for input and creates the general vtkDataSet type as output. In VTK, this functionality has been implemented in the abstract class vtkDataSetAlgorithm.
 
-There are other filters that implement variations of this delegation technique. The class vtkPointSetAlgorithm is similar to vtkDataSetAlgorithm. This class takes as input any dataset whose geometry is explicitly defined via an instance of vtkPoints (or subclass), and generates on output an object of the same type (i.e., vtkPointSet ). The class vtkMergeFilter combines dataset structure and point attributes from one or more input datasets. For example, you can read multiple files and combine the geometry/topology from one file with different scalars, vectors, and normals from other files.
+There are other filters that implement variations of this delegation technique. The class vtkPointSetAlgorithm is similar to vtkDataSetAlgorithm. This class takes as input any dataset whose geometry is explicitly defined via an instance of vtkPoints (or subclass), and generates on output an object of the same type (i.e., vtkPointSet). The class vtkMergeFilter combines dataset structure and point attributes from one or more input datasets. For example, you can read multiple files and combine the geometry/topology from one file with different scalars, vectors, and normals from other files.
 
 One difficulty using abstract filter types is that the output type may not match with the input type of a downstream filter. For example, the output of vtkElevationFilter is specified as vtkDataSet even though the input may be of type vtkPolyData, and we know from the previous discussion that the actual output type will be vtkPolyData. This difficulty is removed by using the filter vtkCastToConcrete, which allows you to runtime cast to the appropriate output type. In this case we would use the GetPolyDataOutput() from vtkCastToConcrete. After checking the validity of the cast, this method returns a dataset cast to vtkPolyData. Of course, this process requires that the input to vtkCastToConcrete be set before the output is requested.
 
@@ -872,7 +890,7 @@ One difficulty using abstract filter types is that the output type may not match
 
 In this example we'll combine a few different techniques to visualize blood flow in the human carotid arteries. Our data contains both vectors that represent the velocity of blood and scalars that are proportional to the magnitude of the velocity (i.e., speed).
 
-We can provide context for the visualization by creating an isosurface of speed. This isosurface shows regions of fastest blood flow, and is similar to, but not the same as, the actual surface of the arteries. However, it provides us with a visual cue to the structure of the arteries. The first vector visualization technique we'll use is to generate vector glyphs ( Unfortunately, we cannot just create glyphs at each point because of the number of points (over 167,000 points). To do so would result in a confusing mess, and the interactive speed would be poor. Instead, we'll use two filters to select a subset of the available points. These filters are vtkThresholdPoints and vtkMaskPoints.
+We can provide context for the visualization by creating an isosurface of speed. This isosurface shows regions of fastest blood flow, and is similar to, but not the same as, the actual surface of the arteries. However, it provides us with a visual cue to the structure of the arteries. The first vector visualization technique we'll use is to generate vector glyphs (Unfortunately, we cannot just create glyphs at each point because of the number of points (over 167,000 points). To do so would result in a confusing mess, and the interactive speed would be poor. Instead, we'll use two filters to select a subset of the available points. These filters are vtkThresholdPoints and vtkMaskPoints.
 
 vtkThresholdPoints allows us to extract points that satisfy a certain threshold criterion. In our example, we choose points whose speed is greater than a specified value. This eliminates a large number of points, since most points lie outside the arteries and have a small speed value.
 
@@ -920,7 +938,7 @@ vtkPolyDataMapper vecMapper
 <figure id="Figure 6-44">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCarotidFlow.png?raw=true width="640" alt="Figure 6-44">
 </figure>
-<figcaption style="color:blue"><b>Figure 6-44</b>. Visualizing blood flow in the human carotid arteries. Streamtubes of flow vectors (streamV.tcl ).<a href="../../Cxx/VisualizationAlgorithms/CarotidFlow" title="CarotidFlow"> See CarotidFlow.cxx</a> and <a href="../../Python/VisualizationAlgorithms/CarotidFlow" title="CarotidFlow"> CarotidFlow.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 6-44</b>. Visualizing blood flow in the human carotid arteries. Streamtubes of flow vectors (streamV.tcl).<a href="../../Cxx/VisualizationAlgorithms/CarotidFlow" title="CarotidFlow"> See CarotidFlow.cxx</a> and <a href="../../Python/VisualizationAlgorithms/CarotidFlow" title="CarotidFlow"> CarotidFlow.py</a>.</figcaption>
 </figure>
 
 ## 6.7 Chapter Summary
@@ -945,7 +963,7 @@ Implicit functions and sampling techniques can be used to make geometry, cut dat
 
 Color mapping is a widely studied topic in imaging, computer graphics, visualization, and human factors. References <em style="color:blue;background-color: white">\[Durrett87\]</em> <em style="color:blue;background-color: white">\[Ware88\]</em> <em style="color:blue;background-color: white">\[Rheingans92\]</em> provide samples of the available literature. You also may want to learn about the physiological and psychological effects of color on perception. The text by Wyszecki and Stiles <em style="color:blue;background-color: white">\[Wyszecki82\]</em> serves as an introductory reference.
 
-Contouring is a widely studied technique in visualization because of its importance and popularity. Early techniques were developed for 2D data <em style="color:blue;background-color: white">\[Watson92\]</em>. Three-dimensional techniques were developed initially as contour connecting methods <em style="color:blue;background-color: white">\[Fuchs77\]</em> --- that is, given a series of 2D contours on evenly spaced planes, connect the contours to create a closed surface. Since the introduction of marching cubes <em style="color:blue;background-color: white">\[Lorensen87\]</em>, many other techniques have been implemented. (A few of these include <em style="color:blue;background-color: white">\[Nielson91\]</em> <em style="color:blue;background-color: white">\[Montani94\]</em> and <em style="color:blue;background-color: white">\[Durst88\]</em> ). A particularly interesting reference is given by Livnat et al. <em style="color:blue;background-color: white">\[Livnat96\]</em>. They show a contouring method with the addition of a preprocessing step that generates isocontours in near optimal time.
+Contouring is a widely studied technique in visualization because of its importance and popularity. Early techniques were developed for 2D data <em style="color:blue;background-color: white">\[Watson92\]</em>. Three-dimensional techniques were developed initially as contour connecting methods <em style="color:blue;background-color: white">\[Fuchs77\]</em> --- that is, given a series of 2D contours on evenly spaced planes, connect the contours to create a closed surface. Since the introduction of marching cubes <em style="color:blue;background-color: white">\[Lorensen87\]</em>, many other techniques have been implemented. (A few of these include <em style="color:blue;background-color: white">\[Nielson91\]</em> <em style="color:blue;background-color: white">\[Montani94\]</em> and <em style="color:blue;background-color: white">\[Durst88\]</em>). A particularly interesting reference is given by Livnat et al. <em style="color:blue;background-color: white">\[Livnat96\]</em>. They show a contouring method with the addition of a preprocessing step that generates isocontours in near optimal time.
 
 Although we barely touched the topic, the study of chaos and chaotic vibrations is a delightfully interesting topic. Besides the original paper by Lorenz <em style="color:blue;background-color: white">\[Lorenz63\]</em>, the book by Moon <em style="color:blue;background-color: white">\[Moon87\]</em> is a good place to start.
 
@@ -1074,13 +1092,13 @@ Quantitative Data and Formulae*. John Wiley and Sons, 1982.
 
 6.3 A common visualization technique is to animate isosurface value. The procedure is to smoothly vary isosurface value over a specified range.
 
-a\) Create an animation sequence for the quadric example ( **Figure4--1** ).
+a\) Create an animation sequence for the quadric example (**Figure4--1**).
 
-b\) Create an animation sequence for the head sequence ( **Figure 6-11** (b)).
+b\) Create an animation sequence for the head sequence (**Figure 6-11** (b)).
 
-6.4 Marching Cubes visits each cell during algorithm execution. Many of these cells do not contain the isosurface. Describe a technique to improve the performance of isosurface extraction by eliminating visits to cells not containing isosurface. ( *Hint:* use a preprocessing step to analyze data. Assume that many isosurfaces will be extracted and that the preprocessing step will not count against execution time.)
+6.4 Marching Cubes visits each cell during algorithm execution. Many of these cells do not contain the isosurface. Describe a technique to improve the performance of isosurface extraction by eliminating visits to cells not containing isosurface. (*Hint:* use a preprocessing step to analyze data. Assume that many isosurfaces will be extracted and that the preprocessing step will not count against execution time.)
 
-6.5 Scanline rasterization proceeds along horizontal spans in graphics hardware (see tion" on page54 ). Interpolation of color occurs along horizontal spans as well.
+6.5 Scanline rasterization proceeds along horizontal spans in graphics hardware (see tion" on page54). Interpolation of color occurs along horizontal spans as well.
 
 a) Show how the orientation of a polygon affects interpolated color.
 
@@ -1096,7 +1114,7 @@ a) Scalar $S(x,y,z)=sin(xy)$ for $x,y$, between $0$ and $\pi$.
 
 b) The effective stress field (a scalar field) from **Figure 6-21**.
 
-c) The vector field described in the combustor data (i.e., combq.bin and combxyz.bin ).
+c) The vector field described in the combustor data (i.e., combq.bin and combxyz.bin).
 
 6.9 Tensor ellipsoids are based on an ellipsoidal glyph. Describe two other glyphs that you might use.
 
