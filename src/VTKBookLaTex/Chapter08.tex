@@ -2,13 +2,13 @@
 \label{chap:advanced_data_representation}
 
 \begin{figure}[ht]
-	\hfill
-	\begin{minipage}{0.5\textwidth}
-		\centering
-		\includegraphics{VTKTextbook-158}\\
-		\includegraphics{VTKTextbook-157}
-		\caption*{\texttt{Adaptive tessellation of higher-order cells.}}
-	\end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics{VTKTextbook-158}\\
+        \includegraphics{VTKTextbook-157}
+        \caption*{\texttt{Adaptive tessellation of higher-order cells.}}
+    \end{minipage}
 \end{figure}
 
 
@@ -20,20 +20,20 @@ We will examine three different coordinate systems: the global, dataset, and str
 Figure \ref{fig:Figure8-1} shows the relationship between the global and dataset coordinate systems, and depicts the structured coordinate system.
 
 \begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-1a}
-		\caption*{}\label{fig:Figure8-1a}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-1b}
-		\caption*{}\label{fig:Figure8-1b}
-	\end{subfigure}%
-	\caption{Local and global coordinate systems.}
-	\label{fig:Figure8-1}
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-1a}
+        \caption*{}\label{fig:Figure8-1a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-1b}
+        \caption*{}\label{fig:Figure8-1b}
+    \end{subfigure}%
+    \caption{Local and global coordinate systems.}
+    \label{fig:Figure8-1}
 \end{figure}
 
 
@@ -94,9 +94,9 @@ Computer visualization deals with discrete data. The data is either supplied at 
 Interpolation functions relate the values at cell points to the interior of the cell. Thus, we assume that information is defined at cell points, and that we must interpolate from these points. We can express the result as a weighted average of the data values at each cell point.
 
 \begin{figure}[!htb]
-	\centering
-	\includegraphics[width=0.98\textwidth]{Figure8-2}\\
-	\caption{Interpolation is a linear combination of local interpolation functions. Interpolation functions are scaled by data values at cell points.}\label{fig:Figure8-2}
+    \centering
+    \includegraphics[width=0.98\textwidth]{Figure8-2}\\
+    \caption{Interpolation is a linear combination of local interpolation functions. Interpolation functions are scaled by data values at cell points.}\label{fig:Figure8-2}
 \end{figure}
 
 \subsection{General Form}
@@ -105,11 +105,11 @@ To interpolate data from the cell points $p_i$ to a point $p$ that is inside the
 
 \begin{itemize}
 
-	\item the data values at each cell point,
+    \item the data values at each cell point,
 
-	\item the parametric coordinates of the point $p$ within the cell, and
+    \item the parametric coordinates of the point $p$ within the cell, and
 
-	\item the cell type including interpolation functions.
+    \item the cell type including interpolation functions.
 
 \end{itemize}
 
@@ -142,577 +142,632 @@ Equation \ref{eq:8.4} is the general form for cell interpolation. It is used to 
 
 Each cell type has its own interpolation functions. The weights $W_i$ are functions of the parametric coordinates $r$, $s$, and $t$. In this section we will define the parametric coordinate system and interpolation function for each primary cell type. Composite cells use the interpolation functions and parametric coordinates of their composing primary cells. The only difference in coordinate system specification between primary and composite cells is that composite cells use the additional sub-id to specify a particular primary cell.
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-3}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-			W_0 &=& 1-r \\
-			W_1 &=& r		
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a line.}
-	\label{fig:Figure8-3}
-\end{figure}
+\begin{description}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-4}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& (1-r)(1 - s) \\
-		W_1 &=& r(1 - s) \\
-		W_2 &=& (1 - r)s \\
-		W_3 &=& r s		
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a pixel.}
-	\label{fig:Figure8-4}
-\end{figure}
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-3}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+                W_0 &=& 1-r \\
+                W_1 &=& r
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a line.}
+        \label{fig:Figure8-3}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-5}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& (1-r)(1 - s) \\
-		W_1 &=& r(1 - s) \\
-		W_2 &=& r s \\
-		W_3 &=& (1 - r)s	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a quadrilateral.}
-	\label{fig:Figure8-5}
-\end{figure}
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-4}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& (1-r)(1 - s) \\
+            W_1 &=& r(1 - s) \\
+            W_2 &=& (1 - r)s \\
+            W_3 &=& r s
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a pixel.}
+        \label{fig:Figure8-4}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-6}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& 1 - r - s \\
-		W_1 &=& r \\
-		W_2 &=& s 	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a triangle.}
-	\label{fig:Figure8-6}
-\end{figure}
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-5}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& (1-r)(1 - s) \\
+            W_1 &=& r(1 - s) \\
+            W_2 &=& r s \\
+            W_3 &=& (1 - r)s
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a quadrilateral.}
+        \label{fig:Figure8-5}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-7}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_i &=& \dfrac{r_i^{-2}}{\sum r_i^{-2}} \\ \\
-		r_i &=& \vert p_i - x \vert	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a polygon.}
-	\label{fig:Figure8-7}
-\end{figure}
+\clearpage
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-6}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& 1 - r - s \\
+            W_1 &=& r \\
+            W_2 &=& s
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a triangle.}
+        \label{fig:Figure8-6}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=0.48\textwidth]{Figure8-8}\\
-	\caption{Potential problem with distance-based interpolation functions.}\label{fig:Figure8-8}
-\end{figure}
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-7}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_i &=& \dfrac{r_i^{-2}}{\sum r_i^{-2}} \\ \\
+            r_i &=& \vert p_i - x \vert
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a polygon.}
+        \label{fig:Figure8-7}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-9}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& 1 - r - s - t \\
-		W_1 &=& r \\
-		W_2 &=& s \\
-		W_3 &=& t	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a tetrahedron.}
-	\label{fig:Figure8-9}
-\end{figure}
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=0.48\textwidth]{Figure8-8}\\
+        \caption{Potential problem with distance-based interpolation functions.}\label{fig:Figure8-8}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-10}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& (1 - r)(1 - s)(1 - t) \\
-		W_1 &=& r (1-s)(1 -t) \\
-		W_2 &=& (1-r)s(1-t) \\
-		W_3 &=& rs(1 - t) \\
-		W_4 &=& (1 - r)(1 - s) t \\
-		W_5 &=& r (1-s)t \\
-		W_6 &=& (1 - r)s t \\
-		W_7 &=& r s t	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a tetrahedron.}
-	\label{fig:Figure8-10}
-\end{figure}
+\clearpage
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-9}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& 1 - r - s - t \\
+            W_1 &=& r \\
+            W_2 &=& s \\
+            W_3 &=& t
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a tetrahedron.}
+        \label{fig:Figure8-9}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-11}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& (1 - r)(1 - s)(1 - t) \\
-		W_1 &=& r (1-s)(1 -t) \\
-		W_2 &=& rs (1-t) \\
-		W_3 &=& (1-r)s(1 - t) \\
-		W_4 &=& (1 - r)(1 - s) t \\
-		W_5 &=& r (1-s)t \\
-		W_6 &=& rs t \\
-		W_7 &=& (1-r)st	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a hexahedron.}
-	\label{fig:Figure8-11}
-\end{figure}
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-10}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& (1 - r)(1 - s)(1 - t) \\
+            W_1 &=& r (1-s)(1 -t) \\
+            W_2 &=& (1-r)s(1-t) \\
+            W_3 &=& rs(1 - t) \\
+            W_4 &=& (1 - r)(1 - s) t \\
+            W_5 &=& r (1-s)t \\
+            W_6 &=& (1 - r)s t \\
+            W_7 &=& r s t
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a tetrahedron.}
+        \label{fig:Figure8-10}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-12}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& (1 - r - s)(1 - t) \\
-		W_1 &=& r (1-t) \\
-		W_2 &=& s (1 - t) \\
-		W_3 &=& (1 - r - s)t \\
-		W_4 &=& r t \\
-		W_5 &=& s t	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a wedge.}
-	\label{fig:Figure8-12}
-\end{figure}
+    \item[Vertex.] Vertex cells do not require parametric coordinates or interpolation functions since they are zero-dimensional. The single weighting function is $W_0 = 1$.
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-13}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& (1-r)(1-s)(1-t) \\
-		W_1 &=& r(1-s)(1-t) \\
-		W_2 &=& r s (1-t) \\
-		W_3 &=& (1-r)s(1-t) \\
-		W_4 &=& t	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a pyramid.}
-	\label{fig:Figure8-13}
-\end{figure}
+    \item[Line.] Figure \ref{fig:Figure8-3} shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-14a}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-14b}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& -N(-As + Br - C)(Bs-Ar-C)(t - 1) \\
-		W_1 &=& N(Ds+Dr-E)(Fs-Gr-H)(t-1) \\
-		W_2 &=& -N(Bs -Ar -C)(-Gs-Fr+H)(t - 1)\\
-		W_3 &=& N(-As + Br -C)(Fs + Gr - H)(t - 1) \\
-		W_4 &=& -N(-Gs - Fr + H)(Ds + Dr - E)(t - 1) \\
-		W_5 &=& N(-As +Br - C)(Bs -Ar -C)t \\
-		W_6 &=& -N(Ds + Dr - E)(Fs + Gr - H)t\\
-		W_7 &=& N(Bs - Ar -C)(-Gs -Fr + H)t \\
-		W_8 &=& -N(-As + Br -C)(Fs + Gr - H)t \\
-		W_9 &=& N(-Gs - Fr + H)(Ds + Dr -E)t
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		The points $P_i(x_i, y_i)$ on the pentagon are defined by:
-		\begin{equation*}
-		\begin{array}{lll}
-		x_i &=& \dfrac{1}{2}\left(1 +\cos\left(\dfrac{5\pi}{4} + i \dfrac{2\pi}{5}\right)\right) \\ \\
-		y_i &=& \dfrac{1}{2}\left(1 +\sin\left(\dfrac{5\pi}{4} + i \dfrac{2\pi}{5}\right)\right) \\ \\
-		i &\in& \lbrace 0, 1, 2, 3, 4 \rbrace
-		\end{array}
-		\end{equation*}
-		Constants:
-		\begin{equation*}
-		\begin{array}{lll}
-		A &=& x_2 - x_1 \\
-		B &=& y_2 - y_1 \\
-		C &=& x_1 y_2 - x_2 y_1 \\
-		D &=& x_2 - x_3 \\
-		E &=& x_2 y_3 - x_3 y_2 \\
-		F &=& x_0 - x_4 \\
-		G &=& y_4 - y_0 \\
-		H &=& x_0 y_4 - x_4 y_0	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a pentagonal prism.}
-	\label{fig:Figure8-14}
-\end{figure}
+    \item[Pixel.] Figure \ref{fig:Figure8-4} shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{bilinear interpolation} functions.
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-15}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		\alpha &=& \dfrac{\sqrt{3}}{4} + \dfrac{1}{2} \\ \\
-		\beta &=& \dfrac{1}{2} - \dfrac{\sqrt{3}}{4}, \alpha + \beta = 1
-		\end{array}
-		\end{equation*}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=&-\dfrac{16}{3}(r - \alpha)(r - \beta)(s - 1)(t - 1) \\ \\
-		W_1 &=&\dfrac{16}{3}(r - \dfrac{1}{2})(r - \beta)(s - \dfrac{3}{4})(t - 1) \\ \\
-		W_2 &=& -\dfrac{16}{3}(r - \dfrac{1}{2})(r - \beta)(s - \dfrac{1}{4})(t - 1) \\ \\
-		W_3 &=& \dfrac{16}{3}(r - \alpha)(r - \beta)s(t - 1) \\ \\
-		W_4 &=& -\dfrac{16}{3}(r - \dfrac{1}{2})(r - \alpha)(s - \dfrac{1}{4})(t - 1) \\ \\
-		W_5 &=& \dfrac{16}{3}(r - \dfrac{1}{2})(r - \alpha)(s - \dfrac{3}{4})(t - 1)
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_6 &=& \dfrac{16}{3}(r - \alpha)(r - \beta)(s - 1)t \\ \\
-		W_7 &=&-\dfrac{16}{3}(r - \dfrac{1}{2})(r - \beta)(s - \dfrac{3}{4})t \\ \\
-		W_8 &=&  \dfrac{16}{3}(r - \dfrac{1}{2})(r - \beta)(s - \dfrac{1}{4})t \\ \\
-		W_9 &=& -\dfrac{16}{3}(r - \alpha)(r - \beta)st \\ \\
-		W_{10} &=&  \dfrac{16}{3}(r - \dfrac{1}{2})(r - \alpha)(s - \dfrac{1}{4})t \\ \\
-		W_{11} &=& -\dfrac{16}{3}(r - \dfrac{1}{2})(r - \alpha)(s - \dfrac{3}{4})t
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-\caption{Parametric coordinate system and interpolation functions for a hexagonal prism.}
-\label{fig:Figure8-15}
-\end{figure}
+    \item[Quadrilateral.] Figure \ref{fig:Figure8-5} shows the parametric coordinate system and interpolation functions for a quadrilateral cell type. The quadrilateral is described using the two parametric coordinates $(r,s)$.
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-16}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& 2 \left( r - \dfrac{1}{2}\right)(r - 1) \\ \\
-		W_1 &=& 2 r \left( r - \dfrac{1}{2}\right) \\ \\
-		W_2 &=& 4 r (1 - r)	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a quadratic wedge.}
-	\label{fig:Figure8-16}
-\end{figure}
-
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-17}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& (1 - r - s)(2(1 - r - s) - 1) \\
-		W_1 &=& r (2 r - 1) \\
-		W_2 &=& s(2s - 1) \\
-		W_3 &=& 4 r (1 - r - s) \\
-		W_4 &=& 4 r s \\
-		W_5 &=& 4 s (1 - r - s)	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a quadratic triangle.}
-	\label{fig:Figure8-17}
-\end{figure}
-
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-18}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		\xi &=& 2 r  - 1, \quad \xi_i = \pm 1 \\
-		\eta &=& 2 s - 1, \quad \eta_i = \pm 1
-		\end{array}
-		\end{equation*}
-		\begin{equation*}
-		\begin{array}{lll}
-		W_i &=& (1 + \xi_i \xi)(1 + \eta_i \eta)(\xi_i \xi + \eta_i \eta - 1)/4, \\
-		i &\in& \lbrace 0, 1, 2, 3, 4 \rbrace \\ \\
-		W_i &=& (1 - \xi^2)(1 + \eta_i \eta)/2,\\
-		i &\in& \lbrace 4, 6 \rbrace  \\ \\
-		W_i &=& (1 - \eta^2)(1 + \xi_i \xi)/2, \\
-		i &\in& \lbrace 5, 7 \rbrace	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a quadratic quadrilateral. In VTK parametric coordinates $(r,s)$ run between (0,1), hence the coordinate system shift into the $(\xi, \eta$) parametric system ranging from $(-1,1)$. Note that $\xi_i$ and $\eta_i$ refer to the parametric coordinates of the $i^{th}$ point.}
-	\label{fig:Figure8-18}
-\end{figure}
+    \item[Triangle.] Figure \ref{fig:Figure8-6} shows the parametric coordinate system and interpolation functions for a triangle cell type. The triangle is characterized using the two parametric coordinates $(r,s)$.
 
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-19}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		u &=& 1 - r - s- t \\ \\
-		W_0 &=& u(2u-1) \\
-		W_1 &=& r(2r - 1) \\
-		W_2 &=& s(2s - 1) \\
-		W_3 &=& t (2t - 1)	
-		\end{array}
-		\end{equation*}
-		\noindent\begin{minipage}{.5\linewidth}
-			\begin{equation*}
-			\begin{array}{lll}
-			W_4 &=& 4 u r \\
-			W_5 &=& 4 r s \\
-			W_6 &=& 4 s u	
-			\end{array}
-			\end{equation*}
-		\end{minipage}%
-		\noindent\begin{minipage}{.5\linewidth}
-			\begin{equation*}
-			\begin{array}{lll}
-			W_7 &=& 4 u t \\
-			W_8 &=& 4 r t \\
-			W_9 &=& 4 s t	
-			\end{array}
-			\end{equation*}
-		\end{minipage}%
-		
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a quadratic tetrahedron. In VTK parametric coordinates $(r,s,t)$ run between $(0,1)$, hence the coordinate system shift into the $(\xi, \eta, \zeta)$ parametric system ranging from $(-1,1)$.}
-	\label{fig:Figure8-19}
-\end{figure}
+\clearpage
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-11}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& (1 - r)(1 - s)(1 - t) \\
+            W_1 &=& r (1-s)(1 -t) \\
+            W_2 &=& rs (1-t) \\
+            W_3 &=& (1-r)s(1 - t) \\
+            W_4 &=& (1 - r)(1 - s) t \\
+            W_5 &=& r (1-s)t \\
+            W_6 &=& rs t \\
+            W_7 &=& (1-r)st
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a hexahedron.}
+        \label{fig:Figure8-11}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-20}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\begin{equation*}
-		\begin{array}{lll}
-		\xi &=& 2r  - 1,\quad \xi_i = \pm1 \\
-		\eta &=& 2 s - 1,\quad \eta_i = \pm1 \\
-		\zeta &=& 2 t - 1,\quad \zeta_i = \pm1
-		\end{array}
-		\end{equation*}
-		\begin{equation*}
-		\begin{array}{lll}
-		W_i &=& (1 + \xi_i \xi)(1 + \eta_i \eta)(1 + \zeta_i \zeta)(\xi_i \xi + \eta_i \eta + \zeta_i \zeta - 2)/8, \\
-		i &\in& \lbrace 1 \ldots 7 \rbrace \\ \\
-		W_i &=& (1 - \xi^2)(1 + \eta_i \eta)(1 + \zeta_i \zeta)/4, \\
-		i &\in& \lbrace 8, 10, 12, 14 \rbrace \\ \\
-		W_i &=& (1 - \eta^2)(1 + \xi_i \xi)(1 + \zeta_i \zeta)/4, \\
-		i &\in& \lbrace 9, 11, 13, 15 \rbrace \\ \\
-		W_i &=& (1 - \zeta^2)(1 + \xi_i \xi)(1 + \eta_i \eta)/4, \\
-		i &\in& \lbrace 16, 17, 18, 19 \rbrace	
-		\end{array}
-		\end{equation*}		
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a quadratic hexahedron. In VTK parametric coordinates $(r,s,t)$ run between $(0,1)$, hence the coordinate system shift into the $(\xi, \eta, \zeta)$ parametric system ranging from (-1,1). Note that $\xi_i$, $\eta_i$ and $\zeta_i$ refer to the parametric coordinates of the $i^{th}$ point.}
-	\label{fig:Figure8-20}
-\end{figure}
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-12}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& (1 - r - s)(1 - t) \\
+            W_1 &=& r (1-t) \\
+            W_2 &=& s (1 - t) \\
+            W_3 &=& (1 - r - s)t \\
+            W_4 &=& r t \\
+            W_5 &=& s t
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a wedge.}
+        \label{fig:Figure8-12}
+    \end{figure}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-21}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		W_0 &=& (1 - r - s)(1 - t)(1 - 2r -2s -2t) \\
-		W_1 &=& r(1 - t)(2r - 2t - 1) \\
-		W_2 &=& s(1 - t)(2s - 2t - 1) \\
-		W_3 &=& (1 - r - s)t(2t - 2r - 2s - 1) \\
-		W_4 &=& rt(2r + 2t - 3) \\
-		W_5 &=& st(2s + 2t - 3) \\
-		W_6 &=& 4r(1 - r - s)(1 - t) \\
-		W_7 &=& 4rs(1 - t) \\
-		W_8 &=& 4s(1 - t)(1 - r - s) \\
-		W_9 &=& 4r(1 - r - s)t \\
-		W_{10} &=& 4 rst \\
-		W_{11} &=& 4 (1 - r - s)s t\\
-		W_{12} &=& 4 (1 - r - s)t(1 - t) \\
-		W_{13} &=& 4rt(1 - t) \\
-		W_{14} &=& 4st(1 - t)	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a quadratic wedge.}
-	\label{fig:Figure8-21}
-\end{figure}
+    \item[Polygon.] Figure \ref{fig:Figure8-7} shows the parametric coordinate system and interpolation functions for a polygon cell type. The polygon is characterized using the two parametric coordinates $(r,s)$. The parametric coordinate system is defined by creating a rectangle oriented along the first edge of the polygon. The rectangle also must bound the polygon.
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\includegraphics[width=\linewidth]{Figure8-22}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-		\centering
-		\begin{equation*}
-		\begin{array}{lll}
-		\xi &=& 2 r - 1, \quad \xi_i = \pm1 \\ \\
-		\eta &=& 2 s - 1, \quad \eta_i = \pm1 \\ \\
-		\zeta &=& 2 t - 1, \quad \zeta_i = \pm1
-		\end{array}
-		\end{equation*}
-		\begin{equation*}
-		\begin{array}{lll}
-		W_i &=& (1 + \xi_i \xi)(1 + \eta_i \eta)(1 + \zeta_i \zeta)(\xi_i \xi + \eta_i \eta + \zeta_i \zeta - 2)/8, \\
-		i &\in& \lbrace 0, 1, 2, 3 \rbrace \\
-		W_4 &=& \zeta(1 - \zeta)/4, \quad i \in \lbrace 4 \rbrace \\
-		W_i &=& (1 - \xi^2)(1 + \eta_i \eta)(1 + \zeta_i \zeta)/4, \quad i \in \lbrace 5, 6, 7, 8\rbrace \\
-		W_i &=& (1 - \zeta^2)(1 + \xi_i \xi)(1 + \eta_i \eta)/4, \quad i \in \lbrace 9, 10, 11, 12 \rbrace	
-		\end{array}
-		\end{equation*}
-	\end{subfigure}%
-	\caption{Parametric coordinate system and interpolation functions for a quadratic pyramid. In VTK parametric coordinates $(r,s,t)$ run between $(0,1)$, hence the coordinate system shift into the $(\xi, \eta, \zeta)$ parametric system ranging from (-1,1). Note that $\xi_i$, $\eta_i$ and $\zeta_i$ refer to the parametric coordinates of the $i^{th}$ point.}
-	\label{fig:Figure8-22}
-\end{figure}
+    The polygon poses a special problem since we do not know how many vertices define the polygon. As a result, it is not possible to create general interpolation functions in the fashion of the previous functions we have seen. Instead, we use a function based on weighted distance squared from each polygon vertex.
 
+    The weighted distance squared interpolation functions work well in practice. However, there are certain rare cases where points topologically distant from the interior of a polygon have an undue effect on the polygon interior (Figure \ref{fig:Figure8-8}). These situations occur only if the polygon is concave and wraps around on itself.
+
+\clearpage
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-13}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& (1-r)(1-s)(1-t) \\
+            W_1 &=& r(1-s)(1-t) \\
+            W_2 &=& r s (1-t) \\
+            W_3 &=& (1-r)s(1-t) \\
+            W_4 &=& t
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a pyramid.}
+        \label{fig:Figure8-13}
+    \end{figure}
+
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-14a}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-14b}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& -N(-As + Br - C)(Bs-Ar-C)(t - 1) \\
+            W_1 &=& N(Ds+Dr-E)(Fs-Gr-H)(t-1) \\
+            W_2 &=& -N(Bs -Ar -C)(-Gs-Fr+H)(t - 1)\\
+            W_3 &=& N(-As + Br -C)(Fs + Gr - H)(t - 1) \\
+            W_4 &=& -N(-Gs - Fr + H)(Ds + Dr - E)(t - 1) \\
+            W_5 &=& N(-As +Br - C)(Bs -Ar -C)t \\
+            W_6 &=& -N(Ds + Dr - E)(Fs + Gr - H)t\\
+            W_7 &=& N(Bs - Ar -C)(-Gs -Fr + H)t \\
+            W_8 &=& -N(-As + Br -C)(Fs + Gr - H)t \\
+            W_9 &=& N(-Gs - Fr + H)(Ds + Dr -E)t
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            The points $P_i(x_i, y_i)$ on the pentagon are defined by:
+            \begin{equation*}
+            \begin{array}{lll}
+            x_i &=& \dfrac{1}{2}\left(1 +\cos\left(\dfrac{5\pi}{4} + i \dfrac{2\pi}{5}\right)\right) \\ \\
+            y_i &=& \dfrac{1}{2}\left(1 +\sin\left(\dfrac{5\pi}{4} + i \dfrac{2\pi}{5}\right)\right) \\ \\
+            i &\in& \lbrace 0, 1, 2, 3, 4 \rbrace
+            \end{array}
+            \end{equation*}
+            Constants:
+            \begin{equation*}
+            \begin{array}{lll}
+            A &=& x_2 - x_1 \\
+            B &=& y_2 - y_1 \\
+            C &=& x_1 y_2 - x_2 y_1 \\
+            D &=& x_2 - x_3 \\
+            E &=& x_2 y_3 - x_3 y_2 \\
+            F &=& x_0 - x_4 \\
+            G &=& y_4 - y_0 \\
+            H &=& x_0 y_4 - x_4 y_0
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a pentagonal prism.}
+        \label{fig:Figure8-14}
+    \end{figure}
+
+\clearpage
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-15}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            \alpha &=& \dfrac{\sqrt{3}}{4} + \dfrac{1}{2} \\ \\
+            \beta &=& \dfrac{1}{2} - \dfrac{\sqrt{3}}{4}, \alpha + \beta = 1
+            \end{array}
+            \end{equation*}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=&-\dfrac{16}{3}(r - \alpha)(r - \beta)(s - 1)(t - 1) \\ \\
+            W_1 &=&\dfrac{16}{3}(r - \dfrac{1}{2})(r - \beta)(s - \dfrac{3}{4})(t - 1) \\ \\
+            W_2 &=& -\dfrac{16}{3}(r - \dfrac{1}{2})(r - \beta)(s - \dfrac{1}{4})(t - 1) \\ \\
+            W_3 &=& \dfrac{16}{3}(r - \alpha)(r - \beta)s(t - 1) \\ \\
+            W_4 &=& -\dfrac{16}{3}(r - \dfrac{1}{2})(r - \alpha)(s - \dfrac{1}{4})(t - 1) \\ \\
+            W_5 &=& \dfrac{16}{3}(r - \dfrac{1}{2})(r - \alpha)(s - \dfrac{3}{4})(t - 1)
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_6 &=& \dfrac{16}{3}(r - \alpha)(r - \beta)(s - 1)t \\ \\
+            W_7 &=&-\dfrac{16}{3}(r - \dfrac{1}{2})(r - \beta)(s - \dfrac{3}{4})t \\ \\
+            W_8 &=&  \dfrac{16}{3}(r - \dfrac{1}{2})(r - \beta)(s - \dfrac{1}{4})t \\ \\
+            W_9 &=& -\dfrac{16}{3}(r - \alpha)(r - \beta)st \\ \\
+            W_{10} &=&  \dfrac{16}{3}(r - \dfrac{1}{2})(r - \alpha)(s - \dfrac{1}{4})t \\ \\
+            W_{11} &=& -\dfrac{16}{3}(r - \dfrac{1}{2})(r - \alpha)(s - \dfrac{3}{4})t
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+    \caption{Parametric coordinate system and interpolation functions for a hexagonal prism.}
+    \label{fig:Figure8-15}
+    \end{figure}
+
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-16}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& 2 \left( r - \dfrac{1}{2}\right)(r - 1) \\ \\
+            W_1 &=& 2 r \left( r - \dfrac{1}{2}\right) \\ \\
+            W_2 &=& 4 r (1 - r)
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a quadratic wedge.}
+        \label{fig:Figure8-16}
+    \end{figure}
+
+    \item[Tetrahedron.] Figure \ref{fig:Figure8-9} shows the parametric coordinate system and interpolation functions for a tetrahedron cell type. The tetrahedron is described using the three parametric coordinates $(r,s,t)$.
+
+    \item[Voxel.] Figure \ref{fig:Figure8-10} shows the parametric coordinate system and interpolation functions for a voxel cell type. The voxel is described using the three parametric coordinates $(r,s,t)$. Note that the voxel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{trilinear interpolation} functions.
+
+\clearpage
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-17}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& (1 - r - s)(2(1 - r - s) - 1) \\
+            W_1 &=& r (2 r - 1) \\
+            W_2 &=& s(2s - 1) \\
+            W_3 &=& 4 r (1 - r - s) \\
+            W_4 &=& 4 r s \\
+            W_5 &=& 4 s (1 - r - s)
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a quadratic triangle.}
+        \label{fig:Figure8-17}
+    \end{figure}
+
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-18}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            \xi &=& 2 r  - 1, \quad \xi_i = \pm 1 \\
+            \eta &=& 2 s - 1, \quad \eta_i = \pm 1
+            \end{array}
+            \end{equation*}
+            \begin{equation*}
+            \begin{array}{lll}
+            W_i &=& (1 + \xi_i \xi)(1 + \eta_i \eta)(\xi_i \xi + \eta_i \eta - 1)/4, \\
+            i &\in& \lbrace 0, 1, 2, 3, 4 \rbrace \\ \\
+            W_i &=& (1 - \xi^2)(1 + \eta_i \eta)/2,\\
+            i &\in& \lbrace 4, 6 \rbrace  \\ \\
+            W_i &=& (1 - \eta^2)(1 + \xi_i \xi)/2, \\
+            i &\in& \lbrace 5, 7 \rbrace
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a quadratic quadrilateral. In VTK parametric coordinates $(r,s)$ run between (0,1), hence the coordinate system shift into the $(\xi, \eta$) parametric system ranging from $(-1,1)$. Note that $\xi_i$ and $\eta_i$ refer to the parametric coordinates of the $i^{th}$ point.}
+        \label{fig:Figure8-18}
+    \end{figure}
+
+    \item[Hexahedron.] Figure \ref{fig:Figure8-11} shows the parametric coordinate system and interpolation functions for a hexahedron cell type. The hexahedron is described using the three parametric coordinates $(r,s,t)$.
+
+    \item[Wedge.] Figure \ref{fig:Figure8-12} shows the parametric coordinate system and interpolation functions for a wedge cell type. The wedge is described using the three parametric coordinates $(r,s,t)$.
+
+    \item[Pyramid.] Figure \ref{fig:Figure8-13} shows the parametric coordinate system and interpolation functions for a pyramid cell type. The pyramid is described using the three parametric coordinates $(r,s,t)$.
+
+    \item[Pentagonal Prism.] Figure \ref{fig:Figure8-14} shows the parametric coordinate system and interpolation functions for a pentagonal prism cell type. The pentagonal prism is described using the three parametric coordinates $(r,s,t)$.
+
+\clearpage
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-19}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            u &=& 1 - r - s- t \\ \\
+            W_0 &=& u(2u-1) \\
+            W_1 &=& r(2r - 1) \\
+            W_2 &=& s(2s - 1) \\
+            W_3 &=& t (2t - 1)
+            \end{array}
+            \end{equation*}
+            \noindent\begin{minipage}{.5\linewidth}
+                \begin{equation*}
+                \begin{array}{lll}
+                W_4 &=& 4 u r \\
+                W_5 &=& 4 r s \\
+                W_6 &=& 4 s u
+                \end{array}
+                \end{equation*}
+            \end{minipage}%
+            \noindent\begin{minipage}{.5\linewidth}
+                \begin{equation*}
+                \begin{array}{lll}
+                W_7 &=& 4 u t \\
+                W_8 &=& 4 r t \\
+                W_9 &=& 4 s t
+                \end{array}
+                \end{equation*}
+            \end{minipage}%
+
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a quadratic tetrahedron. In VTK parametric coordinates $(r,s,t)$ run between $(0,1)$, hence the coordinate system shift into the $(\xi, \eta, \zeta)$ parametric system ranging from $(-1,1)$.}
+        \label{fig:Figure8-19}
+    \end{figure}
+
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-20}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \begin{equation*}
+            \begin{array}{lll}
+            \xi &=& 2r  - 1,\quad \xi_i = \pm1 \\
+            \eta &=& 2 s - 1,\quad \eta_i = \pm1 \\
+            \zeta &=& 2 t - 1,\quad \zeta_i = \pm1
+            \end{array}
+            \end{equation*}
+            \begin{equation*}
+            \begin{array}{lll}
+            W_i &=& (1 + \xi_i \xi)(1 + \eta_i \eta)(1 + \zeta_i \zeta)(\xi_i \xi + \eta_i \eta + \zeta_i \zeta - 2)/8, \\
+            i &\in& \lbrace 1 \ldots 7 \rbrace \\ \\
+            W_i &=& (1 - \xi^2)(1 + \eta_i \eta)(1 + \zeta_i \zeta)/4, \\
+            i &\in& \lbrace 8, 10, 12, 14 \rbrace \\ \\
+            W_i &=& (1 - \eta^2)(1 + \xi_i \xi)(1 + \zeta_i \zeta)/4, \\
+            i &\in& \lbrace 9, 11, 13, 15 \rbrace \\ \\
+            W_i &=& (1 - \zeta^2)(1 + \xi_i \xi)(1 + \eta_i \eta)/4, \\
+            i &\in& \lbrace 16, 17, 18, 19 \rbrace
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a quadratic hexahedron. In VTK parametric coordinates $(r,s,t)$ run between $(0,1)$, hence the coordinate system shift into the $(\xi, \eta, \zeta)$ parametric system ranging from (-1,1). Note that $\xi_i$, $\eta_i$ and $\zeta_i$ refer to the parametric coordinates of the $i^{th}$ point.}
+        \label{fig:Figure8-20}
+    \end{figure}
+
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-21}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            W_0 &=& (1 - r - s)(1 - t)(1 - 2r -2s -2t) \\
+            W_1 &=& r(1 - t)(2r - 2t - 1) \\
+            W_2 &=& s(1 - t)(2s - 2t - 1) \\
+            W_3 &=& (1 - r - s)t(2t - 2r - 2s - 1) \\
+            W_4 &=& rt(2r + 2t - 3) \\
+            W_5 &=& st(2s + 2t - 3) \\
+            W_6 &=& 4r(1 - r - s)(1 - t) \\
+            W_7 &=& 4rs(1 - t) \\
+            W_8 &=& 4s(1 - t)(1 - r - s) \\
+            W_9 &=& 4r(1 - r - s)t \\
+            W_{10} &=& 4 rst \\
+            W_{11} &=& 4 (1 - r - s)s t\\
+            W_{12} &=& 4 (1 - r - s)t(1 - t) \\
+            W_{13} &=& 4rt(1 - t) \\
+            W_{14} &=& 4st(1 - t)
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a quadratic wedge.}
+        \label{fig:Figure8-21}
+    \end{figure}
+
+    \item[Hexagonal Prism.] Figure \ref{fig:Figure8-15} shows the parametric coordinate system and interpolation functions for a hexagonal prism cell type. The hexagonal prism is described using the three parametric coordinates $(r,s,t)$.
+
+    \item[Quadratic Edge.] Figure \ref{fig:Figure8-16} shows the parametric coordinate system and interpolation functions for a quadratic edge cell type. The quadratic edge is described using the single parametric coordinate $r$.
+
+    \item[Quadratic Triangle.] Figure \ref{fig:Figure8-17} shows the parametric coordinate system and interpolation functions for a quadratic triangle cell type. The quadratic triangle is described using the two parametric coordinates $(r,s)$.
+
+    \item[Quadratic Quadrilateral.] Figure \ref{fig:Figure8-18} shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates $(r,s)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\xi, \eta)$ coordinates defined in this range. Also, the notation $\xi_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the $i^{th}$ point.
+
+\clearpage
+    \begin{figure}[!htb]
+        \centering
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-22}
+            \caption*{}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.48\linewidth}
+            \centering
+            \begin{equation*}
+            \begin{array}{lll}
+            \xi &=& 2 r - 1, \quad \xi_i = \pm1 \\ \\
+            \eta &=& 2 s - 1, \quad \eta_i = \pm1 \\ \\
+            \zeta &=& 2 t - 1, \quad \zeta_i = \pm1
+            \end{array}
+            \end{equation*}
+            \begin{equation*}
+            \begin{array}{lll}
+            W_i &=& (1 + \xi_i \xi)(1 + \eta_i \eta)(1 + \zeta_i \zeta)(\xi_i \xi + \eta_i \eta + \zeta_i \zeta - 2)/8, \\
+            i &\in& \lbrace 0, 1, 2, 3 \rbrace \\
+            W_4 &=& \zeta(1 - \zeta)/4, \quad i \in \lbrace 4 \rbrace \\
+            W_i &=& (1 - \xi^2)(1 + \eta_i \eta)(1 + \zeta_i \zeta)/4, \quad i \in \lbrace 5, 6, 7, 8\rbrace \\
+            W_i &=& (1 - \zeta^2)(1 + \xi_i \xi)(1 + \eta_i \eta)/4, \quad i \in \lbrace 9, 10, 11, 12 \rbrace
+            \end{array}
+            \end{equation*}
+        \end{subfigure}%
+        \caption{Parametric coordinate system and interpolation functions for a quadratic pyramid. In VTK parametric coordinates $(r,s,t)$ run between $(0,1)$, hence the coordinate system shift into the $(\xi, \eta, \zeta)$ parametric system ranging from (-1,1). Note that $\xi_i$, $\eta_i$ and $\zeta_i$ refer to the parametric coordinates of the $i^{th}$ point.}
+        \label{fig:Figure8-22}
+    \end{figure}
+
+    \item[Quadratic Tetrahedron.] Figure \ref{fig:Figure8-19} shows the parametric coordinate system and interpolation functions for a quadratic tetrahedron cell type. The quadratic tetrahedron is described using the three parametric coordinates $(r,s,t)$.
+
+    \item[Quadratic Hexahedron.] Figure \ref{fig:Figure8-20} shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\epsilon_i$, $\eta_i$ and $\zeta_i$ is introduced. These are the parametric coordinates at the $i{th}$ point.
+
+    \item[Quadratic Wedge.] Figure \ref{fig:Figure8-21} shows the parametric coordinate system and interpolation functions for a quadratic wedge cell type. The quadratic wedge is described using the three parametric coordinate $(r,s,t)$.
+
+    \item[Quadratic Pyramid.] Figure \ref{fig:Figure8-22} shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i$, $\eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the $i^{th}$ point. (The shape functions and derivatives were implemented thanks to the \href{https://www.colorado.edu/aerospacestructures/}{Center For Aerospace Structures}.)
+
+\end{description}
 
 \section{Searching}
 \label{sec:searching}
