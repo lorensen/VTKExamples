@@ -347,15 +347,13 @@ A natural extension of the previous time animation techniques is to connect the 
 
 Borrowing terminology from the study of fluid flow, we can define three related line representation schemes for vector fields.
 
-*Particle traces* are trajectories traced by fluid particles over time.
+* Particle traces are trajectories traced by fluid particles over time.
 
-*Streaklines* are the set of particle traces at a particular time $t_i$through a specified point $x_i$.
+* Streaklines are the set of particle traces at a particular time $t_i$through a specified point $x_i$.
 
-*Streamlines* are integral curves along a curve $s$ satisfying the equation
+* Streamlines  are integral curves along a curve $s$ satisfying the equation
 
 $$
-% EQUATION 6-5
-% just my $0.02 worth - stationary velocity field V, streamline S
 \vec{s}(t) = \int_{\tau = t_0}^{t} \vec{V}\left(\vec{s}\left(\tau\right)\right)\text{d}\tau
 \bf\tag{6-5}
 $$
@@ -512,6 +510,11 @@ $$
 This simple relationship defines the three regions (on $F(x,y,z = 0)s on$the sphere), $F(x,y,z) < 0$ (inside the sphere), and $F(x,y,z)$ (outside the sphere). Any point m≈bay be classified inside, on, or outside the sphere simply by evaluating *Equation6-12*.
 
 <figure id="Figure 6-23">
+  <figure id="Figure 6-23a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-23a.png?raw=true width="640" alt="Figure6-23a">
+  </figure>
+  <figcaption style="color:blue"><b>Figure NUMBER</b>. (a) Sphere sampling</figcaption>
+  </figure>
  <figure id="Figure 6-23b">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImplicitFunctions/TestImplicitSphere.png?raw=true width="640" alt="Figure 6-23b">
   <figcaption style="color:blue">(b) Isosurface of Sphere</figcaption>
