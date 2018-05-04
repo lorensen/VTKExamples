@@ -250,7 +250,7 @@ The preceding sections have provided a general framework for the implementation 
 
 There exist data files and data sources where the type of dataset represented by the file or source is unknown until run-time. For example, consider a general purpose VTK reader that can read any type of VTK data file. Such a class is convenient because the user need not concern himself with the type of dataset, instead the user may want to set up a single pipeline that processes whatever type is found. As indicated by **Figure 4-3**, such an approach works well if the system is of a single dataset type, however in practice, and due to performance/efficiency concerns, there typically exist many different types of data in a visualization system. The other alternative shown in **Figure 4-3** is enforced type checking. However, in situations like the reader example described above, it is not possible to enforce type checking at compile-time because the type is determined by the data. As a result, type checking must be performed at run-time.
 
-Run-time type checking of a multiple dataset type visualization system requires that the data passed between filters is a generic dataset container (i.e., it appears like a single type but contains the actual data and methods to determine what type of data it is). Run-time type checking has the advantage of flexibility, but the trade-off is that a pipeline may not execute properly until the program executes. For example, a generic pipeline may be designed that can process structured data (see "Types of Datasets " on page134 ), but the data file may contain unstructured data. In this case, the pipeline will be unable to execute at run-time, producing empty output. Thus pipelines designed to process any type of data must be carefully assembled to create robust applications.
+Run-time type checking of a multiple dataset type visualization system requires that the data passed between filters is a generic dataset container (i.e., it appears like a single type but contains the actual data and methods to determine what type of data it is). Run-time type checking has the advantage of flexibility, but the trade-off is that a pipeline may not execute properly until the program executes. For example, a generic pipeline may be designed that can process structured data (see ["Types of Datasets"](http://localhost:8000/VTKBook/05Chapter5/#56-types-of-datasets) in [Chapter 5](/VTKBook/05Chapter5)), but the data file may contain unstructured data. In this case, the pipeline will be unable to execute at run-time, producing empty output. Thus pipelines designed to process any type of data must be carefully assembled to create robust applications.
 
 ### Extending the Data Object Representation
 
@@ -279,23 +279,23 @@ Streaming data through a visualization pipeline offers two major benefits. The f
 
 3.  **Result Invariant.** The results should be independent of the number of pieces, and independent of the execution mode (i.e., single- or multi-threaded). This means proper handling of boundaries and developing algorithms that are multi-thread safe across pieces that may overlap on their boundaries.
 
-Separating data into pieces is relatively straightforward if the data is structured, i.e., topologically regular (see "Types of Datasets " on page134 ). Such datasets can be topological described by a rectangular extent in a regularly *x-y-z* subdivided cubical domain (see **Figure5-7**(a)-(c)). However, if the data is unstructured (e.g. a mesh of triangles or polygons), then specifying pieces is difficult. Generally an unstructured extent is defined by grouping adjacent data (e.g., cells) into pieces, and then addressing each piece using a *N* of *M* notation, where *N* is the n *^th^* piece out of a total of *M* pieces. The exact organizational structure of a piece is left unspecified and depends on the particular application and algorithm used to group the data.
+Separating data into pieces is relatively straightforward if the data is structured, i.e., topologically regular ((see ["Types of Datasets"](http://localhost:8000/VTKBook/05Chapter5/#56-types-of-datasets) in [Chapter 5](/VTKBook/05Chapter5)). Such datasets can be topological described by a rectangular extent in a regularly *x-y-z* subdivided cubical domain (see **Figure5-7**(a)-(c)). However, if the data is unstructured (e.g. a mesh of triangles or polygons), then specifying pieces is difficult. Generally an unstructured extent is defined by grouping adjacent data (e.g., cells) into pieces, and then addressing each piece using a *N* of *M* notation, where *N* is the n *^th^* piece out of a total of *M* pieces. The exact organizational structure of a piece is left unspecified and depends on the particular application and algorithm used to group the data.
 
 To satisfy the third requirement of results invariancy, processing pieces also requires the abiity to generate boundary data, or *ghost levels*. Boundary information is necessary when information from the neighbors of a piece is needed to perform a computation. For example, gradient calculations or boundary analysis (e.g., do I have a cell face neighbor?) require one level of boundary information. In rare cases, two or more levels are required. **Figure 4-11** illustrates boundary cells and points corresponding to the central red piece of the sphere.
 
 Finally, it should be noted that the ability to divide data into pieces for streaming is exactly the same capability required for data parallel processing. In such methods, data is subdivided and sent to different processors to be operated on in parallel. Boundary information may also be required to perform certain computations. Parallel processing has the added complexity that the data must be communicated to processors (in the case of distributed computing) or mutual exclusion (i.e., mutexing) must be employed to avoid simultaneous write operations. Thus streaming and parallel processing are complementary technologies used in large data computing.
 
-**Complex Execution Strategies.** In many cases the simple execution model of **Figure 4-7**(b) is not suitable for complex data processing tasks. For example, as discussed in the previous section, streaming data is a complex execution strategy required when a dataset becomes too large to fit into memory, or when parallel computing is used. In some cases event-driven (see “Executing the Pipeline” on page 89) or “push” pipelines (i.e., those that receive data and push the data through the pipeline for processing) may be preferred. Finally, there exist hierarchical data structures such as multi-block or adaptive mesh refinement (AMR) [Berger84] grids. Processing such datasets in a pipeline requires hierarchical traversal as filters process each block in the grid (an advanced research topic in the visualization field and not covered in this edition of the book).
+**Complex Execution Strategies.** In many cases the simple execution model of **Figure 4-7**(b) is not suitable for complex data processing tasks. For example, as discussed in the previous section, streaming data is a complex execution strategy required when a dataset becomes too large to fit into memory, or when parallel computing is used. In some cases event-driven (see [“Executing the Pipeline”](/VTKBook/04Chapter4/#44-executing-the-pipeline)) or “push” pipelines (i.e., those that receive data and push the data through the pipeline for processing) may be preferred. Finally, there exist hierarchical data structures such as multi-block or adaptive mesh refinement (AMR) [Berger84] grids. Processing such datasets in a pipeline requires hierarchical traversal as filters process each block in the grid (an advanced research topic in the visualization field and not covered in this edition of the book).
 
 Addressing these requirements implies that the execution model must be extended. Thus we revisit the object-oriented design in the next section.
 
-**Object-Oriented Design Revisited.** **Figure 4-2** illustrates two choices relative to the design of the visualization object model. The first choice, which was discarded, was to combine data and operations on the data into a single object, a typical object-oriented design pattern. The second choice, which was advocated, was to create a design consisting of two classes---data objects and process objects---which were then combined into visualization pipelines. While this second strategy works well for simple pipelines, when complex execution strategies are introduced, this design begins to break down. This is because the execution strategy is necessarily, and implicitly, distributed across the data objects and process objects; there is no explicit mechanism to implement a particular strategy. Thus the design is problematic because new strategies cannot be introduced without modifying the interface to both the data and process objects. Good design demands that the execution strategy is separated from the data objects and process objects. The benefits of such a design include reducing the complexity of the data and process objects, encapsulating execution strategies, performing run-time type checking (see ["Processing Unknown Dataset Types"](/VTKBook/04Chapter4/#processing-unknown-dataset-types)) and even managing metadata (see "Extending the Data Object Representation " on page95 ).
+**Object-Oriented Design Revisited.** **Figure 4-2** illustrates two choices relative to the design of the visualization object model. The first choice, which was discarded, was to combine data and operations on the data into a single object, a typical object-oriented design pattern. The second choice, which was advocated, was to create a design consisting of two classes---data objects and process objects---which were then combined into visualization pipelines. While this second strategy works well for simple pipelines, when complex execution strategies are introduced, this design begins to break down. This is because the execution strategy is necessarily, and implicitly, distributed across the data objects and process objects; there is no explicit mechanism to implement a particular strategy. Thus the design is problematic because new strategies cannot be introduced without modifying the interface to both the data and process objects. Good design demands that the execution strategy is separated from the data objects and process objects. The benefits of such a design include reducing the complexity of the data and process objects, encapsulating execution strategies, performing run-time type checking (see ["Processing Unknown Dataset Types"](/VTKBook/04Chapter4/#processing-unknown-dataset-types)) and even managing metadata (see ["Extending the Data Object Representation"](/VTKBook/04Chapter4/#extending-the-data-object-representation)).
 
 As the execution model becomes more complex, execution strategies are
 separated from the data and process objects as separate classes.
 
 The advanced design re-introduces the notion of an executive (see
-"Executing the Pipeline " on page89 ). However, the design differs from that of **Figure 4-7**. As that figure illustrated, a single, centralized executive introduces dependencies into the pipeline that will not scale as pipeline complexity increases, or in parallel processing applications. In the advanced design, we assume *multiple* executives, typically one per filter. In  some cases the executive may control multiple filters. This is particularly useful if the filters are interdependent or complex execution strategies are required. Different classes of executive can implement different execution strategies, for example a demand-driven, streaming pipeline is one such strategy. Other important classes include executives that coordinate the execution of filters on composite datasets.
+["Executing the Pipeline"](/VTKBook/04Chapter4/#44-executing-the-pipeline)). However, the design differs from that of **Figure 4-7**. As that figure illustrated, a single, centralized executive introduces dependencies into the pipeline that will not scale as pipeline complexity increases, or in parallel processing applications. In the advanced design, we assume *multiple* executives, typically one per filter. In  some cases the executive may control multiple filters. This is particularly useful if the filters are interdependent or complex execution strategies are required. Different classes of executive can implement different execution strategies, for example a demand-driven, streaming pipeline is one such strategy. Other important classes include executives that coordinate the execution of filters on composite datasets.
 
 <figure id="Figure 4-12">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-12.png?raw=true width="640" alt="Figure4-12">
@@ -461,7 +461,7 @@ was typically used with filter1 and filter2 filter objects of compatible type. I
 
 For this, and other reasons related to parallel processing, the original VTK pipeline design was reworked. While the transition was difficult, such changes are often necessary if a software system is to change and grow with advances in technology.
 
-**VTK 5.0 and Beyond**. While VTK 5.0 still supports the use of SetInput()/GetOutput(), its use is **Figure 4-16** and discouraged. Rather, the newer pipeline architecture should be used. Referring to **Figure 4-17**, we use connections and ports to configure VTK’s visualization pipeline:
+**VTK 5.0 and Beyond**. While VTK 5.0 still supports the use of SetInput()/GetOutput(), its use in **Figure 4-16** and **Figure 4-17** is discouraged. Rather, the newer pipeline architecture should be used. Referring to **Figure 4-17**, we use connections and ports to configure VTK’s visualization pipeline:
 
 ``` c++
 filter2->SetInputConnection(filter1->GetOutputPort()); //VTK 5.0
@@ -470,28 +470,32 @@ filter2->SetInputConnection(filter1->GetOutputPort()); //VTK 5.0
 You probably have already guessed how this approach can be extended to multiple inputs and multiple outputs. Let’s look at some concrete examples. vtkGlyph3D is an example of a filter that accepts multiple inputs and generates a single output. The inputs to vtkGlyph3D are represented by the Input and Source instance variables. The purpose of vtkGlyph3D is to copy the geometry defined by the data in Source to each point defined by Input. The geometry is modified according to the Source data values (e.g., scalars and vectors). (For more information about glyphs see “[Glyphs](/VTKBook/06Chapter6/#glyphs)”.) To use the vtkGlyph3D object in C++ code you would do the following:
 
 ``` c++
-glyph = vtkGlyph3D::New(); glyph->SetInputConnection(foo->GetOutputPort()); glyph->SetSourceConnection(bar->GetOutputPort());...
+glyph = vtkGlyph3D::New();
+ glyph->SetInputConnection(foo->GetOutputPort());
+ glyph->SetSourceConnection(bar->GetOutputPort());...
 ```
 
 where foo and bar are filters returning the appropriate type of output. The class vtkExtractVectorComponents is an example of a filter with a single input and multiple outputs. This filter extracts the three components of a 3D vector into separate scalar components. Its three outputs are available on output ports 0, 1, and 2. An example use of the filter follows:
 
 ``` c++
-vz = vtkExtractVectorComponents::New(); foo = vtkDataSetMapper::New();
+vz = vtkExtractVectorComponents::New();
+foo = vtkDataSetMapper::New();
 foo->SetInputConnection(vz->GetOutputPort(2));
 ...
-```
 
 Several other special objects having multiple inputs or outputs are also available. Some of the more notable classes are vtkMergeFilter, vtkAppendFilter, and vtkAppendPolyData. These filters com bine multiple pipeline streams and generate a single output. Note, however, that while vtkMergeFilter has multiple input ports (i.e., different logical inputs), vtkAppendFilter has only one logical input, but presumes multiple connections are made to that one input. This is because in the case of vtkMergeFilter, each input has a distinct and separate purpose, while in vtkAppendFilter all the inputs have the same meaning (i.e., just one more input in a list to append together). Here are some code fragments:
 
 ``` c++
-merge = vtkMergeFilter::New(); merge->SetGeometryConnection(foo->GetOutputPort()); merge->SetScalarsConnection(bar->GetOutputPort());
+merge = vtkMergeFilter::New();
+merge->SetGeometryConnection(foo->GetOutputPort());
+merge->SetScalarsConnection(bar->GetOutputPort());
 ```
 and
 
 ``` c++
 append = vtkAppendFilter::New();
-  append->AddInputConnection(foo->GetOutputPort());
-   append->AddInputConnection(bar->GetOutputPort());
+append->AddInputConnection(foo->GetOutputPort());
+append->AddInputConnection(bar->GetOutputPort());
 ```
 
 Notice the use of the method AddInputConnection(). This method adds to the list of connections, whereas SetInputConnection() clears the list and specifies the single connection to the port.
@@ -544,9 +548,9 @@ This global variable is set as follows. Given the data object O, (or the output 
 
  At this point in the text it is premature to describe design details of the various objects making up the visualization pipeline. However, there are two important classes that affect many of the objects in the text. These are the classes vtkObject and vtkObjectBase.
 
-vtkObjectBase is the base object for almost all inheritance hierarchies found in VTK. vtkObjectBase implements data object reference counting (see “Reference Counting & Garbage Collection” on page 94). Subclasses of vtkObjectBase may be shared by other objects, without duplicating memory. It also defines an API for objects to print information about themselves.
+vtkObjectBase is the base object for almost all inheritance hierarchies found in VTK. vtkObjectBase implements data object reference counting (see [“Reference Counting & Garbage Collection”](/VTKBook/04Chapter4/#reference-counting-garbage-collection)). Subclasses of vtkObjectBase may be shared by other objects, without duplicating memory. It also defines an API for objects to print information about themselves.
 
-vtkObject is a subclass of vtkObjectBase. It provides methods and instance variables to control run-time debugging and maintains internal object modification time. In particular, the method Modified() is used to update the modification time, and the method GetMTime() is used to retrieve it. vtkObject also provides a framework for the event callbacks that we saw in the previous chapter (see “Events and Observers” on page 63).
+vtkObject is a subclass of vtkObjectBase. It provides methods and instance variables to control run-time debugging and maintains internal object modification time. In particular, the method Modified() is used to update the modification time, and the method GetMTime() is used to retrieve it. vtkObject also provides a framework for the event callbacks that we saw in the previous chapter (see [“Events and Observers”](/VTKBook/03Chapter3#Chapter 3 - Events and Observers) in [Chapter 3](/VTKBook/03Chapter3)).
 
 Note that we do not always include vtkObject and vtkObjectBase in object diagrams to conserve space. Refer to the source code for a definitive statement.
 

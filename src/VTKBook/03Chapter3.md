@@ -885,8 +885,7 @@ The following statements create an identical 4 x 4 matrix that the actor creates
 
 ``` c++
 vtkTransform *myTrans = vtkTransform::New ();
-myTrans->Translate;
-(position[0],position[1],position[2]);
+myTrans->Translate(position[0],position[1],position[2]);
 myTrans->Translate(origin[0],origin[1],origin[2]);
 myTrans->RotateZ(orientation[2]);
 
@@ -904,7 +903,8 @@ Our final example shows how the transform built with vtkTransform compares with 
 First, we will move the cow five feet along the *z* axis then rotate her about the origin. We always specify transformations in the reverse order of their application:
 
 ``` c++
-vtkTransform *walk = vtkTransform::New(); walk->RotateY(0,20,0);
+vtkTransform *walk = vtkTransform::New();
+walk->RotateY(0,20,0);
 walk->Translate(0,0,5);
 
 vtkActor *cow=vtkActor::New();
