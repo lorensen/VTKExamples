@@ -938,16 +938,16 @@ This chapter has covered a wide variety of topics. In this section we demonstrat
 
 \subsection{Texture Mapping}
 
-\begin{minipage}[b]{0.5\linewidth}
-	The following listing shows the complete source code for a simple texture mapping example the resultant image is shown in Figure \ref{fig:Figure7-33}. You will notice that most of the code is similar to what we used in the preceding examples. The key step here is the creation of a vtkTexture object. This object interfaces between its data input and the texture mapping functions of the graphics library.
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.4\linewidth}
+\begin{wrapfigure}{R}{0.4\textwidth}
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figure7-33}
-	\captionof{figure}{Example of texture mapping.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TexturePlane/}{TexturePlane.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TexturePlane/}{TexturePlane.py})}
+	\caption{Example of texture mapping.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TexturePlane/}{TexturePlane.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TexturePlane/}{TexturePlane.py})}
 	\label{fig:Figure7-33}
-\end{minipage}
+\end{wrapfigure}
+
+The following listing shows the complete source code for a simple texture mapping example the resultant image is shown in Figure \ref{fig:Figure7-33}. You will notice that most of the code is similar to what we used in the preceding examples. The key step here is the creation of a vtkTexture object. This object interfaces between its data input and the texture mapping functions of the graphics library.
+
+One interesting note regarding the vtkTexture object. Instances of this class are mappers that have an Input instance variable that is updated during each render. The input type is a vtkImageData dataset type. Thus, a visualization pipeline can be constructed to read, process, and/or generate the texture map. This includes using the object vtkRendererSource , which converts the renderer's image into an image data dataset. The input texture map can be either 2D (a pixmap) or 3D (a volume).
 
 \begin{lstlisting}[language=TCL, caption={Example of texture mapping.}]
 vtkBMPReader bmpReader
@@ -974,8 +974,6 @@ vtkRenderWindowInteractor iren
 #   Add the actors to the renderer
   ren1 AddActor planeActor
 \end{lstlisting}
-
-One interesting note regarding the vtkTexture object. Instances of this class are mappers that have an Input instance variable that is updated during each render. The input type is a vtkImageData dataset type. Thus, a visualization pipeline can be constructed to read, process, and/or generate the texture map. This includes using the object vtkRendererSource , which converts the renderer's image into an image data dataset. The input texture map can be either 2D (a pixmap) or 3D (a volume).
 
 A few words of warning when using textures. Some renderers only support 2D texture, or may not support alpha textures. Also, many rendering systems require that each dimension of the image dataset is an exact power of two. In VTK, non-power of two textures are automatically converted to power of two at the expense of extra computation.
 
