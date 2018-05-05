@@ -75,6 +75,7 @@ Our presentation of algorithms favors the more general implementations. In some 
 Scalars are single data values associated with each point and/or cell of a dataset. (Recall that in the \emph{Visualization Toolkit} we associate data with points.) Because scalar data is commonly found in real-world applications, and because scalar data is so easy to work with, there are many different algorithms to visualize it.
 
 \subsection{Color Mapping}
+\label{subsec:color_mapping}
 
 \emph{Color mapping} is a common scalar visualization technique that maps scalar data to colors, and displays the colors on the computer system. The scalar mapping is implemented by indexing into a \emph{color lookup table}. Scalar values serve as indices into the lookup table.
 
@@ -475,7 +476,7 @@ Expanding this equation yields a $n^{th}$ degree polynomial in $\lambda$ whose r
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
-		\LARGE
+		\Large
 		\begin{equation*}
 		\left[\begin{array}{ccc}
 		\sigma{_x} & \tau{_{xy}} & \tau{_{xz}}  \\
@@ -488,7 +489,7 @@ Expanding this equation yields a $n^{th}$ degree polynomial in $\lambda$ whose r
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.48\linewidth}
-		\LARGE
+		\Large
 		\begin{equation*}
 		\left[\begin{array}{ccc}
 		\frac{\partial u}{\partial x} & (\frac{\partial u}{\partial y} + \frac{\partial v}{\partial z})&   (\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x})\\ \\
@@ -535,19 +536,20 @@ T = T_T \cdot T_R \cdot T_S
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
+		%\includegraphics[width=0.96\linewidth]{Figure6-21a}
 		\includegraphics{Figure6-21a}
 		\caption{Tensor ellipsoid.}
 		\label{fig:Figure6-21a}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics{Figure6-21b}
+		\includegraphics[width=0.96\linewidth]{Figure6-21b}
 		\caption{Point load on semifinite domain.}
 		\label{fig:Figure6-21b}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.96\linewidth}
-		\LARGE
+		\Large
 		\begin{equation*}
 		\begin{array}{l}
 				\begin{array}{lll}

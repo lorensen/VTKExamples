@@ -991,46 +991,46 @@ Interpolation functions enable us to compute data values at arbitrary locations 
 
 To introduce this process, we will begin by examining the simplest case: computing derivatives in a 1D line (Figure \ref{fig:Figure8-26}). Using geometric arguments, we can compute the derivatives in the r parametric space according to
 
-\begin{equation}\label{eq:8-13}
+\begin{equation}\label{eq:8.13}
 \dfrac{d s}{d r} = \dfrac{s_1 - s_0}{1} = (s_1 - s_0)
 \end{equation}
 \myequations{Computing derivatives in a parametric space.}
 
 where $s_i$ is the data value at point $i$. In the local coordinate system $x'$, which is parallel to the $r$ coordinate system (that is, it lies along the vector $\overrightarrow{x_1} - \overrightarrow{x_0})$, the derivative is
 
-\begin{equation}\label{eq:8-14}
+\begin{equation}\label{eq:8.14}
 \dfrac{d s}{d x'} = \dfrac{s_1 - s_0}{1}
 \end{equation}
 \myequations{The derivative in a local coordinate space.}
 
 where $l$ is the length of the line.
 
-Another way to derive Equation \ref{eq:8-14} is to use the interpolation functions of Figure \ref{fig:Figure8-3} and the chain rule for derivatives. The chain rule
+Another way to derive Equation \ref{eq:8.14} is to use the interpolation functions of Figure \ref{fig:Figure8-3} and the chain rule for derivatives. The chain rule
 
-\begin{equation}\label{eq:8-15}
+\begin{equation}\label{eq:8.15}
 \dfrac{d}{d r} = \dfrac{d}{dx'} \dfrac{dx'}{dr}
 \end{equation}
 \myequations{The chain rule for derivatives.}
 
 allows us to compute the derivative $\dfrac{d}{dx'}$ using
 
-\begin{equation}\label{eq:8-16}
+\begin{equation}\label{eq:8.16}
 \frac{d}{d x'} = \dfrac{d}{dr}/ \dfrac{dx'}{dr}
 \end{equation}
 \myequations{Computing the derivative $\dfrac{d}{dx'}$.}
 
 With the interpolation functions we can compute the $x'$ derivatives with respect to $r$ as
 
-\begin{equation}\label{eq:8-17}
+\begin{equation}\label{eq:8.17}
 \frac{d x'}{d r} = \frac{d}{dr} \left(\sum_{i}W_i \, x_i' \right) = -x_0' + x_1' = 1
 \end{equation}
 \myequations{Computing the $x'$ derivatives with respect to $r$.}
 
-which, when combined with Equation \ref{eq:8-16} and Equation \ref{eq:8-13} for the $s$ derivatives, yields Equation \ref{eq:8-14}.
+which, when combined with Equation \ref{eq:8.16} and Equation \ref{eq:8.13} for the $s$ derivatives, yields Equation \ref{eq:8.14}.
 
 One final step remains. The derivatives in the $\overrightarrow{x\ }$ coordinate system must be converted to the global $x-y-z$ system. We can do this by creating a unit vector $\overrightarrow{v}$ as
 
-\begin{equation}\label{eq:8-18}
+\begin{equation}\label{eq:8.18}
 \overrightarrow{v\ } = \frac{\overrightarrow{x_1} - \overrightarrow{x_0 }}{\vert\overrightarrow{x_1} - \overrightarrow{x_0} \vert}
 \end{equation}
 \myequations{Creating the unit vector.}
@@ -1102,25 +1102,131 @@ or after rearranging
 
 The $3 \times 3$ matrix $\mathbf{J}$ is called the Jacobian matrix, and it relates the parametric coordinate derivatives to the global coordinate derivatives. We can rewrite Equation \ref{eq:8.21} into more compact form
 
-\begin{equation}\label{eq:8-22}
+\begin{equation}\label{eq:8.22}
 \dfrac{\partial}{\partial r_i} = \sum_{j} \mathbf{J}_{ij} \dfrac{\partial}{\partial x_j}
 \end{equation}
 \myequations{Jacobian form of partial derivatives.}
 
 and solve for the global derivatives by taking the inverse of the Jacobian matrix
 
-\begin{equation}\label{eq:8-23}
+\begin{equation}\label{eq:8.23}
 \frac{\partial}{\partial x_i} = \sum_{j} \mathbf{J}_{ij}^{-1} \frac{\partial}{\partial r_j}
 \end{equation}
 \myequations{Inverse Jacobian form of partial derivatives.}
 
-he inverse of the Jacobian always exists as long as there is a one--to--one correspondence between the parametric and global coordinate systems. This means that for any $(r, s, t)$ coordinate, there corresponds only one $(x, y, z)$ coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self--intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
+The inverse of the Jacobian always exists as long as there is a one--to--one correspondence between the parametric and global coordinate systems. This means that for any $(r, s, t)$ coordinate, there corresponds only one $(x, y, z)$ coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self--intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
 
 In our one--dimensional example, the derivatives along the line were constant. However, other interpolation functions (e.g., Figure \ref{fig:Figure8-5}) may yield non-constant derivatives. Here, the Jacobian is a function of position in the cell and must be evaluated at a particular $(r, s, t)$ coordinate value.
 
 \section{Topological Operations}
 
-Many visualization algorithms require information about the topology of a cell or dataset. Operations that provide such information are called topological operations. Examples of these operations include obtaining the topological dimension of a cell, or accessing neighboring cells that share common edges or faces. We might use these operations to decide whether to render a cell (e.g., render only one-dimensional lines) or to propagate particles through a flow field (e.g., traversing cells across common boundaries).
+Many visualization algorithms require information about the topology of a cell or dataset. Operations that provide such information are called \emph{topological operations}. Examples of these operations include obtaining the topological dimension of a cell, or accessing neighboring cells that share common edges or faces. We might use these operations to decide whether to render a cell (e.g., render only one-dimensional lines) or to propagate particles through a flow field (e.g., traversing cells across common boundaries).
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics{Figure8-27a}
+        \caption*{Locally manifold}\label{fig:Figure8-27a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics{Figure8-27b}
+        \caption*{Locally nonmanifold}\label{fig:Figure8-27b}
+    \end{subfigure}%
+    \caption{Manifold and nonmanifold surface topology. If the local neighborhood around a vertex is topologically a 2D disk (i.e., a small disk can be placed on the surface without tearing or overlapping), then the surface is manifold at that vertex.}
+    \label{fig:Figure8-27}
+\end{figure}
+
+Before proceeding we need to define some terms from topology. \emph{Manifold topology} describes a region surrounding a point that is topologically connected. That is, a region around the point is topologically equivalent to a small ``disk'' (in two-dimensions) or ``ball'' (in three-dimensions). Topology that is not manifold is termed \emph{nonmanifol}d. Examples of manifold and nonmanifold geometry are shown in Figure \ref{fig:Figure8-27}.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-28a}
+        \caption*{0D point}\label{fig:Figure8-28a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-28b}
+        \caption*{1D line}\label{fig:Figure8-28b}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-28c}
+        \caption*{2D triangle}\label{fig:Figure8-28c}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-28d}
+        \caption*{3D tetrahedron}\label{fig:Figure8-28d}
+    \end{subfigure}%
+    \caption{Simplices of dimension three and lower.}
+    \label{fig:Figure8-28}
+\end{figure}
+
+There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or nonmanifold. In two dimensions, if every edge of a two-dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three-dimensional cell is used by exactly one other cell, than the region is locally manifold.
+
+We also will use the term simplex on some occasions. A simplex of dimension n is the convex region defined by a set of n+1 independent points. A vertex, line, triangle, and tetrahedron are simplices of dimension 0, 1, 2, and 3, respectively as shown in Figure \ref{fig:Figure8-28}.
+
+\subsection{Cell Operations}
+
+Cell operations return information about the topology of a cell. Typically, we want to know the topological order of the cell or the topology of the cell boundary.
+
+Given a cell $C_i$ of topological dimension $d$, the cell is (implicitly) composed of boundary cells of topological order $d-1$ and lower. For example, a tetrahedron is composed of four two-dimensional triangles, six one-dimensional edges, and four zero-dimensional vertices. Cell operations return information about the number of boundary cells of a particular topological dimension, as well as the ordered list of points that define each bounding cell.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-29}
+        \caption*{}\label{fig:Figure8-29a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+    \begin{equation*}
+        \begin{array}{lll}
+        \text{edge}\: 0 &:& r > s\: and\: r < l - s \\ \\
+        \text{edge}\: 1 &:& r > s\: and\: r > l - s \\ \\
+        \text{edge}\: 2 &:& r < s\: and\: r > l - s \\ \\
+        \text{edge}\: 3 &:& r < s\: and\: r < l - s \\ \\
+    \end{array}
+    \end{equation*}
+    \end{subfigure}%
+    \caption{Closest boundary cell operation for quadrilateral cell.}
+    \label{fig:Figure8-29}
+\end{figure}
+
+
+Another useful cell operation returns the closest boundary cell of dimension $d-1$ given the parametric coordinates of the cell. This operation ties the geometry to the topology of the cell, as compared to the parametric coordinate system, which ties the topology to the geometry. The closest boundary cell operation is implemented by partitioning each cell into various regions, as illustrated in Figure \ref{fig:Figure8-29}. To determine the closest boundary cell we need only to identify the parametric region that the point lies in, and then return the appropriate boundary cell.
+
+Another useful cell operation is cell decomposition into simplices. Every cell can be decomposed into a collection of simplices. By doing so, and by operating on the simplex decomposition rather than the cell itself, we can create algorithms that are independent of cell type. For example, if we want to intersect two datasets of varied cell type, without simplex decomposition we would have to create methods to intersect every possible combination of cells. With simplex decomposition, we can create a single intersection operation that operates on only the limited set of simplices. The significant advantage of this approach is that as new cells are added to the visualization system, only the cell object (including its method for simplex decomposition) must be implemented, and no other objects need be modified.
+
+\subsection{Dataset Operations}
+
+Dataset operations return information about the topology of a dataset or topological information about the adjacency of cells. Typical operations include determining the neighbors of a cell or returning a list of all cells that use a particular point.
+
+We can formalize the adjacency operations by continuing the discussion of ``Cell Types'' on page \pageref{sec:cell_types}. Adjacency methods are used to obtain information about the neighbors of a cell. A neighbor of a particular cell $C_i$ is simply a cell that shares one or more points in common with $C_i$. A vertex neighbor is a neighbor that shares one or more vertices. An edge neighbor is a neighbor that shares one or more edges. A face neighbor is a cell that shares vertices that define one of the faces of the cell. Note that a face neighbor is also an edge neighbor, and an edge neighbor is also a vertex neighbor.
+
+The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points
+
+\begin{equation}\label{eq:8.24}
+C_i = \lbrace p_1, p_2, \ldots, p_n \rbrace = P
+\end{equation}
+\myequations{Points list.}
+
+and a point list $\overrightarrow{P} = (\overrightarrow{p_1}, \overrightarrow{p_2}, ..., \overrightarrow{p_n})$  with $P \subset P$, where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set A(C, P). The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$.
+
+\begin{equation}\label{eq:8.25}
+A(C_i, \overline{P}) = \left(\bigcap_{i} U(\overline{p}_i)\right) - C_i\end{equation}
+\myequations{Intersection of the use sets for each point.}
+
+The adjacency set represents a variety of useful information. In a manifold object represented by a polyhedra, for example, each polygon must have exactly one edge neighbor for each of its edges. Edges that have no neighbors are boundary edges; edges that have more than one edge neighbor represent nonmanifold topology. Datasets that consist of three-dimensional cells (e.g., unstructured grids) are topologically consistent only if, for each cell, there is exactly one face neighbor for each face. Faces that have no neighbors are on the boundary of the dataset. More than one face neighbor implies that the neighbors are self-intersecting (in 3D space).
 
 \section{Searching}
 \label{sec:searching}
@@ -1137,13 +1243,385 @@ To determine cells or points lying in the region surrounding $p$, we can travers
 For example, we can choose to define the region as a sphere centered at $p$.
 Then, if a point or the points composing a cell lie in the sphere, the point or cell is considered to be in the region surrounding $p$.
 
+These naive procedures are unacceptable for all but the smallest datasets, since they are of order O(n), where n is the number of cells or points. To improve the performance of searching, we need to introduce supplemental data structures to support spatial searching. Such structures are well-known and include MIP maps, octrees, kd-trees, and binary sphere trees (see ``Bibliographic Notes'' on page \pageref{bibnote:advanced_data_representation} at the end of this chapter).
+
+The basic idea behind these spatial search structures is that the search space is subdivided into smaller parts, or buckets. Each bucket contains a list of the points or cells that lie within it. Buckets are organized in structured fashion so that constant or logarithmic time access to any bucket is possible. For example, if we assign a portion of 2D Euclidean space into a grid of n by m buckets, the location of p in a particular bucket can be determined with two subtractions and two divisions: a constant time access. Similarly, the location of p in a nonuniformly subdivided octree is determined in logarithmic time, since recursive insertion into octant children is required. Once the bucket is found, the search is then limited to the points or cells contained within it. In a properly designed spatial search structure, the number of points or cells in a bucket is a small portion of the total number of cells and less than a fixed value. Thus, the time to search within a bucket can be bounded by a fixed constant. The result is that introducing spatial search structures reduces search times to a maximum $O(log\: n)$, or better yet $O(n)$.
+
+We have two options when applying spatial search structures. We may insert points into the search structure, or we may insert cells, depending on the application. There are advantages and disadvantages to both approaches. Inserting cells into buckets is not a trivial operation. In general, cells are arbitrarily oriented and shaped, and will not fit completely into a single bucket. As a result, cells often span multiple buckets. To reliably determine whether a cell is in a bucket requires geometric intersection tests, a costly operation. Another approach is to use the bounding box of a cell to decide which bucket(s) a cell belongs in. We only need to intersect the bounding box with a bucket to determine whether the cell may belong in the bucket. Unfortunately, even though this operation is generally fast, often cells are associated with buckets even though they may not actually lie inside them, wasting (in large models) memory resources and extra processing time.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Figure8-30}\\
+    \caption{Using search structure (containing points) to find cells. (a) Points are associated with appropriate bucket. Point p is used to index into bucket, and closest point(s) $p_i$ is found. Cells using $p_i$ are evaluated for the cell containing $p$. (b) Sometimes closest points $p_i$ are not used by cells containing $p$.}\label{fig:Figure8-30}
+\end{figure}
+
+Inserting points into a search structure is easier because points can be uniquely placed into a bucket. Inserting points also allows us to search for both points and cells. Cells can be found by using $p$ to index into the appropriate bucket. The closest point(s) $p_i$ to $p$ are then located. Using the topological adjacency operator to retrieve the cells using points $p_i$i, we can then search these cells for the cell containing $p$. This procedure must be used with caution, however, since the closest points may not be used by the cells containing $p$ (Figure\ref{fig:Figure8-30}).
+
+\section{Cell / Line Intersection}
+
+An important geometric operation is intersection of a line with a cell. This operation can be used to interactively select a cell from the rendering window, to perform ray-casting for rendering, or to geometrically query data.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=0.98\linewidth]{Figure8-31a}
+        \captionsetup{singlelinecheck=off}
+        \caption*{\centering{\textbf{Vertex}}
+        \begin{itemize}[leftmargin=*]
+            \itemsep0em
+            \item project point onto ray
+            \item distance to line must be within tolerance
+            \item $t \in [0,1]$
+        \end{itemize}
+        }
+        \label{fig:Figure8-31a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=0.98\linewidth]{Figure8-31b}
+        \captionsetup{singlelinecheck=off}
+        \caption*{\centering{\textbf{Line}}
+        \begin{itemize}[leftmargin=*]
+            \itemsep0em
+            \item 3D line intersection
+            \item distance between linese must be within tolerance
+            \item $s, t \in [0,1]$
+        \end{itemize}
+        }
+        \label{fig:Figure8-31b}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=0.98\linewidth]{Figure8-31c}
+        \captionsetup{singlelinecheck=off}
+        \caption*{\centering{\textbf{Triangle}}
+        \begin{itemize}[leftmargin=*]
+            \itemsep0em
+            \item line/plane intersection
+            \item intersection point must lie in triangle
+            \item $t \in [0,1]$
+        \end{itemize}
+        }
+        \label{fig:Figure8-31c}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-31d}
+        \captionsetup{singlelinecheck=off}
+        \caption*{\centering{\textbf{Quadrilateral}}
+        \begin{itemize}[leftmargin=*]
+            \itemsep0em
+            \item line/plane intersection
+            \item intersection point must lie in quadrilateral
+            \item $t \in [0,1]$
+        \end{itemize}
+        }
+        \label{fig:Figure8-31d}
+    \end{subfigure}%
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-31e}
+        \captionsetup{singlelinecheck=off}
+        \caption*{\centering{\textbf{Pixel}}
+        \begin{itemize}[leftmargin=*]
+            \itemsep0em
+            \item line/plane intersection
+            \item intersection point must lie in pixel (uses efficient in/out test)
+            \item $t \in [0,1]$
+        \end{itemize}
+        }
+        \label{fig:Figure8-31e}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-31f}
+        \captionsetup{singlelinecheck=off}
+        \caption*{\centering{\textbf{Polygon}}
+        \begin{itemize}[leftmargin=*]
+            \itemsep0em
+            \item line/plane intersection
+            \item intersection point must lie in polygon (uses ray casting for polygon in/out)
+            \item $t \in [0,1]$
+        \end{itemize}
+        }
+        \label{fig:Figure8-31f}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-31g}
+        \captionsetup{singlelinecheck=off}
+        \caption*{\centering{\textbf{Tetrahedron}}
+        \begin{itemize}[leftmargin=*]
+            \itemsep0em
+            \item intersect each (triangle) face
+            \item $t \in [0,1]$
+        \end{itemize}
+        }
+        \label{fig:Figure8-31g}
+    \end{subfigure}%
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-31h}
+        \captionsetup{singlelinecheck=off}
+        \caption*{\centering{\textbf{Hexahedron}}
+        \begin{itemize}[leftmargin=*]
+            \itemsep0em
+            \item intersect each (quadrialteral) face
+            \item since face may be nonplanar, project previous result onto hexahedron surface
+            \item $t \in [0,1]$
+        \end{itemize}
+        }
+        \label{fig:Figure8-31h}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-31i}
+        \captionsetup{singlelinecheck=off}
+        \caption*{\centering{\textbf{Hexahedron}}
+        \begin{itemize}[leftmargin=*]
+            \itemsep0em
+            \item intersect each (pixel) face
+            \item $t \in [0,1]$
+        \end{itemize}
+        }
+        \label{fig:Figure8-31i}
+    \end{subfigure}%
+    \caption{Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate $t$ with $t \in [0,1]$.}
+    \label{fig:Figure8-31}
+\end{figure}
+
+In the \emph{Visualization Toolkit} each cell must be capable of intersecting itself against a line. Figure \ref{fig:Figure8-31} summarizes these operations for the nine linear primary cell types supported by VTK. (Intersections on composite cells are implemented by intersecting each primitive cell in turn). Note that the procedure for intersecting higher order cells is the same.
+
+Line/cell intersection for 0D, 1D, and 2D cells follows standard approaches. Intersection against 3D cells is difficult. This is because the surfaces of these cells are described parametrically and are not necessarily planar. For example, to intersect a line with a tetrahedron, we can intersect the line against the four triangular faces of the tetrahedron. Hexahedron, however, may have non-planar faces. Thus, we cannot intersect the line against six quadrilateral, planar faces. Instead, we use line/face intersection as an initial guess, and project the intersection point onto the surface of the cell. This produces an approximate result, but is accurate enough for most applications.
+
+\section{Scalars and Colors}
+
+There is a close correspondence between scalar data and colors. We touched on this in ``Color Mapping'' on page \pageref{subsec:color_mapping}, where we saw how to use a color table to map scalar values into a color specification (i.e., red, green, blue, and alpha, or RGBA). There are cases, however, when we want to circumvent this mapping process. Such cases occur when color data is supplied instead of scalar data.
+
+A common example occurs in imaging. Recall that an image is a regular, two-dimensional array of points. The points define pixels, which in turn form a two-dimensional image dataset. Images are frequently stored as a pair of dimensions along with data values. The data values may be one of black and white (e.g., a bitmap), grayscale, or color (e.g., a pixmap). Bitmaps and gray-scale images can be directly cast into the form of single-values scalar data, and we can use our earlier approach. Pixmaps, however, consist of (at a minimum) three values per pixel of red, green, and blue. (Sometimes, a fourth alpha opacity value may also be included.) Thus, pixmaps cannot be directly cast into scalar form.
+
+To accommodate color data, conversions between multicomponent color data and single-valued scalars must be defined. Each class must act as if it were a scalar: that is, a request for data at a particular point must return a single scalar value. This allows us to use standard scalar visualization techniques such as contouring or warping. Thus a mapping from RGB or RGBA color coordinates to a single scalar value is required.
+
+The simplest conversion is to select one of n components in a color tuple and use that as the scalar value. Another common mapping returns the luminance Y of a color. Given three components, RGB, the luminance is
+
+\begin{equation}\label{eq:8.26}
+Y = 0.30 R + 0.59 G + 0.11 B\end{equation}
+\myequations{RGB luminance.}
+
+If the color includes transparency, RGBA, the luminance is
+\begin{equation}\label{eq:8.27}
+Y = A(0.30 R + 0.59 G + 0.11 B)
+\end{equation}
+\myequations{RGBA luminance.}
+
+Using this abstraction allows us to treat single--valued scalars and scalars consisting of multivalued colors the same. The end result is that we can mix both types of scalar data into our visualization networks.
+
 \section{Special Techniques for Image Data}
 \label{sec:special_techniques_for_image_data}
 
+A significant attraction of using 2-- and 3--dimensional image data is the speed and simplicity of computation. In this section, we will explore specific techniques that exploit the special regular topology and geometry of image data.
+
+\subsection{Coordinate Transformation}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-32}
+        \caption*{}\label{fig:Figure8-32a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+    \begin{equation*}
+        \begin{array}{lll}
+        i &=& \text{floor}(\dfrac{x - x_0}{x_1 - x_0}) \\ \\
+        j &=& \text{floor}(\dfrac{y - y_0}{y_1 - y_0}) \\ \\
+        k &=& \text{floor}(\dfrac{z - z_0}{z_1 - z_0}) \\ \\
+    \end{array}
+    \end{equation*}
+    \begin{equation*}
+        \begin{array}{lll}
+        r &=& \text{frac}(\dfrac{x - x_0}{x_1 - x_0}) \\ \\
+        s &=& \text{frac}(\dfrac{y - y_0}{y_1 - y_0}) \\ \\
+        t &=& \text{frac}(\dfrac{z - z_0}{z_1 - z_0}) \\ \\
+    \end{array}
+    \end{equation*}
+    \end{subfigure}%
+    \caption{Closest boundary cell operation for quadrilateral cell.}
+    \label{fig:Figure8-32}
+\end{figure}
+
+
+Given a point $p$ we can find the structured coordinates by performing three division operations (Figure \ref{fig:Figure8-32}). Taking the integer floor function yields the structured coordinates. Taking the fractional part of the result yields the parametric coordinates of the cell. We can then use Equation \ref{eq:8.3} to convert to dataset coordinates.
+
+\subsection{Derivative Computation}
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
+	{\caption{Using finite differences to compute derivatives on image data.}\label{fig:Figure8-33}}
+	{\includegraphics[width=0.6\textwidth]{Figure8-33}}
+\end{figure}
+
+
+Because the image dataset is oriented parallel to the coordinate x, y, and z axes, and because the spacing of points in each of these directions is regular, finite difference schemes can be used to compute partial derivatives at the cell points. Referring to Figure \ref{fig:Figure8-33}, we see that central differences can be used in each of the three directions according to the equation:
+
+\begin{equation}\label{eq:8.28}
+\begin{array}{lll}
+g_x &=& \dfrac{d(x_0 + \Delta x_0, y_0, z_0) - d(x_0 - \Delta x_0, y_0, z_0)}{2 \Delta x_0} \\ \\
+g_y &=& \dfrac{d(x_0, y_0 + \Delta y_0, z_0) - d(x_0, y_0 - \Delta y_0, z_0)}{2 \Delta y_0} \\ \\
+g_z &=& \dfrac{d(x_0, y_0, z_0 + \Delta z_0) - d(x_0, y_0, z_0 - \Delta z_0)}{2 \Delta z_0}
+\end{array}
+\end{equation}
+\myequations{Computing image data derivatives.}
+
+(Note that at the boundary of the dataset, one-sided differences may be used.) We can use these equations to compute derivatives within the cell as well. We simply compute the derivatives at each cell point from Equation \ref{eq:8.28}, and then use the cell interpolation functions to compute the derivative at the point inside the cell.
+
+\subsection{Topology}
+
+Structured datasets lend themselves to efficient topological operations (i.e., both image data and structured grids). Given a cell id, it is possible to determine vertex, edge, or face neighbors using simple constant time operations. First, given the cell id in a three-dimensional structured dataset, we use a combination of division and modulo arithmetic to compute the structured coordinates
+
+\begin{equation}\label{eq:8.29}
+\begin{array}{lll}
+i &=& \text{id}\ \text{modulo}\ (n_x - 1) \\ \\
+j &=& \left( \dfrac{\text{id}}{n_x - 1} \right)\ \text{modulo}\ (n_y - 1) \\ \\
+k &=& \dfrac{\text{id}}{\left((n_x - 1)(n_y - 1)\right)}
+\end{array}
+\end{equation}
+\myequations{Computing the structured coordinates.}
+
+Face neighbors are determined by incrementing one of the $i$, $j$, or $k$ indices. Edge neighbors are determined by incrementing any two indices, while vertex neighbors are found by incrementing all three indices. Care must be taken while incrementing to insure that the indices fall in the range
+
+\begin{equation}\label{eq:8.30}
+\begin{array}{l}
+0 \leq i < n_x - 1 \\
+0 \leq j < n_y - 1 \\
+0 \leq k < n_z - 1
+\end{array}
+\end{equation}
+\myequations{Range for the indices.}
+
+An attempt to index outside these ranges indicates that the neighbor in question does not exist.
+
+\subsection{Searching}
+
+Given a point $p = (x, y, z)$ we can determine the cell containing $p$ by using the equations given in Figure \ref{fig:Figure8-32}. These equations generate the structured coordinates $(i, j, k)$, which can then be converted to cell id (i.e., dataset coordinates) using Equation 8-3.
+
+To find the closest point to $p$, we compute the structured coordinates by rounding to the nearest integer value (instead of using the floor function). Thus,
+
+\begin{equation}\label{eq:8.31}
+\begin{array}{lll}
+i = \text{int}\left( \dfrac{x-x_0}{x_1 - x_0} \right) \\ \\
+j = \text{int}\left( \dfrac{y-y_0}{y_1 - y_0} \right) \\ \\
+k = \text{int}\left( \dfrac{z-z_0}{z_1 - z_0} \right)
+\end{array}
+\end{equation}
+\myequations{Finding the closest point to $p$ using structured coordinates.}
 
 \section{Putting It All Together}
+
 In this section we will finish our earlier description of an implementation for unstructured data. We also define a high-level, abstract interface for cells and datasets. This interface allows us to implement the general (i.e., dataset specific) algorithms in the \emph{Visualization Toolkit}. We also describe
 implementations for color scalars, searching and picking, and conclude with a series of examples to demonstrate some of these concepts.
+
+\subsection{Unstructured Topology}
+
+In Chapter 5: \nameref{chap:basic_data_representation} we described data representations for the unstructured dataset types vtkPolyData and vtkUnstructuredGrid. Close examination of this data structure reveals that operations to retrieve topological adjacency are inefficient. In fact, to implement any operation to retrieve vertex, edge, or face neighbors requires a search of the cell array, resulting in $O(n)$ time complexity. This is unacceptable for all but the smallest applications, since any algorithm traversing the cell array and retrieving adjacency information is at a minimum$ O(n^2)$.
+
+The reason for this inefficiency is that the data representation is a ``downward'' hierarchy (Figure \ref{fig:Figure8-34}(b)). That is, given a cell we can quickly determine the topological features lower in the topological hierarchy such as faces, edges, and points. However, given a face, edge, or point we must search the cell array to determine the owning cells. To improve the efficiency of this data representation, we must introduce additional information into the hierarchy that allows “upward” hierarchy traversal (similar to that shown in Figure \ref{fig:Figure8-34}(a)).
+
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics{Figure8-34a}
+        \caption{Hierarchical topological
+        structure}\label{fig:Figure8-34a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics{Figure8-34b}
+        \caption{Basic unstructured data representation}\label{fig:Figure8-34b}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics{Figure8-34c}
+        \caption{Full unstructured data representation}\label{fig:Figure8-34c}
+    \end{subfigure}%
+    \caption{Enhancing hierarchical unstructured data representation. (a) Conventional topological hierarchy for geometric model. (b) Basic unstructured data hierarchy. (c) Full unstructured data hierarchy. By introducing upward references from points to cells, the unstructured data hierarchy may be efficiently traversed in both directions, and is more compact than conventional topological hierarchies.}
+    \label{fig:Figure8-34}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Figure8-35}\\
+    \caption{Complete unstructured data representation including link lists. There are m cells and n points. The n structures in the link list are lists of cells that use each vertex. Each link list is variable in length.}\label{fig:Figure8-35}
+\end{figure}
+
+
+The solution to this problem is to extend the unstructured data structure with cell links. The cell links array is a list of lists of cells that use each point and corresponds to the upward links of Figure \ref{fig:Figure8-34}(c). The cell links array transforms the hierarchical structure of Figure \ref{fig:Figure5-13} into a ring structure. Cells reference their composing points, and points in turn reference the cells that use them. The full unstructured data structure is shown in Figure \ref{fig:Figure8-35}.The cell links array is in fact an implementation of the use sets of Equation \ref{eq:5.1}. We can use this equation to compute adjacency operation in constant time, if the maximum number of cells using a point is much smaller than the number of points in a dataset. To see this, we refer to Equation \ref{eq:8.25} and see that the adjacency operations consist of a finite number of set intersections. Each operation is an intersection of the link lists for each point. If the number of cells in each link list is ``small'', then the intersection operation can be bounded by a fixed constant in time, and the total operation can be considered a constant time operation.
+
+There are several important characteristics of this data representation.
+
+\begin{itemize}
+
+\item The cell links array is an extension of the basic unstructured data representation. As a result, we can defer the construction of the cell links until they are required. Often the cell links are never needed and require no computer resources to compute or store.
+
+\item Building the cell links is a linear $O(n)$ operation. Each cell is traversed and for every point that the cell uses, the list of using cells for that point is extended to include the current cell. Building the cell links is only needed once as an initialization step.
+
+\item The data representation is compact relative to other topology representation schemes (e.g., the winged--edge structure and the radial--edge structures \cite{Baumgart74} \cite{Weiler88}). These other data structures contain explicit representation of intermediate topology such as edges, loops, faces, or special adjacency information such as adjacent edges (winged--edge structure) or extensive ``use'' descriptions (radial--edge structure). The compactness of representation is particularly important for visualization, since the data size is typically large.
+
+\end{itemize}
+
+The unstructured data structure in the \emph{Visualization Toolkit} is implemented using the four classes vtkPoints (and subclasses), vtkCellArray, vtkCellTypes, and vtkCellLinks. The building of this data structure is incremental. At a minimum, the points and cells are represented using vtkPoints and vtkCellArray. If random access or extra type information is required, then the object vtkCellTypes is used. If adjacency information is required, an instance of the class vtkCellLinks is created. These operations are carried out behind the scenes, and generally do not require extra knowledge by the application programmer.
+
+\clearpage
+
+\subsection{Abstract Interfaces}
+
+With the completion of Chapter 5: \nameref{chap:basic_data_representation} and Chapter 8: \nameref{chap:advanced_data_representation}, we can summarize the abstract interface for cells, datasets, and the point data attributes. These pseudo-code descriptions encapsulate the core functionality of the classes vtkDataSet, vtkCell, and vtkPointData, and their subclasses. All algorithms presented in this text can be implemented using combinations of these methods.
+
+\begin{description}
+\item[Dataset Abstraction.] The dataset is the central data representation in VTK. Datasets are composed of one or more cells and points. Associated with the points are attribute data consisting of scalars, vectors, normals, texture coordinates, and tensors.
+    \setlist[description]{font=\normalfont\textbullet\space}
+    \begin{description}
+    \item[\texttt{type = GetDataObjectType()}] \hfill \\
+    Return the type of dataset (e.g., vtkPolyData, vtkImageData, vtkStructuredGrid, vtkRectilinearGrid, or vtkUnstructuredGrid).
+    \item[\texttt{numPoints = GetNumberOfPoints()}] \hfill \\
+    Return the number of points in the dataset.
+    \end{description}
+
+
+\item[Cell Abstraction.] Cells are the atomic structures of VTK. Cells consist of a topology, defined by a sequence of ordered point ids, and a geometry, defined by point coordinates. The cell coordinate consists of a cell id, a subcell id, and a parametric coordinate. The subid specifies a primary cell that lies within a composite cell such as a triangle strip. Cell edges and faces are defined implicitly from the topology of the cell.
+    \setlist[description]{font=\normalfont\textbullet\space}
+    \begin{description}
+    \item[\texttt{type = GetCellType()}] \hfill \\
+    Return the type of the cell. Must be one of the twelve VTK cell types (or the empty cell type).
+    \item[\texttt{dim = GetCellDimension()}] \hfill \\
+    Return the topological definition of the cell.
+    \end{description}
+
+\item[Point and Cell Attribute Abstraction.] Point and cell attribute data is information associated with the points and cells of a dataset. This information consists of scalars, vectors, normals, tensors, and texture coordinates. There is a one-to-one relationship between the points and cells in a dataset and its corresponding point and cell attribute data. For example, a point scalar value at location $100$ is associated with point $id$ $100$.
+
+Many of the methods described below deal with moving data from the input to the output of a filter. Since the possibility exists that new types of attribute data could be added in the future, the details of moving data is hidden as much as possible (i.e., minimize the knowledge that the filter has about specific attribute types). Thus, generic functions like CopyData() allow for copying data from the input to the output without knowing what this data is.
+    \setlist[description]{font=\normalfont\textbullet\space}
+    \begin{description}
+    \item[\texttt{CopyScalarsOn() / CopyScalarsOff()}] \hfill \\
+    Turn on/off boolean flag controlling copying of scalar data from input to output of filter.
+    \item[\texttt{CopyVectorsOn() / CopyVectorsOff()}] \hfill \\
+    Turn on/off boolean flag controlling copying of vector data from input to output of filter.
+    \end{description}
+
+\end{description}
+
 
 \subsection{Picking}
 \label{subsec:picking}
@@ -1165,6 +1643,7 @@ Topological operators provide information about the topology of a cell or datase
 Because of the inherent regularity of image datasets, operations can be efficiently implemented compared to other dataset types. These operations include coordinate transformation, derivative computation, topological query, and searching.
 
 \section{Bibliographic Notes}
+\label{bibnote:advanced_data_representation}
 
 Interpolation functions are employed in a number of numerical techniques. The finite element method, in particular, depends on interpolation functions. If you want more information about interpolation functions refer to the finite element references suggested below \cite{Cook89} \cite{Gallagher75} \cite{Zienkiewicz87}. These texts also discuss derivative computation in the context of interpolation functions.
 
