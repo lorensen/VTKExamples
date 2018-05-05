@@ -1114,13 +1114,119 @@ and solve for the global derivatives by taking the inverse of the Jacobian matri
 \end{equation}
 \myequations{Inverse Jacobian form of partial derivatives.}
 
-he inverse of the Jacobian always exists as long as there is a one--to--one correspondence between the parametric and global coordinate systems. This means that for any $(r, s, t)$ coordinate, there corresponds only one $(x, y, z)$ coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self--intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
+The inverse of the Jacobian always exists as long as there is a one--to--one correspondence between the parametric and global coordinate systems. This means that for any $(r, s, t)$ coordinate, there corresponds only one $(x, y, z)$ coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self--intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
 
 In our one--dimensional example, the derivatives along the line were constant. However, other interpolation functions (e.g., Figure \ref{fig:Figure8-5}) may yield non-constant derivatives. Here, the Jacobian is a function of position in the cell and must be evaluated at a particular $(r, s, t)$ coordinate value.
 
 \section{Topological Operations}
 
-Many visualization algorithms require information about the topology of a cell or dataset. Operations that provide such information are called topological operations. Examples of these operations include obtaining the topological dimension of a cell, or accessing neighboring cells that share common edges or faces. We might use these operations to decide whether to render a cell (e.g., render only one-dimensional lines) or to propagate particles through a flow field (e.g., traversing cells across common boundaries).
+Many visualization algorithms require information about the topology of a cell or dataset. Operations that provide such information are called \emph{topological operations}. Examples of these operations include obtaining the topological dimension of a cell, or accessing neighboring cells that share common edges or faces. We might use these operations to decide whether to render a cell (e.g., render only one-dimensional lines) or to propagate particles through a flow field (e.g., traversing cells across common boundaries).
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics{Figure8-27a}
+        \caption*{Locally manifold}\label{fig:Figure8-27a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics{Figure8-27b}
+        \caption*{Locally nonmanifold}\label{fig:Figure8-27b}
+    \end{subfigure}%
+    \caption{Manifold and nonmanifold surface topology. If the local neighborhood around a vertex is topologically a 2D disk (i.e., a small disk can be placed on the surface without tearing or overlapping), then the surface is manifold at that vertex.}
+    \label{fig:Figure8-27}
+\end{figure}
+
+Before proceeding we need to define some terms from topology. \emph{Manifold topology} describes a region surrounding a point that is topologically connected. That is, a region around the point is topologically equivalent to a small ``disk'' (in two-dimensions) or ``ball'' (in three-dimensions). Topology that is not manifold is termed \emph{nonmanifol}d. Examples of manifold and nonmanifold geometry are shown in Figure \ref{fig:Figure8-27}.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-28a}
+        \caption*{0D point}\label{fig:Figure8-28a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-28b}
+        \caption*{1D line}\label{fig:Figure8-28b}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-28c}
+        \caption*{2D triangle}\label{fig:Figure8-28c}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-28d}
+        \caption*{3D tetrahedron}\label{fig:Figure8-28d}
+    \end{subfigure}%
+    \caption{Simplices of dimension three and lower.}
+    \label{fig:Figure8-28}
+\end{figure}
+
+There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or nonmanifold. In two dimensions, if every edge of a two-dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three-dimensional cell is used by exactly one other cell, than the region is locally manifold.
+
+We also will use the term simplex on some occasions. A simplex of dimension n is the convex region defined by a set of n+1 independent points. A vertex, line, triangle, and tetrahedron are simplices of dimension 0, 1, 2, and 3, respectively as shown in Figure \ref{fig:Figure8-28}.
+
+\subsection{Cell Operations}
+
+Cell operations return information about the topology of a cell. Typically, we want to know the topological order of the cell or the topology of the cell boundary.
+
+Given a cell $C_i$ of topological dimension $d$, the cell is (implicitly) composed of boundary cells of topological order $d-1$ and lower. For example, a tetrahedron is composed of four two-dimensional triangles, six one-dimensional edges, and four zero-dimensional vertices. Cell operations return information about the number of boundary cells of a particular topological dimension, as well as the ordered list of points that define each bounding cell.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-29}
+        \caption*{}\label{fig:Figure8-29a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+    \begin{equation*}
+        \begin{array}{lll}
+        \text{edge}\: 0 &:& r > s\: and\: r < l - s \\ \\
+        \text{edge}\: 1 &:& r > s\: and\: r > l - s \\ \\
+        \text{edge}\: 2 &:& r < s\: and\: r > l - s \\ \\
+        \text{edge}\: 3 &:& r < s\: and\: r < l - s \\ \\
+    \end{array}
+    \end{equation*}
+    \end{subfigure}%
+    \caption{Closest boundary cell operation for quadrilateral cell.}
+    \label{fig:Figure8-29}
+\end{figure}
+
+
+Another useful cell operation returns the closest boundary cell of dimension $d-1$ given the parametric coordinates of the cell. This operation ties the geometry to the topology of the cell, as compared to the parametric coordinate system, which ties the topology to the geometry. The closest boundary cell operation is implemented by partitioning each cell into various regions, as illustrated in Figure \ref{fig:Figure8-29}. To determine the closest boundary cell we need only to identify the parametric region that the point lies in, and then return the appropriate boundary cell.
+
+Another useful cell operation is cell decomposition into simplices. Every cell can be decomposed into a collection of simplices. By doing so, and by operating on the simplex decomposition rather than the cell itself, we can create algorithms that are independent of cell type. For example, if we want to intersect two datasets of varied cell type, without simplex decomposition we would have to create methods to intersect every possible combination of cells. With simplex decomposition, we can create a single intersection operation that operates on only the limited set of simplices. The significant advantage of this approach is that as new cells are added to the visualization system, only the cell object (including its method for simplex decomposition) must be implemented, and no other objects need be modified.
+
+\subsection{Dataset Operations}
+
+Dataset operations return information about the topology of a dataset or topological information about the adjacency of cells. Typical operations include determining the neighbors of a cell or returning a list of all cells that use a particular point.
+
+We can formalize the adjacency operations by continuing the discussion of ``Cell Types'' on page \pageref{sec:cell_types}. Adjacency methods are used to obtain information about the neighbors of a cell. A neighbor of a particular cell $C_i$ is simply a cell that shares one or more points in common with $C_i$. A vertex neighbor is a neighbor that shares one or more vertices. An edge neighbor is a neighbor that shares one or more edges. A face neighbor is a cell that shares vertices that define one of the faces of the cell. Note that a face neighbor is also an edge neighbor, and an edge neighbor is also a vertex neighbor.
+
+The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points
+
+\begin{equation}\label{eq:8-24}
+C_i = \lbrace p_1, p_2, \ldots, p_n \rbrace = P
+\end{equation}
+\myequations{Points list.}
+
+and a point list $\overrightarrow{P} = (\overrightarrow{p_1}, \overrightarrow{p_2}, ..., \overrightarrow{p_n})$  with $P \subset P$, where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set A(C, P). The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$.
+
+\begin{equation}\label{eq:8-25}
+A(C_i, \overline{P}) = \left(\bigcap_{i} U(\overline{p}_i)\right) - C_i\end{equation}
+\myequations{Intersection of the use sets for each point.}
+
+The adjacency set represents a variety of useful information. In a manifold object represented by a polyhedra, for example, each polygon must have exactly one edge neighbor for each of its edges. Edges that have no neighbors are boundary edges; edges that have more than one edge neighbor represent nonmanifold topology. Datasets that consist of three-dimensional cells (e.g., unstructured grids) are topologically consistent only if, for each cell, there is exactly one face neighbor for each face. Faces that have no neighbors are on the boundary of the dataset. More than one face neighbor implies that the neighbors are self-intersecting (in 3D space).
 
 \section{Searching}
 \label{sec:searching}
@@ -1136,6 +1242,23 @@ The basic assumption here is that cells do not overlap, so that at most a single
 To determine cells or points lying in the region surrounding $p$, we can traverse cells or points to see whether they lie within the region around $p$.
 For example, we can choose to define the region as a sphere centered at $p$.
 Then, if a point or the points composing a cell lie in the sphere, the point or cell is considered to be in the region surrounding $p$.
+
+These naive procedures are unacceptable for all but the smallest datasets, since they are of order O(n), where n is the number of cells or points. To improve the performance of searching, we need to introduce supplemental data structures to support spatial searching. Such structures are well-known and include MIP maps, octrees, kd-trees, and binary sphere trees (see ``Bibliographic Notes'' on page \pageref{bibnote:advanced_data_representation} at the end of this chapter).
+
+The basic idea behind these spatial search structures is that the search space is subdivided into smaller parts, or buckets. Each bucket contains a list of the points or cells that lie within it. Buckets are organized in structured fashion so that constant or logarithmic time access to any bucket is possible. For example, if we assign a portion of 2D Euclidean space into a grid of n by m buckets, the location of p in a particular bucket can be determined with two subtractions and two divisions: a constant time access. Similarly, the location of p in a nonuniformly subdivided octree is determined in logarithmic time, since recursive insertion into octant children is required. Once the bucket is found, the search is then limited to the points or cells contained within it. In a properly designed spatial search structure, the number of points or cells in a bucket is a small portion of the total number of cells and less than a fixed value. Thus, the time to search within a bucket can be bounded by a fixed constant. The result is that introducing spatial search structures reduces search times to a maximum $O(log\: n)$, or better yet $O(n)$.
+
+We have two options when applying spatial search structures. We may insert points into the search structure, or we may insert cells, depending on the application. There are advantages and disadvantages to both approaches. Inserting cells into buckets is not a trivial operation. In general, cells are arbitrarily oriented and shaped, and will not fit completely into a single bucket. As a result, cells often span multiple buckets. To reliably determine whether a cell is in a bucket requires geometric intersection tests, a costly operation. Another approach is to use the bounding box of a cell to decide which bucket(s) a cell belongs in. We only need to intersect the bounding box with a bucket to determine whether the cell may belong in the bucket. Unfortunately, even though this operation is generally fast, often cells are associated with buckets even though they may not actually lie inside them, wasting (in large models) memory resources and extra processing time.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Figure8-30}\\
+    \caption{Using search structure (containing points) to find cells. (a) Points are associated with appropriate bucket. Point p is used to index into bucket, and closest point(s) $p_i$ is found. Cells using $p_i$ are evaluated for the cell containing $p$. (b) Sometimes closest points $p_i$ are not used by cells containing $p$.}\label{fig:Figure8-30}
+\end{figure}
+
+Inserting points into a search structure is easier because points can be uniquely placed into a bucket. Inserting points also allows us to search for both points and cells. Cells can be found by using $p$ to index into the appropriate bucket. The closest point(s) $p_i$ to $p$ are then located. Using the topological adjacency operator to retrieve the cells using points pi, we can then search these cells for the cell containing $p$. This procedure must be used with caution, however, since the closest points may not be used by the cells containing $p$ (Figure\ref{fig:Figure8-30}).
+
+\section{Cell / Line Intersection}
+
 
 \section{Special Techniques for Image Data}
 \label{sec:special_techniques_for_image_data}
@@ -1165,6 +1288,7 @@ Topological operators provide information about the topology of a cell or datase
 Because of the inherent regularity of image datasets, operations can be efficiently implemented compared to other dataset types. These operations include coordinate transformation, derivative computation, topological query, and searching.
 
 \section{Bibliographic Notes}
+\label{bibnote:advanced_data_representation}
 
 Interpolation functions are employed in a number of numerical techniques. The finite element method, in particular, depends on interpolation functions. If you want more information about interpolation functions refer to the finite element references suggested below \cite{Cook89} \cite{Gallagher75} \cite{Zienkiewicz87}. These texts also discuss derivative computation in the context of interpolation functions.
 
