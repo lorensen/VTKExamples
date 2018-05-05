@@ -38,7 +38,7 @@ In the text that follows, we will use the attribute type classification scheme: 
 
 ### Generality Versus Efficiency
 
-Most algorithms can be written specifically for a particular dataset type, or more generally, treating any dataset type. The advantage of a specific algorithm is that it is usually faster than a comparable general algorithm. (See ["Other Data Abstractions"](/VTKBook/05Chapter5/#57-other-data-abstractions) in [CVhapter 5](/VTKBook/05Chapter5) where we discussed the tradeoff between abstract and concrete forms.) An implementation of a specific algorithm also may be more memory efficient and its implementation may better reflect the relationship between the algorithm and the dataset type it operates on.
+Most algorithms can be written specifically for a particular dataset type, or more generally, treating any dataset type. The advantage of a specific algorithm is that it is usually faster than a comparable general algorithm. (See ["Other Data Abstractions"](/VTKBook/05Chapter5/#57-other-data-abstractions) in [Chapter 5](/VTKBook/05Chapter5) where we discussed the tradeoff between abstract and concrete forms.) An implementation of a specific algorithm also may be more memory efficient and its implementation may better reflect the relationship between the algorithm and the dataset type it operates on.
 
 One example of this is contour surface creation. Algorithms for extracting contour surfaces were originally developed for volume data, mainly for medical applications. The regularity of volumes lends itself to efficient algorithms. However, the specialization of volume-based algorithms precludes their use for more general datasets such as structured or unstructured grids. Although the contour algorithms can be adapted to these other dataset types, they are less efficient than those for volume datasets.
 
@@ -353,7 +353,7 @@ $$
 
 for a particular time $t$.
 
-Streamlines, streaklines, and particle traces are equivalent to one another if the flow is steady. In timevarying flow, a given streamline exists only at one moment in time. Visualization systems generally provide facilities to compute particle traces. However, if time is fixed, the same facility can be used to compute streamlines. In general, we will use the term streamline to refer to the method of tracing trajectories in a vector field. Please bear in mind the differences in these representations if the flow is timevarying.
+Streamlines, streaklines, and particle traces are equivalent to one another if the flow is steady. In time varying flow, a given streamline exists only at one moment in time. Visualization systems generally provide facilities to compute particle traces. However, if time is fixed, the same facility can be used to compute streamlines. In general, we will use the term streamline to refer to the method of tracing trajectories in a vector field. Please bear in mind the differences in these representations if the flow is time varying.
 
 **Figure 6-18** shows forty streamlines in a small kitchen. The room has two windows, a door (with air leakage), and a cooking area with a hot stove. The air leakage and temperature variation combine to produce air convection currents throughout the kitchen. The starting positions of the streamlines were defined by creating a *rake*, or curve (and its associated points). Here the rake was a straight line. These streamlines clearly show features of the flow field. By releasing many streamlines simultaneously we obtain even more information, as the eye tends to assemble nearby streamlines into a "global" understanding of flow field features.
 
@@ -506,7 +506,7 @@ This simple relationship defines the three regions (on $F(x,y,z = 0)s on$the sph
   <figure id="Figure 6-23a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-23a.png?raw=true width="640" alt="Figure6-23a">
   </figure>
-  <figcaption style="color:blue"><b>Figure NUMBER</b>. (a) Sphere sampling</figcaption>
+  <figcaption style="color:blue"><b>Figure 6-23a</b>. (a) Sphere sampling</figcaption>
   </figure>
  <figure id="Figure 6-23b">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImplicitFunctions/TestImplicitSphere.png?raw=true width="640" alt="Figure 6-23b">
@@ -693,10 +693,23 @@ This example illustrates that cutting the volumetric data in a structured grid d
 Algorithms are implemented in the *Visualization Toolkit* as process objects. These objects may be either sources, filters, or mappers (see ["The Visualization Pipeline"](/VTKBook/04Chapter4/#42-the-visualization-pipeline) in [Chapter 4](/VTKBook/04Chapter4]). In this section we will describe how these objects are implemented.
 
 **Source Design.**
+<figure id="Figure 6-34">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-34.png?raw=true width="640" alt="Figure6-34">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-34</b>. Source object design. Example shown is a source object that creates a polygonal representation of a sphere.</figcaption>
+</figure>
+
 Source objects have no visualization data for input and one or more outputs, **Figure 6-34**. To create a source object, inheritance is used to specify the type of dataset that the process object creates for output. vtkSphereSource. This class inherits from vtkPolyDataAlgorithm, indicating that it creates polygonal data on output.
 
 **Filter Design**
-Filter objects have one or more inputs and one or more outputs as shown in **Figure 6-35**. (You may also refer to [“Pipeline Design and Implementation”](VTKBook/04Chapter4/#42-the-visualization-pipeline) in [Chapter 4](/VTKBook/04Chapter4).) To create **Figure 6-35** a filter object, inheritance is used to specify the type of input and output data objects. illustrates this for the concrete source object vtkContourFilter (which implements marching cubes and other contouring techniques). It is worth examining this object diagram in detail since it is the basis for the architecture of the visualization pipeline.
+
+<figure id="Figure 6-35">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-35.png?raw=true width="640" alt="Figure6-35">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-35</b>. Filter object design. The example shown is for an object that receives a general dataset as input and creates polygonal data on output.</figcaption>
+</figure>
+
+Filter objects have one or more inputs and one or more outputs as shown in **Figure 6-35**. (You may also refer to [“Pipeline Design and Implementation”](/VTKBook/04Chapter4/#42-the-visualization-pipeline) in [Chapter 4](/VTKBook/04Chapter4).) To create **Figure 6-35** a filter object, inheritance is used to specify the type of input and output data objects. illustrates this for the concrete source object vtkContourFilter (which implements marching cubes and other contouring techniques). It is worth examining this object diagram in detail since it is the basis for the architecture of the visualization pipeline.
 
 The superclasses of vtkContourFilter are vtkAlgorithm and vtkPolyDataAlgorithm. The class vtkPolyDataAlgorithm specifies the type of data vtkContourFilter produces on output (i.e., a vtkPolyData). Because this filter should take any subclass of vtkDataSet as input, it must override its superclasses implementation of the FillInputPortInformation() method to specify this. Note that inheritance from vtkPolyDataAlgorithm is optional---this functionality could be implemented directly in vtkContourFilter. This optional superclass is simply a convenience object to make class derivation a little easier.
 
@@ -709,6 +722,12 @@ We encourage you to examine the source code carefully for a few filter and sourc
 The architecture is simple enough that you can grasp it quickly.
 
 ### Mapper Design
+
+<figure id="Figure 6-36">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-36.png?raw=true width="640" alt="Figure6-36">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-36</b>. Mapper object design. Graphics mapper shown (e.g., &#118;tkPolyDataMapper) maps polygonal data through graphics library primitives. Writer shown (e.g., &#118;tkSTLWriter) writes polyg- onal data to stereo lithography format.</figcaption>
+</figure>
 
 Mapper objects have one or more inputs and no visualization data output, **Figure 6-36**. Two different types of mappers are available in the *Visualization Toolkit* : graphics mappers and writers. Graphics mappers interface geometric structure and data attributes to the graphics library; writers write datasets to disk or other I/O devices.
 
@@ -774,6 +793,12 @@ A few final notes on using lookup tables.
 You can also derive your own lookup table types. Look at vtkLogLookupTable for an example. This particular lookup table inherits from vtkLookupTable. It performs logarithmic mapping of scalar value to table entry, a useful capability when scalar values span many orders of magnitude.
 
 ### Implicit Functions
+
+<figure id="Figure 6-37">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-37.png?raw=true width="640" alt="Figure6-37">
+</figure>
+<figcaption style="color:blue"><b>Figure 6-37</b>. Inheritance hierarchy of &#118;tkImplicitFunction and subclasses.</figcaption>
+</figure>
 
 As we have seen, implicit functions can be used for visualizing functions, creating geometry, and cutting or selecting datasets. VTK includes several implicit functions including a single plane (vtkPlane), multiple convex planes (vtkPlanes), spheres (vtkSphere), cones (vtkCone), cylinders (vtkCylinder), and the general quadric (vtkQuadric). The class vtkImplicitBoolean allows you to create boolean combinations of these implicit function primitives. Other implicit functions can be added to VTK by deriving from the abstract base class vtkImplicitFunction.
 
