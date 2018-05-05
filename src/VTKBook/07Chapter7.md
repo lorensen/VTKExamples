@@ -527,7 +527,7 @@ If a software volume rendering approach is used, such as an object-order splatti
 Rendering a volumetric dataset is a computationally intensive task. If
 is nthe size of the volume on all three dimensions and we visit every voxel once during a
 projection, the complexity of volume rendering is $O(n^3)$. Even a highly optimized software algorithm will have
-great difficulty projecting a moderately sized volume of or512512512approximately´´ 134
+great difficulty projecting a moderately sized volume of or $512 \times 512 \times 512$ approximately 134
 million voxels at interactive rates. If every voxel in the volume contributes in some way to
 the final image and we are unwilling to compromise image quality, our
 options for efficiency improvements are limited. However, it has been
@@ -1368,7 +1368,6 @@ K. J. Zuiderveld, A. h. j. Koning, and M. A. Viergever. "Acceleration of Ray-Cas
 7.4 In this chapter we describe a few different techniques for antialiased rendering. One tech-nique involved rendering a large image and then scaling it down to the desired size using bilinear interpolation. Another technique involved rendering multiple images at the desired size using small camera movements and then accumulating them into a final image. When rendering a model with a surface representation, these two techniques will produce roughly the same result. When rendering a model with a wireframe representation there will be signif-icant differences. Why is this?
 
 7.5 You need to create a small image of a volume dataset to include on your web page. The dataset contains voxels,512 and the desired image size is pixels.You100can use a software object-order method that projects each voxel onto the image, or a software ray casting method that casts one ray for each pixel. Assuming that identical images are created, which method would you select, and why?
-
 7.6 Two software developers implement volume rendering methods. The first developer uses a software ray casting approach, while the second uses a graphics hardware texture mapping approach. The grayscale images are generated and displayed on a workstation with an 8 bit frame buffer (256 levels of gray). They both use the same interpolation method and the same compositing scheme, yet the two methods produce different images even though the same number of samples from identical locations were used to generate the images. Why is this?
 
 7.7 In the classification of some medical dataset, scalar values from 100 to 200 represent skin, 200 to 300 represent muscle and 300 to 400 represent bone. The color transfer functions define skin as tan, muscle as red, and bone as white. If we interpolate scalar value and then perform classification, what classification artifacts may appear in the image?
