@@ -77,14 +77,14 @@ p_\text{id} = i_p +j_p n_x + k_p n_y
 \end{equation}
 \myequations{Obtaining a point id.}
 
-with $0 \leq i_p \leq n_x, 0 \leq j_p \leq n_y, 0 \leq k_p \leq n_z$. (We can use this id to index into an array of points or point attribute data.) This equation implicitly assumes an ordering of the points in topological space. Points along the $i$ axis vary fastest, followed by the $j$ and then the $k$ axes. A similar relationship exists for cell id’s
+with $0 \leq i_p \leq n_x, 0 \leq j_p \leq n_y, 0 \leq k_p \leq n_z$. (We can use this id to index into an array of points or point attribute data.) This equation implicitly assumes an ordering of the points in topological space. Points along the $i$ axis vary fastest, followed by the $j$ and then the $k$ axes. A similar relationship exists for cell id's
 
 \begin{equation}\label{eq:8.3}
 \text{cell}_\text{id} = i_p + j_p (n_x - 1) + k_p (n_x - 1)(n_y - 1)
 \end{equation}
 \myequations{Obtaining a cell id.}
 
-Here we’ve taken into account that there are one fewer cells along each topological axes than there are points.
+Here we've taken into account that there are one fewer cells along each topological axes than there are points.
 
 \section{Interpolation Functions}
 \label{sec:interpolation_functions}
@@ -798,7 +798,7 @@ for each cell c to be processed
  }
 \end{lstlisting}
 
-It is important not to tessellate the entire dataset all at once, since this may produce excessive demands on memory resources, and many algorithms visit only a subset of a dataset’s cells. Thus the pseudo-code above refers to a selection criterion, which varies depending on the nature of the algorithm. For example, an isocontouring algorithm may check to see whether the cell’s scalar values span the current isocontour value.
+It is important not to tessellate the entire dataset all at once, since this may produce excessive demands on memory resources, and many algorithms visit only a subset of a dataset's cells. Thus the pseudo-code above refers to a selection criterion, which varies depending on the nature of the algorithm. For example, an isocontouring algorithm may check to see whether the cell's scalar values span the current isocontour value.
 
 While many tessellation algorithms are possible, those based on edge subdivision are particularly simple. The idea behind the algorithm is simple: each cell edge $e$ is evaluated via an error metric $E$ and may be marked for subdivision if any error measure $\epsilon_i$ exceeds a corresponding error threshold $\epsilon_i^T$  
 
@@ -832,7 +832,7 @@ Based on the cell topology, and the particular edges requiring subdivision, temp
     \label{fig:Figure8-24}
 \end{figure}
 
-Some templates for cell subdivision are shown in Figure \ref{fig:Figure8-24}. Note that in some cases a choice must be made in terms of which diagonal to select for tessellation (for example, the dashed line in Figure ref{fig:Figure8-24b}). In 2D, this choice can be made arbitrarily, however in 3D the choice must be consistent with the cell’s face neighbor. In order to preserve the simplicity of the algorithm, including avoiding inter-cell communication, simple tie-breaking rules for selecting the diagonal on the faces of 3D cells are adopted. These rules include using the shortest diagonal (measured in the global coordinate system), or using a topological decider based on selecting the diagonal with the smallest point id. (A topological decider is necessary when the geometric distance measure is inconclusive.)
+Some templates for cell subdivision are shown in Figure \ref{fig:Figure8-24}. Note that in some cases a choice must be made in terms of which diagonal to select for tessellation (for example, the dashed line in Figure ref{fig:Figure8-24b}). In 2D, this choice can be made arbitrarily, however in 3D the choice must be consistent with the cell's face neighbor. In order to preserve the simplicity of the algorithm, including avoiding inter-cell communication, simple tie-breaking rules for selecting the diagonal on the faces of 3D cells are adopted. These rules include using the shortest diagonal (measured in the global coordinate system), or using a topological decider based on selecting the diagonal with the smallest point id. (A topological decider is necessary when the geometric distance measure is inconclusive.)
 
 \subsection{Error Measures}
 
@@ -914,9 +914,9 @@ r = \frac{x - x_0}{x_1 - x_0} = \frac{y - y_0}{y_1 - y_0} = \frac{z - z_0}{z_1 -
 
 Similar relations exist for any cell whose interpolation functions are linear combinations of parametric coordinates. This includes vertices, lines, triangles, and tetrahedra. The quadrilateral and hexahedron interpolation functions are nonlinear because they are products of linear expressions for the parametric coordinates. As a result, we must resort to numerical techniques to compute global to dataset coordinate transformations. The interpolation functions for pixels and voxels are nonlinear as well, but because of their special orientation with respect to the $x$, $y$, and $z$ coordinate axes, we can solve them exactly. (We will treat pixel and voxel types in greater depth in ``Special Techniques for Image Data'' on page \pageref{sec:special_techniques_for_image_data}.)
 
-To solve the interpolation functions for parametric coordinates we must use nonlinear techniques for the solution of a system of equations. A simple and effective technique is Newton’s method \cite{Conte72}.
+To solve the interpolation functions for parametric coordinates we must use nonlinear techniques for the solution of a system of equations. A simple and effective technique is Newton's method \cite{Conte72}.
 
-To use Newton’s method we begin by defining three functions for the known global coordinate $p = p(x,y,z)$ in terms of the interpolation functions $W_i = W_i(r,s,t)$
+To use Newton's method we begin by defining three functions for the known global coordinate $p = p(x,y,z)$ in terms of the interpolation functions $W_i = W_i(r,s,t)$
 
 \begin{equation}\label{eq:8.10}
 \begin{array}{lll}
@@ -927,7 +927,7 @@ h(r, s, t) &=& z - \sum W_i \, z_i = 0
 \end{equation}
 \myequations{Global coordinates in terms of interpolation functions.}
 
-and then, expanding the functions using a Taylor’s series approximation,
+and then, expanding the functions using a Taylor's series approximation,
 
 \begin{equation}\label{eq:8.11}
 \begin{array}{lll}
@@ -977,7 +977,7 @@ h_i
 \end{equation}
 \myequations{Using iteration to solve for the parametric coordinates.}
 
-Fortunately, Newton’s method converges quadratically (if it converges) and the interpolation functions that we have presented here are well behaved. In practice, Equation \ref{eq:8.12} converges in just a few iterations.
+Fortunately, Newton's method converges quadratically (if it converges) and the interpolation functions that we have presented here are well behaved. In practice, Equation \ref{eq:8.12} converges in just a few iterations.
 
 \section{Computing Derivatives}
 
@@ -1510,6 +1510,7 @@ Face neighbors are determined by incrementing one of the $i$, $j$, or $k$ indice
 An attempt to index outside these ranges indicates that the neighbor in question does not exist.
 
 \subsection{Searching}
+\label{subsec:searching}
 
 Given a point $p = (x, y, z)$ we can determine the cell containing $p$ by using the equations given in Figure \ref{fig:Figure8-32}. These equations generate the structured coordinates $(i, j, k)$, which can then be converted to cell id (i.e., dataset coordinates) using Equation 8-3.
 
@@ -1591,43 +1592,226 @@ With the completion of Chapter 5: \nameref{chap:basic_data_representation} and C
 
 \begin{description}
 \item[Dataset Abstraction.] The dataset is the central data representation in VTK. Datasets are composed of one or more cells and points. Associated with the points are attribute data consisting of scalars, vectors, normals, texture coordinates, and tensors.
-    \setlist[description]{font=\normalfont\textbullet\space}
+    \setlist[description]{font=\normalfont\space}
     \begin{description}
+
     \item[\texttt{type = GetDataObjectType()}] \hfill \\
     Return the type of dataset (e.g., vtkPolyData, vtkImageData, vtkStructuredGrid, vtkRectilinearGrid, or vtkUnstructuredGrid).
+
     \item[\texttt{numPoints = GetNumberOfPoints()}] \hfill \\
     Return the number of points in the dataset.
+
+    \item[\texttt{numCells = GetNumberOfCells()}] \hfill \\
+    Return the number of cells in the dataset.
+
+    \item[\texttt{GetPoint(ptId,x)}] \hfill \\
+    Given a point id, return the (x,y,z) coordinates of the point.
+
+    \item[\texttt{cell = GetCell(cellId)}] \hfill \\
+    Given a cell id, return a pointer to a cell object.
+
+    \item[\texttt{type = GetCellType(cellId)}] \hfill \\
+    Return the type of the cell given by cell id.
+
+    \item[\texttt{GetCellTypes(types)}] \hfill \\
+    Return a list of types of cells that compose the dataset.
+
+    \item[\texttt{cells = GetPointCells(ptId)}] \hfill \\
+    Given a point id, return the cells that use this point.
+
+    \item[\texttt{GetCellPoints(cellId, ptIds)}] \hfill \\
+    Given a cell id, return the point ids (e.g., connectivity list) defining the cell.
+
+    \item[\texttt{GetCellNeighbors(cellId, ptIds, neighbors)}] \hfill \\
+    Given a cell id and a list of points composing a boundary face of the cell, return the neighbors of that cell sharing the points.
+
+    \item[\texttt{cellId = FindCell(x, cell, cellId, tol2, subId, pcoords, weights)}] \hfill \\
+    Given a coordinate value x, an initial search cell defined by cell and cellId, and a tolerance measure (squared), return the cell id and sub-id of the cell containing the point and its interpolation function weights. The initial search cell is used to speed up the search process when the position x is known to be near the cell. If no cell is found, cellId < 0 is returned.
+
+    \item[\texttt{pointData = GetPointData()}] \hfill \\
+    Return a pointer to the object maintaining point attribute data. This includes scalars, vectors, normals, tensors, and texture coordinates, as well as any other data arrays that the field carries.
+
+    \item[\texttt{cellData = GetCellData()}] \hfill \\
+    Return a pointer to the object maintaining cell attribute data. This includes scalars, vectors, normals, tensors, and texture coordinates, as well as any other data arrays that the field carries.
+
+    \item[\texttt{bounds = GetBounds()}] \hfill \\
+    Get the bounding box of the dataset.
+
+    \item[\texttt{length = GetLength()}] \hfill \\
+    Return the length of the diagonal of the bounding box of the dataset.
+
+    \item[\texttt{center = GetCenter()}] \hfill \\
+    Get the center of the bounding box of the dataset.
+
+    \item[\texttt{range = GetScalarRange()}] \hfill \\
+    A convenience method to return the (minimum, maximum) range of the scalar attribute data associated with the dataset.
+
+    \item[\texttt{dataSet = NewInstance()}] \hfill \\
+    Make a copy of the current dataset. A ``virtual'' constructor. (Typically, reference counting methods are used to copy data.)
+
+    \item[\texttt{CopyStructure(dataSet)}] \hfill \\
+    Update the current structure definition (i.e., geometry and topology) with the supplied dataset.
     \end{description}
 
 
 \item[Cell Abstraction.] Cells are the atomic structures of VTK. Cells consist of a topology, defined by a sequence of ordered point ids, and a geometry, defined by point coordinates. The cell coordinate consists of a cell id, a subcell id, and a parametric coordinate. The subid specifies a primary cell that lies within a composite cell such as a triangle strip. Cell edges and faces are defined implicitly from the topology of the cell.
-    \setlist[description]{font=\normalfont\textbullet\space}
+    \setlist[description]{font=\normalfont\space}
     \begin{description}
+
     \item[\texttt{type = GetCellType()}] \hfill \\
     Return the type of the cell. Must be one of the twelve VTK cell types (or the empty cell type).
+
     \item[\texttt{dim = GetCellDimension()}] \hfill \\
     Return the topological definition of the cell.
+
+    \item[\texttt{order = GetInterpolationOrder()}] \hfill \\
+    Return the degree of the interpolating polynomial of the cell. (The twelve cell types are all degree 1; cells added in the future may be of higher-order.)
+
+    \item[\texttt{numberPoints = GetNumberOfPoints()}] \hfill \\
+    Return the number of points that define the cell.
+
+    \item[\texttt{points = GetPoints()}] \hfill \\
+    Return a list of point ids defining the cell.
+
+    \item[\texttt{numberEdges = GetNumberOfEdges()}] \hfill \\
+    Return the number of edges in the cell.
+
+    \item[\texttt{edge = GetEdge(i)}] \hfill \\
+    Given an edge id ( 0 ≤ i < numberEdges ) return a pointer to a cell that represents an edge of the cell.
+
+    \item[\texttt{numberFaces = GetNumberOfFaces()}] \hfill \\
+    Return the number of faces in a cell.
+
+    \item[\texttt{face = GetFace(i)}] \hfill \\
+    Given an face id ( 0 ≤ i < numberFaces ) return a pointer to a cell that represents a face of the cell.
+
+    \item[\texttt{inOutStatus = CellBoundary(subId, pcoords, poindIds)}] \hfill \\
+    Given a cell subid and parametric coordinates, return a list of point ids that define the closest boundary face of the cell. Also return whether the point is actually in the cell.
+
+    \item[\texttt{inOutStatus = EvaluatePosition(x, closestPoint, subId, pcoords, weights, dist2)}] \hfill \\
+    Given a point coordinate x, return the sub-id, parametric coordinates, and interpolation weights of the cell if x lies inside the cell. The position closestPoint is the closest point on the cell to x (may be the same) and dist2 is the squared distance between them. The method returns an inOutStatus indicating whether x is topologically inside or outside the cell. That is, the point may satisfy parametric coordinate conditions but may lie off the surface of the cell (e.g., point lies above polygon). Use both inOutStatus and dist2 to determine whether point is both topologically and geometrically in the cell.
+
+    \item[\texttt{EvaluateLocation(subId, pcoords, x, weights)}] \hfill \\
+    Given a point location (i.e., sub-id and parametric coordinates), return the position x of the point and the interpolation weights.
+
+    \item[\texttt{Contour(value, cellScalars, locator, verts, lines, polys, inputPointData, outputPointData)}] \hfill \\
+    Given a contour value and scalar values at the cell points, generate contour primitives (vertices, lines, or polygons with associated points and attribute data values). The points are placed in a locator object (see ``Searching'' on page \pageref{subsec:searching}) which merges coincident points, and the attribute data values are interpolated (along the cell edge) from the inputPointData to the outputPointData.
+
+    \item[\texttt{Clip(value, cellScalars, locator, cells, inputPointData, outputPointData, insideOut)}] \hfill \\
+    Given a contour value and scalar values at the cell points, clip the cell to generate new cells of the same topological dimension as the original cell. The points are placed in a locator object (see ``Searching'' on page \pageref{subsec:searching}) which merges coincident points, and the attribute data values are interpolated (or copied) from the inputPointData to the outputPointData. The clipped cells are placed in the cells list.
+
+    \item[\texttt{Derivatives(subId, pcoords, values, dim, derivs)}] \hfill \\
+    Given a cell location (i.e., subid and parametric coordinates) and data values at the cell points, return dim*3 derivatives (i.e., corresponds to the x, y, and z directions times dimension of data).
+
+    \item[\texttt{inOutStatus = IntersectWithLine(p1, p2, tol, t, x, pcoords, subId)}] \hfill \\
+    Given a finite line defined by the two points p1 and p2 and an intersection tolerance, return the point of intersection x. The parametric coordinate t along the line and cell location at the point of intersection is also returned. Returns a nonzero if intersection occurs.
+
+    \item[\texttt{Triangulate(index, ptIds, points)}] \hfill \\
+    Decompose the cell into simplices of dimension equal to the topological cell dimension. The index is an integer that controls the triangulation if more than one triangulation  is possible. The simplices are defined by an ordered list of point ids and their corresponding coordinates.
+
+    \item[\texttt{bounds = GetBounds()}] \hfill \\
+    Return the bounding box of the cell.
+
     \end{description}
 
 \item[Point and Cell Attribute Abstraction.] Point and cell attribute data is information associated with the points and cells of a dataset. This information consists of scalars, vectors, normals, tensors, and texture coordinates. There is a one-to-one relationship between the points and cells in a dataset and its corresponding point and cell attribute data. For example, a point scalar value at location $100$ is associated with point $id$ $100$.
 
 Many of the methods described below deal with moving data from the input to the output of a filter. Since the possibility exists that new types of attribute data could be added in the future, the details of moving data is hidden as much as possible (i.e., minimize the knowledge that the filter has about specific attribute types). Thus, generic functions like CopyData() allow for copying data from the input to the output without knowing what this data is.
-    \setlist[description]{font=\normalfont\textbullet\space}
+    \setlist[description]{font=\normalfont\space}
     \begin{description}
+
     \item[\texttt{CopyScalarsOn() / CopyScalarsOff()}] \hfill \\
     Turn on/off boolean flag controlling copying of scalar data from input to output of filter.
+
     \item[\texttt{CopyVectorsOn() / CopyVectorsOff()}] \hfill \\
     Turn on/off boolean flag controlling copying of vector data from input to output of filter.
+
+    \item[\texttt{CopyNormalsOn() / CopyNormalsOff()}] \hfill \\
+    Turn on/off boolean flag controlling copying of normal data from input to output of filter.
+
+    \item[\texttt{CopyTensorsOn() / CopyTensorsOff()}] \hfill \\
+    Turn on/off boolean flag controlling copying of tensor data from input to output of filter.
+
+    \item[\texttt{CopyTextureCoordsOn() / CopyTextureCoordsOff()}] \hfill \\
+    Turn on/off boolean flag controlling copying of texture coordinates data from input to output of filter.
+
+    \item[\texttt{CopyAllOn() / CopyAllOff()}] \hfill \\
+    Turn on/off all boolean flags controlling copying of all attribute data from input to output of filter.
+
+    \item[\texttt{PassData(pointData)}] \hfill \\
+    Transfer all point attribute data (pointData) to the output according to the copy flags listed previously.
+
+    \item[\texttt{CopyAllocate(pointData)}] \hfill \\
+    Initialize and allocate storage for point-by-point copy process.
+
+    \item[\texttt{CopyData(pointData, fromId, toId)}] \hfill \\
+    Given point data and a specific point id, copy the point attribute data (pointData) to the output point.
+
+    \item[\texttt{InterpolateAllocate(pointData)}] \hfill \\
+    Initialize and allocate storage for point-by-point interpolation process.
+
+    \item[\texttt{InterpolatePoint(pointData, toId, ptIds, weights)}] \hfill \\
+    Given input point data (pointData) and a list of points and their interpolation weights, interpolate data to the specified output point.
+
+    \item[\texttt{InterpolateEdge(pointData, toId, p1, p2, t)}] \hfill \\
+    From an edge defined by the two points p1 and p2, interpolate the pointData at the edge parametric coordinate t and copy the interpolated attribute data to the output point ptId.
+
+    \item[\texttt{NullPoint(int ptId)}] \hfill \\
+    Set the data value(s) of the specified output point id to a null value.
+
+    \item[\texttt{SetScalars() / GetScalars()}] \hfill \\
+    Set / return scalar data. The GetScalars() method may return a NULL value, in which case the scalars are not defined.
+
+    \item[\texttt{SetVectors() / GetVectors()}] \hfill \\
+    Set / return vector data. The GetVectors() method may return a NULL value, in which case the vectors are not defined.
+
+    \item[\texttt{SetNormals() / GetNormals()}] \hfill \\
+    Set / return normal data. The GetNormals() method may return a NULL value, in which case the normals are not defined.
+
+    \item[\texttt{SetTensors() / GetTensors()}] \hfill \\
+    Set / return tensor data. The GetTensors() method may return a NULL value, in which case the tensors are not defined.
+
+    \item[\texttt{SetTextureCoords() / GetTextureCoords()}] \hfill \\
+    Set / return texture coordinate data. The GetTextureCoords() method may return a NULL value, in which case the texture coordinates are not defined.
+
     \end{description}
 
 \end{description}
 
+\subsection{Traversing Intermediate Topology}
+
+The dataset abstraction implemented by VTK provides simple techniques to traverse points and cells. Sometimes we want to traverse intermediate topology such as edges or faces. For example, to identify boundary edges in a triangular mesh we must traverse each edge, counting the number of triangles that use each edge. (Recall that boundary edges are used by just one triangle.) Unfortunately, there is no obvious way to traverse edges. The same problem holds true if we want to traverse the faces of a dataset containing 3D cells.
+
+A simple solution is to traverse each cell and then obtain the edges (or faces) that compose the cell. The problem with this approach is that edges and faces are generally used by more than one cell, resulting in multiple visits to the same face or edge. This may be acceptable in some algorithms, but usually we count on visiting each edge or face only once.
+
+A better solution to this problem is to traverse each cell as before, but only process intermediate topology if the current cell has the smallest cell id. (The current cell is the cell being visited in the traversal process.) To determine whether the current cell has the smallest cell id, we obtain all cells using the intermediate topology. This information can be obtained using the topological adjacency operators described earlier (e.g., Equation \ref{eq:8.25}).
+
+To illustrate this process consider visiting the edges of a triangle mesh. We begin by visiting the first triangle, $t$, and then its edges. For each edge we determine the adjacent triangle(s) (if any) that use the edge. If the id of the adjacent triangle(s) is greater than triangle $t$'s id, or there are no adjacent triangles, then we know to process the current edge. (Of course the first triangle will always have the smallest id — but this will change as the traversal proceeds.) We then continue traversing the triangle list for new $t$'s. In this way all the edges of the mesh will be visited.
+
+\subsection{Color Scalar Data}
+
+Multivalued scalar data, or scalars represented by various color representations, are treated specially by the \emph{Visualization Toolkit}. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See ``Color Mapping'' on page \pageref{subsec:color_mapping} for more information.)
+
+By default, the mapping of scalars into colors proceeds as follows (vtkMapper and subclasses are responsible for implementing this behavior):
+\begin{itemize}
+
+\item If the scalar type is unsigned char with the tuple size ranging between one and four components, the data is considered to be color data.
+
+\item Four component data is assumed to be a RGBA (red--green--blue--alpha transparency) color specification. Three component data is assumed to be a RGB color specification. Two component data is assumed to be a IA (intensity--alpha) representation. Single component data is assumed to be a I (intensity) value.
+
+\item Any other data type, or data with more than four components, is assumed to represent a scalar value. In that case the scalars are mapped through a lookup table to produce colors during the rendering process.
+
+\end{itemize}
+
+It is possible to force unsigned char data to be mapped through a lookup table. The vtkMapper method SetColorModeToMapScalars() forces all data  (regardless of type) to be mapped through the lookup table.
+
+\subsection{Searching}
 
 \subsection{Picking}
 \label{subsec:picking}
 
 The Visualization Toolkit provides a variety of classes to perform actor (or vtkProp), point, cell, and
-world point picking ( Figure8–38 ).
+world point picking ( Figure \ref{fig:Figure8-38}).
 
 \subsection{Point Probe}
 \label{subsec:point_probe}
