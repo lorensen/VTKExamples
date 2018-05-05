@@ -256,10 +256,17 @@ Vector displacement plots draw on the ideas in ["Scalar Generation"](/VTKBook/06
 
 A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called *modal* lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
 
-<figure id="Figure 6-15">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDisplacementPlot.png?raw=true width="640" alt="Figure 6-15">
-</figure>
-<figcaption style="color:blue"><b>Figure 6-15</b>. Vector displacement plots. (a) Vector converted to scalar via dot product computation; (b) Surface plot of vibrating plate. Dark areas show nodal lines. Bright areas show maximum motion.<a href="../../Cxx/VisualizationAlgorithms/DisplacementPlot" title="DisplacementPlot"> See DisplacementPlot.cxx</a> and <a href="../../Python/VisualizationAlgorithms/DisplacementPlot" title="DisplacementPlot"> DisplacementPlot.py</a>.</figcaption>
+<figure>
+  <figure id="Figure 6-15">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-15.png?raw=true width="640" alt="Figure6-15">
+  </figure>
+  <figcaption style="color:blue"><b>Figure 6-15</b>. (a) Scalar Computation..</figcaption>
+  </figure>
+  <figure id="Figure 6-15">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDisplacementPlot.png?raw=true width="640" alt="Figure 6-15">
+  </figure>
+  <figcaption style="color:blue"><b>Figure 6-15</b>. Vector displacement plots. (a) Vector converted to scalar via dot product computation; (b) Surface plot of vibrating plate. Dark areas show nodal lines. Bright areas show maximum motion.<a href="../../Cxx/VisualizationAlgorithms/DisplacementPlot" title="DisplacementPlot"> See DisplacementPlot.cxx</a> and <a href="../../Python/VisualizationAlgorithms/DisplacementPlot" title="DisplacementPlot"> DisplacementPlot.py</a>.</figcaption>
+  </figure>
 </figure>
 
 **Figure 6-15** (b) shows modal lines for a vibrating rectangular beam. The vibration mode in this figure is the second torsional mode, clearly indicated by the crossing modal lines. (The aliasing in the figure is because of the coarseness of the analysis mesh.) To create the figure we combined the procedure of **Figure 6-15** (a) with a special lookup table. The lookup table was arranged with dark areas in the center (i.e., corresponds to zero dot product) and bright areas at the beginning and end of the table (corresponds to 1 or -1 dot product). As a result, regions of large normal displacement are bright and regions near the modal lines are dark.
@@ -1011,7 +1018,7 @@ Blinn <em style="color:blue;background-color: white">\[Blinn82\]</em>, Bloomenta
 
 <em style="color:blue;background-color: white">\[Conte72\]</em> S. D. Conte and C. de Boor. *Elementary Numerical Analysis*. McGrawHill Book Company, 1972.
 
-<em style="color:blue;background-color: white">\[deLeeuw93\] W. C. de Leeuw and J. J. van Wijk. "A Probe for Local Flow Field Visualization." In *Proceedings* *of Visualization '93*. pp. 39--45, IEEE Computer Society Press, Los Alamitos, CA, 1993.
+<em style="color:blue;background-color: white">\[deLeeuw93\]</em. W. C. de Leeuw and J. J. van Wijk. "A Probe for Local Flow Field Visualization." In *Proceedings* *of Visualization '93*. pp. 39--45, IEEE Computer Society Press, Los Alamitos, CA, 1993.
 
 <em style="color:blue;background-color: white">\[Delmarcelle95\]</em> T. Delmarcelle and L. Hesselink. "A Unified Framework for Flow Visualization." In Computer Visualization Graphics Techniques for Scientific and Engineering Analysis*. R. S. Gallagher, ed. CRC Press, Boca Raton, FL, 1995.
 
@@ -1029,7 +1036,7 @@ Blinn <em style="color:blue;background-color: white">\[Blinn82\]</em>, Bloomenta
 
 <em style="color:blue;background-color: white">\[Livnat96\]</em> Y. Livnat, H. W. Shen, C. R. Johnson. "A Near Optimal Isosurface Extraction Algorithm for Structured and Unstructured Grids." *IEEE Transactions on Visualization and Computer Graphics*. Vol. 2, No. 1, March 1996.
 
-<em style="color:blue;background-color: white">\[Lorensen87\ W. E. Lorensen and H. E. Cline. "Marching Cubes: A High Resolution 3D Surface Construction Algorithm." *Computer Graphics*. 21(3):163--169, July 1987.
+<em style="color:blue;background-color: white">\[Lorensen87\]</em> W. E. Lorensen and H. E. Cline. "Marching Cubes: A High Resolution 3D Surface Construction Algorithm." *Computer Graphics*. 21(3):163--169, July 1987.
 
 <em style="color:blue;background-color: white">\[Lorenz63\]</em> E. N. Lorenz. "Deterministic NonPeriodic Flow." *Journal of Atmospheric Science*. 20:130--141, 1963.
 
@@ -1051,7 +1058,7 @@ Blinn <em style="color:blue;background-color: white">\[Blinn82\]</em>, Bloomenta
 
 <em style="color:blue;background-color: white">\[Volpe89\]</em> G. Volpe. "Streamlines and Streamribbons in Aerodynamics." Technical Report AIAA-89-0140, 27th Aerospace Sciences Meeting, 1989. 
 
- <em style="color:blue;background-color: white">\[Ware88\]</em> C. Ware. "Color Sequences for Univariate Maps: Theory, Experiments and Principles." *IEEE* *Computer Graphics and Applications*. 8(5):41--49, 1988.
+<em style="color:blue;background-color: white">\[Ware88\]</em> C. Ware. "Color Sequences for Univariate Maps: Theory, Experiments and Principles." *IEEE* *Computer Graphics and Applications*. 8(5):41--49, 1988.
 
 <em style="color:blue;background-color: white">\[Watson92\]</em> D. F. Watson. *Contouring: A Guide to the Analysis and Display of Spatial Data*. Pergamon Press, 1992.
 
