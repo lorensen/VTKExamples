@@ -656,6 +656,12 @@ Like the edge collapse/split, the vertex split/merge can also be represented as 
 
 The vertices $v_l$ and $v_r$ define a sweep of triangles (from $v_r$ to $v_l$ ) that are to be separated from the original vertex vs (we adopt a counter-clockwise ordering convention to uniquely define the sweep of triangles).
 
+<figure id="Figure NUMBER">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure9-29.png?raw=true width="640" alt="Figure9-29">
+</figure>
+<figcaption style="color:blue"><b>Figure 9-29</b>. Results of topology modifying progressive mesh algorithm.</figcaption>
+</figure>
+
 **Figure 9-29** shows the results of applying the topology modifying progressive mesh algorithm to two sets of data. In **Figure 9-29**(a-c), a thin plate with holes is decimated (the darker lines show split edges). The middle image in the sequence shows the limits of topology on the algorithm. It is only when the topology of the mesh is allowed to be modified that the final level of reduction is possible. **Figure 9-29**(d-f) shows the same algorithm applied to CAD data.
 
 ### Mesh Smoothing
