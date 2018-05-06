@@ -1982,11 +1982,81 @@ for (cellId=0; cellId < numCells; cellId++)
   } //for each cell
 \end{lstlisting}
 
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.96\linewidth}
+        \centering
+        \includegraphics[width=.96\linewidth]{Figure8-41a}
+        \caption{Linearly extruded fonts to show letter frequency in text.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/AlphaFrequency/}{AlphaFrequency.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/AlphaFrequency/}{AlphaFrequency.py})}\label{fig:Figure8-41a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=.96\linewidth]{Figure8-41b}
+        \caption{Rotationally symmetric objects.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Modelling/Bottle/}{Bottle.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Modelling/Bottle/}{Bottle.py})}\label{fig:Figure8-41b}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=.96\linewidth]{Figure8-41c}
+        \caption{Rotation in combination with linear displacement and radius variation.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Modelling/Spring/}{Spring.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Modelling/Spring/}{Spring.py})}\label{fig:Figure8-41c}
+    \end{subfigure}%
+    \caption{Models created using linear and rotational extrusion.}
+    \label{fig:Figure8-41}
+\end{figure}
+
 This same approach is used in the vtkRotationalExtrusionFilter (Figure \ref{fig:Figure8-40}(b)). The difference between these two functions is that the type of motion is rotational as compared to linear (vtkLinearExtrusionFilter). These two filters can be used to perform some nifty modelling operations. Linear extrusion can be used to create bar charts with arbitrary cross sections, or to sweep out three-dimensional fonts. The rotational extrusion filter can be used to create rotationally symmetric objects such as bottles or wine glasses. Examples of these techniques are shown in Figure \ref{fig:Figure8-41}.
 
 \subsubsection{Find Cells}
 
 In this example we combine picking and a topological operation to select cells sharing a common point. Specifically, we use vtkPointPicker and the topological dataset operation GetPointCells(). Figure \ref{fig:Figure8-42} depicts this operation. We have also included a fragment of C++ code implementing this procedure. Note that this procedure will work for any dataset type, even if the geometry is implicitly defined (e.g., vtkImageData).
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=.96\linewidth]{Figure8-42a}
+        \caption*{}\label{fig:Figure8-42a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=.96\linewidth]{Figure8-42b}
+        \caption{Selected cells}\label{fig:Figure8-42b}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.96\linewidth}
+        \centering
+        \begin{lstlisting}[language=C++,  caption={}, numbers=none, frame=none]
+        sphereActor->SetPosition(picker->GetPickPosition());
+        if ( picker->GetPointId() >= 0 )
+          {
+          cout << “Point id: “ << picker->GetPointId() << “\n”;
+          cellsActor->VisibilityOn();
+          plateActor->VisibilityOff();
+          cells->Initialize();
+          cells->Allocate(100);
+          cells->SetPoints(plateOutput->GetPoints());
+          plateOutput->GetPointCells(picker->GetPointId(), cellIds);
+          for (i=0; i < cellIds->GetNumberOfIds(); i++)
+            {
+            cellId = cellIds->GetId(i);
+            plateOutput->GetCellPoints(cellId, ptIds);
+            cells->InsertNextCell(plateOutput->GetCellType(cellId), ptIds);
+            }
+          }
+        else
+          {
+          cellsActor->VisibilityOff();
+          plateActor->VisibilityOn();
+          }
+        renWin->Render();
+        \end{lstlisting}
+        \caption{C++ code probe.cxx}\label{fig:Figure8-42c}
+    \end{subfigure}%
+    \caption{Creating a point probe. Visualization network shown in diagram above. C++ code shows inner loop of vtkProbeFilter and resulting image for combustor data (probe.cxx).}
+    \label{fig:Figure8-42}
+\end{figure}
 
 The most difficult part of this procedure is the picking process. The selection point must be specified in pixel coordinates. The vtkPointPicker converts these coordinates into world and then dataset coordinates using the renderer in which the pick occurred. (The renderer uses the transformation matrix of its active camera to perform coordinate transformation.)
 
@@ -1994,6 +2064,49 @@ The picking process is conveniently managed in vtkRenderWindowInteractor. This o
 
 \subsubsection{Point Probe}
 \label{subsec:examples.point_probe}
+
+In this example we will show how to build a point probe using the dataset and cell operations described in this chapter. A point probe is defined as follows. Given a $(x,y,z)$ point coordinate, find the cell coordinates (i.e., cell id, subcell id, and parametric coordinates) and the interpolation weights. Once the interpolation weights are found, we can then compute local data values at $(x,y,z)$.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.96\linewidth}
+        \centering
+        \includegraphics[width=.96\linewidth]{Figure8-43a}
+        \caption{Original data}\label{fig:Figure8-43a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.96\linewidth}
+        \centering
+        \begin{lstlisting}[language=C++,  caption={}, numbers=none, frame=none]
+        //
+        // Loop over all input points, interpolating source data
+        //
+        for (ptId=0; ptId < numPts; ptId++)
+          {
+          // Get the xyz coordinate of the point in the input dataset
+          x = input->GetPoint(ptId);
+          // Find the cell that contains xyz and get it
+          cell = source->FindAndGetCell(x,NULL,-1,tol2,subId,pcoords,weights);
+          if (cell)
+            {
+            // Interpolate the point data
+            outPD->InterpolatePoint(pd,ptId,&(cell->PointIds),weights);
+            }
+          else
+            {
+            outPD->NullPoint(ptId);
+            }
+          }
+        \end{lstlisting}
+        \caption{C++ code (pickCells.cxx)}
+    \end{subfigure}%
+    \caption{Models created using linear and rotational extrusion.}
+    \label{fig:Figure8-43}
+\end{figure}
+
+The point probe is implemented using the dataset operation FindCell(). This method requires a point specified in global coordinates (our $(x,y,z)$ value) and a tolerance. The tolerance is often necessary because of numerical precision or when picking near the surface of 3D cells, or on 0D, 1D, and 2D cells. The FindCell() operation returns the information we require, plus the interpolation weights of the cell containing our point probe. To determine the data value at our probe point, we need to retrieve the data values on the cell points. We can then use the interpolation functions of Equation \ref{eq:8.4} to determine the probe scalar value.
+
+Figure \ref{fig:Figure8-43} depicts this process and includes C++ code. In the example we use the combustor dataset with the objects vtkCursor3D, vtkProbeFilter, and vtkGlyph3D. The purpose of the cursor is to control the position of the probe point. The class vtkProbeFilter performs the probing  operation just described. (This filter has been generalized so that it can handle more than one input point.) vtkGlyph3D is used to place an oriented, scaled cone at the cursor focal point. This gives us visual feedback about the scalar and vector quantities at the probe. Of course, we can extract numeric values and display them to the user if this is important.
 
 \section{Chapter Summary}
 
@@ -2020,3 +2133,131 @@ There are extensive references regarding spatial search structures. Samet \cite{
 
 
 \section{Exercises}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=.98\linewidth]{Figure8-44a}
+        \caption{}\label{fig:Figure8-44a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=.98\linewidth]{Figure8-44b}
+        \caption{}\label{fig:Figure8-44b}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=.98\linewidth]{Figure8-44c}
+        \caption{}\label{fig:Figure8-44c}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=.65\linewidth]{Figure8-44d}
+        \caption{}\label{fig:Figure8-44d}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=.65\linewidth]{Figure8-44e}
+        \caption{}\label{fig:Figure8-44e}
+    \end{subfigure}%
+    \caption{Exercise figures.}
+    \label{fig:Figure8-44}
+\end{figure}
+
+\begin{enumerate}
+
+\item Given a volume of dimensions $5 \times 10 \times 15$ with origin $(1.0, 2.0,3.0)$ and voxel spacing $(0.5, 0.5, 1.0)$.
+    \begin{enumerate}
+
+    \item Compute minimum point position.
+
+    \item Compute maximum point position.
+
+    \item For cell id 342, compute cell minimum point position and maximum point position.
+
+    \item What points (list ids) define cell id 342?
+
+    \item Given point specified in structured coordinates as $(i, j, k) = (3, 6, 4)$ ;$(r, s, t) = (0.1, 0.2, 0.5)$, compute global coordinates.
+
+    \end{enumerate}
+
+\item Compute global coordinates and interpolation weights for the points specified in dataset coordinates (refer to Figure \ref{fig:Figure8-44}(a-d)).
+    \begin{enumerate}
+
+    \item Line with $r = 0.5$.
+
+    \item Triangle with $(r, s) = (0.25, 0.33)$.
+
+    \item Voxel with $(r, s, t) = (0.25, 0.33, 0.5)$.
+
+    \end{enumerate}
+
+\item Compute parametric coordinates for cells shown in Figure \ref{fig:Figure8-44}(a-d).
+    \begin{enumerate}
+
+    \item Line with $(x, y, z) = (0.3, 0.6, 0.9)$.
+
+    \item Triangle with $(x, y, z) = (0.5, 0.25, 0.0)$.
+
+    \item Voxel with $(x, y, z) = (0.5, 0.4, 2.0)$.
+
+    \end{enumerate}
+
+\item Given the line shown in Figure \ref{fig:Figure8-44}(a), if scalar data values are $(s_0, s_1) = (0.0, 0.25)$, what are the derivatives in the $x, y, z$ directions?
+
+\item Refer to Figure \ref{fig:Figure8-44}(d) and let the numbers indicate cell ids and the letters indicate point ids.
+    \begin{enumerate}
+
+    \item List the cells using point A.
+
+    \item List the cells using point B.
+
+    \item List cells using edge (A, B). How does this list correspond to your answers in parts a) and b) above?
+
+    \end{enumerate}
+
+\item Refer to Figure \ref{fig:Figure8-44}(e).
+    \begin{enumerate}
+
+    \item How many boundary faces are there?
+
+    \item How many ``internal'' faces?
+
+    \end{enumerate}
+
+\item Describe a procedure to intersect two finite lines. How does tolerance value come into play?
+
+\item Describe a procedure to intersect a line and triangle. Are there special characteristics of a triangle that can be used to speed this operation?
+
+\item Compare memory requirements for the three unstructured grid data structures shown in Figure \ref{fig:Figure8-34}. Assume that two cells use each face, four faces use each edge, and six edges use each vertex (i.e., a structured dataset).
+
+\item Using the abstract cell and dataset interface, write a program to compute
+    \begin{enumerate}
+
+    \item number of points in a dataset,
+
+    \item number of cells in a dataset,
+
+    \item number of edges in a dataset,
+
+    \item number of faces in a dataset.
+
+    \end{enumerate}
+
+\item Given a volume of dimensions $5 \times 10 \times 15$.
+    \begin{enumerate}
+
+    \item How many internal faces are there (i.e. used by two voxels)?
+
+    \item How many boundary faces are there (i.e., used by one voxel)?
+
+    \end{enumerate}
+
+\item Write a general extrusion filter that sweeps an object along a path to construct a new surface. Assume that the path is defined by a sequence of transformation matrices. Can you think of a way to prevent self-intersection?
+
+\end{enumerate}
