@@ -58,6 +58,10 @@ List of files and original paths:
 | Figure7-37.png | src/Testing/Baseline/Cxx/Rendering/TestCameraBlur.png |
 | Figure7-39.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestStreamlinesWithLineWidget.png |
 | | |
+| Figure8-41a.png | src/Testing/Baseline/Cxx/Visualization/TestAlphaFrequency.png |
+| Figure8-41b.png | src/Testing/Baseline/Cxx/Modelling/TestBottle.png |
+| Figure8-41c.png | src/Testing/Baseline/Cxx/Modelling/TestSpring.png |
+| | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |
 | Figure12-4.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo3.png |
