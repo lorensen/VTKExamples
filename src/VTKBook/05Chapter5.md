@@ -110,7 +110,7 @@ Linear cells are characterized by linear or constant interpolation functions (se
 
 **Triangle.** The triangle is a primary two-dimensional cell. The triangle is defined by a counterclockwise ordered list of three points. The order of the points specifies the direction of the surface normal using the right-hand rule.
 
-**Triangle Strip.** The triangle strip is a composite two-dimensional cell consisting of one or more triangles. The points defining the triangle strip need not lie in a plane. The triangle strip is defined by an ordered list of _n+2_ points, where _n_ is the number of triangles. The ordering of the points is such that each set of three points _(i,i+1,i+2_) with $0 \leq i \leq n$ defines a triangle.
+**<b id="Chapter 5 - Triangle Strip">Triangle Strip</b>.** The triangle strip is a composite two-dimensional cell consisting of one or more triangles. The points defining the triangle strip need not lie in a plane. The triangle strip is defined by an ordered list of _n+2_ points, where _n_ is the number of triangles. The ordering of the points is such that each set of three points _(i,i+1,i+2_) with $0 \leq i \leq n$ defines a triangle.
 
 **Quadrilateral.** The quadrilateral is a primary two-dimensional cell. It is defined by an ordered list of four points lying in a plane. The quadrilateral is convex and its edges must not intersect. The points are ordered counterclockwise around the quadrilateral, defining a surface normal using the right-hand rule.
 
