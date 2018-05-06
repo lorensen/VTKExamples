@@ -3,3 +3,6 @@ Probing obtains dataset attributes by sampling one dataset (the input) with a se
 
 This example illustrates the details of the probing process. For every point in the probe dataset, the location in the input dataset (i.e., cell, subcell, and parametric coordinates) and interpolation weights are determined. Then the data values from the cell are interpolated to the probe 
 point. Probe points that are outside the input dataset are assigned a nil (or appropriate) value. This process repeats for all points in the probe dataset.
+
+!!! info
+    See [Figure 9-19](/VTKBook/09Chapter9/#Figure%209-19) in [Chapter 9](/VTKBook/09Chapter9) The [VTK Textbook](/VTKBook/01Chapter1).

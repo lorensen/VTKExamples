@@ -7,6 +7,5 @@ on.
 
 Theis example uses the [42400-IDGH.stl](https://github.com/lorensen/VTKExamples/raw/master/src/Testing/Data/42400-IDGH.stl) dataset.
 
-!!! note
-    This example is a modification of Figure 9-24 in the [VTK Text Book](https://www.kitware.com/products/books/VTKTextbook.pdf).
-
+!!! info
+    See [Figure 9-24](/VTKBook/09Chapter9/#Figure%209-24) in [Chapter 9](/VTKBook/09Chapter9) The [VTK Textbook](/VTKBook/01Chapter1).

@@ -372,7 +372,7 @@ Attentive readers will have noticed that the subdivision scheme described previo
 
 By definition, these conditions are directly related to critical points, since an extremum of a differentiable function over an open domain is necessarily a critical point. Linear meshes assume that all extrema of the scalar field occur at element vertices, but in general when using a higher-order basis this is not the case, and extrema can be found interior to a cell.
 
-To address this problem, a pre-triangulation of the basis must be performed. The pre-triangulation must identify all critical points in the interior, on the faces, or on the edge of a cell, and then insert these points into the triangulation. For example, an initial triangulation based on the vertices of the higher-order cell can be performed first, followed by insertion into the triangulation using a method such as Delaunay triangulation or equivalent (see “Triangulation” on page 345). The pre-triangulation can then be followed by the standard edge-based algorithm presented previously.
+To address this problem, a pre-triangulation of the basis must be performed. The pre-triangulation must identify all critical points in the interior, on the faces, or on the edge of a cell, and then insert these points into the triangulation. For example, an initial triangulation based on the vertices of the higher-order cell can be performed first, followed by insertion into the triangulation using a method such as Delaunay triangulation or equivalent (see [“Triangulation Techniques”](/VTKBook/09Chapter9/#Chapter 9 - Triangulation Techniques) in [Chapter 9](/VTKBook/09Chapter9)). The pre-triangulation can then be followed by the standard edge-based algorithm presented previously.
 
 ## 8.4 Coordinate Transformation
 
@@ -399,7 +399,7 @@ Global to dataset coordinate transformations are expensive compared to dataset t
 
 To identify the cell $C_i$ means doing some form of searching. A simple but inefficient approach is to visit every cell in a dataset and determine whether p lies inside any cell. If so, then we have found the correct cell and stop the search. Otherwise, we check the next cell in the list.
 
-This simple technique is not fast enough for large data. Instead, we use accelerated search techniques. These are based on spatially organizing structures such as an octree or three-dimensional hash table. The idea is as follows: we create a number of “buckets,” or data place holders, that are accessed by their location in global space. Inside each bucket we tag all the points or cells that are partially or completely inside the bucket. Then, to find a particular cell that contains point p, we find the bucket that contains p, and obtain all the cells associated with the bucket. We then evaluate inside/outside for this abbreviated cell list to find the single cell containing p. (See “Searching” on page 292 for a more detailed description.)
+This simple technique is not fast enough for large data. Instead, we use accelerated search techniques. These are based on spatially organizing structures such as an octree or three-dimensional hash table. The idea is as follows: we create a number of “buckets,” or data place holders, that are accessed by their location in global space. Inside each bucket we tag all the points or cells that are partially or completely inside the bucket. Then, to find a particular cell that contains point p, we find the bucket that contains p, and obtain all the cells associated with the bucket. We then evaluate inside/outside for this abbreviated cell list to find the single cell containing p. (See [“Searching”](/VTKBook/08Chapter8/#87-searching) in [Chapter 8](/VTKBook/08Chapter8) for a more detailed description.)
 
 The second reason that global to dataset coordinate transformation is expensive is because we must solve the interpolation function for the parametric coordinates of p. Sometimes we can do this analytically, but in other cases we must solve for the parametric coordinates using numerical techniques.
 
@@ -412,7 +412,7 @@ r = \frac{x - x_0}{x_1 - x_0} = \frac{y - y_0}{y_1 - y_0} = \frac{z - z_0}{z_1 -
 \end{equation*}
 $$
 
-Similar relations exist for any cell whose interpolation functions are linear combinations of parametric coordinates. This includes vertices, lines, triangles, and tetrahedra. The quadrilateral and hexahedron interpolation functions are nonlinear because they are products of linear expressions for the parametric coordinates. As a result, we must resort to numerical techniques to compute global to dataset coordinate transformations. The interpolation functions for pixels and voxels are nonlinear as well, but because of their special orientation with respect to the x, y, and z coordinate axes, we can solve them exactly. (We will treat pixel and voxel types in greater depth in “Special Techniques for Image Data” on page 295.)
+Similar relations exist for any cell whose interpolation functions are linear combinations of parametric coordinates. This includes vertices, lines, triangles, and tetrahedra. The quadrilateral and hexahedron interpolation functions are nonlinear because they are products of linear expressions for the parametric coordinates. As a result, we must resort to numerical techniques to compute global to dataset coordinate transformations. The interpolation functions for pixels and voxels are nonlinear as well, but because of their special orientation with respect to the x, y, and z coordinate axes, we can solve them exactly. (We will treat pixel and voxel types in greater depth in [“Special Techniques for Image Data”](/VTKBook/08Chapter8/#810-special-techniques-for-image-data) in [Chapter 8](/VTKBook/08Chapter).)
 
 To solve the interpolation functions for parametric coordinates we must use nonlinear techniques for the solution of a system of equations. A simple and effective technique is Newton’s method <em style="color:blue;background-color: white">\[Conte72\]</em>.
 
@@ -687,7 +687,7 @@ Another useful cell operation is cell decomposition into simplices. Every cell c
 
 Dataset operations return information about the topology of a dataset or topological information about the adjacency of cells. Typical operations include determining the neighbors of a cell or returning a list of all cells that use a particular point.
 
-We can formalize the adjacency operations by continuing the discussion of “Cell Types” on page 124. Adjacency methods are used to obtain information about the neighbors of a cell. A neighbor of a particular cell $C_i$ is simply a cell that shares one or more points in common with $C_i$. A vertex neighbor is a neighbor that shares one or more vertices. An edge neighbor is a neighbor that shares one or more edges. A face neighbor is a cell that shares vertices that define one of the faces of the cell. Note that a face neighbor is also an edge neighbor, and an edge neighbor is also a vertex neighbor.
+We can formalize the adjacency operations by continuing the discussion of [“Cell Types”](/VTKBook/05Chapter5/#54-cell-types) in [Chapter 5](/VTKBook/05Chapter5). Adjacency methods are used to obtain information about the neighbors of a cell. A neighbor of a particular cell $C_i$ is simply a cell that shares one or more points in common with $C_i$. A vertex neighbor is a neighbor that shares one or more vertices. An edge neighbor is a neighbor that shares one or more edges. A face neighbor is a cell that shares vertices that define one of the faces of the cell. Note that a face neighbor is also an edge neighbor, and an edge neighbor is also a vertex neighbor.
 
 The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points and a point list $vec{P} = (vec{p_1}, vec{p_2}, ..., vec{p_n})$  with $P \subset P$, where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set A(C, P).
 
@@ -717,7 +717,7 @@ Searching is an operation to find the cell containing a specified point p, or to
 
 To find the cell containing p, we can use the following naive search procedure. Traverse all cells in the dataset, finding the one (if any) that contains p. To determine whether a cell contains a point, the cell interpolation functions are evaluated for the parametric coordinates (r,s,t). If these coordinates lie within the cell, then p lies in the cell. The basic assumption here is that cells do not overlap, so that at most a single cell contains the given point p. To determine cells or points lying in the region surrounding p, we can traverse cells or points to see whether they lie within the region around p. For example, we can choose to define the region as a sphere centered at p. Then, if a point or the points composing a cell lie in the sphere, the point or cell is considered to be in the region surrounding p.
 
-These naive procedures are unacceptable for all but the smallest datasets, since they are of order O(n), where n is the number of cells or points. To improve the performance of searching, we need to introduce supplemental data structures to support spatial searching. Such structures are well-known and include MIP maps, octrees, kd-trees, and binary sphere trees (see “Bibliographic Notes” on page 315 at the end of this chapter).
+These naive procedures are unacceptable for all but the smallest datasets, since they are of order O(n), where n is the number of cells or points. To improve the performance of searching, we need to introduce supplemental data structures to support spatial searching. Such structures are well-known and include MIP maps, octrees, kd-trees, and binary sphere trees (see [“Bibliographic Notes”](VTKBook/08Chapter8/#813-bibliographic-notes) at the end of this chapter).
 
 The basic idea behind these spatial search structures is that the search space is subdivided into smaller parts, or buckets. Each bucket contains a list of the points or cells that lie within it. Buckets are organized in structured fashion so that constant or logarithmic time access to any bucket is possible. For example, if we assign a portion of 2D Euclidean space into a grid of n by m buckets, the location of p in a particular bucket can be determined with two subtractions and two divisions: a constant time access. Similarly, the location of p in a nonuniformly subdivided octree is determined in logarithmic time, since recursive insertion into octant children is required. Once the bucket is found, the search is then limited to the points or cells contained within it. In a properly designed spatial search structure, the number of points or cells in a bucket is a small portion of the total number of cells and less than a fixed value. Thus, the time to search within a bucket can be bounded by a fixed constant. The result is that introducing spatial search structures reduces search times to a maximum O(log n), or better yet O(n).
 
@@ -747,7 +747,7 @@ Line/cell intersection for 0D, 1D, and 2D cells follows standard approaches. Int
 
 ## 8.9 Scalars and Colors
 
-There is a close correspondence between scalar data and colors. We touched on this in “Color Mapping” on page 163, where we saw how to use a color table to map scalar values into a color specification (i.e., red, green, blue, and alpha, or RGBA). There are cases, however, when we want to circumvent this mapping process. Such cases occur when color data is supplied instead of scalar data.
+There is a close correspondence between scalar data and colors. We touched on this in [“Color Mapping”](/VTKBook/06Chapter6/#color-mapping) in [Chapter 6](/VTKBook/06Chapter6), where we saw how to use a color table to map scalar values into a color specification (i.e., red, green, blue, and alpha, or RGBA). There are cases, however, when we want to circumvent this mapping process. Such cases occur when color data is supplied instead of scalar data.
 
 A common example occurs in imaging. Recall that an image is a regular, two-dimensional array of points. The points define pixels, which in turn form a two-dimensional image dataset. Images are frequently stored as a pair of dimensions along with data values. The data values may be one of black and white (e.g., a bitmap), grayscale, or color (e.g., a pixmap). Bitmaps and gray-scale images can be directly cast into the form of single-values scalar data, and we can use our earlier approach. Pixmaps, however, consist of (at a minimum) three values per pixel of red, green, and blue. (Sometimes, a fourth alpha opacity value may also be included.) Thus, pixmaps cannot be directly cast into scalar form.
 
@@ -1013,14 +1013,14 @@ With the completion of Chapters 5 and 8, we can summarize the abstract interface
      Contour(value, cellScalars, locator, verts, lines, polys, inputPointData, outputPointData)
           Given a contour value and scalar values at the cell points, generate contour primitives
           (vertices, lines, or polygons with associated points and attribute data values). The
-          points are placed in a locator object (see “Searching” on page 297) which merges
+          points are placed in a locator object (see [“Searching”](/VTKBook/08Chapter8/#searching_1) in this Chapter) which merges
           coincident points, and the attribute data values are interpolated (along the cell edge) from
           the inputPointData to the outputPointData.
 
      Clip(value, cellScalars, locator, cells, inputPointData, outputPointData, insideOut)
           Given a contour value and scalar values at the cell points, clip the cell to generate new
           cells of the same topological dimension as the original cell. The points are placed in a
-          locator object (see “Searching” on page 297) which merges coincident points, and the
+          locator object (see [“Searching”](/VTKBook/08Chapter8/#87-searching) in [Chapter 8](/VTKBook/08Chapter8)) which merges coincident points, and the
           attribute data values are interpolated (or copied) from the inputPointData to the
           outputPointData. The clipped cells are placed in the cells list.
 
@@ -1131,7 +1131,7 @@ To illustrate this process consider visiting the edges of a triangle mesh. We be
                    
 ### Color Scalar Data
 
-Multivalued scalar data, or scalars represented by various color representations, are treated specially by the _Visualization Toolkit_. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See “Color Mapping” on page 163 for more information.)
+Multivalued scalar data, or scalars represented by various color representations, are treated specially by the _Visualization Toolkit_. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See [“Color Mapping”](/VTKBook/06Chapter6/#color-mapping) in [Chapter 6](/VTKBook/06Chapter6) for more information.)
 
 By default, the mapping of scalars into colors proceeds as follows (vtkMapper and subclasses are responsible for implementing this behavior):
 
@@ -1183,7 +1183,7 @@ The _Visualization Toolkit_ provides a variety of classes to perform actor (or v
 
 All pickers are subclasses of vtkAbstractPicker which defines the basic pick interface. The user must specify a selection point in display coordinates for a specified instance of vtkRenderWindow and invoke the Pick() method. At a minimum, the class must return an x-y-z pick position in world coordinates. It is possible to limit the pick candidates to a list of vtkProps (the PickList). The class also invokes the StartPickEvent, PickEvent, and EndPickEvent events that are invoked prior to picking, during picking, and after picking, respectively.
 
-Classes that can return information indicating which vtkProp they have picked are subclasses of vtkAbstractPropPicker. After the pick operation, vtkAbstractPropPicker returns a vtkAssemblyPath. The assembly path is an ordered list of instances of vtkProp and possibly associated 4x4 transformation matrices. The path represents a concatenated hierarchy of assembly nodes if an assembly has been defined (see “Assemblies and Other Types of vtkProp” on page 74 for more information about props and assemblies).
+Classes that can return information indicating which vtkProp they have picked are subclasses of vtkAbstractPropPicker. After the pick operation, vtkAbstractPropPicker returns a vtkAssemblyPath. The assembly path is an ordered list of instances of vtkProp and possibly associated 4x4 transformation matrices. The path represents a concatenated hierarchy of assembly nodes if an assembly has been defined (see [“Assemblies and Other Types of vtkProp”](http://localhost:8000/VTKBook/03Chapter3/#assemblies-and-other-types-of-vtkprop) in [Chapter 3](/VTKBook/03Chapter3)) for more information about props and assemblies).
 
 The object vtkPicker intersects a ray defined from camera position to a screen (i.e., pixel) coordinate against the bounding box of all pickable and nontransparent vtkProp3D’s. (A vtkProp is pickable if its Pickable instance variable is true.) The result of the vtkPicker pick operation is to return a list of the vtkProp3D’s whose bounding box is intersected. The prop closest to the camera position is also returned.
 
@@ -1195,7 +1195,7 @@ The class vtkWorldPointPicker returns the (x,y,z) coordinate value of a pick in 
 
 By default picking is performed with the class vtkPropPicker. This class uses hardware-accelerated picking—so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the (x,y,z) world coordinate value
 
-Figure8-39 summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the “p” key (see “Introducing vtkRenderWindowInteractor” on page 68). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
+Figure8-39 summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the “p” key (see ["RenderWindowInteractor"](/VTKBook/03Chapter3#Chapter 3 - Introducing RenderWindowInteractor) in [Chapter 3](/VTKBook/03Chapter3)). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
 
 ### Examples
 
