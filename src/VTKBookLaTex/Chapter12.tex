@@ -229,7 +229,7 @@ vtkLookupTable *satLut = vtkLookupTable::New();
 	\label{fig:Figure12-4}
 \end{figure}
 
-The image data is mapped to colors using the filter vtkImageMapToColors in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsec:assemblies_vtkprop} for more information). This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageActor is set appropriately. The C++ code is as follows:
+The image data is mapped to colors using the filter vtkImageMapToColors in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information). This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageActor is set appropriately. The C++ code is as follows:
 
 \begin{lstlisting}[language=C++, caption={Mapping the image data and displaying the image slices.}]
 // saggital
@@ -1256,7 +1256,7 @@ vtkTubeFilter tubes
 
 There are a number of other methods we could use to visualize this data.
 A 3D widget such as the vtkLineWidget could be used to seed the streamlines interactively (see ``3D Widgets and User Interaction'' on
-page \pageref{sec:3D_widgets_user_interaction}). As we saw in ``Point Probe'' on page \pageref{subsec:point_probe}, probing the data
+page \pageref{sec:3D_widgets_user_interaction}). As we saw in ``Point Probe'' on page \pageref{subsec:examples.point_probe}, probing the data
 for numerical values is a valuable technique. In particular, if the
 probe is a line we can use it in combination with vtkXYPlotActor to
 graph the variation of data value along the line. Another useful

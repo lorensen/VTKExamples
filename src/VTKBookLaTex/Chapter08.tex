@@ -1807,14 +1807,193 @@ It is possible to force unsigned char data to be mapped through a lookup table. 
 
 \subsection{Searching}
 
+The \emph{Visualization Toolkit} provides two classes to perform searches for dataset points and cells. These are vtkPointLocator and vtkCellLocator. (Both of these classes are subclasses of vtkLocator, which is an abstract base class for spatial search objects.) vtkPointLocator is used to search for points and, if used with the topological dataset operator GetPointCells(), to search for cells as well. vtkCellLocator is used to search for cells.
+
+vtkPointLocator is implemented as a regular grid of buckets (i.e., same topology and geometry as an image dataset). The number of buckets can be user-specified, or more conveniently, automatically computed based on the number of dataset points. On average, vtkPointLocator provides constant time access to points. However, in cases where the point distribution is not uniform, the number of points in a bucket may vary widely, giving O(n) worst-case behavior. In practice this is rarely a problem, but adaptive spatial search structures (e.g., an octree) may sometimes be a better choice.
+
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
+	{\caption{Determining closest point to $p$ in vtkPointLocator. Initial search in bucket results in point $a$. Search must extend beyond local bucket as a function of search radius $R$, resulting in point $b$.}\label{fig:Figure8-36}}
+	{\includegraphics[width=0.6\textwidth]{Figure8-36}}
+\end{figure}
+
+Determining closest point to a point $p$ using vtkPointLocator (as well as other spatial search structures) is a three-step process. In the first step, the bucket containing $p$ is found using the appropriate insertion scheme. (For vtkPointLocator this is three divisions to determine bucket indices $(i, j, k)$.) Next, the list of points in this bucket is searched to determine the closest point. However, as Figure \ref{fig:Figure8-36} shows, this may not be the true closest point, since points in neighboring buckets may be closer. Consequently, a final search of neighboring buckets is necessary. The search distance is a function of the distance to the current closest point. Once all neighbors within this distance are searched, the closest point is returned.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-37}
+        \caption*{}\label{fig:Figure8-37a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+    Cell list structure (Union)
+    \begin{lstlisting}[caption={}, numbers=none, frame=none]
+    if parent octant:
+      IN/OUT flag
+     if terminal octant:
+       list of cells
+    \end{lstlisting}
+    level of octree, $l$
+    number of terminal octants, $n_T$
+    \begin{equation*}
+        n_T = 8^l
+    \end{equation*}
+    number of octants, $n_O$
+    \begin{equation*}
+        n_O = \sum_{i = 0}^i 8^i
+    \end{equation*}
+    number of parents, $n_p$
+    \begin{equation*}
+        n_p = n_O - n_T
+    \end{equation*}
+    \end{subfigure}%
+    \caption{ Structure of spatial search structure vtkCellLocator. The data structure represents a uniformly subdivided octree.}
+    \label{fig:Figure8-37}
+\end{figure}
+
+vtkCellLocator is implemented as a uniformly subdivided octree with some peculiar characteristics (Figure \ref{fig:Figure8-37}). Conventional octree representations use upward parent and downward children pointers to track parent and children octants. Besides the required list of entities (i.e., points or cells) in each octant, additional information about octant level, center, and size may also be maintained. This results in a flexible structure with significant overhead. The overhead is the memory resources to maintain pointers, plus the cost to allocate and delete memory.
+
+In contrast, vtkCellLocator uses a single array to represent the octree. The array is divided into two parts. The first part contains a list of parent octants, ordered according to level and octant child number. In the second part are the terminal, or leaf octants. The terminal octants are ordered on a regular array of buckets, just the same as vtkLocator. The terminal octants contain a list of the entities inside the octant. The parent octants maintain a value indicating whether the octant is empty, or whether something is inside it. (Both types of information are represented in the same portion of the octant structure.) Because the octree is uniformly subdivided, parent-child relationships, as well as octant locations, can be computed quickly using simple division operations.
+
+The advantage of this structure is that memory can be allocated and deleted quickly. In addition, insertion into the octree is exactly the same as with vtkLocator, and is simpler than conventional octrees. The parent octants provide quick culling capability, since their status (empty or nonempty) allows us to stop certain types of search operations. On the downside, because the octree is uniformly subdivided, this structure is wasteful of memory resources if the data is nonuniformly distributed.
+
+Our experience with the search structures described here is that they work well for many types of visualization data. However, if your data is non-uniform, you may want to implement your own special search classes.
+
+
 \subsection{Picking}
 \label{subsec:picking}
 
-The Visualization Toolkit provides a variety of classes to perform actor (or vtkProp), point, cell, and
-world point picking ( Figure \ref{fig:Figure8-38}).
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
+	{\caption{The picking hierarchy in VTK. All subclasses of vtkAbstractPropPicker return the picked instance of vtkProp. The information is returned as a vtkAssemblyPath. The assembly path is necessary because some props may exist in an assembly hierarchy. The classes vtkWorldPointPicker and vtkPropPicker are hardware accelerated picking classes. All others use software ray casting.}\label{fig:Figure8-38}}
+	{\includegraphics[width=0.6\textwidth]{Figure8-38}}
+\end{figure}
 
-\subsection{Point Probe}
-\label{subsec:point_probe}
+
+The Visualization Toolkit provides a variety of classes to perform actor (or vtkProp), point, cell, and world point picking ( Figure \ref{fig:Figure8-38}).
+
+All pickers are subclasses of vtkAbstractPicker which defines the basic pick interface. The user must specify a selection point in display coordinates for a specified instance of vtkRenderWindow and invoke the Pick() method. At a minimum, the class must return an $x-y-z$ pick position in world coordinates. It is possible to limit the pick candidates to a list of vtkProps (the PickList). The class also invokes the StartPickEvent, PickEvent, and EndPickEvent events that are invoked prior to picking, during picking, and after picking, respectively.
+
+Classes that can return information indicating which vtkProp they have picked are subclasses of vtkAbstractPropPicker. After the pick operation, vtkAbstractPropPicker returns a vtkAssemblyPath. The assembly path is an ordered list of instances of vtkProp and possibly associated 4x4 transformation matrices. The path represents a concatenated hierarchy of assembly nodes if an assembly has been defined (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information about props and assemblies).
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-39a}
+        \caption{vtkPicker}\label{fig:Figure8-39a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-39b}
+        \caption{vtkPointPicker}\label{fig:Figure8-39b}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-39c}
+        \caption{vtkCellPicker}\label{fig:Figure8-39c}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-39d}
+        \caption{vtkWorldPointPicker}\label{fig:Figure8-39d}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-39e}
+        \caption{vtkPropPicker}\label{fig:Figure8-39e}
+    \end{subfigure}%
+    \caption{Summary of picking operations. The top three pick classes (a)-(c) use software ray casting. The bottom two pick classes (d)-(e) use hardware acceleration.}
+    \label{fig:Figure8-39}
+\end{figure}
+
+The object vtkPicker intersects a ray defined from camera position to a screen (i.e., pixel) coordinate against the bounding box of all pickable and nontransparent vtkProp3D’s. (A vtkProp is pickable if its Pickable instance variable is true.) The result of the vtkPicker pick operation is to return a list of the vtkProp3D’s whose bounding box is intersected. The prop closest to the camera position is also returned.
+
+The object vtkPointPicker intersects the ray against the points defining each vtkProp3D, and returns the point coordinate closest to the camera position, as well as the vtkProp3D that the point belongs to. Since screen resolution prevents precise selection of a point, a tolerance around the ray must be specified. The tolerance is expressed as a fraction of the rendering window size. (Rendering window size is measured across the window diagonal.) Points must lie within this tolerance to be picked.
+
+The object vtkCellPicker intersects the ray with the cells defining each vtkProp3D, and returns the point of intersection, as well as the vtkProp3D that the cell belongs to. If you are trying to select a cell belonging to a particular vtkProp3D, vtkCellPicker is the object to use because it performs surface (or cell) intersection. Unfortunately, vtkCellPicker is the slowest of the pickers because of greater computational requirements.
+
+The class vtkWorldPointPicker returns the $(x,y,z)$ coordinate value of a pick in the rendering window. To determine this information, it combines the display $(x,y)$ values with the z-buffer depth values. Of all the pickers this is the fastest, but it cannot determine the actual cell, point or vtkProp that is selected since it is not a subclass of vtkAbstractPropPicker. (Note: on some systems z--buffer operations are inoperative and this object will not function properly.)
+
+By default picking is performed with the class vtkPropPicker. This class uses hardware-accelerated picking—so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the $(x,y,z)$ world coordinate value
+
+Figure \ref{fig:Figure8-39} summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the ``p'' key (see “Introducing vtkRenderWindowInteractor” on page 68). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
+
+\subsection{Examples}
+
+To conclude this section, we will examine how some of the dataset, cell, and point attribute operations are used. These operations tend to be used by class developers. You will not need to use them if you build applications by constructing visualization pipelines with existing filters.
+
+\subsubsection{Find Free Edges}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-40a}
+        \caption{Linear}\label{fig:Figure8-40a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Figure8-40b}
+        \caption{Rotational}\label{fig:Figure8-40b}
+    \end{subfigure}%
+    \caption{Depiction of linear and rotational extrusion.}
+    \label{fig:Figure8-40}
+\end{figure}
+
+In our first example we will take a peek inside the filter vtkLinearExtrusionFilter. This filter implements the following modelling operation. Given a polygonal mesh, extrude the mesh in a given direction, constructing a ``skirt'' or ``walls'' from the free edges. If the polygonal example is a single square, the result of this operation is a cube. Or, if the polygonal data consists of a single line, the result of the operation is a quadrilateral. A point will generate a line as shown in Figure \ref{fig:Figure8-40}(a).
+
+Recall that free edges are edges used by only one polygon. We can determine this information using the dataset topology operation GetCellEdgeNeigbors(). We use Equation \ref{eq:8.25} and the two points defining the edge of the polygon to determine the adjacency set (i.e., the polygons sharing this edge). If no other polygon uses this edge, then the edge is extruded to generate a triangle strip. The C++ pseudo code is as follows.
+
+\begin{lstlisting}[language=C++, caption={Determining free edges.}]
+for (cellId=0; cellId < numCells; cellId++)
+  {
+  cell = mesh->GetCell(cellId);
+  if ((dim=cell->GetCellDimension()) == 0)
+  //create lines from points
+  else if ( dim == 1 )
+  // create strips from lines
+  else if ( dim == 2 ) // create strips from boundary edges
+    {
+    numEdges = cell->GetNumberOfEdges();
+    for (i=0; i<numEdges; i++)
+      {
+      edge = cell->GetEdge(i);
+      for (j=0; j<(edge->GetNumberOfPoints()-1); j++)
+        {
+        p1 = edge->PointIds->GetId(j);
+        p2 = edge->PointIds->GetId(j+1);
+        mesh.GetCellEdgeNeighbors(cellId, p1, p2, cellIds);
+        if ( cellIds->GetNumberOfIds() < 1 )
+          {
+          //generate triangle strip
+          }
+        } //for each subedge
+      } //for each edge
+    } //for each polygon or triangle strip
+  } //for each cell
+\end{lstlisting}
+
+This same approach is used in the vtkRotationalExtrusionFilter (Figure \ref{fig:Figure8-40}(b)). The difference between these two functions is that the type of motion is rotational as compared to linear (vtkLinearExtrusionFilter). These two filters can be used to perform some nifty modelling operations. Linear extrusion can be used to create bar charts with arbitrary cross sections, or to sweep out three-dimensional fonts. The rotational extrusion filter can be used to create rotationally symmetric objects such as bottles or wine glasses. Examples of these techniques are shown in Figure \ref{fig:Figure8-41}.
+
+\subsubsection{Find Cells}
+
+In this example we combine picking and a topological operation to select cells sharing a common point. Specifically, we use vtkPointPicker and the topological dataset operation GetPointCells(). Figure \ref{fig:Figure8-42} depicts this operation. We have also included a fragment of C++ code implementing this procedure. Note that this procedure will work for any dataset type, even if the geometry is implicitly defined (e.g., vtkImageData).
+
+The most difficult part of this procedure is the picking process. The selection point must be specified in pixel coordinates. The vtkPointPicker converts these coordinates into world and then dataset coordinates using the renderer in which the pick occurred. (The renderer uses the transformation matrix of its active camera to perform coordinate transformation.)
+
+The picking process is conveniently managed in vtkRenderWindowInteractor. This object allows the specification of functions to execute just before picking and just after picking (i.e., ``AddObserver StartPickEvent'' and ``AddObserver EndPickEvent''). Using this facility we can define a postpicking function to retrieve the point id and then execute the GetPointCells() operation. This process is shown in Figure \ref{fig:Figure8-42}.
+
+\subsubsection{Point Probe}
+\label{subsec:examples.point_probe}
 
 \section{Chapter Summary}
 
