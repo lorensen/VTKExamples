@@ -106,6 +106,7 @@ Designing lookup tables is as much art as it is science. From a practical point 
 \end{figure}
 
 \subsection{Contouring}
+\label{subsec:contouring}
 
 A natural extension to color mapping is \emph{contouring}. When we see a surface colored with data values, the eye often separates similarly colored areas into distinct regions. When we contour data, we are effectively constructing the boundary between these regions. These boundaries correspond to contour lines (2D) or surfaces (3D) of constant scalar value.
 
@@ -311,6 +312,7 @@ Figure \ref{fig:Figure6-14} shows two examples of vector warping. In the first e
 Typically, we must scale the vector field to control geometric distortion. Too small a distortion may not be visible, while too large a distortion can cause the structure to turn inside out or selfintersect. In such a case the viewer of the visualization is likely to lose context, and the visualization will become ineffective.
 
 \subsection{Displacement Plots}
+\label{subsec:displacement_plots}
 
 Vector displacement on the surface of an object can be visualized with displacement plots. A displacement plot shows the motion of an object in the direction perpendicular to its surface. The object motion is caused by an applied vector field. In a typical application the vector field is a displacement or strain field.
 
@@ -754,6 +756,7 @@ where $x$ is proportional to the fluid velocity in the fluid ring, $y$ and $z$z 
 
 Certainly these equations are not in the implicit form of Equation \ref{eq:6.11}, so how do we visualize them? Our solution is to treat the variables x, y, and z as the coordinates of a three-dimensional space, and integrate Equation \ref{eq:6.16} to generate the system ``trajectory'', that is, the state of the system through time. The integration is carried out within a volume and scalars are created by counting the number of times each voxel is visited. By integrating long enough, we can create a volume representing the ``surface'' of the strange attractor, Figure \ref{fig:Figure6-25}. The surface of the strange attractor is extracted by using marching cubes and a scalar value specifying the number of visits in a voxel.
 
+
 \subsection{Implicit Modelling}
 \label{subsec:implicit_modelling}
 
@@ -894,6 +897,8 @@ We can easily make multiple planar cuts through a structured grid dataset by spe
 \end{figure}
 
 This example illustrates that cutting the volumetric data in a structured grid dataset produced polygonal cells. Similarly, cutting polygonal data produces lines. Using a single plane equation, we can extract ``contour lines'' from a surface model defined with polygons. Figure \ref{fig:Figure6-33} shows contours extracted from a surface model of the skin. At each vertex in the surface model we evaluate the equation of the plane and $F(x.y.z) = c$ and store the valuec of the function as a scalar value. Cutting the data with $46$ isovalues from $1.5$ to $136.5$ produces contour lines that are $3$ units apart.
+
+
 
 \section{Putting It All Together}
 
