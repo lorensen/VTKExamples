@@ -29,7 +29,7 @@ Maybe useful for producing the drawings.
 
 1. When starting a chapter, copy the relevant figures across from `src/VTKBook/Figures` into `src/VTKLaTex/Figures`. After that just add figures into `src/VTKLaTex/Figures`.
 
-2. Do the bibliography at the end of the chapter using JabRef (load the existing Bibliography.tex first) and then do the Bibliographic Notes section to confirm all references are correct.
+2. Do the bibliography at the end of the chapter using JabRef (load the existing `Bibliography.bib` first) and then do the Bibliographic Notes section to confirm all references are correct.
 
 3. Where examples exist in https://lorensen.github.io/VTKExamples/site/VTKBookFigures/ these are added to  `src/VTKLaTex/Figures` and  `src/VTKLaTex/Figures/ReadMe.md` is updated with the figure name and the path to the testing image. The intent is to create a script to ensure the figures are in sync with the testing images.
 
