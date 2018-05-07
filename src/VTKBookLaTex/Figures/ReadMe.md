@@ -65,6 +65,7 @@ List of files and original paths:
 | Figure9-4a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestExponentialCosine.png |
 | Figure9-4b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestWarpCombustor.png |
 | Figure9-10c.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCreateBFont.png |
+| Figure9-12d.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestOfficeTube.png |
 | | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |

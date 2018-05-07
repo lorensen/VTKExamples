@@ -171,6 +171,177 @@ Figure \ref{fig:Figure9-10} shows a scanned image that is first converted to a q
 
 \section{Vector Algorithms}
 
+In Chapter 6: \nameref{chap:fundamental_algorithms} we showed how to create simple vector glyphs and how to integrate particles through a vector field to create streamlines. In this section we extend these concepts to create streamribbons and streampolygons. In addition, we introduce the concept of vector field topology, and show how to characterize a vector field using topological constructs.
+
+\subsection{Streamribbons and Streamsurfaces}
+
+Streamlines depict particle paths in a vector field. By coloring these lines, or creating local glyphs (such as dashed lines or oriented cones), we can represent additional scalar and temporal information. However, these techniques can convey only elementary information about the vector field. Local information (e.g., flow rotation or derivatives) and global information (e.g., structure of a field such as vortex tubes) is not represented. Streamribbons and streamsurfaces are two techniques used to represent local and global information.
+
+A natural extension of the streamline technique widens the line to create a ribbon. The ribbon can be constructed by generating two adjacent streamlines and then bridging the lines with a polygonal mesh. This technique works well as long as the streamlines remain relatively close to one another. If separation occurs, so that the streamlines diverge, the resulting ribbon will not accurately represent the flow, because we expect the surface of the ribbon to be everywhere tangent to the vector field (i.e., definition of streamline). The ruled surface connecting two widely separated streamlines does not generally satisfy this requirement.
+
+The streamribbon provides information about important flow parameters: the vector vorticity and flow divergence. \emph{Vorticity} $\Omega$ is the measure of rotation of the vector field, expressed as a vector quantity: a direction (axis of rotation) and magnitude (amount of rotation). \emph{Streamwise vorticity} $\Omega$ is the projection of $\overrightarrow{\omega}$ along the instantaneous velocity vector, $\overrightarrow{v}$. Said another way, streamwise vorticity is the rotation of the vector field around the streamline defined as follows.
+
+\begin{equation}\label{eq:9.3}
+\Omega = \frac{\overrightarrow{v\ } \cdot \overrightarrow{\omega\ }}{\vert \overrightarrow{v\ } \vert \vert \overrightarrow{\omega\ } \vert}
+\end{equation}
+\myequations{Streamwise vorticity.}
+
+The amount of twisting of the streamribbon approximates the streamwise vorticity. Flow divergence is a measure of the "spread" of the flow. The changing width of the streamribbon is proportional to the cross-flow divergence of the flow.
+
+A streamsurface is a collection of an infinite number of streamlines passing through a \emph{base curve}. The base curve, or \emph{rake}, defines the starting points for the streamlines. If the base curve is closed (e.g., a circle) the surface is closed and a streamtube results. Thus, streamribbons are specialized types of streamsurfaces with a narrow width compared to length.
+
+Compared to vector icons or streamlines, streamsurfaces provide additional information about the structure of the vector field. Any point on the streamsurface is tangent to the velocity vector. Consequently, taking an example from fluid flow, no fluid can pass through the surface. Streamtubes are then representations of constant mass flux. Streamsurfaces show vector field structure better than streamlines or vector glyphs because they do not require visual interpolation across icons.
+
+Streamsurfaces can be computed by generating a set of streamlines from a user-specified rake. A polygonal mesh is then constructed by connecting adjacent streamlines. One difficulty with this approach is that local vector field divergence can cause streamlines to separate. Separation can introduce large errors into the surface, or possibly cause self-intersection, which is not physically possible.
+
+Another approach to computing streamsurfaces has been taken by Hultquist \cite{Hultquist92}. The streamsurface is a collection of streamribbons connected along their edges. In this approach, the computation of the streamlines and tiling of the streamsurface is carried out concurrently. This allows streamlines to be added or removed as the flow separates or converges. The tiling can also be controlled to prevent the generation of long, skinny triangles. The surface may also be ``torn'', i.e., ribbons separated, if the divergence of the flow becomes too high.
+
+\subsection{Stream Polygon}
+
+he techniques described so far provide approximate measures of vector field quantities such as streamwise vorticity and divergence. However, vector fields contain more information than these techniques can convey. As a result, other techniques have been devised to visualize this information. One such technique is the stream polygon \cite{Schroeder91}, which serves as the basis for a number of advanced vector and tensor visualization methods. The stream polygon is used to visualize local properties of strain, displacement, and rotation. We begin by describing the effects of a vector field on the local state of strain.
+
+Nonuniform vector fields give rise to local deformation in the region where they occur. If the vector field is displacement in a physical medium such as a fluid or a solid, the deformation consists of local strain (i.e., local distortion) and rigid body motion. To mathematically describe the deformation, we examine a 3D vector $\overrightarrow{v\ } = (u, v, w)$ at a specified point $x = (x, y, z)$. Using a first order Taylor's series expansion about $\overrightarrow{x\ }$, we can express the local deformation $e_ij$ as
+
+\begin{equation}\label{eq:9.4}
+e_{ij} = \epsilon_{ij} + \omega_{ij}
+\end{equation}
+\myequations{Local deformation.}
+
+where $\epsilon_{ij}$ is the local strain and $\omega_{ij}$ is the local rotation. Note that these variables are expressed as $3 \times 3$ tensors. (Compare this equation to that given in Figure \ref{fig:Figure6-20}. Note that this equation and the following Equation \ref{eq:9.5} differ in their off-diagonal terms by a factor of $1/2$. This is because Figure \ref{fig:Figure6-20} expresses engineering shear strain which is used in the study of elasticity. Equation \ref{eq:9.5} expresses a tensor quantity and is mathematically consistent.)
+
+The local strain is expressed as a combination of the partial derivatives at $\overrightarrow{x\ }$ as follows.
+
+\begin{equation}\label{eq:9.5}
+\mathbf{\epsilon} = \left(
+\begin{array}{c c c}
+  \dfrac{\partial u}{\partial x} &
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial y} + \dfrac{\partial v}{\partial x}\right) &
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial z} + \dfrac{\partial w}{\partial x}\right) \\ \\
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial y} + \dfrac{\partial v}{\partial x}\right) &
+  \dfrac{\partial v}{\partial y} &
+  \dfrac{1}{2}\left(\dfrac{\partial v}{\partial z} + \dfrac{\partial w}{\partial y}\right) \\ \\
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial z} + \dfrac{\partial w}{\partial x}\right) &
+  \dfrac{1}{2}\left(\dfrac{\partial v}{\partial z} + \dfrac{\partial w}{\partial y}\right) &
+  \dfrac{\partial w}{\partial z}
+\end{array}\right)
+\end{equation}
+\myequations{Local strain.}
+
+The terms on the diagonal of $\epsilon_{ij}$ are the normal components of strain. The off-diagonal terms are the shear strain. The local rigid--body rotation is given by
+
+\begin{equation}\label{eq:9.6}
+\mathbf{\omega} = \left(
+\begin{array}{c c c}
+  0 &
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial y} - \dfrac{\partial v}{\partial x}\right) &
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial z} - \dfrac{\partial w}{\partial x}\right) \\ \\
+  \dfrac{1}{2}\left(\dfrac{\partial v}{\partial x} - \dfrac{\partial u}{\partial y}\right) &
+  0 &
+  \dfrac{1}{2}\left(\dfrac{\partial v}{\partial z} - \dfrac{\partial w}{\partial y}\right) \\ \\
+  \dfrac{1}{2}\left(\dfrac{\partial w}{\partial x} - \dfrac{\partial u}{\partial z}\right) &
+  \dfrac{1}{2}\left(\dfrac{\partial w}{\partial y} - \dfrac{\partial v}{\partial z}\right) &
+  0
+\end{array}\right)
+\end{equation}
+\myequations{Local rigid--body rotation.}
+
+Equation \ref{eq:9.6} can also be represented using tensor notation as
+
+\begin{equation}\label{eq:9.7}
+\omega_{ij} = -\dfrac{1}{2}\sum_{k} \epsilon_{ijk}\, \omega_{k}
+\end{equation}
+\myequations{Local deformation.}
+
+where $\overrightarrow{\omega\ }$ is the vorticity vector referred to in the previous section. The vorticity, or local rigid body rotation is then
+
+\begin{equation}\label{eq:9.8}
+\overrightarrow{\omega\ } = \left(
+\begin{array}{c}
+\dfrac{\partial w}{\partial y} - \dfrac{\partial v}{\partial z} \\ \\
+\dfrac{\partial u}{\partial z} - \dfrac{\partial w}{\partial x} \\ \\
+\dfrac{\partial v}{\partial x} - \dfrac{\partial u}{\partial y}
+\end{array}
+\right)
+\end{equation}
+\myequations{Vorticity vector.}
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-11a}
+		\captionsetup{justification=centering}
+		\caption{Normal strain}
+		\label{fig:Figure9-11a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-11b}
+		\captionsetup{justification=centering}
+		\caption{Shear strain}
+		\label{fig:Figure9-11b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-11c}
+		\captionsetup{justification=centering}
+		\caption{Rotation}
+		\label{fig:Figure9-11c}
+	\end{subfigure}
+	\hfill
+		\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-11d}
+		\captionsetup{justification=centering}
+		\caption{Total deformation}
+		\label{fig:Figure9-11d}
+	\end{subfigure}
+	\caption{Components of local deformation due to vector field. Dotted line shows initially undeformed object.}\label{fig:Figure9-11}
+\end{figure}
+
+For the reader unfamiliar with tensor notation, this presentation is certainly less than complete. However, the matrices in Equation \ref{eq:9.5} and Equation \ref{eq:9.6} directly translate into visual form, which will help clarify the concepts presented here. Referring to Figure \ref{fig:Figure9-11}, the normal strain, shear strain, and rigid body motion create distinct deformation modes. These modes combine to produce the total deformation. Modes of normal strain cause compression or extension in the direction perpendicular to a surface, while shear strains cause angular distortions. These strains combined with rigid body rotation around an axis yield the total strain at a point.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-12a}
+		\captionsetup{justification=centering}
+		\caption{Planar view}
+		\label{fig:Figure9-12a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-12b}
+		\captionsetup{justification=centering}
+		\caption{Normal to vector}
+		\label{fig:Figure9-12b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-12c}
+		\captionsetup{justification=centering}
+		\caption{Placed along streamline}
+		\label{fig:Figure9-12c}
+	\end{subfigure}
+	\hfill
+		\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-12d}
+		\captionsetup{justification=centering}
+		\caption{Stream tube(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/OfficeTube/}{OfficeTube.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/OfficeTube/}{OfficeTube.py})}
+		\label{fig:Figure9-12d}
+	\end{subfigure}
+	\caption{The stream polygon. (a) Planar view. (b) Aligned with vector. (c) Aligned along streamline. (d) Sweeping polygon to form tube.}\label{fig:Figure9-12}
+\end{figure}
+
+The essence of the stream polygon technique is to show these modes of deformation. A regular \emph{n}--sided polygon (Figure \ref{fig:Figure9-12}) is placed into a vector field at a specified point and then deformed according to the local strain. The components of strain may be shown separately or in combination. The orientation of the normal of the polygon is arbitrary. However, it is convenient to align the normal with the local vector. Then the rigid body rotation about the vector is the streamwise vorticity, and the effects of normal and shear strain are in the plane perpendicular to a streamline passing through the point.
+
+The stream polygon offers other interesting possibilities. The stream polygon may be swept along a trajectory, typically a streamline, to generate tubes. The radius of the tube $r$ can be modified according to some scalar function. One application is to visualize fluid flow. In incompressible flow with no shear, the radius of the tube can vary according to the scalar function vector magnitude. Then the equation
+
+\begin{equation}\label{eq:9.9}
+r(\overrightarrow{v\ }) = r_\text{max} \sqrt{\dfrac{\vert\overrightarrow{v}_\text{min}\vert}{\vert\overrightarrow{v\ }\vert}}
+\end{equation}
+\myequations{Area of constant mass flow.}
+
+represents an area of constant mass flow. As a result, the tube will thicken as the flow slows and narrow as the velocity increases. Each of the \emph{n} sides of the tube can be colored with a different scalar function, although for visual clarity, at most, one or two functions should be used.
+
+The streamtubes generated by the streampolygon and the streamtubes we described in the previous section are not the same. The streampolygon does not necessarily lie along a streamline. If it does, the streampolygon represents information at a point, while the streamtube is an approximation constructed from multiple streamlines. Also, the radial variation in the tubes constructed from streampolygon sweeps do not necessarily relate to mass flow since the radius in a streampolygon can be tied to an arbitrary scalar variable.
+
 \subsection{Vector Field Topology}
 
 \begin{figure}[htb]
