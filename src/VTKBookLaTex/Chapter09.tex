@@ -689,7 +689,6 @@ Figure \ref{fig:Figure9-21}(left) shows triangle strips each of 390 triangles in
 
 Intercell connectivity is a topological property of datasets. Cells are topologically connected when they share boundary features such as points, edges, or faces (Figure \ref{fig:Figure9-22}). Connectivity is useful in a number of modeling applications, particularly when we want to separate out ``parts'' of a dataset.
 
-
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.98\textwidth]{Figure9-23}
@@ -746,14 +745,14 @@ To orient edges consistently we use a recursive neighbor traversal. An initial p
 	\begin{subfigure}[h]{0.48\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-25a}
 		\captionsetup{justification=centering}
-		\caption{Feature edge)}
+		\caption{Feature edge}
 		\label{fig:Figure9-25a}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.48\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-25b}
 		\captionsetup{justification=centering}
-		\caption{Exagerated splitting of feature edge}
+		\caption{Exaggerated splitting of feature edge}
 		\label{fig:Figure9-25b}
 	\end{subfigure}
 	\caption{Computing feature angles (a) and splitting edges (b).}\label{fig:Figure9-25}
@@ -767,12 +766,261 @@ Figure \ref{fig:Figure9-24a}(right) shows the result of the advanced normal gene
 
 \subsection{Decimation}
 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Figure9-26}
+	\caption{Overview of decimation algorithm.}
+	\label{fig:Figure9-26}
+\end{figure}
+
+Various data compression techniques have been developed in response to large data size. The UNIX utilities \texttt{compress/uncompress} and the PC utility \texttt{zip} compress data files. The MPEG compression algorithm compresses video sequences. These techniques may be loss--less, meaning that no data is lost between the compression/decompression steps, or lossy, meaning that data is lost during compression. The utilities \texttt{compress/uncompress} and \texttt{zip} are loss-less, while MPEG is lossy.
+
+In graphics, data compression techniques have been developed as well. The subsampling methods we saw earlier in this chapter are an example of simple data compression techniques for visualization data. Another emerging area of graphics data compression is polygon reduction techniques.
+
+Polygon reduction techniques reduce the number of polygons required to model an object. The size of models, in terms of polygon count, has grown tremendously over the last few years. This is because many models are created using digital measuring devices such as laser scanners or satellites. These devices can generate data at tremendous rates. For example, a laser digitizer can generate on the order of 500,000 triangles in a 15--second scan. Visualization algorithms such as marching cubes also generate large numbers of polygons: one to three million triangles from a $512^3$ volume is typical.
+
+One polygon reduction technique is the decimation algorithm \cite{Schroeder92a}. The goal of the decimation algorithm is to reduce the total number of triangles in a triangle mesh, preserving the original topology and forming a good approximation to the original geometry. A triangle mesh is a special form of a polygonal mesh, where each polygon is a triangle. If need be, a polygon mesh can be converted to a triangle mesh using standard polygon triangulation methods.
+
+Decimation is related to the subsampling technique for unstructured meshes described in Figure \ref{fig:Figure9-17b}. The differences are that
+
+\begin{itemize}
+
+\item decimation treats only triangle meshes not arbitrary unstructured grids;
+
+\item the choice of which points to delete is a function of a decimation criterion, a measure of the local error introduced by deleting a point; and
+
+\item the triangulation of the hole created by deleting the point is carried out in a way as to preserve edges or other important features.
+
+\end{itemize}
+
+Decimation proceeds by iteratively visiting each point in a triangle mesh. For each point, three basic steps are carried out (Figure \ref{fig:Figure9-26}). The first step classifies the local geometry and topology in the neighborhood of the point. The classification yields one of the five categories shown in the figure: simple, boundary, complex, edge, and corner point. Based on this classification, the second step uses a local error measure (i.e., the decimation criterion) to determine whether the point can be deleted. If the criterion is satisfied, the third step deletes the point (along with associated triangles), and triangulates the resulting hole. A more detailed description of each of these steps and example applications follow.
+
 \begin{description}
-	\item[Triangulation.] \label{subsec:decimation.triangulation} After deleting a point, the resulting hole must be retriangulated.
+
+\item[Point Classification.] The first step of the decimation algorithm characterizes the local geometry and topology for a given point. The outcome of classification determines whether the vertex is a potential candidate for deletion, and if it is, which criteria to use.
+
+Each point may be assigned one of five possible classifications: simple, complex, boundary, interior edge, or corner vertex. Examples of each type are shown in Figure \ref{fig:Figure9-26}.
+
+A \emph{simple point} is surrounded by a complete cycle of triangles, and each edge that uses the point is used by exactly two triangles. If the edge is not used by two triangles, or if the point is used by a triangle not in the cycle of triangles, then the point is \emph{complex}. These are nonmanifold cases.
+
+A point that is on the boundary of a mesh, that is, within a semicycle of triangles, is a \emph{boundary point}.
+
+A \emph{simple point} can be further classified as an \emph{interior edge} or \emph{corner point}. These classifications are based on the local mesh geometry. If the surface normal angle between two adjacent triangles is greater than a specified \emph{feature angle}, then a \emph{feature edge} exists (see Figure \ref{fig:Figure9-25a}). When a point is used by two feature edges, the point is an interior edge point. If one, three, or more feature edges use the point, the point is a \emph{corner point}.
+
+Complex and corner vertices are not deleted from the triangle mesh; all other vertices become candidates for deletion.
+
+\item[Decimation Criterion.] Once we have a candidate point for deletion, we estimate the error that would result by deleting the point and then replacing it (and its associated triangles) with another triangulation. There are a number of possible error measures; but the simplest are based on distance measures of local planarity or local colinearity (Figure \ref{fig:Figure9-26}).
+
+In the local region surrounding a simple point, the mesh is considered nearly ``flat'', since there are by definition no feature edges. Hence, simple points use an error measure based on distance to plane. The plane passing through the local region can be computed either using a leastsquares plane or by computing an area-averaged plane.
+
+Points classified as boundary or interior edge are considered to lay on an edge, and use a distance to edge error measure. That is, we compute the distance that the candidate point is from the new edge formed during the triangulation process.
+
+A point satisfies the decimation criterion \emph{d} if its distance measure is less than \emph{d}. The point can then be deleted. All triangles using the point are deleted as well, leaving a ``hole'' in the mesh. This hole is patched using a local triangulation process.
+
+\item[Triangulation.] \label{subsec:decimation.triangulation} After deleting a point, the resulting hole must be retriangulated. Although the hole, defined by a loop of edges, is topologically two dimensional, it is generally non-planar, and therefore general purpose 2D triangulation techniques cannot be used. Instead, we use a special recursive 3D divide-and-conquer technique to triangulate the loop.
+
+Triangulation proceeds as follows. An initial split plane is chosen to divide the loop in half and create two subloops. If all the points in each subloop lie on opposite sides of the plane, then the split is a valid one. In addition, an aspect ratio check insures that the loop is not too long and skinny, thereby resulting in needle-like triangles. The aspect ratio is the ratio between the length of the split line to the minimum distance of a point in the subloop to the split plane. If the candidate split plane is not valid or does not satisfy the aspect ratio criterion, then another candidate split plane is evaluated. Once a split plane is found, then the subdivision of each subloop continues recursively until a subloop consists of three edges. In this case, the subloop generates a triangle and halts the recursion.
+
+Occasionally, triangulation fails because no split plane can be found. In this case, the candidate point is not deleted and the mesh is left in its original state. This poses no problem to the algorithm and decimation continues by visiting the next point in the dataset.
+
+\item[Results.] Typical compression rates for the decimation algorithm range from 2:1 to 100:1, with 10:1 a nominal figure for `large` (i.e., $10^5$ triangles) datasets. The results vary greatly depending upon the type of data. CAD models typically reduce the least because these models have many sharp  edges and other detailed features, and the CAD modellers usually produce minimal triangulations. Terrain data, especially if relatively flat regions are present, may reduce at rates of 100:1.
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-27a}
+		\captionsetup{justification=centering}
+		\caption{Decimation of laser digitizer data (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/DecimateFran/}{DecimateFran.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/DecimateFran/}{DecimateFran.py})}
+		\label{fig:Figure9-27a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-27b}
+		\captionsetup{justification=centering}
+		\caption{Decimation of laser digitizer data (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/DecimateHawaii/}{DecimateHawaii.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/DecimateHawaii/}{DecimateHawaii.py})}
+		\label{fig:Figure9-27b}
+	\end{subfigure}
+	\caption{Examples of decimation algorithm. Triangle meshes are shown in wireframe.}\label{fig:Figure9-27}
+\end{figure}
+
+Figure \ref{fig:Figure9-27} shows two applications of decimation to laser digitized data and to a terrain model of Honolulu, Hawaii. In both cases the reduction was on the order of 90 percent for a 10:1 compression ratio. Wireframe images are shown to accentuate the density of the polygonal meshes. The left-hand image in each pair is the original data; the right-hand image is the decimated mesh.
+
+Notice the gradations in the decimated mesh around features of high curvature. The advantage of decimation, as compared to subsampling techniques, is that the mesh is adaptively modified to retain more details in areas of high curvature.
+
+\item[Advanced Techniques.] Polygon reduction is an active field of research. Many powerful algorithms beyond the decimation algorithm have been presented (see ``Bibliographic Notes'' on page  \pageref{sec:bibliographic_notes.ch09}) in this Chapter). Although we cannot cover the field in its entirety in this section, there are two notable trends worth addressing. First, progressive schemes \cite{Hoppe96} allow incremental transmission and reconstruction of triangle meshes --- this is especially important for Web-based geometry visualization. Second, recent algorithms modify the topology of the mesh \cite{He96} \cite{Popovic97} \cite{Schroeder97}. This feature is essential towards obtaining arbitrary levels of mesh reduction.
+
+A \emph{progressive mesh} is a series of triangle meshes $M_i$i related by the operations
+
+\begin{equation}\label{eq:9.14}
+\left(\hat{M} = M^n \right) \to M^{n - 1} \to \ldots \to M^1 \to M^0
+\end{equation}
+\myequations{Progressive mesh operations.}
+
+where $\vec{M}$ and $M^n$ represent the mesh at full resolution, and $M^0$ is a simplified base mesh. The critical characteristic of progressive meshes is that is possible to choose the mesh operations in such a way to make them invertible. Then the operations can be applied in reverse order (starting with the base mesh $M^0$)
+
+\begin{equation}\label{eq:9.15}
+M^0 \to M^1 \to \ldots \to M^{n - 1} \to M^n
+\end{equation}
+\myequations{Progressive mesh operations (reverse order).}
+
+to obtain a mesh of desired reduction level (assuming that the reduction level is less than the base mesh $M^0$).
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-28a}
+		\captionsetup{justification=centering}
+		\caption{A edge collapse and split}
+		\label{fig:Figure9-28a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-28b}
+		\captionsetup{justification=centering}
+		\caption{A vertex split and merge}
+		\label{fig:Figure9-28b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-28c}
+		\captionsetup{justification=centering}
+        \caption{Vertex splits applied to various features. Darker lines indicate feature edges.}
+		\label{fig:Figure9-28c}
+	\end{subfigure}
+	\caption{Examples of decimation algorithm. Triangle meshes are shown in wireframe.}\label{fig:Figure9-28}
+\end{figure}
+
+One such invertible operator is an edge collapse and its inverse is the edge split shown in Figure \ref{fig:Figure9-28a}). Each collapse of an interior mesh edge results in the elimination of two triangles (or one triangle if the collapsed vertex is on a boundary). The operation is represented by five values
+
+\begin{equation}\label{eq:9.16}
+\text{Edge Collapse/Split}(v_s, v_t, v_\ell, v_r, A)
+\end{equation}
+\myequations{Edge collapse/split.}
+
+where $v_s$ is the vertex to collapse/split, $v_t$ is the vertex being collapsed to / split from, and $v_l$ and $v_r$ are two additional vertices to the left and right of the split edge. These two vertices in conjunction with $v_s$ and $v_t$ define the two triangles deleted or added. A represents vertex attribute information, which at a minimum contains the coordinates x of the collapsed / split vertex $v_s$. (Note: in the context of the decimation algorithm, the edge collapse operator replaces the recursive triangulation process.)
+
+While progressive meshes allow us to compactly store and transmit triangle meshes, the problem remains that the size of the base mesh is often larger than desired reduction level. Since in some applications we wish to realize any given level, we want the base mesh to contain no triangles
+
+\begin{equation}\label{eq:9.17}
+\left(\hat{M} = M^n \right) \to M^{n - 1} \to \ldots \to M^1 \to \left(M^0 = M(V, \varnothing)\right)
+\end{equation}
+\myequations{Edge collapse/split.}
+
+(some vertices are necessary to initiate the edge split operations). To address this problem, the invertible edge collapse/split operator --- which is topology preserving --- is extended with a vertex split/merge operator. The vertex split/merge operator modifies the topology of the mesh and allows arbitrary levels of reduction.
+
+A mesh split occurs when we replace vertex $v_s$ with vertex $v_t$ in the connectivity list of one or more triangles that originally used vertex $v_s$ (Figure \ref{fig:Figure9-28b}). The new vertex $v_t$ is given exactly the same coordinate value as vs. Splits introduce a ``crack'' or ``hole'' into the mesh. We prefer not to split the mesh, but at high decimation rates this relieves topological constraint and enables further decimation. Splitting is only invoked when a valid edge collapse is not available, or when a vertex cannot be triangulated (e.g., a nonmanifold vertex). Once the split operation occurs, the vertices $v_s$ and $v_t$ are re-inserted into the priority queue.
+
+Different splitting strategies are used depending on the classification of the vertex (Figure \ref{fig:Figure9-28c}). Interior edge vertices are split along the feature edges, as are corner vertices.
+
+Nonmanifold vertices are split into separate manifold pieces. In any other type of vertex splitting occurs by arbitrarily separating the loop into two pieces. For example, if a simple vertex cannot be deleted because a valid edge collapse is not available, the loop of triangles will be arbitrarily divided in half (possibly in a recursive process).
+
+Like the edge collapse/split, the vertex split/merge can also be represented as a compact operation. A vertex split/merge operation can be represented with four values
+
+\begin{equation}\label{eq:9.18}
+\text{Vertex Split/Merge}(v_s, v_t, v_l, v_r)
+\end{equation}
+\myequations{Vertex split/merge.}
+
+The vertices $v_l$ and $v_r$ define a sweep of triangles (from $v_r$ to $v_l$ ) that are to be separated from the original vertex vs (we adopt a counter--clockwise ordering convention to uniquely define the sweep of triangles).
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29a}
+		\captionsetup{justification=centering}
+		\caption{Original model \\ 2,624 triangles}
+		\label{fig:Figure9-29a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29b}
+		\captionsetup{justification=centering}
+		\caption{Shortly after splitting \\ 157 triangles}
+		\label{fig:Figure9-29b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29c}
+		\captionsetup{justification=centering}
+        \caption{Final model \\ 4 triangles.}
+		\label{fig:Figure9-29c}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29d}
+		\captionsetup{justification=centering}
+		\caption{Original model \\ 11,006 triangles}
+		\label{fig:Figure9-29d}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29e}
+		\captionsetup{justification=centering}
+		\caption{Reduction 50\% \\ 5518 triangles}
+		\label{fig:Figure9-29e}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29f}
+		\captionsetup{justification=centering}
+        \caption{Reduction 98\% \\ 220 triangles}
+		\label{fig:Figure9-29f}
+	\end{subfigure}
+	\caption{ Results of topology modifying progressive mesh algorithm.}\label{fig:Figure9-29}
+\end{figure}
+
+Figure \ref{fig:Figure9-29} shows the results of applying the topology modifying progressive mesh algorithm to two sets of data. In Figure \ref{fig:Figure9-29}(a-c), a thin plate with holes is decimated (the darker lines show split edges). The middle image in the sequence shows the limits of topology on the algorithm. It is only when the topology of the mesh is allowed to be modified that the final level of reduction is possible. Figure \ref{fig:Figure9-29}(d-f) shows the same algorithm applied to CAD data.
+
 \end{description}
+
+\clearpage
 
 \subsection{Mesh Smoothing}
 \label{subsec:mesh_smoothing}
+
+Mesh smoothing is a technique that adjusts the point coordinates of a dataset. The purpose of mesh smoothing is to improve the appearance of a mesh, and/or improve the shape of dataset cells. During smoothing the topology of the dataset is not modified, only the geometry. Applications of mesh smoothing include improving the appearance of isosurfaces, or as a modelling tool to remove surface noise. The appearance of models can be dramatically improved by applying mesh smoothing. Figure \ref{fig:Figure9-30} is an example of smoothing applied to analytic surface (a semicylinder) with a random surface distortion (\texttt{smoothCyl.tcl}).
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Figure9-30}
+	\caption{Mesh smoothing applied to a semicylinder. Lower left image is the original model. On the \emph{x}--axis the number of smoothing iterations is modified. On the  \emph{y}--axis the relaxation factor is modified.}
+	\label{fig:Figure9-30}
+\end{figure}
+
+A simple, yet effective technique is Laplacian smoothing. The Laplacian smoothing equation for a point $p_i$ at position $x_i$ is given by
+
+\begin{equation}\label{eq:9.19}
+\overrightarrow{x\ }_{i+1} = \overrightarrow{x\ }_i + \lambda \overrightarrow{V\ }(i, j) = \overrightarrow{x\ }_i + \lambda \sum_{j = 0}^{n}\overrightarrow{x\ }_j - \overrightarrow{x\ }_i
+\end{equation}
+\myequations{Laplacian smoothing.}
+
+where $x_i + 1$ is the new coordinate position, and $x_j$ are the positions of points $p_j$ ``connected'' to $p_i$, and $\lambda$ is a user-specified weight. Geometrically this relation is depicted in Figure \ref{fig:Figure9-31a}. Here the vertex $p_i$ is connected to the surrounding points $p_j$ via edges. The equation expresses that the new position $x_i + 1$ is offset from the original position $x_i$ plus the average vector $\overrightarrow{V\ }_{ij}$ multiplied by $\lambda$. Typically, the factor $\lambda$ is a small number (e.g., 0.01), and the process is executed repeatedly (e.g., 50-100 iterations). Notice that the overall effect of smoothing is to reduce the high frequency surface information. The algorithm will reduce surface curvature and tend to flatten the surface.
+
+\begin{figure}[!htb]
+    \thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.32\textwidth}
+    \fcapside[\FBwidth]
+    {%
+      \begin{subfloatrow}
+        \ffigbox[0.32\textwidth]{\caption{}\label{fig:Figure9-31a}
+          \centering
+          \includegraphics[width=\linewidth]{Figure9-31a}}{}
+        \ffigbox[0.32\textwidth]{\caption{}\label{fig:Figure9-31b}
+          \centering
+          \includegraphics[width=\linewidth]{Figure9-31b}}{}
+      \end{subfloatrow}
+    }{\caption {Mesh smoothing. (a) Motion of point. (b) Smoothing a point on an edge. Bold lines indicate connectivity.\label{fig:Figure9-31}}}
+\end{figure}
+
+
+Besides adjusting the number of iterations and smoothing factor, smoothing can be controlled by modifying the connections between $p_i$ and its surrounding points $p_j$. For example, if $p_i$ lies along a fold or sharp edge in the mesh, we may want to only use the two edge end points to compute the smoothing vector $\overrightarrow{V}_{ij}$, limiting the motion of $p_i$ along the edge (Figure \ref{fig:Figure9-31b}). We can also anchor $p_i$ to prevent any motion. Anchoring is useful for points that are located on ``corners'' or other special features such as nonmanifold attachments. One benefit of anchoring and controlling point connectivity is that we can limit the amount of shrinkage in the mesh. It also tends to produce better overall results. (In Figure \ref{fig:Figure9-30} the boundary points of the surface are constrained to move along the boundary, while the points at sharp corners are anchored.)
+
+Although Laplacian smoothing works well in most cases, there are applications of Laplacian smoothing that can badly damage the mesh. Large numbers of smoothing iterations, or large smoothing factors, can cause excessive shrinkage and surface distortion. Some objects, like spheres or the cylinder shown in Figure \ref{fig:Figure9-30}, will lose volume with each iteration, and can even shrink to a point. In rare cases it is possible for the mesh to pull itself ``inside-out''. Situations like this occur when the average vector moves $p_i$ across a mesh boundary, causing some of the attached triangles to overlap or intersect.
+
+Mesh smoothing is particularly useful when creating models that do not require high accuracy. As we have seen, smoothing modifies point coordinates and, therefore, surface geometry. Use smoothing to improve the appearance of models, but characterize error carefully if you are going to measure from a smoothed surface. Alternatively, you may want to design your own smoothing algorithms that better fit the underlying data.
+
+\clearpage
+
+\subsection{Swept Volumes and Surfaces}
 
 \subsection{Visualizing Unstructured Points}
 \label{subsec:visualizing_unstructured_points}
@@ -801,7 +1049,8 @@ Multidimensional visualization techniques focus on data that has many scalar dat
 
 Texture algorithms use texture coordinates and texture maps to select or highlight portions of a dataset. Texture thresholding assigns texture coordinates based on a scalar value. The scalar value and texture map determine how a cell or portion of a cell is rendered. Boolean textures extend this concept to 2D and 3D. Careful design of a boolean texture map permits the ``clipping'' of geometry with combinations of implicit surfaces. Texture can also be used to animate vector fields.
 
-\section{ Bibliographic Notes}
+\section{Bibliographic Notes}
+\label{sec:bibliographic_notes.ch09}
 
 Dividing cubes is an interesting algorithm because of the possibilities it suggests \cite{Cline88}. Point primitives are extremely simple to render and manipulate. This simplicity can be used to advantage to build accelerated graphics boards, perform 3D editing, or build parallel visualization algorithms.
 
