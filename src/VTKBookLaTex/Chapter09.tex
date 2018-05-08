@@ -102,6 +102,7 @@ F(r) = e^{-r}\cos(10\, r)
 The function values are used to warp the surface while the function derivatives are used to color it. Figure \ref{fig:Figure9-4}(b) shows a carpet plot that visualizes flow energy in a structured grid. Both displacement and color are used to show the energy values. Although this figure is similar to Figure \ref{fig:Figure6-14}(b) there are some important differences. Figure \ref{fig:Figure6-14}(b) displays vector data whereas Figure \ref{fig:Figure9-4}(b) displays scalar data. Figure \ref{fig:Figure9-4}(b) deforms the surface in the direction of surface normal (or possibly a user-defined direction). The vector data (i.e., vector orientation) controls the direction of deformation in Figure \ref{fig:Figure6-14}(b).
 
 \subsection{Clipping With Scalar Fields}
+\label{subsec:clipping_with_scalar_fields}
 
 \begin{figure}[!htb]
     \centering
@@ -171,7 +172,214 @@ Figure \ref{fig:Figure9-10} shows a scanned image that is first converted to a q
 
 \section{Vector Algorithms}
 
+In Chapter 6: \nameref{chap:fundamental_algorithms} we showed how to create simple vector glyphs and how to integrate particles through a vector field to create streamlines. In this section we extend these concepts to create streamribbons and streampolygons. In addition, we introduce the concept of vector field topology, and show how to characterize a vector field using topological constructs.
+
+\subsection{Streamribbons and Streamsurfaces}
+
+Streamlines depict particle paths in a vector field. By coloring these lines, or creating local glyphs (such as dashed lines or oriented cones), we can represent additional scalar and temporal information. However, these techniques can convey only elementary information about the vector field. Local information (e.g., flow rotation or derivatives) and global information (e.g., structure of a field such as vortex tubes) is not represented. Streamribbons and streamsurfaces are two techniques used to represent local and global information.
+
+A natural extension of the streamline technique widens the line to create a ribbon. The ribbon can be constructed by generating two adjacent streamlines and then bridging the lines with a polygonal mesh. This technique works well as long as the streamlines remain relatively close to one another. If separation occurs, so that the streamlines diverge, the resulting ribbon will not accurately represent the flow, because we expect the surface of the ribbon to be everywhere tangent to the vector field (i.e., definition of streamline). The ruled surface connecting two widely separated streamlines does not generally satisfy this requirement.
+
+The streamribbon provides information about important flow parameters: the vector vorticity and flow divergence. \emph{Vorticity} $\Omega$ is the measure of rotation of the vector field, expressed as a vector quantity: a direction (axis of rotation) and magnitude (amount of rotation). \emph{Streamwise vorticity} $\Omega$ is the projection of $\overrightarrow{\omega}$ along the instantaneous velocity vector, $\overrightarrow{v}$. Said another way, streamwise vorticity is the rotation of the vector field around the streamline defined as follows.
+
+\begin{equation}\label{eq:9.3}
+\Omega = \frac{\overrightarrow{v\ } \cdot \overrightarrow{\omega\ }}{\vert \overrightarrow{v\ } \vert \vert \overrightarrow{\omega\ } \vert}
+\end{equation}
+\myequations{Streamwise vorticity.}
+
+The amount of twisting of the streamribbon approximates the streamwise vorticity. Flow divergence is a measure of the "spread" of the flow. The changing width of the streamribbon is proportional to the cross-flow divergence of the flow.
+
+A streamsurface is a collection of an infinite number of streamlines passing through a \emph{base curve}. The base curve, or \emph{rake}, defines the starting points for the streamlines. If the base curve is closed (e.g., a circle) the surface is closed and a streamtube results. Thus, streamribbons are specialized types of streamsurfaces with a narrow width compared to length.
+
+Compared to vector icons or streamlines, streamsurfaces provide additional information about the structure of the vector field. Any point on the streamsurface is tangent to the velocity vector. Consequently, taking an example from fluid flow, no fluid can pass through the surface. Streamtubes are then representations of constant mass flux. Streamsurfaces show vector field structure better than streamlines or vector glyphs because they do not require visual interpolation across icons.
+
+Streamsurfaces can be computed by generating a set of streamlines from a user-specified rake. A polygonal mesh is then constructed by connecting adjacent streamlines. One difficulty with this approach is that local vector field divergence can cause streamlines to separate. Separation can introduce large errors into the surface, or possibly cause self-intersection, which is not physically possible.
+
+Another approach to computing streamsurfaces has been taken by Hultquist \cite{Hultquist92}. The streamsurface is a collection of streamribbons connected along their edges. In this approach, the computation of the streamlines and tiling of the streamsurface is carried out concurrently. This allows streamlines to be added or removed as the flow separates or converges. The tiling can also be controlled to prevent the generation of long, skinny triangles. The surface may also be ``torn'', i.e., ribbons separated, if the divergence of the flow becomes too high.
+
+\subsection{Stream Polygon}
+
+he techniques described so far provide approximate measures of vector field quantities such as streamwise vorticity and divergence. However, vector fields contain more information than these techniques can convey. As a result, other techniques have been devised to visualize this information. One such technique is the stream polygon \cite{Schroeder91}, which serves as the basis for a number of advanced vector and tensor visualization methods. The stream polygon is used to visualize local properties of strain, displacement, and rotation. We begin by describing the effects of a vector field on the local state of strain.
+
+Nonuniform vector fields give rise to local deformation in the region where they occur. If the vector field is displacement in a physical medium such as a fluid or a solid, the deformation consists of local strain (i.e., local distortion) and rigid body motion. To mathematically describe the deformation, we examine a 3D vector $\overrightarrow{v\ } = (u, v, w)$ at a specified point $x = (x, y, z)$. Using a first order Taylor's series expansion about $\overrightarrow{x\ }$, we can express the local deformation $e_ij$ as
+
+\begin{equation}\label{eq:9.4}
+e_{ij} = \epsilon_{ij} + \omega_{ij}
+\end{equation}
+\myequations{Local deformation.}
+
+where $\epsilon_{ij}$ is the local strain and $\omega_{ij}$ is the local rotation. Note that these variables are expressed as $3 \times 3$ tensors. (Compare this equation to that given in Figure \ref{fig:Figure6-20}. Note that this equation and the following Equation \ref{eq:9.5} differ in their off-diagonal terms by a factor of $1/2$. This is because Figure \ref{fig:Figure6-20} expresses engineering shear strain which is used in the study of elasticity. Equation \ref{eq:9.5} expresses a tensor quantity and is mathematically consistent.)
+
+The local strain is expressed as a combination of the partial derivatives at $\overrightarrow{x\ }$ as follows.
+
+\begin{equation}\label{eq:9.5}
+\mathbf{\epsilon} = \left(
+\begin{array}{c c c}
+  \dfrac{\partial u}{\partial x} &
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial y} + \dfrac{\partial v}{\partial x}\right) &
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial z} + \dfrac{\partial w}{\partial x}\right) \\ \\
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial y} + \dfrac{\partial v}{\partial x}\right) &
+  \dfrac{\partial v}{\partial y} &
+  \dfrac{1}{2}\left(\dfrac{\partial v}{\partial z} + \dfrac{\partial w}{\partial y}\right) \\ \\
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial z} + \dfrac{\partial w}{\partial x}\right) &
+  \dfrac{1}{2}\left(\dfrac{\partial v}{\partial z} + \dfrac{\partial w}{\partial y}\right) &
+  \dfrac{\partial w}{\partial z}
+\end{array}\right)
+\end{equation}
+\myequations{Local strain.}
+
+The terms on the diagonal of $\epsilon_{ij}$ are the normal components of strain. The off-diagonal terms are the shear strain. The local rigid--body rotation is given by
+
+\begin{equation}\label{eq:9.6}
+\mathbf{\omega} = \left(
+\begin{array}{c c c}
+  0 &
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial y} - \dfrac{\partial v}{\partial x}\right) &
+  \dfrac{1}{2}\left(\dfrac{\partial u}{\partial z} - \dfrac{\partial w}{\partial x}\right) \\ \\
+  \dfrac{1}{2}\left(\dfrac{\partial v}{\partial x} - \dfrac{\partial u}{\partial y}\right) &
+  0 &
+  \dfrac{1}{2}\left(\dfrac{\partial v}{\partial z} - \dfrac{\partial w}{\partial y}\right) \\ \\
+  \dfrac{1}{2}\left(\dfrac{\partial w}{\partial x} - \dfrac{\partial u}{\partial z}\right) &
+  \dfrac{1}{2}\left(\dfrac{\partial w}{\partial y} - \dfrac{\partial v}{\partial z}\right) &
+  0
+\end{array}\right)
+\end{equation}
+\myequations{Local rigid--body rotation.}
+
+Equation \ref{eq:9.6} can also be represented using tensor notation as
+
+\begin{equation}\label{eq:9.7}
+\omega_{ij} = -\dfrac{1}{2}\sum_{k} \epsilon_{ijk}\, \omega_{k}
+\end{equation}
+\myequations{Local deformation.}
+
+where $\overrightarrow{\omega\ }$ is the vorticity vector referred to in the previous section. The vorticity, or local rigid body rotation is then
+
+\begin{equation}\label{eq:9.8}
+\overrightarrow{\omega\ } = \left(
+\begin{array}{c}
+\dfrac{\partial w}{\partial y} - \dfrac{\partial v}{\partial z} \\ \\
+\dfrac{\partial u}{\partial z} - \dfrac{\partial w}{\partial x} \\ \\
+\dfrac{\partial v}{\partial x} - \dfrac{\partial u}{\partial y}
+\end{array}
+\right)
+\end{equation}
+\myequations{Vorticity vector.}
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-11a}
+		\captionsetup{justification=centering}
+		\caption{Normal strain}
+		\label{fig:Figure9-11a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-11b}
+		\captionsetup{justification=centering}
+		\caption{Shear strain}
+		\label{fig:Figure9-11b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-11c}
+		\captionsetup{justification=centering}
+		\caption{Rotation}
+		\label{fig:Figure9-11c}
+	\end{subfigure}
+	\hfill
+		\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-11d}
+		\captionsetup{justification=centering}
+		\caption{Total deformation}
+		\label{fig:Figure9-11d}
+	\end{subfigure}
+	\caption{Components of local deformation due to vector field. Dotted line shows initially undeformed object.}\label{fig:Figure9-11}
+\end{figure}
+
+For the reader unfamiliar with tensor notation, this presentation is certainly less than complete. However, the matrices in Equation \ref{eq:9.5} and Equation \ref{eq:9.6} directly translate into visual form, which will help clarify the concepts presented here. Referring to Figure \ref{fig:Figure9-11}, the normal strain, shear strain, and rigid body motion create distinct deformation modes. These modes combine to produce the total deformation. Modes of normal strain cause compression or extension in the direction perpendicular to a surface, while shear strains cause angular distortions. These strains combined with rigid body rotation around an axis yield the total strain at a point.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-12a}
+		\captionsetup{justification=centering}
+		\caption{Planar view}
+		\label{fig:Figure9-12a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-12b}
+		\captionsetup{justification=centering}
+		\caption{Normal to vector}
+		\label{fig:Figure9-12b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-12c}
+		\captionsetup{justification=centering}
+		\caption{Placed along streamline}
+		\label{fig:Figure9-12c}
+	\end{subfigure}
+	\hfill
+		\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-12d}
+		\captionsetup{justification=centering}
+		\caption{Stream tube(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/OfficeTube/}{OfficeTube.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/OfficeTube/}{OfficeTube.py})}
+		\label{fig:Figure9-12d}
+	\end{subfigure}
+	\caption{The stream polygon. (a) Planar view. (b) Aligned with vector. (c) Aligned along streamline. (d) Sweeping polygon to form tube.}\label{fig:Figure9-12}
+\end{figure}
+
+The essence of the stream polygon technique is to show these modes of deformation. A regular \emph{n}--sided polygon (Figure \ref{fig:Figure9-12}) is placed into a vector field at a specified point and then deformed according to the local strain. The components of strain may be shown separately or in combination. The orientation of the normal of the polygon is arbitrary. However, it is convenient to align the normal with the local vector. Then the rigid body rotation about the vector is the streamwise vorticity, and the effects of normal and shear strain are in the plane perpendicular to a streamline passing through the point.
+
+The stream polygon offers other interesting possibilities. The stream polygon may be swept along a trajectory, typically a streamline, to generate tubes. The radius of the tube $r$ can be modified according to some scalar function. One application is to visualize fluid flow. In incompressible flow with no shear, the radius of the tube can vary according to the scalar function vector magnitude. Then the equation
+
+\begin{equation}\label{eq:9.9}
+r(\overrightarrow{v\ }) = r_\text{max} \sqrt{\dfrac{\vert\overrightarrow{v}_\text{min}\vert}{\vert\overrightarrow{v\ }\vert}}
+\end{equation}
+\myequations{Area of constant mass flow.}
+
+represents an area of constant mass flow. As a result, the tube will thicken as the flow slows and narrow as the velocity increases. Each of the \emph{n} sides of the tube can be colored with a different scalar function, although for visual clarity, at most, one or two functions should be used.
+
+The streamtubes generated by the streampolygon and the streamtubes we described in the previous section are not the same. The streampolygon does not necessarily lie along a streamline. If it does, the streampolygon represents information at a point, while the streamtube is an approximation constructed from multiple streamlines. Also, the radial variation in the tubes constructed from streampolygon sweeps do not necessarily relate to mass flow since the radius in a streampolygon can be tied to an arbitrary scalar variable.
+
 \subsection{Vector Field Topology}
+
+Vector fields have a complex structure characterized by special features called critical points \cite{Globus91} \cite{Helman91}. Critical points are locations in the vector field where the local vector magnitude goes to zero and the vector direction becomes undefined. At these points the vector field either converges or diverges, and/or local circulation around the point occurs.
+
+Critical points lie in dataset cells where the u, v, and w components of the vector field each pass through zero. These points are located using an iterative search procedure such as the bi-section technique. Each iteration evaluates the cell interpolation function until the zero vector is found. Once a critical point is found, its local behavior is determined from the matrix of partial derivatives.
+
+This is because at the critical point the velocity is zero, and the vector field can be approximated by a first-order expansion of partial derivatives \cite{Helman91}
+
+\begin{equation}\label{eq:9.10}
+\begin{array}{lll}
+u &\simeq& \dfrac{\partial u}{\partial x}\text{d}x
+         + \dfrac{\partial u}{\partial y}\text{d}y
+         + \dfrac{\partial u}{\partial z}\text{d}z \\ \\
+v &\simeq& \dfrac{\partial v}{\partial x}\text{d}x
+         + \dfrac{\partial v}{\partial y}\text{d}y
+         + \dfrac{\partial v}{\partial z}\text{d}z \\ \\
+w &\simeq& \dfrac{\partial w}{\partial x}\text{d}x
+         + \dfrac{\partial w}{\partial y}\text{d}y
+         + \dfrac{\partial w}{\partial z}\text{d}z
+\end{array}
+\end{equation}
+\myequations{Approximation of a vector field.}
+
+The matrix of partial derivatives $J$ can be written in vector notation as $\partial u \partial v \partial w$
+
+\begin{equation}\label{eq:9.11}
+\overrightarrow{u\ } = \mathbf{J}\cdot\text{d}\overrightarrow{x },\quad \text{where} \quad \mathbf{J} = \left(
+\begin{array}{c c c}
+\dfrac{\partial u}{\partial x} & \dfrac{\partial u}{\partial y} & \dfrac{\partial u}{\partial z} \\ \\
+\dfrac{\partial v}{\partial x} & \dfrac{\partial v}{\partial y} & \dfrac{\partial v}{\partial z} \\ \\
+\dfrac{\partial w}{\partial x} & \dfrac{\partial w}{\partial y} & \dfrac{\partial w}{\partial z}
+\end{array}
+\right)
+\end{equation}
+\myequations{The Jacobian.}
+
+and is referred to as the Jacobian. The behavior of the vector field in the vicinity of a critical point is characterized by the eigenvalues of $J$. The eigenvalues consist of an imaginary and real component. The imaginary component describes the rotation of the vector field around the critical point, while the real part describes the relative attraction or repulsion of the vector field to the critical point. In two dimensions the critical points are as shown in Figure\ref{fig:Figure9-13}.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.32\linewidth}
@@ -218,24 +426,601 @@ Figure \ref{fig:Figure9-10} shows a scanned image that is first converted to a q
 	\caption{Critical points in two dimensions. The real part of the eigenvalues ($R_1$, $R_2$) of the matrix of first derivatives control the attraction or repulsion of the vector field. The imaginary part of the eigenvalues ($I_1$, $I_2$) controls the rotation.}\label{fig:Figure9-13}
 \end{figure}
 
+A number of visualization techniques have been developed to construct vector field topology from an analysis of critical points. These techniques provide a global understanding of the field, including points of attachment and detachment and field vortices. Using a fluid flow analogy, points of attachment and detachment occur on the surface of an object where the tangential component of the vector field goes to zero, and the flow is perpendicular to the surface. Thus, streamlines will begin or end at these points. There is no common definition for a vortex, but generally speaking, vortices are regions of relatively concentrated vorticity (e.g., flow rotation). The study of vortices is important because they represent areas of energy loss, or can have significant impact on downstream flow conditions (e.g., trailing vortices behind large aircraft).
+
+One useful visualization technique creates vector field skeletons that divide the vector field into separate regions. Within each region, the vector field is topologically equivalent to uniform flow. These skeletons are created by locating critical points, and then connecting the critical points with streamlines. In 3D vector field analysis this technique can be applied to the surface of objects to locate lines of flow separation and attachment and other important flow features. Also, in general 3D flow, the regions of uniform flow are separated by surfaces, and creation of 3D flow skeletons is a current research topic.
+
+Vortex visualization is another area of current research. One technique computes the \emph{helicitydensity}
 
 \begin{equation}\label{eq:9.12}
 H_d = \overrightarrow{v\ } \cdot \overrightarrow{w\ } = \vert \overrightarrow{v\ } \vert \vert \overrightarrow{w\ } \vert \cos(\phi)
 \end{equation}
 \myequations{Scalar function of the vector dot product. }
 
+This is a scalar function of the vector dot product between the vorticity and the local vector. Large positive values of $H_d$ result in right-handed vortices, while large negative values indicate lefthanded vortices. Helicity-density can be conveniently shown using isosurfaces, which gives an indication for the location and structure of a vortex.
+
 \section{Tensor Algorithms}
+
+In Chapter 6: \nameref{chap:fundamental_algorithms} we saw that $3 \times 3$ real symmetric tensors can be characterized by the eigenvalues and eigenvectors of the tensor. Recall that we can express the eigenvectors of the system as
+
+\begin{equation}\label{eq:9.13}
+\overrightarrow{v\ } = \sum_i \lambda_i \overrightarrow{e\ }_i
+\end{equation}
+\myequations{Eigenvalues of a system. }
+
+where $\overrightarrow{e\ }_i$ is a unit vector in the direction of the eigenvalue, and $\lambda_i$ are the eigenvalues. Thus, we can decompose a  $3 \times 3$ real symmetric tensor field into three vector fields, each field defined by one of the three eigenvectors described in Equation \ref{eq:9.13}. We call these vector fields \emph{eigenfields}, since they are derived from the eigenvectors of the tensor field.
+
+Decomposition of the tensor field in this fashion provides additional insight into visualizing $3 \times 3$ real symmetric tensors. We can directly use the vector field visualization techniques presented previously or use variations of them. One such technique is a novel extension of the streampolygon technique, the method of \emph{hyperstreamlines}.
+
+\subsection{Hyperstreamlines}
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.66\linewidth]{Figure9-14a}
+		\captionsetup{justification=centering}
+		\caption{Ellipse definition}
+		\label{fig:Figure9-14a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-14b}
+		\captionsetup{justification=centering}
+		\caption{Ellipse swept to create tube}
+		\label{fig:Figure9-14b}
+	\end{subfigure}
+	\caption{Creation of hyperstreamlines. An ellipse is swept along a streamline of the eigenfield. Major/minor axes of the ellipse are controlled by the other two eigenvectors.}\label{fig:Figure9-14}
+\end{figure}
+
+Hyperstreamlines are constructed by creating a streamline through one of the three eigenfields, and then sweeping a geometric primitive along the streamline \cite{Delmarcelle93}. Typically, an ellipse is used as the geometric primitive, where the remaining two eigenvectors define the major and minor axes of the ellipse (Figure \ref{fig:Figure9-14}). Sweeping the ellipse along the eigenfield streamline results in a tubular shape. Another useful generating geometric primitive is a cross. The length and orientation of the arms of the cross are controlled by two of the eigenvectors. Sweeping the cross results in a helical shape since the eigenvectors (and therefore cross arms) will rotate in some tensor fields.
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
+	{\caption{The four hyperstreamlines shown are integrated along the minor principle stress axis. A plane (colored with a different lookup table) is also shown.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/HyperStreamline/}{HyperStreamline.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/HyperStreamline/}{HyperStreamline.py}}\label{fig:Figure9-15}}
+	{\includegraphics[width=0.6\textwidth]{Figure9-15}}
+\end{figure}
+
+
+Figure \ref{fig:Figure9-15} shows an example of hyperstreamlines. The data is from a point load applied to a semi-infinite domain. Compare this figure to Figure \ref{fig:Figure6-22} that used tensor ellipsoids to visualize the same data. Notice that there is less clutter and more information available from the hyperstreamline visualization.
+
+
 
 \section{Modelling Algorithms}
 
+\subsection{Visualizing Geometry}
+
+One of the most common applications of visualization is to view geometry. We may have a geometric representation of a part or complex assembly (perhaps designed on a CAD system) and want to view the part or assembly before it is manufactured. While viewing geometry is better addressed in text on computer graphics, often there is dataset structure we wish to view in the same way. For example, we may want to see data mapped on a particular portion of the dataset, or view the structure of the dataset itself (e.g., view a finite element mesh).
+
+Three-dimensional datasets have a surface and interior. Typically we want to visualize the surface of the dataset or perhaps a portion of the interior. (Note: volume rendering is a different matter - see ``Volume Rendering'' on page \pageref{sec:volume_rendering}). To visualize the dataset we must extract a portion of the dataset topology/geometry (and associated data) as some form of surface primitives such as polygons. If the surface of the dataset is opaque, we may also wish to eliminate occluded interior detail.
+
+We have already seen how structured datasets, such as image data or structured grids, have a natural $i-j-k$ coordinate system that allow extraction of points, lines, and planes from the interior of the dataset (see ``Structured Coordinate System'' on page \pageref{subsec:structured_coordinate_system})). For example, to extract the fifth $-$iplane from a structured grid of dimensions $(i_m, j_m, k_m)$, we specify the data extents using $(4, 4, 0, (j_m - 1), 0, (k_m 1))$ (assuming zero-offset addressing).
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-16a}
+		\captionsetup{justification=centering}
+		\caption*{}
+		\label{fig:Figure9-16a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-16b}
+		\captionsetup{justification=centering}
+		\caption*{}
+		\label{fig:Figure9-16b}
+	\end{subfigure}
+	\caption{Boundary edges and faces.}\label{fig:Figure9-16}
+\end{figure}
+
+More generally, we can extract boundary edges and faces from a dataset. A boundary edge is an 1D cell type (e.g., line or polyline), or the edge of a 2D cell used by only that single cell. Similarly, a boundary face is a 2D cell type (e.g., polygon, triangle strip) or the face of a 3D cell used by only that single cell (Figure \ref{fig:Figure9-16}). We can obtain this information using the topological operators of the previous chapter. Cells of dimensions two or less are extracted as is, while boundary edges and faces are determined by counting the number of cell neighbors for a particular topological boundary (i.e., edge or face neighbors). If there are no neighbors, the edge or face is a boundary edge or face, and is extracted.
+
+Using these techniques we can view the structure of our dataset. However, there are also situations where we want more control in the selection of the data. We call this \emph{data extraction}.
+
+\subsection{Data Extraction}
+
+Often we want to extract portions of data from a dataset. This may be because we want to reduce the size of the data, or because we are interested in visualizing only a portion of it.
+
+Reducing dataset size is an important practical capability, because visualization data size can be huge. By reducing data size, reductions in computation and memory requirements can be realized. This results in better interactive response.
+
+We also may need to reduce data size in order to visualize the important features of a large dataset. This can be used to reduce image clutter and improve the effectiveness of the visualization. Smaller data size also enables the visualization user to navigate through and inspect data more quickly relative to larger datasets. Next we describe two techniques to extract data. One is based on geometry extraction, and the other is based on data thresholding, or thresholding.
+
+\subsubsection{Geometry Extraction}
+
+Geometry extraction selects data based on geometric or topological characteristics. A common extraction technique selects a set of points and cells that lie within a specified range of ids. A typical example is selecting all cells having ids between 0-100, or all cells using point ids 250-500. Finite element analysts use this method frequently to isolate the visualization to just a few key regions.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-17a}
+		\captionsetup{justification=centering}
+		\caption{Subsampling structured data}
+		\label{fig:Figure9-17a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-17b}
+		\captionsetup{justification=centering}
+		\caption{Subsampling unstructured data}
+		\label{fig:Figure9-17b}
+	\end{subfigure}
+	\caption{Subsampling data. (a) Structured data can be subsampled by choosing every nth point. (b) Subsampling unstructured data requires local retriangulation.}\label{fig:Figure9-17}
+\end{figure}
+
+Another useful technique called spatial extraction, selects dataset structure and associated data attributes lying within a specified region in space. For example, a point and radius can be used to select (or deselect) data within an enclosing sphere. Implicit functions are particularly useful tools for describing these regions. Points that evaluate negative are inside the region, while points outside the region evaluate positive; thus, cells whose points are all positive are outside the region, and cells whose points are all negative are inside the region.
+
+\emph{Subsampling} (Figure \ref{fig:Figure9-17}) is a method that reduces data size by selecting a subset of the original data. The subset is specified by choosing a parameter n, specifying that every nth data point is to be extracted. For example, in structured datasets such as image data and structured grids, selecting every nth point produces the results shown in igure \ref{fig:Figure9-17}(a).
+
+Subsampling modifies the topology of a dataset. When points or cells are not selected, this leaves a topological ``hole''. Dataset topology must be modified to fill the hole. In structured data, this is simply a uniform selection across the structured $i-j-k$ coordinates. In unstructured data (Figure \ref{fig:Figure9-17}(b)), the hole must be filled in by using triangulation or other complex tessellation schemes. Subsampling is not typically performed on unstructured data because of its inherent complexity.
+
+A related technique is \emph{data masking}. In data masking we select every $n^{th}$ cell that at a minimum leaves one or more topological ``holes'' in the dataset. Masking also may change the topology of the dataset, since partial selections of cells from structured datasets can only be represented using unstructured grids. Masking is typically used to improve interactive performance or to quickly process portions of data.
+
+\subsubsection{Thresholding}
+
+Thresholding extracts portions of a dataset data based on attribute values. For example, we may select all cells having a point with scalar value between (0,1) or all points having a velocity magnitude greater than 1.0.
+
+Scalar thresholding is easily implemented. The threshold is either a single value that scalar values are greater than or less than, or a range of values. Cells or points whose associated scalar values satisfy the threshold criteria can be extracted. Other dataset attribute types such as vectors, normals, or tensors can be extracted in similar fashion by converting the type to a single scalar value. For example, vectors can be extracted using vector magnitude, and tensors using matrix determinate.
+
+A problem with both geometry extraction and thresholding is that the approaches presented thus far extract ``atomic'' pieces of data, that is, a complete cell. Sometimes the cell may lie across the boundary of the threshold. In this case the cell must be clipped (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields} and only a portion of the cell is extracted.
+
+\subsection{Probing}
+
+Probing obtains dataset attributes by sampling one dataset (the input) with a set of points (the probe) as shown in Figure \ref{fig:Figure9-18}(a). Probing is also called ``resampling''. Examples include probing an input dataset with a sequence of points along a line, on a plane, or in a volume. The result of the probing is a new dataset (the output) with the topological and geometric structure of the probe dataset, and point attributes interpolated from the input dataset. Once the probing operation is completed, the output dataset can be visualized with any of the appropriate techniques described in this text.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-18a}
+		\captionsetup{justification=centering}
+		\caption{Probing process}
+		\label{fig:Figure9-18a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-18b}
+		\captionsetup{justification=centering}
+		\caption{Probe interpolation}
+		\label{fig:Figure9-18b}
+	\end{subfigure}
+	\caption{Probing. The geometry of one dataset \textit{(Probe)} is used to extract dataset attributes from anther dataset \textit{(Input)}.}\label{fig:Figure9-18}
+\end{figure}
+
+Figure \ref{fig:Figure9-18}(b) illustrates the details of the probing process. For every point in the probe dataset, the location in the input dataset (i.e., cell, subcell, and parametric coordinates) and interpolation weights are determined. Then the data values from the cell are interpolated to the probe point. Probe points that are outside the input dataset are assigned a nil (or appropriate) value. This process repeats for all points in the probe dataset.
+
+Probing can be used to reduce data or to view data in a particular fashion.
+
+\begin{itemize}
+
+\item Data is reduced when the probe operation is limited to a subregion of the input dataset, or the number of probe points is less than the number of input points.
+
+\item Data can be viewed in a particular fashion by sampling on specially selected datasets. Using a probe dataset consisting of a line enables x-y plotting along a line, or using a plane allows surface color mapping or line contouring.
+
+\end{itemize}
+
+Probing must be used carefully or errors may be introduced. Under-sampling data in a region can miss important high-frequency information or localized data variations. Oversampling data, while not creating error, can give false confidence in the accuracy of the data. Thus the sampling frequency should have a similar density as the input dataset, or if higher density, the visualization should be carefully annotated as to the original data frequency.
+
+One important application of probing converts irregular or unstructured data to structured form using a volume of appropriate resolution as a probe to sample the unstructured data. This is useful if we use volume rendering or other volume visualization techniques to view our data.
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
+	{\caption{Probing data in a combustor.  Probes are regular arrays of $50^2$ points that are then passed through a contouring filter.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/ProbeCombustor/}{ProbeCombustor.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/ProbeCombustor/}{ProbeCombustor.py})}\label{fig:Figure9-19}}
+	{\includegraphics[width=0.6\textwidth]{Figure9-19}}
+\end{figure}
+
+Figure \ref{fig:Figure9-19} shows an example of three probes. The probes sample flow density in a structured grid. The output of the probes is passed through a contour filter to generate contour lines. As this figure illustrates, we can be selective with the location and extent of the probe, allowing us to focus on important regions in the data.
+
+\subsection{Triangle Strip Generation}
+
+Triangle strips are compact representations of triangle polygons as described in ``Triangle Strip'' on page \pageref{subsec:linear_cells.triangle_strip}. Many rendering libraries include triangle strips as graphics primitives because they are a high-performance alternative to general polygon rendering.
+
+Visualization and graphics data is often represented with triangles. Marching cubes, for example, generates thousands and potentially millions of triangles to represent an isosurface. To achieve greater performance in our visualizations, we can convert triangle polygons into triangle strips. Or, if data is represented using polygons, we can first triangulate the polygons and then create triangle strips.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-20a}
+		\captionsetup{justification=centering}
+		\caption*{Select first triangle}
+		\label{fig:Figure9-20a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-20b}
+		\captionsetup{justification=centering}
+		\caption*{Extend strip}
+		\label{fig:Figure9-20b}
+	\end{subfigure}
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-20c}
+		\captionsetup{justification=centering}
+		\caption*{Create additional strips}
+		\label{fig:Figure9-20c}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+    \centering
+        \begin{minipage}[b]{.4\textwidth}
+        \centering
+        Representation:\\
+        (1,2,4,5,8,9,11,12)\\
+        (6,5,10,9)\\
+        (4,3,8,7)
+        \end{minipage}
+		\captionsetup{justification=centering}
+		\caption*{}
+	\end{subfigure}
+	\caption{Creating triangle strips.}\label{fig:Figure9-20}
+\end{figure}
+
+
+A simple method to generate triangle strips uses greedy gathering of triangles into a strip (Figure \ref{fig:Figure9-20}). The method proceeds as follows. An ``unmarked'' triangle is found to initialize the strip --- unmarked triangles are triangles that have not yet been gathered into a triangle strip. Starting with the initial triangle, the strip may grow in one of three directions, corresponding to the three edges of the triangle. We choose to grow the strip in the direction of the first unmarked neighbor triangle we encounter. If there are no unmarked neighbors the triangle strip is complete; otherwise, the strip is extended by adding triangles to the list that satisfy triangle strip topology. The strip is grown until no unmarked neighbor can be found. Additional strips are then created using the same procedure until every triangle is marked.
+
+The length of the triangle strips varies greatly depending on the structure of the triangle mesh.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Figure9-21}
+	\caption{Triangle strip examples. Left, structured triangle mesh consisting of 134 strips each of 390 triangles. Right, Unstructured triangle mesh consisting of 2227 strips of average length 3.94, longest strip 101 triangles. Images are generated by displaying every other triangle strip.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/StripFran/}{StripFran.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/StripFran/}{StripFran.py})}
+	\label{fig:Figure9-21}
+\end{figure}
+
+
+Figure \ref{fig:Figure9-21}(left) shows triangle strips each of 390 triangles in length from a dataset that was originally structured. Such a case is an exception: unstructured triangle meshes typically average about 5-6 triangles per strip (Figure \ref{fig:Figure9-21}(right)). Even so, the memory savings are impressive. A triangle strip of length 6 requires 8 points to represent, while 8 triangles require 24 points, for a memory savings of 66.7 percent. Rendering speed may be greatly affected, too, depending upon the capabilities of the rendering system.
+
+\subsection{Connectivity}
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-22a}
+		\captionsetup{justification=centering}
+		\caption*{Point connected}
+		\label{fig:Figure9-22a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-22b}
+		\captionsetup{justification=centering}
+		\caption*{Edge connected}
+		\label{fig:Figure9-22b}
+	\end{subfigure}
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-22c}
+		\captionsetup{justification=centering}
+		\caption*{Face connected}
+		\label{fig:Figure9-22c}
+	\end{subfigure}
+	\caption{Connected cells.}\label{fig:Figure9-22}
+\end{figure}
+
+Intercell connectivity is a topological property of datasets. Cells are topologically connected when they share boundary features such as points, edges, or faces (Figure \ref{fig:Figure9-22}). Connectivity is useful in a number of modeling applications, particularly when we want to separate out ``parts'' of a dataset.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Figure9-23}
+	\caption{Extracting portion of isosurface of interest using connectivity.}
+	\label{fig:Figure9-23}
+\end{figure}
+
+One application of connectivity extracts a meaningful portion of an isosurface. If the isosurface is generated from measured data such as an MRI or CT scan, it likely contains ``noise'' or unimportant anatomical structure. Using connectivity algorithms, we can separate out the part of the isosurface that we desire, either by eliminating noise or undesirable anatomical structure. Figure \ref{fig:Figure9-23} is an example where a 2D surface of interest (e.g., an isocontour) is extracted from a noisy signal.
+
+Connectivity algorithms can be implemented using a recursive visit method. We begin by choosing an arbitrary cell and mark it ``visited''. Then, depending upon the type of connectivity desired (i.e., point, edge, face), we gather the appropriate neighbors and mark them visited. This process repeats recursively until all connected cells are visited. We generally refer to such a set of connected cells as a connected "surface" even though the cells may be of a topological dimension other than two.
+
+To identify additional connected surfaces we locate another unvisited cell and repeat the processes described previously. We continue to identify connected surfaces until every cell in the dataset is visited. As each connected surface is identified, it is assigned a surface number. We can use this number to specify the surfaces to extract or we can specify ``seed'' points or cells and extract the surfaces connected to them.
+
+In some cases the recursion depth of the connectivity algorithm becomes larger than the computer system can manage. In this case, we can specify a maximum recursion depth. When this depth is exceeded, recursion is terminated and the current cells in the recursion are used as seeds to restart the recursion.
+
+\subsection{Polygon Normal Generation}
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-24a}
+		\captionsetup{justification=centering}
+		\caption{Original faceted model (left), Naive normal generation,(center), Split-edge normal generation(right) (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/NormalsDemo/}{NormalsDemo.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/NormalsDemo/}{NormalsDemo.py})}
+		\label{fig:Figure9-24a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.4\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-24b}
+		\captionsetup{justification=centering}
+		\caption{Normal computation}
+		\label{fig:Figure9-24b}
+	\end{subfigure}
+	\caption{ Surface normal generation. Left -- faceted model without normals. Center -- sharp edges are poorly represented using shared normals as shown on the corners of this model. Right -- normal generation with sharp edges split.}\label{fig:Figure9-24}
+\end{figure}
+
+Gouraud and Phong shading (see \pageref{subsection:rasterization.phong}) can improve the appearance of rendered polygons. Both techniques require point normals. Unfortunately polygonal meshes do not always contain point normals, or data file formats may not support point normals. Examples include the marching cubes algorithm for general datasets (which typically will not generate surface normals) and the stereo lithography file format (does not support point normals). Figure \ref{fig:Figure9-24a}(left) shows a model defined from stereo-lithography format. The faceting of the model is clearly evident.
+
+To address this situation we can compute surface normals from the polygonal mesh. A simple approach follows. First, polygon normals are computed around a common point. These normals are then averaged at the point, and the normal is renormalized (i.e., $\vert n \vert = 1$ ) and associated with the point. This approach works well under two conditions.
+
+\begin{enumerate}
+
+\item The orientation of all polygons surrounding the point are consistent as shown in Figure \ref{fig:Figure9-24b}. A polygon is oriented consistently if the order of defining polygon points is consistent with its edge neighbors. That is, if polygon $p$ is defined by points $(1,2,3)$, then the polygon edge neighbor $p_{23}$ must use the edge $(2,3)$ in the direction $(3,2)$. If not consistent, then the average point normal may be zero or not accurately represent the orientation of the surface. This is because the polygon normal is computed from a cross product of the edges formed by its defining points.
+
+\item The angular difference in surface normals between adjacent polygons is small. Otherwise, sharp corners or edges will have a washed out appearance when rendered, resulting in an unsatisfactory image (Figure \ref{fig:Figure9-24a}(center)).
+
+\end{enumerate}
+
+To avoid these problems we adopt a more complex polygon normal generation algorithm. This approach includes steps to insure that polygons are oriented consistently, and an edge-splitting scheme that duplicates points across sharp edges.
+
+To orient edges consistently we use a recursive neighbor traversal. An initial polygon is selected and marked ``consistent''. For each edge neighbor of the initial polygon, the ordering of the neighbor polygon points is checked --- if not consistent, the ordering is reversed. The neighbor polygon is then marked ``consistent''. This process repeats recursively for each edge neighbor until all neighbors are marked ``consistent''. In some cases there may be more than one connected surface, so that the process may have to be repeated until all polygons are visited.
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-25a}
+		\captionsetup{justification=centering}
+		\caption{Feature edge}
+		\label{fig:Figure9-25a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-25b}
+		\captionsetup{justification=centering}
+		\caption{Exaggerated splitting of feature edge}
+		\label{fig:Figure9-25b}
+	\end{subfigure}
+	\caption{Computing feature angles (a) and splitting edges (b).}\label{fig:Figure9-25}
+\end{figure}
+
+A similar traversal method splits sharp edges. A sharp edge is an edge shared by two polygons whose normals vary by a user-specified feature angle. The feature angle between two polygons is the angle between their normals (Figure \ref{fig:Figure9-25a}). When sharp edges are encountered during the recursive traversal, the points along the edge are duplicated, effectively disconnecting the mesh along that edge (Figure \ref{fig:Figure9-25b}). Then, when shared polygon normals are computed later in the process, contributions to the average normal across sharp edges is prevented.
+
+On some computers limitations on recursion depth may become a problem. Polygonal surfaces can consist of millions of polygons, resulting in large recursion depth. As a result, the depth of recursion can be specified by the user. If recursion depth exceeds the specified value, the recursion halts and the polygons on the boundary of the recursion become seeds to begin the process again.
+
+Figure \ref{fig:Figure9-24a}(right) shows the result of the advanced normal generation technique with a feature angle of 60$^\circ$. Sharp edges are well defined and curved areas lack the faceting evident in the original model. The figure is shown with Gouraud shading.
+
 \subsection{Decimation}
 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Figure9-26}
+	\caption{Overview of decimation algorithm.}
+	\label{fig:Figure9-26}
+\end{figure}
+
+Various data compression techniques have been developed in response to large data size. The UNIX utilities \texttt{compress/uncompress} and the PC utility \texttt{zip} compress data files. The MPEG compression algorithm compresses video sequences. These techniques may be loss--less, meaning that no data is lost between the compression/decompression steps, or lossy, meaning that data is lost during compression. The utilities \texttt{compress/uncompress} and \texttt{zip} are loss-less, while MPEG is lossy.
+
+In graphics, data compression techniques have been developed as well. The subsampling methods we saw earlier in this chapter are an example of simple data compression techniques for visualization data. Another emerging area of graphics data compression is polygon reduction techniques.
+
+Polygon reduction techniques reduce the number of polygons required to model an object. The size of models, in terms of polygon count, has grown tremendously over the last few years. This is because many models are created using digital measuring devices such as laser scanners or satellites. These devices can generate data at tremendous rates. For example, a laser digitizer can generate on the order of 500,000 triangles in a 15--second scan. Visualization algorithms such as marching cubes also generate large numbers of polygons: one to three million triangles from a $512^3$ volume is typical.
+
+One polygon reduction technique is the decimation algorithm \cite{Schroeder92a}. The goal of the decimation algorithm is to reduce the total number of triangles in a triangle mesh, preserving the original topology and forming a good approximation to the original geometry. A triangle mesh is a special form of a polygonal mesh, where each polygon is a triangle. If need be, a polygon mesh can be converted to a triangle mesh using standard polygon triangulation methods.
+
+Decimation is related to the subsampling technique for unstructured meshes described in Figure \ref{fig:Figure9-17b}. The differences are that
+
+\begin{itemize}
+
+\item decimation treats only triangle meshes not arbitrary unstructured grids;
+
+\item the choice of which points to delete is a function of a decimation criterion, a measure of the local error introduced by deleting a point; and
+
+\item the triangulation of the hole created by deleting the point is carried out in a way as to preserve edges or other important features.
+
+\end{itemize}
+
+Decimation proceeds by iteratively visiting each point in a triangle mesh. For each point, three basic steps are carried out (Figure \ref{fig:Figure9-26}). The first step classifies the local geometry and topology in the neighborhood of the point. The classification yields one of the five categories shown in the figure: simple, boundary, complex, edge, and corner point. Based on this classification, the second step uses a local error measure (i.e., the decimation criterion) to determine whether the point can be deleted. If the criterion is satisfied, the third step deletes the point (along with associated triangles), and triangulates the resulting hole. A more detailed description of each of these steps and example applications follow.
+
 \begin{description}
-	\item[Triangulation.] \label{subsec:decimation.triangulation} After deleting a point, the resulting hole must be retriangulated.
+
+\item[Point Classification.] The first step of the decimation algorithm characterizes the local geometry and topology for a given point. The outcome of classification determines whether the vertex is a potential candidate for deletion, and if it is, which criteria to use.
+
+Each point may be assigned one of five possible classifications: simple, complex, boundary, interior edge, or corner vertex. Examples of each type are shown in Figure \ref{fig:Figure9-26}.
+
+A \emph{simple point} is surrounded by a complete cycle of triangles, and each edge that uses the point is used by exactly two triangles. If the edge is not used by two triangles, or if the point is used by a triangle not in the cycle of triangles, then the point is \emph{complex}. These are nonmanifold cases.
+
+A point that is on the boundary of a mesh, that is, within a semicycle of triangles, is a \emph{boundary point}.
+
+A \emph{simple point} can be further classified as an \emph{interior edge} or \emph{corner point}. These classifications are based on the local mesh geometry. If the surface normal angle between two adjacent triangles is greater than a specified \emph{feature angle}, then a \emph{feature edge} exists (see Figure \ref{fig:Figure9-25a}). When a point is used by two feature edges, the point is an interior edge point. If one, three, or more feature edges use the point, the point is a \emph{corner point}.
+
+Complex and corner vertices are not deleted from the triangle mesh; all other vertices become candidates for deletion.
+
+\item[Decimation Criterion.] Once we have a candidate point for deletion, we estimate the error that would result by deleting the point and then replacing it (and its associated triangles) with another triangulation. There are a number of possible error measures; but the simplest are based on distance measures of local planarity or local colinearity (Figure \ref{fig:Figure9-26}).
+
+In the local region surrounding a simple point, the mesh is considered nearly ``flat'', since there are by definition no feature edges. Hence, simple points use an error measure based on distance to plane. The plane passing through the local region can be computed either using a leastsquares plane or by computing an area-averaged plane.
+
+Points classified as boundary or interior edge are considered to lay on an edge, and use a distance to edge error measure. That is, we compute the distance that the candidate point is from the new edge formed during the triangulation process.
+
+A point satisfies the decimation criterion \emph{d} if its distance measure is less than \emph{d}. The point can then be deleted. All triangles using the point are deleted as well, leaving a ``hole'' in the mesh. This hole is patched using a local triangulation process.
+
+\item[Triangulation.] \label{subsec:decimation.triangulation} After deleting a point, the resulting hole must be retriangulated. Although the hole, defined by a loop of edges, is topologically two dimensional, it is generally non-planar, and therefore general purpose 2D triangulation techniques cannot be used. Instead, we use a special recursive 3D divide-and-conquer technique to triangulate the loop.
+
+Triangulation proceeds as follows. An initial split plane is chosen to divide the loop in half and create two subloops. If all the points in each subloop lie on opposite sides of the plane, then the split is a valid one. In addition, an aspect ratio check insures that the loop is not too long and skinny, thereby resulting in needle-like triangles. The aspect ratio is the ratio between the length of the split line to the minimum distance of a point in the subloop to the split plane. If the candidate split plane is not valid or does not satisfy the aspect ratio criterion, then another candidate split plane is evaluated. Once a split plane is found, then the subdivision of each subloop continues recursively until a subloop consists of three edges. In this case, the subloop generates a triangle and halts the recursion.
+
+Occasionally, triangulation fails because no split plane can be found. In this case, the candidate point is not deleted and the mesh is left in its original state. This poses no problem to the algorithm and decimation continues by visiting the next point in the dataset.
+
+\item[Results.] Typical compression rates for the decimation algorithm range from 2:1 to 100:1, with 10:1 a nominal figure for `large` (i.e., $10^5$ triangles) datasets. The results vary greatly depending upon the type of data. CAD models typically reduce the least because these models have many sharp  edges and other detailed features, and the CAD modellers usually produce minimal triangulations. Terrain data, especially if relatively flat regions are present, may reduce at rates of 100:1.
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-27a}
+		\captionsetup{justification=centering}
+		\caption{Decimation of laser digitizer data (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/DecimateFran/}{DecimateFran.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/DecimateFran/}{DecimateFran.py})}
+		\label{fig:Figure9-27a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-27b}
+		\captionsetup{justification=centering}
+		\caption{Decimation of laser digitizer data (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/DecimateHawaii/}{DecimateHawaii.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/DecimateHawaii/}{DecimateHawaii.py})}
+		\label{fig:Figure9-27b}
+	\end{subfigure}
+	\caption{Examples of decimation algorithm. Triangle meshes are shown in wireframe.}\label{fig:Figure9-27}
+\end{figure}
+
+Figure \ref{fig:Figure9-27} shows two applications of decimation to laser digitized data and to a terrain model of Honolulu, Hawaii. In both cases the reduction was on the order of 90 percent for a 10:1 compression ratio. Wireframe images are shown to accentuate the density of the polygonal meshes. The left-hand image in each pair is the original data; the right-hand image is the decimated mesh.
+
+Notice the gradations in the decimated mesh around features of high curvature. The advantage of decimation, as compared to subsampling techniques, is that the mesh is adaptively modified to retain more details in areas of high curvature.
+
+\item[Advanced Techniques.] Polygon reduction is an active field of research. Many powerful algorithms beyond the decimation algorithm have been presented (see ``Bibliographic Notes'' on page  \pageref{sec:bibliographic_notes.ch09}) in this Chapter). Although we cannot cover the field in its entirety in this section, there are two notable trends worth addressing. First, progressive schemes \cite{Hoppe96} allow incremental transmission and reconstruction of triangle meshes --- this is especially important for Web-based geometry visualization. Second, recent algorithms modify the topology of the mesh \cite{He96} \cite{Popovic97} \cite{Schroeder97}. This feature is essential towards obtaining arbitrary levels of mesh reduction.
+
+A \emph{progressive mesh} is a series of triangle meshes $M_i$i related by the operations
+
+\begin{equation}\label{eq:9.14}
+\left(\hat{M} = M^n \right) \to M^{n - 1} \to \ldots \to M^1 \to M^0
+\end{equation}
+\myequations{Progressive mesh operations.}
+
+where $\vec{M}$ and $M^n$ represent the mesh at full resolution, and $M^0$ is a simplified base mesh. The critical characteristic of progressive meshes is that is possible to choose the mesh operations in such a way to make them invertible. Then the operations can be applied in reverse order (starting with the base mesh $M^0$)
+
+\begin{equation}\label{eq:9.15}
+M^0 \to M^1 \to \ldots \to M^{n - 1} \to M^n
+\end{equation}
+\myequations{Progressive mesh operations (reverse order).}
+
+to obtain a mesh of desired reduction level (assuming that the reduction level is less than the base mesh $M^0$).
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-28a}
+		\captionsetup{justification=centering}
+		\caption{A edge collapse and split}
+		\label{fig:Figure9-28a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-28b}
+		\captionsetup{justification=centering}
+		\caption{A vertex split and merge}
+		\label{fig:Figure9-28b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-28c}
+		\captionsetup{justification=centering}
+        \caption{Vertex splits applied to various features. Darker lines indicate feature edges.}
+		\label{fig:Figure9-28c}
+	\end{subfigure}
+	\caption{Examples of decimation algorithm. Triangle meshes are shown in wireframe.}\label{fig:Figure9-28}
+\end{figure}
+
+One such invertible operator is an edge collapse and its inverse is the edge split shown in Figure \ref{fig:Figure9-28a}). Each collapse of an interior mesh edge results in the elimination of two triangles (or one triangle if the collapsed vertex is on a boundary). The operation is represented by five values
+
+\begin{equation}\label{eq:9.16}
+\text{Edge Collapse/Split}(v_s, v_t, v_\ell, v_r, A)
+\end{equation}
+\myequations{Edge collapse/split.}
+
+where $v_s$ is the vertex to collapse/split, $v_t$ is the vertex being collapsed to / split from, and $v_l$ and $v_r$ are two additional vertices to the left and right of the split edge. These two vertices in conjunction with $v_s$ and $v_t$ define the two triangles deleted or added. A represents vertex attribute information, which at a minimum contains the coordinates x of the collapsed / split vertex $v_s$. (Note: in the context of the decimation algorithm, the edge collapse operator replaces the recursive triangulation process.)
+
+While progressive meshes allow us to compactly store and transmit triangle meshes, the problem remains that the size of the base mesh is often larger than desired reduction level. Since in some applications we wish to realize any given level, we want the base mesh to contain no triangles
+
+\begin{equation}\label{eq:9.17}
+\left(\hat{M} = M^n \right) \to M^{n - 1} \to \ldots \to M^1 \to \left(M^0 = M(V, \varnothing)\right)
+\end{equation}
+\myequations{Edge collapse/split.}
+
+(some vertices are necessary to initiate the edge split operations). To address this problem, the invertible edge collapse/split operator --- which is topology preserving --- is extended with a vertex split/merge operator. The vertex split/merge operator modifies the topology of the mesh and allows arbitrary levels of reduction.
+
+A mesh split occurs when we replace vertex $v_s$ with vertex $v_t$ in the connectivity list of one or more triangles that originally used vertex $v_s$ (Figure \ref{fig:Figure9-28b}). The new vertex $v_t$ is given exactly the same coordinate value as vs. Splits introduce a ``crack'' or ``hole'' into the mesh. We prefer not to split the mesh, but at high decimation rates this relieves topological constraint and enables further decimation. Splitting is only invoked when a valid edge collapse is not available, or when a vertex cannot be triangulated (e.g., a nonmanifold vertex). Once the split operation occurs, the vertices $v_s$ and $v_t$ are re-inserted into the priority queue.
+
+Different splitting strategies are used depending on the classification of the vertex (Figure \ref{fig:Figure9-28c}). Interior edge vertices are split along the feature edges, as are corner vertices.
+
+Nonmanifold vertices are split into separate manifold pieces. In any other type of vertex splitting occurs by arbitrarily separating the loop into two pieces. For example, if a simple vertex cannot be deleted because a valid edge collapse is not available, the loop of triangles will be arbitrarily divided in half (possibly in a recursive process).
+
+Like the edge collapse/split, the vertex split/merge can also be represented as a compact operation. A vertex split/merge operation can be represented with four values
+
+\begin{equation}\label{eq:9.18}
+\text{Vertex Split/Merge}(v_s, v_t, v_l, v_r)
+\end{equation}
+\myequations{Vertex split/merge.}
+
+The vertices $v_l$ and $v_r$ define a sweep of triangles (from $v_r$ to $v_l$ ) that are to be separated from the original vertex vs (we adopt a counter--clockwise ordering convention to uniquely define the sweep of triangles).
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29a}
+		\captionsetup{justification=centering}
+		\caption{Original model \\ 2,624 triangles}
+		\label{fig:Figure9-29a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29b}
+		\captionsetup{justification=centering}
+		\caption{Shortly after splitting \\ 157 triangles}
+		\label{fig:Figure9-29b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29c}
+		\captionsetup{justification=centering}
+        \caption{Final model \\ 4 triangles.}
+		\label{fig:Figure9-29c}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29d}
+		\captionsetup{justification=centering}
+		\caption{Original model \\ 11,006 triangles}
+		\label{fig:Figure9-29d}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29e}
+		\captionsetup{justification=centering}
+		\caption{Reduction 50\% \\ 5518 triangles}
+		\label{fig:Figure9-29e}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-29f}
+		\captionsetup{justification=centering}
+        \caption{Reduction 98\% \\ 220 triangles}
+		\label{fig:Figure9-29f}
+	\end{subfigure}
+	\caption{ Results of topology modifying progressive mesh algorithm.}\label{fig:Figure9-29}
+\end{figure}
+
+Figure \ref{fig:Figure9-29} shows the results of applying the topology modifying progressive mesh algorithm to two sets of data. In Figure \ref{fig:Figure9-29}(a-c), a thin plate with holes is decimated (the darker lines show split edges). The middle image in the sequence shows the limits of topology on the algorithm. It is only when the topology of the mesh is allowed to be modified that the final level of reduction is possible. Figure \ref{fig:Figure9-29}(d-f) shows the same algorithm applied to CAD data.
+
 \end{description}
+
+\clearpage
 
 \subsection{Mesh Smoothing}
 \label{subsec:mesh_smoothing}
+
+Mesh smoothing is a technique that adjusts the point coordinates of a dataset. The purpose of mesh smoothing is to improve the appearance of a mesh, and/or improve the shape of dataset cells. During smoothing the topology of the dataset is not modified, only the geometry. Applications of mesh smoothing include improving the appearance of isosurfaces, or as a modelling tool to remove surface noise. The appearance of models can be dramatically improved by applying mesh smoothing. Figure \ref{fig:Figure9-30} is an example of smoothing applied to analytic surface (a semicylinder) with a random surface distortion (\texttt{smoothCyl.tcl}).
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Figure9-30}
+	\caption{Mesh smoothing applied to a semicylinder. Lower left image is the original model. On the \emph{x}--axis the number of smoothing iterations is modified. On the  \emph{y}--axis the relaxation factor is modified.}
+	\label{fig:Figure9-30}
+\end{figure}
+
+A simple, yet effective technique is Laplacian smoothing. The Laplacian smoothing equation for a point $p_i$ at position $x_i$ is given by
+
+\begin{equation}\label{eq:9.19}
+\overrightarrow{x\ }_{i+1} = \overrightarrow{x\ }_i + \lambda \overrightarrow{V\ }(i, j) = \overrightarrow{x\ }_i + \lambda \sum_{j = 0}^{n}\overrightarrow{x\ }_j - \overrightarrow{x\ }_i
+\end{equation}
+\myequations{Laplacian smoothing.}
+
+where $x_i + 1$ is the new coordinate position, and $x_j$ are the positions of points $p_j$ ``connected'' to $p_i$, and $\lambda$ is a user-specified weight. Geometrically this relation is depicted in Figure \ref{fig:Figure9-31a}. Here the vertex $p_i$ is connected to the surrounding points $p_j$ via edges. The equation expresses that the new position $x_i + 1$ is offset from the original position $x_i$ plus the average vector $\overrightarrow{V\ }_{ij}$ multiplied by $\lambda$. Typically, the factor $\lambda$ is a small number (e.g., 0.01), and the process is executed repeatedly (e.g., 50-100 iterations). Notice that the overall effect of smoothing is to reduce the high frequency surface information. The algorithm will reduce surface curvature and tend to flatten the surface.
+
+\begin{figure}[!htb]
+    \thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.32\textwidth}
+    \fcapside[\FBwidth]
+    {%
+      \begin{subfloatrow}
+        \ffigbox[0.32\textwidth]{\caption{}\label{fig:Figure9-31a}
+          \centering
+          \includegraphics[width=\linewidth]{Figure9-31a}}{}
+        \ffigbox[0.32\textwidth]{\caption{}\label{fig:Figure9-31b}
+          \centering
+          \includegraphics[width=\linewidth]{Figure9-31b}}{}
+      \end{subfloatrow}
+    }{\caption {Mesh smoothing. (a) Motion of point. (b) Smoothing a point on an edge. Bold lines indicate connectivity.\label{fig:Figure9-31}}}
+\end{figure}
+
+
+Besides adjusting the number of iterations and smoothing factor, smoothing can be controlled by modifying the connections between $p_i$ and its surrounding points $p_j$. For example, if $p_i$ lies along a fold or sharp edge in the mesh, we may want to only use the two edge end points to compute the smoothing vector $\overrightarrow{V}_{ij}$, limiting the motion of $p_i$ along the edge (Figure \ref{fig:Figure9-31b}). We can also anchor $p_i$ to prevent any motion. Anchoring is useful for points that are located on ``corners'' or other special features such as nonmanifold attachments. One benefit of anchoring and controlling point connectivity is that we can limit the amount of shrinkage in the mesh. It also tends to produce better overall results. (In Figure \ref{fig:Figure9-30} the boundary points of the surface are constrained to move along the boundary, while the points at sharp corners are anchored.)
+
+Although Laplacian smoothing works well in most cases, there are applications of Laplacian smoothing that can badly damage the mesh. Large numbers of smoothing iterations, or large smoothing factors, can cause excessive shrinkage and surface distortion. Some objects, like spheres or the cylinder shown in Figure \ref{fig:Figure9-30}, will lose volume with each iteration, and can even shrink to a point. In rare cases it is possible for the mesh to pull itself ``inside-out''. Situations like this occur when the average vector moves $p_i$ across a mesh boundary, causing some of the attached triangles to overlap or intersect.
+
+Mesh smoothing is particularly useful when creating models that do not require high accuracy. As we have seen, smoothing modifies point coordinates and, therefore, surface geometry. Use smoothing to improve the appearance of models, but characterize error carefully if you are going to measure from a smoothed surface. Alternatively, you may want to design your own smoothing algorithms that better fit the underlying data.
+
+\clearpage
+
+\subsection{Swept Volumes and Surfaces}
 
 \subsection{Visualizing Unstructured Points}
 \label{subsec:visualizing_unstructured_points}
@@ -264,7 +1049,8 @@ Multidimensional visualization techniques focus on data that has many scalar dat
 
 Texture algorithms use texture coordinates and texture maps to select or highlight portions of a dataset. Texture thresholding assigns texture coordinates based on a scalar value. The scalar value and texture map determine how a cell or portion of a cell is rendered. Boolean textures extend this concept to 2D and 3D. Careful design of a boolean texture map permits the ``clipping'' of geometry with combinations of implicit surfaces. Texture can also be used to animate vector fields.
 
-\section{ Bibliographic Notes}
+\section{Bibliographic Notes}
+\label{sec:bibliographic_notes.ch09}
 
 Dividing cubes is an interesting algorithm because of the possibilities it suggests \cite{Cline88}. Point primitives are extremely simple to render and manipulate. This simplicity can be used to advantage to build accelerated graphics boards, perform 3D editing, or build parallel visualization algorithms.
 
