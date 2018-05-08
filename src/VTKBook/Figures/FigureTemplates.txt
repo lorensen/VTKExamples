@@ -13,7 +13,7 @@ Template for manually created figures
 </figure>
 <figcaption style="color:blue"><b>Figure NUMBER</b>. Physical generation of an image.</figcaption>
 </figure>
-
+`
 Templates for automaticaly created figures
 
 One figure

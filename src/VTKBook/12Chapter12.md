@@ -188,7 +188,7 @@ vtkLookupTable *satLut = vtkLookupTable::New();
   <figcaption style="color:blue"><b>Figure 12-4</b>. Composite image of three planes and translucent skin. <a href="../../Cxx/Medical/MedicalDemo3" title="MedicalDemo3"> See MedicalDemo3.cxx</a> and <a href="../../Python/Medical/MedicalDemo3" title="MedicalDemo3"> MedicalDemo3.py</a>.</figcaption>
 </figure>
 
-The image data is mapped to colors using the filter vtkImageMapToColors in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor (see "Assemblies and Other Types of vtkProp" on page74 for more information). This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageActor is set appropriately. The C++ code is as follows:
+The image data is mapped to colors using the filter vtkImageMapToColors in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor (see ["Assemblies and Other Types of &#118;tkProp"](/VTKBook/03Chapter3/#assemblies-and-other-types-of-vtkprop) in [Chapter 3](/VTKBook/03Chapter3) for more information). This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageActor is set appropriately. The C++ code is as follows:
 
 ``` c++
 // saggital
@@ -228,9 +228,9 @@ aRenderer->AddActor(skin);
 
 **Figure 12-4** shows the resulting composite image.
 
-In this example, the actor named skin is rendered last because we are using a translucent surface. Recall from "Transparency and Alpha Values" on page213 that we must order the polygons  composing transparent surfaces for proper results. We render the skin last by adding it to aRenderer's actor list last.
+In this example, the actor named skin is rendered last because we are using a translucent surface. Recall from ["Transparency and Alpha Values"](/VTKBook/07Chapter7/#71-transparency-and-alpha-values) in [Chapter 7](/VTKBook/07Chapter7) that we must order the polygons  composing transparent surfaces for proper results. We render the skin last by adding it to aRenderer's actor list last.
 
-We need to make one last point about processing medical imaging data. Medical images can be acquired in a variety of orders that refer to the relationship of consecutive slices to the patient. Radiologists view an image as though they were looking at the patient's feet. This means that on the display, the patient's left appears on the right. For CT there are two standard orders: top to bottom or bottom to top. In a top to bottom acquisition, slice *i* is farther from the patient's feet than slice *i* - 1. Why do we worry about this order? It is imperative in medical applications that we retain the left / right relationship. Ignoring the slice acquisition order can result in a flipping of left and right. To correct this, we need to transform either the original dataset or the geometry we have extracted. (See "Exercises" on page481 for more information.) Also, you may wish to examine the implementation of the classes vtkVolume16Reader and vtkVolumeReader (the superclass of vtkVolume16Reader). These classes have special methods that deal with transforming image data.
+We need to make one last point about processing medical imaging data. Medical images can be acquired in a variety of orders that refer to the relationship of consecutive slices to the patient. Radiologists view an image as though they were looking at the patient's feet. This means that on the display, the patient's left appears on the right. For CT there are two standard orders: top to bottom or bottom to top. In a top to bottom acquisition, slice *i* is farther from the patient's feet than slice *i* - 1. Why do we worry about this order? It is imperative in medical applications that we retain the left / right relationship. Ignoring the slice acquisition order can result in a flipping of left and right. To correct this, we need to transform either the original dataset or the geometry we have extracted. (See ["Exercises"](/VTKBook/12Chapter12/#1211-exercises) in this Chapter for more information.) Also, you may wish to examine the implementation of the classes vtkVolume16Reader and vtkVolumeReader (the superclass of vtkVolume16Reader). These classes have special methods that deal with transforming image data.
 
 ## 12.2 Creating Models from Segmented Volume Data
 
@@ -392,7 +392,7 @@ vtkDecimatePro decimator
 
 **Smooth the Triangle Vertices**
 
-This filter uses Laplacian smoothing described in "Mesh Smoothing" on page350 to adjust triangle vertices as an "average" of neighboring vertices. Typically, the movement will be less than a voxel.
+This filter uses Laplacian smoothing described in ["Mesh Smoothing"](/VTKBook/09Chapter9/#mesh-smoothing) in [Chapter 9](/VTKBook/09Chapter9) to adjust triangle vertices as an "average" of neighboring vertices. Typically, the movement will be less than a voxel.
 
 Of course we have already smoothed the image data with a Gaussian kernel so this step may not give much improvement; however, models that are heavily decimated can sometimes be improved with additional polygonal smoothing.
 
@@ -552,7 +552,7 @@ ren1 AddActor [eval MakeActor kidney $banana]
 ren1 AddActor [eval MakeActor l_intestine $peru]
 ren1 AddActor [eval MakeActor nerve $carrot]
 ren1 AddActor [eval MakeActor spleen $violet]
-en1 AddActor [eval MakeActor stomach $plum]
+ren1 AddActor [eval MakeActor stomach $plum]
 ren1 AddActor [eval MakeActor skeleton $wheat]
 ```
 
@@ -806,7 +806,7 @@ The *Visualization Toolkit* has some useful geometric modelling capabilities. On
   <figcaption style="color:blue"><b>Figure 12-12</b>. The visualization pipeline for the VTK blobby logo.</figcaption>
 </figure>
 
-We create three separate visualization pipelines, one for each letter. Figure 12–12 shows the visualization pipeline. As is common in VTK applications, we design a pipeline and fill in the details of the instance variables just before we render. We pass the letters through a vtkTransformPolyDataFilter to position them relative to each other. Then we combine all of the polygons from the transformed letters into one polygon dataset using the vtkAppendPolyData filter. The vtkImplicitModeller creates a volume dataset of dimension 643 with each voxel containing a scalar value that is the distance to the nearest polygon. Recall from “Implicit Modelling” on page 189 that the implicit modelling algorithm lets us specify the region of influence of each polygon. Here we specify this using the SetMaximumDistance() method of the vtkImplicitModeller. By restricting the region of influence, we can significantly improve performance of the implicit modelling algorithm. Then we use vtkContourFilter to extract an isosurface that approximates a distance of 1.0 from each polygon. We create two actors: one for the blobby logo and one for the original polygon letters. Notice that both actors share the polygon data created by vtkAppendPolyData. Because of the nature of the VTK visualization pipeline (see “Implicit Execution” on page 91), the appended data will only be created once by the portion of the pipeline that is executed first. As a final touch, we move the polygonal logo in front of the blobby logo. Now we will go through the example in detail.
+We create three separate visualization pipelines, one for each letter. Figure 12–12 shows the visualization pipeline. As is common in VTK applications, we design a pipeline and fill in the details of the instance variables just before we render. We pass the letters through a vtkTransformPolyDataFilter to position them relative to each other. Then we combine all of the polygons from the transformed letters into one polygon dataset using the vtkAppendPolyData filter. The vtkImplicitModeller creates a volume dataset of dimension 643 with each voxel containing a scalar value that is the distance to the nearest polygon. Recall from [“Implicit Modelling”](/VTKBook/06Chapter6/#implicit-modelling) in [Chapter 6](/VTKBook/06Chapter6) that the implicit modelling algorithm lets us specify the region of influence of each polygon. Here we specify this using the SetMaximumDistance() method of the vtkImplicitModeller. By restricting the region of influence, we can significantly improve performance of the implicit modelling algorithm. Then we use vtkContourFilter to extract an isosurface that approximates a distance of 1.0 from each polygon. We create two actors: one for the blobby logo and one for the original polygon letters. Notice that both actors share the polygon data created by vtkAppendPolyData. Because of the nature of the VTK visualization pipeline (see [“Implicit Execution”](/VTKBook/04Chapter4/#implicit-execution) in [Chapter 4](/VTKBook/09Chapter4)), the appended data will only be created once by the portion of the pipeline that is executed first. As a final touch, we move the polygonal logo in front of the blobby logo. Now we will go through the example in detail.
 
 First, we read the geometry files that contain polygonal models of each letter in the logo. The data is in VTK polygonal format, so we use vtkPolyDataReader .
 
@@ -1101,7 +1101,7 @@ vtkTubeFilter tubes
 mapTubes SetInputConnection [tubes GetOutputPort]
 ```
 
-There are a number of other methods we could use to visualize this data. A 3D widget such as the vtkLineWidget could be used to seed the streamlines interactively (see "3D Widgets and User Interaction" on page252 ). As we saw in "Point Probe" on page312, probing the data for numerical values is a valuable technique. In particular, if the probe is a line we can use it in combination with vtkXYPlotActor to graph the variation of data value along the line. Another useful visualization would be to identify regions of vorticity. We could use **Equation9-12** in conjunction with an isocontouring algorithm (e.g., vtkContourFilter ) to creates isosurfaces of large helical-density.
+There are a number of other methods we could use to visualize this data. A 3D widget such as the vtkLineWidget could be used to seed the streamlines interactively (see ["3D Widgets and User Interaction"](/VTKBook/07Chapter7/#718-3d-widgets-and-user-interaction) in [Chapter 7](/VTKBook/07Chapter7)). As we saw in ["Point Probe"](/VTKBook/08Chapter8#Chapter 8 - Point Probe) in [Chapter 8](/VTKBook/08Chapter8), probing the data for numerical values is a valuable technique. In particular, if the probe is a line we can use it in combination with vtkXYPlotActor to graph the variation of data value along the line. Another useful visualization would be to identify regions of vorticity. We could use **Equation9-12** in conjunction with an isocontouring algorithm (e.g., vtkContourFilter ) to creates isosurfaces of large helical-density.
 
 ## 12.6 Finite Element Analysis
 
