@@ -30,7 +30,7 @@ The dimension of the data is important because it implies appropriate methods fo
 In this chapter and [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8), we show how these characteristics: discrete, regular/irregular, and data dimension, shape our model of visualization data. Keep these features in mind as you read these chapters.
 
 <figure id="Figure 5-1">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-1.png?raw=true width="640" alt="Figure5-1">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-1.png?raw=true" width="640" alt="Figure5-1">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-1</b>. The architecture of a dataset. A dataset consists of an organizing structure, with both topological and geometric properties, and attribute data associated with the structure.</figcaption>
 </figure>
@@ -79,13 +79,13 @@ U(p_i) = {C_i:p_i \in C_i}
 $$
 
 <figure id="Figure 5-2">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-2.png?raw=true width="640" alt="Figure5-2">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-2.png?raw=true" width="640" alt="Figure5-2">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-2</b>. Linear cell types found in VTK. Numbers define ordering of the defining points.</figcaption>
 </figure>
 
 <figure id="Figure 5-3">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-3.png?raw=true width="640" alt="Figure5-3">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-3.png?raw=true" width="640" alt="Figure5-3">
 </figure>
 <afigcaption style="color:blue"><b>Figure 5-3</b>. Example of a hexahedron cell. The topology is implicitly defined by the ordering of the point list. Physical generation of an image.</figcaption>
 </figure>
@@ -145,7 +145,7 @@ Similar to pixels, our definition of a voxel cell differs from the conventional 
 It is common in numerical analysis to use nonlinear cells, i.e., cell formulations that use nonlinear basis functions. These basis functions are generally formed by combinations of polynomials. Nonlinear cells provide more accurate interpolation functions (see [“Interpolation Functions”](/VTKBook/08Chapter8/#82-interpolation-functions) in [Chapter 8](/VTKBook/08Chapter8) for more information) and better approximate curved geometry. However, the number of possible nonlinear basis functions is unlimited, which poses a combinatorial problem to any visualization system (i.e., it is not possible to implement all non-linear cell types). To address this problem, VTK takes a dual approach. First, VTK directly supports nonlinear cell types with quadratic interpolation functions(see **Figure 5-4**). Such cells are constructed by adding mid-edge nodes, and occasionally mid-face and interior nodes, requiring extending the connectivity list to reflect the addition of these extra entries. Second, VTK has a sophisticated cell adaptor framework, enabling users to interface any basis function to VTK as long as the basis function can be uniquely characterized in an r-s-t parametric coordinates system. (Note: we will describe the cell adaptor framework in more detail in [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8).)
 
 <figure id="Figure 5-4">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-4.png?raw=true width="640" alt="Figure5-4">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-4.png?raw=true" width="640" alt="Figure5-4">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-4</b>. Nonlinear cell types found in VTK.</figcaption>
 </figure>
@@ -167,7 +167,7 @@ VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in 
 **Quadratic Linear Quadrilateral.** The quadratic linear quadrilateral is a primary two-dimensional cell. It is defined by six points. The first four points are located at the vertices of the quadrilateral; the next two are located in the middle of each of the first and third edge as shown in **Figure 5-4*.
 
 <figure id="Figure 5-5">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-5.png?raw=true width="640" alt="Figure5-5">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-5.png?raw=true" width="640" alt="Figure5-5">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-5</b>. Decomposing quadratic nonlinear cells into linear cells. The quadratic tetrahedron is tessellated into six linear tetrahedron; the quadratic hexahedron is tessellated into eight linear hexahedra. Note that some tessellations require the addition of new points. In VTK, a cell adaptor framework is available for tessellating cells with basis functions of arbitrary complexity, see [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) for more information.
  </figcaption>
@@ -198,7 +198,7 @@ VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in 
 Attribute data is information associated with the structure of the dataset. This structure includes both the dataset geometry and topology. Most often, attribute data is associated with dataset pointsor cells, but sometimes attribute data may be assigned to cell components such as edges or faces. Attribute data may also be assigned across the entire dataset, or across a group of cells or points. We refer to this information as attribute data because it is an attribute to the structure of the dataset. Typical examples include temperature or velocity at a point, mass of a cell, or heat flux into and out of a cell face.
 
 <figure id="Figure 5-6">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-6.png?raw=true width="640" alt="Figure5-6">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-6.png?raw=true" width="640" alt="Figure5-6">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-6</b>. Attribute data.</figcaption>
 </figure>
@@ -245,7 +245,7 @@ We have already seen how graphics libraries are designed to render such geometri
 Vertices, lines, and polygons form a minimal set of primitives to represent 0-, 1-, and 2-dimensional geometry. We have included polyvertex, polyline, and triangle strip cells for convenience, compactness, and performance. Triangle strips in particular are high-performing primitives. To represent _n_ triangles with a triangle strip requires just _n+2_ points, compared to the _3n_ points for conventional representations. In addition, many graphics libraries can render triangle strips at higher speeds than triangle polygons.
 
 <figure id="Figure 5-7">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-7.png?raw=true width="640" alt="Figure5-7">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-7.png?raw=true" width="640" alt="Figure5-7">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-7</b>. Dataset types. The unstructured grid consists of all cell types.</figcaption>
 </figure>
@@ -327,7 +327,7 @@ The design of computer systems demands careful attention to the balance between 
 In the design of the _Visualization Toolkit_, we chose to use a more concrete data model relative to the AVS and field data models. Our decision was based on the premise that the system was to be informative as well as functional, and we wanted to clearly demonstrate basic concepts. On the other hand, VTK’s data model is general enough to support our practice of visualization. Our experience with users also has shown us that VTK’s data model is easier for the casual visualization user to understand than the more abstract models. If you decide to design your own system, we recommend that you examine other data models. However, we feel that the clarity of code manifested in the _Visualization Toolkit_ is an example of a well-balanced trade-off between design abstraction and simplicity.
 
 <figure id="Figure 5-8">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-8.png?raw=true width="640" alt="Figure5-8">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-8.png?raw=true" width="640" alt="Figure5-8">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-8</b>. Implementation of contiguous array. This example is a fragment of the class definition &#118;tkFloatArray.</figcaption>
 </figure>
@@ -355,7 +355,7 @@ Many visualization data are defined by multiple component values. An _x-y-z_ coo
 Attribute data and points, as well as several other data objects, are represented with data arrays in VTK. Certain attribute data, such as points, vectors, normals, and tensors, are required to have a tuple size consistent with their definition. For example, points, vectors and normals require a data array with a tuple size of three; tensors a tuple size of nine (i.e., a 3 × 3 matrix). Scalars do not place any requirement on the tuple size. Algorithms that process such scalar data generally operate on the first component of each tuple. (Filters exist in VTK to split multi-component data arrays into separate arrays, and to combine separate data arrays into a single array. See vtkSplitField and vtkMergeFields.)
 
 <figure id="Figure 5-9">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-9.png?raw=true width="640" alt="Figure5-9">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-9.png?raw=true" width="640" alt="Figure5-9">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-9</b>. Data array structure. In this example, each tuple has 3 components.</figcaption>
 </figure>
@@ -369,7 +369,7 @@ Abstract data objects are objects that provide uniform methods to create, manipu
 Consider the abstract class vtkDataArray. We can access the data value at associated point id 129 by executing the method double s = GetTuple1(129). Since the virtual GetTuple1() method returns a floating-point data value, each subclass of vtkDataArray must also return a floating-point value. Although the subclass is free to represent data in any possible form, it must transform its data representation into a floating-point value. This process may be as simple as a cast from a built-in type to floating-point value, or it may be a complex mapping of data. For example, if our data consists of character strings, we could conceivably create an alphabetical list and map the string into a location in the list, and then cast the location into a double value.
 
 <figure id="Figure 5-10">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-10.png?raw=true width="640" alt="Figure5-10">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-10.png?raw=true" width="640" alt="Figure5-10">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-10</b>.  Data array object diagram. &#118;tkDataArray is an abstract base class. Subclasses of &#118;tkDataArray implement type specific representation and operations. Note: not all concrete data array subclasses are shown in this diagram.</figcaption>
 </figure>
@@ -394,7 +394,7 @@ switch (outData->GetScalarType())
 ```
 
 <figure id="Figure 5-11">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-11.png?raw=true width="640" alt="Figure5-11">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-11.png?raw=true" width="640" alt="Figure5-11">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-11</b>. Data object representation as field data. A field can be represented as an array of arrays. Each array has a specified type, length, tuple size, and name. The association of a data array with points or cells, and its labeling as a particular attribute type, forms point and cell attribute data.</figcaption>
 </figure>
@@ -428,7 +428,7 @@ The abstract data class vtkPoints is used to represent the point coordinates. vt
 The _Visualization Toolkit_ uses the class vtkCellArray to explicitly represent cell topology. This class is a list of connectivity for each cell. The structure of the list is a sequence of integer numbers (**Figure 5-12**). The first number in the list is a count (the number of points in the cell connectivity), and the next series of numbers is the cell connectivity. (Each number in the connectivity list is an index into an instance of a point coordinate list.) Sequences of count followed by the connectivity list are repeated until each cell is enumerated. Additional information such as the number of cells in the list and current position in the list (for traversal purposes) is also maintained by vtkCellArray.
 
 <figure id="Figure 5-12">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-12.png?raw=true width="640" alt="Figure5-12">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-12.png?raw=true" width="640" alt="Figure5-12">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-12</b>. &#118;tkCellArray structure to represent cell topology.</figcaption>
 </figure>
@@ -450,20 +450,20 @@ The vtkCellTypes may also be added to the vtkPolyData data representation — an
 **Object Model.** The five datasets are implemented as shown in **Figure 5-14**. As this object diagram illustrates, these concrete datasets are subclasses of the abstract class vtkDataSet. Two additional classes are introduced as well. The class vtkStructuredData contributes instance variables and methods for structured data. vtkStructuredData is not in an inheritance relationship with the datasets; rather the structured datasets shown delegate to it in order to implement some of their methods. (This was done to avoid multiple inheritance.) Subclasses of the class vtkPointSet represent their points explicitly, that is, through an instance of vtkPoints or its subclasses. vtkPointSet provides methods and instance variables to manipulate the point data, as well as a general searching capability to find points and cells. (See [“Searching”](/VTKBook/08Chapter8/#87-searching) in [Chapter 8](/VTKBook/08Chapter8) for more information.)
 
 <figure id="Figure 5-13">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-13.png?raw=true width="640" alt="Figure5-13">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-13.png?raw=true" width="640" alt="Figure5-13">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-13</b>. The data structure of the class &#118;tkUnstructuredGrid. (This is a subset of the complete structure. See [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) for complete details.)
  </figcaption>
 </figure>
 
 <figure id="Figure 5-14">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-14.png?raw=true width="640" alt="Figure5-14">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-14.png?raw=true" width="640" alt="Figure5-14">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-14</b>. Dataset object diagram. The five datasets (shaded) are implemented in VTK.</figcaption>
 </figure>
 
 <figure id="Figure 5-15">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-15.png?raw=true width="640" alt="Figure5-15">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-15.png?raw=true" width="640" alt="Figure5-15">
 </figure>
 <figcaption style="color:blue"><b>Figure 5-15</b>. Object diagram for twenty concrete cell types in VTK. &#118;tkEmptyCell represents NULL cells. &#118;tkGenericCell can represent any type of cell. Three-dimensional cells are subclasses of &#118;tkCell3D. Higher order cells are subclasses of &#118;tkNonLinearCell.</figcaption>
 </figure>
@@ -504,10 +504,10 @@ Creation of datasets is a two step process. First the geometry and topology of t
 
 <figure>
   <figure id="Figure 5-17">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-17.png?raw=true width="640" alt="Figure5-17">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-17.png?raw=true" width="640" alt="Figure5-17">
   </figure>
   <figure id="Figure 5-17">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/GeometricObjects/TestCube.png?raw=true width="640" alt="Figure 5-17">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/GeometricObjects/TestCube.png?raw=true" width="640" alt="Figure 5-17">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-17</b>. Creation of polygonal cube. <a href="../../Cxx/GeometricObjects/Cube" title="Cube"> See Cube.cxx</a> and <a href="../../Python/GeometricObjects/Cube" title="Cube"> Cube.py</a>.</figcaption>
 attribue data.</figure>
@@ -534,10 +534,10 @@ The answer is no. Certain data objects in VTK are reference counted to conserve 
 
 <figure>
   <figure id="Figure 5-18">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-18.png?raw=true width="640" alt="Figure5-18">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-18.png?raw=true" width="640" alt="Figure5-18">
   </figure>
   <figure id="Figure 5-18">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/StructuredPoints/TestVol.png?raw=true width="640" alt="Figure 5-18">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/StructuredPoints/TestVol.png?raw=true" width="640" alt="Figure 5-18">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-18</b>. Creating a image data dataset. Scalar data is generated from the equation for a sphere. Volume dimensions are 26^3. <a href="../../Cxx/StructuredPoints/Vol" title="Vol"> See Vol.cxx</a> and <a href="../../Python/StructuredPoints/Vol" title="Vol"> Vol.py</a>.</figcaption>
 </figure>
@@ -578,10 +578,10 @@ $$
 
 <figure>
   <figure id="Figure 5-19">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-19.png?raw=true width="640" alt="Figure5-19">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-19.png?raw=true" width="640" alt="Figure5-19">
   </figure>
   <figure id="Figure 5-19">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/StructuredGrid/TestSGrid.png?raw=true width="640" alt="Figure 5-19">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/StructuredGrid/TestSGrid.png?raw=true" width="640" alt="Figure 5-19">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-19</b>. Creating a structured grid dataset of a semicylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction.<a href="../../Cxx/StructuredGrid/SGrid" title="SGrid"> See SGrid.cxx</a> and <a href="../../Python/StructuredGrid/SGrid" title="SGrid"> SGrid.py</a>.</figcaption>
 </figure>
@@ -602,10 +602,10 @@ The creation of a structured grid dataset is partially explicit and partially im
 
 <figure>
   <figure id="Figure 5-20">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-20.png?raw=true width="640" alt="Figure5-20">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-20.png?raw=true" width="640" alt="Figure5-20">
   </figure>
   <figure id="Figure 5-20">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/RectilinearGrid/TestRGrid.png?raw=true width="640" alt="Figure 5-20">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/RectilinearGrid/TestRGrid.png?raw=true" width="640" alt="Figure 5-20">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-20</b>. Creating a rectilinear grid dataset. The coordinates along each axis are defined using an instance of &#118;tkDataArray.<a href="../../Cxx/RectilinearGrid/RGrid" title="RGrid"> See RGrid.cxx</a> and <a href="../../Python/RectilinearGrid/RGrid" title="RGrid"> RGrid.py</a>.</figcaption>
 </figure>
@@ -628,10 +628,10 @@ The topological dimension of the dataset is implied by the specified dimensions.
 
 <figure>
   <figure id="Figure 5-21">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-21.png?raw=true width="640" alt="Figure5-21">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-21.png?raw=true" width="640" alt="Figure5-21">
   </figure>
   <figure id="Figure 5-21">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/UnstructuredGrid/TestUGrid.png?raw=true width="640" alt="Figure 5-21">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/UnstructuredGrid/TestUGrid.png?raw=true" width="640" alt="Figure 5-21">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-21</b>. Creating a structured grid dataset of a semicylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction.<a href="../../Cxx/UnstructuredGrid/UGrid" title="UGrid"> See UGrid.cxx</a> and <a href="../../Python/UnstructuredGrid/UGrid" title="UGrid"> UGrid.py</a>.</figcaption>
 </figure>

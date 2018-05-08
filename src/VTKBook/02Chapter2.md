@@ -71,7 +71,7 @@ An *object* is an abstraction that models the state and behavior of entities in 
 **Figure 2-1** is an example of the abstraction that occurs when we map the state and behavior of a system component to an object. Here, the object is a particular type of tree: a pin oak. In this application we desire to simulate the growth of various types of trees over the course of a season. For our purpose we have decided that the important state variables are the tree's age, trunk diameter, height, and habit (i.e., growing form). To capture the behavior of the pin oak we have methods to simulate growth and seasonal effects corresponding to spring, summer, fall, and winter. There are also methods (not shown) for setting and getting current state variables.
 
 <figure id="Figure 2-1">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-1.png?raw=true width="640" alt="Figure2-1">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-1.png?raw=true" width="640" alt="Figure2-1">
 </figure>
 <figcaption style="color:blue"><b>Figure 2-1</b>. Mapping a real-world object into an object abstraction. The real-world objects are various types of trees. One of these objects (a pin oak tree) is mapped into the computer object we call PinOak.</figcaption>
 </figure>
@@ -119,7 +119,7 @@ Earlier we created an object corresponding to a pin oak tree. The properties of 
 Organizing objects into an inheritance hierarchy provides many benefits. Properties of a general classification are also properties of its subclassification. For example, we know that all species of genus *Quercus* form acorns. From the software point of view this means any instance variables and methods of a *superclass* are automatically inherited by its *subclass*. This allows us to make changes to a number of objects simultaneously by modifying their superclass. Furthermore, if we desire to add a new class (say a red oak tree) to the hierarchy we can do so without duplicating existing functionality. We need only differentiate the new class from the others by adding new instance variables or overloading existing methods.
 
 <figure id="Figure 2-2">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-2.png?raw=true width="640" alt="Figure2-2">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-2.png?raw=true" width="640" alt="Figure2-2">
 </figure>
 <figcaption style="color:blue"><b>Figure 2-2</b>. Inheritance hierarchy for pin oak tree.</figcaption>
 </figure>
@@ -166,7 +166,7 @@ The first object in the class hierarchy is locator. This abstract class specifie
 Later, during implementation, we will convert these object models into software objects. The particular computer language we choose for implementation will dictate the details of the conversion.
 
 <figure id="Figure 2-3">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-3.png?raw=true width="640" alt="Figure2-3">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-3.png?raw=true" width="640" alt="Figure2-3">
 </figure>
 <figcaption style="color:blue"><b>Figure 2-3</b>. Object model for locator devices.</figcaption>
 </figure>
@@ -176,7 +176,7 @@ Later, during implementation, we will convert these object models into software 
 The object model describes the static portion of a system while the dynamic model details the sequences of events and time dependencies of the system. OMT uses state diagrams to model system dynamics. Dynamic models are frequently used to design control systems and user interfaces. Our visualization system has limited sequence and control aspects, so we will not dwell on state diagrams. But, if we were designing a user-friendly interface for a digital wristwatch, the state diagram in **Figure2-4** would be useful.
 
 <figure id="Figure2-4">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-4.png?raw=true width="640" alt="Figure 2-4">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-4.png?raw=true" width="640" alt="Figure 2-4">
 </figure>
 <figcaption style="color:blue"><b>Figure 2-4</b>. State diagram for a wristwatch.</figcaption>
 </figure>
@@ -190,7 +190,7 @@ The functional model shows how data flows through the system and how processes a
 **Figure2-5** shows a data flow diagram for a 3D medical imaging system. The diagram shows the data acquisition on the computed tomography (CT) or magnetic resonance imaging (MRI) scanner. The series of cross-sectional slices provided by the scanner is first processed by image processing filters to enhance features in the gray scale slices. A segment process identifies tissues and produces labels for the various tissues present in the slices. These labeled slices are then passed through a surface extraction process to create triangles that lie on the surface of each tissue. The render process transforms the geometry into an image. Alternatively, the write process stores the triangles in a file. Later, the triangles can be read and rendered into an image. We defer the decision whether to make the processes objects or operations until later. Chapter 4 uses DFDs to model the visualization pipeline.
 
 <figure id="Figure2-5">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-5.png?raw=true width="640" alt="Figure2-5">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-5.png?raw=true" width="640" alt="Figure2-5">
 </figure>
 <figcaption style="color:blue"><b>Figure 2-5</b>. Data flow diagram.</figcaption>
 </figure>

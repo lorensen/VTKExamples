@@ -26,7 +26,7 @@ While the World Wide Web received most of its attention in the early 1990s, its 
 This problem was quickly solved as Web browsers started to support other content types including animation formats such as MPEG, AVI, and QuickTime. Now a link in a HTML document can load an animation sequence for the user to view and interact with. The next step was to allow the client to control the generation of the animation sequence on the server. To facilitate this process, a mechanism for the client to send general information to the server was introduced. The Common Gateway Interface (CGI) along with HTML forms serves this purpose. In this twopronged approach, an HTML form collects information from the client, passes it to the server that executes a CGI-BIN script, and then finally produces a result for the client to view.
 
 <figure id="Figure 11-1">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-1.png?raw=true width="640" alt="Figure11-1">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-1.png?raw=true" width="640" alt="Figure11-1">
 </figure>
 <figcaption style="color:blue"><b>Figure 11-1</b>. MPEG visualization example.</figcaption>
 </figure>
@@ -54,7 +54,7 @@ Now let’s use CGI and an HTML form to enable the client to change the isosurfa
 ```
 
 <figure id="Figure 11-2">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-2.png?raw=true width="640" alt="Figure11-2">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-2.png?raw=true" width="640" alt="Figure11-2">
 </figure>
 <figcaption style="color:blue"><b>Figure 11-2</b>. Example HTML form.</figcaption>
 </figure>
@@ -83,7 +83,7 @@ Once the client has submitted the form, the server will execute the CGI-BIN scri
 While these examples demonstrate a closed loop of interaction between the client and server, there are two remaining problems. First, this approach places the entire computational load on the server. While this may be viable for some applications, some servers literally receive millions of client requests a day, severely straining server resources. Second, while the process is interactive, the lag time between making a change and seeing the result can be considerable, depending on the length of the animation and the communication bandwidth. Better solutions are now available to improve interactivity.
 
 <figure id="Figure 11-3">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-3.png?raw=true width="640" alt="Figure11-3">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-3.png?raw=true" width="640" alt="Figure11-3">
 </figure>
 <figcaption style="color:blue"><b>Figure 11-3</b>. A simple scene graph.</figcaption>
 </figure>
@@ -94,7 +94,7 @@ HTML is a powerful tool for creating hypertext documents; however, it does not d
 
 As a result of this need for greater interactivity, a new content type appeared referred to as the Virtual Reality Modeling Language (VRML). The idea behind VRML was to create a standard definition for transmitting 3D content over the Web. Having its origins in an early system called Labyrinth, which is in turn based on Reality Lab from Rendermorphics, it quickly evolved to the VRML 1.0 specification based on Open Inventor from Silicon Graphics. 
 
-A VRML 1.0 file (typically with a .wrl extension, abbreviated from world) contains a scene graph representation of a 3D world (e.g., a scene). Consider **Figure 11-3** which shows a simple scene. It is a directed graph that is traversed depth first from top to bottom with the content of the graph in its nodes (the circles). In this figure the top node is a group node that collects child nodes together. The light is a directional light node and the second group node represents an isosurface. The isosurface group node is represented by three children nodes: one to control the material properties, a general transformation, and finally the 3D geometry. VRML and Open Inventor support Geometry (e.g., isosurface) many different types of nodes including some support for animation. (See also “Alternative Visual Programming Models” on page 99 for more information.)
+A VRML 1.0 file (typically with a .wrl extension, abbreviated from world) contains a scene graph representation of a 3D world (e.g., a scene). Consider **Figure 11-3** which shows a simple scene. It is a directed graph that is traversed depth first from top to bottom with the content of the graph in its nodes (the circles). In this figure the top node is a group node that collects child nodes together. The light is a directional light node and the second group node represents an isosurface. The isosurface group node is represented by three children nodes: one to control the material properties, a general transformation, and finally the 3D geometry. VRML and Open Inventor support Geometry (e.g., isosurface) many different types of nodes including some support for animation. (See also [“Alternative Visual Programming Models”](VTKBook/04Chapter4/#alternative-visual-programming-models) in [Chapter 4](/VTKBook/04Chapter4) for more information.)
 
 The basic idea behind VRML 1.0 is that the 3D content can be downloaded from the server and then interacted with the client. There are many Web browsers that support VRML and most take advantage of client-side graphics hardware if available. This helps address both the server-load problem and the interaction lag time associated with the earlier approach of server-generated MPEG animations. Like HTML, VRML supports active links so that navigating through a door in one VRML world can send you to new VRML (or HTML) sites.
 
@@ -134,6 +134,7 @@ ren1 AddActor outlineActor ren1 AddActor isoActor
 renWin SetSize 500 500
 ren1 SetBackground 0.1 0.2 0.4
 ```
+
 This is a typical program within VTK that extracts an isosurface and bounding outline from a structured grid dataset. To export this result to a VRML data file we can use the vtkVRMLExporter as shown below:
 
 ``` tcl
@@ -218,6 +219,7 @@ The downside to using Java3D or native code is that it sacrifices Java’s porta
 The following example outlines how to use Java and VTK to display vibrational modes of a rectangular plate. In the preceding examples an HTML form was used to obtain input from the client. With Java we can construct a customized client-side user interface to obtain the required information.
 
 The first step in this example creates the HTML code that in turn launches the Java applet.
+
 ``` html
 <title>Vibrational Modes of a Rectangular Plate</title>
   <h2>Vibrational Modes of a Rectangular Plate</h2>
@@ -277,12 +279,13 @@ Next, this method checks to see if the model parameter is set, and opens a strea
 ``` java
 panel.GetRenderer().AddActor(a);
 ```
+
 The resulting applet is shown in **Figure 11-4**.
 
 This demonstrates one of the advantages of using Java for Web visualization. VRML would require that the geometry of each vibrational mode be sent to the client for viewing. With Java and VTK the geometry can be sent once along with a set of scalar displacements for each vibrational mode. Then as the client switches between modes, the geometry can be modified quickly by the client without any additional network traffic. In fact the client could mix vibrational modes or perform an animation showing the vibration of the plate all without having to go back to the server, and without requiring much more data than a single VRML model of the plate. If the client decided to examine another geometry, say the vibrational modes of a disc, then it would likely return to the server for the new data. This is the flexibility that Java provides.
 
 <figure id="Figure 11-4">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-4.png?raw=true width="640" alt="Figure11-4">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-4.png?raw=true" width="640" alt="Figure11-4">
 </figure>
 <figcaption style="color:blue"><b>Figure 11-4</b>. Two images from a Java (JNI) applet.</figcaption>
 </figure>
@@ -411,6 +414,7 @@ public class visApplet extends Applet
   EventInSFVec3f setScale = null;
   float currentScale = (float)1.0;
 ```
+
 Next, the applet defines the init() method that will request a reference to the browser, invoke initScene() to build the VRML interface, and create the user interface. In this case the user interface is just two buttons on a white background.
 
 ``` java
@@ -551,9 +555,8 @@ The last method in the applet draws a border around the two buttons when the app
 
 An excerpt from the VRML file has been included below. Note the use of the DEF keyword to name nodes that can then be accessed from Java. The resulting Java/VRML example can be seen in **Figure 11-5**.
 
-```
 <figure id="Figure 11-5">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-5.png?raw=true width="640" alt="Figure11-5">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-5.png?raw=true" width="640" alt="Figure11-5">
 </figure>
 <figcaption style="color:blue"><b>Figure 11-5</b>. Java and VRML combined using the EAI.</figcaption>
 </figure>

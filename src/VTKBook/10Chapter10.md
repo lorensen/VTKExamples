@@ -24,7 +24,7 @@ When data has a regular spatial organization, it is possible to request the data
 Although regions of interest can have arbitrary shapes, the regular structure of the data samples determines optimal region configurations. An image stored in a Cartesian coordinate system easily divides into smaller rectangular regions, while data sampled on a polar coordinate grid is best divided into pie-shaped regions (**Figure 10-1**). Therefore, operating on regions of data means that we process “windows” of data specified by (min,max) ranges of each dimension, or axis. For example, a region in a 2D image of dimensions 100 x 100 might be specified as (25,49, 0,49), meaning that we would operate on a (25 x 50) window.
 
 <figure id="Figure 10-1">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-1.png?raw=true width="640" alt="Figure10-1">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-1.png?raw=true"" width="640" alt="Figure10-1">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-1</b>. Axis aligned matrices naturally lend themselves to rectangular regions, and polar coordinate grids to pie-shaped regions.</figcaption>
 </figure>
@@ -68,7 +68,7 @@ $$
 smoothing along the x axis and then along the y axis with 1D Gaussian kernels is equivalent to convolving with a 2D Gaussian kernel. It is also possible to approximate Gaussian smoothing by convolving with a constant binary kernel multiple times.
 
 <figure id="Figure 10-2">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestGaussianSmooth.png?raw=true width="640" alt="Figure 10-2">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestGaussianSmooth.png?raw=true"" width="640" alt="Figure 10-2">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-2</b>. Low-pass filters can be implemented as convolution with a Gaussian kernel. The Gaussian kernel displayed on top has been magnified for this figure.<a href="../../Cxx/ImageProcessing/GaussianSmooth" title="GaussianSmooth"> See GaussianSmooth.cxx</a> and <a href="../../Python/ImageProcessing/GaussianSmooth" title="GaussianSmooth"> GaussianSmooth.py</a>.</figcaption>
 </figure>
@@ -79,7 +79,7 @@ One problem with simple smoothing to remove noise is that edges are blurred. Alt
 A median filter also smooths while preserving edges. This filter replaces each pixel with the median value of the scalar values in a neighborhood centered on the pixel. Median filters are most effective on high amplitude noise that has a low probability of occurring (see **Figure 10-3**). There are two ways to control the amount and scale of noise removed: The size of the neighborhood can be varied, or the filter can be applied multiple times. This median filter preserves edges; however, it does round corners and remove thin lines. The hybrid median filter was developed to address this behavior. It operates on a 5 x 5 neighborhood around each pixel. The algorithm consists of two steps: first the median values of an “x”-shaped and “+”-shaped neighborhoods are computed, then the median of these two values and the center-pixel value is computed to give the final result. The hybrid median has a fixed size neighborhood, but can be applied multiple times to further reduce noise (**Figure 10-4**).
 
 <figure id="Figure 10-3">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestMedianComparison.png?raw=true width="640" alt="Figure 10-3">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestMedianComparison.png?raw=true"" width="640" alt="Figure 10-3">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-3</b>. Comparison of Gaussian and Median smoothing for reducing low-probability high-amplitude noise.<a href="../../Cxx/ImageProcessing/MedianComparison" title="MedianComparison"> See MedianComparison.cxx</a> and <a href="../../Python/ImageProcessing/MedianComparison" title="MedianComparison"> MedianComparison.py</a>.</figcaption>
 </figure>
@@ -91,7 +91,7 @@ An artifact called aliasing occurs when subsampling and is often associated with
 The same aliasing phenomena occurs when acquiring data. If a signal from an analog source contains high frequencies, saving the analog data in a discrete form requires subsampling that will introduce alias artifacts. For this reason, it is common practice to acquire data at high resolutions, then smooth and subsample to reduce the image to a manageable size.
 
 <figure id="Figure 10-4">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestHybridMedianComparison.png?raw=true width="640" alt="Figure 10-4">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestHybridMedianComparison.png?raw=true"" width="640" alt="Figure 10-4">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-4</b>. Comparison of median and hybrid-median filters. The hybrid filter preserves corners and thin lines, better than the median filter. The lower patterns represent the three neighborhoods used to compute the hybrid median. <a href="../../Cxx/ImageProcessing/HybridMedianComparison" title="HybridMedianComparison"> See HybridMedianComparison.cxx</a> and <a href="../../Python/ImageProcessing/HybridMedianComparison" title="HybridMedianComparison"> HybridMedianComparison.py</a>. </figcaption>
 </figure>
@@ -99,7 +99,7 @@ The same aliasing phenomena occurs when acquiring data. If a signal from an anal
 Low-frequency artifacts, other than aliasing, can also occur when acquiring data. One example is base-line drift. As data is acquired over time, the average value (base line) of the signal can slowly change. This drift can be removed with a high-pass filter after data acquisition. It is also possible to acquire a second dataset that isolates the baseline. Subtracting the baseline from the primary signal removes the drift artifact. In general, it is better to measure the artifact than risk making wrong assumptions that might adversely affect the actual data.
 
 <figure id="Figure 10-5">å
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestIsoSubsample.png?raw=true width="640" alt="Figure 10-5">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestIsoSubsample.png?raw=true"" width="640" alt="Figure 10-5">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-5</b>. This figure demonstrates aliasing that occurs when a high-frequency signal is subsampled. High frequencies appear as low frequency artifacts. The lower left image is an isosurface of a skull after subsampling. The right image used a low-pass filter before subsampling to reduce aliasing.<a href="../../Cxx/ImageProcessing/IsoSubsample" title="IsoSubsample"> See IsoSubsample.cxx</a> and <a href="../../Python/ImageProcessing/IsoSubsample" title="IsoSubsample"> IsoSubsample.py</a>.</figcaption>
 </figure>
@@ -111,7 +111,7 @@ Another gradual change across an image is caused by sensor position. The amplitu
 Often datasets contain information or have dynamic range that cannot be completely displayed in a single image. X-Ray Computed Tomography (CT) datasets, for example, can have 10 times the scalar resolution of the typical computer monitor capable of displaying 256 shades of gray. One method used for conveying information buried in the large dynamic range of these medical datasets is to allow a user to interactively set the color map with a window-level transfer function. The user can then choose to display the range of data they find most important as shown in **Figure 10-7**. The slope of the transfer function determines the amount of contrast in the final image. Slopes greater than one increase contrast, and slopes less than one decrease contrast. All contrast and information is lost in the scalar ranges where the transfer function is constant and has zero slope.
 
 <figure id="Figure 10-6">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestAttenuation.png?raw=true width="640" alt="Figure 10-6">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestAttenuation.png?raw=true"" width="640" alt="Figure 10-6">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-6</b>. This MRI image illustrates attenuation that can occur due to sensor position. The artifact is removed by dividing by the attenuation profile determined manually. This histograms shows how the artifact hides information in the form of scalar value clusters.<a href="../../Cxx/ImageProcessing/Attenuation" title="Attenuation"> See Attenuation.cxx</a> and <a href="../../Python/ImageProcessing/Attenuation" title="Attenuation"> Attenuation.py</a>.</figcaption>
 </figure>
@@ -123,7 +123,7 @@ To take advantage of all the available display contrast, images should have a un
 To achieve the goal of a uniform scalar histogram, transfer functions can be used to spread out clusters in the histogram and compress scalar ranges that are under-represented in the image. To maintain the general appearance of the image, the transfer function should be monotonically increasing so that the brightness relation is maintained. To spread out clusters in the histogram, the slope of the transfer function should be large where the scalar densities are the highest, and the slope should be small in empty regions of the histogram.
 
 <figure id="Figure 10-7">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-7.png?raw=true width="640" alt="Figure10-7">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-7.png?raw=true"" width="640" alt="Figure10-7">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-7</b>. The top charts show two window-level transfer functions. The resulting images are displayed in the middle row. The bottom row shows image histograms of the images.</figcaption>
 </figure>
@@ -131,7 +131,7 @@ To achieve the goal of a uniform scalar histogram, transfer functions can be use
 Histogram equalization is an algorithm that automatically generates a tailored transfer function to increase contrast in an image. For continuous images, the transfer function is simply the cumulative distribution function (CDF) which is defined as the integral of the PDF. By definition, the CDF function has a large slope where the PDF has the largest value, and therefore gives the greatest contrast to scalar ranges that occur most frequently in an image. The result of using the CDF as a transfer function is an image with an ideal constant scalar distribution. For discrete images and image histograms, a discrete version of the CDF function can be used. However, because of the discrete approximation, the resulting image is not guaranteed to have a constant histogram (**Figure 10-8**).
 
 <figure id="Figure 10-8">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-8.png?raw=true width="640" alt="Figure10-8">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-8.png?raw=true"" width="640" alt="Figure10-8">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-8</b>. Histogram equalization automatically computes a transfer function that produces an image with a nearly constant scalar histogram.</figcaption>
 </figure>
@@ -152,7 +152,7 @@ H(u, v) = \frac{1}{1 + \left(\frac{C^2}{u^2 + v^2}\right)^n}
 $$
 
 <figure id="Figure 10-9">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestEnhanceEdges.png?raw=true width="640" alt="Figure 10-9">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestEnhanceEdges.png?raw=true"" width="640" alt="Figure 10-9">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-9</b>. High-pass filters can extract and enhance edges in an image. Subtraction of the Laplacian (middle) from the original image (left) results in edge enhancement or a sharpening operation (right).<a href="../../Cxx/ImageProcessing/EnhanceEdges" title="EnhanceEdges"> See EnhanceEdges.cxx</a> and <a href="../../Python/ImageProcessing/EnhanceEdges" title="EnhanceEdges"> EnhanceEdges.py</a>.</figcaption>
 </figure>
@@ -162,7 +162,7 @@ The gradual attenuation of the filter is important. The ideal high-pass filter, 
 Although any filter that operates in the frequency domain can also be implemented in the spatial domain, some operations are less computationally expensive and easier to implement in the frequency domain. To perform similar filtering of **Figure 10-11** in the spatial domain would require convolution with a large kernel and would be slow. In general, convolution with large kernels is more efficient when performed in the frequency domain. Multiplication,αβ, in the frequency domain, is equivalent to convolution,a*b , in the spatial domain (and vice versa). In these equations, α is the Fourier transform of a, and β is the Fourier transform of b.
 
 <figure id="Figure 10-10">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestVTKSpectrum.png?raw=true width="640" alt="Figure 10-10">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestVTKSpectrum.png?raw=true"" width="640" alt="Figure 10-10">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-10</b>. The discrete Fourier transform changesan image from the spatial domainin to the frequency domain, where each pixel represents a sinusoidal function. This figure show an image and its power spectrum displayed using a logarithmic transfer function.<a href="../../Cxx/ImageProcessing/VTKSpectrum" title="VTKSpectrum"> See VTKSpectrum.cxx</a> and <a href="../../Python/ImageProcessing/VTKSpectrum" title="VTKSpectrum"> VTKSpectrum.py</a>.</figcaption>
 </figure>
@@ -170,7 +170,7 @@ Although any filter that operates in the frequency domain can also be implemente
 In order to make frequency-domain processing feasible, it is first necessary to minimize the cost of transforming from the spatial to frequency domain and back. There exist fast algorithms that implement the Fourier transform and its inverse. First, the Fourier transform is decomposable, so a 2D transform can be implemented by first taking the 1D Fourier transform of all the rows, and then taking the Fourier transform of all the columns of an image. Second, the complexity of one-dimensional Fourier transforms can be reduced with an algorithm called the fast Fourier transform (FFT). It works by recursively factoring the number samples, N, into its prime components. If N is prime and not factorable, then the transform is completed in one step that is order O(N2) complexity. If N is divisible by two, the array of numbers is divided into two parts that are transformed separately and then combined. If N is a power of two, then the algorithm executes in order O(NlogN) time.
 
 <figure id="Figure 10-11">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestIdealHighPass.png?raw=true width="640" alt="Figure 10-11">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestIdealHighPass.png?raw=true"" width="640" alt="Figure 10-11">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-11</b>. This figure shows two high-pass filters in the frequency domain. The Butterworth high-pass filter has a gradual attenuation that avoids ringing produced by the ideal high-pass filter with an abrupt transition.<a href="../../Cxx/ImageProcessing/IdealHighPass" title="IdealHighPass"> See IdealHighPass.cxx</a> and <a href="../../Python/ImageProcessing/IdealHighPass" title="IdealHighPass"> IdealHighPass.py</a>.</figcaption>
 </figure>
@@ -188,7 +188,7 @@ Segmentation is the process of classifying pixels in an image or volume. It can 
 A simple example of a one-parameter segmentation is a threshold filter used to mark bone in a CT dataset. Since bone has the largest scalar value, it is easy to select a threshold that separates bone from the rest of the image.
 
 <figure id="Figure 10-12">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestPad.png?raw=true width="640" alt="Figure 10-12">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestPad.png?raw=true"" width="640" alt="Figure 10-12">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-12</b>. Convolution in frequency space treats the image as a periodic function. A large kernel can pick up features from both sides of the image. The lower-left image has been padded with zeros to eliminate wraparound during convolution. On the right, mirror padding has been used to remove artificial edges introduced by borders.<a href="../../Cxx/ImageProcessing/Pad" title="Pad"> See Pad.cxx</a> and <a href="../../Python/ImageProcessing/Pad" title="Pad"> Pad.py</a>.</figcaption>
 </figure>
@@ -204,13 +204,13 @@ Images can be preprocessed to segment images based on more complex features such
 Although preprocessing can do a lot to improve segmentation results, postprocessing can also be useful. Morphological filters, which operate on binary or discrete images, can be useful for manipulating the shape of the segmented regions. In this brief discussion we will only consider operations that use circular footprints, even though these morphological filters can be defined much more generally. Erosion is implemented by removing pixels within a specified distance of a border. For each pixel not in the segmented region, all the neighbors in a circular region around the pixels are turned off. This erosion filter shrinks the segmented region and small isolated regions disappear.
 
 <figure id="Figure 10-13">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-13.png?raw=true width="640" alt="Figure10-13">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-13.png?raw=true"" width="640" alt="Figure10-13">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-13</b>. A pipeline containing correlation, thresholding, dilation, and erosion is used here to segment a region composed of “C”s. The left image shows the original image. The right image shows the segmented region superimposed on the original image.</figcaption>
 </figure>
 
 <figure id="Figure 10-14">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestMorphologyComparison.png?raw=true width="640" alt="Figure 10-14">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/ImageProcessing/TestMorphologyComparison.png?raw=true"" width="640" alt="Figure 10-14">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-14</b>. This figure demonstrates various binary filters that can alter the shape of segmented regions.<a href="../../Cxx/ImageProcessing/MorphologyComparison" title="MorphologyComparison"> See MorphologyComparison.cxx</a> and <a href="../../Python/ImageProcessing/MorphologyComparison" title="MorphologyComparison"> MorphologyComparison.py</a>.</figcaption>
 </figure>
@@ -279,7 +279,7 @@ viewer->Render();
 ```
 
 <figure id="Figure 10-15">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-15.png?raw=true width="640" alt="Figure10-15">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-15.png?raw=true"" width="640" alt="Figure10-15">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-15</b>. Creating an image of two interfering sinusoidal gratings in an image dataset. The resulting image has dimensions 256^2.</figcaption>
 </figure>
@@ -307,19 +307,19 @@ Regression testing is based on the following procedure. A test program (typicall
 Our regression testing procedure cannot test the original implementation of an object or objects. The developer must verify that the valid image is indeed correct. However, the process is invaluable for finding and correcting problems due to incremental code changes (e.g., bug fixes, enhancements, etc.) Furthermore, the test can be run as a batch process, with a simple pass/fail output, and an image to show the differences.
 
 <figure id="Figure 10-16">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestImageGradient.png?raw=true width="640" alt="Figure 10-16">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestImageGradient.png?raw=true"" width="640" alt="Figure 10-16">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-16</b>. An imaging pipeline to visualize gradient information. The gradient direction is mapped into color hue value while the gradient magnitude is mapped into the color saturation.<a href="../../Cxx/VisualizationAlgorithms/ImageGradient" title="ImageGradient"> See ImageGradient.cxx</a> and <a href="../../Python/VisualizationAlgorithms/ImageGradient" title="ImageGradient"> ImageGradient.py</a>.</figcaption>
 </figure>
 
 <figure id="Figure 10-17">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Images/TestImageWarp.png?raw=true width="640" alt="Figure 10-17">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Images/TestImageWarp.png?raw=true"" width="640" alt="Figure 10-17">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-17</b>. Combining the imaging and visualization pipelines to deform an image in the z-direction. The &#118;tkMergeFilter is used to combine the warped surface with the original color data. <a href="../../Cxx/Images/ImageWarp" title="ImageWarp"> See ImageWarp.cxx</a> and <a href="../../Python/Images/ImageWarp" title="ImageWarp"> ImageWarp.py</a>.</figcaption>
 </figure>
 
 <figure id="Figure 10-18">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-18.png?raw=true width="640" alt="Figure10-18">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-18.png?raw=true"" width="640" alt="Figure10-18">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-18</b>. Software regression testing using image processing. A test image is taken from the renderer and compared with a valid image stored on disk. (a) shows the valid image. (b) shows the test image (artificially modified by slight camera rotation). (c) shows the image difference. The code fragment above is extracted from the regression testing procedure.</figcaption>
 </figure>
@@ -359,7 +359,7 @@ C. Charles Law, K. M. Martin, W. J. Schroeder, J. E. Temkin. A Multi-Threaded St
 K. M. Martin, B. Geveci, J. Ahrens, C. Law. Large Scale Data Visualization Using Parallel Data Streaming. IEEE Computer Graphics & Applications, July 2001.
 
 <figure id="Figure 10-19">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-19.png?raw=true width="640" alt="Figure10-19">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure10-19.png?raw=true"" width="640" alt="Figure10-19">
 </figure>
 <figcaption style="color:blue"><b>Figure 10-19</b>. Sample image for segmentation exercise</figcaption>
 </figure>

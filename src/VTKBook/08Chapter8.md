@@ -7,7 +7,7 @@
 We will examine three different coordinate systems: the global, dataset, and structured coordinate systems. **Figure 8-1** shows the relationship between the global and dataset coordinate systems, and depicts the structured coordinate system.
 
 <figure id="Figure 8-1">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-1.png?raw=true width="640" alt="Figure8-1">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-1.png?raw=true"  width="640" alt="Figure8-1">
 </figure>
 <figcaption style="color:blue"><b>Figure 8-1</b>. Local and global coordinate systems.</figcaption>
 </figure>
