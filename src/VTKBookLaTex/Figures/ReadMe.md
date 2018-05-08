@@ -66,6 +66,8 @@ List of files and original paths:
 | Figure9-4b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestWarpCombustor.png |
 | Figure9-10c.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCreateBFont.png |
 | Figure9-12d.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestOfficeTube.png |
+| Figure9-15.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHyperStreamline.png |
+| Figure9-19.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestProbeCombustor.png |
 | | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |
