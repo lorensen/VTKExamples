@@ -561,6 +561,7 @@ Scalar thresholding is easily implemented. The threshold is either a single valu
 A problem with both geometry extraction and thresholding is that the approaches presented thus far extract ``atomic'' pieces of data, that is, a complete cell. Sometimes the cell may lie across the boundary of the threshold. In this case the cell must be clipped (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields} and only a portion of the cell is extracted.
 
 \subsection{Probing}
+\label{subsec:probing}
 
 Probing obtains dataset attributes by sampling one dataset (the input) with a set of points (the probe) as shown in Figure \ref{fig:Figure9-18}(a). Probing is also called ``resampling''. Examples include probing an input dataset with a sequence of points along a line, on a plane, or in a volume. The result of the probing is a new dataset (the output) with the topological and geometric structure of the probe dataset, and point attributes interpolated from the input dataset. Once the probing operation is completed, the output dataset can be visualized with any of the appropriate techniques described in this text.
 
@@ -663,6 +664,7 @@ The length of the triangle strips varies greatly depending on the structure of t
 Figure \ref{fig:Figure9-21}(left) shows triangle strips each of 390 triangles in length from a dataset that was originally structured. Such a case is an exception: unstructured triangle meshes typically average about 5-6 triangles per strip (Figure \ref{fig:Figure9-21}(right)). Even so, the memory savings are impressive. A triangle strip of length 6 requires 8 points to represent, while 8 triangles require 24 points, for a memory savings of 66.7 percent. Rendering speed may be greatly affected, too, depending upon the capabilities of the rendering system.
 
 \subsection{Connectivity}
+\label{subsec:connectivity}
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.32\linewidth}
@@ -724,7 +726,7 @@ In some cases the recursion depth of the connectivity algorithm becomes larger t
 	\caption{ Surface normal generation. Left -- faceted model without normals. Center -- sharp edges are poorly represented using shared normals as shown on the corners of this model. Right -- normal generation with sharp edges split.}\label{fig:Figure9-24}
 \end{figure}
 
-Gouraud and Phong shading (see \pageref{subsection:rasterization.phong}) can improve the appearance of rendered polygons. Both techniques require point normals. Unfortunately polygonal meshes do not always contain point normals, or data file formats may not support point normals. Examples include the marching cubes algorithm for general datasets (which typically will not generate surface normals) and the stereo lithography file format (does not support point normals). Figure \ref{fig:Figure9-24a}(left) shows a model defined from stereo-lithography format. The faceting of the model is clearly evident.
+Gouraud and Phong shading (see page \pageref{subsection:rasterization.phong}) can improve the appearance of rendered polygons. Both techniques require point normals. Unfortunately polygonal meshes do not always contain point normals, or data file formats may not support point normals. Examples include the marching cubes algorithm for general datasets (which typically will not generate surface normals) and the stereo lithography file format (does not support point normals). Figure \ref{fig:Figure9-24a}(left) shows a model defined from stereo-lithography format. The faceting of the model is clearly evident.
 
 To address this situation we can compute surface normals from the polygonal mesh. A simple approach follows. First, polygon normals are computed around a common point. These normals are then averaged at the point, and the normal is renormalized (i.e., $\vert n \vert = 1$ ) and associated with the point. This approach works well under two conditions.
 
@@ -773,7 +775,7 @@ Figure \ref{fig:Figure9-24a}(right) shows the result of the advanced normal gene
 	\label{fig:Figure9-26}
 \end{figure}
 
-Various data compression techniques have been developed in response to large data size. The UNIX utilities \texttt{compress/uncompress} and the PC utility \texttt{zip} compress data files. The MPEG compression algorithm compresses video sequences. These techniques may be loss--less, meaning that no data is lost between the compression/decompression steps, or lossy, meaning that data is lost during compression. The utilities \texttt{compress/uncompress} and \texttt{zip} are loss-less, while MPEG is lossy.
+Various data compression techniques have been developed in response to large data size. The UNIX utilities \texttt{compress/uncompress} and the PC utility \texttt{zip} compress data files. The MPEG compression algorithm compresses video sequences. These techniques may be lossless, meaning that no data is lost between the compression/decompression steps, or lossy, meaning that data is lost during compression. The utilities \texttt{compress/uncompress} and \texttt{zip} are loss-less, while MPEG is lossy.
 
 In graphics, data compression techniques have been developed as well. The subsampling methods we saw earlier in this chapter are an example of simple data compression techniques for visualization data. Another emerging area of graphics data compression is polygon reduction techniques.
 
@@ -1022,8 +1024,147 @@ Mesh smoothing is particularly useful when creating models that do not require h
 
 \subsection{Swept Volumes and Surfaces}
 
+Consider moving an object (e.g., your hand) over some path (e.g., raise your hand). How can we visualize this motion? The obvious answer is to form a time-animation sequence as the hand is moved. But what if we wish to statically represent the motion as well as the space that is traversed by the hand? Then we can use swept surfaces and swept volumes.
+
+A swept volume is the volume of space occupied by an object as it moves through space along an arbitrary trajectory. A swept surface is the surface of the swept volume. Together, swept volumes and swept surfaces can statically represent the motion of objects.
+
+Past efforts at creating swept surfaces and volumes have focused on analytical techniques. The mathematical representation of various 3D geometric primitives (e.g., lines, polygons, splines) was extended to include a fourth dimension of time (the path). Unfortunately, these approaches have never been practically successful, partly due to mathematical complexity and partly due to problem degeneracies.
+
+Degeneracies occur when an n-dimensional object moves in such a way that its representation becomes (n-1)-dimensional. For example, moving a plane in the direction of its normal, sweeps out a 3D ``cubical'' volume. Sweeping the plane in a direction perpendicular to its normal, however, results in a degenerate condition, since the plane sweeps out a 2D ``rectangle''.
+
+Instead of creating swept surfaces analytically, numerical approximation techniques can be used \cite{Schroeder94}. Implicit modeling provides the basis for an effective technique to visualize object motion via swept surfaces and volumes. The technique is immune to degeneracies and can treat any geometric representation for which a distance function can be computed, such as the VTK cell types.
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-32a}
+		\captionsetup{justification=centering}
+		\caption{Generate implicit model, $V_I$}
+		\label{fig:Figure9-32a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-32b}
+		\captionsetup{justification=centering}
+		\caption{Sweep implicit model through workspace volume, $V_W$}
+		\label{fig:Figure9-32b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-32c}
+		\captionsetup{justification=centering}
+        \caption{Generate swept surface via isosurface extraction. Use connectivity to extract single surface.}
+		\label{fig:Figure9-32c}
+	\end{subfigure}
+	\caption{Overview of swept surface technique.}\label{fig:Figure9-32}
+\end{figure}
+
+The technique to generate swept surfaces and volumes using an implicit modeling approach proceeds as follows. The geometric model, or part, and a path describing the parts motion, or sweep trajectory ST, must be defined. Then we use the following steps as depicted in Figure \ref{fig:Figure9-32}.
+
+\begin{enumerate}
+
+\item Generate an implicit model from the part. This results in an implicit representation in the form of a volume. We call this the implicit model $V_I$.
+
+\item Construct another volume, the workspace volume $V_W$, that strictly bounds $V_I$ as it moves along the path ST. Then sweep $V_I$ through $V_W$ by moving in small steps, $\delta x$, along ST. At each step, $s$, sample $V_I$ with the workspace volume $V_W$. We use a boolean union operation to perform the sampling.
+
+\item Extract isosurface, or offset surface(s) from $V_W$ using a contouring algorithm such as marching cubes.
+
+\item Step 3 may create multiple connected surfaces. If a single surface is desired, use connectivity to extract the single ``largest'' surface (in terms of number of triangles). This surface is an approximation to the swept surface, and the volume it encloses is an approximation to the swept volume.
+
+\end{enumerate}
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-33a}
+		\captionsetup{justification=centering}
+		\caption{Inverse transform, $V_W$}
+		\label{fig:Figure9-33a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-33b}
+		\captionsetup{justification=centering}
+		\caption{Sample, $V_W$}
+		\label{fig:Figure9-33b}
+	\end{subfigure}
+	\caption{Generating workspace volume by sampling implicit volume.}\label{fig:Figure9-33}
+\end{figure}
+
+There are a few points that require additional explanation. This algorithm uses two volumes, the implicit model and the workspace volume. Both are implicit models, but the workspace volume is used to accumulate the part as it moves along the sweep trajectory. In theory, the part could be sampled directly into the workspace volume to create the implicit model of the swept surface. Performance issues dictate that the implicit model is sampled into the workspace volume. This is because it is much faster to sample the implicit model of the part rather than the part itself, since computing the distance function from a part that may consist of tens of thousands of cells is relatively time consuming, compared to sampling the implicit model $V_I$.
+
+Sampling $V_I$ is depicted in Figure \ref{fig:Figure9-33}. The sweep trajectory is defined by a series of transformation matrices $ST = {t_1, t_2,..., t_m}$. As the part moves along ST, interpolation is used to compute an inbetween transformation matrix t. Sampling is achieved by inverse transforming VW into the local space of $V_I$ using $t$. Then, similar to the probe operation described in ``Probing'' on page \pageref{subsec:probing}, the points of $V_W$ are transformed by the inverse of the transformation matrix $t^{-1}$, and used to interpolate the distance values from the implicit model $V_I$.
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-34a}
+		\captionsetup{justification=centering}
+		\caption{Inverse transform, $V_W$}
+		\label{fig:Figure9-34a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-34b}
+		\captionsetup{justification=centering}
+		\caption{Sample, $V_W$}
+		\label{fig:Figure9-34b}
+	\end{subfigure}
+	\caption{Computing sampling and stepping error.}\label{fig:Figure9-34}
+\end{figure}
+
+Because we are dealing with an implicit modeling technique, parts with concave features can generate multiple surfaces. As discussed in ``Connectivity'' on page \pageref{subsec:connectivity} in this Chapter, the connectivity algorithm is used to separate out the swept surface. This final surface is an approximation to the actual swept surface, since we are sampling the actual geometric representation on an array of points (i.e., the implicit model), and then sampling the implicit model on another volume (i.e., the workspace volume). Also, stepping along the sweep trajectory generates errors proportional to the step size $\delta$x.
+
+These errors can be characterized as follows (Figure \ref{fig:Figure9-34}). Given a voxel size $L/D$, where $L$ is the edge length of the volume, and $D$ is the dimension of the volume (assumed uniform for convenience), the maximum sampling error is
+
+\begin{equation}\label{eq:9.20}
+e \leq \dfrac{\sqrt{3}}{2} \dfrac{L}{D}
+\end{equation}
+\myequations{Maximum sampling error.}
+
+The error due to stepping, which includes both translation and rotational components, is bounded by $\delta x / 2$, where $\delta x$ is the maximum displacement of any point on the implicit model at any given translational step. Combining these terms for sampling both volumes and the error due to stepping, the total error is
+
+\begin{equation}\label{eq:9.21}
+e_\text{tot} \leq \dfrac{\sqrt{3}}{2}\left( \dfrac{L_\text{I}}{D_\text{I}}
+  + \dfrac{L_\text{W}}{D_\text{W}}\right) + \dfrac{\Delta x}{2}
+\end{equation}
+\myequations{Total error.}
+
+\noindent where the subscripts $I$ and $W$ refer to the implicit model and workspace volume, respectively.
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-35a}
+		\captionsetup{justification=centering}
+		\caption{Translated and rotated mace}
+		\label{fig:Figure9-35a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-35b}
+		\captionsetup{justification=centering}
+		\caption{Line stroked ``vtk``}
+		\label{fig:Figure9-35b}
+	\end{subfigure}
+	\caption{Swept surfaces. (a) Swept mace sampled at 25 locations. (b) Swept vtk sampled at 21 locations.}\label{fig:Figure9-35}
+\end{figure}
+
+To show the application of this algorithm, we have generated swept surfaces for the letters ``VTK'' and the ``mace'' model as shown in Figure \ref{fig:Figure9-35}.
+
+We have purposely chosen a step size to exaggerate the stepping error. Using more steps would smooth out the surface ``bumps'' due to stepping. Also, the appearance of the surface varies greatly with the selected isosurface value. Larger values give rounder, smoother surfaces. If you use small values near zero (assuming positive distance function) the surface may break up. To correct this you need to use a higher resolution work-space or compute negative distances. Negative distances are computed during the implicit modeling step by negating all points \emph{inside} the original geometry. Negative distances allow us to use a zero isosurface value or to generate internal offset surfaces. Negative distances can only be computed for closed (i.e., manifold) objects.
+
 \subsection{Visualizing Unstructured Points}
 \label{subsec:visualizing_unstructured_points}
+
+Unstructured point datasets consist of points at irregular positions in 3D space. The relationship between points is arbitrary. Examples of unstructured point datasets are visualizing temperature distribution from an array of (arbitrarily) placed thermocouples, or rainfall level measured at scattered positions over a geographic region.
+
+Unlike image data and structured grids, or even unstructured grids, unstructured point dataset have no topological component relating one point to another. For these reasons unstructured points are simple to represent but difficult to visualize. They are difficult to visualize because there is no inherent ``structure'' to which we can apply our library of visualization techniques. Beyond just displaying points (possibly colored with scalar value, or using oriented vector glyphs) none of the techniques discussed thus far can be used. Thus, to visualize unstructured points we have to build structure to which we can apply our visualization techniques.
+
+There are several approaches available to build topological structure given a random set of points. One common approach samples unstructured points into an image dataset, and then visualizes the data using standard volume or surface-based rendering techniques. Another approach creates n-dimensional triangulations from the unstructured points, thereby creating topological structure. These and other common techniques are described in the following sections.
+
+\subsubsection{Splatting Techniques}
+
 
 \subsection{Texture Algorithms}
 \label{subsec:texture_algorithms}
@@ -1031,7 +1172,6 @@ Mesh smoothing is particularly useful when creating models that do not require h
 \section{Putting It All Together}
 
 \subsection{Connectivity}
-\label{subsec:connectivity}
 
 \section{Chapter Summary}
 
