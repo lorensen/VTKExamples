@@ -12,6 +12,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRibbonFilter.h>
+#include <vtkTubeFilter.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 #include <vtkTransform.h>
@@ -27,7 +28,8 @@ namespace
 void AddStock(std::vector<vtkSmartPointer<vtkRenderer>> renderers,
               char *filename,
               std::string name,
-              double &zPosition);
+              double &zPosition,
+              bool useTubes);
 }
 
 int main (int argc, char *argv[])
@@ -44,13 +46,20 @@ int main (int argc, char *argv[])
   renderers.push_back(topRenderer);
   renderers.push_back(bottomRenderer);
 
+  bool useTubes = true;
+  if (atoi(argv[argc-1]) == 1)
+    {
+      useTubes = false;
+    }
+
   double zPosition = 0.0;
-  for (int i = 1; i < argc; ++i)
+  for (int i = 1; i < argc - 1; ++i)
   {
     AddStock(renderers,
              argv[i],
              vtksys::SystemTools::GetFilenameWithoutExtension(argv[i]),
-             zPosition);
+             zPosition,
+             useTubes);
   }
 
   // Setup render window and interactor
@@ -94,7 +103,8 @@ namespace
 void AddStock(std::vector<vtkSmartPointer<vtkRenderer>> renderers,
               char *filename,
               std::string name,
-              double &zPosition)
+              double &zPosition,
+              bool useTubes)
 {
   std::cout << "Adding " << name << std::endl;
 
@@ -122,6 +132,15 @@ void AddStock(std::vector<vtkSmartPointer<vtkRenderer>> renderers,
   y = nameLocation[1] + 5.0;
   z = zPosition;
 
+  // Create a tube and ribbpn filter. One or the other will be used
+
+  vtkSmartPointer<vtkTubeFilter>  TubeFilter =
+    vtkSmartPointer<vtkTubeFilter>::New();
+    TubeFilter->SetInputConnection(PolyDataRead->GetOutputPort());
+    TubeFilter->SetNumberOfSides(8);
+    TubeFilter->SetRadius(0.5);
+    TubeFilter->SetRadiusFactor(10000);
+
   vtkSmartPointer<vtkRibbonFilter>  RibbonFilter =
     vtkSmartPointer<vtkRibbonFilter>::New();
   RibbonFilter->SetInputConnection(PolyDataRead->GetOutputPort());
@@ -144,9 +163,17 @@ void AddStock(std::vector<vtkSmartPointer<vtkRenderer>> renderers,
 
   vtkSmartPointer<vtkTransformPolyDataFilter>  TransformFilter =
     vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-  TransformFilter->SetInputConnection(Extrude->GetOutputPort());
   TransformFilter->SetTransform(Transform);
 
+  // Select tubes or ribbons
+  if (useTubes)
+  {
+    TransformFilter->SetInputConnection(TubeFilter->GetOutputPort());
+  }
+  else
+  {
+    TransformFilter->SetInputConnection(Extrude->GetOutputPort());
+  }
   for (size_t r = 0; r < renderers.size(); ++r)
   {
     vtkSmartPointer<vtkPolyDataMapper>  LabelMapper =
