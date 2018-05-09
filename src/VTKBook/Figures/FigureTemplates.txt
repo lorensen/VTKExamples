@@ -4,7 +4,7 @@ Code to hide vtk objects in Figures
 Template for example references to the VTK Book figures.
 
 !!! info
-    See [Figure YY](/VTKBook/XXChapterXX/#Figure%20YY) in [Chapter XX](/VTKBook/XXChapterXX) the [VTK Textbook](/VTKBook/01Chapter1).
+    See [Figure YY](/VTKBook/XXChapterXX/#Figure%20YY) in [Chapter XX](/VTKBook/XXChapterXX) the [VTK Textbook](/VTKBook/01Chapter1/).
 
 Template for manually created figures
 
