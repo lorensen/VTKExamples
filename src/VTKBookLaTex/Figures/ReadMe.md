@@ -72,6 +72,7 @@ List of files and original paths:
 | Figure9-24a.png | src/Testing/Baseline/Cxx/Visualization/TestNormalsDemo.png |
 | Figure9-27a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDecimateFran.png |
 | Figure9-27b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDecimateHawaii.png |
+| Figure9-38b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestSplatFace.png |
 | | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |
