@@ -60,7 +60,7 @@ List of files and original paths:
 | | |
 | Figure8-41a.png | src/Testing/Baseline/Cxx/Visualization/TestAlphaFrequency.png |
 | Figure8-41b.png | src/Testing/Baseline/Cxx/Modelling/TestBottle.png |
-| Figure8-41c.png | src/Testing/Baseline/Cxx/Modelling/TestSpring.png |
+| Figure8-41c.png | src/Testing/Baseline/Cxx/Modelling/TestOffice.png |
 | | |
 | Figure9-4a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestExponentialCosine.png |
 | Figure9-4b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestWarpCombustor.png |
@@ -73,6 +73,13 @@ List of files and original paths:
 | Figure9-27a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDecimateFran.png |
 | Figure9-27b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDecimateHawaii.png |
 | Figure9-38b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestSplatFace.png |
+| Figure9-43a.png | src/Testing/Baseline/Cxx/Texture/TestTextureThreshold.png |
+| Figure9-43b.png | src/Testing/Baseline/Cxx/Texture/TestTextureCutSphere.png |
+| Figure9-45b.png | src/Testing/Baseline/Cxx/Texture/TestTextureCutQuadric.png |
+| Figure9-47a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestOfficeA.png |
+| Figure9-47b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTextureCutQuadric.png |
+| Figure9-48b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestClipSphereCylinder.png |
+| Figure9-50b.png | src/Testing/Baseline/Cxx/Modelling/TestFinance.png |
 | | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |

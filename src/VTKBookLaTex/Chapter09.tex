@@ -1170,6 +1170,7 @@ Unlike image data and structured grids, or even unstructured grids, unstructured
 There are several approaches available to build topological structure given a random set of points. One common approach samples unstructured points into an image dataset, and then visualizes the data using standard volume or surface-based rendering techniques. Another approach creates n-dimensional triangulations from the unstructured points, thereby creating topological structure. These and other common techniques are described in the following sections.
 
 \subsubsection{Splatting Techniques}
+\label{subsubsec:splatting_techniques}
 
 \begin{figure}[htb]
     \centering
@@ -1443,17 +1444,17 @@ Boolean textures extend texture thresholding for geometric clipping from 1D to 2
 	{\includegraphics[width=0.6\textwidth]{Figure9-44}}
 \end{figure}
 
-The boolean texture map is modified to reflect this as shown in Figure  \ref{Figure9-44}. As with 1D texture thresholding, transition regions can be created to separate the four regions.
+The boolean texture map is modified to reflect this as shown in Figure  \ref{fig:Figure9-44}. As with 1D texture thresholding, transition regions can be created to separate the four regions.
 
 \begin{figure}[htb]
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.75\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-45a}
 		\captionsetup{justification=centering}
 		\caption{Combination of 2D in/out textures}
 		\label{fig:Figure9-45a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.75\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-45b}
 		\captionsetup{justification=centering}
 		\caption{Sixteen boolean textures (from above) applied to sphere  (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TextureCutQuadric/}{TextureCutQuadric.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TextureCutQuadric/}{TextureCutQuadric.py})}
@@ -1474,17 +1475,17 @@ Texture mapping can be used to animate certain types of data. In these technique
 	\begin{subfigure}[h]{0.32\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-46a}
 		\captionsetup{justification=centering}
-		\caption{Thresholding data with texture (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TextureThreshold/}{TextureThreshold.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TextureThreshold/}{TextureThreshold.py})}
+		\caption{Simple opaque/transparent variation}
 		\label{fig:Figure9-46a}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.64\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-46b}
 		\captionsetup{justification=centering}
-		\caption{Sphere cut with transparent texture (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TextureCutSphere/}{TextureCutSphere.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TextureCutSphere/}{TextureCutSphere.py})}
+		\caption{Feathered opaque/transparent variation}
 		\label{fig:Figure9-46b}
 	\end{subfigure}
-	\caption{Texture maps for vector animation. Sixteen textures applied in succession create effect of motion along a vector. (a) Simple map. (b) Varying intensity "feathers" effect of motion.}\label{fig:Figure9-46}
+	\caption{Texture maps for vector animation. Sixteen textures applied in succession create effect of motion along a vector. (a) Simple map. (b) Varying intensity ``feathers'' effect of motion.}\label{fig:Figure9-46}
 \end{figure}
 
 As we saw in ``Hedgehogs and Oriented Glyphs'' on page \pageref{subsec:hedgehogs_oriented_glyphs}, vector fields can be represented as oriented and scaled lines. Texture animation can transform this static representational scheme into a dynamic representation. The key is to construct a series of 1D texture maps that when applied rapidly in sequence create the illusion of motion. Figure \ref{fig:Figure9-46a} shows a series of sixteen such texture maps. The maps consist of intensity--alpha $(I \alpha )$ values, A portion of the texture map is set fully opaque with full intensity $(I = 1, \alpha  = 1 )$. This is shown as the ``dark'' pattern in Figure \ref{fig:Figure9-46a}. The remainder of the map is set fully transparent with arbitrary intensity $( I = 1, \alpha = 0 )$ shown as the ``white'' portion. As is evidenced by the figure, the sequence of 16 texture maps scanned top to bottom generate the appearance of motion from left to right. Notice also how the texture maps are designed to wrap around to form a continuous pattern.
@@ -1495,6 +1496,209 @@ Other effects are possible by modifying the texture map. Figure \ref{fig:Figure9
 
 
 \section{Putting It All Together}
+
+With the conclusion of this chapter we have provided an overview of the basics of data visualization. In this section we show you how to use some of the advanced algorithms as implemented in the \emph{Visualization Toolkit}.
+
+\subsection{Dividing Cubes / Point Generation}
+
+Dividing cubes is implemented in VTK with the class vtkDividingCubes. It has been specialized to operate with image datasets. Besides specifying the contour value, you must specify a separation distance between points (using the method SetDistance()). If you desire a solid appearance, pick a distance that is less than or equal to display resolution.
+
+The separation distance controls the accuracy of point generation. It is possible to generate points that appear to form a solid surface when rendered, but are not accurately located on the contour surface. Although this usually is not an issue when viewing contour surfaces, if the accuracy of the point positions is important, the distance value must be set smaller. However, this can result in huge numbers of points. To reduce the number of points, you can use the SetIncrement() method, which specifies that every $n^{th}$ point is to be generated. Using this approach, you can obtain good accuracy and control the total number of points. An example where point positions are important is when the points are used to locate glyphs or as seed points for streamline generation.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-47a}
+		\captionsetup{justification=centering}
+		\caption*{See: (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/OfficeA/}{OfficeA.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/OfficeA/}{OfficeA.py})}
+		\label{fig:Figure9-47a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-47b}
+		\captionsetup{justification=centering}
+		\caption*{See: (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/Office/}{Office.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/Office/}{Office.py})}
+		\label{fig:Figure9-47b}
+	\end{subfigure}
+	\caption{Using random point seeds to create streamlines.}\label{fig:Figure9-47}
+\end{figure}
+
+The \emph{Visualization Toolkit} provides other point generation techniques. The source object vtkPointSource generates a user-specified number of points within a spherical region. The point positions are random within the sphere. (Note that there is a natural tendency for higher point density near the center of the sphere because the points are randomly generated along the radius and spherical angles $\phi$ and $\theta$.)
+
+Figure \ref{fig:Figure9-47} is an example use of vtkPointSource to generate streamlines. The dataset is a structured grid of dimensions $21 \times 20 \times$ 20 with flow velocity and a scalar pressure field. The dataset is a CFD simulation of flow in a small office. As this picture shows, there are a couple of bookcases, desks, a window, and an inlet and outlet for the ventilation system. On one of the desks is a small, intense heat source (e.g., a cigarette). In the left image 25 streamlines are started near the inlet using a vtkPointSource point generator. The second image shows what happens when we move the point source slightly to the left. By adjusting a single parameter (e.g., the center of the point source) it is possible to quickly explore our simulation data.
+
+Another convenient object for point generation is the class vtkEdgePoints. vtkEdgePoints generates points on an isosurface. The points are generated by locating cell edges whose points are both above and below the isosurface value. Linear interpolation is used to generate the point. Since vtkEdgePoints operates on any cell type, this filter's input type is any dataset type (e.g., vtkDataSet). Unlike vtkDividingCubes this filter will not typically generate dense point clouds that appear solid.
+
+\subsection{Clipping with Scalar Fields}
+
+Clipping is implemented in vtkClipPolyData. Each polygonal data primitive implements the operation in its Clip() method using cases tables derived in a manner similar to that of triangles described on page \pageref{subsec:clipping_with_scalar_fields}. vtkClipPolyData has methods to control whether an implicit function provides the scalar data or whether the dataset's scalar data will be used. ComputeScalarDataOn() uses the implicit function and ComputeScalarDataOff() uses the dataset's scalar data. Two output polygonal datasets are produced. These are accessed with GetOutput() and GetClippedOutput() methods. GetOutput() returns the polygonal data that is ``inside'' the clipping region while GetClippedOutput() returns polygonal data that is ``outside'' the region. (Note that GenerateClippedOutputOn() must be enabled if you are to get the clipped output.) The meaning of inside and outside can be reversed using the InsideOutOn() method. Figure \ref{fig:Figure9-48} shows a plane of quadrilaterals clipped with a boolean implicit function.
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-48a}
+		\captionsetup{justification=centering}
+		\caption*{}
+		\label{fig:Figure9-48a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-48b}
+		\captionsetup{justification=centering}
+		\caption*{See: (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/ClipSphereCylinder/}{ClipSphereCylinder.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/ClipSphereCylinder/}{ClipSphereCylinder.py})}
+		\label{fig:Figure9-48b}
+	\end{subfigure}
+	\caption{A plane clipped with a sphere and an ellipse. The two transforms place each implicit function into the appropriate position. Two outputs are generated by the clipper.}\label{fig:Figure9-48}
+\end{figure}
+
+\begin{lstlisting}[language=TCL, caption={Clipping a plane with a sphere and ellipse.}]
+vtkPlaneSource plane
+  plane SetResolution 25 25
+  plane SetOrigin -1 -1 0
+  plane SetPoint1 1 -1 0
+  plane SetPoint2 -1 1 0
+vtkTransform trSphere
+  trSphere Identity
+  trSphere Translate .4 -.4 0
+  trSphere Inverse
+vtkSphere sphere
+  sphere SetTransform trSphere
+  sphere SetRadius .5
+vtkTransform trCylinder
+  trCylinder Identity
+  trCylinder Translate -.4 .4 0
+  trCylinder RotateZ 30
+  trCylinder RotateY 60
+  trCylinder RotateX 90
+  trCylinder Inverse
+  vtkCylinder cylinder
+cylinder SetTransform trCylinder
+  cylinder SetRadius .3
+vtkImplicitBoolean boolean
+  boolean AddFunction cylinder
+  boolean AddFunction sphere
+vtkClipPolyData clipper
+  clipper SetInputConnection [plane GetOutputPort]
+  clipper SetClipFunction boolean
+  clipper GenerateClippedOutputOn
+  clipper GenerateClipScalarsOn
+  clipper SetValue 0
+\end{lstlisting}
+
+Until recently, VTK supported clipping only for polygonal data cell types (vertices, polyvertices, line, polylines, polygons and triangle strips). Recent additions since VTK version 4.0 support clipping of 3D cells using an ordered Delaunay triangulation approach.
+
+\subsection{Swept Volumes and Surfaces}
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-49a}
+		\captionsetup{justification=centering}
+		\caption*{}
+		\label{fig:Figure9-49a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-49b}
+		\captionsetup{justification=centering}
+		\caption*{}
+	\end{subfigure}
+	\caption{Generating swept surface from line-stroked ``vtk''. The class vtkSweptSurface was in the Patented directory in VTK 4.4. This directory was removed in VTK 5.0, and this class is not available in that release.}\label{fig:Figure9-49}
+\end{figure}
+
+\begin{lstlisting}[language=TCL, caption={Generating a swept surface.}]
+# read data file
+vtkPolyDataReader reader
+  reader SetFileName "$VTK_DATA_ROOT/Data/vtk.vtk"
+# create implicit model of VTK
+vtkImplicitModeller imp
+  imp SetInputConnection [reader GetOutputPort]
+  imp SetSampleDimensions 50 50 40
+  imp SetMaximumDistance 0.25
+  imp SetAdjustDistance 0.5
+# create swept surface
+vtkTransformCollection transforms
+vtkTransform t1
+  t1 Identity
+vtkTransform t2
+  t2 Translate 0 0 2.5
+  t2 RotateZ 90.0
+  transforms AddItem t1
+  transforms AddItem t2
+vtkSweptSurface sweptSurfaceFilter
+  sweptSurfaceFilter SetInputConnection [imp GetOutputPort]
+  sweptSurfaceFilter SetTransforms transforms
+  sweptSurfaceFilter SetSampleDimensions 100 7040
+  sweptSurfaceFilter SetModelBounds -4.0 6.0 -1.0 6.0 -1.0 3.5
+  sweptSurfaceFilter SetMaximumNumberOfInterpolationSteps 20
+vtkContourFilter iso
+  iso SetInputConnection [sweptSurfaceFilter GetOutputPort]
+  iso SetValue 0 0.33
+\end{lstlisting}
+
+Swept surfaces can be applied in two interesting ways. First, they can be used as a modelling tool to create unusual shapes and forms. In this sense, swept surfaces are an advanced implicit modelling technique. Second, swept surfaces can be used to statically represent object motion. This is an important visualization technique in itself and has many important applications. One of these applications is design for maintainability.
+
+When a complex mechanical system like a car engine is designed, it is important to design proper access to critical engine components. These components, like spark plugs, require higher levels of service and maintenance. It is important that these components can be easily reached by a mechanic. We've read horror stories of how it is necessary to remove an engine to change a spark plug. Insuring ready access to critical engine parts prevents situations like this from occurring.
+
+Swept surface can assist in the design of part access. We simply define a path to remove the part (early in the design process), and then generate a swept surface. This surface (sometimes referred to as a maintenance access solid or MAS) is then placed back into the CAD system. From this point on, the design of surrounding components such as fuel lines or wiring harnesses must avoid the MAS. As long as the MAS is not violated, the part can be removed. If the MAS is violated, a reevaluation of the removal path or redesign of the part or surrounding components is necessary.
+
+Figure \ref{fig:Figure9-49} shows how to create a swept surface from a simple geometric representation. The geometry is simply a line-stroked VTK. The next step is to define a motion path. This path is defined by creating a list of transformation matrices. Linear interpolation is used to generate intermediate points along the path if necessary.
+
+In Figure \ref{fig:Figure9-49} we also see the basic procedure to construct the swept surface. First, we must construct an implicit representation of the part by using vtkImplictModeller. This is then provided as input to vtkSweptSurface. It is important that the resolution of the implicit model is greater than or equal to that of vtkSweptSurface. This will minimize errors when we construct the surface. A bounding box surrounding the part and its motion can be defined, or it will be computed automatically. For proper results, this box must strictly contain the part as its moves. We also can set the number of interpolation steps, or allow this to be computed automatically as well. In the figure, we have chosen a small number to better illustrate the stepping of the algorithm.
+
+Once vtkSweptSurface executes, we extract the swept surface using an isosurfacing algorithm. The isosurface value is an offset distance; thus we can create surfaces that take into account geometry tolerance. (This is particularly important if we are designing mechanical systems.) The implementation of the implicit modeller in VTK uses a positive distance function; so the isosurface value should always be positive. To create swept surfaces of zero and negative value requires a modification to the implicit modeller.
+
+\subsection{Multidimensional Visualization}
+
+An important characteristic of multidimensional datasets is that they cannot be categorized according to any of the types defined in the \emph{Visualization Toolkit}. This implies that source objects interfacing with multidimensional data are responsible for converting the data they interface with into one of the types defined in VTK. This can be a difficult process, requiring you to write interface code.
+
+Other visualization systems treat this problem differently. In these systems a dataset type is defined that can represent multidimensional data. This dataset type is essentially an n-dimensional matrix. Additional filters are defined that allow the user to extract pieces of the dataset and assemble them into a more conventional dataset type, such as a volume or structured grid. After mapping the data from multidimensional form to conventional form, standard visualization techniques can be applied. (Future implementations of VTK may include this functionality. At the current time you must map multidimensional data into a known VTK form.)
+
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-50a}
+		\captionsetup{justification=centering}
+		\caption*{}
+		\label{fig:Figure9-50a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-50b}
+		\captionsetup{justification=centering}
+		\caption*{See: (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Modelling/Finance/}{Finance.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Modelling/Finance/}{Finance.py})}
+	\end{subfigure}
+	\caption{Visualization of multidimensional financial data. Visualization network, output image, and sample C++ code are shown (finance.cxx). The gray/wireframe surface represents the total data population. The dark surface represents data points delinquent on loan payment.}\label{fig:Figure9-50}
+\end{figure}
+
+\begin{lstlisting}[language=C++, caption={Visualizing multidimensional data.}]
+// construct pipeline for delinquent population
+vtkGaussianSplatter *lateSplatter = vtkGaussianSplatter::New();
+  lateSplatter->SetInput(dataSet);
+  lateSplatter->SetSampleDimensions(50,50,50);
+  lateSplatter->SetRadius(0.05);
+  lateSplatter->SetScaleFactor(0.005);
+vtkContourFilter *lateSurface = vtkContourFilter::New();
+  lateSurface->SetInput(lateSplatter->GetOutput());
+  lateSurface->SetValue(0,0.01);
+vtkPolyDataMapper *lateMapper = vtkPolyDataMapper::New();
+  lateMapper->SetInput(lateSurface->GetOutput());
+  lateMapper->ScalarVisibilityOff();
+vtkActor *lateActor = vtkActor::New();
+  lateActor->SetMapper(lateMapper);
+  lateActor->GetProperty()->SetColor(1.0,0.0,0.0);
+\end{lstlisting}
+
+To demonstrate these ideas we will refer to Figure \ref{fig:Figure9-50}. This is an example of multidimensional financial data. The data reflects parameters associated with monetary loans. In the file financial.txt there are six different variables: TIME\_LATE, MONTHLY\_PAYMENT, UNPAID\_PRINCIPLE, LOAN\_AMOUNT, INTEREST\_RATE, and MONTHLY\_INCOME. (Note: this is simulated data, don't make financial decisions based upon this!)
+
+We will use Gaussian splatting to visualize this data (``Splatting Techniques'' on page \pageref{subsubsec:splatting_techniques}).
+
+Our first step is to choose dependent and independent variables. This choice is essentially a mapping from multidimensional data into an unstructured point dataset. In this example we will choose MONTHLY\_PAYMENT, INTEREST\_RATE, and LOAN\_AMOUNT as our $(x, y, z)$ point coordinates, and TIME\_LATE as a scalar value. This maps four of six variables. For now we will ignore the other two variables.
+
+We use vtkGaussianSplatter to perform the splatting operation (i.e., conversion from unstructured points to volume dataset). This is followed by an isosurface extraction. We splat the data two times. The first time we splat the entire population. This is to show context and appears as gray/ wireframe in the figure. The second time we splat the data and scale it by the value of TIME\_LATE. As a result, only payments that are late contribute to the second isosurface.
+
+The results of this visualization are interesting. First, we see that there is a strong correlation between the two independent variables MONTHLY\_PAYMENT and LOAN\_AMOUNT. (This is more evident when viewing the data interactively.) We see that the data falls roughly on a plane at a $45^\circ$ angle between these two axes. With a little reflection this is evident: the monthly payment is strongly a function of loan amount (as well as interest rate and payment period). Second, we see that there is a clustering of delinquent accounts within the total population. The cluster tends to grow with larger interest rates and shrink with smaller monthly payments and loan amounts. Although the relationship with interest rate is expected, the clustering towards smaller monthly payments is not. Thus our visualization has provided a clue into the data. Further exploration may reveal the reason(s), or we may perform additional data analysis and acquisition to understand the phenomena.
+
+One important note about multidimensional visualization. Because we tend to combine variables in odd ways (e.g., the use of MONTHLY\_PAYMENT, INTEREST\_RATE, and \\ LOAN\_AMOUNT as $(x, y, z)$ coordinates), normalization of the data is usually required. To normalize data we simply adjust data values to lie between $(0,1)$. Otherwise our data can be badly skewed and result in poor visualizations.
 
 \subsection{Connectivity}
 
