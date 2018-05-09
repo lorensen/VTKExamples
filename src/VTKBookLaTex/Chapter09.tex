@@ -24,7 +24,8 @@ Finally, clipping is another important algorithm related to contouring, where ce
 
 \subsection{Dividing Cubes}
 
-Dividing cubes is a contouring algorithm similar to marching cubes \cite{Cline88}. Unlike marching cubes, dividing cubes generates point primitives as compared to triangles (3D) or lines (2D). If the number of points on the contour surface is large, the rendered appearance of the contour surface appears "solid."q To achieve this solid appearance, the density of the points must be at or greater than screen resolution. (Also, the points must be rendered using the standard lighting and shading equations used in surface rendering.)
+Dividing cubes is a contouring algorithm similar to marching cubes \cite{Cline88}. Unlike marching cubes, dividing cubes generates point primitives as compared to triangles (3D) or lines (2D). If the number of points on the contour surface is large, the rendered appearance of the contour surface appears ``solid''.
+To achieve this solid appearance, the density of the points must be at or greater than screen resolution. (Also, the points must be rendered using the standard lighting and shading equations used in surface rendering.)
 
 The motivation for dividing cubes is that rendering points is much faster than rendering polygons. This varies depending upon rendering hardware/software. Special purpose hardware has been developed to render shaded points at high speed. In other systems, greater attention has been placed on polygon rendering, and the rendering speed differences are not so great. Also, certain geometric operations such as clipping and merging data are simple operations with points. Comparable operations with polygons are much more difficult to implement.
 
@@ -132,7 +133,7 @@ Recall that marching triangles transforms triangles into lines that approximate 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=0.98\textwidth]{Figure9-8}\\
-    \caption{The eight cases for clipping a triangle. Black dots show triangle vertices that are "inside" the scalar clipping region. Shaded regions show the output of the clip operation.}\label{fig:Figure9-8}
+    \caption{The eight cases for clipping a triangle. Black dots show triangle vertices that are ``inside'' the scalar clipping region. Shaded regions show the output of the clip operation.}\label{fig:Figure9-8}
 \end{figure}
 
 \begin{figure}[!htb]
@@ -187,7 +188,7 @@ The streamribbon provides information about important flow parameters: the vecto
 \end{equation}
 \myequations{Streamwise vorticity.}
 
-The amount of twisting of the streamribbon approximates the streamwise vorticity. Flow divergence is a measure of the "spread" of the flow. The changing width of the streamribbon is proportional to the cross-flow divergence of the flow.
+The amount of twisting of the streamribbon approximates the streamwise vorticity. Flow divergence is a measure of the ``spread'' of the flow. The changing width of the streamribbon is proportional to the cross-flow divergence of the flow.
 
 A streamsurface is a collection of an infinite number of streamlines passing through a \emph{base curve}. The base curve, or \emph{rake}, defines the starting points for the streamlines. If the base curve is closed (e.g., a circle) the surface is closed and a streamtube results. Thus, streamribbons are specialized types of streamsurfaces with a narrow width compared to length.
 
@@ -553,6 +554,7 @@ Subsampling modifies the topology of a dataset. When points or cells are not sel
 A related technique is \emph{data masking}. In data masking we select every $n^{th}$ cell that at a minimum leaves one or more topological ``holes'' in the dataset. Masking also may change the topology of the dataset, since partial selections of cells from structured datasets can only be represented using unstructured grids. Masking is typically used to improve interactive performance or to quickly process portions of data.
 
 \subsubsection{Thresholding}
+\label{subsubsec:thresholding}
 
 Thresholding extracts portions of a dataset data based on attribute values. For example, we may select all cells having a point with scalar value between (0,1) or all points having a velocity magnitude greater than 1.0.
 
@@ -700,11 +702,15 @@ Intercell connectivity is a topological property of datasets. Cells are topologi
 
 One application of connectivity extracts a meaningful portion of an isosurface. If the isosurface is generated from measured data such as an MRI or CT scan, it likely contains ``noise'' or unimportant anatomical structure. Using connectivity algorithms, we can separate out the part of the isosurface that we desire, either by eliminating noise or undesirable anatomical structure. Figure \ref{fig:Figure9-23} is an example where a 2D surface of interest (e.g., an isocontour) is extracted from a noisy signal.
 
-Connectivity algorithms can be implemented using a recursive visit method. We begin by choosing an arbitrary cell and mark it ``visited''. Then, depending upon the type of connectivity desired (i.e., point, edge, face), we gather the appropriate neighbors and mark them visited. This process repeats recursively until all connected cells are visited. We generally refer to such a set of connected cells as a connected "surface" even though the cells may be of a topological dimension other than two.
+Connectivity algorithms can be implemented using a recursive visit method. We begin by choosing an arbitrary cell and mark it ``visited''. Then, depending upon the type of connectivity desired (i.e., point, edge, face), we gather the appropriate neighbors and mark them visited. This process repeats recursively until all connected cells are visited. We generally refer to such a set of connected cells as a connected ``surface'' even though the cells may be of a topological dimension other than two.
 
 To identify additional connected surfaces we locate another unvisited cell and repeat the processes described previously. We continue to identify connected surfaces until every cell in the dataset is visited. As each connected surface is identified, it is assigned a surface number. We can use this number to specify the surfaces to extract or we can specify ``seed'' points or cells and extract the surfaces connected to them.
 
 In some cases the recursion depth of the connectivity algorithm becomes larger than the computer system can manage. In this case, we can specify a maximum recursion depth. When this depth is exceeded, recursion is terminated and the current cells in the recursion are used as seeds to restart the recursion.
+
+\subsubsection{Hybrid Techniques}
+
+Recent work has focused on combining triangulation and basis function techniques for interpolating 2D bivariate data. The basic idea is as follows. A triangulation of P is constructed. Then an interpolating network of curves is defined over the edges of the triangulation. These curves are constructed with certain minimization properties of interpolating splines. Finally, the curve network is used to construct a series of triangular basis functions, or surface patches, that exhibit continuity in function value, and possibly higher order derivatives. (See \cite{Nielson91a} for more information.)
 
 \subsection{Polygon Normal Generation}
 
@@ -1298,7 +1304,7 @@ Shepard's method is an example of a basis function method. That is, the interpol
 
 \subsubsection{Triangulation techniques}
 
-Triangulation techniques build topology directly from unstructured points. The points are triangulated to create a topological structure consisting of \emph{n}--dimensional simplices that completely bound the points and linear combinations of the points (the so-called convex hull). The result of triangulation is a set of triangles (2D) or tetrahedra (3D), depending upon the dimension of the input data \cite{Lawson86}.
+Triangulation techniques build topology directly from unstructured points. The points are triangulated to create a topological structure consisting of \emph{n}--dimensional simplices that completely bound the points and linear combinations of the points (the so--called convex hull). The result of triangulation is a set of triangles (2D) or tetrahedra (3D), depending upon the dimension of the input data \cite{Lawson86}.
 
 \begin{figure}[htb]
     \centering
@@ -1318,8 +1324,175 @@ Triangulation techniques build topology directly from unstructured points. The p
 	\caption{The Delaunay triangulation (a) and Dirichlet tessellation (b). The circumcircle of each triangle in a Delaunay triangulation contains no other points but the three vertices of the triangle. The region surrounding each point $p_i$ in a Dirichlet tessellation is the set of points closest to $p_i$.}\label{fig:Figure9-39}
 \end{figure}
 
+An n-dimensional triangulation of a point set $P = (p_1, p_2, p_3, ..., p_n)$ is a collection of n-dimensional simplices whose defining points lie in $P$. The simplices do not intersect one another and share only boundary features such as edges or faces. The Delaunay triangulation is a particularly important form \cite{Bowyer81} \cite{Watson81}. It has the property that the circumsphere of any n-dimensional simplex contains no other points of $P$ except the $n+1$ defining points of the simplex (Figure \ref{fig:Figure9-39a}).
+
+The Delaunay triangulation has many interesting properties. In two dimensions, the Delaunay triangulation has been shown to be the optimal triangulation. That is, the minimum interior angle of a triangle in a Delaunay triangulation is greater than or equal to the minimum interior angle of any other possible triangulation. The Delaunay triangulation is the dual of the Dirichlet tessellation ((Figure  \ref{fig:Figure9-39a}), another important construction in computational geometry. The Dirichlet tessellation, also known as the Voronoi tessellation, is a tiling of space where each tile represents the space closest to a point $p_i$. (The tiles are called Voronoi cells.) An \emph{n}---dimensional Delaunay triangulation can be constructed from the Dirichlet tessellation by creating edges between Voronoi cells that share common $n-1$ boundaries (e.g., faces in 3D and edges in 2D). Conversely, the vertices of the Dirichlet tessellation are located at the circumcenters of the Delaunay circumcircles.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Figure9-40}
+	\caption{Computing the Delaunay triangulation using technique of Watson and Boyer. Points are injected into triangulation forming new Delaunay triangulations. In the final step, the initial bounding points are removed to reveal final triangulation.}
+	\label{fig:Figure9-40}
+\end{figure}
+
+The Delaunay triangulation can be computed using a variety of techniques. We describe a particularly elegant technique introduced independently by Watson \cite{Watson81} and Bowyer \cite{Bowyer81} (Figure \ref{fig:Figure9-40}). The algorithm begins by constructing an initial Delaunay triangulation that strictly bounds the point set P, the so-called bounding triangulation. This bounding triangulation can be as simple as a single triangle (2D) or tetrahedron (3D). Then, each point of P is injected one by one into the current triangulation. If the injected point lies within the circumcircle of any simplex, then the simplex is deleted, leaving a ``hole'' in the triangulation. After deleting all simplices, the n-1 dimensional faces on the boundary of the hole, along with the injected point, are used to construct a modified triangulation. This is a Delaunay triangulation, and the process continues until all points are injected into the triangulation. The last step removes the simplices connecting the points forming the initial bounding triangulation to reveal the completed Delaunay triangulation.
+
+This simplistic presentation of triangulation techniques has shown how to create topological structure from a set of unstructured points. We have ignored some difficult issues such as degeneracies and numerical problems. Degeneracies occur when points in a Delaunay triangulation lie in such a way that the triangulation is not unique. For example, the points lying at the vertices of a square, rectangle, or hexagon are degenerate because they can be triangulated in more than one way, where each triangulation is equivalent (in terms of Delaunay criterion) to the other. Numerical problems occur when we attempt to compute circumcenters, especially in higher-dimensional triangulations, or when simplices of poor aspect ratio are present.
+
+Despite these problems, triangulation methods are a powerful tool for visualizing unstructured points. Once we convert the data into a triangulation (or in our terminology, an unstructured grid), we can directly visualize our data using standard unstructured grid techniques.
+
+\subsection{Multidimensional Visualization}
+
+The treatment of multidimensional datasets is an important data visualization issue. Each point in a dataset is described by an n-dimensional coordinate, where $n geq 3$. Here we assume that each coordinate is an independent variable, and that we wish to visualize a single dependent variable. (Multi--dimensional visualization of vectors and tensors is an open research area.) An application of multidimensional data is financial visualization, where we might want to visualize return on investment as a function of interest rate, initial investment, investment period, and income, to name just a few possibilities.
+
+There are two fundamental problems that we must address when applying multidimensional visualization. These are the problems of \emph{projection} and \emph{understanding}.
+
+The problem of projection is that in using computer graphics we have two dimensions in which to present our data, or possibly three or four if we use specialized methods. Using 3D graphics we can give the illusion of three dimensions, or we can use stereo viewing techniques to achieve three dimensions. We can also use time as a fourth dimension by animating images. However, except for these limited situations, general \emph{n}--dimensional data cannot be represented on a 2D computer screen.
+
+The problem of understanding is that humans do not easily comprehend more than three dimensions, or possibly three dimensions plus time. Thus, even if we could create a technique to display data of many dimensions, the difficulty in understanding the data would impair the usefulness of the technique.
+
+Most multidimensional visualization techniques work with some form of dimension mapping, where \emph{n} dimensions are mapped to three dimensions and then displayed with 3D computer graphics techniques. The mapping is achieved by fixing all variables except three, and then applying the visualization techniques described throughout the text to the resulting data. For maximum benefit, the process of fixing independent variables, mapping to three dimensions, and then generating visualization must be interactive. This improves the effectiveness of the visualization process, allowing the user to build an internal model of the data by manipulating different parts of the data.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-41a}
+		\captionsetup{justification=centering}
+		\caption{Plot of five--dimensional point}
+		\label{fig:Figure9-41a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-41b}
+		\captionsetup{justification=centering}
+		\caption{Plot of six points}
+		\label{fig:Figure9-41b}
+	\end{subfigure}
+	\caption{Plotting a five-dimensional point using parallel coordinates. (a) plot of single point, (b) plot of many points.}\label{fig:Figure9-41}
+\end{figure}
+
+One novel approach to multidimensional visualization has been proposed by Inselberg and Dimsdale \cite{Inselberg87}. This approach uses parallel coordinate systems. Instead of plotting points on orthogonal axes, the $i^{th}$ dimensional coordinate of each point is plotted along separate, parallel axes. This is shown in Figure \ref{fig:Figure9-41} for a five-dimensional point. In parallel coordinate plots, points appear as lines. As a result, plots of n-dimensional points appear as sequences of line segments that may intersect or group to form complex fan patterns. In so doing, the human pattern recognition capability is engaged. Unfortunately, if the number of points becomes large, and the data is not strongly correlated, the resulting plots can become a solid mass of black, and any data trends are drowned in the visual display.
+
+Another useful multivariable technique uses glyphs. This technique associates a portion of the glyph with each variable. Although glyphs cannot generally be designed for arbitrary n-dimensional data, in many applications we can create glyphs to convey the information we are interested in. Refer to ``Glyphs'' on page \pageref{subsec:glyphs} for more information about glyphs.
+
 \subsection{Texture Algorithms}
 \label{subsec:texture_algorithms}
+
+Texturing is a common tool in computer graphics used to introduce detail without the high cost of graphics primitives. As we suggested in Chapter 7: \nameref{chap:advanced_computer_graphics}, texture mapping can also be used to visualize data. We explore a few techniques in the following sections.
+
+\subsubsection{Texture Thresholding}
+
+We saw earlier how to threshold data based on scalar values (see ``Thresholding'' on page \pageref{subsubsec:thresholding}). We refer to this approach as \emph{geometric thresholding} because structural components of a dataset (e.g., points and cells) are extracted based on data value. In contrast, we can use texture mapping techniques to achieve similar results. We call this technique \emph{texture thresholding}.
+
+Texture thresholding conceals features we do not want to see and accentuates features that we want to see. There are many variations on this theme. A feature can be concealed by making it transparent or translucent, by reducing its intensity, or using muted colors. A feature can be accentuated by making it opaque, increasing its intensity, or adding bright color. In the following paragraphs we describe a technique that combines intensity and transparency.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-42a}
+		\captionsetup{justification=centering}
+		\caption{Probing process}
+		\label{fig:Figure9-42a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-42b}
+		\captionsetup{justification=centering}
+		\caption{Probe interpolation}
+		\label{fig:Figure9-42b}
+	\end{subfigure}
+	\caption{Plotting a five-dimensional point using parallel coordinates. (a) plot of single point, (b) plot of many points.}\label{fig:Figure9-42}
+\end{figure}
+
+Texture thresholding requires two pieces of information: a texture map and an index into the map, or texture coordinate. In the simplest case we can devise a texture map that consists of two distinct regions as shown in Figure \ref{fig:Figure9-42a}. The first region is alternatively referred to as ``conceal'', ``off'', or ``outside''. The second region is referred to as ``accentuate'', ``on'', or ``inside''. (These different labels are used depending upon the particular application.) With this texture map in hand we can texture threshold by computing an appropriate texture coordinate. Areas that we wish to accentuate are assigned a coordinate to map into the ``accentuate'' portion of the texture map. Areas that we want to conceal are assigned a coordinate to map into the ``conceal'' portion of the texture map.
+
+One texture threshold technique uses transparency. We can conceal a region by setting its alpha opacity value to zero (transparent), and accentuate it by setting the alpha value to one (opaque). Thus, the texture map consists of two regions: a concealed region with $\alpha = 0$ and an accentuated region with $\alpha = 1$. Of course, the effect can be softened by using intermediate alpha values to create translucent images.
+
+An extension of this technique introduces a third region into the texture map: a transition region (Figure \ref{fig:Figure9-42b}). The transition region is the region between the concealed and accentuated regions. We can use the transition region to draw a border around the accentuated region, further highlighting the region.
+
+To construct the texture map we use intensity-alpha, or $I\alpha$ values. The intensity modulates the underlying color, while the alpha value controls transparency (as described previously). In the accentuated region, the intensity and opacity values are set high. In the concealed region, the intensity value can be set toany value ($if \alpha = 0$) or to a lower value($if \alpha \ne 0$).The transition region can use various combinations of $\alpha$ and intensity. A nice combination produces a black, opaque transition region (i.e., $I = 0$ and $\alpha = 1$ ).
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-43a}
+		\captionsetup{justification=centering}
+		\caption{Thresholding data with texture (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TextureThreshold/}{TextureThreshold.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TextureThreshold/}{TextureThreshold.py})}
+		\label{fig:Figure9-43a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-43b}
+		\captionsetup{justification=centering}
+		\caption{Sphere cut with transparent texture (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TextureCutSphere/}{TextureCutSphere.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TextureCutSphere/}{TextureCutSphere.py})}
+		\label{fig:Figure9-43b}
+	\end{subfigure}
+	\caption{Examples of texture thresholding. (a) Using scalar threshold to show values of flow density on plane above value of 1.5. (b) Boolean combination of two planes to cut nested spheres.}\label{fig:Figure9-43}
+\end{figure}
+
+To visualize information with the thresholding technique, we must map data to texture coordinates. As we saw previously, we can use scalar values in combination with a threshold specification to map data into the concealed, transition, and accentuated regions of the texture map. Figure \ref{fig:Figure9-43a} shows an example of texture thresholding applied to scalar data from a simulation of fluid flow. A scalar threshold sT is set to show only data with scalar value greater than or equal to sT.
+
+Another useful texture thresholding application uses implicit functions to map point position to texture coordinate. This is similar in effect to geometric clipping (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields}). As we saw in ``Implicit Functions''on page \pageref{subsec:implicit_functions}, implicit functions naturally map a $(x, y, z)$ coordinate value into three regions: $F(x, y, z) < 0$, $F(x, y, z) = 0$, and $F(x, y, z) > 0$ ; or equivalently, the concealed, transition, and accentuated regions of the texture map. Using boolean combinations of implicit functions, we can create complex cuts of our data as illustrated in Figure \ref{fig:Figure9-43b}. This figure shows two nested spheres. The outer sphere is cut by a boolean combination of two planes to show the inner sphere.
+
+\subsubsection{Boolean Textures}
+
+Texture thresholding can be extended into higher dimensions. That is, 2D or 3D texture coordinates can be used to map two or three data variables into a texture map. One such technique is boolean textures, a method to clip geometry using a 2D texture map and two implicit functions \cite{Lorensen93}.
+
+Boolean textures extend texture thresholding for geometric clipping from 1D to 2D. Instead of using a single implicit function to label regions ``in'' or ``out'', two implicit functions are used. This results in four different regions corresponding to all possible combinations of ``in'' and ``out''.
+
+\begin{figure}[!htb]
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
+	{\caption{2D Boolean texture.}\label{fig:Figure9-44}}
+	{\includegraphics[width=0.6\textwidth]{Figure9-44}}
+\end{figure}
+
+The boolean texture map is modified to reflect this as shown in Figure  \ref{Figure9-44}. As with 1D texture thresholding, transition regions can be created to separate the four regions.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-45a}
+		\captionsetup{justification=centering}
+		\caption{Combination of 2D in/out textures}
+		\label{fig:Figure9-45a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-45b}
+		\captionsetup{justification=centering}
+		\caption{Sixteen boolean textures (from above) applied to sphere  (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TextureCutQuadric/}{TextureCutQuadric.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TextureCutQuadric/}{TextureCutQuadric.py})}
+		\label{fig:Figure9-45b}
+	\end{subfigure}
+	\caption{Sixteen boolean textures. (a) Sixteen combinations of in/out. (b) Textures applied to sphere using two elliptical cylinder implicit functions.}\label{fig:Figure9-45}
+\end{figure}
+
+The boolean texture map can be created with combinations of intensity and transparency values to achieve a variety of effects. By combining the four combinations of in/out (i.e., four regions of Figure \ref{fig:Figure9-44}) with the two combinations of ``conceal'' and ``accentuate'', sixteen different boolean textures are possible. Figure \ref{fig:Figure9-45a} illustrates these combinations expressed as boolean combinations of two implicit functions A and B. The ``inside'' of the implicit functions is indicated with subscript i, while the outside is indicated with subscript o. The boolean expressions indicate the regions that we wish to conceal, as shown by open circles. The darkened circles are the regions that are accentuated. We can see in Figure \ref{fig:Figure9-45a} the effects of applying these different boolean textures to a sphere. The implicit functions in this figure are two elliptical cylinders sharing a common axis, and rotated $90^\circ$ from one another. In addition, transition regions have been defined with $I = 0$ to generate the dark cut edges shown. All 16 spheres share the same texture coordinates; only the texture map changes.
+
+\subsubsection{Texture Animation}
+
+Time-based animation techniques can illustrate motion or temporal data variations. This process often requires relatively large amounts of computer resource to read, process, and display the data. Thus, techniques to reduce computer resources are desirable when animating data.
+
+Texture mapping can be used to animate certain types of data. In these techniques, the data is not regenerated frame by frame, instead a time--varying texture map is used to change the visual appearance of the data. An example of this approach is texture animation of vector fields \cite{Yamrom95}.
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-46a}
+		\captionsetup{justification=centering}
+		\caption{Thresholding data with texture (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TextureThreshold/}{TextureThreshold.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TextureThreshold/}{TextureThreshold.py})}
+		\label{fig:Figure9-46a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.64\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure9-46b}
+		\captionsetup{justification=centering}
+		\caption{Sphere cut with transparent texture (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TextureCutSphere/}{TextureCutSphere.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TextureCutSphere/}{TextureCutSphere.py})}
+		\label{fig:Figure9-46b}
+	\end{subfigure}
+	\caption{Texture maps for vector animation. Sixteen textures applied in succession create effect of motion along a vector. (a) Simple map. (b) Varying intensity "feathers" effect of motion.}\label{fig:Figure9-46}
+\end{figure}
+
+As we saw in ``Hedgehogs and Oriented Glyphs'' on page \pageref{subsec:hedgehogs_oriented_glyphs}, vector fields can be represented as oriented and scaled lines. Texture animation can transform this static representational scheme into a dynamic representation. The key is to construct a series of 1D texture maps that when applied rapidly in sequence create the illusion of motion. Figure \ref{fig:Figure9-46a} shows a series of sixteen such texture maps. The maps consist of intensity--alpha $(I \alpha )$ values, A portion of the texture map is set fully opaque with full intensity $(I = 1, \alpha  = 1 )$. This is shown as the ``dark'' pattern in Figure \ref{fig:Figure9-46a}. The remainder of the map is set fully transparent with arbitrary intensity $( I = 1, \alpha = 0 )$ shown as the ``white'' portion. As is evidenced by the figure, the sequence of 16 texture maps scanned top to bottom generate the appearance of motion from left to right. Notice also how the texture maps are designed to wrap around to form a continuous pattern.
+
+Along with the 1D texture map, the texture coordinate s must also be generated --- on a line this is straightforward. The line origin receives texture coordinate $s = 0$, while the line terminus receives texture coordinate value $s = 1$. Any intermediate points (if the vector is a polyline) are parameterized in monotonic fashion in the interval $(0,1)$. Texture coordinates need only be generated once. Only the texture map is varied to generate the vector animation.
+
+Other effects are possible by modifying the texture map. Figure \ref{fig:Figure9-45b} shows a texture map with a repeating sequence of opaque/transparent regions. In each opaque region the intensity is gradually reduced from left to right. The result is that this tends to ``feather'' the appearance of the vector motion. The resulting image is more pleasing to the eye.
+
 
 \section{Putting It All Together}
 
