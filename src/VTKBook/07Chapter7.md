@@ -28,8 +28,7 @@ It is important to note that if we switch the ordering of the polygons, the resu
 
 <figure id="Figure 7-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-1.png?raw=true" width="640" alt="Figure7-1">
-</figure>
-<figcaption style="color:blue"><b>Figure7-1</b>. Physical generation of an image.</figcaption>
+  <figcaption style="color:blue"><b>Figure7-1</b>. Physical generation of an image.</figcaption>
 </figure>
 
 One solution to this problem is to sort the polygons from back to front and then render them in this order. Typically, this must be done in software requiring additional computational overhead. Sorting also interferes with actor properties (such as specular power), which are typically sent to the graphics engine just before rendering the actor's polygons. Once we start mixing up the polygons of different actors, we must make sure that the correct actor properties are set for each polygon rendered.
@@ -54,8 +53,7 @@ While we have been focusing on 2D texture maps, they can be of any dimension, th
 
 <figure id="Figure 7-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-2.png?raw=true" width="640" alt="Figure7-2">
-</figure>
-<figcaption style="color:blue"><b>Figure7-2</b>. Vertex texture coordinates.</figcaption>
+  <figcaption style="color:blue"><b>Figure7-2</b>. Vertex texture coordinates.</figcaption>
 </figure>
 
 Techniques for performing volume rendering using texture mapping hardware will be discussed later in this chapter.
@@ -74,8 +72,7 @@ While texture maps are generally used to add detail to rendered images, there ar
 
 <figure id="Figure 7-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Texture/TestAnimateVectors.png?raw=true" width="640" alt="Figure 7-3">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-3</b>. One frame from a vector field animation using texture. <a href="../../Cxx/Texture/AnimateVectors" title="AnimateVectors"> See AnimateVectors.cxx</a> and <a href="../../Python/Texture/AnimateVectors" title="AnimateVectors"> AnimateVectors.py</a>.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-3</b>. One frame from a vector field animation using texture. <a href="../../Cxx/Texture/AnimateVectors" title="AnimateVectors"> See AnimateVectors.cxx</a> and <a href="../../Python/Texture/AnimateVectors" title="AnimateVectors"> AnimateVectors.py</a>.</figcaption>
 </figure>
 
 These techniques will be covered in greater detail in [Chapter 9](/VTKBook/09Chapter9). (See ["Texture Algorithms"](/VTKBook/09Chapter9/#texture-algorithms) for more information.)
@@ -102,8 +99,7 @@ The two main steps of ray casting are determining the values encountered along t
 
 <figure id="Figure 7-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-4.png?raw=true" width="640" alt="Figure7-4">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-4</b> Image-order volume rendering. High potential iron protein data courtesy of Scripps Clinic, La Jolla, CA.. </figcaption>
+  <figcaption style="color:blue"><b>Figure 7-4</b> Image-order volume rendering. High potential iron protein data courtesy of Scripps Clinic, La Jolla, CA.. </figcaption>
 </figure>
 
 **Figure 7-5** shows the data value profile of a ray as it passes through 8 bit volumetric data where the data values can range between 0 and 255. The *x*-axis of the profile indicates distance from the view plane while the *y*-axis represents data value. The results obtained from four different simple ray functions are shown below the profile. For display purposes we convert the raw result values to gray scale values using a method similar to the one in the previous example.
@@ -116,14 +112,12 @@ for a reflection about the Y axis of the image.
 
 <figure id="Figure 7-5">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-5.png?raw=true" width="640" alt="Figure7-5">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-5</b>. A ray profile and four example ray functions. MRI head data courtesy of Siemens Medical Systems, Inc., Iselin, NJ.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-5</b>. A ray profile and four example ray functions. MRI head data courtesy of Siemens Medical Systems, Inc., Iselin, NJ.</figcaption>
 </figure>
 
 <figure id="Figure 7-6">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-6.png?raw=true" width="640" alt="Figure7-6">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-6</b>. A maximum intensity projection created with a ray casting technique. Intensity values are mapped through the color lookup table shown at the bottom of the image before display.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-6</b>. A maximum intensity projection created with a ray casting technique. Intensity values are mapped through the color lookup table shown at the bottom of the image before display.</figcaption>
 </figure>
 
 Later in this chapter, during the classification and illumination discussions, we will consider more complex ray functions. Although the colorful, shaded images produced by the new methods may contain more information, they may also be more difficult to interpret, and often easier to misinterpret, than the simple images of the previous examples. For that reason, it is beneficial to use multiple techniques to visualize your volumetric data.
@@ -161,16 +155,14 @@ value at *(x,y,z)* derived from eight surrounding scalar values
 
 <figure id="Figure 7-7">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-7.png?raw=true" width="640" alt="Figure7-7">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-7</b>. A 2D example of nearest neighbor interpolation (left) and a 3D example of trilinear interpolation (right).</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-7</b>. A 2D example of nearest neighbor interpolation (left) and a 3D example of trilinear interpolation (right).</figcaption>
 </figure>
 
 Uniform sampling Voxel by voxel traversal
 
 <figure id="Figure 7-8">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-8.png?raw=true" width="640" alt="Figure7-8">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-8</b>. Two basic ray traversal methods for volume rendering.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-8</b>. Two basic ray traversal methods for volume rendering.</figcaption>
 </figure>
 
 formations or a pixel on the view plane for parallel viewing
@@ -183,8 +175,7 @@ Step size = 2.0 Step size = 1.0 Step size = 0.1
 
 <figure id="Figure 7-9">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-9.png?raw=true" width="640" alt="Figure7-9">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-9</b>. Images generated using a ray casting method with three different step sizes.Vase data courtesy of SUNY Stony Brook.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-9</b>. Images generated using a ray casting method with three different step sizes.Vase data courtesy of SUNY Stony Brook.</figcaption>
 </figure>
 
 One difficulty with the uniform distance sampling method is selecting the step size. If the step size is too large, then our sampling might miss features in the data, yet if we select a small step size, we will significantly increase the amount of time required to render the image. This problem is illustrated in **Figure 7-9** using a volumetric dataset with grid points that are one unit apart along the X, Y, and Z axes. The images were generated using step sizes of 2.0, 1.0, and 0.1 units, where the 0.1 step-size image took nearly 10 times as long to generate as the 1.0 step-size image, which in turn took twice as long to render as the 2.0 step-size image. A compositing method was used to generate the images, where the scalar values within the dataset transition sharply from transparent black to opaque white. If the step size is too large, a banding effect appears in the image highlighting regions of the volume equidistant from the ray origin along the viewing rays. To reduce this effect when a larger step size is desired for performance reasons, the origin of each ray can be bumped forward along the viewing direction by some small random offset, which will produce a more pleasing image by eliminating the regular pattern of the aliasing.
@@ -193,14 +184,12 @@ In some cases it may make more sense to examine each voxel along the ray rather 
 
 <figure id="Figure 7-10">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-10.png?raw=true" width="640" alt="Figure7-10">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-10</b>. Discrete ray classification.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-10</b>. Discrete ray classification.</figcaption>
 </figure>
 
 <figure id="Figure 7-11">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-11.png?raw=true" width="640" alt="Figure7-11">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-11</b>. Ray casting with templated discrete rays. If the rays originate from the image plane (left) then voxels are missed in the volume. If instead the rays originate from a base plane of the volume (right), each voxel is visited exactly once.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-11</b>. Ray casting with templated discrete rays. If the rays originate from the image plane (left) then voxels are missed in the volume. If instead the rays originate from a base plane of the volume (right), each voxel is visited exactly once.</figcaption>
 </figure>
 
 A 3D scan conversion technique, such as a modified Bresenham method, can be used to transform the continuous ray into a discrete representation. The discrete ray is an ordered sequence of voxels $v_1, v_2,... v_n$ and can be classified as 6-connected, 18-connected, or 26-connected as shown in **Figure 7-10**. Each voxel contains 6 faces, 12 edges, and 8 vertices. If each pair of voxels  $v_i, v_{i+1}$ along the ray share a face then the ray is 6-connected, if they share a face or an edge the ray is 18-connected, and if they share a face, an edge, or a vertex the ray is 26-connected. Scan converting and traversing a 26-connected ray requires less time than a 6-connected ray but is more likely to miss small features in the volume dataset.
@@ -213,16 +202,14 @@ Object-order volume rendering methods process samples in the volume based on the
 
 <figure id="Figure 7-12">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-12.png?raw=true" width=640  alt="Figure7-12">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-12</b>. Object-order, back-to-front volume rendering.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-12</b>. Object-order, back-to-front volume rendering.</figcaption>
 </figure>
 
 **Figure 7-12** illustrates a simple object-order, back-to-front approach to projecting the voxels in a volume for an orthographic projection. Voxel traversal starts at the voxel that is furthest from the view plane and then continues progressively to closer voxels until all voxels have been visited. This is done within a triple nested loop where, from the outer to the inner loop, the planes in the volume are traversed, the rows in a plane are processed, and finally the voxels along a row are visited. **Figure 7-12** shows an ordered labeling of the first seven voxels as the volume is projected. Processing voxels in this manner does not yield a strict ordering from the furthest to the closest voxel. However, it is sufficient for orthographic projections since it does ensure that the voxels that project to a single pixel are processed in the correct order.
 
 <figure id="Figure 7-13">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-13.png?raw=true" width="640" alt="Figure7-13">
-</figure>
-<figcaption style="color:blue"><b>Figure7-13</b>. A Gaussian kernel is projected onto the view plane to produce a splat footprint.</figcaption>
+  <figcaption style="color:blue"><b>Figure7-13</b>. A Gaussian kernel is projected onto the view plane to produce a splat footprint.</figcaption>
 </figure>
 
 When a voxel is processed, its projected position on the view plane is determined and an operation is performed at that pixel location using the voxel and image information. This operator is similar to the ray function used in image-order ray casting techniques. Although this approach to projecting voxels is both fast and efficient, it often yields image artifacts due to the discrete selection of the projected image pixel. For instance, as we move the camera closer to the volume in a perspective projection, neighboring voxels will project to increasingly distant pixels on the view plane, resulting in distracting "holes" in the image.
@@ -233,8 +220,7 @@ There are several important considerations when utilizing a splatting approach f
 
 <figure id="Figure 7-14">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-14.png?raw=true" width="640" alt="Figure7-14">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-14</b>. Volume rendering using a 2D (left) and 3D (right) texture mapping technique.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-14</b>. Volume rendering using a 2D (left) and 3D (right) texture mapping technique.</figcaption>
 </figure>
 
 Texture mapping as described earlier in this chapter was originally developed to provide the appearance of high surface complexity when rendering geometric surfaces. As texture mapping methods matured and found their way into standard graphics hardware, researchers began utilizing these new capabilities to perform volume rendering <em style="color:blue;background-color: white">\[Cabral94\]</em>. There are two main texture-mapped volume rendering techniques based on the two main types of texture hardware currently available. Two-dimensional texture-mapped volume rendering makes use of 2D texture mapping hardware whereas 3D texture-mapped volume rendering makes use less commonly available 3D texture mapping graphics hardware.
@@ -246,8 +232,7 @@ Texture-mapped volume renderers sample and blend a volume to produce an image by
 
 <figure id="Figure 7-15">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-15.png?raw=true" width="640" alt="Figure7-15">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-15</b>. 2D texture-mapped volume rendering. The images were generated using three different mappings of scalar value to opacity. CT data (256x256x225) courtesy of North Carolina Memorial Hospital.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-15</b>. 2D texture-mapped volume rendering. The images were generated using three different mappings of scalar value to opacity. CT data (256x256x225) courtesy of North Carolina Memorial Hospital.</figcaption>
 </figure>
 
 The performance of this algorithm can be decomposed into the software sampling rate, the texture download rate, and the texture-mapped polygon scan conversion rate. The software sampling step is required to create the texture image, and is typically dependent on view direction due to cache locality when accessing volumetric data stored in a linear array. Some implementations minimize the software sampling cost at the expense of memory by precomputing and saving images for the three major volume orientations. The texture download rate is the rate at which this image can be transferred from main memory to texture mapping memory. The scan conversion of the polygon is usually limited by the rate at which the graphics hardware can process pixels in the image, or the pixel fill rate. For a given hardware implementation, the download time for a volume is fixed and will not change based on viewing parameters. However, reducing the relative size of the projected volume will reduce the number of samples processed by the graphics hardware that, in turn, will increase volume rendering rates at the expense of image quality.
@@ -258,8 +243,7 @@ For large volumes it may not be possible to load the entire volume into 3D textu
 
 <figure id="Figure 7-16">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-16.png?raw=true" width="640" alt="Figure7-16">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-16</b>. On the left, orthographic rays are cast from the base plane of the volume. In the right image the volume is sheared such that these rays become perpendicular to the base plane.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-16</b>. On the left, orthographic rays are cast from the base plane of the volume. In the right image the volume is sheared such that these rays become perpendicular to the base plane.</figcaption>
 </figure>
 
 Similar to a 2D texture mapping method, the 3D algorithm is limited by both the texture download and pixel fill rates of the machine. However, 3D texture mapping is superior to the 2D version in its ability to sample the volume, generally yielding higher quality images with fewer artifacts. Since it is capable of performing trilinear interpolation, we are able to sample at any location within the volume. For instance, a 3D texture mapping algorithm can sample along polygons representing concentric spheres rather than the more common view-aligned planes.
@@ -282,8 +266,7 @@ Classifying the relevant objects of interest within a dataset is a critical step
 
 <figure id="Figure 7-17">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-17.png?raw=true" width="640" alt="Figure7-17">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-17</b>. Transfer functions that classify CT densities into material percentages. A simple binary classification used to define a bone isosurface (left) and a gradual transition from air to muscle to bone (right) is shown.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-17</b>. Transfer functions that classify CT densities into material percentages. A simple binary classification used to define a bone isosurface (left) and a gradual transition from air to muscle to bone (right) is shown.</figcaption>
 </figure>
 
 In addition to material percentage transfer functions, we can define four independent transfer functions that map scalar values into red, green, blue, and opacity values for each material in the dataset. For simplicity, these sets of transfer functions are typically preprocessed into one function each for red, green, blue and opacity at the end of the classification phase. During rendering we must decide how to perform interpolation to compute the opacity and color at an arbitrary location in the volume. We could interpolate scalar value then evaluate the transfer functions, or we could evaluate the transfer functions at the grid points then interpolate the resulting opacities and colors. These two methods will produce different image results. It is generally considered more accurate to classify at the grid points then interpolate to obtain color and opacity; although if we interpolate then classify, the image often appears more pleasing since high frequencies may be removed by the interpolation.
@@ -292,8 +275,7 @@ Classifying a volume based on scalar value alone is often not capable of isolati
 
 <figure id="Figure 7-18">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-18.png?raw=true" width="640" alt="Figure7-18">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-18</b>. Volume rendering using a gradient magnitude opacity transfer function. Rendering performed with Kitware's VolView volume rendering system. The Visible Man CT data is courtesy of The National Library of Medicine.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-18</b>. Volume rendering using a gradient magnitude opacity transfer function. Rendering performed with Kitware's VolView volume rendering system. The Visible Man CT data is courtesy of The National Library of Medicine.</figcaption>
 </figure>
 
 If we are using a higher-order interpolation function such as tri-cubic interpolation then we can analytically compute the gradient vector at any location in the dataset by evaluating the first derivative of the interpolation function. Although we can use this approach for trilinear interpolation, it may produce undesirable artifacts since trilinear interpolation is not continuous in its first derivative across voxel boundaries. An alternative approach is to employ a finite differences technique to approximate the gradient vector:
@@ -313,8 +295,7 @@ It is often the case that transfer functions based on scalar value and even grad
 
 <figure id="Figure 7-19">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-19.png?raw=true" width="640" alt="Figure7-19">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-19</b>. A comparison of shaded images with two different step sizes used during normal estimation. Confocal microscopy data courtesy of Howard Hughes Medical Institute, SUNY Stony Brook.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-19</b>. A comparison of shaded images with two different step sizes used during normal estimation. Confocal microscopy data courtesy of Howard Hughes Medical Institute, SUNY Stony Brook.</figcaption>
 </figure>
 
 ## 7.8 Volumetric Illumination
@@ -327,8 +308,7 @@ Maximum intensity Composite (unshaded) Composite (shaded)
 
 <figure id="Figure 7-20">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-20.png?raw=true" width="640" alt="Figure7-20">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-20</b>. A comparison of three volume rendering techniques. A maximum intensity projection does not include occlusion or shading. A composite image includes occlusion and can include shading.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-20</b>. A comparison of three volume rendering techniques. A maximum intensity projection does not include occlusion or shading. A composite image includes occlusion and can include shading.</figcaption>
 </figure>
 **Figure 7-20** 
 
@@ -398,8 +378,7 @@ $$
 
 <figure id="Figure 7-21">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-21.png?raw=true" width="640" alt="Figure7-21">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-21</b>. A scene (left) and the corresponding depth image (right) used in 2D gradient estimation.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-21</b>. A scene (left) and the corresponding depth image (right) used in 2D gradient estimation.</figcaption>
 </figure>
 
 continuous curvature regions
@@ -479,14 +458,12 @@ Although using a shading table leads to faster rendering times, there are some l
 
 <figure id="Figure 7-22">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-22.png?raw=true" width="640" alt="Figure7-22">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-22</b>. Gradient direction encoding.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-22</b>. Gradient direction encoding.</figcaption>
 </figure>
 
 <figure id="Figure 7-23">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-23.png?raw=true" width="640" alt="Figure7-23">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-23</b>. Volume rendering with regions of interest. On the upper left, full-resolution volume rendering. On the upper right, the use of axis-aligned cropping planes. Lower left, the use of arbitrary clipping planes. Renderings performed using Kitware's VolView product; Visible Human Data is courtesy of The National Library of Medicine.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-23</b>. Volume rendering with regions of interest. On the upper left, full-resolution volume rendering. On the upper right, the use of axis-aligned cropping planes. Lower left, the use of arbitrary clipping planes. Renderings performed using Kitware's VolView product; Visible Human Data is courtesy of The National Library of Medicine.</figcaption>
 </figure>
 
 ## 7.9 Regions of Interest
@@ -505,8 +482,7 @@ We can solve the problem of visualizing internal features by defining a region o
 
 <figure id="Figure 7-24">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-24.png?raw=true" width="640" alt="Figure7-24">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-24</b>. Two volumes rendered with both geometric and volumetric techniques. The Visible Woman CT data is courtesy of The National Library of Medicine.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-24</b>. Two volumes rendered with both geometric and volumetric techniques. The Visible Woman CT data is courtesy of The National Library of Medicine.</figcaption>
 </figure>
 
 
@@ -701,8 +677,7 @@ process a stereo pair of images is involved.
 
 <figure id="Figure 7-25">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-25.png?raw=true" width="640" alt="Figure7-25">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-25</b>. Stereo rendering and binocular parallax.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-25</b>. Stereo rendering and binocular parallax.</figcaption>
 </figure>
 
 To generate correct left and right eye images, we need information beyond the camera parameters that we introduced in [Chapter 3](/VTKBook/03Chapter3]. The first piece of information we need is the separation distance between the eyes. The amount of parallax generated can be controlled by adjusting this distance. We also need to know if the resulting images will be viewed on one or two displays. For systems that use two displays (and hence two view planes), the parallax can be correctly produced by performing camera azimuths to reach the left and right eye positions. Head mounted displays and booms are examples of two display systems. Unfortunately, this doesn't work as well for systems that have only one view plane. If you try to display both the left and right views on a single display, they are forced to share the same view plane as in **Figure 7-25**. Our earlier camera model assumed that the view plane was perpendicular to the direction of projection. To handle this non-perpendicular case, we must translate and shear the camera's viewing frustum. Hodges provides some of the details of this operation as well as a good overview on stereo rendering <em style="color:blue;background-color: white">\[Hodges92\]</em>.  Now let's look at some of the different methods for presenting stereoscopic images to the user. Most methods are based on one of two main categories: *time multiplexed* and *time parallel* techniques. Time multiplexed methods work by alternating between the left and right eye images. Time parallel methods display both images at once in combination with a process to extract left and right eye views. Some methods can be implemented as either a time multiplexed or a time parallel technique.
@@ -723,16 +698,14 @@ The next two techniques for stereo rendering can be implemented using either the
 
 <figure id="Figure 7-26">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-26.png?raw=true" width="640" alt="Figure7-26">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-26</b>. Single image random dot stereogram of a tetrahedron.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-26</b>. Single image random dot stereogram of a tetrahedron.</figcaption>
 </figure>
 
 The second technique is similar to the first but it preserves all the color information from the original images. It separates the different views by using polarized light. Normally, the light we see has a mixture of polarization angles, but there are lenses that can filter out a subset of these angles. If we project a color image through a vertical polarizing filter, and then view it through another vertical filter, we will see the original image, just slightly dimmer because we've filtered out all the horizontally polarized light. If we place a horizontal filter and a vertical filter together, all the light is blocked. Polarized stereo rendering typically projects one eye's image through a vertical filter and the other through a horizontal filter. The user wears a pair of glasses containing a vertical filter over one eye and a horizontal filter over the other. This way each eye views the correct image.
 
 <figure id="Figure 7-27">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-27.png?raw=true" width="640" alt="Figure7-27">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-27</b>. Wireframe image and antialiased equivalent.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-27</b>. Wireframe image and antialiased equivalent.</figcaption>
 </figure>
 
 All the methods we have discussed for stereo rendering have their advantages and disadvantages, typically revolving around cost and image quality. At the end of this chapter we will look at an example program that renders stereo images using the red-blue technique.
@@ -749,8 +722,7 @@ A good result can be obtained by breaking each pixel into 10 subpixels, which re
 
 <figure id="Figure 7-28">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-28.png?raw=true" width="640" alt="Figure7-28">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-28</b>. A one pixel wide line (outlined in gray) draw using a winner take all approach (left) and a coverage approach (right).</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-28</b>. A one pixel wide line (outlined in gray) draw using a winner take all approach (left) and a coverage approach (right).</figcaption>
 </figure>
 
 The last method of antialiasing we will look at uses an accumulation buffer to average a few possibly aliased images together to produce one antialiased result. An accumulation buffer is just a segment of memory that is set aside for performing image operations and storage. The following fragment of C++ code illustrates this process.
@@ -784,8 +756,7 @@ $$
 
 <figure id="Figure 7-29">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-29.png?raw=true" width="640" alt="Figure7-29">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-29</b>. Three images showing focal depth. The first has no focal depth, the second is focused on the center object, the third image is focused on the farthest object.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-29</b>. Three images showing focal depth. The first has no focal depth, the second is focused on the center object, the third image is focused on the farthest object.</figcaption>
 </figure>
 
 In this equation is $O_p$ the offset in pixel coordinates, $O_w$ is the offset ain world coordinates,
@@ -839,8 +810,7 @@ objects over a finite time.
 
 <figure id="Figure 7-30">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-30.png?raw=true" width="640" alt="Figure7-30">
-</figure>
-<figcaption style="color:blue"><b>Figure7-30</b>. Motion blur. Rapidly moving objects appear blurry when recorded on film or videotape. To simulate motion blur with a computer camera, multiple images (or subframes) can be accumulated and averaged. This figure was generated by accumulating 21 subframes.</figcaption>
+  <figcaption style="color:blue"><b>Figure7-30</b>. Motion blur. Rapidly moving objects appear blurry when recorded on film or videotape. To simulate motion blur with a computer camera, multiple images (or subframes) can be accumulated and averaged. This figure was generated by accumulating 21 subframes.</figcaption>
 </figure>
 
 ## 7.17 Mouse-Based Interaction
@@ -881,8 +851,7 @@ keep it orthogonal to the direction of projection.
 
 <figure id="Figure 7-31">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-31.png?raw=true" width="640" alt="Figure7-31">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-31</b>. Rotations using an orthogonalized view-up vector (left) and a constant view-up vector (right).</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-31</b>. Rotations using an orthogonalized view-up vector (left) and a constant view-up vector (right).</figcaption>
 </figure>
 
 ## 7.18 3D Widgets and User Interaction
@@ -950,8 +919,7 @@ The key to widget design is careful implementation of intuitive, simple user int
 
 <figure id="Figure 7-32">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32.png?raw=true" width="640" alt="Figure7-32">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-32</b>. Application of some 3D widgets found in VTK.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-32</b>. Application of some 3D widgets found in VTK.</figcaption>
 </figure>
 
 
@@ -1100,8 +1068,7 @@ we set up a loop to rotate the bottom mace by two degrees between each subframe.
 
 <figure id="Figure 7-34">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VolumeRendering/TestSimpleRayCast.png?raw=true" width="640" alt="Figure 7-34">
-</figure>
-<figcaption style="color:blue"><b>Figure 7-34</b>. Volume rendering of a high potential iron protein. <a href="../../Cxx/VolumeRendering/SimpleRayCast" title="SimpleRayCast"> See SimpleRayCast.cxx</a> and <a href="../../Python/VolumeRendering/SimpleRayCast" title="SimpleRayCast"> SimpleRayCast.py</a>.</figcaption>
+  <figcaption style="color:blue"><b>Figure 7-34</b>. Volume rendering of a high potential iron protein. <a href="../../Cxx/VolumeRendering/SimpleRayCast" title="SimpleRayCast"> See SimpleRayCast.cxx</a> and <a href="../../Python/VolumeRendering/SimpleRayCast" title="SimpleRayCast"> SimpleRayCast.py</a>.</figcaption>
 </figure>
 
 ``` c++
@@ -1213,8 +1180,7 @@ iren->Start();
 
 <figure id="Figure 7-38">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-38.png?raw=true" width="640" alt="Figure7-38">
-</figure>
-<figcaption style="colaor:blue"><b>Figure 7-38</b>. Partial class hierarchy for 3D widgets. Each 3D widget observes a particular &#118;tkRenderWindow similar to &#118;tkInteractorStyle. Unlike the &#118;tkInteractorStyle which is used to manipulate the camera, 3D widgets have a representation in the scene that can be directly manipulated. More than one &#118;tkInteractorObserver can watch a &#118;tkRenderWindow at a given time, so classes like &#118;tkInteractorEventRecorder can record an event and pass them on to the next &#118;tkInteractorObserver observing the &#118;tkRenderWindow.</figcaption>
+  <figcaption style="colaor:blue"><b>Figure 7-38</b>. Partial class hierarchy for 3D widgets. Each 3D widget observes a particular &#118;tkRenderWindow similar to &#118;tkInteractorStyle. Unlike the &#118;tkInteractorStyle which is used to manipulate the camera, 3D widgets have a representation in the scene that can be directly manipulated. More than one &#118;tkInteractorObserver can watch a &#118;tkRenderWindow at a given time, so classes like &#118;tkInteractorEventRecorder can record an event and pass them on to the next &#118;tkInteractorObserver observing the &#118;tkRenderWindow.</figcaption>
 </figure>
 
 The widget interfaces with the application through the command/observer event handling mechanism (see ["Events and Observers"](/VTKBook/03Chapter3#Chapter 3 - Events and Observers"). 3D widgets invoke several events, the most important being the StartInteractionEvent, InteractionEvent, and EndInteractionEvent. These events are typically invoked, for example, on mouse down, mouse move, and mouse up, respectively. In the example shown here, Tcl procedures are tied to the StartInteractionEvent and InteractionEvent using the AddObserver() method to produce streamlines as the widget is manipulated. Note that the streamline is seeded with a polygonal dataset each time an InteractionEvent is invoked using the GetPolyData() method. The pipeline update mechanism then automatically executes on the next render since the input to the streamline is modified.

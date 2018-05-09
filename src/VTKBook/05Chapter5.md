@@ -31,8 +31,7 @@ In this chapter and [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapte
 
 <figure id="Figure 5-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-1.png?raw=true" width="640" alt="Figure5-1">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-1</b>. The architecture of a dataset. A dataset consists of an organizing structure, with both topological and geometric properties, and attribute data associated with the structure.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-1</b>. The architecture of a dataset. A dataset consists of an organizing structure, with both topological and geometric properties, and attribute data associated with the structure.</figcaption>
 </figure>
 
 ### Design Criterion
@@ -80,14 +79,12 @@ $$
 
 <figure id="Figure 5-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-2.png?raw=true" width="640" alt="Figure5-2">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-2</b>. Linear cell types found in VTK. Numbers define ordering of the defining points.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-2</b>. Linear cell types found in VTK. Numbers define ordering of the defining points.</figcaption>
 </figure>
 
 <figure id="Figure 5-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-3.png?raw=true" width="640" alt="Figure5-3">
-</figure>
-<afigcaption style="color:blue"><b>Figure 5-3</b>. Example of a hexahedron cell. The topology is implicitly defined by the ordering of the point list. Physical generation of an image.</figcaption>
+  <afigcaption style="color:blue"><b>Figure 5-3</b>. Example of a hexahedron cell. The topology is implicitly defined by the ordering of the point list. Physical generation of an image.</figcaption>
 </figure>
 
 The importance of “uses” and “use sets” will become evident in [Chapter 8 - Advanced Data Representation](/vtkBook/08Chapter8) when we explore the topology of datasets.
@@ -146,8 +143,7 @@ It is common in numerical analysis to use nonlinear cells, i.e., cell formulatio
 
 <figure id="Figure 5-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-4.png?raw=true" width="640" alt="Figure5-4">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-4</b>. Nonlinear cell types found in VTK.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-4</b>. Nonlinear cell types found in VTK.</figcaption>
 </figure>
 
 One significant difference between linear and nonlinear cells is the way they are rendered and operated on by various visualization algorithms. Linear cells are readily converted to linear graphics primitives, which are then processed by the graphics library. Nonlinear cells, on the other hand, do not often have direct support in graphics libraries. (One exception are the family of non-uniform rational B-splines or NURBS. And even these are generally tessellated by the graphics library into linear primitives.) Therefore, nonlinear cells must be treated specially by the visualization system. Some possibilities include:
@@ -168,8 +164,7 @@ VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in 
 
 <figure id="Figure 5-5">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-5.png?raw=true" width="640" alt="Figure5-5">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-5</b>. Decomposing quadratic nonlinear cells into linear cells. The quadratic tetrahedron is tessellated into six linear tetrahedron; the quadratic hexahedron is tessellated into eight linear hexahedra. Note that some tessellations require the addition of new points. In VTK, a cell adaptor framework is available for tessellating cells with basis functions of arbitrary complexity, see [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) for more information.
+  <figcaption style="color:blue"><b>Figure 5-5</b>. Decomposing quadratic nonlinear cells into linear cells. The quadratic tetrahedron is tessellated into six linear tetrahedron; the quadratic hexahedron is tessellated into eight linear hexahedra. Note that some tessellations require the addition of new points. In VTK, a cell adaptor framework is available for tessellating cells with basis functions of arbitrary complexity, see [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) for more information.
  </figcaption>
 </figure>
 
@@ -199,8 +194,7 @@ Attribute data is information associated with the structure of the dataset. This
 
 <figure id="Figure 5-6">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-6.png?raw=true" width="640" alt="Figure5-6">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-6</b>. Attribute data.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-6</b>. Attribute data.</figcaption>
 </figure>
 
 Attribute data is often categorized into specific types of data. These categories have been created in response to common data forms. Visualization algorithms are also categorized according to the type of data they operate on.
@@ -246,8 +240,7 @@ Vertices, lines, and polygons form a minimal set of primitives to represent 0-, 
 
 <figure id="Figure 5-7">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-7.png?raw=true" width="640" alt="Figure5-7">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-7</b>. Dataset types. The unstructured grid consists of all cell types.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-7</b>. Dataset types. The unstructured grid consists of all cell types.</figcaption>
 </figure>
 
 Our minimal selection of cells is based on common application and performance, representing a subset of the cells available in some graphics libraries. Other types include quadrilateral meshes, Bezier curves and surfaces, and other spline types such as NURBS (Non-Uniform Rational B-Splines) <em style="color:blue;background-color: white">\[Mortenson85\]</em>. Spline surfaces are generally used to accurately model and visualize geometry. Few visualization algorithms (other than geometry visualization) have been developed that require spline surfaces.
@@ -328,8 +321,7 @@ In the design of the _Visualization Toolkit_, we chose to use a more concrete da
 
 <figure id="Figure 5-8">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-8.png?raw=true" width="640" alt="Figure5-8">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-8</b>. Implementation of contiguous array. This example is a fragment of the class definition &#118;tkFloatArray.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-8</b>. Implementation of contiguous array. This example is a fragment of the class definition &#118;tkFloatArray.</figcaption>
 </figure>
 
 ## 5.8 Putting It All Together
@@ -356,8 +348,7 @@ Attribute data and points, as well as several other data objects, are represente
 
 <figure id="Figure 5-9">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-9.png?raw=true" width="640" alt="Figure5-9">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-9</b>. Data array structure. In this example, each tuple has 3 components.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-9</b>. Data array structure. In this example, each tuple has 3 components.</figcaption>
 </figure>
 
 ### Abstract/Concrete Data Array Objects
@@ -370,8 +361,7 @@ Consider the abstract class vtkDataArray. We can access the data value at associ
 
 <figure id="Figure 5-10">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-10.png?raw=true" width="640" alt="Figure5-10">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-10</b>.  Data array object diagram. &#118;tkDataArray is an abstract base class. Subclasses of &#118;tkDataArray implement type specific representation and operations. Note: not all concrete data array subclasses are shown in this diagram.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-10</b>.  Data array object diagram. &#118;tkDataArray is an abstract base class. Subclasses of &#118;tkDataArray implement type specific representation and operations. Note: not all concrete data array subclasses are shown in this diagram.</figcaption>
 </figure>
 
 While this run-time oriented interface is convenient for writing general algorithms that do not depend on a particular data type, the conversion of native representation to double type is problematic. First, the conversion operation can affect performance adversely, since the data access methods are called frequently, virtual functions are slower than in-line or non-virtual invocations, and the cast operator is slow in many cases. Second, a complex type such as double loses precision during conversion to double. To remedy these problems, it is possible to access data in its native form and process it accordingly. In this approach C++ templates are used.
@@ -395,8 +385,7 @@ switch (outData->GetScalarType())
 
 <figure id="Figure 5-11">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-11.png?raw=true" width="640" alt="Figure5-11">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-11</b>. Data object representation as field data. A field can be represented as an array of arrays. Each array has a specified type, length, tuple size, and name. The association of a data array with points or cells, and its labeling as a particular attribute type, forms point and cell attribute data.</figcaption>
+   <figcaption style="color:blue"><b>Figure 5-11</b>. Data object representation as field data. A field can be represented as an array of arrays. Each array has a specified type, length, tuple size, and name. The association of a data array with points or cells, and its labeling as a particular attribute type, forms point and cell attribute data.</figcaption>
 </figure>
 
 In practice this code is simplified using macros, and the static_cast<> C++ operator is used to perform the cast. Note that the function func is a templated function. The compiler will instantiate the function for the appropriate type. In most cases all native types are represented in the switch statement, so func is expanded accordingly.
@@ -429,8 +418,7 @@ The _Visualization Toolkit_ uses the class vtkCellArray to explicitly represent 
 
 <figure id="Figure 5-12">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-12.png?raw=true" width="640" alt="Figure5-12">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-12</b>. &#118;tkCellArray structure to represent cell topology.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-12</b>. &#118;tkCellArray structure to represent cell topology.</figcaption>
 </figure>
 
 Notice that type information is not directly represented in this structure. Instead, vtkPolyData maintains four separate lists to vertices, lines, polygons, and triangle strips. The vertex list represents cells of type vtkVertex and vtkPolyVertex. The lines list represents cells of type vtkLine and vtkPolyLine. The polygon list represents cells of type vtkTriangle, vtkQuad, and vtkPolygon. The triangle strip list represents cells of the single type vtkTriangleStrip. As a result, the cell type is known from the particular list the cell is defined in, plus the number of points that define the cell.
@@ -451,21 +439,18 @@ The vtkCellTypes may also be added to the vtkPolyData data representation — an
 
 <figure id="Figure 5-13">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-13.png?raw=true" width="640" alt="Figure5-13">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-13</b>. The data structure of the class &#118;tkUnstructuredGrid. (This is a subset of the complete structure. See [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) for complete details.)
+  <figcaption style="color:blue"><b>Figure 5-13</b>. The data structure of the class &#118;tkUnstructuredGrid. (This is a subset of the complete structure. See [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) for complete details.)
  </figcaption>
 </figure>
 
 <figure id="Figure 5-14">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-14.png?raw=true" width="640" alt="Figure5-14">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-14</b>. Dataset object diagram. The five datasets (shaded) are implemented in VTK.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-14</b>. Dataset object diagram. The five datasets (shaded) are implemented in VTK.</figcaption>
 </figure>
 
 <figure id="Figure 5-15">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-15.png?raw=true" width="640" alt="Figure5-15">
-</figure>
-<figcaption style="color:blue"><b>Figure 5-15</b>. Object diagram for twenty concrete cell types in VTK. &#118;tkEmptyCell represents NULL cells. &#118;tkGenericCell can represent any type of cell. Three-dimensional cells are subclasses of &#118;tkCell3D. Higher order cells are subclasses of &#118;tkNonLinearCell.</figcaption>
+  <figcaption style="color:blue"><b>Figure 5-15</b>. Object diagram for twenty concrete cell types in VTK. &#118;tkEmptyCell represents NULL cells. &#118;tkGenericCell can represent any type of cell. Three-dimensional cells are subclasses of &#118;tkCell3D. Higher order cells are subclasses of &#118;tkNonLinearCell.</figcaption>
 </figure>
 
 ### Cell Representation
