@@ -516,7 +516,7 @@ This simple relationship defines the three regions (on $F(x,y,z = 0)s on$the sph
 
 **Modelling Objects.**
 
-Implicit functions can be used alone or in combination to model geometric objects. For example, to model a surface described by an implicit function, we sample $F$ on a dataset and generate an isosurface at a contour value $c_i$. The result is a polygonal representation of the function. **Figure 6-23** (b) shows an isosurface for a sphere of radius=1 sampled on a volume. Note that we can choose nonzero contour values to generate a family of offset surfaces. This is useful for creating blending functions and other special effects.
+Implicit functions can be used alone or in combination to model geometric objects. For example, to model a surface described by an implicit function, we sample $F$ on a dataset and generate an isosurface at a contour value $c_i$. The result is a polygonal representation of the function. **Figure 6-23b* shows an isosurface for a sphere of radius=1 sampled on a volume. Note that we can choose nonzero contour values to generate a family of offset surfaces. This is useful for creating blending functions and other special effects.
 
 Implicit functions can be combined to create complex objects using the boolean operators union, intersection, and difference. The union operation between $F\cup G$ between two functions $F(x,y,z)$ and $G(x,y,z)$ is the minimum value 
 
@@ -545,7 +545,7 @@ F - G = \lbrace \min\left(F\left(\vec{x}\right), -G\left(\vec{x}\right)\right)\,
 \bf\tag{6-15}
 $$
 
-**Figure 6-23** (c) shows a combination of simple implicit functions to create an ice-cream cone. The cone is created by clipping the (infinite) cone function with two planes. The ice cream is constructed by performing a difference operation on a larger sphere with a smaller offset sphere to create the “bite.” The resulting surface was extracted using surface contouring with isosurface value 0.0.
+**Figure 6-23c** shows a combination of simple implicit functions to create an ice-cream cone. The cone is created by clipping the (infinite) cone function with two planes. The ice cream is constructed by performing a difference operation on a larger sphere with a smaller offset sphere to create the “bite.” The resulting surface was extracted using surface contouring with isosurface value 0.0.
 
 (a) Selecting data with implicit function (b) Selecting data with
 boolean combination
@@ -571,7 +571,7 @@ Strange attractors arise in the study of nonlinear dynamics and chaotic systems.
 
 <figure id="Figure 6-25">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestLorenz.png?raw=true" width="640" alt="Figure 6-25">
-<figcaption style="color:blue"><b>Figure 6-25</b>. Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume. The number of visits in each voxel is recorded as a scalar function. The surface is extracted via marching cubes using a visit value of 50. The number of integration steps is 10 million, in a volume of dimensions $200^3$. The surface roughness is caused by the discrete nature of the evaluation function (Lorenz.cxx). <a href="../../Cxx/Visualization/Lorenz" title="Lorenz"> See Lorenz.cxx</a> and <a href="../../Python/Visualization/Lorenz" title="Lorenz"> Lorenz.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 6-25</b>. Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume. The number of visits in each voxel is recorded as a scalar function. The surface is extracted via marching cubes using a visit value of 50. The number of integration steps is 10 million, in a volume of dimensions 200^3. The surface roughness is caused by the discrete nature of the evaluation function (Lorenz.cxx). <a href="../../Cxx/Visualization/Lorenz" title="Lorenz"> See Lorenz.cxx</a> and <a href="../../Python/Visualization/Lorenz" title="Lorenz"> Lorenz.py</a>.</figcaption>
 </figure>
 
 A classical strange attractor was developed by Lorenz in 1963 <em style="color:blue;background-color: white">\[Lorenz63\]</em>. Lorenz developed a simple model for thermally induced fluid convection in the atmosphere. Convection causes rings of rotating fluid and can be developed from the general NavierStokes partial differential equations for fluid flow. The Lorenz equations can be expressed in nondimensional form as

@@ -495,7 +495,7 @@ Creation of datasets is a two step process. First the geometry and topology of t
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/GeometricObjects/TestCube.png?raw=true" width="640" alt="Figure 5-17">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-17</b>. Creation of polygonal cube. <a href="../../Cxx/GeometricObjects/Cube" title="Cube"> See Cube.cxx</a> and <a href="../../Python/GeometricObjects/Cube" title="Cube"> Cube.py</a>.</figcaption>
-attribue data.</figure>
+</figure>
 
 **Create a Polygonal Dataset.** In our first example we create a polygonal representation of a cube. The cube is defined by eight points and six quadrilateral faces. We also create eight scalar values associated with the eight vertices of the cube. **Figure 5-17** shows the key C++ code fragments used to create the data, and the resulting image.
 
