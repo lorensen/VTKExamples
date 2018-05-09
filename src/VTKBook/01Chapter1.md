@@ -48,8 +48,7 @@ There is confusion surrounding the difference between imaging, computer graphics
 
 <figure id="Figure 1-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure1-1.png?raw=true" width="640" alt="Figure1-1">
-</figure>
-<figcaption style="color:blue"><b>Figure 1-1</b>. The visualization process. Data from various sources is repeatedly transformed to extract, derive, and enhance information. The resulting data is mapped to a graphics system for display.</figcaption>
+  <figcaption style="color:blue"><b>Figure 1-1</b>. The visualization process. Data from various sources is repeatedly transformed to extract, derive, and enhance information. The resulting data is mapped to a graphics system for display.</figcaption>
 </figure>
 
 - *Computer graphics* is the process of creating images using a computer. This includes both 2D paint-and-draw techniques as well as more sophisticated 3D drawing (or rendering) techniques.

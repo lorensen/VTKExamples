@@ -72,8 +72,7 @@ An *object* is an abstraction that models the state and behavior of entities in 
 
 <figure id="Figure 2-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-1.png?raw=true" width="640" alt="Figure2-1">
-</figure>
-<figcaption style="color:blue"><b>Figure 2-1</b>. Mapping a real-world object into an object abstraction. The real-world objects are various types of trees. One of these objects (a pin oak tree) is mapped into the computer object we call PinOak.</figcaption>
+  <figcaption style="color:blue"><b>Figure 2-1</b>. Mapping a real-world object into an object abstraction. The real-world objects are various types of trees. One of these objects (a pin oak tree) is mapped into the computer object we call PinOak.</figcaption>
 </figure>
 
 We call the state of an object its *attributes* (also called *instance variables* ) and define its behavior by the *operations* that can be applied to it. Attributes have a name, a data type, and a data value. The data type of an attribute may be a primitive type in the programming language (such as a char or float in C++), or another object. For example, the vtkTransform object in our visualization system has an attribute of type vtkMatrix4x4 , another object. vtkMatrix4x4 in turn has attributes that are an array of primitive values declared as float values in C++.
@@ -120,8 +119,7 @@ Organizing objects into an inheritance hierarchy provides many benefits. Propert
 
 <figure id="Figure 2-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-2.png?raw=true" width="640" alt="Figure2-2">
-</figure>
-<figcaption style="color:blue"><b>Figure 2-2</b>. Inheritance hierarchy for pin oak tree.</figcaption>
+  <figcaption style="color:blue"><b>Figure 2-2</b>. Inheritance hierarchy for pin oak tree.</figcaption>
 </figure>
 
 The ability to quickly add new classes that are slightly different from currently existing classes promotes the extensibility of a system. Inheritance can be derived top-down using a process called *specialization* , or it can be created bottom-up, combining similar classes during a process called *generalization*. The use of inheritance implies a class hierarchy with one or more classes being the superclasses of one or more subclasses. A subclass inherits the operations and attributes of its superclasses. In C++, subclasses are called *derived* classes and superclasses are called *base* classes. A subclass can add additional operations and attributes that modify the properties it inherited from its superclasses. Through this inheritance, an object can exhibit its superclass's behavior plus any additional behavior it wishes. It can also restrict, or override, operations implemented by its superclass.
@@ -167,8 +165,7 @@ Later, during implementation, we will convert these object models into software 
 
 <figure id="Figure 2-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-3.png?raw=true" width="640" alt="Figure2-3">
-</figure>
-<figcaption style="color:blue"><b>Figure 2-3</b>. Object model for locator devices.</figcaption>
+  <figcaption style="color:blue"><b>Figure 2-3</b>. Object model for locator devices.</figcaption>
 </figure>
 
 ### The Dynamic Model
@@ -177,8 +174,7 @@ The object model describes the static portion of a system while the dynamic mode
 
 <figure id="Figure2-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-4.png?raw=true" width="640" alt="Figure 2-4">
-</figure>
-<figcaption style="color:blue"><b>Figure 2-4</b>. State diagram for a wristwatch.</figcaption>
+  <figcaption style="color:blue"><b>Figure 2-4</b>. State diagram for a wristwatch.</figcaption>
 </figure>
 
 The ovals in the diagram show a state; the arrows show a transition from one state to another; and the labels on the arrows show an event that causes the state transition. This example shows three display states and multiple setting states. The event b1 means button one is pressed. This watch has three buttons. The diagram shows what happens in each state when any of the three buttons is pressed. The diagram clearly shows that b1 is used to move between display modes for time, date, and alarm. B2 changes from display mode into setting mode or selects the field to change in a given mode. B3 increments the selected field by one unit. The state diagram also shows what happens when illegal buttons are pressed. If the watch is displaying time and button 3 is pressed, nothing happens. If button 3 is pressed when the watch is displaying the alarm, the alarm on/off is toggled.
@@ -191,8 +187,7 @@ The functional model shows how data flows through the system and how processes a
 
 <figure id="Figure2-5">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-5.png?raw=true" width="640" alt="Figure2-5">
-</figure>
-<figcaption style="color:blue"><b>Figure 2-5</b>. Data flow diagram.</figcaption>
+  <figcaption style="color:blue"><b>Figure 2-5</b>. Data flow diagram.</figcaption>
 </figure>
 
 ## 2.6 Object-Oriented Programming Languages

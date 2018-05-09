@@ -27,8 +27,7 @@ This problem was quickly solved as Web browsers started to support other content
 
 <figure id="Figure 11-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-1.png?raw=true" width="640" alt="Figure11-1">
-</figure>
-<figcaption style="color:blue"><b>Figure 11-1</b>. MPEG visualization example.</figcaption>
+  <figcaption style="color:blue"><b>Figure 11-1</b>. MPEG visualization example.</figcaption>
 </figure>
 
 For example, consider a situation where you would like to perform an isosurface extraction from volume data and then generate a short animation rotating the camera around the isosurface. There are a number of ways to generate such an animation and create an MPEG file, which can then be linked into an HTML document. **Figure 11-1** shows one example generated from the following HTML code:
@@ -55,8 +54,7 @@ Now let’s use CGI and an HTML form to enable the client to change the isosurfa
 
 <figure id="Figure 11-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-2.png?raw=true" width="640" alt="Figure11-2">
-</figure>
-<figcaption style="color:blue"><b>Figure 11-2</b>. Example HTML form.</figcaption>
+  <figcaption style="color:blue"><b>Figure 11-2</b>. Example HTML form.</figcaption>
 </figure>
 
 In this page we show the use of HTML forms to allow the client (or viewer) to send information to the server. In this example the user can select to show the bones, make them transparent and select the isosurface value to use. These parameters then get passed to the CGI-BIN script _makempg.csh_
@@ -84,8 +82,7 @@ While these examples demonstrate a closed loop of interaction between the client
 
 <figure id="Figure 11-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-3.png?raw=true" width="640" alt="Figure11-3">
-</figure>
-<figcaption style="color:blue"><b>Figure 11-3</b>. A simple scene graph.</figcaption>
+  <figcaption style="color:blue"><b>Figure 11-3</b>. A simple scene graph.</figcaption>
 </figure>
 
 ## 11.3 Virtual Reality Modeling Language (VRML)
@@ -286,8 +283,7 @@ This demonstrates one of the advantages of using Java for Web visualization. VRM
 
 <figure id="Figure 11-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-4.png?raw=true" width="640" alt="Figure11-4">
-</figure>
-<figcaption style="color:blue"><b>Figure 11-4</b>. Two images from a Java (JNI) applet.</figcaption>
+  <figcaption style="color:blue"><b>Figure 11-4</b>. Two images from a Java (JNI) applet.</figcaption>
 </figure>
 
 ## 11.6 Java3D
@@ -557,8 +553,7 @@ An excerpt from the VRML file has been included below. Note the use of the DEF k
 
 <figure id="Figure 11-5">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure11-5.png?raw=true" width="640" alt="Figure11-5">
-</figure>
-<figcaption style="color:blue"><b>Figure 11-5</b>. Java and VRML combined using the EAI.</figcaption>
+  <figcaption style="color:blue"><b>Figure 11-5</b>. Java and VRML combined using the EAI.</figcaption>
 </figure>
 
 
