@@ -295,7 +295,6 @@ There are several advantages to lighting that can often justify the additional c
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-20.png?raw=true" width="640" alt="Figure7-20">
   <figcaption style="color:blue"><b>Figure 7-20</b>. A comparison of three volume rendering techniques. A maximum intensity projection does not include occlusion or shading. A composite image includes occlusion and can include shading.</figcaption>
 </figure>
-**Figure 7-20** 
 
 To accurately capture lighting effects, we could use a transport theory illumination model <em style="color:blue;background-color: white">\[Krueger91\]</em> that describes the intensity of light $I$ arriving at a pixel by the path integral along the ray:
 
@@ -359,7 +358,14 @@ $$
 $$
 
 <figure id="Figure 7-21">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-21.png?raw=true" width="640" alt="Figure7-21">
+  <figure id="Figure 7-21a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-21a.png?raw=true" width="640" alt="Figure7-21a">
+    <figcaption style="color:blue"><b>Disjoint volumetric objects</figcaption>
+  </figure>
+  <figure id="Figure 7-21b">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-21b.png?raw=true" width="640" alt="Figure7-21b">
+    <figcaption style="color:blue"><b>Corresponding depth image</figcaption>
+  </figure>
   <figcaption style="color:blue"><b>Figure 7-21</b>. A scene (left) and the corresponding depth image (right) used in 2D gradient estimation.</figcaption>
 </figure>
 
@@ -410,7 +416,6 @@ Although using a shading table leads to faster rendering times, there are some l
 
 <figure id="Figure 7-23">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-23.png?raw=true" width="640" alt="Figure7-23">
-  <figcaption style="color:blue"><b>Figure 7-23</b>. Volume rendering with regions of interest. On the upper left, full-resolution volume rendering. On the upper right, the use of axis-aligned cropping planes. Lower left, the use of arbitrary clipping planes. Renderings performed using Kitware's VolView product; Visible Human Data is courtesy of The National Library of Medicine.</figcaption>
 </figure>
 
 ## 7.9 Regions of Interest
@@ -618,7 +623,42 @@ It is the implementation of 3D widgets, that is, what they can do with the event
 The key to widget design is careful implementation of intuitive, simple user interaction techniques. For example, the end points on the vtkLineWidget (represented as small spheres) can be selected and dragged to a new position. The vtkLineWidget supports the modifier "Shift" key to lock motion of the end points along the coordinate *x-y-z* axes. The initial direction of motion is used to determine which of the axes the user is moving the end point along. Such attention to detail is essential to successful widget design and will continue to change as the technology evolves in the future.
 
 <figure id="Figure 7-32">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32.png?raw=true" width="640" alt="Figure7-32">
+  <figure id="Figure 7-32a>
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32a.png?raw=true" width="640" alt="Figure7-32a">
+    <figcaption style="color:blue">&#118;tkScalarBarWidget</figcaption>
+  </figure>  
+  <figure id="Figure 7-32b>
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32b.png?raw=true" width="640" alt="Figure7-32b">
+    <figcaption style="color:blue">&#118;tkPointWidget</figcaption>
+  </figure>  
+  <figure id="Figure 7-32c>
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32c.png?raw=true" width="640" alt="Figure7-32c">
+    <figcaption style="color:blue">&#118;tkLineWidget</figcaption>
+  </figure>  
+  <figure id="Figure 7-32d>
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32d.png?raw=true" width="640" alt="Figure7-32d">
+    <figcaption style="color:blue">&#118;tkPlaneWidget</figcaption>
+  </figure>  
+  <figure id="Figure 7-32e>
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32e.png?raw=true" width="640" alt="Figure7-32e">
+    <figcaption style="color:blue">&#118;tkImplicitPlaneWidget</figcaption>
+  </figure>  
+  <figure id="Figure 7-32f>
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32f.png?raw=true" width="640" alt="Figure7-32f">
+    <figcaption style="color:blue">&#118;tkBoxWidget</figcaption>
+  </figure>
+  <figure id="Figure 7-32g
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32g.png?raw=true" width="640" alt="Figure7-32g>
+    <figcaption style="color:blue">&#118;tkImagePlaneWidget</figcaption>
+  </figure>  
+  <figure id="Figure 7-32h
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32h.png?raw=true" width="640" alt="Figure7-32h>
+    <figcaption style="color:blue">&#118;tkSphereWidget</figcaption>
+  </figure>  
+  <figure id="Figure 7-32i
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-32i.png?raw=true" width="640" alt="Figure7-32i>
+    <figcaption style="color:blue">&#118;tkSplineWidget</figcaption>
+  </figure>  
   <figcaption style="color:blue"><b>Figure 7-32</b>. Application of some 3D widgets found in VTK.</figcaption>
 </figure>
 
