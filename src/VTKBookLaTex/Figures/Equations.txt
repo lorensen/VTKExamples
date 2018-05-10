@@ -837,7 +837,7 @@ r_{xy} &=& r^2 - z^2
 
 % EQUATION 9-25
 \begin{equation*}
-F(\vec{p}) = \frac{\sum_i^n \frac{F_i}{\vert\vec{p} - \vec{p}_i\vert^2}}{\sum_i^n \frac{1}{\vert\vec{p} - \vec{p}_i \vert^2}}
+F(p) = \frac{\sum_i^n \frac{F_i}{\vert p - p_i\vert^2}}{\sum_i^n \frac{1}{\vert p - p_i \vert^2}}
 \end{equation*}
 \bf\tag{9-25}
 
@@ -891,6 +891,7 @@ H(u, v) =
 % The Butterworth filter is equation 10-2 above.
 
 % EQUATION 10-3
+
 \begin{equation*}
 F(x, y) = \sin\left(\frac{x}{10}\right) + \sin\left(\frac{y}{10}\right)
 \end{equation*}
