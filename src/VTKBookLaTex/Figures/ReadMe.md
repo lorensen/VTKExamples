@@ -87,6 +87,10 @@ List of files and original paths:
 | Figure9-53b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMotor.png |
 | Figure9-54b.png | src/Testing/Baseline/Cxx/Modelling/TestDelaunayMesh.png |
 | | |
+| Figure10-2b.png | src/Testing/Baseline/Cxx/ImageProcessing/TestGaussianSmooth.png |
+| Figure10-3.png | src/Testing/Baseline/Cxx/ImageProcessing/TestMedianComparison.png |
+| Figure10-4a.png | src/Testing/Baseline/Cxx/ImageProcessing/TestHybridMedianComparison.png |
+| | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |
 | Figure12-4.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo3.png |
