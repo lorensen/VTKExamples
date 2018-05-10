@@ -80,6 +80,12 @@ List of files and original paths:
 | Figure9-47b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTextureCutQuadric.png |
 | Figure9-48b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestClipSphereCylinder.png |
 | Figure9-50b.png | src/Testing/Baseline/Cxx/Modelling/TestFinance.png |
+| Figure9-51a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestPineRootConnectivityA.png |
+| Figure9-51b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestPineRootConnectivity.png |
+| Figure9-52a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestPineRootConnectivity.png |
+| Figure9-52b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestPineRootDecimation.png |
+| Figure9-53b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMotor.png |
+| Figure9-54b.png | src/Testing/Baseline/Cxx/Modelling/TestDelaunayMesh.png |
 | | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |
