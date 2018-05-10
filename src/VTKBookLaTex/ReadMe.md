@@ -62,8 +62,8 @@ Maybe useful for producing the drawings.
 | Chapter06 | Yes |
 | Chapter07 | Yes |
 | Chapter08 | Yes |
-| Chapter09 | Under construction |
-| Chapter10 | No |
+| Chapter09 | Yes |
+| Chapter10 | Under construction |
 | Chapter11 | No |
 | Chapter12 | Yes |
 | GLossary  | Yes |
