@@ -54,7 +54,7 @@ When data has a regular spatial organization, it is possible to request the data
 	\caption{Axis aligned matrices naturally lend themselves to rectangular regions, and polar coordinate grids to pie-shaped regions.}\label{fig:Figure10-1}
 \end{figure}
 
-Although regions of interest can have arbitrary shapes, the regular structure of the data samples determines optimal region configurations. An image stored in a Cartesian coordinate system easily divides into smaller rectangular regions, while data sampled on a polar coordinate grid is best divided into pie-shaped regions (Figure 10-1 \ref{}). Therefore, operating on regions of data means that we process ``windows'' of data specified by $(min,max)$ ranges of each dimension, or axis. For example, a region in a 2D image of dimensions $100 \times 100$ might be specified as $(25,49, 0,49)$, meaning that we would operate on a $(25 \times 50)$ window.
+Although regions of interest can have arbitrary shapes, the regular structure of the data samples determines optimal region configurations. An image stored in a Cartesian coordinate system easily divides into smaller rectangular regions, while data sampled on a polar coordinate grid is best divided into pie-shaped regions (Figure \ref{fig:Figure10-1}). Therefore, operating on regions of data means that we process ``windows'' of data specified by $(min,max)$ ranges of each dimension, or axis. For example, a region in a 2D image of dimensions $100 \times 100$ might be specified as $(25,49, 0,49)$, meaning that we would operate on a $(25 \times 50)$ window.
 
 \subsection{Streaming and Caching}
 
@@ -88,24 +88,16 @@ Noise and other artifacts are inherent in all methods of data acquisition. Since
 		\label{fig:Figure10-2a}
 	\end{subfigure}
 	\hfill
-    % to change rows leave a blank line
-
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.98\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-2b}
 		\captionsetup{justification=centering}
-		\caption*{Original Image}
+		\caption*{Original image (left). Convolution (right):
+         $f*k(x,y) = \sum_{ij}f(i,j)k((x-i),(y-j))$}
 		\label{fig:Figure10-2b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure10-2c}
-		\captionsetup{justification=centering}
-		\caption*{Convolution\\
-        $f*k(x,y) = \sum_{ij}f(i,j)k((x-i),(y-j))$}
-		\label{fig:Figure10-2c}
 	\end{subfigure}
 	\caption{Low-pass filters can be implemented as convolution with a Gaussian kernel. The Gaussian kernel displayed on top has been magnified for this figure.}\label{fig:Figure10-2}
 \end{figure}
+
 A simple implementation of a low-pass smoothing filter is convolution with a kernel with all positive values. The typical kernels used for smoothing are either constant across a circular neighborhood, or have a Gaussian profile (see Figure \ref{fig:Figure10-2}). Gaussian smoothing results in better-looking images than smoothing with constant kernels, but can be more computationally expensive because of the large kernel size necessary to capture the Gaussian profile. Smoothing becomes even more expensive when it is generalized to three-dimensional datasets, and three-dimensional kernels.
 
 One way to speed Gaussian smoothing is to decompose the filter into two 1D convolutions. Since the 2D Gaussian function is separable,
@@ -118,6 +110,38 @@ g(i, j) = \dfrac{1}{2\pi \sigma^2} \exp\left(-\dfrac{i^2 + j^2}{2\sigma^2} \righ
 \myequations{Decomposing a 2D Gaussian function into two 1D convolutions.}
 
 \noindent smoothing along the \emph{x} axis and then along the \emph{x} axis with 1D Gaussian kernels is equivalent to convolving with a 2D Gaussian kernel. It is also possible to approximate Gaussian smoothing by convolving with a constant binary kernel multiple times.
+
+\subsection{Nonlinear Smoothing}
+
+One problem with simple smoothing to remove noise is that edges are blurred. Although high frequencies make up a small part of images, the human visual system is acutely sensitive to high frequencies in the spatial form of edges. In fact, most of the low frequencies in an image are discarded by the visual system before it even leaves the retina. One approach to smoothing that preserves edges is anisotropic diffusion. This filter smooths relatively flat regions of an image, but does not diffuse across abrupt transitions. The diffusion is iterated until the desired level of noise reduction is reached. Two possible diffusion criteria are: Diffuse only when the gradient magnitude is below a specified value, or diffuse two pixels only when the difference between the pixels is lower than a specified constant.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.98\textwidth]{Figure10-3}
+	\caption{Comparison of Gaussian and Median smoothing for reducing low-probability high-amplitude noise. Top row: Original image (left); Noisy image (right). Bottom row: Gaussian smoothing (left); Median smoothing (right).}
+	\label{fig:Figure10-3}
+\end{figure}
+
+\begin{figure}[htb]
+	\begin{subfigure}[h]{0.96\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure10-4a}
+		\captionsetup{justification=centering}
+		\caption*{}
+		\label{fig:Figure10-4a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.32\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure10-4b}
+		\captionsetup{justification=centering}
+		\caption*{Hybrid--Median Neighborhoods}
+		\label{fig:Figure10-4b}
+	\end{subfigure}
+	\caption{Comparison of median and hybrid-median filters. The hybrid filter preserves corners and thin lines, better than the median filter. The lower patterns represent the three neighborhoods used to compute the hybrid median. Top row: Original image (left); Noisy image (right). Middle row: Hybrid-median filter (left); Median filter (right).}\label{fig:Figure10-4}
+\end{figure}
+
+A median filter also smooths while preserving edges. This filter replaces each pixel with the median value of the scalar values in a neighborhood centered on the pixel. Median filters are most effective on high amplitude noise that has a low probability of occurring (see Figure \ref{fig:Figure10-3}). There are two ways to control the amount and scale of noise removed: The size of the neighborhood can be varied, or the filter can be applied multiple times. This median filter preserves edges; however, it does round corners and remove thin lines. The hybrid median filter was developed to address this behavior. It operates on a $5 \times 5$ neighborhood around each pixel. The algorithm consists of two steps: first the median values of an ``x''-shaped and ``+''-shaped neighborhoods are computed, then the median of these two values and the center-pixel value is computed to give the final result. The hybrid median has a fixed size neighborhood, but can be applied multiple times to further reduce noise (Figure \ref{fig:Figure10-4}).
+
+\subsection{Low Frequency Artifacts}
 
 \section{Putting It All Together}
 \label{sec:chap10.putting_it_all_together}
