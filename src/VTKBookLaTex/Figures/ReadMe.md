@@ -97,6 +97,8 @@ List of files and original paths:
 | Figure10-11c.png | src/Testing/Baseline/Cxx/ImageProcessing/TestVTKSpectrum.png |
 | Figure10-12.png | src/Testing/Baseline/Cxx/ImageProcessing/TestPad.png |
 | Figure10-14.png | src/Testing/Baseline/Cxx/ImageProcessing/TestMorphologyComparison.png |
+| Figure10-16a.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestImageGradien.png |
+| Figure10-17b.png | src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestImageGradien.png |
 | | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |
