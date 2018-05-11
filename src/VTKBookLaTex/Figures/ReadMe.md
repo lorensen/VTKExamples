@@ -90,6 +90,13 @@ List of files and original paths:
 | Figure10-2b.png | src/Testing/Baseline/Cxx/ImageProcessing/TestGaussianSmooth.png |
 | Figure10-3.png | src/Testing/Baseline/Cxx/ImageProcessing/TestMedianComparison.png |
 | Figure10-4a.png | src/Testing/Baseline/Cxx/ImageProcessing/TestHybridMedianComparison.png |
+| Figure10-5b.png | src/Testing/Baseline/Cxx/ImageProcessing/TestIsoSubsample.png | 
+| Figure10-6a.png | src/Testing/Baseline/Cxx/ImageProcessing/TestAttenuation.png | TestEnhanceEdges
+| Figure10-9.png | src/Testing/Baseline/Cxx/ImageProcessing/TestEnhanceEdges.png |
+| Figure10-10.png | src/Testing/Baseline/Cxx/ImageProcessing/TestVTKSpectrum.png |
+| Figure10-11c.png | src/Testing/Baseline/Cxx/ImageProcessing/TestVTKSpectrum.png |
+| Figure10-12.png | src/Testing/Baseline/Cxx/ImageProcessing/TestPad.png |
+| Figure10-14.png | src/Testing/Baseline/Cxx/ImageProcessing/TestMorphologyComparison.png |
 | | |
 | Figure12-2.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png |
 | Figure12-3.png | src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png |
