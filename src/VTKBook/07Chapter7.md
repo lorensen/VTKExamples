@@ -616,7 +616,7 @@ It is the implementation of 3D widgets, that is, what they can do with the event
 
 *   vtkImagePlaneWidget --- manipulate three orthogonal planes within a 3D volumetric data set. Probing of the planes to obtain data position, pixel value, and window-level is possible.
 
-*   vtkSphereWidget --- manipulate a sphere of variable resolution. The widget produces an implicit function, a transformation matrix, and  enables the control of focal point and position to support such classes as vtkCamera and vtkLight.
+*   vtkSphereWidget --- manipulate a sphere of variable resolution. The widget produces an implicit function, a transformation matrix, and enables the control of focal point and position to support such classes as vtkCamera and vtkLight.
 
 *   vtkSplineWidget --- manipulate an interpolating 3D spline. The widget produces a polygonal data represented by a series of line segments of specified resolution. The widget also directly manages underlying splines for each of the *x-y-z* coordinate values.
 

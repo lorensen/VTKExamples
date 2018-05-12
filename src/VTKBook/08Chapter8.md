@@ -36,16 +36,16 @@ $$
 
 where the parametric coordinate $r$ is constrained between $(0,1)$. In this equation we are assuming that the sub-id is equal to $i$.
 
-The number of parametric coordinates corresponds to the topological dimension of the cell. Three-dimensional cells will be characterized by the three parametric coordinates (r, s, t). For cells of topological order less than three, we will ignore the last $(3 - n)$ parametric coordinates, where n is the topological order of the cell. For convenience and consistency, we also will constrain each parametric coordinate to range between (0,1).
+The number of parametric coordinates corresponds to the topological dimension of the cell. Three-dimensional cells will be characterized by the three parametric coordinates $(r, s, t)$. For cells of topological order less than three, we will ignore the last $(3 - n)$ parametric coordinates, where $n$ is the topological order of the cell. For convenience and consistency, we also will constrain each parametric coordinate to range between $(0,1)$.
 
-Every cell type will have its own parametric coordinate system. Later in this chapter we will describe the parametric coordinate systems in detail. But first we will examine another coordinate system, the structured coordinate system.
+Every cell type will have its own parametric coordinate system. Later in this chapter we will describe the parametric coordinate systems in detail. But first we will examine another coordinate system, the _structured coordinate system_.
                 
 
 ### Structured Coordinate System
 
 Many dataset types are structured. This includes image data and structured grids. Because of their inherent structure, they have their own natural coordinate system. This coordinate system is based on the i-j-k indexing scheme that we touched on in ["Image Data"](/VTKBook/05Chapter5/#image-data) in [Chapter 5](/VTKBook/05Chapter5).
 
-The structured coordinate system is a natural way to describe components of a structured dataset. By fixing some indices, and allowing the others to vary within a limited range, we can specify points, lines, surfaces, and volumes. For example, by fixing the i index i = i0, and allowing the j and k indices to range between their minimum and maximum values, we specify a surface. If we fix three indices, we specify a point, if we fix two indices, we specify a line, and if we allow three indices to vary, we specify a volume (or sub-volume). The structured coordinate system is generally used to specify a region of interest (or ROI). The region of interest is an area that we want to visualize, or to operate on.
+The structured coordinate system is a natural way to describe components of a structured dataset. By fixing some indices, and allowing the others to vary within a limited range, we can specify points, lines, surfaces, and volumes. For example, by fixing the $i$ index $i = i_0$, and allowing the $j$ and $k$ indices to range between their minimum and maximum values, we specify a surface. If we fix three indices, we specify a point, if we fix two indices, we specify a line, and if we allow three indices to vary, we specify a volume (or sub-volume). The structured coordinate system is generally used to specify a region of interest (or ROI). The region of interest is an area that we want to visualize, or to operate on.
 
 There is a simple relationship between the point and cell id of the dataset coordinate system and the structured coordinate system. To obtain a point id pid given the indices $(i_p, j_p, k_p)$ and dimensions $(n_x, n_y, n_z)$ we use
 
@@ -56,7 +56,7 @@ $$
 \bf\tag{8-2}
 $$
 
-with $0 \leq i_p \leq n_x, 0 \leq j_p \leq n_y, 0 \leq k_p \leq n_z$. (We can use this id to index into an array of points or point attribute data.) This equation implicitly assumes an ordering of the points in topological space. Points along the i axis vary fastest, followed by the j and then the k axes. A similar relationship exists for cell id’s
+with $0 \leq i_p \leq n_x, 0 \leq j_p \leq n_y, 0 \leq k_p \leq n_z$. (We can use this id to index into an array of points or point attribute data.) This equation implicitly assumes an ordering of the points in topological space. Points along the $i$ axis vary fastest, followed by the $j$ and then the $$k axes. A similar relationship exists for cell id’s
 
 $$
 \begin{equation*}
@@ -69,7 +69,7 @@ Here we’ve taken into account that there are one fewer cells along each topolo
 
 ## 8.2 Interpolation Functions
 
-Computer visualization deals with discrete data. The data is either supplied at a finite number of points or created by sampling continuous data at a finite number of points. But we often need information at positions other than these discrete point locations. This may be for rendering or for sub-sampling the data during algorithm execution. We need to interpolate data from known points to some intermediate point using interpolation functions.
+Computer visualization deals with discrete data. The data is either supplied at a finite number of points or created by sampling continuous data at a finite number of points. But we often need information at positions other than these discrete point locations. This may be for rendering or for sub-sampling the data during algorithm execution. We need to interpolate data from known points to some intermediate point using _interpolation functions_.
 
 Interpolation functions relate the values at cell points to the interior of the cell. Thus, we assume that information is defined at cell points, and that we must interpolate from these points. We can express the result as a weighted average of the data values at each cell point.
                
@@ -84,7 +84,7 @@ To interpolate data from the cell points $p_i$ to a point $p$ that is inside the
 
 1. the data values at each cell point,
 
-2. the parametric coordinates of the point p within the cell, and
+2. the parametric coordinates of the point $p$ within the cell, and
 
 3. the cell type including interpolation functions.
 
@@ -106,7 +106,7 @@ W_i = 1, W_{j \neq i} = 0 \quad \text{when} \quad p = p_i
 \bf\tag{8-5}
 $$
 
-We also desire the interpolated data value $d$ to be no smaller than the minimum $d_i$ and no larger thana—  the maximum $d_i$. Thus the weights should also satisfy
+We also desire the interpolated data value $d$ to be no smaller than the minimum $d_i$ and no larger than the maximum $d_i$. Thus the weights should also satisfy
 
 $$
 \begin{equation*}
@@ -121,11 +121,11 @@ Equation 8-4 is the general form for cell interpolation. It is used to interpola
 
 ### Specific Forms
 
-Each cell type has its own interpolation functions. The weights $W_i$ are functions of the parametric coordinates r, s, and t. In this section we will define the parametric coordinate system and interpolation function for each primary cell type. Composite cells use the interpolation functions and parametric coordinates of their composing primary cells. The only difference in coordinate system specification between primary and composite cells is that composite cells use the additional sub-id to specify a particular primary cell.
+Each cell type has its own interpolation functions. The weights $W_i$ are functions of the parametric coordinates $r$, $s$, and $t$. In this section we will define the parametric coordinate system and interpolation function for each primary cell type. Composite cells use the interpolation functions and parametric coordinates of their composing primary cells. The only difference in coordinate system specification between primary and composite cells is that composite cells use the additional sub-id to specify a particular primary cell.
 
 **Vertex.** Vertex cells do not require parametric coordinates or interpolation functions since they are zero-dimensional. The single weighting function is $W_0 = 1.$
 
-**Line.** **Figure 8-3** shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate r.
+**Line.** **Figure 8-3** shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
 
 <figure id="Figure 8-3">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-3.png?raw=true width="640" alt="Figure8-3">
@@ -153,7 +153,7 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
   <figcaption style="color:blue"><b>Figure 8-6</b>. Parametric coordinate system and interpolation functions for a triangle.</figcaption>
 </figure>
 
-**Polygon.** **Figure 8-7** shows the parametric coordinate system and interpolation functions for a polygon cell type. The polygon is characterized using the two parametric coordinates (r,s). The parametric coordinate system is defined by creating a rectangle oriented along the first edge of the polygon. The rectangle also must bound the polygon.
+**Polygon.** **Figure 8-7** shows the parametric coordinate system and interpolation functions for a polygon cell type. The polygon is characterized using the two parametric coordinates $(r,s)$. The parametric coordinate system is defined by creating a rectangle oriented along the first edge of the polygon. The rectangle also must bound the polygon.
 
 The polygon poses a special problem since we do not know how many vertices define the polygon. As a result, it is not possible to create general interpolation functions in the fashion of the previous functions we have seen. Instead, we use a function based on weighted distance squared from each polygon vertex.
 
@@ -169,105 +169,105 @@ The weighted distance squared interpolation functions work well in practice. How
   <figcaption style="color:blue"><b>Figure 8-8</b>. Potential problem with distance-based interpolation functions.</figcaption>
 </figure>
 
-**Tetrahedron.** **Figure 8-9** shows the parametric coordinate system and interpolation functions for a tetrahedron cell type. The tetrahedron is described using the three parametric coordinates (r,s,t).
+**Tetrahedron.** **Figure 8-9** shows the parametric coordinate system and interpolation functions for a tetrahedron cell type. The tetrahedron is described using the three parametric coordinates $(r,s,t)$.
 
 <figure id="Figure 8-9">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-9.png?raw=true width="640" alt="Figure8-9">
   <figcaption style="color:blue"><b>Figure 8-9</b>. Parametric coordinate system and interpolation functions for a tetrahedron.</figcaption>
 </figure>
 
-**Voxel.** **Figure 8-10** shows the parametric coordinate system and interpolation functions for a voxel cell type. The voxel is described using the three parametric coordinates (r,s,t). Note that the voxel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as tri-linear interpolation functions.
+**Voxel.** **Figure 8-10** shows the parametric coordinate system and interpolation functions for a voxel cell type. The voxel is described using the three parametric coordinates $(r,s,t)$. Note that the voxel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as tri-linear interpolation functions.
 
 <figure id="Figure 8-10">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-10.png?raw=true width="640" alt="Figure8-10">
   <figcaption style="color:blue"><b>Figure 8-10</b>. Parametric coordinate system and interpolation functions for a voxel.</figcaption>
 </figure>
 
-** Hexahedron.** **Figure 8-11** shows the parametric coordinate system and interpolation functions for a hexahedron cell type. The hexahedron is described using the three parametric coordinates (r,s,t).
+** Hexahedron.** **Figure 8-11** shows the parametric coordinate system and interpolation functions for a hexahedron cell type. The hexahedron is described using the three parametric coordinates $(r,s,t)$.
 
 <figure id="Figure 8-11">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-11.png?raw=true width="640" alt="Figure8-11">
   <figcaption style="color:blue"><b>Figure 8-11</b>. Parametric coordinate system and interpolation functions for a hexahedron.</figcaption>
 </figure>
 
-**Wedge.** **Figure 8-12** shows the parametric coordinate system and interpolation functions for a wedge cell type. The wedge is described using the three parametric coordinates (r,s,t).
+**Wedge.** **Figure 8-12** shows the parametric coordinate system and interpolation functions for a wedge cell type. The wedge is described using the three parametric coordinates $(r,s,t)$.
 
 <figure id="Figure 8-12">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-12.png?raw=true width="640" alt="Figure8-12">
   <figcaption style="color:blue"><b>Figure 8-12</b>. Parametric coordinate system and interpolation functions for a wedge.</figcaption>
 </figure>
 
-**Pyramid.** **Figure 8-13** shows the parametric coordinate system and interpolation functions for a pyramid cell type. The pyramid is described using the three parametric coordinates (r,s,t).
+**Pyramid.** **Figure 8-13** shows the parametric coordinate system and interpolation functions for a pyramid cell type. The pyramid is described using the three parametric coordinates $(r,s,t)$.
 
 <figure id="Figure 8-13">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-13.png?raw=true width="640" alt="Figure8-13">
   <figcaption style="color:blue"><b>Figure 8-13</b>. Parametric coordinate system and interpolation functions for a pyramid.</figcaption>
 </figure>
 
-**Pentagonal Prism.** **Figure 8-14** shows the parametric coordinate system and interpolation functions for a pentagonal prism cell type. The pentagonal prism is described using the three parametric coordinates (r,s,t).
+**Pentagonal Prism.** **Figure 8-14** shows the parametric coordinate system and interpolation functions for a pentagonal prism cell type. The pentagonal prism is described using the three parametric coordinates $(r,s,t)$.
 
 <figure id="Figure 8-14">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-14.png?raw=true width="640" alt="Figure8-14">
   <figcaption style="color:blue"><b>Figure 8-14</b> Parametric coordinate system and interpolation functions for a pentagonal prism.</figcaption>
 </figure>
 
-**Hexagonal Prism.** **Figure 8-15** shows the parametric coordinate system and interpolation functions for a hexagonal prism cell type. The hexagonal prism is described using the three parametric coordinates (r,s,t).
+**Hexagonal Prism.** **Figure 8-15** shows the parametric coordinate system and interpolation functions for a hexagonal prism cell type. The hexagonal prism is described using the three parametric coordinates $(r,s,t)$.
 
 <figure id="Figure 8-15">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-15.png?raw=true width="640" alt="Figure8-15">
   <figcaption style="color:blue"><b>Figure 8-15</b>. Parametric coordinate system and interpolation functions for a hexagonal prism.</figcaption>
 </figure>
 
-**Quadratic Edge.** **Figure 8-16** shows the parametric coordinate system and interpolation functions for a quadratic edge cell type. The quadratic edge is described using the single parametric coordinate r.
+**Quadratic Edge.** **Figure 8-16** shows the parametric coordinate system and interpolation functions for a quadratic edge cell type. The quadratic edge is described using the single parametric coordinate $r$.
 
 <figure id="Figure 8-16">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-16.png?raw=true width="640" alt="Figure8-16">
   <figcaption style="color:blue"><b>Figure 8-16</b>. Parametric coordinate system and interpolation functions for a quadratic edge.</figcaption>
 </figure>
 
-**Quadratic Triangle.** **Figure 8-17** shows the parametric coordinate system and interpolation functions for a quadratic triangle cell type. The quadratic triangle is described using the two parametric coordinates (r,s).
+**Quadratic Triangle.** **Figure 8-17** shows the parametric coordinate system and interpolation functions for a quadratic triangle cell type. The quadratic triangle is described using the two parametric coordinates $(r,s)$.
 
 <figure id="Figure 8-17">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-17.png?raw=true width="640" alt="Figure8-17">
   <figcaption style="color:blue"><b>Figure 8-17</b> Parametric coordinate system and interpolation functions for a quadratic triangle. </figcaption>
 </figure>
 
-**Quadratic Quadrilateral.** **Figure 8-18** shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates (r,s). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the (ξ, η) coordinates defined in this range. Also, the notation $\epsilon_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the ith point.
-
+**Quadratic Quadrilateral.** **Figure 8-18** shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates (r,s). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta) coordinates defined in this range. Also, the notation $\epsilon_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the ith point.
+            
 <figure id="Figure 8-18">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-18.png?raw=true width="640" alt="Figure8-18">
   <figcaption style="color:blue"><b>Figure 8-18</b>.  Parametric coordinate system and interpolation functions for a quadratic quadrilateral. In VTK parametric coordinates (r,s) run between (0,1), hence the coordinate system shift into the (ξ, η)) parametric system ranging from (-1,1). Note that ξi and ηi refer to the parametric coordinates of the ith point.</figcaption>
 </figure>
 
-**Quadratic Tetrahedron.** **Figure 8-19** shows the parametric coordinate system and interpolation functions for a quadratic tetrahedron cell type. The quadratic tetrahedron is described using the three parametric coordinates (r,s,t).
+**Quadratic Tetrahedron.** **Figure 8-19** shows the parametric coordinate system and interpolation functions for a quadratic tetrahedron cell type. The quadratic tetrahedron is described using the three parametric coordinates $(r,s,t)$.
 
 <figure id="Figure 8-19">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-19.png?raw=true width="640" alt="Figure8-19">
   <figcaption style="color:blue"><b>Figure 8-19</b>. Parametric coordinate system and interpolation functions for a quadratic tetrahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1).</figcaption>
 </figure>
 
-**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\epsilon_i, \eta_i and \zeta_i$ is introduced. These are the parametric coordinates at the ith point.
+**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\epsilon_i, \eta_i and \zeta_i$ is introduced. These are the parametric coordinates at the $i^{th}$ point.
 
 <figure id="Figure 8-20">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-20.png?raw=true width="640" alt="Figure8-20">
   <figcaption style="color:blue"><b>Figure 8-20</b>. Parametric coordinate system and interpolation functions for a quadratic hexahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi, ηi and ζi refer to the parametric coordinates of the ith point.</figcaption>
 </figure>
 
-**Quadratic Wedge.** **Figure 8-21** shows the parametric coordinate system and interpolation functions for a quadratic wedge cell type. The quadratic wedge is described using the three parametric coordinate (r,s,t).
+**Quadratic Wedge.** **Figure 8-21** shows the parametric coordinate system and interpolation functions for a quadratic wedge cell type. The quadratic wedge is described using the three parametric coordinate $(r,s,t)$.
 
 <figure id="Figure 8-21">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-21.png?raw=true width="640" alt="Figure8-21">
   <figcaption style="color:blue"><b>Figure 8-21</b>. Parametric coordinate system and interpolation functions for a quadratic wedge.</figcaption>
 </figure>
 
-**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates (r,s,t). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i$, \eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the ith point. (The shape functions and derivatives were implemented thanks to the Center For Aerospace Structures http://www.colorado.edu/engineering/CAS.)
+**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i$, \eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the $i^{th}$ point. (The shape functions and derivatives were implemented thanks to the _Center For Aerospace Structures_ http://www.colorado.edu/engineering/CAS.)
 
 <figure id="Figure 8-22">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-22.png?raw=true width="640" alt="Figure8-22">
   <figcaption style="color:blue"><b>Figure 8-22</b>.  Parametric coordinate system and interpolation functions for a quadratic pyramid. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi, ηi and ζi refer to the parametric.</figcaption>
 </figure>
 
-## 8.3 Cell Tessellation
+## 8.3 Cell Tessellation        
 
   As briefly introduced in [Chapter 5 - Data Representation](/VTKBook/05Chapter5), nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically onlyquadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework (see **Figure 8-23**) that enables users to interface their own simulation system to the visualization system <em style="color:blue;background-color: white">\[Schroeder06\]</em>. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho-rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
 
@@ -327,13 +327,13 @@ The following paragraphs describes several error measures that have been found t
   <figcaption style="color:blue"><b>Figure 8-25</b>. Definition of the geometric and attribute error measures.</figcaption>
 </figure>
 
-* _Object-Based Geometric Error Measure._ Referring to Figure8-25(left), this error measure is the perpendicular distance, d, from the edge center point C to the straight line passing through the cell edge vertices (A and B). Note that d is computed in world coordinates, but C is computed by evaluation at the parametric center of the edge. The perpendicular distance is used rather than the distance between C and D because if C lies on (AB) but is not coincident with D the error is non-zero, resulting in many useless edge subdivisions.
+* _Object-Based Geometric Error Measure._ Referring to **Figure8-25**(left), this error measure is the perpendicular distance, $d$, from the edge center point $C$ to the straight line passing through the cell edge vertices ($A$ and $B$). Note that $d$ is computed in world coordinates, but $C$ is computed by evaluation at the parametric center of the edge. The perpendicular distance is used rather than the distance between $C$ and $D4$ because if $C$ lies on $(AB)$ but is not coincident with $D$ the error is non-zero, resulting in many useless edge subdivisions.
 
-* _Object-Based Flatness Error Measure._ This error measure is the angle α between the chords (AC) and (CB) passing through the real mid-point C. As the angle approaches 180° the edge becomes flat. The threshold is the angle over which the edge is viewed as flat.
+* _Object-Based Flatness Error Measure._ This error measure is the angle $\alpha$ between the chords (AC) and (CB) passing through the real mid-point C. As the angle approaches 180$\circ$ the edge becomes flat. The threshold is the angle over which the edge is viewed as flat.
 
-* _Attribute-Based Error Measure._ Referring to **Figure 8-25**(right), this error measure is the distance between ai the linearly interpolated value of an attribute at the midpoint and the actual value of this attribute at the edge midpoint $a^m$.
+* _Attribute-Based Error Measure._ Referring to **Figure 8-25**(right), this error measure is the distance between $a^i$ the linearly interpolated value of an attribute at the midpoint and the actual value of this attribute at the edge midpoint $a^m$.
 
-* _Image-Based Geometric Error Measure._ This error measure is the distance, in pixels, between the line (AB) projected in image space to the midpoint C also projected in image space. Because the computation involves projection through the current camera matrix, this error measure is view-dependent. As a result, the tessellation may be crude in portions of the mesh away from the camera. Note that one of the disadvantages of this approach is that tessellation may be required each time the camera is repositioned relative to the mesh.
+* _Image-Based Geometric Error Measure._ This error measure is the distance, in pixels, between the line $(AB)$ projected in image space to the midpoint $C$ also projected in image space. Because the computation involves projection through the current camera matrix, this error measure is view-dependent. As a result, the tessellation may be crude in portions of the mesh away from the camera. Note that one of the disadvantages of this approach is that tessellation may be required each time the camera is repositioned relative to the mesh.
 
 ### Advanced Methods
 
@@ -366,13 +366,13 @@ $$
 
 where the interpolation weights $W_i$i are evaluated at the parametric coordinate $(r_0, s_0, t_0)$.
 
-In the formulation presented here, we have used the same order interpolation functions for both data and cell geometry. (By order we mean the polynomial degree of the interpolating polynomials.) This is termed iso-parametric interpolation. It is possible to use different interpolation functions for geometry and data. Super-parametric interpolation is used when the order of the interpolation functions for geometry is greater than those used for data. Sub-parametric interpolation is used when the order of the interpolation functions for geometry is less than those used for data. Using different interpolation functions is commonly used in numerical analysis techniques such as the finite element method. We will always use the iso-parametric interpolation for visualization applications.
+In the formulation presented here, we have used the same order interpolation functions for both data and cell geometry. (By order we mean the polynomial degree of the interpolating polynomials.) This is termed _iso-parametric_ interpolation. It is possible to use different interpolation functions for geometry and data. _Super-parametric_ interpolation is used when the order of the interpolation functions for geometry is greater than those used for data. _Sub-parametric_ interpolation is used when the order of the interpolation functions for geometry is less than those used for data. Using different interpolation functions is commonly used in numerical analysis techniques such as the finite element method. We will always use the iso-parametric interpolation for visualization applications.
 
 ### Global to Dataset Coordinates
 
-Global to dataset coordinate transformations are expensive compared to dataset to global transformations. There are two reasons for this. First, we must identify the particular cell $C_i$ that contains the global point p. Second, we must solve Equation 8-4 for the parametric coordinates of p.
+Global to dataset coordinate transformations are expensive compared to dataset to global transformations. There are two reasons for this. First, we must identify the particular cell $C_i$ that contains the global point $p$. Second, we must solvse Equation 8-4 for the parametric coordinates of $p$.
 
-To identify the cell $C_i$ means doing some form of searching. A simple but inefficient approach is to visit every cell in a dataset and determine whether p lies inside any cell. If so, then we have found the correct cell and stop the search. Otherwise, we check the next cell in the list.
+To identify the cell $C_i$ means doing some form of searching. A simple but inefficient approach is to visit every cell in a dataset and determine whether $p$ lies inside any cell. If so, then we have found the correct cell and stop the search. Otherwise, we check the next cell in the list.
 
 This simple technique is not fast enough for large data. Instead, we use accelerated search techniques. These are based on spatially organizing structures such as an octree or three-dimensional hash table. The idea is as follows: we create a number of “buckets,” or data place holders, that are accessed by their location in global space. Inside each bucket we tag all the points or cells that are partially or completely inside the bucket. Then, to find a particular cell that contains point p, we find the bucket that contains p, and obtain all the cells associated with the bucket. We then evaluate inside/outside for this abbreviated cell list to find the single cell containing p. (See [“Searching”](/VTKBook/08Chapter8/#87-searching) in [Chapter 8](/VTKBook/08Chapter8) for a more detailed description.)
 
@@ -391,7 +391,7 @@ Similar relations exist for any cell whose interpolation functions are linear co
 
 To solve the interpolation functions for parametric coordinates we must use nonlinear techniques for the solution of a system of equations. A simple and effective technique is Newton’s method <em style="color:blue;background-color: white">\[Conte72\]</em>.
 
-To use Newton’s method we begin by defining three functions for the known global coordinate p = p(x,y,z) in terms of the interpolation functions $W_i = W_i(r,s,t)$
+To use Newton’s method we begin by defining three functions for the known global coordinate $p = p(x,y,z)$ in terms of the interpolation functions $W_i = W_i(r,s,t)$
 
 $$
 \begin{eqnarray*}
@@ -476,7 +476,7 @@ $$
 \bf\tag{8-13}
 $$
 
-where $s_i$ is the data value at point $i$. In the local coordinate system $x'$, which is parallel to the $r$ coordinate system (that is, it lies along the vector $vec{x_1} - vec{x_0})$, the derivative is
+where $s_i$ is the data value at point $i$. In the local coordinate system $x'$, which is parallel to the $r$ coordinate system (that is, it lies along the $\vec{t}$ or $\vec{x_1} - \vec{x_0})$, the derivative is
 
 $$
 \begin{equation*}
@@ -516,7 +516,7 @@ $$
 
 which, when combined with Equation 8-16 and Equation 8-13 for the s derivatives, yields Equation 8-14.
 
-One final step remains. The derivatives in the $vec{x}$ coordinate system must be converted to the global x-y-z system. We can do this by creating a unit vector $vec{v}$ as
+One final step remains. The derivatives in the $\vec{x}$ coordinate system must be converted to the global x-y-z system. We can do this by creating a unit vector $\vec{v}$ as
 
 $$
 \begin{equation*}
@@ -525,7 +525,7 @@ $$
 \bf\tag{8-18}
 $$
 
-where $vec{x_0}$ and $vec{x_1}$ are the locations of the two end points of the line. Then the derivatives in the x, y, and z directions can be computed by taking the dot products along the axes.
+where $\vec{x_0}$ and $\vec{x_1}$ are the locations of the two end points of the line. Then the derivatives in the $x$, $y$, and $z$ directions can be computed by taking the dot products along the axes.
 
 $$
 \begin{eqnarray*}
@@ -608,9 +608,9 @@ $$
 \bf\tag{8-22}
 $$
 
-The inverse of the Jacobian always exists as long as there is a one-to-one correspondence between the parametric and global coordinate systems. This means that for any (r, s, t) coordinate, there corresponds only one (x, y, z) coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self-intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
+The inverse of the Jacobian always exists as long as there is a one-to-one correspondence between the parametric and global coordinate systems. This means that for any $(r, s, t)$ coordinate, there corresponds only one $(x, y, z)$ coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self-intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
 
-In our one-dimensional example, the derivatives along the line were constant. However, other interpolation functions (e.g., **Figure 8-5**) may yield non-constant derivatives. Here, the Jacobian is a function of position in the cell and must be evaluated at a particular (r, s, t) coordinate value.
+In our one-dimensional example, the derivatives along the line were constant. However, other interpolation functions (e.g., **Figure 8-5**) may yield non-constant derivatives. Here, the Jacobian is a function of position in the cell and must be evaluated at a particular $(r, s, t)$ coordinate value.
 
 ## 8.6 Topological Operations
 
@@ -660,18 +660,18 @@ Dataset operations return information about the topology of a dataset or topolog
 
 We can formalize the adjacency operations by continuing the discussion of [“Cell Types”](/VTKBook/05Chapter5/#54-cell-types) in [Chapter 5](/VTKBook/05Chapter5). Adjacency methods are used to obtain information about the neighbors of a cell. A neighbor of a particular cell $C_i$ is simply a cell that shares one or more points in common with $C_i$. A vertex neighbor is a neighbor that shares one or more vertices. An edge neighbor is a neighbor that shares one or more edges. A face neighbor is a cell that shares vertices that define one of the faces of the cell. Note that a face neighbor is also an edge neighbor, and an edge neighbor is also a vertex neighbor.
 
-The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points and a point list $vec{P} = (vec{p_1}, vec{p_2}, ..., vec{p_n})$  with $P \subset P$, where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set A(C, P).
+The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points and a point list $\vec{P} = (\vec{p_1}, \vec{p_2}, ..., \vec{p_n})$  with $P \subset P$, where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set A(C, P).
 
 The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$.
 
 $$
-\begin{equatiqon*}
+\begin{equation*}
 C_i = \lbrace p_1, p_2, \ldots, p_n \rbrace = P
 \end{equation*}
 \bf\tag{8-24}
 $$
 
-and a point list $vec{P} = (vec{p}_1, vec{p}_2, ..., vec{p}_n)$ with $vec{P}\subset P$ , where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set $A(vec{C}, vec{P})$ . The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$i.
+and a point list $\vec{P} = (\vec{p}_1, \vec{p}_2, ..., \vec{p}_n)$ with $\vec{P}\subset P$ , where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set $A(\vec{C}, \vec{P})$ . The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$i.
 
 The adjacency set represents a variety of useful information. In a manifold object represented by a polyhedra, for example, each polygon must have exactly one edge neighbor for each of its edges. Edges that have no neighbors are boundary edges; edges that have more than one edge neighbor represent nonmanifold topology. Datasets that consist of three-dimensional cells (e.g., unstructured grids) are topologically consistent only if, for each cell, there is exactly one face neighbor for each face. Faces that have no neighbors are on the boundary of the dataset. More than one face neighbor implies that the neighbors are self-intersecting (in 3D space).
 
@@ -686,17 +686,17 @@ $$
 
 Searching is an operation to find the cell containing a specified point p, or to locate cells or points in a region surrounding p. Algorithms requiring this operation include streamline generation, where we need to find the starting location within a cell; probing, where the data values at a point are interpolated from the containing cell; or collision detection, where cells in a certain region must be evaluated for intersection. Sometimes (e.g., image datasets), searching is a simple operation because of the regularity of data. However, in less structured data, the searching operation is more complex.
 
-To find the cell containing p, we can use the following naive search procedure. Traverse all cells in the dataset, finding the one (if any) that contains p. To determine whether a cell contains a point, the cell interpolation functions are evaluated for the parametric coordinates (r,s,t). If these coordinates lie within the cell, then p lies in the cell. The basic assumption here is that cells do not overlap, so that at most a single cell contains the given point p. To determine cells or points lying in the region surrounding p, we can traverse cells or points to see whether they lie within the region around p. For example, we can choose to define the region as a sphere centered at p. Then, if a point or the points composing a cell lie in the sphere, the point or cell is considered to be in the region surrounding p.
+To find the cell containing p, we can use the following naive search procedure. Traverse all cells in the dataset, finding the one (if any) that contains p. To determine whether a cell contains a point, the cell interpolation functions are evaluated for the parametric coordinates (r,s,t). If these coordinates lie within the cell, then $p$ lies in the cell. The basic assumption here is that cells do not overlap, so that at most a single cell contains the given point p. To determine cells or points lying in the region surrounding p, we can traverse cells or points to see whether they lie within the region around p. For example, we can choose to define the region as a sphere centered at p. Then, if a point or the points composing a cell lie in the sphere, the point or cell is considered to be in the region surrounding p.
 
 These naive procedures are unacceptable for all but the smallest datasets, since they are of order O(n), where n is the number of cells or points. To improve the performance of searching, we need to introduce supplemental data structures to support spatial searching. Such structures are well-known and include MIP maps, octrees, kd-trees, and binary sphere trees (see [“Bibliographic Notes”](VTKBook/08Chapter8/#813-bibliographic-notes) at the end of this chapter).
 
-The basic idea behind these spatial search structures is that the search space is subdivided into smaller parts, or buckets. Each bucket contains a list of the points or cells that lie within it. Buckets are organized in structured fashion so that constant or logarithmic time access to any bucket is possible. For example, if we assign a portion of 2D Euclidean space into a grid of n by m buckets, the location of p in a particular bucket can be determined with two subtractions and two divisions: a constant time access. Similarly, the location of p in a nonuniformly subdivided octree is determined in logarithmic time, since recursive insertion into octant children is required. Once the bucket is found, the search is then limited to the points or cells contained within it. In a properly designed spatial search structure, the number of points or cells in a bucket is a small portion of the total number of cells and less than a fixed value. Thus, the time to search within a bucket can be bounded by a fixed constant. The result is that introducing spatial search structures reduces search times to a maximum O(log n), or better yet O(n).
+The basic idea behind these spatial search structures is that the search space is subdivided into smaller parts, or buckets. Each bucket contains a list of the points or cells that lie within it. Buckets are organized in structured fashion so that constant or logarithmic time access to any bucket is possible. For example, if we assign a portion of 2D Euclidean space into a grid of n by m buckets, the location of $p$ in a particular bucket can be determined with two subtractions and two divisions: a constant time access. Similarly, the location of $p$ in a nonuniformly subdivided octree is determined in logarithmic time, since recursive insertion into octant children is required. Once the bucket is found, the search is then limited to the points or cells contained within it. In a properly designed spatial search structure, the number of points or cells in a bucket is a small portion of the total number of cells and less than a fixed value. Thus, the time to search within a bucket can be bounded by a fixed constant. The result is that introducing spatial search structures reduces search times to a maximum O(log n), or better yet O(n).
 
 We have two options when applying spatial search structures. We may insert points into the search structure, or we may insert cells, depending on the application. There are advantages and disadvantages to both approaches. Inserting cells into buckets is not a trivial operation. In general, cells are arbitrarily oriented and shaped, and will not fit completely into a single bucket. As a result, cells often span multiple buckets. To reliably determine whether a cell is in a bucket requires geometric intersection tests, a costly operation. Another approach is to use the bounding box of a cell to decide which bucket(s) a cell belongs in. We only need to intersect the bounding box with a bucket to determine whether the cell may belong in the bucket. Unfortunately, even though this operation is generally fast, often cells are associated with buckets even though they may not actually lie inside them, wasting (in large models) memory resources and extra processing time.
 
 <figure id="Figure 8-30">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-30.png?raw=true width="640" alt="Figure8-30">
-  <figcaption style="color:blue"><b>Figure 8-30</b>. Using search structure (containing points) to find cells. (a) Points are associated with appropriate bucket. Point p is used to index into bucket, and closest point(s) pi is found. Cells using pi are evaluated for the cell containing p. (b) Sometimes closest points pi are not used by cells containing p. </figcaption>
+  <figcaption style="color:blue"><b>Figure 8-30</b>. Using search structure (containing points) to find cells. (a) Points are associated with appropriate bucket. Point $p$ is used to index into bucket, and closest point(s) pi is found. Cells using pi are evaluated for the cell containing p. (b) Sometimes closest points pi are not used by cells containing p. </figcaption>
 </figure>
 
 Inserting points into a search structure is easier because points can be uniquely placed into a bucket. Inserting points also allows us to search for both points and cells. Cells can be found by using $p$ to index into the appropriate bucket. The closest point(s) $p_i$ to $p$ are then located. Using the topological adjacency operator to retrieve the cells using points pi, we can then search these cells for the cell containing $p$. This procedure must be used with caution, however, since the closest points may not be used by the cells containing $p$ (**Figure 8-30**).
@@ -883,25 +883,16 @@ With the completion of Chapters 5 and 8, we can summarize the abstract interface
           Given a cell id, return the point ids (e.g., connectivity list) defining the cell.
 
      GetCellNeighbors(cellId, ptIds, neighbors)
-          Given a cell id and a list of points composing a boundary face of the cell, return the
-          neighbors of that cell sharing the points.
+          Given a cell id and a list of points composing a boundary face of the cell, return the neighbors of that cell sharing the points.
 
      cellId = FindCell(x, cell, cellId, tol2, subId, pcoords, weights)
-          Given a coordinate value x, an initial search cell defined by cell and cellId, and a
-          tolerance measure (squared), return the cell id and sub-id of the cell containing the
-          point and its interpolation function weights. The initial search cell is used to speed
-          up the search process when the position x is known to be near the cell. If no cell is
-          found, cellId < 0 is returned.
+          Given a coordinate value x, an initial search cell defined by cell and cellId, and a tolerance measure (squared), return the cell id and sub-id of the cell containing the  point and its interpolation function weights. The initial search cell is used to speed up the search process when the position x is known to be near the cell. If no cell is found, cellId < 0 is returned.
 
      pointData = GetPointData()
-         Return a pointer to the object maintaining point attribute data. This includes scalars,
-         vectors, normals, tensors, and texture coordinates, as well as any other data arrays that the
-         field carries.
+         Return a pointer to the object maintaining point attribute data. This includes scalars, vectors, normals, tensors, and texture coordinates, as well as any other data arrays that the field carries.
 
      cellData = GetCellData()
-          Return a pointer to the object maintaining cell attribute data. This includes scalars,
-          vectors, normals, tensors, and texture coordinates, as well as any other data arrays that the
-          field carries.
+          Return a pointer to the object maintaining cell attribute data. This includes scalars,a vectors, normals, tensors, and texture coordinates, as well as any other data arrays that the field carries.
 
      bounds = GetBounds()
           Get the bounding box of the dataset.
@@ -913,20 +904,16 @@ With the completion of Chapters 5 and 8, we can summarize the abstract interface
           Get the center of the bounding box of the dataset.
 
      range = GetScalarRange()
-          A convenience method to return the (minimum, maximum) range of the scalar attribute
-          data associated with the dataset.
+          A convenience method to return the (minimum, maximum) range of the scalar attribute data associated with the dataset.
 
      dataSet = NewInstance()
-          Make a copy of the current dataset. A “virtual” constructor. (Typically, reference counting
-           methods are used to copy data.)
+          Make a copy of the current dataset. A “virtual” constructor. (Typically, reference counting methods are used to copy data.)
 
      CopyStructure(dataSet)
-          Update the current structure definition (i.e., geometry and topology) with the supplied
-          dataset.
+          Update the current structure definition (i.e., geometry and topology) with the supplied dataset.
 ```
                    
-**Cell Abstraction.** Cells are the atomic structures of VTK. Cells consist of a topology, defined by a sequence of ordered point ids, and a geometry, defined by point coordinates. The cell coordinate consists of a cell id, a subcell id, and a parametric coordinate. The subid specifies a primary cell that lies within a composite cell such as a triangle strip. Cell edges and faces are defined implicitly from the topology of the cell.
-
+**Cell Abstraction.** Cells are the atomic structures of VTK. Cells consist of a topology, defined by a sequence of ordered point ids, and a geometry, defined by point coordinates. The cell coordinate consists of a cell id, a subcell id, and a parametric coordinate. The subid specifies a primary cell that lies within a composite cell such as a triangle strip. Cell edges and faces are defined implicitly from the topology of the cell. 
 ```
     type = GetCellType()
           Return the type of the cell. Must be one of the twelve VTK cell types (or the empty cell
