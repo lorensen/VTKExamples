@@ -73,7 +73,7 @@ Designing lookup tables is as much art as it is science. From a practical point 
 
 <figure id="Figure 6-4">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-4.png?raw=true" width="640" alt="Figure6-4">
-  <figcaption style="color:blue"><b>Figure 6-4</b>. Contouring a 2D stuctured grid with contour line value = 5.</figcaption>
+  <figcaption style="color:blue"><b>Figure 6-4</b>. Contouring a 2D structured grid with contour line value = 5.</figcaption>
 </figure>
 
 ### Contouring
@@ -127,7 +127,7 @@ As mentioned previously, the 3D analogy of marching squares is marching cubes. H
 
 <figure id="Figure 6-10">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestMarchingCasesB.png?raw=true" width="640" Walt="Figure 6-10">
- <figcaption style="color:blue"><b>Figure 6-10</b> Marching Cubes complemetary cases. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> See MarchingCasesB.cxx</a> <a href="../../Python/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> and MarchingCasesB.py</a>.</figcaption>
+ <figcaption style="color:blue"><b>Figure 6-10</b> Marching Cubes complementary cases. <a href="../../Cxx/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> See MarchingCasesB.cxx</a> <a href="../../Python/VisualizationAlgorithms/MarchingCasesB" title="MarchingCasesB"> and MarchingCasesB.py</a>.</figcaption>
 </figure>
 
 An important issue is *contouring ambiguity*. Careful observation of marching squares cases numbered 5 and 10 and marching cubes cases numbered 3, 6, 7, 10, 12, and 13 show that there are configurations where a cell can be contoured in more than one way. (This ambiguity also exists when using an edge tracking approach to contouring.) Contouring ambiguity arises on a 2D square or the face of a 3D cube when adjacent edge points are in different states, but diagonal vertices are in the same state.
@@ -239,7 +239,7 @@ Vector data is often associated with "motion." The motion is in the form of velo
 
 **Figure 6-14** shows two examples of vector warping. In the first example the motion of a vibrating beam is shown. The original undeformed outline is shown in wireframe. The second example shows warped planes in a structured grid dataset. The planes are warped according to flow momentum. The relative back and forward flow are clearly visible in the deformation of the planes.
 
-Typically, we must scale the vector field to control geometric distortion. Too small a distortion may not be visible, while too large a distortion can cause the structure to turn inside out or selfintersect. In such a case the viewer of the visualization is likely to lose context, and the visualization will become ineffective.
+Typically, we must scale the vector field to control geometric distortion. Too small a distortion may not be visible, while too large a distortion can cause the structure to turn inside out or self-intersect. In such a case the viewer of the visualization is likely to lose context, and the visualization will become ineffective.
 
 ### Displacement Plots
 
@@ -359,13 +359,13 @@ Streamlines, streaklines, and particle traces are equivalent to one another if t
  <figcaption style="color:blue"><b>Figure 6-18</b>. Flow velocity computed for a small kitchen (top and side view). Forty streamlines start along the rake positioned under the window. Some eventually travel over the hot stove and are convected upwards.<a href="../../Cxx/Visualization/Kitchen" title="Kitchen"> See Kitchen.cxx</a> and <a href="../../Python/Visualization/Kitchen" title="Kitchen">Kitchen.py</a>.</figcaption>
 </figure>
 
-Many enhancements of streamline visualization exist. Lines can be colored according to velocity magnitude to indicate speed of flow. Other scalar quantities such as temperature or pressure also may be used to color the lines. We also may create constant time dashed lines. Each dash represents a constant time increment. Thus, in areas of high velocity, the length of the dash will be greater relative to regions of lower velocity. These techniques are illustrated in **Figure 6-19** for airflow around a blunt fin. This example consists of a wall with half a rounded fin projecting into the fluid flow. (Using arguments of symmetry, only half of the domain was modeled.) Twentyfive streamlines are released upstream of the fin. The boundary layer effects near the junction of the fin and wall are clearly evident from the streamlines. In this area, flow recirculation is apparent, as well as the reduced flow speed.
+Many enhancements of streamline visualization exist. Lines can be colored according to velocity magnitude to indicate speed of flow. Other scalar quantities such as temperature or pressure also may be used to color the lines. We also may create constant time dashed lines. Each dash represents a constant time increment. Thus, in areas of high velocity, the length of the dash will be greater relative to regions of lower velocity. These techniques are illustrated in **Figure 6-19** for airflow around a blunt fin. This example consists of a wall with half a rounded fin projecting into the fluid flow. (Using arguments of symmetry, only half of the domain was modeled.) Twenty five streamlines are released upstream of the fin. The boundary layer effects near the junction of the fin and wall are clearly evident from the streamlines. In this area, flow recirculation is apparent, as well as the reduced flow speed.
 
 ## 6.4 Tensor Algorithms
 
 As we mentioned earlier, tensor visualization is an active area of research. However there are a few simple techniques that we can use to visualize real $3 \times 3$ symmetric tensors. Such tensors are used to describe the state of displacement or stress in a 3D material. The stress and strain tensors for an elastic material are shown in **Figure 6-20**.
 
-In these tensors the diagonal coefficients are the so-called normal stresses and strains, and the offdiagonal terms are the shear stresses and strains. Normal stresses and strains act perpendicular to a specified surface, while shear stresses and strains act tangentially to the surface. Normal stress is either compression or tension, depending on the sign of the coefficient.
+In these tensors the diagonal coefficients are the so-called normal stresses and strains, and the off diagonal terms are the shear stresses and strains. Normal stresses and strains act perpendicular to a specified surface, while shear stresses and strains act tangentially to the surface. Normal stress is either compression or tension, depending on the sign of the coefficient.
 
 <figure id="Figure 6-19">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestBluntStreamlines.png?raw=true" width="640" alt="Figure 6-19">
@@ -374,7 +374,7 @@ In these tensors the diagonal coefficients are the so-called normal stresses and
 
 A $3 \times 3$ real symmetric matrix can be characterized by three vectors in 3D called the eigenvectors, and three numbers called the eigenvalues of the matrix. The eigenvectors form a 3D coordinate system whose axes are mutually perpendicular. In some applications, particularly the study of materials, these axes also are referred to as the principle axes of the tensor and are physically significant. For example, if the tensor is a stress tensor, then the principle axes are the directions of normal stress and no shear stress. Associated with each eigenvector is an eigenvalue. The eigenvalues are often physically significant as well. In the study of vibration, eigenvalues correspond to the resonant frequencies of a structure, and the eigenvectors are the associated mode shapes.
 
-Mathematically we can represent eigenvalues and eigenvectors as follows. Given a matrix the eigenvector and eigenvalue mustl satisfy the relation 
+Mathematically we can represent eigenvalues and eigenvectors as follows. Given a matrix the eigenvector and eigenvalue must satisfy the relation 
 
 $$
 A \cdot \vec{x} = \lambda \vec{x}
@@ -422,7 +422,7 @@ T = T_T \cdot T_R \cdot T_S
 \bf\tag{6-10}
 $$
 
- (remember to read righttoleft). The eigenvectors can be directly plugged in to create the rotation matrix, while the point coordinates $x-y-z$ and eigenvalues $\lambda{_1} \geq \lambda{_2} \geq \lambda{_3}$ are inserted into the translation and scaling matrices. A concatenation of these matrices forms the final transformation matrix $T$.
+ (remember to read right to left). The eigenvectors can be directly plugged in to create the rotation matrix, while the point coordinates $x-y-z$ and eigenvalues $\lambda{_1} \geq \lambda{_2} \geq \lambda{_3}$ are inserted into the translation and scaling matrices. A concatenation of these matrices forms the final transformation matrix $T$.
 
 <figure id="Figure 6-21">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-21.png?raw=true" width="640" alt="Figure6-21">
@@ -430,7 +430,7 @@ $$
 </figure>
 
 
-**Figure 6-21** (a) depicts the tensor ellipsoid technique. In **Figure 6-21** (b) we show this technique to visualize material stress near a point load on the surface of a semiinfinite domain. (This is the so-called Boussinesq's problem.) From Saada <em style="color:blue;background-color: white">\[Saada74\]</em> we have the analytic expression for the stress components in Cartesian coordinates shown in **Figure 6-21** (c). Note that the $z$-direction is defined as the axis originating at the point of application of the force $P$. The variable $\rho$ is the distance from the point of load application to a point $x-y-z$. The orientation of the $x$ and $y$ axes are in the plane perpendicular to the $z$ axis. (The rotation in the plane of these axes is unimportant since the solution is symmetric around the $z$ axis.) (The parameter $\nu$ is Poisson's ratio which is a property of the material. Poisson's ratio relates the lateral contraction of a material to axial elongation under a uniaxial stress condition. See <em style="color:blue;background-color: white">\[Saada74\]</em> or <em style="color:blue;background-color: white">\[Timoshenko70\]</em> for more information.)
+**Figure 6-21** (a) depicts the tensor ellipsoid technique. In **Figure 6-21** (b) we show this technique to visualize material stress near a point load on the surface of a semi-infinite domain. (This is the so-called Boussinesq's problem.) From Saada <em style="color:blue;background-color: white">\[Saada74\]</em> we have the analytic expression for the stress components in Cartesian coordinates shown in **Figure 6-21** (c). Note that the $z$-direction is defined as the axis originating at the point of application of the force $P$. The variable $\rho$ is the distance from the point of load application to a point $x-y-z$. The orientation of the $x$ and $y$ axes are in the plane perpendicular to the $z$ axis. (The rotation in the plane of these axes is unimportant since the solution is symmetric around the $z$ axis.) (The parameter $\nu$ is Poisson's ratio which is a property of the material. Poisson's ratio relates the lateral contraction of a material to axial elongation under a uniaxial stress condition. See <em style="color:blue;background-color: white">\[Saada74\]</em> or <em style="color:blue;background-color: white">\[Timoshenko70\]</em> for more information.)
 
 <figure id="Figure 6-22">
   <figure  id="Figure 6-22a">
@@ -439,7 +439,7 @@ $$
   </figure>
   <figure id="Figure 6-22b">
    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTensorEllipsoids.png?raw=true" width="640" alt="Figure 6-22b">
-   <figcaption style="color:blue">(b) Tensor ellipsiods</figcaption>
+   <figcaption style="color:blue">(b) Tensor ellipsoids</figcaption>
   </figure>
   <figcaption style="color:blue"><b>Figure 6-22</b>. Tensor visualization techniques; (a) Tensor axes.<a href="../../Cxx/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> See TensorAxes.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorAxes" title="TensorAxes"> TensorAxes.py</a> (b) Tensor ellipsoids.<a href="../../Cxx/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> See TensorEllipsoids.cxx</a> and <a href="../../Python/VisualizationAlgorithms/TensorEllipsoids" title="TensorEllipsoids"> TensorEllipsoids.py</a></figcaption>
 </figure>
@@ -567,7 +567,7 @@ Selecting or extracting data with an implicit function means choosing cells and 
 
 Some functions, often discrete or probabilistic in nature, cannot be cast into the form of **Equation6-11**. However, by applying some creative thinking we can often generate scalar values that can be visualized. An interesting example of this is the so-called *strange attractor*.
 
-Strange attractors arise in the study of nonlinear dynamics and chaotic systems. In these systems, the usual types of dynamic motion --- equilibrium, periodic motion, or quasiperiodic motion --- are not present. Instead, the system exhibits chaotic motion. The resulting behavior of the system can change radically as a result of small perturbations in its initial conditions.
+Strange attractors arise in the study of nonlinear dynamics and chaotic systems. In these systems, the usual types of dynamic motion --- equilibrium, periodic motion, or quasi-periodic motion --- are not present. Instead, the system exhibits chaotic motion. The resulting behavior of the system can change radically as a result of small perturbations in its initial conditions.
 
 <figure id="Figure 6-25">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestLorenz.png?raw=true" width="640" alt="Figure 6-25">
@@ -598,7 +598,7 @@ Certainly these equations are not in the implicit form of **Equation6-11**, so h
 
 In the previous section we saw how implicit functions, or boolean combinations of implicit functions, could be used to model geometric objects. The basic approach is to evaluate these functions on a regular array of points, or volume, and then to generate scalar values at each point in the volume. Then either volume rendering ([“Volume Rendering"](/VTKBook/07Chapter7/#73-volume-rendering)), or isosurface generation in combination with surface rendering, is used to display the model.
 
-An extension of this approach, called implicit modeling, is similar to modeling with implicit functions. The difference lies in the fact that scalars are generated using a distance function instead of the usual implicit function. The distance function is computed as a Euclidean distance to a set of generating primitives such as points, lines, or polygons. For example, **Figure 6-26** shows the distance functions to a point, line, and triangle. Because distance functions are wellbehaved monotonic functions, we can define a series of offset surfaces by specifying different isosurface values, where the value is the distance to the generating primitive. The isosurfaces form approximations to the true offset surfaces, but using high volume resolution we can achieve satisfactory results.
+An extension of this approach, called implicit modeling, is similar to modeling with implicit functions. The difference lies in the fact that scalars are generated using a distance function instead of the usual implicit function. The distance function is computed as a Euclidean distance to a set of generating primitives such as points, lines, or polygons. For example, **Figure 6-26** shows the distance functions to a point, line, and triangle. Because distance functions are well-behaved monotonic functions, we can define a series of offset surfaces by specifying different isosurface values, where the value is the distance to the generating primitive. The isosurfaces form approximations to the true offset surfaces, but using high volume resolution we can achieve satisfactory results.
 
 Used alone the generating primitives are limited in their ability to model complex geometry. By using boolean combinations of the primitives, however, complex geometry can be easily modeled. The boolean operations union, intersection, and difference (**Equation6-13**, **Equation6-14**, and **Equation6-15**, respectively) are illustrated in **Figure 6-27**. **Figure 6-28** shows the application of implicit modeling to "thicken" the line segments in the text symbol "HELLO". The isosurface is generated on a volume $110 \times 40 \times 20$ at  a distance offset of 0.25 units. The generating primitives were combined using the boolean union operator. Although Euclidean distance is always a nonnegative value, it is possible to use a signed distance function for objects that have an outside and an inside. A negative distance is the negated distance of a point inside the object to the surface of the object. Using a signed distance function allows us to create offset surfaces that are contained within the actual surface. Another interesting feature of implicit modeling is that when isosurfaces are generated, more than one connected surface can result. These situations occur when the generating primitives form concave features. **Figure 6-29** illustrates this situation. If desired, multiple surfaces can be separated by using the connectivity algorithm described in ["Connectivity"](/VTKBook/09Chapter9/#connectivity) in [Chapter 9](/VTKBook/09Chapter9).
 
@@ -621,14 +621,14 @@ Used alone the generating primitives are limited in their ability to model compl
 
 Glyphs, sometimes referred to as icons, are a versatile technique to visualize data of every type. A glyph is an "object" that is affected by its input data. This object may be geometry, a dataset, or a graphical image. The glyph may orient, scale, translate, deform, or somehow alter the appearance of the object in response to data. We have already seen a simple form of glyph: hedgehogs are lines that are oriented, translated and scaled according to the position and vector value of a point. A variation of this is to use oriented cones or arrows. (See ["Hedgehogs and Oriented Glyphs"](/VTKBook/06Chapter6/#hedgehogs-and-oriented-glyphs) in this Chapter for more information.)
 
-More elaborate glyphs are possible. In one creative visualization technique Chernoff <em style="color:blue;background-color: white">\[Chernoff73\]</em> tied data values to an iconic representation of the human face. Eyebrows, nose, mouth, and other features were modified according to financial data values. This interesting technique builton the human capability to recognize facial expression. By tying appropriate data values to facial characteristics, rapid identification of important data points is possible.
+More elaborate glyphs are possible. In one creative visualization technique Chernoff <em style="color:blue;background-color: white">\[Chernoff73\]</em> tied data values to an iconic representation of the human face. Eyebrows, nose, mouth, and other features were modified according to financial data values. This interesting technique built on the human capability to recognize facial expression. By tying appropriate data values to facial characteristics, rapid identification of important data points is possible.
 
 <figure id="Figure 6-30">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestSpikeFran.png?raw=true" width="640" alt="Figure 6-30">
   <figcaption style="color:blue"><b>Figure 6-30</b> Glyphs indicate surface normals on model of human face. Glyph positions are randomly selected. <a href="../../Cxx/VisualizationAlgorithms/SpikeFran" title="SpikeFran"> See SpikeFran.cxx</a> and <a href="../../Python/VisualizationAlgorithms/SpikeFran" title="SpikeFran"> SpikeFran.py</a>.</figcaption>
 </figure>
 
-In a sense, glyphs represent the fundamental result of the visualization process. Moreover, all the visualization techniques we present can be treated as concrete representations of an abstract glyph class. For example, while hedgehogs are an obvious manifestation of a vector glyph, isosurfaces can be considered a topologically twodimensional glyph for scalar data. Delmarcelle and Hesselink <em style="color:blue;background-color: white">\[Delmarcelle95\]</em> have developed a unified framework for flow visualization based on types of glyphs. They classify glyphs according to one of three categories.
+In a sense, glyphs represent the fundamental result of the visualization process. Moreover, all the visualization techniques we present can be treated as concrete representations of an abstract glyph class. For example, while hedgehogs are an obvious manifestation of a vector glyph, isosurfaces can be considered a topologically two-dimensional glyph for scalar data. Delmarcelle and Hesselink <em style="color:blue;background-color: white">\[Delmarcelle95\]</em> have developed a unified framework for flow visualization based on types of glyphs. They classify glyphs according to one of three categories.
 
 - *Elementary icons* represent their data across the extent of their
  spatial domain. For example, an oriented arrow can be used to represent surface normal.
@@ -637,7 +637,7 @@ In a sense, glyphs represent the fundamental result of the visualization process
 
 - *Global icons* show the structure of the complete dataset. An isosurface is an example of a global icon.
 
-This classification scheme can be extended to other visualization techniques such as vector and tensor data, or even to nonvisual forms such as sound or tactile feedback. We have found this classification scheme to be helpful when designing visualizations or creating visualization techniques. Often it gives insight into ways of representing data that can be overlooked.
+This classification scheme can be extended to other visualization techniques such as vector and tensor data, or even to non-visual forms such as sound or tactile feedback. We have found this classification scheme to be helpful when designing visualizations or creating visualization techniques. Often it gives insight into ways of representing data that can be overlooked.
 
 **Figure 6-30** is an example of glyphing. Small 3D cones are oriented on a surface to indicate the direction of the surface normal. A similar approach could be used to show other surface properties such as curvature or anatomical keypoints.
 
@@ -650,7 +650,7 @@ Often we want to cut through a dataset with a surface and then display the inter
   <figcaption style="color:blue"><b>Figure 6-31</b>. Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used. <a href="../../Cxx/VisualizationAlgorithms/CutStructuredGrid" title="CutStructuredGrid"> See CutStructuredGrid.cxx</a> and <a href="../../Python/VisualizationAlgorithms/CutStructuredGrid" title="CutStructuredGrid"> CutStructuredGrid.py</a>.</figcaption>
 </figure>
 
-A property of implicit functionsis to convert a position into a scalar value (see ["Implicit Functions"](/VTKBook/06Chapter6/#implicit-functions_1) in this Chapter). We can use this property in combination with a contouring algorithm (e.g., marching cubes) to generate cut surfaces. The basic idea is to generate scalars for each point of each cell of a dataset (using the implicit cut function), and then contour the surface value $F(x,y,z) = 0$.
+A property of implicit functions is to convert a position into a scalar value (see ["Implicit Functions"](/VTKBook/06Chapter6/#implicit-functions_1) in this Chapter). We can use this property in combination with a contouring algorithm (e.g., marching cubes) to generate cut surfaces. The basic idea is to generate scalars for each point of each cell of a dataset (using the implicit cut function), and then contour the surface value $F(x,y,z) = 0$.
 
 The cutting algorithm proceeds as follows. For each cell, function values are generated by evaluating $F(x,y,z)$ for each cell point. If all the points evaluate positive or negative, then the surface does not cut the cell. However, if the points evaluate positive and negative, then the surface passes through the cell. We can use the cell contouring operation to generate the isosurface $F(x,y,z) = 0$. Data attribute values can then be computed by interpolating along cut edges.
 
@@ -664,7 +664,7 @@ We can easily make multiple planar cuts through a structured grid dataset by spe
 volume rendering. <a href="../../Cxx/VolumeRendering/PseudoVolumeRendering" title="PseudoVolumeRendering"> See PseudoVolumeRendering.cxx</a> and <a href="../../Python/VolumeRendering/PseudoVolumeRendering" title="PseudoVolumeRendering"> PseudoVolumeRendering.py</a>.</figcaption>
 </figure>
 
-This example illustrates that cutting the volumetric data in a structured grid dataset produced polygonal cells. Similarly, cutting polygonal data produces lines. Using a single plane equation, we can extract "contour lines" from a surface model defined with polygons. **Figure 6-33** shows contours extracted from a surface model of the skin. At each vertex in the surface model we evaluate the equation of the plane and $F(x.y.z) = c$ and store the valuec of the function as a scalar value. Cutting the data with 46 isovalues from 1.5 to 136.5 produces contour lines that are 3 units apart.
+This example illustrates that cutting the volumetric data in a structured grid dataset produced polygonal cells. Similarly, cutting polygonal data produces lines. Using a single plane equation, we can extract "contour lines" from a surface model defined with polygons. **Figure 6-33** shows contours extracted from a surface model of the skin. At each vertex in the surface model we evaluate the equation of the plane and $F(x.y.z) = c$ and store the value $c$ of the function as a scalar value. Cutting the data with 46 isovalues from 1.5 to 136.5 produces contour lines that are 3 units apart.
 
 <figure id="Figure 6-33">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCutWithScalars.png?raw=true" width="640" alt="Figure 6-33">
@@ -708,7 +708,7 @@ The architecture is simple enough that you can grasp it quickly.
 
 <figure id="Figure 6-36">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-36.png?raw=true" width="640" alt="Figure6-36">
-  <figcaption style="color:blue"><b>Figure 6-36</b>. Mapper object design. Graphics mapper shown (e.g., &#118;tkPolyDataMapper) maps polygonal data through graphics library primitives. Writer shown (e.g., &#118;tkSTLWriter) writes polyg- onal data to stereo lithography format.</figcaption>
+  <figcaption style="color:blue"><b>Figure 6-36</b>. Mapper object design. Graphics mapper shown (e.g., &#118;tkPolyDataMapper) maps polygonal data through graphics library primitives. Writer shown (e.g., &#118;tkSTLWriter) writes polygonal data to stereo lithography format.</figcaption>
 </figure>
 
 Mapper objects have one or more inputs and no visualization data output, **Figure 6-36**. Two different types of mappers are available in the *Visualization Toolkit* : graphics mappers and writers. Graphics mappers interface geometric structure and data attributes to the graphics library; writers write datasets to disk or other I/O devices.
@@ -766,7 +766,7 @@ Lookup tables in the *Visualization Toolkit* are associated with the graphics ma
 
 A few final notes on using lookup tables.
 
-- Mappers use their lookup table to map scalar values to colors. If no scalars are present, the mappers and their lookup tables do not control the color of the object. Instead the vtkProperty object associated with the vtkActor class does. Use vtkProperty's method ```actor->GetProperty()->SetColor(r,g,b)``` where r, g, and b are floatingpoint values specifying color.
+- Mappers use their lookup table to map scalar values to colors. If no scalars are present, the mappers and their lookup tables do not control the color of the object. Instead the vtkProperty object associated with the vtkActor class does. Use vtkProperty's method ```actor->GetProperty()->SetColor(r,g,b)``` where r, g, and b are floating point values specifying color.
 
 - If you want to prevent scalars from coloring your object, use vtkMapper's method mapper->ScalarVisibilityOff() to turn off color mapping. Then the actor's color will control the color of the object.
 
@@ -801,7 +801,7 @@ Although these results do not represent all implementations or the behavior of o
 
 <figure id="Figure 6-38">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-38.png?raw=true" width="640" alt="Figure6-38">
-  <figcaption style="color:blue"><b>Figure 6-38</b>. The cost of generality. Isosurface generation of three volumes of different sizes are compared. The results show normalized execution times for two different implementations of the marchingcubes isosurface algorithm. The specialized filter is &#118;tkMarchingCubes. The general algorithms are first &#118;tkContourFilter and then in combination with &#118;tkPolyDataNormals.</figcaption>
+  <figcaption style="color:blue"><b>Figure 6-38</b>. The cost of generality. Isosurface generation of three volumes of different sizes are compared. The results show normalized execution times for two different implementations of the marching cubes isosurface algorithm. The specialized filter is &#118;tkMarchingCubes. The general algorithms are first &#118;tkContourFilter and then in combination with &#118;tkPolyDataNormals.</figcaption>
 </figure>
 
 An example use of vtkContourFilter is shown in **Figure 6-39**. This example is taken from **Figure4-1**, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As **Figure 6-39** shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals to create surface normals. (We describe normal generation in [Chapter 9 - Advanced Algorithms](/VTKBook/09Chapter9).)
@@ -843,7 +843,7 @@ vtkActor *outlineActor = vtkActor::New();
 
 ### Cutting
 
-vtkCutter performs cutting of all VTK cell types. The SetValue() and GenerateValues() methods permit the user to specify which multiple scalar values to use for the cutting. vtkCutter requires an implicit function that will be evaluated at each point in the dataset. Then each cell is cut using the cell's Contour method. Any point attributes are interpolated to the resulting cut vertices. The sorting order for the generated polygonal data can be controlled with the SortBy method. The default sorting order, SortByValue(), processes cells in the inner loop for each contour value. SortByCell() processes the cutting value in the inner loop and produces polygonal data that is suitable for backtofront rendering (see **Figure 6-32**). (The sorting order is useful when rendering with opacity as discussed in [Chapter 7 - Advanced Computer Graphics](/VTKBook/07Chapter7).) Notice the similarity of this filter to the vtkContourFilter. Both of these objects contour datasets with multiple isovalues. vtkCutter uses an implicit function to calculate scalar values while vtkContourFilter uses the scalar data associated with the dataset's point data.
+vtkCutter performs cutting of all VTK cell types. The SetValue() and GenerateValues() methods permit the user to specify which multiple scalar values to use for the cutting. vtkCutter requires an implicit function that will be evaluated at each point in the dataset. Then each cell is cut using the cell's Contour method. Any point attributes are interpolated to the resulting cut vertices. The sorting order for the generated polygonal data can be controlled with the SortBy method. The default sorting order, SortByValue(), processes cells in the inner loop for each contour value. SortByCell() processes the cutting value in the inner loop and produces polygonal data that is suitable for back to front rendering (see **Figure 6-32**). (The sorting order is useful when rendering with opacity as discussed in [Chapter 7 - Advanced Computer Graphics](/VTKBook/07Chapter7).) Notice the similarity of this filter to the vtkContourFilter. Both of these objects contour datasets with multiple isovalues. vtkCutter uses an implicit function to calculate scalar values while vtkContourFilter uses the scalar data associated with the dataset's point data.
 
 ### Glyphs
 
@@ -1091,3 +1091,6 @@ a) Prove that 3D Gaussian smoothing can be decomposed into three 1D operations.
 b) Give the complexity of the decomposed filter and the same filter implemented as a 3D convolution.
 
 c) Under what conditions can constant smoothing be decomposed into 1D operations.
+
+ LocalWords:  TensorAxes TensorEllipsoids catchall tkMarchingCubes dosSantos
+ LocalWords:  tkContourFilter

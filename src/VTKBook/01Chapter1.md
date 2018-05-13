@@ -186,7 +186,7 @@ The computer code contained in this text is copyrighted. We grant permission for
 
 Some of the data on the CD-ROM may be freely distributed or used (with appropriate acknowledgment). Refer to the local README files or other documentation for details.
 
-Several registered trademarks are used in this text. UNIX is a trademark of UNIX System Laboratories. Sun Workstation and XGL are trademarks of Sun Microsystems, Inc. Microsoft, MS, MS-DOS, and Windows are trademarks of Microsoft Corporation. The X Window System is a trademark of the Massachusetts Institute of Technology. Starbase and HP are trademarks of Hewlett-Packard Inc. Silicon Graphics and OpenGL, are trademarks of Silicon Graphics, Inc. Mac-intosh is a trademark of Apple Computer. RenderMan is a trademark of Pixar.
+Several registered trademarks are used in this text. UNIX is a trademark of UNIX System Laboratories. Sun Workstation and XGL are trademarks of Sun Microsystems, Inc. Microsoft, MS, MS-DOS, and Windows are trademarks of Microsoft Corporation. The X Window System is a trademark of the Massachusetts Institute of Technology. Starbase and HP are trademarks of Hewlett-Packard Inc. Silicon Graphics and OpenGL, are trademarks of Silicon Graphics, Inc. Macintosh is a trademark of Apple Computer. RenderMan is a trademark of Pixar.
 
 ## 1.12 Bibliographic Notes
 
@@ -203,7 +203,7 @@ To learn more about programming with *Visualization Toolkit*, we recommend the t
 ## 1.13 References
 
 <em style="color:blue;background-color: white">\[Brodlie92\]</em>1
-K. W. Brodlie 1et al. *Scientific Visualization Techniques and
+K. W. Brodlie et al. *Scientific Visualization Techniques and
 Applications*. Springer-Verlag, Berlin, 1992.
 
 <em style="color:blue;background-color: white">\[BurgerGillies89\]</em>

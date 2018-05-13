@@ -18,7 +18,7 @@ A robust system handles exceptional conditions gracefully and behaves consistent
 
 An understandable system can be used by someone other than the original implementor. The use of the system should seem logical and sensible. The names of the components of the system should be derived from the problem domain.
 
-Extendable systems accept new tasks while still doing the tasks they were originally intended to perform. A system should accept new forms of data and new algorithms without disrupting existing software. Adding a new primitive to the system should not cause large portions of the system to be modified. Experience shows that the more existing code that is modified in a system, the more likely errors will be introduced.
+Extendible systems accept new tasks while still doing the tasks they were originally intended to perform. A system should accept new forms of data and new algorithms without disrupting existing software. Adding a new primitive to the system should not cause large portions of the system to be modified. Experience shows that the more existing code that is modified in a system, the more likely errors will be introduced.
 
 Modular software systems minimize the number of relationships that exist between components of a system. System components that are tightly coupled should be grouped together logically and obey common naming conventions and protocols.
 
@@ -115,7 +115,7 @@ Earlier we created an object corresponding to a pin oak tree. The properties of 
 <em style="color:blue;background-color:white">\[Margulis88\]</em>.
  In this system, biota is classified as belonging to one of the five kingdoms Prokaryotae (bacteria), Protoctista (algae, protozoans and slime molds), Fungi (mushrooms, molds, lichens), Plantae (mosses, ferns, cone-bearing, and flowering plants), and Animalia (animals with and without backbones). Below this level we have the classifications division, class, order, family, genus, and species. The figure shows the kingdom, division, class, genus, and species of the pin oak.
 
-Organizing objects into an inheritance hierarchy provides many benefits. Properties of a general classification are also properties of its subclassification. For example, we know that all species of genus *Quercus* form acorns. From the software point of view this means any instance variables and methods of a *superclass* are automatically inherited by its *subclass*. This allows us to make changes to a number of objects simultaneously by modifying their superclass. Furthermore, if we desire to add a new class (say a red oak tree) to the hierarchy we can do so without duplicating existing functionality. We need only differentiate the new class from the others by adding new instance variables or overloading existing methods.
+Organizing objects into an inheritance hierarchy provides many benefits. Properties of a general classification are also properties of its sub-classification. For example, we know that all species of genus *Quercus* form acorns. From the software point of view this means any instance variables and methods of a *superclass* are automatically inherited by its *subclass*. This allows us to make changes to a number of objects simultaneously by modifying their superclass. Furthermore, if we desire to add a new class (say a red oak tree) to the hierarchy we can do so without duplicating existing functionality. We need only differentiate the new class from the others by adding new instance variables or overloading existing methods.
 
 <figure id="Figure 2-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure2-2.png?raw=true" width="640" alt="Figure2-2">
@@ -222,7 +222,7 @@ There are many texts on object-oriented languages. CLOS <em style="color:blue;ba
 
 Since C++ has become a popular programming language, there now many class libraries available for use in applications. [Gorlen90] describes an extensive class library for collections and arrays modeled after the Smalltalk classes described in [Goldberg83]. [Stepanov94] and [Musser94] describe the Standard Template Library, a framework of data structures and algorithms that is now a part of the ANSI C++ standard. Open Inventor [Inventor] is a C++ library supporting interactive 3D computer graphics. The Insight Segmentation and Registration Toolkit (ITK) is a relatively new class library often used in combination with VTK [ITK] for medical data processing. VXL is a C++ library for computer vision research and implementation [VXL]. Several mathematical libraries such as VNL (a part of VXL) and Blitz++ [Blitz] are also available. A wide variety of other C++ toolkits are available, Google searches [Google] are the best way to find them.
 
-C++ texts abound. The original description by the author of C++ [Stroustrup84] is a must for any serious C++ programmer. Another book [Ellis90] describes standard extensions to the language. These days the UML book series—of which [Booch98] and [Rumbaugh98] are quite popular—are highly recommended resources. Several books on generic programming [Austern99] and STL [Musser96] are also useful. Check with your colleagues for their favorite C++ book.
+C++ texts abound. The original description by the author of C++ [Stroustrup84] is a must for any serious C++ programmer. Another book [Ellis90] describes standard extensions to the language. These days the UML book series—of which [Booch98] and [Rumbaugh98] are quite popular — are highly recommended resources. Several books on generic programming [Austern99] and STL [Musser96] are also useful. Check with your colleagues for their favorite C++ book.
 
 To keep in touch with new developments there are conferences, journals, and Web sites. The strongest technical conference on object-oriented topics is the annual Object-Oriented Programming Systems, Languages, and Applications ( *OOPSLA* ) conference. This is where researchers in the field describe, teach and debate the latest techniques in object-oriented technology. The bimonthly *Journal of Object-Oriented Programming* (JOOP) published by SIGS Publications, NY, presents technical papers, columns, and tutorials on the field. Resources on the World Wide Web include the Usenet newsgroups   *comp.object* and *comp.lang.c++*.
 
@@ -232,7 +232,7 @@ To keep in touch with new developments there are conferences, journals, and Web 
 M. H. Austern. *Generic Programming and the STL*. Addison-Wesley 1999. ISBN 0-2-1-30956-4.
 
 <em style="color:blue;background-color:white">\[Birtwistle79\]</em>
-G. M. Birtwistle, O. Dahl, B. Myhrhaug, and K. Nygaard. *Simula Begin*. Chartwell-Bratt Ltd, En-gland, 1979.
+G. M. Birtwistle, O. Dahl, B. Myhrhaug, and K. Nygaard. *Simula Begin*. Chartwell-Bratt Ltd, England, 1979.
 
 <em style="color:blue;background-color:white">\[Blitz\]</em>
 http://www.oonumerics.org/blitz/.
@@ -268,7 +268,7 @@ http://oss.sgi.com/projects/inventor/.
 The Insight Software Consortium. http://www.itk.org.
 
 <em style="color:blue;background-color:white">\[Keene89\]</em>
-S. Keene. *Object-Oriented Programming in Common Lisp: A Programmer's Guide to CLOS*. Ad-dison-Wesley, Reading, MA, 1989.
+S. Keene. *Object-Oriented Programming in Common Lisp: A Programmer's Guide to CLOS*. Addison-Wesley, Reading, MA, 1989.
 
 <em style="color:blue;background-color:white">\[Lorensen89\]</em>
 W. E. Lorensen, B. Yamrom. "Object-Oriented Computer Animation." *Proceedings of IEEE NAE-CON*, 2:588-595, Dayton, Ohio, May 1989.
@@ -343,3 +343,5 @@ example.
 2.7 Draw a data flow diagram for calculating the surface area and
 volume of a sphere and cylinder.
 
+
+ LocalWords:  Austern

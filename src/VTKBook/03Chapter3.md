@@ -133,9 +133,9 @@ R_d = L_cO_d[\overrightarrow{O}_n \cdot (-\overrightarrow{L}_n)]
 \bf\tag{3-2}
 $$
 
-where $R_d$ is the resulting intensity curve due to diffuse lighting, $L_c$ is the intensity curve for the light, and $O_c$ is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector andL nthe surface normal of the object. As a result On diffuse lighting is independent of viewer position.
+where $R_d$ is the resulting intensity curve due to diffuse lighting, $L_c$ is the intensity curve for the light, and $O_c$ is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector and the surface normal of the object. As a result diffuse lighting is independent of viewer position.
 
-*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure 3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, *Osp*, indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure 3-9**, the equation for specular lighting is
+*Specular* lighting represents direct reflections of a light source off a shiny object. **Figure 3-10** shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, *O_{sp}*, indicates how shiny an object is, more specifically it indicates how quickly specular sp reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster dropoff, and therefore a shinier surface. Referring to **Figure 3-9**, the equation for specular lighting is
 
 $$
 R_s . = L_cO_s[\overrightarrow{S} \cdot (-\overrightarrow{C}_n)] ^{O_{sp}}\\
@@ -143,7 +143,7 @@ R_s . = L_cO_s[\overrightarrow{S} \cdot (-\overrightarrow{C}_n)] ^{O_{sp}}\\
 \bf\tag{3-3}
 $$
 
-where Ci is the direction of projection for the camera and is the S is the direction of specular reflection.
+where $\vec{C_n}$ is the direction of projection for the camera and is the $\vec{S}$ is the direction of specular reflection.
 
 <figure id="Figure 3-8">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-8.png?raw=true" width="640" alt="Figure 3-81">
@@ -162,7 +162,7 @@ R_c = O_{ai}O_{ac}L_c - O_{di}O_{dc}L_c(\overrightarrow{O}_n \cdot \overrightarr
 \bf\tag{3-4}
 $$
 
-The result is a color at a point on the surface of the object. The constants Oai, Odi, and Osi control the relative amounts of ambient, diffuse and specular lighting for an object. The constants Oac Odc and Osc specify the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in [“Lights”](/VTKBook/03Chapter3/#33-lights). However the equation can be easily modified to incorporate other types of directional lighting.
+The result is a color at a point on the surface of the object. The constants %O_{ai}$, $O_{di}$, and ${O_{si}$ control the relative amounts of ambient, diffuse and specular lighting for an object. The constants $O_{ac}$, $O_{dc}$ and $O_{sc}$ specify the colors to be used for each type of lighting. These six constants along with the specular power are part of the surface material properties. (Other properties such as transparency will be covered in later sections of the text.) Different combinations of these property values can simulate dull plastic and polished metal. The equation assumes an infinite point light source as described in [“Lights”](/VTKBook/03Chapter3/#33-lights). However the equation can be easily modified to incorporate other types of directional lighting.
 
 <figure id="Figure 3-10">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestSpecularSpheres.png?raw=true" width="640" alt="Figure 3-10">
@@ -329,7 +329,7 @@ T_{R_z} = \left[\begin{array}{cccc}
 \bf\tag{3-12}
 $$
 
-Another useful rotation matrix is used to transform one coordinate axes $x-y-z$ to aanother coordinate axes $x'-y'-z'$. To derive the transformation matrix we assume that the unit $x'$. To derive the transformation matrix we assume that the unit $x'$ axis make the angles $(\theta_{x'x},\theta_{x'y},\theta_{x'z})$ around the x-y-z axes (these are called direction cosines). Similarly, the unit $y'$ axis makes the angles $(\theta_{y'x},\theta_{y'y},\theta_{y'z})$ and the unit $z'$ axis makes the angles $(\theta_{z'x},\theta_{z'y},\theta_{z'z})$. The resulting rotation matrix is formed by placing the direction cosines along the rows of the transformation matrix as follows
+Another useful rotation matrix is used to transform one coordinate axes $x-y-z$ to another coordinate axes $x'-y'-z'$. To derive the transformation matrix we assume that the unit $x'$. To derive the transformation matrix we assume that the unit $x'$ axis make the angles $(\theta_{x'x},\theta_{x'y},\theta_{x'z})$ around the x-y-z axes (these are called direction cosines). Similarly, the unit $y'$ axis makes the angles $(\theta_{y'x},\theta_{y'y},\theta_{y'z})$ and the unit $z'$ axis makes the angles $(\theta_{z'x},\theta_{z'y},\theta_{z'z})$. The resulting rotation matrix is formed by placing the direction cosines along the rows of the transformation matrix as follows
 
 $$
 T_R = \left[\begin{array}{cccc}
@@ -341,7 +341,7 @@ T_R = \left[\begin{array}{cccc}
 \bf\tag{3-13}
 $$
 
-Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object’s center. To rotate around we Oc must first translate the object to the Oorigin, apply rotations, and then translate the object back.
+Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object’s center. To rotate around $O_c$ we must first translate the object from $O_c$ to the origin, apply rotations, and then translate the object back to $O_c$.
 
 Transformation matrices can be combined by matrix multiplication to achieve combinations of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all types of transformation simultaneously. This matrix is the result of repeated matrix multiplications. A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix by the translation matrix.
 
@@ -363,7 +363,7 @@ The representation of geometry for data visualization tends to be simple, even t
 
 Every actor has a transformation matrix that controls its location and scaling in world space. The actor's geometry is defined by a model in model coordinates. We specify the actor's location using orientation, position, and scale factors along the coordinate axes. In addition, we can define an origin around which the actor rotates. This feature is useful because we can rotate the actor around its center or some other meaningful point.
 
-The orientation of an actor is determined by rotations stored in an orientation vector (Ox,Oy, Oz). This vector defines a series of rotational transformation matrices. As we saw in the previous section on transformation matrices, the order of application of the transformations is not arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (**Figure 3-15**).
+The orientation of an actor is determined by rotations stored in an orientation vector (Ox,Roy,Oz). This vector defines a series of rotational transformation matrices. As we saw in the previous section on transformation matrices, the order of application of the transformations is not arbitrary. We have chosen a fixed order based on what we think is natural to users. The order of transformation is a rotation by O y around the y axis, then by around Ox the x axis, and finally by O z around the z axis. This ordering is arbitrary and is based on the standard camera operations. These operations (in order) are a camera azimuth, followed by an elevation, and then a roll (**Figure 3-15**).
 
 All of these rotations take place around the origin of the actor. Typically this is set to the center of its bounding box, but it can be set to any convenient point. There are many different methods for changing an actor’s orientation. RotateX(), RotateY(), and RotateZ() are common methods that rotate about their respective axes. Many systems also include a method to rotate about a userdefined axis. In the _Visualization Toolkit_ the RotateXYZ() method is used to rotate around an arbitrary vector passing through the origin.
 
@@ -422,7 +422,7 @@ When you limit yourself to the types of primitives described above, there are so
 
 ## Rasterization
 
-At this point in the text we have described how to represent graphics data using rendering primi-tives, and we have described how to represent images using raster display devices. The question remains, how do we convert graphics primitives into a raster image? This is the topic we address in this section. Although a thorough treatise on this topic is beyon1d the scope of this text, we will do our best to provide a high-level overview.
+At this point in the text we have described how to represent graphics data using rendering primitives, and we have described how to represent images using raster display devices. The question remains, how do we convert graphics primitives into a raster image? This is the topic we address in this section. Although a thorough treatise on this topic is beyond the scope of this text, we will do our best to provide a high-level overview.
 
 <figure id="Figure 3-20">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-20.png?raw=true" width="640" alt="Figure 3-20">
@@ -434,7 +434,7 @@ At this point in the text we have described how to represent graphics data using
   <figcaption style="color:blue"><b>Figure 3-21</b>. Vertex and polygon normals.</figcaption>
 </figure>
 
-The process of converting a geometric representation into a raster image is called *rasterization* or *scan conversion*. In the description that follows we assume that the graphics primitives are triangle polygons. This is not as limiting as you might think, because any general polygon can be tessellated into a set of triangles. Moreover, other surface representations such as splines are usu-ally tessellated by the graphics system into triangles or polygons. (The method described here is actually applicable to convex polygons.)
+The process of converting a geometric representation into a raster image is called *rasterization* or *scan conversion*. In the description that follows we assume that the graphics primitives are triangle polygons. This is not as limiting as you might think, because any general polygon can be tessellated into a set of triangles. Moreover, other surface representations such as splines are usually tessellated by the graphics system into triangles or polygons. (The method described here is actually applicable to convex polygons.)
 
 Most of today's hardware is based on object-order rasterization techniques. As we saw earlier in this chapter, this means processing our actors in order. And since our actors are represented by polygon primitives, we process polygons one at a time. So although we describe the processing of one polygon, bear in mind that many polygons and possibly many actors are processed.
 
@@ -447,7 +447,7 @@ The first step is to transform the polygon using the appropriate transformation 
 
 With the polygon clipped and projected to the image plane, we can begin scan-line processing (**Figure 3-22**). The first step identifies the initial scan-line intersected by the projected polygon. This is found by sorting the vertices' *y* values. We then find the two edges joining the vertex on the left and right sides. Using the slopes of the edges along with the data values we compute delta data values. These data are typically the *R*, *G*, and *B* color components. Other data values include transparency values and *z* depth values. (The *z* values are necessary if we are using a *z*-buffer, described in the next section.) The row of pixels within the polygon (i.e., starting at the left and right edges) is called a *span*. Data values are interpolated from the edges on either side of the span to compute the internal pixel values. This process continues span-by-span, until the entire polygon is filled. Note that as new vertices are encountered, it is necessary to recompute the delta data values.
 
-The shading of the polygon (i.e., color interpolation across the polygon) varies depending on the actor's interpolation attribute. There are three possibilities: *flat*, *Gouraud*, or *Phong shading*. **Figure 3-7** illustrates the difference between flat and Gouraud interpolation. Flat shading calcu-lates the color of a polygon by applying the lighting equations to just one normal (typically the sur-face normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
+The shading of the polygon (i.e., color interpolation across the polygon) varies depending on the actor's interpolation attribute. There are three possibilities: *flat*, *Gouraud*, or *Phong shading*. **Figure 3-7** illustrates the difference between flat and Gouraud interpolation. Flat shading calculates the color of a polygon by applying the lighting equations to just one normal (typically the surface normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
 
 ## Z-Buffer
 
@@ -1085,3 +1085,6 @@ a) Use vtkTransform to create a transform using a variety of transformation oper
 b) Applying rotations at the right of a series of transformations in effect rotates the object about its own coordinate system. Use the rotations.tcl script to verify this. Can you explain this?
 
 c) Applying rotations at the left of a series of transformations in effect rotates the object about the world coordinate system. Modify the rotations.tcl script to illustrate this. (Hint: you will have to create an explicit transform with vtkTransform and set the actor's transform with SetUserMatrix().)
+
+ LocalWords:  sp postmultiply premultiply Similaryly TT userdefined RotateXYZ
+ LocalWords:  theatre
