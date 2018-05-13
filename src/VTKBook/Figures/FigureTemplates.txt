@@ -39,7 +39,7 @@ Two figures a,b
 Three figures a,b,c
 
 <figure id="Figure NUMBER">
- <figure id="Figure NUMBER"a>
+ <figure id="Figure NUMBERa">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true" width="640" alt="Figure NUMBERa">
   <figcaption style="color:blue">(a)</figcaption>
  </figure>

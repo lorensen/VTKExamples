@@ -1199,7 +1199,7 @@ The most difficult part of this procedure is the picking process. The selection 
 The picking process is conveniently managed in vtkRenderWindowInteractor. This object allows the specification of functions to execute just before picking and just after picking (i.e., “AddObserver StartPickEvent” and “AddObserver EndPickEvent”). Using this facility we can define a postpicking function to retrieve the point id and then execute the GetPointCells() operation. This process is shown in **Figure 8-42**.
 
 <figure id="Figure 8-41">
- <figure id="Figure 8-41"a>
+ <figure id="Figure 8-41a">
    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestAlphaFrequency.png?raw=true width="640" alt="Figure 8-41a">
    <figcaption style="color:blue">(a) Linearly extruded fonts to show letter frequency in text.</figcaption>
  </figure>
@@ -1207,7 +1207,7 @@ The picking process is conveniently managed in vtkRenderWindowInteractor. This o
    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Modelling/TestBottle.png?raw=true width="640" alt="Figure 8-41b">
    <figcaption style="color:blue">(b) Rotationally symmetric objects.</figcaption>
  </figure>
-  <figure>
+  <figure id="Figure 8-41c">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Modelling/TestSpring.png?raw=true width="640" alt="Figure 8-41c">
     <figcaption style="color:blue">(c) Rotation in combination with linear displacement and radius variation.</figcaption>
   </figure>

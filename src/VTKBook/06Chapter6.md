@@ -187,7 +187,7 @@ This example can be made more interesting by generalizing the problem. Although 
   <figure id="Figure 6-12a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-12a.png?raw=true" width="640" alt="Figure6-12a">
   </figure>
-  <figure>
+  <figure id="Figure 6-12b">
      <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestHawaii.png?raw=true" width="640" alt="Figure 6-12">
   </figure>
   <figcaption style="color:blue"><b>Figure 6-12</b>. Computing scalars using normalized dot product. Bottom half of figure illustrates technique applied to terrain data from Honolulu, Hawaii.<a href="../../Cxx/Visualization/Hawaii/" title="Hawaii"> See Hawaii.cxx</a> and <a href="../../Python/Visualization/Hawaii/" title="Hawaii">Hawaii.py</a>.</figcaption>
@@ -210,7 +210,7 @@ There are many variations of this technique (**Figure 6-13** (b)). Arrows may be
   <figure id="Figure 6-13a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-13.png?raw=true" width="640" alt="Figure6-13a">
   </figure>
-  <figure>
+  <figure id="Figure 6-13a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestComplexV.png?raw=true" width="640" alt="Figure 6-13">
     <figcaption style="color:blue">(c) Complex display. </figcaption>
   </figure>
@@ -249,13 +249,13 @@ Vector displacement plots draw on the ideas in ["Scalar Generation"](/VTKBook/06
 
 A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called *modal* lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
 
-<figure>
-  <figure id="Figure 6-15">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6a-15.png?raw=true" width="640" alt="Figure6-15">
+<figure id="Figure 6-15">
+  <figure id="Figure 6-15a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6a-15.png?raw=true" width="640" alt="Figure6-15a">
   </figure>
   <figcaption style="color:blue"><b>Figure 6-15</b>. (a) Scalar Computation.</figcaption>
-  <figure id="Figure 6-15">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDisplacementPlot.png?raw=true" width="640" alt="Figure 6-15">
+  <figure id="Figure 6-15b">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestDisplacementPlot.png?raw=true" width="640" alt="Figure 6-15b">
   </figure>
   <figcaption style="color:blue"><b>Figure 6-15</b>. Vector displacement plots. (a) Vector converted to scalar via dot product computation; (b) Surface plot of vibrating plate. Dark areas show nodal lines. Bright areas show maximum motion.<a href="../../Cxx/VisualizationAlgorithms/DisplacementPlot" title="DisplacementPlot"> See DisplacementPlot.cxx</a> and <a href="../../Python/VisualizationAlgorithms/DisplacementPlot" title="DisplacementPlot"> DisplacementPlot.py</a>.</figcaption>
   </figure>

@@ -487,11 +487,11 @@ In the examples that follow we show manual creation and manipulation of datasets
 
 Creation of datasets is a two step process. First the geometry and topology of the dataset must be defined. Depending on the type of dataset, the geometry and topology definition will proceed differently. Then the point and/or cell attribute data is created and associated with the dataset. Remember that there is a one-to-one relationship between the attribute data and the points and cells in the dataset.
 
-<figure>
-  <figure id="Figure 5-17">
+<figure id="Figure 5-17">
+  <figure id="Figure 5-17a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-17.png?raw=true" width="640" alt="Figure5-17">
   </figure>
-  <figure id="Figure 5-17">
+  <figure id="Figure 5-17b">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/GeometricObjects/TestCube.png?raw=true" width="640" alt="Figure 5-17">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-17</b>. Creation of polygonal cube. <a href="../../Cxx/GeometricObjects/Cube" title="Cube"> See Cube.cxx</a> and <a href="../../Python/GeometricObjects/Cube" title="Cube"> Cube.py</a>.</figcaption>
@@ -517,11 +517,11 @@ The answer is no. Certain data objects in VTK are reference counted to conserve 
 
 **Create an Image Data Dataset.** In this example, we create an image dataset (i.e., an instance of vtkImageData). The topology of the dataset is defined by specifying the data dimensions. The geometry is defined by the data spacing and origin. The spacing specifies the length, width, and height of each voxel. The origin specifies the position in 3D space of the “lower-left” corner of the data. In our example we set the origin and spacing of the dataset so that its center lies at the origin, and the bounds of the dataset are (-0.5,0.5, -0.5,0.5, -0.5,0.5).
 
-<figure>
-  <figure id="Figure 5-18">
+<figure id="Figure 5-18">
+  <figure id="Figure 5-18a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-18.png?raw=true" width="640" alt="Figure5-18">
   </figure>
-  <figure id="Figure 5-18">
+  <figure id="Figure 5-18b">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/StructuredPoints/TestVol.png?raw=true" width="640" alt="Figure 5-18">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-18</b>. Creating a image data dataset. Scalar data is generated from the equation for a sphere. Volume dimensions are 26^3. <a href="../../Cxx/StructuredPoints/Vol" title="Vol"> See Vol.cxx</a> and <a href="../../Python/StructuredPoints/Vol" title="Vol"> Vol.py</a>.</figcaption>
@@ -561,11 +561,11 @@ x = r_i \cos\theta, y = r_i \sin\theta, z = z_i
 \bf\tag{5-3}
 $$
 
-<figure>
-  <figure id="Figure 5-19">
+<figure id="Figure 5-19">
+  <figure id="Figure 5-19a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-19.png?raw=true" width="640" alt="Figure5-19">
   </figure>
-  <figure id="Figure 5-19">
+  <figure id="Figure 5-19b">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/StructuredGrid/TestSGrid.png?raw=true" width="640" alt="Figure 5-19">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-19</b>. Creating a structured grid dataset of a semicylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction.<a href="../../Cxx/StructuredGrid/SGrid" title="SGrid"> See SGrid.cxx</a> and <a href="../../Python/StructuredGrid/SGrid" title="SGrid"> SGrid.py</a>.</figcaption>
@@ -585,11 +585,11 @@ The creation of a structured grid dataset is partially explicit and partially im
 
 **Create a Rectilinear Grid Dataset.** A rectilinear grid is regular in topology and semi-regular in geometry. Similar to a structured grid or image data dataset, topology is implicitly represented by specifying grid dimensions. Because the grid is axis-aligned but the point coordinates along each axis may vary, we need three data arrays to represent the geometry of the dataset, one array for each of the _x-y-z_ axes. Note that the cell types of the rectilinear dataset are pixels and voxels.
 
-<figure>
-  <figure id="Figure 5-20">
+<figure id="Figure 5-20">
+  <figure id="Figure 5-20a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-20.png?raw=true" width="640" alt="Figure5-20">
   </figure>
-  <figure id="Figure 5-20">
+  <figure id="Figure 5-20b">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/RectilinearGrid/TestRGrid.png?raw=true" width="640" alt="Figure 5-20">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-20</b>. Creating a rectilinear grid dataset. The coordinates along each axis are defined using an instance of &#118;tkDataArray.<a href="../../Cxx/RectilinearGrid/RGrid" title="RGrid"> See RGrid.cxx</a> and <a href="../../Python/RectilinearGrid/RGrid" title="RGrid"> RGrid.py</a>.</figcaption>
@@ -611,11 +611,11 @@ The topological dimension of the dataset is implied by the specified dimensions.
 
 **Create an Unstructured Grid Dataset.** Unstructured grid datasets are the most general dataset type in both topology and geometry. In this example we “artificially” create an unstructured grid using an instance of vtkUnstructuredGrid (**Figure 5-21**). The grid contains examples of each cell type except for pixels and voxels. (Pixels and voxels are generally used internally to process image data datasets. They can be explicitly created and manipulated as long as the required relationship of point geometry is observed.) Creating the dataset structure requires creating points to define the geometry and various cells to define the topology. (Note that in the finite element world we would refer to these as nodes and elements.)
 
-<figure>
-  <figure id="Figure 5-21">
+<figure id="Figure 5-21">
+  <figure id="Figure 5-21a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-21.png?raw=true" width="640" alt="Figure5-21">
   </figure>
-  <figure id="Figure 5-21">
+  <figure id="Figure 5-21b">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/UnstructuredGrid/TestUGrid.png?raw=true" width="640" alt="Figure 5-21">
   </figure>
   <figcaption style="color:blue"><b>Figure 5-21</b>. Creating a structured grid dataset of a semicylinder. Vectors are created whose magnitude is proportional to radius and oriented in tangential direction.<a href="../../Cxx/UnstructuredGrid/UGrid" title="UGrid"> See UGrid.cxx</a> and <a href="../../Python/UnstructuredGrid/UGrid" title="UGrid"> UGrid.py</a>.</figcaption>

@@ -1034,10 +1034,10 @@ To demonstrate these ideas we will refer to **Figure 9-50**. This is an example 
 We will use Gaussian splatting to visualize this data (see ["Splatting Techniques"](/VTKBook/09Chapter9/#Chapter 9 - Splatting Techniques) in this Chapter).
 
 <figure id="Figure 9-50">
- <figure>
+ <figure id="Figure 9-50a">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure9-50a.png?raw=true" width="640" alt="Figure9-50a">
  </figure>
- <figure>
+ <figure id="Figure 9-50b">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Modelling/TestFinance.png?raw=true" width="640" alt="Figure 9-50b">
   <figcaption style="color:blue">(a) Visualization network</figcaption>
 </figure>
@@ -1067,7 +1067,6 @@ To illustrate the application of connectivity analysis, we will use an MRI datas
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestPineRootConnectivity.png?raw=true" width="640" alt="Figure 9-51b">
   <figcaption style="color:blue">(b) largest connected surface</figcaption>
  </figure>
- <figure>
  <figure id="Figure 9-51c">
    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure9-51c.png?raw=true" width="640" alt="Figure9-51c">
  </figure>
