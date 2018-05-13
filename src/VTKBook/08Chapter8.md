@@ -65,7 +65,7 @@ $$
 \bf\tag{8-2}
 $$
 
-Here we’ve taken into account that there are one fewer cells along each topological axes than thereare points.
+Here we have taken into account that there are one fewer cells along each topological axes than there are points.
 
 ## 8.2 Interpolation Functions
 
@@ -232,11 +232,11 @@ The weighted distance squared interpolation functions work well in practice. How
   <figcaption style="color:blue"><b>Figure 8-17</b> Parametric coordinate system and interpolation functions for a quadratic triangle. </figcaption>
 </figure>
 
-**Quadratic Quadrilateral.** **Figure 8-18** shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates (r,s). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta) coordinates defined in this range. Also, the notation $\epsilon_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the ith point.
+**Quadratic Quadrilateral.** **Figure 8-18** shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates (r,s). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta) coordinates defined in this range. Also, the notation $\epsilon_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the $i^{th}$ point.
             
 <figure id="Figure 8-18">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-18.png?raw=true width="640" alt="Figure8-18">
-  <figcaption style="color:blue"><b>Figure 8-18</b>.  Parametric coordinate system and interpolation functions for a quadratic quadrilateral. In VTK parametric coordinates (r,s) run between (0,1), hence the coordinate system shift into the (ξ, η)) parametric system ranging from (-1,1). Note that ξi and ηi refer to the parametric coordinates of the ith point.</figcaption>
+  <figcaption style="color:blue"><b>Figure 8-18</b>.  Parametric coordinate system and interpolation functions for a quadratic quadrilateral. In VTK parametric coordinates (r,s) run between (0,1), hence the coordinate system shift into the (ξ, η)) parametric system ranging from (-1,1). Note that ξi and ηi refer to the parametric coordinates of the $i^{th} point.</figcaption>
 </figure>
 
 **Quadratic Tetrahedron.** **Figure 8-19** shows the parametric coordinate system and interpolation functions for a quadratic tetrahedron cell type. The quadratic tetrahedron is described using the three parametric coordinates $(r,s,t)$.
@@ -250,7 +250,7 @@ The weighted distance squared interpolation functions work well in practice. How
 
 <figure id="Figure 8-20">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-20.png?raw=true width="640" alt="Figure8-20">
-  <figcaption style="color:blue"><b>Figure 8-20</b>. Parametric coordinate system and interpolation functions for a quadratic hexahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi, ηi and ζi refer to the parametric coordinates of the ith point.</figcaption>
+  <figcaption style="color:blue"><b>Figure 8-20</b>. Parametric coordinate system and interpolation functions for a quadratic hexahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi, ηi and ζi refer to the parametric coordinates of the $i^{th}$x  point.</figcaption>
 </figure>
 
 **Quadratic Wedge.** **Figure 8-21** shows the parametric coordinate system and interpolation functions for a quadratic wedge cell type. The quadratic wedge is described using the three parametric coordinate $(r,s,t)$.
@@ -269,7 +269,7 @@ The weighted distance squared interpolation functions work well in practice. How
 
 ## 8.3 Cell Tessellation        
 
-  As briefly introduced in [Chapter 5 - Data Representation](/VTKBook/05Chapter5), nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically onlyquadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework (see **Figure 8-23**) that enables users to interface their own simulation system to the visualization system <em style="color:blue;background-color: white">\[Schroeder06\]</em>. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho-rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
+  As briefly introduced in [Chapter 5 - Data Representation](/VTKBook/05Chapter5), nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualization systems support nonlinear cells directly, typically only quadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework (see **Figure 8-23**) that enables users to interface their own simulation system to the visualization system <em style="color:blue;background-color: white">\[Schroeder06\]</em>. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho-rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
 
 <figure id="Figure 8-23">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-23.png?raw=true width="640" alt="Figure8-23">
@@ -370,7 +370,7 @@ In the formulation presented here, we have used the same order interpolation fun
 
 ### Global to Dataset Coordinates
 
-Global to dataset coordinate transformations are expensive compared to dataset to global transformations. There are two reasons for this. First, we must identify the particular cell $C_i$ that contains the global point $p$. Second, we must solvse Equation 8-4 for the parametric coordinates of $p$.
+Global to dataset coordinate transformations are expensive compared to dataset to global transformations. There are two reasons for this. First, we must identify the particular cell $C_i$ that contains the global point $p$. Second, we must solve Equation 8-4 for the parametric coordinates of $p$.
 
 To identify the cell $C_i$ means doing some form of searching. A simple but inefficient approach is to visit every cell in a dataset and determine whether $p$ lies inside any cell. If so, then we have found the correct cell and stop the search. Otherwise, we check the next cell in the list.
 
@@ -590,7 +590,7 @@ $$
 \bf\tag{8-21}
 $$
 
-The $3 \times 3$ matrix $J$ is called the Jacobian matrix, and it relates the parametric coordinate deriva tives to the global coordinate derivatives. We can rewrite Equation 8-21 into more compact form
+The $3 \times 3$ matrix $J$ is called the Jacobian matrix, and it relates the parametric coordinate derivatives to the global coordinate derivatives. We can rewrite Equation 8-21 into more compact form
 
 $$
 \begin{equation*}
@@ -608,7 +608,7 @@ $$
 \bf\tag{8-22}
 $$
 
-The inverse of the Jacobian always exists as long as there is a one-to-one correspondence between the parametric and global coordinate systems. This means that for any $(r, s, t)$ coordinate, there corresponds only one $(x, y, z)$ coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self-intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
+The inverse of the Jacobian always exists as long as there is a one-to-one correspondence between the parametric and global coordinate systems. This means that for any $(r, s, t)$ coordinate, there corresponds only one $(x, y, z)$ coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self-intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes non-convex.)
 
 In our one-dimensional example, the derivatives along the line were constant. However, other interpolation functions (e.g., **Figure 8-5**) may yield non-constant derivatives. Here, the Jacobian is a function of position in the cell and must be evaluated at a particular $(r, s, t)$ coordinate value.
 
@@ -616,9 +616,9 @@ In our one-dimensional example, the derivatives along the line were constant. Ho
 
 Many visualization algorithms require information about the topology of a cell or dataset. Operations that provide such information are called topological operations. Examples of these operations include obtaining the topological dimension of a cell, or accessing neighboring cells that share common edges or faces. We might use these operations to decide whether to render a cell (e.g., render only one-dimensional lines) or to propagate particles through a flow field (e.g., traversing cells across common boundaries).
 
-Before proceeding we need to define some terms from topology. Manifold topology describes a region surrounding a point that is topologically connected. That is, a region around the point is topologically equivalent to a small “disk” (in two-dimensions) or “ball” (in three-dimensions). Topology that is not manifold is termed nonmanifold. Examples of manifold and nonmanifold geometry are shown in **Figure 8-27**.
+Before proceeding we need to define some terms from topology. Manifold topology describes a region surrounding a point that is topologically connected. That is, a region around the point is topologically equivalent to a small “disk” (in two-dimensions) or “ball” (in three-dimensions). Topology that is not manifold is termed non-manifold. Examples of manifold and non-manifold geometry are shown in **Figure 8-27**.
 
-There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or nonmanifold. In two dimensions, if every edge of a two-dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three-dimensional cell is used by exactly one other cell, than the region is locally manifold.
+There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or non-manifold. In two dimensions, if every edge of a two-dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three-dimensional cell is used by exactly one other cell, than the region is locally manifold.
 
 We also will use the term simplex on some occasions. A simplex of dimension n is the convex region defined by a set of n+1 independent points. A vertex, line, triangle, and tetrahedron are simplices of dimension 0, 1, 2, and 3, respectively as shown in **Figure 8-28**.
 
@@ -631,7 +631,7 @@ $$
 
 <figure id="Figure 8-27">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-27.png?raw=true width="640" alt="Figure8-27">
-  <figcaption style="color:blue"><b>Figure 8-27</b>. Manifold and nonmanifold surface topology. If the local neighborhood around a vertex is topologically a 2D disk (i.e., a small disk can be placed on the surface without tearing or overlapping), then the surface is manifold at that vertex.</figcaption>
+  <figcaption style="color:blue"><b>Figure 8-27</b>. Manifold and non-manifold surface topology. If the local neighborhood around a vertex is topologically a 2D disk (i.e., a small disk can be placed on the surface without tearing or overlapping), then the surface is manifold at that vertex.</figcaption>
 </figure>
 
 <figure id="Figure 8-28">
@@ -673,7 +673,7 @@ $$
 
 and a point list $\vec{P} = (\vec{p}_1, \vec{p}_2, ..., \vec{p}_n)$ with $\vec{P}\subset P$ , where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set $A(\vec{C}, \vec{P})$ . The adjacency set is simply the intersection of the use sets for each point, excluding the cell $C_i$i.
 
-The adjacency set represents a variety of useful information. In a manifold object represented by a polyhedra, for example, each polygon must have exactly one edge neighbor for each of its edges. Edges that have no neighbors are boundary edges; edges that have more than one edge neighbor represent nonmanifold topology. Datasets that consist of three-dimensional cells (e.g., unstructured grids) are topologically consistent only if, for each cell, there is exactly one face neighbor for each face. Faces that have no neighbors are on the boundary of the dataset. More than one face neighbor implies that the neighbors are self-intersecting (in 3D space).
+The adjacency set represents a variety of useful information. In a manifold object represented by a polyhedra, for example, each polygon must have exactly one edge neighbor for each of its edges. Edges that have no neighbors are boundary edges; edges that have more than one edge neighbor represent non-manifold topology. Datasets that consist of three-dimensional cells (e.g., unstructured grids) are topologically consistent only if, for each cell, there is exactly one face neighbor for each face. Faces that have no neighbors are on the boundary of the dataset. More than one face neighbor implies that the neighbors are self-intersecting (in 3D space).
 
 $$
 \begin{equation*}
@@ -690,7 +690,7 @@ To find the cell containing p, we can use the following naive search procedure. 
 
 These naive procedures are unacceptable for all but the smallest datasets, since they are of order O(n), where n is the number of cells or points. To improve the performance of searching, we need to introduce supplemental data structures to support spatial searching. Such structures are well-known and include MIP maps, octrees, kd-trees, and binary sphere trees (see [“Bibliographic Notes”](VTKBook/08Chapter8/#813-bibliographic-notes) at the end of this chapter).
 
-The basic idea behind these spatial search structures is that the search space is subdivided into smaller parts, or buckets. Each bucket contains a list of the points or cells that lie within it. Buckets are organized in structured fashion so that constant or logarithmic time access to any bucket is possible. For example, if we assign a portion of 2D Euclidean space into a grid of n by m buckets, the location of $p$ in a particular bucket can be determined with two subtractions and two divisions: a constant time access. Similarly, the location of $p$ in a nonuniformly subdivided octree is determined in logarithmic time, since recursive insertion into octant children is required. Once the bucket is found, the search is then limited to the points or cells contained within it. In a properly designed spatial search structure, the number of points or cells in a bucket is a small portion of the total number of cells and less than a fixed value. Thus, the time to search within a bucket can be bounded by a fixed constant. The result is that introducing spatial search structures reduces search times to a maximum O(log n), or better yet O(n).
+The basic idea behind these spatial search structures is that the search space is subdivided into smaller parts, or buckets. Each bucket contains a list of the points or cells that lie within it. Buckets are organized in structured fashion so that constant or logarithmic time access to any bucket is possible. For example, if we assign a portion of 2D Euclidean space into a grid of n by m buckets, the location of $p$ in a particular bucket can be determined with two subtractions and two divisions: a constant time access. Similarly, the location of $p$ in a non-uniformly subdivided octree is determined in logarithmic time, since recursive insertion into octant children is required. Once the bucket is found, the search is then limited to the points or cells contained within it. In a properly designed spatial search structure, the number of points or cells in a bucket is a small portion of the total number of cells and less than a fixed value. Thus, the time to search within a bucket can be bounded by a fixed constant. The result is that introducing spatial search structures reduces search times to a maximum O(log n), or better yet O(n).
 
 We have two options when applying spatial search structures. We may insert points into the search structure, or we may insert cells, depending on the application. There are advantages and disadvantages to both approaches. Inserting cells into buckets is not a trivial operation. In general, cells are arbitrarily oriented and shaped, and will not fit completely into a single bucket. As a result, cells often span multiple buckets. To reliably determine whether a cell is in a bucket requires geometric intersection tests, a costly operation. Another approach is to use the bounding box of a cell to decide which bucket(s) a cell belongs in. We only need to intersect the bounding box with a bucket to determine whether the cell may belong in the bucket. Unfortunately, even though this operation is generally fast, often cells are associated with buckets even though they may not actually lie inside them, wasting (in large models) memory resources and extra processing time.
 
@@ -740,7 +740,7 @@ Y = A(0.30 R + 0.59 G + 0.11 B)
 \bf\tag{8-27}
 $$
 
-Using this abstraction allows us to treat single-valued scalars and scalars consisting of multivalued colors the same. The end result is that we can mix both types of scalar data into our visualization networks.
+Using this abstraction allows us to treat single-valued scalars and scalars consisting of multi-valued colors the same. The end result is that we can mix both types of scalar data into our visualization networks.
 
 ## 8.10 Special Techniques for Image Data
 
@@ -1083,7 +1083,7 @@ To illustrate this process consider visiting the edges of a triangle mesh. We be
                    
 ### Color Scalar Data
 
-Multivalued scalar data, or scalars represented by various color representations, are treated specially by the _Visualization Toolkit_. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See [“Color Mapping”](/VTKBook/06Chapter6/#color-mapping) in [Chapter 6](/VTKBook/06Chapter6) for more information.)
+Multi-valued scalar data, or scalars represented by various color representations, are treated specially by the _Visualization Toolkit_. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See [“Color Mapping”](/VTKBook/06Chapter6/#color-mapping) in [Chapter 6](/VTKBook/06Chapter6) for more information.)
 
 By default, the mapping of scalars into colors proceeds as follows (vtkMapper and subclasses are responsible for implementing this behavior):
 
@@ -1122,7 +1122,7 @@ In contrast, vtkCellLocator uses a single array to represent the octree. The arr
   <figcaption style="color:blue"><b>Figure 8-38</b>. The picking hierarchy in VTK. All subclasses of &#118;tkAbstractPropPicker return the picked instance of &#118;tkProp. The information is returned as a &#118;tkAssemblyPath. The assembly path is necessary because some props may exist in an assembly hierarchy. The classes &#118;tkWorldPointPicker and &#118;tkPropPicker are hardware accelerated picking classes. All others use software ray casting.</figcaption>
 </figure>
 
-The advantage of this structure is that memory can be allocated and deleted quickly. In addition, insertion into the octree is exactly the same as with vtkLocator, and is simpler than conventional octrees. The parent octants provide quick culling capability, since their status (empty or nonempty) allows us to stop certain types of search operations. On the downside, because the octree is uniformly subdivided, this structure is wasteful of memory resources if the data is nonuniformly distributed.
+The advantage of this structure is that memory can be allocated and deleted quickly. In addition, insertion into the octree is exactly the same as with vtkLocator, and is simpler than conventional octrees. The parent octants provide quick culling capability, since their status (empty or nonempty) allows us to stop certain types of search operations. On the downside, because the octree is uniformly subdivided, this structure is wasteful of memory resources if the data is non-uniformly distributed.
 
 Our experience with the search structures described here is that they work well for many types of visualization data. However, if your data is non-uniform, you may want to implement your own special search classes.
 
@@ -1196,7 +1196,7 @@ This same approach is used in the vtkRotationalExtrusionFilter (**Figure 8-40**(
 
 The most difficult part of this procedure is the picking process. The selection point must be specified in pixel coordinates. The vtkPointPicker converts these coordinates into world and then dataset coordinates using the renderer in which the pick occurred. (The renderer uses the transformation matrix of its active camera to perform coordinate transformation.)
 
-The picking process is conveniently managed in vtkRenderWindowInteractor. This object allows the specification of functions to execute just before picking and just after picking (i.e., “AddObserver StartPickEvent” and “AddObserver EndPickEvent”). Using this facility we can define a postpicking function to retrieve the point id and then execute the GetPointCells() operation. This process is shown in **Figure 8-42**.
+The picking process is conveniently managed in vtkRenderWindowInteractor. This object allows the specification of functions to execute just before picking and just after picking (i.e., “AddObserver StartPickEvent” and “AddObserver EndPickEvent”). Using this facility we can define a post-picking function to retrieve the point id and then execute the GetPointCells() operation. This process is shown in **Figure 8-42**.
 
 <figure id="Figure 8-41">
  <figure id="Figure 8-41a">
@@ -1232,7 +1232,7 @@ The point probe is implemented using the dataset operation FindCell(). This meth
 
 ## 8.12 Chapter Summary
 
-Three important visualization coordinate systems are the world, dataset, and structured coordinate systems. The world coordinate system is an x-y-z Cartesian three-dimensional space. The datase coordinate system consists of a cell id, subcell id, and parametric coordinates. The structured coordinate system consists of (i,j,k) integer indices into a rectangular topological domain.
+Three important visualization coordinate systems are the world, dataset, and structured coordinate systems. The world coordinate system is an x-y-z Cartesian three-dimensional space. The dataset coordinate system consists of a cell id, subcell id, and parametric coordinates. The structured coordinate system consists of (i,j,k) integer indices into a rectangular topological domain.
 
 Visualization data is generally in discrete form. Interpolation functions are used to obtain data at points between the known data values. Interpolation functions vary depending on the particular cell type. The form of the interpolation functions are weighting values located at each of the cells points. The interpolations functions form the basis for conversion from dataset to global coordinates and vice versa. The interpolation functions also are used to compute data derivatives.
 
@@ -1244,9 +1244,9 @@ Because of the inherent regularity of image datasets, operations can be efficien
 
 Interpolation functions are employed in a number of numerical techniques. The finite element method, in particular, depends on interpolation functions. If you want more information about interpolation functions refer to the finite element references suggested below <em style="color:blue;background-color: white">\[Cook89\]</em> <em style="color:blue;background-color: white">\[Gallagher75\]</em> <em style="color:blue;background-color: white">\[Zienkiewicz87\]</em>. These texts also discuss derivative computation in the context of interpolation functions.
 
-Visualizing higher-order datasets is an oepn research issue. While <em style="color:blue;background-color: white">\[Schroeder06\]</em> describes one approach, methods based on GPU programs are emerging. Other approaches include tailored algorithms for a particular cell type.
+Visualizing higher-order datasets is an open research issue. While <em style="color:blue;background-color: white">\[Schroeder06\]</em> describes one approach, methods based on GPU programs are emerging. Other approaches include tailored algorithms for a particular cell type.
 
-Basic topology references are available from a number of sources. Two good descriptions of topological data structures are available from Weiler <em style="color:blue;background-color: white">\[Weiler86\]</em> <em style="color:blue;background-color: white">\[Weiler88\]</em> and Baumgart <em style="color:blue;background-color: white">\[Baumgart74\]</em>. Weiler describes the radial-edge structure. This data structure can represent manifold and nonmanifold geometry. The winged-edge structure described by Baumgart is widely known. It is used to represent manifold geometry. Shephard <em style="color:blue;background-color: white">\[Shephard88\]</em> describes general finite element data structures — these are similar to visualization structures but with extra information related to analysis and geometric modelling.
+Basic topology references are available from a number of sources. Two good descriptions of topological data structures are available from Weiler <em style="color:blue;background-color: white">\[Weiler86\]</em> <em style="color:blue;background-color: white">\[Weiler88\]</em> and Baumgart <em style="color:blue;background-color: white">\[Baumgart74\]</em>. Weiler describes the radial-edge structure. This data structure can represent manifold and non-manifold geometry. The winged-edge structure described by Baumgart is widely known. It is used to represent manifold geometry. Shephard <em style="color:blue;background-color: white">\[Shephard88\]</em> describes general finite element data structures — these are similar to visualization structures but with extra information related to analysis and geometric modelling.
 
 There are extensive references regarding spatial search structures. Samet <em style="color:blue;background-color: white">\[Samet90\]</em> provides a general overview of some. Octrees were originally developed by Meagher <em style="color:blue;background-color: white">\[Meagher82\]</em> for 3D imaging. See <em style="color:blue;background-color: white">\[Williams83\]</em>, <em style="color:blue;background-color: white">\[Bentley75\]</em>, and <em style="color:blue;background-color: white">\[Quinlan94\]</em> for information about MIP maps, kd-trees, and binary sphere trees, respectively.
 
