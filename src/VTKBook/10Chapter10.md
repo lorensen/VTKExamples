@@ -360,7 +360,7 @@ G. Wolberg. Digital Image Warping. IEEE Computer Society Press, Los Alamitos, CA
 
 ## 10.8 Exercises
 
-10.1 Create an image pipeline that will segment the area with vertical lines in Figure 10–19.
+10.1 Create an image pipeline that will segment the area with vertical lines in **Figure 10-19**.
 
 10.2 Decomposition can increase the speed of an operation.
 
