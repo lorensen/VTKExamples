@@ -51,7 +51,7 @@ also *point attributes* .
 **Class.** An object that defines the characteristics of a subset of
 objects. Typically, it defines methods and data members. All objects
 instantiated from a class share that class's methods and data
-mem-bers.
+members.
 
 **Clipping Plane.** A plane that restricts the rendering or processing
 of data. Front and back clipping planes are commonly used to restrict
@@ -62,7 +62,7 @@ values into color. Generally used to display the variation of data on
 a surface or through a volume.
 
 **Compiled System.** A compiled system requires that a program be
-compiled (or translated into a lowerlevel language) before it is
+compiled (or translated into a lower level language) before it is
 executed. Contrast with *interpreted systems* .
 
 **Composite Cell.** A cell consisting of one or more primary cells.
@@ -71,7 +71,7 @@ executed. Contrast with *interpreted systems* .
 abstract classes are not instantiated but concrete classes are.
 
 **Connectivity.** A technique to extract connected cells. Cells are
-connected when they share com-mon features such as points, edges, or
+connected when they share common features such as points, edges, or
 faces.
 
 **Contouring.** A scalar visualization technique that creates lines
@@ -528,7 +528,7 @@ projection that is infinitely far away. Contrast with *perspective
 projection* .
 
 **Particle Trace.** The trajectory that particles trace over time in
-fluid flow. Particle traces are every-where tangent to the velocity
+fluid flow. Particle traces are everywhere tangent to the velocity
 field. Unlike streamlines, particle lines are time-dependent.
 
 **Pathline.** The trajectory that a particle follows in fluid flow.

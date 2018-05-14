@@ -258,7 +258,7 @@ Before we describe the process to go from binary labeled tissues to gray-scale d
 
 **Developing a Strategy**
 
-In the last example, we used C++ and created a program that was tailored to extract two surfaces: one of the skin and one of the bone. All the parameters for the surface extraction were hardcoded in the source. Since our frog has 15 different tissues; we seek a more general solution to this problem. We may have to experiment with a number of different parameters for a number of visualization and imaging filters. Our goal is to develop a general pipeline that will work not only our 15 tissues but on other medical datasets as well. We'll design the program to work with a set of user-specified parameters to control the elements of the pipeline. A reasonable description might look like:
+In the last example, we used C++ and created a program that was tailored to extract two surfaces: one of the skin and one of the bone. All the parameters for the surface extraction were hard-coded in the source. Since our frog has 15 different tissues; we seek a more general solution to this problem. We may have to experiment with a number of different parameters for a number of visualization and imaging filters. Our goal is to develop a general pipeline that will work not only our 15 tissues but on other medical datasets as well. We'll design the program to work with a set of user-specified parameters to control the elements of the pipeline. A reasonable description might look like:
 
 ``` tcl
 SLICE_ORDER hfsi
@@ -451,7 +451,7 @@ causes the pipeline to execute. In practice we do a bit more than just Update th
 
 **Specifying Parameters for the Pipeline**
 
-All of the variables mentioned above must be defined for each tissue to be processed. The parameters fall into two general categories. Some are specific to the particular study while some are specific to each tissue. For the frog, we collected the studyspecific parameters in a file frog.tcl that contains: 
+All of the variables mentioned above must be defined for each tissue to be processed. The parameters fall into two general categories. Some are specific to the particular study while some are specific to each tissue. For the frog, we collected the study specific parameters in a file frog.tcl that contains: 
 
 ``` tcl
 set SLICE_ORDER hfsi
@@ -900,7 +900,7 @@ blobbyLogo->SetMapper(blobbyLogoMapper);
 blobbyLogo->SetProperty (banana);
 ```
 
-To improve the look of our resulting visualization, we define a couple of organic colors. Softer col-ors show up better on some electronic media (e.g., VHS video tape) and are pleasing to the eye. 
+To improve the look of our resulting visualization, we define a couple of organic colors. Softer colors show up better on some electronic media (e.g., VHS video tape) and are pleasing to the eye. 
 
 ``` c++
 vtkProperty *tomato = vtkProperty::New();
@@ -1146,7 +1146,7 @@ In this example we will visualize the operation of the recursive Towers of Hanoi
  </figure>
 <figure id="Figure 12-20b">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestHanoiIntermediate.png?raw=true" width="640" alt="Figure 12-20b">
- <figcaption style="color:blue">(b) Intermediaten</figcaption>
+ <figcaption style="color:blue">(b) Intermediate</figcaption>
 </figure>
 <figure id="Figure 12-20c">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestHanoi.png?raw=true" width="640" alt="Figure 12-20c">
@@ -1230,7 +1230,7 @@ D. Till. *Teach Yourself Perl in 21 Days*. Sams Publishing, Indianapolis, Indian
 <em style="color:blue;background-color: white">\[Robertson91\]</em>
 G. G. Robertson, J. D. Mackinlay, and S. K. Card. "Cone Trees: Animated 3D Visualizations of Hierarchical Information." In *Proceedings of ACM CHI '91 Conference on Human Factors in* *Computing Systems*. pp. 189--194, 1991.
 
-<em style="color:blue;background-color: white">\[Rogers86\]</em> S. E. Rogers, D. Kwak, and U. K. Kaul, "A Numerical Study of Three-Dimensional Incompress-ible Flow Around Multiple Post." in *Proceedings of AIAA Aerospace Sciences Conference*. vol. AIAA Paper 86-0353. Reno, Nevada, 1986.
+<em style="color:blue;background-color: white">\[Rogers86\]</em> S. E. Rogers, D. Kwak, and U. K. Kaul, "A Numerical Study of Three-Dimensional Incompressible Flow Around Multiple Post." in *Proceedings of AIAA Aerospace Sciences Conference*. vol. AIAA Paper 86-0353. Reno, Nevada, 1986.
 
 ## 12.11 Exercises
 
