@@ -17,13 +17,17 @@ List of files and original paths:
 | Figure3-33b.png | src/Testing/Baseline/Cxx/Rendering/TestWalkCowB.png |
 | | |
 | Figure4-1a.png | src/Testing/Baseline/Cxx/Visualization/TestQuadricVisualization.png |
+| Figure4-13b.png | src/Testing/Baseline/Cxx/3DSImporter/Test3DSImporter.png |
+| Figure4-19b.png | src/Testing/Baseline/Cxx/Rendering/TestColoredSphere.png |
 | Figure4-20b.png | src/Testing/Baseline/Cxx/Rendering/TestTransformSphere.png |
+| Figure4-21b.png | src/Testing/Baseline/Cxx/Rendering/TestMace.png |
+| Figure4-22b.png | src/Testing/Baseline/Cxx/Rendering/Visualization.png |
 | | |
 | Figure5-17b.png | src/Testing/Baseline/Cxx/GeometricObjects/TestCube.png |
 | Figure5-18b.png | src/Testing/Baseline/Cxx/StructuredPoints/TestVol.png |
 | Figure5-19b.png | src/Testing/Baseline/Cxx/StructuredGrid/TestSGrid.png |
 | Figure5-20b.png | src/Testing/Baseline/Cxx/RectilinearGrid/TestRGrid.png |
-| Figure5-21b.png | src/Testing/Baseline/Cxx/UnstructuredGrid/TestUGrid.png |
+| Figure5-21b.png | src/Testing/Baseline/Cxx/UnstructuredGrid/TestLoopShrink.png |
 | | |
 | Figure6-6.png | src/Testing/Baseline/Cxx/Rendering/TestMarchingCasesA.png |
 | Figure6-10.png | src/Testing/Baseline/Cxx/Rendering/TestMarchingCasesB.png |

@@ -57,7 +57,7 @@ Maybe useful for producing the drawings.
 | Chapter01 | Yes |
 | Chapter02 | Yes |
 | Chapter03 | Yes |
-| Chapter04 | No |
+| Chapter04 | Yes |
 | Chapter05 | Yes |
 | Chapter06 | Yes |
 | Chapter07 | Yes |

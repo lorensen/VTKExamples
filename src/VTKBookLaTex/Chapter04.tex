@@ -67,6 +67,38 @@ The functional model shows how data flows through the system. It also describes 
 
 In the examples that follow we will frequently use a simplified representation of the functional model to describe visualization processes (Figure \ref{fig:Figure4-1c}). We will not explicitly distinguish between sources, sinks, data stores, and process objects. Sources and sinks are implied based on the number of inputs or outputs. Sources will be process objects with no input. Sinks will be process objects with no output. Filters will be process objects with at least one input and one output. Intermediate data stores will not be represented. Instead we will assume that they exist as necessary to support the data flow. Thus, as Figure \ref{fig:Figure4-1c} shows, the \emph{Lines} data store that the \emph{Outline} object generates (Figure \ref{fig:Figure4-1b}) are combined into the single object \emph{Outline}. We use oval shapes to represent objects in the visualization model.
 
+\subsubsection{The Object Model}
+
+The functional model describes the flow of data in our visualization,
+the object model describes which modules operate on it. But what \emph{are} the objects in the system? At first glance, we have two choices (Figure \ref{fig:Figure4-2}).
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Figure4-2}\\
+  \caption{Object model design choices. One basic choice is to combine processes and data stores into a single object. This is the usual object-oriented choice. Another choice creates separate data objects and process objects.}\label{fig:Figure4-2}
+\end{figure}
+
+The first choice combines data stores (object attributes) with processes (object methods) into a single object. In the second choice we use separate objects for data stores and processes. There is actually a third alternative: a hybrid combination of these two choices.
+
+The conventional object-oriented approach (our first choice above) combines data stores and processes into a single object. This view follows the standard definition that objects contain a data representation combined with procedures to operate on the data. One advantage of this approach is that the processes, which are the data visualization algorithms, have complete access to the data structures, resulting in good computational performance. But this choice suffers from several drawbacks.
+
+\begin{itemize}
+
+\item From a user's perspective, processes are often viewed as independent of data representation. In other words, processes are naturally viewed as objects in the system. For example, we often say we want to "contour" data, meaning creating lines or surfaces corresponding to a constant data value. To the user it is convenient to have a single contour object to operate on different data representations.
+
+\item We must duplicate algorithm implementation. As in the previous contouring example, if we bind data stores and processes into a single object, the contour operation must be recreated for each data type. This results in duplicating code even though the implementations of an algorithm may be functionally and structurally similar. Modifying such algorithms also means modifying a large amount of code, since they are implemented across many objects.
+
+\item Binding data stores and algorithms together results in complex, data dependent code. Some algorithms may be much more complex than the data they operate on, with large numbers of instance variables and elaborate data structures. By combining many such algorithms with a data store, the complexity of the object greatly increases, and the simple meaning of the object becomes lost.
+
+\end{itemize}
+
+The second choice separates the data stores and processes. That is, one set of objects represents and provides access to the data, while another set of objects implements all operations on the data. Our experience shows that this is natural to users, although it may be considered unconventional to the object-oriented purist. We also have found that the resulting code is simple, modular, and easy for developers to understand, maintain, and extend.
+
+One disadvantage to the second choice is that the interface between data representation and process is more formal. Thus the interface must be carefully designed to insure good performance and flexibility. Another disadvantage is that strong separation of data and process results in duplicate code. That is, we may implement operations that duplicate algorithms and that cannot be considered strictly data access methods. One example of such a situation is computing data derivatives. This operation is more than simple data access, so strictly speaking it doesn't belong in the data object methods. So to compute derivatives we would have to duplicate the code each time we needed derivatives computed. (Or create a procedural library of functions or macros!)
+
+As a result of these concerns we use the hybrid approach in the \emph{Visualization Toolkit}. Our approach is closest to the second choice described above, but we have selected a small set of critical operations that we implement within the data objects. These operations have been identified based on our experience implementing visualization algorithms. This effectively combines the first two choices to receive the maximum benefit and fewest disadvantages of each.
+
+
 \section{The Visualization Pipeline}
 \label{sec:visualization_pipeline}
 
@@ -104,10 +136,23 @@ The elements of the pipeline (sources, filters, and mappers) can be connected in
 
 Type means the form or type of data that process objects take as input or generate as output. For example, a sphere source object may generate as output a polygonal or faceted representation, an implicit representation (e.g., parameters of a conic equation), or a set of occupancy values in a discretized representation of 3D space. Mapper objects might take as input polygonal, triangle strip, line, or point geometric representations. The input to a process object must be specified correctly for successful operation.
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{Figure4-3}\\
-  \caption{Maintaining compatible data type. (a) Single-type systems require no type checking. (b) In multiple-type systems only compatible types can be connected together.}\label{fig:Figure4-3}
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.48\linewidth}
+        \centering
+		\includegraphics[width=0.56\linewidth]{Figure4-3a}
+		\captionsetup{justification=centering}
+		\caption{Single type system \\ \emph{Input Type = Output Type}} 
+		\label{fig:Figure4-3a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure4-3b}
+		\captionsetup{justification=centering}
+		\caption{Enforced type checking}
+		\label{fig:Figure4-3b}
+	\end{subfigure}
+	\caption{Maintaining compatible data type. (a) Single-type systems require no type checking. (b) In multiple-type systems only compatible types can be connected together.}\label{fig:Figure4-3}
 \end{figure}
 
 There are two general approaches to maintain proper input type. One approach is to design with type-less or single-type systems. That is, create a single type of data object and create filters that operate only on this one type (Figure \ref{fig:Figure4-3a}). For example, we could design a general \emph{DataSet} that represents any form of data that we're interested in, and the process objects would only input \emph{DataSets} and generate \emph{DataSets}. This approach is simple and elegant, but inflexible. Often, particularly useful algorithms (i.e., process objects) will operate only on specific types of data and generalizing them results in large inefficiencies in representation or data access. A typical example is a data object that represents structured data such as pixmaps or 3D volumes. Because the data is structured it can easily be accessed as planes or lines. However, a general representation will not include this capability since typically data is not structured.
@@ -171,11 +216,38 @@ The disadvantage of the explicit approach is that each process object becomes de
 
 The explicit approach may be either demand-driven or event-driven. In the event-driven approach, the executive is notified whenever a change to an object occurs (typically in response to a user-interface event), and the network is immediately executed. In the demand-driven approach, the executive accumulates changes to object inputs and executes the network based on explicit user demand.
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{Figure4-7}\\
-  \caption{Explicit and implicit network execution.}\label{fig:Figure4-7}
+\begin{figure}[htb]
+    \centering
+	\begin{subfigure}[h]{0.48\linewidth}
+        \centering
+		\includegraphics[width=0.96\linewidth]{Figure4-7a}
+		\captionsetup{justification=centering}
+        \captionsetup{singlelinecheck=off}
+		\caption{Explicit \\ 
+        \begin{enumerate}
+        \item A parameter modified
+        \item Executive performs dependency analysis
+        \item Executive executes necessary modules in order A--B--C--D--E
+        \end{enumerate}} 
+		\label{fig:Figure4-7a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[h]{0.48\linewidth}
+		\includegraphics[width=0.96\linewidth]{Figure4-7b}
+		\captionsetup{justification=centering}
+        \captionsetup{singlelinecheck=off}
+		\caption{Implicit \\ 
+        \begin{enumerate}
+        \item A parameter modified
+        \item E output requested
+        \item Chain E--D--B--A back propagates \texttt{Update()} method
+        \item Chain A--B--D--E executes via \texttt{RequestData()} method
+        \end{enumerate}} 
+		\label{fig:Figure4-7b}
+	\end{subfigure}
+	\caption{Explicit and implicit network execution.}\label{fig:Figure4-7}
 \end{figure}
+
 
 The explicit approach with a central executive is typical of many commercial visualization systems such as AVS, Irix Explorer, and IBM Data Explorer. Typically these systems use a visual-programming interface to construct the visualization network. Often these systems are implemented on parallel computers, and the ability to distribute computation is essential.
 
@@ -201,7 +273,7 @@ The disadvantage of implicit control is that it is harder to distribute network 
 
 Another important capability of visualization networks is conditional execution. For example, we may wish to map data through different color lookup tables depending upon the variation of range in the data. Small variations can be amplified by assigning more colors within the data range, while we may compress our color display by assigning a small number of colors to the data range (Figure \ref{fig:Figure4-8}). 
 
-The conditional execution of visualization models (such as that shown Figure \ref{fig:Figure4-1c}) can be realized in principle. However, in practice we must supplement the visualization network with a conditional language to express the rules for network execution. Hence, conditional execution of visualization networks is a function of implementation language. Many visualization systems are programmed using the visual programming style. This approach is basically a visual editor to construct data flow diagrams directly. It is difficult to express conditional execution of networks using this approach. Alternatively, in a procedural programming language, conditional execution of networks is straightforward. We defer discussions of the topic until \namref{sec:Ch04PuttingItAllTogether}.
+The conditional execution of visualization models (such as that shown Figure \ref{fig:Figure4-1c}) can be realized in principle. However, in practice we must supplement the visualization network with a conditional language to express the rules for network execution. Hence, conditional execution of visualization networks is a function of implementation language. Many visualization systems are programmed using the visual programming style. This approach is basically a visual editor to construct data flow diagrams directly. It is difficult to express conditional execution of networks using this approach. Alternatively, in a procedural programming language, conditional execution of networks is straightforward. We defer discussions of the topic until ``Putting It All Together'' on page \pageref{sec:chap04.putting_it_all_together}.
 
 \section{Memory and Computation Trade-off}
 \label{sec:memory_computation_trade-off}
@@ -248,7 +320,7 @@ The preceding sections have provided a general framework for the implementation 
 
 There exist data files and data sources where the type of dataset represented by the file or source is unknown until run-time. For example, consider a general purpose VTK reader that can read any type of VTK data file. Such a class is convenient because the user need not concern himself with the type of dataset, instead the user may want to set up a single pipeline that processes whatever type is found. As indicated by Figure \ref{fig:Figure4-3}, such an approach works well if the system is of a single dataset type, however in practice, and due to performance/efficiency concerns, there typically exist many different types of data in a visualization system. The other alternative shown in Figure \ref{fig:Figure4-3} is enforced type checking. However, in situations like the reader example described above, it is not possible to enforce type checking at compile-time because the type is determined by the data. As a result, type checking must be performed at run-time.
 
-Run-time type checking of a multiple dataset type visualization system requires that the data passed between filters is a generic dataset container (i.e., it appears like a single type but contains the actual data and methods to determine what type of data it is). Run-time type checking has the advantage of flexibility, but the trade-off is that a pipeline may not execute properly until the program executes. For example, a generic pipeline may be designed that can process structured data (see \namref{sec:types_of_datasets} in Chapter 5: \nameref{chap:basic_data_representation}), but the data file may contain unstructured data. In this case, the pipeline will be unable to execute at run-time, producing empty output. Thus pipelines designed to process any type of data must be carefully assembled to create robust applications.
+Run-time type checking of a multiple dataset type visualization system requires that the data passed between filters is a generic dataset container (i.e., it appears like a single type but contains the actual data and methods to determine what type of data it is). Run-time type checking has the advantage of flexibility, but the trade-off is that a pipeline may not execute properly until the program executes. For example, a generic pipeline may be designed that can process structured data (see ``Types of Datasets''on page \pageref{sec:types_of_datasets}), but the data file may contain unstructured data. In this case, the pipeline will be unable to execute at run-time, producing empty output. Thus pipelines designed to process any type of data must be carefully assembled to create robust applications.
 
 \subsection{Extending the Data Object Representation}
 \label{subsec:extending_data_object_representation}
@@ -262,7 +334,7 @@ Examples of metadata include time step information, data ranges or other data ch
 
 In real-world applications the pipeline design described thus far may not adequately support complex execution strategies, or may fail to execute successfully when data sizes become large. In the next sections we address these issues by considering alternative design possibilities.
 
-\textbf{Large Data}. Previous discussions relative to the visualization pipeline have assumed that the size of a particular dataset does not exceed the total memory resource of a computer system. However, with modern dataset sizes pushing into the terabyte and even petabyte range, a typical desktop computer system is incapable of processing such datasets. Thus alternative strategies must be adopted when processing large data. One such approach is based on breaking data into pieces, and then *streaming* the pieces through the visualization pipeline \cite{Martin2001}. Figure \ref{fig:Figure4-11} illustrates how a dataset can be divided into pieces.
+\textbf{Large Data}. Previous discussions relative to the visualization pipeline have assumed that the size of a particular dataset does not exceed the total memory resource of a computer system. However, with modern dataset sizes pushing into the terabyte and even petabyte range, a typical desktop computer system is incapable of processing such datasets. Thus alternative strategies must be adopted when processing large data. One such approach is based on breaking data into pieces, and then *streaming* the pieces through the visualization pipeline \cite{Martin01}. Figure \ref{fig:Figure4-11} illustrates how a dataset can be divided into pieces.
 
 \begin{figure}[!htb]
   \centering
@@ -280,7 +352,7 @@ Streaming data through a visualization pipeline offers two major benefits. The f
 \item \textbf{Result Invariant}. The results should be independent of the number of pieces, and independent of the execution mode (i.e., single- or multi-threaded). This means proper handling of boundaries and developing algorithms that are multi-thread safe across pieces that may overlap on their boundaries.
 \end{enumerate}
 
-Separating data into pieces is relatively straightforward if the data is structured, i.e., topologically regular (\namref{sec:types_of_datasets} in Chapter 5: \nameref{chap:basic_data_representation}). Such datasets can be topological described by a rectangular extent in a regularly $x-y-z$ subdivided cubical domain (see Figures \ref{fig:Figure5-7}(a)-(c)). However, if the data is unstructured (e.g. a mesh of triangles or polygons), then specifying pieces is difficult. Generally an unstructured extent is defined by grouping adjacent data (e.g., cells) into pieces, and then addressing each piece using a $N$ of $M$ notation, where $N$ is the $n$-th piece out of a total of $M$ pieces. The exact organizational structure of a piece is left unspecified and depends on the particular application and algorithm used to group the data.
+Separating data into pieces is relatively straightforward if the data is structured, i.e., topologically regular (see ``Types of Datasets'' on page \pageref{sec:types_of_datasets}). Such datasets can be topological described by a rectangular extent in a regularly $x-y-z$ subdivided cubical domain (see Figures \ref{fig:Figure5-7}(a)-(c)). However, if the data is unstructured (e.g. a mesh of triangles or polygons), then specifying pieces is difficult. Generally an unstructured extent is defined by grouping adjacent data (e.g., cells) into pieces, and then addressing each piece using a $N$ of $M$ notation, where $N$ is the $n$-th piece out of a total of $M$ pieces. The exact organizational structure of a piece is left unspecified and depends on the particular application and algorithm used to group the data.
 
 To satisfy the third requirement of results invariancy, processing pieces also requires the abiity to generate boundary data, or \emph{ghost levels}. Boundary information is necessary when information from the neighbors of a piece is needed to perform a computation. For example, gradient calculations or boundary analysis (e.g., do I have a cell face neighbor?) require one level of boundary information. In rare cases, two or more levels are required. Figure \ref{fig:Figure4-11} illustrates boundary cells and points corresponding to the central red piece of the sphere.
 
@@ -289,26 +361,26 @@ Finally, it should be noted that the ability to divide data into pieces for stre
 \subsubsection{Complex Execution Strategies}
 \label{subsubsec:complex_execution_strategies}
 
-In many cases the simple execution model of Figure \ref{fig:Figure4-7b} is not suitable for complex data processing tasks. For example, as discussed in the previous section, streaming data is a complex execution strategy required when a dataset becomes too large to fit into memory, or when parallel computing is used. In some cases event-driven (see \namref{sec:executing_pipeline}) or ``push'' pipelines (i.e., those that receive data and push the data through the pipeline for processing) may be preferred. Finally, there exist hierarchical data structures such as multi-block or adaptive mesh refinement (AMR) \cite{Berger84} grids. Processing such datasets in a pipeline requires hierarchical traversal as filters process each block in the grid (an advanced research topic in the visualization field and not covered in this edition of the book).
+In many cases the simple execution model of Figure \ref{fig:Figure4-7b} is not suitable for complex data processing tasks. For example, as discussed in the previous section, streaming data is a complex execution strategy required when a dataset becomes too large to fit into memory, or when parallel computing is used. In some cases event-driven (see ``Executing the Pipeline''on page \pageref{sec:executing_pipeline}) or ``push'' pipelines (i.e., those that receive data and push the data through the pipeline for processing) may be preferred. Finally, there exist hierarchical data structures such as multi-block or adaptive mesh refinement (AMR) \cite{Berger84} grids. Processing such datasets in a pipeline requires hierarchical traversal as filters process each block in the grid (an advanced research topic in the visualization field and not covered in this edition of the book).
 
 Addressing these requirements implies that the execution model must be extended. Thus we revisit the object-oriented design in the next section.
 
 \subsubsection{Object-Oriented Design Revisited}
 \label{subsubsec:object_oriented_design_revisited}
 
-Figure \ref{fig:Figure4-2} illustrates two choices relative to the design of the visualization object model. The first choice, which was discarded, was to combine data and operations on the data into a single object, a typical object-oriented design pattern. The second choice, which was advocated, was to create a design consisting of two classes --- data objects and process objects --- which were then combined into visualization pipelines. While this second strategy works well for simple pipelines, when complex execution strategies are introduced, this design begins to break down. This is because the execution strategy is necessarily, and implicitly, distributed across the data objects and process objects; there is no explicit mechanism to implement a particular strategy. Thus the design is problematic because new strategies cannot be introduced without modifying the interface to both the data and process objects. Good design demands that the execution strategy is separated from the data objects and process objects. The benefits of such a design include reducing the complexity of the data and process objects, encapsulating execution strategies, performing run-time type checking (see \namref{subsec:processing_unknown_dataset_types}) and even managing metadata (see \namref{subsec:extending_data_object_representation}).
+Figure \ref{fig:Figure4-2} illustrates two choices relative to the design of the visualization object model. The first choice, which was discarded, was to combine data and operations on the data into a single object, a typical object-oriented design pattern. The second choice, which was advocated, was to create a design consisting of two classes --- data objects and process objects --- which were then combined into visualization pipelines. While this second strategy works well for simple pipelines, when complex execution strategies are introduced, this design begins to break down. This is because the execution strategy is necessarily, and implicitly, distributed across the data objects and process objects; there is no explicit mechanism to implement a particular strategy. Thus the design is problematic because new strategies cannot be introduced without modifying the interface to both the data and process objects. Good design demands that the execution strategy is separated from the data objects and process objects. The benefits of such a design include reducing the complexity of the data and process objects, encapsulating execution strategies, performing run-time type checking (see ``Processing Unknown Dataset Types'' on page \pageref{subsec:processing_unknown_dataset_types}) and even managing metadata (see ``Extending the Data Object Representation''on page  \pageref{subsec:extending_data_object_representation}).
 
 As the execution model becomes more complex, execution strategies are separated from the data and process objects as separate classes.
 
-The advanced design re-introduces the notion of an executive (see \namref{sec:executing_pipeline}). However, the design differs from that of Figure \ref{fig:Figure4-7}. As that figure illustrated, a single, centralized executive introduces dependencies into the pipeline that will not scale as pipeline complexity increases, or in parallel processing applications. In the advanced design, we assume \emph{multiple} executives, typically one per filter. In  some cases the executive may control multiple filters. This is particularly useful if the filters are interdependent or complex execution strategies are required. Different classes of executive can implement different execution strategies, for example a demand-driven, streaming pipeline is one such strategy. Other important classes include executives that coordinate the execution of filters on composite datasets.
-
-\begin{figure}[!htb]
+\begin{wrapfigure}{r}{0.4\textwidth}
   \centering
-  \includegraphics[width=0.8\textwidth]{Figure4-12}\\
+  \includegraphics[width=0.96\textwidth]{Figure4-12}\\
   \caption{As the execution model becomes more complex, execution strategies are separated from the data and process objects as separate classes.}\label{fig:Figure4-12}
-\end{figure}
+\end{wrapfigure}
 
-Figure \ref{fig:Figure4-12} is a high-level view of the executive and its relationship to data and process objects. In \namref{pipeline-design-and-implementation} the design is explored in more detail.
+The advanced design re-introduces the notion of an executive (see ``Executing the Pipeline'' on page \pageref{sec:executing_pipeline}). However, the design differs from that of Figure \ref{fig:Figure4-7}. As that figure illustrated, a single, centralized executive introduces dependencies into the pipeline that will not scale as pipeline complexity increases, or in parallel processing applications. In the advanced design, we assume \emph{multiple} executives, typically one per filter. In  some cases the executive may control multiple filters. This is particularly useful if the filters are interdependent or complex execution strategies are required. Different classes of executive can implement different execution strategies, for example a demand-driven, streaming pipeline is one such strategy. Other important classes include executives that coordinate the execution of filters on composite datasets.
+
+Figure \ref{fig:Figure4-12} is a high-level view of the executive and its relationship to data and process objects. In ``Pipeline Design and Implementation'' on page \pageref{subsec:pipeline_design_implementation} the design is explored in more detail.
 
 \section{Programming Models}
 \label{sec:programming_models}
@@ -331,9 +403,9 @@ There are two other graphics and visualization programming models that bear ment
 
 Scene graphs are typically found in 3D graphics systems such as OpenInventor \cite{Wernecke94}. Scene graphs are acyclic tree-structures that represent objects, or nodes, in an order defined by the tree layout. The nodes may be geometry (called shape nodes), graphics properties, transformations, manipulators, lights, cameras, and so forth, that define a complete scene. The parent/child relationship controls how properties and transformations are applied to the nodes as they are rendered, or how the objects relate to other objects in the scene (e.g., which objects the lights shine on). Scene graphs are not used to control the execution of a visualization pipeline, rather they are used to control the rendering process. Scene graphs and visualization pipelines may be used together in the same application. In such a case the visualization pipeline is the generator of the shape nodes, and the scene graph controls the rendering of the scene including the shapes.
 
-Scene graphs have found wide use in the graphics community because of their ability to compactly and graphically represent a scene. In addition, scene graphs have been popularized by their recent use in Web tools such as VRML and Java3D. See Chapter 11: \nameref{chap:visuzlization_web} for more information.
+Scene graphs have found wide use in the graphics community because of their ability to compactly and graphically represent a scene. In addition, scene graphs have been popularized by their recent use in Web tools such as VRML and Java3D. See Chapter 11: \nameref{chap:visualization_web} for more information.
 
-Another recently introduced technique for visual programming is the spreadsheet technique of Levoy \cite{Levoy94}. In the spreadsheet model, we arrange operations on a regular grid similar to the common electronic accounting spreadsheets. The grid consists of rows and columns of cells, where each cell is expressed as a computational combination of other cells. The combination is expressed for each cell by using a simple programming language to add, subtract, or perform other more complex operations. The result of the computation (i.e., a visual output) is displayed in the cell. A recent extension to the spreadsheet approach is exemplified by VisTrails \cite{Bavoil2005}, a system that enables interactive multiple-view visualizations by simplifying the creation and maintenance of visualization pipelines, and by optimizing the execution of the pipelines. VisTrials has the further benefit that it tracks changes to the visualization pipeline so that it is straightforward to create extensive design studies.
+Another recently introduced technique for visual programming is the spreadsheet technique of Levoy \cite{Levoy94}. In the spreadsheet model, we arrange operations on a regular grid similar to the common electronic accounting spreadsheets. The grid consists of rows and columns of cells, where each cell is expressed as a computational combination of other cells. The combination is expressed for each cell by using a simple programming language to add, subtract, or perform other more complex operations. The result of the computation (i.e., a visual output) is displayed in the cell. A recent extension to the spreadsheet approach is exemplified by VisTrails \cite{Bavoil05}, a system that enables interactive multiple-view visualizations by simplifying the creation and maintenance of visualization pipelines, and by optimizing the execution of the pipelines. VisTrials has the further benefit that it tracks changes to the visualization pipeline so that it is straightforward to create extensive design studies.
 
 Although visual programming systems are widely successful, they suffer two drawbacks. First, they are not as tailored as an application and require extensive programming, albeit visual, to be so. Second, visual programming is too limited for detailed control, so constructing complex low-level algorithms and user-interfaces is not feasible. What is required is a visualization system that provides the ``modularity'' and automatic execution control of a visual system, and the low-level programming capability of a programming library. Object-oriented systems have the potential to provide these capabilities. Carefully crafted object libraries provide the ease of use of visual systems with the control of programming libraries. That is a major goal of the described in this text.
 
@@ -374,14 +446,28 @@ In the \emph{Visualization Toolkit}, there are several importers and exporters. 
   \hfill
   \begin{subfigure}[h]{0.48\linewidth}
     \includegraphics[width=0.96\linewidth]{Figure4-13b}
-    \caption*{)
+    \caption*{See:  \href{https://lorensen.github.io/VTKExamples/site/Cxx/IO/3DSImporter/}{3DSImporter.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/IO/3DSImporter/}{3DSImporter.py}})
     \label{fig:Figure4-13b}
   \end{subfigure}
   \hfill
   \begin{subfigure}[h]{0.96\linewidth}{Figure4-13c}
+  \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
+    # import from 3d Studio
+    vtk3DSImporter importer
+      importer ComputeNormalsOn
+      importer SetFileName "$VTK_DATA_ROOT/Data/iflamigm.3ds"
+      importer Read
+    # export to rib format
+    vtkRIBExporter exporter
+      exporter SetFilePrefix importExport
+      exporter SetRenderWindow [importer GetRenderWindow]
+      exporter BackgroundOn
+      exporter Write
+    \end{lstlisting} 
     \caption*{}
+    \label{fig:Figure4-13c}
   \end{subfigure}
-  \caption{Importing and exporting files in VTK. An importer creates a vtkRenderWindow that describes the scene. Exporters use an instance of vtkRenderWindow to obtain a description of the scene. See \href{https://lorensen.github.io/VTKExamples/site/Cxx/IO/3DSImporter/}{3DSImporter.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/IO/3DSImporter/}{3DSImporter.py}.}\label{fig:Figure4-13}
+  \caption{Importing and exporting files in VTK. An importer creates a vtkRenderWindow that describes the scene. Exporters use an instance of vtkRenderWindow to obtain a description of the scene.}\label{fig:Figure4-13}
 \end{figure}
 
 Figure \ref{fig:Figure4-13} shows an image created from a *3D Studio* model and saved as a *Renderman* RIB file.
@@ -391,27 +477,27 @@ Figure \ref{fig:Figure4-13} shows an image created from a *3D Studio* model and 
 
 The majority of users interface to their data by using an existing application. Rather than programming pipelines or writing their own readers and writers, users acquire an application that suits their particular visualization needs. Then to interface to their data, users simply identify the reader, writer, importer, and/or exporter that can successfully process it. In some cases, users may have to modify the program used to generate the data so that it exports it in a standard data format. The advantage of using existing applications is that the user interface and pipeline are pre-programmed, insuring that the user can focus on their data, rather than expending the significant resources required to write visualization programs. The disadvantage of using existing applications is that necessary features are often missing, and applications typically lack the flexibility that a general purpose tool can provide.
 
-Selecting the right application is not always simple. The application must support the correct dataset types, and support suitable rendering devices, for example generating images on large displays \cite{Humphreys99} or in a Cave \cite{CruzNeira93} environment. In some cases user interaction is required, and demands on parallel processing or data handling capacities further complicates the selection. For example, while a general purpose tool like ParaView (Figure \ref{fig:Figure4-14a}) can be used to visualize most types of data, including providing support for large data and parallel computing, a specialized tool such as VolView (Figure \ref{fig:Figure4-14b} )may be better suited for the a particular type task such as viewing medical data shown in the figure. It is imperative that users have a familiarity with the visualization process if they are to successfully choose the right application for their data.
+\begin{figure}[htb]
+  \begin{subfigure}[h]{0.48\linewidth}
+    \includegraphics[width=0.96\linewidth]{Figure4-14a}
+    \caption{Paraview parallel visualization application}
+    \label{fig:Figure4-14a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[h]{0.48\linewidth}
+    \includegraphics[width=0.96\linewidth]{Figure4-14b}
+    \caption*{VolView volume rendering application}
+    \label{fig:Figure4-14b}
+  \end{subfigure}
+  \caption{The choice of an appropriate visualization application depends on the type of dataset(s) it must support, required interaction techniques, rendering capabilities, and support for large data, including parallel processing. While both applications above are built using the VTK visualization toolkit, they provide very different user experiences. ParaView (\href{https://www.paraview.org/}{https://www.paraview.org/}) is a general purpose visualization system that can process large data in a distributed, parallel environment (as well as on single processor systems), with the ability to display on a Cave or tiled display. VolView (\href{https://www.kitware.com/volview/}{https://www.kitware.com/volview/}) focuses on volumetric and image data and uses multi-threading and sophisticated level-of-detail methods to achieve interactive performance.}\label{fig:Figure4-14}
+\end{figure}
+
+Selecting the right application is not always simple. The application must support the correct dataset types, and support suitable rendering devices, for example generating images on large displays \cite{Humphreys99} or in a Cave \cite{CruzNeira93} environment. In some cases user interaction is required, and demands on parallel processing or data handling capacities further complicates the selection. For example, while a general purpose tool like ParaView (Figure \ref{fig:Figure4-14a}) can be used to visualize most types of data, including providing support for large data and parallel computing, a specialized tool such as VolView (Figure \ref{fig:Figure4-14}(b) )may be better suited for a particular type task such as viewing medical data shown in the figure. It is imperative that users have a familiarity with the visualization process if they are to successfully choose the right application for their data.
 
 \section{Putting It All Together}
-\label{sec:Ch04PuttingItAllTogether}
+\label{sec:chap04.putting_it_all_together}
 
 In the previous sections we have treated a variety of topics relating to the visualization model. In this section we describe the particular implementation details that we have adopted in the \emph{Visualization Toolkit}.
-
-\begin{lstlisting}[language=TCL, caption={}]
-#   import from 3d Studio vtk3DSImporter importer
-importer ComputeNormalsOn
-importer SetFileName "$VTK_DATA_ROOT/Data/iflamigm.3ds"
-importer Read
-#   export to rib format
-
-vtkRIBExporter exporter
-exporter SetFilePrefix importExport
-exporter SetRenderWindow [importer GetRenderWindow]
-exporter BackgroundOn
-exporter Write
-\end{lstlisting}
-
 
 \subsection{Procedural Language Implementation}
 \label{subsec:procedural_language_implementation}
@@ -420,20 +506,14 @@ The \emph{Visualization Toolkit} is implemented in the procedural language C++. 
 
 A visual programming interface could be (and has been) implemented using the class library provided. However, for real-world applications the procedural language implementation provides several advantages. This includes straightforward implementation of conditional network execution and looping, ease of interface to other systems, and the ability to create custom applications with sophisticated graphical user interfaces. The VTK community has created several visual programming and visualization applications from the toolkit. Many of these are available as open-source software (e.g., ParaView at paraview.org) or as commercial applications (e.g., VolView at \href{https://www.kitware.com/volview/}{https://www.kitware.com/volview/}).
 
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{Figure4-14}\\
-  \caption{The choice of an appropriate visualization application depends on the type of dataset(s) it must support, required interaction techniques, rendering capabilities, and support for large data, including parallel processing. While both applications above are built using the VTK visualization toolkit, they provide very different user experiences. ParaView (\href{https://www.paraview.org/}{https://www.paraview.org/}) is a general purpose visualization system that can process large data in a distributed, parallel environment (as well as on single processor systems), with the ability to display on a Cave or tiled display. VolView (\href{https://www.kitware.com/volview/}{https://www.kitware.com/volview/}) focuses on volumetric and image data and uses multi-threading and sophisticated level-of-detail methods to achieve interactive performance.}\label{fig:Figure4-14}
-\end{figure}
-
 \subsection{Pipeline Design and Implementation}
 \label{subsec:pipeline_design_implementation}
 
 The \emph{Visualization Toolkit} implements a general execution mechanism. Filters are divided into two basic parts: algorithm and executive objects. An algorithm object, whose class is derived from vtkAlgorithm, is responsible for processing information and data. An executive object, whose class is derived from vtkExecutive, is responsible for telling an algorithm when to execute and what information and data to process. The executive component of a filter may be created independently of the algorithm component allowing custom pipeline execution mechanisms without modifying core VTK classes.
 
-Information and data produced by a filter are stored in one or more output \emph{ports}. An output port corresponds to one logical output of the filter. For example, a filter producing a color image and a corresponding binary mask image would define two output ports, each holding one of the images. Pipeline-related information is stored in an instance of vtkInformation on each output port. The data for an output port is stored in an instance of a class derived from vtkDataObject.
+Information and data produced by a filter are stored in one or more output \emph{ports}. An output port corresponds to one logical output of the filter. For example, a filter producing a color image and a corresponding binary mask image would define two output ports, each holding one of the images. Pipeline--related information is stored in an instance of vtkInformation on each output port. The data for an output port is stored in an instance of a class derived from vtkDataObject.
 
-Information and data consumed by a filter are retrieved through one or more input ports. An input port corresponds to one logical input of 1ethe filter. For example, a glyph filter would define one input port for the glyph itself and another input port defining the glyph positions. Input ports store input connections that reference the output ports of other filters; these output ports eventually provide information and data to the filter. Each input connection provides one data object and its corresponding information obtained from the output port to which the connection is made. Since connections are stored through logical ports and not in the data flowing through those ports, the data type need not be known when the connection is made. This is particularly useful when creating pipelines whose source is a reader that does not know its output data type until the file is read (see \nameref{subsec:pipeline-connections} and \nameref{subsec:processing_unknown_dataset_types}).
+Information and data consumed by a filter are retrieved through one or more input ports. An input port corresponds to one logical input of 1ethe filter. For example, a glyph filter would define one input port for the glyph itself and another input port defining the glyph positions. Input ports store input connections that reference the output ports of other filters; these output ports eventually provide information and data to the filter. Each input connection provides one data object and its corresponding information obtained from the output port to which the connection is made. Since connections are stored through logical ports and not in the data flowing through those ports, the data type need not be known when the connection is made. This is particularly useful when creating pipelines whose source is a reader that does not know its output data type until the file is read (see \nameref{subsec:pipeline_connections} and \nameref{subsec:processing_unknown_dataset_types}).
 
 \begin{figure}[!htb]
   \centering
@@ -486,13 +566,13 @@ For this, and other reasons related to parallel processing, the original VTK pip
 
 \textbf{VTK 5.0 and Beyond}. While VTK 5.0 still supports the use of SetInput()/GetOutput(), its use in Figure \ref{fig:Figure4-16} and Figure \ref{fig:Figure4-17} is discouraged. Rather, the newer pipeline architecture should be used. Referring to Figure \ref{fig:Figure4-17}, we use connections and ports to configure VTK's visualization pipeline:
 
-\begin{lstlisting}[language=C++, caption={}]
-filter2->SetInput(filter1->GetOutput()); //Prior to VTK5.0
+\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
+filter2->SetInput(filter1->GetOutputPort()); // VTK5.0
 \end{lstlisting}
 
 You probably have already guessed how this approach can be extended to multiple inputs and multiple outputs. Let's look at some concrete examples. vtkGlyph3D is an example of a filter that accepts multiple inputs and generates a single output. The inputs to vtkGlyph3D are represented by the Input and Source instance variables. The purpose of vtkGlyph3D is to copy the geometry defined by the data in Source to each point defined by Input. The geometry is modified according to the Source data values (e.g., scalars and vectors). (For more information about glyphs see \nameref{subsec:glyphs} in Chapter 6: \nameref{chap:fundamental_algorithms}.) To use the vtkGlyph3D object in C++ code you would do the following:
 
-\begin{lstlisting}[language=C++, caption={}]
+\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 glyph = vtkGlyph3D::New();
 glyph->SetInputConnection(foo->GetOutputPort());
 glyph->SetSourceConnection(bar->GetOutputPort());
@@ -501,7 +581,7 @@ glyph->SetSourceConnection(bar->GetOutputPort());
 
 where foo and bar are filters returning the appropriate type of output. The class vtkExtractVectorComponents is an example of a filter with a single input and multiple outputs. This filter extracts the three components of a 3D vector into separate scalar components. Its three outputs are available on output ports 0, 1, and 2. An example use of the filter follows:
 
-\begin{lstlisting}[language=C++, caption={}]
+\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 vz = vtkExtractVectorComponents::New();
 foo = vtkDataSetMapper::New();
 foo->SetInputConnection(vz->GetOutputPort(2));
@@ -510,7 +590,7 @@ foo->SetInputConnection(vz->GetOutputPort(2));
 
 Several other special objects having multiple inputs or outputs are also available. Some of the more notable classes are vtkMergeFilter, vtkAppendFilter, and vtkAppendPolyData. These filters com bine multiple pipeline streams and generate a single output. Note, however, that while vtkMergeFilter has multiple input ports (i.e., different logical inputs), vtkAppendFilter has only one logical input, but presumes multiple connections are made to that one input. This is because in the case of vtkMergeFilter, each input has a distinct and separate purpose, while in vtkAppendFilter all the inputs have the same meaning (i.e., just one more input in a list to append together). Here are some code fragments:
 
-\begin{lstlisting}[language=C++, caption={}]
+\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 merge = vtkMergeFilter::New();
 merge->SetGeometryConnection(foo->GetOutputPort());
 merge->SetScalarsConnection(bar->GetOutputPort());
@@ -518,7 +598,7 @@ merge->SetScalarsConnection(bar->GetOutputPort());
 
 and
 
-\begin{lstlisting}[language=C++, caption={}]
+\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 append = vtkAppendFilter::New();
 append->AddInputConnection(foo->GetOutputPort());
 append->AddInputConnection(bar->GetOutputPort());
@@ -549,7 +629,7 @@ Until now, we have used the terms metadata and information objects rather inform
 \item \emph{Algorithm information} objects hold information about an instance of vtkAlgorithm. There is one algorithm information object per algorithm object, accessible via vtkAlgorithm::GetInformation(). The actual information contained is determined by the algorithm object type.
 \end{itemize}
 
-The importance of the information objects in VTK is that they are flexible (e.g., new key-value pairs can be easily added) and extensible. That is, readers, filters and mappers can add new information to the containers without requiring the API of the pipeline-related classes to change.
+The importance of the information objects in VTK is that they are flexible (e.g., new key-value pairs can be easily added) and extensible. That is, readers, filters and mappers can add new information to the containers without requiring the API of the pipeline--related classes to change.
 
 \begin{figure}[!htb]
   \centering
@@ -582,9 +662,9 @@ This global variable is set as follows. Given the data object O, (or the output 
 
 At this point in the text it is premature to describe design details of the various objects making up the visualization pipeline. However, there are two important classes that affect many of the objects in the text. These are the classes vtkObject and vtkObjectBase.
 
-vtkObjectBase is the base object for almost all inheritance hierarchies found in VTK. vtkObjectBase implements data object reference counting (see \nameref{subsec:reference_counting_garbage_collection}). Subclasses of vtkObjectBase may be shared by other objects, without duplicating memory. It also defines an API for objects to print information about themselves.
+vtkObjectBase is the base object for almost all inheritance hierarchies found in VTK. vtkObjectBase implements data object reference counting (see ``Reference Counting and Garbage Collection'' on page \pageref{subsec:reference_counting_garbage_collection}). Subclasses of vtkObjectBase may be shared by other objects, without duplicating memory. It also defines an API for objects to print information about themselves.
 
-vtkObject is a subclass of vtkObjectBase. It provides methods and instance variables to control run-time debugging and maintains internal object modification time. In particular, the method Modified() is used to update the modification time, and the method GetMTime() is used to retrieve it. vtkObject also provides a framework for the event callbacks that we saw in the previous chapter (see \namref{sub:events_observers} in Chapter 3: \nameref{chap:computer_graphics_primer}).
+vtkObject is a subclass of vtkObjectBase. It provides methods and instance variables to control run-time debugging and maintains internal object modification time. In particular, the method Modified() is used to update the modification time, and the method GetMTime() is used to retrieve it. vtkObject also provides a framework for the event callbacks that we saw in the previous chapter (see ``Events and Observers''on page \pageref{sub:events_observers}).
 
 Note that we do not always include vtkObject and vtkObjectBase in object diagrams to conserve space. Refer to the source code for a definitive statement.
 
@@ -609,14 +689,29 @@ The execution of the pipeline occurs implicitly when we render the actor. Each a
   \hfill
   \begin{subfigure}[h]{0.48\linewidth}
     \includegraphics[width=0.96\linewidth]{Figure4-19b}
-    \caption*{)
+    \caption*{See: href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/ColoredSphere/}{ColoredSphere.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/ColoredSphere/}{ColoredSphere.py}.})
     \label{fig:Figure4-19b}
   \end{subfigure}
   \hfill
   \begin{subfigure}[h]{0.96\linewidth}{Figure4-19c}
+  \begin{lstlisting}[language=C++,  caption={}, numbers=none, frame=none]
+    vtkSphereSource *sphere = vtkSphereSource::New();
+      sphere->SetPhiResolution(12); sphere->SetThetaResolution(12);
+    
+    vtkElevationFilter *colorIt = vtkElevationFilter::New();
+      colorIt->SetInputConnection(sphere->GetOutputPort());
+      colorIt->SetLowPoint(0,0,-1);
+      colorIt->SetHighPoint(0,0,1);
+    
+    vtkDataSetMapper *mapper = vtkDataSetMapper::New();
+      mapper->SetInputConnection(colorIt->GetOutputPort());
+      
+    vtkActor *actor = vtkActor::New();
+      actor->SetMapper(mapper);
+    \end{lstlisting} 
     \caption*{}
   \end{subfigure}
-  \caption{A simple sphere example. See \href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/ColoredSphere/}{ColoredSphere.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/ColoredSphere/}{ColoredSphere.py}.}\label{fig:Figure4-19}
+  \caption{A simple sphere example.}\label{fig:Figure4-19}
 \end{figure}
 
 Then the system walks through the network and executes each object if its input or instance variables are out of date. When completed, the actor's mapper is up to date and an image is generated.
@@ -696,22 +791,48 @@ This example demonstrates the use of an object with multiple inputs. vtkGlyph3D 
 The visualization network branches at vtkGlyph3D. If either branch is modified, then this filter will reexecute. Network updates must branch in both directions, and both branches must be up to date when vtkGlyph3D executes. These requirements are enforced by the Update() method, and pose no problem to the implicit execution method.
 
 \begin{figure}[htb]
-  \begin{subfigure}[h]{0.48\linewidth}
+  \begin{subfigure}[h]{0.64\linewidth}
     \includegraphics[width=0.96\linewidth]{Figure4-21a}
     \caption*{}
     \label{fig:Figure4-21a}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[h]{0.48\linewidth}
+  \begin{subfigure}[h]{0.32\linewidth}
     \includegraphics[width=0.96\linewidth]{Figure4-21b}
-    \caption*{)
+    \caption*{See: \href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/Mace/}{Mace.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/Mace/}{Mace.py}.}
     \label{fig:Figure4-21b}
   \end{subfigure}
   \hfill
   \begin{subfigure}[h]{0.96\linewidth}{Figure4-22c}
+    \begin{lstlisting}[language=C++, caption={Warped Sphere.}]
+    vtkSphereSource *sphere = vtkSphereSource::New();
+      sphere->SetThetaResolution(8); sphere->SetPhiResolution(8);
+    
+    vtkPolyDataMapper *sphereMapper = vtkPolyDataMapper::New();
+      sphereMapper->SetInputConnection(sphere->GetOutputPort());
+    
+    vtkActor *sphereActor = vtkActor::New();
+      sphereActor->SetMapper(sphereMapper);
+    
+    vtkConeSource *cone = vtkConeSource::New();
+      cone->SetResolution(6);
+    
+    vtkGlyph3D *glyph = vtkGlyph3D::New();
+      glyph->SetInputConnection(sphere->GetOutputPort());
+      glyph->SetSourceConnection(cone->GetOutputPort());
+      glyph->SetVectorModeToUseNormal();
+      glyph->SetScaleModeToScaleByVector();
+      glyph->SetScaleFactor(0.25);
+    
+    vtkPolyDataMapper *spikeMapper = vtkPolyDataMapper::New();
+      spikeMapper->SetInputConnection(glyph->GetOutputPort());
+    
+    vtkActor *spikeActor = vtkActor::New();
+      spikeActor->SetMapper(spikeMapper);
+    \end{lstlisting}
     \caption*{}
   \end{subfigure}
-  \caption{An example of multiple inputs and outputs. See \href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/Mace/}{Mace.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/Mace/}{Mace.py}.}\label{fig:Figure4-21}
+  \caption{An example of multiple inputs and outputs.}\label{fig:Figure4-21}
 \end{figure}
 
 \textbf{Disappearing Sphere}. In our last example we construct a visualization network with a feedback loop, and show how we can use procedural programming to change the topology of the network. The network consists of four objects: vtkSphereSource to create an initial polygonal geometry, vtkShrinkFilter to shrink the polygons and create a gap or space between neighbors, vtkElevationFilter to color the geometry according to height above the x-y plane, and vtkDataSetMapper to map the data through a lookup table and interface to the rendering library. The network topology, a portion of the C++ code, and output are shown in Figure \ref{fig:Figure4-22}.
@@ -722,19 +843,43 @@ After vtkSphereSource generates an initial geometry (in response to a render req
   \begin{subfigure}[h]{0.48\linewidth}
     \includegraphics[width=0.96\linewidth]{Figure4-22a}
     \caption*{}
-    \label{fig:Figure4-20a}
+    \label{fig:Figure4-22a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[h]{0.48\linewidth}
     \includegraphics[width=0.96\linewidth]{Figure4-22b}
-    \caption*{)
-    \label{fig:Figure4-20b}
+    \caption*{See: \href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/LoopShrink/}{LoopShrink.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/LoopShrink/}{LoopShrink.py}.}
+    \label{fig:Figure4-22b}
   \end{subfigure}
   \hfill
   \begin{subfigure}[h]{0.96\linewidth}{Figure4-22c}
+    \begin{lstlisting}[language=C++, caption={Warped Sphere.}]
+    vtkSphereSource *sphere = vtkSphereSource::New();
+      sphere->SetThetaResolution(12); sphere->SetPhiResolution(12);
+    
+    vtkShrinkFilter *shrink = vtkShrinkFilter::New();
+      shrink->SetInputConnection(sphere->GetOutputPort());
+      shrink->SetShrinkFactor(0.9);
+    
+    vtkElevationFilter *colorIt = vtkElevationFilter::New();
+      colorIt->SetInputConnection(shrink->GetOutputPort());
+      colorIt->SetLowPoint(0,0,-.5);
+      colorIt->SetHighPoint(0,0,.5);
+    
+    vtkDataSetMapper *mapper = vtkDataSetMapper::New();
+      mapper->SetInputConnection(colorIt->GetOutputPort());
+    
+    vtkActor *actor = vtkActor::New();
+      actor->SetMapper(mapper);
+    
+      renWin->Render(); // execute first time
+      // create loop
+      shrink->SetInputConnection(colorIt->GetOutputPort());
+      renWin->Render(); // begin looping
+    \end{lstlisting}
     \caption*{}
   \end{subfigure}
-  \caption{A network with a loop (LoopShrk.cxx). VTK 5.0 does not allow you to execute a looping visualization network; this was possible in previous versions of VTK. See \href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/TransformSphere/}{LoopShrink.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/LoopShrink/}{LoopShrink.py}.}\label{fig:Figure4-22}
+  \caption{A network with a loop (LoopShrk.cxx). VTK 5.0 does not allow you to execute a looping visualization network; this was possible in previous versions of VTK.}\label{fig:Figure4-22}
 \end{figure}
 
 \section{Chapter Summary}
@@ -745,12 +890,11 @@ The visualization process is naturally modelled using a combination of functiona
 \section{Bibliographic Notes}
 \label{Ch04BibNotes}
 
-The practical way to learn about the visualization process is to study commercially available systems. These systems can be categorized as either direct visual programming environments or as applications. Common visual programming systems include AVS \cite{AVS89}, Iris Explorer \cite{IrisExplorer}, IBM Data Explorer \cite{DataExplorer}, aPE \cite{aPE90}, and Khoros \cite{Rasure91}. Application systems generally provide less flexibility than visual programming systems, but are better tailored to a particular problem domain. PLOT3D \cite{PLOT3D} is an early example of a tool for CFD visualization. This has since been superseded by FAST \cite{FAST90}. FieldView is another popular CFD visualizer \cite{FieldView91}. VISUAL3 \cite{VISUAL3} is a general tool for unstructured or structured grid visualization. PV-WAVE \cite{Charal90} can be considered a hybrid system, since it has both simple visual programming techniques to interface to data files as well as a more structured user-interface than the visual programming environments. Wavefront's DataVisualizer \cite{DataVisualizer} is a general-purpose visualization tool. It is unique in that it is part of a powerful rendering and animation package. A nice system for visualizing 3D gridded data (such as that produced by numerical weather models) is VIS5D. Find out more at the \href{http://www.ssec.wisc.edu/\~billh/vis5d.html}{VIS5D Web site}).
+The practical way to learn about the visualization process is to study commercially available systems. These systems can be categorized as either direct visual programming environments or as applications. Common visual programming systems include AVS \cite{AVS89}, Iris Explorer \cite{IrisExplorer}, IBM Data Explorer \cite{DataExplorer}, apE \cite{apE90}, and Khoros \cite{Rasure91}. Application systems generally provide less flexibility than visual programming systems, but are better tailored to a particular problem domain. PLOT3D \cite{PLOT3D} is an early example of a tool for CFD visualization. This has since been superseded by FAST \cite{FAST90}. FieldView is another popular CFD visualizer \cite{FieldView91}. VISUAL3 \cite{VISUAL3} is a general tool for unstructured or structured grid visualization. PV-WAVE \cite{Charal90} can be considered a hybrid system, since it has both simple visual programming techniques to interface to data files as well as a more structured user-interface than the visual programming environments. Wavefront's DataVisualizer \cite{DataVisualizer} is a general-purpose visualization tool. It is unique in that it is part of a powerful rendering and animation package. A nice system for visualizing 3D gridded data (such as that produced by numerical weather models) is VIS5D. Find out more at the \href{http://www.ssec.wisc.edu/\~billh/vis5d.html}{VIS5D Web site}).
 
 Although many visualization systems claim to be object-oriented, this is often more in appearance than implementation. Little has been written on object-oriented design issues for visualization. \cite{VISAGE92} presents an architecture similar to that described in this chapter. Favre \cite{Favre94} describes a more conventional object-oriented approach. His dataset classes are based on topological dimension and both data and methods are combined into classes.
 
 \printbibliography
-
 
 \section{Exercises}
 \begin{enumerate}
@@ -765,6 +909,8 @@ For each technique:
 
     \item Construct object models.
 
+\end{enumerate}
+
     \item A \emph{height field} is a regular array of 2D points where $h = f(x,y)$, $h$ is an altitude above the point $(x,y)$. Height fields are often used to represent terrain data. Design an object-oriented system to visualize height fields.
 
 \begin{enumerate}
@@ -774,6 +920,8 @@ For each technique:
     \item What methods would you use to access this data?
 
     \item Develop one process object (i.e., visualization technique) to visualize a height field. Describe the methods used by the object to access and manipulate the height field.
+
+\end{enumerate}
 
 \item Describe how you would implement an explicit control mechanism for network execution.
 
@@ -836,3 +984,6 @@ For each technique:
     \item $F(x,y,z) = x+2 + y^2 - \cos (z) + 1$
 
 \end{enumerate}
+
+\end{enumerate}
+
