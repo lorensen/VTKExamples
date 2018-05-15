@@ -12,7 +12,7 @@ Template for manually created figures
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/FigureNUMBER.png?raw=true" width="640" alt="FigureNUMBER">
   <figcaption style="color:blue"><b>Figure NUMBER</b>. Physical generation of an image.</figcaption>
 </figure>
-`
+
 Templates for automaticaly created figures
 
 One figure

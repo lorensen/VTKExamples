@@ -701,18 +701,14 @@ vtkRenderWindowInteractor iren
 ren1 AddActor planeActor
 ```
 
-**Figure 7-33** Example of texture mapping (TPlane.tcl ).
+<figure id="Figure 7-33">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Texture/TestTexturePlane.png?raw=true" width="640" alt="Figure 7-33">
+  <figcaption style="color:blue"><b>Figure 7-33</b>. Example of texture mapping.<a href="../../Cxx/Texture/TexturePlane" title="TexturePlane"> See TexturePlane.cxx</a> and <a href="../../Python/Texture/TexturePlane" title="TexturePlane"> TexturePlane.py</a>.</figcaption>
+</figure>
 
 ### Red-Blue Stereo
 
-In our first example, we will be looking at using red-blue stereo
-rendering. We start off with the example shown in **Figure 7-35**,
-which renders something akin to a mace. Then, in **Figure 7-35** we
-add in red-blue stereo rendering by adding two lines near the bottom
-that invoke the StereoRenderOn() and SetStereoType() methods. Once
-these two methods have been invoked, further rendering will be done
-in stereo. The picture in the upper right corner displays a grayscale
-version of the resulting image.
+In our first example, we will be looking at using red-blue stereo rendering. We start off with the example shown in **Figure 7-35**, which renders something akin to a mace. Then, in **Figure 7-35** we add in red-blue stereo rendering by adding two lines near the bottom that invoke the StereoRenderOn() and SetStereoType() methods. Once these two methods have been invoked, further rendering will be done in stereo. The picture in the upper right corner displays a grayscale version of the resulting image.
 
 ### Motion Blur
 
@@ -821,8 +817,7 @@ renWin->SetStereoTypeToRedBlue();
 renWin->Render();
 ```
 
-**Figure 7-35** An example of red-blue stereo rendering ( Mace3.cxx
-).
+**Figure 7-35** An example of red-blue stereo rendering ( Mace3.cxx ).
 
 
 ``` c++
@@ -849,11 +844,20 @@ for (i = 0; i <= 1.0; i = i + 0.05)
 
 iren->Start();
 ```
-**Figure 7-36** Example of motion blur ( MotBlur.cxx ).
+
+<figure id="Figure 7-36">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestMotionBlur.png?raw=true" width="640" alt="Figure 7-36">
+  <figcaption style="color:blue"><b>Figure 7-36</b>. Example of motion blur. <a href="../../Cxx/Rendering/MotionBlur" title="MotionBlur"> See MotionBlur.cxx</a> and <a href="../../Python/Rendering/MotionBlur" title="MotionBlur"> MotionBlur.py</a>.</figcaption>
+</figure>
 
 ### Focal Depth
 
 Now we will change the previous example to illustrate focal depth. First, we change the position of the bottom mace, moving it farther away from us. Since it is farther away it will appear smaller, so we scale it by a factor of two to maintain reasonable image size. We then remove the code for rendering the sub frames and instead set the number of frames for focal depth rendering. We also set the camera's focal point and focal disk to appropriate values. The resulting image and the required changes to the source code are shown in **Figure 7-37**.
+
+<figure id="Figure 7-37">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Rendering/TestCameraBlur.png?raw=true" width="640" alt="Figure 7-37">
+  <figcaption style="color:blue"><b>Figure 7-37</b>. Contouring examples. <a href="../../Cxx/Rendering/CameraBlur" title="CameraBlur"> See CameraBlur.cxx</a> and <a href="../../Python/Rendering/CameraBlur" title="CameraBlur"> CameraBlur.py</a>.</figcaption>
+</figure>
 
 ### &#118;tkLineWidget
 
