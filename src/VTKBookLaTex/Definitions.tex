@@ -21,7 +21,9 @@
 \newlistof{myequations}{equ}{\listequationsname}
 \newcommand{\myequations}[1]{%
 \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
-\setlength{\cftmyequationsnumwidth}{2.5em}% Width of equation number in List of Equations
+\setlength{\cftmyequationsnumwidth}{3.0em}% Width of equation number in List of Equations
+
+\setlength{\cftfignumwidth}{3.0em} % Width of list number in list of figures.
 
 % For decimal aligned columns.
 \usepackage{dcolumn}
@@ -46,7 +48,8 @@
 \usepackage{lettrine}
 \usepackage{indentfirst}
 \usepackage{titlesec}
-\titleformat{\chapter}{\large\bfseries}{\thesection}{1em}{\hrule}
+%\titleformat{\chapter}{\large\bfseries}{\thesection}{1em}{\hrule}
+%\usepackage{tikz}
 \usepackage{listings}
 % Set the default code style.
 \lstset{
@@ -59,6 +62,11 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
     keywordstyle=\color{Blue}, % keyword color
     stringstyle=\color{Maroon} % string color
 }
+% Fix spacing in the listing of the listings.
+\makeatletter
+%\renewcommand*{\l@lstlisting}[2]{\@dottedtocline{1}{1.5em}{3.0em}{\sffamily#1}{\sffamily#2}}
+\renewcommand*{\l@lstlisting}[2]{\@dottedtocline{1}{1.5em}{3.0em}{#1}{#2}}
+\makeatother
 
 \usepackage[
     refsection=chapter,
@@ -87,6 +95,7 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
 %%% ----------------------------------------------------------------------
 % Some general global declarations
 
+
 % Graphics paths and extensions.
 \graphicspath{{Art/}{Art/Scraped/}{Figures/}{Figures/Scraped/}{Figures/Headings/}}
 % Prefer pdf over png.
@@ -95,39 +104,7 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
     .png,.PNG,%
     .jpg,.mps,.jpeg,.jbig2,.jb2,.JPG,.JPEG,.JBIG2,.JB2}
 
-\addtolength{\textwidth}{50pt}
-\addtolength{\evensidemargin}{-25pt}
-\addtolength{\oddsidemargin}{-25pt}
-
-\def\displayandname#1{\rlap{$\displaystyle\csname #1\endcsname$}%
-                      \qquad \texttt{\char92 #1}}
-\def\mathlexicon#1{$$\vcenter{\halign{\displayandname{##}\hfil&&\qquad
-                   \displayandname{##}\hfil\cr #1}}$$}
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-
-\newenvironment{proof}[1][Proof]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-\newenvironment{definition}[1][Definition]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-\newenvironment{example}[1][Example]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-\newenvironment{remark}[1][Remark]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-
-\newcommand{\qed}{\nobreak \ifvmode \relax \else
-      \ifdim\lastskip<1.5em \hskip-\lastskip
-      \hskip1.5em plus0em minus0.5em \fi \nobreak
-      \vrule height0.75em width0.5em depth0.25em\fi}
-
-
-
-%\newcommand {\myfrac } [2] { \frac{\displaystyle #1}{\displaystyle #2} }
-\newcommand {\half} {\dfrac{1}{2}}
-\newcommand {\onehalf} {\dfrac{3}{2}}
+% Make a nice first letter in a paragraph.
 \newcommand{\firstletter}[1] {\lettrine[lines=2, lraise=0.7]{\color{Sepia}\textit{#1}}}
 
 %\newcommand{\listcpp}[1] {{\lstlisting[style=mycpp]{#1}}}
