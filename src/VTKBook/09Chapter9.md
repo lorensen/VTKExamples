@@ -630,7 +630,7 @@ Like the edge collapse/split, the vertex split/merge can also be represented as 
 
 The vertices $v_l$ and $v_r$ define a sweep of triangles (from $v_r$ to $v_l$ ) that are to be separated from the original vertex vs (we adopt a counter-clockwise ordering convention to uniquely define the sweep of triangles).
 
-<figure id="Figure NUMBER">
+<figure id="Figure 9-29">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure9-29.png?raw=true" width="640" alt="Figure9-29">
   <figcaption style="color:blue"><b>Figure 9-29</b>. Results of topology modifying progressive mesh algorithm.</figcaption>
 </figure>

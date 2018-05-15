@@ -817,8 +817,10 @@ renWin->SetStereoTypeToRedBlue();
 renWin->Render();
 ```
 
-**Figure 7-35** An example of red-blue stereo rendering ( Mace3.cxx ).
-
+<figure id="Figure 7-35">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-35.png?raw=true" width="640" alt="Figure7-35">
+  <figcaption style="color:blue"><b>Figure 7-35</b>. An example of red-blue stereo rendering.</figcaption>
+</figure>
 
 ``` c++
 //changes and additions to the
