@@ -11,21 +11,17 @@ The process is documented in these scripts:
 - `MakeDocument.bash` and `MakeDocument.cmd`.
 - `Clean.bash` and `Clean.cmd`.
 
-Running `MakeDocument` will generate the PDF. 
+Running `MakeDocument` will generate the PDF.
 
-## [TexStudio](https://www.texstudio.org/)
+## Editors used
 
-This LaTex editor/builder seems to work quite well.
+[TexStudio](https://www.texstudio.org/) is used to edit/build the document.
 
-### Setup
+if setting up TexStudio, remember to go to  **Configure TeXstudio|Build** and change the **Default Compiler** to `LuaLaTex` and the **Default Bibliography Tool** to `Biber`.
 
-In **Configure TeXstudio|Build** change the **Default Compiler** to `LuaLaTex` and the **Default Bibliography Tool** to `Biber`.
+[JabRef](http://www.jabref.org/) is used to maintain the bibliography.
 
-## [LaTexDraw](http://latexdraw.sourceforge.net/)
-
-Maybe useful for producing the drawings.
-
-## Procedure for adding chapters
+## Procedure for adding/editing chapters
 
 1. When starting a chapter, copy the relevant figures across from `src/VTKBook/Figures` into `src/VTKLaTex/Figures`. After that just add figures into `src/VTKLaTex/Figures`.
 
@@ -37,7 +33,6 @@ Maybe useful for producing the drawings.
 
 5. For equations use Bernard's excellent work in `Equations.txt` with one minor change, instead of `\vec{v}` use `\overrightarrow{v\ }` to improve appearances. At the end of each equation you need to add the following line:
 
-
     ```
     \myequations{Description of the Equation}
     ```
@@ -47,59 +42,20 @@ Maybe useful for producing the drawings.
 
 7. In doing the chapter you will find references to pages and sections in other chapters. As these occur, add the relevant labels into the other chapters. 
 
-8. Look at chapters 3, 6, 12 for guidance.
-
-## Completed Chapters
-
-| Chapter | Completed |
-| --------------: | :---------:|
-| Preface   | Yes |
-| Chapter01 | Yes |
-| Chapter02 | Yes |
-| Chapter03 | Yes |
-| Chapter04 | Yes |
-| Chapter05 | Yes |
-| Chapter06 | Yes |
-| Chapter07 | Yes |
-| Chapter08 | Yes |
-| Chapter09 | Yes |
-| Chapter10 | Yes |
-| Chapter11 | Under construction |
-| Chapter12 | Yes |
-| GLossary  | Yes |
-
 ## ToDo
-
-### Introduction
 
 Here we list tasks that need to be done.
 
 ### General
 
- 1. Create a script to copy and rename the VTKExamples test files into the Figures dub directory. See ReadMe.md in this directory for a list of files chapter by chapter. This script wil need to be callable from `Admin/ScrapeRepo` in the section **# Copy VTKBookLaTex files**.
+ 1. Create a script to copy and rename the VTKExamples test files into the Figures dub directory. See `src/VTKLaTex/Figures/ReadMe.md` for a list of files chapter by chapter. This script wil need to be callable from `Admin/ScrapeRepo` in the section **# Copy VTKBookLaTex files**.
 
  2. Better versions of the files in `Figures/Scraped` will be needed for publication quality. When a new version is made it should go into `Figures` and the correspond one in `Fugures/Scraped` removed.
 
  3. Bibliographic links - need to work out hou to get the BibTexKey instead of a number displayed in the text. e.g. instead of `[1]` we need `[Nielson90]`.
 
- Following is a chapter by chapter list of tasks.
+ 4. Figures will need adjustment.
 
-### Chapter 03
+ 5. Figures in `Figures` will need to be reviewed and better versions provided.
 
-- Fig 3.28 needs adjustment.
-
-- Fig 3-30: Code needs to be written to generate these figures. I suggest `RotateCow.cxx` and `RotateCow.py` based on `https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/Rotations/`, alternatively `Rotations.cxx` and `Rotations.py` could be modified. I would like the colours to match those in Fig 3-31 and Fig-3-32.
-
-### Chapter 06
-
-- Figure 6-3: Code needs to be written to generate the four plates here. `Rainbow.cxx`and `Rainbow.py`already exist.
-
-- Figure 6-6: Modify `MarchingCasesA` so that the last two cases are centered and the black backgrounds are changed to match the other backgrounds.
-
-- Figure 6-10: Modify `MarchingCasesB` so that the last two cases are centered and the black backgrounds are changed to match the other backgrounds.
-
-- Figure 6-25: Need the alternate view here.
-
-### Chapter 08
-
-- Figure 8-2: Equation needs fixing.
+ 6. Improve layout.
