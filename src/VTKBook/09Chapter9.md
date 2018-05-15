@@ -307,7 +307,6 @@ Vortex visualization is another area of current research. One technique computes
 </figure>
 
 $$
-% EQUATION 9-12
 \begin{equation*}
 H_d = \vec{v} \cdot \vec{w} = \vert \vec{v} \vert \vert \vec{w} \vert \cos(\phi)
 \end{equation*}
@@ -905,7 +904,8 @@ An extension of this technique introduces a third region into the texture map: a
   <figcaption style="color:blue"><b>Figure 9-42</b>. 1D texture map. (a) In/out map. (b) Addition of transition region to in/out map.</figcaption>
 </figure>
 
-To construct the texture map we use intensity-alpha, or $I\alpha$ values. The intensity modulates the underlying color, while the alpha value controls transparency (as described previously). In the accentuated region, the intensity and opacity values are set high. In the concealed region, the intensity value can be set to any value ($if \alpha = 0$) or to a lower value ($if \alpha \ne 0$).The transition region can use various combinations of $\alpha$ and intensity. A nice combination produces a black, opaque transition region (i.e., $I = 0$ and $\alpha = 1$ ).
+To construct the texture map we use intensity-alpha, or $I\alpha$ values. The intensity modulates the underlying color, while the alpha value controls transparency (as described previously). In the accentuated region, the intensity and opacity values are set high. In the concealed region, the intensity value can be set to any value ($if \alpha = 0$) or to a lower value ($if \alpha \ne 0$).The transition reg
+ion can use various combinations of $\alpha$ and intensity. A nice combination produces a black, opaque transition region (i.e., $I = 0$ and $\alpha = 1$ ).
 
 To visualize information with the thresholding technique, we must map data to texture coordinates. As we saw previously, we can use scalar values in combination with a threshold specification to map data into the concealed, transition, and accentuated regions of the texture map. **Figure 9-43a** shows an example of texture thresholding applied to scalar data from a simulation of fluid flow. A scalar threshold sT is set to show only data with scalar value greater than or equal to sT.
 
