@@ -623,10 +623,12 @@ Nonmanifold vertices are split into separate manifold pieces. In any other type 
 
 Like the edge collapse/split, the vertex split/merge can also be represented as a compact operation. A vertex split/merge operation can be represented with four values
 
+$$
 \begin{equation*}
 \text{vertex split/merge}(v_s, v_t, v_l, v_r)
 \end{equation*}
 \bf\tag{9-18}
+$$
 
 The vertices $v_l$ and $v_r$ define a sweep of triangles (from $v_r$ to $v_l$ ) that are to be separated from the original vertex vs (we adopt a counter-clockwise ordering convention to uniquely define the sweep of triangles).
 
@@ -760,7 +762,7 @@ $$
 \bf\tag{9-22}
 $$
 
-where $s$ is a scale factor that multiplies the exponential, $f$f is the exponent scale factor $f \geq 0$, $r$ is the distance between any point and the Gaussian center point (i.e., the splat point) r = p pi, and R is the radius of influence of the Gaussian, where $r \leq R$.
+where $s$ is a scale factor that multiplies the exponential, $f$f is the exponent scale factor $f \geq 0$, $r$ is the distance between any point and the Gaussian center point (i.e., the splat point) $r = \|p - p_i$i\|, and $R$ is the radius of influence of the Gaussian, where $r \leq R$.
 
 The Gaussian function (**Figure 9-37**(a)) becomes a circle in cross section in two dimensions (**Figure 9-37**(b)) and a sphere in three dimensions. Since the value of the function is maximum when r = 0, the maximum value is given by the scale factor s. The parameter f controls the rate of decay of the splat. Scalar values can be used to set the value of s, so that relatively large scalar values create bigger splats than smaller values.
 
@@ -846,7 +848,7 @@ Shepard's method is an example of a basis function method. That is, the interpol
   <figcaption style="color:blue"><b>Figure 9-39</b>. The Delaunay triangulation (a) and Dirichlet tessellation (b). The circumcircle of each triangle in a Delaunay triangulation contains no other points but the three vertices of the triangle. The region surrounding each point pi in a Dirichlet tessellation is the set of points closest to p_i.</figcaption>
 </figure>
 
-An n-dimensional triangulation of a point set $P = (p_1, p_2, p_3, ..., p_n)$ is a collection of n-dimensional simplices whose defining points lie in $P$. The simplices do not intersect one another and share only boundary features such as edges or faces. The Delaunay triangulation is a particularly important form <em style="color:blue;background-color: white">\[Bowyer81\]</em> <em style="color:blue;background-color: white">\[Watson81\]</em>. It has the property that the circumsphere of any n-dimensional simplex contains no other points of $P$ except the n+1 defining points of the simplex (**Figure 9-39**(a)).
+An n-dimensional triangulation of a point set $P = (p_1, p_2, p_3, ..., p_n)$ is a collection of n-dimensional simplices whose defining points lie in $P$. The simplices do not intersect one another and share only boundary features such as edges or faces. The Delaunay triangulation is a particularly important form <em style="color:blue;background-color: white">\[Bowyer81\]</em> <em style="color:blue;background-color: white">\[Watson81\]</em>. It has the property that the circumsphere of any n-dimensional simplex contains no other points of $P$ except the $n+1$ defining points of the simplex (**Figure 9-39**(a)).
 
 The Delaunay triangulation has many interesting properties. In two dimensions, the Delaunay triangulation has been shown to be the optimal triangulation. That is, the minimum interior angle of a triangle in a Delaunay triangulation is greater than or equal to the minimum interior angle of any other possible triangulation. The Delaunay triangulation is the dual of the Dirichlet tessellation (**Figure 9-39**(b)), another important construction in computational geometry. The Dirichlet tessellation, also known as the Voronoi tessellation, is a tiling of space where each tile represents the space closest to a point pi. (The tiles are called Voronoi cells.) An n-dimensional Delaunay triangulation can be constructed from the Dirichlet tessellation by creating edges between Voronoi cells that share common n-1 boundaries (e.g., faces in 3D and edges in 2D). Conversely, the vertices of the Dirichlet tessellation are located at the circumcenters of the Delaunay circumcircles.
 
@@ -903,7 +905,7 @@ An extension of this technique introduces a third region into the texture map: a
   <figcaption style="color:blue"><b>Figure 9-42</b>. 1D texture map. (a) In/out map. (b) Addition of transition region to in/out map.</figcaption>
 </figure>
 
-To construct the texture map we use intensity-alpha, or $I\alpha$ values. The intensity modulates the underlying color, while the alpha value controls transparency (as described previously). In the accentuated region, the intensity and opacity values are set high. In the concealed region, the intensityvaluecanbesettoanyvalue($if \alpha = 0$)or to a lower value($if \alpha \ne 0$).The transition region can use various combinations of $\alpha$ and intensity. A nice combination produces a black, opaque transition region (i.e., $I = 0$ and $\alpha = 1$ ).
+To construct the texture map we use intensity-alpha, or $I\alpha$ values. The intensity modulates the underlying color, while the alpha value controls transparency (as described previously). In the accentuated region, the intensity and opacity values are set high. In the concealed region, the intensity value can be set to any value ($if \alpha = 0$) or to a lower value ($if \alpha \ne 0$).The transition region can use various combinations of $\alpha$ and intensity. A nice combination produces a black, opaque transition region (i.e., $I = 0$ and $\alpha = 1$ ).
 
 To visualize information with the thresholding technique, we must map data to texture coordinates. As we saw previously, we can use scalar values in combination with a threshold specification to map data into the concealed, transition, and accentuated regions of the texture map. **Figure 9-43a** shows an example of texture thresholding applied to scalar data from a simulation of fluid flow. A scalar threshold sT is set to show only data with scalar value greater than or equal to sT.
 
