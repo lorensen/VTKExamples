@@ -1,6 +1,6 @@
 # Chapter 5 - Data Representation
 
-In [Chapter 4 - The Visualization Pipeline](/VTKBook/04Chapter4) we developed a pragmatic definition of the visualization process: mapping information into graphics primitives. We saw how this mapping proceeds through one or more steps, each step transforming data from one form, or data representation, into another. In this chapter we examine common data forms for visualization. The goal is to familiarize you with these forms, so that you can visualize your own data using the tools and tech niques provided in this text.
+**I**n [Chapter 4 - The Visualization Pipeline](/VTKBook/04Chapter4) we developed a pragmatic definition of the visualization process: mapping information into graphics primitives. We saw how this mapping proceeds through one or more steps, each step transforming data from one form, or data representation, into another. In this chapter we examine common data forms for visualization. The goal is to familiarize you with these forms, so that you can visualize your own data using the tools and techniques provided in this text.
 
 ## 5.1 Introduction
 To design representational schemes for data we need to know something about the data we might encounter. We also need to keep in mind design goals, so that we can design efficient data structures and access methods. The next two sections address these issues.
@@ -9,7 +9,7 @@ To design representational schemes for data we need to know something about the 
 
  Since our aim is to visualize data, clearly we need to know something about the character of the data. This knowledge will help us create useful data models and powerful visualization systems. Without a clear understanding of the data, we risk designing inflexible and limited visualization systems. In the following we describe important characteristics of data. These characteristics are the discrete nature of data, whether it is regular or irregular, and its topological dimension.
 
-First, visualization data is _discrete_. This is because we use digital computers to acquire, ana lyze, and represent our data, and typically measure or sample information at a finite number of points. Hence, all information is necessarily represented in discrete form. 
+First, visualization data is _discrete_. This is because we use digital computers to acquire, analyze, and represent our data, and typically measure or sample information at a finite number of points. Hence, all information is necessarily represented in discrete form. 
 
 Consider visualizing the simple continuous function $y = x^2$. If we are using a conventional digital computer, we must discretize this equation to operate on the data it represents (we are ignoring symbolic/analog computers and methods). For example, to plot this equation we would sample the function in some interval, say (-1,1), and then compute the value y of the function at a series of discrete points $x = x_i$ in this interval. The resulting points $((x_0,y_0), (x_1,y_1), (x_2,y_2), ... (x_n,y_n))$ connect the points with straight line segments. Thus, our (continuous) data is represented by a discrete sampling.
 
@@ -115,13 +115,13 @@ Linear cells are characterized by linear or constant interpolation functions (se
 
 The ordering of the points defining the pixel is different from the quadrilateral cell. The points are ordered in the direction of increasing axis coordinate, starting with _x_, then _y_, then _z_. The pixel is a special case of the quadrilateral and is used to improve computational performance.
 
-One important note is that the definition of the pixel cell given here is different from the usual definition for a pixel. Normally pixels are thought of as constant-valued “picture-elements” in an image (see [“Graphics Hardware”]/VTKBook/03Chapter3/#39-graphics-hardware) in [Chapter 3](/VTKBook/03Chapter3)). The definition given here implies that four pictureelements form the four corner points of the pixel cell. We normally use the term pixel to describe a pixel cell, but the meaning of the term will vary depending on context.
+One important note is that the definition of the pixel cell given here is different from the usual definition for a pixel. Normally pixels are thought of as constant-valued “picture-elements” in an image (see [“Graphics Hardware”]/VTKBook/03Chapter3/#39-graphics-hardware) in [Chapter 3](/VTKBook/03Chapter3)). The definition given here implies that four picture elements form the four corner points of the pixel cell. We normally use the term pixel to describe a pixel cell, but the meaning of the term will vary depending on context.
 
 **Polygon.** The polygon is a primary two-dimensional cell. The polygon is defined by an ordered list of three or more points lying in a plane. The polygon normal is implicitly defined by a counterclockwise ordering of its points using the right-hand rule.
 
-The polygon may be nonconvex, but may not have internal loops, and it cannot self-intersect. The polygon has _n_ edges, where _n_ is the number of points in the polygon.
+The polygon may be non-convex, but may not have internal loops, and it cannot self-intersect. The polygon has _n_ edges, where _n_ is the number of points in the polygon.
 
-**Tetrahedron.** The tetrahedron is a primary three-dimensional cell. The tetrahedron is defined by a list of four nonplanar points. The tetrahedron has six edges and four triangular faces as shown in **Figure 5-2**.
+**Tetrahedron.** The tetrahedron is a primary three-dimensional cell. The tetrahedron is defined by a list of four non-planar points. The tetrahedron has six edges and four triangular faces as shown in **Figure 5-2**.
 
 **Hexahedron.** The hexahedron is a primary three-dimensional cell consisting of six quadrilateral faces, twelve edges, and eight vertices. The hexahedron is defined by an ordered list of eight points as shown in **Figure 5-2**. The faces and edges must not intersect any other faces and edges, and the hexahedron must be convex.
 
@@ -150,7 +150,7 @@ One significant difference between linear and nonlinear cells is the way they ar
 
 1. Tessellating nonlinear cells into linear cells and then operating on the linear cells.
 
-2. Develop custom rendering and visualization algorithms to operate directly on nonlinearcells.
+2. Develop custom rendering and visualization algorithms to operate directly on nonlinear cells.
 
 3. Program custom rendering operations in the graphics library. These issues are active topics in visualization research <em style="color:blue;background-color: white">\[Schroeder05\]</em>. In VTK, tessellation methods are currently employed since once tessellated, a cell can be processed by existing linear algorithms. The difficulty with solutions 2) and 3) above is that the effort to create new rendering and visualization algorithms is significant, possibly requiring different solutions for each type of nonlinear cell. Furthermore, it is likely that the performance found in dedicated rendering hardware (e.g., processing linear cells) would far outstrip any software rendering solution for higher order cells. The difficulty with 1) above is that the tessellation must be performed carefully or unacceptable error can be introduced into visualization. Or, if the cell is over-tessellated, an excessive number of linear primitives will result. Future research points to developing adaptive methods that tessellate on a selected error metric (please see [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) for more information).
  
@@ -190,7 +190,7 @@ VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in 
 
 ## 5.5 Attribute Data
 
-Attribute data is information associated with the structure of the dataset. This structure includes both the dataset geometry and topology. Most often, attribute data is associated with dataset pointsor cells, but sometimes attribute data may be assigned to cell components such as edges or faces. Attribute data may also be assigned across the entire dataset, or across a group of cells or points. We refer to this information as attribute data because it is an attribute to the structure of the dataset. Typical examples include temperature or velocity at a point, mass of a cell, or heat flux into and out of a cell face.
+Attribute data is information associated with the structure of the dataset. This structure includes both the dataset geometry and topology. Most often, attribute data is associated with dataset points or cells, but sometimes attribute data may be assigned to cell components such as edges or faces. Attribute data may also be assigned across the entire dataset, or across a group of cells or points. We refer to this information as attribute data because it is an attribute to the structure of the dataset. Typical examples include temperature or velocity at a point, mass of a cell, or heat flux into and out of a cell face.
 
 <figure id="Figure 5-6">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-6.png?raw=true" width="640" alt="Figure5-6">
@@ -223,7 +223,7 @@ One application of texturing in two dimensions is to “paste” a photograph on
 
 ### Tensors
 
-Tensors are complex mathematical generalizations of vectors and matrices. A tensor of rank k can be considered a k-dimensional table. A tensor of rank 0 is a scalar, rank 1 is a vector, rank 2 is a matrix, and a tensor of rank 3 is a three-dimensional rectangular array. Tensors of higher rank are kdimensional rectangular arrays.
+Tensors are complex mathematical generalizations of vectors and matrices. A tensor of rank k can be considered a k-dimensional table. A tensor of rank 0 is a scalar, rank 1 is a vector, rank 2 is a matrix, and a tensor of rank 3 is a three-dimensional rectangular array. Tensors of higher rank are k-dimensional rectangular arrays.
 
 General tensor visualization is an area of current research. Efforts thus far have been focused on two-dimensional, rank 2 tensors, which are 3 × 3 matrices. The most common form of such tensors are the stress and strain tensors, which represent the stress and strain at a point in an object under load. VTK only treats real-valued, symmetric 3 × 3 tensors.
 
@@ -277,7 +277,7 @@ Unstructured points are points irregularly located in space. There is no topolog
 
 Unstructured points are a simple but important type of dataset. Often data has no inherent structure, and part of the visualization task is to discover or create it. For example, consider a piston in a car instrumented with temperature gauges. The number of gauges and their location is chosen at a finite set of points, resulting in temperature values at “unrelated” (at least in terms of visualization topology) positions on the surface of the piston. To visualize the surface temperature, we have to create an interpolation surface and scheme to fill in intermediate values.
 
-Unstructured points serve to represent such unstructured data. Typically, this data form is transformed into another more structured form for the purposes of visualization. Algorithms for transforming unstructured points into other forms are described in [“Visualizing Unstructured Points”](/VTKBook/09Chapter9/#visualizing-unstructured-points) in [CVhapter 9](/VTKBook/09Chapter9).
+Unstructured points serve to represent such unstructured data. Typically, this data form is transformed into another more structured form for the purposes of visualization. Algorithms for transforming unstructured points into other forms are described in [“Visualizing Unstructured Points”](/VTKBook/09Chapter9/#visualizing-unstructured-points) in [Chapter 9](/VTKBook/09Chapter9).
 
 ### Unstructured Grid
 
@@ -457,7 +457,7 @@ The vtkCellTypes may also be added to the vtkPolyData data representation — an
 
 In the _Visualization Toolkit_ each cell type has been implemented by creating specific classes. Each cell is a subclass of the abstract type vtkCell. Cell topology is represented by a list of ordered point ids, and cell geometry is represented by a list of point coordinates. The object diagram for vtkCell and its subclasses is shown in **Figure 5-15**.
 
-The abstract class vtkCell specifies methods that each cell must implement. These methods provide a defined interface to the cell’s geometry and topology. Additional methods perform com- putation on the cell. These methods will be discussed in detail in [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8).
+The abstract class vtkCell specifies methods that each cell must implement. These methods provide a defined interface to the cell’s geometry and topology. Additional methods perform computation on the cell. These methods will be discussed in detail in [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8).
 
 ### Data Attributes
 
@@ -473,11 +473,16 @@ In VTK data attributes are associated with the points and cells of the dataset. 
 
 One difficulty with maintaining both cell data and point data representations is that possible inconsistencies in the data may arise. For example, if a cell’s scalar value is 0.5, and its points have scalar values other than 0.5, which is the correct value? Priority schemes can be devised to resolve such situations although the user must recognize that such inconsistencies may exist.
 
-To represent dataset attributes we use the organizing classes vtkPointData and vtkCellData, both of which are subclasses of the class vtkFieldData as shown in **Figure 5-16**. The class vtkDataSetAttributes serves to coordinate the movement of datafrom one process object to the next. It provides methods for copy-ing, interpolating, and moving data between input and output.
+<figure id="Figure 5-16">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure5-16.png?raw=true" width="640" alt="Figure5-16">
+  <figcaption style="color:blue"><b>Figure 5-16</b>.Inheritance hierarchy for representing dataset attributes.</figcaption>
+</figure>
+
+To represent dataset attributes we use the organizing classes vtkPointData and vtkCellData, both of which are subclasses of the class vtkFieldData as shown in **Figure 5-16**. The class vtkDataSetAttributes serves to coordinate the movement of data from one process object to the next. It provides methods for copying, interpolating, and moving data between input and output.
 
 Another important feature of vtkDataSetAttributes is that it provides the ability to assign a data array to represent a particular data attribute. For example, the method SetScalars() is used to specify which data array is to be treated as the scalars in the field.
 
-There is a one-to-one correspondence between each dataset point and its attribute data. Point attributes are accessed by way of the point id. For example, to access the scalar value of point id 129 in the dataset instance aDataSet, we useaDataSet->GetPointData()->GetScalars()->GetTuple(129);
+There is a one-to-one correspondence between each dataset point and its attribute data. Point attributes are accessed by way of the point id. For example, to access the scalar value of point id 129 in the dataset instance aDataSet, we use aDataSet->GetPointData()->GetScalars()->GetTuple(129);
 
 This statement assumes that the scalar data has been defined for this dataset and is non-NULL.
 
@@ -507,7 +512,7 @@ As this example shows, polygonal data is created by constructing pieces (e.g., p
 
 2. Create instances of vtkCellArray to define topology for vertices, lines, polygons, and triangle strips. Use the operators cube->SetVerts(), cube->SetLines(), cube->SetPolys(), and cube->SetStrips() to associate the cells with the dataset.
  
-3. Create point and/or attribute data. Every dataset has two fieldsrepresenting vtkPointDataand vtkCellData. Use the operator pd=cube->GetPointData() to retrieve the pointer to the point attribute data. Use the operator pd=cube->GetCellData() to retrieve the pointer to the cell attribute data. Associate the attribute data with the dataset using the operators pd->SetScalars(), pd->SetVectors(), pd->SetNormals(), pd->SetTensors(), and pd->SetTCoords() (and similar for cell data).
+3. Create point and/or attribute data. Every dataset has two fields representing vtkPointDataand vtkCellData. Use the operator pd=cube->GetPointData() to retrieve the pointer to the point attribute data. Use the operator pd=cube->GetCellData() to retrieve the pointer to the cell attribute data. Associate the attribute data with the dataset using the operators pd->SetScalars(), pd->SetVectors(), pd->SetNormals(), pd->SetTensors(), and pd->SetTCoords() (and similar for cell data).
  
 Polygonal data supports the following cell types: vertices, polyvertices, lines, polylines, triangles, quadrilaterals, polygons, and triangle strips. Point and cell attribute data does not need to be defined — you can create none, some, or all of the point and cell attributes in any combination.
 
@@ -540,7 +545,7 @@ with the radius R = 0.4. The scalar data is stored in an instance of vtkFloatArr
 
 To complete this example, a contour filter is used to generate a surface of scalar value $F(x, y, z) = 0$. Note that this functionality (in a more general form) is available from the source object vtkSampleFunction in combination with vtkSphere. **Figure 5-18** shows the key C++ code fragment used to create the data and contour the scalar field, and the resulting image.
 
-Image data datasets are easy to construct because both the geometry and topology are implicitly defined. If the name of the instance of vtkImageData is vol, we can summarize the steps to cre-ate the dataset as follows:
+Image data datasets are easy to construct because both the geometry and topology are implicitly defined. If the name of the instance of vtkImageData is vol, we can summarize the steps to create the dataset as follows:
 
 1. Define the topology of the dataset using the operator vol->SetDimensions().
 
@@ -579,7 +584,7 @@ The creation of a structured grid dataset is partially explicit and partially im
 
 1. Specify the dataset geometry by creating an instance of vtkPoints.Use the operators grid->SetPoints() to associate the points with the dataset.
 
-2. The dataset topology is specified using the operators grid->SetDimensions(). Make sure the number of points created in item number 1 above is equal to the implied number of points nx⋅ny⋅nz.
+2. The dataset topology is specified using the operators grid->SetDimensions(). Make sure the number of points created in item number 1 above is equal to the implied number of points $nx⋅ny⋅nz$.
 
 3. Create point and/or cell attribute data and associate it with the dataset.The topological dimension of the dataset is implied by the specified dimensions. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one, the topological dimension of the dataset is two. If two of the three dimensions (nx, ny, nz) are equal to one, the topological dimension of the dataset is one.
 
