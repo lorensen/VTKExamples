@@ -40,7 +40,7 @@ Characterizing data as regular or irregular allows us to make useful assumptions
 
 Finally, data has a topological dimension. In our example $y = x^2$ , the dimension of the data is one, since we have the single independent variable $x$. Data is potentially of any dimension from 0D points, to 1D curves, 2D surfaces, 3D volumes, and even higher dimensional regions.
 
-The dimension of the data is important because it implies appropriate methods for visualization and data representation. For example, in 1D we naturally use x-y plots, bar charts, or pie charts, and store the data as a 1D list of values. For 2D data we might store the data in a matrix, and visualize it with a deformed surface plot (i.e., a height field — see Exercise ***4.2***).
+The dimension of the data is important because it implies appropriate methods for visualization and data representation. For example, in 1D we naturally use x-y plots, bar charts, or pie charts, and store the data as a 1D list of values. For 2D data we might store the data in a matrix, and visualize it with a deformed surface plot (i.e., a height field — see Exercise 2 on page \pageref{ex:ch04_4.2}).
 
 In this chapter and Chapter 8: \nameref{chap:advanced_data_representation}, we show how these characteristics: discrete, regular/irregular, and data dimension, shape our model of visualization data. Keep these features in mind as you read these chapters.
 
@@ -73,7 +73,7 @@ The remainder of this chapter describes common visualization data forms based on
 
 \section{The Data Object}
 
-The most general form of data found in VTK is the data object. A data object can be thought of as a collection of data without any form. Data objects represent the data that is processed by the visualization pipeline (see the previous chapter and Figure ***4-2***). Taken by themselves, data objects carry little useful information. It is only when they are organized into some structure that they provide a form that we can operate on with visualization algorithms.
+The most general form of data found in VTK is the data object. A data object can be thought of as a collection of data without any form. Data objects represent the data that is processed by the visualization pipeline (see the previous chapter and Figure \ref{fig:Figure4-2}). Taken by themselves, data objects carry little useful information. It is only when they are organized into some structure that they provide a form that we can operate on with visualization algorithms.
 
 \section{The Dataset}
 \label{sec:dataset}

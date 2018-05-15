@@ -1231,7 +1231,7 @@ vtkThresholdPoints allows us to extract points that satisfy a certain threshold 
 
 The filter vtkMaskPoints allows us to select a subset of the available points. We specify the subset with the OnRatio instance variable. This instance variable indicates that every OnRatio point is to be selected. Thus, if the OnRatio is equal to one, all points will be selected, and if the OnRatio is equal to ten, every tenth point will be selected. This selection can be either uniform or random. Random point selection is set using the RandomModeOn() and RandomModeOff() methods.
 
-After selecting a subset of the original points, we can use the vtkGlyph3D filter in the usual way. A cone's orientation indicates blood flow direction, and its size and color correspond to the velocity magnitude. Figure \ref{fig:Figure6-43} shows the pipeline, sample code, and a resulting image from this visualization. Note that we've implemented the example using the interpreted language Tcl. See Chapter 11: \nameref{chap:visuzlization_web} if you want more information about Tcl.
+After selecting a subset of the original points, we can use the vtkGlyph3D filter in the usual way. A cone's orientation indicates blood flow direction, and its size and color correspond to the velocity magnitude. Figure \ref{fig:Figure6-43} shows the pipeline, sample code, and a resulting image from this visualization. Note that we've implemented the example using the interpreted language Tcl. See Chapter 11: \nameref{chap:visualization_web} if you want more information about Tcl.
 
 \begin{figure}[!htb]
 	\begin{subfigure}[h]{0.48\linewidth}
