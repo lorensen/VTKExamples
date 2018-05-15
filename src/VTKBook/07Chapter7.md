@@ -534,7 +534,7 @@ A good result can be obtained by breaking each pixel into 10 sub-pixels, which r
 The last method of anti-aliasing we will look at uses an accumulation buffer to average a few possibly aliased images together to produce one anti-aliased result. An accumulation buffer is just a segment of memory that is set aside for performing image operations and storage. The following fragment of C++ code illustrates this process.
 
 ``` c++
-for (imageNum = 0; imageNum \< imageTotal; imageNum++)
+for (imageNum = 0; imageNum < imageTotal; imageNum++)
   {
   //   Jitter the camera and focal point by less than one pixel
   //   Render an image
