@@ -7,4 +7,4 @@ This exmaple runs [Office.cxx](/Cxx/VisualizationAlgoriths) as follows:
 ```
 
 !!! info
-    See [Figure 9-47](/VTKBook/09Chapter9/#Figure%209-47/) in [Chapter 9](/VTKBook/09Chapter9) in the [VTK Textbook](/VTKBook/01Chapter1/).
+    See [Figure 9-47](/VTKBook/09Chapter9/#Figure%209-47) in [Chapter 9](/VTKBook/09Chapter9) in the [VTK Textbook](/VTKBook/01Chapter1/).

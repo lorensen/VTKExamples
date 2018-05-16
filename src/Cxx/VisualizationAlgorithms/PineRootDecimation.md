@@ -15,4 +15,4 @@ def NumberOfTriangles(pd):
 within the scope of the calling function.
 
 !!! info
-    See [Figure 9-52](/VTKBook/09Chapter9/#Figure%209-52b/) in [Chapter 9](/VTKBook/09Chapter9) in the [VTK Textbook](/VTKBook/01Chapter1/).
+    See [Figure 9-52](/VTKBook/09Chapter9/#Figure%209-52b) in [Chapter 9](/VTKBook/09Chapter9) in the [VTK Textbook](/VTKBook/01Chapter1/).

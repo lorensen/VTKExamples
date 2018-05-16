@@ -251,7 +251,7 @@ A useful application of this technique is the study of vibration. In vibration a
 
 <figure id="Figure 6-15">
   <figure id="Figure 6-15a">
-    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6a-15.png?raw=true" width="640" alt="Figure6-15a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-15a.png?raw=true" width="640" alt="Figure6-15a">
   </figure>
   <figcaption style="color:blue"><b>Figure 6-15</b>. (a) Scalar Computation.</figcaption>
   <figure id="Figure 6-15b">
@@ -571,7 +571,7 @@ Strange attractors arise in the study of nonlinear dynamics and chaotic systems.
 
 <figure id="Figure 6-25">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestLorenz.png?raw=true" width="640" alt="Figure 6-25">
-<figcaption style="color:blue"><b>Figure 6-25</b>. Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume. The number of visits in each voxel is recorded as a scalar function. The surface is extracted via marching cubes using a visit value of 50. The number of integration steps is 10 million, in a volume of dimensions 200^3. The surface roughness is caused by the discrete nature of the evaluation function (Lorenz.cxx). <a href="../../Cxx/Visualization/Lorenz" title="Lorenz"> See Lorenz.cxx</a> and <a href="../../Python/Visualization/Lorenz" title="Lorenz"> Lorenz.py</a>.</figcaption>
+<figcaption style="color:blue"><b>Figure 6-25</b>. Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume. The number of visits in each voxel is recorded as a scalar function. The surface is extracted via marching cubes using a visit value of 50. The number of integration steps is 10 million, in a volume of dimensions 200^3. The surface roughness is caused by the discrete nature of the evaluation function. <a href="../../Cxx/Visualization/Lorenz" title="Lorenz"> See Lorenz.cxx</a> and <a href="../../Python/Visualization/Lorenz" title="Lorenz"> Lorenz.py</a>.</figcaption>
 </figure>
 
 A classical strange attractor was developed by Lorenz in 1963 <em style="color:blue;background-color: white">\[Lorenz63\]</em>. Lorenz developed a simple model for thermally induced fluid convection in the atmosphere. Convection causes rings of rotating fluid and can be developed from the general NavierStokes partial differential equations for fluid flow. The Lorenz equations can be expressed in nondimensional form as

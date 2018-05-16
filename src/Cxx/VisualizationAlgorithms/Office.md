@@ -16,4 +16,4 @@ This program provides you with an optional parameter to select from one of sever
 ./Office office.vtl 3
 ```
 !!! info
-    See [Figure 9-47](/VTKBook/09Chapter9/#Figure%209-47/) in [Chapter 9](/VTKBook/09Chapter9) in the [VTK Textbook](/VTKBook/01Chapter1/).
+    See [Figure 9-47](/VTKBook/09Chapter9/#Figure%209-47) in [Chapter 9](/VTKBook/09Chapter9) in the [VTK Textbook](/VTKBook/01Chapter1/).
