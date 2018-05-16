@@ -228,7 +228,7 @@ You may want to render two different scenes, but display them in the same window
 
 When we create images with computer graphics, we project objects defined in three dimensions onto a two-dimensional image plane. As we saw earlier, this projection naturally includes perspective. To include projection effects such as vanishing points we use a special coordinate system called homogeneous coordinates.
 
-The usual way of representing a point in 3D is the three element Cartesian vector $(x, y, z)$. Homogeneous coordinates are represented by a four element vector $( x_hh, y_h, z_h, w_h)$. The conversion between Cartesian coordinates and homogeneous coordinates is given by:
+The usual way of representing a point in 3D is the three element Cartesian vector $(x, y, z)$. Homogeneous coordinates are represented by a four element vector $( x_h, y_h, z_h, w_h)$. The conversion between Cartesian coordinates and homogeneous coordinates is given by:
 
 $$
 x = \frac{x_h}{w_h}\ \ \ \  x = \frac{y_h}{w_h}\ \ \ \ x = \frac{z_h}{w_h}
@@ -237,7 +237,7 @@ $$
 
 Using homogeneous coordinates we can represent an infinite point by setting w h to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 transformation matrix. Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a 3x3 matrix.
 
-For example, suppose we wanted to create a transformation matrix that translates a point $( x, y, z)$ in Cartesian space by the vector $( t_x, t_y, t_z)$. We need only construct the translation matrix given by
+For example, suppose we wanted to create a transformation matrix that translates a point $(x, y, z)$ in Cartesian space by the vector $(t_x, t_y, t_z)$. We need only construct the translation matrix given by
 
 $$
 T_T = \left[\begin{array}{cccc}
@@ -275,7 +275,7 @@ $$
 Converting back to Cartesian coordinates via **Equation3-5** we have the expected solution
 
 $$
-x' = x +t_x \\
+x' = x + t_x \\
 y' = y + t_y \\
 z' = z + t_z
 \bf\tag{3-8}
@@ -329,7 +329,7 @@ T_{R_z} = \left[\begin{array}{cccc}
 \bf\tag{3-12}
 $$
 
-Another useful rotation matrix is used to transform one coordinate axes $x-y-z$ to another coordinate axes $x'-y'-z'$. To derive the transformation matrix we assume that the unit $x'$. To derive the transformation matrix we assume that the unit $x'$ axis make the angles $(\theta_{x'x},\theta_{x'y},\theta_{x'z})$ around the x-y-z axes (these are called direction cosines). Similarly, the unit $y'$ axis makes the angles $(\theta_{y'x},\theta_{y'y},\theta_{y'z})$ and the unit $z'$ axis makes the angles $(\theta_{z'x},\theta_{z'y},\theta_{z'z})$. The resulting rotation matrix is formed by placing the direction cosines along the rows of the transformation matrix as follows
+Another useful rotation matrix is used to transform one coordinate axes $x-y-z$ to another coordinate axes $x'-y'-z'$. To derive the transformation matrix we assume that the unit $x'$. To derive the transformation matrix we assume that the unit $x'$ axis make the angles $(\theta_{x'x},\theta_{x'y},\theta_{x'z})$ around the $x-y-z$ axes (these are called direction cosines). Similarly, the unit $y'$ axis makes the angles $(\theta_{y'x},\theta_{y'y},\theta_{y'z})$ and the unit $z'$ axis makes the angles $(\theta_{z'x},\theta_{z'y},\theta_{z'z})$. The resulting rotation matrix is formed by placing the direction cosines along the rows of the transformation matrix as follows
 
 $$
 T_R = \left[\begin{array}{cccc}
@@ -822,7 +822,7 @@ The most important aspect to applying transformation matrices is to understand t
 
 A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(),and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor. The vtkActor class applies transformations in an order that we feel is natural to most users.
 
-The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The he Origin $(o_x,o_y,o_z)$ specifies the point that is the center of rotation and scaling. The Position $(p_x, p_y, p_z)$p specifies a final translation of the object. Orientation $(r_x, r_y, r_z)$ defines the rotation about the $x, y$ and $z$ axes. Scale $(s_x, s_y, s_z)$ defines scale factors for the $x, y,$ and $z$ axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see **Equation3-6**, **Equation3-9**, **Equation3-13**).
+The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The Origin $(o_x,o_y,o_z)$ specifies the point that is the center of rotation and scaling. The Position $(p_x, p_y, p_z)$ specifies a final translation of the object. Orientation $(r_x, r_y, r_z)$ defines the rotation about the $x, y$ and $z$ axes. Scale $(s_x, s_y, s_z)$ defines scale factors for the $x, y,$ and $z$ axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see **Equation3-6**, **Equation3-9**, **Equation3-13**).
 
 $$
 T = T_T(p_x + o_{x'}p_y + o_{y'}p_y + o_z)T_{R_z}T_{R_x}T_{R_z}T_ST_T(-o_x,-o_y,-o_z)

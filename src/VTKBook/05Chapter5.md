@@ -578,7 +578,7 @@ $$
 
 We arbitrarily choose the number of points in the tangential direction to be thirteen, the number of points in the radial direction to be eleven, and the number of points in the axis direction to be eleven (i.e., dimensions are $13 \times 11 \times 11$).
 
-Vectors are generated tangential to the cylinder and of magnitude proportional to the radius. To display the data we draw small, oriented lines at each point as shown in **Figure 5-19**. (This technique is called a _hedgehog_. See [“Hedgehogs and Oriented Glyphs”]/VTKBook/06Chapter6/#hedgehogs-and-oriented-glyphs) in [Chapter 6](/VTKBook/06Chapter6) for more information.)
+Vectors are generated tangential to the cylinder and of magnitude proportional to the radius. To display the data we draw small, oriented lines at each point as shown in **Figure 5-19**. (This technique is called a _hedgehog_. See [“Hedgehogs and Oriented Glyphs”](/VTKBook/06Chapter6/#hedgehogs-and-oriented-glyphs) in [Chapter 6](/VTKBook/06Chapter6) for more information.)
 
 The creation of a structured grid dataset is partially explicit and partially implicit. Geometry is created explicitly be creating an instance of vtkPoints, while the topology is created implicitly by specifying dataset dimensions. If the name of the instance of vtkStructuredGrid is sgrid, the following three steps are used to create it.
 
