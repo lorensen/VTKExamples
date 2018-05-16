@@ -159,19 +159,19 @@ We can extend the general approach of marching squares and marching cubes to oth
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHeadSlice.png?raw=true" width="640" alt="Figure 6-11a">
   <figcaption style="color:blue">(a) Marching squares used to generate contour lines.</figcaption>
  </figure>
-<figure id="Figure 6-11b">
- <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHeadBone.png?raw=true" width="640" alt="Figure 6-11b">
- <figcaption style="color:blue">(b) Marching Cubes surface of human bone</figcaption>
-</figure>
-<figure id="Figure 6-11c">
- <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCombustorIsosurface.png?raw=true" width="640" alt="Figure 6-11c">
-<figcaption style="color:blue">(c) Marching Cubes surface of flow density.</figcaption>
-</figure>
-<figure id="Figure 6-11d">
- <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIronIsoSurface.png?raw=true" width="640" alt="Figure 6-11d">
- <figcaption style="color:blue">(d) Marching Cubes surface of iron-protein</figcaption>
-</figure>
-<figcaption style="color:blue"><b>Figure 6-11</b>. Contouring examples. (a) Marching squares used to generate contour lines <a href="../../Cxx/VisualizationAlgorithms/HeadSlice" title="HeadSlice"> See HeadSlice.cxx</a> and <a href="../../Python/VisualizationAlgorithms/HeadSlice" title="HeadSlice"> HeadSlice.py</a>; (b) Marching Cubes surface of human bone.<a href="../../Cxx/VisualizationAlgorithms/HeadBone" title="HeadBone"> See HeadBone.cxx</a> and <a href="../../Python/VisualizationAlgorithms/HeadBone" title="HeadBone"> HeadBone.py</a>; (c) Marching Cubes surface of flow density<a href="../../Cxx/VisualizationAlgorithms/CombustorIsosurface" title="CombustorIsosurface"> See CombustorIsosurface.cxx</a> and <a href="
+ <figure id="Figure 6-11b">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestHeadBone.png?raw=true" width="640" alt="Figure 6-11b">
+  <figcaption style="color:blue">(b) Marching Cubes surface of human bone</figcaption>
+ </figure>
+ <figure id="Figure 6-11c">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestCombustorIsosurface.png?raw=true" width="640" alt="Figure 6-11c">
+  <figcaption style="color:blue">(c) Marching Cubes surface of flow density.</figcaption>
+ </figure>
+ <figure id="Figure 6-11d">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIronIsoSurface.png?raw=true" width="640" alt="Figure 6-11d">
+  <figcaption style="color:blue">(d) Marching Cubes surface of iron-protein</figcaption>
+ </figure>
+ <figcaption style="color:blue"><b>Figure 6-11</b>. Contouring examples. (a) Marching squares used to generate contour lines <a href="../../Cxx/VisualizationAlgorithms/HeadSlice" title="HeadSlice"> See HeadSlice.cxx</a> and <a href="../../Python/VisualizationAlgorithms/HeadSlice" title="HeadSlice"> HeadSlice.py</a>; (b) Marching Cubes surface of human bone.<a href="../../Cxx/VisualizationAlgorithms/HeadBone" title="HeadBone"> See HeadBone.cxx</a> and <a href="../../Python/VisualizationAlgorithms/HeadBone" title="HeadBone"> HeadBone.py</a>; (c) Marching Cubes surface of flow density<a href="../../Cxx/VisualizationAlgorithms/CombustorIsosurface" title="CombustorIsosurface"> See CombustorIsosurface.cxx</a> and <a href="
 ../../Python/VisualizationAlgorithms/CombustorIsosurface" title="CombustorIsosurface"> CombustorIsosurface.py</a>; (d) Marching Cubes surface of ironprotein.<a href="../../Cxx/VisualizationAlgorithms/IronIsoSurface" title="IronIsoSurface"> See IronIsoSurface.cxx</a> and <a href="../../Python/VisualizationAlgorithms" title="IronIsoSurface"> IronIsoSurface.py</a>.</figcaption>
 </figure>
 
