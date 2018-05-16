@@ -102,91 +102,156 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkStructuredGrid</span> <span class=o>*</span><span class=n>pl3dOutput</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkStructuredGrid</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>pl3d</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
 </span>
+<span class=hll>  <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;&gt;</span> <span class=n>renderers</span><span class=p>;</span>
+</span>
+  <span class=c1>// Create the 4 renderers</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>grayScaleRenderer</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renderers</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>grayScaleRenderer</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>rainbowBlueRedRenderer</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renderers</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>rainbowBlueRedRenderer</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>rainbowRedBlueRenderer</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renderers</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>rainbowRedBlueRenderer</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>largeContrastRenderer</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renderers</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>largeContrastRenderer</span><span class=p>);</span>
+
+<span class=hll>  <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=o>&gt;</span> <span class=n>luts</span><span class=p>;</span>
+</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=n>grayScaleLut</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>grayScaleLut</span><span class=o>-&gt;</span><span class=n>SetHueRange</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+  <span class=n>grayScaleLut</span><span class=o>-&gt;</span><span class=n>SetSaturationRange</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+  <span class=n>grayScaleLut</span><span class=o>-&gt;</span><span class=n>SetValueRange</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
+  <span class=n>grayScaleLut</span><span class=o>-&gt;</span><span class=n>SetNumberOfColors</span><span class=p>(</span><span class=mi>256</span><span class=p>);</span>
+  <span class=n>grayScaleLut</span><span class=o>-&gt;</span><span class=n>SetHueRange</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.667</span> <span class=p>);</span>
+  <span class=n>grayScaleLut</span><span class=o>-&gt;</span><span class=n>Build</span><span class=p>();</span>
+  <span class=n>luts</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>grayScaleLut</span><span class=p>);</span>
+
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=n>rainbowBlueRedLut</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>rainbowBlueRedLut</span><span class=o>-&gt;</span><span class=n>SetNumberOfColors</span><span class=p>(</span><span class=mi>256</span><span class=p>);</span>
+  <span class=n>rainbowBlueRedLut</span><span class=o>-&gt;</span><span class=n>SetHueRange</span><span class=p>(</span><span class=mf>0.667</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>);</span>
+  <span class=n>rainbowBlueRedLut</span><span class=o>-&gt;</span><span class=n>Build</span><span class=p>();</span>
+  <span class=n>luts</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>rainbowBlueRedLut</span><span class=p>);</span>
+
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=n>rainbowRedBlueLut</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>rainbowRedBlueLut</span><span class=o>-&gt;</span><span class=n>SetNumberOfColors</span><span class=p>(</span><span class=mi>256</span><span class=p>);</span>
+  <span class=n>rainbowRedBlueLut</span><span class=o>-&gt;</span><span class=n>SetHueRange</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.667</span><span class=p>);</span>
+  <span class=n>rainbowRedBlueLut</span><span class=o>-&gt;</span><span class=n>Build</span><span class=p>();</span>
+  <span class=n>luts</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>rainbowRedBlueLut</span><span class=p>);</span>
+
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=n>highContrastLut</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>highContrastLut</span><span class=o>-&gt;</span><span class=n>SetNumberOfColors</span><span class=p>(</span><span class=mi>256</span><span class=p>);</span>
+  <span class=n>highContrastLut</span><span class=o>-&gt;</span><span class=n>Build</span><span class=p>();</span>
+
+  <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>l</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>l</span> <span class=o>&lt;</span> <span class=mi>16</span><span class=p>;</span> <span class=o>++</span><span class=n>l</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>highContrastLut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=n>l</span> <span class=o>*</span> <span class=mi>16</span><span class=p>,</span>     <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+    <span class=n>highContrastLut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=n>l</span> <span class=o>*</span> <span class=mi>16</span> <span class=o>+</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+    <span class=n>highContrastLut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=n>l</span> <span class=o>*</span> <span class=mi>16</span> <span class=o>+</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+    <span class=n>highContrastLut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=n>l</span> <span class=o>*</span> <span class=mi>16</span> <span class=o>+</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+  <span class=p>}</span>
+  <span class=n>luts</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>highContrastLut</span><span class=p>);</span>
+
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renderWindow</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>interactor</span> <span class=o>=</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
+
+  <span class=kt>int</span> <span class=n>rendererSize</span> <span class=o>=</span> <span class=mi>256</span><span class=p>;</span>
+  <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>xGridDimensions</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
+  <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>yGridDimensions</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
+  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=n>rendererSize</span> <span class=o>*</span> <span class=n>xGridDimensions</span><span class=p>,</span>
+                        <span class=n>rendererSize</span> <span class=o>*</span> <span class=n>yGridDimensions</span><span class=p>);</span>
+  <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>row</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>row</span> <span class=o>&lt;</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>yGridDimensions</span><span class=p>);</span> <span class=n>row</span><span class=o>++</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>col</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>col</span> <span class=o>&lt;</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>(</span><span class=n>xGridDimensions</span><span class=p>);</span> <span class=n>col</span><span class=o>++</span><span class=p>)</span>
+    <span class=p>{</span>
+      <span class=kt>int</span> <span class=n>index</span> <span class=o>=</span> <span class=n>row</span> <span class=o>*</span> <span class=n>xGridDimensions</span> <span class=o>+</span> <span class=n>col</span><span class=p>;</span>
+      <span class=c1>// (xmin, ymin, xmax, ymax)</span>
+      <span class=kt>double</span> <span class=n>viewport</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span>
+        <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=n>col</span><span class=p>)</span> <span class=o>/</span> <span class=n>xGridDimensions</span><span class=p>,</span>
+        <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=n>yGridDimensions</span> <span class=o>-</span> <span class=p>(</span><span class=n>row</span> <span class=o>+</span> <span class=mi>1</span><span class=p>))</span> <span class=o>/</span> <span class=n>yGridDimensions</span><span class=p>,</span>
+        <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=n>col</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>/</span> <span class=n>xGridDimensions</span><span class=p>,</span>
+        <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=n>yGridDimensions</span> <span class=o>-</span> <span class=n>row</span><span class=p>)</span> <span class=o>/</span> <span class=n>yGridDimensions</span><span class=p>};</span>
+      <span class=n>renderers</span><span class=p>[</span><span class=n>index</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>SetViewport</span><span class=p>(</span><span class=n>viewport</span><span class=p>);</span>
+    <span class=p>}</span>
+  <span class=p>}</span>
+
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkStructuredGridGeometryFilter</span><span class=o>&gt;</span> <span class=n>plane</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkStructuredGridGeometryFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>plane</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pl3dOutput</span><span class=p>);</span>
   <span class=n>plane</span><span class=o>-&gt;</span><span class=n>SetExtent</span><span class=p>(</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>100</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>100</span><span class=p>,</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>7</span><span class=p>);</span>
 
+  <span class=k>for</span> <span class=p>(</span><span class=kt>size_t</span> <span class=n>r</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>r</span> <span class=o>&lt;</span> <span class=n>renderers</span><span class=p>.</span><span class=n>size</span><span class=p>();</span> <span class=o>++</span><span class=n>r</span><span class=p>)</span>
+  <span class=p>{</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=n>lut</span> <span class=o>=</span> <span class=n>luts</span><span class=p>[</span><span class=n>r</span><span class=p>];</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>planeMapper</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>planeMapper</span><span class=o>-&gt;</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>lut</span><span class=p>);</span>
+    <span class=n>planeMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>plane</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+    <span class=n>planeMapper</span><span class=o>-&gt;</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>pl3dOutput</span><span class=o>-&gt;</span><span class=n>GetScalarRange</span><span class=p>());</span>
+
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>planeActor</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>planeActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>planeMapper</span><span class=p>);</span>
+
+    <span class=c1>// This creates an outline around the data.</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkStructuredGridOutlineFilter</span><span class=o>&gt;</span> <span class=n>outline</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkStructuredGridOutlineFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>outline</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pl3dOutput</span><span class=p>);</span>
+
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>outlineMapper</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>outlineMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>outline</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>outlineActor</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>outlineActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outlineMapper</span><span class=p>);</span>
+
+    <span class=c1>// Create the RenderWindow, Renderer and both Actors</span>
+    <span class=c1>//</span>
+    <span class=n>renderers</span><span class=p>[</span><span class=n>r</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>outlineActor</span><span class=p>);</span>
+    <span class=n>renderers</span><span class=p>[</span><span class=n>r</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>planeActor</span><span class=p>);</span>
+
+    <span class=n>renderers</span><span class=p>[</span><span class=n>r</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;SlateGray&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+    <span class=n>renderers</span><span class=p>[</span><span class=n>r</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>TwoSidedLightingOff</span><span class=p>();</span>
+    <span class=n>renderers</span><span class=p>[</span><span class=n>r</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>Azimuth</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span>
+    <span class=n>renderers</span><span class=p>[</span><span class=n>r</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>Elevation</span><span class=p>(</span><span class=mi>30</span><span class=p>);</span>
+    <span class=n>renderers</span><span class=p>[</span><span class=n>r</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>ResetCamera</span><span class=p>();</span>
+    <span class=k>if</span> <span class=p>(</span><span class=n>r</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span>
+    <span class=p>{</span>
+      <span class=n>renderers</span><span class=p>[</span><span class=n>r</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>SetActiveCamera</span><span class=p>(</span><span class=n>renderers</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>());</span>
+    <span class=p>}</span>
+    <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderers</span><span class=p>[</span><span class=n>r</span><span class=p>]);</span>
+  <span class=p>}</span>
+
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=n>lut</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>planeMapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>planeMapper</span><span class=o>-&gt;</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>lut</span><span class=p>);</span>
-  <span class=n>planeMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>plane</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-  <span class=n>planeMapper</span><span class=o>-&gt;</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>pl3dOutput</span><span class=o>-&gt;</span><span class=n>GetScalarRange</span><span class=p>());</span>
-
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>planeActor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>planeActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>planeMapper</span><span class=p>);</span>
-
-  <span class=c1>// This creates an outline around the data.</span>
-
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkStructuredGridOutlineFilter</span><span class=o>&gt;</span> <span class=n>outline</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkStructuredGridOutlineFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>outline</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>pl3dOutput</span><span class=p>);</span>
-
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>outlineMapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>outlineMapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>outline</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>outlineActor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>outlineActor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>outlineMapper</span><span class=p>);</span>
-
-  <span class=c1>// Much of the following is commented out. To try different lookup tables,</span>
-  <span class=c1>// uncomment the appropriate portions.</span>
-  <span class=c1>//</span>
-
-  <span class=c1>// This creates a black to white lut.</span>
-  <span class=c1>//    lut-&gt;SetHueRange(0, 0);</span>
-  <span class=c1>//    lut-&gt;SetSaturationRange(0, 0);</span>
-  <span class=c1>//    lut-&gt;SetValueRange(0.2, 1.0);</span>
-
-  <span class=c1>// This creates a red to blue lut.</span>
-  <span class=c1>//    lut-&gt;SetHueRange(0.0, 0.667);</span>
-
-  <span class=c1>// This creates a blue to red lut.</span>
-  <span class=c1>//    lut-&gt;SetHueRange(0.667, 0.0);</span>
-
-  <span class=c1>// This creates a weird effect. The Build() method causes the lookup table</span>
-  <span class=c1>// to allocate memory and create a table based on the correct hue, saturation,</span>
-  <span class=c1>// value, and alpha (transparency) range. Here we then manually overwrite the</span>
-  <span class=c1>// values generated by the Build() method.</span>
-  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetNumberOfColors</span><span class=p>(</span><span class=mi>256</span><span class=p>);</span>
-  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetHueRange</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.667</span> <span class=p>);</span>
-  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>Build</span><span class=p>();</span>
-
-  <span class=c1>// Create the RenderWindow, Renderer and both Actors</span>
-  <span class=c1>//</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>ren1</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renWin</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren1</span><span class=p>);</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>iren</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>iren</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>);</span>
-
   <span class=c1>// Add the actors to the renderer, set the background and size</span>
   <span class=c1>//</span>
-  <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>outlineActor</span><span class=p>);</span>
-  <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>planeActor</span><span class=p>);</span>
 
-  <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;SlateGray&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
-  <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>TwoSidedLightingOff</span><span class=p>();</span>
+  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=n>rendererSize</span> <span class=o>*</span> <span class=n>xGridDimensions</span><span class=p>,</span>
+                        <span class=n>rendererSize</span> <span class=o>*</span> <span class=n>yGridDimensions</span><span class=p>);</span>
 
-  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span> <span class=mi>512</span><span class=p>,</span> <span class=mi>512</span><span class=p>);</span>
+  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Initialize</span><span class=p>();</span>
 
-  <span class=n>iren</span><span class=o>-&gt;</span><span class=n>Initialize</span><span class=p>();</span>
-
-<span class=hll>  <span class=n>vtkCamera</span> <span class=o>*</span><span class=n>cam1</span> <span class=o>=</span> <span class=n>ren1</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>();</span>
+<span class=hll>  <span class=n>vtkCamera</span> <span class=o>*</span><span class=n>cam1</span> <span class=o>=</span> <span class=n>renderers</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>();</span>
 </span>  <span class=n>cam1</span><span class=o>-&gt;</span><span class=n>SetClippingRange</span><span class=p>(</span> <span class=mf>3.95297</span><span class=p>,</span> <span class=mi>50</span><span class=p>);</span>
   <span class=n>cam1</span><span class=o>-&gt;</span><span class=n>SetFocalPoint</span><span class=p>(</span> <span class=mf>8.88908</span><span class=p>,</span> <span class=mf>0.595038</span><span class=p>,</span> <span class=mf>29.3342</span><span class=p>);</span>
   <span class=n>cam1</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span> <span class=o>-</span><span class=mf>12.3332</span><span class=p>,</span> <span class=mf>31.7479</span><span class=p>,</span> <span class=mf>41.2387</span><span class=p>);</span>
   <span class=n>cam1</span><span class=o>-&gt;</span><span class=n>SetViewUp</span><span class=p>(</span><span class=mf>0.060772</span><span class=p>,</span> <span class=o>-</span><span class=mf>0.319905</span><span class=p>,</span> <span class=mf>0.945498</span><span class=p>);</span>
 
-  <span class=n>iren</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
+  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
+  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
+
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>}</span>
 </pre></div> <h3 id=cmakeliststxt>CMakeLists.txt<a class=headerlink href=#cmakeliststxt title="Permanent link">&para;</a></h3> <div class=codehilite><pre><span></span><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>2.8</span><span class=p>)</span>
