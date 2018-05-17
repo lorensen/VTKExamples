@@ -95,6 +95,10 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
 %%% ----------------------------------------------------------------------
 % Some general global declarations
 
+% Use a bit more of the page.
+\addtolength{\textwidth}{50pt}
+\addtolength{\evensidemargin}{-25pt}
+\addtolength{\oddsidemargin}{-25pt}
 
 % Graphics paths and extensions.
 \graphicspath{{Art/}{Art/Scraped/}{Figures/}{Figures/Scraped/}{Figures/Headings/}}
@@ -104,10 +108,36 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
     .png,.PNG,%
     .jpg,.mps,.jpeg,.jbig2,.jb2,.JPG,.JPEG,.JBIG2,.JB2}
 
+%%% ----------------------------------------------------------------------
+% Commands
+
+% Put a ruled line above and below the chapter with
+% Chapter <Number> on the right of the page.
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%                                 % Insert 50pt (vertical) space
+  {\parindent \z@ \raggedright \normalfont         % No paragraph indent, ragged right
+    \ifnum \c@secnumdepth >\m@ne                   % If you should number chapters
+      \if@mainmatter                               % ... and you're in \mainmatter
+      \noindent\rule[6\p@]{\textwidth}{1\p@}       % Raise line 1pt thick by 6pt
+      \rightline{
+        \huge\bfseries \@chapapp\space \thechapter % huge, bold, Chapter + number
+        }
+        \noindent\rule{\textwidth}{1\p@}           % Line 1pt thick
+        \par\nobreak                               % paragraph break without page break
+        \vskip 20\p@                               % Insert 20pt (vertical) space
+      \fi
+    \fi
+    \interlinepenalty\@M                           % Penalty
+    \Huge \bfseries #1 \par\nobreak                 % Huge, bold chapter title
+    \vskip 40\p@                                   % Insert 40pt (vertical) space
+  }}
+\makeatother
+
+
 % Make a nice first letter in a paragraph.
 \newcommand{\firstletter}[1] {\lettrine[lines=2, lraise=0.7]{\color{Sepia}\textit{#1}}}
 
-%\newcommand{\listcpp}[1] {{\lstlisting[style=mycpp]{#1}}}
 %%% ----------------------------------------------------------------------
 
   % Horizontal spacing.
