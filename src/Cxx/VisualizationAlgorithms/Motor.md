@@ -4,3 +4,6 @@ This is an example of texture clipping using a transparent texture map. The moto
 The texture map consists of three regions (as described previously in the chapter). The concealed region is transparent. The transition region is opaque but with a black (zero intensity) color. The highlighted region is full intensity and opaque. As can be seen from the result , the boundaries appear as black borders giving a nice visual effect.
 
 Note the use of vectors in the C++ version and lists in the Python version to reduce repetitious code.
+
+!!! info
+    See [Figure 9-53](/VTKBook/09Chapter9/#Figure%209-53) in [Chapter 9](/VTKBook/09Chapter9) The [VTK Textbook](/VTKBook/01Chapter1).

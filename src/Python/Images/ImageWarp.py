@@ -7,9 +7,9 @@ def main():
     fileName = get_program_parameters()
 
     colors = vtk.vtkNamedColors()
-    # Set the background color. Match those in VTKTextbook.pdf.
-    bkg = map(lambda x: x / 256.0, [60, 93, 144])
-    colors.SetColor("BkgColor", *bkg)
+
+    # Set the background color.
+    colors.SetColor("BkgColor", [60, 93, 144, 255])
 
     # Read in an image and compute a luminance value. The image is extracted
     # as a set of polygons (vtkImageDataGeometryFilter). We then will

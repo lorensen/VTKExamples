@@ -1,7 +1,7 @@
-#include <vtkVersion.h>
 #include <vtkActor.h>
 #include <vtkCellArray.h>
 #include <vtkDataSetMapper.h>
+#include <vtkNamedColors.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
 #include <vtkProperty.h>
@@ -10,9 +10,13 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 #include <vtkTriangleStrip.h>
- 
+#include <vtkVersion.h>
+
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPoints> points = 
     vtkSmartPointer<vtkPoints>::New();
   points->InsertNextPoint(0,0,0);
@@ -49,6 +53,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> actor = 
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Cyan").GetData());
   actor->GetProperty()->SetRepresentationToWireframe();
  
   // Create a renderer, render window, and interactor
@@ -56,12 +61,14 @@ int main(int, char *[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Triangle Strip");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
  
   renderer->AddActor(actor);
+  renderer->SetBackground(colors->GetColor3d("DarkGreen").GetData());
   renderWindow->Render();
   renderWindowInteractor->Start();
  

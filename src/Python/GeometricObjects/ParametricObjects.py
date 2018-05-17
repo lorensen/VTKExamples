@@ -1,62 +1,62 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import vtk
 
 
-class ParametricObjects(object):
-    def ParametricObjects(self):
+def main():
+    colors = vtk.vtkNamedColors()
 
-        colors = vtk.vtkNamedColors()
+    colors.SetColor("BkgColor", [26, 51, 102, 255])
 
-        # Select one of the following functions.
-        # parametricObject = vtk.vtkParametricBoy()
-        # parametricObject = vtk.vtkParametricConicSpiral()
-        # parametricObject = vtk.vtkParametricCrossCap()
-        # parametricObject = vtk.vtkParametricDini()
-        # parametricObject = vtk.vtkParametricEllipsoid()
-        # parametricObject = vtk.vtkParametricEnneper()
-        # parametricObject = vtk.vtkParametricFigure8Klein()
-        # parametricObject = vtk.vtkParametricKlein()
-        # parametricObject = vtk.vtkParametricMobius()
-        # parametricObject = vtk.vtkParametricRandomHills()
-        # parametricObject = vtk.vtkParametricRoman()
-        # parametricObject = vtk.vtkParametricSpline()
-        # parametricObject = vtk.vtkParametricSuperEllipsoid()
-        # parametricObject = vtk.vtkParametricSuperToroid()
-        parametricObject = vtk.vtkParametricTorus()
+    # Uncomment one of the following.
+    # parametricObject = vtk.vtkParametricBoy()
+    # parametricObject = vtk.vtkParametricConicSpiral()
+    # parametricObject = vtk.vtkParametricCrossCap()
+    # parametricObject = vtk.vtkParametricDini()
+    # parametricObject = vtk.vtkParametricEllipsoid()
+    # parametricObject = vtk.vtkParametricEnneper()
+    parametricObject = vtk.vtkParametricFigure8Klein()
+    # parametricObject = vtk.vtkParametricKlein()
+    # parametricObject = vtk.vtkParametricMobius()
+    # parametricObject = vtk.vtkParametricRandomHills()
+    # parametricObject = vtk.vtkParametricRoman()
+    # parametricObject = vtk.vtkParametricSpline()
+    # parametricObject = vtk.vtkParametricSuperEllipsoid()
+    # parametricObject = vtk.vtkParametricSuperToroid()
+    # parametricObject = vtk.vtkParametricTorus()
 
-        parametricSource = vtk.vtkParametricFunctionSource()
-        parametricSource.SetParametricFunction(parametricObject)
+    parametricFunctionSource = vtk.vtkParametricFunctionSource()
+    parametricFunctionSource.SetParametricFunction(parametricObject)
+    parametricFunctionSource.Update()
 
-        # mapper
-        mapper = vtk.vtkPolyDataMapper()
-        mapper.SetInputConnection(parametricSource.GetOutputPort())
+    # Visualize
+    backProperty = vtk.vtkProperty()
+    backProperty.SetColor(colors.GetColor3d("Tomato"))
 
-        # actor
-        actor = vtk.vtkActor()
-        actor.SetMapper(mapper)
-        actor.GetProperty().SetDiffuseColor(colors.GetColor3d("Burlywood"))
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(parametricFunctionSource.GetOutputPort())
 
-        # ------------------------------------------------------------
-        # Create the RenderWindow, Renderer and Interactor
-        # ------------------------------------------------------------
-        ren = vtk.vtkRenderer()
-        renWin = vtk.vtkRenderWindow()
-        iren = vtk.vtkRenderWindowInteractor()
+    # Create an actor for the contours
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetColor(colors.GetColor3d("Banana"))
+    actor.GetProperty().SetSpecular(.5)
+    actor.GetProperty().SetSpecularPower(20)
+    actor.SetBackfaceProperty(backProperty)
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Parametric Objects")
+    renderWindow.AddRenderer(renderer)
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(renderWindow)
 
-        renWin.AddRenderer(ren)
-        iren.SetRenderWindow(renWin)
+    renderer.AddActor(actor)
+    renderer.SetBackground(colors.GetColor3d("BkgColor"))
 
-        # add actors
-        ren.AddViewProp(actor)
-        ren.SetBackground(colors.GetColor3d("Beige"))
-
-        # enable user interface interactor
-        iren.Initialize()
-        renWin.Render()
-        iren.Start()
+    renderWindow.Render()
+    interactor.Start()
 
 
-if __name__ == "__main__":
-    po = ParametricObjects()
-    po.ParametricObjects()
+if __name__ == '__main__':
+    main()

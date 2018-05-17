@@ -10,11 +10,9 @@ def walk_cow(file_name, figure):
         figure = 0
 
     colors = vtk.vtkNamedColors()
-    # Set the background color. Match those in VTKTextbook.pdf.
-    bkg1 = map(lambda x: x / 255.0, [60, 93, 144])
-    bkg2 = map(lambda x: x / 255.0, [25, 51, 102])
-    colors.SetColor("BkgColor1", *bkg1)
-    colors.SetColor("BkgColor2", *bkg2)
+    # Set the background color.
+    colors.SetColor("BkgColor1", [60, 93, 144, 255])
+    colors.SetColor("BkgColor2", [26, 51, 102, 255])
 
     ren = vtk.vtkRenderer()
     renWin = vtk.vtkRenderWindow()

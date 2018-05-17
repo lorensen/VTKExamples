@@ -1,34 +1,40 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import vtk
 
-# create a rendering window and renderer
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
 
-# create a renderwindowinteractor
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
+def main():
+    colors = vtk.vtkNamedColors()
 
-# create source
-source = vtk.vtkSphereSource()
-source.SetCenter(0, 0, 0)
-source.SetRadius(5.0)
+    # Create a sphere
+    sphereSource = vtk.vtkSphereSource()
+    sphereSource.SetCenter(0.0, 0.0, 0.0)
+    sphereSource.SetRadius(5.0)
+    # Make the surface smooth.
+    sphereSource.SetPhiResolution(100)
+    sphereSource.SetThetaResolution(100)
 
-# mapper
-mapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION <= 5:
-    mapper.SetInput(source.GetOutput())
-else:
-    mapper.SetInputConnection(source.GetOutputPort())
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(sphereSource.GetOutputPort())
 
-# actor
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetColor(colors.GetColor3d("Cornsilk"))
 
-# assign actor to the renderer
-ren.AddActor(actor)
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Sphere")
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
 
-# enable user interface interactor
-iren.Initialize()
-renWin.Render()
-iren.Start()
+    renderer.AddActor(actor)
+    renderer.SetBackground(colors.GetColor3d("DarkGreen"))
+
+    renderWindow.Render()
+    renderWindowInteractor.Start()
+
+
+if __name__ == '__main__':
+    main()

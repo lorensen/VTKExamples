@@ -15,7 +15,6 @@
 #include <vtkVolume.h>
 #include <vtkVolumeProperty.h>
 
-#include <algorithm>
 #include <array>
 
 int main (int argc, char *argv[])
@@ -29,17 +28,8 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  // Set the colors.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> bkgColor{{51, 77, 102}};
-  SetColor(bkgColor, "BkgColor");
+  std::array<unsigned char , 4> bkg{{51, 77, 102, 255}};
+    colors->SetColor("BkgColor", bkg.data());
 
   // Create the renderer, the render window, and the interactor. The renderer
   // draws into the render window, the interactor enables mouse- and

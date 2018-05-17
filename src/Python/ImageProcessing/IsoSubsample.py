@@ -9,8 +9,7 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
-    actorColor = map(lambda x: x / 255.0, [235, 235, 235])
-    colors.SetColor('ActorColor', *actorColor)
+    colors.SetColor("ActorColor", [235, 235, 235, 255])
 
 
     fileName = get_program_parameters()

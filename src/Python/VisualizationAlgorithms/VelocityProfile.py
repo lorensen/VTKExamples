@@ -9,9 +9,9 @@ def main():
     fileName1, fileName2 = get_program_parameters()
 
     colors = vtk.vtkNamedColors()
-    # Set the background color. Match those in VTKTextbook.pdf.
-    bkg = map(lambda x: x / 255.0, [65, 99, 149])
-    colors.SetColor("BkgColor", *bkg)
+
+    # Set the background color.
+    colors.SetColor("BkgColor", [65, 99, 149, 255])
 
     # Read a vtk file
     #
@@ -105,6 +105,7 @@ def main():
     ren.GetActiveCamera().SetFocalPoint(8.255, 0.147815, 29.7631)
     ren.GetActiveCamera().SetViewUp(-0.0333325, 0.465756, 0.884285)
     ren.GetActiveCamera().SetClippingRange(17.3078, 64.6375)
+    renWin.Render()
 
     iren.Start()
 

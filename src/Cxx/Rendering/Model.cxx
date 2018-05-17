@@ -10,7 +10,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 
-#include <algorithm>
 #include <array>
 
 int main(int, char* [])
@@ -18,19 +17,11 @@ int main(int, char* [])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  // Set the background color. Match those in VTKTextbook.pdf.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> cubeColor{{250, 128, 114}};
-  SetColor(cubeColor, "CubeColor");
-  std::array<double, 3> bkg{{230, 230, 230}};
-  SetColor(bkg, "BkgColor");
+  // Set the background color.
+  std::array<unsigned char , 4> cubeColor{{230, 230, 230, 255}};
+    colors->SetColor("CubeColor", cubeColor.data());
+  std::array<unsigned char , 4> bkg{{230, 230, 230, 255}};
+    colors->SetColor("BkgColor", bkg.data());
 
   // create rendering windows and three renderers
   vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();

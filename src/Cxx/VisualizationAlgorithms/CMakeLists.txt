@@ -169,7 +169,7 @@ add_test(${KIT}-SplatFace ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSplatFace ${DATA}/fran_cut.vtk -E 50)
 
 add_test(${KIT}-Stocks ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestStocks ${DATA}/GE.vtk ${DATA}/GM.vtk ${DATA}/IBM.vtk ${DATA}/DEC.vtk)
+  TestStocks ${DATA}/GE.vtk ${DATA}/GM.vtk ${DATA}/IBM.vtk ${DATA}/DEC.vtk 0)
 
 add_test(${KIT}-StreamlinesWithLineWidget ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestStreamlinesWithLineWidget ${DATA}/combxyz.bin ${DATA}/combq.bin 10 1 -E 20)

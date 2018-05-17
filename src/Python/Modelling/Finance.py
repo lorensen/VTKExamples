@@ -9,9 +9,7 @@ import vtk
 def main():
     colors = vtk.vtkNamedColors()
 
-    # Set the color for the population.
-    popColor = map(lambda x: x / 255.0, [230, 230, 230])
-    colors.SetColor("BkgColor", *popColor)
+    colors.SetColor("PopColor", [230, 230, 230, 255])
 
     fileName = get_program_parameters()
 
@@ -38,7 +36,7 @@ def main():
     popActor = vtk.vtkActor()
     popActor.SetMapper(popMapper)
     popActor.GetProperty().SetOpacity(0.3)
-    popActor.GetProperty().SetColor(.9, .9, .9)
+    popActor.GetProperty().SetColor(colors.GetColor3d("PopColor"))
 
     # Construct the pipeline for the delinquent population.
     lateSplatter = vtk.vtkGaussianSplatter()

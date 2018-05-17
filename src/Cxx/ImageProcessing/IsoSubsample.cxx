@@ -13,7 +13,6 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 
-#include <algorithm>
 #include <array>
 
 int main (int argc, char *argv[])
@@ -29,17 +28,8 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  // Set the background color. Match those in VTKTextbook.pdf.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> actorColor{{235, 235, 235}};
-  SetColor(actorColor, "ActorColor");
+  std::array<unsigned char , 4> actorColor{{235, 235, 235, 255}};
+    colors->SetColor("ActorColor", actorColor.data());
 
   // Read the image
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =

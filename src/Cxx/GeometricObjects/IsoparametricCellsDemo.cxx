@@ -1,48 +1,45 @@
-#include <vtkSmartPointer.h>
-
-
-#include <vtkPoints.h>
-#include <vtkCellArray.h>
-#include <vtkUnstructuredGrid.h>
-#include <vtkDataSetMapper.h>
-#include <vtkProperty.h>
-
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkCamera.h>
-#include <vtkTextProperty.h>
-#include <vtkTextMapper.h>
 #include <vtkActor2D.h>
-#include <vtkTextProperty.h>
-
-#include <vtkSphereSource.h>
+#include <vtkCamera.h>
+#include <vtkCellArray.h>
+#include <vtkDataSetMapper.h>
 #include <vtkGlyph3DMapper.h>
 #include <vtkLabeledDataMapper.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkTextMapper.h>
+#include <vtkTextProperty.h>
+#include <vtkTextProperty.h>
+#include <vtkUnstructuredGrid.h>
 
-#include <vtkQuadraticEdge.h>
-#include <vtkQuadraticTriangle.h>
-#include <vtkQuadraticQuad.h>
-#include <vtkQuadraticPolygon.h>
-#include <vtkQuadraticTetra.h>
-#include <vtkQuadraticHexahedron.h>
-#include <vtkQuadraticWedge.h>
-#include <vtkQuadraticPyramid.h>
 #include <vtkBiQuadraticQuad.h>
-#include <vtkTriQuadraticHexahedron.h>
-#include <vtkQuadraticLinearQuad.h>
-#include <vtkQuadraticLinearWedge.h>
-#include <vtkBiQuadraticQuadraticWedge.h>
 #include <vtkBiQuadraticQuadraticHexahedron.h>
+#include <vtkBiQuadraticQuadraticWedge.h>
 #include <vtkBiQuadraticTriangle.h>
 #include <vtkCubicLine.h>
+#include <vtkQuadraticEdge.h>
+#include <vtkQuadraticHexahedron.h>
+#include <vtkQuadraticLinearQuad.h>
+#include <vtkQuadraticLinearWedge.h>
+#include <vtkQuadraticPolygon.h>
+#include <vtkQuadraticPyramid.h>
+#include <vtkQuadraticQuad.h>
+#include <vtkQuadraticTetra.h>
+#include <vtkQuadraticTriangle.h>
+#include <vtkQuadraticWedge.h>
+#include <vtkTriQuadraticHexahedron.h>
 
-#include <vtkNamedColors.h>
-
-#include <vector>
-#include <string>
+#include <algorithm>
+#include <array>
 #include <cstdlib>
+#include <string>
+#include <vector>
 
 // These functions return a vtkUnstructured grid corresponding to the object.
 namespace
@@ -176,10 +173,10 @@ int main(int, char *[])
     renderers[i]->AddViewProp(textActors[i]);
 
     // Label the points
-    vtkSmartPointer<vtkLabeledDataMapper> labelMapper = 
+    vtkSmartPointer<vtkLabeledDataMapper> labelMapper =
       vtkSmartPointer<vtkLabeledDataMapper>::New();
     labelMapper->SetInputData(uGrids[i]);
-    vtkSmartPointer<vtkActor2D> labelActor = 
+    vtkSmartPointer<vtkActor2D> labelActor =
       vtkSmartPointer<vtkActor2D>::New();
     labelActor->SetMapper(labelMapper);
     renderers[i]->AddViewProp(labelActor);
@@ -256,6 +253,7 @@ int main(int, char *[])
 
   return EXIT_SUCCESS;
 }
+
 namespace
 {
 template<typename T> vtkSmartPointer<vtkUnstructuredGrid> MakeUnstructuredGrid(vtkSmartPointer<T> aCell)

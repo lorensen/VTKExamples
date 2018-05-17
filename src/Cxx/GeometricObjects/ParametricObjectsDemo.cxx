@@ -1,7 +1,7 @@
 #include <vtkActor.h>
 #include <vtkActor2D.h>
 #include <vtkCamera.h>
-#include <vtkMath.h>
+#include <vtkMinimalStandardRandomSequence.h>
 #include <vtkNamedColors.h>
 #include <vtkParametricFunctionSource.h>
 #include <vtkPoints.h>
@@ -39,16 +39,8 @@ int main(int, char* [])
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the background color.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 256.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> bkg{{25, 51, 102}};
-  SetColor(bkg, "BkgColor");
+  std::array<unsigned char , 4> bkg{{26, 51, 102, 255}};
+    colors->SetColor("BkgColor", bkg.data());
 
   std::vector<vtkSmartPointer<vtkParametricFunction>> parametricObjects;
   parametricObjects.push_back(vtkSmartPointer<vtkParametricBoy>::New());
@@ -102,12 +94,17 @@ int main(int, char* [])
   vtkSmartPointer<vtkParametricSpline> spline =
     vtkSmartPointer<vtkParametricSpline>::New();
   vtkSmartPointer<vtkPoints> inputPoints = vtkSmartPointer<vtkPoints>::New();
-  vtkMath::RandomSeed(8775070);
-  for (int p = 0; p < 10; p++)
+  vtkSmartPointer<vtkMinimalStandardRandomSequence> rng =
+    vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
+  rng->SetSeed(8775070); // For testing.
+  for (auto i = 0; i < 10; ++i)
   {
-    double x = vtkMath::Random(0.0, 1.0);
-    double y = vtkMath::Random(0.0, 1.0);
-    double z = vtkMath::Random(0.0, 1.0);
+    rng->Next();
+    auto x = rng->GetRangeValue(0.0, 1.0);
+    rng->Next();
+    auto y = rng->GetRangeValue(0.0, 1.0);
+    rng->Next();
+    auto z = rng->GetRangeValue(0.0, 1.0);
     inputPoints->InsertNextPoint(x, y, z);
   }
   spline->SetPoints(inputPoints);
@@ -124,16 +121,16 @@ int main(int, char* [])
   // Create one text property for all
   vtkSmartPointer<vtkTextProperty> textProperty =
     vtkSmartPointer<vtkTextProperty>::New();
-  textProperty->SetFontSize(10);
+  textProperty->SetFontSize(12);
   textProperty->SetJustificationToCentered();
 
   vtkSmartPointer<vtkProperty> backProperty =
     vtkSmartPointer<vtkProperty>::New();
-  backProperty->SetColor(colors->GetColor3d("Red").GetData());
+  backProperty->SetColor(colors->GetColor3d("Tomato").GetData());
 
   // Create a parametric function source, renderer, mapper, and actor
   // for each object
-  for (unsigned int i = 0; i < parametricObjects.size(); i++)
+  for (auto i = 0; i < parametricObjects.size(); i++)
   {
     parametricFunctionSources.push_back(
       vtkSmartPointer<vtkParametricFunctionSource>::New());
@@ -149,7 +146,9 @@ int main(int, char* [])
 
     actors.push_back(vtkSmartPointer<vtkActor>::New());
     actors[i]->SetMapper(mappers[i]);
-    actors[i]->GetProperty()->SetColor(colors->GetColor3d("White").GetData());
+    actors[i]->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
+    actors[i]->GetProperty()->SetSpecular(.5);
+    actors[i]->GetProperty()->SetSpecularPower(20);
     actors[i]->SetBackfaceProperty(backProperty);
 
     textmappers.push_back(vtkSmartPointer<vtkTextMapper>::New());
@@ -159,49 +158,54 @@ int main(int, char* [])
     textactors.push_back(vtkSmartPointer<vtkActor2D>::New());
     textactors[i]->SetMapper(textmappers[i]);
     textactors[i]->SetPosition(100, 16);
+  
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
+    renderers[i]->AddActor(actors[i]);
+    renderers[i]->AddActor(textactors[i]);
+    renderers[i]->SetBackground(colors->GetColor3d("BkgColor").GetData());
   }
 
-  auto gridDimensions = 4;
-
-  // Need a renderer even if there is no actor
-  for (auto i = static_cast<int>(parametricObjects.size());
-       i < gridDimensions * gridDimensions; i++)
-  {
-    renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
-  }
-
+  // Setup the viewports
+  auto xGridDimensions = 4;
+  auto yGridDimensions = 4;
+  auto rendererSize = 200;
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
-  int rendererSize = 200;
-  renderWindow->SetSize(rendererSize * gridDimensions,
-                        rendererSize * gridDimensions);
+  renderWindow->SetWindowName("Parametric Objects Demonstration");
+  renderWindow->SetSize(rendererSize * xGridDimensions,
+                        rendererSize * yGridDimensions);
 
-  for (auto row = 0; row < gridDimensions; row++)
+  for(auto row = 0; row < yGridDimensions; row++)
   {
-    for (auto col = 0; col < gridDimensions; col++)
+    for(auto col = 0; col < xGridDimensions; col++)
     {
-      auto index = row * gridDimensions + col;
-      auto x0 = double(col) / gridDimensions;
-      auto y0 = double(gridDimensions - row - 1) / gridDimensions;
-      auto x1 = double(col + 1) / gridDimensions;
-      auto y1 = double(gridDimensions - row) / gridDimensions;
-      renderWindow->AddRenderer(renderers[index]);
-      renderers[index]->SetViewport(x0, y0, x1, y1);
+      int index = row * xGridDimensions + col;
 
-      if (index > static_cast<int>(parametricObjects.size() - 1))
+      // (xmin, ymin, xmax, ymax)
+      double viewport[4] = {
+        static_cast<double>(col) / xGridDimensions,
+        static_cast<double>(yGridDimensions - (row + 1))/ yGridDimensions,
+        static_cast<double>(col + 1) / xGridDimensions,
+        static_cast<double>(yGridDimensions - row) / yGridDimensions
+      };
+
+      if(index > int(actors.size()) - 1)
       {
+        // Add a renderer even if there is no actor.
+        // This makes the render window background all the same color.
+        vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();
+        ren->SetBackground(colors->GetColor3d("BkgColor").GetData());
+        ren->SetViewport(viewport);
+        renderWindow->AddRenderer(ren);
         continue;
       }
 
-      renderers[index]->AddActor(actors[index]);
-      renderers[index]->AddActor(textactors[index]);
-      renderers[index]->SetBackground(colors->GetColor3d("BkgColor").GetData());
+      renderers[index]->SetViewport(viewport);
       renderers[index]->ResetCamera();
       renderers[index]->GetActiveCamera()->Azimuth(30);
       renderers[index]->GetActiveCamera()->Elevation(-30);
-      renderers[index]->GetActiveCamera()->Zoom(0.9);
       renderers[index]->ResetCameraClippingRange();
+      renderWindow->AddRenderer(renderers[index]);
     }
   }
 

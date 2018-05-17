@@ -1,31 +1,27 @@
-#include <vtkSmartPointer.h>
-#include <vtkCellTypeSource.h>
-#include <vtkUnstructuredGrid.h>
+#include <vtkActor.h>
+#include <vtkActor2D.h>
+#include <vtkCamera.h>
+#include <vtkCellData.h>
 #include <vtkCellType.h>
 #include <vtkCellTypes.h>
-#include <vtkTessellatorFilter.h>
-
-#include <vtkCellData.h>
-#include <vtkIntArray.h>
-
-#include <vtkShrinkFilter.h>
-
-#include <vtkTextProperty.h>
-#include <vtkTextMapper.h>
-#include <vtkActor2D.h>
-
-#include <vtkLookupTable.h>
-#include <vtkActor.h>
+#include <vtkCellTypeSource.h>
+#include <vtkColorSeries.h>
 #include <vtkDataSetMapper.h>
+#include <vtkIntArray.h>
+#include <vtkLookupTable.h>
+#include <vtkMath.h>
+#include <vtkMinimalStandardRandomSequence.h>
+#include <vtkNamedColors.h>
 #include <vtkProperty.h>
-#include <vtkCamera.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-
-#include <vtkMath.h>
-#include <vtkColorSeries.h>
-#include <vtkNamedColors.h>
+#include <vtkShrinkFilter.h>
+#include <vtkSmartPointer.h>
+#include <vtkTessellatorFilter.h>
+#include <vtkTextMapper.h>
+#include <vtkTextProperty.h>
+#include <vtkUnstructuredGrid.h>
 
 #include <map>
 
@@ -88,14 +84,22 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkPoints> points =
     vtkSmartPointer<vtkPoints>::New();
   points->SetNumberOfPoints(source->GetOutput()->GetNumberOfPoints());
-  vtkMath::RandomSeed(5070); // for testing
-  for (int i = 0; i <points->GetNumberOfPoints(); ++i)
+  vtkSmartPointer<vtkMinimalStandardRandomSequence> rng =
+    vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
+  rng->SetSeed(5070); // for testing
+  for (auto i = 0; i <points->GetNumberOfPoints(); ++i)
   {
+    double perturbation[3];
+    for (auto j = 0; j < 3; ++j)
+    {
+      rng->Next();
+      perturbation[j] = rng->GetRangeValue(-0.1,0.1);
+    }
     double currentPoint[3];
     originalPoints->GetPoint(i, currentPoint);
-    points->SetPoint(i,currentPoint[0] + vtkMath::Random(-.1,.1),
-                       currentPoint[1] + vtkMath::Random(-.1,.1),
-                       currentPoint[2] + vtkMath::Random(-.1,.1));
+    points->SetPoint(i,currentPoint[0] + perturbation[0],
+                       currentPoint[1] + perturbation[1],
+                       currentPoint[2] + perturbation[2]);
   }
   source->GetOutput()->SetPoints(points);
 
@@ -104,7 +108,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkIntArray> idArray =
     vtkSmartPointer<vtkIntArray>::New();
   idArray->SetNumberOfTuples(numCells);
-  for (int i = 0; i < numCells; ++i)
+  for (auto i = 0; i < numCells; ++i)
   {
     idArray->InsertTuple1(i, i + 1);
   }
@@ -184,6 +188,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Cell Type Source");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();

@@ -10,4 +10,10 @@ On one of the desks is a small, intense heat source (e.g., a cigarette).
 We generate 25 streamlines that are started near the inlet using a **vtkPointSource** point generator.
 By adjusting a single parameter (e.g., the center of the point source) it is possible to quickly explore our simulation data.
 
-This program provides you with an optional parameter to select from one of several point source centers.
+This program provides you with an optional parameter to select from one of several point source centers. The figure was created using:
+
+```
+./Office office.vtl 3
+```
+!!! info
+    See [Figure 9-47](/VTKBook/09Chapter9/#Figure%209-47) in [Chapter 9](/VTKBook/09Chapter9) in the [VTK Textbook](/VTKBook/01Chapter1/).

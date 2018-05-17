@@ -8,10 +8,8 @@ def main():
     colors = vtk.vtkNamedColors()
 
     # Set the colors.
-    cubeColor = map(lambda x: x / 255.0, [250, 128, 114])
-    colors.SetColor('CubeColor', *cubeColor)
-    bkg = map(lambda x: x / 255.0, [230, 230, 230])
-    colors.SetColor('BkgColor', *bkg)
+    colors.SetColor("CubeColor", [250, 128, 114, 255])
+    colors.SetColor("BkgColor", [230, 230, 230, 255])
 
     # Create the rendering windows and three renderers.
 

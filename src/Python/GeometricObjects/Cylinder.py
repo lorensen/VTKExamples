@@ -1,34 +1,42 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import vtk
 
-# create a rendering window and renderer
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
 
-# create a renderwindowinteractor
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
+def main():
+    colors = vtk.vtkNamedColors()
 
-# create source
-source = vtk.vtkCylinderSource()
-source.SetCenter(0, 0, 0)
-source.SetRadius(5.0)
-source.SetHeight(7.0)
-source.SetResolution(100)
+    # Create a sphere
+    cylinderSource = vtk.vtkCylinderSource()
+    cylinderSource.SetCenter(0.0, 0.0, 0.0)
+    cylinderSource.SetRadius(5.0)
+    cylinderSource.SetHeight(7.0)
+    cylinderSource.SetResolution(100)
 
-# mapper
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(source.GetOutputPort())
+    # Create a mapper and actor
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(cylinderSource.GetOutputPort())
+    actor = vtk.vtkActor()
+    actor.GetProperty().SetColor(colors.GetColor3d("Cornsilk"))
+    actor.SetMapper(mapper)
 
-# actor
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    # Create a renderer, render window, and interactor
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Cylinder")
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
 
-# assign actor to the renderer
-ren.AddActor(actor)
-ren.SetBackground(0.1, 0.3, 0.2)  # Background color dark green
+    # Add the actor to the scene
+    renderer.AddActor(actor)
+    renderer.SetBackground(colors.GetColor3d("DarkGreen"))
 
-# enable user interface interactor
-iren.Initialize()
-renWin.Render()
-iren.Start()
+    # Render and interact
+    renderWindow.Render()
+    renderWindowInteractor.Start()
+
+
+if __name__ == '__main__':
+    main()

@@ -1,20 +1,18 @@
-#include <vtkSmartPointer.h>
-#include <vtkConvexPointSet.h>
-
-#include <vtkPoints.h>
-#include <vtkUnstructuredGrid.h>
-#include <vtkDataSetMapper.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
+#include <vtkConvexPointSet.h>
+#include <vtkDataSetMapper.h>
+#include <vtkGlyph3DMapper.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
 #include <vtkProperty.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-
 #include <vtkShrinkFilter.h>
-#include <vtkGlyph3DMapper.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
-#include <vtkNamedColors.h>
+#include <vtkUnstructuredGrid.h>
 
 int main (int, char *[])
 {
@@ -88,6 +86,7 @@ int main (int, char *[])
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Convex Point Set");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();

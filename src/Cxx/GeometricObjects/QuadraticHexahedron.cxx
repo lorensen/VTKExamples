@@ -1,25 +1,23 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkUnstructuredGrid.h>
-#include <vtkQuadraticHexahedron.h>
-#include <vtkTessellatorFilter.h>
-#include <vtkNamedColors.h>
-
-#include <vtkSphereSource.h>
-#include <vtkGlyph3D.h>
-
-#include <vtkDataSetMapper.h>
 #include <vtkActor.h>
+#include <vtkDataSetMapper.h>
+#include <vtkGlyph3D.h>
+#include <vtkMinimalStandardRandomSequence.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
 #include <vtkProperty.h>
+#include <vtkQuadraticHexahedron.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkTessellatorFilter.h>
+#include <vtkUnstructuredGrid.h>
 
-#include <vtkMath.h>
-
-#include <vtkPoints.h>
-
-static vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron();
+namespace
+{
+vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron();
+}
 
 int main (int, char *[])
 {
@@ -51,7 +49,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkSphereSource> sphereSource =
     vtkSmartPointer<vtkSphereSource>::New();
-  sphereSource->SetRadius(.02);
+  sphereSource->SetRadius(0.02);
 
   vtkSmartPointer<vtkGlyph3D> glyph3D =
     vtkSmartPointer<vtkGlyph3D>::New();
@@ -68,13 +66,15 @@ int main (int, char *[])
   vtkSmartPointer<vtkActor> glyph3DActor =
     vtkSmartPointer<vtkActor>::New();
   glyph3DActor->SetMapper(glyph3DMapper);
-  glyph3DActor->GetProperty()->SetColor(0.8900, 0.8100, 0.3400);
+  glyph3DActor->GetProperty()->SetColor(
+    namedColors->GetColor3d("Banana").GetData());
 
   // Visualize
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetWindowName("Quadratic Hexahedron");
   renderWindow->AddRenderer(renderer);
   vtkSmartPointer<vtkRenderWindowInteractor> interactor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
@@ -90,6 +90,8 @@ int main (int, char *[])
   return EXIT_SUCCESS;
 }
 
+namespace
+{
 vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron()
 {
   vtkSmartPointer<vtkQuadraticHexahedron> aHexahedron =
@@ -98,16 +100,25 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron()
     vtkSmartPointer<vtkPoints>::New();
 
   double *pcoords = aHexahedron->GetParametricCoords();
-  vtkMath::RandomSeed(5070); // for testing
+  vtkSmartPointer<vtkMinimalStandardRandomSequence> rng =
+    vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
   points->SetNumberOfPoints(aHexahedron->GetNumberOfPoints());
-  for (int i = 0; i < aHexahedron->GetNumberOfPoints(); ++i)
+  rng->SetSeed(5070); // for testing
+  for (auto i = 0; i < aHexahedron->GetNumberOfPoints(); ++i)
   {
+    double perturbation[3];
+    for (auto j = 0; j < 3; ++j)
+    {
+      rng->Next();
+      perturbation[j] = rng->GetRangeValue(-0.1, 0.1);
+    }
     aHexahedron->GetPointIds()->SetId(i, i);
     points->SetPoint(i,
-                     *(pcoords + 3 * i) + vtkMath::Random(-.1,.1),
-                     *(pcoords + 3 * i + 1) + vtkMath::Random(-.1,.1),
-                     *(pcoords + 3 * i + 2) + vtkMath::Random(-.1,.1));
+                     *(pcoords + 3 * i) + perturbation[0],
+                     *(pcoords + 3 * i + 1) + perturbation[1],
+                     *(pcoords + 3 * i + 2) + perturbation[2]);
   }
+
   // Add the points and hexahedron to an unstructured grid
   vtkSmartPointer<vtkUnstructuredGrid> uGrid =
     vtkSmartPointer<vtkUnstructuredGrid>::New();
@@ -116,4 +127,4 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron()
 
   return uGrid;
 }
-
+}

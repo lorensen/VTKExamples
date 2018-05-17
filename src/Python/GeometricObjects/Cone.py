@@ -5,10 +5,8 @@ import vtk
 
 def main():
     colors = vtk.vtkNamedColors()
-    bkg1 = map(lambda xx: xx / 256.0, [26, 51, 77])
-    colors.SetColor("BkgColor1", *bkg1)
-    bkg2 = map(lambda xx: xx / 256.0, [77, 51, 26])
-    colors.SetColor("BkgColor2", *bkg2)
+    colors.SetColor("BkgColor1", [26, 51, 77, 255])
+    colors.SetColor("BkgColor2", [77, 51, 26, 255])
 
     coneSource = vtk.vtkConeSource()
     # coneSource.SetResolution(60)

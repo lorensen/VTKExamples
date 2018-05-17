@@ -95,6 +95,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) | vtkHexagonalPrism vtkHexahedron vtkPentagonalPrism  vtkPolyhedron vtkPyramid vtkTetra vtkVoxel vtkWedge vtkUnstructuredGrid | Sample objects are generated from the classes derived from vtkCell3D and displayed.
+[CellTypeSource](/Python/GeometricObjects/CellTypeSource) | vtkCellTypeSource vtkTessellatorFilter | Generate tessellated cells.
+[ConvexPointSet](/Python/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | Generate a ConvexPointSetCell.
 [Hexahedron](/Python/GeometricObjects/Hexahedron) | vtkHexahedron |
 [LinearCellDemo](/Python/GeometricObjects/LinearCellDemo) | vtkCell vtkCell3D | Linear cell types in VTK.
 [LongLine](/Python/GeometricObjects/LongLine) | vtkLine | Manually create a polyline.
@@ -106,6 +108,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Quad](/Python/GeometricObjects/Quad) | vtkQuad |
 [Tetrahedron](/Python/GeometricObjects/Tetrahedron) | vtkTetra |
 [Triangle](/Python/GeometricObjects/Triangle) | vtkTriangle |
+[TriangleStrip](/Python/GeometricObjects/TriangleStrip) | vtkTriangleStrip |
 [Vertex](/Python/GeometricObjects/Vertex) | vtkVertex |
 
 ### Sources
@@ -118,11 +121,11 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Cube](/Python/GeometricObjects/Cube) | vtkCubeSource |
 [Cube1](/Python/GeometricObjects/Cube1) | vtkCubeSource |
 [Cylinder](/Python/GeometricObjects/Cylinder) | vtkCylinderSource |
-[DataSetSurface](/Python/GeometricObjects/DataSetSurface) | vtkDataSetSurfaceFilter |
 [Disk](/Python/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Python/GeometricObjects/Frustum) | vtkFrustumSource |
-[LineSource](/Python/GeometricObjects/LineSource) | vtkLineSource |
-[OrientedArrow](/Python/GeometricObjects/OrientedArrow) | vtkArrowSource |
+[Line](/Python/GeometricObjects/Line) | vtkLineSource |
+[OrientedArrow](/Python/GeometricObjects/OrientedArrow) | vtkArrowSource | Orient an arrow along an arbitrary vector.
+[OrientedCylinder](/Python/GeometricObjects/OrientedCylinder) | vtkCylinderSource | Orient a cylinder along an arbitrary vector.
 [Plane](/Python/GeometricObjects/Plane) | vtkPlaneSource |
 [PlatonicSolids](/Python/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource | All five platonic solids are displayed.
 [PolyLine1](/Python/GeometricObjects/PolyLine1) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
@@ -130,21 +133,27 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Sphere](/Python/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Python/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
 [TextActor](/Python/GeometricObjects/TextActor) | vtkTextActor | 2D "HUD-type" text
-[TriangleStrip](/Python/GeometricObjects/TriangleStrip) | vtkTriangleStrip |
 
 ### Non Linear
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [IsoparametricCellsDemo](/Python/GeometricObjects/IsoparametricCellsDemo) | vtkNonLinearCell | Nonlinear isoparametric cell types in VTK.
+[QuadraticHexahedron](/Python/GeometricObjects/QuadraticHexahedron) | vtkQuadraticHexahedron vtkTessellatorFilter | Create and tessellate a nonlinear cell.
+[QuadraticHexahedronDemo](/Python/GeometricObjects/QuadraticHexahedronDemo) | vtkQuadraticHexahedron vtkTessellatorFilter | Interactively adjust chord error.
+[QuadraticTetra](/Python/GeometricObjects/QuadraticTetra) | vtkQuadraticTetra vtkTessellatorFilter | Create and tessellate a nonlinear cell.
+[QuadraticTetraDemo](/Python/GeometricObjects/QuadraticTetraDemo) | vtkQuadraticTetra vtkTessellatorFilter | Interactively adjust chord error.
 
 ### Parametric Objects
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ParametricKuenDemo](/Python/GeometricObjects/ParametricKuenDemo) | vtkParametricKuen | Interactively change the parameters for a Kuen Surface.
 [ParametricObjects](/Python/GeometricObjects/ParametricObjects) |  | Uncomment the object that you wish to be displayed.
 [ParametricObjectsDemo](/Python/GeometricObjects/ParametricObjectsDemo) | vtkParametricBoy vtkParametricConicSpiral vtkParametricCrossCap vtkParametricDini vtkParametricEllipsoid vtkParametricEnneper vtkParametricFigure8Klein vtkParametricKlein vtkParametricMobius vtkParametricRandomHills vtkParametricRoman vtkParametricSpline vtkParametricSuperEllipsoid vtkParametricSuperToroid vtkParametricTorus | Demonstration of of the vtkParametric classes added by Andrew Maclean. All the objects are displayed in a 4X4 array.
 [ParametricObjectsDemo2](/Python/GeometricObjects/ParametricObjectsDemo2) | vtkParametricBohemianDome vtkParametricBour vtkParametricCatalanMinimal vtkParametricHenneberg vtkParametricKuen vtkParametricPluckerConoid vtkParametricPseudosphere | Demonstration of additional vtkParametric* classes added by  Tim Meehan. All the objects are displayed in a 4X2 array.
+[ParametricSuperEllipsoidDemo](/Python/GeometricObjects/ParametricSuperEllipsoidDemo) | vtkParametricSuperEllipsoid | Interactively change the parameters for a SuperEllipsoid Surface.
+[ParametricSuperToroidDemo](/Python/GeometricObjects/ParametricSuperToroidDemo) | vtkParametricSuperToroid | Interactively change the parameters for a SuperToroid Surface.
 
 ## Implicit Functions and Iso-surfaces
 
@@ -379,6 +388,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) | vtkCurvatures vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the gaussian curvature of a surface into bands and using arrows to display the normals on the surface.
 [CutStructuredGrid](/Python/VisualizationAlgorithms/CutStructuredGrid) | vtkCutter | Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant k value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used.
 [Cutter](/Python/VisualizationAlgorithms/Cutter) | vtkCutter |
+[DataSetSurface](/Python/VisualizationAlgorithms/DataSetSurface) | vtkDataSetSurfaceFilter | Cutting a hexahedron with a plane. The red line on the surface shows the cut.
 [DecimateFran](/Python/VisualizationAlgorithms/DecimateFran) | vtkDecimatePro | Examples of decimation algorithm. (a) Decimation of laser digitizer data.
 [DecimateHawaii](/Python/VisualizationAlgorithms/DecimateHawaii) | vtkDecimatePro | Examples of decimation algorithm. (b) Decimation of terrain data.
 [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) | vtkColorTransferFunction vtkWarpVector vtkVectorDot | Show modal lines for a vibrating beam.

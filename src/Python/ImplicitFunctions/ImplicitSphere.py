@@ -7,8 +7,7 @@ def main():
     colors = vtk.vtkNamedColors()
 
     # Set the background color.
-    bkg = map(lambda x: x / 255.0, [51, 77, 102])
-    colors.SetColor("BkgColor", *bkg)
+    colors.SetColor("BkgColor", [51, 77, 102, 255])
 
     sphere = vtk.vtkSphere()
 

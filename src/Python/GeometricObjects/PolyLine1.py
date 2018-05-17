@@ -10,9 +10,8 @@ import math
 def main():
     colors = vtk.vtkNamedColors()
 
-    # Set the background color. Match those in VTKTextbook.pdf.
-    bkg = map(lambda x: x / 256.0, [26, 51, 102])
-    colors.SetColor("BkgColor", *bkg)
+    # Set the background color.
+    colors.SetColor("BkgColor", [26, 51, 102, 255])
 
     # vtkPoints represents 3D points. The data model for vtkPoints is an array of
     # vx-vy-vz triplets accessible by (point or cell) id.

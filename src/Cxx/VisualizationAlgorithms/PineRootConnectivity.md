@@ -20,3 +20,6 @@ To illustrate the application of connectivity analysis, we will use an MRI datas
 
 !!! cite
     *Comparative Water Uptake by Roots of Different Ages in Seedlings of Loblolly Pine (Pinus taeda L.)* December 1991. New Phytologist 119(4):551 - 560.
+
+!!! info
+    See [Figure 9-51](/VTKBook/09Chapter9/#Figure%209-51b) in [Chapter 9](/VTKBook/09Chapter9) in the [VTK Textbook](/VTKBook/01Chapter1/).

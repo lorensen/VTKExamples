@@ -1,0 +1,78 @@
+Code to hide vtk objects in Figures
+&#118;
+
+Template for example references to the VTK Book figures.
+
+!!! info
+    See [Figure YY](/VTKBook/XXChapterXX/#Figure%20YY/) in [Chapter XX](/VTKBook/XXChapterXX) in the [VTK Textbook](/VTKBook/01Chapter1/).
+
+Template for manually created figures
+
+<figure id="Figure NUMBER">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/FigureNUMBER.png?raw=true" width="640" alt="FigureNUMBER">
+  <figcaption style="color:blue"><b>Figure NUMBER</b>. Physical generation of an image.</figcaption>
+</figure>
+
+Templates for automaticaly created figures
+
+One figure
+
+<figure id="Figure NUMBER">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true" width="640" alt="Figure NUMBER">
+  <figcaption style="color:blue"><b>Figure NUMBER</b>. Contouring examples. <a href="../../Cxx/KIT/ONE" title="ONE"> See ONE.cxx</a> and <a href="../../Python/KIT/ONE" title="ONE"> ONE.py</a>.</figcaption>
+</figure>
+
+Two figures a,b
+
+<figure id="Figure NUMBER">
+ <figure id="Figure NUMBERa">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true" width="640" alt="Figure NUMBERa">
+  <figcaption style="color:blue">(a)</figcaption>
+ </figure>
+<figure id="Figure NUMBERb">
+ <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTWO.png?raw=true" width="640" alt="Figure NUMBERb">
+ <figcaption style="color:blue">(b)</figcaption>
+</figure>
+<figcaption style="color:blue"><b>Figure NUMBER</b>. Contouring examples. (a) <a href="../../Cxx/KIT/ONE" title="ONE"> See ONE.cxx</a> and <a href="../../Python/KIT/ONE" title="ONE"> ONE.py</a>.; (b).<a href="../../Cxx/KIT/TWO" title="TWO"> See TWO.cxx</a> and <a href="../../Python/KIT/TWO" title="TWO"> TWO.py</a>.</figcaption>
+</figure>
+
+Three figures a,b,c
+
+<figure id="Figure NUMBER">
+ <figure id="Figure NUMBERa">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true" width="640" alt="Figure NUMBERa">
+  <figcaption style="color:blue">(a)</figcaption>
+ </figure>
+ <figure id="Figure NUMBERb">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTWO.png?raw=true" width="640" alt="Figure NUMBERb">
+  <figcaption style="color:blue">(b)</figcaption>
+ </figure>
+  <figure id="Figure NUMBERc"> <figure>
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTHREE.png?raw=true" width="640" alt="Figure NUMBERc">
+  <figcaption style="color:blue">(c)</figcaption>
+ </figure>
+ <figcaption style="color:blue"><b>Figure NUMBER</b>. Contouring examples. (a) <a href="../../Cxx/KIT/ONE" title="ONE"> See ONE.cxx</a> and <a href="../../Python/KIT/ONE" title="ONE"> ONE.py</a>.; (b).<a href="../../Cxx/KIT/TWO" title="TWO"> See TWO.cxx</a> and <a href="../../Python/KIT/TWO" title="TWO"> TWO.py</a>.; (c)<a href="../../Cxx/KIT/THREE" title="THREE"> See THREE.cxx</a> and <a href="../../Python/KIT/THREE" title="THREE"> THREE.py</a>.</figcaption>
+</figure>
+
+Four Figures a,b,c,d
+
+<figure id="Figure NUMBER">
+ <figure id="Figure NUMBERa">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestONE.png?raw=true" width="640" alt="Figure NUMBERa">
+  <figcaption style="color:blue">(a)</figcaption>
+ </figure>
+ <figure id="Figure NUMBERb">
+   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTWO.png?raw=true" width="640" alt="Figure NUMBERb">
+ <figcaption style="color:blue">(b)</figcaption>
+ </figure>
+ <figure id="Figure NUMBERc">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestTHREE.png?raw=true" width="640" alt="Figure NUMBERc">
+ <figcaption style="color:blue">(c)</figcaption>
+ </figure>
+ <figure id="Figure NUMBERd">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/KIT/TestFOUR.png?raw=true" width="640" alt="Figure NUMBERd">
+  <figcaption style="color:blue">(d)</figcaption>
+ </figure>
+ <figcaption style="color:blue"><b>Figure NUMBER</b>. Contouring examples. (a) <a href="../../Cxx/KIT/ONE" title="ONE"> See ONE.cxx</a> and <a href="../../Python/KIT/ONE" title="ONE"> ONE.py</a>.; (b).<a href="../../Cxx/KIT/TWO" title="TWO"> See TWO.cxx</a> and <a href="../../Python/KIT/TWO" title="TWO"> TWO.py</a>.; (c)<a href="../../Cxx/KIT/THREE" title="THREE"> See THREE.cxx</a> and <a href="
+../../Python/KIT/THREE" title="THREE"> THREE.py</a>.; (d)<a href="../../Cxx/KIT/FOUR" title="FOUR"> See FOUR.cxx</a> and <a href="../../Python/KIT" title="FOUR"> FOUR.py</a>.</figcaption>
+</figure>

@@ -121,9 +121,12 @@ int main (int argc, char *argv[])
       for (int i = 0; i < pd->GetNumberOfArrays(); i++)
       {
         std::cout << "\tArray " << i
-             << " is named "
-             << (pd->GetArrayName(i) ? pd->GetArrayName(i) : "NULL")
-             << std::endl;
+                  << " is named "
+                  << (pd->GetArrayName(i) ? pd->GetArrayName(i) : "NULL")
+                  << " has " << pd->GetArray(i)->GetNumberOfTuples() << " tuples"
+                  << " with " << pd->GetArray(i)->GetNumberOfComponents() << " components"
+                  << " of type " << pd->GetArray(i)->GetClassName()
+                  << std::endl;
       }
     }
     // Now check for cell data
@@ -150,7 +153,10 @@ int main (int argc, char *argv[])
       for (int i = 0; i < dataSet->GetFieldData()->GetNumberOfArrays(); i++)
       {
         std::cout << "\tArray " << i
-             << " is named " << dataSet->GetFieldData()->GetArray(i)->GetName()
+                  << " is named " << dataSet->GetFieldData()->GetArray(i)->GetName()
+                  << " has " << dataSet->GetFieldData()->GetArray(i)->GetNumberOfTuples() << " tuples"
+                  << " with " << dataSet->GetFieldData()->GetArray(i)->GetNumberOfComponents() << " components"
+                  << " of type " << dataSet->GetFieldData()->GetArray(i)->GetClassName()
              << std::endl;
       }
     }

@@ -8,16 +8,11 @@ def main():
 
     colors = vtk.vtkNamedColors()
 
-    bkg1 = map(lambda x: x / 255.0, [77, 102, 153])
-    a1Diff = map(lambda x: x / 255.0, [255, 204, 77])
-    a2Amb = map(lambda x: x / 255.0, [51, 51, 255])
-    a2Diff = map(lambda x: x / 255.0, [51, 255, 204])
-    a3Amb = map(lambda x: x / 255.0, [128, 166, 255])
-    colors.SetColor("Bkg", *bkg1)
-    colors.SetColor("A1Diff", *a1Diff)
-    colors.SetColor("A2Amb", *a2Amb)
-    colors.SetColor("A2Diff", *a2Diff)
-    colors.SetColor("A3Amb", *a3Amb)
+    colors.SetColor("A1Diff", [255, 204, 77, 255])
+    colors.SetColor("A2Amb", [51, 51, 255, 255])
+    colors.SetColor("A2Diff", [51, 255, 204, 255])
+    colors.SetColor("A3Amb", [230, 230, 230, 255])
+    colors.SetColor("Bkg", [128, 166, 255, 255])
 
     renderer = vtk.vtkRenderer()
     renderer.SetBackground(colors.GetColor3d("Bkg"))

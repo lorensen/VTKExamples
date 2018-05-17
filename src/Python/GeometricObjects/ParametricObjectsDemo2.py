@@ -1,122 +1,114 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import vtk
 
 
-class ParametricObjects(object):
-    def ParametricObjects(self):
+def main():
+    colors = vtk.vtkNamedColors()
 
-        colors = vtk.vtkNamedColors()
-        # Set the background color.
-        bkg = map(lambda x: x / 256.0, [25, 51, 102])
-        colors.SetColor("BkgColor", *bkg)
+    colors.SetColor("BkgColor", [26, 51, 102, 255])
 
-        parametricObjects = list()
-        parametricObjects.append(vtk.vtkParametricBohemianDome())
-        parametricObjects[-1].SetA(0.5)
-        parametricObjects[-1].SetB(1.0)
-        parametricObjects[-1].SetC(2.0)
-        parametricObjects.append(vtk.vtkParametricBour())
-        parametricObjects.append(vtk.vtkParametricCatalanMinimal())
-        parametricObjects.append(vtk.vtkParametricHenneberg())
-        parametricObjects.append(vtk.vtkParametricKuen())
-        parametricObjects.append(vtk.vtkParametricPluckerConoid())
-        parametricObjects.append(vtk.vtkParametricPseudosphere())
+    parametricObjects = list()
+    parametricObjects.append(vtk.vtkParametricBohemianDome())
+    parametricObjects[-1].SetA(5.0)
+    parametricObjects[-1].SetB(1.0)
+    parametricObjects[-1].SetC(2.0)
+    parametricObjects.append(vtk.vtkParametricBour())
+    parametricObjects.append(vtk.vtkParametricCatalanMinimal())
+    parametricObjects.append(vtk.vtkParametricHenneberg())
+    parametricObjects.append(vtk.vtkParametricKuen())
+    parametricObjects.append(vtk.vtkParametricPluckerConoid())
+    parametricObjects.append(vtk.vtkParametricPseudosphere())
 
-        parametricFunctionSources = list()
-        renderers = list()
-        mappers = list()
-        actors = list()
-        textmappers = list()
-        textactors = list()
+    parametricFunctionSources = list()
+    renderers = list()
+    mappers = list()
+    actors = list()
+    textmappers = list()
+    textactors = list()
 
-        # Create a common text property.
-        textProperty = vtk.vtkTextProperty()
-        textProperty.SetFontSize(10)
-        textProperty.SetJustificationToCentered()
+    # Create one text property for all
+    textProperty = vtk.vtkTextProperty()
+    textProperty.SetFontSize(12)
+    textProperty.SetJustificationToCentered()
 
-        colors = vtk.vtkNamedColors()
-        # Set the background color. Match those in VTKTextbook.pdf.
-        bkg = map(lambda x: x / 256.0, [25, 51, 102])
-        colors.SetColor("BkgColor", *bkg)
+    backProperty = vtk.vtkProperty()
+    backProperty.SetColor(colors.GetColor3d("Tomato"))
 
-        backProperty = vtk.vtkProperty()
-        backProperty.SetColor(colors.GetColor3d("Red"))
+    # Create a parametric function source, renderer, mapper, and actor
+    # for each object
+    for i in range(0, len(parametricObjects)):
+        parametricFunctionSources.append(
+            vtk.vtkParametricFunctionSource())
+        parametricFunctionSources[i].SetParametricFunction(parametricObjects[i])
+        parametricFunctionSources[i].Update()
 
-        # Create a parametric function source, renderer, mapper
-        # and actor for each object.
-        for idx, item in enumerate(parametricObjects):
-            parametricFunctionSources.append(vtk.vtkParametricFunctionSource())
-            parametricFunctionSources[idx].SetParametricFunction(item)
-            parametricFunctionSources[idx].Update()
+        mappers.append(vtk.vtkPolyDataMapper())
+        mappers[i].SetInputConnection(
+            parametricFunctionSources[i].GetOutputPort())
 
-            mappers.append(vtk.vtkPolyDataMapper())
-            mappers[idx].SetInputConnection(parametricFunctionSources[idx].GetOutputPort())
+        actors.append(vtk.vtkActor())
+        actors[i].SetMapper(mappers[i])
+        actors[i].GetProperty().SetColor(colors.GetColor3d("Banana"))
+        actors[i].GetProperty().SetSpecular(.5)
+        actors[i].GetProperty().SetSpecularPower(20)
+        actors[i].SetBackfaceProperty(backProperty)
 
-            actors.append(vtk.vtkActor())
-            actors[idx].SetMapper(mappers[idx])
-            actors[idx].GetProperty().SetColor(colors.GetColor3d("White"))
-            actors[idx].SetBackfaceProperty(backProperty)
+        textmappers.append(vtk.vtkTextMapper())
+        textmappers[i].SetInput(parametricObjects[i].GetClassName())
+        textmappers[i].SetTextProperty(textProperty)
 
-            textmappers.append(vtk.vtkTextMapper())
-            textmappers[idx].SetInput(item.GetClassName())
-            textmappers[idx].SetTextProperty(textProperty)
+        textactors.append(vtk.vtkActor2D())
+        textactors[i].SetMapper(textmappers[i])
+        textactors[i].SetPosition(100, 16)
 
-            textactors.append(vtk.vtkActor2D())
-            textactors[idx].SetMapper(textmappers[idx])
-            textactors[idx].SetPosition(100, 16)
+        renderers.append(vtk.vtkRenderer())
+        renderers[i].AddActor(actors[i])
+        renderers[i].AddActor(textactors[i])
+        renderers[i].SetBackground(colors.GetColor3d("BkgColor"))
 
-            renderers.append(vtk.vtkRenderer())
+    # Setup the viewports
+    xGridDimensions = 4
+    yGridDimensions = 2
+    rendererSize = 200
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.SetWindowName("Parametric Objects Demonstration2")
+    renderWindow.SetSize(rendererSize * xGridDimensions,
+                         rendererSize * yGridDimensions)
+    for row in range(0, yGridDimensions):
+        for col in range(0, xGridDimensions):
+            index = row * xGridDimensions + col
 
-        gridDimensionsX = 4
-        gridDimensionsY = 2
-        for idx in range(len(parametricObjects), gridDimensionsX * gridDimensionsY):
-            renderers.append(vtk.vtkRenderer)
+            # (xmin, ymin, xmax, ymax)
+            viewport = [float(col) / xGridDimensions,
+                        float(yGridDimensions - (row + 1)) / yGridDimensions,
+                        float(col + 1) / xGridDimensions,
+                        float(yGridDimensions - row) / yGridDimensions]
 
-        rendererSize = 200
+            if index > (len(actors) - 1):
+                # Add a renderer even if there is no actor.
+                # This makes the render window background all the same color.
+                ren = vtk.vtkRenderer()
+                ren.SetBackground(colors.GetColor3d("BkgColor"))
+                ren.SetViewport(viewport)
+                renderWindow.AddRenderer(ren)
+                continue
 
-        # Create the RenderWindow
-        renderWindow = vtk.vtkRenderWindow()
-        renderWindow.SetSize(rendererSize * gridDimensionsX, rendererSize * gridDimensionsY)
+            renderers[index].SetViewport(viewport)
+            renderers[index].ResetCamera()
+            renderers[index].GetActiveCamera().Azimuth(30)
+            renderers[index].GetActiveCamera().Elevation(-30)
+            renderers[index].GetActiveCamera().Zoom(0.9)
+            renderers[index].ResetCameraClippingRange()
+            renderWindow.AddRenderer(renderers[index])
 
-        # Add and position the renders to the render window.
-        viewport = list()
-        for row in range(gridDimensionsY):
-            for col in range(gridDimensionsX):
-                idx = row * gridDimensionsX + col
-                x0 = float(col) / gridDimensionsX
-                y0 = float(gridDimensionsY - row - 1) / gridDimensionsY
-                x1 = float(col + 1) / gridDimensionsX
-                y1 = float(gridDimensionsY - row) / gridDimensionsY
-                viewport[:] = []
-                viewport.append(x0)
-                viewport.append(y0)
-                viewport.append(x1)
-                viewport.append(y1)
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(renderWindow)
 
-                if idx > (len(parametricObjects) - 1):
-                    continue
-
-                renderWindow.AddRenderer(renderers[idx])
-                renderers[idx].SetViewport(viewport)
-
-                renderers[idx].AddActor(actors[idx])
-                renderers[idx].AddActor(textactors[idx])
-                renderers[idx].SetBackground(colors.GetColor3d("BkgColor"))
-                renderers[idx].ResetCamera()
-                renderers[idx].GetActiveCamera().Azimuth(30)
-                renderers[idx].GetActiveCamera().Elevation(-30)
-                renderers[idx].GetActiveCamera().Zoom(0.9)
-                renderers[idx].ResetCameraClippingRange()
-
-        interactor = vtk.vtkRenderWindowInteractor()
-        interactor.SetRenderWindow(renderWindow)
-
-        renderWindow.Render()
-
-        interactor.Start()
+    renderWindow.Render()
+    interactor.Start()
 
 
-if __name__ == "__main__":
-    po = ParametricObjects()
-    po.ParametricObjects()
+if __name__ == '__main__':
+    main()

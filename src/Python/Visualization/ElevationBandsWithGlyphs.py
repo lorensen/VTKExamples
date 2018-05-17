@@ -172,12 +172,13 @@ def ReverseLUT(lut):
     t = lut.GetNumberOfTableValues() - 1
     revList = reversed(list(range(t + 1)))
     for i in revList:
-        rgba = [0, 0, 0]
+        rgba = [0.0] * 3
         v = float(i)
         lut.GetColor(v, rgba)
         rgba.append(lut.GetOpacity(v))
         lutr.SetTableValue(t - i, rgba)
     t = lut.GetNumberOfAnnotatedValues() - 1
+    revList = reversed(list(range(t + 1)))
     for i in revList:
         lutr.SetAnnotation(t - i, lut.GetAnnotation(i))
     return lutr
@@ -261,6 +262,12 @@ def DisplaySurface(st):
         print(st, "is not a surface.")
         iren = vtk.vtkRenderWindowInteractor()
         return iren
+
+    colors = vtk.vtkNamedColors()
+
+    # Set the background color.
+    colors.SetColor("BkgColor", [179, 204, 255, 255])
+
     # ------------------------------------------------------------
     # Create the surface, lookup tables, contour filter etc.
     # ------------------------------------------------------------
@@ -335,7 +342,7 @@ def DisplaySurface(st):
 
     edgeActor = vtk.vtkActor()
     edgeActor.SetMapper(edgeMapper)
-    edgeActor.GetProperty().SetColor(0, 0, 0)
+    edgeActor.GetProperty().SetColor(colors.GetColor3d("Black"))
     edgeActor.RotateX(-45)
     edgeActor.RotateZ(45)
 
@@ -376,7 +383,7 @@ def DisplaySurface(st):
     ren.AddViewProp(glyphActor)
     ren.AddActor2D(scalarBar)
 
-    ren.SetBackground(0.7, 0.8, 1.0)
+    ren.SetBackground(colors.GetColor3d("BkgColor"))
     renWin.SetSize(800, 800)
     renWin.Render()
 
@@ -386,10 +393,10 @@ def DisplaySurface(st):
 
 
 if __name__ == '__main__':
-    # iren = DisplaySurface("PLANE")
-    # iren = DisplaySurface("SPHERE")
-    iren = DisplaySurface("PARAMETRIC_SURFACE")
-    iren.Render()
-    iren.Start()
-    # WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),
+    # interactor = DisplaySurface("PLANE")
+    # interactor = DisplaySurface("SPHERE")
+    interactor = DisplaySurface("PARAMETRIC_SURFACE")
+    interactor.Render()
+    interactor.Start()
+    # WritePNG(interactor.GetRenderWindow().GetRenderers().GetFirstRenderer(),
     #               "ElevationBandsWithGlyphs.png")

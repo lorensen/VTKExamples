@@ -13,7 +13,6 @@
 #include <vtkUnstructuredGrid.h>
 #include <vtkVersion.h>
 
-#include <algorithm>
 #include <array>
 #include <vector>
 
@@ -24,17 +23,8 @@ int main(int, char* [])
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the background color.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 256.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> bkg{{51, 77, 102}};
-  // std::array<double, 3> bkg{{26, 51, 77}};
-  SetColor(bkg, "BkgColor");
+  std::array<unsigned char , 4> bkg{{51, 77, 102, 255}};
+    colors->SetColor("BkgColor", bkg.data());
 
   // For the hexahedron; setup the coordinates of eight points.
   // The two faces must be in counter clockwise order as viewed from the

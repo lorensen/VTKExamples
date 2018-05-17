@@ -1,47 +1,43 @@
-#include <vtkSmartPointer.h>
-#include <vtkVersion.h>
-
-#include <vtkPoints.h>
-#include <vtkCellArray.h>
-#include <vtkUnstructuredGrid.h>
-#include <vtkDataSetMapper.h>
-#include <vtkProperty.h>
-
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkCamera.h>
-#include <vtkTextProperty.h>
-#include <vtkTextMapper.h>
 #include <vtkActor2D.h>
-
-#include <vtkSphereSource.h>
+#include <vtkCamera.h>
+#include <vtkCellArray.h>
+#include <vtkDataSetMapper.h>
 #include <vtkGlyph3DMapper.h>
 #include <vtkLabeledDataMapper.h>
+#include <vtkNamedColors.h>
+#include <vtkPoints.h>
+#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkTextMapper.h>
+#include <vtkTextProperty.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkVersion.h>
 
-#include <vtkVertex.h>
-#include <vtkPolyVertex.h>
+#include <vtkHexagonalPrism.h>
+#include <vtkHexahedron.h>
 #include <vtkLine.h>
-#include <vtkPolyLine.h>
-#include <vtkTriangle.h>
-#include <vtkTriangleStrip.h>
-#include <vtkPolygon.h>
+#include <vtkPentagonalPrism.h>
 #include <vtkPixel.h>
+#include <vtkPolygon.h>
+#include <vtkPolyLine.h>
+#include <vtkPolyVertex.h>
+#include <vtkPyramid.h>
 #include <vtkQuad.h>
 #include <vtkTetra.h>
+#include <vtkTriangle.h>
+#include <vtkTriangleStrip.h>
+#include <vtkVertex.h>
 #include <vtkVoxel.h>
-#include <vtkHexahedron.h>
 #include <vtkWedge.h>
-#include <vtkPyramid.h>
-#include <vtkPentagonalPrism.h>
-#include <vtkHexagonalPrism.h>
 
-#include <vtkNamedColors.h>
-
-#include <vector>
-#include <string>
 #include <cstdlib>
+#include <string>
+#include <vector>
 
 // These functions return a vtkUnstructured grid corresponding to the object.
 namespace
@@ -158,10 +154,10 @@ int main(int, char *[])
     renderers[i]->AddViewProp(textActors[i]);
 
     // Label the points
-    vtkSmartPointer<vtkLabeledDataMapper> labelMapper = 
+    vtkSmartPointer<vtkLabeledDataMapper> labelMapper =
       vtkSmartPointer<vtkLabeledDataMapper>::New();
     labelMapper->SetInputData(uGrids[i]);
-    vtkSmartPointer<vtkActor2D> labelActor = 
+    vtkSmartPointer<vtkActor2D> labelActor =
       vtkSmartPointer<vtkActor2D>::New();
     labelActor->SetMapper(labelMapper);
     renderers[i]->AddViewProp(labelActor);
@@ -248,6 +244,7 @@ int main(int, char *[])
 
   return EXIT_SUCCESS;
 }
+
 namespace
 {
 vtkSmartPointer<vtkUnstructuredGrid> MakeVertex()

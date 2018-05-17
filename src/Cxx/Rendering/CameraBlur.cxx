@@ -10,24 +10,15 @@
 #include <vtkRenderer.h>
 #include <vtkSphereSource.h>
 
-#include <algorithm>
 #include <array>
 
 int main(int, char* [])
 {
   vtkNew<vtkNamedColors> colors;
 
-  // Set the colors.
-  auto SetColor = [&colors](std::array<double, 3>& v,
-                            std::string const& colorName) {
-    auto const scaleFactor = 255.0;
-    std::transform(std::begin(v), std::end(v), std::begin(v),
-                   [=](double const& n) { return n / scaleFactor; });
-    colors->SetColor(colorName, v.data());
-    return;
-  };
-  std::array<double, 3> bkg1{{26, 51, 102}};
-  SetColor(bkg1, "Bkg");
+  // Set the background color.
+  std::array<unsigned char , 4> bkg{{26, 51, 102, 255}};
+    colors->SetColor("Bkg", bkg.data());
 
   // Create the rendering objects.
   vtkNew<vtkRenderer> ren1;

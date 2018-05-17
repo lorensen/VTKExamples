@@ -1,38 +1,49 @@
-#define USER_MATRIX
-#include <vtkArrowSource.h>
-#include <vtkPolyData.h>
-#include <vtkSmartPointer.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
+#include <vtkArrowSource.h>
 #include <vtkMath.h>
-#include <vtkSphereSource.h>
+#include <vtkMinimalStandardRandomSequence.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
-#include <time.h>
+
+#include <array>
+
+#define USER_MATRIX
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  // Set the background color.
+  std::array<unsigned char , 4> bkg{{26, 51, 77, 255}};
+    colors->SetColor("BkgColor", bkg.data());
+
   //Create an arrow.
   vtkSmartPointer<vtkArrowSource> arrowSource =
     vtkSmartPointer<vtkArrowSource>::New();
 
   // Generate a random start and end point
-  double startPoint[3], endPoint[3];
-#ifndef main
-  vtkMath::RandomSeed(time(NULL));
-#else
-  vtkMath::RandomSeed(8775070);
-#endif
-  startPoint[0] = vtkMath::Random(-10,10);
-  startPoint[1] = vtkMath::Random(-10,10);
-  startPoint[2] = vtkMath::Random(-10,10);
-  endPoint[0] = vtkMath::Random(-10,10);
-  endPoint[1] = vtkMath::Random(-10,10);
-  endPoint[2] = vtkMath::Random(-10,10);
+  double startPoint[3];
+  double endPoint[3];
+  vtkSmartPointer<vtkMinimalStandardRandomSequence> rng =
+    vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
+  rng->SetSeed(8775070); // For testing.
+  for (auto i = 0; i < 3; ++i)
+  {
+    rng->Next();
+    startPoint[i] = rng->GetRangeValue(-10, 10);
+    rng->Next();
+    endPoint[i] = rng->GetRangeValue(-10, 10);
+  }
 
   // Compute a basis
   double normalizedX[3];
@@ -46,9 +57,11 @@ int main(int, char *[])
 
   // The Z axis is an arbitrary vector cross X
   double arbitrary[3];
-  arbitrary[0] = vtkMath::Random(-10,10);
-  arbitrary[1] = vtkMath::Random(-10,10);
-  arbitrary[2] = vtkMath::Random(-10,10);
+  for (auto i = 0; i < 3; ++i)
+  {
+    rng->Next();
+    arbitrary[i] = rng->GetRangeValue(-10, 10);
+  }
   vtkMath::Cross(normalizedX, arbitrary, normalizedZ);
   vtkMath::Normalize(normalizedZ);
 
@@ -59,7 +72,7 @@ int main(int, char *[])
 
   // Create the direction cosine matrix
   matrix->Identity();
-  for (unsigned int i = 0; i < 3; i++)
+  for (auto i = 0; i < 3; i++)
   {
     matrix->SetElement(i, 0, normalizedX[i]);
     matrix->SetElement(i, 1, normalizedY[i]);
@@ -91,29 +104,32 @@ int main(int, char *[])
   mapper->SetInputConnection(transformPD->GetOutputPort());
 #endif
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Cyan").GetData());
 
   // Create spheres for start and end point
   vtkSmartPointer<vtkSphereSource> sphereStartSource =
     vtkSmartPointer<vtkSphereSource>::New();
     sphereStartSource->SetCenter(startPoint);
+    sphereStartSource->SetRadius(0.8);
   vtkSmartPointer<vtkPolyDataMapper> sphereStartMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   sphereStartMapper->SetInputConnection(sphereStartSource->GetOutputPort());
   vtkSmartPointer<vtkActor> sphereStart =
     vtkSmartPointer<vtkActor>::New();
   sphereStart->SetMapper(sphereStartMapper);
-  sphereStart->GetProperty()->SetColor(1.0, 1.0, .3);
+  sphereStart->GetProperty()->SetColor(colors->GetColor3d("Yellow").GetData());
 
   vtkSmartPointer<vtkSphereSource> sphereEndSource =
     vtkSmartPointer<vtkSphereSource>::New();
     sphereEndSource->SetCenter(endPoint);
+    sphereEndSource->SetRadius(0.8);
   vtkSmartPointer<vtkPolyDataMapper> sphereEndMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   sphereEndMapper->SetInputConnection(sphereEndSource->GetOutputPort());
   vtkSmartPointer<vtkActor> sphereEnd =
     vtkSmartPointer<vtkActor>::New();
   sphereEnd->SetMapper(sphereEndMapper);
-  sphereEnd->GetProperty()->SetColor(1.0, .3, .3);
+  sphereEnd->GetProperty()->SetColor(colors->GetColor3d("Magenta").GetData());
 
   //Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> renderer =
@@ -121,6 +137,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
+  renderWindow->SetWindowName("Oriented Arrow");
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
@@ -129,8 +146,7 @@ int main(int, char *[])
   renderer->AddActor(actor);
   renderer->AddActor(sphereStart);
   renderer->AddActor(sphereEnd);
-  renderer->SetBackground(.1, .2, .3); // Background color dark blue
-
+  renderer->SetBackground(colors->GetColor3d("BkgColor").GetData());
 
   //Render and interact
   renderWindow->Render();

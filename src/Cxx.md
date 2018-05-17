@@ -65,6 +65,7 @@ These are fully independent, compilable examples. There is significant overlap i
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [3DSImporter](/Cxx/IO/3DSImporter) | vtk3DSImporter | Import a 3D Studio scene that includes multiple actors.
+[ImportPolyDataScene](/Cxx/IO/ImportPolyDataScene) | vtkXMLMultiBlockDataReader vtkDataObjectTreeIterator | Import a polydata scene using multiblock datasets.
 [OBJImporter](/Cxx/IO/OBJImporter) | vtkOBJImporter | Import an OBJ scene that includes actors, materials and textures.
 [VRMLImporter](/Cxx/IO/VRMLImporter) | vtkVRMLImporter | Import a VRML 2.0 (WRL) file.
 [VRMLImporterDemo](/Cxx/IO/VRMLImporterDemo) | vtkVRMLImporter | Import a VRML 2.0 (WRL) file and add normals if necessary.
@@ -77,6 +78,12 @@ These are fully independent, compilable examples. There is significant overlap i
 [SimplePointsWriter](/Cxx/IO/SimplePointsWriter) | vtkSimplePointsWriter | Write a simple ".xyz" file
 [WritePLY](/Cxx/IO/WritePLY) | vtkPLYWriter | Write PLY (.ply) files
 [WriteSTL](/Cxx/IO/WriteSTL) | vtkSTLWriter | Write stereo lithography STL (.stl) files
+
+###### Exporters
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ExportPolyDataScene](/Cxx/IO/ExportPolyDataScene) | vtkXMLMultiBlockDataWriter | Export a polydata scene using multiblock datasets.
 
 #### VTK Formats
 
@@ -189,14 +196,15 @@ These are fully independent, compilable examples. There is significant overlap i
 [Disk](/Cxx/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Cxx/GeometricObjects/Frustum) | vtkFrustumSource |
 [Line](/Cxx/GeometricObjects/Line) | vtkLineSource |
-[OrientedArrow](/Cxx/GeometricObjects/OrientedArrow) | vtkArrowSource | Orient an arrow along an arbitrary vector
-[OrientedCylinder](/Cxx/GeometricObjects/OrientedCylinder) | vtkCylinderSource | Orient a cylinder along an arbitrary vector
+[OrientedArrow](/Cxx/GeometricObjects/OrientedArrow) | vtkArrowSource | Orient an arrow along an arbitrary vector.
+[OrientedCylinder](/Cxx/GeometricObjects/OrientedCylinder) | vtkCylinderSource | Orient a cylinder along an arbitrary vector.
 [Plane](/Cxx/GeometricObjects/Plane) | vtkPlaneSource |
 [PlatonicSolids](/Cxx/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource |
 [PolyLine1](/Cxx/GeometricObjects/PolyLine1) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
 [RegularPolygon](/Cxx/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Cxx/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
+[TextActor](/Cxx/GeometricObjects/TextActor) | vtkTextActor | 2D "HUD-type" text
 
 ### Non Linear
 
@@ -833,7 +841,14 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[BozoShader](/Cxx/Shaders/BozoShader) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
+[BozoShaderDemo](/Cxx/Shaders/BozoShaderDemo) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Show the bozo shader on a variety of polydata models.
 [ColorByNormal](/Cxx/Shaders/ColorByNormal) | vtkOpenGLPolyDataMapper vtkTriangleMeshPointNormals | Modify the shader to color based on model normal.
+[CubeMap](/Cxx/Shaders/CubeMap) | vtkShaderProgram vtkOpenGLPolyDataMapper | Modify the Vertex and Frament shaders to apply a 6-sided cube map.
+[MarbleShader](/Cxx/Shaders/MarbleShader) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
+[MarbleShaderDemo](/Cxx/Shaders/MarbleShaderDemo) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Explore parameter space with sliders.
+[SpatterShader](/Cxx/Shaders/SpatterShader) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
+[SphereMap](/Cxx/Shaders/SphereMap) | vtkShaderProgram vtkOpenGLPolyDataMapper | Modify the Vertex and Frament shaders to apply a spherical map.
 
 ## Texture Mapping
 
@@ -898,6 +913,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CurvedReformation](/Cxx/Visualization/CurvedReformation) | vtkProbeFilter | Sample a volume with a curved surface. In medical imaging, this is often called curved multi planar reformation.
 [CutStructuredGrid](/Cxx/VisualizationAlgorithms/CutStructuredGrid) | vtkCutter | Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant k value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used.
 [Cutter](/Cxx/VisualizationAlgorithms/Cutter) | vtkCutter |
+[DataSetSurface](/Cxx/VisualizationAlgorithms/DataSetSurface) | vtkDataSetSurfaceFilter | Cutting a hexahedron with a plane. The red line on the surface shows the cut.
 [DecimateFran](/Cxx/VisualizationAlgorithms/DecimateFran) | vtkDecimatePro | Examples of decimation algorithm. (a) Decimation of laser digitizer data.
 [DecimateHawaii](/Cxx/VisualizationAlgorithms/DecimateHawaii) | vtkDecimatePro | Examples of decimation algorithm. (b) Decimation of terrain data.
 [DepthSortPolyData](/Cxx/Visualization/DepthSortPolyData) | vtkDepthSortPolyData | Poly Data Depth Sorting.
