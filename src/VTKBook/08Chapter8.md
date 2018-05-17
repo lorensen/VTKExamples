@@ -43,7 +43,7 @@ Every cell type will have its own parametric coordinate system. Later in this ch
 
 ### Structured Coordinate System
 
-Many dataset types are structured. This includes image data and structured grids. Because of their inherent structure, they have their own natural coordinate system. This coordinate system is based on the i-j-k indexing scheme that we touched on in ["Image Data"](/VTKBook/05Chapter5/#image-data) in [Chapter 5](/VTKBook/05Chapter5).
+Many dataset types are structured. This includes image data and structured grids. Because of their inherent structure, they have their own natural coordinate system. This coordinate system is based on the $i-j-k$ indexing scheme that we touched on in ["Image Data"](/VTKBook/05Chapter5/#image-data) in [Chapter 5](/VTKBook/05Chapter5).
 
 The structured coordinate system is a natural way to describe components of a structured dataset. By fixing some indices, and allowing the others to vary within a limited range, we can specify points, lines, surfaces, and volumes. For example, by fixing the $i$ index $i = i_0$, and allowing the $j$ and $k$ indices to range between their minimum and maximum values, we specify a surface. If we fix three indices, we specify a point, if we fix two indices, we specify a line, and if we allow three indices to vary, we specify a volume (or sub-volume). The structured coordinate system is generally used to specify a region of interest (or ROI). The region of interest is an area that we want to visualize, or to operate on.
 
@@ -516,7 +516,7 @@ $$
 
 which, when combined with Equation 8-16 and Equation 8-13 for the s derivatives, yields Equation 8-14.
 
-One final step remains. The derivatives in the $\vec{x}$ coordinate system must be converted to the global x-y-z system. We can do this by creating a unit vector $\vec{v}$ as
+One final step remains. The derivatives in the $\vec{x}$ coordinate system must be converted to the global $x-y-z$ system. We can do this by creating a unit vector $\vec{v}$ as
 
 $$
 \begin{equation*}
@@ -1130,7 +1130,7 @@ Our experience with the search structures described here is that they work well 
 
 The _Visualization Toolkit_ provides a variety of classes to perform actor (or vtkProp), point, cell, and world point picking (**Figure 8-38**). Depending on which picker is used, either software-based geometric intersection or hardware picking is used. The following describes each of the picker types in detail.
 
-All pickers are subclasses of vtkAbstractPicker which defines the basic pick interface. The user must specify a selection point in display coordinates for a specified instance of vtkRenderWindow and invoke the Pick() method. At a minimum, the class must return an x-y-z pick position in world coordinates. It is possible to limit the pick candidates to a list of vtkProps (the PickList). The class also invokes the StartPickEvent, PickEvent, and EndPickEvent events that are invoked prior to picking, during picking, and after picking, respectively.
+All pickers are subclasses of vtkAbstractPicker which defines the basic pick interface. The user must specify a selection point in display coordinates for a specified instance of vtkRenderWindow and invoke the Pick() method. At a minimum, the class must return an $x-y-z$ pick position in world coordinates. It is possible to limit the pick candidates to a list of vtkProps (the PickList). The class also invokes the StartPickEvent, PickEvent, and EndPickEvent events that are invoked prior to picking, during picking, and after picking, respectively.
 
 Classes that can return information indicating which vtkProp they have picked are subclasses of vtkAbstractPropPicker. After the pick operation, vtkAbstractPropPicker returns a vtkAssemblyPath. The assembly path is an ordered list of instances of vtkProp and possibly associated 4x4 transformation matrices. The path represents a concatenated hierarchy of assembly nodes if an assembly has been defined (see [“Assemblies and Other Types of vtkProp”](http://localhost:8000/VTKBook/03Chapter3/#assemblies-and-other-types-of-vtkprop) in [Chapter 3](/VTKBook/03Chapter3)) for more information about props and assemblies).
 
@@ -1232,7 +1232,7 @@ The point probe is implemented using the dataset operation FindCell(). This meth
 
 ## 8.12 Chapter Summary
 
-Three important visualization coordinate systems are the world, dataset, and structured coordinate systems. The world coordinate system is an x-y-z Cartesian three-dimensional space. The dataset coordinate system consists of a cell id, subcell id, and parametric coordinates. The structured coordinate system consists of (i,j,k) integer indices into a rectangular topological domain.
+Three important visualization coordinate systems are the world, dataset, and structured coordinate systems. The world coordinate system is an $x-y-z$ Cartesian three-dimensional space. The dataset coordinate system consists of a cell id, subcell id, and parametric coordinates. The structured coordinate system consists of (i,j,k) integer indices into a rectangular topological domain.
 
 Visualization data is generally in discrete form. Interpolation functions are used to obtain data at points between the known data values. Interpolation functions vary depending on the particular cell type. The form of the interpolation functions are weighting values located at each of the cells points. The interpolations functions form the basis for conversion from dataset to global coordinates and vice versa. The interpolation functions also are used to compute data derivatives.
 
