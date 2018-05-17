@@ -679,7 +679,14 @@ Algorithms are implemented in the *Visualization Toolkit* as process objects. Th
 
 **Source Design.**
 <figure id="Figure 6-34">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-34.png?raw=true" width="640" alt="Figure6-34">
+  <figure id="Figure 6-34a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-34a.png?raw=true" width="320" alt="Figure6-34a">
+    <figcaption style="color:blue"> (a) Functional Model</figcaption>
+  </figure>
+  <figure id="Figure 6-34b">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-34b.png?raw=true" width="320" alt="Figure6-34b">
+    <figcaption style="color:blue"> (b) Object Models</figcaption>
+  </figure>
   <figcaption style="color:blue"><b>Figure 6-34</b>. Source object design. Example shown is a source object that creates a polygonal representation of a sphere.</figcaption>
 </figure>
 
@@ -687,12 +694,19 @@ Source objects have no visualization data for input and one or more outputs, **F
 
 **Filter Design**
 
+Filter objects have one or more inputs and one or more outputs as shown in **Figure 6-35**. (You may also refer to [“Pipeline Design and Implementation”](/VTKBook/04Chapter4/#42-the-visualization-pipeline) in [Chapter 4](/VTKBook/04Chapter4).) To create **Figure 6-35** a filter object, inheritance is used to specify the type of input and output data objects. illustrates this for the concrete source object vtkContourFilter (which implements marching cubes and other contouring techniques). It is worth examining this object diagram in detail since it is the basis for the architecture of the visualization pipeline.
+
 <figure id="Figure 6-35">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-35.png?raw=true" width="640" alt="Figure6-35">
+  <figure id="Figure 6-35a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-35a.png?raw=true" width="320" alt="Figure6-35a">
+    <figcaption style="color:blue"> (a) Functional Model</figcaption>
+  </figure>
+  <figure id="Figure 6-35b">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-35b.png?raw=true" width="320" alt="Figure6-35b">
+    <figcaption style="color:blue"> (b) Object Models</figcaption>
+  </figure>
   <figcaption style="color:blue"><b>Figure 6-35</b>. Filter object design. The example shown is for an object that receives a general dataset as input and creates polygonal data on output.</figcaption>
 </figure>
-
-Filter objects have one or more inputs and one or more outputs as shown in **Figure 6-35**. (You may also refer to [“Pipeline Design and Implementation”](/VTKBook/04Chapter4/#42-the-visualization-pipeline) in [Chapter 4](/VTKBook/04Chapter4).) To create **Figure 6-35** a filter object, inheritance is used to specify the type of input and output data objects. illustrates this for the concrete source object vtkContourFilter (which implements marching cubes and other contouring techniques). It is worth examining this object diagram in detail since it is the basis for the architecture of the visualization pipeline.
 
 The superclasses of vtkContourFilter are vtkAlgorithm and vtkPolyDataAlgorithm. The class vtkPolyDataAlgorithm specifies the type of data vtkContourFilter produces on output (i.e., a vtkPolyData). Because this filter should take any subclass of vtkDataSet as input, it must override its superclasses implementation of the FillInputPortInformation() method to specify this. Note that inheritance from vtkPolyDataAlgorithm is optional---this functionality could be implemented directly in vtkContourFilter. This optional superclass is simply a convenience object to make class derivation a little easier.
 
@@ -707,7 +721,14 @@ The architecture is simple enough that you can grasp it quickly.
 ### Mapper Design
 
 <figure id="Figure 6-36">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-36.png?raw=true" width="640" alt="Figure6-36">
+  <figure id="Figure 6-36a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-36a.png?raw=true" width="320" alt="Figure6-36a">
+    <figcaption style="color:blue"> (a) Functional Models</figcaption>
+  </figure>
+  <figure id="Figure 6-36b">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-36b.png?raw=true" width="320" alt="Figure6-36b">
+    <figcaption style="color:blue"> (b) Object Models</figcaption>
+  </figure>
   <figcaption style="color:blue"><b>Figure 6-36</b>. Mapper object design. Graphics mapper shown (e.g., &#118;tkPolyDataMapper) maps polygonal data through graphics library primitives. Writer shown (e.g., &#118;tkSTLWriter) writes polygonal data to stereo lithography format.</figcaption>
 </figure>
 
@@ -837,7 +858,7 @@ vtkActor *outlineActor = vtkActor::New();
 </figure>
 
 <figure id="Figure 6-40">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-40.png?raw=true" width="640" alt="Figure6-40">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-40.png?raw=true" width="320" alt="Figure6-40">
   <figcaption style="color:blue"><b>Figure 6-40</b>. Data flow into and out of the &#118;tkGlyph3D class.</figcaption>
 </figure>
 
