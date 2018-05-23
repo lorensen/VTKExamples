@@ -64,15 +64,16 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
 }
 % Fix spacing in the listing of the listings.
 \makeatletter
-%\renewcommand*{\l@lstlisting}[2]{\@dottedtocline{1}{1.5em}{3.0em}{\sffamily#1}{\sffamily#2}}
 \renewcommand*{\l@lstlisting}[2]{\@dottedtocline{1}{1.5em}{3.0em}{#1}{#2}}
 \makeatother
 
-\usepackage[
-    refsection=chapter,
-    backend=biber,
-%    bibstyle=numeric,
-]{biblatex}
+% Here we are using the BibTeX key as the citation key.
+% Notes:
+% 1. sorting=debug is essential to maintain the alphabetic order in the bibliography.
+% 2. In the Misc entries, make sure the author field is present, otherwise the
+%    key will be [].
+\usepackage[style=alphabetic,refsection=chapter,backend=biber,sorting=debug]{biblatex}
+
 \DeclareFieldFormat{labelalpha}{\thefield{entrykey}}
 \DeclareFieldFormat{extraalpha}{}
 
