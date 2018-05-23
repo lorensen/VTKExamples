@@ -480,7 +480,7 @@ where $s_i$ is the data value at point $i$. In the local coordinate system $x'$,
 
 $$
 \begin{equation*}
-\frac{d s}{d x'} = \frac{s_1 - s_0}{1}
+\frac{d s}{d x'} = \frac{s_1 - s_0}{l}
 \bf\tag{8-14}
 \end{equation*}
 $$
