@@ -237,7 +237,7 @@ Often datasets contain information or have dynamic range that cannot be complete
 
 The short fall of simple window-level transfer functions are their limited shape. More general nonlinear transfer functions can be more appropriate for certain datasets. One example is the logarithmic transfer function, $f(x) = K \log ( 1 + x )$ , which can be used to display image power spectrums (Figure \ref{fig:Figure10-10}). Most of the pixels in the power spectrum represent high frequencies, and have small values. However the smaller population of low-frequency pixels often have large values. The logarithmic function has the largest slope near zero, and therefore leaves the most contrast for pixels with small values. However, when the constant K is chosen correctly, none of the large pixel values become completely saturated.
 
-To take advantage of all the available display contrast, images should have a uniform distribution of intensities. For continuous images, this intensity distribution is called the probability density function (PDF). For discretely-sampled images with discrete scalar values, the image histogram has the same information as the PDF (Figure \ref{fig:Figure10-7}). A histogram breaks the scalar range of an image into discrete non-overlapping bins. Each bin has a pixel count that represents the number of pixels whose scalar value falls in that bin’s range.
+To take advantage of all the available display contrast, images should have a uniform distribution of intensities. For continuous images, this intensity distribution is called the probability density function (PDF). For discretely-sampled images with discrete scalar values, the image histogram has the same information as the PDF (Figure \ref{fig:Figure10-7}). A histogram breaks the scalar range of an image into discrete non-overlapping bins. Each bin has a pixel count that represents the number of pixels whose scalar value falls in that bin's range.
 
 To achieve the goal of a uniform scalar histogram, transfer functions can be used to spread out clusters in the histogram and compress scalar ranges that are under-represented in the image. To maintain the general appearance of the image, the transfer function should be monotonically increasing so that the brightness relation is maintained. To spread out clusters in the histogram, the slope of the transfer function should be large where the scalar densities are the highest, and the slope should be small in empty regions of the histogram.
 
@@ -278,18 +278,18 @@ Histogram equalization is an algorithm that automatically generates a tailored t
 	\label{fig:Figure10-9}
 \end{figure}
 
-High-pass filters can also be used to compress the range of an image. Since low frequencies account for much of the dynamic range of an image but carry little information, a high-pass filter can significantly decrease an image’s scalar range and emphasize hidden details. The Laplacian filter, which is a second derivative operation, is one implementation of a high-pass filter. It eliminates constant and low frequencies leaving only high-frequency edges. The output of the Laplacian can be subtracted from the original image to produce edge enhancement or sharpening of an image (Figure \ref{fig:Figure10-9}).
+High-pass filters can also be used to compress the range of an image. Since low frequencies account for much of the dynamic range of an image but carry little information, a high-pass filter can significantly decrease an image's scalar range and emphasize hidden details. The Laplacian filter, which is a second derivative operation, is one implementation of a high-pass filter. It eliminates constant and low frequencies leaving only high-frequency edges. The output of the Laplacian can be subtracted from the original image to produce edge enhancement or sharpening of an image (Figure \ref{fig:Figure10-9}).
 
 \subsection{Frequency Domain}
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.98\textwidth]{Figure10-10}
-	\caption{The discrete Fourier transform changesan image from the spatial domainin to the frequency domain, where each pixel represents a sinusoidal function. This figure show an image and its power spectrum displayed using a logarithmic transfer function.. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/ImageProcessing/VTKSpectrum/}{VTKSpectrum.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/ImageProcessing/VTKSpectrum/}{VTKSpectrum.py}) The reverse Fourier Transform is: $F(u,v) = \dfrac{1}{M N}\mathlarger{\mathlarger{\sum}}_{x = 0}^{M - 1}\mathlarger{\mathlarger{\sum}}_{y = 0}^{N - 1}f(x,y)\exp \left[-j 2 \pi \left( \dfrac{x v}{M}  + \dfrac{v y}{N}\right) \right]$}
+	\caption{The discrete Fourier transform changes an image from the spatial domain into the frequency domain, where each pixel represents a sinusoidal function. This figure shows an image and its power spectrum displayed using a logarithmic transfer function. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/ImageProcessing/VTKSpectrum/}{VTKSpectrum.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/ImageProcessing/VTKSpectrum/}{VTKSpectrum.py}) The reverse Fourier Transform is: $F(u,v) = \dfrac{1}{M N}\mathlarger{\mathlarger{\sum}}_{x = 0}^{M - 1}\mathlarger{\mathlarger{\sum}}_{y = 0}^{N - 1}f(x,y)\exp \left[-j 2 \pi \left( \dfrac{x v}{M}  + \dfrac{v y}{N}\right) \right]$}
 	\label{fig:Figure10-10}
 \end{figure}
 
-The Fourier transform belongs to a class of filters that fundamentally change the representation of an image without changing its information. The output of the Fourier transform is in the frequency domain. Each pixel is a complex number describing the contribution of a sinusoidal function to the original image. The magnitude of the pixel encodes the amplitude of the sinusoid, and the orientation of the complex pixel encodes the sinusoid’s phase. Each pixel represents a sinusoid with different orientation and frequency. The reverse Fourier transform converts a frequency domain image back to the original spatial domain (Figure \ref{fig:Figure10-10}).
+The Fourier transform belongs to a class of filters that fundamentally change the representation of an image without changing its information. The output of the Fourier transform is in the frequency domain. Each pixel is a complex number describing the contribution of a sinusoidal function to the original image. The magnitude of the pixel encodes the amplitude of the sinusoid, and the orientation of the complex pixel encodes the sinusoid's phase. Each pixel represents a sinusoid with different orientation and frequency. The reverse Fourier transform converts a frequency domain image back to the original spatial domain (Figure \ref{fig:Figure10-10}).
 
 Low-pass and high-pass filtering become trivial in the frequency domain. A portion of the pixels are simply masked or attenuated. Figure \ref{fig:Figure10-10} shows a high pass Butterworth filter that attenuates the frequency domain image with the function $H$
 
@@ -348,7 +348,7 @@ In both of these approaches, a portion of the original image is lost, so only th
 
 \subsection {Image Segmentation}
 
-Segmentation is the process of classifying pixels in an image or volume. It can be one of the most difficult tasks in the visualization process. One form of segmentation takes an image as input, and outputs a map that contains a classification for each pixel. The output of such a segmentation filter usually has binary or discrete values for each pixel; however, it is also possible to output a fuzzy classification where the pixel’s scalar value represents a measure of confidence in the classification.
+Segmentation is the process of classifying pixels in an image or volume. It can be one of the most difficult tasks in the visualization process. One form of segmentation takes an image as input, and outputs a map that contains a classification for each pixel. The output of such a segmentation filter usually has binary or discrete values for each pixel; however, it is also possible to output a fuzzy classification where the pixel's scalar value represents a measure of confidence in the classification.
 
 A simple example of a one-parameter segmentation is a threshold filter used to mark bone in a CT dataset. Since bone has the largest scalar value, it is easy to select a threshold that separates bone from the rest of the image.
 
@@ -407,7 +407,7 @@ After the pixels have been assigned an equivalence class, various methods are us
 
 From everyday experience we know that it is easier to see structure and information in color images than in gray-scale images. This is because each pixel contains more information in the red, blue, and green components than a single component gray-scale pixel. One way to segment multispectral images is to separate the components and threshold them individually and then combine the resulting binary images with logic filters. This allows selection of rectangular patched areas in the color/ component space of the pixels.
 
-By using multiple thresholds combined with multiple levels of logic filters, it is possible to specify arbitrary areas in the component’s space for segmentation. However, it can be easier and more efficient to transform the components into a different coordinate system before the threshold operation. The simplest example of this is to threshold a projection of the components. This is equivalent to a threshold after performing a dot product between the components of a pixel and a constant-direction vector. This divides the component space into two areas separated by a hyperplane.
+By using multiple thresholds combined with multiple levels of logic filters, it is possible to specify arbitrary areas in the component's space for segmentation. However, it can be easier and more efficient to transform the components into a different coordinate system before the threshold operation. The simplest example of this is to threshold a projection of the components. This is equivalent to a threshold after performing a dot product between the components of a pixel and a constant-direction vector. This divides the component space into two areas separated by a hyperplane.
 
 Another example of a coordinate transformation is conversion from red, green, blue (RGB) color component to hue, saturation, value (HSV) representation (see ``Color'' on page \pageref{sec:color}). Segmentation of images based on hue and color saturation is difficult in RGB space, but trivial in HSV space.
 
@@ -428,7 +428,7 @@ vtkImageData actually represents the image data. Internally, it refers to an ins
 
 There are three types of data extents in the imaging pipeline. In general, any rectangular piece of image data can be described by the extent six-vector $(imin,imax, jmin,jmax, kmin,kmax)$. The WholeExtent refers to the original data size of an image and is derived from the image dimensions. The UpdateExtent is the extent that is processed by a particular filter during execution.
 
-Extents are used to manage the streaming of data through the visualization pipeline, as well as to coordinate the multi-threaded parallel processing that the imaging pipeline uses throughout. By controlling the extents, it is possible to greatly reduce the amount of memory used by the pipeline. For more information, see The \emph{VTK User’s Guide} sold by Kitware.
+Extents are used to manage the streaming of data through the visualization pipeline, as well as to coordinate the multi-threaded parallel processing that the imaging pipeline uses throughout. By controlling the extents, it is possible to greatly reduce the amount of memory used by the pipeline. For more information, see The \emph{VTK User's Guide} sold by Kitware.
 
 In the VTK imaging pipeline, point attribute data is represented differently than in the visualization pipeline. In the imaging pipeline point attribute data is represented as n components per data point. Typically n is one for gray-scale data, or three for color data but, in general, can be any positive number.
 
@@ -626,17 +626,17 @@ In our work with VTK, we often need to perform software testing. The testing may
           imgDiff SetInputConnection 1 [pnm GetOutputPort]
           imgDiff Update
         if {[imgDiff GetThresholdedError] < 10.0} {
-          puts “Passed Test for $afile”
+          puts "Passed Test for $afile"
         } else {
-          puts “Failed Test for $afile with an error \
-            of [imgDiff GetThresholdedError]”
+          puts "Failed Test for $afile with an error \
+            of [imgDiff GetThresholdedError]"
           vtkPNGWriter pnmw
             pnmw SetInputConnection [imgDiff GetOutputPort]
-            pnmw SetFileName “$afile.error.png”
+            pnmw SetFileName "$afile.error.png"
             pnmw Write
           vtkPNGWriter pnmw2
             pnmw2 SetInputConnection [renSrc GetOutputPort]
-            pnmw2 SetFileName “$afile.test.png”
+            pnmw2 SetFileName "$afile.test.png"
             pnmw2 Write
         }
         \end{lstlisting}
@@ -661,7 +661,7 @@ Many books are available describing imaging algorithms. Several are listed below
 
 If image processing, segmentation, and/or registration are important to you, we highly recommend the Insight Segmentation and Registration Toolkit (ITK). Like VTK, ITK is open source and includes extensive documentation resources and examples. Visit \href{https://itk.org/}{ITK} for more information. Also, \cite{Ibanez03} is a good reference.
 
-Technical references describing VTK’s unique streaming visualization pipeline are available \cite{Law99} \cite{Martin01}. Using this approach, data sizes of approximately a petabyte in size have been processed.
+Technical references describing VTK's unique streaming visualization pipeline are available \cite{Law99} \cite{Martin01}. Using this approach, data sizes of approximately a petabyte in size have been processed.
 
 
 \printbibliography

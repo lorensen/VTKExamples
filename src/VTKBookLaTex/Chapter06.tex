@@ -65,32 +65,32 @@ In the text that follows, we will use the attribute type classification scheme: 
 \subsection{Generality Versus Efficiency}
 \label{subsec:benerality_vs_efficiency}
 
-Most algorithms can be written specifically for a particular dataset type, or more generally, treating any dataset type. The advantage of a specific algorithm is that it is usually faster than a comparable general algorithm. (See "Other Data Abstractions" on page138 where we discussed the tradeoff between abstract and concrete forms.) An implementation of a specific algorithm also may be more memory efficient and its implementation may better reflect the relationship between the algorithm and the dataset type it operates on.
+Most algorithms can be written specifically for a particular dataset type, or more generally, treating any dataset type. The advantage of a specific algorithm is that it is usually faster than a comparable general algorithm. (See ``Other Data Abstractions'' on page \pageref{sec:other_data_abstractions} where we discussed the tradeoff between abstract and concrete forms.) An implementation of a specific algorithm also may be more memory efficient and its implementation may better reflect the relationship between the algorithm and the dataset type it operates on.
 
-One example of this is contour surface creation. Algorithms for extracting contour surfaces were originally developed for volume data, mainly for medical applications. The regularity of volumes lends itself to efficient algorithms. However, the specialization of volume-based algorithms precludes their use for more general datasets such as structured or unstructured grids. Although the contour algorithms can be adapted to these other dataset types, they are less efficient than those for volume datasets.
+One example of this is contour surface creation. Algorithms for extracting contour surfaces were originally developed for volume data, mainly for medical applications. The regularity of volumes lends itself to efficient algorithms. However, the specialization of volume--based algorithms precludes their use for more general datasets such as structured or unstructured grids. Although the contour algorithms can be adapted to these other dataset types, they are less efficient than those for volume datasets.
 
 Our presentation of algorithms favors the more general implementations. In some special cases we will describe performance improving techniques for particular dataset types. Refer to the bibliography at the end of each chapter for detailed descriptions of specialized algorithms.
 
 \section{Scalar Algorithms}
 
-Scalars are single data values associated with each point and/or cell of a dataset. (Recall that in the \emph{Visualization Toolkit} we associate data with points.) Because scalar data is commonly found in real-world applications, and because scalar data is so easy to work with, there are many different algorithms to visualize it.
+Scalars are single data values associated with each point and/or cell of a dataset. (Recall that in the \emph{Visualization Toolkit} we associate data with points.) Because scalar data is commonly found in real--world applications, and because scalar data is so easy to work with, there are many different algorithms to visualize it.
 
 \subsection{Color Mapping}
 \label{subsec:color_mapping}
 
 \emph{Color mapping} is a common scalar visualization technique that maps scalar data to colors, and displays the colors on the computer system. The scalar mapping is implemented by indexing into a \emph{color lookup table}. Scalar values serve as indices into the lookup table.
 
-The mapping proceeds as follows. The lookup table holds an array of colors (e.g., red, green, blue components or other comparable representations). Associated with the table is a minimum and maximum \emph{scalar range (min, max)} into which the scalar values are mapped. Scalar values greater than the maximum range are clamped to the maximum color, scalar values less than the minimum range are clamped to the minimum color value. Then, for each scalar value $x_i$, the index $i$ into the color table with n entries (and 0-offset) is given by Figure \ref{fig:Figure6-1}.
+The mapping proceeds as follows. The lookup table holds an array of colors (e.g., red, green, blue components or other comparable representations). Associated with the table is a minimum and maximum \emph{scalar range (min, max)} into which the scalar values are mapped. Scalar values greater than the maximum range are clamped to the maximum color, scalar values less than the minimum range are clamped to the minimum color value. Then, for each scalar value $x_i$, the index $i$ into the color table with n entries (and 0--offset) is given by Figure \ref{fig:Figure6-1}.
 
 A more general form of the lookup table is called a transfer function. A transfer function is any expression that maps scalar values into a color specification. For example, Figure \ref{fig:Figure6-2} maps scalar values into separate intensity values for the red, green, and blue color components. We can also use transfer functions to map scalar data into other information such as local transparency. (Transfer functions are discussed in more detail in ``Transparency and Alpha Values'' on page \pageref{sec:transparency_alpha} and ``Volume Rendering'' on page \pageref{sec:volume_rendering}).
 A lookup table is a discrete sampling of a transfer function.
 We can create a lookup table from any transfer function by sampling the transfer function at a set of discrete points.
 
-Color mapping is a one-dimensional visualization technique. It maps one piece of information (i.e., a scalar value) into a color specification. However, the display of color information is not limited to one-dimensional displays. Often we use color information mapped onto 1D, 2D, or 3D objects. This is a simple way to increase the information content of our visualizations.
+Color mapping is a one--dimensional visualization technique. It maps one piece of information (i.e., a scalar value) into a color specification. However, the display of color information is not limited to one-dimensional displays. Often we use color information mapped onto 1D, 2D, or 3D objects. This is a simple way to increase the information content of our visualizations.
 
 The key to color mapping for scalar visualization is to choose the lookup table entries carefully. Figure \ref{fig:Figure6-3} shows four different lookup tables used to visualize gas density as fluid flows through a combustion chamber. The first lookup table is gray-scale. Grayscale tables often provide better structural detail to the eye. The other three images in Figure \ref{fig:Figure6-3} uses different colored lookup tables. The second uses rainbow hues from blue to red. The third uses rainbow hues arranged from red to blue. The last table uses a table designed to enhance contrast. Careful use of colors can often enhance important features of a dataset. However, any type of lookup table can exaggerate unimportant details or create visual artifacts because of unforeseen interactions between data, color choice, and human physiology.
 
-Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate "blue" with cold temperatures, and "red" with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to "linear" lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (Figure \ref{fig:Figure6-1}, the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes, improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
+Designing lookup tables is as much art as it is science. From a practical point of view, tables should accentuate important features, while minimizing less important or extraneous details. It is also desirable to use palettes that inherently contain scaling information. For example, a color rainbow scale from blue to red is often used to represent temperature scale, since many people associate ``blue'' with cold temperatures, and ``red'' with hot temperatures. However, even this scale is problematic: a physicist would say that blue is hotter than red, since hotter objects emit more blue light (i.e., shorter wavelength) than red. Also, there is no need to limit ourselves to ``linear'' lookup tables. Even though the mapping of scalars into colors has been presented as a linear operation (Figure \ref{fig:Figure6-1}, the table itself need not be linear. That is, tables can be designed to enhance small variations in scalar value using logarithmic or other schemes, improving the comfort level and engaging the human observer more deeply in the presentation of data improves the effectiveness of communication.
 
 \begin{figure}[!htb]
 	\centering
@@ -146,7 +146,7 @@ table.
 
 This procedure will construct independent geometric primitives in each cell. At the cell boundaries duplicate vertices and edges may be created. These duplicates can be eliminated by using a special coincident point merging operation. Note that interpolation along each edge should be done in the same direction. If not, numerical roundoff will likely cause points to be generated that are not precisely coincident, and will not merge properly.
 
-There are advantages and disadvantages to both the edge-tracking and marching cubes approaches. The marching squares algorithm is easy to implement. This is particularly important when we extend the technique into three dimensions, where isosurface tracking becomes much more difficult. On the other hand, the algorithm creates disconnected line segments and points, and the required merging operation requires extra computation resources. The tracking algorithm can be implemented to generate a single polyline per contour line, avoiding the need to merge coincident points.
+There are advantages and disadvantages to both the edge--tracking and marching cubes approaches. The marching squares algorithm is easy to implement. This is particularly important when we extend the technique into three dimensions, where isosurface tracking becomes much more difficult. On the other hand, the algorithm creates disconnected line segments and points, and the required merging operation requires extra computation resources. The tracking algorithm can be implemented to generate a single polyline per contour line, avoiding the need to merge coincident points.
 
 \begin{figure}[!htb]
 \centering
@@ -202,7 +202,7 @@ A simple and effective solution extends the original 15 marching cubes cases by 
 	\label{fig:Figure6-10}
 \end{figure}
 
-We can extend the general approach of marching squares and marching cubes to other topological types. In VTK we use marching lines, triangles, and tetrahedra to contour cells of these types (or composite cells that are composed of these types). In addition, although we speak of regular types such as squares and cubes, marching cubes can be applied to any cell type topologically equivalent to a cube (e.g., hexahedron or non-cubical voxel).
+We can extend the general approach of marching squares and marching cubes to other topological types. In VTK we use marching lines, triangles, and tetrahedra to contour cells of these types (or composite cells that are composed of these types). In addition, although we speak of regular types such as squares and cubes, marching cubes can be applied to any cell type topologically equivalent to a cube (e.g., hexahedron or non--cubical voxel).
 
 Figure \ref{fig:Figure6-11} shows four applications of contouring. In Figure \ref{fig:Figure6-11a} we see 2D contour lines of CT density value corresponding to different tissue types. These lines were generated using marching squares. Figure \ref{fig:Figure6-11b} through Figure \ref{fig:Figure6-11d} are isosurfaces created by marching cubes. Figure \ref{fig:Figure6-11b} is a surface of constant image intensity from a computed tomography (CT) Xray imaging system. ( Figure \ref{fig:Figure6-11a} is a 2D subset of this data.) The intensity level corresponds to human bone. Figure \ref{fig:Figure6-11c} is an isosurface of constant flow density. Figure \ref{fig:Figure6-11d} is an isosurface of electron potential of an iron protein molecule. The image shown in Figure \ref{fig:Figure6-11b} is immediately recognizable because of our familiarity with human anatomy. However, for those practitioners in the fields of computational fluid dynamics and molecular biology, Figure \ref{fig:Figure6-11c} and Figure \ref{fig:Figure6-11d} are equally familiar. As these examples show, methods for contouring are powerful yet general techniques for visualizing data from a variety of fields.
 
@@ -232,11 +232,11 @@ Figure \ref{fig:Figure6-11} shows four applications of contouring. In Figure \re
 \subsection{Scalar Generation}
 \label{subsec:scalar_generation}
 
-The two visualization techniques presented thus far, color mapping and contouring, are simple, effective methods to display scalar information. It is natural to turn to these techniques first when visualizing data. However, often our data is not in a form convenient to these techniques. The data may not be single-valued (i.e., a scalar), or it may be a mathematical or other complex relationship. That is part of the fun and creative challenge of visualization: We must tap our creative resources to convert data into a form we can visualize.
+The two visualization techniques presented thus far, color mapping and contouring, are simple, effective methods to display scalar information. It is natural to turn to these techniques first when visualizing data. However, often our data is not in a form convenient to these techniques. The data may not be single--valued (i.e., a scalar), or it may be a mathematical or other complex relationship. That is part of the fun and creative challenge of visualization: We must tap our creative resources to convert data into a form we can visualize.
 
 For example, consider terrain data. We assume that the data is \emph{xyz} coordinates, where \emph{x} and \emph{y} represent the coordinates in the plane, and \emph{z} represents the elevation above sea level. Our desired visualization is to color the terrain according to elevation. This requires creating a color map --- possibly using white for high altitudes, blue for sea level and below, and various shades of green and brown corresponding to elevation between sea level and high altitude. We also need scalars to index into the color map. The obvious choice here is to extract the \emph{z} coordinate. That is, scalars are simply the \emph{z}-coordinate value.
 
-This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the \emph{z}-coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point $p_l$ (e.g., sea level) and ending at the (high) point $p_h$ (e.g., mountain top), we compute the elevation scalar $s_i$ at point $p_i = (x_i, y_i,z_i)$ using the dot product as shown in Figure \ref{fig:Figure6-12}. The scalar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 colors ranging from deep brown (water) to dark turquoise (mountain top) is used to color map this figure.
+This example can be made more interesting by generalizing the problem. Although we could easily create a filter to extract the \emph{z}--coordinate, we can create a filter that produces elevation scalar values where the elevation is measured along any axis. Given an oriented line starting at the (low) point $p_l$ (e.g., sea level) and ending at the (high) point $p_h$ (e.g., mountain top), we compute the elevation scalar $s_i$ at point $p_i = (x_i, y_i,z_i)$ using the dot product as shown in Figure \ref{fig:Figure6-12}. The scalar is normalized using the magnitude of the oriented line, and may be clamped between minimum and maximum scalar values (if necessary). The bottom half of this figure shows the results of applying this technique to a terrain model of Honolulu, Hawaii. A lookup table of 256 colors ranging from deep brown (water) to dark turquoise (mountain top) is used to color map this figure.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -259,13 +259,13 @@ Part of the creative practice of visualization is selecting the best technique f
 
 \section{Vector Algorithms}
 
-Vector data is a three-dimensional representation of direction and magnitude. Vector data often results from the study of fluid flow, or when examining derivatives (i.e., rate of change) of some quantity.
+Vector data is a three--dimensional representation of direction and magnitude. Vector data often results from the study of fluid flow, or when examining derivatives (i.e., rate of change) of some quantity.
 
 \subsection{Hedgehogs and Oriented Glyphs}
 \label{subsec:hedgehogs_oriented_glyphs}
 
 A natural vector visualization technique is to draw an oriented,
-scaled line for each vector (Figure \ref{fig:Figure6-13a}). The line begins at the point with which the vector is associated and is oriented in the direction of the vector components $(v_x, v_y, v_z)$. Typically, the resulting line must be scaled up or down to control the size of its visual representation. This technique is often referred to as a *hedgehog* because of the bristly result.
+scaled line for each vector (Figure \ref{fig:Figure6-13a}). The line begins at the point with which the vector is associated and is oriented in the direction of the vector components $(v_x, v_y, v_z)$. Typically, the resulting line must be scaled up or down to control the size of its visual representation. This technique is often referred to as a \emph{hedgehog} because of the bristly result.
 
 There are many variations of this technique Figure \ref{fig:Figure6-13b}). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented ``glyphs'' can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
 
@@ -319,7 +319,7 @@ Vector displacement on the surface of an object can be visualized with displacem
 
 Vector displacement plots draw on the ideas in ``Scalar Generation'' on  page \pageref{subsec:scalar_generation}. Vectors are converted to scalars by computing the dot product between the surface normal and vector at each point (Figure \ref{fig:Figure6-15a}). If positive values result, the motion at the point is in the direction of the surface normal (i.e., positive displacement). Negative values indicate that the motion is opposite the surface normal (i.e., negative displacement).
 
-A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called *modal* lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
+A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called \emph{modal} lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -383,22 +383,22 @@ Euler's method has error on the order of $O(\Delta{t}^2)$, which is not accurate
 	\hfill
 	\begin{subfigure}[h]{0.32\linewidth}
 	\includegraphics[width=\linewidth]{Figure6-17b}
-	\caption{Euler’s method.}\label{fig:Figure6-17b}
+	\caption{Euler's method.}\label{fig:Figure6-17b}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.32\linewidth}
 	\includegraphics[width=\linewidth]{Figure6-17c}
 	\caption{Runge-Kutta..}\label{fig:Figure6-17c}
 \end{subfigure}
-	\caption{Euler’s integration (b) and Runge-Kutta integration of order 2 (c) applied to uniform rotational vector field (a). Euler’s method will always diverge.}\label{fig:Figure6-17}
+	\caption{Euler's integration (b) and Runge-Kutta integration of order 2 (c) applied to uniform rotational vector field (a). Euler's method will always diverge.}\label{fig:Figure6-17}
 \end{figure}
 
-In this text we will use the Runge-Kutta technique of order $2$ \cite{Conte72}. This is given by the expression
+In this text we will use the Runge--Kutta technique of order $2$ \cite{Conte72}. This is given by the expression
 
 \begin{equation}\label{eq:6.4}
 \overrightarrow{x\ }_{i+1} = \overrightarrow{x\ }_i +\frac{\Delta t}{2}(\overrightarrow{V\ }_i + \overrightarrow{V\ }_{i+1})
 \end{equation}
-\myequations{Runge-Kutta technique of order $2$. }
+\myequations{Runge--Kutta technique of order $2$. }
 
 One final note about accuracy concerns. The errors involved in either perception or computation of visualizations is an open research area. The discussion in the preceding paragraph is a good example of this. There we characterized the error in streamline integration using conventional numerical integration arguments. But there is a problem with this argument. In visualization applications, we are integrating across cells whose function values are continuous, but whose derivatives are not. As the streamline crosses the cell boundary, subtle effects may occur that are not treated by the standard numerical analysis. Thus the standard arguments need to be extended for visualization applications.
 
@@ -454,9 +454,9 @@ Many enhancements of streamline visualization exist. Lines can be colored accord
 
 \section{Tensor Algorithms}
 
-As we mentioned earlier, tensor visualization is an active area of research. However there are a few simple techniques that we can use to visualize real $3 \times 3$ symmetric tensors. Such tensors are used to describe the state of displacement or stress in a 3D material. The stress and strain tensors for an elastic material are shown in Figure \ref{fig:Figure6-20}*.
+As we mentioned earlier, tensor visualization is an active area of research. However there are a few simple techniques that we can use to visualize real $3 \times 3$ symmetric tensors. Such tensors are used to describe the state of displacement or stress in a 3D material. The stress and strain tensors for an elastic material are shown in Figure \ref{fig:Figure6-20}.
 
-In these tensors the diagonal coefficients are the so-called normal stresses and strains, and the off-diagonal terms are the shear stresses and strains. Normal stresses and strains act perpendicular to a specified surface, while shear stresses and strains act tangentially to the surface. Normal stress is either compression or tension, depending on the sign of the coefficient.
+In these tensors the diagonal coefficients are the so--called normal stresses and strains, and the off-diagonal terms are the shear stresses and strains. Normal stresses and strains act perpendicular to a specified surface, while shear stresses and strains act tangentially to the surface. Normal stress is either compression or tension, depending on the sign of the coefficient.
 
 A $3 \times 3$ real symmetric matrix can be characterized by three vectors in 3D called the eigenvectors, and three numbers called the eigenvalues of the matrix. The eigenvectors form a 3D coordinate system whose axes are mutually perpendicular. In some applications, particularly the study of materials, these axes also are referred to as the principle axes of the tensor and are physically significant. For example, if the tensor is a stress tensor, then the principle axes are the directions of normal stress and no shear stress. Associated with each eigenvector is an eigenvalue. The eigenvalues are often physically significant as well. In the study of vibration, eigenvalues correspond to the resonant frequencies of a structure, and the eigenvectors are the associated mode shapes.
 
@@ -606,8 +606,8 @@ As we have seen in previous examples, source objects begin the visualization pip
 \begin{itemize}
 
 \item[] \textbf{Modelling Simple Geometry.}
-Spheres, cones, cubes, and other simple geometric objects can be used alone or in combination to model geometry. Often we visualize real-world applications such as air flow in a room and need to show real-world objects such as furniture, windows, or doors.
-Real-world objects often can be represented using these simple geometric representations. These source objects generate their data procedurally. Alternatively, we may use reader objects to access geometric data defined in data files. These data files may contain more complex geometry such as that produced by a 3D CAD (ComputerAided Design) system.
+Spheres, cones, cubes, and other simple geometric objects can be used alone or in combination to model geometry. Often we visualize real--world applications such as air flow in a room and need to show real-world objects such as furniture, windows, or doors.
+Real--world objects often can be represented using these simple geometric representations. These source objects generate their data procedurally. Alternatively, we may use reader objects to access geometric data defined in data files. These data files may contain more complex geometry such as that produced by a 3D CAD (ComputerAided Design) system.
 
 \item[] \textbf{Supporting Geometry.}
 During the visualization process we may use source objects to create supporting geometry. This may be as simple as three lines to represent a coordinate axis or as complex as tubes wrapped around line segments to thicken and enhance their appearance. Another common use is as supplemental input to objects such as streamlines or probe filters. These filters take a second input that defines a set of points. For streamlines, the points determine the initial positions for generating the streamlines. The probe filter uses the points as the position to compute attribute values such as scalars, vectors, or tensors.
@@ -717,13 +717,13 @@ Figure \ref{fig:Figure6-23c} shows a combination of simple implicit functions to
 
 We can take advantage of the properties of implicit functions to select and cut data. In particular we will use the region separation property to select data. (We defer the discussion on cutting to "Cutting" on page \pageref{subsec:cutting}.)
 
-Selecting or extracting data with an implicit function means choosing cells and points (and associated attribute data) that lie within a particular region of the function. To determine whether a point *xyz* lies within a region, we simply evaluate the point and examine the sign of the result. A cell lies in a region if all its points lie in the region.
+Selecting or extracting data with an implicit function means choosing cells and points (and associated attribute data) that lie within a particular region of the function. To determine whether a point \emph{xyz} lies within a region, we simply evaluate the point and examine the sign of the result. A cell lies in a region if all its points lie in the region.
 
 Figure \ref{fig:Figure6-24a} shows a 2D implicit function, here an ellipse, used to select the data (i.e., points, cells, and data attributes) contained within it. Boolean combinations also can be used to create complex selection regions as illustrated in Figure \ref{fig:Figure6-24b}. Here, two ellipses are used in combination to select voxels within a volume dataset. Note that extracting data often changes the structure of the dataset. In Figure \ref{fig:Figure6-24} the input type is a image data dataset, while the output type is an unstructured grid dataset.
 
 \subsection{Visualizing Mathematical Descriptions}
 
-Some functions, often discrete or probabilistic in nature, cannot be cast into the form of Equation \ref{eq:6.11}. However, by applying some creative thinking we can often generate scalar values that can be visualized. An interesting example of this is the so-called \emph{strange attractor}.
+Some functions, often discrete or probabilistic in nature, cannot be cast into the form of Equation \ref{eq:6.11}. However, by applying some creative thinking we can often generate scalar values that can be visualized. An interesting example of this is the so--called \emph{strange attractor}.
 
 Strange attractors arise in the study of nonlinear dynamics and chaotic systems. In these systems, the usual types of dynamic motion --- equilibrium, periodic motion, or quasiperiodic motion --- are not present. Instead, the system exhibits chaotic motion. The resulting behavior of the system can change radically as a result of small perturbations in its initial conditions.
 
@@ -755,7 +755,7 @@ A classical strange attractor was developed by Lorenz in 1963 \cite{Lorenz63}. L
 
 where $x$ is proportional to the fluid velocity in the fluid ring, $y$ and $z$z measure the fluid temperature in the plane of the ring, the parameters $\sigma$ and $\rho$ are related  to the Prandtl number and Raleigh number, respectively, and $\beta$ is a geometric factor.
 
-Certainly these equations are not in the implicit form of Equation \ref{eq:6.11}, so how do we visualize them? Our solution is to treat the variables x, y, and z as the coordinates of a three-dimensional space, and integrate Equation \ref{eq:6.16} to generate the system ``trajectory'', that is, the state of the system through time. The integration is carried out within a volume and scalars are created by counting the number of times each voxel is visited. By integrating long enough, we can create a volume representing the ``surface'' of the strange attractor, Figure \ref{fig:Figure6-25}. The surface of the strange attractor is extracted by using marching cubes and a scalar value specifying the number of visits in a voxel.
+Certainly these equations are not in the implicit form of Equation \ref{eq:6.11}, so how do we visualize them? Our solution is to treat the variables x, y, and z as the coordinates of a three--dimensional space, and integrate Equation \ref{eq:6.16} to generate the system ``trajectory'', that is, the state of the system through time. The integration is carried out within a volume and scalars are created by counting the number of times each voxel is visited. By integrating long enough, we can create a volume representing the ``surface'' of the strange attractor, Figure \ref{fig:Figure6-25}. The surface of the strange attractor is extracted by using marching cubes and a scalar value specifying the number of visits in a voxel.
 
 
 \subsection{Implicit Modelling}
@@ -903,7 +903,7 @@ This example illustrates that cutting the volumetric data in a structured grid d
 
 \section{Putting It All Together}
 
-Algorithms are implemented in the *Visualization Toolkit* as process objects. These objects may be either sources, filters, or mappers (see ``The Visualization Pipeline'' on page \pageref{sec:visualization_pipeline} ). In this section we will describe how these objects are implemented.
+Algorithms are implemented in the \emph{Visualization Toolkit} as process objects. These objects may be either sources, filters, or mappers (see ``The Visualization Pipeline'' on page \pageref{sec:visualization_pipeline} ). In this section we will describe how these objects are implemented.
 
 \subsection{Process Object Design}
 
@@ -985,6 +985,7 @@ The architecture is simple enough that you can grasp it quickly.
 \end{figure}
 
 \subsubsection{Mapper Design}
+\label{subsubsec:mapper_design}
 Mapper objects have one or more inputs and no visualization data output, Figure \ref{fig:Figure6-36}. Two different types of mappers are available in the \emph{Visualization Toolkit}: graphics mappers and writers. Graphics mappers interface geometric structure and data attributes to the graphics library; writers write datasets to disk or other I/O devices.
 
 Since mappers take datasets as input, type enforcement is required. Each mapper implements this functionality directly. For example, both classes vtkPolyDataMapper and vtkSTLWriter implement a SetInput() method to enforce the input to be of type vtkPolyData. Other mappers and writers enforce input type as appropriate.
@@ -993,7 +994,7 @@ Although writers and mappers do not create visualization data, they both have me
 
 \subsubsection{Color Maps}
 
-Color maps are created in the Visualization Toolkit using instances of the class vtkLookupTable. This class allows you to create a lookup table using HSVA (e.g., hue, saturation, value, and alpha opacity) specification. Although we discussed the HSV color system in Chapter 3: \nameref{chap:computer_graphics_primer}, we haven’t yet defined alpha opacity. We shall do so in Chapter 7:  \nameref{chap:advanced_computer_graphics}, but until then consider the alpha value to be the opacity of an object. Alpha values of one indicate that the object is opaque, while alpha values of zero indicate that the object is transparent.
+Color maps are created in the Visualization Toolkit using instances of the class vtkLookupTable. This class allows you to create a lookup table using HSVA (e.g., hue, saturation, value, and alpha opacity) specification. Although we discussed the HSV color system in Chapter 3: \nameref{chap:computer_graphics_primer}, we haven't yet defined alpha opacity. We shall do so in Chapter 7:  \nameref{chap:advanced_computer_graphics}, but until then consider the alpha value to be the opacity of an object. Alpha values of one indicate that the object is opaque, while alpha values of zero indicate that the object is transparent.
 
 The procedure for generating lookup table entries is to define pairs of values for HSVA. These pairs define a linear ramp for hue, saturation, value, and opacity. When the Build() method is invoked, these linear ramps are used to generate a table with the number of table entries requested. Alternatively, vtkLookupTable also enables you to load colors directly into the table. Thus, you build custom tables that cannot be simply expressed as linear ramps of HSVA values. To demonstrate this procedure, we specify a starting and ending value for each of the components of HSVA, then we will create a rainbow lookup table from blue to red by using the following C++ code.
 
@@ -1037,7 +1038,7 @@ vtkLookupTable *lut = vtkLookupTable::New();
   lut->SetTableValue(0, 0.0, 0.0, 1.0, 1.0);
 \end{lstlisting}
 
-Lookup tables in the \emph{Visualization Toolkit} are associated with the graphics mappers. Mappers will automatically create a red to blue lookup table if no table is specified, but if you want to create your own, use the mapper->SetLookupTable(lut) operation where mapper is an instance of vtkMapper or its subclasses.
+Lookup tables in the \emph{Visualization Toolkit} are associated with the graphics mappers. Mappers will automatically create a red to blue lookup table if no table is specified, but if you want to create your own, use the \sloppy{\lstinline{mapper->SetLookupTable(lut)}} operation where mapper is an instance of vtkMapper or its subclasses.
 
 A few final notes on using lookup tables.
 
@@ -1072,11 +1073,11 @@ Contouring in VTK is implemented using variations of the marching cubes algorith
 
 The implication of this arrangement is that vtkContourFilter will generate point, line, and surface contouring primitives depending on the combination of input cell types. Thus vtkContourFilter is completely general. We have created another contour filter, vtkMarchingCubes, that is specific to the dataset type image data (in particular, 3D volumes). These two filters allow us to compare (at least for this one algorithm) the cost of generality.
 
-Recall from ``Generality Versus Efficiency'' on page \pageref{subsec:benerality_vs_efficiency} the issues regarding the trade-offs between general and specific algorithms. Figure \ref{fig:Figure6-38} shows a comparison of CPU times for a volume dataset at $64 \times 64\times 93$, $128 \times 128\times 93$ and $256 \times 256\times 93$. The volume is a CT dataset of a human head. Three cases were run. In the first case the  vtkMarchingCubes object was used. The output of this filter is triangles plus point normals. In the second case, vtkContourFilter was run. The output of this filter is just triangles. In the last case, vtkContourFilter was combined with vtkPolyDataNormals (to generate point normals). The output of the combined filters is also triangles plus point normals.
+Recall from ``Generality Versus Efficiency'' on page \pageref{subsec:benerality_vs_efficiency} the issues regarding the trade--offs between general and specific algorithms. Figure \ref{fig:Figure6-38} shows a comparison of CPU times for a volume dataset at $64 \times 64\times 93$, $128 \times 128\times 93$ and $256 \times 256\times 93$. The volume is a CT dataset of a human head. Three cases were run. In the first case the  vtkMarchingCubes object was used. The output of this filter is triangles plus point normals. In the second case, vtkContourFilter was run. The output of this filter is just triangles. In the last case, vtkContourFilter was combined with vtkPolyDataNormals (to generate point normals). The output of the combined filters is also triangles plus point normals.
 
-The execution times are normalized to the smallest dataset using the vtkMarchingCubes object. The results are clear: The specific object outperforms the general object by a factor of $1.4$ to $7$, depending on data size and whether normals are computed. The larger differences occur on the smaller datasets. This is because the ratio of voxel cells containing the isosurface to the total number of voxels is larger for smaller datasets. (Generally the total number of voxels increases as the resolution cubed, while the voxels containing the isosurface increase as the resolution squared.) As a result, more voxels are processed in the smaller datasets relative to the total number of voxels than in the larger datasets. When the datasets become larger, more voxels are “empty” and are not processed.
+The execution times are normalized to the smallest dataset using the vtkMarchingCubes object. The results are clear: The specific object outperforms the general object by a factor of $1.4$ to $7$, depending on data size and whether normals are computed. The larger differences occur on the smaller datasets. This is because the ratio of voxel cells containing the isosurface to the total number of voxels is larger for smaller datasets. (Generally the total number of voxels increases as the resolution cubed, while the voxels containing the isosurface increase as the resolution squared.) As a result, more voxels are processed in the smaller datasets relative to the total number of voxels than in the larger datasets. When the datasets become larger, more voxels are ``empty'' and are not processed.
 
-Although these results do not represent all implementations or the behavior of other algorithms, they do point to the cost of generality. Of course, there is a cost to specialization as well. This cost is typically in programmer time, since the programmer must rewrite code to adapt to new circumstances and data. Like all trade-offs, resolution of this issue requires knowledge of the application.
+Although these results do not represent all implementations or the behavior of other algorithms, they do point to the cost of generality. Of course, there is a cost to specialization as well. This cost is typically in programmer time, since the programmer must rewrite code to adapt to new circumstances and data. Like all trade--offs, resolution of this issue requires knowledge of the application.
 
 \begin{figure}[!htb]
 	\begin{subfigure}[h]{0.32\linewidth}
@@ -1362,11 +1363,11 @@ Implicit functions and sampling techniques can be used to make geometry, cut dat
 
 Color mapping is a widely studied topic in imaging, computer graphics, visualization, and human factors. References \cite{Durrett87} \cite{Ware88} \cite{Rheingans92} provide samples of the available literature. You also may want to learn about the physiological and psychological effects of color on perception. The text by Wyszecki and Stiles \cite{Wyszecki82} serves as an introductory reference.
 
-Contouring is a widely studied technique in visualization because of its importance and popularity. Early techniques were developed for 2D data \cite{Watson92}. Three-dimensional techniques were developed initially as contour connecting methods \cite{Fuchs77} --- that is, given a series of 2D contours on evenly spaced planes, connect the contours to create a closed surface. Since the introduction of marching cubes \cite{Lorensen87}, many other techniques have been implemented. (A few of these include \cite{Nielson91} \cite{Montani94} and \cite{Durst88} ). A particularly interesting reference is given by Livnat et al. \cite{Livnat96}. They show a contouring method with the addition of a preprocessing step that generates isocontours in near optimal time.
+Contouring is a widely studied technique in visualization because of its importance and popularity. Early techniques were developed for 2D data \cite{Watson92}. Three--dimensional techniques were developed initially as contour connecting methods \cite{Fuchs77} --- that is, given a series of 2D contours on evenly spaced planes, connect the contours to create a closed surface. Since the introduction of marching cubes \cite{Lorensen87}, many other techniques have been implemented. (A few of these include \cite{Nielson91} \cite{Montani94} and \cite{Durst88} ). A particularly interesting reference is given by Livnat et al. \cite{Livnat96}. They show a contouring method with the addition of a preprocessing step that generates isocontours in near optimal time.
 
 Although we barely touched the topic, the study of chaos and chaotic vibrations is a delightfully interesting topic. Besides the original paper by Lorenz \cite{Lorenz63}, the book by Moon \cite{Moon87} is a good place to start.
 
-Two- and three-dimensional vector plots have been used by computer analysts for many years \cite{Fuller80}. Streamlines and streamribbons also have been applied to the visualization of complex flows \cite{Volpe89}. Good general references on vector visualization techniques are given in \cite{Helman90} and \cite{Richter90}.
+Two-- and three--dimensional vector plots have been used by computer analysts for many years \cite{Fuller80}. Streamlines and streamribbons also have been applied to the visualization of complex flows \cite{Volpe89}. Good general references on vector visualization techniques are given in \cite{Helman90} and \cite{Richter90}.
 
 Tensor visualization techniques are relatively few in number. Most techniques are glyph oriented \cite{Haber90} \cite{deLeeuw93}. We will see a few more techniques in Chapter 9.
 
@@ -1403,7 +1404,7 @@ Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and W
 \item Visualize the following functions.
 \begin{enumerate}
 	\item Scalar $S(x,y,z)=sin(xy)$ for $x,y$, between $0$ and $\pi$.
-	\item The effective stress field (a scalar field) from **Figure6–21**.
+	\item The effective stress field (a scalar field) from \ref{fig:Figure6-21b}.
 	\item The vector field described in the combustor data (i.e., combq.bin and combxyz.bin ).
 \end{enumerate}
 

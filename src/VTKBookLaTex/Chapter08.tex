@@ -47,7 +47,7 @@ We will use the word ``position'' to indicate that we are using global coordinat
 
 The dataset, or local, coordinate system is based on combined topological and geometric coordinates. The topological coordinate is used to identify a particular cell (or possibly a subcell), and the geometric coordinate is used to identify a particular location within the cell. Together they uniquely specify a location in the dataset. Here we will use the word ``location'' to refer to local or dataset coordinates.
 
-The topological coordinate is an ``id'': a unique, nonnegative integer number referring to either a dataset point or cell. For a composite cell, we use an additional “sub-id” to refer to a particular primary cell that composes the composite cell. The sub-id is also unique and nonnegative. The id and sub-id together select a particular primary cell.
+The topological coordinate is an ``id'': a unique, nonnegative integer number referring to either a dataset point or cell. For a composite cell, we use an additional ``sub-id'' to refer to a particular primary cell that composes the composite cell. The sub-id is also unique and nonnegative. The id and sub-id together select a particular primary cell.
 
 To specify a location within the primary cell, we use geometric coordinates. These geometric coordinates, or parametric coordinates, are coordinates ``natural'' or canonical to the particular topology and dimension of a cell.
 
@@ -1535,7 +1535,7 @@ implementations for color scalars, searching and picking, and conclude with a se
 
 In Chapter 5: \nameref{chap:basic_data_representation} we described data representations for the unstructured dataset types vtkPolyData and vtkUnstructuredGrid. Close examination of this data structure reveals that operations to retrieve topological adjacency are inefficient. In fact, to implement any operation to retrieve vertex, edge, or face neighbors requires a search of the cell array, resulting in $O(n)$ time complexity. This is unacceptable for all but the smallest applications, since any algorithm traversing the cell array and retrieving adjacency information is at a minimum$ O(n^2)$.
 
-The reason for this inefficiency is that the data representation is a ``downward'' hierarchy (Figure \ref{fig:Figure8-34}(b)). That is, given a cell we can quickly determine the topological features lower in the topological hierarchy such as faces, edges, and points. However, given a face, edge, or point we must search the cell array to determine the owning cells. To improve the efficiency of this data representation, we must introduce additional information into the hierarchy that allows “upward” hierarchy traversal (similar to that shown in Figure \ref{fig:Figure8-34}(a)).
+The reason for this inefficiency is that the data representation is a ``downward'' hierarchy (Figure \ref{fig:Figure8-34}(b)). That is, given a cell we can quickly determine the topological features lower in the topological hierarchy such as faces, edges, and points. However, given a face, edge, or point we must search the cell array to determine the owning cells. To improve the efficiency of this data representation, we must introduce additional information into the hierarchy that allows ``upward'' hierarchy traversal (similar to that shown in Figure \ref{fig:Figure8-34}(a)).
 
 
 \begin{figure}[!htb]
@@ -1702,7 +1702,7 @@ With the completion of Chapter 5: \nameref{chap:basic_data_representation} and C
     Given a contour value and scalar values at the cell points, clip the cell to generate new cells of the same topological dimension as the original cell. The points are placed in a locator object (see ``Searching'' on page \pageref{subsec:searching}) which merges coincident points, and the attribute data values are interpolated (or copied) from the inputPointData to the outputPointData. The clipped cells are placed in the cells list.
 
     \item[\texttt{Derivatives(subId, pcoords, values, dim, derivs)}] \hfill \\
-    Given a cell location (i.e., subid and parametric coordinates) and data values at the cell points, return dim*3 derivatives (i.e., corresponds to the x, y, and z directions times dimension of data).
+    Given a cell location (i.e., subid and parametric coordinates) and data values at the cell points, return $dim*3$ derivatives (i.e., corresponds to the \emph{x}, \emph{y}, and \emph{z} directions times dimension of data).
 
     \item[\texttt{inOutStatus = IntersectWithLine(p1, p2, tol, t, x, pcoords, subId)}] \hfill \\
     Given a finite line defined by the two points p1 and p2 and an intersection tolerance, return the point of intersection x. The parametric coordinate t along the line and cell location at the point of intersection is also returned. Returns a nonzero if intersection occurs.
@@ -1787,7 +1787,7 @@ A simple solution is to traverse each cell and then obtain the edges (or faces) 
 
 A better solution to this problem is to traverse each cell as before, but only process intermediate topology if the current cell has the smallest cell id. (The current cell is the cell being visited in the traversal process.) To determine whether the current cell has the smallest cell id, we obtain all cells using the intermediate topology. This information can be obtained using the topological adjacency operators described earlier (e.g., Equation \ref{eq:8.25}).
 
-To illustrate this process consider visiting the edges of a triangle mesh. We begin by visiting the first triangle, $t$, and then its edges. For each edge we determine the adjacent triangle(s) (if any) that use the edge. If the id of the adjacent triangle(s) is greater than triangle $t$'s id, or there are no adjacent triangles, then we know to process the current edge. (Of course the first triangle will always have the smallest id — but this will change as the traversal proceeds.) We then continue traversing the triangle list for new $t$'s. In this way all the edges of the mesh will be visited.
+To illustrate this process consider visiting the edges of a triangle mesh. We begin by visiting the first triangle, $t$, and then its edges. For each edge we determine the adjacent triangle(s) (if any) that use the edge. If the id of the adjacent triangle(s) is greater than triangle $t$'s id, or there are no adjacent triangles, then we know to process the current edge. (Of course the first triangle will always have the smallest id  --- but this will change as the traversal proceeds.) We then continue traversing the triangle list for new $t$'s. In this way all the edges of the mesh will be visited.
 
 \subsection{Color Scalar Data}
 
@@ -1915,17 +1915,17 @@ Classes that can return information indicating which vtkProp they have picked ar
     \label{fig:Figure8-39}
 \end{figure}
 
-The object vtkPicker intersects a ray defined from camera position to a screen (i.e., pixel) coordinate against the bounding box of all pickable and nontransparent vtkProp3D’s. (A vtkProp is pickable if its Pickable instance variable is true.) The result of the vtkPicker pick operation is to return a list of the vtkProp3D’s whose bounding box is intersected. The prop closest to the camera position is also returned.
+The object vtkPicker intersects a ray defined from camera position to a screen (i.e., pixel) coordinate against the bounding box of all pickable and nontransparent vtkProp3D's. (A vtkProp is pickable if its Pickable instance variable is true.) The result of the vtkPicker pick operation is to return a list of the vtkProp3D's whose bounding box is intersected. The prop closest to the camera position is also returned.
 
 The object vtkPointPicker intersects the ray against the points defining each vtkProp3D, and returns the point coordinate closest to the camera position, as well as the vtkProp3D that the point belongs to. Since screen resolution prevents precise selection of a point, a tolerance around the ray must be specified. The tolerance is expressed as a fraction of the rendering window size. (Rendering window size is measured across the window diagonal.) Points must lie within this tolerance to be picked.
 
 The object vtkCellPicker intersects the ray with the cells defining each vtkProp3D, and returns the point of intersection, as well as the vtkProp3D that the cell belongs to. If you are trying to select a cell belonging to a particular vtkProp3D, vtkCellPicker is the object to use because it performs surface (or cell) intersection. Unfortunately, vtkCellPicker is the slowest of the pickers because of greater computational requirements.
 
-The class vtkWorldPointPicker returns the $(x,y,z)$ coordinate value of a pick in the rendering window. To determine this information, it combines the display $(x,y)$ values with the z-buffer depth values. Of all the pickers this is the fastest, but it cannot determine the actual cell, point or vtkProp that is selected since it is not a subclass of vtkAbstractPropPicker. (Note: on some systems z--buffer operations are inoperative and this object will not function properly.)
+The class vtkWorldPointPicker returns the $(x,y,z)$ coordinate value of a pick in the rendering window. To determine this information, it combines the display $(x,y)$ values with the z-buffer depth values. Of all the pickers this is the fastest, but it cannot determine the actual cell, point or vtkProp that is selected since it is not a subclass of vtkAbstractPropPicker. (Note: on some systems \emph{z}--buffer operations are inoperative and this object will not function properly.)
 
-By default picking is performed with the class vtkPropPicker. This class uses hardware-accelerated picking—so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the $(x,y,z)$ world coordinate value
+By default picking is performed with the class vtkPropPicker. This class uses hardware-accelerated picking --- so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the $(x,y,z)$ world coordinate value
 
-Figure \ref{fig:Figure8-39} summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the ``p'' key (see “Introducing vtkRenderWindowInteractor” on page 68). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
+Figure \ref{fig:Figure8-39} summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the ``p'' key (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:introducing_vtkRenderWindowInteractor}). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
 
 \subsection{Examples}
 
@@ -2032,7 +2032,7 @@ In this example we combine picking and a topological operation to select cells s
         sphereActor->SetPosition(picker->GetPickPosition());
         if ( picker->GetPointId() >= 0 )
           {
-          cout << “Point id: “ << picker->GetPointId() << “\n”;
+          cout << "Point id: " << picker->GetPointId() << "\n";
           cellsActor->VisibilityOn();
           plateActor->VisibilityOff();
           cells->Initialize();
@@ -2126,7 +2126,7 @@ Interpolation functions are employed in a number of numerical techniques. The fi
 
 Visualizing higher-order datasets is an oepn research issue. While \cite{Schroeder06} describes one approach, methods based on GPU programs are emerging. Other approaches include tailored algorithms for a particular cell type.
 
-Basic topology references are available from a number of sources. Two good descriptions of topological data structures are available from Weiler \cite{Weiler86} \cite{Weiler88} and Baumgart \cite{Baumgart74}. Weiler describes the radial-edge structure. This data structure can represent manifold and nonmanifold geometry. The winged-edge structure described by Baumgart is widely known. It is used to represent manifold geometry. Shephard \cite{Shephard88} describes general finite element data structures — these are similar to visualization structures but with extra information related to analysis and geometric modelling.
+Basic topology references are available from a number of sources. Two good descriptions of topological data structures are available from Weiler \cite{Weiler86} \cite{Weiler88} and Baumgart \cite{Baumgart74}. Weiler describes the radial-edge structure. This data structure can represent manifold and nonmanifold geometry. The winged-edge structure described by Baumgart is widely known. It is used to represent manifold geometry. Shephard \cite{Shephard88} describes general finite element data structures  --- these are similar to visualization structures but with extra information related to analysis and geometric modelling.
 
 There are extensive references regarding spatial search structures. Samet \cite{Samet90} provides a general overview of some. Octrees were originally developed by Meagher \cite{Meagher82} for 3D imaging. See \cite{Williams83}, \cite{Bentley75}, and \cite{Quinlan94} for information about MIP maps, kd-trees, and binary sphere trees, respectively.
 
