@@ -22,7 +22,7 @@ Transformation is the process of converting data from its original form into gra
 
 Representation includes both the internal data structures used to depict the data and the graphics primitives used to display the data. For example, an array of stock prices and an array of times are the computational representation of the data, while the $x-y$ plot is the graphical representation. Visualization transforms a computational form into a graphical form.
 
-From an object-oriented viewpoint, transformations are processes in the functional model, while representations are the objects in the object model. Therefore, we characterize the visualization model with both functional models and object models.
+From an object--oriented viewpoint, transformations are processes in the functional model, while representations are the objects in the object model. Therefore, we characterize the visualization model with both functional models and object models.
 
 \subsection{A Data Visualization Example}
 \label{subsec:data_visualization_example}
@@ -76,12 +76,12 @@ the object model describes which modules operate on it. But what \emph{are} the 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.8\textwidth]{Figure4-2}\\
-  \caption{Object model design choices. One basic choice is to combine processes and data stores into a single object. This is the usual object-oriented choice. Another choice creates separate data objects and process objects.}\label{fig:Figure4-2}
+  \caption{Object model design choices. One basic choice is to combine processes and data stores into a single object. This is the usual object--oriented choice. Another choice creates separate data objects and process objects.}\label{fig:Figure4-2}
 \end{figure}
 
 The first choice combines data stores (object attributes) with processes (object methods) into a single object. In the second choice we use separate objects for data stores and processes. There is actually a third alternative: a hybrid combination of these two choices.
 
-The conventional object-oriented approach (our first choice above) combines data stores and processes into a single object. This view follows the standard definition that objects contain a data representation combined with procedures to operate on the data. One advantage of this approach is that the processes, which are the data visualization algorithms, have complete access to the data structures, resulting in good computational performance. But this choice suffers from several drawbacks.
+The conventional object--oriented approach (our first choice above) combines data stores and processes into a single object. This view follows the standard definition that objects contain a data representation combined with procedures to operate on the data. One advantage of this approach is that the processes, which are the data visualization algorithms, have complete access to the data structures, resulting in good computational performance. But this choice suffers from several drawbacks.
 
 \begin{itemize}
 
@@ -93,7 +93,7 @@ The conventional object-oriented approach (our first choice above) combines data
 
 \end{itemize}
 
-The second choice separates the data stores and processes. That is, one set of objects represents and provides access to the data, while another set of objects implements all operations on the data. Our experience shows that this is natural to users, although it may be considered unconventional to the object-oriented purist. We also have found that the resulting code is simple, modular, and easy for developers to understand, maintain, and extend.
+The second choice separates the data stores and processes. That is, one set of objects represents and provides access to the data, while another set of objects implements all operations on the data. Our experience shows that this is natural to users, although it may be considered unconventional to the object--oriented purist. We also have found that the resulting code is simple, modular, and easy for developers to understand, maintain, and extend.
 
 One disadvantage to the second choice is that the interface between data representation and process is more formal. Thus the interface must be carefully designed to insure good performance and flexibility. Another disadvantage is that strong separation of data and process results in duplicate code. That is, we may implement operations that duplicate algorithms and that cannot be considered strictly data access methods. One example of such a situation is computing data derivatives. This operation is more than simple data access, so strictly speaking it doesn't belong in the data object methods. So to compute derivatives we would have to duplicate the code each time we needed derivatives computed. (Or create a procedural library of functions or macros!)
 
@@ -257,7 +257,7 @@ The explicit approach with a central executive is typical of many commercial vis
 
 Implicit control means that a process object executes only if its local input or parameters change (Figure 4-7 \ref{fig:Figure4-7b}). Implicit control is implemented using a two-pass process. First, when output is requested from a particular object, that object requests input from its input objects. This process is recursively repeated until source objects are encountered. The source objects then execute if they have changed or their external inputs have changed. Then the recursion unwinds as each process object examines its inputs and determines whether to execute. This procedure repeats until the initial requesting object executes and terminates the process. These two steps are called the \emph{update} and \emph{execution} passes.
 
-Implicit network execution is naturally implemented using *demand-driven* control. Here network execution occurs only when output data is requested. Implicit network execution may also be event-driven if we simply request output each time an appropriate event is encountered (such as change to object parameter).
+Implicit network execution is naturally implemented using \emph{demand-driven} control. Here network execution occurs only when output data is requested. Implicit network execution may also be event-driven if we simply request output each time an appropriate event is encountered (such as change to object parameter).
 
 \begin{figure}[!htb]
   \centering
@@ -307,7 +307,7 @@ As this figure shows, the static model executes each process object only once, s
 \subsection{Reference Counting and Garbage Collection}
 \label{subsec:reference_counting_garbage_collection}
 
-Another valuable tool to minimize memory cost is to share storage using reference counting. To use reference counting, we allow more than one process object to refer to the same data object and keep track of the number of references. For example, assume that we have three objects *A*, *B*, and *C* that form a portion of a visualization network as shown in Figure \ref{fig:Figure4-10}. Also assume that these objects modify only part of their input data, leaving the data object that specifies *x-y-z* coordinate position unchanged. Then to conserve memory resources we can allow the output of each process object to refer to the single data object representing these points. Data that is changed remains local to each filter and is not shared. It is only when the reference count goes to zero that the object is deleted.
+Another valuable tool to minimize memory cost is to share storage using reference counting. To use reference counting, we allow more than one process object to refer to the same data object and keep track of the number of references. For example, assume that we have three objects \emph{A}, \emph{B}, and \emph{C} that form a portion of a visualization network as shown in Figure \ref{fig:Figure4-10}. Also assume that these objects modify only part of their input data, leaving the data object that specifies \emph{x-y-z} coordinate position unchanged. Then to conserve memory resources we can allow the output of each process object to refer to the single data object representing these points. Data that is changed remains local to each filter and is not shared. It is only when the reference count goes to zero that the object is deleted.
 
 Garbage collection is an alternative memory management strategy that is not well suited to visualization applications. The garbage collection process is automatic; it attempts to reclaim memory used by objects that will never again be accessed by the running application. While convenient due to its automated nature, in general garbage collection introduces overhead that may inadvertently introduce pauses into software execution at inopportune times (during an interactive process). Of more concern, however, is that released, unused memory may not be reclaimed by the system until some time after the last reference to the memory is dropped, and in visualization pipelines this memory may be too large to leave around for any length of time. That is, in some applications if memory usage in a filter is not released immediately, downstream filters may not have enough memory resource available to them to successfully execute.
 
@@ -335,7 +335,7 @@ Examples of metadata include time step information, data ranges or other data ch
 
 In real-world applications the pipeline design described thus far may not adequately support complex execution strategies, or may fail to execute successfully when data sizes become large. In the next sections we address these issues by considering alternative design possibilities.
 
-\textbf{Large Data}. Previous discussions relative to the visualization pipeline have assumed that the size of a particular dataset does not exceed the total memory resource of a computer system. However, with modern dataset sizes pushing into the terabyte and even petabyte range, a typical desktop computer system is incapable of processing such datasets. Thus alternative strategies must be adopted when processing large data. One such approach is based on breaking data into pieces, and then *streaming* the pieces through the visualization pipeline \cite{Martin01}. Figure \ref{fig:Figure4-11} illustrates how a dataset can be divided into pieces.
+\textbf{Large Data}. Previous discussions relative to the visualization pipeline have assumed that the size of a particular dataset does not exceed the total memory resource of a computer system. However, with modern dataset sizes pushing into the terabyte and even petabyte range, a typical desktop computer system is incapable of processing such datasets. Thus alternative strategies must be adopted when processing large data. One such approach is based on breaking data into pieces, and then \emph{streaming} the pieces through the visualization pipeline \cite{Martin01}. Figure \ref{fig:Figure4-11} illustrates how a dataset can be divided into pieces.
 
 \begin{figure}[!htb]
   \centering
@@ -364,12 +364,12 @@ Finally, it should be noted that the ability to divide data into pieces for stre
 
 In many cases the simple execution model of Figure \ref{fig:Figure4-7b} is not suitable for complex data processing tasks. For example, as discussed in the previous section, streaming data is a complex execution strategy required when a dataset becomes too large to fit into memory, or when parallel computing is used. In some cases event-driven (see ``Executing the Pipeline''on page \pageref{sec:executing_pipeline}) or ``push'' pipelines (i.e., those that receive data and push the data through the pipeline for processing) may be preferred. Finally, there exist hierarchical data structures such as multi-block or adaptive mesh refinement (AMR) \cite{Berger84} grids. Processing such datasets in a pipeline requires hierarchical traversal as filters process each block in the grid (an advanced research topic in the visualization field and not covered in this edition of the book).
 
-Addressing these requirements implies that the execution model must be extended. Thus we revisit the object-oriented design in the next section.
+Addressing these requirements implies that the execution model must be extended. Thus we revisit the object--oriented design in the next section.
 
-\subsubsection{Object-Oriented Design Revisited}
+\subsubsection{object--oriented Design Revisited}
 \label{subsubsec:object_oriented_design_revisited}
 
-Figure \ref{fig:Figure4-2} illustrates two choices relative to the design of the visualization object model. The first choice, which was discarded, was to combine data and operations on the data into a single object, a typical object-oriented design pattern. The second choice, which was advocated, was to create a design consisting of two classes --- data objects and process objects --- which were then combined into visualization pipelines. While this second strategy works well for simple pipelines, when complex execution strategies are introduced, this design begins to break down. This is because the execution strategy is necessarily, and implicitly, distributed across the data objects and process objects; there is no explicit mechanism to implement a particular strategy. Thus the design is problematic because new strategies cannot be introduced without modifying the interface to both the data and process objects. Good design demands that the execution strategy is separated from the data objects and process objects. The benefits of such a design include reducing the complexity of the data and process objects, encapsulating execution strategies, performing run-time type checking (see ``Processing Unknown Dataset Types'' on page \pageref{subsec:processing_unknown_dataset_types}) and even managing metadata (see ``Extending the Data Object Representation''on page  \pageref{subsec:extending_data_object_representation}).
+Figure \ref{fig:Figure4-2} illustrates two choices relative to the design of the visualization object model. The first choice, which was discarded, was to combine data and operations on the data into a single object, a typical object--oriented design pattern. The second choice, which was advocated, was to create a design consisting of two classes --- data objects and process objects --- which were then combined into visualization pipelines. While this second strategy works well for simple pipelines, when complex execution strategies are introduced, this design begins to break down. This is because the execution strategy is necessarily, and implicitly, distributed across the data objects and process objects; there is no explicit mechanism to implement a particular strategy. Thus the design is problematic because new strategies cannot be introduced without modifying the interface to both the data and process objects. Good design demands that the execution strategy is separated from the data objects and process objects. The benefits of such a design include reducing the complexity of the data and process objects, encapsulating execution strategies, performing run-time type checking (see ``Processing Unknown Dataset Types'' on page \pageref{subsec:processing_unknown_dataset_types}) and even managing metadata (see ``Extending the Data Object Representation''on page  \pageref{subsec:extending_data_object_representation}).
 
 As the execution model becomes more complex, execution strategies are separated from the data and process objects as separate classes.
 
@@ -408,7 +408,7 @@ Scene graphs have found wide use in the graphics community because of their abil
 
 Another recently introduced technique for visual programming is the spreadsheet technique of Levoy \cite{Levoy94}. In the spreadsheet model, we arrange operations on a regular grid similar to the common electronic accounting spreadsheets. The grid consists of rows and columns of cells, where each cell is expressed as a computational combination of other cells. The combination is expressed for each cell by using a simple programming language to add, subtract, or perform other more complex operations. The result of the computation (i.e., a visual output) is displayed in the cell. A recent extension to the spreadsheet approach is exemplified by VisTrails \cite{Bavoil05}, a system that enables interactive multiple-view visualizations by simplifying the creation and maintenance of visualization pipelines, and by optimizing the execution of the pipelines. VisTrials has the further benefit that it tracks changes to the visualization pipeline so that it is straightforward to create extensive design studies.
 
-Although visual programming systems are widely successful, they suffer two drawbacks. First, they are not as tailored as an application and require extensive programming, albeit visual, to be so. Second, visual programming is too limited for detailed control, so constructing complex low-level algorithms and user-interfaces is not feasible. What is required is a visualization system that provides the ``modularity'' and automatic execution control of a visual system, and the low-level programming capability of a programming library. Object-oriented systems have the potential to provide these capabilities. Carefully crafted object libraries provide the ease of use of visual systems with the control of programming libraries. That is a major goal of the described in this text.
+Although visual programming systems are widely successful, they suffer two drawbacks. First, they are not as tailored as an application and require extensive programming, albeit visual, to be so. Second, visual programming is too limited for detailed control, so constructing complex low-level algorithms and user-interfaces is not feasible. What is required is a visualization system that provides the ``modularity'' and automatic execution control of a visual system, and the low-level programming capability of a programming library. Object--oriented systems have the potential to provide these capabilities. Carefully crafted object libraries provide the ease of use of visual systems with the control of programming libraries. That is a major goal of the described in this text.
 
 \section{Data Interface Issues}
 \label{sec:data_interface_issues}
@@ -422,7 +422,7 @@ The most powerful and flexible approach is to directly program your application 
 
 Typical applications requiring a programming interface are interfacing to data files that are not currently supported by the system or generating synthetic data (e.g., from a mathematical relationship) where no data file is available. Also, sometimes it is useful to directly code your data in the form of a program, and then execute the program to visualize the results. (This is exactly what many of the VTK examples do.)
 
-In general, programming a complex system such as VTK is a difficult undertaking because of the initial learning curve. There are, however, simpler ways to interface to data. While skilled developers may be required to create sophisticated applications, the points of an object-oriented toolkit like VTK is that it provides many of the pieces required to interface to common data forms. Thus focusing on those objects that import and export data is a good start towards interfacing with data. In VTK, these objects are known as readers, writers, importers and exporters.
+In general, programming a complex system such as VTK is a difficult undertaking because of the initial learning curve. There are, however, simpler ways to interface to data. While skilled developers may be required to create sophisticated applications, the points of an object--oriented toolkit like VTK is that it provides many of the pieces required to interface to common data forms. Thus focusing on those objects that import and export data is a good start towards interfacing with data. In VTK, these objects are known as readers, writers, importers and exporters.
 
 \subsubsection{File Interface (Readers / Writers)}
 \label{subsubsec:file_interface_readers_writers}
@@ -471,7 +471,7 @@ In the \emph{Visualization Toolkit}, there are several importers and exporters. 
   \caption{Importing and exporting files in VTK. An importer creates a vtkRenderWindow that describes the scene. Exporters use an instance of vtkRenderWindow to obtain a description of the scene.}\label{fig:Figure4-13}
 \end{figure}
 
-Figure \ref{fig:Figure4-13} shows an image created from a *3D Studio* model and saved as a *Renderman* RIB file.
+Figure \ref{fig:Figure4-13} shows an image created from a \emph{3D Studio} model and saved as a \emph{Renderman} RIB file.
 
 \subsection{Application Interface}
 \label{subsec:application_interface}
@@ -545,7 +545,7 @@ Prior to VTK 5.0. In earlier versions of VTK (i.e., prior to version 5.0), the v
 filter2->SetInput(filter1->GetOutput()); //Prior to VTK5.0
 \end{lstlisting}
 
-was typically used with filter1 and filter2 filter objects of compatible type. In this design, compiletime type checking was performed (i.e., the C++ compiler would enforce proper type.) Obviously, this meant that correcting filters together producing output of unknown type was problematic. Several other issues with this design remained as well, many of which have been alluded to earlier, but are summarized here to motivate the use of the newer pipeline architecture. 
+was typically used with filter1 and filter2 filter objects of compatible type. In this design, compiletime type checking was performed (i.e., the C++ compiler would enforce proper type). Obviously, this meant that correcting filters together producing output of unknown type was problematic. Several other issues with this design remained as well, many of which have been alluded to earlier, but are summarized here to motivate the use of the newer pipeline architecture. 
 
 \begin{figure}[!htb]
   \centering
@@ -893,7 +893,7 @@ The visualization process is naturally modelled using a combination of functiona
 
 The practical way to learn about the visualization process is to study commercially available systems. These systems can be categorized as either direct visual programming environments or as applications. Common visual programming systems include AVS \cite{AVS89}, Iris Explorer \cite{IrisExplorer}, IBM Data Explorer \cite{DataExplorer}, apE \cite{apE90}, and Khoros \cite{Rasure91}. Application systems generally provide less flexibility than visual programming systems, but are better tailored to a particular problem domain. PLOT3D \cite{PLOT3D} is an early example of a tool for CFD visualization. This has since been superseded by FAST \cite{FAST90}. FieldView is another popular CFD visualizer \cite{FieldView91}. VISUAL3 \cite{VISUAL3} is a general tool for unstructured or structured grid visualization. PV-WAVE \cite{Charal90} can be considered a hybrid system, since it has both simple visual programming techniques to interface to data files as well as a more structured user-interface than the visual programming environments. Wavefront's DataVisualizer \cite{DataVisualizer} is a general-purpose visualization tool. It is unique in that it is part of a powerful rendering and animation package. A nice system for visualizing 3D gridded data (such as that produced by numerical weather models) is VIS5D. Find out more at the \href{http://www.ssec.wisc.edu/\~billh/vis5d.html}{VIS5D Web site}).
 
-Although many visualization systems claim to be object-oriented, this is often more in appearance than implementation. Little has been written on object-oriented design issues for visualization. \cite{VISAGE92} presents an architecture similar to that described in this chapter. Favre \cite{Favre94} describes a more conventional object-oriented approach. His dataset classes are based on topological dimension and both data and methods are combined into classes.
+Although many visualization systems claim to be object--oriented, this is often more in appearance than implementation. Little has been written on object--oriented design issues for visualization. \cite{VISAGE92} presents an architecture similar to that described in this chapter. Favre \cite{Favre94} describes a more conventional object--oriented approach. His dataset classes are based on topological dimension and both data and methods are combined into classes.
 
 \printbibliography
 
@@ -912,7 +912,7 @@ For each technique:
 
 \end{enumerate}
 
-    \item \label{ex:ch04_4.2} A \emph{height field} is a regular array of 2D points where $h = f(x,y)$, $h$ is an altitude above the point $(x,y)$. Height fields are often used to represent terrain data. Design an object-oriented system to visualize height fields.
+    \item \label{ex:ch04_4.2} A \emph{height field} is a regular array of 2D points where $h = f(x,y)$, $h$ is an altitude above the point $(x,y)$. Height fields are often used to represent terrain data. Design an object--oriented system to visualize height fields.
 
 \begin{enumerate}
 
