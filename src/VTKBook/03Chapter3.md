@@ -521,22 +521,28 @@ There is another important object, vtkRenderWindowInteractor, that captures even
 A desirable property of applications built with VTK is that they are device independent. This means that computer code that runs on one operating system with a particular software/hardware configuration runs unchanged on a different operating system and software/hardware configuration. The advantage of this is that the programmer does not need to expend effort porting an application between different computer systems. Also, existing applications do not need to be rewritten to take advantage of new developments in hardware or software technology. Instead, VTK handles this transparently by a combination of inheritance and a technique known as *object factories*.
 
 <figure id="Figure 3-25">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-25.png?raw=true" width="640" alt="Figure3-25">
+  <figure id="Figure 3-25a">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-25a.png?raw=true" width="640" alt="Figure3-25a">
+    <figcaption style="color:blue"> (a) Inheritance of device classes. (Note: in VTK 4.2 the Starbase and XGL graphics libraries are no longer supported.) </figcaption>
+  </figure>
+  <figure id="Figure 3-25b">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-25b.png?raw=true" width="640" alt="Figure3-25b">
+    <figcaption style="color:blue"> (b) Code fragment from &#118;tkActor::New()</figcaption>
+  </figure>
+  <figure id="Figure 3-25c">
+    <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-25c.png?raw=true" width="640" alt="Figure3-25c">
+    <figcaption style="color:blue"> (c) Code fragment from &#118;tkGraphicsFactory::CreateInstance(&#118;tkclassname).</figcaption>
+  </figure>
   <figcaption style="color:blue"><b>Figure 3-25</b>. Achieving device independence using (a) inheritance and object factories (b) and (c).</figcaption>
 </figure>
 
-**Figure 3-25** (a) illustrates the use of inheritance to achieve
-device independence. Certain classes like vtkActor are broken into two
-parts: a device independent superclass and a device dependent
-subclass. The trick here is that the user creates a device dependent
-subclass by invoking the special constructor New() in the device
-independent superclass. For example we would use (in C++)
+**Figure 3-25a** illustrates the use of inheritance to achieve device independence. Certain classes like vtkActor are broken into two parts: a device independent superclass and a device dependent subclass. The trick here is that the user creates a device dependent subclass by invoking the special constructor New() in the device independent superclass. For example we would use (in C++)
 
 ```
 vtkActor *anActor = vtkActor::New()
 ```
 
-to create a device dependent instance of vtkActor. The user sees no device dependent code, but in actuality anActor is a pointer to a device dependent subclass of vtkActor. **Figure 3-25** (b) is a code fragment of the constructor method New() which uses VTK's object factory mechanism. In turn, the vtkGraphicsFactory (used to instantiate graphical classes) produces the appropriate concrete subclass when requested to instantiate an actor as shown in **Figure 3-25c**.
+to create a device dependent instance of vtkActor. The user sees no device dependent code, but in actuality anActor is a pointer to a device dependent subclass of vtkActor. **Figure 3-25b** is a code fragment of the constructor method New() which uses VTK's object factory mechanism. In turn, the vtkGraphicsFactory (used to instantiate graphical classes) produces the appropriate concrete subclass when requested to instantiate an actor as shown in **Figure 3-25c**.
 
 The use of object factories as implemented using the New() method allows us to create device independent code that can move from computer to computer and adapt to changing technology. For example, if a new graphics library became available, we would only have to create a new device dependent subclass, and then modify the graphics factory to instantiate the appropriate sub-class based on environment variables or other system information. This extension would be localized and only done once, and all applications based on these object factories would be automatically ported without change.
 
