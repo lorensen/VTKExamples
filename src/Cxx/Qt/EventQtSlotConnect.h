@@ -6,6 +6,7 @@
 #include <QMainWindow>
 
 #include <vtkSmartPointer.h>
+#include <vtkObject.h>
 class vtkEventQtSlotConnect;
 
 class EventQtSlotConnect : public QMainWindow, private Ui::EventQtSlotConnect
