@@ -38,22 +38,17 @@ In the examples that follow we will frequently use a simplified representation o
 <figure id="Figure 4-1">
  <figure id="Figure 4-1a">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestQuadricVisualization.png?raw=true" width="640" alt="Figure 4-1a">
-  <figcaption style="color:blue"><b>Figure 4-1</b>. (a)Quadric visualization <a href="../../Cxx/Visualization/QuadricVisualization" title="QuadricVisualization"> See QuadricVisualization.cxx</a> and <a href="../../Python/Visualization/QuadricVisualization" title="QuadricVisualization"> QuadricVisualization.py</a>.</figcaption>
+  <figcaption style="color:blue" (a)Quadric visualization <a href="../../Cxx/Visualization/QuadricVisualization" title="QuadricVisualization"> See QuadricVisualization.cxx</a> and <a href="../../Python/Visualization/QuadricVisualization" title="QuadricVisualization"> QuadricVisualization.py</a>.</figcaption>
   </figure>
   <figure id="Figure 4-1b">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-1b.png?raw=true" width="640" alt="Figure4-1b">
-    <figcaption style="color:blue"><b>Figure 4-1</b>. (b) Functional model</figcaption>
+    <figcaption style="color:blue"> (b) Functional model</figcaption>
   </figure>
   <figure id="Figure 4-1c">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-1c.png?raw=true" width="640" alt="Figure4-1c">
-    <figcaption style="color:blue"><b>Figure 4-1</b>. (c) Visualization network</figcaption>
+    <figcaption style="color:blue"> (c) Visualization network</figcaption>
   </figure>
   <figcaption style="color:blue"><b>Figure 4-1</b>. Visualizing a quadric function F(x,y,z) = c..</figcaption>
-</figure>
-
-<figure id="Figure 4-2">
-  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-2.png?raw=true" width="640" alt="Figure4-2">
-  <figcaption style="color:blue"><b>Figure 4-2</b>. Object model design choices. One basic choice is to combine processes and data stores into a single object. This is the usual object-oriented choice. Another choice creates separate data objects and process objects.</figcaption>
 </figure>
 
 ### The Object Model
@@ -61,6 +56,11 @@ In the examples that follow we will frequently use a simplified representation o
 The functional model describes the flow of data in our visualization,
 the object model describes which modules operate on it. But what *are*
 the objects in the system? At first glance, we have two choices (**Figure 4-2**).
+
+<figure id="Figure 4-2">
+  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-2.png?raw=true" width="640" alt="Figure4-2">
+  <figcaption style="color:blue"><b>Figure 4-2</b>. Object model design choices. One basic choice is to combine processes and data stores into a single object. This is the usual object-oriented choice. Another choice creates separate data objects and process objects.</figcaption>
+</figure>
 
 The first choice combines data stores (object attributes) with processes (object methods) into a single object. In the second choice we use separate objects for data stores and processes. There is actually a third alternative: a hybrid combination of these two choices.
 
@@ -519,12 +519,12 @@ Until now, we have used the terms metadata and information objects rather inform
 
 The importance of the information objects in VTK is that they are flexible (e.g., new key-value pairs can be easily added) and extensible. That is, readers, filters and mappers can add new information to the containers without requiring the API of the pipeline-related classes to change.
 
+** Pipeline Execution Models.** In VTK, the fundamental pipeline update mechanism is based on the request. A request is the basic pipeline operation (or "pipeline pass") that generally asks for particular piece of information to be propagated through the pipeline. An execution model is a set of requests defined by a specific executive. Refer to **Figure 4-18** in the following description of the execution process.
+
 <figure id="Figure 4-18">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-18.png?raw=true" width="640" alt="Figure4-18">
   <figcaption style="color:blue"><b>Figure 4-18</b>. Path of a request sent through a pipeline. For example, assume the consumer (at the far right) needs only a single piece of this data (e.g., piece 1 of 4); also assume that the producer (on the far left) is a reader that can partition its data into pieces. The consumer passes this request upstream, and it continues upstream (via executives) until it reaches a producer that can fulfill the request. When the reader algorithm is asked for a piece of the data, it provides it, and passes the new data back (with the information that it is piece 1 of 4) down the pipeline. It stops when it reaches the consumer who made the request.</figcaption>
 </figure>
-
-** Pipeline Execution Models.** In VTK, the fundamental pipeline update mechanism is based on the request. A request is the basic pipeline operation (or "pipeline pass") that generally asks for particular piece of information to be propagated through the pipeline. An execution model is a set of requests defined by a specific executive. Refer to **Figure 4-18** in the following description of the execution process.
 
 Requests are generated by the executive object of a filter that has been explicitly asked to update by its algorithm due to some user call. For example, when the Write() method of a writer is called, the algorithm object asks its executive to update the pipeline, and execute the writer, by calling this->GetExecutive()->Update(). Several requests may be sent through the pipeline in order to bring it up to date.
 
@@ -556,8 +556,6 @@ We will now demonstrate some of the features of the visualization pipeline with 
 
 ** Simple Sphere.** The first example demonstrates a simple visualization pipeline. A polygonal representation of a sphere is created with the source object (vtkSphereSource). The sphere is passed through a filter (vtkElevationFilter) that computes the height of each point of the sphere above a plane. The plane is perpendicular to the z-axis, and passes through the point (0,0,-1). The data is finally mapped (vtkDataSetMapper) through a lookup table. The mapping process converts height value into colors, and interfaces the sphere geometry to the rendering library. The mapper is assigned to an actor, and then the actor is displayed. The visualization network, a portion of code, and output image are shown in **Figure 4-19**.
 
-The execution of the pipeline occurs implicitly when we render the actor. Each actor asks its mapper to update itself. The mapper in turn asks its input to update itself. This process continues until a source object is encountered. Then the source will execute if modified since the last render.
-
 <figure id="Figure 4-19">
   <figure id="Figure 4-19a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-19a.png?raw=true" width="640" alt="Figure4-19a">
@@ -567,6 +565,8 @@ The execution of the pipeline occurs implicitly when we render the actor. Each a
   </figure>
   <figcaption style="color:blue"><b>Figure 4-19</b>. A simple sphere example. <a href="../../Cxx/Rendering/ColoredSphere" title="ColoredSphere"> See ColoredSphere.cxx</a> and <a href="../../Python/Rendering/ColoredSphere" title="ColoredSphere"> ColoredSphere.py</a>.</figcaption>
 </figure>
+
+The execution of the pipeline occurs implicitly when we render the actor. Each actor asks its mapper to update itself. The mapper in turn asks its input to update itself. This process continues until a source object is encountered. Then the source will execute if modified since the last render.
 
 Then the system walks through the network and executes each object if its input or instance variables are out of date. When completed, the actor’s mapper is up to date and an image is generated.
 
@@ -580,8 +580,6 @@ One final note. The indentation of the code serves to indicate where objects are
 
 The transform filter only operates on objects with explicit point coordinate representation (i.e., a subclass of vtkPointSet). However, the elevation filter generates the more general form vtkDataSet as output. Hence we cannot connect the transform filter to the elevation filter. But we can connect the transform filter to the sphere source, and then the elevation filter to the transform filter. The result is shown in **Figure 4-20**. (Note: an alternative method is to use vtkCastToConcrete to perform run-time casting.)
 
-The C++ compiler enforces the proper connections of sources, filters, and mappers. To decide which objects are compatible, we check the type specification of the SetInput() method. If the input object returns an output object or a subclass of that type, the two objects are compatible and may be connected.
-
 <figure id="Figure 4-20">
   <figure id="Figure 4-20a">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-20a.png?raw=true" width="640" alt="Figure4-20a">
@@ -592,9 +590,9 @@ The C++ compiler enforces the proper connections of sources, filters, and mapper
   <figcaption style="color:blue"><b>Figure 4-20</b>. The addition of a transform filter to the previous example. <a href="../../Cxx/Rendering/TransformSphere" title="TransformSphere"> See TransformSphere.cxx</a> and <a href="../../Python/Rendering/TransformSphere" title="TransformSphere"> TransformSphere.py</a>.</figcaption>
 </figure>
 
-**Generating Oriented Glyphs.**  This example demonstrates the use of an object with multiple inputs. vtkGlyph3D places 3D icons or glyphs (i.e., any polygonal geometry) at every input point. The icon geometry is specified with the instance variable Source, and the input points are obtained from the Input instance variable. Each glyph may be oriented and scaled in a variety of ways, depending upon the input and instance variables. In our example we place cones oriented in the direction of the point normals (**Figure 4-21**).
+The C++ compiler enforces the proper connections of sources, filters, and mappers. To decide which objects are compatible, we check the type specification of the SetInput() method. If the input object returns an output object or a subclass of that type, the two objects are compatible and may be connected.
 
-The visualization network branches at vtkGlyph3D. If either branch is modified, then this filter will re-execute. Network updates must branch in both directions, and both branches must be up to date when vtkGlyph3D executes. These requirements are enforced by the Update() method, and pose no problem to the implicit execution method. 
+**Generating Oriented Glyphs.**  This example demonstrates the use of an object with multiple inputs. vtkGlyph3D places 3D icons or glyphs (i.e., any polygonal geometry) at every input point. The icon geometry is specified with the instance variable Source, and the input points are obtained from the Input instance variable. Each glyph may be oriented and scaled in a variety of ways, depending upon the input and instance variables. In our example we place cones oriented in the direction of the point normals (**Figure 4-21**).
 
 <figure id="Figure 4-21">
   <figure id="Figure 4-21a">
@@ -605,10 +603,10 @@ The visualization network branches at vtkGlyph3D. If either branch is modified, 
   </figure>
   <figcaption style="color:blue"><b>Figure 4-21</b>. An example of multiple inputs and outputs.<a href="../../Cxx/Rendering/Mace" title="Mace"> See Mace.cxx</a> and <a href="../../Python/Rendering/Mace" title="Mace"> Mace.py</a>.</figcaption>
 </figure>
-1
-**Disappearing Sphere.**  In our last example we construct a visualization network with a feedback loop, and show how we can use procedural programming to change the topology of the network. The network consists of four objects: vtkSphereSource to create an initial polygonal geometry, vtkShrinkFilter to shrink the polygons and create a gap or space between neighbors, vtkElevationFilter to color the geometry according to height above the x-y plane, and vtkDataSetMapper to map the data through a lookup table and interface to the rendering library. The network topology, a portion of the C++ code, and output are shown in **Figure 4-22**.
 
-After vtkSphereSource generates an initial geometry (in response to a render request), the input of vtkShrinkFilter is changed to the output of the vtkElevationFilter. Because of the feedback loop, vtkShrinkFilter will always re-execute. Thus, the behavior of the network is to re-execute each time a render is performed. Because the shrink filter is reapplied to the same data, the polygons become smaller and smaller and eventually disappear.
+The visualization network branches at vtkGlyph3D. If either branch is modified, then this filter will re-execute. Network updates must branch in both directions, and both branches must be up to date when vtkGlyph3D executes. These requirements are enforced by the Update() method, and pose no problem to the implicit execution method. 
+
+**Disappearing Sphere.**  In our last example we construct a visualization network with a feedback loop, and show how we can use procedural programming to change the topology of the network. The network consists of four objects: vtkSphereSource to create an initial polygonal geometry, vtkShrinkFilter to shrink the polygons and create a gap or space between neighbors, vtkElevationFilter to color the geometry according to height above the x-y plane, and vtkDataSetMapper to map the data through a lookup table and interface to the rendering library. The network topology, a portion of the C++ code, and output are shown in **Figure 4-22**.
 
 <figure id="Figure 4-22">
   <figure id="Figure 4-22a">
@@ -618,6 +616,8 @@ After vtkSphereSource generates an initial geometry (in response to a render req
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestLoopShrink.png?raw=true" width="640" alt="Figure 4-22">
   </figure>
   <figcaption style="color:blue"><b>Figure 4-22</b>. A network with a loop (LoopShrk.cxx). VTK 5.0 does not allow you to execute a looping visualization network; this was possible in previous versions of VTK.<a href="../../Cxx/Visualization/LoopShrink" title="LoopShrink"> See LoopShrink.cxx</a> and <a href="../../Python/Visualization/LoopShrink" title="LoopShrink"> LoopShrink.py</a>.</figcaption> </figure>
+
+After vtkSphereSource generates an initial geometry (in response to a render request), the input of vtkShrinkFilter is changed to the output of the vtkElevationFilter. Because of the feedback loop, vtkShrinkFilter will always re-execute. Thus, the behavior of the network is to re-execute each time a render is performed. Because the shrink filter is reapplied to the same data, the polygons become smaller and smaller and eventually disappear.
 
 ##4.10 Chapter Summary
 
