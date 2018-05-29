@@ -1,5 +1,6 @@
 #include "ShareCameraQt.h"
 
+#include <vtkCommand.h>
 #include <vtkDataObjectToTable.h>
 #include <vtkElevationFilter.h>
 #include <vtkGenericOpenGLRenderWindow.h>
