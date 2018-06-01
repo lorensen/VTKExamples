@@ -25,6 +25,7 @@ These techniques include stereo viewing, antialiasing, and advanced camera techn
 
 \section{Transparency and Alpha Values}
 \label{sec:transparency_alpha}
+\index{alpha|(}
 
 Up to this point in the text we have focused on rendering opaque objects --- that is, we have assumed that objects reflect, scatter, or absorb light at their surface, and no light is transmitted through to their interior. Although rendering opaque objects is certainly useful, there are many applications that can benefit from the ability to render objects that transmit light. One important application of transparency is volume rendering, which we will explore in greater detail later in the chapter. Another simple example makes objects translucent so that we can see inside of the region bounded by the surface, as shown in Figure \ref{fig:Figure12-4}. As demonstrated in this example, by making the skin semitransparent, it becomes possible to see the internal organs.
 
@@ -59,6 +60,7 @@ One solution to this problem is to sort the polygons from back to front and then
 Another solution is to store more than one set of RGBAZ values in the frame buffer. This is costly because of the additional memory requirements, and is still limited by the number of RGBAZ values you can store. Some new techniques use a combination of multiple RGBAZ value storage and multipass rendering to yield correct results with a minimum performance hit \cite{Hodges92}.
 
 The second technical problem with rendering transparent objects occurs less frequently, but can still have disastrous effects. In certain applications, such as volume rendering, it is desirable to have thousands of polygons with small alpha values. If the RGBA quad is stored in the frame buffer as four eight--bit values, then the round--off can accumulate over many polygons, resulting in gross errors in the output image. This may be less of a problem in the future if graphics hardware begins to store 16 or more bits per component for texture and the frame buffer.
+\index{alpha|)}
 
 \section{Texture Mapping}
 
@@ -94,7 +96,7 @@ While texture maps are generally used to add detail to rendered images, there ar
 
 	\item Texture coordinates can be generated procedurally as a function of data. For example, we can threshold geometry by creating a special texture map and then setting texture coordinates based on local data value. The texture map consists of two entries: fully transparent ($\alpha = 0$) and fully opaque ($\alpha = 1$). The texture coordinate is then set to index into the transparent portion of the map if the scalar value is less than some threshold, or into the opaque portion otherwise.
 
-	\item Texture maps can be animated as a function of time. By choosing a texture map whose intensity varies monotonically from dark to light, and then "moving" the texture along an object, the object appears to crawl in the direction of the texture map motion. We can use this technique to add apparent motion to things like hedgehogs to show vector magnitude. Figure \ref{fig:Figure7-3} is an example of a texture map animation used to simulate vector field motion.
+	\item Texture maps can be animated\index{animation!using texture} as a function of time. By choosing a texture map whose intensity varies monotonically from dark to light, and then "moving" the texture along an object, the object appears to crawl in the direction of the texture map motion. We can use this technique to add apparent motion to things like hedgehogs to show vector magnitude. Figure \ref{fig:Figure7-3} is an example of a texture map animation used to simulate vector field motion.
 
 \end{itemize}
 
@@ -716,6 +718,7 @@ The next two techniques for stereo rendering can be implemented using either the
 The second technique is similar to the first but it preserves all the color information from the original images. It separates the different views by using polarized light. Normally, the light we see has a mixture of polarization angles, but there are lenses that can filter out a subset of these angles. If we project a color image through a vertical polarizing filter, and then view it through another vertical filter, we will see the original image, just slightly dimmer because we've filtered out all the horizontally polarized light. If we place a horizontal filter and a vertical filter together, all the light is blocked. Polarized stereo rendering typically projects one eye's image through a vertical filter and the other through a horizontal filter. The user wears a pair of glasses containing a vertical filter over one eye and a horizontal filter over the other. This way each eye views the correct image.
 
 \section{Aliasing}
+\index{aliasing|(}
 
 At one point or another most computer users have run into aliasing problems. This ``stair--stepping'' occurs because we represent continuous surface geometry with discrete pixels. In computer graphics the most common aliasing problem is jagged edges when rendering lines or surface boundaries, as in Figure \ref{fig:Figure7-27}.
 
@@ -744,11 +747,11 @@ The aliasing problem stems from the rasterization process as the graphics system
 	\label{fig:Figure7-28}
 \end{figure}
 
-There are several techniques for handling aliasing problems, and they are collectively known as \emph{antialiasing} techniques. One approach to antialiasing is to change how the graphics system rasterizes primitives. Instead of rasterizing a line using an all or nothing approach, we look at how much of the pixel the line occupies. The resulting color for that pixel is a mixture of its original color and the line's color. The ratio of these two colors is determined by the line's occupancy. This works especially well when working primarily with wireframe models. A similar approach breaks each pixel down into smaller subpixels. Primitives are rendered using an all or nothing strategy, but at subpixel resolutions. Then the subpixels are averaged to determine the resulting pixel's color. This tends to require much more memory.
+There are several techniques for handling aliasing problems, and they are collectively known as \emph{antialiasing}\index{accumulation buffer!antialiasing} techniques. One approach to antialiasing is to change how the graphics system rasterizes primitives. Instead of rasterizing a line using an all or nothing approach, we look at how much of the pixel the line occupies. The resulting color for that pixel is a mixture of its original color and the line's color. The ratio of these two colors is determined by the line's occupancy. This works especially well when working primarily with wireframe models. A similar approach breaks each pixel down into smaller subpixels. Primitives are rendered using an all or nothing strategy, but at subpixel resolutions. Then the subpixels are averaged to determine the resulting pixel's color. This tends to require much more memory.
 
 A good result can be obtained by breaking each pixel into 10 subpixels, which requires about 10 times the memory and rendering time. If you don't have access to hardware subpixel rendering, you can approximate it by rendering a large image and then scaling it down. Using a program such as pnmscale, which does bilinear interpolation, you can take a 1000 by 1000 pixel image and scale it down to a 500 by 500 antialiased image. If you have a graphics library that can render into memory instead of the screen, large images such as 6000 by 6000 pixels can be scaled down into high quality results, still at high resolutions such as 2000 by 2000. This may seem like overkill, but on a standard 600dpi color printer this would result in a picture just over three inches on a side.
 
-The last method of antialiasing we will look at uses an accumulation buffer to average a few possibly aliased images together to produce one antialiased result. An accumulation buffer is just a segment of memory that is set aside for performing image operations and storage. The following fragment of C++ code illustrates this process.
+The last method of antialiasing\index{antialiasing!using accumulation buffer} we will look at uses an accumulation buffer\index{accumulation buffer} to average a few possibly aliased images together to produce one antialiased result. An accumulation buffer is just a segment of memory that is set aside for performing image operations and storage. The following fragment of C++ code illustrates this process.
 
 \begin{lstlisting}[language=C++, caption={Using an accumulation buffer.}]
 for (imageNum = 0; imageNum \< imageTotal; imageNum++)
@@ -773,6 +776,7 @@ Instead of using one image with eight subpixels per pixel, we can use eight imag
 \myequations{Translating camera position and focal point between each image.}
 
 In this equation $\overrightarrow{O}_\text{p}$ is the offset in pixel coordinates, $\overrightarrow{O\ }_\text{w}$ is the offset in world coordinates, $\overrightarrow{f\ }$ camera focal point, $\overrightarrow{p\ }$ is the camera position, and the transformation matrices $\textbf{M}_\text{WD}$ and  $\textbf{M}_\text{DW}$ transform from world coordinates to display coordinates and from display coordinates to world coordinates, respectively.
+\index{aliasing|)}
 
 \section{Camera Tricks}
 
@@ -840,11 +844,12 @@ The advantage of a constant view--up vector is that some objects have a natural 
 
 \section{3D Widgets and User Interaction}
 \label{sec:3D_widgets_user_interaction}
+\index{3D Widgets|(}
 
 Chapter 3: \nameref{chap:computer_graphics_primer} provided an introduction to interaction techniques for graphics (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:introducing_vtkRenderWindowInteractor} ).
 In the context of visualization, interaction is an essential feature of systems that provide methods for data exploration and query. The classes
-vtkRenderWindowInteractor and vtkInteractorStyle are core constructs used in VTK to capturewindowing--system specific events in the render window, translate them into VTK events, and then take action as appropriate to that event invocation.
-In Chapter 3: \nameref{chap:computer_graphics_primer} we saw how these classes could be used to manipulate the camera and actors to interactively produce a desired view. This functionality, however, is relatively limited in its ability to interact with data. For example, users often wish tointeractively control the positioning of streamline starting points, control the orientation of a clipping plane, or transform an actor. While using interpreted languages (see ``Interpreted Code'' on page \pageref{subsec:interpreted_code} ) can go a long way to provide this interaction, in some situations the ability to see what you are doing when placing objects is essential. Therefore, it is apparent that a variety of user interaction techniques is required by the visualization system if it is to successfully support real-world applications.
+vtkRenderWindowInteractor and vtkInteractorStyle are core constructs used in VTK to capture windowing--system specific events in the render window, translate them into VTK events, and then take action as appropriate to that event invocation.
+In Chapter 3: \nameref{chap:computer_graphics_primer} we saw how these classes could be used to manipulate the camera and actors to interactively produce a desired view. This functionality, however, is relatively limited in its ability to interact with data. For example, users often wish to interactively control the positioning of streamline starting points, control the orientation of a clipping plane, or transform an actor. While using interpreted languages (see ``Interpreted Code'' on page \pageref{subsec:interpreted_code} ) can go a long way to provide this interaction, in some situations the ability to see what you are doing when placing objects is essential. Therefore, it is apparent that a variety of user interaction techniques is required by the visualization system if it is to successfully support real-world applications.
 
 \begin{figure}[!htb]
 	\centering
@@ -911,27 +916,28 @@ It is the implementation of 3D widgets, that is, what they can do with the event
 
 \begin{description}
 
-\item [vtkScalarBarWidget] --- manage a vtkScalarBar including positioning, scaling, and orienting it.
+\item [vtkScalarBarWidget\index{3D Widgets!vtkScalarBarWidget}] --- manage a vtkScalarBar including positioning, scaling, and orienting it.
 
-\item [vtkPointWidget] --- position a point \emph{x--y--z} location in 3D space. The widget produces a polygonal output.
+\item [vtkPointWidget\index{3D Widgets!vtkPointWidget}] --- position a point \emph{x--y--z} location in 3D space. The widget produces a polygonal output.
 
-\item [vtkLineWidget] --- place a straight line with a specified subdivision resolution. The widget produces a polygonal output.
+\item [vtkLineWidget\index{3D Widgets!vtkLineWidget}] --- place a straight line with a specified subdivision resolution. The widget produces a polygonal output.
 
-\item [vtkPlaneWidget] --- orient and position a finite plane. The plane resolution is variable and the widget produces an implicit function and a polygonal output.
+\item [vtkPlaneWidget\index{3D Widgets!vtkPlaneWidget}] --- orient and position a finite plane. The plane resolution is variable and the widget produces an implicit function and a polygonal output.
 
-\item [vtkImplicitPlaneWidget] --- orient and position an unbounded plane. The widget produces an implicit function and a polygonal output. The polygonal output is created by clipping the plane with a bounding box.
+\item [vtkImplicitPlaneWidget\index{3D Widgets!vtkImplicitPlaneWidget}] --- orient and position an unbounded plane. The widget produces an implicit function and a polygonal output. The polygonal output is created by clipping the plane with a bounding box.
 
-\item [vtkBoxWidget] --- orient and position a bounding box. The widget produces an implicit function and a transformation matrix.
+\item [vtkBoxWidget\index{3D Widgets!vtkBoxWidget}] --- orient and position a bounding box. The widget produces an implicit function and a transformation matrix.
 
-\item [vtkImagePlaneWidget] --- manipulate three orthogonal planes within a 3D volumetric data set. Probing of the planes to obtain data position, pixel value, and window-level is possible.
+\item [vtkImagePlaneWidget\index{3D Widgets!vtkImagePlaneWidget}] --- manipulate three orthogonal planes within a 3D volumetric data set. Probing of the planes to obtain data position, pixel value, and window-level is possible.
 
-\item [vtkSphereWidget] --- manipulate a sphere of variable resolution. The widget produces an implicit function, a transformation matrix, and  enables the control of focal point and position to support such classes as vtkCamera and vtkLight.
+\item [vtkSphereWidget\index{3D Widgets!vtkSphereWidget}] --- manipulate a sphere of variable resolution. The widget produces an implicit function, a transformation matrix, and  enables the control of focal point and position to support such classes as vtkCamera and vtkLight.
 
-\item [vtkSplineWidget] --- manipulate an interpolating 3D spline. The widget produces a polygonal data represented by a series of line segments of specified resolution. The widget also directly manages underlying splines for each of the \emph{x--y--z} coordinate values.
+\item [vtkSplineWidget\index{3D Widgets!vtkSplineWidget}] --- manipulate an interpolating 3D spline. The widget produces a polygonal data represented by a series of line segments of specified resolution. The widget also directly manages underlying splines for each of the \emph{x--y--z} coordinate values.
 
 \end{description}
 
 The key to widget design is careful implementation of intuitive, simple user interaction techniques. For example, the end points on the vtkLineWidget (represented as small spheres) can be selected and dragged to a new position. The vtkLineWidget supports the modifier "Shift" key to lock motion of the end points along the coordinate \emph{x--y--z} axes. The initial direction of motion is used to determine which of the axes the user is moving the end point along. Such attention to detail is essential to successful widget design and will continue to change as the technology evolves in the future.
+\index{3D Widgets|)}
 
 \section{Putting It All Together}
 
@@ -1184,7 +1190,7 @@ The following example  shows the general approach to using a 3D widget using vtk
 The widget interfaces with the application through the command/observer event handling mechanism (see ``Events and Observers'' on page \pageref{sub:events_observers}). 3D widgets invoke several events, the most important being the StartInteractionEvent, InteractionEvent, and EndInteractionEvent. These events are typically invoked, for example, on mouse down, mouse move, and mouse up, respectively. In the example shown here, Tcl procedures are tied to the StartInteractionEvent and InteractionEvent using the AddObserver() method to produce streamlines as the widget is manipulated. Note that the streamline is seeded with a polygonal dataset each time an InteractionEvent is invoked using the GetPolyData() method. The pipeline update mechanism then automatically executes on the next render since the input to the streamline is modified.
 
 \clearpage
-
+\index{3D Widgets!vtkLineWidget!example}
 \begin{lstlisting}[language=TCL, caption={An example of using vtkLineWidget to produce sreamlines.}]
 vtkRungeKutta4 rk4
 vtkPolyData seeds

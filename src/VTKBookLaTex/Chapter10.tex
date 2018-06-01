@@ -74,6 +74,7 @@ Unlike visualization algorithms that may generate normals, vectors, tensors, and
 In the \emph{Visualization Toolkit} imaging pipeline, attribute data is represented as n-dimensional component data. Refer to ``Putting It All Together'' on page \pageref{sec:chap10.putting_it_all_together}) to see the implementation details for component data, regions of interest, streaming, and caching.
 
 \section{Algorithms}
+\index{algorithms!image processing|(}
 
 This section provides an overview and examples for important image processing algorithms. The importance of the algorithms is measured on their relevance to 3D data visualization. Topics include: removing noise, smoothing, reducing sampling artifacts, image enhancement, segmentation, and morphological operators such as erosion and dilation.
 
@@ -161,7 +162,7 @@ A median filter also smooths while preserving edges. This filter replaces each p
 	\caption{This figure demonstrates aliasing that occurs when a high-frequency signal is subsampled. High frequencies appear as low frequency artifacts. The lower left image is an isosurface of a skull after subsampling. The right image used a low-pass filter before subsampling to reduce aliasing.}\label{fig:Figure10-5}
 \end{figure}
 
-An artifact called aliasing occurs when subsampling and is often associated with stair-stepping edges. Sampling theory proves that discrete sampled signals with spacing S, completely describe continuous functions composed of frequencies less than S/2. When a signal is subsampled, its capacity to hold high frequency information is reduced. However, the high frequency energy does not disappear. It wraps around the frequency spectrum appearing as a low frequency alias artifact (Figure \ref{fig:Figure10-5}). The solution, which eliminates this artifact, is to low-pass filter before subsampling. Low-pass smoothing reduces the high frequency range of an image that would cause aliasing.
+An artifact called aliasing\index{aliasing!image artefact} occurs when subsampling and is often associated with stair-stepping edges. Sampling theory proves that discrete sampled signals with spacing S, completely describe continuous functions composed of frequencies less than S/2. When a signal is subsampled, its capacity to hold high frequency information is reduced. However, the high frequency energy does not disappear. It wraps around the frequency spectrum appearing as a low frequency alias artifact (Figure \ref{fig:Figure10-5}). The solution, which eliminates this artifact, is to low-pass filter before subsampling. Low-pass smoothing reduces the high frequency range of an image that would cause aliasing.
 
 The same aliasing phenomena occurs when acquiring data. If a signal from an analog source contains high frequencies, saving the analog data in a discrete form requires subsampling that will introduce alias artifacts. For this reason, it is common practice to acquire data at high resolutions, then smooth and subsample to reduce the image to a manageable size.
 
@@ -414,6 +415,7 @@ Another example of a coordinate transformation is conversion from red, green, bl
 Color is not the only multispectral information that can be used for segmentation. It is possible to take advantage of multispectral segmentation even if the original dataset has only one component. Additional images can be created from spatial information of the images using spatial filters. These multiple images can then be combined into one multicomponent image, then multicomponent segmentation can proceed.
 
 Typically, the number of free parameters in a filter is directly correlated to the dimensionality of the pixels; and although additional parameters make a filter more powerful, it also makes it more difficult to find an appropriate set of parameter values. There are supervised and unsupervised algorithms that can be used to automatically select the best set of segmentation parameters, but discussion of these is outside the scope of this book.
+\index{algorithms!image processing|)}
 
 \section{Putting It All Together}
 \label{sec:chap10.putting_it_all_together}

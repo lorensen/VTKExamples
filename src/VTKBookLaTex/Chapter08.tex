@@ -1592,7 +1592,7 @@ The unstructured data structure in the \emph{Visualization Toolkit} is implement
 With the completion of Chapter 5: \nameref{chap:basic_data_representation} and Chapter 8: \nameref{chap:advanced_data_representation}, we can summarize the abstract interface for cells, datasets, and the point data attributes. These pseudo-code descriptions encapsulate the core functionality of the classes vtkDataSet, vtkCell, and vtkPointData, and their subclasses. All algorithms presented in this text can be implemented using combinations of these methods.
 
 \begin{description}
-\item[Dataset Abstraction.] The dataset is the central data representation in VTK. Datasets are composed of one or more cells and points. Associated with the points are attribute data consisting of scalars, vectors, normals, texture coordinates, and tensors.
+\item[Dataset Abstraction.\index{abstraction!dataset|(}] The dataset is the central data representation in VTK. Datasets are composed of one or more cells and points. Associated with the points are attribute data consisting of scalars, vectors, normals, texture coordinates, and tensors.
     \setlist[description]{font=\normalfont\space}
     \begin{description}
 
@@ -1653,9 +1653,9 @@ With the completion of Chapter 5: \nameref{chap:basic_data_representation} and C
     \item[\texttt{CopyStructure(dataSet)}] \hfill \\
     Update the current structure definition (i.e., geometry and topology) with the supplied dataset.
     \end{description}
+\index{abstraction!dataset|)}
 
-
-\item[Cell Abstraction.] Cells are the atomic structures of VTK. Cells consist of a topology, defined by a sequence of ordered point ids, and a geometry, defined by point coordinates. The cell coordinate consists of a cell id, a subcell id, and a parametric coordinate. The subid specifies a primary cell that lies within a composite cell such as a triangle strip. Cell edges and faces are defined implicitly from the topology of the cell.
+\item[Cell Abstraction.\index{abstraction!cell|(}] Cells are the atomic structures of VTK. Cells consist of a topology, defined by a sequence of ordered point ids, and a geometry, defined by point coordinates. The cell coordinate consists of a cell id, a subcell id, and a parametric coordinate. The subid specifies a primary cell that lies within a composite cell such as a triangle strip. Cell edges and faces are defined implicitly from the topology of the cell.
     \setlist[description]{font=\normalfont\space}
     \begin{description}
 
@@ -1714,8 +1714,8 @@ With the completion of Chapter 5: \nameref{chap:basic_data_representation} and C
     Return the bounding box of the cell.
 
     \end{description}
-
-\item[Point and Cell Attribute Abstraction.] Point and cell attribute data is information associated with the points and cells of a dataset. This information consists of scalars, vectors, normals, tensors, and texture coordinates. There is a one-to-one relationship between the points and cells in a dataset and its corresponding point and cell attribute data. For example, a point scalar value at location $100$ is associated with point $id$ $100$.
+\index{abstraction!dataset|)}
+\item[Point and Cell Attribute Abstraction.\index{abstraction!dataset attribute|(}] Point and cell attribute data is information associated with the points and cells of a dataset. This information consists of scalars, vectors, normals, tensors, and texture coordinates. There is a one-to-one relationship between the points and cells in a dataset and its corresponding point and cell attribute data. For example, a point scalar value at location $100$ is associated with point $id$ $100$.
 
 Many of the methods described below deal with moving data from the input to the output of a filter. Since the possibility exists that new types of attribute data could be added in the future, the details of moving data is hidden as much as possible (i.e., minimize the knowledge that the filter has about specific attribute types). Thus, generic functions like CopyData() allow for copying data from the input to the output without knowing what this data is.
     \setlist[description]{font=\normalfont\space}
@@ -1776,7 +1776,7 @@ Many of the methods described below deal with moving data from the input to the 
     Set / return texture coordinate data. The GetTextureCoords() method may return a NULL value, in which case the texture coordinates are not defined.
 
     \end{description}
-
+\index{abstraction!dataset attribute|)}
 \end{description}
 
 \subsection{Traversing Intermediate Topology}

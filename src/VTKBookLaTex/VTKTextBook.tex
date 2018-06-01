@@ -39,8 +39,11 @@
 \listoftables
 \listofmyequations
 \lstlistoflistings
-\printglossaries
+\printglossaries[nonumberlist]
 \glsaddallunused
+\phantomsection
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\indexname}
 \printindex \textbf{}
 \end{document}
 %%% ----------------------------------------------------------------------

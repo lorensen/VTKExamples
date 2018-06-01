@@ -65,7 +65,7 @@ Although the authors would enjoy providing a thorough treatise on computer graph
 
 One of the regrets we have regarding this posture is that certain rendering techniques are essentially visualization techniques. We see this hinted at in the previous paragraph, where we use the term "mapping" to describe both visualization and computer graphics. There is not currently and will likely never be a firm distinction between visualization and graphics. For example, many researchers consider volume rendering to be squarely in the field of visualization because it addresses one of the most important forms of visualization data. Our distinction is mostly for our own convenience, and offers us the opportunity to finish this text. We recommend that a serious student of visualization supplement the material presented here with deeper books on computer graphics and volume rendering.
 
-In the next few pages we describe the rendering process in more detail. We start by describing several color models. Next we examine the primary components of the rendering process. There are sources of light such as the sun, objects we wish to render such as a cube or sphere (we refer to these objects as actors ), and there is a camera that looks out into the world. These terms are taken from the movie industry and tend to be familiar to most people. Actors represent graphical data or objects, lights illuminate the actors, and the camera constructs a picture by projecting the actors onto a view plane. We call the combination of lights, camera, and actors the scene, and refer to the rendering process as rendering the scene.
+In the next few pages we describe the rendering process in more detail. We start by describing several color models. Next we examine the primary components of the rendering process. There are sources of light such as the sun, objects we wish to render such as a cube or sphere (we refer to these objects as actors), and there is a camera that looks out into the world. These terms are taken from the movie industry and tend to be familiar to most people. Actors\index{actor} represent graphical data or objects, lights illuminate the actors, and the camera constructs a picture by projecting the actors onto a view plane. We call the combination of lights, camera, and actors the scene, and refer to the rendering process as rendering the scene.
 
 \section{Color}
 \label{sec:color}
@@ -133,7 +133,8 @@ Of the many different types of lights used in computer graphics, we will discuss
 \end{figure}
 
 \section{Surface Properties}
-As rays of light travel through space, some of them intersect our actors. When this happens, the rays of light interact with the surface of the actor to produce a color. Part of this resulting color is actually not due to direct light, but rather from \emph{ambient} light that is being reflected or scattered from other objects. An ambient lighting model accounts for this and is a simple approximation of the complex scattering of light that occurs in the real world. It applies the intensity curve of the light source to the color of the object, also expressed as an intensity curve. The result is the color of the light we see when we look at that object. With such a model, it is important to realize that a white light shining on a blue ball is indistinguishable from a blue light shining on a white ball. The ambient lighting equation is
+\index{actor!surface properties|(}
+As rays of light travel through space, some of them intersect our actors. When this happens, the rays of light interact with the surface of the actor to produce a color. Part of this resulting color is actually not due to direct light, but rather from \emph{ambient} light\index{ambient light} that is being reflected or scattered from other objects. An ambient lighting model accounts for this and is a simple approximation of the complex scattering of light that occurs in the real world. It applies the intensity curve of the light source to the color of the object, also expressed as an intensity curve. The result is the color of the light we see when we look at that object. With such a model, it is important to realize that a white light shining on a blue ball is indistinguishable from a blue light shining on a white ball. The ambient lighting equation is
 
 \begin{equation}\label{eq:3.1}
   R_a = L_c \cdot O_a
@@ -196,6 +197,7 @@ The result is a color at a point on the surface of the object. The constants $O_
   \includegraphics[width=0.8\textwidth]{Figure3-10}\\
   \caption{Effects of specular coefficients. Specular coefficients control the apparent "shininess" of objects. The top row has a specular intensity value of 0.5; the bottom row 1.0. Along the horizontal direction the specular power changes. The values (from left to right) are 5, 10, 20, and 40.}\label{fig:Figure3-10}
 \end{figure}
+\index{actor!surface properties|)}
 
 \section{Cameras}
 \label{sec:cameras}
@@ -382,6 +384,7 @@ Rotations occur about the coordinate origin. It is often more convenient to rota
 Transformation matrices can be combined by matrix multiplication to achieve combinations of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all types of transformation simultaneously. This matrix is the result of repeated matrix multiplications. A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix by the translation matrix.
 
 \section{Actor Geometry}
+\index{actor!geometry(|}
 We have seen how lighting properties control the appearance of an actor, and how the camera in combination with transformation matrices is used to project an actor to the image plane. What is left to define is the geometry of the actor, and how we position it in the world coordinate system.
 
 \subsection{Modelling}
@@ -406,6 +409,8 @@ All of these rotations take place around the origin of the actor. Typically this
   \includegraphics[width=0.8\textwidth]{Figure3-15}\\
   \caption{Actor coordinate system.}\label{fig:Figure3-15}
 \end{figure}
+
+\index{actor!geometry)|}
 
 \section{Graphics Hardware}
 \label{sec:graphics_hardware}
@@ -926,7 +931,7 @@ The most important aspect to applying transformation matrices is to understand t
 
 A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(),and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor. The vtkActor class applies transformations in an order that we feel is natural to most users.
 
-The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The he Origin $(o_x,o_y,o_z)$ specifies the point that is the center of rotation and scaling. The Position $(p_x, p_y, p_z)$p specifies a final translation of the object. Orientation $(r_x, r_y, r_z)$ defines the rotation about the $x, y$ and $z$ axes. Scale $(s_x, s_y, s_z)$ defines scale factors for the $x, y,$ and $z$ axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see Equation \eqref{eq:3.6}, Equation \eqref{eq:3.9},  Equation \eqref{eq:3.13}.
+The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The Origin\index{actor!origin} $(o_x,o_y,o_z)$ specifies the point that is the center of rotation and scaling. The Position\index{actor!position} $(p_x, p_y, p_z)$p specifies a final translation of the object. Orientation\index{actor!orientation} $(r_x, r_y, r_z)$ defines the rotation\index{actor!rotation} about the $x, y$ and $z$ axes. Scale\index{actor!scale} $(s_x, s_y, s_z)$ defines scale factors for the $x, y,$ and $z$ axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see Equation \eqref{eq:3.6}, Equation \eqref{eq:3.9},  Equation \eqref{eq:3.13}.
 
 \begin{equation}\label{eq:3.14}
 T = T_T(p_x + o_{x'}p_y + o_{y'}p_y + o_z)T_{R_z}T_{R_x}T_{R_z}T_ST_T(-o_x,-o_y,-o_z)
