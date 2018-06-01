@@ -25,6 +25,7 @@ These techniques include stereo viewing, antialiasing, and advanced camera techn
 
 \section{Transparency and Alpha Values}
 \label{sec:transparency_alpha}
+\index{alpha|(}
 
 Up to this point in the text we have focused on rendering opaque objects --- that is, we have assumed that objects reflect, scatter, or absorb light at their surface, and no light is transmitted through to their interior. Although rendering opaque objects is certainly useful, there are many applications that can benefit from the ability to render objects that transmit light. One important application of transparency is volume rendering, which we will explore in greater detail later in the chapter. Another simple example makes objects translucent so that we can see inside of the region bounded by the surface, as shown in Figure \ref{fig:Figure12-4}. As demonstrated in this example, by making the skin semitransparent, it becomes possible to see the internal organs.
 
@@ -59,6 +60,7 @@ One solution to this problem is to sort the polygons from back to front and then
 Another solution is to store more than one set of RGBAZ values in the frame buffer. This is costly because of the additional memory requirements, and is still limited by the number of RGBAZ values you can store. Some new techniques use a combination of multiple RGBAZ value storage and multipass rendering to yield correct results with a minimum performance hit \cite{Hodges92}.
 
 The second technical problem with rendering transparent objects occurs less frequently, but can still have disastrous effects. In certain applications, such as volume rendering, it is desirable to have thousands of polygons with small alpha values. If the RGBA quad is stored in the frame buffer as four eight--bit values, then the round--off can accumulate over many polygons, resulting in gross errors in the output image. This may be less of a problem in the future if graphics hardware begins to store 16 or more bits per component for texture and the frame buffer.
+\index{alpha|)}
 
 \section{Texture Mapping}
 
@@ -94,7 +96,7 @@ While texture maps are generally used to add detail to rendered images, there ar
 
 	\item Texture coordinates can be generated procedurally as a function of data. For example, we can threshold geometry by creating a special texture map and then setting texture coordinates based on local data value. The texture map consists of two entries: fully transparent ($\alpha = 0$) and fully opaque ($\alpha = 1$). The texture coordinate is then set to index into the transparent portion of the map if the scalar value is less than some threshold, or into the opaque portion otherwise.
 
-	\item Texture maps can be animated as a function of time. By choosing a texture map whose intensity varies monotonically from dark to light, and then "moving" the texture along an object, the object appears to crawl in the direction of the texture map motion. We can use this technique to add apparent motion to things like hedgehogs to show vector magnitude. Figure \ref{fig:Figure7-3} is an example of a texture map animation used to simulate vector field motion.
+	\item Texture maps can be animated\index{animation!using texture} as a function of time. By choosing a texture map whose intensity varies monotonically from dark to light, and then "moving" the texture along an object, the object appears to crawl in the direction of the texture map motion. We can use this technique to add apparent motion to things like hedgehogs to show vector magnitude. Figure \ref{fig:Figure7-3} is an example of a texture map animation used to simulate vector field motion.
 
 \end{itemize}
 
@@ -716,6 +718,7 @@ The next two techniques for stereo rendering can be implemented using either the
 The second technique is similar to the first but it preserves all the color information from the original images. It separates the different views by using polarized light. Normally, the light we see has a mixture of polarization angles, but there are lenses that can filter out a subset of these angles. If we project a color image through a vertical polarizing filter, and then view it through another vertical filter, we will see the original image, just slightly dimmer because we've filtered out all the horizontally polarized light. If we place a horizontal filter and a vertical filter together, all the light is blocked. Polarized stereo rendering typically projects one eye's image through a vertical filter and the other through a horizontal filter. The user wears a pair of glasses containing a vertical filter over one eye and a horizontal filter over the other. This way each eye views the correct image.
 
 \section{Aliasing}
+\index{aliasing|(}
 
 At one point or another most computer users have run into aliasing problems. This ``stair--stepping'' occurs because we represent continuous surface geometry with discrete pixels. In computer graphics the most common aliasing problem is jagged edges when rendering lines or surface boundaries, as in Figure \ref{fig:Figure7-27}.
 
@@ -748,7 +751,7 @@ There are several techniques for handling aliasing problems, and they are collec
 
 A good result can be obtained by breaking each pixel into 10 subpixels, which requires about 10 times the memory and rendering time. If you don't have access to hardware subpixel rendering, you can approximate it by rendering a large image and then scaling it down. Using a program such as pnmscale, which does bilinear interpolation, you can take a 1000 by 1000 pixel image and scale it down to a 500 by 500 antialiased image. If you have a graphics library that can render into memory instead of the screen, large images such as 6000 by 6000 pixels can be scaled down into high quality results, still at high resolutions such as 2000 by 2000. This may seem like overkill, but on a standard 600dpi color printer this would result in a picture just over three inches on a side.
 
-The last method of antialiasing we will look at uses an accumulation buffer\index{accumulation buffer} to average a few possibly aliased images together to produce one antialiased result. An accumulation buffer is just a segment of memory that is set aside for performing image operations and storage. The following fragment of C++ code illustrates this process.
+The last method of antialiasing\index{antialiasing!using accumulation buffer} we will look at uses an accumulation buffer\index{accumulation buffer} to average a few possibly aliased images together to produce one antialiased result. An accumulation buffer is just a segment of memory that is set aside for performing image operations and storage. The following fragment of C++ code illustrates this process.
 
 \begin{lstlisting}[language=C++, caption={Using an accumulation buffer.}]
 for (imageNum = 0; imageNum \< imageTotal; imageNum++)
@@ -773,6 +776,7 @@ Instead of using one image with eight subpixels per pixel, we can use eight imag
 \myequations{Translating camera position and focal point between each image.}
 
 In this equation $\overrightarrow{O}_\text{p}$ is the offset in pixel coordinates, $\overrightarrow{O\ }_\text{w}$ is the offset in world coordinates, $\overrightarrow{f\ }$ camera focal point, $\overrightarrow{p\ }$ is the camera position, and the transformation matrices $\textbf{M}_\text{WD}$ and  $\textbf{M}_\text{DW}$ transform from world coordinates to display coordinates and from display coordinates to world coordinates, respectively.
+\index{aliasing|)}
 
 \section{Camera Tricks}
 
