@@ -317,7 +317,7 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
 
     \item[Line.] Figure \ref{fig:Figure8-3} shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
 
-    \item[Pixel.] Figure \ref{fig:Figure8-4} shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{bilinear interpolation} functions.
+    \item[Pixel.] Figure \ref{fig:Figure8-4} shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{bilinear interpolation}\index{bilinear interpolation} functions.
 
     \item[Quadrilateral.] Figure \ref{fig:Figure8-5} shows the parametric coordinate system and interpolation functions for a quadrilateral cell type. The quadrilateral is described using the two parametric coordinates $(r,s)$.
 
@@ -779,7 +779,7 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
 	\label{fig:Figure8-23}
 \end{wrapfigure}
 
-As briefly introduced in Chapter 5, nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically only quadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework (see Figure \ref{fig:Figure8-23}) that enables users to interface their own simulation system to the visualization system \cite{Schroeder06}. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho--rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
+As briefly introduced in Chapter 5, nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically only quadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework\index{cell!adaptor framework} (see Figure \ref{fig:Figure8-23}) that enables users to interface their own simulation system to the visualization system \cite{Schroeder06}. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho--rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
 
 \subsection{Basic Approach}
 
@@ -1248,7 +1248,7 @@ These naive procedures are unacceptable for all but the smallest datasets, since
 
 The basic idea behind these spatial search structures is that the search space is subdivided into smaller parts, or buckets. Each bucket contains a list of the points or cells that lie within it. Buckets are organized in structured fashion so that constant or logarithmic time access to any bucket is possible. For example, if we assign a portion of 2D Euclidean space into a grid of n by m buckets, the location of p in a particular bucket can be determined with two subtractions and two divisions: a constant time access. Similarly, the location of p in a nonuniformly subdivided octree is determined in logarithmic time, since recursive insertion into octant children is required. Once the bucket is found, the search is then limited to the points or cells contained within it. In a properly designed spatial search structure, the number of points or cells in a bucket is a small portion of the total number of cells and less than a fixed value. Thus, the time to search within a bucket can be bounded by a fixed constant. The result is that introducing spatial search structures reduces search times to a maximum $O(log\: n)$, or better yet $O(n)$.
 
-We have two options when applying spatial search structures. We may insert points into the search structure, or we may insert cells, depending on the application. There are advantages and disadvantages to both approaches. Inserting cells into buckets is not a trivial operation. In general, cells are arbitrarily oriented and shaped, and will not fit completely into a single bucket. As a result, cells often span multiple buckets. To reliably determine whether a cell is in a bucket requires geometric intersection tests, a costly operation. Another approach is to use the bounding box of a cell to decide which bucket(s) a cell belongs in. We only need to intersect the bounding box with a bucket to determine whether the cell may belong in the bucket. Unfortunately, even though this operation is generally fast, often cells are associated with buckets even though they may not actually lie inside them, wasting (in large models) memory resources and extra processing time.
+We have two options when applying spatial search structures. We may insert points into the search structure, or we may insert cells, depending on the application. There are advantages and disadvantages to both approaches. Inserting cells into buckets is not a trivial operation. In general, cells are arbitrarily oriented and shaped, and will not fit completely into a single bucket. As a result, cells often span multiple buckets. To reliably determine whether a cell is in a bucket requires geometric intersection tests, a costly operation. Another approach is to use the bounding box\index{bounding box} of a cell to decide which bucket(s) a cell belongs in. We only need to intersect the bounding box with a bucket to determine whether the cell may belong in the bucket. Unfortunately, even though this operation is generally fast, often cells are associated with buckets even though they may not actually lie inside them, wasting (in large models) memory resources and extra processing time.
 
 \begin{figure}[!htb]
     \centering
@@ -1259,6 +1259,7 @@ We have two options when applying spatial search structures. We may insert point
 Inserting points into a search structure is easier because points can be uniquely placed into a bucket. Inserting points also allows us to search for both points and cells. Cells can be found by using $p$ to index into the appropriate bucket. The closest point(s) $p_i$ to $p$ are then located. Using the topological adjacency operator to retrieve the cells using points $p_i$i, we can then search these cells for the cell containing $p$. This procedure must be used with caution, however, since the closest points may not be used by the cells containing $p$ (Figure\ref{fig:Figure8-30}).
 
 \section{Cell / Line Intersection}
+\index{cell!intersection with line}
 
 An important geometric operation is intersection of a line with a cell. This operation can be used to interactively select a cell from the rendering window, to perform ray-casting for rendering, or to geometrically query data.
 
@@ -1593,186 +1594,186 @@ With the completion of Chapter 5: \nameref{chap:basic_data_representation} and C
 
 \begin{description}
 \item[Dataset Abstraction.\index{abstraction!dataset|(}] The dataset is the central data representation in VTK. Datasets are composed of one or more cells and points. Associated with the points are attribute data consisting of scalars, vectors, normals, texture coordinates, and tensors.
-    \setlist[description]{font=\normalfont\space}
+    \setlist[description]{font=\normalfont,style=nextline}
     \begin{description}
 
-    \item[\texttt{type = GetDataObjectType()}] \hfill \\
+    \item[\texttt{type = GetDataObjectType()}]
     Return the type of dataset (e.g., vtkPolyData, vtkImageData, vtkStructuredGrid, vtkRectilinearGrid, or vtkUnstructuredGrid).
 
-    \item[\texttt{numPoints = GetNumberOfPoints()}] \hfill \\
+    \item[\texttt{numPoints = GetNumberOfPoints()}]
     Return the number of points in the dataset.
 
-    \item[\texttt{numCells = GetNumberOfCells()}] \hfill \\
+    \item[\texttt{numCells = GetNumberOfCells()}]
     Return the number of cells in the dataset.
 
-    \item[\texttt{GetPoint(ptId,x)}] \hfill \\
+    \item[\texttt{GetPoint(ptId,x)}]
     Given a point id, return the (x,y,z) coordinates of the point.
 
-    \item[\texttt{cell = GetCell(cellId)}] \hfill \\
+    \item[\texttt{cell = GetCell(cellId)}]
     Given a cell id, return a pointer to a cell object.
 
-    \item[\texttt{type = GetCellType(cellId)}] \hfill \\
+    \item[\texttt{type = GetCellType(cellId)}]
     Return the type of the cell given by cell id.
 
-    \item[\texttt{GetCellTypes(types)}] \hfill \\
+    \item[\texttt{GetCellTypes(types)}]
     Return a list of types of cells that compose the dataset.
 
-    \item[\texttt{cells = GetPointCells(ptId)}] \hfill \\
+    \item[\texttt{cells = GetPointCells(ptId)}]
     Given a point id, return the cells that use this point.
 
-    \item[\texttt{GetCellPoints(cellId, ptIds)}] \hfill \\
+    \item[\texttt{GetCellPoints(cellId, ptIds)}]
     Given a cell id, return the point ids (e.g., connectivity list) defining the cell.
 
-    \item[\texttt{GetCellNeighbors(cellId, ptIds, neighbors)}] \hfill \\
+    \item[\texttt{GetCellNeighbors(cellId, ptIds, neighbors)}]
     Given a cell id and a list of points composing a boundary face of the cell, return the neighbors of that cell sharing the points.
 
-    \item[\texttt{cellId = FindCell(x, cell, cellId, tol2, subId, pcoords, weights)}] \hfill \\
+    \item[\texttt{cellId = FindCell(x, cell, cellId, tol2, subId, pcoords, weights)}] 
     Given a coordinate value x, an initial search cell defined by cell and cellId, and a tolerance measure (squared), return the cell id and sub-id of the cell containing the point and its interpolation function weights. The initial search cell is used to speed up the search process when the position x is known to be near the cell. If no cell is found, cellId < 0 is returned.
 
-    \item[\texttt{pointData = GetPointData()}] \hfill \\
+    \item[\texttt{pointData = GetPointData()}]
     Return a pointer to the object maintaining point attribute data. This includes scalars, vectors, normals, tensors, and texture coordinates, as well as any other data arrays that the field carries.
 
-    \item[\texttt{cellData = GetCellData()}] \hfill \\
+    \item[\texttt{cellData = GetCellData()}]
     Return a pointer to the object maintaining cell attribute data. This includes scalars, vectors, normals, tensors, and texture coordinates, as well as any other data arrays that the field carries.
 
-    \item[\texttt{bounds = GetBounds()}] \hfill \\
+    \item[\texttt{bounds = GetBounds()}]
     Get the bounding box of the dataset.
 
-    \item[\texttt{length = GetLength()}] \hfill \\
+    \item[\texttt{length = GetLength()}]
     Return the length of the diagonal of the bounding box of the dataset.
 
-    \item[\texttt{center = GetCenter()}] \hfill \\
+    \item[\texttt{center = GetCenter()}]
     Get the center of the bounding box of the dataset.
 
-    \item[\texttt{range = GetScalarRange()}] \hfill \\
+    \item[\texttt{range = GetScalarRange()}]
     A convenience method to return the (minimum, maximum) range of the scalar attribute data associated with the dataset.
 
-    \item[\texttt{dataSet = NewInstance()}] \hfill \\
+    \item[\texttt{dataSet = NewInstance()}]
     Make a copy of the current dataset. A ``virtual'' constructor. (Typically, reference counting methods are used to copy data.)
 
-    \item[\texttt{CopyStructure(dataSet)}] \hfill \\
+    \item[\texttt{CopyStructure(dataSet)}]
     Update the current structure definition (i.e., geometry and topology) with the supplied dataset.
     \end{description}
 \index{abstraction!dataset|)}
 
-\item[Cell Abstraction.\index{abstraction!cell|(}] Cells are the atomic structures of VTK. Cells consist of a topology, defined by a sequence of ordered point ids, and a geometry, defined by point coordinates. The cell coordinate consists of a cell id, a subcell id, and a parametric coordinate. The subid specifies a primary cell that lies within a composite cell such as a triangle strip. Cell edges and faces are defined implicitly from the topology of the cell.
-    \setlist[description]{font=\normalfont\space}
+\item[Cell Abstraction.\index{abstraction!cell|(}\index{cell!abstraction|(}] Cells are the atomic structures of VTK. Cells consist of a topology, defined by a sequence of ordered point ids, and a geometry, defined by point coordinates. The cell coordinate consists of a cell id, a subcell id, and a parametric coordinate. The subid specifies a primary cell that lies within a composite cell such as a triangle strip. Cell edges and faces are defined implicitly from the topology of the cell.
+    \setlist[description]{font=\normalfont,style=nextline}
     \begin{description}
 
-    \item[\texttt{type = GetCellType()}] \hfill \\
+    \item[\texttt{type = GetCellType()}]
     Return the type of the cell. Must be one of the twelve VTK cell types (or the empty cell type).
 
-    \item[\texttt{dim = GetCellDimension()}] \hfill \\
+    \item[\texttt{dim = GetCellDimension()}]
     Return the topological definition of the cell.
 
-    \item[\texttt{order = GetInterpolationOrder()}] \hfill \\
+    \item[\texttt{order = GetInterpolationOrder()}]
     Return the degree of the interpolating polynomial of the cell. (The twelve cell types are all degree 1; cells added in the future may be of higher-order.)
 
-    \item[\texttt{numberPoints = GetNumberOfPoints()}] \hfill \\
+    \item[\texttt{numberPoints = GetNumberOfPoints()}]
     Return the number of points that define the cell.
 
-    \item[\texttt{points = GetPoints()}] \hfill \\
+    \item[\texttt{points = GetPoints()}]
     Return a list of point ids defining the cell.
 
-    \item[\texttt{numberEdges = GetNumberOfEdges()}] \hfill \\
+    \item[\texttt{numberEdges = GetNumberOfEdges()}]
     Return the number of edges in the cell.
 
-    \item[\texttt{edge = GetEdge(i)}] \hfill \\
+    \item[\texttt{edge = GetEdge(i)}]
     Given an edge id ( 0 ≤ i < numberEdges ) return a pointer to a cell that represents an edge of the cell.
 
-    \item[\texttt{numberFaces = GetNumberOfFaces()}] \hfill \\
+    \item[\texttt{numberFaces = GetNumberOfFaces()}]
     Return the number of faces in a cell.
 
-    \item[\texttt{face = GetFace(i)}] \hfill \\
+    \item[\texttt{face = GetFace(i)}]
     Given an face id ( 0 ≤ i < numberFaces ) return a pointer to a cell that represents a face of the cell.
 
-    \item[\texttt{inOutStatus = CellBoundary(subId, pcoords, poindIds)}] \hfill \\
+    \item[\texttt{inOutStatus = CellBoundary(subId, pcoords, poindIds)}]
     Given a cell subid and parametric coordinates, return a list of point ids that define the closest boundary face of the cell. Also return whether the point is actually in the cell.
 
-    \item[\texttt{inOutStatus = EvaluatePosition(x, closestPoint, subId, pcoords, weights, dist2)}] \hfill \\
+    \item[\texttt{inOutStatus = EvaluatePosition(x, closestPoint, subId, pcoords, weights, dist2)}]
     Given a point coordinate x, return the sub-id, parametric coordinates, and interpolation weights of the cell if x lies inside the cell. The position closestPoint is the closest point on the cell to x (may be the same) and dist2 is the squared distance between them. The method returns an inOutStatus indicating whether x is topologically inside or outside the cell. That is, the point may satisfy parametric coordinate conditions but may lie off the surface of the cell (e.g., point lies above polygon). Use both inOutStatus and dist2 to determine whether point is both topologically and geometrically in the cell.
 
-    \item[\texttt{EvaluateLocation(subId, pcoords, x, weights)}] \hfill \\
+    \item[\texttt{EvaluateLocation(subId, pcoords, x, weights)}]
     Given a point location (i.e., sub-id and parametric coordinates), return the position x of the point and the interpolation weights.
 
-    \item[\texttt{Contour(value, cellScalars, locator, verts, lines, polys, inputPointData, outputPointData)}] \hfill \\
+    \item[\texttt{Contour(value, cellScalars, locator, verts, lines, polys, inputPointData, outputPointData)}]
     Given a contour value and scalar values at the cell points, generate contour primitives (vertices, lines, or polygons with associated points and attribute data values). The points are placed in a locator object (see ``Searching'' on page \pageref{subsec:searching}) which merges coincident points, and the attribute data values are interpolated (along the cell edge) from the inputPointData to the outputPointData.
 
-    \item[\texttt{Clip(value, cellScalars, locator, cells, inputPointData, outputPointData, insideOut)}] \hfill \\
+    \item[\texttt{Clip(value, cellScalars, locator, cells, inputPointData, outputPointData, insideOut)}]
     Given a contour value and scalar values at the cell points, clip the cell to generate new cells of the same topological dimension as the original cell. The points are placed in a locator object (see ``Searching'' on page \pageref{subsec:searching}) which merges coincident points, and the attribute data values are interpolated (or copied) from the inputPointData to the outputPointData. The clipped cells are placed in the cells list.
 
-    \item[\texttt{Derivatives(subId, pcoords, values, dim, derivs)}] \hfill \\
+    \item[\texttt{Derivatives(subId, pcoords, values, dim, derivs)}]
     Given a cell location (i.e., subid and parametric coordinates) and data values at the cell points, return $dim*3$ derivatives (i.e., corresponds to the \emph{x}, \emph{y}, and \emph{z} directions times dimension of data).
 
-    \item[\texttt{inOutStatus = IntersectWithLine(p1, p2, tol, t, x, pcoords, subId)}] \hfill \\
+    \item[\texttt{inOutStatus = IntersectWithLine(p1, p2, tol, t, x, pcoords, subId)}] 
     Given a finite line defined by the two points p1 and p2 and an intersection tolerance, return the point of intersection x. The parametric coordinate t along the line and cell location at the point of intersection is also returned. Returns a nonzero if intersection occurs.
 
-    \item[\texttt{Triangulate(index, ptIds, points)}] \hfill \\
+    \item[\texttt{Triangulate(index, ptIds, points)}]
     Decompose the cell into simplices of dimension equal to the topological cell dimension. The index is an integer that controls the triangulation if more than one triangulation  is possible. The simplices are defined by an ordered list of point ids and their corresponding coordinates.
 
-    \item[\texttt{bounds = GetBounds()}] \hfill \\
+    \item[\texttt{bounds = GetBounds()}]
     Return the bounding box of the cell.
 
     \end{description}
-\index{abstraction!dataset|)}
+\index{abstraction!cell|)}\index{cell!abstraction|)}
 \item[Point and Cell Attribute Abstraction.\index{abstraction!dataset attribute|(}] Point and cell attribute data is information associated with the points and cells of a dataset. This information consists of scalars, vectors, normals, tensors, and texture coordinates. There is a one-to-one relationship between the points and cells in a dataset and its corresponding point and cell attribute data. For example, a point scalar value at location $100$ is associated with point $id$ $100$.
 
 Many of the methods described below deal with moving data from the input to the output of a filter. Since the possibility exists that new types of attribute data could be added in the future, the details of moving data is hidden as much as possible (i.e., minimize the knowledge that the filter has about specific attribute types). Thus, generic functions like CopyData() allow for copying data from the input to the output without knowing what this data is.
-    \setlist[description]{font=\normalfont\space}
+    \setlist[description]{font=\normalfont,style=nextline}
     \begin{description}
 
-    \item[\texttt{CopyScalarsOn() / CopyScalarsOff()}] \hfill \\
+    \item[\texttt{CopyScalarsOn() / CopyScalarsOff()}]
     Turn on/off boolean flag controlling copying of scalar data from input to output of filter.
 
-    \item[\texttt{CopyVectorsOn() / CopyVectorsOff()}] \hfill \\
+    \item[\texttt{CopyVectorsOn() / CopyVectorsOff()}]
     Turn on/off boolean flag controlling copying of vector data from input to output of filter.
 
-    \item[\texttt{CopyNormalsOn() / CopyNormalsOff()}] \hfill \\
+    \item[\texttt{CopyNormalsOn() / CopyNormalsOff()}]
     Turn on/off boolean flag controlling copying of normal data from input to output of filter.
 
-    \item[\texttt{CopyTensorsOn() / CopyTensorsOff()}] \hfill \\
+    \item[\texttt{CopyTensorsOn() / CopyTensorsOff()}]
     Turn on/off boolean flag controlling copying of tensor data from input to output of filter.
 
-    \item[\texttt{CopyTextureCoordsOn() / CopyTextureCoordsOff()}] \hfill \\
+    \item[\texttt{CopyTextureCoordsOn() / CopyTextureCoordsOff()}]
     Turn on/off boolean flag controlling copying of texture coordinates data from input to output of filter.
 
-    \item[\texttt{CopyAllOn() / CopyAllOff()}] \hfill \\
+    \item[\texttt{CopyAllOn() / CopyAllOff()}]
     Turn on/off all boolean flags controlling copying of all attribute data from input to output of filter.
 
-    \item[\texttt{PassData(pointData)}] \hfill \\
+    \item[\texttt{PassData(pointData)}]
     Transfer all point attribute data (pointData) to the output according to the copy flags listed previously.
 
-    \item[\texttt{CopyAllocate(pointData)}] \hfill \\
+    \item[\texttt{CopyAllocate(pointData)}]
     Initialize and allocate storage for point-by-point copy process.
 
-    \item[\texttt{CopyData(pointData, fromId, toId)}] \hfill \\
+    \item[\texttt{CopyData(pointData, fromId, toId)}]
     Given point data and a specific point id, copy the point attribute data (pointData) to the output point.
 
-    \item[\texttt{InterpolateAllocate(pointData)}] \hfill \\
+    \item[\texttt{InterpolateAllocate(pointData)}]
     Initialize and allocate storage for point-by-point interpolation process.
 
-    \item[\texttt{InterpolatePoint(pointData, toId, ptIds, weights)}] \hfill \\
+    \item[\texttt{InterpolatePoint(pointData, toId, ptIds, weights)}]
     Given input point data (pointData) and a list of points and their interpolation weights, interpolate data to the specified output point.
 
-    \item[\texttt{InterpolateEdge(pointData, toId, p1, p2, t)}] \hfill \\
+    \item[\texttt{InterpolateEdge(pointData, toId, p1, p2, t)}]
     From an edge defined by the two points p1 and p2, interpolate the pointData at the edge parametric coordinate t and copy the interpolated attribute data to the output point ptId.
 
-    \item[\texttt{NullPoint(int ptId)}] \hfill \\
+    \item[\texttt{NullPoint(int ptId)}]
     Set the data value(s) of the specified output point id to a null value.
 
-    \item[\texttt{SetScalars() / GetScalars()}] \hfill \\
+    \item[\texttt{SetScalars() / GetScalars()}]
     Set / return scalar data. The GetScalars() method may return a NULL value, in which case the scalars are not defined.
 
-    \item[\texttt{SetVectors() / GetVectors()}] \hfill \\
+    \item[\texttt{SetVectors() / GetVectors()}]
     Set / return vector data. The GetVectors() method may return a NULL value, in which case the vectors are not defined.
 
-    \item[\texttt{SetNormals() / GetNormals()}] \hfill \\
+    \item[\texttt{SetNormals() / GetNormals()}]
     Set / return normal data. The GetNormals() method may return a NULL value, in which case the normals are not defined.
 
-    \item[\texttt{SetTensors() / GetTensors()}] \hfill \\
+    \item[\texttt{SetTensors() / GetTensors()}]
     Set / return tensor data. The GetTensors() method may return a NULL value, in which case the tensors are not defined.
 
-    \item[\texttt{SetTextureCoords() / GetTextureCoords()}] \hfill \\
+    \item[\texttt{SetTextureCoords() / GetTextureCoords()}]
     Set / return texture coordinate data. The GetTextureCoords() method may return a NULL value, in which case the texture coordinates are not defined.
 
     \end{description}

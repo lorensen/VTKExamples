@@ -281,7 +281,7 @@ In some cases it may make more sense to examine each voxel along the ray rather 
 	\caption{Discrete ray classification.}\label{fig:Figure7-10}
 \end{figure}
 
-A 3D scan conversion technique, such as a modified Bresenham method, can be used to transform the continuous ray into a discrete representation. The discrete ray is an ordered sequence of voxels $v_1, v_2,... v_n$ and can be classified as 6-connected, 18-connected, or 26-connected as shown in Figure \ref{fig:Figure7-10}. Each voxel contains 6 faces, 12 edges, and 8 vertices. If each pair of voxels  $v_i, v_{i+1}$ along the ray share a face then the ray is 6-connected, if they share a face or an edge the ray is 18-connected, and if they share a face, an edge, or a vertex the ray is 26-connected. Scan converting and traversing a 26-connected ray requires less time than a 6-connected ray but is more likely to miss small features in the volume dataset.
+A 3D scan conversion technique, such as a modified Bresenham\index{Bresenham} method, can be used to transform the continuous ray into a discrete representation. The discrete ray is an ordered sequence of voxels $v_1, v_2,... v_n$ and can be classified as 6-connected, 18-connected, or 26-connected as shown in Figure \ref{fig:Figure7-10}. Each voxel contains 6 faces, 12 edges, and 8 vertices. If each pair of voxels  $v_i, v_{i+1}$ along the ray share a face then the ray is 6-connected, if they share a face or an edge the ray is 18-connected, and if they share a face, an edge, or a vertex the ray is 26-connected. Scan converting and traversing a 26-connected ray requires less time than a 6-connected ray but is more likely to miss small features in the volume dataset.
 
 \begin{figure}[!htb]
 	\begin{subfigure}[h]{0.48\linewidth}
