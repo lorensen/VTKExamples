@@ -52,7 +52,7 @@
 
 \newglossaryentry{C++}{
     name=C++,
-    description={A compiled programming language with roots in the C programming language. C++ is an extension of C that incorporates objectoriented principles.}}
+    description={\index{C++}A compiled programming language with roots in the C programming language. C++ is an extension of C that incorporates objectoriented principles.}}
 
 \newglossaryentry{CT (Computed Tomography)}{,
     name=CT (Computed Tomography),
@@ -60,11 +60,11 @@
 
 \newglossaryentry{Cell}{
     name=Cell,
-    description={The atoms of visualization datasets. Cells define a topology (e.g., polygon, triangle) in terms of a list of point coordinates.}}
+    description={\index{cell}The atoms of visualization datasets. Cells define a topology (e.g., polygon, triangle) in terms of a list of point coordinates.}}
 
 \newglossaryentry{Cell Attributes}{
     name=Cell Attributes,
-    description={Dataset attributes associated with a cell. See also \emph{point attributes}.}}
+    description={\index{cell!attribute}Dataset attributes associated with a cell. See also \emph{point attributes}.}}
 
 \newglossaryentry{Class}{
     name=Class,
@@ -84,7 +84,7 @@
 
 \newglossaryentry{Composite Cell}{
     name=Composite Cell,
-    description={A cell consisting of one or more primary cells.}}
+    description={\index{cell!composite}A cell consisting of one or more primary cells.}}
 
 \newglossaryentry{Concrete Class}{
     name=Concrete Class,
@@ -301,7 +301,7 @@
 
 \newglossaryentry{Hexahedron}{
     name=Hexahedron,
-    description={A type of primary 3D cell. The hexahedron looks like a "brick." It has six faces, 12 edges, and eight vertices. The faces of the hexahedron are not necessarily planar.}}
+    description={\index{cell!hexahedron}A type of primary 3D cell. The hexahedron looks like a ``brick''. It has six faces, 12 edges, and eight vertices. The faces of the hexahedron are not necessarily planar.}}
 
 \newglossaryentry{Homogeneous Coordinates}{
     name=Homogeneous Coordinates,
@@ -385,7 +385,7 @@
 
 \newglossaryentry{Line}{
     name=Line,
-    description={A cell defined by two points.}}
+    description={\index{cell!line}A cell defined by two points.}}
 
 \newglossaryentry{MRI}{
     name=MRI (Magnetic Resonance Imaging),
@@ -522,7 +522,7 @@ There may be many different model coordinate systems defined for one scene.}}
 
 \newglossaryentry{Pixel}{
     name=Pixel,
-    description={Short for picture element. Constant valued elements in an image. In VTK, a two-dimensional cell defined by an ordered list of four points.}}
+    description={\index{cell!pixel}Short for picture element. Constant valued elements in an image. In VTK, a two-dimensional cell defined by an ordered list of four points.}}
 
 \newglossaryentry{Point}{
     name=Point,
@@ -534,11 +534,15 @@ There may be many different model coordinate systems defined for one scene.}}
 
 \newglossaryentry{Polygon}{
     name=Polygon,
-    description={A cell consisting of three or more co-planar points defining a polygon. The polygon can be concave but without embedded loops.}}
+    description={\index{cell!polygon}A cell consisting of three or more co-planar points defining a polygon. The polygon can be concave but without embedded loops.}}
 
 \newglossaryentry{Polygonal Data}{
     name=Polygonal Data,
     description={A dataset type consisting of arbitrary combinations of vertices, polyvertices, lines, polylines, polygons, and triangle strips. Polygonal data is an intermediate data form that can be easily rendered by graphics libraries, and yet can represent many types of visualization data.}}
+
+\newglossaryentry{Polyline}{
+    name=Polyline,
+    description={\index{cell!polyline}A composite cell consisting of one or more lines.}}
 
 \newglossaryentry{Polygon Reduction}{
     name=Polygon Reduction,
@@ -547,6 +551,14 @@ There may be many different model coordinate systems defined for one scene.}}
 \newglossaryentry{Polymorphic}{
     name=Polymorphic,
     description={Having many forms. Some methods are polymorphic because the same method in  different classes may implement a different algorithm. The semantics of the method are typically  the same, even though the implementation may differ. Contrast with \emph{overloading}.}}
+
+\newglossaryentry{Polyvertex}{
+    name=Polyvertex,
+    description={\index{cell!polyvertex}A composite cell consisting of one or more vertices.}}
+
+\newglossaryentry{Primary Cell}{
+    name=Primary Cell,
+    description={\index{cell!primary}A cell that is not defined in terms of other cells.}}
 
 \newglossaryentry{Probing}{
     name=Probing,
@@ -566,7 +578,7 @@ There may be many different model coordinate systems defined for one scene.}}
 
 \newglossaryentry{Pyramid}{
     name=Pyramid,
-    description={A type of primary 3D cell. The pyramid has a quadrilateral base connected to a single apex point. It has five faces, eight edges, and five vertices. The base face of the pyramid is not necessarily planar.}}
+    description={\index{cell!pyramid}A type of primary 3D cell. The pyramid has a quadrilateral base connected to a single apex point. It has five faces, eight edges, and five vertices. The base face of the pyramid is not necessarily planar.}}
 
 \newglossaryentry{Quadric}{
     name=Quadric,
