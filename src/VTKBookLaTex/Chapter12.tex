@@ -11,7 +11,7 @@
  \end{minipage}
 \vspace{2\baselineskip}
 
-
+\index{applications|(}
 \firstletter{W}e have described the design and implementation of an extensive toolkit of visualization techniques.
 In this chapter we examine several case studies to show how to use these tools to gain insight into important application areas.
 These areas are medical imaging, financial visualization, modeling, computational fluid dynamics, finite element analysis, and algorithm visualization. For each case, we briefly describe the problem domain and what information we expect to obtain through visualization.
@@ -28,6 +28,8 @@ Other times we generate more abstract models, such as isosurfaces or glyphs, cor
 In the last step we combine the physical components with the abstract components to create a visualization that aids the user in understanding the data.
 
 \section{3D Medical Imaging}
+\index{applications!medical imaging|(}
+
 Radiology is a medical discipline that deals with images of human anatomy.
 These images come from a variety of medical imaging devices, including X--ray, X--ray Computed Tomography (CT), Magnetic Resonance Imaging (MRI), and ultrasound. Each imaging technique, called an imaging modality, has particular diagnostic strengths.
 
@@ -275,8 +277,10 @@ Figure \ref{fig:Figure12-4} shows the resulting composite image.
 In this example, the actor named skin is rendered last because we are using a translucent surface. Recall from ``Transparency and Alpha Values'' on page \pageref{sec:transparency_alpha} that we must order the polygons  composing transparent surfaces for proper results. We render the skin last by adding it to aRenderer's actor list last.
 
 We need to make one last point about processing medical imaging data. Medical images can be acquired in a variety of orders that refer to the relationship of consecutive slices to the patient. Radiologists view an image as though they were looking at the patient's feet. This means that on the display, the patient's left appears on the right. For CT there are two standard orders: top to bottom or bottom to top. In a top to bottom acquisition, slice \emph{i} is farther from the patient's feet than slice emph{i} - 1. Why do we worry about this order? It is imperative in medical applications that we retain the left / right relationship. Ignoring the slice acquisition order can result in a flipping of left and right. To correct this, we need to transform either the original dataset or the geometry we have extracted. (See ``Exercises'' on page \pageref{exercises:ch_12} for more information.) Also, you may wish to examine the implementation of the classes vtkVolume16Reader and vtkVolumeReader (the superclass of vtkVolume16Reader). These classes have special methods that deal with transforming image data.
+\index{applications!medical imaging|)}
 
 \section{Creating Models from Segmented Volume Data}
+\index{applications!segmented volume data|(}
 
 The previous example described how to create models from gray--scale medical imaging data. The techniques for extracting bone and skin models is straightforward compared to the task of generating models of other soft tissue. The reason is that magnetic resonance and, to some extent, computed tomography, generates similar gray-scale values for different tissue types. For example, the liver and kidney in a medical computed tomography volume often have overlapping intensities. Likewise, many different tissues in the brain have overlapping intensities when viewed with magnetic resonance imaging. To deal with these problems researchers apply a process called \emph{segmentation} to identify different tissues. These processes vary in sophistication from almost completely automatic methods to manual tracing of images. Segmentation continues to be a hot research area. Although the segmentation process itself is beyond the scope of this text, in this case study we show how to process segmented medical data.
 
@@ -663,8 +667,10 @@ This lengthy example shows the power of a comprehensive visualization system lik
 \subsection{Other Frog-Related Information}
 
 The folks at Lawrence Berkeley National Laboratory have an impressive Web site that features the frog used in this example. The site describes how the frog data was obtained and also permits users to create mpeg movies of the frog. There are also other datasets available. Further details on ``The Whole Frog Project'' can be found at \href{http://www-itg.lbl.gov/Frog}{Frog}. Also, the Stanford University Medical Media and Information Technologies (SUMMIT) group has on-going work using the Berkeley frog. They are early VTK users. Enjoy their \emph{Virtual Creatures} project at: \href{http://summit.stanford.edu/creatures}{creatures}.
+\index{applications!segmented volume data|)}
 
 \section{Financial Visualization}
+\index{applications!financial visualization|(}
 
 The application of 3D visualization techniques to financial data is relatively new. Historically, financial data has been represented using 2D plotting techniques such as line, scatter plots, bar charts, and pie charts. These techniques are especially well suited for the display of price and volume information for stocks, bonds, and mutual funds. Three--dimensional techniques are becoming more important due to the increased volume of information in recent years, and 3D graphics and visualization techniques are becoming interactive. Interactive rates mean that visualization can be applied to the day-to-day processing of data. Our belief is that this will allow deeper understanding of today's complex financial data and other more timely decisions.
 
@@ -683,7 +689,7 @@ Once we have obtained the data, we convert it to a format that can be read into 
 
 Each line stores the data for one day of trading. The first number is the date, stored as the last two digits of the year, followed by a two--digit month and finally the day of the month. The next three values represent the high, low, and closing price of the stock for that day. The next value is the volume of trading in thousands of shares. The final value is the volume of trading in millions of dollars.
 
-We used an Awk script to convert the original data format into a VTK data file. (See the \emph{VTK User's Guide} for information on VTK file formats; or refer to the Web page \href{https://lorensen.github.io/VTKExamples/site/VTKFileFormats/}{VTKFileFormats}). This conversion could be done using many other approaches, such as writing a C program or a Tcl script.
+We used an Awk\index{awk} script to convert the original data format into a VTK data file. (See the \emph{VTK User's Guide} for information on VTK file formats; or refer to the Web page \href{https://lorensen.github.io/VTKExamples/site/VTKFileFormats/}{VTKFileFormats}). This conversion could be done using many other approaches, such as writing a C program or a Tcl script.
 
 \begin{lstlisting}[language=Awk, caption={Awk: converting data file to VTK.}]
 BEGIN {print "\# vtk DataFile Version 2.0\\n
@@ -885,8 +891,10 @@ the linear extrusion filter to extrude this ribbon along the \emph{y}-axis
 so that it has a constant thickness.
 
 The resulting views are shown in Figure \ref{fig:Figure12-11}.
+\index{applications!financial visualization|)}
 
 \section{Implicit Modelling}
+\index{applications!implicit modelling|(}
 
 The \emph{Visualization Toolkit} has some useful geometric modelling capabilities. One of the most powerful features is implicit modelling. In this example we show how to use polygonal descriptions of objects and create `blobby'' models of them using the implicit modelling objects in VTK. This example generates a logo for the \emph{Visualization Toolkit} from polygonal representations of the letters \emph{v}, \emph{t}, and \emph{k}.
 
@@ -1052,9 +1060,10 @@ actor's position.
 
 An image made from the techniques described in this section is shown
 in Figure \ref{fig:Figure12-13}  Note that the image on the left has been augmented with a texture map.
+\index{applications!implicit modelling|)}
 
 \subsection{Computational Fluid Dynamics}
-
+\index{applications!computational fluid dynamics|(}
 Computational Fluid Dynamics (CFD) visualization poses a challenge to any visualization toolkit.
 CFD studies the flow of fluids in and around complex structures.
 Often, large amounts of super--computer time is used to derive scalar and vector data in the flow field.
@@ -1264,8 +1273,11 @@ visualization would be to identify regions of vorticity. We could use
 Equation \ref{eq:9.12} in conjunction with an isocontouring algorithm
 (e.g., vtkContourFilter ) to creates isosurfaces of large
 helical-density.
+\index{applications!computational fluid dynamics|)}
 
 \section{Finite Element Analysis}
+\index{applications!finite element method}
+
 Finite element analysis is a widely used numerical technique for finding solutions of partial differential equations. Applications of finite element analysis include linear and nonlinear structural, thermal, dynamic, electromagnetic, and flow analysis. In this application we will visualize the results of a blow molding process.
 
 \begin{figure}[!htb]
@@ -1361,7 +1373,7 @@ vtkActor parisonActor
 The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter does this nicely.
 
 \section{Algorithm Visualization}
-\index{algorithm visualization!application|(}
+\index{algorithm visualization!application|(}\index{applications!algorithm visualization|(}
 Visualization can be used to display algorithms and data structures. Representing this information often requires creative work on the part of the application programmer. For example, Robertson et. al. \cite{Robertson91} have shown 3D techniques for visualizing directory structures and navigating through them. Their approach involves building three dimensional models (the so-called ``cone trees'') to represent files, directories, and associations between files and directories. Similar approaches can be used to visualize stacks, queues, linked lists, trees, and other data structures.
 
 \begin{figure}[htb]
@@ -1462,6 +1474,9 @@ voidMovePuck(intpeg1,intpeg2)
 
 Because of the clear relationship between algorithm and physical reality, the Towers of Hanoi puzzle is relatively easy to visualize. A major challenge facing visualization researchers is to visualize more abstract information, such as information on the Internet, the structure of documents, or the effectiveness of advertising/entertainment in large market segments. This type of visualization, known as information visualization, is likely to emerge in the future as an important research challenge.
 \index{algorithm visualization!application|)}
+\index{applications!algorithm visualization|)}
+\index{applications|)}
+
 \section{Chapter Summary}
 
 This chapter presented several case studies covering a variety of visualization techniques. The examples used different data representations including polygonal data, volumes, structured grids, and unstructured grids. Both C++ and Tcl code was used to implement the case studies.
