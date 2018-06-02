@@ -191,7 +191,7 @@ The streamribbon provides information about important flow parameters: the vecto
 
 The amount of twisting of the streamribbon approximates the streamwise vorticity. Flow divergence is a measure of the ``spread'' of the flow. The changing width of the streamribbon is proportional to the cross-flow divergence of the flow.
 
-A streamsurface is a collection of an infinite number of streamlines passing through a \emph{base curve}. The base curve, or \emph{rake}, defines the starting points for the streamlines. If the base curve is closed (e.g., a circle) the surface is closed and a streamtube results. Thus, streamribbons are specialized types of streamsurfaces with a narrow width compared to length.
+A streamsurface is a collection of an infinite number of streamlines passing through a \emph{base curve}\index{base curve}. The base curve, or \emph{rake}, defines the starting points for the streamlines. If the base curve is closed (e.g., a circle) the surface is closed and a streamtube results. Thus, streamribbons are specialized types of streamsurfaces with a narrow width compared to length.
 
 Compared to vector icons or streamlines, streamsurfaces provide additional information about the structure of the vector field. Any point on the streamsurface is tangent to the velocity vector. Consequently, taking an example from fluid flow, no fluid can pass through the surface. Streamtubes are then representations of constant mass flux. Streamsurfaces show vector field structure better than streamlines or vector glyphs because they do not require visual interpolation across icons.
 
@@ -812,7 +812,7 @@ Each point may be assigned one of five possible classifications: simple, complex
 
 A \emph{simple point} is surrounded by a complete cycle of triangles, and each edge that uses the point is used by exactly two triangles. If the edge is not used by two triangles, or if the point is used by a triangle not in the cycle of triangles, then the point is \emph{complex}. These are nonmanifold cases.
 
-A point that is on the boundary of a mesh, that is, within a semicycle of triangles, is a \emph{boundary point}.
+A point that is on the boundary of a mesh, that is, within a semicycle of triangles, is a \emph{boundary point}\index{boundary point}.
 
 A \emph{simple point} can be further classified as an \emph{interior edge} or \emph{corner point}. These classifications are based on the local mesh geometry. If the surface normal angle between two adjacent triangles is greater than a specified \emph{feature angle}, then a \emph{feature edge} exists (see Figure \ref{fig:Figure9-25a}). When a point is used by two feature edges, the point is an interior edge point. If one, three, or more feature edges use the point, the point is a \emph{corner point}.
 
@@ -1436,6 +1436,7 @@ To visualize information with the thresholding technique, we must map data to te
 Another useful texture thresholding application uses implicit functions to map point position to texture coordinate. This is similar in effect to geometric clipping (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields}). As we saw in ``Implicit Functions''on page \pageref{subsec:implicit_functions}, implicit functions naturally map a $(x, y, z)$ coordinate value into three regions: $F(x, y, z) < 0$, $F(x, y, z) = 0$, and $F(x, y, z) > 0$ ; or equivalently, the concealed, transition, and accentuated regions of the texture map. Using boolean combinations of implicit functions, we can create complex cuts of our data as illustrated in Figure \ref{fig:Figure9-43b}. This figure shows two nested spheres. The outer sphere is cut by a boolean combination of two planes to show the inner sphere.
 
 \subsubsection{Boolean Textures}
+\index{boolean texture|(}
 
 Texture thresholding can be extended into higher dimensions. That is, 2D or 3D texture coordinates can be used to map two or three data variables into a texture map. One such technique is boolean textures, a method to clip geometry using a 2D texture map and two implicit functions \cite{Lorensen93}.
 
@@ -1467,6 +1468,7 @@ The boolean texture map is modified to reflect this as shown in Figure  \ref{fig
 \end{figure}
 
 The boolean texture map can be created with combinations of intensity and transparency values to achieve a variety of effects. By combining the four combinations of in/out (i.e., four regions of Figure \ref{fig:Figure9-44}) with the two combinations of ``conceal'' and ``accentuate'', sixteen different boolean textures are possible. Figure \ref{fig:Figure9-45a} illustrates these combinations expressed as boolean combinations of two implicit functions A and B. The ``inside'' of the implicit functions is indicated with subscript i, while the outside is indicated with subscript o. The boolean expressions indicate the regions that we wish to conceal, as shown by open circles. The darkened circles are the regions that are accentuated. We can see in Figure \ref{fig:Figure9-45a} the effects of applying these different boolean textures to a sphere. The implicit functions in this figure are two elliptical cylinders sharing a common axis, and rotated $90^\circ$ from one another. In addition, transition regions have been defined with $I = 0$ to generate the dark cut edges shown. All 16 spheres share the same texture coordinates; only the texture map changes.
+\index{boolean texture|)}
 
 \subsubsection{Texture Animation}
 \index{animation!using texture|(}
@@ -1959,7 +1961,7 @@ Polygon reduction is a relatively new field of study. SIGGRAPH '92 marked a flur
 
 Triangle strip generation is an effective technique for achieving dramatic improvements in rendering speed and reductions in data handling. The reference by \cite{Evans96} describes other triangle strip generation algorithms as well as presenting some of the most effective techniques to date.
 
-The use of texture for visualization is relatively unexploited. This has been due in part to lack of texture support in most graphics software and hardware. This is now changing, as more vendors support texture and software systems (such as OpenGL) that provide an API for texture. Important references here include the boolean textures \cite{Lorensen93} and surface convolution techniques \cite{Cabral93} \cite{Stalling95}.
+The use of texture for visualization is relatively unexploited. This has been due in part to lack of texture support in most graphics software and hardware. This is now changing, as more vendors support texture and software systems (such as OpenGL) that provide an API for texture. Important references here include the boolean textures\index{boolean texture} \cite{Lorensen93} and surface convolution techniques \cite{Cabral93} \cite{Stalling95}.
 
 Unstructured or unorganized point visualization is likely to play a prominent role in visualization as the field matures and more complex data is encountered. Nielson et al. have presented important work in this field \cite{Nielson91a}.
 

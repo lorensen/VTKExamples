@@ -682,7 +682,7 @@ Implicit functions have a variety of uses. This includes geometric modelling, se
 
 Implicit functions can be used alone or in combination to model geometric objects. For example, to model a surface described by an implicit function, we sample $F$ on a dataset and generate an isosurface at a contour value $c_i$. The result is a polygonal representation of the function. Figure \ref{fig:Figure6-23b} shows an isosurface for a sphere of radius=1 sampled on a volume. Note that we can choose nonzero contour values to generate a family of offset surfaces. This is useful for creating blending functions and other special effects.
 
-Implicit functions can be combined to create complex objects using the boolean operators union, intersection, and difference. The union operation between $F\cup G$ between two functions $F(x,y,z)$ and $G(x,y,z)$ is the minimum value
+Implicit functions can be combined to create complex objects using the boolean operators\index{boolean operators} union, intersection, and difference. The union operation between $F\cup G$ between two functions $F(x,y,z)$ and $G(x,y,z)$ is the minimum value
 
 \begin{equation}\label{eq:6.13}
 F \cup G = \lbrace \max\left(F\left(\overrightarrow{\ x\ }\right), G\left(\overrightarrow{\ x\ }\right)\right)\, \vert \, \overrightarrow{\ x\ } \in \mathbb{R}^n \rbrace
