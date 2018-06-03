@@ -7,7 +7,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkDiscretizableColorTransferFunction>::New();
   
   discretizableColorTransferFunction->DiscretizeOn();
-  discretizableColorTransferFunction->SetNumberOfValues(10);
+  discretizableColorTransferFunction->SetNumberOfValues(2);
   
   discretizableColorTransferFunction->AddRGBPoint(0.0, 1, 0, 0);
   discretizableColorTransferFunction->AddRGBPoint(10.0, 0, 1, 0);

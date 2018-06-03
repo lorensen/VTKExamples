@@ -64,6 +64,7 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSphereSource.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkEventQtSlotConnect.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkInteractorStyleTrackballActor.h&gt;</span><span class=cp></span>
@@ -128,6 +129,7 @@ function registerListener(event, func) {
 <span class=cp>#include</span> <span class=cpf>&lt;QMainWindow&gt;</span><span class=cp></span>
 
 <span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
+<span class=cp>#include</span> <span class=cpf>&lt;vtkObject.h&gt;</span><span class=cp></span>
 <span class=k>class</span> <span class=nc>vtkEventQtSlotConnect</span><span class=p>;</span>
 
 <span class=k>class</span> <span class=nc>EventQtSlotConnect</span> <span class=o>:</span> <span class=k>public</span> <span class=n>QMainWindow</span><span class=p>,</span> <span class=k>private</span> <span class=n>Ui</span><span class=o>::</span><span class=n>EventQtSlotConnect</span>
