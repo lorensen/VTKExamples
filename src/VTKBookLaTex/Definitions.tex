@@ -4,8 +4,6 @@
 % Packages
 \usepackage[english]{babel}
 \usepackage{csquotes}
-%\usepackage[nonumberlist]{glossaries}
-\usepackage{glossaries}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{mathtools}
@@ -96,6 +94,9 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
     linkcolor = {Brown},
     citecolor = {BlueViolet}
 }
+
+% To ensure the links are clickable this package must load after hyperref.
+\usepackage[toc,nonumberlist]{glossaries}
 
 %%% ----------------------------------------------------------------------
 % Some general global declarations
