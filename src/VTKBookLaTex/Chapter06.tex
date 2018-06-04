@@ -111,6 +111,7 @@ Designing lookup tables is as much art as it is science. From a practical point 
 
 \subsection{Contouring}
 \label{subsec:contouring}
+\index{contouring|(}
 
 A natural extension to color mapping is \emph{contouring}. When we see a surface colored with data values, the eye often separates similarly colored areas into distinct regions. When we contour data, we are effectively constructing the boundary between these regions. These boundaries correspond to contour lines (2D) or surfaces (3D) of constant scalar value.
 
@@ -231,6 +232,7 @@ Figure \ref{fig:Figure6-11} shows four applications of contouring. In Figure \re
 	\end{subfigure}%
 	\caption{Contouring examples.}\label{fig:Figure6-11}
 \end{figure}
+\index{contouring|)}
 
 \subsection{Scalar Generation}
 \label{subsec:scalar_generation}
@@ -868,6 +870,7 @@ Figure \ref{fig:Figure6-30} is an example of glyphing. Small 3D cones are orient
 
 \subsection{Cutting}
 \label{subsec:cutting}
+\index{cutting!with implicit functions|(}
 
 Often we want to cut through a dataset with a surface and then display the interpolated data values on the surface. We refer to this technique as \emph{data cutting} or simply \emph{cutting}. The data cutting operation requires two pieces of information: a definition for the surface and a dataset to cut. We will assume that the cutting surface is defined by an implicit function. A typical application of cutting is to slice through a dataset with a plane, and color map the scalar data and/or warp the plane according to vector value.
 
@@ -908,6 +911,7 @@ We can easily make multiple planar cuts through a structured grid dataset by spe
 
 This example illustrates that cutting the volumetric data in a structured grid dataset produced polygonal cells. Similarly, cutting polygonal data produces lines. Using a single plane equation, we can extract ``contour lines'' from a surface model defined with polygons. Figure \ref{fig:Figure6-33} shows contours extracted from a surface model of the skin. At each vertex in the surface model we evaluate the equation of the plane and $F(x.y.z) = c$ and store the valuec of the function as a scalar value. Cutting the data with $46$ isovalues from $1.5$ to $136.5$ produces contour lines that are $3$ units apart.
 \index{algorithms!modelling|)}
+\index{cutting!with implicit functions|)}
 
 \section{Putting It All Together}
 
@@ -1076,6 +1080,7 @@ As we have seen, implicit functions can be used for visualizing functions, creat
 The existing inheritance hierarchy for implicit functions is shown in Figure \ref{fig:Figure6-37}. Subclasses of vtkImplicitFunction must implement the two methods Evaluate() and Gradient(x). The method Evaluate() returns the value of the function at point $(x,y,z)$, while the method Gradient() returns the gradient vector to the function at point $(x,y,z)$.
 
 \subsubsection{Contouring}
+\index{contouring!implementation|(}
 
 Scalar contouring is implemented in the Visualization Toolkit with vtkContourFilter. This filter object accepts as input any dataset type. Thus, vtkContourFilter treats every cell type and each cell type must provide a method for contouring itself.
 
@@ -1187,9 +1192,11 @@ An example use of vtkContourFilter is shown in Figure \ref{fig:Figure6-39}. This
 	{\caption{Data flow into and out of the \emph{vtkGlyph3D} class.}\label{fig:Figure6-40}}
 	{\includegraphics[width=0.6\textwidth]{Figure6-40}}
 \end{figure}
+\index{contouring!implementation|)}
 
 
 \subsection{Cutting}
+\index{cutting!implementation}
 
 The vtkCutter class performs cutting of all VTK cell types. The SetValue() and GenerateValues() methods permit the user to specify which multiple scalar values to use for the cutting. vtkCutter requires an implicit function that will be evaluated at each point in the dataset. Then each cell is cut using the cell's Contour method. Any point attributes are interpolated to the resulting cut vertices. The sorting order for the generated polygonal data can be controlled with the SortBy method. The default sorting order, SortByValue(), processes cells in the inner loop for each contour value. SortByCell() processes the cutting value in the inner loop and produces polygonal data that is suitable for backtofront rendering (see Figure \ref{fig:Figure6-32}). (The sorting order is useful when rendering with opacity as discussed in Chapter 7:  \nameref{chap:advanced_computer_graphics}.) Notice the similarity of this filter to the vtkContourFilter. Both of these objects contour datasets with multiple isovalues. vtkCutter uses an implicit function to calculate scalar values while vtkContourFilter uses the scalar data associated with the dataset's point data.
 
