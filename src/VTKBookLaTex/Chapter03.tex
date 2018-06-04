@@ -146,7 +146,7 @@ As rays of light travel through space, some of them intersect our actors. When t
 
 where $R_a$ is the resulting intensity curve due to ambient lighting, $L_c$ is the intensity curve of the ambient light, and $O_a$ is the color curve of the object. To help keep the equations simple we assume that all of the direction vectors are normalized (i.e., have a magnitude of one).
 
-Two components of the resulting color depend on direct lighting. \emph{Diffuse lighting}, which is also known as Lambertian reflection, takes into account the angle of incidence of the light onto an object. Figure \ref{fig:Figure3-7} shows the image of a cylinder that becomes darker as you move laterally from its center. The cylinder's color is constant; the amount of light hitting the surface of the cylinder changes. At the center, where the incoming light is nearly perpendicular to the surface of the cylinder, it receives more rays of light per surface area. As we move towards the side, this drops until finally the incoming light is parallel to the side of the cylinder and the resulting intensity is zero.
+Two components of the resulting color depend on direct lighting. \emph{Diffuse lighting}\index{diffuse light}, which is also known as Lambertian reflection, takes into account the angle of incidence of the light onto an object. Figure \ref{fig:Figure3-7} shows the image of a cylinder that becomes darker as you move laterally from its center. The cylinder's color is constant; the amount of light hitting the surface of the cylinder changes. At the center, where the incoming light is nearly perpendicular to the surface of the cylinder, it receives more rays of light per surface area. As we move towards the side, this drops until finally the incoming light is parallel to the side of the cylinder and the resulting intensity is zero.
 
 \begin{figure}[!htb]
   \centering
@@ -768,7 +768,7 @@ int main( int argc, char *argv[] )
 
 The observer is created by deriving from the class vtkCommand. The Execute() method is required to be implemented by any concrete subclass of vtkCommand (i.e., the method is pure virtual). The resulting subclass, vtkMyCommand, is instantiated and registered with the renderer instance ren1 using the AddObserver() method. In this case the StartEvent is the observed event.
 
-This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( ``Interpreted Code'' on page \pageref{subsec:interpreted_code} ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three-dimensional interaction widgets will be introduced ( ``\gls{3D Widget}s and User Interaction''  on page \pageref{sec:3D_widgets_user_interaction} ).
+This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( ``Interpreted Code'' on page \pageref{subsec:interpreted_code} ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three-dimensional interaction widgets will be introduced ( ``3D Widgets and User Interaction''  on page \pageref{sec:3D_widgets_user_interaction} ).
 
 \subsubsection{Creating Multiple Renderers.}
 The next example is a bit more complex and uses multiple renderers that share a single rendering window. We use viewports to define where the renderers should draw in the render window. (This C++ code can be found in Cone3.cxx.)

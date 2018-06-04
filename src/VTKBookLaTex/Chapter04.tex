@@ -123,7 +123,7 @@ Source objects interface to external data sources or generate data from local pa
 
 Filter objects require one or more input data objects and generate one or more output data objects. Local parameters control the operation of the process object. Computing weekly stock market averages, representing a data value as a scaled icon, or performing union set operations on two input data sources are typical example processes of filter objects.
 
-Mapper objects correspond to the sinks in the functional model. Mapper objects require one or more input data objects and terminate the visualization pipeline data flow. Usually mapper objects are used to convert data into graphical primitives, but they may write out data to a file or interface with another software system or devices. Mapper objects that write data to a computer file are termed \emph{writer} objects.
+Mapper\index{device!mapper} objects correspond to the sinks in the functional model. Mapper objects require one or more input data objects and terminate the visualization pipeline data flow. Usually mapper objects are used to convert data into graphical primitives, but they may write out data to a file or interface with another software system or devices. Mapper objects that write data to a computer file are termed \emph{writer}\index{device!writer} objects.
 
 \section{Pipeline Topology}
 \label{sec:pipeline_topology}
@@ -196,7 +196,7 @@ Most often the visualization network is executed more than once. For example, we
 
 For highest performance, the process objects in the visualization network must execute only if a change occurs to their input. In some networks, as shown in Figure \ref{fig:Figure4-6}, we may have parallel branches that need not execute if objects are modified local to a particular branch. In this figure, we see that object D and the downstream objects E and F must execute because D's input parameter is changed, and objects E and F depend on D for their input. The other objects need not execute because there is no change to their input.
 
-We can control the execution of the network using either a demand-driven or event-driven approach. In the demand-driven approach, we execute the network only when output is requested, and only that portion of the network affecting the result. In the event-driven approach, every change to a process object or its input causes the network to reexecute. The advantage of the eventdriven approach is that the output is always up to date (except during short periods of computation). The advantage of the demand-driven approach is that large numbers of changes can be processed without intermediate computation (i.e., data is processed only after the request for data is received). The demand-driven approach minimizes computation and results in more interactive visualization networks.
+We can control the execution of the network using either a demand--driven\index{demand--driven execution} or event--driven approach. In the demand--driven approach, we execute the network only when output is requested, and only that portion of the network affecting the result. In the event--driven approach, every change to a process object or its input causes the network to re--execute. The advantage of the event driven approach is that the output is always up to date (except during short periods of computation). The advantage of the demand--driven approach is that large numbers of changes can be processed without intermediate computation (i.e., data is processed only after the request for data is received). The demand--driven approach minimizes computation and results in more interactive visualization networks.
 
 \begin{figure}[!htb]
   \centering
@@ -215,7 +215,7 @@ The advantage of this approach is that synchronization analysis and update metho
 
 The disadvantage of the explicit approach is that each process object becomes dependent upon the executive, since the executive must be notified of any change. Also, the executive cannot easily control execution if the network execution is conditional, since whether to execute or not depends on the local results of one or more process objects. Finally, a centralized executive can create non-scalable bottlenecks in parallel computing environments.
 
-The explicit approach may be either demand-driven or event-driven. In the event-driven approach, the executive is notified whenever a change to an object occurs (typically in response to a user-interface event), and the network is immediately executed. In the demand-driven approach, the executive accumulates changes to object inputs and executes the network based on explicit user demand.
+The explicit approach may be either demand-driven or event-driven. In the event-driven approach, the executive is notified whenever a change to an object occurs (typically in response to a user--interface event), and the network is immediately executed. In the demand-driven approach, the executive accumulates changes to object inputs and executes the network based on explicit user demand.
 
 \begin{figure}[htb]
     \centering
