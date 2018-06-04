@@ -78,6 +78,7 @@ Scalars are single data values associated with each point and/or cell of a datas
 
 \subsection{Color Mapping}
 \label{subsec:color_mapping}
+\index{color mapping|(}
 
 \emph{Color mapping} is a common scalar visualization technique that maps scalar data to colors, and displays the colors on the computer system. The scalar mapping is implemented by indexing into a \emph{color lookup table}. Scalar values serve as indices into the lookup table.
 
@@ -106,6 +107,7 @@ Designing lookup tables is as much art as it is science. From a practical point 
 	\caption{Flow density colored with different lookup tables. Top-left: grayscale; Top-right rainbow (blue to red); lower-left rainbow (red to blue); lower-right large contrast. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/Rainbow/}{Rainbow.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/Rainbow/}{Rainbow.py})}
 	\label{fig:Figure6-3}
 \end{figure}
+\index{color mapping|)}
 
 \subsection{Contouring}
 \label{subsec:contouring}
@@ -840,7 +842,7 @@ Another interesting feature of implicit modeling is that when isosurfaces are ge
 
 Glyphs, sometimes referred to as icons, are a versatile technique to visualize data of every type. A glyph is an ``object'' that is affected by its input data. This object may be geometry, a dataset, or a graphical image. The glyph may orient, scale, translate, deform, or somehow alter the appearance of the object in response to data. We have already seen a simple form of glyph: hedgehogs are lines that are oriented, translated and scaled according to the position and vector value of a point. A variation of this is to use oriented cones or arrows. (See ``Hedgehogs and Oriented Glyphs'' on page \pageref{subsec:hedgehogs_oriented_glyphs} for more information.)
 
-More elaborate glyphs are possible. In one creative visualization technique Chernoff \cite{Chernoff73} tied data values to an iconic representation of the human face. Eyebrows, nose, mouth, and other features were modified according to financial data values. This interesting technique built on the human capability to recognize facial expression. By tying appropriate data values to facial characteristics, rapid identification of important data points is possible.
+More elaborate glyphs are possible. In one creative visualization technique Chernoff\index{Chernoff faces} \cite{Chernoff73} tied data values to an iconic representation of the human face. Eyebrows, nose, mouth, and other features were modified according to financial data values. This interesting technique built on the human capability to recognize facial expression. By tying appropriate data values to facial characteristics, rapid identification of important data points is possible.
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
@@ -999,6 +1001,7 @@ Since mappers take datasets as input, type enforcement is required. Each mapper 
 Although writers and mappers do not create visualization data, they both have methods similar to the RequestData() method of the sources and filters. Each subclass of vtkMapper must implement the Render() method. This method is exchanged by the graphics system actors and its associated mappers during the rendering process. The effect of the method is to map its input dataset to the appropriate rendering library/system. Subclasses of the class vtkWriter must implement the WriteData() method. This method causes the writer to write its input dataset to disk (or other I/O device).
 
 \subsubsection{Color Maps}
+\index{color mapping!implementation|(}
 
 Color maps are created in the Visualization Toolkit using instances of the class vtkLookupTable. This class allows you to create a lookup table using HSVA (e.g., hue, saturation, value, and alpha opacity) specification. Although we discussed the HSV color system in Chapter 3: \nameref{chap:computer_graphics_primer}, we haven't yet defined alpha opacity. We shall do so in Chapter 7:  \nameref{chap:advanced_computer_graphics}, but until then consider the alpha value to be the opacity of an object. Alpha values of one indicate that the object is opaque, while alpha values of zero indicate that the object is transparent.
 
@@ -1059,6 +1062,7 @@ A few final notes on using lookup tables.
 \end{itemize}
 
 You can also derive your own lookup table types. Look at vtkLogLookupTable for an example. This particular lookup table inherits from vtkLookupTable. It performs logarithmic mapping of scalar value to table entry, a useful capability when scalar values span many orders of magnitude.
+\index{color mapping!implementation|)}
 
 \subsubsection{Implicit Functions}
 

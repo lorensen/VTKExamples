@@ -69,6 +69,8 @@ In the next few pages we describe the rendering process in more detail. We start
 
 \section{Color}
 \label{sec:color}
+\index{color|(}
+
 The electromagnetic spectrum visible to humans contains wavelengths ranging from about 400 to 700 nanometers. The light that enters our eyes consists of different \emph{intensities} of these wavelengths, an example of which is shown in Figure \ref{fig:Figure3-2}. This intensity plot defines the color of the light, therefore a different plot results in a different color. Unfortunately, we may not notice the difference since the human eye throws out most of this information. There are three types of color receptors in the human eye called \emph{cones}. Each type responds to a subset of the 400 to 700 nanometer wave-length range as shown in Figure \ref{fig:Figure3-3}. Any color we see is encoded by our eyes into these three overlapping responses. This is a great reduction from the amount of information that actually comes into our eyes. As a result, the human eye is incapable of recognizing differences in any colors whose intensity curves, when applied to the human eye's response curves, result in the same triplet of responses. This also implies that we can store and represent colors in a computer using a simplified form without the human eye being able to recognize the difference.
 
 \begin{figure}[!htb]
@@ -119,6 +121,7 @@ images on the bottom are slices through the HSV color space. The first slice
 has a value of 1.0, the other has a value of 0.5.}
 \label{fig:Figure3-5}
 \end{figure}
+\index{color|)}
 
 \section{Lights}
 \label{Lights}
@@ -203,7 +206,7 @@ The result is a color at a point on the surface of the object. The constants $O_
 \label{sec:cameras}
 \index{camera|(}
 
-We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see Figure \ref{fig:Figure3-11}). These are the position\index{camera!position}, orientation, and focal point\index{camera!focal point} of the camera, the method of camera projection, and the location of the camera clipping planes.
+We have light sources that are emitting rays of light and actors with surface properties. At every point on the surface of our actors this interaction results in some composite color (i.e., combined color from light, object surface, specular, and ambient effects). All we need now to render the scene is a camera. There are a number of important factors that determine how a 3D scene gets projected onto a plane to form a 2D image (see Figure \ref{fig:Figure3-11}). These are the position\index{camera!position}, orientation, and focal point\index{camera!focal point} of the camera, the method of camera projection, and the location of the camera \emph{clipping planes}\index{clipping plane}.
 
 \begin{figure}[!htb]
   \centering
@@ -697,7 +700,9 @@ There are many different types of source objects in VTK similar to vtkConeSource
 
 \subsubsection{Events and Observers.}
 \label{sub:events_observers}
-A visualization toolkit like VTK is frequently used in interactive applications or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the \emph{command/observer} design pattern \cite{Gamma95} is used for this purpose.
+
+A visualization toolkit like VTK is frequently used in interactive applications or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the \emph{command/observer}\index{command/observer}
+ design pattern \cite{Gamma95} is used for this purpose.
 
 Fundamental to this design pattern as implemented in VTK is the concept of \emph{events}. An event signals that an important operation has occurred in the software. For example, if the user presses the left mouse button in the render window, VTK will invoke the LeftButtonPressEvent. Observers are objects that register their interest in a particular event or events. When one of these events is invoked, the observer receives notification and may perform any valid operation at that point; that is, execute the command associated with the observer. The benefit of the command/observer design pattern is that is simple in concept and implementation, yet provides significant power to the user. However it does require the software implementation to invoke events as it operates.
 
