@@ -70,18 +70,19 @@ Visualizing data involves interfacing to external data, mapping into internal fo
 
 \end{description}
 
-The remainder of this chapter describes common visualization data forms based on these design criteria. Our basic abstraction is the data object, a general term for the various concrete visualization data types which are the subclasses of data object. 
+The remainder of this chapter describes common visualization data forms based on these design criteria. Our basic abstraction is the \emph{data object}\index{data object}, a general term for the various concrete visualization data types which are the subclasses of data object. 
 
 \section{The Data Object}
 
-The most general form of data found in VTK is the data object. A data object can be thought of as a collection of data without any form. Data objects represent the data that is processed by the visualization pipeline (see the previous chapter and Figure \ref{fig:Figure4-2}). Taken by themselves, data objects carry little useful information. It is only when they are organized into some structure that they provide a form that we can operate on with visualization algorithms.
+The most general form of data found in VTK is the data object\index{data object}. A data object can be thought of as a collection of data without any form. Data objects represent the data that is processed by the visualization pipeline (see the previous chapter and Figure \ref{fig:Figure4-2}). Taken by themselves, data objects carry little useful information. It is only when they are organized into some structure that they provide a form that we can operate on with visualization algorithms.
 
 \section{The Dataset}
 \label{sec:dataset}
+\index{dataset}
 
-Data objects with an organizing structure and associated data attributes (Figure \ref{fig:Figure5-11}) form datasets. The dataset is an abstract form; we leave the representation and implementation of the structure to its concrete subclasses. Most algorithms (or process objects) in VTK operate on datasets.
+Data objects with an organizing structure and associated data attributes (Figure \ref{fig:Figure5-11}) form datasets. The dataset is an abstract form; we leave the representation\index{cell!representation} and implementation of the structure to its concrete subclasses. Most algorithms (or process objects) in VTK operate on datasets.
 
-The structure has two parts: topology and geometry. Topology is the set of properties invariant under certain geometric transformations \cite{Weiler86}. Here we consider the transformations: rotation, translation, and nonuniform scaling. Geometry is the instantiation of the topology, the specification of position in 3D space. For example, saying that a polygon is a ``triangle'', specifies topology. By providing point coordinates, we specify geometry.
+The structure has two parts: topology and geometry. Topology\index{dataset!topology} is the set of properties invariant under certain geometric transformations \cite{Weiler86}. Here we consider the transformations: rotation, translation, and nonuniform scaling. Geometry\index{dataset!geometry} is the instantiation of the topology, the specification of position in 3D space. For example, saying that a polygon is a ``triangle'', specifies topology. By providing point coordinates, we specify geometry.
 
 Dataset attributes are supplemental information associated with geometry and/or topology. This information might be a temperature value at a point or the inertial mass of a cell.
 
@@ -93,7 +94,7 @@ The definition of the structure of a dataset as a collection of cells and points
 \label{sec:cell_types}
 \index{cell|(}
 
-A dataset consists of one or more cells (Figure \ref{fig:Figure5-2} and Figure \ref{fig:Figure5-4}). Cells are the fundamental building blocks of visualization systems. Cells are defined by specifying a type in combination with an ordered list of points. \index{cell!as topology}The ordered list, often referred to as the connectivity list, combined with the type specification, implicitly defines the topology of the cell. The $x-y-z$ point coordinates define the cell geometry.
+A dataset consists of one or more cells (Figure \ref{fig:Figure5-2} and Figure \ref{fig:Figure5-4}). Cells are the fundamental building blocks of visualization systems. Cells are defined by specifying a type in combination with an ordered list of points. \index{cell!as topology}The ordered list, often referred to as the \emph{connectivity list}\index{connectivity list}, combined with the type specification, implicitly defines the topology of the cell. The $x-y-z$ point coordinates define the cell geometry.
 
 Figure \ref{fig:Figure5-3} shows one cell type, a hexahedron. The ordered list is a sequence of point ids that index into a point coordinate list. The topology of this cell is implicitly known: we know that $(8,10)$ is one of the 12 edges of the hexahedron, and that $(8,10,22,21)$ is one of its six faces.
 
@@ -121,7 +122,7 @@ U(p_i) = {C_i:p_i \in C_i}
 
 The importance of ``uses'' and ``use sets'' will become evident in Chapter 8: \nameref{chap:advanced_data_representation} when we explore the topology of datasets.
 
-Although we define points in three dimensions, cells may vary in topological dimension. Vertices, lines, triangles, and tetrahedron are examples of topologically 0, 1, 2, and 3--D cells, respectively, embedded in three-dimensional geometric space. Cells can also be primary or composite. Composite\index{cell!composite} cells consist of one or more primary cells, while primary\index{cell!primary} cells cannot be decomposed into combinations of other primary cell types. A triangle strip, for example, consists of one or more triangles arranged in compact form. The triangle strip is a composite cell because it can be broken down into triangles, which are primary cells.
+Although we define points in three dimensions, cells may vary in topological dimension. Vertices, lines, triangles, and tetrahedron are examples of topologically 0, 1, 2, and 3--D cells, respectively, embedded in three-dimensional geometric space. Cells can also be primary or composite. Composite\index{cell!composite}\index{composite cell} cells consist of one or more primary cells, while primary\index{cell!primary} cells cannot be decomposed into combinations of other primary cell types. A triangle strip, for example, consists of one or more triangles arranged in compact form. The triangle strip is a composite cell because it can be broken down into triangles, which are primary cells.
 
 Certainly there are an infinite variety of possible cell types. In the \emph{Visualization Toolkit} each cell type has been chosen based on application need. We have seen how some cell types: vertex, line, polygon, and triangle strip (\ref{fig:Figure3-19}) are used to represent geometry to the graphics subsystem or library. Other cell types such as the tetrahedron and hexahedron are common in numerical simulation. The utility of each cell type will become evident through the practice of visualization throughout this book. A description of the cell types found in the \emph{Visualization Toolkit} including their classification as linear, nonlinear, or other is given in the following sections.
 
@@ -131,7 +132,7 @@ Linear cells are characterized by linear or constant interpolation functions (se
 
 \begin{description}
 
-\item[Vertex.] The vertex is a primary\index{cell!primary} zero--dimensional cell. It is defined by a single point.
+\item[Vertex.\index{cell!vertex}] The vertex is a primary\index{cell!primary} zero--dimensional cell. It is defined by a single point.
 
 \item[Polyvertex.\index{cell!polyvertex}] The polyvertex is a composite\index{cell!composite} zero--dimensional cell. The polyvertex is defined by an arbitrarily ordered list of points.
 
@@ -139,11 +140,11 @@ Linear cells are characterized by linear or constant interpolation functions (se
 
 \item[Polyline.\index{cell!polyline}] The polyline is a composite one--dimensional cell consisting of one or more connected lines. The polyline is defined by an ordered list of $n+1$ points, where n is the number of lines in the polyline. Each pair of points $(i, i+1)$ defines a line.
 
-\item[Triangle.] \label{subsec:linear_cells.triangle_strip} The triangle is a primary two-dimensional cell. The triangle is defined by a counterclockwise ordered list of three points. The order of the points specifies the direction of the surface normal using the right-hand rule.
+\item[Triangle.\index{cell!triangle}] \label{subsec:linear_cells.triangle_strip} The triangle is a primary two-dimensional cell. The triangle is defined by a counterclockwise ordered list of three points. The order of the points specifies the direction of the surface normal using the right-hand rule.
 
-\item[Triangle Strip.] The triangle strip is a composite two--dimensional cell consisting of one or more triangles. The points defining the triangle strip need not lie in a plane. The triangle strip is defined by an ordered list of n+2 points, where n is the number of triangles. The ordering of the points is such that each set of three points $(i,i+1,i+2)$ with $0 \leq i \leq n$ defines a triangle.
+\item[Triangle Strip.\index{cell!triangle strip}] The triangle strip is a composite two--dimensional cell consisting of one or more triangles. The points defining the triangle strip need not lie in a plane. The triangle strip is defined by an ordered list of n+2 points, where n is the number of triangles. The ordering of the points is such that each set of three points $(i,i+1,i+2)$ with $0 \leq i \leq n$ defines a triangle.
 
-\item[Quadrilateral.] The quadrilateral is a primary two--dimensional cell. It is defined by an ordered list of four points lying in a plane. The quadrilateral is convex and its edges must not intersect. The points are ordered counterclockwise around the quadrilateral, defining a surface normal using the right-hand rule.
+\item[Quadrilateral.\index{cell!quadrilateral}] The quadrilateral is a primary two--dimensional cell. It is defined by an ordered list of four points lying in a plane. The quadrilateral is convex and its edges must not intersect. The points are ordered counterclockwise around the quadrilateral, defining a surface normal using the right-hand rule.
 
 \item[Pixel.\index{cell!pixel}] The pixel is a primary two-dimensional cell defined by an ordered list of four points. The cell is topologically equivalent to the quadrilateral with the addition of geometric constraints. Each edge of the pixel is perpendicular to its adjacent edges, and lies parallel to one of the coordinate axes x-y-z. Hence, the normal to the pixel is also parallel to one of the coordinate axes.
 
@@ -155,15 +156,15 @@ One important note is that the definition of the pixel cell given here is differ
 
 The polygon may be nonconvex, but may not have internal loops, and it cannot self--intersect. The polygon has n edges, where n is the number of points in the polygon.
 
-\item[Tetrahedron.] The tetrahedron is a primary three--dimensional cell. The tetrahedron is defined by a list of four nonplanar points. The tetrahedron has six edges and four triangular faces as shown in Figure \ref{fig:Figure5-2}.
+\item[Tetrahedron.\index{cell!tetrahedron}] The tetrahedron is a primary three--dimensional cell. The tetrahedron is defined by a list of four nonplanar points. The tetrahedron has six edges and four triangular faces as shown in Figure \ref{fig:Figure5-2}.
 
 \item[Hexahedron.\index{cell!hexahedron}] The hexahedron is a primary three--dimensional cell consisting of six quadrilateral faces, twelve edges, and eight vertices. The hexahedron is defined by an ordered list of eight points as shown in Figure \ref{fig:Figure5-2}. The faces and edges must not intersect any other faces and edges, and the hexahedron must be convex.
 
-\item[Voxel.] The voxel is a primary three--dimensional cell. The voxel is topologically equivalent to the hexahedron with additional geometric constraints. Each face of the voxel is perpendicular to one of the coordinate x--y--z axes. The defining point list is ordered in the direction of increasing coordinate value as shown in Figure \ref{fig:Figure5-2}. The voxel is a special case of the hexahedron and is used to improve computational performance.
+\item[Voxel.\index{cell!voxel}] The voxel is a primary three--dimensional cell. The voxel is topologically equivalent to the hexahedron with additional geometric constraints. Each face of the voxel is perpendicular to one of the coordinate x--y--z axes. The defining point list is ordered in the direction of increasing coordinate value as shown in Figure \ref{fig:Figure5-2}. The voxel is a special case of the hexahedron and is used to improve computational performance.
 
 Similar to pixels, our definition of a voxel cell differs from the conventional definition of the term voxel. Typically, a voxel is referred to as a constant--valued ``volume element''. Using our definition, eight volume elements form the eight corner points of the voxel cell. We normally use the term voxel to describe a voxel cell, but the meaning of the term will vary depending on the context.
 
-\item[Wedge.] The wedge is a primary three--dimensional cell consisting of three quadrilateral faces, two triangular faces, nine edges, and six vertices. The wedge is defined by an ordered list of six points as shown in Figure \ref{fig:Figure5-2}. The faces and edges must not intersect any other faces and edges, and the wedge must be convex.
+\item[Wedge.\index{cell!wedge}] The wedge is a primary three--dimensional cell consisting of three quadrilateral faces, two triangular faces, nine edges, and six vertices. The wedge is defined by an ordered list of six points as shown in Figure \ref{fig:Figure5-2}. The faces and edges must not intersect any other faces and edges, and the wedge must be convex.
 
 \item[Pyramid.\index{cell!pyramid}] The pyramid is a primary three--dimensional cell consisting of one quadrilateral face, four triangular faces, eight edges, and five vertices. The pyramid is defined by an ordered list of five points as shown in Figure \ref{fig:Figure5-2}. The four points defining the quadrilateral base plane must be convex; the fifth apex point must not be co-planar with the base points.
 
@@ -209,35 +210,36 @@ VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in 
 
 \begin{description}
 
-\item[Quadratic Edge.] The quadratic edge is a primary one--dimensional cell. It is defined by three points. The first two points define the endpoints of the edge; the third point is located in the center of the edge as shown in Figure \ref{fig:Figure5-4}. The direction along the line is from the first point to the second point.
+\item[Quadratic Edge.\index{cell!quadratic edge}] The quadratic edge is a primary one--dimensional cell. It is defined by three points. The first two points define the endpoints of the edge; the third point is located in the center of the edge as shown in Figure \ref{fig:Figure5-4}. The direction along the line is from the first point to the second point.
 
-\item[Quadratic Triangle.] The quadratic triangle is a primary two--dimensional cell. It is defined by six points. The first three points are located at the vertices of the triangle; the next three are located in the middle of each of the three edges as shown in Figure \ref{fig:Figure5-4}.
+\item[Quadratic Triangle.\index{cell!quadratic triangle}] The quadratic triangle is a primary two--dimensional cell. It is defined by six points. The first three points are located at the vertices of the triangle; the next three are located in the middle of each of the three edges as shown in Figure \ref{fig:Figure5-4}.
 
-\item[Quadratic Linear Quadrilateral.] The quadratic linear quadrilateral is a primary two--dimensional cell. It is defined by six points. The first four points are located at the vertices of the quadrilateral; the next two are located in the middle of each of the first and third edge as shown in Figure \ref{fig:Figure5-4}.
+\item[Quadratic Linear Quadrilateral.\index{cell!quadratic linear quadrilateral}] The quadratic linear quadrilateral is a primary two--dimensional cell. It is defined by six points. The first four points are located at the vertices of the quadrilateral; the next two are located in the middle of each of the first and third edge as shown in Figure \ref{fig:Figure5-4}.
 
-\item[Quadratic Quadrilateral.] The quadratic quadrilateral is a primary two--dimensional cell. It is defined by eight points. The first four points are located at the vertices of the quadrilateral; the next four are located in the middle of each of the four edges as shown in Figure \ref{fig:Figure5-4}.
+\item[Quadratic Quadrilateral.\index{cell!quadratic quadrilateral}] The quadratic quadrilateral is a primary two--dimensional cell. It is defined by eight points. The first four points are located at the vertices of the quadrilateral; the next four are located in the middle of each of the four edges as shown in Figure \ref{fig:Figure5-4}.
 
 \item[Bi--Quadratic Quadrilateral.\index{bi-quadratic quadrilateral}\index{cell!bi-quadratic quadrilateral}] The bi--quadratic quadrilateral is a primary two-dimensional cell. It is defined by nine points. The first four points are located at the vertices of the quadrilateral; the next four are located in the middle of each of the four edges; and the last one is located at the center of the quadrilateral as shown in Figure \ref{fig:Figure5-4}.
 
-\item[Quadratic Tetrahedron.] The quadratic tetrahedron is a primary three--dimensional cell. It is defined by ten points. The first four points are located at the vertices of the tetrahedron; the next six are located in the middle of each of the six edges as shown in Figure \ref{fig:Figure5-4}.
+\item[Quadratic Tetrahedron.\index{cell!quadratic tetrahedron}] The quadratic tetrahedron is a primary three--dimensional cell. It is defined by ten points. The first four points are located at the vertices of the tetrahedron; the next six are located in the middle of each of the six edges as shown in Figure \ref{fig:Figure5-4}.
 
-\item[Quadratic Pyramid.] The quadratic pyramid is a primary three--dimensional cell. It is defined by thirteen points. The first five points are located at the vertices of the pyramid; the next eight are located in the middle of each of the eight edges as shown in Figure \ref{fig:Figure5-4}.
+\item[Quadratic Pyramid.\index{cell!quadratic pyramid}] The quadratic pyramid is a primary three--dimensional cell. It is defined by thirteen points. The first five points are located at the vertices of the pyramid; the next eight are located in the middle of each of the eight edges as shown in Figure \ref{fig:Figure5-4}.
 
-\item[Quadratic Linear Wedge.] The quadratic linear wedge is a primary three--dimensional cell. It is defined by twelve points. The first six points are located at the vertices of the wedge; the next six are located in the middle of each of the six edges that belong to a triangle face as shown in Figure \ref{fig:Figure5-4}.
+\item[Quadratic Linear Wedge.\index{cell!quadratic linear wedge}] The quadratic linear wedge is a primary three--dimensional cell. It is defined by twelve points. The first six points are located at the vertices of the wedge; the next six are located in the middle of each of the six edges that belong to a triangle face as shown in Figure \ref{fig:Figure5-4}.
 
-\item[Quadratic Wedge.] The quadratic wedge is a primary three--dimensional cell. It is defined by fifteen points. The first six points are located at the vertices of the wedge; the next nine are located in the middle of each of the nine edges as shown in Figure \ref{fig:Figure5-4}.
+\item[Quadratic Wedge.\index{cell!quadratic wedge}] The quadratic wedge is a primary three--dimensional cell. It is defined by fifteen points. The first six points are located at the vertices of the wedge; the next nine are located in the middle of each of the nine edges as shown in Figure \ref{fig:Figure5-4}.
 
 \item[Bi--Quadratic Wedge.\index{bi-quadratic wedge}\index{cell!bi-quadratic wedge}] The bi--quadratic wedge is a primary three--dimensional cell. It is defined by eighteen points. The first six points are located at the vertices of the wedge; the next nine are located in the middle of each of the nine edges; and the next three are located in the center of each quadrilateral faces as shown in Figure \ref{fig:Figure5-4}.
 
-\item[Quadratic Hexahedron.] The quadratic hexahedron is a primary three--dimensional cell. It is defined by twenty points. The first eight points are located at the vertices of the hexahedron; the next twelve are located in the middle of each of the twelve edges as shown in Figure \ref{fig:Figure5-4}.
+\item[Quadratic Hexahedron.\index{cell!quadratic hexahedron}] The quadratic hexahedron is a primary three--dimensional cell. It is defined by twenty points. The first eight points are located at the vertices of the hexahedron; the next twelve are located in the middle of each of the twelve edges as shown in Figure \ref{fig:Figure5-4}.
 
 \item[Bi--Quadratic Hexahedron.\index{bi-quadratic hexahedron}\index{cell!bi-quadratic hexahedron}] The bi--quadratic hexahedron is a primary three--dimensional cell. It is defined by twenty--four points. The first eight points are located at the vertices of the hexahedron; the next twelve are located in the middle of each of the twelve edges; and the next four points are located in the center of the first four faces as shown in Figure \ref{fig:Figure5-4}.
 
-\item[Tri--Quadratic Hexahedron.] The tri--quadratic hexahedron is a primary three--dimensional cell. It is defined by twenty--seven points. The first eight points are located at the vertices of the hexahedron; the next twelve are located in the middle of each of the twelves edges; the next six are located in the center of each faces; and the last one is located in the center of the hexahedron as shown in Figure \ref{fig:Figure5-4}.
+\item[Tri--Quadratic Hexahedron.\index{cell!tri--quadratic hexahedron}] The tri--quadratic hexahedron is a primary three--dimensional cell. It is defined by twenty--seven points. The first eight points are located at the vertices of the hexahedron; the next twelve are located in the middle of each of the twelves edges; the next six are located in the center of each faces; and the last one is located in the center of the hexahedron as shown in Figure \ref{fig:Figure5-4}.
 \index{cell|)}
 
 \section{Attribute Data}
 \index{cell!attribute}
+\index{dataset!attributes|(}
 
 Attribute data is information associated with the structure of the dataset. This structure includes both the dataset geometry and topology. Most often, attribute data is associated with dataset points or cells, but sometimes attribute data may be assigned to cell components such as edges or faces. Attribute data may also be assigned across the entire dataset, or across a group of cells or points. We refer to this information as attribute data because it is an attribute to the structure of the dataset. Typical examples include temperature or velocity at a point, mass of a cell, or heat flux into and out of a cell face.
 
@@ -272,9 +274,11 @@ One application of texturing in two dimensions is to ``paste'' a photograph onto
 General tensor visualization is an area of current research. Efforts thus far have been focused on two--dimensional, rank 2 tensors, which are $3 \times 3$ matrices. The most common form of such tensors are the stress and strain tensors, which represent the stress and strain at a point in an object under load. VTK only treats real-valued, symmetric $3 \times 3$ tensors.
 
 \end{description}
+\index{dataset!attributes|)}
 
 \section{Types of Datasets}
 \label{sec:types_of_datasets}
+\index{dataset!types|(}
 
 A dataset consists of an organizing structure plus associated attribute data. The structure has both topological and geometric properties and is composed of one or more points and cells. The type of a dataset is derived from the organizing structure, and specifies the relationship that the cells and points have with one another. Common dataset types are shown in Figure \ref{fig:Figure5-7}.
 
@@ -333,11 +337,12 @@ Unstructured points serve to represent such unstructured data. Typically, this d
 \subsection{Unstructured Grid}
 
 The most general form of dataset is the unstructured grid. Both the topology and geometry are completely unstructured. Any cell type can be combined in arbitrary combinations in an unstructured grid. Hence the topology of the cells ranges from 0D (vertex, polyvertex) to 3D (tetrahedron, hexahedron, voxel). In the Visualization Toolkit any dataset type can be expressed as an unstructured grid. We typically use unstructured grids to represent data only when absolutely necessary, because this dataset type requires the most memory and computational resources to represent and operate on.
+\index{dataset!types|)}
 
 \section{Other Data Abstractions}
 \label{sec:other_data_abstractions}
 
-Other data models have been proposed besides the dataset model presented here. We briefly examine two other models that have been applied successfully. These are the AVS field model and the model of Haber, Lucas, and Collins, adapted in modified form by the commercial IBM Data Explorer system. The section concludes with a brief comparison between these two models and VTK's data model.
+Other data models have been proposed besides the dataset model presented here. We briefly examine two other models that have been applied successfully. These are the AVS field model and the model of Haber, Lucas, and Collins, adapted in modified form by the commercial IBM Data Explorer\index{Data Explorer} system. The section concludes with a brief comparison between these two models and VTK's data model.
 
 \subsection{The Application Visualization System}
 
@@ -352,6 +357,7 @@ The field is the most interesting part of the AVS data model. In general, it is 
 The data model of Haber, Lucas, and Collins \cite{Haber91} is based on the mathematics of fiber bundles. The goal of their work is to create a general model for piecewise representations of fields on regular and irregular grids. They refer to their model as the field data model, but their definition of the word field is different from the AVS model. A field is an object composed of a base and dependent data. Informally, the base is a manifold whose coordinates are the independent variables for the field, and the dependent data relate the values of dependent variables to the independent variables of the base. Visualization data consists of field elements that describe the base and dependent variables over a local region.
 
 \subsection{The Visualization Toolkit}
+\index{Data Explorer!and VTK}
 
 There are similarities and differences between these data models and VTK's dataset model. The greatest difference is that these other models are more abstract. They are capable of representing a wider range of data and are more flexible. In particular, the AVS\index{AVS!and VTK} field model is capable of representing arbitrary streams of numbers in a simple and elegant manner. The field data model of Haber et al. is also powerful: The authors show how this data representation can be used to exploit regularity in data to obtain compact representations. On the other hand, all these models (including VTK's) share the notion of structure versus data. The AVS field model introduces structure by using a mapping function. The field data of the Haber et al. model resembles VTK's dataset model, in that the base is equivalent to VTK's cells, and the field data model's dependent data is analogous to VTK's attribute data.
 
@@ -381,7 +387,7 @@ In this section we will describe the implementation details of the dataset types
 
 \subsection{Memory Allocation and Data Arrays}
 
-Because of the size and scope of data, memory must be carefully managed to create efficient visualization systems. In the Visualization Toolkit, we use contiguous data arrays as the basis for most data structures. Contiguous arrays can be created, deleted, and traversed faster than alternative data structures, such as linked lists or arrays of pointers to structures. In VTK, we refer to these as data arrays, and represent them with the class vtkDataArray.
+Because of the size and scope of data, memory must be carefully managed to create efficient visualization systems. In the Visualization Toolkit, we use contiguous data arrays as the basis for most data structures. Contiguous arrays can be created, deleted, and traversed faster than alternative data structures, such as linked lists or arrays of pointers to structures. In VTK, we refer to these as data arrays\index{data array}, and represent them with the class vtkDataArray.
 
 Contiguous arrays also can be easily transmitted across a network, particularly if the information in the array is independent of computer memory address. Memory independence avoids the overhead of mapping information from one memory location to another. Therefore, in VTK we access information based on an ``id'', an integer index into an array--like object. Data arrays are 0 offset just like C++ arrays. That is, given n data values, we successively access these values using the ids $(0, 1, 2, ..., n – 1)$.
 
@@ -408,6 +414,7 @@ Many visualization data are defined by multiple component values. An x-y-z coord
 \end{figure}
 
 \subsection{Representing Data With Data Arrays}
+\index{data arrays!implementation}
 
 Attribute data and points, as well as several other data objects, are represented with data arrays in VTK. Certain attribute data, such as points, vectors, normals, and tensors, are required to have a tuple size consistent with their definition. For example, points, vectors and normals require a data array with a tuple size of three; tensors a tuple size of nine (i.e., a $3 \times 3$ matrix). Scalars do not place any requirement on the tuple size. Algorithms that process such scalar data generally operate on the first component of each tuple. (Filters exist in VTK to split multi-component data arrays into separate arrays, and to combine separate data arrays into a single array. See vtkSplitField and vtkMergeFields).
 
@@ -462,6 +469,8 @@ Using compile-time oriented methods such as templates avoids the need to cast ea
 Data objects are implemented in VTK as an array of vtkDataArrays as shown in Figure \ref{fig:Figure5-11}. vtkDataObject is an general representation of visualization data. It serves to encapsulate instance variables and methods for visualization network execution (see previous chapter), as well as representing data. Internally, data is represented with an instance of the class vtkFieldData. Very few algorithms directly operate on data objects; rather most algorithms require the specification of an organizing structure in order to process the data. The dataset specifies that organizing structure as described in the following section.
 
 \subsection{Dataset Representation}
+\index{dataset!representation|(}
+
 Five datasets are implemented in VTK: vtkPolyData, vtkImageData, vtkStructuredGrid, vtkRectilinearGrid, and vtkUnstructuredGrid. The unstructured points dataset is not implemented, but can be represented using either vtkPolyData or vtkUnstructuredGrid.
 
 We use a different internal data representation for each dataset type. By using different representations we minimize data structure memory requirements and implement efficient access methods. It would have been possible to use vtkUnstructuredGrid to represent all dataset types, but the memory and computational overhead are unacceptable for large data. The following sections describe how we represent the dataset.
@@ -529,8 +538,10 @@ The vtkCellTypes may also be added to the vtkPolyData data representation  --- a
 	\caption{Object diagram for twenty concrete cell types in VTK. vtkEmptyCell represents NULL cells. vtkGenericCell can represent any type of cell. Three-dimensional cells are subclasses of vtkCell3D. Higher order cells are subclasses of vtkNonLinearCell.}
 	\label{fig:Figure5-15}
 \end{figure}
+\index{dataset!representation|)}
 
 \subsection{Cell Representation}
+\index{cell!representation!implementation}
 
 In the \emph{Visualization Toolkit} each cell type has been implemented by creating specific classes. Each cell is a subclass of the abstract type vtkCell . Cell topology is represented by a list of ordered point ids, and cell geometry is represented by a list of point coordinates. The object diagram for vtkCell and its subclasses is shown in Figure \ref{fig:Figure5-15}.
 
@@ -540,7 +551,7 @@ The abstract class vtkCell specifies methods that each cell must implement. Thes
 
 Data attributes are associated with the structure of a dataset. The dataset model is built on points and cells, so it is natural to associate data attributes with points and cells as well. Intermediate structure features, such as cell edges or faces, are not explicitly represented so we cannot easily associate data attributes with them.
 
-In VTK data attributes are associated with the points and cells of the dataset. There is no association of data attributes to intermediate topological features such as triangle edges or hexahedron faces. (Here we refer to data attributes associated with points as point attributes, and data attributes associated with cells as cell attributes.) Our design choice is based on the following rationale.
+In VTK data attributes are associated with the points and cells of the dataset. There is no association of data attributes to intermediate topological features such as triangle edges or hexahedron faces. (Here we refer to data attributes associated with points as point attributes, and data attributes associated with cells as \emph{cell attributes}\index{cell attributes}.) Our design choice is based on the following rationale.
 
 \begin{itemize}
 
