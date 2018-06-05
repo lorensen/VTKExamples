@@ -993,6 +993,7 @@ Fortunately, Newton's method converges quadratically (if it converges) and the i
 \index{coordinate transformation|)}
 
 \section{Computing Derivatives}
+\index{derivatives|(}
 
 \begin{figure}[!htb]
     \centering
@@ -1130,6 +1131,7 @@ and solve for the global derivatives by taking the inverse of the Jacobian matri
 The inverse of the Jacobian always exists as long as there is a one--to--one correspondence between the parametric and global coordinate systems. This means that for any $(r, s, t)$ coordinate, there corresponds only one $(x, y, z)$ coordinate. This holds true for any of the parametric coordinate systems presented here, as long as pathological conditions such as cell self--intersection or a cell folding in on itself are avoided. (An example of cell folding is when a quadrilateral becomes nonconvex.)
 
 In our one--dimensional example, the derivatives along the line were constant. However, other interpolation functions (e.g., Figure \ref{fig:Figure8-5}) may yield non-constant derivatives. Here, the Jacobian is a function of position in the cell and must be evaluated at a particular $(r, s, t)$ coordinate value.
+\index{derivatives|)}
 
 \section{Topological Operations}
 
@@ -1892,7 +1894,7 @@ Our experience with the search structures described here is that they work well 
 
 The Visualization Toolkit provides a variety of classes to perform actor (or vtkProp), point, cell, and world point picking ( Figure \ref{fig:Figure8-38}).
 
-All pickers are subclasses of vtkAbstractPicker which defines the basic pick interface. The user must specify a selection point in display coordinates for a specified instance of vtkRenderWindow and invoke the Pick() method. At a minimum, the class must return an $x-y-z$ pick position in world coordinates. It is possible to limit the pick candidates to a list of vtkProps (the PickList). The class also invokes the StartPickEvent, PickEvent, and EndPickEvent events that are invoked prior to picking, during picking, and after picking, respectively.
+All pickers are subclasses of vtkAbstractPicker which defines the basic pick interface. The user must specify a selection point in display coordinates for a specified instance of vtkRenderWindow and invoke the Pick() method. At a minimum, the class must return an $x-y-z$ pick position in world coordinates. It is possible to limit the pick candidates to a list of vtkProps (the PickList). The class also invokes the StartPickEvent\index{events!StartPickEvent}, PickEvent\index{events!PickEvent}, and EndPickEvent\index{events!EndPickEvent} events that are invoked prior to picking, during picking, and after picking, respectively.
 
 Classes that can return information indicating which vtkProp they have picked are subclasses of vtkAbstractPropPicker. After the pick operation, vtkAbstractPropPicker returns a vtkAssemblyPath. The assembly path is an ordered list of instances of vtkProp and possibly associated 4x4 transformation matrices. The path represents a concatenated hierarchy of assembly nodes if an assembly has been defined (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information about props and assemblies).
 

@@ -19,9 +19,13 @@
 \newlistof{myequations}{equ}{\listequationsname}
 \newcommand{\myequations}[1]{%
 \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
-\setlength{\cftmyequationsnumwidth}{3.0em}% Width of equation number in List of Equations
-
-\setlength{\cftfignumwidth}{3.0em} % Width of list number in list of figures.
+% Width of equation number in List of Equations.
+\setlength{\cftmyequationsnumwidth}{3.0em}
+% Width of list number in list of figures.
+\setlength{\cftfignumwidth}{3.0em}
+% Width of section numbers in table of contents.
+\setlength{\cftsecnumwidth}{2.8em}
+\setlength{\cftsubsecnumwidth}{3.5em}
 
 % For decimal aligned columns.
 \usepackage{dcolumn}
@@ -97,6 +101,7 @@ basicstyle=\normalsize\ttfamily\color{Sepia},
 
 % To ensure the links are clickable this package must load after hyperref.
 \usepackage[toc,nonumberlist]{glossaries}
+%\usepackage[toc]{glossaries}
 
 %%% ----------------------------------------------------------------------
 % Some general global declarations
