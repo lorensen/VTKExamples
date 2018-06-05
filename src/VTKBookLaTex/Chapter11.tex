@@ -195,7 +195,7 @@ vtkVRMLExporter exp
   exp Write
 \end{lstlisting}
 
-These four lines create an instance of vtkVRMLExporter, set its input to renWin (an instance of vtkRenderWindow), set a file name, and finally write out the result. This is different from previous examples where data was written out using vtkPolyDataWriter or other subclasses of vtkWriter. vtkVRMLExporter is a subclass of vtkExporter, not vtkWriter. The significant difference is that a writer takes a vtkDataSet as input and is responsible for writing out a single dataset. An exporter takes a vtkRenderWindow as input and is responsible for writing out an entire scene, possibly containing multiple actors, lights, textures, and material properties, in addition to any datasets.
+These four lines create an instance of vtkVRMLExporter\index{exporter!VRML}, set its input to renWin (an instance of vtkRenderWindow), set a file name, and finally write out the result. This is different from previous examples where data was written out using vtkPolyDataWriter or other subclasses of vtkWriter. vtkVRMLExporter is a subclass of vtkExporter, not vtkWriter. The significant difference is that a writer takes a vtkDataSet as input and is responsible for writing out a single dataset. An exporter takes a vtkRenderWindow as input and is responsible for writing out an entire scene, possibly containing multiple actors, lights, textures, and material properties, in addition to any datasets.
 
 If you consider a continuum from a static data file to a fully interactive visualization program, vtkWriter would be at one end, vtkExporter in the middle, and a VTK program at the other. VRML 1.0 would fall at the same place as vtkExporter and VRML 2.0 would fall between vtkExporter and an actual program due to its added support for behavior and script interaction. What VRML lacks from a visualization perspective is algorithms. VRML is a 3D multimedia content format and lacks direct support for applying visualization techniques or algorithms.
 
@@ -254,7 +254,7 @@ vtkVRMLExporter *writer = vtkVRMLExporter::New();
   writer->Write();
 \end{lstlisting}
 
-Finally an instance of vtkVRMLExporter is created, assigned an instance of vtkRenderWindow as input, and set to write to standard output. When the Write() method is applied, the exporter updates the visualization pipeline and produces the VRML output. The vtkRenderWindow is never rendered and no windows appear on the server. There is no need for an interactor because the interaction will be handled by the client's VRML browser. This program simply reads in a string of input (the parameters from the form) and then produces a string of output (the VRML data). It is also important to remember that CGI-BIN scripts are typically run from a different user id and environment than your own; file names and paths should be fully specified.
+Finally an instance of vtkVRMLExporter\index{export!VRML} is created, assigned an instance of vtkRenderWindow as input, and set to write to standard output. When the Write() method is applied, the exporter updates the visualization pipeline and produces the VRML output. The vtkRenderWindow is never rendered and no windows appear on the server. There is no need for an interactor because the interaction will be handled by the client's VRML browser. This program simply reads in a string of input (the parameters from the form) and then produces a string of output (the VRML data). It is also important to remember that CGI--BIN scripts are typically run from a different user id and environment than your own; file names and paths should be fully specified.
 
 \section{Visualization with Java}
 
@@ -445,6 +445,7 @@ public void addBranchGraph(BranchGroup bg) {
 \end{lstlisting}
 
 \section{VRML, Java, and the EAI}
+\index{External Authoring Interface|(}\index{EAI|see {External Authoring Interface}}
 
 The External Authoring Interface (EAI) provides VRML with the same combination of power and flexibility that Java3D has. The EAI provides a communication interface that allows Java and VRML to interact with each other. This is particularly powerful in that a Java applet can create a VRML world, add and delete nodes from the scene graph, and a VRML scene graph can invoke Java code or Java Script in response to an event. In many ways this is similar to the Java3D solution with the exception that VRML is being used for the rendering instead of the Java3D rendering engine. Both solutions have the benefit of Java as a general purpose language for handling programmatic and user-interface issues.
 
@@ -715,7 +716,7 @@ Group {
   ]
 }
 \end{lstlisting}
-
+\index{External Authoring Interface|)}
 
 \section{The Future of Web Visualization}
 

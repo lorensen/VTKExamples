@@ -321,12 +321,13 @@ Typically, we must scale the vector field to control geometric distortion. Too s
 
 \subsection{Displacement Plots}
 \label{subsec:displacement_plots}
+\index{displacement plot|(}
 
 Vector displacement on the surface of an object can be visualized with displacement plots. A displacement plot shows the motion of an object in the direction perpendicular to its surface. The object motion is caused by an applied vector field. In a typical application the vector field is a displacement or strain field.
 
 Vector displacement plots draw on the ideas in ``Scalar Generation'' on  page \pageref{subsec:scalar_generation}. Vectors are converted to scalars by computing the dot product between the surface normal and vector at each point (Figure \ref{fig:Figure6-15a}). If positive values result, the motion at the point is in the direction of the surface normal (i.e., positive displacement). Negative values indicate that the motion is opposite the surface normal (i.e., negative displacement).
 
-A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues (i.e., natural resonant frequencies) and eigenvectors (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called \emph{modal} lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
+A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues\index{eigenvalue} (i.e., natural resonant frequencies) and eigenvectors\index{eigenvector} (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called \emph{modal} lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -342,6 +343,7 @@ A useful application of this technique is the study of vibration. In vibration a
 \end{figure}
 
 Figure \ref{fig:Figure6-15b}  shows modal lines for a vibrating rectangular beam. The vibration mode in this figure is the second torsional mode, clearly indicated by the crossing modal lines. (The aliasing in the figure is because of the coarseness of the analysis mesh.) To create the figure we combined the procedure of Figure \ref{fig:Figure6-15a}  with a special lookup table. The lookup table was arranged with white areas in the center (i.e., corresponds to zero dot product) and dark areas at the beginning and end of the table (corresponds to $1$ or $-1$ dot product). As a result, regions of large normal displacement are dark and regions near the modal lines are light.
+\index{displacement plot|)}
 
 \subsection{Time Animation}
 Some of the techniques described so far can be thought of as moving a point or object over a small time step. The hedgehog line is an approximation of a point's motion over a time period whose duration is given by the scale factor. In other words, if velocity $\vec{V} = dx/dt$, then displacement of a point is
@@ -467,7 +469,7 @@ As we mentioned earlier, tensor visualization is an active area of research. How
 
 In these tensors the diagonal coefficients are the so--called normal stresses and strains, and the off-diagonal terms are the shear stresses and strains. Normal stresses and strains act perpendicular to a specified surface, while shear stresses and strains act tangentially to the surface. Normal stress is either compression or tension, depending on the sign of the coefficient.
 
-A $3 \times 3$ real symmetric matrix can be characterized by three vectors in 3D called the eigenvectors, and three numbers called the eigenvalues of the matrix. The eigenvectors form a 3D coordinate system whose axes are mutually perpendicular. In some applications, particularly the study of materials, these axes also are referred to as the principle axes of the tensor and are physically significant. For example, if the tensor is a stress tensor, then the principle axes are the directions of normal stress and no shear stress. Associated with each eigenvector is an eigenvalue. The eigenvalues are often physically significant as well. In the study of vibration, eigenvalues correspond to the resonant frequencies of a structure, and the eigenvectors are the associated mode shapes.
+A $3 \times 3$ real symmetric matrix can be characterized by three vectors in 3D called the eigenvectors\index{eigenvector}, and three numbers called the eigenvalues\index{eigenvalue} of the matrix. The eigenvectors form a 3D coordinate system whose axes are mutually perpendicular. In some applications, particularly the study of materials, these axes also are referred to as the principle axes of the tensor and are physically significant. For example, if the tensor is a stress tensor, then the principle axes are the directions of normal stress and no shear stress. Associated with each eigenvector is an eigenvalue. The eigenvalues are often physically significant as well. In the study of vibration, eigenvalues correspond to the resonant frequencies of a structure, and the eigenvectors are the associated mode shapes.
 
 Mathematically we can represent eigenvalues and eigenvectors as follows. Given a matrix $A$ the eigenvector $\overrightarrow{x\ }$ and eigenvalue $\lambda$ must satisfy the relation 
 
@@ -476,14 +478,14 @@ A \cdot x = \lambda\ \  \overrightarrow{x\ }
 \end{equation}
 \myequations{Relation between eigenvalues and eigenvectors.}
 
-For Equation \ref{eq:6.6} to hold, the matrix determinant must satisfy
+\noindent For Equation \ref{eq:6.6} to hold, the matrix determinant must satisfy
 
 \begin{equation}\label{eq:6.7}
 det |A-\lambda I| = 0
 \end{equation}
 \myequations{Condition for Equation \ref{eq:6.6} to hold.}
 
-Expanding this equation yields a $n^{th}$ degree polynomial in $\lambda$ whose roots are the eigenvalues. Thus, there are always $n$ eigenvalues, although they may not be distinct. In general, Equation \ref{eq:6.7} is not solved using polynomial root searching because of poor computational performance. (For matrices of order 3 root searching is acceptable because we can solve for the eigenvalues analytically.) Once we determine the eigenvalues, we can substitute each into Equation \ref{eq:6.7} to solve for the associated eigenvectors.
+\noindent Expanding this equation yields a $n^{th}$ degree polynomial in $\lambda$ whose roots are the eigenvalues. Thus, there are always $n$ eigenvalues, although they may not be distinct. In general, Equation \ref{eq:6.7} is not solved using polynomial root searching because of poor computational performance. (For matrices of order 3 root searching is acceptable because we can solve for the eigenvalues analytically.) Once we determine the eigenvalues, we can substitute each into Equation \ref{eq:6.7} to solve for the associated eigenvectors.
 
 
 \begin{figure}[htb]
@@ -764,7 +766,7 @@ A classical strange attractor was developed by Lorenz in 1963 \cite{Lorenz63}. L
 \end{equation}
 \myequations{Lorenz equations for Navier Stokes partial differential equations for fluid flow.}
 
-where $x$ is proportional to the fluid velocity in the fluid ring, $y$ and $z$z measure the fluid temperature in the plane of the ring, the parameters $\sigma$ and $\rho$ are related  to the Prandtl number and Raleigh number, respectively, and $\beta$ is a geometric factor.
+where $x$ is proportional to the fluid velocity in the fluid ring, $y$ and $z$z measure the fluid temperature in the plane of the ring, the parameters $\sigma$ and $\rho$ are related  to the Prandtl number\index{Prandtl number} and Raleigh number\index{Raleigh number}, respectively, and $\beta$ is a geometric factor.
 
 Certainly these equations are not in the implicit form of Equation \ref{eq:6.11}, so how do we visualize them? Our solution is to treat the variables x, y, and z as the coordinates of a three--dimensional space, and integrate Equation \ref{eq:6.16} to generate the system ``trajectory'', that is, the state of the system through time. The integration is carried out within a volume and scalars are created by counting the number of times each voxel is visited. By integrating long enough, we can create a volume representing the ``surface'' of the strange attractor, Figure \ref{fig:Figure6-25}. The surface of the strange attractor is extracted by using marching cubes and a scalar value specifying the number of visits in a voxel.
 

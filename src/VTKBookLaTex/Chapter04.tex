@@ -187,6 +187,7 @@ We will discuss the control and execution of visualization networks in the next 
 
 \section{Executing the Pipeline}
 \label{sec:executing_pipeline}
+\index{execution|(}
 
 So far we have seen the basic elements of the visualization network and ways to connect these elements together. In this section we discuss how to control the execution of the network.
 
@@ -196,7 +197,7 @@ Most often the visualization network is executed more than once. For example, we
 
 For highest performance, the process objects in the visualization network must execute only if a change occurs to their input. In some networks, as shown in Figure \ref{fig:Figure4-6}, we may have parallel branches that need not execute if objects are modified local to a particular branch. In this figure, we see that object D and the downstream objects E and F must execute because D's input parameter is changed, and objects E and F depend on D for their input. The other objects need not execute because there is no change to their input.
 
-We can control the execution of the network using either a demand--driven\index{demand--driven execution} or event--driven approach. In the demand--driven approach, we execute the network only when output is requested, and only that portion of the network affecting the result. In the event--driven approach, every change to a process object or its input causes the network to re--execute. The advantage of the event driven approach is that the output is always up to date (except during short periods of computation). The advantage of the demand--driven approach is that large numbers of changes can be processed without intermediate computation (i.e., data is processed only after the request for data is received). The demand--driven approach minimizes computation and results in more interactive visualization networks.
+We can control the execution of the network using either a demand--driven\index{demand--driven execution} or event--driven\index{event--driven execution} approach. In the demand--driven approach, we execute the network only when output is requested, and only that portion of the network affecting the result. In the event--driven approach, every change to a process object or its input causes the network to re--execute. The advantage of the event driven approach is that the output is always up to date (except during short periods of computation). The advantage of the demand--driven approach is that large numbers of changes can be processed without intermediate computation (i.e., data is processed only after the request for data is received). The demand--driven approach minimizes computation and results in more interactive visualization networks.
 
 \begin{figure}[!htb]
   \centering
@@ -207,7 +208,7 @@ We can control the execution of the network using either a demand--driven\index{
 The execution of the network requires synchronization between process objects. We want to execute a process object only when all of its input objects are up to date. There are generally two ways to synchronize network execution: explicit or implicit control (Figure \ref{fig:Figure4-7}).
 
 \subsection{Explicit Execution}
-\label{subsec:explicit_execution}
+\label{subsec:explicit_execution}\index{execution!explicit}\index{explicit execution}
 
 Explicit control means directly tracking the changes to the network, and then directly controlling the execution of the process objects based on an explicit dependency analysis. The major characteristic of this approach is that a centralized \emph{executive} is used to coordinate network execution. This executive must track changes to the parameters and inputs of each object, including subsequent changes to the network topology (Figure \ref{fig:Figure4-7a}).
 
@@ -253,7 +254,7 @@ The explicit approach may be either demand-driven or event-driven. In the event-
 The explicit approach with a central executive is typical of many commercial visualization systems such as AVS\index{AVS}, Irix Explorer, and IBM Data Explorer\index{Data Explorer}. Typically these systems use a visual-programming interface to construct the visualization network. Often these systems are implemented on parallel computers, and the ability to distribute computation is essential.
 
 \subsection{Implicit Execution}
-\label{subsec:implicit_execution}
+\label{subsec:implicit_execution}\index{execution!implicitl}
 
 Implicit control means that a process object executes only if its local input or parameters change (Figure 4-7 \ref{fig:Figure4-7b}). Implicit control is implemented using a two-pass process. First, when output is requested from a particular object, that object requests input from its input objects. This process is recursively repeated until source objects are encountered. The source objects then execute if they have changed or their external inputs have changed. Then the recursion unwinds as each process object examines its inputs and determines whether to execute. This procedure repeats until the initial requesting object executes and terminates the process. These two steps are called the \emph{update} and \emph{execution} passes.
 
@@ -271,11 +272,12 @@ The disadvantage of implicit control is that it is harder to distribute network 
 
 \subsection{Conditional Execution}
 \label{subsec:conditional_execution}
-\index{conditional execution}
+\index{conditional execution}\index{execution!conditional}
 
 Another important capability of visualization networks is conditional execution. For example, we may wish to map data through different color lookup tables depending upon the variation of range in the data. Small variations can be amplified by assigning more colors within the data range, while we may compress our color display by assigning a small number of colors to the data range (Figure \ref{fig:Figure4-8}). 
 
 The conditional execution of visualization models (such as that shown Figure \ref{fig:Figure4-1c}) can be realized in principle. However, in practice we must supplement the visualization network with a conditional language to express the rules for network execution. Hence, conditional execution of visualization networks is a function of implementation language. Many visualization systems are programmed using the visual programming style. This approach is basically a visual editor to construct data flow diagrams directly. It is difficult to express conditional execution of networks using this approach. Alternatively, in a procedural programming language, conditional execution of networks is straightforward. We defer discussions of the topic until ``Putting It All Together'' on page \pageref{sec:chap04.putting_it_all_together}.
+\index{execution|)}
 
 \section{Memory and Computation Trade-off}
 \label{sec:memory_computation_trade-off}
@@ -295,7 +297,7 @@ Memory and computation trade-offs are important performance issues when executin
 
 An alternative approach is to save intermediate results only as long as they are needed by other objects. Once these objects finish processing, the intermediate result can be discarded. This approach results in extra computation each time output is requested. The memory resources required are greatly reduced at the expense of increased computation. Like all trade-offs, the proper solution depends upon the particular application and the nature of the computer system executing the visualization network.
 
-We term these two approaches as \emph{static} and \emph{dynamic} memory models. In the static model intermediate data is saved to reduce overall computation. In the dynamic model intermediate data is discarded when it is no longer needed. The static model serves best when small, variable portions of the network reexecute, and when the data sizes are manageable by the computer system. The dynamic model serves best when the data flows are large, or the same part of the network executes each time. Often, it is desirable to combine both the static and dynamic models into the same network. If an entire leg of the network must execute each time, it makes no sense to store intermediate results, since they are never reused. On the other hand, we may wish to save an intermediate result at a branch point in the network, since the data will more likely be reused. A comparison of the static and dynamic memory model for a specific network is shown in Figure \ref{fig:Figure4-9}.
+We term these two approaches as \emph{static} and \emph{dynamic}\index{dynamic memory model} memory models. In the static model intermediate data is saved to reduce overall computation. In the dynamic model intermediate data is discarded when it is no longer needed. The static model serves best when small, variable portions of the network reexecute, and when the data sizes are manageable by the computer system. The dynamic model serves best when the data flows are large, or the same part of the network executes each time. Often, it is desirable to combine both the static and dynamic models into the same network. If an entire leg of the network must execute each time, it makes no sense to store intermediate results, since they are never reused. On the other hand, we may wish to save an intermediate result at a branch point in the network, since the data will more likely be reused. A comparison of the static and dynamic memory model for a specific network is shown in Figure \ref{fig:Figure4-9}.
 
 \begin{figure}[!htb]
   \centering
@@ -433,7 +435,7 @@ In this chapter we saw that readers are source objects, and writers are mappers.
 Examples of readers include vtkSTLReader (read stereo-lithography files) and vtkBYUReader (read MOVIE.BYU format data files). Similarly the objects vtkSTLWriter and vtkBYUWriter can be used to write data files. To see which readers and writers are supported by VTK, see \emph{The VTK User's Guide} or refer to the Web pages at \href{https://www.vtk.org}{https://www.vtk.org} for the current Doxygen manual pages.
 
 \subsubsection{File Interface (Importers / Exporters)}
-\label{subsubsec:file_interface_importers_exporters}
+\label{subsubsec:file_interface_importers_exporters}\index{exporters}\index{exporter!interfacing to data}
 
 \emph{Importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
 

@@ -23,9 +23,9 @@ and access methods. The next two sections address these issues.
 
 \subsection{Characterizing Visualization Data}
 
-Since our aim is to visualize data, clearly we need to know something about the character of the data. This knowledge will help us create useful data models and powerful visualization systems. Without a clear understanding of the data, we risk designing inflexible and limited visualization systems. In the following we describe important characteristics of data. These characteristics are the discrete nature of data, whether it is regular or irregular, and its topological dimension.
+Since our aim is to visualize data, clearly we need to know something about the character of the data. This knowledge will help us create useful data models and powerful visualization systems. Without a clear understanding of the data, we risk designing inflexible and limited visualization systems. In the following we describe important characteristics of data. These characteristics are the discrete nature of data\index{discrete data}, whether it is regular or irregular, and its topological dimension.
 
-First, visualization data is discrete. This is because we use digital computers to acquire, ana lyze, and represent our data, and typically measure or sample information at a finite number of points. Hence, all information is necessarily represented in discrete form. 
+First, visualization data is discrete. This is because we use digital computers to acquire, analyze, and represent our data, and typically measure or sample information at a finite number of points. Hence, all information is necessarily represented in discrete form. 
 
 Consider visualizing the simple continuous function $y = x6 2$. If we are using a conventional digital computer, we must discretize this equation to operate on the data it represents (we are ignoring symbolic/analog computers and methods.) For example, to plot this equation we would sample the function in some interval, say $(-1,1)$, and then compute the value y of the function at a series of discrete points $x = x_i$ in this interval. The resulting points $((x_0,y_0), (x_1,y_1), (x_2,y_2), ... (x_n,y_n))$ connect the points with straight line segments. Thus, our (continuous) data is represented by a discrete sampling.
 
