@@ -284,6 +284,7 @@ Histogram equalization is an algorithm that automatically generates a tailored t
 High-pass filters can also be used to compress the range of an image. Since low frequencies account for much of the dynamic range of an image but carry little information, a high-pass filter can significantly decrease an image's scalar range and emphasize hidden details. The Laplacian filter, which is a second derivative operation, is one implementation of a high-pass filter. It eliminates constant and low frequencies leaving only high-frequency edges. The output of the Laplacian can be subtracted from the original image to produce edge enhancement or sharpening of an image (Figure \ref{fig:Figure10-9}).
 
 \subsection{Frequency Domain}
+\index{frequency domain|(}
 
 \begin{figure}[!htb]
 	\centering
@@ -292,7 +293,7 @@ High-pass filters can also be used to compress the range of an image. Since low 
 	\label{fig:Figure10-10}
 \end{figure}
 
-The Fourier transform belongs to a class of filters that fundamentally change the representation of an image without changing its information. The output of the Fourier transform is in the frequency domain. Each pixel is a complex number describing the contribution of a sinusoidal function to the original image. The magnitude of the pixel encodes the amplitude of the sinusoid, and the orientation of the complex pixel encodes the sinusoid's phase. Each pixel represents a sinusoid with different orientation and frequency. The reverse Fourier transform converts a frequency domain image back to the original spatial domain (Figure \ref{fig:Figure10-10}).
+The Fourier transform\index{Fourier transform}\index{frequency domain!Fourier transform} belongs to a class of filters that fundamentally change the representation of an image without changing its information. The output of the Fourier transform is in the frequency domain. Each pixel is a complex number describing the contribution of a sinusoidal function to the original image. The magnitude of the pixel encodes the amplitude of the sinusoid, and the orientation of the complex pixel encodes the sinusoid's phase. Each pixel represents a sinusoid with different orientation and frequency. The reverse Fourier transform converts a frequency domain image back to the original spatial domain (Figure \ref{fig:Figure10-10}).
 
 Low-pass and high-pass filtering become trivial in the frequency domain. A portion of the pixels are simply masked or attenuated. Figure \ref{fig:Figure10-10} shows a high pass Butterworth filter that attenuates the frequency domain image with the function $H$
 
@@ -333,7 +334,7 @@ The gradual attenuation of the filter is important. The ideal high-pass filter, 
 
 Although any filter that operates in the frequency domain can also be implemented in the spatial domain, some operations are less computationally expensive and easier to implement in the frequency domain. To perform similar filtering of Figure \ref{fig:Figure10-11} in the spatial domain would require convolution with a large kernel and would be slow. In general, convolution with large kernels is more efficient when performed in the frequency domain. Multiplication,$\alpha \beta$, in the frequency domain, is equivalent to convolution,$a \star b$ , in the spatial domain (and vice versa). In these equations, $\alpha$ is the Fourier transform of $a$a, and $\beta$ is the Fourier transform of $b$.
 
-In order to make frequency-domain processing feasible, it is first necessary to minimize the cost of transforming from the spatial to frequency domain and back. There exist fast algorithms that implement the Fourier transform and its inverse. First, the Fourier transform is decomposable, so a 2D transform can be implemented by first taking the 1D Fourier transform of all the rows, and then taking the Fourier transform of all the columns of an image. Second, the complexity of one-dimensional Fourier transforms can be reduced with an algorithm called the fast Fourier transform (FFT). It works by recursively factoring the number samples, $N$, into its prime components. If $N$ is prime and not factorable, then the transform is completed in one step that is order $O(N^2)$ complexity. If $N$ is divisible by two, the array of numbers is divided into two parts that are transformed separately and then combined. If $N$ is a power of two, then the algorithm executes in order $O(N \log N)$ time.
+In order to make frequency-domain processing feasible, it is first necessary to minimize the cost of transforming from the spatial to frequency domain and back. There exist fast algorithms that implement the Fourier transform and its inverse. First, the Fourier transform is decomposable, so a 2D transform can be implemented by first taking the 1D Fourier transform of all the rows, and then taking the Fourier transform of all the columns of an image. Second, the complexity of one-dimensional Fourier transforms can be reduced with an algorithm called the fast Fourier transform (FFT)\index{fast Fourier transform}\index{frequency domain!fast Fourier transform}. It works by recursively factoring the number samples, $N$, into its prime components. If $N$ is prime and not factorable, then the transform is completed in one step that is order $O(N^2)$ complexity. If $N$ is divisible by two, the array of numbers is divided into two parts that are transformed separately and then combined. If $N$ is a power of two, then the algorithm executes in order $O(N \log N)$ time.
 
 For this reason, it is more efficient to process images with sizes that are powers of two (e.g., $512 \times 512$) than other sized images. For non-power of two images it may be faster to pad the image to a size that is a power of two size before processing.
 
@@ -348,6 +349,7 @@ An important point about the discrete Fourier transform is that it treats the im
 
 
 In both of these approaches, a portion of the original image is lost, so only the central portion of an image can be processed. If this is unacceptable, another solution is to double the dimensions of the original image with a mirror-padding filter. The intermediate image is periodic and continuous (Figure \ref{fig:Figure10-12}).
+\index{frequency domain|)}
 
 \subsection {Image Segmentation}
 

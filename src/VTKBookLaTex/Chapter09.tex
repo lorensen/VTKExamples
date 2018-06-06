@@ -778,7 +778,7 @@ To orient edges consistently we use a recursive neighbor traversal. An initial p
 	\caption{Computing feature angles (a) and splitting edges (b).}\label{fig:Figure9-25}
 \end{figure}
 
-A similar traversal method splits sharp edges. A sharp edge is an edge shared by two polygons whose normals vary by a user-specified feature angle. The feature angle between two polygons is the angle between their normals (Figure \ref{fig:Figure9-25a}). When sharp edges are encountered during the recursive traversal, the points along the edge are duplicated, effectively disconnecting the mesh along that edge (Figure \ref{fig:Figure9-25b}). Then, when shared polygon normals are computed later in the process, contributions to the average normal across sharp edges is prevented.
+A similar traversal method splits sharp edges. A sharp edge is an edge shared by two polygons whose normals vary by a user-specified \emph{feature angle}\index{feature angle}. The feature angle between two polygons is the angle between their normals (Figure \ref{fig:Figure9-25a}). When sharp edges are encountered during the recursive traversal, the points along the edge are duplicated, effectively disconnecting the mesh along that edge (Figure \ref{fig:Figure9-25b}). Then, when shared polygon normals are computed later in the process, contributions to the average normal across sharp edges is prevented.
 
 On some computers limitations on recursion depth may become a problem. Polygonal surfaces can consist of millions of polygons, resulting in large recursion depth. As a result, the depth of recursion can be specified by the user. If recursion depth exceeds the specified value, the recursion halts and the polygons on the boundary of the recursion become seeds to begin the process again.
 
@@ -1708,7 +1708,7 @@ vtkActor *lateActor = vtkActor::New();
   lateActor->GetProperty()->SetColor(1.0,0.0,0.0);
 \end{lstlisting}
 
-To demonstrate these ideas we will refer to Figure \ref{fig:Figure9-50}. This is an example of multidimensional financial data. The data reflects parameters associated with monetary loans. In the file financial.txt there are six different variables: TIME\_LATE, MONTHLY\_PAYMENT, UNPAID\_PRINCIPLE, LOAN\_AMOUNT, INTEREST\_RATE, and MONTHLY\_INCOME. (Note: this is simulated data, don't make financial decisions based upon this!)
+To demonstrate these ideas we will refer to Figure \ref{fig:Figure9-50}. This is an example of multidimensional financial data\index{financial visualization!example}. The data reflects parameters associated with monetary loans. In the file financial.txt there are six different variables: TIME\_LATE, MONTHLY\_PAYMENT, UNPAID\_PRINCIPLE, LOAN\_AMOUNT, INTEREST\_RATE, and MONTHLY\_INCOME. (Note: this is simulated data, don't make financial decisions based upon this!)
 
 We will use Gaussian splatting to visualize this data (``Splatting Techniques'' on page \pageref{subsubsec:splatting_techniques}).
 

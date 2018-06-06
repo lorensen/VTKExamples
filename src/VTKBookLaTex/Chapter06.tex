@@ -942,6 +942,7 @@ The convenience object vtkPolyDataAlgorithm has been created to simplify subclas
 \end{figure}
 
 \subsubsection{Filter Design}
+\index{filter object!implementation|(}
 
 Filter objects have one or more inputs and one or more outputs as shown in Figure \ref{fig:Figure6-34}. (You may also refer to ``Pipeline Design and Implementation'' on page \pageref{subsec:pipeline_design_implementation}.) To create Figure \ref{fig:Figure6-35} a filter object, inheritance is used to specify the type of input and output data objects. illustrates this for the concrete source object vtkContourFilter (which implements marching cubes and other contouring techniques). It is worth examining this object diagram in detail since it is the basis for the architecture of the visualization pipeline.
 
@@ -997,6 +998,7 @@ The architecture is simple enough that you can grasp it quickly.
 	\end{subfigure}
 	\caption{Mapper object design. Graphics mapper shown (e.g., vtkPolyDataMapper) maps polygonal data through graphics library primitives. Writer shown (e.g., vtkSTLWriter) writes polygonal data to stereo lithography format.}\label{fig:Figure6-36}
 \end{figure}
+\index{filter object!implementation|)}
 
 \subsubsection{Mapper Design}
 \label{subsubsec:mapper_design}
