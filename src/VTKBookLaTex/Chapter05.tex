@@ -41,7 +41,7 @@ Characterizing data as regular or irregular allows us to make useful assumptions
 
 Finally, data has a topological dimension. In our example $y = x^2$ , the dimension of the data is one, since we have the single independent variable $x$. Data is potentially of any dimension from 0D points, to 1D curves, 2D surfaces, 3D volumes, and even higher dimensional regions.
 
-The dimension of the data is important because it implies appropriate methods for visualization and data representation. For example, in 1D we naturally use x-y plots, bar charts, or pie charts, and store the data as a 1D list of values. For 2D data we might store the data in a matrix, and visualize it with a deformed surface plot (i.e., a height field --- see Exercise 2 on page \pageref{ex:ch04_4.2}).
+The dimension of the data is important because it implies appropriate methods for visualization and data representation. For example, in 1D we naturally use x-y plots, bar charts, or pie charts, and store the data as a 1D list of values. For 2D data we might store the data in a matrix, and visualize it with a deformed surface plot (i.e., a \emph{height field}\index{height field} --- see Exercise 2 on page \pageref{ex:ch04_4.2}).
 
 In this chapter and Chapter 8: \nameref{chap:advanced_data_representation}, we show how these characteristics: discrete, regular/irregular, and data dimension, shape our model of visualization data. Keep these features in mind as you read these chapters.
 
@@ -159,7 +159,7 @@ The polygon may be nonconvex, but may not have internal loops, and it cannot sel
 
 \item[Tetrahedron.\index{cell!tetrahedron}] The tetrahedron is a primary three--dimensional cell. The tetrahedron is defined by a list of four nonplanar points. The tetrahedron has six edges and four triangular faces as shown in Figure \ref{fig:Figure5-2}.
 
-\item[Hexahedron.\index{cell!hexahedron}] The hexahedron is a primary three--dimensional cell consisting of six quadrilateral faces, twelve edges, and eight vertices. The hexahedron is defined by an ordered list of eight points as shown in Figure \ref{fig:Figure5-2}. The faces and edges must not intersect any other faces and edges, and the hexahedron must be convex.
+\item[Hexahedron.\index{cell!hexahedron}\index{hexahedron!interpolation function}\index{hexahedron!parametric coordinates}] The hexahedron is a primary three--dimensional cell consisting of six quadrilateral faces, twelve edges, and eight vertices. The hexahedron is defined by an ordered list of eight points as shown in Figure \ref{fig:Figure5-2}. The faces and edges must not intersect any other faces and edges, and the hexahedron must be convex.
 
 \item[Voxel.\index{cell!voxel}] The voxel is a primary three--dimensional cell. The voxel is topologically equivalent to the hexahedron with additional geometric constraints. Each face of the voxel is perpendicular to one of the coordinate x--y--z axes. The defining point list is ordered in the direction of increasing coordinate value as shown in Figure \ref{fig:Figure5-2}. The voxel is a special case of the hexahedron and is used to improve computational performance.
 
