@@ -533,6 +533,7 @@ Reducing dataset size is an important practical capability, because visualizatio
 We also may need to reduce data size in order to visualize the important features of a large dataset. This can be used to reduce image clutter and improve the effectiveness of the visualization. Smaller data size also enables the visualization user to navigate through and inspect data more quickly relative to larger datasets. Next we describe two techniques to extract data. One is based on geometry extraction, and the other is based on data thresholding, or thresholding.
 
 \subsubsection{Geometry Extraction}
+\index{geometry extraction}
 
 Geometry extraction selects data based on geometric or topological characteristics. A common extraction technique selects a set of points and cells that lie within a specified range of ids. A typical example is selecting all cells having ids between 0-100, or all cells using point ids 250-500. Finite element analysts use this method frequently to isolate the visualization to just a few key regions.
 
@@ -1212,7 +1213,7 @@ There are several approaches available to build topological structure given a ra
 
 Splatting techniques build topological structure by sampling unstructured points into a image dataset (Figure \ref{fig:Figure9-36}). The sampling is performed by creating special influence, or splatting, functions$ SF(x,y,z)$ that distribute the data value of each unstructured point over the surrounding region. To sample the unstructured points, each point is inserted into a image dataset SP, and the data values are distributed through $SP$ using the splatting functions $SF(x,y,z)$. Once the topological structure is built, any image-based visualization technique can be used (including volume rendering).
 
-A common splatting function is a uniform Gaussian distribution centered at a point $p_i$. The function is conveniently cast into the form
+A common splatting function is a uniform Gaussian distribution\index{Gaussian distribution} centered at a point $p_i$. The function is conveniently cast into the form
 
 \begin{equation}\label{eq:9.22}
 \text{SF}(x, y, z) = s\, e^{-f(r/R)^2}
@@ -1386,7 +1387,7 @@ Most multidimensional visualization techniques work with some form of dimension 
 
 One novel approach to multidimensional visualization has been proposed by Inselberg and Dimsdale \cite{Inselberg87}. This approach uses parallel coordinate systems. Instead of plotting points on orthogonal axes, the $i^{th}$ dimensional coordinate of each point is plotted along separate, parallel axes. This is shown in Figure \ref{fig:Figure9-41} for a five-dimensional point. In parallel coordinate plots, points appear as lines. As a result, plots of n-dimensional points appear as sequences of line segments that may intersect or group to form complex fan patterns. In so doing, the human pattern recognition capability is engaged. Unfortunately, if the number of points becomes large, and the data is not strongly correlated, the resulting plots can become a solid mass of black, and any data trends are drowned in the visual display.
 
-Another useful multivariable technique uses glyphs. This technique associates a portion of the glyph with each variable. Although glyphs cannot generally be designed for arbitrary n-dimensional data, in many applications we can create glyphs to convey the information we are interested in. Refer to ``Glyphs'' on page \pageref{subsec:glyphs} for more information about glyphs.
+Another useful multivariable technique uses glyphs\index{glyph!multidimensional}. This technique associates a portion of the glyph with each variable. Although glyphs cannot generally be designed for arbitrary n-dimensional data, in many applications we can create glyphs to convey the information we are interested in. Refer to ``Glyphs'' on page \pageref{subsec:glyphs} for more information about glyphs.
 
 \subsection{Texture Algorithms}
 \label{subsec:texture_algorithms}
@@ -1396,7 +1397,7 @@ Texturing is a common tool in computer graphics used to introduce detail without
 
 \subsubsection{Texture Thresholding}
 
-We saw earlier how to threshold data based on scalar values (see ``Thresholding'' on page \pageref{subsubsec:thresholding}). We refer to this approach as \emph{geometric thresholding} because structural components of a dataset (e.g., points and cells) are extracted based on data value. In contrast, we can use texture mapping techniques to achieve similar results. We call this technique \emph{texture thresholding}.
+We saw earlier how to threshold data based on scalar values (see ``Thresholding'' on page \pageref{subsubsec:thresholding}). We refer to this approach as \emph{geometric thresholding} because structural components of a dataset (e.g., points and cells) are extracted based on data value. In contrast, we can use texture mapping techniques to achieve similar results\index{geometric thresholding!versus texture thresholding}. We call this technique \emph{texture thresholding}.
 
 Texture thresholding conceals features we do not want to see and accentuates features that we want to see. There are many variations on this theme. A feature can be concealed by making it transparent or translucent, by reducing its intensity, or using muted colors. A feature can be accentuated by making it opaque, increasing its intensity, or adding bright color. In the following paragraphs we describe a technique that combines intensity and transparency.
 

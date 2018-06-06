@@ -102,7 +102,7 @@ Noise and other artifacts are inherent in all methods of data acquisition. Since
 	\caption{Low-pass filters can be implemented as convolution with a Gaussian kernel. The Gaussian kernel displayed on top has been magnified for this figure.}\label{fig:Figure10-2}
 \end{figure}
 
-A simple implementation of a low-pass smoothing filter is convolution\index{convolution} with a kernel with all positive values. The typical kernels used for smoothing are either constant across a circular neighborhood, or have a Gaussian profile (see Figure \ref{fig:Figure10-2}). Gaussian smoothing results in better-looking images than smoothing with constant kernels, but can be more computationally expensive because of the large kernel size necessary to capture the Gaussian profile. Smoothing becomes even more expensive when it is generalized to three-dimensional datasets, and three-dimensional kernels.
+A simple implementation of a low-pass smoothing filter is convolution\index{convolution} with a kernel with all positive values. The typical kernels used for smoothing are either constant across a circular neighborhood, or have a Gaussian profile (see Figure \ref{fig:Figure10-2}). Gaussian smoothing\index{Gaussian smoothing} results in better-looking images than smoothing with constant kernels, but can be more computationally expensive because of the large kernel size necessary to capture the Gaussian profile. Smoothing becomes even more expensive when it is generalized to three-dimensional datasets, and three-dimensional kernels.
 
 One way to speed Gaussian smoothing is to decompose the filter into two 1D convolutions. Since the 2D Gaussian function is separable,
 
@@ -495,7 +495,7 @@ F(x, y) = \sin\left(\frac{x}{10}\right) + \sin\left(\dfrac{y}{10}\right)
 Note that direct pointer access is used to fill the image. The AllocateScalars() method allocates enough memory for the dimensions provided.
 
 \subsection{Gradient Magnitude}
-
+\index{gradient magnitude!example}
 
 \begin{figure}[htb]
     \centering
