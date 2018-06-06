@@ -58,10 +58,12 @@ different visualization techniques are then used. On the left, we generate 3D su
 
 \subsection{The Functional Model}
 \label{subsec:the_functional_model}
+\index{functional model!in visualization|(}
 
-The functional model in Figure \ref{fig:Figure4-1b} illustrates the steps to create the visualization. The oval blocks indicate operations (processes) we performed on the data, and the rectangular blocks represent data stores (objects) that represent and provide access to data. Arrows indicate the direction of data movement. Arrows that point into a block are inputs; data flowing out of a block indicate outputs. The blocks also may have local parameters that serve as additional input. Processes that create data with no input are called data \emph{source} objects, or simply sources. Processes that consume data with no output are called \emph{sinks} (the are also called \emph{mappers} because these processes map data to a final image or output). Processes with both an input and an output are called \emph{filters}.
+The functional model in Figure \ref{fig:Figure4-1b} illustrates the steps to create the visualization. The oval blocks indicate operations (processes) we performed on the data, and the rectangular blocks represent data stores (objects) that represent and provide access to data. Arrows indicate the direction of data movement. Arrows that point into a block are inputs; data flowing out of a block indicate outputs. The blocks also may have local parameters that serve as additional input. Processes that create data with no input are called data \emph{source} objects, or simply sources. Processes that consume data with no output are called \emph{sinks} (the are also called \emph{mappers} because these processes map data to a final image or output). Processes with both an input and an output are called \emph{filters}\index{filter object}.
 
-The functional model shows how data flows through the system. It also describes the depen-dency of the various parts upon one another. For any given process to execute correctly, all the inputs must be up to date. This suggests that functional models require a synchronization mechanism to insure that the correct output will be generated.
+The functional model shows how data flows through the system. It also describes the dependency of the various parts upon one another. For any given process to execute correctly, all the inputs must be up to date. This suggests that functional models require a synchronization mechanism to insure that the correct output will be generated.
+\index{functional model!in visualization|)}
 
 \subsection{The Visualization Model}
 \label{subsec:the_visualization_model}
@@ -121,7 +123,7 @@ Process objects are further characterized as \emph{source objects}, \emph{filter
 
 Source objects interface to external data sources or generate data from local parameters. Source objects that generate data from local parameters are called \emph{procedural objects}. The previous example of Figure \ref{fig:Figure4-1} uses a procedural object to generate function values for the quadric function of Equation \ref{eq:4.1}. Source objects that interface to external data are called \emph{reader} objects since the external file must be read and converted to an internal form. Source objects may also interface to external data communication ports and devices. Possible examples include simulation or modelling programs, or data acquisition systems to measure temperature, pressure, or other similar physical attributes.
 
-Filter objects require one or more input data objects and generate one or more output data objects. Local parameters control the operation of the process object. Computing weekly stock market averages, representing a data value as a scaled icon, or performing union set operations on two input data sources are typical example processes of filter objects.
+Filter objects\index{filter object} require one or more input data objects and generate one or more output data objects. Local parameters control the operation of the process object. Computing weekly stock market averages, representing a data value as a scaled icon, or performing union set operations on two input data sources are typical example processes of filter objects.
 
 Mapper\index{device!mapper} objects correspond to the sinks in the functional model. Mapper objects require one or more input data objects and terminate the visualization pipeline data flow. Usually mapper objects are used to convert data into graphical primitives, but they may write out data to a file or interface with another software system or devices. Mapper objects that write data to a computer file are termed \emph{writer}\index{device!writer} objects.
 
@@ -160,7 +162,7 @@ There are two general approaches to maintain proper input type. One approach is 
 
 Another approach to maintain proper input type is to design typed systems. In typed systems only objects of compatible type are allowed to be connected together. That is, more than one type is designed, but type checking is performed on the input to insure proper connection. Depending on the particular computer language, type checking can be performed at compile, link, or run time. Although type checking does insure correct input type, this approach often suffers from an explosion of types. If not careful, the designers of a visualization system may create too many types, resulting in a fragmented, hard to use and understand system. In addition, the system may require a large number of \emph{type-converter} filters. (Type-converter filters serve only to transform data from one form to another.) Carried to extremes, excessive type conversion results in computationally and memory wasteful systems.
 
-The issue of multiplicity deals with the number of input data objects allowed, and the number of output data objects created during the operation of a process object (Figure \ref{fig:Figure4-4}). We know that all filter and mapper objects require at minimum one input data object, but in general these filters can operate sequentially across a list of input. Some filters may naturally require a specific number of inputs. A filter implementing boolean operations is one example. Boolean operations such as union or intersection are implemented on data values two at a time. However, even here more than two inputs may be defined as a recursive application of the operation to each input.
+The issue of multiplicity deals with the number of input data objects allowed, and the number of output data objects created during the operation of a process object (Figure \ref{fig:Figure4-4}). We know that all filter and mapper objects require at minimum one input data object, but in general these filters can operate sequentially across a list of input\index{fan--in}. Some filters may naturally require a specific number of inputs. A filter implementing boolean operations is one example. Boolean operations such as union or intersection are implemented on data values two at a time. However, even here more than two inputs may be defined as a recursive application of the operation to each input.
 
 \begin{figure}[!htb]
   \centering
@@ -168,7 +170,7 @@ The issue of multiplicity deals with the number of input data objects allowed, a
   \caption{Multiplicity of input and output. (a) Definition of source, filter, and mapper objects. (b) Various types of input and output.}\label{fig:Figure4-4}
 \end{figure}
 
-We need to distinguish what is meant by multiplicity of output. Most sources and filters generate a single output. Multiple fan-out occurs when an object generates an output that is used for input by more than one object. This would occur, for example, when a source object is used to read a data file, and the resulting data is used to generate a wireframe outline of the data, plus contours of the data (e.g., Figure \ref{fig:Figure4-1a}). Multiple output occurs when an object generates two or more output data objects. An example of multiple output is generating x, y, and z components of a gradient function as distinct data objects. Combinations of multiple fan-out and multiple output are possible.
+We need to distinguish what is meant by multiplicity of output. Most sources and filters generate a single output. \emph{Multiple fan-out}\index{fan--out} occurs when an object generates an output that is used for input by more than one object. This would occur, for example, when a source object is used to read a data file, and the resulting data is used to generate a wireframe outline of the data, plus contours of the data (e.g., Figure \ref{fig:Figure4-1a}). Multiple output occurs when an object generates two or more output data objects. An example of multiple output is generating x, y, and z components of a gradient function as distinct data objects. Combinations of multiple fan-out and multiple output are possible.
 
 \subsection{Loops}
 \label{subsec:loops}
@@ -208,7 +210,8 @@ We can control the execution of the network using either a demand--driven\index{
 The execution of the network requires synchronization between process objects. We want to execute a process object only when all of its input objects are up to date. There are generally two ways to synchronize network execution: explicit or implicit control (Figure \ref{fig:Figure4-7}).
 
 \subsection{Explicit Execution}
-\label{subsec:explicit_execution}\index{execution!explicit}\index{explicit execution}
+\label{subsec:explicit_execution}
+\index{execution!explicit|(}\index{explicit execution|(}
 
 Explicit control means directly tracking the changes to the network, and then directly controlling the execution of the process objects based on an explicit dependency analysis. The major characteristic of this approach is that a centralized \emph{executive} is used to coordinate network execution. This executive must track changes to the parameters and inputs of each object, including subsequent changes to the network topology (Figure \ref{fig:Figure4-7a}).
 
@@ -252,9 +255,11 @@ The explicit approach may be either demand-driven or event-driven. In the event-
 
 
 The explicit approach with a central executive is typical of many commercial visualization systems such as AVS\index{AVS}, Irix Explorer, and IBM Data Explorer\index{Data Explorer}. Typically these systems use a visual-programming interface to construct the visualization network. Often these systems are implemented on parallel computers, and the ability to distribute computation is essential.
+\index{execution!explicit|)}\index{explicit execution|)}
 
 \subsection{Implicit Execution}
-\label{subsec:implicit_execution}\index{execution!implicitl}
+\label{subsec:implicit_execution}
+\index{execution!implicit|(}
 
 Implicit control means that a process object executes only if its local input or parameters change (Figure 4-7 \ref{fig:Figure4-7b}). Implicit control is implemented using a two-pass process. First, when output is requested from a particular object, that object requests input from its input objects. This process is recursively repeated until source objects are encountered. The source objects then execute if they have changed or their external inputs have changed. Then the recursion unwinds as each process object examines its inputs and determines whether to execute. This procedure repeats until the initial requesting object executes and terminates the process. These two steps are called the \emph{update} and \emph{execution} passes.
 
@@ -269,14 +274,16 @@ Implicit network execution is naturally implemented using \emph{demand-driven} c
 The primary advantage of the implicit control scheme is its simplicity. Each object only need keep track of its internal modification time. When output is requested, the object compares its modification time with that of its inputs, and executes if out of date. Furthermore, process objects need only know about their direct input, so no global knowledge of other objects (such as a network executive) is required.
 
 The disadvantage of implicit control is that it is harder to distribute network execution across computers or to implement sophisticated execution strategies. One simple approach is to create a queue that executes process objects in order of network execution (possibly in a distributed fashion). Of course, once a central object is introduced back into the system, the lines between implicit and explicit control are blurred.
+\index{execution!implicit|)}
 
 \subsection{Conditional Execution}
 \label{subsec:conditional_execution}
-\index{conditional execution}\index{execution!conditional}
+\index{conditional execution|(}\index{execution!conditional|(}
 
 Another important capability of visualization networks is conditional execution. For example, we may wish to map data through different color lookup tables depending upon the variation of range in the data. Small variations can be amplified by assigning more colors within the data range, while we may compress our color display by assigning a small number of colors to the data range (Figure \ref{fig:Figure4-8}). 
 
 The conditional execution of visualization models (such as that shown Figure \ref{fig:Figure4-1c}) can be realized in principle. However, in practice we must supplement the visualization network with a conditional language to express the rules for network execution. Hence, conditional execution of visualization networks is a function of implementation language. Many visualization systems are programmed using the visual programming style. This approach is basically a visual editor to construct data flow diagrams directly. It is difficult to express conditional execution of networks using this approach. Alternatively, in a procedural programming language, conditional execution of networks is straightforward. We defer discussions of the topic until ``Putting It All Together'' on page \pageref{sec:chap04.putting_it_all_together}.
+\index{conditional execution|)}\index{execution!conditional|)}
 \index{execution|)}
 
 \section{Memory and Computation Trade-off}
@@ -358,7 +365,7 @@ Streaming data through a visualization pipeline offers two major benefits. The f
 
 Separating data into pieces is relatively straightforward if the data is structured, i.e., topologically regular (see ``Types of Datasets'' on page \pageref{sec:types_of_datasets}). Such datasets can be topological described by a rectangular extent in a regularly $x-y-z$ subdivided cubical domain (see Figures \ref{fig:Figure5-7}(a)-(c)). However, if the data is unstructured (e.g. a mesh of triangles or polygons), then specifying pieces is difficult. Generally an unstructured extent is defined by grouping adjacent data (e.g., cells) into pieces, and then addressing each piece using a $N$ of $M$ notation, where $N$ is the $n$-th piece out of a total of $M$ pieces. The exact organizational structure of a piece is left unspecified and depends on the particular application and algorithm used to group the data.
 
-To satisfy the third requirement of results invariancy, processing pieces also requires the abiity to generate boundary data, or \emph{ghost levels}. Boundary information is necessary when information from the neighbors of a piece is needed to perform a computation. For example, gradient calculations or boundary analysis (e.g., do I have a cell face neighbor?) require one level of boundary information. In rare cases, two or more levels are required. Figure \ref{fig:Figure4-11} illustrates boundary cells and points corresponding to the central red piece of the sphere.
+To satisfy the third requirement of results invariancy, processing pieces also requires the ability to generate boundary data, or \emph{ghost levels}\index{ghost levels!pipeline!ghost levels}. Boundary information is necessary when information from the neighbors of a piece is needed to perform a computation. For example, gradient calculations or boundary analysis (e.g., do I have a cell face neighbor?) require one level of boundary information. In rare cases, two or more levels are required. Figure \ref{fig:Figure4-11} illustrates boundary cells and points corresponding to the central red piece of the sphere.
 
 Finally, it should be noted that the ability to divide data into pieces for streaming is exactly the same capability required for data parallel processing. In such methods, data is subdivided and sent to different processors to be operated on in parallel. Boundary information may also be required to perform certain computations. Parallel processing has the added complexity that the data must be communicated to processors (in the case of distributed computing) or mutual exclusion (i.e., mutexing) must be employed to avoid simultaneous write operations. Thus streaming and parallel processing are complementary technologies used in large data computing.
 
@@ -435,7 +442,8 @@ In this chapter we saw that readers are source objects, and writers are mappers.
 Examples of readers include vtkSTLReader (read stereo-lithography files) and vtkBYUReader (read MOVIE.BYU format data files). Similarly the objects vtkSTLWriter and vtkBYUWriter can be used to write data files. To see which readers and writers are supported by VTK, see \emph{The VTK User's Guide} or refer to the Web pages at \href{https://www.vtk.org}{https://www.vtk.org} for the current Doxygen manual pages.
 
 \subsubsection{File Interface (Importers / Exporters)}
-\label{subsubsec:file_interface_importers_exporters}\index{exporters}\index{exporter!interfacing to data}
+\label{subsubsec:file_interface_importers_exporters}
+\index{exporters|(}\index{exporter!interfacing to data|(}
 
 \emph{Importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
 
@@ -475,6 +483,7 @@ In the \emph{Visualization Toolkit}, there are several importers and exporters. 
 \end{figure}
 
 Figure \ref{fig:Figure4-13} shows an image created from a \emph{3D Studio} model and saved as a \emph{Renderman} RIB file.
+\index{exporters|)}\index{exporter!interfacing to data|)}
 
 \subsection{Application Interface}
 \label{subsec:application_interface}
@@ -542,7 +551,7 @@ The next figure, Figure \ref{fig:Figure4-16}, shows the relationship between the
 
 This leads us to the method of making connections between filters and data objects to form a visualization pipeline. As is evident from the previous figures, the \emph{Visualization Toolkit} pipeline architecture has been designed to support multiple inputs and outputs. In practice, you will find that most filters and sources actually generate a single output and filters accept a single input. This is because most algorithms tend to be single input/output in nature. There are exceptions and we will describe some of these shortly. However, first we would like to provide a brief history lesson relative to the evolution of VTK's pipeline architecture. This lesson is instructive because it sheds light on the evolution of the pipeline design in response to new requirements.
 
-Prior to VTK 5.0. In earlier versions of VTK (i.e., prior to version 5.0), the visualization pipeline architecture was accurately depicted by Figure \ref{fig:Figure4-15}. In this figure, which shows how filters and data objects were connected to form a visualization network, the input data was represented by the Input instance variable and was set using the SetInput() method. The output data was represented by the Output instance variable and was accessed using the GetOutput() method. To connect filters together, the C++ statement
+Prior to VTK 5.0. In earlier versions of VTK (i.e., prior to version 5.0), the visualization pipeline architecture was accurately depicted by Figure \ref{fig:Figure4-15}. In this figure, which shows how filters and data objects were connected to form a visualization network, the input data was represented by the Input instance variable and was set using the SetInput() method. The output data was represented by the Output instance variable and was accessed using the GetOutput()\index{GetOutput()} method. To connect filters together, the C++ statement
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 filter2->SetInput(filter1->GetOutput()); //Prior to VTK5.0
@@ -569,6 +578,8 @@ was typically used with filter1 and filter2 filter objects of compatible type. I
 For this, and other reasons related to parallel processing, the original VTK pipeline design was reworked. While the transition was difficult, such changes are often necessary if a software system is to change and grow with advances in technology.
 
 \textbf{VTK 5.0 and Beyond}. While VTK 5.0 still supports the use of SetInput()/GetOutput(), its use in Figure \ref{fig:Figure4-16} and Figure \ref{fig:Figure4-17} is discouraged. Rather, the newer pipeline architecture should be used. Referring to Figure \ref{fig:Figure4-17}, we use connections and ports to configure VTK's visualization pipeline:
+
+\index{GetOutputPort()}
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 filter2->SetInput(filter1->GetOutputPort()); // VTK5.0
@@ -894,7 +905,7 @@ The visualization process is naturally modelled using a combination of functiona
 \section{Bibliographic Notes}
 \label{Ch04BibNotes}
 
-The practical way to learn about the visualization process is to study commercially available systems. These systems can be categorized as either direct visual programming environments or as applications. Common visual programming systems include AVS\index{AVS} \cite{AVS89}, Iris Explorer \cite{IrisExplorer}, IBM Data Explorer\index{Data Explorer} \cite{DataExplorer}, apE\index{apE} \cite{apE90}, and Khoros \cite{Rasure91}. Application systems generally provide less flexibility than visual programming systems, but are better tailored to a particular problem domain. PLOT3D \cite{PLOT3D} is an early example of a tool for CFD visualization. This has since been superseded by FAST \cite{FAST90}. FieldView is another popular CFD visualizer \cite{FieldView91}. VISUAL3 \cite{VISUAL3} is a general tool for unstructured or structured grid visualization. PV-WAVE\index{PV-WAVE} \cite{Charal90} can be considered a hybrid system, since it has both simple visual programming techniques to interface to data files as well as a more structured user-interface than the visual programming environments. Wavefront's Data Visualizer\index{Data Visualizer} \cite{DataVisualizer} is a general--purpose visualization tool. It is unique in that it is part of a powerful rendering and animation package. A nice system for visualizing 3D gridded data (such as that produced by numerical weather models) is VIS5D. Find out more at the \href{http://www.ssec.wisc.edu/\~billh/vis5d.html}{VIS5D Web site}).
+The practical way to learn about the visualization process is to study commercially available systems. These systems can be categorized as either direct visual programming environments or as applications. Common visual programming systems include AVS\index{AVS} \cite{AVS89}, Iris Explorer \cite{IrisExplorer}, IBM Data Explorer\index{Data Explorer} \cite{DataExplorer}, apE\index{apE} \cite{apE90}, and Khoros \cite{Rasure91}. Application systems generally provide less flexibility than visual programming systems, but are better tailored to a particular problem domain. PLOT3D \cite{PLOT3D} is an early example of a tool for CFD visualization. This has since been superseded by FAST\index{FAST} \cite{FAST90}. FieldView\index{FieldView} is another popular CFD visualizer \cite{FieldView91}. VISUAL3 \cite{VISUAL3} is a general tool for unstructured or structured grid visualization. PV-WAVE\index{PV-WAVE} \cite{Charal90} can be considered a hybrid system, since it has both simple visual programming techniques to interface to data files as well as a more structured user-interface than the visual programming environments. Wavefront's Data Visualizer\index{Data Visualizer} \cite{DataVisualizer} is a general--purpose visualization tool. It is unique in that it is part of a powerful rendering and animation package. A nice system for visualizing 3D gridded data (such as that produced by numerical weather models) is VIS5D. Find out more at the \href{http://www.ssec.wisc.edu/\~billh/vis5d.html}{VIS5D Web site}).
 
 Although many visualization systems claim to be object--oriented, this is often more in appearance than implementation. Little has been written on object--oriented design issues for visualization. \cite{VISAGE92} presents an architecture similar to that described in this chapter. Favre \cite{Favre94} describes a more conventional object--oriented approach. His dataset classes are based on topological dimension and both data and methods are combined into classes.
 

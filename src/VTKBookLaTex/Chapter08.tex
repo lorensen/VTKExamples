@@ -40,16 +40,16 @@ Figure \ref{fig:Figure8-1} shows the relationship between the global and dataset
 
 
 \subsection{Global Coordinate System}
-\index{coordinate system!global}
+\index{coordinate system!global|(}\index{global coordinate system|(}
 
 The global coordinate system is a Cartesian, three-dimensional space. Each point is expressed as a triplet of values $(x,y,z)$ along the $x$, $y$, and $z$ axes.
 This is the same system that was described in Chapter 3: \nameref{chap:computer_graphics_primer} (see \ref{sec:coordinate_systems}).
 The global coordinate system is always used to specify dataset geometry (i.e., the point coordinates),and data attributes such as normals and vectors.
 We will use the word ``position'' to indicate that we are using global coordinates.
+\index{coordinate system!global|)}\index{global coordinate system|)}
 
 \subsection{Dataset Coordinate System}
-\index{coordinate system!dataset}
-\index{dataset!coordinate system}
+\index{coordinate system!dataset|(}\index{dataset!coordinate system|(}
 
 The dataset, or local, coordinate system is based on combined topological and geometric coordinates. The topological coordinate is used to identify a particular cell (or possibly a subcell), and the geometric coordinate is used to identify a particular location within the cell. Together they uniquely specify a location in the dataset. Here we will use the word ``location'' to refer to local or dataset coordinates.
 
@@ -69,10 +69,11 @@ where the parametric coordinate $r$ is constrained between $(0,1)$. In this equa
 The number of parametric coordinates corresponds to the topological dimension of the cell. Three-dimensional cells will be characterized by the three parametric coordinates $(r, s, t)$. For cells of topological order less than three, we will ignore the last $(3 - n)$ parametric coordinates, where $n$ is the topological order of the cell. For convenience and consistency, we also will constrain each parametric coordinate to range between $(0,1)$.
 
 Every cell type will have its own parametric coordinate system. Later in this chapter we will describe the parametric coordinate systems in detail. But first we will examine another coordinate system, the structured coordinate system.
+\index{coordinate system!dataset|)}\index{dataset!coordinate system|)}
 
 \subsection{Structured Coordinate System}
 \label{subsec:structured_coordinate_system}
-\index{coordinate system!structured}
+\index{coordinate system!structured|(}
 
 Many dataset types are structured. This includes image data and structured grids. Because of their inherent structure, they have their own natural coordinate system. This coordinate system is based on the $i-j-k$ indexing scheme that we touched on in Chapter 5: \nameref{chap:basic_data_representation} (see``Image Data'' on page \pageref{subsec:image_data}).
 
@@ -93,6 +94,7 @@ with $0 \leq i_p \leq n_x, 0 \leq j_p \leq n_y, 0 \leq k_p \leq n_z$. (We can us
 \myequations{Obtaining a cell id.}
 
 Here we've taken into account that there are one fewer cells along each topological axes than there are points.
+\index{coordinate system!structured|)}
 \index{coordinate system|)}
 
 \section{Interpolation Functions}
@@ -787,11 +789,11 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
 	\label{fig:Figure8-23}
 \end{wrapfigure}
 
-As briefly introduced in Chapter 5, nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically only quadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework\index{cell!adaptor framework} (see Figure \ref{fig:Figure8-23}) that enables users to interface their own simulation system to the visualization system \cite{Schroeder06}. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet and GenericAdaptorCell). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho--rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
+As briefly introduced in Chapter 5, nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically only quadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework\index{cell!adaptor framework} (see Figure \ref{fig:Figure8-23}) that enables users to interface their own simulation system to the visualization system \cite{Schroeder06}. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet\index{GenericDataSet} and GenericAdaptorCell\index{GenericAdaptorCell}). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho--rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
 
 \subsection{Basic Approach}
 
-The basic approach is to dynamically tessellate the cells of the GenericDataSet, and then operate on the resulting linear tessellation. As expressed in pseudo-code, a typical algorithm looks like this:
+The basic approach is to dynamically tessellate the cells of the GenericDataSet\index{GenericDataSet}, and then operate on the resulting linear tessellation. As expressed in pseudo-code, a typical algorithm looks like this:
 
 \begin{lstlisting}[caption={}, numbers=none, frame=none]
 for each cell c to be processed
@@ -856,7 +858,7 @@ The algorithm described above is adaptive because edge splitting is controlled b
 
 Our design allows for the definition of multiple error measures. As indicated in Equation 8-7, the error metric consists of several error measures, each of which evaluates local properties of the edge against the linear approximation, and compares the measure against a user-specified threshold. If any measure exceeds the threshold, then the edge is subdivided. These error measures may evaluate geometric properties, approximation to solution attributes, or error related to the current view, among other possibilities. Error measures based on geometry or attributes are independent of view and the mesh requires only one initial tessellation.
 
-The following paragraphs describes several error measures that have been found to be useful in practice. Since the tessellator is designed to process a list of error measures, it is straightforward to add new ones (by deriving from the GenericSubdivisionErrorMetric class) and/or combine it with existing error measures.
+The following paragraphs describes several error measures that have been found to be useful in practice. Since the tessellator is designed to process a list of error measures, it is straightforward to add new ones (by deriving from the GenericSubdivisionErrorMetric\index{GenericSubdivisionErrorMetric} class) and/or combine it with existing error measures.
 \begin{description}
 
     \item [\textit{Object-Based Geometric Error Measure.}] Referring to Figure \ref{fig:Figure8-25}(left), this error measure is the perpendicular distance, $d$, from the edge center point $C$ to the straight line passing through the cell edge vertices ($A$ and $B$). Note that $d$ is computed in world coordinates, but $C$ is computed by evaluation at the parametric center of the edge. The perpendicular distance is used rather than the distance between $C$ and $D$ because if $C$ lies on $(AB)$ but is not coincident with $D$ the error is non-zero, resulting in many useless edge subdivisions.
@@ -893,7 +895,7 @@ To address this problem, a pre-triangulation of the basis must be performed. The
 Coordinate transformation is a common visualization operation. This may be either transformation from dataset coordinates to global coordinates, or global coordinates to dataset coordinates.
 
 \subsection{Dataset to Global Coordinates}
-\index{coordinate transformation!dataset to global}
+\index{coordinate transformation!dataset to global|(}
 
 Transforming between dataset coordinates and global coordinates is straightforward. We start by identifying a primary cell using the cell id and sub-id. Then the global coordinates are generated from the parametric coordinates by using the interpolation functions of Equation \ref{eq:8.4}. Given cell points $p_i = p_i(x_i, y_i, z_i)$ the global coordinate $p$ is simply
 
@@ -905,9 +907,10 @@ p = \sum_{i = 0}^{n - 1} W_i(r_0, s_0, t_0)\, p_i
 where the interpolation weights $W_i$i are evaluated at the parametric coordinate $(r_0, s_0, t_0)$.
 
 In the formulation presented here, we have used the same order interpolation functions for both data and cell geometry. (By order we mean the polynomial degree of the interpolating polynomials.) This is termed iso--parametric interpolation. It is possible to use different interpolation functions for geometry and data. Super--parametric interpolation is used when the order of the interpolation functions for geometry is greater than those used for data. Sub-parametric interpolation is used when the order of the interpolation functions for geometry is less than those used for data. Using different interpolation functions is commonly used in numerical analysis techniques such as the finite element method. We will always use the iso--parametric interpolation for visualization applications.
+\index{coordinate transformation!dataset to global|)}
 
 \subsection{Global to Dataset Coordinates}
-\index{coordinate transformation!global to dataset}
+\index{coordinate transformation!global to dataset|(}
 
 Global to dataset coordinate transformations are expensive compared to dataset to global transformations. There are two reasons for this. First, we must identify the particular cell $C_i$ that contains the global point p. Second, we must solve Equation \ref{eq:8.4} for the parametric coordinates of $p$.
 
@@ -990,6 +993,7 @@ h_i
 \myequations{Using iteration to solve for the parametric coordinates.}
 
 Fortunately, Newton's method converges quadratically (if it converges) and the interpolation functions that we have presented here are well behaved. In practice, Equation \ref{eq:8.12} converges in just a few iterations.
+\index{coordinate transformation!global to dataset|)}
 \index{coordinate transformation|)}
 
 \section{Computing Derivatives}
@@ -1273,7 +1277,7 @@ We have two options when applying spatial search structures. We may insert point
 Inserting points into a search structure is easier because points can be uniquely placed into a bucket. Inserting points also allows us to search for both points and cells. Cells can be found by using $p$ to index into the appropriate bucket. The closest point(s) $p_i$ to $p$ are then located. Using the topological adjacency operator to retrieve the cells using points $p_i$i, we can then search these cells for the cell containing $p$. This procedure must be used with caution, however, since the closest points may not be used by the cells containing $p$ (Figure\ref{fig:Figure8-30}).
 
 \section{Cell / Line Intersection}
-\index{cell!intersection with line}
+\index{cell!intersection with line|(}
 
 An important geometric operation is intersection of a line with a cell. This operation can be used to interactively select a cell from the rendering window, to perform ray-casting for rendering, or to geometrically query data.
 
@@ -1416,9 +1420,10 @@ An important geometric operation is intersection of a line with a cell. This ope
 In the \emph{Visualization Toolkit} each cell must be capable of intersecting itself against a line. Figure \ref{fig:Figure8-31} summarizes these operations for the nine linear primary cell types supported by VTK. (Intersections on composite cells are implemented by intersecting each primitive cell in turn). Note that the procedure for intersecting higher order cells is the same.
 
 Line/cell intersection for 0D, 1D, and 2D cells follows standard approaches. Intersection against 3D cells is difficult. This is because the surfaces of these cells are described parametrically and are not necessarily planar. For example, to intersect a line with a tetrahedron, we can intersect the line against the four triangular faces of the tetrahedron. Hexahedron, however, may have non-planar faces. Thus, we cannot intersect the line against six quadrilateral, planar faces. Instead, we use line/face intersection as an initial guess, and project the intersection point onto the surface of the cell. This produces an approximate result, but is accurate enough for most applications.
+\index{cell!intersection with line|)}
 
 \section{Scalars and Colors}
-\index{color!as scalar data}
+\index{color!as scalar data|(}
 
 There is a close correspondence between scalar data and colors. We touched on this in ``Color Mapping'' on page \pageref{subsec:color_mapping}, where we saw how to use a color table to map scalar values into a color specification (i.e., red, green, blue, and alpha, or RGBA). There are cases, however, when we want to circumvent this mapping process. Such cases occur when color data is supplied instead of scalar data.
 
@@ -1439,6 +1444,7 @@ Y = A(0.30 R + 0.59 G + 0.11 B)
 \myequations{RGBA luminance.}
 
 Using this abstraction allows us to treat single--valued scalars and scalars consisting of multivalued colors the same. The end result is that we can mix both types of scalar data into our visualization networks.
+\index{color!as scalar data|)}
 
 \section{Special Techniques for Image Data}
 \label{sec:special_techniques_for_image_data}
@@ -1807,7 +1813,7 @@ A better solution to this problem is to traverse each cell as before, but only p
 To illustrate this process consider visiting the edges of a triangle mesh. We begin by visiting the first triangle, $t$, and then its edges. For each edge we determine the adjacent triangle(s) (if any) that use the edge. If the id of the adjacent triangle(s) is greater than triangle $t$'s id, or there are no adjacent triangles, then we know to process the current edge. (Of course the first triangle will always have the smallest id  --- but this will change as the traversal proceeds.) We then continue traversing the triangle list for new $t$'s. In this way all the edges of the mesh will be visited.
 
 \subsection{Color Scalar Data}
-\index{color!as scalar data!implementation}
+\index{color!as scalar data!implementation|(}
 
 Multivalued scalar data, or scalars represented by various color representations, are treated specially by the \emph{Visualization Toolkit}. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See ``Color Mapping'' on page \pageref{subsec:color_mapping} for more information.)
 
@@ -1823,6 +1829,7 @@ By default, the mapping of scalars into colors proceeds as follows (vtkMapper an
 \end{itemize}
 
 It is possible to force unsigned char data to be mapped through a lookup table. The vtkMapper method SetColorModeToMapScalars() forces all data  (regardless of type) to be mapped through the lookup table.
+\index{color!as scalar data!implementation|)}
 
 \subsection{Searching}
 

@@ -64,7 +64,7 @@ The disadvantage of processing regions of interest is that the same data may be 
 
 A compromise between the two extreme approaches of maintaining all data in memory or operating on small pieces is to update regions larger than requested, but not as large as the whole image. This is referred to as a data cache\index{caching}\index{data cache}. Data caching anticipates future requests and works well in most cases. However, it breaks down when there is little or no coherence between subsequent requests.
 
-With the region-processing model, the data objects can be thought of as caches that hold any number of regions. There are numerous caching strategies for saving and releasing regions that can be quite complex. The simplest strategy saves only a single region at any one time. If subsequent requests are completely contained in the cached region, no further processing is required. An alternative strategy might divide an image into tiled regions of all the same size. When a region larger than the tile is requested, multiple tiles are updated to cover the region. When designing a caching strategy, it is important to consider the overhead of copying data to change its format. Some of the advantages of complex strategies are lost when all the factors are considered.
+With the region--processing model, the data objects can be thought of as caches that hold any number of regions. There are numerous caching strategies for saving and releasing regions that can be quite complex. The simplest strategy saves only a single region at any one time. If subsequent requests are completely contained in the cached region, no further processing is required. An alternative strategy might divide an image into tiled regions of all the same size. When a region larger than the tile is requested, multiple tiles are updated to cover the region. When designing a caching strategy, it is important to consider the overhead of copying data to change its format. Some of the advantages of complex strategies are lost when all the factors are considered.
 
 Given the ability to operate on regions of data, it is a small step to \emph{stream} operations on a whole dataset. Streaming is the process of pulling regions of data in a continual flow through the pipeline. For instance, a pixel histogram mapper could request single pixels as it accumulates values in its bins. Large datasets can be processed in this manner without ever having to load more than a few pixels at a time. If multiple processors are available, region processing can also be used to split a task into multiple pieces for load balancing and faster execution.
 
@@ -102,7 +102,7 @@ Noise and other artifacts are inherent in all methods of data acquisition. Since
 	\caption{Low-pass filters can be implemented as convolution with a Gaussian kernel. The Gaussian kernel displayed on top has been magnified for this figure.}\label{fig:Figure10-2}
 \end{figure}
 
-A simple implementation of a low-pass smoothing filter is convolution\index{convolution} with a kernel with all positive values. The typical kernels used for smoothing are either constant across a circular neighborhood, or have a Gaussian profile (see Figure \ref{fig:Figure10-2}). Gaussian smoothing results in better-looking images than smoothing with constant kernels, but can be more computationally expensive because of the large kernel size necessary to capture the Gaussian profile. Smoothing becomes even more expensive when it is generalized to three-dimensional datasets, and three-dimensional kernels.
+A simple implementation of a low-pass smoothing filter is convolution\index{convolution} with a kernel with all positive values. The typical kernels used for smoothing are either constant across a circular neighborhood, or have a Gaussian profile (see Figure \ref{fig:Figure10-2}). Gaussian smoothing\index{Gaussian smoothing} results in better-looking images than smoothing with constant kernels, but can be more computationally expensive because of the large kernel size necessary to capture the Gaussian profile. Smoothing becomes even more expensive when it is generalized to three-dimensional datasets, and three-dimensional kernels.
 
 One way to speed Gaussian smoothing is to decompose the filter into two 1D convolutions. Since the 2D Gaussian function is separable,
 
@@ -284,6 +284,7 @@ Histogram equalization is an algorithm that automatically generates a tailored t
 High-pass filters can also be used to compress the range of an image. Since low frequencies account for much of the dynamic range of an image but carry little information, a high-pass filter can significantly decrease an image's scalar range and emphasize hidden details. The Laplacian filter, which is a second derivative operation, is one implementation of a high-pass filter. It eliminates constant and low frequencies leaving only high-frequency edges. The output of the Laplacian can be subtracted from the original image to produce edge enhancement or sharpening of an image (Figure \ref{fig:Figure10-9}).
 
 \subsection{Frequency Domain}
+\index{frequency domain|(}
 
 \begin{figure}[!htb]
 	\centering
@@ -292,7 +293,7 @@ High-pass filters can also be used to compress the range of an image. Since low 
 	\label{fig:Figure10-10}
 \end{figure}
 
-The Fourier transform belongs to a class of filters that fundamentally change the representation of an image without changing its information. The output of the Fourier transform is in the frequency domain. Each pixel is a complex number describing the contribution of a sinusoidal function to the original image. The magnitude of the pixel encodes the amplitude of the sinusoid, and the orientation of the complex pixel encodes the sinusoid's phase. Each pixel represents a sinusoid with different orientation and frequency. The reverse Fourier transform converts a frequency domain image back to the original spatial domain (Figure \ref{fig:Figure10-10}).
+The Fourier transform\index{Fourier transform}\index{frequency domain!Fourier transform} belongs to a class of filters that fundamentally change the representation of an image without changing its information. The output of the Fourier transform is in the frequency domain. Each pixel is a complex number describing the contribution of a sinusoidal function to the original image. The magnitude of the pixel encodes the amplitude of the sinusoid, and the orientation of the complex pixel encodes the sinusoid's phase. Each pixel represents a sinusoid with different orientation and frequency. The reverse Fourier transform converts a frequency domain image back to the original spatial domain (Figure \ref{fig:Figure10-10}).
 
 Low-pass and high-pass filtering become trivial in the frequency domain. A portion of the pixels are simply masked or attenuated. Figure \ref{fig:Figure10-10} shows a high pass Butterworth filter that attenuates the frequency domain image with the function $H$
 
@@ -333,7 +334,7 @@ The gradual attenuation of the filter is important. The ideal high-pass filter, 
 
 Although any filter that operates in the frequency domain can also be implemented in the spatial domain, some operations are less computationally expensive and easier to implement in the frequency domain. To perform similar filtering of Figure \ref{fig:Figure10-11} in the spatial domain would require convolution with a large kernel and would be slow. In general, convolution with large kernels is more efficient when performed in the frequency domain. Multiplication,$\alpha \beta$, in the frequency domain, is equivalent to convolution,$a \star b$ , in the spatial domain (and vice versa). In these equations, $\alpha$ is the Fourier transform of $a$a, and $\beta$ is the Fourier transform of $b$.
 
-In order to make frequency-domain processing feasible, it is first necessary to minimize the cost of transforming from the spatial to frequency domain and back. There exist fast algorithms that implement the Fourier transform and its inverse. First, the Fourier transform is decomposable, so a 2D transform can be implemented by first taking the 1D Fourier transform of all the rows, and then taking the Fourier transform of all the columns of an image. Second, the complexity of one-dimensional Fourier transforms can be reduced with an algorithm called the fast Fourier transform (FFT). It works by recursively factoring the number samples, $N$, into its prime components. If $N$ is prime and not factorable, then the transform is completed in one step that is order $O(N^2)$ complexity. If $N$ is divisible by two, the array of numbers is divided into two parts that are transformed separately and then combined. If $N$ is a power of two, then the algorithm executes in order $O(N \log N)$ time.
+In order to make frequency-domain processing feasible, it is first necessary to minimize the cost of transforming from the spatial to frequency domain and back. There exist fast algorithms that implement the Fourier transform and its inverse. First, the Fourier transform is decomposable, so a 2D transform can be implemented by first taking the 1D Fourier transform of all the rows, and then taking the Fourier transform of all the columns of an image. Second, the complexity of one-dimensional Fourier transforms can be reduced with an algorithm called the fast Fourier transform (FFT)\index{fast Fourier transform}\index{frequency domain!fast Fourier transform}. It works by recursively factoring the number samples, $N$, into its prime components. If $N$ is prime and not factorable, then the transform is completed in one step that is order $O(N^2)$ complexity. If $N$ is divisible by two, the array of numbers is divided into two parts that are transformed separately and then combined. If $N$ is a power of two, then the algorithm executes in order $O(N \log N)$ time.
 
 For this reason, it is more efficient to process images with sizes that are powers of two (e.g., $512 \times 512$) than other sized images. For non-power of two images it may be faster to pad the image to a size that is a power of two size before processing.
 
@@ -348,6 +349,7 @@ An important point about the discrete Fourier transform is that it treats the im
 
 
 In both of these approaches, a portion of the original image is lost, so only the central portion of an image can be processed. If this is unacceptable, another solution is to double the dimensions of the original image with a mirror-padding filter. The intermediate image is periodic and continuous (Figure \ref{fig:Figure10-12}).
+\index{frequency domain|)}
 
 \subsection {Image Segmentation}
 
@@ -493,7 +495,7 @@ F(x, y) = \sin\left(\frac{x}{10}\right) + \sin\left(\dfrac{y}{10}\right)
 Note that direct pointer access is used to fill the image. The AllocateScalars() method allocates enough memory for the dimensions provided.
 
 \subsection{Gradient Magnitude}
-
+\index{gradient magnitude!example|(}
 
 \begin{figure}[htb]
     \centering
@@ -545,6 +547,7 @@ In this example we demonstrate a lengthy imaging pipeline. The basic purpose of 
 The pipeline demonstrates some interesting tricks. The first three filters read CT data of the human head (i.e., using vtkImageReader), magnify the image by a factor of four (vtkImageMagnify), and then smooth the data (since magnification uses linear interpolation, introducing some sharp edges). The next filter actually computes the 2D gradient (vtkImageGradient), placing the x-y gradient components into its output.
 
 The next series of filters is where the fun begins. First, the data is converted to polar coordinates (vtkImageEuclideanToPolar). We use this filter because we want to operate in color HSV space (see ``Color'' on page \pageref{sec:color}). The image magnitude is to be mapped into saturation value, while the gradient direction is mapped into hue value (remember hue is represented as an angle on the HSV color wheel). The filter vtkImageConstantPad is used to add a third component to the data, since the gradient filter only generated two components, and we need three components to represent color. The vtkImageExtractComponents is used to rearrange the components into HSV order. Finally, the data is converted back into RGB color space with vtkImageHSVToRGB. (This is necessary because the image viewer expects RGB values.)
+\index{gradient magnitude!example|)}
 
 \subsection{Image Warping}
 

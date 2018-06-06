@@ -125,6 +125,7 @@ has a value of 1.0, the other has a value of 0.5.}
 
 \section{Lights}
 \label{Lights}
+
 One of the major factors controlling the rendering process is the interaction of light with the actors in the scene. If there are no lights, the resulting image will be black and rather uninformative. To a great extent it is the interaction between the emitted light and the surface (and in some cases the interior) of the actors in the scene that defines what we see. Once rays of light interact with the actors in a scene, we have something for our camera to view.
 
 Of the many different types of lights used in computer graphics, we will discuss the simplest, the infinitely distant, point light source. This is a simplified model compared to the lights we use at home and work. The light sources that we are accustomed to typically radiate from a region in space (a filament in an incandescent bulb, or a light-emitting gas in a fluorescent light). The point source lighting model assumes that the light is emitted in all directions from a single point in space. For an infinite light source, we assume that it is positioned infinitely far away from what it is illuminating. This is significant because it implies that the incoming rays from such a source will be parallel to each other. The emissions of a local light source, such as a lamp in a room, are not parallel. Figure \ref{fig:Figure3-6} illustrates the differences between a local light source with a finite volume, versus an infinite point light source. The intensity of the light emitted by our infinite light sources also remains constant as it travels, in contrast to the actual $1/distance^2$ relationship physical lights obey. As you can see this is a great simplification, which later will allow us to use less complex lighting equations.
@@ -137,6 +138,7 @@ Of the many different types of lights used in computer graphics, we will discuss
 
 \section{Surface Properties}
 \index{actor!surface properties|(}
+
 As rays of light travel through space, some of them intersect our actors. When this happens, the rays of light interact with the surface of the actor to produce a color. Part of this resulting color is actually not due to direct light, but rather from \emph{ambient} light\index{ambient light} that is being reflected or scattered from other objects. An ambient lighting model accounts for this and is a simple approximation of the complex scattering of light that occurs in the real world. It applies the intensity curve of the light source to the color of the object, also expressed as an intensity curve. The result is the color of the light we see when we look at that object. With such a model, it is important to realize that a white light shining on a blue ball is indistinguishable from a blue light shining on a white ball. The ambient lighting equation is
 
 \begin{equation}\label{eq:3.1}
@@ -389,10 +391,12 @@ Rotations occur about the coordinate origin. It is often more convenient to rota
 Transformation matrices can be combined by matrix multiplication to achieve combinations of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all types of transformation simultaneously. This matrix is the result of repeated matrix multiplications. A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix by the translation matrix.
 
 \section{Actor Geometry}
-\index{actor!geometry(|}
+\index{actor!geometry|(}
+
 We have seen how lighting properties control the appearance of an actor, and how the camera in combination with transformation matrices is used to project an actor to the image plane. What is left to define is the geometry of the actor, and how we position it in the world coordinate system.
 
 \subsection{Modelling}
+
 A major topic in the study of computer graphics is modelling or representing the geometry of physical objects. Various mathematical techniques have been applied including combinations of points, lines, polygons, curves, and splines of various forms, and even implicit mathematical functions.
 
 This topic is beyond the scope of the text. The important point here is that there is an underlying geometric model that specifies what the object's shape is and where it is located in the model coordinate system.
@@ -415,10 +419,12 @@ All of these rotations take place around the origin of the actor. Typically this
   \caption{Actor coordinate system.}\label{fig:Figure3-15}
 \end{figure}
 
-\index{actor!geometry)|}
+\index{actor!geometry|)}
 
 \section{Graphics Hardware}
 \label{sec:graphics_hardware}
+\index{graphics hardware|(}
+
 Earlier we mentioned that advances in graphics hardware have had a large impact on how rendering is performed. Now that we have covered the fundamentals of rendering a scene, we look at some of the hardware issues. First, we discuss raster devices that have replaced vector displays as the primary output device. Then, we look at how our programs communicate to the graphics hardware. We also examine the different coordinate systems used in computer graphics, hidden line/surface removal, and \emph{z}-buffering.
 
 \subsection{Raster Devices}
@@ -443,6 +449,7 @@ Color computer monitors typically have a resolution of about 80 pixels per inch,
 One way to work around color limitations in the graphics hardware is by using a technique called \emph{dithering}\index{dithering}. Say, for example, that you want to use some different shades of gray, but your graphics hardware only supports black and white. Dithering lets you approximate shades of gray by using a mixture of both black and white pixels. In Figure \ref{fig:Figure3-17}, seven gray squares are drawn using a mixture of black and white pixels. From a distance the seven squares look like different shades of gray even though up close, it's clear that they are just different mixtures of black and white pixels. This same technique works just as well for other colors. For example, if your graphics hardware supports primary blue, primary green, and white but not a pastel sea green, you can approximate this color by dithering the green, blue, and white that the hardware does support.
 
 \subsection{Interfacing to the Hardware}
+
 Now that we have covered the basics of display hardware, the good news is that you rarely need to worry about them. Most graphics programming is done using higher-level primitives than individual pixels. Figure \ref{fig:Figure3-18} shows a typical arrangement for a visualization program. At the bottom of the hierarchy is the display hardware that we already discussed; chances are your programs will not interact directly with it. The top three layers above the hardware are the layers you may need to be concerned with.
 
 \begin{figure}[!htb]
@@ -500,10 +507,11 @@ The first step is to transform the polygon using the appropriate transformation 
 With the polygon clipped and projected to the image plane, we can begin scan-line processing (Figure \ref{fig:Figure3-22}). The first step identifies the initial scan-line intersected by the projected polygon. This is found by sorting the vertices' \emph{y} values. We then find the two edges joining the vertex on the left and right sides. Using the slopes of the edges along with the data values we compute delta data values. These data are typically the \emph{R}, \emph{G}, and \emph{B} color components. Other data values include transparency values and \emph{z} depth values. (The \emph{z} values are necessary if we are using a \emph{z}-buffer, described in the next section.) The row of pixels within the polygon (i.e., starting at the left and right edges) is called a \emph{span}. Data values are interpolated from the edges on either side of the span to compute the internal pixel values. This process continues span-by-span, until the entire polygon is filled. Note that as new vertices are encountered, it is necessary to recompute the delta data values.
 
 The shading of the polygon (i.e., color interpolation across the polygon) varies depending on the actor's interpolation attribute. \label{subsection:rasterization.phong}
-There are three possibilities: \emph{flat}, \emph{Gouraud}, or \emph{Phong shading}. Figure \ref{fig:Figure3-7} illustrates the difference between flat and Gouraud interpolation. Flat shading calculates the color of a polygon by applying the lighting equations to just one normal (typically the surface normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
+There are three possibilities: \emph{flat}, \emph{Gouraud}\index{Gouraud shading}, or \emph{Phong shading}. Figure \ref{fig:Figure3-7} illustrates the difference between flat and Gouraud interpolation. Flat shading\index{flat shading} calculates the color of a polygon by applying the lighting equations to just one normal (typically the surface normal) of the polygon. Gouraud shading calculates the color of a polygon at all of its vertices using the vertices' normals and the standard lighting equations. The interior and edges of the poly-gon are then filled in by applying the scan-line interpolation process. Phong shading is the most realistic of the three. It calculates a normal at every location on the polygon by interpolating the vertex normals. These are then used in the lighting equations to determine the resulting pixel colors. Both flat and Gouraud shading are commonly used methods. The complexity of Phong shading has prevented it from being widely supported in hardware.
 
 \subsection{Z-Buffer}
 \label{Z-Buffer}
+
 In our earlier description of the rendering process, we followed rays of light from our eye through a pixel in the image plane to the actors and back to the light source. A nice side effect of ray tracing is that viewing rays strike the first actor they encounter and ignore any actors that are hidden behind it. When rendering actors using the polygonal methods described above, we have no such method of computing which polygons are hidden and which are not. We cannot generally count on the polygons being ordered correctly. Instead, we can use a number of hidden-surface methods for polygon rendering.
 
 One method is to sort all of our polygons from back to front (along the camera's view vector) and then render them in that order. This is called the painter's algorithm or painter's sort, and has one major weakness illustrated in Figure \ref{fig:Figure3-23}. Regardless of the order in which we draw these three triangles, we cannot obtain the desired result, since each triangle is both in front of, and behind, another triangle. There are algorithms that sort and split polygons as necessary to treat such a situation [Carlson85]. This requires more initial processing to perform the sorting and splitting. If the geometric primitives change between images or the camera view changes, then this processing must be performed before each render.
@@ -515,6 +523,7 @@ One method is to sort all of our polygons from back to front (along the camera's
 \end{figure}
 
 Another hidden surface algorithm, z-buffering, takes care of this problem and does not require sorting. Z-buffering takes advantage of the z-value (i.e., depth value along direction of projection) in the view coordinate system. Before a new pixel is drawn, its z-value is compared against the current z-value for that pixel location. If the new pixel would be in front of the current pixel, then it is drawn and the z-value for that pixel location is updated. Otherwise the current pixel remains and the new pixel is ignored. Z-buffering has been widely implemented in hardware because of its simplicity and robustness. The downside to z-buffering is that it requires a large amount of memory, called a z-buffer, to store a z-value of every pixel. Most systems use a z-buffer with a depth of 24 or 32 bits. For a 1000 by 1000 display that translates into three to four megabytes just for the z-buffer. Another problem with z-buffering is that its accuracy is limited depending on its depth. A 24-bit z-buffer yields a precision of one part in 16,777,216 over the height of the viewing frustum. This resolution is often insufficient if objects are close together. If you do run into situations with z-buffering accuracy, make sure that the front and back clipping planes are as close to the visible geometry as possible.
+\index{graphics hardware|)}
 
 \section{Putting It All Together}
 This section provides an overview of the graphics objects and how to
@@ -575,6 +584,7 @@ There is another important object, vtkRenderWindowInteractor, that captures even
 
 \subsection{Achieving Device Independence}
 \label{sec:adi}
+
 A desirable property of applications built with VTK is that they are device independent. This means that computer code that runs on one operating system with a particular software/hardware configuration runs unchanged on a different operating system and software/hardware configuration. The advantage of this is that the programmer does not need to expend effort porting an application between different computer systems. Also, existing applications do not need to be rewritten to take advantage of new developments in hardware or software technology. Instead, VTK handles this transparently by a combination of inheritance and a technique known as \emph{object factories}.
 
 \begin{figure}[!htb]
@@ -771,6 +781,7 @@ The observer is created by deriving from the class vtkCommand. The Execute() met
 This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( ``Interpreted Code'' on page \pageref{subsec:interpreted_code} ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three-dimensional interaction widgets will be introduced ( ``3D Widgets and User Interaction''  on page \pageref{sec:3D_widgets_user_interaction} ).
 
 \subsubsection{Creating Multiple Renderers.}
+
 The next example is a bit more complex and uses multiple renderers that share a single rendering window. We use viewports to define where the renderers should draw in the render window. (This C++ code can be found in Cone3.cxx.)
 
 \begin{figure}[!htb]
@@ -876,6 +887,7 @@ After the interactor is created using its New() method, we must tell it what ren
 
 \subsubsection{Interpreted Code.}
 \label{subsec:interpreted_code}
+
 In the previous example we saw how to create an interactor style object in conjunction with vtkRenderWindowInteractor to enable us to manipulate the camera by mousing in the render window. Although this provides flexibility and interactivity for a large number of applications, there are examples throughout this text where we want to modify other parameters. These parameters range from actor properties, such as color, to the name of an input file. Of course we can always write or modify C++ code to do this, but in many cases the turn-around time between making the change and seeing the result is too long. One way to improve the overall interactivity of the system is to use an interpreted interface. Interpreted systems allow us to modify objects and immediately see the result, without the need to recompile and relink source code. Interpreted languages also provide many tools, such as GUI (Graphical User Interface) tools, that simplify the creation of applications.
 
 \begin{wrapfigure}{R}{0.3\linewidth}
@@ -1148,6 +1160,7 @@ Graphics programming is usually implemented using higher-level graphics librarie
 
 \section{Bibliographic Notes}
 \label{Ch03BibNotes}
+
 This chapter provides the reader with enough information to understand the basic issues and terms used in computer graphics. There are a number of good text books that cover computer graphics in more detail and are recommended to readers who would like a more thorough understanding. The bible of computer graphics is \cite{FoleyVanDam90}. For those wishing for less intimidating books \cite{BurgerGillies89} and \cite{Watt93} are also useful references. You also may wish to peruse proceedings of the ACM SIGGRAPH conferences. These include papers and references to other papers for some of the most important work in computer graphics. \cite{Carlson85} provides a good introduction for those who wish to learn more about the human vision system.
 
 

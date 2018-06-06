@@ -460,6 +460,7 @@ Many enhancements of streamline visualization exist. Lines can be colored accord
 	\includegraphics[width=0.96\linewidth]{Figure6-19}
 	\caption{airflow around a blunt fin. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/BluntStreamlines}{BluntStreamlines.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/BluntStreamlines/}{BluntStreamlines.py})}\label{fig:Figure6-19}
 \end{figure}
+
 \index{algorithms!vector|)}
 
 \section{Tensor Algorithms}
@@ -616,19 +617,19 @@ Modelling algorithms are the catchall category for our taxonomy of visualization
 
 As we have seen in previous examples, source objects begin the visualization pipeline. Source objects are used to create geometry such as spheres, cones, or cubes to support visualization context or are used to read in data files. Source objects also may be used to create dataset attributes. Some examples of source objects and their use are as follows.
 
-\begin{itemize}
+\begin{description}
 
-\item[] \textbf{Modelling Simple Geometry.}
+\item[Modelling Simple Geometry.]
 Spheres, cones, cubes, and other simple geometric objects can be used alone or in combination to model geometry. Often we visualize real--world applications such as air flow in a room and need to show real-world objects such as furniture, windows, or doors.
 Real--world objects often can be represented using these simple geometric representations. These source objects generate their data procedurally. Alternatively, we may use reader objects to access geometric data defined in data files. These data files may contain more complex geometry such as that produced by a 3D CAD (ComputerAided Design) system.
 
-\item[] \textbf{Supporting Geometry.}
+\item[Supporting Geometry.]
 During the visualization process we may use source objects to create supporting geometry. This may be as simple as three lines to represent a coordinate axis or as complex as tubes wrapped around line segments to thicken and enhance their appearance. Another common use is as supplemental input to objects such as streamlines or probe filters. These filters take a second input that defines a set of points. For streamlines, the points determine the initial positions for generating the streamlines. The probe filter uses the points as the position to compute attribute values such as scalars, vectors, or tensors.
 
-\item[] \textbf{Data Attribute Creation.}
+\item[Data Attribute Creation.]
 Source objects can be used as procedures to create data attributes. For example, we can procedurally create textures and texture coordinates. Another use is to create scalar values over a uniform grid. If the scalar values are generated from a mathematical function, then we can use the visualization techniques described here to visualize the function. In fact, this leads us to a very important class of source objects: implicit functions.
 
-\end{itemize}
+\end{description}
 
 \subsection{Implicit Functions}
 \label{subsec:implicit_functions}
@@ -843,6 +844,7 @@ Another interesting feature of implicit modeling is that when isosurfaces are ge
 
 \subsection{Glyphs}
 \label{subsec:glyphs}
+\index{glyph|(}
 
 Glyphs, sometimes referred to as icons, are a versatile technique to visualize data of every type. A glyph is an ``object'' that is affected by its input data. This object may be geometry, a dataset, or a graphical image. The glyph may orient, scale, translate, deform, or somehow alter the appearance of the object in response to data. We have already seen a simple form of glyph: hedgehogs are lines that are oriented, translated and scaled according to the position and vector value of a point. A variation of this is to use oriented cones or arrows. (See ``Hedgehogs and Oriented Glyphs'' on page \pageref{subsec:hedgehogs_oriented_glyphs} for more information.)
 
@@ -869,6 +871,7 @@ In a sense, glyphs represent the fundamental result of the visualization process
 This classification scheme can be extended to other visualization techniques such as vector and tensor data, or even to nonvisual forms such as sound or tactile feedback. We have found this classification scheme to be helpful when designing visualizations or creating visualization techniques. Often it gives insight into ways of representing data that can be overlooked.
 
 Figure \ref{fig:Figure6-30} is an example of glyphing. Small 3D cones are oriented on a surface to indicate the direction of the surface normal. A similar approach could be used to show other surface properties such as curvature or anatomical keypoints.
+\index{glyph|)}
 
 \subsection{Cutting}
 \label{subsec:cutting}
@@ -912,8 +915,8 @@ We can easily make multiple planar cuts through a structured grid dataset by spe
 \end{figure}
 
 This example illustrates that cutting the volumetric data in a structured grid dataset produced polygonal cells. Similarly, cutting polygonal data produces lines. Using a single plane equation, we can extract ``contour lines'' from a surface model defined with polygons. Figure \ref{fig:Figure6-33} shows contours extracted from a surface model of the skin. At each vertex in the surface model we evaluate the equation of the plane and $F(x.y.z) = c$ and store the valuec of the function as a scalar value. Cutting the data with $46$ isovalues from $1.5$ to $136.5$ produces contour lines that are $3$ units apart.
-\index{algorithms!modelling|)}
 \index{cutting!with implicit functions|)}
+\index{algorithms!modelling|)}
 
 \section{Putting It All Together}
 
@@ -942,6 +945,7 @@ The convenience object vtkPolyDataAlgorithm has been created to simplify subclas
 \end{figure}
 
 \subsubsection{Filter Design}
+\index{filter object!implementation|(}
 
 Filter objects have one or more inputs and one or more outputs as shown in Figure \ref{fig:Figure6-34}. (You may also refer to ``Pipeline Design and Implementation'' on page \pageref{subsec:pipeline_design_implementation}.) To create Figure \ref{fig:Figure6-35} a filter object, inheritance is used to specify the type of input and output data objects. illustrates this for the concrete source object vtkContourFilter (which implements marching cubes and other contouring techniques). It is worth examining this object diagram in detail since it is the basis for the architecture of the visualization pipeline.
 
@@ -997,9 +1001,11 @@ The architecture is simple enough that you can grasp it quickly.
 	\end{subfigure}
 	\caption{Mapper object design. Graphics mapper shown (e.g., vtkPolyDataMapper) maps polygonal data through graphics library primitives. Writer shown (e.g., vtkSTLWriter) writes polygonal data to stereo lithography format.}\label{fig:Figure6-36}
 \end{figure}
+\index{filter object!implementation|)}
 
 \subsubsection{Mapper Design}
 \label{subsubsec:mapper_design}
+
 Mapper objects have one or more inputs and no visualization data output, Figure \ref{fig:Figure6-36}. Two different types of mappers are available in the \emph{Visualization Toolkit}: graphics mappers and writers. Graphics mappers interface geometric structure and data attributes to the graphics library; writers write datasets to disk or other I/O devices.
 
 Since mappers take datasets as input, type enforcement is required. Each mapper implements this functionality directly. For example, both classes vtkPolyDataMapper and vtkSTLWriter implement a SetInput() method to enforce the input to be of type vtkPolyData. Other mappers and writers enforce input type as appropriate.
@@ -1198,17 +1204,20 @@ An example use of vtkContourFilter is shown in Figure \ref{fig:Figure6-39}. This
 
 
 \subsection{Cutting}
-\index{cutting!implementation}
+\index{cutting!implementation|(}
 
 The vtkCutter class performs cutting of all VTK cell types. The SetValue() and GenerateValues() methods permit the user to specify which multiple scalar values to use for the cutting. vtkCutter requires an implicit function that will be evaluated at each point in the dataset. Then each cell is cut using the cell's Contour method. Any point attributes are interpolated to the resulting cut vertices. The sorting order for the generated polygonal data can be controlled with the SortBy method. The default sorting order, SortByValue(), processes cells in the inner loop for each contour value. SortByCell() processes the cutting value in the inner loop and produces polygonal data that is suitable for backtofront rendering (see Figure \ref{fig:Figure6-32}). (The sorting order is useful when rendering with opacity as discussed in Chapter 7:  \nameref{chap:advanced_computer_graphics}.) Notice the similarity of this filter to the vtkContourFilter. Both of these objects contour datasets with multiple isovalues. vtkCutter uses an implicit function to calculate scalar values while vtkContourFilter uses the scalar data associated with the dataset's point data.
+\index{cutting!implementation|)}
 
 \subsection{Glyphs}
+\index{glyph!implementation|(}
 
 The vtkGlyph3D class provides a simple, yet powerful glyph capability in the \emph{Visualization Toolkit}. vtkGlyph3D is an example of an object that takes multiple inputs (Figure \ref{fig:Figure6-40}). One input, specified with the SetInputConnection() method, defines a set of points and possible attribute data at those points. The second input, specified with the SetSourceConnection() method, defines a geometry to be copied to every point in the input dataset. The source is of type vtkPolyData. Hence, any filter, sequence of filters creating polygonal data, or a polygonal dataset may be used to describe the glyph's geometry.
 
 The behavior of an instance of vtkGlyph3D depends on the nature of the input data and the value of its instance variables. Generally, the input Source geometry will be copied to each point of the Input dataset. The geometry will be aligned along the input vector data and scaled according to the magnitude of the vector or the scalar value. In some cases, the point normal is used rather than the vector. Also, scaling can be turned on or off.
 
 We saw how to use vtkGlyph3D in the example given in Figure \ref{fig:Figure4-20}. Cones were used as the glyph and were located at each point on the sphere, oriented along the sphere's surface normal.
+\index{glyph!implementation|)}
 
 \subsection{Streamlines}
 
