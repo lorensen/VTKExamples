@@ -64,7 +64,7 @@ The disadvantage of processing regions of interest is that the same data may be 
 
 A compromise between the two extreme approaches of maintaining all data in memory or operating on small pieces is to update regions larger than requested, but not as large as the whole image. This is referred to as a data cache\index{caching}\index{data cache}. Data caching anticipates future requests and works well in most cases. However, it breaks down when there is little or no coherence between subsequent requests.
 
-With the region-processing model, the data objects can be thought of as caches that hold any number of regions. There are numerous caching strategies for saving and releasing regions that can be quite complex. The simplest strategy saves only a single region at any one time. If subsequent requests are completely contained in the cached region, no further processing is required. An alternative strategy might divide an image into tiled regions of all the same size. When a region larger than the tile is requested, multiple tiles are updated to cover the region. When designing a caching strategy, it is important to consider the overhead of copying data to change its format. Some of the advantages of complex strategies are lost when all the factors are considered.
+With the region--processing model, the data objects can be thought of as caches that hold any number of regions. There are numerous caching strategies for saving and releasing regions that can be quite complex. The simplest strategy saves only a single region at any one time. If subsequent requests are completely contained in the cached region, no further processing is required. An alternative strategy might divide an image into tiled regions of all the same size. When a region larger than the tile is requested, multiple tiles are updated to cover the region. When designing a caching strategy, it is important to consider the overhead of copying data to change its format. Some of the advantages of complex strategies are lost when all the factors are considered.
 
 Given the ability to operate on regions of data, it is a small step to \emph{stream} operations on a whole dataset. Streaming is the process of pulling regions of data in a continual flow through the pipeline. For instance, a pixel histogram mapper could request single pixels as it accumulates values in its bins. Large datasets can be processed in this manner without ever having to load more than a few pixels at a time. If multiple processors are available, region processing can also be used to split a task into multiple pieces for load balancing and faster execution.
 
@@ -495,7 +495,7 @@ F(x, y) = \sin\left(\frac{x}{10}\right) + \sin\left(\dfrac{y}{10}\right)
 Note that direct pointer access is used to fill the image. The AllocateScalars() method allocates enough memory for the dimensions provided.
 
 \subsection{Gradient Magnitude}
-\index{gradient magnitude!example}
+\index{gradient magnitude!example|(}
 
 \begin{figure}[htb]
     \centering
@@ -547,6 +547,7 @@ In this example we demonstrate a lengthy imaging pipeline. The basic purpose of 
 The pipeline demonstrates some interesting tricks. The first three filters read CT data of the human head (i.e., using vtkImageReader), magnify the image by a factor of four (vtkImageMagnify), and then smooth the data (since magnification uses linear interpolation, introducing some sharp edges). The next filter actually computes the 2D gradient (vtkImageGradient), placing the x-y gradient components into its output.
 
 The next series of filters is where the fun begins. First, the data is converted to polar coordinates (vtkImageEuclideanToPolar). We use this filter because we want to operate in color HSV space (see ``Color'' on page \pageref{sec:color}). The image magnitude is to be mapped into saturation value, while the gradient direction is mapped into hue value (remember hue is represented as an angle on the HSV color wheel). The filter vtkImageConstantPad is used to add a third component to the data, since the gradient filter only generated two components, and we need three components to represent color. The vtkImageExtractComponents is used to rearrange the components into HSV order. Finally, the data is converted back into RGB color space with vtkImageHSVToRGB. (This is necessary because the image viewer expects RGB values.)
+\index{gradient magnitude!example|)}
 
 \subsection{Image Warping}
 

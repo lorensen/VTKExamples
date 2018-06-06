@@ -78,7 +78,7 @@ The most general form of data found in VTK is the data object\index{data object}
 
 \section{The Dataset}
 \label{sec:dataset}
-\index{dataset}\index{geometry!dataset}
+\index{dataset|(}\index{geometry!dataset|(}
 
 Data objects with an organizing structure and associated data attributes (Figure \ref{fig:Figure5-11}) form datasets. The dataset is an abstract form; we leave the representation\index{cell!representation} and implementation of the structure to its concrete subclasses. Most algorithms (or process objects) in VTK operate on datasets.
 
@@ -89,6 +89,7 @@ Dataset attributes are supplemental information associated with geometry and/or 
 Our model of a dataset assumes that the structure consists of cells and points. The cells specify the topology, while the points specify the geometry. Typical attributes include scalars, vectors, normals, texture coordinates, and tensors.
 
 The definition of the structure of a dataset as a collection of cells and points is a direct consequence of the discrete nature of our data. Points are located where data is known and the cells allow us to interpolate between points. We give detailed descriptions of dataset structure and attributes in the following sections.
+\index{dataset|)}\index{geometry!dataset|)}
 
 \section{Cell Types}
 \label{sec:cell_types}
@@ -238,7 +239,7 @@ VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in 
 \index{cell|)}
 
 \section{Attribute Data}
-\index{cell!attribute}
+\index{cell!attribute|(}
 \index{dataset!attributes|(}\index{dataset attributes|(}
 
 Attribute data is information associated with the structure of the dataset. This structure includes both the dataset geometry and topology. Most often, attribute data is associated with dataset points or cells, but sometimes attribute data may be assigned to cell components such as edges or faces. Attribute data may also be assigned across the entire dataset, or across a group of cells or points. We refer to this information as attribute data because it is an attribute to the structure of the dataset. Typical examples include temperature or velocity at a point, mass of a cell, or heat flux into and out of a cell face.
@@ -274,6 +275,7 @@ One application of texturing in two dimensions is to ``paste'' a photograph onto
 General tensor visualization is an area of current research. Efforts thus far have been focused on two--dimensional, rank 2 tensors, which are $3 \times 3$ matrices. The most common form of such tensors are the stress and strain tensors, which represent the stress and strain at a point in an object under load. VTK only treats real-valued, symmetric $3 \times 3$ tensors.
 
 \end{description}
+\index{cell!attribute|)}
 \index{dataset!attributes|)}\index{dataset attributes|)}
 
 \section{Types of Datasets}
@@ -292,17 +294,18 @@ A dataset consists of an organizing structure plus associated attribute data. Th
 A dataset is characterized according to whether its structure is regular or irregular. A dataset is regular if there is a single mathematical relationship within the composing points and cells. If the points are regular, then the geometry of the dataset is regular. If the topological relationship of cells is regular, then the topology of the dataset is regular. Regular (or structured) data can be implicitly represented, at great savings in memory and computation. Irregular (or unstructured) data must be explicitly represented, since there is no inherent pattern that can be compactly described. Unstructured data tends to be more general, but requires greater memory and computational resources.
 
 \subsection{Polygonal Data}
-\index{dataset types!polygonal}
+\index{dataset types!polygonal|(}
 
 We have already seen how graphics libraries are designed to render such geometric primitives as lines and polygons. These primitives also are frequently generated or consumed by computational geometry and visualization algorithms. In the Visualization Toolkit, we call this collection of graphics primitives polygonal data. The polygonal dataset consists of vertices, polyvertices, lines, polylines, polygons, and triangle strips. The topology and geometry of polygonal data is unstructured, and the cells that compose that dataset vary in topological dimension. The polygonal dataset forms a bridge between data, algorithms, and high--speed computer graphics.
 
 Vertices, lines, and polygons form a minimal set of primitives to represent 0--, 1--, and 2--dimensional geometry. We have included polyvertex, polyline, and triangle strip cells for convenience, compactness, and performance. Triangle strips in particular are high-performing primitives. To represent n triangles with a triangle strip requires just n+2 points, compared to the 3n points for conventional representations. In addition, many graphics libraries can render triangle strips at higher speeds than triangle polygons.
 
 Our minimal selection of cells is based on common application and performance, representing a subset of the cells available in some graphics libraries. Other types include quadrilateral meshes, Bezier curves and surfaces, and other spline types such as NURBS (Non--Uniform Rational B--Splines) \cite{Mortenson85}. Spline surfaces are generally used to accurately model and visualize geometry. Few visualization algorithms (other than geometry visualization) have been developed that require spline surfaces.
+\index{dataset types!polygonal|)}
 
 \subsection{Image Data}
 \label{subsec:image_data}
-\index{dataset types!image data}
+\index{dataset types!image data|(}
 
 An image dataset is a collection of points and cells arranged on a regular, rectangular lattice. The rows, columns, and planes of the lattice are parallel to the global $x-y-z$ coordinate system. If the points and cells are arranged on a plane (i.e., two-dimensional) the dataset is referred to as a pixmap, bitmap, or image. If the points and cells are arranged as stacked planes (i.e., three-dimensional) the dataset is referred to as a volume. Keep in mind that the term image data refers to images, volumes, or one-dimensional point arrays collectively. Note that some authors have referred to image data as uniform grids and structured points. (Structured points was the terminology used in earlier versions of VTK.)
 
@@ -313,36 +316,42 @@ The regular nature of the topology and geometry of the image dataset suggests a 
 The simplicity and compactness of representation are desirable features of image data. It is an efficient structure to traverse and compute with. For this reason image data is rivaled only by polygonal data as the most common form of visualization dataset. The major disadvantage with image data is the so--called ``curse of dimensionality''. To obtain greater data resolution we must increase the dimensions of the dataset. Increasing the dimensions of an image results in an $O(n^2)$ increase in memory requirement, while volumes require an $O(n^3)$ increase. Therefore, to resolve a small feature using image data may require more disk space or computer memory than is available.
 
 Image datasets are often used in imaging and computer graphics. Volumes are frequently generated from medical imaging technologies such as Computed Tomography (CT) and Magnetic Resonance Imaging (MRI). Sometimes volumes are used to sample mathematical functions or numerical solutions.
+\index{dataset types!image data|)}
 
 \subsection{Rectilinear Grid}
-\index{dataset types!rectilinear grid}
+\index{dataset types!rectilinear grid|(}
 
 The rectilinear grid dataset is a collection of points and cells arranged on a regular lattice. The rows, columns, and planes of the lattice are parallel to the global $x-y-z$ coordinate system. While the topology of the dataset is regular, the geometry is only partially regular. That is, the points are aligned along the coordinate axis, but the spacing between points may vary.
 
 Like the image dataset, rectilinear grids consist of pixels (2D) or voxels (3D). The topology is represented implicitly by specifying grid dimensions. The geometry is represented by maintaining a list of separate x, y, and z coordinates. To obtain the coordinates of a particular point, values from each of the three lists must be appropriately combined.
+\index{dataset types!rectilinear grid|)}
 
 \subsection{Structured Grid}
-\index{dataset types!structured grid}
+\index{dataset types!structured grid|(}
 
 A structured grid is a dataset with regular topology and irregular geometry. The grid may be warped into any configuration in which the cells do not overlap or self--intersect.
 
 The topology of the structured grid is represented implicitly by specifying a 3--vector of dimensions $(n_x, n_y, n_z)$. The geometry is explicitly represented by maintaining an array of point coordinates. The composing cells of a structured grid are quadrilaterals (2D) or hexahedron (3D). Like image data, the structured grid has a natural coordinate system that allows us to refer to a particular point or cell using topological $i-j-k$ coordinates.
 
 Structured grids are commonly found in finite difference analysis. Finite difference is a numerical analysis technique to approximate the solution to partial differential equations. Typical applications include fluid flow, heat transfer, and combustion.
+\index{dataset types!structured grid|)}
 
 \subsection{Unstructured Points}
-\index{dataset types!unstructured points}
+\index{dataset types!unstructured points|(}
 
 Unstructured points are points irregularly located in space. There is no topology in an unstructured point dataset, and the geometry is completely unstructured. The vertex and polyvertex cells are used to represent unstructured points.
 
 Unstructured points are a simple but important type of dataset. Often data has no inherent structure, and part of the visualization task is to discover or create it. For example, consider a piston in a car instrumented with temperature gauges. The number of gauges and their location is chosen at a finite set of points, resulting in temperature values at ``unrelated'' (at least in terms of visualization topology) positions on the surface of the piston. To visualize the surface temperature, we have to create an interpolation surface and scheme to fill in intermediate values.
 
 Unstructured points serve to represent such unstructured data. Typically, this data form is transformed into another more structured form for the purposes of visualization. Algorithms for transforming unstructured points into other forms are described in ``Visualizing Unstructured Points'' on page \pageref{subsec:visualizing_unstructured_points}.
+\index{dataset types!unstructured points|)}
 
 \subsection{Unstructured Grid}
-\index{dataset types!unstructured grid}
+\index{dataset types!unstructured grid|(}
 
 The most general form of dataset is the unstructured grid. Both the topology and geometry are completely unstructured. Any cell type can be combined in arbitrary combinations in an unstructured grid. Hence the topology of the cells ranges from 0D (vertex, polyvertex) to 3D (tetrahedron, hexahedron, voxel). In the Visualization Toolkit any dataset type can be expressed as an unstructured grid. We typically use unstructured grids to represent data only when absolutely necessary, because this dataset type requires the most memory and computational resources to represent and operate on.
+\index{dataset types!unstructured grid|)}
+
 \index{dataset!types|)}\index{dataset types|)}
 
 \section{Other Data Abstractions}
@@ -363,7 +372,7 @@ The field is the most interesting part of the AVS data model. In general, it is 
 The data model of Haber, Lucas, and Collins \cite{Haber91} is based on the mathematics of fiber bundles. The goal of their work is to create a general model for piecewise representations of fields on regular and irregular grids. They refer to their model as the field data model, but their definition of the word field is different from the AVS model. A field is an object composed of a base and dependent data. Informally, the base is a manifold whose coordinates are the independent variables for the field, and the dependent data relate the values of dependent variables to the independent variables of the base. Visualization data consists of field elements that describe the base and dependent variables over a local region.
 
 \subsection{The Visualization Toolkit}
-\index{Data Explorer!and VTK}
+\index{Data Explorer!and VTK|(}
 
 There are similarities and differences between these data models and VTK's dataset model. The greatest difference is that these other models are more abstract. They are capable of representing a wider range of data and are more flexible. In particular, the AVS\index{AVS!and VTK} field model is capable of representing arbitrary streams of numbers in a simple and elegant manner. The field data model of Haber et al. is also powerful: The authors show how this data representation can be used to exploit regularity in data to obtain compact representations. On the other hand, all these models (including VTK's) share the notion of structure versus data. The AVS field model introduces structure by using a mapping function. The field data of the Haber et al. model resembles VTK's dataset model, in that the base is equivalent to VTK's cells, and the field data model's dependent data is analogous to VTK's attribute data.
 
@@ -386,6 +395,7 @@ The difference in abstraction level raises important issues in the design of vis
 The design of computer systems demands careful attention to the balance between abstract and concrete systems. Visualization systems, in particular, must be carefully designed because they interface to other systems and data models. Models that are too abstract can result in confusing computer code and interfaces, and can be misused because of user misunderstanding. On the other hand, concrete models are limited in flexibility and capability, but tend to be easier to learn and apply.
 
 In the design of the Visualization Toolkit, we chose to use a more concrete data model relative to the AVS and field data models. Our decision was based on the premise that the system was to be informative as well as functional, and we wanted to clearly demonstrate basic concepts. On the other hand, VTK's data model is general enough to support our practice of visualization. Our experience with users also has shown us that VTK's data model is easier for the casual visualization user to understand than the more abstract models. If you decide to design your own system, we recommend that you examine other data models. However, we feel that the clarity of code manifested in the Visualization Toolkit is an example of a well--balanced trade--off between design abstraction and simplicity.
+\index{Data Explorer!and VTK|)}
 
 \section{Putting It All Together}
 
@@ -420,9 +430,10 @@ Many visualization data are defined by multiple component values. An x-y-z coord
 \end{figure}
 
 \subsection{Representing Data With Data Arrays}
-\index{data arrays!implementation}
+\index{data arrays!implementation|(}
 
 Attribute data and points, as well as several other data objects, are represented with data arrays in VTK. Certain attribute data, such as points, vectors, normals, and tensors, are required to have a tuple size consistent with their definition. For example, points, vectors and normals require a data array with a tuple size of three; tensors a tuple size of nine (i.e., a $3 \times 3$ matrix). Scalars do not place any requirement on the tuple size. Algorithms that process such scalar data generally operate on the first component of each tuple. (Filters exist in VTK to split multi-component data arrays into separate arrays, and to combine separate data arrays into a single array. See vtkSplitField and vtkMergeFields).
+\index{data arrays!implementation|)}
 
 \subsection{Abstract/Concrete Data Array Objects}
 
@@ -544,14 +555,16 @@ The vtkCellTypes may also be added to the vtkPolyData data representation  --- a
 	\caption{Object diagram for twenty concrete cell types in VTK. vtkEmptyCell represents NULL cells. vtkGenericCell can represent any type of cell. Three-dimensional cells are subclasses of vtkCell3D. Higher order cells are subclasses of vtkNonLinearCell.}
 	\label{fig:Figure5-15}
 \end{figure}
+
 \index{dataset!representation|)}\index{dataset representation!implementation|)}
 
 \subsection{Cell Representation}
-\index{cell!representation!implementation}
+\index{cell!representation!implementation|(}
 
 In the \emph{Visualization Toolkit} each cell type has been implemented by creating specific classes. Each cell is a subclass of the abstract type vtkCell . Cell topology is represented by a list of ordered point ids, and cell geometry is represented by a list of point coordinates. The object diagram for vtkCell and its subclasses is shown in Figure \ref{fig:Figure5-15}.
 
 The abstract class vtkCell specifies methods that each cell must implement. These methods provide a defined interface to the cell's geometry and topology. Additional methods perform computation on the cell. These methods will be discussed in detail in Chapter 8: \nameref{chap:advanced_data_representation}.
+\index{cell!representation!implementation|)}
 
 \subsection{Data Attributes}
 \index{dataset attributes!implementation|(}

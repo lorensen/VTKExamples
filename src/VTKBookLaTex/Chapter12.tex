@@ -891,10 +891,10 @@ the linear extrusion filter to extrude this ribbon along the \emph{y}-axis
 so that it has a constant thickness.
 
 The resulting views are shown in Figure \ref{fig:Figure12-11}.
-\index{applications!financial visualization|)}
+\index{applications!financial visualization|)}\index{financial visualization!application|)}
 
 \section{Implicit Modelling}
-\index{applications!implicit modelling|(}\index{C++!application|(}\index{financial visualization!application|)}
+\index{applications!implicit modelling|(}\index{C++!application|(}
 
 The \emph{Visualization Toolkit} has some useful geometric modelling capabilities. One of the most powerful features is implicit modelling. In this example we show how to use polygonal descriptions of objects and create `blobby'' models of them using the implicit modelling objects in VTK. This example generates a logo for the \emph{Visualization Toolkit} from polygonal representations of the letters \emph{v}, \emph{t}, and \emph{k}.
 
@@ -1063,8 +1063,7 @@ in Figure \ref{fig:Figure12-13}  Note that the image on the left has been augmen
 \index{applications!implicit modelling|)}\index{C++!application|)}
 
 \section{Computational Fluid Dynamics}
-\index{applications!computational fluid dynamics|(}\index{computational fluid dynamics!application|(}
-\index{finite difference method!application}
+\index{applications!computational fluid dynamics|(}\index{computational fluid dynamics!application|(}\index{finite difference method!application|(}
 
 Computational Fluid Dynamics (CFD) visualization poses a challenge to any visualization toolkit.
 CFD studies the flow of fluids in and around complex structures.
@@ -1275,10 +1274,10 @@ visualization would be to identify regions of vorticity. We could use
 Equation \ref{eq:9.12} in conjunction with an isocontouring algorithm
 (e.g., vtkContourFilter ) to creates isosurfaces of large
 helical-density.
-\index{applications!computational fluid dynamics|)}\index{computational fluid dynamics!application|)}
+\index{applications!computational fluid dynamics|)}\index{computational fluid dynamics!application|)}\index{finite difference method!application|)}
 
 \section{Finite Element Analysis}
-\index{applications!finite element method}\index{finite element method!application}
+\index{applications!finite element method|(}\index{finite element method!application|(}
 
 Finite element analysis is a widely used numerical technique for finding solutions of partial differential equations. Applications of finite element analysis include linear and nonlinear structural, thermal, dynamic, electromagnetic, and flow analysis. In this application we will visualize the results of a blow molding process.
 
@@ -1373,6 +1372,7 @@ vtkActor parisonActor
 \end{lstlisting}
 
 The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter does this nicely.
+\index{applications!finite element method|)}\index{finite element method!application|)}
 
 \section{Algorithm Visualization}
 \index{algorithm visualization!application|(}\index{applications!algorithm visualization|(}
@@ -1475,18 +1475,15 @@ voidMovePuck(intpeg1,intpeg2)
 \end{lstlisting}
 
 Because of the clear relationship between algorithm and physical reality, the Towers of Hanoi puzzle is relatively easy to visualize. A major challenge facing visualization researchers is to visualize more abstract information, such as information on the Internet, the structure of documents, or the effectiveness of advertising/entertainment in large market segments. This type of visualization, known as information visualization, is likely to emerge in the future as an important research challenge.
-\index{algorithm visualization!application|)}
-\index{applications!algorithm visualization|)}
+\index{algorithm visualization!application|)}\index{applications!algorithm visualization|)}
 \index{applications|)}
 
 \section{Chapter Summary}
 
 This chapter presented several case studies covering a variety of visualization techniques. The examples used different data representations including polygonal data, volumes, structured grids, and unstructured grids. Both C++ and Tcl code was used to implement the case studies.
 
-Medical imaging is a demanding application area due to the size of the input data. Three-dimensional visualization of anatomy is generally regarded by radiologists as a communication tool
-
-for referring physicians and surgeons. Medical datasets are typically
-image data---volumes or layered stacks of 2D images that form volumes. Common visualization tools for medical imaging include isosurfaces, cut planes, and image display on volume slices.
+Medical imaging is a demanding application area due to the size of the input data. Three dimensional visualization of anatomy is generally regarded by radiologists as a communication tool for referring physicians and surgeons. Medical datasets are typically
+image data --- volumes or layered stacks of 2D images that form volumes. Common visualization tools for medical imaging include isosurfaces, cut planes, and image display on volume slices.
 
 Next, we presented an example that applied 3D visualization techniques to financial data. In this case study, we began by showing how to import data from an external source. We applied tube filters to the data and varied the width of the tube to show the volume of stock trading. We saw how different views can be used to present different pieces of information. In this case, we saw that by viewing the visualization from the front, we saw a conventional price display. Then, by viewing the visualization from above, we saw trade volume.
 

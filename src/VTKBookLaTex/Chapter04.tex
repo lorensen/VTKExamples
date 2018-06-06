@@ -58,11 +58,12 @@ different visualization techniques are then used. On the left, we generate 3D su
 
 \subsection{The Functional Model}
 \label{subsec:the_functional_model}
-\index{functional model!in visualization}
+\index{functional model!in visualization|(}
 
 The functional model in Figure \ref{fig:Figure4-1b} illustrates the steps to create the visualization. The oval blocks indicate operations (processes) we performed on the data, and the rectangular blocks represent data stores (objects) that represent and provide access to data. Arrows indicate the direction of data movement. Arrows that point into a block are inputs; data flowing out of a block indicate outputs. The blocks also may have local parameters that serve as additional input. Processes that create data with no input are called data \emph{source} objects, or simply sources. Processes that consume data with no output are called \emph{sinks} (the are also called \emph{mappers} because these processes map data to a final image or output). Processes with both an input and an output are called \emph{filters}\index{filter object}.
 
 The functional model shows how data flows through the system. It also describes the dependency of the various parts upon one another. For any given process to execute correctly, all the inputs must be up to date. This suggests that functional models require a synchronization mechanism to insure that the correct output will be generated.
+\index{functional model!in visualization|)}
 
 \subsection{The Visualization Model}
 \label{subsec:the_visualization_model}
@@ -209,7 +210,8 @@ We can control the execution of the network using either a demand--driven\index{
 The execution of the network requires synchronization between process objects. We want to execute a process object only when all of its input objects are up to date. There are generally two ways to synchronize network execution: explicit or implicit control (Figure \ref{fig:Figure4-7}).
 
 \subsection{Explicit Execution}
-\label{subsec:explicit_execution}\index{execution!explicit}\index{explicit execution}
+\label{subsec:explicit_execution}
+\index{execution!explicit|(}\index{explicit execution|(}
 
 Explicit control means directly tracking the changes to the network, and then directly controlling the execution of the process objects based on an explicit dependency analysis. The major characteristic of this approach is that a centralized \emph{executive} is used to coordinate network execution. This executive must track changes to the parameters and inputs of each object, including subsequent changes to the network topology (Figure \ref{fig:Figure4-7a}).
 
@@ -253,9 +255,11 @@ The explicit approach may be either demand-driven or event-driven. In the event-
 
 
 The explicit approach with a central executive is typical of many commercial visualization systems such as AVS\index{AVS}, Irix Explorer, and IBM Data Explorer\index{Data Explorer}. Typically these systems use a visual-programming interface to construct the visualization network. Often these systems are implemented on parallel computers, and the ability to distribute computation is essential.
+\index{execution!explicit|)}\index{explicit execution|)}
 
 \subsection{Implicit Execution}
-\label{subsec:implicit_execution}\index{execution!implicitl}
+\label{subsec:implicit_execution}
+\index{execution!implicit|(}
 
 Implicit control means that a process object executes only if its local input or parameters change (Figure 4-7 \ref{fig:Figure4-7b}). Implicit control is implemented using a two-pass process. First, when output is requested from a particular object, that object requests input from its input objects. This process is recursively repeated until source objects are encountered. The source objects then execute if they have changed or their external inputs have changed. Then the recursion unwinds as each process object examines its inputs and determines whether to execute. This procedure repeats until the initial requesting object executes and terminates the process. These two steps are called the \emph{update} and \emph{execution} passes.
 
@@ -270,14 +274,16 @@ Implicit network execution is naturally implemented using \emph{demand-driven} c
 The primary advantage of the implicit control scheme is its simplicity. Each object only need keep track of its internal modification time. When output is requested, the object compares its modification time with that of its inputs, and executes if out of date. Furthermore, process objects need only know about their direct input, so no global knowledge of other objects (such as a network executive) is required.
 
 The disadvantage of implicit control is that it is harder to distribute network execution across computers or to implement sophisticated execution strategies. One simple approach is to create a queue that executes process objects in order of network execution (possibly in a distributed fashion). Of course, once a central object is introduced back into the system, the lines between implicit and explicit control are blurred.
+\index{execution!implicit|)}
 
 \subsection{Conditional Execution}
 \label{subsec:conditional_execution}
-\index{conditional execution}\index{execution!conditional}
+\index{conditional execution|(}\index{execution!conditional|(}
 
 Another important capability of visualization networks is conditional execution. For example, we may wish to map data through different color lookup tables depending upon the variation of range in the data. Small variations can be amplified by assigning more colors within the data range, while we may compress our color display by assigning a small number of colors to the data range (Figure \ref{fig:Figure4-8}). 
 
 The conditional execution of visualization models (such as that shown Figure \ref{fig:Figure4-1c}) can be realized in principle. However, in practice we must supplement the visualization network with a conditional language to express the rules for network execution. Hence, conditional execution of visualization networks is a function of implementation language. Many visualization systems are programmed using the visual programming style. This approach is basically a visual editor to construct data flow diagrams directly. It is difficult to express conditional execution of networks using this approach. Alternatively, in a procedural programming language, conditional execution of networks is straightforward. We defer discussions of the topic until ``Putting It All Together'' on page \pageref{sec:chap04.putting_it_all_together}.
+\index{conditional execution|)}\index{execution!conditional|)}
 \index{execution|)}
 
 \section{Memory and Computation Trade-off}
@@ -436,7 +442,8 @@ In this chapter we saw that readers are source objects, and writers are mappers.
 Examples of readers include vtkSTLReader (read stereo-lithography files) and vtkBYUReader (read MOVIE.BYU format data files). Similarly the objects vtkSTLWriter and vtkBYUWriter can be used to write data files. To see which readers and writers are supported by VTK, see \emph{The VTK User's Guide} or refer to the Web pages at \href{https://www.vtk.org}{https://www.vtk.org} for the current Doxygen manual pages.
 
 \subsubsection{File Interface (Importers / Exporters)}
-\label{subsubsec:file_interface_importers_exporters}\index{exporters}\index{exporter!interfacing to data}
+\label{subsubsec:file_interface_importers_exporters}
+\index{exporters|(}\index{exporter!interfacing to data|(}
 
 \emph{Importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
 
@@ -476,6 +483,7 @@ In the \emph{Visualization Toolkit}, there are several importers and exporters. 
 \end{figure}
 
 Figure \ref{fig:Figure4-13} shows an image created from a \emph{3D Studio} model and saved as a \emph{Renderman} RIB file.
+\index{exporters|)}\index{exporter!interfacing to data|)}
 
 \subsection{Application Interface}
 \label{subsec:application_interface}

@@ -533,7 +533,7 @@ Reducing dataset size is an important practical capability, because visualizatio
 We also may need to reduce data size in order to visualize the important features of a large dataset. This can be used to reduce image clutter and improve the effectiveness of the visualization. Smaller data size also enables the visualization user to navigate through and inspect data more quickly relative to larger datasets. Next we describe two techniques to extract data. One is based on geometry extraction, and the other is based on data thresholding, or thresholding.
 
 \subsubsection{Geometry Extraction}
-\index{geometry extraction}
+\index{geometry extraction|(}
 
 Geometry extraction selects data based on geometric or topological characteristics. A common extraction technique selects a set of points and cells that lie within a specified range of ids. A typical example is selecting all cells having ids between 0-100, or all cells using point ids 250-500. Finite element analysts use this method frequently to isolate the visualization to just a few key regions.
 
@@ -561,16 +561,18 @@ Another useful technique called spatial extraction, selects dataset structure an
 Subsampling modifies the topology of a dataset. When points or cells are not selected, this leaves a topological ``hole''. Dataset topology must be modified to fill the hole. In structured data, this is simply a uniform selection across the structured $i-j-k$ coordinates. In unstructured data (Figure \ref{fig:Figure9-17}(b)), the hole must be filled in by using triangulation or other complex tessellation schemes. Subsampling is not typically performed on unstructured data because of its inherent complexity.
 
 A related technique is \emph{data masking}\index{data extraction!masking}. In data masking we select every $n^{th}$ cell that at a minimum leaves one or more topological ``holes'' in the dataset. Masking also may change the topology of the dataset, since partial selections of cells from structured datasets can only be represented using unstructured grids. Masking is typically used to improve interactive performance or to quickly process portions of data.
+\index{geometry extraction|)}
 
 \subsubsection{Thresholding}
 \label{subsubsec:thresholding}
-\index{data extraction!thresholding}
+\index{data extraction!thresholding!(}
 
 Thresholding extracts portions of a dataset data based on attribute values. For example, we may select all cells having a point with scalar value between (0,1) or all points having a velocity magnitude greater than 1.0.
 
 Scalar thresholding is easily implemented. The threshold is either a single value that scalar values are greater than or less than, or a range of values. Cells or points whose associated scalar values satisfy the threshold criteria can be extracted. Other dataset attribute types such as vectors, normals, or tensors can be extracted in similar fashion by converting the type to a single scalar value. For example, vectors can be extracted using vector magnitude, and tensors using matrix determinate.
 
 A problem with both geometry extraction and thresholding is that the approaches presented thus far extract ``atomic'' pieces of data, that is, a complete cell. Sometimes the cell may lie across the boundary of the threshold. In this case the cell must be clipped (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields} and only a portion of the cell is extracted.
+\index{data extraction!thresholding!)}
 \index{data extraction|)}
 
 \subsection{Probing}
@@ -786,6 +788,7 @@ On some computers limitations on recursion depth may become a problem. Polygonal
 Figure \ref{fig:Figure9-24a}(right) shows the result of the advanced normal generation technique with a feature angle of 60$^\circ$. Sharp edges are well defined and curved areas lack the faceting evident in the original model. The figure is shown with Gouraud shading.
 
 \subsection{Decimation}
+\index{decimation|(}
 
 \begin{figure}[!htb]
 	\centering
@@ -993,6 +996,7 @@ The vertices $v_l$ and $v_r$ define a sweep of triangles (from $v_r$ to $v_l$ ) 
 Figure \ref{fig:Figure9-29} shows the results of applying the topology modifying progressive mesh algorithm to two sets of data. In Figure \ref{fig:Figure9-29}(a-c), a thin plate with holes is decimated (the darker lines show split edges). The middle image in the sequence shows the limits of topology on the algorithm. It is only when the topology of the mesh is allowed to be modified that the final level of reduction is possible. Figure \ref{fig:Figure9-29}(d-f) shows the same algorithm applied to CAD data.
 
 \end{description}
+\index{decimation|)}
 
 \clearpage
 
@@ -1356,7 +1360,7 @@ This simplistic presentation of triangulation techniques has shown how to create
 Despite these problems, triangulation methods are a powerful tool for visualizing unstructured points. Once we convert the data into a triangulation (or in our terminology, an unstructured grid), we can directly visualize our data using standard unstructured grid techniques.
 
 \subsection{Multidimensional Visualization}
-\index{algorithms!multidimensional}
+\index{algorithms!multidimensional|(}
 
 The treatment of multidimensional datasets is an important data visualization issue. Each point in a dataset is described by an n-dimensional coordinate, where $n geq 3$. Here we assume that each coordinate is an independent variable, and that we wish to visualize a single dependent variable. (Multi--dimensional visualization of vectors and tensors is an open research area). An application of multidimensional data is financial visualization, where we might want to visualize return on investment as a function of interest rate, initial investment, investment period, and income, to name just a few possibilities.
 
@@ -1388,6 +1392,7 @@ Most multidimensional visualization techniques work with some form of dimension 
 One novel approach to multidimensional visualization has been proposed by Inselberg and Dimsdale \cite{Inselberg87}. This approach uses parallel coordinate systems. Instead of plotting points on orthogonal axes, the $i^{th}$ dimensional coordinate of each point is plotted along separate, parallel axes. This is shown in Figure \ref{fig:Figure9-41} for a five-dimensional point. In parallel coordinate plots, points appear as lines. As a result, plots of n-dimensional points appear as sequences of line segments that may intersect or group to form complex fan patterns. In so doing, the human pattern recognition capability is engaged. Unfortunately, if the number of points becomes large, and the data is not strongly correlated, the resulting plots can become a solid mass of black, and any data trends are drowned in the visual display.
 
 Another useful multivariable technique uses glyphs\index{glyph!multidimensional}. This technique associates a portion of the glyph with each variable. Although glyphs cannot generally be designed for arbitrary n-dimensional data, in many applications we can create glyphs to convey the information we are interested in. Refer to ``Glyphs'' on page \pageref{subsec:glyphs} for more information about glyphs.
+\index{algorithms!multidimensional|)}
 
 \subsection{Texture Algorithms}
 \label{subsec:texture_algorithms}
@@ -1550,7 +1555,8 @@ Another convenient object for point generation is the class vtkEdgePoints. vtkEd
 \index{dividing cubes!implementation|)}
 
 \subsection{Clipping with Scalar Fields}
-\index{clipping!as scalar data!implementation}
+\index{clipping!as scalar data!implementation|(}
+
 Clipping is implemented in vtkClipPolyData. Each polygonal data primitive implements the operation in its Clip() method using cases tables derived in a manner similar to that of triangles described on page \pageref{subsec:clipping_with_scalar_fields}. vtkClipPolyData has methods to control whether an implicit function provides the scalar data or whether the dataset's scalar data will be used. ComputeScalarDataOn() uses the implicit function and ComputeScalarDataOff() uses the dataset's scalar data. Two output polygonal datasets are produced. These are accessed with GetOutput() and GetClippedOutput() methods. GetOutput() returns the polygonal data that is ``inside'' the clipping region while GetClippedOutput() returns polygonal data that is ``outside'' the region. (Note that GenerateClippedOutputOn() must be enabled if you are to get the clipped output). The meaning of inside and outside can be reversed using the InsideOutOn() method. Figure \ref{fig:Figure9-48} shows a plane of quadrilaterals clipped with a boolean implicit function.
 
 \begin{figure}[htb]
@@ -1606,6 +1612,7 @@ vtkClipPolyData clipper
 \end{lstlisting}
 
 Until recently, VTK supported clipping only for polygonal data cell types (vertices, polyvertices, line, polylines, polygons and triangle strips). Recent additions since VTK version 4.0 support clipping of 3D cells using an ordered Delaunay triangulation approach.
+\index{clipping!as scalar data!implementation|)}
 
 \subsection{Swept Volumes and Surfaces}
 
@@ -1722,7 +1729,7 @@ The results of this visualization are interesting. First, we see that there is a
 One important note about multidimensional visualization. Because we tend to combine variables in odd ways (e.g., the use of MONTHLY\_PAYMENT, INTEREST\_RATE, and \\ LOAN\_AMOUNT as $(x, y, z)$ coordinates), normalization of the data is usually required. To normalize data we simply adjust data values to lie between $(0,1)$. Otherwise our data can be badly skewed and result in poor visualizations.
 
 \subsection{Connectivity}
-\index{connectivity!implementation}
+\index{connectivity!implementation|(}
 
 Many useful visualization algorithms often borrow from other fields. Topological connectivity analysis is one such technique. This technique is best categorized as a method in computational geometry, but serves many useful purposes in computer graphics and visualization.
 
@@ -1778,9 +1785,11 @@ To illustrate the application of connectivity analysis, we will use an MRI datas
 
 Figure \ref{fig:Figure9-51a} shows the initial dataset. Notice that there are many small, disconnected isosurfaces due to noise and isolated moisture in the data. We use vtkConnectivityFilter to remove these small, disconnected surfaces. Figure \ref{fig:Figure9-51b} shows the result of applying the filter. Over 50,000 triangles were removed, leaving 299,480 triangles.
 
-The vtkConnectivityFilter is a general filter taking datasets as input, and generating an unstructured grid as output. It functions by extracting cells that are connected at points (i.e., share common points). In this example the single largest surface is extracted. It is also possible to specify cell ids and point ids and extract surfaces connected to these.                   
+The vtkConnectivityFilter is a general filter taking datasets as input, and generating an unstructured grid as output. It functions by extracting cells that are connected at points (i.e., share common points). In this example the single largest surface is extracted. It is also possible to specify cell ids and point ids and extract surfaces connected to these.
+\index{connectivity!implementation|)}                   
 
 \subsection{Decimation}
+\index{decimation!implementation|(}
 
 Decimation is a 3D data compression technique for surfaces represented as triangle meshes. We use it most often to improve rendering interactive response for large models.
 
@@ -1837,9 +1846,10 @@ Figure \ref{fig:Figure9-52} shows the application of decimation to the data from
 The most common parameters to adjust in the vtkDecimate filter are the TargetReduction, InitialError, ErrorIncrement, MaximumIterations, and InitialFeatureAngle. TargetReduction specifies the compression factor (numbers closer to one represent higher compression). Because of topological, decimation criterion, aspect ratio, and feature angle constraints this reduction may not be realized (i.e., TargetReduction is a desired goal, not a guaranteed output). The InitialError and ErrorIncrement control the decimation criterion. As the filter starts, the decimation criterion is set to InitialError. Then, for each iteration the decimation criterion is incremented by ErrorIncrement. The algorithm terminates when either the target reduction is achieved, or the number of iterations reaches MaximumIterations. The InitialFeatureAngle is used to compute feature edges. Smaller angles force the algorithm to retain more surface detail.
 
 Other important parameters are the AspectRatio and MaximumSubIterations. AspectRatio controls the triangulation process. All triangles must satisfy this criterion or the vertex will not be deleted during decimation. A sub-iteration is an iteration where the decimation criterion is not incremented. This can be used to coalesce triangles during rapid rates of decimation. MaximumSubIterations controls the number of sub-iterations. This parameter is typically set to two.
+\index{decimation!implementation|)}
 
 \subsection{Texture Clipping}
-\index{cutting!with texture}
+\index{cutting!with texture|(}
 
 Texture mapping is a powerful visualization technique. Besides adding detail to images with minimal effort, we can perform important viewing and modelling operations. One of these operations is clipping data to view internal structure.
 
@@ -1896,8 +1906,10 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
 Figure \ref{fig:Figure9-53} is an example of texture clipping using a transparent texture map. The motor show consists of five complex parts, some of which are hidden by the outer casing. To see the inside of the motor, we define an implicit clipping function. This function is simply the intersection of two planes to form a clipping "corner." The object vtkImplicitTextureCoords is used in combination with this implicit function to generate texture coordinates. These objects are then rendered with the appropriate texture map and the internal parts of the motor can be seen.
 
 The texture map consists of three regions (as described previously in the chapter). The concealed region is transparent. The transition region is opaque but with a black (zero intensity) color. The highlighted region is full intensity and opaque. As can be seen from Figure \ref{fig:Figure9-53}, the boundaries appear as black borders giving a nice visual effect.
+\index{cutting!with texture|)}
 
 \subsection{Delaunay Triangulation}
+\index{Delaunay triangulation!implementation|(}
 
 Delaunay triangulation is used to construct topology from unstructured point data. In two dimensions we generate triangles (i.e., an unstructured grid or polygonal dataset) while in three dimensions we generate tetrahedra (i.e., an unstructured grid). Typical examples of image data include points measured in space, or a dimensional subset of multidimensional data.
 
@@ -1945,6 +1957,7 @@ Delaunay triangulation is used to construct topology from unstructured point dat
 In the example of Figure \ref{fig:Figure9-5} we show how to create a 2D Delaunay triangulation from a field of points. The points are created by generating random $x$ and $y$ coordinate values in the interval \cite{0, 1}, and setting the \emph{z}--value to a constant value (i.e., the points lie in an $x$--$y$ plane). The points are then triangulated, and tubes and sphere glyphs are used to highlight the resulting points and edges of the triangulation.
 
 One important concern regarding Delaunay triangulations is that the process is numerically sensitive. Creating triangles with poor aspect ratio (e.g., slivers) can cause the algorithm to break down. If you have a large number of points to triangulate, you may want to consider randomizing the point order. This approach tends to generate triangles with better aspect ratio and give better results. You may also want to consider other implementations of Delaunay triangulation that are more numerically robust. See \cite{Edelsbrunner94} for an example.
+\index{Delaunay triangulation!implementation|)}
 
 \section{Chapter Summary}
 
