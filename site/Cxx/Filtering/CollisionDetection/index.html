@@ -62,8 +62,8 @@ function registerListener(event, func) {
 </span>
 <span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSphereSource.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTransform.h&gt;</span><span class=cp></span>
-</span>
-<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDataSetAttributes.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCamera.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkProperty.h&gt;</span><span class=cp></span>
@@ -98,7 +98,13 @@ function registerListener(event, func) {
 </span>  <span class=n>collision</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>transform1</span><span class=p>);</span>
   <span class=n>collision</span><span class=o>-&gt;</span><span class=n>SetTransform</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>transform2</span><span class=p>);</span>
   <span class=n>collision</span><span class=o>-&gt;</span><span class=n>GenerateScalarsOn</span><span class=p>();</span>
+<span class=cp>#if 0</span><span class=c></span>
+<span class=c>  collision-&gt;SetInputArrayToProcess(0, 0, 0,</span>
+<span class=hll><span class=c>                                   vtkDataObject::FIELD_ASSOCIATION_CELLS,</span>
+</span><span class=hll><span class=c>                                   vtkDataSetAttributes::SCALARS);</span>
+</span><span class=cp>#endif</span>
   <span class=n>collision</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
+
   <span class=n>collision</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>Print</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>);</span> 
   <span class=n>collision</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>Print</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>);</span> 
   <span class=n>collision</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>Print</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>);</span> 
@@ -129,6 +135,7 @@ function registerListener(event, func) {
 </span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>actor2</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>actor2</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;tomato&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>actor2</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetOpacity</span><span class=p>(</span><span class=mf>.5</span><span class=p>);</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>actor3</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>actor3</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=mi>5</span><span class=p>);</span>
