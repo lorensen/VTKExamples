@@ -305,7 +305,7 @@ Our minimal selection of cells is based on common application and performance, r
 
 \subsection{Image Data}
 \label{subsec:image_data}
-\index{dataset types!image data|(}
+\index{dataset types!image data|(}\index{image data|(}
 
 An image dataset is a collection of points and cells arranged on a regular, rectangular lattice. The rows, columns, and planes of the lattice are parallel to the global $x-y-z$ coordinate system. If the points and cells are arranged on a plane (i.e., two-dimensional) the dataset is referred to as a pixmap, bitmap, or image. If the points and cells are arranged as stacked planes (i.e., three-dimensional) the dataset is referred to as a volume. Keep in mind that the term image data refers to images, volumes, or one-dimensional point arrays collectively. Note that some authors have referred to image data as uniform grids and structured points. (Structured points was the terminology used in earlier versions of VTK.)
 
@@ -316,7 +316,7 @@ The regular nature of the topology and geometry of the image dataset suggests a 
 The simplicity and compactness of representation are desirable features of image data. It is an efficient structure to traverse and compute with. For this reason image data is rivaled only by polygonal data as the most common form of visualization dataset. The major disadvantage with image data is the so--called ``curse of dimensionality''. To obtain greater data resolution we must increase the dimensions of the dataset. Increasing the dimensions of an image results in an $O(n^2)$ increase in memory requirement, while volumes require an $O(n^3)$ increase. Therefore, to resolve a small feature using image data may require more disk space or computer memory than is available.
 
 Image datasets are often used in imaging and computer graphics. Volumes are frequently generated from medical imaging technologies such as Computed Tomography (CT) and Magnetic Resonance Imaging (MRI). Sometimes volumes are used to sample mathematical functions or numerical solutions.
-\index{dataset types!image data|)}
+\index{dataset types!image data|)}\index{image data|)}
 
 \subsection{Rectilinear Grid}
 \index{dataset types!rectilinear grid|(}
@@ -494,7 +494,7 @@ We use a different internal data representation for each dataset type. By using 
 
 \begin{description}
 
-\item[vtkImageData.] The simplest and most compact representation is vtkImageData. Both the dataset points and cells are represented implicitly by specifying the dimensions, data spacing, and origin. The dimensions define the topology of the dataset, while the origin and spacing specify the geometry. The vtkImageData dataset type can represent 1D line samples, 2D images, and 3D volumes. (Note: in earlier versions of VTK, vtkImageData was known as vtkStructuredPoints. There are still remnants of this terminology in the code base.)
+\item[vtkImageData.\index{image data!representation}] The simplest and most compact representation is vtkImageData. Both the dataset points and cells are represented implicitly by specifying the dimensions, data spacing, and origin. The dimensions define the topology of the dataset, while the origin and spacing specify the geometry. The vtkImageData dataset type can represent 1D line samples, 2D images, and 3D volumes. (Note: in earlier versions of VTK, vtkImageData was known as vtkStructuredPoints. There are still remnants of this terminology in the code base.)
 
 There is an implicit ordering of both the points and cells composing vtkImageData. Both the cells and points are numbered in the direction of increasing x, then y, then z. The total number of points is $n_x \times n_y \times n_z$ where $n_x$, $n_y$, and $n_z$z are the dimensions of vtkImageData. The total number of cells is $(n_x - 1) \times  (n_y - 1) \times (n_z - 1)$.
 
@@ -678,6 +678,7 @@ The most confusing aspect of this example is the Delete() method. To prevent mem
 The answer is no. Certain data objects in VTK are reference counted to conserve memory resources (i.e., subclasses of vtkObjectBase). That means they can be shared between objects. For most objects the Delete() will invoke the destructor. Reference counted objects act a little differently. The Delete() method simply decrements the reference count. This may or may not destroy the object depending on whether it is being used by another object. In this example the points, polys, and scalars are used by the polygonal dataset cube, so they are not deleted when Delete() is invoked. They will be freed once we free the dataset cube, that is, when their reference count drops to zero. (See the VTK User's Guide for more information about memory management.)
 
 \subsubsection{Create an Image Data Dataset}
+\index{image data!example|(}
 
 In this example, we create an image dataset (i.e., an instance of vtkImageData). The topology of the dataset is defined by specifying the data dimensions. The geometry is defined by the data spacing and origin. The spacing specifies the length, width, and height of each voxel. The origin specifies the position in 3D space of the ``lower-left'' corner of the data. In our example we set the origin and spacing of the dataset so that its center lies at the origin, and the bounds of the dataset are $(-0.5,0.5, -0.5,0.5, -0.5,0.5)$.
 
@@ -758,6 +759,7 @@ The topological dimension of the dataset is implicitly known from its instance v
 	\end{subfigure}
 	\caption{Creating a image data dataset. Scalar data is generated from the equation for a sphere. Volume dimensions are $26^3$.}\label{fig:Figure5-18}
 \end{figure}
+\index{image data!example|)}
 
 \subsubsection{Create a Structured Grid Dataset}
 

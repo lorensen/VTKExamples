@@ -1452,6 +1452,7 @@ Using this abstraction allows us to treat single--valued scalars and scalars con
 A significant attraction of using 2-- and 3--dimensional image data is the speed and simplicity of computation. In this section, we will explore specific techniques that exploit the special regular topology and geometry of image data.
 
 \subsection{Coordinate Transformation}
+\index{image data!coordinate transformation|(}
 
 \begin{figure}[!htb]
     \centering
@@ -1483,8 +1484,10 @@ A significant attraction of using 2-- and 3--dimensional image data is the speed
 
 
 Given a point $p$ we can find the structured coordinates by performing three division operations (Figure \ref{fig:Figure8-32}). Taking the integer floor function yields the structured coordinates. Taking the fractional part of the result yields the parametric coordinates of the cell. We can then use Equation \ref{eq:8.3} to convert to dataset coordinates.
+\index{image data!coordinate transformation|)}
 
 \subsection{Derivative Computation}
+\index{image data!derivatives|(}
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
@@ -1505,8 +1508,10 @@ g_z &=& \dfrac{d(x_0, y_0, z_0 + \Delta z_0) - d(x_0, y_0, z_0 - \Delta z_0)}{2 
 \myequations{Computing image data derivatives.}
 
 (Note that at the boundary of the dataset, one-sided differences may be used.) We can use these equations to compute derivatives within the cell as well. We simply compute the derivatives at each cell point from Equation \ref{eq:8.28}, and then use the cell interpolation functions to compute the derivative at the point inside the cell.
+\index{image data!derivatives|)}
 
 \subsection{Topology}
+\index{image data!topology|(}
 
 Structured datasets lend themselves to efficient topological operations (i.e., both image data and structured grids). Given a cell id, it is possible to determine vertex, edge, or face neighbors using simple constant time operations. First, given the cell id in a three-dimensional structured dataset, we use a combination of division and modulo arithmetic to compute the structured coordinates
 
@@ -1531,9 +1536,11 @@ Face neighbors are determined by incrementing one of the $i$, $j$, or $k$ indice
 \myequations{Range for the indices.}
 
 An attempt to index outside these ranges indicates that the neighbor in question does not exist.
+\index{image data!topology|)}
 
 \subsection{Searching}
 \label{subsec:searching}
+\index{image data!searching|(}
 
 Given a point $p = (x, y, z)$ we can determine the cell containing $p$ by using the equations given in Figure \ref{fig:Figure8-32}. These equations generate the structured coordinates $(i, j, k)$, which can then be converted to cell id (i.e., dataset coordinates) using Equation 8-3.
 
@@ -1547,6 +1554,7 @@ k = \text{int}\left( \dfrac{z-z_0}{z_1 - z_0} \right)
 \end{array}
 \end{equation}
 \myequations{Finding the closest point to $p$ using structured coordinates.}
+\index{image data!searching|)}
 
 \section{Putting It All Together}
 
