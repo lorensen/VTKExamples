@@ -259,7 +259,7 @@ The explicit approach with a central executive is typical of many commercial vis
 
 \subsection{Implicit Execution}
 \label{subsec:implicit_execution}
-\index{execution!implicit|(}
+\index{execution!implicit|(}\index{implicit execution|(}
 
 Implicit control means that a process object executes only if its local input or parameters change (Figure 4-7 \ref{fig:Figure4-7b}). Implicit control is implemented using a two-pass process. First, when output is requested from a particular object, that object requests input from its input objects. This process is recursively repeated until source objects are encountered. The source objects then execute if they have changed or their external inputs have changed. Then the recursion unwinds as each process object examines its inputs and determines whether to execute. This procedure repeats until the initial requesting object executes and terminates the process. These two steps are called the \emph{update} and \emph{execution} passes.
 
@@ -274,7 +274,7 @@ Implicit network execution is naturally implemented using \emph{demand-driven} c
 The primary advantage of the implicit control scheme is its simplicity. Each object only need keep track of its internal modification time. When output is requested, the object compares its modification time with that of its inputs, and executes if out of date. Furthermore, process objects need only know about their direct input, so no global knowledge of other objects (such as a network executive) is required.
 
 The disadvantage of implicit control is that it is harder to distribute network execution across computers or to implement sophisticated execution strategies. One simple approach is to create a queue that executes process objects in order of network execution (possibly in a distributed fashion). Of course, once a central object is introduced back into the system, the lines between implicit and explicit control are blurred.
-\index{execution!implicit|)}
+\index{execution!implicit|)}\index{implicit execution|)}
 
 \subsection{Conditional Execution}
 \label{subsec:conditional_execution}
@@ -422,30 +422,35 @@ Although visual programming systems are widely successful, they suffer two drawb
 
 \section{Data Interface Issues}
 \label{sec:data_interface_issues}
+\index{interfacing to data|(}
 
 At this point in the text you may be wondering how to apply a visualization pipeline towards your own data. The answer depends on the type of data you have, preferences in programming style, and required complexity. Although we have not yet described particular types of data (we will in the next chapter), there are two general approaches you may wish to consider when interfacing your data to a visualization system: a programming interface and an application interface.
 
-\section{Programming Interface}
-\label{sec:programming_interface}
+\subsection{Programming Interface}
+\label{subsec:programming_interface}
+\index{interfacing to data!programming interface|(}
 
 The most powerful and flexible approach is to directly program your application to read, write, and process data. There is almost no limit to what you can achieve using this approach. Unfortunately, in a complex system like VTK this requires a level of expertise that may be beyond your time budget to obtain. (If you are interested in this approach using VTK, you'll have to become familiar with the objects in the system. You will also want to refer to the Doxygen-generated manual pages --- on-line at \href{https://www.vtk.org}{https://www.vtk.org} or CD-ROM. The companion text \emph{The VTK User's Guide} is also helpful.)
 
 Typical applications requiring a programming interface are interfacing to data files that are not currently supported by the system or generating synthetic data (e.g., from a mathematical relationship) where no data file is available. Also, sometimes it is useful to directly code your data in the form of a program, and then execute the program to visualize the results. (This is exactly what many of the VTK examples do.)
 
 In general, programming a complex system such as VTK is a difficult undertaking because of the initial learning curve. There are, however, simpler ways to interface to data. While skilled developers may be required to create sophisticated applications, the points of an object--oriented toolkit like VTK is that it provides many of the pieces required to interface to common data forms. Thus focusing on those objects that import and export data is a good start towards interfacing with data. In VTK, these objects are known as readers, writers, importers and exporters.
+\index{interfacing to data!programming interface|)}
 
 \subsubsection{File Interface (Readers / Writers)}
 \label{subsubsec:file_interface_readers_writers}
+\index{interfacing to data!readers and writers|(}
 
 In this chapter we saw that readers are source objects, and writers are mappers. What this means from a practical point of view is that readers will ingest data from a file, create a data object, and then pass the object down the pipeline for processing. Similarly, writers ingest a data object and then write the data object to a file. Thus, readers and writers will interface to your data well if VTK supports your format, \emph{and} you only need to read or write a \emph{single} data object. If your data file format is not supported by the system, you will need to interface to your data via a general programming interface described above. Or, if you wish to interface to a collection of objects, you will probably want to see whether an exporter or importer object (described in the next section) exists to support your application.
 
 Examples of readers include vtkSTLReader (read stereo-lithography files) and vtkBYUReader (read MOVIE.BYU format data files). Similarly the objects vtkSTLWriter and vtkBYUWriter can be used to write data files. To see which readers and writers are supported by VTK, see \emph{The VTK User's Guide} or refer to the Web pages at \href{https://www.vtk.org}{https://www.vtk.org} for the current Doxygen manual pages.
+\index{interfacing to data!readers and writers|)}
 
 \subsubsection{File Interface (Importers / Exporters)}
 \label{subsubsec:file_interface_importers_exporters}
-\index{exporters|(}\index{exporter!interfacing to data|(}
+\index{exporters|(}\index{exporter!interfacing to data|(}\index{importer!interfacing to data|(}\index{interfacing to data!importers and exporters|(}
 
-\emph{Importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
+\emph{Importers}\index{importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
 
 In the \emph{Visualization Toolkit}, there are several importers and exporters. To see which importers and exporters are supported by VTK, see \emph{The VTK User's Guide}. You may also want to check the Web pages at \href{https://www.vtk.org}{https://www.vtk.org} for the current Doxygen manual pages. If the exporter you are looking for does not exist, you will have to develop your own using the programming interface.
 
@@ -483,10 +488,11 @@ In the \emph{Visualization Toolkit}, there are several importers and exporters. 
 \end{figure}
 
 Figure \ref{fig:Figure4-13} shows an image created from a \emph{3D Studio} model and saved as a \emph{Renderman} RIB file.
-\index{exporters|)}\index{exporter!interfacing to data|)}
+\index{exporters|)}\index{exporter!interfacing to data|)}\index{importer!interfacing to data|)}\index{interfacing to data!importers and exporters|)}
 
 \subsection{Application Interface}
 \label{subsec:application_interface}
+\index{interfacing to data!application|(}
 
 The majority of users interface to their data by using an existing application. Rather than programming pipelines or writing their own readers and writers, users acquire an application that suits their particular visualization needs. Then to interface to their data, users simply identify the reader, writer, importer, and/or exporter that can successfully process it. In some cases, users may have to modify the program used to generate the data so that it exports it in a standard data format. The advantage of using existing applications is that the user interface and pipeline are pre-programmed, insuring that the user can focus on their data, rather than expending the significant resources required to write visualization programs. The disadvantage of using existing applications is that necessary features are often missing, and applications typically lack the flexibility that a general purpose tool can provide.
 
@@ -506,6 +512,8 @@ The majority of users interface to their data by using an existing application. 
 \end{figure}
 
 Selecting the right application is not always simple. The application must support the correct dataset types, and support suitable rendering devices, for example generating images on large displays \cite{Humphreys99} or in a Cave \cite{CruzNeira93} environment. In some cases user interaction is required, and demands on parallel processing or data handling capacities further complicates the selection. For example, while a general purpose tool like ParaView (Figure \ref{fig:Figure4-14a}) can be used to visualize most types of data, including providing support for large data and parallel computing, a specialized tool such as VolView (Figure \ref{fig:Figure4-14}(b) )may be better suited for a particular type task such as viewing medical data shown in the figure. It is imperative that users have a familiarity with the visualization process if they are to successfully choose the right application for their data.
+\index{interfacing to data!application|)}
+\index{interfacing to data|)}
 
 \section{Putting It All Together}
 \label{sec:chap04.putting_it_all_together}
@@ -630,19 +638,23 @@ For more details regarding the object design of filters and data objects, please
 
 Until now, we have used the terms metadata and information objects rather informally. As described previously, in the context of VTK, these terms refer to data that describes datasets. In this section, we show how these objects, which are subclasses of vtkInformation, are used to facilitate the execution of the VTK pipeline.
 
+\begin{description}
+\item[Information Objects.] Information objects are the basic containers used throughout the VTK pipeline to hold a wide variety of metadata. They are heterogeneous key--to--value maps in which the type of the key determines the type of the value. The following is an enumeration of the places information objects are used.
+
 \begin{itemize}
-\item \textbf{Information Objects}. Information objects are the basic containers used throughout the VTK pipeline to hold a wide variety of metadata. They are heterogeneous key-to-value maps in which the type of the key determines the type of the value. The following is an enumeration of the places information objects are used.
 
-\item \emph{Pipeline information} objects hold information for pipeline execution. They are stored in instances of vtkExecutive or subclasses and are accessible via the method vtkExecutive::GetOutputInformation(). There is one pipeline information object per output port. It contains an entry pointing to the output vtkDataObject on the corresponding port (if it has been created). The vtkDataObject contains a pointer back to its corresponding pipeline information object, accessible via vtkDataObject::GetPipelineInformation(). The pipeline information object also holds information about what will populate the data object when the filter executes and generates the output. The actual information contained is determined by the output data type and the execution model in use. Pipeline information objects for input connections are accessible via the method vtkExecutive::GetInputInformation(), and they are the pipeline information objects on the output ports to which the input ports are connected.
+\item \emph{Pipeline information\index{information pipeline!objects!information}\index{information!pipeline}} objects hold information for pipeline execution. They are stored in instances of vtkExecutive or subclasses and are accessible via the method vtkExecutive::GetOutputInformation(). There is one pipeline information object per output port. It contains an entry pointing to the output vtkDataObject on the corresponding port (if it has been created). The vtkDataObject contains a pointer back to its corresponding pipeline information object, accessible via vtkDataObject::GetPipelineInformation(). The pipeline information object also holds information about what will populate the data object when the filter executes and generates the output. The actual information contained is determined by the output data type and the execution model in use. Pipeline information objects for input connections are accessible via the method vtkExecutive::GetInputInformation(), and they are the pipeline information objects on the output ports to which the input ports are connected.
 
-\item \emph{Port information} objects hold information about the data types produced on output ports and consumed by input ports. They are stored by instances of vtkAlgorithm. There is one input port information object per input port and one output port information object per output port. They are accessible via the methods vtkAlgorithm::GetInputPortInformation() and vtkAlgorithm::GetOutputPortInformation(). Port information objects are usually created and populated by subclasses of vtkAlgorithm in order to specify the interface of the filter.
+\item \emph{Port information\index{information!port}} objects hold information about the data types produced on output ports and consumed by input ports. They are stored by instances of vtkAlgorithm. There is one input port information object per input port and one output port information object per output port. They are accessible via the methods vtkAlgorithm::GetInputPortInformation() and vtkAlgorithm::GetOutputPortInformation(). Port information objects are usually created and populated by subclasses of vtkAlgorithm in order to specify the interface of the filter.
 
-\item \emph{Request information} objects hold information about a specific request being sent to an executive or algorithm. There is one entry indicating what request is being sent and possibly other entries giving additional details about the specific request. These information objects are not accessible via any public method but are passed to ProcessRequest() methods that implement the requests.
+\item \emph{Request information\index{information!request}} objects hold information about a specific request being sent to an executive or algorithm. There is one entry indicating what request is being sent and possibly other entries giving additional details about the specific request. These information objects are not accessible via any public method but are passed to ProcessRequest() methods that implement the requests.
 
-\item \emph{Data information\index{data information}} objects hold information about what is currently stored in a vtkDataObject. There is one data information object in each data object, accessible via vtkDataObject::GetInformation(). The actual information contained is determined by the data object type.
+\item \emph{Data information\index{data information}\index{information!data}} objects hold information about what is currently stored in a vtkDataObject. There is one data information object in each data object, accessible via vtkDataObject::GetInformation(). The actual information contained is determined by the data object type.
 
-\item \emph{Algorithm information\index{algorithm information}} objects hold information about an instance of vtkAlgorithm. There is one algorithm information object per algorithm object, accessible via vtkAlgorithm::GetInformation(). The actual information contained is determined by the algorithm object type.
+\item \emph{Algorithm information\index{algorithm information}\index{information!algorithm}} objects hold information about an instance of vtkAlgorithm. There is one algorithm information object per algorithm object, accessible via vtkAlgorithm::GetInformation(). The actual information contained is determined by the algorithm object type.
 \end{itemize}
+
+\end{description}
 
 The importance of the information objects in VTK is that they are flexible (e.g., new key-value pairs can be easily added) and extensible. That is, readers, filters and mappers can add new information to the containers without requiring the API of the pipeline--related classes to change.
 
@@ -926,7 +938,7 @@ For each technique:
 
 \end{enumerate}
 
-    \item \label{ex:ch04_4.2} A \emph{height field} is a regular array of 2D points where $h = f(x,y)$, $h$ is an altitude above the point $(x,y)$. Height fields are often used to represent terrain data. Design an object--oriented system to visualize height fields.
+    \item \label{ex:ch04_4.2} A \emph{height field}\index{height field} is a regular array of 2D points where $h = f(x,y)$, $h$ is an altitude above the point $(x,y)$. Height fields are often used to represent terrain data. Design an object--oriented system to visualize height fields.
 
 \begin{enumerate}
 

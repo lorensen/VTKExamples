@@ -99,8 +99,9 @@ Here we've taken into account that there are one fewer cells along each topologi
 
 \section{Interpolation Functions}
 \label{sec:interpolation_functions}
+\index{interpolation function|(}
 
-Computer visualization deals with discrete data. The data is either supplied at a finite number of points or created by sampling continuous data at a finite number of points. But we often need information at positions other than these discrete point locations. This may be for rendering or for sub-sampling the data during algorithm execution. We need to interpolate data from known points to some intermediate point using interpolation functions.
+Computer visualization deals with discrete data. The data is either supplied at a finite number of points or created by sampling continuous data at a finite number of points. But we often need information at positions other than these discrete point locations. This may be for rendering or for sub-sampling the data during algorithm execution. We need to interpolate data from known points to some intermediate point using \emph{interpolation functions}.
 
 Interpolation functions relate the values at cell points to the interior of the cell. Thus, we assume that information is defined at cell points, and that we must interpolate from these points. We can express the result as a weighted average of the data values at each cell point.
 
@@ -112,7 +113,7 @@ Interpolation functions relate the values at cell points to the interior of the 
 
 \subsection{General Form}
 
-To interpolate data from the cell points $p_i$ to a point $p$ that is inside the cell, we need three pieces of information:
+To interpolate\index{interpolate} data from the cell points $p_i$ to a point $p$ that is inside the cell, we need three pieces of information:
 
 \begin{itemize}
 
@@ -776,9 +777,10 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
 
     \item[Quadratic Wedge.] Figure \ref{fig:Figure8-21} shows the parametric coordinate system and interpolation functions for a quadratic wedge cell type. The quadratic wedge is described using the three parametric coordinate $(r,s,t)$.
 
-    \item[Quadratic Pyramid.] Figure \ref{fig:Figure8-22} shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i$, $\eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the $i^{th}$ point. (The shape functions and derivatives were implemented thanks to the \href{https://www.colorado.edu/aerospacestructures/}{Center For Aerospace Structures}.)
-
+    \item[Quadratic Pyramid.] Figure \ref{fig:Figure8-22} shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i$, $\eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the $i^{th}$ point. (The shape functions and derivatives were implemented thanks to the \href{https://www.colorado.edu/aerospacestructures/}{Center For Aerospace Structures}.)  
+ 
 \end{description}
+\index{interpolation function|)}
 
 \section{Cell Tessellation}
 
@@ -789,7 +791,7 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
 	\label{fig:Figure8-23}
 \end{wrapfigure}
 
-As briefly introduced in Chapter 5, nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically only quadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework\index{cell!adaptor framework} (see Figure \ref{fig:Figure8-23}) that enables users to interface their own simulation system to the visualization system \cite{Schroeder06}. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet\index{GenericDataSet} and GenericAdaptorCell\index{GenericAdaptorCell}). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho--rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
+As briefly introduced in Chapter 5: \nameref{chap:basic_data_representation}, nonlinear cells are often used in various numerical techniques such as the finite element method. While some visualizatinon systems support nonlinear cells directly, typically only quadratic and occasionally cubic formulations are supported (for example, VTK supports quadratic cells). This represents only a small subset of the formulations currently available in numerical packages, and ignores the unlimited potential cell formulations. To address this important problem, visualization systems may provide an adaptor framework\index{cell!adaptor framework} (see Figure \ref{fig:Figure8-23}) that enables users to interface their own simulation system to the visualization system \cite{Schroeder06}. Such a framework requires writing adaptor classes that are derived from visualization dataset and cell base classes (in the figure these are labeled GenericDataSet\index{GenericDataSet} and GenericAdaptorCell\index{GenericAdaptorCell}). These adaptors act like translators, converting data and method invocations to and from the forms expected by the visualization system and the numerical system. Like any other data objects, such adaptor cells and datasets can be processed directly by visualization algorithms. However, processing such general data objects is a difficult problem, since most visualization algorithms described in the scientific literature to date adopt the fundamental assumptions that cell geometry is linear. Removing this assumption may require introducing significant complexity into the algorithm, or may even require a new algorithm. For example, the marching cubes isocontouring algorithm assumes that the cells are ortho--rectilinear hexahedra; without this assumption elaborate transformations to and from parametric and global coordinate systems are required, and even then in highly curved nonlinear cells, degenerate or self-intersection isocontours may be generated without extensive topological and geometric checks. Thus the adaptor framework typically includes methods for tessellating nonlinear cells into the familiar linear cells, which can then be readily processed by conventional visualization algorithms. In the following section, we briefly described a simple method for tessellating higher order, nonlinear cells to produce linear cells.
 
 \subsection{Basic Approach}
 
@@ -1452,6 +1454,7 @@ Using this abstraction allows us to treat single--valued scalars and scalars con
 A significant attraction of using 2-- and 3--dimensional image data is the speed and simplicity of computation. In this section, we will explore specific techniques that exploit the special regular topology and geometry of image data.
 
 \subsection{Coordinate Transformation}
+\index{image data!coordinate transformation|(}
 
 \begin{figure}[!htb]
     \centering
@@ -1483,8 +1486,10 @@ A significant attraction of using 2-- and 3--dimensional image data is the speed
 
 
 Given a point $p$ we can find the structured coordinates by performing three division operations (Figure \ref{fig:Figure8-32}). Taking the integer floor function yields the structured coordinates. Taking the fractional part of the result yields the parametric coordinates of the cell. We can then use Equation \ref{eq:8.3} to convert to dataset coordinates.
+\index{image data!coordinate transformation|)}
 
 \subsection{Derivative Computation}
+\index{image data!derivatives|(}
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
@@ -1505,8 +1510,10 @@ g_z &=& \dfrac{d(x_0, y_0, z_0 + \Delta z_0) - d(x_0, y_0, z_0 - \Delta z_0)}{2 
 \myequations{Computing image data derivatives.}
 
 (Note that at the boundary of the dataset, one-sided differences may be used.) We can use these equations to compute derivatives within the cell as well. We simply compute the derivatives at each cell point from Equation \ref{eq:8.28}, and then use the cell interpolation functions to compute the derivative at the point inside the cell.
+\index{image data!derivatives|)}
 
 \subsection{Topology}
+\index{image data!topology|(}
 
 Structured datasets lend themselves to efficient topological operations (i.e., both image data and structured grids). Given a cell id, it is possible to determine vertex, edge, or face neighbors using simple constant time operations. First, given the cell id in a three-dimensional structured dataset, we use a combination of division and modulo arithmetic to compute the structured coordinates
 
@@ -1531,9 +1538,11 @@ Face neighbors are determined by incrementing one of the $i$, $j$, or $k$ indice
 \myequations{Range for the indices.}
 
 An attempt to index outside these ranges indicates that the neighbor in question does not exist.
+\index{image data!topology|)}
 
 \subsection{Searching}
 \label{subsec:searching}
+\index{image data!searching|(}
 
 Given a point $p = (x, y, z)$ we can determine the cell containing $p$ by using the equations given in Figure \ref{fig:Figure8-32}. These equations generate the structured coordinates $(i, j, k)$, which can then be converted to cell id (i.e., dataset coordinates) using Equation 8-3.
 
@@ -1547,6 +1556,7 @@ k = \text{int}\left( \dfrac{z-z_0}{z_1 - z_0} \right)
 \end{array}
 \end{equation}
 \myequations{Finding the closest point to $p$ using structured coordinates.}
+\index{image data!searching|)}
 
 \section{Putting It All Together}
 

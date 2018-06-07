@@ -438,7 +438,7 @@ A number of visualization techniques have been developed to construct vector fie
 
 One useful visualization technique creates vector field skeletons that divide the vector field into separate regions. Within each region, the vector field is topologically equivalent to uniform flow. These skeletons are created by locating critical points, and then connecting the critical points with streamlines. In 3D vector field analysis this technique can be applied to the surface of objects to locate lines of flow separation and attachment and other important flow features. Also, in general 3D flow, the regions of uniform flow are separated by surfaces, and creation of 3D flow skeletons is a current research topic.
 
-Vortex visualization is another area of current research. One technique computes the \emph{helicitydensity}
+Vortex visualization is another area of current research. One technique computes the \emph{helicity--density}\index{helicity--density}
 
 \begin{equation}\label{eq:9.12}
 H_d = \overrightarrow{v\ } \cdot \overrightarrow{w\ } = \vert \overrightarrow{v\ } \vert \vert \overrightarrow{w\ } \vert \cos(\phi)
@@ -461,6 +461,7 @@ In Chapter 6: \nameref{chap:fundamental_algorithms} we saw that $3 \times 3$ rea
 Decomposition of the tensor field in this fashion provides additional insight into visualizing $3 \times 3$ real symmetric tensors. We can directly use the vector field visualization techniques presented previously or use variations of them. One such technique is a novel extension of the streampolygon technique, the method of \emph{hyperstreamlines}.
 
 \subsection{Hyperstreamlines}
+\index{hyperstreamline|(}
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -489,8 +490,7 @@ Hyperstreamlines are constructed by creating a streamline through one of the thr
 
 
 Figure \ref{fig:Figure9-15} shows an example of hyperstreamlines. The data is from a point load applied to a semi-infinite domain. Compare this figure to Figure \ref{fig:Figure6-22} that used tensor ellipsoids to visualize the same data. Notice that there is less clutter and more information available from the hyperstreamline visualization.
-
-
+\index{hyperstreamline|)}
 
 \section{Modelling Algorithms}
 
@@ -565,14 +565,14 @@ A related technique is \emph{data masking}\index{data extraction!masking}. In da
 
 \subsubsection{Thresholding}
 \label{subsubsec:thresholding}
-\index{data extraction!thresholding!(}
+\index{data extraction!thresholding|(}
 
 Thresholding extracts portions of a dataset data based on attribute values. For example, we may select all cells having a point with scalar value between (0,1) or all points having a velocity magnitude greater than 1.0.
 
 Scalar thresholding is easily implemented. The threshold is either a single value that scalar values are greater than or less than, or a range of values. Cells or points whose associated scalar values satisfy the threshold criteria can be extracted. Other dataset attribute types such as vectors, normals, or tensors can be extracted in similar fashion by converting the type to a single scalar value. For example, vectors can be extracted using vector magnitude, and tensors using matrix determinate.
 
 A problem with both geometry extraction and thresholding is that the approaches presented thus far extract ``atomic'' pieces of data, that is, a complete cell. Sometimes the cell may lie across the boundary of the threshold. In this case the cell must be clipped (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields} and only a portion of the cell is extracted.
-\index{data extraction!thresholding!)}
+\index{data extraction!thresholding|)}
 \index{data extraction|)}
 
 \subsection{Probing}
@@ -829,7 +829,7 @@ A \emph{simple point} is surrounded by a complete cycle of triangles, and each e
 
 A point that is on the boundary of a mesh, that is, within a semicycle of triangles, is a \emph{boundary point}\index{boundary point}.
 
-A \emph{simple point} can be further classified as an \emph{interior edge} or \emph{corner point}\index{corner point}. These classifications are based on the local mesh geometry. If the surface normal angle between two adjacent triangles is greater than a specified \emph{feature angle}, then a \emph{feature edge} exists (see Figure \ref{fig:Figure9-25a}). When a point is used by two feature edges, the point is an interior edge point. If one, three, or more feature edges use the point, the point is a \emph{corner point}.
+A \emph{simple point} can be further classified as an \emph{interior edge}\index{interior edge} or \emph{corner point}\index{corner point}. These classifications are based on the local mesh geometry. If the surface normal angle between two adjacent triangles is greater than a specified \emph{feature angle}, then a \emph{feature edge} exists (see Figure \ref{fig:Figure9-25a}). When a point is used by two feature edges, the point is an interior edge point. If one, three, or more feature edges use the point, the point is a \emph{corner point}.
 
 Complex and corner vertices are not deleted from the triangle mesh; all other vertices become candidates for deletion.
 
@@ -1055,7 +1055,7 @@ Past efforts at creating swept surfaces and volumes have focused on analytical t
 
 Degeneracies occur when an n-dimensional object moves in such a way that its representation becomes (n-1)-dimensional. For example, moving a plane in the direction of its normal, sweeps out a 3D ``cubical'' volume. Sweeping the plane in a direction perpendicular to its normal, however, results in a degenerate condition, since the plane sweeps out a 2D ``rectangle''.
 
-Instead of creating swept surfaces analytically, numerical approximation techniques can be used \cite{Schroeder94}. Implicit modeling provides the basis for an effective technique to visualize object motion via swept surfaces and volumes. The technique is immune to degeneracies and can treat any geometric representation for which a distance function can be computed, such as the VTK cell types.
+Instead of creating swept surfaces analytically, numerical approximation techniques can be used \cite{Schroeder94}. Implicit modeling\index{implicit modelling!and swept surface} provides the basis for an effective technique to visualize object motion via swept surfaces and volumes. The technique is immune to degeneracies and can treat any geometric representation for which a distance function can be computed, such as the VTK cell types.
 
 \begin{figure}[htb]
     \centering
