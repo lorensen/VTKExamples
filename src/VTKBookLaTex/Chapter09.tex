@@ -829,7 +829,7 @@ A \emph{simple point} is surrounded by a complete cycle of triangles, and each e
 
 A point that is on the boundary of a mesh, that is, within a semicycle of triangles, is a \emph{boundary point}\index{boundary point}.
 
-A \emph{simple point} can be further classified as an \emph{interior edge} or \emph{corner point}\index{corner point}. These classifications are based on the local mesh geometry. If the surface normal angle between two adjacent triangles is greater than a specified \emph{feature angle}, then a \emph{feature edge} exists (see Figure \ref{fig:Figure9-25a}). When a point is used by two feature edges, the point is an interior edge point. If one, three, or more feature edges use the point, the point is a \emph{corner point}.
+A \emph{simple point} can be further classified as an \emph{interior edge}\index{interior edge} or \emph{corner point}\index{corner point}. These classifications are based on the local mesh geometry. If the surface normal angle between two adjacent triangles is greater than a specified \emph{feature angle}, then a \emph{feature edge} exists (see Figure \ref{fig:Figure9-25a}). When a point is used by two feature edges, the point is an interior edge point. If one, three, or more feature edges use the point, the point is a \emph{corner point}.
 
 Complex and corner vertices are not deleted from the triangle mesh; all other vertices become candidates for deletion.
 
@@ -1055,7 +1055,7 @@ Past efforts at creating swept surfaces and volumes have focused on analytical t
 
 Degeneracies occur when an n-dimensional object moves in such a way that its representation becomes (n-1)-dimensional. For example, moving a plane in the direction of its normal, sweeps out a 3D ``cubical'' volume. Sweeping the plane in a direction perpendicular to its normal, however, results in a degenerate condition, since the plane sweeps out a 2D ``rectangle''.
 
-Instead of creating swept surfaces analytically, numerical approximation techniques can be used \cite{Schroeder94}. Implicit modeling provides the basis for an effective technique to visualize object motion via swept surfaces and volumes. The technique is immune to degeneracies and can treat any geometric representation for which a distance function can be computed, such as the VTK cell types.
+Instead of creating swept surfaces analytically, numerical approximation techniques can be used \cite{Schroeder94}. Implicit modeling\index{implicit modelling!and swept surface} provides the basis for an effective technique to visualize object motion via swept surfaces and volumes. The technique is immune to degeneracies and can treat any geometric representation for which a distance function can be computed, such as the VTK cell types.
 
 \begin{figure}[htb]
     \centering

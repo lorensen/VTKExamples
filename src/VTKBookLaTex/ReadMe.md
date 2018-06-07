@@ -42,6 +42,16 @@ if setting up TexStudio, remember to go to  **Configure TeXstudio|Build** and ch
 
 7. In doing the chapter you will find references to pages and sections in other chapters. As these occur, add the relevant labels into the other chapters. 
 
+## Indexing
+When indexing make sure all sections/subsections/subsubsections when indexed use a page range.
+
+```
+\section{some section}
+\index{some section|(}
+    ... lots of text ...
+\index{some section|)}
+```
+
 ## ToDo
 
 Here we list tasks that need to be done.
@@ -50,12 +60,10 @@ Here we list tasks that need to be done.
 
  1. Create a script to copy and rename the VTKExamples test files into the Figures dub directory. See `src/VTKLaTex/Figures/ReadMe.md` for a list of files chapter by chapter. This script wil need to be callable from `Admin/ScrapeRepo` in the section **# Copy VTKBookLaTex files**.
 
- 2. Better versions of the files in `Figures/Scraped` will be needed for publication quality. When a new version is made it should go into `Figures` and the correspond one in `Fugures/Scraped` removed.
+ 2. Better versions of the files in `Figures/Scraped` will be needed for publication quality. When a new version is made it should go into `Figures` and the correspond one in `Fiugures/Scraped` removed.
 
- 3. Bibliographic links - need to work out hou to get the BibTexKey instead of a number displayed in the text. e.g. instead of `[1]` we need `[Nielson90]`.
+ 3. Figures will need adjustment.
 
- 4. Figures will need adjustment.
+ 4. Figures in `Figures` will need to be reviewed and better versions provided.
 
- 5. Figures in `Figures` will need to be reviewed and better versions provided.
-
- 6. Improve layout.
+ 5. Improve layout.

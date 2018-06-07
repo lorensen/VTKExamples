@@ -635,6 +635,7 @@ Source objects can be used as procedures to create data attributes. For example,
 
 \subsection{Implicit Functions}
 \label{subsec:implicit_functions}
+\index{implicit function|(}
 
 Implicit functions are functions of the form
 
@@ -686,6 +687,7 @@ This simple relationship defines the three regions (on $F(x,y,z = 0)$ on the sph
 \end{figure}
 
 Implicit functions have a variety of uses. This includes geometric modelling, selecting data, and visualizing complex mathematical descriptions.
+\index{implicit function|)}
 
 \subsection{Modelling Objects.}
 
@@ -776,6 +778,7 @@ Certainly these equations are not in the implicit form of Equation \ref{eq:6.11}
 
 \subsection{Implicit Modelling}
 \label{subsec:implicit_modelling}
+\index{implicit modelling|(}
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.24\linewidth}
@@ -843,6 +846,7 @@ Another interesting feature of implicit modeling is that when isosurfaces are ge
 	{\caption{Concave features can result in multiple contour lines/surfaces.}\label{fig:Figure6-29}}
 	{\includegraphics[width=0.6\textwidth]{Figure6-29}}
 \end{figure}
+\index{implicit modelling|)}
 
 \subsection{Glyphs}
 \label{subsec:glyphs}
@@ -1079,6 +1083,7 @@ You can also derive your own lookup table types. Look at vtkLogLookupTable for a
 \index{color mapping!implementation|)}
 
 \subsubsection{Implicit Functions}
+\index{implicit function!implementation|(}
 
 As we have seen, implicit functions can be used for visualizing functions, creating geometry, and cutting or selecting datasets. VTK includes several implicit functions including a single plane (vtkPlane ), multiple convex planes ( vtkPlanes ), spheres ( vtkSphere ), cones ( vtkCone ), cylinders (vtkCylinder ), and the general quadric ( vtkQuadric ). The class vtkImplicitBoolean allows you to create boolean combinations of these implicit function primitives. Other implicit functions can be added to VTK by deriving from the abstract base class vtkImplicitFunction.
 
@@ -1088,6 +1093,7 @@ As we have seen, implicit functions can be used for visualizing functions, creat
 \end{figure}
 
 The existing inheritance hierarchy for implicit functions is shown in Figure \ref{fig:Figure6-37}. Subclasses of vtkImplicitFunction must implement the two methods Evaluate() and Gradient(x). The method Evaluate() returns the value of the function at point $(x,y,z)$, while the method Gradient() returns the gradient vector to the function at point $(x,y,z)$.
+\index{implicit function!implementation|)}
 
 \subsubsection{Contouring}
 \index{contouring!implementation|(}
