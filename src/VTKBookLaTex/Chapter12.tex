@@ -82,7 +82,7 @@ The FilePrefix and FilePattern instance variable work together to produce the na
 
 We can choose from three techniques for isosurface visualization: volume rendering, marching cubes, and dividing cubes\index{dividing cubes}. We assume that we want to interact with our data at the highest possible speed, so we will not use volume rendering. We prefer marching cubes if we have polygonal rendering hardware available, or if we need to move up close to or inside the extracted surfaces. Even with hardware assisted rendering, we may have to reduce the polygon count to get reasonable rendering speeds. Dividing cubes is appropriate for software rendering. For this application we'll use marching cubes.
 
-For medical volumes, marching cubes generates a large number of triangles. To be practical,  we'll do this case study with a reduced resolution dataset. We took the original $256^2$ data and reduced it to $64^2$ slices by averaging neighboring pixels twice in the slice plane. We call the resulting dataset \emph{quarter} since it has 1/4 the resolution of the original data. We adjust the DataSpacing for the reduced resolution dataset to 3.2 mm per pixel. Our first program will generate an isosurface for the skin.
+For medical volumes, marching cubes generates a large number of triangles. To be practical,  we'll do this case study with a reduced resolution dataset. We took the original $256^2$ data and reduced it to $64^2$ slices by averaging neighboring pixels twice in the slice plane. We call the resulting dataset \emph{quarter} since it has 1/4 the resolution of the original data. We adjust the DataSpacing for the reduced resolution dataset to 3.2 mm per pixel. Our first program will generate an isosurface\index{isosurface!application} for the skin.
 
 The flow in the program is similar to most VTK applications.
 
@@ -292,7 +292,7 @@ For our purposes we assume that someone (or many graduate students) have laborio
 	{\includegraphics[width=0.7\textwidth]{Figure12-5}}
 \end{figure}
 
-Notice the difference in the information presented by each representation. The original slice shows gradual changes at organ borders, while the segmented slice has abrupt changes. The images we processed in the previous CT example used marching cubes isocontouring algorithm and an intensity threshold to extract the isosurfaces. The segmented study we present has integer labels that have a somewhat arbitrary numeric value. Our goal in this example is to somehow take the tissue labels and create grayscale slices that we can process with the same techniques we used previously. Another goal is to show how image processing and visualization can work together in an application.
+Notice the difference in the information presented by each representation. The original slice shows gradual changes at organ borders, while the segmented slice has abrupt changes. The images we processed in the previous CT example used marching cubes isocontouring algorithm and an intensity threshold to extract the isosurfaces\index{isosurface!application}. The segmented study we present has integer labels that have a somewhat arbitrary numeric value. Our goal in this example is to somehow take the tissue labels and create grayscale slices that we can process with the same techniques we used previously. Another goal is to show how image processing and visualization can work together in an application.
 
 \subsection{The Virtual Frog}
 
@@ -905,17 +905,7 @@ The \emph{Visualization Toolkit} has some useful geometric modelling capabilitie
 	\label{fig:Figure12-12}
 \end{figure}
 
-We create three separate visualization pipelines, one for each letter. Figure \ref{fig:Figure12-12} shows the visualization pipeline.
-As is common in VTK applications, we design a pipeline and fill in the details of the instance variables just before we render.
-We pass the letters through a vtkTransformPolyDataFilter to position them relative to each other.
-Then we combine all of the polygons from the transformed letters into one polygon dataset using the vtkAppendPolyData filter.
-The vtkImplicitModeller creates a volume dataset of dimension $64^3$ with each voxel containing a scalar value that is the distance to the nearest polygon.
-Recall from ``Implicit Modelling'' on page \pageref{subsec:implicit_modelling} that the implicit modelling algorithm lets us specify the region of influence of each polygon. Here we specify this using the SetMaximumDistance() method of the vtkImplicitModeller.
-By restricting the region of influence, we can significantly improve performance of the implicit modelling algorithm.
-Then we use vtkContourFilter to extract an isosurface that approximates a distance of 1.0 from each polygon.
-We create two actors: one for the blobby logo and one for the original polygon letters.
-Notice that both actors share the polygon data created by vtkAppendPolyData. Because of the nature of the VTK visualization pipeline (see ``Implicit Execution'' on page \pageref{subsec:implicit_execution} ), the appended data will only be created once by the portion of the pipeline that is executed first.
-As a final touch, we move the polygonal logo in front of the blobby logo. Now we will go through the example in detail.
+We create three separate visualization pipelines, one for each letter. Figure \ref{fig:Figure12-12} shows the visualization pipeline. As is common in VTK applications, we design a pipeline and fill in the details of the instance variables just before we render. We pass the letters through a vtkTransformPolyDataFilter to position them relative to each other. Then we combine all of the polygons from the transformed letters into one polygon dataset using the vtkAppendPolyData filter. The vtkImplicitModeller creates a volume dataset of dimension $64^3$ with each voxel containing a scalar value that is the distance to the nearest polygon. Recall from ``Implicit Modelling'' on page \pageref{subsec:implicit_modelling} that the implicit modelling algorithm lets us specify the region of influence of each polygon. Here we specify this using the SetMaximumDistance() method of the vtkImplicitModeller. By restricting the region of influence, we can significantly improve performance of the implicit modelling algorithm. Then we use vtkContourFilter to extract an isosurface\index{isosurface!application} that approximates a distance of 1.0 from each polygon. We create two actors: one for the blobby logo and one for the original polygon letters. Notice that both actors share the polygon data created by vtkAppendPolyData. Because of the nature of the VTK visualization pipeline (see ``Implicit Execution'' on page \pageref{subsec:implicit_execution} ), the appended data will only be created once by the portion of the pipeline that is executed first. As a final touch, we move the polygonal logo in front of the blobby logo. Now we will go through the example in detail.
 
 First, we read the geometry files that contain polygonal models of each letter in the logo. The data is in VTK polygonal format, so we use vtkPolyDataReader.
 

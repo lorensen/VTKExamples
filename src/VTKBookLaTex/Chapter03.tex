@@ -646,9 +646,10 @@ The use of object factories as implemented using the New() method allows us to c
 This section works through some simple applications implemented with VTK graphics objects. The focus is on the basics: how to create renderers, lights, cameras, and actors. Later chapters tie together these basic principles to create applications for data visualization.
 
 \subsection{Examples}
-\subsubsection{Render a Cone.}
 
-The following C++ code uses most of the objects introduced in this section to create an image of a cone. The vtkConeSource generates a polygonal representation of a cone and vtkPolyDataMapper maps the geometry (in conjunction with the actor) to the underlying graphics library. (The source code to this example can be found in \href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/Cone/}{Cone.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/Cone/}{Cone.py}. The source code contains additional documentation as well.)
+\begin{description}[leftmargin=0cm,labelindent=0cm]
+
+\item[Render a Cone.] The following C++ code uses most of the objects introduced in this section to create an image of a cone. The vtkConeSource generates a polygonal representation of a cone and vtkPolyDataMapper maps the geometry (in conjunction with the actor) to the underlying graphics library. (The source code to this example can be found in \href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/Cone/}{Cone.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/Cone/}{Cone.py}. The source code contains additional documentation as well.)
 
 \label{eg:render_cone}
 \begin{lstlisting}[language=C++, caption={Cone.cxx}]
@@ -708,8 +709,8 @@ The data representing the cone (a set of polygons) in this example is created by
 
 There are many different types of source objects in VTK similar to vtkConeSource as shown in Figure \ref{fig:Figure3-26}. In the next chapter we will learn more about source and other types of filters.
 
-\subsubsection{Events and Observers.}
-\label{sub:events_observers}
+\item[Events and Observers.]
+\label{sub:examples_events_observers}
 
 A visualization toolkit like VTK is frequently used in interactive applications or may be required to provide status during operation. In addition, integration with other packages such as GUI toolkits is a common task. Supporting such features requires a mechanism for inserting user functionality into the software. In VTK, the \emph{command/observer}\index{command/observer}
  design pattern \cite{Gamma95} is used for this purpose.
@@ -778,9 +779,9 @@ int main( int argc, char *argv[] )
 
 The observer is created by deriving from the class vtkCommand. The Execute() method is required to be implemented by any concrete subclass of vtkCommand (i.e., the method is pure virtual). The resulting subclass, vtkMyCommand, is instantiated and registered with the renderer instance ren1 using the AddObserver() method. In this case the StartEvent is the observed event.
 
-This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( ``Interpreted Code'' on page \pageref{subsec:interpreted_code} ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three-dimensional interaction widgets will be introduced ( ``3D Widgets and User Interaction''  on page \pageref{sec:3D_widgets_user_interaction} ).
+This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( ``Interpreted Code'' on page \pageref{subsec:examples_interpreted_code} ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three-dimensional interaction widgets will be introduced ( ``3D Widgets and User Interaction''  on page \pageref{sec:3D_widgets_user_interaction} ).
 
-\subsubsection{Creating Multiple Renderers.}
+\item[Creating Multiple Renderers.]
 
 The next example is a bit more complex and uses multiple renderers that share a single rendering window. We use viewports to define where the renderers should draw in the render window. (This C++ code can be found in Cone3.cxx.)
 
@@ -822,7 +823,7 @@ As you can see, much of the code is the same as the previous example. The first 
 
 A good application of multiple renderers is to display different views of the same world as demonstrated in this example. Here we adjust the first renderer's camera with a 90 degree azimuth. We then start a loop that rotates the two cameras around the cone. Figure \ref{fig:Figure3-27} shows two frames from this animation.
 
-\subsubsection{Properties and Transformations.}
+\item[Properties and Transformations.]
 
 The previous examples did not explicitly create property or transformation objects or apply actor methods that affect these objects. Instead, we accepted default instance variable values. This procedure is typical of VTK applications. Most instance variables have been preset to generate acceptable results, but methods are always available for you to overide the default values. 
 
@@ -862,12 +863,12 @@ vtkRenderer *ren1= vtkRenderer::New();
 
 We set the actor coneActor properties by modifying the property object automatically created by the actor. This differs from actor coneActor2, where we create a property directly and then assign it to the actor. ConeActor2 is moved from its default position by applying the SetPosition() method. This method affects the transformation matrix that is an instance variable of the actor. The resulting image is shown in Figure \ref{fig:Figure3-28}.
 
-\subsubsection{Introducing vtkRenderWindowInteractor}
-\label{subsec:introducing_vtkRenderWindowInteractor}
+\item[Introducing vtkRenderWindowInteractor]
+\label{subsec:examples_introducing_vtkRenderWindowInteractor}
 
 The previous examples are not interactive. That is, it is not possible to directly interact with the data without modifying and recompiling the C++ code. One common type of interaction is to change camera position so that we can view our scene from different vantage points. In the \emph{Visualization Toolkit} we have provided a suite of convenient objects to do this: vtkRenderWindowInteractor, vtkInteractorStyle and their derived classes.
 
-Instances of the class vtkRenderWindowInteractor capture windowing system specific mouse and keyboard events in the rendering window, and then translate these events into VTK events. For example, mouse motion in an X11 or Windows application (occurring in a render window) would be translated by vtkRenderWindowInteractor into VTK's MouseMoveEvent\index{events!MouseMoveEvent}. Any observers\index{events!See also observers} registered for this event would be notified (see ``Events and Observers'' on \pageref{sub:events_observers} ). Typically an instance of vtkInteractorStyle is used in combination with vtkRenderWindowInteractor to define a behavior associated with particular events. For example, we can perform camera dolly, pan, and rotation by using different mouse button and motion combinations. The following code fragment shows how to instantiate and use these objects. This example is the same as our first example with the addition of the interactor and interactor style. The complete example C++ code is in Cone5.cxx.
+Instances of the class vtkRenderWindowInteractor capture windowing system specific mouse and keyboard events in the rendering window, and then translate these events into VTK events. For example, mouse motion in an X11 or Windows application (occurring in a render window) would be translated by vtkRenderWindowInteractor into VTK's MouseMoveEvent\index{events!MouseMoveEvent}. Any observers\index{events!See also observers} registered for this event would be notified (see ``Events and Observers'' on \pageref{sub:examples_events_observers} ). Typically an instance of vtkInteractorStyle is used in combination with vtkRenderWindowInteractor to define a behavior associated with particular events. For example, we can perform camera dolly, pan, and rotation by using different mouse button and motion combinations. The following code fragment shows how to instantiate and use these objects. This example is the same as our first example with the addition of the interactor and interactor style. The complete example C++ code is in Cone5.cxx.
 
 \begin{lstlisting}[language=C++, caption={Cone5.cxx}]
 vtkRenderWindowInteractor *iren =
@@ -885,8 +886,8 @@ vtkInteractorStyleTrackballCamera *style =
 
 After the interactor is created using its New() method, we must tell it what render window to capture events in using the SetRenderWindow() method. In order to use the interactor we have to initialize and start the event loop using the Initialize() and Start() methods, which works with the event loop of the windowing system to begin to catch events. Some of the more useful events include the ``w'' key, which draws all actors in wireframe; the ``s'' key, which draws the actors in surface form; the ``3'' key, which toggles in and out of 3D stereo for those systems that support this; the ``r'' key, which resets camera view; and the " e" key, which exits the application. In addition, the mouse buttons rotate, pan, and dolly about the camera's focal point. Two advanced features are the ``u'' key, which executes a user-defined function; and the ``p'' key, which picks the actor under the mouse pointer.
 
-\subsubsection{Interpreted Code.}
-\label{subsec:interpreted_code}
+\item[Interpreted Code.]
+\label{subsec:examples_interpreted_code}
 
 In the previous example we saw how to create an interactor style object in conjunction with vtkRenderWindowInteractor to enable us to manipulate the camera by mousing in the render window. Although this provides flexibility and interactivity for a large number of applications, there are examples throughout this text where we want to modify other parameters. These parameters range from actor properties, such as color, to the name of an input file. Of course we can always write or modify C++ code to do this, but in many cases the turn-around time between making the change and seeing the result is too long. One way to improve the overall interactivity of the system is to use an interpreted interface. Interpreted systems allow us to modify objects and immediately see the result, without the need to recompile and relink source code. Interpreted languages also provide many tools, such as GUI (Graphical User Interface) tools, that simplify the creation of applications.
 
@@ -896,7 +897,7 @@ In the previous example we saw how to create an interactor style object in conju
   \caption{In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.}\label{fig:Figure3-29}
 \end{wrapfigure}
 
-The Visualization Toolkit has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in Figure \ref{fig:Figure3-29}. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl).
+\emph{The Visualization Toolkit} has built into its compilation process the ability to automatically generate language bindings to the interpreted languages Tcl\index{interpreted languages!Tcl}, Python\index{interpreted languages!Python} and Java\index{interpreted languages!Java} [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in Figure \ref{fig:Figure3-29}. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl).
 
 \begin{lstlisting}[language=TCL, caption={Cone5.tcl}]
 package require vtk
@@ -937,12 +938,14 @@ wm withdraw .
   \caption{Using Tcl and Tk to build an interpreted application (Cone5.tcl).}\label{fig:Figure3-30}
 \end{figure}
 
-The example begins by loading some shared libraries defining various VTK classes. Next the standard visualization pipeline is created from the vtkConeSource and vtkPolyDataMapper. The rendering classes are created exactly the same as with the C++ example. One major addition is an observer to watch for a UserEvent in the rendering window (by default a ``keypress-u''). The observer triggers the invocation of a Tcl script to raise a Tk interactor GUI widget called.vtkInteract. This GUI, which allows the direct typing of Tcl statements, is shown in Figure \ref{fig:Figure3-30} and is defined by the Tcl command package require vtkinteraction which was executed earlier in the script. (Note: Tk is a popular GUI toolkit for interpreted languages and is distributed as part of Tcl.) 
+The example begins by loading some shared libraries defining various VTK classes. Next the standard visualization pipeline is created from the vtkConeSource and vtkPolyDataMapper. The rendering classes are created exactly the same as with the C++ example. One major addition is an observer to watch for a UserEvent in the rendering window (by default a ``keypress-u''). The observer triggers the invocation of a Tcl script to raise a Tk interactor GUI widget called vtkInteract. This GUI, which allows the direct typing of Tcl statements, is shown in Figure \ref{fig:Figure3-30} and is defined by the Tcl command package require vtkinteraction which was executed earlier in the script. (Note: Tk is a popular GUI toolkit for interpreted languages and is distributed as part of Tcl.) 
 
 As we can see from this example, the number of lines of code is less for the Tcl example than for equivalent C++ code. Also, many of the complexities of C++ are hidden using the interpreted language. Using this user-interface GUI we can create, modify, and delete objects, and modify their instance variables. The resulting changes appear as soon as a Render() method is applied or mouse events in the rendering window cause a render to occur. We encourage you to use Tcl (or one of the other interpreters) for rapid creation of graphics and visualization examples. C++ is best used when you desire higher performing applications.
 
+\end{description}
+
 \subsubsection{Transform Matrices}
-\label{subsec:transform_matrices}
+\label{subsubsec:transform_matrices}
 
 Transformation matrices are used throughout the  Visualization Toolkit. Actors (subclasses of vtkProp3D --- see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} ) use them to position and orient themselves. Various filters, including vtkGlyph3D and vtkTransformFilter, use transformation matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
 
@@ -1059,7 +1062,7 @@ There is one final and powerful operation that affects an actor's orientation. Y
 \label{subsubsec:assemblies_vtkprop}
 \index{assembly}
 
-Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an \emph{assembly} in VTK\index{assembly!parts}. vtkAssembly is just one of many actor-like classes in VTK. As Figure \ref{fig:Figure3-34} shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding \emph{parts} to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see ``Transformation Matrices'' on page \pageref{subsec:transform_matrices} ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
+Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an \emph{assembly} in VTK\index{assembly!parts}. vtkAssembly is just one of many actor-like classes in VTK. As Figure \ref{fig:Figure3-34} shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding \emph{parts} to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see ``Transformation Matrices'' on page \pageref{subsubsec:transform_matrices} ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
 
 \index{assembly!example}
 \begin{lstlisting}[language=TCL, caption={Part of assembly.tcl}]
