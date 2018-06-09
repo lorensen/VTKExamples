@@ -124,7 +124,7 @@ has a value of 1.0, the other has a value of 0.5.}
 \index{color|)}
 
 \section{Lights}
-\label{Lights}
+\label{Lights}\index{light|(}
 
 One of the major factors controlling the rendering process is the interaction of light with the actors in the scene. If there are no lights, the resulting image will be black and rather uninformative. To a great extent it is the interaction between the emitted light and the surface (and in some cases the interior) of the actors in the scene that defines what we see. Once rays of light interact with the actors in a scene, we have something for our camera to view.
 
@@ -139,7 +139,7 @@ Of the many different types of lights used in computer graphics, we will discuss
 \section{Surface Properties}
 \index{actor!surface properties|(}
 
-As rays of light travel through space, some of them intersect our actors. When this happens, the rays of light interact with the surface of the actor to produce a color. Part of this resulting color is actually not due to direct light, but rather from \emph{ambient} light\index{ambient light} that is being reflected or scattered from other objects. An ambient lighting model accounts for this and is a simple approximation of the complex scattering of light that occurs in the real world. It applies the intensity curve of the light source to the color of the object, also expressed as an intensity curve. The result is the color of the light we see when we look at that object. With such a model, it is important to realize that a white light shining on a blue ball is indistinguishable from a blue light shining on a white ball. The ambient lighting equation is
+As rays of light travel through space, some of them intersect our actors. When this happens, the rays of light interact with the surface of the actor to produce a color. Part of this resulting color is actually not due to direct light, but rather from \emph{ambient} light\index{ambient light}\index{light!ambient} that is being reflected or scattered from other objects. An ambient lighting model accounts for this and is a simple approximation of the complex scattering of light that occurs in the real world. It applies the intensity curve of the light source to the color of the object, also expressed as an intensity curve. The result is the color of the light we see when we look at that object. With such a model, it is important to realize that a white light shining on a blue ball is indistinguishable from a blue light shining on a white ball. The ambient lighting equation is
 
 \begin{equation}\label{eq:3.1}
   R_a = L_c \cdot O_a
@@ -148,7 +148,7 @@ As rays of light travel through space, some of them intersect our actors. When t
 
 where $R_a$ is the resulting intensity curve due to ambient lighting, $L_c$ is the intensity curve of the ambient light, and $O_a$ is the color curve of the object. To help keep the equations simple we assume that all of the direction vectors are normalized (i.e., have a magnitude of one).
 
-Two components of the resulting color depend on direct lighting. \emph{Diffuse lighting}\index{diffuse light}, which is also known as Lambertian reflection, takes into account the angle of incidence of the light onto an object. Figure \ref{fig:Figure3-7} shows the image of a cylinder that becomes darker as you move laterally from its center. The cylinder's color is constant; the amount of light hitting the surface of the cylinder changes. At the center, where the incoming light is nearly perpendicular to the surface of the cylinder, it receives more rays of light per surface area. As we move towards the side, this drops until finally the incoming light is parallel to the side of the cylinder and the resulting intensity is zero.
+Two components of the resulting color depend on direct lighting. \emph{Diffuse lighting}\index{diffuse light}\index{light!diffuse}, which is also known as Lambertian reflection, takes into account the angle of incidence of the light onto an object. Figure \ref{fig:Figure3-7} shows the image of a cylinder that becomes darker as you move laterally from its center. The cylinder's color is constant; the amount of light hitting the surface of the cylinder changes. At the center, where the incoming light is nearly perpendicular to the surface of the cylinder, it receives more rays of light per surface area. As we move towards the side, this drops until finally the incoming light is parallel to the side of the cylinder and the resulting intensity is zero.
 
 \begin{figure}[!htb]
   \centering
@@ -165,7 +165,7 @@ The contribution from diffuse lighting is expressed in Equation \ref{eq:3.2} and
 
 where $R_d$ is the resulting intensity curve due to diffuse lighting, $L_c$ is the intensity curve for the light, and $O_c$ is the color curve for the object. Notice that the diffuse light is a function of the relative angle between incident light vector and $\overrightarrow{L}_n$ and the surface normal of the object $\overrightarrow{O}_n$. As a result diffuse lighting is independent of viewer position.
 
-\emph{Specular} lighting represents direct reflections of a light source off a shiny object. Figure \ref{fig:Figure3-10} shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, $O_sp$, indicates how shiny an object is, more specifically it indicates how quickly specular reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster drop off, and therefore a shinier surface. Referring to Figure \ref{fig:Figure3-9}, the equation for specular lighting is
+\emph{Specular} lighting\index{specular light}\index{light!specular} represents direct reflections of a light source off a shiny object. Figure \ref{fig:Figure3-10} shows a diffusely lit ball with varying specular reflection. The specular intensity (which varies between the top and bottom rows) controls the intensity of the specular lighting. The specular power, $O_sp$, indicates how shiny an object is, more specifically it indicates how quickly specular reflections diminish as the reflection angles deviate from a perfect reflection. Higher values indicate a faster drop off, and therefore a shinier surface. Referring to Figure \ref{fig:Figure3-9}, the equation for specular lighting is
 
 \begin{equation}\label{eq:3.3}
   R_s . = L_cO_s[\overrightarrow{S} \cdot (-\overrightarrow{C}_n)] ^{O_{sp}}\\
@@ -202,7 +202,7 @@ The result is a color at a point on the surface of the object. The constants $O_
   \includegraphics[width=0.8\textwidth]{Figure3-10}\\
   \caption{Effects of specular coefficients. Specular coefficients control the apparent "shininess" of objects. The top row has a specular intensity value of 0.5; the bottom row 1.0. Along the horizontal direction the specular power changes. The values (from left to right) are 5, 10, 20, and 40.}\label{fig:Figure3-10}
 \end{figure}
-\index{actor!surface properties|)}
+\index{actor!surface properties|)}\index{light|)}
 
 \section{Cameras}
 \label{sec:cameras}
@@ -897,7 +897,7 @@ In the previous example we saw how to create an interactor style object in conju
   \caption{In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.}\label{fig:Figure3-29}
 \end{wrapfigure}
 
-\emph{The Visualization Toolkit} has built into its compilation process the ability to automatically generate language bindings to the interpreted languages Tcl\index{interpreted languages!Tcl}, Python\index{interpreted languages!Python} and Java\index{interpreted languages!Java} [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in Figure \ref{fig:Figure3-29}. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl).
+\emph{The Visualization Toolkit} has built into its compilation process the ability to automatically generate language bindings to the interpreted languages Tcl\index{interpreted languages!Tcl}, Python\index{interpreted languages!Python} and Java\index{interpreted languages!Java}\index{Java} [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in Figure \ref{fig:Figure3-29}. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl).
 
 \begin{lstlisting}[language=TCL, caption={Cone5.tcl}]
 package require vtk

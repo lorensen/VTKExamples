@@ -257,6 +257,7 @@ vtkVRMLExporter *writer = vtkVRMLExporter::New();
 Finally an instance of vtkVRMLExporter\index{export!VRML} is created, assigned an instance of vtkRenderWindow as input, and set to write to standard output. When the Write() method is applied, the exporter updates the visualization pipeline and produces the VRML output. The vtkRenderWindow is never rendered and no windows appear on the server. There is no need for an interactor because the interaction will be handled by the client's VRML browser. This program simply reads in a string of input (the parameters from the form) and then produces a string of output (the VRML data). It is also important to remember that CGI--BIN scripts are typically run from a different user id and environment than your own; file names and paths should be fully specified.
 
 \section{Visualization with Java}
+\index{Java|(}
 
 The examples discussed so far have addressed Web-based visualization in a number of ways. We have seen how to present preconstructed content such as images and animations using HTML, as well as creating interactive worlds with VRML. Each technique has its benefits but lacks the flexibility found in a custom-developed program. This is where Java stands out. Java's origins trace back to an embedded control language for small appliances and personal digital assistants. As such it was designed to work on a wide variety of hardware without recompilation and with high reliability. These same qualities are valuable to Web programming where a single program must run on many different machines without fail.
 
@@ -264,7 +265,7 @@ Since Java is a full programming language, any visualization application written
 
 There are two common approaches to utilizing graphics hardware from Java. The first approach is to access an existing toolkits capabilities from within Java. Fortunately, the \emph{Visualization Toolkit} has been interfaced with Java so that it can be used from Java in a manner similar to its use in Tcl/Tk. The second is to use Java3D which is a native 3D extension to Java that supports hardware rendering and a rich scene graph based API.
 
-While Java is a portable byte-compiled language, its designers realized it was important to have a mechanism for developers to make calls to C or C++ routines. This mechanism is called the Java Native Interface, or JNI for short. The JNI provides a clean, well-defined way for native code such as C and C++ to work with Java. This allows a visualization system such as VTK to be used, which in turn provides a mechanism to access 3D graphics hardware (if available). Native code also allows performance critical functions to be handled in optimized C or C++ code instead of Java.
+While Java is a portable byte-compiled language, its designers realized it was important to have a mechanism for developers to make calls to C or C++ routines. This mechanism is called the Java Native Interface\index{Java Native Interface}, or JNI\index{JNI|see {Java Native Interface}} for short. The JNI provides a clean, well-defined way for native code such as C and C++ to work with Java. This allows a visualization system such as VTK to be used, which in turn provides a mechanism to access 3D graphics hardware (if available). Native code also allows performance critical functions to be handled in optimized C or C++ code instead of Java.
 
 The downside to using Java3D or native code is that it sacrifices Java's portability somewhat. Where a pure Java program can be byte-compiled and run on any machine that supports Java, a program that relies on Java3D or native code requires that the compiled Java3D or native code support be installed on the client. For each type of machine you want to support, you will need a compiled version of the native code. For a toolkit like VTK this means that the client would have to download the native VTK support (e.g., an object library) before being able to run VTK-Java applications. Once that is done, most applications described in this book can be made into a Web-based visualization. Depending on the needs of the application, the data can be left on the server and the results sent to the client, or the data could be sent to the client for both processing and viewing.
 
@@ -342,8 +343,10 @@ panel.GetRenderer().AddActor(a);
 The resulting applet is shown in Figure \ref{fig:Figure11-4}.
 
 This demonstrates one of the advantages of using Java for Web visualization. VRML would require that the geometry of each vibrational mode be sent to the client for viewing. With Java and VTK the geometry can be sent once along with a set of scalar displacements for each vibrational mode. Then as the client switches between modes, the geometry can be modified quickly by the client without any additional network traffic. In fact the client could mix vibrational modes or perform an animation showing the vibration of the plate all without having to go back to the server, and without requiring much more data than a single VRML model of the plate. If the client decided to examine another geometry, say the vibrational modes of a disc, then it would likely return to the server for the new data. This is the flexibility that Java provides.
+\index{Java|)}
 
 \section{Java3D}
+\index{Java3D|(}
 
 Similar to a native code implementation (such as a VTK implementation) Java3D provides access to hardware accelerated 3D graphics. Java3D provides both scene graph rendering similar to VRML, and high-level immediate mode rendering. The immediate mode rendering support is not as complete as libraries like OpenGL or DirectX, but it does provide a good subset of its functionality. Java3D does share some of the limitations of native code implementations in that the client must have a version of Java3D for their operating system installed for it to work. There are also some limitations in how both Java3D and native interfaces interact with lightweight GUI components such as swing.
 
@@ -443,6 +446,7 @@ public void addBranchGraph(BranchGroup bg) {
   locale.addBranchGraph(bg);
    }
 \end{lstlisting}
+\index{Java3D|)}
 
 \section{VRML, Java, and the EAI}
 \index{External Authoring Interface|(}\index{EAI|see {External Authoring Interface}}

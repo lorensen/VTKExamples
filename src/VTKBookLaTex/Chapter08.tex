@@ -326,7 +326,7 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
 
     \item[Vertex.\index{interpolation function!vertex}] Vertex cells do not require parametric coordinates or interpolation functions since they are zero-dimensional. The single weighting function is $W_0 = 1$.
 
-    \item[Line.\index{interpolation function!line}] Figure \ref{fig:Figure8-3} shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
+    \item[Line.\index{interpolation function!line}\index{line!interpolation function}\index{line!parametric coordinate}] Figure \ref{fig:Figure8-3} shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
 
     \item[Pixel.\index{interpolation function!pixel}] Figure \ref{fig:Figure8-4} shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{bilinear interpolation}\index{bilinear interpolation}\index{interpolation function!bilinear} functions.
 
@@ -1120,7 +1120,7 @@ or after rearranging
 \end{equation}
 \myequations{Chain rule for partial derivatives (rearranged).}
 
-The $3 \times 3$ matrix $\mathbf{J}$ is called the Jacobian matrix, and it relates the parametric coordinate derivatives to the global coordinate derivatives. We can rewrite Equation \ref{eq:8.21} into more compact form
+The $3 \times 3$ matrix $\mathbf{J}$ is called the Jacobian\index{Jacobian} matrix, and it relates the parametric coordinate derivatives to the global coordinate derivatives. We can rewrite Equation \ref{eq:8.21} into more compact form
 
 \begin{equation}\label{eq:8.22}
 \dfrac{\partial}{\partial r_i} = \sum_{j} \mathbf{J}_{ij} \dfrac{\partial}{\partial x_j}
@@ -1279,7 +1279,7 @@ We have two options when applying spatial search structures. We may insert point
 Inserting points into a search structure is easier because points can be uniquely placed into a bucket. Inserting points also allows us to search for both points and cells. Cells can be found by using $p$ to index into the appropriate bucket. The closest point(s) $p_i$ to $p$ are then located. Using the topological adjacency operator to retrieve the cells using points $p_i$i, we can then search these cells for the cell containing $p$. This procedure must be used with caution, however, since the closest points may not be used by the cells containing $p$ (Figure\ref{fig:Figure8-30}).
 
 \section{Cell / Line Intersection}
-\index{cell!intersection with line|(}\index{cell / line!intersection|(}
+\index{cell!intersection with line|(}\index{cell / line!intersection|(}\index{line!intersection with cell|(}
 
 An important geometric operation is intersection of a line with a cell. This operation can be used to interactively select a cell from the rendering window, to perform ray-casting for rendering, or to geometrically query data.
 
@@ -1422,7 +1422,7 @@ An important geometric operation is intersection of a line with a cell. This ope
 In the \emph{Visualization Toolkit} each cell must be capable of intersecting itself against a line. Figure \ref{fig:Figure8-31} summarizes these operations for the nine linear primary cell types supported by VTK. (Intersections on composite cells are implemented by intersecting each primitive cell in turn). Note that the procedure for intersecting higher order cells is the same.
 
 Line/cell intersection for 0D, 1D, and 2D cells follows standard approaches. Intersection against 3D cells is difficult. This is because the surfaces of these cells are described parametrically and are not necessarily planar. For example, to intersect a line with a tetrahedron, we can intersect the line against the four triangular faces of the tetrahedron. Hexahedron, however, may have non-planar faces. Thus, we cannot intersect the line against six quadrilateral, planar faces. Instead, we use line/face intersection as an initial guess, and project the intersection point onto the surface of the cell. This produces an approximate result, but is accurate enough for most applications.
-\index{cell!intersection with line|)}\index{cell / line!intersection|)}
+\index{cell!intersection with line|)}\index{cell / line!intersection|)}\index{line!intersection with cell|)}
 
 \section{Scalars and Colors}
 \index{color!as scalar data|(}
@@ -1433,7 +1433,7 @@ A common example occurs in imaging. Recall that an image is a regular, two-dimen
 
 To accommodate color data, conversions between multicomponent color data and single-valued scalars must be defined. Each class must act as if it were a scalar: that is, a request for data at a particular point must return a single scalar value. This allows us to use standard scalar visualization techniques such as contouring or warping. Thus a mapping from RGB or RGBA color coordinates to a single scalar value is required.
 
-The simplest conversion is to select one of n components in a color tuple and use that as the scalar value. Another common mapping returns the luminance Y of a color. Given three components, RGB, the luminance is
+The simplest conversion is to select one of n components in a color tuple and use that as the scalar value. Another common mapping returns the \emph{luminance}\index{luminance} Y of a color. Given three components, RGB, the luminance is
 
 \begin{equation}\label{eq:8.26}
 Y = 0.30 R + 0.59 G + 0.11 B\end{equation}
