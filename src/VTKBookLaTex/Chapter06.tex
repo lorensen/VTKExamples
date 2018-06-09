@@ -115,7 +115,7 @@ Designing lookup tables is as much art as it is science. From a practical point 
 
 A natural extension to color mapping is \emph{contouring}. When we see a surface colored with data values, the eye often separates similarly colored areas into distinct regions. When we contour data, we are effectively constructing the boundary between these regions. These boundaries correspond to contour lines (2D) or surfaces (3D) of constant scalar value.
 
-Examples of 2D contour displays include weather maps annotated with lines of constant temperature (isotherms), or topological maps drawn with lines of constant elevation. Three-dimensional contours are called \emph{isosurfaces}, and can be approximated by many polygonal primitives. Examples of isosurfaces include constant medical image intensity corresponding to body tissues such as skin, bone, or other organs. Other abstract isosurfaces such as surfaces of constant pressure or temperature in fluid flow also may be created.
+Examples of 2D contour displays include weather maps annotated with lines of constant temperature (isotherms), or topological maps drawn with lines of constant elevation. Three-dimensional contours are called \emph{isosurfaces}\index{isosurface}, and can be approximated by many polygonal primitives. Examples of isosurfaces include constant medical image intensity corresponding to body tissues such as skin, bone, or other organs. Other abstract isosurfaces such as surfaces of constant pressure or temperature in fluid flow also may be created.
 
 
 \begin{figure}[!htb]
@@ -619,17 +619,14 @@ Modelling algorithms are the catchall category for our taxonomy of visualization
 
 As we have seen in previous examples, source objects begin the visualization pipeline. Source objects are used to create geometry such as spheres, cones, or cubes to support visualization context or are used to read in data files. Source objects also may be used to create dataset attributes. Some examples of source objects and their use are as follows.
 
-\begin{description}
+\begin{description}[leftmargin=0cm,labelindent=0cm]
 
-\item[Modelling Simple Geometry.]
-Spheres, cones, cubes, and other simple geometric objects can be used alone or in combination to model geometry. Often we visualize real--world applications such as air flow in a room and need to show real-world objects such as furniture, windows, or doors.
+\item[Modelling Simple Geometry.] Spheres, cones, cubes, and other simple geometric objects can be used alone or in combination to model geometry. Often we visualize real--world applications such as air flow in a room and need to show real-world objects such as furniture, windows, or doors.
 Real--world objects often can be represented using these simple geometric representations. These source objects generate their data procedurally. Alternatively, we may use reader objects to access geometric data defined in data files. These data files may contain more complex geometry such as that produced by a 3D CAD (ComputerAided Design) system.
 
-\item[Supporting Geometry.]
-During the visualization process we may use source objects to create supporting geometry. This may be as simple as three lines to represent a coordinate axis or as complex as tubes wrapped around line segments to thicken and enhance their appearance. Another common use is as supplemental input to objects such as streamlines or probe filters. These filters take a second input that defines a set of points. For streamlines, the points determine the initial positions for generating the streamlines. The probe filter uses the points as the position to compute attribute values such as scalars, vectors, or tensors.
+\item[Supporting Geometry.] During the visualization process we may use source objects to create supporting geometry. This may be as simple as three lines to represent a coordinate axis or as complex as tubes wrapped around line segments to thicken and enhance their appearance. Another common use is as supplemental input to objects such as streamlines or probe filters. These filters take a second input that defines a set of points. For streamlines, the points determine the initial positions for generating the streamlines. The probe filter uses the points as the position to compute attribute values such as scalars, vectors, or tensors.
 
-\item[Data Attribute Creation.]
-Source objects can be used as procedures to create data attributes. For example, we can procedurally create textures and texture coordinates. Another use is to create scalar values over a uniform grid. If the scalar values are generated from a mathematical function, then we can use the visualization techniques described here to visualize the function. In fact, this leads us to a very important class of source objects: implicit functions.
+\item[Data Attribute Creation.] Source objects can be used as procedures to create data attributes. For example, we can procedurally create textures and texture coordinates. Another use is to create scalar values over a uniform grid. If the scalar values are generated from a mathematical function, then we can use the visualization techniques described here to visualize the function. In fact, this leads us to a very important class of source objects: implicit functions.
 
 \end{description}
 
@@ -689,9 +686,9 @@ This simple relationship defines the three regions (on $F(x,y,z = 0)$ on the sph
 Implicit functions have a variety of uses. This includes geometric modelling, selecting data, and visualizing complex mathematical descriptions.
 \index{implicit function|)}
 
-\subsection{Modelling Objects.}
+\begin{description}[leftmargin=0cm,labelindent=0cm]
 
-Implicit functions can be used alone or in combination to model geometric objects. For example, to model a surface described by an implicit function, we sample $F$ on a dataset and generate an isosurface at a contour value $c_i$. The result is a polygonal representation of the function. Figure \ref{fig:Figure6-23b} shows an isosurface for a sphere of radius=1 sampled on a volume. Note that we can choose nonzero contour values to generate a family of offset surfaces. This is useful for creating blending functions and other special effects.
+\item[Modelling Objects.] Implicit functions can be used alone or in combination to model geometric objects. For example, to model a surface described by an implicit function\index{isosurface}, we sample $F$ on a dataset and generate an isosurface at a contour value $c_i$. The result is a polygonal representation of the function. Figure \ref{fig:Figure6-23b} shows an isosurface for a sphere of radius=1 sampled on a volume. Note that we can choose nonzero contour values to generate a family of offset surfaces. This is useful for creating blending functions and other special effects.
 
 Implicit functions can be combined to create complex objects using the boolean operators\index{boolean operators} union, intersection, and difference. The union operation between $F\cup G$ between two functions $F(x,y,z)$ and $G(x,y,z)$ is the minimum value
 
@@ -731,17 +728,13 @@ Figure \ref{fig:Figure6-23c} shows a combination of simple implicit functions to
 	\caption{Implicit functions used to select data: (a) 2D cells lying in ellipse are selected; (b) Two ellipsoids combined using the union operation used to select voxels from a volume. Voxels shrunk 50 percent.}\label{fig:Figure6-24}
 \end{figure}
 
-\subsection{Selecting Data}
-
-We can take advantage of the properties of implicit functions to select and cut data. In particular we will use the region separation property to select data. (We defer the discussion on cutting to "Cutting" on page \pageref{subsec:cutting}.)
+\item[Selecting Data.] We can take advantage of the properties of implicit functions to select and cut data. In particular we will use the region separation property to select data. (We defer the discussion on cutting to "Cutting" on page \pageref{subsec:cutting}.)
 
 Selecting or extracting data with an implicit function means choosing cells and points (and associated attribute data) that lie within a particular region of the function. To determine whether a point \emph{xyz} lies within a region, we simply evaluate the point and examine the sign of the result. A cell lies in a region if all its points lie in the region.
 
 Figure \ref{fig:Figure6-24a} shows a 2D implicit function, here an ellipse, used to select the data (i.e., points, cells, and data attributes) contained within it. Boolean combinations also can be used to create complex selection regions as illustrated in Figure \ref{fig:Figure6-24b}. Here, two ellipses are used in combination to select voxels within a volume dataset. Note that extracting data often changes the structure of the dataset. In Figure \ref{fig:Figure6-24} the input type is a image data dataset, while the output type is an unstructured grid dataset.
 
-\subsection{Visualizing Mathematical Descriptions}
-
-Some functions, often discrete or probabilistic in nature, cannot be cast into the form of Equation \ref{eq:6.11}. However, by applying some creative thinking we can often generate scalar values that can be visualized. An interesting example of this is the so--called \emph{strange attractor}.
+\item[Visualizing Mathematical Descriptions.] Some functions, often discrete or probabilistic in nature, cannot be cast into the form of Equation \ref{eq:6.11}. However, by applying some creative thinking we can often generate scalar values that can be visualized. An interesting example of this is the so--called \emph{strange attractor}.
 
 Strange attractors arise in the study of nonlinear dynamics and chaotic systems. In these systems, the usual types of dynamic motion --- equilibrium, periodic motion, or quasiperiodic motion --- are not present. Instead, the system exhibits chaotic motion. The resulting behavior of the system can change radically as a result of small perturbations in its initial conditions.
 
@@ -753,7 +746,8 @@ Strange attractors arise in the study of nonlinear dynamics and chaotic systems.
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.48\linewidth}
-		%\includegraphics[width=0.96\linewidth]{Figure6-25b}
+        % We do not have Figure6-25b so this is the scraped one from the book.
+		\includegraphics[width=0.96\linewidth]{Figure6-25b}
 		\caption{}
 		\label{fig:Figure6-25b}
 	\end{subfigure}
@@ -775,6 +769,7 @@ where $x$ is proportional to the fluid velocity in the fluid ring, $y$ and $z$z 
 
 Certainly these equations are not in the implicit form of Equation \ref{eq:6.11}, so how do we visualize them? Our solution is to treat the variables x, y, and z as the coordinates of a three--dimensional space, and integrate Equation \ref{eq:6.16} to generate the system ``trajectory'', that is, the state of the system through time. The integration is carried out within a volume and scalars are created by counting the number of times each voxel is visited. By integrating long enough, we can create a volume representing the ``surface'' of the strange attractor, Figure \ref{fig:Figure6-25}. The surface of the strange attractor is extracted by using marching cubes and a scalar value specifying the number of visits in a voxel.
 
+\end{description}
 
 \subsection{Implicit Modelling}
 \label{subsec:implicit_modelling}
@@ -1096,7 +1091,7 @@ The existing inheritance hierarchy for implicit functions is shown in Figure \re
 \index{implicit function!implementation|)}
 
 \subsubsection{Contouring}
-\index{contouring!implementation|(}
+\index{contouring!implementation|(}\index{isosurface!implementation|(}
 
 Scalar contouring is implemented in the Visualization Toolkit with vtkContourFilter. This filter object accepts as input any dataset type. Thus, vtkContourFilter treats every cell type and each cell type must provide a method for contouring itself.
 
@@ -1208,7 +1203,7 @@ An example use of vtkContourFilter is shown in Figure \ref{fig:Figure6-39}. This
 	{\caption{Data flow into and out of the \emph{vtkGlyph3D} class.}\label{fig:Figure6-40}}
 	{\includegraphics[width=0.6\textwidth]{Figure6-40}}
 \end{figure}
-\index{contouring!implementation|)}
+\index{contouring!implementation|)}\index{isosurface!implementation|)}
 
 
 \subsection{Cutting}

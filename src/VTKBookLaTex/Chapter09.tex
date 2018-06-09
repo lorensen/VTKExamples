@@ -721,10 +721,6 @@ Connectivity algorithms can be implemented using a recursive visit method. We be
 To identify additional connected surfaces we locate another unvisited cell and repeat the processes described previously. We continue to identify connected surfaces until every cell in the dataset is visited. As each connected surface is identified, it is assigned a surface number. We can use this number to specify the surfaces to extract or we can specify ``seed'' points or cells and extract the surfaces connected to them.
 
 In some cases the recursion depth of the connectivity algorithm becomes larger than the computer system can manage. In this case, we can specify a maximum recursion depth. When this depth is exceeded, recursion is terminated and the current cells in the recursion are used as seeds to restart the recursion.
-
-\subsubsection{Hybrid Techniques}
-
-Recent work has focused on combining triangulation and basis function techniques for interpolating 2D bivariate data. The basic idea is as follows. A triangulation of P is constructed. Then an interpolating network of curves is defined over the edges of the triangulation. These curves are constructed with certain minimization properties of interpolating splines. Finally, the curve network is used to construct a series of triangular basis functions, or surface patches, that exhibit continuity in function value, and possibly higher order derivatives. (See \cite{Nielson91a} for more information).
 \index{connectivity|)}
 
 \subsection{Polygon Normal Generation}
@@ -819,7 +815,7 @@ Decimation is related to the subsampling technique for unstructured meshes descr
 
 Decimation proceeds by iteratively visiting each point in a triangle mesh. For each point, three basic steps are carried out (Figure \ref{fig:Figure9-26}). The first step classifies the local geometry and topology in the neighborhood of the point. The classification yields one of the five categories shown in the figure: simple, boundary, complex, edge, and corner point. Based on this classification, the second step uses a local error measure (i.e., the decimation criterion) to determine whether the point can be deleted. If the criterion is satisfied, the third step deletes the point (along with associated triangles), and triangulates the resulting hole. A more detailed description of each of these steps and example applications follow.
 
-\begin{description}
+\begin{description}[leftmargin=0cm,labelindent=0cm]
 
 \item[Point Classification.] The first step of the decimation algorithm characterizes the local geometry and topology for a given point. The outcome of classification determines whether the vertex is a potential candidate for deletion, and if it is, which criteria to use.
 
@@ -1090,7 +1086,7 @@ The technique to generate swept surfaces and volumes using an implicit modeling 
 
 \item Construct another volume, the workspace volume $V_W$, that strictly bounds $V_I$ as it moves along the path ST. Then sweep $V_I$ through $V_W$ by moving in small steps, $\delta x$, along ST. At each step, $s$, sample $V_I$ with the workspace volume $V_W$. We use a boolean union operation to perform the sampling.
 
-\item Extract isosurface, or offset surface(s) from $V_W$ using a contouring algorithm such as marching cubes.
+\item Extract isosurface\index{isosurface!and swept surface}, or offset surface(s) from $V_W$ using a contouring algorithm such as marching cubes.
 
 \item Step 3 may create multiple connected surfaces. If a single surface is desired, use connectivity to extract the single ``largest'' surface (in terms of number of triangles). This surface is an approximation to the swept surface, and the volume it encloses is an approximation to the swept volume.
 
@@ -1186,8 +1182,10 @@ Unlike image data and structured grids, or even unstructured grids, unstructured
 
 There are several approaches available to build topological structure given a random set of points. One common approach samples unstructured points into an image dataset, and then visualizes the data using standard volume or surface-based rendering techniques. Another approach creates n-dimensional triangulations from the unstructured points, thereby creating topological structure. These and other common techniques are described in the following sections.
 
-\subsubsection{Splatting Techniques}
-\label{subsubsec:splatting_techniques}
+\begin{description}[leftmargin=0cm,labelindent=0cm]
+
+\item[Splatting Techniques.]
+\label{subsec:visualizing_unstructured_points_splatting_techniques}
 
 \begin{figure}[htb]
     \centering
@@ -1255,7 +1253,7 @@ The Gaussian function (Figure \ref{fig:Figure9-37a}) becomes a circle in cross s
 
 Splats may be accumulated using the standard implicit modeling boolean operations (Equation \ref{eq:6.13}, Equation \ref{eq:6.14}, and Equation \ref{eq:6.15}). That is, we may choose to form a union, intersection, or difference of the splats. The union and intersection operators are used most frequently.
 
-Another interesting variation modifies the shape of the splat according to a vector quantity such as surface normal or vector data. Figure \ref{fig:Figure9-37c} shows an example where the splat shape is elongated in the direction parallel to a vector. Thus, if we have a set of points and normals, we can create a polygonal surface by combining splatting with isosurface extraction.
+Another interesting variation modifies the shape of the splat according to a vector quantity such as surface normal or vector data. Figure \ref{fig:Figure9-37c} shows an example where the splat shape is elongated in the direction parallel to a vector. Thus, if we have a set of points and normals, we can create a polygonal surface by combining splatting with isosurface extraction\index{isosurface!and splatting}.
 
 To generate oriented splats, we modify Equation \ref{eq:9.22} by introducing an eccentricity factor $E$ and the vector $\overrightarrow{v\  }$.
 
@@ -1296,11 +1294,9 @@ The parameter $z$ is the distance along the vector $\overrightarrow{v\ }$, and t
 
 Figure \ref{fig:Figure9-38a} shows an elliptical splat\index{elliptical splat} with E = 10. (The splat surface is created by using isosurface extraction). As expected, the splat is an ellipsoid. Figure \ref{fig:Figure9-38b} is an application of elliptical splatting used to reconstruct a surface from an unstructured set of points. The advantage of using an elliptical splat is that we can flatten the splat in the plane perpendicular to the point normal. This tends to bridge the space between the point samples. The surface itself is extracted using a standard isosurface extraction algorithm.
 
-\subsubsection{Interpolation Techniques}
+\item[Interpolation Techniques.] Interpolation\index{interpolation!unstructured points} techniques construct a function to smoothly interpolate a set of unstructured points. That is, given a set of n points $p_i = (x_i, y_i, z_i)$ and function values $F_i(p_i)$, a new function $F(p$) is created that interpolates the points $p_i$. Once the interpolation function is constructed, we can build topological structure from the unstructured points by sampling $F(p)$ over an image dataset. We can then visualize the image data using any of the various techniques presented throughout the text. 
 
-Interpolation techniques construct a function to smoothly interpolate a set of unstructured points. That is, given a set of n points $p_i = (x_i, y_i, z_i)$ and function values $F_i(p_i)$, a new function $F(p$) is created that interpolates the points $p_i$. Once the interpolation function is constructed, we can build topological structure from the unstructured points by sampling $F(p)$ over an image dataset. We can then visualize the image data using any of the various techniques presented throughout the text. 
-
-Shepard's method is an inverse distance weighted interpolation technique \cite{Wixom78}. The interpolation functions can be written
+Shepard's method\index{interpolation!Shepard's method} is an inverse distance weighted interpolation technique \cite{Wixom78}. The interpolation functions can be written
 
 \begin{equation}\label{eq:9.25}
 F(\overrightarrow{p\ }) = \dfrac{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{F_i}{\vert\overrightarrow{p\ } - \overrightarrow{p\ }_i\vert^2}}{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{1}{\vert\overrightarrow{p\ } - \overrightarrow{p\ }_i \vert^2}}
@@ -1320,7 +1316,7 @@ As a result, Shepard's method is overly constrained in the region around each po
 
 Shepard's method is an example of a basis function method. That is, the interpolation function $F(p)$ consists of a sum of functions centered at each data point, pi. Other basis function methods have been developed as described by Nielson \cite{Nielson91a}. They vary in localization of the basis functions and the sophistication of the interpolation function. Localization of basis functions means that their effect is isolated to a small region. Examples of more sophisticated basis functions include quadratic polynomials and cubic splines. Please see the references for more information.
 
-\subsubsection{Triangulation techniques}
+\item[Triangulation techniques.]
 
 Triangulation techniques build topology directly from unstructured points. The points are triangulated to create a topological structure consisting of \emph{n}--dimensional simplices that completely bound the points and linear combinations of the points (the so--called convex hull\index{convex hull}). The result of triangulation is a set of triangles (2D) or tetrahedra (3D), depending upon the dimension of the input data \cite{Lawson86}.
 
@@ -1358,6 +1354,10 @@ The Delaunay triangulation can be computed using a variety of techniques. We des
 This simplistic presentation of triangulation techniques has shown how to create topological structure from a set of unstructured points. We have ignored some difficult issues such as degeneracies and numerical problems. Degeneracies occur when points in a Delaunay triangulation lie in such a way that the triangulation is not unique. For example, the points lying at the vertices of a square, rectangle, or hexagon are degenerate because they can be triangulated in more than one way, where each triangulation is equivalent (in terms of Delaunay criterion) to the other. Numerical problems occur when we attempt to compute circumcenters, especially in higher-dimensional triangulations, or when simplices of poor aspect ratio are present.
 
 Despite these problems, triangulation methods are a powerful tool for visualizing unstructured points. Once we convert the data into a triangulation (or in our terminology, an unstructured grid), we can directly visualize our data using standard unstructured grid techniques.
+
+\item[Hybrid Techniques.] Recent work has focused on combining triangulation and basis function techniques for interpolating 2D bivariate data. The basic idea is as follows. A triangulation of P is constructed. Then an interpolating network of curves is defined over the edges of the triangulation. These curves are constructed with certain minimization properties of interpolating splines. Finally, the curve network is used to construct a series of triangular basis functions, or surface patches, that exhibit continuity in function value, and possibly higher order derivatives. (See \cite{Nielson91a} for more information).
+
+\end{description}
 
 \subsection{Multidimensional Visualization}
 \index{algorithms!multidimensional|(}
@@ -1551,7 +1551,7 @@ The \emph{Visualization Toolkit} provides other point generation techniques. The
 
 Figure \ref{fig:Figure9-47} is an example use of vtkPointSource to generate streamlines. The dataset is a structured grid of dimensions $21 \times 20 \times$ 20 with flow velocity and a scalar pressure field. The dataset is a CFD simulation of flow in a small office. As this picture shows, there are a couple of bookcases, desks, a window, and an inlet and outlet for the ventilation system. On one of the desks is a small, intense heat source (e.g., a cigarette). In the left image 25 streamlines are started near the inlet using a vtkPointSource point generator. The second image shows what happens when we move the point source slightly to the left. By adjusting a single parameter (e.g., the center of the point source) it is possible to quickly explore our simulation data.
 
-Another convenient object for point generation is the class vtkEdgePoints. vtkEdgePoints generates points on an isosurface. The points are generated by locating cell edges whose points are both above and below the isosurface value. Linear interpolation is used to generate the point. Since vtkEdgePoints operates on any cell type, this filter's input type is any dataset type (e.g., vtkDataSet). Unlike vtkDividingCubes this filter will not typically generate dense point clouds that appear solid.
+Another convenient object for point generation is the class vtkEdgePoints. vtkEdgePoints generates points on an isosurface\index{isosurface!generating points on}. The points are generated by locating cell edges whose points are both above and below the isosurface value. Linear interpolation is used to generate the point. Since vtkEdgePoints operates on any cell type, this filter's input type is any dataset type (e.g., vtkDataSet). Unlike vtkDividingCubes this filter will not typically generate dense point clouds that appear solid.
 \index{dividing cubes!implementation|)}
 
 \subsection{Clipping with Scalar Fields}
@@ -1718,7 +1718,7 @@ vtkActor *lateActor = vtkActor::New();
 
 To demonstrate these ideas we will refer to Figure \ref{fig:Figure9-50}. This is an example of multidimensional financial data\index{financial visualization!example}. The data reflects parameters associated with monetary loans. In the file financial.txt there are six different variables: TIME\_LATE, MONTHLY\_PAYMENT, UNPAID\_PRINCIPLE, LOAN\_AMOUNT, INTEREST\_RATE, and MONTHLY\_INCOME. (Note: this is simulated data, don't make financial decisions based upon this!)
 
-We will use Gaussian splatting to visualize this data (``Splatting Techniques'' on page \pageref{subsubsec:splatting_techniques}).
+We will use Gaussian splatting to visualize this data (``Splatting Techniques'' on page \pageref{subsec:visualizing_unstructured_points_splatting_techniques}).
 
 Our first step is to choose dependent and independent variables. This choice is essentially a mapping from multidimensional data into an unstructured point dataset. In this example we will choose MONTHLY\_PAYMENT, INTEREST\_RATE, and LOAN\_AMOUNT as our $(x, y, z)$ point coordinates, and TIME\_LATE as a scalar value. This maps four of six variables. For now we will ignore the other two variables.
 
