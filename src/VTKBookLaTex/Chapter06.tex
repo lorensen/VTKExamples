@@ -48,7 +48,7 @@ We also may classify algorithms according to the type of data they operate on, o
 
 \item \emph{Tensor\index{algorithms!tensor} algorithms} operate on tensor matrices. An example of a tensor algorithm is to show the components of stress or strain in a material using oriented icons.
 
-\item \emph{Modelling\index{algorithms!modelling} algorithms} generate dataset topology or geometry, or surface normals or texture data. Modelling algorithms tend to be the catch-all category for many algorithms, since some do not fit neatly into any single category mentioned above. For example, generating glyphs oriented according to the vector direction and then scaled according to the scalar value, is a combined scalar/vector algorithm. For convenience we classify such an algorithm as a modelling algorithm, because it does not fit squarely into any other category.
+\item \emph{Modelling\index{algorithms!modelling} algorithms}\index{modelling algorithms} generate dataset topology or geometry, or surface normals or texture data. Modelling algorithms tend to be the catch-all category for many algorithms, since some do not fit neatly into any single category mentioned above. For example, generating glyphs oriented according to the vector direction and then scaled according to the scalar value, is a combined scalar/vector algorithm. For convenience we classify such an algorithm as a modelling algorithm, because it does not fit squarely into any other category.
 
 \end{itemize}
 
@@ -115,7 +115,7 @@ Designing lookup tables is as much art as it is science. From a practical point 
 
 A natural extension to color mapping is \emph{contouring}. When we see a surface colored with data values, the eye often separates similarly colored areas into distinct regions. When we contour data, we are effectively constructing the boundary between these regions. These boundaries correspond to contour lines (2D) or surfaces (3D) of constant scalar value.
 
-Examples of 2D contour displays include weather maps annotated with lines of constant temperature (isotherms), or topological maps drawn with lines of constant elevation. Three-dimensional contours are called \emph{isosurfaces}\index{isosurface}, and can be approximated by many polygonal primitives. Examples of isosurfaces include constant medical image intensity corresponding to body tissues such as skin, bone, or other organs. Other abstract isosurfaces such as surfaces of constant pressure or temperature in fluid flow also may be created.
+Examples of 2D contour displays include weather maps annotated with lines of constant temperature (isotherms), or topological maps drawn with lines of constant elevation. Three--dimensional contours are called \emph{isosurfaces}\index{isosurface}, and can be approximated by many polygonal primitives. Examples of isosurfaces include constant medical image intensity corresponding to body tissues such as skin, bone, or other organs. Other abstract isosurfaces such as surfaces of constant pressure or temperature in fluid flow also may be created.
 
 
 \begin{figure}[!htb]
@@ -131,7 +131,7 @@ Once the points on cell edges are generated, we can connect these points into co
 
 Another approach uses a divide and conquer technique, treating cells independently. This is the \emph{marching squares} algorithm in 2D, and \emph{marching cubes}\index{marching cubes|(} \cite{Lorensen87} in 3D. The basic assumption of these techniques is that a contour can only pass through a cell in a finite number of ways. A case table is constructed that enumerates all possible topological \emph{states} of a cell, given combinations of scalar values at the cell points. The number of topological states depends on the number of cell vertices, and the number of inside / outside relationships a vertex can have with respect to the contour value. A vertex is considered inside a contour if its scalar value is larger than the scalar value of the contour line. Vertices with scalar values less than the contour value are said to be outside the contour. For example, if a cell has four vertices and each vertex can be either inside or outside the contour, there are $2^4 = 16$ possible ways that the contour passes through the cell. In the case table we are not interested in where the contour passes through the cell (e.g., geometric intersection), just how it passes through the cell (i.e., topology of the contour in the cell).
 
-Figure \ref{fig:Figure6-5} shows the sixteen combinations for a square cell. An index into the case table can be computed by encoding the state of each vertex as a binary digit. For 2D data represented on a rectangular grid, we can represent the 16 cases with 4 bit index. Once the proper case is selected, the location of the contour line / cell edge intersection can be calculated using interpolation. The algorithm processes a cell and then moves, or \emph{marches t} o the next cell. After all cells are visited, the contour will be completed. In summary, the marching algorithms proceed as follows:
+Figure \ref{fig:Figure6-5} shows the sixteen combinations for a square cell. An index into the case table can be computed by encoding the state of each vertex as a binary digit. For 2D data represented on a rectangular grid, we can represent the 16 cases with 4 bit index. Once the proper case is selected, the location of the contour line / cell edge intersection can be calculated using interpolation. The algorithm processes a cell and then moves, or \emph{marches} to the next cell. After all cells are visited, the contour will be completed. In summary, the marching algorithms proceed as follows:
 
 \begin {enumerate}
 
@@ -329,7 +329,7 @@ Vector displacement on the surface of an object can be visualized with displacem
 
 Vector displacement plots draw on the ideas in ``Scalar Generation'' on  page \pageref{subsec:scalar_generation}. Vectors are converted to scalars by computing the dot product between the surface normal and vector at each point (Figure \ref{fig:Figure6-15a}). If positive values result, the motion at the point is in the direction of the surface normal (i.e., positive displacement). Negative values indicate that the motion is opposite the surface normal (i.e., negative displacement).
 
-A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues\index{eigenvalue} (i.e., natural resonant frequencies) and eigenvectors\index{eigenvector} (i.e., mode shapes) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called \emph{modal} lines of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
+A useful application of this technique is the study of vibration. In vibration analysis, we are interested in the eigenvalues\index{eigenvalue} (i.e., natural resonant frequencies) and eigenvectors\index{eigenvector} (i.e., mode shapes\index{mode shape}) of a structure. To understand mode shapes we can use displacement plots to indicate regions of motion. There are special regions in the structure where positive displacement changes to negative displacement. These are regions of zero displacement. When plotted on the surface of the structure, these regions appear as the so-called \emph{modal} lines\index{modal line} of vibration. The study of modal lines has long been an important visualization tool for understanding mode shapes.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -611,7 +611,7 @@ A certain amount of care must be taken to visualize this result since there is a
 \index{algorithms!tensor|)}
 
 \section{Modelling Algorithms}
-\index{algorithms!modelling|(}
+\index{algorithms!modelling|(}\index{modelling algorithms|(}
 
 Modelling algorithms are the catchall category for our taxonomy of visualization techniques. Modelling algorithms have one thing in common: They create or change dataset geometry or topology.
 
@@ -773,7 +773,7 @@ Certainly these equations are not in the implicit form of Equation \ref{eq:6.11}
 
 \subsection{Implicit Modelling}
 \label{subsec:implicit_modelling}
-\index{implicit modelling|(}
+\index{implicit modelling|(}\index{modelling algorithms!implicit modelling|(}
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.24\linewidth}
@@ -841,11 +841,11 @@ Another interesting feature of implicit modeling is that when isosurfaces are ge
 	{\caption{Concave features can result in multiple contour lines/surfaces.}\label{fig:Figure6-29}}
 	{\includegraphics[width=0.6\textwidth]{Figure6-29}}
 \end{figure}
-\index{implicit modelling|)}
+\index{implicit modelling|)}\index{modelling algorithms!implicit modelling|)}
 
 \subsection{Glyphs}
 \label{subsec:glyphs}
-\index{glyph|(}
+\index{glyph|(}\index{modelling algorithms!glyph|(}
 
 Glyphs, sometimes referred to as icons, are a versatile technique to visualize data of every type. A glyph is an ``object'' that is affected by its input data. This object may be geometry, a dataset, or a graphical image. The glyph may orient, scale, translate, deform, or somehow alter the appearance of the object in response to data. We have already seen a simple form of glyph: hedgehogs are lines that are oriented, translated and scaled according to the position and vector value of a point. A variation of this is to use oriented cones or arrows. (See ``Hedgehogs and Oriented Glyphs'' on page \pageref{subsec:hedgehogs_oriented_glyphs} for more information.)
 
@@ -872,11 +872,11 @@ In a sense, glyphs represent the fundamental result of the visualization process
 This classification scheme can be extended to other visualization techniques such as vector and tensor data, or even to nonvisual forms such as sound or tactile feedback. We have found this classification scheme to be helpful when designing visualizations or creating visualization techniques. Often it gives insight into ways of representing data that can be overlooked.
 
 Figure \ref{fig:Figure6-30} is an example of glyphing. Small 3D cones are oriented on a surface to indicate the direction of the surface normal. A similar approach could be used to show other surface properties such as curvature or anatomical keypoints.
-\index{glyph|)}
+\index{glyph|)}\index{modelling algorithms!glyph|)}
 
 \subsection{Cutting}
 \label{subsec:cutting}
-\index{cutting!with implicit functions|(}
+\index{cutting!with implicit functions|(}\index{modelling algorithms!cutting|(}
 
 Often we want to cut through a dataset with a surface and then display the interpolated data values on the surface. We refer to this technique as \emph{data cutting} or simply \emph{cutting}. The data cutting operation requires two pieces of information: a definition for the surface and a dataset to cut. We will assume that the cutting surface is defined by an implicit function. A typical application of cutting is to slice through a dataset with a plane, and color map the scalar data and/or warp the plane according to vector value.
 
@@ -917,7 +917,7 @@ We can easily make multiple planar cuts through a structured grid dataset by spe
 
 This example illustrates that cutting the volumetric data in a structured grid dataset produced polygonal cells. Similarly, cutting polygonal data produces lines. Using a single plane equation, we can extract ``contour lines'' from a surface model defined with polygons. Figure \ref{fig:Figure6-33} shows contours extracted from a surface model of the skin. At each vertex in the surface model we evaluate the equation of the plane and $F(x.y.z) = c$ and store the valuec of the function as a scalar value. Cutting the data with $46$ isovalues from $1.5$ to $136.5$ produces contour lines that are $3$ units apart.
 \index{cutting!with implicit functions|)}
-\index{algorithms!modelling|)}
+\index{algorithms!modelling|)}\index{modelling algorithms|)}\index{modelling algorithms!cutting|)}
 
 \section{Putting It All Together}
 

@@ -28,7 +28,7 @@ Other times we generate more abstract models, such as isosurfaces or glyphs, cor
 In the last step we combine the physical components with the abstract components to create a visualization that aids the user in understanding the data.
 
 \section{3D Medical Imaging}
-\index{applications!medical imaging|(}
+\index{applications!medical imaging|(}\index{medical imaging!application|(}
 
 Radiology is a medical discipline that deals with images of human anatomy.
 These images come from a variety of medical imaging devices, including X--ray, X--ray Computed Tomography\index{Computed Tomography}\index{CT|see {Computed Tomography}}), Magnetic Resonance Imaging (MRI)\index{MRI}, and ultrasound. Each imaging technique, called an imaging modality, has particular diagnostic strengths.
@@ -277,7 +277,7 @@ Figure \ref{fig:Figure12-4} shows the resulting composite image.
 In this example, the actor named skin is rendered last because we are using a translucent surface. Recall from ``Transparency and Alpha Values'' on page \pageref{sec:transparency_alpha} that we must order the polygons  composing transparent surfaces for proper results. We render the skin last by adding it to aRenderer's actor list last.
 
 We need to make one last point about processing medical imaging data. Medical images can be acquired in a variety of orders that refer to the relationship of consecutive slices to the patient. Radiologists view an image as though they were looking at the patient's feet. This means that on the display, the patient's left appears on the right. For CT there are two standard orders: top to bottom or bottom to top. In a top to bottom acquisition, slice \emph{i} is farther from the patient's feet than slice emph{i} - 1. Why do we worry about this order? It is imperative in medical applications that we retain the left / right relationship. Ignoring the slice acquisition order can result in a flipping of left and right. To correct this, we need to transform either the original dataset or the geometry we have extracted. (See ``Exercises'' on page \pageref{exercises:ch_12} for more information.) Also, you may wish to examine the implementation of the classes vtkVolume16Reader and vtkVolumeReader (the superclass of vtkVolume16Reader). These classes have special methods that deal with transforming image data.
-\index{applications!medical imaging|)}
+\index{applications!medical imaging|)}\index{medical imaging!application|)}
 
 \section{Creating Models from Segmented Volume Data}
 \index{applications!segmented volume data|(}
