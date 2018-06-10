@@ -11,7 +11,7 @@ The process is documented in these scripts:
 - `MakeDocument.bash` and `MakeDocument.cmd`.
 - `Clean.bash` and `Clean.cmd`.
 
-If figures have changes ot you want to synchronize with the test examples run `ImportFigures.py` before `MakeDocument.bash` or `MakeDocument.cmd`
+If figures have changes or you want to synchronize with the test examples run `ImportFigures.py` before `MakeDocument.bash` or `MakeDocument.cmd`
 
 Running `MakeDocument` will generate the PDF.
 
