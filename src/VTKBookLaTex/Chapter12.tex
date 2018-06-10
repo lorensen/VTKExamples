@@ -28,10 +28,10 @@ Other times we generate more abstract models, such as isosurfaces or glyphs, cor
 In the last step we combine the physical components with the abstract components to create a visualization that aids the user in understanding the data.
 
 \section{3D Medical Imaging}
-\index{applications!medical imaging|(}
+\index{applications!medical imaging|(}\index{medical imaging!application|(}
 
 Radiology is a medical discipline that deals with images of human anatomy.
-These images come from a variety of medical imaging devices, including X--ray, X--ray Computed Tomography\index{Computed Tomography}\index{CT|see {Computed Tomography}}), Magnetic Resonance Imaging (MRI), and ultrasound. Each imaging technique, called an imaging modality, has particular diagnostic strengths.
+These images come from a variety of medical imaging devices, including X--ray, X--ray Computed Tomography\index{Computed Tomography}\index{CT|see {Computed Tomography}}), Magnetic Resonance Imaging (MRI)\index{MRI}, and ultrasound. Each imaging technique, called an imaging modality, has particular diagnostic strengths.
 
 \begin{figure}[!htb]
 	\centering
@@ -80,7 +80,7 @@ The FilePrefix and FilePattern instance variable work together to produce the na
 
 \subsection{Create an Isosurface}
 
-We can choose from three techniques for isosurface visualization: volume rendering, marching cubes, and dividing cubes\index{dividing cubes}. We assume that we want to interact with our data at the highest possible speed, so we will not use volume rendering. We prefer marching cubes if we have polygonal rendering hardware available, or if we need to move up close to or inside the extracted surfaces. Even with hardware assisted rendering, we may have to reduce the polygon count to get reasonable rendering speeds. Dividing cubes is appropriate for software rendering. For this application we'll use marching cubes.
+We can choose from three techniques for isosurface visualization: volume rendering, marching cubes\index{marching cubes!aplication}, and dividing cubes\index{dividing cubes}. We assume that we want to interact with our data at the highest possible speed, so we will not use volume rendering. We prefer marching cubes if we have polygonal rendering hardware available, or if we need to move up close to or inside the extracted surfaces. Even with hardware assisted rendering, we may have to reduce the polygon count to get reasonable rendering speeds. Dividing cubes is appropriate for software rendering. For this application we'll use marching cubes.
 
 For medical volumes, marching cubes generates a large number of triangles. To be practical,  we'll do this case study with a reduced resolution dataset. We took the original $256^2$ data and reduced it to $64^2$ slices by averaging neighboring pixels twice in the slice plane. We call the resulting dataset \emph{quarter} since it has 1/4 the resolution of the original data. We adjust the DataSpacing for the reduced resolution dataset to 3.2 mm per pixel. Our first program will generate an isosurface\index{isosurface!application} for the skin.
 
@@ -277,7 +277,7 @@ Figure \ref{fig:Figure12-4} shows the resulting composite image.
 In this example, the actor named skin is rendered last because we are using a translucent surface. Recall from ``Transparency and Alpha Values'' on page \pageref{sec:transparency_alpha} that we must order the polygons  composing transparent surfaces for proper results. We render the skin last by adding it to aRenderer's actor list last.
 
 We need to make one last point about processing medical imaging data. Medical images can be acquired in a variety of orders that refer to the relationship of consecutive slices to the patient. Radiologists view an image as though they were looking at the patient's feet. This means that on the display, the patient's left appears on the right. For CT there are two standard orders: top to bottom or bottom to top. In a top to bottom acquisition, slice \emph{i} is farther from the patient's feet than slice emph{i} - 1. Why do we worry about this order? It is imperative in medical applications that we retain the left / right relationship. Ignoring the slice acquisition order can result in a flipping of left and right. To correct this, we need to transform either the original dataset or the geometry we have extracted. (See ``Exercises'' on page \pageref{exercises:ch_12} for more information.) Also, you may wish to examine the implementation of the classes vtkVolume16Reader and vtkVolumeReader (the superclass of vtkVolume16Reader). These classes have special methods that deal with transforming image data.
-\index{applications!medical imaging|)}
+\index{applications!medical imaging|)}\index{medical imaging!application|)}
 
 \section{Creating Models from Segmented Volume Data}
 \index{applications!segmented volume data|(}
@@ -425,7 +425,7 @@ if {$GAUSSIAN_STANDARD_DEVIATION != "0 0 0"} {
 
 \subsection{Generate Triangles}
 
-Now we can process the volume with marching cubes just as though we had obtained gray--scale data from a scanner. We added a few more bells and whistles to the pipeline. The filter runs faster if we turn off gradient and normal calculations. Marching cubes normally calculates vertex normals from the gradient of the volume data. In our pipeline, we have concocted a gray--scale representation and will subsequently decimate the triangle mesh and smooth the resulting vertices. This processing invalidates the normals that are calculated by marching cubes. 
+Now we can process the volume with marching cubes\index{marching cubes!aplication} just as though we had obtained gray--scale data from a scanner. We added a few more bells and whistles to the pipeline. The filter runs faster if we turn off gradient and normal calculations. Marching cubes normally calculates vertex normals from the gradient of the volume data. In our pipeline, we have concocted a gray--scale representation and will subsequently decimate the triangle mesh and smooth the resulting vertices. This processing invalidates the normals that are calculated by marching cubes. 
 
 \begin{lstlisting}[language=TCL, caption={Generate Triangles.}]
 vtkMarchingCubes mcubes

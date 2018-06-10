@@ -42,7 +42,7 @@ Figure \ref{fig:Figure8-1} shows the relationship between the global and dataset
 \subsection{Global Coordinate System}
 \index{coordinate system!global|(}\index{global coordinate system|(}
 
-The global coordinate system is a Cartesian, three-dimensional space. Each point is expressed as a triplet of values $(x,y,z)$ along the $x$, $y$, and $z$ axes.
+The global coordinate system is a Cartesian, three--dimensional space. Each point is expressed as a triplet of values $(x,y,z)$ along the $x$, $y$, and $z$ axes.
 This is the same system that was described in Chapter 3: \nameref{chap:computer_graphics_primer} (see \ref{sec:coordinate_systems}).
 The global coordinate system is always used to specify dataset geometry (i.e., the point coordinates),and data attributes such as normals and vectors.
 We will use the word ``position'' to indicate that we are using global coordinates.
@@ -66,7 +66,7 @@ x(r) = (1 - r) x_i + r x_{i + 1}
 
 where the parametric coordinate $r$ is constrained between $(0,1)$. In this equation we are assuming that the sub-id is equal to $i$.
 
-The number of parametric coordinates corresponds to the topological dimension of the cell. Three-dimensional cells will be characterized by the three parametric coordinates $(r, s, t)$. For cells of topological order less than three, we will ignore the last $(3 - n)$ parametric coordinates, where $n$ is the topological order of the cell. For convenience and consistency, we also will constrain each parametric coordinate to range between $(0,1)$.
+The number of parametric coordinates corresponds to the topological dimension of the cell. Three--dimensional cells will be characterized by the three parametric coordinates $(r, s, t)$. For cells of topological order less than three, we will ignore the last $(3 - n)$ parametric coordinates, where $n$ is the topological order of the cell. For convenience and consistency, we also will constrain each parametric coordinate to range between $(0,1)$.
 
 Every cell type will have its own parametric coordinate system. Later in this chapter we will describe the parametric coordinate systems in detail. But first we will examine another coordinate system, the structured coordinate system.
 \index{coordinate system!dataset|)}\index{dataset!coordinate system|)}
@@ -326,7 +326,7 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
 
     \item[Vertex.\index{interpolation function!vertex}] Vertex cells do not require parametric coordinates or interpolation functions since they are zero-dimensional. The single weighting function is $W_0 = 1$.
 
-    \item[Line.\index{interpolation function!line}] Figure \ref{fig:Figure8-3} shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
+    \item[Line.\index{interpolation function!line}\index{line!interpolation function}\index{line!parametric coordinate}] Figure \ref{fig:Figure8-3} shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
 
     \item[Pixel.\index{interpolation function!pixel}] Figure \ref{fig:Figure8-4} shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{bilinear interpolation}\index{bilinear interpolation}\index{interpolation function!bilinear} functions.
 
@@ -918,7 +918,7 @@ Global to dataset coordinate transformations are expensive compared to dataset t
 
 To identify the cell $C_i$ means doing some form of searching. A simple but inefficient approach is to visit every cell in a dataset and determine whether p lies inside any cell. If so, then we have found the correct cell and stop the search. Otherwise, we check the next cell in the list.
 
-This simple technique is not fast enough for large data. Instead, we use accelerated search techniques. These are based on spatially organizing structures such as an octree or three-dimensional hash table. The idea is as follows: we create a number of ``buckets'', or data place holders, that are accessed by their location in global space. Inside each bucket we tag all the points or cells that are partially or completely inside the bucket. Then, to find a particular cell that contains point $p$, we find the bucket that contains $p$, and obtain all the cells associated with the bucket. We then evaluate inside/outside for this abbreviated cell list to find the single cell containing p. (See ``Searching'' on page \pageref{sec:searching} for a more detailed description.)
+This simple technique is not fast enough for large data. Instead, we use accelerated search techniques. These are based on spatially organizing structures such as an octree or three--dimensional hash table. The idea is as follows: we create a number of ``buckets'', or data place holders, that are accessed by their location in global space. Inside each bucket we tag all the points or cells that are partially or completely inside the bucket. Then, to find a particular cell that contains point $p$, we find the bucket that contains $p$, and obtain all the cells associated with the bucket. We then evaluate inside/outside for this abbreviated cell list to find the single cell containing p. (See ``Searching'' on page \pageref{sec:searching} for a more detailed description.)
 
 The second reason that global to dataset coordinate transformation is expensive is because we must solve the interpolation function for the parametric coordinates of p. Sometimes we can do this analytically, but in other cases we must solve for the parametric coordinates using numerical techniques.
 
@@ -1120,7 +1120,7 @@ or after rearranging
 \end{equation}
 \myequations{Chain rule for partial derivatives (rearranged).}
 
-The $3 \times 3$ matrix $\mathbf{J}$ is called the Jacobian matrix, and it relates the parametric coordinate derivatives to the global coordinate derivatives. We can rewrite Equation \ref{eq:8.21} into more compact form
+The $3 \times 3$ matrix $\mathbf{J}$ is called the Jacobian\index{Jacobian} matrix, and it relates the parametric coordinate derivatives to the global coordinate derivatives. We can rewrite Equation \ref{eq:8.21} into more compact form
 
 \begin{equation}\label{eq:8.22}
 \dfrac{\partial}{\partial r_i} = \sum_{j} \mathbf{J}_{ij} \dfrac{\partial}{\partial x_j}
@@ -1160,7 +1160,7 @@ Many visualization algorithms require information about the topology of a cell o
     \label{fig:Figure8-27}
 \end{figure}
 
-Before proceeding we need to define some terms from topology. \emph{Manifold topology} describes a region surrounding a point that is topologically connected. That is, a region around the point is topologically equivalent to a small ``disk'' (in two-dimensions) or ``ball'' (in three-dimensions). Topology that is not manifold is termed \emph{nonmanifol}d. Examples of manifold and nonmanifold geometry are shown in Figure \ref{fig:Figure8-27}.
+Before proceeding we need to define some terms from topology. \emph{Manifold topology}\index{manifold topology} describes a region surrounding a point that is topologically connected. That is, a region around the point is topologically equivalent to a small ``disk'' (in two-dimensions) or ``ball'' (in three-dimensions). Topology that is not manifold is termed \emph{nonmanifol}d. Examples of manifold and nonmanifold geometry are shown in Figure \ref{fig:Figure8-27}.
 
 \begin{figure}[!htb]
     \centering
@@ -1191,7 +1191,7 @@ Before proceeding we need to define some terms from topology. \emph{Manifold top
     \label{fig:Figure8-28}
 \end{figure}
 
-There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or nonmanifold. In two dimensions, if every edge of a two-dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three-dimensional cell is used by exactly one other cell, than the region is locally manifold.
+There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or nonmanifold. In two dimensions, if every edge of a two--dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three--dimensional cell is used by exactly one other cell, than the region is locally manifold.
 
 We also will use the term simplex on some occasions. A simplex of dimension n is the convex region defined by a set of n+1 independent points. A vertex, line, triangle, and tetrahedron are simplices of dimension 0, 1, 2, and 3, respectively as shown in Figure \ref{fig:Figure8-28}.
 
@@ -1199,7 +1199,7 @@ We also will use the term simplex on some occasions. A simplex of dimension n is
 
 Cell operations return information about the topology of a cell. Typically, we want to know the topological order of the cell or the topology of the cell boundary.
 
-Given a cell $C_i$ of topological dimension $d$, the cell is (implicitly) composed of boundary cells of topological order $d-1$ and lower. For example, a tetrahedron is composed of four two-dimensional triangles, six one-dimensional edges, and four zero-dimensional vertices. Cell operations return information about the number of boundary cells of a particular topological dimension, as well as the ordered list of points that define each bounding cell.
+Given a cell $C_i$ of topological dimension $d$, the cell is (implicitly) composed of boundary cells of topological order $d-1$ and lower. For example, a tetrahedron is composed of four two--dimensional triangles, six one-dimensional edges, and four zero-dimensional vertices. Cell operations return information about the number of boundary cells of a particular topological dimension, as well as the ordered list of points that define each bounding cell.
 
 \begin{figure}[!htb]
     \centering
@@ -1247,7 +1247,7 @@ and a point list $\overrightarrow{P} = (\overrightarrow{p_1}, \overrightarrow{p_
 A(C_i, \overline{P}) = \left(\bigcap_{i} U(\overline{p}_i)\right) - C_i\end{equation}
 \myequations{Intersection of the use sets for each point.}
 
-The adjacency set represents a variety of useful information. In a manifold object represented by a polyhedra, for example, each polygon must have exactly one edge neighbor for each of its edges. Edges that have no neighbors are boundary edges; edges that have more than one edge neighbor represent nonmanifold topology. Datasets that consist of three-dimensional cells (e.g., unstructured grids) are topologically consistent only if, for each cell, there is exactly one face neighbor for each face. Faces that have no neighbors are on the boundary of the dataset. More than one face neighbor implies that the neighbors are self-intersecting (in 3D space).
+The adjacency set represents a variety of useful information. In a manifold object represented by a polyhedra, for example, each polygon must have exactly one edge neighbor for each of its edges. Edges that have no neighbors are boundary edges; edges that have more than one edge neighbor represent nonmanifold topology. Datasets that consist of three--dimensional cells (e.g., unstructured grids) are topologically consistent only if, for each cell, there is exactly one face neighbor for each face. Faces that have no neighbors are on the boundary of the dataset. More than one face neighbor implies that the neighbors are self-intersecting (in 3D space).
 
 \section{Searching}
 \label{sec:searching}
@@ -1279,7 +1279,7 @@ We have two options when applying spatial search structures. We may insert point
 Inserting points into a search structure is easier because points can be uniquely placed into a bucket. Inserting points also allows us to search for both points and cells. Cells can be found by using $p$ to index into the appropriate bucket. The closest point(s) $p_i$ to $p$ are then located. Using the topological adjacency operator to retrieve the cells using points $p_i$i, we can then search these cells for the cell containing $p$. This procedure must be used with caution, however, since the closest points may not be used by the cells containing $p$ (Figure\ref{fig:Figure8-30}).
 
 \section{Cell / Line Intersection}
-\index{cell!intersection with line|(}\index{cell / line!intersection|(}
+\index{cell!intersection with line|(}\index{cell / line!intersection|(}\index{line!intersection with cell|(}
 
 An important geometric operation is intersection of a line with a cell. This operation can be used to interactively select a cell from the rendering window, to perform ray-casting for rendering, or to geometrically query data.
 
@@ -1422,18 +1422,18 @@ An important geometric operation is intersection of a line with a cell. This ope
 In the \emph{Visualization Toolkit} each cell must be capable of intersecting itself against a line. Figure \ref{fig:Figure8-31} summarizes these operations for the nine linear primary cell types supported by VTK. (Intersections on composite cells are implemented by intersecting each primitive cell in turn). Note that the procedure for intersecting higher order cells is the same.
 
 Line/cell intersection for 0D, 1D, and 2D cells follows standard approaches. Intersection against 3D cells is difficult. This is because the surfaces of these cells are described parametrically and are not necessarily planar. For example, to intersect a line with a tetrahedron, we can intersect the line against the four triangular faces of the tetrahedron. Hexahedron, however, may have non-planar faces. Thus, we cannot intersect the line against six quadrilateral, planar faces. Instead, we use line/face intersection as an initial guess, and project the intersection point onto the surface of the cell. This produces an approximate result, but is accurate enough for most applications.
-\index{cell!intersection with line|)}\index{cell / line!intersection|)}
+\index{cell!intersection with line|)}\index{cell / line!intersection|)}\index{line!intersection with cell|)}
 
 \section{Scalars and Colors}
 \index{color!as scalar data|(}
 
 There is a close correspondence between scalar data and colors. We touched on this in ``Color Mapping'' on page \pageref{subsec:color_mapping}, where we saw how to use a color table to map scalar values into a color specification (i.e., red, green, blue, and alpha, or RGBA). There are cases, however, when we want to circumvent this mapping process. Such cases occur when color data is supplied instead of scalar data.
 
-A common example occurs in imaging. Recall that an image is a regular, two-dimensional array of points. The points define pixels, which in turn form a two-dimensional image dataset. Images are frequently stored as a pair of dimensions along with data values. The data values may be one of black and white (e.g., a bitmap), grayscale, or color (e.g., a pixmap). Bitmaps and gray-scale images can be directly cast into the form of single-values scalar data, and we can use our earlier approach. Pixmaps, however, consist of (at a minimum) three values per pixel of red, green, and blue. (Sometimes, a fourth alpha opacity value may also be included.) Thus, pixmaps cannot be directly cast into scalar form.
+A common example occurs in imaging. Recall that an image is a regular, two--dimensional array of points. The points define pixels, which in turn form a two-dimensional image dataset. Images are frequently stored as a pair of dimensions along with data values. The data values may be one of black and white (e.g., a bitmap), grayscale, or color (e.g., a pixmap). Bitmaps and gray-scale images can be directly cast into the form of single-values scalar data, and we can use our earlier approach. Pixmaps, however, consist of (at a minimum) three values per pixel of red, green, and blue. (Sometimes, a fourth alpha opacity value may also be included.) Thus, pixmaps cannot be directly cast into scalar form.
 
 To accommodate color data, conversions between multicomponent color data and single-valued scalars must be defined. Each class must act as if it were a scalar: that is, a request for data at a particular point must return a single scalar value. This allows us to use standard scalar visualization techniques such as contouring or warping. Thus a mapping from RGB or RGBA color coordinates to a single scalar value is required.
 
-The simplest conversion is to select one of n components in a color tuple and use that as the scalar value. Another common mapping returns the luminance Y of a color. Given three components, RGB, the luminance is
+The simplest conversion is to select one of n components in a color tuple and use that as the scalar value. Another common mapping returns the \emph{luminance}\index{luminance} Y of a color. Given three components, RGB, the luminance is
 
 \begin{equation}\label{eq:8.26}
 Y = 0.30 R + 0.59 G + 0.11 B\end{equation}
@@ -1515,7 +1515,7 @@ g_z &=& \dfrac{d(x_0, y_0, z_0 + \Delta z_0) - d(x_0, y_0, z_0 - \Delta z_0)}{2 
 \subsection{Topology}
 \index{image data!topology|(}
 
-Structured datasets lend themselves to efficient topological operations (i.e., both image data and structured grids). Given a cell id, it is possible to determine vertex, edge, or face neighbors using simple constant time operations. First, given the cell id in a three-dimensional structured dataset, we use a combination of division and modulo arithmetic to compute the structured coordinates
+Structured datasets lend themselves to efficient topological operations (i.e., both image data and structured grids). Given a cell id, it is possible to determine vertex, edge, or face neighbors using simple constant time operations. First, given the cell id in a three--dimensional structured dataset, we use a combination of division and modulo arithmetic to compute the structured coordinates
 
 \begin{equation}\label{eq:8.29}
 \begin{array}{lll}
@@ -2041,7 +2041,7 @@ for (cellId=0; cellId < numCells; cellId++)
     \label{fig:Figure8-41}
 \end{figure}
 
-This same approach is used in the vtkRotationalExtrusionFilter (Figure \ref{fig:Figure8-40}(b)). The difference between these two functions is that the type of motion is rotational as compared to linear (vtkLinearExtrusionFilter). These two filters can be used to perform some nifty modelling operations. Linear extrusion can be used to create bar charts with arbitrary cross sections, or to sweep out three-dimensional fonts. The rotational extrusion filter can be used to create rotationally symmetric objects such as bottles or wine glasses. Examples of these techniques are shown in Figure \ref{fig:Figure8-41}.
+This same approach is used in the vtkRotationalExtrusionFilter (Figure \ref{fig:Figure8-40}(b)). The difference between these two functions is that the type of motion is rotational as compared to linear (vtkLinearExtrusionFilter). These two filters can be used to perform some nifty modelling operations. Linear extrusion can be used to create bar charts with arbitrary cross sections, or to sweep out three--dimensional fonts. The rotational extrusion filter can be used to create rotationally symmetric objects such as bottles or wine glasses. Examples of these techniques are shown in Figure \ref{fig:Figure8-41}.
 
 \subsubsection{Find Cells}
 
@@ -2146,7 +2146,7 @@ Figure \ref{fig:Figure8-43} depicts this process and includes C++ code. In the e
 
 \section{Chapter Summary}
 
-Three important visualization coordinate systems are the world, dataset, and structured coordinate systems. The world coordinate system is an x--y--z Cartesian three-dimensional space. The dataset coordinate system consists of a cell id, subcell id, and parametric coordinates. The structured coordinate system consists of $(i,j,k)$ integer indices into a rectangular topological domain.
+Three important visualization coordinate systems are the world, dataset, and structured coordinate systems. The world coordinate system is an x--y--z Cartesian three--dimensional space. The dataset coordinate system consists of a cell id, subcell id, and parametric coordinates. The structured coordinate system consists of $(i,j,k)$ integer indices into a rectangular topological domain.
 
 Visualization data is generally in discrete form. Interpolation functions are used to obtain data at points between the known data values. Interpolation functions vary depending on the particular cell type. The form of the interpolation functions are weighting values located at each of the cells points. The interpolations functions form the basis for conversion from dataset to global coordinates and vice versa. The interpolation functions also are used to compute data derivatives.
 

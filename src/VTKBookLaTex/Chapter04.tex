@@ -125,7 +125,7 @@ Source objects interface to external data sources or generate data from local pa
 
 Filter objects\index{filter object} require one or more input data objects and generate one or more output data objects. Local parameters control the operation of the process object. Computing weekly stock market averages, representing a data value as a scaled icon, or performing union set operations on two input data sources are typical example processes of filter objects.
 
-Mapper\index{device!mapper} objects correspond to the sinks in the functional model. Mapper objects require one or more input data objects and terminate the visualization pipeline data flow. Usually mapper objects are used to convert data into graphical primitives, but they may write out data to a file or interface with another software system or devices. Mapper objects that write data to a computer file are termed \emph{writer}\index{device!writer} objects.
+Mapper\index{device!mapper}\index{mapper!device}\index{mapper object} objects correspond to the sinks in the functional model. Mapper objects require one or more input data objects and terminate the visualization pipeline data flow. Usually mapper objects are used to convert data into graphical primitives, but they may write out data to a file or interface with another software system or devices. Mapper objects that write data to a computer file are termed \emph{writer}\index{device!writer} objects.
 
 \section{Pipeline Topology}
 \label{sec:pipeline_topology}
@@ -162,7 +162,7 @@ There are two general approaches to maintain proper input type. One approach is 
 
 Another approach to maintain proper input type is to design typed systems. In typed systems only objects of compatible type are allowed to be connected together. That is, more than one type is designed, but type checking is performed on the input to insure proper connection. Depending on the particular computer language, type checking can be performed at compile, link, or run time. Although type checking does insure correct input type, this approach often suffers from an explosion of types. If not careful, the designers of a visualization system may create too many types, resulting in a fragmented, hard to use and understand system. In addition, the system may require a large number of \emph{type-converter} filters. (Type-converter filters serve only to transform data from one form to another.) Carried to extremes, excessive type conversion results in computationally and memory wasteful systems.
 
-The issue of multiplicity deals with the number of input data objects allowed, and the number of output data objects created during the operation of a process object (Figure \ref{fig:Figure4-4}). We know that all filter and mapper objects require at minimum one input data object, but in general these filters can operate sequentially across a list of input\index{fan--in}. Some filters may naturally require a specific number of inputs. A filter implementing boolean operations is one example. Boolean operations such as union or intersection are implemented on data values two at a time. However, even here more than two inputs may be defined as a recursive application of the operation to each input.
+The issue of multiplicity deals with the number of input data objects\index{multiple input} allowed, and the number of output data objects\index{multiple output} created during the operation of a process object (Figure \ref{fig:Figure4-4}). We know that all filter and mapper objects require at minimum one input data object, but in general these filters can operate sequentially across a list of input\index{fan--in}. Some filters may naturally require a specific number of inputs. A filter implementing boolean operations is one example. Boolean operations such as union or intersection are implemented on data values two at a time. However, even here more than two inputs may be defined as a recursive application of the operation to each input.
 
 \begin{figure}[!htb]
   \centering
@@ -299,6 +299,7 @@ Visualization is a demanding application, both in terms of computer memory and c
 
 \subsection{Static and Dynamic Memory Models}
 \label{subsec:static_dynamic_memory_models}
+\index{memory model!dynamic|(}\index{memory model!static|(}
 
 Memory and computation trade-offs are important performance issues when executing visualization networks. In the networks presented thus far, the output of a process object is assumed to be available to downstream process objects at all times. Thus, network computation is minimized. However, the computer memory requirement to preserve filter output can be huge. Networks of only a few objects can tie up extensive computer memory resources.
 
@@ -313,13 +314,16 @@ We term these two approaches as \emph{static} and \emph{dynamic}\index{dynamic m
 \end{figure}
 
 As this figure shows, the static model executes each process object only once, storing intermediate results. In the dynamic model, each process object releases memory after downstream objects complete execution. Depending upon the implementation of the dynamic model, process object \emph{B} may execute once or twice. If a thorough dependency analysis is performed, process \emph{B} will release memory only after both objects \emph{C} and \emph{B} execute. In a simpler implementation, object \emph{B} will release memory after \emph{C} and subsequently, \emph{D} executes.
+\index{memory model!dynamic|)}\index{memory model!static|)}
 
 \subsection{Reference Counting and Garbage Collection}
 \label{subsec:reference_counting_garbage_collection}
+\index{memory management!reference counting|(}
 
 Another valuable tool to minimize memory cost is to share storage using reference counting. To use reference counting, we allow more than one process object to refer to the same data object and keep track of the number of references. For example, assume that we have three objects \emph{A}, \emph{B}, and \emph{C} that form a portion of a visualization network as shown in Figure \ref{fig:Figure4-10}. Also assume that these objects modify only part of their input data, leaving the data object that specifies \emph{x-y-z} coordinate position unchanged. Then to conserve memory resources we can allow the output of each process object to refer to the single data object representing these points. Data that is changed remains local to each filter and is not shared. It is only when the reference count goes to zero that the object is deleted.
 
 Garbage collection is an alternative memory management strategy that is not well suited to visualization applications. The garbage collection process is automatic; it attempts to reclaim memory used by objects that will never again be accessed by the running application. While convenient due to its automated nature, in general garbage collection introduces overhead that may inadvertently introduce pauses into software execution at inopportune times (during an interactive process). Of more concern, however, is that released, unused memory may not be reclaimed by the system until some time after the last reference to the memory is dropped, and in visualization pipelines this memory may be too large to leave around for any length of time. That is, in some applications if memory usage in a filter is not released immediately, downstream filters may not have enough memory resource available to them to successfully execute.
+\index{memory management!reference counting|)}
 
 \section{Advanced Visualization Pipeline Models}
 \label{sec:advanced_visualization_pipeline_models}
@@ -638,8 +642,8 @@ For more details regarding the object design of filters and data objects, please
 
 Until now, we have used the terms metadata and information objects rather informally. As described previously, in the context of VTK, these terms refer to data that describes datasets. In this section, we show how these objects, which are subclasses of vtkInformation, are used to facilitate the execution of the VTK pipeline.
 
-\begin{description}
-\item[Information Objects.] Information objects are the basic containers used throughout the VTK pipeline to hold a wide variety of metadata. They are heterogeneous key--to--value maps in which the type of the key determines the type of the value. The following is an enumeration of the places information objects are used.
+\begin{description}[leftmargin=0cm,labelindent=0cm]
+\item[Information Objects.] Information objects are the basic containers used throughout the VTK pipeline to hold a wide variety of metadata\index{metadata}. They are heterogeneous key--to--value maps in which the type of the key determines the type of the value. The following is an enumeration of the places information objects are used.
 
 \begin{itemize}
 
@@ -654,8 +658,6 @@ Until now, we have used the terms metadata and information objects rather inform
 \item \emph{Algorithm information\index{algorithm information}\index{information!algorithm}} objects hold information about an instance of vtkAlgorithm. There is one algorithm information object per algorithm object, accessible via vtkAlgorithm::GetInformation(). The actual information contained is determined by the algorithm object type.
 \end{itemize}
 
-\end{description}
-
 The importance of the information objects in VTK is that they are flexible (e.g., new key-value pairs can be easily added) and extensible. That is, readers, filters and mappers can add new information to the containers without requiring the API of the pipeline--related classes to change.
 
 \begin{figure}[!htb]
@@ -664,7 +666,7 @@ The importance of the information objects in VTK is that they are flexible (e.g.
   \caption{Path of a request sent through a pipeline. For example, assume the consumer (at the far right) needs only a single piece of this data (e.g., piece 1 of 4); also assume that the producer (on the far left) is a reader that can partition its data into pieces. The consumer passes this request upstream, and it continues upstream (via executives) until it reaches a producer that can fulfill the request. When the reader algorithm is asked for a piece of the data, it provides it, and passes the new data back (with the information that it is piece 1 of 4) down the pipeline. It stops when it reaches the consumer who made the request.}\label{fig:Figure4-18}
 \end{figure}
 
-\subsubsection{Pipeline Execution Models}
+\item[Pipeline Execution Models]
 \label{subsubsec:pipeline_execution_models}
 
 In VTK, the fundamental pipeline update mechanism is based on the request. A request is the basic pipeline operation (or ``pipeline pass'') that generally asks for particular piece of information to be propagated through the pipeline. An execution model is a set of requests defined by a specific executive. Refer to Figure \ref{fig:Figure4-18} in the following description of the execution process.
@@ -676,6 +678,7 @@ A request is implemented as an information object. There is one key of type vtkI
 Requests are propagated through the pipeline by the executives of each filter. The vtkExecutive::ProcessRequest() method is invoked on an executive given the request information object. This method is implemented by each executive and is responsible for fulfilling the request as it sees fit. Many requests may be fulfilled for a filter only after it has been fulfilled for the filters providing its inputs. For these requests the executive will pass the request on to the executives of these upstream filters and then handle the request itself.
 
 An executive often asks its algorithm object for help in fulfilling a request. It sends the request to the algorithm object by invoking the vtkAlgorithm::ProcessRequest() method. This method is implemented by all algorithms and is responsible for handling the request. Input and output pipeline information objects are provided as arguments to the method. The algorithm must handle the request using only its own filter parameter settings and the pipeline information objects given. An algorithm is not allowed to ask its executive for any additional information. This insures that the algorithms are independent of the executives. Figure \ref{fig:Figure4-18} shows a typical path taken by a request as it is sent through a pipeline. Typically the request originates in a consumer at the end of the pipeline. It is sent back through the pipeline by the executives. Each executive asks its algorithm to help handle the request.
+\end{description}
 
 \subsection{Flexible Computation / Memory Trade-off}
 \label{subsec:flexible_computation_memory_trade-off}
@@ -917,7 +920,7 @@ The visualization process is naturally modelled using a combination of functiona
 \section{Bibliographic Notes}
 \label{Ch04BibNotes}
 
-The practical way to learn about the visualization process is to study commercially available systems. These systems can be categorized as either direct visual programming environments or as applications. Common visual programming systems include AVS\index{AVS} \cite{AVS89}, Iris Explorer\index{Iris Explorer} \cite{IrisExplorer}, IBM Data Explorer\index{Data Explorer} \cite{DataExplorer}, apE\index{apE} \cite{apE90}, and Khoros \cite{Rasure91}. Application systems generally provide less flexibility than visual programming systems, but are better tailored to a particular problem domain. PLOT3D \cite{PLOT3D} is an early example of a tool for CFD visualization. This has since been superseded by FAST\index{FAST} \cite{FAST90}. FieldView\index{FieldView} is another popular CFD visualizer \cite{FieldView91}. VISUAL3 \cite{VISUAL3} is a general tool for unstructured or structured grid visualization. PV-WAVE\index{PV-WAVE} \cite{Charal90} can be considered a hybrid system, since it has both simple visual programming techniques to interface to data files as well as a more structured user-interface than the visual programming environments. Wavefront's Data Visualizer\index{Data Visualizer} \cite{DataVisualizer} is a general--purpose visualization tool. It is unique in that it is part of a powerful rendering and animation package. A nice system for visualizing 3D gridded data (such as that produced by numerical weather models) is VIS5D. Find out more at the \href{http://www.ssec.wisc.edu/\~billh/vis5d.html}{VIS5D Web site}).
+The practical way to learn about the visualization process is to study commercially available systems. These systems can be categorized as either direct visual programming environments or as applications. Common visual programming systems include AVS\index{AVS} \cite{AVS89}, Iris Explorer\index{Iris Explorer} \cite{IrisExplorer}, IBM Data Explorer\index{Data Explorer} \cite{DataExplorer}, apE\index{apE} \cite{apE90}, and Khoros\index{Khoros} \cite{Rasure91}. Application systems generally provide less flexibility than visual programming systems, but are better tailored to a particular problem domain. PLOT3D \cite{PLOT3D} is an early example of a tool for CFD visualization. This has since been superseded by FAST\index{FAST} \cite{FAST90}. FieldView\index{FieldView} is another popular CFD visualizer \cite{FieldView91}. VISUAL3 \cite{VISUAL3} is a general tool for unstructured or structured grid visualization. PV-WAVE\index{PV-WAVE} \cite{Charal90} can be considered a hybrid system, since it has both simple visual programming techniques to interface to data files as well as a more structured user-interface than the visual programming environments. Wavefront's Data Visualizer\index{Data Visualizer} \cite{DataVisualizer} is a general--purpose visualization tool. It is unique in that it is part of a powerful rendering and animation package. A nice system for visualizing 3D gridded data (such as that produced by numerical weather models) is VIS5D. Find out more at the \href{http://www.ssec.wisc.edu/\~billh/vis5d.html}{VIS5D Web site}).
 
 Although many visualization systems claim to be object--oriented, this is often more in appearance than implementation. Little has been written on object--oriented design issues for visualization. \cite{VISAGE92} presents an architecture similar to that described in this chapter. Favre \cite{Favre94} describes a more conventional object--oriented approach. His dataset classes are based on topological dimension and both data and methods are combined into classes.
 

@@ -26,7 +26,7 @@ Finally, clipping is another important algorithm related to contouring, where ce
 \subsection{Dividing Cubes}
 \index{dividing cubes|(}
 
-Dividing cubes is a contouring algorithm similar to marching cubes \cite{Cline88}. Unlike marching cubes\index{dividing cubes!and marching cubes}, dividing cubes generates point primitives as compared to triangles (3D) or lines (2D). If the number of points on the contour surface is large, the rendered appearance of the contour surface appears ``solid''.
+Dividing cubes is a contouring algorithm similar to marching cubes \cite{Cline88}. Unlike marching cubes\index{dividing cubes!and marching cubes}\index{marching cubes!and dividing cubes}, dividing cubes generates point primitives as compared to triangles (3D) or lines (2D). If the number of points on the contour surface is large, the rendered appearance of the contour surface appears ``solid''.
 To achieve this solid appearance, the density of the points must be at or greater than screen resolution. (Also, the points must be rendered using the standard lighting and shading equations used in surface rendering).
 
 The motivation for dividing cubes is that rendering points is much faster than rendering polygons. This varies depending upon rendering hardware/software. Special purpose hardware has been developed to render shaded points at high speed. In other systems, greater attention has been placed on polygon rendering, and the rendering speed differences are not so great. Also, certain geometric operations such as clipping\index{clipping} and merging data are simple operations with points. Comparable operations with polygons are much more difficult to implement.
@@ -493,6 +493,7 @@ Figure \ref{fig:Figure9-15} shows an example of hyperstreamlines. The data is fr
 \index{hyperstreamline|)}
 
 \section{Modelling Algorithms}
+\index{modelling algorithms|(}
 
 \subsection{Visualizing Geometry}
 
@@ -524,7 +525,7 @@ More generally, we can extract boundary edges and faces from a dataset. A bounda
 Using these techniques we can view the structure of our dataset. However, there are also situations where we want more control in the selection of the data. We call this \emph{data extraction}.
 
 \subsection{Data Extraction}
-\index{data extraction|(}
+\index{data extraction|(}\index{modelling algorithms!data extraction|(}
 
 Often we want to extract portions of data from a dataset. This may be because we want to reduce the size of the data, or because we are interested in visualizing only a portion of it.
 
@@ -533,7 +534,7 @@ Reducing dataset size is an important practical capability, because visualizatio
 We also may need to reduce data size in order to visualize the important features of a large dataset. This can be used to reduce image clutter and improve the effectiveness of the visualization. Smaller data size also enables the visualization user to navigate through and inspect data more quickly relative to larger datasets. Next we describe two techniques to extract data. One is based on geometry extraction, and the other is based on data thresholding, or thresholding.
 
 \subsubsection{Geometry Extraction}
-\index{geometry extraction|(}
+\index{geometry extraction|(}\index{modelling algorithms!data extraction!geometry|(}
 
 Geometry extraction selects data based on geometric or topological characteristics. A common extraction technique selects a set of points and cells that lie within a specified range of ids. A typical example is selecting all cells having ids between 0-100, or all cells using point ids 250-500. Finite element analysts use this method frequently to isolate the visualization to just a few key regions.
 
@@ -561,22 +562,23 @@ Another useful technique called spatial extraction, selects dataset structure an
 Subsampling modifies the topology of a dataset. When points or cells are not selected, this leaves a topological ``hole''. Dataset topology must be modified to fill the hole. In structured data, this is simply a uniform selection across the structured $i-j-k$ coordinates. In unstructured data (Figure \ref{fig:Figure9-17}(b)), the hole must be filled in by using triangulation or other complex tessellation schemes. Subsampling is not typically performed on unstructured data because of its inherent complexity.
 
 A related technique is \emph{data masking}\index{data extraction!masking}. In data masking we select every $n^{th}$ cell that at a minimum leaves one or more topological ``holes'' in the dataset. Masking also may change the topology of the dataset, since partial selections of cells from structured datasets can only be represented using unstructured grids. Masking is typically used to improve interactive performance or to quickly process portions of data.
-\index{geometry extraction|)}
+\index{geometry extraction|)}\index{modelling algorithms!data extraction!geometry|)}
 
 \subsubsection{Thresholding}
 \label{subsubsec:thresholding}
-\index{data extraction!thresholding|(}
+\index{data extraction!thresholding|(}\index{modelling algorithms!data extraction!thresholding|(}
 
 Thresholding extracts portions of a dataset data based on attribute values. For example, we may select all cells having a point with scalar value between (0,1) or all points having a velocity magnitude greater than 1.0.
 
 Scalar thresholding is easily implemented. The threshold is either a single value that scalar values are greater than or less than, or a range of values. Cells or points whose associated scalar values satisfy the threshold criteria can be extracted. Other dataset attribute types such as vectors, normals, or tensors can be extracted in similar fashion by converting the type to a single scalar value. For example, vectors can be extracted using vector magnitude, and tensors using matrix determinate.
 
 A problem with both geometry extraction and thresholding is that the approaches presented thus far extract ``atomic'' pieces of data, that is, a complete cell. Sometimes the cell may lie across the boundary of the threshold. In this case the cell must be clipped (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields} and only a portion of the cell is extracted.
-\index{data extraction!thresholding|)}
-\index{data extraction|)}
+\index{data extraction!thresholding|)}\index{modelling algorithms!data extraction!thresholding|)}
+\index{data extraction|)}\index{modelling algorithms!data extraction|)}
 
 \subsection{Probing}
 \label{subsec:probing}
+\index{modelling algorithms!probing|(}
 
 Probing obtains dataset attributes by sampling one dataset (the input) with a set of points (the probe) as shown in Figure \ref{fig:Figure9-18}(a). Probing is also called ``resampling''. Examples include probing an input dataset with a sequence of points along a line, on a plane, or in a volume. The result of the probing is a new dataset (the output) with the topological and geometric structure of the probe dataset, and point attributes interpolated from the input dataset. Once the probing operation is completed, the output dataset can be visualized with any of the appropriate techniques described in this text.
 
@@ -620,8 +622,10 @@ One important application of probing converts irregular or unstructured data to 
 \end{figure}
 
 Figure \ref{fig:Figure9-19} shows an example of three probes. The probes sample flow density in a structured grid. The output of the probes is passed through a contour filter to generate contour lines. As this figure illustrates, we can be selective with the location and extent of the probe, allowing us to focus on important regions in the data.
+\index{modelling algorithms!probing|)}
 
 \subsection{Triangle Strip Generation}
+\index{modelling algorithms!triangle strip generation|(}
 
 Triangle strips are compact representations of triangle polygons as described in ``Triangle Strip'' on page \pageref{subsec:linear_cells.triangle_strip}. Many rendering libraries include triangle strips as graphics primitives because they are a high-performance alternative to general polygon rendering.
 
@@ -677,10 +681,11 @@ The length of the triangle strips varies greatly depending on the structure of t
 
 
 Figure \ref{fig:Figure9-21}(left) shows triangle strips each of 390 triangles in length from a dataset that was originally structured. Such a case is an exception: unstructured triangle meshes typically average about 5-6 triangles per strip (Figure \ref{fig:Figure9-21}(right)). Even so, the memory savings are impressive. A triangle strip of length 6 requires 8 points to represent, while 8 triangles require 24 points, for a memory savings of 66.7 percent. Rendering speed may be greatly affected, too, depending upon the capabilities of the rendering system.
+\index{modelling algorithms!triangle strip generation|)}
 
 \subsection{Connectivity}
 \label{subsec:connectivity}
-\index{connectivity|(}
+\index{connectivity|(}\index{modelling algorithms!connectivity|(}
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.32\linewidth}
@@ -721,9 +726,10 @@ Connectivity algorithms can be implemented using a recursive visit method. We be
 To identify additional connected surfaces we locate another unvisited cell and repeat the processes described previously. We continue to identify connected surfaces until every cell in the dataset is visited. As each connected surface is identified, it is assigned a surface number. We can use this number to specify the surfaces to extract or we can specify ``seed'' points or cells and extract the surfaces connected to them.
 
 In some cases the recursion depth of the connectivity algorithm becomes larger than the computer system can manage. In this case, we can specify a maximum recursion depth. When this depth is exceeded, recursion is terminated and the current cells in the recursion are used as seeds to restart the recursion.
-\index{connectivity|)}
+\index{connectivity|)}\index{modelling algorithms!connectivity|)}
 
 \subsection{Polygon Normal Generation}
+\index{modelling algorithms!normal generation|(}
 
 \begin{figure}[htb]
     \centering
@@ -782,9 +788,10 @@ A similar traversal method splits sharp edges. A sharp edge is an edge shared by
 On some computers limitations on recursion depth may become a problem. Polygonal surfaces can consist of millions of polygons, resulting in large recursion depth. As a result, the depth of recursion can be specified by the user. If recursion depth exceeds the specified value, the recursion halts and the polygons on the boundary of the recursion become seeds to begin the process again.
 
 Figure \ref{fig:Figure9-24a}(right) shows the result of the advanced normal generation technique with a feature angle of 60$^\circ$. Sharp edges are well defined and curved areas lack the faceting evident in the original model. The figure is shown with Gouraud shading.
+\index{modelling algorithms!normal generation|)}
 
 \subsection{Decimation}
-\index{decimation|(}
+\index{decimation|(}\index{modelling algorithms!decimation|(}
 
 \begin{figure}[!htb]
 	\centering
@@ -992,12 +999,13 @@ The vertices $v_l$ and $v_r$ define a sweep of triangles (from $v_r$ to $v_l$ ) 
 Figure \ref{fig:Figure9-29} shows the results of applying the topology modifying progressive mesh algorithm to two sets of data. In Figure \ref{fig:Figure9-29}(a-c), a thin plate with holes is decimated (the darker lines show split edges). The middle image in the sequence shows the limits of topology on the algorithm. It is only when the topology of the mesh is allowed to be modified that the final level of reduction is possible. Figure \ref{fig:Figure9-29}(d-f) shows the same algorithm applied to CAD data.
 
 \end{description}
-\index{decimation|)}
+\index{decimation|)}\index{modelling algorithms!decimation|)}
 
 \clearpage
 
 \subsection{Mesh Smoothing}
 \label{subsec:mesh_smoothing}
+\index{modelling algorithms!mesh smoothing|(}
 
 Mesh smoothing is a technique that adjusts the point coordinates of a dataset. The purpose of mesh smoothing is to improve the appearance of a mesh, and/or improve the shape of dataset cells. During smoothing the topology of the dataset is not modified, only the geometry. Applications of mesh smoothing include improving the appearance of isosurfaces, or as a modelling tool to remove surface noise. The appearance of models can be dramatically improved by applying mesh smoothing. Figure \ref{fig:Figure9-30} is an example of smoothing applied to analytic surface (a semicylinder) with a random surface distortion (\texttt{smoothCyl.tcl}).
 
@@ -1008,7 +1016,7 @@ Mesh smoothing is a technique that adjusts the point coordinates of a dataset. T
 	\label{fig:Figure9-30}
 \end{figure}
 
-A simple, yet effective technique is Laplacian smoothing. The Laplacian smoothing equation for a point $p_i$ at position $x_i$ is given by
+A simple, yet effective technique is Laplacian smoothing\index{Laplacian smoothing}. The Laplacian smoothing equation for a point $p_i$ at position $x_i$ is given by
 
 \begin{equation}\label{eq:9.19}
 \overrightarrow{x\ }_{i+1} = \overrightarrow{x\ }_i + \lambda \overrightarrow{V\ }(i, j) = \overrightarrow{x\ }_i + \lambda \sum_{j = 0}^{n}\overrightarrow{x\ }_j - \overrightarrow{x\ }_i
@@ -1038,10 +1046,12 @@ Besides adjusting the number of iterations and smoothing factor, smoothing can b
 Although Laplacian smoothing works well in most cases, there are applications of Laplacian smoothing that can badly damage the mesh. Large numbers of smoothing iterations, or large smoothing factors, can cause excessive shrinkage and surface distortion. Some objects, like spheres or the cylinder shown in Figure \ref{fig:Figure9-30}, will lose volume with each iteration, and can even shrink to a point. In rare cases it is possible for the mesh to pull itself ``inside-out''. Situations like this occur when the average vector moves $p_i$ across a mesh boundary, causing some of the attached triangles to overlap or intersect.
 
 Mesh smoothing is particularly useful when creating models that do not require high accuracy. As we have seen, smoothing modifies point coordinates and, therefore, surface geometry. Use smoothing to improve the appearance of models, but characterize error carefully if you are going to measure from a smoothed surface. Alternatively, you may want to design your own smoothing algorithms that better fit the underlying data.
+\index{modelling algorithms!mesh smoothing|)}
 
 \clearpage
 
 \subsection{Swept Volumes and Surfaces}
+\index{modelling algorithms!swept surface|(}
 
 Consider moving an object (e.g., your hand) over some path (e.g., raise your hand). How can we visualize this motion? The obvious answer is to form a time-animation sequence as the hand is moved. But what if we wish to statically represent the motion as well as the space that is traversed by the hand? Then we can use swept surfaces and swept volumes.
 
@@ -1172,6 +1182,7 @@ e_\text{tot} \leq \dfrac{\sqrt{3}}{2}\left( \dfrac{L_\text{I}}{D_\text{I}}
 To show the application of this algorithm, we have generated swept surfaces for the letters ``VTK'' and the ``mace'' model as shown in Figure \ref{fig:Figure9-35}.
 
 We have purposely chosen a step size to exaggerate the stepping error. Using more steps would smooth out the surface ``bumps'' due to stepping. Also, the appearance of the surface varies greatly with the selected isosurface value. Larger values give rounder, smoother surfaces. If you use small values near zero (assuming positive distance function) the surface may break up. To correct this you need to use a higher resolution work-space or compute negative distances. Negative distances are computed during the implicit modeling step by negating all points \emph{inside} the original geometry. Negative distances allow us to use a zero isosurface value or to generate internal offset surfaces. Negative distances can only be computed for closed (i.e., manifold) objects.
+\index{modelling algorithms!swept surface|)}
 
 \subsection{Visualizing Unstructured Points}
 \label{subsec:visualizing_unstructured_points}
@@ -1186,6 +1197,7 @@ There are several approaches available to build topological structure given a ra
 
 \item[Splatting Techniques.]
 \label{subsec:visualizing_unstructured_points_splatting_techniques}
+\index{modelling algorithms!unstructured points!splatting|(}
 
 \begin{figure}[htb]
     \centering
@@ -1213,7 +1225,7 @@ There are several approaches available to build topological structure given a ra
 \end{figure}
 
 
-Splatting techniques build topological structure by sampling unstructured points into a image dataset (Figure \ref{fig:Figure9-36}). The sampling is performed by creating special influence, or splatting, functions$ SF(x,y,z)$ that distribute the data value of each unstructured point over the surrounding region. To sample the unstructured points, each point is inserted into a image dataset SP, and the data values are distributed through $SP$ using the splatting functions $SF(x,y,z)$. Once the topological structure is built, any image-based visualization technique can be used (including volume rendering).
+Splatting techniques build topological structure by sampling unstructured points into a image dataset (Figure \ref{fig:Figure9-36}). The sampling is performed by creating special influence, or splatting, functions SF$(x,y,z)$ that distribute the data value of each unstructured point over the surrounding region. To sample the unstructured points, each point is inserted into a image dataset SP, and the data values are distributed through SP using the splatting functions SF$(x,y,z)$. Once the topological structure is built, any image-based visualization technique can be used (including volume rendering).
 
 A common splatting function is a uniform Gaussian distribution\index{Gaussian distribution} centered at a point $p_i$. The function is conveniently cast into the form
 
@@ -1293,8 +1305,11 @@ The parameter $z$ is the distance along the vector $\overrightarrow{v\ }$, and t
 \end{figure}
 
 Figure \ref{fig:Figure9-38a} shows an elliptical splat\index{elliptical splat} with E = 10. (The splat surface is created by using isosurface extraction). As expected, the splat is an ellipsoid. Figure \ref{fig:Figure9-38b} is an application of elliptical splatting used to reconstruct a surface from an unstructured set of points. The advantage of using an elliptical splat is that we can flatten the splat in the plane perpendicular to the point normal. This tends to bridge the space between the point samples. The surface itself is extracted using a standard isosurface extraction algorithm.
+\index{modelling algorithms!unstructured points!splatting|)}
 
-\item[Interpolation Techniques.] Interpolation\index{interpolation!unstructured points} techniques construct a function to smoothly interpolate a set of unstructured points. That is, given a set of n points $p_i = (x_i, y_i, z_i)$ and function values $F_i(p_i)$, a new function $F(p$) is created that interpolates the points $p_i$. Once the interpolation function is constructed, we can build topological structure from the unstructured points by sampling $F(p)$ over an image dataset. We can then visualize the image data using any of the various techniques presented throughout the text. 
+\item[Interpolation Techniques.]
+\index{interpolation!unstructured points}\index{modelling algorithms!unstructured points!interpolation|(}
+Interpolation techniques construct a function to smoothly interpolate a set of unstructured points. That is, given a set of n points $p_i = (x_i, y_i, z_i)$ and function values $F_i(p_i)$, a new function $F(p$) is created that interpolates the points $p_i$. Once the interpolation function is constructed, we can build topological structure from the unstructured points by sampling $F(p)$ over an image dataset. We can then visualize the image data using any of the various techniques presented throughout the text. 
 
 Shepard's method\index{interpolation!Shepard's method} is an inverse distance weighted interpolation technique \cite{Wixom78}. The interpolation functions can be written
 
@@ -1315,9 +1330,10 @@ F(\overrightarrow{p\ }) = \dfrac{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{F
 As a result, Shepard's method is overly constrained in the region around each point.
 
 Shepard's method is an example of a basis function method. That is, the interpolation function $F(p)$ consists of a sum of functions centered at each data point, pi. Other basis function methods have been developed as described by Nielson \cite{Nielson91a}. They vary in localization of the basis functions and the sophistication of the interpolation function. Localization of basis functions means that their effect is isolated to a small region. Examples of more sophisticated basis functions include quadratic polynomials and cubic splines. Please see the references for more information.
+\index{modelling algorithms!unstructured points!interpolation|)}
 
 \item[Triangulation techniques.]
-
+\index{modelling algorithms!unstructured points!triangulation|(}
 Triangulation techniques build topology directly from unstructured points. The points are triangulated to create a topological structure consisting of \emph{n}--dimensional simplices that completely bound the points and linear combinations of the points (the so--called convex hull\index{convex hull}). The result of triangulation is a set of triangles (2D) or tetrahedra (3D), depending upon the dimension of the input data \cite{Lawson86}.
 
 \begin{figure}[htb]
@@ -1356,11 +1372,12 @@ This simplistic presentation of triangulation techniques has shown how to create
 Despite these problems, triangulation methods are a powerful tool for visualizing unstructured points. Once we convert the data into a triangulation (or in our terminology, an unstructured grid), we can directly visualize our data using standard unstructured grid techniques.
 
 \item[Hybrid Techniques.] Recent work has focused on combining triangulation and basis function techniques for interpolating 2D bivariate data. The basic idea is as follows. A triangulation of P is constructed. Then an interpolating network of curves is defined over the edges of the triangulation. These curves are constructed with certain minimization properties of interpolating splines. Finally, the curve network is used to construct a series of triangular basis functions, or surface patches, that exhibit continuity in function value, and possibly higher order derivatives. (See \cite{Nielson91a} for more information).
+\index{modelling algorithms!unstructured points!triangulation|)}
 
 \end{description}
 
 \subsection{Multidimensional Visualization}
-\index{algorithms!multidimensional|(}
+\index{algorithms!multidimensional|(}\index{multidimensional algorithms|(}
 
 The treatment of multidimensional datasets is an important data visualization issue. Each point in a dataset is described by an n-dimensional coordinate, where $n geq 3$. Here we assume that each coordinate is an independent variable, and that we wish to visualize a single dependent variable. (Multi--dimensional visualization of vectors and tensors is an open research area). An application of multidimensional data is financial visualization, where we might want to visualize return on investment as a function of interest rate, initial investment, investment period, and income, to name just a few possibilities.
 
@@ -1389,14 +1406,14 @@ Most multidimensional visualization techniques work with some form of dimension 
 	\caption{Plotting a five-dimensional point using parallel coordinates. (a) plot of single point, (b) plot of many points.}\label{fig:Figure9-41}
 \end{figure}
 
-One novel approach to multidimensional visualization has been proposed by Inselberg and Dimsdale \cite{Inselberg87}. This approach uses parallel coordinate systems. Instead of plotting points on orthogonal axes, the $i^{th}$ dimensional coordinate of each point is plotted along separate, parallel axes. This is shown in Figure \ref{fig:Figure9-41} for a five-dimensional point. In parallel coordinate plots, points appear as lines. As a result, plots of n-dimensional points appear as sequences of line segments that may intersect or group to form complex fan patterns. In so doing, the human pattern recognition capability is engaged. Unfortunately, if the number of points becomes large, and the data is not strongly correlated, the resulting plots can become a solid mass of black, and any data trends are drowned in the visual display.
+One novel approach to multidimensional visualization has been proposed by Inselberg and Dimsdale \cite{Inselberg87}. This approach uses parallel coordinate systems\index{multidimensional algorithms!parallel coordinates}. Instead of plotting points on orthogonal axes, the $i^{th}$ dimensional coordinate of each point is plotted along separate, parallel axes. This is shown in Figure \ref{fig:Figure9-41} for a five-dimensional point. In parallel coordinate plots, points appear as lines. As a result, plots of n-dimensional points appear as sequences of line segments that may intersect or group to form complex fan patterns. In so doing, the human pattern recognition capability is engaged. Unfortunately, if the number of points becomes large, and the data is not strongly correlated, the resulting plots can become a solid mass of black, and any data trends are drowned in the visual display.
 
-Another useful multivariable technique uses glyphs\index{glyph!multidimensional}. This technique associates a portion of the glyph with each variable. Although glyphs cannot generally be designed for arbitrary n-dimensional data, in many applications we can create glyphs to convey the information we are interested in. Refer to ``Glyphs'' on page \pageref{subsec:glyphs} for more information about glyphs.
-\index{algorithms!multidimensional|)}
+Another useful multivariable technique uses glyphs\index{glyph!multidimensional}\index{multidimensional algorithms!glyph}. This technique associates a portion of the glyph with each variable. Although glyphs cannot generally be designed for arbitrary n-dimensional data, in many applications we can create glyphs to convey the information we are interested in. Refer to ``Glyphs'' on page \pageref{subsec:glyphs} for more information about glyphs.
+\index{algorithms!multidimensional|)}\index{multidimensional algorithms|)}
 
 \subsection{Texture Algorithms}
 \label{subsec:texture_algorithms}
-\index{algorithms!texture|(}
+\index{algorithms!texture|(}\index{modelling algorithms!texture|(}
 
 Texturing is a common tool in computer graphics used to introduce detail without the high cost of graphics primitives. As we suggested in Chapter 7: \nameref{chap:advanced_computer_graphics}, texture mapping can also be used to visualize data. We explore a few techniques in the following sections.
 
@@ -1516,8 +1533,9 @@ As we saw in ``Hedgehogs and Oriented Glyphs'' on page \pageref{subsec:hedgehogs
 Along with the 1D texture map, the texture coordinate s must also be generated --- on a line this is straightforward. The line origin receives texture coordinate $s = 0$, while the line terminus receives texture coordinate value $s = 1$. Any intermediate points (if the vector is a polyline) are parameterized in monotonic fashion in the interval $(0,1)$. Texture coordinates need only be generated once. Only the texture map is varied to generate the vector animation.
 
 Other effects are possible by modifying the texture map. Figure \ref{fig:Figure9-45b} shows a texture map with a repeating sequence of opaque/transparent regions. In each opaque region the intensity is gradually reduced from left to right. The result is that this tends to ``feather'' the appearance of the vector motion. The resulting image is more pleasing to the eye.
-\index{algorithms!texture|)}
+\index{algorithms!texture|)}\index{modelling algorithms!texture|)}
 \index{animation!using texture|)}
+\index{modelling algorithms|)}
 
 \section{Putting It All Together}
 
@@ -1676,6 +1694,7 @@ In Figure \ref{fig:Figure9-49} we also see the basic procedure to construct the 
 Once vtkSweptSurface executes, we extract the swept surface using an isosurfacing algorithm. The isosurface value is an offset distance; thus we can create surfaces that take into account geometry tolerance. (This is particularly important if we are designing mechanical systems). The implementation of the implicit modeller in VTK uses a positive distance function; so the isosurface value should always be positive. To create swept surfaces of zero and negative value requires a modification to the implicit modeller.
 
 \subsection{Multidimensional Visualization}
+\index{multidimensional visualization|(}
 
 An important characteristic of multidimensional datasets is that they cannot be categorized according to any of the types defined in the \emph{Visualization Toolkit}. This implies that source objects interfacing with multidimensional data are responsible for converting the data they interface with into one of the types defined in VTK. This can be a difficult process, requiring you to write interface code.
 
@@ -1727,6 +1746,7 @@ We use vtkGaussianSplatter to perform the splatting operation (i.e., conversion 
 The results of this visualization are interesting. First, we see that there is a strong correlation between the two independent variables MONTHLY\_PAYMENT and LOAN\_AMOUNT. (This is more evident when viewing the data interactively). We see that the data falls roughly on a plane at a $45^\circ$ angle between these two axes. With a little reflection this is evident: the monthly payment is strongly a function of loan amount (as well as interest rate and payment period). Second, we see that there is a clustering of delinquent accounts within the total population. The cluster tends to grow with larger interest rates and shrink with smaller monthly payments and loan amounts. Although the relationship with interest rate is expected, the clustering towards smaller monthly payments is not. Thus our visualization has provided a clue into the data. Further exploration may reveal the reason(s), or we may perform additional data analysis and acquisition to understand the phenomena.
 
 One important note about multidimensional visualization. Because we tend to combine variables in odd ways (e.g., the use of MONTHLY\_PAYMENT, INTEREST\_RATE, and \\ LOAN\_AMOUNT as $(x, y, z)$ coordinates), normalization of the data is usually required. To normalize data we simply adjust data values to lie between $(0,1)$. Otherwise our data can be badly skewed and result in poor visualizations.
+\index{multidimensional visualization|)}
 
 \subsection{Connectivity}
 \index{connectivity!implementation|(}
@@ -1951,7 +1971,7 @@ Delaunay triangulation is used to construct topology from unstructured point dat
         \end{lstlisting}
         \label{fig:Figure9-54d}
 	\end{subfigure}
-	\caption{Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes. Only the pipeline to generate triangulation is shown.}\label{fig:Figure9-54}
+	\caption{Two--dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes. Only the pipeline to generate triangulation is shown.}\label{fig:Figure9-54}
 \end{figure}
 
 In the example of Figure \ref{fig:Figure9-5} we show how to create a 2D Delaunay triangulation from a field of points. The points are created by generating random $x$ and $y$ coordinate values in the interval \cite{0, 1}, and setting the \emph{z}--value to a constant value (i.e., the points lie in an $x$--$y$ plane). The points are then triangulated, and tubes and sphere glyphs are used to highlight the resulting points and edges of the triangulation.
