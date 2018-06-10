@@ -26,7 +26,7 @@ Finally, clipping is another important algorithm related to contouring, where ce
 \subsection{Dividing Cubes}
 \index{dividing cubes|(}
 
-Dividing cubes is a contouring algorithm similar to marching cubes \cite{Cline88}. Unlike marching cubes\index{dividing cubes!and marching cubes}, dividing cubes generates point primitives as compared to triangles (3D) or lines (2D). If the number of points on the contour surface is large, the rendered appearance of the contour surface appears ``solid''.
+Dividing cubes is a contouring algorithm similar to marching cubes \cite{Cline88}. Unlike marching cubes\index{dividing cubes!and marching cubes}\index{marching cubes!and dividing cubes}, dividing cubes generates point primitives as compared to triangles (3D) or lines (2D). If the number of points on the contour surface is large, the rendered appearance of the contour surface appears ``solid''.
 To achieve this solid appearance, the density of the points must be at or greater than screen resolution. (Also, the points must be rendered using the standard lighting and shading equations used in surface rendering).
 
 The motivation for dividing cubes is that rendering points is much faster than rendering polygons. This varies depending upon rendering hardware/software. Special purpose hardware has been developed to render shaded points at high speed. In other systems, greater attention has been placed on polygon rendering, and the rendering speed differences are not so great. Also, certain geometric operations such as clipping\index{clipping} and merging data are simple operations with points. Comparable operations with polygons are much more difficult to implement.
