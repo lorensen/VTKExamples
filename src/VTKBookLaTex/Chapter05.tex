@@ -190,7 +190,7 @@ It is common in numerical analysis to use nonlinear cells, i.e., cell formulatio
 	\label{fig:Figure5-4}
 \end{figure}
 
-One significant difference between linear and nonlinear cells is the way they are rendered and operated on by various visualization algorithms. Linear cells are readily converted to linear graphics primitives, which are then processed by the graphics library. Nonlinear cells, on the other hand, do not often have direct support in graphics libraries. (One exception are the family of non--uniform rational B--splines or NURBS. And even these are generally tessellated by the graphics library into linear primitives.) Therefore, nonlinear cells must be treated specially by the visualization system. Some possibilities include:
+One significant difference between linear and nonlinear cells is the way they are rendered and operated on by various visualization algorithms. Linear cells are readily converted to linear graphics primitives, which are then processed by the graphics library. Nonlinear cells, on the other hand, do not often have direct support in graphics libraries. (One exception are the family of non--uniform rational B--splines or NURBS\index{NURBS}. And even these are generally tessellated by the graphics library into linear primitives.) Therefore, nonlinear cells must be treated specially by the visualization system. Some possibilities include:
 
 \begin{enumerate}
 
@@ -260,7 +260,7 @@ Attribute data is often categorized into specific types of data. These categorie
 
 Single--valued functions, such as temperature or pressure, are examples of scalar data, which is one attribute type. More generally, attribute data can be treated as n-dimensional data arrays. For example, the single-valued function temperature can be treated as a $1 \times 1$ array, while velocity can be treated as a $3 \times 1$ array of components in the x, y, and z directions. This abstract model for data attribute can be extended throughout the visualization system. Some systems extend this model to include the structure of the data. For example, a 3D image dataset (i.e., a volume) can be represented as a 3D array of $l \times m \times n$ data values. Unstructured data can be represented as a 3D vector of position, plus an array of connectivity. We refer to this general approach as the hyperdata model for visualization data (see ``Other Data Abstractions'' on page \pageref{sec:other_data_abstractions}).
 
-In the following sections we describe data attributes using the simpler type--specific model (Figure \ref{fig:Figure5-6}). We also limit ourselves to three--dimensional structure, since the dataset structure and graphics are assumed to be three-dimensional.
+In the following sections we describe data attributes using the simpler type--specific model (Figure \ref{fig:Figure5-6}). We also limit ourselves to three--dimensional structure, since the dataset structure and graphics are assumed to be three--dimensional.
 
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 
@@ -268,7 +268,7 @@ In the following sections we describe data attributes using the simpler type--sp
 
 \item[Vectors.\index{dataset attributes!vectors}] Vector data is data with a magnitude and direction. In three dimensions this is represented as a triplet of values $(u, v, w)$. Examples of vector data include flow velocity, particle trajectory, wind motion, and gradient function.
 
-\item[Normals.\index{dataset attributes!normals}] Normals are direction vectors: that is, they are vectors of magnitude $|n|=1$. Normals are often used by the graphics system to control the shading of objects. Normals also may be used by some algorithms to control the orientation or generation of cell primitives, such as creating ribbons from oriented lines.
+\item[Normals.\index{dataset attributes!normals}\index{normal}\index{normal attributes}] Normals are direction vectors: that is, they are vectors of magnitude $|n|=1$. Normals are often used by the graphics system to control the shading of objects. Normals also may be used by some algorithms to control the orientation or generation of cell primitives, such as creating ribbons from oriented lines.
 
 \item[Texture Coordinates.\index{dataset attributes!texture coordinates}] Texture coordinates are used to map a point from Cartesian space into a $1-$, $2-$, or $3-$dimensional texture space. The texture space is usually referred to as a texture map. Texture maps are regular arrays of color, intensity, and/or transparency values that provide extra detail to rendered objects.
 

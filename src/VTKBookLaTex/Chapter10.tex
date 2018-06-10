@@ -119,7 +119,7 @@ g(i, j) = \dfrac{1}{2\pi \sigma^2} \exp\left(-\dfrac{i^2 + j^2}{2\sigma^2} \righ
 \index{image processing algorithms!image restoration|)}\index{image restoration|)}
 
 \subsection{Nonlinear Smoothing}
-\index{image processing algorithms!non--linear smoothing|(}
+\index{image processing algorithms!non--linear smoothing|(}\index{non--linear smoothing|(}
 
 One problem with simple smoothing to remove noise is that edges are blurred. Although high frequencies make up a small part of images, the human visual system is acutely sensitive to high frequencies in the spatial form of edges. In fact, most of the low frequencies in an image are discarded by the visual system before it even leaves the retina. One approach to smoothing that preserves edges is anisotropic diffusion\index{diffusion anisotropic}. This filter smooths relatively flat regions of an image, but does not diffuse across abrupt transitions. The diffusion is iterated until the desired level of noise reduction is reached. Two possible diffusion criteria are: Diffuse only when the gradient magnitude is below a specified value, or diffuse two pixels only when the difference between the pixels is lower than a specified constant.
 
@@ -148,7 +148,7 @@ One problem with simple smoothing to remove noise is that edges are blurred. Alt
 \end{figure}
 
 A median filter\index{median filter} also smooths while preserving edges. This filter replaces each pixel with the median value of the scalar values in a neighborhood centered on the pixel. Median filters are most effective on high amplitude noise that has a low probability of occurring (see Figure \ref{fig:Figure10-3}). There are two ways to control the amount and scale of noise removed: The size of the neighborhood can be varied, or the filter can be applied multiple times. This median filter preserves edges; however, it does round corners and remove thin lines. The hybrid median filter was developed to address this behavior. It operates on a $5 \times 5$ neighborhood around each pixel. The algorithm consists of two steps: first the median values of an ``x''-shaped and ``+''--shaped neighborhoods are computed, then the median of these two values and the center-pixel value is computed to give the final result. The hybrid median has a fixed size neighborhood, but can be applied multiple times to further reduce noise (Figure \ref{fig:Figure10-4}).
-\index{image processing algorithms!non--linear smoothing|)}
+\index{image processing algorithms!non--linear smoothing|)}\index{non--linear smoothing|)}
 
 \subsection{Low Frequency Artifacts}
 \index{image processing algorithms!low frequency artefacts|(}
