@@ -1,5 +1,6 @@
 \chapter[Object-Oriented Design]{Object-Oriented\\ Design}
 \label{chap:object_oriented_design}
+\index{object--oriented design|(}
 
 % Position the image to the right of the heading.
 \vspace{-9\baselineskip} % move up
@@ -39,10 +40,11 @@ Software maintenance is often ignored during system design. Nevertheless, the to
 Finally, the economics of software development require that we leverage as much of our past work as possible. In an ideal world, the implementation of a new technique in an existing system should be a simple task. This is seldom the case in software systems. Creation of reusable software components can reduce duplication of effort and promote consistent interfaces within a system. However, as we see throughout this book, creating software that can be reused often takes extra effort. A short--term view of productivity by one individual conflicts with the long--term view of the productivity of a software development organization.
 
 \section{Object--Oriented Concepts}
+\index{object--oriented!concepts|(}
 
 Objects are the dominating concepts in object--oriented systems. Objects are abstractions that encapsulate the properties and behavior of the entities within a system. Each object has an identity\index{identity!in object--oriented systems} that distinguishes it from other objects in the system. Often, the distinguishable aspects of an object are obvious. For example, a difference in color, location on a screen, size, or contents distinguishes one window from another on a computer desktop. But, appearances can be deceiving, and even two objects that share all the same characteristics may still have different identities. Two automobiles may have the same manufacturer, model, options and colors, but remain two different cars. The real world distinguishes the two cars by a vehicle identification number. Likewise, programming systems that deal with multiple entities need an identity mechanism. A pointer to allocated memory or a variable name in a system-managed symbol table are often used to distinguish objects in a system. In a database system, a set of identifier keys (called an \emph{n}--tuple) identifies an entity\index{entity} in a system.
 
-But, how do object--oriented systems differ from conventional, procedural programming systems? The major difference is in the way the two approaches treat data abstraction. Conventional systems limit abstraction to data typing, while object--oriented systems create abstractions for both the data and the operations that can be applied to the data. In fact, an object--oriented system keeps the data and operations together in one programming construct called an object. Together, the data and operations comprise an object's \emph{properties}. When an operation is applied to an object, the programming language's dynamic-binding mechanism executes the procedure that is appropriate for that object. This is not the case in procedure--oriented systems. The programmer must supply logic to decide which procedure to call. Systems that handle multiple types are often littered with case statements to select the appropriate procedure for an operation. As new types are added to these systems, the code that dispatches operations based on data type must be extended to handle the new type. For example, in a program to display different types of primitives, the following pseudo code shows how a procedure-oriented system differs from an object--oriented system.
+But, how do object--oriented systems\index{object--oriented!versus procedural} differ from conventional, procedural programming systems? The major difference is in the way the two approaches treat data abstraction. Conventional systems limit abstraction to data typing, while object--oriented systems create abstractions for both the data and the operations that can be applied to the data. In fact, an object--oriented system keeps the data and operations together in one programming construct called an object. Together, the data and operations comprise an object's \emph{properties}. When an operation is applied to an object, the programming language's dynamic-binding mechanism executes the procedure that is appropriate for that object. This is not the case in procedure--oriented systems. The programmer must supply logic to decide which procedure to call. Systems that handle multiple types are often littered with case statements to select the appropriate procedure for an operation. As new types are added to these systems, the code that dispatches operations based on data type must be extended to handle the new type. For example, in a program to display different types of primitives, the following pseudo code shows how a procedure-oriented system differs from an object--oriented system.
 
 Procedure oriented (in C++):
 
@@ -73,14 +75,17 @@ Later in this project's existence, someone may want to add a new primitive, let'
 The object--oriented programmer has an easier task. Consulting the design document that defines the object properties for a primitive, this programmer adds a draw operation to the quadratic object. The new primitive is available to the system without changing any existing code! Of course, this is an oversimplified example. But think about past programs you have written and remember how hard it was to add a new data type. Were your changes isolated to the new code you added? Did you have to edit code that you did not write and maybe did not understand? Keep this example in mind as you read our object--oriented implementation of a data visualization library.
 
 Before describing object--oriented design and programming in more detail, we provide an observation and prediction. Over the several years that we have designed and implemented software using an object--oriented methodology, we have observed that newcomers to the technique will say, ``But this is how I already write programs. My systems are modular; they're robust; I can easily add to them''. If you still feel that way after reading this book, do not fault the object--oriented approach. Rather, we have failed as authors. However, such a negative response is unlikely. In our experience, users become comfortable with this approach in a short time. Especially when they are introduced to objects through an existing, well-designed object--oriented system. You will reach the ``aha'' stage, after which it will be difficult to begin a software project without looking for the objects in the problem.
+\index{object--oriented!concepts|)}
 
 \section{Object--Oriented Terminology}
+\index{object--oriented!terminology|(}
 
 As with any software engineering design methodology, object--oriented design has its own terminology. Unfortunately, not everyone agrees on what that is. We adopt much of our terminology from Rumbaugh \cite{Rumbaugh91} and, since the \emph{Visualization Toolkit} is written in C++, from Stroustrup \cite{Stroustrup84}. For the most part, Rumbaugh's terminology is independent of programming language, while Stroustrup is specific to implementation in C++. The transition from design to programming will be painless though, and the mappings between the two terminologies are mostly obvious. Where we think there might be confusion, we will point out the correspondences.
+\index{object--oriented!terminology|)}
 
 \subsection{What Is an Object?}
 
-An \emph{object} is an abstraction that models the state and behavior of entities in a system. Abstraction\index{abstraction} is a mental process that extracts the essential aspects of a situation for a particular purpose. Entities are things in the system that have identity. Chairs, airplanes, and cameras are objects that correspond to physical entities in the real world. Binary trees, symbol tables, and ordered collections are objects that exist only within the world of computer science.
+An \emph{object}\index{object} is an abstraction that models the state and behavior of entities in a system. Abstraction\index{abstraction} is a mental process that extracts the essential aspects of a situation for a particular purpose. Entities are things in the system that have identity. Chairs, airplanes, and cameras are objects that correspond to physical entities in the real world. Binary trees, symbol tables, and ordered collections are objects that exist only within the world of computer science.
 
 Figure \ref{fig:Figure2-1} is an example of the abstraction that occurs when we map the state and behavior of a system component to an object. Here, the object is a particular type of tree: a pin oak. In this application we desire to simulate the growth of various types of trees over the course of a season. For our purpose we have decided that the important state variables are the tree's age, trunk diameter, height, and habit (i.e., growing form). To capture the behavior of the pin oak we have methods to simulate growth and seasonal effects corresponding to spring, summer, fall, and winter. There are also methods (not shown) for setting and getting current state variables.
 
@@ -166,7 +171,7 @@ Another mechanism, \emph{delegation}\index{delegation}, is useful for isolating 
 \index{inheritance|)}
 
 \section{Object--Oriented Modelling and Design}
-\index{abstraction!during design}
+\index{abstraction!during design}\index{object--oriented!modelling and design|(}
 
 The design of any large software system is a formidable task and the first steps in system design are often the most challenging. No matter what design technique we choose, we must have a thorough understanding of the system's application domain. It would be difficult to see how one could design a fly--by--wire airplane control system without a detailed knowledge of the underlying hardware control systems. Of course, all flight system software is not designed by aeronautical engineers, so some form of system specification must exist. The depth of information in the specifications varies from application to application.
 
@@ -174,11 +179,12 @@ Object--oriented system design begins with a modelling step that extracts object
 
 Modelling is a step in most design processes regardless of whether we are designing a ship, house, electronics system, or software. Each discipline follows a methodology that uses techniques specifically created to make the design process efficient and worthwhile. These techniques are so--called ``tools of the trade''. An electrical engineer uses schematics and logic diagrams, an architect uses drawings and mock-ups, and a ship builder uses scale models. Likewise, software designers need tools that can help create a model of the system. The software tools should have enough expressive power to help the software designer evaluate a design against a specification and help communicate that design to others on the software team.
 
-We use the Object Modeling Technique (OMT) developed at GE by Jim Rumbaugh and his colleagues \cite{Rumbaugh91}. OMT uses three models to specify an object--oriented design: an object model, a dynamic model, and a functional model. Each model describes a different aspect of the system and each has a corresponding diagramming technique that helps us analyze, design, and implement software systems.
+We use the Object Modeling Technique (OMT)\index{OMT|see {Object Modelling Technique}} developed at GE by Jim Rumbaugh and his colleagues \cite{Rumbaugh91}. OMT uses three models to specify an object--oriented design: an object model, a dynamic model, and a functional model. Each model describes a different aspect of the system and each has a corresponding diagramming technique that helps us analyze, design, and implement software systems.
 
 \subsection{The Object Model}
+\index{object model|(}\index{Object Modelling Technique|(}
 
-The object model\index{class!in object model} identifies each object in the system, its properties, and its relationships to other objects in the system. For most software systems, the object model dominates the design. The OMT graphical technique uses rectangles to depict object classes, and a variety of connectors to depict inheritance\index{inheritance!in object model} and other object--object relations. Object classes are represented as solid rectangles. Instances\index{instance!in object model} are represented as dotted rectangles. The name of the class or instance occupies the top of the rectangle. A line separates the class name from the next section that contains the attributes; a third section describes the methods\index{method!reference counting}. Relationships between objects are shown with line segments connecting the two related objects. In OMT, relationships are called associations and they can have various cardinalities: one-to-one, one-to-many, and many-to-many. Special associations that represent containers of other objects are called aggregations. Associations\index{association!in object model} can be labeled with roles. (Roles are names given to associations and are used to further describe the nature of the association.) OMT represents inheritance with a triangle, with the superclass attached to the apex, and sub-classes attached to the base of the triangle. Figure \ref{fig:Figure2-3} shows an object model for locator devices in a virtual reality system.
+The object model\index{class!in object model} identifies each object in the system, its properties, and its relationships to other objects in the system. For most software systems, the object model dominates the design. The OMT graphical technique uses rectangles to depict object classes, and a variety of connectors to depict inheritance\index{inheritance!in object model}\index{object model!inheritance} and other object--object relations. Object classes are represented as solid rectangles. Instances\index{instance!in object model}\index{object model!instance} are represented as dotted rectangles. The name of the class\index{object model!class} or instance\index{object model!instance} occupies the top of the rectangle. A line separates the class name from the next section that contains the attributes; a third section describes the methods\index{method!reference counting}\index{object model!method}. Relationships between objects are shown with line segments connecting the two related objects. In OMT, relationships are called associations\index{object model!association} and they can have various cardinalities: one--to--one, one--to--many, and many--to--many. Special associations that represent containers of other objects are called aggregations. Associations\index{association!in object model} can be labeled with roles. (Roles are names given to associations and are used to further describe the nature of the association.) OMT represents inheritance with a triangle, with the superclass attached to the apex, and sub-classes attached to the base of the triangle. Figure \ref{fig:Figure2-3} shows an object model for locator devices in a virtual reality system.
 
 \begin{figure}[!htb]
 	\centering
@@ -191,6 +197,7 @@ The first object in the class hierarchy is locator. This abstract class specifie
 
 Later, during implementation, we will convert these object models into software objects. The particular computer language we choose for implementation will dictate the details of the conversion.
 \index{abstract class|)}\index{class!abstract|)}
+\index{object model|)}\index{Object Modelling Technique|)}
 
 \subsection{The Dynamic Model}
 \index{dynamic model|(}
@@ -221,18 +228,23 @@ Figure \ref{fig:Figure2-5} shows a data flow diagram for a 3D medical imaging sy
 	\label{fig:Figure2-5}
 \end{figure}
 \index{functional model|)}
+\index{object--oriented!modelling and design|)}
 
 \section{Object--Oriented Programming Languages}
+\index{object--oriented!languages|(}
 
 The choice of computer programming language is a religious issue. Every computer language has its evangelists and followers. Most of our experience in object--oriented languages is with C and C++\index{C++}. C itself does not have object--oriented facilities, but an object--oriented methodology and strict coding guidelines permit the development of object--oriented code. We chose C++ for the \emph{Visualization Toolkit} because it has built-in support for the notion of classes, dynamic binding of methods to objects, and inheritance. C++ is also widely available on many UNIX platforms and personal computers.
 
 Simula \cite{Birtwistle79} is usually acknowledged as the first object--oriented language, but Smalltalk \cite{Goldberg83} is probably the best-known language. Smalltalk was developed at the Xerox Palo Alto Research Center (PARC) in the seventies and eighties. Well before its time, Smalltalk provided not just a language, but also an operating system and programming environment built with objects. When you use Smalltalk, you live and breathe objects. For the object--oriented purist, there is no substitute. Smalltalk spin-offs include window systems, workstations, and the desktop paradigm. Both Apple Computer and Microsoft acknowledge the influence that Smalltalk and Xerox PARC had on the Macintosh and Windows. Smalltalk was probably conceived 10 years too early for widespread commercial acceptance. During Smalltalk's infancy and adolescence, the complexity of software was much lower than today's systems. FORTRAN served the scientific and engineering community, COBOL was the choice for business applications and the computer science community embraced C. The use of abstractions was limited to mathematicians and other abstract thinkers. Programming was considered an art form and programmers concentrated on clever implementations of algorithms. Each new task often required a new program. Technical programmers did use numerical libraries for common mathematical operations, but any notions of common abstractions at a higher level were relatively few.
+\index{object--oriented!languages|)}
 
 \section{Object--Oriented Visualization}
+\index{object--oriented!visualization|(}
 
 Don't underestimate the investment required to design a system. Although object--oriented technologies have tremendous potential to produce good software designs, these techniques do not guarantee a good design. The visualization system we present in this text has its roots in an animation \cite{Lorensen89} and visualization system \cite{Schroeder92} that we developed over a 10-year period. The initial design, which identified 25 classes for computer animation of industrial applications, took four software professionals 10 months (almost 3.5 person years) to complete. During this design stage the developers produced zero (!) lines of code. The subsequent implementation took one month, or ten percent of the effort. This system still serves our visualization group even after 20 other software developers have added over 500 classes to the system. The original 25 classes still exist in the system today.
 
 As a reader, we hope that you can benefit from our experience in visualization system design. We have tried to assist you by describing the properties (attributes and methods) of many of the \emph{Visualization Toolkit} classes in each chapter's ``Putting It All Together'' section. There are also included a series of object diagrams generated by the Doxygen documentation system that will give you a quick overview of object relationships such as superclass and subclass. This documentation can be found on the CD--ROM or on--line at \href{https://www.vtk.org/doc/nightly/html/index.html}{VTK Documentation}. In the next chapter we will also explain the decisions we made to design the VTK object--oriented toolkit.
+\index{object--oriented!visualization|)}
 
 \section{Chapter Summary}
 
@@ -253,7 +265,7 @@ Another popular book has been authored by Booch \cite{Booch91}.
 
 Anyone who wants to be a serious user of object--oriented design and implementation should read the books on Smalltalk \cite{Goldberg83} \cite{Goldberg84} by the developers of Smalltalk at Xerox Parc.
 In another early object--oriented programming book, \cite{Cox86} describes OO techniques and the programming language Objective--C.
-Objective--C is a mix of C and Smalltalk and was used by Next Computer in the implementation of their operating system and user interface.
+Objective--C\index{Objective--C} is a mix of C and Smalltalk and was used by Next Computer in the implementation of their operating system and user interface.
 
 There are many texts on object--oriented languages. CLOS\index{CLOS} \cite{Keene89} describes the Common List Object System. Eiffel\index{Eiffel}, a strongly typed OO language is described by \cite{Meyer88} .
 Objective-C \cite{Cox86} is a weakly typed language.
@@ -267,6 +279,8 @@ Several mathematical libraries such as VNL (a part of VXL) and Blitz++ \cite{Bli
 C++ texts abound. The original description by the author of C++ \cite{Stroustrup84} is a must for any serious C++ programmer. Another book \cite{Ellis90} describes standard extensions to the language.
 These days the UML book series --- of which \cite{Booch98} and \cite{Rumbaugh98} are quite popular --- are highly recommended resources. Several books on generic programming \cite{Austern99} and STL \cite{Musser96} are also useful. Check with your colleagues for their favourite C++ book.
 To keep in touch with new developments there are conferences, journals, and Web sites. The strongest technical conference on object--oriented topics is the annual Object--oriented Programming Systems, Languages, and Applications ( OOPSLA ) conference. This is where researchers in the field describe, teach and debate the latest techniques in object--oriented technology. The bimonthly Journal of Object-Oriented Programming (JOOP) published by SIGS Publications, NY, presents technical papers, columns, and tutorials on the field. Resources on the World Wide Web include the Usenet newsgroups comp.object and comp.lang.c++.
+
+\index{object--oriented design|)}
 
 \printbibliography
 

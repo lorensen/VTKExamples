@@ -71,6 +71,7 @@ The functional model shows how data flows through the system. It also describes 
 In the examples that follow we will frequently use a simplified representation of the functional model to describe visualization processes (Figure \ref{fig:Figure4-1c}). We will not explicitly distinguish between sources, sinks, data stores, and process objects. Sources and sinks are implied based on the number of inputs or outputs. Sources will be process objects with no input. Sinks will be process objects with no output. Filters will be process objects with at least one input and one output. Intermediate data stores will not be represented. Instead we will assume that they exist as necessary to support the data flow. Thus, as Figure \ref{fig:Figure4-1c} shows, the \emph{Lines} data store that the \emph{Outline} object generates (Figure \ref{fig:Figure4-1b}) are combined into the single object \emph{Outline}. We use oval shapes to represent objects in the visualization model.
 
 \subsubsection{The Object Model}
+\index{object model!in visualization|(}
 
 The functional model describes the flow of data in our visualization,
 the object model describes which modules operate on it. But what \emph{are} the objects in the system? At first glance, we have two choices (Figure \ref{fig:Figure4-2}).
@@ -100,7 +101,7 @@ The second choice separates the data stores and processes. That is, one set of o
 One disadvantage to the second choice is that the interface between data representation and process is more formal. Thus the interface must be carefully designed to insure good performance and flexibility. Another disadvantage is that strong separation of data and process results in duplicate code. That is, we may implement operations that duplicate algorithms and that cannot be considered strictly data access methods. One example of such a situation is computing data derivatives. This operation is more than simple data access, so strictly speaking it doesn't belong in the data object methods. So to compute derivatives we would have to duplicate the code each time we needed derivatives computed. (Or create a procedural library of functions or macros!)
 
 As a result of these concerns we use the hybrid approach in the \emph{Visualization Toolkit}. Our approach is closest to the second choice described above, but we have selected a small set of critical operations that we implement within the data objects. These operations have been identified based on our experience implementing visualization algorithms. This effectively combines the first two choices to receive the maximum benefit and fewest disadvantages of each.
-
+\index{object model!in visualization|)}
 
 \section{The Visualization Pipeline}
 \label{sec:visualization_pipeline}
