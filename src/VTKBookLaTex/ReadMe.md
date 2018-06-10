@@ -11,6 +11,8 @@ The process is documented in these scripts:
 - `MakeDocument.bash` and `MakeDocument.cmd`.
 - `Clean.bash` and `Clean.cmd`.
 
+If figures have changes or you want to synchronize with the test examples run `ImportFigures.py` before `MakeDocument.bash` or `MakeDocument.cmd`
+
 Running `MakeDocument` will generate the PDF.
 
 ## Editors used
@@ -27,7 +29,8 @@ if setting up TexStudio, remember to go to  **Configure TeXstudio|Build** and ch
 
 2. Do the bibliography at the end of the chapter using JabRef (load the existing `Bibliography.bib` first) and then do the Bibliographic Notes section to confirm all references are correct.
 
-3. Where examples exist in https://lorensen.github.io/VTKExamples/site/VTKBookFigures/ these are added to  `src/VTKLaTex/Figures` and  `src/VTKLaTex/Figures/ReadMe.md` is updated with the figure name and the path to the testing image. The intent is to create a script to ensure the figures are in sync with the testing images.
+3. Where examples exist in https://lorensen.github.io/VTKExamples/site/VTKBookFigures/ these are added to  `src/VTKLaTex/Figures` and  `src/VTKLaTex/ImportFigures.py` is updated with the figure name and the path to the testing image. Update the variable
+ `figs` with the new information. Running this script will update all the figures that correspond to the test examples.
 
 4. If there is no drawing or figure available th scrape it from the original pdf and place it in  `src/VTKLaTex/Figures/Scraped`. When better images become available they are placed into  `src/VTKLaTex/Figures` and the corresponding image in  `src/VTKLaTex/Figures/Scraped` is removed.
 
