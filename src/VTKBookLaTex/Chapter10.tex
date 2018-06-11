@@ -200,42 +200,42 @@ Another gradual change across an image is caused by sensor position\index{image 
 \index{image enhancement|(}\index{image processing algorithms!image enhancement|(}
 
 \begin{figure}[htb]
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7a}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7b}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7c}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7c}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7d}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7d}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7e}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7e}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7f}
 		\captionsetup{justification=centering}
 		\caption*{}
@@ -253,7 +253,7 @@ To take advantage of all the available display contrast, images should have a un
 To achieve the goal of a uniform scalar histogram, transfer functions can be used to spread out clusters in the histogram and compress scalar ranges that are under-represented in the image. To maintain the general appearance of the image, the transfer function should be monotonically increasing so that the brightness relation is maintained. To spread out clusters in the histogram, the slope of the transfer function should be large where the scalar densities are the highest, and the slope should be small in empty regions of the histogram.
 
 \begin{figure}[htb]
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.86\linewidth}
 		\includegraphics[width=0.48\linewidth]{Figure10-8a}
 		\includegraphics[width=0.48\linewidth]{Figure10-8b}
 		\captionsetup{justification=centering}
@@ -270,7 +270,7 @@ To achieve the goal of a uniform scalar histogram, transfer functions can be use
 	\end{subfigure}
 
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.86\linewidth}
 		\includegraphics[width=0.48\linewidth]{Figure10-8d}
 		\includegraphics[width=0.48\linewidth]{Figure10-8e}
 		\captionsetup{justification=centering}
@@ -407,7 +407,7 @@ Although preprocessing can do a lot to improve segmentation results, postprocess
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.98\textwidth]{Figure10-14}
+	\includegraphics[width=0.63\linewidth]{Figure10-14}
 	\caption{This figure demonstrates various binary filters that can alter the shape of segmented regions. From left to right: Original Image; Connectivity; Erosion; Dilation; Opening; Closing. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/ImageProcessing/MorphologyComparison/}{MorphologyComparison.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/ImageProcessing/MorphologyComparison/}{MorphologyComparison.py})}
 	\label{fig:Figure10-14}
 \end{figure}
@@ -516,21 +516,21 @@ Note that direct pointer access is used to fill the image. The AllocateScalars()
 
 \begin{figure}[htb]
     \centering
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-16a}
 		\captionsetup{justification=centering}
 		\caption*{See: (\href{https://lorensen.github.io/VTKExamples/site/Cxx/ImageProcessing/MorphologyComparison/}{MorphologyComparison.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/ImageProcessing/MorphologyComparison/}{MorphologyComparison.py})}
 		\label{fig:Figure10-16a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-16b}
 		\captionsetup{justification=centering}
 		\caption*{}
         \label{fig:Figure10-16b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.78\linewidth}
        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
         vtkImageGradient gradient
           gradient SetInputConnection [smooth GetOutputPort]

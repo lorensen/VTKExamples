@@ -143,30 +143,33 @@ The ray casting process is illustrated in Figure \ref{fig:Figure7-4}. This examp
 The two main steps of ray casting are determining the values encountered along the ray, and then processing these values according to a ray function. Although in implementation these two steps are typically combined, we will treat them independently for the moment. Since the specific ray function often determines the method used to extract values along the ray, we will begin by considering some of the basic ray function types.
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.96\linewidth}
+    \centering
+	\begin{subfigure}[h]{0.68\linewidth}
 		\includegraphics[width=\linewidth]{Figure7-5a}
 		\caption*{}\label{fig:Figure7-5a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=\linewidth]{Figure7-5b}
-		\caption*{Maximum value}\label{fig:Figure7-5b}
-	\end{subfigure}%
-	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=\linewidth]{Figure7-5c}
-		\caption*{Average value}\label{fig:Figure7-5c}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=\linewidth]{Figure7-5d}
-		\caption*{Distance to value 30}\label{fig:Figure7-5d}
-	\end{subfigure}%
-	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=\linewidth]{Figure7-5e}
-		\caption*{Composite}\label{fig:Figure7-5e}
-	\end{subfigure}
+    \begin{subfigure}[h]{0.68\linewidth}
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=\linewidth]{Figure7-5b}
+    		\caption*{Maximum value}\label{fig:Figure7-5b}
+    	\end{subfigure}%
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=\linewidth]{Figure7-5c}
+    		\caption*{Average value}\label{fig:Figure7-5c}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=\linewidth]{Figure7-5d}
+    		\caption*{Distance to value 30}\label{fig:Figure7-5d}
+    	\end{subfigure}%
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=\linewidth]{Figure7-5e}
+    		\caption*{Composite}\label{fig:Figure7-5e}
+    	\end{subfigure}
+    \end{subfigure}
 	\caption{A ray profile and four example ray functions. MRI head data courtesy of Siemens Medical Systems, Inc., Iselin, NJ.}\label{fig:Figure7-5}
 \end{figure}
 

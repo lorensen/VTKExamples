@@ -38,18 +38,18 @@ is the mathematical representation of a quadric. Figure \ref{fig:Figure4-1a} sho
 different visualization techniques are then used. On the left, we generate 3D surfaces corresponding to the function $F(x,y,z) = c$ where $c$ is an arbitrary constant (i.e., the isosurface value). In the center, we show three different planes that cut through the data and are colored by function value. On the right we show the same three planes that have been contoured with constant valued lines. Around each we place a wireframe outline.
 
 \begin{figure}[htb]
-  \begin{subfigure}[h]{0.80\linewidth}
+  \begin{subfigure}[h]{0.68\linewidth}
     \includegraphics[width=\linewidth]{Figure4-1a}
     \caption{Quadric visualization. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/QuadricVisualization/}{QuadricVisualization.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/QuadricVisualization/}{QuadricVisualization.py})}
     \label{fig:Figure4-1a}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[h]{0.80\linewidth}
+  \begin{subfigure}[h]{0.68\linewidth}
     \includegraphics[width=\linewidth]{Figure4-1b}
     \caption{Functional model.}\label{fig:Figure4-1b}
   \end{subfigure}%
   \hfill
-  \begin{subfigure}[h]{0.80\linewidth}
+  \begin{subfigure}[h]{0.68\linewidth}
     \includegraphics[width=\linewidth]{Figure4-1c}
     \caption{Visualization network.}\label{fig:Figure4-1c}
   \end{subfigure}
@@ -712,19 +712,22 @@ The first example demonstrates a simple visualization pipeline. A polygonal repr
 The execution of the pipeline occurs implicitly when we render the actor. Each actor asks its mapper to update itself. The mapper in turn asks its input to update itself. This process continues until a source object is encountered. Then the source will execute if modified since the last render.
 
 \begin{figure}[htb]
-  \begin{subfigure}[h]{0.48\linewidth}
-    \includegraphics[width=0.96\linewidth]{Figure4-19a}
-    \caption*{}
-    \label{fig:Figure4-19a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+        \begin{subfigure}[h]{0.48\linewidth}
+        \includegraphics[width=0.96\linewidth]{Figure4-19a}
+        \caption*{}
+        \label{fig:Figure4-19a}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[h]{0.48\linewidth}
+        \includegraphics[width=0.96\linewidth]{Figure4-19b}
+        \caption*{See: href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/ColoredSphere/}{ColoredSphere.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/ColoredSphere/}{ColoredSphere.py}.})
+        \label{fig:Figure4-19b}
+        \end{subfigure}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[h]{0.48\linewidth}
-    \includegraphics[width=0.96\linewidth]{Figure4-19b}
-    \caption*{See: href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/ColoredSphere/}{ColoredSphere.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/ColoredSphere/}{ColoredSphere.py}.})
-    \label{fig:Figure4-19b}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[h]{0.96\linewidth}{Figure4-19c}
+  \begin{subfigure}[h]{0.76\linewidth}{Figure4-19c}
   \begin{lstlisting}[language=C++,  caption={}, numbers=none, frame=none]
     vtkSphereSource *sphere = vtkSphereSource::New();
       sphere->SetPhiResolution(12); sphere->SetThetaResolution(12);
@@ -763,23 +766,22 @@ The transform filter only operates on objects with explicit point coordinate rep
 The C++ compiler enforces the proper connections of sources, filters, and mappers. To decide which objects are compatible, we check the type specification of the SetInput() method. If the input object returns an output object or a subclass of that type, the two objects are compatible and may be connected.
 
 \begin{figure}[htb]
-  \begin{subfigure}[h]{0.48\linewidth}
-    \includegraphics[width=0.96\linewidth]{Figure4-20a}
-    \caption*{}
-    \label{fig:Figure4-20a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+      \begin{subfigure}[h]{0.48\linewidth}
+        \includegraphics[width=0.96\linewidth]{Figure4-20a}
+        \caption*{}
+        \label{fig:Figure4-20a}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[h]{0.48\linewidth}
+        \includegraphics[width=0.96\linewidth]{Figure4-20b}
+        \caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/TransformSphere/}{TransformSphere.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/TransformSphere/}{TransformSphere.py}).}
+        \label{fig:Figure4-20b}
+      \end{subfigure}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[h]{0.48\linewidth}
-    \includegraphics[width=0.96\linewidth]{Figure4-20b}
-    \caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/TransformSphere/}{TransformSphere.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/TransformSphere/}{TransformSphere.py}).}
-    \label{fig:Figure4-20b}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[h]{0.96\linewidth}
-    \caption*{}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[h]{0.96\linewidth}
+  \begin{subfigure}[h]{0.76\linewidth}
     \begin{lstlisting}[language=C++, caption={Warped Sphere.}]
     vtkSphereSource *sphere = vtkSphereSource::New();
       sphere->SetThetaResolution(12);

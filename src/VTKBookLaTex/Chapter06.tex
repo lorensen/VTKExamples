@@ -1273,23 +1273,22 @@ The filter vtkMaskPoints allows us to select a subset of the available points. W
 After selecting a subset of the original points, we can use the vtkGlyph3D filter in the usual way. A cone's orientation indicates blood flow direction, and its size and color correspond to the velocity magnitude. Figure \ref{fig:Figure6-43} shows the pipeline, sample code, and a resulting image from this visualization. Note that we've implemented the example using the interpreted language Tcl. See Chapter 11: \nameref{chap:visualization_web} if you want more information about Tcl.
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure6-43a}
-		\caption*{}
-		\label{fig:Figure6-43a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure6-43a}
+    		\caption*{}
+    		\label{fig:Figure6-43a}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure6-43b}
+    		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/CarotidFlowGlyphs/}{CarotidFlowGlyphs.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/CarotidFlowGlyphs/}{CarotidFlowGlyphs.py})}
+    		\label{fig:Figure6-43b}
+    	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure6-43b}
-		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/CarotidFlowGlyphs/}{CarotidFlowGlyphs.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/CarotidFlowGlyphs/}{CarotidFlowGlyphs.py})}
-		\label{fig:Figure6-43b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=TCL, caption={}]
 		vtkStructuredPointsReader reader
 		  reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"
@@ -1325,23 +1324,22 @@ After selecting a subset of the original points, we can use the vtkGlyph3D filte
 In the next part of this example we'll generate streamtubes of blood velocity. Again we use an isosurface of speed to provide us with context. The starting positions for the streamtubes were determined by experimenting with the data. Because of the way the data was measured and the resolution of the velocity field, many streamers travel outside the artery. This is because the boundary layer of the blood flow is not captured due to limitations in data resolution. Consequently, as the blood flows around curves, there is a component of the velocity field that directs the streamtube outside the artery. As a result it is hard to find starting positions for the streamtubes that yield interesting results. We use the source object vtkPointSource in combination with vtkThresholdPoints to work around this problem. vtkPointSource generates random points centered around a sphere of a specified radius. We need only find an approximate position for the starting points of the streamtubes and then generate a cloud of random seed points. vtkThresholdPoints is used to cull points that may be generated outside the regions of high flow velocity.
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure6-44a}
-		\caption*{}
-		\label{fig:Figure6-44a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure6-44a}
+    		\caption*{}
+    		\label{fig:Figure6-44a}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure6-44b}
+    		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/CarotidFlow/}{CarotidFlow.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/CarotidFlow/}{CarotidFlow.py})}
+    		\label{fig:Figure6-44b}
+    	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure6-44b}
-		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/CarotidFlow/}{CarotidFlow.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/CarotidFlow/}{CarotidFlow.py})}
-		\label{fig:Figure6-44b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=TCL, caption={}]
 			vtkStructuredPointsReader reader
 			  reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"

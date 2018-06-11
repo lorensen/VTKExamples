@@ -1285,136 +1285,145 @@ An important geometric operation is intersection of a line with a cell. This ope
 
 \begin{figure}[!htb]
     \centering
-    \begin{subfigure}{0.32\linewidth}
-        \centering
-        \includegraphics[width=0.98\linewidth]{Figure8-31a}
-        \captionsetup{singlelinecheck=off}
-        \caption*{\centering{\textbf{Vertex}}
-        \begin{itemize}[leftmargin=*]
-            \itemsep0em
-            \item project point onto ray
-            \item distance to line must be within tolerance
-            \item $t \in [0,1]$
-        \end{itemize}
-        }
-        \label{fig:Figure8-31a}
+    \begin{subfigure}{0.78\linewidth}
+        \begin{subfigure}{0.26\linewidth}
+            \centering
+            \includegraphics[width=0.98\linewidth]{Figure8-31a}
+            \captionsetup{singlelinecheck=off}
+            \caption*{\centering{\textbf{Vertex}}
+            \begin{itemize}[leftmargin=*]
+                \itemsep0em
+                \item project point onto ray
+                \item distance to line must be within tolerance
+                \item $t \in [0,1]$
+            \end{itemize}
+            }
+            \label{fig:Figure8-31a}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.26\linewidth}
+            \centering
+            \includegraphics[width=0.98\linewidth]{Figure8-31b}
+            \captionsetup{singlelinecheck=off}
+            \caption*{\centering{\textbf{Line}}
+            \begin{itemize}[leftmargin=*]
+                \itemsep0em
+                \item 3D line intersection
+                \item distance between linese must be within tolerance
+                \item $s, t \in [0,1]$
+            \end{itemize}
+            }
+            \label{fig:Figure8-31b}
+        \end{subfigure}%
+        \hfill
+        \begin{subfigure}{0.26\linewidth}
+            \centering
+            \includegraphics[width=0.98\linewidth]{Figure8-31c}
+            \captionsetup{singlelinecheck=off}
+            \caption*{\centering{\textbf{Triangle}}
+            \begin{itemize}[leftmargin=*]
+                \itemsep0em
+                \item line/plane intersection
+                \item intersection point must lie in triangle
+                \item $t \in [0,1]$
+            \end{itemize}
+            }
+            \label{fig:Figure8-31c}
+        \end{subfigure}%
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.32\linewidth}
-        \centering
-        \includegraphics[width=0.98\linewidth]{Figure8-31b}
-        \captionsetup{singlelinecheck=off}
-        \caption*{\centering{\textbf{Line}}
-        \begin{itemize}[leftmargin=*]
-            \itemsep0em
-            \item 3D line intersection
-            \item distance between linese must be within tolerance
-            \item $s, t \in [0,1]$
-        \end{itemize}
-        }
-        \label{fig:Figure8-31b}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}{0.32\linewidth}
-        \centering
-        \includegraphics[width=0.98\linewidth]{Figure8-31c}
-        \captionsetup{singlelinecheck=off}
-        \caption*{\centering{\textbf{Triangle}}
-        \begin{itemize}[leftmargin=*]
-            \itemsep0em
-            \item line/plane intersection
-            \item intersection point must lie in triangle
-            \item $t \in [0,1]$
-        \end{itemize}
-        }
-        \label{fig:Figure8-31c}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}{0.32\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{Figure8-31d}
-        \captionsetup{singlelinecheck=off}
-        \caption*{\centering{\textbf{Quadrilateral}}
-        \begin{itemize}[leftmargin=*]
-            \itemsep0em
-            \item line/plane intersection
-            \item intersection point must lie in quadrilateral
-            \item $t \in [0,1]$
-        \end{itemize}
-        }
-        \label{fig:Figure8-31d}
-    \end{subfigure}%
-    \begin{subfigure}{0.32\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{Figure8-31e}
-        \captionsetup{singlelinecheck=off}
-        \caption*{\centering{\textbf{Pixel}}
-        \begin{itemize}[leftmargin=*]
-            \itemsep0em
-            \item line/plane intersection
-            \item intersection point must lie in pixel (uses efficient in/out test)
-            \item $t \in [0,1]$
-        \end{itemize}
-        }
-        \label{fig:Figure8-31e}
+    \begin{subfigure}{0.78\linewidth}
+        \begin{subfigure}{0.26\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-31d}
+            \captionsetup{singlelinecheck=off}
+            \caption*{\centering{\textbf{Quadrilateral}}
+            \begin{itemize}[leftmargin=*]
+                \itemsep0em
+                \item line/plane intersection
+                \item intersection point must lie in quadrilateral
+                \item $t \in [0,1]$
+            \end{itemize}
+            }
+            \label{fig:Figure8-31d}
+        \end{subfigure}%
+        \hfill
+        \begin{subfigure}{0.26\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-31e}
+            \captionsetup{singlelinecheck=off}
+            \caption*{\centering{\textbf{Pixel}}
+            \begin{itemize}[leftmargin=*]
+                \itemsep0em
+                \item line/plane intersection
+                \item intersection point must lie in pixel (uses efficient in/out test)
+                \item $t \in [0,1]$
+            \end{itemize}
+            }
+            \label{fig:Figure8-31e}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.26\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-31f}
+            \captionsetup{singlelinecheck=off}
+            \caption*{\centering{\textbf{Polygon}}
+            \begin{itemize}[leftmargin=*]
+                \itemsep0em
+                \item line/plane intersection
+                \item intersection point must lie in polygon (uses ray casting for polygon in/out)
+                \item $t \in [0,1]$
+            \end{itemize}
+            }
+            \label{fig:Figure8-31f}
+        \end{subfigure}%
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.32\linewidth}
+    \begin{subfigure}{0.78\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{Figure8-31f}
-        \captionsetup{singlelinecheck=off}
-        \caption*{\centering{\textbf{Polygon}}
-        \begin{itemize}[leftmargin=*]
-            \itemsep0em
-            \item line/plane intersection
-            \item intersection point must lie in polygon (uses ray casting for polygon in/out)
-            \item $t \in [0,1]$
-        \end{itemize}
-        }
-        \label{fig:Figure8-31f}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}{0.32\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{Figure8-31g}
-        \captionsetup{singlelinecheck=off}
-        \caption*{\centering{\textbf{Tetrahedron}}
-        \begin{itemize}[leftmargin=*]
-            \itemsep0em
-            \item intersect each (triangle) face
-            \item $t \in [0,1]$
-        \end{itemize}
-        }
-        \label{fig:Figure8-31g}
-    \end{subfigure}%
-    \begin{subfigure}{0.32\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{Figure8-31h}
-        \captionsetup{singlelinecheck=off}
-        \caption*{\centering{\textbf{Hexahedron}}
-        \begin{itemize}[leftmargin=*]
-            \itemsep0em
-            \item intersect each (quadrialteral) face
-            \item since face may be nonplanar, project previous result onto hexahedron surface
-            \item $t \in [0,1]$
-        \end{itemize}
-        }
-        \label{fig:Figure8-31h}
+        \begin{subfigure}{0.26\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-31g}
+            \captionsetup{singlelinecheck=off}
+            \caption*{\centering{\textbf{Tetrahedron}}
+            \begin{itemize}[leftmargin=*]
+                \itemsep0em
+                \item intersect each (triangle) face
+                \item $t \in [0,1]$
+            \end{itemize}
+            }
+            \label{fig:Figure8-31g}
+        \end{subfigure}%
+        \hfill
+        \begin{subfigure}{0.26\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-31h}
+            \captionsetup{singlelinecheck=off}
+            \caption*{\centering{\textbf{Hexahedron}}
+            \begin{itemize}[leftmargin=*]
+                \itemsep0em
+                \item intersect each (quadrialteral) face
+                \item since face may be nonplanar, project previous result onto hexahedron surface
+                \item $t \in [0,1]$
+            \end{itemize}
+            }
+            \label{fig:Figure8-31h}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.26\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{Figure8-31i}
+            \captionsetup{singlelinecheck=off}
+            \caption*{\centering{\textbf{Hexahedron}}
+            \begin{itemize}[leftmargin=*]
+                \itemsep0em
+                \item intersect each (pixel) face
+                \item $t \in [0,1]$
+            \end{itemize}
+            }
+            \label{fig:Figure8-31i}
+        \end{subfigure}%
     \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.32\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{Figure8-31i}
-        \captionsetup{singlelinecheck=off}
-        \caption*{\centering{\textbf{Hexahedron}}
-        \begin{itemize}[leftmargin=*]
-            \itemsep0em
-            \item intersect each (pixel) face
-            \item $t \in [0,1]$
-        \end{itemize}
-        }
-        \label{fig:Figure8-31i}
-    \end{subfigure}%
     \caption{Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate $t$ with $t \in [0,1]$.}
     \label{fig:Figure8-31}
 \end{figure}

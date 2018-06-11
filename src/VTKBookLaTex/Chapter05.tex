@@ -615,9 +615,7 @@ This statement assumes that the scalar data has been defined for this dataset an
 
 In the examples that follow we show manual creation and manipulation of datasets. Typically, these operations are not performed directly by users of VTK. Instead, source objects are used to read data files or generate data. This is more convenient than the manual techniques shown here and should be used whenever possible.
 
-Creation of datasets is a two step process. First the geometry and topology of the dataset must be defined. Depending on the type of dataset, the geometry and topology definition will proceed differently. Then the point and/or cell attribute data is created and associated with the dataset. Remember that there is a one-to-one relationship between the attribute data and the points and cells in the dataset.
-
-
+Creation of datasets is a two step process. First the geometry and topology of the dataset must be defined. Depending on the type of dataset, the geometry and topology definition will proceed differently. Then the point and/or cell attribute data is created and associated with the dataset. Remember that there is a one--to--one relationship between the attribute data and the points and cells in the dataset.
 
 \subsubsection{Create a Polygonal Dataset}
 
@@ -626,23 +624,22 @@ In our first example we create a polygonal representation of a cube. The cube is
 The geometry of the cube is defined using an instance of the class vtkPoints. By default, the underlying type of vtkPoints is a vtkFloatArray. The topology of the cube (i.e., polygons) is defined with an instance of the class vtkCellArray. These define the points and polygons of the cube, respectively. Scalar data is represented by an instance of the class vtkIntArray.
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure5-17a}
-		\caption*{}
-		\label{fig:Figure5-17a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-17a}
+    		\caption*{}
+    		\label{fig:Figure5-17a}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-17b}
+    		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/Cube/}{Cube.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/Cube/}{Cube.py})}
+    		\label{fig:Figure5-17b}
+    	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure5-17b}
-		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/Cube/}{Cube.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/Cube/}{Cube.py})}
-		\label{fig:Figure5-17b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=C++, caption={}]
 		vtkPolyData *cube = vtkPolyData::New();
 		vtkPoints *points = vtkPoints::New();
@@ -716,23 +713,22 @@ You do not need to specify origin and data spacing. By default the data spacing 
 The topological dimension of the dataset is implicitly known from its instance variables. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one (and the other two are greater than one), the topological dimension of the dataset is two.
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure5-18a}
-		\caption*{}
-		\label{fig:Figure5-18a}
+    \centering
+    \begin{subfigure}[h]{0.86\linewidth}
+    	\begin{subfigure}[h]{0.43\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-18a}
+    		\caption*{}
+    		\label{fig:Figure5-18a}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.43\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-18b}
+    		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/StructuredPoints/Vol/}{Vol.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/StructuredPoints/Vol/}{Vol.py})}
+    		\label{fig:Figure5-18b}
+    	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure5-18b}
-		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/StructuredPoints/Vol/}{Vol.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/StructuredPoints/Vol/}{Vol.py})}
-		\label{fig:Figure5-18b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.56\linewidth}
 		\begin{lstlisting}[language=C++, caption={}]
 		vtkImageData *vol = vtkImageData::New();
 		  vol->SetDimensions(26,26,26);
@@ -778,23 +774,22 @@ x = r_i \cos\theta, y = r_i \sin\theta, z = z_i
 \myequations{Equation for a cylinder}
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.8\linewidth]{Figure5-19a}
-		\caption*{}
-		\label{fig:Figure5-19a}
+    \centering
+    \begin{subfigure}[h]{0.80\linewidth}
+    	\begin{subfigure}[h]{0.40\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-19a}
+    		\caption*{}
+    		\label{fig:Figure5-19a}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.40\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-19b}
+    		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/StructuredGrid/SGrid/}{SGrid.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/StructuredGrid/SGrid/}{SGrid.py})}
+    		\label{fig:Figure5-19b}
+    	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.8\linewidth]{Figure5-19b}
-		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/StructuredGrid/SGrid/}{SGrid.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/StructuredGrid/SGrid/}{SGrid.py})}
-		\label{fig:Figure5-19b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.46\linewidth}
 		\begin{lstlisting}[language=C++, caption={}]
 		vtkStructuredGrid *sgrid = vtkStructuredGrid::New();
 		  sgrid->SetDimensions(dims);
@@ -861,23 +856,22 @@ The topological dimension of the dataset is implied by the specified dimensions.
 A rectilinear grid is regular in topology and semi-regular in geometry. Similar to a structured grid or image data dataset, topology is implicitly represented by specifying grid dimensions. Because the grid is axis-aligned but the point coordinates along each axis may vary, we need three data arrays to represent the geometry of the dataset, one array for each of the x-y-z axes. Note that the cell types of the rectilinear dataset are pixels and voxels.
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure5-20a}
-		\caption*{}
-		\label{fig:Figure5-20a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-20a}
+    		\caption*{}
+    		\label{fig:Figure5-20a}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-20b}
+    		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/RectilinearGrid/RGrid/}{RGrid.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/RectilinearGrid/RGrid/}{RGrid.py})}
+    		\label{fig:Figure5-20b}
+    	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure5-20b}
-		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/RectilinearGrid/RGrid/}{RGrid.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/RectilinearGrid/RGrid/}{RGrid.py})}
-		\label{fig:Figure5-20b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=C++, caption={}]
 		vtkFloatArray *xCoords = vtkFloatArray::New();
 		  for (i=0; i<47; i++) xCoords->InsertNextValue(i,x[i]);
@@ -930,23 +924,22 @@ The topological dimension of the dataset is implied by the specified dimensions.
 Unstructured grid datasets are the most general dataset type in both topology and geometry. In this example we ``artificially'' create an unstructured grid using an instance of vtkUnstructuredGrid (Figure \ref{fig:Figure5-21}). The grid contains examples of each cell type except for pixels and voxels. (Pixels and voxels are generally used internally to process image data datasets. They can be explicitly created and manipulated as long as the required relationship of point geometry is observed.) Creating the dataset structure requires creating points to define the geometry and various cells to define the topology. (Note that in the finite element world we would refer to these as nodes and elements.)
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure5-21a}
-		\caption*{}
-		\label{fig:Figure5-21a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-21a}
+    		\caption*{}
+    		\label{fig:Figure5-21a}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure5-21b}
+    		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/UnstructuredGrid/UGrid/}{UGrid.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/UnstructuredGrid/UGrid/}{UGrid.py})}
+    		\label{fig:Figure5-21b}
+    	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure5-21b}
-		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/UnstructuredGrid/UGrid/}{UGrid.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/UnstructuredGrid/UGrid/}{UGrid.py})}
-		\label{fig:Figure5-21b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=C++, caption={}]
 		vtkPoints *points = vtkPoints::New();
 		  for (i=0; i<27; i++) points->InsertPoint(i,x[i]);
