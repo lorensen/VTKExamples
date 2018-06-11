@@ -29,7 +29,7 @@ These techniques include stereo viewing, antialiasing, and advanced camera techn
 
 Up to this point in the text we have focused on rendering opaque objects --- that is, we have assumed that objects reflect, scatter, or absorb light at their surface, and no light is transmitted through to their interior. Although rendering opaque objects is certainly useful, there are many applications that can benefit from the ability to render objects that transmit light. One important application of transparency is volume rendering, which we will explore in greater detail later in the chapter. Another simple example makes objects translucent so that we can see inside of the region bounded by the surface, as shown in Figure \ref{fig:Figure12-4}. As demonstrated in this example, by making the skin semitransparent, it becomes possible to see the internal organs.
 
-Transparency and its complement, opacity, are often referred to as \emph{alpha} in computer graphics. For example, a polygon that is 50 percent opaque will have an alpha value of 0.5 on a scale from zero to one. An alpha value of one represents an opaque object and zero represents a completely transparent object. Frequently, alpha is specified as a property for the entire actor, but it also can be done on a vertex basis just like colors. In such cases, the RGB specification of a color is extended to RGBA where A represents the alpha component. On many graphics cards the frame buffer can store the alpha value along with the RGB values. More typically, an application will request storage for only red, green, and blue on the graphics card and use back--to--front blending to avoid the need for storing alpha.
+Transparency and its complement, opacity\index{opacity}, are often referred to as \emph{alpha} in computer graphics. For example, a polygon that is 50 percent opaque will have an alpha value of 0.5 on a scale from zero to one. An alpha value of one represents an opaque object and zero represents a completely transparent object. Frequently, alpha is specified as a property for the entire actor, but it also can be done on a vertex basis just like colors. In such cases, the RGB specification of a color is extended to RGBA where A represents the alpha component. On many graphics cards the frame buffer can store the alpha value along with the RGB values. More typically, an application will request storage for only red, green, and blue on the graphics card and use back--to--front blending to avoid the need for storing alpha.
 
 Unfortunately, having transparent actors introduces some complications into the rendering process. If you think back to the process of ray tracing, viewing rays are projected from the camera out into the world, where they intersect the first actor they come to. With an opaque actor, the lighting equations are applied and the resulting color is drawn to the screen. With a semitransparent actor we must solve the lighting equations for this actor, and then continue projecting the ray farther to see if it intersects any other actors. The resulting color is a composite of all the actors it has intersected. For each surface intersection this can be expressed as Equation \ref{eq:7.1}.
 
@@ -143,30 +143,33 @@ The ray casting process is illustrated in Figure \ref{fig:Figure7-4}. This examp
 The two main steps of ray casting are determining the values encountered along the ray, and then processing these values according to a ray function. Although in implementation these two steps are typically combined, we will treat them independently for the moment. Since the specific ray function often determines the method used to extract values along the ray, we will begin by considering some of the basic ray function types.
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.96\linewidth}
+    \centering
+	\begin{subfigure}[h]{0.68\linewidth}
 		\includegraphics[width=\linewidth]{Figure7-5a}
 		\caption*{}\label{fig:Figure7-5a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=\linewidth]{Figure7-5b}
-		\caption*{Maximum value}\label{fig:Figure7-5b}
-	\end{subfigure}%
-	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=\linewidth]{Figure7-5c}
-		\caption*{Average value}\label{fig:Figure7-5c}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=\linewidth]{Figure7-5d}
-		\caption*{Distance to value 30}\label{fig:Figure7-5d}
-	\end{subfigure}%
-	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=\linewidth]{Figure7-5e}
-		\caption*{Composite}\label{fig:Figure7-5e}
-	\end{subfigure}
+    \begin{subfigure}[h]{0.68\linewidth}
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=\linewidth]{Figure7-5b}
+    		\caption*{Maximum value}\label{fig:Figure7-5b}
+    	\end{subfigure}%
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=\linewidth]{Figure7-5c}
+    		\caption*{Average value}\label{fig:Figure7-5c}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=\linewidth]{Figure7-5d}
+    		\caption*{Distance to value 30}\label{fig:Figure7-5d}
+    	\end{subfigure}%
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=\linewidth]{Figure7-5e}
+    		\caption*{Composite}\label{fig:Figure7-5e}
+    	\end{subfigure}
+    \end{subfigure}
 	\caption{A ray profile and four example ray functions. MRI head data courtesy of Siemens Medical Systems, Inc., Iselin, NJ.}\label{fig:Figure7-5}
 \end{figure}
 
@@ -197,7 +200,7 @@ The maximum intensity projection\index{maximum intensity projection}, or MIP\ind
 
 Later in this chapter, during the classification and illumination discussions, we will consider more complex ray functions. Although the colorful, shaded images produced by the new methods may contain more information, they may also be more difficult to interpret, and often easier to misinterpret, than the simple images of the previous examples. For that reason, it is beneficial to use multiple techniques to visualize your volumetric data.
 
-A volume is represented as a 3D image dataset where scalar values are defined at the points of the regular grid, yet in ray casting we often need to sample the volume at arbitrary locations. To do this we must define an interpolation function\index{interpolation!in ray casting} that can return a scalar value for any location between grid points. The simplest interpolation function, which is called zero-order, constant, or nearest neighbor interpolation, returns the value of the closest grid point. This function defines a grid of identical rectangular boxes of uniform value centered on grid points, as illustrated in 2D on the left side of Figure \ref{fig:Figure7-7}. In the image on the right we see an example of trilinear interpolation\index{interpolation!trilinear!example} where the value at some location is defined by using linear interpolation based on distance along each of the three axes. In general, we refer to the region defined by eight neighboring grid points as a voxel. In the special case where a discrete algorithm is used in conjunction with nearest neighbor interpolation, we may instead refer to the constant-valued regions as voxels.
+A volume is represented as a 3D image dataset where scalar values are defined at the points of the regular grid, yet in ray casting we often need to sample the volume at arbitrary locations. To do this we must define an interpolation function\index{interpolation!in ray casting} that can return a scalar value for any location between grid points. The simplest interpolation function, which is called zero-order, constant, or nearest neighbor interpolation\index{nearest neighbor interpolation}, returns the value of the closest grid point. This function defines a grid of identical rectangular boxes of uniform value centered on grid points, as illustrated in 2D on the left side of Figure \ref{fig:Figure7-7}. In the image on the right we see an example of trilinear interpolation\index{interpolation!trilinear!example} where the value at some location is defined by using linear interpolation based on distance along each of the three axes. In general, we refer to the region defined by eight neighboring grid points as a voxel. In the special case where a discrete algorithm is used in conjunction with nearest neighbor interpolation, we may instead refer to the constant-valued regions as voxels.
 
 \begin{figure}[!htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -301,6 +304,7 @@ If we are using a parallel viewing transformation and our ray function can be ef
 \index{image--order rendering!in volume rendering|)}
 
 \section{Object-Order Volume Rendering}
+\index{object--order rendering!in volume rendering|(}
 
 Object-order volume rendering methods process samples in the volume based on the organization of the voxels in the dataset and the current camera parameters. When an alpha compositing method is used, the voxels must be traversed in either a front-to-back or back-to-front order to obtain correct results. This process is analogous to sorting translucent polygons before each projection in order to ensure correct blending. When graphics hardware is employed for compositing, a back-to-front ordering is typically preferred since it is then possible to perform alpha blending without the need for alpha bitplanes in the frame buffer. If a software compositing method is used, a front-to-back ordering is more common since partial image results are more visually meaningful, and can be used to avoid additional processing when a pixel reaches full opacity. Voxel ordering based on distance to the view plane is not always necessary since some volume rendering operations, such as MIP or average, can be processed in any order and still yield correct results.
 
@@ -349,6 +353,7 @@ For large volumes it may not be possible to load the entire volume into 3D textu
 Similar to a 2D texture mapping method, the 3D algorithm is limited by both the texture download and pixel fill rates of the machine. However, 3D texture mapping is superior to the 2D version in its ability to sample the volume, generally yielding higher quality images with fewer artifacts. Since it is capable of performing trilinear interpolation, we are able to sample at any location within the volume. For instance, a 3D texture mapping algorithm can sample along polygons representing concentric spheres rather than the more common view--aligned planes.
 
 In theory, a 3D texture--mapped volume renderer and a ray casting volume renderer perform the same computations, have the same complexity, $O(n^3)$, and produce identical images. Both sample the entire volume using either nearest neighbor or trilinear interpolation, and combine the samples to form a pixel value using, for example, a maximum value or compositing function. Therefore, we can view 3D texture mapping and standard ray casting methods as functionally equivalent. The main advantage to using a texture mapping approach is the ability to utilize relatively fast graphics hardware to perform the sampling and blending operations. However, there are currently several drawbacks to using graphics hardware for volume rendering. Hardware texture-mapped volume renderings tend to have more artifacts than software ray casting techniques due to limited precision within the frame buffer for storing partial results at each pixel during blending. In addition, only a few ray functions are supported by the hardware, and advanced techniques such as shading are more difficult to achieve. However, these limitations are beginning to disappear as tex-ture mapping hardware evolves. Through the use of extensions to the OpenGL standard, per pixel vectors can be defined allowing for hardware shaded volume texture mapping. Other extensions have allowed for maximum intensity projections, and deeper framebuffers eliminate artifacts.
+\index{object--order rendering!in volume rendering|)}
 
 \section{Other Volume Rendering Methods}
 

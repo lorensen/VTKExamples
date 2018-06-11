@@ -38,18 +38,18 @@ is the mathematical representation of a quadric. Figure \ref{fig:Figure4-1a} sho
 different visualization techniques are then used. On the left, we generate 3D surfaces corresponding to the function $F(x,y,z) = c$ where $c$ is an arbitrary constant (i.e., the isosurface value). In the center, we show three different planes that cut through the data and are colored by function value. On the right we show the same three planes that have been contoured with constant valued lines. Around each we place a wireframe outline.
 
 \begin{figure}[htb]
-  \begin{subfigure}[h]{0.80\linewidth}
+  \begin{subfigure}[h]{0.68\linewidth}
     \includegraphics[width=\linewidth]{Figure4-1a}
     \caption{Quadric visualization. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/QuadricVisualization/}{QuadricVisualization.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/QuadricVisualization/}{QuadricVisualization.py})}
     \label{fig:Figure4-1a}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[h]{0.80\linewidth}
+  \begin{subfigure}[h]{0.68\linewidth}
     \includegraphics[width=\linewidth]{Figure4-1b}
     \caption{Functional model.}\label{fig:Figure4-1b}
   \end{subfigure}%
   \hfill
-  \begin{subfigure}[h]{0.80\linewidth}
+  \begin{subfigure}[h]{0.68\linewidth}
     \includegraphics[width=\linewidth]{Figure4-1c}
     \caption{Visualization network.}\label{fig:Figure4-1c}
   \end{subfigure}
@@ -71,6 +71,7 @@ The functional model shows how data flows through the system. It also describes 
 In the examples that follow we will frequently use a simplified representation of the functional model to describe visualization processes (Figure \ref{fig:Figure4-1c}). We will not explicitly distinguish between sources, sinks, data stores, and process objects. Sources and sinks are implied based on the number of inputs or outputs. Sources will be process objects with no input. Sinks will be process objects with no output. Filters will be process objects with at least one input and one output. Intermediate data stores will not be represented. Instead we will assume that they exist as necessary to support the data flow. Thus, as Figure \ref{fig:Figure4-1c} shows, the \emph{Lines} data store that the \emph{Outline} object generates (Figure \ref{fig:Figure4-1b}) are combined into the single object \emph{Outline}. We use oval shapes to represent objects in the visualization model.
 
 \subsubsection{The Object Model}
+\index{object model!in visualization|(}
 
 The functional model describes the flow of data in our visualization,
 the object model describes which modules operate on it. But what \emph{are} the objects in the system? At first glance, we have two choices (Figure \ref{fig:Figure4-2}).
@@ -100,7 +101,7 @@ The second choice separates the data stores and processes. That is, one set of o
 One disadvantage to the second choice is that the interface between data representation and process is more formal. Thus the interface must be carefully designed to insure good performance and flexibility. Another disadvantage is that strong separation of data and process results in duplicate code. That is, we may implement operations that duplicate algorithms and that cannot be considered strictly data access methods. One example of such a situation is computing data derivatives. This operation is more than simple data access, so strictly speaking it doesn't belong in the data object methods. So to compute derivatives we would have to duplicate the code each time we needed derivatives computed. (Or create a procedural library of functions or macros!)
 
 As a result of these concerns we use the hybrid approach in the \emph{Visualization Toolkit}. Our approach is closest to the second choice described above, but we have selected a small set of critical operations that we implement within the data objects. These operations have been identified based on our experience implementing visualization algorithms. This effectively combines the first two choices to receive the maximum benefit and fewest disadvantages of each.
-
+\index{object model!in visualization|)}
 
 \section{The Visualization Pipeline}
 \label{sec:visualization_pipeline}
@@ -416,7 +417,7 @@ Many visualization systems lie between these two extremes. These typically use a
 
 There are two other graphics and visualization programming models that bear mentioning. These are \emph{scene graphs} and the \emph{spreadsheet} model. 
 
-Scene graphs are typically found in 3D graphics systems such as OpenInventor \cite{Wernecke94}. Scene graphs are acyclic tree-structures that represent objects, or nodes, in an order defined by the tree layout. The nodes may be geometry (called shape nodes), graphics properties, transformations, manipulators, lights, cameras, and so forth, that define a complete scene. The parent/child relationship controls how properties and transformations are applied to the nodes as they are rendered, or how the objects relate to other objects in the scene (e.g., which objects the lights shine on). Scene graphs are not used to control the execution of a visualization pipeline, rather they are used to control the rendering process. Scene graphs and visualization pipelines may be used together in the same application. In such a case the visualization pipeline is the generator of the shape nodes, and the scene graph controls the rendering of the scene including the shapes.
+Scene graphs are typically found in 3D graphics systems such as Open Inventor\index{OpenInventor} \cite{Wernecke94}. Scene graphs are acyclic tree-structures that represent objects, or nodes, in an order defined by the tree layout. The nodes may be geometry (called shape nodes), graphics properties, transformations, manipulators, lights, cameras, and so forth, that define a complete scene. The parent/child relationship controls how properties and transformations are applied to the nodes as they are rendered, or how the objects relate to other objects in the scene (e.g., which objects the lights shine on). Scene graphs are not used to control the execution of a visualization pipeline, rather they are used to control the rendering process. Scene graphs and visualization pipelines may be used together in the same application. In such a case the visualization pipeline is the generator of the shape nodes, and the scene graph controls the rendering of the scene including the shapes.
 
 Scene graphs have found wide use in the graphics community because of their ability to compactly and graphically represent a scene. In addition, scene graphs have been popularized by their recent use in Web tools such as VRML and Java3D. See Chapter 11: \nameref{chap:visualization_web} for more information.
 
@@ -711,19 +712,22 @@ The first example demonstrates a simple visualization pipeline. A polygonal repr
 The execution of the pipeline occurs implicitly when we render the actor. Each actor asks its mapper to update itself. The mapper in turn asks its input to update itself. This process continues until a source object is encountered. Then the source will execute if modified since the last render.
 
 \begin{figure}[htb]
-  \begin{subfigure}[h]{0.48\linewidth}
-    \includegraphics[width=0.96\linewidth]{Figure4-19a}
-    \caption*{}
-    \label{fig:Figure4-19a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+        \begin{subfigure}[h]{0.48\linewidth}
+        \includegraphics[width=0.96\linewidth]{Figure4-19a}
+        \caption*{}
+        \label{fig:Figure4-19a}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[h]{0.48\linewidth}
+        \includegraphics[width=0.96\linewidth]{Figure4-19b}
+        \caption*{See: href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/ColoredSphere/}{ColoredSphere.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/ColoredSphere/}{ColoredSphere.py}.})
+        \label{fig:Figure4-19b}
+        \end{subfigure}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[h]{0.48\linewidth}
-    \includegraphics[width=0.96\linewidth]{Figure4-19b}
-    \caption*{See: href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/ColoredSphere/}{ColoredSphere.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/ColoredSphere/}{ColoredSphere.py}.})
-    \label{fig:Figure4-19b}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[h]{0.96\linewidth}{Figure4-19c}
+  \begin{subfigure}[h]{0.76\linewidth}{Figure4-19c}
   \begin{lstlisting}[language=C++,  caption={}, numbers=none, frame=none]
     vtkSphereSource *sphere = vtkSphereSource::New();
       sphere->SetPhiResolution(12); sphere->SetThetaResolution(12);
@@ -762,23 +766,22 @@ The transform filter only operates on objects with explicit point coordinate rep
 The C++ compiler enforces the proper connections of sources, filters, and mappers. To decide which objects are compatible, we check the type specification of the SetInput() method. If the input object returns an output object or a subclass of that type, the two objects are compatible and may be connected.
 
 \begin{figure}[htb]
-  \begin{subfigure}[h]{0.48\linewidth}
-    \includegraphics[width=0.96\linewidth]{Figure4-20a}
-    \caption*{}
-    \label{fig:Figure4-20a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+      \begin{subfigure}[h]{0.48\linewidth}
+        \includegraphics[width=0.96\linewidth]{Figure4-20a}
+        \caption*{}
+        \label{fig:Figure4-20a}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[h]{0.48\linewidth}
+        \includegraphics[width=0.96\linewidth]{Figure4-20b}
+        \caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/TransformSphere/}{TransformSphere.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/TransformSphere/}{TransformSphere.py}).}
+        \label{fig:Figure4-20b}
+      \end{subfigure}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[h]{0.48\linewidth}
-    \includegraphics[width=0.96\linewidth]{Figure4-20b}
-    \caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/TransformSphere/}{TransformSphere.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/TransformSphere/}{TransformSphere.py}).}
-    \label{fig:Figure4-20b}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[h]{0.96\linewidth}
-    \caption*{}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[h]{0.96\linewidth}
+  \begin{subfigure}[h]{0.76\linewidth}
     \begin{lstlisting}[language=C++, caption={Warped Sphere.}]
     vtkSphereSource *sphere = vtkSphereSource::New();
       sphere->SetThetaResolution(12);

@@ -333,13 +333,13 @@ plus possibly many more parameters to control decimation, smoothing, and so fort
 Figure \ref{fig:Figure12-8} shows the design of the pipeline. This generic pipeline has been developed over the years in our laboratory and in the Brigham and Women's Hospital Surgical Planning Lab. We find that it produces reasonable models from segmented datasets. Do not be intimidated by the number of filters (twelve in all). Before we developed VTK, we did similar processing with a hodgepodge of programs all written with different interfaces. We used intermediate files to pass data from one filter to the next. The new pipeline, implemented in VTK, is more efficient in time and computing resources.
 
 \begin{figure}[htb]
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.36\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure12-8a}
 		\caption*{}
 		\label{fig:Figure12-8a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.36\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure12-8b}
 		\caption*{}
 		\label{fig:Figure12-8b}
@@ -866,14 +866,14 @@ Two different views of the result are displayed in Figure \ref{fig:Figure12-10}.
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Figure12-10}
+	\includegraphics[width=0.74\linewidth]{Figure12-10}
 	\caption{Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time ( stocks.tcl ).}
 	\label{fig:Figure12-10}
 \end{figure}
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Figure12-11}
+	\includegraphics[width=0.74\linewidth]{Figure12-11}
 	\caption{Two more views of the stock case study. Here the
 		tube filter has been replaced by a ribbon filter followed with a
 		linear extrusion filter.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/Stocks/}{Stocks.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python//VisualizationAlgorithms/Stocks/}{Stocks.py})}
@@ -1369,20 +1369,20 @@ The input data is in VTK format, so a vtkUnstructuredGridReader was used as a so
 Visualization can be used to display algorithms and data structures. Representing this information often requires creative work on the part of the application programmer. For example, Robertson et. al. \cite{Robertson91} have shown 3D techniques for visualizing directory structures and navigating through them. Their approach involves building three dimensional models (the so-called ``cone trees'') to represent files, directories, and associations between files and directories. Similar approaches can be used to visualize stacks, queues, linked lists, trees, and other data structures.
 
 \begin{figure}[htb]
-	\begin{subfigure}[h]{0.68\linewidth}
+	\begin{subfigure}[h]{0.54\linewidth}
 		\includegraphics[width=\linewidth]{Figure12-20a}
 		\caption{Initial (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/HanoiInitial/}{HanoiInitial.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/HanoiInitial/}{HanoiInitial.py})}
 		\label{fig:Figure12-20a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.68\linewidth}
+	\begin{subfigure}[h]{0.54\linewidth}
 		\includegraphics[width=\linewidth]{Figure12-20b}
 		\captionsetup{justification=centering}
 		\caption{Intermediate (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/HanoiIntermediate/}{HanoiIntermediate.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/HanoiIntermediate/}{HanoiIntermediate.py})}
 		\label{fig:Figure12-20b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.68\linewidth}
+	\begin{subfigure}[h]{0.54\linewidth}
 		\includegraphics[width=\linewidth]{Figure12-20c}
         \captionsetup{justification=centering}
 		\caption{Final (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/Hanoi/}{Hanoi.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/Hanoi/}{Hanoi.py})}

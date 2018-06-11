@@ -119,7 +119,7 @@ g(i, j) = \dfrac{1}{2\pi \sigma^2} \exp\left(-\dfrac{i^2 + j^2}{2\sigma^2} \righ
 \index{image processing algorithms!image restoration|)}\index{image restoration|)}
 
 \subsection{Nonlinear Smoothing}
-\index{image processing algorithms!non--linear smoothing|(}
+\index{image processing algorithms!non--linear smoothing|(}\index{non--linear smoothing|(}
 
 One problem with simple smoothing to remove noise is that edges are blurred. Although high frequencies make up a small part of images, the human visual system is acutely sensitive to high frequencies in the spatial form of edges. In fact, most of the low frequencies in an image are discarded by the visual system before it even leaves the retina. One approach to smoothing that preserves edges is anisotropic diffusion\index{diffusion anisotropic}. This filter smooths relatively flat regions of an image, but does not diffuse across abrupt transitions. The diffusion is iterated until the desired level of noise reduction is reached. Two possible diffusion criteria are: Diffuse only when the gradient magnitude is below a specified value, or diffuse two pixels only when the difference between the pixels is lower than a specified constant.
 
@@ -148,7 +148,7 @@ One problem with simple smoothing to remove noise is that edges are blurred. Alt
 \end{figure}
 
 A median filter\index{median filter} also smooths while preserving edges. This filter replaces each pixel with the median value of the scalar values in a neighborhood centered on the pixel. Median filters are most effective on high amplitude noise that has a low probability of occurring (see Figure \ref{fig:Figure10-3}). There are two ways to control the amount and scale of noise removed: The size of the neighborhood can be varied, or the filter can be applied multiple times. This median filter preserves edges; however, it does round corners and remove thin lines. The hybrid median filter was developed to address this behavior. It operates on a $5 \times 5$ neighborhood around each pixel. The algorithm consists of two steps: first the median values of an ``x''-shaped and ``+''--shaped neighborhoods are computed, then the median of these two values and the center-pixel value is computed to give the final result. The hybrid median has a fixed size neighborhood, but can be applied multiple times to further reduce noise (Figure \ref{fig:Figure10-4}).
-\index{image processing algorithms!non--linear smoothing|)}
+\index{image processing algorithms!non--linear smoothing|)}\index{non--linear smoothing|)}
 
 \subsection{Low Frequency Artifacts}
 \index{image processing algorithms!low frequency artefacts|(}
@@ -200,42 +200,42 @@ Another gradual change across an image is caused by sensor position\index{image 
 \index{image enhancement|(}\index{image processing algorithms!image enhancement|(}
 
 \begin{figure}[htb]
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7a}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7b}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7c}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7c}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7d}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7d}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7e}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure10-7e}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.42\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-7f}
 		\captionsetup{justification=centering}
 		\caption*{}
@@ -253,7 +253,7 @@ To take advantage of all the available display contrast, images should have a un
 To achieve the goal of a uniform scalar histogram, transfer functions can be used to spread out clusters in the histogram and compress scalar ranges that are under-represented in the image. To maintain the general appearance of the image, the transfer function should be monotonically increasing so that the brightness relation is maintained. To spread out clusters in the histogram, the slope of the transfer function should be large where the scalar densities are the highest, and the slope should be small in empty regions of the histogram.
 
 \begin{figure}[htb]
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.86\linewidth}
 		\includegraphics[width=0.48\linewidth]{Figure10-8a}
 		\includegraphics[width=0.48\linewidth]{Figure10-8b}
 		\captionsetup{justification=centering}
@@ -270,7 +270,7 @@ To achieve the goal of a uniform scalar histogram, transfer functions can be use
 	\end{subfigure}
 
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.86\linewidth}
 		\includegraphics[width=0.48\linewidth]{Figure10-8d}
 		\includegraphics[width=0.48\linewidth]{Figure10-8e}
 		\captionsetup{justification=centering}
@@ -407,14 +407,14 @@ Although preprocessing can do a lot to improve segmentation results, postprocess
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.98\textwidth]{Figure10-14}
+	\includegraphics[width=0.63\linewidth]{Figure10-14}
 	\caption{This figure demonstrates various binary filters that can alter the shape of segmented regions. From left to right: Original Image; Connectivity; Erosion; Dilation; Opening; Closing. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/ImageProcessing/MorphologyComparison/}{MorphologyComparison.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/ImageProcessing/MorphologyComparison/}{MorphologyComparison.py})}
 	\label{fig:Figure10-14}
 \end{figure}
 
 The opposite of erosion is dilation\index{dilation}. This filter grows the area of segmented regions. Small holes in the segmented region are completely closed. Any pixel not in the segmented region but near the region is turned on. Dilation and erosion are dual filters with nearly identical implementations. Dilating the ``on'' pixels is equivalent to eroding ``off'' pixels in a binary image (see Figure \ref{fig:Figure10-14}).
 
-Closing\index{closing} is the serial application of first dilation and then erosion. When an image is dilated small holes in the map disappear. However, dilation alone also grows the boundaries of the segmented regions. When dilation is followed by erosion in a closing operation, small holes are removed; however, the boundary of the segmented regions remain in the same general location. Opening is the dual of closing. Opening removes small islands of pixels. It is implemented with an initial erosion, followed by a dilation.
+Closing\index{closing} is the serial application of first dilation and then erosion. When an image is dilated small holes in the map disappear. However, dilation alone also grows the boundaries of the segmented regions. When dilation is followed by erosion in a closing operation, small holes are removed; however, the boundary of the segmented regions remain in the same general location. Opening\index{opening} is the dual of closing. Opening removes small islands of pixels. It is implemented with an initial erosion, followed by a dilation.
 
 Connectivity\index{connectivity!in image processing} filters can also remove small regions without affecting the remaining boundaries of segmented regions. This set of filters separate the segmented pixels into equivalence classes based on a neighbor relation. Two pixels belong to the same class if they are touching. There are two common neighbor relations in two--dimensional images: four connectivity considers pixels neighbors if they are edge neighbors, and eight connectivity considers pixels neighbors if pixels share any vertex.
 
@@ -516,21 +516,21 @@ Note that direct pointer access is used to fill the image. The AllocateScalars()
 
 \begin{figure}[htb]
     \centering
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-16a}
 		\captionsetup{justification=centering}
 		\caption*{See: (\href{https://lorensen.github.io/VTKExamples/site/Cxx/ImageProcessing/MorphologyComparison/}{MorphologyComparison.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/ImageProcessing/MorphologyComparison/}{MorphologyComparison.py})}
 		\label{fig:Figure10-16a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure10-16b}
 		\captionsetup{justification=centering}
 		\caption*{}
         \label{fig:Figure10-16b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.78\linewidth}
        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
         vtkImageGradient gradient
           gradient SetInputConnection [smooth GetOutputPort]

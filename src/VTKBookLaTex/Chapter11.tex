@@ -52,14 +52,14 @@ This problem was quickly solved as Web browsers started to support other content
 
 \begin{figure}[htb]
     \centering
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure11-1a}
 		\captionsetup{justification=centering}
 		\caption*{Valid}
 		\label{fig:Figure11-1a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
        \begin{lstlisting}[language=HTML,  caption={}, numbers=none, frame=none]
         <HEAD><TITLE>Sample MPEG Animation Page</TITLE></HEAD>
         In this page we show an MPEG animation of a visualization
@@ -82,14 +82,14 @@ For example, consider a situation where you would like to perform an isosurface 
 
 \begin{figure}[htb]
     \centering
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure11-2a}
 		\captionsetup{justification=centering}
 		\caption*{Valid}
 		\label{fig:Figure11-2a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
        \begin{lstlisting}[language=HTML,  caption={}, numbers=none, frame=none]
         <HEAD><TITLE>Sample MPEG Animation Page</TITLE></HEAD>
 
@@ -137,12 +137,12 @@ As a result of this need for greater interactivity, a new content type appeared 
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.98\textwidth]{Figure11-3}
+	\includegraphics[width=0.84\textwidth]{Figure11-3}
 	\caption{A simple scene graph.}
 	\label{fig:Figure11-3}
 \end{figure}
 
-A VRML 1.0 file (typically with a .wrl extension, abbreviated from world) contains a scene graph representation of a 3D world (e.g., a scene). Consider Figure \ref{fig:Figure11-3} which shows a simple scene. It is a directed graph that is traversed depth first from top to bottom with the content of the graph in its nodes (the circles). In this figure the top node is a group node that collects child nodes together. The light is a directional light node and the second group node represents an isosurface. The isosurface group node is represented by three children nodes: one to control the material properties, a general transformation, and finally the 3D geometry. VRML and Open Inventor support Geometry (e.g., isosurface) many different types of nodes including some support for animation. (See also ``Alternative Visual Programming Models''  on page \pageref{subsec:alternative_visual_programming_models} for more information).
+A VRML 1.0 file (typically with a .wrl extension, abbreviated from world) contains a scene graph representation of a 3D world (e.g., a scene). Consider Figure \ref{fig:Figure11-3} which shows a simple scene. It is a directed graph that is traversed depth first from top to bottom with the content of the graph in its nodes (the circles). In this figure the top node is a group node that collects child nodes together. The light is a directional light node and the second group node represents an isosurface. The isosurface group node is represented by three children nodes: one to control the material properties, a general transformation, and finally the 3D geometry. VRML and Open Inventor\index{OpenInventor} support Geometry (e.g., isosurface) many different types of nodes including some support for animation. (See also ``Alternative Visual Programming Models''  on page \pageref{subsec:alternative_visual_programming_models} for more information).
 
 The basic idea behind VRML 1.0 is that the 3D content can be downloaded from the server and then interacted with the client. There are many Web browsers that support VRML and most take advantage of client-side graphics hardware if available. This helps address both the server-load problem and the interaction lag time associated with the earlier approach of server-generated MPEG animations. Like HTML, VRML supports active links so that navigating through a door in one VRML world can send you to new VRML (or HTML) sites.
 

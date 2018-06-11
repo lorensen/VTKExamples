@@ -58,7 +58,7 @@ where the quotient is rounded up to the nearest integer. The scalar values at th
     \caption{Recursive dividing cubes algorithm. Top half of figure shows algorithm depicted in two dimensions. Lower half depicts algorithm in three dimensions.}\label{fig:Figure9-2}
 \end{figure}
 
-An interesting variation on this algorithm is a recursive implementation as shown in Figure \ref{fig:Figure9-2}. Instead of subdividing the voxel directly (i.e., procedurally) into a regular grid we recursively divide the voxel (similar to octree decomposition). The voxel is subdivided regularly creating eight subvoxels and 19 new points (12 midedge points, 6 midface points, and 1 midvoxel point). The scalar values at the new points are interpolated from the original voxel using the trilinear interpolation functions. The process repeats for each subvoxel if the isosurface passes through it. This process continues until the size of the subvoxel is less than or equal to screen resolution. In this case, a point is generated at the center of the subvoxel. The collection of all such points composes the dividing cube's isosurface.
+An interesting variation on this algorithm is a recursive implementation as shown in Figure \ref{fig:Figure9-2}. Instead of subdividing the voxel directly (i.e., procedurally) into a regular grid we recursively divide the voxel (similar to octree decomposition\index{octree!decomposition}). The voxel is subdivided regularly creating eight subvoxels and 19 new points (12 midedge points, 6 midface points, and 1 midvoxel point). The scalar values at the new points are interpolated from the original voxel using the trilinear interpolation functions. The process repeats for each subvoxel if the isosurface passes through it. This process continues until the size of the subvoxel is less than or equal to screen resolution. In this case, a point is generated at the center of the subvoxel. The collection of all such points composes the dividing cube's isosurface.
 
 The advantage of the recursive implementation is that the subdivision process terminates prematurely in those regions of the voxel where the contour cannot pass. On the other hand, the recursive subdivision requires that the voxel subdivision occurs in powers of two. This can generate far more points than the procedural implementation.
 
@@ -729,7 +729,7 @@ In some cases the recursion depth of the connectivity algorithm becomes larger t
 \index{connectivity|)}\index{modelling algorithms!connectivity|)}
 
 \subsection{Polygon Normal Generation}
-\index{modelling algorithms!normal generation|(}
+\index{modelling algorithms!normal generation|(}\index{normal generation!polygon|(}
 
 \begin{figure}[htb]
     \centering
@@ -788,7 +788,7 @@ A similar traversal method splits sharp edges. A sharp edge is an edge shared by
 On some computers limitations on recursion depth may become a problem. Polygonal surfaces can consist of millions of polygons, resulting in large recursion depth. As a result, the depth of recursion can be specified by the user. If recursion depth exceeds the specified value, the recursion halts and the polygons on the boundary of the recursion become seeds to begin the process again.
 
 Figure \ref{fig:Figure9-24a}(right) shows the result of the advanced normal generation technique with a feature angle of 60$^\circ$. Sharp edges are well defined and curved areas lack the faceting evident in the original model. The figure is shown with Gouraud shading.
-\index{modelling algorithms!normal generation|)}
+\index{modelling algorithms!normal generation|)}\index{normal generation!polygon|)}
 
 \subsection{Decimation}
 \index{decimation|(}\index{modelling algorithms!decimation|(}
@@ -1267,7 +1267,7 @@ Splats may be accumulated using the standard implicit modeling boolean operation
 
 Another interesting variation modifies the shape of the splat according to a vector quantity such as surface normal or vector data. Figure \ref{fig:Figure9-37c} shows an example where the splat shape is elongated in the direction parallel to a vector. Thus, if we have a set of points and normals, we can create a polygonal surface by combining splatting with isosurface extraction\index{isosurface!and splatting}.
 
-To generate oriented splats, we modify Equation \ref{eq:9.22} by introducing an eccentricity factor $E$ and the vector $\overrightarrow{v\  }$.
+To generate oriented splats\index{oriented splat}, we modify Equation \ref{eq:9.22} by introducing an eccentricity factor $E$ and the vector $\overrightarrow{v\  }$.
 
 \begin{equation}\label{eq:9.23}
 \text{SF}(x, y, z) = s\, e^{-f \left( \dfrac{ \left( \dfrac {r_{xy}}{E} \right) ^2 + z^2}{R^2} \right)}
@@ -1485,14 +1485,14 @@ Boolean textures extend texture thresholding for geometric clipping from 1D to 2
 The boolean texture map is modified to reflect this as shown in Figure  \ref{fig:Figure9-44}. As with 1D texture thresholding, transition regions can be created to separate the four regions.
 
 \begin{figure}[htb]
-	\begin{subfigure}[h]{0.75\linewidth}
+	\begin{subfigure}[h]{0.58\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-45a}
 		\captionsetup{justification=centering}
 		\caption{Combination of 2D in/out textures}
 		\label{fig:Figure9-45a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.75\linewidth}
+	\begin{subfigure}[h]{0.58\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-45b}
 		\captionsetup{justification=centering}
 		\caption{Sixteen boolean textures (from above) applied to sphere  (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Texture/TextureCutQuadric/}{TextureCutQuadric.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Texture/TextureCutQuadric/}{TextureCutQuadric.py})}
@@ -1757,27 +1757,27 @@ To illustrate the application of connectivity analysis, we will use an MRI datas
 
 \begin{figure}[htb]
     \centering
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-51a}
 		\captionsetup{justification=centering}
 		\caption{Isosurface (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/PineRootConnectivityA/}{PineRootConnectivityA.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/PineRootConnectivityA/}{PineRootConnectivityA.py})}
 		\label{fig:Figure9-51a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-51b}
 		\captionsetup{justification=centering}
 		\caption{Largest connected surface (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/PineRootConnectivity/}{PineRootConnectivity.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/PineRootConnectivity/}{PineRootConnectivity.py})}
         \label{fig:Figure9-51b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-51c}
 		\captionsetup{justification=centering}
 		\caption*{}
         \label{fig:Figure9-51c}
 	\end{subfigure}
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
         \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
         vtkMCubesReader reader
           reader SetFileName \
@@ -1815,27 +1815,27 @@ Decimation is a 3D data compression technique for surfaces represented as triang
 
 \begin{figure}[htb]
     \centering
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-52a}
 		\captionsetup{justification=centering}
 		\caption{Isosurface (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/PineRootConnectivity/}{PineRootConnectivity.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/PineRootConnectivity/}{PineRootConnectivity.py})}
 		\label{fig:Figure9-52a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-52b}
 		\captionsetup{justification=centering}
 		\caption{Largest connected surface (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/PineRootDecimation/}{PineRootDecimation.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/PineRootDecimation/}{PineRootDecimation.py})}
         \label{fig:Figure9-52b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-52c}
 		\captionsetup{justification=centering}
 		\caption*{}
         \label{fig:Figure9-52c}
 	\end{subfigure}
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
         \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
         vtkMCubesReader reader
           reader SetFileName \
@@ -1875,21 +1875,21 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
 
 \begin{figure}[htb]
     \centering
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-53a}
 		\captionsetup{justification=centering}
 		\caption*{}
 		\label{fig:Figure9-53a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
+	\begin{subfigure}[h]{0.38\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure9-53b}
 		\captionsetup{justification=centering}
 		\caption*{See: (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/Motor/}{Motor.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/Motor/}{Motor.py})}
         \label{fig:Figure9-53b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
         \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
         # texture
         vtkStructuredPointsReader texReader

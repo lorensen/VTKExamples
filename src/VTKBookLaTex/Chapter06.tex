@@ -275,7 +275,7 @@ Vector data is a three--dimensional representation of direction and magnitude. V
 A natural vector visualization technique is to draw an oriented,
 scaled line for each vector (Figure \ref{fig:Figure6-13a}). The line begins at the point with which the vector is associated and is oriented in the direction of the vector components $(v_x, v_y, v_z)$. Typically, the resulting line must be scaled up or down to control the size of its visual representation. This technique is often referred to as a \emph{hedgehog} because of the bristly result.
 
-There are many variations of this technique Figure \ref{fig:Figure6-13b}). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented ``glyphs'' can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
+There are many variations of this technique Figure \ref{fig:Figure6-13b}). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented ``glyphs''\index{oriented glyph} can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.24\linewidth}
@@ -1236,7 +1236,7 @@ We saw how to use vtkGlyph3D in the example given in Figure \ref{fig:Figure4-20}
 	{\includegraphics[width=0.6\textwidth]{Figure6-41}}
 \end{figure}
 
-Streamlines and particle motion require numerical integration to guide a point through the vector field. Vector visualization algorithms that we will see in later chapters also require numerical integration. As a result, we designed an object hierarchy that isolates the numerical integration process into a single base class. The base class is vtkStreamer and it is responsible for generating a particle path through a vector field of specified length (expressed as elapsed time). Each derived class of vtkStreamer takes advantage of this capability to move through the vector field but implements its own particular representational technique to depict particle motion. Streamlines ( vtkStreamLine ) draw connected lines while particle motion is shown by combining the output of vtkStreamPoints with the vtkGlyph3D object. Using vtkGlyph3D we can place spheres or oriented objects such as cones or arrows at points on the particle path created by vtkStreamPoints. The inheritance hierarchy for vtkStreamer and subclasses is shown in  Figure \ref{fig:Figure4-20}.
+Streamlines and particle motion require numerical integration to guide a point through the vector field. Vector visualization algorithms that we will see in later chapters also require numerical integration. As a result, we designed an object hierarchy\index{object model!streamline} that isolates the numerical integration process into a single base class. The base class is vtkStreamer and it is responsible for generating a particle path through a vector field of specified length (expressed as elapsed time). Each derived class of vtkStreamer takes advantage of this capability to move through the vector field but implements its own particular representational technique to depict particle motion. Streamlines ( vtkStreamLine ) draw connected lines while particle motion is shown by combining the output of vtkStreamPoints with the vtkGlyph3D object. Using vtkGlyph3D we can place spheres or oriented objects such as cones or arrows at points on the particle path created by vtkStreamPoints. The inheritance hierarchy for vtkStreamer and subclasses is shown in  Figure \ref{fig:Figure4-20}.
 
 The integration method in vtkStreamer is implemented as a virtual function. Thus it can be overloaded as necessary. Possible reasons for overloading include implementing an integration technique of higher or lower accuracy, or creating a technique specialized to a particular dataset type. For example, the search process in a volume is much faster than it is for other dataset types, therefore, highly efficient vector integration techniques can be constructed.
 
@@ -1273,23 +1273,22 @@ The filter vtkMaskPoints allows us to select a subset of the available points. W
 After selecting a subset of the original points, we can use the vtkGlyph3D filter in the usual way. A cone's orientation indicates blood flow direction, and its size and color correspond to the velocity magnitude. Figure \ref{fig:Figure6-43} shows the pipeline, sample code, and a resulting image from this visualization. Note that we've implemented the example using the interpreted language Tcl. See Chapter 11: \nameref{chap:visualization_web} if you want more information about Tcl.
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure6-43a}
-		\caption*{}
-		\label{fig:Figure6-43a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure6-43a}
+    		\caption*{}
+    		\label{fig:Figure6-43a}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure6-43b}
+    		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/CarotidFlowGlyphs/}{CarotidFlowGlyphs.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/CarotidFlowGlyphs/}{CarotidFlowGlyphs.py})}
+    		\label{fig:Figure6-43b}
+    	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure6-43b}
-		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/CarotidFlowGlyphs/}{CarotidFlowGlyphs.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/CarotidFlowGlyphs/}{CarotidFlowGlyphs.py})}
-		\label{fig:Figure6-43b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=TCL, caption={}]
 		vtkStructuredPointsReader reader
 		  reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"
@@ -1325,23 +1324,22 @@ After selecting a subset of the original points, we can use the vtkGlyph3D filte
 In the next part of this example we'll generate streamtubes of blood velocity. Again we use an isosurface of speed to provide us with context. The starting positions for the streamtubes were determined by experimenting with the data. Because of the way the data was measured and the resolution of the velocity field, many streamers travel outside the artery. This is because the boundary layer of the blood flow is not captured due to limitations in data resolution. Consequently, as the blood flows around curves, there is a component of the velocity field that directs the streamtube outside the artery. As a result it is hard to find starting positions for the streamtubes that yield interesting results. We use the source object vtkPointSource in combination with vtkThresholdPoints to work around this problem. vtkPointSource generates random points centered around a sphere of a specified radius. We need only find an approximate position for the starting points of the streamtubes and then generate a cloud of random seed points. vtkThresholdPoints is used to cull points that may be generated outside the regions of high flow velocity.
 
 \begin{figure}[!htb]
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure6-44a}
-		\caption*{}
-		\label{fig:Figure6-44a}
+    \centering
+    \begin{subfigure}[h]{0.96\linewidth}
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure6-44a}
+    		\caption*{}
+    		\label{fig:Figure6-44a}
+    	\end{subfigure}
+    	\hfill
+    	\begin{subfigure}[h]{0.48\linewidth}
+    		\includegraphics[width=0.96\linewidth]{Figure6-44b}
+    		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/CarotidFlow/}{CarotidFlow.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/CarotidFlow/}{CarotidFlow.py})}
+    		\label{fig:Figure6-44b}
+    	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.48\linewidth}
-		\includegraphics[width=0.96\linewidth]{Figure6-44b}
-		\caption*{(\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/CarotidFlow/}{CarotidFlow.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/CarotidFlow/}{CarotidFlow.py})}
-		\label{fig:Figure6-44b}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
-		\caption*{}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[h]{0.96\linewidth}
+	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=TCL, caption={}]
 			vtkStructuredPointsReader reader
 			  reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"
