@@ -891,17 +891,20 @@ After the interactor is created using its New() method, we must tell it what ren
 
 In the previous example we saw how to create an interactor style object in conjunction with vtkRenderWindowInteractor to enable us to manipulate the camera by mousing in the render window. Although this provides flexibility and interactivity for a large number of applications, there are examples throughout this text where we want to modify other parameters. These parameters range from actor properties, such as color, to the name of an input file. Of course we can always write or modify C++ code to do this, but in many cases the turn-around time between making the change and seeing the result is too long. One way to improve the overall interactivity of the system is to use an interpreted interface. Interpreted systems allow us to modify objects and immediately see the result, without the need to recompile and relink source code. Interpreted languages also provide many tools, such as GUI (Graphical User Interface) tools, that simplify the creation of applications.
 
-\begin{wrapfigure}{R}{0.3\linewidth}
+\begin{minipage}{.6\linewidth}
+The \emph{Visualization Toolkit} has built into its compilation process the ability to automatically generate language bindings to the interpreted languages Tcl\index{interpreted languages!Tcl}, Python\index{interpreted languages!Python} and Java\index{interpreted languages!Java}\index{Java} [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in Figure \ref{fig:Figure3-29}. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl).
+\end{minipage}
+\hfill
+\begin{minipage}{.25\linewidth}
   \centering
-  \includegraphics[width=0.25\textwidth]{Figure3-29}\\
-  \caption{In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.}\label{fig:Figure3-29}
-\end{wrapfigure}
+  \includegraphics[width=0.6\linewidth]{Figure3-29} 
+  \captionof{figure}{In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.}
+  \label{fig:Figure3-29}
+\end{minipage}
 
-\emph{The Visualization Toolkit} has built into its compilation process the ability to automatically generate language bindings to the interpreted languages Tcl\index{interpreted languages!Tcl}, Python\index{interpreted languages!Python} and Java\index{interpreted languages!Java}\index{Java} [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in Figure \ref{fig:Figure3-29}. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl).
-
-\begin{lstlisting}[language=TCL, caption={Cone5.tcl}]
-package require vtk
-package require vtkinteraction
+\begin{lstlisting}[language=TCL, caption={Cone5.tcl}, escapechar=\% ]
+package require vtk%\index{package require!vtk}%
+package require vtkinteraction%\index{package require!vtkinteraction}%
 vtkConeSource cone
   cone SetHeight 3.0
   cone SetRadius 1.0
