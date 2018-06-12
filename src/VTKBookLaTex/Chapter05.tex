@@ -789,7 +789,7 @@ x = r_i \cos\theta, y = r_i \sin\theta, z = z_i
     	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.46\linewidth}
+	\begin{subfigure}[h]{0.40\linewidth}
 		\begin{lstlisting}[language=C++, caption={}]
 		vtkStructuredGrid *sgrid = vtkStructuredGrid::New();
 		  sgrid->SetDimensions(dims);
@@ -813,9 +813,9 @@ x = r_i \cos\theta, y = r_i \sin\theta, z = z_i
 		        {
 		        theta = i * 15.0 * math.DegreesToRadians();
 		        x[0] = radius * cos(theta);
-		        x[1] = radius * sin(theta);
+                x[1] = radius * sin(theta);
 		        v[0] = -x[1];
-		        v[1] = x[0];
+                v[1] = x[0];
 		        offset = i + jOffset + kOffset;
 		        points->InsertPoint(offset,x);
 		        vectors->InsertTuple(offset,v);
