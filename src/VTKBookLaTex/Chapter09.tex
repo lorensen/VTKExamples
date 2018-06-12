@@ -578,7 +578,7 @@ A problem with both geometry extraction and thresholding is that the approaches 
 
 \subsection{Probing}
 \label{subsec:probing}
-\index{modelling algorithms!probing|(}
+\index{modelling algorithms!probing|(}\index{probing|(}
 
 Probing obtains dataset attributes by sampling one dataset (the input) with a set of points (the probe) as shown in Figure \ref{fig:Figure9-18}(a). Probing is also called ``resampling''. Examples include probing an input dataset with a sequence of points along a line, on a plane, or in a volume. The result of the probing is a new dataset (the output) with the topological and geometric structure of the probe dataset, and point attributes interpolated from the input dataset. Once the probing operation is completed, the output dataset can be visualized with any of the appropriate techniques described in this text.
 
@@ -622,7 +622,7 @@ One important application of probing converts irregular or unstructured data to 
 \end{figure}
 
 Figure \ref{fig:Figure9-19} shows an example of three probes. The probes sample flow density in a structured grid. The output of the probes is passed through a contour filter to generate contour lines. As this figure illustrates, we can be selective with the location and extent of the probe, allowing us to focus on important regions in the data.
-\index{modelling algorithms!probing|)}
+\index{modelling algorithms!probing|)}\index{probing|)}
 
 \subsection{Triangle Strip Generation}
 \index{modelling algorithms!triangle strip generation|(}
@@ -729,7 +729,7 @@ In some cases the recursion depth of the connectivity algorithm becomes larger t
 \index{connectivity|)}\index{modelling algorithms!connectivity|)}
 
 \subsection{Polygon Normal Generation}
-\index{modelling algorithms!normal generation|(}\index{normal generation!polygon|(}
+\index{modelling algorithms!normal generation|(}\index{normal generation!polygon|(}\index{polygon normal generation|(}
 
 \begin{figure}[htb]
     \centering
@@ -788,7 +788,7 @@ A similar traversal method splits sharp edges. A sharp edge is an edge shared by
 On some computers limitations on recursion depth may become a problem. Polygonal surfaces can consist of millions of polygons, resulting in large recursion depth. As a result, the depth of recursion can be specified by the user. If recursion depth exceeds the specified value, the recursion halts and the polygons on the boundary of the recursion become seeds to begin the process again.
 
 Figure \ref{fig:Figure9-24a}(right) shows the result of the advanced normal generation technique with a feature angle of 60$^\circ$. Sharp edges are well defined and curved areas lack the faceting evident in the original model. The figure is shown with Gouraud shading.
-\index{modelling algorithms!normal generation|)}\index{normal generation!polygon|)}
+\index{modelling algorithms!normal generation|)}\index{normal generation!polygon|)}\index{polygon normal generation|)}
 
 \subsection{Decimation}
 \index{decimation|(}\index{modelling algorithms!decimation|(}
@@ -804,7 +804,7 @@ Various data compression techniques have been developed in response to large dat
 
 In graphics, data compression techniques have been developed as well. The subsampling methods we saw earlier in this chapter are an example of simple data compression techniques for visualization data. Another emerging area of graphics data compression is polygon reduction techniques.
 
-Polygon reduction techniques reduce the number of polygons required to model an object. The size of models, in terms of polygon count, has grown tremendously over the last few years. This is because many models are created using digital measuring devices such as laser scanners or satellites. These devices can generate data at tremendous rates. For example, a laser digitizer can generate on the order of 500,000 triangles in a 15--second scan. Visualization algorithms such as marching cubes also generate large numbers of polygons: one to three million triangles from a $512^3$ volume is typical.
+Polygon reduction\index{polygon reduction} techniques reduce the number of polygons required to model an object. The size of models, in terms of polygon count, has grown tremendously over the last few years. This is because many models are created using digital measuring devices such as laser scanners or satellites. These devices can generate data at tremendous rates. For example, a laser digitizer can generate on the order of 500,000 triangles in a 15--second scan. Visualization algorithms such as marching cubes also generate large numbers of polygons: one to three million triangles from a $512^3$ volume is typical.
 
 One polygon reduction technique is the decimation algorithm \cite{Schroeder92a}. The goal of the decimation algorithm is to reduce the total number of triangles in a triangle mesh, preserving the original topology and forming a good approximation to the original geometry. A triangle mesh is a special form of a polygonal mesh, where each polygon is a triangle. If need be, a polygon mesh can be converted to a triangle mesh using standard polygon triangulation methods.
 
@@ -1565,7 +1565,7 @@ The separation distance controls the accuracy of point generation. It is possibl
 	\caption{Using random point seeds to create streamlines.}\label{fig:Figure9-47}
 \end{figure}
 
-The \emph{Visualization Toolkit} provides other point generation techniques. The source object vtkPointSource generates a user-specified number of points within a spherical region. The point positions are random within the sphere. (Note that there is a natural tendency for higher point density near the center of the sphere because the points are randomly generated along the radius and spherical angles $\phi$ and $\theta$).
+The \emph{Visualization Toolkit} provides other point generation\index{point generation} techniques. The source object vtkPointSource generates a user-specified number of points within a spherical region. The point positions are random within the sphere. (Note that there is a natural tendency for higher point density near the center of the sphere because the points are randomly generated along the radius and spherical angles $\phi$ and $\theta$).
 
 Figure \ref{fig:Figure9-47} is an example use of vtkPointSource to generate streamlines. The dataset is a structured grid of dimensions $21 \times 20 \times$ 20 with flow velocity and a scalar pressure field. The dataset is a CFD simulation of flow in a small office. As this picture shows, there are a couple of bookcases, desks, a window, and an inlet and outlet for the ventilation system. On one of the desks is a small, intense heat source (e.g., a cigarette). In the left image 25 streamlines are started near the inlet using a vtkPointSource point generator. The second image shows what happens when we move the point source slightly to the left. By adjusting a single parameter (e.g., the center of the point source) it is possible to quickly explore our simulation data.
 

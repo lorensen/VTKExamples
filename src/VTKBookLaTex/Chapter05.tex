@@ -89,7 +89,7 @@ The structure has two parts: topology and geometry. Topology\index{dataset!topol
 
 Dataset attributes are supplemental information associated with geometry and/or topology. This information might be a temperature value at a point or the inertial mass of a cell.
 
-Our model of a dataset assumes that the structure consists of cells and points. The cells specify the topology, while the points specify the geometry. Typical attributes include scalars, vectors, normals, texture coordinates, and tensors.
+Our model of a dataset assumes that the structure consists of cells and points. The cells specify the topology, while the points\index{point!as geometry} specify the geometry. Typical attributes include scalars, vectors, normals, texture coordinates, and tensors.
 
 The definition of the structure of a dataset as a collection of cells and points is a direct consequence of the discrete nature of our data. Points are located where data is known and the cells allow us to interpolate between points. We give detailed descriptions of dataset structure and attributes in the following sections.
 \index{dataset|)}\index{geometry!dataset|)}
@@ -126,7 +126,7 @@ U(p_i) = {C_i:p_i \in C_i}
 
 The importance of ``uses'' and ``use sets'' will become evident in Chapter 8: \nameref{chap:advanced_data_representation} when we explore the topology of datasets.
 
-Although we define points in three dimensions, cells may vary in topological dimension. Vertices, lines, triangles, and tetrahedron are examples of topologically 0, 1, 2, and 3--D cells, respectively, embedded in three--dimensional geometric space. Cells can also be primary or composite. Composite\index{cell!composite}\index{composite cell} cells consist of one or more primary cells, while primary\index{cell!primary} cells cannot be decomposed into combinations of other primary cell types. A triangle strip, for example, consists of one or more triangles arranged in compact form. The triangle strip is a composite cell because it can be broken down into triangles, which are primary cells.
+Although we define points in three dimensions, cells may vary in topological dimension. Vertices, lines, triangles, and tetrahedron are examples of topologically 0, 1, 2, and 3--D cells, respectively, embedded in three--dimensional geometric space. Cells can also be primary or composite. Composite\index{cell!composite}\index{composite cell} cells consist of one or more primary cells, while primary\index{cell!primary}\index{primary cell} cells cannot be decomposed into combinations of other primary cell types. A triangle strip, for example, consists of one or more triangles arranged in compact form. The triangle strip is a composite cell because it can be broken down into triangles, which are primary cells.
 
 Certainly there are an infinite variety of possible cell types. In the \emph{Visualization Toolkit} each cell type has been chosen based on application need. We have seen how some cell types: vertex, line, polygon, and triangle strip (\ref{fig:Figure3-19}) are used to represent geometry to the graphics subsystem or library. Other cell types such as the tetrahedron and hexahedron are common in numerical simulation. The utility of each cell type will become evident through the practice of visualization throughout this book. A description of the cell types found in the \emph{Visualization Toolkit} including their classification as linear, nonlinear, or other is given in the following sections.
 
@@ -138,7 +138,7 @@ Linear cells are characterized by linear or constant interpolation functions (se
 
 \item[Vertex.\index{cell!vertex}] The vertex is a primary\index{cell!primary} zero--dimensional cell. It is defined by a single point.
 
-\item[Polyvertex.\index{cell!polyvertex}] The polyvertex is a composite\index{cell!composite} zero--dimensional cell. The polyvertex is defined by an arbitrarily ordered list of points.
+\item[Polyvertex.\index{cell!polyvertex}\index{polyvertex}] The polyvertex is a composite\index{cell!composite} zero--dimensional cell. The polyvertex is defined by an arbitrarily ordered list of points.
 
 \item[Line.\index{cell!line}\index{line}] The line is a primary one--dimensional cell. It is defined by two points. The direction along the line is from the first point to the second point.
 
@@ -150,13 +150,13 @@ Linear cells are characterized by linear or constant interpolation functions (se
 
 \item[Quadrilateral.\index{cell!quadrilateral}] The quadrilateral is a primary two--dimensional cell. It is defined by an ordered list of four points lying in a plane. The quadrilateral is convex and its edges must not intersect. The points are ordered counterclockwise around the quadrilateral, defining a surface normal using the right-hand rule.
 
-\item[Pixel.\index{cell!pixel}] The pixel is a primary two--dimensional cell defined by an ordered list of four points. The cell is topologically equivalent to the quadrilateral with the addition of geometric constraints. Each edge of the pixel is perpendicular to its adjacent edges, and lies parallel to one of the coordinate axes x-y-z. Hence, the normal to the pixel is also parallel to one of the coordinate axes.
+\item[Pixel.\index{cell!pixel}\index{pixel}] The pixel is a primary two--dimensional cell defined by an ordered list of four points. The cell is topologically equivalent to the quadrilateral with the addition of geometric constraints. Each edge of the pixel is perpendicular to its adjacent edges, and lies parallel to one of the coordinate axes x-y-z. Hence, the normal to the pixel is also parallel to one of the coordinate axes.
 
 The ordering of the points defining the pixel is different from the quadrilateral cell. The points are ordered in the direction of increasing axis coordinate, starting with x, then y, then z. The pixel is a special case of the quadrilateral and is used to improve computational performance.
 
 One important note is that the definition of the pixel cell given here is different from the usual definition for a pixel. Normally pixels are thought of as constant--valued ``picture--elements'' in an image (see ``Graphics Hardware'' on page \pageref{sec:graphics_hardware}). The definition given here implies that four picture elements form the four corner points of the pixel cell. We normally use the term pixel to describe a pixel cell, but the meaning of the term will vary depending on context.
 
-\item[Polygon.\index{cell!polygon}] The polygon is a primary two--dimensional cell. The polygon is defined by an ordered list of three or more points lying in a plane. The polygon normal is implicitly defined by a counterclockwise ordering of its points using the right-hand rule.
+\item[Polygon.\index{cell!polygon}\index{polygon}] The polygon is a primary two--dimensional cell. The polygon is defined by an ordered list of three or more points lying in a plane. The polygon normal is implicitly defined by a counterclockwise ordering of its points using the right-hand rule.
 
 The polygon may be nonconvex, but may not have internal loops, and it cannot self--intersect. The polygon has n edges, where n is the number of points in the polygon.
 
@@ -245,7 +245,7 @@ VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in 
 \index{cell!attribute|(}
 \index{dataset!attributes|(}\index{dataset attributes|(}
 
-Attribute data is information associated with the structure of the dataset. This structure includes both the dataset geometry and topology. Most often, attribute data is associated with dataset points or cells, but sometimes attribute data may be assigned to cell components such as edges or faces. Attribute data may also be assigned across the entire dataset, or across a group of cells or points. We refer to this information as attribute data because it is an attribute to the structure of the dataset. Typical examples include temperature or velocity at a point, mass of a cell, or heat flux into and out of a cell face.
+Attribute data is information associated with the structure of the dataset. This structure includes both the dataset geometry and topology. Most often, attribute data is associated with dataset points\index{point!attribute} or cells, but sometimes attribute data may be assigned to cell components such as edges or faces. Attribute data may also be assigned across the entire dataset, or across a group of cells or points. We refer to this information as attribute data because it is an attribute to the structure of the dataset. Typical examples include temperature or velocity at a point, mass of a cell, or heat flux into and out of a cell face.
 
 \end{description}
 
@@ -299,14 +299,14 @@ A dataset consists of an organizing structure plus associated attribute data. Th
 A dataset is characterized according to whether its structure is regular or irregular. A dataset is regular if there is a single mathematical relationship within the composing points and cells. If the points are regular, then the geometry of the dataset is regular. If the topological relationship of cells is regular, then the topology of the dataset is regular. Regular (or structured) data can be implicitly represented, at great savings in memory and computation. Irregular (or unstructured) data must be explicitly represented, since there is no inherent pattern that can be compactly described. Unstructured data tends to be more general, but requires greater memory and computational resources.
 
 \subsection{Polygonal Data}
-\index{dataset types!polygonal|(}
+\index{dataset types!polygonal|(}\index{polygonal data|(}
 
 We have already seen how graphics libraries are designed to render such geometric primitives as lines and polygons. These primitives also are frequently generated or consumed by computational geometry and visualization algorithms. In the Visualization Toolkit, we call this collection of graphics primitives polygonal data. The polygonal dataset consists of vertices, polyvertices, lines, polylines, polygons, and triangle strips. The topology and geometry of polygonal data is unstructured, and the cells that compose that dataset vary in topological dimension. The polygonal dataset forms a bridge between data, algorithms, and high--speed computer graphics.
 
 Vertices, lines, and polygons form a minimal set of primitives to represent 0--, 1--, and 2--dimensional geometry. We have included polyvertex, polyline, and triangle strip cells for convenience, compactness, and performance. Triangle strips in particular are high-performing primitives. To represent n triangles with a triangle strip requires just n+2 points, compared to the 3n points for conventional representations. In addition, many graphics libraries can render triangle strips at higher speeds than triangle polygons.
 
 Our minimal selection of cells is based on common application and performance, representing a subset of the cells available in some graphics libraries. Other types include quadrilateral meshes, Bezier curves and surfaces, and other spline types such as NURBS (Non--Uniform Rational B--Splines) \cite{Mortenson85}. Spline surfaces are generally used to accurately model and visualize geometry. Few visualization algorithms (other than geometry visualization) have been developed that require spline surfaces.
-\index{dataset types!polygonal|)}
+\index{dataset types!polygonal|)}\index{polygonal data|)}
 
 \subsection{Image Data}
 \label{subsec:image_data}
@@ -511,7 +511,7 @@ There is an implicit ordering of both the points and cells composing vtkImageDat
 
 The abstract data class vtkPoints is used to represent the point coordinates. vtkPoints refers to an underlying instance of vtkDataArray which actually holds the representation of the points as a contiguous array of three-component tuples. A particular point coordinate may be retrieved or inserted by specifying a particular point id. The numbering of the points and cells is implicit in the same fashion as vtkImageData. Care must be taken to insure that the number of points in the data array is the same as that implied by the dimensions of the grid.
 
-\item[vtkPolyData.] Unlike vtkImageData and vtkStructuredGrid, the topology of vtkPolyData is not regular, so both the topology and geometry of the dataset must be explicitly represented. The point data in vtkPolyData is represented using the vtkPoints class similar to vtkStructuredGrid.
+\item[vtkPolyData.\index{polygonal data!representation}] Unlike vtkImageData and vtkStructuredGrid, the topology of vtkPolyData is not regular, so both the topology and geometry of the dataset must be explicitly represented. The point data in vtkPolyData is represented using the vtkPoints class similar to vtkStructuredGrid.
 
 \begin{figure}[!htb]
 	\centering
@@ -578,7 +578,7 @@ The abstract class vtkCell specifies methods that each cell must implement. Thes
 
 Data attributes are associated with the structure of a dataset. The dataset model is built on points and cells, so it is natural to associate data attributes with points and cells as well. Intermediate structure features, such as cell edges or faces, are not explicitly represented so we cannot easily associate data attributes with them.
 
-In VTK data attributes are associated with the points and cells of the dataset. There is no association of data attributes to intermediate topological features such as triangle edges or hexahedron faces. (Here we refer to data attributes associated with points as point attributes, and data attributes associated with cells as \emph{cell attributes}\index{cell attributes}.) Our design choice is based on the following rationale.
+In VTK data attributes are associated with the points and cells of the dataset. There is no association of data attributes to intermediate topological features such as triangle edges or hexahedron faces. (Here we refer to data attributes associated with points as \emph{point attributes}\index{point attributes}, and \emph{data attributes} associated with cells as \emph{cell attributes}\index{cell attributes}.) Our design choice is based on the following rationale.
 
 \begin{itemize}
 
@@ -617,8 +617,9 @@ In the examples that follow we show manual creation and manipulation of datasets
 
 Creation of datasets is a two step process. First the geometry and topology of the dataset must be defined. Depending on the type of dataset, the geometry and topology definition will proceed differently. Then the point and/or cell attribute data is created and associated with the dataset. Remember that there is a one--to--one relationship between the attribute data and the points and cells in the dataset.
 
-\subsubsection{Create a Polygonal Dataset}
+\begin{description}[leftmargin=0cm,labelindent=0cm]
 
+\item[Create a Polygonal Dataset.\index{polygonal data!example|(}]
 In our first example we create a polygonal representation of a cube. The cube is defined by eight points and six quadrilateral faces. We also create eight scalar values associated with the eight vertices of the cube. Figure \ref{fig:Figure5-17} shows the key C++ code fragments used to create the data, and the resulting image.
 
 The geometry of the cube is defined using an instance of the class vtkPoints. By default, the underlying type of vtkPoints is a vtkFloatArray. The topology of the cube (i.e., polygons) is defined with an instance of the class vtkCellArray. These define the points and polygons of the cube, respectively. Scalar data is represented by an instance of the class vtkIntArray.
@@ -680,9 +681,9 @@ Polygonal data supports the following cell types: vertices, polyvertices, lines,
 The most confusing aspect of this example is the Delete() method. To prevent memory leaks we must use a Delete() method (VTK's destructor) after every New() method. It is apparent from the example that the instance's points, polys, and scalars are referred to by another object (e.g., cube). So doesn’t invocation of the Delete() method pose a problem?
 
 The answer is no. Certain data objects in VTK are reference counted to conserve memory resources (i.e., subclasses of vtkObjectBase). That means they can be shared between objects. For most objects the Delete() will invoke the destructor. Reference counted objects act a little differently. The Delete() method simply decrements the reference count. This may or may not destroy the object depending on whether it is being used by another object. In this example the points, polys, and scalars are used by the polygonal dataset cube, so they are not deleted when Delete() is invoked. They will be freed once we free the dataset cube, that is, when their reference count drops to zero. (See the VTK User's Guide for more information about memory management.)
+\index{polygonal data!example|)}
 
-\subsubsection{Create an Image Data Dataset}
-\index{image data!example|(}
+\item[Create an Image Data Dataset.\index{image data!example|(}]
 
 In this example, we create an image dataset (i.e., an instance of vtkImageData). The topology of the dataset is defined by specifying the data dimensions. The geometry is defined by the data spacing and origin. The spacing specifies the length, width, and height of each voxel. The origin specifies the position in 3D space of the ``lower-left'' corner of the data. In our example we set the origin and spacing of the dataset so that its center lies at the origin, and the bounds of the dataset are $(-0.5,0.5, -0.5,0.5, -0.5,0.5)$.
 
@@ -764,7 +765,7 @@ The topological dimension of the dataset is implicitly known from its instance v
 \end{figure}
 \index{image data!example|)}
 
-\subsubsection{Create a Structured Grid Dataset}
+\item[Create a Structured Grid Dataset.]
 
 In the next example we create a vtkStructuredGrid dataset. Topology is implicitly defined from the dimensions of the dataset. The geometry is explicitly defined by providing an object to represent the point coordinates. In this example we use an instance of vtkPoints and assume that the structured grid is warped according to the equation for a cylinder
 
@@ -789,7 +790,7 @@ x = r_i \cos\theta, y = r_i \sin\theta, z = z_i
     	\end{subfigure}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.40\linewidth}
+	\begin{subfigure}[h]{0.96\linewidth}
 		\begin{lstlisting}[language=C++, caption={}]
 		vtkStructuredGrid *sgrid = vtkStructuredGrid::New();
 		  sgrid->SetDimensions(dims);
@@ -799,8 +800,7 @@ x = r_i \cos\theta, y = r_i \sin\theta, z = z_i
 		  vectors->SetNumberOfComponents(3);
 		  vectors->SetNumberOfTuples(dims[0]*dims[1]*dims[2]);
 		  deltaZ = 2.0 / (dims[2]-1);
-		  deltaRad = (rMax-rMin) / (dims[1]-1);
-		  v[2]=0.0;
+		  deltaRad = (rMax-rMin) / (dims[1]-1); v[2]=0.0;
 		  for ( k=0; k<dims[2]; k++)
 		    {
 		    x[2] = -1.0 + k*deltaZ;
@@ -813,9 +813,8 @@ x = r_i \cos\theta, y = r_i \sin\theta, z = z_i
 		        {
 		        theta = i * 15.0 * math.DegreesToRadians();
 		        x[0] = radius * cos(theta);
-                x[1] = radius * sin(theta);
-		        v[0] = -x[1];
-                v[1] = x[0];
+		        x[1] = radius * sin(theta);
+		        v[0] = -x[1]; v[1] = x[0];
 		        offset = i + jOffset + kOffset;
 		        points->InsertPoint(offset,x);
 		        vectors->InsertTuple(offset,v);
@@ -851,7 +850,7 @@ The creation of a structured grid dataset is partially explicit and partially im
 
 The topological dimension of the dataset is implied by the specified dimensions. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one, the topological dimension of the dataset is two. If two of the three dimensions $(n_x, n_y, n_z)$ are equal to one, the topological dimension of the dataset is one.
 
-\subsubsection{Create a Rectilinear Grid Dataset}
+\item[Create a Rectilinear Grid Dataset.]
 
 A rectilinear grid is regular in topology and semi-regular in geometry. Similar to a structured grid or image data dataset, topology is implicitly represented by specifying grid dimensions. Because the grid is axis-aligned but the point coordinates along each axis may vary, we need three data arrays to represent the geometry of the dataset, one array for each of the x-y-z axes. Note that the cell types of the rectilinear dataset are pixels and voxels.
 
@@ -919,7 +918,7 @@ To summarize the process of creating an instance of vtkRectilinearGrid, we follo
 
 The topological dimension of the dataset is implied by the specified dimensions. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one, the topological dimension of the dataset is two. If two of the three dimensions $(n_x, n_y, n_z)$ are equal to one, the topological dimension of the dataset is one.
 
-\subsubsection{Create an Unstructured Grid Dataset}
+\item[Create an Unstructured Grid Dataset.]
 
 Unstructured grid datasets are the most general dataset type in both topology and geometry. In this example we ``artificially'' create an unstructured grid using an instance of vtkUnstructuredGrid (Figure \ref{fig:Figure5-21}). The grid contains examples of each cell type except for pixels and voxels. (Pixels and voxels are generally used internally to process image data datasets. They can be explicitly created and manipulated as long as the required relationship of point geometry is observed.) Creating the dataset structure requires creating points to define the geometry and various cells to define the topology. (Note that in the finite element world we would refer to these as nodes and elements.)
 
@@ -981,6 +980,8 @@ To summarize the process of creating an instance of vtkUnstructuredGrid, we foll
 	\item Complete the creation process by executing the ugrid->Squeeze() operator.This operator reclaims any extra memory consumed by the data structures. Although this step is not required, it will return memory resource back to the computer system.
 
 \end{itemize}
+
+\end{description}
 
 \section{Chapter Summary}
 

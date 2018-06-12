@@ -328,7 +328,7 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
 
     \item[Line.\index{interpolation function!line}\index{line!interpolation function}\index{line!parametric coordinate}\index{parametric coordinates!line}] Figure \ref{fig:Figure8-3} shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
 
-    \item[Pixel.\index{interpolation function!pixel}\index{parametric coordinates!pixel}] Figure \ref{fig:Figure8-4} shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{bilinear interpolation}\index{bilinear interpolation}\index{interpolation function!bilinear} functions.
+    \item[Pixel.\index{interpolation function!pixel}\index{parametric coordinates!pixel}\index{pixel!interpolation function}\index{pixel!parametric coordinates}] Figure \ref{fig:Figure8-4} shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{bilinear interpolation}\index{bilinear interpolation}\index{interpolation function!bilinear} functions.
 
     \item[Quadrilateral.\index{interpolation function!quadrilateral}\index{parametric coordinates!quadrilateral}] Figure \ref{fig:Figure8-5} shows the parametric coordinate system and interpolation functions for a quadrilateral cell type. The quadrilateral is described using the two parametric coordinates $(r,s)$.
 
@@ -388,7 +388,7 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
         \label{fig:Figure8-12}
     \end{figure}
 
-    \item[Polygon.\index{interpolation function!polygon}\index{parametric coordinates!polygon}] Figure \ref{fig:Figure8-7} shows the parametric coordinate system and interpolation functions for a polygon cell type. The polygon is characterized using the two parametric coordinates $(r,s)$. The parametric coordinate system is defined by creating a rectangle oriented along the first edge of the polygon. The rectangle also must bound the polygon.
+    \item[Polygon.\index{interpolation function!polygon}\index{parametric coordinates!polygon}\index{polygon!interpolation function}\index{polygon!parametric coordinates}] Figure \ref{fig:Figure8-7} shows the parametric coordinate system and interpolation functions for a polygon cell type. The polygon is characterized using the two parametric coordinates $(r,s)$. The parametric coordinate system is defined by creating a rectangle oriented along the first edge of the polygon. The rectangle also must bound the polygon.
 
     The polygon poses a special problem since we do not know how many vertices define the polygon. As a result, it is not possible to create general interpolation functions in the fashion of the previous functions we have seen. Instead, we use a function based on weighted distance squared from each polygon vertex.
 
