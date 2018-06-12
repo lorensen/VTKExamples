@@ -1424,7 +1424,7 @@ An important geometric operation is intersection of a line with a cell. This ope
             \label{fig:Figure8-31i}
         \end{subfigure}%
     \end{subfigure}
-    \caption{Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate $t$ with $t \in [0,1]$.}
+    \caption{\index{picking!descriptive diagram}Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate $t$ with $t \in [0,1]$.}
     \label{fig:Figure8-31}
 \end{figure}
 
@@ -1910,6 +1910,7 @@ Our experience with the search structures described here is that they work well 
 
 \subsection{Picking}
 \label{subsec:picking}
+\index{picking!implementation|(}
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
@@ -1970,6 +1971,7 @@ The class vtkWorldPointPicker returns the $(x,y,z)$ coordinate value of a pick i
 By default picking is performed with the class vtkPropPicker. This class uses hardware-accelerated picking --- so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the $(x,y,z)$ world coordinate value
 
 Figure \ref{fig:Figure8-39} summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the ``p'' key (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:examples_introducing_vtkRenderWindowInteractor}). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
+\index{picking!implementation|)}
 
 \subsection{Examples}
 

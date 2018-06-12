@@ -105,6 +105,7 @@ As a result of these concerns we use the hybrid approach in the \emph{Visualizat
 
 \section{The Visualization Pipeline}
 \label{sec:visualization_pipeline}
+\index{pipeline|(}
 
 In the context of data visualization, the functional model of Figure \ref{fig:Figure4-1c} is referred to as the \emph{visualization pipeline} or \emph{visualization network}. The pipeline consists of objects to represent data (data objects), objects to operate on data (process objects), and an indicated direction of data flow (arrow connections between objects). In the text that follows, we will frequently use visualization networks to describe the implementation of a particular visualization technique.
 
@@ -127,18 +128,21 @@ Source objects interface to external data sources or generate data from local pa
 Filter objects\index{filter object} require one or more input data objects and generate one or more output data objects. Local parameters control the operation of the process object. Computing weekly stock market averages, representing a data value as a scaled icon, or performing union set operations on two input data sources are typical example processes of filter objects.
 
 Mapper\index{device!mapper}\index{mapper!device}\index{mapper object} objects correspond to the sinks in the functional model. Mapper objects require one or more input data objects and terminate the visualization pipeline data flow. Usually mapper objects are used to convert data into graphical primitives, but they may write out data to a file or interface with another software system or devices. Mapper objects that write data to a computer file are termed \emph{writer}\index{device!writer} objects.
+\index{pipeline|)}
 
 \section{Pipeline Topology}
 \label{sec:pipeline_topology}
+\index{pipeline!topology|(}
 
 In this section we describe how to connect data and process objects to form visualization networks.
 
 \subsection{Pipeline Connections}
 \label{subsec:pipeline_connections}
+\index{pipeline!connections|(}
 
 The elements of the pipeline (sources, filters, and mappers) can be connected in a variety of ways to create visualization networks. However, there are two important issues that arise when we try to assemble these networks: \emph{type} and \emph{multiplicity}.
 
-Type means the form or type of data that process objects take as input or generate as output. For example, a sphere source object may generate as output a polygonal or faceted representation, an implicit representation (e.g., parameters of a conic equation), or a set of occupancy values in a discretized representation of 3D space. Mapper objects might take as input polygonal, triangle strip, line, or point geometric representations. The input to a process object must be specified correctly for successful operation.
+Type\index{pipeline!connections!type} means the form or type of data that process objects take as input or generate as output. For example, a sphere source object may generate as output a polygonal or faceted representation, an implicit representation (e.g., parameters of a conic equation), or a set of occupancy values in a discretized representation of 3D space. Mapper objects might take as input polygonal, triangle strip, line, or point geometric representations. The input to a process object must be specified correctly for successful operation.
 
 \begin{figure}[htb]
     \centering
@@ -163,7 +167,7 @@ There are two general approaches to maintain proper input type. One approach is 
 
 Another approach to maintain proper input type is to design typed systems. In typed systems only objects of compatible type are allowed to be connected together. That is, more than one type is designed, but type checking is performed on the input to insure proper connection. Depending on the particular computer language, type checking can be performed at compile, link, or run time. Although type checking does insure correct input type, this approach often suffers from an explosion of types. If not careful, the designers of a visualization system may create too many types, resulting in a fragmented, hard to use and understand system. In addition, the system may require a large number of \emph{type-converter} filters. (Type-converter filters serve only to transform data from one form to another.) Carried to extremes, excessive type conversion results in computationally and memory wasteful systems.
 
-The issue of multiplicity deals with the number of input data objects\index{multiple input} allowed, and the number of output data objects\index{multiple output} created during the operation of a process object (Figure \ref{fig:Figure4-4}). We know that all filter and mapper objects require at minimum one input data object, but in general these filters can operate sequentially across a list of input\index{fan--in}. Some filters may naturally require a specific number of inputs. A filter implementing boolean operations is one example. Boolean operations such as union or intersection are implemented on data values two at a time. However, even here more than two inputs may be defined as a recursive application of the operation to each input.
+The issue of multiplicity\index{pipeline!connections!multiplicity} deals with the number of input data objects\index{multiple input} allowed, and the number of output data objects\index{multiple output} created during the operation of a process object (Figure \ref{fig:Figure4-4}). We know that all filter and mapper objects require at minimum one input data object, but in general these filters can operate sequentially across a list of input\index{fan--in}. Some filters may naturally require a specific number of inputs. A filter implementing boolean operations is one example. Boolean operations such as union or intersection are implemented on data values two at a time. However, even here more than two inputs may be defined as a recursive application of the operation to each input.
 
 \begin{figure}[!htb]
   \centering
@@ -172,9 +176,11 @@ The issue of multiplicity deals with the number of input data objects\index{mult
 \end{figure}
 
 We need to distinguish what is meant by multiplicity of output. Most sources and filters generate a single output. \emph{Multiple fan-out}\index{fan--out} occurs when an object generates an output that is used for input by more than one object. This would occur, for example, when a source object is used to read a data file, and the resulting data is used to generate a wireframe outline of the data, plus contours of the data (e.g., Figure \ref{fig:Figure4-1a}). Multiple output occurs when an object generates two or more output data objects. An example of multiple output is generating x, y, and z components of a gradient function as distinct data objects. Combinations of multiple fan-out and multiple output are possible.
+\index{pipeline!connections|)}
 
 \subsection{Loops}
 \label{subsec:loops}
+\index{pipeline!loops|(}
 
 In the examples described so far, the visualization networks have been free of cycles. In graph theory these are termed directed, acyclic graphs. However, in some cases it is desirable to introduce feedback loops into our visualization networks. Feedback loops in a visualization network allow us to direct the output of a process object upstream to affect its input.
 
@@ -187,10 +193,12 @@ Figure \ref{fig:Figure4-5} shows an example of a feedback loop in a visualizatio
 \end{figure}
 
 We will discuss the control and execution of visualization networks in the next section. However, suffice it to say that loops can pose special problem in visualization networks depending on the design of the execution model. The design must insure that the loop does not enter an infinite loop or nonterminating recursive state. Typically, the number of executions of the loop is limited in order to view intermediate results. However, it is possible to execute the loop repeatedly to process data as required.
+\index{pipeline!loops|)}
+\index{pipeline!topology|)}
 
 \section{Executing the Pipeline}
 \label{sec:executing_pipeline}
-\index{execution|(}
+\index{execution|(}\index{pipeline!execution|(}
 
 So far we have seen the basic elements of the visualization network and ways to connect these elements together. In this section we discuss how to control the execution of the network.
 
@@ -200,7 +208,7 @@ Most often the visualization network is executed more than once. For example, we
 
 For highest performance, the process objects in the visualization network must execute only if a change occurs to their input. In some networks, as shown in Figure \ref{fig:Figure4-6}, we may have parallel branches that need not execute if objects are modified local to a particular branch. In this figure, we see that object D and the downstream objects E and F must execute because D's input parameter is changed, and objects E and F depend on D for their input. The other objects need not execute because there is no change to their input.
 
-We can control the execution of the network using either a demand--driven\index{demand--driven execution} or event--driven\index{event--driven execution} approach. In the demand--driven approach, we execute the network only when output is requested, and only that portion of the network affecting the result. In the event--driven approach, every change to a process object or its input causes the network to re--execute. The advantage of the event driven approach is that the output is always up to date (except during short periods of computation). The advantage of the demand--driven approach is that large numbers of changes can be processed without intermediate computation (i.e., data is processed only after the request for data is received). The demand--driven approach minimizes computation and results in more interactive visualization networks.
+We can control the execution of the network using either a demand--driven\index{demand--driven execution}\index{pipeline!execution!demand--driven} or event--driven\index{event--driven execution}\index{pipeline!execution!event--driven} approach. In the demand--driven approach, we execute the network only when output is requested, and only that portion of the network affecting the result. In the event--driven approach, every change to a process object or its input causes the network to re--execute. The advantage of the event driven approach is that the output is always up to date (except during short periods of computation). The advantage of the demand--driven approach is that large numbers of changes can be processed without intermediate computation (i.e., data is processed only after the request for data is received). The demand--driven approach minimizes computation and results in more interactive visualization networks.
 
 \begin{figure}[!htb]
   \centering
@@ -212,7 +220,7 @@ The execution of the network requires synchronization between process objects. W
 
 \subsection{Explicit Execution}
 \label{subsec:explicit_execution}
-\index{execution!explicit|(}\index{explicit execution|(}
+\index{execution!explicit|(}\index{explicit execution|(}\index{pipeline!explicit execution|(}
 
 Explicit control means directly tracking the changes to the network, and then directly controlling the execution of the process objects based on an explicit dependency analysis. The major characteristic of this approach is that a centralized \emph{executive} is used to coordinate network execution. This executive must track changes to the parameters and inputs of each object, including subsequent changes to the network topology (Figure \ref{fig:Figure4-7a}).
 
@@ -256,11 +264,11 @@ The explicit approach may be either demand-driven or event-driven. In the event-
 
 
 The explicit approach with a central executive is typical of many commercial visualization systems such as AVS\index{AVS}, Iris Explorer\index{Iris Explorer}, and IBM Data Explorer\index{Data Explorer}. Typically these systems use a visual-programming interface to construct the visualization network. Often these systems are implemented on parallel computers, and the ability to distribute computation is essential.
-\index{execution!explicit|)}\index{explicit execution|)}
+\index{execution!explicit|)}\index{explicit execution|)}\index{pipeline!explicit execution|)}
 
 \subsection{Implicit Execution}
 \label{subsec:implicit_execution}
-\index{execution!implicit|(}\index{implicit execution|(}
+\index{execution!implicit|(}\index{implicit execution|(}\index{pipeline!implicit execution|(}
 
 Implicit control means that a process object executes only if its local input or parameters change (Figure 4-7 \ref{fig:Figure4-7b}). Implicit control is implemented using a two-pass process. First, when output is requested from a particular object, that object requests input from its input objects. This process is recursively repeated until source objects are encountered. The source objects then execute if they have changed or their external inputs have changed. Then the recursion unwinds as each process object examines its inputs and determines whether to execute. This procedure repeats until the initial requesting object executes and terminates the process. These two steps are called the \emph{update} and \emph{execution} passes.
 
@@ -275,20 +283,21 @@ Implicit network execution is naturally implemented using \emph{demand-driven} c
 The primary advantage of the implicit control scheme is its simplicity. Each object only need keep track of its internal modification time. When output is requested, the object compares its modification time with that of its inputs, and executes if out of date. Furthermore, process objects need only know about their direct input, so no global knowledge of other objects (such as a network executive) is required.
 
 The disadvantage of implicit control is that it is harder to distribute network execution across computers or to implement sophisticated execution strategies. One simple approach is to create a queue that executes process objects in order of network execution (possibly in a distributed fashion). Of course, once a central object is introduced back into the system, the lines between implicit and explicit control are blurred.
-\index{execution!implicit|)}\index{implicit execution|)}
+\index{execution!implicit|)}\index{implicit execution|)}\index{pipeline!implicit execution|)}
 
 \subsection{Conditional Execution}
 \label{subsec:conditional_execution}
-\index{conditional execution|(}\index{execution!conditional|(}
+\index{conditional execution|(}\index{execution!conditional|(}\index{pipeline!conditional execution|(}
 
 Another important capability of visualization networks is conditional execution. For example, we may wish to map data through different color lookup tables depending upon the variation of range in the data. Small variations can be amplified by assigning more colors within the data range, while we may compress our color display by assigning a small number of colors to the data range (Figure \ref{fig:Figure4-8}). 
 
 The conditional execution of visualization models (such as that shown Figure \ref{fig:Figure4-1c}) can be realized in principle. However, in practice we must supplement the visualization network with a conditional language to express the rules for network execution. Hence, conditional execution of visualization networks is a function of implementation language. Many visualization systems are programmed using the visual programming style. This approach is basically a visual editor to construct data flow diagrams directly. It is difficult to express conditional execution of networks using this approach. Alternatively, in a procedural programming language, conditional execution of networks is straightforward. We defer discussions of the topic until ``Putting It All Together'' on page \pageref{sec:chap04.putting_it_all_together}.
-\index{conditional execution|)}\index{execution!conditional|)}
-\index{execution|)}
+\index{conditional execution|)}\index{execution!conditional|)}\index{pipeline!conditional execution|)}
+\index{execution|)}\index{pipeline!execution|)}
 
-\section{Memory and Computation Trade-off}
-\label{sec:memory_computation_trade-off}
+\section{Memory and Computation Trade--off}
+\label{sec:memory_computation_trade--off}
+\index{pipeline!trade--offs|(}
 
 Visualization is a demanding application, both in terms of computer memory and computational requirements. Data streams on the order of one megabyte to one gigabyte are not uncommon. Many visualization algorithms are computationally expensive, in part due to input size, but also due to the inherent algorithm complexity. In order to create applications that have reasonable performance, most visualization systems have various mechanisms to trade off memory and computation costs.
 
@@ -300,7 +309,7 @@ Visualization is a demanding application, both in terms of computer memory and c
 
 \subsection{Static and Dynamic Memory Models}
 \label{subsec:static_dynamic_memory_models}
-\index{memory model!dynamic|(}\index{memory model!static|(}
+\index{memory model!dynamic|(}\index{memory model!static|(}\index{pipeline!memory models|(}
 
 Memory and computation trade-offs are important performance issues when executing visualization networks. In the networks presented thus far, the output of a process object is assumed to be available to downstream process objects at all times. Thus, network computation is minimized. However, the computer memory requirement to preserve filter output can be huge. Networks of only a few objects can tie up extensive computer memory resources.
 
@@ -315,16 +324,17 @@ We term these two approaches as \emph{static} and \emph{dynamic}\index{dynamic m
 \end{figure}
 
 As this figure shows, the static model executes each process object only once, storing intermediate results. In the dynamic model, each process object releases memory after downstream objects complete execution. Depending upon the implementation of the dynamic model, process object \emph{B} may execute once or twice. If a thorough dependency analysis is performed, process \emph{B} will release memory only after both objects \emph{C} and \emph{B} execute. In a simpler implementation, object \emph{B} will release memory after \emph{C} and subsequently, \emph{D} executes.
-\index{memory model!dynamic|)}\index{memory model!static|)}
+\index{memory model!dynamic|)}\index{memory model!static|)}\index{pipeline!memory models|)}
 
 \subsection{Reference Counting and Garbage Collection}
 \label{subsec:reference_counting_garbage_collection}
-\index{memory management!reference counting|(}
+\index{memory management!reference counting|(}\index{pipeline!memory models!reference counting|(}
 
 Another valuable tool to minimize memory cost is to share storage using reference counting. To use reference counting, we allow more than one process object to refer to the same data object and keep track of the number of references. For example, assume that we have three objects \emph{A}, \emph{B}, and \emph{C} that form a portion of a visualization network as shown in Figure \ref{fig:Figure4-10}. Also assume that these objects modify only part of their input data, leaving the data object that specifies \emph{x-y-z} coordinate position unchanged. Then to conserve memory resources we can allow the output of each process object to refer to the single data object representing these points. Data that is changed remains local to each filter and is not shared. It is only when the reference count goes to zero that the object is deleted.
 
 Garbage collection is an alternative memory management strategy that is not well suited to visualization applications. The garbage collection process is automatic; it attempts to reclaim memory used by objects that will never again be accessed by the running application. While convenient due to its automated nature, in general garbage collection introduces overhead that may inadvertently introduce pauses into software execution at inopportune times (during an interactive process). Of more concern, however, is that released, unused memory may not be reclaimed by the system until some time after the last reference to the memory is dropped, and in visualization pipelines this memory may be too large to leave around for any length of time. That is, in some applications if memory usage in a filter is not released immediately, downstream filters may not have enough memory resource available to them to successfully execute.
-\index{memory management!reference counting|)}
+\index{memory management!reference counting|)}\index{pipeline!memory models!reference counting|)}
+\index{pipeline!trade--offs|)}
 
 \section{Advanced Visualization Pipeline Models}
 \label{sec:advanced_visualization_pipeline_models}
@@ -358,7 +368,7 @@ In real-world applications the pipeline design described thus far may not adequa
   \caption{Dividing a sphere into a piece (red) with ghost level cells and points (blue and green).}\label{fig:Figure4-11}
 \end{figure}
 
-Streaming data through a visualization pipeline offers two major benefits. The first is that visualization data that would not normally fit into memory can be processed. The second is that visualizations can be run with a smaller memory footprint resulting in higher cache hits, and little or no swapping to disk. To realize these benefits the visualization software must support breaking the dataset into pieces and correctly processing those pieces. This requires that the dataset and the algorithms that operate on it are \emph{separable}, \emph{mappable}, and \emph{result invariant} as described in the following \cite{Law99}.
+Streaming data through a visualization pipeline\index{pipeline!streaming} offers two major benefits. The first is that visualization data that would not normally fit into memory can be processed. The second is that visualizations can be run with a smaller memory footprint resulting in higher cache hits, and little or no swapping to disk. To realize these benefits the visualization software must support breaking the dataset into pieces and correctly processing those pieces. This requires that the dataset and the algorithms that operate on it are \emph{separable}, \emph{mappable}, and \emph{result invariant} as described in the following \cite{Law99}.
 
 \begin{enumerate}
 \item \textbf{Separable}. The data must be separable. That is, the data can be broken into pieces. Ideally, each piece should be coherent in geometry, topology, and/or data structure. The separation of the data should be simple and efficient. In addition, the algorithms in this architecture must be able to correctly process pieces of data.
@@ -641,14 +651,14 @@ For more details regarding the object design of filters and data objects, please
 \subsection{Pipeline Execution and Information Objects}
 \label{subsec:pipeline_execution_and_information_objects}
 
-Until now, we have used the terms metadata and information objects rather informally. As described previously, in the context of VTK, these terms refer to data that describes datasets. In this section, we show how these objects, which are subclasses of vtkInformation, are used to facilitate the execution of the VTK pipeline.
+Until now, we have used the terms metadata\index{pipeline!metadata} and information objects rather informally. As described previously, in the context of VTK, these terms refer to data that describes datasets. In this section, we show how these objects, which are subclasses of vtkInformation, are used to facilitate the execution of the VTK pipeline.
 
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 \item[Information Objects.] Information objects are the basic containers used throughout the VTK pipeline to hold a wide variety of metadata\index{metadata}. They are heterogeneous key--to--value maps in which the type of the key determines the type of the value. The following is an enumeration of the places information objects are used.
 
 \begin{itemize}
 
-\item \emph{Pipeline information\index{information pipeline!objects!information}\index{information!pipeline}} objects hold information for pipeline execution. They are stored in instances of vtkExecutive or subclasses and are accessible via the method vtkExecutive::GetOutputInformation(). There is one pipeline information object per output port. It contains an entry pointing to the output vtkDataObject on the corresponding port (if it has been created). The vtkDataObject contains a pointer back to its corresponding pipeline information object, accessible via vtkDataObject::GetPipelineInformation(). The pipeline information object also holds information about what will populate the data object when the filter executes and generates the output. The actual information contained is determined by the output data type and the execution model in use. Pipeline information objects for input connections are accessible via the method vtkExecutive::GetInputInformation(), and they are the pipeline information objects on the output ports to which the input ports are connected.
+\item \emph{Pipeline information\index{information pipeline!objects!information}\index{information!pipeline}\index{pipeline!information}} objects hold information for pipeline execution. They are stored in instances of vtkExecutive or subclasses and are accessible via the method vtkExecutive::GetOutputInformation(). There is one pipeline information object per output port. It contains an entry pointing to the output vtkDataObject on the corresponding port (if it has been created). The vtkDataObject contains a pointer back to its corresponding pipeline information object, accessible via vtkDataObject::GetPipelineInformation(). The pipeline information object also holds information about what will populate the data object when the filter executes and generates the output. The actual information contained is determined by the output data type and the execution model in use. Pipeline information objects for input connections are accessible via the method vtkExecutive::GetInputInformation(), and they are the pipeline information objects on the output ports to which the input ports are connected.
 
 \item \emph{Port information\index{information!port}} objects hold information about the data types produced on output ports and consumed by input ports. They are stored by instances of vtkAlgorithm. There is one input port information object per input port and one output port information object per output port. They are accessible via the methods vtkAlgorithm::GetInputPortInformation() and vtkAlgorithm::GetOutputPortInformation(). Port information objects are usually created and populated by subclasses of vtkAlgorithm in order to specify the interface of the filter.
 
@@ -670,7 +680,7 @@ The importance of the information objects in VTK is that they are flexible (e.g.
 \item[Pipeline Execution Models]
 \label{subsubsec:pipeline_execution_models}
 
-In VTK, the fundamental pipeline update mechanism is based on the request. A request is the basic pipeline operation (or ``pipeline pass'') that generally asks for particular piece of information to be propagated through the pipeline. An execution model is a set of requests defined by a specific executive. Refer to Figure \ref{fig:Figure4-18} in the following description of the execution process.
+In VTK, the fundamental pipeline update mechanism\index{pipeline!update mechanism} is based on the \emph{request}\index{pipeline!request}. A request is the basic pipeline operation (or ``pipeline pass'') that generally asks for particular piece of information to be propagated through the pipeline. An execution model is a set of requests defined by a specific executive. Refer to Figure \ref{fig:Figure4-18} in the following description of the execution process.
 
 Requests are generated by the executive object of a filter that has been explicitly asked to update by its algorithm due to some user call. For example, when the Write() method of a writer is called, the algorithm object asks its executive to update the pipeline, and execute the writer, by calling this->GetExecutive()->Update(). Several requests may be sent through the pipeline in order to bring it up to date.
 
@@ -683,13 +693,16 @@ An executive often asks its algorithm object for help in fulfilling a request. I
 
 \subsection{Flexible Computation / Memory Trade-off}
 \label{subsec:flexible_computation_memory_trade-off}
+\index{pipeline!trade--off!implementation|(}
 
 By default, networks constructed using the \emph{Visualization Toolkit} store intermediate computational results (i.e., favor computation). However, a single class variable can be set to discard intermediate data when they are no longer needed (i.e., favor memory). In addition, a local parameter can be set within each process object to control this trade-off at object level.
 
 This global variable is set as follows. Given the data object O, (or the output of a filter obtained using O=filter->GetOutput()), invoke O->SetGlobalReleaseDataFlagOn() to enable data release. To enable data release for a particular object use O->SetReleaseDataFlagOn(). Appropriate methods exist to disable memory release as well.
+\index{pipeline!trade--off!implementation|)}
 
 \subsection{High-Level Object Design}
 \label{subsec:high-level_object_design}
+\index{pipeline!memory models!implementation|(}
 
 At this point in the text it is premature to describe design details of the various objects making up the visualization pipeline. However, there are two important classes that affect many of the objects in the text. These are the classes vtkObject and vtkObjectBase.
 
@@ -698,6 +711,7 @@ vtkObjectBase is the base object for almost all inheritance hierarchies found in
 vtkObject is a subclass of vtkObjectBase. It provides methods and instance variables to control run-time debugging and maintains internal object modification time. In particular, the method Modified() is used to update the modification time, and the method GetMTime() is used to retrieve it. vtkObject also provides a framework for the event callbacks that we saw in the previous chapter (see ``Events and Observers''on page \pageref{sub:examples_events_observers}).
 
 Note that we do not always include vtkObject and vtkObjectBase in object diagrams to conserve space. Refer to the source code for a definitive statement.
+\index{pipeline!memory models!implementation|)}
 
 \subsection{Examples}
 \label{subsec:Ch04Examples}
