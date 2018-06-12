@@ -55,7 +55,7 @@ The dataset, or local, coordinate system is based on combined topological and ge
 
 The topological coordinate is an ``id'': a unique, nonnegative integer number referring to either a dataset point or cell. For a composite cell, we use an additional ``sub-id'' to refer to a particular primary cell that composes the composite cell. The sub-id is also unique and nonnegative. The id and sub-id together select a particular primary cell.
 
-To specify a location within the primary cell, we use geometric coordinates. These geometric coordinates, or parametric coordinates, are coordinates ``natural'' or canonical to the particular topology and dimension of a cell.
+To specify a location within the primary cell, we use geometric coordinates. These geometric coordinates, or \emph{parametric coordinates}\index{parametric coordinates}, are coordinates ``natural'' or canonical to the particular topology and dimension of a cell.
 
 We can best explain local coordinates by referring to an example. If we consider the polyline cell type shown in Figure \ref{fig:Figure8-2}, we can specify the position of a point by indicating 1) the polyline cell id, 2) the primary cell (i.e., line) sub-id and 3) the parametric coordinate of the line. Because the line is one-dimensional, the natural or parametric coordinate is based on the one-dimensional parameter r. Then any point along the line is given by a linear combination of the two end points of the line $x_i$ and $x_{i+1}$
 
@@ -99,7 +99,7 @@ Here we've taken into account that there are one fewer cells along each topologi
 
 \section{Interpolation Functions}
 \label{sec:interpolation_functions}
-\index{interpolation function|(}
+\index{interpolation function|(}\index{parametric coordinates|(}
 
 Computer visualization deals with discrete data. The data is either supplied at a finite number of points or created by sampling continuous data at a finite number of points. But we often need information at positions other than these discrete point locations. This may be for rendering or for sub-sampling the data during algorithm execution. We need to interpolate data from known points to some intermediate point using \emph{interpolation functions}.
 
@@ -324,15 +324,15 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
         \label{fig:Figure8-10}
     \end{figure}
 
-    \item[Vertex.\index{interpolation function!vertex}] Vertex cells do not require parametric coordinates or interpolation functions since they are zero-dimensional. The single weighting function is $W_0 = 1$.
+    \item[Vertex.\index{interpolation function!vertex}\index{parametric coordinates!vertex}] Vertex cells do not require parametric coordinates or interpolation functions since they are zero-dimensional. The single weighting function is $W_0 = 1$.
 
-    \item[Line.\index{interpolation function!line}\index{line!interpolation function}\index{line!parametric coordinate}] Figure \ref{fig:Figure8-3} shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
+    \item[Line.\index{interpolation function!line}\index{line!interpolation function}\index{line!parametric coordinate}\index{parametric coordinates!line}] Figure \ref{fig:Figure8-3} shows the parametric coordinate system and interpolation functions for a line.The line is described using the single parametric coordinate $r$.
 
-    \item[Pixel.\index{interpolation function!pixel}] Figure \ref{fig:Figure8-4} shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{bilinear interpolation}\index{bilinear interpolation}\index{interpolation function!bilinear} functions.
+    \item[Pixel.\index{interpolation function!pixel}\index{parametric coordinates!pixel}\index{pixel!interpolation function}\index{pixel!parametric coordinates}] Figure \ref{fig:Figure8-4} shows the parametric coordinate system and interpolation functions for a pixel cell type. The pixel is described using the two parametric coordinates $(r,s)$. Note that the pixel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{bilinear interpolation}\index{bilinear interpolation}\index{interpolation function!bilinear} functions.
 
-    \item[Quadrilateral.\index{interpolation function!quadrilateral}] Figure \ref{fig:Figure8-5} shows the parametric coordinate system and interpolation functions for a quadrilateral cell type. The quadrilateral is described using the two parametric coordinates $(r,s)$.
+    \item[Quadrilateral.\index{interpolation function!quadrilateral}\index{parametric coordinates!quadrilateral}] Figure \ref{fig:Figure8-5} shows the parametric coordinate system and interpolation functions for a quadrilateral cell type. The quadrilateral is described using the two parametric coordinates $(r,s)$.
 
-    \item[Triangle.\index{interpolation function!triangle}] Figure \ref{fig:Figure8-6} shows the parametric coordinate system and interpolation functions for a triangle cell type. The triangle is characterized using the two parametric coordinates $(r,s)$.
+    \item[Triangle.\index{interpolation function!triangle}\index{parametric coordinates!triangle}] Figure \ref{fig:Figure8-6} shows the parametric coordinate system and interpolation functions for a triangle cell type. The triangle is characterized using the two parametric coordinates $(r,s)$.
 
 
 %\clearpage
@@ -388,7 +388,7 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
         \label{fig:Figure8-12}
     \end{figure}
 
-    \item[Polygon.\index{interpolation function!polygon}] Figure \ref{fig:Figure8-7} shows the parametric coordinate system and interpolation functions for a polygon cell type. The polygon is characterized using the two parametric coordinates $(r,s)$. The parametric coordinate system is defined by creating a rectangle oriented along the first edge of the polygon. The rectangle also must bound the polygon.
+    \item[Polygon.\index{interpolation function!polygon}\index{parametric coordinates!polygon}\index{polygon!interpolation function}\index{polygon!parametric coordinates}] Figure \ref{fig:Figure8-7} shows the parametric coordinate system and interpolation functions for a polygon cell type. The polygon is characterized using the two parametric coordinates $(r,s)$. The parametric coordinate system is defined by creating a rectangle oriented along the first edge of the polygon. The rectangle also must bound the polygon.
 
     The polygon poses a special problem since we do not know how many vertices define the polygon. As a result, it is not possible to create general interpolation functions in the fashion of the previous functions we have seen. Instead, we use a function based on weighted distance squared from each polygon vertex.
 
@@ -551,9 +551,9 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
         \label{fig:Figure8-16}
     \end{figure}
 
-    \item[Tetrahedron.\index{interpolation function!tetrahedron}] Figure \ref{fig:Figure8-9} shows the parametric coordinate system and interpolation functions for a tetrahedron cell type. The tetrahedron is described using the three parametric coordinates $(r,s,t)$.
+    \item[Tetrahedron.\index{interpolation function!tetrahedron}\index{parametric coordinates!tetrahedron}] Figure \ref{fig:Figure8-9} shows the parametric coordinate system and interpolation functions for a tetrahedron cell type. The tetrahedron is described using the three parametric coordinates $(r,s,t)$.
 
-    \item[Voxel.\index{interpolation function!voxel}] Figure \ref{fig:Figure8-10} shows the parametric coordinate system and interpolation functions for a voxel cell type. The voxel is described using the three parametric coordinates $(r,s,t)$. Note that the voxel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{trilinear interpolation}\index{interpolation function!trilinear} functions.
+    \item[Voxel.\index{interpolation function!voxel}\index{parametric coordinates!voxel}] Figure \ref{fig:Figure8-10} shows the parametric coordinate system and interpolation functions for a voxel cell type. The voxel is described using the three parametric coordinates $(r,s,t)$. Note that the voxel edges are constrained to lie parallel to the global coordinate axes. These are often referred to as \emph{trilinear interpolation}\index{interpolation function!trilinear} functions.
 
 %\clearpage
     \begin{figure}[!htb]
@@ -612,13 +612,13 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
         \label{fig:Figure8-18}
     \end{figure}
 
-    \item[Hexahedron.\index{interpolation function!hexahedron}] Figure \ref{fig:Figure8-11} shows the parametric coordinate system and interpolation functions for a hexahedron cell type. The hexahedron is described using the three parametric coordinates $(r,s,t)$.
+    \item[Hexahedron.\index{interpolation function!hexahedron}\index{parametric coordinates!hexahedron}] Figure \ref{fig:Figure8-11} shows the parametric coordinate system and interpolation functions for a hexahedron cell type. The hexahedron is described using the three parametric coordinates $(r,s,t)$.
 
-    \item[Wedge.\index{interpolation function!wedge}] Figure \ref{fig:Figure8-12} shows the parametric coordinate system and interpolation functions for a wedge cell type. The wedge is described using the three parametric coordinates $(r,s,t)$.
+    \item[Wedge.\index{interpolation function!wedge}\index{parametric coordinates!wedge}] Figure \ref{fig:Figure8-12} shows the parametric coordinate system and interpolation functions for a wedge cell type. The wedge is described using the three parametric coordinates $(r,s,t)$.
 
-    \item[Pyramid.\index{interpolation function!pyramid}] Figure \ref{fig:Figure8-13} shows the parametric coordinate system and interpolation functions for a pyramid cell type. The pyramid is described using the three parametric coordinates $(r,s,t)$.
+    \item[Pyramid.\index{interpolation function!pyramid}\index{parametric coordinates!pyramid}] Figure \ref{fig:Figure8-13} shows the parametric coordinate system and interpolation functions for a pyramid cell type. The pyramid is described using the three parametric coordinates $(r,s,t)$.
 
-    \item[Pentagonal Prism.\index{interpolation function!pentagonal prism}] Figure \ref{fig:Figure8-14} shows the parametric coordinate system and interpolation functions for a pentagonal prism cell type. The pentagonal prism is described using the three parametric coordinates $(r,s,t)$.
+    \item[Pentagonal Prism.\index{interpolation function!pentagonal prism}\index{parametric coordinates!prism}] Figure \ref{fig:Figure8-14} shows the parametric coordinate system and interpolation functions for a pentagonal prism cell type. The pentagonal prism is described using the three parametric coordinates $(r,s,t)$.
 
 %\clearpage
     \begin{figure}[!htb]
@@ -731,13 +731,13 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
         \label{fig:Figure8-21}
     \end{figure}
 
-    \item[Hexagonal Prism.\index{interpolation function!hexagonal prism}] Figure \ref{fig:Figure8-15} shows the parametric coordinate system and interpolation functions for a hexagonal prism cell type. The hexagonal prism is described using the three parametric coordinates $(r,s,t)$.
+    \item[Hexagonal Prism.\index{interpolation function!hexagonal prism}\index{parametric coordinates!hexagonal prism}] Figure \ref{fig:Figure8-15} shows the parametric coordinate system and interpolation functions for a hexagonal prism cell type. The hexagonal prism is described using the three parametric coordinates $(r,s,t)$.
 
-    \item[Quadratic Edge.\index{interpolation function!quadratic edge}] Figure \ref{fig:Figure8-16} shows the parametric coordinate system and interpolation functions for a quadratic edge cell type. The quadratic edge is described using the single parametric coordinate $r$.
+    \item[Quadratic Edge.\index{interpolation function!quadratic edge}\index{parametric coordinates!quadratic edge}] Figure \ref{fig:Figure8-16} shows the parametric coordinate system and interpolation functions for a quadratic edge cell type. The quadratic edge is described using the single parametric coordinate $r$.
 
-    \item[Quadratic Triangle.\index{interpolation function!quadratic triangle}] Figure \ref{fig:Figure8-17} shows the parametric coordinate system and interpolation functions for a quadratic triangle cell type. The quadratic triangle is described using the two parametric coordinates $(r,s)$.
+    \item[Quadratic Triangle.\index{interpolation function!quadratic triangle}\index{parametric coordinates!quadratic triangle}] Figure \ref{fig:Figure8-17} shows the parametric coordinate system and interpolation functions for a quadratic triangle cell type. The quadratic triangle is described using the two parametric coordinates $(r,s)$.
 
-    \item[Quadratic Quadrilateral.\index{interpolation function!quadratic quadrilateral}] Figure \ref{fig:Figure8-18} shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates $(r,s)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\xi, \eta)$ coordinates defined in this range. Also, the notation $\xi_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the $i^{th}$ point.
+    \item[Quadratic Quadrilateral.\index{interpolation function!quadratic quadrilateral}\index{parametric coordinates!quadratic quadrilateral}] Figure \ref{fig:Figure8-18} shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates $(r,s)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\xi, \eta)$ coordinates defined in this range. Also, the notation $\xi_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the $i^{th}$ point.
 
 %\clearpage
     \begin{figure}[!htb]
@@ -771,16 +771,16 @@ Each cell type has its own interpolation functions. The weights $W_i$ are functi
         \label{fig:Figure8-22}
     \end{figure}
 
-    \item[Quadratic Tetrahedron.\index{interpolation function!quadratic tetrahedron}] Figure \ref{fig:Figure8-19} shows the parametric coordinate system and interpolation functions for a quadratic tetrahedron cell type. The quadratic tetrahedron is described using the three parametric coordinates $(r,s,t)$.
+    \item[Quadratic Tetrahedron.\index{interpolation function!quadratic tetrahedron}\index{parametric coordinates!quadratic tetrahedron}] Figure \ref{fig:Figure8-19} shows the parametric coordinate system and interpolation functions for a quadratic tetrahedron cell type. The quadratic tetrahedron is described using the three parametric coordinates $(r,s,t)$.
 
-    \item[Quadratic Hexahedron.\index{interpolation function!quadratic hexahedron}] Figure \ref{fig:Figure8-20} shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\epsilon_i$, $\eta_i$ and $\zeta_i$ is introduced. These are the parametric coordinates at the $i{th}$ point.
+    \item[Quadratic Hexahedron.\index{interpolation function!quadratic hexahedron}\index{parametric coordinates!quadratic hexahedron}] Figure \ref{fig:Figure8-20} shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\epsilon_i$, $\eta_i$ and $\zeta_i$ is introduced. These are the parametric coordinates at the $i{th}$ point.
 
-    \item[Quadratic Wedge.\index{interpolation function!quadratic wedge}] Figure \ref{fig:Figure8-21} shows the parametric coordinate system and interpolation functions for a quadratic wedge cell type. The quadratic wedge is described using the three parametric coordinate $(r,s,t)$.
+    \item[Quadratic Wedge.\index{interpolation function!quadratic wedge}\index{parametric coordinates!quadratic wedge}] Figure \ref{fig:Figure8-21} shows the parametric coordinate system and interpolation functions for a quadratic wedge cell type. The quadratic wedge is described using the three parametric coordinate $(r,s,t)$.
 
-    \item[Quadratic Pyramid.\index{interpolation function!quadratic pyramid}] Figure \ref{fig:Figure8-22} shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i$, $\eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the $i^{th}$ point. (The shape functions and derivatives were implemented thanks to the \href{https://www.colorado.edu/aerospacestructures/}{Center For Aerospace Structures}.)  
+    \item[Quadratic Pyramid.\index{interpolation function!quadratic pyramid}\index{parametric coordinates!quadratic pyramid}] Figure \ref{fig:Figure8-22} shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval $(-1,1)$, a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i$, $\eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the $i^{th}$ point. (The shape functions and derivatives were implemented thanks to the Center For Aerospace Structures, \href{https://www.colorado.edu/aerospacestructures/}{https://www.colorado.edu/aerospacestructures/}.)  
  
 \end{description}
-\index{interpolation function|)}
+\index{interpolation function|)}\index{parametric coordinates|)}
 
 \section{Cell Tessellation}
 
@@ -1424,7 +1424,7 @@ An important geometric operation is intersection of a line with a cell. This ope
             \label{fig:Figure8-31i}
         \end{subfigure}%
     \end{subfigure}
-    \caption{Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate $t$ with $t \in [0,1]$.}
+    \caption{\index{picking!descriptive diagram}Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate $t$ with $t \in [0,1]$.}
     \label{fig:Figure8-31}
 \end{figure}
 
@@ -1910,6 +1910,7 @@ Our experience with the search structures described here is that they work well 
 
 \subsection{Picking}
 \label{subsec:picking}
+\index{picking!implementation|(}
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
@@ -1970,6 +1971,7 @@ The class vtkWorldPointPicker returns the $(x,y,z)$ coordinate value of a pick i
 By default picking is performed with the class vtkPropPicker. This class uses hardware-accelerated picking --- so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the $(x,y,z)$ world coordinate value
 
 Figure \ref{fig:Figure8-39} summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the ``p'' key (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:examples_introducing_vtkRenderWindowInteractor}). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
+\index{picking!implementation|)}
 
 \subsection{Examples}
 

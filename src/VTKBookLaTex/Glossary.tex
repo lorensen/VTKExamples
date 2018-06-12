@@ -152,7 +152,7 @@
 
 \newglossaryentry{Demand--driven}{
     name=Demand--driven,
-    description={\index{demand--driven execution}A method of visualization pipeline update where the update occurs only when data is requested and occurs only in the portion of the network required to generate the data}}
+    description={\index{demand--driven execution}\index{pipeline!execution!demand--driven}A method of visualization pipeline update where the update occurs only when data is requested and occurs only in the portion of the network required to generate the data}}
 
 \newglossaryentry{Derived Class}{
     name=Derived Class,
@@ -229,7 +229,7 @@
 
 \newglossaryentry{Event--driven}{
     name=Event--driven,
-    description={\index{event--driven execution}A method of visualization pipeline update where updates occur when an event  affects the pipeline\index{execution!pipeline}, e.g., when an object instance variable is set or modified. See also \emph{demand--driven}}}
+    description={\index{event--driven execution}\index{pipeline!execution!event--driven}A method of visualization pipeline update where updates occur when an event  affects the pipeline\index{execution!pipeline}, e.g., when an object instance variable is set or modified. See also \emph{demand--driven}}}
 
 \newglossaryentry{Execution}{
     name=Execution,
@@ -237,7 +237,7 @@
 
 \newglossaryentry{Explicit Execution}{
     name=Explicit Execution,
-    description={\index{execution!explicit}\index{explicit control}Controlling network updates by performing explicit dependency analysis}}
+    description={\index{execution!explicit}\index{explicit control}\index{pipeline!explicit execution}Controlling network updates by performing explicit dependency analysis}}
 
 \newglossaryentry{Exporter}{
     name=Exporter,
@@ -321,7 +321,7 @@
 
 \newglossaryentry{Implicit Execution}{
     name=Implicit Execution,
-    description={\index{implicit execution}\index{implicit control}Controlling network updates by distributing network dependency throughout the visualization process objects. Each process object requests that its input be updated before it executes. This results in a recursive update/execution process throughout the network}}
+    description={\index{implicit execution}\index{implicit control}\index{pipeline!implicit execution}Controlling network updates by distributing network dependency throughout the visualization process objects. Each process object requests that its input be updated before it executes. This results in a recursive update/execution process throughout the network}}
 
 \newglossaryentry{Implicit Function}{
     name=Implicit Function,
@@ -490,79 +490,79 @@ There may be many different model coordinate systems defined for one scene}}
 
 \newglossaryentry{Painter's Algorithm}{
     name=Painter's Algorithm,
-    description={An object--order rendering technique that sorts rendering primitives from back to front and then draws them}}
-
-\newglossaryentry{Parametric Coordinates}{
-    name=Parametric Coordinates,
-    description={A coordinate system natural to the geometry of a geometric object. For example, a line may be described by the single coordinate \emph{s} even though the line may lie in three or higher dimensions}}
+    description={\index{painter's algorithm}An object--order rendering technique that sorts rendering primitives from back to front and then draws them}}
 
 \newglossaryentry{Parallel Projection}{
     name=Parallel Projection,
-    description={A mapping of world coordinates into view coordinates that preserves all parallel lines. In a parallel projection an object will appear the same size regardless of how far away it is from the viewer. This is equivalent to having a center of projection that is infinitely far away. Contrast with \emph{perspective projection}}}
+    description={\index{parallel projection}A mapping of world coordinates into view coordinates that preserves all parallel lines. In a parallel projection an object will appear the same size regardless of how far away it is from the viewer. This is equivalent to having a center of projection that is infinitely far away. Contrast with \emph{perspective projection}}}
+
+\newglossaryentry{Parametric Coordinates}{
+    name=Parametric Coordinates,
+    description={\index{parametric coordinates}A coordinate system natural to the geometry of a geometric object. For example, a line may be described by the single coordinate \emph{s} even though the line may lie in three or higher dimensions}}
 
 \newglossaryentry{Particle Trace}{
     name=Particle Trace,
-    description={The trajectory that particles trace over time in fluid flow. Particle traces are everywhere tangent to the velocity field. Unlike streamlines, particle lines are time--dependent}}
+    description={\index{particle trace}The trajectory that particles trace over time in fluid flow. Particle traces are everywhere tangent to the velocity field. Unlike streamlines, particle lines are time--dependent}}
 
 \newglossaryentry{Pathline}{
     name=Pathline,
-    description={The trajectory that a particle follows in fluid flow}}
+    description={\index{pathline}The trajectory that a particle follows in fluid flow}}
 
 \newglossaryentry{Perspective Projection}{
     name=Perspective Projection,
-    description={A mapping of world coordinates into view coordinates that roughly approximates a camera lens. Specifically, the center of projection must be a finite distance from the  view plane. As a result closer, objects will appear larger than distant objects. Contrast with \emph{parallel projection}}}
+    description={\index{perspective projection}A mapping of world coordinates into view coordinates that roughly approximates a camera lens. Specifically, the center of projection must be a finite distance from the  view plane. As a result closer, objects will appear larger than distant objects. Contrast with \emph{parallel projection}}}
 
 \newglossaryentry{Phong Shading}{
     name=Phong Shading,
-    description={A shading technique that applies the lighting equations for a geometric primitive at each pixel. See also \emph{flat shading} and \emph{Gouraud shading}}}
+    description={\index{Phong shading}A shading technique that applies the lighting equations for a geometric primitive at each pixel. See also \emph{flat shading} and \emph{Gouraud shading}}}
 
 \newglossaryentry{Pitch}{
     name=Pitch,
-    description={A rotation of a camera's position about the horizontal axis, centered at its viewpoint. See also \emph{yaw} and \emph{roll}. Contrast with \emph{elevation}}}
+    description={\index{pitch}A rotation of a camera's position about the horizontal axis, centered at its viewpoint. See also \emph{yaw} and \emph{roll}. Contrast with \emph{elevation}}}
 
 \newglossaryentry{Pixel}{
     name=Pixel,
-    description={\index{cell!pixel}Short for picture element. Constant valued elements in an image. In VTK, a two--dimensional cell defined by an ordered list of four points}}
+    description={\index{cell!pixel}\index{pixel}Short for picture element. Constant valued elements in an image. In VTK, a two--dimensional cell defined by an ordered list of four points}}
 
 \newglossaryentry{Point}{
     name=Point,
-    description={A geometric specification of position in 3D space}}
+    description={\index{point}A geometric specification of position in 3D space}}
 
 \newglossaryentry{Point Attributes}{
     name=Point Attributes,
-    description={Data attributes associates with the points of a dataset}}
+    description={\index{point!attribute}Data attributes associated with the points of a dataset}}
 
 \newglossaryentry{Polygon}{
     name=Polygon,
-    description={\index{cell!polygon}A cell consisting of three or more co--planar points defining a polygon. The polygon can be concave but without embedded loops}}
+    description={\index{cell!polygon}\index{polygon}A cell consisting of three or more co--planar points defining a polygon. The polygon can be concave but without embedded loops}}
 
 \newglossaryentry{Polygonal Data}{
     name=Polygonal Data,
-    description={A dataset type consisting of arbitrary combinations of vertices, polyvertices, lines, polylines, polygons, and triangle strips. Polygonal data is an intermediate data form that can be easily rendered by graphics libraries, and yet can represent many types of visualization data}}
-
-\newglossaryentry{Polyline}{
-    name=Polyline,
-    description={\index{cell!polyline}A composite cell consisting of one or more lines}}
+    description={\index{polygonal data}A dataset type consisting of arbitrary combinations of vertices, polyvertices, lines, polylines, polygons, and triangle strips. Polygonal data is an intermediate data form that can be easily rendered by graphics libraries, and yet can represent many types of visualization data}}
 
 \newglossaryentry{Polygon Reduction}{
     name=Polygon Reduction,
-    description={A family of techniques to reduce the size of large polygonal meshes. The goal is to reduce the number of polygons, while preserving a "good" approximation to the original geometry. In most techniques topology is preserved as well}}
+    description={\index{polygon reduction}A family of techniques to reduce the size of large polygonal meshes. The goal is to reduce the number of polygons, while preserving a "good" approximation to the original geometry. In most techniques topology is preserved as well}}
+
+\newglossaryentry{Polyline}{
+    name=Polyline,
+    description={\index{cell!polyline}\index{polyline}A composite cell consisting of one or more lines}}
 
 \newglossaryentry{Polymorphic}{
     name=Polymorphic,
-    description={Having many forms. Some methods are polymorphic because the same method in  different classes may implement a different algorithm. The semantics of the method are typically  the same, even though the implementation may differ. Contrast with \emph{overloading}}}
+    description={\index{polymorphic}Having many forms. Some methods are polymorphic because the same method in  different classes may implement a different algorithm. The semantics of the method are typically  the same, even though the implementation may differ. Contrast with \emph{overloading}}}
 
 \newglossaryentry{Polyvertex}{
     name=Polyvertex,
-    description={\index{cell!polyvertex}A composite cell consisting of one or more vertices}}
+    description={\index{cell!polyvertex}\index{polyvertex}A composite cell consisting of one or more vertices}}
 
 \newglossaryentry{Primary Cell}{
     name=Primary Cell,
-    description={\index{cell!primary}A cell that is not defined in terms of other cells}}
+    description={\index{cell!primary}\index{primary cell}A cell that is not defined in terms of other cells}}
 
 \newglossaryentry{Probing}{
     name=Probing,
-    description={Also known as sampling or resampling. A data selection technique that selects data at a  set of points}}
+    description={\index{probing}Also known as sampling or resampling. A data selection technique that selects data at a  set of points}}
 
 \newglossaryentry{Process Object}{
     name=Process Object,
@@ -870,7 +870,7 @@ There may be many different model coordinate systems defined for one scene}}
 
 \newglossaryentry{Vertex}{
     name=Vertex,
-    description={\index{cell!vertex}A primary 0D cell. Is sometimes used synonymously with point or node}}
+    description={\index{cell!vertex}\index{vertex}A primary 0D cell. Is sometimes used synonymously with point or node}}
 
 \newglossaryentry{View Coordinate System}{
     name=View Coordinate System,
