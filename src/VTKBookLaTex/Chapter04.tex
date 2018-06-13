@@ -124,11 +124,11 @@ Data objects differ depending upon their internal representation. The internal r
 
 Process objects are further characterized as \emph{source objects}\index{process object!source}, \emph{filter objects}\index{process object!filter}, or \emph{mapper objects}\index{process objecs!mMapper}. This categorization is based on whether the objects initiate, maintain, or terminate visualization data flow.
 
-Source objects interface to external data sources or generate data from local parameters. Source objects that generate data from local parameters are called \emph{procedural objects}\index{procedural object}. The previous example of Figure \ref{fig:Figure4-1} uses a procedural object to generate function values for the quadric function of Equation \ref{eq:4.1}. Source objects that interface to external data are called \emph{reader} objects since the external file must be read and converted to an internal form. Source objects may also interface to external data communication ports and devices. Possible examples include simulation or modelling programs, or data acquisition systems to measure temperature, pressure, or other similar physical attributes.
+Source objects interface to external data sources or generate data from local parameters. Source objects that generate data from local parameters are called \emph{procedural objects}\index{procedural object}. The previous example of Figure \ref{fig:Figure4-1} uses a procedural object to generate function values for the quadric function of Equation \ref{eq:4.1}. Source objects that interface to external data are called \emph{reader}\index{reader} objects\index{reader!object} since the external file must be read and converted to an internal form. Source objects may also interface to external data communication ports and devices. Possible examples include simulation or modelling programs, or data acquisition systems to measure temperature, pressure, or other similar physical attributes.
 
 Filter objects\index{filter object} require one or more input data objects and generate one or more output data objects. Local parameters control the operation of the process object. Computing weekly stock market averages, representing a data value as a scaled icon, or performing union set operations on two input data sources are typical example processes of filter objects.
 
-Mapper\index{device!mapper}\index{mapper!device}\index{mapper object} objects correspond to the sinks in the functional model. Mapper objects require one or more input data objects and terminate the visualization pipeline data flow. Usually mapper objects are used to convert data into graphical primitives, but they may write out data to a file or interface with another software system or devices. Mapper objects that write data to a computer file are termed \emph{writer}\index{device!writer} objects.
+Mapper\index{device!mapper}\index{mapper!device}\index{mapper object} objects correspond to the sinks in the functional model. Mapper objects require one or more input data objects and terminate the visualization pipeline data flow. Usually mapper objects are used to convert data into graphical primitives, but they may write out data to a file or interface with another software system or devices. Mapper objects that write data to a computer file are termed \emph{writer}\index{device!writer}\index{writer} objects\index{writer!object}.
 \index{process object|)}
 \index{pipeline|)}
 
@@ -458,12 +458,12 @@ In general, programming a complex system such as VTK is a difficult undertaking 
 
 \subsubsection{File Interface (Readers / Writers)}
 \label{subsubsec:file_interface_readers_writers}
-\index{interfacing to data!readers and writers|(}
+\index{interfacing to data!readers and writers|(}\index{reader!interfacing to data|(}\index{writer!interfacing to data|(}
 
 In this chapter we saw that readers are source objects, and writers are mappers. What this means from a practical point of view is that readers will ingest data from a file, create a data object, and then pass the object down the pipeline for processing. Similarly, writers ingest a data object and then write the data object to a file. Thus, readers and writers will interface to your data well if VTK supports your format, \emph{and} you only need to read or write a \emph{single} data object. If your data file format is not supported by the system, you will need to interface to your data via a general programming interface described above. Or, if you wish to interface to a collection of objects, you will probably want to see whether an exporter or importer object (described in the next section) exists to support your application.
 
 Examples of readers include vtkSTLReader (read stereo-lithography files) and vtkBYUReader (read MOVIE.BYU format data files). Similarly the objects vtkSTLWriter and vtkBYUWriter can be used to write data files. To see which readers and writers are supported by VTK, see \emph{The VTK User's Guide} or refer to the Web pages at \href{https://www.vtk.org}{https://www.vtk.org} for the current Doxygen manual pages.
-\index{interfacing to data!readers and writers|)}
+\index{interfacing to data!readers and writers|)}\index{reader!interfacing to data|)}\index{writer!interfacing to data|)}
 
 \subsubsection{File Interface (Importers / Exporters)}
 \label{subsubsec:file_interface_importers_exporters}
