@@ -27,7 +27,7 @@ From an object--oriented viewpoint, transformations are processes in the functio
 \subsection{A Data Visualization Example}
 \label{subsec:data_visualization_example}
 
-A simple mathematical function for a quadric will clarify these concepts. The function
+A simple mathematical function for a quadric\index{quadric} will clarify these concepts. The function
 
 \begin{equation}\label{eq:4.1}
 F(x,y,z) = a_0x^2 + a_1y^2 + a_2z^2 + a_3xy + a_4yz + a_5xz + a_6x + a_7y + a_8z + a9
@@ -118,16 +118,18 @@ Data objects differ depending upon their internal representation. The internal r
 
 \subsection{Process Objects}
 \label{subsec:process_objects}
+\index{process object|(}
 
 \emph{Process objects} operate on input data to generate output data. A process object either derives new data from its inputs, or transforms the input data into a new form. For example, a process object might derive pressure gradient data from a pressure field or transform the pressure field into constant value pressure contours. The input to a process object includes both one or more data objects as well as local parameters to control its operation. Local parameters include both instance variables or associations and references to other objects. For example, the center and radius are local parameters to control the generation of sphere primitives.
 
-Process objects are further characterized as \emph{source objects}, \emph{filter objects}, or \emph{mapper objects}. This categorization is based on whether the objects initiate, maintain, or terminate visualization data flow.
+Process objects are further characterized as \emph{source objects}\index{process object!source}, \emph{filter objects}\index{process object!filter}, or \emph{mapper objects}\index{process objecs!mMapper}. This categorization is based on whether the objects initiate, maintain, or terminate visualization data flow.
 
 Source objects interface to external data sources or generate data from local parameters. Source objects that generate data from local parameters are called \emph{procedural objects}\index{procedural object}. The previous example of Figure \ref{fig:Figure4-1} uses a procedural object to generate function values for the quadric function of Equation \ref{eq:4.1}. Source objects that interface to external data are called \emph{reader} objects since the external file must be read and converted to an internal form. Source objects may also interface to external data communication ports and devices. Possible examples include simulation or modelling programs, or data acquisition systems to measure temperature, pressure, or other similar physical attributes.
 
 Filter objects\index{filter object} require one or more input data objects and generate one or more output data objects. Local parameters control the operation of the process object. Computing weekly stock market averages, representing a data value as a scaled icon, or performing union set operations on two input data sources are typical example processes of filter objects.
 
 Mapper\index{device!mapper}\index{mapper!device}\index{mapper object} objects correspond to the sinks in the functional model. Mapper objects require one or more input data objects and terminate the visualization pipeline data flow. Usually mapper objects are used to convert data into graphical primitives, but they may write out data to a file or interface with another software system or devices. Mapper objects that write data to a computer file are termed \emph{writer}\index{device!writer} objects.
+\index{process object|)}
 \index{pipeline|)}
 
 \section{Pipeline Topology}
@@ -410,6 +412,7 @@ Figure \ref{fig:Figure4-12} is a high-level view of the executive and its relati
 
 \section{Programming Models}
 \label{sec:programming_models}
+\index{programming models|(}
 
 Visualization systems are by their very nature designed for human interaction. As a result they must be easy to use. On the other hand, visualization systems must readily adapt to new data, and must be flexible enough to allow rapid data exploration. To meet these demands, a variety of programming models have been developed.
 
@@ -434,6 +437,7 @@ Scene graphs have found wide use in the graphics community because of their abil
 Another recently introduced technique for visual programming is the spreadsheet technique of Levoy \cite{Levoy94}. In the spreadsheet model, we arrange operations on a regular grid similar to the common electronic accounting spreadsheets. The grid consists of rows and columns of cells, where each cell is expressed as a computational combination of other cells. The combination is expressed for each cell by using a simple programming language to add, subtract, or perform other more complex operations. The result of the computation (i.e., a visual output) is displayed in the cell. A recent extension to the spreadsheet approach is exemplified by VisTrails \cite{Bavoil05}, a system that enables interactive multiple-view visualizations by simplifying the creation and maintenance of visualization pipelines, and by optimizing the execution of the pipelines. VisTrials has the further benefit that it tracks changes to the visualization pipeline so that it is straightforward to create extensive design studies.
 
 Although visual programming systems are widely successful, they suffer two drawbacks. First, they are not as tailored as an application and require extensive programming, albeit visual, to be so. Second, visual programming is too limited for detailed control, so constructing complex low-level algorithms and user-interfaces is not feasible. What is required is a visualization system that provides the ``modularity'' and automatic execution control of a visual system, and the low-level programming capability of a programming library. Object--oriented systems have the potential to provide these capabilities. Carefully crafted object libraries provide the ease of use of visual systems with the control of programming libraries. That is a major goal of the described in this text.
+\index{programming models|)}
 
 \section{Data Interface Issues}
 \label{sec:data_interface_issues}
@@ -686,7 +690,7 @@ Requests are generated by the executive object of a filter that has been explici
 
 A request is implemented as an information object. There is one key of type vtkInformationRequestKey specifying the request itself. This key is typically defined by the executive's class. Additional information about the request may also be stored in the request information object.
        
-Requests are propagated through the pipeline by the executives of each filter. The vtkExecutive::ProcessRequest() method is invoked on an executive given the request information object. This method is implemented by each executive and is responsible for fulfilling the request as it sees fit. Many requests may be fulfilled for a filter only after it has been fulfilled for the filters providing its inputs. For these requests the executive will pass the request on to the executives of these upstream filters and then handle the request itself.
+Requests are propagated through the pipeline by the executives of each filter. The vtkExecutive::ProcessRequest()\index{ProcessRequest()} method is invoked on an executive given the request information object. This method is implemented by each executive and is responsible for fulfilling the request as it sees fit. Many requests may be fulfilled for a filter only after it has been fulfilled for the filters providing its inputs. For these requests the executive will pass the request on to the executives of these upstream filters and then handle the request itself.
 
 An executive often asks its algorithm object for help in fulfilling a request. It sends the request to the algorithm object by invoking the vtkAlgorithm::ProcessRequest() method. This method is implemented by all algorithms and is responsible for handling the request. Input and output pipeline information objects are provided as arguments to the method. The algorithm must handle the request using only its own filter parameter settings and the pipeline information objects given. An algorithm is not allowed to ask its executive for any additional information. This insures that the algorithms are independent of the executives. Figure \ref{fig:Figure4-18} shows a typical path taken by a request as it is sent through a pipeline. Typically the request originates in a consumer at the end of the pipeline. It is sent back through the pipeline by the executives. Each executive asks its algorithm to help handle the request.
 \end{description}

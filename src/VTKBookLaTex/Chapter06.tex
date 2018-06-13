@@ -924,6 +924,7 @@ This example illustrates that cutting the volumetric data in a structured grid d
 Algorithms are implemented in the \emph{Visualization Toolkit} as process objects. These objects may be either sources, filters, or mappers (see ``The Visualization Pipeline'' on page \pageref{sec:visualization_pipeline} ). In this section we will describe how these objects are implemented.
 
 \subsection{Process Object Design}
+\index{process object!implementation|(}
 
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 
@@ -1209,7 +1210,9 @@ An example use of vtkContourFilter is shown in Figure \ref{fig:Figure6-39}. This
 	{\caption{Data flow into and out of the \emph{vtkGlyph3D} class.}\label{fig:Figure6-40}}
 	{\includegraphics[width=0.6\textwidth]{Figure6-40}}
 \end{figure}
+
 \index{contouring!implementation|)}\index{isosurface!implementation|)}\index{marching cubes!implementation|)}
+\index{process object!implementation|)}
 
 
 \subsection{Cutting}

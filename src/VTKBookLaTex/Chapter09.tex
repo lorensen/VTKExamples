@@ -876,7 +876,7 @@ Notice the gradations in the decimated mesh around features of high curvature. T
 
 \item[Advanced Techniques.] Polygon reduction is an active field of research. Many powerful algorithms beyond the decimation algorithm have been presented (see ``Bibliographic Notes'' on page  \pageref{sec:bibliographic_notes.ch09}) in this Chapter). Although we cannot cover the field in its entirety in this section, there are two notable trends worth addressing. First, progressive schemes \cite{Hoppe96} allow incremental transmission and reconstruction of triangle meshes --- this is especially important for Web-based geometry visualization. Second, recent algorithms modify the topology of the mesh \cite{He96} \cite{Popovic97} \cite{Schroeder97}. This feature is essential towards obtaining arbitrary levels of mesh reduction.
 
-A \emph{progressive mesh} is a series of triangle meshes $M_i$i related by the operations
+A \emph{progressive mesh}\index{progressive mesh|(} is a series of triangle meshes $M_i$i related by the operations
 
 \begin{equation}\label{eq:9.14}
 \left(\hat{M} = M^n \right) \to M^{n - 1} \to \ldots \to M^1 \to M^0
@@ -999,6 +999,7 @@ The vertices $v_l$ and $v_r$ define a sweep of triangles (from $v_r$ to $v_l$ ) 
 Figure \ref{fig:Figure9-29} shows the results of applying the topology modifying progressive mesh algorithm to two sets of data. In Figure \ref{fig:Figure9-29}(a-c), a thin plate with holes is decimated (the darker lines show split edges). The middle image in the sequence shows the limits of topology on the algorithm. It is only when the topology of the mesh is allowed to be modified that the final level of reduction is possible. Figure \ref{fig:Figure9-29}(d-f) shows the same algorithm applied to CAD data.
 
 \end{description}
+\index{progressive mesh|)}
 \index{decimation|)}\index{modelling algorithms!decimation|)}
 
 \clearpage
