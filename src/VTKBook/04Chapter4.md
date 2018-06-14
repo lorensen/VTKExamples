@@ -38,7 +38,7 @@ In the examples that follow we will frequently use a simplified representation o
 <figure id="Figure 4-1">
  <figure id="Figure 4-1a">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Visualization/TestQuadricVisualization.png?raw=true" width="640" alt="Figure 4-1a">
-  <figcaption style="color:blue" (a)Quadric visualization <a href="../../Cxx/Visualization/QuadricVisualization" title="QuadricVisualization"> See QuadricVisualization.cxx</a> and <a href="../../Python/Visualization/QuadricVisualization" title="QuadricVisualization"> QuadricVisualization.py</a>.</figcaption>
+  <figcaption style="color:blue" (a)Quadric visualization <a></a> <a href="../../Cxx/Visualization/QuadricVisualization" title="QuadricVisualization"> See QuadricVisualization.cxx</a> and <a href="../../Python/Visualization/QuadricVisualization" title="QuadricVisualization"> QuadricVisualization.py</a>.</figcaption>
   </figure>
   <figure id="Figure 4-1b">
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-1b.png?raw=true" width="640" alt="Figure4-1b">
@@ -258,14 +258,14 @@ Examples of metadata include time step information, data ranges or other data ch
 
 In real-world applications the pipeline design described thus far may not adequately support complex execution strategies, or may fail to execute successfully when data sizes become large. In the next sections we address these issues by considering alternative design possibilities.
 
-**Large Data.** Previous discussions relative to the visualization pipeline have assumed that the size of a particular dataset does not exceed the total memory resource of a computer system. However, with modern dataset sizes pushing into the terabyte and even petabyte range, a typical desktop computer system is incapable of processing such datasets. Thus alternative strategies must be adopted when processing large data. One such approach is based on breaking data into pieces, and then *streaming* the pieces through the visualization pipeline <em style="color:blue;background-color: white">\[Martin2001\]</em>. **Figure 4-11** illustrates how a dataset can be divided into pieces.
+**Large Data.** Previous discussions relative to the visualization pipeline have assumed that the size of a particular dataset does not exceed the total memory resource of a computer system. However, with modern dataset sizes pushing into the terabyte and even petabyte range, a typical desktop computer system is incapable of processing such datasets. Thus alternative strategies must be adopted when processing large data. One such approach is based on breaking data into pieces, and then *streaming* the pieces through the visualization pipeline <em style="color:green;background-color: white">\[Martin2001\]</em>. **Figure 4-11** illustrates how a dataset can be divided into pieces.
 
 <figure id="Figure 4-11">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure4-11.png?raw=true" width="640" alt="Figure4-11">
   <figcaption style="color:blue"><b>Figure 4-11</b>. Dividing a sphere into a piece (red) with ghost level cells and points (blue and green).</figcaption>
 </figure>
 
-Streaming data through a visualization pipeline offers two major benefits. The first is that visualization data that would not normally fit into memory can be processed. The second is that visualizations can be run with a smaller memory footprint resulting in higher cache hits, and little or no swapping to disk. To realize these benefits the visualization software must support breaking the dataset into pieces and correctly processing those pieces. This requires that the dataset and the algorithms that operate on it are *separable*, *mappable*, and *result invariant* as described in the following <em style="color:blue;background-color: white">\[Law99\]</em>.
+Streaming data through a visualization pipeline offers two major benefits. The first is that visualization data that would not normally fit into memory can be processed. The second is that visualizations can be run with a smaller memory footprint resulting in higher cache hits, and little or no swapping to disk. To realize these benefits the visualization software must support breaking the dataset into pieces and correctly processing those pieces. This requires that the dataset and the algorithms that operate on it are *separable*, *mappable*, and *result invariant* as described in the following <em style="color:green;background-color: white">\[Law99\]</em>.
 
 1.  **Separable.** The data must be separable. That is, the data can be broken into pieces. Ideally, each piece should be coherent in geometry, topology, and/or data structure. The separation of the data should be simple and efficient. In addition, the algorithms in this architecture must be able to correctly process pieces of data.
 
@@ -324,11 +324,11 @@ Many visualization systems lie between these two extremes. These typically use a
 
 There are two other graphics and visualization programming models that bear mentioning. These are *scene graphs* and the *spreadsheet* model. 
 
-Scene graphs are typically found in 3D graphics systems such as Open Inventor <em style="color:blue;background-color: white">\[Wernecke94\]</em>. Scene graphs are acyclic tree-structures that represent objects, or nodes, in an order defined by the tree layout. The nodes may be geometry (called shape nodes), graphics properties, transformations, manipulators, lights, cameras, and so forth, that define a complete scene. The parent/child relationship controls how properties and transformations are applied to the nodes as they are rendered, or how the objects relate to other objects in the scene (e.g., which objects the lights shine on). Scene graphs are not used to control the execution of a visualization pipeline, rather they are used to control the rendering process. Scene graphs and visualization pipelines may be used together in the same application. In such a case the visualization pipeline is the generator of the shape nodes, and the scene graph controls the rendering of the scene including the shapes.
+Scene graphs are typically found in 3D graphics systems such as Open Inventor <em style="color:green;background-color: white">\[Wernecke94\]</em>. Scene graphs are acyclic tree-structures that represent objects, or nodes, in an order defined by the tree layout. The nodes may be geometry (called shape nodes), graphics properties, transformations, manipulators, lights, cameras, and so forth, that define a complete scene. The parent/child relationship controls how properties and transformations are applied to the nodes as they are rendered, or how the objects relate to other objects in the scene (e.g., which objects the lights shine on). Scene graphs are not used to control the execution of a visualization pipeline, rather they are used to control the rendering process. Scene graphs and visualization pipelines may be used together in the same application. In such a case the visualization pipeline is the generator of the shape nodes, and the scene graph controls the rendering of the scene including the shapes.
 
 Scene graphs have found wide use in the graphics community because of their ability to compactly and graphically represent a scene. In addition, scene graphs have been popularized by their recent use in Web tools such as VRML and Java3D. See [Chapter 11 - Visualization on the Web](/VTKBook/11Chapter11) for more information.
 
-Another recently introduced technique for visual programming is the spreadsheet technique of Levoy <em style="color:blue;background-color: white">\[Levoy94\]</em>. In the spreadsheet model, we arrange operations on a regular grid similar to the common electronic accounting spreadsheets. The grid consists of rows and columns of cells, where each cell is expressed as a computational combination of other cells. The combination is expressed for each cell by using a simple programming language to add, subtract, or perform other more complex operations. The result of the computation (i.e., a visual output) is displayed in the cell. A recent extension to the spreadsheet approach is exemplified by VisTrails <em style="color:blue;background-color: white">\[Bavoil2005\]</em>, a system that enables interactive multiple-view visualizations by simplifying the creation and maintenance of visualization pipelines, and by optimizing the execution of the pipelines. VisTrails has the further benefit that it tracks changes to the visualization pipeline so that it is straightforward to create extensive design studies.
+Another recently introduced technique for visual programming is the spreadsheet technique of Levoy <em style="color:green;background-color: white">\[Levoy94\]</em>. In the spreadsheet model, we arrange operations on a regular grid similar to the common electronic accounting spreadsheets. The grid consists of rows and columns of cells, where each cell is expressed as a computational combination of other cells. The combination is expressed for each cell by using a simple programming language to add, subtract, or perform other more complex operations. The result of the computation (i.e., a visual output) is displayed in the cell. A recent extension to the spreadsheet approach is exemplified by VisTrails <em style="color:green;background-color: white">\[Bavoil2005\]</em>, a system that enables interactive multiple-view visualizations by simplifying the creation and maintenance of visualization pipelines, and by optimizing the execution of the pipelines. VisTrails has the further benefit that it tracks changes to the visualization pipeline so that it is straightforward to create extensive design studies.
 
 Although visual programming systems are widely successful, they suffer two drawbacks. First, they are not as tailored as an application and require extensive programming, albeit visual, to be so. Second, visual programming is too limited for detailed control, so constructing complex low-level algorithms and user-interfaces is not feasible. What is required is a visualization system that provides the "modularity" and automatic execution control of a visual system, and the low-level programming capability of a programming library. Object-oriented systems have the potential to provide these capabilities. Carefully crafted object libraries provide the ease of use of visual systems with the control of programming libraries. That is a major goal of the described in this text.
 
@@ -368,7 +368,7 @@ In the *Visualization Toolkit*, there are several importers and exporters. To se
 
 The majority of users interface to their data by using an existing application. Rather than programming pipelines or writing their own readers and writers, users acquire an application that suits their particular visualization needs. Then to interface to their data, users simply identify the reader, writer, importer, and/or exporter that can successfully process it. In some cases, users may have to modify the program used to generate the data so that it exports it in a standard data format. The advantage of using existing applications is that the user interface and pipeline are pre-programmed, insuring that the user can focus on their data, rather than expending the significant resources required to write visualization programs. The disadvantage of using existing applications is that necessary features are often missing, and applications typically lack the flexibility that a general purpose tool can provide.
 
-Selecting the right application is not always simple. The application must support the correct dataset types, and support suitable rendering devices, for example generating images on large displays <em style="color:blue;background-color: white">\[Humphreys99\]</em> or in a Cave <em style="color:blue;background-color: white">\[CruzNeira93\]</em> environment. In some cases user interaction is required, and demands on parallel processing or data handling capacities further complicates the selection. For example, while a general purpose tool like ParaView ( **Figure 4-14a**) can be used to visualize most types of data, including providing support for large data and parallel computing, a specialized tool such as VolView (**Figure 4-14b**)may be better suited for the a particular type task such as viewing medical data shown in the figure. It is imperative that users have a familiarity with the visualization process if they are to successfully choose the right application for their data.
+Selecting the right application is not always simple. The application must support the correct dataset types, and support suitable rendering devices, for example generating images on large displays <em style="color:green;background-color: white">\[Humphreys99\]</em> or in a Cave <em style="color:green;background-color: white">\[CruzNeira93\]</em> environment. In some cases user interaction is required, and demands on parallel processing or data handling capacities further complicates the selection. For example, while a general purpose tool like ParaView ( **Figure 4-14a**) can be used to visualize most types of data, including providing support for large data and parallel computing, a specialized tool such as VolView (**Figure 4-14b**)may be better suited for the a particular type task such as viewing medical data shown in the figure. It is imperative that users have a familiarity with the visualization process if they are to successfully choose the right application for their data.
 
 ## 4.9 Putting It All Together
 
@@ -390,7 +390,7 @@ exporter Write
 
 ### Procedural Language Implementation
 
-The *Visualization Toolkit* is implemented in the procedural language C++. Automated wrapping technology creates language bindings to the Python, Tcl and Java interpretive programming languages <em style="color:blue;background-color: white">\[King03\]</em>. The class library contains data objects, filters (i.e., process objects) and executives to facilitate the construction of visualization applications. A variety of supporting abstract super-classes are available to derive new objects including data objects and filters. The visualization pipe-line is designed to connect directly to the graphics subsystem described in the previous chapter. This connection is via VTK's mappers, which are the sinks of the pipeline and interface to the VTK's actors.
+The *Visualization Toolkit* is implemented in the procedural language C++. Automated wrapping technology creates language bindings to the Python, Tcl and Java interpretive programming languages <em style="color:green;background-color: white">\[King03\]</em>. The class library contains data objects, filters (i.e., process objects) and executives to facilitate the construction of visualization applications. A variety of supporting abstract super-classes are available to derive new objects including data objects and filters. The visualization pipe-line is designed to connect directly to the graphics subsystem described in the previous chapter. This connection is via VTK's mappers, which are the sinks of the pipeline and interface to the VTK's actors.
 
 A visual programming interface could be (and has been) implemented using the class library provided. However, for real-world applications the procedural language implementation provides several advantages. This includes straightforward implementation of conditional network execution and looping, ease of interface to other systems, and the ability to create custom applications with sophisticated graphical user interfaces. The VTK community has created several visual programming and visualization applications from the toolkit. Many of these are available as open-source software (e.g., ParaView at paraview.org) or as commercial applications (e.g., VolView at www.volview.com).
 
@@ -625,117 +625,117 @@ The visualization process is naturally modelled using a combination of functiona
 
 ##4.11 Bibliographic Notes
 
-The practical way to learn about the visualization process is to study commercially available systems. These systems can be categorized as either direct visual programming environments or as applications. Common visual programming systems include AVS <em style="color:blue;background-color: white">\[AVS89\]</em>, Iris Explorer <em style="color:blue;background-color: white">\[IrisExplorer\]</em>, IBM Data Explorer <em style="color:blue;background-color: white">\[DataExplorer\]</em>, aPE <em style="color:blue;background-color: white">\[aPE90\]</em>, and Khoros <em style="color:blue;background-color: white">\[Rasure91\]</em>. Application systems generally provide less flexibility than visual programming systems, but are better tailored to a particular problem domain. PLOT3D <em style="color:blue;background-color: white">\[PLOT3D\]</em> is an early example of a tool for CFD visualization. This has since been superseded by FAST <em style="color:blue;background-color: white">\[FAST90\]</em>. FieldView is another popular CFD visualizer <em style="color:blue;background-color: white">\[FieldView91\]</em>. VISUAL3 <em style="color:blue;background-color: white">\[VISUAL3\]</em> is a general tool for unstructured or structured grid visualization. PV-WAVE <em style="color:blue;background-color: white">\[Charal90\]</em> can be considered a hybrid system, since it has both simple visual programming techniques to interface to data files as well as a more structured user-interface than the visual programming environments. Wavefront's DataVisualizer <em style="color:blue;background-color: white">\[DataVisualizer\]</em> is a general-purpose visualization tool. It is unique in that it is part of a powerful rendering and animation package. A nice system for visualizing 3D gridded data (such as that produced by numerical weather models) is VIS5D. Find out more at the [VIS5D Web site](http://www.ssec.wisc.edu/\~billh/vis5d.html).
+The practical way to learn about the visualization process is to study commercially available systems. These systems can be categorized as either direct visual programming environments or as applications. Common visual programming systems include AVS <em style="color:green;background-color: white">\[AVS89\]</em>, Iris Explorer <em style="color:green;background-color: white">\[IrisExplorer\]</em>, IBM Data Explorer <em style="color:green;background-color: white">\[DataExplorer\]</em>, aPE <em style="color:green;background-color: white">\[aPE90\]</em>, and Khoros <em style="color:green;background-color: white">\[Rasure91\]</em>. Application systems generally provide less flexibility than visual programming systems, but are better tailored to a particular problem domain. PLOT3D <em style="color:green;background-color: white">\[PLOT3D\]</em> is an early example of a tool for CFD visualization. This has since been superseded by FAST <em style="color:green;background-color: white">\[FAST90\]</em>. FieldView is another popular CFD visualizer <em style="color:green;background-color: white">\[FieldView91\]</em>. VISUAL3 <em style="color:green;background-color: white">\[VISUAL3\]</em> is a general tool for unstructured or structured grid visualization. PV-WAVE <em style="color:green;background-color: white">\[Charal90\]</em> can be considered a hybrid system, since it has both simple visual programming techniques to interface to data files as well as a more structured user-interface than the visual programming environments. Wavefront's DataVisualizer <em style="color:green;background-color: white">\[DataVisualizer\]</em> is a general-purpose visualization tool. It is unique in that it is part of a powerful rendering and animation package. A nice system for visualizing 3D gridded data (such as that produced by numerical weather models) is VIS5D. Find out more at the [VIS5D Web site](http://www.ssec.wisc.edu/\~billh/vis5d.html).
 
-Although many visualization systems claim to be object-oriented, this is often more in appearance than implementation. Little has been written on object-oriented design issues for visualization. VISAGE <em style="color:blue;background-color: white">\[VISAGE92\]</em> presents an architecture similar to that described in this chapter. Favre <em style="color:blue;background-color: white">\[Favre94\]</em> describes a more conventional object-oriented approach. His dataset classes are based on topological dimension and both data and methods are combined into classes.
+Although many visualization systems claim to be object-oriented, this is often more in appearance than implementation. Little has been written on object-oriented design issues for visualization. VISAGE <em style="color:green;background-color: white">\[VISAGE92\]</em> presents an architecture similar to that described in this chapter. Favre <em style="color:green;background-color: white">\[Favre94\]</em> describes a more conventional object-oriented approach. His dataset classes are based on topological dimension and both data and methods are combined into classes.
 
 ## 4.12 References
 
-<em style="color:blue;background-color: white">\[aPE90\]</em> D. S. Dyer. "A Dataflow Toolkit For Visualization." *IEEE Computer Graphics and Applications.* 10(4):60-69, July 1990.
+<em style="color:green;background-color: white">\[aPE90\]</em> D. S. Dyer. "A Dataflow Toolkit For Visualization." *IEEE Computer Graphics and Applications.* 10(4):60-69, July 1990.
 
-<em style="color:blue;background-color: white">\[AVS89\]</em>
+<em style="color:green;background-color: white">\[AVS89\]</em>
 C. Upson, T. Faulhaber Jr., D. Kamins and others. "The Application
 Visualization System: A Computational Environment for Scientific
 Visualization." *IEEE Computer Graphics and Applications.*
 9(4):30-42, July 1989.
 
-<em style="color:blue;background-color: white">\[Bavoil2005\]</em>
+<em style="color:green;background-color: white">\[Bavoil2005\]</em>
 L. Bavoil, S.P. Callahan, P.J. Crossno, J. Freire, C.E. Scheidegger,
 C.T. Silva and H.T. Vo. "VisTrails: Enabling Interactive
 Multiple-View Visualizations." In *Proceedings of IEEE Visualization*
 *2005*. IEEE Computer Society Press, 2005.
 
-<em style="color:blue;background-color: white">\[Berger84\]</em>
+<em style="color:green;background-color: white">\[Berger84\]</em>
 M. Berger and J. Oliger. Adaptive Mesh Refinement for Hyperbolic
 Partial Differential Equations.
 *Journal of Computational Physics*, 53:484-512, March 1984.
 
-<em style="color:blue;background-color: white">\[Charal90\]</em>
+<em style="color:green;background-color: white">\[Charal90\]</em>
 S. Charalamides. "New Wave Technical Graphics Is Welcome." *DEC USER*
 , August 1990.
 
-<em style="color:blue;background-color: white">\[CruzNeira93\]</em>
+<em style="color:green;background-color: white">\[CruzNeira93\]</em>
 C. CruzNeira, D.J. Sandin, and T. DeFanti. "Surround-screen
 projection-based virtual reality:
 The design and implementation of the CAVE." In *Proceedings of
 SIGGRAPH 93*, pp. 135--142, August 1993.
 
-<em style="color:blue;background-color: white">\[DataExplorer\]</em>
+<em style="color:green;background-color: white">\[DataExplorer\]</em>
 *Data Explorer Reference Manual*. IBM Corp, Armonk, NY, 1991.
 
-<em style="color:blue;background-color: white">\[DataVisualizer\]</em>
+<em style="color:green;background-color: white">\[DataVisualizer\]</em>
 *Data Visualizer User Manual.* Wavefront Technologies, Santa Barbara,
 CA, 1990.
 
-<em style="color:blue;background-color: white">\[FAST90\]</em>
+<em style="color:green;background-color: white">\[FAST90\]</em>
 G. V. Bancroft, F. J. Merritt, T. C. Plessell, P. G. Kelaita, R. K.
 McCabe, and A.Globus. "FAST: A Multi-Processed Environment for
 Visualization." In *Proceedings of Visualization '90*. pp. 14-27,
 IEEE Computer Society Press, Los Alamitos, CA, 1990.
 
-<em style="color:blue;background-color: white">\[Favre94\]</em>
+<em style="color:green;background-color: white">\[Favre94\]</em>
 J. M. Favre and J. Hahn. "An Object-Oriented Design for the
 Visualization of Multi-Variate Data Objects." In *Proceedings of
 Visualization '94*. pp. 319-325, IEEE Computer Society Press, Los
 Alamitos, CA, 1994.
 
-<em style="color:blue;background-color: white">\[FieldView91\]</em>
+<em style="color:green;background-color: white">\[FieldView91\]</em>
 S. M. Legensky. "Advanced Visualization on Desktop Workstations." In
 *Proceedings of Visualization '91*. pp. 372-378, IEEE Computer
 Society Press, Los Alamitos, CA, 1991.
 
-<em style="color:blue;background-color: white">\[Haeberli88\]</em>
+<em style="color:green;background-color: white">\[Haeberli88\]</em>
 P. E. Haeberli. "ConMan: A Visual Programming Language for Interactive
 Graphics." *Computer* *Graphics (SIGGRAPH '88)*. 22(4):103-11, 1988.
 
-<em style="color:blue;background-color: white">\[Humphreys99\]</em>
+<em style="color:green;background-color: white">\[Humphreys99\]</em>
 G. Humphreys and P. Hanrahan. "A Distributed Graphics System for Large
 Tiled Displays." In *Proc. IEEE Visualization '99*, pp. 215-224,
 IEEE Computer Society Press, October 1999.
 
-<em style="color:blue;background-color: white">\[IrisExplorer\]</em>
+<em style="color:green;background-color: white">\[IrisExplorer\]</em>
 *Iris Explorer User's Guide*. Silicon Graphics Inc., Mountain View,
 CA, 1991.
 
-<em style="color:blue;background-color: white">\[King03\]</em>
+<em style="color:green;background-color: white">\[King03\]</em>
 B. King and W. Schroeder. "Automated Wrapping of Complex C++ Code."
 *C/C++ Users Journal,* January 2003.
 
-<em style="color:blue;background-color: white">\[Law99\]</em>
+<em style="color:green;background-color: white">\[Law99\]</em>
 C. Charles Law, K. M. Martin, W. J. Schroeder, J. E. Temkin. "A
 Multi-Threaded Streaming Pipe-line Architecture for Large Structured
 Data Sets." In *Proc. of Visualization \'99*. IEEE Computer Society
 Press, 1999.
 
-<em style="color:blue;background-color: white">\[Levoy94\]</em>
+<em style="color:green;background-color: white">\[Levoy94\]</em>
 M. Levoy. "Spreadsheets for Images." In *Proceedings of SIGGRAPH '94*
 . pp. 139--146, 1994.
 
-<em style="color:blue;background-color: white">\[Martin2001\]</em>
+<em style="color:green;background-color: white">\[Martin2001\]</em>
 K.M. Martin, B. Geveci, J. Ahrens, C. Law. "Large Scale Data
 Visualization Using Parallel Data Streaming." *IEEE Computer Graphics
 & Applications*, 21(4):34-41, July 2001.
 
-<em style="color:blue;background-color: white">\[PLOT3D\]</em>
+<em style="color:green;background-color: white">\[PLOT3D\]</em>
 P. P. Walatka and P. G. Buning. *PLOT3D User's Manual*. NASA Fluid
 Dynamics Division, 1988.
 
-<em style="color:blue;background-color: white">\[Rasure91\]</em>
+<em style="color:green;background-color: white">\[Rasure91\]</em>
 J. Rasure, D. Argiro, T. Sauer, and C. Williams. "A Visual Language
 and Software Development Environment for Image Processing."
 *International Journal of Imaging Systems and Technology*. 1991.
 
-<em style="color:blue;background-color: white">\[VISAGE92\]</em>
+<em style="color:green;background-color: white">\[VISAGE92\]</em>
 W. J. Schroeder, W. E. Lorensen, G. D. Montanaro, and C. R. Volpe.
 "VISAGE: An Object-Oriented Visualization System." In *Proceedings of
 Visualization '92*. pp. 219-226, IEEE Computer Society Press, Los
 Alamitos, CA, 1992.
 
-<em style="color:blue;background-color: white">\[VISUAL3\]</em>
+<em style="color:green;background-color: white">\[VISUAL3\]</em>
 R. Haimes and M. Giles. "VISUAL3: Interactive Unsteady Unstructured 3D
 Visualization." AIAA Report No. AIAA-91-0794. January 1991.
 
-<em style="color:blue;background-color: white">\[ Wernecke94\]</em>
+<em style="color:green;background-color: white">\[ Wernecke94\]</em>
 J. Wernecke. *The Inventor Mentor*. Addison-Wesley Publishing
 Company, ISBN 0-201-62495-8, 1994.
 
