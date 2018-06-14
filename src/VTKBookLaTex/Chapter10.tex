@@ -195,7 +195,7 @@ Low-frequency artifacts, other than aliasing, can also occur when acquiring data
 	\caption{This MRI image illustrates attenuation that can occur due to sensor position. The artifact is removed by dividing by the attenuation profile determined manually. This histograms shows how the artifact hides information in the form of scalar value clusters.}\label{fig:Figure10-6}
 \end{figure}
 
-Another gradual change across an image is caused by sensor position\index{image artefact!sensor position}. The amplitude of a measured signal usually attenuates as the source moves away from the sensor. An example of this attenuation artifact\index{attenuation artifact} is seen in surface--coil--MRI\index{Magnetic Resonance Imaging} images as shown in Figure \ref{fig:Figure10-6}. If the attenuation profile is known, then the artifact can be removed by dividing the original data with the profile. Since this artifact can be characterized by a small set of parameters like sensor position and range, it is possible to automatically determine the attenuation profile from the data. Like most artifacts, nonuniform attenuation tends to hide the information in an image. Given a function that measures the amount of information in an image, gradient descent and other search strategies can find the optimal attenuation parameters.
+Another gradual change across an image is caused by sensor position\index{image artefact!sensor position}\index{sensor position!image artifact}. The amplitude of a measured signal usually attenuates as the source moves away from the sensor. An example of this attenuation artifact\index{attenuation artifact} is seen in surface--coil--MRI\index{Magnetic Resonance Imaging} images as shown in Figure \ref{fig:Figure10-6}. If the attenuation profile is known, then the artifact can be removed by dividing the original data with the profile. Since this artifact can be characterized by a small set of parameters like sensor position and range, it is possible to automatically determine the attenuation profile from the data. Like most artifacts, nonuniform attenuation tends to hide the information in an image. Given a function that measures the amount of information in an image, gradient descent and other search strategies can find the optimal attenuation parameters.
 \index{image processing algorithms!low frequency artefacts|)}
 
 \subsection{Image Enhancement}
@@ -363,7 +363,7 @@ In both of these approaches, a portion of the original image is lost, so only th
 \index{frequency domain|)}\index{image processing algorithms!frequency domain|)}
 
 \subsection {Image Segmentation}
-\index{image processing algorithms!segmentation|(}\index{image segmentation|(}
+\index{image processing algorithms!segmentation|(}\index{image segmentation|(}\index{segmentation|(}
 
 Segmentation is the process of classifying pixels in an image or volume. It can be one of the most difficult tasks in the visualization process. One form of segmentation takes an image as input, and outputs a map that contains a classification for each pixel. The output of such a segmentation filter usually has binary or discrete values for each pixel; however, it is also possible to output a fuzzy classification where the pixel's scalar value represents a measure of confidence in the classification.
 
@@ -400,7 +400,7 @@ For other tissues and other imaging modalities, segmentation is usually more dif
 Images can be preprocessed to segment images based on more complex features such as textures. Sometimes textures in tissues add information useful for segmentation. Texture sensitive filters like Laplacian and gradient magnitude can discriminate between different textures. Additional filters that can be used for texture segmentation are the range, variance, and correlation filters. The range filter simply reports the difference between the maximum and minimum values in a neighborhood around each pixel, and the variance filter computes the variance of the neighborhood pixels relative to the center pixel.
 
 Figure \ref{fig:Figure10-13} shows an example of how a correlation filter\index{correlation filter}\index{image segmentation!correlation filter} can be used for segmentation. A correlation filter is similar to convolution. The kernel is shifted across the image, and for each location the dot product between the image and the kernel gives a measure of correlation between the two. The output of the correlation filter is large everywhere the pattern occurs in the image, but small at other locations. Because the resulting map is sparse, additional postprocessing is required to find a uniform, segmented region. In this example, dilation followed by erosion was used to close the gaps between the patterns. (Dilations and erosion are discussed in the next section.)
-\index{image processing algorithms!segmentation|)}\index{image segmentation|)}
+\index{image processing algorithms!segmentation|)}\index{image segmentation|)}\index{segmentation|)}
 
 \subsection{Postprocessing}
 \index{image processing algorithms!postprocessing|(}\index{postprocessing|(}
@@ -424,7 +424,7 @@ After the pixels have been assigned an equivalence class, various methods are us
 \index{image processing algorithms!postprocessing|)}\index{postprocessing|)}
 
 \subsection{Multispectral Segmentation}
-\index{image processing algorithms!multi--spectral segmentation|(}\index{multi--spectral segmentation|(}
+\index{image processing algorithms!multi--spectral segmentation|(}\index{multi--spectral segmentation|(}\index{segmentation!multi--spectral|(}
 
 From everyday experience we know that it is easier to see structure and information in color images than in gray--scale images. This is because each pixel contains more information in the red, blue, and green components than a single component gray-scale pixel. One way to segment multispectral images is to separate the components and threshold them individually and then combine the resulting binary images with logic filters. This allows selection of rectangular patched areas in the color/ component space of the pixels.
 
@@ -436,7 +436,7 @@ Color is not the only multispectral information that can be used for segmentatio
 
 Typically, the number of free parameters in a filter is directly correlated to the dimensionality of the pixels; and although additional parameters make a filter more powerful, it also makes it more difficult to find an appropriate set of parameter values. There are supervised and unsupervised algorithms that can be used to automatically select the best set of segmentation parameters, but discussion of these is outside the scope of this book.
 \index{image processing algorithms!multi--spectral segmentation|)}\index{multi--spectral segmentation|)}
-\index{algorithms!image processing|)}\index{image processing algorithms|)}
+\index{algorithms!image processing|)}\index{image processing algorithms|)}\index{segmentation!multi--spectral|)}
 
 \section{Putting It All Together}
 \label{sec:chap10.putting_it_all_together}

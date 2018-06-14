@@ -578,7 +578,7 @@ The next figure, Figure \ref{fig:Figure4-16}, shows the relationship between the
 
 This leads us to the method of making connections between filters and data objects to form a visualization pipeline. As is evident from the previous figures, the \emph{Visualization Toolkit} pipeline architecture has been designed to support multiple inputs and outputs. In practice, you will find that most filters and sources actually generate a single output and filters accept a single input. This is because most algorithms tend to be single input/output in nature. There are exceptions and we will describe some of these shortly. However, first we would like to provide a brief history lesson relative to the evolution of VTK's pipeline architecture. This lesson is instructive because it sheds light on the evolution of the pipeline design in response to new requirements.
 
-Prior to VTK 5.0. In earlier versions of VTK (i.e., prior to version 5.0), the visualization pipeline architecture was accurately depicted by Figure \ref{fig:Figure4-15}. In this figure, which shows how filters and data objects were connected to form a visualization network, the input data was represented by the Input instance variable and was set using the SetInput() method. The output data was represented by the Output instance variable and was accessed using the GetOutput()\index{GetOutput()} method. To connect filters together, the C++ statement
+Prior to VTK 5.0. In earlier versions of VTK (i.e., prior to version 5.0), the visualization pipeline architecture was accurately depicted by Figure \ref{fig:Figure4-15}. In this figure, which shows how filters and data objects were connected to form a visualization network, the input data was represented by the Input instance variable and was set using the SetInput()\index{SetInput()} method. The output data was represented by the Output instance variable and was accessed using the GetOutput()\index{GetOutput()} method. To connect filters together, the C++ statement
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 filter2->SetInput(filter1->GetOutput()); //Prior to VTK5.0
@@ -606,18 +606,16 @@ For this, and other reasons related to parallel processing, the original VTK pip
 
 \textbf{VTK 5.0 and Beyond}. While VTK 5.0 still supports the use of SetInput()/GetOutput(), its use in Figure \ref{fig:Figure4-16} and Figure \ref{fig:Figure4-17} is discouraged. Rather, the newer pipeline architecture should be used. Referring to Figure \ref{fig:Figure4-17}, we use connections and ports to configure VTK's visualization pipeline:
 
-\index{GetOutputPort()}
-
-\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
-filter2->SetInput(filter1->GetOutputPort()); // VTK5.0
+\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none, escapechar=\# ]
+filter2->SetInputConnection(filter1->GetOutputPort()#\index{GetOutputPort()}#);
 \end{lstlisting}
 
 You probably have already guessed how this approach can be extended to multiple inputs and multiple outputs. Let's look at some concrete examples. vtkGlyph3D is an example of a filter that accepts multiple inputs and generates a single output. The inputs to vtkGlyph3D are represented by the Input and Source instance variables. The purpose of vtkGlyph3D is to copy the geometry defined by the data in Source to each point defined by Input. The geometry is modified according to the Source data values (e.g., scalars and vectors). (For more information about glyphs see \nameref{subsec:glyphs} in Chapter 6: \nameref{chap:fundamental_algorithms}.) To use the vtkGlyph3D object in C++ code you would do the following:
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 glyph = vtkGlyph3D::New();
-glyph->SetInputConnection(foo->GetOutputPort());
-glyph->SetSourceConnection(bar->GetOutputPort());
+  glyph->SetInputConnection(foo->GetOutputPort());
+  glyph->SetSourceConnection(bar->GetOutputPort());
 ...
 \end{lstlisting}
 
@@ -634,19 +632,19 @@ Several other special objects having multiple inputs or outputs are also availab
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 merge = vtkMergeFilter::New();
-merge->SetGeometryConnection(foo->GetOutputPort());
-merge->SetScalarsConnection(bar->GetOutputPort());
+  merge->SetGeometryConnection(foo->GetOutputPort());
+  merge->SetScalarsConnection(bar->GetOutputPort());
 \end{lstlisting}
 
 and
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 append = vtkAppendFilter::New();
-append->AddInputConnection(foo->GetOutputPort());
-append->AddInputConnection(bar->GetOutputPort());
+  append->AddInputConnection(foo->GetOutputPort());
+  append->AddInputConnection(bar->GetOutputPort());
 \end{lstlisting}
 
-Notice the use of the method AddInputConnection()\index{AddInputConnection()}. This method adds to the list of connections, whereas SetInputConnection() clears the list and specifies the single connection to the port.
+Notice the use of the method AddInputConnection()\index{AddInputConnection()}. This method adds to the list of connections, whereas SetInputConnection()\index{SetInputConnection()} clears the list and specifies the single connection to the port.
 
 Another important filtering class is vtkProbeFilter. This filter takes two inputs. The first input is the data we wish to probe. The second input supplies a set of points that are used as probe points. Some process objects take a list of input data. Another interesting filter is the vtkBooleanStructuredPoints class which performs set operations on volume datasets. The first data item in the list is used to initialize the set operation. Each subsequent item in the list is combined with the result of previous operations using a boolean operation specified by the user.
 
