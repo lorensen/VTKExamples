@@ -110,6 +110,7 @@ These techniques will be covered in greater detail in Chapter 9: \nameref{chap:a
 
 \section{Volume Rendering}
 \label{sec:volume_rendering}
+\index{rendering!volume|(}
 
 Until now we have concentrated on the visualization of data through the use of geometric primitives such as points, lines, and polygons.
 For many applications such as architectural walk--throughs or terrain visualization, this is obviously the most efficient and effective representation for the data.
@@ -127,7 +128,7 @@ The two basic surface rendering approaches described in Chapter 3: \nameref{chap
 Since volume rendering is typically used to generate images that represent an entire 3D dataset in a 2D image, several new challenges are introduced. Classification must be performed to assign color and opacity to regions within the volume, and volumetric illumination models must be defined to support shading. Furthermore, efficiency and compactness are of great importance due to the complexity of volume rendering methods and the size of typical volumetric datasets. A geometric model that consists of one million primitives is generally considered large, while a volumetric dataset with one million voxels is quite small. Typical volumes contain between ten and several hundred million voxels, with datasets of a billion or more voxels becoming more common. Clearly care must be taken when deciding to store auxiliary information at each voxel or to increase the time required to process each voxel.
 
 \section{Image-Order Volume Rendering}
-\index{image--order rendering!in volume rendering|(}
+\index{image--order rendering!in volume rendering|(}\index{ray casting!volume rendering|(}
 
 Image-order volume rendering is often referred to as ray casting or ray tracing. The basic idea is that we determine the value of each pixel in the image by sending a ray through the pixel into the scene according to the current camera parameters. We then evaluate the data encountered along the ray using some specified function in order to compute the pixel value. As we will demonstrate throughout this chapter, ray casting is a flexible technique that can be used to render any 3D image dataset, and can produce a variety images. Also, it is relatively easy to extend a basic ray casting technique designed for volumetric data sets that have uniform voxels to work on rectilinear or structured grids. Unfortunately, basic ray casting is also fairly slow; therefore, later in this chapter we will discuss a number of acceleration methods that can be used to improve performance, though often with some additional memory requirements or loss in flexibility.
 
@@ -301,7 +302,7 @@ A 3D scan conversion technique, such as a modified Bresenham\index{Bresenham} me
 \end{figure}
 
 If we are using a parallel viewing transformation and our ray function can be efficiently computed using a voxel by voxel traversal method, then we can employ a templated ray casting technique \cite{Yagel92b} with 26-connected rays to generate the image. All rays are identical in direction; therefore, we only need to scan convert once, using this "template" for every ray. When these rays are cast from pixels on the image plane, as shown in the left image of Figure \ref{fig:Figure7-11}, then some voxels in the dataset will not contribute to the image. If instead we cast the rays from the voxels in the base plane of the volume that is most parallel to the image plane, as shown in the right image, then the rays fit together snugly such that every voxel in the dataset is visited exactly once. The image will appear warped because it is generated from the base plane, so a final resampling step is required to project this image back onto the image plane.
-\index{image--order rendering!in volume rendering|)}
+\index{image--order rendering!in volume rendering|)}\index{ray casting!volume rendering|)}
 
 \section{Object-Order Volume Rendering}
 \index{object--order rendering!in volume rendering|(}
@@ -377,6 +378,7 @@ Shear--warp volume rendering is essentially an efficient variant of ray casting.
 Volume rendering can also be performed using the Fourier slice projection theorem \cite{Totsuka92}\index{Fourier slice projection} that states that if we extract a slice of the volume in the frequency domain that contains the center and is parallel to the image plane, then the 2D spectrum of that slice is equivalent to the 2D image obtained by taking line integrals through the volume from the pixels on the image plane. Therefore we can volume render the dataset by extracting the appropriate slice from the 3D Fourier volume, then computing the 2D inverse Fourier transform of this slice. This allows us to render the image in $O(n^2log\ n)$ time as opposed to the $O(n^3)$ complexity required by most other volume rendering algorithms.
 
 Two problems that must be addressed when implementing a frequency domain volume renderer are the high cost of interpolation when extracting a slice from the Fourier volume, and the high memory requirements (usually two double precision floating--point values per sample) required to store the Fourier volume. Although some shading and depth cues can be provided with this method, occlusion is not possible.
+\index{rendering!volume|)}
 
 \section{Volume Classification}
 
@@ -577,6 +579,7 @@ Once the gradients have been encoded for our volume, we need only compute the il
 Although using a shading table leads to faster rendering times, there are some limitations to this method. Only infinite light sources can be supported accurately since positional light sources would result in different light vectors for data samples with the same gradient due to their different positions in the volume. In addition, specular highlights are only captured accurately for orthographic viewing directions where the view vector does not vary based on sample position. In practice, positional light sources are often approximated by infinite light sources, and a single view direction is used for computing specular highlights since the need for fast rendering often outweighs the need for accurate illumination.
 
 \section{Regions of Interest}
+\index{region of interest!in volume rendering|(}
 
 One difficulty in visualizing volumetric data with the methods presented thus far is that in order to study some feature in the center of the volume we must look through other features in the dataset. For example, if we are visualizing a tomato dataset, then we will be unable to see the seeds within the tomato using a maximum intensity projection because the seeds have lower intensity than the surrounding pulp. Even using a compositing technique, it is difficult to visualize the seeds since full opacity may be obtained before reaching this area of the dataset.
 
@@ -611,6 +614,7 @@ We can solve the problem of visualizing internal features by defining a region o
 All of these region of interest methods are fairly simple to implement using an image--order ray casting approach. As a preprocessing step to ray casting, the ray is clipped against all geometric region definitions. The ray function is then evaluated only along segments of the ray that are within the region of interest. The mask values are consulted at each sample to determine if its contribution should be included or excluded.
 
 For object--order methods we must determine for each sample whether or not it is within the region of interest before incorporating its contribution into the image. If the underlying graphics hardware is being utilized for the object-order volume rendering as is the case with a texture mapping approach, hardware clipping planes may be available to help support regions of interest.
+\index{region of interest!in volume rendering|)}
 
 \section{Intermixing Volumes and Geometry}
 \index{geometry!mixed with volumes|(}
@@ -672,6 +676,7 @@ In the past two decades, volume rendering has evolved from a research topic with
 Most of the volume rendering discussion in this chapter focused on regular volumetric datasets. Although it is clearly possible to extend most ray casting and object--order methods to visualize rectilinear grid, structured grid, and even irregular data, in practice it is difficult to provide both high quality images and interactivity with these methods. Rendering techniques for these data types continues to be an area of active research in volume visualization \cite{Cignoni96}, \cite{Silva96}, \cite{Wilhelms96}.
 
 \section{Stereo Rendering}
+\index{rendering!stereo|(}
 
 In our practice of computer graphics so far, we have used a number of techniques to simulate 3D graphics on a 2D display device. These techniques include the use of perspective and scale, shading to confer depth, and motion/animation to see all sides of an object. However, one of the most effective techniques to simulate 3D viewing is \emph{binocular parallax}.
 
@@ -722,9 +727,10 @@ Time parallel techniques display both images at the same time. Headmounted displ
 
 In contrast, SIRDS (Single Image Random Dot Stereograms) require no special hardware. Both views are displayed in a single image, as in Figure \ref{fig:Figure7-26}. To view such an image the user must focus either in front of, or behind, the image. When the user's focal point is correct, the two triangular cutouts in the top of the image will appear as one and the image should appear focused. This works because dot patterns repeat at certain intervals. Here, only the depth information is present in the resulting image. This is incorporated by changing the interval between patterns just as our ocular disparity changes with depth.
 
-The next two techniques for stereo rendering can be implemented using either the time parallel or time multiplexed methods. The distinction is slightly blurred because most of the time parallel methods can be multiplexed, though typically there is no advantage to it. Both of these methods have been used by the movie industry to produce ``3D'' movies. The first is commonly called red--blue (or red--green or red--cyan) stereo and requires the user to wear a pair of glasses that filter entering light. The left eye can only see the image through a red filter, the right through a blue filter. The rendering process typically involves generating images for the two views, converting their RGB values into intensity, and then creating a resulting image. This image's red values are taken from the left eye image intensities. Likewise the blue values (a mixture of blue and green) are taken from the right eye image intensities. The resulting image has none of the original hue or saturation, but it does contain both original images' intensities. (An additional note: red green methods are also used because the human eye is more sensitive to green than blue). The benefits of this technique are that the resulting images can be displayed on a monitor, paper, or film, and all one needs to view them is an inexpensive pair of glasses.
+The next two techniques for stereo rendering can be implemented using either the time parallel or time multiplexed methods. The distinction is slightly blurred because most of the time parallel methods can be multiplexed, though typically there is no advantage to it. Both of these methods have been used by the movie industry to produce ``3D'' movies. The first is commonly called red--blue\index{red--blue stereo} (or red--green or red--cyan) stereo and requires the user to wear a pair of glasses that filter entering light. The left eye can only see the image through a red filter, the right through a blue filter. The rendering process typically involves generating images for the two views, converting their RGB values into intensity, and then creating a resulting image. This image's red values are taken from the left eye image intensities. Likewise the blue values (a mixture of blue and green) are taken from the right eye image intensities. The resulting image has none of the original hue or saturation, but it does contain both original images' intensities. (An additional note: red green methods are also used because the human eye is more sensitive to green than blue). The benefits of this technique are that the resulting images can be displayed on a monitor, paper, or film, and all one needs to view them is an inexpensive pair of glasses.
 
 The second technique\index{polarized stereo} is similar to the first but it preserves all the color information from the original images. It separates the different views by using polarized light. Normally, the light we see has a mixture of polarization angles, but there are lenses that can filter out a subset of these angles. If we project a color image through a vertical polarizing filter, and then view it through another vertical filter, we will see the original image, just slightly dimmer because we've filtered out all the horizontally polarized light. If we place a horizontal filter and a vertical filter together, all the light is blocked. Polarized stereo rendering typically projects one eye's image through a vertical filter and the other through a horizontal filter. The user wears a pair of glasses containing a vertical filter over one eye and a horizontal filter over the other. This way each eye views the correct image.
+\index{rendering!stereo|)}
 
 \section{Aliasing}
 \index{aliasing|(}
@@ -1055,10 +1061,11 @@ vtkVolume volume
 To produce a maximum intensity projection in Figure \ref{fig:Figure7-34}, we would simply change the type of the ray function to a vtkVolumeRayCastMIPFunction. We could also produce a surface image using a vtkVolumeRayCastIsosurfaceFunction where the IsoValue instance variable would be set to define the surface.
 
 
-\subsection{Red-Blue Stereo}
+\subsection{Red--Blue Stereo}
+\index{red--blue stereo!implementation|(}
 
 \begin{minipage}[b]{0.5\linewidth}
-	In our first example, we will be looking at using red-blue stereo rendering. We start off with the example shown in Figure \ref{fig:Figure7-35}, which renders something akin to a mace. Then, in Figure \ref{fig:Figure7-35} we add in red-blue stereo rendering by adding two lines near the bottom that invoke the StereoRenderOn() and SetStereoType() methods. Once these two methods have been invoked, further rendering will be done in stereo. The picture in the upper right corner displays a grayscale version of the resulting image.
+	In our first example, we will be looking at using red--blue stereo rendering. We start off with the example shown in Figure \ref{fig:Figure7-35}, which renders something akin to a mace. Then, in Figure \ref{fig:Figure7-35} we add in red-blue stereo rendering by adding two lines near the bottom that invoke the StereoRenderOn() and SetStereoType() methods. Once these two methods have been invoked, further rendering will be done in stereo. The picture in the upper right corner displays a grayscale version of the resulting image.
 \end{minipage}
 \hfill
 \begin{minipage}[b]{0.4\linewidth}
@@ -1107,6 +1114,7 @@ vtkActor *spikeActor = vtkActor::New();
   renWin->SetStereoTypeToRedBlue();
   renWin->Render();
 \end{lstlisting}
+\index{red--blue stereo!implementation|)}
 
 \subsection{Motion Blur}
 \index{motion blur!implementation|(}
