@@ -1251,6 +1251,8 @@ The adjacency set represents a variety of useful information. In a manifold obje
 
 \section{Searching}
 \label{sec:searching}
+\index{searching|(}
+
 Searching is an operation to find the cell containing a specified point $p$, or to locate cells or points in a region surrounding $p$.
 Algorithms requiring this operation include streamline generation, where we need to find the starting location within a cell; probing, where the data values at a point are interpolated from the containing cell; or collision detection, where cells in a certain region must be evaluated for intersection.
 Sometimes (e.g., image datasets), searching is a simple operation because of the regularity of data. However, in less structured data, the searching operation is more complex.
@@ -1277,6 +1279,7 @@ We have two options when applying spatial search structures. We may insert point
 \end{figure}
 
 Inserting points into a search structure is easier because points can be uniquely placed into a bucket. Inserting points also allows us to search for both points and cells. Cells can be found by using $p$ to index into the appropriate bucket. The closest point(s) $p_i$ to $p$ are then located. Using the topological adjacency operator to retrieve the cells using points $p_i$i, we can then search these cells for the cell containing $p$. This procedure must be used with caution, however, since the closest points may not be used by the cells containing $p$ (Figure\ref{fig:Figure8-30}).
+\index{searching|)}
 
 \section{Cell / Line Intersection}
 \index{cell!intersection with line|(}\index{cell / line!intersection|(}\index{line!intersection with cell|(}
@@ -1434,7 +1437,7 @@ Line/cell intersection for 0D, 1D, and 2D cells follows standard approaches. Int
 \index{cell!intersection with line|)}\index{cell / line!intersection|)}\index{line!intersection with cell|)}
 
 \section{Scalars and Colors}
-\index{color!as scalar data|(}
+\index{color!as scalar data|(}\index{scalar!relationship to color|(}
 
 There is a close correspondence between scalar data and colors. We touched on this in ``Color Mapping'' on page \pageref{subsec:color_mapping}, where we saw how to use a color table to map scalar values into a color specification (i.e., red, green, blue, and alpha, or RGBA). There are cases, however, when we want to circumvent this mapping process. Such cases occur when color data is supplied instead of scalar data.
 
@@ -1455,7 +1458,7 @@ Y = A(0.30 R + 0.59 G + 0.11 B)
 \myequations{RGBA luminance.}
 
 Using this abstraction allows us to treat single--valued scalars and scalars consisting of multivalued colors the same. The end result is that we can mix both types of scalar data into our visualization networks.
-\index{color!as scalar data|)}
+\index{color!as scalar data|)}\index{scalar!relationship to color|)}
 
 \section{Special Techniques for Image Data}
 \label{sec:special_techniques_for_image_data}
@@ -1551,7 +1554,7 @@ An attempt to index outside these ranges indicates that the neighbor in question
 
 \subsection{Searching}
 \label{subsec:searching}
-\index{image data!searching|(}
+\index{image data!searching|(}\index{searching!image data|(}
 
 Given a point $p = (x, y, z)$ we can determine the cell containing $p$ by using the equations given in Figure \ref{fig:Figure8-32}. These equations generate the structured coordinates $(i, j, k)$, which can then be converted to cell id (i.e., dataset coordinates) using Equation 8-3.
 
@@ -1565,7 +1568,7 @@ k = \text{int}\left( \dfrac{z-z_0}{z_1 - z_0} \right)
 \end{array}
 \end{equation}
 \myequations{Finding the closest point to $p$ using structured coordinates.}
-\index{image data!searching|)}
+\index{image data!searching|)}\index{searching!image data|)}
 
 \section{Putting It All Together}
 
@@ -1851,6 +1854,7 @@ It is possible to force unsigned char data to be mapped through a lookup table. 
 \index{color!as scalar data!implementation|)}
 
 \subsection{Searching}
+\index{searching!implementation|(}
 
 The \emph{Visualization Toolkit} provides two classes to perform searches for dataset points and cells. These are vtkPointLocator and vtkCellLocator. (Both of these classes are subclasses of vtkLocator, which is an abstract base class for spatial search objects.) vtkPointLocator is used to search for points and, if used with the topological dataset operator GetPointCells(), to search for cells as well. vtkCellLocator is used to search for cells.
 
@@ -1906,7 +1910,7 @@ In contrast, vtkCellLocator uses a single array to represent the octree. The arr
 The advantage of this structure is that memory can be allocated and deleted quickly. In addition, insertion into the octree is exactly the same as with vtkLocator, and is simpler than conventional octrees. The parent octants provide quick culling capability, since their status (empty or nonempty) allows us to stop certain types of search operations. On the downside, because the octree is uniformly subdivided, this structure is wasteful of memory resources if the data is nonuniformly distributed.
 
 Our experience with the search structures described here is that they work well for many types of visualization data. However, if your data is non-uniform, you may want to implement your own special search classes.
-
+\index{searching!implementation|)}
 
 \subsection{Picking}
 \label{subsec:picking}

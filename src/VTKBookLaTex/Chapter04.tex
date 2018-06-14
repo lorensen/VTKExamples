@@ -430,11 +430,11 @@ Many visualization systems lie between these two extremes. These typically use a
 
 There are two other graphics and visualization programming models that bear mentioning. These are \emph{scene graphs} and the \emph{spreadsheet} model. 
 
-Scene graphs are typically found in 3D graphics systems such as Open Inventor\index{OpenInventor} \cite{Wernecke94}. Scene graphs are acyclic tree-structures that represent objects, or nodes, in an order defined by the tree layout. The nodes may be geometry (called shape nodes), graphics properties, transformations, manipulators, lights, cameras, and so forth, that define a complete scene. The parent/child relationship controls how properties and transformations are applied to the nodes as they are rendered, or how the objects relate to other objects in the scene (e.g., which objects the lights shine on). Scene graphs are not used to control the execution of a visualization pipeline, rather they are used to control the rendering process. Scene graphs and visualization pipelines may be used together in the same application. In such a case the visualization pipeline is the generator of the shape nodes, and the scene graph controls the rendering of the scene including the shapes.
+Scene graphs\index{scene graph} are typically found in 3D graphics systems such as Open Inventor\index{OpenInventor} \cite{Wernecke94}. Scene graphs are acyclic tree-structures that represent objects, or nodes, in an order defined by the tree layout. The nodes may be geometry (called shape nodes), graphics properties, transformations, manipulators, lights, cameras, and so forth, that define a complete scene. The parent/child relationship controls how properties and transformations are applied to the nodes as they are rendered, or how the objects relate to other objects in the scene (e.g., which objects the lights shine on). Scene graphs are not used to control the execution of a visualization pipeline, rather they are used to control the rendering process. Scene graphs and visualization pipelines may be used together in the same application. In such a case the visualization pipeline is the generator of the shape nodes, and the scene graph controls the rendering of the scene including the shapes.
 
 Scene graphs have found wide use in the graphics community because of their ability to compactly and graphically represent a scene. In addition, scene graphs have been popularized by their recent use in Web tools such as VRML and Java3D. See Chapter 11: \nameref{chap:visualization_web} for more information.
 
-Another recently introduced technique for visual programming is the spreadsheet technique of Levoy \cite{Levoy94}. In the spreadsheet model, we arrange operations on a regular grid similar to the common electronic accounting spreadsheets. The grid consists of rows and columns of cells, where each cell is expressed as a computational combination of other cells. The combination is expressed for each cell by using a simple programming language to add, subtract, or perform other more complex operations. The result of the computation (i.e., a visual output) is displayed in the cell. A recent extension to the spreadsheet approach is exemplified by VisTrails \cite{Bavoil05}, a system that enables interactive multiple-view visualizations by simplifying the creation and maintenance of visualization pipelines, and by optimizing the execution of the pipelines. VisTrials has the further benefit that it tracks changes to the visualization pipeline so that it is straightforward to create extensive design studies.
+Another recently introduced technique for visual programming is the spreadsheet technique of Levoy \cite{Levoy94}. In the spreadsheet model\index{spreadsheet!as a model for visualization}, we arrange operations on a regular grid similar to the common electronic accounting spreadsheets. The grid consists of rows and columns of cells, where each cell is expressed as a computational combination of other cells. The combination is expressed for each cell by using a simple programming language to add, subtract, or perform other more complex operations. The result of the computation (i.e., a visual output) is displayed in the cell. A recent extension to the spreadsheet approach is exemplified by VisTrails \cite{Bavoil05}, a system that enables interactive multiple-view visualizations by simplifying the creation and maintenance of visualization pipelines, and by optimizing the execution of the pipelines. VisTrials has the further benefit that it tracks changes to the visualization pipeline so that it is straightforward to create extensive design studies.
 
 Although visual programming systems are widely successful, they suffer two drawbacks. First, they are not as tailored as an application and require extensive programming, albeit visual, to be so. Second, visual programming is too limited for detailed control, so constructing complex low-level algorithms and user-interfaces is not feasible. What is required is a visualization system that provides the ``modularity'' and automatic execution control of a visual system, and the low-level programming capability of a programming library. Object--oriented systems have the potential to provide these capabilities. Carefully crafted object libraries provide the ease of use of visual systems with the control of programming libraries. That is a major goal of the described in this text.
 \index{programming models|)}
@@ -578,7 +578,7 @@ The next figure, Figure \ref{fig:Figure4-16}, shows the relationship between the
 
 This leads us to the method of making connections between filters and data objects to form a visualization pipeline. As is evident from the previous figures, the \emph{Visualization Toolkit} pipeline architecture has been designed to support multiple inputs and outputs. In practice, you will find that most filters and sources actually generate a single output and filters accept a single input. This is because most algorithms tend to be single input/output in nature. There are exceptions and we will describe some of these shortly. However, first we would like to provide a brief history lesson relative to the evolution of VTK's pipeline architecture. This lesson is instructive because it sheds light on the evolution of the pipeline design in response to new requirements.
 
-Prior to VTK 5.0. In earlier versions of VTK (i.e., prior to version 5.0), the visualization pipeline architecture was accurately depicted by Figure \ref{fig:Figure4-15}. In this figure, which shows how filters and data objects were connected to form a visualization network, the input data was represented by the Input instance variable and was set using the SetInput() method. The output data was represented by the Output instance variable and was accessed using the GetOutput()\index{GetOutput()} method. To connect filters together, the C++ statement
+Prior to VTK 5.0. In earlier versions of VTK (i.e., prior to version 5.0), the visualization pipeline architecture was accurately depicted by Figure \ref{fig:Figure4-15}. In this figure, which shows how filters and data objects were connected to form a visualization network, the input data was represented by the Input instance variable and was set using the SetInput()\index{SetInput()} method. The output data was represented by the Output instance variable and was accessed using the GetOutput()\index{GetOutput()} method. To connect filters together, the C++ statement
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 filter2->SetInput(filter1->GetOutput()); //Prior to VTK5.0
@@ -606,18 +606,16 @@ For this, and other reasons related to parallel processing, the original VTK pip
 
 \textbf{VTK 5.0 and Beyond}. While VTK 5.0 still supports the use of SetInput()/GetOutput(), its use in Figure \ref{fig:Figure4-16} and Figure \ref{fig:Figure4-17} is discouraged. Rather, the newer pipeline architecture should be used. Referring to Figure \ref{fig:Figure4-17}, we use connections and ports to configure VTK's visualization pipeline:
 
-\index{GetOutputPort()}
-
-\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
-filter2->SetInput(filter1->GetOutputPort()); // VTK5.0
+\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none, escapechar=\# ]
+filter2->SetInputConnection(filter1->GetOutputPort()#\index{GetOutputPort()}#);
 \end{lstlisting}
 
 You probably have already guessed how this approach can be extended to multiple inputs and multiple outputs. Let's look at some concrete examples. vtkGlyph3D is an example of a filter that accepts multiple inputs and generates a single output. The inputs to vtkGlyph3D are represented by the Input and Source instance variables. The purpose of vtkGlyph3D is to copy the geometry defined by the data in Source to each point defined by Input. The geometry is modified according to the Source data values (e.g., scalars and vectors). (For more information about glyphs see \nameref{subsec:glyphs} in Chapter 6: \nameref{chap:fundamental_algorithms}.) To use the vtkGlyph3D object in C++ code you would do the following:
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 glyph = vtkGlyph3D::New();
-glyph->SetInputConnection(foo->GetOutputPort());
-glyph->SetSourceConnection(bar->GetOutputPort());
+  glyph->SetInputConnection(foo->GetOutputPort());
+  glyph->SetSourceConnection(bar->GetOutputPort());
 ...
 \end{lstlisting}
 
@@ -634,19 +632,19 @@ Several other special objects having multiple inputs or outputs are also availab
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 merge = vtkMergeFilter::New();
-merge->SetGeometryConnection(foo->GetOutputPort());
-merge->SetScalarsConnection(bar->GetOutputPort());
+  merge->SetGeometryConnection(foo->GetOutputPort());
+  merge->SetScalarsConnection(bar->GetOutputPort());
 \end{lstlisting}
 
 and
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 append = vtkAppendFilter::New();
-append->AddInputConnection(foo->GetOutputPort());
-append->AddInputConnection(bar->GetOutputPort());
+  append->AddInputConnection(foo->GetOutputPort());
+  append->AddInputConnection(bar->GetOutputPort());
 \end{lstlisting}
 
-Notice the use of the method AddInputConnection()\index{AddInputConnection()}. This method adds to the list of connections, whereas SetInputConnection() clears the list and specifies the single connection to the port.
+Notice the use of the method AddInputConnection()\index{AddInputConnection()}. This method adds to the list of connections, whereas SetInputConnection()\index{SetInputConnection()} clears the list and specifies the single connection to the port.
 
 Another important filtering class is vtkProbeFilter. This filter takes two inputs. The first input is the data we wish to probe. The second input supplies a set of points that are used as probe points. Some process objects take a list of input data. Another interesting filter is the vtkBooleanStructuredPoints class which performs set operations on volume datasets. The first data item in the list is used to initialize the set operation. Each subsequent item in the list is combined with the result of previous operations using a boolean operation specified by the user.
 
