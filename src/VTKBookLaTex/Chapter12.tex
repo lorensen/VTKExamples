@@ -280,9 +280,9 @@ We need to make one last point about processing medical imaging data. Medical im
 \index{applications!medical imaging|)}\index{medical imaging!application|)}
 
 \section{Creating Models from Segmented Volume Data}
-\index{applications!segmented volume data|(}
+\index{applications!segmented volume data|(}\index{segmented volume data!application|(}
 
-The previous example described how to create models from gray--scale medical imaging data. The techniques for extracting bone and skin models is straightforward compared to the task of generating models of other soft tissue. The reason is that magnetic resonance and, to some extent, computed tomography, generates similar gray-scale values for different tissue types. For example, the liver and kidney in a medical computed tomography volume often have overlapping intensities. Likewise, many different tissues in the brain have overlapping intensities when viewed with magnetic resonance imaging. To deal with these problems researchers apply a process called \emph{segmentation} to identify different tissues. These processes vary in sophistication from almost completely automatic methods to manual tracing of images. Segmentation continues to be a hot research area. Although the segmentation process itself is beyond the scope of this text, in this case study we show how to process segmented medical data.
+The previous example described how to create models from gray--scale medical imaging data. The techniques for extracting bone and skin models is straightforward compared to the task of generating models of other soft tissue. The reason is that magnetic resonance and, to some extent, computed tomography, generates similar gray-scale values for different tissue types. For example, the liver and kidney in a medical computed tomography volume often have overlapping intensities. Likewise, many different tissues in the brain have overlapping intensities when viewed with magnetic resonance imaging. To deal with these problems researchers apply a process called \emph{segmentation}\index{segmentation} to identify different tissues. These processes vary in sophistication from almost completely automatic methods to manual tracing of images. Segmentation continues to be a hot research area. Although the segmentation process itself is beyond the scope of this text, in this case study we show how to process segmented medical data.
 
 For our purposes we assume that someone (or many graduate students) have laboriously labeled each pixel in each slice of a volume of data with a tissue identifier. This identifier is an integer number that describes which tissue class each pixel belongs to. For example, we may be given a series of MRI slices of the knee with tissue numbers defining the meniscus, femur, muscles, and so forth. Figure \ref{fig:Figure12-5} shows two representations of a slice from a volume acquired from a patient's knee. The image on the left is the original MRI slice; the image on the right contains tissue labels for a number of important organs. The bottom image is a composite of the two images.
 
@@ -667,7 +667,7 @@ This lengthy example shows the power of a comprehensive visualization system lik
 \subsection{Other Frog-Related Information}
 
 The folks at Lawrence Berkeley National Laboratory have an impressive Web site that features the frog used in this example. The site describes how the frog data was obtained and also permits users to create mpeg movies of the frog. There are also other datasets available. Further details on ``The Whole Frog Project'' can be found at \href{http://www-itg.lbl.gov/Frog}{Frog}. Also, the Stanford University Medical Media and Information Technologies (SUMMIT) group has on-going work using the Berkeley frog. They are early VTK users. Enjoy their \emph{Virtual Creatures} project at: \href{http://summit.stanford.edu/creatures}{creatures}.
-\index{applications!segmented volume data|)}
+\index{applications!segmented volume data|)}\index{segmented volume data!application|)}
 
 \section{Financial Visualization}
 \index{applications!financial visualization|(}\index{financial visualization!application|(}

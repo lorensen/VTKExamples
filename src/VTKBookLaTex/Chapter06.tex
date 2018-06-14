@@ -42,7 +42,7 @@ We also may classify algorithms according to the type of data they operate on, o
 
 \begin{itemize}
 
-\item \emph{Scalar\index{algorithms!scalar} algorithms} operate on scalar data. For example, the generation of contour lines of temperature on a weather map.
+\item \emph{Scalar algorithms}\index{algorithms!scalar}\index{scalar algorithms} operate on scalar data. For example, the generation of contour lines of temperature on a weather map.
 
 \item \emph{Vector\index{algorithms!vector} algorithms} operate on vector data. Showing oriented arrows of airflow (direction and magnitude) is an example of vector visualization.
 
@@ -72,13 +72,13 @@ One example of this is contour surface creation. Algorithms for extracting conto
 Our presentation of algorithms favors the more general implementations. In some special cases we will describe performance improving techniques for particular dataset types. Refer to the bibliography at the end of each chapter for detailed descriptions of specialized algorithms.
 
 \section{Scalar Algorithms}
-\index{algorithms!scalar|(}
+\index{algorithms!scalar|(}\index{scalar algorithms|(}
 
 Scalars are single data values associated with each point and/or cell of a dataset. (Recall that in the \emph{Visualization Toolkit} we associate data with points.) Because scalar data is commonly found in real--world applications, and because scalar data is so easy to work with, there are many different algorithms to visualize it.
 
 \subsection{Color Mapping}
 \label{subsec:color_mapping}
-\index{color mapping|(}
+\index{color mapping|(}\index{scalar algorithms!color mapping|(}
 
 \emph{Color mapping} is a common scalar visualization technique that maps scalar data to colors, and displays the colors on the computer system. The scalar mapping is implemented by indexing into a \emph{color lookup table}\index{lookup table}. Scalar values serve as indices into the lookup table.
 
@@ -107,11 +107,11 @@ Designing lookup tables is as much art as it is science. From a practical point 
 	\caption{Flow density colored with different lookup tables. Top-left: grayscale; Top-right rainbow (blue to red); lower-left rainbow (red to blue); lower-right large contrast. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/Rainbow/}{Rainbow.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/Rainbow/}{Rainbow.py})}
 	\label{fig:Figure6-3}
 \end{figure}
-\index{color mapping|)}
+\index{color mapping|)}\index{scalar algorithms!color mapping|)}
 
 \subsection{Contouring}
 \label{subsec:contouring}
-\index{contouring|(}
+\index{contouring|(}\index{scalar algorithms!contouring|(}\index{scalar algorithms!marching cubes|(}
 
 A natural extension to color mapping is \emph{contouring}. When we see a surface colored with data values, the eye often separates similarly colored areas into distinct regions. When we contour data, we are effectively constructing the boundary between these regions. These boundaries correspond to contour lines (2D) or surfaces (3D) of constant scalar value.
 
@@ -232,10 +232,11 @@ Figure \ref{fig:Figure6-11} shows four applications of contouring. In Figure \re
 	\end{subfigure}%
 	\caption{Contouring examples.}\label{fig:Figure6-11}
 \end{figure}
-\index{contouring|)}\index{marching cubes|)}
+\index{contouring|)}\index{marching cubes|)}\index{scalar algorithms!contouring|)}\index{scalar algorithms!marching cubes|)}
 
 \subsection{Scalar Generation}
 \label{subsec:scalar_generation}
+\index{scalar generation|(}
 
 The two visualization techniques presented thus far, color mapping and contouring, are simple, effective methods to display scalar information. It is natural to turn to these techniques first when visualizing data. However, often our data is not in a form convenient to these techniques. The data may not be single--valued (i.e., a scalar), or it may be a mathematical or other complex relationship. That is part of the fun and creative challenge of visualization: We must tap our creative resources to convert data into a form we can visualize.
 
@@ -261,7 +262,8 @@ This example can be made more interesting by generalizing the problem. Although 
 \end{figure}
 
 Part of the creative practice of visualization is selecting the best technique for given data from the palette of available techniques. Often this requires creative mapping by the user of the visualization system. In particular, to use scalar visualization techniques we need only to create a relationship to generate a unique scalar value. Other examples of scalar mapping include an index value into a list of data, computing vector magnitude or matrix determinate, evaluating surface curvature, or determining distance between points. Scalar generation, when coupled with color mapping or contouring, is a simple, yet effective, technique for visualizing many types of data.
-\index{algorithms!scalar|)}
+\index{scalar generation|)}
+\index{algorithms!scalar|)}\index{scalar algorithms|)}
 
 \section{Vector Algorithms}
 \index{algorithms!vector|(}
