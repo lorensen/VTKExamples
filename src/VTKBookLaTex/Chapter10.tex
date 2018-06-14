@@ -33,6 +33,7 @@ An image is typically used to refer to a 2D structured point dataset. More gener
 As described in ``Image Data'' on \pageref{subsec:image_data}), an image has both regular topology and geometry. The regularity of the data lends itself to many special operations. In particular, we can support data caching and \emph{streaming}, and operating on \emph{regions of interest} in the data.
 
 \subsection{Regions of Interest}
+\index{region of interest}
 
 When data has a regular spatial organization, it is possible to request the data in pieces or regions of interest. For example, a mapper may need only a region of the data for its display, so loading or processing the whole dataset would be inefficient. An example of this is a two--dimensional viewer that displays only one slice of a large structured volume. By loading slices only as they are needed, disk access can be reduced, and memory conserved.
 
@@ -58,6 +59,7 @@ When data has a regular spatial organization, it is possible to request the data
 \end{figure}
 
 Although regions of interest can have arbitrary shapes, the regular structure of the data samples determines optimal region configurations. An image stored in a Cartesian coordinate system easily divides into smaller rectangular regions, while data sampled on a polar coordinate grid is best divided into pie-shaped regions (Figure \ref{fig:Figure10-1}). Therefore, operating on regions of data means that we process ``windows'' of data specified by $(min,max)$ ranges of each dimension, or axis. For example, a region in a 2D image of dimensions $100 \times 100$ might be specified as $(25,49, 0,49)$, meaning that we would operate on a $(25 \times 50)$ window.
+\index{region of interest}
 
 \subsection{Streaming and Caching}
 
@@ -614,6 +616,7 @@ In this example we combine the imaging and visualization pipelines. Imaging filt
 \index{image warping!example|)}
 
 \subsection{Regression Testing}
+\index{regression testing!example|(}
 
 In our work with VTK, we often need to perform software testing. The testing may be necessary because we’ve added new classes or features to the system, modified old code, or are simply testing a graphics library or new piece of hardware. We use a powerful testing procedure based on processing the output of the system, which is typically an image. We refer to the testing process as regression testing.
 
@@ -674,6 +677,7 @@ In our work with VTK, we often need to perform software testing. The testing may
 Regression testing is based on the following procedure. A test program (typically a Tcl/Tk script) is written that exercises a portion of the code. In our example, we will assume that we are testing a feature of implicit modelling. The output of the script is an image with a fixed view, as shown in Figure \ref{fig:Figure10-18}(a). To perform the test, we compare the output of the test program with a previously stored image, or ``valid'' image (Figure \ref{fig:Figure10-18}(b)). The valid image was generated when we initially created the object or objects to be tested, and is assumed to be the correct output. Then, we use a the filter vtkImageDifference to compare the test image with the valid image. This filter takes into account dithering and anti-aliasing effects, and creates an output image representing the difference between the test image and valid image (Figure \ref{fig:Figure10-18}(c)). It also reports the difference in the images in terms of a pixel count. To determine whether the test is passed, we compare the pixel count with a threshold value (for example, 10 pixels).
 
 Our regression testing procedure cannot test the original implementation of an object or objects. The developer must verify that the valid image is indeed correct. However, the process is invaluable for finding and correcting problems due to incremental code changes (e.g., bug fixes, enhancements, etc.) Furthermore, the test can be run as a batch process, with a simple pass/fail output, and an image to show the differences.
+\index{regression testing!example|)}
 \index{image processing|)}
 
 \section{Chapter Summary}

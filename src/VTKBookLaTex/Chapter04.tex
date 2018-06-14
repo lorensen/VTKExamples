@@ -16,7 +16,7 @@
 \firstletter{I}n the previous chapter we created graphical images using simple mathematical models for lighting, viewing, and geometry. The lighting model included ambient, diffuse, and specular effects. Viewing included the effects of perspective and projection. Geometry was defined as a static collection of graphics primitives such as points and polygons. In order to describe the process of visualization we need to extend our understanding of geometry to include more complex forms. We will see that the visualization process transforms data into graphics primitives. This chapter examines the process of data transformation and develops a model of data flow for visualization systems.
 
 \section {Overview}
-Visualization transforms data into images that efficiently and accurately convey information about the data. Thus, visualization addresses the issues of \emph{transformation} and \emph{representation}.
+Visualization transforms data into images that efficiently and accurately convey information about the data. Thus, visualization addresses the issues of \emph{transformation} and \emph{representation}\index{representation!in visualization}.
 
 Transformation is the process of converting data from its original form into graphics primitives, and eventually into computer images. This is our working definition of the visualization process. An example of such a transformation is the process of extracting stock prices and creating an $x-y$ plot depicting stock price as a function of time.
 
@@ -330,12 +330,12 @@ As this figure shows, the static model executes each process object only once, s
 
 \subsection{Reference Counting and Garbage Collection}
 \label{subsec:reference_counting_garbage_collection}
-\index{memory management!reference counting|(}\index{pipeline!memory models!reference counting|(}
+\index{memory management!reference counting|(}\index{pipeline!memory models!reference counting|(}\index{reference counting|(}
 
 Another valuable tool to minimize memory cost is to share storage using reference counting. To use reference counting, we allow more than one process object to refer to the same data object and keep track of the number of references. For example, assume that we have three objects \emph{A}, \emph{B}, and \emph{C} that form a portion of a visualization network as shown in Figure \ref{fig:Figure4-10}. Also assume that these objects modify only part of their input data, leaving the data object that specifies \emph{x-y-z} coordinate position unchanged. Then to conserve memory resources we can allow the output of each process object to refer to the single data object representing these points. Data that is changed remains local to each filter and is not shared. It is only when the reference count goes to zero that the object is deleted.
 
 Garbage collection is an alternative memory management strategy that is not well suited to visualization applications. The garbage collection process is automatic; it attempts to reclaim memory used by objects that will never again be accessed by the running application. While convenient due to its automated nature, in general garbage collection introduces overhead that may inadvertently introduce pauses into software execution at inopportune times (during an interactive process). Of more concern, however, is that released, unused memory may not be reclaimed by the system until some time after the last reference to the memory is dropped, and in visualization pipelines this memory may be too large to leave around for any length of time. That is, in some applications if memory usage in a filter is not released immediately, downstream filters may not have enough memory resource available to them to successfully execute.
-\index{memory management!reference counting|)}\index{pipeline!memory models!reference counting|)}
+\index{memory management!reference counting|)}\index{pipeline!memory models!reference counting|)}\index{reference counting|)}
 \index{pipeline!trade--offs|)}
 
 \section{Advanced Visualization Pipeline Models}
@@ -666,14 +666,14 @@ Until now, we have used the terms metadata\index{pipeline!metadata} and informat
 
 \item \emph{Port information\index{information!port}\index{port information}} objects hold information about the data types produced on output ports and consumed by input ports. They are stored by instances of vtkAlgorithm. There is one input port information object per input port and one output port information object per output port. They are accessible via the methods vtkAlgorithm::GetInputPortInformation() and vtkAlgorithm::GetOutputPortInformation(). Port information objects are usually created and populated by subclasses of vtkAlgorithm in order to specify the interface of the filter.
 
-\item \emph{Request information\index{information!request}} objects hold information about a specific request being sent to an executive or algorithm. There is one entry indicating what request is being sent and possibly other entries giving additional details about the specific request. These information objects are not accessible via any public method but are passed to ProcessRequest() methods that implement the requests.
+\item \emph{Request information\index{information!request}\index{request information}} objects hold information about a specific request being sent to an executive or algorithm. There is one entry indicating what request is being sent and possibly other entries giving additional details about the specific request. These information objects are not accessible via any public method but are passed to ProcessRequest() methods that implement the requests.
 
 \item \emph{Data information\index{data information}\index{information!data}} objects hold information about what is currently stored in a vtkDataObject. There is one data information object in each data object, accessible via vtkDataObject::GetInformation(). The actual information contained is determined by the data object type.
 
 \item \emph{Algorithm information\index{algorithm information}\index{information!algorithm}} objects hold information about an instance of vtkAlgorithm. There is one algorithm information object per algorithm object, accessible via vtkAlgorithm::GetInformation(). The actual information contained is determined by the algorithm object type.
 \end{itemize}
 
-The importance of the information objects in VTK is that they are flexible (e.g., new key-value pairs can be easily added) and extensible. That is, readers, filters and mappers can add new information to the containers without requiring the API of the pipeline--related classes to change.
+The importance of the information objects in VTK is that they are flexible (e.g., new key--value pairs can be easily added) and extensible. That is, readers, filters and mappers can add new information to the containers without requiring the API of the pipeline--related classes to change.
 
 \begin{figure}[!htb]
   \centering
@@ -686,7 +686,7 @@ The importance of the information objects in VTK is that they are flexible (e.g.
 
 In VTK, the fundamental pipeline update mechanism\index{pipeline!update mechanism} is based on the \emph{request}\index{pipeline!request}. A request is the basic pipeline operation (or ``pipeline pass'') that generally asks for particular piece of information to be propagated through the pipeline. An execution model is a set of requests defined by a specific executive. Refer to Figure \ref{fig:Figure4-18} in the following description of the execution process.
 
-Requests are generated by the executive object of a filter that has been explicitly asked to update by its algorithm due to some user call. For example, when the Write() method of a writer is called, the algorithm object asks its executive to update the pipeline, and execute the writer, by calling this->GetExecutive()->Update(). Several requests may be sent through the pipeline in order to bring it up to date.
+Requests\index{request} are generated by the executive object of a filter that has been explicitly asked to update by its algorithm due to some user call. For example, when the Write() method of a writer is called, the algorithm object asks its executive to update the pipeline, and execute the writer, by calling this->GetExecutive()->Update(). Several requests may be sent through the pipeline in order to bring it up to date.
 
 A request is implemented as an information object. There is one key of type vtkInformationRequestKey specifying the request itself. This key is typically defined by the executive's class. Additional information about the request may also be stored in the request information object.
        

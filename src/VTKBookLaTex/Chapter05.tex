@@ -11,19 +11,14 @@
  \end{minipage}
 \vspace{2\baselineskip}
 
-\firstletter{I}n Chapter 4 we developed a pragmatic definition of the visualization process: mapping information into graphics primitives.
-We saw how this mapping proceeds through one or more steps, each step transforming data from one form, or data representation, into another.
-In this chapter we examine common data forms for visualization.
-The goal is to familiarize you with these forms, so that you can visualize your own data using the tools and techniques provided in this text.
+\firstletter{I}n Chapter 4 we developed a pragmatic definition of the visualization process: mapping information into graphics primitives. We saw how this mapping proceeds through one or more steps, each step transforming data from one form, or data representation, into another. In this chapter we examine common data forms for visualization. The goal is to familiarize you with these forms, so that you can visualize your own data using the tools and techniques provided in this text.
 
 \section{Introduction}
-To design representational schemes for data we need to know something about the data we might
-encounter. We also need to keep in mind design goals, so that we can design efficient data structures
-and access methods. The next two sections address these issues.
+To design representational schemes for data we need to know something about the data we might encounter. We also need to keep in mind design goals, so that we can design efficient data structures and access methods. The next two sections address these issues.
 
 \subsection{Characterizing Visualization Data}
 
-Since our aim is to visualize data, clearly we need to know something about the character of the data. This knowledge will help us create useful data models and powerful visualization systems. Without a clear understanding of the data, we risk designing inflexible and limited visualization systems. In the following we describe important characteristics of data. These characteristics are the discrete nature of data\index{discrete data}, whether it is regular or irregular, and its topological dimension.
+Since our aim is to visualize data, clearly we need to know something about the character of the data. This knowledge will help us create useful data models and powerful visualization systems. Without a clear understanding of the data, we risk designing inflexible and limited visualization systems. In the following we describe important characteristics of data. These characteristics are the discrete nature of data\index{discrete data}, whether it is regular\index{regular data} or irregular, and its topological dimension.
 
 First, visualization data is discrete. This is because we use digital computers to acquire, analyze, and represent our data, and typically measure or sample information at a finite number of points. Hence, all information is necessarily represented in discrete form. 
 
@@ -33,7 +28,7 @@ Because of the discrete character of the data we do not know anything about regi
 
 There is an obvious solution to this problem: interpolation\index{interpolation function}. We presume a relationship between neighboring data values. Often this is a linear function, but we can use quadratic, cubic, spline, or other interpolation functions. Chapter 8: \nameref{chap:advanced_data_representation} discusses interpolation functions in greater detail, but for now suffice it to say that interpolation functions generate data values in between known points.
 
-A second important characteristic of visualization data is that its structure may be regular or irregular (alternatively, structured or unstructured). Regular data has an inherent relationship between data points. For example, if we sample on an evenly spaced set of points, we do not need to store all the point coordinates, only the beginning position of the interval, the spacing between points, and the total number of points. The point positions are then known implicitly, which can be taken of advantage of to save computer memory.
+A second important characteristic of visualization data is that its structure may be regular or irregular (alternatively, structured or unstructured). Regular data\index{regular data!structured data} has an inherent relationship between data points. For example, if we sample on an evenly spaced set of points, we do not need to store all the point coordinates, only the beginning position of the interval, the spacing between points, and the total number of points. The point positions are then known implicitly, which can be taken of advantage of to save computer memory.
 
 Data that is not regular is irregular data\index{irregular data}. The advantage of irregular data is that we can represent information more densely where it changes quickly and less densely where the change is not so great. Thus, irregular data allows us to create adaptive representational forms, which can be beneficial given limited computing resources.
 
@@ -324,12 +319,12 @@ Image datasets are often used in imaging and computer graphics. Volumes are freq
 \index{dataset types!image data|)}\index{image data|)}
 
 \subsection{Rectilinear Grid}
-\index{dataset types!rectilinear grid|(}
+\index{dataset types!rectilinear grid|(}\index{rectilinear grid|(}
 
 The rectilinear grid dataset is a collection of points and cells arranged on a regular lattice. The rows, columns, and planes of the lattice are parallel to the global $x-y-z$ coordinate system. While the topology of the dataset is regular, the geometry is only partially regular. That is, the points are aligned along the coordinate axis, but the spacing between points may vary.
 
 Like the image dataset, rectilinear grids consist of pixels (2D) or voxels (3D). The topology is represented implicitly by specifying grid dimensions. The geometry is represented by maintaining a list of separate x, y, and z coordinates. To obtain the coordinates of a particular point, values from each of the three lists must be appropriately combined.
-\index{dataset types!rectilinear grid|)}
+\index{dataset types!rectilinear grid|)}\index{rectilinear grid|)}
 
 \subsection{Structured Grid}
 \index{dataset types!structured grid|(}
@@ -495,7 +490,7 @@ Data objects are implemented in VTK as an array of vtkDataArrays as shown in Fig
 \subsection{Dataset Representation}
 \index{dataset!representation|(}\index{dataset representation!implementation|(}
 
-Five datasets are implemented in VTK: vtkPolyData, vtkImageData, vtkStructuredGrid, vtkRectilinearGrid, and vtkUnstructuredGrid. The unstructured points dataset is not implemented, but can be represented using either vtkPolyData or vtkUnstructuredGrid.
+Five datasets are implemented in VTK: vtkPolyData, vtkImageData, vtkStructuredGrid, vtkRectilinearGrid\index{rectilinear grid!representation}, and vtkUnstructuredGrid. The unstructured points dataset is not implemented, but can be represented using either vtkPolyData or vtkUnstructuredGrid.
 
 We use a different internal data representation for each dataset type. By using different representations we minimize data structure memory requirements and implement efficient access methods. It would have been possible to use vtkUnstructuredGrid to represent all dataset types, but the memory and computational overhead are unacceptable for large data. The following sections describe how we represent the dataset.
 
@@ -505,7 +500,9 @@ We use a different internal data representation for each dataset type. By using 
 
 There is an implicit ordering of both the points and cells composing vtkImageData. Both the cells and points are numbered in the direction of increasing x, then y, then z. The total number of points is $n_x \times n_y \times n_z$ where $n_x$, $n_y$, and $n_z$z are the dimensions of vtkImageData. The total number of cells is $(n_x - 1) \times  (n_y - 1) \times (n_z - 1)$.
 
+\index{rectilinear grid!implementation|(}
 \item[vtkRectilinearGrid.] While the topology of vtkRectilinearGrid is regular, the geometry can be described as ``semi-regular''. The topology is implicitly represented by specifying data dimensions along the x, y, and z coordinate axes. The geometry is defined using three arrays of coordinate values along these axes. These three coordinate arrays can be combined to determine the coordinates of any point in the dataset. In VTK, we represent the arrays using three instances of vtkDataArray. The numbering of points and cells is implicit in exactly the same way as described for vtkImageData.
+\index{rectilinear grid!implementation|)}
 
 \item[vtkStructuredGrid.] Like vtkImageData, the topology of vtkStructuredGrid is regular and is defined by specifying dimensions in the topological $i-j-k$ coordinate system. However, the geometry of vtkStructuredGrid is realized by specifying point coordinates in the global $x-y-z$ coordinate system.
 
@@ -566,12 +563,12 @@ The vtkCellTypes may also be added to the vtkPolyData data representation  --- a
 \index{dataset!representation|)}\index{dataset representation!implementation|)}
 
 \subsection{Cell Representation}
-\index{cell!representation!implementation|(}
+\index{cell!representation!implementation|(}\index{representation!implementation|(}
 
 In the \emph{Visualization Toolkit} each cell type has been implemented by creating specific classes. Each cell is a subclass of the abstract type vtkCell . Cell topology is represented by a list of ordered point ids, and cell geometry is represented by a list of point coordinates. The object diagram for vtkCell and its subclasses is shown in Figure \ref{fig:Figure5-15}.
 
 The abstract class vtkCell specifies methods that each cell must implement. These methods provide a defined interface to the cell's geometry and topology. Additional methods perform computation on the cell. These methods will be discussed in detail in Chapter 8: \nameref{chap:advanced_data_representation}.
-\index{cell!representation!implementation|)}
+\index{cell!representation!implementation|)}\index{representation!implementation|)}
 
 \subsection{Data Attributes}
 \index{dataset attributes!implementation|(}
@@ -851,6 +848,7 @@ The creation of a structured grid dataset is partially explicit and partially im
 The topological dimension of the dataset is implied by the specified dimensions. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one, the topological dimension of the dataset is two. If two of the three dimensions $(n_x, n_y, n_z)$ are equal to one, the topological dimension of the dataset is one.
 
 \item[Create a Rectilinear Grid Dataset.]
+\index{rectilinear grid!example|(}
 
 A rectilinear grid is regular in topology and semi-regular in geometry. Similar to a structured grid or image data dataset, topology is implicitly represented by specifying grid dimensions. Because the grid is axis-aligned but the point coordinates along each axis may vary, we need three data arrays to represent the geometry of the dataset, one array for each of the x-y-z axes. Note that the cell types of the rectilinear dataset are pixels and voxels.
 
@@ -917,6 +915,7 @@ To summarize the process of creating an instance of vtkRectilinearGrid, we follo
 \end{itemize}
 
 The topological dimension of the dataset is implied by the specified dimensions. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one, the topological dimension of the dataset is two. If two of the three dimensions $(n_x, n_y, n_z)$ are equal to one, the topological dimension of the dataset is one.
+\index{rectilinear grid!example|)}
 
 \item[Create an Unstructured Grid Dataset.]
 
