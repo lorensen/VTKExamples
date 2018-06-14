@@ -62,7 +62,7 @@ Before describing object-oriented design and programming in more detail, we prov
 
 ## 2.4 Object-Oriented Terminology
 
-As with any software engineering design methodology, object-oriented design has its own terminology. Unfortunately, not everyone agrees on what that is. We adopt much of our terminology from Rumbaugh <em style="color:blue;background-color: white">\[Rumbaugh91\]</em> and, since the *Visualization Toolkit* is written in C++, from Stroustrup <em style="color:blue;background-color: white">\[Stroustrup84\]</em>. For the most part, Rumbaugh's terminology is independent of programming language, while Stroustrup is specific to implementation in C++. The transition from design to programming will be painless though, and the mappings between the two terminologies are mostly obvious. Where we think there might be confusion, we will point out the correspondences.
+As with any software engineering design methodology, object-oriented design has its own terminology. Unfortunately, not everyone agrees on what that is. We adopt much of our terminology from Rumbaugh <em style="color:green;background-color: white">\[Rumbaugh91\]</em> and, since the *Visualization Toolkit* is written in C++, from Stroustrup <em style="color:green;background-color: white">\[Stroustrup84\]</em>. For the most part, Rumbaugh's terminology is independent of programming language, while Stroustrup is specific to implementation in C++. The transition from design to programming will be painless though, and the mappings between the two terminologies are mostly obvious. Where we think there might be confusion, we will point out the correspondences.
 
 ### What Is an Object?
 
@@ -112,7 +112,7 @@ which creates the object from the program heap.
 *Inheritance* is a programming mechanism that simplifies adding new classes to a system when they differ in small ways from currently existing classes. The notion of inheritance is adopted from the observation that most systems can be specified using a hierarchical classification system. A fine example of a classification system is the phyla of life on earth.
 
 Earlier we created an object corresponding to a pin oak tree. The properties of the tree can be more thoroughly described using inheritance ( **Figure 2-2** ). The classification shown here is based on the five kingdom system of Margulis and Schwartz
-<em style="color:blue;background-color:white">\[Margulis88\]</em>.
+<em style="color:green;background-color:white">\[Margulis88\]</em>.
  In this system, biota is classified as belonging to one of the five kingdoms Prokaryotae (bacteria), Protoctista (algae, protozoans and slime molds), Fungi (mushrooms, molds, lichens), Plantae (mosses, ferns, cone-bearing, and flowering plants), and Animalia (animals with and without backbones). Below this level we have the classifications division, class, order, family, genus, and species. The figure shows the kingdom, division, class, genus, and species of the pin oak.
 
 Organizing objects into an inheritance hierarchy provides many benefits. Properties of a general classification are also properties of its sub-classification. For example, we know that all species of genus *Quercus* form acorns. From the software point of view this means any instance variables and methods of a *superclass* are automatically inherited by its *subclass*. This allows us to make changes to a number of objects simultaneously by modifying their superclass. Furthermore, if we desire to add a new class (say a red oak tree) to the hierarchy we can do so without duplicating existing functionality. We need only differentiate the new class from the others by adding new instance variables or overloading existing methods.
@@ -153,7 +153,7 @@ Object-oriented system design begins with a modelling step that extracts objects
 
 Modelling is a step in most design processes regardless of whether we are designing a ship, house, electronics system, or software. Each discipline follows a methodology that uses techniques specifically created to make the design process efficient and worthwhile. These techniques are so-called "tools of the trade." An electrical engineer uses schematics and logic diagrams, an architect uses drawings and mock-ups, and a ship builder uses scale models. Likewise, software designers need tools that can help create a model of the system. The software tools should have enough expressive power to help the software designer evaluate a design against a specification and help communicate that design to others on the software team.
 
-We use the Object Modeling Technique (OMT) developed at GE by Jim Rumbaugh and his colleagues <em style="color:blue;background-color:white">\[Rumbaugh91\]</em>. OMT uses three models to specify an object-oriented design: an object model, a dynamic model, and a functional model. Each model describes a different aspect of the system and each has a corresponding diagramming technique that helps us analyze, design, and implement software systems.
+We use the Object Modeling Technique (OMT) developed at GE by Jim Rumbaugh and his colleagues <em style="color:green;background-color:white">\[Rumbaugh91\]</em>. OMT uses three models to specify an object-oriented design: an object model, a dynamic model, and a functional model. Each model describes a different aspect of the system and each has a corresponding diagramming technique that helps us analyze, design, and implement software systems.
 
 ### The Object Model
 
@@ -194,11 +194,11 @@ The functional model shows how data flows through the system and how processes a
 
 The choice of computer programming language is a religious issue. Every computer language has its evangelists and followers. Most of our experience in object-oriented languages is with C and C++. C itself does not have object-oriented facilities, but an object-oriented methodology and strict coding guidelines permit the development of object-oriented code. We chose C++ for the *Visualization Toolkit* because it has built-in support for the notion of classes, dynamic binding of methods to objects, and inheritance. C++ is also widely available on many UNIX platforms and personal computers.
 
-Simula <em style="color:blue;background-color:white">\[Birtwistle79\]</em> is usually acknowledged as the first object-oriented language, but Smalltalk <em style="color:blue;background-color:white">\[Goldberg83\]</em> is probably the best-known language. Smalltalk was developed at the Xerox Palo Alto Research Center (PARC) in the seventies and eighties. Well before its time, Smalltalk provided not just a language, but also an operating system and programming environment built with objects. When you use Smalltalk, you live and breathe objects. For the object-oriented purist, there is no substitute. Smalltalk spin-offs include window systems, workstations, and the desktop paradigm. Both Apple Computer and Microsoft acknowledge the influence that Smalltalk and Xerox PARC had on the Macintosh and Windows. Smalltalk was probably conceived 10 years too early for widespread commercial acceptance. During Smalltalk's infancy and adolescence, the complexity of software was much lower than today's systems. FORTRAN served the scientific and engineering community, COBOL was the choice for business applications and the computer science community embraced C. The use of abstractions was limited to mathematicians and other abstract thinkers. Programming was considered an art form and programmers concentrated on clever implementations of algorithms. Each new task often required a new program. Technical programmers did use numerical libraries for common mathematical operations, but any notions of common abstractions at a higher level were relatively few.
+Simula <em style="color:green;background-color:white">\[Birtwistle79\]</em> is usually acknowledged as the first object-oriented language, but Smalltalk <em style="color:green;background-color:white">\[Goldberg83\]</em> is probably the best-known language. Smalltalk was developed at the Xerox Palo Alto Research Center (PARC) in the seventies and eighties. Well before its time, Smalltalk provided not just a language, but also an operating system and programming environment built with objects. When you use Smalltalk, you live and breathe objects. For the object-oriented purist, there is no substitute. Smalltalk spin-offs include window systems, workstations, and the desktop paradigm. Both Apple Computer and Microsoft acknowledge the influence that Smalltalk and Xerox PARC had on the Macintosh and Windows. Smalltalk was probably conceived 10 years too early for widespread commercial acceptance. During Smalltalk's infancy and adolescence, the complexity of software was much lower than today's systems. FORTRAN served the scientific and engineering community, COBOL was the choice for business applications and the computer science community embraced C. The use of abstractions was limited to mathematicians and other abstract thinkers. Programming was considered an art form and programmers concentrated on clever implementations of algorithms. Each new task often required a new program. Technical programmers did use numerical libraries for common mathematical operations, but any notions of common abstractions at a higher level were relatively few.
 
 ## 2.7 Object-Oriented Visualization
 
-Don't underestimate the investment required to design a system. Although object-oriented technologies have tremendous potential to produce good software designs, these techniques do not guarantee a good design. The visualization system we present in this text has its roots in an animation <em style="color:blue;background-color:white">\[Lorensen89\]</em> and visualization system <em style="color:blue;background-color:white">\[Schroeder92\]</em> that we developed over a 10-year period. The initial design, which identified 25 classes for computer animation of industrial applications, took four software professionals 10 months (almost 3.5 person years) to complete. During this design stage the developers produced zero (!) lines of code. The subsequent implementation took one month, or ten percent of the effort. This system still serves our visualization group even after 20 other software developers have added over 500 classes to the system. The original 25 classes still exist in the system today.
+Don't underestimate the investment required to design a system. Although object-oriented technologies have tremendous potential to produce good software designs, these techniques do not guarantee a good design. The visualization system we present in this text has its roots in an animation <em style="color:green;background-color:white">\[Lorensen89\]</em> and visualization system <em style="color:green;background-color:white">\[Schroeder92\]</em> that we developed over a 10-year period. The initial design, which identified 25 classes for computer animation of industrial applications, took four software professionals 10 months (almost 3.5 person years) to complete. During this design stage the developers produced zero (!) lines of code. The subsequent implementation took one month, or ten percent of the effort. This system still serves our visualization group even after 20 other software developers have added over 500 classes to the system. The original 25 classes still exist in the system today.
 
 As a reader, we hope that you can benefit from our experience in visualization system design. We have tried to assist you by describing the properties (attributes and methods) of many of the *Visualization Toolkit* classes in each chapter's *"*Putting It All Together *"* section. There are also included a series of object diagrams generated by the Doxygen documentation system that will give you a quick overview of object relationships such as superclass and subclass. This documentation can be found on the CD-ROM or on-line at http://www.vtk.org. In the next chapter we will also explain the decisions we made to design the VTK object-oriented toolkit.
 
@@ -214,11 +214,11 @@ The emphasis in this book is on architecture, data structure design, and algorit
 
 ## 2.9 Bibliographic Notes
 
-There are several excellent textbooks on object-oriented design. Both <em style="color:blue;background-color:white">\[Rumbaugh91\]</em> and <em style="color:blue;background-color:white">\[Birtwistle79\]</em> present language-independent design methodologies. Both books emphasize modelling and diagramming as key aspects of design. <em style="color:blue;background-color:white">\[Meyer88\]</em> also describes the OO design process in the context of Eiffel, an OO language. Another popular book has been authored by Booch <em style="color:blue;background-color:white">\[Booch91\]</em>.
+There are several excellent textbooks on object-oriented design. Both <em style="color:green;background-color:white">\[Rumbaugh91\]</em> and <em style="color:green;background-color:white">\[Birtwistle79\]</em> present language-independent design methodologies. Both books emphasize modelling and diagramming as key aspects of design. <em style="color:green;background-color:white">\[Meyer88\]</em> also describes the OO design process in the context of Eiffel, an OO language. Another popular book has been authored by Booch <em style="color:green;background-color:white">\[Booch91\]</em>.
 
-Anyone who wants to be a serious user of object-oriented design and implementation should read the books on Smalltalk <em style="color:blue;background-color:white">\[Goldberg83\]</em> <em style="color:blue;background-color:white">\[Goldberg84\]</em> by the developers of Smalltalk at Xerox Parc. In another early object-oriented programming book, <em style="color:blue;background-color:white">\[Cox86\]</em> describes OO techniques and the programming language Objective-C. Objective-C is a mix of C and Smalltalk and was used by Next Computer in the implementation of their operating system and user interface.
+Anyone who wants to be a serious user of object-oriented design and implementation should read the books on Smalltalk <em style="color:green;background-color:white">\[Goldberg83\]</em> <em style="color:green;background-color:white">\[Goldberg84\]</em> by the developers of Smalltalk at Xerox Parc. In another early object-oriented programming book, <em style="color:green;background-color:white">\[Cox86\]</em> describes OO techniques and the programming language Objective-C. Objective-C is a mix of C and Smalltalk and was used by Next Computer in the implementation of their operating system and user interface.
 
-There are many texts on object-oriented languages. CLOS <em style="color:blue;background-color:white">\[Keene89\]</em> describes the Common List Object System. Eiffel, a strongly typed OO language is described by <em style="color:blue;background-color:white">\[Meyer88\]</em>. Objective-C <em style="color:blue;background-color:white">\[Cox86\]</em> is a weakly typed language.
+There are many texts on object-oriented languages. CLOS <em style="color:green;background-color:white">\[Keene89\]</em> describes the Common List Object System. Eiffel, a strongly typed OO language is described by <em style="color:green;background-color:white">\[Meyer88\]</em>. Objective-C <em style="color:green;background-color:white">\[Cox86\]</em> is a weakly typed language.
 
 Since C++ has become a popular programming language, there now many class libraries available for use in applications. [Gorlen90] describes an extensive class library for collections and arrays modeled after the Smalltalk classes described in [Goldberg83]. [Stepanov94] and [Musser94] describe the Standard Template Library, a framework of data structures and algorithms that is now a part of the ANSI C++ standard. Open Inventor [Inventor] is a C++ library supporting interactive 3D computer graphics. The Insight Segmentation and Registration Toolkit (ITK) is a relatively new class library often used in combination with VTK [ITK] for medical data processing. VXL is a C++ library for computer vision research and implementation [VXL]. Several mathematical libraries such as VNL (a part of VXL) and Blitz++ [Blitz] are also available. A wide variety of other C++ toolkits are available, Google searches [Google] are the best way to find them.
 
@@ -228,79 +228,79 @@ To keep in touch with new developments there are conferences, journals, and Web 
 
 ## 2.10 References
 
-<em style="color:blue;background-color:white">\[Austern99\]</em>
+<em style="color:green;background-color:white">\[Austern99\]</em>
 M. H. Austern. *Generic Programming and the STL*. Addison-Wesley 1999. ISBN 0-2-1-30956-4.
 
-<em style="color:blue;background-color:white">\[Birtwistle79\]</em>
+<em style="color:green;background-color:white">\[Birtwistle79\]</em>
 G. M. Birtwistle, O. Dahl, B. Myhrhaug, and K. Nygaard. *Simula Begin*. Chartwell-Bratt Ltd, England, 1979.
 
-<em style="color:blue;background-color:white">\[Blitz\]</em>
+<em style="color:green;background-color:white">\[Blitz\]</em>
 http://www.oonumerics.org/blitz/.
 
-<em style="color:blue;background-color:white">\[Booch91\]</em>
+<em style="color:green;background-color:white">\[Booch91\]</em>
 G. Booch. *Object-Oriented Design with Applications.* Benjamin/Cummings Publishing Co., Redwood City, CA, 1991.
 
-<em style="color:blue;background-color:white">\[Booch98\]</em>
+<em style="color:green;background-color:white">\[Booch98\]</em>
 G. Booch, I. Jacobson, J. Rumbaugh. *The Unified Modeling Language User Guide*. Addison-Wesley 1998, ISBN 0201571684.
 
-<em style="color:blue;background-color:white">\[Cox86\]</em>
+<em style="color:green;background-color:white">\[Cox86\]</em>
 B. J. Cox. *Object-Oriented Programming: An Evolutionary Approach.* Addison-Wesley, Reading, MA, 1986.
 
-<em style="color:blue;background-color:white">\[Ellis90\]</em>
+<em style="color:green;background-color:white">\[Ellis90\]</em>
 M. Ellis and B. Stroustrup. *The Annotated C++ Reference Manual*. Addison-Wesley, Reading, MA, 1990.
 
-<em style="color:blue;background-color:white">\[Goldberg83\]</em>
+<em style="color:green;background-color:white">\[Goldberg83\]</em>
 A. Goldberg, D. Robson. *Smalltalk-80: The Language and Its Implementation*. Addison-Wesley, Reading, MA, 1983.
 
-<em style="color:blue;background-color:white">\[Goldberg84\]</em>
+<em style="color:green;background-color:white">\[Goldberg84\]</em>
 A. Goldberg. *Smalltalk-80: The Interactive Programming Environment*. Addison-Wesley, Reading, MA, 1984.
 
-<em style="color:blue;background-color:white">\[Google\]</em>
+<em style="color:green;background-color:white">\[Google\]</em>
 http://www.google.com.
 
-<em style="color:blue;background-color:white">\[Gorlen90\]</em>
+<em style="color:green;background-color:white">\[Gorlen90\]</em>
 K. Gorlen, S. Orlow, and P. Plexico. *Data Abstraction and Object-Oriented Programming*. John Wiley & Sons, Ltd., Chichester, England, 1990.
 
-<em style="color:blue;background-color:white">\[Inventor\]</em>
+<em style="color:green;background-color:white">\[Inventor\]</em>
 http://oss.sgi.com/projects/inventor/.
 
-<em style="color:blue;background-color:white">\[ITK\]</em>
+<em style="color:green;background-color:white">\[ITK\]</em>
 The Insight Software Consortium. http://www.itk.org.
 
-<em style="color:blue;background-color:white">\[Keene89\]</em>
+<em style="color:green;background-color:white">\[Keene89\]</em>
 S. Keene. *Object-Oriented Programming in Common Lisp: A Programmer's Guide to CLOS*. Addison-Wesley, Reading, MA, 1989.
 
-<em style="color:blue;background-color:white">\[Lorensen89\]</em>
+<em style="color:green;background-color:white">\[Lorensen89\]</em>
 W. E. Lorensen, B. Yamrom. "Object-Oriented Computer Animation." *Proceedings of IEEE NAE-CON*, 2:588-595, Dayton, Ohio, May 1989.
 
-<em style="color:blue;background-color:white">\[Margulis88\]</em>
+<em style="color:green;background-color:white">\[Margulis88\]</em>
 L. Margulis and K. V. Schwartz. *Five Kingdoms an Illustrated Guide to the Phyla of Life on Earth*. H. Freeman & Co., New York, 1988.
 
-<em style="color:blue;background-color:white">\[Meyer88\]</em>
+<em style="color:green;background-color:white">\[Meyer88\]</em>
 B. Meyer. *Object-Oriented Software Construction*. Prentice Hall International, Hertfordshire, England, 1988.
 
-<em style="color:blue;background-color:white">\[Musser94\]</em>
+<em style="color:green;background-color:white">\[Musser94\]</em>
 D. Musser and A. Stepanov. "Algorithm-Oriented Generic Libraries." *Software Practice and Experience*. 24(7):623--642, July 1994.
 
-<em style="color:blue;background-color:white">\[Musser96\]</em>
+<em style="color:green;background-color:white">\[Musser96\]</em>
 D. R. Musser and A. Saini. *STL Tutorial and Reference Guide*. Addison-Wesley 1996.ISBN 0-201-63398-1.
 
-<em style="color:blue;background-color:white">\[Rumbaugh91\]</em>
+<em style="color:green;background-color:white">\[Rumbaugh91\]</em>
 J. Rumbaugh, M. Blaha, W. Premerlani, F. Eddy, and W. Lorensen. *Object-Oriented Modeling and* *Design.* Prentice Hall, Englewood Cliffs, NJ, 1991.
 
-<em style="color:blue;background-color:white">\[Rumbaugh98\]</em>
+<em style="color:green;background-color:white">\[Rumbaugh98\]</em>
 J. Rumbaugh, G. Booch, and I. Jacobson. *The Unified Modeling Language Reference Manual*. Addison-Wesley 1998, ISBN: 020130998X.
 
-<em style="color:blue;background-color:white">\[Schroeder92\]</em>
+<em style="color:green;background-color:white">\[Schroeder92\]</em>
 W. J. Schroeder, W. E. Lorensen, G. Montanaro, and C. Volpe. "Visage: An Object-Oriented Scientific Visualization System." In *Proceedings of Visualization '92*. pp. 219--226, IEEE Computer Society Press, Los Alamitos, CA, October 1992.
 
-<em style="color:blue;background-color:white">\[Stepanov94\]</em>
+<em style="color:green;background-color:white">\[Stepanov94\]</em>
 A. Stepanov and M. Lee. *The Standard Template Library*. ISO Programming Language C++ Project. Doc. No. X3J16/94-0095, WG21/N0482, May 1994.
 
-<em style="color:blue;background-color:white">\[Stroustrup84\]</em>
+<em style="color:green;background-color:white">\[Stroustrup84\]</em>
 B. Stroustrup. *The C++ Programming Language*. Addison-Wesley, Reading, MA, 1986.
 
-<em style="color:blue;background-color:white">\[VXL\]</em>
+<em style="color:green;background-color:white">\[VXL\]</em>
 http://vxl.sourceforge.net/.
 
 ## 2.11 Exercises

@@ -56,7 +56,7 @@ The most general form of data found in VTK is the data object. A data object can
 ## 5.3 The Dataset
 Data objects with an organizing _structure_ and associated _data attributes_ (**Figure 5-11**) form _datasets_. The dataset is an abstract form; we leave the representation and implementation of the structure to its concrete subclasses. Most algorithms (or process objects) in VTK operate on datasets.
 
-The structure has two parts: _topology_ and _geometry_. Topology is the set of properties invariant under certain geometric transformations <em style="color:blue;background-color: white">\[Weiler86\]</em>. Here we consider the transformations: rotation, translation, and nonuniform scaling. Geometry is the instantiation of the topology, the specification of position in 3D space. For example, saying that a polygon is a “triangle,” specifies topology. By providing point coordinates, we specify geometry.
+The structure has two parts: _topology_ and _geometry_. Topology is the set of properties invariant under certain geometric transformations <em style="color:green;background-color: white">\[Weiler86\]</em>. Here we consider the transformations: rotation, translation, and nonuniform scaling. Geometry is the instantiation of the topology, the specification of position in 3D space. For example, saying that a polygon is a “triangle,” specifies topology. By providing point coordinates, we specify geometry.
 
 Dataset attributes are supplemental information associated with geometry and/or topology. This information might be a temperature value at a point or the inertial mass of a cell.
 
@@ -152,7 +152,7 @@ One significant difference between linear and nonlinear cells is the way they ar
 
 2. Develop custom rendering and visualization algorithms to operate directly on nonlinear cells.
 
-3. Program custom rendering operations in the graphics library. These issues are active topics in visualization research <em style="color:blue;background-color: white">\[Schroeder05\]</em>. In VTK, tessellation methods are currently employed since once tessellated, a cell can be processed by existing linear algorithms. The difficulty with solutions 2) and 3) above is that the effort to create new rendering and visualization algorithms is significant, possibly requiring different solutions for each type of nonlinear cell. Furthermore, it is likely that the performance found in dedicated rendering hardware (e.g., processing linear cells) would far outstrip any software rendering solution for higher order cells. The difficulty with 1) above is that the tessellation must be performed carefully or unacceptable error can be introduced into visualization. Or, if the cell is over-tessellated, an excessive number of linear primitives will result. Future research points to developing adaptive methods that tessellate on a selected error metric (please see [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) for more information).
+3. Program custom rendering operations in the graphics library. These issues are active topics in visualization research <em style="color:green;background-color: white">\[Schroeder05\]</em>. In VTK, tessellation methods are currently employed since once tessellated, a cell can be processed by existing linear algorithms. The difficulty with solutions 2) and 3) above is that the effort to create new rendering and visualization algorithms is significant, possibly requiring different solutions for each type of nonlinear cell. Furthermore, it is likely that the performance found in dedicated rendering hardware (e.g., processing linear cells) would far outstrip any software rendering solution for higher order cells. The difficulty with 1) above is that the tessellation must be performed carefully or unacceptable error can be introduced into visualization. Or, if the cell is over-tessellated, an excessive number of linear primitives will result. Future research points to developing adaptive methods that tessellate on a selected error metric (please see [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) for more information).
  
 VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in **Figure 5-5**. This generally works well for quadratic cells due to the lower order of interpolation, and the few number of points defining the cell.
 
@@ -243,7 +243,7 @@ Vertices, lines, and polygons form a minimal set of primitives to represent 0-, 
   <figcaption style="color:blue"><b>Figure 5-7</b>. Dataset types. The unstructured grid consists of all cell types.</figcaption>
 </figure>
 
-Our minimal selection of cells is based on common application and performance, representing a subset of the cells available in some graphics libraries. Other types include quadrilateral meshes, Bezier curves and surfaces, and other spline types such as NURBS (Non-Uniform Rational B-Splines) <em style="color:blue;background-color: white">\[Mortenson85\]</em>. Spline surfaces are generally used to accurately model and visualize geometry. Few visualization algorithms (other than geometry visualization) have been developed that require spline surfaces.
+Our minimal selection of cells is based on common application and performance, representing a subset of the cells available in some graphics libraries. Other types include quadrilateral meshes, Bezier curves and surfaces, and other spline types such as NURBS (Non-Uniform Rational B-Splines) <em style="color:green;background-color: white">\[Mortenson85\]</em>. Spline surfaces are generally used to accurately model and visualize geometry. Few visualization algorithms (other than geometry visualization) have been developed that require spline surfaces.
 
 ###  Image Data
 
@@ -289,7 +289,7 @@ Other data models have been proposed besides the dataset model presented here. W
 
 ### The Application Visualization Systems
 
-AVS (the Application Visualization System) was the first large-scale, commercial visualization system <em style="color:blue;background-color: white">\[AVS89\]</em>. Much of the early growth, visibility, and successful application of visualization technology was achieved because of the direct application of AVS or the influence of AVS on other researchers. AVS is a data-flow visualization system with a crisp user interface to create, edit, and manipulate visualization networks. Using an explicit executive to control execution of networks, AVS can run distributed and parallel visualization applications. Since the AVS architecture is open, researchers and developers can and have donated filters for use by others.
+AVS (the Application Visualization System) was the first large-scale, commercial visualization system <em style="color:green;background-color: white">\[AVS89\]</em>. Much of the early growth, visibility, and successful application of visualization technology was achieved because of the direct application of AVS or the influence of AVS on other researchers. AVS is a data-flow visualization system with a crisp user interface to create, edit, and manipulate visualization networks. Using an explicit executive to control execution of networks, AVS can run distributed and parallel visualization applications. Since the AVS architecture is open, researchers and developers can and have donated filters for use by others.
 
 The AVS data model consists of primitive data and aggregate data. Primitive data are fundamental representations of data such as byte, integer, real, and string. Aggregate types are complex organizations of primitive types and include fields, colormaps, geometries, and pixel maps. Fields can be considered AVS’ fundamental data type, and will be described in detail shortly. Colormaps are used to map functional values (i.e., scalar values) into color and transparency values. Geometries consist of graphics primitives such as points, lines, and polygons, and are used by the geometric renderer to display objects. A pixel map is the rendered image, or output, of a visualization.
 
@@ -297,7 +297,7 @@ The field is the most interesting part of the AVS data model. In general, it is 
 
 ### The Data Explorer
 
-The data model of Haber, Lucas, and Collins <em style="color:blue;background-color: white">\[Haber91\]</em> is based on the mathematics of fiber bundles. The goal of their work is to create a general model for piecewise representations of fields on regular and irregular grids. They refer to their model as the field data model, but their definition of the word field is different from the AVS model. A field is an object composed of a base and dependent data. Informally, the base is a manifold whose coordinates are the independent variables for the field, and the dependent data relate the values of dependent variables to the independent variables of the base. Visualization data consists of field elements that describe the base and dependent variables over a local region.
+The data model of Haber, Lucas, and Collins <em style="color:green;background-color: white">\[Haber91\]</em> is based on the mathematics of fiber bundles. The goal of their work is to create a general model for piecewise representations of fields on regular and irregular grids. They refer to their model as the field data model, but their definition of the word field is different from the AVS model. A field is an object composed of a base and dependent data. Informally, the base is a manifold whose coordinates are the independent variables for the field, and the dependent data relate the values of dependent variables to the independent variables of the base. Visualization data consists of field elements that describe the base and dependent variables over a local region.
 
 ### The Visualization Toolkit
 
@@ -649,39 +649,39 @@ Important dataset types include polygonal data, rectilinear grid, image data, st
 Attribute data consists of scalars, vectors, tensors, texture coordinates, and normals. Other arrays may also be includes as part of attribute data since it is a type of field data. In the _Visualization Toolkit_, attribute data is associated with both the dataset point and cells.
 
 ##5.10 Bibliographic Notes
-A variety of representation schemes have been proposed for each dataset type described here. These schemes vary depending on design goals. For example, even the simple volume representation has been implemented with other more complex schemes such as run-length encoding and octrees <em style="color:blue;background-color: white">\[Bloomenthal88\]</em>. A description of more general representation schemes is available in <em style="color:blue;background-color: white">\[Haber91\]</em>, the AVS field model <em style="color:blue;background-color: white">\[AVS89\]</em>, and the compact cell structure <em style="color:blue;background-color: white">\[Schroeder94\]</em>. An overview of dataset types can be found in <em style="color:blue;background-color: white">\[Gelberg90\]</em>. Some structures for those mathematically oriented can be found in <em style="color:blue;background-color: white">\[Brisson90\]</em> and <em style="color:blue;background-color: white">\[Poluzzi93\]</em>. Haimes <em style="color:blue;background-color: white">\[VISUAL3\]</em> describes an efficient data structure for unstructured grid visualization.
+A variety of representation schemes have been proposed for each dataset type described here. These schemes vary depending on design goals. For example, even the simple volume representation has been implemented with other more complex schemes such as run-length encoding and octrees <em style="color:green;background-color: white">\[Bloomenthal88\]</em>. A description of more general representation schemes is available in <em style="color:green;background-color: white">\[Haber91\]</em>, the AVS field model <em style="color:green;background-color: white">\[AVS89\]</em>, and the compact cell structure <em style="color:green;background-color: white">\[Schroeder94\]</em>. An overview of dataset types can be found in <em style="color:green;background-color: white">\[Gelberg90\]</em>. Some structures for those mathematically oriented can be found in <em style="color:green;background-color: white">\[Brisson90\]</em> and <em style="color:green;background-color: white">\[Poluzzi93\]</em>. Haimes <em style="color:green;background-color: white">\[VISUAL3\]</em> describes an efficient data structure for unstructured grid visualization.
 
-If you are interested in more details on finite element methods see the classic Zienkiewicz <em style="color:blue;background-color: white">\[Zienkiewicz87\]</em> or <em style="color:blue;background-color: white">\[Gallagher75\]</em>. Information about both finite difference and finite element methods is available in <em style="color:blue;background-color: white">\[Lapidus82\]</em>.
+If you are interested in more details on finite element methods see the classic Zienkiewicz <em style="color:green;background-color: white">\[Zienkiewicz87\]</em> or <em style="color:green;background-color: white">\[Gallagher75\]</em>. Information about both finite difference and finite element methods is available in <em style="color:green;background-color: white">\[Lapidus82\]</em>.
 
 ## 5.11 References
 
-<em style="color:blue;background-color: white">\[AVS89\]</em> C. Upson, T. Faulhaber, Jr., D. Kamins, and others. “The Application Visualization System: A Computational Environment for Scientific Visualization.” IEEE Computer Graphics and Applications. 9(4):30–42, July 1989.
+<em style="color:green;background-color: white">\[AVS89\]</em> C. Upson, T. Faulhaber, Jr., D. Kamins, and others. “The Application Visualization System: A Computational Environment for Scientific Visualization.” IEEE Computer Graphics and Applications. 9(4):30–42, July 1989.
 
-<em style="color:blue;background-color: white">\[Bloomenthal88\]</em> J. Bloomenthal. “Polygonization of Implicit Surfaces.” Computer Aided Geometric Design. 5(4):341–355, November 1988.
+<em style="color:green;background-color: white">\[Bloomenthal88\]</em> J. Bloomenthal. “Polygonization of Implicit Surfaces.” Computer Aided Geometric Design. 5(4):341–355, November 1988.
 
-<em style="color:blue;background-color: white">\[Brisson90\]</em> E. Brisson. “Representing Geometric Structures in d-Dimensions: Topology and Order.” ACM Symposium on Computational Geometry. ACM Press, NY, 1989.
+<em style="color:green;background-color: white">\[Brisson90\]</em> E. Brisson. “Representing Geometric Structures in d-Dimensions: Topology and Order.” ACM Symposium on Computational Geometry. ACM Press, NY, 1989.
 
-<em style="color:blue;background-color: white">\[Gallagher75\]</em> R. H. Gallagher. Finite Element Analysis: Fundamentals. Prentice Hall, Upper Saddle River, NJ, 1975.
+<em style="color:green;background-color: white">\[Gallagher75\]</em> R. H. Gallagher. Finite Element Analysis: Fundamentals. Prentice Hall, Upper Saddle River, NJ, 1975.
 
-<em style="color:blue;background-color: white">\[Gelberg90\]</em> L. Gelberg, D. Kamins, D. Parker, and J. Stacks. “Visualization Techniques for Structured and Unstructured Scientific Data.” SIGGRAPH ’90 Course Notes for State of the Art Data Visualization. August 1990.
+<em style="color:green;background-color: white">\[Gelberg90\]</em> L. Gelberg, D. Kamins, D. Parker, and J. Stacks. “Visualization Techniques for Structured and Unstructured Scientific Data.” SIGGRAPH ’90 Course Notes for State of the Art Data Visualization. August 1990.
 
-<em style="color:blue;background-color: white">\[Haber91\]</em> R. B. Haber, B. Lucas, N. Collins. “A Data Model for Scientific Visualization with Provisions for Regular and Irregular Grids.” In Proceedings of Visualization ’91. pp. 298–395, IEEE Computer Society Press, Los Alamitos, CA, 1991.
+<em style="color:green;background-color: white">\[Haber91\]</em> R. B. Haber, B. Lucas, N. Collins. “A Data Model for Scientific Visualization with Provisions for Regular and Irregular Grids.” In Proceedings of Visualization ’91. pp. 298–395, IEEE Computer Society Press, Los Alamitos, CA, 1991.
 
-<em style="color:blue;background-color: white">\[Lapidus82\]</em> L. Lapidus and G. F. Pinder. Numerical Solution of Partial Differential Equations in Science and Engineering. John Wiley and Sons, New York, 1987.
+<em style="color:green;background-color: white">\[Lapidus82\]</em> L. Lapidus and G. F. Pinder. Numerical Solution of Partial Differential Equations in Science and Engineering. John Wiley and Sons, New York, 1987.
 
-<em style="color:blue;background-color: white">\[Mortenson85\]</em> M. E. Mortenson. Geometric Modeling. John Wiley and Sons, New York, 1985.
+<em style="color:green;background-color: white">\[Mortenson85\]</em> M. E. Mortenson. Geometric Modeling. John Wiley and Sons, New York, 1985.
 
-<em style="color:blue;background-color: white">\[Poluzzi93\]</em> A. Paoluzzi, F. Bernardini, C. Cattani, and V. Ferrucci. “Dimension-Independent Modeling with Simplicial Complexes.” ACM Transactions on Graphics. 12(1):56–102, 1993.
+<em style="color:green;background-color: white">\[Poluzzi93\]</em> A. Paoluzzi, F. Bernardini, C. Cattani, and V. Ferrucci. “Dimension-Independent Modeling with Simplicial Complexes.” ACM Transactions on Graphics. 12(1):56–102, 1993.
 
-<em style="color:blue;background-color: white">\[Schroeder94\]</em> W. J. Schroeder and B. Yamrom. “A Compact Cell Structure for Scientific Visualization.” SIGGRAPH ’93 and ’94 Course Notes for Advanced Techniques for Scientific Visualization.
+<em style="color:green;background-color: white">\[Schroeder94\]</em> W. J. Schroeder and B. Yamrom. “A Compact Cell Structure for Scientific Visualization.” SIGGRAPH ’93 and ’94 Course Notes for Advanced Techniques for Scientific Visualization.
 
-<em style="color:blue;background-color: white">\[Schroeder05\]</em>W. J. Schroeder, F. Bertel, M. Malaterre, D. Thompson, P. P. Pébay, R. O'Bara and S. Tendulkar. “Framework for Visualizing Higher-Order Basis Functions.” In Proceedings of IEEE Visualization 2005, pp. 43–50, Minneapolis, MN, IEEE Computer Society Press, October 2005.
+<em style="color:green;background-color: white">\[Schroeder05\]</em>W. J. Schroeder, F. Bertel, M. Malaterre, D. Thompson, P. P. Pébay, R. O'Bara and S. Tendulkar. “Framework for Visualizing Higher-Order Basis Functions.” In Proceedings of IEEE Visualization 2005, pp. 43–50, Minneapolis, MN, IEEE Computer Society Press, October 2005.
 
-<em style="color:blue;background-color: white">\[VISUAL3\]</em> R. Haimes and M. Giles. “VISUAL3: Interactive Unsteady Unstructured 3D Visualization.” AIAA Report No. AIAA-91-0794. January 1991.
+<em style="color:green;background-color: white">\[VISUAL3\]</em> R. Haimes and M. Giles. “VISUAL3: Interactive Unsteady Unstructured 3D Visualization.” AIAA Report No. AIAA-91-0794. January 1991.
 
-<em style="color:blue;background-color: white">\[Weiler86\]</em> K. J. Weiler. Topological Structures for Geometric Modeling. PhD thesis, Rensselaer Polytechnic Institute, Troy, NY, May 1986.
+<em style="color:green;background-color: white">\[Weiler86\]</em> K. J. Weiler. Topological Structures for Geometric Modeling. PhD thesis, Rensselaer Polytechnic Institute, Troy, NY, May 1986.
 
-<em style="color:blue;background-color: white">\[Zienkiewicz87\]</em> O. C. Zienkiewicz and R. L. Taylor. The Finite Element Method, vol. 1. McGraw-Hill Book Co., New York, 4th ed. 1987.
+<em style="color:green;background-color: white">\[Zienkiewicz87\]</em> O. C. Zienkiewicz and R. L. Taylor. The Finite Element Method, vol. 1. McGraw-Hill Book Co., New York, 4th ed. 1987.
 
 ##5.12 Exercises
 

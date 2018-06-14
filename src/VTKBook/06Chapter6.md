@@ -86,7 +86,7 @@ Consider the 2D structured grid shown in **Figure 6-4**. Scalar values are shown
 
 Once the points on cell edges are generated, we can connect these points into contours using a few different approaches. One approach detects an edge intersection (i.e., the contour passes through an edge) and then "tracks" this contour as it moves across cell boundaries. We know that if a contour edge enters a cell, it must exit a cell as well. The contour is tracked until it closes back on itself, or exits a dataset boundary. If it is known that only a single contour exists, then the process stops. Otherwise, every edge in the dataset must be checked to see whether other contour lines exist. Another approach uses a divide and conquer technique, treating cells
 independently. This is the *marching squares* algorithm in 2D, and *marching cubes*
-<em style="color:blue;background-color: white">\[Lorensen87\]</em> in 3D. The basic assumption of these techniques is that a contour can only pass through a
+<em style="color:green;background-color: white">\[Lorensen87\]</em> in 3D. The basic assumption of these techniques is that a contour can only pass through a
 cell in a finite number of ways. A case table is constructed that enumerates all possible topological *states* of a cell, given combinations of scalar values at the cell points. The number of topological states depends on the number of cell vertices, and the number of inside / outside relationships a vertex can have with respect to the contour value. A vertex is considered inside a contour if its scalar value is larger than the scalar value of the contour line. Vertices with scalar values less than the contour value are said to be outside the contour. For example, if a cell has four vertices and each vertex can be either inside or outside the contour, there are $2^4 = 16$ possible ways that the contour passes through the cell. In the case table we are not interested in where the contour passes through the cell (e.g., geometric intersection), just how it passes through the cell (i.e., topology of the contour in the cell).
 
 **Figure 6-5** shows the sixteen combinations for a square cell. An index into the case table can be computed by encoding the state of each vertex as a binary digit. For 2D data represented on a rectangular grid, we can represent the 16 cases with 4 bit index. Once the proper case is selected, the location of the contour line / cell edge intersection can be calculated using interpolation. The algorithm processes a cell and then moves, or *marches t* o the next cell. After all cells are visited, the contour will be completed. In summary, the marching algorithms proceed as follows:
@@ -136,7 +136,7 @@ In two dimensions, contour ambiguity is simple to treat: for each ambiguous case
 
 In three dimensions the problem is more complex. We cannot simply choose an ambiguous case independent of all other ambiguous cases. For example **Figure 6-9** shows what happens if we carelessly implement two cases independent of one another. In this figure we have used the usual case 3 but replaced case 6 with its *complementary* case. Complementary cases are formed by exchanging the "dark" vertices with "light" vertices. (This is equivalent to swapping vertex scalar value from above the isosurface value to below the isosurface value, and vice versa.) The result of pairing these two cases is that a hole is left in the isosurface.
 
-Several different approaches have been taken to remedy this problem. One approach tessellates the cubes with tetrahedron, and uses a *marching tetrahedra* technique *.* This works because the marching tetrahedra exhibit no ambiguous cases. Unfortunately, the marching tetrahedra algorithm generates isosurfaces consisting of more triangles, and the tessellation of a cube with tetrahedra requires making a choice regarding the orientation of the tetrahedra. This choice may result in artificial "bumps" in the isosurface because of interpolation along the face diagonals as shown in **Figure 6-7**. Another approach evaluates the asymptotic behavior of the surface, and then chooses the cases to either join or break the contour. Nielson and Hamann <em style="color:blue;background-color: white">\[Nielson91\]</em> have developed a technique based on this approach they call the *asymptotic decider*. It is based on an analysis of the variation of the scalar variable across an ambiguous face. The analysis determines how the edges of isosurface polygons should be connected.
+Several different approaches have been taken to remedy this problem. One approach tessellates the cubes with tetrahedron, and uses a *marching tetrahedra* technique *.* This works because the marching tetrahedra exhibit no ambiguous cases. Unfortunately, the marching tetrahedra algorithm generates isosurfaces consisting of more triangles, and the tessellation of a cube with tetrahedra requires making a choice regarding the orientation of the tetrahedra. This choice may result in artificial "bumps" in the isosurface because of interpolation along the face diagonals as shown in **Figure 6-7**. Another approach evaluates the asymptotic behavior of the surface, and then chooses the cases to either join or break the contour. Nielson and Hamann <em style="color:green;background-color: white">\[Nielson91\]</em> have developed a technique based on this approach they call the *asymptotic decider*. It is based on an analysis of the variation of the scalar variable across an ambiguous face. The analysis determines how the edges of isosurface polygons should be connected.
 
 <figure id="Figure 6-8">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure6-8.png?raw=true" width="640" alt="Figure6-8">
@@ -219,7 +219,7 @@ There are many variations of this technique (**Figure 6-13** (b)). Arrows may be
 
 Care should be used in applying these techniques. In 3D it is often difficult to understand the position and orientation of a vector because of its projection into a 2D image. Also, using large numbers of vectors can clutter the display to the point where the visualization becomes meaningless. **Figure 6-13** (c) shows 167,000 3D vectors (using oriented and scaled lines) in the region of the human carotid artery. The larger vectors lie inside the arteries, the smaller vectors lie outside the arteries and are randomly oriented (measurement error) but small in magnitude. Clearly the details of the vector field are not discernible from this image.
 
-Scaling glyphs also poses interesting problems. In what Tufte has termed a "visualization lie," <em style="color:blue;background-color: white">\[Tufte83\]</em> scaling a 2D or 3D glyph results in nonlinear differences in appearance. The surface area of an object increases with the square of its scale factor, so two vectors differing by a factor of two in magnitude may appear up to four times different based on surface area. Such scaling issues are common in data visualization, and great care must be taken to avoiding misleading viewers.
+Scaling glyphs also poses interesting problems. In what Tufte has termed a "visualization lie," <em style="color:green;background-color: white">\[Tufte83\]</em> scaling a 2D or 3D glyph results in nonlinear differences in appearance. The surface area of an object increases with the square of its scale factor, so two vectors differing by a factor of two in magnitude may appear up to four times different based on surface area. Such scaling issues are common in data visualization, and great care must be taken to avoiding misleading viewers.
 
 ### Warping
 
@@ -312,7 +312,7 @@ Euler's method has error on the order of $O(\Delta{t}^2)$, which is not accurate
   <figcaption style="color:blue"><b>Figure 6-17</b>. Euler's integration (b) and RungeKutta integration of order 2 (c) applied to uniform rotational vector field (a). Euler's method will always diverge.</figcaption>
 </figure>
 
-In this text we will use the RungeKutta technique of order 2 <em style="color:blue;background-color: white">\[Conte72\]</em>. This is given by the expression
+In this text we will use the RungeKutta technique of order 2 <em style="color:green;background-color: white">\[Conte72\]</em>. This is given by the expression
 
 $$
 \vec{x}_{i+1} = \vec{x}_i +\frac{\Delta t}{2}(\vec{V}_i + \vec{V}_{i+1})
@@ -430,7 +430,7 @@ $$
 </figure>
 
 
-**Figure 6-21** (a) depicts the tensor ellipsoid technique. In **Figure 6-21** (b) we show this technique to visualize material stress near a point load on the surface of a semi-infinite domain. (This is the so-called Boussinesq's problem.) From Saada <em style="color:blue;background-color: white">\[Saada74\]</em> we have the analytic expression for the stress components in Cartesian coordinates shown in **Figure 6-21** (c). Note that the $z$-direction is defined as the axis originating at the point of application of the force $P$. The variable $\rho$ is the distance from the point of load application to a point $x-y-z$. The orientation of the $x$ and $y$ axes are in the plane perpendicular to the $z$ axis. (The rotation in the plane of these axes is unimportant since the solution is symmetric around the $z$ axis.) (The parameter $\nu$ is Poisson's ratio which is a property of the material. Poisson's ratio relates the lateral contraction of a material to axial elongation under a uniaxial stress condition. See <em style="color:blue;background-color: white">\[Saada74\]</em> or <em style="color:blue;background-color: white">\[Timoshenko70\]</em> for more information.)
+**Figure 6-21** (a) depicts the tensor ellipsoid technique. In **Figure 6-21** (b) we show this technique to visualize material stress near a point load on the surface of a semi-infinite domain. (This is the so-called Boussinesq's problem.) From Saada <em style="color:green;background-color: white">\[Saada74\]</em> we have the analytic expression for the stress components in Cartesian coordinates shown in **Figure 6-21** (c). Note that the $z$-direction is defined as the axis originating at the point of application of the force $P$. The variable $\rho$ is the distance from the point of load application to a point $x-y-z$. The orientation of the $x$ and $y$ axes are in the plane perpendicular to the $z$ axis. (The rotation in the plane of these axes is unimportant since the solution is symmetric around the $z$ axis.) (The parameter $\nu$ is Poisson's ratio which is a property of the material. Poisson's ratio relates the lateral contraction of a material to axial elongation under a uniaxial stress condition. See <em style="color:green;background-color: white">\[Saada74\]</em> or <em style="color:green;background-color: white">\[Timoshenko70\]</em> for more information.)
 
 <figure id="Figure 6-22">
   <figure  id="Figure 6-22a">
@@ -574,7 +574,7 @@ Strange attractors arise in the study of nonlinear dynamics and chaotic systems.
 <figcaption style="color:blue"><b>Figure 6-25</b>. Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume. The number of visits in each voxel is recorded as a scalar function. The surface is extracted via marching cubes using a visit value of 50. The number of integration steps is 10 million, in a volume of dimensions 200^3. The surface roughness is caused by the discrete nature of the evaluation function. <a href="../../Cxx/Visualization/Lorenz" title="Lorenz"> See Lorenz.cxx</a> and <a href="../../Python/Visualization/Lorenz" title="Lorenz"> Lorenz.py</a>.</figcaption>
 </figure>
 
-A classical strange attractor was developed by Lorenz in 1963 <em style="color:blue;background-color: white">\[Lorenz63\]</em>. Lorenz developed a simple model for thermally induced fluid convection in the atmosphere. Convection causes rings of rotating fluid and can be developed from the general NavierStokes partial differential equations for fluid flow. The Lorenz equations can be expressed in nondimensional form as
+A classical strange attractor was developed by Lorenz in 1963 <em style="color:green;background-color: white">\[Lorenz63\]</em>. Lorenz developed a simple model for thermally induced fluid convection in the atmosphere. Convection causes rings of rotating fluid and can be developed from the general NavierStokes partial differential equations for fluid flow. The Lorenz equations can be expressed in nondimensional form as
 
 $$
 \begin{eqnarray*}
@@ -621,14 +621,14 @@ Used alone the generating primitives are limited in their ability to model compl
 
 Glyphs, sometimes referred to as icons, are a versatile technique to visualize data of every type. A glyph is an "object" that is affected by its input data. This object may be geometry, a dataset, or a graphical image. The glyph may orient, scale, translate, deform, or somehow alter the appearance of the object in response to data. We have already seen a simple form of glyph: hedgehogs are lines that are oriented, translated and scaled according to the position and vector value of a point. A variation of this is to use oriented cones or arrows. (See ["Hedgehogs and Oriented Glyphs"](/VTKBook/06Chapter6/#hedgehogs-and-oriented-glyphs) in this Chapter for more information.)
 
-More elaborate glyphs are possible. In one creative visualization technique Chernoff <em style="color:blue;background-color: white">\[Chernoff73\]</em> tied data values to an iconic representation of the human face. Eyebrows, nose, mouth, and other features were modified according to financial data values. This interesting technique built on the human capability to recognize facial expression. By tying appropriate data values to facial characteristics, rapid identification of important data points is possible.
+More elaborate glyphs are possible. In one creative visualization technique Chernoff <em style="color:green;background-color: white">\[Chernoff73\]</em> tied data values to an iconic representation of the human face. Eyebrows, nose, mouth, and other features were modified according to financial data values. This interesting technique built on the human capability to recognize facial expression. By tying appropriate data values to facial characteristics, rapid identification of important data points is possible.
 
 <figure id="Figure 6-30">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestSpikeFran.png?raw=true" width="640" alt="Figure 6-30">
   <figcaption style="color:blue"><b>Figure 6-30</b> Glyphs indicate surface normals on model of human face. Glyph positions are randomly selected. <a href="../../Cxx/VisualizationAlgorithms/SpikeFran" title="SpikeFran"> See SpikeFran.cxx</a> and <a href="../../Python/VisualizationAlgorithms/SpikeFran" title="SpikeFran"> SpikeFran.py</a>.</figcaption>
 </figure>
 
-In a sense, glyphs represent the fundamental result of the visualization process. Moreover, all the visualization techniques we present can be treated as concrete representations of an abstract glyph class. For example, while hedgehogs are an obvious manifestation of a vector glyph, isosurfaces can be considered a topologically two-dimensional glyph for scalar data. Delmarcelle and Hesselink <em style="color:blue;background-color: white">\[Delmarcelle95\]</em> have developed a unified framework for flow visualization based on types of glyphs. They classify glyphs according to one of three categories.
+In a sense, glyphs represent the fundamental result of the visualization process. Moreover, all the visualization techniques we present can be treated as concrete representations of an abstract glyph class. For example, while hedgehogs are an obvious manifestation of a vector glyph, isosurfaces can be considered a topologically two-dimensional glyph for scalar data. Delmarcelle and Hesselink <em style="color:green;background-color: white">\[Delmarcelle95\]</em> have developed a unified framework for flow visualization based on types of glyphs. They classify glyphs according to one of three categories.
 
 - *Elementary icons* represent their data across the extent of their
  spatial domain. For example, an oriented arrow can be used to represent surface normal.
@@ -977,82 +977,82 @@ Implicit functions and sampling techniques can be used to make geometry, cut dat
 
 ## 6.8 Bibliographic Notes
 
-Color mapping is a widely studied topic in imaging, computer graphics, visualization, and human factors. References <em style="color:blue;background-color: white">\[Durrett87\]</em> <em style="color:blue;background-color: white">\[Ware88\]</em> <em style="color:blue;background-color: white">\[Rheingans92\]</em> provide samples of the available literature. You also may want to learn about the physiological and psychological effects of color on perception. The text by Wyszecki and Stiles <em style="color:blue;background-color: white">\[Wyszecki82\]</em> serves as an introductory reference.
+Color mapping is a widely studied topic in imaging, computer graphics, visualization, and human factors. References <em style="color:green;background-color: white">\[Durrett87\]</em> <em style="color:green;background-color: white">\[Ware88\]</em> <em style="color:green;background-color: white">\[Rheingans92\]</em> provide samples of the available literature. You also may want to learn about the physiological and psychological effects of color on perception. The text by Wyszecki and Stiles <em style="color:green;background-color: white">\[Wyszecki82\]</em> serves as an introductory reference.
 
-Contouring is a widely studied technique in visualization because of its importance and popularity. Early techniques were developed for 2D data <em style="color:blue;background-color: white">\[Watson92\]</em>. Three-dimensional techniques were developed initially as contour connecting methods <em style="color:blue;background-color: white">\[Fuchs77\]</em> --- that is, given a series of 2D contours on evenly spaced planes, connect the contours to create a closed surface. Since the introduction of marching cubes <em style="color:blue;background-color: white">\[Lorensen87\]</em>, many other techniques have been implemented. (A few of these include <em style="color:blue;background-color: white">\[Nielson91\]</em> <em style="color:blue;background-color: white">\[Montani94\]</em> and <em style="color:blue;background-color: white">\[Durst88\]</em>). A particularly interesting reference is given by Livnat et al. <em style="color:blue;background-color: white">\[Livnat96\]</em>. They show a contouring method with the addition of a preprocessing step that generates isocontours in near optimal time.
+Contouring is a widely studied technique in visualization because of its importance and popularity. Early techniques were developed for 2D data <em style="color:green;background-color: white">\[Watson92\]</em>. Three-dimensional techniques were developed initially as contour connecting methods <em style="color:green;background-color: white">\[Fuchs77\]</em> --- that is, given a series of 2D contours on evenly spaced planes, connect the contours to create a closed surface. Since the introduction of marching cubes <em style="color:green;background-color: white">\[Lorensen87\]</em>, many other techniques have been implemented. (A few of these include <em style="color:green;background-color: white">\[Nielson91\]</em> <em style="color:green;background-color: white">\[Montani94\]</em> and <em style="color:green;background-color: white">\[Durst88\]</em>). A particularly interesting reference is given by Livnat et al. <em style="color:green;background-color: white">\[Livnat96\]</em>. They show a contouring method with the addition of a preprocessing step that generates isocontours in near optimal time.
 
-Although we barely touched the topic, the study of chaos and chaotic vibrations is a delightfully interesting topic. Besides the original paper by Lorenz <em style="color:blue;background-color: white">\[Lorenz63\]</em>, the book by Moon <em style="color:blue;background-color: white">\[Moon87\]</em> is a good place to start.
+Although we barely touched the topic, the study of chaos and chaotic vibrations is a delightfully interesting topic. Besides the original paper by Lorenz <em style="color:green;background-color: white">\[Lorenz63\]</em>, the book by Moon <em style="color:green;background-color: white">\[Moon87\]</em> is a good place to start.
 
-Two- and three-dimensional vector plots have been used by computer analysts for many years <em style="color:blue;background-color: white">\[Fuller80\]</em>. Streamlines and streamribbons also have been applied to the visualization of complex flows <em style="color:blue;background-color: white">\[Volpe89\]</em>. Good general references on vector visualization techniques are given in <em style="color:blue;background-color: white">\[Helman90\]</em> and <em style="color:blue;background-color: white">\[Richter90\]</em>.
+Two- and three-dimensional vector plots have been used by computer analysts for many years <em style="color:green;background-color: white">\[Fuller80\]</em>. Streamlines and streamribbons also have been applied to the visualization of complex flows <em style="color:green;background-color: white">\[Volpe89\]</em>. Good general references on vector visualization techniques are given in <em style="color:green;background-color: white">\[Helman90\]</em> and <em style="color:green;background-color: white">\[Richter90\]</em>.
 
-Tensor visualization techniques are relatively few in number. Most techniques are glyph oriented <em style="color:blue;background-color: white">\[Haber90\]</em> <em style="color:blue;background-color: white">\[deLeeuw93\]</em>. We will see a few more techniques in [Chapter 9 - Advanced Algorithms](/VTKBook/09Chapter9).
+Tensor visualization techniques are relatively few in number. Most techniques are glyph oriented <em style="color:green;background-color: white">\[Haber90\]</em> <em style="color:green;background-color: white">\[deLeeuw93\]</em>. We will see a few more techniques in [Chapter 9 - Advanced Algorithms](/VTKBook/09Chapter9).
 
-Blinn <em style="color:blue;background-color: white">\[Blinn82\]</em>, Bloomental <em style="color:blue;background-color: white">\[Bloomenthal88\]</em> <em style="color:blue;background-color: white">\[Bloomenthal97\]</em> and Wyvill <em style="color:blue;background-color: white">\[Wyvill86\]</em> have been important contributors to implicit modeling. Implicit modeling is currently popular in computer graphics for modeling "soft" or "blobby" objects. These techniques are simple, powerful, and are becoming widely used for advanced computer graphics modeling.
+Blinn <em style="color:green;background-color: white">\[Blinn82\]</em>, Bloomental <em style="color:green;background-color: white">\[Bloomenthal88\]</em> <em style="color:green;background-color: white">\[Bloomenthal97\]</em> and Wyvill <em style="color:green;background-color: white">\[Wyvill86\]</em> have been important contributors to implicit modeling. Implicit modeling is currently popular in computer graphics for modeling "soft" or "blobby" objects. These techniques are simple, powerful, and are becoming widely used for advanced computer graphics modeling.
 
 ## 6.9 References
 
-<em style="color:blue;background-color: white">\[Abraham85\]</em> R. H. Abraham and Christopher D. Shaw. *Dynamics The Geometry of Behavior.* Aerial Press, Santa Cruz, CA, 1985.
+<em style="color:green;background-color: white">\[Abraham85\]</em> R. H. Abraham and Christopher D. Shaw. *Dynamics The Geometry of Behavior.* Aerial Press, Santa Cruz, CA, 1985.
 
-<em style="color:blue;background-color: white">\[Blinn82\]</em> J. F. Blinn. "A Generalization of Algebraic Surface Drawing." *ACM Transactions on Graphics*. 1(3):235--256, July 1982.
+<em style="color:green;background-color: white">\[Blinn82\]</em> J. F. Blinn. "A Generalization of Algebraic Surface Drawing." *ACM Transactions on Graphics*. 1(3):235--256, July 1982.
 
-<em style="color:blue;background-color: white">\[Bloomenthal88\]</em> J. Bloomenthal. "Polygonization of Implicit Surfaces." *Computer Aided Geometric Design* *.* 5(4):341--355, November 1982. 
+<em style="color:green;background-color: white">\[Bloomenthal88\]</em> J. Bloomenthal. "Polygonization of Implicit Surfaces." *Computer Aided Geometric Design* *.* 5(4):341--355, November 1982. 
 
-<em style="color:blue;background-color: white">\[Bloomenthal97\]</em> J. Bloomenthal, editor. *Introduction to Implicit Surfaces*. Morgan Kaufmann Publishers, Inc., San Francisco, CA., 1997.
+<em style="color:green;background-color: white">\[Bloomenthal97\]</em> J. Bloomenthal, editor. *Introduction to Implicit Surfaces*. Morgan Kaufmann Publishers, Inc., San Francisco, CA., 1997.
 
-<em style="color:blue;background-color: white">\[Chernoff73\]</em> H. Chernoff. "Using Faces to Represent Points in *K*-Dimensional Space Graphically." *J. American* *Statistical Association.* 68:361--368,
+<em style="color:green;background-color: white">\[Chernoff73\]</em> H. Chernoff. "Using Faces to Represent Points in *K*-Dimensional Space Graphically." *J. American* *Statistical Association.* 68:361--368,
 1973.
 
-<em style="color:blue;background-color: white">\[Cline93\]</em> H. Cline, W. Lorensen, and W. Schroeder. "3D Phase Contrast MRI of Cerebral Blood Flow and Surface Anatomy." *Journal of Computer Assisted Tomography.* 17(2):173--177, March/April 1993.
+<em style="color:green;background-color: white">\[Cline93\]</em> H. Cline, W. Lorensen, and W. Schroeder. "3D Phase Contrast MRI of Cerebral Blood Flow and Surface Anatomy." *Journal of Computer Assisted Tomography.* 17(2):173--177, March/April 1993.
 
-<em style="color:blue;background-color: white">\[Conte72\]</em> S. D. Conte and C. de Boor. *Elementary Numerical Analysis*. McGrawHill Book Company, 1972.
+<em style="color:green;background-color: white">\[Conte72\]</em> S. D. Conte and C. de Boor. *Elementary Numerical Analysis*. McGrawHill Book Company, 1972.
 
-<em style="color:blue;background-color: white">\[deLeeuw93\]</em>. W. C. de Leeuw and J. J. van Wijk. "A Probe for Local Flow Field Visualization." In *Proceedings* *of Visualization '93*. pp. 39--45, IEEE Computer Society Press, Los Alamitos, CA, 1993.
+<em style="color:green;background-color: white">\[deLeeuw93\]</em>. W. C. de Leeuw and J. J. van Wijk. "A Probe for Local Flow Field Visualization." In *Proceedings* *of Visualization '93*. pp. 39--45, IEEE Computer Society Press, Los Alamitos, CA, 1993.
 
-<em style="color:blue;background-color: white">\[Delmarcelle95\]</em> T. Delmarcelle and L. Hesselink. "A Unified Framework for Flow Visualization." In Computer Visualization Graphics Techniques for Scientific and Engineering Analysis*. R. S. Gallagher, ed. CRC Press, Boca Raton, FL, 1995.
+<em style="color:green;background-color: white">\[Delmarcelle95\]</em> T. Delmarcelle and L. Hesselink. "A Unified Framework for Flow Visualization." In Computer Visualization Graphics Techniques for Scientific and Engineering Analysis*. R. S. Gallagher, ed. CRC Press, Boca Raton, FL, 1995.
 
-<em style="color:blue;background-color: white">\[Durrett87\]</em> H. J. Durrett, ed. *Color and the Computer.* Academic Press, Boston, MA, 1987.
+<em style="color:green;background-color: white">\[Durrett87\]</em> H. J. Durrett, ed. *Color and the Computer.* Academic Press, Boston, MA, 1987.
 
-<em style="color:blue;background-color: white">\[Durst88\]</em> M. J. Durst. "Additional Reference to Marching Cubes." *Computer Graphics*. 22(2):72--73, 1988.
+<em style="color:green;background-color: white">\[Durst88\]</em> M. J. Durst. "Additional Reference to Marching Cubes." *Computer Graphics*. 22(2):72--73, 1988.
 
-<em style="color:blue;background-color: white">\[Fuchs77\]</em> H. Fuchs, Z. M. Kedem, and S. P. Uselton. "Optimal Surface Reconstruction from Planar Contours." *Communications of the ACM*. 20(10):693--702, 1977.
+<em style="color:green;background-color: white">\[Fuchs77\]</em> H. Fuchs, Z. M. Kedem, and S. P. Uselton. "Optimal Surface Reconstruction from Planar Contours." *Communications of the ACM*. 20(10):693--702, 1977.
 
-<em style="color:blue;background-color: white">\[Fuller80\]</em>cA. J. Fuller and M.L.X. dosSantos. "Computer Generated Display of 3D Vector Fields." *Computer* *Aided Design*. 12(2):61--66, 1980. 
+<em style="color:green;background-color: white">\[Fuller80\]</em>cA. J. Fuller and M.L.X. dosSantos. "Computer Generated Display of 3D Vector Fields." *Computer* *Aided Design*. 12(2):61--66, 1980. 
 
-<em style="color:blue;background-color: white">\[Haber90\]</em> R. B. Haber and D. A. McNabb. "Visualization Idioms: A Conceptual Model to Scientific Visualization Systems." *Visualization in Scientific Computing,* G. M. Nielson, B. Shriver, L. J. Rosenblum, ed. IEEE Computer Society Press, pp. 61--73, 1990.
+<em style="color:green;background-color: white">\[Haber90\]</em> R. B. Haber and D. A. McNabb. "Visualization Idioms: A Conceptual Model to Scientific Visualization Systems." *Visualization in Scientific Computing,* G. M. Nielson, B. Shriver, L. J. Rosenblum, ed. IEEE Computer Society Press, pp. 61--73, 1990.
 
-<em style="color:blue;background-color: white">\[Helman90\]</em> J. Helman and L. Hesselink. "Representation and Display of Vector Field Topology in Fluid Flow Data Sets." *Visualization in Scientific Computing.* G. M. Nielson, B. Shriver, L. J. Rosenblum, eds. IEEE Computer Society Press, pp. 61--73, 1990.
+<em style="color:green;background-color: white">\[Helman90\]</em> J. Helman and L. Hesselink. "Representation and Display of Vector Field Topology in Fluid Flow Data Sets." *Visualization in Scientific Computing.* G. M. Nielson, B. Shriver, L. J. Rosenblum, eds. IEEE Computer Society Press, pp. 61--73, 1990.
 
-<em style="color:blue;background-color: white">\[Livnat96\]</em> Y. Livnat, H. W. Shen, C. R. Johnson. "A Near Optimal Isosurface Extraction Algorithm for Structured and Unstructured Grids." *IEEE Transactions on Visualization and Computer Graphics*. Vol. 2, No. 1, March 1996.
+<em style="color:green;background-color: white">\[Livnat96\]</em> Y. Livnat, H. W. Shen, C. R. Johnson. "A Near Optimal Isosurface Extraction Algorithm for Structured and Unstructured Grids." *IEEE Transactions on Visualization and Computer Graphics*. Vol. 2, No. 1, March 1996.
 
-<em style="color:blue;background-color: white">\[Lorensen87\]</em> W. E. Lorensen and H. E. Cline. "Marching Cubes: A High Resolution 3D Surface Construction Algorithm." *Computer Graphics*. 21(3):163--169, July 1987.
+<em style="color:green;background-color: white">\[Lorensen87\]</em> W. E. Lorensen and H. E. Cline. "Marching Cubes: A High Resolution 3D Surface Construction Algorithm." *Computer Graphics*. 21(3):163--169, July 1987.
 
-<em style="color:blue;background-color: white">\[Lorenz63\]</em> E. N. Lorenz. "Deterministic NonPeriodic Flow." *Journal of Atmospheric Science*. 20:130--141, 1963.
+<em style="color:green;background-color: white">\[Lorenz63\]</em> E. N. Lorenz. "Deterministic NonPeriodic Flow." *Journal of Atmospheric Science*. 20:130--141, 1963.
 
-<em style="color:blue;background-color: white">\[Montani94\]</em>cC. Montani, R. Scateni, and R. Scopigno. "A Modified LookUp Table for Implicit Disambiguation of Marching Cubes." *Visual Computer* *.* (10):353--355, 1994.
+<em style="color:green;background-color: white">\[Montani94\]</em>cC. Montani, R. Scateni, and R. Scopigno. "A Modified LookUp Table for Implicit Disambiguation of Marching Cubes." *Visual Computer* *.* (10):353--355, 1994.
 
-<em style="color:blue;background-color: white">\[Moon87\]</em> F. C. Moon. *Chaotic Vibrations* *.* WileyInterscience, New York, NY, 1987. 
+<em style="color:green;background-color: white">\[Moon87\]</em> F. C. Moon. *Chaotic Vibrations* *.* WileyInterscience, New York, NY, 1987. 
 
-<em style="color:blue;background-color: white">\[Nielson91\]</em> G. M. Nielson and B. Hamann. "The Asymptotic Decider: Resolving the Ambiguity in Marching Cubes." In *Proceedings of Visualization '91*. pp. 83--91, IEEE Computer Society Press, Los Alamitos, CA, 1991. 
+<em style="color:green;background-color: white">\[Nielson91\]</em> G. M. Nielson and B. Hamann. "The Asymptotic Decider: Resolving the Ambiguity in Marching Cubes." In *Proceedings of Visualization '91*. pp. 83--91, IEEE Computer Society Press, Los Alamitos, CA, 1991. 
 
-<em style="color:blue;background-color: white">\[Rheingans92\]</em> P. Rheingans. "Color, Change, and Control for Quantitative Data Display." In *Proceedings of Visualization '92*. pp. 252--259, IEEE Computer Society Press, Los Alamitos, CA, 1992.
+<em style="color:green;background-color: white">\[Rheingans92\]</em> P. Rheingans. "Color, Change, and Control for Quantitative Data Display." In *Proceedings of Visualization '92*. pp. 252--259, IEEE Computer Society Press, Los Alamitos, CA, 1992.
 
-<em style="color:blue;background-color: white">\[Richter90\]</em> R. Richter, J. B. Vos, A. Bottaro, and S. Gavrilakis. "Visualization of Flow Simulations." *Scientific* *Visualization and Graphics Simulation*. D. Thalmann editor, pp. 161--171, John Wiley and Sons, 1990.
+<em style="color:green;background-color: white">\[Richter90\]</em> R. Richter, J. B. Vos, A. Bottaro, and S. Gavrilakis. "Visualization of Flow Simulations." *Scientific* *Visualization and Graphics Simulation*. D. Thalmann editor, pp. 161--171, John Wiley and Sons, 1990.
 
-<em style="color:blue;background-color: white">\[Saada74\]</em> A. S. Saada. *Elasticity Theory and Applications.* Pergamon Press, Inc., New York, NY, 1974. 
+<em style="color:green;background-color: white">\[Saada74\]</em> A. S. Saada. *Elasticity Theory and Applications.* Pergamon Press, Inc., New York, NY, 1974. 
 
-<em style="color:blue;background-color: white">\[Timoshenko70\]</em> S. P. Timoshenko and J. N. Goodier. *Theory of Elasticity, 3d Edition*. McGrawHill Book Company, New York, NY, 1970. 
+<em style="color:green;background-color: white">\[Timoshenko70\]</em> S. P. Timoshenko and J. N. Goodier. *Theory of Elasticity, 3d Edition*. McGrawHill Book Company, New York, NY, 1970. 
 
-<em style="color:blue;background-color: white">\[Tufte83\]</em> E. R. Tufte. *The Visual Display of Quantitative Information.* Graphics Press, Cheshire, CT, 1990. 
+<em style="color:green;background-color: white">\[Tufte83\]</em> E. R. Tufte. *The Visual Display of Quantitative Information.* Graphics Press, Cheshire, CT, 1990. 
 
-<em style="color:blue;background-color: white">\[Volpe89\]</em> G. Volpe. "Streamlines and Streamribbons in Aerodynamics." Technical Report AIAA-89-0140, 27th Aerospace Sciences Meeting, 1989. 
+<em style="color:green;background-color: white">\[Volpe89\]</em> G. Volpe. "Streamlines and Streamribbons in Aerodynamics." Technical Report AIAA-89-0140, 27th Aerospace Sciences Meeting, 1989. 
 
-<em style="color:blue;background-color: white">\[Ware88\]</em> C. Ware. "Color Sequences for Univariate Maps: Theory, Experiments and Principles." *IEEE* *Computer Graphics and Applications*. 8(5):41--49, 1988.
+<em style="color:green;background-color: white">\[Ware88\]</em> C. Ware. "Color Sequences for Univariate Maps: Theory, Experiments and Principles." *IEEE* *Computer Graphics and Applications*. 8(5):41--49, 1988.
 
-<em style="color:blue;background-color: white">\[Watson92\]</em> D. F. Watson. *Contouring: A Guide to the Analysis and Display of Spatial Data*. Pergamon Press, 1992.
+<em style="color:green;background-color: white">\[Watson92\]</em> D. F. Watson. *Contouring: A Guide to the Analysis and Display of Spatial Data*. Pergamon Press, 1992.
 
-<em style="color:blue;background-color: white">\[Wyszecki82\]</em> G. Wyszecki and W. Stiles. *Color Science: Concepts and Methods, Quantitative Data and Formulae*. John Wiley and Sons, 1982. 
+<em style="color:green;background-color: white">\[Wyszecki82\]</em> G. Wyszecki and W. Stiles. *Color Science: Concepts and Methods, Quantitative Data and Formulae*. John Wiley and Sons, 1982. 
 
-<em style="color:blue;background-color: white">\[Wyvill86\]</em> G. Wyvill, C. McPheeters, B. Wyvill. "Data Structure for Soft Objects." *Visual Computer*. 2(4):227--234, 1986. 
+<em style="color:green;background-color: white">\[Wyvill86\]</em> G. Wyvill, C. McPheeters, B. Wyvill. "Data Structure for Soft Objects." *Visual Computer*. 2(4):227--234, 1986. 
 
 ## 6.10 Exercises
 

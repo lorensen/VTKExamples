@@ -3,7 +3,7 @@
 **I**n this chapter we describe the image processing components of the _Visualization Toolkit_. The focus is on key representational ideas, pipeline issues such as data streaming, and useful algorithms for improving the appearance and effectiveness of image data visualizations.
 
 ## 10.1 Introduction
-Image processing has been a mainstay of computing since the advent of the digital computer. Early efforts focused on improving image content for human interpretation. More recently image processing has been utilized by practitioners of computer vision, the goal being the processing of image data for autonomous machine perception <em style="color:blue;background-color: white">\[Gonzalez92\]</em>. From the perspective of data visualization, image processing is used to manipulate image content to improve the results of subsequent processing and interpretation. For example, a CT or MRI scan may generate spurious signal noise or require image segmentation. Using the techniques of image processing, noise can be removed and automatic and semi-automatic segmentation can be performed on a slice by slice (i.e., image by image basis). As a result, isosurface generation, volume rendering, and other 3D techniques can be improved in appearance, accuracy, and effectiveness by applying techniques from image processing.
+Image processing has been a mainstay of computing since the advent of the digital computer. Early efforts focused on improving image content for human interpretation. More recently image processing has been utilized by practitioners of computer vision, the goal being the processing of image data for autonomous machine perception <em style="color:green;background-color: white">\[Gonzalez92\]</em>. From the perspective of data visualization, image processing is used to manipulate image content to improve the results of subsequent processing and interpretation. For example, a CT or MRI scan may generate spurious signal noise or require image segmentation. Using the techniques of image processing, noise can be removed and automatic and semi-automatic segmentation can be performed on a slice by slice (i.e., image by image basis). As a result, isosurface generation, volume rendering, and other 3D techniques can be improved in appearance, accuracy, and effectiveness by applying techniques from image processing.
 
 Since the focus of this text is on 3D graphics and visualization, this chapter treats image processing in a limited way. However, we would like to emphasize the interrelationship of image processing, computer graphics, and visualization. Often texts and courses treat these as distinctly separate disciplines, when in fact they are closely related (see [“Imaging, Computer Graphics, and Visualization”](/VTKBook/01Chapter1/#13-imaging-computer-graphics-and-visualization) in [Chapter 1](/VTKBook/01Chapter1)).
 
@@ -312,30 +312,30 @@ Because of the regular topology and geometry of images, it is possible to design
 
 ## 10.6 Bibliographic Notes
 
-Many books are available describing imaging algorithms. Several are listed below including <em style="color:blue;background-color: white">\[Gonzalez92\]</em> and <em style="color:blue;background-color: white">\[Russ95\]</em>. The texts <em style="color:blue;background-color: white">\[Pavlidis82\]</em> and <em style="color:blue;background-color: white">\[Wolberg90\]</em> are imaging books with somewhat of a computer graphics and/or visualization slant. The text <em style="color:blue;background-color: white">\[Robb95\]</em> is an outstanding reference for medical imaging and visualization.
+Many books are available describing imaging algorithms. Several are listed below including <em style="color:green;background-color: white">\[Gonzalez92\]</em> and <em style="color:green;background-color: white">\[Russ95\]</em>. The texts <em style="color:green;background-color: white">\[Pavlidis82\]</em> and <em style="color:green;background-color: white">\[Wolberg90\]</em> are imaging books with somewhat of a computer graphics and/or visualization slant. The text <em style="color:green;background-color: white">\[Robb95\]</em> is an outstanding reference for medical imaging and visualization.
 
-If image processing, segmentation, and/or registration are important to you, we highly recommend the Insight Segmentation and Registration Toolkit (ITK). Like VTK, ITK is open source and includes extensive documentation resources and examples. Visit www.itk.org for more information. Also, <em style="color:blue;background-color: white">\[Ibanez03\]</em> is a good reference.
+If image processing, segmentation, and/or registration are important to you, we highly recommend the Insight Segmentation and Registration Toolkit (ITK). Like VTK, ITK is open source and includes extensive documentation resources and examples. Visit www.itk.org for more information. Also, <em style="color:green;background-color: white">\[Ibanez03\]</em> is a good reference.
 
-Technical references describing VTK’s unique streaming visualization pipeline are available <em style="color:blue;background-color: white">\[Law99\]</em> <em style="color:blue;background-color: white">\[Martin01\]</em>. Using this approach, data sizes of approximately a petabyte in size have been processed.
+Technical references describing VTK’s unique streaming visualization pipeline are available <em style="color:green;background-color: white">\[Law99\]</em> <em style="color:green;background-color: white">\[Martin01\]</em>. Using this approach, data sizes of approximately a petabyte in size have been processed.
 
 ## 10.7 References
 
-<em style="color:blue;background-color: white">\[Ballard82\]</em>
+<em style="color:green;background-color: white">\[Ballard82\]</em>
 D. H. Ballard, C. M. Brown. Compute Vision. Prentice Hall, Inc., Englewood Cliffs, NJ, 1982.
 
-<em style="color:blue;background-color: white">\[Davies97\]</em>
+<em style="color:green;background-color: white">\[Davies97\]</em>
 E. R. Davies. Machine Vision Theory Algorithms Practicalities 2d ed. Academic Press, San Diego, CA, 1997.
 
-<em style="color:blue;background-color: white">\[Gonzalez92\]</em>
+<em style="color:green;background-color: white">\[Gonzalez92\]</em>
 R. C. Gonzalez, R. E. Woods. Digital Imaging Processing. Addison-Wesley Publishing Co., Reading, MA, 1992.
 
-<em style="color:blue;background-color: white">\[Ibanez03\]</em>
+<em style="color:green;background-color: white">\[Ibanez03\]</em>
 L. Ibanez, W. Schroeder, L. Ng, J. Cates. The ITK Software Guide. Kitware, Inc. ISBN 1-93093410-6.
 
-<em style="color:blue;background-color: white">\[Law99\]</em>
+<em style="color:green;background-color: white">\[Law99\]</em>
 C. Charles Law, K. M. Martin, W. J. Schroeder, J. E. Temkin. A Multi-Threaded Streaming Pipeline Architecture for Large Structured Data Sets. In Proceedings. of Visualization '99, IEEE, October 1999.
 
-<em style="color:blue;background-color: white">\[Martin01\]</em>
+<em style="color:green;background-color: white">\[Martin01\]</em>
 K. M. Martin, B. Geveci, J. Ahrens, C. Law. Large Scale Data Visualization Using Parallel Data Streaming. IEEE Computer Graphics & Applications, July 2001.
 
 <figure id="Figure 10-19">
@@ -343,19 +343,19 @@ K. M. Martin, B. Geveci, J. Ahrens, C. Law. Large Scale Data Visualization Using
   <figcaption style="color:blue"><b>Figure 10-19</b>. Sample image for segmentation exercise</figcaption>
 </figure>
 
-<em style="color:blue;background-color: white">\[Niblack86\]</em>
+<em style="color:green;background-color: white">\[Niblack86\]</em>
 W. Niblack. An Introduction to Digital Image Processing. Prentice Hall, Inc., London, 1986.
    
- <em style="color:blue;background-color: white">\[Pavlidis82\]</em>
+ <em style="color:green;background-color: white">\[Pavlidis82\]</em>
 T. Pavlidis. Algorithms for Graphics and Image Processing. Computer Science Press, Rockville, MD, 1982.
 
-<em style="color:blue;background-color: white">\[Robb95\]</em>
+<em style="color:green;background-color: white">\[Robb95\]</em>
 R. Robb. Three-Dimensional Biomedical Imaging Principles and Practice. VCH Publishers, New York, NY, 1995.
 
-<em style="color:blue;background-color: white">\[Russ95\]</em>
+<em style="color:green;background-color: white">\[Russ95\]</em>
 J. C. Russ. The Image Processing Handbook 2d ed. CRC Press, Inc, Boca Raton, FL, 1995.
 
- <em style="color:blue;background-color: white">\[Wolberg90\]</em>
+ <em style="color:green;background-color: white">\[Wolberg90\]</em>
 G. Wolberg. Digital Image Warping. IEEE Computer Society Press, Los Alamitos, CA, 1990.
 
 ## 10.8 Exercises

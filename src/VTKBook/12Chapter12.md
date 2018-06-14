@@ -956,7 +956,7 @@ There are a number of techniques we can use when we first look at the complex da
 
 4.  Try using the computational grid itself as seeds for the streamlines. Of course we will have to restrict the extent of the grid you use for this purpose. Using the grid, we will be able to place more seeds in regions where the analyst expected more action.
 
-For this case study, we use a dataset from NASA called the LOx Post. It simulates the flow of liquid oxygen across a flat plate with a cylindrical post perpendicular to the flow <em style="color:blue;background-color: white">\[Rogers86\]</em>. This analysis models the flow in a rocket engine. The post promotes mixing
+For this case study, we use a dataset from NASA called the LOx Post. It simulates the flow of liquid oxygen across a flat plate with a cylindrical post perpendicular to the flow <em style="color:green;background-color: white">\[Rogers86\]</em>. This analysis models the flow in a rocket engine. The post promotes mixing
 of the liquid oxygen.
 
 We start by exploring the scalar and vector fields in the data. By calculating the magnitude of the velocity vectors, we derive a scalar field. This study has a particularly interesting vector field around the post. We seed the field with multiple starting points (using points arranged along a curve, referred to as a *rake*) and experiment with parameters for the streamlines. Streampolygons are particularly appropriate here and do a nice job of showing the flow downstream from the post. We animate the streamline creation by moving the seeding line or rake back and forth behind the post.
@@ -1124,7 +1124,7 @@ To generate these images, we used a Tcl script shown in **Figure 12-18** and **F
 
 ## 12.7 Algorithm Visualization
 
-Visualization can be used to display algorithms and data structures. Representing this information often requires creative work on the part of the application programmer. For example, Robertson et al. <em style="color:blue;background-color: white">\[Robertson91\]</em> have shown 3D techniques for visualizing directory structures and navigating through them. Their approach involves building three dimensional models (the so-called "cone trees") to represent files, directories, and associations between files and directories. Similar approaches can be used to visualize stacks, queues, linked lists, trees, and other data structures.
+Visualization can be used to display algorithms and data structures. Representing this information often requires creative work on the part of the application programmer. For example, Robertson et al. <em style="color:green;background-color: white">\[Robertson91\]</em> have shown 3D techniques for visualizing directory structures and navigating through them. Their approach involves building three dimensional models (the so-called "cone trees") to represent files, directories, and associations between files and directories. Similar approaches can be used to visualize stacks, queues, linked lists, trees, and other data structures.
 
 <figure id="Figure 12-18">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure12-18.png?raw=true" width="640" alt="Figure12-18">
@@ -1165,7 +1165,7 @@ In this example we will visualize the operation of the recursive Towers of Hanoi
   <figcaption style="color:blue"><b>Figure 12-22</b>. Function to move disks from one peg to another in the Towers of Hanoi example. The resulting motion is in small steps with an additional flip of the disk.</figcaption>
 </figure>
 
-The classical solution to this puzzle is based on a divide-and-conquer approach <em style="color:blue;background-color: white">\[AhoHopUll83]</em>. The problem of moving *n* disks from the initial peg to the second peg can be thought of as solving two subproblems of size *n--1*. First move *n--1* disks from the initial peg to the third peg. Then move the *nth* disk to the second peg. Finally, move the *n--1* disks on the third peg back to the second peg.
+The classical solution to this puzzle is based on a divide-and-conquer approach <em style="color:green;background-color: white">\[AhoHopUll83]</em>. The problem of moving *n* disks from the initial peg to the second peg can be thought of as solving two subproblems of size *n--1*. First move *n--1* disks from the initial peg to the third peg. Then move the *nth* disk to the second peg. Finally, move the *n--1* disks on the third peg back to the second peg.
 
 The solution to this problem can be elegantly implemented using recursion. We have shown portions of the C++ code in **Figure 12-21** and **Figure 12-22**. In the first part of the solution (which is not shown in **Figure 12-21** ) the table top, pegs, and disks are created using the two classes vtkPlaneSource and vtkCylinderSource. The function Hanoi() is then called to begin the recursion. The routine MovePuck() is responsible for moving a disk from one peg to another. It has been jazzed up to move the disk in small, user-specified increments, and to flip the disc over as it moves from one peg to the next. This gives a pleasing visual effect and adds the element of fun to the visualization.
 
@@ -1189,48 +1189,48 @@ We concluded the case studies by visualizing the Towers of Hanoi algorithm. Here
 
 ## 12.9 Bibliographic Notes
 
-The case studies presented in the chapter rely on having interesting data to visualize. Sometimes the hardest part of practicing visualizing is finding relevant data. The Internet is a tremendous resource for this task. Paul Gilster <em style="color:blue;background-color: white">\[Gilster94\]</em> has written an excellent introduction to many of the tools for accessing information on the Internet. There are many more books available on this subject in the local bookstore.
+The case studies presented in the chapter rely on having interesting data to visualize. Sometimes the hardest part of practicing visualizing is finding relevant data. The Internet is a tremendous resource for this task. Paul Gilster <em style="color:green;background-color: white">\[Gilster94\]</em> has written an excellent introduction to many of the tools for accessing information on the Internet. There are many more books available on this subject in the local bookstore.
 
-In the stock case study we used a programming tool called AWK to convert our data into a form suitable for VTK. More information on AWK can be found in *The AWK Programming Language* <em style="color:blue;background-color: white">\[Aho88\]</em>. Another popular text processing languages is Perl <em style="color:blue;background-color: white">\[Perl95\]</em>.
+In the stock case study we used a programming tool called AWK to convert our data into a form suitable for VTK. More information on AWK can be found in *The AWK Programming Language* <em style="color:green;background-color: white">\[Aho88\]</em>. Another popular text processing languages is Perl <em style="color:green;background-color: white">\[Perl95\]</em>.
 
-If you would like to know more about information visualization you can start with the references listed here <em style="color:blue;background-color: white">\[Becker95\]</em> <em style="color:blue;background-color: white">\[Ding90\]</em> <em style="color:blue;background-color: white">\[Eick93\]</em> <em style="color:blue;background-color: white">\[Feiner88\]</em> <em style="color:blue;background-color: white">\[Johnson91\]</em> <em style="color:blue;background-color: white">\[Robertson91\]</em>. This is a relatively new field but will certainly grow in the near future. 
+If you would like to know more about information visualization you can start with the references listed here <em style="color:green;background-color: white">\[Becker95\]</em> <em style="color:green;background-color: white">\[Ding90\]</em> <em style="color:green;background-color: white">\[Eick93\]</em> <em style="color:green;background-color: white">\[Feiner88\]</em> <em style="color:green;background-color: white">\[Johnson91\]</em> <em style="color:green;background-color: white">\[Robertson91\]</em>. This is a relatively new field but will certainly grow in the near future. 
 
 ## 12.10 References
 
-<em style="color:blue;background-color: white">\[Aho88\]</em>
+<em style="color:green;background-color: white">\[Aho88\]</em>
 A. V. Aho, B. W. Kernighan, and P. J. Weinberger. *The AWK Programming Language*. AddisonWesley, Reading, MA, 1988.
 
-<em style="color:blue;background-color: white">\[AhoHopUll83\]</em>
+<em style="color:green;background-color: white">\[AhoHopUll83\]</em>
 A. V. Aho, J. E. Hopcroft, and J. D. Ullman. *Data Structures and Algorithm* s. AddisonWesley, Reading, MA, 1983.
 
-<em style="color:blue;background-color: white">\[Becker95\]</em>
+<em style="color:green;background-color: white">\[Becker95\]</em>
 R. A. Becker, S. G. Eick, and A. R. Wilks. "Visualizing Network Data." *IEEE Transactions on Visualization and Graphics*. 1(1):16--28,1995. 
 
-<em style="color:blue;background-color: white">\[deLorenzi93\]</em>
+<em style="color:green;background-color: white">\[deLorenzi93\]</em>
 H. G. deLorenzi and C. A. Taylor. "The Role of Process Parameters in Blow Molding and Correlation of 3-D Finite Element Analysis with Experiment." *International Polymer Processing.* 3(4):365--374, 1993.
 
-<em style="color:blue;background-color: white">\[Ding90\]</em>
+<em style="color:green;background-color: white">\[Ding90\]</em>
 C. Ding and P. Mateti. "A Framework for the Automated Drawing of Data Structure Diagrams." *IEEE Transactions on Software Engineering*. 16(5):543--557, May 1990.
 
-<em style="color:blue;background-color: white">\[Eick93\]</em>
+<em style="color:green;background-color: white">\[Eick93\]</em>
 S. G. Eick and G. J. Wills. "Navigating Large Networks with Hierarchies." In *Proceedings of Visualization '93*. pp. 204--210, IEEE Computer Society Press, Los Alamitos, CA, October 1993.
 
-<em style="color:blue;background-color: white">\[Feiner88\]</em>
+<em style="color:green;background-color: white">\[Feiner88\]</em>
 S. Feiner. "Seeing the Forest for the Trees: Hierarchical Displays of Hypertext Structures." In *Conference on Office Information Systems*. Palo Alto, CA, 1988.
 
-<em style="color:blue;background-color: white">\[Gilster94\]</em>
+<em style="color:green;background-color: white">\[Gilster94\]</em>
 P. Gilster. *Finding It on the Internet: The Essential Guide to Archie, Veronica, Gopher, WAIS,* *WWW (including Mosaic), and Other Search and Browsing Tools.* John Wiley & Sons, Inc., 1994.
 
-<em style="color:blue;background-color: white">\[Johnson91\]</em>
+<em style="color:green;background-color: white">\[Johnson91\]</em>
 B. Johnson and B. Shneiderman. "Tree-Maps: A Space-Filling Approach to the Visualization of Hierarchical Information Structure *s*." In *Proceedings of Visualization '91*. pp. 284--291, IEEE Computer Society Press, Los Alamitos, CA, October 1991.
 
-<em style="color:blue;background-color: white">\[Perl95\]</em>
+<em style="color:green;background-color: white">\[Perl95\]</em>
 D. Till. *Teach Yourself Perl in 21 Days*. Sams Publishing, Indianapolis, Indiana, 1995.
 
-<em style="color:blue;background-color: white">\[Robertson91\]</em>
+<em style="color:green;background-color: white">\[Robertson91\]</em>
 G. G. Robertson, J. D. Mackinlay, and S. K. Card. "Cone Trees: Animated 3D Visualizations of Hierarchical Information." In *Proceedings of ACM CHI '91 Conference on Human Factors in* *Computing Systems*. pp. 189--194, 1991.
 
-<em style="color:blue;background-color: white">\[Rogers86\]</em> S. E. Rogers, D. Kwak, and U. K. Kaul, "A Numerical Study of Three-Dimensional Incompressible Flow Around Multiple Post." in *Proceedings of AIAA Aerospace Sciences Conference*. vol. AIAA Paper 86-0353. Reno, Nevada, 1986.
+<em style="color:green;background-color: white">\[Rogers86\]</em> S. E. Rogers, D. Kwak, and U. K. Kaul, "A Numerical Study of Three-Dimensional Incompressible Flow Around Multiple Post." in *Proceedings of AIAA Aerospace Sciences Conference*. vol. AIAA Paper 86-0353. Reno, Nevada, 1986.
 
 ## 12.11 Exercises
 

@@ -8,7 +8,7 @@ As we have seen, scalar algorithms often involve mapping scalar values through a
 
 ### Dividing Cubes
 
-Dividing cubes is a contouring algorithm similar to marching cubes <em style="color:blue;background-color: white">\[Cline88\]</em>. Unlike marching cubes, dividing cubes generates point primitives as compared to triangles (3D) or lines (2D). If the number of points on the contour surface is large, the rendered appearance of the contour surface appears "solid."q To achieve this solid appearance, the density of the points must be at or greater than screen resolution. (Also, the points must be rendered using the standard lighting and shading equations used in surface rendering.)
+Dividing cubes is a contouring algorithm similar to marching cubes <em style="color:green;background-color: white">\[Cline88\]</em>. Unlike marching cubes, dividing cubes generates point primitives as compared to triangles (3D) or lines (2D). If the number of points on the contour surface is large, the rendered appearance of the contour surface appears "solid."q To achieve this solid appearance, the density of the points must be at or greater than screen resolution. (Also, the points must be rendered using the standard lighting and shading equations used in surface rendering.)
 
 The motivation for dividing cubes is that rendering points is much faster than rendering polygons. This varies depending upon rendering hardware/software. Special purpose hardware has been developed to render shaded points at high speed. In other systems, greater attention has been placed on polygon rendering, and the rendering speed differences are not so great. Also, certain geometric operations such as clipping and merging data are simple operations with points. Comparable operations with polygons are much more difficult to implement.
 
@@ -149,11 +149,11 @@ Compared to vector icons or streamlines, streamsurfaces provide additional infor
 
 Streamsurfaces can be computed by generating a set of streamlines from a user-specified rake. A polygonal mesh is then constructed by connecting adjacent streamlines. One difficulty with this approach is that local vector field divergence can cause streamlines to separate. Separation can introduce large errors into the surface, or possibly cause self-intersection, which is not physically possible.
 
-Another approach to computing streamsurfaces has been taken by Hultquist <em style="color:blue;background-color: white">\[Hultquist92\]</em>. The streamsurface is a collection of streamribbons connected along their edges. In this approach, the computation of the streamlines and tiling of the streamsurface is carried out concurrently. This allows streamlines to be added or removed as the flow separates or converges. The tiling can also be controlled to prevent the generation of long, skinny triangles. The surface may also be "torn", i.e., ribbons separated, if the divergence of the flow becomes too high.
+Another approach to computing streamsurfaces has been taken by Hultquist <em style="color:green;background-color: white">\[Hultquist92\]</em>. The streamsurface is a collection of streamribbons connected along their edges. In this approach, the computation of the streamlines and tiling of the streamsurface is carried out concurrently. This allows streamlines to be added or removed as the flow separates or converges. The tiling can also be controlled to prevent the generation of long, skinny triangles. The surface may also be "torn", i.e., ribbons separated, if the divergence of the flow becomes too high.
 
 ### Stream Polygon
 
-The techniques described so far provide approximate measures of vector field quantities such as streamwise vorticity and divergence. However, vector fields contain more information than these techniques can convey. As a result, other techniques have been devised to visualize this information. One such technique is the stream polygon <em style="color:blue;background-color: white">\[Schroeder91\]</em>, which serves as the basis for a number of advanced vector and tensor visualization methods. The stream polygon is used to visualize local properties of strain, displacement, and rotation. We begin by describing the effects of a vector field on the local state of strain.
+The techniques described so far provide approximate measures of vector field quantities such as streamwise vorticity and divergence. However, vector fields contain more information than these techniques can convey. As a result, other techniques have been devised to visualize this information. One such technique is the stream polygon <em style="color:green;background-color: white">\[Schroeder91\]</em>, which serves as the basis for a number of advanced vector and tensor visualization methods. The stream polygon is used to visualize local properties of strain, displacement, and rotation. We begin by describing the effects of a vector field on the local state of strain.
 
 Nonuniform vector fields give rise to local deformation in the region where they occur. If the vector field is displacement in a physical medium such as a fluid or a solid, the deformation consists of local strain (i.e., local distortion) and rigid body motion. To mathematically describe the deformation, we examine a 3D vector $\vec{v} = (u, v, w)$ at a specified point x = (x, y, z). Using a first order Taylor's series expansion about x, we can express the local deformation eij as
                                 
@@ -257,11 +257,11 @@ The streamtubes generated by the streampolygon and the streamtubes we described 
 
 ### Vector Field Topology
 
-Vector fields have a complex structure characterized by special features called critical points <em style="color:blue;background-color: white">\[Globus91\]</em> <em style="color:blue;background-color: white">\[Helman91\]</em>. Critical points are locations in the vector field where the local vector magnitude goes to zero and the vector direction becomes undefined. At these points the vector field either converges or diverges, and/or local circulation around the point occurs.
+Vector fields have a complex structure characterized by special features called critical points <em style="color:green;background-color: white">\[Globus91\]</em> <em style="color:green;background-color: white">\[Helman91\]</em>. Critical points are locations in the vector field where the local vector magnitude goes to zero and the vector direction becomes undefined. At these points the vector field either converges or diverges, and/or local circulation around the point occurs.
 
 Critical points lie in dataset cells where the u, v, and w components of the vector field each pass through zero. These points are located using an iterative search procedure such as the bi-section technique. Each iteration evaluates the cell interpolation function until the zero vector is found. Once a critical point is found, its local behavior is determined from the matrix of partial derivatives.
 
-This is because at the critical point the velocity is zero, and the vector field can be approximated by a first-order expansion of partial derivatives <em style="color:blue;background-color: white">\[Helman91\]</em>
+This is because at the critical point the velocity is zero, and the vector field can be approximated by a first-order expansion of partial derivatives <em style="color:green;background-color: white">\[Helman91\]</em>
 
 $$
 \begin{eqnarray*}
@@ -337,7 +337,7 @@ Decomposition of the tensor field in this fashion provides additional insight in
 
 ### Hyperstreamlines
 
-Hyperstreamlines are constructed by creating a streamline through one of the three eigenfields, and then sweeping a geometric primitive along the streamline <em style="color:blue;background-color: white">\[Delmarcelle93\]</em>. Typically, an ellipse is used as the geometric primitive, where the remaining two eigenvectors define the major and minor axes of the ellipse (**Figure 9-14**). Sweeping the ellipse along the eigenfield streamline results in a tubular shape. Another useful generating geometric primitive is a cross. The length and orientation of the arms of the cross are controlled by two of the eigenvectors. Sweeping the cross results in a helical shape since the eigenvectors (and therefore cross arms) will rotate in some tensor fields.
+Hyperstreamlines are constructed by creating a streamline through one of the three eigenfields, and then sweeping a geometric primitive along the streamline <em style="color:green;background-color: white">\[Delmarcelle93\]</em>. Typically, an ellipse is used as the geometric primitive, where the remaining two eigenvectors define the major and minor axes of the ellipse (**Figure 9-14**). Sweeping the ellipse along the eigenfield streamline results in a tubular shape. Another useful generating geometric primitive is a cross. The length and orientation of the arms of the cross are controlled by two of the eigenvectors. Sweeping the cross results in a helical shape since the eigenvectors (and therefore cross arms) will rotate in some tensor fields.
 
 **Figure 9-15** shows an example of hyperstreamlines. The data is from a point load applied to a semi-infinite domain. Compare this figure to Figure 6-22 that used tensor ellipsoids tov visualize the same data. Notice that there is less clutter and more information available from the hyperstreamline visualization.
 
@@ -504,7 +504,7 @@ In graphics, data compression techniques have been developed as well. The subsam
 
 Polygon reduction techniques reduce the number of polygons required to model an object. The size of models, in terms of polygon count, has grown tremendously over the last few years. This is because many models are created using digital measuring devices such as laser scanners or satellites. These devices can generate data at tremendous rates. For example, a laser digitizer can generate on the order of 500,000 triangles in a 15-second scan. Visualization algorithms such as marching cubes also generate large numbers of polygons: one to three million triangles from a 5123 volume is typical.
 
-One polygon reduction technique is the decimation algorithm <em style="color:blue;background-color: white">\[Schroeder92a\]</em>. The goal of the decimation algorithm is to reduce the total number of triangles in a triangle mesh, preserving the original topology and forming a good approximation to the original geometry. A triangle mesh is a special form of a polygonal mesh, where each polygon is a triangle. If need be, a polygon mesh can be converted to a triangle mesh using standard polygon triangulation methods.
+One polygon reduction technique is the decimation algorithm <em style="color:green;background-color: white">\[Schroeder92a\]</em>. The goal of the decimation algorithm is to reduce the total number of triangles in a triangle mesh, preserving the original topology and forming a good approximation to the original geometry. A triangle mesh is a special form of a polygonal mesh, where each polygon is a triangle. If need be, a polygon mesh can be converted to a triangle mesh using standard polygon triangulation methods.
 
 Decimation is related to the subsampling technique for unstructured meshes described in **Figure 9-17**(b). The differences are that
 
@@ -565,7 +565,7 @@ Occasionally, triangulation fails because no split plane can be found. In this c
 
 Notice the gradations in the decimated mesh around features of high curvature. The advantage of decimation, as compared to subsampling techniques, is that the mesh is adaptively modified to retain more details in areas of high curvature.
 
-**Advanced Techniques.** Polygon reduction is an active field of research. Many powerful algorithms beyond the decimation algorithm have been presented (see ["Bibliographic Notes"](/VTKBook/09Chapter9/#97-bibliographic-notes) in this Chapter). Although we cannot cover the field in its entirety in this section, there are two notable trends worth addressing. First, progressive schemes <em style="color:blue;background-color: white">\[Hoppe96\]</em> allow incremental transmission and reconstruction of triangle meshes - this is especially important for Web-based geometry visualization. Second, recent algorithms modify the topology of the mesh <em style="color:blue;background-color: white">\[He96\]</em> <em style="color:blue;background-color: white">\[Popovic97\]</em> <em style="color:blue;background-color: white">\[Schroeder97\]</em>. This feature is essential towards obtaining arbitrary levels of mesh reduction.
+**Advanced Techniques.** Polygon reduction is an active field of research. Many powerful algorithms beyond the decimation algorithm have been presented (see ["Bibliographic Notes"](/VTKBook/09Chapter9/#97-bibliographic-notes) in this Chapter). Although we cannot cover the field in its entirety in this section, there are two notable trends worth addressing. First, progressive schemes <em style="color:green;background-color: white">\[Hoppe96\]</em> allow incremental transmission and reconstruction of triangle meshes - this is especially important for Web-based geometry visualization. Second, recent algorithms modify the topology of the mesh <em style="color:green;background-color: white">\[He96\]</em> <em style="color:green;background-color: white">\[Popovic97\]</em> <em style="color:green;background-color: white">\[Schroeder97\]</em>. This feature is essential towards obtaining arbitrary levels of mesh reduction.
 
 A _progressive mesh_ is a series of triangle meshes $M_i$i related by the operations
 
@@ -679,7 +679,7 @@ Past efforts at creating swept surfaces and volumes have focused on analytical t
 
 Degeneracies occur when an n-dimensional object moves in such a way that its representation becomes (n-1)-dimensional. For example, moving a plane in the direction of its normal, sweeps out a 3D "cubical" volume. Sweeping the plane in a direction perpendicular to its normal, however, results in a degenerate condition, since the plane sweeps out a 2D "rectangle."
 
-Instead of creating swept surfaces analytically, numerical approximation techniques can be used <em style="color:blue;background-color: white">\[Schroeder94\]</em>. Implicit modeling provides the basis for an effective technique to visualize object motion via swept surfaces and volumes. The technique is immune to degeneracies and can treat any geometric representation for which a distance function can be computed, such as the VTK cell types.
+Instead of creating swept surfaces analytically, numerical approximation techniques can be used <em style="color:green;background-color: white">\[Schroeder94\]</em>. Implicit modeling provides the basis for an effective technique to visualize object motion via swept surfaces and volumes. The technique is immune to degeneracies and can treat any geometric representation for which a distance function can be computed, such as the VTK cell types.
 
 The technique to generate swept surfaces and volumes using an implicit modeling approach proceeds as follows. The geometric model, or part, and a path describing the parts motion, or sweep trajectory ST, must be defined. Then we use the following steps as depicted in **Figure 9-32**.
 
@@ -816,7 +816,7 @@ The parameter $z$ is the distance along the vector $\vec{v}$, and the parameter 
 <figcaption style="color:blue"><b>Figure 9-38</b>. Elliptical splatting. (a) Single elliptical splat with eccentricity E=10. Cone shows orientation of vector. (b) Surface reconstructed using elliptical splats into 100^3 volume followed by isosurface extraction. Points regularly subsampled and overlayed on original mesh.<a href="../../Cxx/VisualizationAlgorithms/SingleSplat" title="SingleSplat"> See SingleSplat.cxx</a> and <a href="../../Python/VisualizationAlgorithms/SingleSplat" title="SingleSplat"> SingleSplat.py</a>.; (b).<a href="../../Cxx/VisualizationAlgorithms/SplatFace" title="SplatFace"> See SplatFace.cxx</a> and <a href="../../Python/VisualizationAlgorithms/SplatFace" title="SplatFace"> SplatFace.py</a>.</figcaption>
 </figure>
 
-Shepard's method is an inverse distance weighted interpolation technique <em style="color:blue;background-color: white">\[Wixom78\]</em>. The interpolation functions can be written
+Shepard's method is an inverse distance weighted interpolation technique <em style="color:green;background-color: white">\[Wixom78\]</em>. The interpolation functions can be written
 
 $$
 \begin{equation*}
@@ -838,16 +838,16 @@ $$
 
 As a result, Shepard's method is overly constrained in the region around each point.
 
-Shepard's method is an example of a basis function method. That is, the interpolation function F(p) consists of a sum of functions centered at each data point, pi. Other basis function methods have been developed as described by Nielson <em style="color:blue;background-color: white">\[Nielson91\]</em>. They vary in localization of the basis functions and the sophistication of the interpolation function. Localization of basis functions means that their effect is isolated to a small region. Examples of more sophisticated basis functions include quadratic polynomials and cubic splines. Please see the references for more information.
+Shepard's method is an example of a basis function method. That is, the interpolation function F(p) consists of a sum of functions centered at each data point, pi. Other basis function methods have been developed as described by Nielson <em style="color:green;background-color: white">\[Nielson91\]</em>. They vary in localization of the basis functions and the sophistication of the interpolation function. Localization of basis functions means that their effect is isolated to a small region. Examples of more sophisticated basis functions include quadratic polynomials and cubic splines. Please see the references for more information.
 
-**<b id="Chapter 9 - Triangulation Techniques">Triangulation techniques</b>** build topology directly from unstructured points. The points are triangulated to create a topological structure consisting of n-dimensional simplices that completely bound the points and linear combinations of the points (the so-called convex hull). The result of triangulation is a set of triangles (2D) or tetrahedra (3D), depending upon the dimension of the input data <em style="color:blue;background-color: white">\[Lawson86\]</em>.
+**<b id="Chapter 9 - Triangulation Techniques">Triangulation techniques</b>** build topology directly from unstructured points. The points are triangulated to create a topological structure consisting of n-dimensional simplices that completely bound the points and linear combinations of the points (the so-called convex hull). The result of triangulation is a set of triangles (2D) or tetrahedra (3D), depending upon the dimension of the input data <em style="color:green;background-color: white">\[Lawson86\]</em>.
 
 <figure id="Figure 9-39">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure9-39.png?raw=true" width="640" alt="Figure9-39">
   <figcaption style="color:blue"><b>Figure 9-39</b>. The Delaunay triangulation (a) and Dirichlet tessellation (b). The circumcircle of each triangle in a Delaunay triangulation contains no other points but the three vertices of the triangle. The region surrounding each point pi in a Dirichlet tessellation is the set of points closest to p_i.</figcaption>
 </figure>
 
-An n-dimensional triangulation of a point set $P = (p_1, p_2, p_3, ..., p_n)$ is a collection of n-dimensional simplices whose defining points lie in $P$. The simplices do not intersect one another and share only boundary features such as edges or faces. The Delaunay triangulation is a particularly important form <em style="color:blue;background-color: white">\[Bowyer81\]</em> <em style="color:blue;background-color: white">\[Watson81\]</em>. It has the property that the circumsphere of any n-dimensional simplex contains no other points of $P$ except the $n+1$ defining points of the simplex (**Figure 9-39**(a)).
+An n-dimensional triangulation of a point set $P = (p_1, p_2, p_3, ..., p_n)$ is a collection of n-dimensional simplices whose defining points lie in $P$. The simplices do not intersect one another and share only boundary features such as edges or faces. The Delaunay triangulation is a particularly important form <em style="color:green;background-color: white">\[Bowyer81\]</em> <em style="color:green;background-color: white">\[Watson81\]</em>. It has the property that the circumsphere of any n-dimensional simplex contains no other points of $P$ except the $n+1$ defining points of the simplex (**Figure 9-39**(a)).
 
 The Delaunay triangulation has many interesting properties. In two dimensions, the Delaunay triangulation has been shown to be the optimal triangulation. That is, the minimum interior angle of a triangle in a Delaunay triangulation is greater than or equal to the minimum interior angle of any other possible triangulation. The Delaunay triangulation is the dual of the Dirichlet tessellation (**Figure 9-39**(b)), another important construction in computational geometry. The Dirichlet tessellation, also known as the Voronoi tessellation, is a tiling of space where each tile represents the space closest to a point pi. (The tiles are called Voronoi cells.) An n-dimensional Delaunay triangulation can be constructed from the Dirichlet tessellation by creating edges between Voronoi cells that share common n-1 boundaries (e.g., faces in 3D and edges in 2D). Conversely, the vertices of the Dirichlet tessellation are located at the circumcenters of the Delaunay circumcircles.
 
@@ -856,13 +856,13 @@ The Delaunay triangulation has many interesting properties. In two dimensions, t
   <figcaption style="color:blue"><b>Figure 9-40</b>. Computing the Delaunay triangulation using technique of Watson and Boyer. Points are injected into triangulation forming new Delaunay triangulations. In the final step, the initial bounding points are removed to reveal final triangulation.</figcaption>
 </figure>
 
-The Delaunay triangulation can be computed using a variety of techniques. We describe a particularly elegant technique introduced independently by Watson <em style="color:blue;background-color: white">\[Watson81\]</em> and Bowyer <em style="color:blue;background-color: white">\[Bowyer81\]</em> (**Figure 9-40**). The algorithm begins by constructing an initial Delaunay triangulation that strictly bounds the point set P, the so-called bounding triangulation. This bounding triangulation can be as simple as a single triangle (2D) or tetrahedron (3D). Then, each point of P is injected one by one into the current triangulation. If the injected point lies within the circumcircle of any simplex, then the simplex is deleted, leaving a "hole" in the triangulation. After deleting all simplices, the n-1 dimensional faces on the boundary of the hole, along with the injected point, are used to construct a modified triangulation. This is a Delaunay triangulation, and the process continues until all points are injected into the triangulation. The last step removes the simplices connecting the points forming the initial bounding triangulation to reveal the completed Delaunay triangulation.
+The Delaunay triangulation can be computed using a variety of techniques. We describe a particularly elegant technique introduced independently by Watson <em style="color:green;background-color: white">\[Watson81\]</em> and Bowyer <em style="color:green;background-color: white">\[Bowyer81\]</em> (**Figure 9-40**). The algorithm begins by constructing an initial Delaunay triangulation that strictly bounds the point set P, the so-called bounding triangulation. This bounding triangulation can be as simple as a single triangle (2D) or tetrahedron (3D). Then, each point of P is injected one by one into the current triangulation. If the injected point lies within the circumcircle of any simplex, then the simplex is deleted, leaving a "hole" in the triangulation. After deleting all simplices, the n-1 dimensional faces on the boundary of the hole, along with the injected point, are used to construct a modified triangulation. This is a Delaunay triangulation, and the process continues until all points are injected into the triangulation. The last step removes the simplices connecting the points forming the initial bounding triangulation to reveal the completed Delaunay triangulation.
 
 This simplistic presentation of triangulation techniques has shown how to create topological structure from a set of unstructured points. We have ignored some difficult issues such as degeneracies and numerical problems. Degeneracies occur when points in a Delaunay triangulation lie in such a way that the triangulation is not unique. For example, the points lying at the vertices of a square, rectangle, or hexagon are degenerate because they can be triangulated in more than one way, where each triangulation is equivalent (in terms of Delaunay criterion) to the other. Numerical problems occur when we attempt to compute circumcenters, especially in higher-dimensional triangulations, or when simplices of poor aspect ratio are present.
 
 Despite these problems, triangulation methods are a powerful tool for visualizing unstructured points. Once we convert the data into a triangulation (or in our terminology, an unstructured grid), we can directly visualize our data using standard unstructured grid techniques.
 
-**Hybrid Techniques.** Recent work has focused on combining triangulation and basis function techniques for interpolating 2D bivariate data. The basic idea is as follows. A triangulation of P is constructed. Then an interpolating network of curves is defined over the edges of the triangulation. These curves are constructed with certain minimization properties of interpolating splines. Finally, the curve network is used to construct a series of triangular basis functions, or surface patches, that exhibit continuity in function value, and possibly higher order derivatives. (See <em style="color:blue;background-color: white">\[Nielson91\]</em> for more information.)
+**Hybrid Techniques.** Recent work has focused on combining triangulation and basis function techniques for interpolating 2D bivariate data. The basic idea is as follows. A triangulation of P is constructed. Then an interpolating network of curves is defined over the edges of the triangulation. These curves are constructed with certain minimization properties of interpolating splines. Finally, the curve network is used to construct a series of triangular basis functions, or surface patches, that exhibit continuity in function value, and possibly higher order derivatives. (See <em style="color:green;background-color: white">\[Nielson91\]</em> for more information.)
 
 ### Multidimensional Visualization
 
@@ -876,7 +876,7 @@ The problem of understanding is that humans do not easily comprehend more than t
 
 Most multidimensional visualization techniques work with some form of dimension mapping, where n dimensions are mapped to three dimensions and then displayed with 3D computer graphics techniques. The mapping is achieved by fixing all variables except three, and then applying the visualization techniques described throughout the text to the resulting data. For maximum benefit, the process of fixing independent variables, mapping to three dimensions, and then generating visualization must be interactive. This improves the effectiveness of the visualization process, allowing the user to build an internal model of the data by manipulating different parts of the data.
 
-One novel approach to multidimensional visualization has been proposed by Inselberg and Dimsdale <em style="color:blue;background-color: white">\[Inselberg87\]</em>. This approach uses parallel coordinate systems. Instead of plotting points on orthogonal axes, the ith dimensional coordinate of each point is plotted along separate, parallel axes. This is shown in **Figure 9-41** for a five-dimensional point. In parallel coordinate plots, points appear as lines. As a result, plots of n-dimensional points appear as sequences of line segments that may intersect or group to form complex fan patterns. In so doing, the human pattern recognition capability is engaged. Unfortunately, if the number of points becomes large, and the data is not strongly correlated, the resulting plots can become a solid mass of black, and any data trends are drowned in the visual display.
+One novel approach to multidimensional visualization has been proposed by Inselberg and Dimsdale <em style="color:green;background-color: white">\[Inselberg87\]</em>. This approach uses parallel coordinate systems. Instead of plotting points on orthogonal axes, the ith dimensional coordinate of each point is plotted along separate, parallel axes. This is shown in **Figure 9-41** for a five-dimensional point. In parallel coordinate plots, points appear as lines. As a result, plots of n-dimensional points appear as sequences of line segments that may intersect or group to form complex fan patterns. In so doing, the human pattern recognition capability is engaged. Unfortunately, if the number of points becomes large, and the data is not strongly correlated, the resulting plots can become a solid mass of black, and any data trends are drowned in the visual display.
 
 Another useful multivariable technique uses glyphs. This technique associates a portion of the glyph with each variable. Although glyphs cannot generally be designed for arbitrary n-dimensional data, in many applications we can create glyphs to convey the information we are interested in. Refer to ["Glyphs"](/VTKBook/06Chapter6/#glyphs) in [Chapter 6](/VTKBook/06Chapter6) for more information about glyphs.
                    
@@ -911,7 +911,7 @@ To visualize information with the thresholding technique, we must map data to te
 
 Another useful texture thresholding application uses implicit functions to map point position to texture coordinate. This is similar in effect to geometric clipping (see ["Clipping With Scalar Fields"](/VTKBook/09Chapter9/#clipping-with-scalar-fields) in this Chapter). As we saw in ["Implicit Functions"](/VTKBook/06Chapter6/#implicit-functions_1) in [Chapter 6](/VTKBook/06Chapter6), implicit functions naturally map a (x, y, z) coordinate value into three regions: F(x, y, z) < 0, F(x, y, z) = 0, and F(x, y, z) > 0 ; or equivalently, the concealed, transition, and accentuated regions of the texture map. Using boolean combinations of implicit functions, we can create complex cuts of our data as illustrated in **Figure 9-43b**. This figure shows two nested spheres. The outer sphere is cut by a boolean combination of two planes to show the inner sphere.
 
-**Boolean Textures.** Texture thresholding can be extended into higher dimensions. That is, 2D or 3D texture coordinates can be used to map two or three data variables into a texture map. One such technique is boolean textures, a method to clip geometry using a 2D texture map and two implicit functions <em style="color:blue;background-color: white">\[Lorensen93\]</em>.
+**Boolean Textures.** Texture thresholding can be extended into higher dimensions. That is, 2D or 3D texture coordinates can be used to map two or three data variables into a texture map. One such technique is boolean textures, a method to clip geometry using a 2D texture map and two implicit functions <em style="color:green;background-color: white">\[Lorensen93\]</em>.
 
 Boolean textures extend texture thresholding for geometric clipping from 1D to 2D. Instead of using a single implicit function to label regions "in" or "out", two implicit functions are used. This results in four different regions corresponding to all possible combinations of "in" and "out."
 
@@ -950,7 +950,7 @@ The boolean texture map can be created with combinations of intensity and transp
 
 **Texture Animation.** Time-based animation techniques can illustrate motion or temporal data variations. This process often requires relatively large amounts of computer resource to read, process, and display the data. Thus, techniques to reduce computer resources are desirable when animating data.
 
-Texture mapping can be used to animate certain types of data. In these techniques, the data is not regenerated frame by frame, instead a time-varying texture map is used to change the visual appearance of the data. An example of this approach is texture animation of vector fields <em style="color:blue;background-color: white">\[Yamrom95\]</em>.
+Texture mapping can be used to animate certain types of data. In these techniques, the data is not regenerated frame by frame, instead a time-varying texture map is used to change the visual appearance of the data. An example of this approach is texture animation of vector fields <em style="color:green;background-color: white">\[Yamrom95\]</em>.
 
 <figure id="Figure 9-46">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure9-46.png?raw=true" width="640" alt="Figure9-46">
@@ -1119,7 +1119,7 @@ The importance of texture techniques is that we can change the appearance of obj
 
 Delaunay triangulation is used to construct topology from unstructured point data. In two dimensions we generate triangles (i.e., an unstructured grid or polygonal dataset) while in three dimensions we generate tetrahedra (i.e., an unstructured grid). Typical examples of image data include points measured in space, or a dimensional subset of multidimensional data.
 
-In the example of **Figure 9-54** we show how to create a 2D Delaunay triangulation from a field of points. The points are created by generating random x and y coordinate values in the interval <em style="color:blue;background-color: white">\[0, 1\]</em>, and setting the z-value to a constant value (i.e., the points lie in an x-y plane). The points are then triangulated, and tubes and sphere glyphs are used to highlight the resulting points and edges of the triangulation.
+In the example of **Figure 9-54** we show how to create a 2D Delaunay triangulation from a field of points. The points are created by generating random x and y coordinate values in the interval <em style="color:green;background-color: white">\[0, 1\]</em>, and setting the z-value to a constant value (i.e., the points lie in an x-y plane). The points are then triangulated, and tubes and sphere glyphs are used to highlight the resulting points and edges of the triangulation.
 
 <figure id="Figure 9-54">
  <figure id="Figure 9-54a">
@@ -1131,7 +1131,7 @@ In the example of **Figure 9-54** we show how to create a 2D Delaunay triangulat
  <figcaption style="color:blue"><b>Figure 9-54</b>.Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes. Only the pipeline to generate triangulation is shown.<a href="../../Cxx/Modelling/DelaunayMesh" title="DelaunayMesh"> See DelaunayMesh.cxx</a> and <a href="../../Python/Modelling/DelaunayMesh" title="DelaunayMesh"> DelaunayMesh.py</a>.</figcaption>
 </figure>
 
-One important concern regarding Delaunay triangulations is that the process is numerically sensitive. Creating triangles with poor aspect ratio (e.g., slivers) can cause the algorithm to break down. If you have a large number of points to triangulate, you may want to consider randomizing the point order. This approach tends to generate triangles with better aspect ratio and give better results. You may also want to consider other implementations of Delaunay triangulation that are more numerically robust. See <em style="color:blue;background-color: white">\[Edelsbrunner94\]</em> for an example.
+One important concern regarding Delaunay triangulations is that the process is numerically sensitive. Creating triangles with poor aspect ratio (e.g., slivers) can cause the algorithm to break down. If you have a large number of points to triangulate, you may want to consider randomizing the point order. This approach tends to generate triangles with better aspect ratio and give better results. You may also want to consider other implementations of Delaunay triangulation that are more numerically robust. See <em style="color:green;background-color: white">\[Edelsbrunner94\]</em> for an example.
 
 ## 9.6 Chapter Summary
 Dividing cubes is a scalar contouring operation that generates points rather than surface primitives such as lines or polygons. Dense point clouds appear solid because of the limited resolution of computer images. 
@@ -1149,146 +1149,146 @@ Multidimensional visualization techniques focus on data that has many scalar dat
 Texture algorithms use texture coordinates and texture maps to select or highlight portions of a dataset. Texture thresholding assigns texture coordinates based on a scalar value. The scalar value and texture map determine how a cell or portion of a cell is rendered. Boolean textures extend this concept to 2D and 3D. Careful design of a boolean texture map permits the "clipping" of geometry with combinations of implicit surfaces. Texture can also be used to animate vector fields.
 
 ## 9.7 Bibliographic Notes
-Dividing cubes is an interesting algorithm because of the possibilities it suggests <em style="color:blue;background-color: white">\[Cline88\]</em>. Point primitives are extremely simple to render and manipulate. This simplicity can be used to advantage to build accelerated graphics boards, perform 3D editing, or build parallel visualization algorithms.
+Dividing cubes is an interesting algorithm because of the possibilities it suggests <em style="color:green;background-color: white">\[Cline88\]</em>. Point primitives are extremely simple to render and manipulate. This simplicity can be used to advantage to build accelerated graphics boards, perform 3D editing, or build parallel visualization algorithms.
 
-Many plotting and visualization systems use carpet plots extensively. Carpet plots are relatively easy to represent and render. Often 2D plotting techniques are used (i.e., lighting and perspective effects ignored). Check <em style="color:blue;background-color: white">\[Wang90\]</em> for additional information on rendering carpet plots.
+Many plotting and visualization systems use carpet plots extensively. Carpet plots are relatively easy to represent and render. Often 2D plotting techniques are used (i.e., lighting and perspective effects ignored). Check <em style="color:green;background-color: white">\[Wang90\]</em> for additional information on rendering carpet plots.
 
-In recent years a number of powerful vector visualization techniques have emerged. These techniques include streamsurfaces <em style="color:blue;background-color: white">\[Hultquist92\]</em>, streampolygons <em style="color:blue;background-color: white">\[Schroeder91\]</em>, vector field topology <em style="color:blue;background-color: white">\[Helman91\]</em> <em style="color:blue;background-color: white">\[Globus91\]</em>, streamballs <em style="color:blue;background-color: white">\[Brill94\]</em>, and vorticity visualization <em style="color:blue;background-color: white">\[Banks94\]</em>. The streamballs technique is a recent technique that combines techniques from implicit modeling. You may also wish to see references <em style="color:blue;background-color: white">\[Crawfis92\]</em> <em style="color:blue;background-color: white">\[vanWijk93\]</em> and <em style="color:blue;background-color: white">\[Max94\]</em>. These describe volume rendering and other advanced techniques for vector visualization, topics not well covered in this text.
+In recent years a number of powerful vector visualization techniques have emerged. These techniques include streamsurfaces <em style="color:green;background-color: white">\[Hultquist92\]</em>, streampolygons <em style="color:green;background-color: white">\[Schroeder91\]</em>, vector field topology <em style="color:green;background-color: white">\[Helman91\]</em> <em style="color:green;background-color: white">\[Globus91\]</em>, streamballs <em style="color:green;background-color: white">\[Brill94\]</em>, and vorticity visualization <em style="color:green;background-color: white">\[Banks94\]</em>. The streamballs technique is a recent technique that combines techniques from implicit modeling. You may also wish to see references <em style="color:green;background-color: white">\[Crawfis92\]</em> <em style="color:green;background-color: white">\[vanWijk93\]</em> and <em style="color:green;background-color: white">\[Max94\]</em>. These describe volume rendering and other advanced techniques for vector visualization, topics not well covered in this text.
 
-Some abstract yet beautiful visualization images are due to Delmarcelle and Hesselink <em style="color:blue;background-color: white">\[Delmarcelle93\]</em>. Their rendering of hyperstreamlines reflect the underlying beauty and complexity of tensor fields.
+Some abstract yet beautiful visualization images are due to Delmarcelle and Hesselink <em style="color:green;background-color: white">\[Delmarcelle93\]</em>. Their rendering of hyperstreamlines reflect the underlying beauty and complexity of tensor fields.
 
-Polygon reduction is a relatively new field of study. SIGGRAPH '92 marked a flurry of interest with the publication of two papers on this topic <em style="color:blue;background-color: white">\[Schroeder92a\]</em> <em style="color:blue;background-color: white">\[Turk92\]</em>. Since then a number of valuable techniques have been published. One of the best techniques, in terms of quality of results, is given by <em style="color:blue;background-color: white">\[Hoppe93\]</em>, although it is limited in time and space because it is based on formal optimization techniques. Other interesting methods include <em style="color:blue;background-color: white">\[Hinker93\]</em> and <em style="color:blue;background-color: white">\[Rossignac93\]</em>. A promising area of research is multiresolution analysis, where wavelet decomposition is used to build multiple levels of detail in a model <em style="color:blue;background-color: white">\[Eck95\]</em>. The most recent work in this field stresses progressive transmission of 3D triangle meshes <em style="color:blue;background-color: white">\[Hoppe96\]</em>, improved error measures <em style="color:blue;background-color: white">\[Garland97\]</em>, and algorithms that modify mesh topology <em style="color:blue;background-color: white">\[Popovic97\]</em> <em style="color:blue;background-color: white">\[Schroeder97\]</em>. Most recently an extensive book on the technology is available including specialized methods for terrain simplification <em style="color:blue;background-color: white">\[Luebke02\]</em>.
+Polygon reduction is a relatively new field of study. SIGGRAPH '92 marked a flurry of interest with the publication of two papers on this topic <em style="color:green;background-color: white">\[Schroeder92a\]</em> <em style="color:green;background-color: white">\[Turk92\]</em>. Since then a number of valuable techniques have been published. One of the best techniques, in terms of quality of results, is given by <em style="color:green;background-color: white">\[Hoppe93\]</em>, although it is limited in time and space because it is based on formal optimization techniques. Other interesting methods include <em style="color:green;background-color: white">\[Hinker93\]</em> and <em style="color:green;background-color: white">\[Rossignac93\]</em>. A promising area of research is multiresolution analysis, where wavelet decomposition is used to build multiple levels of detail in a model <em style="color:green;background-color: white">\[Eck95\]</em>. The most recent work in this field stresses progressive transmission of 3D triangle meshes <em style="color:green;background-color: white">\[Hoppe96\]</em>, improved error measures <em style="color:green;background-color: white">\[Garland97\]</em>, and algorithms that modify mesh topology <em style="color:green;background-color: white">\[Popovic97\]</em> <em style="color:green;background-color: white">\[Schroeder97\]</em>. Most recently an extensive book on the technology is available including specialized methods for terrain simplification <em style="color:green;background-color: white">\[Luebke02\]</em>.
 
-Triangle strip generation is an effective technique for achieving dramatic improvements in rendering speed and reductions in data handling. The reference by <em style="color:blue;background-color: white">\[Evans96\]</em> describes other triangle strip generation algorithms as well as presenting some of the most effective tvechniques to date.
+Triangle strip generation is an effective technique for achieving dramatic improvements in rendering speed and reductions in data handling. The reference by <em style="color:green;background-color: white">\[Evans96\]</em> describes other triangle strip generation algorithms as well as presenting some of the most effective tvechniques to date.
 
-The use of texture for visualization is relatively unexploited. This has been due in part to lack of texture support in most graphics software and hardware. This is now changing, as more vendors support texture and software systems (such as OpenGL) that provide an API for texture. Important references here include the boolean textures <em style="color:blue;background-color: white">\[Lorensen93\]</em> and surface convolution techniques <em style="color:blue;background-color: white">\[Cabral93\]</em> <em style="color:blue;background-color: white">\[Stalling95\]</em>.
+The use of texture for visualization is relatively unexploited. This has been due in part to lack of texture support in most graphics software and hardware. This is now changing, as more vendors support texture and software systems (such as OpenGL) that provide an API for texture. Important references here include the boolean textures <em style="color:green;background-color: white">\[Lorensen93\]</em> and surface convolution techniques <em style="color:green;background-color: white">\[Cabral93\]</em> <em style="color:green;background-color: white">\[Stalling95\]</em>.
 
-Unstructured or unorganized point visualization is likely to play a prominent role in visualization as the field matures and more complex data is encountered. Nielson et al. have presented important work in this field <em style="color:blue;background-color: white">\[Nielson91\]</em>.
+Unstructured or unorganized point visualization is likely to play a prominent role in visualization as the field matures and more complex data is encountered. Nielson et al. have presented important work in this field <em style="color:green;background-color: white">\[Nielson91\]</em>.
 
-Multidimensional visualization is another important focus of visualization research <em style="color:blue;background-color: white">\[Bergeron89\]</em> <em style="color:blue;background-color: white">\[Mihalisin90\]</em>. Much real-world data is both unstructured and multidimensional. This includes financial databases, marketing statistics, and multidimensional optimization. Addressing this type of data is important to achieve future advances in understanding and application. Feiner <em style="color:blue;background-color: white">\[Feiner90\]</em> has presented a simple projection method combined with virtual reality techniques. <em style="color:blue;background-color: white">\[Inselberg87\]</em> has introduced parallel coordinates. These techniques have been shown to be powerful for many types of visual analysis.
+Multidimensional visualization is another important focus of visualization research <em style="color:green;background-color: white">\[Bergeron89\]</em> <em style="color:green;background-color: white">\[Mihalisin90\]</em>. Much real-world data is both unstructured and multidimensional. This includes financial databases, marketing statistics, and multidimensional optimization. Addressing this type of data is important to achieve future advances in understanding and application. Feiner <em style="color:green;background-color: white">\[Feiner90\]</em> has presented a simple projection method combined with virtual reality techniques. <em style="color:green;background-color: white">\[Inselberg87\]</em> has introduced parallel coordinates. These techniques have been shown to be powerful for many types of visual analysis.
 
 ## 9.8 References
-<em style="color:blue;background-color: white">\[Banks94\]</em>
+<em style="color:green;background-color: white">\[Banks94\]</em>
 D. C. Banks and B. A. Singer. "Vortex Tubes in Turbulent Flows: Identification, Representation, Reconstruction." In Proceedings of Visualization '94. pp. 132-139, IEEE Computer Society Press, Los Alamitos, CA, 1994.
 
-<em style="color:blue;background-color: white">\[Bergeron89\]</em>
+<em style="color:green;background-color: white">\[Bergeron89\]</em>
 R. D. Bergeron and G. Grinstein. "A Reference Model for the Visualization of Multidimensional Data.' In Proceedings Eurographics "89. pp. 393-399, North Holland, Amsterdam, 1989.
 
-<em style="color:blue;background-color: white">\[Bowyer81\]</em>
+<em style="color:green;background-color: white">\[Bowyer81\]</em>
 A. Bowyer. "Computing Dirichlet Tessellations.' The Computer Journal. 24(2):162-166, 1981.
 
-<em style="color:blue;background-color: white">\[Brill94\]</em>
+<em style="color:green;background-color: white">\[Brill94\]</em>
 M. Brill, H. Hagen, H-C. Rodrian, W. Djatschin, S. V. Klimenko. "Streamball Techniques for Flow Visualization." In Proceedings of Visualization '94. pp. 225-231, IEEE Computer Society Press, Los Alamitos, CA, 1994.
 
-<em style="color:blue;background-color: white">\[Cabral93\]</em>
+<em style="color:green;background-color: white">\[Cabral93\]</em>
 B. Cabral and L. Leedom. "Imaging Vector Fields Using Line Integral Convolution." In Proceedings of SIGGRAPH '93, pp. 263-270, Addison-Wesley, Reading, MA, 1993.
 
-<em style="color:blue;background-color: white">\[Cline88\]</em>
+<em style="color:green;background-color: white">\[Cline88\]</em>
 H. E. Cline, W. E. Lorensen, S. Ludke, C. R. Crawford, and B. C. Teeter, "Two Algorithms for the Three-Dimensional Construction of Tomograms." Medical Physics. 15(3):320-327, June 1988.
 
-<em style="color:blue;background-color: white">\[Crawfis92\]</em>
+<em style="color:green;background-color: white">\[Crawfis92\]</em>
 R, Crawfis and N. Max. "Direct Volume Visualization of Three Dimensional Vector Fields." In Proceedings 1992 Workshop on Volume Visualization. pp. 55-60, ACM Siggraph, New York, 1992.
 
-<em style="color:blue;background-color: white">\[Delmarcelle93\]</em>
+<em style="color:green;background-color: white">\[Delmarcelle93\]</em>
 T. Delmarcelle and L. Hesselink. "Visualizing Second-Order Tensor Fields with Hyperstreamlines." IEEE Computer Graphics and Applications. 13(4):25-33, 1993.
 
-<em style="color:blue;background-color: white">\[Eck95\]</em>
+<em style="color:green;background-color: white">\[Eck95\]</em>
 M. Eck, T. DeRose, T. Duchamp, H. Hoppe, M. Lounsbery, W. Stuetzle. "Multiresolution Analysis of Arbitrary Meshes." In Proceedings SIGGRAPH '95. pp. 173-182, Addison-Wesley, Reading, MA, August 1995.
 
-<em style="color:blue;background-color: white">\[Edelsbrunner94\]</em>
+<em style="color:green;background-color: white">\[Edelsbrunner94\]</em>
 H. Edelsbrunner and E. P. Mucke. "Three-dimensional alpha shapes." ACM Transactions on Graphics. 13:43-72, 1994.
 
-<em style="color:blue;background-color: white">\[Evans96\]</em>
+<em style="color:green;background-color: white">\[Evans96\]</em>
 F. Evans, S. Skiena, A. Varshney. "Optimizing Triangle Strips for Fast Rendering." In Proceedings of Visualization '96. pp. 319-326, IEEE Computer Society Press, Los Alamitos, CA, 1996.
 
-<em style="color:blue;background-color: white">\[Feiner90\]</em>
+<em style="color:green;background-color: white">\[Feiner90\]</em>
 S. Feiner and C. Beshers. "Worlds within Worlds: Metaphors for Exploring n-Dimensional Virtual Worlds." In Proceedings UIST '90 (ACM Symp. on User Interface Software). pp. 76-83, October, 1990.
 
-<em style="color:blue;background-color: white">\[Garland97\]</em>
+<em style="color:green;background-color: white">\[Garland97\]</em>
 M. Garland and P. Heckbert. "Surface Simplification Using Quadric Error Metrics." In Proceedings SIGGRAPH '97. pp. 209-216, The Association for Computing Machinery, New York, August 1997.
 
-<em style="color:blue;background-color: white">\[Globus91\]</em>
+<em style="color:green;background-color: white">\[Globus91\]</em>
 A. Globus, C. Levit, and T. Lasinski. "A Tool for Visualizing the Topology of Three-Dimensional Vector Fields." In Proceedings of Visualization '91. pp. 33-40, IEEE Computer Society Press, Los Alamitos, CA, 1991.
 
-<em style="color:blue;background-color: white">\[He96\]</em>
+<em style="color:green;background-color: white">\[He96\]</em>
 T. He, L. Hong, A. Varshney, S. Wang. "Controlled Topology Simplification." IEEE Transactions on Visualization and Computer Graphics. 2(2):171-184, June 1996.
 
-<em style="color:blue;background-color: white">\[Helman91\]</em>
+<em style="color:green;background-color: white">\[Helman91\]</em>
 J. L. Helman and L. Hesselink. "Visualization of Vector Field Topology in Fluid Flows.' IEEE Computer Graphics and Applications. 11(3):36-46, 1991.
 
-<em style="color:blue;background-color: white">\[Hinker93\]</em>
+<em style="color:green;background-color: white">\[Hinker93\]</em>
 P. Hinker and C. Hansen. "Geometric Optimization." In Proceedings of Visualization '93. pp. 189-195, IEEE Computer Society Press, Los Alamitos, CA, October 1993.
 
-<em style="color:blue;background-color: white">\[Hoppe93\]</em>
+<em style="color:green;background-color: white">\[Hoppe93\]</em>
 H. Hoppe, T. DeRose, T. Duchamp, J. McDonald, W. Stuetzle. "Mesh Optimization." In Proceedings of SIGGRAPH '93. pp. 19-26, August 1993.
 
-<em style="color:blue;background-color: white">\[Hoppe96\]</em>
+<em style="color:green;background-color: white">\[Hoppe96\]</em>
 H. Hoppe. "Progressive Meshes." In Proceedings SIGGRAPH '96. pp. 96-108, The Association for Computing Machinery, New York, August 1996.
 
-<em style="color:blue;background-color: white">\[Hultquist92\]</em>
+<em style="color:green;background-color: white">\[Hultquist92\]</em>
 J. P. M. Hultquist. "Constructing Stream Surfaces in Steady 3-D Vector Fields." In Proceedings of Visualization '92. pp. 171-178, IEEE Computer Society Press, Los Alamitos, CA, 1992.
 
-<em style="color:blue;background-color: white">\[Inselberg87\]</em>
+<em style="color:green;background-color: white">\[Inselberg87\]</em>
 A. Inselberg and B. Dimsdale. "Parallel Coordinates for Visualizing Multi-Dimensional Geometry." In Computer Graphics 1987 (Proceedings of CG International '87). pp. 25-44, SpringerVerlag, 1987.
 
-<em style="color:blue;background-color: white">\[Lawson86\]</em>
+<em style="color:green;background-color: white">\[Lawson86\]</em>
 C. L. Lawson. "Properties of n-Dimensional Triangulations." Computer-Aided Geometric Design. 3:231-246, 1986.
 
-<em style="color:blue;background-color: white">\[Lorensen93\]</em>
+<em style="color:green;background-color: white">\[Lorensen93\]</em>
 W. Lorensen. "Geometric Clipping with Boolean Textures." in Proceedings of Visualization '93. pp. 268-274, IEEE Computer Society Press, Los Alamitos, CA, Press, October 1993.
 
-<em style="color:blue;background-color: white">\[Luebke02\]</em>
+<em style="color:green;background-color: white">\[Luebke02\]</em>
 D. Luebke, M. Reddy, J. Cohen, A. Varshney, B. Watson, R. Huebner. Level of Detail for 3D Graphics. Morgan Kaufmann 2002. ISBN 1-55860-838-9.
 
-<em style="color:blue;background-color: white">\[Max94\]</em>
+<em style="color:green;background-color: white">\[Max94\]</em>
 N. Max, R. Crawfis, C. Grant. "Visualizing 3D Vector Fields Near Contour Surfaces." In Proceedings of Visualization '94. pp. 248-255, IEEE Computer Society Press, Los Alamitos, CA, 1994.
 
-<em style="color:blue;background-color: white">\[Mihalisin90\]</em>
+<em style="color:green;background-color: white">\[Mihalisin90\]</em>
 T. Mihalisin, E. Gawlinski, J. Timlin, and J. Schwegler. "Visualizing a Scalar Field on an n-Dimensional Lattice." In Proceedings of Visualization '90. pp. 255-262, IEEE Computer Society Press, Los Alamitos, CA, October 1990.
 
-<em style="color:blue;background-color: white">\[Nielson91\]</em>
+<em style="color:green;background-color: white">\[Nielson91\]</em>
 G. M. Nielson, T. A. Foley, B. Hamann, D. Lane. "Visualizing and Modeling Scattered Multivariate Data." IEEE Computer Graphics and Applications. 11(3):47-55, 1991.
 
-<em style="color:blue;background-color: white">\[Popovic97\]</em>
+<em style="color:green;background-color: white">\[Popovic97\]</em>
 J. Popovic and H. Hoppe. "Progressive Simplicial Complexes." In Proceedings SIGGRAPH '97. pp. 217-224, The Association. for Computing Machinery, New York, August 1997.
 
-<em style="color:blue;background-color: white">\[Rossignac93\]</em>
+<em style="color:green;background-color: white">\[Rossignac93\]</em>
 J. Rossignac and P. Borrel. "Multi-Resolution 3D Approximations for Rendering Complex Scenes." In Modeling in Computer Graphics: Methods and Applications. B. Falcidieno and T. Kunii, eds., pp. 455-465, Springer-Verlag Berlin, 1993.
 
-<em style="color:blue;background-color: white">\[Schroeder91\]</em>
+<em style="color:green;background-color: white">\[Schroeder91\]</em>
 W. Schroeder, C. Volpe, and W. Lorensen. "The Stream Polygon: A Technique for 3D Vector Field Visualization." In Proceedings of Visualization '91. pp. 126-132, IEEE Computer Society Press, Los Alamitos, CA, October 1991.
 
-<em style="color:blue;background-color: white">\[Schroeder92a\]</em>
+<em style="color:green;background-color: white">\[Schroeder92a\]</em>
 W. Schroeder, J. Zarge, and W. Lorensen. "Decimation of Triangle Meshes." Computer Graphics (SIGGRAPH "92). 26(2):65-70, August 1992.
 
-<em style="color:blue;background-color: white">\[Schroeder92b\]</em>
+<em style="color:green;background-color: white">\[Schroeder92b\]</em>
 W. Schroeder, W. Lorensen, G. Montanaro, and C. Volpe. "Visage: An Object-Oriented Scientific Visualization System.' In Proceedings of Visualization "92. pp. 219-226, IEEE Computer Society Press, Los Alamitos, CA, October 1992.
 
-<em style="color:blue;background-color: white">\[Schroeder94\]</em>
+<em style="color:green;background-color: white">\[Schroeder94\]</em>
 W. Schroeder, W. Lorensen, and S. Linthicum, "Implicit Modeling of Swept Surfaces and Volumes." In Proceedings of Visualization '94. pp. 40-45, IEEE Computer Society Press, Los Alamitos, CA, October 1994.
 
-<em style="color:blue;background-color: white">\[Schroeder97\]</em>
+<em style="color:green;background-color: white">\[Schroeder97\]</em>
 W. Schroeder. "A Topology Modifying Progressive Decimation Algorithm." In Proceedings of Visualization '97. IEEE Computer Society Press, Los Alamitos, CA, October 1997.
 
-<em style="color:blue;background-color: white">\[Stalling95\]</em>
+<em style="color:green;background-color: white">\[Stalling95\]</em>
 D. Stalling and H-C. Hege. "Fast and Independent Line Integral Convolution." In Proceedings of SIGGRAPH '95. pp. 249-256, Addison-Wesley, Reading, MA, 1995.
 
-<em style="color:blue;background-color: white">\[Turk92\]</em>
+<em style="color:green;background-color: white">\[Turk92\]</em>
 G. Turk. "Re-Tiling of Polygonal Surfaces." Computer Graphics (SIGGRAPH '92). 26(2):55-64, July 1992.
 
-<em style="color:blue;background-color: white">\[vanWijk93\]</em>
+<em style="color:green;background-color: white">\[vanWijk93\]</em>
 J. J. van Wijk. "Flow Visualization with Surface Particles." IEEE Computer Graphics and Applications. 13(4):18-24, 1993.
 
-<em style="color:blue;background-color: white">\[Wang90\]</em>
+<em style="color:green;background-color: white">\[Wang90\]</em>
 S-L C. Wang and J. Staudhammer. "Visibility Determination on Projected Grid Surfaces." IEEE Computer Graphics and Applications. 10(4):36-43, 1990.
 
-<em style="color:blue;background-color: white">\[Watson81\]</em>
+<em style="color:green;background-color: white">\[Watson81\]</em>
 D. F. Watson. "Computing the n-Dimensional Delaunay Tessellation with Application to Voronoi Polytopes." The Computer Journal. 24(2):167-172, 1981.
 
-<em style="color:blue;background-color: white">\[Wixom78\]</em>
+<em style="color:green;background-color: white">\[Wixom78\]</em>
 J. Wixom and W. J. Gordon. "On Shepard's Method of Metric Interpolation to Scattered Bivariate and Multivariate Data." Math. Comp. 32:253-264, 1978.
 
-<em style="color:blue;background-color: white">\[Yamrom95\]</em>
+<em style="color:green;background-color: white">\[Yamrom95\]</em>
 B. Yamrom and K. M. Martin. "Vector Field Animation with Texture Maps." IEEE Computer Graphics and Applications. 15(2):22-24, 1995.
 
 ##9.9 Exercises

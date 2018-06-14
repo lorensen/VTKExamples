@@ -644,27 +644,27 @@ Visualization over the Web opens up many forms of collaborative development, ent
 
 ## 11.10 Bibliographic Notes
 
-For a general introduction to HTML and CGI consider <em style="color:blue;background-color: white">\[Morris95\]</em> or <em style="color:blue;background-color: white">\[Graham95\]</em>. Both books provide a good introduction and include coverage for both UNIX and MS Windows-based systems. For more detailed coverage of CGI programming consider <em style="color:blue;background-color: white">\[Gundavaram96\]</em>. Mark Pesce <em style="color:blue;background-color: white">\[Pesce95\]</em> provides a n excellent introduction to VRML including its early genesis. <em style="color:blue;background-color: white">\[Ames96\]</em> is also a great VRML resource. The Inventor Mentor by Josie Wernecke <em style="color:blue;background-color: white">\[Wernecke94\]</em> is an excellent book for learning about Open Inventor and scene graphs. Java in a Nutshell <em style="color:blue;background-color: white">\[Flanagan96\]</em> is a good reference for Java and for someone who already knows how to program in another language For documentation on the Java Native Interface or Java3D, visit Sun’s Web site at http://java.sun.com.
+For a general introduction to HTML and CGI consider <em style="color:green;background-color: white">\[Morris95\]</em> or <em style="color:green;background-color: white">\[Graham95\]</em>. Both books provide a good introduction and include coverage for both UNIX and MS Windows-based systems. For more detailed coverage of CGI programming consider <em style="color:green;background-color: white">\[Gundavaram96\]</em>. Mark Pesce <em style="color:green;background-color: white">\[Pesce95\]</em> provides a n excellent introduction to VRML including its early genesis. <em style="color:green;background-color: white">\[Ames96\]</em> is also a great VRML resource. The Inventor Mentor by Josie Wernecke <em style="color:green;background-color: white">\[Wernecke94\]</em> is an excellent book for learning about Open Inventor and scene graphs. Java in a Nutshell <em style="color:green;background-color: white">\[Flanagan96\]</em> is a good reference for Java and for someone who already knows how to program in another language For documentation on the Java Native Interface or Java3D, visit Sun’s Web site at http://java.sun.com.
 
 ## 11.11 References
 
-<em style="color:blue;background-color: white">\[Ames96\]</em>
+<em style="color:green;background-color: white">\[Ames96\]</em>
 A. Ames, D. Nadeau, and J. Moreland. The VRML Sourcebook. John Wiley & Sons, Inc., New York, NY, 1996.
 
-<em style="color:blue;background-color: white">\[Flanagan96\]</em>
+<em style="color:green;background-color: white">\[Flanagan96\]</em>
 David Flanagan. Java in a Nutshell. O’Reilly & Associates, Inc., Sebastopol, CA, 1996.
 
-<em style="color:blue;background-color: white">\[Graham95\]</em>
+<em style="color:green;background-color: white">\[Graham95\]</em>
 I. S. Graham. The HTML Sourcebook. John Wiley & Sons, Inc., New York, NY, 1995.
 
-<em style="color:blue;background-color: white">\[Gundavaram96\]</em>
+<em style="color:green;background-color: white">\[Gundavaram96\]</em>
 S. Gundavaram. CGI Programming on the World Wide Web. O’Reilly & Associates, Inc., Sebastopol, CA, 1996.
 
-<em style="color:blue;background-color: white">\[Morris95\]</em>
+<em style="color:green;background-color: white">\[Morris95\]</em>
 M. E. S. Morris. HTML for Fun and Profit. SunSoft Press, Prentice Hall PTR, Englewood Cliffs, NJ, 1995.
 
-<em style="color:blue;background-color: white">\[Pesce95\]</em>
+<em style="color:green;background-color: white">\[Pesce95\]</em>
 M. Pesce. VRML - Browsing and Building Cyberspace. New Riders Publishing, Indianapolis, IN, 1995.
 
-<em style="color:blue;background-color: white">\[Wernecke94\]</em>
+<em style="color:green;background-color: white">\[Wernecke94\]</em>
 J. Wernecke. The Inventor Mentor. Addison-Wesley, Reading MA,1994.
