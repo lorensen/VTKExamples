@@ -69,7 +69,7 @@ A compromise between the two extreme approaches of maintaining all data in memor
 
 With the region--processing model, the data objects can be thought of as caches that hold any number of regions. There are numerous caching strategies for saving and releasing regions that can be quite complex. The simplest strategy saves only a single region at any one time. If subsequent requests are completely contained in the cached region, no further processing is required. An alternative strategy might divide an image into tiled regions of all the same size. When a region larger than the tile is requested, multiple tiles are updated to cover the region. When designing a caching strategy, it is important to consider the overhead of copying data to change its format. Some of the advantages of complex strategies are lost when all the factors are considered.
 
-Given the ability to operate on regions of data, it is a small step to \emph{stream} operations on a whole dataset. Streaming is the process of pulling regions of data in a continual flow through the pipeline. For instance, a pixel histogram mapper could request single pixels as it accumulates values in its bins. Large datasets can be processed in this manner without ever having to load more than a few pixels at a time. If multiple processors are available, region processing can also be used to split a task into multiple pieces for load balancing and faster execution.
+Given the ability to operate on regions of data, it is a small step to \emph{stream} operations on a whole dataset. Streaming\index{streaming} is the process of pulling regions of data in a continual flow through the pipeline. For instance, a pixel histogram mapper could request single pixels as it accumulates values in its bins. Large datasets can be processed in this manner without ever having to load more than a few pixels at a time. If multiple processors are available, region processing can also be used to split a task into multiple pieces for load balancing and faster execution.
 
 \subsection{Attribute Data and Components}
 
@@ -81,7 +81,7 @@ In the \emph{Visualization Toolkit} imaging pipeline, attribute data is represen
 \section{Algorithms}
 \index{algorithms!image processing|(}\index{image processing algorithms|(}
 
-This section provides an overview and examples for important image processing algorithms. The importance of the algorithms is measured on their relevance to 3D data visualization. Topics include: removing noise, smoothing, reducing sampling artifacts, image enhancement, segmentation, and morphological operators such as erosion and dilation.
+This section provides an overview and examples for important image processing algorithms. The importance of the algorithms is measured on their relevance to 3D data visualization. Topics include: removing noise, smoothing\index{smoothing}, reducing sampling artifacts, image enhancement, segmentation, and morphological operators such as erosion and dilation.
 
 \subsection{Image Restoration}
 \index{image processing algorithms!image restoration|(}\index{image restoration|(}
@@ -121,7 +121,7 @@ g(i, j) = \dfrac{1}{2\pi \sigma^2} \exp\left(-\dfrac{i^2 + j^2}{2\sigma^2} \righ
 \index{image processing algorithms!image restoration|)}\index{image restoration|)}
 
 \subsection{Nonlinear Smoothing}
-\index{image processing algorithms!non--linear smoothing|(}\index{non--linear smoothing|(}
+\index{image processing algorithms!non--linear smoothing|(}\index{non--linear smoothing|(}\index{smoothing!non--linear|(}
 
 One problem with simple smoothing to remove noise is that edges are blurred. Although high frequencies make up a small part of images, the human visual system is acutely sensitive to high frequencies in the spatial form of edges. In fact, most of the low frequencies in an image are discarded by the visual system before it even leaves the retina. One approach to smoothing that preserves edges is anisotropic diffusion\index{diffusion anisotropic}. This filter smooths relatively flat regions of an image, but does not diffuse across abrupt transitions. The diffusion is iterated until the desired level of noise reduction is reached. Two possible diffusion criteria are: Diffuse only when the gradient magnitude is below a specified value, or diffuse two pixels only when the difference between the pixels is lower than a specified constant.
 
@@ -149,8 +149,8 @@ One problem with simple smoothing to remove noise is that edges are blurred. Alt
 	\caption{Comparison of median and hybrid-median filters. The hybrid filter preserves corners and thin lines, better than the median filter. The lower patterns represent the three neighborhoods used to compute the hybrid median. Top row: Original image (left); Noisy image (right). Middle row: Hybrid-median filter (left); Median filter (right).}\label{fig:Figure10-4}
 \end{figure}
 
-A median filter\index{median filter} also smooths while preserving edges. This filter replaces each pixel with the median value of the scalar values in a neighborhood centered on the pixel. Median filters are most effective on high amplitude noise that has a low probability of occurring (see Figure \ref{fig:Figure10-3}). There are two ways to control the amount and scale of noise removed: The size of the neighborhood can be varied, or the filter can be applied multiple times. This median filter preserves edges; however, it does round corners and remove thin lines. The hybrid median filter was developed to address this behavior. It operates on a $5 \times 5$ neighborhood around each pixel. The algorithm consists of two steps: first the median values of an ``x''-shaped and ``+''--shaped neighborhoods are computed, then the median of these two values and the center-pixel value is computed to give the final result. The hybrid median has a fixed size neighborhood, but can be applied multiple times to further reduce noise (Figure \ref{fig:Figure10-4}).
-\index{image processing algorithms!non--linear smoothing|)}\index{non--linear smoothing|)}
+A median filter\index{median filter} also smooths while preserving edges. This filter replaces each pixel with the median value of the scalar values in a neighborhood centered on the pixel. Median filters are most effective on high amplitude noise that has a low probability of occurring (see Figure \ref{fig:Figure10-3}). There are two ways to control the amount and scale of noise removed: The size of the neighborhood can be varied, or the filter can be applied multiple times. This median filter preserves edges; however, it does round corners and remove thin lines. The hybrid median filter was developed to address this behavior. It operates on a $5 \times 5$ neighborhood around each pixel. The algorithm consists of two steps: first the median values of an ``x''--shaped and ``+''--shaped neighborhoods are computed, then the median of these two values and the center-pixel value is computed to give the final result. The hybrid median has a fixed size neighborhood, but can be applied multiple times to further reduce noise (Figure \ref{fig:Figure10-4}).
+\index{image processing algorithms!non--linear smoothing|)}\index{non--linear smoothing|)}\index{smoothing!non--linear|)}
 
 \subsection{Low Frequency Artifacts}
 \index{image processing algorithms!low frequency artefacts|(}

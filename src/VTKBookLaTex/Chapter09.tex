@@ -185,12 +185,13 @@ Figure \ref{fig:Figure9-10} shows a scanned image that is first converted to a q
 In Chapter 6: \nameref{chap:fundamental_algorithms} we showed how to create simple vector glyphs and how to integrate particles through a vector field to create streamlines. In this section we extend these concepts to create streamribbons and streampolygons. In addition, we introduce the concept of vector field topology, and show how to characterize a vector field using topological constructs.
 
 \subsection{Streamribbons and Streamsurfaces}
+\index{streamribbon|(}\index{streamsurface|(}
 
 Streamlines depict particle paths in a vector field. By coloring these lines, or creating local glyphs (such as dashed lines or oriented cones), we can represent additional scalar and temporal information. However, these techniques can convey only elementary information about the vector field. Local information (e.g., flow rotation or derivatives) and global information (e.g., structure of a field such as vortex tubes) is not represented. Streamribbons and streamsurfaces are two techniques used to represent local and global information.
 
-A natural extension of the streamline technique widens the line to create a ribbon. The ribbon can be constructed by generating two adjacent streamlines and then bridging the lines with a polygonal mesh. This technique works well as long as the streamlines remain relatively close to one another. If separation occurs, so that the streamlines diverge, the resulting ribbon will not accurately represent the flow, because we expect the surface of the ribbon to be everywhere tangent to the vector field (i.e., definition of streamline). The ruled surface connecting two widely separated streamlines does not generally satisfy this requirement.
+A natural extension of the streamline\index{streamline} technique widens the line to create a ribbon. The ribbon can be constructed by generating two adjacent streamlines and then bridging the lines with a polygonal mesh. This technique works well as long as the streamlines remain relatively close to one another. If separation occurs, so that the streamlines diverge, the resulting ribbon will not accurately represent the flow, because we expect the surface of the ribbon to be everywhere tangent to the vector field (i.e., definition of streamline). The ruled surface connecting two widely separated streamlines does not generally satisfy this requirement.
 
-The streamribbon provides information about important flow parameters: the vector vorticity and flow divergence. \emph{Vorticity} $\Omega$ is the measure of rotation of the vector field, expressed as a vector quantity: a direction (axis of rotation) and magnitude (amount of rotation). \emph{Streamwise vorticity} $\Omega$ is the projection of $\overrightarrow{\omega}$ along the instantaneous velocity vector, $\overrightarrow{v}$. Said another way, streamwise vorticity is the rotation of the vector field around the streamline defined as follows.
+The streamribbon provides information about important flow parameters: the vector vorticity and flow divergence. \emph{Vorticity} $\Omega$ is the measure of rotation of the vector field, expressed as a vector quantity: a direction (axis of rotation) and magnitude (amount of rotation). \emph{Streamwise vorticity}\index{streamwise vorticity} $\Omega$ is the projection of $\overrightarrow{\omega\ }$ along the instantaneous velocity vector, $\overrightarrow{v\ }$. Said another way, streamwise vorticity is the rotation of the vector field around the streamline defined as follows.
 
 \begin{equation}\label{eq:9.3}
 \Omega = \frac{\overrightarrow{v\ } \cdot \overrightarrow{\omega\ }}{\vert \overrightarrow{v\ } \vert \vert \overrightarrow{\omega\ } \vert}
@@ -203,11 +204,13 @@ A streamsurface is a collection of an infinite number of streamlines passing thr
 
 Compared to vector icons or streamlines, streamsurfaces provide additional information about the structure of the vector field. Any point on the streamsurface is tangent to the velocity vector. Consequently, taking an example from fluid flow, no fluid can pass through the surface. Streamtubes are then representations of constant mass flux. Streamsurfaces show vector field structure better than streamlines or vector glyphs because they do not require visual interpolation across icons.
 
-Streamsurfaces can be computed by generating a set of streamlines from a user-specified rake. A polygonal mesh is then constructed by connecting adjacent streamlines. One difficulty with this approach is that local vector field divergence can cause streamlines to separate. Separation can introduce large errors into the surface, or possibly cause self-intersection, which is not physically possible.
+Streamsurfaces can be computed by generating a set of streamlines from a user--specified rake. A polygonal mesh is then constructed by connecting adjacent streamlines. One difficulty with this approach is that local vector field divergence can cause streamlines to separate. Separation can introduce large errors into the surface, or possibly cause self-intersection, which is not physically possible.
 
 Another approach to computing streamsurfaces has been taken by Hultquist \cite{Hultquist92}. The streamsurface is a collection of streamribbons connected along their edges. In this approach, the computation of the streamlines and tiling of the streamsurface is carried out concurrently. This allows streamlines to be added or removed as the flow separates or converges. The tiling can also be controlled to prevent the generation of long, skinny triangles. The surface may also be ``torn'', i.e., ribbons separated, if the divergence of the flow becomes too high.
+\index{streamribbon|)}\index{streamsurface|)}
 
 \subsection{Stream Polygon}
+\index{streampolygon|(}
 
 he techniques described so far provide approximate measures of vector field quantities such as streamwise vorticity and divergence. However, vector fields contain more information than these techniques can convey. As a result, other techniques have been devised to visualize this information. One such technique is the stream polygon \cite{Schroeder91}, which serves as the basis for a number of advanced vector and tensor visualization methods. The stream polygon is used to visualize local properties of strain, displacement, and rotation. We begin by describing the effects of a vector field on the local state of strain.
 
@@ -218,7 +221,7 @@ e_{ij} = \epsilon_{ij} + \omega_{ij}
 \end{equation}
 \myequations{Local deformation.}
 
-where $\epsilon_{ij}$ is the local strain and $\omega_{ij}$ is the local rotation. Note that these variables are expressed as $3 \times 3$ tensors. (Compare this equation to that given in Figure \ref{fig:Figure6-20}. Note that this equation and the following Equation \ref{eq:9.5} differ in their off-diagonal terms by a factor of $1/2$. This is because Figure \ref{fig:Figure6-20} expresses engineering shear strain which is used in the study of elasticity. Equation \ref{eq:9.5} expresses a tensor quantity and is mathematically consistent).
+where $\epsilon_{ij}$ is the local strain and $\omega_{ij}$ is the local rotation. Note that these variables are expressed as $3 \times 3$ tensors. (Compare this equation to that given in Figure \ref{fig:Figure6-20}. Note that this equation and the following Equation \ref{eq:9.5} differ in their off-diagonal terms by a factor of $1/2$. This is because Figure \ref{fig:Figure6-20} expresses \emph{engineering shear strain}\index{shear strain} which is used in the study of elasticity. Equation \ref{eq:9.5} expresses a tensor quantity and is mathematically consistent).
 
 The local strain is expressed as a combination of the partial derivatives at $\overrightarrow{x\ }$ as follows.
 
@@ -352,6 +355,7 @@ r(\overrightarrow{v\ }) = r_\text{max} \sqrt{\dfrac{\vert\overrightarrow{v}_\tex
 represents an area of constant mass flow. As a result, the tube will thicken as the flow slows and narrow as the velocity increases. Each of the \emph{n} sides of the tube can be colored with a different scalar function, although for visual clarity, at most, one or two functions should be used.
 
 The streamtubes generated by the streampolygon and the streamtubes we described in the previous section are not the same. The streampolygon does not necessarily lie along a streamline. If it does, the streampolygon represents information at a point, while the streamtube is an approximation constructed from multiple streamlines. Also, the radial variation in the tubes constructed from streampolygon sweeps do not necessarily relate to mass flow since the radius in a streampolygon can be tied to an arbitrary scalar variable.
+\index{streampolygon|)}
 
 \subsection{Vector Field Topology}
 
@@ -557,9 +561,9 @@ Geometry extraction selects data based on geometric or topological characteristi
 	\caption{Subsampling data. (a) Structured data can be subsampled by choosing every nth point. (b) Subsampling unstructured data requires local retriangulation.}\label{fig:Figure9-17}
 \end{figure}
 
-Another useful technique called spatial extraction, selects dataset structure and associated data attributes lying within a specified region in space. For example, a point and radius can be used to select (or deselect) data within an enclosing sphere. Implicit functions are particularly useful tools for describing these regions. Points that evaluate negative are inside the region, while points outside the region evaluate positive; thus, cells whose points are all positive are outside the region, and cells whose points are all negative are inside the region.
+Another useful technique called spatial extraction\index{spatial extraction}, selects dataset structure and associated data attributes lying within a specified region in space. For example, a point and radius can be used to select (or deselect) data within an enclosing sphere. Implicit functions are particularly useful tools for describing these regions. Points that evaluate negative are inside the region, while points outside the region evaluate positive; thus, cells whose points are all positive are outside the region, and cells whose points are all negative are inside the region.
 
-\emph{Subsampling} (Figure \ref{fig:Figure9-17}) is a method that reduces data size by selecting a subset of the original data. The subset is specified by choosing a parameter n, specifying that every nth data point is to be extracted. For example, in structured datasets such as image data and structured grids, selecting every nth point produces the results shown in igure \ref{fig:Figure9-17}(a).
+\emph{Subsampling}\index{subsampling} (Figure \ref{fig:Figure9-17}) is a method that reduces data size by selecting a subset of the original data. The subset is specified by choosing a parameter n, specifying that every nth data point is to be extracted. For example, in structured datasets such as image data and structured grids, selecting every nth point produces the results shown in igure \ref{fig:Figure9-17}(a).
 
 Subsampling modifies the topology of a dataset. When points or cells are not selected, this leaves a topological ``hole''. Dataset topology must be modified to fill the hole. In structured data, this is simply a uniform selection across the structured $i-j-k$ coordinates. In unstructured data (Figure \ref{fig:Figure9-17}(b)), the hole must be filled in by using triangulation or other complex tessellation schemes. Subsampling is not typically performed on unstructured data because of its inherent complexity.
 
@@ -830,7 +834,7 @@ Decimation proceeds by iteratively visiting each point in a triangle mesh. For e
 
 Each point may be assigned one of five possible classifications: simple, complex, boundary, interior edge, or corner vertex. Examples of each type are shown in Figure \ref{fig:Figure9-26}.
 
-A \emph{simple point} is surrounded by a complete cycle of triangles, and each edge that uses the point is used by exactly two triangles. If the edge is not used by two triangles, or if the point is used by a triangle not in the cycle of triangles, then the point is \emph{complex}\index{complex point}. These are nonmanifold cases.
+A \emph{simple point}\index{simple point} is surrounded by a complete cycle of triangles, and each edge that uses the point is used by exactly two triangles. If the edge is not used by two triangles, or if the point is used by a triangle not in the cycle of triangles, then the point is \emph{complex}\index{complex point}. These are nonmanifold cases.
 
 A point that is on the boundary of a mesh, that is, within a semicycle of triangles, is a \emph{boundary point}\index{boundary point}.
 
@@ -1008,7 +1012,7 @@ Figure \ref{fig:Figure9-29} shows the results of applying the topology modifying
 
 \subsection{Mesh Smoothing}
 \label{subsec:mesh_smoothing}
-\index{modelling algorithms!mesh smoothing|(}
+\index{modelling algorithms!mesh smoothing|(}\index{smoothing!mesh|(}
 
 Mesh smoothing is a technique that adjusts the point coordinates of a dataset. The purpose of mesh smoothing is to improve the appearance of a mesh, and/or improve the shape of dataset cells. During smoothing the topology of the dataset is not modified, only the geometry. Applications of mesh smoothing include improving the appearance of isosurfaces, or as a modelling tool to remove surface noise. The appearance of models can be dramatically improved by applying mesh smoothing. Figure \ref{fig:Figure9-30} is an example of smoothing applied to analytic surface (a semicylinder) with a random surface distortion (\texttt{smoothCyl.tcl}).
 
@@ -1049,16 +1053,16 @@ Besides adjusting the number of iterations and smoothing factor, smoothing can b
 Although Laplacian smoothing works well in most cases, there are applications of Laplacian smoothing that can badly damage the mesh. Large numbers of smoothing iterations, or large smoothing factors, can cause excessive shrinkage and surface distortion. Some objects, like spheres or the cylinder shown in Figure \ref{fig:Figure9-30}, will lose volume with each iteration, and can even shrink to a point. In rare cases it is possible for the mesh to pull itself ``inside-out''. Situations like this occur when the average vector moves $p_i$ across a mesh boundary, causing some of the attached triangles to overlap or intersect.
 
 Mesh smoothing is particularly useful when creating models that do not require high accuracy. As we have seen, smoothing modifies point coordinates and, therefore, surface geometry. Use smoothing to improve the appearance of models, but characterize error carefully if you are going to measure from a smoothed surface. Alternatively, you may want to design your own smoothing algorithms that better fit the underlying data.
-\index{modelling algorithms!mesh smoothing|)}
+\index{modelling algorithms!mesh smoothing|)}\index{smoothing!mesh|)}
 
 \clearpage
 
 \subsection{Swept Volumes and Surfaces}
-\index{modelling algorithms!swept surface|(}
+\index{modelling algorithms!swept surface|(}\index{swept surface|(}
 
 Consider moving an object (e.g., your hand) over some path (e.g., raise your hand). How can we visualize this motion? The obvious answer is to form a time-animation sequence as the hand is moved. But what if we wish to statically represent the motion as well as the space that is traversed by the hand? Then we can use swept surfaces and swept volumes.
 
-A swept volume is the volume of space occupied by an object as it moves through space along an arbitrary trajectory. A swept surface is the surface of the swept volume. Together, swept volumes and swept surfaces can statically represent the motion of objects.
+A swept volume\index{swept volume} is the volume of space occupied by an object as it moves through space along an arbitrary trajectory. A swept surface is the surface of the swept volume. Together, swept volumes and swept surfaces can statically represent the motion of objects.
 
 Past efforts at creating swept surfaces and volumes have focused on analytical techniques. The mathematical representation of various 3D geometric primitives (e.g., lines, polygons, splines) was extended to include a fourth dimension of time (the path). Unfortunately, these approaches have never been practically successful, partly due to mathematical complexity and partly due to problem degeneracies.
 
@@ -1185,7 +1189,7 @@ e_\text{tot} \leq \dfrac{\sqrt{3}}{2}\left( \dfrac{L_\text{I}}{D_\text{I}}
 To show the application of this algorithm, we have generated swept surfaces for the letters ``VTK'' and the ``mace'' model as shown in Figure \ref{fig:Figure9-35}.
 
 We have purposely chosen a step size to exaggerate the stepping error. Using more steps would smooth out the surface ``bumps'' due to stepping. Also, the appearance of the surface varies greatly with the selected isosurface value. Larger values give rounder, smoother surfaces. If you use small values near zero (assuming positive distance function) the surface may break up. To correct this you need to use a higher resolution work-space or compute negative distances. Negative distances are computed during the implicit modeling step by negating all points \emph{inside} the original geometry. Negative distances allow us to use a zero isosurface value or to generate internal offset surfaces. Negative distances can only be computed for closed (i.e., manifold) objects.
-\index{modelling algorithms!swept surface|)}
+\index{modelling algorithms!swept surface|)}\index{swept surface|)}
 
 \subsection{Visualizing Unstructured Points}
 \label{subsec:visualizing_unstructured_points}
@@ -1200,7 +1204,7 @@ There are several approaches available to build topological structure given a ra
 
 \item[Splatting Techniques.]
 \label{subsec:visualizing_unstructured_points_splatting_techniques}
-\index{modelling algorithms!unstructured points!splatting|(}
+\index{modelling algorithms!unstructured points!splatting|(}\index{splatting!unstructured points|(}
 
 \begin{figure}[htb]
     \centering
@@ -1308,13 +1312,13 @@ The parameter $z$ is the distance along the vector $\overrightarrow{v\ }$, and t
 \end{figure}
 
 Figure \ref{fig:Figure9-38a} shows an elliptical splat\index{elliptical splat} with E = 10. (The splat surface is created by using isosurface extraction). As expected, the splat is an ellipsoid. Figure \ref{fig:Figure9-38b} is an application of elliptical splatting used to reconstruct a surface from an unstructured set of points. The advantage of using an elliptical splat is that we can flatten the splat in the plane perpendicular to the point normal. This tends to bridge the space between the point samples. The surface itself is extracted using a standard isosurface extraction algorithm.
-\index{modelling algorithms!unstructured points!splatting|)}
+\index{modelling algorithms!unstructured points!splatting|)}\index{splatting!unstructured points|)}
 
 \item[Interpolation Techniques.]
 \index{interpolation!unstructured points}\index{modelling algorithms!unstructured points!interpolation|(}
 Interpolation techniques construct a function to smoothly interpolate a set of unstructured points. That is, given a set of n points $p_i = (x_i, y_i, z_i)$ and function values $F_i(p_i)$, a new function $F(p$) is created that interpolates the points $p_i$. Once the interpolation function is constructed, we can build topological structure from the unstructured points by sampling $F(p)$ over an image dataset. We can then visualize the image data using any of the various techniques presented throughout the text. 
 
-Shepard's method\index{interpolation!Shepard's method} is an inverse distance weighted interpolation technique \cite{Wixom78}. The interpolation functions can be written
+Shepard's method\index{interpolation!Shepard's method}\index{Shepard's method} is an inverse distance weighted interpolation technique \cite{Wixom78}. The interpolation functions can be written
 
 \begin{equation}\label{eq:9.25}
 F(\overrightarrow{p\ }) = \dfrac{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{F_i}{\vert\overrightarrow{p\ } - \overrightarrow{p\ }_i\vert^2}}{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{1}{\vert\overrightarrow{p\ } - \overrightarrow{p\ }_i \vert^2}}
@@ -1357,7 +1361,7 @@ Triangulation techniques build topology directly from unstructured points. The p
 	\caption{The Delaunay triangulation (a) and Dirichlet tessellation (b). The circumcircle of each triangle in a Delaunay triangulation contains no other points but the three vertices of the triangle. The region surrounding each point $p_i$ in a Dirichlet tessellation is the set of points closest to $p_i$.}\label{fig:Figure9-39}
 \end{figure}
 
-An n-dimensional triangulation of a point set $P = (p_1, p_2, p_3, ..., p_n)$ is a collection of n-dimensional simplices whose defining points lie in $P$. The simplices do not intersect one another and share only boundary features such as edges or faces. The Delaunay triangulation is a particularly important form \cite{Bowyer81} \cite{Watson81}. It has the property that the circumsphere of any n-dimensional simplex contains no other points of $P$ except the $n+1$ defining points of the simplex (Figure \ref{fig:Figure9-39a}).
+An n-dimensional triangulation of a point set $P = (p_1, p_2, p_3, ..., p_n)$ is a collection of n-dimensional simplices\index{simplex} whose defining points lie in $P$. The simplices do not intersect one another and share only boundary features such as edges or faces. The Delaunay triangulation is a particularly important form \cite{Bowyer81} \cite{Watson81}. It has the property that the circumsphere of any n-dimensional simplex contains no other points of $P$ except the $n+1$ defining points of the simplex (Figure \ref{fig:Figure9-39a}).
 
 The Delaunay triangulation\index{Delaunay triangulation} has many interesting properties. In two dimensions, the Delaunay triangulation has been shown to be the optimal triangulation. That is, the minimum interior angle of a triangle in a Delaunay triangulation is greater than or equal to the minimum interior angle of any other possible triangulation. The Delaunay triangulation is the dual of the Dirichlet tessellation ((Figure  \ref{fig:Figure9-39a}), another important construction in computational geometry. The Dirichlet tessellation, also known as the Voronoi tessellation, is a tiling of space where each tile represents the space closest to a point $p_i$. (The tiles are called Voronoi cells). An \emph{n}---dimensional Delaunay triangulation can be constructed from the Dirichlet tessellation by creating edges between Voronoi cells that share common $n-1$ boundaries (e.g., faces in 3D and edges in 2D). Conversely, the vertices of the Dirichlet tessellation are located at the circumcenters of the Delaunay circumcircles.
 
@@ -1636,6 +1640,7 @@ Until recently, VTK supported clipping only for polygonal data cell types (verti
 \index{clipping!as scalar data!implementation|)}
 
 \subsection{Swept Volumes and Surfaces}
+\index{swept surface!implementation|(}\index{swept volume}
 
 \begin{figure}[htb]
     \centering
@@ -1695,6 +1700,8 @@ Figure \ref{fig:Figure9-49} shows how to create a swept surface from a simple ge
 In Figure \ref{fig:Figure9-49} we also see the basic procedure to construct the swept surface. First, we must construct an implicit representation of the part by using vtkImplictModeller. This is then provided as input to vtkSweptSurface. It is important that the resolution of the implicit model is greater than or equal to that of vtkSweptSurface. This will minimize errors when we construct the surface. A bounding box surrounding the part and its motion can be defined, or it will be computed automatically. For proper results, this box must strictly contain the part as its moves. We also can set the number of interpolation steps, or allow this to be computed automatically as well. In the figure, we have chosen a small number to better illustrate the stepping of the algorithm.
 
 Once vtkSweptSurface executes, we extract the swept surface using an isosurfacing algorithm. The isosurface value is an offset distance; thus we can create surfaces that take into account geometry tolerance. (This is particularly important if we are designing mechanical systems). The implementation of the implicit modeller in VTK uses a positive distance function; so the isosurface value should always be positive. To create swept surfaces of zero and negative value requires a modification to the implicit modeller.
+\index{swept surface!implementation|)}
+
 
 \subsection{Multidimensional Visualization}
 \index{multidimensional visualization|(}
