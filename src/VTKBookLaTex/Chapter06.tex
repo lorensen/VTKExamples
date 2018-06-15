@@ -429,6 +429,7 @@ This process can be computationally demanding. There are two important steps we 
 \end{enumerate}
 
 \subsection{Streamlines}
+\index{streamline|(}
 
 A natural extension of the previous time animation techniques is to connect the point position over many time steps. The result is a numerical approximation to a particle trace represented as a line.
 
@@ -438,7 +439,7 @@ Borrowing terminology from the study of fluid flow, we can define three related 
 
 \item \emph{Particle traces}\index{particle trace} are trajectories traced by fluid particles over time.
 
-\item \emph{Streaklines} are the set of particle traces at a particular time $t_i$ through a specified point $x_i$.
+\item \emph{Streaklines}\index{streakline} are the set of particle traces at a particular time $t_i$ through a specified point $x_i$.
 
 \item \emph{Streamlines} are integral curves along a curve $s$ satisfying the equation
 
@@ -464,13 +465,14 @@ Many enhancements of streamline visualization exist. Lines can be colored accord
 	\includegraphics[width=0.96\linewidth]{Figure6-19}
 	\caption{airflow around a blunt fin. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/BluntStreamlines}{BluntStreamlines.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/BluntStreamlines/}{BluntStreamlines.py})}\label{fig:Figure6-19}
 \end{figure}
+\index{streamline|)}
 
 \index{algorithms!vector|)}
 
 \section{Tensor Algorithms}
 \index{algorithms!tensor|(}
 
-As we mentioned earlier, tensor visualization is an active area of research. However there are a few simple techniques that we can use to visualize real $3 \times 3$ symmetric tensors. Such tensors are used to describe the state of displacement or stress in a 3D material. The stress and strain tensors for an elastic material are shown in Figure \ref{fig:Figure6-20}.
+As we mentioned earlier, tensor visualization is an active area of research. However there are a few simple techniques that we can use to visualize real $3 \times 3$ symmetric tensors. Such tensors are used to describe the state of displacement or stress in a 3D material. The stress\index{stress} and strain\index{strain} tensors for an elastic material are shown in Figure \ref{fig:Figure6-20}.
 
 In these tensors the diagonal coefficients are the so--called normal stresses and strains, and the off-diagonal terms are the shear stresses and strains. Normal stresses and strains act perpendicular to a specified surface, while shear stresses and strains act tangentially to the surface. Normal stress is either compression or tension, depending on the sign of the coefficient.
 
@@ -618,6 +620,7 @@ A certain amount of care must be taken to visualize this result since there is a
 Modelling algorithms are the catchall category for our taxonomy of visualization techniques. Modelling algorithms have one thing in common: They create or change dataset geometry or topology.
 
 \subsection{Source Objects}
+\index{source object|(}
 
 As we have seen in previous examples, source objects begin the visualization pipeline. Source objects are used to create geometry such as spheres, cones, or cubes to support visualization context or are used to read in data files. Source objects also may be used to create dataset attributes. Some examples of source objects and their use are as follows.
 
@@ -631,6 +634,7 @@ Real--world objects often can be represented using these simple geometric repres
 \item[Data Attribute Creation.] Source objects can be used as procedures to create data attributes. For example, we can procedurally create textures and texture coordinates. Another use is to create scalar values over a uniform grid. If the scalar values are generated from a mathematical function, then we can use the visualization techniques described here to visualize the function. In fact, this leads us to a very important class of source objects: implicit functions.
 
 \end{description}
+\index{source object|)}
 
 \subsection{Implicit Functions}
 \label{subsec:implicit_functions}
@@ -756,7 +760,7 @@ Strange attractors arise in the study of nonlinear dynamics and chaotic systems.
 	\caption{Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume. The number of visits in each voxel is recorded as a scalar function. The surface is extracted via marching cubes\index{marching cubes} using a visit value of 50. The number of integration steps is 10 million, in a volume of dimensions $200^3$. The surface roughness is caused by the discrete nature of the evaluation function.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Visualization/Lorenz}{Lorenz.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Visualization/Lorenz/}{Lorenz.py})}\label{fig:Figure6-25}
 \end{figure}
 
-A classical strange attractor was developed by Lorenz in 1963 \cite{Lorenz63}. Lorenz developed a simple model for thermally induced fluid convection in the atmosphere. Convection causes rings of rotating fluid and can be developed from the general Navier Stokes partial differential equations for fluid flow. The Lorenz equations can be expressed in nondimensional form as
+A classical strange attractor\index{strange attractors} was developed by Lorenz in 1963 \cite{Lorenz63}. Lorenz developed a simple model for thermally induced fluid convection in the atmosphere. Convection causes rings of rotating fluid and can be developed from the general Navier Stokes partial differential equations for fluid flow. The Lorenz equations can be expressed in nondimensional form as
 
 \begin{equation}\label{eq:6.16}
 \begin{array}{lll}
@@ -930,7 +934,7 @@ Algorithms are implemented in the \emph{Visualization Toolkit} as process object
 
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 
-\item[Source Design.]
+\item[Source Design.\index{source object!implementation|(}]
 Source objects have no visualization data for input and one or more outputs, Figure \ref{fig:Figure6-34} illustrates this for the concrete source object vtkSphereSource. This class inherits from vtkPolyDataAlgorithm, indicating that it creates polygonal data on output.
 
 The convenience object vtkPolyDataAlgorithm has been created to simplify subclass derivation. For example, vtkBYUReader is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm.
@@ -949,6 +953,7 @@ The convenience object vtkPolyDataAlgorithm has been created to simplify subclas
 	\end{subfigure}
 	\caption{Source object design. Example shown is a source object that creates a polygonal representation of a sphere.}\label{fig:Figure6-34}
 \end{figure}
+\index{source object!implementation|)}
 
 \item[Filter Design.]
 \index{filter object!implementation|(}
@@ -1234,6 +1239,7 @@ We saw how to use vtkGlyph3D in the example given in Figure \ref{fig:Figure4-20}
 \index{glyph!implementation|)}
 
 \subsection{Streamlines}
+\index{streamline!implementation|(}
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
@@ -1246,6 +1252,7 @@ Streamlines and particle motion require numerical integration to guide a point t
 The integration method in vtkStreamer is implemented as a virtual function. Thus it can be overloaded as necessary. Possible reasons for overloading include implementing an integration technique of higher or lower accuracy, or creating a technique specialized to a particular dataset type. For example, the search process in a volume is much faster than it is for other dataset types, therefore, highly efficient vector integration techniques can be constructed.
 
 The vector integration technique in VTK will accommodate any cell type. Thus, integration through cells of any topological dimension is possible. If the cells are of topological dimension 2 or less, the integration process constrains particle motion to the surface (2D) or line (1D). The particle may only leave a cell by passing through the cell boundary, and traveling to a neighboring cell, or exiting the dataset.
+\index{streamline!implementation|)}
 
 \subsection{Abstract Filters}
 

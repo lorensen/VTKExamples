@@ -1055,21 +1055,12 @@ in Figure \ref{fig:Figure12-13}  Note that the image on the left has been augmen
 \section{Computational Fluid Dynamics}
 \index{applications!computational fluid dynamics|(}\index{computational fluid dynamics!application|(}\index{finite difference method!application|(}
 
-Computational Fluid Dynamics (CFD) visualization poses a challenge to any visualization toolkit.
-CFD studies the flow of fluids in and around complex structures.
-Often, large amounts of super--computer time is used to derive scalar and vector data in the flow field.
-Since CFD computations produce multiple scalar and vector data types, we will apply many of the tools described in this book.
-The challenge is to combine multiple representations into meaningful visualizations that extract information without overwhelming the user.
+Computational Fluid Dynamics (CFD) visualization poses a challenge to any visualization toolkit. CFD studies the flow of fluids in and around complex structures. Often, large amounts of super--computer time is used to derive scalar and vector data in the flow field. Since CFD computations produce multiple scalar and vector data types, we will apply many of the tools described in this book. The challenge is to combine multiple representations into meaningful visualizations that extract information without overwhelming the user.
 
-CFD analysts often employ finite difference grids.
-A finite difference grid represents the discretization of the problem domain into small computational cells.
-The grid allows the analyst to create a large system of equations that can then be solved on a computer.
-The grid is topologically uniform in \emph{i--j--k} space, but the corresponding physical coordinates need not be uniformly distributed.
-This is what we call a structured grid dataset in VTK.
+CFD analysts often employ finite difference grids. A finite difference grid represents the discretization of the problem domain into small computational cells. The grid allows the analyst to create a large system of equations that can then be solved on a computer.
+The grid is topologically uniform in \emph{i--j--k} space, but the corresponding physical coordinates need not be uniformly distributed. This is what we call a structured grid dataset in VTK.
 
-There are a number of techniques we can use when we first look at the complex data presented by CFD applications.
-Since we need to apply several algorithms to the data, and since there will be many parameter changes for these algorithms, we suggest using the Tcl interpreter rather than C++ code.
-Our strategy for visualizing this CFD data includes the following:
+There are a number of techniques we can use when we first look at the complex data presented by CFD applications. Since we need to apply several algorithms to the data, and since there will be many parameter changes for these algorithms, we suggest using the Tcl interpreter rather than C++ code. Our strategy for visualizing this CFD data includes the following:
 
 \begin{itemize}
 
@@ -1083,16 +1074,9 @@ Our strategy for visualizing this CFD data includes the following:
 
 \end{itemize}
 
-For this case study, we use a dataset from NASA called the LOx Post.
-It simulates the flow of liquid oxygen across a flat plate with a cylindrical post perpendicular to the flow \cite{Rogers86}.
-This analysis models the flow in a rocket engine.
-The post promotes mixing of the liquid oxygen.
+For this case study, we use a dataset from NASA called the LOx Post. It simulates the flow of liquid oxygen across a flat plate with a cylindrical post perpendicular to the flow \cite{Rogers86}. This analysis models the flow in a rocket engine. The post promotes mixing of the liquid oxygen.
 
-We start by exploring the scalar and vector fields in the data. By calculating the magnitude of the velocity vectors, we derive a scalar field.
-This study has a particularly interesting vector field around the post.
-We seed the field with multiple starting points (using points arranged along a curve, referred to as a \emph{rake}) and experiment with parameters for the streamlines.
-Streampolygons are particularly appropriate here and do a nice job of showing the flow downstream from the post.
-We animate the streamline creation by moving the seeding line or rake back and forth behind the post.
+We start by exploring the scalar and vector fields in the data. By calculating the magnitude of the velocity vectors, we derive a scalar field. This study has a particularly interesting vector field around the post. We seed the field with multiple starting points (using points arranged along a curve, referred to as a \emph{rake}) and experiment with parameters for the streamlines. Streampolygons\index{streampolygon} are particularly appropriate here and do a nice job of showing the flow downstream from the post. We animate the streamline creation by moving the seeding line or rake back and forth behind the post.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -1174,10 +1158,7 @@ vtkRenderWindowInteractor iren
   ren1 AddActor fanAct
 \end{lstlisting}
 
-To display the scalar field using color mapping\index{color mapping!application}, we must change the
-actor's representation from wireframe to surface, turn on scalar
-visibility for each vtkPolyDataMapper, set each mapper's scalar
-range, and render again, producing the right image of Figure \ref{fig:Figure12-14}.
+To display the scalar field using color mapping\index{color mapping!application}, we must change the actor's representation from wireframe to surface, turn on scalar visibility for each vtkPolyDataMapper, set each mapper's scalar range, and render again, producing the right image of Figure \ref{fig:Figure12-14}.
 
 \begin{lstlisting}[language=TCL, caption={Dicplay the scalar field.}]
   postActor SetRepresentationToSurface
@@ -1199,12 +1180,7 @@ range, and render again, producing the right image of Figure \ref{fig:Figure12-1
 \end{figure}
 
 
-Now, we explore the vector field using vtkPointSource.
-Recall that this object generates a random cloud of points around a spherical center point.
-We will use this cloud of points to generate stream-lines.
-We place the center of the cloud near the post since this is where the velocity seems to be changing most rapidly.
-During this exploration, we use streamlines rather than streamtubes for reasons of efficiency.
-The Tcl code is as follows.
+Now, we explore the vector field using vtkPointSource. Recall that this object generates a random cloud of points around a spherical center point. We will use this cloud of points to generate stream-lines. We place the center of the cloud near the post since this is where the velocity seems to be changing most rapidly. During this exploration, we use streamlines\index{streamline!application} rather than streamtubes for reasons of efficiency. The Tcl code is as follows.
 
 \begin{lstlisting}[language=TCL, caption={Explore the vector field using a point source.}]
 # spherical seed points
@@ -1225,9 +1201,8 @@ vtkActor tubesActor
   tubesActor SetMapper mapTubes
 \end{lstlisting}
 
-Figure \ref{fig:Figure12-15} shows streamlines seeded from four locations along the post.
-Notice how the structure of the flow begins to emerge as the starting positions for the streamlines are moved up and down in front of the post.
-This is particularly true if we do this interactively; the mind assembles the behavior of the streamlines into a global understanding of the flow field.
+Figure \ref{fig:Figure12-15} shows streamlines seeded\index{streamline!seeding} from four locations along the post.
+Notice how the structure of the flow begins to emerge as the starting positions for the streamlines are moved up and down in front of the post. This is particularly true if we do this interactively; the mind assembles the behavior of the streamlines into a global understanding of the flow field.
 
 \begin{figure}[!htb]
 	\centering
@@ -1236,8 +1211,7 @@ This is particularly true if we do this interactively; the mind assembles the be
 	\label{fig:Figure12-16}
 \end{figure}
 
-For a final example, we use the computational grid to seed streamlines and then generate streamtubes as is shown in Figure \ref{fig:Figure12-16}. A nice feature of this approach is that we generate more streamlines in regions where the analyst constructed a denser grid. The only change
-we need to make is to replace the rake from the sphere source with a portion of the grid geometry.
+For a final example, we use the computational grid to seed streamlines and then generate streamtubes as is shown in Figure \ref{fig:Figure12-16}. A nice feature of this approach is that we generate more streamlines in regions where the analyst constructed a denser grid. The only change we need to make is to replace the rake from the sphere source with a portion of the grid geometry.
 
 \begin{lstlisting}[language=TCL, caption={Use the computational grid to seed streamlines and then generate streamtubes.}]
 vtkStructuredGridGeometryFilter seedsComp
@@ -1254,17 +1228,8 @@ vtkTubeFilter tubes
   mapTubes SetInputConnection [tubes GetOutputPort]
 \end{lstlisting}
 
-There are a number of other methods we could use to visualize this data.
-A 3D widget such as the vtkLineWidget could be used to seed the streamlines interactively (see ``3D Widgets and User Interaction'' on
-page \pageref{sec:3D_widgets_user_interaction}). As we saw in ``Point Probe'' on page \pageref{subsec:examples.point_probe}, probing the data
-for numerical values is a valuable technique. In particular, if the
-probe is a line we can use it in combination with vtkXYPlotActor to
-graph the variation of data value along the line. Another useful
-visualization would be to identify regions of vorticity. We could use
-Equation \ref{eq:9.12} in conjunction with an isocontouring algorithm
-(e.g., vtkContourFilter ) to creates isosurfaces of large
-helical-density.
-\index{applications!computational fluid dynamics|)}\index{computational fluid dynamics!application|)}\index{finite difference method!application|)}
+There are a number of other methods we could use to visualize this data. A 3D widget such as the vtkLineWidget could be used to seed the streamlines interactively (see ``3D Widgets and User Interaction'' on page \pageref{sec:3D_widgets_user_interaction}). As we saw in ``Point Probe'' on page \pageref{subsec:examples.point_probe}, probing the data
+for numerical values is a valuable technique. In particular, if the probe is a line we can use it in combination with vtkXYPlotActor to graph the variation of data value along the line. Another useful visualization would be to identify regions of vorticity. We could use Equation \ref{eq:9.12} in conjunction with an isocontouring algorithm (e.g., vtkContourFilter ) to creates isosurfaces of large helical--density. \index{applications!computational fluid dynamics|)}\index{computational fluid dynamics!application|)}\index{finite difference method!application|)}
 
 \section{Finite Element Analysis}
 \index{applications!finite element method|(}\index{finite element method!application|(}

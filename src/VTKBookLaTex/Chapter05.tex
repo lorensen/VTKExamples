@@ -20,7 +20,7 @@ To design representational schemes for data we need to know something about the 
 
 Since our aim is to visualize data, clearly we need to know something about the character of the data. This knowledge will help us create useful data models and powerful visualization systems. Without a clear understanding of the data, we risk designing inflexible and limited visualization systems. In the following we describe important characteristics of data. These characteristics are the discrete nature of data\index{discrete data}, whether it is regular\index{regular data} or irregular, and its topological dimension.
 
-First, visualization data is discrete. This is because we use digital computers to acquire, analyze, and represent our data, and typically measure or sample information at a finite number of points. Hence, all information is necessarily represented in discrete form. 
+First, visualization data is \emph{discrete}. This is because we use digital computers to acquire, analyze, and represent our data, and typically measure or sample information at a finite number of points. Hence, all information is necessarily represented in discrete form. 
 
 Consider visualizing the simple continuous function $y = x6 2$. If we are using a conventional digital computer, we must discretize this equation to operate on the data it represents (we are ignoring symbolic/analog computers and methods.) For example, to plot this equation we would sample the function in some interval, say $(-1,1)$, and then compute the value y of the function at a series of discrete points $x = x_i$ in this interval. The resulting points $((x_0,y_0), (x_1,y_1), (x_2,y_2), ... (x_n,y_n))$ connect the points with straight line segments. Thus, our (continuous) data is represented by a discrete sampling.
 
@@ -28,7 +28,7 @@ Because of the discrete character of the data we do not know anything about regi
 
 There is an obvious solution to this problem: interpolation\index{interpolation function}. We presume a relationship between neighboring data values. Often this is a linear function, but we can use quadratic, cubic, spline, or other interpolation functions. Chapter 8: \nameref{chap:advanced_data_representation} discusses interpolation functions in greater detail, but for now suffice it to say that interpolation functions generate data values in between known points.
 
-A second important characteristic of visualization data is that its structure may be regular or irregular (alternatively, structured or unstructured). Regular data\index{regular data!structured data} has an inherent relationship between data points. For example, if we sample on an evenly spaced set of points, we do not need to store all the point coordinates, only the beginning position of the interval, the spacing between points, and the total number of points. The point positions are then known implicitly, which can be taken of advantage of to save computer memory.
+A second important characteristic of visualization data is that its structure may be regular or irregular (alternatively, structured\index{structured data} or unstructured). Regular data\index{regular data!structured data} has an inherent relationship between data points. For example, if we sample on an evenly spaced set of points, we do not need to store all the point coordinates, only the beginning position of the interval, the spacing between points, and the total number of points. The point positions are then known implicitly, which can be taken of advantage of to save computer memory.
 
 Data that is not regular is irregular data\index{irregular data}. The advantage of irregular data is that we can represent information more densely where it changes quickly and less densely where the change is not so great. Thus, irregular data allows us to create adaptive representational forms, which can be beneficial given limited computing resources.
 
@@ -327,14 +327,14 @@ Like the image dataset, rectilinear grids consist of pixels (2D) or voxels (3D).
 \index{dataset types!rectilinear grid|)}\index{rectilinear grid|)}
 
 \subsection{Structured Grid}
-\index{dataset types!structured grid|(}
+\index{dataset types!structured grid|(}\index{structured grid|(}
 
 A structured grid is a dataset with regular topology and irregular geometry. The grid may be warped into any configuration in which the cells do not overlap or self--intersect.
 
 The topology of the structured grid is represented implicitly by specifying a 3--vector of dimensions $(n_x, n_y, n_z)$. The geometry is explicitly represented by maintaining an array of point coordinates. The composing cells of a structured grid are quadrilaterals (2D) or hexahedron (3D). Like image data, the structured grid has a natural coordinate system that allows us to refer to a particular point or cell using topological $i-j-k$ coordinates.
 
 Structured grids are commonly found in finite difference analysis. Finite difference is a numerical analysis technique to approximate the solution to partial differential equations. Typical applications include fluid flow, heat transfer, and combustion.
-\index{dataset types!structured grid|)}
+\index{dataset types!structured grid|)}\index{structured grid|)}
 
 \subsection{Unstructured Points}
 \index{dataset types!unstructured points|(}
@@ -504,9 +504,11 @@ There is an implicit ordering of both the points and cells composing vtkImageDat
 \item[vtkRectilinearGrid.] While the topology of vtkRectilinearGrid is regular, the geometry can be described as ``semi-regular''. The topology is implicitly represented by specifying data dimensions along the x, y, and z coordinate axes. The geometry is defined using three arrays of coordinate values along these axes. These three coordinate arrays can be combined to determine the coordinates of any point in the dataset. In VTK, we represent the arrays using three instances of vtkDataArray. The numbering of points and cells is implicit in exactly the same way as described for vtkImageData.
 \index{rectilinear grid!implementation|)}
 
+\index{structured grid!representation|(}
 \item[vtkStructuredGrid.] Like vtkImageData, the topology of vtkStructuredGrid is regular and is defined by specifying dimensions in the topological $i-j-k$ coordinate system. However, the geometry of vtkStructuredGrid is realized by specifying point coordinates in the global $x-y-z$ coordinate system.
 
 The abstract data class vtkPoints is used to represent the point coordinates. vtkPoints refers to an underlying instance of vtkDataArray which actually holds the representation of the points as a contiguous array of three-component tuples. A particular point coordinate may be retrieved or inserted by specifying a particular point id. The numbering of the points and cells is implicit in the same fashion as vtkImageData. Care must be taken to insure that the number of points in the data array is the same as that implied by the dimensions of the grid.
+\index{structured grid!representation|)}
 
 \item[vtkPolyData.\index{polygonal data!representation}] Unlike vtkImageData and vtkStructuredGrid, the topology of vtkPolyData is not regular, so both the topology and geometry of the dataset must be explicitly represented. The point data in vtkPolyData is represented using the vtkPoints class similar to vtkStructuredGrid.
 
@@ -763,6 +765,7 @@ The topological dimension of the dataset is implicitly known from its instance v
 \index{image data!example|)}
 
 \item[Create a Structured Grid Dataset.]
+\index{structured grid!example|(}
 
 In the next example we create a vtkStructuredGrid dataset. Topology is implicitly defined from the dimensions of the dataset. The geometry is explicitly defined by providing an object to represent the point coordinates. In this example we use an instance of vtkPoints and assume that the structured grid is warped according to the equation for a cylinder
 
@@ -846,6 +849,7 @@ The creation of a structured grid dataset is partially explicit and partially im
 \end{itemize}
 
 The topological dimension of the dataset is implied by the specified dimensions. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one, the topological dimension of the dataset is two. If two of the three dimensions $(n_x, n_y, n_z)$ are equal to one, the topological dimension of the dataset is one.
+\index{structured grid!example|)}
 
 \item[Create a Rectilinear Grid Dataset.]
 \index{rectilinear grid!example|(}

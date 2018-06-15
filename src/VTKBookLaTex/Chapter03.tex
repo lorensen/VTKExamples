@@ -53,7 +53,7 @@ It wasn't until the early 1980s that a paper by Turner Whitted \cite{Whitted80} 
 
 The discussion to this point in the text has tacitly assumed that when we render an object, we are viewing the surfaces of objects and their interactions with light. However, common objects such as clouds, water, and fog, are translucent, or scatter light that passes through them. Such objects cannot be rendered using a model based exclusively on surface interactions. Instead, we need to consider the changing properties inside the object to properly render them. We refer to these two rendering models as \emph{surface rendering} (i.e., render the surfaces of an object) and \emph{volume rendering} (i.e., render the surface and interior of an object).
 
-Generally speaking, when we render an object using surface rendering\index{rendering!surface} techniques, we mathematically model the object with a surface description such as points, lines, triangles, polygons, or 2D and 3D splines. The interior of the object is not described, or only implicitly represented from the surface representation (i.e., surface is the boundary of the volume). Although techniques do exist that allow us to make the surface transparent or translucent, there are still many phenomena that cannot be simulated using surface rendering techniques alone (e.g., scattering or light emission). This is particularly true if we are trying to render data interior to an object, such as X-ray intensity from a CT scan.
+Generally speaking, when we render an object using surface rendering\index{rendering!surface}\index{surface rendering} techniques, we mathematically model the object with a surface description such as points, lines, triangles, polygons, or 2D and 3D splines. The interior of the object is not described, or only implicitly represented from the surface representation (i.e., surface is the boundary of the volume). Although techniques do exist that allow us to make the surface transparent or translucent, there are still many phenomena that cannot be simulated using surface rendering techniques alone (e.g., scattering or light emission). This is particularly true if we are trying to render data interior to an object, such as X-ray intensity from a CT scan.
 
 Volume rendering\index{rendering!volume} techniques allow us to see the inhomogeneity inside objects. In the prior CT example, we can realistically reproduce X-ray images by considering the intensity values from both the surface and interior of the data. Although it is premature to describe this process at this point in the text, you can imagine extending our ray tracing example from the previous section. Thus rays not only interact with the surface of an object, they also interact with the interior.
 
@@ -138,7 +138,7 @@ Of the many different types of lights used in computer graphics, we will discuss
 \end{figure}
 
 \section{Surface Properties}
-\index{actor!surface properties|(}
+\index{actor!surface properties|(}\index{surface properties|(}
 
 As rays of light travel through space, some of them intersect our actors. When this happens, the rays of light interact with the surface of the actor to produce a color. Part of this resulting color is actually not due to direct light, but rather from \emph{ambient} light\index{ambient light}\index{light!ambient} that is being reflected or scattered from other objects. An ambient lighting model accounts for this and is a simple approximation of the complex scattering of light that occurs in the real world. It applies the intensity curve of the light source to the color of the object, also expressed as an intensity curve. The result is the color of the light we see when we look at that object. With such a model, it is important to realize that a white light shining on a blue ball is indistinguishable from a blue light shining on a white ball. The ambient lighting equation is
 
@@ -203,7 +203,7 @@ The result is a color at a point on the surface of the object. The constants $O_
   \includegraphics[width=0.8\textwidth]{Figure3-10}\\
   \caption{Effects of specular coefficients. Specular coefficients control the apparent "shininess" of objects. The top row has a specular intensity value of 0.5; the bottom row 1.0. Along the horizontal direction the specular power changes. The values (from left to right) are 5, 10, 20, and 40.}\label{fig:Figure3-10}
 \end{figure}
-\index{actor!surface properties|)}\index{light|)}
+\index{actor!surface properties|)}\index{light|)}\index{surface properties|)}
 
 \section{Cameras}
 \label{sec:cameras}
@@ -784,7 +784,7 @@ int main( int argc, char *argv[] )
 }
 \end{lstlisting}
 
-The observer is created by deriving from the class vtkCommand. The Execute() method is required to be implemented by any concrete subclass of vtkCommand (i.e., the method is pure virtual). The resulting subclass, vtkMyCommand, is instantiated and registered with the renderer instance ren1 using the AddObserver() method. In this case the StartEvent is the observed event.
+The observer is created by deriving from the class vtkCommand. The Execute() method is required to be implemented by any concrete subclass of vtkCommand (i.e., the method is pure virtual). The resulting subclass, vtkMyCommand, is instantiated and registered with the renderer instance ren1 using the AddObserver() method. In this case the StartEvent\index{StartEvent!example} is the observed event.
 
 This simple example does not demonstrate the true power of the command/observer design pattern. Later in this chapter ( ``Interpreted Code'' on page \pageref{subsec:examples_interpreted_code} ) we will see how this functionality is used to integrate a simple GUI into VTK. In Chapter 7 three--dimensional interaction widgets will be introduced ( ``3D Widgets and User Interaction''  on page \pageref{sec:3D_widgets_user_interaction} ).
 
