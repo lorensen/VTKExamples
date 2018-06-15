@@ -12,11 +12,11 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 set(DEPRC_SRCS)
 if(VTK_LEGACY_REMOVE)
   list(APPEND DEPRC_SRCS
-    GeoGraticule.cxx
+    GeoGraticle.cxx
     GeoAssignCoordinates.cxx
   )
 endif()
-file(GLOB ALL_FILES *.cxx)
+file(GLOB ALL_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cxx)
 if (DEPRC_SRCS)
   list(REMOVE_ITEM ALL_FILES ${DEPRC_SRCS})
 endif()
@@ -27,8 +27,7 @@ if(NOT VTK_LEGACY_REMOVE)
 endif()
 
 foreach(SOURCE_FILE ${ALL_FILES})
-  string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
-  string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
+  string(REPLACE ".cxx" "" EXAMPLE ${SOURCE_FILE})
   add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
   target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
 endforeach()
