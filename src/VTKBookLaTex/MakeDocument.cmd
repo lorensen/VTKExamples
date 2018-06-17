@@ -1,7 +1,7 @@
 @echo off
 lualatex VTKTextBook
-makeglossaries VTKTextBook
 biber VTKTextBook
-makeindex VTKTextBook
+makeglossaries VTKTextBook
 lualatex VTKTextBook
+makeindex VTKTextBook
 lualatex VTKTextBook
