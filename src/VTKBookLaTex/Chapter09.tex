@@ -574,14 +574,14 @@ A related technique is \emph{data masking}\index{data extraction!masking}. In da
 
 \subsubsection{Thresholding}
 \label{subsubsec:thresholding}
-\index{data extraction!thresholding|(}\index{modelling algorithms!data extraction!thresholding|(}
+\index{data extraction!thresholding|(}\index{modelling algorithms!data extraction!thresholding|(}\index{thresholding!data|(}
 
 Thresholding extracts portions of a dataset data based on attribute values. For example, we may select all cells having a point with scalar value between (0,1) or all points having a velocity magnitude greater than 1.0.
 
 Scalar thresholding is easily implemented. The threshold is either a single value that scalar values are greater than or less than, or a range of values. Cells or points whose associated scalar values satisfy the threshold criteria can be extracted. Other dataset attribute types such as vectors, normals, or tensors can be extracted in similar fashion by converting the type to a single scalar value. For example, vectors can be extracted using vector magnitude, and tensors using matrix determinate.
 
 A problem with both geometry extraction and thresholding is that the approaches presented thus far extract ``atomic'' pieces of data, that is, a complete cell. Sometimes the cell may lie across the boundary of the threshold. In this case the cell must be clipped (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields} and only a portion of the cell is extracted.
-\index{data extraction!thresholding|)}\index{modelling algorithms!data extraction!thresholding|)}
+\index{data extraction!thresholding|)}\index{modelling algorithms!data extraction!thresholding|)}\index{thresholding!data|)}
 \index{data extraction|)}\index{modelling algorithms!data extraction|)}
 
 \subsection{Probing}
@@ -1427,7 +1427,7 @@ Another useful multivariable technique uses glyphs\index{glyph!multidimensional}
 Texturing is a common tool in computer graphics used to introduce detail without the high cost of graphics primitives. As we suggested in Chapter 7: \nameref{chap:advanced_computer_graphics}, texture mapping can also be used to visualize data. We explore a few techniques in the following sections.
 
 \subsubsection{Texture Thresholding}
-\index{texture algorithms!thresholding|(}
+\index{texture algorithms!thresholding|(}\index{texture thresholding|(}\index{thresholding!using texture|(}
 
 We saw earlier how to threshold data based on scalar values (see ``Thresholding'' on page \pageref{subsubsec:thresholding}). We refer to this approach as \emph{geometric thresholding} because structural components of a dataset (e.g., points and cells) are extracted based on data value. In contrast, we can use texture mapping techniques to achieve similar results\index{geometric thresholding!versus texture thresholding}. We call this technique \emph{texture thresholding}.
 
@@ -1478,7 +1478,7 @@ To construct the texture map we use intensity-alpha\index{alpha}, or $I\alpha$ v
 To visualize information with the thresholding technique, we must map data to texture coordinates. As we saw previously, we can use scalar values in combination with a threshold specification to map data into the concealed, transition, and accentuated regions of the texture map. Figure \ref{fig:Figure9-43a} shows an example of texture thresholding applied to scalar data from a simulation of fluid flow. A scalar threshold sT is set to show only data with scalar value greater than or equal to sT.
 
 Another useful texture thresholding application uses implicit functions to map point position to texture coordinate. This is similar in effect to geometric clipping (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields}). As we saw in ``Implicit Functions''on page \pageref{subsec:implicit_functions}, implicit functions naturally map a $(x, y, z)$ coordinate value into three regions: $F(x, y, z) < 0$, $F(x, y, z) = 0$, and $F(x, y, z) > 0$; or equivalently, the concealed, transition, and accentuated regions of the texture map. Using boolean combinations of implicit functions, we can create complex cuts of our data as illustrated in Figure \ref{fig:Figure9-43b}. This figure shows two nested spheres. The outer sphere is cut by a boolean combination of two planes to show the inner sphere.
-\index{texture algorithms!thresholding|)}
+\index{texture algorithms!thresholding|)}\index{texture thresholding|)}\index{thresholding!using texture|)}
 
 \subsubsection{Boolean Textures}
 \index{boolean texture|(}\index{texture algorithms!boolean texture|(}

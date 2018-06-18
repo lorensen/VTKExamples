@@ -20,21 +20,19 @@ By combining these verbs appropriately, we can reduce complex data into simple, 
 \section{Introduction}
 
 The algorithms that transform data are the heart of data visualization.
-To describe the various transformations available, we need to categorize algorithms according to the structure and type of transformation.
-By structure we mean the effects that transformation has on the topology and geometry of the dataset.
-By type we mean the type of dataset that the algorithm operates on.
+To describe the various transformations available, we need to categorize algorithms according to the structure and type of transformation. By structure we mean the effects that transformation has on the topology and geometry of the dataset. By type we mean the type of dataset that the algorithm operates on.
 
 Structural transformations can be classified in four ways, depending on how they affect the geometry, topology, and attributes of a dataset.
 
 \begin{itemize}
 
-\item \emph{Geometric transformations} alter input geometry but do not changed the topology of the dataset. For example, if we translate, rotate, and/or scale the points of a polygonal dataset, the topology does not change, but the point coordinates, and therefore the geometry, does.
+\item \emph{Geometric transformations}\index{transformation!geometric} alter input geometry but do not changed the topology of the dataset. For example, if we translate, rotate, and/or scale the points of a polygonal dataset, the topology does not change, but the point coordinates, and therefore the geometry, does.
 
-\item \emph{Topological transformations} alter input topology but do not change geometry and attribute data. Converting a dataset type from polygonal data to unstructured grid data, or from image data to unstructured grid, changes the topology but not the geometry. More often, however, the geometry changes whenever the topology does, so topological transformation is uncommon.
+\item \emph{Topological transformations}\index{transformation!topological} alter input topology but do not change geometry and attribute data. Converting a dataset type from polygonal data to unstructured grid data, or from image data to unstructured grid, changes the topology but not the geometry. More often, however, the geometry changes whenever the topology does, so topological transformation is uncommon.
 
-\item \emph{Attribute transformations} convert data attributes from one form to another, or create new attributes from the input data. The structure of the dataset remains unaffected. Computing vector magnitude or creating scalars based on elevation are data attribute transformations.
+\item \emph{Attribute transformations}\index{transformation!attribute} convert data attributes from one form to another, or create new attributes from the input data. The structure of the dataset remains unaffected. Computing vector magnitude or creating scalars based on elevation are data attribute transformations.
 
-\item \emph{Combined transformations} change both dataset structure and attribute data. For example, computing contour lines or surfaces is a combined transformation.
+\item \emph{Combined transformations}\index{transformation!combined} change both dataset structure and attribute data. For example, computing contour lines or surfaces is a combined transformation.
 
 \end{itemize}
 
@@ -350,6 +348,8 @@ Figure \ref{fig:Figure6-15b}  shows modal lines for a vibrating rectangular beam
 \index{displacement plot|)}
 
 \subsection{Time Animation}
+\index{time animation|(}
+
 Some of the techniques described so far can be thought of as moving a point or object over a small time step. The hedgehog line is an approximation of a point's motion over a time period whose duration is given by the scale factor. In other words, if velocity $\vec{V} = dx/dt$, then displacement of a point is
 
 \begin{equation}\label{eq:6.1}
@@ -425,6 +425,7 @@ This process can be computationally demanding. There are two important steps we 
 \item \emph{Improving search procedures.} There are two distinct types of searches. Initially, the starting location of the particle must be determined by a global search procedure. Once the initial location of the point is determined in the dataset, an incremental search procedure can then be used. Incremental searching is efficient because the motion of the point is limited within a single cell, or at most across a cell boundary. Thus, the search space is greatly limited, and the incremental search is faster relative to the global search.
 
 \item \emph{Coordinate transformation.} The cost of a coordinate transformation from global to local coordinates can be reduced if either of the following conditions are true: the local and global coordinate systems are identical with one another (or vary by \emph{xyz} translation), or if the vector field is transformed from global space to local coordinate space. The image data coordinate system is an example of a local coordinates which are parallel to global coordinates, hence global to local coordinate transformation can be greatly accelerated. If the vector field is transformed into local coordinates (either as a preprocessing step or on a cell by cell basis), then the integration can proceed completely in local space. Once the integration path is computed, selected points along the path can be transformed into global space for the sake of visualization.
+\index{time animation|)}
 
 \end{enumerate}
 

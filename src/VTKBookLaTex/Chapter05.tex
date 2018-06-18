@@ -78,13 +78,13 @@ The most general form of data found in VTK is the data object\index{data object}
 \label{sec:dataset}
 \index{dataset|(}\index{geometry!dataset|(}
 
-Data objects with an organizing structure and associated data attributes (Figure \ref{fig:Figure5-11}) form datasets. The dataset is an abstract form; we leave the representation\index{cell!representation} and implementation of the structure to its concrete subclasses. Most algorithms (or process objects) in VTK operate on datasets.
+Data objects with an organizing \emph{structure} and associated \emph{data attributes} (Figure \ref{fig:Figure5-11}) form \emph{datasets}. The dataset is an abstract form; we leave the representation\index{cell!representation} and implementation of the structure to its concrete subclasses. Most algorithms (or process objects) in VTK operate on datasets.
 
-The structure has two parts: topology and geometry. Topology\index{dataset!topology} is the set of properties invariant under certain geometric transformations \cite{Weiler86}. Here we consider the transformations: rotation, translation, and nonuniform scaling. Geometry\index{dataset!geometry} is the instantiation of the topology, the specification of position in 3D space. For example, saying that a polygon is a ``triangle'', specifies topology. By providing point coordinates, we specify geometry.
+The structure has two parts: \emph{topology} and \emph{geometry}. Topology\index{dataset!topology}\index{topology} is the set of properties invariant under certain geometric transformations \cite{Weiler86}. Here we consider the transformations: rotation, translation, and nonuniform scaling. Geometry\index{dataset!geometry} is the instantiation of the topology, the specification of position in 3D space. For example, saying that a polygon is a ``triangle'', specifies topology. By providing point coordinates, we specify geometry.
 
 Dataset attributes are supplemental information associated with geometry and/or topology. This information might be a temperature value at a point or the inertial mass of a cell.
 
-Our model of a dataset assumes that the structure consists of cells and points. The cells specify the topology, while the points\index{point!as geometry} specify the geometry. Typical attributes include scalars, vectors, normals, texture coordinates, and tensors.
+Our model of a dataset assumes that the structure consists of cells and points. The cells specify the topology\index{topology!cell}, while the points\index{point!as geometry} specify the geometry. Typical attributes include scalars, vectors, normals, texture coordinates, and tensors.
 
 The definition of the structure of a dataset as a collection of cells and points is a direct consequence of the discrete nature of our data. Points are located where data is known and the cells allow us to interpolate between points. We give detailed descriptions of dataset structure and attributes in the following sections.
 \index{dataset|)}\index{geometry!dataset|)}
@@ -93,7 +93,7 @@ The definition of the structure of a dataset as a collection of cells and points
 \label{sec:cell_types}
 \index{cell|(}
 
-A dataset consists of one or more cells (Figure \ref{fig:Figure5-2} and Figure \ref{fig:Figure5-4}). Cells are the fundamental building blocks of visualization systems. Cells are defined by specifying a type in combination with an ordered list of points. \index{cell!as topology}The ordered list, often referred to as the \emph{connectivity list}\index{connectivity list}, combined with the type specification, implicitly defines the topology of the cell. The $x-y-z$ point coordinates define the cell geometry.
+A dataset\index{topology!dataset} consists of one or more cells (Figure \ref{fig:Figure5-2} and Figure \ref{fig:Figure5-4}). Cells are the fundamental building blocks of visualization systems. Cells\index{cell!as topology} are defined by specifying a type in combination with an ordered list of points. The ordered list, often referred to as the \emph{connectivity list}\index{connectivity list}, combined with the type specification, implicitly defines the topology of the cell. The $x-y-z$ point coordinates define the cell geometry.
 
 Figure \ref{fig:Figure5-3} shows one cell type, a hexahedron. The ordered list is a sequence of point ids that index into a point coordinate list. The topology of this cell is implicitly known: we know that $(8,10)$ is one of the 12 edges of the hexahedron, and that $(8,10,22,21)$ is one of its six faces.
 
