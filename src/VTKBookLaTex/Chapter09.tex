@@ -1206,7 +1206,7 @@ There are several approaches available to build topological structure given a ra
 
 \item[Splatting Techniques.]
 \label{subsec:visualizing_unstructured_points_splatting_techniques}
-\index{modelling algorithms!unstructured points!splatting|(}\index{splatting!unstructured points|(}
+\index{modelling algorithms!unstructured points!splatting|(}\index{splatting!unstructured points|(}\index{unstructured points!splatting|(}
 
 \begin{figure}[htb]
     \centering
@@ -1314,13 +1314,13 @@ The parameter $z$ is the distance along the vector $\overrightarrow{v\ }$, and t
 \end{figure}
 
 Figure \ref{fig:Figure9-38a} shows an elliptical splat\index{elliptical splat} with E = 10. (The splat surface is created by using isosurface extraction). As expected, the splat is an ellipsoid. Figure \ref{fig:Figure9-38b} is an application of elliptical splatting used to reconstruct a surface from an unstructured set of points. The advantage of using an elliptical splat is that we can flatten the splat in the plane perpendicular to the point normal. This tends to bridge the space between the point samples. The surface itself is extracted using a standard isosurface extraction algorithm.
-\index{modelling algorithms!unstructured points!splatting|)}\index{splatting!unstructured points|)}
+\index{modelling algorithms!unstructured points!splatting|)}\index{splatting!unstructured points|)}\index{unstructured points!splatting|)}
 
 \item[Interpolation Techniques.]
-\index{interpolation!unstructured points}\index{modelling algorithms!unstructured points!interpolation|(}
+\index{interpolation!unstructured points|(}\index{modelling algorithms!unstructured points!interpolation|(}\index{unstructured points!interpolation|(}
 Interpolation techniques construct a function to smoothly interpolate a set of unstructured points. That is, given a set of n points $p_i = (x_i, y_i, z_i)$ and function values $F_i(p_i)$, a new function $F(p$) is created that interpolates the points $p_i$. Once the interpolation function is constructed, we can build topological structure from the unstructured points by sampling $F(p)$ over an image dataset. We can then visualize the image data using any of the various techniques presented throughout the text. 
 
-Shepard's method\index{interpolation!Shepard's method}\index{Shepard's method} is an inverse distance weighted interpolation technique \cite{Wixom78}. The interpolation functions can be written
+Shepard's method\index{interpolation!Shepard's method|(}\index{Shepard's method|(} is an inverse distance weighted interpolation technique \cite{Wixom78}. The interpolation functions can be written
 
 \begin{equation}\label{eq:9.25}
 F(\overrightarrow{p\ }) = \dfrac{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{F_i}{\vert\overrightarrow{p\ } - \overrightarrow{p\ }_i\vert^2}}{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{1}{\vert\overrightarrow{p\ } - \overrightarrow{p\ }_i \vert^2}}
@@ -1339,10 +1339,11 @@ F(\overrightarrow{p\ }) = \dfrac{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{F
 As a result, Shepard's method is overly constrained in the region around each point.
 
 Shepard's method is an example of a basis function method. That is, the interpolation function $F(p)$ consists of a sum of functions centered at each data point, pi. Other basis function methods have been developed as described by Nielson \cite{Nielson91a}. They vary in localization of the basis functions and the sophistication of the interpolation function. Localization of basis functions means that their effect is isolated to a small region. Examples of more sophisticated basis functions include quadratic polynomials and cubic splines. Please see the references for more information.
-\index{modelling algorithms!unstructured points!interpolation|)}
+\index{interpolation!Shepard's method|)}\index{Shepard's method|)}
+\index{interpolation!unstructured points|)}\index{modelling algorithms!unstructured points!interpolation|)}\index{unstructured points!interpolation|)}
 
 \item[Triangulation techniques.]
-\index{modelling algorithms!unstructured points!triangulation|(}
+\index{modelling algorithms!unstructured points!triangulation|(}\index{unstructured points!triangulation|(}
 Triangulation techniques build topology directly from unstructured points. The points are triangulated to create a topological structure consisting of \emph{n}--dimensional simplices that completely bound the points and linear combinations of the points (the so--called convex hull\index{convex hull}). The result of triangulation is a set of triangles (2D) or tetrahedra (3D), depending upon the dimension of the input data \cite{Lawson86}.
 
 \begin{figure}[htb]
@@ -1380,8 +1381,9 @@ This simplistic presentation of triangulation techniques has shown how to create
 
 Despite these problems, triangulation methods are a powerful tool for visualizing unstructured points. Once we convert the data into a triangulation (or in our terminology, an unstructured grid), we can directly visualize our data using standard unstructured grid techniques.
 
+
 \item[Hybrid Techniques.] Recent work has focused on combining triangulation and basis function techniques for interpolating 2D bivariate data. The basic idea is as follows. A triangulation of P is constructed. Then an interpolating network of curves is defined over the edges of the triangulation. These curves are constructed with certain minimization properties of interpolating splines. Finally, the curve network is used to construct a series of triangular basis functions, or surface patches, that exhibit continuity in function value, and possibly higher order derivatives. (See \cite{Nielson91a} for more information).
-\index{modelling algorithms!unstructured points!triangulation|)}\index{Delaunay triangulation!unstructured points|)}
+\index{modelling algorithms!unstructured points!triangulation|)}\index{unstructured points!triangulation|)}\index{Delaunay triangulation!unstructured points|)}
 
 \end{description}
 

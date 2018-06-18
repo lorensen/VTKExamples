@@ -1579,6 +1579,7 @@ In this section we will finish our earlier description of an implementation for 
 implementations for color scalars, searching and picking, and conclude with a series of examples to demonstrate some of these concepts.
 
 \subsection{Unstructured Topology}
+\index{unstructured topology|(}
 
 In Chapter 5: \nameref{chap:basic_data_representation} we described data representations for the unstructured dataset types vtkPolyData and vtkUnstructuredGrid. Close examination of this data structure reveals that operations to retrieve topological adjacency are inefficient. In fact, to implement any operation to retrieve vertex, edge, or face neighbors requires a search of the cell array, resulting in $O(n)$ time complexity. This is unacceptable for all but the smallest applications, since any algorithm traversing the cell array and retrieving adjacency information is at a minimum$ O(n^2)$.
 
@@ -1622,7 +1623,7 @@ There are several important characteristics of this data representation.
 
 \begin{itemize}
 
-\item The cell links array is an extension of the basic unstructured data representation. As a result, we can defer the construction of the cell links until they are required. Often the cell links are never needed and require no computer resources to compute or store.
+\item The cell links array is an extension of the basic unstructured data representation\index{unstructured grid!representation}. As a result, we can defer the construction of the cell links until they are required. Often the cell links are never needed and require no computer resources to compute or store.
 
 \item Building the cell links is a linear $O(n)$ operation. Each cell is traversed and for every point that the cell uses, the list of using cells for that point is extended to include the current cell. Building the cell links is only needed once as an initialization step.
 
@@ -1631,6 +1632,7 @@ There are several important characteristics of this data representation.
 \end{itemize}
 
 The unstructured data structure in the \emph{Visualization Toolkit} is implemented using the four classes vtkPoints (and subclasses), vtkCellArray, vtkCellTypes, and vtkCellLinks. The building of this data structure is incremental. At a minimum, the points and cells are represented using vtkPoints and vtkCellArray. If random access or extra type information is required, then the object vtkCellTypes is used. If adjacency information is required, an instance of the class vtkCellLinks is created. These operations are carried out behind the scenes, and generally do not require extra knowledge by the application programmer.
+\index{unstructured topology|)}
 
 \clearpage
 

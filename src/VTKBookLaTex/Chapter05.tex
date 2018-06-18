@@ -28,7 +28,7 @@ Because of the discrete character of the data we do not know anything about regi
 
 There is an obvious solution to this problem: interpolation\index{interpolation function}. We presume a relationship between neighboring data values. Often this is a linear function, but we can use quadratic, cubic, spline, or other interpolation functions. Chapter 8: \nameref{chap:advanced_data_representation} discusses interpolation functions in greater detail, but for now suffice it to say that interpolation functions generate data values in between known points.
 
-A second important characteristic of visualization data is that its structure may be regular or irregular (alternatively, structured\index{structured data} or unstructured). Regular data\index{regular data!structured data} has an inherent relationship between data points. For example, if we sample on an evenly spaced set of points, we do not need to store all the point coordinates, only the beginning position of the interval, the spacing between points, and the total number of points. The point positions are then known implicitly, which can be taken of advantage of to save computer memory.
+A second important characteristic of visualization data is that its structure may be \emph{regular} or \emph{irregular} (alternatively, \emph{structured}\index{structured data} or \emph{unstructured}\index{unstructured data}). Regular data\index{regular data!structured data} has an inherent relationship between data points. For example, if we sample on an evenly spaced set of points, we do not need to store all the point coordinates, only the beginning position of the interval, the spacing between points, and the total number of points. The point positions are then known implicitly, which can be taken of advantage of to save computer memory.
 
 Data that is not regular is irregular data\index{irregular data}. The advantage of irregular data is that we can represent information more densely where it changes quickly and less densely where the change is not so great. Thus, irregular data allows us to create adaptive representational forms, which can be beneficial given limited computing resources.
 
@@ -307,7 +307,7 @@ Our minimal selection of cells is based on common application and performance, r
 \label{subsec:image_data}
 \index{dataset types!image data|(}\index{image data|(}
 
-An image dataset is a collection of points and cells arranged on a regular, rectangular lattice. The rows, columns, and planes of the lattice are parallel to the global $x-y-z$ coordinate system. If the points and cells are arranged on a plane (i.e., two--dimensional) the dataset is referred to as a pixmap, bitmap, or image. If the points and cells are arranged as stacked planes (i.e., three--dimensional) the dataset is referred to as a volume. Keep in mind that the term image data refers to images, volumes, or one-dimensional point arrays collectively. Note that some authors have referred to image data as uniform grids and structured points. (Structured points was the terminology used in earlier versions of VTK.)
+An image dataset is a collection of points and cells arranged on a regular, rectangular lattice. The rows, columns, and planes of the lattice are parallel to the global $x-y-z$ coordinate system. If the points and cells are arranged on a plane (i.e., two--dimensional) the dataset is referred to as a pixmap, bitmap, or image. If the points and cells are arranged as stacked planes (i.e., three--dimensional) the dataset is referred to as a volume. Keep in mind that the term image data refers to images, volumes, or one-dimensional point arrays collectively. Note that some authors have referred to image data as uniform grids\index{uniform grid} and structured points. (Structured points was the terminology used in earlier versions of VTK.)
 
 Image data consist of line elements (1D), pixels (2D), or voxels (3D). Image data is regular in both geometry and topology and can be implicitly represented. The representational scheme requires only data dimensions, an origin point, and the data spacing. The dimension of the data is a 3--vector ($n_x,n_y,n_z)$) , specifying the number of points in the $x$, $y$, and $z$ directions. The origin point is the position in three--dimensional space of the minimum $x-y-z$ point. Each pixel (2D) or voxel (3D) in a image dataset is identical in shape, the spacing specifying the length in the $x-y-z$ directions.
 
@@ -337,20 +337,20 @@ Structured grids are commonly found in finite difference analysis. Finite differ
 \index{dataset types!structured grid|)}\index{structured grid|)}
 
 \subsection{Unstructured Points}
-\index{dataset types!unstructured points|(}
+\index{dataset types!unstructured points|(}\index{unstructured points|(}
 
 Unstructured points are points irregularly located in space. There is no topology in an unstructured point dataset, and the geometry is completely unstructured. The vertex and polyvertex cells are used to represent unstructured points.
 
 Unstructured points are a simple but important type of dataset. Often data has no inherent structure, and part of the visualization task is to discover or create it. For example, consider a piston in a car instrumented with temperature gauges. The number of gauges and their location is chosen at a finite set of points, resulting in temperature values at ``unrelated'' (at least in terms of visualization topology) positions on the surface of the piston. To visualize the surface temperature, we have to create an interpolation surface and scheme to fill in intermediate values.
 
 Unstructured points serve to represent such unstructured data. Typically, this data form is transformed into another more structured form for the purposes of visualization. Algorithms for transforming unstructured points into other forms are described in ``Visualizing Unstructured Points'' on page \pageref{subsec:visualizing_unstructured_points}.
-\index{dataset types!unstructured points|)}
+\index{dataset types!unstructured points|)}\index{unstructured points|)}
 
 \subsection{Unstructured Grid}
-\index{dataset types!unstructured grid|(}
+\index{dataset types!unstructured grid|(}\index{unstructured grid|(}
 
 The most general form of dataset is the unstructured grid. Both the topology and geometry are completely unstructured. Any cell type can be combined in arbitrary combinations in an unstructured grid. Hence the topology of the cells ranges from 0D (vertex, polyvertex) to 3D (tetrahedron, hexahedron, voxel). In the Visualization Toolkit any dataset type can be expressed as an unstructured grid. We typically use unstructured grids to represent data only when absolutely necessary, because this dataset type requires the most memory and computational resources to represent and operate on.
-\index{dataset types!unstructured grid|)}
+\index{dataset types!unstructured grid|)}\index{unstructured grid|)}
 
 \index{dataset!types|)}\index{dataset types|)}
 
@@ -490,27 +490,26 @@ Data objects are implemented in VTK as an array of vtkDataArrays as shown in Fig
 \subsection{Dataset Representation}
 \index{dataset!representation|(}\index{dataset representation!implementation|(}
 
-Five datasets are implemented in VTK: vtkPolyData, vtkImageData, vtkStructuredGrid, vtkRectilinearGrid\index{rectilinear grid!representation}, and vtkUnstructuredGrid. The unstructured points dataset is not implemented, but can be represented using either vtkPolyData or vtkUnstructuredGrid.
+Five datasets are implemented in VTK: vtkPolyData, vtkImageData, vtkStructuredGrid, vtkRectilinearGrid, and vtkUnstructuredGrid. The unstructured points dataset is not implemented, but can be represented using either vtkPolyData or vtkUnstructuredGrid.
 
 We use a different internal data representation for each dataset type. By using different representations we minimize data structure memory requirements and implement efficient access methods. It would have been possible to use vtkUnstructuredGrid to represent all dataset types, but the memory and computational overhead are unacceptable for large data. The following sections describe how we represent the dataset.
 
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 
-\item[vtkImageData.\index{image data!representation}] The simplest and most compact representation is vtkImageData. Both the dataset points and cells are represented implicitly by specifying the dimensions, data spacing, and origin. The dimensions define the topology of the dataset, while the origin and spacing specify the geometry. The vtkImageData dataset type can represent 1D line samples, 2D images, and 3D volumes. (Note: in earlier versions of VTK, vtkImageData was known as vtkStructuredPoints. There are still remnants of this terminology in the code base.)
+\item[vtkImageData.\index{image data!representation|(}] The simplest and most compact representation is vtkImageData. Both the dataset points and cells are represented implicitly by specifying the dimensions, data spacing, and origin. The dimensions define the topology of the dataset, while the origin and spacing specify the geometry. The vtkImageData dataset type can represent 1D line samples, 2D images, and 3D volumes. (Note: in earlier versions of VTK, vtkImageData was known as vtkStructuredPoints. There are still remnants of this terminology in the code base.)
 
 There is an implicit ordering of both the points and cells composing vtkImageData. Both the cells and points are numbered in the direction of increasing x, then y, then z. The total number of points is $n_x \times n_y \times n_z$ where $n_x$, $n_y$, and $n_z$z are the dimensions of vtkImageData. The total number of cells is $(n_x - 1) \times  (n_y - 1) \times (n_z - 1)$.
+\index{image data!representation|)}
 
-\index{rectilinear grid!implementation|(}
-\item[vtkRectilinearGrid.] While the topology of vtkRectilinearGrid is regular, the geometry can be described as ``semi-regular''. The topology is implicitly represented by specifying data dimensions along the x, y, and z coordinate axes. The geometry is defined using three arrays of coordinate values along these axes. These three coordinate arrays can be combined to determine the coordinates of any point in the dataset. In VTK, we represent the arrays using three instances of vtkDataArray. The numbering of points and cells is implicit in exactly the same way as described for vtkImageData.
-\index{rectilinear grid!implementation|)}
+\item[vtkRectilinearGrid.\index{rectilinear grid!representation|(}] While the topology of vtkRectilinearGrid is regular, the geometry can be described as ``semi-regular''. The topology is implicitly represented by specifying data dimensions along the x, y, and z coordinate axes. The geometry is defined using three arrays of coordinate values along these axes. These three coordinate arrays can be combined to determine the coordinates of any point in the dataset. In VTK, we represent the arrays using three instances of vtkDataArray. The numbering of points and cells is implicit in exactly the same way as described for vtkImageData.
+\index{rectilinear grid!representation|)}
 
-\index{structured grid!representation|(}
-\item[vtkStructuredGrid.] Like vtkImageData, the topology of vtkStructuredGrid is regular and is defined by specifying dimensions in the topological $i-j-k$ coordinate system. However, the geometry of vtkStructuredGrid is realized by specifying point coordinates in the global $x-y-z$ coordinate system.
+\item[vtkStructuredGrid.\index{structured grid!representation|(}] Like vtkImageData, the topology of vtkStructuredGrid is regular and is defined by specifying dimensions in the topological $i-j-k$ coordinate system. However, the geometry of vtkStructuredGrid is realized by specifying point coordinates in the global $x-y-z$ coordinate system.
 
 The abstract data class vtkPoints is used to represent the point coordinates. vtkPoints refers to an underlying instance of vtkDataArray which actually holds the representation of the points as a contiguous array of three-component tuples. A particular point coordinate may be retrieved or inserted by specifying a particular point id. The numbering of the points and cells is implicit in the same fashion as vtkImageData. Care must be taken to insure that the number of points in the data array is the same as that implied by the dimensions of the grid.
 \index{structured grid!representation|)}
 
-\item[vtkPolyData.\index{polygonal data!representation}] Unlike vtkImageData and vtkStructuredGrid, the topology of vtkPolyData is not regular, so both the topology and geometry of the dataset must be explicitly represented. The point data in vtkPolyData is represented using the vtkPoints class similar to vtkStructuredGrid.
+\item[vtkPolyData.\index{polygonal data!representation|(}] Unlike vtkImageData and vtkStructuredGrid, the topology of vtkPolyData is not regular, so both the topology and geometry of the dataset must be explicitly represented. The point data in vtkPolyData is represented using the vtkPoints class similar to vtkStructuredGrid.
 
 \begin{figure}[!htb]
 	\centering
@@ -524,8 +523,9 @@ The Visualization Toolkit uses the class vtkCellArray to explicitly represent ce
 Notice that type information is not directly represented in this structure. Instead, vtkPolyData maintains four separate lists to vertices, lines, polygons, and triangle strips. The vertex list represents cells of type vtkVertex and vtkPolyVertex. The lines list represents cells of type vtkLine and vtkPolyLine. The polygon list represents cells of type vtkTriangle, vtkQuad, and vtkPolygon. The triangle strip list represents cells of the single type vtkTriangleStrip. As a result, the cell type is known from the particular list the cell is defined in, plus the number of points that define the cell.
 
 Our design of the vtkPolyData class is based on two important requirements. First, we want an efficient interface to external graphics libraries. Second, we wish to aggregate cells according to topology. The four separate lists provide efficient interface because graphics libraries have separate vertex, line, polygon, and triangle strip primitives. As a result, in VTK no run-time checking is required to match the different cell types with the appropriate ``load primitive'' function, since the type is known from the list in which the primitive resides. The four lists also separate cells into 0-, 1-, and 2-dimensional types. This is useful because visualization algorithms often treat data of varying topological order differently.
+\index{polygonal data!representation|)}
 
-\item[vtkUnstructuredGrid.] The dataset type vtkUnstructuredGrid is the most general in terms of its ability to represent topological and geometric structure. Both points and cells are explicitly represented using derived classes of vtkPoints and vtkCellArray. The class vtkUnstructuredGrid is similar to vtkPolyData except that vtkUnstructuredGrid must be capable of representing all cell types, not just the limited graphics types (i.e., vertices, lines, polygons, and triangle strips) of vtkPolyData.
+\item[vtkUnstructuredGrid.\index{unstructured grid!representation|(}] The dataset type vtkUnstructuredGrid is the most general in terms of its ability to represent topological and geometric structure. Both points and cells are explicitly represented using derived classes of vtkPoints and vtkCellArray. The class vtkUnstructuredGrid is similar to vtkPolyData except that vtkUnstructuredGrid must be capable of representing all cell types, not just the limited graphics types (i.e., vertices, lines, polygons, and triangle strips) of vtkPolyData.
 
 Another distinguishing characteristic of vtkUnstructuredGrid is that we represent type information differently. In vtkPolyData we categorized cells into four separate lists, thereby representing cell type indirectly. In vtkUnstructuredGrid we add the additional class vtkCellTypes to represent cell type explicitly.
 
@@ -534,8 +534,10 @@ The vtkCellTypes is an array of supplemental information. For each cell, an inte
 Besides representing cell type, this design also enables random access to cells. Because the length of a cell connectivity list varies, the vtkCellArray class cannot locate a particular cell without traversing its data structure from the origin. With the added class vtkCellTypes, however, it is possible to directly access a cell with a single dereference (i.e., using the offset value).
 
 The vtkCellTypes may also be added to the vtkPolyData data representation  --- and indeed it has. However, our reasons for this addition are not to represent type explicitly, but rather to provide random access to the cells and enable many topological operations. We will expand on this idea in Chapter 8: \nameref{chap:advanced_data_representation}.
+\index{unstructured grid!representation|)}
 
-\item[Object Model.\index{object model!cell}] The five datasets are implemented as shown in Figure \ref{fig:Figure5-14}. As this object diagram illustrates, these concrete datasets are subclasses of the abstract class vtkDataSet. Two additional classes are introduced as well. The class vtkStructuredData contributes instance variables and methods for structured data. vtkStructuredData is not in an inheritance relationship with the datasets; rather the structured datasets shown delegate to it in order to implement some of their methods. (This was done to avoid multiple inheritance.) Subclasses of the class vtkPointSet represent their points explicitly, that is, through an instance of vtkPoints or its subclasses. vtkPointSet provides methods and instance variables to manipulate the point data, as well as a general searching capability to find points and cells. (See ``Searching'' on page \pageref{sec:searching} for more information.)
+\item[Object Model.\index{object model!cell|(}] The five datasets are implemented as shown in Figure \ref{fig:Figure5-14}. As this object diagram illustrates, these concrete datasets are subclasses of the abstract class vtkDataSet. Two additional classes are introduced as well. The class vtkStructuredData contributes instance variables and methods for structured data. vtkStructuredData is not in an inheritance relationship with the datasets; rather the structured datasets shown delegate to it in order to implement some of their methods. (This was done to avoid multiple inheritance.) Subclasses of the class vtkPointSet represent their points explicitly, that is, through an instance of vtkPoints or its subclasses. vtkPointSet provides methods and instance variables to manipulate the point data, as well as a general searching capability to find points and cells. (See ``Searching'' on page \pageref{sec:searching} for more information.)
+\index{object model!cell|)}
 
 \end{description}
 
@@ -922,6 +924,7 @@ The topological dimension of the dataset is implied by the specified dimensions.
 \index{rectilinear grid!example|)}
 
 \item[Create an Unstructured Grid Dataset.]
+\index{unstructured grid!example|(}
 
 Unstructured grid datasets are the most general dataset type in both topology and geometry. In this example we ``artificially'' create an unstructured grid using an instance of vtkUnstructuredGrid (Figure \ref{fig:Figure5-21}). The grid contains examples of each cell type except for pixels and voxels. (Pixels and voxels are generally used internally to process image data datasets. They can be explicitly created and manipulated as long as the required relationship of point geometry is observed.) Creating the dataset structure requires creating points to define the geometry and various cells to define the topology. (Note that in the finite element world we would refer to these as nodes and elements.)
 
@@ -983,6 +986,7 @@ To summarize the process of creating an instance of vtkUnstructuredGrid, we foll
 	\item Complete the creation process by executing the ugrid->Squeeze() operator.This operator reclaims any extra memory consumed by the data structures. Although this step is not required, it will return memory resource back to the computer system.
 
 \end{itemize}
+\index{unstructured grid!example|)}
 
 \end{description}
 
