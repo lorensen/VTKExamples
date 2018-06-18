@@ -137,11 +137,11 @@ Linear cells are characterized by linear or constant interpolation functions (se
 
 \item[Line.\index{cell!line}\index{line}] The line is a primary one--dimensional cell. It is defined by two points. The direction along the line is from the first point to the second point.
 
-\item[Polyline.\index{cell!polyline}] The polyline is a composite one--dimensional cell consisting of one or more connected lines. The polyline is defined by an ordered list of $n+1$ points, where n is the number of lines in the polyline. Each pair of points $(i, i+1)$ defines a line.
+\item[Polyline.\index{cell!polyline}\index{polyline}] The polyline is a composite one--dimensional cell consisting of one or more connected lines. The polyline is defined by an ordered list of $n+1$ points, where n is the number of lines in the polyline. Each pair of points $(i, i+1)$ defines a line.
 
-\item[Triangle.\index{cell!triangle}] \label{subsec:linear_cells.triangle_strip} The triangle is a primary two--dimensional cell. The triangle is defined by a counterclockwise ordered list of three points. The order of the points specifies the direction of the surface normal using the right-hand rule.
+\item[Triangle.\index{cell!triangle}\index{triangle}] \label{subsec:linear_cells.triangle_strip} The triangle is a primary two--dimensional cell. The triangle is defined by a counterclockwise ordered list of three points. The order of the points specifies the direction of the surface normal using the right-hand rule.
 
-\item[Triangle Strip.\index{cell!triangle strip}] The triangle strip is a composite two--dimensional cell consisting of one or more triangles. The points defining the triangle strip need not lie in a plane. The triangle strip is defined by an ordered list of n+2 points, where n is the number of triangles. The ordering of the points is such that each set of three points $(i,i+1,i+2)$ with $0 \leq i \leq n$ defines a triangle.
+\item[Triangle Strip.\index{cell!triangle strip}\index{triangle strip}] The triangle strip is a composite two--dimensional cell consisting of one or more triangles. The points defining the triangle strip need not lie in a plane. The triangle strip is defined by an ordered list of n+2 points, where n is the number of triangles. The ordering of the points is such that each set of three points $(i,i+1,i+2)$ with $0 \leq i \leq n$ defines a triangle.
 
 \item[Quadrilateral.\index{cell!quadrilateral}\index{quadrilateral}] The quadrilateral is a primary two--dimensional cell. It is defined by an ordered list of four points lying in a plane. The quadrilateral is convex and its edges must not intersect. The points are ordered counterclockwise around the quadrilateral, defining a surface normal using the right-hand rule.
 
@@ -233,7 +233,7 @@ VTK tessellates nonlinear quadratic cells using a fixed subdivision as shown in 
 
 \item[Bi--Quadratic Hexahedron.\index{bi-quadratic hexahedron}\index{cell!bi-quadratic hexahedron}] The bi--quadratic hexahedron is a primary three--dimensional cell. It is defined by twenty--four points. The first eight points are located at the vertices of the hexahedron; the next twelve are located in the middle of each of the twelve edges; and the next four points are located in the center of the first four faces as shown in Figure \ref{fig:Figure5-4}.
 
-\item[Tri--Quadratic Hexahedron.\index{cell!tri--quadratic hexahedron}] The tri--quadratic hexahedron is a primary three--dimensional cell. It is defined by twenty--seven points. The first eight points are located at the vertices of the hexahedron; the next twelve are located in the middle of each of the twelves edges; the next six are located in the center of each faces; and the last one is located in the center of the hexahedron as shown in Figure \ref{fig:Figure5-4}.
+\item[Tri--Quadratic Hexahedron.\index{cell!tri--quadratic hexahedron}\index{tri--quadratic hexahedron}] The tri--quadratic hexahedron is a primary three--dimensional cell. It is defined by twenty--seven points. The first eight points are located at the vertices of the hexahedron; the next twelve are located in the middle of each of the twelves edges; the next six are located in the center of each faces; and the last one is located in the center of the hexahedron as shown in Figure \ref{fig:Figure5-4}.
 \index{cell|)}
 
 \section{Attribute Data}
@@ -422,7 +422,7 @@ The class vtkFloatArray is an example of a contiguous array. We will use this cl
 
 \subsection{The Tuple Abstraction}
 
-Many visualization data are defined by multiple component values. An x-y-z coordinate triplet or RGBA color pixel value are two such examples. To represent such data in a contiguous data array, the tuple data abstraction is introduced. As Figure \ref{fig:Figure5-8} illustrates, the contiguous array is grouped into smaller subarrays with NumberOfComponents components. These subarrays are called tuples, and for a given array the tuple size, or NumberOfComponents, is constant for all tuples as shown in Figure \ref{fig:Figure5-9}.
+Many visualization data are defined by multiple component values. An x-y-z coordinate triplet or RGBA color pixel value are two such examples. To represent such data in a contiguous data array, the \emph{tuple}\index{tuple} data abstraction is introduced. As Figure \ref{fig:Figure5-8} illustrates, the contiguous array is grouped into smaller subarrays with NumberOfComponents components. These subarrays are called tuples, and for a given array the tuple size, or NumberOfComponents, is constant for all tuples as shown in Figure \ref{fig:Figure5-9}.
 
 \begin{figure}[!htb]
 	\centering
