@@ -63,18 +63,19 @@ The second technical problem with rendering transparent objects occurs less freq
 \index{alpha|)}
 
 \section{Texture Mapping}
+\index{texture mapping|(}
 
-\emph{Texture mapping} is a technique to add detail to an image without requiring modelling detail. Texture mapping can be thought of as pasting a picture to the surface of an object. The use of texture mapping requires two pieces of information: a \emph{texture map} and \emph{texture coordinates}. The texture map is the picture we paste, and the texture coordinates specify the location where the picture is pasted. More generally, texture mapping is a table lookup for color, intensity, and/or transparency that is applied to an object as it is rendered. Textures maps and coordinates are most often two--dimensional, but three--dimensional texture maps and coordinates are supported by most new graphics hardware.
+\emph{Texture mapping} is a technique to add detail to an image without requiring modelling detail. Texture mapping can be thought of as pasting a picture to the surface of an object. The use of texture mapping requires two pieces of information: a \emph{texture map}\index{texture map} and \emph{texture coordinates}\index{texture coordinate}. The texture map is the picture we paste, and the texture coordinates specify the location where the picture is pasted. More generally, texture mapping is a table lookup for color, intensity, and/or transparency that is applied to an object as it is rendered. Textures maps and coordinates are most often two--dimensional, but three--dimensional texture maps and coordinates are supported by most new graphics hardware.
 
 The value of texture mapping can be shown through the simple example of rendering a wooden table. The basic geometry of a table can be easily created, but achieving the wood grain details is difficult. Coloring the table brown is a good start, but the image is still unrealistic. To simulate the wood grain we need to have many small color changes across the surface of the table. Using vertex colors would require us to have millions of extra vertices just to get the small color changes. The solution to this is to apply a wood grain texture map to the original polygons. This is like applying an oak veneer onto inexpensive particleboard, and this is the strategy used by video games to provide realistic scenes with low numbers of polygons for interactivity.
 
-There are several ways in which we can apply texture data. For each pixel in the texture map (commonly called a \emph{texel} for texture element), there may be one to four components that affect how the texture map is pasted onto the surface of the underlying geometry. A texture map with one component is called an \emph{intensity map}\index{intensity map}. Applying an intensity map results in changes to the intensity (or value in HSV\index{HSV}) of the resulting pixels. If we took a gray scale image of wood grain, and then texture--mapped it onto a brown polygon, we would have a reasonable looking table. The hue and saturation of the polygon would still be determined by the brown color, but the intensity would be determined from the texture map. A better looking table could be obtained by using a color image of the wood. This is a three component texture map, where each texel is represented as a RGB\index{RGB} triplet. Using an RGB map allows us to obtain more realistic images, since we would have more than just the intensity changes of the wood.
+There are several ways in which we can apply texture data. For each pixel in the texture map (commonly called a \emph{texel}\index{texel} for texture element), there may be one to four components that affect how the texture map is pasted onto the surface of the underlying geometry. A texture map with one component is called an \emph{intensity map}\index{intensity map}. Applying an intensity map results in changes to the intensity (or value in HSV\index{HSV}) of the resulting pixels. If we took a gray scale image of wood grain, and then texture--mapped it onto a brown polygon, we would have a reasonable looking table. The hue and saturation of the polygon would still be determined by the brown color, but the intensity would be determined from the texture map. A better looking table could be obtained by using a color image of the wood. This is a three component texture map, where each texel is represented as a RGB\index{RGB} triplet. Using an RGB map allows us to obtain more realistic images, since we would have more than just the intensity changes of the wood.
 
 By adding alpha values to an intensity map we get two components. We can do the same to an RGB\index{RGB!and opacity} texture map to get a four component RGBA texture map. In these cases, the alpha value can be used to make parts of the underlying geometry transparent. A common trick in computer graphics is to use RGBA textures to render trees. Instead of trying to model the complex geometry of a tree, we just render a rectangle with an RGBA texture map applied to it. Where there are leaves or branches, the alpha is one, where there are gaps and open space, the alpha is zero. As a result, we can see through portions of the rectangle, giving the illusion of viewing through the branches and leaves of a tree.
 
 Besides the different ways in which a texture map can be defined, there are options in how it interacts with the original color of the object. A common option for RGB and RGBA maps is to ignore the original color; that is, just apply the texture color as specified. Another option is to modulate the original color by the texture map color (or intensity) to produce the final color.
 
-While we have been focusing on 2D texture maps, they can be of any dimension, though the most common are 2D and 3D. Three--dimensional texture maps are used for textures that are a function of 3D space, such as wood grain, stone, or X-ray intensity (i.e., CT scan). In fact, a volumetric dataset is essentially a 3D texture. We can perform high-speed volume rendering by passing planes through a 3D texture and compositing them using translucent alpha values in the correct order.
+While we have been focusing on 2D texture maps, they can be of any dimension, though the most common are 2D and 3D\index{texture map!3D}. Three--dimensional texture maps are used for textures that are a function of 3D space, such as wood grain, stone, or X-ray intensity (i.e., CT scan). In fact, a volumetric dataset is essentially a 3D texture. We can perform high-speed volume rendering by passing planes through a 3D texture and compositing them using translucent alpha values in the correct order.
 
 \begin{figure}[!htb]
 	\centering
@@ -86,7 +87,7 @@ Techniques for performing volume rendering using texture mapping hardware will b
 
 A fundamental step in the texture mapping process is determining how to map the texture onto the geometry. To accomplish this, each vertex has an associated texture coordinate in addition to its position, surface normal, color, and other point attributes. The texture coordinate maps the vertex into the texture map as shown in Figure \ref{fig:Figure7-2}. The texture coordinate system uses the parameters $(u,v)$ and $(u,v,t)$ or equivalently ($r,s$) or ($r,s,t$) for specifying 2D and 3D texture values. Points between the vertices are linearly interpolated to determine texture map values.
 
-Another approach to texture mapping uses procedural texture\index{procedural texture} definitions instead of a texture map. In this approach, as geometry is rendered, a procedure is called for each pixel to calculate a texel value. Instead of using the $(u,v,t)$ texture coordinates to index into an image, they are passed as arguments to the procedural texture that uses them to calculate its result. This method provides almost limitless flexibility in the design of a texture; therefore, it is almost impossible to implement in dedicated hardware. Most commonly, procedural textures are used with software rendering systems that do not make heavy use of existing graphics hardware.
+Another approach to texture mapping uses procedural texture\index{procedural texture}\index{texture mapping!procedural} definitions instead of a texture map. In this approach, as geometry is rendered, a procedure is called for each pixel to calculate a texel value. Instead of using the $(u,v,t)$ texture coordinates to index into an image, they are passed as arguments to the procedural texture that uses them to calculate its result. This method provides almost limitless flexibility in the design of a texture; therefore, it is almost impossible to implement in dedicated hardware. Most commonly, procedural textures are used with software rendering systems that do not make heavy use of existing graphics hardware.
 
 While texture maps are generally used to add detail to rendered images, there are important visualization applications.
 
@@ -96,7 +97,7 @@ While texture maps are generally used to add detail to rendered images, there ar
 
 	\item Texture coordinates can be generated procedurally as a function of data. For example, we can threshold geometry by creating a special texture map and then setting texture coordinates based on local data value. The texture map consists of two entries: fully transparent ($\alpha = 0$) and fully opaque ($\alpha = 1$). The texture coordinate is then set to index into the transparent portion of the map if the scalar value is less than some threshold, or into the opaque portion otherwise.
 
-	\item Texture maps can be animated\index{animation!using texture} as a function of time. By choosing a texture map whose intensity varies monotonically from dark to light, and then "moving" the texture along an object, the object appears to crawl in the direction of the texture map motion. We can use this technique to add apparent motion to things like hedgehogs to show vector magnitude. Figure \ref{fig:Figure7-3} is an example of a texture map animation used to simulate vector field motion.
+	\item Texture maps can be animated\index{animation!using texture}\index{texture animation} as a function of time. By choosing a texture map whose intensity varies monotonically from dark to light, and then "moving" the texture along an object, the object appears to crawl in the direction of the texture map motion. We can use this technique to add apparent motion to things like hedgehogs to show vector magnitude. Figure \ref{fig:Figure7-3} is an example of a texture map animation used to simulate vector field motion.
 
 \end{itemize}
 
@@ -107,6 +108,8 @@ While texture maps are generally used to add detail to rendered images, there ar
 \end{figure}
 
 These techniques will be covered in greater detail in Chapter 9: \nameref{chap:advanced_algorithms}. (See``Texture Algorithms'' on page \pageref{subsec:texture_algorithms} for more information.)
+
+\index{texture mapping|)}
 
 \section{Volume Rendering}
 \label{sec:volume_rendering}
@@ -335,7 +338,7 @@ There are several important considerations when utilizing a splatting approach f
 	\caption{Volume rendering using a 2D (left) and 3D (right) texture mapping technique.}\label{fig:Figure7-14}
 \end{figure}
 
-Texture mapping as described earlier in this chapter was originally developed to provide the appearance of high surface complexity when rendering geometric surfaces. As texture mapping methods matured and found their way into standard graphics hardware, researchers began utilizing these new capabilities to perform volume rendering \cite{Cabral94}. There are two main texture-mapped volume rendering techniques based on the two main types of texture hardware currently available. Two--dimensional texture-mapped volume rendering makes use of 2D texture mapping hardware whereas 3D texture-mapped volume rendering makes use less commonly available 3D texture mapping graphics hardware.
+Texture mapping\index{texture mapping!volume rendering|(} as described earlier in this chapter was originally developed to provide the appearance of high surface complexity when rendering geometric surfaces. As texture mapping methods matured and found their way into standard graphics hardware, researchers began utilizing these new capabilities to perform volume rendering \cite{Cabral94}. There are two main texture-mapped volume rendering techniques based on the two main types of texture hardware currently available. Two--dimensional texture-mapped volume rendering makes use of 2D texture mapping hardware whereas 3D texture-mapped volume rendering makes use less commonly available 3D texture mapping graphics hardware.
 
 We can decompose texture-mapped volume rendering into two basic steps. The first is a sampling step where the data samples are extracted from the volume using some form of interpolation. Depending on the type of texture hardware available, this may be nearest neighbor, bilinear, or tri-linear interpolation and may be performed exclusively in hardware or through a combination of both software and hardware techniques. The second step is a blending step where the sampled values are combined with the current image in the frame buffer. This may be a simple maximum operator or it may be a more complex alpha compositing operator.
 
@@ -355,6 +358,7 @@ For large volumes it may not be possible to load the entire volume into 3D textu
 Similar to a 2D texture mapping method, the 3D algorithm is limited by both the texture download and pixel fill rates of the machine. However, 3D texture mapping is superior to the 2D version in its ability to sample the volume, generally yielding higher quality images with fewer artifacts. Since it is capable of performing trilinear interpolation, we are able to sample at any location within the volume. For instance, a 3D texture mapping algorithm can sample along polygons representing concentric spheres rather than the more common view--aligned planes.
 
 In theory, a 3D texture--mapped volume renderer and a ray casting volume renderer perform the same computations, have the same complexity, $O(n^3)$, and produce identical images. Both sample the entire volume using either nearest neighbor or trilinear interpolation, and combine the samples to form a pixel value using, for example, a maximum value or compositing function. Therefore, we can view 3D texture mapping and standard ray casting methods as functionally equivalent. The main advantage to using a texture mapping approach is the ability to utilize relatively fast graphics hardware to perform the sampling and blending operations. However, there are currently several drawbacks to using graphics hardware for volume rendering. Hardware texture-mapped volume renderings tend to have more artifacts than software ray casting techniques due to limited precision within the frame buffer for storing partial results at each pixel during blending. In addition, only a few ray functions are supported by the hardware, and advanced techniques such as shading are more difficult to achieve. However, these limitations are beginning to disappear as tex-ture mapping hardware evolves. Through the use of extensions to the OpenGL standard, per pixel vectors can be defined allowing for hardware shaded volume texture mapping. Other extensions have allowed for maximum intensity projections, and deeper framebuffers eliminate artifacts.
+\index{texture mapping!volume rendering|)}
 \index{object--order rendering!in volume rendering|)}
 
 \section{Other Volume Rendering Methods}
@@ -962,6 +966,7 @@ The key to widget design is careful implementation of intuitive, simple user int
 This chapter has covered a wide variety of topics. In this section we demonstrate applications of each topic to some simple problems.
 
 \subsection{Texture Mapping}
+\index{texture mapping!implementation|(}
 
 \begin{wrapfigure}{R}{0.4\textwidth}
 	\centering
@@ -1001,6 +1006,7 @@ vtkRenderWindowInteractor iren
 \end{lstlisting}
 
 A few words of warning when using textures. Some renderers only support 2D texture, or may not support alpha textures. Also, many rendering systems require that each dimension of the image dataset is an exact power of two. In VTK, non-power of two textures are automatically converted to power of two at the expense of extra computation.
+\index{texture mapping!implementation|)}
 
 \subsection{Volume Rendering}
 

@@ -46,7 +46,7 @@ We also may classify algorithms according to the type of data they operate on, o
 
 \item \emph{Vector\index{algorithms!vector} algorithms} operate on vector data. Showing oriented arrows of airflow (direction and magnitude) is an example of vector visualization.
 
-\item \emph{Tensor\index{algorithms!tensor} algorithms} operate on tensor matrices. An example of a tensor algorithm is to show the components of stress or strain in a material using oriented icons.
+\item \emph{Tensor\index{algorithms!tensor} algorithms\index{tensor algorithms}} operate on tensor matrices. An example of a tensor algorithm is to show the components of stress or strain in a material using oriented icons.
 
 \item \emph{Modelling\index{algorithms!modelling} algorithms}\index{modelling algorithms} generate dataset topology or geometry, or surface normals or texture data. Modelling algorithms tend to be the catch-all category for many algorithms, since some do not fit neatly into any single category mentioned above. For example, generating glyphs oriented according to the vector direction and then scaled according to the scalar value, is a combined scalar/vector algorithm. For convenience we classify such an algorithm as a modelling algorithm, because it does not fit squarely into any other category.
 
@@ -470,7 +470,7 @@ Many enhancements of streamline visualization exist. Lines can be colored accord
 \index{algorithms!vector|)}
 
 \section{Tensor Algorithms}
-\index{algorithms!tensor|(}
+\index{algorithms!tensor|(}\index{tensor algorithms|(}
 
 As we mentioned earlier, tensor visualization is an active area of research. However there are a few simple techniques that we can use to visualize real $3 \times 3$ symmetric tensors. Such tensors are used to describe the state of displacement or stress in a 3D material. The stress\index{stress} and strain\index{strain} tensors for an elastic material are shown in Figure \ref{fig:Figure6-20}.
 
@@ -542,6 +542,7 @@ with $\vec{e_i}$ a unit vector in the direction of the eigenvalue, and $\lambda{
 then we refer to the corresponding eigenvectors $\vec{v_1}$, $\vec{v_2}$ and $\vec{v_1}$ as the \emph{major}, \emph{medium} and \emph{minor} eigenvectors.
 
 \subsection{Tensor Ellipsoids}
+\index{tensor algorithms!tensor ellipsoid|(}\index{tensor ellipsoid|(}
 
 This leads us to the tensor ellipsoid technique for the visualization of real, symmetric $3 \times 3$ matrices. The first step is to extract eigenvalues and eigenvectors as described in the previous section. Since eigenvectors are known to be orthogonal, the eigenvectors form a local coordinate system. These axes can be taken as the \emph{minor}, \emph{medium} and \emph{major} axes of an ellipsoid. Thus, the shape and orientation of the ellipsoid represents the relative size of the eigenvalues and the orientation of the eigenvectors.
 
@@ -612,7 +613,8 @@ Figure \ref{fig:Figure6-21a} depicts the tensor ellipsoid technique. In Figure \
 In Figure \ref{fig:Figure6-21a} we visualize the analytical results of Boussinesq's problem from Saada. The top portion of the figure shows the results by displaying the scaled and oriented principal axes of the stress tensor. (These are called \emph{tensor axes}.) In the bottom portion we use tensor ellipsoids to show the same result. Tensor ellipsoids and tensor axes are a form of \emph{glyph} (see "Glyphs" on page \pageref{subsec:glyphs} ) specialized to tensor visualization.
 
 A certain amount of care must be taken to visualize this result since there is a stress singularity at the point of contact of the load. In a real application loads are applied over a small area and not at a single point. Also, plastic behavior prevents stress levels from exceeding a certain point. The results of the visualization, as with any computer process, are only as good as the underlying model.
-\index{algorithms!tensor|)}
+\index{tensor algorithms!tensor ellipsoid|)}\index{tensor ellipsoid|)}
+\index{algorithms!tensor|)}\index{tensor algorithms|)}
 
 \section{Modelling Algorithms}
 \index{algorithms!modelling|(}\index{modelling algorithms|(}

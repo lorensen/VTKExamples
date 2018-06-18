@@ -454,6 +454,7 @@ H_d = \overrightarrow{v\ } \cdot \overrightarrow{w\ } = \vert \overrightarrow{v\
 This is a scalar function of the vector dot product between the vorticity and the local vector. Large positive values of $H_d$ result in right-handed vortices, while large negative values indicate lefthanded vortices. Helicity-density can be conveniently shown using isosurfaces, which gives an indication for the location and structure of a vortex.
 
 \section{Tensor Algorithms}
+\index{tensor algorithms|(}
 
 In Chapter 6: \nameref{chap:fundamental_algorithms} we saw that $3 \times 3$ real symmetric tensors can be characterized by the eigenvalues\index{eigenvalue} and eigenvectors\index{eigenvector} of the tensor. Recall that we can express the eigenvectors of the system as
 
@@ -467,7 +468,7 @@ In Chapter 6: \nameref{chap:fundamental_algorithms} we saw that $3 \times 3$ rea
 Decomposition of the tensor field in this fashion provides additional insight into visualizing $3 \times 3$ real symmetric tensors. We can directly use the vector field visualization techniques presented previously or use variations of them. One such technique is a novel extension of the streampolygon technique, the method of \emph{hyperstreamlines}.
 
 \subsection{Hyperstreamlines}
-\index{hyperstreamline|(}
+\index{hyperstreamline|(}\index{tensor algorithms!hyperstreamline|(}
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -496,7 +497,8 @@ Hyperstreamlines are constructed by creating a streamline through one of the thr
 
 
 Figure \ref{fig:Figure9-15} shows an example of hyperstreamlines. The data is from a point load applied to a semi-infinite domain. Compare this figure to Figure \ref{fig:Figure6-22} that used tensor ellipsoids to visualize the same data. Notice that there is less clutter and more information available from the hyperstreamline visualization.
-\index{hyperstreamline|)}
+\index{hyperstreamline|)}\index{tensor algorithms!hyperstreamline|)}
+\index{tensor algorithms|)}
 
 \section{Modelling Algorithms}
 \index{modelling algorithms|(}
@@ -1420,11 +1422,12 @@ Another useful multivariable technique uses glyphs\index{glyph!multidimensional}
 
 \subsection{Texture Algorithms}
 \label{subsec:texture_algorithms}
-\index{algorithms!texture|(}\index{modelling algorithms!texture|(}
+\index{algorithms!texture|(}\index{modelling algorithms!texture|(}\index{texture algorithms|(}
 
 Texturing is a common tool in computer graphics used to introduce detail without the high cost of graphics primitives. As we suggested in Chapter 7: \nameref{chap:advanced_computer_graphics}, texture mapping can also be used to visualize data. We explore a few techniques in the following sections.
 
 \subsubsection{Texture Thresholding}
+\index{texture algorithms!thresholding|(}
 
 We saw earlier how to threshold data based on scalar values (see ``Thresholding'' on page \pageref{subsubsec:thresholding}). We refer to this approach as \emph{geometric thresholding} because structural components of a dataset (e.g., points and cells) are extracted based on data value. In contrast, we can use texture mapping techniques to achieve similar results\index{geometric thresholding!versus texture thresholding}. We call this technique \emph{texture thresholding}.
 
@@ -1474,10 +1477,11 @@ To construct the texture map we use intensity-alpha\index{alpha}, or $I\alpha$ v
 
 To visualize information with the thresholding technique, we must map data to texture coordinates. As we saw previously, we can use scalar values in combination with a threshold specification to map data into the concealed, transition, and accentuated regions of the texture map. Figure \ref{fig:Figure9-43a} shows an example of texture thresholding applied to scalar data from a simulation of fluid flow. A scalar threshold sT is set to show only data with scalar value greater than or equal to sT.
 
-Another useful texture thresholding application uses implicit functions to map point position to texture coordinate. This is similar in effect to geometric clipping (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields}). As we saw in ``Implicit Functions''on page \pageref{subsec:implicit_functions}, implicit functions naturally map a $(x, y, z)$ coordinate value into three regions: $F(x, y, z) < 0$, $F(x, y, z) = 0$, and $F(x, y, z) > 0$ ; or equivalently, the concealed, transition, and accentuated regions of the texture map. Using boolean combinations of implicit functions, we can create complex cuts of our data as illustrated in Figure \ref{fig:Figure9-43b}. This figure shows two nested spheres. The outer sphere is cut by a boolean combination of two planes to show the inner sphere.
+Another useful texture thresholding application uses implicit functions to map point position to texture coordinate. This is similar in effect to geometric clipping (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields}). As we saw in ``Implicit Functions''on page \pageref{subsec:implicit_functions}, implicit functions naturally map a $(x, y, z)$ coordinate value into three regions: $F(x, y, z) < 0$, $F(x, y, z) = 0$, and $F(x, y, z) > 0$; or equivalently, the concealed, transition, and accentuated regions of the texture map. Using boolean combinations of implicit functions, we can create complex cuts of our data as illustrated in Figure \ref{fig:Figure9-43b}. This figure shows two nested spheres. The outer sphere is cut by a boolean combination of two planes to show the inner sphere.
+\index{texture algorithms!thresholding|)}
 
 \subsubsection{Boolean Textures}
-\index{boolean texture|(}
+\index{boolean texture|(}\index{texture algorithms!boolean texture|(}
 
 Texture thresholding can be extended into higher dimensions. That is, 2D or 3D texture coordinates can be used to map two or three data variables into a texture map. One such technique is boolean textures, a method to clip geometry using a 2D texture map and two implicit functions \cite{Lorensen93}.
 
@@ -1509,10 +1513,10 @@ The boolean texture map is modified to reflect this as shown in Figure  \ref{fig
 \end{figure}
 
 The boolean texture map can be created with combinations of intensity and transparency values to achieve a variety of effects. By combining the four combinations of in/out (i.e., four regions of Figure \ref{fig:Figure9-44}) with the two combinations of ``conceal'' and ``accentuate'', sixteen different boolean textures are possible. Figure \ref{fig:Figure9-45a} illustrates these combinations expressed as boolean combinations of two implicit functions A and B. The ``inside'' of the implicit functions is indicated with subscript i, while the outside is indicated with subscript o. The boolean expressions indicate the regions that we wish to conceal, as shown by open circles. The darkened circles are the regions that are accentuated. We can see in Figure \ref{fig:Figure9-45a} the effects of applying these different boolean textures to a sphere. The implicit functions in this figure are two elliptical cylinders sharing a common axis, and rotated $90^\circ$ from one another. In addition, transition regions have been defined with $I = 0$ to generate the dark cut edges shown. All 16 spheres share the same texture coordinates; only the texture map changes.
-\index{boolean texture|)}
+\index{boolean texture|)}\index{texture algorithms!boolean texture|)}
 
 \subsubsection{Texture Animation}
-\index{animation!using texture|(}
+\index{animation!using texture|(}\index{texture algorithms!animation|(}\index{texture animation|(}
 
 Time-based animation techniques can illustrate motion or temporal data variations. This process often requires relatively large amounts of computer resource to read, process, and display the data. Thus, techniques to reduce computer resources are desirable when animating data.
 
@@ -1540,8 +1544,8 @@ As we saw in ``Hedgehogs and Oriented Glyphs'' on page \pageref{subsec:hedgehogs
 Along with the 1D texture map, the texture coordinate s must also be generated --- on a line this is straightforward. The line origin receives texture coordinate $s = 0$, while the line terminus receives texture coordinate value $s = 1$. Any intermediate points (if the vector is a polyline) are parameterized in monotonic fashion in the interval $(0,1)$. Texture coordinates need only be generated once. Only the texture map is varied to generate the vector animation.
 
 Other effects are possible by modifying the texture map. Figure \ref{fig:Figure9-45b} shows a texture map with a repeating sequence of opaque/transparent regions. In each opaque region the intensity is gradually reduced from left to right. The result is that this tends to ``feather'' the appearance of the vector motion. The resulting image is more pleasing to the eye.
-\index{algorithms!texture|)}\index{modelling algorithms!texture|)}
-\index{animation!using texture|)}
+\index{algorithms!texture|)}\index{modelling algorithms!texture|)}\index{texture algorithms|)}
+\index{animation!using texture|)}\index{texture algorithms!animation|)}\index{texture animation|)}
 \index{modelling algorithms|)}
 
 \section{Putting It All Together}
@@ -1879,7 +1883,7 @@ Other important parameters are the AspectRatio and MaximumSubIterations. AspectR
 \index{decimation!implementation|)}
 
 \subsection{Texture Clipping}
-\index{cutting!with texture|(}
+\index{cutting!with texture|(}\index{texture!and geometric clipping implementation|(}\index{texture cutting|(}
 
 Texture mapping is a powerful visualization technique. Besides adding detail to images with minimal effort, we can perform important viewing and modelling operations. One of these operations is clipping data to view internal structure.
 
@@ -1936,7 +1940,7 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
 Figure \ref{fig:Figure9-53} is an example of texture clipping using a transparent texture map. The motor show consists of five complex parts, some of which are hidden by the outer casing. To see the inside of the motor, we define an implicit clipping function. This function is simply the intersection of two planes to form a clipping "corner." The object vtkImplicitTextureCoords is used in combination with this implicit function to generate texture coordinates. These objects are then rendered with the appropriate texture map and the internal parts of the motor can be seen.
 
 The texture map consists of three regions (as described previously in the chapter). The concealed region is transparent. The transition region is opaque but with a black (zero intensity) color. The highlighted region is full intensity and opaque. As can be seen from Figure \ref{fig:Figure9-53}, the boundaries appear as black borders giving a nice visual effect.
-\index{cutting!with texture|)}
+\index{cutting!with texture|)}\index{texture!and geometric clipping implementation|)}\index{texture cutting|)}
 
 \subsection{Delaunay Triangulation}
 \index{Delaunay triangulation!implementation|(}

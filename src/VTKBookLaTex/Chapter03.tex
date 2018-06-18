@@ -911,7 +911,7 @@ The \emph{Visualization Toolkit} has built into its compilation process the abil
 
 \begin{lstlisting}[language=TCL, caption={Cone5.tcl}, escapechar=\# ]
 package require vtk#\index{package require!vtk}#
-package require vtkinteraction#\index{package require!vtkinteraction}#
+package require#\index{Tcl!package require}# vtkinteraction#\index{package require!vtkinteraction}#
 vtkConeSource cone
   cone SetHeight 3.0
   cone SetRadius 1.0
@@ -936,7 +936,7 @@ vtkRenderWindowInteractor iren
 
 vtkInteractorStyleTrackballCamera style
   iren SetInteractorStyle style
-  iren AddObserver UserEvent {wm deiconify .vtkInteract}
+  iren AddObserver#\index{Tcl!AddObserver}# UserEvent {wm deiconify .vtkInteract}
   iren Initialize
 
 wm withdraw .
