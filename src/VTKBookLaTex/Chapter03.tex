@@ -255,7 +255,7 @@ The model\index{coordinate system!model}\index{model coordinate system} coordina
 
 The world\index{coordinate system!world} coordinate system is the 3D space in which the actors are positioned. One of the actor's responsibilities is to convert from the model's coordinates into world coordinates. Each model may have its own coordinate system but there is only one world coordinate system. Each actor must scale, rotate, and translate its model into the world coordinate system. (It may also be necessary for the modeller to transform from its natural coordinate system into a local Cartesian system. This is because actors typically assume that the model coordinate system is a local Cartesian system.) The world coordinate system is also the system in which the position and orientation of cameras and lights are specified.
 
-The view\index{coordinate system!view} coordinate system represents what is visible to the camera. This consists of a pair of x and y values, ranging between $(-1,1)$, and a \emph{z} depth coordinate. The \emph{x}, \emph{y} values specify location in the image plane, while the \emph{z} coordinate represents the distance, or range, from the camera. The camera's properties are represented by a four by four transformation matrix (to be described shortly), which is used to convert from world coordinates into view coordinates. This is where the perspective effects of a camera are introduced.
+The view\index{coordinate system!view} coordinate system represents what is visible to the camera. This consists of a pair of x and y values, ranging between $(-1,1)$, and a \emph{z} depth coordinate. The \emph{x}, \emph{y} values specify location in the image plane, while the \emph{z} coordinate represents the distance, or range, from the camera. The camera's properties are represented by a four by four transformation matrix\index{transformation matrix} (to be described shortly), which is used to convert from world coordinates into view coordinates. This is where the perspective effects of a camera are introduced.
 
 The display coordinate system\index{coordinate system!display}\index{display coordinate system} uses the same basis as the view coordinate system, but instead of using negative one to one as the range, the coordinates are actual \emph{x}, \emph{y} pixel locations on the image plane. Factors such as the window's size on the display determine how the view coordinate range of $(-1,1)$ is mapped into pixel locations. This is also where the viewport comes into effect.
 
@@ -269,6 +269,7 @@ You may want to render two different scenes, but display them in the same window
 
 
 \section{Coordinate Transformation}
+\index{transformation!coordinate|(}
 
 When we create images with computer graphics, we project objects defined in three dimensions onto a two--dimensional image plane. As we saw earlier, this projection naturally includes perspective. To include projection effects such as vanishing points we use a special coordinate system called \emph{homogeneous coordinates}\index{homogeneous coordinates}.
 
@@ -279,9 +280,9 @@ x = \frac{x_h}{w_h}\ \ \ \  x = \frac{y_h}{w_h}\ \ \ \ x = \frac{z_h}{w_h}
 \end{equation}
 \myequations{Cartesian to Homogenous Conversion}
 
-Using homogeneous coordinates we can represent an infinite point by setting w h to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 transformation matrix . Transformation matrices are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a 3x3 matrix.
+Using homogeneous coordinates we can represent an infinite point by setting w h to zero. This capability is used by the camera for perspective transformations. The transformations are applied by using a 4x4 transformation matrix . Transformation matrices\index{transformation matrix} are widely used in computer graphics because they allow us to perform translation, scaling, and rotation of objects by repeated matrix multiplication. Not all of these operations can be performed using a 3x3 matrix.
 
-For example, suppose we wanted to create a transformation matrix that translates a point $( x, y, z)$ in Cartesian space by the vector $( t_x , t_y, t_z)$. We need only construct the translation matrix given by
+For example, suppose we wanted to create a transformation matrix\index{transformation matrix!translation} that translates a point $( x, y, z)$ in Cartesian space by the vector $( t_x , t_y, t_z)$. We need only construct the translation matrix given by
 
 \begin{equation}\label{eq:3.6}
 T_T = \left[\begin{array}{cccc}
@@ -324,7 +325,7 @@ z' = z + t_z
 \end{equation}
 \myequations{Homogenous to Cartesian}
 
-The same procedure is used to scale or rotate an object. To scale an object we use the transformation matrix
+The same procedure is used to scale or rotate an object. To scale an object we use the transformation matrix\index{transformation matrix!scaling}
 
 \begin{equation}\label{eq:3.9}
 T_s = \left[\begin{array}{cccc}
@@ -337,7 +338,7 @@ s_x & 0 & 0 & 0 \\
 \myequations{Scaling}
 
 
-where the parameters $s_x, s_y$, and $s_z$ are scale factors along the $x, y, z$ axes. Similarly we can rotate an object around the $x$ axes by angle $\theta$ using the matrix
+where the parameters $s_x, s_y$, and $s_z$ are scale factors along the $x, y, z$ axes. Similarly we can rotate an object around the $x$ axes by angle $\theta$ using the matrix\index{transformation matrix!rotation}
 
 \begin{equation}\label{eq:3.10}
 T_{R_x} = \left[\begin{array}{cccc}
@@ -390,6 +391,7 @@ T_R = \left[\begin{array}{cccc}
 Rotations occur about the coordinate origin. It is often more convenient to rotate around the center of the object (or a user-specified point). Assume that we call this point the object's center . To rotate around we Oc must first translate the object to the Oorigin, apply rotations, and then translate the object back.
 
 Transformation matrices can be combined by matrix multiplication to achieve combinations of translation, rotation, and scaling. It is possible for a single transformation matrix to represent all types of transformation simultaneously. This matrix is the result of repeated matrix multiplications. A word of warning: The order of the multiplication is important. For example, multiplying a translation matrix by a rotation matrix will not yield the same result as multiplying the rotation matrix by the translation matrix.
+\index{transformation!coordinate|)}
 
 \section{Actor Geometry}
 \index{actor!geometry|(}
@@ -911,7 +913,7 @@ The \emph{Visualization Toolkit} has built into its compilation process the abil
 
 \begin{lstlisting}[language=TCL, caption={Cone5.tcl}, escapechar=\# ]
 package require vtk#\index{package require!vtk}#
-package require vtkinteraction#\index{package require!vtkinteraction}#
+package require#\index{Tcl!package require}# vtkinteraction#\index{package require!vtkinteraction}#
 vtkConeSource cone
   cone SetHeight 3.0
   cone SetRadius 1.0
@@ -936,7 +938,7 @@ vtkRenderWindowInteractor iren
 
 vtkInteractorStyleTrackballCamera style
   iren SetInteractorStyle style
-  iren AddObserver UserEvent {wm deiconify .vtkInteract}
+  iren AddObserver#\index{Tcl!AddObserver}# UserEvent {wm deiconify .vtkInteract}
   iren Initialize
 
 wm withdraw .
@@ -956,10 +958,11 @@ As we can see from this example, the number of lines of code is less for the Tcl
 
 \subsubsection{Transformation Matrices}
 \label{subsubsec:transform_matrices}
+\index{transformation matrix!implementation|(}
 
 Transformation matrices are used throughout the  Visualization Toolkit. Actors (subclasses of vtkProp3D --- see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} ) use them to position and orient\index{orientation} themselves. Various filters, including vtkGlyph3D and vtkTransformFilter, use transformation matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
 
-The most important aspect to applying transformation matrices is to understand the order in which the transformations are applied. If you break down a complex series of transformations into simple combinations of translation, scaling, and rotation, and keep careful track of the order of application, you will have gone a long way to mastering their use.
+The most important aspect to applying transformation matrices\index{transformation matrix!order of application} is to understand the order in which the transformations are applied. If you break down a complex series of transformations into simple combinations of translation, scaling, and rotation, and keep careful track of the order of application, you will have gone a long way to mastering their use.
 
 A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(),and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor. The vtkActor class applies transformations in an order that we feel is natural to most users.
 
@@ -1067,6 +1070,7 @@ There is one final and powerful operation that affects an actor's orientation. Y
 \end{subfigure}%
 \caption{The cow rotating about a vector passing through her nose.}
 \end{figure}
+\index{transformation matrix!implementation|)}
 
 \subsubsection{Assemblies and Other Types of vtkProp}
 \label{subsubsec:assemblies_vtkprop}

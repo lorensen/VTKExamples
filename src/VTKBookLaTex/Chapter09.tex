@@ -454,6 +454,7 @@ H_d = \overrightarrow{v\ } \cdot \overrightarrow{w\ } = \vert \overrightarrow{v\
 This is a scalar function of the vector dot product between the vorticity and the local vector. Large positive values of $H_d$ result in right-handed vortices, while large negative values indicate lefthanded vortices. Helicity-density can be conveniently shown using isosurfaces, which gives an indication for the location and structure of a vortex.
 
 \section{Tensor Algorithms}
+\index{tensor algorithms|(}
 
 In Chapter 6: \nameref{chap:fundamental_algorithms} we saw that $3 \times 3$ real symmetric tensors can be characterized by the eigenvalues\index{eigenvalue} and eigenvectors\index{eigenvector} of the tensor. Recall that we can express the eigenvectors of the system as
 
@@ -467,7 +468,7 @@ In Chapter 6: \nameref{chap:fundamental_algorithms} we saw that $3 \times 3$ rea
 Decomposition of the tensor field in this fashion provides additional insight into visualizing $3 \times 3$ real symmetric tensors. We can directly use the vector field visualization techniques presented previously or use variations of them. One such technique is a novel extension of the streampolygon technique, the method of \emph{hyperstreamlines}.
 
 \subsection{Hyperstreamlines}
-\index{hyperstreamline|(}
+\index{hyperstreamline|(}\index{tensor algorithms!hyperstreamline|(}
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -496,7 +497,8 @@ Hyperstreamlines are constructed by creating a streamline through one of the thr
 
 
 Figure \ref{fig:Figure9-15} shows an example of hyperstreamlines. The data is from a point load applied to a semi-infinite domain. Compare this figure to Figure \ref{fig:Figure6-22} that used tensor ellipsoids to visualize the same data. Notice that there is less clutter and more information available from the hyperstreamline visualization.
-\index{hyperstreamline|)}
+\index{hyperstreamline|)}\index{tensor algorithms!hyperstreamline|)}
+\index{tensor algorithms|)}
 
 \section{Modelling Algorithms}
 \index{modelling algorithms|(}
@@ -572,14 +574,14 @@ A related technique is \emph{data masking}\index{data extraction!masking}. In da
 
 \subsubsection{Thresholding}
 \label{subsubsec:thresholding}
-\index{data extraction!thresholding|(}\index{modelling algorithms!data extraction!thresholding|(}
+\index{data extraction!thresholding|(}\index{modelling algorithms!data extraction!thresholding|(}\index{thresholding!data|(}
 
 Thresholding extracts portions of a dataset data based on attribute values. For example, we may select all cells having a point with scalar value between (0,1) or all points having a velocity magnitude greater than 1.0.
 
 Scalar thresholding is easily implemented. The threshold is either a single value that scalar values are greater than or less than, or a range of values. Cells or points whose associated scalar values satisfy the threshold criteria can be extracted. Other dataset attribute types such as vectors, normals, or tensors can be extracted in similar fashion by converting the type to a single scalar value. For example, vectors can be extracted using vector magnitude, and tensors using matrix determinate.
 
 A problem with both geometry extraction and thresholding is that the approaches presented thus far extract ``atomic'' pieces of data, that is, a complete cell. Sometimes the cell may lie across the boundary of the threshold. In this case the cell must be clipped (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields} and only a portion of the cell is extracted.
-\index{data extraction!thresholding|)}\index{modelling algorithms!data extraction!thresholding|)}
+\index{data extraction!thresholding|)}\index{modelling algorithms!data extraction!thresholding|)}\index{thresholding!data|)}
 \index{data extraction|)}\index{modelling algorithms!data extraction|)}
 
 \subsection{Probing}
@@ -631,7 +633,7 @@ Figure \ref{fig:Figure9-19} shows an example of three probes. The probes sample 
 \index{modelling algorithms!probing|)}\index{probing|)}
 
 \subsection{Triangle Strip Generation}
-\index{modelling algorithms!triangle strip generation|(}
+\index{modelling algorithms!triangle strip generation|(}\index{triangle strip generation|(}
 
 Triangle strips are compact representations of triangle polygons as described in ``Triangle Strip'' on page \pageref{subsec:linear_cells.triangle_strip}. Many rendering libraries include triangle strips as graphics primitives because they are a high-performance alternative to general polygon rendering.
 
@@ -687,7 +689,7 @@ The length of the triangle strips varies greatly depending on the structure of t
 
 
 Figure \ref{fig:Figure9-21}(left) shows triangle strips each of 390 triangles in length from a dataset that was originally structured. Such a case is an exception: unstructured triangle meshes typically average about 5-6 triangles per strip (Figure \ref{fig:Figure9-21}(right)). Even so, the memory savings are impressive. A triangle strip of length 6 requires 8 points to represent, while 8 triangles require 24 points, for a memory savings of 66.7 percent. Rendering speed may be greatly affected, too, depending upon the capabilities of the rendering system.
-\index{modelling algorithms!triangle strip generation|)}
+\index{modelling algorithms!triangle strip generation|)}\index{triangle strip generation|)}
 
 \subsection{Connectivity}
 \label{subsec:connectivity}
@@ -1204,7 +1206,7 @@ There are several approaches available to build topological structure given a ra
 
 \item[Splatting Techniques.]
 \label{subsec:visualizing_unstructured_points_splatting_techniques}
-\index{modelling algorithms!unstructured points!splatting|(}\index{splatting!unstructured points|(}
+\index{modelling algorithms!unstructured points!splatting|(}\index{splatting!unstructured points|(}\index{unstructured points!splatting|(}
 
 \begin{figure}[htb]
     \centering
@@ -1312,13 +1314,13 @@ The parameter $z$ is the distance along the vector $\overrightarrow{v\ }$, and t
 \end{figure}
 
 Figure \ref{fig:Figure9-38a} shows an elliptical splat\index{elliptical splat} with E = 10. (The splat surface is created by using isosurface extraction). As expected, the splat is an ellipsoid. Figure \ref{fig:Figure9-38b} is an application of elliptical splatting used to reconstruct a surface from an unstructured set of points. The advantage of using an elliptical splat is that we can flatten the splat in the plane perpendicular to the point normal. This tends to bridge the space between the point samples. The surface itself is extracted using a standard isosurface extraction algorithm.
-\index{modelling algorithms!unstructured points!splatting|)}\index{splatting!unstructured points|)}
+\index{modelling algorithms!unstructured points!splatting|)}\index{splatting!unstructured points|)}\index{unstructured points!splatting|)}
 
 \item[Interpolation Techniques.]
-\index{interpolation!unstructured points}\index{modelling algorithms!unstructured points!interpolation|(}
+\index{interpolation!unstructured points|(}\index{modelling algorithms!unstructured points!interpolation|(}\index{unstructured points!interpolation|(}
 Interpolation techniques construct a function to smoothly interpolate a set of unstructured points. That is, given a set of n points $p_i = (x_i, y_i, z_i)$ and function values $F_i(p_i)$, a new function $F(p$) is created that interpolates the points $p_i$. Once the interpolation function is constructed, we can build topological structure from the unstructured points by sampling $F(p)$ over an image dataset. We can then visualize the image data using any of the various techniques presented throughout the text. 
 
-Shepard's method\index{interpolation!Shepard's method}\index{Shepard's method} is an inverse distance weighted interpolation technique \cite{Wixom78}. The interpolation functions can be written
+Shepard's method\index{interpolation!Shepard's method|(}\index{Shepard's method|(} is an inverse distance weighted interpolation technique \cite{Wixom78}. The interpolation functions can be written
 
 \begin{equation}\label{eq:9.25}
 F(\overrightarrow{p\ }) = \dfrac{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{F_i}{\vert\overrightarrow{p\ } - \overrightarrow{p\ }_i\vert^2}}{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{1}{\vert\overrightarrow{p\ } - \overrightarrow{p\ }_i \vert^2}}
@@ -1337,10 +1339,11 @@ F(\overrightarrow{p\ }) = \dfrac{\mathlarger{\mathlarger{\sum}}_{i=1}^n \dfrac{F
 As a result, Shepard's method is overly constrained in the region around each point.
 
 Shepard's method is an example of a basis function method. That is, the interpolation function $F(p)$ consists of a sum of functions centered at each data point, pi. Other basis function methods have been developed as described by Nielson \cite{Nielson91a}. They vary in localization of the basis functions and the sophistication of the interpolation function. Localization of basis functions means that their effect is isolated to a small region. Examples of more sophisticated basis functions include quadratic polynomials and cubic splines. Please see the references for more information.
-\index{modelling algorithms!unstructured points!interpolation|)}
+\index{interpolation!Shepard's method|)}\index{Shepard's method|)}
+\index{interpolation!unstructured points|)}\index{modelling algorithms!unstructured points!interpolation|)}\index{unstructured points!interpolation|)}
 
 \item[Triangulation techniques.]
-\index{modelling algorithms!unstructured points!triangulation|(}
+\index{modelling algorithms!unstructured points!triangulation|(}\index{unstructured points!triangulation|(}
 Triangulation techniques build topology directly from unstructured points. The points are triangulated to create a topological structure consisting of \emph{n}--dimensional simplices that completely bound the points and linear combinations of the points (the so--called convex hull\index{convex hull}). The result of triangulation is a set of triangles (2D) or tetrahedra (3D), depending upon the dimension of the input data \cite{Lawson86}.
 
 \begin{figure}[htb]
@@ -1361,9 +1364,9 @@ Triangulation techniques build topology directly from unstructured points. The p
 	\caption{The Delaunay triangulation (a) and Dirichlet tessellation (b). The circumcircle of each triangle in a Delaunay triangulation contains no other points but the three vertices of the triangle. The region surrounding each point $p_i$ in a Dirichlet tessellation is the set of points closest to $p_i$.}\label{fig:Figure9-39}
 \end{figure}
 
-An n-dimensional triangulation of a point set $P = (p_1, p_2, p_3, ..., p_n)$ is a collection of n-dimensional simplices\index{simplex} whose defining points lie in $P$. The simplices do not intersect one another and share only boundary features such as edges or faces. The Delaunay triangulation is a particularly important form \cite{Bowyer81} \cite{Watson81}. It has the property that the circumsphere of any n-dimensional simplex contains no other points of $P$ except the $n+1$ defining points of the simplex (Figure \ref{fig:Figure9-39a}).
+An n-dimensional triangulation of a point set $P = (p_1, p_2, p_3, ..., p_n)$ is a collection of n-dimensional simplices\index{simplex} whose defining points lie in $P$. The simplices do not intersect one another and share only boundary features such as edges or faces. The Delaunay triangulation\index{triangulation!Delaunay} is a particularly important form \cite{Bowyer81} \cite{Watson81}. It has the property that the circumsphere of any n-dimensional simplex contains no other points of $P$ except the $n+1$ defining points of the simplex (Figure \ref{fig:Figure9-39a}).
 
-The Delaunay triangulation\index{Delaunay triangulation} has many interesting properties. In two dimensions, the Delaunay triangulation has been shown to be the optimal triangulation. That is, the minimum interior angle of a triangle in a Delaunay triangulation is greater than or equal to the minimum interior angle of any other possible triangulation. The Delaunay triangulation is the dual of the Dirichlet tessellation ((Figure  \ref{fig:Figure9-39a}), another important construction in computational geometry. The Dirichlet tessellation, also known as the Voronoi tessellation, is a tiling of space where each tile represents the space closest to a point $p_i$. (The tiles are called Voronoi cells). An \emph{n}---dimensional Delaunay triangulation can be constructed from the Dirichlet tessellation by creating edges between Voronoi cells that share common $n-1$ boundaries (e.g., faces in 3D and edges in 2D). Conversely, the vertices of the Dirichlet tessellation are located at the circumcenters of the Delaunay circumcircles.
+The Delaunay triangulation\index{Delaunay triangulation}\index{Delaunay triangulation!unstructured points|(} has many interesting properties. In two dimensions, the Delaunay triangulation has been shown to be the optimal triangulation. That is, the minimum interior angle of a triangle in a Delaunay triangulation is greater than or equal to the minimum interior angle of any other possible triangulation. The Delaunay triangulation is the dual of the Dirichlet tessellation ((Figure  \ref{fig:Figure9-39a}), another important construction in computational geometry. The Dirichlet tessellation, also known as the Voronoi tessellation, is a tiling of space where each tile represents the space closest to a point $p_i$. (The tiles are called Voronoi cells). An \emph{n}---dimensional Delaunay triangulation can be constructed from the Dirichlet tessellation by creating edges between Voronoi cells that share common $n-1$ boundaries (e.g., faces in 3D and edges in 2D). Conversely, the vertices of the Dirichlet tessellation are located at the circumcenters of the Delaunay circumcircles.
 
 \begin{figure}[!htb]
 	\centering
@@ -1378,8 +1381,9 @@ This simplistic presentation of triangulation techniques has shown how to create
 
 Despite these problems, triangulation methods are a powerful tool for visualizing unstructured points. Once we convert the data into a triangulation (or in our terminology, an unstructured grid), we can directly visualize our data using standard unstructured grid techniques.
 
+
 \item[Hybrid Techniques.] Recent work has focused on combining triangulation and basis function techniques for interpolating 2D bivariate data. The basic idea is as follows. A triangulation of P is constructed. Then an interpolating network of curves is defined over the edges of the triangulation. These curves are constructed with certain minimization properties of interpolating splines. Finally, the curve network is used to construct a series of triangular basis functions, or surface patches, that exhibit continuity in function value, and possibly higher order derivatives. (See \cite{Nielson91a} for more information).
-\index{modelling algorithms!unstructured points!triangulation|)}
+\index{modelling algorithms!unstructured points!triangulation|)}\index{unstructured points!triangulation|)}\index{Delaunay triangulation!unstructured points|)}
 
 \end{description}
 
@@ -1420,11 +1424,12 @@ Another useful multivariable technique uses glyphs\index{glyph!multidimensional}
 
 \subsection{Texture Algorithms}
 \label{subsec:texture_algorithms}
-\index{algorithms!texture|(}\index{modelling algorithms!texture|(}
+\index{algorithms!texture|(}\index{modelling algorithms!texture|(}\index{texture algorithms|(}
 
 Texturing is a common tool in computer graphics used to introduce detail without the high cost of graphics primitives. As we suggested in Chapter 7: \nameref{chap:advanced_computer_graphics}, texture mapping can also be used to visualize data. We explore a few techniques in the following sections.
 
 \subsubsection{Texture Thresholding}
+\index{texture algorithms!thresholding|(}\index{texture thresholding|(}\index{thresholding!using texture|(}
 
 We saw earlier how to threshold data based on scalar values (see ``Thresholding'' on page \pageref{subsubsec:thresholding}). We refer to this approach as \emph{geometric thresholding} because structural components of a dataset (e.g., points and cells) are extracted based on data value. In contrast, we can use texture mapping techniques to achieve similar results\index{geometric thresholding!versus texture thresholding}. We call this technique \emph{texture thresholding}.
 
@@ -1474,10 +1479,11 @@ To construct the texture map we use intensity-alpha\index{alpha}, or $I\alpha$ v
 
 To visualize information with the thresholding technique, we must map data to texture coordinates. As we saw previously, we can use scalar values in combination with a threshold specification to map data into the concealed, transition, and accentuated regions of the texture map. Figure \ref{fig:Figure9-43a} shows an example of texture thresholding applied to scalar data from a simulation of fluid flow. A scalar threshold sT is set to show only data with scalar value greater than or equal to sT.
 
-Another useful texture thresholding application uses implicit functions to map point position to texture coordinate. This is similar in effect to geometric clipping (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields}). As we saw in ``Implicit Functions''on page \pageref{subsec:implicit_functions}, implicit functions naturally map a $(x, y, z)$ coordinate value into three regions: $F(x, y, z) < 0$, $F(x, y, z) = 0$, and $F(x, y, z) > 0$ ; or equivalently, the concealed, transition, and accentuated regions of the texture map. Using boolean combinations of implicit functions, we can create complex cuts of our data as illustrated in Figure \ref{fig:Figure9-43b}. This figure shows two nested spheres. The outer sphere is cut by a boolean combination of two planes to show the inner sphere.
+Another useful texture thresholding application uses implicit functions to map point position to texture coordinate. This is similar in effect to geometric clipping (see ``Clipping With Scalar Fields'' on page \pageref{subsec:clipping_with_scalar_fields}). As we saw in ``Implicit Functions''on page \pageref{subsec:implicit_functions}, implicit functions naturally map a $(x, y, z)$ coordinate value into three regions: $F(x, y, z) < 0$, $F(x, y, z) = 0$, and $F(x, y, z) > 0$; or equivalently, the concealed, transition, and accentuated regions of the texture map. Using boolean combinations of implicit functions, we can create complex cuts of our data as illustrated in Figure \ref{fig:Figure9-43b}. This figure shows two nested spheres. The outer sphere is cut by a boolean combination of two planes to show the inner sphere.
+\index{texture algorithms!thresholding|)}\index{texture thresholding|)}\index{thresholding!using texture|)}
 
 \subsubsection{Boolean Textures}
-\index{boolean texture|(}
+\index{boolean texture|(}\index{texture algorithms!boolean texture|(}
 
 Texture thresholding can be extended into higher dimensions. That is, 2D or 3D texture coordinates can be used to map two or three data variables into a texture map. One such technique is boolean textures, a method to clip geometry using a 2D texture map and two implicit functions \cite{Lorensen93}.
 
@@ -1509,10 +1515,10 @@ The boolean texture map is modified to reflect this as shown in Figure  \ref{fig
 \end{figure}
 
 The boolean texture map can be created with combinations of intensity and transparency values to achieve a variety of effects. By combining the four combinations of in/out (i.e., four regions of Figure \ref{fig:Figure9-44}) with the two combinations of ``conceal'' and ``accentuate'', sixteen different boolean textures are possible. Figure \ref{fig:Figure9-45a} illustrates these combinations expressed as boolean combinations of two implicit functions A and B. The ``inside'' of the implicit functions is indicated with subscript i, while the outside is indicated with subscript o. The boolean expressions indicate the regions that we wish to conceal, as shown by open circles. The darkened circles are the regions that are accentuated. We can see in Figure \ref{fig:Figure9-45a} the effects of applying these different boolean textures to a sphere. The implicit functions in this figure are two elliptical cylinders sharing a common axis, and rotated $90^\circ$ from one another. In addition, transition regions have been defined with $I = 0$ to generate the dark cut edges shown. All 16 spheres share the same texture coordinates; only the texture map changes.
-\index{boolean texture|)}
+\index{boolean texture|)}\index{texture algorithms!boolean texture|)}
 
 \subsubsection{Texture Animation}
-\index{animation!using texture|(}
+\index{animation!using texture|(}\index{texture algorithms!animation|(}\index{texture animation|(}
 
 Time-based animation techniques can illustrate motion or temporal data variations. This process often requires relatively large amounts of computer resource to read, process, and display the data. Thus, techniques to reduce computer resources are desirable when animating data.
 
@@ -1540,8 +1546,8 @@ As we saw in ``Hedgehogs and Oriented Glyphs'' on page \pageref{subsec:hedgehogs
 Along with the 1D texture map, the texture coordinate s must also be generated --- on a line this is straightforward. The line origin receives texture coordinate $s = 0$, while the line terminus receives texture coordinate value $s = 1$. Any intermediate points (if the vector is a polyline) are parameterized in monotonic fashion in the interval $(0,1)$. Texture coordinates need only be generated once. Only the texture map is varied to generate the vector animation.
 
 Other effects are possible by modifying the texture map. Figure \ref{fig:Figure9-45b} shows a texture map with a repeating sequence of opaque/transparent regions. In each opaque region the intensity is gradually reduced from left to right. The result is that this tends to ``feather'' the appearance of the vector motion. The resulting image is more pleasing to the eye.
-\index{algorithms!texture|)}\index{modelling algorithms!texture|)}
-\index{animation!using texture|)}
+\index{algorithms!texture|)}\index{modelling algorithms!texture|)}\index{texture algorithms|)}
+\index{animation!using texture|)}\index{texture algorithms!animation|)}\index{texture animation|)}
 \index{modelling algorithms|)}
 
 \section{Putting It All Together}
@@ -1879,7 +1885,7 @@ Other important parameters are the AspectRatio and MaximumSubIterations. AspectR
 \index{decimation!implementation|)}
 
 \subsection{Texture Clipping}
-\index{cutting!with texture|(}
+\index{cutting!with texture|(}\index{texture!and geometric clipping implementation|(}\index{texture cutting|(}
 
 Texture mapping is a powerful visualization technique. Besides adding detail to images with minimal effort, we can perform important viewing and modelling operations. One of these operations is clipping data to view internal structure.
 
@@ -1936,7 +1942,7 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
 Figure \ref{fig:Figure9-53} is an example of texture clipping using a transparent texture map. The motor show consists of five complex parts, some of which are hidden by the outer casing. To see the inside of the motor, we define an implicit clipping function. This function is simply the intersection of two planes to form a clipping "corner." The object vtkImplicitTextureCoords is used in combination with this implicit function to generate texture coordinates. These objects are then rendered with the appropriate texture map and the internal parts of the motor can be seen.
 
 The texture map consists of three regions (as described previously in the chapter). The concealed region is transparent. The transition region is opaque but with a black (zero intensity) color. The highlighted region is full intensity and opaque. As can be seen from Figure \ref{fig:Figure9-53}, the boundaries appear as black borders giving a nice visual effect.
-\index{cutting!with texture|)}
+\index{cutting!with texture|)}\index{texture!and geometric clipping implementation|)}\index{texture cutting|)}
 
 \subsection{Delaunay Triangulation}
 \index{Delaunay triangulation!implementation|(}
@@ -1999,7 +2005,7 @@ Tensor fields consist of three orthogonal vector fields. The vector fields are t
 
 Dataset topology operations generate triangle strips, extract connected surfaces, and compute surface normals. Decimation is a polygon reduction algorithm that reduces the number of triangles in a triangle mesh. Implicit modelling techniques can be used to construct swept surfaces and volumes. Unstructured points are easy to represent but difficult to visualize. Splatting, interpolation, and triangulation techniques are available to construct structure for unstructured points. Multivariate visualization is required for data of dimension four and higher. Data must be mapped to three dimensions before standard visualization techniques can be used. Parallel coordinates techniques are also available to visualize multivariate data.
 
-Modelling algorithms extract geometric structure from data, reduce the complexity of the data or create geometry. Spatial extraction selects dataset structure and associated data attributes lying within a specified region in space. Subsampling reduces data by selecting every nth data point. A related technique, data masking, selects every nth cell. Subsets of a dataset can also be selected using thresholding, which selects cells or points that lie within a range of scalar values. Probing resamples data at a set of points. The probe produces a dataset that has the topology of the probe with data values from the probed dataset. Generating triangle strips can reduce storage requirements and improve rendering speeds on some systems. If a dataset has multiple disjoint structures, a connectivity algorithm can uniquely identify the separate structures. For polygonal data that does not have vertex normals defined, normal generation algorithms can compute these values that are suitable for interpolation by Gouraud or Phong shading. Decimation, another data reduction technique, removes triangles in ``flat'' regions and fills the resulting gaps with new triangles. Unstructured points present a challenge because the data does not have topology. Splatting represents each point in the data with a uniform sampling and accumulates these splats using implicit modelling techniques. Triangulation techniques build topology directly from the unstructured points.
+Modelling algorithms extract geometric structure from data, reduce the complexity of the data or create geometry. Spatial extraction selects dataset structure and associated data attributes lying within a specified region in space. Subsampling reduces data by selecting every $n{th}$ data point. A related technique, data masking, selects every nth cell. Subsets of a dataset can also be selected using thresholding, which selects cells or points that lie within a range of scalar values. Probing resamples data at a set of points. The probe produces a dataset that has the topology of the probe with data values from the probed dataset. Generating triangle strips can reduce storage requirements and improve rendering speeds on some systems. If a dataset has multiple disjoint structures, a connectivity algorithm can uniquely identify the separate structures. For polygonal data that does not have vertex normals defined, normal generation algorithms can compute these values that are suitable for interpolation by Gouraud or Phong shading. Decimation, another data reduction technique, removes triangles in ``flat'' regions and fills the resulting gaps with new triangles. Unstructured points present a challenge because the data does not have topology. Splatting represents each point in the data with a uniform sampling and accumulates these splats using implicit modelling techniques. Triangulation techniques build topology directly from the unstructured points.
 
 Multidimensional visualization techniques focus on data that has many scalar data values for each point. Parallel coordinates is an interesting approach that plots the scalar values for a data point along a parallel axis. The observer looks for trends and relationships between the lines that represent each point's data.
 

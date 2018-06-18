@@ -16,7 +16,7 @@
 \firstletter{I}n the previous chapter we created graphical images using simple mathematical models for lighting, viewing, and geometry. The lighting model included ambient, diffuse, and specular effects. Viewing included the effects of perspective and projection. Geometry was defined as a static collection of graphics primitives such as points and polygons. In order to describe the process of visualization we need to extend our understanding of geometry to include more complex forms. We will see that the visualization process transforms data into graphics primitives. This chapter examines the process of data transformation and develops a model of data flow for visualization systems.
 
 \section {Overview}
-Visualization transforms data into images that efficiently and accurately convey information about the data. Thus, visualization addresses the issues of \emph{transformation} and \emph{representation}\index{representation!in visualization}.
+Visualization transforms data into images that efficiently and accurately convey information about the data. Thus, visualization addresses the issues of \emph{transformation}\index{transformation!in visualization} and \emph{representation}\index{representation!in visualization}.
 
 Transformation is the process of converting data from its original form into graphics primitives, and eventually into computer images. This is our working definition of the visualization process. An example of such a transformation is the process of extracting stock prices and creating an $x-y$ plot depicting stock price as a function of time.
 
@@ -134,7 +134,7 @@ Mapper\index{device!mapper}\index{mapper!device}\index{mapper object} objects co
 
 \section{Pipeline Topology}
 \label{sec:pipeline_topology}
-\index{pipeline!topology|(}
+\index{pipeline!topology|(}\index{topology!pipeline|(}
 
 In this section we describe how to connect data and process objects to form visualization networks.
 
@@ -165,9 +165,9 @@ Type\index{pipeline!connections!type} means the form or type of data that proces
 	\caption{Maintaining compatible data type. (a) Single-type systems require no type checking. (b) In multiple-type systems only compatible types can be connected together.}\label{fig:Figure4-3}
 \end{figure}
 
-There are two general approaches to maintain proper input type. One approach is to design with type-less or single-type systems. That is, create a single type of data object and create filters that operate only on this one type (Figure \ref{fig:Figure4-3a}). For example, we could design a general \emph{DataSet} that represents any form of data that we're interested in, and the process objects would only input \emph{DataSets} and generate \emph{DataSets}. This approach is simple and elegant, but inflexible. Often, particularly useful algorithms (i.e., process objects) will operate only on specific types of data and generalizing them results in large inefficiencies in representation or data access. A typical example is a data object that represents structured data such as pixmaps or 3D volumes. Because the data is structured it can easily be accessed as planes or lines. However, a general representation will not include this capability since typically data is not structured.
+There are two general approaches to maintain proper input type. One approach is to design with type--less or single--type systems. That is, create a single type of data object and create filters that operate only on this one type (Figure \ref{fig:Figure4-3a}). For example, we could design a general \emph{DataSet} that represents any form of data that we're interested in, and the process objects would only input \emph{DataSets} and generate \emph{DataSets}. This approach is simple and elegant, but inflexible. Often, particularly useful algorithms (i.e., process objects) will operate only on specific types of data and generalizing them results in large inefficiencies in representation or data access. A typical example is a data object that represents structured data such as pixmaps or 3D volumes. Because the data is structured it can easily be accessed as planes or lines. However, a general representation will not include this capability since typically data is not structured.
 
-Another approach to maintain proper input type is to design typed systems. In typed systems only objects of compatible type are allowed to be connected together. That is, more than one type is designed, but type checking is performed on the input to insure proper connection. Depending on the particular computer language, type checking can be performed at compile, link, or run time. Although type checking does insure correct input type, this approach often suffers from an explosion of types. If not careful, the designers of a visualization system may create too many types, resulting in a fragmented, hard to use and understand system. In addition, the system may require a large number of \emph{type-converter} filters. (Type-converter filters serve only to transform data from one form to another.) Carried to extremes, excessive type conversion results in computationally and memory wasteful systems.
+Another approach to maintain proper input type is to design typed systems. In typed systems only objects of compatible type are allowed to be connected together. That is, more than one type is designed, but type checking\index{type checking} is performed on the input to insure proper connection. Depending on the particular computer language, type checking can be performed at compile, link, or run time. Although type checking does insure correct input type, this approach often suffers from an explosion of types. If not careful, the designers of a visualization system may create too many types, resulting in a fragmented, hard to use and understand system. In addition, the system may require a large number of \emph{type--converter}\index{type converter} filters. (Type-converter filters serve only to transform data from one form to another.) Carried to extremes, excessive type conversion results in computationally and memory wasteful systems.
 
 The issue of multiplicity\index{pipeline!connections!multiplicity} deals with the number of input data objects\index{multiple input} allowed, and the number of output data objects\index{multiple output} created during the operation of a process object (Figure \ref{fig:Figure4-4}). We know that all filter and mapper objects require at minimum one input data object, but in general these filters can operate sequentially across a list of input\index{fan--in}. Some filters may naturally require a specific number of inputs. A filter implementing boolean operations is one example. Boolean operations such as union or intersection are implemented on data values two at a time. However, even here more than two inputs may be defined as a recursive application of the operation to each input.
 
@@ -196,7 +196,7 @@ Figure \ref{fig:Figure4-5} shows an example of a feedback loop in a visualizatio
 
 We will discuss the control and execution of visualization networks in the next section. However, suffice it to say that loops can pose special problem in visualization networks depending on the design of the execution model. The design must insure that the loop does not enter an infinite loop or nonterminating recursive state. Typically, the number of executions of the loop is limited in order to view intermediate results. However, it is possible to execute the loop repeatedly to process data as required.
 \index{pipeline!loops|)}
-\index{pipeline!topology|)}
+\index{pipeline!topology|)}\index{topology!pipeline|)}
 
 \section{Executing the Pipeline}
 \label{sec:executing_pipeline}
