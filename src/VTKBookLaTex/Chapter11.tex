@@ -200,7 +200,7 @@ These four lines create an instance of vtkVRMLExporter\index{exporter!VRML}, set
 If you consider a continuum from a static data file to a fully interactive visualization program, vtkWriter would be at one end, vtkExporter in the middle, and a VTK program at the other. VRML 1.0 would fall at the same place as vtkExporter and VRML 2.0 would fall between vtkExporter and an actual program due to its added support for behavior and script interaction. What VRML lacks from a visualization perspective is algorithms. VRML is a 3D multimedia content format and lacks direct support for applying visualization techniques or algorithms.
 
 \section{A VRML Visualization Server}
-\index{server!VRML|(}\index{VRML!visualization server|(}
+\index{server!VRML|(}\index{VRML!visualization server|(}\index{visualization!using VRML|(}
 
 We can improve on the earlier MPEG visualization server example by creating a VRML visualization server. The primary limitations of the MPEG approach were that the processing burden was on the server, and the client-side interaction was limited to requesting that a different MPEG animation be generated. In our improved example, the basic idea is the same as before. That is, we use a HTML form to define parameters for a visualization, which then spawns off a CGI-BIN script. The difference is that in this example the server will generate a VRML data file that is returned to the client. The client can then control the viewpoint and rendering of the VRML result. The data and visualization software still reside on the server, so the client is only required to have a VRML compatible Web browser.
 
@@ -256,10 +256,10 @@ vtkVRMLExporter *writer = vtkVRMLExporter::New();
 \end{lstlisting}
 
 Finally an instance of vtkVRMLExporter\index{export!VRML} is created, assigned an instance of vtkRenderWindow as input, and set to write to standard output. When the Write() method is applied, the exporter updates the visualization pipeline and produces the VRML output. The vtkRenderWindow is never rendered and no windows appear on the server. There is no need for an interactor because the interaction will be handled by the client's VRML browser. This program simply reads in a string of input (the parameters from the form) and then produces a string of output (the VRML data). It is also important to remember that CGI--BIN scripts are typically run from a different user id and environment than your own; file names and paths should be fully specified.
-\index{server!VRML|)}\index{VRML!visualization server|)}
+\index{server!VRML|)}\index{VRML!visualization server|)}\index{visualization!using VRML|)}
 
 \section{Visualization with Java}
-\index{Java|(}
+\index{Java|(}\index{visualization!using Java|(}\index{VTK!and Java|(}
 
 The examples discussed so far have addressed Web-based visualization in a number of ways. We have seen how to present preconstructed content such as images and animations using HTML, as well as creating interactive worlds with VRML. Each technique has its benefits but lacks the flexibility found in a custom-developed program. This is where Java stands out. Java's origins trace back to an embedded control language for small appliances and personal digital assistants. As such it was designed to work on a wide variety of hardware without recompilation and with high reliability. These same qualities are valuable to Web programming where a single program must run on many different machines without fail.
 
@@ -345,10 +345,10 @@ panel.GetRenderer().AddActor(a);
 The resulting applet is shown in Figure \ref{fig:Figure11-4}.
 
 This demonstrates one of the advantages of using Java for Web visualization. VRML would require that the geometry of each vibrational mode be sent to the client for viewing. With Java and VTK the geometry can be sent once along with a set of scalar displacements for each vibrational mode. Then as the client switches between modes, the geometry can be modified quickly by the client without any additional network traffic. In fact the client could mix vibrational modes or perform an animation showing the vibration of the plate all without having to go back to the server, and without requiring much more data than a single VRML model of the plate. If the client decided to examine another geometry, say the vibrational modes of a disc, then it would likely return to the server for the new data. This is the flexibility that Java provides.
-\index{Java|)}
+\index{Java|)}\index{visualization!using Java|)}\index{VTK!and Java|)}
 
 \section{Java3D}
-\index{Java3D|(}
+\index{Java3D|(}\index{visualization!using Java3D|(}
 
 Similar to a native code implementation (such as a VTK implementation) Java3D provides access to hardware accelerated 3D graphics. Java3D provides both scene graph rendering similar to VRML, and high-level immediate mode rendering. The immediate mode rendering support is not as complete as libraries like OpenGL or DirectX, but it does provide a good subset of its functionality. Java3D does share some of the limitations of native code implementations in that the client must have a version of Java3D for their operating system installed for it to work. There are also some limitations in how both Java3D and native interfaces interact with lightweight GUI components such as swing.
 
@@ -448,7 +448,7 @@ public void addBranchGraph(BranchGroup bg) {
   locale.addBranchGraph(bg);
    }
 \end{lstlisting}
-\index{Java3D|)}
+\index{Java3D|)}\index{visualization!using Java3D|)}
 
 \section{VRML, Java, and the EAI}
 \index{External Authoring Interface|(}\index{EAI|see {External Authoring Interface}}
