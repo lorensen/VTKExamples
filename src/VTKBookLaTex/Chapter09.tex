@@ -181,17 +181,18 @@ Figure \ref{fig:Figure9-10} shows a scanned image that is first converted to a q
 \index{scalar algorithms|)}
 
 \section{Vector Algorithms}
+\index{vector algorithms|(}
 
 In Chapter 6: \nameref{chap:fundamental_algorithms} we showed how to create simple vector glyphs and how to integrate particles through a vector field to create streamlines. In this section we extend these concepts to create streamribbons and streampolygons. In addition, we introduce the concept of vector field topology, and show how to characterize a vector field using topological constructs.
 
 \subsection{Streamribbons and Streamsurfaces}
-\index{streamribbon|(}\index{streamsurface|(}
+\index{streamribbon|(}\index{streamsurface|(}\index{vector algorithms!streamribbon|(}\index{vector algorithms!streamsurface|(}
 
 Streamlines depict particle paths in a vector field. By coloring these lines, or creating local glyphs (such as dashed lines or oriented cones), we can represent additional scalar and temporal information. However, these techniques can convey only elementary information about the vector field. Local information (e.g., flow rotation or derivatives) and global information (e.g., structure of a field such as vortex tubes) is not represented. Streamribbons and streamsurfaces are two techniques used to represent local and global information.
 
 A natural extension of the streamline\index{streamline} technique widens the line to create a ribbon. The ribbon can be constructed by generating two adjacent streamlines and then bridging the lines with a polygonal mesh. This technique works well as long as the streamlines remain relatively close to one another. If separation occurs, so that the streamlines diverge, the resulting ribbon will not accurately represent the flow, because we expect the surface of the ribbon to be everywhere tangent to the vector field (i.e., definition of streamline). The ruled surface connecting two widely separated streamlines does not generally satisfy this requirement.
 
-The streamribbon provides information about important flow parameters: the vector vorticity and flow divergence. \emph{Vorticity} $\Omega$ is the measure of rotation of the vector field, expressed as a vector quantity: a direction (axis of rotation) and magnitude (amount of rotation). \emph{Streamwise vorticity}\index{streamwise vorticity} $\Omega$ is the projection of $\overrightarrow{\omega\ }$ along the instantaneous velocity vector, $\overrightarrow{v\ }$. Said another way, streamwise vorticity is the rotation of the vector field around the streamline defined as follows.
+The streamribbon provides information about important flow parameters: the vector vorticity and flow divergence. \emph{Vorticity}\index{vorticity} $\Omega$ is the measure of rotation of the vector field, expressed as a vector quantity: a direction (axis of rotation) and magnitude (amount of rotation). \emph{Streamwise vorticity}\index{streamwise vorticity} $\Omega$ is the projection of $\overrightarrow{\omega\ }$ along the instantaneous velocity vector, $\overrightarrow{v\ }$. Said another way, streamwise vorticity is the rotation of the vector field around the streamline defined as follows.
 
 \begin{equation}\label{eq:9.3}
 \Omega = \frac{\overrightarrow{v\ } \cdot \overrightarrow{\omega\ }}{\vert \overrightarrow{v\ } \vert \vert \overrightarrow{\omega\ } \vert}
@@ -207,10 +208,10 @@ Compared to vector icons or streamlines, streamsurfaces provide additional infor
 Streamsurfaces can be computed by generating a set of streamlines from a user--specified rake. A polygonal mesh is then constructed by connecting adjacent streamlines. One difficulty with this approach is that local vector field divergence can cause streamlines to separate. Separation can introduce large errors into the surface, or possibly cause self-intersection, which is not physically possible.
 
 Another approach to computing streamsurfaces has been taken by Hultquist \cite{Hultquist92}. The streamsurface is a collection of streamribbons connected along their edges. In this approach, the computation of the streamlines and tiling of the streamsurface is carried out concurrently. This allows streamlines to be added or removed as the flow separates or converges. The tiling can also be controlled to prevent the generation of long, skinny triangles. The surface may also be ``torn'', i.e., ribbons separated, if the divergence of the flow becomes too high.
-\index{streamribbon|)}\index{streamsurface|)}
+\index{streamribbon|)}\index{streamsurface|)}\index{vector algorithms!streamribbon|)}\index{vector algorithms!streamsurface|)}
 
 \subsection{Stream Polygon}
-\index{streampolygon|(}
+\index{streampolygon|(}\index{vector algorithms!streampolygon|(}
 
 he techniques described so far provide approximate measures of vector field quantities such as streamwise vorticity and divergence. However, vector fields contain more information than these techniques can convey. As a result, other techniques have been devised to visualize this information. One such technique is the stream polygon \cite{Schroeder91}, which serves as the basis for a number of advanced vector and tensor visualization methods. The stream polygon is used to visualize local properties of strain, displacement, and rotation. We begin by describing the effects of a vector field on the local state of strain.
 
@@ -355,9 +356,10 @@ r(\overrightarrow{v\ }) = r_\text{max} \sqrt{\dfrac{\vert\overrightarrow{v}_\tex
 represents an area of constant mass flow. As a result, the tube will thicken as the flow slows and narrow as the velocity increases. Each of the \emph{n} sides of the tube can be colored with a different scalar function, although for visual clarity, at most, one or two functions should be used.
 
 The streamtubes generated by the streampolygon and the streamtubes we described in the previous section are not the same. The streampolygon does not necessarily lie along a streamline. If it does, the streampolygon represents information at a point, while the streamtube is an approximation constructed from multiple streamlines. Also, the radial variation in the tubes constructed from streampolygon sweeps do not necessarily relate to mass flow since the radius in a streampolygon can be tied to an arbitrary scalar variable.
-\index{streampolygon|)}
+\index{streampolygon|)}\index{vector algorithms!streampolygon|)}
 
 \subsection{Vector Field Topology}
+\index{vector algorithms!field topology|(}\index{vector field topology|(}
 
 Vector fields have a complex structure characterized by special features called critical points \cite{Globus91} \cite{Helman91}. Critical points\index{critical point} are locations in the vector field where the local vector magnitude goes to zero and the vector direction becomes undefined. At these points the vector field either converges or diverges, and/or local circulation around the point occurs.
 
@@ -440,9 +442,9 @@ and is referred to as the Jacobian. The behavior of the vector field in the vici
 	\caption{Critical points in two dimensions. The real part of the eigenvalues ($R_1$, $R_2$) of the matrix of first derivatives control the attraction or repulsion of the vector field. The imaginary part of the eigenvalues ($I_1$, $I_2$) controls the rotation.}\label{fig:Figure9-13}
 \end{figure}
 
-A number of visualization techniques have been developed to construct vector field topology from an analysis of critical points. These techniques provide a global understanding of the field, including points of \emph{attachment}\index{attachment point} and \emph{detachment}\index{detachment point} and field \emph{vortices}. Using a fluid flow analogy, points of attachment and detachment occur on the surface of an object where the tangential component of the vector field goes to zero, and the flow is perpendicular to the surface. Thus, streamlines will begin or end at these points. There is no common definition for a vortex, but generally speaking, vortices are regions of relatively concentrated vorticity (e.g., flow rotation). The study of vortices is important because they represent areas of energy loss, or can have significant impact on downstream flow conditions (e.g., trailing vortices behind large aircraft).
+A number of visualization techniques have been developed to construct vector field topology from an analysis of critical points. These techniques provide a global understanding of the field, including points of \emph{attachment}\index{attachment point} and \emph{detachment}\index{detachment point} and field \emph{vortices}\index{vortices}. Using a fluid flow analogy, points of attachment and detachment occur on the surface of an object where the tangential component of the vector field goes to zero, and the flow is perpendicular to the surface. Thus, streamlines will begin or end at these points. There is no common definition for a vortex, but generally speaking, vortices are regions of relatively concentrated vorticity (e.g., flow rotation). The study of vortices is important because they represent areas of energy loss, or can have significant impact on downstream flow conditions (e.g., trailing vortices behind large aircraft).
 
-One useful visualization technique creates vector field skeletons that divide the vector field into separate regions. Within each region, the vector field is topologically equivalent to uniform flow. These skeletons are created by locating critical points, and then connecting the critical points with streamlines. In 3D vector field analysis this technique can be applied to the surface of objects to locate lines of flow separation and attachment and other important flow features. Also, in general 3D flow, the regions of uniform flow are separated by surfaces, and creation of 3D flow skeletons is a current research topic.
+One useful visualization technique creates vector field skeletons\index{vector field skeletons} that divide the vector field into separate regions. Within each region, the vector field is topologically equivalent to uniform flow. These skeletons are created by locating critical points, and then connecting the critical points with streamlines. In 3D vector field analysis this technique can be applied to the surface of objects to locate lines of flow separation and attachment and other important flow features. Also, in general 3D flow, the regions of uniform flow are separated by surfaces, and creation of 3D flow skeletons is a current research topic.
 
 Vortex visualization is another area of current research. One technique computes the \emph{helicity--density}\index{helicity--density}
 
@@ -452,6 +454,7 @@ H_d = \overrightarrow{v\ } \cdot \overrightarrow{w\ } = \vert \overrightarrow{v\
 \myequations{Scalar function of the vector dot product. }
 
 This is a scalar function of the vector dot product between the vorticity and the local vector. Large positive values of $H_d$ result in right-handed vortices, while large negative values indicate lefthanded vortices. Helicity-density can be conveniently shown using isosurfaces, which gives an indication for the location and structure of a vortex.
+\index{vector algorithms|)}\index{vector algorithms!field topology|)}\index{vector field topology|)}
 
 \section{Tensor Algorithms}
 \index{tensor algorithms|(}
@@ -1276,7 +1279,7 @@ Splats may be accumulated using the standard implicit modeling boolean operation
 
 Another interesting variation modifies the shape of the splat according to a vector quantity such as surface normal or vector data. Figure \ref{fig:Figure9-37c} shows an example where the splat shape is elongated in the direction parallel to a vector. Thus, if we have a set of points and normals, we can create a polygonal surface by combining splatting with isosurface extraction\index{isosurface!and splatting}.
 
-To generate oriented splats\index{oriented splat}, we modify Equation \ref{eq:9.22} by introducing an eccentricity factor $E$ and the vector $\overrightarrow{v\  }$.
+To generate oriented splats\index{oriented splat}\index{vector algorithms!oriented splat}, we modify Equation \ref{eq:9.22} by introducing an eccentricity factor $E$ and the vector $\overrightarrow{v\  }$.
 
 \begin{equation}\label{eq:9.23}
 \text{SF}(x, y, z) = s\, e^{-f \left( \dfrac{ \left( \dfrac {r_{xy}}{E} \right) ^2 + z^2}{R^2} \right)}
@@ -1733,7 +1736,7 @@ Other visualization systems treat this problem differently. In these systems a d
 	\caption{Visualization of multidimensional financial data. Visualization network, output image, and sample C++ code are shown (finance.cxx). The gray/wireframe surface represents the total data population. The dark surface represents data points delinquent on loan payment.}\label{fig:Figure9-50}
 \end{figure}
 
-\begin{lstlisting}[language=C++, caption={Visualizing multidimensional data.}]
+\begin{lstlisting}[language=C++, caption={Visualizing multidimensional data.}, escapechar=\#]
 // construct pipeline for delinquent population
 vtkGaussianSplatter *lateSplatter = vtkGaussianSplatter::New();
   lateSplatter->SetInput(dataSet);
@@ -1746,7 +1749,7 @@ vtkContourFilter *lateSurface = vtkContourFilter::New();
 vtkPolyDataMapper *lateMapper = vtkPolyDataMapper::New();
   lateMapper->SetInput(lateSurface->GetOutput());
   lateMapper->ScalarVisibilityOff();
-vtkActor *lateActor = vtkActor::New();
+vtkActor#\index{vtkActor!example}# *lateActor = vtkActor::New();
   lateActor->SetMapper(lateMapper);
   lateActor->GetProperty()->SetColor(1.0,0.0,0.0);
 \end{lstlisting}
@@ -1794,7 +1797,7 @@ To illustrate the application of connectivity analysis, we will use an MRI datas
         \label{fig:Figure9-51c}
 	\end{subfigure}
 	\begin{subfigure}[h]{0.76\linewidth}
-        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
+        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none, escapechar=\%]
         vtkMCubesReader reader
           reader SetFileName \
             "$env(VTK_TEXTBOOK_DATA)/pineRoot/pine_root.tri"
@@ -1804,7 +1807,7 @@ To illustrate the application of connectivity analysis, we will use an MRI datas
         vtkPolyDataMapper isoMapper
           isoMapper SetInputConnection [connect GetOutputPort]
           isoMapper ScalarVisibilityOff
-        vtkActor isoActor
+        vtkActor%\index{vtkActor!example}% isoActor
           isoActor SetMapper isoMapper
           eval [isoActor GetProperty] SetColor $raw_sienna
         vtkOutlineFilter outline
@@ -1906,7 +1909,7 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.76\linewidth}
-        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
+        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none, escapechar=\%]
         # texture
         vtkStructuredPointsReader texReader
           texReader SetFileName "$VTK_DATA_ROOT/Data/texThres2.vtk"
@@ -1927,7 +1930,7 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
           tex1 SetRFunction planes
         vtkDataSetMapper byuMapper
           byuMapper SetInputConnection [tex1 GetOutputPort]
-        vtkActor byuActor
+        vtkActor%\index{vtkActor!example}% byuActor
           byuActor SetMapper byuMapper
           byuActor SetTexture texture
           eval [byuActor GetProperty] SetColor $cold_grey

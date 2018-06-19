@@ -42,15 +42,15 @@ We also may classify algorithms according to the type of data they operate on, o
 
 \item \emph{Scalar algorithms}\index{algorithms!scalar}\index{scalar algorithms} operate on scalar data. For example, the generation of contour lines of temperature on a weather map.
 
-\item \emph{Vector\index{algorithms!vector} algorithms} operate on vector data. Showing oriented arrows of airflow (direction and magnitude) is an example of vector visualization.
+\item \emph{Vector algorithms\index{algorithms!vector}\index{vector algorithms}} operate on vector data. Showing oriented arrows of airflow (direction and magnitude) is an example of vector visualization.
 
 \item \emph{Tensor\index{algorithms!tensor} algorithms\index{tensor algorithms}} operate on tensor matrices. An example of a tensor algorithm is to show the components of stress or strain in a material using oriented icons.
 
-\item \emph{Modelling\index{algorithms!modelling} algorithms}\index{modelling algorithms} generate dataset topology or geometry, or surface normals or texture data. Modelling algorithms tend to be the catch-all category for many algorithms, since some do not fit neatly into any single category mentioned above. For example, generating glyphs oriented according to the vector direction and then scaled according to the scalar value, is a combined scalar/vector algorithm. For convenience we classify such an algorithm as a modelling algorithm, because it does not fit squarely into any other category.
+\item \emph{Modelling\index{algorithms!modelling} algorithms}\index{modelling algorithms} generate dataset topology or geometry, or surface normals or texture data. Modelling algorithms tend to be the catch--all category for many algorithms, since some do not fit neatly into any single category mentioned above. For example, generating glyphs oriented according to the vector direction and then scaled according to the scalar value, is a combined scalar/vector algorithm. For convenience we classify such an algorithm as a modelling algorithm, because it does not fit squarely into any other category.
 
 \end{itemize}
 
-Algorithms also can be classified according to the type of data they process. This is the most common scheme found in the visualization literature. However, this scheme is not without its problems. Often the categories overlap, resulting in confusion. For example, a category (not mentioned above) is \emph{volume visualization}, which refers to the visualization of volume data (or in our terminology, image data). This category was initially created to describe the visualization of scalar data arranged on a volume, but more recently, vector (and even tensor) data has been visualized on a volume. Hence, we have to qualify our techniques to \emph{volume vector visualization}, or other potentially confusing combinations.
+Algorithms also can be classified according to the type of data they process. This is the most common scheme found in the visualization literature. However, this scheme is not without its problems. Often the categories overlap, resulting in confusion. For example, a category (not mentioned above) is \emph{volume visualization}\index{volume visualization}, which refers to the visualization of volume data (or in our terminology, image data). This category was initially created to describe the visualization of scalar data arranged on a volume, but more recently, vector (and even tensor) data has been visualized on a volume. Hence, we have to qualify our techniques to \emph{volume vector visualization}, or other potentially confusing combinations.
 
 In the text that follows, we will use the attribute type classification scheme: scalar, vector, tensor, and modelling. In cases where the algorithms operate on a particular dataset type, we place them in the appropriate category according to our best judgment. Be forewarned, though, that alternative classification schemes do exist, and may be better suited to describing the true nature of the algorithm.
 
@@ -264,18 +264,18 @@ Part of the creative practice of visualization is selecting the best technique f
 \index{algorithms!scalar|)}\index{scalar algorithms|)}
 
 \section{Vector Algorithms}
-\index{algorithms!vector|(}
+\index{algorithms!vector|(}\index{vector algorithms|(}
 
 Vector data is a three--dimensional representation of direction and magnitude. Vector data often results from the study of fluid flow, or when examining derivatives (i.e., rate of change) of some quantity.
 
 \subsection{Hedgehogs and Oriented Glyphs}
 \label{subsec:hedgehogs_oriented_glyphs}
-\index{hedgehog|(}
+\index{hedgehog|(}\index{vector algorithms!hedgehog|(}
 
 A natural vector visualization technique is to draw an oriented,
 scaled line for each vector (Figure \ref{fig:Figure6-13a}). The line begins at the point with which the vector is associated and is oriented in the direction of the vector components $(v_x, v_y, v_z)$. Typically, the resulting line must be scaled up or down to control the size of its visual representation. This technique is often referred to as a \emph{hedgehog} because of the bristly result.
 
-There are many variations of this technique Figure \ref{fig:Figure6-13b}). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented ``glyphs''\index{oriented glyph} can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
+There are many variations of this technique Figure \ref{fig:Figure6-13b}). Arrows may be added to indicate the direction of the line. The lines may be colored according to vector magnitude, or some other scalar quantity (e.g., pressure or temperature). Also, instead of using a line, oriented ``glyphs''\index{oriented glyph}\index{vector algorithms!oriented glyph} can be used. By glyph we mean any 2D or 3D geometric representation such as an oriented triangle or cone.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.24\linewidth}
@@ -298,9 +298,10 @@ There are many variations of this technique Figure \ref{fig:Figure6-13b}). Arrow
 Care should be used in applying these techniques. In 3D it is often difficult to understand the position and orientation of a vector because of its projection into a 2D image. Also, using large numbers of vectors can clutter the display to the point where the visualization becomes meaningless. Figure \ref{fig:Figure6-13c} shows 167,000 3D vectors (using oriented and scaled lines) in the region of the human carotid artery. The larger vectors lie inside the arteries, the smaller vectors lie outside the arteries and are randomly oriented (measurement error) but small in magnitude. Clearly the details of the vector field are not discernible from this image.
 
 Scaling glyphs also poses interesting problems. In what Tufte has termed a ``visualization lie'', \cite{Tufte83} scaling a 2D or 3D glyph results in nonlinear differences in appearance. The surface area of an object increases with the square of its scale factor, so two vectors differing by a factor of two in magnitude may appear up to four times different based on surface area. Such scaling issues are common in data visualization, and great care must be taken to avoiding misleading viewers.
-\index{hedgehog|)}
+\index{hedgehog|)}\index{vector algorithms!hedgehog|)}
 
 \subsection{Warping}
+\index{vector algorithms!warping|(}
 
 Vector data is often associated with ``motion''. The motion is in the form of velocity or displacement. An effective technique for displaying such vector data is to ``warp'' or deform geometry according to the vector field. For example, imagine representing the displacement of a structure under load by deforming the structure. Or if we are visualizing the flow of fluid, we can create a flow profile by distorting a straight line inserted perpendicular to the flow.
 
@@ -320,10 +321,11 @@ Vector data is often associated with ``motion''. The motion is in the form of ve
 Figure \ref{fig:Figure6-14} shows two examples of vector warping. In the first example the motion of a vibrating beam is shown. The original undeformed outline is shown in wireframe. The second example shows warped planes in a structured grid dataset. The planes are warped according to flow momentum. The relative back and forward flow are clearly visible in the deformation of the planes.
 
 Typically, we must scale the vector field to control geometric distortion. Too small a distortion may not be visible, while too large a distortion can cause the structure to turn inside out or selfintersect. In such a case the viewer of the visualization is likely to lose context, and the visualization will become ineffective.
+\index{vector algorithms!warping|)}
 
 \subsection{Displacement Plots}
 \label{subsec:displacement_plots}
-\index{displacement plot|(}
+\index{displacement plot|(}\index{vector algorithms!displacement plot|(}
 
 Vector displacement on the surface of an object can be visualized with displacement plots. A displacement plot shows the motion of an object in the direction perpendicular to its surface. The object motion is caused by an applied vector field. In a typical application the vector field is a displacement or strain field.
 
@@ -345,10 +347,10 @@ A useful application of this technique is the study of vibration. In vibration a
 \end{figure}
 
 Figure \ref{fig:Figure6-15b}  shows modal lines for a vibrating rectangular beam. The vibration mode in this figure is the second torsional mode, clearly indicated by the crossing modal lines. (The aliasing in the figure is because of the coarseness of the analysis mesh.) To create the figure we combined the procedure of Figure \ref{fig:Figure6-15a}  with a special lookup table. The lookup table was arranged with white areas in the center (i.e., corresponds to zero dot product) and dark areas at the beginning and end of the table (corresponds to $1$ or $-1$ dot product). As a result, regions of large normal displacement are dark and regions near the modal lines are light.
-\index{displacement plot|)}
+\index{displacement plot|)}\index{vector algorithms!displacement plot|)}
 
 \subsection{Time Animation}
-\index{time animation|(}
+\index{time animation|(}\index{vector algorithms!time animation|(}
 
 Some of the techniques described so far can be thought of as moving a point or object over a small time step. The hedgehog line is an approximation of a point's motion over a time period whose duration is given by the scale factor. In other words, if velocity $\vec{V} = dx/dt$, then displacement of a point is
 
@@ -425,12 +427,12 @@ This process can be computationally demanding. There are two important steps we 
 \item \emph{Improving search procedures.} There are two distinct types of searches. Initially, the starting location of the particle must be determined by a global search procedure. Once the initial location of the point is determined in the dataset, an incremental search procedure can then be used. Incremental searching is efficient because the motion of the point is limited within a single cell, or at most across a cell boundary. Thus, the search space is greatly limited, and the incremental search is faster relative to the global search.
 
 \item \emph{Coordinate transformation.} The cost of a coordinate transformation from global to local coordinates can be reduced if either of the following conditions are true: the local and global coordinate systems are identical with one another (or vary by \emph{xyz} translation), or if the vector field is transformed from global space to local coordinate space. The image data coordinate system is an example of a local coordinates which are parallel to global coordinates, hence global to local coordinate transformation can be greatly accelerated. If the vector field is transformed into local coordinates (either as a preprocessing step or on a cell by cell basis), then the integration can proceed completely in local space. Once the integration path is computed, selected points along the path can be transformed into global space for the sake of visualization.
-\index{time animation|)}
+\index{time animation|)}\index{vector algorithms!time animation|)}
 
 \end{enumerate}
 
 \subsection{Streamlines}
-\index{streamline|(}
+\index{streamline|(}\index{vector algorithms!streamline|(}
 
 A natural extension of the previous time animation techniques is to connect the point position over many time steps. The result is a numerical approximation to a particle trace represented as a line.
 
@@ -466,9 +468,9 @@ Many enhancements of streamline visualization exist. Lines can be colored accord
 	\includegraphics[width=0.96\linewidth]{Figure6-19}
 	\caption{airflow around a blunt fin. (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/BluntStreamlines}{BluntStreamlines.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/BluntStreamlines/}{BluntStreamlines.py})}\label{fig:Figure6-19}
 \end{figure}
-\index{streamline|)}
+\index{streamline|)}\index{vector algorithms!streamline|)}
 
-\index{algorithms!vector|)}
+\index{algorithms!vector|)}\index{vector algorithms|)}
 
 \section{Tensor Algorithms}
 \index{algorithms!tensor|(}\index{tensor algorithms|(}
@@ -940,7 +942,7 @@ Algorithms are implemented in the \emph{Visualization Toolkit} as process object
 \item[Source Design.\index{source object!implementation|(}]
 Source objects have no visualization data for input and one or more outputs, Figure \ref{fig:Figure6-34} illustrates this for the concrete source object vtkSphereSource. This class inherits from vtkPolyDataAlgorithm, indicating that it creates polygonal data on output.
 
-The convenience object vtkPolyDataAlgorithm has been created to simplify subclass derivation. For example, vtkBYUReader is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm.
+The convenience object vtkPolyDataAlgorithm has been created to simplify subclass derivation. For example, vtkBYUReader is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm\index{vtkAlgorithm}.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -1083,7 +1085,7 @@ A few final notes on using lookup tables.
 
 \begin{itemize}
 
-\item  Mappers use their lookup table to map scalar values to colors. If no scalars are present, the mappers and their lookup tables do not control the color of the object. Instead the vtkProperty object associated with the vtkActor class does. Use vtkProperty's method \sloppy{\lstinline{actor->GetProperty()->SetColor(r,g,b)}} where r, g, and b are floating point values specifying color.
+\item  Mappers use their lookup table to map scalar values to colors. If no scalars are present, the mappers and their lookup tables do not control the color of the object. Instead the vtkProperty object associated with the vtkActor\index{vtkActor} class does. Use vtkProperty's method \sloppy{\lstinline{actor->GetProperty()->SetColor(r,g,b)}} where r, g, and b are floating point values specifying color.
 
 \item If you want to prevent scalars from coloring your object, use vtkMapper's method \sloppy{\lstinline{mapper->ScalarVisibilityOff()}} to turn off color mapping. Then the actor's color will control the color of the object.
 
@@ -1183,7 +1185,7 @@ Although these results do not represent all implementations or the behavior of o
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.96\linewidth}
-		\begin{lstlisting}[language=C++, caption={}]
+		\begin{lstlisting}[language=C++, caption={}, escapechar=\#]
 		// Define implicit function
 		vtkQuadric *quadric = vtkQuadric::New();
 		  quadric->SetCoefficients(.5,1,.2,0,.1,0,0,.2,0,0);
@@ -1196,7 +1198,7 @@ Although these results do not represent all implementations or the behavior of o
 		vtkPolyDataMapper *contourMapper = vtkPolyDataMapper::New();
 		  contourMapper->SetInputConnection( contour->GetOutputPort());
 		  contourMapper->SetScalarRange(0,1.2);
-		vtkActor *contourActor = vtkActor::New();
+		vtkActor#\index{vtkActor!example}# *contourActor = vtkActor::New();
 		  contourActor->SetMapper(contourMapper);
 		// Create outline
 		vtkOutlineFilter *outline = vtkOutlineFilter::New();

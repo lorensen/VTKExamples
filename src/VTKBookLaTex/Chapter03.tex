@@ -51,7 +51,7 @@ It wasn't until the early 1980s that a paper by Turner Whitted \cite{Whitted80} 
 
 \subsection{Surface versus Volume Rendering}
 
-The discussion to this point in the text has tacitly assumed that when we render an object, we are viewing the surfaces of objects and their interactions with light. However, common objects such as clouds, water, and fog, are translucent, or scatter light that passes through them. Such objects cannot be rendered using a model based exclusively on surface interactions. Instead, we need to consider the changing properties inside the object to properly render them. We refer to these two rendering models as \emph{surface rendering} (i.e., render the surfaces of an object) and \emph{volume rendering} (i.e., render the surface and interior of an object).
+The discussion to this point in the text has tacitly assumed that when we render an object, we are viewing the surfaces of objects and their interactions with light. However, common objects such as clouds, water, and fog, are translucent, or scatter light that passes through them. Such objects cannot be rendered using a model based exclusively on surface interactions. Instead, we need to consider the changing properties inside the object to properly render them. We refer to these two rendering models as \emph{surface rendering} (i.e., render the surfaces of an object) and \emph{volume rendering}\index{volume rendering} (i.e., render the surface and interior of an object).
 
 Generally speaking, when we render an object using surface rendering\index{rendering!surface}\index{surface rendering} techniques, we mathematically model the object with a surface description such as points, lines, triangles, polygons, or 2D and 3D splines. The interior of the object is not described, or only implicitly represented from the surface representation (i.e., surface is the boundary of the volume). Although techniques do exist that allow us to make the surface transparent or translucent, there are still many phenomena that cannot be simulated using surface rendering techniques alone (e.g., scattering or light emission). This is particularly true if we are trying to render data interior to an object, such as X-ray intensity from a CT scan.
 
@@ -255,7 +255,7 @@ The model\index{coordinate system!model}\index{model coordinate system} coordina
 
 The world\index{coordinate system!world} coordinate system is the 3D space in which the actors are positioned. One of the actor's responsibilities is to convert from the model's coordinates into world coordinates. Each model may have its own coordinate system but there is only one world coordinate system. Each actor must scale, rotate, and translate its model into the world coordinate system. (It may also be necessary for the modeller to transform from its natural coordinate system into a local Cartesian system. This is because actors typically assume that the model coordinate system is a local Cartesian system.) The world coordinate system is also the system in which the position and orientation of cameras and lights are specified.
 
-The view\index{coordinate system!view} coordinate system represents what is visible to the camera. This consists of a pair of x and y values, ranging between $(-1,1)$, and a \emph{z} depth coordinate. The \emph{x}, \emph{y} values specify location in the image plane, while the \emph{z} coordinate represents the distance, or range, from the camera. The camera's properties are represented by a four by four transformation matrix\index{transformation matrix} (to be described shortly), which is used to convert from world coordinates into view coordinates. This is where the perspective effects of a camera are introduced.
+The view\index{coordinate system!view}\index{view coordinate system} coordinate system represents what is visible to the camera. This consists of a pair of x and y values, ranging between $(-1,1)$, and a \emph{z} depth coordinate. The \emph{x}, \emph{y} values specify location in the image plane, while the \emph{z} coordinate represents the distance, or range, from the camera. The camera's properties are represented by a four by four transformation matrix\index{transformation matrix} (to be described shortly), which is used to convert from world coordinates into view coordinates. This is where the perspective effects of a camera are introduced.
 
 The display coordinate system\index{coordinate system!display}\index{display coordinate system} uses the same basis as the view coordinate system, but instead of using negative one to one as the range, the coordinates are actual \emph{x}, \emph{y} pixel locations on the image plane. Factors such as the window's size on the display determine how the view coordinate range of $(-1,1)$ is mapped into pixel locations. This is also where the viewport comes into effect.
 
@@ -559,7 +559,7 @@ In the \emph{Visualization Toolkit} there are seven basic objects that we use to
 
 \item vtkCamera --- defines the view position, focal point, and other viewing properties of the scene.
 
-\item vtkActor --- represents an object rendered in the scene, including its properties and position in the world coordinate system. (\emph{Note}: vtkActor is a subclass of vtkProp. vtkProp is a more general form of actor that includes annotation and 2D drawing classes. See ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more
+\item vtkActor\index{vtkActor} --- represents an object rendered in the scene, including its properties and position in the world coordinate system. (\emph{Note}: vtkActor is a subclass of vtkProp. vtkProp is a more general form of actor that includes annotation and 2D drawing classes. See ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more
 information.)
 
 \item vtkProperty --- defines the appearance properties of an actor including color, transparency, and lighting properties such as specular and diffuse. Also representational properties like wireframe and solid surface.
@@ -581,7 +581,7 @@ Cameras are constructed by the class vtkCamera. Important parameters include cam
 
 These include elevation, azimuth, zoom, and roll. Similar to vtkLight, an instance of vtkCamera will be created automatically by the renderer if none is defined.
 
-Instances of the class vtkActor represent objects in the scene. In particular, vtkActor combines object properties (color, shading type, etc.), geometric definition, and orientation in the world coordinate system. This is implemented behind the scenes by maintaining instance variables that refer to instances of vtkProperty, vtkMapper, and vtkTransform. Normally you need not create properties or transformations explicitly, since these are automatically created and manipulated using vtkActor's methods. You do need to create an instance of vtkMapper (or one of its subclasses). The mapper ties the data visualization pipeline to the graphics device. (We will say more about the pipeline in the next chapter.)
+Instances of the class vtkActor\index{vtkActor} represent objects in the scene. In particular, vtkActor combines object properties (color, shading type, etc.), geometric definition, and orientation in the world coordinate system. This is implemented behind the scenes by maintaining instance variables that refer to instances of vtkProperty, vtkMapper, and vtkTransform. Normally you need not create properties or transformations explicitly, since these are automatically created and manipulated using vtkActor's methods. You do need to create an instance of vtkMapper (or one of its subclasses). The mapper ties the data visualization pipeline to the graphics device. (We will say more about the pipeline in the next chapter.)
 
  In VTK, actors are actually subclasses of vtkProp (arbitrary props) and vtkProp3D (those that can be transformed in 3D space. (The word ``prop'' is derived from the stage, where a props is an object in the scene.) There are other subclasses of props and actors with specialized behavior (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information). One example is vtkFollower. Instances of this class always face the active camera. This is useful when designing signs or text that must be readable from any camera position in the scene.
 
@@ -964,7 +964,7 @@ Transformation matrices are used throughout the  Visualization Toolkit. Actors (
 
 The most important aspect to applying transformation matrices\index{transformation matrix!order of application} is to understand the order in which the transformations are applied. If you break down a complex series of transformations into simple combinations of translation, scaling, and rotation, and keep careful track of the order of application, you will have gone a long way to mastering their use.
 
-A good demonstration example of transformation matrices is to examine how vtkActor uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(),and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor. The vtkActor class applies transformations in an order that we feel is natural to most users.
+A good demonstration example of transformation matrices is to examine how vtkActor\index{vtkActor} uses its internal matrix. vtkActor has an internal instance variable Transform to which it delegates many of its methods or uses the matrix to implement its methods. For example, the RotateX(), RotateY(),and RotateZ() methods are all delegated to Transform. The method SetOrientation() uses Transform to orient the actor. The vtkActor class applies transformations in an order that we feel is natural to most users.
 
 The vtkActor class applies transformations in an order that we feel is natural to most users. As a convenience, we have created instance variables that abstract the transformation matrices. The Origin\index{actor!origin}\index{origin!actor} $(o_x,o_y,o_z)$ specifies the point that is the center of rotation and scaling. The Position\index{actor!position}\index{position!actor} $(p_x, p_y, p_z)$p specifies a final translation of the object. Orientation\index{actor!orientation}\index{orientation!actor} $(r_x, r_y, r_z)$ defines the rotation\index{actor!rotation}\index{rotation!and actor} about the $x, y$ and $z$ axes. Scale\index{actor!scale} $(s_x, s_y, s_z)$ defines scale factors for the $x, y,$ and $z$ axes. Internally, the actor uses these instance variables to create the following sequence of transformations (see Equation \eqref{eq:3.6}, Equation \eqref{eq:3.9},  Equation \eqref{eq:3.13}.
 
@@ -1076,10 +1076,10 @@ There is one final and powerful operation that affects an actor's orientation. Y
 \label{subsubsec:assemblies_vtkprop}
 \index{assembly}
 
-Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an \emph{assembly} in VTK\index{assembly!parts}. vtkAssembly is just one of many actor-like classes in VTK. As Figure \ref{fig:Figure3-34} shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding \emph{parts} to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see ``Transformation Matrices'' on page \pageref{subsubsec:transform_matrices} ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
+Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an \emph{assembly} in VTK\index{assembly!parts}. vtkAssembly\index{vtkAssembly} is just one of many actor-like classes in VTK. As Figure \ref{fig:Figure3-34} shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding \emph{parts} to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see ``Transformation Matrices'' on page \pageref{subsubsec:transform_matrices} ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
 
 \index{assembly!example}
-\begin{lstlisting}[language=TCL, caption={Part of assembly.tcl}]
+\begin{lstlisting}[language=TCL, caption={Part of assembly.tcl}, escapechar=\%]
 vtkSphereSource sphere
 vtkPolyDataMapper sphereMapper
   sphereMapper SetInputConnection [sphere GetOutputPort] vtkActor
@@ -1113,7 +1113,7 @@ vtkActor cylinderActor
   cylinderActor SetMapper cylinderMapper
   [cylinderActor GetProperty] SetColor 1 0 0
 
-vtkAssembly assembly
+vtkAssembly%\index{vtkAssembly!example}% assembly
   assembly AddPart cylinderActor
   assembly AddPart sphereActor
   assembly AddPart cubeActor
@@ -1133,30 +1133,16 @@ vtkAssembly assembly
 {\caption{The vtkProp hierarchy.
 Props that can be transformed in 3D space are a subclass of
 vtkProp3D. Images can be drawn effectively with vtkImageActor.
-Overlay text and graphics use vtkActor2D. Hierarchical groups
+Overlay text and graphics use vtkActor2D\index{vtkActor2D}. Hierarchical groups
 of vtkProps are gathered into a vtkPropAssembly. Volume rendering
 uses vtkVolume. Collections of transformable props create a
-vtkAssembly. Level-of-detail rendering uses vtkLODProp3D and
+vtkAssembly\index{vtkAssembly}. Level-of-detail rendering uses vtkLODProp3D and
 vtkLODActor. A vtkFollower allows faces a specified camera
 and is used for billboards.}\label{fig:Figure3-34}}
 {\includegraphics[width=0.6\textwidth]{Figure3-34}}
 \end{figure}
 
-%\begin{figure}[!htb]
-%  \centering
-%  \includegraphics[width=0.6\textwidth]{Figure3-34}\\
-%  \caption{The vtkProp hierarchy.
-%Props that can be transformed in 3D space are a subclass of
-%vtkProp3D. Images can be drawn effectively with vtkImageActor.
-%Overlay text and graphics use vtkActor2D. Hierarchical groups
-%of vtkProps are gathered into a vtkPropAssembly. Volume rendering
-%uses vtkVolume. Collections of transformable props create a
-%vtkAssembly. Level-of-detail rendering uses vtkLODProp3D and
-%vtkLODActor. A vtkFollower allows faces a specified camera
-%and is used for billboards.}\label{fig:Figure3-34}
-%\end{figure}
-
-Note that in this example various actors are added to the assembly with the AddPart() method. The top-level element of the assembly is the only prop in the hierarchy added to the renderer (with AddActor() ). Note also that the coneActor appears twice: once as a part of the assembly, and once as a separate actor added to the renderer with AddActor(). As you might imagine, this means that the rendering of assemblies requires concatenation of transformation matrices to insure the correct positioning of each vtkProp3D. Furthermore, hierarchical assemblies require special treatment during picking (i.e., graphically selecting props) since a vtkProp can appear more than once in different assembly hierarchies. Picking issues are discussed in more detail in ``Picking'' on page \pageref{subsec:picking}.
+Note that in this example various actors are added to the assembly with the AddPart() method. The top-level element of the assembly is the only prop in the hierarchy added to the renderer (with AddActor()). Note also that the coneActor appears twice: once as a part of the assembly, and once as a separate actor added to the renderer with AddActor(). As you might imagine, this means that the rendering of assemblies requires concatenation of transformation matrices to insure the correct positioning of each vtkProp3D. Furthermore, hierarchical assemblies require special treatment during picking (i.e., graphically selecting props) since a vtkProp can appear more than once in different assembly hierarchies. Picking issues are discussed in more detail in ``Picking'' on page \pageref{subsec:picking}.
 
 As Figure \ref{fig:Figure3-34} indicates, there are other types of vtkProp as well. Most of these will be informally described in the many examples found in this book. In particular, extensive coverage is given to vtkVolume when we describe volume rendering (see ``Volume Rendering'' on page \pageref{sec:volume_rendering}).
 
