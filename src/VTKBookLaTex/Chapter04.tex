@@ -469,7 +469,7 @@ Examples of readers include vtkSTLReader (read stereo-lithography files) and vtk
 \label{subsubsec:file_interface_importers_exporters}
 \index{exporters|(}\index{exporter!interfacing to data|(}\index{importer!interfacing to data|(}\index{interfacing to data!importers and exporters|(}
 
-\emph{Importers}\index{importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
+\emph{Importers}\index{importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter\index{vtk3DSImporter} imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
 
 In the \emph{Visualization Toolkit}, there are several importers and exporters. To see which importers and exporters are supported by VTK, see \emph{The VTK User's Guide}. You may also want to check the Web pages at \href{https://www.vtk.org/doc/nightly/html/index.html}{https://www.vtk.org/doc/nightly/html/index.html} for the current Doxygen manual pages. If the exporter you are looking for does not exist, you will have to develop your own using the programming interface.
 
@@ -482,14 +482,14 @@ In the \emph{Visualization Toolkit}, there are several importers and exporters. 
   \hfill
   \begin{subfigure}[h]{0.48\linewidth}
     \includegraphics[width=0.96\linewidth]{Figure4-13b}
-    \caption*{See:  \href{https://lorensen.github.io/VTKExamples/site/Cxx/IO/3DSImporter/}{3DSImporter.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/IO/3DSImporter/}{3DSImporter.py}})
+    \caption*{See:  \href{https://lorensen.github.io/VTKExamples/site/Cxx/IO/3DSImporter/}{3DSImporter.cxx} and \href{https://lorensen.github.io/VTKExamples/site/Python/IO/3DSImporter/}{3DSImporter.py}}
     \label{fig:Figure4-13b}
   \end{subfigure}
   \hfill
   \begin{subfigure}[h]{0.96\linewidth}{Figure4-13c}
-  \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
+  \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none, escapechar=\%]
     # import from 3d Studio
-    vtk3DSImporter importer
+    vtk3DSImporter%\index{vtk3DSImporter!example}% importer
       importer ComputeNormalsOn
       importer SetFileName "$VTK_DATA_ROOT/Data/iflamigm.3ds"
       importer Read
@@ -549,7 +549,7 @@ A visual programming interface could be (and has been) implemented using the cla
 \subsection{Pipeline Design and Implementation}
 \label{subsec:pipeline_design_implementation}
 
-The \emph{Visualization Toolkit} implements a general execution mechanism. Filters are divided into two basic parts: algorithm and executive objects. An algorithm object, whose class is derived from vtkAlgorithm, is responsible for processing information and data. An executive object, whose class is derived from vtkExecutive, is responsible for telling an algorithm when to execute and what information and data to process. The executive component of a filter may be created independently of the algorithm component allowing custom pipeline execution mechanisms without modifying core VTK classes.
+The \emph{Visualization Toolkit} implements a general execution mechanism. Filters are divided into two basic parts: algorithm and executive objects. An algorithm object, whose class is derived from vtkAlgorithm\index{vtkAlgorithm}, is responsible for processing information and data. An executive object, whose class is derived from vtkExecutive, is responsible for telling an algorithm when to execute and what information and data to process. The executive component of a filter may be created independently of the algorithm component allowing custom pipeline execution mechanisms without modifying core VTK classes.
 
 Information and data produced by a filter are stored in one or more output \emph{ports}. An output port corresponds to one logical output of the filter. For example, a filter producing a color image and a corresponding binary mask image would define two output ports, each holding one of the images. Pipeline--related information is stored in an instance of vtkInformation on each output port. The data for an output port is stored in an instance of a class derived from vtkDataObject.
 
@@ -628,7 +628,7 @@ foo->SetInputConnection(vz->GetOutputPort(2));
 ...
 \end{lstlisting}
 
-Several other special objects having multiple inputs or outputs are also available. Some of the more notable classes are vtkMergeFilter, vtkAppendFilter, and vtkAppendPolyData. These filters com bine multiple pipeline streams and generate a single output. Note, however, that while vtkMergeFilter has multiple input ports (i.e., different logical inputs), vtkAppendFilter has only one logical input, but presumes multiple connections are made to that one input. This is because in the case of vtkMergeFilter, each input has a distinct and separate purpose, while in vtkAppendFilter all the inputs have the same meaning (i.e., just one more input in a list to append together). Here are some code fragments:
+Several other special objects having multiple inputs or outputs are also available. Some of the more notable classes are vtkMergeFilter, vtkAppendFilter\index{vtkAppendFilter}, and vtkAppendPolyData\index{vtkAppendPolyData}. These filters com bine multiple pipeline streams and generate a single output. Note, however, that while vtkMergeFilter has multiple input ports (i.e., different logical inputs), vtkAppendFilter has only one logical input, but presumes multiple connections are made to that one input. This is because in the case of vtkMergeFilter, each input has a distinct and separate purpose, while in vtkAppendFilter all the inputs have the same meaning (i.e., just one more input in a list to append together). Here are some code fragments:
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 merge = vtkMergeFilter::New();
@@ -662,7 +662,7 @@ Until now, we have used the terms metadata\index{pipeline!metadata} and informat
 
 \item \emph{Pipeline information\index{information pipeline!objects!information}\index{information!pipeline}\index{pipeline!information}} objects hold information for pipeline execution. They are stored in instances of vtkExecutive or subclasses and are accessible via the method vtkExecutive::GetOutputInformation(). There is one pipeline information object per output port. It contains an entry pointing to the output vtkDataObject on the corresponding port (if it has been created). The vtkDataObject contains a pointer back to its corresponding pipeline information object, accessible via vtkDataObject::GetPipelineInformation(). The pipeline information object also holds information about what will populate the data object when the filter executes and generates the output. The actual information contained is determined by the output data type and the execution model in use. Pipeline information objects for input connections are accessible via the method vtkExecutive::GetInputInformation(), and they are the pipeline information objects on the output ports to which the input ports are connected.
 
-\item \emph{Port information\index{information!port}\index{port information}} objects hold information about the data types produced on output ports and consumed by input ports. They are stored by instances of vtkAlgorithm. There is one input port information object per input port and one output port information object per output port. They are accessible via the methods vtkAlgorithm::GetInputPortInformation() and vtkAlgorithm::GetOutputPortInformation(). Port information objects are usually created and populated by subclasses of vtkAlgorithm in order to specify the interface of the filter.
+\item \emph{Port information\index{information!port}\index{port information}} objects hold information about the data types produced on output ports and consumed by input ports. They are stored by instances of vtkAlgorithm\index{vtkAlgorithm}. There is one input port information object per input port and one output port information object per output port. They are accessible via the methods vtkAlgorithm::GetInputPortInformation() and vtkAlgorithm::GetOutputPortInformation(). Port information objects are usually created and populated by subclasses of vtkAlgorithm in order to specify the interface of the filter.
 
 \item \emph{Request information\index{information!request}\index{request information}} objects hold information about a specific request being sent to an executive or algorithm. There is one entry indicating what request is being sent and possibly other entries giving additional details about the specific request. These information objects are not accessible via any public method but are passed to ProcessRequest() methods that implement the requests.
 
@@ -690,7 +690,7 @@ A request is implemented as an information object. There is one key of type vtkI
        
 Requests are propagated through the pipeline by the executives of each filter. The vtkExecutive::ProcessRequest()\index{ProcessRequest()} method is invoked on an executive given the request information object. This method is implemented by each executive and is responsible for fulfilling the request as it sees fit. Many requests may be fulfilled for a filter only after it has been fulfilled for the filters providing its inputs. For these requests the executive will pass the request on to the executives of these upstream filters and then handle the request itself.
 
-An executive often asks its algorithm object for help in fulfilling a request. It sends the request to the algorithm object by invoking the vtkAlgorithm::ProcessRequest() method. This method is implemented by all algorithms and is responsible for handling the request. Input and output pipeline information objects are provided as arguments to the method. The algorithm must handle the request using only its own filter parameter settings and the pipeline information objects given. An algorithm is not allowed to ask its executive for any additional information. This insures that the algorithms are independent of the executives. Figure \ref{fig:Figure4-18} shows a typical path taken by a request as it is sent through a pipeline. Typically the request originates in a consumer at the end of the pipeline. It is sent back through the pipeline by the executives. Each executive asks its algorithm to help handle the request.
+An executive often asks its algorithm object for help in fulfilling a request. It sends the request to the algorithm object by invoking the vtkAlgorithm::ProcessRequest()\index{vtkAlgorithm!ProcessRequest()} method. This method is implemented by all algorithms and is responsible for handling the request. Input and output pipeline information objects are provided as arguments to the method. The algorithm must handle the request using only its own filter parameter settings and the pipeline information objects given. An algorithm is not allowed to ask its executive for any additional information. This insures that the algorithms are independent of the executives. Figure \ref{fig:Figure4-18} shows a typical path taken by a request as it is sent through a pipeline. Typically the request originates in a consumer at the end of the pipeline. It is sent back through the pipeline by the executives. Each executive asks its algorithm to help handle the request.
 \end{description}
 
 \subsection{Flexible Computation / Memory Trade-off}

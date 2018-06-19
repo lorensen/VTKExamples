@@ -1736,7 +1736,7 @@ Other visualization systems treat this problem differently. In these systems a d
 	\caption{Visualization of multidimensional financial data. Visualization network, output image, and sample C++ code are shown (finance.cxx). The gray/wireframe surface represents the total data population. The dark surface represents data points delinquent on loan payment.}\label{fig:Figure9-50}
 \end{figure}
 
-\begin{lstlisting}[language=C++, caption={Visualizing multidimensional data.}]
+\begin{lstlisting}[language=C++, caption={Visualizing multidimensional data.}, escapechar=\#]
 // construct pipeline for delinquent population
 vtkGaussianSplatter *lateSplatter = vtkGaussianSplatter::New();
   lateSplatter->SetInput(dataSet);
@@ -1749,7 +1749,7 @@ vtkContourFilter *lateSurface = vtkContourFilter::New();
 vtkPolyDataMapper *lateMapper = vtkPolyDataMapper::New();
   lateMapper->SetInput(lateSurface->GetOutput());
   lateMapper->ScalarVisibilityOff();
-vtkActor *lateActor = vtkActor::New();
+vtkActor#\index{vtkActor!example}# *lateActor = vtkActor::New();
   lateActor->SetMapper(lateMapper);
   lateActor->GetProperty()->SetColor(1.0,0.0,0.0);
 \end{lstlisting}
@@ -1797,7 +1797,7 @@ To illustrate the application of connectivity analysis, we will use an MRI datas
         \label{fig:Figure9-51c}
 	\end{subfigure}
 	\begin{subfigure}[h]{0.76\linewidth}
-        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
+        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none, escapechar=\%]
         vtkMCubesReader reader
           reader SetFileName \
             "$env(VTK_TEXTBOOK_DATA)/pineRoot/pine_root.tri"
@@ -1807,7 +1807,7 @@ To illustrate the application of connectivity analysis, we will use an MRI datas
         vtkPolyDataMapper isoMapper
           isoMapper SetInputConnection [connect GetOutputPort]
           isoMapper ScalarVisibilityOff
-        vtkActor isoActor
+        vtkActor%\index{vtkActor!example}% isoActor
           isoActor SetMapper isoMapper
           eval [isoActor GetProperty] SetColor $raw_sienna
         vtkOutlineFilter outline
@@ -1909,7 +1909,7 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.76\linewidth}
-        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
+        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none, escapechar=\%]
         # texture
         vtkStructuredPointsReader texReader
           texReader SetFileName "$VTK_DATA_ROOT/Data/texThres2.vtk"
@@ -1930,7 +1930,7 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
           tex1 SetRFunction planes
         vtkDataSetMapper byuMapper
           byuMapper SetInputConnection [tex1 GetOutputPort]
-        vtkActor byuActor
+        vtkActor%\index{vtkActor!example}% byuActor
           byuActor SetMapper byuMapper
           byuActor SetTexture texture
           eval [byuActor GetProperty] SetColor $cold_grey

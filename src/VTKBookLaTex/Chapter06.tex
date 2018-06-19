@@ -942,7 +942,7 @@ Algorithms are implemented in the \emph{Visualization Toolkit} as process object
 \item[Source Design.\index{source object!implementation|(}]
 Source objects have no visualization data for input and one or more outputs, Figure \ref{fig:Figure6-34} illustrates this for the concrete source object vtkSphereSource. This class inherits from vtkPolyDataAlgorithm, indicating that it creates polygonal data on output.
 
-The convenience object vtkPolyDataAlgorithm has been created to simplify subclass derivation. For example, vtkBYUReader is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm.
+The convenience object vtkPolyDataAlgorithm has been created to simplify subclass derivation. For example, vtkBYUReader is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm\index{vtkAlgorithm}.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -1085,7 +1085,7 @@ A few final notes on using lookup tables.
 
 \begin{itemize}
 
-\item  Mappers use their lookup table to map scalar values to colors. If no scalars are present, the mappers and their lookup tables do not control the color of the object. Instead the vtkProperty object associated with the vtkActor class does. Use vtkProperty's method \sloppy{\lstinline{actor->GetProperty()->SetColor(r,g,b)}} where r, g, and b are floating point values specifying color.
+\item  Mappers use their lookup table to map scalar values to colors. If no scalars are present, the mappers and their lookup tables do not control the color of the object. Instead the vtkProperty object associated with the vtkActor\index{vtkActor} class does. Use vtkProperty's method \sloppy{\lstinline{actor->GetProperty()->SetColor(r,g,b)}} where r, g, and b are floating point values specifying color.
 
 \item If you want to prevent scalars from coloring your object, use vtkMapper's method \sloppy{\lstinline{mapper->ScalarVisibilityOff()}} to turn off color mapping. Then the actor's color will control the color of the object.
 
@@ -1185,7 +1185,7 @@ Although these results do not represent all implementations or the behavior of o
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.96\linewidth}
-		\begin{lstlisting}[language=C++, caption={}]
+		\begin{lstlisting}[language=C++, caption={}, escapechar=\#]
 		// Define implicit function
 		vtkQuadric *quadric = vtkQuadric::New();
 		  quadric->SetCoefficients(.5,1,.2,0,.1,0,0,.2,0,0);
@@ -1198,7 +1198,7 @@ Although these results do not represent all implementations or the behavior of o
 		vtkPolyDataMapper *contourMapper = vtkPolyDataMapper::New();
 		  contourMapper->SetInputConnection( contour->GetOutputPort());
 		  contourMapper->SetScalarRange(0,1.2);
-		vtkActor *contourActor = vtkActor::New();
+		vtkActor#\index{vtkActor!example}# *contourActor = vtkActor::New();
 		  contourActor->SetMapper(contourMapper);
 		// Create outline
 		vtkOutlineFilter *outline = vtkOutlineFilter::New();

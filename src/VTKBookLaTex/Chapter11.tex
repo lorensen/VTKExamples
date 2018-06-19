@@ -148,7 +148,7 @@ The basic idea behind VRML 1.0 is that the 3D content can be downloaded from the
 
 To address many of the limitations in VRML 1.0, significant changes were made resulting in the VRML 2.0 standard. Where VRML 1.0 was primarily a static scene description with some very limited behaviors, VRML 2.0 adds audio, video, and integration with Web scripting languages and more. It is still essentially a data file, but with the capabilities of simulating much more realistic and immersive environments. Many visualization systems, including VTK, support exporting scenes as VRML files. Consider the following example:
 
-\begin{lstlisting}[language=TCL, caption={}, numbers=none, frame=none]
+\begin{lstlisting}[language=TCL, caption={}, numbers=none, frame=none, escapechar=\%]
 vtkRenderer ren1
 vtkRenderWindow renWin
   renWin AddRenderer ren1
@@ -169,7 +169,7 @@ vtkPolyDataNormals normals
 vtkPolyDataMapper isoMapper
   isoMapper SetInputConnection [normals GetOutputPort]
    isoMapper ScalarVisibilityOff
-vtkActor isoActor
+vtkActor%\index{vtkActor!VRML example}% isoActor
   isoActor SetMapper isoMapper
   eval [isoActor GetProperty] SetColor 0.3 0.4 0.5
 
@@ -331,8 +331,8 @@ public void init()
 
 Next, this method checks to see if the model parameter is set, and opens a stream connection to the server that is used to download the data file into a Java string. This is then passed to a vtkPolyDataReader at which point the data is now available to the native VTK code on the client. The rest of the pipeline is set up as usual with the exception that a Java syntax is used instead of C++ or Tcl. (Due to VTK's object--oriented design the variations from one language to another are minor.) At this point in the init() method the rest of the pipeline is set up along with some check boxes and event handlers for the user interface. The vtkPanel has a method that returns the RenderWindow that can then be acted on as usual. For example:
 
-\begin{lstlisting}[language=Java, caption={}, numbers=none, frame=none]
-panel.GetRenderer().AddActor(a);
+\begin{lstlisting}[language=Java, caption={}, numbers=none, frame=none, escapechar=\#]
+panel.GetRenderer().AddActor(a)#\index{vtkActor!Java example}#;
 \end{lstlisting}
 
 \begin{figure}[!htb]
