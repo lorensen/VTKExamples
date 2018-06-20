@@ -1631,7 +1631,7 @@ vtkTransform trCylinder
   trCylinder RotateY 60
   trCylinder RotateX 90
   trCylinder Inverse
-  vtkCylinder cylinder
+  vtkCylinder%\index{vtkCylinder!example}% cylinder
 cylinder SetTransform trCylinder
   cylinder SetRadius .3
 vtkImplicitBoolean boolean
@@ -1668,7 +1668,7 @@ Until recently, VTK supported clipping only for polygonal data cell types (verti
 	\caption{Generating swept surface from line-stroked ``vtk''. The class vtkSweptSurface was in the Patented directory in VTK 4.4. This directory was removed in VTK 5.0, and this class is not available in that release.}\label{fig:Figure9-49}
 \end{figure}
 
-\begin{lstlisting}[language=TCL, caption={Generating a swept surface.}]
+\begin{lstlisting}[language=TCL, caption={Generating a swept surface.}, escapechar=\%]
 # read data file
 vtkPolyDataReader reader
   reader SetFileName "$VTK_DATA_ROOT/Data/vtk.vtk"
@@ -1693,7 +1693,7 @@ vtkSweptSurface sweptSurfaceFilter
   sweptSurfaceFilter SetSampleDimensions 100 7040
   sweptSurfaceFilter SetModelBounds -4.0 6.0 -1.0 6.0 -1.0 3.5
   sweptSurfaceFilter SetMaximumNumberOfInterpolationSteps 20
-vtkContourFilter iso
+vtkContourFilter%\index{vtkContourFilter!example}% iso
   iso SetInputConnection [sweptSurfaceFilter GetOutputPort]
   iso SetValue 0 0.33
 \end{lstlisting}
@@ -1743,7 +1743,7 @@ vtkGaussianSplatter *lateSplatter = vtkGaussianSplatter::New();
   lateSplatter->SetSampleDimensions(50,50,50);
   lateSplatter->SetRadius(0.05);
   lateSplatter->SetScaleFactor(0.005);
-vtkContourFilter *lateSurface = vtkContourFilter::New();
+vtkContourFilter$\index{vtkContourFilter!example}$ *lateSurface = vtkContourFilter::New();
   lateSurface->SetInput(lateSplatter->GetOutput());
   lateSurface->SetValue(0,0.01);
 vtkPolyDataMapper *lateMapper = vtkPolyDataMapper::New();
@@ -2065,7 +2065,7 @@ Multidimensional visualization is another important focus of visualization resea
 
 \item Describe a method to extract geometry using an arbitrary dataset. (That is, extract geometry that lies within the culling dataset). (Hint: how would you evaluate in/out of points?)
 
-\item The filter vtkPolyDataNormals is often used in combination with the filters vtkSmoothPolyData and vtkContourFilter to generate smooth isosurfaces.
+\item The filter vtkPolyDataNormals is often used in combination with the filters vtkSmoothPolyData and vtkContourFilter\index{vtkContourFilter!exercise} to generate smooth isosurfaces.
 
     \begin{enumerate}
 

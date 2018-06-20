@@ -606,8 +606,8 @@ For this, and other reasons related to parallel processing, the original VTK pip
 
 \textbf{VTK 5.0 and Beyond}. While VTK 5.0 still supports the use of SetInput()/GetOutput(), its use in Figure \ref{fig:Figure4-16} and Figure \ref{fig:Figure4-17} is discouraged. Rather, the newer pipeline architecture should be used. Referring to Figure \ref{fig:Figure4-17}, we use connections and ports to configure VTK's visualization pipeline:
 
-\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none, escapechar=\# ]
-filter2->SetInputConnection(filter1->GetOutputPort()#\index{GetOutputPort()}#);
+\begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none, escapechar=\$ ]
+filter2->SetInputConnection(filter1->GetOutputPort()$\index{GetOutputPort()}$);
 \end{lstlisting}
 
 You probably have already guessed how this approach can be extended to multiple inputs and multiple outputs. Let's look at some concrete examples. vtkGlyph3D is an example of a filter that accepts multiple inputs and generates a single output. The inputs to vtkGlyph3D are represented by the Input and Source instance variables. The purpose of vtkGlyph3D is to copy the geometry defined by the data in Source to each point defined by Input. The geometry is modified according to the Source data values (e.g., scalars and vectors). (For more information about glyphs see \nameref{subsec:glyphs} in Chapter 6: \nameref{chap:fundamental_algorithms}.) To use the vtkGlyph3D object in C++ code you would do the following:
@@ -1006,7 +1006,7 @@ For each technique:
 
 \end{enumerate}
 
-\item Place oriented cylinders (instead of cones) on the mace in Figure \ref{fig:Figure4-20}. (\emph{Hint}: use vtkCylinderSource.)
+\item Place oriented cylinders (instead of cones) on the mace in Figure \ref{fig:Figure4-20}. (\emph{Hint}: use vtkCylinderSource\index{vtkCylinderSource!exercise}.)
 
 \item The implicit update method for the visualization network used by VTK is simple to implement and understand. However, it is prone to a common programming error. What is this error?
 
