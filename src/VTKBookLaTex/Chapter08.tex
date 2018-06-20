@@ -1631,7 +1631,7 @@ There are several important characteristics of this data representation.
 
 \end{itemize}
 
-The unstructured data structure in the \emph{Visualization Toolkit} is implemented using the four classes vtkPoints (and subclasses), vtkCellArray, vtkCellTypes, and vtkCellLinks. The building of this data structure is incremental. At a minimum, the points and cells are represented using vtkPoints and vtkCellArray. If random access or extra type information is required, then the object vtkCellTypes is used. If adjacency information is required, an instance of the class vtkCellLinks is created. These operations are carried out behind the scenes, and generally do not require extra knowledge by the application programmer.
+The unstructured data structure in the \emph{Visualization Toolkit} is implemented using the four classes vtkPoints\index{vtkPoints} (and subclasses), vtkCellArray\index{vtkCellArray}, vtkCellTypes\index{vtkCellTypes}, and vtkCellLinks\index{vtkCellLinks}. The building of this data structure is incremental. At a minimum, the points and cells are represented using vtkPoints and vtkCellArray. If random access or extra type information is required, then the object vtkCellTypes is used. If adjacency information is required, an instance of the class vtkCellLinks is created. These operations are carried out behind the scenes, and generally do not require extra knowledge by the application programmer.
 \index{unstructured topology|)}
 
 \clearpage
@@ -1861,9 +1861,9 @@ It is possible to force unsigned char data to be mapped through a lookup table. 
 \subsection{Searching}
 \index{searching!implementation|(}
 
-The \emph{Visualization Toolkit} provides two classes to perform searches for dataset points and cells. These are vtkPointLocator and vtkCellLocator. (Both of these classes are subclasses of vtkLocator, which is an abstract base class for spatial search objects.) vtkPointLocator is used to search for points and, if used with the topological dataset operator GetPointCells(), to search for cells as well. vtkCellLocator is used to search for cells.
+The \emph{Visualization Toolkit} provides two classes to perform searches for dataset points and cells. These are vtkPointLocator and vtkCellLocator\index{vtkCellLocator}. (Both of these classes are subclasses of vtkLocator, which is an abstract base class for spatial search objects.) vtkPointLocator is used to search for points and, if used with the topological dataset operator GetPointCells(), to search for cells as well. vtkCellLocator is used to search for cells.
 
-vtkPointLocator is implemented as a regular grid of buckets (i.e., same topology and geometry as an image dataset). The number of buckets can be user-specified, or more conveniently, automatically computed based on the number of dataset points. On average, vtkPointLocator provides constant time access to points. However, in cases where the point distribution is not uniform, the number of points in a bucket may vary widely, giving O(n) worst-case behavior. In practice this is rarely a problem, but adaptive spatial search structures (e.g., an octree\index{octree}) may sometimes be a better choice.
+vtkPointLocator\index{vtkPointLocator} is implemented as a regular grid of buckets (i.e., same topology and geometry as an image dataset). The number of buckets can be user-specified, or more conveniently, automatically computed based on the number of dataset points. On average, vtkPointLocator provides constant time access to points. However, in cases where the point distribution is not uniform, the number of points in a bucket may vary widely, giving O(n) worst-case behavior. In practice this is rarely a problem, but adaptive spatial search structures (e.g., an octree\index{octree}) may sometimes be a better choice.
 
 
 \begin{figure}[!htb]
@@ -1973,7 +1973,7 @@ The object vtkPicker intersects a ray defined from camera position to a screen (
 
 The object vtkPointPicker intersects the ray against the points defining each vtkProp3D, and returns the point coordinate closest to the camera position, as well as the vtkProp3D that the point belongs to. Since screen resolution prevents precise selection of a point, a tolerance around the ray must be specified. The tolerance is expressed as a fraction of the rendering window size. (Rendering window size is measured across the window diagonal.) Points must lie within this tolerance to be picked.
 
-The object vtkCellPicker intersects the ray with the cells defining each vtkProp3D, and returns the point of intersection, as well as the vtkProp3D that the cell belongs to. If you are trying to select a cell belonging to a particular vtkProp3D, vtkCellPicker is the object to use because it performs surface (or cell) intersection. Unfortunately, vtkCellPicker is the slowest of the pickers because of greater computational requirements.
+The object vtkCellPicker\index{vtkCellPicker} intersects the ray with the cells defining each vtkProp3D, and returns the point of intersection, as well as the vtkProp3D that the cell belongs to. If you are trying to select a cell belonging to a particular vtkProp3D, vtkCellPicker is the object to use because it performs surface (or cell) intersection. Unfortunately, vtkCellPicker is the slowest of the pickers because of greater computational requirements.
 
 The class vtkWorldPointPicker returns the $(x,y,z)$ coordinate value of a pick in the rendering window. To determine this information, it combines the display $(x,y)$ values with the z-buffer depth values. Of all the pickers this is the fastest, but it cannot determine the actual cell, point or vtkProp that is selected since it is not a subclass of vtkAbstractPropPicker. (Note: on some systems \emph{z}--buffer operations are inoperative and this object will not function properly.)
 

@@ -948,23 +948,23 @@ It is the implementation of 3D widgets, that is, what they can do with the event
 
 \begin{description}
 
-\item [vtkScalarBarWidget\index{3D Widgets!vtkScalarBarWidget}] --- manage a vtkScalarBar including positioning, scaling, and orienting it.
+\item [vtkScalarBarWidget\index{3D Widgets!vtkScalarBarWidget}\index{vtkScalarBarWidget}] --- manage a vtkScalarBar including positioning, scaling, and orienting it.
 
-\item [vtkPointWidget\index{3D Widgets!vtkPointWidget}] --- position a point \emph{x--y--z} location in 3D space. The widget produces a polygonal output.
+\item [vtkPointWidget\index{3D Widgets!vtkPointWidget}\index{vtkPointWidget}] --- position a point \emph{x--y--z} location in 3D space. The widget produces a polygonal output.
 
-\item [vtkLineWidget\index{3D Widgets!vtkLineWidget}] --- place a straight line with a specified subdivision resolution. The widget produces a polygonal output.
+\item [vtkLineWidget\index{3D Widgets!vtkLineWidget}\index{vtkLineWidget}] --- place a straight line with a specified subdivision resolution. The widget produces a polygonal output.
 
-\item [vtkPlaneWidget\index{3D Widgets!vtkPlaneWidget}] --- orient and position a finite plane. The plane resolution is variable and the widget produces an implicit function and a polygonal output.
+\item [vtkPlaneWidget\index{3D Widgets!vtkPlaneWidget}\index{vtkPlaneWidget}] --- orient and position a finite plane. The plane resolution is variable and the widget produces an implicit function and a polygonal output.
 
-\item [vtkImplicitPlaneWidget\index{3D Widgets!vtkImplicitPlaneWidget}] --- orient and position an unbounded plane. The widget produces an implicit function and a polygonal output. The polygonal output is created by clipping the plane with a bounding box.
+\item [vtkImplicitPlaneWidget\index{3D Widgets!vtkImplicitPlaneWidget}\index{vtkImplicitPlaneWidget}] --- orient and position an unbounded plane. The widget produces an implicit function and a polygonal output. The polygonal output is created by clipping the plane with a bounding box.
 
-\item [vtkBoxWidget\index{3D Widgets!vtkBoxWidget}] --- orient and position a bounding box. The widget produces an implicit function and a transformation matrix.
+\item [vtkBoxWidget\index{3D Widgets!vtkBoxWidget}\index{vtkBoxWidget}] --- orient and position a bounding box. The widget produces an implicit function and a transformation matrix.
 
-\item [vtkImagePlaneWidget\index{3D Widgets!vtkImagePlaneWidget}] --- manipulate three orthogonal planes within a 3D volumetric data set. Probing of the planes to obtain data position, pixel value, and window-level is possible.
+\item [vtkImagePlaneWidget\index{3D Widgets!vtkImagePlaneWidget}\index{vtkImagePlaneWidget}] --- manipulate three orthogonal planes within a 3D volumetric data set. Probing of the planes to obtain data position, pixel value, and window-level is possible.
 
-\item [vtkSphereWidget\index{3D Widgets!vtkSphereWidget}] --- manipulate a sphere of variable resolution. The widget produces an implicit function, a transformation matrix, and  enables the control of focal point and position to support such classes as vtkCamera and vtkLight.
+\item [vtkSphereWidget\index{3D Widgets!vtkSphereWidget}\index{vtkSphereWidget}] --- manipulate a sphere of variable resolution. The widget produces an implicit function, a transformation matrix, and  enables the control of focal point and position to support such classes as vtkCamera and vtkLight.
 
-\item [vtkSplineWidget\index{3D Widgets!vtkSplineWidget}] --- manipulate an interpolating 3D spline. The widget produces a polygonal data represented by a series of line segments of specified resolution. The widget also directly manages underlying splines for each of the \emph{x--y--z} coordinate values.
+\item [vtkSplineWidget\index{3D Widgets!vtkSplineWidget}\index{vtkSplineWidget}] --- manipulate an interpolating 3D spline. The widget produces a polygonal data represented by a series of line segments of specified resolution. The widget also directly manages underlying splines for each of the \emph{x--y--z} coordinate values.
 
 \end{description}
 
@@ -1027,7 +1027,7 @@ A few words of warning when using textures. Some renderers only support 2D textu
 	\label{fig:Figure7-34}
 \end{wrapfigure}
 
-This example focuses on volume rendering. The source code corresponding to example Figure \ref{fig:Figure7-34} is shown below and begins by creating the usual objects. Then we use a vtkStructuredPointsReader to read in a volume dataset for a high potential iron protein. We create a vtkPiecewiseFunction object to map the scalar values in the volume dataset to opacity, and a vtkColorTransferFunction object to map the scalar values to color. These two transfer functions are referenced from the vtkVolumeProperty object. In addition, we use the ShadeOn() method of vtkVolumeProperty to enable shading for this volume, and the SetInterpolationTypeToLinear() method to request trilinear interpolation. Since we are using a ray casting approach, we need to create a ray function. In this example we use a vtkVolumeRayCastCompositeFunction object for this purpose. The output of the reader is given to the vtkVolumeRayCastMapper as the scalar input, and the SetVolumeRayCastFunction() method is used to assign the ray function. The vtkVolume object is quite similar to a vtkActor, and the SetVolumeMapper() and SetVolumeProperty() methods are used just like the SetMapper() and SetProperty() methods of vtkActor. Finally, we add this volume to the renderer, adjust the camera, set the desired image update rate and start the interactor.
+This example focuses on volume rendering. The source code corresponding to example Figure \ref{fig:Figure7-34} is shown below and begins by creating the usual objects. Then we use a vtkStructuredPointsReader to read in a volume dataset for a high potential iron protein. We create a vtkPiecewiseFunction object to map the scalar values in the volume dataset to opacity, and a vtkColorTransferFunction\index{vtkColorTransferFunction} object to map the scalar values to color. These two transfer functions are referenced from the vtkVolumeProperty object. In addition, we use the ShadeOn() method of vtkVolumeProperty to enable shading for this volume, and the SetInterpolationTypeToLinear() method to request trilinear interpolation. Since we are using a ray casting approach, we need to create a ray function. In this example we use a vtkVolumeRayCastCompositeFunction object for this purpose. The output of the reader is given to the vtkVolumeRayCastMapper as the scalar input, and the SetVolumeRayCastFunction() method is used to assign the ray function. The vtkVolume object is quite similar to a vtkActor, and the SetVolumeMapper() and SetVolumeProperty() methods are used just like the SetMapper() and SetProperty() methods of vtkActor. Finally, we add this volume to the renderer, adjust the camera, set the desired image update rate and start the interactor.
 
 \begin{lstlisting}[language=TCL, caption={Volume rendering of a high potential iron protein.}]
 #  Create the standard renderer, render window and interactor

@@ -522,16 +522,16 @@ The abstract data class vtkPoints is used to represent the point coordinates. vt
 	\label{fig:Figure5-12}
 \end{figure}
 
-The Visualization Toolkit uses the class vtkCellArray to explicitly represent cell topology. This class is a list of connectivity for each cell. The structure of the list is a sequence of integer numbers (Figure \ref{fig:Figure5-12}). The first number in the list is a count (the number of points in the cell connectivity), and the next series of numbers is the cell connectivity. (Each number in the connectivity list is an index into an instance of a point coordinate list.) Sequences of count followed by the connectivity list are repeated until each cell is enumerated. Additional information such as the number of cells in the list and current position in the list (for traversal purposes) is also maintained by vtkCellArray.
+The Visualization Toolkit uses the class vtkCellArray\index{vtkCellArray} to explicitly represent cell topology. This class is a list of connectivity for each cell. The structure of the list is a sequence of integer numbers (Figure \ref{fig:Figure5-12}). The first number in the list is a count (the number of points in the cell connectivity), and the next series of numbers is the cell connectivity. (Each number in the connectivity list is an index into an instance of a point coordinate list.) Sequences of count followed by the connectivity list are repeated until each cell is enumerated. Additional information such as the number of cells in the list and current position in the list (for traversal purposes) is also maintained by vtkCellArray.
 
 Notice that type information is not directly represented in this structure. Instead, vtkPolyData maintains four separate lists to vertices, lines, polygons, and triangle strips. The vertex list represents cells of type vtkVertex and vtkPolyVertex. The lines list represents cells of type vtkLine and vtkPolyLine. The polygon list represents cells of type vtkTriangle, vtkQuad, and vtkPolygon. The triangle strip list represents cells of the single type vtkTriangleStrip. As a result, the cell type is known from the particular list the cell is defined in, plus the number of points that define the cell.
 
 Our design of the vtkPolyData class is based on two important requirements. First, we want an efficient interface to external graphics libraries. Second, we wish to aggregate cells according to topology. The four separate lists provide efficient interface because graphics libraries have separate vertex, line, polygon, and triangle strip primitives. As a result, in VTK no run-time checking is required to match the different cell types with the appropriate ``load primitive'' function, since the type is known from the list in which the primitive resides. The four lists also separate cells into 0-, 1-, and 2-dimensional types. This is useful because visualization algorithms often treat data of varying topological order differently.
 \index{polygonal data!representation|)}
 
-\item[vtkUnstructuredGrid.\index{unstructured grid!representation|(}] The dataset type vtkUnstructuredGrid is the most general in terms of its ability to represent topological and geometric structure. Both points and cells are explicitly represented using derived classes of vtkPoints and vtkCellArray. The class vtkUnstructuredGrid is similar to vtkPolyData except that vtkUnstructuredGrid must be capable of representing all cell types, not just the limited graphics types (i.e., vertices, lines, polygons, and triangle strips) of vtkPolyData.
+\item[vtkUnstructuredGrid.\index{unstructured grid!representation|(}] The dataset type vtkUnstructuredGrid is the most general in terms of its ability to represent topological and geometric structure. Both points and cells are explicitly represented using derived classes of vtkPoints and vtkCellArray\index{vtkCellArray}. The class vtkUnstructuredGrid is similar to vtkPolyData except that vtkUnstructuredGrid must be capable of representing all cell types, not just the limited graphics types (i.e., vertices, lines, polygons, and triangle strips) of vtkPolyData.
 
-Another distinguishing characteristic of vtkUnstructuredGrid is that we represent type information differently. In vtkPolyData we categorized cells into four separate lists, thereby representing cell type indirectly. In vtkUnstructuredGrid we add the additional class vtkCellTypes to represent cell type explicitly.
+Another distinguishing characteristic of vtkUnstructuredGrid is that we represent type information differently. In vtkPolyData we categorized cells into four separate lists, thereby representing cell type indirectly. In vtkUnstructuredGrid we add the additional class vtkCellTypes\index{vtkCellTypes} to represent cell type explicitly.
 
 The vtkCellTypes is an array of supplemental information. For each cell, an integer flag defines the cell type. Another variable is used to record the location of the cell definition in the corresponding vtkCellArray (Figure \ref{fig:Figure5-13}).
 
@@ -575,7 +575,7 @@ The vtkCellTypes may also be added to the vtkPolyData data representation  --- a
 
 In the \emph{Visualization Toolkit} each cell type has been implemented by creating specific classes. Each cell is a subclass of the abstract type vtkCell . Cell topology is represented by a list of ordered point ids, and cell geometry is represented by a list of point coordinates. The object diagram for vtkCell and its subclasses is shown in Figure \ref{fig:Figure5-15}.
 
-The abstract class vtkCell specifies methods that each cell must implement. These methods provide a defined interface to the cell's geometry and topology. Additional methods perform computation on the cell. These methods will be discussed in detail in Chapter 8: \nameref{chap:advanced_data_representation}.
+The abstract class vtkCell\index{vtkCell} specifies methods that each cell must implement. These methods provide a defined interface to the cell's geometry and topology. Additional methods perform computation on the cell. These methods will be discussed in detail in Chapter 8: \nameref{chap:advanced_data_representation}.
 \index{cell!representation!implementation|)}\index{representation!implementation|)}
 
 \subsection{Data Attributes}
@@ -603,7 +603,7 @@ In VTK data attributes are associated with the points and cells of the dataset. 
 
 One difficulty with maintaining both cell data and point data representations is that possible inconsistencies in the data may arise. For example, if a cell's scalar value is 0.5, and its points have scalar values other than 0.5, which is the correct value? Priority schemes can be devised to resolve such situations although the user must recognize that such inconsistencies may exist.
 
-To represent dataset attributes we use the organizing classes vtkPointData and vtkCellData, both of which are subclasses of the class vtkFieldData as shown in Figure \ref{fig:Figure5-1}. The class vtkDataSetAttributes serves to coordinate the movement of datafrom one process object to the next. It provides methods for copying, interpolating, and moving data between input and output.
+To represent dataset attributes we use the organizing classes vtkPointData\index{vtkPointData} and vtkCellData\index{vtkCellData}, both of which are subclasses of the class vtkFieldData as shown in Figure \ref{fig:Figure5-1}. The class vtkDataSetAttributes\index{vtkDataSetAttributes} serves to coordinate the movement of data from one process object to the next. It provides methods for copying, interpolating, and moving data between input and output.
 
 Another important feature of vtkDataSetAttributes is that it provides the ability to assign a data array to represent a particular data attribute. For example, the method SetScalars() is used to specify which data array is to be treated as the scalars in the field.
 
@@ -627,7 +627,7 @@ Creation of datasets is a two step process. First the geometry and topology of t
 \item[Create a Polygonal Dataset.\index{polygonal data!example|(}]
 In our first example we create a polygonal representation of a cube. The cube is defined by eight points and six quadrilateral faces. We also create eight scalar values associated with the eight vertices of the cube. Figure \ref{fig:Figure5-17} shows the key C++ code fragments used to create the data, and the resulting image.
 
-The geometry of the cube is defined using an instance of the class vtkPoints. By default, the underlying type of vtkPoints is a vtkFloatArray. The topology of the cube (i.e., polygons) is defined with an instance of the class vtkCellArray. These define the points and polygons of the cube, respectively. Scalar data is represented by an instance of the class vtkIntArray.
+The geometry of the cube is defined using an instance of the class vtkPoints. By default, the underlying type of vtkPoints is a vtkFloatArray. The topology of the cube (i.e., polygons) is defined with an instance of the class vtkCellArray\index{vtkCellArray}. These define the points and polygons of the cube, respectively. Scalar data is represented by an instance of the class vtkIntArray.
 
 \begin{figure}[!htb]
     \centering
@@ -673,11 +673,11 @@ As this example shows, polygonal data is created by constructing pieces (e.g., p
 
 	\item Create instance of subclass of vtkPoints to define geometry(i.e.,point coordinates). Use the operator cube->SetPoints() to associate the points with the dataset.
 
-	\item Create instances of vtkCellArray to define topology for vertices, lines, polygons, and triangle strips. Use the operators cube->SetVerts(), cube->SetLines(), cube->SetPolys(), and cube->SetStrips() to associate the cells with the dataset.
+	\item Create instances of vtkCellArray\index{vtkCellArray} to define topology for vertices, lines, polygons, and triangle strips. Use the operators cube->SetVerts(), cube->SetLines(), cube->SetPolys(), and cube->SetStrips() to associate the cells with the dataset.
 
 	\item Create instance of subclass of vtkPoints to define geometry(i.e.,point coordinates). Use the operator cube->SetPoints() to associate the points with the dataset.
 
-	\item Create point and/or attribute data. Every dataset has two fieldsrepresenting vtkPointData and vtkCellData. Use the operator pd=cube->GetPointData() to retrieve the pointer to the point attribute data. Use the operator pd=cube->GetCellData() to retrieve the pointer to the cell attribute data. Associate the attribute data with the dataset using the operators pd->SetScalars(), pd->SetVectors(), pd->SetNormals(), pd->SetTensors(), and pd->SetTCoords() (and similar for cell data).
+	\item Create point and/or attribute data. Every dataset has two fields representing vtkPointData\index{vtkPointData} and vtkCellData\index{vtkCellData}. Use the operator pd=cube->GetPointData() to retrieve the pointer to the point attribute data. Use the operator pd=cube->GetCellData() to retrieve the pointer to the cell attribute data. Associate the attribute data with the dataset using the operators pd->SetScalars(), pd->SetVectors(), pd->SetNormals(), pd->SetTensors(), and pd->SetTCoords() (and similar for cell data).
 
 \end{enumerate}
 

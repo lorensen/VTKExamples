@@ -55,6 +55,9 @@ When indexing make sure all sections/subsections/subsubsections when indexed use
 \index{some section|)}
 ```
 
+Where an index is in a listing i.e in `\begin{lstlisting} ... \end{lstlisting}` it must be escaped so add `escapechar=\$`for **C++** and `escapechar=\%` for **Tcl**, then escape the `\index{...}` command as follows. For **C++**: `$\index{...}$` and for **Tcl**:  `%\index{...}%`
+
+
 ## ToDo
 
 Here we list tasks that need to be done.
