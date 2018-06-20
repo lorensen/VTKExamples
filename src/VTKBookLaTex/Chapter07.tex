@@ -11,17 +11,9 @@
  \end{minipage}
 \vspace{2\baselineskip}
 
-\firstletter{C}hapter 3 introduced fundamental concepts of computer graphics.
-A major topic in that chapter was how to represent and render geometry using surface primitives such as points, lines, and polygons.
-In this chapter our primary focus is on volume graphics.
-Compared to surface graphics, volume graphics has a greater expressive range in its ability to render inhomogeneous materials, and is a dominant technique for visualizing 3D image (volume) datasets.
+\firstletter{C}hapter 3: \nameref{chap:computer_graphics_primer} introduced fundamental concepts of computer graphics. A major topic in that chapter was how to represent and render geometry using surface primitives such as points, lines, and polygons. In this chapter our primary focus is on volume graphics. Compared to surface graphics, volume graphics has a greater expressive range in its ability to render inhomogeneous materials, and is a dominant technique for visualizing 3D image (volume) datasets.
 
-We begin the chapter by describing two techniques that are important to both surface and volume graphics.
-These are simulating object transparency using simple blending functions, and using texture maps to add realism without excessive computational cost.
-We also describe various problems and challenges inherent to these techniques.
-We then follow with a focused discussion on volume graphics, including both object--order and image--order techniques, illumination models, approaches to mixing surface and volume graphics, and methods to improve performance.
-Finally, the chapter concludes with an assortment of important techniques for creating more realistic visualizations.
-These techniques include stereo viewing, antialiasing, and advanced camera techniques such as motion blur, focal blur, and camera motion.
+We begin the chapter by describing two techniques that are important to both surface and volume graphics. These are simulating object transparency using simple blending functions, and using texture maps to add realism without excessive computational cost. We also describe various problems and challenges inherent to these techniques. We then follow with a focused discussion on volume graphics, including both object--order and image--order techniques, illumination models, approaches to mixing surface and volume graphics, and methods to improve performance. Finally, the chapter concludes with an assortment of important techniques for creating more realistic visualizations. These techniques include stereo viewing, antialiasing, and advanced camera techniques such as motion blur, focal blur, and camera motion.
 
 \section{Transparency and Alpha Values}
 \label{sec:transparency_alpha}
@@ -505,7 +497,7 @@ I(t_n, \overrightarrow{\omega\ }) = \alpha(t_n) + \left(1 - \alpha(t_n) \right) 
 
 which is equivalent to the simple compositing method using the over operator that was described previously. Clearly in this case we have simplified the illumination model to the point that this ray function does not produce images that appear to be realistic.
 
-If we are visualizing an isosurface within the volumetric data, then we can employ the surface illumination model described in Chapter 3 to capture ambient and diffuse lighting as well as specular highlights. There are a variety of techniques for estimating the surface normal needed to evaluate the shading equation. If the image that is produced as a result of volume rendering contains the distance from the view plane to the surface for every pixel, then we can post-process the image with a 2D gradient estimator to obtain surface normals. The gradient at some pixel $(x_p, y_p)$ can be estimated with a central difference technique by:
+If we are visualizing an isosurface within the volumetric data, then we can employ the surface illumination model described in Chapter 3: \nameref{chap:computer_graphics_primer} to capture ambient and diffuse lighting as well as specular highlights. There are a variety of techniques for estimating the surface normal needed to evaluate the shading equation. If the image that is produced as a result of volume rendering contains the distance from the view plane to the surface for every pixel, then we can post-process the image with a 2D gradient estimator to obtain surface normals. The gradient at some pixel $(x_p, y_p)$ can be estimated with a central difference technique by:
 
 \begin{equation}\label{eq:7.9}
 \begin{array}{lll}
