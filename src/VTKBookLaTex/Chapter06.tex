@@ -942,7 +942,7 @@ Algorithms are implemented in the \emph{Visualization Toolkit} as process object
 \item[Source Design.\index{source object!implementation|(}]
 Source objects have no visualization data for input and one or more outputs, Figure \ref{fig:Figure6-34} illustrates this for the concrete source object vtkSphereSource. This class inherits from vtkPolyDataAlgorithm, indicating that it creates polygonal data on output.
 
-The convenience object vtkPolyDataAlgorithm has been created to simplify subclass derivation. For example, vtkBYUReader is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm\index{vtkAlgorithm}.
+The convenience object vtkPolyDataAlgorithm has been created to simplify subclass derivation. For example, vtkBYUReader\index{vtkBYUReader} is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm\index{vtkAlgorithm}.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -1099,7 +1099,7 @@ You can also derive your own lookup table types. Look at vtkLogLookupTable for a
 \subsubsection{Implicit Functions}
 \index{implicit function!implementation|(}
 
-As we have seen, implicit functions can be used for visualizing functions, creating geometry, and cutting or selecting datasets. VTK includes several implicit functions including a single plane (vtkPlane ), multiple convex planes ( vtkPlanes ), spheres ( vtkSphere ), cones ( vtkCone ), cylinders (vtkCylinder ), and the general quadric ( vtkQuadric ). The class vtkImplicitBoolean allows you to create boolean combinations of these implicit function primitives. Other implicit functions can be added to VTK by deriving from the abstract base class vtkImplicitFunction.
+As we have seen, implicit functions can be used for visualizing functions, creating geometry, and cutting or selecting datasets. VTK includes several implicit functions including a single plane (vtkPlane\index{vtkPlane}), multiple convex planes (vtkPlanes\index{vtkPlanes}), spheres (vtkSphere\index{vtkSphere}), cones (vtkCone\index{vtkCone}), cylinders (vtkCylinder\index{vtkCylinder}), and the general quadric (vtkQuadric\index{vtkQuadric}). The class vtkImplicitBoolean\index{vtkImplicitBoolean} allows you to create boolean combinations of these implicit function primitives. Other implicit functions can be added to VTK by deriving from the abstract base class vtkImplicitFunction.
 
 \begin{figure}[htb]
 	\includegraphics[width=0.96\linewidth]{Figure6-37}
@@ -1185,7 +1185,7 @@ Although these results do not represent all implementations or the behavior of o
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.96\linewidth}
-		\begin{lstlisting}[language=C++, caption={}, escapechar=\#]
+		\begin{lstlisting}[language=C++, caption={}, escapechar=\$]
 		// Define implicit function
 		vtkQuadric *quadric = vtkQuadric::New();
 		  quadric->SetCoefficients(.5,1,.2,0,.1,0,0,.2,0,0);
@@ -1198,7 +1198,7 @@ Although these results do not represent all implementations or the behavior of o
 		vtkPolyDataMapper *contourMapper = vtkPolyDataMapper::New();
 		  contourMapper->SetInputConnection( contour->GetOutputPort());
 		  contourMapper->SetScalarRange(0,1.2);
-		vtkActor#\index{vtkActor!example}# *contourActor = vtkActor::New();
+		vtkActor$\index{vtkActor!example}$ *contourActor = vtkActor::New();
 		  contourActor->SetMapper(contourMapper);
 		// Create outline
 		vtkOutlineFilter *outline = vtkOutlineFilter::New();
@@ -1215,7 +1215,7 @@ Although these results do not represent all implementations or the behavior of o
 	\caption{Contouring quadric function. Pipeline topology, C++ code, and resulting image are shown.}\label{fig:Figure6-39}
 \end{figure}
 
-An example use of vtkContourFilter is shown in Figure \ref{fig:Figure6-39}. This example is taken from Figure \ref{fig:Figure4-1}, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As Figure \ref{fig:Figure6-39} shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals to create surface normals. (We describe normal generation in Chapter 9: \nameref{chap:advanced_algorithms}.)
+An example use of vtkContourFilter is shown in Figure \ref{fig:Figure6-39}. This example is taken from Figure \ref{fig:Figure4-1}, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As Figure \ref{fig:Figure6-39} shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData\index{vtkCleanPolyData} to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals to create surface normals. (We describe normal generation in Chapter 9: \nameref{chap:advanced_algorithms}.)
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
@@ -1275,7 +1275,7 @@ Using the virtual constructor we can construct filters that output abstract data
 
 There are other filters that implement variations of this delegation technique. The class vtkPointSetAlgorithm is similar to vtkDataSetAlgorithm. This class takes as input any dataset whose geometry is explicitly defined via an instance of vtkPoints (or subclass), and generates on output an object of the same type (i.e., vtkPointSet ). The class vtkMergeFilter combines dataset structure and point attributes from one or more input datasets. For example, you can read multiple files and combine the geometry/topology from one file with different scalars, vectors, and normals from other files.
 
-One difficulty using abstract filter types is that the output type may not match with the input type of a downstream filter. For example, the output of vtkElevationFilter is specified as vtkDataSet even though the input may be of type vtkPolyData, and we know from the previous discussion that the actual output type will be vtkPolyData. This difficulty is removed by using the filter vtkCastToConcrete\index{casting!VTK data types}, which allows you to runtime cast to the appropriate output type. In this case we would use the GetPolyDataOutput() from vtkCastToConcrete. After checking the validity of the cast, this method returns a dataset cast to vtkPolyData. Of course, this process requires that the input to vtkCastToConcrete be set before the output is requested.
+One difficulty using abstract filter types is that the output type may not match with the input type of a downstream filter. For example, the output of vtkElevationFilter is specified as vtkDataSet even though the input may be of type vtkPolyData, and we know from the previous discussion that the actual output type will be vtkPolyData. This difficulty is removed by using the filter vtkCastToConcrete\index{casting!VTK data types}\index{vtkCastToConcrete}, which allows you to runtime cast to the appropriate output type. In this case we would use the GetPolyDataOutput() from vtkCastToConcrete. After checking the validity of the cast, this method returns a dataset cast to vtkPolyData. Of course, this process requires that the input to vtkCastToConcrete be set before the output is requested.
 
 \subsection{Visualizing Blood Flow}
 
@@ -1306,7 +1306,7 @@ After selecting a subset of the original points, we can use the vtkGlyph3D filte
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.76\linewidth}
-		\begin{lstlisting}[language=TCL, caption={}]
+		\begin{lstlisting}[language=TCL, caption={}, escapechar=\%]
 		vtkStructuredPointsReader reader
 		  reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"
 		vtkThresholdPoints threshold
@@ -1315,7 +1315,7 @@ After selecting a subset of the original points, we can use the vtkGlyph3D filte
 		vtkMaskPoints mask
 		  mask SetInputConnection [Threshold GetOutputPort]
 		  mask SetOnRatio 10
-		vtkConeSource cone
+		vtkConeSource%\index{vtkConeSource}\index{vtkConeSource!example}% cone
 		  cone SetResolution 3
 		  cone SetHeight 1
 		  cone SetRadius 0.25
