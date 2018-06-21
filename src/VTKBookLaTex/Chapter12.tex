@@ -769,7 +769,7 @@ vtkRenderWindowInteractor iren
 
 # create the outline
 vtkAppendPolyData%\index{vtkAppendPolyData!application}% apf
-vtkOutlineFilter olf
+vtkOutlineFilter%\index{vtkOutlineFilter!application}% olf
   olf SetInputConnection [apf GetOutputPort]
 vtkPolyDataMapper outlineMapper
   outlineMapper SetInputConnection [olf GetOutputPort]

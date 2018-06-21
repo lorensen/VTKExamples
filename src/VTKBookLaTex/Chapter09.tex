@@ -1810,7 +1810,7 @@ To illustrate the application of connectivity analysis, we will use an MRI datas
         vtkActor%\index{vtkActor!example}% isoActor
           isoActor SetMapper isoMapper
           eval [isoActor GetProperty] SetColor $raw_sienna
-        vtkOutlineFilter outline
+        vtkOutlineFilter%\index{vtkOutlineFilter!example}% outline
           outline SetInputConnection [reader GetOutputPort]
         vtkPolyDataMapper outlineMapper
           outlineMapper SetInputPort [outline GetOutputPort]

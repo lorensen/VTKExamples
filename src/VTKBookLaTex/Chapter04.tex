@@ -628,7 +628,7 @@ foo->SetInputConnection(vz->GetOutputPort(2));
 ...
 \end{lstlisting}
 
-Several other special objects having multiple inputs or outputs are also available. Some of the more notable classes are vtkMergeFilter, vtkAppendFilter\index{vtkAppendFilter}, and vtkAppendPolyData\index{vtkAppendPolyData}. These filters com bine multiple pipeline streams and generate a single output. Note, however, that while vtkMergeFilter has multiple input ports (i.e., different logical inputs), vtkAppendFilter has only one logical input, but presumes multiple connections are made to that one input. This is because in the case of vtkMergeFilter, each input has a distinct and separate purpose, while in vtkAppendFilter all the inputs have the same meaning (i.e., just one more input in a list to append together). Here are some code fragments:
+Several other special objects having multiple inputs or outputs are also available. Some of the more notable classes are vtkMergeFilter\index{vtkMergeFilter}, vtkAppendFilter\index{vtkAppendFilter}, and vtkAppendPolyData\index{vtkAppendPolyData}. These filters com bine multiple pipeline streams and generate a single output. Note, however, that while vtkMergeFilter has multiple input ports (i.e., different logical inputs), vtkAppendFilter has only one logical input, but presumes multiple connections are made to that one input. This is because in the case of vtkMergeFilter, each input has a distinct and separate purpose, while in vtkAppendFilter all the inputs have the same meaning (i.e., just one more input in a list to append together). Here are some code fragments:
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 merge = vtkMergeFilter::New();
@@ -706,7 +706,7 @@ This global variable is set as follows. Given the data object O, (or the output 
 \label{subsec:high-level_object_design}
 \index{pipeline!memory models!implementation|(}
 
-At this point in the text it is premature to describe design details of the various objects making up the visualization pipeline. However, there are two important classes that affect many of the objects in the text. These are the classes vtkObject and vtkObjectBase.
+At this point in the text it is premature to describe design details of the various objects making up the visualization pipeline. However, there are two important classes that affect many of the objects in the text. These are the classes vtkObject\index{vtkObject} and vtkObjectBase\index{vtkObjectBase}.
 
 vtkObjectBase is the base object for almost all inheritance hierarchies found in VTK. vtkObjectBase implements data object reference counting (see ``Reference Counting and Garbage Collection'' on page \pageref{subsec:reference_counting_garbage_collection}). Subclasses of vtkObjectBase may be shared by other objects, without duplicating memory. It also defines an API for objects to print information about themselves.
 
