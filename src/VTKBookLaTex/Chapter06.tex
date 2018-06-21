@@ -1035,7 +1035,7 @@ Although writers and mappers do not create visualization data, they both have me
 \subsubsection{Color Maps}
 \index{color mapping!implementation|(}
 
-Color maps are created in the Visualization Toolkit using instances of the class vtkLookupTable. This class allows you to create a lookup table using HSVA (e.g., hue, saturation, value, and alpha opacity) specification. Although we discussed the HSV color system in Chapter 3: \nameref{chap:computer_graphics_primer}, we haven't yet defined alpha opacity. We shall do so in Chapter 7:  \nameref{chap:advanced_computer_graphics}, but until then consider the alpha value to be the opacity of an object. Alpha values of one indicate that the object is opaque, while alpha values of zero indicate that the object is transparent.
+Color maps are created in the Visualization Toolkit using instances of the class vtkLookupTable\index{vtkLookupTable}. This class allows you to create a lookup table using HSVA (e.g., hue, saturation, value, and alpha opacity) specification. Although we discussed the HSV color system in Chapter 3: \nameref{chap:computer_graphics_primer}, we haven't yet defined alpha opacity. We shall do so in Chapter 7:  \nameref{chap:advanced_computer_graphics}, but until then consider the alpha value to be the opacity of an object. Alpha values of one indicate that the object is opaque, while alpha values of zero indicate that the object is transparent.
 
 The procedure for generating lookup table entries\index{lookup table!implementation} is to define pairs of values for HSVA. These pairs define a linear ramp for hue, saturation, value, and opacity. When the Build() method is invoked, these linear ramps are used to generate a table with the number of table entries requested. Alternatively, vtkLookupTable also enables you to load colors directly into the table. Thus, you build custom tables that cannot be simply expressed as linear ramps of HSVA values. To demonstrate this procedure, we specify a starting and ending value for each of the components of HSVA, then we will create a rainbow lookup table from blue to red by using the following C++ code.
 
@@ -1093,20 +1093,20 @@ A few final notes on using lookup tables.
 
 \end{itemize}
 
-You can also derive your own lookup table types. Look at vtkLogLookupTable for an example. This particular lookup table inherits from vtkLookupTable. It performs logarithmic mapping of scalar value to table entry, a useful capability when scalar values span many orders of magnitude.
+You can also derive your own lookup table types. Look at vtkLogLookupTable\index{vtkLogLookupTable} for an example. This particular lookup table inherits from vtkLookupTable\index{vtkLookupTable}. It performs logarithmic mapping of scalar value to table entry, a useful capability when scalar values span many orders of magnitude.
 \index{color mapping!implementation|)}
 
 \subsubsection{Implicit Functions}
 \index{implicit function!implementation|(}
 
-As we have seen, implicit functions can be used for visualizing functions, creating geometry, and cutting or selecting datasets. VTK includes several implicit functions including a single plane (vtkPlane\index{vtkPlane}), multiple convex planes (vtkPlanes\index{vtkPlanes}), spheres (vtkSphere\index{vtkSphere}), cones (vtkCone\index{vtkCone}), cylinders (vtkCylinder\index{vtkCylinder}), and the general quadric (vtkQuadric\index{vtkQuadric}). The class vtkImplicitBoolean\index{vtkImplicitBoolean} allows you to create boolean combinations of these implicit function primitives. Other implicit functions can be added to VTK by deriving from the abstract base class vtkImplicitFunction.
+As we have seen, implicit functions can be used for visualizing functions, creating geometry, and cutting or selecting datasets. VTK includes several implicit functions including a single plane (vtkPlane\index{vtkPlane}), multiple convex planes (vtkPlanes\index{vtkPlanes}), spheres (vtkSphere\index{vtkSphere}), cones (vtkCone\index{vtkCone}), cylinders (vtkCylinder\index{vtkCylinder}), and the general quadric (vtkQuadric\index{vtkQuadric}). The class vtkImplicitBoolean\index{vtkImplicitBoolean} allows you to create boolean combinations of these implicit function primitives. Other implicit functions can be added to VTK by deriving from the abstract base class vtkImplicitFunction\index{vtkImplicitFunction}.
 
 \begin{figure}[htb]
 	\includegraphics[width=0.96\linewidth]{Figure6-37}
 	\caption{Inheritance hierarchy of vtkImplicitFunction and subclasses.}\label{fig:Figure6-37}
 \end{figure}
 
-The existing inheritance hierarchy for implicit functions is shown in Figure \ref{fig:Figure6-37}. Subclasses of vtkImplicitFunction must implement the two methods Evaluate() and Gradient(x). The method Evaluate() returns the value of the function at point $(x,y,z)$, while the method Gradient() returns the gradient vector to the function at point $(x,y,z)$.
+The existing inheritance hierarchy for implicit functions is shown in Figure \ref{fig:Figure6-37}. Subclasses of vtkImplicitFunction\index{vtkImplicitFunction} must implement the two methods Evaluate() and Gradient(x). The method Evaluate() returns the value of the function at point $(x,y,z)$, while the method Gradient() returns the gradient vector to the function at point $(x,y,z)$.
 \index{implicit function!implementation|)}
 
 \subsubsection{Contouring}
@@ -1236,7 +1236,7 @@ The vtkCutter\index{vtkCutter} class performs cutting of all VTK cell types. The
 \subsection{Glyphs}
 \index{glyph!implementation|(}
 
-The vtkGlyph3D class provides a simple, yet powerful glyph capability in the \emph{Visualization Toolkit}. vtkGlyph3D is an example of an object that takes multiple inputs (Figure \ref{fig:Figure6-40}). One input, specified with the SetInputConnection() method, defines a set of points and possible attribute data at those points. The second input, specified with the SetSourceConnection() method, defines a geometry to be copied to every point in the input dataset. The source is of type vtkPolyData. Hence, any filter, sequence of filters creating polygonal data, or a polygonal dataset may be used to describe the glyph's geometry.
+The vtkGlyph3D\index{vtkGlyph3D} class provides a simple, yet powerful glyph capability in the \emph{Visualization Toolkit}. vtkGlyph3D is an example of an object that takes multiple inputs (Figure \ref{fig:Figure6-40}). One input, specified with the SetInputConnection() method, defines a set of points and possible attribute data at those points. The second input, specified with the SetSourceConnection() method, defines a geometry to be copied to every point in the input dataset. The source is of type vtkPolyData. Hence, any filter, sequence of filters creating polygonal data, or a polygonal dataset may be used to describe the glyph's geometry.
 
 The behavior of an instance of vtkGlyph3D depends on the nature of the input data and the value of its instance variables. Generally, the input Source geometry will be copied to each point of the Input dataset. The geometry will be aligned along the input vector data and scaled according to the magnitude of the vector or the scalar value. In some cases, the point normal is used rather than the vector. Also, scaling can be turned on or off.
 
@@ -1252,7 +1252,7 @@ We saw how to use vtkGlyph3D in the example given in Figure \ref{fig:Figure4-20}
 	{\includegraphics[width=0.6\textwidth]{Figure6-41}}
 \end{figure}
 
-Streamlines and particle motion require numerical integration to guide a point through the vector field. Vector visualization algorithms that we will see in later chapters also require numerical integration. As a result, we designed an object hierarchy\index{object model!streamline} that isolates the numerical integration process into a single base class. The base class is vtkStreamer and it is responsible for generating a particle path through a vector field of specified length (expressed as elapsed time). Each derived class of vtkStreamer takes advantage of this capability to move through the vector field but implements its own particular representational technique to depict particle motion. Streamlines ( vtkStreamLine ) draw connected lines while particle motion is shown by combining the output of vtkStreamPoints with the vtkGlyph3D object. Using vtkGlyph3D we can place spheres or oriented objects such as cones or arrows at points on the particle path created by vtkStreamPoints. The inheritance hierarchy for vtkStreamer and subclasses is shown in  Figure \ref{fig:Figure4-20}.
+Streamlines and particle motion require numerical integration to guide a point through the vector field. Vector visualization algorithms that we will see in later chapters also require numerical integration. As a result, we designed an object hierarchy\index{object model!streamline} that isolates the numerical integration process into a single base class. The base class is vtkStreamer and it is responsible for generating a particle path through a vector field of specified length (expressed as elapsed time). Each derived class of vtkStreamer takes advantage of this capability to move through the vector field but implements its own particular representational technique to depict particle motion. Streamlines (vtkStreamLine) draw connected lines while particle motion is shown by combining the output of vtkStreamPoints with the vtkGlyph3D\index{vtkGlyph3D} object. Using vtkGlyph3D we can place spheres or oriented objects such as cones or arrows at points on the particle path created by vtkStreamPoints. The inheritance hierarchy for vtkStreamer and subclasses is shown in  Figure \ref{fig:Figure4-20}.
 
 The integration method in vtkStreamer is implemented as a virtual function. Thus it can be overloaded as necessary. Possible reasons for overloading include implementing an integration technique of higher or lower accuracy, or creating a technique specialized to a particular dataset type. For example, the search process in a volume is much faster than it is for other dataset types, therefore, highly efficient vector integration techniques can be constructed.
 
@@ -1261,7 +1261,7 @@ The vector integration technique in VTK will accommodate any cell type. Thus, in
 
 \subsection{Abstract Filters}
 
-Attribute transformations create or modify data attributes without changing the topology or geometry of a dataset. Hence filters that implement attribute transformation (e.g., vtkElevationFilter ) can accept any dataset type as input, and may generate any dataset type on output. Unfortunately, because filters must specialize the particular type of data they output, at first glance it appears that filters that create general dataset types on output are not feasible. This is because the type vtkDataSet\index{vtkDataSet} is an abstract type and must be specialized to allow instantiation.
+Attribute transformations create or modify data attributes without changing the topology or geometry of a dataset. Hence filters that implement attribute transformation (e.g., vtkElevationFilter\index{vtkElevationFilter} ) can accept any dataset type as input, and may generate any dataset type on output. Unfortunately, because filters must specialize the particular type of data they output, at first glance it appears that filters that create general dataset types on output are not feasible. This is because the type vtkDataSet\index{vtkDataSet} is an abstract type and must be specialized to allow instantiation.
 
 \begin{figure}[!htb]
 	\includegraphics[width=0.96\linewidth]{Figure6-42}
@@ -1287,7 +1287,7 @@ vtkThresholdPoints allows us to extract points that satisfy a certain threshold 
 
 The filter vtkMaskPoints allows us to select a subset of the available points. We specify the subset with the OnRatio instance variable. This instance variable indicates that every OnRatio point is to be selected. Thus, if the OnRatio is equal to one, all points will be selected, and if the OnRatio is equal to ten, every tenth point will be selected. This selection can be either uniform or random. Random point selection is set using the RandomModeOn() and RandomModeOff() methods.
 
-After selecting a subset of the original points, we can use the vtkGlyph3D filter in the usual way. A cone's orientation indicates blood flow direction, and its size and color correspond to the velocity magnitude. Figure \ref{fig:Figure6-43} shows the pipeline, sample code, and a resulting image from this visualization. Note that we've implemented the example using the interpreted language Tcl. See Chapter 11: \nameref{chap:visualization_web} if you want more information about Tcl.
+After selecting a subset of the original points, we can use the vtkGlyph3D\index{vtkGlyph3D} filter in the usual way. A cone's orientation indicates blood flow direction, and its size and color correspond to the velocity magnitude. Figure \ref{fig:Figure6-43} shows the pipeline, sample code, and a resulting image from this visualization. Note that we've implemented the example using the interpreted language Tcl. See Chapter 11: \nameref{chap:visualization_web} if you want more information about Tcl.
 
 \begin{figure}[!htb]
     \centering
@@ -1319,7 +1319,7 @@ After selecting a subset of the original points, we can use the vtkGlyph3D filte
 		  cone SetResolution 3
 		  cone SetHeight 1
 		  cone SetRadius 0.25
-		vtkGlyph3D cones
+		vtkGlyph3D%\index{vtkGlyph3D!example}% cones
 		  cones SetInputConnection [mask GetOutputPort]
 		  cones SetSourceConnection [cone GetOutputPort]
 		  cones SetScaleFactor 0.5
@@ -1451,7 +1451,7 @@ Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and W
 
 \item Write a program to simulate beam vibration. Use the code associated with Figure \ref{fig:Figure6-14a} as your starting point.
 
-\item 	 Using the filters vtkStreamLine, vtkMaskPoints, and vtkGlyph3D, create a visualization consisting of oriented glyphs along a streamline.
+\item 	 Using the filters vtkStreamLine, vtkMaskPoints, and vtkGlyph3D\index{vtkGlyph3D!exercise}, create a visualization consisting of oriented glyphs along a streamline.
 
 \item Visualize the following functions.
 \begin{enumerate}

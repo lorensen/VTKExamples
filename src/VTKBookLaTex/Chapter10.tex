@@ -445,9 +445,9 @@ We suggest that you review the code accompanying the images in this chapter to s
 
 \subsection{Data Representation}
 
-In the imaging pipeline, the class for representing and manipulating data is vtkImageData ``Types of Datasets'' on page \pageref{sec:types_of_datasets}). In addition, the data extent (topological extent specification) plays a vital role in controlling how images are processed.
+In the imaging pipeline, the class for representing and manipulating data is vtkImageData see ``Types of Datasets'' on page \pageref{sec:types_of_datasets}). In addition, the data extent (topological extent specification) plays a vital role in controlling how images are processed.
 
-vtkImageData actually represents the image data. Internally, it refers to an instance of vtkDataArray. Therefore, its native representation data type may be any one of unsigned char, char, unsigned short, short, int, float, or any concrete type of vtkDataArray\index{vtkDataArray!and vtkImageData}. Please remember that vtkImageData can represent 1D, 2D (image), and 3D (volume) data.
+vtkImageData\index{vtkImageData!and vtkDataArray} actually represents the image data. Internally, it refers to an instance of vtkDataArray. Therefore, its native representation data type may be any one of unsigned char, char, unsigned short, short, int, float, or any concrete type of vtkDataArray\index{vtkDataArray!and vtkImageData}. Please remember that vtkImageData can represent 1D, 2D (image), and 3D (volume) data.
 
 There are three types of data extents\index{data extent} in the imaging pipeline. In general, any rectangular piece of image data can be described by the extent six-vector $(imin,imax, jmin,jmax, kmin,kmax)$. The WholeExtent refers to the original data size of an image and is derived from the image dimensions. The UpdateExtent is the extent that is processed by a particular filter during execution.
 
@@ -482,11 +482,11 @@ F(x, y) = \sin\left(\frac{x}{10}\right) + \sin\left(\dfrac{y}{10}\right)
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.96\linewidth}
-       \begin{lstlisting}[language=C++,  caption={}, numbers=none, frame=none]
+       \begin{lstlisting}[language=C++,  caption={}, numbers=none, frame=none, escapechar=\$]
         int x, y;
         vtkImageData *image;
         
-        image = vtkImageData::New();
+        image = vtkImageData$\index{vtkImageData!example}$::New();
           image->SetDimensions(256, 256, 1);
           image->SetScalarTypeToFloat();
           image->AllocateScalars();
@@ -499,7 +499,7 @@ F(x, y) = \sin\left(\frac{x}{10}\right) + \sin\left(\dfrac{y}{10}\right)
             *ptr++ = 10.0 * sin(0.1 * x) * sin(0.1 * y);
             }
           }
-        vtkImageViewer *viewer = vtkImageViewer::New();
+        vtkImageViewer$\index{tkImageViewer!example}$ *viewer = vtkImageViewer::New();
           viewer->SetInput(image);
           viewer->SetColorWindow(20.0);
           viewer->SetColorLevel(0.0);
@@ -533,16 +533,16 @@ Note that direct pointer access is used to fill the image. The AllocateScalars()
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.78\linewidth}
-       \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
-        vtkImageGradient gradient
+       \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none, escapechar=\%]
+        vtkImageGradient%\index{vtkImageGradient!example}% gradient
           gradient SetInputConnection [smooth GetOutputPort]
           gradient SetDimensionality 2
         
-        vtkImageEuclideanToPolar polar
+        vtkImageEuclideanToPolar%\index{vtkImageEuclideanToPolar!example}% polar
           polar SetInputConnection [gradient GetOutputPort]
           polar SetThetaMaximum 255
         
-        vtkImageConstantPad pad
+        vtkImageConstantPad%\index{vtkImageConstantPad}% pad
           pad SetInputConnection [polar GetOutputPort]
           pad SetOutputNumberOfScalarComponents 3
           pad SetConstant 200
@@ -552,7 +552,7 @@ Note that direct pointer access is used to fill the image. The AllocateScalars()
           permute SetInputConnection [pad GetOutputPort]
           permute SetComponents 0 2 1
           
-        vtkImageHSVToRGB rgb
+        vtkImageHSVToRGB%\index{vtkImageHSVToRGB!example}% rgb
           rgb SetInputConnection [permute GetOutputPort]
           rgb SetMaximum 255
           \end{lstlisting}
@@ -563,9 +563,9 @@ Note that direct pointer access is used to fill the image. The AllocateScalars()
 
 In this example we demonstrate a lengthy imaging pipeline. The basic purpose of the pipeline is to visualize information about the image gradient. The gradient direction and magnitude are mapped into the hue and saturation components of the color HSV space, respectively. The pipeline, resulting image, and a portion of the code are shown in Figure \ref{fig:Figure10-16}.
 
-The pipeline demonstrates some interesting tricks. The first three filters read CT data of the human head (i.e., using vtkImageReader), magnify the image by a factor of four (vtkImageMagnify), and then smooth the data (since magnification uses linear interpolation, introducing some sharp edges). The next filter actually computes the 2D gradient (vtkImageGradient), placing the x-y gradient components into its output.
+The pipeline demonstrates some interesting tricks. The first three filters read CT data of the human head (i.e., using vtkImageReader\index{vtkImageReader!example}), magnify the image by a factor of four (vtkImageMagnify\index{vtkImageMagnify!example}), and then smooth the data (since magnification uses linear interpolation, introducing some sharp edges). The next filter actually computes the 2D gradient (vtkImageGradient), placing the x-y gradient components into its output.
 
-The next series of filters is where the fun begins. First, the data is converted to polar coordinates (vtkImageEuclideanToPolar). We use this filter because we want to operate in color HSV space (see ``Color'' on page \pageref{sec:color}). The image magnitude is to be mapped into saturation value, while the gradient direction is mapped into hue value (remember hue is represented as an angle on the HSV color wheel). The filter vtkImageConstantPad is used to add a third component to the data, since the gradient filter only generated two components, and we need three components to represent color. The vtkImageExtractComponents is used to rearrange the components into HSV order. Finally, the data is converted back into RGB color space with vtkImageHSVToRGB. (This is necessary because the image viewer expects RGB values.)
+The next series of filters is where the fun begins. First, the data is converted to polar coordinates (vtkImageEuclideanToPolar\index{vtkImageEuclideanToPolar!example}). We use this filter because we want to operate in color HSV space (see ``Color'' on page \pageref{sec:color}). The image magnitude is to be mapped into saturation value, while the gradient direction is mapped into hue value (remember hue is represented as an angle on the HSV color wheel). The filter vtkImageConstantPad\index{vtkImageConstantPad!example} is used to add a third component to the data, since the gradient filter only generated two components, and we need three components to represent color. The vtkImageExtractComponents\index{vtkImageExtractComponents!example} is used to rearrange the components into HSV order. Finally, the data is converted back into RGB color space with vtkImageHSVToRGB\index{vtkImageHSVToRGB!example}. (This is necessary because the image viewer expects RGB values.)
 \index{gradient magnitude!example|)}
 
 \subsection{Image Warping}
@@ -588,12 +588,12 @@ The next series of filters is where the fun begins. First, the data is converted
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.96\linewidth}
-       \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
+       \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none, escapechar=\%]
         vtkBMPReader reader
           reader SetFileName $VTK_DATA_ROOT/Data/masonry.bmp
-        vtkImageLuminance luminance
+        vtkImageLuminance%\index{vtkImageLuminance!example}% luminance
           luminance SetInputConnection [reader GetOutputPort]
-        vtkImageDataGeometryFilter geometry
+        vtkImageDataGeometryFilter%\index{vtkImageDataGeometryFilter!example}% geometry
           geometry SetInputConnection [luminance GetOutputPort]
         vtkWarpScalar warp
           warp SetInputConnection [geometry GetOutputPort]
@@ -612,7 +612,7 @@ The next series of filters is where the fun begins. First, the data is converted
 	\caption{Combining the imaging and visualization pipelines to deform an image in the z-direction. The vtkMergeFilter is used to combine the warped surface with the original color data.}\label{fig:Figure10-17}
 \end{figure}
 
-In this example we combine the imaging and visualization pipelines. Imaging filters are used to read in an image (vtkBMPReader\index{vtkBMPReader}) and then convert it to grayscale (vtkImageLuminance). The data, which is a image data dataset, is then passed down the visualization pipeline as polygons using vtkImageDataGeometryFilter. Next we warp the data in the direction perpendicular to the image plane using the visualization filter vtkWarpScalar. The vtkMergeFilter is used to combine the warped geometry (now vtkPolyData) with the original image data from the reader. (Note that in this example the vtkMergeFilter takes two inputs.) The pipeline, example output, and sample code are shown in Figure \ref{fig:Figure10-17}.
+In this example we combine the imaging and visualization pipelines. Imaging filters are used to read in an image (vtkBMPReader\index{vtkBMPReader}) and then convert it to grayscale (vtkImageLuminance\index{vtkImageLuminance!example}). The data, which is a image data dataset, is then passed down the visualization pipeline as polygons using vtkImageDataGeometryFilter\index{vtkImageDataGeometryFilter!example}. Next we warp the data in the direction perpendicular to the image plane using the visualization filter vtkWarpScalar. The vtkMergeFilter is used to combine the warped geometry (now vtkPolyData) with the original image data from the reader. (Note that in this example the vtkMergeFilter takes two inputs.) The pipeline, example output, and sample code are shown in Figure \ref{fig:Figure10-17}.
 \index{image warping!example|)}
 
 \subsection{Regression Testing}
@@ -674,7 +674,7 @@ In our work with VTK, we often need to perform software testing. The testing may
 	\caption{Software regression testing using image processing. A test image is taken from the renderer and compared with a valid image stored on disk. (a) shows the valid image. (b) shows the test image (artificially modified by slight camera rotation). (c) shows the image difference. The code fragment above is extracted from the regression testing procedure.}\label{fig:Figure10-18}
 \end{figure}
 
-Regression testing is based on the following procedure. A test program (typically a Tcl/Tk script) is written that exercises a portion of the code. In our example, we will assume that we are testing a feature of implicit modelling. The output of the script is an image with a fixed view, as shown in Figure \ref{fig:Figure10-18}(a). To perform the test, we compare the output of the test program with a previously stored image, or ``valid'' image (Figure \ref{fig:Figure10-18}(b)). The valid image was generated when we initially created the object or objects to be tested, and is assumed to be the correct output. Then, we use a the filter vtkImageDifference to compare the test image with the valid image. This filter takes into account dithering and anti-aliasing effects, and creates an output image representing the difference between the test image and valid image (Figure \ref{fig:Figure10-18}(c)). It also reports the difference in the images in terms of a pixel count. To determine whether the test is passed, we compare the pixel count with a threshold value (for example, 10 pixels).
+Regression testing is based on the following procedure. A test program (typically a Tcl/Tk script) is written that exercises a portion of the code. In our example, we will assume that we are testing a feature of implicit modelling. The output of the script is an image with a fixed view, as shown in Figure \ref{fig:Figure10-18}(a). To perform the test, we compare the output of the test program with a previously stored image, or ``valid'' image (Figure \ref{fig:Figure10-18}(b)). The valid image was generated when we initially created the object or objects to be tested, and is assumed to be the correct output. Then, we use a the filter vtkImageDifference\index{vtkImageDifference!example} to compare the test image with the valid image. This filter takes into account dithering and anti-aliasing effects, and creates an output image representing the difference between the test image and valid image (Figure \ref{fig:Figure10-18}(c)). It also reports the difference in the images in terms of a pixel count. To determine whether the test is passed, we compare the pixel count with a threshold value (for example, 10 pixels).
 
 Our regression testing procedure cannot test the original implementation of an object or objects. The developer must verify that the valid image is indeed correct. However, the process is invaluable for finding and correcting problems due to incremental code changes (e.g., bug fixes, enhancements, etc.) Furthermore, the test can be run as a batch process, with a simple pass/fail output, and an image to show the differences.
 \index{regression testing!example|)}

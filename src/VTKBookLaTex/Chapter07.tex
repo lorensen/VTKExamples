@@ -1203,10 +1203,10 @@ vtkActor *spikeActor2 = vtkActor::New();
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.98\textwidth]{Figure7-38}\\
-	\caption{Partial class hierarchy for 3D widgets. Each 3D widget observes a particular vtkRenderWindow similar to vtkInteractorStyle. Unlike the vtkInteractorStyle which is used to manipulate the camera, 3D widgets have a representation in the scene that can be directly manipulated. More than one vtkInteractorObserver can watch a vtkRenderWindow at a given time, so classes like vtkInteractorEventRecorder can record an event and pass them on to the next vtkInteractorObserver observing the vtkRenderWindow.}\label{fig:Figure7-38}
+	\caption{Partial class hierarchy for 3D widgets. Each 3D widget observes a particular vtkRenderWindow similar to vtkInteractorStyle. Unlike the vtkInteractorStyle which is used to manipulate the camera, 3D widgets have a representation in the scene that can be directly manipulated. More than one vtkInteractorObserver\index{vtkInteractorObserver} can watch a vtkRenderWindow at a given time, so classes like vtkInteractorEventRecorder\index{vtkInteractorEventRecorder} can record an event and pass them on to the next vtkInteractorObserver observing the vtkRenderWindow.}\label{fig:Figure7-38}
 \end{figure}
 
-There are a variety of 3D widgets in VTK all of which function in a similar fashion. 3D widgets are a subclass of vtkInteractorObserver meaning that they are associated with a vtkRenderWindow and observe events in the render window (). (Note: vtkInteractorStyle --- see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:examples_introducing_vtkRenderWindowInteractor} --- is also a subclass of vtkInteractorObserver. The interactor style differs from a 3D widget in that it does not have a representation in the scene). 
+There are a variety of 3D widgets in VTK all of which function in a similar fashion. 3D widgets are a subclass of vtkInteractorObserver\index{vtkInteractorObserver} meaning that they are associated with a vtkRenderWindow and observe events in the render window (). (Note: vtkInteractorStyle --- see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:examples_introducing_vtkRenderWindowInteractor} --- is also a subclass of vtkInteractorObserver. The interactor style differs from a 3D widget in that it does not have a representation in the scene). 
 
 The following example  shows the general approach to using a 3D widget using vtkLineWidget as an example (Figure \ref{fig:Figure7-39}). First the widget is instantiated and then placed. Placing means positioning, scaling, and orienting the widget consistent with the object on which they operate. By default, widgets are enabled with a ``keypress-i'' event, but the specific event to enable the widget can be modified.
 
@@ -1222,7 +1222,7 @@ The widget interfaces with the application through the command/observer event ha
 
 \clearpage
 \index{3D Widgets!vtkLineWidget!example}
-\begin{lstlisting}[language=TCL, caption={An example of using vtkLineWidget to produce sreamlines.}]
+\begin{lstlisting}[language=TCL, caption={An example of using vtkLineWidget to produce sreamlines.}, escapechar=\%]
 vtkRungeKutta4 rk4
 vtkPolyData seeds
 vtkStreamTracer streamer
@@ -1232,7 +1232,7 @@ vtkStreamTracer streamer
 vtkRenderWindowInteractor iren
   iren SetRenderWindow renWin
 
-vtkLineWidget lineWidget
+vtkLineWidget%\index{vtkLineWidget!example}% lineWidget
   lineWidget SetInteractor iren
   lineWidget SetInput [reader GetOutput]
   lineWidget SetAlignToYAxis

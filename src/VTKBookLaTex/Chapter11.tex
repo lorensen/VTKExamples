@@ -189,7 +189,7 @@ vtkVRMLExporter exp
   exp Write
 \end{lstlisting}
 
-These four lines create an instance of vtkVRMLExporter\index{exporter!VRML}, set its input to renWin (an instance of vtkRenderWindow), set a file name, and finally write out the result. This is different from previous examples where data was written out using vtkPolyDataWriter or other subclasses of vtkWriter. vtkVRMLExporter is a subclass of vtkExporter, not vtkWriter. The significant difference is that a writer takes a vtkDataSet as input and is responsible for writing out a single dataset. An exporter takes a vtkRenderWindow as input and is responsible for writing out an entire scene, possibly containing multiple actors, lights, textures, and material properties, in addition to any datasets.
+These four lines create an instance of vtkVRMLExporter\index{exporter!VRML}, set its input to renWin (an instance of vtkRenderWindow), set a file name, and finally write out the result. This is different from previous examples where data was written out using vtkPolyDataWriter or other subclasses of vtkWriter. vtkVRMLExporter is a subclass of vtkExporter\index{vtkExporter}, not vtkWriter. The significant difference is that a writer takes a vtkDataSet as input and is responsible for writing out a single dataset. An exporter takes a vtkRenderWindow as input and is responsible for writing out an entire scene, possibly containing multiple actors, lights, textures, and material properties, in addition to any datasets.
 
 If you consider a continuum from a static data file to a fully interactive visualization program, vtkWriter would be at one end, vtkExporter in the middle, and a VTK program at the other. VRML 1.0 would fall at the same place as vtkExporter and VRML 2.0 would fall between vtkExporter and an actual program due to its added support for behavior and script interaction. What VRML lacks from a visualization perspective is algorithms. VRML is a 3D multimedia content format and lacks direct support for applying visualization techniques or algorithms.
 
@@ -307,7 +307,7 @@ public class App2 extends Applet
   {
   vtkPolyDataReader pr = null;
   vtkWarpVector warp = null;
-  vtkGeometryFilter ds2poly = null;
+  vtkGeometryFilter$\index{vtkGeometryFilter!Java example}$ ds2poly = null;
   vtkCleanPolyData$\index{vtkCleanPolyData!Java example}$ clean = null;
   vtkPolyDataNormals normals = null;
   vtkVectorDot color = null;
