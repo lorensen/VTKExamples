@@ -1844,7 +1844,7 @@ To illustrate this process consider visiting the edges of a triangle mesh. We be
 
 Multivalued scalar data, or scalars represented by various color representations, are treated specially by the \emph{Visualization Toolkit}. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See ``Color Mapping'' on page \pageref{subsec:color_mapping} for more information.)
 
-By default, the mapping of scalars into colors proceeds as follows (vtkMapper and subclasses are responsible for implementing this behavior):
+By default, the mapping of scalars into colors proceeds as follows (vtkMapper\index{vtkMapper} and subclasses are responsible for implementing this behavior):
 \begin{itemize}
 
 \item If the scalar type is unsigned char with the tuple size ranging between one and four components, the data is considered to be color data.

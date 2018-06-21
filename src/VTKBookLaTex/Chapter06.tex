@@ -1027,7 +1027,7 @@ Mapper objects have one or more inputs and no visualization data output, Figure 
 
 Since mappers take datasets as input, type enforcement is required. Each mapper implements this functionality directly. For example, both classes vtkPolyDataMapper and vtkSTLWriter implement a SetInput() method to enforce the input to be of type vtkPolyData. Other mappers and writers enforce input type as appropriate.
 
-Although writers and mappers do not create visualization data, they both have methods similar to the RequestData() method of the sources and filters. Each subclass of vtkMapper must implement the Render() method. This method is exchanged by the graphics system actors and its associated mappers during the rendering process. The effect of the method is to map its input dataset to the appropriate rendering library/system. Subclasses of the class vtkWriter must implement the WriteData() method. This method causes the writer to write its input dataset to disk (or other I/O device).
+Although writers and mappers do not create visualization data, they both have methods similar to the RequestData() method of the sources and filters. Each subclass of vtkMapper\index{vtkMapper} must implement the Render() method. This method is exchanged by the graphics system actors and its associated mappers during the rendering process. The effect of the method is to map its input dataset to the appropriate rendering library/system. Subclasses of the class vtkWriter must implement the WriteData() method. This method causes the writer to write its input dataset to disk (or other I/O device).
 \index{mapper object!implementation|)}
 
 \end{description}
@@ -1079,7 +1079,7 @@ vtkLookupTable *lut = vtkLookupTable::New();
   lut->SetTableValue(0, 0.0, 0.0, 1.0, 1.0);
 \end{lstlisting}
 
-Lookup tables in the \emph{Visualization Toolkit} are associated with the graphics mappers. Mappers will automatically create a red to blue lookup table if no table is specified, but if you want to create your own, use the \sloppy{\lstinline{mapper->SetLookupTable(lut)}} operation where mapper is an instance of vtkMapper or its subclasses.
+Lookup tables in the \emph{Visualization Toolkit} are associated with the graphics mappers. Mappers will automatically create a red to blue lookup table if no table is specified, but if you want to create your own, use the \sloppy{\lstinline{mapper->SetLookupTable(lut)}} operation where mapper is an instance of vtkMapper\index{vtkMapper} or its subclasses.
 
 A few final notes on using lookup tables.
 
@@ -1116,7 +1116,7 @@ Scalar contouring is implemented in the Visualization Toolkit with vtkContourFil
 
 Contouring in VTK is implemented using variations of the marching cubes algorithm presented earlier. That is, a contour case table is associated with each cell type, so each cell will generate contouring primitives as appropriate. For example, the tetrahedron cell type implements ``marching tetrahedron'' and creates triangle primitives, while the triangle cell type implements ``marching triangles'' and generates lines segments.
 
-The implication of this arrangement is that vtkContourFilter will generate point, line, and surface contouring primitives depending on the combination of input cell types. Thus vtkContourFilter is completely general. We have created another contour filter, vtkMarchingCubes, that is specific to the dataset type image data (in particular, 3D volumes). These two filters allow us to compare (at least for this one algorithm) the cost of generality.
+The implication of this arrangement is that vtkContourFilter will generate point, line, and surface contouring primitives depending on the combination of input cell types. Thus vtkContourFilter is completely general. We have created another contour filter, vtkMarchingCubes\index{vtkMarchingCubes}, that is specific to the dataset type image data (in particular, 3D volumes). These two filters allow us to compare (at least for this one algorithm) the cost of generality.
 
 Recall from ``Generality Versus Efficiency'' on page \pageref{subsec:benerality_vs_efficiency} the issues regarding the trade--offs between general and specific algorithms. Figure \ref{fig:Figure6-38} shows a comparison of CPU times for a volume dataset at $64 \times 64\times 93$, $128 \times 128\times 93$ and $256 \times 256\times 93$. The volume is a CT dataset of a human head. Three cases were run. In the first case the  vtkMarchingCubes object was used\index{marching cubes!general versus specific}. The output of this filter is triangles plus point normals. In the second case, vtkContourFilter was run. The output of this filter is just triangles. In the last case, vtkContourFilter was combined with vtkPolyDataNormals (to generate point normals). The output of the combined filters is also triangles plus point normals.
 
@@ -1163,7 +1163,7 @@ Although these results do not represent all implementations or the behavior of o
 	\end{subfigure}
 	\caption{The cost of generality. Isosurface generation of three volumes of different sizes are
 		compared. The results show normalized execution times for two different implementations of the
-		marching-cubes isosurface algorithm. The specialized filter is \emph{vtkMarchingCubes}. The general
+		marching-cubes isosurface algorithm. The specialized filter is \emph{vtkMarchingCubes}\index{vtkMarchingCubes}. The general
 		algorithms are first \emph{vtkContourFilter} and then in combination with \emph{vtkPolyDataNormals}.}\label{fig:Figure6-38}
 \end{figure}
 
@@ -1281,7 +1281,7 @@ One difficulty using abstract filter types is that the output type may not match
 
 In this example we'll combine a few different techniques to visualize blood flow in the human carotid arteries. Our data contains both vectors that represent the velocity of blood and scalars that are proportional to the magnitude of the velocity (i.e., speed).
 
-We can provide context for the visualization by creating an isosurface of speed. This isosurface shows regions of fastest blood flow, and is similar to, but not the same as, the actual surface of the arteries. However, it provides us with a visual cue to the structure of the arteries. The first vector visualization technique we'll use is to generate vector glyphs ( Unfortunately, we cannot just create glyphs at each point because of the number of points (over 167,000 points). To do so would result in a confusing mess, and the interactive speed would be poor. Instead, we'll use two filters to select a subset of the available points. These filters are vtkThresholdPoints and vtkMaskPoints.
+We can provide context for the visualization by creating an isosurface of speed. This isosurface shows regions of fastest blood flow, and is similar to, but not the same as, the actual surface of the arteries. However, it provides us with a visual cue to the structure of the arteries. The first vector visualization technique we'll use is to generate vector glyphs ( Unfortunately, we cannot just create glyphs at each point because of the number of points (over 167,000 points). To do so would result in a confusing mess, and the interactive speed would be poor. Instead, we'll use two filters to select a subset of the available points. These filters are vtkThresholdPoints and vtkMaskPoints\index{vtkMaskPoints}.
 
 vtkThresholdPoints allows us to extract points that satisfy a certain threshold criterion. In our example, we choose points whose speed is greater than a specified value. This eliminates a large number of points, since most points lie outside the arteries and have a small speed value.
 
@@ -1312,7 +1312,7 @@ After selecting a subset of the original points, we can use the vtkGlyph3D\index
 		vtkThresholdPoints threshold
 		  threshold SetInputConnection [reader GetOutputPort]
 		  threshold ThresholdByUpper 200
-		vtkMaskPoints mask
+		vtkMaskPoints%\index{vtkMaskPoints}\index{vtkMaskPoints!example}% mask
 		  mask SetInputConnection [Threshold GetOutputPort]
 		  mask SetOnRatio 10
 		vtkConeSource%\index{vtkConeSource}\index{vtkConeSource!example}% cone
@@ -1451,7 +1451,7 @@ Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and W
 
 \item Write a program to simulate beam vibration. Use the code associated with Figure \ref{fig:Figure6-14a} as your starting point.
 
-\item 	 Using the filters vtkStreamLine, vtkMaskPoints, and vtkGlyph3D\index{vtkGlyph3D!exercise}, create a visualization consisting of oriented glyphs along a streamline.
+\item 	 Using the filters vtkStreamLine, vtkMaskPoints\index{vtkMaskPoints!exercise}, and vtkGlyph3D\index{vtkGlyph3D!exercise}, create a visualization consisting of oriented glyphs along a streamline.
 
 \item Visualize the following functions.
 \begin{enumerate}

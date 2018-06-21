@@ -100,10 +100,10 @@ The flow in the program is similar to most VTK applications.
 
 \end{itemize}
 
-The filter we have chosen to use is vtkMarchingCubes. We could also use vtkContourFilter since it will automatically create an instance of vtkMarchingCubes as it delegates to the fastest subclass for a particular dataset type. The class vtkPolyDataNormals is used to generate nice surface normals for the data. vtkMarchingCubes can also generate normals, but sometimes better results are achieved when the normals are directly from the surface (vtkPolyDataNormals ) versus from the data (vtkMarchingCubes ). To complete this example, we take the output from the isosurface generator vtkMarchingCubes and connect it to a mapper and actor via
+The filter we have chosen to use is vtkMarchingCubes\index{vtkMarchingCubes!application}. We could also use vtkContourFilter since it will automatically create an instance of vtkMarchingCubes as it delegates to the fastest subclass for a particular dataset type. The class vtkPolyDataNormals is used to generate nice surface normals for the data. vtkMarchingCubes can also generate normals, but sometimes better results are achieved when the normals are directly from the surface (vtkPolyDataNormals ) versus from the data (vtkMarchingCubes ). To complete this example, we take the output from the isosurface generator vtkMarchingCubes and connect it to a mapper and actor via
 vtkPolyDataMapper and vtkActor\index{vtkActor!application}. The C++ code follows.
 
-\begin{lstlisting}[language=C++, caption={Creating an isosurface.}]
+\begin{lstlisting}[language=C++, caption={Creating an isosurface.}, escapechar=\$]
 vtkContourFilter *skinExtractor = vtkContourFilter::New();
   skinExtractor->SetInputConnection(v16->GetOutputPort());
   skinExtractor->SetValue(0, 500);
@@ -427,8 +427,8 @@ if {$GAUSSIAN_STANDARD_DEVIATION != "0 0 0"} {
 
 Now we can process the volume with marching cubes\index{marching cubes!aplication} just as though we had obtained gray--scale data from a scanner. We added a few more bells and whistles to the pipeline. The filter runs faster if we turn off gradient and normal calculations. Marching cubes normally calculates vertex normals from the gradient of the volume data. In our pipeline, we have concocted a gray--scale representation and will subsequently decimate the triangle mesh and smooth the resulting vertices. This processing invalidates the normals that are calculated by marching cubes. 
 
-\begin{lstlisting}[language=TCL, caption={Generate Triangles.}]
-vtkMarchingCubes mcubes
+\begin{lstlisting}[language=TCL, caption={Generate Triangles.}, escapechar=\%]
+vtkMarchingCubes%\index{vtkMarchingCubes!application}% mcubes
   mcubes SetInputConnection [toStructuredPoints GetOutputPort]
   mcubes ComputeScalarsOff
   mcubes ComputeGradientsOff
