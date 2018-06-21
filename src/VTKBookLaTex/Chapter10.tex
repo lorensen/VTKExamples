@@ -447,7 +447,7 @@ We suggest that you review the code accompanying the images in this chapter to s
 
 In the imaging pipeline, the class for representing and manipulating data is vtkImageData ``Types of Datasets'' on page \pageref{sec:types_of_datasets}). In addition, the data extent (topological extent specification) plays a vital role in controlling how images are processed.
 
-vtkImageData actually represents the image data. Internally, it refers to an instance of vtkDataArray. Therefore, its native representation data type may be any one of unsigned char, char, unsigned short, short, int, float, or any concrete type of vtkDataArray. Please remember that vtkImageData can represent 1D, 2D (image), and 3D (volume) data.
+vtkImageData actually represents the image data. Internally, it refers to an instance of vtkDataArray. Therefore, its native representation data type may be any one of unsigned char, char, unsigned short, short, int, float, or any concrete type of vtkDataArray\index{vtkDataArray!and vtkImageData}. Please remember that vtkImageData can represent 1D, 2D (image), and 3D (volume) data.
 
 There are three types of data extents\index{data extent} in the imaging pipeline. In general, any rectangular piece of image data can be described by the extent six-vector $(imin,imax, jmin,jmax, kmin,kmax)$. The WholeExtent refers to the original data size of an image and is derived from the image dimensions. The UpdateExtent is the extent that is processed by a particular filter during execution.
 

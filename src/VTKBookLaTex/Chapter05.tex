@@ -454,7 +454,7 @@ Abstract data objects are objects that provide uniform methods to create, manipu
 	\label{fig:Figure5-10}
 \end{figure}
 
-Consider the abstract class vtkDataArray. We can access the data value at associated point id 129 by executing the method \texttt{double s = GetTuple1(129)}. Since the virtual GetTuple1() method returns a floating-point data value, each subclass of vtkDataArray must also return a floating-point value. Although the subclass is free to represent data in any possible form, it must transform its data representation into a floating-point value. This process may be as simple as a cast from a built-in type to floating-point value, or it may be a complex mapping of data. For example, if our data consists of character strings, we could conceivably create an alphabetical list and map the string into a location in the list, and then cast the location into a double value.
+Consider the abstract class vtkDataArray. We can access the data value at associated point id 129 by executing the method \texttt{double s = GetTuple1(129)}. Since the virtual GetTuple1() method returns a floating-point data value, each subclass of vtkDataArray\index{vtkDataArray} must also return a floating-point value. Although the subclass is free to represent data in any possible form, it must transform its data representation into a floating-point value. This process may be as simple as a cast from a built-in type to floating-point value, or it may be a complex mapping of data. For example, if our data consists of character strings, we could conceivably create an alphabetical list and map the string into a location in the list, and then cast the location into a double value.
 
 While this run-time oriented interface is convenient for writing general algorithms that do not depend on a particular data type, the conversion of native representation to double type is problematic. First, the conversion operation can affect performance adversely, since the data access methods are called frequently, virtual functions are slower than in-line or non-virtual invocations, and the cast operator is slow in many cases. Second, a complex type such as double loses precision during conversion to double. To remedy these problems, it is possible to access data in its native form and process it accordingly. In this approach C++ templates\index{C++!templates} are used.
 
@@ -540,7 +540,7 @@ Besides representing cell type, this design also enables random access to cells.
 The vtkCellTypes may also be added to the vtkPolyData data representation  --- and indeed it has. However, our reasons for this addition are not to represent type explicitly, but rather to provide random access to the cells and enable many topological operations. We will expand on this idea in Chapter 8: \nameref{chap:advanced_data_representation}.
 \index{unstructured grid!representation|)}
 
-\item[Object Model.\index{object model!cell|(}] The five datasets are implemented as shown in Figure \ref{fig:Figure5-14}. As this object diagram illustrates, these concrete datasets are subclasses of the abstract class vtkDataSet. Two additional classes are introduced as well. The class vtkStructuredData contributes instance variables and methods for structured data. vtkStructuredData is not in an inheritance relationship with the datasets; rather the structured datasets shown delegate to it in order to implement some of their methods. (This was done to avoid multiple inheritance.) Subclasses of the class vtkPointSet represent their points explicitly, that is, through an instance of vtkPoints or its subclasses. vtkPointSet provides methods and instance variables to manipulate the point data, as well as a general searching capability to find points and cells. (See ``Searching'' on page \pageref{sec:searching} for more information.)
+\item[Object Model.\index{object model!cell|(}] The five datasets are implemented as shown in Figure \ref{fig:Figure5-14}. As this object diagram illustrates, these concrete datasets are subclasses of the abstract class vtkDataSet\index{vtkDataSet}. Two additional classes are introduced as well. The class vtkStructuredData contributes instance variables and methods for structured data. vtkStructuredData is not in an inheritance relationship with the datasets; rather the structured datasets shown delegate to it in order to implement some of their methods. (This was done to avoid multiple inheritance.) Subclasses of the class vtkPointSet represent their points explicitly, that is, through an instance of vtkPoints or its subclasses. vtkPointSet provides methods and instance variables to manipulate the point data, as well as a general searching capability to find points and cells. (See ``Searching'' on page \pageref{sec:searching} for more information.)
 \index{object model!cell|)}
 
 \end{description}
@@ -605,7 +605,7 @@ One difficulty with maintaining both cell data and point data representations is
 
 To represent dataset attributes we use the organizing classes vtkPointData\index{vtkPointData} and vtkCellData\index{vtkCellData}, both of which are subclasses of the class vtkFieldData as shown in Figure \ref{fig:Figure5-1}. The class vtkDataSetAttributes\index{vtkDataSetAttributes} serves to coordinate the movement of data from one process object to the next. It provides methods for copying, interpolating, and moving data between input and output.
 
-Another important feature of vtkDataSetAttributes is that it provides the ability to assign a data array to represent a particular data attribute. For example, the method SetScalars() is used to specify which data array is to be treated as the scalars in the field.
+Another important feature of vtkDataSetAttributes\index{vtkDataSetAttributes} is that it provides the ability to assign a data array to represent a particular data attribute. For example, the method SetScalars() is used to specify which data array is to be treated as the scalars in the field.
 
 There is a one-to-one correspondence between each dataset point and its attribute data. Point attributes are accessed by way of the point id. For example, to access the scalar value of point id 129 in the dataset instance aDataSet, we use a
 
@@ -972,7 +972,7 @@ Unstructured grid datasets are the most general dataset type in both topology an
 		\caption*{}
 		\label{fig:Figure5-21c}
 	\end{subfigure}
-	\caption{Creation of an unstructured grid.}\label{fig:Figure5-21}
+	\caption{Creation of an unstructured grid.\index{vtkDataSetMapper!example}}\label{fig:Figure5-21}
 \end{figure}
 
 To summarize the process of creating an instance of vtkUnstructuredGrid, we follow five steps. We assume the name of vtkUnstructuredGrid instance is ugrid.

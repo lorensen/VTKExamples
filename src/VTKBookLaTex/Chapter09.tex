@@ -1560,7 +1560,7 @@ With the conclusion of this chapter we have provided an overview of the basics o
 \subsection{Dividing Cubes / Point Generation}
 \index{dividing cubes!implementation|(}
 
-Dividing cubes is implemented in VTK with the class vtkDividingCubes. It has been specialized to operate with image datasets. Besides specifying the contour value, you must specify a separation distance between points (using the method SetDistance()). If you desire a solid appearance, pick a distance that is less than or equal to display resolution.
+Dividing cubes is implemented in VTK with the class vtkDividingCubes\index{vtkDividingCubes}. It has been specialized to operate with image datasets. Besides specifying the contour value, you must specify a separation distance between points (using the method SetDistance()). If you desire a solid appearance, pick a distance that is less than or equal to display resolution.
 
 The separation distance controls the accuracy of point generation. It is possible to generate points that appear to form a solid surface when rendered, but are not accurately located on the contour surface. Although this usually is not an issue when viewing contour surfaces, if the accuracy of the point positions is important, the distance value must be set smaller. However, this can result in huge numbers of points. To reduce the number of points, you can use the SetIncrement() method, which specifies that every $n^{th}$ point is to be generated. Using this approach, you can obtain good accuracy and control the total number of points. An example where point positions are important is when the points are used to locate glyphs or as seed points for streamline generation.
 
@@ -1855,12 +1855,12 @@ Decimation is a 3D data compression technique for surfaces represented as triang
         \label{fig:Figure9-52c}
 	\end{subfigure}
 	\begin{subfigure}[h]{0.76\linewidth}
-        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none]
+        \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none, escapechar=\%]
         vtkMCubesReader reader
           reader SetFileName \
             "$env(VTK_TEXTBOOK_DATA)/pineRoot/pine_root.tri"
           reader FlipNormalsOff
-        vtkDecimate deci
+        vtkDecimate%\index{vtkDecimate!example}% deci
           deci SetInputConnection [reader GetOutputPort]
           deci SetTargetReduction 0.9
           deci SetAspectRatio 20
@@ -1882,7 +1882,7 @@ Decimation is a 3D data compression technique for surfaces represented as triang
 
 Figure \ref{fig:Figure9-52} shows the application of decimation to the data from the pine root example. The original model of 351,118 triangles is reduced to 81,111 triangles using a combination of decimation and connectivity. The decimation parameters are fairly conservative. Here we see a reduction of approximately 55 percent.
 
-The most common parameters to adjust in the vtkDecimate filter are the TargetReduction, InitialError, ErrorIncrement, MaximumIterations, and InitialFeatureAngle. TargetReduction specifies the compression factor (numbers closer to one represent higher compression). Because of topological, decimation criterion, aspect ratio, and feature angle constraints this reduction may not be realized (i.e., TargetReduction is a desired goal, not a guaranteed output). The InitialError and ErrorIncrement control the decimation criterion. As the filter starts, the decimation criterion is set to InitialError. Then, for each iteration the decimation criterion is incremented by ErrorIncrement. The algorithm terminates when either the target reduction is achieved, or the number of iterations reaches MaximumIterations. The InitialFeatureAngle is used to compute feature edges. Smaller angles force the algorithm to retain more surface detail.
+The most common parameters to adjust in the vtkDecimate\index{vtkDecimate} filter are the TargetReduction, InitialError, ErrorIncrement, MaximumIterations, and InitialFeatureAngle. TargetReduction specifies the compression factor (numbers closer to one represent higher compression). Because of topological, decimation criterion, aspect ratio, and feature angle constraints this reduction may not be realized (i.e., TargetReduction is a desired goal, not a guaranteed output). The InitialError and ErrorIncrement control the decimation criterion. As the filter starts, the decimation criterion is set to InitialError. Then, for each iteration the decimation criterion is incremented by ErrorIncrement. The algorithm terminates when either the target reduction is achieved, or the number of iterations reaches MaximumIterations. The InitialFeatureAngle is used to compute feature edges. Smaller angles force the algorithm to retain more surface detail.
 
 Other important parameters are the AspectRatio and MaximumSubIterations. AspectRatio controls the triangulation process. All triangles must satisfy this criterion or the vertex will not be deleted during decimation. A sub-iteration is an iteration where the decimation criterion is not incremented. This can be used to coalesce triangles during rapid rates of decimation. MaximumSubIterations controls the number of sub-iterations. This parameter is typically set to two.
 \index{decimation!implementation|)}
@@ -1928,7 +1928,7 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
         vtkImplicitTextureCoords tex1
           tex1 SetInputConnection [normals GetOutputPort]
           tex1 SetRFunction planes
-        vtkDataSetMapper byuMapper
+        vtkDataSetMapper%\index{vtkDataSetMapper!example}% byuMapper
           byuMapper SetInputConnection [tex1 GetOutputPort]
         vtkActor%\index{vtkActor!example}% byuActor
           byuActor SetMapper byuMapper
@@ -2107,7 +2107,7 @@ Multidimensional visualization is another important focus of visualization resea
 
 \item Describe how you would modify the decimation algorithm to treat general polygons.
 
-\item Several examples in the text (e.g., deciFran.tcl and deciHawa.tcl) use the class vtkDecimate. Modify these examples to use the topology modifying progressive decimation algorithm (implemented in vtkDecimatePro). How much greater reduction can you achieve?
+\item Several examples in the text (e.g., deciFran.tcl and deciHawa.tcl) use the class vtkDecimate. Modify these examples to use the topology modifying progressive decimation algorithm (implemented in vtkDecimatePro\index{vtkDecimatePro!exercise}). How much greater reduction can you achieve?
 
 
 \end{enumerate}

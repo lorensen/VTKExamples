@@ -43,37 +43,30 @@ While the World Wide Web received most of its attention in the early 1990s, its 
 
 This problem was quickly solved as Web browsers started to support other content types including animation formats such as MPEG, AVI, and QuickTime. Now a link in a HTML document can load an animation sequence for the user to view and interact with. The next step was to allow the client to control the generation of the animation sequence on the server. To facilitate this process, a mechanism for the client to send general information to the server was introduced. The Common Gateway Interface (CGI) along with HTML forms serves this purpose. In this two-pronged approach, an HTML form collects information from the client, passes it to the server that executes a CGI-BIN script, and then finally produces a result for the client to view.
 
-%\begin{figure}[!htb]
-%	\centering
-%	\includegraphics[width=0.98\textwidth]{Figure11-1}
-%	\caption{MPEG visualization example.}
-%	\label{fig:Figure11-1}
-%\end{figure}
-
 \begin{figure}[htb]
     \centering
 	\begin{subfigure}[h]{0.76\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure11-1a}
 		\captionsetup{justification=centering}
-		\caption*{Valid}
+		\caption*{}
 		\label{fig:Figure11-1a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.76\linewidth}
+	\begin{subfigure}[h]{0.98\linewidth}
        \begin{lstlisting}[language=HTML,  caption={}, numbers=none, frame=none]
         <HEAD><TITLE>Sample MPEG Animation Page</TITLE></HEAD>
         In this page we show an MPEG animation of a visualization
         of the visible woman dataset. The MPEG is stored in a file
         tissue.mpg. We also have taken one frame from the animation
-        and stored it as a static JPEG image tissue.jpg. We
-        display the JPEG image so that someone visiting the site will
+        and stored it as a static JPEG image tissue.jpg. We display
+        the JPEG image so that someone visiting the site will
         have an idea of what the mpeg animation will contain.
-
+        
         <br>
         <A HREF="tissue.mpg"><IMG SRC="tissue.jpg">
         <br>Click here for an MPEG Animation</A>
         \end{lstlisting}
-        \label{fig:Figure11-1d}
+        \label{fig:Figure11-1b}
 	\end{subfigure}
 	\caption{MPEG visualization example.}\label{fig:Figure11-1}
 \end{figure}
@@ -85,11 +78,11 @@ For example, consider a situation where you would like to perform an isosurface 
 	\begin{subfigure}[h]{0.76\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure11-2a}
 		\captionsetup{justification=centering}
-		\caption*{Valid}
+		\caption*{}
 		\label{fig:Figure11-2a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[h]{0.76\linewidth}
+	\begin{subfigure}[h]{0.98\linewidth}
        \begin{lstlisting}[language=HTML,  caption={}, numbers=none, frame=none]
         <HEAD><TITLE>Sample MPEG Animation Page</TITLE></HEAD>
 
@@ -114,8 +107,9 @@ For example, consider a situation where you would like to perform an isosurface 
         </SELECT><BR>
 
         <P><INPUT TYPE="submit"
-        VALUE="Generate an MPEG Animation"></FORM></P>       \end{lstlisting}
-        \label{fig:Figure11-2d}
+        VALUE="Generate an MPEG Animation"></FORM></P>
+        \end{lstlisting}
+        \label{fig:Figure11-2b}
 	\end{subfigure}
 	\caption{Example HTML form.}\label{fig:Figure11-2}
 \end{figure}
@@ -279,9 +273,15 @@ The first step in this example creates the HTML code that in turn launches the J
 <title>Vibrational Modes of a Rectangular Plate</title>
   <h2>Vibrational Modes of a Rectangular Plate</h2>
 
-This Java applet downloads a VTK data file into a Java String. It then uses the InputString method of the VTK data reader to use this string as its data. Then it creates a filter pipeline that takes the original geometry and warps it according to the vector data. There are four sets of vector data in this example. They correspond to the first, second, fourth and eighth vibrational modes. The geometry is color based on the amount of displacement.
-
-``` html
+This Java applet downloads a VTK data file into a Java String.
+It then uses the InputString method of the VTK data reader to
+ use this string as its data.
+Then it creates a filter pipeline that takes the original
+ geometry and warps it according to the vector data.
+There are four sets of vector data in this example.
+They correspond to the first, second, fourth and eighth
+ vibrational modes.
+The geometry is color based on the amount of displacement.
 <hr>
 <applet code=App2.class width=400 height=500>
 <param name=model value=plate.vtk>
@@ -311,7 +311,7 @@ public class App2 extends Applet
   vtkCleanPolyData$\index{vtkCleanPolyData!Java example}$ clean = null;
   vtkPolyDataNormals normals = null;
   vtkVectorDot color = null;
-  vtkDataSetMapper plateMapper = null;
+  vtkDataSetMapper$\index{vtkDataSetMapper!Java example}$ plateMapper = null;
   vtkPanel panel = null;
   etc...
 \end{lstlisting}
