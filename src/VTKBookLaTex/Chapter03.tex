@@ -57,12 +57,12 @@ Generally speaking, when we render an object using surface rendering\index{rende
 
 Volume rendering\index{rendering!volume} techniques allow us to see the inhomogeneity inside objects. In the prior CT example, we can realistically reproduce X-ray images by considering the intensity values from both the surface and interior of the data. Although it is premature to describe this process at this point in the text, you can imagine extending our ray tracing example from the previous section. Thus rays not only interact with the surface of an object, they also interact with the interior.
 
-In this chapter we focus on surface rendering techniques. While not as powerful as volume rendering, surface rendering is widely used because it is relatively fast compared to volumetric techniques, and allows us to create images for a wide variety of data and objects. Chapter 7:  \nameref{chap:advanced_computer_graphics} describes volume rendering in more detail.
+In this chapter we focus on surface rendering techniques. While not as powerful as volume rendering, surface rendering is widely used because it is relatively fast compared to volumetric techniques, and allows us to create images for a wide variety of data and objects. Chapter 7: \nameref{chap:advanced_computer_graphics} describes volume rendering in more detail.
 \index{rendering|)}
 
 \subsection{Visualization Not Graphics}
 
-Although the authors would enjoy providing a thorough treatise on computer graphics, such a discourse is beyond the scope of this text. Instead we make the distinction between visualization (exploring, transforming, and mapping data) and computer graphics (mapping and rendering). The focus will be on the principles and practice of visualization, and not on 3D computer graphics. In this chapter and Chapter 7 we introduce basic concepts and provide a working knowledge of 3D computer graphics. For those more interested in this field, we refer you to the texts recommended in the ``Bibliographic Notes'' on page \pageref{Ch03BibNotes} at the end of this chapter.
+Although the authors would enjoy providing a thorough treatise on computer graphics, such a discourse is beyond the scope of this text. Instead we make the distinction between visualization (exploring, transforming, and mapping data) and computer graphics (mapping and rendering). The focus will be on the principles and practice of visualization, and not on 3D computer graphics. In this chapter and Chapter 7: \nameref{chap:advanced_computer_graphics} we introduce basic concepts and provide a working knowledge of 3D computer graphics. For those more interested in this field, we refer you to the texts recommended in the ``Bibliographic Notes'' on page \pageref{Ch03BibNotes} at the end of this chapter.
 
 One of the regrets we have regarding this posture is that certain rendering techniques are essentially visualization techniques. We see this hinted at in the previous paragraph, where we use the term "mapping" to describe both visualization and computer graphics. There is not currently and will likely never be a firm distinction between visualization and graphics. For example, many researchers consider volume rendering to be squarely in the field of visualization because it addresses one of the most important forms of visualization data. Our distinction is mostly for our own convenience, and offers us the opportunity to finish this text. We recommend that a serious student of visualization supplement the material presented here with deeper books on computer graphics and volume rendering.
 
@@ -221,7 +221,7 @@ The position and focal point of the camera define the location of the camera and
 
 The method of projection controls how the actors are mapped to the image plane. \emph{Orthographic projection}\index{orthographic projection}\index{projection!orthographic} is a parallel mapping process. In orthographic projection (or parallel projection\index{parallel projection}\index{projection!parallel}) all rays of light entering the camera are parallel to the projection vector. \emph{Perspective projection}\index{perspective projection}\index{projection!perspective} occurs when all light rays go through a common point (i.e., the viewpoint or center of projection). To apply perspective projection we must specify a perspective angle or camera view angle.
 
-The front and back clipping planes intersect the projection vector, and are usually perpendicular to it. The clipping planes are used to eliminate data either too close to the camera or too far away. As a result only actors or portions of actors within the clipping planes are (potentially) visible. Clipping planes are typically perpendicular to the direction of projection. Their locations can be set using the camera's clipping range. The location of the planes are measured from the camera's position along the direction of projection. The front clipping plane is at the minimum range value, and the back clipping plane is at the maximum range value. Later on in Chapter 7 , when we discuss stereo rendering, we will see examples of clipping planes that are not perpendicular to the direction of projection.
+The front and back clipping planes intersect the projection vector, and are usually perpendicular to it. The clipping planes are used to eliminate data either too close to the camera or too far away. As a result only actors or portions of actors within the clipping planes are (potentially) visible. Clipping planes are typically perpendicular to the direction of projection. Their locations can be set using the camera's clipping range. The location of the planes are measured from the camera's position along the direction of projection. The front clipping plane is at the minimum range value, and the back clipping plane is at the maximum range value. Later on in Chapter 7: \nameref{chap:advanced_computer_graphics}, when we discuss stereo rendering, we will see examples of clipping planes that are not perpendicular to the direction of projection.
 
 Taken together these camera parameters define a rectangular pyramid, with its apex at the camera's position and extending along the direction of projection. The pyramid is truncated at the top with the front clipping plane and at the bottom by the back clipping plane. The resulting view frustum defines the region of 3D space visible to the camera.
 
@@ -404,7 +404,7 @@ A major topic in the study of computer graphics is modelling or representing the
 
 This topic is beyond the scope of the text. The important point here is that there is an underlying geometric model that specifies what the object's shape is and where it is located in the model coordinate system.
 
-In data visualization, modelling takes a different role. Instead of directly creating geometry to represent an object, visualization algorithms \emph{compute} these forms. Often the geometry is abstract (like a contour line) and has little relationship to real world geometry. We will see how these models are computed when we describe visualization algorithms in Chapter 6 and Chapter 9.
+In data visualization, modelling takes a different role. Instead of directly creating geometry to represent an object, visualization algorithms \emph{compute} these forms. Often the geometry is abstract (like a contour line) and has little relationship to real world geometry. We will see how these models are computed when we describe visualization algorithms in Chapter 6: \nameref{chap:fundamental_algorithms} and Chapter 9: \nameref{chap:advanced_algorithms}.
 
 The representation of geometry for data visualization tends to be simple, even though computing the representations is not. These forms are most often primitives like points, lines, and polygons, or visualization data such as volume data. We use simple forms because we desire high performance and interactive systems. Thus we take advantage of computer hardware (to be covered in ``Graphics Hardware'' on \ref{sec:graphics_hardware} ) or special rendering techniques like volume rendering (see ``Volume Rendering'' on \ref{sec:volume_rendering} ).
 
@@ -551,20 +551,20 @@ We have discussed many of the objects that play a part in the rendering of a sce
 In the \emph{Visualization Toolkit} there are seven basic objects that we use to render a scene. There are many more objects behind the scenes, but these seven are the ones we use most frequently. The objects are listed in the following and illustrated in Figure \ref{fig:Figure3-24}.
 
 \begin{itemize}
-\item vtkRenderWindow --- manages a window on the display device; one or   more renderers draw into an instance of vtkRenderWindow.
+\item vtkRenderWindow\index{vtkRenderWindow} --- manages a window on the display device; one or more renderers draw into an instance of vtkRenderWindow.
 
-\item vtkRenderer --- coordinates the rendering process involving lights,   cameras, and actors.
+\item vtkRenderer\index{vtkRenderer} --- coordinates the rendering process involving lights,   cameras, and actors.
 
-\item vtkLight --- a source of light to illuminate the scene. 
+\item vtkLight\index{vtkLight} --- a source of light to illuminate the scene. 
 
 \item vtkCamera\index{vtkCamera} --- defines the view position, focal point, and other viewing properties of the scene.
 
 \item vtkActor\index{vtkActor} --- represents an object rendered in the scene, including its properties and position in the world coordinate system. (\emph{Note}: vtkActor is a subclass of vtkProp. vtkProp is a more general form of actor that includes annotation and 2D drawing classes. See ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more
 information.)
 
-\item vtkProperty --- defines the appearance properties of an actor including color, transparency, and lighting properties such as specular and diffuse. Also representational properties like wireframe and solid surface.
+\item vtkProperty\index{vtkProperty} --- defines the appearance properties of an actor including color, transparency, and lighting properties such as specular and diffuse. Also representational properties like wireframe and solid surface.
 
-\item vtkMapper --- the geometric representation for an actor. More than one actor may refer to the same mapper.
+\item vtkMapper\index{vtkMapper} --- the geometric representation for an actor. More than one actor may refer to the same mapper.
 \end{itemize}
 
 The class vtkRenderWindow ties the rendering process together. It is responsible for managing a window on the display device. For PCs running Windows, this will be a Microsoft display window, for Linux and UNIX systems this will be an X window, and on the Mac (OSX) a Quartz window. In VTK, instances of vtkRenderWindow are device independent. This means that you do not need to be concerned about what underlying graphics hardware or software is being used, the software automatically adapts to your computer as instances of vtkRenderWindow are created. (See ``Achieving Device Independence'' on page \pageref{sec:adi} for more information.)
@@ -575,7 +575,7 @@ The class vtkRenderer is responsible for coordinating its lights, camera, and ac
 
 One important aspect of a renderer is that it must be associated with an instance of the vtkRenderWindow class into which it is to draw, and the area in the render window into which it draws must be defined by a rectangular \emph{viewport}. The viewport is defined by normalized coordinates $(0,1)$ in both the \emph{x} and \emph{y} image coordinate axes. By default, the renderer draws into the full extent of the rendering window (viewpoint coordinates $(0,0,1,1)$). It is possible to specify a smaller viewport. and to have more than one renderer draw into the same rendering window.
 
-Instances of the class vtkLight illuminate the scene. Various instance variables for orienting and positioning the light are available. It is also possible to turn on/off lights as well as setting their color. Normally at least one light is "on" to illuminate the scene. If no lights are defined and turned on, the renderer constructs a light automatically. Lights in VTK can be either positional or infinite. Positional lights have an associated cone angle and attenuation factors. Infinite lights project light rays parallel to one another.
+Instances of the class vtkLight\index{vtkLight} illuminate the scene. Various instance variables for orienting and positioning the light are available. It is also possible to turn on/off lights as well as setting their color. Normally at least one light is "on" to illuminate the scene. If no lights are defined and turned on, the renderer constructs a light automatically. Lights in VTK can be either positional or infinite. Positional lights have an associated cone angle and attenuation factors. Infinite lights project light rays parallel to one another.
 
 Cameras are constructed by the class vtkCamera\index{vtkCamera}. Important parameters include camera position, focal point, location of front and back clipping planes, view up vector, and field of view. Cameras also have special methods to simplify manipulation as described previously in this chapter.
 
@@ -583,13 +583,13 @@ These include elevation, azimuth, zoom, and roll. Similar to vtkLight, an instan
 
 Instances of the class vtkActor\index{vtkActor} represent objects in the scene. In particular, vtkActor combines object properties (color, shading type, etc.), geometric definition, and orientation in the world coordinate system. This is implemented behind the scenes by maintaining instance variables that refer to instances of vtkProperty, vtkMapper, and vtkTransform. Normally you need not create properties or transformations explicitly, since these are automatically created and manipulated using vtkActor's methods. You do need to create an instance of vtkMapper (or one of its subclasses). The mapper ties the data visualization pipeline to the graphics device. (We will say more about the pipeline in the next chapter.)
 
- In VTK, actors are actually subclasses of vtkProp (arbitrary props) and vtkProp3D (those that can be transformed in 3D space. (The word ``prop'' is derived from the stage, where a props is an object in the scene.) There are other subclasses of props and actors with specialized behavior (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information). One example is vtkFollower. Instances of this class always face the active camera. This is useful when designing signs or text that must be readable from any camera position in the scene.
+ In VTK, actors are actually subclasses of vtkProp (arbitrary props) and vtkProp3D (those that can be transformed in 3D space. (The word ``prop'' is derived from the stage, where a props is an object in the scene.) There are other subclasses of props and actors with specialized behavior (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information). One example is vtkFollower\index{vtkFollower}. Instances of this class always face the active camera. This is useful when designing signs or text that must be readable from any camera position in the scene.
 
 Instances of the class vtkProperty affect the rendered appearance of an actor. When actors are created, a property instance is automatically created with them. It is also possible to create property objects directly and then associate the property object with one or more actors. In this way actors can share common properties.
 
 Finally, vtkMapper (and its subclasses) defines object geometry and, optionally, vertex colors. In addition, vtkMapper refers to a table of colors (i.e., vtkLookupTable ) that are used to color the geometry. (We discuss mapping of data to colors in ``Color Mapping'' on page \pageref{subsec:color_mapping}.) We will examine the mapping process in more detail in ``Mapper Design'' on page \pageref{subsubsec:mapper_design}. For now assume that vtkMapper is an object that represents geometry and other types of visualization data.
 
-There is another important object, vtkRenderWindowInteractor, that captures events (such as mouse clicks and mouse motion) for a renderer in the rendering window. vtkRenderWindowInteractor captures these events and then triggers certain operations like camera dolly, pan, and rotate, actor picking, into/out of stereo mode, and so on. Instances of this class are associated with a rendering window using the SetRenderWindow() method.
+There is another important object, vtkRenderWindowInteractor\index{vtkRenderWindowInteractor}, that captures events (such as mouse clicks and mouse motion) for a renderer in the rendering window. vtkRenderWindowInteractor captures these events and then triggers certain operations like camera dolly, pan, and rotate, actor picking, into/out of stereo mode, and so on. Instances of this class are associated with a rendering window using the SetRenderWindow() method.
 
 \subsection{Achieving Device Independence}
 \label{sec:adi}
@@ -647,7 +647,7 @@ subclass by invoking the special constructor New() in the device independent sup
 \begin{lstlisting}[language=C++]
 vtkActor *anActor = vtkActor::New()
 \end{lstlisting}
-\noindent to create a device dependent instance of vtkActor. The user sees no device dependent code, but in actuality anActor is a pointer to a device dependent subclass of vtkActor. Figure \ref{fig:Figure3-25} (b) is a code fragment of the constructor method New() which uses VTK's object factory mechanism. In turn, the vtkGraphicsFactory (used to instantiate graphical classes) produces the appropriate concrete subclass when requested to instantiate an actor as shown in Figure \ref{fig:Figure3-25}.
+\noindent to create a device dependent instance of vtkActor. The user sees no device dependent code, but in actuality anActor is a pointer to a device dependent subclass of vtkActor. Figure \ref{fig:Figure3-25} (b) is a code fragment of the constructor method New() which uses VTK's object factory mechanism. In turn, the vtkGraphicsFactory\index{vtkGraphicsFactory} (used to instantiate graphical classes) produces the appropriate concrete subclass when requested to instantiate an actor as shown in Figure \ref{fig:Figure3-25}.
 \end{samepage}
 
 The use of object factories as implemented using the New() method allows us to create device independent code that can move from computer to computer and adapt to changing technology. For example, if a new graphics library became available, we would only have to create a new device dependent subclass, and then modify the graphics factory to instantiate the appropriate sub-class based on environment variables or other system information. This extension would be localized and only done once, and all applications based on these object factories would be automatically ported without change.
@@ -875,17 +875,17 @@ We set the actor coneActor properties by modifying the property object automatic
 \item[Introducing vtkRenderWindowInteractor]
 \label{subsec:examples_introducing_vtkRenderWindowInteractor}
 
-The previous examples are not interactive. That is, it is not possible to directly interact with the data without modifying and recompiling the C++ code. One common type of interaction is to change camera position so that we can view our scene from different vantage points. In the \emph{Visualization Toolkit} we have provided a suite of convenient objects to do this: vtkRenderWindowInteractor, vtkInteractorStyle and their derived classes.
+The previous examples are not interactive. That is, it is not possible to directly interact with the data without modifying and recompiling the C++ code. One common type of interaction is to change camera position so that we can view our scene from different vantage points. In the \emph{Visualization Toolkit} we have provided a suite of convenient objects to do this: vtkRenderWindowInteractor\index{vtkRenderWindowInteractor}, vtkInteractorStyle\index{vtkInteractorStyle} and their derived classes.
 
 Instances of the class vtkRenderWindowInteractor capture windowing system specific mouse and keyboard events in the rendering window, and then translate these events into VTK events. For example, mouse motion in an X11 or Windows application (occurring in a render window) would be translated by vtkRenderWindowInteractor into VTK's MouseMoveEvent\index{events!MouseMoveEvent}. Any observers\index{events!See also observers} registered for this event would be notified (see ``Events and Observers'' on \pageref{sub:examples_events_observers} ). Typically an instance of vtkInteractorStyle is used in combination with vtkRenderWindowInteractor to define a behavior associated with particular events. For example, we can perform camera dolly, pan, and rotation by using different mouse button and motion combinations. The following code fragment shows how to instantiate and use these objects. This example is the same as our first example with the addition of the interactor and interactor style. The complete example C++ code is in Cone5.cxx.
 
-\begin{lstlisting}[language=C++, caption={Cone5.cxx}]
+\begin{lstlisting}[language=C++, caption={Cone5.cxx}, escapechar=\$]
 vtkRenderWindowInteractor *iren =
   vtkRenderWindowInteractor::New();
 
   iren->SetRenderWindow(renWin);
 
-vtkInteractorStyleTrackballCamera *style =
+vtkInteractorStyleTrackballCamera$\index{vtkInteractorStyleTrackballCamera!example}$ *style =
  vtkInteractorStyleTrackballCamera::New();
 
   iren->SetInteractorStyle(style);
@@ -960,7 +960,7 @@ As we can see from this example, the number of lines of code is less for the Tcl
 \label{subsubsec:transform_matrices}
 \index{transformation matrix!implementation|(}
 
-Transformation matrices are used throughout the  Visualization Toolkit. Actors (subclasses of vtkProp3D --- see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} ) use them to position and orient\index{orientation} themselves. Various filters, including vtkGlyph3D and vtkTransformFilter, use transformation matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
+Transformation matrices are used throughout the  Visualization Toolkit. Actors (subclasses of vtkProp3D --- see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} ) use them to position and orient\index{orientation} themselves. Various filters, including vtkGlyph3D\index{vtkGlyph3D} and vtkTransformFilter, use transformation matrices to implement their own functionality. As a user you may never use transformation matrices directly, but understanding them is important to successful use of many VTK classes.
 
 The most important aspect to applying transformation matrices\index{transformation matrix!order of application} is to understand the order in which the transformations are applied. If you break down a complex series of transformations into simple combinations of translation, scaling, and rotation, and keep careful track of the order of application, you will have gone a long way to mastering their use.
 
@@ -1136,8 +1136,8 @@ vtkProp3D. Images can be drawn effectively with vtkImageActor.
 Overlay text and graphics use vtkActor2D\index{vtkActor2D}. Hierarchical groups
 of vtkProps are gathered into a vtkPropAssembly. Volume rendering
 uses vtkVolume. Collections of transformable props create a
-vtkAssembly\index{vtkAssembly}. Level-of-detail rendering uses vtkLODProp3D and
-vtkLODActor. A vtkFollower allows faces a specified camera
+vtkAssembly\index{vtkAssembly}. Level--of--detail rendering uses vtkLODProp3D\index{vtkLODProp3D} and
+vtkLODActor\index{vtkLODActor}. A vtkFollower\index{vtkFollower} faces a specified camera
 and is used for billboards.}\label{fig:Figure3-34}}
 {\includegraphics[width=0.6\textwidth]{Figure3-34}}
 \end{figure}

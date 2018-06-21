@@ -1638,7 +1638,7 @@ The unstructured data structure in the \emph{Visualization Toolkit} is implement
 
 \subsection{Abstract Interfaces}
 
-With the completion of Chapter 5: \nameref{chap:basic_data_representation} and Chapter 8: \nameref{chap:advanced_data_representation}, we can summarize the abstract interface for cells, datasets, and the point data attributes. These pseudo-code descriptions encapsulate the core functionality of the classes vtkDataSet, vtkCell, and vtkPointData, and their subclasses. All algorithms presented in this text can be implemented using combinations of these methods.
+With the completion of Chapter 5: \nameref{chap:basic_data_representation} and Chapter 8: \nameref{chap:advanced_data_representation}, we can summarize the abstract interface for cells, datasets, and the point data attributes. These pseudo-code descriptions encapsulate the core functionality of the classes vtkDataSet\index{vtkDataSet}, vtkCell, and vtkPointData, and their subclasses. All algorithms presented in this text can be implemented using combinations of these methods.
 
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 \item[Dataset Abstraction.\index{abstraction!dataset|(}\index{dataset!abstraction|(}] The dataset is the central data representation in VTK. Datasets are composed of one or more cells and points. Associated with the points are attribute data consisting of scalars, vectors, normals, texture coordinates, and tensors.
@@ -1861,7 +1861,7 @@ It is possible to force unsigned char data to be mapped through a lookup table. 
 \subsection{Searching}
 \index{searching!implementation|(}
 
-The \emph{Visualization Toolkit} provides two classes to perform searches for dataset points and cells. These are vtkPointLocator and vtkCellLocator\index{vtkCellLocator}. (Both of these classes are subclasses of vtkLocator, which is an abstract base class for spatial search objects.) vtkPointLocator is used to search for points and, if used with the topological dataset operator GetPointCells(), to search for cells as well. vtkCellLocator is used to search for cells.
+The \emph{Visualization Toolkit} provides two classes to perform searches for dataset points and cells. These are vtkPointLocator and vtkCellLocator\index{vtkCellLocator}. (Both of these classes are subclasses of vtkLocator\index{vtkLocator}, which is an abstract base class for spatial search objects.) vtkPointLocator is used to search for points and, if used with the topological dataset operator GetPointCells(), to search for cells as well. vtkCellLocator is used to search for cells.
 
 vtkPointLocator\index{vtkPointLocator} is implemented as a regular grid of buckets (i.e., same topology and geometry as an image dataset). The number of buckets can be user-specified, or more conveniently, automatically computed based on the number of dataset points. On average, vtkPointLocator provides constant time access to points. However, in cases where the point distribution is not uniform, the number of points in a bucket may vary widely, giving O(n) worst-case behavior. In practice this is rarely a problem, but adaptive spatial search structures (e.g., an octree\index{octree}) may sometimes be a better choice.
 
@@ -2005,7 +2005,7 @@ To conclude this section, we will examine how some of the dataset, cell, and poi
     \label{fig:Figure8-40}
 \end{figure}
 
-In our first example we will take a peek inside the filter vtkLinearExtrusionFilter. This filter implements the following modelling operation. Given a polygonal mesh, extrude the mesh in a given direction, constructing a ``skirt'' or ``walls'' from the free edges. If the polygonal example is a single square, the result of this operation is a cube. Or, if the polygonal data consists of a single line, the result of the operation is a quadrilateral. A point will generate a line as shown in Figure \ref{fig:Figure8-40}(a).
+In our first example we will take a peek inside the filter vtkLinearExtrusionFilter\index{vtkLinearExtrusionFilter!example}. This filter implements the following modelling operation. Given a polygonal mesh, extrude the mesh in a given direction, constructing a ``skirt'' or ``walls'' from the free edges. If the polygonal example is a single square, the result of this operation is a cube. Or, if the polygonal data consists of a single line, the result of the operation is a quadrilateral. A point will generate a line as shown in Figure \ref{fig:Figure8-40}(a).
 
 Recall that free edges are edges used by only one polygon. We can determine this information using the dataset topology operation GetCellEdgeNeigbors(). We use Equation \ref{eq:8.25} and the two points defining the edge of the polygon to determine the adjacency set (i.e., the polygons sharing this edge). If no other polygon uses this edge, then the edge is extruded to generate a triangle strip. The C++ pseudo code is as follows.
 
@@ -2162,7 +2162,7 @@ In this example we will show how to build a point probe using the dataset and ce
 
 The point probe is implemented using the dataset operation FindCell(). This method requires a point specified in global coordinates (our $(x,y,z)$ value) and a tolerance. The tolerance is often necessary because of numerical precision or when picking near the surface of 3D cells, or on 0D, 1D, and 2D cells. The FindCell() operation returns the information we require, plus the interpolation weights of the cell containing our point probe. To determine the data value at our probe point, we need to retrieve the data values on the cell points. We can then use the interpolation functions of Equation \ref{eq:8.4} to determine the probe scalar value.
 
-Figure \ref{fig:Figure8-43} depicts this process and includes C++ code. In the example we use the combustor dataset with the objects vtkCursor3D, vtkProbeFilter, and vtkGlyph3D. The purpose of the cursor is to control the position of the probe point. The class vtkProbeFilter performs the probing  operation just described. (This filter has been generalized so that it can handle more than one input point.) vtkGlyph3D is used to place an oriented, scaled cone at the cursor focal point. This gives us visual feedback about the scalar and vector quantities at the probe. Of course, we can extract numeric values and display them to the user if this is important.
+Figure \ref{fig:Figure8-43} depicts this process and includes C++ code. In the example we use the combustor dataset with the objects vtkCursor3D, vtkProbeFilter, and vtkGlyph3D\index{vtkGlyph3D!example}. The purpose of the cursor is to control the position of the probe point. The class vtkProbeFilter performs the probing  operation just described. (This filter has been generalized so that it can handle more than one input point.) vtkGlyph3D is used to place an oriented, scaled cone at the cursor focal point. This gives us visual feedback about the scalar and vector quantities at the probe. Of course, we can extract numeric values and display them to the user if this is important.
 
 \section{Chapter Summary}
 

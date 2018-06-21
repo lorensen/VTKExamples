@@ -204,8 +204,8 @@ The \emph{Visualization Toolkit} provides other useful techniques besides isocon
 
 We will extract three orthogonal planes corresponding to the axial, sagittal, and coronal cross sections that are familiar to radiologists. The axial plane is perpendicular to the patient's neck, sagittal passes from left to right, and coronal passes from front to back. For illustrative purposes, we render each of these planes with a different color lookup table. For the sagittal plane, we use a gray scale. The coronal and axial planes vary the saturation and hue table, respectively. We combine this with a translucent rendering of the skin (we turn off the bone with the C++ statement bone->VisibilityOff() ). The following VTK code creates the three lookup tables that are used in the texture mapping process.
 
-\begin{lstlisting}[language=C++, caption={Lookup tables for the sectioning planes.}]
-vtkLookupTable *bwLut = vtkLookupTable::New();
+\begin{lstlisting}[language=C++, caption={Lookup tables for the sectioning planes.}, escapechar=\$]
+vtkLookupTable$\index{vtkLookupTable!application}$ *bwLut = vtkLookupTable::New();
   bwLut->SetTableRange (0, 2000);
   bwLut->SetSaturationRange (0, 0);
   bwLut->SetHueRange (0, 0);
@@ -231,16 +231,16 @@ vtkLookupTable *satLut = vtkLookupTable::New();
 	\label{fig:Figure12-4}
 \end{figure}
 
-The image data is mapped to colors using the filter vtkImageMapToColors in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information). This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageActor is set appropriately. The C++ code is as follows:
+The image data is mapped to colors using the filter vtkImageMapToColors\index{vtkImageMapToColors} in combination with the lookup tables created above. The actual display of the slice is performed with vtkImageActor\index{vtkImageActor} (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information). This class conveniently combines a quadrilateral, polygon plane with a texture map. vtkImageActor requires image data of type unsigned char, which the class vtkImageMapToColors conveniently provides. To avoid copying the data and to specify the 2D texture to use, the DisplayExtent of each vtkImageActor is set appropriately. The C++ code is as follows:
 
-\begin{lstlisting}[language=C++, caption={Mapping the image data and displaying the image slices.}]
+\begin{lstlisting}[language=C++, caption={Mapping the image data and displaying the image slices.}, escapechar=\$]
 // saggital
 
-vtkImageMapToColors *saggitalColors = vtkImageMapToColors::New();
+vtkImageMapToColors$\index{vtkImageMapToColors!application}$ *saggitalColors = vtkImageMapToColors::New();
   saggitalColors->SetInputConnection(v16->GetOutputPort());
   saggitalColors->SetLookupTable(bwLut);
 
-vtkImageActor *saggital = vtkImageActor::New();
+vtkImageActor$\index{vtkImageActor!application}$ *saggital = vtkImageActor::New();
   saggital->SetInputConnection(saggitalColors->GetOutputPort());
   saggital->SetDisplayExtent(32,32, 0,63, 0,92);
 
@@ -372,10 +372,10 @@ vtkPNMReader reader
 
 Some segmentation techniques, especially those that are automatic, may generate islands of misclassified voxels. This filter looks for connected pixels with the ISLAND\_REPLACE label, and if the number of connected pixels is less than ISLAND\_AREA, it replaces them with the label TISSUE. Note that this filter is only executed if ISLAND\_REPLACE is positive.
 
-\begin{lstlisting}[language=TCL, caption={Remove Islands.}]
+\begin{lstlisting}[language=TCL, caption={Remove Islands.}, escapechar=\%]
 set lastConnection reader
 if {$ISLAND_REPLACE = 0} {
-  vtkImageIslandRemoval2D islandRemover
+  vtkImageIslandRemoval2D%\index{vtkImageIslandRemoval2D!application}% islandRemover
     islandRemover SetAreaThreshold $ISLAND_AREA
     islandRemover SetIslandValue $ISLAND_REPLACE
     islandRemover SetReplaceValue $TISSUE
@@ -388,8 +388,8 @@ if {$ISLAND_REPLACE = 0} {
 
 The rest of the pipeline requires gray--scale data. To convert the volume that now contains integer tissue labels to a gray--scale volume containing only one tissue, we use the threshold filter to set all pixels with the value TISSUE (the tissue of choice for this pipeline) to $255$ and all other pixels to $0$. The choice of $255$ is somewhat arbitrary.
 
-\begin{lstlisting}[language=TCL, caption={Select a Tissue.}]
-vtkImageThreshold selectTissue
+\begin{lstlisting}[language=TCL, caption={Select a Tissue.}, escapechar=\%]
+vtkImageThreshold%\index{vtkImageThreshold!application}% selectTissue
   selectTissue ThresholdBetween $TISSUE $TISSUE
   selectTissue SetInValue 255
   selectTissue SetOutValue 0
@@ -400,8 +400,8 @@ vtkImageThreshold selectTissue
 
 Lower resolution volumes produce fewer polygons. For experimentation we often reduce the resolution of the data with this filter. However, details can be lost during this process. Averaging creates new pixels in the resampled volume by averaging neighboring pixels. If averaging is turned off, every SAMPLE\_RATE pixel will be passed through to the output.
 
-\begin{lstlisting}[language=TCL, caption={Resample the Volume.}]
-vtkImageShrink3D shrinker
+\begin{lstlisting}[language=TCL, caption={Resample the Volume.}, escapechar=\%]
+vtkImageShrink3D%\index{vtkImageShrink3D!application}% shrinker
   shrinker SetInputConnection [selectTissue GetOutputPort] eval
   shrinker SetShrinkFactors $SAMPLE_RATE
   shrinker AveragingOn
@@ -411,10 +411,10 @@ vtkImageShrink3D shrinker
 
 To this point, unless we have resampled the data, the volume is labeled with a value of $255$ in pixels of the selected tissue and $0$ elsewhere. This ``binary'' volume would produce stepped surfaces if we did not blur it. The Gaussian kernel specified in this filter accomplishes the smoothing we require to extract surfaces. The amount of smoothing is controlled by  GAUSSIAN\_STANDARD\_DEVIATION that can be independently specified for each axis of the volume data. We only run this filter if some smoothing is requested,
 
-\begin{lstlisting}[language=TCL, caption={Smooth the Volume Data.}]
+\begin{lstlisting}[language=TCL, caption={Smooth the Volume Data.}, escapechar=\%]
 set lastConnection shrinker
 if {$GAUSSIAN_STANDARD_DEVIATION != "0 0 0"} {
-  vtkImageGaussianSmooth gaussian
+  vtkImageGaussianSmooth%\index{vtkImageGaussianSmooth!application}% gaussian
   gaussian SetDimensionality 3
   gaussian SetStandardDeviation $GAUSSIAN_STANDARD_DEVIATION gaussian
   SetRadiusFactor 1
@@ -440,8 +440,8 @@ vtkMarchingCubes mcubes
 \subsection{Reduce the Number of Triangles}
 There are often many more triangles generated by the isosurfacing algorithm than we need for rendering. Here we reduce the triangle count by eliminating triangle vertices that lie within a user--specified distance to the plane formed by neighboring vertices. We preserve any edges of triangles that are considered ``features''.
 
-\begin{lstlisting}[language=TCL, caption={Reduce the Number of Triangles.}]
-vtkDecimatePro decimator
+\begin{lstlisting}[language=TCL, caption={Reduce the Number of Triangles.}, escapechar=\%]
+vtkDecimatePro%\index{vtkDecimatePro!application}% decimator
   decimator SetInputConnection [mcubes GetOutputPort]
   eval decimator SetFeatureAngle $DECIMATE_ANGLE
   decimator PreserveTopologyOn
@@ -564,7 +564,7 @@ Another script, \texttt{marchingFrog.tcl}, uses similar parameters but processes
 
 Once the models are generated with the process just outlined, they can be rendered using the following tcl script called \texttt{ViewFrog.tcl}. First we create a Tcl procedure to automate the creation of actors from the model files. All the pipeline elements are named consistently with the name of the part followed by the name of the pipeline element. This makes it easy for the user to identify each object in more sophisticated user interfaces.
 
-\begin{lstlisting}[language=TCL, caption={Automating the creation of actors.}]
+\begin{lstlisting}[language=TCL, caption={Automating the creation of actors.}, escapechar=\%]
 proc mkname {a b} {return $a$b}
 
 # proc to make actors and create pipeline
@@ -579,7 +579,7 @@ vtkPolyDataMapper $mapper
   $mapper SetInputConnection [$reader GetOutputPort]
    $mapper ScalarVisibilityOff
 set actor [ eval mkname $name Actor]
-vtkLODActor $actor
+vtkLODActor%\index{vtkLODActor!application}% $actor
   $actor SetMapper $mapper
   eval [$actor GetProperty] SetDiffuseColor $r $g $b eval
   [$actor GetProperty] SetSpecularPower 50
@@ -787,7 +787,7 @@ proc AddStock {prefix name x y z} {
     $prefix.TextSrc SetBacking 0
   vtkPolyDataMapper $prefix.LabelMapper
     $prefix.LabelMapper SetInput [$prefix.TextSrc GetOutput]
-  vtkFollower $prefix.LabelActor
+  vtkFollower%\index{vtkFollower!example}% $prefix.LabelActor
     $prefix.LabelActor SetMapper $prefix.LabelMapper
     $prefix.LabelActor SetPosition $x $y $z
     $prefix.LabelActor SetScale 0.25 0.25 0.25
@@ -856,7 +856,7 @@ wm withdraw .
 
 The first part of this script consists of the standard procedure for renderer and interactor creation that can be found in almost all of the VTK Tcl scripts. The next section creates the objects necessary for drawing an outline around all of the stock data. A vtkAppendPolyData filter is used to append all of the stock data together. This is then sent through a vtkOutlineFilter to create a bounding box around the data. A mapper and actor are created to display the result.
 
-In the next part of this script, we define the procedure to add stock data to this visualization. The procedure takes five arguments: the name of the stock, the label we want displayed, and the x, y, z coordinates defining where to position the label. The first line of the procedure indicates that the variable ren1 should be visible to this procedure. By default the procedure can only access its own local variables. Next, we create the label using a vtkTextSource, vtkPolyDataMapper, and vtkFollower. The names of these objects are all prepended with the variable ``\$prefix.'' so that the instance names will be unique. An instance of vtkFollower is used instead of the usual vtkActor\index{vtkActor}, because we always want the text to be right--side up and facing the camera. The vtkFollower class provides this functionality. The remaining lines position and scale the label appropriately. We set the origin of the label to the center of its data. This insures that the follower will rotate about its center point.
+In the next part of this script, we define the procedure to add stock data to this visualization. The procedure takes five arguments: the name of the stock, the label we want displayed, and the x, y, z coordinates defining where to position the label. The first line of the procedure indicates that the variable ren1 should be visible to this procedure. By default the procedure can only access its own local variables. Next, we create the label using a vtkTextSource, vtkPolyDataMapper, and vtkFollower\index{vtkFollower}. The names of these objects are all prepended with the variable ``\$prefix.'' so that the instance names will be unique. An instance of vtkFollower is used instead of the usual vtkActor\index{vtkActor}, because we always want the text to be right--side up and facing the camera. The vtkFollower class provides this functionality. The remaining lines position and scale the label appropriately. We set the origin of the label to the center of its data. This insures that the follower will rotate about its center point.
 
 The next group of lines creates the required objects to read in the data, pass it through a tube filter and a transform filter, and finally display the result. The tube filter uses the scalar data (stock volume in this example) to determine the radius of the tube. The mapper also uses the scalar data to determine the coloring of the tube. The transform filter uses a transform object to set the stock's position based on the value of the variable zpos. For each stock, we will increment zpos by 10, effectively shifting the next stock over 10 units from the current stock. This prevents the stocks from being stacked on top of each other. We also use the transform to compress the x--axis to make the data easier to view. Next, we add this stock as an input to the append filter and add the actors and followers to the renderer. The last line of the procedure sets the follower's camera to be the active camera of the renderer.
 
@@ -973,9 +973,9 @@ vtkActor *logo = vtkActor::New();
 
 We create the blobby logo with the implicit modeller, and then extract the logo with vtkContourFilter. The pipeline is completed by creating a mapper and an actor.
 
-\begin{lstlisting}[language=C++, caption={Create an implicit model of the letters and extract the logo.}]
+\begin{lstlisting}[language=C++, caption={Create an implicit model of the letters and extract the logo.}, escapechar=\$]
 // now create an implicit model of the letters
-vtkImplicitModeller *blobbyLogoImp = vtkImplicitModeller::New();
+vtkImplicitModeller$\index{vtkImplicitModeller!application}$ *blobbyLogoImp = vtkImplicitModeller::New();
   blobbyLogoImp->SetInputConnection (appendAll->GetOutputPort());
   blobbyLogoImp->SetMaximumDistance (.075);
   blobbyLogoImp->SetSampleDimensions (64,64,64);
@@ -1326,7 +1326,7 @@ vtkActor parisonActor
   wm withdraw .
 \end{lstlisting}
 
-The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter\index{vtkConnectivityFilter!application}. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter does this nicely.
+The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter\index{vtkConnectivityFilter!application}. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter\index{vtkGeometryFilter!applicaation} does this nicely.
 \index{applications!finite element method|)}\index{finite element method!application|)}
 
 \section{Algorithm Visualization}
