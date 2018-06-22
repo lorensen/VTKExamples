@@ -158,10 +158,10 @@ vtkPLOT3DReader%\index{vtkPLOT3DReader!example}% pl3d
 vtkContourFilter%\index{vtkContourFilter!example}\index{vtkContourFilter!VRML example}% iso
   iso SetInputConnection [pl3d GetOutputPort]
   iso SetValue 0 .38
-vtkPolyDataNormals normals
+vtkPolyDataNormals%\index{vtkPolyDataNormals!example}\index{vtkPolyDataNormals!VRML example}% normals
   normals SetInputConnection [iso GetOutputPort]
   normals SetFeatureAngle 45
-vtkPolyDataMapper isoMapper
+vtkPolyDataMapper%\index{vtkPolyDataMapper!example}\index{vtkPolyDataMapper!VRML example}% isoMapper
   isoMapper SetInputConnection [normals GetOutputPort]
    isoMapper ScalarVisibilityOff
 vtkActor%\index{vtkActor!VRML example}% isoActor
@@ -306,11 +306,11 @@ Next comes the class definition for App2. As with most Java applets, this class 
 \begin{lstlisting}[language=Java, caption={}, numbers=none, frame=none, escapechar=\$]
 public class App2 extends Applet
   {
-  vtkPolyDataReader pr = null;
+  vtkPolyDataReader$\index{vtkPolyDataReader!Java example}$ pr = null;
   vtkWarpVector warp = null;
   vtkGeometryFilter$\index{vtkGeometryFilter!Java example}$ ds2poly = null;
   vtkCleanPolyData$\index{vtkCleanPolyData!Java example}$ clean = null;
-  vtkPolyDataNormals normals = null;
+  vtkPolyDataNormals$\index{vtkPolyDataNormals!Java example}$ normals = null;
   vtkVectorDot color = null;
   vtkDataSetMapper$\index{vtkDataSetMapper!Java example}$ plateMapper = null;
   vtkPanel panel = null;
@@ -330,7 +330,7 @@ public void init()
   constrain(this,panel,0,0,8,8);
 \end{lstlisting}
 
-Next, this method checks to see if the model parameter is set, and opens a stream connection to the server that is used to download the data file into a Java string. This is then passed to a vtkPolyDataReader at which point the data is now available to the native VTK code on the client. The rest of the pipeline is set up as usual with the exception that a Java syntax is used instead of C++ or Tcl. (Due to VTK's object--oriented design the variations from one language to another are minor.) At this point in the init() method the rest of the pipeline is set up along with some check boxes and event handlers for the user interface. The vtkPanel has a method that returns the RenderWindow that can then be acted on as usual. For example:
+Next, this method checks to see if the model parameter is set, and opens a stream connection to the server that is used to download the data file into a Java string. This is then passed to a vtkPolyDataReader\index{vtkPolyDataReader} at which point the data is now available to the native VTK code on the client. The rest of the pipeline is set up as usual with the exception that a Java syntax is used instead of C++ or Tcl. (Due to VTK's object--oriented design the variations from one language to another are minor.) At this point in the init() method the rest of the pipeline is set up along with some check boxes and event handlers for the user interface. The vtkPanel has a method that returns the RenderWindow that can then be acted on as usual. For example:
 
 \begin{lstlisting}[language=Java, caption={}, numbers=none, frame=none, escapechar=\$]
 panel.GetRenderer().AddActor(a)$\index{vtkActor!Java example}$;

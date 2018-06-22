@@ -942,12 +942,12 @@ Algorithms are implemented in the \emph{Visualization Toolkit} as process object
 \item[Source Design.\index{source object!implementation|(}]
 Source objects have no visualization data for input and one or more outputs, Figure \ref{fig:Figure6-34} illustrates this for the concrete source object vtkSphereSource. This class inherits from vtkPolyDataAlgorithm, indicating that it creates polygonal data on output.
 
-The convenience object vtkPolyDataAlgorithm has been created to simplify subclass derivation. For example, vtkBYUReader\index{vtkBYUReader} is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm\index{vtkAlgorithm}.
+The convenience object vtkPolyDataAlgorithm\index{vtkPolyDataAlgorithm} has been created to simplify subclass derivation. For example, vtkBYUReader\index{vtkBYUReader} is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm\index{vtkAlgorithm}.
 
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure6-34a}
-		\caption{Functional model}
+		\caption{Functional model\index{vtkPolyData}}
 		\label{fig:Figure6-34a}
 	\end{subfigure}
 	\hfill
@@ -965,11 +965,11 @@ The convenience object vtkPolyDataAlgorithm has been created to simplify subclas
 
 Filter objects have one or more inputs and one or more outputs as shown in Figure \ref{fig:Figure6-34}. (You may also refer to ``Pipeline Design and Implementation'' on page \pageref{subsec:pipeline_design_implementation}.) To create Figure \ref{fig:Figure6-35} a filter object, inheritance is used to specify the type of input and output data objects. illustrates this for the concrete source object vtkContourFilter\index{vtkContourFilter} (which implements marching cubes\index{marching cubes!implementation} and other contouring techniques). It is worth examining this object diagram in detail since it is the basis for the architecture of the visualization pipeline.
 
-The superclasses of vtkContourFilter are vtkAlgorithm and vtkPolyDataAlgorithm. The class vtkPolyDataAlgorithm specifies the type of data vtkContourFilter produces on output (i.e., a vtkPolyData ). Because this filter should take any subclass of vtkDataSet\index{vtkDataSet} as input, it must override its superclasses implementation of the FillInputPortInformation() method to specify this. Note that inheritance from vtkPolyDataAlgorithm is optional --- this functionality could be implemented directly in vtkContourFilter. This optional superclass is simply a convenience object to make class derivation a little easier.
+The superclasses of vtkContourFilter are vtkAlgorithm and vtkPolyDataAlgorithm\index{vtkPolyDataAlgorithm}. The class vtkPolyDataAlgorithm specifies the type of data vtkContourFilter produces on output (i.e., a vtkPolyData ). Because this filter should take any subclass of vtkDataSet\index{vtkDataSet} as input, it must override its superclasses implementation of the FillInputPortInformation() method to specify this. Note that inheritance from vtkPolyDataAlgorithm is optional --- this functionality could be implemented directly in vtkContourFilter. This optional superclass is simply a convenience object to make class derivation a little easier.
 
 What is left for vtkContourFilter to implement is its RequestData() method (as well as constructor, print method, and any other methods special to this class). Thus the primary difference between classes with equivalent inheritance hierarchies is the implementation of the RequestData() method.
 
-Subclasses of vtkAlgorithm enforce filter input and output type by use of the FillInputPortInformation() and FillOutputPortInformation() methods. By default, its subclass vtkDataSetAlgorithm\index{vtkDataSetAlgorithm} accepts input type vtkDataSet (or subclasses) and produces a vtkDataSet on output. (The type of the output is determined by the type of the input.) Since vtkDataSet\index{vtkDataSet} is a base class for all data types, subclasses of vtkDataSetAlgorithm will accept any type as input. Specialized filters are derived from other classes. For example, filters that accept polygonal data might be derived from vtkPolyDataAlgorithm, and filters that accept unstructured grid datasets might be derived from vtkUnstructuredGridAlgorithm.
+Subclasses of vtkAlgorithm enforce filter input and output type by use of the FillInputPortInformation() and FillOutputPortInformation() methods. By default, its subclass vtkDataSetAlgorithm\index{vtkDataSetAlgorithm} accepts input type vtkDataSet (or subclasses) and produces a vtkDataSet on output. (The type of the output is determined by the type of the input.) Since vtkDataSet\index{vtkDataSet} is a base class for all data types, subclasses of vtkDataSetAlgorithm will accept any type as input. Specialized filters are derived from other classes. For example, filters that accept polygonal data might be derived from vtkPolyDataAlgorithm\index{vtkPolyDataAlgorithm}, and filters that accept unstructured grid datasets might be derived from vtkUnstructuredGridAlgorithm.
 
 We encourage you to examine the source code carefully for a few filter and source objects.
 
@@ -978,7 +978,7 @@ The architecture is simple enough that you can grasp it quickly.
 \begin{figure}[htb]
 	\begin{subfigure}[h]{0.48\linewidth}
 		\includegraphics[width=0.96\linewidth]{Figure6-35a}
-		\caption{Functional model}
+		\caption{Functional model\index{vtkPolyData}}
 		\label{fig:Figure6-35a}
 	\end{subfigure}
 	\hfill
@@ -1001,7 +1001,7 @@ The architecture is simple enough that you can grasp it quickly.
 			\includegraphics[width=0.96\linewidth]{Figure6-36b}
 			\label{fig:Figure6-36b}
 		\end{subfigure}
-		\caption{Functional models}
+		\caption{Functional models\index{vtkPolyData}}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.48\linewidth}
@@ -1015,7 +1015,7 @@ The architecture is simple enough that you can grasp it quickly.
 		\end{subfigure}
 		\caption{Object models}
 	\end{subfigure}
-	\caption{Mapper object design. Graphics mapper shown (e.g., vtkPolyDataMapper) maps polygonal data through graphics library primitives. Writer shown (e.g., vtkSTLWriter) writes polygonal data to stereo lithography format.}\label{fig:Figure6-36}
+	\caption{Mapper object design. Graphics mapper shown (e.g., vtkPolyDataMapper\index{vtkPolyDataMapper}) maps polygonal data through graphics library primitives. Writer shown (e.g., vtkSTLWriter) writes polygonal data to stereo lithography format.}\label{fig:Figure6-36}
 \end{figure}
 \index{filter object!implementation|)}
 
@@ -1025,7 +1025,7 @@ The architecture is simple enough that you can grasp it quickly.
 
 Mapper objects have one or more inputs and no visualization data output, Figure \ref{fig:Figure6-36}. Two different types of mappers are available in the \emph{Visualization Toolkit}: graphics mappers and writers. Graphics mappers interface geometric structure and data attributes to the graphics library; writers write datasets to disk or other I/O devices.
 
-Since mappers take datasets as input, type enforcement is required. Each mapper implements this functionality directly. For example, both classes vtkPolyDataMapper and vtkSTLWriter implement a SetInput() method to enforce the input to be of type vtkPolyData. Other mappers and writers enforce input type as appropriate.
+Since mappers take datasets as input, type enforcement is required. Each mapper implements this functionality directly. For example, both classes vtkPolyDataMapper\index{vtkPolyDataMapper} and vtkSTLWriter implement a SetInput() method to enforce the input to be of type vtkPolyData. Other mappers and writers enforce input type as appropriate.
 
 Although writers and mappers do not create visualization data, they both have methods similar to the RequestData() method of the sources and filters. Each subclass of vtkMapper\index{vtkMapper} must implement the Render() method. This method is exchanged by the graphics system actors and its associated mappers during the rendering process. The effect of the method is to map its input dataset to the appropriate rendering library/system. Subclasses of the class vtkWriter must implement the WriteData() method. This method causes the writer to write its input dataset to disk (or other I/O device).
 \index{mapper object!implementation|)}
@@ -1118,7 +1118,7 @@ Contouring in VTK is implemented using variations of the marching cubes algorith
 
 The implication of this arrangement is that vtkContourFilter will generate point, line, and surface contouring primitives depending on the combination of input cell types. Thus vtkContourFilter is completely general. We have created another contour filter, vtkMarchingCubes\index{vtkMarchingCubes}, that is specific to the dataset type image data (in particular, 3D volumes). These two filters allow us to compare (at least for this one algorithm) the cost of generality.
 
-Recall from ``Generality Versus Efficiency'' on page \pageref{subsec:benerality_vs_efficiency} the issues regarding the trade--offs between general and specific algorithms. Figure \ref{fig:Figure6-38} shows a comparison of CPU times for a volume dataset at $64 \times 64\times 93$, $128 \times 128\times 93$ and $256 \times 256\times 93$. The volume is a CT dataset of a human head. Three cases were run. In the first case the  vtkMarchingCubes object was used\index{marching cubes!general versus specific}. The output of this filter is triangles plus point normals. In the second case, vtkContourFilter was run. The output of this filter is just triangles. In the last case, vtkContourFilter was combined with vtkPolyDataNormals (to generate point normals). The output of the combined filters is also triangles plus point normals.
+Recall from ``Generality Versus Efficiency'' on page \pageref{subsec:benerality_vs_efficiency} the issues regarding the trade--offs between general and specific algorithms. Figure \ref{fig:Figure6-38} shows a comparison of CPU times for a volume dataset at $64 \times 64\times 93$, $128 \times 128\times 93$ and $256 \times 256\times 93$. The volume is a CT dataset of a human head. Three cases were run. In the first case the  vtkMarchingCubes object was used\index{marching cubes!general versus specific}. The output of this filter is triangles plus point normals. In the second case, vtkContourFilter was run. The output of this filter is just triangles. In the last case, vtkContourFilter was combined with vtkPolyDataNormals\index{vtkPolyDataNormals} (to generate point normals). The output of the combined filters is also triangles plus point normals.
 
 The execution times are normalized to the smallest dataset using the vtkMarchingCubes object. The results are clear: The specific object outperforms the general object by a factor of $1.4$ to $7$, depending on data size and whether normals are computed. The larger differences occur on the smaller datasets. This is because the ratio of voxel cells containing the isosurface to the total number of voxels is larger for smaller datasets. (Generally the total number of voxels increases as the resolution cubed, while the voxels containing the isosurface increase as the resolution squared.) As a result, more voxels are processed in the smaller datasets relative to the total number of voxels than in the larger datasets. When the datasets become larger, more voxels are ``empty'' and are not processed.
 
@@ -1164,7 +1164,7 @@ Although these results do not represent all implementations or the behavior of o
 	\caption{The cost of generality. Isosurface generation of three volumes of different sizes are
 		compared. The results show normalized execution times for two different implementations of the
 		marching-cubes isosurface algorithm. The specialized filter is \emph{vtkMarchingCubes}\index{vtkMarchingCubes}. The general
-		algorithms are first \emph{vtkContourFilter} and then in combination with \emph{vtkPolyDataNormals}.}\label{fig:Figure6-38}
+		algorithms are first \emph{vtkContourFilter} and then in combination with \emph{vtkPolyDataNormals}\index{vtkPolyDataNormals}.}\label{fig:Figure6-38}
 \end{figure}
 
 \begin{figure}[!htb]
@@ -1195,7 +1195,7 @@ Although these results do not represent all implementations or the behavior of o
 		vtkContourFilter$\index{vtkContourFilter}\index{vtkContourFilter!example}$ *contour = vtkContourFilter::New();
 		  contour->SetInputConnection(sample->GetOutputPort());
 		  contour->GenerateValues(5,0,1.2);
-		vtkPolyDataMapper *contourMapper = vtkPolyDataMapper::New();
+		vtkPolyDataMapper$\index{vtkPolyDataMapper!example}$ *contourMapper = vtkPolyDataMapper::New();
 		  contourMapper->SetInputConnection( contour->GetOutputPort());
 		  contourMapper->SetScalarRange(0,1.2);
 		vtkActor$\index{vtkActor!example}$ *contourActor = vtkActor::New();
@@ -1215,7 +1215,7 @@ Although these results do not represent all implementations or the behavior of o
 	\caption{Contouring quadric function. Pipeline topology, C++ code, and resulting image are shown.}\label{fig:Figure6-39}
 \end{figure}
 
-An example use of vtkContourFilter\index{vtkContourFilter} is shown in Figure \ref{fig:Figure6-39}. This example is taken from Figure \ref{fig:Figure4-1}, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As Figure \ref{fig:Figure6-39} shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData\index{vtkCleanPolyData} to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals to create surface normals. (We describe normal generation in Chapter 9: \nameref{chap:advanced_algorithms}.)
+An example use of vtkContourFilter\index{vtkContourFilter} is shown in Figure \ref{fig:Figure6-39}. This example is taken from Figure \ref{fig:Figure4-1}, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As Figure \ref{fig:Figure6-39} shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData\index{vtkCleanPolyData} to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals\index{vtkPolyDataNormals} to create surface normals. (We describe normal generation in Chapter 9: \nameref{chap:advanced_algorithms}.)
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
@@ -1236,7 +1236,7 @@ The vtkCutter\index{vtkCutter} class performs cutting of all VTK cell types. The
 \subsection{Glyphs}
 \index{glyph!implementation|(}
 
-The vtkGlyph3D\index{vtkGlyph3D} class provides a simple, yet powerful glyph capability in the \emph{Visualization Toolkit}. vtkGlyph3D is an example of an object that takes multiple inputs (Figure \ref{fig:Figure6-40}). One input, specified with the SetInputConnection() method, defines a set of points and possible attribute data at those points. The second input, specified with the SetSourceConnection() method, defines a geometry to be copied to every point in the input dataset. The source is of type vtkPolyData. Hence, any filter, sequence of filters creating polygonal data, or a polygonal dataset may be used to describe the glyph's geometry.
+The vtkGlyph3D\index{vtkGlyph3D} class provides a simple, yet powerful glyph capability in the \emph{Visualization Toolkit}. vtkGlyph3D is an example of an object that takes multiple inputs (Figure \ref{fig:Figure6-40}). One input, specified with the SetInputConnection() method, defines a set of points and possible attribute data at those points. The second input, specified with the SetSourceConnection() method, defines a geometry to be copied to every point in the input dataset. The source is of type vtkPolyData\index{vtkPolyData}. Hence, any filter, sequence of filters creating polygonal data, or a polygonal dataset may be used to describe the glyph's geometry.
 
 The behavior of an instance of vtkGlyph3D depends on the nature of the input data and the value of its instance variables. Generally, the input Source geometry will be copied to each point of the Input dataset. The geometry will be aligned along the input vector data and scaled according to the magnitude of the vector or the scalar value. In some cases, the point normal is used rather than the vector. Also, scaling can be turned on or off.
 
@@ -1269,13 +1269,13 @@ Attribute transformations create or modify data attributes without changing the 
 \end{figure}
 
 
-Fortunately, there is a solution to this dilemma. The solution is to use the ``virtual constructor'' NewInstance(). Although C++ does not allow virtual constructors, we can simulate it by creating a special virtual function that constructs a copy of the object that it is invoked on. For example, if this function is applied to a dataset instance of type vtkPolyData, the result will be a copy of that instance (Figure \ref{fig:Figure6-42} ). (Note that we use reference counting to make copies and avoid duplicating memory.) The virtual constructor function NewInstance() is implemented in a number of VTK classes including datasets and cells.
+Fortunately, there is a solution to this dilemma. The solution is to use the ``virtual constructor'' NewInstance(). Although C++ does not allow virtual constructors, we can simulate it by creating a special virtual function that constructs a copy of the object that it is invoked on. For example, if this function is applied to a dataset instance of type vtkPolyData\index{vtkPolyData}, the result will be a copy of that instance (Figure \ref{fig:Figure6-42} ). (Note that we use reference counting to make copies and avoid duplicating memory.) The virtual constructor function NewInstance() is implemented in a number of VTK classes including datasets and cells.
 
 Using the virtual constructor we can construct filters that output abstract data types like vtkDataSet\index{vtkDataSet}. We simply apply NewInstance() to the input of the filter. This will then return a pointer to a concrete object that is the output of the filter. The result is a general filter object that can accept any dataset type for input and creates the general vtkDataSet type as output. In VTK, this functionality has been implemented in the abstract class vtkDataSetAlgorithm\index{vtkDataSetAlgorithm}.
 
 There are other filters that implement variations of this delegation technique. The class vtkPointSetAlgorithm\index{vtkPointSetAlgorithm} is similar to vtkDataSetAlgorithm. This class takes as input any dataset whose geometry is explicitly defined via an instance of vtkPoints\index{vtkPoints} (or subclass), and generates on output an object of the same type (i.e., vtkPointSet\index{vtkPointSet}). The class vtkMergeFilter{vtkMergeFilter} combines dataset structure and point attributes from one or more input datasets. For example, you can read multiple files and combine the geometry/topology from one file with different scalars, vectors, and normals from other files.
 
-One difficulty using abstract filter types is that the output type may not match with the input type of a downstream filter. For example, the output of vtkElevationFilter is specified as vtkDataSet even though the input may be of type vtkPolyData, and we know from the previous discussion that the actual output type will be vtkPolyData. This difficulty is removed by using the filter vtkCastToConcrete\index{casting!VTK data types}\index{vtkCastToConcrete}, which allows you to runtime cast to the appropriate output type. In this case we would use the GetPolyDataOutput() from vtkCastToConcrete. After checking the validity of the cast, this method returns a dataset cast to vtkPolyData. Of course, this process requires that the input to vtkCastToConcrete be set before the output is requested.
+One difficulty using abstract filter types is that the output type may not match with the input type of a downstream filter. For example, the output of vtkElevationFilter is specified as vtkDataSet even though the input may be of type vtkPolyData\index{vtkPolyData}, and we know from the previous discussion that the actual output type will be vtkPolyData. This difficulty is removed by using the filter vtkCastToConcrete\index{casting!VTK data types}\index{vtkCastToConcrete}, which allows you to runtime cast to the appropriate output type. In this case we would use the GetPolyDataOutput() from vtkCastToConcrete. After checking the validity of the cast, this method returns a dataset cast to vtkPolyData. Of course, this process requires that the input to vtkCastToConcrete be set before the output is requested.
 
 \subsection{Visualizing Blood Flow}
 
@@ -1327,7 +1327,7 @@ After selecting a subset of the original points, we can use the vtkGlyph3D\index
 		vtkLookupTable lut
 		  lut SetHueRange.667 0.0
 		  lut Build
-		vtkPolyDataMapper vecMapper
+		vtkPolyDataMapper%\index{vtkPolyDataMapper!example}% vecMapper
 		  vecMapper SetInputConnection [cones GetOutputPort]
 		  vecMapper SetScalarRange 2 10
 		  vecMapaper SetLookupTable lut
@@ -1338,7 +1338,7 @@ After selecting a subset of the original points, we can use the vtkGlyph3D\index
 	\caption{Visualizing blood flow in human carotid arteries. Cone glyphs indicate flow direction and magnitude.}\label{fig:Figure6-43}
 \end{figure}
 
-In the next part of this example we'll generate streamtubes of blood velocity. Again we use an isosurface of speed to provide us with context. The starting positions for the streamtubes were determined by experimenting with the data. Because of the way the data was measured and the resolution of the velocity field, many streamers travel outside the artery. This is because the boundary layer of the blood flow is not captured due to limitations in data resolution. Consequently, as the blood flows around curves, there is a component of the velocity field that directs the streamtube outside the artery. As a result it is hard to find starting positions for the streamtubes that yield interesting results. We use the source object vtkPointSource in combination with vtkThresholdPoints to work around this problem. vtkPointSource generates random points centered around a sphere of a specified radius. We need only find an approximate position for the starting points of the streamtubes and then generate a cloud of random seed points. vtkThresholdPoints is used to cull points that may be generated outside the regions of high flow velocity.
+In the next part of this example we'll generate streamtubes of blood velocity. Again we use an isosurface of speed to provide us with context. The starting positions for the streamtubes were determined by experimenting with the data. Because of the way the data was measured and the resolution of the velocity field, many streamers travel outside the artery. This is because the boundary layer of the blood flow is not captured due to limitations in data resolution. Consequently, as the blood flows around curves, there is a component of the velocity field that directs the streamtube outside the artery. As a result it is hard to find starting positions for the streamtubes that yield interesting results. We use the source object vtkPointSource\index{vtkPointSource} in combination with vtkThresholdPoints to work around this problem. vtkPointSource generates random points centered around a sphere of a specified radius. We need only find an approximate position for the starting points of the streamtubes and then generate a cloud of random seed points. vtkThresholdPoints is used to cull points that may be generated outside the regions of high flow velocity.
 
 \begin{figure}[!htb]
     \centering
@@ -1357,10 +1357,10 @@ In the next part of this example we'll generate streamtubes of blood velocity. A
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.76\linewidth}
-		\begin{lstlisting}[language=TCL, caption={}]
+		\begin{lstlisting}[language=TCL, caption={}, escapechar=\%]
 			vtkStructuredPointsReader reader
 			  reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"
-			vtkPointSource source
+			vtkPointSource%\index{vtkPointSource!example}% source
 			  source SetNumberOfPoints 25
 			  source SetCenter 133.1 116.3 5.0
 			  source SetRadius 2.0
@@ -1380,14 +1380,14 @@ In the next part of this example we'll generate streamtubes of blood velocity. A
 			  tubes SetRadius 0.3
 			  tubes SetNumberOfSides 6
 			  tubes SetVaryRadiusToVaryRadiusOff
-			vtkPolyDataMapper streamerMapper
+			vtkPolyDataMapper%\index{vtkPolyDataMapper!example}% streamerMapper
 			  streamerMapper SetInputConnection [tubes GetOutputPort]
 			  streamerMapper SetScalarRange 2 10
 		\end{lstlisting}
 		\caption*{}
 		\label{fig:Figure6-44c}
 	\end{subfigure}
-	\caption{Visualizing blood flow in the human carotid arteries. Streamtubes of flow vectors.}\label{fig:Figure6-44}
+	\caption{Visualizing blood flow in the human carotid arteries. Streamtubes of flow vectors.\index{vtkPointSource}}\label{fig:Figure6-44}
 \end{figure}
 
 

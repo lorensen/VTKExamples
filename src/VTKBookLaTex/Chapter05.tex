@@ -524,9 +524,9 @@ The abstract data class vtkPoints\index{vtkPoints} is used to represent the poin
 
 The Visualization Toolkit uses the class vtkCellArray\index{vtkCellArray} to explicitly represent cell topology. This class is a list of connectivity for each cell. The structure of the list is a sequence of integer numbers (Figure \ref{fig:Figure5-12}). The first number in the list is a count (the number of points in the cell connectivity), and the next series of numbers is the cell connectivity. (Each number in the connectivity list is an index into an instance of a point coordinate list.) Sequences of count followed by the connectivity list are repeated until each cell is enumerated. Additional information such as the number of cells in the list and current position in the list (for traversal purposes) is also maintained by vtkCellArray.
 
-Notice that type information is not directly represented in this structure. Instead, vtkPolyData maintains four separate lists to vertices, lines, polygons, and triangle strips. The vertex list represents cells of type vtkVertex\index{vtkVertex} and vtkPolyVertex\index{vtkPolyVertex}. The lines list represents cells of type vtkLine\index{vtkLine} and vtkPolyLine\index{vtkPolyLine}. The polygon list represents cells of type vtkTriangle\index{vtkTriangle}, vtkQuad\index{vtkQuad}, and vtkPolygon\index{vtkPolygon}. The triangle strip list represents cells of the single type vtkTriangleStrip\index{vtkTriangleStrip}. As a result, the cell type is known from the particular list the cell is defined in, plus the number of points that define the cell.
+Notice that type information is not directly represented in this structure. Instead, vtkPolyData\index{vtkPolyData} maintains four separate lists to vertices, lines, polygons, and triangle strips. The vertex list represents cells of type vtkVertex\index{vtkVertex} and vtkPolyVertex\index{vtkPolyVertex}. The lines list represents cells of type vtkLine\index{vtkLine} and vtkPolyLine\index{vtkPolyLine}. The polygon list represents cells of type vtkTriangle\index{vtkTriangle}, vtkQuad\index{vtkQuad}, and vtkPolygon\index{vtkPolygon}. The triangle strip list represents cells of the single type vtkTriangleStrip\index{vtkTriangleStrip}. As a result, the cell type is known from the particular list the cell is defined in, plus the number of points that define the cell.
 
-Our design of the vtkPolyData class is based on two important requirements. First, we want an efficient interface to external graphics libraries. Second, we wish to aggregate cells according to topology. The four separate lists provide efficient interface because graphics libraries have separate vertex, line, polygon, and triangle strip primitives. As a result, in VTK no run-time checking is required to match the different cell types with the appropriate ``load primitive'' function, since the type is known from the list in which the primitive resides. The four lists also separate cells into 0-, 1-, and 2-dimensional types. This is useful because visualization algorithms often treat data of varying topological order differently.
+Our design of the vtkPolyData\index{vtkPolyData} class is based on two important requirements. First, we want an efficient interface to external graphics libraries. Second, we wish to aggregate cells according to topology. The four separate lists provide efficient interface because graphics libraries have separate vertex, line, polygon, and triangle strip primitives. As a result, in VTK no run-time checking is required to match the different cell types with the appropriate ``load primitive'' function, since the type is known from the list in which the primitive resides. The four lists also separate cells into 0-, 1-, and 2-dimensional types. This is useful because visualization algorithms often treat data of varying topological order differently.
 \index{polygonal data!representation|)}
 
 \item[vtkUnstructuredGrid.\index{unstructured grid!representation|(}\index{vtkUnstructuredGrid}] The dataset type vtkUnstructuredGrid is the most general in terms of its ability to represent topological and geometric structure. Both points and cells are explicitly represented using derived classes of vtkPoints\index{vtkPoints} and vtkCellArray\index{vtkCellArray}. The class vtkUnstructuredGrid is similar to vtkPolyData except that vtkUnstructuredGrid must be capable of representing all cell types, not just the limited graphics types (i.e., vertices, lines, polygons, and triangle strips) of vtkPolyData.
@@ -647,7 +647,7 @@ The geometry of the cube is defined using an instance of the class vtkPoints\ind
 	\hfill
 	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=C++, caption={}, escapechar=\$]
-		vtkPolyData *cube = vtkPolyData::New();
+		vtkPolyData$\index{vtkPolyData!example}$ *cube = vtkPolyData::New();
 		vtkPoints *points = vtkPoints::New();
 		vtkCellArray *polys = vtkCellArray::New();
 		vtkFloatArray$\index{vtkFloatArray!example}$ *scalars = vtkFloatArray::New();
@@ -667,7 +667,7 @@ The geometry of the cube is defined using an instance of the class vtkPoints\ind
 	\caption{Creation of polygonal cube.}\label{fig:Figure5-17}
 \end{figure}
 
-As this example shows, polygonal data is created by constructing pieces (e.g., points, cells, and point attribute data), and then assembling the pieces to form the complete dataset. If the name of the instance of vtkPolyData is cube, we can summarize these three steps as follows:
+As this example shows, polygonal data is created by constructing pieces (e.g., points, cells, and point attribute data), and then assembling the pieces to form the complete dataset. If the name of the instance of vtkPolyData\index{vtkPolyData} is cube, we can summarize these three steps as follows:
 
 \begin{enumerate}
 

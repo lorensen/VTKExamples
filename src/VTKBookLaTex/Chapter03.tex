@@ -658,7 +658,7 @@ This section works through some simple applications implemented with VTK graphic
 
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 
-\item[Render a Cone.] The following C++ code uses most of the objects introduced in this section to create an image of a cone. The vtkConeSource generates a polygonal representation of a cone and vtkPolyDataMapper maps the geometry (in conjunction with the actor) to the underlying graphics library. (The source code to this example can be found in \href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/Cone/}{Cone.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/Cone/}{Cone.py}. The source code contains additional documentation as well.)
+\item[Render a Cone.] The following C++ code uses most of the objects introduced in this section to create an image of a cone. The vtkConeSource generates a polygonal representation of a cone and vtkPolyDataMapper\index{vtkPolyDataMapper} maps the geometry (in conjunction with the actor) to the underlying graphics library. (The source code to this example can be found in \href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/Cone/}{Cone.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/Cone/}{Cone.py}. The source code contains additional documentation as well.)
 
 \label{eg:render_cone}
 \begin{lstlisting}[language=C++, caption={Cone.cxx}, escapechar=\$]
@@ -676,7 +676,7 @@ int main( int argc, char *argv[] )
     cone->SetRadius( 1.0 );
     cone->SetResolution( 10 );
 
-  vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
+  vtkPolyDataMapper$\index{vtkPolyDataMapper!example}$ *coneMapper = vtkPolyDataMapper::New();
     coneMapper->SetInputConnection( cone->GetOutputPort() );
   vtkActor *coneActor = vtkActor::New();
     coneActor->SetMapper( coneMapper );
@@ -713,7 +713,7 @@ The data representing the cone (a set of polygons) in this example is created by
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.8\textwidth]{Figure3-26}\\
-  \caption{Examples of source objects that procedurally generate polygonal models. These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check the subclasses of vtkPolyDataAlgorithm. See  \href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/SourceObjectsDemo/}{SourceObjectsDemo.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/SourceObjectsDemo/}{SourceObjectsDemo.py}}\label{fig:Figure3-26}
+  \caption{Examples of source objects that procedurally generate polygonal models. These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check the subclasses of vtkPolyDataAlgorithm\index{vtkPolyDataAlgorithm}. See  \href{https://lorensen.github.io/VTKExamples/site/Cxx/GeometricObjects/SourceObjectsDemo/}{SourceObjectsDemo.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/GeometricObjects/SourceObjectsDemo/}{SourceObjectsDemo.py}}\label{fig:Figure3-26}
 \end{figure}
 
 There are many different types of source objects in VTK similar to vtkConeSource as shown in Figure \ref{fig:Figure3-26}. In the next chapter we will learn more about source and other types of filters.

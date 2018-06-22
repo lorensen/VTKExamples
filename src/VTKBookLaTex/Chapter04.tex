@@ -646,7 +646,7 @@ append = vtkAppendFilter::New();
 
 Notice the use of the method AddInputConnection()\index{AddInputConnection()}. This method adds to the list of connections, whereas SetInputConnection()\index{SetInputConnection()} clears the list and specifies the single connection to the port.
 
-Another important filtering class is vtkProbeFilter. This filter takes two inputs. The first input is the data we wish to probe. The second input supplies a set of points that are used as probe points. Some process objects take a list of input data. Another interesting filter is the vtkBooleanStructuredPoints\index{vtkBooleanStructuredPoints} class which performs set operations on volume datasets. The first data item in the list is used to initialize the set operation. Each subsequent item in the list is combined with the result of previous operations using a boolean operation specified by the user.
+Another important filtering class is vtkProbeFilter\index{vtkProbeFilter}. This filter takes two inputs. The first input is the data we wish to probe. The second input supplies a set of points that are used as probe points. Some process objects take a list of input data. Another interesting filter is the vtkBooleanStructuredPoints\index{vtkBooleanStructuredPoints} class which performs set operations on volume datasets. The first data item in the list is used to initialize the set operation. Each subsequent item in the list is combined with the result of previous operations using a boolean operation specified by the user.
 
 For more details regarding the object design of filters and data objects, please see Chapter 5: \nameref{chap:basic_data_representation} and Chapter 6: \nameref{chap:fundamental_algorithms}.
 

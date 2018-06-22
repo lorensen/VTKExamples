@@ -100,15 +100,15 @@ The flow in the program is similar to most VTK applications.
 
 \end{itemize}
 
-The filter we have chosen to use is vtkMarchingCubes\index{vtkMarchingCubes!application}. We could also use vtkContourFilter since it will automatically create an instance of vtkMarchingCubes as it delegates to the fastest subclass for a particular dataset type. The class vtkPolyDataNormals is used to generate nice surface normals for the data. vtkMarchingCubes can also generate normals, but sometimes better results are achieved when the normals are directly from the surface (vtkPolyDataNormals ) versus from the data (vtkMarchingCubes ). To complete this example, we take the output from the isosurface generator vtkMarchingCubes and connect it to a mapper and actor via
-vtkPolyDataMapper and vtkActor\index{vtkActor!application}. The C++ code follows.
+The filter we have chosen to use is vtkMarchingCubes\index{vtkMarchingCubes!application}. We could also use vtkContourFilter since it will automatically create an instance of vtkMarchingCubes as it delegates to the fastest subclass for a particular dataset type. The class vtkPolyDataNormals\index{vtkPolyDataNormals} is used to generate nice surface normals for the data. vtkMarchingCubes can also generate normals, but sometimes better results are achieved when the normals are directly from the surface (vtkPolyDataNormals) versus from the data (vtkMarchingCubes). To complete this example, we take the output from the isosurface generator vtkMarchingCubes and connect it to a mapper and actor via
+vtkPolyDataMapper\index{vtkPolyDataMapper!application} and vtkActor\index{vtkActor!application}. The C++ code follows.
 
 \begin{lstlisting}[language=C++, caption={Creating an isosurface.}, escapechar=\$]
 vtkContourFilter *skinExtractor = vtkContourFilter::New();
   skinExtractor->SetInputConnection(v16->GetOutputPort());
   skinExtractor->SetValue(0, 500);
 
-vtkPolyDataNormals *skinNormals = vtkPolyDataNormals::New();
+vtkPolyDataNormals$\index{vtkPolyDataNormals!application}$ *skinNormals = vtkPolyDataNormals::New();
   skinNormals->SetInputConnection(skinExtractor->GetOutputPort());
   skinNormals->SetFeatureAngle(60.0);
 
@@ -492,8 +492,8 @@ vtkStripper stripper
 
 Finally, the last component of the pipeline writes the triangles strips to a file.
 
-\begin{lstlisting}[language=TCL, caption={Write the Triangles to a File.}]
-vtkPolyDataWriter writer
+\begin{lstlisting}[language=TCL, caption={Write the Triangles to a File.}, escapechar=\%]
+vtkPolyDataWriter%\index{vtkPolyDataWriter!application}% writer
   writer SetInputConnection [stripper GetOutputPort]
   eval writer SetFileName $NAME.vtk
 \end{lstlisting}
@@ -572,10 +572,10 @@ proc MakeActor { name r g b}
 {
 set filename [eval mkname $name .vtk]
 set reader [eval mkname $name PolyDataReader]
-vtkPolyDataReader $reader
+vtkPolyDataReader%\index{vtkPolyDataReader!application}% $reader
   $reader SetFileName $filename
 set mapper [eval mkname $name PolyDataMapper]
-vtkPolyDataMapper $mapper
+vtkPolyDataMapper%\index{vtkPolyDataMapper!application}% $mapper
   $mapper SetInputConnection [$reader GetOutputPort]
    $mapper ScalarVisibilityOff
 set actor [ eval mkname $name Actor]
@@ -721,7 +721,7 @@ END {
   }
 \end{lstlisting}
 
-The above Awk script performs the conversion. Its first line outputs the required header information indicating that the file is a VTK data file containing polygonal data. It also includes a comment indicating that the data represents stock values. There are a few different VTK data formats that we could have selected. It is up to you to decide which format best suits the data you are visualizing. We have judged the polygonal format ( vtkPolyData ) as best suited for this particular stock visualization.
+The above Awk script performs the conversion. Its first line outputs the required header information indicating that the file is a VTK data file containing polygonal data. It also includes a comment indicating that the data represents stock values. There are a few different VTK data formats that we could have selected. It is up to you to decide which format best suits the data you are visualizing. We have judged the polygonal format ( vtkPolyData\index{vtkPolyData!application}) as best suited for this particular stock visualization.
 
 The next line of the Awk script creates a variable named count that keeps track of how many days worth of information is in the file. This is equivalent to the number of lines in the original data file.
 
@@ -1107,7 +1107,7 @@ vtkPLOT3DReader%\index{vtkPLOT3DReader!application}% pl3d
 vtkStructuredGridGeometryFilter floorComp
   floorComp SetExtent 0 37 0 75 0 0
   floorComp SetInputConnection [pl3d GetOutputPort]
-vtkPolyDataMapper floorMapper
+vtkPolyDataMapper%\index{vtkPolyDataMapper!application}% floorMapper
   floorMapper SetInputConnection [floorComp GetOutputPort]
   floorMapper ScalarVisibilityOff
 vtkActor floorActor
@@ -1180,7 +1180,7 @@ To display the scalar field using color mapping\index{color mapping!application}
 \end{figure}
 
 
-Now, we explore the vector field using vtkPointSource. Recall that this object generates a random cloud of points around a spherical center point. We will use this cloud of points to generate stream-lines. We place the center of the cloud near the post since this is where the velocity seems to be changing most rapidly. During this exploration, we use streamlines\index{streamline!application} rather than streamtubes for reasons of efficiency. The Tcl code is as follows.
+Now, we explore the vector field using vtkPointSource\index{vtkPointSource!application}. Recall that this object generates a random cloud of points around a spherical center point. We will use this cloud of points to generate stream-lines. We place the center of the cloud near the post since this is where the velocity seems to be changing most rapidly. During this exploration, we use streamlines\index{streamline!application} rather than streamtubes for reasons of efficiency. The Tcl code is as follows.
 
 \begin{lstlisting}[language=TCL, caption={Explore the vector field using a point source.}]
 # spherical seed points
@@ -1326,7 +1326,7 @@ vtkActor parisonActor
   wm withdraw .
 \end{lstlisting}
 
-The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter\index{vtkConnectivityFilter!application}. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter\index{vtkGeometryFilter!applicaation} does this nicely.
+The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter\index{vtkConnectivityFilter!application}. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals\index{vtkPolyDataNormals!application} filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter\index{vtkGeometryFilter!applicaation} does this nicely.
 \index{applications!finite element method|)}\index{finite element method!application|)}
 
 \section{Algorithm Visualization}
