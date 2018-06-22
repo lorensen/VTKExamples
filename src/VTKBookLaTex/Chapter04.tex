@@ -628,7 +628,7 @@ foo->SetInputConnection(vz->GetOutputPort(2));
 ...
 \end{lstlisting}
 
-Several other special objects having multiple inputs or outputs are also available. Some of the more notable classes are vtkMergeFilter, vtkAppendFilter\index{vtkAppendFilter}, and vtkAppendPolyData\index{vtkAppendPolyData}. These filters com bine multiple pipeline streams and generate a single output. Note, however, that while vtkMergeFilter has multiple input ports (i.e., different logical inputs), vtkAppendFilter has only one logical input, but presumes multiple connections are made to that one input. This is because in the case of vtkMergeFilter, each input has a distinct and separate purpose, while in vtkAppendFilter all the inputs have the same meaning (i.e., just one more input in a list to append together). Here are some code fragments:
+Several other special objects having multiple inputs or outputs are also available. Some of the more notable classes are vtkMergeFilter\index{vtkMergeFilter}, vtkAppendFilter\index{vtkAppendFilter}, and vtkAppendPolyData\index{vtkAppendPolyData}. These filters com bine multiple pipeline streams and generate a single output. Note, however, that while vtkMergeFilter has multiple input ports (i.e., different logical inputs), vtkAppendFilter has only one logical input, but presumes multiple connections are made to that one input. This is because in the case of vtkMergeFilter, each input has a distinct and separate purpose, while in vtkAppendFilter all the inputs have the same meaning (i.e., just one more input in a list to append together). Here are some code fragments:
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 merge = vtkMergeFilter::New();
@@ -646,7 +646,7 @@ append = vtkAppendFilter::New();
 
 Notice the use of the method AddInputConnection()\index{AddInputConnection()}. This method adds to the list of connections, whereas SetInputConnection()\index{SetInputConnection()} clears the list and specifies the single connection to the port.
 
-Another important filtering class is vtkProbeFilter. This filter takes two inputs. The first input is the data we wish to probe. The second input supplies a set of points that are used as probe points. Some process objects take a list of input data. Another interesting filter is the vtkBooleanStructuredPoints\index{vtkBooleanStructuredPoints} class which performs set operations on volume datasets. The first data item in the list is used to initialize the set operation. Each subsequent item in the list is combined with the result of previous operations using a boolean operation specified by the user.
+Another important filtering class is vtkProbeFilter\index{vtkProbeFilter}. This filter takes two inputs. The first input is the data we wish to probe. The second input supplies a set of points that are used as probe points. Some process objects take a list of input data. Another interesting filter is the vtkBooleanStructuredPoints\index{vtkBooleanStructuredPoints} class which performs set operations on volume datasets. The first data item in the list is used to initialize the set operation. Each subsequent item in the list is combined with the result of previous operations using a boolean operation specified by the user.
 
 For more details regarding the object design of filters and data objects, please see Chapter 5: \nameref{chap:basic_data_representation} and Chapter 6: \nameref{chap:fundamental_algorithms}.
 
@@ -706,7 +706,7 @@ This global variable is set as follows. Given the data object O, (or the output 
 \label{subsec:high-level_object_design}
 \index{pipeline!memory models!implementation|(}
 
-At this point in the text it is premature to describe design details of the various objects making up the visualization pipeline. However, there are two important classes that affect many of the objects in the text. These are the classes vtkObject and vtkObjectBase.
+At this point in the text it is premature to describe design details of the various objects making up the visualization pipeline. However, there are two important classes that affect many of the objects in the text. These are the classes vtkObject\index{vtkObject} and vtkObjectBase\index{vtkObjectBase}.
 
 vtkObjectBase is the base object for almost all inheritance hierarchies found in VTK. vtkObjectBase implements data object reference counting (see ``Reference Counting and Garbage Collection'' on page \pageref{subsec:reference_counting_garbage_collection}). Subclasses of vtkObjectBase may be shared by other objects, without duplicating memory. It also defines an API for objects to print information about themselves.
 
@@ -773,7 +773,7 @@ One final note. The indentation of the code serves to indicate where objects are
 %\label{subsubsec:warped_sphere}
 \item[Warped Sphere.] This example extends the pipeline of the previous example and shows the effects of type checking on the connectivity of process objects. We add a transform filter (vtkTransformFilter) to nonuniformly scale the sphere in the x-y-z directions.
 
-The transform filter only operates on objects with explicit point coordinate representation (i.e., a subclass of vtkPointSet). However, the elevation filter generates the more general form vtkDataSet\index{vtkDataSet} as output. Hence we cannot connect the transform filter to the elevation filter. But we can connect the transform filter to the sphere source, and then the elevation filter to the transform filter. The result is shown in Figure \ref{fig:Figure4-20}. (Note: an alternative method is to use vtkCastToConcrete\index{vtkCastToConcrete} to perform run-time casting.)
+The transform filter only operates on objects with explicit point coordinate representation (i.e., a subclass of vtkPointSet\index{vtkPointSet}). However, the elevation filter generates the more general form vtkDataSet\index{vtkDataSet} as output. Hence we cannot connect the transform filter to the elevation filter. But we can connect the transform filter to the sphere source, and then the elevation filter to the transform filter. The result is shown in Figure \ref{fig:Figure4-20}. (Note: an alternative method is to use vtkCastToConcrete\index{vtkCastToConcrete} to perform run-time casting.)
 
 The C++ compiler enforces the proper connections of sources, filters, and mappers. To decide which objects are compatible, we check the type specification of the SetInput() method. If the input object returns an output object or a subclass of that type, the two objects are compatible and may be connected.
 

@@ -862,15 +862,16 @@ The algorithm described above is adaptive because edge splitting is controlled b
 Our design allows for the definition of multiple error measures. As indicated in Equation 8-7, the error metric consists of several error measures, each of which evaluates local properties of the edge against the linear approximation, and compares the measure against a user-specified threshold. If any measure exceeds the threshold, then the edge is subdivided. These error measures may evaluate geometric properties, approximation to solution attributes, or error related to the current view, among other possibilities. Error measures based on geometry or attributes are independent of view and the mesh requires only one initial tessellation.
 
 The following paragraphs describes several error measures that have been found to be useful in practice. Since the tessellator is designed to process a list of error measures, it is straightforward to add new ones (by deriving from the GenericSubdivisionErrorMetric\index{GenericSubdivisionErrorMetric} class) and/or combine it with existing error measures.
+
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 
-    \item [\textit{Object-Based Geometric Error Measure.}] Referring to Figure \ref{fig:Figure8-25}(left), this error measure is the perpendicular distance, $d$, from the edge center point $C$ to the straight line passing through the cell edge vertices ($A$ and $B$). Note that $d$ is computed in world coordinates, but $C$ is computed by evaluation at the parametric center of the edge. The perpendicular distance is used rather than the distance between $C$ and $D$ because if $C$ lies on $(AB)$ but is not coincident with $D$ the error is non-zero, resulting in many useless edge subdivisions.
+\item [\textit{Object-Based Geometric Error Measure.}] Referring to Figure \ref{fig:Figure8-25}(left), this error measure is the perpendicular distance, $d$, from the edge center point $C$ to the straight line passing through the cell edge vertices ($A$ and $B$). Note that $d$ is computed in world coordinates, but $C$ is computed by evaluation at the parametric center of the edge. The perpendicular distance is used rather than the distance between $C$ and $D$ because if $C$ lies on $(AB)$ but is not coincident with $D$ the error is non-zero, resulting in many useless edge subdivisions.
 
-    \item [\textit{Object-Based Flatness Error Measure.}] This error measure is the angle $\alpha$ between the chords $(AC)$ and $(CB)$ passing through the real mid-point $C$. As the angle approaches $180\deg$ the edge becomes flat. The threshold is the angle over which the edge is viewed as flat.
+\item [\textit{Object-Based Flatness Error Measure.}] This error measure is the angle $\alpha$ between the chords $(AC)$ and $(CB)$ passing through the real mid-point $C$. As the angle approaches $180\deg$ the edge becomes flat. The threshold is the angle over which the edge is viewed as flat.
 
-    \item [\textit{Attribute-Based Error Measure.}] Referring to Figure \ref{fig:Figure8-25}(right), this error measure is the distance between ai the linearly interpolated value of an attribute at the midpoint and the actual value of this attribute at the edge midpoint $a^m$.
+\item [\textit{Attribute-Based Error Measure.}] Referring to Figure \ref{fig:Figure8-25}(right), this error measure is the distance between ai the linearly interpolated value of an attribute at the midpoint and the actual value of this attribute at the edge midpoint $a^m$.
 
-    \item [\textit{Image-Based Geometric Error Measure.}] This error measure is the distance, in pixels, between the line $(AB)$ projected in image space to the midpoint $C$ also projected in image space. Because the computation involves projection through the current camera matrix, this error measure is view-dependent. As a result, the tessellation may be crude in portions of the mesh away from the camera. Note that one of the disadvantages of this approach is that tessellation may be required each time the camera is repositioned relative to the mesh.
+\item [\textit{Image-Based Geometric Error Measure.}] This error measure is the distance, in pixels, between the line $(AB)$ projected in image space to the midpoint $C$ also projected in image space. Because the computation involves projection through the current camera matrix, this error measure is view-dependent. As a result, the tessellation may be crude in portions of the mesh away from the camera. Note that one of the disadvantages of this approach is that tessellation may be required each time the camera is repositioned relative to the mesh.
 
 \end{description}
 
@@ -1581,7 +1582,7 @@ implementations for color scalars, searching and picking, and conclude with a se
 \subsection{Unstructured Topology}
 \index{unstructured topology|(}
 
-In Chapter 5: \nameref{chap:basic_data_representation} we described data representations for the unstructured dataset types vtkPolyData and vtkUnstructuredGrid. Close examination of this data structure reveals that operations to retrieve topological adjacency are inefficient. In fact, to implement any operation to retrieve vertex, edge, or face neighbors requires a search of the cell array, resulting in $O(n)$ time complexity. This is unacceptable for all but the smallest applications, since any algorithm traversing the cell array and retrieving adjacency information is at a minimum$ O(n^2)$.
+In Chapter 5: \nameref{chap:basic_data_representation} we described data representations for the unstructured dataset types vtkPolyData\index{vtkPolyData} and vtkUnstructuredGrid\index{vtkUnstructuredGrid}. Close examination of this data structure reveals that operations to retrieve topological adjacency are inefficient. In fact, to implement any operation to retrieve vertex, edge, or face neighbors requires a search of the cell array, resulting in $O(n)$ time complexity. This is unacceptable for all but the smallest applications, since any algorithm traversing the cell array and retrieving adjacency information is at a minimum$ O(n^2)$.
 
 The reason for this inefficiency is that the data representation is a ``downward'' hierarchy (Figure \ref{fig:Figure8-34}(b)). That is, given a cell we can quickly determine the topological features lower in the topological hierarchy such as faces, edges, and points. However, given a face, edge, or point we must search the cell array to determine the owning cells. To improve the efficiency of this data representation, we must introduce additional information into the hierarchy that allows ``upward'' hierarchy traversal (similar to that shown in Figure \ref{fig:Figure8-34}(a)).
 
@@ -1844,7 +1845,7 @@ To illustrate this process consider visiting the edges of a triangle mesh. We be
 
 Multivalued scalar data, or scalars represented by various color representations, are treated specially by the \emph{Visualization Toolkit}. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See ``Color Mapping'' on page \pageref{subsec:color_mapping} for more information.)
 
-By default, the mapping of scalars into colors proceeds as follows (vtkMapper and subclasses are responsible for implementing this behavior):
+By default, the mapping of scalars into colors proceeds as follows (vtkMapper\index{vtkMapper} and subclasses are responsible for implementing this behavior):
 \begin{itemize}
 
 \item If the scalar type is unsigned char with the tuple size ranging between one and four components, the data is considered to be color data.
@@ -1923,7 +1924,7 @@ Our experience with the search structures described here is that they work well 
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]
-	{\caption{The picking hierarchy in VTK. All subclasses of vtkAbstractPropPicker return the picked instance of vtkProp. The information is returned as a vtkAssemblyPath. The assembly path is necessary because some props may exist in an assembly hierarchy. The classes vtkWorldPointPicker and vtkPropPicker are hardware accelerated picking classes. All others use software ray casting.}\label{fig:Figure8-38}}
+	{\caption{The picking hierarchy in VTK. All subclasses of vtkAbstractPropPicker return the picked instance of vtkProp. The information is returned as a vtkAssemblyPath. The assembly path is necessary because some props may exist in an assembly hierarchy. The classes vtkWorldPointPicker and vtkPropPicker\index{vtkPropPicker} are hardware accelerated picking classes. All others use software ray casting.}\label{fig:Figure8-38}}
 	{\includegraphics[width=0.6\textwidth]{Figure8-38}}
 \end{figure}
 
@@ -1969,15 +1970,15 @@ Classes that can return information indicating which vtkProp they have picked ar
     \label{fig:Figure8-39}
 \end{figure}
 
-The object vtkPicker intersects a ray defined from camera position to a screen (i.e., pixel) coordinate against the bounding box of all pickable and nontransparent vtkProp3D's. (A vtkProp is pickable if its Pickable instance variable is true.) The result of the vtkPicker pick operation is to return a list of the vtkProp3D's whose bounding box is intersected. The prop closest to the camera position is also returned.
+The object vtkPicker\index{vtkPicker} intersects a ray defined from camera position to a screen (i.e., pixel) coordinate against the bounding box of all pickable and nontransparent vtkProp3D's. (A vtkProp is pickable if its Pickable instance variable is true.) The result of the vtkPicker pick operation is to return a list of the vtkProp3D's whose bounding box is intersected. The prop closest to the camera position is also returned.
 
-The object vtkPointPicker intersects the ray against the points defining each vtkProp3D, and returns the point coordinate closest to the camera position, as well as the vtkProp3D that the point belongs to. Since screen resolution prevents precise selection of a point, a tolerance around the ray must be specified. The tolerance is expressed as a fraction of the rendering window size. (Rendering window size is measured across the window diagonal.) Points must lie within this tolerance to be picked.
+The object vtkPointPicker\index{vtkPointPicker} intersects the ray against the points defining each vtkProp3D, and returns the point coordinate closest to the camera position, as well as the vtkProp3D that the point belongs to. Since screen resolution prevents precise selection of a point, a tolerance around the ray must be specified. The tolerance is expressed as a fraction of the rendering window size. (Rendering window size is measured across the window diagonal.) Points must lie within this tolerance to be picked.
 
 The object vtkCellPicker\index{vtkCellPicker} intersects the ray with the cells defining each vtkProp3D, and returns the point of intersection, as well as the vtkProp3D that the cell belongs to. If you are trying to select a cell belonging to a particular vtkProp3D, vtkCellPicker is the object to use because it performs surface (or cell) intersection. Unfortunately, vtkCellPicker is the slowest of the pickers because of greater computational requirements.
 
-The class vtkWorldPointPicker returns the $(x,y,z)$ coordinate value of a pick in the rendering window. To determine this information, it combines the display $(x,y)$ values with the z-buffer depth values. Of all the pickers this is the fastest, but it cannot determine the actual cell, point or vtkProp that is selected since it is not a subclass of vtkAbstractPropPicker. (Note: on some systems \emph{z}--buffer operations are inoperative and this object will not function properly.)
+The class vtkWorldPointPicker\index{vtkWorldPointPicker} returns the $(x,y,z)$ coordinate value of a pick in the rendering window. To determine this information, it combines the display $(x,y)$ values with the z-buffer depth values. Of all the pickers this is the fastest, but it cannot determine the actual cell, point or vtkProp that is selected since it is not a subclass of vtkAbstractPropPicker. (Note: on some systems \emph{z}--buffer operations are inoperative and this object will not function properly.)
 
-By default picking is performed with the class vtkPropPicker. This class uses hardware-accelerated picking --- so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the $(x,y,z)$ world coordinate value
+By default picking is performed with the class vtkPropPicker\index{vtkPropPicker}. This class uses hardware-accelerated picking --- so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the $(x,y,z)$ world coordinate value
 
 Figure \ref{fig:Figure8-39} summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the ``p'' key (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:examples_introducing_vtkRenderWindowInteractor}). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
 \index{picking!implementation|)}
@@ -1986,7 +1987,9 @@ Figure \ref{fig:Figure8-39} summarizes the five concrete picking classes. Pickin
 
 To conclude this section, we will examine how some of the dataset, cell, and point attribute operations are used. These operations tend to be used by class developers. You will not need to use them if you build applications by constructing visualization pipelines with existing filters.
 
-\subsubsection{Find Free Edges}
+\begin{description}[leftmargin=0cm,labelindent=0cm]
+
+\item[Find Free Edges]
 
 \begin{figure}[!htb]
     \centering
@@ -2063,16 +2066,14 @@ for (cellId=0; cellId < numCells; cellId++)
 
 This same approach is used in the vtkRotationalExtrusionFilter (Figure \ref{fig:Figure8-40}(b)). The difference between these two functions is that the type of motion is rotational as compared to linear (vtkLinearExtrusionFilter). These two filters can be used to perform some nifty modelling operations. Linear extrusion can be used to create bar charts with arbitrary cross sections, or to sweep out three--dimensional fonts. The rotational extrusion filter can be used to create rotationally symmetric objects such as bottles or wine glasses. Examples of these techniques are shown in Figure \ref{fig:Figure8-41}.
 
-\subsubsection{Find Cells}
-
-In this example we combine picking and a topological operation to select cells sharing a common point. Specifically, we use vtkPointPicker and the topological dataset operation GetPointCells(). Figure \ref{fig:Figure8-42} depicts this operation. We have also included a fragment of C++ code implementing this procedure. Note that this procedure will work for any dataset type, even if the geometry is implicitly defined (e.g., vtkImageData).
+\item[Find Cells] In this example we combine picking and a topological operation to select cells sharing a common point. Specifically, we use vtkPointPicker\index{vtkPointPicker!example} and the topological dataset operation GetPointCells(). Figure \ref{fig:Figure8-42} depicts this operation. We have also included a fragment of C++ code implementing this procedure. Note that this procedure will work for any dataset type, even if the geometry is implicitly defined (e.g., vtkImageData).
 
 \begin{figure}[!htb]
     \centering
     \begin{subfigure}{0.48\linewidth}
         \centering
         \includegraphics[width=.96\linewidth]{Figure8-42a}
-        \caption*{}\label{fig:Figure8-42a}
+        \caption{Original data}\label{fig:Figure8-42a}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.48\linewidth}
@@ -2110,7 +2111,7 @@ In this example we combine picking and a topological operation to select cells s
         \end{lstlisting}
         \caption{C++ code probe.cxx}\label{fig:Figure8-42c}
     \end{subfigure}%
-    \caption{Creating a point probe. Visualization network shown in diagram above. C++ code shows inner loop of vtkProbeFilter and resulting image for combustor data (probe.cxx).}
+    \caption{Selecting a group of cells sharing a common point. (a) Original data. (b) Selected cells sharing a point on the corner. Cells shrunk for clarity. The small sphere indicates the selected point. (c) C++ code fragment in pick routine.}
     \label{fig:Figure8-42}
 \end{figure}
 
@@ -2118,7 +2119,7 @@ The most difficult part of this procedure is the picking process. The selection 
 
 The picking process is conveniently managed in vtkRenderWindowInteractor. This object allows the specification of functions to execute just before picking and just after picking (i.e., ``AddObserver StartPickEvent'' and ``AddObserver EndPickEvent''). Using this facility we can define a postpicking function to retrieve the point id and then execute the GetPointCells() operation. This process is shown in Figure \ref{fig:Figure8-42}.
 
-\subsubsection{Point Probe}
+\item[Point Probe]
 \label{subsec:examples.point_probe}
 
 In this example we will show how to build a point probe using the dataset and cell operations described in this chapter. A point probe is defined as follows. Given a $(x,y,z)$ point coordinate, find the cell coordinates (i.e., cell id, subcell id, and parametric coordinates) and the interpolation weights. Once the interpolation weights are found, we can then compute local data values at $(x,y,z)$.
@@ -2156,13 +2157,15 @@ In this example we will show how to build a point probe using the dataset and ce
         \end{lstlisting}
         \caption{C++ code (pickCells.cxx)}
     \end{subfigure}%
-    \caption{Models created using linear and rotational extrusion.}
+    \caption{Creating a point probe. Visualization network shown in diagram above. C++ code shows inner loop of vtkProbeFilter and resulting image for combustor data (probe.cxx).}
     \label{fig:Figure8-43}
 \end{figure}
 
 The point probe is implemented using the dataset operation FindCell(). This method requires a point specified in global coordinates (our $(x,y,z)$ value) and a tolerance. The tolerance is often necessary because of numerical precision or when picking near the surface of 3D cells, or on 0D, 1D, and 2D cells. The FindCell() operation returns the information we require, plus the interpolation weights of the cell containing our point probe. To determine the data value at our probe point, we need to retrieve the data values on the cell points. We can then use the interpolation functions of Equation \ref{eq:8.4} to determine the probe scalar value.
 
-Figure \ref{fig:Figure8-43} depicts this process and includes C++ code. In the example we use the combustor dataset with the objects vtkCursor3D, vtkProbeFilter, and vtkGlyph3D\index{vtkGlyph3D!example}. The purpose of the cursor is to control the position of the probe point. The class vtkProbeFilter performs the probing  operation just described. (This filter has been generalized so that it can handle more than one input point.) vtkGlyph3D is used to place an oriented, scaled cone at the cursor focal point. This gives us visual feedback about the scalar and vector quantities at the probe. Of course, we can extract numeric values and display them to the user if this is important.
+Figure \ref{fig:Figure8-43} depicts this process and includes C++ code. In the example we use the combustor dataset with the objects vtkCursor3D, vtkProbeFilter\index{vtkProbeFilter!example}, and vtkGlyph3D\index{vtkGlyph3D!example}. The purpose of the cursor is to control the position of the probe point. The class vtkProbeFilter performs the probing  operation just described. (This filter has been generalized so that it can handle more than one input point.) vtkGlyph3D is used to place an oriented, scaled cone at the cursor focal point. This gives us visual feedback about the scalar and vector quantities at the probe. Of course, we can extract numeric values and display them to the user if this is important.
+
+\end{description}
 
 \section{Chapter Summary}
 

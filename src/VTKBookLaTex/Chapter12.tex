@@ -100,15 +100,15 @@ The flow in the program is similar to most VTK applications.
 
 \end{itemize}
 
-The filter we have chosen to use is vtkMarchingCubes. We could also use vtkContourFilter since it will automatically create an instance of vtkMarchingCubes as it delegates to the fastest subclass for a particular dataset type. The class vtkPolyDataNormals is used to generate nice surface normals for the data. vtkMarchingCubes can also generate normals, but sometimes better results are achieved when the normals are directly from the surface (vtkPolyDataNormals ) versus from the data (vtkMarchingCubes ). To complete this example, we take the output from the isosurface generator vtkMarchingCubes and connect it to a mapper and actor via
-vtkPolyDataMapper and vtkActor\index{vtkActor!application}. The C++ code follows.
+The filter we have chosen to use is vtkMarchingCubes\index{vtkMarchingCubes!application}. We could also use vtkContourFilter since it will automatically create an instance of vtkMarchingCubes as it delegates to the fastest subclass for a particular dataset type. The class vtkPolyDataNormals\index{vtkPolyDataNormals} is used to generate nice surface normals for the data. vtkMarchingCubes can also generate normals, but sometimes better results are achieved when the normals are directly from the surface (vtkPolyDataNormals) versus from the data (vtkMarchingCubes). To complete this example, we take the output from the isosurface generator vtkMarchingCubes and connect it to a mapper and actor via
+vtkPolyDataMapper\index{vtkPolyDataMapper!application} and vtkActor\index{vtkActor!application}. The C++ code follows.
 
-\begin{lstlisting}[language=C++, caption={Creating an isosurface.}]
+\begin{lstlisting}[language=C++, caption={Creating an isosurface.}, escapechar=\$]
 vtkContourFilter *skinExtractor = vtkContourFilter::New();
   skinExtractor->SetInputConnection(v16->GetOutputPort());
   skinExtractor->SetValue(0, 500);
 
-vtkPolyDataNormals *skinNormals = vtkPolyDataNormals::New();
+vtkPolyDataNormals$\index{vtkPolyDataNormals!application}$ *skinNormals = vtkPolyDataNormals::New();
   skinNormals->SetInputConnection(skinExtractor->GetOutputPort());
   skinNormals->SetFeatureAngle(60.0);
 
@@ -162,7 +162,7 @@ vtkCamera *aCamera = vtkCamera::New();
 To provide context for the isosurface an outline is created around the data. An initial view is set up  in a window size of $640 \times 480$ pixels. Since the dolly command moves the camera towards the data, the clipping planes are reset to insure that the isosurface is
 completely visible. Figure \ref{fig:Figure12-2} shows the resulting image of the patient's skin.
 
-We can improve this visualization in a number of ways. First, we can choose a more appropriate color (and other surface properties) for the skin. We use the vtkProperty method SetDiffuseColor() to set the skin color to a fleshy tone. We also add a specular component to the skin surface. Next, we can add additional isosurfaces corresponding to various anatomical features. Here we choose to extract the bone surface by adding an additional pipeline segment. This consists of the filters vtkMarchingCubes, vtkPolyDataMapper, and vtkActor, just as we did with the skin. Finally, to improve rendering performance on our system, we create triangle strips from the output of the contouring process. This requires adding vtkStripper.
+We can improve this visualization in a number of ways. First, we can choose a more appropriate color (and other surface properties) for the skin. We use the vtkProperty\index{vtkProperty} method SetDiffuseColor() to set the skin color to a fleshy tone. We also add a specular component to the skin surface. Next, we can add additional isosurfaces corresponding to various anatomical features. Here we choose to extract the bone surface by adding an additional pipeline segment. This consists of the filters vtkMarchingCubes, vtkPolyDataMapper, and vtkActor, just as we did with the skin. Finally, to improve rendering performance on our system, we create triangle strips from the output of the contouring process. This requires adding vtkStripper.
 
 \begin{figure}[!htb]
 	\centering
@@ -355,10 +355,10 @@ The SetTransform() method defines how to arrange the data in memory. Medical ima
 
 All the other parameters are self-explanatory except for the last. In this script, we know that the pipeline will only be executed once. To conserve memory, we invoke the ReleaseDataFlagOn() method. This allows the VTK pipeline to release data once it has been processed by a filter. For large medical datasets, this can mean the difference between being able to process a dataset or not.
 
-\begin{lstlisting}[language=TCL, caption={Read the Segmented Volume Data.}]
+\begin{lstlisting}[language=TCL, caption={Read the Segmented Volume Data.}, escapechar=\%]
 set originx [expr ( $COLUMNS / 2.0 ) * $PIXEL_SIZE * -1.0]
 set originy [expr ( $ROWS / 2.0 ) * $PIXEL_SIZE * -1.0]
-vtkPNMReader reader
+vtkPNMReader%\index{vtkPNMReader!application}% reader
   reader SetFilePrefix $STUDY
   reader SetDataSpacing $PIXEL_SIZE $PIXEL_SIZE $SPACING
   reader SetDataOrigin $originx $originy
@@ -427,8 +427,8 @@ if {$GAUSSIAN_STANDARD_DEVIATION != "0 0 0"} {
 
 Now we can process the volume with marching cubes\index{marching cubes!aplication} just as though we had obtained gray--scale data from a scanner. We added a few more bells and whistles to the pipeline. The filter runs faster if we turn off gradient and normal calculations. Marching cubes normally calculates vertex normals from the gradient of the volume data. In our pipeline, we have concocted a gray--scale representation and will subsequently decimate the triangle mesh and smooth the resulting vertices. This processing invalidates the normals that are calculated by marching cubes. 
 
-\begin{lstlisting}[language=TCL, caption={Generate Triangles.}]
-vtkMarchingCubes mcubes
+\begin{lstlisting}[language=TCL, caption={Generate Triangles.}, escapechar=\%]
+vtkMarchingCubes%\index{vtkMarchingCubes!application}% mcubes
   mcubes SetInputConnection [toStructuredPoints GetOutputPort]
   mcubes ComputeScalarsOff
   mcubes ComputeGradientsOff
@@ -492,8 +492,8 @@ vtkStripper stripper
 
 Finally, the last component of the pipeline writes the triangles strips to a file.
 
-\begin{lstlisting}[language=TCL, caption={Write the Triangles to a File.}]
-vtkPolyDataWriter writer
+\begin{lstlisting}[language=TCL, caption={Write the Triangles to a File.}, escapechar=\%]
+vtkPolyDataWriter%\index{vtkPolyDataWriter!application}% writer
   writer SetInputConnection [stripper GetOutputPort]
   eval writer SetFileName $NAME.vtk
 \end{lstlisting}
@@ -572,10 +572,10 @@ proc MakeActor { name r g b}
 {
 set filename [eval mkname $name .vtk]
 set reader [eval mkname $name PolyDataReader]
-vtkPolyDataReader $reader
+vtkPolyDataReader%\index{vtkPolyDataReader!application}% $reader
   $reader SetFileName $filename
 set mapper [eval mkname $name PolyDataMapper]
-vtkPolyDataMapper $mapper
+vtkPolyDataMapper%\index{vtkPolyDataMapper!application}% $mapper
   $mapper SetInputConnection [$reader GetOutputPort]
    $mapper ScalarVisibilityOff
 set actor [ eval mkname $name Actor]
@@ -721,7 +721,7 @@ END {
   }
 \end{lstlisting}
 
-The above Awk script performs the conversion. Its first line outputs the required header information indicating that the file is a VTK data file containing polygonal data. It also includes a comment indicating that the data represents stock values. There are a few different VTK data formats that we could have selected. It is up to you to decide which format best suits the data you are visualizing. We have judged the polygonal format ( vtkPolyData ) as best suited for this particular stock visualization.
+The above Awk script performs the conversion. Its first line outputs the required header information indicating that the file is a VTK data file containing polygonal data. It also includes a comment indicating that the data represents stock values. There are a few different VTK data formats that we could have selected. It is up to you to decide which format best suits the data you are visualizing. We have judged the polygonal format ( vtkPolyData\index{vtkPolyData!application}) as best suited for this particular stock visualization.
 
 The next line of the Awk script creates a variable named count that keeps track of how many days worth of information is in the file. This is equivalent to the number of lines in the original data file.
 
@@ -769,7 +769,7 @@ vtkRenderWindowInteractor iren
 
 # create the outline
 vtkAppendPolyData%\index{vtkAppendPolyData!application}% apf
-vtkOutlineFilter olf
+vtkOutlineFilter%\index{vtkOutlineFilter!application}% olf
   olf SetInputConnection [apf GetOutputPort]
 vtkPolyDataMapper outlineMapper
   outlineMapper SetInputConnection [olf GetOutputPort]
@@ -999,8 +999,8 @@ vtkActor *blobbyLogo = vtkActor::New();
 
 To improve the look of our resulting visualization, we define a couple of organic colors. Softer colors show up better on some electronic media (e.g., VHS video tape) and are pleasing to the eye.
 
-\begin{lstlisting}[language=C++, caption={Define colors.}]
-vtkProperty *tomato = vtkProperty::New();
+\begin{lstlisting}[language=C++, caption={Define colors.}, escapechar=\$]
+vtkProperty\index{vtkProperty!application} *tomato = vtkProperty::New();
   tomato->SetDiffuseColor(1, 0.3882, 0.2784);
   tomato->SetSpecular(0.3);
   tomato->SetSpecularPower(20);
@@ -1096,9 +1096,9 @@ We start by exploring the scalar and vector fields in the data. By calculating t
 Following our own advice, we first display the computational grid. The
 following Tcl code produced the left image of Figure \ref{fig:Figure12-14}.
 
-\begin{lstlisting}[language=TCL, caption={Display the computational grid.}]
+\begin{lstlisting}[language=TCL, caption={Display the computational grid.}, escapechar=\%]
 # read data
-vtkPLOT3DReader pl3d
+vtkPLOT3DReader%\index{vtkPLOT3DReader!application}% pl3d
   pl3d SetXYZFileName "$env(VTK_TEXTBOOK_DATA)/postxyz.bin"
   pl3d SetQFileName "$env(VTK_TEXTBOOK_DATA)/postq.bin"
   pl3d IBlankingOn
@@ -1107,7 +1107,7 @@ vtkPLOT3DReader pl3d
 vtkStructuredGridGeometryFilter floorComp
   floorComp SetExtent 0 37 0 75 0 0
   floorComp SetInputConnection [pl3d GetOutputPort]
-vtkPolyDataMapper floorMapper
+vtkPolyDataMapper%\index{vtkPolyDataMapper!application}% floorMapper
   floorMapper SetInputConnection [floorComp GetOutputPort]
   floorMapper ScalarVisibilityOff
 vtkActor floorActor
@@ -1180,7 +1180,7 @@ To display the scalar field using color mapping\index{color mapping!application}
 \end{figure}
 
 
-Now, we explore the vector field using vtkPointSource. Recall that this object generates a random cloud of points around a spherical center point. We will use this cloud of points to generate stream-lines. We place the center of the cloud near the post since this is where the velocity seems to be changing most rapidly. During this exploration, we use streamlines\index{streamline!application} rather than streamtubes for reasons of efficiency. The Tcl code is as follows.
+Now, we explore the vector field using vtkPointSource\index{vtkPointSource!application}. Recall that this object generates a random cloud of points around a spherical center point. We will use this cloud of points to generate stream-lines. We place the center of the cloud near the post since this is where the velocity seems to be changing most rapidly. During this exploration, we use streamlines\index{streamline!application} rather than streamtubes for reasons of efficiency. The Tcl code is as follows.
 
 \begin{lstlisting}[language=TCL, caption={Explore the vector field using a point source.}]
 # spherical seed points
@@ -1326,7 +1326,7 @@ vtkActor parisonActor
   wm withdraw .
 \end{lstlisting}
 
-The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter\index{vtkConnectivityFilter!application}. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter\index{vtkGeometryFilter!applicaation} does this nicely.
+The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter\index{vtkConnectivityFilter!application}. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals\index{vtkPolyDataNormals!application} filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter\index{vtkGeometryFilter!applicaation} does this nicely.
 \index{applications!finite element method|)}\index{finite element method!application|)}
 
 \section{Algorithm Visualization}
@@ -1478,7 +1478,7 @@ If you would like to know more about information visualization you can start wit
 	texture. How does the performance change as the resolution of the
 	volume data changes?
 
-	\item Modify the last medical example (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py}) to use vtkTexture and vtkPlaneSource instead of vtkImageActor.
+	\item Modify the last medical example (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py}) to use vtkTexture and vtkPlaneSource\index{vtkPlaneSource!exercise} instead of vtkImageActor.
 
 	\item Change the medical case study to use dividing cubes for the skin surface.
 
