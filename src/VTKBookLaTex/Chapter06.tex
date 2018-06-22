@@ -1085,7 +1085,7 @@ A few final notes on using lookup tables.
 
 \begin{itemize}
 
-\item  Mappers use their lookup table to map scalar values to colors. If no scalars are present, the mappers and their lookup tables do not control the color of the object. Instead the vtkProperty object associated with the vtkActor\index{vtkActor} class does. Use vtkProperty's method \sloppy{\lstinline{actor->GetProperty()->SetColor(r,g,b)}} where r, g, and b are floating point values specifying color.
+\item  Mappers use their lookup table to map scalar values to colors. If no scalars are present, the mappers and their lookup tables do not control the color of the object. Instead the vtkProperty\index{vtkProperty} object associated with the vtkActor\index{vtkActor} class does. Use vtkProperty's method \sloppy{\lstinline{actor->GetProperty()->SetColor(r,g,b)}} where r, g, and b are floating point values specifying color.
 
 \item If you want to prevent scalars from coloring your object, use vtkMapper's method \sloppy{\lstinline{mapper->ScalarVisibilityOff()}} to turn off color mapping. Then the actor's color will control the color of the object.
 
@@ -1187,7 +1187,7 @@ Although these results do not represent all implementations or the behavior of o
 	\begin{subfigure}[h]{0.96\linewidth}
 		\begin{lstlisting}[language=C++, caption={}, escapechar=\$]
 		// Define implicit function
-		vtkQuadric *quadric = vtkQuadric::New();
+		vtkQuadric$\index{vtkQuadric!example}$ *quadric = vtkQuadric::New();
 		  quadric->SetCoefficients(.5,1,.2,0,.1,0,0,.2,0,0);
 		vtkSampleFunction *sample = vtkSampleFunction::New();
 		  sample->SetSampleDimensions(50,50,50);
@@ -1215,7 +1215,7 @@ Although these results do not represent all implementations or the behavior of o
 	\caption{Contouring quadric function. Pipeline topology, C++ code, and resulting image are shown.}\label{fig:Figure6-39}
 \end{figure}
 
-An example use of vtkContourFilter\index{vtkContourFilter} is shown in Figure \ref{fig:Figure6-39}. This example is taken from Figure \ref{fig:Figure4-1}, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As Figure \ref{fig:Figure6-39} shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData\index{vtkCleanPolyData} to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals\index{vtkPolyDataNormals} to create surface normals. (We describe normal generation in Chapter 9: \nameref{chap:advanced_algorithms}.)
+An example use of vtkContourFilter\index{vtkContourFilter} is shown in Figure \ref{fig:Figure6-39}. This example is taken from Figure \ref{fig:Figure4-1}, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric\index{vtkQuadric} class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As Figure \ref{fig:Figure6-39} shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData\index{vtkCleanPolyData} to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals\index{vtkPolyDataNormals} to create surface normals. (We describe normal generation in Chapter 9: \nameref{chap:advanced_algorithms}.)
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]

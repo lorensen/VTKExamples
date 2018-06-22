@@ -162,7 +162,7 @@ vtkCamera *aCamera = vtkCamera::New();
 To provide context for the isosurface an outline is created around the data. An initial view is set up  in a window size of $640 \times 480$ pixels. Since the dolly command moves the camera towards the data, the clipping planes are reset to insure that the isosurface is
 completely visible. Figure \ref{fig:Figure12-2} shows the resulting image of the patient's skin.
 
-We can improve this visualization in a number of ways. First, we can choose a more appropriate color (and other surface properties) for the skin. We use the vtkProperty method SetDiffuseColor() to set the skin color to a fleshy tone. We also add a specular component to the skin surface. Next, we can add additional isosurfaces corresponding to various anatomical features. Here we choose to extract the bone surface by adding an additional pipeline segment. This consists of the filters vtkMarchingCubes, vtkPolyDataMapper, and vtkActor, just as we did with the skin. Finally, to improve rendering performance on our system, we create triangle strips from the output of the contouring process. This requires adding vtkStripper.
+We can improve this visualization in a number of ways. First, we can choose a more appropriate color (and other surface properties) for the skin. We use the vtkProperty\index{vtkProperty} method SetDiffuseColor() to set the skin color to a fleshy tone. We also add a specular component to the skin surface. Next, we can add additional isosurfaces corresponding to various anatomical features. Here we choose to extract the bone surface by adding an additional pipeline segment. This consists of the filters vtkMarchingCubes, vtkPolyDataMapper, and vtkActor, just as we did with the skin. Finally, to improve rendering performance on our system, we create triangle strips from the output of the contouring process. This requires adding vtkStripper.
 
 \begin{figure}[!htb]
 	\centering
@@ -999,8 +999,8 @@ vtkActor *blobbyLogo = vtkActor::New();
 
 To improve the look of our resulting visualization, we define a couple of organic colors. Softer colors show up better on some electronic media (e.g., VHS video tape) and are pleasing to the eye.
 
-\begin{lstlisting}[language=C++, caption={Define colors.}]
-vtkProperty *tomato = vtkProperty::New();
+\begin{lstlisting}[language=C++, caption={Define colors.}, escapechar=\$]
+vtkProperty\index{vtkProperty!application} *tomato = vtkProperty::New();
   tomato->SetDiffuseColor(1, 0.3882, 0.2784);
   tomato->SetSpecular(0.3);
   tomato->SetSpecularPower(20);

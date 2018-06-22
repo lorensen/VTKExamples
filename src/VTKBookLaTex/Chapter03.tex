@@ -559,7 +559,7 @@ In the \emph{Visualization Toolkit} there are seven basic objects that we use to
 
 \item vtkCamera\index{vtkCamera} --- defines the view position, focal point, and other viewing properties of the scene.
 
-\item vtkActor\index{vtkActor} --- represents an object rendered in the scene, including its properties and position in the world coordinate system. (\emph{Note}: vtkActor is a subclass of vtkProp. vtkProp is a more general form of actor that includes annotation and 2D drawing classes. See ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more
+\item vtkActor\index{vtkActor} --- represents an object rendered in the scene, including its properties and position in the world coordinate system. (\emph{Note}: vtkActor is a subclass of vtkProp\index{vtkProp}. vtkProp is a more general form of actor that includes annotation and 2D drawing classes. See ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more
 information.)
 
 \item vtkProperty\index{vtkProperty} --- defines the appearance properties of an actor including color, transparency, and lighting properties such as specular and diffuse. Also representational properties like wireframe and solid surface.
@@ -581,9 +581,9 @@ Cameras are constructed by the class vtkCamera\index{vtkCamera}. Important param
 
 These include elevation, azimuth, zoom, and roll. Similar to vtkLight, an instance of vtkCamera will be created automatically by the renderer if none is defined.
 
-Instances of the class vtkActor\index{vtkActor} represent objects in the scene. In particular, vtkActor combines object properties (color, shading type, etc.), geometric definition, and orientation in the world coordinate system. This is implemented behind the scenes by maintaining instance variables that refer to instances of vtkProperty, vtkMapper, and vtkTransform. Normally you need not create properties or transformations explicitly, since these are automatically created and manipulated using vtkActor's methods. You do need to create an instance of vtkMapper\index{vtkMapper} (or one of its subclasses). The mapper ties the data visualization pipeline to the graphics device. (We will say more about the pipeline in the next chapter.)
+Instances of the class vtkActor\index{vtkActor} represent objects in the scene. In particular, vtkActor combines object properties (color, shading type, etc.), geometric definition, and orientation in the world coordinate system. This is implemented behind the scenes by maintaining instance variables that refer to instances of vtkProperty\index{vtkProperty}, vtkMapper, and vtkTransform. Normally you need not create properties or transformations explicitly, since these are automatically created and manipulated using vtkActor's methods. You do need to create an instance of vtkMapper\index{vtkMapper} (or one of its subclasses). The mapper ties the data visualization pipeline to the graphics device. (We will say more about the pipeline in the next chapter.)
 
- In VTK, actors are actually subclasses of vtkProp (arbitrary props) and vtkProp3D (those that can be transformed in 3D space. (The word ``prop'' is derived from the stage, where a props is an object in the scene.) There are other subclasses of props and actors with specialized behavior (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information). One example is vtkFollower\index{vtkFollower}. Instances of this class always face the active camera. This is useful when designing signs or text that must be readable from any camera position in the scene.
+ In VTK, actors are actually subclasses of vtkProp\index{vtkProp} (arbitrary props) and vtkProp3D\index{vtkProp3D} (those that can be transformed in 3D space. (The word ``prop'' is derived from the stage, where a props is an object in the scene.) There are other subclasses of props and actors with specialized behavior (see ``Assemblies and Other Types of vtkProp'' on page \pageref{subsubsec:assemblies_vtkprop} for more information). One example is vtkFollower\index{vtkFollower}. Instances of this class always face the active camera. This is useful when designing signs or text that must be readable from any camera position in the scene.
 
 Instances of the class vtkProperty affect the rendered appearance of an actor. When actors are created, a property instance is automatically created with them. It is also possible to create property objects directly and then associate the property object with one or more actors. In this way actors can share common properties.
 
@@ -844,7 +844,7 @@ The previous examples did not explicitly create property or transformation objec
 
 This example creates an image of two cones of different colors and specular properties. In addition, we transform one of the objects to lay next to the other. The C++ source code for this example can be found in \href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/Cone4/}{Cone4.cxx}.
 
-\begin{lstlisting}[language=C++, caption={Cone4.cxx}]
+\begin{lstlisting}[language=C++, caption={Cone4.cxx}, escapechar=\$]
 vtkActor *coneActor = vtkActor::New();
   coneActor->SetMapper(coneMapper);
   coneActor->GetProperty()->SetColor(0.2, 0.63, 0.79);
@@ -852,7 +852,7 @@ vtkActor *coneActor = vtkActor::New();
   coneActor->GetProperty()->SetSpecular(0.4);
   coneActor->GetProperty()->SetSpecularPower(20);
 
-vtkProperty *property = vtkProperty::New();
+vtkProperty$\index{vtkProperty!example}$ *property = vtkProperty::New();
   property->SetColor(1.0, 0.3882, 0.2784);
   property->SetDiffuse(0.7);
   property->SetSpecular(0.4);
@@ -1074,7 +1074,7 @@ There is one final and powerful operation that affects an actor's orientation. Y
 
 \subsubsection{Assemblies and Other Types of vtkProp}
 \label{subsubsec:assemblies_vtkprop}
-\index{assembly}
+\index{assembly|(}\index{vtkProp|(}
 
 Often it is desirable to collect actors into a hierarchy of transform-dependent groups. For example, a robot arm may be represented by rigid links connected at joints such as the shoulder joint, upper arm, elbow, lower arm, wrist joint, and hand. In such a configuration, when the shoulder joint rotates, the expected behavior is that the entire arm rotates since the links are connected together. This is an example of what is referred to as an \emph{assembly} in VTK\index{assembly!parts}. vtkAssembly\index{vtkAssembly} is just one of many actor--like classes in VTK. As Figure \ref{fig:Figure3-34} shows, these classes are arranged into a hierarchy of vtkProps. (In stage and film terminology, a prop is something that appears or is used on stage.) Assemblies are formed in VTK by instantiating a vtkAssembly and then adding \emph{parts} to it. A part is any instance of vtkProp3D ---including other assemblies. This means that assemblies can be formed into hierarchies (as long as they do not contain self-referencing loops). Assemblies obey the rules of transformation concatenation illustrated in the previous section (see ``Transformation Matrices'' on page \pageref{subsubsec:transform_matrices} ). Here is an example of how to create a simple assembly hierarchy (from assembly.tcl ).
 
@@ -1134,7 +1134,7 @@ vtkAssembly%\index{vtkAssembly!example}% assembly
 Props that can be transformed in 3D space are a subclass of
 vtkProp3D. Images can be drawn effectively with vtkImageActor.
 Overlay text and graphics use vtkActor2D\index{vtkActor2D}. Hierarchical groups
-of vtkProps are gathered into a vtkPropAssembly. Volume rendering
+of vtkProps are gathered into a vtkPropAssembly\index{vtkPropAssembly}. Volume rendering
 uses vtkVolume. Collections of transformable props create a
 vtkAssembly\index{vtkAssembly}. Level--of--detail rendering uses vtkLODProp3D\index{vtkLODProp3D} and
 vtkLODActor\index{vtkLODActor}. A vtkFollower\index{vtkFollower} faces a specified camera
@@ -1142,10 +1142,10 @@ and is used for billboards.}\label{fig:Figure3-34}}
 {\includegraphics[width=0.6\textwidth]{Figure3-34}}
 \end{figure}
 
-Note that in this example various actors are added to the assembly with the AddPart() method. The top-level element of the assembly is the only prop in the hierarchy added to the renderer (with AddActor()). Note also that the coneActor appears twice: once as a part of the assembly, and once as a separate actor added to the renderer with AddActor(). As you might imagine, this means that the rendering of assemblies requires concatenation of transformation matrices to insure the correct positioning of each vtkProp3D. Furthermore, hierarchical assemblies require special treatment during picking (i.e., graphically selecting props) since a vtkProp can appear more than once in different assembly hierarchies. Picking issues are discussed in more detail in ``Picking'' on page \pageref{subsec:picking}.
+Note that in this example various actors are added to the assembly with the AddPart() method. The top-level element of the assembly is the only prop in the hierarchy added to the renderer (with AddActor()). Note also that the coneActor appears twice: once as a part of the assembly, and once as a separate actor added to the renderer with AddActor(). As you might imagine, this means that the rendering of assemblies requires concatenation of transformation matrices to insure the correct positioning of each vtkProp3D\index{vtkProp3D}. Furthermore, hierarchical assemblies require special treatment during picking (i.e., graphically selecting props) since a vtkProp can appear more than once in different assembly hierarchies. Picking issues are discussed in more detail in ``Picking'' on page \pageref{subsec:picking}.
 
 As Figure \ref{fig:Figure3-34} indicates, there are other types of vtkProp as well. Most of these will be informally described in the many examples found in this book. In particular, extensive coverage is given to vtkVolume when we describe volume rendering (see ``Volume Rendering'' on page \pageref{sec:volume_rendering}).
-
+\index{assembly|)}\index{vtkProp|)}
 
 \section{Chapter Summary}
 
