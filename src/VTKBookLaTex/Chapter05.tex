@@ -510,10 +510,10 @@ There is an implicit ordering of both the points and cells composing vtkImageDat
 
 \item[vtkStructuredGrid.\index{structured grid!representation|(}\index{vtkStructuredGrid}] Like vtkImageData, the topology of vtkStructuredGrid is regular and is defined by specifying dimensions in the topological $i-j-k$ coordinate system. However, the geometry of vtkStructuredGrid is realized by specifying point coordinates in the global $x-y-z$ coordinate system.
 
-The abstract data class vtkPoints is used to represent the point coordinates. vtkPoints refers to an underlying instance of vtkDataArray which actually holds the representation of the points as a contiguous array of three-component tuples. A particular point coordinate may be retrieved or inserted by specifying a particular point id. The numbering of the points and cells is implicit in the same fashion as vtkImageData. Care must be taken to insure that the number of points in the data array is the same as that implied by the dimensions of the grid.
+The abstract data class vtkPoints\index{vtkPoints} is used to represent the point coordinates. vtkPoints refers to an underlying instance of vtkDataArray which actually holds the representation of the points as a contiguous array of three-component tuples. A particular point coordinate may be retrieved or inserted by specifying a particular point id. The numbering of the points and cells is implicit in the same fashion as vtkImageData. Care must be taken to insure that the number of points in the data array is the same as that implied by the dimensions of the grid.
 \index{structured grid!representation|)}
 
-\item[vtkPolyData.\index{polygonal data!representation|(}\index{vtkPolyData}] Unlike vtkImageData and vtkStructuredGrid, the topology of vtkPolyData is not regular, so both the topology and geometry of the dataset must be explicitly represented. The point data in vtkPolyData is represented using the vtkPoints class similar to vtkStructuredGrid.
+\item[vtkPolyData.\index{polygonal data!representation|(}\index{vtkPolyData}] Unlike vtkImageData and vtkStructuredGrid, the topology of vtkPolyData is not regular, so both the topology and geometry of the dataset must be explicitly represented. The point data in vtkPolyData is represented using the vtkPoints\index{vtkPoints} class similar to vtkStructuredGrid.
 
 \begin{figure}[!htb]
 	\centering
@@ -529,7 +529,7 @@ Notice that type information is not directly represented in this structure. Inst
 Our design of the vtkPolyData class is based on two important requirements. First, we want an efficient interface to external graphics libraries. Second, we wish to aggregate cells according to topology. The four separate lists provide efficient interface because graphics libraries have separate vertex, line, polygon, and triangle strip primitives. As a result, in VTK no run-time checking is required to match the different cell types with the appropriate ``load primitive'' function, since the type is known from the list in which the primitive resides. The four lists also separate cells into 0-, 1-, and 2-dimensional types. This is useful because visualization algorithms often treat data of varying topological order differently.
 \index{polygonal data!representation|)}
 
-\item[vtkUnstructuredGrid.\index{unstructured grid!representation|(}\index{vtkUnstructuredGrid}] The dataset type vtkUnstructuredGrid is the most general in terms of its ability to represent topological and geometric structure. Both points and cells are explicitly represented using derived classes of vtkPoints and vtkCellArray\index{vtkCellArray}. The class vtkUnstructuredGrid is similar to vtkPolyData except that vtkUnstructuredGrid must be capable of representing all cell types, not just the limited graphics types (i.e., vertices, lines, polygons, and triangle strips) of vtkPolyData.
+\item[vtkUnstructuredGrid.\index{unstructured grid!representation|(}\index{vtkUnstructuredGrid}] The dataset type vtkUnstructuredGrid is the most general in terms of its ability to represent topological and geometric structure. Both points and cells are explicitly represented using derived classes of vtkPoints\index{vtkPoints} and vtkCellArray\index{vtkCellArray}. The class vtkUnstructuredGrid is similar to vtkPolyData except that vtkUnstructuredGrid must be capable of representing all cell types, not just the limited graphics types (i.e., vertices, lines, polygons, and triangle strips) of vtkPolyData.
 
 Another distinguishing characteristic of vtkUnstructuredGrid is that we represent type information differently. In vtkPolyData we categorized cells into four separate lists, thereby representing cell type indirectly. In vtkUnstructuredGrid we add the additional class vtkCellTypes\index{vtkCellTypes} to represent cell type explicitly.
 
@@ -540,7 +540,7 @@ Besides representing cell type, this design also enables random access to cells.
 The vtkCellTypes may also be added to the vtkPolyData data representation  --- and indeed it has. However, our reasons for this addition are not to represent type explicitly, but rather to provide random access to the cells and enable many topological operations. We will expand on this idea in Chapter 8: \nameref{chap:advanced_data_representation}.
 \index{unstructured grid!representation|)}
 
-\item[Object Model.\index{object model!cell|(}] The five datasets are implemented as shown in Figure \ref{fig:Figure5-14}. As this object diagram illustrates, these concrete datasets are subclasses of the abstract class vtkDataSet\index{vtkDataSet}. Two additional classes are introduced as well. The class vtkStructuredData contributes instance variables and methods for structured data. vtkStructuredData is not in an inheritance relationship with the datasets; rather the structured datasets shown delegate to it in order to implement some of their methods. (This was done to avoid multiple inheritance.) Subclasses of the class vtkPointSet represent their points explicitly, that is, through an instance of vtkPoints or its subclasses. vtkPointSet provides methods and instance variables to manipulate the point data, as well as a general searching capability to find points and cells. (See ``Searching'' on page \pageref{sec:searching} for more information.)
+\item[Object Model.\index{object model!cell|(}] The five datasets are implemented as shown in Figure \ref{fig:Figure5-14}. As this object diagram illustrates, these concrete datasets are subclasses of the abstract class vtkDataSet\index{vtkDataSet}. Two additional classes are introduced as well. The class vtkStructuredData contributes instance variables and methods for structured data. vtkStructuredData is not in an inheritance relationship with the datasets; rather the structured datasets shown delegate to it in order to implement some of their methods. (This was done to avoid multiple inheritance.) Subclasses of the class vtkPointSet represent their points explicitly, that is, through an instance of vtkPoints\index{vtkPoints} or its subclasses. vtkPointSet\index{vtkPointSet} provides methods and instance variables to manipulate the point data, as well as a general searching capability to find points and cells. (See ``Searching'' on page \pageref{sec:searching} for more information.)
 \index{object model!cell|)}
 
 \end{description}
@@ -627,7 +627,7 @@ Creation of datasets is a two step process. First the geometry and topology of t
 \item[Create a Polygonal Dataset.\index{polygonal data!example|(}]
 In our first example we create a polygonal representation of a cube. The cube is defined by eight points and six quadrilateral faces. We also create eight scalar values associated with the eight vertices of the cube. Figure \ref{fig:Figure5-17} shows the key C++ code fragments used to create the data, and the resulting image.
 
-The geometry of the cube is defined using an instance of the class vtkPoints. By default, the underlying type of vtkPoints is a vtkFloatArray. The topology of the cube (i.e., polygons) is defined with an instance of the class vtkCellArray\index{vtkCellArray}. These define the points and polygons of the cube, respectively. Scalar data is represented by an instance of the class vtkIntArray\index{vtkIntArray}.
+The geometry of the cube is defined using an instance of the class vtkPoints\index{vtkPoints}. By default, the underlying type of vtkPoints is a vtkFloatArray. The topology of the cube (i.e., polygons) is defined with an instance of the class vtkCellArray\index{vtkCellArray}. These define the points and polygons of the cube, respectively. Scalar data is represented by an instance of the class vtkIntArray\index{vtkIntArray}.
 
 \begin{figure}[!htb]
     \centering
@@ -671,7 +671,7 @@ As this example shows, polygonal data is created by constructing pieces (e.g., p
 
 \begin{enumerate}
 
-	\item Create instance of subclass of vtkPoints to define geometry(i.e.,point coordinates). Use the operator cube->SetPoints() to associate the points with the dataset.
+	\item Create instance of subclass of vtkPoints\index{vtkPoints} to define geometry(i.e.,point coordinates). Use the operator cube->SetPoints() to associate the points with the dataset.
 
 	\item Create instances of vtkCellArray\index{vtkCellArray} to define topology for vertices, lines, polygons, and triangle strips. Use the operators cube->SetVerts(), cube->SetLines(), cube->SetPolys(), and cube->SetStrips() to associate the cells with the dataset.
 
@@ -773,7 +773,7 @@ The topological dimension of the dataset is implicitly known from its instance v
 \item[Create a Structured Grid Dataset.]
 \index{structured grid!example|(}
 
-In the next example we create a vtkStructuredGrid dataset. Topology is implicitly defined from the dimensions of the dataset. The geometry is explicitly defined by providing an object to represent the point coordinates. In this example we use an instance of vtkPoints and assume that the structured grid is warped according to the equation for a cylinder
+In the next example we create a vtkStructuredGrid dataset. Topology is implicitly defined from the dimensions of the dataset. The geometry is explicitly defined by providing an object to represent the point coordinates. In this example we use an instance of vtkPoints\index{vtkPoints} and assume that the structured grid is warped according to the equation for a cylinder
 
 \begin{equation}\label{eq:5.3}
 x = r_i \cos\theta, y = r_i \sin\theta, z = z_i
@@ -842,11 +842,11 @@ We arbitrarily choose the number of points in the tangential direction to be thi
 
 Vectors are generated tangential to the cylinder and of magnitude proportional to the radius. To display the data we draw small, oriented lines at each point as shown in Figure \ref{fig:Figure5-19}. (This technique is called a hedgehog. See ``Hedgehogs and Oriented Glyphs'' on page \pageref{subsec:hedgehogs_oriented_glyphs} for more information.)
 
-The creation of a structured grid dataset is partially explicit and partially implicit. Geometry is created explicitly be creating an instance of vtkPoints, while the topology is created implicitly by specifying dataset dimensions. If the name of the instance of vtkStructuredGrid is sgrid, the following three steps are used to create it.
+The creation of a structured grid dataset is partially explicit and partially implicit. Geometry is created explicitly be creating an instance of vtkPoints\index{vtkPoints}, while the topology is created implicitly by specifying dataset dimensions. If the name of the instance of vtkStructuredGrid is sgrid, the following three steps are used to create it.
 
 \begin{itemize}
 
-	\item Specify the dataset geometry by creating an instance of vtkPoints.Use the operators grid->SetPoints() to associate the points with the dataset.
+	\item Specify the dataset geometry by creating an instance of vtkPoints\index{vtkPoints}. Use the operators grid->SetPoints() to associate the points with the dataset.
 
 	\item The dataset topology is specified using the operators grid->SetDimensions(). Make sure the number of points created in item number 1 above is equal to the implied number of points $n_x⋅n_y⋅n_z$.
 
@@ -981,7 +981,7 @@ To summarize the process of creating an instance of vtkUnstructuredGrid, we foll
 
 	\item Allocate memory for the dataset. Use the operator ugrid->Allocate(). This operator takes two optional parameters related to the size of the data. The first is the size of the connectivity list, and the second is the amount to extend storage (if necessary). As a rule of thumb, use the number of cells times the average number of points defining each cell for both parameters. Exact values for these parameters are not important, although the choice may affect performance. If you fail to execute this operation before inserting data, the software will break.
 
-	\item Create an instance of a subclass of vtkPoints to define the dataset geometry. Use the operator ugrid->SetPoints() to associate the points with the dataset.
+	\item Create an instance of a subclass of vtkPoints\index{vtkPoints} to define the dataset geometry. Use the operator ugrid->SetPoints() to associate the points with the dataset.
 
 	\item Create the data set topology on a cell by cell basis by using the cell insertion operator ugrid->InsertNextCell(). There are various flavors of this operator, use the appropriate one.
 

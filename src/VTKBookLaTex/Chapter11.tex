@@ -143,13 +143,14 @@ The basic idea behind VRML 1.0 is that the 3D content can be downloaded from the
 To address many of the limitations in VRML 1.0, significant changes were made resulting in the VRML 2.0 standard. Where VRML 1.0 was primarily a static scene description with some very limited behaviors, VRML 2.0 adds audio, video, and integration with Web scripting languages and more. It is still essentially a data file, but with the capabilities of simulating much more realistic and immersive environments. Many visualization systems, including VTK, support exporting scenes as VRML files. Consider the following example:
 
 \begin{lstlisting}[language=TCL, caption={}, numbers=none, frame=none, escapechar=\%]
+%\index{vtkPLOT3DReader!VRML example}%
 vtkRenderer ren1
 vtkRenderWindow renWin
   renWin AddRenderer ren1
 
 # create pipeline
 #
-vtkPLOT3DReader pl3d
+vtkPLOT3DReader%\index{vtkPLOT3DReader!example}% pl3d
   pl3d SetXYZFileName "$VTK_DATA_ROOT/Data/combxyz.bin"
   pl3d SetQFileName "$VTK_DATA_ROOT/Data/combq.bin"
   pl3d SetScalarFunctionNumber 100
@@ -316,7 +317,7 @@ public class App2 extends Applet
   etc...
 \end{lstlisting}
 
-The init() method handles applet initialization. This is where parameters from the HTML page will be processed and the visualization pipeline and user interface will be set up. To place the rendering window within the user interface, we use the vtkPanel class that is a subclass of the Java Canvas class. This way the rendering window can be treated as if it were just another piece of the user interface.
+The init() method handles applet initialization. This is where parameters from the HTML page will be processed and the visualization pipeline and user interface will be set up. To place the rendering window within the user interface, we use the vtkPanel\index{vtkPanel!Java example} class that is a subclass of the Java Canvas class. This way the rendering window can be treated as if it were just another piece of the user interface.
 
 \begin{lstlisting}[language=Java, caption={}, numbers=none, frame=none]
 public void init()

@@ -355,10 +355,10 @@ The SetTransform() method defines how to arrange the data in memory. Medical ima
 
 All the other parameters are self-explanatory except for the last. In this script, we know that the pipeline will only be executed once. To conserve memory, we invoke the ReleaseDataFlagOn() method. This allows the VTK pipeline to release data once it has been processed by a filter. For large medical datasets, this can mean the difference between being able to process a dataset or not.
 
-\begin{lstlisting}[language=TCL, caption={Read the Segmented Volume Data.}]
+\begin{lstlisting}[language=TCL, caption={Read the Segmented Volume Data.}, escapechar=\%]
 set originx [expr ( $COLUMNS / 2.0 ) * $PIXEL_SIZE * -1.0]
 set originy [expr ( $ROWS / 2.0 ) * $PIXEL_SIZE * -1.0]
-vtkPNMReader reader
+vtkPNMReader%\index{vtkPNMReader!application}% reader
   reader SetFilePrefix $STUDY
   reader SetDataSpacing $PIXEL_SIZE $PIXEL_SIZE $SPACING
   reader SetDataOrigin $originx $originy
@@ -1096,9 +1096,9 @@ We start by exploring the scalar and vector fields in the data. By calculating t
 Following our own advice, we first display the computational grid. The
 following Tcl code produced the left image of Figure \ref{fig:Figure12-14}.
 
-\begin{lstlisting}[language=TCL, caption={Display the computational grid.}]
+\begin{lstlisting}[language=TCL, caption={Display the computational grid.}, escapechar=\%]
 # read data
-vtkPLOT3DReader pl3d
+vtkPLOT3DReader%\index{vtkPLOT3DReader!application}% pl3d
   pl3d SetXYZFileName "$env(VTK_TEXTBOOK_DATA)/postxyz.bin"
   pl3d SetQFileName "$env(VTK_TEXTBOOK_DATA)/postq.bin"
   pl3d IBlankingOn
@@ -1478,7 +1478,7 @@ If you would like to know more about information visualization you can start wit
 	texture. How does the performance change as the resolution of the
 	volume data changes?
 
-	\item Modify the last medical example (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py}) to use vtkTexture and vtkPlaneSource instead of vtkImageActor.
+	\item Modify the last medical example (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py}) to use vtkTexture and vtkPlaneSource\index{vtkPlaneSource!exercise} instead of vtkImageActor.
 
 	\item Change the medical case study to use dividing cubes for the skin surface.
 
