@@ -940,7 +940,7 @@ Algorithms are implemented in the \emph{Visualization Toolkit} as process object
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 
 \item[Source Design.\index{source object!implementation|(}]
-Source objects have no visualization data for input and one or more outputs, Figure \ref{fig:Figure6-34} illustrates this for the concrete source object vtkSphereSource. This class inherits from vtkPolyDataAlgorithm, indicating that it creates polygonal data on output.
+Source objects have no visualization data for input and one or more outputs, Figure \ref{fig:Figure6-34} illustrates this for the concrete source object vtkSphereSource\index{vtkSphereSource}. This class inherits from vtkPolyDataAlgorithm, indicating that it creates polygonal data on output.
 
 The convenience object vtkPolyDataAlgorithm\index{vtkPolyDataAlgorithm} has been created to simplify subclass derivation. For example, vtkBYUReader\index{vtkBYUReader} is also a type of vtkPolyDataAlgorithm. The major difference between vtkSphereSource and vtkBYUReader is the implementation of the virtual method RequestData(). This method actually creates its output data. If you derive a source object you do not need to make it a subclass of any convenience object (e.g., vtkPolyDataAlgorithm), but you should derive it from vtkAlgorithm\index{vtkAlgorithm}.
 
@@ -1189,7 +1189,7 @@ Although these results do not represent all implementations or the behavior of o
 		// Define implicit function
 		vtkQuadric$\index{vtkQuadric!example}$ *quadric = vtkQuadric::New();
 		  quadric->SetCoefficients(.5,1,.2,0,.1,0,0,.2,0,0);
-		vtkSampleFunction *sample = vtkSampleFunction::New();
+		vtkSampleFunction$\index{vtkSampleFunction!example}$ *sample = vtkSampleFunction::New();
 		  sample->SetSampleDimensions(50,50,50);
 		  sample->SetImplicitFunction(quadric);
 		vtkContourFilter$\index{vtkContourFilter}\index{vtkContourFilter!example}$ *contour = vtkContourFilter::New();
@@ -1215,7 +1215,7 @@ Although these results do not represent all implementations or the behavior of o
 	\caption{Contouring quadric function. Pipeline topology, C++ code, and resulting image are shown.}\label{fig:Figure6-39}
 \end{figure}
 
-An example use of vtkContourFilter\index{vtkContourFilter} is shown in Figure \ref{fig:Figure6-39}. This example is taken from Figure \ref{fig:Figure4-1}, which is a visualization of a quadric function. The class vtkSampleFunction samples the implicit quadric function using the vtkQuadric\index{vtkQuadric} class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As Figure \ref{fig:Figure6-39} shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData\index{vtkCleanPolyData} to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals\index{vtkPolyDataNormals} to create surface normals. (We describe normal generation in Chapter 9: \nameref{chap:advanced_algorithms}.)
+An example use of vtkContourFilter\index{vtkContourFilter} is shown in Figure \ref{fig:Figure6-39}. This example is taken from Figure \ref{fig:Figure4-1}, which is a visualization of a quadric function. The class vtkSampleFunction\index{vtkSampleFunction} samples the implicit quadric function using the vtkQuadric\index{vtkQuadric} class. Although vtkQuadric does not participate in the pipeline in terms of data flow, it is used to define and evaluate the quadric function. It is possible to generate one or more isolines/isosurfaces simultaneously using vtkContourFilter. As Figure \ref{fig:Figure6-39} shows, we use the GenerateValues() method to specify a scalar range, and the number of contours within this range (including the initial and final scalar values). vtkContourFilter generates duplicate vertices, so we can use vtkCleanPolyData\index{vtkCleanPolyData} to remove them. To improve the rendered appearance of the isosurface, we use vtkPolyDataNormals\index{vtkPolyDataNormals} to create surface normals. (We describe normal generation in Chapter 9: \nameref{chap:advanced_algorithms}.)
 
 \begin{figure}[!htb]
 	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,center},capbesidewidth=0.4\textwidth}}]{figure}[\FBwidth]

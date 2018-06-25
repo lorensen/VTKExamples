@@ -455,8 +455,8 @@ This filter uses Laplacian smoothing described in ``Mesh Smoothing'' on page \pa
 
 Of course we have already smoothed the image data with a Gaussian kernel so this step may not give much improvement; however, models that are heavily decimated can sometimes be improved with additional polygonal smoothing.
 
-\begin{lstlisting}[language=TCL, caption={Smooth the Triangle Vertices.}]
-vtkSmoothPolyDataFilter smoother
+\begin{lstlisting}[language=TCL, caption={Smooth the Triangle Vertices.}, escapechar=\%]
+vtkSmoothPolyDataFilter%\index{vtkSmoothPolyDataFilter!application}% smoother
   smoother SetInputConnection [decimator GetOutputPort]
   eval smoother SetNumberOfIterations $SMOOTH_ITERATIONS
   eval smoother SetRelaxationFactor $SMOOTH_FACTOR

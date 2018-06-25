@@ -688,7 +688,8 @@ The most confusing aspect of this example is the Delete() method. To prevent mem
 The answer is no. Certain data objects in VTK are reference counted to conserve memory resources (i.e., subclasses of vtkObjectBase\index{vtkObjectBase}). That means they can be shared between objects. For most objects the Delete() will invoke the destructor. Reference counted objects act a little differently. The Delete() method simply decrements the reference count. This may or may not destroy the object depending on whether it is being used by another object. In this example the points, polys, and scalars are used by the polygonal dataset cube, so they are not deleted when Delete() is invoked. They will be freed once we free the dataset cube, that is, when their reference count drops to zero. (See the VTK User's Guide for more information about memory management.)
 \index{polygonal data!example|)}
 
-\item[Create an Image Data Dataset.\index{image data!example|(}]
+\item[Create an Image Data Dataset.]
+\index{image data!example|(}\index{vtkImageData!example|(}
 
 In this example, we create an image dataset (i.e., an instance of vtkImageData\index{vtkImageData}). The topology of the dataset is defined by specifying the data dimensions. The geometry is defined by the data spacing and origin. The spacing specifies the length, width, and height of each voxel. The origin specifies the position in 3D space of the ``lower-left'' corner of the data. In our example we set the origin and spacing of the dataset so that its center lies at the origin, and the bounds of the dataset are $(-0.5,0.5, -0.5,0.5, -0.5,0.5)$.
 
@@ -700,7 +701,7 @@ F(x,y,z) = (x^2 + y^2 + z^2)-R^2\end{equation}
 
 with the radius $R = 0.4$. The scalar data is stored in an instance of vtkFloatArray\index{vtkFloatArray} and assigned to the point attribute data of the dataset.
 
-To complete this example, a contour filter is used to generate a surface of scalar value $F(x, y, z) = 0$. Note that this functionality (in a more general form) is available from the source object vtkSampleFunction in combination with vtkSphere. Figure \ref{fig:Figure5-18} shows the key C++ code fragment used to create the data and contour the scalar field, and the resulting image.
+To complete this example, a contour filter is used to generate a surface of scalar value $F(x, y, z) = 0$. Note that this functionality (in a more general form) is available from the source object vtkSampleFunction\index{vtkSampleFunction} in combination with vtkSphere\index{vtkSphere}. Figure \ref{fig:Figure5-18} shows the key C++ code fragment used to create the data and contour the scalar field, and the resulting image.
 
 Image data datasets are easy to construct because both the geometry and topology are implicitly defined. If the name of the instance of vtkImageData is vol, we can summarize the steps to create the dataset as follows:
 
@@ -768,10 +769,10 @@ The topological dimension of the dataset is implicitly known from its instance v
 	\end{subfigure}
 	\caption{Creating a image data dataset. Scalar data is generated from the equation for a sphere. Volume dimensions are $26^3$.}\label{fig:Figure5-18}
 \end{figure}
-\index{image data!example|)}
+\index{image data!example|)}\index{vtkImageData!example|)}
 
 \item[Create a Structured Grid Dataset.]
-\index{structured grid!example|(}
+\index{structured grid!example|(}\index{vtkStructuredGrid!example|(}
 
 In the next example we create a vtkStructuredGrid dataset. Topology is implicitly defined from the dimensions of the dataset. The geometry is explicitly defined by providing an object to represent the point coordinates. In this example we use an instance of vtkPoints\index{vtkPoints} and assume that the structured grid is warped according to the equation for a cylinder
 
@@ -855,12 +856,12 @@ The creation of a structured grid dataset is partially explicit and partially im
 \end{itemize}
 
 The topological dimension of the dataset is implied by the specified dimensions. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one, the topological dimension of the dataset is two. If two of the three dimensions $(n_x, n_y, n_z)$ are equal to one, the topological dimension of the dataset is one.
-\index{structured grid!example|)}
+\index{structured grid!example|)}\index{vtkStructuredGrid!example|)}
 
 \item[Create a Rectilinear Grid Dataset.]
-\index{rectilinear grid!example|(}
+\index{rectilinear grid!example|(}\index{vtkRectilinearGrid!example|(}
 
-A rectilinear grid is regular in topology and semi-regular in geometry. Similar to a structured grid or image data dataset, topology is implicitly represented by specifying grid dimensions. Because the grid is axis-aligned but the point coordinates along each axis may vary, we need three data arrays to represent the geometry of the dataset, one array for each of the x-y-z axes. Note that the cell types of the rectilinear dataset are pixels and voxels.
+A rectilinear grid is regular in topology and semi-regular in geometry. Similar to a structured grid or image data dataset, topology is implicitly represented by specifying grid dimensions. Because the grid is axis-aligned but the point coordinates along each axis may vary, we need three data arrays to represent the geometry of the dataset, one array for each of the x--y--z axes. Note that the cell types of the rectilinear dataset are pixels and voxels.
 
 \begin{figure}[!htb]
     \centering
@@ -925,10 +926,11 @@ To summarize the process of creating an instance of vtkRectilinearGrid, we follo
 \end{itemize}
 
 The topological dimension of the dataset is implied by the specified dimensions. For example, if any of the dimensions $(n_x, n_y, n_z)$ is equal to one, the topological dimension of the dataset is two. If two of the three dimensions $(n_x, n_y, n_z)$ are equal to one, the topological dimension of the dataset is one.
-\index{rectilinear grid!example|)}
+\index{rectilinear grid!example|)}\index{vtkRectilinearGrid!example|)}
 
 \item[Create an Unstructured Grid Dataset.]
-\index{unstructured grid!example|(}
+\index{unstructured grid!example|(}\index{vtkUnstructuredGrid!example|(}
+
 
 Unstructured grid datasets are the most general dataset type in both topology and geometry. In this example we ``artificially'' create an unstructured grid using an instance of vtkUnstructuredGrid (Figure \ref{fig:Figure5-21}). The grid contains examples of each cell type except for pixels and voxels. (Pixels and voxels are generally used internally to process image data datasets. They can be explicitly created and manipulated as long as the required relationship of point geometry is observed.) Creating the dataset structure requires creating points to define the geometry and various cells to define the topology. (Note that in the finite element world we would refer to these as nodes and elements.)
 
@@ -990,7 +992,7 @@ To summarize the process of creating an instance of vtkUnstructuredGrid, we foll
 	\item Complete the creation process by executing the ugrid->Squeeze() operator.This operator reclaims any extra memory consumed by the data structures. Although this step is not required, it will return memory resource back to the computer system.
 
 \end{itemize}
-\index{unstructured grid!example|)}
+\index{unstructured grid!example|)}\index{vtkUnstructuredGrid!example|)}
 
 \end{description}
 
