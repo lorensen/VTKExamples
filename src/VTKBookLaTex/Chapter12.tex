@@ -31,7 +31,7 @@ In the last step we combine the physical components with the abstract components
 \index{applications!medical imaging|(}\index{medical imaging!application|(}
 
 Radiology is a medical discipline that deals with images of human anatomy.
-These images come from a variety of medical imaging devices, including X--ray, X--ray Computed Tomography\index{Computed Tomography}\index{CT|see {Computed Tomography}}), Magnetic Resonance Imaging (MRI)\index{MRI}, and ultrasound. Each imaging technique, called an imaging modality, has particular diagnostic strengths.
+These images come from a variety of medical imaging devices, including X--ray\index{X--ray}, X--ray Computed Tomography\index{Computed Tomography}\index{CT|see {Computed Tomography}}), Magnetic Resonance Imaging (MRI)\index{MRI}, and ultrasound. Each imaging technique, called an imaging modality, has particular diagnostic strengths.
 
 \begin{figure}[!htb]
 	\centering
@@ -66,7 +66,7 @@ This case study describes in detail how to read input data and extract anatomica
 
 Medical images come in many flavors of file formats. This study is stored as flat files without header information. Each 16--bit pixel is stored with little-endian byte order. Also, as is often the case, each slice is stored in a separate file with the file suffix being the slice number of the form \texttt{prefix.1}, \texttt{prefix.2}, and so on. Medical imaging files often have a header of a certain size before the image data starts. The size of the header varies from file format to file format. Finally, another complication is that sometimes one or more bits in each 16-bit pixel is used to mark connectivity between voxels. It is important to be able to mask out bits as they are read.
 
-VTK provides several image readers including one that can read raw formats of the type described above --- vtkVolume16Reader. To read this data we instantiate the class and set the appropriate instance variables as follows.
+VTK provides several image readers including one that can read raw formats of the type described above --- vtkVolume16Reader\index{vtkVolume16Reader}. To read this data we instantiate the class and set the appropriate instance variables as follows.
 
 \begin{lstlisting}[language=C++, caption={Reading raw formatted files.}]
 vtkVolume16Reader *v16 = vtkVolume16Reader::New();
@@ -782,7 +782,7 @@ proc AddStock {prefix name x y z} {
   global zpos
 
   # create labels
-  vtkTextSource $prefix.TextSrc
+  vtkTextSource%\index{vtkTextSource!application}% $prefix.TextSrc
     $prefix.TextSrc SetText "$name"
     $prefix.TextSrc SetBacking 0
   vtkPolyDataMapper $prefix.LabelMapper
@@ -797,17 +797,17 @@ proc AddStock {prefix name x y z} {
   vtkPolyDataReader $prefix.PolyDataRead
     $prefix.PolyDataRead SetFileName
 		"../../../vtkdata/$prefix.vtk"
-  vtkTubeFilter $prefix.TubeFilter
+  vtkTubeFilter%\index{vtkTubeFilter!application}% $prefix.TubeFilter
     $prefix.TubeFilter
     SetInputConnection \
         [$prefix.PolyDataRead GetOutputPort]
 	$prefix.TubeFilter SetNumberOfSides 8
 	$prefix.TubeFilter SetRadius 0.5
     $prefix.TubeFilter SetRadiusFactor 10000
-  vtkTransform $prefix.Transform
+  vtkTransform%\index{vtkTransform!application}% $prefix.Transform
 	$prefix.Transform Translate 0 0 $zpos
 	$prefix.Transform Scale 0.15 1 1
-  vtkTransformPolyDataFilter $prefix.TransformFilter
+  vtkTransformPolyDataFilter%\index{vtkTransformPolyDataFilter!application}% $prefix.TransformFilter
     $prefix.TransformFilter SetInputConnection
         [$prefix.TubeFilter GetOutputPort]
     $prefix.TransformFilter SetTransform
@@ -905,7 +905,7 @@ The \emph{Visualization Toolkit} has some useful geometric modelling capabilitie
 	\label{fig:Figure12-12}
 \end{figure}
 
-We create three separate visualization pipelines, one for each letter. Figure \ref{fig:Figure12-12} shows the visualization pipeline. As is common in VTK applications, we design a pipeline and fill in the details of the instance variables just before we render. We pass the letters through a vtkTransformPolyDataFilter to position them relative to each other. Then we combine all of the polygons from the transformed letters into one polygon dataset using the vtkAppendPolyData\index{vtkAppendPolyData} filter. The vtkImplicitModeller creates a volume dataset of dimension $64^3$ with each voxel containing a scalar value that is the distance to the nearest polygon. Recall from ``Implicit Modelling'' on page \pageref{subsec:implicit_modelling} that the implicit modelling algorithm lets us specify the region of influence of each polygon. Here we specify this using the SetMaximumDistance() method of the vtkImplicitModeller. By restricting the region of influence, we can significantly improve performance of the implicit modelling algorithm. Then we use vtkContourFilter\index{vtkContourFilter!application} to extract an isosurface\index{isosurface!application} that approximates a distance of 1.0 from each polygon. We create two actors: one for the blobby logo and one for the original polygon letters. Notice that both actors share the polygon data created by vtkAppendPolyData. Because of the nature of the VTK visualization pipeline (see ``Implicit Execution'' on page \pageref{subsec:implicit_execution} ), the appended data will only be created once by the portion of the pipeline that is executed first. As a final touch, we move the polygonal logo in front of the blobby logo. Now we will go through the example in detail.
+We create three separate visualization pipelines, one for each letter. Figure \ref{fig:Figure12-12} shows the visualization pipeline. As is common in VTK applications, we design a pipeline and fill in the details of the instance variables just before we render. We pass the letters through a vtkTransformPolyDataFilter\index{vtkTransformPolyDataFilter} to position them relative to each other. Then we combine all of the polygons from the transformed letters into one polygon dataset using the vtkAppendPolyData\index{vtkAppendPolyData} filter. The vtkImplicitModeller creates a volume dataset of dimension $64^3$ with each voxel containing a scalar value that is the distance to the nearest polygon. Recall from ``Implicit Modelling'' on page \pageref{subsec:implicit_modelling} that the implicit modelling algorithm lets us specify the region of influence of each polygon. Here we specify this using the SetMaximumDistance() method of the vtkImplicitModeller. By restricting the region of influence, we can significantly improve performance of the implicit modelling algorithm. Then we use vtkContourFilter\index{vtkContourFilter!application} to extract an isosurface\index{isosurface!application} that approximates a distance of 1.0 from each polygon. We create two actors: one for the blobby logo and one for the original polygon letters. Notice that both actors share the polygon data created by vtkAppendPolyData. Because of the nature of the VTK visualization pipeline (see ``Implicit Execution'' on page \pageref{subsec:implicit_execution} ), the appended data will only be created once by the portion of the pipeline that is executed first. As a final touch, we move the polygonal logo in front of the blobby logo. Now we will go through the example in detail.
 
 First, we read the geometry files that contain polygonal models of each letter in the logo. The data is in VTK polygonal format, so we use vtkPolyDataReader.
 
@@ -922,9 +922,9 @@ vtkPolyDataReader *letterK = vtkPolyDataReader::New();
 
 We want to transform each letter into its appropriate location and orientation within the logo. We create the transform filters here, but defer specifying the location and orientation until later in the program.
 
-\begin{lstlisting}[language=C++, caption={Transform each letter into ita appropriate location.}]
+\begin{lstlisting}[language=C++, caption={Transform each letter into ita appropriate location.}, escapechar=\$]
 vtkTransform *VTransform = vtkTransform::New();
-  vtkTransformPolyDataFilter *VTransformFilter =
+  vtkTransformPolyDataFilter$\index{vtkTransformPolyDataFilter!application}$ *VTransformFilter =
   vtkTransformPolyDataFilter::New();
 
 VTransformFilter->SetInputConnection (letterV->GetOutputPort());
@@ -1219,7 +1219,7 @@ vtkStructuredGridGeometryFilter%\index{vtkStructuredGridGeometryFilter!applicati
   seedsComp SetInput [pl3d GetOutput]
   streamers SetSourceConnection [seedsComp GetOutputPort]
 # create tubes
-vtkTubeFilter tubes
+vtkTubeFilter%\index{vtkTubeFilter!application}% tubes
   tubes SetInputConnection [streamers GetOutputPort]
   tubes SetNumberOfSides 8
   tubes SetRadius 0.08
@@ -1229,7 +1229,7 @@ vtkTubeFilter tubes
 \end{lstlisting}
 
 There are a number of other methods we could use to visualize this data. A 3D widget such as the vtkLineWidget could be used to seed the streamlines interactively (see ``3D Widgets and User Interaction'' on page \pageref{sec:3D_widgets_user_interaction}). As we saw in ``Point Probe'' on page \pageref{subsec:examples.point_probe}, probing the data
-for numerical values is a valuable technique. In particular, if the probe is a line we can use it in combination with vtkXYPlotActor to graph the variation of data value along the line. Another useful visualization would be to identify regions of vorticity. We could use Equation \ref{eq:9.12} in conjunction with an isocontouring algorithm (e.g., vtkContourFilter ) to creates isosurfaces of large helical--density. \index{applications!computational fluid dynamics|)}\index{computational fluid dynamics!application|)}\index{finite difference method!application|)}
+for numerical values is a valuable technique. In particular, if the probe is a line we can use it in combination with vtkXYPlotActor\index{vtkXYPlotActor} to graph the variation of data value along the line. Another useful visualization would be to identify regions of vorticity. We could use Equation \ref{eq:9.12} in conjunction with an isocontouring algorithm (e.g., vtkContourFilter ) to creates isosurfaces of large helical--density. \index{applications!computational fluid dynamics|)}\index{computational fluid dynamics!application|)}\index{finite difference method!application|)}
 
 \section{Finite Element Analysis}
 \index{applications!finite element method|(}\index{finite element method!application|(}
@@ -1261,7 +1261,7 @@ clearly one problem with the analysis technique we are using. Note that while th
 
 The network topology used to generate these images is shown in Figure \ref{fig:Figure12-18} with the corresponding Tcl script shown below
 
-\begin{lstlisting}[language=TCL, caption={Script to generate the blow molding image.}]
+\begin{lstlisting}[language=TCL, caption={Script to generate the blow molding image.}, escapechar=\%]
 # Create blow molding image (datapoint 5)
 package require vtk
 package require vtkinteraction
@@ -1274,11 +1274,11 @@ vtkRenderWindowInteractor iren
   iren SetRenderWindow renWin
 
 # create reader and warp data with vectors
-vtkUnstructuredGridReader reader
+vtkUnstructuredGridReader%\index{vtkUnstructuredGridReader!application}% reader
   reader SetFileName "$VTK_DATA_ROOT/Data/blow.vtk"
   reader SetScalarsName "thickness9"
   reader SetVectorsName "displacement9"
-vtkWarpVector warp
+vtkWarpVector%\index{vtkWarpVector!application}% warp
   warp SetInputConnection [reader GetOutputPort]
 
 # extract mold from mesh using connectivity
@@ -1326,7 +1326,7 @@ vtkActor parisonActor
   wm withdraw .
 \end{lstlisting}
 
-The input data is in VTK format, so a vtkUnstructuredGridReader was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter\index{vtkConnectivityFilter!application}. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals\index{vtkPolyDataNormals!application} filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter\index{vtkGeometryFilter!applicaation} does this nicely.
+The input data is in VTK format, so a vtkUnstructuredGridReader\index{vtkUnstructuredGridReader!application} was used as a source object. The mesh displacement is accomplished using an instance of vtkWarpVector\index{vtkWarpVector!application}\index{warping!application}. At this point the pipeline splits. We wish to treat the mold and parison differently (different properties such as wireframe versus surface), but the data for both mold and parison is combined. Fortunately, we can easily separate the data using two instances of class vtkConnectivityFilter\index{vtkConnectivityFilter!application}. One filter extracts the parison, while the other extracts both parts of the mold. Finally, to achieve a smooth surface appearance on the parison, we use a vtkPolyDataNormals\index{vtkPolyDataNormals!application} filter. In order to use this filter, we have to convert the data type from vtkUnstructuredGrid (output of vtkConnectivityFilter ) to type vtkPolyData. The filter vtkGeometryFilter\index{vtkGeometryFilter!applicaation} does this nicely.
 \index{applications!finite element method|)}\index{finite element method!application|)}
 
 \section{Algorithm Visualization}
@@ -1469,7 +1469,7 @@ If you would like to know more about information visualization you can start wit
 	\item The medical example did nothing to transform the original data into a standard coordinate system. Many medical systems use RAS coordinates. R is right/left, A is anterior/posterior and S is Superior/Inferior. This is the patient coordinate system. Discuss and compare the following alternatives for transforming volume data into RAS coordinates. See (\href{https://lorensen.github.io/VTKExamples/site/Cxx/VisualizationAlgorithms/AnatomicalOrientation/}{AnatomicalOrientation.cxx}) and (\href{https://lorensen.github.io/VTKExamples/site/Python/VisualizationAlgorithms/AnatomicalOrientation/}{AnatomicalOrientation.py}).
 	\begin{enumerate}
 		\item vtkActor transformation methods.
-		\item vtkTransformFilter.
+		\item vtkTransformFilter\index{vtkTransformFilter!exercise}.
 		\item Reader transformations.
 	\end{enumerate}
 
@@ -1478,7 +1478,7 @@ If you would like to know more about information visualization you can start wit
 	texture. How does the performance change as the resolution of the
 	volume data changes?
 
-	\item Modify the last medical example (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py}) to use vtkTexture and vtkPlaneSource\index{vtkPlaneSource!exercise} instead of vtkImageActor.
+	\item Modify the last medical example (\href{https://lorensen.github.io/VTKExamples/site/Cxx/Medical/MedicalDemo3/}{MedicalDemo3.cxx}) or (\href{https://lorensen.github.io/VTKExamples/site/Python/Medical/MedicalDemo3/}{MedicalDemo3.py}) to use vtkTexture\index{vtkTexture!exercise} and vtkPlaneSource\index{vtkPlaneSource!exercise} instead of vtkImageActor.
 
 	\item Change the medical case study to use dividing cubes for the skin surface.
 

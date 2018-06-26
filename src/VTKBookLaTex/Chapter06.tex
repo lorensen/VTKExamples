@@ -301,7 +301,7 @@ Scaling glyphs also poses interesting problems. In what Tufte has termed a ``vis
 \index{hedgehog|)}\index{vector algorithms!hedgehog|)}
 
 \subsection{Warping}
-\index{vector algorithms!warping|(}
+\index{vector algorithms!warping|(}\index{warping|(}
 
 Vector data is often associated with ``motion''. The motion is in the form of velocity or displacement. An effective technique for displaying such vector data is to ``warp'' or deform geometry according to the vector field. For example, imagine representing the displacement of a structure under load by deforming the structure. Or if we are visualizing the flow of fluid, we can create a flow profile by distorting a straight line inserted perpendicular to the flow.
 
@@ -321,7 +321,7 @@ Vector data is often associated with ``motion''. The motion is in the form of ve
 Figure \ref{fig:Figure6-14} shows two examples of vector warping. In the first example the motion of a vibrating beam is shown. The original undeformed outline is shown in wireframe. The second example shows warped planes in a structured grid dataset. The planes are warped according to flow momentum. The relative back and forward flow are clearly visible in the deformation of the planes.
 
 Typically, we must scale the vector field to control geometric distortion. Too small a distortion may not be visible, while too large a distortion can cause the structure to turn inside out or selfintersect. In such a case the viewer of the visualization is likely to lose context, and the visualization will become ineffective.
-\index{vector algorithms!warping|)}
+\index{vector algorithms!warping|)}\index{warping|)}
 
 \subsection{Displacement Plots}
 \label{subsec:displacement_plots}
@@ -969,7 +969,7 @@ The superclasses of vtkContourFilter are vtkAlgorithm and vtkPolyDataAlgorithm\i
 
 What is left for vtkContourFilter to implement is its RequestData() method (as well as constructor, print method, and any other methods special to this class). Thus the primary difference between classes with equivalent inheritance hierarchies is the implementation of the RequestData() method.
 
-Subclasses of vtkAlgorithm enforce filter input and output type by use of the FillInputPortInformation() and FillOutputPortInformation() methods. By default, its subclass vtkDataSetAlgorithm\index{vtkDataSetAlgorithm} accepts input type vtkDataSet (or subclasses) and produces a vtkDataSet on output. (The type of the output is determined by the type of the input.) Since vtkDataSet\index{vtkDataSet} is a base class for all data types, subclasses of vtkDataSetAlgorithm will accept any type as input. Specialized filters are derived from other classes. For example, filters that accept polygonal data might be derived from vtkPolyDataAlgorithm\index{vtkPolyDataAlgorithm}, and filters that accept unstructured grid datasets might be derived from vtkUnstructuredGridAlgorithm.
+Subclasses of vtkAlgorithm enforce filter input and output type by use of the FillInputPortInformation() and FillOutputPortInformation() methods. By default, its subclass vtkDataSetAlgorithm\index{vtkDataSetAlgorithm} accepts input type vtkDataSet (or subclasses) and produces a vtkDataSet on output. (The type of the output is determined by the type of the input.) Since vtkDataSet\index{vtkDataSet} is a base class for all data types, subclasses of vtkDataSetAlgorithm will accept any type as input. Specialized filters are derived from other classes. For example, filters that accept polygonal data might be derived from vtkPolyDataAlgorithm\index{vtkPolyDataAlgorithm}, and filters that accept unstructured grid datasets might be derived from vtkUnstructuredGridAlgorithm\index{vtkUnstructuredGridAlgorithm}.
 
 We encourage you to examine the source code carefully for a few filter and source objects.
 
@@ -1027,7 +1027,7 @@ Mapper objects have one or more inputs and no visualization data output, Figure 
 
 Since mappers take datasets as input, type enforcement is required. Each mapper implements this functionality directly. For example, both classes vtkPolyDataMapper\index{vtkPolyDataMapper} and vtkSTLWriter\index{vtkSTLWriter} implement a SetInput() method to enforce the input to be of type vtkPolyData. Other mappers and writers enforce input type as appropriate.
 
-Although writers and mappers do not create visualization data, they both have methods similar to the RequestData() method of the sources and filters. Each subclass of vtkMapper\index{vtkMapper} must implement the Render() method. This method is exchanged by the graphics system actors and its associated mappers during the rendering process. The effect of the method is to map its input dataset to the appropriate rendering library/system. Subclasses of the class vtkWriter must implement the WriteData() method. This method causes the writer to write its input dataset to disk (or other I/O device).
+Although writers and mappers do not create visualization data, they both have methods similar to the RequestData() method of the sources and filters. Each subclass of vtkMapper\index{vtkMapper} must implement the Render() method. This method is exchanged by the graphics system actors and its associated mappers during the rendering process. The effect of the method is to map its input dataset to the appropriate rendering library/system. Subclasses of the class vtkWriter\index{vtkWriter} must implement the WriteData() method. This method causes the writer to write its input dataset to disk (or other I/O device).
 \index{mapper object!implementation|)}
 
 \end{description}
@@ -1281,7 +1281,7 @@ One difficulty using abstract filter types is that the output type may not match
 
 In this example we'll combine a few different techniques to visualize blood flow in the human carotid arteries. Our data contains both vectors that represent the velocity of blood and scalars that are proportional to the magnitude of the velocity (i.e., speed).
 
-We can provide context for the visualization by creating an isosurface of speed. This isosurface shows regions of fastest blood flow, and is similar to, but not the same as, the actual surface of the arteries. However, it provides us with a visual cue to the structure of the arteries. The first vector visualization technique we'll use is to generate vector glyphs ( Unfortunately, we cannot just create glyphs at each point because of the number of points (over 167,000 points). To do so would result in a confusing mess, and the interactive speed would be poor. Instead, we'll use two filters to select a subset of the available points. These filters are vtkThresholdPoints and vtkMaskPoints\index{vtkMaskPoints}.
+We can provide context for the visualization by creating an isosurface of speed. This isosurface shows regions of fastest blood flow, and is similar to, but not the same as, the actual surface of the arteries. However, it provides us with a visual cue to the structure of the arteries. The first vector visualization technique we'll use is to generate vector glyphs ( Unfortunately, we cannot just create glyphs at each point because of the number of points (over 167,000 points). To do so would result in a confusing mess, and the interactive speed would be poor. Instead, we'll use two filters to select a subset of the available points. These filters are vtkThresholdPoints\index{vtkThresholdPoints} and vtkMaskPoints\index{vtkMaskPoints}.
 
 vtkThresholdPoints allows us to extract points that satisfy a certain threshold criterion. In our example, we choose points whose speed is greater than a specified value. This eliminates a large number of points, since most points lie outside the arteries and have a small speed value.
 
@@ -1309,7 +1309,7 @@ After selecting a subset of the original points, we can use the vtkGlyph3D\index
 		\begin{lstlisting}[language=TCL, caption={}, escapechar=\%]
 		vtkStructuredPointsReader%\index{vtkStructuredPointsReader!example}% reader
 		  reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"
-		vtkThresholdPoints threshold
+		vtkThresholdPoints%\index{vtkThresholdPoints!example}% threshold
 		  threshold SetInputConnection [reader GetOutputPort]
 		  threshold ThresholdByUpper 200
 		vtkMaskPoints%\index{vtkMaskPoints}\index{vtkMaskPoints!example}% mask
@@ -1338,7 +1338,7 @@ After selecting a subset of the original points, we can use the vtkGlyph3D\index
 	\caption{Visualizing blood flow in human carotid arteries. Cone glyphs indicate flow direction and magnitude.}\label{fig:Figure6-43}
 \end{figure}
 
-In the next part of this example we'll generate streamtubes of blood velocity. Again we use an isosurface of speed to provide us with context. The starting positions for the streamtubes were determined by experimenting with the data. Because of the way the data was measured and the resolution of the velocity field, many streamers travel outside the artery. This is because the boundary layer of the blood flow is not captured due to limitations in data resolution. Consequently, as the blood flows around curves, there is a component of the velocity field that directs the streamtube outside the artery. As a result it is hard to find starting positions for the streamtubes that yield interesting results. We use the source object vtkPointSource\index{vtkPointSource} in combination with vtkThresholdPoints to work around this problem. vtkPointSource generates random points centered around a sphere of a specified radius. We need only find an approximate position for the starting points of the streamtubes and then generate a cloud of random seed points. vtkThresholdPoints is used to cull points that may be generated outside the regions of high flow velocity.
+In the next part of this example we'll generate streamtubes of blood velocity. Again we use an isosurface of speed to provide us with context. The starting positions for the streamtubes were determined by experimenting with the data. Because of the way the data was measured and the resolution of the velocity field, many streamers travel outside the artery. This is because the boundary layer of the blood flow is not captured due to limitations in data resolution. Consequently, as the blood flows around curves, there is a component of the velocity field that directs the streamtube outside the artery. As a result it is hard to find starting positions for the streamtubes that yield interesting results. We use the source object vtkPointSource\index{vtkPointSource} in combination with vtkThresholdPoints\index{vtkThresholdPoints} to work around this problem. vtkPointSource generates random points centered around a sphere of a specified radius. We need only find an approximate position for the starting points of the streamtubes and then generate a cloud of random seed points. vtkThresholdPoints is used to cull points that may be generated outside the regions of high flow velocity.
 
 \begin{figure}[!htb]
     \centering
@@ -1364,7 +1364,7 @@ In the next part of this example we'll generate streamtubes of blood velocity. A
 			  source SetNumberOfPoints 25
 			  source SetCenter 133.1 116.3 5.0
 			  source SetRadius 2.0
-			vtkThresholdPoints threshold
+			vtkThresholdPoints%\index{vtkThresholdPoints}% threshold
 			  threshold SetInputConnection [reader GetOutputPort]
 			  threshold ThresholdByUpper 275
 			vtkStreamTracer%\index{vtkStreamTracer!example}% streamers
@@ -1375,7 +1375,7 @@ In the next part of this example we'll generate streamtubes of blood velocity. A
 			  streamers SetInitialIntegrationStepUnitToCellLengthUnit
 			  streamers SetInitialIntegrationStep 0.2
 			  streamers SetTerminalSpeed .1
-			vtkTubeFilter tubes
+			vtkTubeFilter%\index{vtkTubeFilter!example}% tubes
 			  tubes SetInputConnection [streamers GetOutputPort]
 			  tubes SetRadius 0.3
 			  tubes SetNumberOfSides 6

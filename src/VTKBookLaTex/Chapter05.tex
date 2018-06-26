@@ -167,7 +167,7 @@ The polygon may be nonconvex, but may not have internal loops, and it cannot sel
 
 Similar to pixels, our definition of a voxel cell differs from the conventional definition of the term voxel. Typically, a voxel\index{voxel!as volume element} is referred to as a constant--valued ``volume element''. Using our definition, eight volume\index{volume} elements form the eight corner points of the voxel cell. We normally use the term voxel to describe a voxel cell, but the meaning of the term will vary depending on the context.
 
-\item[Wedge.\index{cell!wedge}] The wedge is a primary three--dimensional cell consisting of three quadrilateral faces, two triangular faces, nine edges, and six vertices. The wedge is defined by an ordered list of six points as shown in Figure \ref{fig:Figure5-2}. The faces and edges must not intersect any other faces and edges, and the wedge must be convex.
+\item[Wedge.\index{cell!wedge}\index{wedge}] The wedge is a primary three--dimensional cell consisting of three quadrilateral faces, two triangular faces, nine edges, and six vertices. The wedge is defined by an ordered list of six points as shown in Figure \ref{fig:Figure5-2}. The faces and edges must not intersect any other faces and edges, and the wedge must be convex.
 
 \item[Pyramid.\index{cell!pyramid}\index{pyramid}] The pyramid is a primary three--dimensional cell consisting of one quadrilateral face, four triangular faces, eight edges, and five vertices. The pyramid is defined by an ordered list of five points as shown in Figure \ref{fig:Figure5-2}. The four points defining the quadrilateral base plane must be convex; the fifth apex point must not be co-planar with the base points.
 
@@ -931,8 +931,7 @@ The topological dimension of the dataset is implied by the specified dimensions.
 \item[Create an Unstructured Grid Dataset.]
 \index{unstructured grid!example|(}\index{vtkUnstructuredGrid!example|(}
 
-
-Unstructured grid datasets are the most general dataset type in both topology and geometry. In this example we ``artificially'' create an unstructured grid using an instance of vtkUnstructuredGrid (Figure \ref{fig:Figure5-21}). The grid contains examples of each cell type except for pixels and voxels. (Pixels and voxels are generally used internally to process image data datasets. They can be explicitly created and manipulated as long as the required relationship of point geometry is observed.) Creating the dataset structure requires creating points to define the geometry and various cells to define the topology. (Note that in the finite element world we would refer to these as nodes and elements.)
+Unstructured grid datasets are the most general dataset type in both topology and geometry. In this example we ``artificially'' create an unstructured grid using an instance of vtkUnstructuredGrid\index{vtkUnstructuredGrid} (Figure \ref{fig:Figure5-21}). The grid contains examples of each cell type except for pixels and voxels. (Pixels and voxels are generally used internally to process image data datasets. They can be explicitly created and manipulated as long as the required relationship of point geometry is observed.) Creating the dataset structure requires creating points to define the geometry and various cells to define the topology. (Note that in the finite element world we would refer to these as nodes and elements.)
 
 \begin{figure}[!htb]
     \centering
@@ -951,10 +950,10 @@ Unstructured grid datasets are the most general dataset type in both topology an
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[h]{0.76\linewidth}
-		\begin{lstlisting}[language=C++, caption={}]
+		\begin{lstlisting}[language=C++, caption={}, escapechar=\$]
 		vtkPoints *points = vtkPoints::New();
 		  for (i=0; i<27; i++) points->InsertPoint(i,x[i]);
-		vtkUnstructuredGrid *ugrid = vtkUnstructuredGrid::New();
+		vtkUnstructuredGrid$\index{vtkUnstructuredGrid!example}$ *ugrid = vtkUnstructuredGrid::New();
 		  ugrid->Allocate(100);
 		  ugrid->InsertNextCell(VTK_HEXAHEDRON, 8, pts[0]);
 		  ugrid->InsertNextCell(VTK_HEXAHEDRON, 8, pts[1]);

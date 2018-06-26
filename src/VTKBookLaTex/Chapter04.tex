@@ -469,7 +469,7 @@ Examples of readers include vtkSTLReader\index{vtkSTLReader} (read stereo-lithog
 \label{subsubsec:file_interface_importers_exporters}
 \index{exporters|(}\index{exporter!interfacing to data|(}\index{importer!interfacing to data|(}\index{interfacing to data!importers and exporters|(}
 
-\emph{Importers}\index{importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter\index{vtk3DSImporter} imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
+\emph{Importers}\index{importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter\index{vtk3DSImporter} imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter\index{vtkVRMLExporter} creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
 
 In the \emph{Visualization Toolkit}, there are several importers and exporters. To see which importers and exporters are supported by VTK, see \emph{The VTK User's Guide}. You may also want to check the Web pages at \href{https://www.vtk.org/doc/nightly/html/index.html}{https://www.vtk.org/doc/nightly/html/index.html} for the current Doxygen manual pages. If the exporter you are looking for does not exist, you will have to develop your own using the programming interface.
 
@@ -771,7 +771,7 @@ In the \emph{Visualization Toolkit}, the Update() method is public while the Req
 One final note. The indentation of the code serves to indicate where objects are instantiated and modified. The first line (i.e., the New() operator) is where the object is created. The indented lines that follow indicate that various operations are being performed on the object. We encourage you to use a similar indenting scheme in your own work.
 
 %\label{subsubsec:warped_sphere}
-\item[Warped Sphere.] This example extends the pipeline of the previous example and shows the effects of type checking on the connectivity of process objects. We add a transform filter (vtkTransformFilter) to nonuniformly scale the sphere in the x-y-z directions.
+\item[Warped Sphere.] This example extends the pipeline of the previous example and shows the effects of type checking on the connectivity of process objects. We add a transform filter (vtkTransformFilter\index{vtkTransformFilter}) to nonuniformly scale the sphere in the x--y--z directions.
 
 The transform filter only operates on objects with explicit point coordinate representation (i.e., a subclass of vtkPointSet\index{vtkPointSet}). However, the elevation filter generates the more general form vtkDataSet\index{vtkDataSet} as output. Hence we cannot connect the transform filter to the elevation filter. But we can connect the transform filter to the sphere source, and then the elevation filter to the transform filter. The result is shown in Figure \ref{fig:Figure4-20}. (Note: an alternative method is to use vtkCastToConcrete\index{vtkCastToConcrete} to perform run-time casting.)
 
@@ -794,7 +794,7 @@ The C++ compiler enforces the proper connections of sources, filters, and mapper
   \end{subfigure}
   \hfill
   \begin{subfigure}[h]{0.76\linewidth}
-    \begin{lstlisting}[language=C++, caption={Warped Sphere.}]
+    \begin{lstlisting}[language=C++, caption={Warped Sphere.}, escapechar=\$]
     vtkSphereSource *sphere = vtkSphereSource::New();
       sphere->SetThetaResolution(12);
       sphere->SetPhiResolution(12);
@@ -802,7 +802,7 @@ The C++ compiler enforces the proper connections of sources, filters, and mapper
     vtkTransform *aTransform = vtkTransform::New();
       aTransform->Scale(1,1.5,2);
 
-    vtkTransformFilter *transFilter = vtkTransformFilter::New();
+    vtkTransformFilter$\index{vtkTransformFilter!example}$ *transFilter = vtkTransformFilter::New();
       transFilter->SetInputConnection(sphere->GetOutputPort());
       transFilter->SetTransform(aTransform);
 
@@ -1007,7 +1007,7 @@ For each technique:
 
 \begin{enumerate}
 
-    \item Translate the actor with vtkTransform's Translate() method.
+    \item Translate the actor with \index{vtkTransform!exercise}vtkTransform's Translate() method.
 
     \item Rotate the actor with the RotateX(), RotateY(), and RotateZ() methods.
 
