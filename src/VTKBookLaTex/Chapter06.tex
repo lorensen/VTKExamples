@@ -1015,7 +1015,7 @@ The architecture is simple enough that you can grasp it quickly.
 		\end{subfigure}
 		\caption{Object models}
 	\end{subfigure}
-	\caption{Mapper object design. Graphics mapper shown (e.g., vtkPolyDataMapper\index{vtkPolyDataMapper}) maps polygonal data through graphics library primitives. Writer shown (e.g., vtkSTLWriter) writes polygonal data to stereo lithography format.}\label{fig:Figure6-36}
+	\caption{Mapper object design. Graphics mapper shown (e.g., vtkPolyDataMapper\index{vtkPolyDataMapper}) maps polygonal data through graphics library primitives. Writer shown (e.g., vtkSTLWriter\index{vtkSTLWriter}) writes polygonal data to stereo lithography format.}\label{fig:Figure6-36}
 \end{figure}
 \index{filter object!implementation|)}
 
@@ -1025,7 +1025,7 @@ The architecture is simple enough that you can grasp it quickly.
 
 Mapper objects have one or more inputs and no visualization data output, Figure \ref{fig:Figure6-36}. Two different types of mappers are available in the \emph{Visualization Toolkit}: graphics mappers and writers. Graphics mappers interface geometric structure and data attributes to the graphics library; writers write datasets to disk or other I/O devices.
 
-Since mappers take datasets as input, type enforcement is required. Each mapper implements this functionality directly. For example, both classes vtkPolyDataMapper\index{vtkPolyDataMapper} and vtkSTLWriter implement a SetInput() method to enforce the input to be of type vtkPolyData. Other mappers and writers enforce input type as appropriate.
+Since mappers take datasets as input, type enforcement is required. Each mapper implements this functionality directly. For example, both classes vtkPolyDataMapper\index{vtkPolyDataMapper} and vtkSTLWriter\index{vtkSTLWriter} implement a SetInput() method to enforce the input to be of type vtkPolyData. Other mappers and writers enforce input type as appropriate.
 
 Although writers and mappers do not create visualization data, they both have methods similar to the RequestData() method of the sources and filters. Each subclass of vtkMapper\index{vtkMapper} must implement the Render() method. This method is exchanged by the graphics system actors and its associated mappers during the rendering process. The effect of the method is to map its input dataset to the appropriate rendering library/system. Subclasses of the class vtkWriter must implement the WriteData() method. This method causes the writer to write its input dataset to disk (or other I/O device).
 \index{mapper object!implementation|)}
@@ -1252,7 +1252,7 @@ We saw how to use vtkGlyph3D in the example given in Figure \ref{fig:Figure4-20}
 	{\includegraphics[width=0.6\textwidth]{Figure6-41}}
 \end{figure}
 
-Streamlines and particle motion require numerical integration to guide a point through the vector field. Vector visualization algorithms that we will see in later chapters also require numerical integration. As a result, we designed an object hierarchy\index{object model!streamline} that isolates the numerical integration process into a single base class. The base class is vtkStreamer and it is responsible for generating a particle path through a vector field of specified length (expressed as elapsed time). Each derived class of vtkStreamer takes advantage of this capability to move through the vector field but implements its own particular representational technique to depict particle motion. Streamlines (vtkStreamLine) draw connected lines while particle motion is shown by combining the output of vtkStreamPoints with the vtkGlyph3D\index{vtkGlyph3D} object. Using vtkGlyph3D we can place spheres or oriented objects such as cones or arrows at points on the particle path created by vtkStreamPoints. The inheritance hierarchy for vtkStreamer and subclasses is shown in  Figure \ref{fig:Figure4-20}.
+Streamlines and particle motion require numerical integration to guide a point through the vector field. Vector visualization algorithms that we will see in later chapters also require numerical integration. As a result, we designed an object hierarchy\index{object model!streamline} that isolates the numerical integration process into a single base class. The base class is vtkStreamer\index{vtkStreamer} and it is responsible for generating a particle path through a vector field of specified length (expressed as elapsed time). Each derived class of vtkStreamer takes advantage of this capability to move through the vector field but implements its own particular representational technique to depict particle motion. Streamlines (vtkStreamLine\index{vtkStreamLine}) draw connected lines while particle motion is shown by combining the output of vtkStreamPoints\index{vtkStreamPoints} with the vtkGlyph3D\index{vtkGlyph3D} object. Using vtkGlyph3D we can place spheres or oriented objects such as cones or arrows at points on the particle path created by vtkStreamPoints. The inheritance hierarchy for vtkStreamer and subclasses is shown in  Figure \ref{fig:Figure4-20}.
 
 The integration method in vtkStreamer is implemented as a virtual function. Thus it can be overloaded as necessary. Possible reasons for overloading include implementing an integration technique of higher or lower accuracy, or creating a technique specialized to a particular dataset type. For example, the search process in a volume is much faster than it is for other dataset types, therefore, highly efficient vector integration techniques can be constructed.
 
@@ -1307,7 +1307,7 @@ After selecting a subset of the original points, we can use the vtkGlyph3D\index
 	\hfill
 	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=TCL, caption={}, escapechar=\%]
-		vtkStructuredPointsReader reader
+		vtkStructuredPointsReader%\index{vtkStructuredPointsReader!example}% reader
 		  reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"
 		vtkThresholdPoints threshold
 		  threshold SetInputConnection [reader GetOutputPort]
@@ -1345,7 +1345,7 @@ In the next part of this example we'll generate streamtubes of blood velocity. A
     \begin{subfigure}[h]{0.96\linewidth}
     	\begin{subfigure}[h]{0.48\linewidth}
     		\includegraphics[width=0.96\linewidth]{Figure6-44a}
-    		\caption*{}
+    		\caption*{\index{vtkStreamLine}}
     		\label{fig:Figure6-44a}
     	\end{subfigure}
     	\hfill
@@ -1358,7 +1358,7 @@ In the next part of this example we'll generate streamtubes of blood velocity. A
 	\hfill
 	\begin{subfigure}[h]{0.76\linewidth}
 		\begin{lstlisting}[language=TCL, caption={}, escapechar=\%]
-			vtkStructuredPointsReader reader
+			vtkStructuredPointsReader%\index{vtkStructuredPointsReader!example}% reader
 			  reader SetFileName "$env(VTK_TEXTBOOK_DATA)/carotid.vtk"
 			vtkPointSource%\index{vtkPointSource!example}% source
 			  source SetNumberOfPoints 25
@@ -1367,7 +1367,7 @@ In the next part of this example we'll generate streamtubes of blood velocity. A
 			vtkThresholdPoints threshold
 			  threshold SetInputConnection [reader GetOutputPort]
 			  threshold ThresholdByUpper 275
-			vtkStreamTracer streamers
+			vtkStreamTracer%\index{vtkStreamTracer!example}% streamers
 			  streamers SetInputConnection [reader GetOutputPort]
 			  streamers SetSourceConnection [source GetOutputPort]
 			  streamers SetMaximumPropagationUnitToTimeUnit
@@ -1451,7 +1451,7 @@ Blinn \cite{Blinn82}, Bloomental \cite{Bloomenthal88} \cite{Bloomenthal97} and W
 
 \item Write a program to simulate beam vibration. Use the code associated with Figure \ref{fig:Figure6-14a} as your starting point.
 
-\item 	 Using the filters vtkStreamLine, vtkMaskPoints\index{vtkMaskPoints!exercise}, and vtkGlyph3D\index{vtkGlyph3D!exercise}, create a visualization consisting of oriented glyphs along a streamline.
+\item 	 Using the filters vtkStreamLine\index{vtkStreamLine!exercise}, vtkMaskPoints\index{vtkMaskPoints!exercise}, and vtkGlyph3D\index{vtkGlyph3D!exercise}, create a visualization consisting of oriented glyphs along a streamline.
 
 \item Visualize the following functions.
 \begin{enumerate}

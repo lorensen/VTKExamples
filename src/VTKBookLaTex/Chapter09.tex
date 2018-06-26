@@ -1687,7 +1687,7 @@ vtkTransform t2
   t2 RotateZ 90.0
   transforms AddItem t1
   transforms AddItem t2
-vtkSweptSurface sweptSurfaceFilter
+vtkSweptSurface%\index{vtkSweptSurface!example}% sweptSurfaceFilter
   sweptSurfaceFilter SetInputConnection [imp GetOutputPort]
   sweptSurfaceFilter SetTransforms transforms
   sweptSurfaceFilter SetSampleDimensions 100 7040
@@ -1708,7 +1708,7 @@ Figure \ref{fig:Figure9-49} shows how to create a swept surface from a simple ge
 
 In Figure \ref{fig:Figure9-49} we also see the basic procedure to construct the swept surface. First, we must construct an implicit representation of the part by using vtkImplictModeller\index{vtkImplicitModeller}. This is then provided as input to vtkSweptSurface. It is important that the resolution of the implicit model is greater than or equal to that of vtkSweptSurface. This will minimize errors when we construct the surface. A bounding box surrounding the part and its motion can be defined, or it will be computed automatically. For proper results, this box must strictly contain the part as its moves. We also can set the number of interpolation steps, or allow this to be computed automatically as well. In the figure, we have chosen a small number to better illustrate the stepping of the algorithm.
 
-Once vtkSweptSurface executes, we extract the swept surface using an isosurfacing algorithm. The isosurface value is an offset distance; thus we can create surfaces that take into account geometry tolerance. (This is particularly important if we are designing mechanical systems). The implementation of the implicit modeller in VTK uses a positive distance function; so the isosurface value should always be positive. To create swept surfaces of zero and negative value requires a modification to the implicit modeller.
+Once vtkSweptSurface\index{vtkSweptSurface} executes, we extract the swept surface using an isosurfacing algorithm. The isosurface value is an offset distance; thus we can create surfaces that take into account geometry tolerance. (This is particularly important if we are designing mechanical systems). The implementation of the implicit modeller in VTK uses a positive distance function; so the isosurface value should always be positive. To create swept surfaces of zero and negative value requires a modification to the implicit modeller.
 \index{swept surface!implementation|)}
 
 
@@ -1911,7 +1911,7 @@ Texture mapping is a powerful visualization technique. Besides adding detail to 
 	\begin{subfigure}[h]{0.76\linewidth}
         \begin{lstlisting}[language=TCL,  caption={}, numbers=none, frame=none, escapechar=\%]
         # texture
-        vtkStructuredPointsReader texReader
+        vtkStructuredPointsReader%\index{vtkStructuredPointsReader!example}% texReader
           texReader SetFileName "$VTK_DATA_ROOT/Data/texThres2.vtk"
         vtkTexture texture
           texture SetInputConnection [texReader GetOutputPort]

@@ -173,7 +173,7 @@ We can improve this visualization in a number of ways. First, we can choose a mo
 
 Figure \ref{fig:Figure12-3} shows the resulting image, and the following is the C++ code for the pipeline.
 
-\begin{lstlisting}[language=C++, caption={Improving the visualizarion of the isosurface.}]
+\begin{lstlisting}[language=C++, caption={Improving the visualizarion of the isosurface.}, escapechar=\$]
 vtkActor *skin = vtkActor::New();
   skin->SetMapper(skinMapper);
   skin->GetProperty()->SetDiffuseColor(1, .49, .25);
@@ -189,7 +189,7 @@ vtkPolyDataNormals *boneNormals = vtkPolyDataNormals::New();
   boneNormals->SetInputConnection(boneExtractor->GetOutputPort());
   boneNormals->SetFeatureAngle(60.0);
 
-vtkStripper *boneStripper = vtkStripper::New();
+vtkStripper$\index{vtkStripper!application}$ *boneStripper = vtkStripper::New();
   boneStripper->SetInputConnection(boneNormals->GetOutputPort());
 
 vtkPolyDataMapper *boneMapper = vtkPolyDataMapper::New();
@@ -482,8 +482,8 @@ vtkPolyDataNormals normals
 
 Triangle strips are a compact representation of large numbers of triangles. This filter processes our independent triangles before we write them to a file.
 
-\begin{lstlisting}[language=TCL, caption={Generate Triangle Strips.}]
-vtkStripper stripper
+\begin{lstlisting}[language=TCL, caption={Generate Triangle Strips.}, escapechar=\%]
+vtkStripper%\index{vtkStripper!application}% stripper
   stripper SetInputConnection [normals GetOutputPort]
   [stripper GetOutput] ReleaseDataFlagOn
 \end{lstlisting}
@@ -1104,7 +1104,7 @@ vtkPLOT3DReader%\index{vtkPLOT3DReader!application}% pl3d
   pl3d IBlankingOn
   pl3d Update
 # computational planes: the floor
-vtkStructuredGridGeometryFilter floorComp
+vtkStructuredGridGeometryFilter%\index{vtkStructuredGridGeometryFilter!application}% floorComp
   floorComp SetExtent 0 37 0 75 0 0
   floorComp SetInputConnection [pl3d GetOutputPort]
 vtkPolyDataMapper%\index{vtkPolyDataMapper!application}% floorMapper
@@ -1137,7 +1137,7 @@ vtkActor fanActor
   [fanActor GetProperty] SetColor 0 0 0
   [fanActor GetProperty] SetRepresentationToWireframe
 # outline
-vtkStructuredGridOutlineFilter outline
+vtkStructuredGridOutlineFilter%%\index{vtkStructuredGridOutlineFilter!application} outline
   outline SetInputConnection [pl3d GetOutputPort]
 vtkPolyDataMapper outlineMapper
   outlineMapper SetInputConnection [outline GetOutputPort]
@@ -1182,12 +1182,12 @@ To display the scalar field using color mapping\index{color mapping!application}
 
 Now, we explore the vector field using vtkPointSource\index{vtkPointSource!application}. Recall that this object generates a random cloud of points around a spherical center point. We will use this cloud of points to generate stream-lines. We place the center of the cloud near the post since this is where the velocity seems to be changing most rapidly. During this exploration, we use streamlines\index{streamline!application} rather than streamtubes for reasons of efficiency. The Tcl code is as follows.
 
-\begin{lstlisting}[language=TCL, caption={Explore the vector field using a point source.}]
+\begin{lstlisting}[language=TCL, caption={Explore the vector field using a point source.}, escapechar=\%]
 # spherical seed points
 vtkPointSource rake
   rake SetCenter -0.74 0 0.3
   rake SetNumberOfPoints 10
-vtkStreamLine streamers
+vtkStreamLine%\index{vtkStreamLine!application}% streamers
   streamers SetInputConnection [pl3d GetOutputPort]
   streamers SetSourceConnection [rake GetOutputPort]
   streamers SetMaximumPropagationTime 250
@@ -1213,8 +1213,8 @@ Notice how the structure of the flow begins to emerge as the starting positions 
 
 For a final example, we use the computational grid to seed streamlines and then generate streamtubes as is shown in Figure \ref{fig:Figure12-16}. A nice feature of this approach is that we generate more streamlines in regions where the analyst constructed a denser grid. The only change we need to make is to replace the rake from the sphere source with a portion of the grid geometry.
 
-\begin{lstlisting}[language=TCL, caption={Use the computational grid to seed streamlines and then generate streamtubes.}]
-vtkStructuredGridGeometryFilter seedsComp
+\begin{lstlisting}[language=TCL, caption={Use the computational grid to seed streamlines and then generate streamtubes.}, escapechar=\%]
+vtkStructuredGridGeometryFilter%\index{vtkStructuredGridGeometryFilter!application}% seedsComp
   seedsComp SetExtent 10 10 37 39 1 35
   seedsComp SetInput [pl3d GetOutput]
   streamers SetSourceConnection [seedsComp GetOutputPort]

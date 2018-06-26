@@ -168,7 +168,7 @@ vtkActor%\index{vtkActor!VRML example}% isoActor
   isoActor SetMapper isoMapper
   eval [isoActor GetProperty] SetColor 0.3 0.4 0.5
 
-vtkStructuredGridOutlineFilter outline
+vtkStructuredGridOutlineFilter%\index{vtkStructuredGridOutlineFilter!example}% outline
   outline SetInputConnection [pl3d GetOutputPort]
 vtkPolyDataMapper outlineMapper
   outlineMapper SetInputConnection [outline GetOutputPort]
