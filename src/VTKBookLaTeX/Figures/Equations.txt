@@ -1,0 +1,898 @@
+Chapter 4
+% Equation 4-1
+
+$$
+\begin{equation*}
+F(x,y,z) = a_0 x^2 + a_1 y^2 + a_2 z^2 + a_3 x y + a_4 y z + a_5 x z + a_6 x + a_7 y + a_8 z + a_9
+\end{equation*}
+\bf\tag{4-1}
+$$
+
+Chapter 6
+
+Figure 6-1
+$$
+\left. \begin{aligned}
+&s_i = min, i = 0 \\
+&s_i > max, i = n-1 \\
+&i =n \left(\frac{s_i - min}{max - min}\right)
+\end{aligned}\right.
+
+Figure 6-12 - PNG generated with http://latex2png.com/
+Figure 6-12
+s_i = \frac{(p_i-p_j) \cdot (p_h-p_l)}{|p_h-p_l|^2}
+Figure 6-21c - PNG generated with http://latex2png.com/
+
+$$
+\large\sigma{_x} &=& -\frac{P}{2 \pi \rho ^2}\left(\frac{3zx^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
+} - \frac{\rho}{\rho+z}+\frac{x ^2 (2 \rho + z)}{\rho ( \rho + z) ^2} \right) \right) \\
+\large\sigma{_y} &=& -\frac{P}{2 \pi \rho ^2}\left(\frac{3zy^2}{\rho ^3} -(1-2v)\left((\frac{z}{\rho\
+} - \frac{\rho}{\rho+z}+\frac{y ^2 (2 \rho + z)}{\rho ( \rho + z) ^2} \right) \right) \\ \\
+\large\sigma{_z} &=& -\frac{3Pz^3}{2 \pi \rho ^5}
+$$
+
+$$
+\tau_{xy} &=& \tau_{yx}=-\frac{P}{2 \pi \rho ^2}\left( \frac{3xyz}{\rho ^3} - (1-2v)\left(\frac{xy(2 \rho + z)}{\rho ( \rho + z) ^2}\right)\right) \\
+\tau_{xz}&=&\tau_{zx} = -\frac{3Pxz^2}{2 \pi \rho ^5}\\
+\tau_{yz}&=&=\tau_{zy} = -\frac{3Pyz^2}{2 \pi \rho ^5}
+$$
+
+Figure 6-20a
+\huge\left[\begin{array}{ccc}
+\sigma{_x} & \tau{_{xy}} & \tau{_{xz}}  \\
+\tau{_{yx}} & \sigma{_y} & \tau{_{yz}}    \\
+\tau{_{zx}} & \tau{_{zy}} & \sigma{_z}
+\end{array}\right]
+
+Figure 6-20b
+\huge\left[\begin{array}{ccc}
+\frac{\partial u}{\partial x} & (\frac{\partial u}{\partial y} + \frac{\partial v}{\partial z})&   (\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x})\\ \\
+(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial z}) & \frac{\partial v}{\partial y} & (\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y})    \\ \\
+(\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x}) & (\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y})&
+\frac{\partial w}{\partial z}
+\end{array}\right]
+
+------- Chapter 7
+from Bernard Mehan
+
+% EQUATION 7-1
+\begin{eqnarray*}
+R &=& (1 - A_s) R_b + A_s R_s \\
+G &=& (1 - A_s) G_b + A_s G_s \\
+B &=& (1 - A_s) B_b + A_s B_s \\
+A &=& (1 - A_s) A_b + A_s
+\end{eqnarray*}
+\bf\tag{7-1}
+
+% EQUATION 7-2
+\begin{equation*}
+\left(x, y, z\right) = \left(x_0, y_0, z_0\right) + \left(a, b, c\right) t
+\end{equation*}
+\bf\tag{7-2}
+
+% EQUATION 7-3
+\begin{eqnarray*}
+g_x &=& \frac{f(x + \Delta x, y, z) - f(x - \Delta x, y, z)}{2 \Delta x} \\
+g_y &=& \frac{f(x, y + \Delta y, z) - f(x, y - \Delta y, z)}{2 \Delta y} \\
+g_z &=& \frac{f(x, y, z + \Delta z) - f(x, y, z - \Delta z)}{2 \Delta z}
+\end{eqnarray*}
+\bf\tag{7-3}
+
+% EQUATION 7-4
+\begin{equation*}
+I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} Q\left(\tau\right) e^{\left(-\int_{t_0}^{t} \sigma_\text{a}\left(\tau\right) + \sigma_\text{sc}\left(\tau\right) \, \text{d} \tau\right)} \, \text{d}\tau
+\end{equation*}
+\bf\tag{7-4}
+
+% EQUATION 7-5
+% perhaps with a note that capital omega is "over all solid angles"
+\begin{equation*}
+Q(t) = E(t) + \sigma_\text{sc}(t) \int_{\Omega} \rho_{sc}(\omega' \to \omega) I(t, \omega') \, \text{d}\omega'
+\end{equation*}
+\bf\tag{7-5}
+
+% EQUATION 7-6
+\begin{equation*}
+I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} E\left(\tau\right) e^\left(-\int_{t_0}^{t} \sigma_\text{a}\left(\tau\right) \, \text{d} \tau \right) \, \text{d}\tau
+\end{equation*}
+\bf\tag{7-6}
+
+% EQUATION 7-7
+\begin{equation*}
+I(t_\text{near}, \vec{\omega}) = \sum_{t = t_\text{near}}^{t \leq t_\text{far}} \alpha(t) \prod_{t' = t_\text{near}}^{t' < t_\text{far}}\left(1 - a(t') \right)
+\end{equation*}
+\bf\tag{7-7}
+
+% EQUATION 7-8
+\begin{equation*}
+I(t_n, \vec{\omega}) = \alpha(t_n) + \left(1 - \alpha(t_n) \right) I(t_{n + 1}, \vec{\omega})
+\end{equation*}
+\bf\tag{7-8}
+
+% EQUATION 7-9
+\begin{eqnarray*}
+\frac{\partial Z}{\partial x} &\simeq& \frac{Z\left(x_p + \Delta x, y_p\right) - Z\left(x_p - \Delta x, y_p\right)}{2 \Delta x} \\
+\frac{\partial Z}{\partial y} &\simeq& \frac{Z\left(x_p, y_p + \Delta y\right) - Z\left(x_p, y_p - \Delta y\right)}{2 \Delta y} \\
+\frac{\partial Z}{\partial z} &\simeq& 1
+\end{eqnarray*}
+\bf\tag{7-9}
+
+% EQUATION 7-10
+\begin{equation*}
+\frac{\partial Z}{\partial x} \simeq \frac{Z(x_p + \Delta x, y_p) - Z(x_p, y_p)}{\Delta x}
+\end{equation*}
+\bf\tag{7-10}
+
+% EQUATION 7-11
+\begin{equation*}
+\frac{\partial Z}{\partial x} \simeq \frac{Z(x_p, y_p) - Z(x_p - \Delta x, y_p)}{\Delta x}
+\end{equation*}
+\bf\tag{7-11}
+
+% EQUATION 7-12
+\begin{equation*}
+I(t_\text{near}, \vec{\omega}) =  \sum_{t = t_\text{near}}^{t \leq t_\text{far}} \alpha(t)\left(I_\text{a} + I_\text{d} + I_\text{s}\right) \prod_{t' = t_\text{near}}^{t' < t_\text{far}}\left(1 - a(t') \right)
+\end{equation*}
+\bf\tag{7-12}
+
+% EQUATION 7-13
+\begin{eqnarray*}
+\vec{f}_\text{new} &=& \left(\vec{f}\cdot \textbf{M}_\text{WD} + \vec{O}_\text{p}\right)\cdot \textbf{M}_\text{DW} \\
+\vec{O}_\text{w} &=& \vec{f}_\text{new} - \vec{f} \\
+\vec{p}_\text{new} &=& \vec{p} + \vec{O}_\text{w}
+\end{eqnarray*}
+\bf\tag{7-13}
+
+Chapter 8
+
+% EQUATION 8-1
+\begin{equation*}
+x(r) = (1 - r) x_i + r x_{i + 1}
+\end{equation*}
+
+% EQUATION 8-2
+\begin{equation*}
+p_\text{id} = i_p +j_p n_x + k_p n_y
+\end{equation*}
+
+% EQUATION 8-3
+\begin{equation*}
+\text{cell}_\text{id} = i_p + j_p (n_x - 1) + k_p (n_x - 1)(n_y - 1)
+\end{equation*}
+
+% EQUATION 8-4
+\begin{equation*}
+d = \sum_{i = 0}^{n - 1}W_i\,  d_i
+\end{equation*}
+
+% EQUATION 8-5
+% check me on this one - I was reading and guessing the meaning
+\begin{equation*}
+W_i = 1, W_{j \neq i} = 0 \quad \text{when} \quad p = p_i
+\end{equation*}
+
+% EQUATION 8-6
+% check me on this one - I was reading and guessing the meaning
+\begin{equation*}
+\sum W_i = 1, \quad 0 \leq W_i \leq 1
+\end{equation*}
+
+% FIGURE 8-3
+\begin{eqnarray*}
+W_0 &=& 1-r \\
+W_1 &=& r
+\end{eqnarray*}
+
+% FIGURE 8-4
+\begin{eqnarray*}
+W_0 &=& (1-r)(1 - s) \\
+W_1 &=& r(1 - s) \\
+W_2 &=& (1 - r)s \\
+W_3 &=& r s
+\end{eqnarray*}
+
+% FIGURE 8-5
+\begin{eqnarray*}
+W_0 &=& (1-r)(1 - s) \\
+W_1 &=& r(1 - s) \\
+W_2 &=& r s \\
+W_3 &=& (1 - r)s
+\end{eqnarray*}
+
+% FIGURE 8-6
+\begin{eqnarray*}
+W_0 &=& 1 - r - s \\
+W_1 &=& r \\
+W_2 &=& s \\
+\end{eqnarray*}
+
+% FIGURE 8-7
+\begin{eqnarray*}
+W_i &=& \frac{r_i^{-2}}{\sum r_i^{-2}} \\
+r_i &=& \vert p_i - x \vert
+\end{eqnarray*}
+
+% FIGURE 8-9
+\begin{eqnarray*}
+W_0 &=& 1 - r - s - t \\
+W_1 &=& r \\
+W_2 &=& s \\
+W_3 &=& t
+\end{eqnarray*}
+
+% FIGURE 8-10
+\begin{eqnarray*}
+W_0 &=& (1 - r)(1 - s)(1 - t) \\
+W_1 &=& r (1-s)(1 -t) \\
+W_2 &=& (1-r)s(1-t) \\
+W_3 &=& rs(1 - t) \\
+W_4 &=& (1 - r)(1 - s) t \\
+W_5 &=& r (1-s)t \\
+W_6 &=& (1 - r)s t \\
+W_7 &=& r s t
+\end{eqnarray*}
+
+% FIGURE 8-11
+\begin{eqnarray*}
+W_0 &=& (1 - r)(1 - s)(1 - t) \\
+W_1 &=& r (1-s)(1 -t) \\
+W_2 &=& rs (1-t) \\
+W_3 &=& (1-r)s(1 - t) \\
+W_4 &=& (1 - r)(1 - s) t \\
+W_5 &=& r (1-s)t \\
+W_6 &=& rs t \\
+W_7 &=& (1-r)st
+\end{eqnarray*}
+
+% FIGURE 8-12
+\begin{eqnarray*}
+W_0 &=& (1 - r - s)(1 - t) \\
+W_1 &=& r (1-t) \\
+W_2 &=& s (1 - t) \\
+W_3 &=& (1 - r - s)t \\
+W_4 &=& r t \\
+W_5 &=& s t
+\end{eqnarray*}
+
+% FIGURE 8-13
+\begin{eqnarray*}
+W_0 &=& (1-r)(1-s)(1-t) \\
+W_1 &=& r(1-s)(1-t) \\
+W_2 &=& r s (1-t) \\
+W_3 &=& (1-r)s(1-t) \\
+W_4 &=& t
+\end{eqnarray*}
+
+% FIGURE 8-14
+% there are several blocks of these - not sure if you needed them separate
+\begin{eqnarray*}
+x_i &=& \frac{1}{2}\left(1 +\cos\left(\frac{5\pi}{4} + i \frac{2\pi}{5}\right)\right) \\
+y_i &=& \frac{1}{2}\left(1 +\sin\left(\frac{5\pi}{4} + i \frac{2\pi}{5}\right)\right) \\
+i &\in& \lbrace 0, 1, 2, 3, 4 \rbrace
+\end{eqnarray*}
+
+\begin{eqnarray*}
+A &=& x_2 - x_1 \\
+B &=& y_2 - y_1 \\
+C &=& x_1 y_2 - x_2 y_1 \\
+D &=& x_2 - x_3 \\
+E &=& x_2 y_3 - x_3 y_2 \\
+F &=& x_0 - x_4 \\
+G &=& y_4 - y_0 \\
+H &=& x_0 y_4 - x_4 y_0
+\end{eqnarray*}
+
+\begin{eqnarray*}
+W_0 &=& -N(-As + Br - C)(Bs-Ar-C)(t - 1) \\
+W_1 &=& N(Ds+Dr-E)(Fs-Gr-H)(t-1) \\
+W_2 &=& -N(Bs -Ar -C)(-Gs-Fr+H)(t - 1)\\
+W_3 &=& N(-As + Br -C)(Fs + Gr - H)(t - 1) \\
+W_4 &=& -N(-Gs - Fr + H)(Ds + Dr - E)(t - 1) \\
+W_5 &=& N(-As +Br - C)(Bs -Ar -C)t \\
+W_6 &=& -N(Ds + Dr - E)(Fs + Gr - H)t\\
+W_7 &=& N(Bs - Ar -C)(-Gs -Fr + H)t \\
+W_8 &=& -N(-As + Br -C)(Fs + Gr - H)t \\
+W_9 &=& N(-Gs - Fr + H)(Ds + Dr -E)t
+\end{eqnarray*}
+
+% FIGURE 8-15
+% THERE SEEMS TO BE A PROBLEM WITH alpha and beta - they are the same thing?
+% Perhaps there was a minus sign somewhere?
+\begin{eqnarray*}
+\alpha &=& \frac{\sqrt{3}}{4} + \frac{1}{2} \\
+\beta &=& \frac{1}{2} - \frac{\sqrt{3}}{4}, \alpha + \beta = 1
+\end{eqnarray*}
+
+\begin{eqnarray*}
+W_0 &=&-\frac{16}{3}(r - \alpha)(r - \beta)(s - 1)(t - 1) \\
+W_1 &=&\frac{16}{3}(r - \frac{1}{2})(r - \beta)(s - \frac{3}{4})(t - 1) \\
+W_2 &=& -\frac{16}{3}(r - \frac{1}{2})(r - \beta)(s - \frac{1}{4})(t - 1) \\
+W_3 &=& \frac{16}{3}(r - \alpha)(r - \beta)s(t - 1) \\
+W_4 &=& -\frac{16}{3}(r - \frac{1}{2})(r - \alpha)(s - \frac{1}{4})(t - 1) \\
+W_5 &=& \frac{16}{3}(r - \frac{1}{2})(r - \alpha)(s - \frac{3}{4})(t - 1)
+\end{eqnarray*}
+
+\begin{eqnarray*}
+W_6 &=& \frac{16}{3}(r - \alpha)(r - \beta)(s - 1)t \\
+W_7 &=&-\frac{16}{3}(r - \frac{1}{2})(r - \beta)(s - \frac{3}{4})t \\
+W_8 &=&  \frac{16}{3}(r - \frac{1}{2})(r - \beta)(s - \frac{1}{4})t \\
+W_9 &=& -\frac{16}{3}(r - \alpha)(r - \beta)st \\
+W_{10} &=&  \frac{16}{3}(r - \frac{1}{2})(r - \alpha)(s - \frac{1}{4})t \\
+W_{11} &=& -\frac{16}{3}(r - \frac{1}{2})(r - \alpha)(s - \frac{3}{4})t
+\end{eqnarray*}
+
+% FIGURE 8-16
+\begin{eqnarray*}
+W_0 &=& 2 \left( r - \frac{1}{2}\right)(r - 1) \\
+W_1 &=& 2 r \left( r - \frac{1}{2}\right) \\
+W_2 &=& 4 r (1 - r)
+\end{eqnarray*}
+
+% FIGURE 8-17
+\begin{eqnarray*}
+W_0 &=& (1 - r - s)(2(1 - r - s) - 1) \\
+W_1 &=& r (2 r - 1) \\
+W_2 &=& s(2s - 1) \\
+W_3 &=& 4 r (1 - r - s) \\
+W_4 &=& 4 r s \\
+W_5 &=& 4 s (1 - r-s)
+\end{eqnarray*}
+
+% FIGURE 8-18
+\begin{eqnarray*}
+\xi &=& 2 r  - 1, \quad \xi_i = \pm 1 \\
+\eta &=& 2 s - 1, \quad \eta_i = \pm 1 \\
+W_i &=& (1 + \xi_i \xi)(1 + \eta_i \eta)(\xi_i \xi + \eta_i \eta - 1)/4, \quad i \in \lbrace 0, 1, 2, 3 \rbrace \\
+W_i &=& (1 - \xi^2)(1 + \eta_i \eta)/2, \quad i \in \lbrace 4, 6 \rbrace \\
+W_i &=& (1 - \eta^2)(1 + \xi_i \xi)/2, \quad i \in \lbrace 5, 7 \rbrace \\
+\end{eqnarray*}
+
+% FIGURE 8-19
+\begin{eqnarray*}
+u &=& 1 - r - s- t \\
+W_0 &=& u(2u-1) \\
+W_1 &=& r(2r - 1) \\
+W_2 &=& s(2s - 1) \\
+W_3 &=& t (2t - 1) \\
+W_4 &=& 4 u r \\
+W_5 &=& 4 r s \\
+W_6 &=& 4 s u \\
+W_7 &=& 4 u t \\
+W_8 &=& 4 r t \\
+W_9 &=& 4 s t
+\end{eqnarray*}
+
+% FIGURE 8-20
+\begin{eqnarray*}
+\xi &=& 2r  - 1,\quad \xi_i = \pm1 \\
+\eta &=& 2 s - 1,\quad \eta_i = \pm1 \\
+\zeta &=& 2 t - 1,\quad \zeta_i = \pm1 \\
+W_i &=& (1 + \xi_i \xi)(1 + \eta_i \eta)(1 + \zeta_i \zeta)(\xi_i \xi + \eta_i \eta + \zeta_i \zeta - 2)/8, \quad i \in \lbrace 1 \ldots 7 \rbrace \\
+W_i &=& (1 - \xi^2)(1 + \eta_i \eta)(1 + \zeta_i \zeta)/4, \quad i \in \lbrace 8, 10, 12, 14 \rbrace\\
+W_i &=& (1 - \eta^2)(1 + \xi_i \xi)(1 + \zeta_i \zeta)/4, \quad i \in \lbrace 9, 11, 13, 15 \rbrace \\
+W_i &=& (1 - \zeta^2)(1 + \xi_i \xi)(1 + \eta_i \eta)/4, \quad i \in \lbrace 16, 17, 18, 19 \rbrace
+\end{eqnarray*}
+
+% FIGURE 8-21
+\begin{eqnarray*}
+W_0 &=& (1 - r - s)(1 - t)(1 - 2r -2s -2t) \\
+W_1 &=& r(1 - t)(2r - 2t - 1) \\
+W_2 &=& s(1 - t)(2s - 2t - 1) \\
+W_3 &=& (1 - r - s)t(2t - 2r - 2s - 1) \\
+W_4 &=& rt(2r + 2t - 3) \\
+W_5 &=& st(2s + 2t - 3) \\
+W_6 &=& 4r(1 - r - s)(1 - t) \\
+W_7 &=& 4rs(1 - t) \\
+W_8 &=& 4s(1 - t)(1 - r - s) \\
+W_9 &=& 4r(1 - r - s)t \\
+W_{10} &=& 4 rst \\
+W_{11} &=& 4 (1 - r - s)s t\\
+W_{12} &=& 4 (1 - r - s)t(1 - t) \\
+W_{13} &=& 4rt(1 - t) \\
+W_{14} &=& 4st(1 - t)
+\end{eqnarray*}
+
+% FIGURE 8-22
+\begin{eqnarray*}
+\xi &=& 2 r - 1, \quad \xi_i = \pm1 \\
+\eta &=& 2 s - 1, \quad \eta_i = \pm1 \\
+\zeta &=& 2 t - 1, \quad \zeta_i = \pm1 \\
+W_i &=& (1 + \xi_i \xi)(1 + \eta_i \eta)(1 + \zeta_i \zeta)(\xi_i \xi + \eta_i \eta + \zeta_i \zeta - 2)/8, \quad i \in \lbrace 0, 1, 2, 3 \rbrace \\
+W_4 &=& \zeta(1 - \zeta)/4 \\
+W_i &=& (1 - \xi^2)(1 + \eta_i \eta)(1 + \zeta_i \zeta)/4, \quad i \in \lbrace 5, 6, 7, 8\rbrace \\
+W_i &=& (1 - \zeta^2)(1 + \xi_i \xi)(1 + \eta_i \eta)/4, \quad i \in \lbrace 9, 10, 11, 12 \rbrace
+\end{eqnarray*}
+
+% EQUATION 8-7
+\begin{equation*}
+\text{split edge if} (\epsilon_i > \epsilon_i^{\text{T}}), \quad \text{for all} \quad \epsilon_i \in E
+\end{equation*}
+
+% EQUATION 8-8
+\begin{equation*}
+p = \sum_{i = 0}^{n - 1} W_i(r_0, s_0, t_0)\, p_i
+\end{equation*}
+
+% EQUATION 8-9
+\begin{equation*}
+r = \frac{x - x_0}{x_1 - x_0} = \frac{y - y_0}{y_1 - y_0} = \frac{z - z_0}{z_1 - z_0}
+\end{equation*}
+
+% EQUATION 8-10
+\begin{eqnarray*}
+f(r, s, t) &=& x - \sum W_i \, x_i = 0 \\
+g(r, s, t) &=& y - \sum W_i \, y_i = 0 \\
+h(r, s, t) &=& z - \sum W_i \, z_i = 0
+\end{eqnarray*}
+
+% EQUATION 8-11
+\begin{eqnarray*}
+f(r, s, t) &\simeq& f_0
+  + \frac{\partial f}{\partial r}(r - r_0)
+  + \frac{\partial f}{\partial s}(s - s_0)
+  + \frac{\partial f}{\partial t}(t - t_0) + \ldots \\
+g(r, s, t) &\simeq& g_0
+  + \frac{\partial g}{\partial r}(r - r_0)
+  + \frac{\partial g}{\partial s}(s - s_0)
+  + \frac{\partial g}{\partial t}(t - t_0) + \ldots \\
+h(r, s, t) &\simeq& h_0
+  + \frac{\partial h}{\partial r}(r - r_0)
+  + \frac{\partial h}{\partial s}(s - s_0)
+  + \frac{\partial h}{\partial t}(t - t_0) + \ldots \\
+\end{eqnarray*}
+
+% EQUATION 8-12
+\begin{equation*}
+\left(
+\begin{array}{c}
+r_{i + 1} \\
+s_{i + 1} \\
+t_{i + 1}
+\end{array}
+\right) = \left(
+\begin{array}{c}
+r_i \\
+s_i \\
+t_i
+\end{array}
+\right) - \left(
+\begin{array}{c c c}
+\frac{\partial f}{\partial r} & \frac{\partial f}{\partial s} & \frac{\partial f}{\partial t} \\
+\frac{\partial g}{\partial r} & \frac{\partial g}{\partial s} & \frac{\partial g}{\partial t} \\
+\frac{\partial h}{\partial r} & \frac{\partial h}{\partial s} & \frac{\partial h}{\partial t}
+\end{array}
+\right)^{-1}
+\left(
+\begin{array}{c}
+f_i \\
+g_i \\
+h_i
+\end{array}
+\right)
+\end{equation*}
+
+% EQUATION 8-13
+\begin{equation*}
+\frac{d s}{d r} = \frac{s_1 - s_0}{1} = (s_1 - s_0)
+\end{equation*}
+
+% EQUATION 8-14
+\begin{equation*}
+\frac{d s}{d x'} = \frac{s_1 - s_0}{1}
+\end{equation*}
+
+% EQUATION 8-15
+\begin{equation*}
+\frac{d}{d r} = \frac{d}{dx'} \frac{dx'}{dr}
+\end{equation*}
+
+% EQUATION 8-16
+\begin{equation*}
+\frac{d}{d x'} = \frac{d}{dr}/ \frac{dx'}{dr}
+\end{equation*}
+
+% EQUATION 8-17
+\begin{equation*}
+\frac{d x'}{d r} = \frac{d}{dr} \left(\sum_{i}W_i \, x_i' \right) = -x_0' + x_1' = 1
+\end{equation*}
+
+% EQUATION 8-18
+\begin{equation*}
+\vec{v} = \frac{\vec{x}_1 - \vec{x}_0}{\vert\vec{x}_1 - \vec{x}_0 \vert}
+\end{equation*}
+
+% EQUATION 8-19
+\begin{eqnarray*}
+\frac{ds}{dx}  &=& \left(\frac{s_1 - s_0}{1}\right) \vec{v} \cdot (1, 0, 0) \\
+\frac{ds}{dy}  &=& \left(\frac{s_1 - s_0}{1}\right) \vec{v} \cdot (0, 1, 0) \\
+\frac{ds}{dz}  &=& \left(\frac{s_1 - s_0}{1}\right) \vec{v} \cdot (0, 0, 1)
+\end{eqnarray*}
+
+% EQUATION 8-20
+\begin{eqnarray*}
+\frac{\partial}{\partial x} &=& \frac{\partial}{\partial r} \frac{\partial r}{\partial x}
+
+                              + \frac{\partial}{\partial s} \frac{\partial s}{\partial x}
+
+                              + \frac{\partial}{\partial t} \frac{\partial t}{\partial x} \\
+
+\frac{\partial}{\partial y} &=& \frac{\partial}{\partial r} \frac{\partial r}{\partial y}
+
+                              + \frac{\partial}{\partial s} \frac{\partial s}{\partial y}
+
+                              + \frac{\partial}{\partial t} \frac{\partial t}{\partial y} \\
+
+\frac{\partial}{\partial z} &=& \frac{\partial}{\partial r} \frac{\partial r}{\partial z}
+
+                              + \frac{\partial}{\partial s} \frac{\partial s}{\partial z}
+
+                              + \frac{\partial}{\partial t} \frac{\partial t}{\partial z}
+\end{eqnarray*}
+
+% EQUATION 8-21
+\begin{equation*}
+\left(
+\begin{array}{c}
+\frac{\partial}{\partial r} \\
+\frac{\partial}{\partial s} \\
+\frac{\partial}{\partial t}
+\end{array}
+\right) = \left(
+\begin{array}{c c c}
+\frac{\partial x}{\partial r} & \frac{\partial y}{\partial r} & \frac{\partial z}{\partial r} \\
+\frac{\partial x}{\partial s} & \frac{\partial y}{\partial s} & \frac{\partial z}{\partial s} \\
+\frac{\partial x}{\partial t} & \frac{\partial y}{\partial t} & \frac{\partial z}{\partial t}
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+\frac{\partial}{\partial x} \\
+\frac{\partial}{\partial y} \\
+\frac{\partial}{\partial z}
+\end{array}
+\right) =
+\mathbf{J}\left(
+\begin{array}{c}
+\frac{\partial}{\partial x} \\
+\frac{\partial}{\partial y} \\
+\frac{\partial}{\partial z}
+\end{array}
+\right)
+\end{equation*}
+
+% EQUATION 8-22
+\begin{equation*}
+\frac{\partial}{\partial r_i} = \sum_{j} J_{ij} \frac{\partial}{\partial x_j}
+\end{equation*}
+
+% EQUATION 8-23
+\begin{equation*}
+\frac{\partial}{\partial x_i} = \sum_{j} J_{ij}^{-1} \frac{\partial}{\partial r_j}
+\end{equation*}
+
+% EQUATION 8-24
+\begin{equation*}
+C_i = \lbrace p_1, p_2, \ldots, p_n \rbrace = P
+\end{equation*}
+
+% EQUATION 8-25
+\begin{equation*}
+A(C_i, \overline{P}) = \left(\bigcap_{i} U(\overline{p}_i)\right) - C_i
+\end{equation*}
+
+% EQUATION 8-26
+\begin{equation*}
+Y = 0.30 R + 0.59 G + 0.11 B
+\end{equation*}
+
+% EQUATION 8-27
+\begin{equation*}
+Y = A(0.30 R + 0.59 G + 0.11 B)
+\end{equation*}
+
+% FIGURE 8-32
+% Your choice, I made two versions.
+\begin{eqnarray*}
+i = \lfloor \frac{x-x_0}{x_1 - x_0} \rfloor \\
+j = \lfloor \frac{y-y_0}{y_1 - y_0} \rfloor \\
+k = \lfloor \frac{z-z_0}{z_1 - z_0} \rfloor
+\end{eqnarray*}
+
+\begin{eqnarray*}
+i = \text{floor}\left( \frac{x-x_0}{x_1 - x_0} \right) \\
+j = \text{floor}\left( \frac{y-y_0}{y_1 - y_0} \right) \\
+k = \text{floor}\left( \frac{z-z_0}{z_1 - z_0} \right)
+\end{eqnarray*}
+
+\begin{eqnarray*}
+r = \text{frac}\left( \frac{x-x_0}{x_1 - x_0} \right) \\
+s = \text{frac}\left( \frac{y-y_0}{y_1 - y_0} \right) \\
+t = \text{frac}\left( \frac{z-z_0}{z_1 - z_0} \right)
+\end{eqnarray*}
+
+% EQUATION 8-28
+\begin{eqnarray*}
+g_x &=& \frac{d(x_0 + \Delta x_0, y_0, z_0) - d(x_0 - \Delta x_0, y_0, z_0)}{2 \Delta x_0} \\
+g_y &=& \frac{d(x_0, y_0 + \Delta y_0, z_0) - d(x_0, y_0 - \Delta y_0, z_0)}{2 \Delta y_0} \\
+g_z &=& \frac{d(x_0, y_0, z_0 + \Delta z_0) - d(x_0, y_0, z_0 - \Delta z_0)}{2 \Delta z_0}
+\end{eqnarray*}
+
+% EQUATION 8-29
+\begin{eqnarray*}
+i &=& \text{id} \mod (n_x - 1) \\
+j &=& \frac{\text{id}}{n_x - 1} \mod (n_y - 1) \\
+k &=& \frac{\text{id}}{(n_x - 1)(n_y - 1)}
+\end{eqnarray*}
+
+% EQUATION 8-30
+\begin{eqnarray*}
+0 \leq i < n_x - 1 \\
+0 \leq j < n_y - 1 \\
+0 \leq k < n_z - 1
+\end{eqnarray*}
+
+% EQUATION 8-31
+\begin{eqnarray*}
+i = \text{int}\left( \frac{x-x_0}{x_1 - x_0} \right) \\
+j = \text{int}\left( \frac{y-y_0}{y_1 - y_0} \right) \\
+k = \text{int}\left( \frac{z-z_0}{z_1 - z_0} \right)
+\end{eqnarray*}
+
+% FIGURE 8-37
+\begin{eqnarray*}
+n_T &=& 8^{\ell} \\
+n_O &=& \sum_i 8^i \\
+n_P &=& n_O - n_T
+\end{eqnarray*}
+
+Chapter 9
+
+% EQUATION 9-1
+\begin{equation*}
+n_i = \frac{w_i}{R}
+\end{equation*}
+\bf\tag{9-1}
+
+% EQUATION 9-2
+\begin{equation*}
+F(r) = e^{-r}\cos(10\, r)
+\end{equation*}
+\bf\tag{9-2}
+
+% EQUATION 9-3
+\begin{equation*}
+\Omega = \frac{\vec{v} \cdot \vec{\omega}}{\vert \vec{v} \vert \vert \vec{\omega} \vert}
+\end{equation*}
+\bf\tag{9-3}
+
+% EQUATION 9-4
+\begin{equation*}
+e_{ij} = \epsilon_{ij} + \omega_{ij}
+\end{equation*}
+\bf\tag{9-4}
+
+% EQUATION 9-5
+\begin{equation*}
+\mathbf{\epsilon} = \left(
+\begin{array}{c c c}
+  \frac{\partial u}{\partial x} &
+  \frac{1}{2}\left(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial x}\right) &
+  \frac{1}{2}\left(\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x}\right) \\
+  \frac{1}{2}\left(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial x}\right) &
+  \frac{\partial v}{\partial y} &
+  \frac{1}{2}\left(\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y}\right) \\
+  \frac{1}{2}\left(\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x}\right) &
+  \frac{1}{2}\left(\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y}\right) &
+  \frac{\partial w}{\partial z}
+\end{array}\right)
+\end{equation*}
+\bf\tag{9-5}
+
+% EQUATION 9-6
+\begin{equation*}
+\mathbf{\omega} = \left(
+\begin{array}{c c c}
+  0 &
+  \frac{1}{2}\left(\frac{\partial u}{\partial y} - \frac{\partial v}{\partial x}\right) &
+  \frac{1}{2}\left(\frac{\partial u}{\partial z} - \frac{\partial w}{\partial x}\right) \\
+  \frac{1}{2}\left(\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}\right) &
+  0 &
+  \frac{1}{2}\left(\frac{\partial v}{\partial z} - \frac{\partial w}{\partial y}\right) \\
+  \frac{1}{2}\left(\frac{\partial w}{\partial x} - \frac{\partial u}{\partial z}\right) &
+  \frac{1}{2}\left(\frac{\partial w}{\partial y} - \frac{\partial v}{\partial z}\right) &
+  0
+\end{array}\right)
+\end{equation*}
+\bf\tag{9-6}
+
+% EQUATION 9-7
+\begin{equation*}
+\omega_{ij} = -\frac{1}{2}\sum_{k} \epsilon_{ijk}\, \omega_{k}
+\end{equation*}
+\bf\tag{9-7}
+
+% EQUATION 9-8
+\begin{equation*}
+\vec{\omega} = \left(
+\begin{array}{c}
+\frac{\partial w}{\partial y} - \frac{\partial v}{\partial z} \\
+\frac{\partial u}{\partial z} - \frac{\partial w}{\partial x} \\
+\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}
+\end{array}
+\right)
+\end{equation*}
+\bf\tag{9-8}
+
+% EQUATION 9-9
+\begin{equation*}
+r(\vec{v}) = r_\text{max} \sqrt{\frac{\vert\vec{v}_\text{min}\vert}{\vert\vec{v}\vert}}
+\end{equation*}
+\bf\tag{9-9}
+
+% EQUATION 9-10
+\begin{eqnarray*}
+u &\simeq& \frac{\partial u}{\partial x}\text{d}x
+         + \frac{\partial u}{\partial y}\text{d}y
+         + \frac{\partial u}{\partial z}\text{d}z \\
+v &\simeq& \frac{\partial v}{\partial x}\text{d}x
+         + \frac{\partial v}{\partial y}\text{d}y
+         + \frac{\partial v}{\partial z}\text{d}z \\
+w &\simeq& \frac{\partial w}{\partial x}\text{d}x
+         + \frac{\partial w}{\partial y}\text{d}y
+         + \frac{\partial w}{\partial z}\text{d}z
+\end{eqnarray*}
+\bf\tag{9-10}
+
+% EQUATION 9-11
+\begin{equation*}
+\vec{u} = \mathbf{J}\cdot\text{d}\vec{x},\quad \text{where} \quad \mathbf{J} = \left(
+\begin{array}{c c c}
+\frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} & \frac{\partial u}{\partial z} \\
+\frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} & \frac{\partial v}{\partial z} \\
+\frac{\partial w}{\partial x} & \frac{\partial w}{\partial y} & \frac{\partial w}{\partial z}
+\end{array}
+\right) 
+\end{equation*}
+\bf\tag{9-11}
+
+% EQUATION 9-12
+\begin{equation*}
+H_d = \vec{v} \cdot \vec{w} = \vert \vec{v} \vert \vert \vec{w} \vert \cos(\phi)
+\end{equation*}
+\bf\tag{9-12}
+
+% EQUATION 9-13
+\begin{equation*}
+\vec{v} = \sum_i \lambda_i \vec{e}_i
+\end{equation*}
+\bf\tag{9-13}
+
+% EQUATION 9-14
+\begin{equation*}
+\left(\hat{M} = M^n \right) \to M^{n - 1} \to \ldots \to M^1 \to M^0
+\end{equation*}
+\bf\tag{9-14}
+
+% EQUATION 9-15
+\begin{equation*}
+M^0 \to M^1 \to \ldots \to M^{n - 1} \to M^n
+\end{equation*}
+\bf\tag{9-15}
+
+% EQUATION 9-16
+\begin{equation*}
+\text{edge collapse/split}(v_s, v_t, v_\ell, v_r, A)
+\end{equation*}
+\bf\tag{9-16}
+
+% EQUATION 9-17
+\begin{equation*}
+\left(\hat{M} = M^n \right) \to M^{n - 1} \to \ldots \to M^1 \to \left(M^0 = M(V, \varnothing)\right)
+\end{equation*}
+\bf\tag{9-17}
+
+% EQUATION 9-18
+\begin{equation*}
+\text{vertex split/merge}(v_s, v_t, v_\ell, v_r)
+\end{equation*}
+\bf\tag{9-18}
+ 
+% EQUATION 9-19
+\begin{equation*}
+\vec{x}_{i+1} = \vec{x}_i + \lambda \vec{V}(i, j) = \vec{x}_i + \lambda \sum_{j = 0}^{n}\vec{x}_j - \vec{x}_i
+\end{equation*}
+\bf\tag{9-19}
+
+% EQUATION 9-20
+\begin{equation*}
+e \leq \frac{\sqrt{3}}{2} \frac{L}{D}
+\end{equation*}
+\bf\tag{9-20}
+
+% EQUATION 9-21
+\begin{equation*}
+e_\text{tot} \leq \frac{\sqrt{3}}{2}\left( \frac{L_\text{I}}{D_\text{I}}
+  + \frac{L_\text{W}}{D_\text{W}}\right) + \frac{\Delta x}{2}
+\end{equation*}
+\bf\tag{9-21}
+
+% EQUATION 9-22
+\begin{equation*}
+\text{SF}(x, y, z) = s\, \exp\left( -f(r/R)^2 \right)
+\end{equation*}
+\bf\tag{9-22}
+
+% EQUATION 9-23
+\begin{equation*}
+\text{SF}(x, y, z) = s\, \exp\left( -f\left(\frac{(r_{xy}/E)^2 + z^2}{R^2}\right) \right)
+\end{equation*}
+\bf\tag{9-23}
+
+% EQUATION 9-24
+\begin{eqnarray*}
+z &=& \vec{v}\cdot(\vec{p} - \vec{p}_i), \quad \text{where} \quad \vert \vec{v} \vert = 1 \\
+r_{xy} &=& r^2 - z^2
+\end{eqnarray*}
+\bf\tag{9-24}
+
+% EQUATION 9-25
+\begin{equation*}
+F(p) = \frac{\sum_i^n \frac{F_i}{\vert p - p_i\vert^2}}{\sum_i^n \frac{1}{\vert p - p_i \vert^2}}
+\end{equation*}
+\bf\tag{9-25}
+
+% EQUATION 9-26
+\begin{equation*}
+\frac{\partial F}{\partial x} =
+\frac{\partial F}{\partial y} =
+\frac{\partial F}{\partial z} = 0
+\end{equation*}
+\bf\tag{9-26}
+
+ Chapter 10
+
+% EQUATION 10-1
+\begin{equation*}
+g(i, j) = \frac{1}{2\pi \sigma^2} \exp\left(-\frac{i^2 + j^2}{2\sigma^2} \right)
+        = \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{i^2}{2\sigma^2} \right)
+          \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{j^2}{2\sigma^2} \right)
+\end{equation*}
+\bf\tag{10-1}
+
+% FIGURE 10-2
+\begin{equation*}
+f \star k(x, y) = \sum_{i, j} f(i, j) k(x - i, y - j)
+\end{equation*}
+\bf\tag{10-2}
+
+% EQUATION 10-2
+\begin{equation*}
+H(u, v) = \frac{1}{1 + \left(\frac{C^2}{u^2 + v^2}\right)^n}
+\end{equation*}
+\bf\tag{10-2}
+
+% FIGURE 10-10
+\begin{equation*}
+F(u, v) = \frac{1}{MN} \sum_{x=0}^{M-1}\sum_{y=0}^{N-1} f(x, y)\,
+\exp\left(-2\pi j \left(\frac{x u}{M} + \frac{y v}{N}\right)\right)
+\end{equation*}
+\bf\tag{10-10}
+
+% FIGURE 10-11
+\begin{equation*}
+H(u, v) =
+\begin{cases}
+1 & u^2 + v^2 < C^2 \\
+0 & \text{otherwise}
+\end{cases}
+\end{equation*}
+\bf\tag{10-11}
+
+% The Butterworth filter is equation 10-2 above.
+
+% EQUATION 10-3
+
+\begin{equation*}
+F(x, y) = \sin\left(\frac{x}{10}\right) + \sin\left(\frac{y}{10}\right)
+\end{equation*}
+\bf\tag{10-3}

@@ -396,10 +396,10 @@ CopyChapterAndAddLinks(RepoDir + "/VTKBook/11Chapter11.md", DocDir + "/VTKBook/1
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/12Chapter12.md", DocDir + "/VTKBook/12Chapter12.md")
 CopyChapterAndAddLinks(RepoDir + "/VTKBook/13Glossary.md", DocDir + "/VTKBook/13Glossary.md")
 
-# Copy VTKBookLaTex files
-if not os.path.exists(DocDir + "/VTKBookLaTex"):
-    os.makedirs(DocDir + "/VTKBookLaTex")
-CopyFile(RepoDir + "/VTKBookLaTex/VTKTextBook.md", DocDir + "/VTKBookLaTex/VTKTextBook.md")
+# Copy VTKBookLaTeX files
+if not os.path.exists(DocDir + "/VTKBookLaTeX"):
+    os.makedirs(DocDir + "/VTKBookLaTeX")
+CopyFile(RepoDir + "/VTKBookLaTeX/VTKTextBook.md", DocDir + "/VTKBookLaTeX/VTKTextBook.md")
 
 # Scan all Cxx directories and look for extras
 allExtras = set()
