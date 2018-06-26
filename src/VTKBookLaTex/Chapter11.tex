@@ -14,7 +14,7 @@
 \firstletter{T}he early 1990s established the widespread use and accessibility of the World Wide Web.
 Once a network used primarily by researchers and universities, the Web has become something that is used by people throughout the world.
 The effects of this transformation have been significant, ranging from personal home pages with static images and text, to professional Web pages embedding animation and virtual reality.
-This chapter discusses some of those changes and describes how the World Wide Web can be used to make visualization more accessible, interactive, and powerful.
+This chapter discusses some of those changes and describes how the World Wide Web\index{World Wide Web} can be used to make visualization more accessible, interactive, and powerful.
 Topics covered include the advantages and disadvantages of client-side versus server-side visualization, VRML, and Java3D, interwoven with demonstration examples.
 
 \section{Motivation}
@@ -168,7 +168,7 @@ vtkActor%\index{vtkActor!VRML example}% isoActor
   isoActor SetMapper isoMapper
   eval [isoActor GetProperty] SetColor 0.3 0.4 0.5
 
-vtkStructuredGridOutlineFilter outline
+vtkStructuredGridOutlineFilter%\index{vtkStructuredGridOutlineFilter!example}% outline
   outline SetInputConnection [pl3d GetOutputPort]
 vtkPolyDataMapper outlineMapper
   outlineMapper SetInputConnection [outline GetOutputPort]
@@ -181,7 +181,7 @@ renWin SetSize 500 500
 ren1 SetBackground 0.1 0.2 0.4
 \end{lstlisting}
 
-This is a typical program within VTK that extracts an isosurface and bounding outline from a structured grid dataset. To export this result to a VRML data file we can use the vtkVRMLExporter as shown below:
+This is a typical program within VTK that extracts an isosurface and bounding outline from a structured grid dataset. To export this result to a VRML data file we can use the vtkVRMLExporter\index{vtkVRMLExporter} as shown below:
 
 \begin{lstlisting}[language=TCL, caption={}, numbers=none, frame=none]
 vtkVRMLExporter exp
@@ -190,16 +190,16 @@ vtkVRMLExporter exp
   exp Write
 \end{lstlisting}
 
-These four lines create an instance of vtkVRMLExporter\index{exporter!VRML}, set its input to renWin (an instance of vtkRenderWindow), set a file name, and finally write out the result. This is different from previous examples where data was written out using vtkPolyDataWriter or other subclasses of vtkWriter. vtkVRMLExporter is a subclass of vtkExporter\index{vtkExporter}, not vtkWriter. The significant difference is that a writer takes a vtkDataSet as input and is responsible for writing out a single dataset. An exporter takes a vtkRenderWindow as input and is responsible for writing out an entire scene, possibly containing multiple actors, lights, textures, and material properties, in addition to any datasets.
+These four lines create an instance of vtkVRMLExporter\index{exporter!VRML}\index{vtkVRMLExporter!example}, set its input to renWin (an instance of vtkRenderWindow), set a file name, and finally write out the result. This is different from previous examples where data was written out using vtkPolyDataWriter or other subclasses of vtkWriter. vtkVRMLExporter is a subclass of vtkExporter\index{vtkExporter}, not vtkWriter. The significant difference is that a writer takes a vtkDataSet as input and is responsible for writing out a single dataset. An exporter takes a vtkRenderWindow as input and is responsible for writing out an entire scene, possibly containing multiple actors, lights, textures, and material properties, in addition to any datasets.
 
 If you consider a continuum from a static data file to a fully interactive visualization program, vtkWriter would be at one end, vtkExporter in the middle, and a VTK program at the other. VRML 1.0 would fall at the same place as vtkExporter and VRML 2.0 would fall between vtkExporter and an actual program due to its added support for behavior and script interaction. What VRML lacks from a visualization perspective is algorithms. VRML is a 3D multimedia content format and lacks direct support for applying visualization techniques or algorithms.
 
 \section{A VRML Visualization Server}
-\index{server!VRML|(}\index{VRML!visualization server|(}\index{visualization!using VRML|(}
+\index{server!VRML|(}\index{VRML!visualization server|(}\index{visualization!using VRML|(}\index{VRML!example|(}
 
 We can improve on the earlier MPEG visualization server example by creating a VRML visualization server. The primary limitations of the MPEG approach were that the processing burden was on the server, and the client-side interaction was limited to requesting that a different MPEG animation be generated. In our improved example, the basic idea is the same as before. That is, we use a HTML form to define parameters for a visualization, which then spawns off a CGI-BIN script. The difference is that in this example the server will generate a VRML data file that is returned to the client. The client can then control the viewpoint and rendering of the VRML result. The data and visualization software still reside on the server, so the client is only required to have a VRML compatible Web browser.
 
-\index{VRML!example}The HTML form is essentially the same as the one used to generate Figure \ref{fig:Figure11-2}. What changes is that the \texttt{CGI-BIN} script now needs to produce a \texttt{VRML} file instead of an \texttt{MPEG}. So instead of the form invoking \texttt{makempg.csh}, it will invoke a C++ executable named \texttt{VRMLServer}. This executable will parse the inputs from the form and then write out a \texttt{VRM}L file to its standard output. The first part of the program parses the arguments from the form. The server passes these arguments as a single string to the program's standard input. At the same time an environment variable named \texttt{CONTENT\_LENGTH} is set to the length of this input. In this example there are two values passed from the form: iso and isoval. According to convention they are separated by a ``\&'' when passed to the \texttt{CGI-BIN} script. The following C++ code extracts these values from the input string and performs some quick error checking.
+The HTML form is essentially the same as the one used to generate Figure \ref{fig:Figure11-2}. What changes is that the \texttt{CGI-BIN} script now needs to produce a \texttt{VRML} file instead of an \texttt{MPEG}. So instead of the form invoking \texttt{makempg.csh}, it will invoke a C++ executable named \texttt{VRMLServer}. This executable will parse the inputs from the form and then write out a \texttt{VRM}L file to its standard output. The first part of the program parses the arguments from the form. The server passes these arguments as a single string to the program's standard input. At the same time an environment variable named \texttt{CONTENT\_LENGTH} is set to the length of this input. In this example there are two values passed from the form: iso and isoval. According to convention they are separated by a ``\&'' when passed to the \texttt{CGI-BIN} script. The following C++ code extracts these values from the input string and performs some quick error checking.
 
 \begin{lstlisting}[language=C++, caption={}, numbers=none, frame=none]
 // first get the form data
@@ -250,8 +250,8 @@ vtkVRMLExporter *writer = vtkVRMLExporter::New();
   writer->Write();
 \end{lstlisting}
 
-Finally an instance of vtkVRMLExporter\index{export!VRML} is created, assigned an instance of vtkRenderWindow as input, and set to write to standard output. When the Write() method is applied, the exporter updates the visualization pipeline and produces the VRML output. The vtkRenderWindow is never rendered and no windows appear on the server. There is no need for an interactor because the interaction will be handled by the client's VRML browser. This program simply reads in a string of input (the parameters from the form) and then produces a string of output (the VRML data). It is also important to remember that CGI--BIN scripts are typically run from a different user id and environment than your own; file names and paths should be fully specified.
-\index{server!VRML|)}\index{VRML!visualization server|)}\index{visualization!using VRML|)}
+Finally an instance of vtkVRMLExporter\index{export!VRML}\index{vtkVRMLExporter!example} is created, assigned an instance of vtkRenderWindow as input, and set to write to standard output. When the Write() method is applied, the exporter updates the visualization pipeline and produces the VRML output. The vtkRenderWindow is never rendered and no windows appear on the server. There is no need for an interactor because the interaction will be handled by the client's VRML browser. This program simply reads in a string of input (the parameters from the form) and then produces a string of output (the VRML data). It is also important to remember that CGI--BIN scripts are typically run from a different user id and environment than your own; file names and paths should be fully specified.
+\index{server!VRML|)}\index{VRML!visualization server|)}\index{visualization!using VRML|)}\index{VRML!example|)}
 
 \section{Visualization with Java}
 \index{Java|(}\index{visualization!using Java|(}\index{VTK!and Java|(}
@@ -307,11 +307,11 @@ Next comes the class definition for App2. As with most Java applets, this class 
 public class App2 extends Applet
   {
   vtkPolyDataReader$\index{vtkPolyDataReader!Java example}$ pr = null;
-  vtkWarpVector warp = null;
+  vtkWarpVector$\index{vtkWarpVector!Java example}$ warp = null;
   vtkGeometryFilter$\index{vtkGeometryFilter!Java example}$ ds2poly = null;
   vtkCleanPolyData$\index{vtkCleanPolyData!Java example}$ clean = null;
   vtkPolyDataNormals$\index{vtkPolyDataNormals!Java example}$ normals = null;
-  vtkVectorDot color = null;
+  vtkVectorDot$\index{vtkVectorDot!Java example}$ color = null;
   vtkDataSetMapper$\index{vtkDataSetMapper!Java example}$ plateMapper = null;
   vtkPanel panel = null;
   etc...

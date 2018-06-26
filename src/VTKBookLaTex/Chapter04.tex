@@ -469,7 +469,7 @@ Examples of readers include vtkSTLReader\index{vtkSTLReader} (read stereo-lithog
 \label{subsubsec:file_interface_importers_exporters}
 \index{exporters|(}\index{exporter!interfacing to data|(}\index{importer!interfacing to data|(}\index{interfacing to data!importers and exporters|(}
 
-\emph{Importers}\index{importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter\index{vtk3DSImporter} imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
+\emph{Importers}\index{importers} and \emph{exporters} are objects in the system that read or write data files consisting of more than one object. Typically importers and exporters are used to save or restore an entire scene (i.e., lights, cameras, actors, data, transformations, etc.). When an importer is executed, it reads one or more files and may create several objects. For example, in VTK the vtk3DSImporter\index{vtk3DSImporter} imports a \emph{3D Studio} file and creates a rendering window, renderer, lights, cameras, and actors. Similarly, the vtkVRMLExporter\index{vtkVRMLExporter} creates a VRML file given a VTK render window. The VRML file contains cameras, lights, actors, geometry, transformations, and the like, indirectly referred to by the rendering window provided.
 
 In the \emph{Visualization Toolkit}, there are several importers and exporters. To see which importers and exporters are supported by VTK, see \emph{The VTK User's Guide}. You may also want to check the Web pages at \href{https://www.vtk.org/doc/nightly/html/index.html}{https://www.vtk.org/doc/nightly/html/index.html} for the current Doxygen manual pages. If the exporter you are looking for does not exist, you will have to develop your own using the programming interface.
 
@@ -494,7 +494,7 @@ In the \emph{Visualization Toolkit}, there are several importers and exporters. 
       importer SetFileName "$VTK_DATA_ROOT/Data/iflamigm.3ds"
       importer Read
     # export to rib format
-    vtkRIBExporter exporter
+    vtkRIBExporter%\index{vtkRIBExporter!example}% exporter
       exporter SetFilePrefix importExport
       exporter SetRenderWindow [importer GetRenderWindow]
       exporter BackgroundOn
@@ -721,7 +721,7 @@ We will now demonstrate some of the features of the visualization pipeline with 
 
 \begin{description}[leftmargin=0cm,labelindent=0cm]
 
-\item[Simple Sphere.] The first example demonstrates a simple visualization pipeline. A polygonal representation of a sphere is created with the source object (vtkSphereSource). The sphere is passed through a filter (vtkElevationFilter\index{vtkElevationFilter!example}) that computes the height of each point of the sphere above a plane. The plane is perpendicular to the z-axis, and passes through the point (0,0,-1). The data is finally mapped (vtkDataSetMapper) through a lookup table. The mapping process converts height value into colors, and interfaces the sphere geometry to the rendering library. The mapper is assigned to an actor, and then the actor is displayed. The visualization network, a portion of code, and output image are shown in Figure \ref{fig:Figure4-19}.
+\item[Simple Sphere.] The first example demonstrates a simple visualization pipeline. A polygonal representation of a sphere is created with the source object (vtkSphereSource\index{vtkSphereSource!example}). The sphere is passed through a filter (vtkElevationFilter\index{vtkElevationFilter!example}) that computes the height of each point of the sphere above a plane. The plane is perpendicular to the z-axis, and passes through the point $(0,0,-1)$. The data is finally mapped (vtkDataSetMapper!example) through a lookup table. The mapping process converts height value into colors, and interfaces the sphere geometry to the rendering library. The mapper is assigned to an actor, and then the actor is displayed. The visualization network, a portion of code, and output image are shown in Figure \ref{fig:Figure4-19}.
 
 The execution of the pipeline occurs implicitly when we render the actor. Each actor asks its mapper to update itself. The mapper in turn asks its input to update itself. This process continues until a source object is encountered. Then the source will execute if modified since the last render.
 
@@ -771,7 +771,7 @@ In the \emph{Visualization Toolkit}, the Update() method is public while the Req
 One final note. The indentation of the code serves to indicate where objects are instantiated and modified. The first line (i.e., the New() operator) is where the object is created. The indented lines that follow indicate that various operations are being performed on the object. We encourage you to use a similar indenting scheme in your own work.
 
 %\label{subsubsec:warped_sphere}
-\item[Warped Sphere.] This example extends the pipeline of the previous example and shows the effects of type checking on the connectivity of process objects. We add a transform filter (vtkTransformFilter) to nonuniformly scale the sphere in the x-y-z directions.
+\item[Warped Sphere.] This example extends the pipeline of the previous example and shows the effects of type checking on the connectivity of process objects. We add a transform filter (vtkTransformFilter\index{vtkTransformFilter}) to nonuniformly scale the sphere in the x--y--z directions.
 
 The transform filter only operates on objects with explicit point coordinate representation (i.e., a subclass of vtkPointSet\index{vtkPointSet}). However, the elevation filter generates the more general form vtkDataSet\index{vtkDataSet} as output. Hence we cannot connect the transform filter to the elevation filter. But we can connect the transform filter to the sphere source, and then the elevation filter to the transform filter. The result is shown in Figure \ref{fig:Figure4-20}. (Note: an alternative method is to use vtkCastToConcrete\index{vtkCastToConcrete} to perform run-time casting.)
 
@@ -794,7 +794,7 @@ The C++ compiler enforces the proper connections of sources, filters, and mapper
   \end{subfigure}
   \hfill
   \begin{subfigure}[h]{0.76\linewidth}
-    \begin{lstlisting}[language=C++, caption={Warped Sphere.}]
+    \begin{lstlisting}[language=C++, caption={Warped Sphere.}, escapechar=\$]
     vtkSphereSource *sphere = vtkSphereSource::New();
       sphere->SetThetaResolution(12);
       sphere->SetPhiResolution(12);
@@ -802,7 +802,7 @@ The C++ compiler enforces the proper connections of sources, filters, and mapper
     vtkTransform *aTransform = vtkTransform::New();
       aTransform->Scale(1,1.5,2);
 
-    vtkTransformFilter *transFilter = vtkTransformFilter::New();
+    vtkTransformFilter$\index{vtkTransformFilter!example}$ *transFilter = vtkTransformFilter::New();
       transFilter->SetInputConnection(sphere->GetOutputPort());
       transFilter->SetTransform(aTransform);
 
@@ -877,7 +877,7 @@ The visualization network branches at vtkGlyph3D. If either branch is modified, 
   \caption{An example of multiple inputs and outputs.}\label{fig:Figure4-21}
 \end{figure}
 
-\item[Disappearing Sphere.] In our last example we construct a visualization network with a feedback loop, and show how we can use procedural programming to change the topology of the network. The network consists of four objects: vtkSphereSource to create an initial polygonal geometry, vtkShrinkFilter to shrink the polygons and create a gap or space between neighbors, vtkElevationFilter\index{vtkElevationFilter} to color the geometry according to height above the x-y plane, and vtkDataSetMapper\index{vtkDataSetMapper!example} to map the data through a lookup table and interface to the rendering library. The network topology, a portion of the C++ code, and output are shown in Figure \ref{fig:Figure4-22}.
+\item[Disappearing Sphere.] In our last example we construct a visualization network with a feedback loop, and show how we can use procedural programming to change the topology of the network. The network consists of four objects: vtkSphereSource\index{vtkSphereSource!example} to create an initial polygonal geometry, vtkShrinkFilter\index{vtkShrinkFilter!example} to shrink the polygons and create a gap or space between neighbors, vtkElevationFilter\index{vtkElevationFilter!example} to color the geometry according to height above the x--y plane, and vtkDataSetMapper\index{vtkDataSetMapper!example} to map the data through a lookup table and interface to the rendering library. The network topology, a portion of the C++ code, and output are shown in Figure \ref{fig:Figure4-22}.
 
 After vtkSphereSource generates an initial geometry (in response to a render request), the input of vtkShrinkFilter is changed to the output of the vtkElevationFilter. Because of the feedback loop, vtkShrinkFilter will always reexecute. Thus, the behavior of the network is to reexecute each time a render is performed. Because the shrink filter is reapplied to the same data, the polygons become smaller and smaller and eventually disappear.
 
@@ -1007,7 +1007,7 @@ For each technique:
 
 \begin{enumerate}
 
-    \item Translate the actor with vtkTransform's Translate() method.
+    \item Translate the actor with \index{vtkTransform!exercise}vtkTransform's Translate() method.
 
     \item Rotate the actor with the RotateX(), RotateY(), and RotateZ() methods.
 
@@ -1017,7 +1017,7 @@ For each technique:
 
 \end{enumerate}
 
-\item Visualize the following functions. (\emph{Hint}: use vtkSampleFunction and refer to Figure \ref{fig:Figure4-1}.)
+\item Visualize the following functions. (\emph{Hint}: use vtkSampleFunction\index{vtkSampleFunction!exercise} and refer to Figure \ref{fig:Figure4-1}.)
 
 \begin{enumerate}
 

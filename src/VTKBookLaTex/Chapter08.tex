@@ -1976,11 +1976,11 @@ The object vtkPointPicker\index{vtkPointPicker} intersects the ray against the p
 
 The object vtkCellPicker\index{vtkCellPicker} intersects the ray with the cells defining each vtkProp3D, and returns the point of intersection, as well as the vtkProp3D that the cell belongs to. If you are trying to select a cell belonging to a particular vtkProp3D, vtkCellPicker is the object to use because it performs surface (or cell) intersection. Unfortunately, vtkCellPicker is the slowest of the pickers because of greater computational requirements.
 
-The class vtkWorldPointPicker\index{vtkWorldPointPicker} returns the $(x,y,z)$ coordinate value of a pick in the rendering window. To determine this information, it combines the display $(x,y)$ values with the z-buffer depth values. Of all the pickers this is the fastest, but it cannot determine the actual cell, point or vtkProp that is selected since it is not a subclass of vtkAbstractPropPicker. (Note: on some systems \emph{z}--buffer operations are inoperative and this object will not function properly.)
+The class vtkWorldPointPicker\index{vtkWorldPointPicker} returns the $(x,y,z)$ coordinate value of a pick in the rendering window. To determine this information, it combines the display $(x,y)$ values with the z--buffer depth values. Of all the pickers this is the fastest, but it cannot determine the actual cell, point or vtkProp that is selected since it is not a subclass of vtkAbstractPropPicker. (Note: on some systems \emph{z}--buffer operations are inoperative and this object will not function properly.)
 
 By default picking is performed with the class vtkPropPicker\index{vtkPropPicker}. This class uses hardware-accelerated picking --- so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the $(x,y,z)$ world coordinate value
 
-Figure \ref{fig:Figure8-39} summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the ``p'' key (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:examples_introducing_vtkRenderWindowInteractor}). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
+Figure \ref{fig:Figure8-39} summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the ``p'' key (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:examples_introducing_vtkRenderWindowInteractor})\index{vtkRenderWindowInteractor}. By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
 \index{picking!implementation|)}
 
 \subsection{Examples}
@@ -2064,7 +2064,7 @@ for (cellId=0; cellId < numCells; cellId++)
     \label{fig:Figure8-41}
 \end{figure}
 
-This same approach is used in the vtkRotationalExtrusionFilter (Figure \ref{fig:Figure8-40}(b)). The difference between these two functions is that the type of motion is rotational as compared to linear (vtkLinearExtrusionFilter). These two filters can be used to perform some nifty modelling operations. Linear extrusion can be used to create bar charts with arbitrary cross sections, or to sweep out three--dimensional fonts. The rotational extrusion filter can be used to create rotationally symmetric objects such as bottles or wine glasses. Examples of these techniques are shown in Figure \ref{fig:Figure8-41}.
+This same approach is used in the vtkRotationalExtrusionFilter\index{vtkRotationalExtrusionFilter!example} (Figure \ref{fig:Figure8-40}(b)). The difference between these two functions is that the type of motion is rotational as compared to linear (vtkLinearExtrusionFilter). These two filters can be used to perform some nifty modelling operations. Linear extrusion can be used to create bar charts with arbitrary cross sections, or to sweep out three--dimensional fonts. The rotational extrusion filter can be used to create rotationally symmetric objects such as bottles or wine glasses. Examples of these techniques are shown in Figure \ref{fig:Figure8-41}.
 
 \item[Find Cells] In this example we combine picking and a topological operation to select cells sharing a common point. Specifically, we use vtkPointPicker\index{vtkPointPicker!example} and the topological dataset operation GetPointCells(). Figure \ref{fig:Figure8-42} depicts this operation. We have also included a fragment of C++ code implementing this procedure. Note that this procedure will work for any dataset type, even if the geometry is implicitly defined (e.g., vtkImageData).
 
@@ -2117,7 +2117,7 @@ This same approach is used in the vtkRotationalExtrusionFilter (Figure \ref{fig:
 
 The most difficult part of this procedure is the picking process. The selection point must be specified in pixel coordinates. The vtkPointPicker converts these coordinates into world and then dataset coordinates using the renderer in which the pick occurred. (The renderer uses the transformation matrix of its active camera to perform coordinate transformation.)
 
-The picking process is conveniently managed in vtkRenderWindowInteractor. This object allows the specification of functions to execute just before picking and just after picking (i.e., ``AddObserver StartPickEvent'' and ``AddObserver EndPickEvent''). Using this facility we can define a postpicking function to retrieve the point id and then execute the GetPointCells() operation. This process is shown in Figure \ref{fig:Figure8-42}.
+The picking process is conveniently managed in vtkRenderWindowInteractor\index{vtkRenderWindowInteractor}. This object allows the specification of functions to execute just before picking and just after picking (i.e., ``AddObserver StartPickEvent'' and ``AddObserver EndPickEvent''). Using this facility we can define a postpicking function to retrieve the point id and then execute the GetPointCells() operation. This process is shown in Figure \ref{fig:Figure8-42}.
 
 \item[Point Probe]
 \label{subsec:examples.point_probe}

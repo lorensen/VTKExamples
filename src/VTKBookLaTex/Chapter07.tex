@@ -67,7 +67,7 @@ By adding alpha values to an intensity map we get two components. We can do the 
 
 Besides the different ways in which a texture map can be defined, there are options in how it interacts with the original color of the object. A common option for RGB and RGBA maps is to ignore the original color; that is, just apply the texture color as specified. Another option is to modulate the original color by the texture map color (or intensity) to produce the final color.
 
-While we have been focusing on 2D texture maps, they can be of any dimension, though the most common are 2D and 3D\index{texture map!3D}. Three--dimensional texture maps are used for textures that are a function of 3D space, such as wood grain, stone, or X-ray intensity (i.e., CT scan). In fact, a volumetric dataset is essentially a 3D texture. We can perform high-speed volume rendering by passing planes through a 3D texture and compositing them using translucent alpha values in the correct order.
+While we have been focusing on 2D texture maps, they can be of any dimension, though the most common are 2D and 3D\index{texture map!3D}. Three--dimensional texture maps are used for textures that are a function of 3D space, such as wood grain, stone, or X--ray intensity (i.e., CT scan). In fact, a volumetric dataset is essentially a 3D texture. We can perform high-speed volume rendering by passing planes through a 3D texture and compositing them using translucent alpha values in the correct order.
 
 \begin{figure}[!htb]
 	\centering
@@ -723,7 +723,7 @@ There are a couple of disadvantages to this system. The resolutions of NTSC and 
 
 To overcome these difficulties, some computer manufacturers offer stereo ready graphics cards. These systems use liquid crystal shuttered glasses to directly view the computer monitor. To obtain the alternating stereo images, the left eye image is rendered to the top half of the screen and the right eye image to the bottom. Then the graphics card enters a special stereo mode where it doubles the refresh rate of the monitor. So a monitor that initially displays both images at 60Hz begins to alternate between the left and right eye at a rate of 120Hz. This results in each eye getting updated at 60Hz, with its original horizontal resolution and half of its original vertical resolution. For this process to work, your application must take up the entire screen while rendering.
 
-Some more recent graphics cards have a left image buffer and a right image buffer for stereo rendering. While this requires either more memory or a lower resolution, it does provide for stereo rendering without having to take over the entire screen. For such a card, double buffering combined with stereo rendering results in quad buffering, which can result in a large number of bits per pixel. For example: 24 bits for an RGB color, another 24 bits for the back buffer's color, plus 24 bits for the z-buffer results in 72 bits per pixel. Now double that for the two different views and you have 144 bits per pixel or 18 megabytes for a 1K by 1K display.
+Some more recent graphics cards have a left image buffer and a right image buffer for stereo rendering. While this requires either more memory or a lower resolution, it does provide for stereo rendering without having to take over the entire screen. For such a card, double buffering combined with stereo rendering results in quad buffering, which can result in a large number of bits per pixel. For example: 24 bits for an RGB color, another 24 bits for the back buffer's color, plus 24 bits for the z--buffer results in 72 bits per pixel. Now double that for the two different views and you have 144 bits per pixel or 18 megabytes for a 1K by 1K display.
 
 Time parallel\index{stereo rendering!time parallel}\index{time parallel stereo} techniques display both images at the same time. Headmounted displays and booms have two separate screens, one for each eye. To generate the two video streams requires either two graphics cards or one that can generate two separate outputs. The rendering process then involves just rendering each eye to the correct graphics card or output. Currently, the biggest disadvantage to this approach is the cost of the hardware required.
 
@@ -842,7 +842,7 @@ Another difference between a real camera and a computer camera is in the shutter
 \section{Mouse-Based Interaction}
 \index{interaction|(}
 
-There's no doubt that being able to interactively view an object aids in understanding and recognizing its important features. Using a pointing device (e.g., a mouse or trackball) is certainly the most common method for controlling such movements. The software that accompanies this book contains the vtk RenderWindowInteractor object that translates mouse and keyboard events into modifications to the camera and actors. For example, while the user holds the left mouse button down, the vtkRenderWindowInteractor rotates the camera towards the current pointer position. The farther the pointer is from the center of the window, the faster the camera rotates.
+There's no doubt that being able to interactively view an object aids in understanding and recognizing its important features. Using a pointing device (e.g., a mouse or trackball) is certainly the most common method for controlling such movements. The software that accompanies this book contains the vtk RenderWindowInteractor object that translates mouse and keyboard events into modifications to the camera and actors. For example, while the user holds the left mouse button down, the vtkRenderWindowInteractor\index{vtkRenderWindowInteractor} rotates the camera towards the current pointer position. The farther the pointer is from the center of the window, the faster the camera rotates.
 
 \begin{figure}[!htb]
 	\centering
@@ -870,7 +870,7 @@ The advantage of a constant view--up vector is that some objects have a natural 
 \label{sec:3D_widgets_user_interaction}
 \index{3D Widgets|(}
 
-Chapter 3: \nameref{chap:computer_graphics_primer} provided an introduction to interaction techniques for graphics (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:examples_introducing_vtkRenderWindowInteractor} ).
+Chapter 3: \nameref{chap:computer_graphics_primer} provided an introduction to interaction techniques for graphics (see ``Introducing vtkRenderWindowInteractor'' on page \pageref{subsec:examples_introducing_vtkRenderWindowInteractor})\index{vtkRenderWindowInteractor}.
 In the context of visualization, interaction is an essential feature of systems that provide methods for data exploration and query. The classes
 vtkRenderWindowInteractor and vtkInteractorStyle are core constructs used in VTK to capture windowing--system specific events in the render window, translate them into VTK events, and then take action as appropriate to that event invocation.
 In Chapter 3: \nameref{chap:computer_graphics_primer} we saw how these classes could be used to manipulate the camera and actors to interactively produce a desired view. This functionality, however, is relatively limited in its ability to interact with data. For example, users often wish to interactively control the positioning of streamline starting points, control the orientation of a clipping plane, or transform an actor. While using interpreted languages (see ``Interpreted Code'' on page \pageref{subsec:examples_interpreted_code} ) can go a long way to provide this interaction, in some situations the ability to see what you are doing when placing objects is essential. Therefore, it is apparent that a variety of user interaction techniques is required by the visualization system if it is to successfully support real-world applications.
@@ -936,7 +936,7 @@ In Chapter 3: \nameref{chap:computer_graphics_primer} we saw how these classes c
 
 3D Widgets are a logical extension of the pervasive 2D widgets found on most computer systems, providing interactive capabilities similar to their 2D counterparts except that they function in the richer 3D space. 3D widgets are capable of providing the variety of user interaction techniques required by a visualization system. Unlike 2D widgets, however, 3D widgets are relatively new technology, and because their application is in the context of a richer space, there is no consensus as to what widgets might constitute a complete set of functionality. Several popular 3D widget sets, and the University of Utah's SCIRUN 3D widgets \cite{Purciful95}, have distinctly different components in their widget toolbox. The widget sets vary according to the perceived purpose of the graphical environment in which they exist for example Open Inventor \cite{Wernecke94}, the Brown University 3D Widgets Library \cite{Zeleznik93},  3D widgets are a recent addition (see Figure \ref{fig:Figure7-32}) to VTK. In principal, the core functionality is simple: events captured by the vtkRenderWindow are in turn translated into VTK events. Observers which have registered themselves with the vtkRenderWindow receive these VTK events, take the appropriate action, and then may either pass the event along to the next observer in the list, or abort further processing of the event. (Note: observers can be prioritized according to the order in which they wish to receive events).
 
-It is the implementation of 3D widgets, that is, what they can do with the events, that makes them so powerful. As Figure \ref{fig:Figure7-32} shows, widgets typically provide a representation in the scene that can be selected and manipulated. For example, a vtkLineWidget can be used to position a rake of streamline\index{streamline} seed points and represents itself with a thick line (tube) and two spherical end points. Widgets also may directly manipulate an underlying class---the vtkScalarBarWidget enables the user to interactively size, orient (horizontal or vertical), and position a vtkScalarBar. Widgets also provide additional functionality such as managing an internal implicit function or transformation matrix (e.g., vtkBoxWidget). The following is a list of widgets currently found in VTK and a brief description of their capabilities.
+It is the implementation of 3D widgets, that is, what they can do with the events, that makes them so powerful. As Figure \ref{fig:Figure7-32} shows, widgets typically provide a representation in the scene that can be selected and manipulated. For example, a vtkLineWidget can be used to position a rake of streamline\index{streamline} seed points and represents itself with a thick line (tube) and two spherical end points. Widgets also may directly manipulate an underlying class---the vtkScalarBarWidget enables the user to interactively size, orient (horizontal or vertical), and position a vtkScalarBar\index{vtkScalarBar}. Widgets also provide additional functionality such as managing an internal implicit function or transformation matrix (e.g., vtkBoxWidget). The following is a list of widgets currently found in VTK and a brief description of their capabilities.
 
 \begin{description}
 
@@ -977,9 +977,9 @@ This chapter has covered a wide variety of topics. In this section we demonstrat
 	\label{fig:Figure7-33}
 \end{wrapfigure}
 
-The following listing shows the complete source code for a simple texture mapping example the resultant image is shown in Figure \ref{fig:Figure7-33}. You will notice that most of the code is similar to what we used in the preceding examples. The key step here is the creation of a vtkTexture object. This object interfaces between its data input and the texture mapping functions of the graphics library.
+The following listing shows the complete source code for a simple texture mapping example the resultant image is shown in Figure \ref{fig:Figure7-33}. You will notice that most of the code is similar to what we used in the preceding examples. The key step here is the creation of a vtkTexture\index{vtkTexture} object. This object interfaces between its data input and the texture mapping functions of the graphics library.
 
-One interesting note regarding the vtkTexture object. Instances of this class are mappers that have an Input instance variable that is updated during each render. The input type is a vtkImageData dataset type. Thus, a visualization pipeline can be constructed to read, process, and/or generate the texture map. This includes using the object vtkRendererSource , which converts the renderer's image into an image data dataset. The input texture map can be either 2D (a pixmap) or 3D (a volume).
+One interesting note regarding the vtkTexture object. Instances of this class are mappers that have an Input instance variable that is updated during each render. The input type is a vtkImageData dataset type. Thus, a visualization pipeline can be constructed to read, process, and/or generate the texture map. This includes using the object vtkRendererSource\index{vtkRendererSource} , which converts the renderer's image into an image data dataset. The input texture map can be either 2D (a pixmap) or 3D (a volume).
 
 \begin{lstlisting}[language=TCL, caption={Example of texture mapping.}]
 vtkBMPReader bmpReader
@@ -1021,7 +1021,7 @@ A few words of warning when using textures. Some renderers only support 2D textu
 
 This example focuses on volume rendering. The source code corresponding to example Figure \ref{fig:Figure7-34} is shown below and begins by creating the usual objects. Then we use a vtkStructuredPointsReader\index{vtkStructuredPointsReader} to read in a volume dataset for a high potential iron protein. We create a vtkPiecewiseFunction\index{vtkPiecewiseFunction!example} object to map the scalar values in the volume dataset to opacity, and a vtkColorTransferFunction\index{vtkColorTransferFunction} object to map the scalar values to color. These two transfer functions are referenced from the vtkVolumeProperty object. In addition, we use the ShadeOn() method of vtkVolumeProperty to enable shading for this volume, and the SetInterpolationTypeToLinear() method to request trilinear interpolation. Since we are using a ray casting approach, we need to create a ray function. In this example we use a vtkVolumeRayCastCompositeFunction object for this purpose. The output of the reader is given to the vtkVolumeRayCastMapper as the scalar input, and the SetVolumeRayCastFunction() method is used to assign the ray function. The vtkVolume object is quite similar to a vtkActor, and the SetVolumeMapper() and SetVolumeProperty() methods are used just like the SetMapper() and SetProperty() methods of vtkActor. Finally, we add this volume to the renderer, adjust the camera, set the desired image update rate and start the interactor.
 
-\begin{lstlisting}[language=TCL, caption={Volume rendering of a high potential iron protein.}]
+\begin{lstlisting}[language=TCL, caption={Volume rendering of a high potential iron protein.}, escapechar=\%]
 #  Create the standard renderer, render window and interactor
 vtkRenderer ren1
 vtkRenderWindow renWin
@@ -1047,20 +1047,20 @@ vtkColorTransferFunction colorTransferFunction
   colorTransferFunction AddRGBPoint 255.0 0.0 0.2 0.0
 
 #  The property describes how the data will look
-vtkVolumeProperty volumeProperty
+vtkVolumeProperty%\index{vtkVolumeProperty!example}% volumeProperty
   volumeProperty SetColor colorTransferFunction
   volumeProperty SetScalarOpacity opacityTransferFunction
   volumeProperty ShadeOn
   volumeProperty SetInterpolationTypeToLinear
 
 #  The mapper / ray cast function know how to render the data
-vtkVolumeRayCastCompositeFunction compositeFunction
-vtkVolumeRayCastMapper volumeMapper
+vtkVolumeRayCastCompositeFunction%\index{vtkVolumeRayCastCompositeFunction!example}% compositeFunction
+vtkVolumeRayCastMapper%\index{vtkVolumeRayCastMapper!example}% volumeMapper
   volumeMapper SetVolumeRayCastFunction compositeFunction
   volumeMapper SetInputConnection [reader GetOutputPort]
 
 #  Set the mapper and the property and
-vtkVolume volume
+vtkVolume%\index{vtkVolume!example}% volume
   volume SetMapper volumeMapper
   volume SetProperty volumeProperty
 
@@ -1068,7 +1068,7 @@ vtkVolume volume
   renWin Render
 \end{lstlisting}
 
-To produce a maximum intensity projection in Figure \ref{fig:Figure7-34}, we would simply change the type of the ray function to a vtkVolumeRayCastMIPFunction. We could also produce a surface image using a vtkVolumeRayCastIsosurfaceFunction where the IsoValue instance variable would be set to define the surface.
+To produce a maximum intensity projection in Figure \ref{fig:Figure7-34}, we would simply change the type of the ray function to a vtkVolumeRayCastMIPFunction\index{vtkVolumeRayCastMIPFunction!example}. We could also produce a surface image using a vtkVolumeRayCastIsosurfaceFunction\index{vtkVolumeRayCastIsosurfaceFunction!example} where the IsoValue instance variable would be set to define the surface.
 
 
 \subsection{Red--Blue Stereo}
