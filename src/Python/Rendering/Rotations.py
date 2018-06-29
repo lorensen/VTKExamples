@@ -10,15 +10,24 @@ def main():
         Also comment out the lines:
           modelActor->GetProperty()->SetSpecular(.6);
           modelActor->GetProperty()->SetSpecularPower(30);
-        and use cow.g as the inout data.
+        and use cow.g as the input data.
 
     """
-    file_name, figure = get_program_parameters()
+    file_name, figure, book_color = get_program_parameters()
+    rotate(file_name, figure, book_color)
+
+
+def rotate(file_name, figure, book_color):
+    """"
+    This is where we do the rotations.
+
+    """
     # Create renderer stuff
     #
     colors = vtk.vtkNamedColors()
     # Set the background color.
-    colors.SetColor("BkgColor", [60, 93, 144, 255])
+    colors.SetColor("BkgColor", [26, 51, 102, 255])
+    # colors.SetColor("BkgColor", [60, 93, 144, 255])
 
     ren1 = vtk.vtkRenderer()
     renWin = vtk.vtkRenderWindow()
@@ -27,7 +36,7 @@ def main():
     iren = vtk.vtkRenderWindowInteractor()
     iren.SetRenderWindow(renWin)
 
-    # create pipeline
+    # Create the pipeline.
     #
     polyData = ReadPolyData(file_name)
 
@@ -36,10 +45,12 @@ def main():
 
     modelActor = vtk.vtkActor()
     modelActor.SetMapper(modelMapper)
-    # modelActor.GetProperty().SetDiffuseColor(colors.GetColor3d("Wheat"))
-    modelActor.GetProperty().SetDiffuseColor(colors.GetColor3d("Crimson"))
-    modelActor.GetProperty().SetSpecular(.6)
-    modelActor.GetProperty().SetSpecularPower(30)
+    if book_color:
+        modelActor.GetProperty().SetDiffuseColor(colors.GetColor3d("Wheat"))
+    else:
+        modelActor.GetProperty().SetDiffuseColor(colors.GetColor3d("Crimson"))
+        modelActor.GetProperty().SetSpecular(.6)
+        modelActor.GetProperty().SetSpecularPower(30)
 
     modelAxesSource = vtk.vtkAxes()
     modelAxesSource.SetScaleFactor(10)
@@ -54,11 +65,13 @@ def main():
     ren1.AddActor(modelAxes)
     modelAxes.VisibilityOff()
 
-    # Add the actors to the renderer, set the background and size
+    # Add the actors to the renderer, set the background and size.
     #
     ren1.AddActor(modelActor)
-    # ren1.SetBackground(colors.GetColor3d("BkgColor"))
-    ren1.SetBackground(colors.GetColor3d("Silver"))
+    if book_color:
+        ren1.SetBackground(colors.GetColor3d("BkgColor"))
+    else:
+        ren1.SetBackground(colors.GetColor3d("Silver"))
     renWin.SetSize(640, 480)
     ren1.ResetCamera()
     ren1.GetActiveCamera().Azimuth(0)
@@ -90,9 +103,12 @@ def get_program_parameters():
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
     parser.add_argument('filename', help='The file cow.obj.')
-    parser.add_argument('figure', default=0, type=int, nargs='?', help='The particular rotation that you want to view.')
+    parser.add_argument('figure', default=0, type=int, nargs='?',
+                        help='The particular rotation that you want to view.')
+    parser.add_argument('book_color', default=False, type=bool, nargs='?',
+                        help='If True then the vtk textbook colors are used.')
     args = parser.parse_args()
-    return args.filename, args.figure
+    return args.filename, args.figure, args.book_color
 
 
 def RotateX(renWin, actor):
