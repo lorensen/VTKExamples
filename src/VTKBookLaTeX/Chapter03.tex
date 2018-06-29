@@ -1007,18 +1007,35 @@ The order of the transformations is important. In VTK the rotations are ordered 
 
 Probably the most confusing aspect of transformations are rotations and their effect on the Orientation instance variable. Generally orientations are not set directly by the user, and most users will prefer to specify rotations with the RotateX(), RotateY(), and RotateZ() methods. These methods perform rotations about the $x$, $y$, and $z$ axes in an order specified by the user. New rotations are applied to the right of the rotation transformation. If you need to rotate your actor about a single axis, the actor will rotate exactly as you expect it will, and the resulting orientation vector will be as expected. For example, the operation RotateY(20) will produce an orientation of $(0,20,0)$ and a RotateZ(20) will produce $(0,0,20)$. However, a RotateY(20) followed by a RotateZ(20) will not produce $(0,20,20)$ but produce an orientation of $(6.71771, 18.8817, 18.8817)$! This is because the rotation portion of Equation \eqref{eq:3.14} is built from the rotation order emph{z}, then emph{x}, and then emph{y}. To verify this, a RotateZ(20) followed by a RotateY(20) does produce an orientation of $(0,20,20)$. Adding a third rotation can be even more confusing.
 
-A good rule of thumb is to only use the SetOrientation() method to either reset the orientation to $(0,0,0)$ or to set just one of the rotations. The RotateX(), RotateY(), and RotateZ() methods are preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. Figure \ref{fig:Figure3-31} illustrates the use of the rotation methods. We turn off the erase between frames using the render window's EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own y axis even though an emph{x} axis rotation preceded the emph{y} rotation.
+A good rule of thumb is to only use the SetOrientation() method to either reset the orientation to $(0,0,0)$ or to set just one of the rotations. The RotateX(), RotateY(), and RotateZ() methods are preferred to SetOrientation() when multiple angles are needed. Remember that these rotations are applied in reverse order. Figure \ref{fig:Figure3-31} illustrates the use of the rotation methods. We turn off the erase between frames using the render window's EraseOff() method so we can see the effects of the rotations. Note that in the fourth image the cow still rotates about her own \emph{y} axis even though an emph{x} axis rotation preceded the emph{y} rotation.
 
 \begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{Figure3-31}\\
-  \caption{Rotations of a cow about her axes. In this model, the emph{x} axis is from the left to right; the emph{y} axis is from bottom to top; and the emph{z} axis emerges from the image. The camera location is the same in all four images.}\label{fig:Figure3-31}
+\begin{subfigure}[h]{0.48\linewidth}
+\includegraphics[width=\linewidth]{Figure3-31a}
+\caption{Six rotations about the \emph{x} axis.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/RotationsA/}{RotationsA.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/RotationsA/}{RotationsA.py})}\label{fig:Figure3-31a}
+\end{subfigure}
+\hfill
+\begin{subfigure}[h]{0.48\linewidth}
+\includegraphics[width=\linewidth]{Figure3-31b}
+\caption{Six rotations about the \emph{y} axis.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/RotationsB/}{RotationsB.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/RotationsB/}{RotationsB.py})}\label{fig:Figure3-31b}
+\end{subfigure}
+\hfill
+\begin{subfigure}[h]{0.48\linewidth}
+\includegraphics[width=\linewidth]{Figure3-31c}
+\caption{Six rotations about the \emph{z} axis.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/RotationsC/}{RotationsC.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/RotationsC/}{RotationsC.py})}\label{fig:Figure3-31c}
+\end{subfigure}
+\hfill
+\begin{subfigure}[h]{0.48\linewidth}
+\includegraphics[width=\linewidth]{Figure3-31d}
+\caption{First a rotation about the \emph{x} axis then six rotations about the \emph{y} axis.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/RotationsD/}{RotationsD.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/RotationsD/}{RotationsD.py})}\label{fig:Figure3-31d}
+\end{subfigure}%
+\caption{Rotations of a cow about her axes. In this model, the \emph{x} axis is from the left to right; the \emph{y} axis is from bottom to top; and the \emph{z} axis emerges from the image. The camera location is the same in all four images.}\label{fig:Figure3-31}
 \end{figure}
 
 
-We have seen that VTK hides some of the complexities of matrix transformations by using instance variables that are more natural than a transformation matrix. But there will be times when the predefined order of transformations performed by the actor will not be sufficient. vtkActor has an instance variable UserMatrix that contains a 4 x 4 transformation matrix. This matrix is applied before the transformation composed by the actor. As you become more comfortable with $4 \times 4$ transformation matrices you may want to build your own matrix. The object vtkTransform\index{vtkTransform} creates and manipulates these matrices. Unlike an actor, an instance of vtkTransform does not have an instance variable for position, scale, origin, etc. You control the composition of the matrix directly.
+We have seen that VTK hides some of the complexities of matrix transformations by using instance variables that are more natural than a transformation matrix. But there will be times when the predefined order of transformations performed by the actor will not be sufficient. vtkActor has an instance variable UserMatrix that contains a $4 \times 4$ transformation matrix. This matrix is applied before the transformation composed by the actor. As you become more comfortable with $4 \times 4$ transformation matrices you may want to build your own matrix. The object vtkTransform\index{vtkTransform} creates and manipulates these matrices. Unlike an actor, an instance of vtkTransform does not have an instance variable for position, scale, origin, etc. You control the composition of the matrix directly.
 
-The following statements create an identical 4 x 4 matrix that the actor creates:
+The following statements create an identical $4 \times 4$ matrix that the actor creates:
 
 \begin{lstlisting}[language=TCL, caption={}, escapechar=\%]
 vtkTransform%\index{vtkTransform!example}% *myTrans = vtkTransform::New ();
@@ -1079,14 +1096,14 @@ There is one final and powerful operation that affects an actor's orientation. Y
 \begin{figure}
 \begin{subfigure}[h]{0.48\linewidth}
 \includegraphics[width=\linewidth]{Figure3-33a}
-\caption{With origin $(0,0,0)$.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/WalkCowA/}{WalkCowA.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/WalkCowA/}{WalkCowA.py})}
+\caption{With origin $(0,0,0)$.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/WalkCowA/}{WalkCowA.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/WalkCowA/}{WalkCowA.py})}\label{fig:Figure3-33a}
 \end{subfigure}
 \hfill
 \begin{subfigure}[h]{0.48\linewidth}
 \includegraphics[width=\linewidth]{Figure3-33b}
-\caption{With origin at $(6.1,1.3,.02)$.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/WalkCowB/}{WalkCowB.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/WalkCowB/}{WalkCowB.py})}
+\caption{With origin at $(6.1,1.3,.02)$.(\href{https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/WalkCowB/}{WalkCowB.cxx} or \href{https://lorensen.github.io/VTKExamples/site/Python/Rendering/WalkCowB/}{WalkCowB.py})}\label{fig:Figure3-33b}
 \end{subfigure}%
-\caption{The cow rotating about a vector passing through her nose.}
+\caption{The cow rotating about a vector passing through her nose.}\label{fig:Figure3-33}
 \end{figure}
 \index{transformation matrix!implementation|)}
 
