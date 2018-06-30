@@ -27,8 +27,9 @@
 
 namespace
 {
-void case1 (vtkFloatArray *, vtkVectorText *, int, int);
-void case2 (vtkFloatArray *, vtkVectorText *, int, int);
+void case0 (vtkFloatArray*, vtkVectorText*, int, int);
+void case1 (vtkFloatArray*, vtkVectorText*, int, int);
+void case2 (vtkFloatArray*, vtkVectorText*, int, int);
 void case3 (vtkFloatArray *, vtkVectorText *, int, int);
 void case4 (vtkFloatArray *, vtkVectorText *, int, int);
 void case5 (vtkFloatArray *, vtkVectorText *, int, int);
@@ -46,8 +47,9 @@ void case14(vtkFloatArray *, vtkVectorText *, int, int);
 int main (int argc, char *argv[])
 {
   std::map<int, void (*)(vtkFloatArray*, vtkVectorText*, int, int)> cases;
-  cases[1]  = &case1;
-  cases[2]  = &case2;
+  cases[0] = &case0;
+  cases[1] = &case1;
+  cases[2] = &case2;
   cases[3]  = &case3;
   cases[4]  = &case4;
   cases[5]  = &case5;
@@ -69,7 +71,7 @@ int main (int argc, char *argv[])
     for (int i = 1; i < argc; ++i)
     {
       mcCase = atoi(argv[i]);
-      if (std::abs(mcCase) < 1 || std::abs(mcCase) > 14)
+      if (std::abs(mcCase) < 0 || std::abs(mcCase) > 14)
       {
         std::cout << argv[0] << " bad case number " << mcCase << std::endl;
         return EXIT_FAILURE;
@@ -92,6 +94,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
 
+  // Always use a grid of four columns unless number of cases < 4.
   std::vector<vtkSmartPointer<vtkRenderer>> renderers;
   int gridSize = ((static_cast<int>(mcCases.size()) + 3) / 4) * 4;
   gridSize = static_cast<int>(mcCases.size()) < 4 ? 
@@ -103,6 +106,8 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderer> renderer =
       vtkSmartPointer<vtkRenderer>::New();
     renderers.push_back(renderer);
+    // Set the background color.
+    renderers[i]->SetBackground(color->GetColor3d("slate_grey").GetData());
     renWin->AddRenderer(renderer);
   }
 
@@ -328,8 +333,6 @@ int main (int argc, char *argv[])
     renderers[i]->AddActor(CubeEdges);
     renderers[i]->AddActor(CubeVertices);
     renderers[i]->AddActor(Triangles);
-  // Set the background color.
-    renderers[i]->SetBackground(color->GetColor3d("slate_grey").GetData());
 
   // Position the camera.
     renderers[i]->GetActiveCamera()->Dolly(1.2);
@@ -374,9 +377,27 @@ int main (int argc, char *argv[])
 
 namespace
 {
-void case1(vtkFloatArray *scalars,
-           vtkVectorText *caseLabel,
-           int IN, int OUT)
+void case0(vtkFloatArray* scalars, vtkVectorText* caseLabel, int IN, int OUT)
+{
+  scalars->InsertValue(0, OUT);
+  scalars->InsertValue(1, OUT);
+  scalars->InsertValue(2, OUT);
+  scalars->InsertValue(3, OUT);
+  scalars->InsertValue(4, OUT);
+  scalars->InsertValue(5, OUT);
+  scalars->InsertValue(6, OUT);
+  scalars->InsertValue(7, OUT);
+  if (IN == 1)
+  {
+    caseLabel->SetText("Case 1 - 00000000");
+  }
+  else
+  {
+    caseLabel->SetText("Case 1c - 11111111");
+  }
+}
+
+void case1(vtkFloatArray* scalars, vtkVectorText* caseLabel, int IN, int OUT)
 {
   scalars->InsertValue(0, IN);
   scalars->InsertValue(1, OUT);
@@ -396,7 +417,7 @@ void case1(vtkFloatArray *scalars,
   }
 }
 
-void case2(vtkFloatArray *scalars,
+void case2(vtkFloatArray* scalars,
            vtkVectorText *caseLabel,
            int IN, int OUT)
 {
