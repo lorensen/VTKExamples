@@ -139,7 +139,7 @@ add_test(${KIT}-MarchingCases ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingCases 7)
 
 add_test(${KIT}-MarchingCasesA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestMarchingCasesA 1 2 3 4 5 6 7 8 9 10 11 12 13 14)
+  TestMarchingCasesA 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14)
 
 add_test(${KIT}-MarchingCasesB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMarchingCasesB -3 -6 -7 -10 -12 -13)

@@ -37,7 +37,7 @@ def get_program_parameters():
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('cases', nargs='*',
-                        help='A list of integers, i such that 0 < abs(i) < 14,  corresponding to the cases desired.')
+                        help='A list of integers, i such that 0 <= abs(i) < 14,  corresponding to the cases desired.')
     args = parser.parse_args()
     return args.cases
 
@@ -58,6 +58,7 @@ def marching_cubes(mcCases):
     iren = vtk.vtkRenderWindowInteractor()
     iren.SetRenderWindow(renWin)
 
+    # Always use a grid of four columns unless number of cases < 4.
     renderers = list()
     gridSize = ((len(mcCases) + 3) // 4) * 4
     if len(mcCases) < 4:
@@ -67,6 +68,8 @@ def marching_cubes(mcCases):
         # Create the Renderer
         renderer = vtk.vtkRenderer()
         renderers.append(renderer)
+        # Set the background color.
+        renderers[i].SetBackground(color.GetColor3d("slate_grey"))
         renWin.AddRenderer(renderer)
 
     for i in range(0, len(mcCases)):
@@ -256,8 +259,6 @@ def marching_cubes(mcCases):
         renderers[i].AddActor(CubeEdges)
         renderers[i].AddActor(CubeVertices)
         renderers[i].AddActor(Triangles)
-        # Set the background color.
-        renderers[i].SetBackground(color.GetColor3d("slate_grey"))
 
         # Position the camera.
         renderers[i].GetActiveCamera().Dolly(1.2)
@@ -293,6 +294,21 @@ def marching_cubes(mcCases):
     iren.Initialize()
     renWin.Render()
     iren.Start()
+
+
+def case0(scalars, caseLabel, IN, OUT):
+    scalars.InsertValue(0, OUT)
+    scalars.InsertValue(1, OUT)
+    scalars.InsertValue(2, OUT)
+    scalars.InsertValue(3, OUT)
+    scalars.InsertValue(4, OUT)
+    scalars.InsertValue(5, OUT)
+    scalars.InsertValue(6, OUT)
+    scalars.InsertValue(7, OUT)
+    if IN == 1:
+        caseLabel.SetText("Case 1 - 00000000")
+    else:
+        caseLabel.SetText("Case 1c - 11111111")
 
 
 def case1(scalars, caseLabel, IN, OUT):
@@ -505,7 +521,7 @@ def case14(scalars, caseLabel, IN, OUT):
         caseLabel.SetText("Case 14c - 00010010")
 
 
-cases = [None, case1, case2, case3, case4, case5, case6, case7, case8, case9, case10, case11, case12, case13, case14]
+cases = [case0, case1, case2, case3, case4, case5, case6, case7, case8, case9, case10, case11, case12, case13, case14]
 
 if __name__ == '__main__':
     main()
