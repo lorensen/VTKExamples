@@ -389,11 +389,11 @@ void case0(vtkFloatArray* scalars, vtkVectorText* caseLabel, int IN, int OUT)
   scalars->InsertValue(7, OUT);
   if (IN == 1)
   {
-    caseLabel->SetText("Case 1 - 00000000");
+    caseLabel->SetText("Case 0 - 00000000");
   }
   else
   {
-    caseLabel->SetText("Case 1c - 11111111");
+    caseLabel->SetText("Case 0 - 11111111");
   }
 }
 
