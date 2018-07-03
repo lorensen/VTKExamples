@@ -9,18 +9,20 @@ def main():
         mc_cases = [7]
     else:
         # Ensure that they are unique.
-        mc_cases = remove_duplicates(mc_cases)
+        mc_cases = list(set(mc_cases))
         # Check that they lie in the correct range.
         badCases = []
         for item in mc_cases:
-            if (abs(int(item)) < 1) or (abs(int(item)) > 14):
+            if abs(int(item) > 14):
                 badCases.append(item)
         if badCases:
             print('Bad case number(s)', ','.join(map(str, badCases)))
-            return
-        else:
-            mc_cases = list(map(int, mc_cases))
-    print(mc_cases)
+            for item in badCases:
+                mc_cases.remove(item)
+            if not mc_cases:
+                print('No cases.')
+                return
+    print('Cases', ','.join(map(str, mc_cases)))
     marching_cubes(mc_cases)
 
 
@@ -36,18 +38,10 @@ def get_program_parameters():
     '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('cases', nargs='*',
+    parser.add_argument('cases', nargs='*', type=int, default=[],
                         help='A list of integers, i such that 0 <= abs(i) < 14,  corresponding to the cases desired.')
     args = parser.parse_args()
     return args.cases
-
-
-def remove_duplicates(lst):
-    dset = set()
-    # We are relying on the fact that dset.add() always returns None,
-    # and not None is always True.
-    return [item for item in lst
-            if item not in dset and not dset.add(item)]
 
 
 def marching_cubes(mcCases):
@@ -63,7 +57,6 @@ def marching_cubes(mcCases):
     gridSize = ((len(mcCases) + 3) // 4) * 4
     if len(mcCases) < 4:
         gridSize = len(mcCases)
-    print("gridSize:", gridSize)
     for i in range(0, gridSize):
         # Create the Renderer
         renderer = vtk.vtkRenderer()
@@ -275,7 +268,7 @@ def marching_cubes(mcCases):
     if len(mcCases) < 4:
         xGridDimensions = len(mcCases)
     yGridDimensions = (len(mcCases) - 1) // 4 + 1
-    print("x, y:", xGridDimensions, ",", yGridDimensions)
+    print("Grid dinenstions, (x, y): (", xGridDimensions, ",", yGridDimensions, ')')
     renWin.SetSize(
         rendererSize * xGridDimensions, rendererSize * yGridDimensions)
     for row in range(0, yGridDimensions):
@@ -306,9 +299,9 @@ def case0(scalars, caseLabel, IN, OUT):
     scalars.InsertValue(6, OUT)
     scalars.InsertValue(7, OUT)
     if IN == 1:
-        caseLabel.SetText("Case 1 - 00000000")
+        caseLabel.SetText("Case 0 - 00000000")
     else:
-        caseLabel.SetText("Case 1c - 11111111")
+        caseLabel.SetText("Case 0c - 11111111")
 
 
 def case1(scalars, caseLabel, IN, OUT):
