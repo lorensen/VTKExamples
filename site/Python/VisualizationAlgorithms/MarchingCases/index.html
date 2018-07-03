@@ -68,18 +68,20 @@ function registerListener(event, func) {
         <span class=n>mc_cases</span> <span class=o>=</span> <span class=p>[</span><span class=mi>7</span><span class=p>]</span>
     <span class=k>else</span><span class=p>:</span>
         <span class=c1># Ensure that they are unique.</span>
-        <span class=n>mc_cases</span> <span class=o>=</span> <span class=n>remove_duplicates</span><span class=p>(</span><span class=n>mc_cases</span><span class=p>)</span>
+        <span class=n>mc_cases</span> <span class=o>=</span> <span class=nb>list</span><span class=p>(</span><span class=nb>set</span><span class=p>(</span><span class=n>mc_cases</span><span class=p>))</span>
         <span class=c1># Check that they lie in the correct range.</span>
         <span class=n>badCases</span> <span class=o>=</span> <span class=p>[]</span>
         <span class=k>for</span> <span class=n>item</span> <span class=ow>in</span> <span class=n>mc_cases</span><span class=p>:</span>
-            <span class=k>if</span> <span class=p>(</span><span class=nb>abs</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>item</span><span class=p>))</span> <span class=o>&lt;</span> <span class=mi>1</span><span class=p>)</span> <span class=ow>or</span> <span class=p>(</span><span class=nb>abs</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>item</span><span class=p>))</span> <span class=o>&gt;</span> <span class=mi>14</span><span class=p>):</span>
+            <span class=k>if</span> <span class=nb>abs</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>item</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mi>14</span><span class=p>):</span>
                 <span class=n>badCases</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>item</span><span class=p>)</span>
         <span class=k>if</span> <span class=n>badCases</span><span class=p>:</span>
             <span class=k>print</span><span class=p>(</span><span class=s1>&#39;Bad case number(s)&#39;</span><span class=p>,</span> <span class=s1>&#39;,&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=nb>str</span><span class=p>,</span> <span class=n>badCases</span><span class=p>)))</span>
-            <span class=k>return</span>
-        <span class=k>else</span><span class=p>:</span>
-            <span class=n>mc_cases</span> <span class=o>=</span> <span class=nb>list</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=nb>int</span><span class=p>,</span> <span class=n>mc_cases</span><span class=p>))</span>
-    <span class=k>print</span><span class=p>(</span><span class=n>mc_cases</span><span class=p>)</span>
+            <span class=k>for</span> <span class=n>item</span> <span class=ow>in</span> <span class=n>badCases</span><span class=p>:</span>
+                <span class=n>mc_cases</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>item</span><span class=p>)</span>
+            <span class=k>if</span> <span class=ow>not</span> <span class=n>mc_cases</span><span class=p>:</span>
+                <span class=k>print</span><span class=p>(</span><span class=s1>&#39;No cases.&#39;</span><span class=p>)</span>
+                <span class=k>return</span>
+    <span class=k>print</span><span class=p>(</span><span class=s1>&#39;Cases&#39;</span><span class=p>,</span> <span class=s1>&#39;,&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=nb>str</span><span class=p>,</span> <span class=n>mc_cases</span><span class=p>)))</span>
     <span class=n>marching_cubes</span><span class=p>(</span><span class=n>mc_cases</span><span class=p>)</span>
 
 
@@ -95,18 +97,10 @@ function registerListener(event, func) {
 <span class=s1>    &#39;&#39;&#39;</span>
     <span class=n>parser</span> <span class=o>=</span> <span class=n>argparse</span><span class=o>.</span><span class=n>ArgumentParser</span><span class=p>(</span><span class=n>description</span><span class=o>=</span><span class=n>description</span><span class=p>,</span> <span class=n>epilog</span><span class=o>=</span><span class=n>epilogue</span><span class=p>,</span>
                                      <span class=n>formatter_class</span><span class=o>=</span><span class=n>argparse</span><span class=o>.</span><span class=n>RawDescriptionHelpFormatter</span><span class=p>)</span>
-    <span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s1>&#39;cases&#39;</span><span class=p>,</span> <span class=n>nargs</span><span class=o>=</span><span class=s1>&#39;*&#39;</span><span class=p>,</span>
+    <span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s1>&#39;cases&#39;</span><span class=p>,</span> <span class=n>nargs</span><span class=o>=</span><span class=s1>&#39;*&#39;</span><span class=p>,</span> <span class=nb>type</span><span class=o>=</span><span class=nb>int</span><span class=p>,</span> <span class=n>default</span><span class=o>=</span><span class=p>[],</span>
                         <span class=n>help</span><span class=o>=</span><span class=s1>&#39;A list of integers, i such that 0 &lt;= abs(i) &lt; 14,  corresponding to the cases desired.&#39;</span><span class=p>)</span>
     <span class=n>args</span> <span class=o>=</span> <span class=n>parser</span><span class=o>.</span><span class=n>parse_args</span><span class=p>()</span>
     <span class=k>return</span> <span class=n>args</span><span class=o>.</span><span class=n>cases</span>
-
-
-<span class=k>def</span> <span class=nf>remove_duplicates</span><span class=p>(</span><span class=n>lst</span><span class=p>):</span>
-    <span class=n>dset</span> <span class=o>=</span> <span class=nb>set</span><span class=p>()</span>
-    <span class=c1># We are relying on the fact that dset.add() always returns None,</span>
-    <span class=c1># and not None is always True.</span>
-    <span class=k>return</span> <span class=p>[</span><span class=n>item</span> <span class=k>for</span> <span class=n>item</span> <span class=ow>in</span> <span class=n>lst</span>
-            <span class=k>if</span> <span class=n>item</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>dset</span> <span class=ow>and</span> <span class=ow>not</span> <span class=n>dset</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>item</span><span class=p>)]</span>
 
 
 <span class=k>def</span> <span class=nf>marching_cubes</span><span class=p>(</span><span class=n>mcCases</span><span class=p>):</span>
@@ -122,7 +116,6 @@ function registerListener(event, func) {
     <span class=n>gridSize</span> <span class=o>=</span> <span class=p>((</span><span class=nb>len</span><span class=p>(</span><span class=n>mcCases</span><span class=p>)</span> <span class=o>+</span> <span class=mi>3</span><span class=p>)</span> <span class=o>//</span> <span class=mi>4</span><span class=p>)</span> <span class=o>*</span> <span class=mi>4</span>
     <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>mcCases</span><span class=p>)</span> <span class=o>&lt;</span> <span class=mi>4</span><span class=p>:</span>
         <span class=n>gridSize</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>mcCases</span><span class=p>)</span>
-    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;gridSize:&quot;</span><span class=p>,</span> <span class=n>gridSize</span><span class=p>)</span>
     <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>gridSize</span><span class=p>):</span>
         <span class=c1># Create the Renderer</span>
 <span class=hll>        <span class=n>renderer</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
@@ -334,7 +327,7 @@ function registerListener(event, func) {
     <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>mcCases</span><span class=p>)</span> <span class=o>&lt;</span> <span class=mi>4</span><span class=p>:</span>
         <span class=n>xGridDimensions</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>mcCases</span><span class=p>)</span>
     <span class=n>yGridDimensions</span> <span class=o>=</span> <span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>mcCases</span><span class=p>)</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=o>//</span> <span class=mi>4</span> <span class=o>+</span> <span class=mi>1</span>
-    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;x, y:&quot;</span><span class=p>,</span> <span class=n>xGridDimensions</span><span class=p>,</span> <span class=s2>&quot;,&quot;</span><span class=p>,</span> <span class=n>yGridDimensions</span><span class=p>)</span>
+    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Grid dinenstions, (x, y): (&quot;</span><span class=p>,</span> <span class=n>xGridDimensions</span><span class=p>,</span> <span class=s2>&quot;,&quot;</span><span class=p>,</span> <span class=n>yGridDimensions</span><span class=p>,</span> <span class=s1>&#39;)&#39;</span><span class=p>)</span>
     <span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span>
         <span class=n>rendererSize</span> <span class=o>*</span> <span class=n>xGridDimensions</span><span class=p>,</span> <span class=n>rendererSize</span> <span class=o>*</span> <span class=n>yGridDimensions</span><span class=p>)</span>
     <span class=k>for</span> <span class=n>row</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>yGridDimensions</span><span class=p>):</span>
@@ -365,9 +358,9 @@ function registerListener(event, func) {
     <span class=n>scalars</span><span class=o>.</span><span class=n>InsertValue</span><span class=p>(</span><span class=mi>6</span><span class=p>,</span> <span class=n>OUT</span><span class=p>)</span>
     <span class=n>scalars</span><span class=o>.</span><span class=n>InsertValue</span><span class=p>(</span><span class=mi>7</span><span class=p>,</span> <span class=n>OUT</span><span class=p>)</span>
     <span class=k>if</span> <span class=n>IN</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span>
-        <span class=n>caseLabel</span><span class=o>.</span><span class=n>SetText</span><span class=p>(</span><span class=s2>&quot;Case 1 - 00000000&quot;</span><span class=p>)</span>
+        <span class=n>caseLabel</span><span class=o>.</span><span class=n>SetText</span><span class=p>(</span><span class=s2>&quot;Case 0 - 00000000&quot;</span><span class=p>)</span>
     <span class=k>else</span><span class=p>:</span>
-        <span class=n>caseLabel</span><span class=o>.</span><span class=n>SetText</span><span class=p>(</span><span class=s2>&quot;Case 1c - 11111111&quot;</span><span class=p>)</span>
+        <span class=n>caseLabel</span><span class=o>.</span><span class=n>SetText</span><span class=p>(</span><span class=s2>&quot;Case 0c - 11111111&quot;</span><span class=p>)</span>
 
 
 <span class=k>def</span> <span class=nf>case1</span><span class=p>(</span><span class=n>scalars</span><span class=p>,</span> <span class=n>caseLabel</span><span class=p>,</span> <span class=n>IN</span><span class=p>,</span> <span class=n>OUT</span><span class=p>):</span>
