@@ -168,8 +168,10 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [ImplicitSphere](/Python/ImplicitFunctions/ImplicitSphere) | vtkSphere | An implicit representation of a sphere.
 [Lorenz](/Python/Visualization/Lorenz) | vtkContourFilter | Visualizing a Lorenz strange attractor by integrating the Lorenz equations in a volume.
 [MarchingCases](/Python/VisualizationAlgorithms/MarchingCases) | vtkMarchingCubes | Explore the Marching Cubes cases.
-[MarchingCasesA](/Python/VisualizationAlgorithms/MarchingCasesA) | vtkMarchingCubes | The 256 possible cases have been reduced to 14 cases using symmetry.
-[MarchingCasesB](/Python/VisualizationAlgorithms/MarchingCasesB) | vtkMarchingCubes | Marching cubes complementary cases.
+[MarchingCasesA](/Python/VisualizationAlgorithms/MarchingCasesA) | vtkMarchingCubes | The 256 possible cases have been reduced to 15 cases using symmetry.
+[MarchingCasesB](/Python/VisualizationAlgorithms/MarchingCasesB) | vtkMarchingCubes | Marching cubes complementary cases. Cases 3c, 6c, 7c, 10c, 12c and 13c are displayed.
+[MarchingCasesC](/Python/VisualizationAlgorithms/MarchingCasesC) | vtkMarchingCubes | Marching cubes, case 3 is rotated 90 degrees about the y-axis with no label.
+[MarchingCasesD](/Python/VisualizationAlgorithms/MarchingCasesD) | vtkMarchingCubes | Marching cubes, case 7 is rotated 180 degrees about the y-axis with no label.
 [Quadric](/Python/ImplicitFunctions/Quadric) | vtkQuadric | Create an ellipsoid using an implicit quadric
 [Sphere](/Python/ImplicitFunctions/Sphere) | vtkSphere | Demonstrate sampling of a sphere implicit function
 

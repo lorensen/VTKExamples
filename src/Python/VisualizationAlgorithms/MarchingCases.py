@@ -4,7 +4,7 @@ import vtk
 
 
 def main():
-    mc_cases = get_program_parameters()
+    mc_cases, rotation, label = get_program_parameters()
     if not mc_cases:
         mc_cases = [7]
     else:
@@ -22,8 +22,7 @@ def main():
             if not mc_cases:
                 print('No cases.')
                 return
-    print('Cases', ','.join(map(str, mc_cases)))
-    marching_cubes(mc_cases)
+    marching_cubes(mc_cases, rotation, label)
 
 
 def get_program_parameters():
@@ -39,13 +38,34 @@ def get_program_parameters():
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('cases', nargs='*', type=int, default=[],
-                        help='A list of integers, i such that 0 <= abs(i) < 14,  corresponding to the cases desired.')
+                        help='A list of integers i such that 0 <= abs(i) < 14,  corresponding to the cases desired.')
+    parser.add_argument('-r', '--rotation', type=int, default=0,
+                        help='Rotate camera around the cube, for i such that 0 <= abs(i) < 4,\
+                          corresponding to 0, 90, 180, 270 degrees.')
+    # Use a mutually exclusive group.
+    label_parser = parser.add_mutually_exclusive_group(required=False)
+    label_parser.add_argument('-l', '--label', action='store_true', dest='label',
+                              help='Display a label, true by default.')
+    label_parser.add_argument('-n', '--no_label', action='store_false', dest='label',
+                              help='Supress diaplaying a label.')
+    parser.set_defaults(label=True)
     args = parser.parse_args()
-    return args.cases
+    return args.cases, args.rotation, args.label
 
 
-def marching_cubes(mcCases):
+def marching_cubes(mcCases, rotation=0, label=True):
     color = vtk.vtkNamedColors()
+
+    # Rotate the final figure 0, 90, 180, 270 degrees.
+    rotation = abs(int(rotation))
+    if rotation > 3:
+        rotation = 0
+
+    if len(mcCases) > 1:
+        print('Cases', ', '.join(map(str, mcCases)))
+    else:
+        print('Cases', ','.join(map(str, mcCases)))
+    print('Rotated', rotation * 90, 'degrees.')
 
     renWin = vtk.vtkRenderWindow()
     renWin.SetSize(640, 480)
@@ -203,23 +223,38 @@ def marching_cubes(mcCases):
         caseLabel = vtk.vtkVectorText()
         caseLabel.SetText("Case 1")
 
-        # Set up a transform to move the label to a new position.
-        aLabelTransform = vtk.vtkTransform()
-        aLabelTransform.Identity()
-        aLabelTransform.Translate(-0.2, 0, 1.25)
-        aLabelTransform.Scale(.05, .05, .05)
+        if label:
+            # Set up a transform to move the label to a new position.
+            aLabelTransform = vtk.vtkTransform()
+            aLabelTransform.Identity()
+            # Position the label according to the rotation of the figure.
+            if rotation == 0:
+                aLabelTransform.Translate(-0.2, 0, 1.25)
+                aLabelTransform.Scale(.05, .05, .05)
+            elif rotation == 1:
+                aLabelTransform.RotateY(90)
+                aLabelTransform.Translate(-1.25, 0, 1.25)
+                aLabelTransform.Scale(.05, .05, .05)
+            elif rotation == 2:
+                aLabelTransform.RotateY(180)
+                aLabelTransform.Translate(-1.25, 0, 0.2)
+                aLabelTransform.Scale(.05, .05, .05)
+            else:
+                aLabelTransform.RotateY(270)
+                aLabelTransform.Translate(-0.2, 0, 0.2)
+                aLabelTransform.Scale(.05, .05, .05)
 
-        # Move the label to a new position.
-        labelTransform = vtk.vtkTransformPolyDataFilter()
-        labelTransform.SetTransform(aLabelTransform)
-        labelTransform.SetInputConnection(caseLabel.GetOutputPort())
+            # Move the label to a new position.
+            labelTransform = vtk.vtkTransformPolyDataFilter()
+            labelTransform.SetTransform(aLabelTransform)
+            labelTransform.SetInputConnection(caseLabel.GetOutputPort())
 
-        # Create a mapper and actor to display the text.
-        labelMapper = vtk.vtkPolyDataMapper()
-        labelMapper.SetInputConnection(labelTransform.GetOutputPort())
+            # Create a mapper and actor to display the text.
+            labelMapper = vtk.vtkPolyDataMapper()
+            labelMapper.SetInputConnection(labelTransform.GetOutputPort())
 
-        labelActor = vtk.vtkActor()
-        labelActor.SetMapper(labelMapper)
+            labelActor = vtk.vtkActor()
+            labelActor.SetMapper(labelMapper)
 
         # Define the base that the cube sits on.  Create its associated mapper
         # and actor.  Set the position of the actor.
@@ -248,14 +283,24 @@ def marching_cubes(mcCases):
         # Add the actors to the renderer
         renderers[i].AddActor(triangleEdgeActor)
         renderers[i].AddActor(base)
-        renderers[i].AddActor(labelActor)
+        if label:
+            renderers[i].AddActor(labelActor)
         renderers[i].AddActor(CubeEdges)
         renderers[i].AddActor(CubeVertices)
         renderers[i].AddActor(Triangles)
 
         # Position the camera.
         renderers[i].GetActiveCamera().Dolly(1.2)
-        renderers[i].GetActiveCamera().Azimuth(30)
+        # Rotate the camera an extra 30 degrees so the cube is not face on.
+        if rotation == 0:
+            renderers[i].GetActiveCamera().Azimuth(30)
+        elif rotation == 1:
+            renderers[i].GetActiveCamera().Azimuth(30 + 90)
+        elif rotation == 2:
+            renderers[i].GetActiveCamera().Azimuth(30 + 180)
+        else:
+            renderers[i].GetActiveCamera().Azimuth(30 + 270)
+
         renderers[i].GetActiveCamera().Elevation(20)
         renderers[i].ResetCamera()
         renderers[i].ResetCameraClippingRange()
@@ -268,7 +313,7 @@ def marching_cubes(mcCases):
     if len(mcCases) < 4:
         xGridDimensions = len(mcCases)
     yGridDimensions = (len(mcCases) - 1) // 4 + 1
-    print("Grid dinenstions, (x, y): (", xGridDimensions, ",", yGridDimensions, ')')
+    print("Grid dimensions, (x, y): ({:d}, {:d})".format(xGridDimensions, yGridDimensions))
     renWin.SetSize(
         rendererSize * xGridDimensions, rendererSize * yGridDimensions)
     for row in range(0, yGridDimensions):
