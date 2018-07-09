@@ -2,7 +2,7 @@
 
 """
 Marching cubes cases for 3D isosurface generation.
-The 256 possible cases have been reduced to 14 cases using symmetry.
+The 256 possible cases have been reduced to 15 cases using symmetry.
 Dark vertices are greater than the selected isosurface value.
 
 Note: Make sure MarchingCases.py is in the same directory as this program.

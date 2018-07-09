@@ -3,6 +3,8 @@
 """
 Marching cubes complementary cases.
 
+Cases 3c, 6c, 7c, 10c, 12c and 13c are displayed.
+
 Note: Make sure MarchingCases.py is in the same directory as this program.
 """
 

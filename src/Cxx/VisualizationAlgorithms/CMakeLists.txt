@@ -55,6 +55,8 @@ set(NEEDS_ARGS
   MarchingCases
   MarchingCasesA
   MarchingCasesB
+  MarchingCasesC
+  MarchingCasesD
   PineRootConnectivity
   PineRootConnectivityA
   PineRootDecimation
@@ -136,13 +138,19 @@ add_test(${KIT}-LOxSeeds ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestLOxSeeds ${DATA}/postxyz.bin ${DATA}/postq.bin)
 
 add_test(${KIT}-MarchingCases ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestMarchingCases 7)
+  TestMarchingCases 1 7)
 
 add_test(${KIT}-MarchingCasesA ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestMarchingCasesA 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14)
+  TestMarchingCasesA 15 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14)
 
 add_test(${KIT}-MarchingCasesB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestMarchingCasesB -3 -6 -7 -10 -12 -13)
+  TestMarchingCasesB 6 -3 -6 -7 -10 -12 -13)
+
+add_test(${KIT}-MarchingCasesC ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMarchingCasesC 1 3 1 0)
+
+add_test(${KIT}-MarchingCasesD ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMarchingCasesD 1 7 2 0)
 
 add_test(${KIT}-Motor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMotor ${DATA}/texThres2.vtk ${DATA}/motor.g)
