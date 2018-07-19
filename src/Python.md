@@ -292,6 +292,8 @@ This section includes vtkUnstructuredGrid.
 [Delaunay2D](/Python/Filtering/Delaunay2D) | vtkDelaunay2D |
 [LUTUtilities](/Python/Utilities/LUTUtilities) | vtkLookupTable vtkColorSeries | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.
 [MultipleViewports](/Python/Visualization/MultipleViewports) | vtkRenderer::SetViewport |
+[SaveSceneToFieldData](/Python/Utilities/SaveSceneToFieldData) | vtkCamera | Save a vtkCamera's state in a vtkDataSet's vtkFieldData and restore it.
+[SaveSceneToFile](/Python/Utilities/SaveSceneToFile) | vtkCamera | Save a vtkCamera's state in a file and restore it.
 [Screenshot](/Python/Utilities/Screenshot) | vtkWindowToImageFilter |
 [VTKVersion](/Python/Utilities/VTKVersion) | vtkVersion |
 [VTKWithNumpy](/Python/Utilities/VTKWithNumpy) | vtkImageImport |
