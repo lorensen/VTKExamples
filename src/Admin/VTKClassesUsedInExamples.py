@@ -107,7 +107,7 @@ class VTKClassesInExamples(object):
                                  'vtkRenderWindowInteractor']
         # Where to get the list of VTK classes from.
         self.vtk_class_url = 'https://www.vtk.org/doc/nightly/html/annotated.html'
-        self.vtk_html_fmt = '[{:s}](http://www.vtk.org/doc/nightly/html/class{:s})'
+        self.vtk_html_fmt = '[{:s}](http://www.vtk.org/doc/nightly/html/class{:s}.html)'
 
         self.base_directory = base_directory
         self.columns = columns
