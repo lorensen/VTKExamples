@@ -89,6 +89,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkImageActor>::New();
   sagittal->GetMapper()->SetInputConnection(sagittalColors->GetOutputPort());
   sagittal->SetDisplayExtent(dimension/2, dimension/2, 0, dimension - 1, 0, dimension - 1);
+  sagittal->ForceOpaqueOn();
 
   vtkSmartPointer<vtkImageMapToColors> axialColors =
     vtkSmartPointer<vtkImageMapToColors>::New();
@@ -100,6 +101,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkImageActor>::New();
   axial->GetMapper()->SetInputConnection(axialColors->GetOutputPort());
   axial->SetDisplayExtent(0, dimension - 1, 0, dimension - 1, dimension/2, dimension/2);
+  axial->ForceOpaqueOn();
 
   vtkSmartPointer<vtkImageMapToColors> coronalColors =
     vtkSmartPointer<vtkImageMapToColors>::New();
@@ -111,6 +113,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkImageActor>::New();
   coronal->GetMapper()->SetInputConnection(coronalColors->GetOutputPort());
   coronal->SetDisplayExtent(0, dimension - 1, dimension/2, dimension/2, 0, dimension - 1);
+  coronal->ForceOpaqueOn();
 
   // Create a scalar bar
   vtkSmartPointer<vtkScalarBarActor> scalarBar =

@@ -178,6 +178,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkImageActor>::New();
   sagittal->GetMapper()->SetInputConnection(sagittalColors->GetOutputPort());
   sagittal->SetDisplayExtent(128, 128, 0,255, 0,92);
+  sagittal->ForceOpaqueOn();
 
   // Create the second (axial) plane of the three planes. We use the
   // same approach as before except that the extent differs.
@@ -191,6 +192,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkImageActor>::New();
   axial->GetMapper()->SetInputConnection(axialColors->GetOutputPort());
   axial->SetDisplayExtent(0,255, 0,255, 46,46);
+  axial->ForceOpaqueOn();
 
   // Create the third (coronal) plane of the three planes. We use
   // the same approach as before except that the extent differs.
@@ -204,6 +206,8 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkImageActor>::New();
   coronal->GetMapper()->SetInputConnection(coronalColors->GetOutputPort());
   coronal->SetDisplayExtent(0,255, 128,128, 0,92);
+  coronal->ForceOpaqueOn();
+
 
   // It is convenient to create an initial view of the data. The
   // FocalPoint and Position form a vector direction. Later on
