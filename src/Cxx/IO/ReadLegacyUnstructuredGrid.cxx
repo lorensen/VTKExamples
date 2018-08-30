@@ -64,7 +64,6 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkVariantArray> legendValues =
     vtkSmartPointer<vtkVariantArray>::New();
-#if 0
   vtkCellIterator *it = reader->GetOutput()->NewCellIterator();
   for (it->InitTraversal(); !it->IsDoneWithTraversal(); it->GoToNextCell())
   {
@@ -72,14 +71,15 @@ int main (int argc, char *argv[])
       vtkSmartPointer<vtkGenericCell>::New();
     it->GetCell(cell);
     std::string cellName = vtkCellTypes::GetClassNameFromTypeId(cell->GetCellType());
+#if 0
     std::cout << cellName
               << " NumberOfPoints: " << cell->GetNumberOfPoints()
               << " CellDimension: " << cell->GetCellDimension()
               << std::endl;
+#endif
     legendValues->InsertNextValue(vtkVariant(cellName));
   }
   it->Delete();
-#endif
   // Tube the edges
   vtkSmartPointer<vtkTubeFilter> tubes =
     vtkSmartPointer<vtkTubeFilter>::New();
@@ -193,9 +193,9 @@ int main (int argc, char *argv[])
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(geometryActor);
-//  renderer->AddActor(labelActor);
-//  renderer->AddActor(edgeActor);
-//  renderer->AddActor(pointActor);
+  renderer->AddActor(labelActor);
+  renderer->AddActor(edgeActor);
+  renderer->AddActor(pointActor);
   renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
   vtkSmartPointer<vtkCamera> aCamera =
