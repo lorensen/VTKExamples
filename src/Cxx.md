@@ -856,6 +856,12 @@ This section includes vtkUnstructuredGrid.
 [SpatterShader](/Cxx/Shaders/SpatterShader) | vtkShaderProgram vtkOpenGLPolyDataMapper::AddShaderReplacement | Modify the shader to load and use noise functions for color selection.
 [SphereMap](/Cxx/Shaders/SphereMap) | vtkShaderProgram vtkOpenGLPolyDataMapper | Modify the Vertex and Frament shaders to apply a spherical map.
 
+## Annotation
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[XYPlot](/Cxx/Annotation/XYPlot) | vtkXYPlotActor vtkProbeFilter | Display line probes.
+
 ## Texture Mapping
 
 | Example Name | Classes Demonstrated | Description | Image |
