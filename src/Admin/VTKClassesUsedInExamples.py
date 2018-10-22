@@ -103,8 +103,7 @@ class VTKClassesInExamples(object):
         """
         self.example_types = ['CSharp', 'Cxx', 'Java', 'Python']
         # Classes common to most examples.
-        self.excluded_classes = ['vtkActor', 'vtkCamera', 'vtkProperty', 'vtkRenderer', 'vtkRenderWindow',
-                                 'vtkRenderWindowInteractor']
+        self.excluded_classes = ['vtkActor', 'vtkCamera', 'vtkProperty', 'vtkRenderer', 'vtkRenderWindow', 'vtkRenderWindowInteractor', 'vtkNew']
         # Where to get the list of VTK classes from.
         self.vtk_class_url = 'https://www.vtk.org/doc/nightly/html/annotated.html'
         self.vtk_html_fmt = '[{:s}](http://www.vtk.org/doc/nightly/html/class{:s}.html)'
