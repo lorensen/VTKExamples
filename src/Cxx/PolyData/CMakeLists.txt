@@ -48,6 +48,7 @@ set(NEEDS_ARGS
   PointLocatorVisualization
   PolyDataIsoLines
   PolyDataPointSampler
+  PolyDataToImageData
   RemoveVertices
   Silhouette
   ShrinkPolyData
@@ -122,6 +123,9 @@ add_test(${KIT}-PolyDataIsoLines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 
 add_test(${KIT}-PolyDataPointSampler ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestPolyDataPointSampler ${DATA}/Torso.vtp)
+
+add_test(${KIT}-PolyDataToImageData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestPolyDataToImageData ${DATA}/Torso.vtp)
 
 add_test(${KIT}-RemoveVertices ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestRemoveVertices ${DATA}/Bunny.vtp)

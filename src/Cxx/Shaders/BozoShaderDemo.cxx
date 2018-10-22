@@ -97,6 +97,7 @@ int main(int argc, char *argv[])
   std::vector<vtkSmartPointer<vtkRenderer>> renderers;
   for (int i = 2; i < argc; ++i)
   {
+    std::cout << "Reading file: " << argv[i] << std::endl;
     vtkSmartPointer<vtkPolyData> polyData =
       ReadPolyData(argv[i]);
     std::ifstream shaderFile(argv[1]);

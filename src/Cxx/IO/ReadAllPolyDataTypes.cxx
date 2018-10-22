@@ -37,13 +37,22 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputData(polyData);
 
+  vtkSmartPointer<vtkProperty> backProp =
+    vtkSmartPointer<vtkProperty>::New();
+  backProp->SetDiffuseColor(colors->GetColor3d("Banana").GetData());
+  backProp->SetSpecular(.6);
+  backProp->SetSpecularPower(30);
+;
+
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->SetBackfaceProperty(backProp);
   actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Crimson").GetData());
   actor->GetProperty()->SetSpecular(.6);
   actor->GetProperty()->SetSpecularPower(30);
 ;
+
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
