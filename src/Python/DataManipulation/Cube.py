@@ -44,11 +44,11 @@ def main():
     scalars = vtk.vtkFloatArray()
 
     # Load the point, cell, and data attributes.
-    for i in range(8):
-        points.InsertPoint(i, x[i])
-    for i in range(6):
-        polys.InsertNextCell(mkVtkIdList(pts[i]))
-    for i in range(8):
+    for i, xi in enumerate(x):
+        points.InsertPoint(i, xi)
+    for pt in pts:
+        polys.InsertNextCell(mkVtkIdList(pt))
+    for i, _ in enumerate(x):
         scalars.InsertTuple1(i, i)
 
     # We now assign the pieces to the vtkPolyData.
