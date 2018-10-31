@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 
 import vtk
-import random
-import numpy
+import numpy as np
 
 
 # Make a 32 x 32 grid
 size = 32
 
 # Define z values for the topography
-topography = numpy.zeros([size, size])
-for i in range(size):
-    for j in range(size):
-        topography[i][j] = random.randrange(0, 5)
+z_min = 0
+z_max = 5
+topography = (z_max * np.random.random_sample((size, size)) + z_min).round()
 
 # Define points, triangles and colors
 colors = vtk.vtkUnsignedCharArray()
