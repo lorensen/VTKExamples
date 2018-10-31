@@ -65,11 +65,6 @@ function registerListener(event, func) {
 </span><span class=c1>#</span>
 <span class=c1># A convenience function, mkVtkIdList(), has been added and one if/else</span>
 <span class=c1># so the example also works in version 6 or later.</span>
-<span class=c1>#</span>
-<span class=c1># Lines like `obj-&gt;Delete()` have been transliterated as `del obj` to,</span>
-<span class=c1># preserve the resemblance to the original C++ example, although I</span>
-<span class=c1># doubt this achieves anything beyond what Python&#39;s garbage collection</span>
-<span class=c1># would do anyway.</span>
 
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
@@ -87,6 +82,8 @@ function registerListener(event, func) {
 
 
 <span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+<span class=hll>    <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
+</span>
     <span class=c1># x = array of 8 3-tuples of float representing the vertices of a cube:</span>
     <span class=n>x</span> <span class=o>=</span> <span class=p>[(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>),</span>
          <span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>),</span> <span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)]</span>
@@ -103,20 +100,17 @@ function registerListener(event, func) {
 </span><span class=hll>    <span class=n>scalars</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkFloatArray</span><span class=p>()</span>
 </span>
     <span class=c1># Load the point, cell, and data attributes.</span>
-    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>8</span><span class=p>):</span>
-        <span class=n>points</span><span class=o>.</span><span class=n>InsertPoint</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>x</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>
-    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>6</span><span class=p>):</span>
-        <span class=n>polys</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>mkVtkIdList</span><span class=p>(</span><span class=n>pts</span><span class=p>[</span><span class=n>i</span><span class=p>]))</span>
-    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>8</span><span class=p>):</span>
+    <span class=k>for</span> <span class=n>i</span><span class=p>,</span> <span class=n>xi</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>x</span><span class=p>):</span>
+        <span class=n>points</span><span class=o>.</span><span class=n>InsertPoint</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>xi</span><span class=p>)</span>
+    <span class=k>for</span> <span class=n>pt</span> <span class=ow>in</span> <span class=n>pts</span><span class=p>:</span>
+        <span class=n>polys</span><span class=o>.</span><span class=n>InsertNextCell</span><span class=p>(</span><span class=n>mkVtkIdList</span><span class=p>(</span><span class=n>pt</span><span class=p>))</span>
+    <span class=k>for</span> <span class=n>i</span><span class=p>,</span> <span class=n>_</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>x</span><span class=p>):</span>
         <span class=n>scalars</span><span class=o>.</span><span class=n>InsertTuple1</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>i</span><span class=p>)</span>
 
 <span class=hll>    <span class=c1># We now assign the pieces to the vtkPolyData.</span>
 </span>    <span class=n>cube</span><span class=o>.</span><span class=n>SetPoints</span><span class=p>(</span><span class=n>points</span><span class=p>)</span>
-    <span class=k>del</span> <span class=n>points</span>
     <span class=n>cube</span><span class=o>.</span><span class=n>SetPolys</span><span class=p>(</span><span class=n>polys</span><span class=p>)</span>
-    <span class=k>del</span> <span class=n>polys</span>
     <span class=n>cube</span><span class=o>.</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>.</span><span class=n>SetScalars</span><span class=p>(</span><span class=n>scalars</span><span class=p>)</span>
-    <span class=k>del</span> <span class=n>scalars</span>
 
     <span class=c1># Now we&#39;ll look at it.</span>
 <span class=hll>    <span class=n>cubeMapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
@@ -143,7 +137,7 @@ function registerListener(event, func) {
     <span class=n>renderer</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>cubeActor</span><span class=p>)</span>
     <span class=n>renderer</span><span class=o>.</span><span class=n>SetActiveCamera</span><span class=p>(</span><span class=n>camera</span><span class=p>)</span>
     <span class=n>renderer</span><span class=o>.</span><span class=n>ResetCamera</span><span class=p>()</span>
-    <span class=n>renderer</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+    <span class=n>renderer</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>.</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s2>&quot;White&quot;</span><span class=p>))</span>
 
     <span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>300</span><span class=p>,</span> <span class=mi>300</span><span class=p>)</span>
 
@@ -151,15 +145,7 @@ function registerListener(event, func) {
     <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
     <span class=n>iren</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
 
-    <span class=c1># Clean up</span>
-    <span class=k>del</span> <span class=n>cube</span>
-    <span class=k>del</span> <span class=n>cubeMapper</span>
-    <span class=k>del</span> <span class=n>cubeActor</span>
-    <span class=k>del</span> <span class=n>camera</span>
-    <span class=k>del</span> <span class=n>renderer</span>
-    <span class=k>del</span> <span class=n>renWin</span>
-    <span class=k>del</span> <span class=n>iren</span>
 
-
-<span class=n>main</span><span class=p>()</span>
+<span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&quot;__main__&quot;</span><span class=p>:</span>
+    <span class=n>main</span><span class=p>()</span>
 </pre></div> </article> </div> </div> </main> <footer class=md-footer> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid"> <a href=../../Arrays/RenameArray/ title=RenameArray class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i> </div> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Previous </span> RenameArray </span> </div> </a> <a href=../LineOnMesh/ title=LineOnMesh class="md-flex md-footer-nav__link md-footer-nav__link--next" rel=next> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Next </span> LineOnMesh </span> </div> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i> </div> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright> <div class=md-footer-copyright__highlight> <font color=#666>Content is available under </font><a href=https://creativecommons.org/licenses/by/2.5/ title=Attribution2.5>Attribution2.5</a> <font color=#666>unless otherwise noted.</font> </div> powered by <a href=http://www.mkdocs.org title=MkDocs>MkDocs</a> and <a href=http://squidfunk.github.io/mkdocs-material/ title="Material for MkDocs"> Material for MkDocs</a> </div> </div> </div> </footer> </div> <script src=../../../assets/javascripts/application-c35428f87f.js></script> <script>app.initialize({url:{base:"../../.."}})</script> <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML></script> <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-3660134-4","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script> </body> </html>
