@@ -24,8 +24,8 @@ def main():
     # Create the points and a hexahedron from the points.
     points = vtk.vtkPoints()
     hexa = vtk.vtkHexahedron()
-    for i in range(0, len(pointCoords)):
-        points.InsertNextPoint(pointCoords[i])
+    for i, pointCoord in enumerate(pointCoords):
+        points.InsertNextPoint(pointCoord)
         hexa.GetPointIds().SetId(i, i)
 
     # Add the hexahedron to a cell array.
