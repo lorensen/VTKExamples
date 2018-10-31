@@ -6,11 +6,6 @@
 #
 # A convenience function, mkVtkIdList(), has been added and one if/else
 # so the example also works in version 6 or later.
-#
-# Lines like `obj->Delete()` have been transliterated as `del obj` to,
-# preserve the resemblance to the original C++ example, although I
-# doubt this achieves anything beyond what Python's garbage collection
-# would do anyway.
 
 import vtk
 
@@ -28,6 +23,8 @@ def mkVtkIdList(it):
 
 
 def main():
+    colors = vtk.vtkNamedColors()
+    
     # x = array of 8 3-tuples of float representing the vertices of a cube:
     x = [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 0.0),
          (0.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 1.0, 1.0), (0.0, 1.0, 1.0)]
@@ -53,11 +50,8 @@ def main():
 
     # We now assign the pieces to the vtkPolyData.
     cube.SetPoints(points)
-    del points
     cube.SetPolys(polys)
-    del polys
     cube.GetPointData().SetScalars(scalars)
-    del scalars
 
     # Now we'll look at it.
     cubeMapper = vtk.vtkPolyDataMapper()
@@ -84,7 +78,7 @@ def main():
     renderer.AddActor(cubeActor)
     renderer.SetActiveCamera(camera)
     renderer.ResetCamera()
-    renderer.SetBackground(1, 1, 1)
+    renderer.SetBackground(colors.GetColor3d("White"))
 
     renWin.SetSize(300, 300)
 
@@ -92,14 +86,6 @@ def main():
     renWin.Render()
     iren.Start()
 
-    # Clean up
-    del cube
-    del cubeMapper
-    del cubeActor
-    del camera
-    del renderer
-    del renWin
-    del iren
 
-
-main()
+if __name__ == "__main__":
+    main()
