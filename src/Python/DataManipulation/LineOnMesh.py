@@ -8,9 +8,7 @@ import numpy as np
 size = 32
 
 # Define z values for the topography
-z_min = 0
-z_max = 5
-topography = (z_max * np.random.random_sample((size, size)) + z_min).round()
+topography = np.random.randint(0, 5, (size, size))
 
 # Define points, triangles and colors
 colors = vtk.vtkUnsignedCharArray()
