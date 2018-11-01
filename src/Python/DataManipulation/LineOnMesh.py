@@ -140,7 +140,7 @@ def main():
     # Define the line actor
     actor = vtk.vtkActor()
     actor.SetMapper(mapper)
-    actor.GetProperty().SetColor([1.0, 0.0, 0.0])
+    actor.GetProperty().SetColor(named_colors.GetColor3d("Red"))
     actor.GetProperty().SetLineWidth(3)
 
     # Visualize
