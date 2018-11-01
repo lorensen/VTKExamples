@@ -61,135 +61,150 @@ function registerListener(event, func) {
 
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
-<span class=n>ifn</span> <span class=o>=</span> <span class=s1>&#39;labels.mhd&#39;</span>
 
-<span class=c1># Prepare to read the file</span>
+<span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+<span class=hll>    <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
+</span>    <span class=n>ifn</span><span class=p>,</span> <span class=n>index</span> <span class=o>=</span> <span class=n>get_program_parameters</span><span class=p>()</span>
 
-<span class=hll><span class=n>readerVolume</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkMetaImageReader</span><span class=p>()</span>
-</span><span class=n>readerVolume</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>ifn</span><span class=p>)</span>
-<span class=n>readerVolume</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
+    <span class=c1># Prepare to read the file.</span>
+<span class=hll>    <span class=n>readerVolume</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkMetaImageReader</span><span class=p>()</span>
+</span>    <span class=n>readerVolume</span><span class=o>.</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>ifn</span><span class=p>)</span>
+    <span class=n>readerVolume</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 
-<span class=c1># Extract the region of interest</span>
-<span class=hll><span class=n>voi</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkExtractVOI</span><span class=p>()</span>
-</span><span class=hll><span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
-</span>    <span class=n>voi</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>readerVolume</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>
-<span class=k>else</span><span class=p>:</span>
-    <span class=n>voi</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>readerVolume</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
-<span class=n>voi</span><span class=o>.</span><span class=n>SetVOI</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>517</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>228</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>392</span><span class=p>)</span>
-<span class=n>voi</span><span class=o>.</span><span class=n>SetSampleRate</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+    <span class=c1># Extract the region of interest.</span>
+<span class=hll>    <span class=n>voi</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkExtractVOI</span><span class=p>()</span>
+</span><span class=hll>    <span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
+</span>        <span class=n>voi</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>readerVolume</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=n>voi</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>readerVolume</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+    <span class=n>voi</span><span class=o>.</span><span class=n>SetVOI</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>517</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>228</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>392</span><span class=p>)</span>
+    <span class=n>voi</span><span class=o>.</span><span class=n>SetSampleRate</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+    <span class=n>voi</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>  <span class=c1># Necessary for GetScalarRange().</span>
+    <span class=n>srange</span> <span class=o>=</span> <span class=n>voi</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetScalarRange</span><span class=p>()</span>  <span class=c1># Needs Update() before!</span>
+    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Range&quot;</span><span class=p>,</span> <span class=n>srange</span><span class=p>)</span>
 
-<span class=n>voi</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>  <span class=c1># necessary for GetScalarRange()</span>
-<span class=n>srange</span> <span class=o>=</span> <span class=n>voi</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>.</span><span class=n>GetScalarRange</span><span class=p>()</span>  <span class=c1># needs Update() before!</span>
-<span class=k>print</span><span class=p>(</span><span class=s2>&quot;Range&quot;</span><span class=p>,</span> <span class=n>srange</span><span class=p>)</span>
+    <span class=c1># Prepare surface generation.</span>
+<span class=hll>    <span class=n>contour</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkDiscreteMarchingCubes</span><span class=p>()</span>  <span class=c1># For label images.</span>
+</span><span class=hll>    <span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
+</span>        <span class=n>contour</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>voi</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=n>contour</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>voi</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+    <span class=c1># contour.ComputeNormalsOn()</span>
 
-<span class=c1># Prepare surface generation</span>
-<span class=hll><span class=n>contour</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkDiscreteMarchingCubes</span><span class=p>()</span>  <span class=c1># for label images</span>
-</span><span class=hll><span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
-</span>    <span class=n>contour</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>voi</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>
-<span class=k>else</span><span class=p>:</span>
-    <span class=n>contour</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>voi</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
-<span class=c1># contour.ComputeNormalsOn()</span>
+    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Doing label&quot;</span><span class=p>,</span> <span class=n>index</span><span class=p>)</span>
 
+    <span class=n>contour</span><span class=o>.</span><span class=n>SetValue</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>index</span><span class=p>)</span>
+    <span class=n>contour</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>  <span class=c1># Needed for GetNumberOfPolys()!!!</span>
 
-<span class=c1># choose one label</span>
-<span class=n>index</span> <span class=o>=</span> <span class=mi>31</span>
+<span class=hll>    <span class=n>smoother</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkWindowedSincPolyDataFilter</span><span class=p>()</span>
+</span><span class=hll>    <span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
+</span>        <span class=n>smoother</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>contour</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=n>smoother</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>contour</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+    <span class=n>smoother</span><span class=o>.</span><span class=n>SetNumberOfIterations</span><span class=p>(</span><span class=mi>30</span><span class=p>)</span>  <span class=c1># This has little effect on the error!</span>
+    <span class=c1># smoother.BoundarySmoothingOff()</span>
+    <span class=c1># smoother.FeatureEdgeSmoothingOff()</span>
+    <span class=c1># smoother.SetFeatureAngle(120.0)</span>
+    <span class=c1># smoother.SetPassBand(.001)        # This increases the error a lot!</span>
+    <span class=n>smoother</span><span class=o>.</span><span class=n>NonManifoldSmoothingOn</span><span class=p>()</span>
+    <span class=n>smoother</span><span class=o>.</span><span class=n>NormalizeCoordinatesOn</span><span class=p>()</span>
+    <span class=n>smoother</span><span class=o>.</span><span class=n>GenerateErrorScalarsOn</span><span class=p>()</span>
+    <span class=c1># smoother.GenerateErrorVectorsOn()</span>
+    <span class=n>smoother</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
 
-<span class=k>print</span><span class=p>(</span><span class=s2>&quot;Doing label&quot;</span><span class=p>,</span> <span class=n>index</span><span class=p>)</span>
+    <span class=n>smoothed_polys</span> <span class=o>=</span> <span class=n>smoother</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span>
+    <span class=n>smoother_error</span> <span class=o>=</span> <span class=n>smoothed_polys</span><span class=o>.</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>.</span><span class=n>GetScalars</span><span class=p>()</span>
 
-<span class=n>contour</span><span class=o>.</span><span class=n>SetValue</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>index</span><span class=p>)</span>
-<span class=n>contour</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>  <span class=c1># needed for GetNumberOfPolys() !!!</span>
+    <span class=c1># Find min and max z.</span>
+    <span class=n>se_range</span> <span class=o>=</span> <span class=n>smoother_error</span><span class=o>.</span><span class=n>GetRange</span><span class=p>()</span>
+    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Smoother error range:&quot;</span><span class=p>,</span> <span class=n>se_range</span><span class=p>)</span>
+    <span class=n>minz</span> <span class=o>=</span> <span class=n>se_range</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>  <span class=c1># min(smoother_error)</span>
+    <span class=n>maxz</span> <span class=o>=</span> <span class=n>se_range</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>  <span class=c1># max(smoother_error)</span>
+    <span class=k>if</span> <span class=n>maxz</span> <span class=o>&gt;</span> <span class=mi>1</span><span class=p>:</span>
+        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Big smoother error: min/max:&quot;</span><span class=p>,</span> <span class=n>minz</span><span class=p>,</span> <span class=n>maxz</span><span class=p>)</span>
+    <span class=c1># minz = 0.3  # This way colours of different particles are comparable.</span>
+    <span class=c1># maxz = 1</span>
+    <span class=n>minz</span> <span class=o>=</span> <span class=mf>0.3</span>
+    <span class=n>maxz</span> <span class=o>=</span> <span class=mf>0.6</span>
 
-<span class=hll><span class=n>smoother</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkWindowedSincPolyDataFilter</span><span class=p>()</span>
-</span><span class=hll><span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
-</span>    <span class=n>smoother</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>contour</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>
-<span class=k>else</span><span class=p>:</span>
-    <span class=n>smoother</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>contour</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
-<span class=n>smoother</span><span class=o>.</span><span class=n>SetNumberOfIterations</span><span class=p>(</span><span class=mi>30</span><span class=p>)</span>  <span class=c1># this has little effect on the error!</span>
-<span class=c1># smoother.BoundarySmoothingOff()</span>
-<span class=c1># smoother.FeatureEdgeSmoothingOff()</span>
-<span class=c1># smoother.SetFeatureAngle(120.0)</span>
-<span class=c1># smoother.SetPassBand(.001)        #this increases the error a lot!</span>
-<span class=n>smoother</span><span class=o>.</span><span class=n>NonManifoldSmoothingOn</span><span class=p>()</span>
-<span class=n>smoother</span><span class=o>.</span><span class=n>NormalizeCoordinatesOn</span><span class=p>()</span>
-<span class=n>smoother</span><span class=o>.</span><span class=n>GenerateErrorScalarsOn</span><span class=p>()</span>
-<span class=c1># smoother.GenerateErrorVectorsOn()</span>
-<span class=n>smoother</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
+    <span class=c1># Create the color map.</span>
+<span class=hll>    <span class=n>colorLookupTable</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
+</span>    <span class=n>colorLookupTable</span><span class=o>.</span><span class=n>SetTableRange</span><span class=p>(</span><span class=n>minz</span><span class=p>,</span> <span class=n>maxz</span><span class=p>)</span>  <span class=c1># This does nothing, use mapper.SetScalarRange(minz, maxz).</span>
+    <span class=n>colorLookupTable</span><span class=o>.</span><span class=n>SetHueRange</span><span class=p>(</span><span class=mi>2</span> <span class=o>/</span> <span class=mf>3.0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+    <span class=c1># colorLookupTable.SetSaturationRange(0, 0)</span>
+    <span class=c1># colorLookupTable.SetValueRange(1, 0)</span>
+    <span class=c1># colorLookupTable.SetNumberOfColors(256) #256 default</span>
+    <span class=n>colorLookupTable</span><span class=o>.</span><span class=n>Build</span><span class=p>()</span>
 
-<span class=n>smoothed_polys</span> <span class=o>=</span> <span class=n>smoother</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>()</span>
-<span class=n>smoother_error</span> <span class=o>=</span> <span class=n>smoothed_polys</span><span class=o>.</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>.</span><span class=n>GetScalars</span><span class=p>()</span>
-
-<span class=c1># Find min and max z</span>
-<span class=n>se_range</span> <span class=o>=</span> <span class=n>smoother_error</span><span class=o>.</span><span class=n>GetRange</span><span class=p>()</span>
-<span class=k>print</span><span class=p>(</span><span class=n>se_range</span><span class=p>)</span>
-<span class=n>minz</span> <span class=o>=</span> <span class=n>se_range</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>  <span class=c1># min(smoother_error)</span>
-<span class=n>maxz</span> <span class=o>=</span> <span class=n>se_range</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>  <span class=c1># max(smoother_error)</span>
-<span class=k>if</span> <span class=n>maxz</span> <span class=o>&gt;</span> <span class=mi>1</span><span class=p>:</span>
-    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Big smoother error: min/max:&quot;</span><span class=p>,</span> <span class=n>minz</span><span class=p>,</span> <span class=n>maxz</span><span class=p>)</span>
-<span class=n>minz</span> <span class=o>=</span> <span class=o>.</span><span class=mi>3</span>  <span class=c1># this way colours of different particles are comparable</span>
-<span class=n>maxz</span> <span class=o>=</span> <span class=mi>1</span>
-
-<span class=c1># Create the color map</span>
-<span class=hll><span class=n>colorLookupTable</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLookupTable</span><span class=p>()</span>
-</span><span class=n>colorLookupTable</span><span class=o>.</span><span class=n>SetTableRange</span><span class=p>(</span><span class=n>minz</span><span class=p>,</span> <span class=n>maxz</span><span class=p>)</span>  <span class=c1># this does nothing, use mapper.SetScalarRange(minz, maxz)</span>
-<span class=n>colorLookupTable</span><span class=o>.</span><span class=n>SetHueRange</span><span class=p>(</span><span class=mi>2</span> <span class=o>/</span> <span class=mf>3.0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
-<span class=c1># colorLookupTable.SetSaturationRange(0, 0)</span>
-<span class=c1># colorLookupTable.SetValueRange(1, 0)</span>
-<span class=c1># colorLookupTable.SetNumberOfColors(256) #256 default</span>
-<span class=n>colorLookupTable</span><span class=o>.</span><span class=n>Build</span><span class=p>()</span>
-
-<span class=c1># calc cell normal</span>
-<span class=hll><span class=n>triangleCellNormals</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataNormals</span><span class=p>()</span>
-</span><span class=hll><span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
-</span>    <span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>smoothed_polys</span><span class=p>)</span>
-<span class=k>else</span><span class=p>:</span>
-    <span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>smoothed_polys</span><span class=p>)</span>
-<span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>ComputeCellNormalsOn</span><span class=p>()</span>
-<span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>ComputePointNormalsOff</span><span class=p>()</span>
-<span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>ConsistencyOn</span><span class=p>()</span>
-<span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>AutoOrientNormalsOn</span><span class=p>()</span>
-<span class=hll><span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>  <span class=c1># creates vtkPolyData</span>
+    <span class=c1># Calculate cell normals.</span>
+<span class=hll>    <span class=n>triangleCellNormals</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataNormals</span><span class=p>()</span>
+</span><span class=hll>    <span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
+</span>        <span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>smoothed_polys</span><span class=p>)</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>smoothed_polys</span><span class=p>)</span>
+    <span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>ComputeCellNormalsOn</span><span class=p>()</span>
+    <span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>ComputePointNormalsOff</span><span class=p>()</span>
+    <span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>ConsistencyOn</span><span class=p>()</span>
+    <span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>AutoOrientNormalsOn</span><span class=p>()</span>
+<span class=hll>    <span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>  <span class=c1># Creates vtkPolyData.</span>
 </span>
-<span class=hll><span class=n>mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
-</span><span class=c1># mapper.SetInput(smoothed_polys) #this has no normals</span>
-<span class=hll><span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
-</span>    <span class=n>mapper</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>  <span class=c1># this is better for vis;-)</span>
-<span class=k>else</span><span class=p>:</span>
-    <span class=n>mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>  <span class=c1># this is better for vis;-)</span>
-<span class=n>mapper</span><span class=o>.</span><span class=n>ScalarVisibilityOn</span><span class=p>()</span>  <span class=c1># show colour</span>
-<span class=n>mapper</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>minz</span><span class=p>,</span> <span class=n>maxz</span><span class=p>)</span>
-<span class=c1># mapper.SetScalarModeToUseCellData() # contains the label eg. 31</span>
-<span class=n>mapper</span><span class=o>.</span><span class=n>SetScalarModeToUsePointData</span><span class=p>()</span>  <span class=c1># the smoother error relates to the verts</span>
-<span class=n>mapper</span><span class=o>.</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>colorLookupTable</span><span class=p>)</span>
+<span class=hll>    <span class=n>mapper</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPolyDataMapper</span><span class=p>()</span>
+</span>    <span class=c1># mapper.SetInput(smoothed_polys) # This has no normals.</span>
+<span class=hll>    <span class=k>if</span> <span class=n>vtk</span><span class=o>.</span><span class=n>VTK_MAJOR_VERSION</span> <span class=o>&lt;=</span> <span class=mi>5</span><span class=p>:</span>
+</span>        <span class=n>mapper</span><span class=o>.</span><span class=n>SetInput</span><span class=p>(</span><span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>GetOutput</span><span class=p>())</span>  <span class=c1># This is better for vis;-)</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=n>mapper</span><span class=o>.</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>triangleCellNormals</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>  <span class=c1># this is better for vis;-)</span>
+    <span class=n>mapper</span><span class=o>.</span><span class=n>ScalarVisibilityOn</span><span class=p>()</span>  <span class=c1># Show colour.</span>
+    <span class=n>mapper</span><span class=o>.</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>minz</span><span class=p>,</span> <span class=n>maxz</span><span class=p>)</span>
+    <span class=c1># mapper.SetScalarModeToUseCellData() # Contains the label eg. 31</span>
+    <span class=n>mapper</span><span class=o>.</span><span class=n>SetScalarModeToUsePointData</span><span class=p>()</span>  <span class=c1># The smoother error relates to the verts.</span>
+    <span class=n>mapper</span><span class=o>.</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>colorLookupTable</span><span class=p>)</span>
 
-<span class=c1># Take the isosurface data and create geometry</span>
+    <span class=c1># Take the isosurface data and create geometry.</span>
+<span class=hll>    <span class=n>actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLODActor</span><span class=p>()</span>
+</span>    <span class=n>actor</span><span class=o>.</span><span class=n>SetNumberOfCloudPoints</span><span class=p>(</span><span class=mi>100000</span><span class=p>)</span>
+    <span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
 
-<span class=hll><span class=n>actor</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkLODActor</span><span class=p>()</span>
-</span>
-<span class=n>actor</span><span class=o>.</span><span class=n>SetNumberOfCloudPoints</span><span class=p>(</span><span class=mi>100000</span><span class=p>)</span>
-<span class=n>actor</span><span class=o>.</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>)</span>
+    <span class=c1># Create the renderer.</span>
+<span class=hll>    <span class=n>ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
+</span>    <span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>.</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s2>&quot;DimGray&quot;</span><span class=p>))</span>
+    <span class=n>ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
 
-<span class=c1># Create renderer</span>
+    <span class=c1># Create a window for the renderer of size 600X600</span>
+<span class=hll>    <span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
+</span>    <span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren</span><span class=p>)</span>
+    <span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>600</span><span class=p>,</span> <span class=mi>600</span><span class=p>)</span>
 
-<span class=hll><span class=n>ren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderer</span><span class=p>()</span>
-</span><span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
-<span class=n>ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
+    <span class=c1># Set a user interface interactor for the render window.</span>
+<span class=hll>    <span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
+</span>    <span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>)</span>
 
-<span class=c1># Create a window for the renderer of size 250x250</span>
+    <span class=c1># Start the initialization and rendering.</span>
+    <span class=n>iren</span><span class=o>.</span><span class=n>Initialize</span><span class=p>()</span>
+    <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
+    <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>SetPosition</span><span class=p>(</span><span class=mf>268.628410</span><span class=p>,</span> <span class=mf>128.452157</span><span class=p>,</span> <span class=mf>24.517175</span><span class=p>)</span>
+    <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>SetFocalPoint</span><span class=p>(</span><span class=mf>256.006912</span><span class=p>,</span> <span class=mf>175.949646</span><span class=p>,</span> <span class=mf>24.175843</span><span class=p>)</span>
+    <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>.</span><span class=n>SetViewUp</span><span class=p>(</span><span class=mf>0.844464</span><span class=p>,</span> <span class=mf>0.227883</span><span class=p>,</span> <span class=mf>0.484716</span><span class=p>)</span>
+    <span class=n>ren</span><span class=o>.</span><span class=n>ResetCameraClippingRange</span><span class=p>()</span>
+    <span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
 
-<span class=hll><span class=n>renWin</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindow</span><span class=p>()</span>
-</span>
-<span class=n>renWin</span><span class=o>.</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>ren</span><span class=p>)</span>
-<span class=n>renWin</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>250</span><span class=p>,</span> <span class=mi>250</span><span class=p>)</span>
+    <span class=n>iren</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
 
-<span class=c1># Set an user interface interactor for the render window</span>
 
-<span class=hll><span class=n>iren</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRenderWindowInteractor</span><span class=p>()</span>
-</span>
-<span class=n>iren</span><span class=o>.</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renWin</span><span class=p>)</span>
+<span class=k>def</span> <span class=nf>get_program_parameters</span><span class=p>():</span>
+    <span class=kn>import</span> <span class=nn>argparse</span>
+    <span class=n>description</span> <span class=o>=</span> <span class=s1>&#39;MeshLabelImageColor.&#39;</span>
+    <span class=n>epilogue</span> <span class=o>=</span> <span class=s1>&#39;&#39;&#39;</span>
+<span class=s1>        Takes a label image in Meta format and meshes a single label of it.</span>
 
-<span class=c1># Start the initialization and rendering</span>
+<span class=s1>   &#39;&#39;&#39;</span>
+    <span class=n>parser</span> <span class=o>=</span> <span class=n>argparse</span><span class=o>.</span><span class=n>ArgumentParser</span><span class=p>(</span><span class=n>description</span><span class=o>=</span><span class=n>description</span><span class=p>,</span> <span class=n>epilog</span><span class=o>=</span><span class=n>epilogue</span><span class=p>)</span>
+    <span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s1>&#39;filename&#39;</span><span class=p>,</span> <span class=n>help</span><span class=o>=</span><span class=s1>&#39;labels.mhd&#39;</span><span class=p>)</span>
+    <span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s1>&#39;label&#39;</span><span class=p>,</span> <span class=n>nargs</span><span class=o>=</span><span class=s1>&#39;?&#39;</span><span class=p>,</span> <span class=n>const</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=nb>type</span><span class=o>=</span><span class=nb>int</span><span class=p>,</span> <span class=n>default</span><span class=o>=</span><span class=mi>31</span><span class=p>,</span> <span class=n>help</span><span class=o>=</span><span class=s1>&#39;The label to use e.g 31&#39;</span><span class=p>)</span>
+    <span class=n>args</span> <span class=o>=</span> <span class=n>parser</span><span class=o>.</span><span class=n>parse_args</span><span class=p>()</span>
+    <span class=k>return</span> <span class=n>args</span><span class=o>.</span><span class=n>filename</span><span class=p>,</span> <span class=n>args</span><span class=o>.</span><span class=n>label</span>
 
-<span class=n>iren</span><span class=o>.</span><span class=n>Initialize</span><span class=p>()</span>
-<span class=n>renWin</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
-<span class=n>iren</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
+
+<span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
+    <span class=n>main</span><span class=p>()</span>
 </pre></div> </article> </div> </div> </main> <footer class=md-footer> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid"> <a href=../LineOnMesh/ title=LineOnMesh class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i> </div> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Previous </span> LineOnMesh </span> </div> </a> <a href=../../ExodusII/ReadExodusData/ title=ReadExodusData class="md-flex md-footer-nav__link md-footer-nav__link--next" rel=next> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Next </span> ReadExodusData </span> </div> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i> </div> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright> <div class=md-footer-copyright__highlight> <font color=#666>Content is available under </font><a href=https://creativecommons.org/licenses/by/2.5/ title=Attribution2.5>Attribution2.5</a> <font color=#666>unless otherwise noted.</font> </div> powered by <a href=http://www.mkdocs.org title=MkDocs>MkDocs</a> and <a href=http://squidfunk.github.io/mkdocs-material/ title="Material for MkDocs"> Material for MkDocs</a> </div> </div> </div> </footer> </div> <script src=../../../assets/javascripts/application-c35428f87f.js></script> <script>app.initialize({url:{base:"../../.."}})</script> <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML></script> <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-3660134-4","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script> </body> </html>

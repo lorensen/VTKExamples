@@ -83,8 +83,8 @@ function registerListener(event, func) {
     <span class=c1># Create the points and a hexahedron from the points.</span>
 <span class=hll>    <span class=n>points</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkPoints</span><span class=p>()</span>
 </span><span class=hll>    <span class=n>hexa</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkHexahedron</span><span class=p>()</span>
-</span>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>pointCoords</span><span class=p>)):</span>
-        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>pointCoords</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>
+</span>    <span class=k>for</span> <span class=n>i</span><span class=p>,</span> <span class=n>pointCoord</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>pointCoords</span><span class=p>):</span>
+        <span class=n>points</span><span class=o>.</span><span class=n>InsertNextPoint</span><span class=p>(</span><span class=n>pointCoord</span><span class=p>)</span>
         <span class=n>hexa</span><span class=o>.</span><span class=n>GetPointIds</span><span class=p>()</span><span class=o>.</span><span class=n>SetId</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>i</span><span class=p>)</span>
 
     <span class=c1># Add the hexahedron to a cell array.</span>
