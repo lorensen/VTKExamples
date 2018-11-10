@@ -403,6 +403,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DisplayCoordinateAxes](/Python/Visualization/DisplayCoordinateAxes) | vtkOrientationMarkerWidget | Display coordinate axes.
 [ElevationBandsWithGlyphs](/Python/Visualization/ElevationBandsWithGlyphs) | vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
 [ExponentialCosine](/Python/VisualizationAlgorithms/ExponentialCosine) | vtkWarpScalar | Carpet plots. Visualization of an exponential cosine function. Function values are indicated by surface displacement. Colors indicate derivative values.
+[FlyingFrogSkinAndTissue](/Python/Visualization/FlyingFrogSkinAndTissue) | vtkMetaImageReader vtkFlyingEdges3D vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth | All frog parts and translucent skin.
+[FlyingHeadSlice](/Python/VisualizationAlgorithms/FlyingHeadSlice) | vtkFlyingEdges2D | Flying edges used to generate contour lines.
 [FrogSlice](/Python/Visualization/FrogSlice) | vtkMetaImageReader | Photographic slice of frog (upper left), segmented frog (upper right) and composite of photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow.
 [GlyphTable](/Python/Visualization/GlyphTable) | vtkGlyph3D | Vary the shapes of glyphed points using a glyph table
 [Hanoi](/Python/Visualization/Hanoi) |  | Towers of Hanoi.

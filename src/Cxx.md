@@ -940,6 +940,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [FastSplatter](/Cxx/Visualization/FastSplatter) | vtkFastSplatter | Convolve a splat image with every point in an input image.
 [FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | vtkCellLocator | Find the intersection of a line and the cells in an unstructured dataset
 [FlatShading](/Cxx/Visualization/FlatShading) | vtkActor |
+[FlyingFrogSkinAndTissue](/Cxx/Visualization/FlyingFrogSkinAndTissue) | vtkMetaImageReader vtkFlyingEdges3D vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth | All frog parts and translucent skin.
+[FlyingHeadSlice](/Cxx/VisualizationAlgorithms/FlyingHeadSlice) | vtkFlyingEdges2D | Flying edges used to generate contour lines.
 [Follower](/Cxx/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [FontFile](/Cxx/Visualization/FontFile) | vtkTextProperty | Use an external font.
 [FrogSlice](/Cxx/Visualization/FrogSlice) | vtkMetaImageReader | Photographic slice of frog (upper left), segmented frog (upper right) and composite of photo and segmentation (bottom). The purple color represents the stomach and the kidneys are yellow.
