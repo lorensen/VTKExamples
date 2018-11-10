@@ -31,6 +31,9 @@ Requires_Version(BillboardTextActor3D "7.1.0" ALL_FILES)
 Requires_Module(Shadows vtkRenderingOpenGL)
 #Requires_Setting_Off(StreamLines VTK_LEGACY_REMOVE)
 Requires_GitLfs(Hawaii ALL_FILES)
+Requires_GitLfs(FlyingFrogSkinAndTissue ALL_FILES)
+Requires_GitLfs(FlyingFrogSkinAndTissueB ALL_FILES)
+Requires_GitLfs(FlyingFrogSkinAndTissueC ALL_FILES)
 Requires_GitLfs(FrogSlice ALL_FILES)
 Requires_GitLfs(ViewFrog ALL_FILES)
 Requires_GitLfs(ViewFrogA ALL_FILES)
@@ -63,6 +66,9 @@ set(NEEDS_ARGS
   CurvedReformation
   DepthSortPolyData
   ExtrudePolyDataAlongLine
+  FlyingFrogSkinAndTissue
+  FlyingFrogSkinAndTissueB
+  FlyingFrogSkinAndTissueC
   FontFile
   FrogSlice
   Glyph3DImage
@@ -153,6 +159,12 @@ add_test(${KIT}-HanoiIntermediate ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTes
   TestHanoiIntermediate -c 2)
 
 if(GIT_LFS)
+  add_test(${KIT}-FlyingFrogSkinAndTissue ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestFlyingFrogSkinAndTissue ${DATA}/Frog/frog.mhd ${DATA}/Frog/frogtissue.mhd)
+  add_test(${KIT}-FlyingFrogSkinAndTissueB ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestFlyingFrogSkinAndTissueB ${DATA}/Frog/frog.mhd ${DATA}/Frog/frogtissue.mhd 1)
+  add_test(${KIT}-FlyingFrogSkinAndTissueC ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestFlyingFrogSkinAndTissueC ${DATA}/Frog/frog.mhd ${DATA}/Frog/frogtissue.mhd 1 1)
   add_test(${KIT}-FrogSlice ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestFrogSlice ${DATA}/Frog/frog.mhd ${DATA}/Frog/frogtissue.mhd)
   add_test(${KIT}-Hawaii ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

@@ -43,6 +43,7 @@ set(NEEDS_ARGS
   DisplacementPlot
   FilledContours
   FindCellIntersections
+  FlyingHeadSlice
   HeadBone
   HeadSlice
   Hello
@@ -112,6 +113,9 @@ add_test(${KIT}-FilledContours ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-FindCellIntersections ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestFindCellIntersections ${DATA}/Disc_BiQuadraticQuads_0_0.vtu)
+
+add_test(${KIT}-FlyingHeadSlice ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestFlyingHeadSlice ${DATA}/FullHead.mhd)
 
 add_test(${KIT}-HeadBone ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHeadBone ${DATA}/FullHead.mhd)
