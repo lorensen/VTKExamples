@@ -20,6 +20,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkShortArray.h>
+#include <vtkSmartPointer.h>
 #include <vtkStructuredPoints.h>
 
 int main( int, char *[] )
@@ -76,11 +77,11 @@ int main( int, char *[] )
   vtkSmartPointer<vtkShortArray> scalars =
     vtkSmartPointer<vtkShortArray>::New();
   s = scalars->WritePointer(0,numPts);
-  for (auto i=0; i < numPts; i++)
+  for (int i=0; i < numPts; i++)
   {
     s[i] = 0;
   }
-  for (auto j = 0; j < iter; j++) 
+  for (int j = 0; j < iter; j++)
   {
     // integrate to next time step
     xx = x + h * Pr * (y - x);

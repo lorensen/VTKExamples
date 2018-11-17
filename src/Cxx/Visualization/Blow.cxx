@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
   }
 
   // Default is to display all ten frames.
-  auto dataPoint = -1;
+  int dataPoint = -1;
   std::string fileName = argv[1];
   if (argc > 2)
   {
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 
   std::vector<std::string> thickness;
   std::vector<std::string> displacement;
-  for (auto i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i)
   {
     std::ostringstream os;
     os << i;
@@ -62,26 +62,26 @@ int main(int argc, char* argv[])
     os.str("");
   }
 
-  std::vector<vtkSmartPointer<vtkDataSetReader>> reader;
-  std::vector<vtkSmartPointer<vtkWarpVector>> warp;
-  std::vector<vtkSmartPointer<vtkConnectivityFilter>> connect;
-  std::vector<vtkSmartPointer<vtkGeometryFilter>> mold;
-  std::vector<vtkSmartPointer<vtkDataSetMapper>> moldMapper;
-  std::vector<vtkSmartPointer<vtkActor>> moldActor;
-  std::vector<vtkSmartPointer<vtkConnectivityFilter>> connect2;
-  std::vector<vtkSmartPointer<vtkGeometryFilter>> parison;
-  std::vector<vtkSmartPointer<vtkPolyDataNormals>> normals2;
-  std::vector<vtkSmartPointer<vtkPolyDataMapper>> parisonMapper;
-  std::vector<vtkSmartPointer<vtkActor>> parisonActor;
-  std::vector<vtkSmartPointer<vtkContourFilter>> cf;
-  std::vector<vtkSmartPointer<vtkPolyDataMapper>> contourMapper;
-  std::vector<vtkSmartPointer<vtkActor>> contours;
-  std::vector<vtkSmartPointer<vtkRenderer>> ren;
+  std::vector<vtkSmartPointer<vtkDataSetReader> > reader;
+  std::vector<vtkSmartPointer<vtkWarpVector> > warp;
+  std::vector<vtkSmartPointer<vtkConnectivityFilter> > connect;
+  std::vector<vtkSmartPointer<vtkGeometryFilter> > mold;
+  std::vector<vtkSmartPointer<vtkDataSetMapper> > moldMapper;
+  std::vector<vtkSmartPointer<vtkActor> > moldActor;
+  std::vector<vtkSmartPointer<vtkConnectivityFilter> > connect2;
+  std::vector<vtkSmartPointer<vtkGeometryFilter> > parison;
+  std::vector<vtkSmartPointer<vtkPolyDataNormals> > normals2;
+  std::vector<vtkSmartPointer<vtkPolyDataMapper> > parisonMapper;
+  std::vector<vtkSmartPointer<vtkActor> > parisonActor;
+  std::vector<vtkSmartPointer<vtkContourFilter> > cf;
+  std::vector<vtkSmartPointer<vtkPolyDataMapper> > contourMapper;
+  std::vector<vtkSmartPointer<vtkActor> > contours;
+  std::vector<vtkSmartPointer<vtkRenderer> > ren;
 
   vtkSmartPointer<vtkLookupTable> lut = vtkSmartPointer<vtkLookupTable>::New();
   lut->SetHueRange(0.0, 0.66667);
 
-  for (auto i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i)
   {
     // Create the reader and warp the data vith vectors.
     reader.push_back(vtkSmartPointer<vtkDataSetReader>::New());
@@ -152,9 +152,9 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
-  auto rendererSizeX = 750;
-  auto rendererSizeY = 400;
-  auto renWinScale = 0.5;
+  const int rendererSizeX = 750;
+  const int rendererSizeY = 400;
+  const double renWinScale = 0.5;
   renWin->SetWindowName("Blow");
   if (dataPoint >= 0 && dataPoint < 10)
   {
@@ -163,20 +163,20 @@ int main(int argc, char* argv[])
   }
   else
   {
-    auto gridDimensionsX = 2;
-    auto gridDimensionsY = 5;
+    int gridDimensionsX = 2;
+    int gridDimensionsY = 5;
     renWin->SetSize(int(rendererSizeX * gridDimensionsX * renWinScale),
                     int(rendererSizeY * gridDimensionsY * renWinScale));
     // Add and position the renders to the render window.
-    for (auto row = 0; row < gridDimensionsY; ++row)
+    for (int row = 0; row < gridDimensionsY; ++row)
     {
-      for (auto col = 0; col < gridDimensionsX; ++col)
+      for (int col = 0; col < gridDimensionsX; ++col)
       {
-        auto idx = row * gridDimensionsX + col;
-        auto x0 = double(col) / gridDimensionsX;
-        auto y0 = double(gridDimensionsY - row - 1) / gridDimensionsY;
-        auto x1 = double(col + 1) / gridDimensionsX;
-        auto y1 = double(gridDimensionsY - row) / gridDimensionsY;
+        const int idx = row * gridDimensionsX + col;
+        const double x0 = static_cast<double>(col) / gridDimensionsX;
+        const double y0 = static_cast<double>(gridDimensionsY - row - 1) / gridDimensionsY;
+        const double x1 = static_cast<double>(col + 1) / gridDimensionsX;
+        const double y1 = static_cast<double>(gridDimensionsY - row) / gridDimensionsY;
         renWin->AddRenderer(ren[idx]);
         ren[idx]->SetViewport(x0, y0, x1, y1);
       }

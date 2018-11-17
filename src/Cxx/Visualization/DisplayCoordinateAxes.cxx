@@ -62,7 +62,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkOrientationMarkerWidget> widget = 
     vtkSmartPointer<vtkOrientationMarkerWidget>::New();
-  double rgba[4]{0.0, 0.0, 0.0, 0.0};
+  double rgba[4] = {0.0, 0.0, 0.0, 0.0};
   colors->GetColor("Carrot",rgba);
   widget->SetOutlineColor(rgba[0], rgba[1], rgba[2]);
   widget->SetOrientationMarker( axes );

@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
 //  textProperty->SetJustificationToCentered();
   textProperty->SetColor(0.3, 0.3, 0.3);
 
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
   for (int i = 2; i < argc; ++i)
   {
     std::cout << "Reading file: " << argv[i] << std::endl;

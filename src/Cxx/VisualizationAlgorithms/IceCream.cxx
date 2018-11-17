@@ -11,6 +11,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSampleFunction.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphere.h>
 
 int main (int, char *[])

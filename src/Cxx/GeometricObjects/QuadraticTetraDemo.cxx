@@ -247,10 +247,10 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTetra()
     vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
   points->SetNumberOfPoints(aTetra->GetNumberOfPoints());
   rng->SetSeed(5070); // for testing
-  for (auto i = 0; i < aTetra->GetNumberOfPoints(); ++i)
+  for (vtkIdType i = 0; i < aTetra->GetNumberOfPoints(); ++i)
   {
     double perturbation[3];
-    for (auto j = 0; j < 3; ++j)
+    for (vtkIdType j = 0; j < 3; ++j)
     {
       rng->Next();
       perturbation[j] = rng->GetRangeValue(-0.2, 0.2);

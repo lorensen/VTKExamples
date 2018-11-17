@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
     vtkSmartPointer<vtkRenderWindow>::New();
 
 
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
   for (int i = -1; i <= 10; ++i)
   {
     vtkSmartPointer<vtkImageSincInterpolator> interpolator =

@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <QSurfaceFormat>
+#include <QVTKOpenGLWidget.h>
 
-#include "QVTKOpenGLWidget.h"
 #include "SideBySideRenderWindowsQt.h"
 
 int main( int argc, char** argv )

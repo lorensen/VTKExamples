@@ -128,7 +128,7 @@ void MakeLUT(int const& colorScheme, vtkLookupTable* lut)
 {
   // See: [Diverging Color Maps for Scientific Visualization]
   //      (http://www.kennethmoreland.com/color-maps/)
-  auto nc = 256;
+  const vtkIdType nc = 256;
   vtkSmartPointer<vtkColorTransferFunction> ctf =
     vtkSmartPointer<vtkColorTransferFunction>::New();
   switch (colorScheme)
@@ -141,7 +141,7 @@ void MakeLUT(int const& colorScheme, vtkLookupTable* lut)
       ctf->AddRGBPoint(1.0, 0.706, 0.016, 0.150);
       lut->SetNumberOfTableValues(nc);
       lut->Build();
-      for (auto i = 0; i < nc; ++i)
+      for (vtkIdType i = 0; i < nc; ++i)
       {
         double rgb[4] = {0.0, 0.0, 0.0, 1.0};
         ctf->GetColor(static_cast<double>(i) / nc, rgb);
@@ -155,7 +155,7 @@ void MakeLUT(int const& colorScheme, vtkLookupTable* lut)
       ctf->AddRGBPoint(1.0, 0.436, 0.308, 0.631);
       lut->SetNumberOfTableValues(nc);
       lut->Build();
-      for (auto i = 0; i < nc; ++i)
+      for (vtkIdType i = 0; i < nc; ++i)
       {
         double rgb[4] = {0.0, 0.0, 0.0, 1.0};
         ctf->GetColor(static_cast<double>(i) / nc, rgb);
@@ -167,19 +167,19 @@ void MakeLUT(int const& colorScheme, vtkLookupTable* lut)
       // Make a lookup table, black in the centre with bright areas
       //   at the beginning and end of the table.
       // This is from the original code.
-      auto nc2 = nc / 2;
+      const vtkIdType nc2 = nc / 2;
       lut->SetNumberOfColors(nc);
       lut->Build();
-      for (auto i = 0; i < nc2; ++i)
+      for (vtkIdType i = 0; i < nc2; ++i)
       {
         // White to black.
-        auto v = (double(nc2) - i) / double(nc2);
+        const double v = (static_cast<double>(nc2) - i) / static_cast<double>(nc2);
         lut->SetTableValue(i, v, v, v, 1);
       }
-      for (auto i = nc2; i < nc; ++i)
+      for (vtkIdType i = nc2; i < nc; ++i)
       {
         // Black to white.
-        auto v = (i - double(nc2)) / double(nc2);
+        const double v = (i - static_cast<double>(nc2)) / static_cast<double>(nc2);
         lut->SetTableValue(i, v, v, v, 1);
       }
       break;

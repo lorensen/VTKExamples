@@ -20,6 +20,7 @@
 #include <vtkVectorDot.h>
 #include <vtkWarpVector.h>
 
+#include <algorithm>
 #include <array>
 #include <string>
 

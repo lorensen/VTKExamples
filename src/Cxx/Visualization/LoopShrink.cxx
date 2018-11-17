@@ -7,6 +7,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkShrinkFilter.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 
 

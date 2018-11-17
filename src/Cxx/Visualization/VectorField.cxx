@@ -35,11 +35,11 @@ int main(int, char*[])
   int* dims = image->GetDimensions();
 
   // Zero the image
-  for (auto z = 0; z < dims[2]; ++z)
+  for (int z = 0; z < dims[2]; ++z)
   {
-    for (auto y = 0; y < dims[1]; ++y)
+    for (int y = 0; y < dims[1]; ++y)
     {
-      for (auto x = 0; x < dims[0]; ++x)
+      for (int x = 0; x < dims[0]; ++x)
       {
         float* pixel = static_cast<float*>(image->GetScalarPointer(x, y, z));
         pixel[0] = 0.0;

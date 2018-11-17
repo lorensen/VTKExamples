@@ -88,7 +88,7 @@ public:
 @param nearestInteger - if True then [floor(min), ceil(max)] is used.
 @return A List consisting of [min, midpoint, max] for each band.
 */
-std::vector<std::vector<double>> MakeBands(
+std::vector<std::vector<double> > MakeBands(
   double const dR[2], int const& numberOfBands, bool const& nearestInteger);
 
 //! Divide a range into integral bands
@@ -97,13 +97,13 @@ Divide a range into bands
 @param dR - [min, max] the range that is to be covered by the bands.
 @return A List consisting of [min, midpoint, max] for each band.
 */
-std::vector<std::vector<double>> MakeIntegralBands(double const dR[2]);
+std::vector<std::vector<double> > MakeIntegralBands(double const dR[2]);
 
 //! Print the bands.
 /*!
 @param bands - the bands.
 */
-void PrintBands(std::vector<std::vector<double>> const& bands);
+void PrintBands(std::vector<std::vector<double> > const& bands);
 
 //! Generate elevations over the surface.
 /*!
@@ -150,7 +150,7 @@ void ReverseLUT(vtkLookupTable* lut, vtkLookupTable* lutr);
 @return The frequencies of the scalars in each band.
 */
 std::vector<int> Frequencies(
-  std::vector<std::vector<double>> const& bands, vtkPolyData* src);
+  std::vector<std::vector<double> > const& bands, vtkPolyData* src);
 
 //! Print the frequency table.
 /*!
@@ -197,10 +197,10 @@ int main(int, char* [])
 namespace
 {
 //-----------------------------------------------------------------------------
-std::vector<std::vector<double>> MakeBands(
+std::vector<std::vector<double> > MakeBands(
   double const dR[2], int const& numberOfBands, bool const& nearestInteger)
 {
-  std::vector<std::vector<double>> bands;
+  std::vector<std::vector<double> > bands;
   if ((dR[1] < dR[0]) || (numberOfBands <= 0))
   {
     return bands;
@@ -232,9 +232,9 @@ std::vector<std::vector<double>> MakeBands(
 }
 
 //-----------------------------------------------------------------------------
-std::vector<std::vector<double>> MakeIntegralBands(double const dR[2])
+std::vector<std::vector<double> > MakeIntegralBands(double const dR[2])
 {
-  std::vector<std::vector<double>> bands;
+  std::vector<std::vector<double> > bands;
   if (dR[1] < dR[0])
   {
     return bands;
@@ -251,10 +251,10 @@ std::vector<std::vector<double>> MakeIntegralBands(double const dR[2])
 }
 
 //-----------------------------------------------------------------------------
-void PrintBands(std::vector<std::vector<double>> const& bands)
+void PrintBands(std::vector<std::vector<double> > const& bands)
 {
   STLHelpers stlHelpers = STLHelpers();
-  for (std::vector<std::vector<double>>::const_iterator p = bands.begin();
+  for (std::vector<std::vector<double> >::const_iterator p = bands.begin();
        p != bands.end(); ++p)
   {
     if (p == bands.begin())
@@ -403,7 +403,7 @@ void ReverseLUT(vtkLookupTable* lut, vtkLookupTable* lutr)
 
 //-----------------------------------------------------------------------------
 std::vector<int> Frequencies(
-  std::vector<std::vector<double>> const& bands, vtkPolyData* src)
+  std::vector<std::vector<double> > const& bands, vtkPolyData* src)
 {
   std::vector<int> freq(bands.size(), 0);
   vtkIdType tuples = src->GetPointData()->GetScalars()->GetNumberOfTuples();
@@ -539,7 +539,7 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   lut->SetTableRange(scalarRange);
   vtkIdType numberOfBands = lut->GetNumberOfTableValues();
 
-  std::vector<std::vector<double>> bands =
+  std::vector<std::vector<double> > bands =
     MakeBands(scalarRange, numberOfBands, false);
   // PrintBands(bands);
 
@@ -550,7 +550,7 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
 
   // We will use the midpoint of the band as the label.
   std::vector<std::string> labels;
-  for (std::vector<std::vector<double>>::const_iterator p = bands.begin();
+  for (std::vector<std::vector<double> >::const_iterator p = bands.begin();
        p != bands.end(); ++p)
   {
     std::ostringstream os;
@@ -581,7 +581,7 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   bcf->SetInputData(src);
   // Use either the minimum or maximum value for each band.
   int i = 0;
-  for (std::vector<std::vector<double>>::const_iterator p = bands.begin();
+  for (std::vector<std::vector<double> >::const_iterator p = bands.begin();
        p != bands.end(); ++p)
   {
     bcf->SetValue(i, (*p)[2]);

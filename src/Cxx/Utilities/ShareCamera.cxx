@@ -24,7 +24,7 @@ int main(int, char *[])
   double ymins[4] = {0,0,.5,.5};
   double ymaxs[4]= {0.5,0.5,1,1};
 
-  vtkCamera* camera = nullptr;
+  vtkCamera* camera = NULL;
 
   for(unsigned i = 0; i < 4; i++)
   {

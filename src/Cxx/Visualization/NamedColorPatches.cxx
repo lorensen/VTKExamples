@@ -332,10 +332,10 @@ private:
 
   //---------------------------------------------------------------------------
   //! Convert a dictionary to a map.
-  std::map<std::string, std::vector<std::string>> ParseDictionary(
+  std::map<std::string, std::vector<std::string> > ParseDictionary(
     std::string const& str)
   {
-    std::map<std::string, std::vector<std::string>> result;
+    std::map<std::string, std::vector<std::string> > result;
     size_t idx0 = 0;
     size_t idx1 = 0;
     size_t idx2 = 0;
@@ -368,14 +368,14 @@ private:
   }
 
 public:
-  std::map<std::string, std::vector<std::string>> cn;
+  std::map<std::string, std::vector<std::string> > cn;
   // Ordering of the tables and when to start and end a column of
   // tables in the layout.
   std::vector<std::string> cnOrder;
   std::vector<std::string> cnStartTable;
   std::vector<std::string> cnEndTable;
 
-  std::map<std::string, std::vector<std::string>> vtkcn;
+  std::map<std::string, std::vector<std::string> > vtkcn;
   // Ordering of the tables and when to start and end a column of
   // tables in the layout.
   std::vector<std::string> vtkcnOrder;
@@ -511,7 +511,7 @@ private:
   }
 
   //-----------------------------------------------------------------------------
-  std::vector<std::vector<vtkStdString>> ParseSynonyms(
+  std::vector<std::vector<vtkStdString> > ParseSynonyms(
     const vtkStdString& synonyms)
   {
     // The delimiter for a string of synonyms.
@@ -519,7 +519,7 @@ private:
     size_t start = 0;
     size_t end = synonyms.find(synonymDelimiter);
     std::vector<vtkStdString> cn;
-    std::vector<std::vector<vtkStdString>> syn;
+    std::vector<std::vector<vtkStdString> > syn;
     vtkStdString str;
     while (end != std::string::npos)
     {
@@ -739,10 +739,10 @@ private:
   //-----------------------------------------------------------------------------
   std::string MakeSynonymColorTable()
   {
-    std::vector<std::vector<vtkStdString>> synonyms =
+    std::vector<std::vector<vtkStdString> > synonyms =
       this->ParseSynonyms(this->nc->GetSynonyms());
     std::vector<std::string> cn;
-    for (std::map<std::string, std::vector<std::string>>::const_iterator p =
+    for (std::map<std::string, std::vector<std::string> >::const_iterator p =
            cs.cn.begin();
          p != cs.cn.end(); ++p)
     {
@@ -762,7 +762,7 @@ private:
     res += "<td>\n";
     res += "<table>\n";
     res += this->MakeSynonymTableHeader();
-    for (std::vector<std::vector<vtkStdString>>::iterator p = synonyms.begin();
+    for (std::vector<std::vector<vtkStdString> >::iterator p = synonyms.begin();
          p != synonyms.end(); ++p)
     {
       for (std::vector<vtkStdString>::iterator q = p->begin(); q != p->end();

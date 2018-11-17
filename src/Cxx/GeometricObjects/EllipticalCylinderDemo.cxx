@@ -1,8 +1,10 @@
 #include <vtkActor.h>
 #include <vtkArrowSource.h>
 #include <vtkCamera.h>
+#include <vtkCellArray.h>
 #include <vtkInteractorStyleTrackballCamera.h>
 #include <vtkLinearExtrusionFilter.h>
+#include <vtkMath.h>
 #include <vtkNamedColors.h>
 #include <vtkPoints.h>
 #include <vtkPolyDataMapper.h>

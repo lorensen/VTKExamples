@@ -12,6 +12,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSampleFunction.h>
+#include <vtkSmartPointer.h>
 #include <vtkShrinkFilter.h>
 #include <vtkSphere.h>
 #include <vtkTransform.h>

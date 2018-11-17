@@ -10,6 +10,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSampleFunction.h>
+#include <vtkSmartPointer.h>
 
 int main( int, char *[] )
 {

@@ -42,7 +42,7 @@ std::vector<vtkStdString> ParseColorNames(const vtkStdString& colorNames);
 // Parse the synonyms returning a std::vector<std::vector<std::string> >
 // synonyms is a string of synonyms separated by a double linefeed where
 // each synonym is two or more color names separated by a linefeed.
-std::vector<std::vector<vtkStdString>> ParseSynonyms(
+std::vector<std::vector<vtkStdString> > ParseSynonyms(
   const vtkStdString& synonyms);
 
 // Print out the colors.
@@ -94,7 +94,7 @@ std::vector<vtkStdString> ParseColorNames(const vtkStdString& colorNames)
 }
 
 //-----------------------------------------------------------------------------
-std::vector<std::vector<vtkStdString>> ParseSynonyms(
+std::vector<std::vector<vtkStdString> > ParseSynonyms(
   const vtkStdString& synonyms)
 {
   // The delimiter for a string of synonyms.
@@ -102,7 +102,7 @@ std::vector<std::vector<vtkStdString>> ParseSynonyms(
   size_t start = 0;
   size_t end = synonyms.find("\n\n"); // The delimiter for a string of synonyms.
   std::vector<vtkStdString> cn;
-  std::vector<std::vector<vtkStdString>> syn;
+  std::vector<std::vector<vtkStdString> > syn;
   vtkStdString str;
   while (end != std::string::npos)
   {
@@ -176,10 +176,10 @@ void PrintColors(vtkNamedColors* namedColors)
 void PrintSynonyms(vtkNamedColors* namedColors)
 {
   // Get the synonyms:
-  std::vector<std::vector<vtkStdString>> synonyms =
+  std::vector<std::vector<vtkStdString> > synonyms =
     ParseSynonyms(namedColors->GetSynonyms());
   std::cout << "There are " << synonyms.size() << " synonyms:" << std::endl;
-  for (std::vector<std::vector<vtkStdString>>::const_iterator p =
+  for (std::vector<std::vector<vtkStdString> >::const_iterator p =
          synonyms.begin();
        p != synonyms.end(); ++p)
   {

@@ -11,6 +11,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkRotationalExtrusionFilter.h>
+#include <vtkSmartPointer.h>
 
 int main (int, char *[])
 {

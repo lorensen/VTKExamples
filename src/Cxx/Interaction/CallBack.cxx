@@ -18,6 +18,7 @@ We also add call data.
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 
 #include <iterator>
 #include <sstream>

@@ -9,6 +9,7 @@
 #include <vtkCamera.h>
 #include <vtkInteractorStyleTrackballCamera.h>
 #include <vtkNamedColors.h>
+#include <vtkObjectFactory.h> // vtkStandardNewMacro
 
 // Define interaction style
 class customMouseInteractorStyle : public vtkInteractorStyleTrackballCamera

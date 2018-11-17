@@ -86,7 +86,7 @@ private:
 std::vector<std::string>::iterator FindParameter(std::string const& p,
                                                  std::vector<std::string>& v);
 
-typedef std::array<std::stack<vtkSmartPointer<vtkActor>>, 3> PegArray;
+typedef std::array<std::stack<vtkSmartPointer<vtkActor> >, 3> PegArray;
 
 /**
  * This routine is responsible for moving pucks from peg1 to peg2.
@@ -258,7 +258,7 @@ int main(int argc, char* argv[])
   // The pegs (using cylinder geometry).  Note that the pegs have to translated
   // in the  y-direction because the cylinder is centered about the origin.
   H = 1.1 * numberOfPucks * L;
-  std::vector<vtkSmartPointer<vtkActor>> peg;
+  std::vector<vtkSmartPointer<vtkActor> > peg;
   for (auto i = 0; i < 3; ++i)
   {
     peg.push_back(vtkSmartPointer<vtkActor>::New());
@@ -274,7 +274,7 @@ int main(int argc, char* argv[])
   PegArray pegStack;
 
   // The pucks (using cylinder geometry). Always loaded on peg# 0.
-  std::vector<vtkSmartPointer<vtkActor>> puck;
+  std::vector<vtkSmartPointer<vtkActor> > puck;
   vtkSmartPointer<vtkMinimalStandardRandomSequence> randomSequence =
     vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
   randomSequence->SetSeed(1);

@@ -51,7 +51,7 @@ int main (int argc, char *argv[])
   // Setup render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
   for (int i = 1; i < argc; ++i)
   {
     vtkSmartPointer<vtkPolyData> polyData =

@@ -50,11 +50,11 @@ int main(int, char* [])
   lut->SetTableValue(18, 0.4, 0, 0);
   lut->SetTableValue(19, 0.4, 0, 0.4);
 
-  std::vector<vtkSmartPointer<vtkPolyDataMapper>> mappers;
-  std::vector<vtkSmartPointer<vtkActor>> actors;
-  std::vector<vtkSmartPointer<vtkTextMapper>> textMappers;
-  std::vector<vtkSmartPointer<vtkActor2D>> textActors;
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkPolyDataMapper> > mappers;
+  std::vector<vtkSmartPointer<vtkActor> > actors;
+  std::vector<vtkSmartPointer<vtkTextMapper> > textMappers;
+  std::vector<vtkSmartPointer<vtkActor2D> > textActors;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
 
   // Create a common text property.
   vtkSmartPointer<vtkTextProperty> textProperty =
@@ -71,10 +71,15 @@ int main(int, char* [])
   iRen->SetRenderWindow(renWin);
 
   // There are five platonic solids.
-  std::vector<std::string> names{"Tetrahedron", "Cube", "Octahedron",
-                                 "Icosahedron", "Dodecahedron"};
-  std::vector<vtkSmartPointer<vtkPlatonicSolidSource>> PlatonicSolids;
-  for (auto i = 0; i < names.size(); ++i)
+  std::vector<std::string> names;
+  names.push_back("Tetrahedron");
+  names.push_back("Cube");
+  names.push_back("Octahedron");
+  names.push_back("Icosahedron");
+  names.push_back("Dodecahedron");
+
+  std::vector<vtkSmartPointer<vtkPlatonicSolidSource> > PlatonicSolids;
+  for (std::vector<std::string>::size_type i = 0; i < names.size(); ++i)
   {
     PlatonicSolids.push_back(vtkSmartPointer<vtkPlatonicSolidSource>::New());
     PlatonicSolids[i]->SetSolidType(i);
@@ -103,16 +108,16 @@ int main(int, char* [])
   }
 
   // Setup the viewports
-  auto xGridDimensions = 3;
-  auto yGridDimensions = 2;
-  auto rendererSize = 300;
+  const int xGridDimensions = 3;
+  const int yGridDimensions = 2;
+  const int rendererSize = 300;
   renWin->SetSize(rendererSize * xGridDimensions,
                   rendererSize * yGridDimensions);
-  for (auto row = 0; row < yGridDimensions; ++row)
+  for (int row = 0; row < yGridDimensions; ++row)
   {
-    for (auto col = 0; col < xGridDimensions; ++col)
+    for (int col = 0; col < xGridDimensions; ++col)
     {
-      auto index = row * xGridDimensions + col;
+      const int index = row * xGridDimensions + col;
 
       // (xmin, ymin, xmax, ymax)
       double viewport[4] = {

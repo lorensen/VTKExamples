@@ -47,14 +47,17 @@ int main(int, char *[])
   cubeAxesActor->DrawXGridlinesOn();
   cubeAxesActor->DrawYGridlinesOn();
   cubeAxesActor->DrawZGridlinesOn();
-#if VTK_MAJOR_VERSION == 6
+
+#if VTK_MAJOR_VERSION < 7
+  // Works with 6.2
   cubeAxesActor->SetGridLineLocation(VTK_GRID_LINES_FURTHEST);
+#elif VTK_MAJOR_VERSION == 7 && VTK_MINOR_VERSION == 0
+  // Works with 7.0.0
+  cubeAxesActor->SetGridLineLocation(VTK_GRID_LINES_FURTHEST);
+#else
+  // Works with 7.1.0+
+  cubeAxesActor->SetGridLineLocation(vtkCubeAxesActor::VTK_GRID_LINES_FURTHEST);
 #endif
-#if VTK_MAJOR_VERSION > 6
-  cubeAxesActor->SetGridLineLocation(
-    cubeAxesActor->VTK_GRID_LINES_FURTHEST);
-#endif
-  
   cubeAxesActor->XAxisMinorTickVisibilityOff();
   cubeAxesActor->YAxisMinorTickVisibilityOff();
   cubeAxesActor->ZAxisMinorTickVisibilityOff();

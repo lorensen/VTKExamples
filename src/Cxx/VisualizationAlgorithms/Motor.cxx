@@ -16,6 +16,7 @@ This code is based on the VTK file: /IO/Geometry/Testing/Python/motor.py.
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkStructuredPointsReader.h>
 #include <vtkTexture.h>
 
@@ -72,20 +73,26 @@ int main(int argc, char* argv[])
 
   // Set up the pipelines for the parts of the motor.
   // We will use lists of pipeline objects.
-  auto numberOfParts = 5;
-  std::vector<vtkSmartPointer<vtkBYUReader>> byu;
-  std::vector<vtkSmartPointer<vtkPolyDataNormals>> normals;
-  std::vector<vtkSmartPointer<vtkImplicitTextureCoords>> tex;
-  std::vector<vtkSmartPointer<vtkDataSetMapper>> byuMapper;
-  std::vector<vtkSmartPointer<vtkActor>> byuActor;
-  std::vector<std::string> partColours{"cold_grey", "peacock", "raw_sienna",
-                                       "banana", "peach_puff"};
+  int numberOfParts = 5;
+  std::vector<vtkSmartPointer<vtkBYUReader> > byu;
+  std::vector<vtkSmartPointer<vtkPolyDataNormals> > normals;
+  std::vector<vtkSmartPointer<vtkImplicitTextureCoords> > tex;
+  std::vector<vtkSmartPointer<vtkDataSetMapper> > byuMapper;
+  std::vector<vtkSmartPointer<vtkActor> > byuActor;
+
+  std::vector<std::string> partColours;
+  partColours.push_back("cold_grey");
+  partColours.push_back("peacock");
+  partColours.push_back("raw_sienna");
+  partColours.push_back("banana");
+  partColours.push_back("peach_puff");
+
   // Use this to control which parts to display.
   std::vector<bool> displayParts(numberOfParts, true);
   // If displayParts[2] = false; then an image like that in the VTK tests is
   // produced.
 
-  for (auto i = 0; i < numberOfParts; ++i)
+  for (int i = 0; i < numberOfParts; ++i)
   {
     byu.push_back(vtkSmartPointer<vtkBYUReader>::New());
     byu[i]->SetGeometryFileName(motorFile.c_str());
