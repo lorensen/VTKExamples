@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
 project(WikiExamples)
 
+# VTK follows the C++03 standard
+#set(CMAKE_CXX_STANDARD 11) # Compile examples that require C++11
+
+# Check if C++11 was enabled in flags
+include(${WikiExamples_SOURCE_DIR}/CMake/CheckCxxStandard.cmake)
+
 # Display type of build
 set(_msg "VTKWikiExamples: Building VTKWikiExamples stand-alone")
 message(STATUS "${_msg}")
