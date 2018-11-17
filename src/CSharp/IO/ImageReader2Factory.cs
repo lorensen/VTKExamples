@@ -39,7 +39,7 @@ namespace ActiViz.Examples {
          reader.SetFileName(filePath);
          reader.Update();
          vtkImageActor actor = vtkImageActor.New();
-         actor.SetInput(reader.GetOutput());
+         actor.SetInputData(reader.GetOutput());
 
          // Visualize
          vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
