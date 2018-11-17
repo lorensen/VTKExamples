@@ -10,6 +10,26 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 #
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
+
+# VTK follows the C++03 standard but some examples require C++11
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresCxxVersion.cmake)
+Requires_CxxVersion(CameraBlur 11 ALL_FILES)
+Requires_CxxVersion(Model 11 ALL_FILES)
+Requires_CxxVersion(MotionBlur 11 ALL_FILES)
+Requires_CxxVersion(Rotations 11 ALL_FILES)
+Requires_CxxVersion(RotationsA 11 ALL_FILES)
+Requires_CxxVersion(RotationsB 11 ALL_FILES)
+Requires_CxxVersion(RotationsC 11 ALL_FILES)
+Requires_CxxVersion(RotationsD 11 ALL_FILES)
+Requires_CxxVersion(SpecularSpheres 11 ALL_FILES)
+Requires_CxxVersion(WalkCow 11 ALL_FILES)
+Requires_CxxVersion(WalkCowA 11 ALL_FILES)
+Requires_CxxVersion(WalkCowB 11 ALL_FILES)
+
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
+Requires_Version(StippledLine "7.1.0" ALL_FILES)
+Requires_Version(MotionBlur "8.1.0" ALL_FILES)
+
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})

@@ -11,6 +11,17 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
 
+# VTK follows the C++03 standard but some examples require C++11
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresCxxVersion.cmake)
+Requires_CxxVersion(MedicalDemo1 11 ALL_FILES)
+Requires_CxxVersion(MedicalDemo2 11 ALL_FILES)
+Requires_CxxVersion(MedicalDemo3 11 ALL_FILES)
+Requires_CxxVersion(MedicalDemo4 11 ALL_FILES)
+
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
+Requires_Version(MedicalDemo3 "7.1.0" ALL_FILES)
+
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 Requires_GitLfs(GenerateModelsFromLabels ALL_FILES)
 Requires_GitLfs(GenerateCubesFromLabels ALL_FILES)
 

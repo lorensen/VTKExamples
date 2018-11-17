@@ -13,6 +13,21 @@ file(GLOB ALL_FILES *.cxx)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 
+# VTK follows the C++03 standard but some examples require C++11
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresCxxVersion.cmake)
+Requires_CxxVersion(AnatomicalOrientation 11 ALL_FILES)
+Requires_CxxVersion(DataSetSurface 11 ALL_FILES)
+Requires_CxxVersion(FlyingHeadSlice 11 ALL_FILES)
+Requires_CxxVersion(Office 11 ALL_FILES)
+Requires_CxxVersion(OfficeA 11 ALL_FILES)
+Requires_CxxVersion(OfficeB 11 ALL_FILES)
+Requires_CxxVersion(PlateVibration 11 ALL_FILES)
+Requires_CxxVersion(StreamlinesWithLineWidget 11 ALL_FILES)
+Requires_CxxVersion(VelocityProfile 11 ALL_FILES)
+
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
+Requires_Version(FlyingHeadSlice "7.0" ALL_FILES)
+
 Requires_GitLfs(PineRootConnectivity ALL_FILES)
 Requires_GitLfs(PineRootConnectivityA ALL_FILES)
 Requires_GitLfs(PineRootDecimation ALL_FILES)

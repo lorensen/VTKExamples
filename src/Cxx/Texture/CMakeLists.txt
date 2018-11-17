@@ -11,6 +11,10 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
 
+# VTK follows the C++03 standard but some examples require C++11
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresCxxVersion.cmake)
+Requires_CxxVersion(TextureThreshold 11 ALL_FILES)
+
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 
 foreach(SOURCE_FILE ${ALL_FILES})

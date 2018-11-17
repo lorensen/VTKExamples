@@ -19,6 +19,14 @@ endif()
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
 
+# VTK follows the C++03 standard but some examples require C++11
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresCxxVersion.cmake)
+Requires_CxxVersion(ImageWarp 11 ALL_FILES)
+
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
+set(VERSION_MIN "7.0")
+Requires_Version(RGBToYIQ ${VERSION_MIN} ALL_FILES)
+
 if(NOT VTK_USE_SYSTEM_FREETYPE)
   message(STATUS "VTKWikiExamples: ImageText requires VTK_USE_SYSTEM_FREETYPE and will not be built")
   string(REGEX REPLACE "[^;]*ImageText.cxx"

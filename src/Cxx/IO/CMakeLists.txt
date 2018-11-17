@@ -13,6 +13,17 @@ file(GLOB ALL_FILES *.cxx)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 
+# VTK follows the C++03 standard but some examples require C++11
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresCxxVersion.cmake)
+Requires_CxxVersion(ImageWriter 11 ALL_FILES)
+
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
+Requires_Version(VRMLImporterDemo "7.1.0" ALL_FILES)
+Requires_Version(ExportPolyDataScene "8.0.0" ALL_FILES)
+Requires_Version(ImportPolyDataScene "8.0.0" ALL_FILES)
+Requires_Version(OBJImporter "8.0.0" ALL_FILES)
+Requires_Version(ImageWriter "8.1.0" ALL_FILES)
+
 Requires_GitLfs(DEMReader ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
