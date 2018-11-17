@@ -117,8 +117,8 @@ int main(int argc, char* argv[])
   std::vector<vtkSmartPointer<vtkActor>> planeActor;
   // Define the extents of planes that we will use.
   std::vector<std::array<int, 6>> planeExtents{{10, 10, 0, 100, 0, 100},
-                                              {30, 30, 0, 100, 0, 100},
-                                              {35, 35, 0, 100, 0, 100}};
+                                               {30, 30, 0, 100, 0, 100},
+                                               {35, 35, 0, 100, 0, 100}};
   // Now set up the pipeline.
   for (unsigned int i = 0; i < planeExtents.size(); ++i)
   {
