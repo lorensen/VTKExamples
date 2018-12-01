@@ -1,5 +1,6 @@
 ### Description
 
+<<<<<<< HEAD
 Use vtkShepardMethod to interpolate the scalars of a vtkPolyData. The zero-contour of the original and interpoltated scalars are extracted with vtkContourFilter. The original data is shown in red and the interpolated data in shown in yellow.
 
 ```
