@@ -255,6 +255,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [MarchingCubes](/Cxx/Modelling/MarchingCubes) | vtkMarchingCubes | Create a voxelized sphere.
 [MarchingSquares](/Cxx/Modelling/MarchingSquares) | vtkMarchingSquares | Create a contour from a structured point set (image).
 [SampleFunction](/Cxx/ImplicitFunctions/SampleFunction) | vtkSampleFunction | Sample and visualize an implicit function.
+[ShepardInterpolation](/Cxx/Visualization/ShepardInterpolation) | vtkShepardMethod vtkProbeFilter vtkContourFilter | Interpolate scalar data.
 [SmoothDiscreteMarchingCubes](/Cxx/Modelling/SmoothDiscreteMarchingCubes) | vtkDiscreteMarchingCubes vtkWindowedSincPolyDataFilter | Generate smooth surfaces from labeled data.
 
 ## Working with 3D Data

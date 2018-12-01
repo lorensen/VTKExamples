@@ -82,6 +82,7 @@ set(NEEDS_ARGS
   PointDataSubdivision
   RenderLargeImage
   SelectWindowRegion
+  ShepardInterpolation
   StreamLines
   TextureMapPlane
   TextureMapQuad
@@ -196,6 +197,9 @@ add_test(${KIT}-RenderLargeImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 
 add_test(${KIT}-SelectWindowRegion ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSelectWindowRegion ${DATA}/Ox.jpg)
+
+add_test(${KIT}-ShepardInterpolation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestShepardInterpolation ${DATA}/cowHead.vtk 100)
 
 add_test(${KIT}-StreamLines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestStreamLines ${DATA}/combxyz.bin ${DATA}/combq.bin)
