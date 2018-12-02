@@ -199,7 +199,7 @@ add_test(${KIT}-SelectWindowRegion ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTe
   TestSelectWindowRegion ${DATA}/Ox.jpg)
 
 add_test(${KIT}-ShepardInterpolation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestShepardInterpolation ${DATA}/cowHead.vtk 100)
+  TestShepardInterpolation ${DATA}/cowHead.vtp 100)
 
 add_test(${KIT}-StreamLines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestStreamLines ${DATA}/combxyz.bin ${DATA}/combq.bin)
