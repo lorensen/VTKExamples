@@ -475,6 +475,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [ImplicitDataSetClipping](/Cxx/PolyData/ImplicitDataSetClipping) | vtkImplicitDataSet | Clip using an implicit data set.
 [SolidClip](/Cxx/Meshes/SolidClip) | vtkClipPolyData | Create a "solid" clip.
 [TableBasedClipDataSetWithPolyData](/Cxx/Meshes/TableBasedClipDataSetWithPolyData) | vtkTableBasedClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | Clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid. Contrast this with the previous example.
+[TableBasedClipDataSetWithPolyData2](/Cxx/Meshes/TableBasedClipDataSetWithPolyData2) | vtkTableBasedClipDataSet vtkRectilinearGrid | Clip a vtkRectilinearGrid with a checkerboard pattern.
 
 ### Working with Structured 3D Data
 
