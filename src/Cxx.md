@@ -56,6 +56,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [ReadPLOT3D](/Cxx/IO/ReadPLOT3D) | vtkPLOT3DReader | Read CFD (computational fluid dynamics) data produced by PLOT3D.
 [ReadPLY](/Cxx/IO/ReadPLY) | vtkPLYReader | Read PLY (.ply) files
 [ReadPlainTextTriangles](/Cxx/IO/ReadPlainTextTriangles) | vtkPolyData vtkSmartPointer vtkPoints vtkCellArray vtkXMLPolyDataWriter | Read a plain text file into a polydata.
+[ReadSLC](/Cxx/IO/ReadSLC) | vtkSLCReader | Read VolVis file.
 [ReadSTL](/Cxx/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files
 [ReadTextFile](/Cxx/IO/ReadTextFile) | vtkPolyData | Read a plain text file into a polydata.
 [SimplePointsReader](/Cxx/IO/SimplePointsReader) | vtkSimplePointsReader | Read a simple "xyz" file of points.

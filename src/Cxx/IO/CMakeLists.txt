@@ -172,7 +172,7 @@ add_test(${KIT}-ReadSTL ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestReadSTL ${DATA}/42400-IDGH.stl)
   
   add_test(${KIT}-ReadSLC ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestReadSLC ${DATA}/vw_knee.slc)
+  TestReadSLC ${DATA}/vw_knee.slc 72.0)
 
 add_test(${KIT}-ReadStructuredGrid ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestReadStructuredGrid ${DATA}/StructuredGrid.vts)
