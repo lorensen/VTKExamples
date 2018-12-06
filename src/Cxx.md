@@ -444,6 +444,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [GreedyTerrainDecimation](/Cxx/PolyData/GreedyTerrainDecimation) | vtkGreedyTerrainDecimation | Create a mesh from an ImageData
 [HighlightBadCells](/Cxx/PolyData/HighlightBadCells) | vtkMeshQuality |
 [IdentifyHoles](/Cxx/Meshes/IdentifyHoles) | vtkFillHolesFilter | Close holes in a mesh and identify the holes.
+[InterpolateFieldDataDemo](/Cxx/Meshes/InterpolateFieldDataDemo) | vtkPointInterpolator vtkInterpolateDataSetAttributes | Resample a fine grid and interpolate field data.
 [ImplicitSelectionLoop](/Cxx/PolyData/ImplicitSelectionLoop) | vtkImplicitSelectionLoop | Select a region of a mesh with an implicit function.
 [LargestRegion](/Cxx/PolyData/PolyDataConnectivityFilter_LargestRegion) | vtkPolyDataConnectivityFilter | Extract the largest connected region in a polydata.
 [MatrixMathFilter](/Cxx/Meshes/MatrixMathFilter) | vtkMatrixMathFilter | Compute various quantities on cell and points in a mesh.

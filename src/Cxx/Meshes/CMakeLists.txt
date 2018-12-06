@@ -40,6 +40,7 @@ set(NEEDS_ARGS
   Decimation
   FillHoles
   IdentifyHoles
+  InterpolateFieldDataDemo
   MatrixMathFilter
   OBBDicer
   QuadricClustering
@@ -69,6 +70,9 @@ add_test(${KIT}-FillHoles ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-IdentifyHoles ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestIdentifyHoles ${DATA}/Torso.vtp)
+
+add_test(${KIT}-InterpolateFieldDataDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestInterpolateFieldDataDemo ${DATA}/coarseGrid.e ${DATA}/fineGrid.e-s002)
 
 add_test(${KIT}-OBBDicer ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestOBBDicer ${DATA}/Bunny.vtp)
