@@ -78,7 +78,7 @@ public class Arrow extends JPanel implements ActionListener {
 	  public static void main(String s[]) {
 	    SwingUtilities.invokeLater(new Runnable() {
 	      public void run() {
-	        JFrame frame = new JFrame("Sphere");
+	        JFrame frame = new JFrame("Arrow");
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.getContentPane().setLayout(new BorderLayout());
 	        frame.getContentPane().add(new Arrow(), BorderLayout.CENTER);
