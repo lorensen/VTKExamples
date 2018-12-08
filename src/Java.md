@@ -14,9 +14,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[Arrow](/Java/Visualization/Arrow) | vtkArrow | Arrow Visualization
-[Circle](/Java/Visualization/Circle) | vtkArrow |Circle Visualization
-[Cone](/Java/Visualization/Cone) | vtkArrow | Cone Visualization
+[Arrow](/Java/GeometricObjects/Arrow) | vtkArrow | Arrow Visualization
+[Circle](/Java/GeometricObjects/Circle) | vtkCircle |Circle Visualization
+[Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
+[Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
+[LongLine](/Java/GeometricObjects/LongLine) | vtkLongLine |LongLine Visualization
+[Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
+[Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
 
 ## Input and Output
 
