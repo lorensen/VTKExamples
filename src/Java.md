@@ -10,6 +10,19 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 !!! info
     [This table](/Coverage/JavaVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
 
+## GeometricObjects
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Arrow](/Java/GeometricObjects/Arrow) | vtkArrow | Arrow Visualization
+[Circle](/Java/GeometricObjects/Circle) | vtkCircle |Circle Visualization
+[Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
+[Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
+[Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
+[Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
+[LongLine](/Java/GeometricObjects/LongLine) | vtkLine |A visualization of a long line
+[Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
+
 ## Input and Output
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -50,7 +63,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AnimDataCone](/Java/Visualization/AnimDataCone) | vtkRenderWindowInteractor | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
 [Animation](/Java/Visualization/Animation) |  | Move a sphere across a scene
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
-[Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up
+[Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up 
+[WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization 
 
 ## Graphs
 

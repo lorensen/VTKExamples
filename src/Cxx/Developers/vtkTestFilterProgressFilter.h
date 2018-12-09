@@ -1,9 +1,9 @@
 #ifndef __vtkTestFilterProgressFilter_h
 #define __vtkTestFilterProgressFilter_h
- 
+
 #include <vtkPolyDataAlgorithm.h>
- 
-class vtkTestFilterProgressFilter : public vtkPolyDataAlgorithm 
+
+class vtkTestFilterProgressFilter : public vtkPolyDataAlgorithm
 {
 public:
   static vtkTestFilterProgressFilter *New();
@@ -11,16 +11,16 @@ public:
 
 protected:
   vtkTestFilterProgressFilter();
-  ~vtkTestFilterProgressFilter() VTK_OVERRIDE {}
- 
-  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) VTK_OVERRIDE; 
- 
+  ~vtkTestFilterProgressFilter() override;
+
+  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) override;
+
   static void ProgressFunction(vtkObject* caller, long unsigned int eventId, void* clientData, void* callData);
-  
+
 private:
-  vtkTestFilterProgressFilter(const vtkTestFilterProgressFilter&) VTK_DELETE_FUNCTION;
-  void operator=(const vtkTestFilterProgressFilterr&) VTK_DELETE_FUNCTION;
- 
+  vtkTestFilterProgressFilter(const vtkTestFilterProgressFilter&) = delete;
+  void operator=(const vtkTestFilterProgressFilterr&) = delete;
+
 };
 
 #endif
