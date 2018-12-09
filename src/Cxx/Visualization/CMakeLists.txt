@@ -63,6 +63,7 @@ set(NEEDS_ARGS
   ClipArt
   ComplexV
   CorrectlyRenderTranslucentGeometry
+  CreateColorSeriesDemo
   CurvedReformation
   DepthSortPolyData
   ExtrudePolyDataAlongLine
@@ -132,6 +133,9 @@ add_test(${KIT}-ChooseTextColorDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxT
 
 add_test(${KIT}-CorrectlyRenderTranslucentGeometry ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCorrectlyRenderTranslucentGeometry 100 100 50 0.1 0 0)
+
+add_test(${KIT}-CreateColorSeriesDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestCreateColorSeriesDemo Yellow)
 
 add_test(${KIT}-CurvedReformation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCurvedReformation ${DATA}/HeadMRVolume.mhd ${DATA}/polyline.vtk 200)
