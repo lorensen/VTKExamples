@@ -922,6 +922,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CornerAnnotation](/Cxx/Visualization/CornerAnnotation) | vtkCornerAnnotation | Write text in the corners of a window.
 [CorrectlyRenderTranslucentGeometry](/Cxx/Visualization/CorrectlyRenderTranslucentGeometry) | vtkDepthSortPolyData | Correctly Rendering Translucent Geometry.
 [CreateBFont](/Cxx/VisualizationAlgorithms/CreateBFont) | vtkClipPolyData vtkImageDataGeometryFilter | A scanned image clipped with a scalar value of 1/2 its maximum intensity produces a mixture of quadrilaterals and triangles.
+[CreateColorSeriesDemo](/Cxx/Visualization/CreateColorSeriesDemo) | vtkColorSeries vtkLookupTable | Create a custom vtkColorSeries.
 [CubeAxesActor](/Cxx/Visualization/CubeAxesActor) | vtkCubeAxesActor | Display three orthogonal axes with labels.
 [CubeAxesActor2D](/Cxx/Visualization/CubeAxesActor2D) | vtkCubeAxesActor2D | This example uses the vtkCubeAxesActor2D to show your scene with axes to indicate the spatial extent of your data.
 [Cursor3D](/Cxx/Visualization/Cursor3D) | vtkCursor3D |
