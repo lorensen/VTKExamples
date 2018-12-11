@@ -26,6 +26,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad | Quad Visualization
 [Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
+[TriangleStrip](/Java/GeometricObjects/TriangleStrip) | vtkTriangleStrip | Triangle Strip Visualization
 [Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
 
 
