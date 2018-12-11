@@ -6,7 +6,8 @@
 #include <vtkOpenVRRenderWindow.h>
 #include <vtkOpenVRRenderer.h>
 #include <vtkOpenVRRenderWindowInteractor.h>
-
+//Author: Chethana B
+//Organisation: Virtual Environments Lab, Chung Ang University, Seoul, South Korea. 
 int main(int, char *[])
 {
   // Create a Sphere
