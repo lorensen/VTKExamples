@@ -23,6 +23,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
 [Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLongLine |A visualization of a long line
+[OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow | Oriented Arrow Visualization
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad | Quad Visualization
 [Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
