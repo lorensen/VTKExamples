@@ -12,6 +12,7 @@ import vtk.vtkEarthSource;
 import vtk.vtkNativeLibrary;
 import vtk.vtkPanel;
 import vtk.vtkPolyDataMapper;
+import vtk.vtkNamedColors;
 
 //Author: Bharatesh Chakravarthi,
 //Affiliation: VELab, Chung Ang University, Seoul, South Korea. 
@@ -45,6 +46,10 @@ public class EarthSource extends JPanel implements ActionListener
 	  {
 		    super(new BorderLayout());
 		    
+		    double MyColors[] = new double[4];
+		    vtkNamedColors Colors = new vtkNamedColors();
+		    Colors.GetColor("Banana",MyColors);
+		    
 		    vtkEarthSource EarthSource = new vtkEarthSource();
 		    EarthSource.OutlineOff();
 		    //EarthSource.OutlineOn();
@@ -57,7 +62,7 @@ public class EarthSource extends JPanel implements ActionListener
 		
 		    vtkActor Actor = new vtkActor();
 		    Actor.SetMapper(Mapper);
-		    Actor.GetProperty().SetColor(1.0, 1.0, 1.0);
+		     Actor.GetProperty().SetColor(MyColors);
 		    renWin = new vtkPanel();
 		    renWin.GetRenderer().AddActor(Actor);
 		    renWin.resetCamera();
