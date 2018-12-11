@@ -1,6 +1,6 @@
 # VTK Classes used in the Examples
 ## Java
-Out of 2368 available VTK classes, 42 are demonstrated here.  
+Out of 2368 available VTK classes, 43 are demonstrated here.  
 These classes are excluded since they occur in the majority of the examples:  
 - [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)
 - [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html)
@@ -33,6 +33,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkKdTreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkKdTreePointLocator.html) | [VisualizeKDTree](/Java/DataStructures/VisualizeKDTree)  |
 | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html) | [LongLine](/Java/GeometricObjects/LongLine)  |
 | [vtkLineSource](http://www.vtk.org/doc/nightly/html/classvtkLineSource.html) | [Line](/Java/GeometricObjects/Line)  |
+| [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | [EarthSource](/Java/Geovis/EarthSource)  |
 | [vtkPlane](http://www.vtk.org/doc/nightly/html/classvtkPlane.html) | [Cutter](/Java/Miscellaneous/Cutter)  |
 | [vtkPNGWriter](http://www.vtk.org/doc/nightly/html/classvtkPNGWriter.html) | [Screenshot](/Java/Miscellaneous/Screenshot)  |
 | [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html) | [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) [LongLine](/Java/GeometricObjects/LongLine) [Polygon](/Java/GeometricObjects/Polygon) [SphereInteractionPanel](/Java/Interaction/SphereInteractionPanel) [WritePolyData](/Java/IO/WritePolyData)  |
