@@ -80,6 +80,7 @@ set(NEEDS_ARGS
   HedgeHog
   Kitchen
   NormalsDemo
+  OpenVRSphere
   PointDataSubdivision
   RenderLargeImage
   SelectWindowRegion
@@ -192,7 +193,8 @@ add_test(${KIT}-Kitchen ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-NormalsDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestNormalsDemo ${DATA}/42400-IDGH.stl)
-
+add_test(${KIT}-OpenVRSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestOpenVRSphere 
 add_test(${KIT}-PointDataSubdivision ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestPointDataSubdivision 2)
 
