@@ -60,6 +60,7 @@ int main (int argc, char *argv[])
     // OBJImporter turns texture interpolation off
     if (actor->GetTexture())
     {
+      std::cout << "Hastexture\n";
       actor->GetTexture()->InterpolateOn();
     }
 
@@ -71,12 +72,13 @@ int main (int argc, char *argv[])
 
     vtkSmartPointer<vtkPolyDataNormals> normals =
       vtkSmartPointer<vtkPolyDataNormals>::New();
-    normals->SetInputConnection(clean->GetOutputPort());
     normals->SetInputData(pd);
     normals->SplittingOff();
+    normals->ConsistencyOn();
     normals->Update();
     vtkPolyDataMapper *mapper = vtkPolyDataMapper::SafeDownCast(actor->GetMapper());
     mapper->SetInputData(normals->GetOutput());
+    mapper->SetInputData(pd);
   }
   renWin->Render();
   iren->Start();
