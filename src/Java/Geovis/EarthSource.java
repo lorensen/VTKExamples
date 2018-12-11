@@ -14,7 +14,7 @@ import vtk.vtkPanel;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkNamedColors;
 
-//Author: Bharatesh Chakravarthi
+//Author: Bharatesh Chakravarthi, Adithya B. 
 //Affiliation: VELab, Chung Ang University, Seoul, South Korea. 
  
 public class EarthSource extends JPanel implements ActionListener 
