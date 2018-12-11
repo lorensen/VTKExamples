@@ -1,6 +1,6 @@
 ### Description
 
-This example illustrates the use vtkChartMatrix, a container that holds a matrix of charts. The exmpale creates a 2 x 2 matix of plots. The matrix elements are:
+This example illustrates the use vtkChartMatrix, a container that holds a matrix of charts. The example creates a 2 x 2 matrix of plots. The matrix elements are:
 
 (0,0): a vtkPlotPoints
 (0,1): a vtkPlotPoints
