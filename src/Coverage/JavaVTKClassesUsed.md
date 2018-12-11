@@ -1,6 +1,6 @@
 # VTK Classes used in the Examples
 ## Java
-Out of 2368 available VTK classes, 41 are demonstrated here.  
+Out of 2368 available VTK classes, 42 are demonstrated here.  
 These classes are excluded since they occur in the majority of the examples:  
 - [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)
 - [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html)
@@ -21,6 +21,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkCubeSource](http://www.vtk.org/doc/nightly/html/classvtkCubeSource.html) | [Cutter](/Java/Miscellaneous/Cutter) [Follower](/Java/Visualization/Follower)  |
 | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html) | [Cylinder](/Java/GeometricObjects/Cylinder)  |
 | [vtkDiskSource](http://www.vtk.org/doc/nightly/html/classvtkDiskSource.html) | [Disk](/Java/GeometricObjects/Disk)  |
+| [vtkEarthSource](http://www.vtk.org/doc/nightly/html/classvtkEarthSource.html) | [EarthSource](/Java/Geovis/EarthSource)  |
 | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html) | [Follower](/Java/Visualization/Follower)  |
 | [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) | [VectorFieldExample](/Java/Visualization/VectorFieldExample)  |
 | [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html) | [SelectGraphVertices](/Java/Graphs/SelectGraphVertices)  |
