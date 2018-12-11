@@ -9,14 +9,17 @@ public class Cone6 {
 	 */
 	// load the necessary interface libraries on first reference to the 
 	// class.
-	static {
-		System.loadLibrary("vtkCommonJava");
-		System.loadLibrary("vtkFilteringJava");
-		System.loadLibrary("vtkIOJava");
-		System.loadLibrary("vtkImagingJava");
-		System.loadLibrary("vtkGraphicsJava");
-		System.loadLibrary("vtkRenderingJava");
-		System.loadLibrary("vtkWidgetsJava");
+	// Loading Native Libraries.
+  	// Now it works in eclipse without any issues.
+  	static {
+	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+	        if (!lib.IsLoaded()) {
+	          System.out.println(lib.GetLibraryName() + " not loaded");
+	        }
+	      }
+	    }
+	    vtkNativeLibrary.DisableOutputWindow(null);
 	}
 	// create the box widget as an instance variable so we can interact
 	// with it from the interaction call back. 

@@ -13,26 +13,18 @@ public class Sphere {
 
   // In the static contructor we load in the native code.
   // The libraries must be in your path to work.
-  static { 
-	  System.out.println("load vtkCommonJava");
-	  System.loadLibrary("vtkCommonJava");
-	  System.out.println("load vtkChartsJava");
-	  System.loadLibrary("vtkChartsJava");
-	  System.loadLibrary("vtkFilteringJava");
- 	  System.loadLibrary("vtkGenericFilteringJava");
-	  System.loadLibrary("vtkGeovisJava");
-	  System.loadLibrary("vtkGraphicsJava");
-	  System.loadLibrary("vtkHybridJava");
-	  System.loadLibrary("vtkImagingJava");
-	  System.loadLibrary("vtkInfovisJava");
-	  System.loadLibrary("vtkIOJava");
-	  System.loadLibrary("vtkRenderingJava");
-	  System.loadLibrary("vtkViewsJava");
-	  System.loadLibrary("vtkVolumeRenderingJava");
-	  System.loadLibrary("vtkWidgetsJava");
-      System.out.println("LoadLibrary complete for vtkjava");
-    
-  }
+  // Loading Native Libraries.
+  // Now it works in eclipse without any issues.
+  static {
+	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+	        if (!lib.IsLoaded()) {
+	          System.out.println(lib.GetLibraryName() + " not loaded");
+	        }
+	      }
+	    }
+	    vtkNativeLibrary.DisableOutputWindow(null);
+	  }
 
   // Now the main program
   public static void main (String []args) {
