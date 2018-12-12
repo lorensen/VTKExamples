@@ -10,26 +10,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 !!! info
     [This table](/Coverage/JavaVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
 
-## GeometricObjects
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[Arrow](/Java/GeometricObjects/Arrow) | vtkArrow | Arrow Visualization
-[Circle](/Java/GeometricObjects/Circle) | vtkCircle |Circle Visualization
-[Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
-[Cube](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
-[Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
-[Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
-[Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
-[Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
-[LongLine](/Java/GeometricObjects/LongLine) | vtkLongLine |A visualization of a long line
-[OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow | Oriented Arrow Visualization
-[OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) | vtkOrientedCylinder | Oriented Cylinder Visualization
-[Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
-[Quad](/Java/GeometricObjects/Quad) | vtkQuad | Quad Visualization
-[Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
-[TriangleStrip](/Java/GeometricObjects/TriangleStrip) | vtkTriangleStrip | Triangle Strip Visualization
-[Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
 
 
 ## Geovis
