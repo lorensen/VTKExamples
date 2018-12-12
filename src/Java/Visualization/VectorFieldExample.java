@@ -20,15 +20,18 @@ import vtk.vtkXMLUnstructuredGridReader;
 
 public class VectorFieldExample implements Serializable {
 
-  static
-  {
-    System.loadLibrary("vtkCommonCoreJava");
-    System.loadLibrary("vtkFiltersCoreJava");
-    System.loadLibrary("vtkFiltersSourcesJava");
-    System.loadLibrary("vtkIOXMLJava");
-    System.loadLibrary("vtkRenderingCoreJava");
-    System.loadLibrary("vtkRenderingOpenGL2Java");
-  }
+  // Loading Native Libraries.
+  // Now it works in eclipse without any issues.
+  static {
+	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+	        if (!lib.IsLoaded()) {
+	          System.out.println(lib.GetLibraryName() + " not loaded");
+	        }
+	      }
+	    }
+	    vtkNativeLibrary.DisableOutputWindow(null);
+	  }
     private static final long serialVersionUID = 1L;
 
     public static vtkPanel showVectorField(

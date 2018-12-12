@@ -16,16 +16,18 @@ public class SelectGraphVertices {
 	 * vtkJava interface libraries on first reference to this
 	 * class. 
 	 */
-	static {
-		System.loadLibrary("vtkCommonJava");
-		System.loadLibrary("vtkFilteringJava");
-		System.loadLibrary("vtkViewsJava");
-		System.loadLibrary("vtkImagingJava");
-		System.loadLibrary("vtkInfovisJava");
-		System.loadLibrary("vtkGraphicsJava");
-		System.loadLibrary("vtkRenderingJava");
-
-	}
+	// Loading Native Libraries.
+  	// Now it works in eclipse without any issues.
+  	static {
+	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+	        if (!lib.IsLoaded()) {
+	          System.out.println(lib.GetLibraryName() + " not loaded");
+	        }
+	      }
+	    }
+	    vtkNativeLibrary.DisableOutputWindow(null);
+	 }
 	/*
 	 * primary test driver, creates an instance of this class 
 	 * and then runs the example function. 

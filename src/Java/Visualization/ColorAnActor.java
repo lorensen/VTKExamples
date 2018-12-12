@@ -2,14 +2,18 @@ import vtk.*;
 
 public class ColorAnActor {
 
-  static
-  {
-    System.loadLibrary("vtkCommonCoreJava");
-    System.loadLibrary("vtkFiltersSourcesJava");
-    System.loadLibrary("vtkInteractionStyleJava");
-    System.loadLibrary("vtkRenderingCoreJava");
-    System.loadLibrary("vtkRenderingOpenGL2Java");
-  }
+  // Loading Native Libraries.
+  // Now it works in eclipse without any issues.
+  static {
+	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+	        if (!lib.IsLoaded()) {
+	          System.out.println(lib.GetLibraryName() + " not loaded");
+	        }
+	      }
+	    }
+	    vtkNativeLibrary.DisableOutputWindow(null);
+	  }
 
   public static void main(String[] args)
   {

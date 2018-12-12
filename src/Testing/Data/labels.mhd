@@ -1,13 +1,3 @@
-ObjectType = Image
-NDims = 3
-BinaryData = True
-BinaryDataByteOrderMSB = False
-CompressedData = False
-TransformMatrix = 1 0 0 0 1 0 0 0 1
-Offset = 0 0 0
-CenterOfRotation = 0 0 0
-AnatomicalOrientation = RAI
-ElementSpacing = 1 1 1
-DimSize = 518 229 393
-ElementType = MET_USHORT
-ElementDataFile = labels.raw
+version https://git-lfs.github.com/spec/v1
+oid sha256:4fb019b98d5372baa02ca88d772593f07402c758d7d5c757a3280c3c5acf5573
+size 304

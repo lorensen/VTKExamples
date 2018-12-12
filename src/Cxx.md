@@ -56,6 +56,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [ReadPLOT3D](/Cxx/IO/ReadPLOT3D) | vtkPLOT3DReader | Read CFD (computational fluid dynamics) data produced by PLOT3D.
 [ReadPLY](/Cxx/IO/ReadPLY) | vtkPLYReader | Read PLY (.ply) files
 [ReadPlainTextTriangles](/Cxx/IO/ReadPlainTextTriangles) | vtkPolyData vtkSmartPointer vtkPoints vtkCellArray vtkXMLPolyDataWriter | Read a plain text file into a polydata.
+[ReadSLC](/Cxx/IO/ReadSLC) | vtkSLCReader | Read VolVis file.
 [ReadSTL](/Cxx/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files
 [ReadTextFile](/Cxx/IO/ReadTextFile) | vtkPolyData | Read a plain text file into a polydata.
 [SimplePointsReader](/Cxx/IO/SimplePointsReader) | vtkSimplePointsReader | Read a simple "xyz" file of points.
@@ -255,6 +256,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [MarchingCubes](/Cxx/Modelling/MarchingCubes) | vtkMarchingCubes | Create a voxelized sphere.
 [MarchingSquares](/Cxx/Modelling/MarchingSquares) | vtkMarchingSquares | Create a contour from a structured point set (image).
 [SampleFunction](/Cxx/ImplicitFunctions/SampleFunction) | vtkSampleFunction | Sample and visualize an implicit function.
+[ShepardInterpolation](/Cxx/Visualization/ShepardInterpolation) | vtkShepardMethod vtkProbeFilter vtkContourFilter | Interpolate scalar data.
 [SmoothDiscreteMarchingCubes](/Cxx/Modelling/SmoothDiscreteMarchingCubes) | vtkDiscreteMarchingCubes vtkWindowedSincPolyDataFilter | Generate smooth surfaces from labeled data.
 
 ## Working with 3D Data
@@ -402,6 +404,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ColorIsoSurface](/Cxx/VisualizationAlgorithms/ColorIsosurface) | vtkPolyDataMapper | Color an isosurcae with and Array Component.
 [CompareExtractSurface](/Cxx/Points/CompareExtractSurface) | vtkExractSurface | Compare three extract surface algorithms.
 [DensifyPoints](/Cxx/Points/DensifyPoints) | vtkDensifyPointCloudFilter | Add points to a point cloud.
 [DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | vtkCleanPolyData | Down sample a point cloud. Remove points so that there are no points within a tolerance of any point.
@@ -441,6 +444,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [GreedyTerrainDecimation](/Cxx/PolyData/GreedyTerrainDecimation) | vtkGreedyTerrainDecimation | Create a mesh from an ImageData
 [HighlightBadCells](/Cxx/PolyData/HighlightBadCells) | vtkMeshQuality |
 [IdentifyHoles](/Cxx/Meshes/IdentifyHoles) | vtkFillHolesFilter | Close holes in a mesh and identify the holes.
+[InterpolateFieldDataDemo](/Cxx/Meshes/InterpolateFieldDataDemo) | vtkPointInterpolator vtkInterpolateDataSetAttributes | Resample a fine grid and interpolate field data.
 [ImplicitSelectionLoop](/Cxx/PolyData/ImplicitSelectionLoop) | vtkImplicitSelectionLoop | Select a region of a mesh with an implicit function.
 [LargestRegion](/Cxx/PolyData/PolyDataConnectivityFilter_LargestRegion) | vtkPolyDataConnectivityFilter | Extract the largest connected region in a polydata.
 [MatrixMathFilter](/Cxx/Meshes/MatrixMathFilter) | vtkMatrixMathFilter | Compute various quantities on cell and points in a mesh.
@@ -473,6 +477,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [ImplicitDataSetClipping](/Cxx/PolyData/ImplicitDataSetClipping) | vtkImplicitDataSet | Clip using an implicit data set.
 [SolidClip](/Cxx/Meshes/SolidClip) | vtkClipPolyData | Create a "solid" clip.
 [TableBasedClipDataSetWithPolyData](/Cxx/Meshes/TableBasedClipDataSetWithPolyData) | vtkTableBasedClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | Clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid. Contrast this with the previous example.
+[TableBasedClipDataSetWithPolyData2](/Cxx/Meshes/TableBasedClipDataSetWithPolyData2) | vtkTableBasedClipDataSet vtkRectilinearGrid | Clip a vtkRectilinearGrid with a checkerboard pattern.
 
 ### Working with Structured 3D Data
 
@@ -917,6 +922,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CornerAnnotation](/Cxx/Visualization/CornerAnnotation) | vtkCornerAnnotation | Write text in the corners of a window.
 [CorrectlyRenderTranslucentGeometry](/Cxx/Visualization/CorrectlyRenderTranslucentGeometry) | vtkDepthSortPolyData | Correctly Rendering Translucent Geometry.
 [CreateBFont](/Cxx/VisualizationAlgorithms/CreateBFont) | vtkClipPolyData vtkImageDataGeometryFilter | A scanned image clipped with a scalar value of 1/2 its maximum intensity produces a mixture of quadrilaterals and triangles.
+[CreateColorSeriesDemo](/Cxx/Visualization/CreateColorSeriesDemo) | vtkColorSeries vtkLookupTable | Create a custom vtkColorSeries.
 [CubeAxesActor](/Cxx/Visualization/CubeAxesActor) | vtkCubeAxesActor | Display three orthogonal axes with labels.
 [CubeAxesActor2D](/Cxx/Visualization/CubeAxesActor2D) | vtkCubeAxesActor2D | This example uses the vtkCubeAxesActor2D to show your scene with axes to indicate the spatial extent of your data.
 [Cursor3D](/Cxx/Visualization/Cursor3D) | vtkCursor3D |
@@ -1259,9 +1265,11 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 | -------------- | ---------------------- | ------------- | ------- |
 [BarChart](/Cxx/Plotting/BarChart) | vtkChartXY | Bar chart.
 [BoxChart](/Cxx/Plotting/BoxChart) | vtkChartBox | Box plot.
+[ChartMatrix](/Cxx/Plotting/ChartMatrix) | vtkChartMatrix | Create a marix of plots.
 [Diagram](/Cxx/Plotting/Diagram) |  |
 [HistogramBarChart](/Cxx/Plotting/HistogramBarChart) | vtkBarChartActor | Histogram using bar chart.
 [LinePlot](/Cxx/Plotting/LinePlot) | vtkChartXY | Line plot.
+[LinePlot3D](/Cxx/Plotting/PlotLine3D) | vtkLinePlot3D | Line plot of 3d data..
 [ParallelCoordinates](/Cxx/Plotting/ParallelCoordinates) | vtkChartParallelCoordinates | Parallel coordinates.
 [PieChart](/Cxx/Plotting/PieChart) | vtkChartPie vtkPlotPie | Pie chart.
 [PieChartActor](/Cxx/Plotting/PieChartActor) | vtkPieChartActor | Pie chart.

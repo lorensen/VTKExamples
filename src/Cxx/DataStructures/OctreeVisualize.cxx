@@ -22,12 +22,15 @@
 #include <vtkProperty.h>
 #include <vtkMath.h>
 
+#include <vtkSphereSource.h>
+
 #include <cmath>
 
 class vtkSliderCallback : public vtkCommand
 {
 public:
   static vtkSliderCallback *New()
+
   {
     return new vtkSliderCallback;
   }
@@ -52,24 +55,35 @@ public:
 int main (int, char *[])
 {
   // Create a point cloud
+#if 0
   vtkSmartPointer<vtkPointSource> pointSource =
     vtkSmartPointer<vtkPointSource>::New();
   pointSource->SetRadius(4);
   pointSource->SetNumberOfPoints(1000);
   pointSource->Update();
+#endif
 
+  vtkSmartPointer<vtkSphereSource> pointSource =
+    vtkSmartPointer<vtkSphereSource>::New();
+  pointSource->SetPhiResolution(50);
+  pointSource->SetThetaResolution(50);
   vtkSmartPointer<vtkPolyDataMapper> pointsMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   pointsMapper->SetInputConnection(pointSource->GetOutputPort());
-
+  pointSource->Update();
   vtkSmartPointer<vtkActor> pointsActor =
     vtkSmartPointer<vtkActor>::New();
   pointsActor->SetMapper(pointsMapper);
   pointsActor->GetProperty()->SetInterpolationToFlat();
+  pointsActor->GetProperty()->SetRepresentationToPoints();
+  pointsActor->GetProperty()->SetColor(0.4,0.4,1.0);
+
+
 
   // Create the tree
   vtkSmartPointer<vtkOctreePointLocator> octree =
     vtkSmartPointer<vtkOctreePointLocator>::New();
+  octree->SetMaximumPointsPerRegion(5);
   octree->SetDataSet(pointSource->GetOutput());
   octree->BuildLocator();
 
