@@ -10,15 +10,18 @@ public class AnimDataCone
    */
   // load the necessary interface libraries on first reference to the
   // class.
-  static
-  {
-    System.loadLibrary("vtkCommonCoreJava");
-    System.loadLibrary("vtkFiltersSourcesJava");
-    System.loadLibrary("vtkFiltersCoreJava");
-    System.loadLibrary("vtkInteractionStyleJava");
-    System.loadLibrary("vtkRenderingCoreJava");
-    System.loadLibrary("vtkRenderingOpenGL2Java");
-  }
+  // Loading Native Libraries.
+  // Now it works in eclipse without any issues.
+  static {
+	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+	        if (!lib.IsLoaded()) {
+	          System.out.println(lib.GetLibraryName() + " not loaded");
+	        }
+	      }
+	    }
+	    vtkNativeLibrary.DisableOutputWindow(null);
+	  }
   // declare the interactor as an instance variable so we can refer to it
   // in the timer callback. we will pass the instance pointer to this
   // class for the callback to be invoked on.
