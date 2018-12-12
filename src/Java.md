@@ -22,6 +22,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLine |A visualization of a long line
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
+[Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
+
 
 ## Geovis
 
