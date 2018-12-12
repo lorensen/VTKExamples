@@ -18,11 +18,16 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Circle](/Java/GeometricObjects/Circle) | vtkCircle |Circle Visualization
 [Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
 [Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
+
 [Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
+
+[Cube](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
+
 [Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
 [Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLine |A visualization of a long line
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
+[Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
 
 ## Geovis
 
