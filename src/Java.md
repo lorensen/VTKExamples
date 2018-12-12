@@ -10,6 +10,15 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 !!! info
     [This table](/Coverage/JavaVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
 
+
+## Input and Output
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Cube.java](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
+
+
+
 ## Input and Output
 
 | Example Name | Classes Demonstrated | Description | Image |
