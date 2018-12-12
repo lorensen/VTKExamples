@@ -19,6 +19,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
 [Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
 [Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
+[Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
 [Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLongLine |A visualization of a long line
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
