@@ -2,17 +2,18 @@ import vtk.*;
 
 public class VisualizeKDTree
 {
-
-  static
-  {
-    System.loadLibrary("vtkCommonJava");
-    System.loadLibrary("vtkFilteringJava");
-    System.loadLibrary("vtkIOJava");
-    System.loadLibrary("vtkImagingJava");
-    System.loadLibrary("vtkGraphicsJava");
-    System.loadLibrary("vtkRenderingJava");
-    System.loadLibrary("vtkWidgetsJava");
-  }
+  // Loading Native Libraries.
+  // Now it works in eclipse without any issues.
+  static {
+	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+	        if (!lib.IsLoaded()) {
+	          System.out.println(lib.GetLibraryName() + " not loaded");
+	        }
+	      }
+	    }
+	    vtkNativeLibrary.DisableOutputWindow(null);
+	  }
 
   static class vtkSliderCallback
   {

@@ -15,14 +15,14 @@ public:
 
 protected:
   vtkTestMultipleInputPortsFilter();
-  ~vtkTestMultipleInputPortsFilter() VTK_OVERRIDE {}
+  ~vtkTestMultipleInputPortsFilter() {}
 
-  int FillInputPortInformation( int port, vtkInformation* info ) VTK_OVERRIDE;
-  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) VTK_OVERRIDE;
+  int FillInputPortInformation( int port, vtkInformation* info ) override;
+  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) override;
 
 private:
-  vtkTestMultipleInputPortsFilter(const vtkTestMultipleInputPortsFilter&) VTK_DELETE_FUNCTION;
-  void operator=(const vtkTestMultipleInputPortsFilter&) VTK_DELETE_FUNCTION;
+  vtkTestMultipleInputPortsFilter(const vtkTestMultipleInputPortsFilter&) = delete;
+  void operator=(const vtkTestMultipleInputPortsFilter&) = delete;
 
 };
 
