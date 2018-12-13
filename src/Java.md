@@ -25,9 +25,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLine |A visualization of a long line
 [OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow |Oriented Arrow visualization 
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
-
-[RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource| RegularPolygonSource Visualization
-
+[RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource| RegularPolygon Visualization
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad| Quad Visualization
 [Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
 [TextActor](/Java/GeometricObjects/TextActor) | vtkTextActor | TextActor Demonstration
