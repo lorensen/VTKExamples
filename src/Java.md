@@ -26,6 +26,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
 [Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLine |A visualization of a long line
+[OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow |Oriented Arrow visualization 
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad| Quad Visualization
 
