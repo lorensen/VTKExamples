@@ -18,11 +18,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Circle](/Java/GeometricObjects/Circle) | vtkCircle |Circle Visualization
 [Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
 [Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
-
 [Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
-
 [Cube](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
-
 [Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
 [Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLine |A visualization of a long line
@@ -31,11 +28,9 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource| RegularPolygonSource Visualization
 
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad| Quad Visualization
-
 [Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
-
-
 [Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
+[TriangleStrip](/Java/GeometricObjects/TriangleStrip) | vtkTriangleStrip | Triangle Strip Visualization
 
 
 
