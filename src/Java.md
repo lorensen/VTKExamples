@@ -67,6 +67,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | use Java File Dialog to select Image File to Display
 
+## Lighting
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[LightActor](/Java/Lighting/LightActor) | vtkLightActor| vtkLightActor Demonstration
+
 ## Miscellaneous
 
 | Example Name | Classes Demonstrated | Description | Image |
