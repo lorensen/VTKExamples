@@ -26,6 +26,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) | vtkOrientedCylinder |Oriented Cylinder visualization
 [OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow |Oriented Arrow visualization 
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
+[PlanesIntersection](/Java/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection | PlanesIntersection
 [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource| RegularPolygon Visualization
 [Pyramid](/Java/GeometricObjects/Pyramid) | vtkPyramid | Pyramid Visualization
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad| Quad Visualization
