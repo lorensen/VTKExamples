@@ -202,7 +202,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [Plane](/Cxx/GeometricObjects/Plane) | vtkPlaneSource |
 [PlatonicSolids](/Cxx/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource |
 [PolyLine1](/Cxx/GeometricObjects/PolyLine1) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
-[RegularPolygon](/Cxx/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
+[RegularPolygonSource](/Cxx/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Cxx/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
 [TextActor](/Cxx/GeometricObjects/TextActor) | vtkTextActor | 2D "HUD-type" text
@@ -333,7 +333,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [Outline](/Cxx/PolyData/Outline) | vtkOutlineFilter | Draw the bounding box of the data
 [PKMeansClustering](/Cxx/InfoVis/PKMeansClustering) | vtkPKMeansStatistics | Parallel KMeans Clustering.
 [ParametricSpline](/Cxx/PolyData/ParametricSpline) | vtkCardinalSpline vtkParametricSpline vtkParametricFunctionSource | Create a Cardinal spline on a set of points.
-[Perlin Noise](/Cxx/Filtering/PerlinNoise) | vtkPerlinNoise |
+[PerlinNoise](/Cxx/Filtering/PerlinNoise) | vtkPerlinNoise |
 [PointCellIds](/Cxx/PolyData/PointCellIds) | vtkIdFilter | Generate point and cell id arrays.
 [PointInsideObject](/Cxx/PolyData/PointInsideObject) | vtkSelectEnclosedPoints | Check if a point is inside an object.
 [PointInsideObject2](/Cxx/PolyData/PointInsideObject2) | vtkDelaunay3D vtkPolyData::FindCell | This uses a Delaunay triangulation to compute a volume. This gives more of an "is inside convex hull" effect than an "is inside object".
@@ -617,7 +617,7 @@ This section includes vtkUnstructuredGrid.
 [OffScreenRendering](/Cxx/Utilities/OffScreenRendering) | vtkImagingFactory vtkGraphicsFactory | Off Screen Rendering.
 [PCADemo](/Cxx/Utilities/PCADemo) | vtkPCAStatistics | Project 2D points onto the best 1D subspace (PCA Demo).
 [PCAStatistics](/Cxx/Utilities/PCAStatistics) | vtkPCAStatistics | Compute Principal Component Analysis (PCA) values.
-[PassThrought](/Cxx/InfoVis/PassThrough) | vtkPassThrough | Pass input along to outpu.
+[PassThrough](/Cxx/InfoVis/PassThrough) | vtkPassThrough | Pass input along to outpu.
 [PiecewiseFunction](/Cxx/Utilities/PiecewiseFunction) | vtkPiecewiseFunction | Interpolation using a piecewise function.
 [PointInPolygon](/Cxx/Utilities/PointInPolygon) | vtkPolygon | Point inside polygon test.
 [ReportRenderWindowCapabilities](/Cxx/Utilities/ReportRenderWindowCapabilities) | vtkRenderWindow | Report the capabilities of a render window.
