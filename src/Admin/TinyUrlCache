@@ -130,7 +130,7 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestHideActor.png http://tinyurl.com/ydhrg25v
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Images/TestImageCorrelation.png http://tinyurl.com/yahwcrsh
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Images/TestImageVariance3D.png http://tinyurl.com/ydep4h33
-https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Java/Imaging/TestImageTest.png http://tinyurl.com/ycopqjne
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Java/Graphs/TestSelectGraphVertices.png http://tinyurl.com/y982t84j
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Demos/TestVisualDebugging.png http://tinyurl.com/ycj7y4bp
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/VisualizationAlgorithms/TestVelocityProfile.png http://tinyurl.com/y8y75um6
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestParametricSuperToroidDemo.png http://tinyurl.com/yd8c2q5l
@@ -145,7 +145,8 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Ima
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestArbitrary3DCursor.png http://tinyurl.com/y96apo23
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/SimpleOperations/TestRandomSequence.png http://tinyurl.com/y8eetgbj
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestSingleSplat.png http://tinyurl.com/yampp3xq
-https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Widgets/TestImageTracerWidgetInsideContour.png http://tinyurl.com/y9nydaym
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Plotting/TestAreaPlot.png http://tinyurl.com/y88m7elb
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/Visualization/TestQuadraticSurface.png http://tinyurl.com/y7d7we6x
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/Visualization/TestViewFrog.png http://tinyurl.com/y77o6acl
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/ImageProcessing/TestMorphologyComparison.png http://tinyurl.com/y7f2lor7
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestExtractSelectedIds.png http://tinyurl.com/y7eumk6c
@@ -260,7 +261,7 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestCellLocator.png http://tinyurl.com/y77bdcys
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Texture/TestProjectedTexture.png http://tinyurl.com/ycs8evph
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/Visualization/TestHanoiIntermediate.png http://tinyurl.com/ycoghya7
-https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Java/Graphs/TestSelectGraphVertices.png http://tinyurl.com/y982t84j
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Java/Imaging/TestImageTest.png http://tinyurl.com/ycopqjne
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Images/TestCombiningRGBChannels.png http://tinyurl.com/ydb37d9n
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestConvertFile.png http://tinyurl.com/yb3od8h3
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Interaction/TestCallData.png http://tinyurl.com/y7l3ed6f
@@ -324,13 +325,13 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Ima
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/Rendering/TestMotionBlur.png http://tinyurl.com/y9osjnn9
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/IO/TestXMLStructuredGridWriter.png http://tinyurl.com/y9qwq34b
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestKochanekSplineDemo.png http://tinyurl.com/yc3977re
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestUnsignedDistance.png http://tinyurl.com/yc8wpful
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Shaders/TestBozoShaderDemo.png http://tinyurl.com/y7h83vky
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Graphs/TestSideBySideGraphs.png http://tinyurl.com/y9xqdo43
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Qt/TestRenderWindowNoUiFile.png http://tinyurl.com/y9lzyqaq
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Widgets/TestSlider2D.png http://tinyurl.com/ycha8ha5
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestSourceObjectsDemo.png http://tinyurl.com/ya4yobe7
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Interaction/TestRubberBandPick.png http://tinyurl.com/yc9daaeb
-https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestPolyLine1.png http://tinyurl.com/y7tj5jgo
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/VisualizationAlgorithms/TestMarchingCases.png http://tinyurl.com/ybpxm5zm
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/PolyData/TestPolyDataConnectivityFilter_SpecifiedRegion.png http://tinyurl.com/yc2tske6
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Annotation/TestMultiLineText | vtkTextMapper | Display multiline text..png http://tinyurl.com/y9srgbww
@@ -372,6 +373,7 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Dat
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Rendering/TestRainbow.png http://tinyurl.com/yafs9782
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Java/GeometricObjects/TestPlanesIntersection.png http://tinyurl.com/y9njme3y
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestCellTypeSource.png http://tinyurl.com/y97bfc3u
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Images/TestImageFFT.png http://tinyurl.com/y836bbrd
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/Texture/TestTextureCutSphere.png http://tinyurl.com/y8wjwrhw
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestVectorText.png http://tinyurl.com/y8vu2nhx
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/Medical/TestMedicalDemo4.png http://tinyurl.com/y8er2rn2
@@ -480,7 +482,7 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Plotting/TestPlotLine3D.png http://tinyurl.com/ybcbspt7
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestPolyhedron.png http://tinyurl.com/yc2r2zhy
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Qt/TestQImageToImageSource.png http://tinyurl.com/y993q44o
-https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Images/TestImageFFT.png http://tinyurl.com/y836bbrd
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestPolyLine1.png http://tinyurl.com/y7tj5jgo
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/InfoVis/TestArrayToTable.png http://tinyurl.com/yd8exrkt
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestColorGlyphs.png http://tinyurl.com/ya4x5oaq
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Utilities/TestDataAnimationSubclass.png http://tinyurl.com/yd4bq8sl
@@ -592,7 +594,7 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Vis
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestGeometricObjectsDemo.png http://tinyurl.com/ya9zn2f2
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/SimpleOperations/TestDistanceBetweenPoints.png http://tinyurl.com/y7zgw28s
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestStripper.png http://tinyurl.com/y9kefgpc
-https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/GeometricObjects/TestParametricObjectsDemo.png http://tinyurl.com/y8dslsnm
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Plotting/TestSurfacePlot.png http://tinyurl.com/yayxegc6
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestEllipticalCylinderDemo.png http://tinyurl.com/y9ammly2
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestThresholdCells.png http://tinyurl.com/ybjg93mv
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Images/TestImageIslandRemoval2D.png http://tinyurl.com/ycrr2lsq
@@ -639,6 +641,7 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestRotationAroundLine.png http://tinyurl.com/yaphpsnf
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Shaders/TestColorByNormal.png http://tinyurl.com/y93matnn
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Plotting/TestHistogramBarChart.png http://tinyurl.com/ya2bav4b
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/GeometricObjects/TestParametricObjectsDemo.png http://tinyurl.com/y8dslsnm
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Qt/TestEventQtSlotConnect.png http://tinyurl.com/yb2qp348
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Interaction/TestMoveAGlyph.png http://tinyurl.com/yb3b5hr5
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/GeometricObjects/TestPlanesIntersection.png http://tinyurl.com/yd2pst68
@@ -1187,7 +1190,6 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Vis
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo3.png http://tinyurl.com/y75xc75b
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestFilledContours.png http://tinyurl.com/ya368kma
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Meshes/TestMatrixMathFilter.png http://tinyurl.com/ybawaom2
-https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/Visualization/TestQuadraticSurface.png http://tinyurl.com/y7d7we6x
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestGlyph3DImage.png http://tinyurl.com/yc3f8ysc
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/CompositeData/TestMultiBlockDataSet.png http://tinyurl.com/ybdt8j3s
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Plotting/TestBarChart.png http://tinyurl.com/ycy2ez6q
@@ -1235,7 +1237,7 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Interaction/TestPointPicker.png http://tinyurl.com/y7y3ctgb
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestColoredLines.png http://tinyurl.com/yd5p74yo
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Images/TestImageEllipsoidSource.png http://tinyurl.com/y7strtz5
-https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestUnsignedDistance.png http://tinyurl.com/yc8wpful
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Widgets/TestImageTracerWidgetInsideContour.png http://tinyurl.com/y9nydaym
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestPowercrustExtractSurface.png http://tinyurl.com/y7fem4hw
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CSharp/Meshes/TestQuadricClustering.png http://tinyurl.com/y8589ehz
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Widgets/TestBoxWidget.png http://tinyurl.com/y8o5lsl4
@@ -1255,8 +1257,10 @@ https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Wid
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Texture/TestTextureCutQuadric.png http://tinyurl.com/yd3fzh85
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestIntersectionPolyDataFilter.png http://tinyurl.com/ydz7u5gm
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestTubesWithVaryingRadiusAndColors.png http://tinyurl.com/y7xr3h8h
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Plotting/TestFunctionalBagPlot.png http://tinyurl.com/ydz9goay
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/VisualizationAlgorithms/TestPineRootDecimation.png http://tinyurl.com/ycqphtxq
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestParametricObjectsDemo.png http://tinyurl.com/ybz22pd8
+https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Plotting/TestChartsOn3DScene.png http://tinyurl.com/y8p8o3qt
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png http://tinyurl.com/ydbcvazg
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestNamedColorPatches.png http://tinyurl.com/ya33za8r
 https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestMaskPoints.png http://tinyurl.com/y8lpqgd2
