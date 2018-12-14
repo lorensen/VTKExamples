@@ -3,6 +3,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
+#include <vtkNamedColors.h>
 #include <vtkOpenVRRenderWindow.h>
 #include <vtkOpenVRRenderer.h>
 #include <vtkOpenVRRenderWindowInteractor.h>
@@ -16,11 +17,11 @@ int main(int, char *[])
   sphereSource->SetRadius(5.0);
   
   //Create a Mapper
-
   vtkSmartPointer<vtkPolyDataMapper> mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(sphereSource->GetOutputPort());
   
   //Create an Actor
+  vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
   vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
 
@@ -35,8 +36,7 @@ int main(int, char *[])
 
   //Add actor to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.3, .6, .3); // Background color green
-
+  renderer->SetBackground(colors->GetColor3d("ForestGreen").GetData());
   renderWindow->Render();
   renderWindowInteractor->Start();
 
