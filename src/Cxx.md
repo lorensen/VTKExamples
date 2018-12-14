@@ -1279,6 +1279,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [SpiderPlot](/Cxx/Plotting/SpiderPlot) | vtkSpiderPlotActor | Spider plot.
 [StackedBar](/Cxx/Plotting/StackedBar) | vtkPlotBar | Stacked bar.
 [StackedPlot](/Cxx/Plotting/StackedPlot) | vtkPlotStacked | Stacked plot.
+[SurfacePlot](/Cxx/Plotting/SurfacePlot) | vtkPlotSurface | SurfacePlot.
 
 ## Animation
 
