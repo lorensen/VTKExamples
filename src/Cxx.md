@@ -1269,6 +1269,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [BarChart](/Cxx/Plotting/BarChart) | vtkChartXY | Bar chart.
 [BoxChart](/Cxx/Plotting/BoxChart) | vtkChartBox | Box plot.
 [ChartMatrix](/Cxx/Plotting/ChartMatrix) | vtkChartMatrix | Create a marix of plots.
+[ChartsOn3DScene](/Cxx/Plotting/ChartsOn3DScene) | vtkChartXY | Draw a chart in a 3D scene.
 [Diagram](/Cxx/Plotting/Diagram) |  |
 [FunctionalBagPlot](/Cxx/Plotting/FunctionalBagPlot) | vtkPlotFunctionalBag vtkColorSeries | Functional Bag Plot.
 [HistogramBarChart](/Cxx/Plotting/HistogramBarChart) | vtkBarChartActor | Histogram using bar chart.
