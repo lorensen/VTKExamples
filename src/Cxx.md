@@ -1265,6 +1265,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[AreaPlot](/Cxx/Plotting/AreaPlot) | vtkPlotArea | Plot area between two curves.
 [BarChart](/Cxx/Plotting/BarChart) | vtkChartXY | Bar chart.
 [BoxChart](/Cxx/Plotting/BoxChart) | vtkChartBox | Box plot.
 [ChartMatrix](/Cxx/Plotting/ChartMatrix) | vtkChartMatrix | Create a marix of plots.
