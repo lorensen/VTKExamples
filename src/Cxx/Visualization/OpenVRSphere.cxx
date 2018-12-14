@@ -27,10 +27,8 @@ int main(int, char *[])
 
   //Create a Renderer, RenderWindow, RenderWindowInteractor
   vtkSmartPointer<vtkOpenVRRenderer> renderer = vtkSmartPointer<vtkOpenVRRenderer>::New();
-  
   vtkSmartPointer<vtkOpenVRRenderWindow> renderWindow = vtkSmartPointer<vtkOpenVRRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
-  
   vtkSmartPointer<vtkOpenVRRenderWindowInteractor> renderWindowInteractor =  vtkSmartPointer<vtkOpenVRRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
