@@ -895,6 +895,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [AnnotatedCubeActor](/Cxx/Visualization/AnnotatedCubeActor) | vtkAnnotatedCubeActor | Annotated cube.
 [Arbitrary3DCursor](/Cxx/Visualization/Arbitrary3DCursor) | vtkPointWidget | Track a 3D cursor.
 [AssignCellColorsFromLUT](/Cxx/Visualization/AssignCellColorsFromLUT) | vtkNamedColors vtkPlaneSource vtkLookupTable vtkColorTransferFunction | Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
+[AxisActor](/Cxx/Visualization/AxisActor) | vtkAxisActor | Generate a single axis.
 [BackfaceCulling](/Cxx/Visualization/BackfaceCulling) | vtkActor | Backface culling.
 [BackgroundColor](/Cxx/Visualization/BackgroundColor) | vtkRenderer | Background color.
 [BackgroundGradient](/Cxx/Visualization/BackgroundGradient) | vtkRenderer vtkRenderer | Background gradient.
