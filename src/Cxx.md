@@ -404,7 +404,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[ColorIsoSurface](/Cxx/VisualizationAlgorithms/ColorIsosurface) | vtkPolyDataMapper | Color an isosurcae with and Array Component.
+[ColorIsosurface](/Cxx/VisualizationAlgorithms/ColorIsosurface) | vtkPolyDataMapper | Color an isosurcae with and Array Component.
 [CompareExtractSurface](/Cxx/Points/CompareExtractSurface) | vtkExractSurface | Compare three extract surface algorithms.
 [DensifyPoints](/Cxx/Points/DensifyPoints) | vtkDensifyPointCloudFilter | Add points to a point cloud.
 [DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | vtkCleanPolyData | Down sample a point cloud. Remove points so that there are no points within a tolerance of any point.
@@ -865,6 +865,7 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[MultiLineText](/Cxx/Annotation/MultiLineText | vtkTextMapper | Display multiline text.
 [XYPlot](/Cxx/Annotation/XYPlot) | vtkXYPlotActor vtkProbeFilter | Display line probes.
 
 ## Texture Mapping
