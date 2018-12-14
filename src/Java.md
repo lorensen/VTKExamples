@@ -26,6 +26,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow |Oriented Arrow visualization 
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
 [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource| RegularPolygon Visualization
+[Pyramid](/Java/GeometricObjects/Pyramid) | vtkPyramid | Pyramid Visualization
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad| Quad Visualization
 [Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
 [TextActor](/Java/GeometricObjects/TextActor) | vtkTextActor | TextActor Demonstration
@@ -70,7 +71,9 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[SpotLight](/Java/Lighting/SpotLight) | vtkSpotLight | vtkSpotLight Demonstration
 [LightActor](/Java/Lighting/LightActor) | vtkLightActor| vtkLightActor Demonstration
+
 
 ## Miscellaneous
 
