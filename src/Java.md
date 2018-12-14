@@ -27,6 +27,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
 [PolygonIntersection](/Java/GeometricObjects/PolygonIntersection) | vtkPolygonIntersection | Polygon Intersection
 [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource| RegularPolygon Visualization
+[Pyramid](/Java/GeometricObjects/Pyramid) | vtkPyramid | Pyramid Visualization
+[RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource| RegularPolygonSource Visualization
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad| Quad Visualization
 [Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
 [Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
@@ -70,7 +72,9 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[SpotLight](/Java/Lighting/SpotLight) | vtkSpotLight | vtkSpotLight Demonstration
 [LightActor](/Java/Lighting/LightActor) | vtkLightActor| vtkLightActor Demonstration
+
 
 ## Miscellaneous
 
