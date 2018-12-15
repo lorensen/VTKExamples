@@ -11,8 +11,8 @@ A vtkLookupTable is explicitly produced, it is populated with colors from the vt
    using GetColorRepeating, since the size of the vtkLookupTable may be larger than the
    colors in the vtkColorSeries.
    
-Nine different color series are generated from VTK color names in vtkNamedColors.
-Choose from one of: Blue, Brown, Red, Orange, White, Grey, Magenta, Cyan, and Yellow.
+Ten different color series are generated from VTK color names in vtkNamedColors.
+Choose from one of: Blue, Brown, Red, Orange, White, Grey, Magenta, Cyan, Yellow and Green.
     '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -380,12 +380,61 @@ def CreateLookupTableVTKYellow(size):
     return lut
 
 
+def CreateLookupTableVTKGreen(size):
+    nc = vtk.vtkNamedColors()
+    myColors = vtk.vtkColorSeries()
+    myColors.SetColorSchemeByName('VTKGreenColors')
+
+    myColors.AddColor(nc.GetColor3ub('chartreuse'))
+    myColors.AddColor(nc.GetColor3ub('chrome_oxide_green'))
+    myColors.AddColor(nc.GetColor3ub('cinnabar_green'))
+    myColors.AddColor(nc.GetColor3ub('cobalt_green'))
+    myColors.AddColor(nc.GetColor3ub('emerald_green'))
+    myColors.AddColor(nc.GetColor3ub('forest_green'))
+    myColors.AddColor(nc.GetColor3ub('green'))
+    myColors.AddColor(nc.GetColor3ub('green_dark'))
+    myColors.AddColor(nc.GetColor3ub('green_pale'))
+    myColors.AddColor(nc.GetColor3ub('green_yellow'))
+    myColors.AddColor(nc.GetColor3ub('lawn_green'))
+    myColors.AddColor(nc.GetColor3ub('lime_green'))
+    myColors.AddColor(nc.GetColor3ub('mint'))
+    myColors.AddColor(nc.GetColor3ub('olive'))
+    myColors.AddColor(nc.GetColor3ub('olive_drab'))
+    myColors.AddColor(nc.GetColor3ub('olive_green_dark'))
+    myColors.AddColor(nc.GetColor3ub('permanent_green'))
+    myColors.AddColor(nc.GetColor3ub('sap_green'))
+    myColors.AddColor(nc.GetColor3ub('sea_green'))
+    myColors.AddColor(nc.GetColor3ub('sea_green_dark'))
+    myColors.AddColor(nc.GetColor3ub('sea_green_medium'))
+    myColors.AddColor(nc.GetColor3ub('sea_green_light'))
+    myColors.AddColor(nc.GetColor3ub('spring_green'))
+    myColors.AddColor(nc.GetColor3ub('spring_green_medium'))
+    myColors.AddColor(nc.GetColor3ub('terre_verte'))
+    myColors.AddColor(nc.GetColor3ub('viridian_light'))
+    myColors.AddColor(nc.GetColor3ub('yellow_green'))
+
+    numberOfColors = myColors.GetNumberOfColors()
+    print('Number of colors:', numberOfColors)
+
+    lut = vtk.vtkLookupTable()
+    if size == 0:
+        lut.SetNumberOfTableValues(numberOfColors)
+    else:
+        lut.SetNumberOfTableValues(size)
+    lut.SetTableRange(0, lut.GetNumberOfTableValues())
+    for i in range(lut.GetNumberOfTableValues()):
+        color = myColors.GetColorRepeating(i)
+        c = [color.GetRed(), color.GetGreen(), color.GetBlue(), 255]
+        lut.SetTableValue(i, [x / 255.0 for x in c])
+    return lut
+
+
 def main():
     seriesName = get_program_parameters()
     seriesName = seriesName.capitalize()
-    available_color_series = ['Blue', 'Brown', 'Red', 'Orange', 'White', 'Grey', 'Magenta', 'Cyan', 'Yellow']
+    available_color_series = ['Blue', 'Brown', 'Red', 'Orange', 'White', 'Grey', 'Magenta', 'Cyan', 'Yellow', 'Green']
     if seriesName not in available_color_series:
-        print('Available color maps are:',", ".join(available_color_series))
+        print('Available color maps are:', ", ".join(available_color_series))
         return
 
     colors = vtk.vtkNamedColors()
