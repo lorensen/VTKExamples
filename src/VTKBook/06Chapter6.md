@@ -369,7 +369,7 @@ In these tensors the diagonal coefficients are the so-called normal stresses and
 
 <figure id="Figure 6-19">
  <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestBluntStreamlines.png?raw=true" width="640" alt="Figure 6-19">
- <figcaption style="color:blue"><b>Figure 6-19</b>. Vector visualization techniques.<a href="../../Cxx/VisualizationAlgorithms/BluntStreamlines" title="BluntStreamlines"> See BluntStreamlines.cxx</a> and <a href="../../Python/Visualization/BluntStreamlines" title="BluntStreamlines"> See BluntStreamlines.py</a>.</figcaption>
+ <figcaption style="color:blue"><b>Figure 6-19</b>. Vector visualization techniques.<a href="../../Cxx/VisualizationAlgorithms/BluntStreamlines" title="BluntStreamlines"> See BluntStreamlines.cxx</a> and <a href="../../Python/VisualizationAlgorithms/BluntStreamlines" title="BluntStreamlines"> See BluntStreamlines.py</a>.</figcaption>
 </figure>
 
 A $3 \times 3$ real symmetric matrix can be characterized by three vectors in 3D called the eigenvectors, and three numbers called the eigenvalues of the matrix. The eigenvectors form a 3D coordinate system whose axes are mutually perpendicular. In some applications, particularly the study of materials, these axes also are referred to as the principle axes of the tensor and are physically significant. For example, if the tensor is a stress tensor, then the principle axes are the directions of normal stress and no shear stress. Associated with each eigenvector is an eigenvalue. The eigenvalues are often physically significant as well. In the study of vibration, eigenvalues correspond to the resonant frequencies of a structure, and the eigenvectors are the associated mode shapes.
@@ -511,7 +511,7 @@ This simple relationship defines the three regions (on $F(x,y,z = 0)s on$the sph
     <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestIceCream.png?raw=true" width="640" alt="Figure 6-23c">
     <figcaption style="color:blue">(c) BooleanCombinations</figcaption>
   </figure>
-  <figcaption style="color:blue"><b>Figure 6-23</b>. Sampling functions. (b) Isosurface of sampled sphere;<a href="../../Cxx/ImplicitFunctions/ImplicitSphere" title="ImplicitSphere"> See ImplicitSphere.cxx</a> and <a href="../../Python/ImplicitFunctions/ImplicitSphere" title="ImplicitSphere"> ImplicitSphere.py</a>; (c) Boolean combination of two spheres, a cone, and two planes. (One sphere intersects the other, the planes clip the cone.<a href="../../Cxx/VisualizationAlgorithms/IceCream" title="IceCream"> See IceCream.cxx</a> and <a href="../../Python/ImplicitFunctions/IceCream" title="IceCream"> IceCream.py</a>.</figcaption>
+  <figcaption style="color:blue"><b>Figure 6-23</b>. Sampling functions. (b) Isosurface of sampled sphere;<a href="../../Cxx/ImplicitFunctions/ImplicitSphere" title="ImplicitSphere"> See ImplicitSphere.cxx</a> and <a href="../../Python/ImplicitFunctions/ImplicitSphere" title="ImplicitSphere"> ImplicitSphere.py</a>; (c) Boolean combination of two spheres, a cone, and two planes. (One sphere intersects the other, the planes clip the cone.<a href="../../Cxx/VisualizationAlgorithms/IceCream" title="IceCream"> See IceCream.cxx</a> and <a href="../../Python/VisualizationAlgorithms/IceCream" title="IceCream"> IceCream.py</a>.</figcaption>
 </figure>
 
 **Modelling Objects.**
@@ -675,7 +675,7 @@ This example illustrates that cutting the volumetric data in a structured grid d
 
 ### Process Object Design
 
-Algorithms are implemented in the *Visualization Toolkit* as process objects. These objects may be either sources, filters, or mappers (see ["The Visualization Pipeline"](/VTKBook/04Chapter4/#42-the-visualization-pipeline) in [Chapter 4](/VTKBook/04Chapter4]). In this section we will describe how these objects are implemented.
+Algorithms are implemented in the *Visualization Toolkit* as process objects. These objects may be either sources, filters, or mappers (see ["The Visualization Pipeline"](/VTKBook/04Chapter4/#42-the-visualization-pipeline) in [Chapter 4](/VTKBook/04Chapter4)). In this section we will describe how these objects are implemented.
 
 **Source Design.**
 <figure id="Figure 6-34">
@@ -1068,7 +1068,7 @@ b\) Create an animation sequence for the head sequence (**Figure 6-11** (b)).
 
 6.4 Marching Cubes visits each cell during algorithm execution. Many of these cells do not contain the isosurface. Describe a technique to improve the performance of isosurface extraction by eliminating visits to cells not containing isosurface. (*Hint:* use a preprocessing step to analyze data. Assume that many isosurfaces will be extracted and that the preprocessing step will not count against execution time.)
 
-6.5 Scanline rasterization proceeds along horizontal spans in graphics hardware (see ["Rasterization"](/VTKExamples/site/VTKBook/03Chapter3/#rasterization) in [Chapter 3[(/VTKBook/03Chapter3))). Interpolation of color occurs along horizontal spans as well.
+6.5 Scanline rasterization proceeds along horizontal spans in graphics hardware (see ["Rasterization"](/VTKExamples/site/VTKBook/03Chapter3/#rasterization) in [Chapter 3](/VTKBook/03Chapter3)). Interpolation of color occurs along horizontal spans as well.
 
 a) Show how the orientation of a polygon affects interpolated color.
 
