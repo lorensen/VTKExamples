@@ -157,33 +157,37 @@ void CreateLookupTableVTKBlue(vtkSmartPointer<vtkLookupTable> &lut,
     vtkSmartPointer<vtkColorSeries>::New();
   myColors->SetColorSchemeByName("VTKBlueColors");
 
-  myColors->AddColor(vtkColor3ub(240,  248,  255)); // alice_blue
-  myColors->AddColor(vtkColor3ub(  0,    0,  255)); // blue 
-  myColors->AddColor(vtkColor3ub(173,  216,  230)); // blue_light 
-  myColors->AddColor(vtkColor3ub( 0,    0,  205)); // blue_medium 
-  myColors->AddColor(vtkColor3ub(95,  158,  160)); // cadet 
-  myColors->AddColor(vtkColor3ub(61,   89,  171)); // cobalt 
-  myColors->AddColor(vtkColor3ub(100,  149,  237)); // cornflower 
-  myColors->AddColor(vtkColor3ub( 5,  184,  204)); // cerulean 
-  myColors->AddColor(vtkColor3ub(30,  144,  255)); // dodger_blue 
-  myColors->AddColor(vtkColor3ub(75,    0,  130)); // indigo 
-  myColors->AddColor(vtkColor3ub( 3,  168,  158)); // manganese_blue 
-  myColors->AddColor(vtkColor3ub(25,   25,  112)); // midnight_blue 
-  myColors->AddColor(vtkColor3ub( 0,    0,  128)); // navy 
-  myColors->AddColor(vtkColor3ub(51,  161,  201)); // peacock 
-  myColors->AddColor(vtkColor3ub(176,  224,  230)); // powder_blue 
-  myColors->AddColor(vtkColor3ub(65,  105,  225)); // royal_blue 
-  myColors->AddColor(vtkColor3ub(106,   90,  205)); // slate_blue 
-  myColors->AddColor(vtkColor3ub(72,   61,  139)); // slate_blue_dark 
-  myColors->AddColor(vtkColor3ub(132,  112,  255)); // slate_blue_light 
-  myColors->AddColor(vtkColor3ub(123,  104,  238)); // slate_blue_medium 
-  myColors->AddColor(vtkColor3ub(135,  206,  235)); // sky_blue 
-  myColors->AddColor(vtkColor3ub(0,  191,  255)); // sky_blue_deep 
-  myColors->AddColor(vtkColor3ub(135,  206,  250)); // sky_blue_light 
-  myColors->AddColor(vtkColor3ub(70,  130,  180)); // steel_blue 
-  myColors->AddColor(vtkColor3ub(176,  196,  222)); // steel_blue_light 
-  myColors->AddColor(vtkColor3ub(0,  199,  140)); // turquoise_blue 
-  myColors->AddColor(vtkColor3ub(18,   10,  143)); // ultramarine 
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  myColors->AddColor(nc->GetColor3ub("alice_blue"));
+  myColors->AddColor(nc->GetColor3ub("blue"));
+  myColors->AddColor(nc->GetColor3ub("blue_light"));
+  myColors->AddColor(nc->GetColor3ub("blue_medium"));
+  myColors->AddColor(nc->GetColor3ub("cadet"));
+  myColors->AddColor(nc->GetColor3ub("cobalt"));
+  myColors->AddColor(nc->GetColor3ub("cornflower"));
+  myColors->AddColor(nc->GetColor3ub("cerulean"));
+  myColors->AddColor(nc->GetColor3ub("dodger_blue"));
+  myColors->AddColor(nc->GetColor3ub("indigo"));
+  myColors->AddColor(nc->GetColor3ub("manganese_blue"));
+  myColors->AddColor(nc->GetColor3ub("midnight_blue"));
+  myColors->AddColor(nc->GetColor3ub("navy"));
+  myColors->AddColor(nc->GetColor3ub("peacock"));
+  myColors->AddColor(nc->GetColor3ub("powder_blue"));
+  myColors->AddColor(nc->GetColor3ub("royal_blue"));
+  myColors->AddColor(nc->GetColor3ub("slate_blue"));
+  myColors->AddColor(nc->GetColor3ub("slate_blue_dark"));
+  myColors->AddColor(nc->GetColor3ub("slate_blue_light"));
+  myColors->AddColor(nc->GetColor3ub("slate_blue_medium"));
+  myColors->AddColor(nc->GetColor3ub("sky_blue"));
+  myColors->AddColor(nc->GetColor3ub("sky_blue_deep"));
+  myColors->AddColor(nc->GetColor3ub("sky_blue_light"));
+  myColors->AddColor(nc->GetColor3ub("steel_blue"));
+  myColors->AddColor(nc->GetColor3ub("steel_blue_light"));
+  myColors->AddColor(nc->GetColor3ub("turquoise_blue"));
+  myColors->AddColor(nc->GetColor3ub("ultramarine"));
+
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
   lut->SetNumberOfTableValues (size == 0 ? numberOfColors : size);
@@ -203,32 +207,35 @@ void CreateLookupTableVTKBrown(vtkSmartPointer<vtkLookupTable> &lut,
     vtkSmartPointer<vtkColorSeries>::New();
   myColors->SetColorSchemeByName("VTKBrownColors");
 
-  myColors->AddColor(vtkColor3ub( 245, 245, 220)); // beige 
-  myColors->AddColor(vtkColor3ub( 165, 42, 42)); // brown 
-  myColors->AddColor(vtkColor3ub( 219, 41, 41)); // brown_madder 
-  myColors->AddColor(vtkColor3ub( 135, 66, 31)); // brown_ochre 
-  myColors->AddColor(vtkColor3ub( 222, 184, 135)); // burlywood 
-  myColors->AddColor(vtkColor3ub( 138, 54, 15)); // burnt_sienna 
-  myColors->AddColor(vtkColor3ub( 138, 51, 36)); // burnt_umber 
-  myColors->AddColor(vtkColor3ub( 210, 105, 30)); // chocolate 
-  myColors->AddColor(vtkColor3ub( 115, 61, 26)); // deep_ochre 
-  myColors->AddColor(vtkColor3ub( 255, 125, 64)); // flesh 
-  myColors->AddColor(vtkColor3ub( 255, 87, 33)); // flesh_ochre 
-  myColors->AddColor(vtkColor3ub( 199, 120, 38)); // gold_ochre 
-  myColors->AddColor(vtkColor3ub( 255, 61, 13)); // greenish_umber 
-  myColors->AddColor(vtkColor3ub( 240, 230, 140)); // khaki 
-  myColors->AddColor(vtkColor3ub( 189, 183, 107)); // khaki_dark 
-  myColors->AddColor(vtkColor3ub( 245, 245, 220)); // light_beige 
-  myColors->AddColor(vtkColor3ub(  205, 133, 63)); // peru 
-  myColors->AddColor(vtkColor3ub( 188, 143, 143)); // rosy_brown 
-  myColors->AddColor(vtkColor3ub( 199, 97, 20)); // raw_sienna 
-  myColors->AddColor(vtkColor3ub( 115, 74, 18)); // raw_umber 
-  myColors->AddColor(vtkColor3ub( 94, 38, 18)); // sepia 
-  myColors->AddColor(vtkColor3ub( 160, 82, 45)); // sienna 
-  myColors->AddColor(vtkColor3ub( 139, 69, 19)); // saddle_brown 
-  myColors->AddColor(vtkColor3ub( 244, 164, 96)); // sandy_brown 
-  myColors->AddColor(vtkColor3ub( 210, 180, 140)); // tan 
-  myColors->AddColor(vtkColor3ub( 94, 38, 5)); // van_dyke_brown 
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  myColors->AddColor(nc->GetColor3ub("beige"));
+  myColors->AddColor(nc->GetColor3ub("brown"));
+  myColors->AddColor(nc->GetColor3ub("brown_madder"));
+  myColors->AddColor(nc->GetColor3ub("brown_ochre"));
+  myColors->AddColor(nc->GetColor3ub("burlywood"));
+  myColors->AddColor(nc->GetColor3ub("burnt_sienna"));
+  myColors->AddColor(nc->GetColor3ub("burnt_umber"));
+  myColors->AddColor(nc->GetColor3ub("chocolate"));
+  myColors->AddColor(nc->GetColor3ub("deep_ochre"));
+  myColors->AddColor(nc->GetColor3ub("flesh"));
+  myColors->AddColor(nc->GetColor3ub("flesh_ochre"));
+  myColors->AddColor(nc->GetColor3ub("gold_ochre"));
+  myColors->AddColor(nc->GetColor3ub("greenish_umber"));
+  myColors->AddColor(nc->GetColor3ub("khaki"));
+  myColors->AddColor(nc->GetColor3ub("khaki_dark"));
+  myColors->AddColor(nc->GetColor3ub("light_beige"));
+  myColors->AddColor(nc->GetColor3ub("peru"));
+  myColors->AddColor(nc->GetColor3ub("rosy_brown"));
+  myColors->AddColor(nc->GetColor3ub("raw_sienna"));
+  myColors->AddColor(nc->GetColor3ub("raw_umber"));
+  myColors->AddColor(nc->GetColor3ub("sepia"));
+  myColors->AddColor(nc->GetColor3ub("sienna"));
+  myColors->AddColor(nc->GetColor3ub("saddle_brown"));
+  myColors->AddColor(nc->GetColor3ub("sandy_brown"));
+  myColors->AddColor(nc->GetColor3ub("tan"));
+  myColors->AddColor(nc->GetColor3ub("van_dyke_brown"));
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
   lut->SetNumberOfTableValues (size == 0 ? numberOfColors : size);
@@ -248,28 +255,31 @@ void CreateLookupTableVTKRed(vtkSmartPointer<vtkLookupTable> &lut,
     vtkSmartPointer<vtkColorSeries>::New();
   myColors->SetColorSchemeByName("VTKRedColors");
 
-  myColors->AddColor(vtkColor3ub(227, 38, 54)); // alizarin_crimson 
-  myColors->AddColor(vtkColor3ub( 156, 102, 31)); // brick 
-  myColors->AddColor(vtkColor3ub( 227, 23, 13)); // cadmium_red_deep 
-  myColors->AddColor(vtkColor3ub( 255, 127, 80)); // coral 
-  myColors->AddColor(vtkColor3ub( 240, 128, 128)); // coral_light 
-  myColors->AddColor(vtkColor3ub( 255, 20, 147)); // deep_pink 
-  myColors->AddColor(vtkColor3ub( 212, 61, 26)); // english_red 
-  myColors->AddColor(vtkColor3ub( 178, 34, 34)); // firebrick 
-  myColors->AddColor(vtkColor3ub( 227, 18, 48)); // geranium_lake 
-  myColors->AddColor(vtkColor3ub( 255, 105, 180)); // hot_pink 
-  myColors->AddColor(vtkColor3ub( 176, 23, 31)); // indian_red 
-  myColors->AddColor(vtkColor3ub( 255, 160, 122)); // light_salmon 
-  myColors->AddColor(vtkColor3ub( 227, 46, 48)); // madder_lake_deep 
-  myColors->AddColor(vtkColor3ub( 128, 0, 0)); // maroon 
-  myColors->AddColor(vtkColor3ub( 255, 192, 203)); // pink 
-  myColors->AddColor(vtkColor3ub( 255, 182, 193)); // pink_light 
-  myColors->AddColor(vtkColor3ub( 135, 38, 87)); // raspberry 
-  myColors->AddColor(vtkColor3ub( 255, 0, 0)); // red 
-  myColors->AddColor(vtkColor3ub( 227, 54, 56)); // rose_madder 
-  myColors->AddColor(vtkColor3ub( 250, 128, 114)); // salmon 
-  myColors->AddColor(vtkColor3ub( 255, 99, 71)); // tomato 
-  myColors->AddColor(vtkColor3ub( 212, 26, 31)); // venetian_red 
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  myColors->AddColor(nc->GetColor3ub("alizarin_crimson"));
+  myColors->AddColor(nc->GetColor3ub("brick"));
+  myColors->AddColor(nc->GetColor3ub("cadmium_red_deep"));
+  myColors->AddColor(nc->GetColor3ub("coral"));
+  myColors->AddColor(nc->GetColor3ub("coral_light"));
+  myColors->AddColor(nc->GetColor3ub("deep_pink"));
+  myColors->AddColor(nc->GetColor3ub("english_red"));
+  myColors->AddColor(nc->GetColor3ub("firebrick"));
+  myColors->AddColor(nc->GetColor3ub("geranium_lake"));
+  myColors->AddColor(nc->GetColor3ub("hot_pink"));
+  myColors->AddColor(nc->GetColor3ub("indian_red"));
+  myColors->AddColor(nc->GetColor3ub("light_salmon"));
+  myColors->AddColor(nc->GetColor3ub("madder_lake_deep"));
+  myColors->AddColor(nc->GetColor3ub("maroon"));
+  myColors->AddColor(nc->GetColor3ub("pink"));
+  myColors->AddColor(nc->GetColor3ub("pink_light"));
+  myColors->AddColor(nc->GetColor3ub("raspberry"));
+  myColors->AddColor(nc->GetColor3ub("red"));
+  myColors->AddColor(nc->GetColor3ub("rose_madder"));
+  myColors->AddColor(nc->GetColor3ub("salmon"));
+  myColors->AddColor(nc->GetColor3ub("tomato"));
+  myColors->AddColor(nc->GetColor3ub("venetian_red"));
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
   lut->SetNumberOfTableValues (size == 0 ? numberOfColors : size);
@@ -287,15 +297,19 @@ void CreateLookupTableVTKGrey(vtkSmartPointer<vtkLookupTable> &lut,
 {
   vtkSmartPointer<vtkColorSeries> myColors =
     vtkSmartPointer<vtkColorSeries>::New();
+
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   myColors->SetColorSchemeByName("VTKGreyColors");
-  myColors->AddColor(vtkColor3ub( 128, 138, 135)); // cold_grey
-  myColors->AddColor(vtkColor3ub( 105, 105, 105)); // dim_grey
-  myColors->AddColor(vtkColor3ub( 192, 192, 192)); // grey
-  myColors->AddColor(vtkColor3ub( 211, 211, 211)); // light_grey
-  myColors->AddColor(vtkColor3ub( 112, 128, 144)); // slate_grey
-  myColors->AddColor(vtkColor3ub( 47, 79, 79)); // slate_grey_dark
-  myColors->AddColor(vtkColor3ub( 119, 136, 153)); // slate_grey_light
-  myColors->AddColor(vtkColor3ub( 128, 128, 105)); // warm_grey
+  myColors->AddColor(nc->GetColor3ub("cold_grey"));
+  myColors->AddColor(nc->GetColor3ub("dim_grey"));
+  myColors->AddColor(nc->GetColor3ub("grey"));
+  myColors->AddColor(nc->GetColor3ub("light_grey"));
+  myColors->AddColor(nc->GetColor3ub("slate_grey"));
+  myColors->AddColor(nc->GetColor3ub("slate_grey_dark"));
+  myColors->AddColor(nc->GetColor3ub("slate_grey_light"));
+  myColors->AddColor(nc->GetColor3ub("warm_grey"));
 
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
@@ -314,37 +328,41 @@ void CreateLookupTableVTKWhite(vtkSmartPointer<vtkLookupTable> &lut,
 {
   vtkSmartPointer<vtkColorSeries> myColors =
     vtkSmartPointer<vtkColorSeries>::New();
+
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   myColors->SetColorSchemeByName("VTKWhiteColors");
-  myColors->AddColor(vtkColor3ub( 250, 235, 215)); // antique_white
-  myColors->AddColor(vtkColor3ub( 240, 255, 255)); // azure
-  myColors->AddColor(vtkColor3ub( 255, 228, 196)); // bisque
-  myColors->AddColor(vtkColor3ub( 255, 235, 205)); // blanched_almond
-  myColors->AddColor(vtkColor3ub( 255, 248, 220)); // cornsilk
-  myColors->AddColor(vtkColor3ub( 252, 230, 201)); // eggshell
-  myColors->AddColor(vtkColor3ub( 255, 250, 240)); // floral_white
-  myColors->AddColor(vtkColor3ub( 220, 220, 220)); // gainsboro
-  myColors->AddColor(vtkColor3ub( 248, 248, 255)); // ghost_white
-  myColors->AddColor(vtkColor3ub( 240, 255, 240)); // honeydew
-  myColors->AddColor(vtkColor3ub( 255, 255, 240)); // ivory
-  myColors->AddColor(vtkColor3ub( 230, 230, 250)); // lavender
-  myColors->AddColor(vtkColor3ub( 255, 240, 245)); // lavender_blush
-  myColors->AddColor(vtkColor3ub( 255, 250, 205)); // lemon_chiffon
-  myColors->AddColor(vtkColor3ub( 250, 240, 230)); // linen
-  myColors->AddColor(vtkColor3ub( 245, 255, 250)); // mint_cream
-  myColors->AddColor(vtkColor3ub( 255, 228, 225)); // misty_rose
-  myColors->AddColor(vtkColor3ub( 255, 228, 181)); // moccasin
-  myColors->AddColor(vtkColor3ub( 255, 222, 173)); // navajo_white
-  myColors->AddColor(vtkColor3ub( 253, 245, 230)); // old_lace
-  myColors->AddColor(vtkColor3ub( 255, 239, 213)); // papaya_whip
-  myColors->AddColor(vtkColor3ub( 255, 218, 185)); // peach_puff
-  myColors->AddColor(vtkColor3ub( 255, 245, 238)); // seashell
-  myColors->AddColor(vtkColor3ub( 255, 250, 250)); // snow
-  myColors->AddColor(vtkColor3ub( 216, 191, 216)); // thistle
-  myColors->AddColor(vtkColor3ub( 252, 255, 240)); // titanium_white
-  myColors->AddColor(vtkColor3ub( 245, 222, 179)); // wheat
-  myColors->AddColor(vtkColor3ub( 255, 255, 255)); // white
-  myColors->AddColor(vtkColor3ub( 245, 245, 245)); // white_smoke
-  myColors->AddColor(vtkColor3ub( 252, 247, 255)); // zinc_white
+  myColors->AddColor(nc->GetColor3ub("antique_white"));
+  myColors->AddColor(nc->GetColor3ub("azure"));
+  myColors->AddColor(nc->GetColor3ub("bisque"));
+  myColors->AddColor(nc->GetColor3ub("blanched_almond"));
+  myColors->AddColor(nc->GetColor3ub("cornsilk"));
+  myColors->AddColor(nc->GetColor3ub("eggshell"));
+  myColors->AddColor(nc->GetColor3ub("floral_white"));
+  myColors->AddColor(nc->GetColor3ub("gainsboro"));
+  myColors->AddColor(nc->GetColor3ub("ghost_white"));
+  myColors->AddColor(nc->GetColor3ub("honeydew"));
+  myColors->AddColor(nc->GetColor3ub("ivory"));
+  myColors->AddColor(nc->GetColor3ub("lavender"));
+  myColors->AddColor(nc->GetColor3ub("lavender_blush"));
+  myColors->AddColor(nc->GetColor3ub("lemon_chiffon"));
+  myColors->AddColor(nc->GetColor3ub("linen"));
+  myColors->AddColor(nc->GetColor3ub("mint_cream"));
+  myColors->AddColor(nc->GetColor3ub("misty_rose"));
+  myColors->AddColor(nc->GetColor3ub("moccasin"));
+  myColors->AddColor(nc->GetColor3ub("navajo_white"));
+  myColors->AddColor(nc->GetColor3ub("old_lace"));
+  myColors->AddColor(nc->GetColor3ub("papaya_whip"));
+  myColors->AddColor(nc->GetColor3ub("peach_puff"));
+  myColors->AddColor(nc->GetColor3ub("seashell"));
+  myColors->AddColor(nc->GetColor3ub("snow"));
+  myColors->AddColor(nc->GetColor3ub("thistle"));
+  myColors->AddColor(nc->GetColor3ub("titanium_white"));
+  myColors->AddColor(nc->GetColor3ub("wheat"));
+  myColors->AddColor(nc->GetColor3ub("white"));
+  myColors->AddColor(nc->GetColor3ub("white_smoke"));
+  myColors->AddColor(nc->GetColor3ub("zinc_white"));
 
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
@@ -365,15 +383,18 @@ void CreateLookupTableVTKOrange(vtkSmartPointer<vtkLookupTable> &lut,
     vtkSmartPointer<vtkColorSeries>::New();
   myColors->SetColorSchemeByName("VTKOrangeColors");
 
-  myColors->AddColor(vtkColor3ub( 255, 97, 3)); // admium_orange
-  myColors->AddColor(vtkColor3ub( 255, 3, 13)); // cadmium_red_light
-  myColors->AddColor(vtkColor3ub( 237, 145, 33)); // carrot
-  myColors->AddColor(vtkColor3ub( 255, 140, 0)); // dark_orange
-  myColors->AddColor(vtkColor3ub( 150, 69, 20)); // mars_orange
-  myColors->AddColor(vtkColor3ub( 227, 112, 26)); // mars_yellow
-  myColors->AddColor(vtkColor3ub( 255, 165, 0)); // orange
-  myColors->AddColor(vtkColor3ub( 255, 69, 0)); // orange_red
-  myColors->AddColor(vtkColor3ub( 227, 130, 23)); // yellow_ochre
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  myColors->AddColor(nc->GetColor3ub("cadmium_orange"));
+  myColors->AddColor(nc->GetColor3ub("cadmium_red_light"));
+  myColors->AddColor(nc->GetColor3ub("carrot"));
+  myColors->AddColor(nc->GetColor3ub("dark_orange"));
+  myColors->AddColor(nc->GetColor3ub("mars_orange"));
+  myColors->AddColor(nc->GetColor3ub("mars_yellow"));
+  myColors->AddColor(nc->GetColor3ub("orange"));
+  myColors->AddColor(nc->GetColor3ub("orange_red"));
+  myColors->AddColor(nc->GetColor3ub("yellow_ochre"));
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
   lut->SetNumberOfTableValues (size == 0 ? numberOfColors : size);
@@ -393,22 +414,25 @@ void CreateLookupTableVTKMagenta(vtkSmartPointer<vtkLookupTable> &lut,
     vtkSmartPointer<vtkColorSeries>::New();
   myColors->SetColorSchemeByName("VTKMagentaColors");
 
-  myColors->AddColor(vtkColor3ub( 138, 43, 226)); // blue_violet
-  myColors->AddColor(vtkColor3ub( 145, 33, 158)); // cobalt_violet_deep
-  myColors->AddColor(vtkColor3ub( 255, 0, 255)); // magenta
-  myColors->AddColor(vtkColor3ub( 218, 112, 214)); // orchid
-  myColors->AddColor(vtkColor3ub( 153, 50, 204)); // orchid_dark
-  myColors->AddColor(vtkColor3ub( 186, 85, 211)); // orchid_medium
-  myColors->AddColor(vtkColor3ub( 219, 38, 69)); // permanent_red_violet
-  myColors->AddColor(vtkColor3ub( 221, 160, 221)); // plum
-  myColors->AddColor(vtkColor3ub( 128, 0, 128)); // purple
-  myColors->AddColor(vtkColor3ub( 147, 112, 219)); // purple_medium
-  myColors->AddColor(vtkColor3ub( 92, 36, 110)); // ultramarine_violet
-  myColors->AddColor(vtkColor3ub( 238, 130, 238)); // violet
-  myColors->AddColor(vtkColor3ub( 148, 0, 211)); // violet_dark
-  myColors->AddColor(vtkColor3ub( 208, 32, 144)); // violet_red
-  myColors->AddColor(vtkColor3ub( 199, 21, 133)); // violet_red_medium
-  myColors->AddColor(vtkColor3ub( 219, 112, 147)); // violet_red_pale
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  myColors->AddColor(nc->GetColor3ub("blue_violet"));
+  myColors->AddColor(nc->GetColor3ub("cobalt_violet_deep"));
+  myColors->AddColor(nc->GetColor3ub("magenta"));
+  myColors->AddColor(nc->GetColor3ub("orchid"));
+  myColors->AddColor(nc->GetColor3ub("orchid_dark"));
+  myColors->AddColor(nc->GetColor3ub("orchid_medium"));
+  myColors->AddColor(nc->GetColor3ub("permanent_red_violet"));
+  myColors->AddColor(nc->GetColor3ub("plum"));
+  myColors->AddColor(nc->GetColor3ub("purple"));
+  myColors->AddColor(nc->GetColor3ub("purple_medium"));
+  myColors->AddColor(nc->GetColor3ub("ultramarine_violet"));
+  myColors->AddColor(nc->GetColor3ub("violet"));
+  myColors->AddColor(nc->GetColor3ub("violet_dark"));
+  myColors->AddColor(nc->GetColor3ub("violet_red"));
+  myColors->AddColor(nc->GetColor3ub("violet_red_medium"));
+  myColors->AddColor(nc->GetColor3ub("violet_red_pale"));
 
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
@@ -429,14 +453,17 @@ void CreateLookupTableVTKCyan(vtkSmartPointer<vtkLookupTable> &lut,
     vtkSmartPointer<vtkColorSeries>::New();
   myColors->SetColorSchemeByName("VTKCyanColors");
 
-  myColors->AddColor(vtkColor3ub( 127, 255, 212)); // aquamarine
-  myColors->AddColor(vtkColor3ub( 102, 205, 170)); // aquamarine_medium
-  myColors->AddColor(vtkColor3ub(  0, 255, 255)); // cyan
-  myColors->AddColor(vtkColor3ub( 224, 255, 255)); // cyan_white
-  myColors->AddColor(vtkColor3ub( 64, 224, 208)); // turquoise
-  myColors->AddColor(vtkColor3ub( 0, 206, 209)); // turquoise_dark
-  myColors->AddColor(vtkColor3ub( 72, 209, 204)); // turquoise_medium
-  myColors->AddColor(vtkColor3ub( 175, 238, 238)); // turquoise_pale
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  myColors->AddColor(nc->GetColor3ub("aquamarine"));
+  myColors->AddColor(nc->GetColor3ub("aquamarine_medium"));
+  myColors->AddColor(nc->GetColor3ub("cyan"));
+  myColors->AddColor(nc->GetColor3ub("cyan_white"));
+  myColors->AddColor(nc->GetColor3ub("turquoise"));
+  myColors->AddColor(nc->GetColor3ub("turquoise_dark"));
+  myColors->AddColor(nc->GetColor3ub("turquoise_medium"));
+  myColors->AddColor(nc->GetColor3ub("turquoise_pale"));
 
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
@@ -457,21 +484,24 @@ void CreateLookupTableVTKYellow(vtkSmartPointer<vtkLookupTable> &lut,
     vtkSmartPointer<vtkColorSeries>::New();
   myColors->SetColorSchemeByName("VTKYellowColors");
 
-  myColors->AddColor(vtkColor3ub( 255, 168, 36)); // ureoline_yellow
-  myColors->AddColor(vtkColor3ub( 227, 207, 87)); // banana
-  myColors->AddColor(vtkColor3ub( 255, 227, 3)); // cadmium_lemon
-  myColors->AddColor(vtkColor3ub( 255, 153, 18)); // cadmium_yellow
-  myColors->AddColor(vtkColor3ub( 255, 176, 15)); // cadmium_yellow_light
-  myColors->AddColor(vtkColor3ub( 255, 215, 0)); // gold
-  myColors->AddColor(vtkColor3ub( 218, 165, 32)); // goldenrod
-  myColors->AddColor(vtkColor3ub( 184, 134, 11)); // goldenrod_dark
-  myColors->AddColor(vtkColor3ub( 250, 250, 210)); // goldenrod_light
-  myColors->AddColor(vtkColor3ub( 238, 232, 170)); // goldenrod_pale
-  myColors->AddColor(vtkColor3ub( 238, 221, 130)); // 
-  myColors->AddColor(vtkColor3ub( 227, 168, 105)); // melon
-  myColors->AddColor(vtkColor3ub( 255, 168, 18)); // naples_yellow_deep
-  myColors->AddColor(vtkColor3ub( 255, 255, 0)); // yellow
-  myColors->AddColor(vtkColor3ub( 255, 255, 224)); // yellow_light
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  myColors->AddColor(nc->GetColor3ub("aureoline_yellow"));
+  myColors->AddColor(nc->GetColor3ub("banana"));
+  myColors->AddColor(nc->GetColor3ub("cadmium_lemon"));
+  myColors->AddColor(nc->GetColor3ub("cadmium_yellow"));
+  myColors->AddColor(nc->GetColor3ub("cadmium_yellow_light"));
+  myColors->AddColor(nc->GetColor3ub("gold"));
+  myColors->AddColor(nc->GetColor3ub("goldenrod"));
+  myColors->AddColor(nc->GetColor3ub("goldenrod_dark"));
+  myColors->AddColor(nc->GetColor3ub("goldenrod_light"));
+  myColors->AddColor(nc->GetColor3ub("goldenrod_pale"));
+  myColors->AddColor(nc->GetColor3ub("light_goldenrod"));
+  myColors->AddColor(nc->GetColor3ub("melon"));
+  myColors->AddColor(nc->GetColor3ub("naples_yellow_deep"));
+  myColors->AddColor(nc->GetColor3ub("yellow"));
+  myColors->AddColor(nc->GetColor3ub("yellow_light"));
 
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
