@@ -38,6 +38,8 @@ void CreateLookupTableVTKCyan(vtkSmartPointer<vtkLookupTable> &lu,
                                  int tableSize = 0);
 void CreateLookupTableVTKYellow(vtkSmartPointer<vtkLookupTable> &lu,
                                 int tableSize = 0);
+void CreateLookupTableVTKGreen(vtkSmartPointer<vtkLookupTable> &lu,
+                                int tableSize = 0);
 }
 
 int main (int argc, char *argv[])
@@ -111,6 +113,11 @@ int main (int argc, char *argv[])
   else if (seriesName == "Yellow")
   {
     CreateLookupTableVTKYellow(lut, resolution * resolution + 1);
+
+  }
+  else if (seriesName == "Green")
+  {
+    CreateLookupTableVTKGreen(lut, resolution * resolution + 1);
 
   }
   else
@@ -502,6 +509,56 @@ void CreateLookupTableVTKYellow(vtkSmartPointer<vtkLookupTable> &lut,
   myColors->AddColor(nc->GetColor3ub("naples_yellow_deep"));
   myColors->AddColor(nc->GetColor3ub("yellow"));
   myColors->AddColor(nc->GetColor3ub("yellow_light"));
+
+  int numberOfColors = myColors->GetNumberOfColors();
+  std::cout << "Number of colors: " << numberOfColors << std::endl;  
+  lut->SetNumberOfTableValues (size == 0 ? numberOfColors : size);
+  lut->SetTableRange(0, lut->GetNumberOfTableValues());
+  for (int i = 0; i < lut->GetNumberOfTableValues(); ++i)
+  {
+    vtkColor3ub color = myColors->GetColorRepeating(i);
+    lut->SetTableValue(
+      i, color.GetRed()/255., color.GetGreen()/255., color.GetBlue()/255., 1.);
+  }
+}
+
+void CreateLookupTableVTKGreen(vtkSmartPointer<vtkLookupTable> &lut,
+                             int size)
+{
+  vtkSmartPointer<vtkColorSeries> myColors =
+    vtkSmartPointer<vtkColorSeries>::New();
+  myColors->SetColorSchemeByName("VTKGreenColors");
+
+  vtkSmartPointer<vtkNamedColors> nc =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  myColors->AddColor(nc->GetColor3ub("chartreuse"));
+  myColors->AddColor(nc->GetColor3ub("chrome_oxide_green"));
+  myColors->AddColor(nc->GetColor3ub("cinnabar_green"));
+  myColors->AddColor(nc->GetColor3ub("cobalt_green"));
+  myColors->AddColor(nc->GetColor3ub("emerald_green"));
+  myColors->AddColor(nc->GetColor3ub("forest_green"));
+  myColors->AddColor(nc->GetColor3ub("green"));
+  myColors->AddColor(nc->GetColor3ub("green_dark"));
+  myColors->AddColor(nc->GetColor3ub("green_pale"));
+  myColors->AddColor(nc->GetColor3ub("green_yellow"));
+  myColors->AddColor(nc->GetColor3ub("lawn_green"));
+  myColors->AddColor(nc->GetColor3ub("lime_green"));
+  myColors->AddColor(nc->GetColor3ub("mint"));
+  myColors->AddColor(nc->GetColor3ub("olive"));
+  myColors->AddColor(nc->GetColor3ub("olive_drab"));
+  myColors->AddColor(nc->GetColor3ub("olive_green_dark"));
+  myColors->AddColor(nc->GetColor3ub("permanent_green"));
+  myColors->AddColor(nc->GetColor3ub("sap_green"));
+  myColors->AddColor(nc->GetColor3ub("sea_green"));
+  myColors->AddColor(nc->GetColor3ub("sea_green_dark"));
+  myColors->AddColor(nc->GetColor3ub("sea_green_medium"));
+  myColors->AddColor(nc->GetColor3ub("sea_green_light"));
+  myColors->AddColor(nc->GetColor3ub("spring_green"));
+  myColors->AddColor(nc->GetColor3ub("spring_green_medium"));
+  myColors->AddColor(nc->GetColor3ub("terre_verte"));
+  myColors->AddColor(nc->GetColor3ub("viridian_light"));
+  myColors->AddColor(nc->GetColor3ub("yellow_green"));
 
   int numberOfColors = myColors->GetNumberOfColors();
   std::cout << "Number of colors: " << numberOfColors << std::endl;  
