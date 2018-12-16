@@ -865,7 +865,7 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[MultiLineText](/Cxx/Annotation/MultiLineText | vtkTextMapper | Display multiline text.
+[MultiLineText](/Cxx/Annotation/MultiLineText) | vtkTextMapper | Display multiline text.
 [XYPlot](/Cxx/Annotation/XYPlot) | vtkXYPlotActor vtkProbeFilter | Display line probes.
 
 ## Texture Mapping
