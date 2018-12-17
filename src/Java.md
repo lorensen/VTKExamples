@@ -37,6 +37,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 
 
+##  HyperTreeGrid
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) | vtkHyperTreeGridSource |  HyperTreeGridSource |
+
 ## Geovis
 
 | Example Name | Classes Demonstrated | Description | Image |
