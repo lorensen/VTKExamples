@@ -335,6 +335,13 @@ snippets = ['GetProgramParameters', 'ReadPolyData', 'WriteImage']
 for snippet in snippets:
     CopyFile(RepoDir + '/Python/Snippets/' + snippet + '.md', DocDir + '/Python/Snippets/' + snippet + '.md')
 
+# Copy favicon.png
+if not os.path.exists(DocDir + "/assets"):
+    os.makedirs(DocDir + "/assets")
+if not os.path.exists(DocDir + "/assets/images"):
+    os.makedirs(DocDir + "/assets/images")
+CopyFile(RepoDir + "/Images/favicon.png", DocDir + "/assets/images/favicon.png")
+
 # Copy repo .md files
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
 CopyFile(RepoDir + "/VTKBook.md", DocDir + "/VTKBook.md")
