@@ -85,6 +85,14 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Cutter](/Java/Miscellaneous/Cutter) | vtkCutter |
 [Screenshot](/Java/Miscellaneous/Screenshot) | vtkWindowToImageFilter |
 
+## PolyData
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Stripper](/Java/PolyData/Stripper) | vtkStripper | Stripper Demo
+
+
+
 ## Visualization
 
 | Example Name | Classes Demonstrated | Description | Image |
