@@ -10,6 +10,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 !!! info
     [This table](/Coverage/JavaVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
 
+## CompositeData
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper) | vtkCompositePolyDataMapper | CompositePolyDataMapper
+
+
 ## GeometricObjects
 
 | Example Name | Classes Demonstrated | Description | Image |
