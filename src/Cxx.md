@@ -202,7 +202,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [Plane](/Cxx/GeometricObjects/Plane) | vtkPlaneSource |
 [PlatonicSolids](/Cxx/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource |
 [PolyLine1](/Cxx/GeometricObjects/PolyLine1) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
-[RegularPolygon](/Cxx/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
+[RegularPolygonSource](/Cxx/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
 [Sphere](/Cxx/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
 [TextActor](/Cxx/GeometricObjects/TextActor) | vtkTextActor | 2D "HUD-type" text
@@ -333,7 +333,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [Outline](/Cxx/PolyData/Outline) | vtkOutlineFilter | Draw the bounding box of the data
 [PKMeansClustering](/Cxx/InfoVis/PKMeansClustering) | vtkPKMeansStatistics | Parallel KMeans Clustering.
 [ParametricSpline](/Cxx/PolyData/ParametricSpline) | vtkCardinalSpline vtkParametricSpline vtkParametricFunctionSource | Create a Cardinal spline on a set of points.
-[Perlin Noise](/Cxx/Filtering/PerlinNoise) | vtkPerlinNoise |
+[PerlinNoise](/Cxx/Filtering/PerlinNoise) | vtkPerlinNoise |
 [PointCellIds](/Cxx/PolyData/PointCellIds) | vtkIdFilter | Generate point and cell id arrays.
 [PointInsideObject](/Cxx/PolyData/PointInsideObject) | vtkSelectEnclosedPoints | Check if a point is inside an object.
 [PointInsideObject2](/Cxx/PolyData/PointInsideObject2) | vtkDelaunay3D vtkPolyData::FindCell | This uses a Delaunay triangulation to compute a volume. This gives more of an "is inside convex hull" effect than an "is inside object".
@@ -404,7 +404,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[ColorIsoSurface](/Cxx/VisualizationAlgorithms/ColorIsosurface) | vtkPolyDataMapper | Color an isosurcae with and Array Component.
+[ColorIsosurface](/Cxx/VisualizationAlgorithms/ColorIsosurface) | vtkPolyDataMapper | Color an isosurcae with and Array Component.
 [CompareExtractSurface](/Cxx/Points/CompareExtractSurface) | vtkExractSurface | Compare three extract surface algorithms.
 [DensifyPoints](/Cxx/Points/DensifyPoints) | vtkDensifyPointCloudFilter | Add points to a point cloud.
 [DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | vtkCleanPolyData | Down sample a point cloud. Remove points so that there are no points within a tolerance of any point.
@@ -617,7 +617,7 @@ This section includes vtkUnstructuredGrid.
 [OffScreenRendering](/Cxx/Utilities/OffScreenRendering) | vtkImagingFactory vtkGraphicsFactory | Off Screen Rendering.
 [PCADemo](/Cxx/Utilities/PCADemo) | vtkPCAStatistics | Project 2D points onto the best 1D subspace (PCA Demo).
 [PCAStatistics](/Cxx/Utilities/PCAStatistics) | vtkPCAStatistics | Compute Principal Component Analysis (PCA) values.
-[PassThrought](/Cxx/InfoVis/PassThrough) | vtkPassThrough | Pass input along to outpu.
+[PassThrough](/Cxx/InfoVis/PassThrough) | vtkPassThrough | Pass input along to outpu.
 [PiecewiseFunction](/Cxx/Utilities/PiecewiseFunction) | vtkPiecewiseFunction | Interpolation using a piecewise function.
 [PointInPolygon](/Cxx/Utilities/PointInPolygon) | vtkPolygon | Point inside polygon test.
 [ReportRenderWindowCapabilities](/Cxx/Utilities/ReportRenderWindowCapabilities) | vtkRenderWindow | Report the capabilities of a render window.
@@ -865,6 +865,7 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[MultiLineText](/Cxx/Annotation/MultiLineText) | vtkTextMapper | Display multiline text.
 [XYPlot](/Cxx/Annotation/XYPlot) | vtkXYPlotActor vtkProbeFilter | Display line probes.
 
 ## Texture Mapping
@@ -895,6 +896,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [AnnotatedCubeActor](/Cxx/Visualization/AnnotatedCubeActor) | vtkAnnotatedCubeActor | Annotated cube.
 [Arbitrary3DCursor](/Cxx/Visualization/Arbitrary3DCursor) | vtkPointWidget | Track a 3D cursor.
 [AssignCellColorsFromLUT](/Cxx/Visualization/AssignCellColorsFromLUT) | vtkNamedColors vtkPlaneSource vtkLookupTable vtkColorTransferFunction | Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
+[AxisActor](/Cxx/Visualization/AxisActor) | vtkAxisActor | Generate a single axis.
 [BackfaceCulling](/Cxx/Visualization/BackfaceCulling) | vtkActor | Backface culling.
 [BackgroundColor](/Cxx/Visualization/BackgroundColor) | vtkRenderer | Background color.
 [BackgroundGradient](/Cxx/Visualization/BackgroundGradient) | vtkRenderer vtkRenderer | Background gradient.
@@ -1263,10 +1265,13 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[AreaPlot](/Cxx/Plotting/AreaPlot) | vtkPlotArea | Plot area between two curves.
 [BarChart](/Cxx/Plotting/BarChart) | vtkChartXY | Bar chart.
 [BoxChart](/Cxx/Plotting/BoxChart) | vtkChartBox | Box plot.
 [ChartMatrix](/Cxx/Plotting/ChartMatrix) | vtkChartMatrix | Create a marix of plots.
+[ChartsOn3DScene](/Cxx/Plotting/ChartsOn3DScene) | vtkChartXY | Draw a chart in a 3D scene.
 [Diagram](/Cxx/Plotting/Diagram) |  |
+[FunctionalBagPlot](/Cxx/Plotting/FunctionalBagPlot) | vtkPlotFunctionalBag vtkColorSeries | Functional Bag Plot.
 [HistogramBarChart](/Cxx/Plotting/HistogramBarChart) | vtkBarChartActor | Histogram using bar chart.
 [LinePlot](/Cxx/Plotting/LinePlot) | vtkChartXY | Line plot.
 [LinePlot3D](/Cxx/Plotting/PlotLine3D) | vtkLinePlot3D | Line plot of 3d data..
@@ -1277,6 +1282,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [SpiderPlot](/Cxx/Plotting/SpiderPlot) | vtkSpiderPlotActor | Spider plot.
 [StackedBar](/Cxx/Plotting/StackedBar) | vtkPlotBar | Stacked bar.
 [StackedPlot](/Cxx/Plotting/StackedPlot) | vtkPlotStacked | Stacked plot.
+[SurfacePlot](/Cxx/Plotting/SurfacePlot) | vtkPlotSurface | SurfacePlot.
 
 ## Animation
 
