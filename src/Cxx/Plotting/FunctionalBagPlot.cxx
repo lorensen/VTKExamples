@@ -1,23 +1,24 @@
-#include "vtkNew.h"
-#include "vtkPlotFunctionalBag.h"
-#include "vtkChartXY.h"
-#include "vtkChartLegend.h"
+#include <vtkNew.h>
+#include <vtkPlotFunctionalBag.h>
+#include <vtkChartXY.h>
+#include <vtkChartLegend.h>
 
-#include "vtkNamedColors.h"
-#include "vtkColorSeries.h"
+#include <vtkNamedColors.h>
+#include <vtkColorSeries.h>
 #include <vtkColor.h>
 
-#include "vtkContextScene.h"
-#include "vtkContextView.h"
-#include "vtkDoubleArray.h"
-#include "vtkLookupTable.h"
-#include "vtkMath.h"
-#include "vtkPen.h"
-#include "vtkRenderer.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkStringArray.h"
-#include "vtkTable.h"
+#include <vtkContextScene.h>
+#include <vtkContextView.h>
+#include <vtkDoubleArray.h>
+#include <vtkLookupTable.h>
+#include <vtkMath.h>
+#include <vtkPen.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkStringArray.h>
+#include <vtkTable.h>
+
 #include <sstream>
 
 //----------------------------------------------------------------------------

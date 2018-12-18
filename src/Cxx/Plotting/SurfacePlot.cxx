@@ -1,20 +1,20 @@
-#include "vtkNew.h"
-#include "vtkPlotSurface.h"
+#include <vtkNew.h>
+#include <vtkPlotSurface.h>
 
-#include "vtkNamedColors.h"
-#include "vtkChartXYZ.h"
-#include "vtkPen.h"
-#include "vtkContextMouseEvent.h"
-#include "vtkContextView.h"
-#include "vtkContextScene.h"
-#include "vtkFloatArray.h"
-#include "vtkRenderer.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkTable.h"
-#include "vtkRegressionTestImage.h"
-#include "vtkUnsignedCharArray.h"
-#include "vtkVector.h"
+#include <vtkNamedColors.h>
+#include <vtkChartXYZ.h>
+#include <vtkPen.h>
+#include <vtkContextMouseEvent.h>
+#include <vtkContextView.h>
+#include <vtkContextScene.h>
+#include <vtkFloatArray.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkTable.h>
+#include <vtkRegressionTestImage.h>
+#include <vtkUnsignedCharArray.h>
+#include <vtkVector.h>
 
 int main(int , char * [])
 {

@@ -1,21 +1,21 @@
-#include "vtkNew.h"
-#include "vtkPlotArea.h"
+#include <vtkNew.h>
+#include <vtkPlotArea.h>
 
-#include "vtkNamedColors.h"
+#include <vtkNamedColors.h>
 
-#include "vtkChartXY.h"
-#include "vtkAxis.h"
-#include "vtkBrush.h"
-#include "vtkCharArray.h"
-#include "vtkContextScene.h"
-#include "vtkContextView.h"
-#include "vtkFloatArray.h"
-#include "vtkPlot.h"
-#include "vtkTextProperty.h"
-#include "vtkRenderer.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkTable.h"
+#include <vtkChartXY.h>
+#include <vtkAxis.h>
+#include <vtkBrush.h>
+#include <vtkCharArray.h>
+#include <vtkContextScene.h>
+#include <vtkContextView.h>
+#include <vtkFloatArray.h>
+#include <vtkPlot.h>
+#include <vtkTextProperty.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkTable.h>
 
 #include <algorithm>
 //----------------------------------------------------------------------------
