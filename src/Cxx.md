@@ -1272,6 +1272,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ChartsOn3DScene](/Cxx/Plotting/ChartsOn3DScene) | vtkChartXY | Draw a chart in a 3D scene.
 [Diagram](/Cxx/Plotting/Diagram) |  |
 [FunctionalBagPlot](/Cxx/Plotting/FunctionalBagPlot) | vtkPlotFunctionalBag vtkColorSeries | Functional Bag Plot.
+[Histogram2D](/Cxx/Plotting/Histogram2D) | vtkChartHistogram2D | 2D Histogram of a vtkImageData.
 [HistogramBarChart](/Cxx/Plotting/HistogramBarChart) | vtkBarChartActor | Histogram using bar chart.
 [LinePlot](/Cxx/Plotting/LinePlot) | vtkChartXY | Line plot.
 [LinePlot3D](/Cxx/Plotting/PlotLine3D) | vtkLinePlot3D | Line plot of 3d data..
