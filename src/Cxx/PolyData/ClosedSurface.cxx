@@ -19,8 +19,14 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
 
 int main(int argc, char *argv[])
 {
+  std::string fileName = "vtkSphereSource";
+  if (argc > 1)
+  {
+    fileName = argv[1];
+  }
+
   vtkSmartPointer<vtkPolyData> polyData =
-    ReadPolyData(argc > 1 ? argv[1] : "");;
+    ReadPolyData(fileName.c_str());
 
   vtkSmartPointer<vtkFeatureEdges> featureEdges =
     vtkSmartPointer<vtkFeatureEdges>::New();
@@ -34,11 +40,11 @@ int main(int argc, char *argv[])
 
   if(numberOfOpenEdges > 0)
   {
-    std::cout << argv[1] << ": Surface is not closed" << std::endl;
+    std::cout << fileName << ": Surface is not closed" << std::endl;
   }
   else
   {
-    std::cout << argv[1] << ": Surface is closed" << std::endl;
+    std::cout << fileName << ": Surface is closed" << std::endl;
   }
 
   return EXIT_SUCCESS;
