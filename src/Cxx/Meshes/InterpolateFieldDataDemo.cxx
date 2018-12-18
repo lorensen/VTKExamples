@@ -231,4 +231,6 @@ int main (int argc, char *argv[])
     // Reset the camera to a default view, shared by all
     coarseRenderer->ResetCamera();
     interactor->Start();
+
+    return EXIT_SUCCESS;
 }

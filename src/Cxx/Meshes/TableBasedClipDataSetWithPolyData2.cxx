@@ -57,9 +57,9 @@ vtkSmartPointer<vtkRectilinearGrid> makeImage(int n) {
   image0->AllocateScalars(VTK_UNSIGNED_CHAR, 1);
   image0->SetSpacing(CUBESIZE/n, CUBESIZE/n, CUBESIZE/n);
   int checkerSize = n / 8;
-  for(unsigned int z=0; z<n; z++) {
-    for(unsigned int y=0; y<n; y++) {
-      for(unsigned int x=0; x<n; x++) {
+  for(int z=0; z<n; z++) {
+    for(int y=0; y<n; y++) {
+      for(int x=0; x<n; x++) {
 	unsigned char *ptr = (unsigned char*) image0->GetScalarPointer(x, y, z);
 	*ptr = (x/checkerSize+y/checkerSize+z/checkerSize)%2; // checkerboard
       }
@@ -122,7 +122,7 @@ vtkSmartPointer<vtkRectilinearGrid> makeImage(int n) {
 /////////////////////
 ////////////////////
 
-int main(int argc, char *argv[]) {
+int main(int, char *[]) {
 
   vtkMapper::SetResolveCoincidentTopologyToPolygonOffset();
   
