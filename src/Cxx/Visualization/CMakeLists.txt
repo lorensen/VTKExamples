@@ -29,6 +29,10 @@ Requires_Version(PointDataSubdivision ${VERSION_MIN} ALL_FILES)
 Requires_Version(ProjectSphere ${VERSION_MIN} ALL_FILES)
 Requires_Version(BillboardTextActor3D "7.1.0" ALL_FILES)
 Requires_Module(Shadows vtkRenderingOpenGL)
+Requires_Module(OpenVRCone vtkRenderingOpenVR)
+Requires_Module(OpenVRSphere vtkRenderingOpenVR)
+Requires_Module(OpenVRCylinder vtkRenderingOpenVR)
+Requires_Module(OpenVRCube vtkRenderingOpenVR)
 #Requires_Setting_Off(StreamLines VTK_LEGACY_REMOVE)
 Requires_GitLfs(Hawaii ALL_FILES)
 Requires_GitLfs(FlyingFrogSkinAndTissue ALL_FILES)
@@ -192,7 +196,7 @@ add_test(${KIT}-Kitchen ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-NormalsDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestNormalsDemo ${DATA}/42400-IDGH.stl)
-
+add_test(${KIT}-OpenVRSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 add_test(${KIT}-PointDataSubdivision ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestPointDataSubdivision 2)
 
