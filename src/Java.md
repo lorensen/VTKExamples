@@ -56,6 +56,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | vtkSphere vtkAppendPolyData vtkTubeFilter | ImplicitFunctions, Append poly data, tube filter, sphere
+[ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet) | vtkImplicitDataSet | 
 
 ## Data Structures
 
