@@ -1,1 +1,2 @@
-VTK + OpenVR Cone rendering example. 
+### Description
+VTK + OpenVR Cone rendering example.

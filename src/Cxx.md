@@ -1001,6 +1001,10 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [OfficeA](/Cxx/VisualizationAlgorithms/OfficeA) | vtkPointSource vtkStreamTracer | Corresponds to Fig 9-47(a) in the VTK textbook.
 [OfficeTube](/Cxx/VisualizationAlgorithms/OfficeTube) | vtkStreamTracer vtkTubeFilter | The stream polygon. Sweeping a polygon to form a tube.
 [Opacity](/Cxx/Visualization/Opacity) | vtkActor | Transparency, transparent.
+[OpenVRCone](/Cxx/Visualization/OpenVRCone) |  | VTK + OpenVR Cone rendering example.
+[OpenVRCube](/Cxx/Visualization/OpenVRCube) |  | VTK + OpenVR Cube rendering example.
+[OpenVRCylinder](/Cxx/Visualization/OpenVRCylinder) |  | VTK + OpenVR Cylinder rendering example.
+[OpenVRSphere](/Cxx/Visualization/OpenVRCylinder) |  | VTK + OpenVR Sphere rendering example.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs) | vtkGlyph3D | Create oriented glyphs from vector data.
 [PineRootConnectivity](/Cxx/VisualizationAlgorithms/PineRootConnectivity) | vtkMCubesReader vtkPolyDataConnectivityFilter | Applying the connectivity filter to remove noisy isosurfaces.
 [PineRootConnectivityA](/Cxx/VisualizationAlgorithms/PineRootConnectivityA) | vtkMCubesReader vtkPolyDataConnectivityFilter | The isosurface, with no connectivity filter applied.
