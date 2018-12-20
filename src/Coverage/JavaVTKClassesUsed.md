@@ -1,6 +1,6 @@
 # VTK Classes used in the Examples
 ## Java
-Out of 2368 available VTK classes, 63 are demonstrated here.  
+Out of 2368 available VTK classes, 65 are demonstrated here.  
 These classes are excluded since they occur in the majority of the examples:  
 - [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)
 - [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html)
@@ -28,6 +28,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html) | [SelectGraphVertices](/Java/Graphs/SelectGraphVertices)  |
 | [vtkImageActor](http://www.vtk.org/doc/nightly/html/classvtkImageActor.html) | [ImageTest](/Java/Imaging/ImageTest)  |
 | [vtkImageReader2Factory](http://www.vtk.org/doc/nightly/html/classvtkImageReader2Factory.html) | [ImageTest](/Java/Imaging/ImageTest)  |
+| [vtkImplicitDataSet](http://www.vtk.org/doc/nightly/html/classvtkImplicitDataSet.html) | [ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet)  |
 | [vtkInteractorStyleImage](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleImage.html) | [ImageTest](/Java/Imaging/ImageTest)  |
 | [vtkInteractorStyleSwitch](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleSwitch.html) | [SphereInteractionPanel](/Java/Interaction/SphereInteractionPanel)  |
 | [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html) | [AnimDataCone](/Java/Visualization/AnimDataCone) [Cone6](/Java/Miscellaneous/Cone6)  |
@@ -52,6 +53,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkQuad](http://www.vtk.org/doc/nightly/html/classvtkQuad.html) | [Quad](/Java/GeometricObjects/Quad)  |
 | [vtkRandomGraphSource](http://www.vtk.org/doc/nightly/html/classvtkRandomGraphSource.html) | [SelectGraphVertices](/Java/Graphs/SelectGraphVertices)  |
 | [vtkRegularPolygonSource](http://www.vtk.org/doc/nightly/html/classvtkRegularPolygonSource.html) | [Circle](/Java/GeometricObjects/Circle) [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource)  |
+| [vtkRTAnalyticSource](http://www.vtk.org/doc/nightly/html/classvtkRTAnalyticSource.html) | [ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet)  |
 | [vtkShrinkFilter](http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html) | [Cube](/Java/GeometricObjects/Cube) [Frustum](/Java/GeometricObjects/Frustum)  |
 | [vtkShrinkPolyData](http://www.vtk.org/doc/nightly/html/classvtkShrinkPolyData.html) | [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource)  |
 | [vtkSliderWidget](http://www.vtk.org/doc/nightly/html/classvtkSliderWidget.html) | [VisualizeKDTree](/Java/DataStructures/VisualizeKDTree)  |
