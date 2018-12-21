@@ -1,12 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import vtk.vtkActor;
 import vtk.vtkNamedColors;
 import vtk.vtkConvexPointSet;
@@ -15,17 +6,17 @@ import vtk.vtkUnstructuredGrid;
 import vtk.vtkDataSetMapper;
 import vtk.vtkSphereSource;
 import vtk.vtkNativeLibrary;
-import vtk.vtkPanel;
 import vtk.vtkPolyData;
+import vtk.vtkRenderWindow;
+import vtk.vtkRenderWindowInteractor;
+import vtk.vtkRenderer;
 import vtk.vtkGlyph3DMapper;
 
  
-public class ConvexPointSet extends JPanel implements ActionListener 
+public class ConvexPointSet 
 {
-	  private static final long serialVersionUID = 1L;
-	  private vtkPanel renWin;
-	  private JButton exitButton;
-
+	  //private static final long serialVersionUID = 1L;
+	 
 	  // -----------------------------------------------------------------
 	  // Load VTK library and print which library was not properly loaded
 	  static 
@@ -43,14 +34,12 @@ public class ConvexPointSet extends JPanel implements ActionListener
 	    vtkNativeLibrary.DisableOutputWindow(null);
 	  }
 	  // -----------------------------------------------------------------
-  
-  
-	  public ConvexPointSet() 
-	  {
-		    super(new BorderLayout());
-	    
-		    vtkNamedColors Color = new vtkNamedColors();
 	  
+ 
+	  public static void main(String s[]) 
+	  {
+		  vtkNamedColors Color = new vtkNamedColors();
+		  
 		    //For Actor Color
 		    double ActorColor[] = new double[4];
 		    //For Point Actor Color
@@ -119,48 +108,28 @@ public class ConvexPointSet extends JPanel implements ActionListener
 		    vtkActor PointActor = new vtkActor();
 		    PointActor.SetMapper(PointMapper);
 		    PointActor.GetProperty().SetColor(PointActorColor);
+		    
+		    
+		    // Create the renderer, render window and interactor.
+	        vtkRenderer ren = new vtkRenderer();
+	        vtkRenderWindow renWin = new vtkRenderWindow();
+	        renWin.AddRenderer(ren);
+	        vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
+	        iren.SetRenderWindow(renWin);
+	        
+	        // Visualise the arrow
+	        ren.AddActor(Actor);
+	        ren.AddActor(PointActor);
+	        ren.SetBackground(BgColor);
+	        ren.ResetCamera();
+	        ren.GetActiveCamera().Azimuth(210);
+	        ren.GetActiveCamera().Elevation(30);
 
-		    renWin = new vtkPanel();
-		    renWin.GetRenderer().AddActor(Actor);
-		    renWin.GetRenderer().AddActor(PointActor);
-		    renWin.GetRenderer().SetBackground(BgColor);
-		    renWin.resetCamera();
-		    renWin.GetRenderer().GetActiveCamera().Azimuth(210);
-		    renWin.GetRenderer().GetActiveCamera().Elevation(30);
-		    renWin.resetCameraClippingRange();
-		    renWin.setSize(640, 480);
-		  
-		    // Add Java UI components
-		    exitButton = new JButton("Exit");
-		    exitButton.addActionListener(this);
+	        renWin.SetSize(300, 300);
+	        renWin.Render();
 
-		    add(renWin, BorderLayout.CENTER);
-		    add(exitButton, BorderLayout.SOUTH);
-	  }
+	        iren.Initialize();
+	        iren.Start();
 
-	  /** An ActionListener that listens to the button. */
-	  public void actionPerformed(ActionEvent e)
-	  {
-		  if (e.getSource().equals(exitButton)) 
-		  {
-			  	System.exit(0);
-		  }
-	  }
-
-	  public static void main(String s[]) 
-	  {
-		  SwingUtilities.invokeLater(new Runnable() 
-		  {
-			  public void run() 
-			  {
-		        JFrame frame = new JFrame("Convex Point Set");
-		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		        frame.getContentPane().setLayout(new BorderLayout());
-		        frame.getContentPane().add(new ConvexPointSet(), BorderLayout.CENTER);
-		        frame.setSize(400, 400);
-		        frame.setLocationRelativeTo(null);
-		        frame.setVisible(true);
-			  }
-		  });
 	  }
 }
