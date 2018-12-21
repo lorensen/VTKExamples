@@ -26,7 +26,7 @@ In this equation subscript $s$ refers to the surface of the actor, while subscri
 
 It is important to note that if we switch the ordering of the polygons, the resulting color will change. This underlies a major technical problem in using transparency. If we ray-trace a scene, we will intersect the surfaces in a well-defined manner --- from front to back. Using this knowledge we can trace a ray back to the last surface it intersects, and then composite the color by applying **Equation7-1** to all the surfaces in reverse order (i.e., from back to front). In object order rendering methods, this compositing is commonly supported in hardware, but unfortunately we are not guaranteed to render the polygons in any specific order. Even though our polygons are situated as in **Figure 7-1**, the order in which the polygons are rendered might be the blue polygon, followed by the red, and finally the green polygon. Consequently, the resulting color is incorrect.
 
-If we look at the RGBA value for one pixel we can see the problem. When the blue polygon is rendered, the frame buffer and *z*-buffer are empty, so the RGBA quad (0,0,0.8,0.5) is stored along with the its z-buffer value. When the red polygon is rendered, a comparison of its z-value and the current z-buffer indicates that it is in front of the previous pixel entry. So Equation 7-1 is applied using the frame buffer’s RGBA value. This results in the RGBA value (0.4,0,0.2,0.75) being written to the buffer. Now, the green polygon is rendered and the z comparison indicates that it is behind the current pixel’s value. Again this equation is applied, this time using the frame buffer’s RGBA value for the surface and the polygon’s values from behind. This results in a final pixel color of (0.3,0.2, 0.175,0.875), which is different from what we previously calculated. Once the red and blue polygons have been composited and written to the frame buffer, there is no way to insert the final green polygon into the middle where it belongs.
+If we look at the RGBA value for one pixel we can see the problem. When the blue polygon is rendered, the frame buffer and *z*-buffer are empty, so the RGBA quad (0,0,0.8,0.5) is stored along with the its z-buffer value. When the red polygon is rendered, a comparison of its z-value and the current z-buffer indicates that it is in front of the previous pixel entry. So Equation 7-1 is applied using the frame buffer's RGBA value. This results in the RGBA value (0.4,0,0.2,0.75) being written to the buffer. Now, the green polygon is rendered and the z comparison indicates that it is behind the current pixel's value. Again this equation is applied, this time using the frame buffer's RGBA value for the surface and the polygon's values from behind. This results in a final pixel color of (0.3,0.2, 0.175,0.875), which is different from what we previously calculated. Once the red and blue polygons have been composited and written to the frame buffer, there is no way to insert the final green polygon into the middle where it belongs.
 
 <figure id="Figure 7-1">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure7-1.png?raw=true" width="640" alt="Figure7-1">
@@ -325,7 +325,7 @@ I\left(t_0, \vec{\omega}\right) = \int_{t_0}^{\infty} E\left(\tau\right) e^\left
 \bf\tag{7-6}
 $$
 
-We can further simplify this equation by allowing α(t) to represent both the amount of light emitted per unit length and the amount of light absorbed per unit length along the ray. The outer integral can be replaced by a summation over samples along the ray within some clipping range, while the inner integral can be approximated using an over operator:
+We can further simplify this equation by allowing $\alpha (t) to represent both the amount of light emitted per unit length and the amount of light absorbed per unit length along the ray. The outer integral can be replaced by a summation over samples along the ray within some clipping range, while the inner integral can be approximated using an over operator:
 
 $$
 \begin{equation*}
@@ -371,7 +371,7 @@ $$
 
 The results are normalized to produce a unit normal vector. As with the 3D finite differences gradient estimator given in **Equation7-3** care must be taken when selecting $\delta x and $\delta y$ Typically, these values are simply the pixel spacing in $x$ and $y$ so that neighboring pixel values are used to estimate the gradient, although larger values can be used to smooth the image.
 
-One problem with the 2D gradient estimation technique described above is that normals are computed from depth values that may represent disjoint regions in the volume, as shown in **Figure 7-21**. This may lead to a blurring of sharp features on the edges of objects. To reduce this effect, we can locate regions of continuous curvature in the depth image, then estimate the normal for a pixel using only other pixel values that fall within the same curvature region [Yagel92a]. This may require reducing our Δx and Δy values, or using an off-centered differences technique to estimate the components of the gradient. For example, the x component of the gradient could be computed with a forward difference:
+One problem with the 2D gradient estimation technique described above is that normals are computed from depth values that may represent disjoint regions in the volume, as shown in **Figure 7-21**. This may lead to a blurring of sharp features on the edges of objects. To reduce this effect, we can locate regions of continuous curvature in the depth image, then estimate the normal for a pixel using only other pixel values that fall within the same curvature region [Yagel92a]. This may require reducing our $\Delta x and \Delta y$  values, or using an off-centered differences technique to estimate the components of the gradient. For example, the x component of the gradient could be computed with a forward difference:
 
 $$
 \begin{equation*}
@@ -958,7 +958,7 @@ L. Westover. "Footprint Evaluation for Volume Rendering." *Computer Graphics (SI
 J. Wilhelms and A. Van Gelder. "A Coherent Projection Approach for Direct Volume Rendering." *Computer Graphics (SIGGRAPH '91).* 25(4):275--284, 1991.
 
 <em style="color:green;background-color: white">\[Wilhelms96\]</em>
-J. P. Wilhelms, A. Van Gelder, P. Tarantino, J. Gibbs. "Hierarchical and Parallelizable Direct Vol-ume Rendering for Irregular and Multiple Grids." In *Proceedings of Visualization '96*. pp. 73ê80, IEEE Computer Society Press, Los Alamitos, CA, October 1996.
+J. P. Wilhelms, A. Van Gelder, P. Tarantino, J. Gibbs. "Hierarchical and Parallelizable Direct Vol-ume Rendering for Irregular and Multiple Grids." In *Proceedings of Visualization '96*. pp. 73-80, IEEE Computer Society Press, Los Alamitos, CA, October 1996.
 
 <em style="color:green;background-color: white">\[Yagel92a\]</em>
 R. Yagel, D. Cohen, and A. Kaufman. "Normal Estimation in 3D Discrete Space." *The Visual* *Computer.* pp. 278--291, 1992.
