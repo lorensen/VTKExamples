@@ -1,6 +1,6 @@
 ### Description
 
-This exmaple runs [Office.cxx](/Cxx/VisualizationAlgoriths) as follows:
+This example runs [Office.cxx](/Cxx/VisualizationAlgorithms/Office) as follows:
 
 ```
   ./OfficeA office.binary.vtk 0 -E 50)

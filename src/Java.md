@@ -19,23 +19,23 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
 [Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
 [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) | vtkEllipticalCylinder | EllipticalCylinder
+[CylinderExample](/Java/GeometricObjects/CylinderExample) | vtkCylinder |  Cylinder example from the VTK Textbook and source code. A hello world example.
 [Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
 [Cube](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
 [Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
 [Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
-[LongLine](/Java/GeometricObjects/LongLine) | vtkLine |A visualization of a long line
+[LongLine](/Java/GeometricObjects/LongLine) | vtkLine | A visualization of a long line
 [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) | vtkOrientedCylinder |Oriented Cylinder visualization
-[OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow |Oriented Arrow visualization 
+[OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow | Oriented Arrow visualization 
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
 [PlanesIntersection](/Java/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection | PlanesIntersection
-[RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource| RegularPolygon Visualization
+[RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource | RegularPolygon Visualization
 [Pyramid](/Java/GeometricObjects/Pyramid) | vtkPyramid | Pyramid Visualization
-[Quad](/Java/GeometricObjects/Quad) | vtkQuad| Quad Visualization
+[Quad](/Java/GeometricObjects/Quad) | vtkQuad | Quad Visualization
 [Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
 [TextActor](/Java/GeometricObjects/TextActor) | vtkTextActor | TextActor Demonstration
 [Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
 [TriangleStrip](/Java/GeometricObjects/TriangleStrip) | vtkTriangleStrip | Triangle Strip Visualization
-
 
 
 ## Geovis
@@ -57,6 +57,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | vtkSphere vtkAppendPolyData vtkTubeFilter | ImplicitFunctions, Append poly data, tube filter, sphere
+[ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet) | vtkImplicitDataSet | 
 
 ## Data Structures
 

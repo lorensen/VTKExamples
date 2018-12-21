@@ -150,7 +150,7 @@ This chapter explains our methodology for transforming raw data into a meaningfu
 
 There are many types of data produced by the variety of fields that apply visualization. This chapter describes the data objects that we use to represent and access such data. A flexible design is introduced where the programmer can interact with most any type of data using one consistent interface. The three high level components of data (structure, cells, and data attributes) are introduced, and their specific subclasses and components are discussed.
 
-### [Chapter 6](/VTKBook/06Chapter): Fundamental Algorithms
+### [Chapter 6](/VTKBook/06Chapter6): Fundamental Algorithms
 
 Where the preceding chapter deals with data objects, this one introduces process objects. These objects encompass the algorithms that transform and manipulate data. This chapter looks at commonly used techniques for isocontour extraction, scalar generation, color mapping, and vector field display, among others. The emphasis of this chapter is to provide the reader with a basic understanding of the more common and important visualization algorithms.
 

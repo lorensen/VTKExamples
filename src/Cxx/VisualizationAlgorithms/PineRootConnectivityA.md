@@ -2,7 +2,7 @@
 
 This example applies connectivity filter to remove noisy isosurface. Data is from 256^3 volume data of the root system of a pine tree.
 
-The example runs [PineRootConnectivity](/Cxx/VisualizationAlgortihms/PineRootConnectivity) as follows:
+The example runs [PineRootConnectivity](/Cxx/VisualizationAlgorithms/PineRootConnectivity/) as follows:
 
 ```
 PineRootConnectivityA pine_root.tri 1)

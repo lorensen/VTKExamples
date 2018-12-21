@@ -14,7 +14,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[CylinderExample](/Python/GeometricObjects/CylinderExample) | vtkPolyDataMapper vtkActor vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Cylinder example from the VTK Textbook and source code. A hello world example
+[CylinderExample](/Python/GeometricObjects/CylinderExample) | vtkPolyDataMapper vtkActor vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Cylinder example from the VTK Textbook and source code. A hello world example.
 
 ## Simple Operations
 
@@ -224,7 +224,7 @@ This section includes examples of manipulating meshes.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[ClipDataSetWithPolydata](/Python/Meshes/ClipDataSetWithPolydata) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
+[ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
 [DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
 
 #### Clipping
@@ -392,6 +392,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ComplexV](/Python/Visualization/ComplexV) | vtkHedgeHog | ComplexV from the VTK Textbook.
 [ContourQuadric](/Python/VisualizationAlgorithms/ContourQuadric) | vtkQuadric vtkSampleFunction vtkContourFilter | Contouring a quadric function.
 [CreateBFont](/Python/VisualizationAlgorithms/CreateBFont) | vtkClipPolyData vtkImageDataGeometryFilter | A scanned image clipped with a scalar value of 1/2 its maximum intensity produces a mixture of quadrilaterals and triangles.
+[CreateColorSeriesDemo](/Python/Visualization/CreateColorSeriesDemo) | vtkColorSeries vtkLookupTable | Create a custom vtkColorSeries.
 [CubeAxesActor](/Python/Visualization/CubeAxesActor) | vtkCubeAxesActor |
 [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) | vtkCurvatures vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the gaussian curvature of a surface into bands and using arrows to display the normals on the surface.
 [CutStructuredGrid](/Python/VisualizationAlgorithms/CutStructuredGrid) | vtkCutter | Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant k value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used.
@@ -448,7 +449,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [SpikeFran](/Python/VisualizationAlgorithms/SpikeFran) | vtkGlyph3D | Glyphs indicate surface normals on model of human face. Glyph positions are randomly selected.
 [SplatFace](/Python/VisualizationAlgorithms/SplatFace) | vtkGaussianSplatter | Elliptical splatting. (b) Surface reconstructed using elliptical splats into 100^3 volume followed by isosurface extraction. Points regularly subsampled and overlaid on original mesh.
 [Stocks](/Python/VisualizationAlgorithms/Stocks) | vtkRibbonFilter vtkLinearExtrusionFilter | Two views from the stock visualization script. The top shows closing price over time; the bottom shows volume over time.
-[Streamlines](/Python/Visualization/Streamlines) | vtkStreamLine | Seed streamlines with vectors from a structured grid
+[StreamLines](/Python/Visualization/StreamLines) | vtkStreamLine | Seed streamlines with vectors from a structured grid
 [StreamlinesWithLineWidget](/Python/VisualizationAlgorithms/StreamlinesWithLineWidget) | vtkCallbackCommand vtkLineWidget | Using the vtkLineWidget to produce streamlines in the combustor dataset.  The StartInteractionEvent turns the visibility of the streamlines on; the InteractionEvent causes the streamlines to regenerate themselves.
 [TensorAxes](/Python/VisualizationAlgorithms/TensorAxes) | vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes of the stress tensor.
 [TensorEllipsoids](/Python/VisualizationAlgorithms/TensorEllipsoids) | vtkPointLoad vtkTensorGlyph | Display the scaled and oriented principal axes as tensor ellipsoids representing the stress tensor.
@@ -554,14 +555,14 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 | -------------- | ---------------------- | ------------- | ------- |
 [CompassWidget](/Python/Widgets/CompassWidget) | vtkCompassWidget vtkCompassRepresentation | Draws an interactive compass.
 [GeoAssignCoordinates](/Python/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates vtkMutableDirectedGraph vtkGraphMapper | Draws a sphere, based on longituds and latitudes.
-[ParallelCoordinatesView](/Python/Infovis/ParallelCoordinatesView) | vtkRTAnalyticSource vtkParallelCoordinatesView vtkParallelCoordinatesRepresentation | Plotting data attributes in a Parallel Coordinates View
+[ParallelCoordinatesView](/Python/InfoVis/ParallelCoordinatesView) | vtkRTAnalyticSource vtkParallelCoordinatesView vtkParallelCoordinatesRepresentation | Plotting data attributes in a Parallel Coordinates View
 
-## Infovis
+## InfoVis
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[ParallelCoordinatesExtraction](/Python/Infovis/ParallelCoordinatesExtraction) | vtkExtractSelection vtkAnnotationLink | Extract data based on a selection in a Parallel Coordinates View
-[SelectedGraphIDs](/Python/Infovis/SelectedGraphIDs) | vtkAnnotationLink vtkRandomGraphSource vtkGraphLayoutView | Callback on vtkAnnotationLink in a Graph Layout View when selection is changed
+[ParallelCoordinatesExtraction](/Python/InfoVis/ParallelCoordinatesExtraction) | vtkExtractSelection vtkAnnotationLink | Extract data based on a selection in a Parallel Coordinates View
+[SelectedGraphIDs](/Python/InfoVis/SelectedGraphIDs) | vtkAnnotationLink vtkRandomGraphSource vtkGraphLayoutView | Callback on vtkAnnotationLink in a Graph Layout View when selection is changed
 
 ## PyQt
 
