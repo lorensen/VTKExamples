@@ -19,6 +19,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
 [Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
 [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) | vtkEllipticalCylinder | EllipticalCylinder
+[ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | ConvexPointSet Visualization
+[Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
 [CylinderExample](/Java/GeometricObjects/CylinderExample) | vtkCylinder |  Cylinder example from the VTK Textbook and source code. A hello world example.
 [Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
 [Cube](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
