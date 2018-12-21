@@ -1,8 +1,5 @@
 ### Description
 
-!!! note
-    This example was translated to C++ from the Python example [here](/Python/Meshes/ClipDataSetWithPolydata).
-
 The example that shows how to use the vtkClipDataSet to clip a
 vtkRectilinearGrid with an arbitrary
 polydata. vtkImplicitPolyDataDistance is used to turn the polydata
@@ -15,6 +12,9 @@ The left part of the image shows the inside clip and the distance
 field on a center slice. The right side shows the outside clip. When
 the program exits using the "e: key, the example will report the cell
 type for both the inside and outside clips.
+
+!!! note
+    This example was translated to C++ from the Python example [here](/Python/Meshes/ClipDataSetWithPolyData).
 
 !!! note
     vtkClipDataSet tetrahedralizes the volume before clipping. Contrast this with the vtkTableBasedClipDataSet example: [TableBasedClipDataSetWithPolyData](/Cxx/Meshes/TableBasedClipDataSetWithPolyData).

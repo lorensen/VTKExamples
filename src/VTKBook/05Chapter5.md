@@ -87,7 +87,7 @@ $$
   <afigcaption style="color:blue"><b>Figure 5-3</b>. Example of a hexahedron cell. The topology is implicitly defined by the ordering of the point list. Physical generation of an image.</figcaption>
 </figure>
 
-The importance of “uses” and “use sets” will become evident in [Chapter 8 - Advanced Data Representation](/vtkBook/08Chapter8) when we explore the topology of datasets.
+The importance of “uses” and “use sets” will become evident in [Chapter 8 - Advanced Data Representation](/VTKBook/08Chapter8) when we explore the topology of datasets.
 
 Although we define points in three dimensions, cells may vary in topological dimension. Vertices, lines, triangles, and tetrahedron are examples of topologically 0, 1, 2, and 3-D cells, respectively, embedded in three-dimensional geometric space. Cells can also be primary or composite. Composite cells consist of one or more primary cells, while primary cells cannot be decomposed into combinations of other primary cell types. A triangle strip, for example, consists of one or more triangles arranged in compact form. The triangle strip is a composite cell because it can be broken down into triangles, which are primary cells.
 
