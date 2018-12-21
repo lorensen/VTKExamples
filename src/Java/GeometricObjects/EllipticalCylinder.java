@@ -1,11 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import vtk.vtkActor;
 import vtk.vtkNamedColors;
@@ -17,15 +9,17 @@ import vtk.vtkPolyDataMapper;
 import vtk.vtkProperty;
 import vtk.vtkCamera;
 import vtk.vtkNativeLibrary;
-import vtk.vtkPanel;
 import vtk.vtkPolyData;
+import vtk.vtkRenderWindow;
+import vtk.vtkRenderWindowInteractor;
+import vtk.vtkRenderer;
 
 
-public class EllipticalCylinder extends JPanel implements ActionListener 
+
+public class EllipticalCylinder  
 {
-	  private static final long serialVersionUID = 1L;
-	  private vtkPanel renWin;
-	  private JButton exitButton;
+	  //private static final long serialVersionUID = 1L;
+	 
 
 	  // -----------------------------------------------------------------
 	  // Load VTK library and print which library was not properly loaded
@@ -44,14 +38,14 @@ public class EllipticalCylinder extends JPanel implements ActionListener
 	    vtkNativeLibrary.DisableOutputWindow(null);
 	  }
 	  // -----------------------------------------------------------------
- 
- 
-	  public EllipticalCylinder() 
-	  {
-		    super(new BorderLayout());
-	    
-		    vtkNamedColors Color = new vtkNamedColors();
 	  
+	  
+	 
+ 
+	  public static void main(String s[]) 
+	  {
+		  vtkNamedColors Color = new vtkNamedColors();
+		  
 		    //For Actor Color
 		    double ActorColor[] = new double[4];
 		    //For Line Actor Color
@@ -134,48 +128,29 @@ public class EllipticalCylinder extends JPanel implements ActionListener
 		    Camera.SetViewUp(0, 0, 1);
 		    Camera.Azimuth(30);
 		    Camera.Elevation(30);
+		    
+		    
+		    // Create the renderer, render window and interactor.
+	        vtkRenderer ren = new vtkRenderer();
+	        vtkRenderWindow renWin = new vtkRenderWindow();
+	        renWin.AddRenderer(ren);
+	        vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
+	        iren.SetRenderWindow(renWin);
+	        
+	        // Visualise the arrow
+	        ren.AddActor(Actor);
+	        ren.AddActor(LineActor);
+	        ren.SetBackground(BgColor);
+	        ren.SetActiveCamera(Camera);
+	        ren.ResetCamera();
+	        ren.ResetCameraClippingRange();
 
-		    renWin = new vtkPanel();
-		    renWin.GetRenderer().AddActor(Actor);
-		    renWin.GetRenderer().AddActor(LineActor);
-		    renWin.GetRenderer().SetBackground(BgColor);
-		    renWin.GetRenderer().SetActiveCamera(Camera);
-		    renWin.resetCamera();
-		    renWin.resetCameraClippingRange();
-		    renWin.setSize(600,600);
+	        renWin.SetSize(300, 300);
+	        renWin.Render();
+	    
 
-		  
-		    // Add Java UI components
-		    exitButton = new JButton("Exit");
-		    exitButton.addActionListener(this);
+	        iren.Initialize();
+	        iren.Start();
 
-		    add(renWin, BorderLayout.CENTER);
-		    add(exitButton, BorderLayout.SOUTH);
-	  }
-
-	  /** An ActionListener that listens to the button. */
-	  public void actionPerformed(ActionEvent e)
-	  {
-		  if (e.getSource().equals(exitButton)) 
-		  {
-			  	System.exit(0);
-		  }
-	  }
-
-	  public static void main(String s[]) 
-	  {
-		  SwingUtilities.invokeLater(new Runnable() 
-		  {
-			  public void run() 
-			  {
-		        JFrame frame = new JFrame("Elliptical Cylinder");
-		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		        frame.getContentPane().setLayout(new BorderLayout());
-		        frame.getContentPane().add(new EllipticalCylinder(), BorderLayout.CENTER);
-		        frame.setSize(400, 400);
-		        frame.setLocationRelativeTo(null);
-		        frame.setVisible(true);
-			  }
-		  });
 	  }
 }
