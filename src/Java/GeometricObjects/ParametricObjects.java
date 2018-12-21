@@ -1,18 +1,11 @@
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import vtk.vtkActor;
 import vtk.vtkNamedColors;
 import vtk.vtkParametricFunctionSource;
 import vtk.vtkProperty;
+import vtk.vtkRenderWindow;
+import vtk.vtkRenderWindowInteractor;
+import vtk.vtkRenderer;
 import vtk.vtkNativeLibrary;
-import vtk.vtkPanel;
 import vtk.vtkPolyDataMapper;
 
 
@@ -35,14 +28,11 @@ import vtk.vtkParametricFigure8Klein;
 
 
 
-
  
-public class ParametricObjects extends JPanel implements ActionListener 
+public class ParametricObjects 
 {
-	  private static final long serialVersionUID = 1L;
-	  private vtkPanel renWin;
-	  private JButton exitButton;
-
+	  //private static final long serialVersionUID = 1L;
+	 
 	  // -----------------------------------------------------------------
 	  // Load VTK library and print which library was not properly loaded
 	  static 
@@ -60,14 +50,11 @@ public class ParametricObjects extends JPanel implements ActionListener
 	    vtkNativeLibrary.DisableOutputWindow(null);
 	  }
 	  // -----------------------------------------------------------------
-  
-  
-	  public ParametricObjects() 
+	   
+
+	  public static void main(String s[]) 
 	  {
-		    super(new BorderLayout());
-	    
-		    vtkNamedColors Color = new vtkNamedColors();
-	  
+		  vtkNamedColors Color = new vtkNamedColors();
 		    
 		    //For Back Color
 		    double BackColor[] = new double[4];
@@ -125,43 +112,25 @@ public class ParametricObjects extends JPanel implements ActionListener
 		    Actor.GetProperty().SetSpecularPower(20);
 		    Actor.SetBackfaceProperty(BackProperty);
 		    
+		 // Create the renderer, render window and interactor.
+	        vtkRenderer ren = new vtkRenderer();
+	        vtkRenderWindow renWin = new vtkRenderWindow();
+	        renWin.AddRenderer(ren);
+	        vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
+	        iren.SetRenderWindow(renWin);
+	        
+	        // Visualise the arrow
+	        ren.AddActor(Actor);
+	        ren.SetBackground(BgColor);
+	        ren.ResetCamera();
+	        
 
-		    renWin = new vtkPanel();
-		    renWin.GetRenderer().AddActor(Actor);
-		    renWin.GetRenderer().SetBackground(BgColor);
-		    renWin.resetCamera();
-		  
-		    // Add Java UI components
-		    exitButton = new JButton("Exit");
-		    exitButton.addActionListener(this);
+	        renWin.SetSize(300, 300);
+	        renWin.Render();
+	    	
+	    	
+	        iren.Initialize();
+	        iren.Start();
 
-		    add(renWin, BorderLayout.CENTER);
-		    add(exitButton, BorderLayout.SOUTH);
-	  }
-
-	  /** An ActionListener that listens to the button. */
-	  public void actionPerformed(ActionEvent e)
-	  {
-		  if (e.getSource().equals(exitButton)) 
-		  {
-			  	System.exit(0);
-		  }
-	  }
-
-	  public static void main(String s[]) 
-	  {
-		  SwingUtilities.invokeLater(new Runnable() 
-		  {
-			  public void run() 
-			  {
-		        JFrame frame = new JFrame("Parametric Objects");
-		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		        frame.getContentPane().setLayout(new BorderLayout());
-		        frame.getContentPane().add(new ParametricObjects(), BorderLayout.CENTER);
-		        frame.setSize(400, 400);
-		        frame.setLocationRelativeTo(null);
-		        frame.setVisible(true);
-			  }
-		  });
 	  }
 }
