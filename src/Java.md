@@ -118,3 +118,9 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [JFrameRender](/Java/SwingIntegration/JFrameRenderer) | vtkRenderWindowPanel | Render a scene in a JFrame using a vtkRenderWindowPanel
 [SwingHandleMouseEvent](/Java/SwingIntegration/SwingHandleMouseEvent) | vtkRenderWindowPanel | Display in a JLabel the point the mouse is hovering over using a mouse listener
+
+## Widgets
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget |SplineWidget Demonstration
