@@ -117,7 +117,7 @@ iren->Start();
 
 <figure id="Figure 12-2">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png?raw=true" width="640" alt="Figure 12-2">
-  <figcaption style="color:blue"><b>Figure 12-2</b>. The skin extracted from a CT dataset of the head. <a href="../../Cxx/Medical/MedicalDemo1" title="MedicalDemo1"> See MedicalDemo1.cxx</a> and <a href="../../Python/Medicala/MedicalDemo1" title="MedicalDemo1"> MedicalDemo1.py</a>.</figcaption>
+  <figcaption style="color:blue"><b>Figure 12-2</b>. The skin extracted from a CT dataset of the head. <a href="../../Cxx/Medical/MedicalDemo1" title="MedicalDemo1"> See MedicalDemo1.cxx</a> and <a href="../../Python/Medical/MedicalDemo1" title="MedicalDemo1"> MedicalDemo1.py</a>.</figcaption>
 </figure>
 
 To provide context for the isosurface an outline is created around the data. An initial view is set up  in a window size of $640 \times 480$ pixels. Since the dolly command moves the camera towards the data, the clipping planes are reset to insure that the isosurface is completely visible. **Figure 12-2** shows the resulting image of the patient's skin.
@@ -618,7 +618,7 @@ Once we have obtained the data, we convert it to a format that can be read into 
 
 Each line stores the data for one day of trading. The first number is the date, stored as the last two digits of the year, followed by a two-digit month and finally the day of the month. The next three values represent the high, low, and closing price of the stock for that day. The next value is the volume of trading in thousands of shares. The final value is the volume of trading in millions of dollars.
 
-We used an Awk script to convert the original data format into a VTK data file. (See the *VTK*  *User's Guide* for information on VTK file formats; or see [VTK File Formats](VTKFileFormats/).) This conversion could be done using many other approaches, such as writing a C program or a Tcl script.
+We used an Awk script to convert the original data format into a VTK data file. (See the *VTK*  *User's Guide* for information on VTK file formats; or see [VTK File Formats](/VTKFileFormats/).) This conversion could be done using many other approaches, such as writing a C program or a Tcl script.
 
 ``` awk
 BEGIN {print "# vtk DataFile Version 2.0\n
@@ -794,7 +794,7 @@ A legitimate complaint with **Figure 12-10** is that the changing width of the t
 
 <figure id="Figure 12-11">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Baseline/Cxx/VisualizationAlgorithms/TestStocks.png?raw=true" width="640" alt="Figure 12-11">
-  <figcaption style="color:blue"><b>Figure 12-11</b>. Two more views of the stock case study. Here the tube filter has been replaced by a ribbon filter followed with a linear extrusion filter.<a href="../../Cxx/VisualizationAlgorithms/Stocks" title="Stocks"> See Stocks.cxx</a> and <a href="../../Python/VisualizationAlgorithmsq/Stocks" title="Stocks"> Stocks.py</a>.</figcaption>
+  <figcaption style="color:blue"><b>Figure 12-11</b>. Two more views of the stock case study. Here the tube filter has been replaced by a ribbon filter followed with a linear extrusion filter.<a href="../../Cxx/VisualizationAlgorithms/Stocks" title="Stocks"> See Stocks.cxx</a> and <a href="../../Python/VisualizationAlgorithms/Stocks" title="Stocks"> Stocks.py</a>.</figcaption>
 </figure>
 
 ## 12.4 Implicit Modelling
