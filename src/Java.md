@@ -118,6 +118,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [Stripper](/Java/PolyData/Stripper) | vtkStripper | Stripper
 [Outline](/Java/PolyData/Outline) | vtkOutline | Outline
+[TubeFilter](/Java/PolyData/TubeFilter) | vtkTubeFilter | TubeFilter
 [ConvexHullShrinkWrap](/Java/PolyData/ConvexHullShrinkWrap) | vtkConvexHullShrinkWrap | ConvexHullShrinkWrap
 [MeshQuality](/Java/PolyData/MeshQuality) | vtkMeshQuality | MeshQuality
 [ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) | vtkColorCellsWithRGB | ColorCellsWithRGB
