@@ -834,7 +834,7 @@ A graphical user-interface toolkit based on Tcl.
 tensor of rank *k* can be considered a *k*-dimensional table. Tensor visualization algorithms treat 3 x 3 real symmetric matrix tensors (rank 2 tensors).
 
 **Tensor Ellipsoid.** A type of glyph used to visualize tensors. The
-major, medium, and minor eigenvalues of a tensor33´ define an
+major, medium, and minor eigenvalues of a tensor define an
 ellipsoid. The eigenvalues are used to scale along the axes.
 
 **Tetrahedron.** A 3D primary cell that is a simplex with four
@@ -874,7 +874,7 @@ coordinates required to address the domain of an object. For example,
 a line in 3D space is of topological dimension one because the line
 can be parametrized with a single parameter.
 
-**Transformation Matrix.** A matrix44´ of values used to control the
+**Transformation Matrix.** A matrix of values used to control the
 position, orientation, and scale of objects.
 
 **Triangle Strip.** A composite 2D cell consisting of triangles. The
