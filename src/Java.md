@@ -15,6 +15,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [TextOrigin](/Java/Annotation/TextOrigin) | vtkTextOrigin | TextOrigin
+[MultiLineText](/Java/Annotation/MultiLineText) | vtkMultiLineText | MultiLineText
 
 ## CompositeData
 
@@ -118,6 +119,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [Stripper](/Java/PolyData/Stripper) | vtkStripper | Stripper
 [Outline](/Java/PolyData/Outline) | vtkOutline | Outline
+[ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) | vtkColorCellsWithRGB | ColorCellsWithRGB
 [Reflection](/Java/PolyData/Reflection) | vtkReflection | Reflection
 
 
@@ -149,7 +151,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 
-[AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration
-[AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration
-[SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget |SplineWidget Demonstration
+[AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration | 
+[AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration | 
+[SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget |SplineWidget Demonstration | 
 
