@@ -15,6 +15,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [TextOrigin](/Java/Annotation/TextOrigin) | vtkTextOrigin | TextOrigin
+[MultiLineText](/Java/Annotation/MultiLineText) | vtkMultiLineText | MultiLineText
 
 ## CompositeData
 
