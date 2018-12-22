@@ -117,6 +117,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Stripper](/Java/PolyData/Stripper) | vtkStripper | Stripper
+[ColorDisconnectedRegions](/Java/PolyData/ColorDisconnectedRegions) | vtkColorDisconnectedRegions | ColorDisconnectedRegions
 [Outline](/Java/PolyData/Outline) | vtkOutline | Outline
 [RibbonFilter](/Java/PolyData/RibbonFilter) | vtkRibbonFilter | RibbonFilter
 [ColorCells](/Java/PolyData/ColorCells) | vtkColorCells | ColorCells
