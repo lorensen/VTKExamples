@@ -139,4 +139,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+
+[AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration
 [SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget |SplineWidget Demonstration
+
