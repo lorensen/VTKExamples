@@ -118,6 +118,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [Stripper](/Java/PolyData/Stripper) | vtkStripper | Stripper
 [Outline](/Java/PolyData/Outline) | vtkOutline | Outline
+[Reflection](/Java/PolyData/Reflection) | vtkReflection | Reflection
+
 
 ## Visualization
 
