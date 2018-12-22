@@ -770,45 +770,45 @@ After the interactor is created using its New() method, we must tell it what ren
 
 **<b id="Chapter 3 - Interpreted Code">Interpreted Code.</b>** In the previous example we saw how to create an interactor style object in conjunction with vtkRenderWindowInteractor to enable us to manipulate the camera by mousing in the render window. Although this provides flexibility and interactivity for a large number of applications, there are examples throughout this text where we want to modify other parameters. These parameters range from actor properties, such as color, to the name of an input file. Of course we can always write or modify C++ code to do this, but in many cases the turn-around time between making the change and seeing the result is too long. One way to improve the overall interactivity of the system is to use an interpreted interface. Interpreted systems allow us to modify objects and immediately see the result, without the need to recompile and relink source code. Interpreted languages also provide many tools, such as GUI (Graphical User Interface) tools, that simplify the creation of applications.
 
-The _Visualization Toolkit_ has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in **Figure 3-29**. There is a one-to-one mapping between C++ methods and Tcl C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Tcl script. (The script can be found in Cone5.tcl.)
+The _Visualization Toolkit_ has built into its compilation process the ability to automatically generate language bindings to the [Ousterhout94]. This so-called wrapping process automatically creates a layer between the C++ VTK library and the interpreter as illustrated in **Figure 3-29**. There is a one-to-one mapping between C++ methods and Python C++ functions for most objects and methods in the system. To demonstrate this, the following example repeats the previous C++ example except that it is implemented with a Python script. (The script can be found in Cone5.py.)
 
 <figure id="Figure 3-29">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure3-29.png?raw=true" width="640" alt="Figure3-29">
-  <figcaption style="color:blue"><b>Figure 3-29</b>. In VTK the C++ library is automatically wrapped with the interpreted languages Tcl, Python, and Java.</figcaption>
+  <figcaption style="color:blue"><b>Figure 3-29</b>. In VTK the C++ library is automatically wrapped with the interpreted languages Python and Java.</figcaption>
 </figure>
 
-``` tcl
-package require vtk
-package require vtkinteraction
-vtkConeSource cone
-  cone SetHeight 3.0
-  cone SetRadius 1.0
-  cone SetResolution 10
+``` python
+!/usr/bin/env python
+import vtk
+colors = vtk.vtkNamedColors ()
 
-vtkPolyDataMapper coneMapper
-  coneMapper SetInputConnection [cone GetOutputPort]
+cone = vtk.vtkConeSource ()
+cone.SetHeight ( 3.0 )
+cone.SetRadius ( 1.0 )
+cone.SetResolution ( 10 )
 
-vtkActor coneActor
-  coneActor SetMapper coneMapper
+coneMapper = vtk.vtkPolyDataMapper ()
+coneMapper.SetInputConnection (cone.GetOutputPort ())
 
-vtkRenderer ren1
-  ren1 AddActor coneActor
-  ren1 SetBackground 0.1 0.2 0.4
+coneActor = vtk.vtkActor ()
+coneActor.SetMapper ( coneMapper )
 
-vtkRenderWindow renWin
-  renWin AddRenderer ren1
-  renWin SetSize 300 300
+ren1 = vtk.vtkRenderer ()
+ren1.AddActor( coneActor )
+ren1.SetBackground (colors.GetColor3d (’MidnightBlue’))
 
-vtkRenderWindowInteractor iren
-  iren SetRenderWindow renWin
+renWin = vtk.vtkRenderWindow ()
+renWin.AddRenderer (ren1)
+renWin.SetSize (300 , 300)
 
-vtkInteractorStyleTrackballCamera style
+iren = vtk.vtkRenderWindowInteractor ()
+iren.SetRenderWindow (renWin)
 
-iren SetInteractorStyle style
-iren AddObserver UserEvent {wm deiconify .vtkInteract}
-iren Initialize
+style = vtk.vtkInteractorStyleTrackballCamera ()
+iren.SetInteractorStyle (style)
 
-wm withdraw .
+iren.Initialize ()
+iren.Start ()
 ```
 
 <figure id="Figure 3-30">
