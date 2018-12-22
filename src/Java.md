@@ -15,6 +15,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [TextOrigin](/Java/Annotation/TextOrigin) | vtkTextOrigin | TextOrigin
+[MultiLineText](/Java/Annotation/MultiLineText) | vtkMultiLineText | MultiLineText
 
 ## CompositeData
 
@@ -30,7 +31,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Arrow](/Java/GeometricObjects/Arrow) | vtkArrow | Arrow Visualization
 [Circle](/Java/GeometricObjects/Circle) | vtkCircle |Circle Visualization
 [Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
-[Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
 [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) | vtkEllipticalCylinder | EllipticalCylinder
 [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | ConvexPointSet Visualization
 [Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
@@ -117,6 +117,17 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Stripper](/Java/PolyData/Stripper) | vtkStripper | Stripper
+[KochanekSpline](/Java/PolyData/KochanekSpline) | vtkKochanekSpline | KochanekSpline
+[ColorDisconnectedRegions](/Java/PolyData/ColorDisconnectedRegions) | vtkColorDisconnectedRegions | ColorDisconnectedRegions
+[Outline](/Java/PolyData/Outline) | vtkOutline | Outline
+[RibbonFilter](/Java/PolyData/RibbonFilter) | vtkRibbonFilter | RibbonFilter
+[ColorCells](/Java/PolyData/ColorCells) | vtkColorCells | ColorCells
+[TubeFilter](/Java/PolyData/TubeFilter) | vtkTubeFilter | TubeFilter
+[ConvexHullShrinkWrap](/Java/PolyData/ConvexHullShrinkWrap) | vtkConvexHullShrinkWrap | ConvexHullShrinkWrap
+[MeshQuality](/Java/PolyData/MeshQuality) | vtkMeshQuality | MeshQuality
+[ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) | vtkColorCellsWithRGB | ColorCellsWithRGB
+[Reflection](/Java/PolyData/Reflection) | vtkReflection | Reflection
+
 
 ## Visualization
 
@@ -146,7 +157,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 
-[AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration
-[AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration
-[SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget |SplineWidget Demonstration
+[AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration | 
+[AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration | 
+[SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget |SplineWidget Demonstration | 
 
