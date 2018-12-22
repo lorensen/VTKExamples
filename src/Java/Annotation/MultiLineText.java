@@ -13,14 +13,18 @@ import vtk.vtkRenderWindowInteractor;
 import vtk.vtkRenderer;
 
 
-public class MultiLineText  {
-	  	  
+public class MultiLineText  
+{
 	  // -----------------------------------------------------------------
 	  // Load VTK library and print which library was not properly loaded
-	  static {
-	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
-	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
-	        if (!lib.IsLoaded()) {
+	  static
+	  {
+	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) 
+	    {
+	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) 
+	      {
+	        if (!lib.IsLoaded()) 
+		{
 	          System.out.println(lib.GetLibraryName() + " not loaded");
 	        }
 	      }
@@ -30,8 +34,9 @@ public class MultiLineText  {
 	  // -----------------------------------------------------------------
 	  
 
-	  public static void main(String s[]) {
-		  vtkNamedColors Color = new vtkNamedColors(); 
+	  public static void main(String s[]) 
+	  {
+		   vtkNamedColors Color = new vtkNamedColors(); 
 		   //For singleLineTextB Actor Color
 		   double singleLineTextActorBColor[] = new double[4];
 		   //For singleLineTextActorC Color
@@ -205,31 +210,31 @@ public class MultiLineText  {
 		  
 		  vtkActor2D GridActor = new vtkActor2D();
 		  GridActor.SetMapper(Mapper);
-	      GridActor.GetProperty().SetColor(Grid_Actor);
+	          GridActor.GetProperty().SetColor(Grid_Actor);
 		  
 		  
 		  // Create the renderer, render window and interactor.
-	      vtkRenderer ren = new vtkRenderer();
-	      vtkRenderWindow renWin = new vtkRenderWindow();
-	      renWin.AddRenderer(ren);
-	      vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
-	      iren.SetRenderWindow(renWin);
+		  vtkRenderer ren = new vtkRenderer();
+		  vtkRenderWindow renWin = new vtkRenderWindow();
+		  renWin.AddRenderer(ren);
+		  vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
+		  iren.SetRenderWindow(renWin);
 	      
-	      // Visualise the arrow
-	      ren.AddActor2D(textActorL);
-	      ren.AddActor2D(textActorC);
-	      ren.AddActor2D(textActorR);
-	      ren.AddActor2D(singleLineTextActorB);
-	      ren.AddActor2D(singleLineTextActorC);
-	      ren.AddActor2D(singleLineTextActorT);
-	      ren.AddActor2D(GridActor);
-	      ren.SetBackground(BgColor);
+		   // Visualise the arrow
+		   ren.AddActor2D(textActorL);
+		   ren.AddActor2D(textActorC);
+		   ren.AddActor2D(textActorR);
+		   ren.AddActor2D(singleLineTextActorB);
+		   ren.AddActor2D(singleLineTextActorC);
+		   ren.AddActor2D(singleLineTextActorT);
+		   ren.AddActor2D(GridActor);
+		   ren.SetBackground(BgColor);
 	      
-	      renWin.SetSize(500,500);
-	      renWin.Render();
+	           renWin.SetSize(500,500);
+	           renWin.Render();
 
-	      iren.Initialize();
-	      iren.Start();
+	           iren.Initialize();
+	           iren.Start();
 
 	  }
-	} 
+} 
