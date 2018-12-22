@@ -118,6 +118,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [Stripper](/Java/PolyData/Stripper) | vtkStripper | Stripper
 [ColorDisconnectedRegions](/Java/PolyData/ColorDisconnectedRegions) | vtkColorDisconnectedRegions | ColorDisconnectedRegions
+[Reflection](/Java/PolyData/Reflection) | vtkReflection | Reflection
 
 ## Visualization
 
