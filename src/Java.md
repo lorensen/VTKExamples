@@ -15,6 +15,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [TextOrigin](/Java/Annotation/TextOrigin) | vtkTextOrigin | TextOrigin
+[MultiLineText](/Java/Annotation/MultiLineText) | vtkMultiLineText | MultiLineText
 
 ## CompositeData
 
@@ -30,7 +31,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Arrow](/Java/GeometricObjects/Arrow) | vtkArrow | Arrow Visualization
 [Circle](/Java/GeometricObjects/Circle) | vtkCircle |Circle Visualization
 [Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
-[Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
 [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) | vtkEllipticalCylinder | EllipticalCylinder
 [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | ConvexPointSet Visualization
 [Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
@@ -118,6 +118,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [Stripper](/Java/PolyData/Stripper) | vtkStripper | Stripper
 [ColorCells](/Java/PolyData/ColorCells) | vtkColorCells | ColorCells
+[ConvexHullShrinkWrap](/Java/PolyData/ConvexHullShrinkWrap) | vtkConvexHullShrinkWrap | ConvexHullShrinkWrap
+[MeshQuality](/Java/PolyData/MeshQuality) | vtkMeshQuality | MeshQuality
 [ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) | vtkColorCellsWithRGB | ColorCellsWithRGB
 [Reflection](/Java/PolyData/Reflection) | vtkReflection | Reflection
 
