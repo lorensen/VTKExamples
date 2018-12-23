@@ -39,7 +39,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLine | A visualization of a long line
 [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) | vtkOrientedCylinder |Oriented Cylinder visualization
-[OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow | Oriented Arrow visualization 
+[OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow | Oriented Arrow visualization.
 [Polygon](/Java/GeometricObjects/Polygon) | vtkPolygon | Polygon Visualization
 [PlanesIntersection](/Java/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection | PlanesIntersection
 [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource| RegularPolygon Visualization
@@ -55,14 +55,14 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) | vtkHyperTreeGridSource |  HyperTreeGridSource |
+[HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) | vtkHyperTreeGridSource |  Demonstration of a hyper-tree grid source.
 
 ## Geovis
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[EarthSource](/Java/Geovis/EarthSource) | vtkEarthSource | Earth Source Visualization |
-[CompassWidget](/Java/Geovis/CompassWidget) | vtkCompassWidget| CompassWidget Visualization |
+[EarthSource](/Java/Geovis/EarthSource) | vtkEarthSource | Earth Source Visualization
+[CompassWidget](/Java/Geovis/CompassWidget) | vtkCompassWidget| CompassWidget Visualization
 
 ## Input and Output
 
@@ -76,13 +76,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | vtkSphere vtkAppendPolyData vtkTubeFilter | ImplicitFunctions, Append poly data, tube filter, sphere
-[ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet) | vtkImplicitDataSet | 
+[ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet) | Implicit functions, implicit data set.
 
 ## Data Structures
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[VisualizeKDTree](/Java/DataStructures/VisualizeKDTree) | vtkKdTreePointLocator |
+[VisualizeKDTree](/Java/DataStructures/VisualizeKDTree) | vtkKdTreePointLocator | Show the levels of a KD Tree.
 
 ## Image Processing
 
@@ -128,8 +128,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AnimDataCone](/Java/Visualization/AnimDataCone) | vtkRenderWindowInteractor | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
 [Animation](/Java/Visualization/Animation) |  | Move a sphere across a scene
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
-[Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up 
-[WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization 
+[Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
+[WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization.
 
 ## Graphs
 
@@ -149,6 +149,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 
-[AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration | 
-[AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration | 
-[SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget |SplineWidget Demonstration | 
+[AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration
+[AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration
+[SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget | SplineWidget Demonstration
