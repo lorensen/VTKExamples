@@ -10,15 +10,15 @@ public class SwingHandleMouseEvent extends JFrame
   // Loading Native Libraries.
   // Now it works in eclipse without any issues.
   static {
-	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
-	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
-	        if (!lib.IsLoaded()) {
-	          System.out.println(lib.GetLibraryName() + " not loaded");
-	        }
-	      }
-	    }
-	    vtkNativeLibrary.DisableOutputWindow(null);
-	  }
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+        if (!lib.IsLoaded()) {
+          System.out.println(lib.GetLibraryName() + " not loaded");
+        }
+      }
+    }
+    vtkNativeLibrary.DisableOutputWindow(null);
+  }
 
   public SwingHandleMouseEvent()
   {
@@ -55,26 +55,26 @@ public class SwingHandleMouseEvent extends JFrame
 
     // Show the point on the sphere the mouse is hovering over in the status bar
     renderWindowPanel.addMouseMotionListener(new MouseMotionAdapter()
-    {
-      public void mouseMoved(MouseEvent e)
       {
-        // The call to Pick needs to be surrounded by lock and unlock to prevent crashes.
-        renderWindowPanel.lock();
-        int pickSucceeded = cellPicker.Pick(e.getX(), renderWindowPanel.getHeight()-e.getY()-1,
-            0.0, renderWindowPanel.GetRenderer());
-        renderWindowPanel.unlock();
+        public void mouseMoved(MouseEvent e)
+        {
+          // The call to Pick needs to be surrounded by lock and unlock to prevent crashes.
+          renderWindowPanel.lock();
+          int pickSucceeded = cellPicker.Pick(e.getX(), renderWindowPanel.getHeight()-e.getY()-1,
+                                              0.0, renderWindowPanel.GetRenderer());
+          renderWindowPanel.unlock();
 
-        if (pickSucceeded == 1)
-        {
-          double[] p = cellPicker.GetPickPosition();
-          label.setText("Position: " + p[0] + ", " + p[1] + ", " + p[2]);
+          if (pickSucceeded == 1)
+          {
+            double[] p = cellPicker.GetPickPosition();
+            label.setText("Position: " + p[0] + ", " + p[1] + ", " + p[2]);
+          }
+          else
+          {
+            label.setText(" ");
+          }
         }
-        else
-        {
-          label.setText(" ");
-        }
-      }
-    });
+      });
   }
 
   public static void main(String[] args)
@@ -82,18 +82,18 @@ public class SwingHandleMouseEvent extends JFrame
     try
     {
       javax.swing.SwingUtilities.invokeLater(new Runnable()
-      {
-        public void run()
         {
-          JPopupMenu.setDefaultLightWeightPopupEnabled(false);
-          ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
+          public void run()
+          {
+            JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+            ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
 
-          JFrame frame = new SwingHandleMouseEvent();
-          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          frame.pack();
-          frame.setVisible(true);
-        }
-      });    	
+            JFrame frame = new SwingHandleMouseEvent();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setVisible(true);
+          }
+        });    	
     }
     catch (Exception e)
     {

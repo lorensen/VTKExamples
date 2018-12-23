@@ -5,7 +5,7 @@ import vtk.*;
 public class JFrameRenderer extends JFrame
 {
 
-   static {
+  static {
     if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
       for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
         if (!lib.IsLoaded()) {
@@ -43,7 +43,7 @@ public class JFrameRenderer extends JFrame
   }
 
   public void render() {
-     renderWindowPanel.Render();
+    renderWindowPanel.Render();
   }
 
   public static void main(String[] args)
@@ -51,19 +51,19 @@ public class JFrameRenderer extends JFrame
     try
     {
       javax.swing.SwingUtilities.invokeLater(new Runnable()
-      {
-        public void run()
         {
-          JPopupMenu.setDefaultLightWeightPopupEnabled(false);
-          ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
+          public void run()
+          {
+            JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+            ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
 
-          JFrame frame = new JFrameRenderer();
-          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          frame.pack();
-          frame.setVisible(true);
-          frame.render();
-        }
-      });    	
+            JFrame frame = new JFrameRenderer();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setVisible(true);
+            frame.render();
+          }
+        });    	
     }
     catch (Exception e)
     {

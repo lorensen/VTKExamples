@@ -23,104 +23,104 @@ public class VectorFieldExample implements Serializable {
   // Loading Native Libraries.
   // Now it works in eclipse without any issues.
   static {
-	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
-	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
-	        if (!lib.IsLoaded()) {
-	          System.out.println(lib.GetLibraryName() + " not loaded");
-	        }
-	      }
-	    }
-	    vtkNativeLibrary.DisableOutputWindow(null);
-	  }
-    private static final long serialVersionUID = 1L;
-
-    public static vtkPanel showVectorField(
-            File file,
-            int elementInFile,
-            double threshold,
-            double scaleFactor) {
-
-        vtkXMLUnstructuredGridReader reader = new vtkXMLUnstructuredGridReader();
-
-        reader.SetFileName(file.getAbsolutePath());
-        reader.Update();
-        vtkUnstructuredGrid image = reader.GetOutput();
-        image.GetPointData().SetVectors(image.GetPointData().GetArray(elementInFile));
-
-        vtkThresholdPoints thresholdVector = new vtkThresholdPoints();
-        thresholdVector.SetInputData(image);
-        thresholdVector.SetInputArrayToProcess(
-                elementInFile,
-                image.GetInformation());
-
-        thresholdVector.ThresholdByUpper(threshold);
-        thresholdVector.Update();
-
-
-        // represent vector field
-        vtkGlyph3D vectorGlyph = new vtkGlyph3D();
-        vtkArrowSource arrowSource = new vtkArrowSource();
-        vtkPolyDataMapper vectorGlyphMapper = new vtkPolyDataMapper();
-
-        int n = image.GetPointData().GetNumberOfArrays();
-        for (int i = 0; i < n; i++) {
-            System.out.println("name of array[" + i + "]: " + image.GetPointData().GetArrayName(i));
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+        if (!lib.IsLoaded()) {
+          System.out.println(lib.GetLibraryName() + " not loaded");
         }
+      }
+    }
+    vtkNativeLibrary.DisableOutputWindow(null);
+  }
+  private static final long serialVersionUID = 1L;
 
-        vtkPolyData tmp = thresholdVector.GetOutput();
-        System.out.println("number of thresholded points: " + tmp.GetNumberOfPoints());
+  public static vtkPanel showVectorField(
+    File file,
+    int elementInFile,
+    double threshold,
+    double scaleFactor) {
 
-        vectorGlyph.SetInputData(image);
-        vectorGlyph.SetSourceConnection(arrowSource.GetOutputPort());
-        vectorGlyph.SetScaleModeToScaleByVector();
-        vectorGlyph.SetVectorModeToUseVector();
-        vectorGlyph.ScalingOn();
-        vectorGlyph.OrientOn();
-        vectorGlyph.SetInputArrayToProcess(
-                elementInFile,
-                image.GetInformation());
+    vtkXMLUnstructuredGridReader reader = new vtkXMLUnstructuredGridReader();
 
-        vectorGlyph.SetScaleFactor(scaleFactor);
+    reader.SetFileName(file.getAbsolutePath());
+    reader.Update();
+    vtkUnstructuredGrid image = reader.GetOutput();
+    image.GetPointData().SetVectors(image.GetPointData().GetArray(elementInFile));
 
-        vectorGlyph.Update();
+    vtkThresholdPoints thresholdVector = new vtkThresholdPoints();
+    thresholdVector.SetInputData(image);
+    thresholdVector.SetInputArrayToProcess(
+      elementInFile,
+      image.GetInformation());
 
-        vectorGlyphMapper.SetInputConnection(vectorGlyph.GetOutputPort());
-        vectorGlyphMapper.Update();
-
-        vtkActor vectorActor = new vtkActor();
-        vectorActor.SetMapper(vectorGlyphMapper);
-
+    thresholdVector.ThresholdByUpper(threshold);
+    thresholdVector.Update();
 
 
-        vtkPanel vis = new vtkPanel();
-        vis.GetRenderer().AddActor(vectorActor);
+    // represent vector field
+    vtkGlyph3D vectorGlyph = new vtkGlyph3D();
+    vtkArrowSource arrowSource = new vtkArrowSource();
+    vtkPolyDataMapper vectorGlyphMapper = new vtkPolyDataMapper();
 
-        return vis;
+    int n = image.GetPointData().GetNumberOfArrays();
+    for (int i = 0; i < n; i++) {
+      System.out.println("name of array[" + i + "]: " + image.GetPointData().GetArrayName(i));
     }
 
-    public static void main(String s[]) throws IOException {
+    vtkPolyData tmp = thresholdVector.GetOutput();
+    System.out.println("number of thresholded points: " + tmp.GetNumberOfPoints());
+
+    vectorGlyph.SetInputData(image);
+    vectorGlyph.SetSourceConnection(arrowSource.GetOutputPort());
+    vectorGlyph.SetScaleModeToScaleByVector();
+    vectorGlyph.SetVectorModeToUseVector();
+    vectorGlyph.ScalingOn();
+    vectorGlyph.OrientOn();
+    vectorGlyph.SetInputArrayToProcess(
+      elementInFile,
+      image.GetInformation());
+
+    vectorGlyph.SetScaleFactor(scaleFactor);
+
+    vectorGlyph.Update();
+
+    vectorGlyphMapper.SetInputConnection(vectorGlyph.GetOutputPort());
+    vectorGlyphMapper.Update();
+
+    vtkActor vectorActor = new vtkActor();
+    vectorActor.SetMapper(vectorGlyphMapper);
 
 
-        SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
+    vtkPanel vis = new vtkPanel();
+    vis.GetRenderer().AddActor(vectorActor);
 
-                JFrame frame = new JFrame("VTKJPanel Demo");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    return vis;
+  }
 
-                File file = new File("../src/Testing/Data/tetra.vtu"); // needs to be replaced
+  public static void main(String s[]) throws IOException {
 
-                vtkPanel panel = showVectorField(file, 2, 0.001, 0.05); // values need to be replaced
 
-                frame.add(panel, BorderLayout.CENTER);
-                frame.setSize(600, 600);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+    SwingUtilities.invokeLater(new Runnable() {
 
-                panel.repaint();
+        @Override
+        public void run() {
 
-            }
-        });
-    }
+          JFrame frame = new JFrame("VTKJPanel Demo");
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+          File file = new File("../src/Testing/Data/tetra.vtu"); // needs to be replaced
+
+          vtkPanel panel = showVectorField(file, 2, 0.001, 0.05); // values need to be replaced
+
+          frame.add(panel, BorderLayout.CENTER);
+          frame.setSize(600, 600);
+          frame.setLocationRelativeTo(null);
+          frame.setVisible(true);
+
+          panel.repaint();
+
+        }
+      });
+  }
 }

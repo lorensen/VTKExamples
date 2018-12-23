@@ -44,38 +44,38 @@ public class Sphere extends JPanel implements ActionListener {
   public Sphere() {
     super(new BorderLayout());
 
-  //Create a Sphere
-  vtkSphereSource Sphere = new vtkSphereSource();
-  Sphere.SetCenter(0.0,0.0,0.0);
-  Sphere.SetRadius(1.0);
-  Sphere.Update();
+    //Create a Sphere
+    vtkSphereSource Sphere = new vtkSphereSource();
+    Sphere.SetCenter(0.0,0.0,0.0);
+    Sphere.SetRadius(1.0);
+    Sphere.Update();
   
-  //Change Phi and Theta Value for Smooth Surface
-  Sphere.SetPhiResolution(10);
-  Sphere.SetThetaResolution(10);
+    //Change Phi and Theta Value for Smooth Surface
+    Sphere.SetPhiResolution(10);
+    Sphere.SetThetaResolution(10);
   
-  //Create a Mapper and Actor
-  vtkPolyDataMapper Mapper = new vtkPolyDataMapper();
-  Mapper.SetInputConnection(Sphere.GetOutputPort());
+    //Create a Mapper and Actor
+    vtkPolyDataMapper Mapper = new vtkPolyDataMapper();
+    Mapper.SetInputConnection(Sphere.GetOutputPort());
 
-  vtkActor Actor = new vtkActor();
-  Actor.SetMapper(Mapper);
-  Actor.GetProperty().SetColor(1.0, 1.0, 1.0);
-  //Setting up the wireframe property to Sphere. Comment the below line to display Solid Sphere
-  Actor.GetProperty().SetRepresentationToWireframe();
+    vtkActor Actor = new vtkActor();
+    Actor.SetMapper(Mapper);
+    Actor.GetProperty().SetColor(1.0, 1.0, 1.0);
+    //Setting up the wireframe property to Sphere. Comment the below line to display Solid Sphere
+    Actor.GetProperty().SetRepresentationToWireframe();
  
   
    
-  renWin = new vtkPanel();
-  renWin.GetRenderer().AddActor(Actor);
-  renWin.resetCamera();
+    renWin = new vtkPanel();
+    renWin.GetRenderer().AddActor(Actor);
+    renWin.resetCamera();
 
-  // Add Java UI components
-  exitButton = new JButton("Exit");
-  exitButton.addActionListener(this);
+    // Add Java UI components
+    exitButton = new JButton("Exit");
+    exitButton.addActionListener(this);
 
-  add(renWin, BorderLayout.CENTER);
-  add(exitButton, BorderLayout.SOUTH);
+    add(renWin, BorderLayout.CENTER);
+    add(exitButton, BorderLayout.SOUTH);
   }
 
   /** An ActionListener that listens to the button. */
@@ -87,15 +87,15 @@ public class Sphere extends JPanel implements ActionListener {
 
   public static void main(String s[]) {
     SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
-        JFrame frame = new JFrame("Sphere");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new BorderLayout());
-        frame.getContentPane().add(new Sphere(), BorderLayout.CENTER);
-        frame.setSize(400, 400);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-      }
-    });
+        public void run() {
+          JFrame frame = new JFrame("Sphere");
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          frame.getContentPane().setLayout(new BorderLayout());
+          frame.getContentPane().add(new Sphere(), BorderLayout.CENTER);
+          frame.setSize(400, 400);
+          frame.setLocationRelativeTo(null);
+          frame.setVisible(true);
+        }
+      });
   }
 }

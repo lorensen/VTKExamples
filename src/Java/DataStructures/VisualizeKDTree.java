@@ -5,15 +5,15 @@ public class VisualizeKDTree
   // Loading Native Libraries.
   // Now it works in eclipse without any issues.
   static {
-	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
-	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
-	        if (!lib.IsLoaded()) {
-	          System.out.println(lib.GetLibraryName() + " not loaded");
-	        }
-	      }
-	    }
-	    vtkNativeLibrary.DisableOutputWindow(null);
-	  }
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+        if (!lib.IsLoaded()) {
+          System.out.println(lib.GetLibraryName() + " not loaded");
+        }
+      }
+    }
+    vtkNativeLibrary.DisableOutputWindow(null);
+  }
 
   static class vtkSliderCallback
   {
