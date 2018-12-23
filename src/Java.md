@@ -9,7 +9,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 !!! info
     [This table](/Coverage/JavaVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
-    
+
 ## Annotation
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -23,7 +23,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper) | vtkCompositePolyDataMapper | CompositePolyDataMapper
 
-
 ## GeometricObjects
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -33,7 +32,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
 [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) | vtkEllipticalCylinder | EllipticalCylinder
 [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | ConvexPointSet Visualization
-[Cylinder](/Java/GeometricObjects/Cylinder) | vtkCylinder | Cylinder Visualization
 [CylinderExample](/Java/GeometricObjects/CylinderExample) | vtkCylinder |  Cylinder example from the VTK Textbook and source code. A hello world example.
 [Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
 [Cube](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
@@ -53,13 +51,11 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
 [TriangleStrip](/Java/GeometricObjects/TriangleStrip) | vtkTriangleStrip | Triangle Strip Visualization
 
-
-##  HyperTreeGrid
+## HyperTreeGrid
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) | vtkHyperTreeGridSource |  HyperTreeGridSource |
-
 
 ## Geovis
 
@@ -67,8 +63,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [EarthSource](/Java/Geovis/EarthSource) | vtkEarthSource | Earth Source Visualization |
 [CompassWidget](/Java/Geovis/CompassWidget) | vtkCompassWidget| CompassWidget Visualization |
-
-
 
 ## Input and Output
 
@@ -103,7 +97,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [SpotLight](/Java/Lighting/SpotLight) | vtkSpotLight | vtkSpotLight Demonstration
 [LightActor](/Java/Lighting/LightActor) | vtkLightActor| vtkLightActor Demonstration
 
-
 ## Miscellaneous
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -127,7 +120,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [MeshQuality](/Java/PolyData/MeshQuality) | vtkMeshQuality | MeshQuality
 [ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) | vtkColorCellsWithRGB | ColorCellsWithRGB
 [Reflection](/Java/PolyData/Reflection) | vtkReflection | Reflection
-
 
 ## Visualization
 
@@ -160,4 +152,3 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration | 
 [AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration | 
 [SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget |SplineWidget Demonstration | 
-
