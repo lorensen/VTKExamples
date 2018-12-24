@@ -524,7 +524,7 @@ for lang, langExt in Languages.items():
                 description = AddDoxygen(description)
                 # Add examples from other languages if they exist
                 if len(otherLanguages) > 0 :
-                    seeAlso = '!!! Tip "Other Languages"\n'
+                    seeAlso = '\n!!! Tip "Other Languages"\n'
                     see = "    See "
                     for other in otherLanguages :
                         seeAlso += see + other
