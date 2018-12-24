@@ -10,6 +10,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 !!! info
     [This table](/Coverage/JavaVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
 
+## Hello World
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[A hello world example](/Java/GeometricObjects/CylinderExample) | vtkPolyDataMapper vtkActor vtkRenderer vtkRenderWindow vtkRenderWindowInteractor |  Cylinder example from the VTK Textbook and source code. A hello world example.
+
+
 ## Annotation
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -32,7 +39,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Cone](/Java/GeometricObjects/Cone) | vtkCone | Cone Visualization
 [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) | vtkEllipticalCylinder | EllipticalCylinder
 [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | ConvexPointSet Visualization
-[CylinderExample](/Java/GeometricObjects/CylinderExample) | vtkCylinder |  Cylinder example from the VTK Textbook and source code. A hello world example.
 [Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
 [Cube](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
 [Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
