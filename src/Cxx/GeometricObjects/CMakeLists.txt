@@ -28,7 +28,7 @@ if (BUILD_TESTING)
 set(KIT GeometricObjects)
 set(NEEDS_ARGS
     QuadraticHexahedron
-    TessellatedBoxSource 
+    TessellatedBoxSource
 )
 
 add_test(${KIT}-QuadraticHexahedron ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
