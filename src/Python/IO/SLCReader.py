@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import vtk
-
 def main():
 	InputFilename = get_program_parameters()
 	colors = vtk.vtkNamedColors()
@@ -43,11 +42,10 @@ def main():
 	renderer.AddActor(actor)
 	renderer.SetBackground(colors.GetColor3d("lemon_chiffon"))
 
-    # Enable user interface interactor
+    	# Enable user interface interactor
 	renderWindow.Render()
 	renderWindowInteractor.Initialize()
 	renderWindowInteractor.Start()
-
 def get_program_parameters():
         import argparse
         description = 'The following example demonstrates how to read a .slc file using vtkSLCReader and how to render it with VTK.'
@@ -56,8 +54,5 @@ def get_program_parameters():
         parser.add_argument('filename1', help='vw_knee.slc.')
         args = parser.parse_args()
         return args.filename1
-
 if __name__ == '__main__':
     main()
-    
-    
