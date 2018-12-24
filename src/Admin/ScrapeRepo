@@ -522,17 +522,19 @@ for lang, langExt in Languages.items():
                 description = DescriptionFile.read()
                 DescriptionFile.close()
                 description = AddDoxygen(description)
-                # Add examples from other languages if they exist
-                if len(otherLanguages) > 0 :
-                    seeAlso = '\n!!! Tip "Other Languages"\n'
-                    see = "    See "
-                    for other in otherLanguages :
-                        seeAlso += see + other
-                        see = ", "
+                MdFile.write(description)
+            # Add examples from other languages if they exist
+            if len(otherLanguages) > 0 :
+                seeAlso = '\n!!! Tip "Other Languages"\n'
+                see = "    See "
+                for other in otherLanguages :
+                    seeAlso += see + other
+                    see = ", "
                     seeAlso += "\n"
                     description += seeAlso
-                MdFile.write(description)
+                MdFile.write(seeAlso)
                 MdFile.write("\n")
+
             SrcFileName = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
             SrcFile = open(SrcFileName, 'r')
             src = SrcFile.read()
