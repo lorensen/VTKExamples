@@ -530,8 +530,7 @@ for lang, langExt in Languages.items():
                 for other in otherLanguages :
                     seeAlso += see + other
                     see = ", "
-                    seeAlso += "\n"
-                    description += seeAlso
+                seeAlso += "\n"
                 MdFile.write(seeAlso)
                 MdFile.write("\n")
 
