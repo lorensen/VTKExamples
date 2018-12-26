@@ -34,7 +34,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[STLReader](/Python/IO/STLReader) | vtkSTLReader |
+[STLReader](/Python/IO/SLCReader) | vtkSLCReader | Read an SLC file.
+[STLReader](/Python/IO/STLReader) | vtkSTLReader | Read an STL file.
 [UnstructuredGridReader](/Python/IO/UnstructuredGridReader) | vtkUnstructuredGridReader | Using vtkUnstructuredGridReader to read a (legacy) *.vtk file
 [VTPReader](/Python/IO/VTPReader) | vtkXMLPolyDataReader | Needs fixing.
 
