@@ -348,18 +348,21 @@ AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", 
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/VTKFileFormats.md", DocDir + "/VTKFileFormats.md")
 
 # C++ Snippets
-snippets = ['ReadPolyData', 'SaveSceneToFieldData', 'SaveSceneToFile', 'RestoreSceneFromFieldData', 'RestoreSceneFromFile', 'ChooseContrastingColor', 'ViewportBorders', 'WriteImage']
-for snippet in snippets:
+files = os.listdir(RepoDir + "/Cxx/Snippets")
+for f in files:
+    snippet = os.path.splitext(f)[0]
     CopyFile(RepoDir + '/Cxx/Snippets/' + snippet + '.md', DocDir + '/Cxx/Snippets/' + snippet + '.md')
 
 # Python Snippets
-snippets = ['GetProgramParameters', 'ReadPolyData', 'WriteImage']
-for snippet in snippets:
+files = os.listdir(RepoDir + "/Python/Snippets")
+for f in files:
+    snippet = os.path.splitext(f)[0]
     CopyFile(RepoDir + '/Python/Snippets/' + snippet + '.md', DocDir + '/Python/Snippets/' + snippet + '.md')
 
 # Java Snippets
-snippets = ['WriteImage']
-for snippet in snippets:
+files = os.listdir(RepoDir + "/Java/Snippets")
+for f in files:
+    snippet = os.path.splitext(f)[0]
     CopyFile(RepoDir + '/Java/Snippets/' + snippet + '.md', DocDir + '/Java/Snippets/' + snippet + '.md')
 
 # Copy favicon.png
