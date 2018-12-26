@@ -3,6 +3,9 @@ Snippets are chunks of code that can be cut (*snipped*) and pasted into examples
 
 ### Available snippets
 
+#### [ExampleTemplate](/Cxx/Snippets/ExampleTemplate}
+A standard template for a vtk program that renders vtkPolyData
+
 #### [ReadPolyData](/Cxx/Snippets/ReadPolyData.md)
 Uses the appropriate vtkPolyData reader to read any vtkPolyData file.
 

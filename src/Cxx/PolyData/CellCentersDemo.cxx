@@ -21,6 +21,10 @@
 
 #include <vtkSphereSource.h>
 #include <vtkNamedColors.h>
+#include <vtkColor.h>
+
+#include <vector>
+#include <algorithm>
 
 namespace
 {
@@ -29,16 +33,20 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
 
 int main (int argc, char *argv[])
 {
+  // Define the colors used in the example
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
+  vtkColor3d actorColor      = colors->GetColor3d("Banana");
+  vtkColor3d pointActorColor = colors->GetColor3d("Peacock");
+  vtkColor3d backgroundColor = colors->GetColor3d("Silver");
 
   // Read the polydata
   vtkSmartPointer<vtkPolyData> polyData =
     ReadPolyData(argc > 1 ? argv[1] : "");
   
-  double bounds[6];
-  polyData->GetBounds(bounds);
-  double range[3];
+  std::vector<double> bounds(6);;
+  polyData->GetBounds(&bounds[0]);
+  std::vector<double> range(3);
   for (int i = 0; i < 3; ++i)
   {
     range[i] = bounds[2*i + 1] - bounds[2*i];
@@ -52,8 +60,8 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkCellCenters>::New();
   centers->SetInputData(polyData);
     
-  double maxRange = std::max(std::max(range[0], range[1]), range[2]);
-  double radius = maxRange * .0025;
+  auto maxRange = std::max_element(range.begin(), range.end());
+  double radius = *maxRange * .0025;
   vtkSmartPointer<vtkSphereSource> sphere =
     vtkSmartPointer<vtkSphereSource>::New();
   sphere->SetPhiResolution(11);
@@ -68,7 +76,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> pointActor =
     vtkSmartPointer<vtkActor>::New();
   pointActor->SetMapper(pointMapper);
-  pointActor->GetProperty()->SetColor(colors->GetColor3d("Peacock").GetData());
+  pointActor->GetProperty()->SetColor(pointActorColor.GetData());
 
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -77,7 +85,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
-  actor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
+  actor->GetProperty()->SetColor(actorColor.GetData());
   actor->GetProperty()->EdgeVisibilityOn();
   actor->GetProperty()->SetInterpolationToFlat();
 
@@ -98,7 +106,7 @@ int main (int argc, char *argv[])
   renderer->GetActiveCamera()->Elevation(30);
   renderer->GetActiveCamera()->Dolly(1.5);
   renderer->ResetCameraClippingRange();
-  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
+  renderer->SetBackground(backgroundColor.GetData());
 
   renderWindow->SetSize(640, 480);
   renderWindow->Render();

@@ -795,7 +795,7 @@ coneActor.SetMapper ( coneMapper )
 
 ren1 = vtk.vtkRenderer ()
 ren1.AddActor( coneActor )
-ren1.SetBackground (colors.GetColor3d (’MidnightBlue’))
+ren1.SetBackground (colors.GetColor3d ("MidnightBlue"))
 
 renWin = vtk.vtkRenderWindow ()
 renWin.AddRenderer (ren1)
