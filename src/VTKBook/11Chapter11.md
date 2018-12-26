@@ -13,9 +13,9 @@ While certainly a viable means of sharing information, there are two important s
 
 Using the Web this scenario changes significantly. It is now possible to create reports so that other researchers can interact directly with the data, including visualizing the results in an alternative form. The Web also provides the opportunity to publish results immediately so that anyone with Web access can view them. Additionally, results can be modified as your work progresses so that they are always up to date. 
 
-Another motivation for visualization over the Web is collaboration. If a researcher is performing a visualization of a dataset at one site, there are a number of hurdles preventing someone at another site from doing the same. For starters, the data, which could be sizable, must be copied, or sent from one site to the other. Then the software being used must be available at both sites which may not even be possible depending on the hardware available. The popularity of cross-platform systems such as AVS, IBM’s Data Explorer, and VTK have helped this situation, but even then the software and data reside at both locations. This is frequently referred to as client-side visualization because all steps of the visualization are performed at the collaboration (or client) sites. In contrast, server-side visualization occurs when all of the visualization is done at one centralized location called the server. The results of the server-side visualization are then sent to collaboration sites. 
+Another motivation for visualization over the Web is collaboration. If a researcher is performing a visualization of a dataset at one site, there are a number of hurdles preventing someone at another site from doing the same. For starters, the data, which could be sizable, must be copied, or sent from one site to the other. Then the software being used must be available at both sites which may not even be possible depending on the hardware available. The popularity of cross-platform systems such as AVS, IBM's Data Explorer, and VTK have helped this situation, but even then the software and data reside at both locations. This is frequently referred to as client-side visualization because all steps of the visualization are performed at the collaboration (or client) sites. In contrast, server-side visualization occurs when all of the visualization is done at one centralized location called the server. The results of the server-side visualization are then sent to collaboration sites. 
 
-The Web opens up the opportunity to perform mixed client/server visualization that has a number of benefits. First, let’s consider the drawbacks to client-side only visualization. As mentioned in the preceding discussion, client-side visualization requires both the data and the software at the client. If the datasets are very large it may be impractical to transfer the data over the Web. Since the server doesn’t know what the client is going to do with the data, all of the data must be sent. Additionally, the client may not have sufficient memory or performance to perform the visualization. The advantages of client-side visualization are that the user has complete control over the visualization and can interact with or modify it at will. 
+The Web opens up the opportunity to perform mixed client/server visualization that has a number of benefits. First, let's consider the drawbacks to client-side only visualization. As mentioned in the preceding discussion, client-side visualization requires both the data and the software at the client. If the datasets are very large it may be impractical to transfer the data over the Web. Since the server doesn't know what the client is going to do with the data, all of the data must be sent. Additionally, the client may not have sufficient memory or performance to perform the visualization. The advantages of client-side visualization are that the user has complete control over the visualization and can interact with or modify it at will. 
 
 With server-side visualization the most significant loss is in interaction. A server-side only visualization is much like publishing a report. The clients have very little control over the images and animations it produces. The advantage is that the results are easily viewed from any client without requiring special hardware or software. As we will see in the remaining sections, the advantage of using recently developed Web technology is that we can mix server-, and client-side visualization much more readily than before, providing the benefits of both. 
 
@@ -38,11 +38,11 @@ For example, consider a situation where you would like to perform an isosurface 
 In this page we show an MPEG animation of a visualization of the visible woman dataset. The MPEG is stored in a file tissue.mpg. We also have taken one frame from the animation and stored it as a static JPEG image tissue.jpg. We display the JPEG image so that someone visiting the site will have an idea of what the mpeg animation will contain.
 
 <br>
-<A HREF=”tissue.mpg”><IMG SRC=”tissue.jpg”> <br>Click here for an MPEG Animation</A>
+<A HREF="issue.mpg"><IMG SRC="tissue.jpg"> <br>Click here for an MPEG Animation</A>
 ```
 
-The title and text description are followed by `<A HREF=”tissue.mpg”>` which associates the MPEG file, tissue.mpg, with whatever comes between the first `<A>` and the closing `</A>`. In this example there is a JPEG image and a line of text. Clicking on either of these will play the MPEG animation.
-Now let’s use CGI and an HTML form to enable the client to change the isosurface value. The first step is to obtain the desired isosurface value from the client using an HTML form such as **Figure 11-2**. The form was generated by the following HTML code:
+The title and text description are followed by `<A HREF="tissue.mpg">` which associates the MPEG file, tissue.mpg, with whatever comes between the first `<A>` and the closing `</A>`. In this example there is a JPEG image and a line of text. Clicking on either of these will play the MPEG animation.
+Now let's use CGI and an HTML form to enable the client to change the isosurface value. The first step is to obtain the desired isosurface value from the client using an HTML form such as **Figure 11-2**. The form was generated by the following HTML code:
 
 
 <figure id="Figure 11-2">
@@ -52,7 +52,7 @@ Now let’s use CGI and an HTML form to enable the client to change the isosurfa
 
 ``` xml
 <HEAD><TITLE>Sample MPEG Animation Page</TITLE></HEAD>
-<FORM METHOD=”POST” ACTION=”/cgi-bin/makempg.csh”>
+<FORM METHOD="POST" ACTION="/cgi-bin/makempg.csh">
 
 In this page we show the use of HTML forms to allow the client (or viewer) to send information to the server. In this example the user can select to show the bones, make them transparent and select the isosurface value to use. These parameters then get passed to the CGI-BIN script _makempg.csh_
 
@@ -68,13 +68,13 @@ In this page we show the use of HTML forms to allow the client (or viewer) to se
     <OPTION>1200
     <OPTION SELECTED>1100 <OPTION>1000 <OPTION>900
    </SELECT><BR>
-<P><INPUT TYPE=”submit”
-VALUE=”Generate an MPEG Animation”></FORM></P>
+<P><INPUT TYPE="submit"
+VALUE="Generate an MPEG Animation"></FORM></P>
 ```
 
 The FORM keyword starts the definition of the HTML form. The `ACTION` keyword indicates what should happen when the form is submitted. In this example the server will run a `CGI-BIN` script called `makempg.csh` when a client submits this form. Next the two pull-down menus are declared with the `SELECT` keyword. The `NAME` keyword sets up an association between a string name and the value for this menu. This will be used by the script makempg.csh to access the values from the form. The `OPTION` and `SELECTED` keywords provide a mechanism to specify the values for the menu and what value the default should be. Finally, the last two lines create the button that will submit the form when pressed.
 
-Once the client has submitted the form, the server will execute the `CGI-BIN` script and pass it the arguments from the form. The script will then generate a new MPEG animation based on the client’s request and return it to the client.
+Once the client has submitted the form, the server will execute the `CGI-BIN` script and pass it the arguments from the form. The script will then generate a new MPEG animation based on the client's request and return it to the client.
 
 While these examples demonstrate a closed loop of interaction between the client and server, there are two remaining problems. First, this approach places the entire computational load on the server. While this may be viable for some applications, some servers literally receive millions of client requests a day, severely straining server resources. Second, while the process is interactive, the lag time between making a change and seeing the result can be considerable, depending on the length of the animation and the communication bandwidth. Better solutions are now available to improve interactivity.
 
@@ -89,7 +89,7 @@ HTML is a powerful tool for creating hypertext documents; however, it does not d
 
 As a result of this need for greater interactivity, a new content type appeared referred to as the Virtual Reality Modeling Language (VRML). The idea behind VRML was to create a standard definition for transmitting 3D content over the Web. Having its origins in an early system called Labyrinth, which is in turn based on Reality Lab from Rendermorphics, it quickly evolved to the VRML 1.0 specification based on Open Inventor from Silicon Graphics. 
 
-A VRML 1.0 file (typically with a .wrl extension, abbreviated from world) contains a scene graph representation of a 3D world (e.g., a scene). Consider **Figure 11-3** which shows a simple scene. It is a directed graph that is traversed depth first from top to bottom with the content of the graph in its nodes (the circles). In this figure the top node is a group node that collects child nodes together. The light is a directional light node and the second group node represents an isosurface. The isosurface group node is represented by three children nodes: one to control the material properties, a general transformation, and finally the 3D geometry. VRML and Open Inventor support Geometry (e.g., isosurface) many different types of nodes including some support for animation. (See also [“Alternative Visual Programming Models”](/VTKBook/04Chapter4/#alternative-visual-programming-models) in [Chapter 4](/VTKBook/04Chapter4) for more information.)
+A VRML 1.0 file (typically with a .wrl extension, abbreviated from world) contains a scene graph representation of a 3D world (e.g., a scene). Consider **Figure 11-3** which shows a simple scene. It is a directed graph that is traversed depth first from top to bottom with the content of the graph in its nodes (the circles). In this figure the top node is a group node that collects child nodes together. The light is a directional light node and the second group node represents an isosurface. The isosurface group node is represented by three children nodes: one to control the material properties, a general transformation, and finally the 3D geometry. VRML and Open Inventor support Geometry (e.g., isosurface) many different types of nodes including some support for animation. (See also ["Alternative Visual Programming Models"](/VTKBook/04Chapter4/#alternative-visual-programming-models) in [Chapter 4](/VTKBook/04Chapter4) for more information.)
 
 The basic idea behind VRML 1.0 is that the 3D content can be downloaded from the server and then interacted with the client. There are many Web browsers that support VRML and most take advantage of client-side graphics hardware if available. This helps address both the server-load problem and the interaction lag time associated with the earlier approach of server-generated MPEG animations. Like HTML, VRML supports active links so that navigating through a door in one VRML world can send you to new VRML (or HTML) sites.
 
@@ -103,8 +103,8 @@ vtkRenderWindow renWin
 # create pipeline
 #
 vtkPLOT3DReader pl3d
-  pl3d SetXYZFileName “$VTK_DATA_ROOT/Data/combxyz.bin”
-  pl3d SetQFileName “$VTK_DATA_ROOT/Data/combq.bin”
+  pl3d SetXYZFileName "$VTK_DATA_ROOT/Data/combxyz.bin"
+  pl3d SetQFileName "$VTK_DATA_ROOT/Data/combq.bin"
   pl3d SetScalarFunctionNumber 100
   pl3d SetVectorFunctionNumber 202
 vtkContourFilter iso
@@ -150,18 +150,18 @@ If you consider a continuum from a static data file to a fully interactive visua
 
 We can improve on the earlier MPEG visualization server example by creating a VRML visualization server. The primary limitations of the MPEG approach were that the processing burden was on the server, and the client-side interaction was limited to requesting that a different MPEG animation be generated. In our improved example, the basic idea is the same as before. That is, we use a HTML form to define parameters for a visualization, which then spawns off a CGI-BIN script. The difference is that in this example the server will generate a VRML data file that is returned to the client. The client can then control the viewpoint and rendering of the VRML result. The data and visualization software still reside on the server, so the client is only required to have a VRML compatible Web browser.
 
-The HTML form is essentially the same as the one used to generate **Figure 11-2**. What changes is that the CGI-BIN script now needs to produce a VRML file instead of an MPEG. So instead of the form invoking `makempg.csh`, it will invoke a C++ executable named VRMLServer. This executable will parse the inputs from the form and then write out a VRML file to its standard output. The first part of the program parses the arguments from the form. The server passes these arguments as a single string to the program’s standard input. At the same time an environment variable named CONTENT_LENGTH is set to the length of this input. In this example there are two values passed from the form: iso and isoval. According to convention they are separated by a “&” when passed to the CGI-BIN script. The following C++ code extracts these values from the input string and performs some quick error checking.
+The HTML form is essentially the same as the one used to generate **Figure 11-2**. What changes is that the CGI-BIN script now needs to produce a VRML file instead of an MPEG. So instead of the form invoking `makempg.csh`, it will invoke a C++ executable named VRMLServer. This executable will parse the inputs from the form and then write out a VRML file to its standard output. The first part of the program parses the arguments from the form. The server passes these arguments as a single string to the program's standard input. At the same time an environment variable named CONTENT_LENGTH is set to the length of this input. In this example there are two values passed from the form: iso and isoval. According to convention they are separated by a "&" when passed to the CGI-BIN script. The following C++ code extracts these values from the input string and performs some quick error checking.
 
 ``` c++
 // first get the form data
-env = getenv(“CONTENT_LENGTH”);
+env = getenv("CONTENT_LENGTH");
 if (!env) return -1;
 int inputLength = atoi(env);
 // a quick sanity check on the input
 if ((inputLength > 40)||(inputLength < 17)) return -1;
 cin >> arg1;
 
-if (strncmp(arg1,”isoval=”,7) == 0)
+if (strncmp(arg1,"isoval=",7) == 0)
   {
   isoval = atof(arg1 + 7);
   strcpy(isoType,arg1 + 11);
@@ -170,19 +170,19 @@ else
   {
   isoval = atof(arg1 + inputLength - 4);
   strncpy(isoType,arg1 + 4,inputLength - 16);
-  isoType[inputLength - 16] = ‘\0’;
+  isoType[inputLength - 16] = '\0';
   }
 ```
 
-This code is specific to the parameters in this example, but generic argument extraction routines such as cgic (see http://www.boutell.com/cgic/) can be used. Once the form data has been obtained, it can be used to set up the visualization pipeline as usual. In the following code, an isosurface is added to the renderer based on the isoType input from the form. Likewise if isoType is set to “Transparent” then that actor’s opacity is set to 0.5.
+This code is specific to the parameters in this example, but generic argument extraction routines such as cgic (see http://www.boutell.com/cgic/) can be used. Once the form data has been obtained, it can be used to set up the visualization pipeline as usual. In the following code, an isosurface is added to the renderer based on the isoType input from the form. Likewise if isoType is set to "Transparent" then that actor's opacity is set to 0.5.
 
 ``` c++
 // should we do the isosurface
-if (strcmp(isoType,”Off”))
+if (strcmp(isoType,"Off"))
   {
   ren1->AddActor( isoActor );
   }
-if (strcmp(isoType,”Transparent”) == 0)
+if (strcmp(isoType,"Transparent") == 0)
   {
   isoActor->GetProperty()->SetOpacity( 0.5 );
   }
@@ -192,8 +192,8 @@ Once the pipeline is set up, the last step is to generate the proper headers and
 
 ``` c++
 // Send out vrml header stuff
-fprintf(stdout,”Content-type: x-world/x-vrml\n”);
- fprintf(stdout,”Pragma: no-cache\n\n”);
+fprintf(stdout,"Content-type: x-world/x-vrml\n");
+ fprintf(stdout,"Pragma: no-cache\n\n");
 // write out VRML 2.0 file
 vtkVRMLExporter *writer = vtkVRMLExporter::New();
   writer->SetInput( renWin );
@@ -201,11 +201,11 @@ vtkVRMLExporter *writer = vtkVRMLExporter::New();
   writer->Write();
 ```
 
-Finally an instance of vtkVRMLExporter is created, assigned an instance of vtkRenderWindow as input, and set to write to standard output. When the Write() method is applied, the exporter updates the visualization pipeline and produces the VRML output. The vtkRenderWindow is never rendered and no windows appear on the server. There is no need for an interactor because the interaction will be handled by the client’s VRML browser. This program simply reads in a string of input (the parameters from the form) and then produces a string of output (the VRML data). It is also important to remember that CGI-BIN scripts are typically run from a different user id and environment than your own; file names and paths should be fully specified.
+Finally an instance of vtkVRMLExporter is created, assigned an instance of vtkRenderWindow as input, and set to write to standard output. When the Write() method is applied, the exporter updates the visualization pipeline and produces the VRML output. The vtkRenderWindow is never rendered and no windows appear on the server. There is no need for an interactor because the interaction will be handled by the client's VRML browser. This program simply reads in a string of input (the parameters from the form) and then produces a string of output (the VRML data). It is also important to remember that CGI-BIN scripts are typically run from a different user id and environment than your own; file names and paths should be fully specified.
 
 ## 11.5 Visualization with Java
 
-The examples discussed so far have addressed Web-based visualization in a number of ways. We have seen how to present preconstructed content such as images and animations using HTML, as well as creating interactive worlds with VRML. Each technique has its benefits but lacks the flexibility found in a custom-developed program. This is where Java stands out. Java’s origins trace back to an embedded control language for small appliances and personal digital assistants. As such it was designed to work on a wide variety of hardware without recompilation and with high reliability. These same qualities are valuable to Web programming where a single program must run on many different machines without fail.
+The examples discussed so far have addressed Web-based visualization in a number of ways. We have seen how to present preconstructed content such as images and animations using HTML, as well as creating interactive worlds with VRML. Each technique has its benefits but lacks the flexibility found in a custom-developed program. This is where Java stands out. Java's origins trace back to an embedded control language for small appliances and personal digital assistants. As such it was designed to work on a wide variety of hardware without recompilation and with high reliability. These same qualities are valuable to Web programming where a single program must run on many different machines without fail.
 
 Since Java is a full programming language, any visualization application written in Java will run on any Java-compliant system. In addition, Java provides the flexibility to perform the visualization on the server, on the client, or even a mixture of both. A number of early Java programs (a.k.a., applets) have emerged that render simple geometry or play back image sequences. Unfortunately Java provides no direct support for using accelerated 3D hardware and this limits the types of visualizations that can be done.
 
@@ -213,7 +213,7 @@ There are two common approaches to utilizing graphics hardware from Java. The fi
 
 While Java is a portable byte-compiled language, its designers realized it was important to have a mechanism for developers to make calls to C or C++ routines. This mechanism is called the Java Native Interface, or JNI for short. The JNI provides a clean, well-defined way for native code such as C and C++ to work with Java. This allows a visualization system such as VTK to be used, which in turn provides a mechanism to access 3D graphics hardware (if available). Native code also allows performance critical functions to be handled in optimized C or C++ code instead of Java.
 
-The downside to using Java3D or native code is that it sacrifices Java’s portability somewhat. Where a pure Java program can be byte-compiled and run on any machine that supports Java, a program that relies on Java3D or native code requires that the compiled Java3D or native code support be installed on the client. For each type of machine you want to support, you will need a compiled version of the native code. For a toolkit like VTK this means that the client would have to download the native VTK support (e.g., an object library) before being able to run VTK-Java applications. Once that is done, most applications described in this book can be made into a Web-based visualization. Depending on the needs of the application, the data can be left on the server and the results sent to the client, or the data could be sent to the client for both processing and viewing.
+The downside to using Java3D or native code is that it sacrifices Java's portability somewhat. Where a pure Java program can be byte-compiled and run on any machine that supports Java, a program that relies on Java3D or native code requires that the compiled Java3D or native code support be installed on the client. For each type of machine you want to support, you will need a compiled version of the native code. For a toolkit like VTK this means that the client would have to download the native VTK support (e.g., an object library) before being able to run VTK-Java applications. Once that is done, most applications described in this book can be made into a Web-based visualization. Depending on the needs of the application, the data can be left on the server and the results sent to the client, or the data could be sent to the client for both processing and viewing.
 
 The following example outlines how to use Java and VTK to display vibrational modes of a rectangular plate. In the preceding examples an HTML form was used to obtain input from the client. With Java we can construct a customized client-side user interface to obtain the required information.
 
@@ -233,7 +233,7 @@ This Java applet downloads a VTK data file into a Java String. It then uses the 
 <hr>
 ```
 
-The key lines are near the end where the applet keyword is used to start the App2 Java applet with a default window size of 400 by 500. Parameters are passed to the applet using the param keyword followed by key-value pairs. When the client encounters the applet keyword, it then requests that Java applet from the server and starts executing it. We will consider the Java code in App2 from a visualization perspective. A more complete introduction to Java programming can be found in numerous books (see [“Bibliographic Notes”](/VTKBook/11Chapter11/#1110-bibliographic-notes) in his Chapter).
+The key lines are near the end where the applet keyword is used to start the App2 Java applet with a default window size of 400 by 500. Parameters are passed to the applet using the param keyword followed by key-value pairs. When the client encounters the applet keyword, it then requests that Java applet from the server and starts executing it. We will consider the Java code in App2 from a visualization perspective. A more complete introduction to Java programming can be found in numerous books (see ["Bibliographic Notes"](/VTKBook/11Chapter11/#1110-bibliographic-notes) in his Chapter).
 
 The applet will have a standard structure starting by importing other classes that this application will use.
 
@@ -273,7 +273,7 @@ public void init()
   constrain(this,panel,0,0,8,8);
 ```
 
-Next, this method checks to see if the model parameter is set, and opens a stream connection to the server that is used to download the data file into a Java string. This is then passed to a vtkPolyDataReader at which point the data is now available to the native VTK code on the client. The rest of the pipeline is set up as usual with the exception that a Java syntax is used instead of C++ or Tcl. (Due to VTK’s object-oriented design the variations from one language to another are minor.) At this point in the init() method the rest of the pipeline is set up along with some check boxes and event handlers for the user interface. The vtkPanel has a method that returns the RenderWindow that can then be acted on as usual. For example:
+Next, this method checks to see if the model parameter is set, and opens a stream connection to the server that is used to download the data file into a Java string. This is then passed to a vtkPolyDataReader at which point the data is now available to the native VTK code on the client. The rest of the pipeline is set up as usual with the exception that a Java syntax is used instead of C++ or Tcl. (Due to VTK's object-oriented design the variations from one language to another are minor.) At this point in the init() method the rest of the pipeline is set up along with some check boxes and event handlers for the user interface. The vtkPanel has a method that returns the RenderWindow that can then be acted on as usual. For example:
 
 ``` java
 panel.GetRenderer().AddActor(a);
@@ -292,9 +292,9 @@ This demonstrates one of the advantages of using Java for Web visualization. VRM
 
 Similar to a native code implementation (such as a VTK implementation) Java3D provides access to hardware accelerated 3D graphics. Java3D provides both scene graph rendering similar to VRML, and high-level immediate mode rendering. The immediate mode rendering support is not as complete as libraries like OpenGL or DirectX, but it does provide a good subset of its functionality. Java3D does share some of the limitations of native code implementations in that the client must have a version of Java3D for their operating system installed for it to work. There are also some limitations in how both Java3D and native interfaces interact with lightweight GUI components such as swing.
 
-To better understand the Java3D API, we’ll walk through an example applet distributed with the original 1.0 specification. In this example, a colored cube is rendered as it rotates at a fixed rate.
+To better understand the Java3D API, we'll walk through an example applet distributed with the original 1.0 specification. In this example, a colored cube is rendered as it rotates at a fixed rate.
 
-First, let’s consider the definition of the cube. Some of the details have been left out for brevity. The complete description of the cube is stored in a Java class we’ll call ColorCube. It contains two class variables (verts and colors) that store the vertex positions and RGB colors. It has an instance of the Shape3D class that will be used by Java3D and a method, getShape(), to access it.
+First, let's consider the definition of the cube. Some of the details have been left out for brevity. The complete description of the cube is stored in a Java class we'll call ColorCube. It contains two class variables (verts and colors) that store the vertex positions and RGB colors. It has an instance of the Shape3D class that will be used by Java3D and a method, getShape(), to access it.
 
 Finally, ColorCube has a constructor that creates a QuadArray, inserts the verts and colors into it, and assigns it to the Shape3D instance variable.
 
@@ -352,7 +352,7 @@ public class HelloUniverse extends Applet
 }
 ```
 
-It is worth noting that in the createSceneGraph() method, the use of the previously defined ColorCube class and its insertion into the scene graph via the BranchGroup class. The setCapability() method is used to enable the cube’s transform to be modified and underlies an important concept. To achieve the highest rendering rate, Java3D performs a number of optimizations on the scene graph. Many of these optimizations only work if certain properties of the nodes are guaranteed to not change. So by default most properties of a node are set to be “read only.” To modify them after creation requires the specific call shown below.
+It is worth noting that in the createSceneGraph() method, the use of the previously defined ColorCube class and its insertion into the scene graph via the BranchGroup class. The setCapability() method is used to enable the cube's transform to be modified and underlies an important concept. To achieve the highest rendering rate, Java3D performs a number of optimizations on the scene graph. Many of these optimizations only work if certain properties of the nodes are guaranteed to not change. So by default most properties of a node are set to be "read only." To modify them after creation requires the specific call shown below.
 
 ``` java
 public BranchGroup createSceneGraph()
@@ -457,7 +457,7 @@ public void die(String s)
 }
 ```
 
-The initScene() method sets up the VRML scene and relies heavily on the EAI. For synchronization reasons, this method starts off by waiting a few seconds to assure that the VRML browser has time to initialize and read the VRML file specified by the HTML. Then it uses the browser.getNode(“aName”) method to obtain nodes from the scene graph. These nodes must be named using the DEF keyword in the VRML file. The first node it gets is the SPHERE node that happens to be a VRML transform. It uses the getEventIn() method to obtain a handle to the scale instance variable of this transform which will be used later.
+The initScene() method sets up the VRML scene and relies heavily on the EAI. For synchronization reasons, this method starts off by waiting a few seconds to assure that the VRML browser has time to initialize and read the VRML file specified by the HTML. Then it uses the browser.getNode("aName") method to obtain nodes from the scene graph. These nodes must be named using the DEF keyword in the VRML file. The first node it gets is the SPHERE node that happens to be a VRML transform. It uses the getEventIn() method to obtain a handle to the scale instance variable of this transform which will be used later.
 
 ``` java
 /** Set up some stuff in the VRML scene */
@@ -550,7 +550,7 @@ String purple_sphere =
   }
 ```
 
-The events for the two buttons are processed in the action() method. One increases the scale of the sphere and the other decreases it. This is done using the handle to the SPHERE node’s scale that was obtained in the initScene() method, and invoking the setValue() method with the appropriate arguments.
+The events for the two buttons are processed in the action() method. One increases the scale of the sphere and the other decreases it. This is done using the handle to the SPHERE node's scale that was obtained in the initScene() method, and invoking the setValue() method with the appropriate arguments.
 
 ``` java
 /** Handle actions from AWT widgets */
@@ -644,7 +644,7 @@ Visualization over the Web opens up many forms of collaborative development, ent
 
 ## 11.10 Bibliographic Notes
 
-For a general introduction to HTML and CGI consider <em style="color:green;background-color: white">\[Morris95\]</em> or <em style="color:green;background-color: white">\[Graham95\]</em>. Both books provide a good introduction and include coverage for both UNIX and MS Windows-based systems. For more detailed coverage of CGI programming consider <em style="color:green;background-color: white">\[Gundavaram96\]</em>. Mark Pesce <em style="color:green;background-color: white">\[Pesce95\]</em> provides a n excellent introduction to VRML including its early genesis. <em style="color:green;background-color: white">\[Ames96\]</em> is also a great VRML resource. The Inventor Mentor by Josie Wernecke <em style="color:green;background-color: white">\[Wernecke94\]</em> is an excellent book for learning about Open Inventor and scene graphs. Java in a Nutshell <em style="color:green;background-color: white">\[Flanagan96\]</em> is a good reference for Java and for someone who already knows how to program in another language For documentation on the Java Native Interface or Java3D, visit Sun’s Web site at http://java.sun.com.
+For a general introduction to HTML and CGI consider <em style="color:green;background-color: white">\[Morris95\]</em> or <em style="color:green;background-color: white">\[Graham95\]</em>. Both books provide a good introduction and include coverage for both UNIX and MS Windows-based systems. For more detailed coverage of CGI programming consider <em style="color:green;background-color: white">\[Gundavaram96\]</em>. Mark Pesce <em style="color:green;background-color: white">\[Pesce95\]</em> provides a n excellent introduction to VRML including its early genesis. <em style="color:green;background-color: white">\[Ames96\]</em> is also a great VRML resource. The Inventor Mentor by Josie Wernecke <em style="color:green;background-color: white">\[Wernecke94\]</em> is an excellent book for learning about Open Inventor and scene graphs. Java in a Nutshell <em style="color:green;background-color: white">\[Flanagan96\]</em> is a good reference for Java and for someone who already knows how to program in another language For documentation on the Java Native Interface or Java3D, visit Sun's Web site at http://java.sun.com.
 
 ## 11.11 References
 
@@ -652,13 +652,13 @@ For a general introduction to HTML and CGI consider <em style="color:green;backg
 A. Ames, D. Nadeau, and J. Moreland. The VRML Sourcebook. John Wiley & Sons, Inc., New York, NY, 1996.
 
 <em style="color:green;background-color: white">\[Flanagan96\]</em>
-David Flanagan. Java in a Nutshell. O’Reilly & Associates, Inc., Sebastopol, CA, 1996.
+David Flanagan. Java in a Nutshell. O'Reilly & Associates, Inc., Sebastopol, CA, 1996.
 
 <em style="color:green;background-color: white">\[Graham95\]</em>
 I. S. Graham. The HTML Sourcebook. John Wiley & Sons, Inc., New York, NY, 1995.
 
 <em style="color:green;background-color: white">\[Gundavaram96\]</em>
-S. Gundavaram. CGI Programming on the World Wide Web. O’Reilly & Associates, Inc., Sebastopol, CA, 1996.
+S. Gundavaram. CGI Programming on the World Wide Web. O'Reilly & Associates, Inc., Sebastopol, CA, 1996.
 
 <em style="color:green;background-color: white">\[Morris95\]</em>
 M. E. S. Morris. HTML for Fun and Profit. SunSoft Press, Prentice Hall PTR, Englewood Cliffs, NJ, 1995.

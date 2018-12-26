@@ -13,17 +13,17 @@ We will examine three different coordinate systems: the global, dataset, and str
 
 ### Global Coordinate System
 
-The global coordinate system is a Cartesian, three-dimensional space. Each point is expressed as a triplet of values (x,y,z) along the x, y, and z axes. This is the same system that was described in [“Coordinate Systems”](/VTKBook/03Chapter3/#37-coordinate-transformation) in [Chapter 3 - Computer Graphics Primer](/VTKBook/03Chapter3)).
+The global coordinate system is a Cartesian, three-dimensional space. Each point is expressed as a triplet of values (x,y,z) along the x, y, and z axes. This is the same system that was described in ["Coordinate Systems"](/VTKBook/03Chapter3/#37-coordinate-transformation) in [Chapter 3 - Computer Graphics Primer](/VTKBook/03Chapter3)).
 
-The global coordinate system is always used to specify dataset geometry (i.e., the point coordinates), and data attributes such as normals and vectors. We will use the word “position” to indicate that we are using global coordinates.
+The global coordinate system is always used to specify dataset geometry (i.e., the point coordinates), and data attributes such as normals and vectors. We will use the word "position" to indicate that we are using global coordinates.
                
 ### Dataset Coordinate System
 
-The dataset, or local, coordinate system is based on combined topological and geometric coordinates. The topological coordinate is used to identify a particular cell (or possibly a subcell), and the geometric coordinate is used to identify a particular location within the cell. Together they uniquely specify a location in the dataset. Here we will use the word “location” to refer to local or dataset coordinates.
+The dataset, or local, coordinate system is based on combined topological and geometric coordinates. The topological coordinate is used to identify a particular cell (or possibly a subcell), and the geometric coordinate is used to identify a particular location within the cell. Together they uniquely specify a location in the dataset. Here we will use the word "location" to refer to local or dataset coordinates.
 
-The topological coordinate is an “id”: a unique, nonnegative integer number referring to either a dataset point or cell. For a composite cell, we use an additional “sub-id” to refer to a particular primary cell that composes the composite cell. The sub-id is also unique and nonnegative. The id and sub-id together select a particular primary cell.
+The topological coordinate is an "id": a unique, nonnegative integer number referring to either a dataset point or cell. For a composite cell, we use an additional "sub-id" to refer to a particular primary cell that composes the composite cell. The sub-id is also unique and nonnegative. The id and sub-id together select a particular primary cell.
 
-To specify a location within the primary cell, we use geometric coordinates. These geometric coordinates, or parametric coordinates, are coordinates “natural” or canonical to the particular topology and dimension of a cell.
+To specify a location within the primary cell, we use geometric coordinates. These geometric coordinates, or parametric coordinates, are coordinates "natural" or canonical to the particular topology and dimension of a cell.
 
 We can best explain local coordinates by referring to an example. If we consider the polyline cell type shown in **Figure 8-2**, we can specify the position of a point by indicating 1) the polyline cell id, 2) the primary cell (i.e., line) sub-id and 3) the parametric coordinate of the line. Because the line is one-dimensional, the natural or parametric coordinate is based on the one-dimensional parameter r. Then any point along the line is given by a linear combination of the two end points of the line $x_i$ and $x_{i+1}$
 
@@ -56,7 +56,7 @@ $$
 \bf\tag{8-2}
 $$
 
-with $0 \leq i_p \leq n_x, 0 \leq j_p \leq n_y, 0 \leq k_p \leq n_z$. (We can use this id to index into an array of points or point attribute data.) This equation implicitly assumes an ordering of the points in topological space. Points along the $i$ axis vary fastest, followed by the $j$ and then the $$k axes. A similar relationship exists for cell id’s
+with $0 \leq i_p \leq n_x, 0 \leq j_p \leq n_y, 0 \leq k_p \leq n_z$. (We can use this id to index into an array of points or point attribute data.) This equation implicitly assumes an ordering of the points in topological space. Points along the $i$ axis vary fastest, followed by the $j$ and then the $$k axes. A similar relationship exists for cell id's
 
 $$
 \begin{equation*}
@@ -115,7 +115,7 @@ $$
 \bf\tag{8-6}
 $$
 
-The interpolation functions are of a characteristic shape. They reach their maximum value $W_i = 1$ at cell point $p_i$, and are zero at all other points. Examining Equation 8-1, we draw **Figure 8-2** and see that each interpolation function has the shape of a peaked “hat,” and that interpolation is a linear combination of these hat functions, scaled by the data value at each point.
+The interpolation functions are of a characteristic shape. They reach their maximum value $W_i = 1$ at cell point $p_i$, and are zero at all other points. Examining Equation 8-1, we draw **Figure 8-2** and see that each interpolation function has the shape of a peaked "hat," and that interpolation is a linear combination of these hat functions, scaled by the data value at each point.
 
 Equation 8-4 is the general form for cell interpolation. It is used to interpolate any data value defined at the cell points to any other point within the cell. We have only to define the specific interpolation functions $W_i$ for each cell type.
 
@@ -294,7 +294,7 @@ for each cell c to be processed
  }
 ```
 
-It is important not to tessellate the entire dataset all at once, since this may produce excessive demands on memory resources, and many algorithms visit only a subset of a dataset’s cells. Thus the pseudo-code above refers to a selection criterion, which varies depending on the nature of the algorithm. For example, an isocontouring algorithm may check to see whether the cell’s scalar values span the current isocontour value.
+It is important not to tessellate the entire dataset all at once, since this may produce excessive demands on memory resources, and many algorithms visit only a subset of a dataset's cells. Thus the pseudo-code above refers to a selection criterion, which varies depending on the nature of the algorithm. For example, an isocontouring algorithm may check to see whether the cell's scalar values span the current isocontour value.
 
 While many tessellation algorithms are possible, those based on edge subdivision are particularly simple. The idea behind the algorithm is simple: each cell edge $e$ is evaluated via an error metric $E$ and may be marked for subdivision if any error measure $\epsilon_i$ exceeds a corresponding error threshold $\epsilon $epsilon{^i}$  
 
@@ -307,7 +307,7 @@ $$
 
 Based on the cell topology, and the particular edges requiring subdivision, templates are used to subdivide the cell. This process continues recursively until the error metric is satisfied on all edges. One advantage of this algorithm is that cells can be tessellated independently. This is because edge subdivision is a function of one or more error measures that consider only information along the edge, and does not need to take into account cell information. Therefore no communication across cell boundaries is required, and the algorithm is well suited for parallel processing and on the fly tessellation as cells are visited during traversal.
 
-Some templates for cell subdivision are shown in **Figure 8-24**. Note that in some cases a choice must be made in terms of which diagonal to select for tessellation (for example, the dashed line in **Figure 8-24**(b)). In 2D, this choice can be made arbitrarily, however in 3D the choice must be consistent with the cell’s face neighbor. In order to preserve the simplicity of the algorithm, including avoiding inter-cell communication, simple tie-breaking rules for selecting the diagonal on the faces of 3D cells are adopted. These rules include using the shortest diagonal (measured in the global coordinate system), or using a topological decider based on selecting the diagonal with the smallest point id. (A topological decider is necessary when the geometric distance measure is inconclusive.)
+Some templates for cell subdivision are shown in **Figure 8-24**. Note that in some cases a choice must be made in terms of which diagonal to select for tessellation (for example, the dashed line in **Figure 8-24**(b)). In 2D, this choice can be made arbitrarily, however in 3D the choice must be consistent with the cell's face neighbor. In order to preserve the simplicity of the algorithm, including avoiding inter-cell communication, simple tie-breaking rules for selecting the diagonal on the faces of 3D cells are adopted. These rules include using the shortest diagonal (measured in the global coordinate system), or using a topological decider based on selecting the diagonal with the smallest point id. (A topological decider is necessary when the geometric distance measure is inconclusive.)
 
 <figure id="Figure 8-24">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-24.png?raw=true width="640" alt="Figure8-24">
@@ -347,7 +347,7 @@ Attentive readers will have noticed that the subdivision scheme described previo
 
 By definition, these conditions are directly related to critical points, since an extremum of a differentiable function over an open domain is necessarily a critical point. Linear meshes assume that all extrema of the scalar field occur at element vertices, but in general when using a higher-order basis this is not the case, and extrema can be found interior to a cell.
 
-To address this problem, a pre-triangulation of the basis must be performed. The pre-triangulation must identify all critical points in the interior, on the faces, or on the edge of a cell, and then insert these points into the triangulation. For example, an initial triangulation based on the vertices of the higher-order cell can be performed first, followed by insertion into the triangulation using a method such as Delaunay triangulation or equivalent (see [“Triangulation Techniques”](/VTKBook/09Chapter9/#Chapter 9 - Triangulation Techniques) in [Chapter 9](/VTKBook/09Chapter9)). The pre-triangulation can then be followed by the standard edge-based algorithm presented previously.
+To address this problem, a pre-triangulation of the basis must be performed. The pre-triangulation must identify all critical points in the interior, on the faces, or on the edge of a cell, and then insert these points into the triangulation. For example, an initial triangulation based on the vertices of the higher-order cell can be performed first, followed by insertion into the triangulation using a method such as Delaunay triangulation or equivalent (see ["Triangulation Techniques"](/VTKBook/09Chapter9/#Chapter 9 - Triangulation Techniques) in [Chapter 9](/VTKBook/09Chapter9)). The pre-triangulation can then be followed by the standard edge-based algorithm presented previously.
 
 ## 8.4 Coordinate Transformation
 
@@ -374,7 +374,7 @@ Global to dataset coordinate transformations are expensive compared to dataset t
 
 To identify the cell $C_i$ means doing some form of searching. A simple but inefficient approach is to visit every cell in a dataset and determine whether $p$ lies inside any cell. If so, then we have found the correct cell and stop the search. Otherwise, we check the next cell in the list.
 
-This simple technique is not fast enough for large data. Instead, we use accelerated search techniques. These are based on spatially organizing structures such as an octree or three-dimensional hash table. The idea is as follows: we create a number of “buckets,” or data place holders, that are accessed by their location in global space. Inside each bucket we tag all the points or cells that are partially or completely inside the bucket. Then, to find a particular cell that contains point p, we find the bucket that contains p, and obtain all the cells associated with the bucket. We then evaluate inside/outside for this abbreviated cell list to find the single cell containing p. (See [“Searching”](/VTKBook/08Chapter8/#87-searching) in [Chapter 8](/VTKBook/08Chapter8) for a more detailed description.)
+This simple technique is not fast enough for large data. Instead, we use accelerated search techniques. These are based on spatially organizing structures such as an octree or three-dimensional hash table. The idea is as follows: we create a number of "buckets," or data place holders, that are accessed by their location in global space. Inside each bucket we tag all the points or cells that are partially or completely inside the bucket. Then, to find a particular cell that contains point p, we find the bucket that contains p, and obtain all the cells associated with the bucket. We then evaluate inside/outside for this abbreviated cell list to find the single cell containing p. (See ["Searching"](/VTKBook/08Chapter8/#87-searching) in [Chapter 8](/VTKBook/08Chapter8) for a more detailed description.)
 
 The second reason that global to dataset coordinate transformation is expensive is because we must solve the interpolation function for the parametric coordinates of p. Sometimes we can do this analytically, but in other cases we must solve for the parametric coordinates using numerical techniques.
 
@@ -387,11 +387,11 @@ r = \frac{x - x_0}{x_1 - x_0} = \frac{y - y_0}{y_1 - y_0} = \frac{z - z_0}{z_1 -
 \end{equation*}
 $$
 
-Similar relations exist for any cell whose interpolation functions are linear combinations of parametric coordinates. This includes vertices, lines, triangles, and tetrahedra. The quadrilateral and hexahedron interpolation functions are nonlinear because they are products of linear expressions for the parametric coordinates. As a result, we must resort to numerical techniques to compute global to dataset coordinate transformations. The interpolation functions for pixels and voxels are nonlinear as well, but because of their special orientation with respect to the x, y, and z coordinate axes, we can solve them exactly. (We will treat pixel and voxel types in greater depth in [“Special Techniques for Image Data”](/VTKBook/08Chapter8/#810-special-techniques-for-image-data) in [Chapter 8](/VTKBook/08Chapter8).)
+Similar relations exist for any cell whose interpolation functions are linear combinations of parametric coordinates. This includes vertices, lines, triangles, and tetrahedra. The quadrilateral and hexahedron interpolation functions are nonlinear because they are products of linear expressions for the parametric coordinates. As a result, we must resort to numerical techniques to compute global to dataset coordinate transformations. The interpolation functions for pixels and voxels are nonlinear as well, but because of their special orientation with respect to the x, y, and z coordinate axes, we can solve them exactly. (We will treat pixel and voxel types in greater depth in ["Special Techniques for Image Data"](/VTKBook/08Chapter8/#810-special-techniques-for-image-data) in [Chapter 8](/VTKBook/08Chapter8).)
 
-To solve the interpolation functions for parametric coordinates we must use nonlinear techniques for the solution of a system of equations. A simple and effective technique is Newton’s method <em style="color:green;background-color: white">\[Conte72\]</em>.
+To solve the interpolation functions for parametric coordinates we must use nonlinear techniques for the solution of a system of equations. A simple and effective technique is Newton's method <em style="color:green;background-color: white">\[Conte72\]</em>.
 
-To use Newton’s method we begin by defining three functions for the known global coordinate $p = p(x,y,z)$ in terms of the interpolation functions $W_i = W_i(r,s,t)$
+To use Newton's method we begin by defining three functions for the known global coordinate $p = p(x,y,z)$ in terms of the interpolation functions $W_i = W_i(r,s,t)$
 
 $$
 \begin{eqnarray*}
@@ -402,7 +402,7 @@ h(r, s, t) &=& z - \sum W_i \, z_i = 0
 \bf\tag{8-10}
 $$
 
-and then, expanding the functions using a Taylor’s series approximation,
+and then, expanding the functions using a Taylor's series approximation,
 
 $$
 \begin{eqnarray*}
@@ -456,11 +456,11 @@ h_i
 \bf\tag{8-10}
 $$
 
-Fortunately, Newton’s method converges quadratically (if it converges) and the interpolation functions that we have presented here are well behaved. In practice, Equation 8-12 converges in just a few iterations.
+Fortunately, Newton's method converges quadratically (if it converges) and the interpolation functions that we have presented here are well behaved. In practice, Equation 8-12 converges in just a few iterations.
 
 ## 8.5 Computing Derivatives
 
-Interpolation functions enable us to compute data values at arbitrary locations within a cell. They also allow us to compute the rate of change, or derivatives, of data values. For example, given displacements at cell points we can compute cell strains and stresses — or, given pressure values, we can compute the pressure gradient at a specified location.
+Interpolation functions enable us to compute data values at arbitrary locations within a cell. They also allow us to compute the rate of change, or derivatives, of data values. For example, given displacements at cell points we can compute cell strains and stresses or, given pressure values, we can compute the pressure gradient at a specified location.
 
 <figure id="Figure 8-26">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-26.png?raw=true width="640" alt="Figure8-26">
@@ -616,7 +616,7 @@ In our one-dimensional example, the derivatives along the line were constant. Ho
 
 Many visualization algorithms require information about the topology of a cell or dataset. Operations that provide such information are called topological operations. Examples of these operations include obtaining the topological dimension of a cell, or accessing neighboring cells that share common edges or faces. We might use these operations to decide whether to render a cell (e.g., render only one-dimensional lines) or to propagate particles through a flow field (e.g., traversing cells across common boundaries).
 
-Before proceeding we need to define some terms from topology. Manifold topology describes a region surrounding a point that is topologically connected. That is, a region around the point is topologically equivalent to a small “disk” (in two-dimensions) or “ball” (in three-dimensions). Topology that is not manifold is termed non-manifold. Examples of manifold and non-manifold geometry are shown in **Figure 8-27**.
+Before proceeding we need to define some terms from topology. Manifold topology describes a region surrounding a point that is topologically connected. That is, a region around the point is topologically equivalent to a small "disk" (in two-dimensions) or "ball" (in three-dimensions). Topology that is not manifold is termed non-manifold. Examples of manifold and non-manifold geometry are shown in **Figure 8-27**.
 
 There are some simple rules we can use to decide whether a surface or region approximated with cells is manifold or non-manifold. In two dimensions, if every edge of a two-dimensional cell is used by exactly one other cell, than the surface is locally manifold. In three dimensions, if every face of a three-dimensional cell is used by exactly one other cell, than the region is locally manifold.
 
@@ -658,7 +658,7 @@ Another useful cell operation is cell decomposition into simplices. Every cell c
 
 Dataset operations return information about the topology of a dataset or topological information about the adjacency of cells. Typical operations include determining the neighbors of a cell or returning a list of all cells that use a particular point.
 
-We can formalize the adjacency operations by continuing the discussion of [“Cell Types”](/VTKBook/05Chapter5/#54-cell-types) in [Chapter 5](/VTKBook/05Chapter5). Adjacency methods are used to obtain information about the neighbors of a cell. A neighbor of a particular cell $C_i$ is simply a cell that shares one or more points in common with $C_i$. A vertex neighbor is a neighbor that shares one or more vertices. An edge neighbor is a neighbor that shares one or more edges. A face neighbor is a cell that shares vertices that define one of the faces of the cell. Note that a face neighbor is also an edge neighbor, and an edge neighbor is also a vertex neighbor.
+We can formalize the adjacency operations by continuing the discussion of ["Cell Types"](/VTKBook/05Chapter5/#54-cell-types) in [Chapter 5](/VTKBook/05Chapter5). Adjacency methods are used to obtain information about the neighbors of a cell. A neighbor of a particular cell $C_i$ is simply a cell that shares one or more points in common with $C_i$. A vertex neighbor is a neighbor that shares one or more vertices. An edge neighbor is a neighbor that shares one or more edges. A face neighbor is a cell that shares vertices that define one of the faces of the cell. Note that a face neighbor is also an edge neighbor, and an edge neighbor is also a vertex neighbor.
 
 The adjacency operators are simple set operations. For a particular cell $C_i$ defined by points and a point list $\vec{P} = (\vec{p_1}, \vec{p_2}, ..., \vec{p_n})$  with $P \subset P$, where $P$ typically corresponds to the points defining a boundary cell of $C_i$; the neighbors of $C_i$ are the adjacency set A(C, P).
 
@@ -688,7 +688,7 @@ Searching is an operation to find the cell containing a specified point p, or to
 
 To find the cell containing p, we can use the following naive search procedure. Traverse all cells in the dataset, finding the one (if any) that contains p. To determine whether a cell contains a point, the cell interpolation functions are evaluated for the parametric coordinates (r,s,t). If these coordinates lie within the cell, then $p$ lies in the cell. The basic assumption here is that cells do not overlap, so that at most a single cell contains the given point p. To determine cells or points lying in the region surrounding p, we can traverse cells or points to see whether they lie within the region around p. For example, we can choose to define the region as a sphere centered at p. Then, if a point or the points composing a cell lie in the sphere, the point or cell is considered to be in the region surrounding p.
 
-These naive procedures are unacceptable for all but the smallest datasets, since they are of order O(n), where n is the number of cells or points. To improve the performance of searching, we need to introduce supplemental data structures to support spatial searching. Such structures are well-known and include MIP maps, octrees, kd-trees, and binary sphere trees (see [“Bibliographic Notes”](/VTKBook/08Chapter8/#813-bibliographic-notes) at the end of this chapter).
+These naive procedures are unacceptable for all but the smallest datasets, since they are of order O(n), where n is the number of cells or points. To improve the performance of searching, we need to introduce supplemental data structures to support spatial searching. Such structures are well-known and include MIP maps, octrees, kd-trees, and binary sphere trees (see ["Bibliographic Notes"](/VTKBook/08Chapter8/#813-bibliographic-notes) at the end of this chapter).
 
 The basic idea behind these spatial search structures is that the search space is subdivided into smaller parts, or buckets. Each bucket contains a list of the points or cells that lie within it. Buckets are organized in structured fashion so that constant or logarithmic time access to any bucket is possible. For example, if we assign a portion of 2D Euclidean space into a grid of n by m buckets, the location of $p$ in a particular bucket can be determined with two subtractions and two divisions: a constant time access. Similarly, the location of $p$ in a non-uniformly subdivided octree is determined in logarithmic time, since recursive insertion into octant children is required. Once the bucket is found, the search is then limited to the points or cells contained within it. In a properly designed spatial search structure, the number of points or cells in a bucket is a small portion of the total number of cells and less than a fixed value. Thus, the time to search within a bucket can be bounded by a fixed constant. The result is that introducing spatial search structures reduces search times to a maximum O(log n), or better yet O(n).
 
@@ -711,12 +711,12 @@ Line/cell intersection for 0D, 1D, and 2D cells follows standard approaches. Int
 
 <figure id="Figure 8-31">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-31.png?raw=true width="640" alt="Figure8-31">
-  <figcaption style="color:blue"><b>Figure 8-31</b>. Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate t with 0 ≤ t ≤ 1.</figcaption>
+  <figcaption style="color:blue"><b>Figure 8-31</b>. Summary of line/cell intersection operations for nine primitive cell types. Line is assumed normalized in parametric coordinate t with $0 \leq t \leq 1$.</figcaption>
 </figure>
 
 ## 8.9 Scalars and Colors
 
-There is a close correspondence between scalar data and colors. We touched on this in [“Color Mapping”](/VTKBook/06Chapter6/#color-mapping) in [Chapter 6](/VTKBook/06Chapter6), where we saw how to use a color table to map scalar values into a color specification (i.e., red, green, blue, and alpha, or RGBA). There are cases, however, when we want to circumvent this mapping process. Such cases occur when color data is supplied instead of scalar data.
+There is a close correspondence between scalar data and colors. We touched on this in ["Color Mapping"](/VTKBook/06Chapter6/#color-mapping) in [Chapter 6](/VTKBook/06Chapter6), where we saw how to use a color table to map scalar values into a color specification (i.e., red, green, blue, and alpha, or RGBA). There are cases, however, when we want to circumvent this mapping process. Such cases occur when color data is supplied instead of scalar data.
 
 A common example occurs in imaging. Recall that an image is a regular, two-dimensional array of points. The points define pixels, which in turn form a two-dimensional image dataset. Images are frequently stored as a pair of dimensions along with data values. The data values may be one of black and white (e.g., a bitmap), grayscale, or color (e.g., a pixmap). Bitmaps and gray-scale images can be directly cast into the form of single-values scalar data, and we can use our earlier approach. Pixmaps, however, consist of (at a minimum) three values per pixel of red, green, and blue. (Sometimes, a fourth alpha opacity value may also be included.) Thus, pixmaps cannot be directly cast into scalar form.
 
@@ -824,7 +824,7 @@ In this section we will finish our earlier description of an implementation for 
 
 In [Chapter 5 - Data Representation](/VTKBook/05Chapter5) we described data representations for the unstructured dataset types vtkPolyData and vtkUnstructuredGrid. Close examination of this data structure reveals that operations to retrieve topological adjacency are inefficient. In fact, to implement any operation to retrieve vertex, edge, or face neighbors requires a search of the cell array, resulting in O(n) time complexity. This is unacceptable for all but the smallest applications, since any algorithm traversing the cell array and retrieving adjacency information is at a minimum O(n2).
 
-The reason for this inefficiency is that the data representation is a “downward” hierarchy (**Figure 8-34**(b)). That is, given a cell we can quickly determine the topological features lower in the topological hierarchy such as faces, edges, and points. However, given a face, edge, or point we must search the cell array to determine the owning cells. To improve the efficiency of this data representation, we must introduce additional information into the hierarchy that allows “upward” hierarchy traversal (similar to that shown in **Figure 8-34**(a)).
+The reason for this inefficiency is that the data representation is a "downward" hierarchy (**Figure 8-34**(b)). That is, given a cell we can quickly determine the topological features lower in the topological hierarchy such as faces, edges, and points. However, given a face, edge, or point we must search the cell array to determine the owning cells. To improve the efficiency of this data representation, we must introduce additional information into the hierarchy that allows "upward" hierarchy traversal (similar to that shown in **Figure 8-34**(a)).
 
 <figure id="Figure 8-34">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-34.png?raw=true width="640" alt="Figure8-34">
@@ -836,7 +836,7 @@ The reason for this inefficiency is that the data representation is a “downwar
   <figcaption style="color:blue"><b>Figure 8-35</b>. Complete unstructured data representation including link lists. There are m cells and n points. The n structures in the link list are lists of cells that use each vertex. Each link list is variable in length.</figcaption>
 </figure>
 
-The solution to this problem is to extend the unstructured data structure with cell links. The cell links array is a list of lists of cells that use each point and corresponds to the upward links of **Figure 8-34**(c). The cell links array transforms the hierarchical structure of **Figure 5-13** into a ring structure. Cells reference their composing points, and points in turn reference the cells that use them. The full unstructured data structure is shown in **Figure 8-35**.The cell links array is in fact an implementation of the use sets of Equation 5-1. We can use this equation to compute adjacency operation in constant time, if the maximum number of cells using a point is much smaller than the number of points in a dataset. To see this, we refer to Equation 8-25 and see that the adjacency operations consist of a finite number of set intersections. Each operation is an intersection of the link lists for each point. If the number of cells in each link list is “small,” then the intersection operation can be bounded by a fixed constant in time, and the total operation can be considered a constant time operation.
+The solution to this problem is to extend the unstructured data structure with cell links. The cell links array is a list of lists of cells that use each point and corresponds to the upward links of **Figure 8-34**(c). The cell links array transforms the hierarchical structure of **Figure 5-13** into a ring structure. Cells reference their composing points, and points in turn reference the cells that use them. The full unstructured data structure is shown in **Figure 8-35**.The cell links array is in fact an implementation of the use sets of Equation 5-1. We can use this equation to compute adjacency operation in constant time, if the maximum number of cells using a point is much smaller than the number of points in a dataset. To see this, we refer to Equation 8-25 and see that the adjacency operations consist of a finite number of set intersections. Each operation is an intersection of the link lists for each point. If the number of cells in each link list is "small," then the intersection operation can be bounded by a fixed constant in time, and the total operation can be considered a constant time operation.
 
 There are several important characteristics of this data representation.
 
@@ -844,7 +844,7 @@ There are several important characteristics of this data representation.
 
 * Building the cell links is a linear O(n) operation. Each cell is traversed and for every point that the cell uses, the list of using cells for that point is extended to include the current cell. Building the cell links is only needed once as an initialization step.
 
-* The data representation is compact relative to other topology representation schemes (e.g., the winged-edge structure and the radial-edge structures <em style="color:green;background-color: white">\[Baumgart74\]</em> <em style="color:green;background-color: white">\[Weiler88\]</em>). These other data structures contain explicit representation of intermediate topology such as edges, loops, faces, or special adjacency information such as adjacent edges (winged-edge structure) or extensive “use” descriptions (radial-edge structure). The compactness of representation is particularly important for visualization, since the data size is typically large.
+* The data representation is compact relative to other topology representation schemes (e.g., the winged-edge structure and the radial-edge structures <em style="color:green;background-color: white">\[Baumgart74\]</em> <em style="color:green;background-color: white">\[Weiler88\]</em>). These other data structures contain explicit representation of intermediate topology such as edges, loops, faces, or special adjacency information such as adjacent edges (winged-edge structure) or extensive "use" descriptions (radial-edge structure). The compactness of representation is particularly important for visualization, since the data size is typically large.
 
 The unstructured data structure in the _Visualization Toolkit_ is implemented using the four classes vtkPoints (and subclasses), vtkCellArray, vtkCellTypes, and vtkCellLinks. The building of this data structure is incremental. At a minimum, the points and cells are represented using vtkPoints and vtkCellArray. If random access or extra type information is required, then the object vtkCellTypes is used. If adjacency information is required, an instance of the class vtkCellLinks is created. These operations are carried out behind the scenes, and generally do not require extra knowledge by the application programmer.
 
@@ -907,7 +907,7 @@ With the completion of Chapters 5 and 8, we can summarize the abstract interface
           A convenience method to return the (minimum, maximum) range of the scalar attribute data associated with the dataset.
 
      dataSet = NewInstance()
-          Make a copy of the current dataset. A “virtual” constructor. (Typically, reference counting methods are used to copy data.)
+          Make a copy of the current dataset. A "virtual" constructor. (Typically, reference counting methods are used to copy data.)
 
      CopyStructure(dataSet)
           Update the current structure definition (i.e., geometry and topology) with the supplied dataset.
@@ -936,14 +936,14 @@ With the completion of Chapters 5 and 8, we can summarize the abstract interface
           Return the number of edges in the cell.
 
      edge = GetEdge(i)
-          Given an edge id ( 0 ≤ i < numberEdges ) return a pointer to a cell that represents an 
+          Given an edge id ( $0 \leq i < numberEdges$ ) return a pointer to a cell that represents an 
           edge of the cell.
 
      numberFaces = GetNumberOfFaces()
           Return the number of faces in a cell.
 
      face = GetFace(i)
-          Given an face id ( 0 ≤ i < numberFaces ) return a pointer to a cell that represents a face
+          Given an face id ( $0 \leq i < numberFaces$ ) return a pointer to a cell that represents a face
           of the cell.
 
      inOutStatus = CellBoundary(subId, pcoords, poindIds)
@@ -965,14 +965,14 @@ With the completion of Chapters 5 and 8, we can summarize the abstract interface
      Contour(value, cellScalars, locator, verts, lines, polys, inputPointData, outputPointData)
           Given a contour value and scalar values at the cell points, generate contour primitives
           (vertices, lines, or polygons with associated points and attribute data values). The
-          points are placed in a locator object (see [“Searching”](/VTKBook/08Chapter8/#searching_1) in this Chapter) which merges
+          points are placed in a locator object (see ["Searching"](/VTKBook/08Chapter8/#searching_1) in this Chapter) which merges
           coincident points, and the attribute data values are interpolated (along the cell edge) from
           the inputPointData to the outputPointData.
 
      Clip(value, cellScalars, locator, cells, inputPointData, outputPointData, insideOut)
           Given a contour value and scalar values at the cell points, clip the cell to generate new
           cells of the same topological dimension as the original cell. The points are placed in a
-          locator object (see [“Searching”](/VTKBook/08Chapter8/#87-searching) in [Chapter 8](/VTKBook/08Chapter8)) which merges coincident points, and the
+          locator object (see ["Searching"](/VTKBook/08Chapter8/#87-searching) in [Chapter 8](/VTKBook/08Chapter8)) which merges coincident points, and the
           attribute data values are interpolated (or copied) from the inputPointData to the
           outputPointData. The clipped cells are placed in the cells list.
 
@@ -1079,11 +1079,11 @@ A simple solution is to traverse each cell and then obtain the edges (or faces) 
 
 A better solution to this problem is to traverse each cell as before, but only process intermediate topology if the current cell has the smallest cell id. (The current cell is the cell being visited in the traversal process.) To determine whether the current cell has the smallest cell id, we obtain all cells using the intermediate topology. This information can be obtained using the topological adjacency operators described earlier (e.g., Equation 8-25).
 
-To illustrate this process consider visiting the edges of a triangle mesh. We begin by visiting the first triangle, t, and then its edges. For each edge we determine the adjacent triangle(s) (if any) that use the edge. If the id of the adjacent triangle(s) is greater than triangle t’s id, or there are no adjacent triangles, then we know to process the current edge. (Of course the first triangle will always have the smallest id — but this will change as the traversal proceeds.) We then continue traversing the triangle list for new t’s. In this way all the edges of the mesh will be visited.
+To illustrate this process consider visiting the edges of a triangle mesh. We begin by visiting the first triangle, t, and then its edges. For each edge we determine the adjacent triangle(s) (if any) that use the edge. If the id of the adjacent triangle(s) is greater than triangle t's id, or there are no adjacent triangles, then we know to process the current edge. (Of course the first triangle will always have the smallest id but this will change as the traversal proceeds.) We then continue traversing the triangle list for new t's. In this way all the edges of the mesh will be visited.
                    
 ### Color Scalar Data
 
-Multi-valued scalar data, or scalars represented by various color representations, are treated specially by the _Visualization Toolkit_. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See [“Color Mapping”](/VTKBook/06Chapter6/#color-mapping) in [Chapter 6](/VTKBook/06Chapter6) for more information.)
+Multi-valued scalar data, or scalars represented by various color representations, are treated specially by the _Visualization Toolkit_. These data arise, for example, when using a color specification to directly control the color of objects rather than mapping a scalar value through a lookup table. (See ["Color Mapping"](/VTKBook/06Chapter6/#color-mapping) in [Chapter 6](/VTKBook/06Chapter6) for more information.)
 
 By default, the mapping of scalars into colors proceeds as follows (vtkMapper and subclasses are responsible for implementing this behavior):
 
@@ -1093,7 +1093,7 @@ By default, the mapping of scalars into colors proceeds as follows (vtkMapper an
 
 * Any other data type, or data with more than four components, is assumed to represent a scalar value. In that case the scalars are mapped through a lookup table to produce colors during the rendering process.
 
-It is possible to force unsigned char data to be mapped through a lookup table. The vtkMapper method SetColorModeToMapScalars() forces all data—regardless of type—to be mapped through the lookup table.
+It is possible to force unsigned char data to be mapped through a lookup table. The vtkMapper method SetColorModeToMapScalars() forces all data regardless of type to be mapped through the lookup table.
 
 ### Searching
 
@@ -1132,9 +1132,9 @@ The _Visualization Toolkit_ provides a variety of classes to perform actor (or v
 
 All pickers are subclasses of vtkAbstractPicker which defines the basic pick interface. The user must specify a selection point in display coordinates for a specified instance of vtkRenderWindow and invoke the Pick() method. At a minimum, the class must return an $x-y-z$ pick position in world coordinates. It is possible to limit the pick candidates to a list of vtkProps (the PickList). The class also invokes the StartPickEvent, PickEvent, and EndPickEvent events that are invoked prior to picking, during picking, and after picking, respectively.
 
-Classes that can return information indicating which vtkProp they have picked are subclasses of vtkAbstractPropPicker. After the pick operation, vtkAbstractPropPicker returns a vtkAssemblyPath. The assembly path is an ordered list of instances of vtkProp and possibly associated 4x4 transformation matrices. The path represents a concatenated hierarchy of assembly nodes if an assembly has been defined (see [“Assemblies and Other Types of vtkProp”](http://localhost:8000/VTKBook/03Chapter3/#assemblies-and-other-types-of-vtkprop) in [Chapter 3](/VTKBook/03Chapter3)) for more information about props and assemblies).
+Classes that can return information indicating which vtkProp they have picked are subclasses of vtkAbstractPropPicker. After the pick operation, vtkAbstractPropPicker returns a vtkAssemblyPath. The assembly path is an ordered list of instances of vtkProp and possibly associated 4x4 transformation matrices. The path represents a concatenated hierarchy of assembly nodes if an assembly has been defined (see ["Assemblies and Other Types of vtkProp"](http://localhost:8000/VTKBook/03Chapter3/#assemblies-and-other-types-of-vtkprop) in [Chapter 3](/VTKBook/03Chapter3)) for more information about props and assemblies).
 
-The object vtkPicker intersects a ray defined from camera position to a screen (i.e., pixel) coordinate against the bounding box of all pickable and nontransparent vtkProp3D’s. (A vtkProp is pickable if its Pickable instance variable is true.) The result of the vtkPicker pick operation is to return a list of the vtkProp3D’s whose bounding box is intersected. The prop closest to the camera position is also returned.
+The object vtkPicker intersects a ray defined from camera position to a screen (i.e., pixel) coordinate against the bounding box of all pickable and nontransparent vtkProp3D's. (A vtkProp is pickable if its Pickable instance variable is true.) The result of the vtkPicker pick operation is to return a list of the vtkProp3D's whose bounding box is intersected. The prop closest to the camera position is also returned.
 
 The object vtkPointPicker intersects the ray against the points defining each vtkProp3D, and returns the point coordinate closest to the camera position, as well as the vtkProp3D that the point belongs to. Since screen resolution prevents precise selection of a point, a tolerance around the ray must be specified. The tolerance is expressed as a fraction of the rendering window size. (Rendering window size is measured across the window diagonal.) Points must lie within this tolerance to be picked.
 
@@ -1142,15 +1142,15 @@ The object vtkCellPicker intersects the ray with the cells defining each vtkProp
 
 The class vtkWorldPointPicker returns the (x,y,z) coordinate value of a pick in the rendering window. To determine this information, it combines the display (x,y) values with the z-buffer depth values. Of all the pickers this is the fastest, but it cannot determine the actual cell, point or vtkProp that is selected since it is not a subclass of vtkAbstractPropPicker. (Note: on some systems z-buffer operations are inoperative and this object will not function properly.)
 
-By default picking is performed with the class vtkPropPicker. This class uses hardware-accelerated picking—so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the (x,y,z) world coordinate value
+By default picking is performed with the class vtkPropPicker. This class uses hardware-accelerated picking so it is generally faster than software based picking. Unlike the other hardware accelerated class (vtkWorldPointPicker), it returns the instance of vtkProp that was picked as well as the (x,y,z) world coordinate value
 
-Figure8-39 summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the “p” key (see ["RenderWindowInteractor"](/VTKBook/03Chapter3#Chapter 3 - Introducing RenderWindowInteractor) in [Chapter 3](/VTKBook/03Chapter3)). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
+Figure8-39 summarizes the five concrete picking classes. Picking is built into the vtkRenderWindowInteractor class using the "p" key (see ["RenderWindowInteractor"](/VTKBook/03Chapter3#Chapter 3 - Introducing RenderWindowInteractor) in [Chapter 3](/VTKBook/03Chapter3)). By default a vtkPropPicker is created and used, but you are free to specify your own picker type.
 
 ### Examples
 
 To conclude this section, we will examine how some of the dataset, cell, and point attribute operations are used. These operations tend to be used by class developers. You will not need to use them if you build applications by constructing visualization pipelines with existing filters.
 
-**Find Free Edges.** In our first example we will take a peek inside the filter vtkLinearExtrusionFilter. This filter implements the following modelling operation. Given a polygonal mesh, extrude the mesh in a given direction, constructing a “skirt” or “walls” from the free edges. If the polygonal example is a single square, the result of this operation is a cube. Or, if the polygonal data consists of a single line, the result of the operation is a quadrilateral. A point will generate a line as shown in **Figure 8-40**(a).
+**Find Free Edges.** In our first example we will take a peek inside the filter vtkLinearExtrusionFilter. This filter implements the following modelling operation. Given a polygonal mesh, extrude the mesh in a given direction, constructing a "skirt" or "walls" from the free edges. If the polygonal example is a single square, the result of this operation is a cube. Or, if the polygonal data consists of a single line, the result of the operation is a quadrilateral. A point will generate a line as shown in **Figure 8-40**(a).
 
 <figure id="Figure 8-39">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-39.png?raw=true width="640" alt="Figure8-39">
@@ -1196,7 +1196,7 @@ This same approach is used in the vtkRotationalExtrusionFilter (**Figure 8-40**(
 
 The most difficult part of this procedure is the picking process. The selection point must be specified in pixel coordinates. The vtkPointPicker converts these coordinates into world and then dataset coordinates using the renderer in which the pick occurred. (The renderer uses the transformation matrix of its active camera to perform coordinate transformation.)
 
-The picking process is conveniently managed in vtkRenderWindowInteractor. This object allows the specification of functions to execute just before picking and just after picking (i.e., “AddObserver StartPickEvent” and “AddObserver EndPickEvent”). Using this facility we can define a post-picking function to retrieve the point id and then execute the GetPointCells() operation. This process is shown in **Figure 8-42**.
+The picking process is conveniently managed in vtkRenderWindowInteractor. This object allows the specification of functions to execute just before picking and just after picking (i.e., "AddObserver StartPickEvent" and "AddObserver EndPickEvent"). Using this facility we can define a post-picking function to retrieve the point id and then execute the GetPointCells() operation. This process is shown in **Figure 8-42**.
 
 <figure id="Figure 8-41">
  <figure id="Figure 8-41a">
@@ -1246,14 +1246,14 @@ Interpolation functions are employed in a number of numerical techniques. The fi
 
 Visualizing higher-order datasets is an open research issue. While <em style="color:green;background-color: white">\[Schroeder06\]</em> describes one approach, methods based on GPU programs are emerging. Other approaches include tailored algorithms for a particular cell type.
 
-Basic topology references are available from a number of sources. Two good descriptions of topological data structures are available from Weiler <em style="color:green;background-color: white">\[Weiler86\]</em> <em style="color:green;background-color: white">\[Weiler88\]</em> and Baumgart <em style="color:green;background-color: white">\[Baumgart74\]</em>. Weiler describes the radial-edge structure. This data structure can represent manifold and non-manifold geometry. The winged-edge structure described by Baumgart is widely known. It is used to represent manifold geometry. Shephard <em style="color:green;background-color: white">\[Shephard88\]</em> describes general finite element data structures — these are similar to visualization structures but with extra information related to analysis and geometric modelling.
+Basic topology references are available from a number of sources. Two good descriptions of topological data structures are available from Weiler <em style="color:green;background-color: white">\[Weiler86\]</em> <em style="color:green;background-color: white">\[Weiler88\]</em> and Baumgart <em style="color:green;background-color: white">\[Baumgart74\]</em>. Weiler describes the radial-edge structure. This data structure can represent manifold and non-manifold geometry. The winged-edge structure described by Baumgart is widely known. It is used to represent manifold geometry. Shephard <em style="color:green;background-color: white">\[Shephard88\]</em> describes general finite element data structures  these are similar to visualization structures but with extra information related to analysis and geometric modelling.
 
 There are extensive references regarding spatial search structures. Samet <em style="color:green;background-color: white">\[Samet90\]</em> provides a general overview of some. Octrees were originally developed by Meagher <em style="color:green;background-color: white">\[Meagher82\]</em> for 3D imaging. See <em style="color:green;background-color: white">\[Williams83\]</em>, <em style="color:green;background-color: white">\[Bentley75\]</em>, and <em style="color:green;background-color: white">\[Quinlan94\]</em> for information about MIP maps, kd-trees, and binary sphere trees, respectively.
 
 ##8.14 References
-<em style="color:green;background-color: white">\[Baumgart74\]</em> B. G. Baumgart. “Geometric Modeling for Computer Vision.” Ph.D. thesis, Stanford University, Palo Alto, CA, 1974.
+<em style="color:green;background-color: white">\[Baumgart74\]</em> B. G. Baumgart. "Geometric Modeling for Computer Vision." Ph.D. thesis, Stanford University, Palo Alto, CA, 1974.
                    
-<em style="color:green;background-color: white">\[Bentley75\]</em> J. L. Bentley. “Multidimensional Binary Search Trees Used for Associative Search.” Communications of the ACM. 18(9):509-516, 1975.
+<em style="color:green;background-color: white">\[Bentley75\]</em> J. L. Bentley. "Multidimensional Binary Search Trees Used for Associative Search." Communications of the ACM. 18(9):509-516, 1975.
 
 <em style="color:green;background-color: white">\[Conte72\]</em> S. D. Conte and C. de Boor. Elementary Numerical Analysis. McGraw-Hill Book Company, 1972.
 
@@ -1261,23 +1261,23 @@ There are extensive references regarding spatial search structures. Samet <em st
 
 <em style="color:green;background-color: white">\[Gallagher75\]</em>R. H. Gallagher. Finite Element Analysis: Fundamentals. Prentice Hall, Upper Saddle River, NJ, 1975.
 
-<em style="color:green;background-color: white">\[Meagher82\]</em> D. J. Meagher. “Efficient Synthetic Image Generation of Arbitrary 3D Objects.” In Proceedings of the IEEE Conference on Pattern Recognition and Image Processing. pp. 473-478, 1982.
+<em style="color:green;background-color: white">\[Meagher82\]</em> D. J. Meagher. "Efficient Synthetic Image Generation of Arbitrary 3D Objects." In Proceedings of the IEEE Conference on Pattern Recognition and Image Processing. pp. 473-478, 1982.
 
-<em style="color:green;background-color: white">\[Quinlan94\]</em> S. Quinlan. “Efficient Distance Computation Between Non-Convex Objects.” In Proceedings of IEEE International Conference on Robotics and Automation. 1994.
+<em style="color:green;background-color: white">\[Quinlan94\]</em> S. Quinlan. "Efficient Distance Computation Between Non-Convex Objects." In Proceedings of IEEE International Conference on Robotics and Automation. 1994.
 
 <em style="color:green;background-color: white">\[Samet90\]</em> H. Samet. Design and Analysis of Spatial Data Structures. Addison-Wesley, Reading, MA, 1990.
 
-<em style="color:green;background-color: white">\[Schroeder06\]</em> W. J. Schroeder, F. Bertel, M. Malaterre, D. Thompson, P. P. Pébay, R. O'Bara and S. Tendulkar. “Methods and Framework for Visualizing Higher-Order Finite Elements.” IEEE Transactions on Visualization and Computer Graphics, 12(4):446-460, July/August 2006.
+<em style="color:green;background-color: white">\[Schroeder06\]</em> W. J. Schroeder, F. Bertel, M. Malaterre, D. Thompson, P. P. Pébay, R. O'Bara and S. Tendulkar. "Methods and Framework for Visualizing Higher-Order Finite Elements." IEEE Transactions on Visualization and Computer Graphics, 12(4):446-460, July/August 2006.
 
-<em style="color:green;background-color: white">\[Shephard88\]</em> M. S. Shephard and P. M. Finnigan. “Toward Automatic Model Generation.” State-of-the-Art Surveys on Computational Mechanics. A. K. Noor and J. T. Oden, eds., ASME, pp. 335-366, 1989.
+<em style="color:green;background-color: white">\[Shephard88\]</em> M. S. Shephard and P. M. Finnigan. "Toward Automatic Model Generation." State-of-the-Art Surveys on Computational Mechanics. A. K. Noor and J. T. Oden, eds., ASME, pp. 335-366, 1989.
 
 <em style="color:green;background-color: white">\[Weiler86\]</em> K. J. Weiler. Topological Structures for Geometric Modeling. Ph.D. thesis, Rensselaer Polytechnic Institute, Troy, NY, May 1986.
 
-<em style="color:green;background-color: white">\[Weiler88\]</em> K. J. Weiler. “The Radial-Edge Structure: A Topological Representation for Non-Manifold Geometric Boundary Representations.” In M. J. Wozny, H. W. McLaughlin, and J. L. Encarnacao, eds., Geometric Modeling for CAD Applications. pp. 3-36, North Holland, 1988.
+<em style="color:green;background-color: white">\[Weiler88\]</em> K. J. Weiler. "The Radial-Edge Structure: A Topological Representation for Non-Manifold Geometric Boundary Representations." In M. J. Wozny, H. W. McLaughlin, and J. L. Encarnacao, eds., Geometric Modeling for CAD Applications. pp. 3-36, North Holland, 1988.
 
-<em style="color:green;background-color: white">\[Williams83\]</em> L. Williams. “Pyramidal Parametrics.” Computer Graphics (SIGGRAPH ’83). 17(3):1-11, 1983.
+<em style="color:green;background-color: white">\[Williams83\]</em> L. Williams. "Pyramidal Parametrics." Computer Graphics (SIGGRAPH 83). 17(3):1-11, 1983.
 
-<em style="color:green;background-color: white">\[Zienkiewicz87\]</em> O. C. Zienkiewicz and R. L. Taylor. The Finite Element Method — Vol. 1. McGraw Hill Book Co., NY, 4th ed., 1987.
+<em style="color:green;background-color: white">\[Zienkiewicz87\]</em> O. C. Zienkiewicz and R. L. Taylor. The Finite Element Method   Vol. 1. McGraw Hill Book Co., NY, 4th ed., 1987.
 
 ## 8.15 Exercises
 
@@ -1286,7 +1286,7 @@ There are extensive references regarding spatial search structures. Samet <em st
   <figcaption style="color:blue"><b>Figure 8-44</b>. Exercise figures.</figcaption>
 </figure>
 
-8.1 Given a volume of dimensions 5 × 10 × 15 with origin (1.0, 2.0,3.0) and voxel spacing (0.5, 0.5, 1.0).
+8.1 Given a volume of dimensions $5 \times 10 \times 15$ with origin (1.0, 2.0,3.0) and voxel spacing (0.5, 0.5, 1.0).
 
 a) Compute minimum point position.
 
@@ -1314,6 +1314,7 @@ a) Line with x, y, z = (0.3, 0.6, 0.9).
 
 b) Triangle with x, y, z = (0.5, 0.25, 0.0).
 c) Voxel with x, y, z = (0.5, 0.4, 2.0).
+
 8.4 Given the line shown in **Figure 8-44**(a), if scalar data values are (s0, s1) = (0.0, 0.25), what are the derivatives in the x, y, z directions?
 
 8.5 Refer to **Figure 8-44**(d) and let the numbers indicate cell ids and the letters indicate point ids. a) List the cells using point A.
@@ -1326,11 +1327,11 @@ c) List cells using edge (A, B). How does this list correspond to your answers i
 
 a) How many boundary faces are there?
 
-b) How many “internal” faces?
+b) How many "internal" faces?
 
 8.7 Describe a procedure to intersect two finite lines. How does tolerance value come into play?
 
-    8.8 Describe a procedure to intersect a line and triangle. Are there special characteristics of a triangle that can be used to speed this operation?
+8.8 Describe a procedure to intersect a line and triangle. Are there special characteristics of a triangle that can be used to speed this operation?
 
 8.9 Compare memory requirements for the three unstructured grid data structures shown in **Figure 8-34**. Assume that two cells use each face, four faces use each edge, and six edges use each vertex (i.e., a structured dataset).
 
@@ -1344,7 +1345,7 @@ c) number of edges in a dataset,
 
 d) number of faces in a dataset.
 
-8.11 Given a volume of dimensions 5 × 10 × 15.
+8.11 Given a volume of dimensions $5 \times 10 \times 15$.
 
 a) How many internal faces are there (i.e. used by two voxels)?
 
