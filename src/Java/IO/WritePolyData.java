@@ -6,15 +6,15 @@ public class WritePolyData
   // Loading Native Libraries.
   // Now it works in eclipse without any issues.
   static {
-	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
-	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
-	        if (!lib.IsLoaded()) {
-	          System.out.println(lib.GetLibraryName() + " not loaded");
-	        }
-	      }
-	    }
-	    vtkNativeLibrary.DisableOutputWindow(null);
-	  }
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+        if (!lib.IsLoaded()) {
+          System.out.println(lib.GetLibraryName() + " not loaded");
+        }
+      }
+    }
+    vtkNativeLibrary.DisableOutputWindow(null);
+  }
 
   public static void main(String[] args)
   {
@@ -22,9 +22,9 @@ public class WritePolyData
     vtkPoints points = new vtkPoints();
    
     for ( int i = 0; i < 10; ++i )
-      {
+    {
       points.InsertNextPoint ( i, i, i );
-      }
+    }
    
     //Create a polydata object and add the points to it.
     vtkPolyData polydata = new vtkPolyData();

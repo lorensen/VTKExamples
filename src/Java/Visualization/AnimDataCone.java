@@ -13,15 +13,15 @@ public class AnimDataCone
   // Loading Native Libraries.
   // Now it works in eclipse without any issues.
   static {
-	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
-	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
-	        if (!lib.IsLoaded()) {
-	          System.out.println(lib.GetLibraryName() + " not loaded");
-	        }
-	      }
-	    }
-	    vtkNativeLibrary.DisableOutputWindow(null);
-	  }
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+        if (!lib.IsLoaded()) {
+          System.out.println(lib.GetLibraryName() + " not loaded");
+        }
+      }
+    }
+    vtkNativeLibrary.DisableOutputWindow(null);
+  }
   // declare the interactor as an instance variable so we can refer to it
   // in the timer callback. we will pass the instance pointer to this
   // class for the callback to be invoked on.
@@ -67,7 +67,7 @@ public class AnimDataCone
     
     AnimDataCone myCone = new AnimDataCone();
     myCone.doit();
-	}
+  }
   /*
    * The TimerEvent is specified as the TimerEvent callback 
    * to the RenderWindowInteractor. The polydata modification 

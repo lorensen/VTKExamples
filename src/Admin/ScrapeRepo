@@ -148,6 +148,24 @@ def AddLanguage(S, link):
         return re.sub(r'(^\[[^\)]*\))', r'\1' + link, S)
     return S
 
+# Given a lang example return a link to a Python example if it exists
+def FindPythonGivenLang(repoDir, example, lang):
+    if lang == "Python" : return ""
+    pythonLink = re.sub(r'/' + lang + r'/',r'/Python/', example)
+    pythonPath = repoDir + pythonLink + ".py"
+    if os.path.exists(pythonPath) :
+       return "([python](" + pythonLink + "))"
+    return ""
+
+# Given a lang example return a link to another example if it exists
+def FindOtherGivenLang(repoDir, example, exampleLang, otherLang, otherExt):
+    if otherLang == exampleLang : return ""
+    otherLink = re.sub(r'/' + exampleLang + r'/',r'/' + otherLang + '/', example)
+    otherPath = repoDir + otherLink + otherExt
+    if os.path.exists(otherPath) :
+       return "([" + otherLang + "](" + otherLink + "))"
+    return ""
+
 # Given a Cxx example return a link to a Python example if it exists
 def FindPythonGivenCxx(repoDir, cxxExample):
     pythonLink = re.sub(r'/Cxx/',r'/Python/', cxxExample)
@@ -307,14 +325,17 @@ exampleToCMake = dict()
 # Create a dict to hold the file names for each example
 exampleToFileNames = dict()
 
-# Create Snippets directories for Cxx and Python
+# Create Snippets directories for Cxx, Python and Java
 if not os.path.exists(DocDir + "/Cxx/Snippets"):
     os.makedirs(DocDir + "/Cxx/Snippets")
 
 if not os.path.exists(DocDir + "/Python/Snippets"):
     os.makedirs(DocDir + "/Python/Snippets")
 
-# Add thumbnails and language links to each of the lanuage summary pages, Snippets and Book figures
+if not os.path.exists(DocDir + "/Java/Snippets"):
+    os.makedirs(DocDir + "/Java/Snippets")
+
+# Add thumbnails and language links to each of the language summary pages, Snippets and Book figures
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
@@ -322,6 +343,7 @@ AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "
 
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Snippets.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Python/Snippets.md", DocDir + "/Python/Snippets.md")
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Java/Snippets.md", DocDir + "/Java/Snippets.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", DocDir + "/VTKBookFigures.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/VTKFileFormats.md", DocDir + "/VTKFileFormats.md")
 
@@ -334,6 +356,11 @@ for snippet in snippets:
 snippets = ['GetProgramParameters', 'ReadPolyData', 'WriteImage']
 for snippet in snippets:
     CopyFile(RepoDir + '/Python/Snippets/' + snippet + '.md', DocDir + '/Python/Snippets/' + snippet + '.md')
+
+# Java Snippets
+snippets = ['WriteImage']
+for snippet in snippets:
+    CopyFile(RepoDir + '/Java/Snippets/' + snippet + '.md', DocDir + '/Java/Snippets/' + snippet + '.md')
 
 # Copy favicon.png
 if not os.path.exists(DocDir + "/assets"):
@@ -442,12 +469,12 @@ for lang, langExt in Languages.items():
         # e.g. if the file name is VTKExamples/Cxx/GeometricObjects/Line,
         # Path will be Cxx/GeometriObjects/Line
         KitName = root[start + 1 + len(to_find):]
-
         if KitName.find("Boneyard") >= 0:
             continue
         if KitName.find("Broken") >= 0:
             continue
         for f in files:
+            otherLanguages = list()
             # skip files that are listed as extras
             if f in allExtras:
                 continue
@@ -457,6 +484,29 @@ for lang, langExt in Languages.items():
             ExampleExt = os.path.splitext(f)[1]
             if ExampleExt != langExt:
                 continue
+            # Find examples in other languages
+            fp = root + "/" + f
+            for l, lExt in Languages.items():
+                otherLink = FindOtherGivenLang("", os.path.splitext(fp)[0], lang, l, lExt)
+                if otherLink != '' :
+                    otherLink = re.sub(r'src',r'', otherLink)
+                    otherLanguages.append(otherLink)
+#           otherLink = FindOtherGivenLang("", os.path.splitext(fp)[0], lang, "Cxx", ".cxx")
+#            if otherLink != '' :
+#                otherLink = re.sub(r'src',r'', otherLink)
+#                otherLanguages.append(otherLink)
+#            otherLink = FindOtherGivenLang("", os.path.splitext(fp)[0], lang, "Python", ".py")
+#            if otherLink != '' :
+#                otherLink = re.sub(r'src',r'', otherLink)
+#                otherLanguages.append(otherLink)
+#            otherLink = FindOtherGivenLang("", os.path.splitext(fp)[0], lang, "Java", ".java")
+#            if otherLink != '' :
+#                otherLink = re.sub(r'src',r'', otherLink)
+#                otherLanguages.append(otherLink)
+#            otherLink = FindOtherGivenLang("", os.path.splitext(fp)[0], lang, "CSharp", ".cs")
+#            if otherLink != '' :
+#                otherLink = re.sub(r'src',r'', otherLink)
+#                otherLanguages.append(otherLink)
             BaselinePath = RepoDir + "/Testing/Baseline/" + lang + "/" + KitName + "/Test" + ExampleName + ".png"
             PathName = DocDir + "/" + lang + "/" + KitName
             if not os.path.exists(PathName):
@@ -475,13 +525,24 @@ for lang, langExt in Languages.items():
                 MdFile.write("<hr>\n")
                 MdFile.write("\n")
             DescriptionPath = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
+            # Add a description if a .md file exists for the example
             if os.path.isfile(DescriptionPath):
                 DescriptionFile = open(RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".md", 'r')
                 description = DescriptionFile.read()
                 DescriptionFile.close()
                 description = AddDoxygen(description)
                 MdFile.write(description)
+            # Add examples from other languages if they exist
+            if len(otherLanguages) > 0 :
+                seeAlso = '\n!!! Tip "Other Languages"\n'
+                see = "    See "
+                for other in otherLanguages :
+                    seeAlso += see + other
+                    see = ", "
+                seeAlso += "\n"
+                MdFile.write(seeAlso)
                 MdFile.write("\n")
+
             SrcFileName = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
             SrcFile = open(SrcFileName, 'r')
             src = SrcFile.read()

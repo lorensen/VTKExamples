@@ -16,15 +16,15 @@ public class Sphere {
   // Loading Native Libraries.
   // Now it works in eclipse without any issues.
   static {
-	    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
-	      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
-	        if (!lib.IsLoaded()) {
-	          System.out.println(lib.GetLibraryName() + " not loaded");
-	        }
-	      }
-	    }
-	    vtkNativeLibrary.DisableOutputWindow(null);
-	  }
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+        if (!lib.IsLoaded()) {
+          System.out.println(lib.GetLibraryName() + " not loaded");
+        }
+      }
+    }
+    vtkNativeLibrary.DisableOutputWindow(null);
+  }
 
   // Now the main program
   public static void main (String []args) {
@@ -60,17 +60,17 @@ public class Sphere {
     points.InsertNextPoint(4,4,4);
     
     polys.InsertNextCell(2);
-     polys.InsertCellPoint(0);
-     polys.InsertCellPoint(1);
+    polys.InsertCellPoint(0);
+    polys.InsertCellPoint(1);
     polys.InsertNextCell(2);
-     polys.InsertCellPoint(1);
-     polys.InsertCellPoint(2);
+    polys.InsertCellPoint(1);
+    polys.InsertCellPoint(2);
     polys.InsertNextCell(2);
-     polys.InsertCellPoint(2);
-     polys.InsertCellPoint(3);
+    polys.InsertCellPoint(2);
+    polys.InsertCellPoint(3);
     polys.InsertNextCell(2);
-     polys.InsertCellPoint(3);
-     polys.InsertCellPoint(1);
+    polys.InsertCellPoint(3);
+    polys.InsertCellPoint(1);
     pd.SetLines(polys);
     pd.SetPoints(points);
     tubes.AddInput(pd);
@@ -124,23 +124,23 @@ public class Sphere {
     //
     int i;
     for (i = 0; i < 360; ++i)
-      {
+    {
       // render the image
       renWin.Render();
       try {
-		Thread.sleep(100);
-	} catch (Throwable e) {
-		e.printStackTrace();
-	}
+        Thread.sleep(100);
+      } catch (Throwable e) {
+        e.printStackTrace();
+      }
       // rotate the active camera by one degree
       ren1.GetActiveCamera().Azimuth( 1 );
-      }
+    }
     
     try {
-		Thread.sleep(1000);
-	} catch (Throwable e1) {
-		e1.printStackTrace();
-	}
+      Thread.sleep(1000);
+    } catch (Throwable e1) {
+      e1.printStackTrace();
+    }
   
-    } 
+  } 
 }

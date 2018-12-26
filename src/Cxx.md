@@ -12,7 +12,7 @@ These are fully independent, compilable examples. There is significant overlap i
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[A hello world example](/Cxx/Rendering/CylinderRenderingProperties) | vtkPolyDataMapper vtkActor vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Cylinder example from the VTK Textbook and source code. A hello world example.
+[A hello world example](/Cxx/GeometricObjects/CylinderExample) | vtkPolyDataMapper vtkActor vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Cylinder example from the VTK Textbook and source code. A hello world example.
 
 ## Simple Operations
 
@@ -819,7 +819,6 @@ This section includes vtkUnstructuredGrid.
 [ColoredSphere](/Cxx/Rendering/ColoredSphere) | vtkSphereSource vtkElevationFilter | A simple sphere.
 [Cone3](/Cxx/Rendering/Cone3) | vtkRenderWindow | Four frames of output, based on the VTK example Cone3.cxx.
 [Cone4](/Cxx/Rendering/Cone4) | vtkRenderWindow | Modifying properties and transformation matrix based on the VTK example Cone4.cxx.
-[CylinderRenderingProperties](/Cxx/Rendering/CylinderRenderingProperties) | vtkProperty | Change the properties of a cylinder.
 [DiffuseSpheres](/Cxx/Rendering/DiffuseSpheres) | vtkProperty | Demonstrates the effect of diffuse lighting on spheres.
 [FlatVersusGouraud](/Cxx/Rendering/FlatVersusGouraud) | vtkProperty::SetInterpolationToFlat vtkProperty::SetInterpolationToGouraud | Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look.
 [Mace](/Cxx/Rendering/Mace) |  | An example of multiple inputs and outputs.
