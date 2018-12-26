@@ -325,14 +325,17 @@ exampleToCMake = dict()
 # Create a dict to hold the file names for each example
 exampleToFileNames = dict()
 
-# Create Snippets directories for Cxx and Python
+# Create Snippets directories for Cxx, Python and Java
 if not os.path.exists(DocDir + "/Cxx/Snippets"):
     os.makedirs(DocDir + "/Cxx/Snippets")
 
 if not os.path.exists(DocDir + "/Python/Snippets"):
     os.makedirs(DocDir + "/Python/Snippets")
 
-# Add thumbnails and language links to each of the lanuage summary pages, Snippets and Book figures
+if not os.path.exists(DocDir + "/Java/Snippets"):
+    os.makedirs(DocDir + "/Java/Snippets")
+
+# Add thumbnails and language links to each of the language summary pages, Snippets and Book figures
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
@@ -340,6 +343,7 @@ AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "
 
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Snippets.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Python/Snippets.md", DocDir + "/Python/Snippets.md")
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Java/Snippets.md", DocDir + "/Java/Snippets.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/VTKBookFigures.md", DocDir + "/VTKBookFigures.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/VTKFileFormats.md", DocDir + "/VTKFileFormats.md")
 
@@ -352,6 +356,11 @@ for snippet in snippets:
 snippets = ['GetProgramParameters', 'ReadPolyData', 'WriteImage']
 for snippet in snippets:
     CopyFile(RepoDir + '/Python/Snippets/' + snippet + '.md', DocDir + '/Python/Snippets/' + snippet + '.md')
+
+# Java Snippets
+snippets = ['WriteImage']
+for snippet in snippets:
+    CopyFile(RepoDir + '/Java/Snippets/' + snippet + '.md', DocDir + '/Java/Snippets/' + snippet + '.md')
 
 # Copy favicon.png
 if not os.path.exists(DocDir + "/assets"):
