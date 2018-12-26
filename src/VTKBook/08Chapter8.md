@@ -232,25 +232,25 @@ The weighted distance squared interpolation functions work well in practice. How
   <figcaption style="color:blue"><b>Figure 8-17</b> Parametric coordinate system and interpolation functions for a quadratic triangle. </figcaption>
 </figure>
 
-**Quadratic Quadrilateral.** **Figure 8-18** shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates (r,s). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta) coordinates defined in this range. Also, the notation $\epsilon_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the $i^{th}$ point.
+**Quadratic Quadrilateral.** **Figure 8-18** shows the parametric coordinate system and interpolation functions for a quadratic quadrilateral cell type. The quadratic quadrilateral is described using the two parametric coordinates (r,s). Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\xi, \eta) coordinates defined in this range. Also, the notation $\xi_i$ and $\eta_i$ is introduced. These are the parametric coordinates at the $i^{th}$ point.
             
 <figure id="Figure 8-18">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-18.png?raw=true width="640" alt="Figure8-18">
-  <figcaption style="color:blue"><b>Figure 8-18</b>.  Parametric coordinate system and interpolation functions for a quadratic quadrilateral. In VTK parametric coordinates (r,s) run between (0,1), hence the coordinate system shift into the (ξ, η)) parametric system ranging from (-1,1). Note that ξi and ηi refer to the parametric coordinates of the $i^{th} point.</figcaption>
+  <figcaption style="color:blue"><b>Figure 8-18</b>.  Parametric coordinate system and interpolation functions for a quadratic quadrilateral. In VTK parametric coordinates (r,s) run between (0,1), hence the coordinate system shift into the (&xi;, &eta;) parametric system ranging from (-1,1). Note that &xi;<sub>i</sub>, &eta;<sub>i</sub> and &zeta;<sub>i</sub> refer to the parametric coordinates of the i<sup>th</sup> point.</figcaption>
 </figure>
 
 **Quadratic Tetrahedron.** **Figure 8-19** shows the parametric coordinate system and interpolation functions for a quadratic tetrahedron cell type. The quadratic tetrahedron is described using the three parametric coordinates $(r,s,t)$.
 
 <figure id="Figure 8-19">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-19.png?raw=true width="640" alt="Figure8-19">
-  <figcaption style="color:blue"><b>Figure 8-19</b>. Parametric coordinate system and interpolation functions for a quadratic tetrahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1).</figcaption>
+  <figcaption style="color:blue"><b>Figure 8-19</b>. Parametric coordinate system and interpolation functions for a quadratic tetrahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (&xi;, &eta; and &zeta;) parametric system ranging from (-1,1).</figcaption>
 </figure>
 
-**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\epsilon_i, \eta_i and \zeta_i$ is introduced. These are the parametric coordinates at the $i^{th}$ point.
+**Quadratic Hexahedron.** **Figure 8-20** shows the parametric coordinate system and interpolation functions for a quadratic hexahedron cell type. The quadratic hexahedron is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\xi, \eta, \zeta)$ coordinates defined in this range. Also, the notation $\xi_i, \eta_i and \zeta_i$ is introduced. These are the parametric coordinates at the $i^{th}$ point.
 
 <figure id="Figure 8-20">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-20.png?raw=true width="640" alt="Figure8-20">
-  <figcaption style="color:blue"><b>Figure 8-20</b>. Parametric coordinate system and interpolation functions for a quadratic hexahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi, ηi and ζi refer to the parametric coordinates of the $i^{th}$x  point.</figcaption>
+  <figcaption style="color:blue"><b>Figure 8-20</b>. Parametric coordinate system and interpolation functions for a quadratic hexahedron. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (&xi;, &eta; and &zeta;) parametric system ranging from (-1,1). Note that &xi;<sub>i</sub>, &eta;<sub>i</sub> amd &zeta;<sub>i</sub> refer to the parametric coordinates of the i<sup>th</sup> x  point.</figcaption>
 </figure>
 
 **Quadratic Wedge.** **Figure 8-21** shows the parametric coordinate system and interpolation functions for a quadratic wedge cell type. The quadratic wedge is described using the three parametric coordinate $(r,s,t)$.
@@ -260,11 +260,11 @@ The weighted distance squared interpolation functions work well in practice. How
   <figcaption style="color:blue"><b>Figure 8-21</b>. Parametric coordinate system and interpolation functions for a quadratic wedge.</figcaption>
 </figure>
 
-**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\epsilon, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\epsilon_i$, \eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the $i^{th}$ point. (The shape functions and derivatives were implemented thanks to the _Center For Aerospace Structures_ http://www.colorado.edu/engineering/CAS.)
+**Quadratic Pyramid.** **Figure 8-22** shows the parametric coordinate system and interpolation functions for a quadratic pyramid cell type. The quadratic pyramid is described using the three parametric coordinates $(r,s,t)$. Note that because the interpolation functions are most easily expressed in the interval (-1,1), a coordinate shift is performed to the $(\xi, \eta, \zeta)$ coordinates system defined in this range. Also, the notation $\xi_i$, \eta_i$ and $\zeta_i$ is introduced, these are the parametric coordinate at the $i^{th}$ point. (The shape functions and derivatives were implemented thanks to the _Center For Aerospace Structures_ http://www.colorado.edu/engineering/CAS.)
 
 <figure id="Figure 8-22">
   <img src="https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/VTKBook/Figures/Figure8-22.png?raw=true width="640" alt="Figure8-22">
-  <figcaption style="color:blue"><b>Figure 8-22</b>.  Parametric coordinate system and interpolation functions for a quadratic pyramid. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (ξ, η, ζ) parametric system ranging from (-1,1). Note that ξi, ηi and ζi refer to the parametric.</figcaption>
+  <figcaption style="color:blue"><b>Figure 8-22</b>.  Parametric coordinate system and interpolation functions for a quadratic pyramid. In VTK parametric coordinates (r,s,t) run between (0,1), hence the coordinate system shift into the (&xi;,&eta;,&zeta;) parametric system ranging from (-1,1). Note that &xi;<sub>i</sub>, &eta;<sub>i</sub> and &zeta;<sub>i</sub> refer to the parametric coordinates of the i<sup>th</sup> x  point.</figcaption>.</figcaption>
 </figure>
 
 ## 8.3 Cell Tessellation        
