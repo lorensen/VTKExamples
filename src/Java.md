@@ -76,6 +76,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [Read a polydata(.vtp) file](/Java/IO/ReadPolyData) | vtkXMLPolyDataReader | IO
 [Write a polygonal data (.vtp) file](/Java/IO/WritePolyData) | vtkXMLPolyDataWriter | IO
+[JPEGWriter](/Java/IO/JPEGWriter) | vtkJPEGWriter | IO
 
 ## Implicit Functions and Iso-surfaces
 
