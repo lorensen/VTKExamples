@@ -81,6 +81,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | -------------- | ---------------------- | ------------- | ------- |
 [Axes](/Python/GeometricObjects/Axes) | vtkAxesActor |
 [ColoredLines](/Python/GeometricObjects/ColoredLines) | vtkCellData vtkLine |
+[Circle](/Python/GeometricObjects/Circle) | vtkRegularPolygonSource | A disk is shown however this can be modified to show a circle.
 [Dodecahedron](/Python/GeometricObjects/Dodecahedron) | vtkPolyhedron | Create a dodecahedron using vtkPolyhedron.
 [EllipticalCylinder](/Python/GeometricObjects/EllipticalCylinder) | vtkLinearExtrusionFilter | Create an elliptical cylinder using extrusion.
 [EllipticalCylinderDemo](/Python/GeometricObjects/EllipticalCylinderDemo) | vtkLinearExtrusionFilter | Show the base and extrusion vector.
