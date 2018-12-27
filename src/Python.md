@@ -175,6 +175,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [MarchingCasesD](/Python/VisualizationAlgorithms/MarchingCasesD) | vtkMarchingCubes | Marching cubes, case 7 is rotated 180 degrees about the y-axis with no label.
 [Quadric](/Python/ImplicitFunctions/Quadric) | vtkQuadric | Create an ellipsoid using an implicit quadric
 [Sphere](/Python/ImplicitFunctions/Sphere) | vtkSphere | Demonstrate sampling of a sphere implicit function
+[SampleFunction](/Python/ImplicitFunctions/SampleFunction) | vtkSampleFunction | Sample and visualize an implicit function.
 
 ## Working with 3D Data
 
