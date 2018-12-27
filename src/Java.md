@@ -70,6 +70,14 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [EarthSource](/Java/Geovis/EarthSource) | vtkEarthSource | Earth Source Visualization
 [CompassWidget](/Java/Geovis/CompassWidget) | vtkCompassWidget| CompassWidget Visualization
 
+## Graphs
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkVisualizeGraph |  Visualize Graph
+
+
+
 ## Input and Output
 
 | Example Name | Classes Demonstrated | Description | Image |
