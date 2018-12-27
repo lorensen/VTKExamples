@@ -1,37 +1,24 @@
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import vtk.vtkActor;
+import vtk.vtkNamedColors;
 import vtk.vtkSphereSource;
 import vtk.vtkNativeLibrary;
-import vtk.vtkPanel;
 import vtk.vtkPolyDataMapper;
+import vtk.vtkRenderWindow;
+import vtk.vtkRenderWindowInteractor;
+import vtk.vtkRenderer;
 
-
-/**
- Java Program to Display a  Wireframe Sphere using VTK. 
- Author: Bharatesh Chakravarthi, Chung Ang University,
- Seoul, South Korea. 
- */
- 
- 
-public class Sphere extends JPanel implements ActionListener {
-  private static final long serialVersionUID = 1L;
-  private vtkPanel renWin;
-  private JButton exitButton;
-
+public class Sphere
+{
   // -----------------------------------------------------------------
   // Load VTK library and print which library was not properly loaded
-  static {
-    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
-      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
-        if (!lib.IsLoaded()) {
+  static 
+  {
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) 
+    {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) 
+      {
+        if (!lib.IsLoaded()) 
+        {
           System.out.println(lib.GetLibraryName() + " not loaded");
         }
       }
@@ -39,21 +26,31 @@ public class Sphere extends JPanel implements ActionListener {
     vtkNativeLibrary.DisableOutputWindow(null);
   }
   // -----------------------------------------------------------------
-  
-  
-  public Sphere() {
-    super(new BorderLayout());
 
+  public static void main(String s[])
+  {
+    vtkNamedColors colors = new vtkNamedColors();
+
+    //For Actor Color
+    double actorColor[] = new double[4];
+    //Renderer Background Color
+    double Bgcolor[] = new double[4];
+
+
+    colors.GetColor("Silver", actorColor);
+    colors.GetColor("PaleVioletRed", Bgcolor);
+
+   
     //Create a Sphere
     vtkSphereSource Sphere = new vtkSphereSource();
     Sphere.SetCenter(0.0,0.0,0.0);
     Sphere.SetRadius(1.0);
     Sphere.Update();
-  
+
     //Change Phi and Theta Value for Smooth Surface
     Sphere.SetPhiResolution(10);
     Sphere.SetThetaResolution(10);
-  
+
     //Create a Mapper and Actor
     vtkPolyDataMapper Mapper = new vtkPolyDataMapper();
     Mapper.SetInputConnection(Sphere.GetOutputPort());
@@ -63,39 +60,22 @@ public class Sphere extends JPanel implements ActionListener {
     Actor.GetProperty().SetColor(1.0, 1.0, 1.0);
     //Setting up the wireframe property to Sphere. Comment the below line to display Solid Sphere
     Actor.GetProperty().SetRepresentationToWireframe();
- 
-  
-   
-    renWin = new vtkPanel();
-    renWin.GetRenderer().AddActor(Actor);
-    renWin.resetCamera();
+        
+    // Create the renderer, render window and interactor.
+    vtkRenderer ren = new vtkRenderer();
+    vtkRenderWindow renWin = new vtkRenderWindow();
+    renWin.AddRenderer(ren);
+    vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
+    iren.SetRenderWindow(renWin);
 
-    // Add Java UI components
-    exitButton = new JButton("Exit");
-    exitButton.addActionListener(this);
+    // Visualise the arrow
+    ren.AddActor(Actor);
+    ren.SetBackground(Bgcolor);
 
-    add(renWin, BorderLayout.CENTER);
-    add(exitButton, BorderLayout.SOUTH);
+    renWin.SetSize(300, 300);
+    renWin.Render();
+
+    iren.Initialize();
+    iren.Start();
   }
-
-  /** An ActionListener that listens to the button. */
-  public void actionPerformed(ActionEvent e) {
-    if (e.getSource().equals(exitButton)) {
-      System.exit(0);
-    }
-  }
-
-  public static void main(String s[]) {
-    SwingUtilities.invokeLater(new Runnable() {
-        public void run() {
-          JFrame frame = new JFrame("Sphere");
-          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          frame.getContentPane().setLayout(new BorderLayout());
-          frame.getContentPane().add(new Sphere(), BorderLayout.CENTER);
-          frame.setSize(400, 400);
-          frame.setLocationRelativeTo(null);
-          frame.setVisible(true);
-        }
-      });
-  }
-}
+ }
