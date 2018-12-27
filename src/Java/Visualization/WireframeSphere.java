@@ -57,7 +57,7 @@ public class Sphere
 
     vtkActor Actor = new vtkActor();
     Actor.SetMapper(Mapper);
-    Actor.GetProperty().SetColor(1.0, 1.0, 1.0);
+    Actor.GetProperty().SetColor(actorColor);
     //Setting up the wireframe property to Sphere. Comment the below line to display Solid Sphere
     Actor.GetProperty().SetRepresentationToWireframe();
         
