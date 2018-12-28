@@ -8,7 +8,7 @@ def main():
     polygonSource = vtk.vtkRegularPolygonSource()
     # Uncomment this line to generate only the outline of the circle.
     # polygonSource.GeneratePolygonOff()
-    polygonSource.SetNumberOfSides(50);
+    polygonSource.SetNumberOfSides(50)
     polygonSource.SetRadius(5.0)
     polygonSource.SetCenter(0.0, 0.0, 0.0)
     
