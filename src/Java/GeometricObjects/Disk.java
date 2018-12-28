@@ -1,17 +1,13 @@
 import vtk.vtkActor;
 import vtk.vtkNativeLibrary;
-import vtk.vtkDataSetMapper;
-import vtk.vtkPlanes;
-import vtk.vtkFrustumSource;
-import vtk.vtkShrinkFilter;
-import vtk.vtkProperty;
+import vtk.vtkPolyDataMapper;
 import vtk.vtkRenderWindow;
 import vtk.vtkRenderWindowInteractor;
 import vtk.vtkRenderer;
-import vtk.vtkCamera;
+import vtk.vtkDiskSource;
 import vtk.vtkNamedColors;
 
-public class Frustum  
+public class Disk  
 {
 
   //-----------------------------------------------------------------
@@ -31,60 +27,34 @@ public class Frustum
     vtkNativeLibrary.DisableOutputWindow(null);
   }
   // -----------------------------------------------------------------
-  
+
   public static void main(String s[]) 
   {
 
-    vtkNamedColors Color = new vtkNamedColors(); 
+    vtkNamedColors colors = new vtkNamedColors();
+
+
     //For Actor Color
-    double ActorColor[] = new double[4];
+    double actorColor[] = new double[4];
     //Renderer Background Color
-    double BgColor[] = new double[4];
-    //BackFace color 
-    double BackColor[] = new double[4];
-
-    //Change Color Name to Use your own Color for Change Actor Color
-    Color.GetColor("GreenYellow",ActorColor);
-    //Change Color Name to Use your own Color for Renderer Background
-    Color.GetColor("RoyalBlue",BgColor);
-    //Change Color Name to Use your own Color for BackFace Color
-    Color.GetColor("PeachPuff",BackColor);
+    double Bgcolor[] = new double[4];
 
 
+    colors.GetColor("Gold", actorColor);
+    colors.GetColor("Indigo", Bgcolor);
+    //Create a Disk
+    vtkDiskSource Disk = new vtkDiskSource();
 
-    // A virtual camera for 3D rendering
-    vtkCamera Camera = new vtkCamera();
-    Camera.SetClippingRange(0.1,0.4);
-    double PlanesArray[] = new double[24];
-
-    Camera.GetFrustumPlanes(1.0, PlanesArray);
-
-    vtkPlanes Planes = new vtkPlanes();
-    Planes.SetFrustumPlanes(PlanesArray);
-
-    //To create a frustum defined by a set of planes. 
-    vtkFrustumSource FrustumSource = new vtkFrustumSource();
-    FrustumSource.ShowLinesOff();
-    FrustumSource.SetPlanes(Planes);
-
-    //shrink cells composing an arbitrary data set
-    vtkShrinkFilter shrink = new vtkShrinkFilter();
-    shrink.SetInputConnection(FrustumSource.GetOutputPort());
-    shrink.SetShrinkFactor(.9);
 
     //Create a Mapper and Actor
-    vtkDataSetMapper Mapper = new vtkDataSetMapper();
-    Mapper.SetInputConnection(shrink.GetOutputPort());
-
-    vtkProperty Back = new vtkProperty();
-    Back.SetColor(BackColor);
+    vtkPolyDataMapper Mapper = new vtkPolyDataMapper();
+    Mapper.SetInputConnection(Disk.GetOutputPort());
 
     vtkActor Actor = new vtkActor();
     Actor.SetMapper(Mapper);
-    Actor.GetProperty().EdgeVisibilityOn();
-    Actor.GetProperty().SetColor(ActorColor);
-    Actor.SetBackfaceProperty(Back);
-
+    Actor.GetProperty().SetColor(1.0, 1.0, 0.5);  
+     
+    Actor.GetProperty().SetColor(actorColor);
 
     //Create the renderer, render window and interactor.
     vtkRenderer ren = new vtkRenderer();
@@ -95,7 +65,7 @@ public class Frustum
 
     // Visualise the arrow
     ren.AddActor(Actor);
-    ren.SetBackground(BgColor);
+    ren.SetBackground(Bgcolor);
 
     renWin.SetSize(300, 300);
     renWin.Render();
@@ -103,4 +73,4 @@ public class Frustum
     iren.Initialize();
     iren.Start();
   }
-}  
+}f
