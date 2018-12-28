@@ -34,7 +34,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[Delaunay2D](/Java/Filtering/Delaunay2D) | vtkDelaunay2D | Delaunay2D
+[Delaunay2D](/Java/Filtering/Delaunay2D) | vtkDelaunay2D | An example to generate a set of points and to to triangulate using Delaunay2D
 
 
 ## GeometricObjects
