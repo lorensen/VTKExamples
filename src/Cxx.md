@@ -495,6 +495,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [CellIdFromGridCoordinates](/Cxx/ImageData/CellIdFromGridCoordinates) | vtkStructuredData | Get the id of a cell from its grid coordinates.
 [ExtractVOI](/Cxx/ImageData/ExtractVOI) | vtkExtractVOI | Extract a volume of interest (subvolume).
 [GetCellCenter](/Cxx/ImageData/GetCellCenter) | vtkImageData | Get the coordinates of the center of a cell.
+[ClipVolume](/Cxx/ImageData/ClipVolume) | vtkClipVolume vtkImageData | Clip a volumeand produce a vtkUnhstructuredGrid.
 [ImageIterator](/Cxx/ImageData/ImageIterator) | vtkImageIterator |
 [ImageIteratorDemo](/Cxx/ImageData/ImageIteratorDemo) | vtkImageIterator | Demonstrate using an iterator to access pixels in a region.
 [ImageNormalize](/Cxx/ImageData/ImageNormalize) | vtkImageNormalize | Normalize an image.
