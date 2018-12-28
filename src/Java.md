@@ -74,7 +74,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkVisualizeGraph |  Visualize Graph
+[VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkVisualizeGraph | An example to construct a graph and visualize it.
 
 
 
