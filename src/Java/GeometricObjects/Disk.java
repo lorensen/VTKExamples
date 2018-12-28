@@ -1,32 +1,21 @@
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import vtk.vtkActor;
 import vtk.vtkNativeLibrary;
-import vtk.vtkPanel;
-import vtk.vtkPolyDataMapper;
-import vtk.vtkDiskSource;
+import vtk.vtkDataSetMapper;
+import vtk.vtkPlanes;
+import vtk.vtkFrustumSource;
+import vtk.vtkShrinkFilter;
+import vtk.vtkProperty;
+import vtk.vtkRenderWindow;
+import vtk.vtkRenderWindowInteractor;
+import vtk.vtkRenderer;
+import vtk.vtkCamera;
+import vtk.vtkNamedColors;
 
-
-
-//Author: Bharatesh Chakravarthi
-//Affiliation: VE Lab, Chung Ang University, Seoul, South Korea. 
-
-
-public class Disk extends JPanel implements ActionListener 
+public class Frustum  
 {
-  private static final long serialVersionUID = 1L;
-  private vtkPanel renWin;
-  private JButton exitButton;
 
-  // -----------------------------------------------------------------
-  // Load VTK library and print which library was not properly loaded
+  //-----------------------------------------------------------------
+  //Load VTK library and print which library was not properly loaded
   static 
   {
     if (!vtkNativeLibrary.LoadAllNativeLibraries()) 
@@ -42,61 +31,76 @@ public class Disk extends JPanel implements ActionListener
     vtkNativeLibrary.DisableOutputWindow(null);
   }
   // -----------------------------------------------------------------
-	  
-	  
-  public Disk() 
+  
+  public static void main(String s[]) 
   {
-	    
-    super(new BorderLayout());
 
-    //Create a Disk
-    vtkDiskSource Disk = new vtkDiskSource();
-		  
-	 
+    vtkNamedColors Color = new vtkNamedColors(); 
+    //For Actor Color
+    double ActorColor[] = new double[4];
+    //Renderer Background Color
+    double BgColor[] = new double[4];
+    //BackFace color 
+    double BackColor[] = new double[4];
+
+    //Change Color Name to Use your own Color for Change Actor Color
+    Color.GetColor("GreenYellow",ActorColor);
+    //Change Color Name to Use your own Color for Renderer Background
+    Color.GetColor("RoyalBlue",BgColor);
+    //Change Color Name to Use your own Color for BackFace Color
+    Color.GetColor("PeachPuff",BackColor);
+
+
+
+    // A virtual camera for 3D rendering
+    vtkCamera Camera = new vtkCamera();
+    Camera.SetClippingRange(0.1,0.4);
+    double PlanesArray[] = new double[24];
+
+    Camera.GetFrustumPlanes(1.0, PlanesArray);
+
+    vtkPlanes Planes = new vtkPlanes();
+    Planes.SetFrustumPlanes(PlanesArray);
+
+    //To create a frustum defined by a set of planes. 
+    vtkFrustumSource FrustumSource = new vtkFrustumSource();
+    FrustumSource.ShowLinesOff();
+    FrustumSource.SetPlanes(Planes);
+
+    //shrink cells composing an arbitrary data set
+    vtkShrinkFilter shrink = new vtkShrinkFilter();
+    shrink.SetInputConnection(FrustumSource.GetOutputPort());
+    shrink.SetShrinkFactor(.9);
+
     //Create a Mapper and Actor
-    vtkPolyDataMapper Mapper = new vtkPolyDataMapper();
-    Mapper.SetInputConnection(Disk.GetOutputPort());
+    vtkDataSetMapper Mapper = new vtkDataSetMapper();
+    Mapper.SetInputConnection(shrink.GetOutputPort());
+
+    vtkProperty Back = new vtkProperty();
+    Back.SetColor(BackColor);
 
     vtkActor Actor = new vtkActor();
     Actor.SetMapper(Mapper);
-    Actor.GetProperty().SetColor(1.0, 1.0, 0.5);  
-		   
-    renWin = new vtkPanel();
-    renWin.GetRenderer().AddActor(Actor);
-    renWin.GetRenderer().SetBackground(0.1, 0.0, 0.1);
-    renWin.resetCamera();
+    Actor.GetProperty().EdgeVisibilityOn();
+    Actor.GetProperty().SetColor(ActorColor);
+    Actor.SetBackfaceProperty(Back);
 
-    // Add Java UI components
-    exitButton = new JButton("Exit");
-    exitButton.addActionListener(this);
 
-    add(renWin, BorderLayout.CENTER);
-    add(exitButton, BorderLayout.SOUTH);
+    //Create the renderer, render window and interactor.
+    vtkRenderer ren = new vtkRenderer();
+    vtkRenderWindow renWin = new vtkRenderWindow();
+    renWin.AddRenderer(ren);
+    vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
+    iren.SetRenderWindow(renWin);
+
+    // Visualise the arrow
+    ren.AddActor(Actor);
+    ren.SetBackground(BgColor);
+
+    renWin.SetSize(300, 300);
+    renWin.Render();
+
+    iren.Initialize();
+    iren.Start();
   }
-
-  /** An ActionListener that listens to the button. */
-  public void actionPerformed(ActionEvent e) 
-  {
-    if (e.getSource().equals(exitButton)) 
-    {
-      System.exit(0);
-    }
-  }
-
-  public static void main(String s[]) 
-  {
-    SwingUtilities.invokeLater(new Runnable() 
-      {
-        public void run() 
-        {
-          JFrame frame = new JFrame("Disk");
-          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          frame.getContentPane().setLayout(new BorderLayout());
-          frame.getContentPane().add(new Disk(), BorderLayout.CENTER);
-          frame.setSize(400, 400);
-          frame.setLocationRelativeTo(null);
-          frame.setVisible(true);
-        }
-      });
-  }
-}
+}  
