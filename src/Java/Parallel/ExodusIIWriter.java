@@ -24,17 +24,17 @@ public class ExodusIIWriter
 	
 	public static void main(String args[]) 
 	{					
-		  
-		// Provide default values.
+	  // Provide default values.
 		String fileName = "Output.exii";
 		for(int i = 0; i < args.length; ++i)
 		{
-		      switch (i) 
-		      {
-		        case 0:
-		        		fileName = args[i];
-		        		break;
-		      }
+		  switch (i) 
+		  {
+		    case 0:
+		        	fileName = args[i];
+		        	break;
+
+		  }
 		}
 		vtkTimeSourceExample TimeSource = new vtkTimeSourceExample();
 		vtkExodusIIWriter ExodusWriter = new vtkExodusIIWriter();
