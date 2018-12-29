@@ -10,15 +10,28 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkCamera.h>
+#include <vtkProperty.h>
+
+#include <vtkNamedColors.h>
+#include <vtkColor.h>
 
 int main(int argc, char *argv[])
 {
+  // Colors
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+  vtkColor3d coneColor = colors->GetColor3d("Tomato");
+  vtkColor3d sphereColor = colors->GetColor3d("Banana");
+  vtkColor3d backgroundColor = colors->GetColor3d("Peacock");
+
   // Create the graphics structure. The renderer renders into the
   // render window.
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   vtkSmartPointer<vtkRenderer> ren1 =
     vtkSmartPointer<vtkRenderer>::New();
+  ren1->SetBackground(backgroundColor.GetData());
+
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
   renWin->SetMultiSamples(0);
@@ -28,23 +41,35 @@ int main(int argc, char *argv[])
   // Generate a sphere
   vtkSmartPointer<vtkSphereSource> sphereSource =
     vtkSmartPointer<vtkSphereSource>::New();
+  sphereSource->SetPhiResolution(31);
+  sphereSource->SetThetaResolution(31);
+
   vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   sphereMapper->SetInputConnection( sphereSource->GetOutputPort());
   vtkSmartPointer<vtkActor> sphere =
     vtkSmartPointer<vtkActor>::New();
   sphere->SetMapper(sphereMapper);
+  sphere->GetProperty()->SetDiffuseColor(sphereColor.GetData());
+  sphere->GetProperty()->SetDiffuse(.7);
+  sphere->GetProperty()->SetSpecular(.3);
+  sphere->GetProperty()->SetSpecularPower(30.0);
+
   ren1->AddActor(sphere);
 
   // Generate a cone
   vtkSmartPointer<vtkConeSource> coneSource =
     vtkSmartPointer<vtkConeSource>::New();
+  coneSource->SetResolution(31);
+
   vtkSmartPointer<vtkPolyDataMapper> coneMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   coneMapper->SetInputConnection( coneSource->GetOutputPort());
   vtkSmartPointer<vtkActor> cone =
     vtkSmartPointer<vtkActor>::New();
   cone->SetMapper(coneMapper);
+  cone->GetProperty()->SetDiffuseColor(coneColor.GetData());
+
   ren1->AddActor(cone);
 
   // Create an Animation Scene

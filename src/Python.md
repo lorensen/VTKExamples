@@ -82,6 +82,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | -------------- | ---------------------- | ------------- | ------- |
 [Axes](/Python/GeometricObjects/Axes) | vtkAxesActor |
 [ColoredLines](/Python/GeometricObjects/ColoredLines) | vtkCellData vtkLine |
+[Circle](/Python/GeometricObjects/Circle) | vtkRegularPolygonSource | A disk is shown however this can be modified to show a circle.
 [Dodecahedron](/Python/GeometricObjects/Dodecahedron) | vtkPolyhedron | Create a dodecahedron using vtkPolyhedron.
 [EllipticalCylinder](/Python/GeometricObjects/EllipticalCylinder) | vtkLinearExtrusionFilter | Create an elliptical cylinder using extrusion.
 [EllipticalCylinderDemo](/Python/GeometricObjects/EllipticalCylinderDemo) | vtkLinearExtrusionFilter | Show the base and extrusion vector.
@@ -175,6 +176,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [MarchingCasesD](/Python/VisualizationAlgorithms/MarchingCasesD) | vtkMarchingCubes | Marching cubes, case 7 is rotated 180 degrees about the y-axis with no label.
 [Quadric](/Python/ImplicitFunctions/Quadric) | vtkQuadric | Create an ellipsoid using an implicit quadric
 [Sphere](/Python/ImplicitFunctions/Sphere) | vtkSphere | Demonstrate sampling of a sphere implicit function
+[SampleFunction](/Python/ImplicitFunctions/SampleFunction) | vtkSampleFunction | Sample and visualize an implicit function.
 
 ## Working with 3D Data
 
