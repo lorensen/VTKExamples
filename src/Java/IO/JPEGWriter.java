@@ -1,5 +1,6 @@
 import vtk.vtkImageCanvasSource2D;
 import vtk.vtkJPEGWriter;
+import vtk.vtkNamedColors;
 import vtk.vtkNativeLibrary;
 
 public class JPEGWriter 
@@ -25,6 +26,27 @@ public class JPEGWriter
   
   public static void main(String args[]) 
   {
+	 
+	  double bkgColor[] = new double[] {255, 0,0};
+	  double boxColor[] = new double[] {255,255,255};
+	  
+	  
+	// Provide default values.
+	String file_Name = "Output.jpg";
+	String File_Argument ="";
+	for(int i = 0; i < args.length; ++i)
+	{
+	      switch (i) 
+	      {
+	        case 0:
+	        		file_Name = args[i];
+	        		break;
+	        case 1:
+	        		File_Argument = args[i];
+	        		break;
+	      }
+	}
+
 
     vtkImageCanvasSource2D ImageSource = new vtkImageCanvasSource2D();
     ImageSource.SetExtent(0, 99, 0, 99, 0, 0);
@@ -36,15 +58,15 @@ public class JPEGWriter
     ImageSource.SetNumberOfScalarComponents(3);
 
     //Fill the whole image with a blue background
-    ImageSource.SetDrawColor(0, 127, 255);
+    ImageSource.SetDrawColor(bkgColor);
     ImageSource.FillBox(0, 99, 0, 99);
 
     //Paint a 30x30 white square into the image
-    ImageSource.SetDrawColor(255, 255, 255);
+    ImageSource.SetDrawColor(boxColor);
     ImageSource.FillBox(40, 70, 20, 50);
 
     vtkJPEGWriter Writer = new vtkJPEGWriter();
-    Writer.SetFileName("Output.jpg");
+    Writer.SetFileName(file_Name);
     Writer.SetInputConnection(ImageSource.GetOutputPort());
     Writer.Write();
 
