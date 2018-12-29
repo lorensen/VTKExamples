@@ -1,34 +1,25 @@
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import vtk.vtkActor;
+import vtk.vtkNamedColors;
 import vtk.vtkRegularPolygonSource;
+import vtk.vtkRenderWindow;
+import vtk.vtkRenderWindowInteractor;
+import vtk.vtkRenderer;
 import vtk.vtkNativeLibrary;
-import vtk.vtkPanel;
 import vtk.vtkPolyDataMapper;
 
-
-//Author: Bharatesh Chakravarthi
-//Affiliation: VE Lab, Chung Ang University, Seoul, South Korea. 
-
-
-public class Circle extends JPanel implements ActionListener {
-  private static final long serialVersionUID = 1L;
-  private vtkPanel renWin;
-  private JButton exitButton;
+public class Circle 
+{
 
   // -----------------------------------------------------------------
   // Load VTK library and print which library was not properly loaded
-  static {
-    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
-      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
-        if (!lib.IsLoaded()) {
+  static 
+  {
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) 
+    {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) 
+      {
+        if (!lib.IsLoaded()) 
+        {
           System.out.println(lib.GetLibraryName() + " not loaded");
         }
       }
@@ -36,12 +27,21 @@ public class Circle extends JPanel implements ActionListener {
     vtkNativeLibrary.DisableOutputWindow(null);
   }
   // -----------------------------------------------------------------
-	  
-	  
-  public Circle() {
-    super(new BorderLayout());
 
-	
+  public static void main(String s[]) 
+  {
+
+    vtkNamedColors colors = new vtkNamedColors();
+
+
+    //For Actor Color
+    double actorColor[] = new double[4];
+    //Renderer Background Color
+    double Bgcolor[] = new double[4];
+
+
+    colors.GetColor("White", actorColor);
+    colors.GetColor("DarkSeaGreen", Bgcolor);
 
     vtkRegularPolygonSource PolygoneSource = new vtkRegularPolygonSource();
     PolygoneSource.SetNumberOfSides(100);
@@ -50,46 +50,32 @@ public class Circle extends JPanel implements ActionListener {
     //Uncomment below line to Visualize outline of circle
     PolygoneSource.GeneratePolygonOff();
     PolygoneSource.Update();
-	  
-	  
+
+
     vtkPolyDataMapper Mapper = new vtkPolyDataMapper();
     Mapper.SetInputConnection(PolygoneSource.GetOutputPort());
 
     vtkActor Actor = new vtkActor();
     Actor.SetMapper(Mapper);
-	  
-    renWin = new vtkPanel();
-    renWin.GetRenderer().AddActor(Actor);
-    renWin.resetCamera();
+    Actor.GetProperty().SetColor(actorColor);
 
-    // Add Java UI components
-    exitButton = new JButton("Exit");
-    exitButton.addActionListener(this);
 
-    add(renWin, BorderLayout.CENTER);
-    add(exitButton, BorderLayout.SOUTH);
+    // Create the renderer, render window and interactor.
+    vtkRenderer ren = new vtkRenderer();
+    vtkRenderWindow renWin = new vtkRenderWindow();
+    renWin.AddRenderer(ren);
+    vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
+    iren.SetRenderWindow(renWin);
+
+    // Visualise the arrow
+    ren.AddActor(Actor);
+    ren.SetBackground(Bgcolor);
+
+    renWin.SetSize(300, 300);
+    renWin.Render();
+
+    iren.Initialize();
+    iren.Start();
+
   }
-
-
-
-  /** An ActionListener that listens to the button. */
-  public void actionPerformed(ActionEvent e) {
-    if (e.getSource().equals(exitButton)) {
-      System.exit(0);
-    }
-  }
-
-  public static void main(String s[]) {
-    SwingUtilities.invokeLater(new Runnable() {
-        public void run() {
-          JFrame frame = new JFrame("Circle");
-          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          frame.getContentPane().setLayout(new BorderLayout());
-          frame.getContentPane().add(new Circle(), BorderLayout.CENTER);
-          frame.setSize(400, 400);
-          frame.setLocationRelativeTo(null);
-          frame.setVisible(true);
-        }
-      });
-  }
-} 
+}
