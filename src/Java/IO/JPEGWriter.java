@@ -31,8 +31,8 @@ public class JPEGWriter
 	  double bkgColor[] = new double[] {255, 0,0,1};
 	  double boxColor[] = new double[] {255,255,0,1};
 	  
-	  colors.SetColor("Tomato", bkgColor);
-	  colors.SetColor("Tomato", boxColor);
+	  colors.SetColor("bkgColor", bkgColor);
+	  colors.SetColor("boxColor", boxColor);
 	  
 	  
 	// Provide default values.
