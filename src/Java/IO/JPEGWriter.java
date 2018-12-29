@@ -26,26 +26,25 @@ public class JPEGWriter
   
   public static void main(String args[]) 
   {
-	  vtkNamedColors colors = new vtkNamedColors();
+    vtkNamedColors colors = new vtkNamedColors();
+    double bkgColor[] = new double[] {255, 0,0,1};
+    double boxColor[] = new double[] {255,255,0,1};
 	  
-	  double bkgColor[] = new double[] {255, 0,0,1};
-	  double boxColor[] = new double[] {255,255,0,1};
-	  
-	  colors.SetColor("bkgColor", bkgColor);
-	  colors.SetColor("boxColor", boxColor);
+    colors.SetColor("bkgColor", bkgColor);
+    colors.SetColor("boxColor", boxColor);
 	  
 	  
-	// Provide default values.
-	String fileName = "Output.jpg";
-	for(int i = 0; i < args.length; ++i)
-	{
-	      switch (i) 
-	      {
-	        case 0:
-	        		fileName = args[i];
-	        		break;
-	      }
-	}
+     // Provide default values.
+     String fileName = "Output.jpg";
+     for(int i = 0; i < args.length; ++i)
+     {
+       switch (i) 
+       {
+         case 0:
+         fileName = args[i];
+	 break;
+       }
+    }
 
     vtkImageCanvasSource2D ImageSource = new vtkImageCanvasSource2D();
     ImageSource.SetExtent(0, 99, 0, 99, 0, 0);
