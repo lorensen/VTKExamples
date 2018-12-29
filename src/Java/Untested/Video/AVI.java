@@ -25,27 +25,25 @@ public class AVI
   
   public static void main(String args[]) 
   {
-	vtkNamedColors colors = new vtkNamedColors();
+    vtkNamedColors colors = new vtkNamedColors();
 	  
-	double bkgColor[] = new double[] {0, 0,0,1};
-	double boxColor[] = new double[] {255,0,0,1};
-	  
-	colors.SetColor("bkgColor", bkgColor);
-	colors.SetColor("boxColor", boxColor);
-	
-	
-	// Provide default values.
-	String fileName = "Output.avi";
-	for(int i = 0; i < args.length; ++i)
-	{
-		switch (i) 
-		{
-			case 0:
-				fileName = args[i];
-		        	break;
+    double bkgColor[] = new double[] {0, 0,0,1};
+    double boxColor[] = new double[] {255,0,0,1};
+    colors.SetColor("bkgColor", bkgColor);
+    colors.SetColor("boxColor", boxColor);
+    
+    // Provide default values.
+    String fileName = "Output.avi";
+    for(int i = 0; i < args.length; ++i)
+    {
+      switch (i) 
+      {
+	 case 0:
+	 fileName = args[i];
+         break;
 
-		}
-	}
+      }
+    }
     vtkImageCanvasSource2D Source = new vtkImageCanvasSource2D();
     Source.SetScalarTypeToUnsignedChar();
     Source.SetNumberOfScalarComponents(3);
