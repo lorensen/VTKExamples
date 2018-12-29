@@ -39,5 +39,5 @@ public class DistanceBetweenPoints
 		System.out.println("Squared Distance:" + " " + squaredDist);
 		System.out.println("Distance:" + " " + distance);
 
-	}		  
+	}
 }
