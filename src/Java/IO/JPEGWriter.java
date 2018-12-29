@@ -36,21 +36,16 @@ public class JPEGWriter
 	  
 	  
 	// Provide default values.
-	String file_Name = "Output.jpg";
-	String File_Argument ="";
+	String FileName = "Output.jpg";
 	for(int i = 0; i < args.length; ++i)
 	{
 	      switch (i) 
 	      {
 	        case 0:
-	        		file_Name = args[i];
-	        		break;
-	        case 1:
-	        		File_Argument = args[i];
+	        		FileName = args[i];
 	        		break;
 	      }
 	}
-
 
     vtkImageCanvasSource2D ImageSource = new vtkImageCanvasSource2D();
     ImageSource.SetExtent(0, 99, 0, 99, 0, 0);
@@ -70,7 +65,7 @@ public class JPEGWriter
     ImageSource.FillBox(40, 70, 20, 50);
 
     vtkJPEGWriter Writer = new vtkJPEGWriter();
-    Writer.SetFileName(file_Name);
+    Writer.SetFileName(FileName);
     Writer.SetInputConnection(ImageSource.GetOutputPort());
     Writer.Write();
 
