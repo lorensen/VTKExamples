@@ -145,7 +145,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[AVI](/Java/Untested/Video/AVI) | vtkAVI | An example to demonstrates how to make an AVI using  videovtkAVIWriter
+[AVI](/Java/Untested/Video/AVI) | vtkAVIWriter | An example to demonstrates how to make an AVI video using vtkAVIWriter
 
 
 | Example Name | Classes Demonstrated | Description | Image |
