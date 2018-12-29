@@ -42,13 +42,14 @@ public class AVI
 		switch (i) 
 		{
 			case 0:
-					file_Name = args[i];
+				file_Name = args[i];
 		        	break;
 		    case 1:
 		    		File_Argument = args[i];
 		        	break;
 		}
 	}
+	  
     vtkImageCanvasSource2D Source = new vtkImageCanvasSource2D();
     Source.SetScalarTypeToUnsignedChar();
     Source.SetNumberOfScalarComponents(3);
