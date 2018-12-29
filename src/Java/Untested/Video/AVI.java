@@ -1,4 +1,5 @@
 import vtk.vtkImageCanvasSource2D;
+import vtk.vtkNamedColors;
 import vtk.vtkNativeLibrary;
 import vtk.vtkAVIWriter;
 
@@ -24,7 +25,30 @@ public class AVI
   
   public static void main(String args[]) 
   {
-
+	vtkNamedColors colors = new vtkNamedColors();
+	  
+	double bkgColor[] = new double[] {0, 0,0,1};
+	double boxColor[] = new double[] {255,0,0,1};
+	  
+	colors.SetColor("bkgColor", bkgColor);
+	colors.SetColor("boxColor", boxColor);
+	
+	
+	// Provide default values.
+	String file_Name = "Output.avi";
+	String File_Argument ="";
+	for(int i = 0; i < args.length; ++i)
+	{
+		switch (i) 
+		{
+			case 0:
+					file_Name = args[i];
+		        	break;
+		    case 1:
+		    		File_Argument = args[i];
+		        	break;
+		}
+	}
     vtkImageCanvasSource2D Source = new vtkImageCanvasSource2D();
     Source.SetScalarTypeToUnsignedChar();
     Source.SetNumberOfScalarComponents(3);
@@ -32,15 +56,15 @@ public class AVI
 
     vtkAVIWriter Writer = new vtkAVIWriter();
     Writer.SetInputConnection(Source.GetOutputPort());
-    Writer.SetFileName("test.avi");
+    Writer.SetFileName(file_Name);
     Writer.Start();
 
     for(int i = 0; i < 100; i++)
     {
       
-      Source.SetDrawColor(0, 0, 0, 1);
+      Source.SetDrawColor(bkgColor);
       Source.FillBox(0, 100, 0, 100);
-      Source.SetDrawColor(255, 0, 0, 1);
+      Source.SetDrawColor(boxColor);
       Source.FillBox(i, 20, 10, 20);
       Source.Update();
       Writer.Write();
@@ -48,4 +72,5 @@ public class AVI
     }
     Writer.End();
   }
+
 }
