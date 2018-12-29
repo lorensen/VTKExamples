@@ -12,24 +12,23 @@ import vtk.vtkRenderer;
 
 public class Polygon  
 {
-	  
-	// -----------------------------------------------------------------
-	// Load VTK library and print which library was not properly loaded
-	static 
+  // -----------------------------------------------------------------
+  // Load VTK library and print which library was not properly loaded
+  static 
   {
-	  if (!vtkNativeLibrary.LoadAllNativeLibraries()) 
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) 
     {
-	    for (vtkNativeLibrary lib : vtkNativeLibrary.values()) 
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) 
       {
-	      if (!lib.IsLoaded()) 
+        if (!lib.IsLoaded()) 
         {
-	        System.out.println(lib.GetLibraryName() + " not loaded");
-	      }
-	    }
-	  }
-	  vtkNativeLibrary.DisableOutputWindow(null);
+	  System.out.println(lib.GetLibraryName() + " not loaded");
 	}
-	// -----------------------------------------------------------------
+      }
+     }
+     vtkNativeLibrary.DisableOutputWindow(null);
+   }
+   // -----------------------------------------------------------------
 	  
 
   public static void main(String s[]) 
