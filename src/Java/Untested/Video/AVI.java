@@ -35,21 +35,17 @@ public class AVI
 	
 	
 	// Provide default values.
-	String file_Name = "Output.avi";
-	String File_Argument ="";
+	String fileName = "Output.avi";
 	for(int i = 0; i < args.length; ++i)
 	{
 		switch (i) 
 		{
 			case 0:
-				file_Name = args[i];
+				fileName = args[i];
 		        	break;
-		    case 1:
-		    		File_Argument = args[i];
-		        	break;
+
 		}
 	}
-	  
     vtkImageCanvasSource2D Source = new vtkImageCanvasSource2D();
     Source.SetScalarTypeToUnsignedChar();
     Source.SetNumberOfScalarComponents(3);
@@ -57,7 +53,7 @@ public class AVI
 
     vtkAVIWriter Writer = new vtkAVIWriter();
     Writer.SetInputConnection(Source.GetOutputPort());
-    Writer.SetFileName(file_Name);
+    Writer.SetFileName(fileName);
     Writer.Start();
 
     for(int i = 0; i < 100; i++)
