@@ -103,10 +103,12 @@ class VTKClassesInExamples(object):
         """
         self.example_types = ['CSharp', 'Cxx', 'Java', 'Python']
         # Classes common to most examples.
-        self.excluded_classes = ['vtkActor', 'vtkCamera', 'vtkProperty', 'vtkRenderer', 'vtkRenderWindow', 'vtkRenderWindowInteractor', 'vtkNew']
+        self.excluded_classes = ['vtkActor', 'vtkCamera', 'vtkNamedColors', 'vtkPolyDataMapper', 'vtkProperty',
+                                 'vtkRenderer', 'vtkRenderWindow', 'vtkRenderWindowInteractor', ]
         # Where to get the list of VTK classes from.
         self.vtk_class_url = 'https://www.vtk.org/doc/nightly/html/annotated.html'
-        self.vtk_html_fmt = '[{:s}](http://www.vtk.org/doc/nightly/html/class{:s}.html)'
+        # This is the path to the details bookmark in the VTK class.
+        self.vtk_html_fmt = '[{:s}](http://www.vtk.org/doc/nightly/html/class{:s}.html#details)'
 
         self.base_directory = base_directory
         self.columns = columns
@@ -133,7 +135,9 @@ class VTKClassesInExamples(object):
         """
         Parse the html file, getting a list of the classes.
         """
-        vtk_class_pattern = re.compile(r'.*>(vtk[A-Za-z0-9]+)<')
+        # We want the first match, hence the use of ?.
+        # Adding a ? on a quantifier (?, * or +) makes it non-greedy.
+        vtk_class_pattern = re.compile(r'.*?>(vtk[A-Za-z0-9]+)<')
         try:
             f = urlopen(self.vtk_class_url)
             for line in f:
@@ -228,25 +232,41 @@ class VTKClassesInExamples(object):
         else:
             vtk_html_fmt = '{:s}'
         eg_fmt = '[{:s}]({:s})'
-        h1 = '# VTK Classes used in the Examples\n'
-        h2 = '## {:s}\n'
+        h1 = '# VTK Classes used in the Examples\n\n'
+        h2 = '## {:s}\n\n'
+        #  Number of columns in the excluded classes table.
+        excl_cols = 6
+        exth1 = '| VTK Class | VTK Class | VTK Class | VTK Class | VTK Class | VTK Class |\n'
+        exth2 = '|--------------|--------------|--------------|--------------|--------------|--------------|\n'
+        extr = '| {:s} | {:s} | {:s} | {:s} | {:s} | {:s} |\n'
         th1 = '| VTK Class | Examples |\n'
         th2 = '|--------------|----------------------|\n'
         tr = '| {:s} | {:s} |\n'
         for eg in self.example_types:
             if eg == 'Cxx':
-                excl_classes = self.excluded_classes + ['vtkSmartPointer']
+                excl_classes = self.excluded_classes + ['vtkSmartPointer', 'vtkNew']
             else:
                 excl_classes = self.excluded_classes
             res = list()
             res.append(h1)
             res.append(h2.format(eg))
-            res.append('Out of {:d} available VTK classes, {:d} are demonstrated here.  \n'.format(
+            res.append('Out of {:d} available VTK classes, {:d} are demonstrated here.  \n\n'.format(
                 len(self.vtk_classes), len(self.classes_used[eg])))
             # Excluded classes
             res.append('These classes are excluded since they occur in the majority of the examples:  \n')
+            res.append(exth1)
+            res.append(exth2)
+            tmp = []
             for c in list(sorted(excl_classes, key=lambda x: (x.lower(), x.swapcase()))):
-                res.append('- ' + vtk_html_fmt.format(c, c) + '\n')
+                tmp.append(vtk_html_fmt.format(c, c))
+                if len(tmp) == excl_cols:
+                    res.append(extr.format(*tmp))
+                    tmp.clear()
+            if tmp:
+                while len(tmp) < excl_cols:
+                    tmp.append('')
+                res.append(extr.format(*tmp))
+                # res.append('- ' + vtk_html_fmt.format(c, c) + '\n')
             res.append('\n')
             res.append(th1)
             res.append(th2)
