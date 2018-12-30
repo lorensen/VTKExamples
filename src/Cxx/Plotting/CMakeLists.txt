@@ -29,10 +29,14 @@ if (BUILD_TESTING)
 # Testing
 set(KIT Plotting)
 set(NEEDS_ARGS
+  Diagram
   HistogramBarChart
   LinePlot
 )
 set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+
+add_test(${KIT}-Diagram ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestDiagram "Brewer Diverging Spectral (8)")
 
 add_test(${KIT}-HistogramBarChart ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHistogramBarChart ${DATA}/Pileated.jpg)
