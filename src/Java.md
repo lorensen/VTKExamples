@@ -35,7 +35,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Delaunay2D](/Java/Filtering/Delaunay2D) | vtkDelaunay2D | An example to generate set of points and to triangulate using Delaunay2D
-
+[Glyph3D](/Java/Filtering/Glyph3D) | vtkGlyph3D | This example applies an object at every point using vtkGlyph3D
 
 ## GeometricObjects
 
@@ -127,6 +127,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Cutter](/Java/Miscellaneous/Cutter) | vtkCutter |
 [Screenshot](/Java/Miscellaneous/Screenshot) | vtkWindowToImageFilter |
 
+## Parallel
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ExodusIIWriter](/Java/Parallel/ExodusIIWriter) | vtkExodusIIWriter | Example Program to demonstrates how to use vtkExodusIIWriter
+
 ## PolyData
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -153,7 +159,11 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [RenderView](/Java/Views/RenderView) | vtkRenderView | An easier way to make objects appear on the screen using RenderView
 
+## Utilities
 
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[FullScreen](/Java/Utilities/FullScreen) | vtkRenderWindow | Example to Display Actors in a Full Screen Render Window
 
 ## Visualization
 
@@ -161,6 +171,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [AnimDataCone](/Java/Visualization/AnimDataCone) | vtkRenderWindowInteractor | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
 [Animation](/Java/Visualization/Animation) |  | Move a sphere across a scene
+[BackgroundGradient](/Java/Visualization/BackgroundGradient) |  | viewport having gradient background using the Background (bottom) and Background2 (top) colors.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization.
@@ -170,6 +181,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [SelectGraphVertices](/Java/Graphs/SelectGraphVertices) | vtkAnnotationLink | Select Edges and vertices in a graph
+
+## SimpleOperations
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[DistanceBetweenPoints](/Java/SimpleOperations/DistanceBetweenPoints) | vtkMath | Example Program to find squared distance and the Euclidean distance between two 3D points.
 
 ## Swing Integration
 
@@ -184,4 +201,5 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration
 [AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration
+[BalloonWidget](/Java/Widgets/BalloonWidget) |  vtkBalloonWidget | The balloon text describes each object when you hover it.
 [SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget | SplineWidget Demonstration

@@ -4,15 +4,17 @@
 #include <vtkSmartPointer.h>
 #include <vtkChartXY.h>
 #include <vtkPlot.h>
+#include <vtkAxis.h>
 #include <vtkTable.h>
+#include <vtkTextProperty.h>
 #include <vtkIntArray.h>
 #include <vtkContextView.h>
 #include <vtkContextScene.h>
 #include <vtkRenderWindowInteractor.h>
 
-#define VTK_CREATE(type, name) \
-  vtkSmartPointer<type> name = vtkSmartPointer<type>::New()
-
+#include <vtkColorSeries.h>
+#include <vtkNamedColors.h>
+#include <vtkColor.h>
 
 // Monthly circulation data
 static int data_2008[] = {10822, 10941, 9979, 10370, 9460, 11228, 15093, 12231, 10160, 9816, 9384, 7892};
@@ -21,32 +23,66 @@ static int data_2010[] = {9058, 10941, 9979, 10270, 8900, 11228, 14688, 12231, 1
 
 int main(int, char*[] )
 {
+  // Colors
+  vtkNew<vtkColorSeries> colorSeries;
+  colorSeries->SetColorScheme(vtkColorSeries::BREWER_SEQUENTIAL_YELLOW_ORANGE_BROWN_3);
+  colorSeries->SetColorScheme(vtkColorSeries::BREWER_DIVERGING_SPECTRAL_3);
+  colorSeries->SetColorScheme(vtkColorSeries::BREWER_DIVERGING_BROWN_BLUE_GREEN_3);
+  colorSeries->SetColorScheme(vtkColorSeries::BREWER_SEQUENTIAL_BLUE_GREEN_3);
+  colorSeries->SetColorScheme(vtkColorSeries::BREWER_SEQUENTIAL_BLUE_PURPLE_3);
+  colorSeries->SetColorScheme(vtkColorSeries::BREWER_DIVERGING_PURPLE_ORANGE_3);
+
+  vtkNew<vtkNamedColors> colors;
+  vtkColor3d backgroundColor = colors->GetColor3d("Sienna");
+  vtkColor3d axisColor = colors->GetColor3d("Wheat");
+  vtkColor3d titleColor = colors->GetColor3d("Wheat");
+
   // Set up a 2D scene, add an XY chart to it
-  VTK_CREATE(vtkContextView, view);
-  view->GetRenderer()->SetBackground(1.0, 1.0, 1.0);
-  view->GetRenderWindow()->SetSize(400, 300);
-  VTK_CREATE(vtkChartXY, chart);
+  vtkNew<vtkContextView>  view;
+  view->GetRenderer()->SetBackground(backgroundColor.GetData());
+  view->GetRenderWindow()->SetSize(640, 480);
+  vtkNew<vtkChartXY>  chart;
   view->GetScene()->AddItem(chart);
 
-  // Create a table with some points in it...
-  VTK_CREATE(vtkTable, table);
+  // Set various properties
+  vtkAxis *xAxis = chart->GetAxis(vtkAxis::BOTTOM);
+  xAxis->SetTitle("Monthly");
+  xAxis->GetTitleProperties()->SetColor(axisColor.GetData());
+  xAxis->GetTitleProperties()->SetFontSize(16);
+  xAxis->GetTitleProperties()->ItalicOn();
+  xAxis->GetLabelProperties()->SetColor(axisColor.GetData());
 
-  VTK_CREATE(vtkIntArray, arrMonth);
+  vtkAxis *yAxis = chart->GetAxis(vtkAxis::LEFT);
+  yAxis->SetTitle("Circulation");
+  yAxis->GetTitleProperties()->SetColor(axisColor.GetData());
+  yAxis->GetTitleProperties()->SetFontSize(16);
+  yAxis->GetTitleProperties()->ItalicOn();
+  yAxis->GetLabelProperties()->SetColor(axisColor.GetData());
+
+  chart->SetTitle("Circulation 2008, 2009, 2010");
+  chart->GetTitleProperties()->SetFontSize(24);
+  chart->GetTitleProperties()->SetColor(titleColor.GetData());
+  chart->GetTitleProperties()->BoldOn();
+
+  // Create a table with some points in it...
+  vtkNew<vtkTable>  table;
+
+  vtkNew<vtkIntArray>  arrMonth;
   arrMonth->SetName("Month");
   table->AddColumn(arrMonth);
 
-  VTK_CREATE(vtkIntArray, arr2008);
+  vtkNew<vtkIntArray>  arr2008;
   arr2008->SetName("2008");
   table->AddColumn(arr2008);
 
-  VTK_CREATE(vtkIntArray, arr2009);
+  vtkNew<vtkIntArray>  arr2009;
   arr2009->SetName("2009");
   table->AddColumn(arr2009);
 
-  VTK_CREATE(vtkIntArray, arr2010);
+  vtkNew<vtkIntArray>  arr2010;
   arr2010->SetName("2010");
   table->AddColumn(arr2010);
-
+  
   table->SetNumberOfRows(12);
   for (int i = 0; i < 12; i++)
   {
@@ -58,30 +94,23 @@ int main(int, char*[] )
 
   // Add multiple line plots, setting the colors etc
   vtkPlot *line = 0;
-
   line = chart->AddPlot(vtkChart::BAR);
-#if VTK_MAJOR_VERSION <= 5
-  line->SetInput(table, 0, 1);
-#else
+  line->SetColor(colorSeries->GetColor(0).GetRed()/255.0,
+                 colorSeries->GetColor(0).GetGreen()/255.0,
+                 colorSeries->GetColor(0).GetBlue()/255.0);
   line->SetInputData(table, 0, 1);
-#endif
-  line->SetColor(0, 255, 0, 255);
-
+  
   line = chart->AddPlot(vtkChart::BAR);
-#if VTK_MAJOR_VERSION <= 5
-  line->SetInput(table, 0, 2);
-#else
+  line->SetColor(colorSeries->GetColor(1).GetRed()/255.0,
+                 colorSeries->GetColor(1).GetGreen()/255.0,
+                 colorSeries->GetColor(1).GetBlue()/255.0);
   line->SetInputData(table, 0, 2);
-#endif
-  line->SetColor(255, 0, 0, 255);
 
   line = chart->AddPlot(vtkChart::BAR);
-#if VTK_MAJOR_VERSION <= 5
-  line->SetInput(table, 0, 3);
-#else
+  line->SetColor(colorSeries->GetColor(2).GetRed()/255.0,
+                 colorSeries->GetColor(2).GetGreen()/255.0,
+                 colorSeries->GetColor(2).GetBlue()/255.0);
   line->SetInputData(table, 0, 3);
-#endif
-  line->SetColor(0, 0, 255, 255);
 
   //Finally render the scene and compare the image to a reference image
   view->GetRenderWindow()->SetMultiSamples(0);
