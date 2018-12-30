@@ -36,13 +36,16 @@ Typical usage:
     parser.add_argument('-c', '--columns',
                         help='Specify the number of columns for unused VTK classes output, default is 5.', nargs='?',
                         const=5, type=int, default=5)
+    parser.add_argument('-e', '--excluded_columns',
+                        help='Specify the number of columns for excluded VTK classes output, default is 5.', nargs='?',
+                        const=3, type=int, default=3)
     parser.add_argument('-u', '--unused_vtk',
                         help='Select unused VTK classes output in addition to the used VTK classes output.',
                         action='store_true')
     parser.add_argument('-a', '--add_vtk_html', help='Add html paths to the VTK classes.', action='store_true')
 
     args = parser.parse_args()
-    return args.vtk_examples, args.columns, args.unused_vtk, args.add_vtk_html
+    return args.vtk_examples, args.columns, args.excluded_columns, args.unused_vtk, args.add_vtk_html
 
 
 def print_table(table, filename):
@@ -94,10 +97,11 @@ class VTKClassesInExamples(object):
     Determine what classes are being used or not used in the examples.
     """
 
-    def __init__(self, base_directory, columns, unused_vtk, add_vtk_html):
+    def __init__(self, base_directory, columns, excluded_columns, unused_vtk, add_vtk_html):
         """
         :param base_directory: The path to the VTK Examples sources, usually some_path/VTKExamples/src
         :param columns: When generating the classes not used table, the number of columns to use.
+        :param excluded_columns: When generating the excluded classes table, the number of columns to use.
         :param unused_vtk: True if the unused VTK class tables are to be generated.
         :param add_vtk_html: True if the Doxygen documentation paths are to be added to the vtk classes in the tables.
         """
@@ -112,6 +116,7 @@ class VTKClassesInExamples(object):
 
         self.base_directory = base_directory
         self.columns = columns
+        self.excluded_columns = excluded_columns
         self.unused_vtk = unused_vtk
         self.add_vtk_html = add_vtk_html
         self.vtk_classes = set()
@@ -231,14 +236,27 @@ class VTKClassesInExamples(object):
             vtk_html_fmt = self.vtk_html_fmt
         else:
             vtk_html_fmt = '{:s}'
+
         eg_fmt = '[{:s}]({:s})'
         h1 = '# VTK Classes used in the Examples\n\n'
         h2 = '## {:s}\n\n'
-        #  Number of columns in the excluded classes table.
-        excl_cols = 6
-        exth1 = '| VTK Class | VTK Class | VTK Class | VTK Class | VTK Class | VTK Class |\n'
-        exth2 = '|--------------|--------------|--------------|--------------|--------------|--------------|\n'
-        extr = '| {:s} | {:s} | {:s} | {:s} | {:s} | {:s} |\n'
+
+        # Excluded classes columns.
+        h1ec = ' VTK Class '
+        h2ec = '-----------'
+        r1ec = ' {:s} '
+        th1ec = '|' + h1ec
+        th2ec = '|' + h2ec
+        trec = '|' + r1ec
+        for i in range(1, self.excluded_columns):
+            th1ec += '|' + h1ec
+            th2ec += '|' + h2ec
+            trec += '|' + r1ec
+        th1ec += '|\n'
+        th2ec += '|\n'
+        trec += '|\n'
+
+        # Classes and examples.
         th1 = '| VTK Class | Examples |\n'
         th2 = '|--------------|----------------------|\n'
         tr = '| {:s} | {:s} |\n'
@@ -254,19 +272,18 @@ class VTKClassesInExamples(object):
                 len(self.vtk_classes), len(self.classes_used[eg])))
             # Excluded classes
             res.append('These classes are excluded since they occur in the majority of the examples:  \n')
-            res.append(exth1)
-            res.append(exth2)
+            res.append(th1ec)
+            res.append(th2ec)
             tmp = []
             for c in list(sorted(excl_classes, key=lambda x: (x.lower(), x.swapcase()))):
                 tmp.append(vtk_html_fmt.format(c, c))
-                if len(tmp) == excl_cols:
-                    res.append(extr.format(*tmp))
+                if len(tmp) == self.excluded_columns:
+                    res.append(trec.format(*tmp))
                     tmp.clear()
             if tmp:
-                while len(tmp) < excl_cols:
+                while len(tmp) < self.excluded_columns:
                     tmp.append('')
-                res.append(extr.format(*tmp))
-                # res.append('- ' + vtk_html_fmt.format(c, c) + '\n')
+                res.append(trec.format(*tmp))
             res.append('\n')
             res.append(th1)
             res.append(th2)
@@ -300,8 +317,10 @@ class VTKClassesInExamples(object):
             vtk_html_fmt = self.vtk_html_fmt
         else:
             vtk_html_fmt = '{:s}'
-        h1 = '# VTK Classes not used in the Examples\n'
-        h2 = '## {:s}\n'
+
+        h1 = '# VTK Classes not used in the Examples\n\n'
+        h2 = '## {:s}\n\n'
+
         h1c = ' VTK Class '
         h2c = '-----------'
         r1c = ' {:s} '
@@ -370,8 +389,8 @@ class VTKClassesInExamples(object):
 
 
 def main():
-    example_source, columns, unused_vtk, add_vtk_html = get_program_parameters()
-    VTKClassesInExamples(example_source, columns, unused_vtk, add_vtk_html).print_tables()
+    example_source, columns, excluded_columns, unused_vtk, add_vtk_html = get_program_parameters()
+    VTKClassesInExamples(example_source, columns, excluded_columns, unused_vtk, add_vtk_html).print_tables()
 
 
 if __name__ == '__main__':
