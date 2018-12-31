@@ -1,5 +1,3 @@
-Java Program to Demonstrate SplineWidget.
+### Description
 
-
-Author: Bharatesh Chakravarthi
-Affiliation: VE Lab, Chung Ang University, Seoul, South Korea. 
+Java Program to demonstrate the SplineWidget.

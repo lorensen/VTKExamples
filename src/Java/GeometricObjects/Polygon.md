@@ -1,4 +1,3 @@
-Java Program to Display a polygon having n edges, where n is the number of points in the polygon.
+### Description
 
-Author: Bharatesh Chakravarthi
-Affiliation: VE Lab, Chung Ang University, Seoul, South Korea. 
+Java Program to Display a polygon having n edges, where n is the number of points in the polygon.

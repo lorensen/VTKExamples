@@ -4,7 +4,7 @@ This example takes a plain text file of coordinates and reads them into a vtkPoi
 
 An example file may look like:
 
-```
+```text
  1 2 3
  4 5 6 
  7 8 9

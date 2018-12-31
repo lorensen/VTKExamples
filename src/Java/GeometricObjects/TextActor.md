@@ -1,5 +1,4 @@
-Java Program to Demostrate the use of vtkTextActor.
-TextActor can be set with properties such as FontSize, FontFamily, DisplayPosition and so on.
+### Description
 
-Author: Bharatesh Chakravarthi
-Affiliation: VE Lab, Chung Ang University, Seoul, South Korea. 
+Java Program to demonstrate the use of vtkTextActor.
+TextActor can be set with properties such as FontSize, FontFamily, DisplayPosition and so on.

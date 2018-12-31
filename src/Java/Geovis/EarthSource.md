@@ -1,4 +1,3 @@
-Java Program to Visualize Earth Source.
+### Description
 
-Author: Bharatesh Chakravarthi, Adithya B
-Affiliation: VE Lab, Chung Ang University, Seoul, South Korea. 
+Java Program to Visualize Earth Source.
