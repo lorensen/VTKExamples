@@ -1,4 +1,3 @@
-This Program demonstrates how to create a wireframe sphere in java using VTK.
+### Description
 
-Author: Bharatesh Chakravarthi,
-Affiliation: Chung Ang University, Seoul, South Korea. 
+This Program demonstrates how to create a wire-frame sphere in Java using VTK.

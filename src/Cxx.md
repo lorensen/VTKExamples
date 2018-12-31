@@ -160,6 +160,10 @@ These are fully independent, compilable examples. There is significant overlap i
 [EllipticalCylinder](/Cxx/GeometricObjects/EllipticalCylinder) | vtkLinearExtrusionFilter | Create an elliptical cylinder using extrusion.
 [EllipticalCylinderDemo](/Cxx/GeometricObjects/EllipticalCylinderDemo) | vtkLinearExtrusionFilter | Show the base and extrusion vector.
 [GeometricObjectsDemo](/Cxx/GeometricObjects/GeometricObjectsDemo) |  | A demonstration of all geometric objects that work the same way.
+[OpenVRFrustm](/Cxx/GeometricObjects/OpenVRFrustm) |  | VTK + OpenVR Example.
+[OpenVROrientedArrow](/Cxx/GeometricObjects/OpenVROrientedArrow) |  | VTK + OpenVR Example.
+[OpenVROrientedCylinder](/Cxx/GeometricObjects/OpenVROrientedCylinder) |  | VTK + OpenVR Example.
+[OpenVRTessellatedBoxSource](/Cxx/GeometricObjects/OpenVRTessellatedBoxSource) |  | VTK + OpenVR Example.
 [Planes](/Cxx/GeometricObjects/Planes) | vtkPlanes |
 [PlanesIntersection](/Cxx/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection |
 [PolygonIntersection](/Cxx/GeometricObjects/PolygonIntersection) | vtkPolygon | Compute the intersection of a line segment with a polygon.
@@ -391,6 +395,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [CompositePolyDataMapper](/Cxx/CompositeData/CompositePolyDataMapper) | vtkCompositePolyDataMapper |
 [Generate2DAMRDataSetWithPulse](/Cxx/CompositeData/Generate2DAMRDataSetWithPulse) | vtkAMRBox vtkOverlappingAMR vtkUniformGrid vtkXMLHierarchicalBoxDataSetWriter | Generates sample 2-D AMR dataset.
 [Generate3DAMRDataSetWithPulse](/Cxx/CompositeData/Generate3DAMRDataSetWithPulse) | vtkAMRBox vtkOverlappingAMR vtkUniformGrid vtkXMLHierarchicalBoxDataSetWriter | Generates sample 3-D AMR dataset.
+[HierarchicalBoxPipeline](/Cxx/CompositeData/HierarchicalBoxPipeline) | vtkHierarchicalBoxDataSet | Demonstrates how hierarchical box (uniform rectilinear) AMR datasets can be processed using the new vtkHierarchicalBoxDataSet class.
 [MultiBlockDataSet](/Cxx/CompositeData/MultiBlockDataSet) | vtkMultiBlockDataSet | Demonstrates how to make and use VTK's MultiBlock type data
 [OverlappingAMR](/Cxx/CompositeData/OverlappingAMR) | vtkOverlappingAMR | Demonstrates how to create and populate a VTK's Overlapping AMR Grid type Data
 
@@ -866,6 +871,7 @@ This section includes vtkUnstructuredGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [MultiLineText](/Cxx/Annotation/MultiLineText) | vtkTextMapper | Display multiline text.
+[TextOrigin](/Cxx/Annotation/TextOrigin) | vtkFollower | The 3D text always faces the active camera.
 [XYPlot](/Cxx/Annotation/XYPlot) | vtkXYPlotActor vtkProbeFilter | Display line probes.
 
 ## Texture Mapping
@@ -949,6 +955,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | vtkCellLocator | Find the intersection of a line and the cells in an unstructured dataset
 [FlatShading](/Cxx/Visualization/FlatShading) | vtkActor |
 [FlyingFrogSkinAndTissue](/Cxx/Visualization/FlyingFrogSkinAndTissue) | vtkMetaImageReader vtkFlyingEdges3D vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth | All frog parts and translucent skin.
+[FlyingFrogSkinAndTissueB](/Cxx/Visualization/FlyingFrogSkinAndTissueB) | vtkMetaImageReader vtkFlyingEdges3D vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth | All frog parts and translucent skin.
+[FlyingFrogSkinAndTissueC](/Cxx/Visualization/FlyingFrogSkinAndTissueC) | vtkMetaImageReader vtkFlyingEdges3D vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth | All frog parts and translucent skin.
 [FlyingHeadSlice](/Cxx/VisualizationAlgorithms/FlyingHeadSlice) | vtkFlyingEdges2D | Flying edges used to generate contour lines.
 [Follower](/Cxx/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [FontFile](/Cxx/Visualization/FontFile) | vtkTextProperty | Use an external font.
@@ -1004,7 +1012,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [OpenVRCone](/Cxx/Visualization/OpenVRCone) |  | VTK + OpenVR Cone rendering example.
 [OpenVRCube](/Cxx/Visualization/OpenVRCube) |  | VTK + OpenVR Cube rendering example.
 [OpenVRCylinder](/Cxx/Visualization/OpenVRCylinder) |  | VTK + OpenVR Cylinder rendering example.
-[OpenVRSphere](/Cxx/Visualization/OpenVRCylinder) |  | VTK + OpenVR Sphere rendering example.
+[OpenVRSphere](/Cxx/Visualization/OpenVRSphere) |  | VTK + OpenVR Sphere rendering example.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs) | vtkGlyph3D | Create oriented glyphs from vector data.
 [PineRootConnectivity](/Cxx/VisualizationAlgorithms/PineRootConnectivity) | vtkMCubesReader vtkPolyDataConnectivityFilter | Applying the connectivity filter to remove noisy isosurfaces.
 [PineRootConnectivityA](/Cxx/VisualizationAlgorithms/PineRootConnectivityA) | vtkMCubesReader vtkPolyDataConnectivityFilter | The isosurface, with no connectivity filter applied.
@@ -1274,7 +1282,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [BoxChart](/Cxx/Plotting/BoxChart) | vtkChartBox | Box plot.
 [ChartMatrix](/Cxx/Plotting/ChartMatrix) | vtkChartMatrix | Create a marix of plots.
 [ChartsOn3DScene](/Cxx/Plotting/ChartsOn3DScene) | vtkChartXY | Draw a chart in a 3D scene.
-[Diagram](/Cxx/Plotting/Diagram) |  |
+[Diagram](/Cxx/Plotting/Diagram) | vtkContext vtkColorSeries | Draw a custom diagram.
 [FunctionalBagPlot](/Cxx/Plotting/FunctionalBagPlot) | vtkPlotFunctionalBag vtkColorSeries | Functional Bag Plot.
 [Histogram2D](/Cxx/Plotting/Histogram2D) | vtkChartHistogram2D | 2D Histogram of a vtkImageData.
 [HistogramBarChart](/Cxx/Plotting/HistogramBarChart) | vtkBarChartActor | Histogram using bar chart.

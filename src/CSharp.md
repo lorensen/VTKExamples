@@ -53,7 +53,10 @@
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ParticleReader](/CSharp/IO/ParticleReader) | vtkParticleReader | Read an ASCII file
 [ReadImageData](/CSharp/IO/ReadImageData) | vtkXMLImageDataReader | Read a image data (.vti) file
+[ReadOBJ](/CSharp/IO/ReadOBJ) | vtkOBJReader | Read a Wavefront OBJ file
+[ReadPlainText](/CSharp/IO/ReadPlainText) |  | Read a plain text file
 [ReadPolyData](/CSharp/IO/ReadPolyData) | vtkXMLPolyDataReader | Read a polygonal data (.vtp) file
 [ReadRectilinearGrid](/CSharp/IO/ReadRectilinearGrid) | vtkXMLRectilinearGridReader | Read a rectilinear grid (.vtr) file
 [ReadStructuredGrid](/CSharp/IO/ReadStructuredGrid) | vtkXMLStructuredGridReader | Read a structured grid (.vts) file

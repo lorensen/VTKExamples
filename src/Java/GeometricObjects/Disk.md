@@ -1,4 +1,3 @@
-Java Program to visualize a Disk 
+### Description
 
-Author: Bharatesh Chakravarthi
-Affiliation: VE Lab, Chung Ang University, Seoul, South Korea. 
+Java Program to visualize a Disk 
