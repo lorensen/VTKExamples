@@ -2,7 +2,9 @@
 
 ## Java
 
-Out of 2729 available VTK classes, 117 are demonstrated here.  
+Out of 2802 available VTK classes, 117 are demonstrated here.  
+
+### Excluded classes
 
 These classes are excluded since they occur in the majority of the examples:  
 | VTK Class | VTK Class | VTK Class |
@@ -10,6 +12,8 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html#details) | [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html#details) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html#details) |
 | [vtkPolyDataMapper](http://www.vtk.org/doc/nightly/html/classvtkPolyDataMapper.html#details) | [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html#details) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html#details) |
 | [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html#details) | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html#details) |  |
+
+### Classes used
 
 | VTK Class | Examples |
 |--------------|----------------------|
