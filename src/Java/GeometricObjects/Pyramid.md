@@ -1,5 +1,3 @@
-Java Program to visualize a Pyramid uisng vtkPyramid.
+### Description
 
-
-Author: Bharatesh Chakravarthi
-Affiliation: VE Lab, Chung Ang University, Seoul, South Korea. 
+Java Program to visualize a Pyramid using vtkPyramid.

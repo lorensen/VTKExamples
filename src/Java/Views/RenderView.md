@@ -1,4 +1,3 @@
-Here is a little bit easier way in Java to get your objects to appear on the screen using vtkRenderer which provides an abstract specification for renderers.
+### Description
 
-Author: Bharatesh Chakravarthi
-Affiliation: VE Lab, Chung Ang University, Seoul, South Korea. 
+Here is a little bit easier way in Java to get your objects to appear on the screen using vtkRenderer which provides an abstract specification for renderers.
