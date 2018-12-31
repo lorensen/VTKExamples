@@ -160,6 +160,10 @@ These are fully independent, compilable examples. There is significant overlap i
 [EllipticalCylinder](/Cxx/GeometricObjects/EllipticalCylinder) | vtkLinearExtrusionFilter | Create an elliptical cylinder using extrusion.
 [EllipticalCylinderDemo](/Cxx/GeometricObjects/EllipticalCylinderDemo) | vtkLinearExtrusionFilter | Show the base and extrusion vector.
 [GeometricObjectsDemo](/Cxx/GeometricObjects/GeometricObjectsDemo) |  | A demonstration of all geometric objects that work the same way.
+[OpenVRFrustm](/Cxx/GeometricObjects/OpenVRFrustm) |  | VTK + OpenVR Example.
+[OpenVROrientedArrow](/Cxx/GeometricObjects/OpenVROrientedArrow) |  | VTK + OpenVR Example.
+[OpenVROrientedCylinder](/Cxx/GeometricObjects/OpenVROrientedCylinder) |  | VTK + OpenVR Example.
+[OpenVRTessellatedBoxSource](/Cxx/GeometricObjects/OpenVRTessellatedBoxSource) |  | VTK + OpenVR Example.
 [Planes](/Cxx/GeometricObjects/Planes) | vtkPlanes |
 [PlanesIntersection](/Cxx/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection |
 [PolygonIntersection](/Cxx/GeometricObjects/PolygonIntersection) | vtkPolygon | Compute the intersection of a line segment with a polygon.
