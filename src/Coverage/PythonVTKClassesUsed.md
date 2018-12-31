@@ -2,7 +2,9 @@
 
 ## Python
 
-Out of 2729 available VTK classes, 353 are demonstrated here.  
+Out of 2802 available VTK classes, 349 are demonstrated here.  
+
+### Excluded classes
 
 These classes are excluded since they occur in the majority of the examples:  
 | VTK Class | VTK Class | VTK Class |
@@ -10,6 +12,8 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html#details) | [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html#details) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html#details) |
 | [vtkPolyDataMapper](http://www.vtk.org/doc/nightly/html/classvtkPolyDataMapper.html#details) | [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html#details) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html#details) |
 | [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html#details) | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html#details) |  |
+
+### Classes used
 
 | VTK Class | Examples |
 |--------------|----------------------|
@@ -332,11 +336,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkVariantArray](http://www.vtk.org/doc/nightly/html/classvtkVariantArray.html#details) | [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) [ElevationBandsWithGlyphs](/Python/Visualization/ElevationBandsWithGlyphs) [LUTUtilities](/Python/Utilities/LUTUtilities) [ReadLegacyUnstructuredGrid](/Python/IO/ReadLegacyUnstructuredGrid) [Variant](/Python/Utilities/Variant)  |
 | [vtkVariantCast](http://www.vtk.org/doc/nightly/html/classvtkVariantCast.html#details) | [Variant](/Python/Utilities/Variant)  |
 | [vtkVariantCreate](http://www.vtk.org/doc/nightly/html/classvtkVariantCreate.html#details) | [Variant](/Python/Utilities/Variant)  |
-| [vtkVariantEqual](http://www.vtk.org/doc/nightly/html/classvtkVariantEqual.html#details) | [Variant](/Python/Utilities/Variant)  |
 | [vtkVariantExtract](http://www.vtk.org/doc/nightly/html/classvtkVariantExtract.html#details) | [Variant](/Python/Utilities/Variant)  |
-| [vtkVariantLessThan](http://www.vtk.org/doc/nightly/html/classvtkVariantLessThan.html#details) | [Variant](/Python/Utilities/Variant)  |
-| [vtkVariantStrictEquality](http://www.vtk.org/doc/nightly/html/classvtkVariantStrictEquality.html#details) | [Variant](/Python/Utilities/Variant)  |
-| [vtkVariantStrictWeakOrder](http://www.vtk.org/doc/nightly/html/classvtkVariantStrictWeakOrder.html#details) | [Variant](/Python/Utilities/Variant)  |
 | [vtkVectorDot](http://www.vtk.org/doc/nightly/html/classvtkVectorDot.html#details) | [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) [PlateVibration](/Python/VisualizationAlgorithms/PlateVibration)  |
 | [vtkVectorText](http://www.vtk.org/doc/nightly/html/classvtkVectorText.html#details) | [AlphaFrequency](/Python/Visualization/AlphaFrequency) [AnatomicalOrientation](/Python/VisualizationAlgorithms/AnatomicalOrientation) [FinanceFieldData](/Python/Modelling/FinanceFieldData) [MarchingCases](/Python/VisualizationAlgorithms/MarchingCases) [Stocks](/Python/VisualizationAlgorithms/Stocks) [VectorText](/Python/Visualization/VectorText)  |
 | [vtkVersion](http://www.vtk.org/doc/nightly/html/classvtkVersion.html#details) | [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) [NamedColorPatches](/Python/Visualization/NamedColorPatches) [NamedColors](/Python/Visualization/NamedColors) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision)  |
