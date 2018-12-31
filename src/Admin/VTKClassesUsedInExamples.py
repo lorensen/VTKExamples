@@ -143,15 +143,16 @@ class VTKClassesInExamples(object):
         # Selecting only objects marked as classes.
         vtk_class_pattern = re.compile(r'<span class=\"icon\">C.*?href=\"(.*?)\" target=\"_self\">(.*?)</a>')
         try:
-            with urlopen(self.vtk_class_url) as f:
-                for line in f:
-                    s = re.findall(vtk_class_pattern, line.decode('utf-8'))
-                    if s:
-                        for item in s:
-                            # Remove structs.
-                            if item[0].startswith('struct'):
-                                continue
-                            self.vtk_classes[item[1]] = item[0]
+            f = urlopen(self.vtk_class_url)
+            for line in f:
+                s = re.findall(vtk_class_pattern, line.decode('utf-8'))
+                if s:
+                    for item in s:
+                        # Remove structs.
+                        if item[0].startswith('struct'):
+                            continue
+                        self.vtk_classes[item[1]] = item[0]
+            f.close()
         except IOError:
             print('Unable to open the URL: {:s}'.format(self.vtk_class_url))
 
@@ -270,11 +271,11 @@ class VTKClassesInExamples(object):
             res = list()
             res.append(h1)
             res.append(h2.format(eg))
-            res.append('Out of {:d} available VTK classes, {:d} are demonstrated here.  \n\n'.format(
+            res.append('Out of {:d} available VTK classes, {:d} are demonstrated here.\n\n'.format(
                 len(self.vtk_classes), len(self.classes_used[eg])))
             # Excluded classes
             res.append(h3.format('Excluded classes'))
-            res.append('These classes are excluded since they occur in the majority of the examples:  \n')
+            res.append('These classes are excluded since they occur in the majority of the examples:\n\n')
             res.append(th1ec)
             res.append(th2ec)
             tmp = []
