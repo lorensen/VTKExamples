@@ -2,11 +2,12 @@
 
 ## Python
 
-Out of 2802 available VTK classes, 349 are demonstrated here.  
+Out of 2802 available VTK classes, 349 are demonstrated here.
 
 ### Excluded classes
 
-These classes are excluded since they occur in the majority of the examples:  
+These classes are excluded since they occur in the majority of the examples:
+
 | VTK Class | VTK Class | VTK Class |
 |-----------|-----------|-----------|
 | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html#details) | [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html#details) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html#details) |
