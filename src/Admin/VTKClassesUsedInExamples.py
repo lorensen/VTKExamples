@@ -134,9 +134,6 @@ class VTKClassesInExamples(object):
         self.used_tables_built = False
         self.not_used_tables_built = False
 
-        # Build everything so all the user has to do is to call print_tables()
-        # self.build_tables()
-
     def get_vtk_classes_from_html(self):
         """
         Parse the html file, getting a list of the classes.
@@ -348,7 +345,6 @@ class VTKClassesInExamples(object):
             for vtk_class in sorted(self.vtk_classes):
                 if vtk_class not in self.classes_used[eg]:
                     unused_classes.append(vtk_html_fmt.format(vtk_class, self.vtk_classes[vtk_class]))
-            # unused_classes.sort(key=lambda x: (x.lower(), x.swapcase()))
             res.append(h1)
             res.append(h2.format(eg))
             res.append('Out of {:d} available VTK classes, {:d} have not been used.  \n'.format(
@@ -397,7 +393,6 @@ class VTKClassesInExamples(object):
 
 def main():
     example_source, columns, excluded_columns, unused_vtk, add_vtk_html = get_program_parameters()
-    # VTKClassesInExamples(example_source, columns, excluded_columns, unused_vtk, add_vtk_html).print_tables()
     vtk_classes = VTKClassesInExamples(example_source, columns, excluded_columns, unused_vtk, add_vtk_html)
     vtk_classes.build_tables()
     vtk_classes.print_tables()
