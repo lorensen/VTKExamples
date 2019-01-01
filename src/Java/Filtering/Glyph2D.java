@@ -70,7 +70,7 @@ public class Glyph2D
     vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
     iren.SetRenderWindow(renWin);
 
-    // Visualise the arrow
+    // Visualise 
     ren.AddActor(Actor);
     vtkInteractorStyleImage Style = new vtkInteractorStyleImage();
     iren.SetInteractorStyle(Style);
