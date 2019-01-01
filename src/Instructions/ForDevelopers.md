@@ -1,15 +1,14 @@
-The success of the VTK Examples depends on the contributions from
-the VTK user community. If you wish to contribute to this valuable
-resource, please follow these guidelines. If you are a VTK Example
-User, [go here](../Instructions/ForUsers) or an Example
-Administrator [go here](../Instructions/ForAdministrators).
+## Introduction
 
-C++, C#,  Python and Java examples are welcome! Examples should
-illustrate a single concept.
+The success of the VTK Examples depends on the contributions from the VTK user community. If you wish to contribute to this valuable resource, please follow these guidelines. If you are a VTK Example User, [go here](../Instructions/ForUsers) or an Example Administrator [go here](../Instructions/ForAdministrators).
+
+C++, C#,  Python and Java examples are welcome! Examples should illustrate a single concept.
 
 ## Follow the Coding Guidelines
 
 When you write an example, please follow the [coding guidelines](../Instructions/Guidelines). Create the example on your local repository, compile and run it before you generate a pull request.
+
+Some additional steps need to be done for Python C# and Java, see the sections below.
 
 ## Setup for Development
 
@@ -29,13 +28,13 @@ When you write an example, please follow the [coding guidelines](../Instructions
 
 4. Clone the repository on your local machine
 
-    ```
+    ```bash
     git clone https://YOURNAME@github.com/YOURNAME/VTKExamples.git
     ```
 
     Or, if you are using SSH:
 
-    ```
+    ```bash
     git clone git@github.com:YOURNAME/VTKExamples.git
     ```
 
@@ -43,43 +42,43 @@ When you write an example, please follow the [coding guidelines](../Instructions
 
 5. Add the VTKExamples repository as a *remote* called *upstream*
 
-    ```
+    ```bash
     git remote add upstream https://github.com/lorensen/VTKExamples
     ```
 
 6. Before adding your examples, sync your repository with the VTKExamples repository. Remember that in order to run the following commands you need to be in the **VTKExamples** directory.
 
-    ```
+    ```bash
     git fetch upstream
     ```
 
-    ```
+    ```bash
     git checkout master
     ```
 
-    ```
+    ```bash
     git merge upstream/master
     ```
 
-    ```
+    ```bash
     git push
     ```
 
-6. Build the VTKExamples
+7. Build the VTKExamples
 
-    ```
+    ```bash
     cd VTKExamples
     ```
 
-    ```
+    ```bash
     cd build
     ```
 
-    ```
+    ```bash
     cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ..
     ```
 
-    ```
+    ```bash
     make
     ```
 
@@ -94,49 +93,70 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 #### Write the source
 
+**Note**: Steps 4, 5 and 7 are applicable to C++. For Python, Java and C# see the steps in the section **Steps for Python, Java and C#**.
+
 1. Create a branch in your repository
 
-    ```
+    ```bash
     git checkout -b MyNewExample
     ```
 
     where **MyNewExample** is the name of your new example.
-    
-2. Check the [available snippets](/Cxx/Snippets).
-2. Save your source code in VTKExamples/src/**LANGUAGE**/**TOPIC**/
+
+2. Check the:
+
+    - [Cxx available snippets](/Cxx/Snippets).
+    - [Python available snippets](/Cxx/Snippets).
+    - [Java available snippets](/Cxx/Snippets).
+
+3. Save your source code in VTKExamples/src/**LANGUAGE**/**TOPIC**/
 
     where **LANGUAGE** is Cxx, Python, CSharp or Java.
 
     and **TOPIC** is the topic that you have chosen.
 
-3. Build and test your example (**NOTE:** only for cxx examples)
+4. Build and test your example (**NOTE:** only for cxx examples)
 
-    ```
-    cd VTKExamples/build
-    ```
+   - for Cxx
 
-    ```
-    cmake ..
-    ```
+        ```bash
+        cd VTKExamples/build
+        ```
 
-    ```
-    make
-    ```
+        ```bash
+        cmake ..
+        ```
 
-    ```
-    ctest -V -R MyNewExample
-    ```
-    
-    Note: If **MyNewExample** is not built, then in the directory where you put the file do:
-    ```
-    touch CMakeLists.txt
-    ```
+        ```bash
+        make
+        ```
 
-4. If your C++ example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test**MyNewExample**.png.
+        ```bash
+        ctest -V -R MyNewExample
+        ```
 
-5. Copy the image into: VTKExamples/src/Testing/Baseline/**LANG**/**TOPIC**/. For python and other languages, create an image with the proper name using a screen capture and copy that image into the proper location.
+        Note: If **MyNewExample** is not built, then in the directory where you put the file do:
+        ```bash
+        touch CMakeLists.txt
+        ```
 
-6. Rerun ctest and the test should pass.
+5. If your C++ example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test**MyNewExample**.png.
+
+6. Copy the image into: VTKExamples/src/Testing/Baseline/**LANG**/**TOPIC**/. For python and other languages, create an image with the proper name using a screen capture and copy that image into the proper location.
+
+7. Rerun ctest and the test should pass.
+
+#### Steps for Python, Java and C#
+
+- Follow steps 1-3 above.
+- Manually create a test image if your example does any rendering. The image should be called Test**MyNewExample**.png.
+
+  The following snippets can be used to write the image out:
+
+  - [WriteImage](https://lorensen.github.io/VTKExamples/site/Python/Snippets/WriteImage/) for Python
+  - [WriteImage](https://lorensen.github.io/VTKExamples/site/Java/Snippets/WriteImage/) for Java
+
+- Then follow step 6 above
 
 #### Add the example to the language page.
 
@@ -150,22 +170,23 @@ where **LANG** is one of Cxx, Python, CSharp, Java.
 
 #### Commit your changes to your topic branch
 
-```
+```bash
 git add MyNewExample.cxx
 ```
 
 and if you have a baseline image,
 
-```
+```bash
 git add Testing/Baseline/LANG/TOPIC/TestMyNewExample.png
 ```
-```
+
+```bash
 git commit
 ```
 
 #### Push the changes to github
 
-```
+```bash
 git push origin MyNewExample
 ```
 
@@ -204,8 +225,8 @@ If you want to preview your changes in a browser (**NOTE:** You must have python
   2. Install the material theme for markdown. Go [here](http://squidfunk.github.io/mkdocs-material/#quick-start).
 
   3. Sync your site with your repository
-    ```
+    ```bash
     ./src/SyncSiteWithRepo.sh https::/github.com/**YOUR_NAME**/VTKExamples
     ```
 
-  4. After a few minutes go to https://**YOUR_NAME**.github.io/VTKExamples/ to see your changes before issuing your pull request.
+  6. After a few minutes go to https://**YOUR_NAME**.github.io/VTKExamples/ to see your changes before issuing your pull request.
