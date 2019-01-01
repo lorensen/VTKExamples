@@ -62,7 +62,7 @@ public class BackgroundColor
     vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
     iren.SetRenderWindow(renWin);
 
-    // Visualise the arrow
+    // Visualise the Sphere
     ren.AddActor(Actor);
 
     //Setting up the Renderer Background Color.
