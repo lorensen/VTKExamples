@@ -16,7 +16,7 @@ def get_program_parameters():
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
     parser.add_argument('filename', help='A required filename.')
-    parser.add_argument('figure', default=0, type=int, nargs='?', help='An optional fugure number.')
+    parser.add_argument('figure', default=0, type=int, nargs='?', help='An optional figure number.')
     args = parser.parse_args()
     return args.filename, args.figure
 
