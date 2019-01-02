@@ -34,10 +34,10 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[STLReader](/Python/IO/SLCReader) | vtkSLCReader | Read an SLC file.
-[STLReader](/Python/IO/STLReader) | vtkSTLReader | Read an STL file.
-[UnstructuredGridReader](/Python/IO/UnstructuredGridReader) | vtkUnstructuredGridReader | Using vtkUnstructuredGridReader to read a (legacy) *.vtk file
-[VTPReader](/Python/IO/VTPReader) | vtkXMLPolyDataReader | Needs fixing.
+[ReadSLC](/Python/IO/ReadSLC) | vtkSLCReader | Read an SLC file.
+[ReadSTL](/Python/IO/ReadSTL) | vtkSTLReader | Read an STL file.
+[ReadVTP](/Python/IO/ReadVTP) | vtkXMLPolyDataReader | Needs fixing.
+[ReadUnstructuredGrid](/Python/IO/ReadUnstructuredGrid) | vtkUnstructuredGridReader | Using vtkUnstructuredGridReader to read a (legacy) *.vtk file
 
 ###### Importers
 
@@ -49,8 +49,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[PLYWriter](/Python/IO/PLYWriter) | vtkPLYWriter |
-[STLWriter](/Python/IO/STLWriter) | vtkSTLWriter |
+[WritePLY](/Python/IO/WritePLY) | vtkPLYWriter |
+[WriteSTL](/Python/IO/WriteSTL) | vtkSTLWriter |
 
 #### VTK Formats
 

@@ -148,6 +148,10 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 #### Steps for Python, Java and C#
 
+If you are basing your code on a Cxx example use the same name as the Cxx example. This insures that cross-referencing works.
+
+Keep the same directory structure as that in Cxx.
+
 - Follow steps 1-3 above.
 - Manually create a test image if your example does any rendering. The image should be called Test**MyNewExample**.png.
 
