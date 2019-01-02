@@ -108,6 +108,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | use Java File Dialog to select Image File to Display
+[ShotNoise](/Java/ImageProcessing/ShotNoise) | vtkPNGWriter | Example program to write PNG files
 
 ## Lighting
 
