@@ -96,5 +96,4 @@ int main(int argc, char *argv[])
   interactor->Start();
 
   return EXIT_SUCCESS;
-
 }
