@@ -25,11 +25,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkGaussianSplatter> splatter = 
     vtkSmartPointer<vtkGaussianSplatter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  splatter->SetInput(polydata);
-#else
   splatter->SetInputData(polydata);
-#endif
   splatter->SetSampleDimensions(50,50,50);
   splatter->SetRadius(0.5);
   splatter->ScalarWarpingOff();

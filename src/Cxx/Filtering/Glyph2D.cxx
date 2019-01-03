@@ -31,11 +31,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkGlyph2D> glyph2D = 
     vtkSmartPointer<vtkGlyph2D>::New();
   glyph2D->SetSourceConnection(polygonSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  glyph2D->SetInput(polydata);
-#else
   glyph2D->SetInputData(polydata);
-#endif
   glyph2D->Update();
 
   vtkSmartPointer<vtkPolyDataMapper> mapper = 

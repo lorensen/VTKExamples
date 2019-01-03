@@ -35,11 +35,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyphFilter->SetInputConnection(polydata->GetProducerPort());
-#else
   glyphFilter->SetInputData(polydata);
-#endif
   glyphFilter->Update();
 
   // Create a mapper and actor
@@ -55,11 +51,7 @@ int main(int, char *[])
   // Triangulate the grid points
   vtkSmartPointer<vtkDelaunay2D> delaunay =
     vtkSmartPointer<vtkDelaunay2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  delaunay->SetInput(polydata);
-#else
   delaunay->SetInputData(polydata);
-#endif
   delaunay->Update();
 
   // Create a mapper and actor

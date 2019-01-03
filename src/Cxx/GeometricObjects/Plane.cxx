@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPlaneSource.h>
 #include <vtkPolyData.h>
 #include <vtkSmartPointer.h>
@@ -34,11 +33,7 @@ int main(int, char *[])
   // Create a mapper and actor
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(plane);
-#else
   mapper->SetInputData(plane);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

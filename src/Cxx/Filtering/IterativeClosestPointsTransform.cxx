@@ -77,11 +77,7 @@ int main(int argc, char *argv[])
   // Transform the source points by the ICP solution
   vtkSmartPointer<vtkTransformPolyDataFilter> icpTransformFilter =
     vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  icpTransformFilter->SetInput(source);
-#else
   icpTransformFilter->SetInputData(source);
-#endif
   icpTransformFilter->SetTransform(icp);
   icpTransformFilter->Update();
 
@@ -95,11 +91,7 @@ int main(int argc, char *argv[])
   // Visualize
   vtkSmartPointer<vtkPolyDataMapper> sourceMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  sourceMapper->SetInputConnection(source->GetProducerPort());
-#else
   sourceMapper->SetInputData(source);
-#endif
 
   vtkSmartPointer<vtkActor> sourceActor =
     vtkSmartPointer<vtkActor>::New();
@@ -109,11 +101,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkPolyDataMapper> targetMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  targetMapper->SetInputConnection(target->GetProducerPort());
-#else
   targetMapper->SetInputData(target);
-#endif
 
   vtkSmartPointer<vtkActor> targetActor =
     vtkSmartPointer<vtkActor>::New();
@@ -180,11 +168,7 @@ void CreatePolyData(vtkSmartPointer<vtkPolyData> polydata)
 
   vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vertexFilter->SetInputConnection(temp->GetProducerPort());
-#else
   vertexFilter->SetInputData(temp);
-#endif
   vertexFilter->Update();
 
   polydata->ShallowCopy(vertexFilter->GetOutput());
@@ -233,11 +217,7 @@ void TranslatePolyData(vtkSmartPointer<vtkPolyData> polydata)
 
   vtkSmartPointer<vtkTransformPolyDataFilter> transformFilter =
     vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  transformFilter->SetInputConnection(polydata->GetProducerPort());
-#else
   transformFilter->SetInputData(polydata);
-#endif
   transformFilter->SetTransform(transform);
   transformFilter->Update();
 

@@ -37,11 +37,7 @@ class KeyPressInteractorStyle : public vtkInteractorStyleTrackballCamera
 
     void Initialize()
     {
-#if VTK_MAJOR_VERSION <= 5
-      this->meshMapper->SetInputConnection(this->data->GetProducerPort());
-#else
       this->meshMapper->SetInputData(this->data);
-#endif
       for(unsigned int i = 0; i < 4; i++)
       {
 	vtkSmartPointer<vtkPolyDataMapper> mapper =
@@ -135,11 +131,7 @@ class KeyPressInteractorStyle : public vtkInteractorStyleTrackballCamera
       tree->GenerateRepresentation(this->Level, polydata);
     }
 
-#if VTK_MAJOR_VERSION <= 5
-    this->mappers[i]->SetInputConnection(polydata->GetProducerPort());
-#else
     this->mappers[i]->SetInputData(polydata);
-#endif
   }
 
     this->Interactor->GetRenderWindow()->Render();

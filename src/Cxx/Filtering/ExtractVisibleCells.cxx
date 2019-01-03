@@ -54,13 +54,8 @@ class KeyPressInteractorStyle : public vtkInteractorStyleTrackballCamera
 
         vtkSmartPointer<vtkExtractSelection> extractSelection =
           vtkSmartPointer<vtkExtractSelection>::New();
-#if VTK_MAJOR_VERSION <= 5
-        extractSelection->SetInput(0, this->Data);
-        extractSelection->SetInput(1, selection);
-#else
         extractSelection->SetInputData(0, this->Data);
         extractSelection->SetInputData(1, selection);
-#endif
         extractSelection->Update();
 
         vtkSmartPointer<vtkDataSetMapper> mapper =

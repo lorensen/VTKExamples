@@ -1,11 +1,6 @@
-#include <vtkVersion.h>
 #include <vtkPolyData.h>
-#if VTK_MAJOR_VERSION <= 5
-#include <vtkPLOT3DReader.h>
-#else
 #include <vtkMultiBlockPLOT3DReader.h>
 #include <vtkMultiBlockDataSet.h>
-#endif
 #include <vtkSmartPointer.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
@@ -25,13 +20,8 @@ int main ( int argc, char *argv[] )
   std::string xyzFilename = argv[1];
   std::string qFilename = argv[2];
 
-#if VTK_MAJOR_VERSION <= 5
-  vtkSmartPointer<vtkPLOT3DReader> reader =
-    vtkSmartPointer<vtkPLOT3DReader>::New();
-#else
   vtkSmartPointer<vtkMultiBlockPLOT3DReader> reader =
     vtkSmartPointer<vtkMultiBlockPLOT3DReader>::New();
-#endif
   reader->SetXYZFileName(xyzFilename.c_str());
   reader->SetQFileName(qFilename.c_str());
   reader->SetScalarFunctionNumber(100);
@@ -40,11 +30,7 @@ int main ( int argc, char *argv[] )
 
   vtkSmartPointer<vtkStructuredGridGeometryFilter> geometryFilter =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  geometryFilter->SetInputConnection(reader->GetOutputPort());
-#else
   geometryFilter->SetInputData(reader->GetOutput()->GetBlock(0));
-#endif
   geometryFilter->Update();
 
   // Visualize

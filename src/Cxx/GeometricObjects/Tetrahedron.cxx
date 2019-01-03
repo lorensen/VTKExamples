@@ -12,7 +12,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkTetra.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkVersion.h>
 
 int main(int, char*[])
 {
@@ -59,11 +58,7 @@ int main(int, char*[])
   // Create a mapper and actor
   vtkSmartPointer<vtkDataSetMapper> mapper1 = 
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper1->SetInputConnection(unstructuredGrid1->GetProducerPort());
-#else
   mapper1->SetInputData(unstructuredGrid1);
-#endif
  
   vtkSmartPointer<vtkActor> actor1 = 
     vtkSmartPointer<vtkActor>::New();
@@ -73,11 +68,7 @@ int main(int, char*[])
   // Create a mapper and actor
   vtkSmartPointer<vtkDataSetMapper> mapper2 = 
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper2->SetInputConnection(unstructuredGrid2->GetProducerPort());
-#else
   mapper2->SetInputData(unstructuredGrid2);
-#endif
  
   vtkSmartPointer<vtkActor> actor2 = 
     vtkSmartPointer<vtkActor>::New();

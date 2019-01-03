@@ -10,7 +10,6 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 #include <vtkTriangleStrip.h>
-#include <vtkVersion.h>
 
 int main(int, char *[])
 {
@@ -44,11 +43,7 @@ int main(int, char *[])
   // Create an actor and mapper
   vtkSmartPointer<vtkDataSetMapper> mapper = 
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(polydata);
-#else
   mapper->SetInputData(polydata);
-#endif
  
   vtkSmartPointer<vtkActor> actor = 
     vtkSmartPointer<vtkActor>::New();

@@ -9,7 +9,6 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 #include <vtkVertex.h>
 
 int main(int, char *[])
@@ -38,11 +37,7 @@ int main(int, char *[])
   // Setup actor and mapper
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(polydata->GetProducerPort());
-#else
   mapper->SetInputData(polydata);
-#endif
  
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

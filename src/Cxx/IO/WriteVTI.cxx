@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkProperty.h>
 #include <vtkXMLImageDataWriter.h>
@@ -25,12 +24,8 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkImageData> imageData =
     vtkSmartPointer<vtkImageData>::New();
   imageData->SetDimensions(3,4,5);
-#if VTK_MAJOR_VERSION <= 5
-  imageData->SetNumberOfScalarComponents(1);
-  imageData->SetScalarTypeToDouble();
-#else
   imageData->AllocateScalars(VTK_DOUBLE, 1);
-#endif
+
   int* dims = imageData->GetDimensions();
 
   // Fill every entry of the image data with "2.0"
@@ -49,11 +44,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkXMLImageDataWriter> writer =
     vtkSmartPointer<vtkXMLImageDataWriter>::New();
   writer->SetFileName(filename.c_str());
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInputConnection(imageData->GetProducerPort());
-#else
   writer->SetInputData(imageData);
-#endif
   writer->Write();
 
   // Read the file (to test that it was written correctly)

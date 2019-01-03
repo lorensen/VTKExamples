@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkImageCanvasSource2D.h>
@@ -49,11 +48,7 @@ int main(int argc, char *argv[])
   // Create an image actor to display the image
   vtkSmartPointer<vtkImageActor> imageActor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageActor->SetInput(imageData);
-#else
   imageActor->SetInputData(imageData);
-#endif
 
   // Create a renderer to display the image in the background
   vtkSmartPointer<vtkRenderer> backgroundRenderer =

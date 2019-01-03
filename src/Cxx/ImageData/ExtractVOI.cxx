@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageData.h>
 #include <vtkImageMapper3D.h>
@@ -48,11 +47,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkImageCast> extractedCastFilter =
     vtkSmartPointer<vtkImageCast>::New();
-#if VTK_MAJOR_VERSION <= 5
-  extractedCastFilter->SetInputConnection(extracted->GetProducerPort());
-#else
   extractedCastFilter->SetInputData(extracted);
-#endif
   extractedCastFilter->SetOutputScalarTypeToUnsignedChar();
   extractedCastFilter->Update();
   

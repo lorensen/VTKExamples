@@ -26,12 +26,7 @@ int main(int , char *[])
   CreateVectorField(image);
 
   vtkSmartPointer<vtkImageMagnitude> magnitudeFilter = vtkSmartPointer<vtkImageMagnitude>::New();
-
-#if VTK_MAJOR_VERSION <= 5
-  magnitudeFilter->SetInputConnection(image->GetProducerPort());
-#else
   magnitudeFilter->SetInputData(image);
-#endif
   magnitudeFilter->Update(); // This filter produces a vtkImageData with an array named "Magnitude"
 
   image->GetPointData()->AddArray(magnitudeFilter->GetOutput()->GetPointData()->GetScalars());
@@ -39,12 +34,7 @@ int main(int , char *[])
 
   vtkSmartPointer<vtkThresholdPoints> thresholdPoints = vtkSmartPointer<vtkThresholdPoints>::New();
   //thresholdPoints->SetInputConnection(magnitudeFilter->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  thresholdPoints->SetInputConnection(image->GetProducerPort());
-#else
   thresholdPoints->SetInputData(image);
-#endif
-
   thresholdPoints->ThresholdByUpper(.05);
   thresholdPoints->Update();
 
@@ -58,13 +48,7 @@ void CreateVectorField(vtkImageData* image)
 {
   // Specify the size of the image data
   image->SetDimensions(50,50,1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(3);
-  image->SetScalarTypeToFloat();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_FLOAT, 3);
-#endif
 
   int* dims = image->GetDimensions();
 
@@ -100,11 +84,7 @@ void WriteVectorField(vtkPolyData* vectorField, const std::string fileName)
 {
     vtkSmartPointer<vtkXMLPolyDataWriter> writer = vtkSmartPointer<vtkXMLPolyDataWriter>::New();
     writer->SetFileName(fileName.c_str());
-    #if VTK_MAJOR_VERSION <= 5
-      writer->SetInput(vectorField);
-    #else
-      writer->SetInputData(vectorField);
-    #endif
+    writer->SetInputData(vectorField);
     writer->Write();
 }
 
@@ -112,10 +92,6 @@ void WriteImage(vtkImageData* image, const std::string fileName)
 {
     vtkSmartPointer<vtkXMLImageDataWriter> writer = vtkSmartPointer<vtkXMLImageDataWriter>::New();
     writer->SetFileName(fileName.c_str());
-    #if VTK_MAJOR_VERSION <= 5
-      writer->SetInput(image);
-    #else
-      writer->SetInputData(image);
-    #endif
+    writer->SetInputData(image);
     writer->Write();
 }

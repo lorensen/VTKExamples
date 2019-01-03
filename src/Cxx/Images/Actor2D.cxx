@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkCubeSource.h>
 #include <vtkPolyData.h>
@@ -25,11 +24,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyphFilter->SetInputConnection(polydata->GetProducerPort());
-#else
   glyphFilter->SetInputData(polydata);
-#endif
   glyphFilter->Update();
 
   vtkSmartPointer<vtkPolyDataMapper2D> mapper =

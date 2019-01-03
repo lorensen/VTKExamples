@@ -48,11 +48,7 @@ static void Lorenz(void *arg)
   pointsPolydata->SetPoints(points);
   vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vertexFilter->SetInputConnection(pointsPolydata->GetProducerPort());
-#else
   vertexFilter->SetInputData(pointsPolydata);
-#endif
   vertexFilter->Update();
   vtkProgrammableSource * ps =
     static_cast<vtkProgrammableSource *>(arg);
@@ -69,11 +65,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkPolyDataMapper> mapper = 
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(source->GetPolyDataOutput());
-#else
   mapper->SetInputData(source->GetPolyDataOutput());
-#endif
   
   vtkSmartPointer<vtkActor> actor = 
     vtkSmartPointer<vtkActor>::New();

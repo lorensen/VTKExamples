@@ -30,7 +30,6 @@ matrix because we have already seen one item (the '30') in column 2.
 */
 
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 #include <vtkDenseArray.h>
 #include <vtkArrayToTable.h>
 #include <vtkTable.h>
@@ -63,11 +62,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkAdjacencyMatrixToEdgeTable> adjacencyMatrixToEdgeTable =
     vtkSmartPointer<vtkAdjacencyMatrixToEdgeTable>::New();
-#if VTK_MAJOR_VERSION <= 5
-  adjacencyMatrixToEdgeTable->SetInputConnection(arrayData->GetProducerPort());
-#else
   adjacencyMatrixToEdgeTable->SetInputData(arrayData);
-#endif
   adjacencyMatrixToEdgeTable->Update();
 
   adjacencyMatrixToEdgeTable->GetOutput()->Dump();

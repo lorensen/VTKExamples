@@ -103,12 +103,8 @@ int main(int, char *[])
     mappers.push_back(vtkSmartPointer<vtkDataSetMapper>::New());
     actors.push_back(vtkSmartPointer<vtkActor>::New());
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
-
-#if VTK_MAJOR_VERSION <= 5
-    mappers[i]->SetInputConnection(uGrids[i]->GetProducerPort());
-#else
     mappers[i]->SetInputData(uGrids[i]);
-#endif
+
     actors[i]->SetMapper(mappers[i]);
     actors[i]->GetProperty()->SetColor(
       colors->GetColor3d("Seashell").GetData());

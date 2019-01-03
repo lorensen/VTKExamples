@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageData.h>
 #include <vtkStructuredData.h>
@@ -20,12 +19,7 @@ int main(int, char *[])
   extent[4] = 0;
   extent[5] = numVoxelsPerDimension;
   grid->SetExtent(extent);
-#if VTK_MAJOR_VERSION <= 5
-  grid->SetScalarTypeToInt();
-  grid->SetNumberOfScalarComponents(1);
-#else
   grid->AllocateScalars(VTK_INT,1);
-#endif
 
   for(unsigned int i = 0; i < numVoxelsPerDimension; ++i)
   {

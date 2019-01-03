@@ -15,7 +15,6 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkVersion.h>
 #include <vtkXMLUnstructuredGridWriter.h>
 
 int main( int, char*[] )
@@ -63,11 +62,7 @@ int main( int, char*[] )
   // Here we write out the cube.
   vtkSmartPointer<vtkXMLUnstructuredGridWriter> writer =
     vtkSmartPointer<vtkXMLUnstructuredGridWriter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(ugrid);
-#else
   writer->SetInputData(ugrid);
-#endif
   writer->SetFileName("polyhedron.vtu");
   writer->SetDataModeToAscii();
   writer->Update();
@@ -75,11 +70,7 @@ int main( int, char*[] )
   // Create a mapper and actor
   vtkSmartPointer<vtkDataSetMapper> mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(ugrid);
-#else
   mapper->SetInputData(ugrid);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkImageData.h>
 #include <vtkPoints.h>
 #include <vtkImageDataToPointSet.h>
@@ -16,11 +15,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkImageDataToPointSet> imageDataToPointSet =
     vtkSmartPointer<vtkImageDataToPointSet>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageDataToPointSet->SetInputConnection(image->GetProducerPort());
-#else
   imageDataToPointSet->SetInputData(image);
-#endif
   imageDataToPointSet->Update();
 
   vtkSmartPointer<vtkXMLStructuredGridWriter> writer =
@@ -36,12 +31,7 @@ void CreateImage(vtkImageData* image)
 {
   // Create an image
   image->SetDimensions(3,3,1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(1);
-  image->SetScalarTypeToUnsignedChar();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
 
   int dims[3];
   image->GetDimensions(dims);

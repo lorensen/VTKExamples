@@ -17,11 +17,7 @@ int main(int, char *[])
   
   vtkSmartPointer<vtkTestPolyDataFilter> filter = 
     vtkSmartPointer<vtkTestPolyDataFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  filter->SetInput(inputPolydata);
-#else
   filter->SetInputData(inputPolydata);
-#endif
   filter->Update();
   
   vtkPolyData* outputPolydata = filter->GetOutput();
