@@ -10,11 +10,19 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkImageData.h>
 #include <vtkImplicitBoolean.h>
- 
 #include <vtkSphere.h>
+
+#include <vtkNamedColors.h>
+#include <vtkColor.h>
  
 int main (int, char *[])
 {
+  // Define colors
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+  vtkColor3d background = colors->GetColor3d("SlateGray");
+  vtkColor3d actorColor = colors->GetColor3d("hot_pink");
+
   vtkSmartPointer<vtkSphere> sphere1 = 
     vtkSmartPointer<vtkSphere>::New();
   sphere1->SetCenter(.9,0,0);
@@ -27,7 +35,9 @@ int main (int, char *[])
   implicitBoolean->AddFunction(sphere1);
   implicitBoolean->AddFunction(sphere2);
   implicitBoolean->SetOperationTypeToUnion();
-  //implicitBoolean->SetOperationTypeToIntersection();
+
+//  implicitBoolean->SetOperationTypeToIntersection();
+//  implicitBoolean->SetOperationTypeToDifference();
   
   // Sample the function
   vtkSmartPointer<vtkSampleFunction> sample = 
@@ -56,19 +66,25 @@ int main (int, char *[])
   vtkSmartPointer<vtkActor> contourActor = 
     vtkSmartPointer<vtkActor>::New();
   contourActor->SetMapper(contourMapper);
- 
+  contourActor->GetProperty()->SetDiffuseColor(actorColor.GetData()); 
+  contourActor->GetProperty()->SetDiffuse(.8);
+  contourActor->GetProperty()->SetSpecular(.2);
+  contourActor->GetProperty()->SetSpecularPower(60.0);
+
   // Visualize
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
+  renderWindow->SetSize(640, 480);
+
   vtkSmartPointer<vtkRenderWindowInteractor> interactor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
  
   renderer->AddActor(contourActor);
-  renderer->SetBackground(.2, .3, .4);
+  renderer->SetBackground(background.GetData());
  
   renderWindow->Render();
   interactor->Start();

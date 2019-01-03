@@ -162,15 +162,15 @@ int main (int argc, char *argv[])
   xyplot2->AddDataSetInputConnection(probe3->GetOutputPort());
   xyplot2->GetPositionCoordinate()->SetValue(0.00, 0.33, 0);
   xyplot2->GetPosition2Coordinate()->SetValue(1.0, 0.33, 0); //relative to Position;
-    xyplot2->SetXValuesToNormalizedArcLength();
+  xyplot2->SetXValuesToNormalizedArcLength();
   xyplot2->SetNumberOfXLabels(6);
   xyplot2->SetTitle("Pressure vs. Normalized Arc Length");
   xyplot2->SetXTitle("");
   xyplot2->SetYTitle("P");
   xyplot2->PlotPointsOn();
   xyplot2->PlotLinesOff();
-  xyplot2->GetProperty()->SetColor(colors->GetColor3d("Ivory").GetData());
-  xyplot2->GetProperty()->SetPointSize(2);
+  xyplot2->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
+  xyplot2->GetProperty()->SetPointSize(5);
 // Set text prop color
 // Assign same object to all text props
   tprop = xyplot2->GetTitleTextProperty();
@@ -230,19 +230,19 @@ int main (int argc, char *argv[])
 // Set the background, viewport (necessary because we want to have the
 // renderers draw to different parts of the render window) of the first
 // renderer.  Add the outline and line actors to the renderer.
-  renderer->SetBackground(0.6784, 0.8471, 0.9020);
+  renderer->SetBackground(colors->GetColor3d("blue_light").GetData());
   renderer->SetViewport(0, 0, .5, 1);
   renderer->AddActor(outlineActor);
   renderer->AddActor(lineActor);
 
 // Set the background and viewport of the second renderer.  Add the
 // xy-plot actors to the renderer.  Set the size of the render window.
-  renderer2->SetBackground(1, 1, 1);
+  renderer2->SetBackground(colors->GetColor3d("silver").GetData());
   renderer2->SetViewport(0.5, 0.0, 1.0, 1.0);
   renderer2->AddActor2D(xyplot);
   renderer2->AddActor2D(xyplot2);
   renderer2->AddActor2D(xyplot3);
-  renderWindow->SetSize(500, 250);
+  renderWindow->SetSize(800, 600);
 
 // Set up the camera parameters.
   vtkCamera *cam1 = renderer->GetActiveCamera();

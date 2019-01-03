@@ -1,6 +1,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkImplicitBoolean.h>
 #include <vtkNamedColors.h>
+#include <vtkColorSeries.h>
 
 #include <vtkSphere.h>
 #include <vtkBox.h>
@@ -18,7 +19,7 @@
 
 int main (int /* argc */, char *[])
 {
-  vtkSmartPointer<vtkNamedColors> namedColors =
+  vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   // create a sphere
@@ -52,6 +53,10 @@ int main (int /* argc */, char *[])
   camera->Azimuth(30.0);
   camera->Elevation(30.0);
 
+  vtkSmartPointer<vtkColorSeries> colorSeries =
+    vtkSmartPointer<vtkColorSeries>::New();
+  colorSeries->SetColorScheme(vtkColorSeries::BREWER_DIVERGING_SPECTRAL_3);
+
   for (int i = 0; i < 3; ++i)
   {
     if (i == 0)
@@ -73,7 +78,7 @@ int main (int /* argc */, char *[])
       vtkSmartPointer<vtkSampleFunction>::New();
     sample->SetImplicitFunction(boolean);
     sample->SetModelBounds(-1, 2, -1, 1, -1, 1);
-    sample->SetSampleDimensions(40, 40, 40);
+    sample->SetSampleDimensions(100, 100, 100);
     sample->ComputeNormalsOff();
 
     // contour
@@ -96,11 +101,13 @@ int main (int /* argc */, char *[])
     vtkSmartPointer<vtkActor> actor =
       vtkSmartPointer<vtkActor>::New();
     actor->SetMapper(mapper);
-    actor->GetProperty()->EdgeVisibilityOn();
-    actor->GetProperty()->SetEdgeColor(.2, .2, .5);
+//    actor->GetProperty()->EdgeVisibilityOn();
+    actor->GetProperty()->SetColor(colors->GetColor3d("peacock").GetData());
 
     // add the actor
-    ren[i]->SetBackground(namedColors->GetColor3d("Khaki").GetData());
+    ren[i]->SetBackground(colorSeries->GetColor(i).GetRed() / 255.0,
+                          colorSeries->GetColor(i).GetGreen() / 255.0,
+                          colorSeries->GetColor(i).GetBlue() / 255.0);
     ren[i]->SetActiveCamera(camera);
     ren[i]->AddActor(actor);
   }
