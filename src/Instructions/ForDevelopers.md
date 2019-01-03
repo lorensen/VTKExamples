@@ -28,13 +28,13 @@ Some additional steps need to be done for Python C# and Java, see the sections b
 
 4. Clone the repository on your local machine
 
-    ```bash
+    ```
     git clone https://YOURNAME@github.com/YOURNAME/VTKExamples.git
     ```
 
     Or, if you are using SSH:
 
-    ```bash
+    ```
     git clone git@github.com:YOURNAME/VTKExamples.git
     ```
 
@@ -42,43 +42,43 @@ Some additional steps need to be done for Python C# and Java, see the sections b
 
 5. Add the VTKExamples repository as a *remote* called *upstream*
 
-    ```bash
+    ```
     git remote add upstream https://github.com/lorensen/VTKExamples
     ```
 
 6. Before adding your examples, sync your repository with the VTKExamples repository. Remember that in order to run the following commands you need to be in the **VTKExamples** directory.
 
-    ```bash
+    ```
     git fetch upstream
     ```
 
-    ```bash
+    ```
     git checkout master
     ```
 
-    ```bash
+    ```
     git merge upstream/master
     ```
 
-    ```bash
+    ```
     git push
     ```
 
 7. Build the VTKExamples
 
-    ```bash
+    ```
     cd VTKExamples
     ```
 
-    ```bash
+    ```
     cd build
     ```
 
-    ```bash
+    ```
     cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ..
     ```
 
-    ```bash
+    ```
     make
     ```
 
@@ -97,7 +97,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 1. Create a branch in your repository
 
-    ```bash
+    ```
     git checkout -b MyNewExample
     ```
 
@@ -119,24 +119,25 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
    - for Cxx
 
-        ```bash
+        ```
         cd VTKExamples/build
         ```
 
-        ```bash
+        ```
         cmake ..
         ```
 
-        ```bash
+        ```
         make
         ```
 
-        ```bash
+        ```
         ctest -V -R MyNewExample
         ```
 
         Note: If **MyNewExample** is not built, then in the directory where you put the file do:
-        ```bash
+
+        ```
         touch CMakeLists.txt
         ```
 
@@ -174,23 +175,23 @@ where **LANG** is one of Cxx, Python, CSharp, Java.
 
 #### Commit your changes to your topic branch
 
-```bash
+```
 git add MyNewExample.cxx
 ```
 
 and if you have a baseline image,
 
-```bash
+```
 git add Testing/Baseline/LANG/TOPIC/TestMyNewExample.png
 ```
 
-```bash
+```
 git commit
 ```
 
 #### Push the changes to github
 
-```bash
+```
 git push origin MyNewExample
 ```
 
@@ -229,8 +230,9 @@ If you want to preview your changes in a browser (**NOTE:** You must have python
   2. Install the material theme for markdown. Go [here](http://squidfunk.github.io/mkdocs-material/#quick-start).
 
   3. Sync your site with your repository
-    ```bash
+
+    ```
     ./src/SyncSiteWithRepo.sh https::/github.com/**YOUR_NAME**/VTKExamples
     ```
 
-  6. After a few minutes go to https://**YOUR_NAME**.github.io/VTKExamples/ to see your changes before issuing your pull request.
+  4. After a few minutes go to https://**YOUR_NAME**.github.io/VTKExamples/ to see your changes before issuing your pull request.

@@ -111,7 +111,7 @@ vtkCutter *cutter = vtkCutter::New();
 Delaunay3DAlpha Alpha InputPolydataFileName(.vtp) OutputUnstructuredGridFilename(.vtu)
 ```
 
-    would use the arguments in this manner
+would use the arguments in this manner
 
 ```c++
 reader->SetFileName (argv[2]);
