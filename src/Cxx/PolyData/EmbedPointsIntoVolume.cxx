@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPolyData.h>
 #include <vtkImageData.h>
 #include <vtkSmartPointer.h>
@@ -40,11 +39,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkGaussianSplatter> splatter =
     vtkSmartPointer<vtkGaussianSplatter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  splatter->SetInputConnection(input->GetProducerPort());
-#else
   splatter->SetInputData(input);
-#endif
 
   unsigned int n = 200;
   splatter->SetSampleDimensions(n,n,n);

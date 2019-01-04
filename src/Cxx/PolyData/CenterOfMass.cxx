@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkCenterOfMass.h>
 #include <vtkDoubleArray.h>
 #include <vtkPoints.h>
@@ -26,11 +25,7 @@ int main(int, char*[])
   // Compute the center of mass
   vtkSmartPointer<vtkCenterOfMass> centerOfMassFilter =
     vtkSmartPointer<vtkCenterOfMass>::New();
-#if VTK_MAJOR_VERSION <= 5
-  centerOfMassFilter->SetInput(polydata);
-#else
   centerOfMassFilter->SetInputData(polydata);
-#endif
   centerOfMassFilter->SetUseScalarsAsWeights(false);
   centerOfMassFilter->Update();
 

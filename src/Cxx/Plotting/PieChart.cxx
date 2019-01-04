@@ -55,11 +55,7 @@ int main(int, char*[])
   // Add multiple line plots, setting the colors etc
   vtkPlotPie *pie = vtkPlotPie::SafeDownCast(chart->AddPlot(0));
   pie->SetColorSeries(colorSeries);
-#if VTK_MAJOR_VERSION <= 5
-  pie->SetInput(table);
-#else
   pie->SetInputData(table);
-#endif
   pie->SetInputArray(0,"2008 Circulation");
   pie->SetLabels(labelArray);
 

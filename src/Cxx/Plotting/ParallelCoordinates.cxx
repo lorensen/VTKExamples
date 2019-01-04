@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkSmartPointer.h>
@@ -51,11 +50,7 @@ int main(int, char*[])
     table->SetValue(i, 3, 3 * i);
   }
 
-#if VTK_MAJOR_VERSION <= 5
-  chart->GetPlot(0)->SetInput(table);
-#else
   chart->GetPlot(0)->SetInputData(table);
-#endif
 
   view->GetRenderWindow()->SetMultiSamples(0);
 

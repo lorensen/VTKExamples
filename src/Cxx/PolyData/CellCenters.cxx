@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageData.h>
 #include <vtkProperty.h>
@@ -22,11 +21,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkCellCenters> cellCentersFilter =
     vtkSmartPointer<vtkCellCenters>::New();
-#if VTK_MAJOR_VERSION <= 5
-  cellCentersFilter->SetInputConnection(imageData->GetProducerPort());
-#else
   cellCentersFilter->SetInputData(imageData);
-#endif
   cellCentersFilter->VertexCellsOn();
   cellCentersFilter->Update();
 
@@ -48,11 +43,8 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkDataSetMapper> mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(imageData->GetProducerPort());
-#else
   mapper->SetInputData(imageData);
-#endif
+
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
