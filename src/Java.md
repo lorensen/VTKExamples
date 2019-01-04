@@ -82,6 +82,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkMutableUndirectedGraph  | An example to construct a graph and visualize it.
 
+## Images
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image 
+
 ## Input and Output
 
 | Example Name | Classes Demonstrated | Description | Image |
