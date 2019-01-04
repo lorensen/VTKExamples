@@ -210,6 +210,11 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [WriteTriangleToFile](/Python/IO/WriteTriangleToFile) | vtkTriangle |
 
 ### Data Types
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[CompositePolyDataMapper](/Python/CompositeData/CompositePolyDataMapper) | vtkCompositePolyDataMapper |
+[MultiBlockDataSet](/Python/CompositeData/MultiBlockDataSet) | vtkMultiBlockDataSet | Demonstrates how to make and use VTK's MultiBlock type data
+[OverlappingAMR](/Python/CompositeData/OverlappingAMR) | vtkOverlappingAMR | Demonstrates how to create and populate a VTK's Overlapping AMR Grid type Data
 
 ### Data Type Conversions
 
@@ -549,6 +554,13 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Animation](/Python/Utilities/Animation) | vtkRenderWindowInteractor | Move a sphere across a scene.
+
+## Annotation
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[MultiLineText](/Python/Annotation/MultiLineText) | vtkTextMapper | Display multiline text.
+[TextOrigin](/Python/Annotation/TextOrigin) |  | This example demonstrates the use of vtkVectorText and vtkFollower. vtkVectorText is used to create 3D annotation.
 
 ## Geographic Visualization (Geovis)
 
