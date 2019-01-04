@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
 #include <vtkPointData.h>
@@ -45,11 +44,7 @@ int main(int, char *[])
   // Triangulate the grid points
   vtkSmartPointer<vtkDelaunay2D> delaunay =
     vtkSmartPointer<vtkDelaunay2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  delaunay->SetInput(inputPolyData);
-#else
   delaunay->SetInputData(inputPolyData);
-#endif
   delaunay->Update();
 
   vtkSmartPointer<vtkElevationFilter> elevationFilter =
@@ -100,11 +95,7 @@ int main(int, char *[])
   // Visualize
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(output->GetProducerPort());
-#else
   mapper->SetInputData(output);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

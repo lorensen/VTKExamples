@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkClipDataSet.h>
@@ -90,11 +89,7 @@ int main (int, char *[])
   // Use vtkClipDataSet to slice the grid with the polydata
   vtkSmartPointer<vtkClipDataSet> clipper =
     vtkSmartPointer<vtkClipDataSet>::New();
-#if VTK_MAJOR_VERSION <= 5
-  clipper->SetInput(rgrid);
-#else
   clipper->SetInputData(rgrid);
-#endif
   clipper->InsideOutOn();
   clipper->SetValue(0.0);
   clipper->GenerateClippedOutputOn();
@@ -112,11 +107,7 @@ int main (int, char *[])
   // geometry filter to view the background grid
   vtkSmartPointer<vtkRectilinearGridGeometryFilter> geometryFilter =
     vtkSmartPointer<vtkRectilinearGridGeometryFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  geometryFilter->SetInput(rgrid);
-#else
   geometryFilter->SetInputData(rgrid);
-#endif
   geometryFilter->SetExtent(0, dimension, 0, dimension, dimension/2, dimension/2);
   geometryFilter->Update();
 

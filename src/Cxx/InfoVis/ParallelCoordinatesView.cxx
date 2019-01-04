@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkSmartPointer.h>
 #include <vtkPolyData.h>
 #include <vtkDelimitedTextReader.h>
@@ -115,12 +113,7 @@ int main(int argc, char* argv[])
 
   vtkSmartPointer<vtkParallelCoordinatesRepresentation> rep =
     vtkSmartPointer<vtkParallelCoordinatesRepresentation>::New();
-
-#if VTK_MAJOR_VERSION <= 5
-  rep->SetInputConnection(polydata->GetProducerPort());
-#else
   rep->SetInputData(polydata);
-#endif
 
   // List all of the attribute arrays you want plotted in parallel coordinates
   // Set up the parallel coordinates Representation to be used in the View

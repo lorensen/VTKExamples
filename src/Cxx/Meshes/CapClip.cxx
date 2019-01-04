@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkRenderWindowInteractor.h>
@@ -62,11 +61,7 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkDataSetMapper> clipMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  clipMapper->SetInput(polyData);
-#else
   clipMapper->SetInputData(polyData);
-#endif
 
   vtkSmartPointer<vtkActor> clipActor =
     vtkSmartPointer<vtkActor>::New();
@@ -77,11 +72,7 @@ int main (int argc, char *argv[])
   // Now extract feature edges
   vtkSmartPointer<vtkFeatureEdges> boundaryEdges =
     vtkSmartPointer<vtkFeatureEdges>::New();
-#if VTK_MAJOR_VERSION <= 5
-  boundaryEdges->SetInput(polyData);
-#else
   boundaryEdges->SetInputData(polyData);
-#endif
   boundaryEdges->BoundaryEdgesOn();
   boundaryEdges->FeatureEdgesOff();
   boundaryEdges->NonManifoldEdgesOff();
@@ -100,11 +91,7 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkPolyDataMapper> boundaryMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  boundaryMapper->SetInput(boundaryPoly);
-#else
   boundaryMapper->SetInputData(boundaryPoly);
-#endif
 
   vtkSmartPointer<vtkActor> boundaryActor =
     vtkSmartPointer<vtkActor>::New();

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
@@ -36,11 +35,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkVectorNorm> vectorNorm =
     vtkSmartPointer<vtkVectorNorm>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vectorNorm->SetInputConnection(polydata->GetProducerPort());
-#else
   vectorNorm->SetInputData(polydata);
-#endif
   vectorNorm->Update();
 
   vtkFloatArray* scalars = vtkFloatArray::SafeDownCast ( vectorNorm->GetOutput()->GetPointData()->GetScalars() );

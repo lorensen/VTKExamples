@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkCellData.h>
 #include <vtkCellArray.h>
@@ -90,11 +89,7 @@ int main(int argc, char *argv[])
       default:
         break;
     }
-#if VTK_MAJOR_VERSION <= 5
-    subdivisionFilter->SetInputConnection(originalMesh->GetProducerPort());
-#else
     subdivisionFilter->SetInputData(originalMesh);
-#endif
     subdivisionFilter->Update();
 
     vtkSmartPointer<vtkRenderer> renderer =

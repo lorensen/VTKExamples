@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkProperty.h>
 #include <vtkPointData.h>
@@ -60,11 +59,7 @@ int main(int, char*[])
   vtkSmartPointer<vtkPKMeansStatistics> pKMeansStatistics = vtkSmartPointer<vtkPKMeansStatistics>::New();
   //vtkSmartPointer<vtkKMeansStatistics> pKMeansStatistics = vtkSmartPointer<vtkKMeansStatistics>::New();
   //pks->SetMaxNumIterations( 10 );
-#if VTK_MAJOR_VERSION <= 5
-  pKMeansStatistics->SetInput( vtkStatisticsAlgorithm::INPUT_DATA, inputData );
-#else
   pKMeansStatistics->SetInputData( vtkStatisticsAlgorithm::INPUT_DATA, inputData );
-#endif
   pKMeansStatistics->SetColumnStatus( inputData->GetColumnName( 0 ) , 1 );
   pKMeansStatistics->SetColumnStatus( inputData->GetColumnName( 1 ) , 1 );
   pKMeansStatistics->SetColumnStatus( inputData->GetColumnName( 2 ) , 1 );

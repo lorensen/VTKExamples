@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPointPicker.h>
 #include <vtkSphereSource.h>
@@ -44,12 +43,7 @@ class InteractorStyleMoveVertex : public vtkInteractorStyleTrackballActor
       this->MovePolyData = vtkSmartPointer<vtkPolyData>::New();
       this->MovePolyData->SetPoints(points);
       this->MoveGlyphFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-      this->MoveGlyphFilter->SetInputConnection(
-        this->MovePolyData->GetProducerPort());
-#else
       this->MoveGlyphFilter->SetInputData(this->MovePolyData);
-#endif
       this->MoveGlyphFilter->Update();
 
       this->MoveMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -146,11 +140,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyphFilter->SetInputConnection(input->GetProducerPort());
-#else
   glyphFilter->SetInputData(input);
-#endif
   glyphFilter->Update();
 
   // Create a mapper and actor

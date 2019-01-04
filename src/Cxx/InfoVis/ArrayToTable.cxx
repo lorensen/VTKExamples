@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkDenseArray.h>
 #include <vtkArrayToTable.h>
@@ -29,11 +28,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkArrayToTable> arrayToTable =
     vtkSmartPointer<vtkArrayToTable>::New();
-#if VTK_MAJOR_VERSION <= 5
-  arrayToTable->SetInputConnection(arrayData->GetProducerPort());
-#else
   arrayToTable->SetInputData(arrayData);
-#endif
   arrayToTable->Update();
 
   vtkSmartPointer<vtkTable> table = arrayToTable->GetOutput();
