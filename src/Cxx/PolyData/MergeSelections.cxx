@@ -12,7 +12,6 @@
 #include <vtkSelectionNode.h>
 #include <vtkSmartPointer.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkVersion.h>
 
 int main(int, char *[])
 {
@@ -73,31 +72,19 @@ int main(int, char *[])
   vtkSmartPointer<vtkExtractSelection> extractSelection1 =
     vtkSmartPointer<vtkExtractSelection>::New();
   extractSelection1->SetInputConnection(0, pointSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  extractSelection1->SetInput(1, selection1);
-#else
   extractSelection1->SetInputData(1, selection1);
-#endif
   extractSelection1->Update();
 
   vtkSmartPointer<vtkExtractSelection> extractSelection2 =
     vtkSmartPointer<vtkExtractSelection>::New();
   extractSelection2->SetInputConnection(0, pointSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  extractSelection2->SetInput(1, selection2);
-#else
   extractSelection2->SetInputData(1, selection2);
-#endif
   extractSelection2->Update();
 
   vtkSmartPointer<vtkExtractSelection> extractSelectionCombined =
     vtkSmartPointer<vtkExtractSelection>::New();
   extractSelectionCombined->SetInputConnection(0, pointSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  extractSelectionCombined->SetInput(1, selectionCombined);
-#else
   extractSelectionCombined->SetInputData(1, selectionCombined);
-#endif
   extractSelectionCombined->Update();
 
   // In selection

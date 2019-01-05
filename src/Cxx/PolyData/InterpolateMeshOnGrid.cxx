@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkProperty.h>
 #include <vtkDataSetMapper.h>
 #include <vtkSmartPointer.h>
@@ -61,11 +60,7 @@ int main(int, char *[])
   // only), the output will not be interpolated!
   vtkSmartPointer<vtkDelaunay2D> randomDelaunay =
     vtkSmartPointer<vtkDelaunay2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  randomDelaunay->SetInput ( randomPolyData );
-#else
   randomDelaunay->SetInputData ( randomPolyData );
-#endif
   randomDelaunay->Update();
 
   // Create a grid of points to interpolate over
@@ -88,13 +83,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkProbeFilter> probeFilter =
     vtkSmartPointer<vtkProbeFilter>::New();
   probeFilter->SetSourceConnection(randomDelaunay->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  probeFilter->SetInput(gridPolyData); //
-                                      // Interpolate 'Source' at these points
-#else
   probeFilter->SetInputData(gridPolyData); //
                                            // Interpolate 'Source' at these points
-#endif
   probeFilter->Update();
 
   // Map the output zvalues to the z-coordinates of the data so that

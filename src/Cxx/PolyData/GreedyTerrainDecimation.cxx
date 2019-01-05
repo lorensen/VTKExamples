@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPolyData.h>
 #include <vtkProperty.h>
 #include <vtkMath.h>
@@ -17,12 +16,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkImageData> image =
     vtkSmartPointer<vtkImageData>::New();
   image->SetDimensions(3,3,1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(1);
-  image->SetScalarTypeToUnsignedChar();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
+
   int dims[3];
   image->GetDimensions(dims);
   for(int i = 0; i < dims[0]; i++)
@@ -37,11 +32,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkGreedyTerrainDecimation> decimation =
     vtkSmartPointer<vtkGreedyTerrainDecimation>::New();
-#if VTK_MAJOR_VERSION <= 5
-  decimation->SetInputConnection(image->GetProducerPort());
-#else
   decimation->SetInputData(image);
-#endif
   decimation->Update();
 
   // Visualize

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkImplicitPolyDataDistance.h>
 
 #include <vtkActor.h>
@@ -71,11 +70,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkVertexGlyphFilter> vertexGlyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vertexGlyphFilter->SetInputConnection(polyData->GetProducerPort());
-#else
   vertexGlyphFilter->SetInputData(polyData);
-#endif
   vertexGlyphFilter->Update();
 
   vtkSmartPointer<vtkPolyDataMapper> signedDistanceMapper =

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPolyData.h>
 #include <vtkImageData.h>
@@ -48,13 +47,8 @@ int main(int, char *[])
   origin[1] = bounds[2] + spacing[1] / 2;
   origin[2] = bounds[4] + spacing[2] / 2;
   whiteImage->SetOrigin(origin);
-
-#if VTK_MAJOR_VERSION <= 5
-  whiteImage->SetScalarTypeToUnsignedChar();
-  whiteImage->AllocateScalars();
-#else
   whiteImage->AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
+
   // fill the image with foreground voxels:
   unsigned char inval = 255;
   unsigned char outval = 0;
@@ -67,11 +61,7 @@ int main(int, char *[])
   // polygonal data --> image stencil:
   vtkSmartPointer<vtkPolyDataToImageStencil> pol2stenc =
     vtkSmartPointer<vtkPolyDataToImageStencil>::New();
-#if VTK_MAJOR_VERSION <= 5
-  pol2stenc->SetInput(pd);
-#else
   pol2stenc->SetInputData(pd);
-#endif
   pol2stenc->SetOutputOrigin(origin);
   pol2stenc->SetOutputSpacing(spacing);
   pol2stenc->SetOutputWholeExtent(whiteImage->GetExtent());
@@ -80,13 +70,8 @@ int main(int, char *[])
   // cut the corresponding white image and set the background:
   vtkSmartPointer<vtkImageStencil> imgstenc =
     vtkSmartPointer<vtkImageStencil>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imgstenc->SetInput(whiteImage);
-  imgstenc->SetStencil(pol2stenc->GetOutput());
-#else
   imgstenc->SetInputData(whiteImage);
   imgstenc->SetStencilConnection(pol2stenc->GetOutputPort());
-#endif
   imgstenc->ReverseStencilOff();
   imgstenc->SetBackgroundValue(outval);
   imgstenc->Update();
@@ -94,11 +79,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkMetaImageWriter> writer =
     vtkSmartPointer<vtkMetaImageWriter>::New();
   writer->SetFileName("SphereVolume.mhd");
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(imgstenc->GetOutput());
-#else
   writer->SetInputData(imgstenc->GetOutput());
-#endif
   writer->Write();
 
   return EXIT_SUCCESS;

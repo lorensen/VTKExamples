@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkProperty.h>
 #include <vtkCellArray.h>
 #include<vtkPolyDataMapper.h>
@@ -84,11 +83,7 @@ int main(int , char *[])
   polyDataInside->SetPoints(pointsInside);
 
   vtkSmartPointer<vtkVertexGlyphFilter> vertexGlyphFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vertexGlyphFilter->SetInputConnection(polyDataInside->GetProducerPort());
-#else
   vertexGlyphFilter->SetInputData(polyDataInside);
-#endif
   vertexGlyphFilter->Update();
 
   // Mapper and actor for points inside

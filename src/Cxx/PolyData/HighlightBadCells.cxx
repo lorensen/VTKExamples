@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkProperty.h>
 #include <vtkUnstructuredGrid.h>
@@ -40,11 +39,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkMeshQuality> qualityFilter =
       vtkSmartPointer<vtkMeshQuality>::New();
-#if VTK_MAJOR_VERSION <= 5
-  qualityFilter->SetInput(mesh);
-#else
   qualityFilter->SetInputData(mesh);
-#endif
   qualityFilter->SetTriangleQualityMeasureToArea();
   qualityFilter->Update();
 
@@ -65,22 +60,16 @@ int main(int, char *[])
   selectCells->ThresholdByLower(.02);
   selectCells->SetInputArrayToProcess( 0, 0, 0, vtkDataObject::FIELD_ASSOCIATION_CELLS,
               vtkDataSetAttributes::SCALARS );
-#if VTK_MAJOR_VERSION <= 5
-  selectCells->SetInput(qualityMesh);
-#else
   selectCells->SetInputData(qualityMesh);
-#endif
   selectCells->Update();
+
   vtkUnstructuredGrid* ug = selectCells->GetOutput();
 
   // Create a mapper and actor
   vtkSmartPointer<vtkDataSetMapper> mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(ug);
-#else
   mapper->SetInputData(ug);
-#endif
+
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
