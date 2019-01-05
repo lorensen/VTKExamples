@@ -146,7 +146,8 @@ class ExamplesMissingTestImages:
 
     def __init__(self, base_directory):
         self.example_types = ['CSharp', 'Cxx', 'Java', 'Python']
-        self.excluded_dirs = ['Cxx/CMakeTechniques', 'Cxx/Developers', 'Cxx/Untested', 'Cxx/Untested/Video']
+        self.excluded_dirs = ['Cxx/CMakeTechniques', 'Cxx/Developers', 'Cxx/Untested', 'Cxx/Untested/Video',
+                              'Cxx/Untested/HasBugs', 'Java/Untested/Video']
         self.base_directory = base_directory
         self.test_images_base_directory = os.path.join(self.base_directory, 'Testing/Baseline')
         # A dictionary consisting of [example type][directory name][example name ...]
