@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkActor.h>
 #include <vtkDelaunay2D.h>
@@ -40,11 +39,7 @@ int main(int, char *[])
     // Triangulate the grid points
     vtkSmartPointer<vtkDelaunay2D> delaunay =
         vtkSmartPointer<vtkDelaunay2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-    delaunay->SetInput(inputPolyData);
-#else
     delaunay->SetInputData(inputPolyData);
-#endif
     delaunay->Update();
 
     vtkSmartPointer<vtkSmoothPolyDataFilter> smoothFilter =

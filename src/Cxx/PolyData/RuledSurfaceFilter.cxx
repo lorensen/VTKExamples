@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkRuledSurfaceFilter.h>
@@ -47,11 +46,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkRuledSurfaceFilter> ruledSurfaceFilter =
     vtkSmartPointer<vtkRuledSurfaceFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  ruledSurfaceFilter->SetInputConnection(polydata->GetProducerPort());
-#else
   ruledSurfaceFilter->SetInputData(polydata);
-#endif
   ruledSurfaceFilter->SetResolution(21, 21);
   ruledSurfaceFilter->SetRuledModeToResample();
 

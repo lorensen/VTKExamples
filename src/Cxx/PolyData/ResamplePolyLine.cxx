@@ -12,7 +12,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 #include <vtkSplineFilter.h>
-#include <vtkVersion.h>
 #include <vtkXMLPolyDataReader.h>
 
 int main (int argc, char *argv[])
@@ -60,12 +59,7 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkSplineFilter> splineFilter =
     vtkSmartPointer<vtkSplineFilter>::New();
-
-#if VTK_MAJOR_VERSION <= 5
-  splineFilter->SetInput(polyData);
-#else
   splineFilter->SetInputData(polyData);
-#endif
   splineFilter->SetNumberOfSubdivisions(polyData->GetNumberOfPoints() * 10);
   splineFilter->SetSpline(spline);
 
@@ -85,11 +79,7 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkGlyph3D> glyphOriginal =
     vtkSmartPointer<vtkGlyph3D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyphOriginal->SetInput(polyData);
-#else
   glyphOriginal->SetInputData(polyData);
-#endif
   glyphOriginal->SetSourceConnection(originalNodes->GetOutputPort());
 
   vtkSmartPointer<vtkSphereSource> newNodes =

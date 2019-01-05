@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkImageData.h>
 #include <vtkSmartPointer.h>
 
@@ -12,14 +10,7 @@ vtkSmartPointer<vtkImageData> createDemoImageData()
 {
   vtkSmartPointer<vtkImageData> image = vtkSmartPointer<vtkImageData>::New();
   image->SetDimensions( 50, 50, 1 );
-#if VTK_MAJOR_VERSION <= 5
-  #pragma message( VTK_MAJOR_VERSION )
-  image->SetNumberOfScalarComponents( 3 );
-  image->SetScalarTypeToUnsignedChar();
-  image->AllocateScalars();
-#else
   image->AllocateScalars( VTK_UNSIGNED_CHAR, 3 );
-#endif
 
   int width = image->GetDimensions()[0];
   int height = image->GetDimensions()[1];

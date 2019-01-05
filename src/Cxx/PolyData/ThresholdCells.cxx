@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkIntArray.h>
 #include <vtkCellData.h>
 #include <vtkTriangle.h>
@@ -67,11 +66,7 @@ int main(int, char *[])
   
   vtkSmartPointer<vtkThreshold> threshold = 
     vtkSmartPointer<vtkThreshold>::New();
-#if VTK_MAJOR_VERSION <= 5
-  threshold->SetInput(polydata);
-#else
   threshold->SetInputData(polydata);
-#endif
   threshold->ThresholdByLower(1);
   // doesn't work because the array is not added as SCALARS, i.e. via SetScalars
   // threshold->SetInputArrayToProcess(0, 0, 0, vtkDataObject::FIELD_ASSOCIATION_CELLS, vtkDataSetAttributes::SCALARS);
