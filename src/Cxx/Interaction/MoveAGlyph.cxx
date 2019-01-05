@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkCellPicker.h>
 #include <vtkSphereSource.h>
@@ -128,11 +127,7 @@ int main (int, char *[])
     vtkSmartPointer<vtkGlyph3D>::New();
   glyph3D->GeneratePointIdsOn();
   glyph3D->SetSourceConnection(glyphSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  glyph3D->SetInputConnection(input->GetProducerPort());
-#else
   glyph3D->SetInputData(input);
-#endif
   glyph3D->SetScaleModeToDataScalingOff();
   glyph3D->Update();
 

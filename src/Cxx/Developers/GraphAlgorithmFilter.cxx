@@ -30,11 +30,7 @@ void TestDirected()
 
   vtkSmartPointer<vtkTestGraphAlgorithmFilter> filter =
     vtkSmartPointer<vtkTestGraphAlgorithmFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  filter->SetInput(g);
-#else
   filter->SetInputData(g);
-#endif
   filter->Update();
 
   std::cout << "Output type: " << filter->GetOutput()->GetClassName() << std::endl;
@@ -55,11 +51,7 @@ void TestUndirected()
 
   vtkSmartPointer<vtkTestGraphAlgorithmFilter> filter =
     vtkSmartPointer<vtkTestGraphAlgorithmFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  filter->SetInput(g);
-#else
   filter->SetInputData(g);
-#endif
   filter->Update();
 
   std::cout << "Output type: " << filter->GetOutput()->GetClassName() << std::endl;

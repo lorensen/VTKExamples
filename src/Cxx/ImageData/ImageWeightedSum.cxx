@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageData.h>
 #include <vtkImageCanvasSource2D.h>
@@ -61,27 +60,15 @@ int main(int, char *[])
   // Create actors
   vtkSmartPointer<vtkImageActor> source1Actor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  source1Actor->SetInput(source1CastFilter->GetOutput());
-#else
   source1Actor->GetMapper()->SetInputConnection(source1CastFilter->GetOutputPort());
-#endif
 
   vtkSmartPointer<vtkImageActor> source2Actor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  source2Actor->SetInput(source2CastFilter->GetOutput());
-#else
   source2Actor->GetMapper()->SetInputConnection(source2CastFilter->GetOutputPort());
-#endif
 
   vtkSmartPointer<vtkImageActor> summedActor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  summedActor->SetInput(summedCastFilter->GetOutput());
-#else
   summedActor->GetMapper()->SetInputConnection(summedCastFilter->GetOutputPort());
-#endif
 
   // There will be one render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =

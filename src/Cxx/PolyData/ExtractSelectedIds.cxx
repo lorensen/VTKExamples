@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkDataSetMapper.h>
 #include <vtkExtractSelectedIds.h>
 #include <vtkIdTypeArray.h>
@@ -49,11 +48,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkExtractSelectedIds> extractSelectedIds =
     vtkSmartPointer<vtkExtractSelectedIds>::New();
   extractSelectedIds->SetInputConnection(0, pointSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  extractSelectedIds->SetInput(1, selection);
-#else
   extractSelectedIds->SetInputData(1, selection);
-#endif
   extractSelectedIds->Update();
 
   // In selection
@@ -88,22 +83,16 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkDataSetMapper> selectedMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  selectedMapper->SetInputConnection(selected->GetProducerPort());
-#else
   selectedMapper->SetInputData(selected);
-#endif
+
   vtkSmartPointer<vtkActor> selectedActor =
     vtkSmartPointer<vtkActor>::New();
   selectedActor->SetMapper(selectedMapper);
 
   vtkSmartPointer<vtkDataSetMapper> notSelectedMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  notSelectedMapper->SetInputConnection(notSelected->GetProducerPort());
-#else
   notSelectedMapper->SetInputData(notSelected);
-#endif
+
   vtkSmartPointer<vtkActor> notSelectedActor =
     vtkSmartPointer<vtkActor>::New();
   notSelectedActor->SetMapper(notSelectedMapper);

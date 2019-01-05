@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
@@ -48,11 +47,7 @@ int main(int, char *[])
   // Triangulate the grid points
   vtkSmartPointer<vtkDelaunay2D> delaunay =
     vtkSmartPointer<vtkDelaunay2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  delaunay->SetInput(inputPolyData);
-#else
   delaunay->SetInputData(inputPolyData);
-#endif
   delaunay->Update();
   vtkPolyData* outputPolyData = delaunay->GetOutput();
 
@@ -110,11 +105,7 @@ int main(int, char *[])
   // Create a mapper and actor
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(outputPolyData->GetProducerPort());
-#else
   mapper->SetInputData(outputPolyData);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

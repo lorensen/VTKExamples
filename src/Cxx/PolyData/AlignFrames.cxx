@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkLandmarkTransform.h>
 #include <vtkMath.h>
 #include <vtkPolyData.h>
@@ -32,11 +31,7 @@ struct Frame
     
     vtkSmartPointer<vtkTransformFilter> transformFilter =
       vtkSmartPointer<vtkTransformFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-    transformFilter->SetInputConnection(polydata->GetProducerPort());
-#else
     transformFilter->SetInputData(polydata);
-#endif
     transformFilter->SetTransform(transform);
     transformFilter->Update();
 
@@ -67,11 +62,7 @@ struct Frame
 
     vtkSmartPointer<vtkVertexGlyphFilter> vertexGlyphFilter =
       vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-    vertexGlyphFilter->AddInput(polydata);
-#else
     vertexGlyphFilter->AddInputData(polydata);
-#endif
     vertexGlyphFilter->Update();
 
     polydata->ShallowCopy(vertexGlyphFilter->GetOutput());
@@ -86,11 +77,7 @@ struct Frame
     vtkSmartPointer<vtkXMLPolyDataWriter> writer =
       vtkSmartPointer<vtkXMLPolyDataWriter>::New();
     writer->SetFileName(filename.c_str());
-#if VTK_MAJOR_VERSION <= 5
-    writer->SetInputConnection(polydata->GetProducerPort());
-#else
     writer->SetInputData(polydata);
-#endif
     writer->Write();
   }
   

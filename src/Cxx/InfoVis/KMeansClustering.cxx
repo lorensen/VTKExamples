@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkSmartPointer.h>
 #include <vtkProperty.h>
 #include <vtkPointData.h>
@@ -63,12 +61,7 @@ int main(int, char*[])
 
   vtkSmartPointer<vtkKMeansStatistics> kMeansStatistics =
     vtkSmartPointer<vtkKMeansStatistics>::New();
-
-#if VTK_MAJOR_VERSION <= 5
-  kMeansStatistics->SetInput( vtkStatisticsAlgorithm::INPUT_DATA, inputData );
-#else
   kMeansStatistics->SetInputData( vtkStatisticsAlgorithm::INPUT_DATA, inputData );
-#endif
   kMeansStatistics->SetColumnStatus( inputData->GetColumnName( 0 ) , 1 );
   kMeansStatistics->SetColumnStatus( inputData->GetColumnName( 1 ) , 1 );
   kMeansStatistics->SetColumnStatus( inputData->GetColumnName( 2 ) , 1 );
@@ -119,21 +112,13 @@ int main(int, char*[])
   vtkSmartPointer<vtkXMLPolyDataWriter> writer =
     vtkSmartPointer<vtkXMLPolyDataWriter>::New();
   writer->SetFileName("output.vtp");
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInputConnection(polydata->GetProducerPort());
-#else
   writer->SetInputData(polydata);
-#endif
   writer->Write();
 
   // Display
   vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyphFilter->SetInputConnection(polydata->GetProducerPort());
-#else
   glyphFilter->SetInputData(polydata);
-#endif
   glyphFilter->Update();
 
   // Create a mapper and actor

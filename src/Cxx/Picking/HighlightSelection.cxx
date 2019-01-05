@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkActor.h>
 #include <vtkAreaPicker.h>
 #include <vtkDataSetMapper.h>
@@ -52,22 +50,12 @@ class HighlightInteractorStyle : public vtkInteractorStyleRubberBandPick
 
         vtkSmartPointer<vtkExtractPolyDataGeometry> extractPolyDataGeometry =
           vtkSmartPointer<vtkExtractPolyDataGeometry>::New();
-#if VTK_MAJOR_VERSION <= 5
-        extractPolyDataGeometry->SetInput(this->PolyData);
-#else
         extractPolyDataGeometry->SetInputData(this->PolyData);
-#endif
         extractPolyDataGeometry->SetImplicitFunction(frustum);
         extractPolyDataGeometry->Update();
 
         std::cout << "Extracted " << extractPolyDataGeometry->GetOutput()->GetNumberOfCells() << " cells." << std::endl;
-
-#if VTK_MAJOR_VERSION <= 5
-        this->SelectedMapper->SetInputConnection(
-          extractPolyDataGeometry->GetOutputPort());
-#else
         this->SelectedMapper->SetInputData(extractPolyDataGeometry->GetOutput());
-#endif
         this->SelectedMapper->ScalarVisibilityOff();
 
 //        vtkIdTypeArray* ids = vtkIdTypeArray::SafeDownCast(selected->GetPointData()->GetArray("OriginalIds"));

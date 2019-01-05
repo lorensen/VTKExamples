@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkRendererCollection.h>
 #include <vtkDataSetMapper.h>
@@ -73,13 +72,8 @@ class MouseInteractorStyle : public vtkInteractorStyleTrackballCamera
 
         vtkSmartPointer<vtkExtractSelection> extractSelection =
           vtkSmartPointer<vtkExtractSelection>::New();
-#if VTK_MAJOR_VERSION <= 5
-        extractSelection->SetInput(0, this->Data);
-        extractSelection->SetInput(1, selection);
-#else
         extractSelection->SetInputData(0, this->Data);
         extractSelection->SetInputData(1, selection);
-#endif
         extractSelection->Update();
 
         // In selection
@@ -91,15 +85,7 @@ class MouseInteractorStyle : public vtkInteractorStyleTrackballCamera
                   << " points in the selection." << std::endl;
         std::cout << "There are " << selected->GetNumberOfCells()
                   << " cells in the selection." << std::endl;
-
-
-#if VTK_MAJOR_VERSION <= 5
-        selectedMapper->SetInputConnection(
-          selected->GetProducerPort());
-#else
         selectedMapper->SetInputData(selected);
-#endif
-
         selectedActor->SetMapper(selectedMapper);
         selectedActor->GetProperty()->EdgeVisibilityOn();
         selectedActor->GetProperty()->SetEdgeColor(1,0,0);

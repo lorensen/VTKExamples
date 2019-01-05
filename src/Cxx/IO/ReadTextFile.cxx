@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPoints.h>
 #include <vtkVertexGlyphFilter.h>
@@ -46,11 +45,7 @@ int main(int argc, char* argv[])
 
   vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyphFilter->SetInputConnection(polyData->GetProducerPort());
-#else
   glyphFilter->SetInputData(polyData);
-#endif
   glyphFilter->Update();
 
   // Visualize

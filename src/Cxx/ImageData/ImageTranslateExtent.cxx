@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkImageData.h>
 #include <vtkSmartPointer.h>
 #include <vtkRenderWindow.h>
@@ -37,11 +36,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkImageTranslateExtent> translateExtent =
     vtkSmartPointer<vtkImageTranslateExtent>::New();
   translateExtent->SetTranslation(-dimensions[0]/2,-dimensions[1]/2,0);
-#if VTK_MAJOR_VERSION <= 5
-  translateExtent->SetInput(colorImage);
-#else
   translateExtent->SetInputData(colorImage);
-#endif
   translateExtent->Update();
   colorImage->DeepCopy(translateExtent->GetOutput());
 
@@ -63,11 +58,8 @@ int main(int, char *[])
   sphereActor->SetMapper(sphereMapper);
 
   vtkSmartPointer<vtkImageSliceMapper> imageSliceMapper = vtkSmartPointer<vtkImageSliceMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageSliceMapper->SetInput(colorImage);
-#else
   imageSliceMapper->SetInputData(colorImage);
-#endif
+
   vtkSmartPointer<vtkImageSlice> imageSlice = vtkSmartPointer<vtkImageSlice>::New();
   imageSlice->SetMapper(imageSliceMapper);
   imageSlice->SetPosition(0,0,0);
@@ -104,14 +96,7 @@ int main(int, char *[])
 void CreateColorImage(vtkImageData* const image)
 {
   image->SetDimensions(10, 10, 1);
-
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(3);
-  image->SetScalarTypeToUnsignedChar();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,3);
-#endif
 
   for(unsigned int x = 0; x < 10; x++)
   {

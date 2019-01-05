@@ -11,7 +11,6 @@
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkVersion.h>
 
 #include <array>
 #include <vector>
@@ -67,11 +66,7 @@ int main(int, char* [])
   // Visualize.
   vtkSmartPointer<vtkDataSetMapper> mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(uGrid->GetProducerPort());
-#else
   mapper->SetInputData(uGrid);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

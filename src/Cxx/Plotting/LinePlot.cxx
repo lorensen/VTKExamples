@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderWindow.h>
@@ -53,19 +52,11 @@ int main(int, char *[])
     vtkSmartPointer<vtkChartXY>::New();
   view->GetScene()->AddItem(chart);
   vtkPlot *line = chart->AddPlot(vtkChart::LINE);
-#if VTK_MAJOR_VERSION <= 5
-  line->SetInput(table, 0, 1);
-#else
   line->SetInputData(table, 0, 1);
-#endif
   line->SetColor(0, 255, 0, 255);
   line->SetWidth(1.0);
   line = chart->AddPlot(vtkChart::LINE);
-#if VTK_MAJOR_VERSION <= 5
-  line->SetInput(table, 0, 2);
-#else
   line->SetInputData(table, 0, 2);
-#endif
   line->SetColor(255, 0, 0, 255);
   line->SetWidth(5.0);
 

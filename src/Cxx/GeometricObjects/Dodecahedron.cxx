@@ -10,7 +10,6 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 
 namespace
 {
@@ -27,11 +26,7 @@ int main (int, char *[])
   // Visualize
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(dodecahedron->GetPolyData());
-#else
   mapper->SetInputData(dodecahedron->GetPolyData());
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkCellArray.h>
 #include <vtkPoints.h>
 #include <vtkXMLStructuredGridWriter.h>
@@ -29,11 +28,7 @@ int main ( int, char *[] )
   vtkSmartPointer<vtkXMLStructuredGridWriter> writer =
     vtkSmartPointer<vtkXMLStructuredGridWriter>::New();
   writer->SetFileName("output.vts");
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(structuredGrid);
-#else
   writer->SetInputData(structuredGrid);
-#endif
   writer->Write();
 
   return EXIT_SUCCESS;

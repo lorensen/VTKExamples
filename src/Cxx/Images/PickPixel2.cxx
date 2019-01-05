@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkAssemblyPath.h>
 #include <vtkCell.h>
 #include <vtkCommand.h>
@@ -85,10 +84,6 @@ public:
     vtkImageData* image = this->Viewer->GetInput();
     vtkInteractorStyle *style = vtkInteractorStyle::SafeDownCast(
       interactor->GetInteractorStyle());
-
-#if VTK_MAJOR_VERSION <= 5
-    image->Update();
-#endif
 
     // Pick at the mouse location provided by the interactor
     this->Picker->Pick(interactor->GetEventPosition()[0],

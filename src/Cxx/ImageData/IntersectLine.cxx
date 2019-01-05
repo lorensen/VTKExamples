@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkActor.h>
 #include <vtkBox.h>
 #include <vtkCellData.h>
@@ -52,11 +50,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkShrinkFilter> shrinkFilter =
     vtkSmartPointer<vtkShrinkFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  shrinkFilter->SetInput(grid);
-#else
   shrinkFilter->SetInputData(grid);
-#endif
   shrinkFilter->SetShrinkFactor(.8);
   shrinkFilter->Update();
 
@@ -84,11 +78,7 @@ int main(int, char *[])
   // Threshold
   vtkSmartPointer<vtkThreshold> threshold =
     vtkSmartPointer<vtkThreshold>::New();
-#if VTK_MAJOR_VERSION <= 5
-  threshold->SetInput(shrinkFilter->GetOutput());
-#else
   threshold->SetInputData(shrinkFilter->GetOutput());
-#endif
   threshold->ThresholdByUpper(1); // Criterion is cells whose scalars are greater or equal to threshold.
 
   threshold->SetInputArrayToProcess(0, 0, 0, vtkDataObject::FIELD_ASSOCIATION_CELLS, "Visibility");

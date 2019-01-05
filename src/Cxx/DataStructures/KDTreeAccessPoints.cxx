@@ -29,11 +29,7 @@ int main(int, char *[])
   //the tree needs cells, so add vertices to each point
   vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter = 
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vertexFilter->SetInputConnection(polydata->GetProducerPort());
-#else
   vertexFilter->SetInputData(polydata);
-#endif
   vertexFilter->Update();
   
   //Create the tree

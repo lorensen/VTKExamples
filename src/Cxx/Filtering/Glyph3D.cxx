@@ -28,13 +28,8 @@ int main(int, char *[])
  
   vtkSmartPointer<vtkGlyph3D> glyph3D = 
     vtkSmartPointer<vtkGlyph3D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyph3D->SetSource(cubeSource->GetOutput());
-  glyph3D->SetInput(polydata);
-#else
   glyph3D->SetSourceConnection(cubeSource->GetOutputPort());
   glyph3D->SetInputData(polydata);
-#endif
   glyph3D->Update();
     
   // Visualize

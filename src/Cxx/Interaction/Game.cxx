@@ -1,6 +1,5 @@
 // Demonstrate moving pieces and "snapping"
 
-#include <vtkVersion.h>
 #include <vtkSelectEnclosedPoints.h>
 #include <vtkRendererCollection.h>
 #include <vtkPointData.h>
@@ -64,22 +63,14 @@ public:
 
     vtkSmartPointer<vtkTransformPolyDataFilter> transformPolyData =
       vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-    transformPolyData->SetInputConnection(polydata->GetProducerPort());
-#else
     transformPolyData->SetInputData(polydata);
-#endif
     transformPolyData->SetTransform(transform);
     transformPolyData->Update();
 
     vtkSmartPointer<vtkSelectEnclosedPoints> selectEnclosedPoints =
       vtkSmartPointer<vtkSelectEnclosedPoints>::New();
     selectEnclosedPoints->SetInputConnection(transformPolyData->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-    selectEnclosedPoints->SetSurface(this->Sphere);
-#else
     selectEnclosedPoints->SetSurfaceData(this->Sphere);
-#endif
     selectEnclosedPoints->Update();
 
     vtkDataArray* insideArray = vtkDataArray::SafeDownCast(selectEnclosedPoints->GetOutput()->GetPointData()->GetArray("SelectedPoints"));

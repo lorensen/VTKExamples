@@ -55,20 +55,12 @@ int main(int, char *[])
   
   vtkSmartPointer<vtkVertexGlyphFilter> sourceGlyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  sourceGlyphFilter->SetInputConnection(source->GetProducerPort());
-#else
   sourceGlyphFilter->SetInputData(source);
-#endif
   sourceGlyphFilter->Update();
   
   vtkSmartPointer<vtkVertexGlyphFilter> targetGlyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  targetGlyphFilter->SetInputConnection(target->GetProducerPort());
-#else
   targetGlyphFilter->SetInputData(target);
-#endif
   targetGlyphFilter->Update();
     
   vtkSmartPointer<vtkTransformPolyDataFilter> transformFilter =

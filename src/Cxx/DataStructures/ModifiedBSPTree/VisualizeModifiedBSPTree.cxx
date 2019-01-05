@@ -86,11 +86,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkPolyDataMapper> bspTreeMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  bspTreeMapper->SetInputConnection(polydata->GetProducerPort());
-#else
   bspTreeMapper->SetInputData(polydata);
-#endif
 
   vtkSmartPointer<vtkActor> bspTreeActor =
     vtkSmartPointer<vtkActor>::New();

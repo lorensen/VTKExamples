@@ -15,8 +15,13 @@
 #include <vtkSphereSource.h>
 #include <vtkXMLPolyDataReader.h>
 
+#include <vtkNamedColors.h>
+
 int main(int argc, char *argv[])
 {
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkPolyData> input;
   if(argc > 1)
@@ -42,11 +47,7 @@ int main(int argc, char *argv[])
   // Construct the surface and create isosurface.	
   vtkSmartPointer<vtkSurfaceReconstructionFilter> surf =
     vtkSmartPointer<vtkSurfaceReconstructionFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  surf->SetInput(polydata);
-#else
   surf->SetInputData(polydata);
-#endif
 
   vtkSmartPointer<vtkContourFilter> cf =
     vtkSmartPointer<vtkContourFilter>::New();
@@ -70,24 +71,29 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkActor> surfaceActor =
     vtkSmartPointer<vtkActor>::New();
   surfaceActor->SetMapper(map);
+  surfaceActor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Tomato").GetData());
+  surfaceActor->GetProperty()->SetSpecularColor(colors->GetColor3d("Seashell").GetData());
+  surfaceActor->GetProperty()->SetSpecular(.4);
+  surfaceActor->GetProperty()->SetSpecularPower(50);
 
   // Create the RenderWindow, Renderer and both Actors
-  vtkSmartPointer<vtkRenderer> ren =
+  vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin =
+  vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
-  renWin->AddRenderer(ren);
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+  renderWindow->AddRenderer(renderer);
+  renderWindow->SetSize(640, 480);
+
+  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  iren->SetRenderWindow(renWin);
+  interactor->SetRenderWindow(renderWindow);
 
   // Add the actors to the renderer, set the background and size
-  ren->AddActor(surfaceActor);
-  ren->SetBackground(.2, .3, .4);
+  renderer->AddActor(surfaceActor);
+  renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
 
-  renWin->Render();
-  iren->Start();
+  renderWindow->Render();
+  interactor->Start();
 
   return EXIT_SUCCESS;
-
 }

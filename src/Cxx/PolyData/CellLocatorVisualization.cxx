@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPointSource.h>
 #include <vtkSphereSource.h>
 #include <vtkCellLocator.h>
@@ -77,11 +76,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkPolyDataMapper> locatorTreeMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  locatorTreeMapper->SetInputConnection(polydata->GetProducerPort());
-#else
   locatorTreeMapper->SetInputData(polydata);
-#endif
 
   vtkSmartPointer<vtkActor> locatorTreeActor =
     vtkSmartPointer<vtkActor>::New();

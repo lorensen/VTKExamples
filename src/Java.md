@@ -82,6 +82,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkMutableUndirectedGraph  | An example to construct a graph and visualize it.
 
+## Images
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image 
+
 ## Input and Output
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -108,6 +114,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | use Java File Dialog to select Image File to Display
+[ShotNoise](/Java/ImageProcessing/ShotNoise) | vtkPNGWriter | Example program to write PNG files
 
 ## Lighting
 
@@ -137,6 +144,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Stripper](/Java/PolyData/Stripper) | vtkStripper | Stripper
 [KochanekSpline](/Java/PolyData/KochanekSpline) | vtkKochanekSpline | KochanekSpline
 [ColorDisconnectedRegions](/Java/PolyData/ColorDisconnectedRegions) | vtkColorDisconnectedRegions | ColorDisconnectedRegions
+[ColoredPoints](/Java/PolyData/ColoredPoints) | vtkUnsignedCharArray | Example to visualize Colored Points. 
 [Outline](/Java/PolyData/Outline) | vtkOutline | Outline
 [RibbonFilter](/Java/PolyData/RibbonFilter) | vtkRibbonFilter | RibbonFilter
 [ColorCells](/Java/PolyData/ColorCells) | vtkColorCells | ColorCells
@@ -168,6 +176,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [AnimDataCone](/Java/Visualization/AnimDataCone) | vtkRenderWindowInteractor | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
 [Animation](/Java/Visualization/Animation) |  | Move a sphere across a scene
+[BackgroundColor](/Java/Visualization/BackgroundColor) |  |  Example program to set the background color of the render window
 [BackgroundGradient](/Java/Visualization/BackgroundGradient) |  | viewport having gradient background using the Background (bottom) and Background2 (top) colors.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
@@ -185,6 +194,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [DistanceBetweenPoints](/Java/SimpleOperations/DistanceBetweenPoints) | vtkMath | Example Program to find squared distance and the Euclidean distance between two 3D points.
+[PerspectiveTransform](/Java/SimpleOperations/PerspectiveTransform) | vtkPerspectiveTransform | It is used to describe the full range of homogeneous transformations. It was designed in particular to describe a camera-view of a scene
 
 ## Swing Integration
 
@@ -200,4 +210,5 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration
 [AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration
 [BalloonWidget](/Java/Widgets/BalloonWidget) |  vtkBalloonWidget | The balloon text describes each object when you hover it.
+[PlaneWidget](/Java/Widgets/PlaneWidget) | vtkPlaneWidget | A finite (bounded) plane that can be interactively placed in a scene.
 [SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget | SplineWidget Demonstration

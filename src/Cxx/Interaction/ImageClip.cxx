@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkActor.h>
 #include <vtkBorderRepresentation.h>
@@ -176,14 +175,10 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkImageClip> imageClip =
     vtkSmartPointer<vtkImageClip>::New();
   imageClip->SetInputConnection(jPEGReader->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  imageClip->SetOutputWholeExtent(jPEGReader->GetOutput()->GetWholeExtent());
-#else
   jPEGReader->UpdateInformation();
   imageClip->SetOutputWholeExtent(
     jPEGReader->GetOutputInformation(0)->Get(
       vtkStreamingDemandDrivenPipeline::WHOLE_EXTENT()));
-#endif
   imageClip->ClipDataOn();
 
   vtkSmartPointer<vtkImageActor> clipActor =

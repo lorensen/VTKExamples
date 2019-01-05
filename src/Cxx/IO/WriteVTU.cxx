@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkTetra.h>
 #include <vtkCellArray.h>
@@ -53,11 +52,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkXMLUnstructuredGridWriter> writer =
     vtkSmartPointer<vtkXMLUnstructuredGridWriter>::New();
   writer->SetFileName(filename.c_str());
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(unstructuredGrid);
-#else
   writer->SetInputData(unstructuredGrid);
-#endif
   writer->Write();
 
   // Read and display file for verification that it was written correclty

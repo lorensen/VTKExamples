@@ -1,6 +1,5 @@
 #include <cstdlib>
 
-#include <vtkVersion.h>
 #include <vtkLightCollection.h>
 #include <vtkProperty.h>
 #include <vtkRenderer.h>
@@ -64,11 +63,7 @@ int main(int, char *[])
   planeSource->Update();
 
   vtkSmartPointer<vtkPolyDataMapper> planeMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  planeMapper->SetInput(planeSource->GetOutput());
-#else
   planeMapper->SetInputData(planeSource->GetOutput());
-#endif
 
   vtkSmartPointer<vtkActor> planeActor = vtkSmartPointer<vtkActor>::New();
   planeActor->SetMapper(planeMapper);

@@ -86,11 +86,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkPolyDataMapper> obbtreeMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  obbtreeMapper->SetInputConnection(polydata->GetProducerPort());
-#else
   obbtreeMapper->SetInputData(polydata);
-#endif
 
   vtkSmartPointer<vtkActor> obbtreeActor =
     vtkSmartPointer<vtkActor>::New();

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkCellArray.h>
 #include <vtkPoints.h>
 #include <vtkPolyLine.h>
@@ -40,12 +39,7 @@ int main ( int, char *[] )
   vtkSmartPointer<vtkXMLUnstructuredGridWriter> writer =
     vtkSmartPointer<vtkXMLUnstructuredGridWriter>::New();
   writer->SetFileName("testVertex.vtu");
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(grid);
-#else
   writer->SetInputData(grid);
-#endif
-
   writer->Write();
 
   return EXIT_SUCCESS;

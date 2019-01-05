@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPolyData.h>
 #include <vtkPoints.h>
@@ -57,11 +56,7 @@ int main(int argc, char * argv[])
 
   vtkSmartPointer<vtkXMLPolyDataWriter> writer =
     vtkSmartPointer<vtkXMLPolyDataWriter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(polydata);
-#else
   writer->SetInputData(polydata);
-#endif
   writer->SetFileName("x.vtp");
   writer->Write();
   return EXIT_SUCCESS;

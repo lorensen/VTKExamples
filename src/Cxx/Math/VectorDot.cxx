@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
@@ -57,11 +56,7 @@ int main(int, char *[])
   // Compute the dot products between normals and vectors
   vtkSmartPointer<vtkVectorDot> vectorDot =
       vtkSmartPointer<vtkVectorDot>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vectorDot->SetInputConnection(polydata->GetProducerPort());
-#else
   vectorDot->SetInputData(polydata);
-#endif
   vectorDot->Update();
 
   // Get the results

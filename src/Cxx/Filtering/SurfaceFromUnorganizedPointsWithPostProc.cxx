@@ -19,32 +19,45 @@
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
 
-static void readPoints(vtkPoints* points);
+#include <vtkSphereSource.h>
+#include <vtkXMLPolyDataReader.h>
 
+namespace
+{
 static vtkSmartPointer<vtkPolyData> transform_back(vtkSmartPointer<vtkPoints> pt, vtkSmartPointer<vtkPolyData> pd);
+}
 
-int main(int, char *[])
+int main(int argc, char *argv[])
 {
   vtkSmartPointer<vtkNamedColors> namedColors =
     vtkSmartPointer<vtkNamedColors>::New();
 
+  vtkSmartPointer<vtkPolyData> input;
+  if(argc > 1)
+  {
+    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+      vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    reader->SetFileName(argv[1]);
+    reader->Update();
+    input = reader->GetOutput();
+  }
+  else
+  {
+    vtkSmartPointer<vtkSphereSource> sphereSource =
+      vtkSmartPointer<vtkSphereSource>::New();
+    sphereSource->Update();
+    input = sphereSource->GetOutput();
+  }
   // Read some points
   vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
 
-  readPoints(points);
-
   vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
-  polydata->SetPoints(points);
+  polydata->SetPoints(input->GetPoints());
 
   // Construct the surface and create isosurface.	
   vtkSmartPointer<vtkSurfaceReconstructionFilter> surf =
     vtkSmartPointer<vtkSurfaceReconstructionFilter>::New();
-
-#if VTK_MAJOR_VERSION <= 5
-  surf->SetInput(polydata);
-#else
   surf->SetInputData(polydata);
-#endif
 
   vtkSmartPointer<vtkContourFilter> contourFilter = vtkSmartPointer<vtkContourFilter>::New();
   contourFilter->SetInputConnection(surf->GetOutputPort());
@@ -75,33 +88,27 @@ int main(int, char *[])
   surfaceActor->GetProperty()->SetSpecularPower(50);
 
   // Create the RenderWindow, Renderer and both Actors
-  vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin = vtkSmartPointer<vtkRenderWindow>::New();
-  renWin->AddRenderer(ren);
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderWindow> renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->AddRenderer(renderer);
+  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  iren->SetRenderWindow(renWin);
+  interactor->SetRenderWindow(renderWindow);
 
   // Add the actors to the renderer, set the background and size
-  ren->AddActor(surfaceActor);
-  ren->SetBackground(namedColors->GetColor3d("Burlywood").GetData());
-  renWin->SetSize(400, 400);
-  ren->GetActiveCamera()->SetFocalPoint(0, 0, 0);
-  ren->GetActiveCamera()->SetPosition(1, 0, 0);
-  ren->GetActiveCamera()->SetViewUp(0, 0, 1);
-  ren->ResetCamera();
-  ren->GetActiveCamera()->Azimuth(20);
-  ren->GetActiveCamera()->Elevation(30);
-  ren->GetActiveCamera()->Dolly(1.2);
-  ren->ResetCameraClippingRange();
+  renderer->AddActor(surfaceActor);
+  renderer->SetBackground(namedColors->GetColor3d("Burlywood").GetData());
+  renderWindow->SetSize(640, 480);
 
-  iren->Initialize();
-  renWin->Render();
-  iren->Start();
+  interactor->Initialize();
+  renderWindow->Render();
+  interactor->Start();
 
   return 0;
 }
 
+namespace
+{
 vtkSmartPointer<vtkPolyData> transform_back(vtkSmartPointer<vtkPoints> pt, vtkSmartPointer<vtkPolyData> pd)
 {
   // The reconstructed surface is transformed back to where the
@@ -118,11 +125,9 @@ vtkSmartPointer<vtkPolyData> transform_back(vtkSmartPointer<vtkPoints> pt, vtkSm
   // 4. transform the surface by T := T(pt_bounds[0], [2], [4]).S(scale).T(-pd_bounds[0], -[2], -[4])
 
 
-
   // 1.
   double pt_bounds[6];  // (xmin,xmax, ymin,ymax, zmin,zmax)
   pt->GetBounds(pt_bounds);
-
 
   // 2.
   double pd_bounds[6];  // (xmin,xmax, ymin,ymax, zmin,zmax)
@@ -134,10 +139,8 @@ vtkSmartPointer<vtkPolyData> transform_back(vtkSmartPointer<vtkPoints> pt, vtkSm
 //   std::cout<<(pt_bounds[5] - pt_bounds[4])/(pd_bounds[5] - pd_bounds[4])<<std::endl;
 //   // TEST
 
-
   // 3
   double scale = (pt_bounds[1] - pt_bounds[0])/(pd_bounds[1] - pd_bounds[0]);
-
 
   // 4.
   vtkSmartPointer<vtkTransform> transp = vtkSmartPointer<vtkTransform>::New();
@@ -146,38 +149,13 @@ vtkSmartPointer<vtkPolyData> transform_back(vtkSmartPointer<vtkPoints> pt, vtkSm
   transp->Translate(- pd_bounds[0], - pd_bounds[2], - pd_bounds[4]);
 
   vtkSmartPointer<vtkTransformPolyDataFilter> tpd = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  tpd->SetInput(pd);
-#else
+
   tpd->SetInputData(pd);
-#endif
   tpd->SetTransform(transp);
   tpd->Update();
 
 
   return tpd->GetOutput();
 }
-
-
-void readPoints(vtkPoints* points)
-{
-
-  float x, y, z;
-  // generate random points on unit sphere
-  for(int i=0; i<5000; i++)
-  {
-
-      double u = vtkMath::Random(0.0,1.0);
-      double v = vtkMath::Random(0.0,1.0);
-      double phi = 2.0*3.14159265*u;
-      double theta = acos(2.0*v-1.0);
-
-      x = std::cos(phi)*std::sin(theta);
-      y = std::sin(phi)*std::sin(theta);
-      z = std::cos(theta);
-
-      points->InsertNextPoint(x, y, z);
-  }
-
-  return;
 }
+

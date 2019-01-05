@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
@@ -36,11 +35,7 @@ int main(int argc, char *argv[])
   // Create pipeline
   vtkSmartPointer<vtkOBBDicer> dicer =
     vtkSmartPointer<vtkOBBDicer>::New();
-#if VTK_MAJOR_VERSION <= 5
-  dicer->SetInput(inputPolyData);
-#else
   dicer->SetInputData(inputPolyData);
-#endif
   dicer->SetNumberOfPieces(4);
   dicer->SetDiceModeToSpecifiedNumberOfPieces();
   dicer->Update();
@@ -61,11 +56,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkOutlineCornerFilter> outline =
     vtkSmartPointer<vtkOutlineCornerFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  outline->SetInput(inputPolyData);
-#else
   outline->SetInputData(inputPolyData);
-#endif
 
   vtkSmartPointer<vtkPolyDataMapper> outlineMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();

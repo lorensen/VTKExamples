@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageData.h>
 
@@ -14,11 +13,7 @@ int main(int, char *[])
   // Fill every entry of the image data with "2.0"
   int* extent = imageData->GetExtent();
 
-#if VTK_MAJOR_VERSION <= 5
-  imageData->SetNumberOfScalarComponents(1);
-#else
   imageData->AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
 
   std::cout << "Extent: " << " xmin: " << extent[0] << " xmax: " << extent[1]
             << " ymin: " << extent[2] << " ymax: " << extent[3]

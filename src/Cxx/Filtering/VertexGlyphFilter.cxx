@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkVertexGlyphFilter.h>
 #include <vtkPolyData.h>
 #include <vtkSmartPointer.h>
@@ -24,11 +23,7 @@ int main(int , char *[])
  
   vtkSmartPointer<vtkVertexGlyphFilter> vertexGlyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vertexGlyphFilter->AddInput(polydata);
-#else
   vertexGlyphFilter->AddInputData(polydata);
-#endif
   vertexGlyphFilter->Update();
  
   // Create a mapper and actor

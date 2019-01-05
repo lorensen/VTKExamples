@@ -1,5 +1,4 @@
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 
 #include <vtkDataSetAttributes.h>
 #include <vtkGeoAssignCoordinates.h>
@@ -39,11 +38,7 @@ int main(int, char* [])
 
   vtkSmartPointer<vtkGeoAssignCoordinates> assign =
     vtkSmartPointer<vtkGeoAssignCoordinates>::New();
-#if VTK_MAJOR_VERSION <= 5
-  assign->SetInput(g);
-#else
   assign->SetInputData(g);
-#endif
   assign->SetLatitudeArrayName("latitude");
   assign->SetLongitudeArrayName("longitude");
   assign->SetGlobeRadius(1.0);

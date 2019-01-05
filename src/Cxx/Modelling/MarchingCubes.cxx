@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkMarchingCubes.h>
 #include <vtkVoxelModeller.h>
@@ -57,12 +56,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkMarchingCubes> surface =
     vtkSmartPointer<vtkMarchingCubes>::New();
-
-#if VTK_MAJOR_VERSION <= 5
-  surface->SetInput(volume);
-#else
   surface->SetInputData(volume);
-#endif
   surface->ComputeNormalsOn();
   surface->SetValue(0, isoValue);
 

@@ -81,11 +81,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkChartXY>::New();
   view->GetScene()->AddItem(chart);
   vtkPlot *line = chart->AddPlot(vtkChart::LINE);
-#if VTK_MAJOR_VERSION <= 5
-  line->SetInput(table, 0, 1);
-#else
   line->SetInputData(table, 0, 1);
-#endif
   line->SetColor(0, 255, 0, 255);
   line->SetWidth(3.0);
   line->GetXAxis()->SetTitle("Max Points Per Region");

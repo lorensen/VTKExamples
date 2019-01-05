@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPointData.h>
 #include <vtkIdTypeArray.h>
@@ -46,11 +45,7 @@ class InteractorStyle : public vtkInteractorStyleRubberBandPick
       vtkSmartPointer<vtkExtractGeometry> extractGeometry =
         vtkSmartPointer<vtkExtractGeometry>::New();
       extractGeometry->SetImplicitFunction(frustum);
-#if VTK_MAJOR_VERSION <= 5
-      extractGeometry->SetInput(this->Points);
-#else
       extractGeometry->SetInputData(this->Points);
-#endif
       extractGeometry->Update();
 
       vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
@@ -61,11 +56,7 @@ class InteractorStyle : public vtkInteractorStyleRubberBandPick
       vtkPolyData* selected = glyphFilter->GetOutput();
       std::cout << "Selected " << selected->GetNumberOfPoints() << " points." << std::endl;
       std::cout << "Selected " << selected->GetNumberOfCells() << " cells." << std::endl;
-#if VTK_MAJOR_VERSION <= 5
-      this->SelectedMapper->SetInput(selected);
-#else
       this->SelectedMapper->SetInputData(selected);
-#endif
       this->SelectedMapper->ScalarVisibilityOff();
 
       vtkIdTypeArray* ids = vtkIdTypeArray::SafeDownCast(selected->GetPointData()->GetArray("OriginalIds"));
@@ -114,11 +105,7 @@ int main (int, char *[])
   // Create a mapper and actor
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(input->GetProducerPort());
-#else
   mapper->SetInputData(input);
-#endif
   mapper->ScalarVisibilityOff();
 
   vtkSmartPointer<vtkActor> actor =

@@ -1,5 +1,3 @@
- #include <vtkVersion.h>
-
 #include <vtkSmartPointer.h>
 #include <vtkPolyData.h>
 #include <vtkDelimitedTextWriter.h>
@@ -54,11 +52,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkDelimitedTextWriter> writer =
     vtkSmartPointer<vtkDelimitedTextWriter>::New();
   writer->SetFileName(outputFilename.c_str());
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInputConnection(table->GetProducerPort());
-#else
   writer->SetInputData(table);
-#endif
   writer->Write();
 
   return EXIT_SUCCESS;

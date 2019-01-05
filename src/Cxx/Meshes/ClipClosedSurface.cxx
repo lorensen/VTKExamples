@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkRenderWindowInteractor.h>
@@ -68,11 +67,7 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkClipClosedSurface> clipper =
     vtkSmartPointer<vtkClipClosedSurface>::New();
-#if VTK_MAJOR_VERSION <= 5
-  clipper->SetInput(polyData);
-#else
   clipper->SetInputData(polyData);
-#endif
   clipper->SetClippingPlanes(planes);
   clipper->SetActivePlaneId(2);
   clipper->SetScalarModeToColors();

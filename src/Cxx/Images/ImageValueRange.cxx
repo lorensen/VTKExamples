@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkDoubleArray.h>
 #include <vtkImageData.h>
@@ -11,13 +10,8 @@ int main(int, char *[])
 
   // Specify the size of the image data
   imageData->SetDimensions(5,1,1);
-#if VTK_MAJOR_VERSION <= 5
-  imageData->SetNumberOfScalarComponents(1);
-  imageData->SetScalarTypeToDouble();
-  imageData->AllocateScalars();
-#else
   imageData->AllocateScalars(VTK_DOUBLE,1);
-#endif
+
   int* dims = imageData->GetDimensions();
 
   for (int x = 0; x < dims[0]; x++)

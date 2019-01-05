@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkChartXY.h>
@@ -62,31 +61,19 @@ int main(int, char*[])
 
   // Add multiple scatter plots, setting the colors etc
   vtkPlot *points = chart->AddPlot(vtkChart::POINTS);
-#if VTK_MAJOR_VERSION <= 5
-  points->SetInput(table, 0, 1);
-#else
   points->SetInputData(table, 0, 1);
-#endif
   points->SetColor(0, 0, 0, 255);
   points->SetWidth(1.0);
   vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::CROSS);
 
   points = chart->AddPlot(vtkChart::POINTS);
-#if VTK_MAJOR_VERSION <= 5
-  points->SetInput(table, 0, 2);
-#else
   points->SetInputData(table, 0, 2);
-#endif
   points->SetColor(0, 0, 0, 255);
   points->SetWidth(1.0);
   vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::PLUS);
 
   points = chart->AddPlot(vtkChart::POINTS);
-#if VTK_MAJOR_VERSION <= 5
-  points->SetInput(table, 0, 3);
-#else
   points->SetInputData(table, 0, 3);
-#endif
   points->SetColor(0, 0, 255, 255);
   points->SetWidth(1.0);
   vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::CIRCLE);
