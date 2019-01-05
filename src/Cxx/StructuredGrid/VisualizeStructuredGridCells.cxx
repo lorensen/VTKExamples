@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
@@ -47,13 +46,9 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkShrinkFilter> shrinkFilter =
     vtkSmartPointer<vtkShrinkFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  shrinkFilter->SetInputConnection(structuredGrid->GetProducerPort());
-#else
   shrinkFilter->SetInputData(structuredGrid);
-#endif
   shrinkFilter->SetShrinkFactor(.8);
-   shrinkFilter->Update();
+  shrinkFilter->Update();
 
   std::cout << "There are "
             << shrinkFilter->GetOutput()->GetNumberOfPoints() << " points after shrinking."

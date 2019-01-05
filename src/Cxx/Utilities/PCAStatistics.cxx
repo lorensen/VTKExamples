@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkDoubleArray.h>
 #include <vtkMultiBlockDataSet.h>
@@ -54,12 +53,7 @@ int main(int, char*[])
 
   vtkSmartPointer<vtkPCAStatistics> pcaStatistics =
     vtkSmartPointer<vtkPCAStatistics>::New();
-#if VTK_MAJOR_VERSION <= 5
-  pcaStatistics->SetInput( vtkStatisticsAlgorithm::INPUT_DATA, datasetTable );
-#else
   pcaStatistics->SetInputData( vtkStatisticsAlgorithm::INPUT_DATA, datasetTable );
-#endif
-
   pcaStatistics->SetColumnStatus("M0", 1 );
   pcaStatistics->SetColumnStatus("M1", 1 );
   pcaStatistics->SetColumnStatus("M2", 1 );

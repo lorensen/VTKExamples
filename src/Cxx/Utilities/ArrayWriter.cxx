@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkDenseArray.h>
 #include <vtkSmartPointer.h>
 #include <vtkArrayWriter.h>
@@ -19,11 +18,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkArrayData> arrayData =
     vtkSmartPointer<vtkArrayData>::New();
   arrayData->AddArray(array);
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(arrayData);
-#else
   writer->SetInputData(arrayData);
-#endif
   vtkStdString file1 = "Test1.txt";
   writer->Write(file1);
   }
