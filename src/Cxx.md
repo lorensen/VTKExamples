@@ -938,7 +938,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CurvatureBandsWithGlyphs](/Cxx/Visualization/CurvatureBandsWithGlyphs) | vtkCurvatures vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the gaussian curvature of a surface into bands and using arrows to display the normals on the surface.
 [CurvedReformation](/Cxx/Visualization/CurvedReformation) | vtkProbeFilter | Sample a volume with a curved surface. In medical imaging, this is often called curved multi planar reformation.
 [CutStructuredGrid](/Cxx/VisualizationAlgorithms/CutStructuredGrid) | vtkCutter | Cut through structured grid with plane. The cut plane is shown solid shaded. A computational plane of constant k value is shown in wireframe for comparison. The colors correspond to flow density. Cutting surfaces are not necessarily planes: implicit functions such as spheres, cylinders, and quadrics can also be used.
-[Cutter](/Cxx/VisualizationAlgorithms/Cutter) | vtkCutter |
+[Cutter](/Cxx/VisualizationAlgorithms/Cutter) | vtkCutter | How to use vtkCutter by cutting through a cube.
 [DataSetSurface](/Cxx/VisualizationAlgorithms/DataSetSurface) | vtkDataSetSurfaceFilter | Cutting a hexahedron with a plane. The red line on the surface shows the cut.
 [DecimateFran](/Cxx/VisualizationAlgorithms/DecimateFran) | vtkDecimatePro | Examples of decimation algorithm. (a) Decimation of laser digitizer data.
 [DecimateHawaii](/Cxx/VisualizationAlgorithms/DecimateHawaii) | vtkDecimatePro | Examples of decimation algorithm. (b) Decimation of terrain data.
