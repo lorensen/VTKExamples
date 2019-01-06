@@ -17,10 +17,7 @@ g.GetVertexData().AddArray(longitude)
 
 assign = vtk.vtkGeoAssignCoordinates()
 mapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION <= 5:
-    assign.SetInput(g)
-else:
-    assign.SetInputData(g)
+assign.SetInputData(g)
 
 assign.SetLatitudeArrayName("latitude")
 assign.SetLongitudeArrayName("longitude")
@@ -34,11 +31,11 @@ actor.SetMapper(mapper)
 ren = vtk.vtkRenderer()
 ren.AddActor(actor)
 iren = vtk.vtkRenderWindowInteractor()
-win = vtk.vtkRenderWindow()
-win.AddRenderer(ren)
-win.SetInteractor(iren)
+renWin = vtk.vtkRenderWindow()
+renWin.AddRenderer(ren)
+renWin.SetInteractor(iren)
 ren.ResetCamera()
 
 iren.Initialize()
-ren.Render()
+renWin.Render()
 iren.Start()

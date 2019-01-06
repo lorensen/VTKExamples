@@ -31,10 +31,7 @@ def main():
 
     # Create a mapper and actor
     mapper = vtk.vtkPolyDataMapper()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        mapper.SetInput(polygonPolyData)
-    else:
-        mapper.SetInputData(polygonPolyData)
+    mapper.SetInputData(polygonPolyData)
 
     actor = vtk.vtkActor()
     actor.SetMapper(mapper)

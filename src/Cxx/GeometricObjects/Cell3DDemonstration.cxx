@@ -50,7 +50,7 @@ int main(int, char *[])
 
   // Set the background color.
   std::array<unsigned char , 4> bkg{{51, 77, 102, 255}};
-    colors->SetColor("BkgColor", bkg.data());
+  colors->SetColor("BkgColor", bkg.data());
 
   std::vector<std::string> titles;
   std::vector<vtkSmartPointer<vtkTextMapper> > textMappers;

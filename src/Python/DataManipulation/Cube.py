@@ -64,10 +64,7 @@ def main():
 
     # Now we'll look at it.
     cubeMapper = vtk.vtkPolyDataMapper()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        cubeMapper.SetInput(cube)
-    else:
-        cubeMapper.SetInputData(cube)
+    cubeMapper.SetInputData(cube)
     cubeMapper.SetScalarRange(cube.GetScalarRange())
     cubeActor = vtk.vtkActor()
     cubeActor.SetMapper(cubeMapper)
