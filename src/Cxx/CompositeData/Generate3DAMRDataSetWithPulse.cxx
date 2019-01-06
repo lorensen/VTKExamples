@@ -73,10 +73,9 @@ int main(int, char*[])
   SetPulse();
 
   // STEP 1: Get the AMR dataset
-  vtkOverlappingAMR* amrDataSet = GetAMRDataSet();
+  vtkSmartPointer<vtkOverlappingAMR> amrDataSet = GetAMRDataSet();
 
   AMRCommon::WriteAMRData(amrDataSet, "Gaussian3D");
-  amrDataSet->Delete();
   return 0;
 }
 namespace
@@ -95,7 +94,8 @@ namespace
   //------------------------------------------------------------------------------
   void AttachPulseToGrid(vtkUniformGrid* grid)
   {
-    vtkDoubleArray* xyz = vtkDoubleArray::New();
+    vtkSmartPointer<vtkDoubleArray> xyz =
+      vtkSmartPointer<vtkDoubleArray>::New();
     xyz->SetName("GaussianPulse");
     xyz->SetNumberOfComponents(1);
     xyz->SetNumberOfTuples(grid->GetNumberOfCells());
@@ -117,7 +117,6 @@ namespace
     } // END for all cells
 
     grid->GetCellData()->AddArray(xyz);
-    xyz->Delete();
   }
   //------------------------------------------------------------------------------
   vtkOverlappingAMR* GetAMRDataSet()
@@ -140,13 +139,12 @@ namespace
     origin[0] = origin[1] = origin[2] = -2.0;
     int blockId = 0;
     int level = 0;
-    vtkUniformGrid* root = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> root = AMRCommon::GetGrid(origin, h, ndim);
     vtkAMRBox box(origin, ndim, h, data->GetOrigin(), data->GetGridDescription());
     AttachPulseToGrid(root);
     data->SetSpacing(level, h);
     data->SetAMRBox(level, blockId, box);
     data->SetDataSet(level, blockId, root);
-    root->Delete();
 
     // Block 1
     ndim[0] = 3;
@@ -155,14 +153,13 @@ namespace
     origin[0] = origin[1] = origin[2] = -2.0;
     blockId = 0;
     level = 1;
-    vtkUniformGrid* grid1 = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> grid1 = AMRCommon::GetGrid(origin, h, ndim);
     vtkAMRBox box1(origin, ndim, h, data->GetOrigin(),
       data->GetGridDescription());
     AttachPulseToGrid(grid1);
     data->SetSpacing(level, h);
     data->SetAMRBox(level, blockId, box1);
     data->SetDataSet(level, blockId, grid1);
-    grid1->Delete();
 
     // Block 2
     ndim[0] = 3;
@@ -172,14 +169,13 @@ namespace
     origin[1] = origin[2] = -1.0;
     blockId = 1;
     level = 1;
-    vtkUniformGrid* grid2 = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> grid2 = AMRCommon::GetGrid(origin, h, ndim);
     vtkAMRBox box2(origin, ndim, h, data->GetOrigin(),
       data->GetGridDescription());
     AttachPulseToGrid(grid2);
     data->SetSpacing(level, h);
     data->SetAMRBox(level, blockId, box2);
     data->SetDataSet(level, blockId, grid2);
-    grid2->Delete();
 
     // Block 3
     ndim[0] = 3;
@@ -189,14 +185,13 @@ namespace
     origin[1] = origin[2] = -1.0;
     blockId = 2;
     level = 1;
-    vtkUniformGrid* grid3 = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> grid3 = AMRCommon::GetGrid(origin, h, ndim);
     vtkAMRBox box3(origin, ndim, h, data->GetOrigin(),
       data->GetGridDescription());
     AttachPulseToGrid(grid3);
     data->SetSpacing(level, h);
     data->SetAMRBox(level, blockId, box3);
     data->SetDataSet(level, blockId, grid3);
-    grid3->Delete();
 
     vtkAMRUtilities::BlankCells(data);
     return (data);
@@ -212,15 +207,14 @@ namespace
     // Writes a uniform grid as a structure grid
     void WriteUniformGrid(vtkUniformGrid* g, const std::string& prefix)
     {
-      vtkXMLImageDataWriter* imgWriter = vtkXMLImageDataWriter::New();
+      vtkSmartPointer<vtkXMLImageDataWriter> imgWriter =
+        vtkSmartPointer<vtkXMLImageDataWriter>::New();
 
       std::ostringstream oss;
       oss << prefix << "." << imgWriter->GetDefaultFileExtension();
       imgWriter->SetFileName(oss.str().c_str());
       imgWriter->SetInputData(g);
       imgWriter->Write();
-
-      imgWriter->Delete();
     }
 
     //------------------------------------------------------------------------------
@@ -228,14 +222,14 @@ namespace
     // Writes the given AMR dataset to a *.vth file with the given prefix.
     void WriteAMRData(vtkOverlappingAMR* amrData, const std::string& prefix)
     {
-      vtkCompositeDataWriter* writer = vtkCompositeDataWriter::New();
+      vtkSmartPointer<vtkCompositeDataWriter> writer =
+        vtkSmartPointer<vtkCompositeDataWriter>::New();
 
       std::ostringstream oss;
       oss << prefix << ".vthb";
       writer->SetFileName(oss.str().c_str());
       writer->SetInputData(amrData);
       writer->Write();
-      writer->Delete();
     }
 
     //------------------------------------------------------------------------------
@@ -268,7 +262,8 @@ namespace
     void WriteMultiBlockData(vtkMultiBlockDataSet* mbds, const std::string& prefix)
     {
       // Sanity check
-      vtkXMLMultiBlockDataWriter* writer = vtkXMLMultiBlockDataWriter::New();
+      vtkSmartPointer<vtkXMLMultiBlockDataWriter> writer =
+        vtkSmartPointer<vtkXMLMultiBlockDataWriter>::New();
 
       std::ostringstream oss;
       oss.str("");
@@ -277,7 +272,6 @@ namespace
       writer->SetFileName(oss.str().c_str());
       writer->SetInputData(mbds);
       writer->Write();
-      writer->Delete();
     }
 
     //------------------------------------------------------------------------------

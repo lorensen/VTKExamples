@@ -54,7 +54,7 @@ int main (int, char *[])
   int numTets = 0;
   vtkSmartPointer<vtkGenericCell> cell =
     vtkSmartPointer<vtkGenericCell>::New();
-  vtkCellIterator *it = tessellate->GetOutput()->NewCellIterator();
+  vtkSmartPointer<vtkCellIterator> it = tessellate->GetOutput()->NewCellIterator();
   for (it->InitTraversal();
        !it->IsDoneWithTraversal();
        it->GoToNextCell())
@@ -63,7 +63,6 @@ int main (int, char *[])
     cellMap[cell->GetRepresentativeCell()->GetClassName()]++;
     ++numTets;
   }
-  it->Delete();
 
   vtkSmartPointer<vtkDataSetMapper> mapper = 
     vtkSmartPointer<vtkDataSetMapper>::New();
@@ -172,7 +171,7 @@ public:
     int numTets = 0;
     vtkSmartPointer<vtkGenericCell> cell =
       vtkSmartPointer<vtkGenericCell>::New();
-    vtkCellIterator *it = this->Tessellator->GetOutput()->NewCellIterator();
+    vtkSmartPointer<vtkCellIterator> it = this->Tessellator->GetOutput()->NewCellIterator();
     for (it->InitTraversal();
          !it->IsDoneWithTraversal();
          it->GoToNextCell())
@@ -181,7 +180,6 @@ public:
       cellMap[cell->GetRepresentativeCell()->GetClassName()]++;
       ++numTets;
     }
-    it->Delete();
     std::stringstream ss;
     ss << "# of Tetras: " << numTets << std::endl;
     TextMapper->SetInput(ss.str().c_str());

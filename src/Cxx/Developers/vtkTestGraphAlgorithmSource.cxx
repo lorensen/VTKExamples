@@ -53,12 +53,9 @@ int vtkTestGraphAlgorithmSource::RequestDataObject(
   vtkInformationVector* )
 {
 
-  vtkUndirectedGraph *output = 0;
-  output = vtkUndirectedGraph::New();
-  
-  
+  vtkSmartPointer<vtkUndirectedGraph> output =
+    vtkSmartPointer<vtkUndirectedGraph>::New();
   this->GetExecutive()->SetOutputData(0, output);
-  output->Delete();
 
   return 1;
 }
