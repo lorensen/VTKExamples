@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
@@ -63,14 +62,10 @@ int main (int argc, char *argv[])
   threshold1->Update();
 
   // Place a seed in each corner and label connected pixels with 255
-#if VTK_MAJOR_VERSION <= 5
-  int *extent = threshold1->GetOutput()->GetWholeExtent();
-#else
   threshold1->UpdateInformation();
 
   int *extent = threshold1->GetOutputInformation(0)->Get(
     vtkStreamingDemandDrivenPipeline::WHOLE_EXTENT());
-#endif
   vtkSmartPointer<vtkImageSeedConnectivity> connect =
     vtkSmartPointer<vtkImageSeedConnectivity>::New();
   connect->SetInputConnection(threshold1->GetOutputPort());

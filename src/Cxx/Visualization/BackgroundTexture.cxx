@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
@@ -61,11 +60,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkVertexGlyphFilter> vertexGlyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vertexGlyphFilter->AddInputConnection(polydataToVisualize->GetProducerPort());
-#else
   vertexGlyphFilter->AddInputData(polydataToVisualize);
-#endif
   vertexGlyphFilter->Update();
 
   //Create a mapper and actor
@@ -82,11 +77,7 @@ int main(int, char *[])
 
   // Create a shepard filter to interpolate the vertices over a regularized image grid
   vtkSmartPointer<vtkShepardMethod> shepard = vtkSmartPointer<vtkShepardMethod>::New();
-#if VTK_MAJOR_VERSION <= 5
-  shepard->SetInputConnection(polydataToProcess->GetProducerPort());
-#else
   shepard->SetInputData(polydataToProcess);
-#endif
   shepard->SetSampleDimensions(2,2,2);
   shepard->SetModelBounds(100,300,-10,10,-10,10);
   shepard->SetMaximumDistance(1);

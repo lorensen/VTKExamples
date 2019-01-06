@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPointData.h>
 #include <vtkCubeSource.h>
@@ -45,11 +44,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkGlyph3D>::New();
   glyph3D->SetScaleModeToScaleByScalar();
   glyph3D->SetSourceConnection(cubeSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  glyph3D->SetInput(polydata);
-#else
   glyph3D->SetInputData(polydata);
-#endif
   glyph3D->Update();
   
   // Create a mapper and actor

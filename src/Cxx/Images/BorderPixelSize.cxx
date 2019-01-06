@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkImageData.h>
 #include <vtkSmartPointer.h>
 #include <vtkRenderWindow.h>
@@ -19,11 +18,7 @@ int main(int, char *[])
   CreateRandomImage(image, 50);
 
   vtkSmartPointer<vtkImageSliceMapper> imageSliceMapper = vtkSmartPointer<vtkImageSliceMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageSliceMapper->SetInputConnection(image->GetProducerPort());
-#else
   imageSliceMapper->SetInputData(image);
-#endif
   imageSliceMapper->BorderOn(); // This line tells the mapper to draw the full border pixels.
   vtkSmartPointer<vtkImageSlice> imageSlice = vtkSmartPointer<vtkImageSlice>::New();
   imageSlice->SetMapper(imageSliceMapper);
@@ -56,13 +51,7 @@ void CreateRandomImage(vtkImageData* image, const unsigned int dimension)
 {
   image->SetDimensions(dimension, dimension, 1);
   image->SetOrigin(.5,.5,0);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(3);
-  image->SetScalarTypeToUnsignedChar();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,3);
-#endif
 
   for(unsigned int x = 0; x < dimension; x++)
   {

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPolygon.h>
 #include <vtkImageData.h>
@@ -38,11 +37,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkImageActor> actor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  actor->GetMapper()->SetInput(image);
-#else
   actor->GetMapper()->SetInputData(image);
-#endif
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
@@ -108,11 +103,7 @@ void CallbackFunction (vtkObject* caller,
   vtkSmartPointer<vtkPolyDataToImageStencil> polyDataToImageStencil =
     vtkSmartPointer<vtkPolyDataToImageStencil>::New();
   polyDataToImageStencil->SetTolerance(0);
-#if VTK_MAJOR_VERSION <= 5
-  polyDataToImageStencil->SetInputConnection(path->GetProducerPort());
-#else
   polyDataToImageStencil->SetInputData(path);
-#endif
   polyDataToImageStencil->SetOutputOrigin(image->GetOrigin());
   polyDataToImageStencil->SetOutputSpacing(image->GetSpacing());
   polyDataToImageStencil->SetOutputWholeExtent(image->GetExtent());
@@ -126,13 +117,8 @@ void CallbackFunction (vtkObject* caller,
 
   vtkSmartPointer<vtkImageAccumulate> imageAccumulate =
     vtkSmartPointer<vtkImageAccumulate>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageAccumulate->SetStencil(polyDataToImageStencil->GetOutput());
-  imageAccumulate->SetInputConnection(image->GetProducerPort());
-#else
   imageAccumulate->SetStencilData(polyDataToImageStencil->GetOutput());
   imageAccumulate->SetInputData(image);
-#endif
   imageAccumulate->Update();
   std::cout << "Voxel count: " << imageAccumulate->GetVoxelCount() << std::endl;
 

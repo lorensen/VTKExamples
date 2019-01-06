@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkLookupTable.h>
 #include <vtkImageData.h>
@@ -23,11 +22,7 @@ int main(int, char*[])
   // Create actor
   vtkSmartPointer<vtkImageActor> imageActor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageActor->SetInput(image);
-#else
   imageActor->GetMapper()->SetInputData(image);
-#endif
 
   // Visualize
   vtkSmartPointer<vtkRenderer> renderer =
@@ -57,12 +52,8 @@ void CreateImage(vtkSmartPointer<vtkImageData> image)
 {
   // Specify the size of the image data
   image->SetDimensions(10,10,1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(4);
-  image->SetScalarTypeToUnsignedChar();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,4);
-#endif
+
   int* dims = image->GetDimensions();
   // int dims[3]; // can't do this
 

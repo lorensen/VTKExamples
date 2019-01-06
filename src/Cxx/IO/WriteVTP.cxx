@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkCellArray.h>
 #include <vtkPoints.h>
 #include <vtkXMLPolyDataWriter.h>
@@ -25,11 +24,7 @@ int main ( int, char *[] )
   vtkSmartPointer<vtkXMLPolyDataWriter> writer =
     vtkSmartPointer<vtkXMLPolyDataWriter>::New();
   writer->SetFileName("test.vtp");
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(polydata);
-#else
   writer->SetInputData(polydata);
-#endif
 
   // Optional - set the mode. The default is binary.
   //writer->SetDataModeToBinary();

@@ -1,6 +1,5 @@
 #include <math.h>
 
-#include <vtkVersion.h>
 #include <vtkPolyData.h>
 #include <vtkPoints.h>
 #include <vtkCellArray.h>
@@ -95,11 +94,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkTubeFilter> tube
     = vtkSmartPointer<vtkTubeFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  tube->SetInput(polyData);
-#else
   tube->SetInputData(polyData);
-#endif
   tube->SetNumberOfSides(nTv);
   tube->SetVaryRadiusToVaryRadiusByAbsoluteScalar();
 

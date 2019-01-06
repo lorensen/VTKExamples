@@ -13,7 +13,6 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 #include <vtkXMLPolyDataWriter.h>
 
 int main(int, char*[])
@@ -24,14 +23,8 @@ int main(int, char*[])
 
   // Specify the size of the image data
   image->SetDimensions(50, 50, 1);
-
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(3);
-  image->SetScalarTypeToFloat();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_FLOAT, 3);
-#endif
+
   int* dims = image->GetDimensions();
 
   // Zero the image
@@ -78,21 +71,13 @@ int main(int, char*[])
   glyphFilter->SetSourceConnection(arrowSource->GetOutputPort());
   glyphFilter->OrientOn();
   glyphFilter->SetVectorModeToUseVector();
-#if VTK_MAJOR_VERSION <= 5
-  glyphFilter->SetInputConnection(image->GetProducerPort());
-#else
   glyphFilter->SetInputData(image);
-#endif
   glyphFilter->Update();
 
   // Create actors
   vtkSmartPointer<vtkImageSliceMapper> imageMapper =
     vtkSmartPointer<vtkImageSliceMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageMapper->SetInputConnection(image->GetProducerPort());
-#else
   imageMapper->SetInputData(image);
-#endif
 
   vtkSmartPointer<vtkImageSlice> imageSlice =
     vtkSmartPointer<vtkImageSlice>::New();

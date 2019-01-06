@@ -11,7 +11,6 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
-#include <vtkVersion.h>
 
 int main (int, char *[])
 {
@@ -29,11 +28,7 @@ int main (int, char *[])
   // Create a mapper
   vtkSmartPointer<vtkPolyDataMapper> mapper = 
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(polydata);
-#else
   mapper->SetInputData(polydata);
-#endif
 
   // Create an actor
   vtkSmartPointer<vtkActor> actor = 

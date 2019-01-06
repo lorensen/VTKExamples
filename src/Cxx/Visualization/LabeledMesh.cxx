@@ -1,5 +1,4 @@
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 
 #include <vtkPoints.h>
 #include <vtkCellArray.h>
@@ -96,11 +95,7 @@ int main(int /* argc */, char * /* argv */ [] )
 
   vtkSmartPointer<vtkPolyDataMapper2D> rectMapper =
     vtkSmartPointer<vtkPolyDataMapper2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  rectMapper->SetInput( selectRect );
-#else
   rectMapper->SetInputData( selectRect );
-#endif
 
   vtkSmartPointer<vtkActor2D> rectActor =
     vtkSmartPointer<vtkActor2D>::New();

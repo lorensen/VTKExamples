@@ -9,7 +9,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkStructuredGrid.h>
 #include <vtkTransform.h>
-#include <vtkVersion.h>
 #include <vtkXMLImageDataWriter.h>
 #include <vtkXMLRectilinearGridWriter.h>
 #include <vtkXMLStructuredGridWriter.h>
@@ -29,12 +28,9 @@ int main(int, char*[])
   ImageData(imageData, gridSize);
   vtkSmartPointer<vtkDataSetMapper> imageDataMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageDataMapper->SetInputConnection(imageData->GetProducerPort());
-#else
   imageDataMapper->SetInputData(imageData);
   imageDataMapper->ScalarVisibilityOff();
-#endif
+
   vtkSmartPointer<vtkActor> imageDataActor =
     vtkSmartPointer<vtkActor>::New();
   imageDataActor->GetProperty()->SetRepresentationToWireframe();
@@ -45,11 +41,8 @@ int main(int, char*[])
   RectilinearGrid(rectilinearGrid, gridSize);
   vtkSmartPointer<vtkDataSetMapper> rectilinearGridMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  rectilinearGridMapper->SetInputConnection(rectilinearGrid->GetProducerPort());
-#else
   rectilinearGridMapper->SetInputData(rectilinearGrid);
-#endif
+
   vtkSmartPointer<vtkActor> rectilinearGridActor =
     vtkSmartPointer<vtkActor>::New();
   rectilinearGridActor->GetProperty()->SetRepresentationToWireframe();
@@ -60,11 +53,8 @@ int main(int, char*[])
   StructuredGrid(structuredGrid, gridSize);
   vtkSmartPointer<vtkDataSetMapper> structuredGridMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  structuredGridMapper->SetInputConnection(structuredGrid->GetProducerPort());
-#else
   structuredGridMapper->SetInputData(structuredGrid);
-#endif
+
   vtkSmartPointer<vtkActor> structuredGridActor =
     vtkSmartPointer<vtkActor>::New();
   structuredGridActor->GetProperty()->SetRepresentationToWireframe();
@@ -129,20 +119,12 @@ namespace
   {
 
     data->SetExtent(0, gridSize - 1, 0, gridSize - 1, 0, gridSize - 1);
-#if VTK_MAJOR_VERSION <= 5
-    data->SetNumberOfScalarComponents(1);
-    data->SetScalarTypeToDouble();
-#else
     data->AllocateScalars(VTK_DOUBLE, 1);
-#endif
+
     vtkSmartPointer<vtkXMLImageDataWriter> writer =
       vtkSmartPointer<vtkXMLImageDataWriter>::New();
     writer->SetFileName("imagedata.vti");
-#if VTK_MAJOR_VERSION <= 5
-    writer->SetInputConnection(data->GetProducerPort());
-#else
     writer->SetInputData(data);
-#endif
     writer->Write();
   }
 
@@ -185,11 +167,7 @@ namespace
     vtkSmartPointer<vtkXMLRectilinearGridWriter> writer =
       vtkSmartPointer<vtkXMLRectilinearGridWriter>::New();
     writer->SetFileName("rectilineargrid.vtr");
-#if VTK_MAJOR_VERSION <= 5
-    writer->SetInputConnection(data->GetProducerPort());
-#else
     writer->SetInputData(data);
-#endif
     writer->Write();
   }
 
@@ -226,11 +204,7 @@ namespace
     vtkSmartPointer<vtkXMLStructuredGridWriter> writer =
       vtkSmartPointer<vtkXMLStructuredGridWriter>::New();
     writer->SetFileName("structuredgrid.vts");
-#if VTK_MAJOR_VERSION <= 5
-    writer->SetInputConnection(data->GetProducerPort());
-#else
     writer->SetInputData(data);
-#endif
     writer->Write();
   }
 }

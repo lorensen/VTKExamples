@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkImageData.h>
 #include <vtkSmartPointer.h>
 #include <vtkRenderWindow.h>
@@ -17,11 +16,7 @@ int main(int, char *[])
   CreateColorImage(colorImage);
 
   vtkSmartPointer<vtkImageMapper> imageMapper = vtkSmartPointer<vtkImageMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageMapper->SetInputConnection(colorImage->GetProducerPort());
-#else
   imageMapper->SetInputData(colorImage);
-#endif
   imageMapper->SetColorWindow(255);
   imageMapper->SetColorLevel(127.5);
 
@@ -61,13 +56,8 @@ void CreateColorImage(vtkImageData* image)
   unsigned int dim = 20;
 
   image->SetDimensions(dim, dim, 1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(3);
-  image->SetScalarTypeToUnsignedChar();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,3);
-#endif
+
   for(unsigned int x = 0; x < dim; x++)
   {
     for(unsigned int y = 0; y < dim; y++)
