@@ -16,7 +16,6 @@
 #include <vtkTextMapper.h>
 #include <vtkTextProperty.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkVersion.h>
 
 #include <vtkHexagonalPrism.h>
 #include <vtkHexahedron.h>

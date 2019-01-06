@@ -42,7 +42,6 @@
 #include <vtkTextActor.h>
 #include <vtkTextMapper.h>
 #include <vtkTextProperty.h>
-#include <vtkVersion.h>
 
 #include <algorithm>
 

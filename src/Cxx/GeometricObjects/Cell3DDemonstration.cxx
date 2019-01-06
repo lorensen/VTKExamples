@@ -19,7 +19,6 @@
 #include <vtkTextMapper.h>
 #include <vtkTextProperty.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkVersion.h>
 #include <vtkVoxel.h>
 #include <vtkWedge.h>
 

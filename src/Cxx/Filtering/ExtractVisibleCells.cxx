@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkSphereSource.h>
 #include <vtkPolyData.h>
 #include <vtkSmartPointer.h>

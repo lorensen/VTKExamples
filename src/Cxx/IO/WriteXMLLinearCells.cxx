@@ -1,5 +1,4 @@
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 
 #include <vtkPoints.h>
 #include <vtkCellArray.h>

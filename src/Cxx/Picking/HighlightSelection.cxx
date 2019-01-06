@@ -19,7 +19,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkVersion.h>
 #include <vtkVertexGlyphFilter.h>
 
 #define VTKISRBP_ORIENT 0

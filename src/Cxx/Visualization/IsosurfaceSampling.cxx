@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkSampleFunction.h>
 #include <vtkSphere.h>

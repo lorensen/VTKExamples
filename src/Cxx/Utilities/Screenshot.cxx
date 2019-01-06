@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkSmartPointer.h>

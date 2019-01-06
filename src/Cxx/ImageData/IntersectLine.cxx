@@ -13,7 +13,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkThreshold.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkVersion.h>
 
 #include <algorithm>
 #include <cmath>

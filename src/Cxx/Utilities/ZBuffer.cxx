@@ -2,7 +2,6 @@
 // exact ZBuffer values.
 #include <vtkSmartPointer.h>
 
-#include <vtkVersion.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkRenderer.h>
