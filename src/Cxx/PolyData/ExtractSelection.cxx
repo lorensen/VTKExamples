@@ -17,7 +17,10 @@
 #include <vtkUnstructuredGrid.h>
 #include <vtkVertexGlyphFilter.h>
 
-int main(int, char *[]) {
+#include <array>
+
+int main(int, char *[])
+{
 
   vtkNew<vtkNamedColors> colors;
 

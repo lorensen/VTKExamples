@@ -16,7 +16,10 @@
 #include <vtkSphereSource.h>
 #include <vtkUnstructuredGrid.h>
 
-int main(int, char *[]) {
+#include <array>
+
+int main(int, char *[])
+{
 
   vtkNew<vtkNamedColors> colors;
 
