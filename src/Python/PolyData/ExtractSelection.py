@@ -7,6 +7,12 @@ import vtk
 
 
 def main():
+    colors = vtk.vtkNamedColors()
+
+    colors.SetColor('leftBkg', [0.6, 0.5, 0.4, 1.0])
+    colors.SetColor('centreBkg', [0.3, 0.1, 0.4, 1.0])
+    colors.SetColor('rightBkg', [0.4, 0.5, 0.6, 1.0])
+
     pointSource = vtk.vtkPointSource()
     pointSource.SetNumberOfPoints(50)
     pointSource.Update()
@@ -48,10 +54,7 @@ def main():
     extractSelection = vtk.vtkExtractSelection()
 
     extractSelection.SetInputConnection(0, pointSource.GetOutputPort())
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        extractSelection.SetInput(1, selection)
-    else:
-        extractSelection.SetInputData(1, selection)
+    extractSelection.SetInputData(1, selection)
     extractSelection.Update()
 
     # In selection
@@ -78,18 +81,12 @@ def main():
     inputActor.SetMapper(inputMapper)
 
     selectedMapper = vtk.vtkDataSetMapper()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        selectedMapper.SetInputConnection(selected.GetProducerPort())
-    else:
-        selectedMapper.SetInputData(selected)
+    selectedMapper.SetInputData(selected)
     selectedActor = vtk.vtkActor()
     selectedActor.SetMapper(selectedMapper)
 
     notSelectedMapper = vtk.vtkDataSetMapper()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        notSelectedMapper.SetInputConnection(notSelected.GetProducerPort())
-    else:
-        notSelectedMapper.SetInputData(notSelected)
+    notSelectedMapper.SetInputData(notSelected)
     notSelectedActor = vtk.vtkActor()
     notSelectedActor.SetMapper(notSelectedMapper)
 
@@ -111,17 +108,17 @@ def main():
     leftRenderer = vtk.vtkRenderer()
     renderWindow.AddRenderer(leftRenderer)
     leftRenderer.SetViewport(leftViewport)
-    leftRenderer.SetBackground(.6, .5, .4)
+    leftRenderer.SetBackground(colors.GetColor3d('leftBkg'))
 
     centerRenderer = vtk.vtkRenderer()
     renderWindow.AddRenderer(centerRenderer)
     centerRenderer.SetViewport(centerViewport)
-    centerRenderer.SetBackground(.3, .1, .4)
+    centerRenderer.SetBackground(colors.GetColor3d('centreBkg'))
 
     rightRenderer = vtk.vtkRenderer()
     renderWindow.AddRenderer(rightRenderer)
     rightRenderer.SetViewport(rightViewport)
-    rightRenderer.SetBackground(.4, .5, .6)
+    rightRenderer.SetBackground(colors.GetColor3d('rightBkg'))
 
     leftRenderer.AddActor(inputActor)
     centerRenderer.AddActor(selectedActor)

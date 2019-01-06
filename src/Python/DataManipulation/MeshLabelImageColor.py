@@ -14,10 +14,7 @@ def main():
 
     # Extract the region of interest.
     voi = vtk.vtkExtractVOI()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        voi.SetInput(readerVolume.GetOutput())
-    else:
-        voi.SetInputConnection(readerVolume.GetOutputPort())
+    voi.SetInputConnection(readerVolume.GetOutputPort())
     voi.SetVOI(0, 517, 0, 228, 0, 392)
     voi.SetSampleRate(1, 1, 1)
     voi.Update()  # Necessary for GetScalarRange().
@@ -26,10 +23,7 @@ def main():
 
     # Prepare surface generation.
     contour = vtk.vtkDiscreteMarchingCubes()  # For label images.
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        contour.SetInput(voi.GetOutput())
-    else:
-        contour.SetInputConnection(voi.GetOutputPort())
+    contour.SetInputConnection(voi.GetOutputPort())
     # contour.ComputeNormalsOn()
 
     print("Doing label", index)
@@ -38,10 +32,7 @@ def main():
     contour.Update()  # Needed for GetNumberOfPolys()!!!
 
     smoother = vtk.vtkWindowedSincPolyDataFilter()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        smoother.SetInput(contour.GetOutput())
-    else:
-        smoother.SetInputConnection(contour.GetOutputPort())
+    smoother.SetInputConnection(contour.GetOutputPort())
     smoother.SetNumberOfIterations(30)  # This has little effect on the error!
     # smoother.BoundarySmoothingOff()
     # smoother.FeatureEdgeSmoothingOff()
@@ -79,10 +70,7 @@ def main():
 
     # Calculate cell normals.
     triangleCellNormals = vtk.vtkPolyDataNormals()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        triangleCellNormals.SetInput(smoothed_polys)
-    else:
-        triangleCellNormals.SetInputData(smoothed_polys)
+    triangleCellNormals.SetInputData(smoothed_polys)
     triangleCellNormals.ComputeCellNormalsOn()
     triangleCellNormals.ComputePointNormalsOff()
     triangleCellNormals.ConsistencyOn()
@@ -91,10 +79,7 @@ def main():
 
     mapper = vtk.vtkPolyDataMapper()
     # mapper.SetInput(smoothed_polys) # This has no normals.
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        mapper.SetInput(triangleCellNormals.GetOutput())  # This is better for vis;-)
-    else:
-        mapper.SetInputConnection(triangleCellNormals.GetOutputPort())  # this is better for vis;-)
+    mapper.SetInputConnection(triangleCellNormals.GetOutputPort())  # this is better for vis;-)
     mapper.ScalarVisibilityOn()  # Show colour.
     mapper.SetScalarRange(minz, maxz)
     # mapper.SetScalarModeToUseCellData() # Contains the label eg. 31
