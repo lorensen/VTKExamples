@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSphereSource.h>
 #include <vtkTransformFilter.h>
 #include <vtkProperty.h>
@@ -71,11 +70,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkTransformFilter> stretchFilter =
     vtkSmartPointer<vtkTransformFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  stretchFilter->SetInput(sphereData);
-#else
   stretchFilter->SetInputData(sphereData);
-#endif
   stretchFilter->SetTransform(stretch);
 
   // Now, for the weighted transform stuff

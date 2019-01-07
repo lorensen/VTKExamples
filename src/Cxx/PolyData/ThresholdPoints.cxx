@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkIntArray.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
@@ -37,11 +36,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkThresholdPoints> threshold =
     vtkSmartPointer<vtkThresholdPoints>::New();
-#if VTK_MAJOR_VERSION <= 5
-  threshold->SetInput(polydata);
-#else
   threshold->SetInputData(polydata);
-#endif
   threshold->ThresholdByLower(2);
   threshold->SetInputArrayToProcess(0, 0, 0, vtkDataObject::FIELD_ASSOCIATION_POINTS, "index");
   threshold->Update();

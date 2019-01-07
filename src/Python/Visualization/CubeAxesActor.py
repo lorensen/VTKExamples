@@ -2,54 +2,60 @@
 
 import vtk
 
-# Create a superquadric
-superquadricSource = vtk.vtkSuperquadricSource()
-superquadricSource.SetPhiRoundness(3.1)
-superquadricSource.SetThetaRoundness(1.0)
-superquadricSource.Update()  # needed to GetBounds later
 
-renderer = vtk.vtkRenderer()
+def main():
+    colors = vtk.vtkNamedColors()
+    # Create a superquadric
+    superquadricSource = vtk.vtkSuperquadricSource()
+    superquadricSource.SetPhiRoundness(3.1)
+    superquadricSource.SetThetaRoundness(1.0)
+    superquadricSource.Update()  # needed to GetBounds later
 
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(superquadricSource.GetOutputPort())
+    renderer = vtk.vtkRenderer()
 
-superquadricActor = vtk.vtkActor()
-superquadricActor.SetMapper(mapper)
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(superquadricSource.GetOutputPort())
 
-cubeAxesActor = vtk.vtkCubeAxesActor()
-cubeAxesActor.SetBounds(superquadricSource.GetOutput().GetBounds())
-cubeAxesActor.SetCamera(renderer.GetActiveCamera())
-cubeAxesActor.GetTitleTextProperty(0).SetColor(1.0, 0.0, 0.0)
-cubeAxesActor.GetLabelTextProperty(0).SetColor(1.0, 0.0, 0.0)
+    superquadricActor = vtk.vtkActor()
+    superquadricActor.SetMapper(mapper)
 
-cubeAxesActor.GetTitleTextProperty(1).SetColor(0.0, 1.0, 0.0)
-cubeAxesActor.GetLabelTextProperty(1).SetColor(0.0, 1.0, 0.0)
+    cubeAxesActor = vtk.vtkCubeAxesActor()
+    cubeAxesActor.SetBounds(superquadricSource.GetOutput().GetBounds())
+    cubeAxesActor.SetCamera(renderer.GetActiveCamera())
+    cubeAxesActor.GetTitleTextProperty(0).SetColor(colors.GetColor3d('Red'))
+    cubeAxesActor.GetLabelTextProperty(0).SetColor(colors.GetColor3d('Red'))
 
-cubeAxesActor.GetTitleTextProperty(2).SetColor(0.0, 0.0, 1.0)
-cubeAxesActor.GetLabelTextProperty(2).SetColor(0.0, 0.0, 1.0)
+    cubeAxesActor.GetTitleTextProperty(1).SetColor(colors.GetColor3d('LimeGreen'))
+    cubeAxesActor.GetLabelTextProperty(1).SetColor(colors.GetColor3d('LimeGreen'))
 
-cubeAxesActor.DrawXGridlinesOn()
-cubeAxesActor.DrawYGridlinesOn()
-cubeAxesActor.DrawZGridlinesOn()
-if vtk.VTK_MAJOR_VERSION > 5:
-    cubeAxesActor.SetGridLineLocation(vtk.VTK_GRID_LINES_FURTHEST)
+    cubeAxesActor.GetTitleTextProperty(2).SetColor(colors.GetColor3d('Blue'))
+    cubeAxesActor.GetLabelTextProperty(2).SetColor(colors.GetColor3d('Blue'))
 
-cubeAxesActor.XAxisMinorTickVisibilityOff()
-cubeAxesActor.YAxisMinorTickVisibilityOff()
-cubeAxesActor.ZAxisMinorTickVisibilityOff()
+    cubeAxesActor.DrawXGridlinesOn()
+    cubeAxesActor.DrawYGridlinesOn()
+    cubeAxesActor.DrawZGridlinesOn()
+    cubeAxesActor.SetGridLineLocation(cubeAxesActor.VTK_GRID_LINES_FURTHEST)
 
-renderer.AddActor(cubeAxesActor)
-renderer.AddActor(superquadricActor)
-renderer.GetActiveCamera().Azimuth(30)
-renderer.GetActiveCamera().Elevation(30)
+    cubeAxesActor.XAxisMinorTickVisibilityOff()
+    cubeAxesActor.YAxisMinorTickVisibilityOff()
+    cubeAxesActor.ZAxisMinorTickVisibilityOff()
 
-renderer.ResetCamera()
+    renderer.AddActor(cubeAxesActor)
+    renderer.AddActor(superquadricActor)
+    renderer.GetActiveCamera().Azimuth(30)
+    renderer.GetActiveCamera().Elevation(30)
 
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
+    renderer.ResetCamera()
 
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.AddRenderer(renderer)
 
-renderWindow.Render()
-renderWindowInteractor.Start()
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
+
+    renderWindow.Render()
+    renderWindowInteractor.Start()
+
+
+if __name__ == '__main__':
+    main()

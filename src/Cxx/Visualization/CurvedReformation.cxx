@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkImageReader2Factory.h>
@@ -88,11 +87,8 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkProbeFilter> sampleVolume =
     vtkSmartPointer<vtkProbeFilter>::New();
   sampleVolume->SetInputConnection(1, imageReader->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  sampleVolume->SetInput(0, surface);
- #else
   sampleVolume->SetInputData(0, surface);
-#endif
+
   // Compute a simple window/level based on scalar range
   vtkSmartPointer<vtkWindowLevelLookupTable> wlLut =
     vtkSmartPointer<vtkWindowLevelLookupTable>::New();

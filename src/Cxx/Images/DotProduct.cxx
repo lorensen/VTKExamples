@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageMathematics.h>
 #include <vtkImageCast.h>
@@ -23,12 +22,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkImageData> image1 = 
     vtkSmartPointer<vtkImageData>::New();
   image1->SetExtent(0, 1, 0, 1, 0, 0);
-#if VTK_MAJOR_VERSION <= 5
-  image1->SetNumberOfScalarComponents(3);
-  image1->SetScalarTypeToFloat();
-#else
   image1->AllocateScalars(VTK_FLOAT,3);
-#endif  
 
   int coord[3]; float* pixel;
   
@@ -51,11 +45,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkXMLImageDataWriter> writer =
     vtkSmartPointer<vtkXMLImageDataWriter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInputConnection(image1->GetProducerPort());
-#else
   writer->SetInputData(image1);
-#endif
   writer->SetFileName("test.vti");
   writer->Write();
   
@@ -63,12 +53,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkImageData> image2 = 
     vtkSmartPointer<vtkImageData>::New();
   image2->SetExtent(0, 1, 0, 1, 0, 0);
-#if VTK_MAJOR_VERSION <= 5
-  image2->SetNumberOfScalarComponents(3);
-  image2->SetScalarTypeToFloat();
-#else
   image2->AllocateScalars(VTK_FLOAT,3);
-#endif
+
   // Fill the image with vectors
   coord[0] = 0; coord[1] = 0; coord[2] = 0;
   pixel = static_cast<float*>(image2->GetScalarPointer(coord));
@@ -89,13 +75,8 @@ int main(int, char *[])
   // Compute the dot product of the images pixel wise
   vtkSmartPointer<vtkImageDotProduct> dotProductFilter = 
     vtkSmartPointer<vtkImageDotProduct>::New();
-#if VTK_MAJOR_VERSION <= 5
-  dotProductFilter->SetInput1(image1);
-  dotProductFilter->SetInput2(image2);
-#else
   dotProductFilter->SetInput1Data(image1);
   dotProductFilter->SetInput2Data(image2);
-#endif
   dotProductFilter->Update();
   std::cout << "output is of type: " << dotProductFilter->GetOutput()->GetScalarTypeAsString() << std::endl;
 
@@ -136,11 +117,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkGlyph3DMapper> glyph3Dmapper1 =
     vtkSmartPointer<vtkGlyph3DMapper>::New();
   glyph3Dmapper1->SetSourceConnection(arrowSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  glyph3Dmapper1->SetInputConnection(image1->GetProducerPort());
-#else
   glyph3Dmapper1->SetInputData(image1);
-#endif
   glyph3Dmapper1->Update();
 
   vtkSmartPointer<vtkActor> actor1 =
@@ -150,11 +127,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkGlyph3DMapper> glyph3Dmapper2 =
     vtkSmartPointer<vtkGlyph3DMapper>::New();
   glyph3Dmapper2->SetSourceConnection(arrowSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  glyph3Dmapper2->SetInputConnection(image2->GetProducerPort());
-#else
   glyph3Dmapper2->SetInputData(image2);
-#endif
   glyph3Dmapper2->Update();
 
   vtkSmartPointer<vtkActor> actor2 =

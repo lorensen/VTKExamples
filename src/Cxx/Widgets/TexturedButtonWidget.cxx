@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkPolyDataMapper.h>
@@ -108,12 +107,8 @@ void CreateImage(vtkSmartPointer<vtkImageData> image,
 {
   // Specify the size of the image data
   image->SetDimensions(10, 10, 1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(3);
-  image->SetScalarTypeToUnsignedChar();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR, 3);
-#endif
+
   int* dims = image->GetDimensions();
 
   // Fill the image with

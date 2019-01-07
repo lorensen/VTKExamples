@@ -1,5 +1,4 @@
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 
 #include <vtkImageData.h>
 #include <vtkDoubleArray.h>
@@ -91,11 +90,7 @@ int main(int argc, char *argv[])
   // Compute the gradient of the Value
   vtkSmartPointer<vtkImageGradient> gradientFilter =
     vtkSmartPointer<vtkImageGradient>::New();
-#if VTK_MAJOR_VERSION <= 5
-  gradientFilter->SetInput(image);
-#else
   gradientFilter->SetInputData(image);
-#endif
   gradientFilter->SetDimensionality(2);
   gradientFilter->Update();
 
@@ -243,11 +238,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkImageActor> originalActor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  originalActor->GetMapper()->SetInput(originalImage);
-#else
   originalActor->GetMapper()->SetInputData(originalImage);
-#endif
   originalActor->InterpolateOff();
 
   vtkSmartPointer<vtkImageActor> xGradientActor =

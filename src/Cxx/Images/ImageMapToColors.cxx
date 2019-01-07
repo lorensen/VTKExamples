@@ -14,7 +14,6 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 
 int main(int, char*[])
 {
@@ -23,12 +22,7 @@ int main(int, char*[])
     vtkSmartPointer<vtkImageData>::New();
   int imageExtent[6] = { 0, 15, 0, 15, 0, 0 };
   image->SetExtent(imageExtent);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(1);
-  image->SetScalarTypeToDouble();
-#else
   image->AllocateScalars(VTK_DOUBLE, 1);
-#endif
 
   double scalarvalue = 0.0;
 
@@ -55,11 +49,7 @@ int main(int, char*[])
     vtkSmartPointer<vtkImageMapToColors>::New();
   scalarValuesToColors->SetLookupTable(lookupTable);
   scalarValuesToColors->PassAlphaToOutputOn();
-#if VTK_MAJOR_VERSION <= 5
-  scalarValuesToColors->SetInput(image);
-#else
   scalarValuesToColors->SetInputData(image);
-#endif
 
   // Create an image actor
   vtkSmartPointer<vtkImageActor> imageActor =

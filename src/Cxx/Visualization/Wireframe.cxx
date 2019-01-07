@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkProperty.h>
 #include <vtkImageData.h>
@@ -21,11 +20,8 @@ int main(int, char *[])
   
   vtkSmartPointer<vtkDataSetMapper> mapper = 
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(imageData->GetProducerPort());
-#else
   mapper->SetInputData(imageData);
-#endif
+
   vtkSmartPointer<vtkActor> actor = 
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);

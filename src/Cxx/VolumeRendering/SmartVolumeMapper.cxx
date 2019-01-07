@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphere.h>
 #include <vtkSampleFunction.h>
@@ -54,11 +53,8 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkSmartVolumeMapper> volumeMapper =
     vtkSmartPointer<vtkSmartVolumeMapper>::New();
   volumeMapper->SetBlendModeToComposite(); // composite first
-#if VTK_MAJOR_VERSION <= 5
-  volumeMapper->SetInputConnection(imageData->GetProducerPort());
-#else
   volumeMapper->SetInputData(imageData);
-#endif
+
   vtkSmartPointer<vtkVolumeProperty> volumeProperty =
     vtkSmartPointer<vtkVolumeProperty>::New();
   volumeProperty->ShadeOff();

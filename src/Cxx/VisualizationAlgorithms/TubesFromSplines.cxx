@@ -1,5 +1,4 @@
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 
 #include <vtkParametricFunctionSource.h>
 #include <vtkTupleInterpolator.h>
@@ -77,11 +76,7 @@ int main(int, char *[])
   // Create the tubes
   vtkSmartPointer<vtkTubeFilter> tuber =
     vtkSmartPointer<vtkTubeFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  tuber->SetInput(tubePolyData);
-#else
   tuber->SetInputData(tubePolyData);
-#endif
   tuber->SetNumberOfSides(20);
   tuber->SetVaryRadiusToVaryRadiusByAbsoluteScalar();
 
@@ -89,11 +84,7 @@ int main(int, char *[])
   // Setup actors and mappers
   vtkSmartPointer<vtkPolyDataMapper> lineMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  lineMapper->SetInput(tubePolyData);
-#else
   lineMapper->SetInputData(tubePolyData);
-#endif
   lineMapper->SetScalarRange(tubePolyData->GetScalarRange());
 
   vtkSmartPointer<vtkPolyDataMapper> tubeMapper =

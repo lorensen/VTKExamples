@@ -1,15 +1,6 @@
 #!/usr/bin/env python
-# ---------------------------------------------------------------------------- #
-#                                   Imports                                    #
-# ---------------------------------------------------------------------------- #
+
 import vtk
-VTK_MAJOR_VERSION = vtk.VTK_VERSION[0]
-
-LEVEL = 6
-
-# ---------------------------------------------------------------------------- #
-#                                   Main Code                                  #
-# ---------------------------------------------------------------------------- #
 
 
 def main():
@@ -60,17 +51,11 @@ def main():
     # it has to be a 3 component array
     # with the same number of tuples as points in polydata
     warpVector = vtk.vtkWarpVector()
-    if VTK_MAJOR_VERSION <= 5:
-        warpVector.SetInput(polydata)
-    else:
-        warpVector.SetInputData(polydata)
+    warpVector.SetInputData(polydata)
     warpVector.Update()
 
     mapper = vtk.vtkPolyDataMapper()
-    if VTK_MAJOR_VERSION <= 5:
-        mapper.SetInput(warpVector.GetPolyDataOutput())
-    else:
-        mapper.SetInputData(warpVector.GetPolyDataOutput())
+    mapper.SetInputData(warpVector.GetPolyDataOutput())
 
     actor = vtk.vtkActor()
     actor.SetMapper(mapper)

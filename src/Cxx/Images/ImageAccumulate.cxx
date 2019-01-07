@@ -1,7 +1,6 @@
 /*
  * In this example, the resulting histogram has 6 pixels (all of them) in the 3rd bin (value = 2) and zero in the rest of the bins
  */
-#include <vtkVersion.h>
 #include <vtkImageAccumulate.h>
 #include <vtkImageData.h>
 #include <vtkSmartPointer.h>
@@ -15,11 +14,7 @@ int main(int, char *[] )
 
   vtkSmartPointer<vtkImageAccumulate> imageAccumulate =
     vtkSmartPointer<vtkImageAccumulate>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageAccumulate->SetInputConnection(image->GetProducerPort());
-#else
   imageAccumulate->SetInputData(image);
-#endif
   imageAccumulate->SetComponentExtent(0,255,0,0,0,0);
   imageAccumulate->SetComponentOrigin(0,0,0);
   imageAccumulate->SetComponentSpacing(1,0,0); // This will count exactly the number of pixels of each color. Use (10,0,0) to make bins of width 10 instead.
@@ -46,13 +41,8 @@ void CreateImage(vtkSmartPointer<vtkImageData> image)
   // Specify the size of the image data
   image->SetDimensions(2,3,1);
   //image->SetExtent(0,2,0,3,0,1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(1);
-  image->SetScalarTypeToDouble();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_DOUBLE,1);
-#endif
+
   int* dims = image->GetDimensions();
   // int dims[3]; // can't do this
 

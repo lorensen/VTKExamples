@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPoints.h>
 #include <vtkSmartPointer.h>
 #include <vtkLandmarkTransform.h>

@@ -30,7 +30,8 @@ int main (int argc, char *argv[])
   // Read the image
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkImageReader2 *reader = readerFactory->CreateImageReader2(argv[1]);
+  vtkSmartPointer<vtkImageReader2> reader =
+    readerFactory->CreateImageReader2(argv[1]);
   reader->SetFileName(argv[1]);
 
   // Dilate
@@ -191,8 +192,6 @@ int main (int argc, char *argv[])
   }
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
-
-  reader->Delete();
 
   return EXIT_SUCCESS;
 }

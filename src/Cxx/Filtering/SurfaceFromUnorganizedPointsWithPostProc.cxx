@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSurfaceReconstructionFilter.h>
 #include <vtkSmartPointer.h>
 
@@ -104,8 +103,9 @@ int main(int argc, char *argv[])
   renderWindow->Render();
   interactor->Start();
 
-  return 0;
+  return EXIT_SUCCESS;
 }
+
 
 namespace
 {

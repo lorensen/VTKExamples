@@ -3,7 +3,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 #include <vtkUnstructuredGrid.h>
-#include <vtkVersion.h>
 #include <vtkXMLUnstructuredGridWriter.h>
 
 int main(int, char *[])
@@ -18,11 +17,7 @@ int main(int, char *[])
   // Combine the two data sets
   vtkSmartPointer<vtkAppendFilter> appendFilter =
     vtkSmartPointer<vtkAppendFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  appendFilter->AddInput(sphereSource->GetOutput());
-#else
   appendFilter->AddInputData(sphereSource->GetOutput());
-#endif
   appendFilter->Update();
 
   vtkSmartPointer<vtkUnstructuredGrid> unstructuredGrid =
@@ -33,11 +28,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkXMLUnstructuredGridWriter> writer =
     vtkSmartPointer<vtkXMLUnstructuredGridWriter>::New();
   writer->SetFileName("UnstructuredGrid.vtu");
-  #if VTK_MAJOR_VERSION <= 5
-    writer->SetInput(unstructuredGrid);
-  #else
-    writer->SetInputData(unstructuredGrid);
-  #endif
+  writer->SetInputData(unstructuredGrid);
   writer->Write();
 
   return EXIT_SUCCESS;

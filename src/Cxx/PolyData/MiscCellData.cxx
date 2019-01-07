@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkCellData.h>
 #include <vtkSmartPointer.h>
 #include <vtkCellArray.h>
@@ -52,11 +51,7 @@ int main(int, char *[])
   // Write the file
   vtkSmartPointer<vtkXMLPolyDataWriter> writer = 
     vtkSmartPointer<vtkXMLPolyDataWriter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(polydata);
-#else
   writer->SetInputData(polydata);
-#endif
   writer->SetFileName(outputFilename.c_str());
   writer->Write();
 

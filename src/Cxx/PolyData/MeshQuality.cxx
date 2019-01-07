@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPolyData.h>
 #include <vtkPointData.h>
 #include <vtkCellData.h>
@@ -30,11 +29,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkMeshQuality> qualityFilter =
     vtkSmartPointer<vtkMeshQuality>::New();
-#if VTK_MAJOR_VERSION <= 5
-  qualityFilter->SetInputConnection(mesh->GetProducerPort());
-#else
   qualityFilter->SetInputData(mesh);
-#endif
   qualityFilter->SetTriangleQualityMeasureToArea();
   qualityFilter->Update();
 
@@ -56,11 +51,7 @@ int main(int, char *[])
   // Visualize
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(polydata->GetProducerPort());
-#else
   mapper->SetInputData(polydata);
-#endif
   mapper->SetScalarRange(polydata->GetScalarRange());
 
   vtkSmartPointer<vtkActor> actor =

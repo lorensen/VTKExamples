@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
@@ -48,11 +47,7 @@ int main(int argc, char *argv[])
   // The Dijkistra interpolator will not accept cells that aren't triangles
   vtkSmartPointer<vtkTriangleFilter> triangleFilter =
     vtkSmartPointer<vtkTriangleFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  triangleFilter->SetInput( polyData );
-#else
   triangleFilter->SetInputData( polyData );
-#endif
   triangleFilter->Update();
 
   vtkSmartPointer<vtkPolyData> pd = triangleFilter->GetOutput();

@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkSmartPointer.h>
 #include <vtkPoints.h>
 #include <vtkMath.h>
@@ -169,11 +167,7 @@ int main(int, char *[]) {
   // rendering stuff //
   //-----------------//
   VTK_CREATE(vtkPolyDataMapper, outline_mapper);
-#if VTK_MAJOR_VERSION <= 5
-  outline_mapper->SetInput(outline_pd);
-#else
   outline_mapper->SetInputData(outline_pd);
-#endif
 
   VTK_CREATE(vtkLookupTable, lut);
   lut->SetNumberOfTableValues(256);
@@ -182,11 +176,7 @@ int main(int, char *[]) {
   lut->Build();
 
   VTK_CREATE(vtkPolyDataMapper, triangle_mapper);
-#if VTK_MAJOR_VERSION <= 5
-  triangle_mapper->SetInput(triangle_pd);
-#else
   triangle_mapper->SetInputData(triangle_pd);
-#endif
   triangle_mapper->SetScalarRange(0.0, LEVEL);
   triangle_mapper->SetLookupTable(lut);
 

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkCubeSource.h>
 #include <vtkPolyData.h>
@@ -55,11 +54,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkGlyph3DMapper> glyph3Dmapper = 
     vtkSmartPointer<vtkGlyph3DMapper>::New();
   glyph3Dmapper->SetSourceConnection(cubeSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  glyph3Dmapper->SetInputConnection(polydata->GetProducerPort());
-#else
   glyph3Dmapper->SetInputData(polydata);
-#endif
   glyph3Dmapper->SetScalarModeToUsePointFieldData();
   glyph3Dmapper->SetScaleArray("Scale Factors");
   glyph3Dmapper->SetScaleModeToScaleByVectorComponents();

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
@@ -169,11 +168,7 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkPolyDataMapper> surfaceMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  surfaceMapper->SetInput(polyData);
-#else
   surfaceMapper->SetInputData(polyData);
-#endif
   surfaceMapper->ScalarVisibilityOn();
   surfaceMapper->SetScalarRange(
     polyData->GetPointData()->GetScalars()->GetRange());
@@ -187,11 +182,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkLabeledDataMapper> labelMapper =
     vtkSmartPointer<vtkLabeledDataMapper>::New();
   labelMapper->SetFieldDataName("Isovalues");
-#if VTK_MAJOR_VERSION <= 5
-  labelMapper->SetInput(labelPolyData);
-#else
   labelMapper->SetInputData(labelPolyData);
-#endif
   labelMapper->SetLabelModeToLabelScalars();
   labelMapper->SetLabelFormat("%6.2f");
 

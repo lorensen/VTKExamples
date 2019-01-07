@@ -1,12 +1,24 @@
-// First we import the VTK package that will make available all
-// of the VTK commands to Java.
-import vtk.*;
+import vtk.vtkActor;
+import vtk.vtkBoxWidget;
+import vtk.vtkConeSource;
+import vtk.vtkInteractorStyleTrackballCamera;
+import vtk.vtkNativeLibrary;
+import vtk.vtkPolyDataMapper;
+import vtk.vtkRenderer;
+import vtk.vtkRenderWindow;
+import vtk.vtkRenderWindowInteractor;
+import vtk.vtkTransform;
+
+// For writing an image
+import vtk.vtkPNGWriter;
+import vtk.vtkWindowToImageFilter;
 
 public class Cone6 {
+  private static final long serialVersionUID = 1L;
 
   /**
-	 * @param args
-	 */
+   * @param args
+   */
   // load the necessary interface libraries on first reference to the 
   // class.
   // Loading Native Libraries.
@@ -21,6 +33,7 @@ public class Cone6 {
     }
     vtkNativeLibrary.DisableOutputWindow(null);
   }
+
   // create the box widget as an instance variable so we can interact
   // with it from the interaction call back. 
   vtkBoxWidget boxWidget = null;
@@ -41,12 +54,12 @@ public class Cone6 {
     vtkTransform t = new vtkTransform();
     boxWidget.GetTransform(t);
     boxWidget.GetProp3D().SetUserTransform(t);
-  } 
+  }
 
   /*
-	 * The doit() function is simply the instance function to perform the
-	 * construction of the vtk pipeline for this example.
-	 */
+   * The doit() function is simply the instance function to perform the
+   * construction of the vtk pipeline for this example.
+   */
   void doit() {
 
     // This example introduces 3D widgets. 3D widgets take advantage of the
@@ -80,7 +93,7 @@ public class Cone6 {
     // We
     // connect the output of the cone souece to the input of this mapper.
     vtkPolyDataMapper coneMapper = new vtkPolyDataMapper();
-    coneMapper.SetInput(cone.GetOutput());
+    coneMapper.SetInputData(cone.GetOutput());
 
     // Create an actor to represent the cone. The actor orchestrates
     // rendering of
@@ -124,6 +137,7 @@ public class Cone6 {
     vtkInteractorStyleTrackballCamera style = new vtkInteractorStyleTrackballCamera();
     iren.SetInteractorStyle(style);
 
+
     // Here we use a vtkBoxWidget to transform the underlying coneActor (by
     // manipulating its transformation matrix). Many other types of widgets
     // are available for use, see the documentation for more details.
@@ -157,6 +171,7 @@ public class Cone6 {
 
     // Start the event loop.
     iren.Initialize();
+    renWin.Render();
     iren.Start();
 
     // There is no explicit need to free any objects at this point.

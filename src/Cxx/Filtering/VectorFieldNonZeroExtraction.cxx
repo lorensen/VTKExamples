@@ -13,7 +13,6 @@
 #include <vtkXMLUnstructuredGridWriter.h>
 #include <vtkXMLPolyDataWriter.h>
 #include <vtkImageMagnitude.h>
-#include <vtkVersion.h>
 
 static void CreateVectorField(vtkImageData* image);
 static void WriteImage(vtkImageData* image, const std::string fileName);

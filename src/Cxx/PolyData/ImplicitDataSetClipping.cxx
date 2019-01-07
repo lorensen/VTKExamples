@@ -1,7 +1,5 @@
 #include <vtkSmartPointer.h>
 
-#include <vtkVersion.h>
-
 #include <vtkActor.h>
 #include <vtkBox.h>
 #include <vtkCamera.h>
@@ -20,28 +18,24 @@
 #include <vtkSphereSource.h>
 #include <vtkXMLPolyDataWriter.h>
 
+namespace
+{
 void WritePolyData(vtkPolyData* const polyData, const std::string& filename)
 {
     vtkSmartPointer<vtkXMLPolyDataWriter> writer = vtkSmartPointer<vtkXMLPolyDataWriter>::New();
-#if VTK_MAJOR_VERSION <= 5
-    writer->SetInput(polyData);
-#else
     writer->SetInputData(polyData);
-#endif
     writer->SetFileName(filename.c_str());
     writer->Write();
 }
 
 void WriteDataSet(vtkDataSet* const dataSet, const std::string& filename)
 {
-    vtkSmartPointer<vtkDataSetWriter> writer = vtkSmartPointer<vtkDataSetWriter>::New();
-#if VTK_MAJOR_VERSION <= 5
-    writer->SetInput(dataSet);
-#else
+    vtkSmartPointer<vtkDataSetWriter> writer =
+      vtkSmartPointer<vtkDataSetWriter>::New();
     writer->SetInputData(dataSet);
-#endif
     writer->SetFileName(filename.c_str());
     writer->Write();
+}
 }
 
 int main(int, char *[])
@@ -93,11 +87,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkClipPolyData> clipper =
       vtkSmartPointer<vtkClipPolyData>::New();
   clipper->SetClipFunction(implicitCube);
-#if VTK_MAJOR_VERSION <= 5
-  clipper->SetInput(sphereWithIds);
-#else
   clipper->SetInputData(sphereWithIds);
-#endif
   clipper->InsideOutOn();
   clipper->Update();
 

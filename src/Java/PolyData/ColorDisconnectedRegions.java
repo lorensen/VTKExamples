@@ -1,27 +1,24 @@
 import vtk.vtkActor;
-import vtk.vtkSphereSource;
 import vtk.vtkAppendPolyData;
-import vtk.vtkPolyDataConnectivityFilter;
 import vtk.vtkNativeLibrary;
+import vtk.vtkPolyDataConnectivityFilter;
 import vtk.vtkPolyDataMapper;
+import vtk.vtkRenderer;
 import vtk.vtkRenderWindow;
 import vtk.vtkRenderWindowInteractor;
-import vtk.vtkRenderer;
+import vtk.vtkSphereSource;
 
 
-public class ColorDisconnectedRegions 
-{
-	  
+public class ColorDisconnectedRegions {
+  private static final long serialVersionUID = 1L;
+
+
   // -----------------------------------------------------------------
   // Load VTK library and print which library was not properly loaded
-  static 
-  {
-    if (!vtkNativeLibrary.LoadAllNativeLibraries())
-    {
-      for (vtkNativeLibrary lib : vtkNativeLibrary.values())
-      {
-        if (!lib.IsLoaded()) 
-        {
+  static {
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+        if (!lib.IsLoaded()) {
           System.out.println(lib.GetLibraryName() + " not loaded");
         }
       }
@@ -29,46 +26,41 @@ public class ColorDisconnectedRegions
     vtkNativeLibrary.DisableOutputWindow(null);
   }
   // -----------------------------------------------------------------
-	  
-  
-  public static void main(String s[]) 
-  {
-    // Create some spheres
-    vtkSphereSource Sphere1 = new vtkSphereSource();
-    Sphere1.Update();
-		    
-    vtkSphereSource Sphere2 = new vtkSphereSource();
-    Sphere2.SetCenter(5.0,0.0,0.0);
-    Sphere2.Update();
-		    
-    vtkSphereSource Sphere3 = new vtkSphereSource();
-    Sphere3.SetCenter(10.0,0.0,0.0);
-    Sphere3.Update();
-		    
-		   
-    vtkAppendPolyData AppendFilter = new vtkAppendPolyData();
-    AppendFilter.AddInputConnection(Sphere1.GetOutputPort());
-    AppendFilter.AddInputConnection(Sphere2.GetOutputPort());
-    AppendFilter.AddInputConnection(Sphere3.GetOutputPort());
-    AppendFilter.Update();
-			  
-			  
-    vtkPolyDataConnectivityFilter ConnectivityFilter = new vtkPolyDataConnectivityFilter();
-    ConnectivityFilter.SetInputConnection(AppendFilter.GetOutputPort());
-    ConnectivityFilter.SetExtractionModeToAllRegions();
-    ConnectivityFilter.ColorRegionsOn();
-    ConnectivityFilter.Update();
-			  
-				  
-    //Create a Mapper and Actor
-    vtkPolyDataMapper Mapper = new vtkPolyDataMapper();
-    Mapper.SetInputConnection(ConnectivityFilter.GetOutputPort());
-    Mapper.SetScalarRange(ConnectivityFilter.GetOutput().GetPointData().GetArray("RegionId").GetRange());
-    Mapper.Update();
-		 
-    vtkActor Actor = new vtkActor();
-    Actor.SetMapper(Mapper);
 
+
+  public static void main(String s[]) {
+    // Create some spheres
+    vtkSphereSource sphere1 = new vtkSphereSource();
+    sphere1.Update();
+
+    vtkSphereSource sphere2 = new vtkSphereSource();
+    sphere2.SetCenter(5.0, 0.0, 0.0);
+    sphere2.Update();
+
+    vtkSphereSource sphere3 = new vtkSphereSource();
+    sphere3.SetCenter(10.0, 0.0, 0.0);
+    sphere3.Update();
+
+    vtkAppendPolyData appendFilter = new vtkAppendPolyData();
+    appendFilter.AddInputConnection(sphere1.GetOutputPort());
+    appendFilter.AddInputConnection(sphere2.GetOutputPort());
+    appendFilter.AddInputConnection(sphere3.GetOutputPort());
+    appendFilter.Update();
+
+    vtkPolyDataConnectivityFilter connectivityFilter = new vtkPolyDataConnectivityFilter();
+    connectivityFilter.SetInputConnection(appendFilter.GetOutputPort());
+    connectivityFilter.SetExtractionModeToAllRegions();
+    connectivityFilter.ColorRegionsOn();
+    connectivityFilter.Update();
+
+    //Create a Mapper and Actor
+    vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+    mapper.SetInputConnection(connectivityFilter.GetOutputPort());
+    mapper.SetScalarRange(connectivityFilter.GetOutput().GetPointData().GetArray("RegionId").GetRange());
+    mapper.Update();
+
+    vtkActor actor = new vtkActor();
+    actor.SetMapper(mapper);
 
     // Create the renderer, render window and interactor.
     vtkRenderer ren = new vtkRenderer();
@@ -76,16 +68,17 @@ public class ColorDisconnectedRegions
     renWin.AddRenderer(ren);
     vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
     iren.SetRenderWindow(renWin);
-				    
+
     // Visualise the arrow
-    ren.AddActor(Actor);
+    ren.AddActor(actor);
     ren.ResetCamera();
-			      
-    renWin.SetSize(300,300);
+    ren.GetActiveCamera().Zoom(0.9);
+
+    renWin.SetSize(600, 600);
     renWin.Render();
 
     iren.Initialize();
     iren.Start();
-			
+
   }
 }

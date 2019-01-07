@@ -34,36 +34,30 @@ def main():
 
     # Here we write out the cube.
     writer = vtk.vtkXMLUnstructuredGridWriter()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        writer.SetInput(ugrid)
-    else:
-        writer.SetInputData(ugrid)
-    writer.SetFileName("polyhedron.vtu")
+    writer.SetInputData(ugrid)
+    writer.SetFileName('polyhedron.vtu')
     writer.SetDataModeToAscii()
     writer.Update()
 
     # Create a mapper and actor
     mapper = vtk.vtkDataSetMapper()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        mapper.SetInput(ugrid)
-    else:
-        mapper.SetInputData(ugrid)
+    mapper.SetInputData(ugrid)
 
     actor = vtk.vtkActor()
     actor.SetMapper(mapper)
     actor.GetProperty().SetColor(
-        colors.GetColor3d("Silver"))
+        colors.GetColor3d('Silver'))
 
     # Visualize
     renderer = vtk.vtkRenderer()
     renderWindow = vtk.vtkRenderWindow()
-    renderWindow.SetWindowName("Polyhedron")
+    renderWindow.SetWindowName('Polyhedron')
     renderWindow.AddRenderer(renderer)
     renderWindowInteractor = vtk.vtkRenderWindowInteractor()
     renderWindowInteractor.SetRenderWindow(renderWindow)
 
     renderer.AddActor(actor)
-    renderer.SetBackground(colors.GetColor3d("Salmon"))
+    renderer.SetBackground(colors.GetColor3d('Salmon'))
     renderer.ResetCamera()
     renderer.GetActiveCamera().Azimuth(30)
     renderer.GetActiveCamera().Elevation(30)

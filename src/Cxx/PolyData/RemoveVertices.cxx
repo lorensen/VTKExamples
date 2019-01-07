@@ -2,7 +2,6 @@
 #include <vtkCellData.h>
 #include <vtkPolyData.h>
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtkXMLPolyDataWriter.h>
 
@@ -30,11 +29,7 @@ int main ( int argc, char *argv[] )
 
   vtkSmartPointer<vtkXMLPolyDataWriter> writer = vtkSmartPointer<vtkXMLPolyDataWriter>::New();
   writer->SetFileName("test.vtp");
-#if VTK_MAJOR_VERSION <= 5
-  writer->SetInput(output);
-#else
   writer->SetInputData(output);
-#endif
   writer->Write();
 
   return EXIT_SUCCESS;

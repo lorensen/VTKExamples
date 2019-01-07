@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkProperty.h>
 #include <vtkImageData.h>
@@ -41,21 +40,13 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkImageContinuousErode3D> erodeFilter =
     vtkSmartPointer<vtkImageContinuousErode3D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  erodeFilter->SetInputConnection(image->GetProducerPort());
-#else
   erodeFilter->SetInputData(image);
-#endif
   erodeFilter->SetKernelSize(10,10,1);
   erodeFilter->Update();
 
   vtkSmartPointer<vtkDataSetMapper> originalMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  originalMapper->SetInputConnection(image->GetProducerPort());
-#else
   originalMapper->SetInputData(image);
-#endif
   originalMapper->Update();
 
   vtkSmartPointer<vtkActor> originalActor =

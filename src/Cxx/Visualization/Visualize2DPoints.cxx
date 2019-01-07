@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -35,11 +34,7 @@ int main(int argc, char* argv[])
 
   vtkSmartPointer<vtkPolyDataMapper2D> mapper =
     vtkSmartPointer<vtkPolyDataMapper2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput( polydata );
-#else
   mapper->SetInputData( polydata );
-#endif
   mapper->ScalarVisibilityOff();
   actor->SetMapper( mapper );
 

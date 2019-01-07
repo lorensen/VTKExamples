@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkArrayCalculator.h>
 #include <vtkDoubleArray.h>
 #include <vtkPointData.h>
@@ -28,11 +27,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkArrayCalculator> arrayCalculator =
       vtkSmartPointer<vtkArrayCalculator>::New();
-#if VTK_MAJOR_VERSION <= 5
-  arrayCalculator->SetInput(polydata);
-#else
   arrayCalculator->SetInputData(polydata);
-#endif
   arrayCalculator->AddVectorArrayName("InputArray");
   arrayCalculator->SetFunction("InputArray . jHat"); // Extract component '1' from the InputArray by taking the dot product of each tuple with the vector (0,1,0)
   arrayCalculator->SetResultArrayName("OutputArray");

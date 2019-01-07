@@ -1,41 +1,43 @@
 import vtk
 
-# setup points and vertices
-Points = vtk.vtkPoints()
-Triangles = vtk.vtkCellArray()
+def main():
+    colors = vtk.vtkNamedColors()
 
-Points.InsertNextPoint(1.0, 0.0, 0.0)
-Points.InsertNextPoint(0.0, 0.0, 0.0)
-Points.InsertNextPoint(0.0, 1.0, 0.0)
+    # setup points and vertices
+    Points = vtk.vtkPoints()
+    Triangles = vtk.vtkCellArray()
 
-Triangle = vtk.vtkTriangle()
-Triangle.GetPointIds().SetId(0, 0)
-Triangle.GetPointIds().SetId(1, 1)
-Triangle.GetPointIds().SetId(2, 2)
-Triangles.InsertNextCell(Triangle)
+    Points.InsertNextPoint(1.0, 0.0, 0.0)
+    Points.InsertNextPoint(0.0, 0.0, 0.0)
+    Points.InsertNextPoint(0.0, 1.0, 0.0)
 
-# setup colors
-Colors = vtk.vtkUnsignedCharArray()
-Colors.SetNumberOfComponents(3)
-Colors.SetName("Colors")
-Colors.InsertNextTuple3(255, 0, 0)
-Colors.InsertNextTuple3(0, 255, 0)
-Colors.InsertNextTuple3(0, 0, 255)
+    Triangle = vtk.vtkTriangle()
+    Triangle.GetPointIds().SetId(0, 0)
+    Triangle.GetPointIds().SetId(1, 1)
+    Triangle.GetPointIds().SetId(2, 2)
+    Triangles.InsertNextCell(Triangle)
 
-polydata = vtk.vtkPolyData()
-polydata.SetPoints(Points)
-polydata.SetPolys(Triangles)
+    # setup colors
+    Colors = vtk.vtkUnsignedCharArray()
+    Colors.SetNumberOfComponents(3)
+    Colors.SetName("Colors")
+    Colors.InsertNextTuple3(*colors.GetColor3ub('Red'))
+    Colors.InsertNextTuple3(*colors.GetColor3ub('Lime'))
+    Colors.InsertNextTuple3(*colors.GetColor3ub('Blue'))
 
-polydata.GetPointData().SetScalars(Colors)
-polydata.Modified()
-if vtk.VTK_MAJOR_VERSION <= 5:
-    polydata.Update()
+    polydata = vtk.vtkPolyData()
+    polydata.SetPoints(Points)
+    polydata.SetPolys(Triangles)
 
-writer = vtk.vtkXMLPolyDataWriter()
-writer.SetFileName("TriangleColored.vtp")
-if vtk.VTK_MAJOR_VERSION <= 5:
-    writer.SetInput(polydata)
-else:
+    polydata.GetPointData().SetScalars(Colors)
+    polydata.Modified()
+
+    writer = vtk.vtkXMLPolyDataWriter()
+    writer.SetFileName("TriangleColored.vtp")
     writer.SetInputData(polydata)
+    writer.Write()
 
-writer.Write()
+
+if __name__ == '__main__':
+    main()
+
