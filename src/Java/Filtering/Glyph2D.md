@@ -1,4 +1,4 @@
-Description: 
+### Description
 
-Example Program to Copy a polydata to every point in the input set.
+Copy a 2D glyph to every point in the input set.
 We use a hexagon for the demo.
