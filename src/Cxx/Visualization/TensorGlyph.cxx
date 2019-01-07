@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkActor.h>
 #include <vtkCellArray.h>
 #include <vtkDoubleArray.h>
@@ -41,11 +39,7 @@ int main(int, char *[])
     cubeSource->Update();
 
     vtkSmartPointer<vtkTensorGlyph> tensorGlyph = vtkSmartPointer<vtkTensorGlyph>::New();
-#if VTK_MAJOR_VERSION <= 5
-    tensorGlyph->SetInput(polyData);
-#else
     tensorGlyph->SetInputData(polyData);
-#endif
     tensorGlyph->SetSourceConnection(cubeSource->GetOutputPort());
     tensorGlyph->ColorGlyphsOff();
     tensorGlyph->ThreeGlyphsOff();
@@ -53,11 +47,7 @@ int main(int, char *[])
     tensorGlyph->Update();
 
     vtkSmartPointer<vtkPolyDataMapper> mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-    mapper->SetInput(tensorGlyph->GetOutput());
-#else
     mapper->SetInputData(tensorGlyph->GetOutput());
-#endif
 
     vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
     actor->SetMapper(mapper);

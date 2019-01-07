@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkImageActor.h>
 #include <vtkImageData.h>
 #include <vtkInteractorStyleImage.h>
@@ -19,11 +18,7 @@ int main(int, char* [])
 
   vtkSmartPointer<vtkImageActor> whiteImageActor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  whiteImageActor->SetInput(whiteImage);
-#else
   whiteImageActor->SetInputData(whiteImage);
-#endif
 
   // Image 2
   vtkSmartPointer<vtkImageData> redImage =
@@ -32,11 +27,7 @@ int main(int, char* [])
 
   vtkSmartPointer<vtkImageActor> redImageActor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  redImageActor->SetInput(redImage);
-#else
   redImageActor->SetInputData(redImage);
-#endif
 
   // Visualize
   vtkSmartPointer<vtkRenderer> renderer =
@@ -74,13 +65,7 @@ void CreateWhiteImage(vtkSmartPointer<vtkImageData> image)
 {
   // Create a white image
   image->SetDimensions(10,10,1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(3);
-  image->SetScalarTypeToUnsignedChar();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,3);
-#endif
 
   int* dims = image->GetDimensions();
 
@@ -100,14 +85,8 @@ void CreateRedImage(vtkSmartPointer<vtkImageData> image)
 {
   // Create a red image
   image->SetDimensions(10,10,1);
-
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(3);
-  image->SetScalarTypeToUnsignedChar();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,3);
-#endif
+
   int* dims = image->GetDimensions();
 
   for (int y = 0; y < dims[1]; y++)

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkGraph.h>
 #include <vtkMutableUndirectedGraph.h>

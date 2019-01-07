@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkImageData.h>
 #include <vtkPointData.h>
 #include <vtkCellArray.h>
@@ -78,11 +77,7 @@ int main ( int argc, char *argv[] )
 
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(quad);
-#else
   mapper->SetInputData(quad);
-#endif
 
   vtkSmartPointer<vtkActor> texturedQuad =
     vtkSmartPointer<vtkActor>::New();

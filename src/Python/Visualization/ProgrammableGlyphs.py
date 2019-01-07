@@ -15,10 +15,7 @@ def main():
     colors.SetLowPoint(-0.25, -0.25, -0.25)
     colors.SetHighPoint(0.25, 0.25, 0.25)
     planeMapper = vtk.vtkPolyDataMapper()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        planeMapper.SetInput(colors.GetPolyDataOutput())
-    else:
-        planeMapper.SetInputData(colors.GetPolyDataOutput())
+    planeMapper.SetInputData(colors.GetPolyDataOutput())
     planeActor = vtk.vtkActor()
     planeActor.SetMapper(planeMapper)
     planeActor.GetProperty().SetRepresentationToWireframe()
@@ -44,15 +41,14 @@ def main():
 
     glypher = vtk.vtkProgrammableGlyphFilter()
     glypher.SetInputConnection(colors.GetOutputPort())
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        glypher.SetSource(squad.GetOutput())
-    else:
-        glypher.SetSourceConnection(squad.GetOutputPort())
+    glypher.SetSourceConnection(squad.GetOutputPort())
     glypher.SetGlyphMethod(Glyph)
     glyphMapper = vtk.vtkPolyDataMapper()
     glyphMapper.SetInputConnection(glypher.GetOutputPort())
     glyphActor = vtk.vtkActor()
     glyphActor.SetMapper(glyphMapper)
+
+    colors = vtk.vtkNamedColors()
 
     # Create the rendering stuff
     ren1 = vtk.vtkRenderer()
@@ -63,7 +59,7 @@ def main():
     iren.SetRenderWindow(renWin)
     ren1.AddActor(planeActor)
     ren1.AddActor(glyphActor)
-    ren1.SetBackground(1, 1, 1)
+    ren1.SetBackground(colors.GetColor3d('White'))
     renWin.SetSize(450, 450)
     renWin.Render()
 

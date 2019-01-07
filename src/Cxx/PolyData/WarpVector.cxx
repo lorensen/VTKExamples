@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkActor.h>
 #include <vtkCellArray.h>
 #include <vtkDoubleArray.h>
@@ -69,20 +68,12 @@ int main(int, char *[])
   //with the same number of tuples as points in polydata
   vtkSmartPointer<vtkWarpVector> warpVector =
     vtkSmartPointer<vtkWarpVector>::New();
-#if VTK_MAJOR_VERSION <= 5
-  warpVector->SetInput(polydata);
-#else
   warpVector->SetInputData(polydata);
-#endif
   warpVector->Update();
 
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(warpVector->GetPolyDataOutput());
-#else
   mapper->SetInputData(warpVector->GetPolyDataOutput());
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

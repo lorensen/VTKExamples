@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkArrayCalculator.h>
 #include <vtkDoubleArray.h>
 #include <vtkPointData.h>
@@ -27,11 +26,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkArrayCalculator> calc1 =
       vtkSmartPointer<vtkArrayCalculator>::New();
-#if VTK_MAJOR_VERSION <= 5
-  calc1->SetInput(polydata);
-#else
   calc1->SetInputData(polydata);
-#endif
   calc1->AddScalarArrayName("orig");
   calc1->SetFunction("orig+1");
   calc1->SetResultArrayName("orig");
@@ -49,11 +44,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkArrayCalculator> calc2 =
       vtkSmartPointer<vtkArrayCalculator>::New();
-#if VTK_MAJOR_VERSION <= 5
-  calc2->SetInput(polydata);
-#else
   calc2->SetInputData(polydata);
-#endif
   calc2->AddScalarArrayName("orig");
   calc2->SetFunction("if(orig=2,1,orig)");
   calc2->SetResultArrayName("new");

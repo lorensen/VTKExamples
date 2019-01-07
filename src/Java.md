@@ -34,6 +34,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Delaunay2D](/Java/Filtering/Delaunay2D) | vtkDelaunay2D | An example to generate set of points and to triangulate using Delaunay2D
+[Glyph2D](/Java/Filtering/Glyph2D) | vtkGlyph2D | Example to copy a polydata to everypoint in the input set. 
 [Glyph3D](/Java/Filtering/Glyph3D) | vtkGlyph3D | This example applies an object at every point using vtkGlyph3D
 
 ## GeometricObjects
@@ -116,20 +117,18 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | use Java File Dialog to select Image File to Display
 [ShotNoise](/Java/ImageProcessing/ShotNoise) | vtkPNGWriter | Example program to write PNG files
 
+## Rendering
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Cone6](/Java/Rendering/Cone6) | vtkBoxWidget vtkInteractorStyleTrackballCamera | This example introduces 3D widgets. 3D widgets take advantage of the event/observer design pattern. Corresponds to the missing Step 6 Java example from VTK/Examples/Tutorial.
+
 ## Lighting
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [SpotLight](/Java/Lighting/SpotLight) | vtkSpotLight | vtkSpotLight Demonstration
 [LightActor](/Java/Lighting/LightActor) | vtkLightActor| vtkLightActor Demonstration
-
-## Miscellaneous
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[Cone6](/Java/Miscellaneous/Cone6) |  | The missing Step 6 Java example from Examples/Tutorial
-[Cutter](/Java/Miscellaneous/Cutter) | vtkCutter |
-[Screenshot](/Java/Miscellaneous/Screenshot) | vtkWindowToImageFilter |
 
 ## Parallel
 
@@ -169,6 +168,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [FullScreen](/Java/Utilities/FullScreen) | vtkRenderWindow | Example to Display Actors in a Full Screen Render Window
+[TimerLog](/Java/Utilities/TimerLog) | vtkTimerLog | Example to Demonstrate Timer support and logging.
 
 ## Visualization
 
@@ -179,6 +179,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [BackgroundColor](/Java/Visualization/BackgroundColor) |  |  Example program to set the background color of the render window
 [BackgroundGradient](/Java/Visualization/BackgroundGradient) |  | viewport having gradient background using the Background (bottom) and Background2 (top) colors.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
+[Cursor2D](/Java/Visualization/Cursor2D) | vtkCursor2D | Generates a 2D Cursor Representation.
+[Cutter](/Java/VisualizationAlgorithms/Cutter) | vtkCutter | How to use vtkCutter by cutting through a cube.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [VectorFieldExample](/Java/Visualization/VectorFieldExample) | vtkXMLUnstructuredGridReader, vtkThresholdPoints, vtkGlyph3D | A vector field visualisation.
 [WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization.

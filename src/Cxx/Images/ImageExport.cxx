@@ -1,7 +1,6 @@
 #include <vtkImageData.h>
 #include <vtkImageExport.h>
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 
 int main(int, char *[])
 {
@@ -13,12 +12,7 @@ int main(int, char *[])
   int dims[3] = {2,3,1};
 
   imageData->SetDimensions(dims[0], dims[1], dims[2]);
-#if VTK_MAJOR_VERSION <= 5
-  imageData->SetNumberOfScalarComponents(1);
-  imageData->SetScalarTypeToUnsignedChar();
-#else
   imageData->AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
 
   unsigned char value = 0;
   for(int row = 0; row < dims[0]; ++row)
@@ -37,11 +31,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkImageExport> exporter =
     vtkSmartPointer<vtkImageExport>::New();
-#if VTK_MAJOR_VERSION <= 5
-  exporter->SetInput(imageData);
-#else
   exporter->SetInputData(imageData);
-#endif
   exporter->ImageLowerLeftOn();
   exporter->Update();
   exporter->Export(cImage);

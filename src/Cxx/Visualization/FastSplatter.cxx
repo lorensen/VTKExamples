@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkImageData.h>
 #include <vtkImageShiftScale.h>
 #include <vtkFastSplatter.h>
@@ -22,13 +21,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkImageData> splatImage =
     vtkSmartPointer<vtkImageData>::New();
   splatImage->SetDimensions(SPLAT_IMAGE_SIZE, SPLAT_IMAGE_SIZE, 1);
-#if VTK_MAJOR_VERSION <= 5
-  splatImage->SetScalarTypeToFloat();
-  splatImage->SetNumberOfScalarComponents(1);
-  splatImage->AllocateScalars();
-#else
   splatImage->AllocateScalars(VTK_FLOAT,1);
-#endif
+
   for (int i = 0; i < SPLAT_IMAGE_SIZE; ++i)
   {
     for (int j = 0; j < SPLAT_IMAGE_SIZE; ++j)
@@ -80,13 +74,8 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkFastSplatter> splatter =
     vtkSmartPointer<vtkFastSplatter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  splatter->SetInput( splatPoints );
-  splatter->SetInput(1, splatImage );
-#else
   splatter->SetInputData(splatPoints );
   splatter->SetInputData(1, splatImage );
-#endif
   splatter->SetOutputDimensions( 2*SPLAT_IMAGE_SIZE,
                                  2*SPLAT_IMAGE_SIZE,
                                  1 );

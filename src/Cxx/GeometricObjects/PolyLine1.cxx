@@ -10,8 +10,6 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
-
 #include <algorithm>
 #include <array>
 #include <cmath>

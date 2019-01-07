@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkActor.h>
 #include <vtkFloatArray.h>
 #include <vtkLookupTable.h>
@@ -37,11 +36,7 @@ int main (int, char *[])
 
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(poly);
-#else
   mapper->SetInputData(poly);
-#endif
   mapper->ScalarVisibilityOn();
   mapper->SetScalarModeToUsePointData();
   mapper->SetColorModeToMapScalars();

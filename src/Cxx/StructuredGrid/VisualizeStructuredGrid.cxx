@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkStructuredGrid.h>
 #include <vtkXMLStructuredGridWriter.h>
@@ -43,11 +42,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkStructuredGridGeometryFilter> geometryFilter =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  geometryFilter->SetInputConnection(structuredGrid->GetProducerPort());
-#else
   geometryFilter->SetInputData(structuredGrid);
-#endif
   geometryFilter->Update();
 
   // Create a mapper and actor

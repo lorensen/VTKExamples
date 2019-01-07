@@ -8,13 +8,8 @@
 #include <vtkSmartPointer.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderWindow.h>
-#include <vtkVersion.h>
 
-#if VTK_MAJOR_VERSION <= 5
-#include <vtkRenderer.h>
-#else
 #include <vtkOpenGLRenderer.h>
-#endif
 
 #include <vtkLightActor.h>
 #include <vtkFrameBufferObject.h>
@@ -69,13 +64,8 @@ int main(int, char*[])
   renderWindow->SetAlphaBitPlanes(1);
   interactor->SetRenderWindow(renderWindow);
 
-#if VTK_MAJOR_VERSION <= 5
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
-#else
   vtkSmartPointer<vtkOpenGLRenderer> renderer =
     vtkSmartPointer<vtkOpenGLRenderer>::New();
-#endif
   renderWindow->AddRenderer(renderer);
 
   bool supported = vtkFrameBufferObject::IsSupported(renderWindow); // adapted from line 182 of vtkShadowMapPass.cxx

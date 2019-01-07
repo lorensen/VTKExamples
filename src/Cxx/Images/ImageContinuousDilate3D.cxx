@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkProperty.h>
 #include <vtkDataSetMapper.h>
@@ -42,21 +41,13 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkImageContinuousDilate3D> dilateFilter =
     vtkSmartPointer<vtkImageContinuousDilate3D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  dilateFilter->SetInputConnection(image->GetProducerPort());
-#else
   dilateFilter->SetInputData(image);
-#endif
   dilateFilter->SetKernelSize(10,10,1);
   dilateFilter->Update();
 
   vtkSmartPointer<vtkDataSetMapper> originalMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  originalMapper->SetInputConnection(image->GetProducerPort());
-#else
   originalMapper->SetInputData(image);
-#endif
   originalMapper->Update();
 
   vtkSmartPointer<vtkActor> originalActor =

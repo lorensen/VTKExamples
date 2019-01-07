@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkNew.h>
 #include <vtkPlatonicSolidSource.h>
 #include <vtkPolyDataNormals.h>
@@ -26,21 +25,11 @@ int main(int, char *[])
 
   // Create a vtkPolyDataNormals filter to calculate the normals of the data set.
   vtkNew<vtkPolyDataNormals> normals;
-#if VTK_MAJOR_VERSION <= 5
-  icosahedron->Update();
-  normals->SetInput(icosahedron->GetOutput());
-#else
   normals->SetInputConnection(icosahedron->GetOutputPort());
-#endif
 
   // Set up the associated mapper and actor.
   vtkNew<vtkPolyDataMapper> icosahedron_mapper;
-#if VTK_MAJOR_VERSION <= 5
-  normals->Update();
-  icosahedron_mapper->SetInput(normals->GetOutput());
-#else
   icosahedron_mapper->SetInputConnection(normals->GetOutputPort());
-#endif
   icosahedron_mapper->ScalarVisibilityOff();
 
   vtkNew<vtkLODActor> icosahedron_actor;
@@ -50,18 +39,10 @@ int main(int, char *[])
   // Create a vtkOutlineFilter to draw the bounding box of the data set.
   // Also create the associated mapper and actor.
   vtkNew<vtkOutlineFilter> outline;
-#if VTK_MAJOR_VERSION <= 5
-  outline->SetInput(normals->GetOutput());
-#else
   outline->SetInputConnection(normals->GetOutputPort());
-#endif
 
   vtkNew<vtkPolyDataMapper> map_outline;
-#if VTK_MAJOR_VERSION <= 5
-  map_outline->SetInput(outline->GetOutput());
-#else
   map_outline->SetInputConnection(outline->GetOutputPort());
-#endif
 
   vtkNew<vtkActor> outline_actor;
   outline_actor->SetMapper(map_outline.GetPointer());
@@ -108,11 +89,7 @@ int main(int, char *[])
   // Create a vtkCubeAxesActor2D.  Use the outer edges of the bounding box to
   // draw the axes.  Add the actor to the renderer.
   vtkNew<vtkCubeAxesActor2D> axes;
-#if VTK_MAJOR_VERSION <= 5
-  axes->SetInput(normals->GetOutput());
-#else
   axes->SetInputConnection(normals->GetOutputPort());
-#endif
   axes->SetCamera(ren->GetActiveCamera());
   axes->SetLabelFormat("%6.4g");
   axes->SetFlyModeToOuterEdges();

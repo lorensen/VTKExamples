@@ -51,7 +51,7 @@ int main (int argc, char *argv[])
   int f = 1;
   while (f < argc)
   {
-    vtkDataSet *dataSet;
+    vtkSmartPointer<vtkDataSet> dataSet;
     std::string extension =
       vtksys::SystemTools::GetFilenameLastExtension(argv[f]);
     // Dispatch based on the file extension
@@ -160,7 +160,6 @@ int main (int argc, char *argv[])
              << std::endl;
       }
     }
-    dataSet->Delete();
     f++;
   }
   return EXIT_SUCCESS;

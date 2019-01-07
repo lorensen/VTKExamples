@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPolyData.h>
 #include <vtkUnstructuredGrid.h>
@@ -13,11 +12,7 @@ int main(int, char *[])
   
   vtkSmartPointer<vtkGeometryFilter> geometryFilter = 
     vtkSmartPointer<vtkGeometryFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  geometryFilter->SetInput(unstructuredGrid);
-#else
   geometryFilter->SetInputData(unstructuredGrid);
-#endif
   geometryFilter->Update(); 
  
   vtkPolyData* polydata = geometryFilter->GetOutput();

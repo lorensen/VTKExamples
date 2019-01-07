@@ -8,7 +8,6 @@
 #include <vtkContextView.h>
 #include <vtkContextScene.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkVersion.h>
 
 #define VTK_CREATE(type, name) \
   vtkSmartPointer<type> name = vtkSmartPointer<type>::New()
@@ -60,27 +59,15 @@ int main(int, char*[] )
   vtkPlot *line = 0;
 
   line = chart->AddPlot(vtkChart::BAR);
-#if VTK_MAJOR_VERSION <= 5
-  line->SetInput(table, 0, 1);
-#else
   line->SetInputData(table, 0, 1);
-#endif
   line->SetColor(0, 255, 0, 255);
 
   line = chart->AddPlot(vtkChart::BAR);
-#if VTK_MAJOR_VERSION <= 5
-  line->SetInput(table, 0, 2);
-#else
   line->SetInputData(table, 0, 2);
-#endif
   line->SetColor(255, 0, 0, 255);
 
   line = chart->AddPlot(vtkChart::BAR);
-#if VTK_MAJOR_VERSION <= 5
-  line->SetInput(table, 0, 3);
-#else
   line->SetInputData(table, 0, 3);
-#endif
   line->SetColor(0, 0, 255, 255);
 
   // Finally render the scene and compare the image to a reference image

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
@@ -52,11 +51,7 @@ int main(int, char *[])
   // Create a mapper and actor
   vtkSmartPointer<vtkPolyDataMapper> lineMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  lineMapper->SetInput(polyData);
-#else
   lineMapper->SetInputData(polyData);
-#endif
 
   vtkSmartPointer<vtkActor> lineActor =
     vtkSmartPointer<vtkActor>::New();
@@ -67,11 +62,7 @@ int main(int, char *[])
   // Create a ribbon around the line
   vtkSmartPointer<vtkRibbonFilter> ribbonFilter =
     vtkSmartPointer<vtkRibbonFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  ribbonFilter->SetInput(polyData);
-#else
   ribbonFilter->SetInputData(polyData);
-#endif
   ribbonFilter->SetWidth(.4);
 
   // Create a mapper and actor

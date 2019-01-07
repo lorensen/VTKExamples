@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkRectilinearGrid.h>
 #include <vtkMath.h>
@@ -52,11 +51,7 @@ int main(int, char *[])
   // Create a mapper and actor
   vtkSmartPointer<vtkDataSetMapper> mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(grid->GetProducerPort());
-#else
   mapper->SetInputData(grid);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

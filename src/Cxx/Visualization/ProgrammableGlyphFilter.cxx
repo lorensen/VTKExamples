@@ -1,5 +1,3 @@
-#include <vtkVersion.h>
-
 #include <vtkSmartPointer.h>
 #include <vtkPointData.h>
 #include <vtkCubeSource.h>
@@ -39,33 +37,21 @@ void CalcGlyph(void *arg)
     vtkSmartPointer<vtkConeSource> coneSource =
       vtkSmartPointer<vtkConeSource>::New();
     coneSource->SetCenter(pointCoords);
-#if VTK_MAJOR_VERSION <= 5
-    glyphFilter->SetSource(coneSource->GetOutput());
-#else
     glyphFilter->SetSourceConnection(coneSource->GetOutputPort());
-#endif
   }
   else if(glyphFilter->GetPointId() == 1)
   {
     vtkSmartPointer<vtkCubeSource> cubeSource =
       vtkSmartPointer<vtkCubeSource>::New();
     cubeSource->SetCenter(pointCoords);
-#if VTK_MAJOR_VERSION <= 5
-    glyphFilter->SetSource(cubeSource->GetOutput());
-#else
     glyphFilter->SetSourceConnection(cubeSource->GetOutputPort());
-#endif
   }
   else if(glyphFilter->GetPointId() == 2)
   {
     vtkSmartPointer<vtkSphereSource> sphereSource =
       vtkSmartPointer<vtkSphereSource>::New();
     sphereSource->SetCenter(pointCoords);
-#if VTK_MAJOR_VERSION <= 5
-    glyphFilter->SetSource(sphereSource->GetOutput());
-#else
     glyphFilter->SetSourceConnection(sphereSource->GetOutputPort());
-#endif
   }
 }
 
@@ -85,20 +71,12 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkProgrammableGlyphFilter> glyphFilter =
     vtkSmartPointer<vtkProgrammableGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyphFilter->SetInput(polydata);
-#else
   glyphFilter->SetInputData(polydata);
-#endif
   glyphFilter->SetGlyphMethod(CalcGlyph, glyphFilter);
   //need a default glyph, but this should not be used
   vtkSmartPointer<vtkConeSource> coneSource =
     vtkSmartPointer<vtkConeSource>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyphFilter->SetSource(coneSource->GetOutput());
-#else
   glyphFilter->SetSourceConnection(coneSource->GetOutputPort());
-#endif
 
   // Create a mapper and actor
   vtkSmartPointer<vtkPolyDataMapper> mapper =

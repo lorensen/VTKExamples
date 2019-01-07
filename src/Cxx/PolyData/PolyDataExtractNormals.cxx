@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkCellData.h>
 #include <vtkDoubleArray.h>
 #include <vtkFloatArray.h>
@@ -18,7 +17,8 @@ bool GetCellNormals(vtkPolyData* polydata);
 
 int main(int argc, char *argv[])
 {
-  vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
+  vtkSmartPointer<vtkPolyData> polydata =
+    vtkSmartPointer<vtkPolyData>::New();
 
   // If a file is provided, read it. Else, create a sphere.
   if(argc == 2)
@@ -28,7 +28,8 @@ int main(int argc, char *argv[])
     std::string filename = argv[1]; //first command line argument
     std::cout << "Reading file " << filename << "..." << std::endl;
 
-    vtkSmartPointer<vtkXMLPolyDataReader> reader = vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+      vtkSmartPointer<vtkXMLPolyDataReader>::New();
     std::cout << "Reading " << filename << std::endl;
     reader->SetFileName(filename.c_str());
     reader->Update();
@@ -37,7 +38,8 @@ int main(int argc, char *argv[])
   else
   {
     std::cout << "Creating a sphere..." << std::endl;
-    vtkSmartPointer<vtkSphereSource> sphereSource = vtkSmartPointer<vtkSphereSource>::New();
+    vtkSmartPointer<vtkSphereSource> sphereSource =
+      vtkSmartPointer<vtkSphereSource>::New();
     sphereSource->Update();
     std::cout << "In main: " << sphereSource->GetOutput()->GetNumberOfPoints() << std::endl;
     polydata->DeepCopy(sphereSource->GetOutput());
@@ -63,12 +65,9 @@ void TestPointNormals(vtkPolyData* polydata)
     std::cout << "No point normals were found. Computing normals..." << std::endl;
 
     // Generate normals
-    vtkSmartPointer<vtkPolyDataNormals> normalGenerator = vtkSmartPointer<vtkPolyDataNormals>::New();
-#if VTK_MAJOR_VERSION <= 5
-    normalGenerator->SetInput(polydata);
-#else
+    vtkSmartPointer<vtkPolyDataNormals> normalGenerator =
+      vtkSmartPointer<vtkPolyDataNormals>::New();
     normalGenerator->SetInputData(polydata);
-#endif
     normalGenerator->ComputePointNormalsOn();
     normalGenerator->ComputeCellNormalsOff();
     normalGenerator->Update();
@@ -108,12 +107,9 @@ void TestCellNormals(vtkPolyData* polydata)
     std::cout << "No cell normals were found. Computing normals..." << std::endl;
 
     // Generate normals
-    vtkSmartPointer<vtkPolyDataNormals> normalGenerator = vtkSmartPointer<vtkPolyDataNormals>::New();
-#if VTK_MAJOR_VERSION <= 5
-    normalGenerator->SetInput(polydata);
-#else
+    vtkSmartPointer<vtkPolyDataNormals> normalGenerator =
+      vtkSmartPointer<vtkPolyDataNormals>::New();
     normalGenerator->SetInputData(polydata);
-#endif
     normalGenerator->ComputePointNormalsOff();
     normalGenerator->ComputeCellNormalsOn();
     normalGenerator->Update();

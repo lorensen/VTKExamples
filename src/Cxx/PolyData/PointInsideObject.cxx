@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPolyData.h>
 #include <vtkPointData.h>
 #include <vtkCubeSource.h>
@@ -41,16 +40,8 @@ int main(int, char *argv[])
   //Points inside test
   vtkSmartPointer<vtkSelectEnclosedPoints> selectEnclosedPoints =
     vtkSmartPointer<vtkSelectEnclosedPoints>::New();
-#if VTK_MAJOR_VERSION <= 5
-  selectEnclosedPoints->SetInput(pointsPolydata);
-#else
   selectEnclosedPoints->SetInputData(pointsPolydata);
-#endif
-#if VTK_MAJOR_VERSION <= 5
-  selectEnclosedPoints->SetSurface(cube);
-#else
   selectEnclosedPoints->SetSurfaceData(cube);
-#endif
   selectEnclosedPoints->Update();
 
   for(unsigned int i = 0; i < 2; i++)

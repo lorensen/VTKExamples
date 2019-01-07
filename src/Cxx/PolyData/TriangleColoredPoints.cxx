@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPoints.h>
 #include <vtkXMLPolyDataWriter.h>
@@ -62,11 +61,7 @@ int main(int, char *[])
   // Visualize
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(polydata->GetProducerPort());
-#else
   mapper->SetInputData(polydata);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();

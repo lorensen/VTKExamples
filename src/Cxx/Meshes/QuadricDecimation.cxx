@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPolyData.h>
 #include <vtkSphereSource.h>
 #include <vtkQuadricDecimation.h>

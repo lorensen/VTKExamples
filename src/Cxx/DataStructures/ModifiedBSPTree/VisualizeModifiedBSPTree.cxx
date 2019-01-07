@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPointSource.h>
 #include <vtkSphereSource.h>
 #include <vtkModifiedBSPTree.h>

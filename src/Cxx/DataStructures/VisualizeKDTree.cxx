@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkPointSource.h>
 #include <vtkKdTreePointLocator.h>
 #include <vtkSmartPointer.h>

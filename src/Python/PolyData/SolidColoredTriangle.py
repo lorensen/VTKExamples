@@ -1,38 +1,41 @@
 import vtk
 
-# setup points and vertices
-Points = vtk.vtkPoints()
-Triangles = vtk.vtkCellArray()
 
-Points.InsertNextPoint(1.0, 0.0, 0.0)
-Points.InsertNextPoint(0.0, 0.0, 0.0)
-Points.InsertNextPoint(0.0, 1.0, 0.0)
+def main():
+    colors = vtk.vtkNamedColors()
 
-Triangle = vtk.vtkTriangle()
-Triangle.GetPointIds().SetId(0, 0)
-Triangle.GetPointIds().SetId(1, 1)
-Triangle.GetPointIds().SetId(2, 2)
-Triangles.InsertNextCell(Triangle)
+    # setup points and vertices
+    Points = vtk.vtkPoints()
+    Triangles = vtk.vtkCellArray()
 
-# setup colors (setting the name to "Colors" is nice but not necessary)
-Colors = vtk.vtkUnsignedCharArray()
-Colors.SetNumberOfComponents(3)
-Colors.SetName("Colors")
-Colors.InsertNextTuple3(255, 0, 0)
+    Points.InsertNextPoint(1.0, 0.0, 0.0)
+    Points.InsertNextPoint(0.0, 0.0, 0.0)
+    Points.InsertNextPoint(0.0, 1.0, 0.0)
 
-polydata = vtk.vtkPolyData()
-polydata.SetPoints(Points)
-polydata.SetPolys(Triangles)
+    Triangle = vtk.vtkTriangle()
+    Triangle.GetPointIds().SetId(0, 0)
+    Triangle.GetPointIds().SetId(1, 1)
+    Triangle.GetPointIds().SetId(2, 2)
+    Triangles.InsertNextCell(Triangle)
 
-polydata.GetCellData().SetScalars(Colors)
-polydata.Modified()
-if vtk.VTK_MAJOR_VERSION <= 5:
-    polydata.Update()
+    # setup colors (setting the name to "Colors" is nice but not necessary)
+    Colors = vtk.vtkUnsignedCharArray()
+    Colors.SetNumberOfComponents(3)
+    Colors.SetName("Colors")
+    Colors.InsertNextTuple3(*colors.GetColor3ub('Red'))
 
-writer = vtk.vtkXMLPolyDataWriter()
-writer.SetFileName("TriangleSolidColor.vtp")
-if vtk.VTK_MAJOR_VERSION <= 5:
-    writer.SetInput(polydata)
-else:
+    polydata = vtk.vtkPolyData()
+    polydata.SetPoints(Points)
+    polydata.SetPolys(Triangles)
+
+    polydata.GetCellData().SetScalars(Colors)
+    polydata.Modified()
+
+    writer = vtk.vtkXMLPolyDataWriter()
+    writer.SetFileName("TriangleSolidColor.vtp")
     writer.SetInputData(polydata)
-writer.Write()
+    writer.Write()
+
+
+if __name__ == '__main__':
+    main()

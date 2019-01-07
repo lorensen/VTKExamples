@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkIdList.h>
 #include <vtkPolyData.h>
@@ -72,11 +71,7 @@ int main(int, char *[])
         vtkSmartPointer<vtkExtractSelection>::New();
 
     extractSelection->SetInputConnection(0, extractEdges->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-    extractSelection->SetInput(1, selection);
-#else
     extractSelection->SetInputData(1, selection);
-#endif
     extractSelection->Update();
 
     vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
@@ -116,11 +111,7 @@ int main(int, char *[])
         vtkSmartPointer<vtkExtractSelection>::New();
 
     extractSelection->SetInputConnection(0, extractEdges->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-    extractSelection->SetInput(1, selection);
-#else
     extractSelection->SetInputData(1, selection);
-#endif
     extractSelection->Update();
 
     vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =

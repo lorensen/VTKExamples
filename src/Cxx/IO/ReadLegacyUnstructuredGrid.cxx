@@ -64,7 +64,7 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkVariantArray> legendValues =
     vtkSmartPointer<vtkVariantArray>::New();
-  vtkCellIterator *it = reader->GetOutput()->NewCellIterator();
+  vtkSmartPointer<vtkCellIterator> it = reader->GetOutput()->NewCellIterator();
   for (it->InitTraversal(); !it->IsDoneWithTraversal(); it->GoToNextCell())
   {
     vtkSmartPointer<vtkGenericCell> cell =
@@ -79,7 +79,7 @@ int main (int argc, char *argv[])
 #endif
     legendValues->InsertNextValue(vtkVariant(cellName));
   }
-  it->Delete();
+
   // Tube the edges
   vtkSmartPointer<vtkTubeFilter> tubes =
     vtkSmartPointer<vtkTubeFilter>::New();

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkSampleFunction.h>
 #include <vtkSphereSource.h>
@@ -74,13 +73,8 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkGlyph3D> glyph =
     vtkSmartPointer<vtkGlyph3D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyph->SetSource(sphere->GetOutput());
-  glyph->SetInput(selectPoints->GetOutput());
-#else
   glyph->SetSourceConnection(sphere->GetOutputPort());
   glyph->SetInputConnection(selectPoints->GetOutputPort());
-#endif
 
   // Create a mapper and actor
   vtkSmartPointer<vtkDataSetMapper> mapper =

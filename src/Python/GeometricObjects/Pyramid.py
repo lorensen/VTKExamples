@@ -37,10 +37,7 @@ def main():
 
     # Create an actor and mapper
     mapper = vtk.vtkDataSetMapper()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        mapper.SetInput(ug)
-    else:
-        mapper.SetInputData(ug)
+    mapper.SetInputData(ug)
 
     actor = vtk.vtkActor()
     actor.SetMapper(mapper)

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageData.h>
 #include <vtkImageCanvasSource2D.h>
@@ -24,22 +23,14 @@ int main(int, char *[])
   vtkSmartPointer<vtkImageShiftScale> shiftScaleFilter =
     vtkSmartPointer<vtkImageShiftScale>::New();
   shiftScaleFilter->SetOutputScalarTypeToUnsignedChar();
-#if VTK_MAJOR_VERSION <= 5
-  shiftScaleFilter->SetInputConnection(image->GetProducerPort());
-#else
   shiftScaleFilter->SetInputData(image);
-#endif
   shiftScaleFilter->SetShift(100);
   shiftScaleFilter->SetScale(1);
   shiftScaleFilter->Update();
 
   // Create actors
   vtkSmartPointer<vtkImageSliceMapper> originalSliceMapper = vtkSmartPointer<vtkImageSliceMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  originalSliceMapper->SetInputConnection(image->GetProducerPort());
-#else
   originalSliceMapper->SetInputData(image);
-#endif
 
   vtkSmartPointer<vtkImageSlice> originalSlice = vtkSmartPointer<vtkImageSlice>::New();
   originalSlice->SetMapper(originalSliceMapper);
@@ -99,14 +90,8 @@ void CreateImage(vtkImageData* image)
   unsigned int dim = 20;
 
   image->SetDimensions(dim, dim, 1);
-
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(1);
-  image->SetScalarTypeToUnsignedChar();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
+
   for(unsigned int x = 0; x < dim; x++)
   {
     for(unsigned int y = 0; y < dim; y++)

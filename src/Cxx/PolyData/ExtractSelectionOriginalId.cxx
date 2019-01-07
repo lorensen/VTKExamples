@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkPointData.h>
 #include <vtkIdTypeArray.h>
@@ -52,11 +51,7 @@ int main(int, char *[])
       vtkSmartPointer<vtkExtractSelection>::New();
 
   extractSelection->SetInputConnection(0, pointSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  extractSelection->SetInput(1, selection);
-#else
   extractSelection->SetInputData(1, selection);
-#endif
   extractSelection->Update();
 
   //in selection
@@ -97,11 +92,8 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkDataSetMapper> selectedMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  selectedMapper->SetInputConnection(selected->GetProducerPort());
-#else
   selectedMapper->SetInputData(selected);
-#endif
+
   vtkSmartPointer<vtkActor> selectedActor =
     vtkSmartPointer<vtkActor>::New();
   selectedActor->SetMapper(selectedMapper);

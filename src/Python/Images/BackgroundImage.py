@@ -11,67 +11,74 @@ tested with:
 """
 from __future__ import print_function
 
-import sys
-
-from vtk import (
-    vtkJPEGReader, vtkImageCanvasSource2D, vtkImageActor, vtkPolyDataMapper,
-    vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, vtkSuperquadricSource,
-    vtkActor, VTK_MAJOR_VERSION
-)
+import vtk
 
 
-def main(argv):
+def get_program_parameters():
+    import argparse
+    description = 'Add a background image at a render window.'
+    epilogue = '''
+        Add a background image at a render window.
+   '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue)
+    parser.add_argument('filename', default=None, type=str, nargs='?', help='A required filename.')
+    args = parser.parse_args()
+    return args.filename
+
+
+def main():
+    colors = vtk.vtkNamedColors()
+
+    colors.SetColor('light_cyan', [100, 255, 255, 255])
+    colors.SetColor('light_magenta', [255, 100, 255, 255])
+
     #  Verify input arguments
-    if len(argv) > 1:
+    fn = get_program_parameters()
+    if fn:
         # Read the image
-        jpeg_reader = vtkJPEGReader()
-        if not jpeg_reader.CanReadFile(argv[1]):
-            print("Error reading file %s" % argv[1])
+        jpeg_reader = vtk.vtkJPEGReader()
+        if not jpeg_reader.CanReadFile(fn):
+            print("Error reading file:", fn)
             return
 
-        jpeg_reader.SetFileName(argv[1])
+        jpeg_reader.SetFileName(fn)
         jpeg_reader.Update()
         image_data = jpeg_reader.GetOutput()
     else:
-        canvas_source = vtkImageCanvasSource2D()
+        canvas_source = vtk.vtkImageCanvasSource2D()
         canvas_source.SetExtent(0, 100, 0, 100, 0, 0)
         canvas_source.SetScalarTypeToUnsignedChar()
         canvas_source.SetNumberOfScalarComponents(3)
-        canvas_source.SetDrawColor(127, 127, 100)
+        canvas_source.SetDrawColor(colors.GetColor4ub('warm_grey'))
         canvas_source.FillBox(0, 100, 0, 100)
-        canvas_source.SetDrawColor(100, 255, 255)
+        canvas_source.SetDrawColor(colors.GetColor4ub('light_cyan'))
         canvas_source.FillTriangle(10, 10, 25, 10, 25, 25)
-        canvas_source.SetDrawColor(255, 100, 255)
+        canvas_source.SetDrawColor(colors.GetColor4ub('light_magenta'))
         canvas_source.FillTube(75, 75, 0, 75, 5.0)
         canvas_source.Update()
         image_data = canvas_source.GetOutput()
 
     # Create an image actor to display the image
-    image_actor = vtkImageActor()
-
-    if VTK_MAJOR_VERSION <= 5:
-        image_actor.SetInput(image_data)
-    else:
-        image_actor.SetInputData(image_data)
+    image_actor = vtk.vtkImageActor()
+    image_actor.SetInputData(image_data)
 
     # Create a renderer to display the image in the background
-    background_renderer = vtkRenderer()
+    background_renderer = vtk.vtkRenderer()
 
     # Create a superquadric
-    superquadric_source = vtkSuperquadricSource()
+    superquadric_source = vtk.vtkSuperquadricSource()
     superquadric_source.SetPhiRoundness(1.1)
     superquadric_source.SetThetaRoundness(.2)
 
     # Create a mapper and actor
-    superquadric_mapper = vtkPolyDataMapper()
+    superquadric_mapper = vtk.vtkPolyDataMapper()
     superquadric_mapper.SetInputConnection(superquadric_source.GetOutputPort())
 
-    superquadric_actor = vtkActor()
+    superquadric_actor = vtk.vtkActor()
     superquadric_actor.SetMapper(superquadric_mapper)
 
-    scene_renderer = vtkRenderer()
-
-    render_window = vtkRenderWindow()
+    scene_renderer = vtk.vtkRenderer()
+    render_window = vtk.vtkRenderWindow()
 
     # Set up the render window and renderers such that there is
     # a background layer and a foreground layer
@@ -82,7 +89,7 @@ def main(argv):
     render_window.AddRenderer(background_renderer)
     render_window.AddRenderer(scene_renderer)
 
-    render_window_interactor = vtkRenderWindowInteractor()
+    render_window_interactor = vtk.vtkRenderWindowInteractor()
     render_window_interactor.SetRenderWindow(render_window)
 
     # Add actors to the renderers
@@ -117,4 +124,4 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()

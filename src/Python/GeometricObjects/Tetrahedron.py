@@ -48,10 +48,7 @@ def main():
 
     # Create a mapper and actor
     mapper1 = vtk.vtkDataSetMapper()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        mapper1.SetInputConnection(unstructuredGrid1.GetProducerPort())
-    else:
-        mapper1.SetInputData(unstructuredGrid1)
+    mapper1.SetInputData(unstructuredGrid1)
 
     actor1 = vtk.vtkActor()
     actor1.SetMapper(mapper1)
@@ -59,10 +56,7 @@ def main():
 
     # Create a mapper and actor
     mapper2 = vtk.vtkDataSetMapper()
-    if vtk.VTK_MAJOR_VERSION <= 5:
-        mapper2.SetInputConnection(unstructuredGrid2.GetProducerPort())
-    else:
-        mapper2.SetInputData(unstructuredGrid2)
+    mapper2.SetInputData(unstructuredGrid2)
 
     actor2 = vtk.vtkActor()
     actor2.SetMapper(mapper2)

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkRenderer.h>
 #include <vtkImageActor.h>
 #include <vtkStructuredPoints.h>
@@ -65,11 +64,8 @@ int main(int argc, char* argv[])
 
   vtkSmartPointer<vtkImageActor> imageActor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageActor->SetInput(imageIn->GetOutput());
-#else
   imageActor->SetInputData(imageIn->GetOutput());
-#endif
+
   originalRenderer->AddActor(imageActor);
 
   vtkSmartPointer<vtkImageLuminance> il =
@@ -101,15 +97,10 @@ int main(int argc, char* argv[])
   // Non maximum suppression
   vtkSmartPointer<vtkImageNonMaximumSuppression> nonMax =
     vtkSmartPointer<vtkImageNonMaximumSuppression>::New();
-#if VTK_MAJOR_VERSION <= 5
-  nonMax->SetMagnitudeInput(imgMagnitude->GetOutput());
-  nonMax->SetVectorInput(imgGradient->GetOutput());
-#else
   imgMagnitude->Update();
   nonMax->SetMagnitudeInputData(imgMagnitude->GetOutput());
   imgGradient->Update();
   nonMax->SetVectorInputData(imgGradient->GetOutput());
-#endif
   nonMax->SetDimensionality(2);
 
   vtkSmartPointer<vtkImageConstantPad> pad =
@@ -121,12 +112,8 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkImageToStructuredPoints> i2sp1 =
     vtkSmartPointer<vtkImageToStructuredPoints>::New();
   i2sp1->SetInputConnection(nonMax->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  i2sp1->SetVectorInput(pad->GetOutput());
-#else
   pad->Update();
- i2sp1->SetVectorInputData(pad->GetOutput());
-#endif
+  i2sp1->SetVectorInputData(pad->GetOutput());
 
   // Link edgles
   vtkSmartPointer<vtkLinkEdgels> imgLink =
@@ -148,23 +135,15 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkImageToStructuredPoints> i2sp =
     vtkSmartPointer<vtkImageToStructuredPoints>::New();
   i2sp->SetInputConnection(imgMagnitude->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  i2sp->SetVectorInput(pad->GetOutput());
-#else
   pad->Update();
   i2sp->SetVectorInputData(pad->GetOutput());
-#endif
 
   // Subpixel them
   vtkSmartPointer<vtkSubPixelPositionEdgels> spe =
     vtkSmartPointer<vtkSubPixelPositionEdgels>::New();
   spe->SetInputConnection(gf->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  spe->SetGradMaps(i2sp->GetStructuredPointsOutput());
-#else
   i2sp->Update();
   spe->SetGradMapsData(i2sp->GetStructuredPointsOutput());
-#endif
 
   vtkSmartPointer<vtkStripper> strip =
     vtkSmartPointer<vtkStripper>::New();

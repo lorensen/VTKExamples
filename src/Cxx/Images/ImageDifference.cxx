@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageData.h>
 #include <vtkImageMapper3D.h>
@@ -40,11 +39,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkImageDifference>::New();
       
   differenceFilter->SetInputConnection(source1->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-  differenceFilter->SetImage(source2->GetOutput());
-#else
   differenceFilter->SetImageConnection(source2->GetOutputPort());
-#endif
   differenceFilter->Update();
     
   // Define viewport ranges

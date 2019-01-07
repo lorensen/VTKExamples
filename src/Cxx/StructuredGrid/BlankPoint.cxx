@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkIdList.h>
 #include <vtkProperty.h>
@@ -54,11 +53,7 @@ int main(int, char *[])
   // Create a mapper and actor
   vtkSmartPointer<vtkDataSetMapper> gridMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  gridMapper->SetInputConnection(structuredGrid->GetProducerPort());
-#else
   gridMapper->SetInputData(structuredGrid);
-#endif
 
   vtkSmartPointer<vtkActor> gridActor =
     vtkSmartPointer<vtkActor>::New();

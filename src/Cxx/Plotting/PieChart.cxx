@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkSmartPointer.h>

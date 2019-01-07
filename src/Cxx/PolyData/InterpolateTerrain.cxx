@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkCellArray.h>
 #include <vtkPoints.h>
@@ -19,12 +18,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkImageData> image =
     vtkSmartPointer<vtkImageData>::New();
   image->SetExtent(0, 9, 0, 9, 0, 0);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetScalarTypeToDouble();
-  image->SetNumberOfScalarComponents(1);
-#else
   image->AllocateScalars(VTK_DOUBLE,1);
-#endif
+
   //Create a random set of heights on a grid. This is often called a
   //"terrain map"
   vtkSmartPointer<vtkPoints> points =
@@ -49,11 +44,7 @@ int main(int, char *[])
   //triangulate the grid points
   vtkSmartPointer<vtkDelaunay2D> delaunay =
     vtkSmartPointer<vtkDelaunay2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  delaunay->SetInput ( polydata );
-#else
   delaunay->SetInputData ( polydata );
-#endif
   delaunay->Update();
 
   vtkSmartPointer<vtkXMLPolyDataWriter> writer =
@@ -75,13 +66,8 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkProbeFilter> probe =
     vtkSmartPointer<vtkProbeFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  probe->SetSource(image);
-  probe->SetInput(probePolyData);
-#else
   probe->SetSourceData(image);
   probe->SetInputData(probePolyData);
-#endif
   probe->Update();
 
   vtkDataArray* data = probe->GetOutput()->GetPointData()->GetScalars();

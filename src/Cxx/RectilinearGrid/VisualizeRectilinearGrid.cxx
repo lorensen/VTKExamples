@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkRectilinearGrid.h>
 #include <vtkMath.h>
@@ -40,11 +39,7 @@ int main(int, char *[])
   
   vtkSmartPointer<vtkShrinkFilter> shrinkFilter = 
     vtkSmartPointer<vtkShrinkFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  shrinkFilter->SetInputConnection(grid->GetProducerPort());
-#else
   shrinkFilter->SetInputData(grid);
-#endif
   shrinkFilter->SetShrinkFactor(.8);
   
   // Create a mapper and actor

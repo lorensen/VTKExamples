@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkXMLUnstructuredGridWriter.h>
 #include <vtkRectilinearGrid.h>
@@ -42,11 +41,7 @@ int main(int, char *[])
  
   vtkSmartPointer<vtkRectilinearGridToTetrahedra> rectilinearGridToTetrahedra =
     vtkSmartPointer<vtkRectilinearGridToTetrahedra>::New();
-#if VTK_MAJOR_VERSION <= 5
-  rectilinearGridToTetrahedra->SetInputConnection(grid->GetProducerPort());
-#else
   rectilinearGridToTetrahedra->SetInputData(grid);
-#endif
   rectilinearGridToTetrahedra->Update();
  
   vtkSmartPointer<vtkXMLUnstructuredGridWriter> writer = 

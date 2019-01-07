@@ -29,7 +29,6 @@ Usage:
 #include <vtkRenderer.h>
 #include <vtkRendererCollection.h>
 #include <vtkSmartPointer.h>
-#include <vtkVersion.h>
 #include <vtkWindowToImageFilter.h>
 
 #include <algorithm>
