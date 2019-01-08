@@ -1,6 +1,6 @@
 ### Description
 
-Example to demonstrate a actor that draws 2D data.
+Example to demonstrate an actor that draws 2D data.
 
 The object vtkActor2D is similar to vtkActor, but it is made to be used with two dimensional images and annotation. 
 
