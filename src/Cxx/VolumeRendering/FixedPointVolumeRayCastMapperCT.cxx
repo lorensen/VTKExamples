@@ -230,8 +230,10 @@ int main(int argc, char *argv[])
   iren->GetInteractorStyle()->SetDefaultRenderer(renderer);
 
   // Read the data
-  vtkAlgorithm *reader=0;
-  vtkImageData *input=0;
+  vtkSmartPointer<vtkAlgorithm> reader =
+    vtkSmartPointer<vtkAlgorithm>::New();
+  vtkSmartPointer<vtkImageData> input =
+    vtkSmartPointer<vtkImageData>::New();
   if(dirname)
   {
     vtkSmartPointer<vtkDICOMImageReader> dicomReader =
@@ -268,6 +270,7 @@ int main(int argc, char *argv[])
   // Verify that we actually have a volume
   int dim[3];
   input->GetDimensions(dim);
+
   if ( dim[0] < 2 ||
        dim[1] < 2 ||
        dim[2] < 2 )
