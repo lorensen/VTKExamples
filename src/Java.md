@@ -87,6 +87,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[Actor2D](/Java/Images/Actor2D) | vtkActor2D | A actor that draws 2D data
 [StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image 
 
 ## Input and Output
