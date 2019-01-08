@@ -32,12 +32,14 @@ int main(int argc, char *argv[]) {
     // Read the image
     vtkSmartPointer<vtkImageReader2Factory> readerFactory =
         vtkSmartPointer<vtkImageReader2Factory>::New();
-    vtkImageReader2 *imageReader = readerFactory->CreateImageReader2(argv[1]);
+    vtkSmartPointer<vtkImageReader2> imageReader =
+      readerFactory->CreateImageReader2(argv[1]);
     imageReader->SetFileName(argv[1]);
     imageReader->Update();
     imageData = imageReader->GetOutput();
-    imageReader->Delete();
-  } else {
+  }
+  else
+  {
     vtkSmartPointer<vtkImageCanvasSource2D> canvasSource =
         vtkSmartPointer<vtkImageCanvasSource2D>::New();
     canvasSource->SetExtent(0, 100, 0, 100, 0, 0);
