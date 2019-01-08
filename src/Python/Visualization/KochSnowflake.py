@@ -1,17 +1,15 @@
 #!/usr/bin/env python
-# ----------------------------------------------------------------------------- #
-#                                   Imports                                     #
-# ----------------------------------------------------------------------------- #
 from math import pi, cos, sin, sqrt
+
 import vtk
 
 LEVEL = 6
 
 
-# ----------------------------------------------------------------------------- #
-#                        Koch Snowflake as vtkPolyLine                          #
-# ----------------------------------------------------------------------------- #
 def as_polyline(points, level):
+    """
+    Koch Snowflake as a vtkPolyLine
+    """
     # Use the points from the previous iteration to create the points of the next
     # level. There is an assumption on my part that the curve is traversed in a
     # counterclockwise fashion. If the initial triangle above is written to
@@ -25,7 +23,7 @@ def as_polyline(points, level):
         for i in range(1, points.GetNumberOfPoints()):
             x0, y0, z0 = points.GetPoint(i - 1)
             x1, y1, z1 = points.GetPoint(i)
-            t = sqrt((x1 - x0)**2 + (y1 - y0)**2)
+            t = sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2)
             nx = (x1 - x0) / t  # x-component of edge unit tangent
             ny = (y1 - y0) / t  # y-component of edge unit tangent
 
@@ -53,10 +51,10 @@ def as_polyline(points, level):
     return polydata
 
 
-# ----------------------------------------------------------------------------- #
-#                  Koch Snowflake as collection of vtkTriangles                 #
-# ----------------------------------------------------------------------------- #
 def as_triangles(indices, cellarray, level, data):
+    """
+    Koch Snowflake as a collection of vtkTriangles
+    """
     if len(indices) >= 3:
         stride = len(indices) // 4
         indices.append(indices[-1] + 1)
@@ -75,20 +73,19 @@ def as_triangles(indices, cellarray, level, data):
         as_triangles(indices[3 * stride: -1], cellarray, level + 1, data)
 
 
-# ----------------------------------------------------------------------------- #
-#                                 Main Method                                   #
-# ----------------------------------------------------------------------------- #
-if __name__ == "__main__":
+def main():
+    colors = vtk.vtkNamedColors()
+
     # Initially, set up the points to be an equilateral triangle. Note that the
     # first point is the same as the last point to make this a closed curve when
     # I create the vtkPolyLine.
     points = vtk.vtkPoints()
     for i in range(4):
-        points.InsertNextPoint(cos(2. * pi * i / 3), sin(2 * pi * i / 3.), 0.)
+        points.InsertNextPoint(cos(2.0 * pi * i / 3), sin(2 * pi * i / 3.0), 0.0)
 
     outline_pd = as_polyline(points, LEVEL)
     # You have already gone through the trouble of putting the points in the
-    # right places - so "all" you need todo now is to create polygons from the
+    # right places - so "all" you need to do now is to create polygons from the
     # points that are in the vtkPoints.
 
     # The points that are passed in, have an overlap of the beginning and the
@@ -133,7 +130,7 @@ if __name__ == "__main__":
     lut = vtk.vtkLookupTable()
     lut.SetNumberOfTableValues(256)
     lut.SetHueRange(0.6, 0.6)
-    lut.SetSaturationRange(0., 1.)
+    lut.SetSaturationRange(0.0, 1.0)
     lut.Build()
 
     triangle_mapper = vtk.vtkPolyDataMapper()
@@ -161,9 +158,16 @@ if __name__ == "__main__":
     renw.AddRenderer(triangle_ren)
     renw.SetSize(800, 400)
 
+    outline_ren.SetBackground(colors.GetColor3d("Maroon"))
+    triangle_ren.SetBackground(colors.GetColor3d("Maroon"))
+
     iren = vtk.vtkRenderWindowInteractor()
     iren.SetRenderWindow(renw)
 
     outline_ren.ResetCamera()
     renw.Render()
     iren.Start()
+
+
+if __name__ == '__main__':
+    main()
