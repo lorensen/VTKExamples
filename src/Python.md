@@ -120,9 +120,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | -------------- | ---------------------- | ------------- | ------- |
 [Arrow](/Python/GeometricObjects/Arrow) | vtkArrowSource |
 [Cone](/Python/GeometricObjects/Cone) | vtkConeSource |
-[ConeA](/Python/GeometricObjects/ConeA) | vtkConeSource |
 [Cube](/Python/GeometricObjects/Cube) | vtkCubeSource |
-[Cube1](/Python/GeometricObjects/Cube1) | vtkCubeSource |
 [Cylinder](/Python/GeometricObjects/Cylinder) | vtkCylinderSource |
 [Disk](/Python/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Python/GeometricObjects/Frustum) | vtkFrustumSource |
@@ -133,6 +131,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [PlatonicSolids](/Python/GeometricObjects/PlatonicSolids) | vtkPlatonicSolidSource | All five platonic solids are displayed.
 [PolyLine1](/Python/GeometricObjects/PolyLine1) | vtkPolyLine | This example demonstrates how to create a polygon through several ordered points.
 [RegularPolygonSource](/Python/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource |
+[ShrinkCube](/Python/GeometricObjects/ShrinkCube) | vtkCubeSource vtkShrinkFilter | Applying shrink filter to an object.
 [Sphere](/Python/GeometricObjects/Sphere) | vtkSphereSource |
 [TessellatedBoxSource](/Python/GeometricObjects/TessellatedBoxSource) | vtkTessellatedBoxSource | Generate a box with tessellated sides.
 [TextActor](/Python/GeometricObjects/TextActor) | vtkTextActor | 2D "HUD-type" text
@@ -484,8 +483,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[SumVTKImages](/Python/ImageData/SumVTKImages) | vtkImageWeightedSum | A function to simplify the summing of images, where you can pass a list of images and
-[WriteReadVtkImageData](/Python/ImageData/WriteReadVtkImageData) | vtkImageData vtkXMLImageDataReader vtkXMLImageDataWriter |
+[SumVTKImages](/Python/ImageData/SumVTKImages) | vtkImageWeightedSum | A function to simplify the summing of images, where you can pass a list of images and weights.
+[WriteReadVtkImageData](/Python/ImageData/WriteReadVtkImageData) | vtkImageData vtkXMLImageDataReader vtkXMLImageDataWriter | Generate, edit and read out vtk image data.
 
 ## Volume Rendering
 

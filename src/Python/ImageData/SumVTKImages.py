@@ -4,7 +4,7 @@ import vtk
 
 
 # ImageSets = List of Image sets
-# Weights  = List of wieghts e.g [1, 1, 1]
+# Weights  = List of weights e.g [1, 1, 1]
 
 def SumVTKImages(ImageSets, Weights):
     NumOfImages = len(ImageSets)

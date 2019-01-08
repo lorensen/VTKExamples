@@ -1,6 +1,4 @@
 ### Description
+Display a cube.
 
-Generates a cube using vtkBoxSource with 6 sides. Each side is one quad.
-
-!!! seealso
-    [TessellatedBoxSource](/Python/GeometricObjects/TessellatedBoxSource) generates multiple quads or triangles per side.
+A nice simple example that demonstrates the operation of the VTK pipeline.

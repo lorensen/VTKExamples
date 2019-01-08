@@ -42,7 +42,7 @@ def main():
     renderWindowInteractor.SetRenderWindow(renderWindow)
 
     renderer.AddActor(actor)
-    renderer.SetBackground(colors.GetColor3d("DarkOliveGreen"))
+    renderer.SetBackground(colors.GetColor3d("DarkGreen"))
 
     renderWindow.Render()
     renderWindowInteractor.Start()

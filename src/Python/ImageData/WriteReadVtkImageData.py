@@ -1,9 +1,23 @@
 import vtk
 
+
+def get_program_parameters():
+    import argparse
+    description = 'Generate image data, edit data points, store and reload it.'
+    epilogue = '''
+   '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue)
+    parser.add_argument('filename', help='A required vtk filename, e.g. writeImageData.vti.', nargs='?',
+                        const='writeImageData.vti',
+                        type=str, default='writeImageData.vti')
+    args = parser.parse_args()
+    return args.filename
+
+
 def main():
     colors = vtk.vtkNamedColors()
 
-    filename = 'writeImageData.vti'
+    filename = get_program_parameters()
 
     imageData = vtk.vtkImageData()
     imageData.SetDimensions(3, 4, 5)
@@ -53,6 +67,7 @@ def main():
     renderWindowInteractor.SetRenderWindow(renderWindow)
     renderWindowInteractor.Initialize()
     renderWindowInteractor.Start()
+
 
 if __name__ == '__main__':
     main()
