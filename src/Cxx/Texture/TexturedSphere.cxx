@@ -42,7 +42,7 @@ int main (int argc, char *argv[])
   // Read texture file
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkImageReader2 *imageReader =
+  vtkSmartPointer<vtkImageReader2> imageReader =
     readerFactory->CreateImageReader2(argv[1]);
   imageReader->SetFileName(argv[1]);
 
@@ -81,6 +81,5 @@ int main (int argc, char *argv[])
   renderWindow->Render();
   renWinInteractor->Start();
 
-  imageReader->Delete();
   return EXIT_SUCCESS;
 }

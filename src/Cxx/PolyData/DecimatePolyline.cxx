@@ -17,7 +17,8 @@ int main(int, char *[])
 {
   const unsigned int numberofpoints = 100;
 
-  vtkPolyData* circle = vtkPolyData::New();
+  vtkSmartPointer<vtkPolyData> circle =
+    vtkSmartPointer<vtkPolyData>::New();
   vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
   vtkSmartPointer<vtkCellArray> lines = vtkSmartPointer<vtkCellArray>::New();
   vtkIdType* lineIndices = new vtkIdType[numberofpoints+1];
@@ -87,8 +88,6 @@ int main(int, char *[])
   renwin->Render();
 
   iren->Start();
-
-  circle->Delete();
 
   return EXIT_SUCCESS;
 }

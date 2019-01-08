@@ -312,10 +312,10 @@ void AddLightActors(vtkRenderer *r)
     if(l->LightTypeIsSceneLight() && l->GetPositional()
        && angle<180.0) // spotlight
     {
-      vtkLightActor *la=vtkLightActor::New();
+      vtkSmartPointer<vtkLightActor> la=
+        vtkSmartPointer<vtkLightActor>::New();
       la->SetLight(l);
       r->AddViewProp(la);
-      la->Delete();
     }
     l=lights->GetNextItem();
   }
