@@ -1,4 +1,4 @@
-Description
+### Description
 
 Example to demonstrate a actor that draws 2D data.
 
