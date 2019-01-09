@@ -1,103 +1,98 @@
 #!/usr/bin/env python
 
+"""
+This is (almost) a direct C++ to Python transliteration of
+ <VTK-root>/Examples/DataManipulation/Cxx/Cube.cxx from the VTK
+ source distribution, which "shows how to manually create vtkPolyData"
+
+A convenience function, mkVtkIdList(), has been added and one if/else
+ so the example also works in version 6 or later.
+If your VTK version is 5.x then remove the line: colors = vtk.vtkNamedColors()
+ and replace the set background parameters with (1.0, 0.9688, 0.8594)
+
+"""
+
 import vtk
+
+
+def mkVtkIdList(it):
+    """
+    Makes a vtkIdList from a Python iterable. I'm kinda surprised that
+     this is necessary, since I assumed that this kind of thing would
+     have been built into the wrapper and happen transparently, but it
+     seems not.
+
+    :param it: A python iterable.
+    :return: A vtkIdList
+    """
+    vil = vtk.vtkIdList()
+    for i in it:
+        vil.InsertNextId(int(i))
+    return vil
 
 
 def main():
     colors = vtk.vtkNamedColors()
 
-    # Create a rendering window and renderer.
-    ren = vtk.vtkRenderer()
-    renWin = vtk.vtkRenderWindow()
-    renWin.SetWindowName("Cube")
-    renWin.AddRenderer(ren)
+    # x = array of 8 3-tuples of float representing the vertices of a cube:
+    x = [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 0.0),
+         (0.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 1.0, 1.0), (0.0, 1.0, 1.0)]
 
-    # Create a renderwindowinteractor.
+    # pts = array of 6 4-tuples of vtkIdType (int) representing the faces
+    #     of the cube in terms of the above vertices
+    pts = [(0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4),
+           (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+
+    # We'll create the building blocks of polydata including data attributes.
+    cube = vtk.vtkPolyData()
+    points = vtk.vtkPoints()
+    polys = vtk.vtkCellArray()
+    scalars = vtk.vtkFloatArray()
+
+    # Load the point, cell, and data attributes.
+    for i, xi in enumerate(x):
+        points.InsertPoint(i, xi)
+    for pt in pts:
+        polys.InsertNextCell(mkVtkIdList(pt))
+    for i, _ in enumerate(x):
+        scalars.InsertTuple1(i, i)
+
+    # We now assign the pieces to the vtkPolyData.
+    cube.SetPoints(points)
+    cube.SetPolys(polys)
+    cube.GetPointData().SetScalars(scalars)
+
+    # Now we'll look at it.
+    cubeMapper = vtk.vtkPolyDataMapper()
+    cubeMapper.SetInputData(cube)
+    cubeMapper.SetScalarRange(cube.GetScalarRange())
+    cubeActor = vtk.vtkActor()
+    cubeActor.SetMapper(cubeMapper)
+
+    # The usual rendering stuff.
+    camera = vtk.vtkCamera()
+    camera.SetPosition(1, 1, 1)
+    camera.SetFocalPoint(0, 0, 0)
+
+    renderer = vtk.vtkRenderer()
+    renWin = vtk.vtkRenderWindow()
+    renWin.AddRenderer(renderer)
+
     iren = vtk.vtkRenderWindowInteractor()
     iren.SetRenderWindow(renWin)
 
-    # Create cube.
-    cube = vtk.vtkCubeSource()
-    cube.Update()
+    renderer.AddActor(cubeActor)
+    renderer.SetActiveCamera(camera)
+    renderer.ResetCamera()
+    renderer.SetBackground(colors.GetColor3d("Cornsilk"))
+    # renderer.SetBackground(1.0, 0.9688, 0.8594)
 
-    # mapper
-    cubeMapper = vtk.vtkPolyDataMapper()
-    cubeMapper.SetInputData(cube.GetOutput())
+    renWin.SetSize(600, 600)
 
-    # Actor.
-    cubeActor = vtk.vtkActor()
-    cubeActor.SetMapper(cubeMapper)
-    cubeActor.GetProperty().SetColor(colors.GetColor3d("Banana"))
-
-    # Assign actor to the renderer.
-    ren.AddActor(cubeActor)
-
-    ren.ResetCamera()
-    ren.GetActiveCamera().Azimuth(30)
-    ren.GetActiveCamera().Elevation(30)
-    ren.ResetCameraClippingRange()
-    ren.SetBackground(colors.GetColor3d("Silver"))
-
-    # Enable user interface interactor.
-    iren.Initialize()
+    # interact with data
     renWin.Render()
-    WriteImage('TestCube', renWin, rgba=False)
     iren.Start()
 
-def WriteImage(fileName, renWin, rgba=True):
-    """
-    Write the render window view to an image file.
-
-    Image types supported are:
-     BMP, JPEG, PNM, PNG, PostScript, TIFF.
-    The default parameters are used for all writers, change as needed.
-
-    :param fileName: The file name, if no extension then PNG is assumed.
-    :param renWin: The render window.
-    :param rgba: Used to set the buffer type.
-    :return:
-    """
-
-    import os
-
-    if fileName:
-        # Select the writer to use.
-        path, ext = os.path.splitext(fileName)
-        ext = ext.lower()
-        if not ext:
-            ext = '.png'
-            fileName = fileName + ext
-        if ext == '.bmp':
-            writer = vtk.vtkBMPWriter()
-        elif ext == '.jpg':
-            writer = vtk.vtkJPEGWriter()
-        elif ext == '.pnm':
-            writer = vtk.vtkPNMWriter()
-        elif ext == '.ps':
-            if rgba:
-                rgba = False
-            writer = vtk.vtkPostScriptWriter()
-        elif ext == '.tiff':
-            writer = vtk.vtkTIFFWriter()
-        else:
-            writer = vtk.vtkPNGWriter()
-
-        windowto_image_filter = vtk.vtkWindowToImageFilter()
-        windowto_image_filter.SetInput(renWin)
-        windowto_image_filter.SetScale(1)  # image quality
-        if rgba:
-            windowto_image_filter.SetInputBufferTypeToRGBA()
-        else:
-            windowto_image_filter.SetInputBufferTypeToRGB()
-            # Read from the front buffer.
-            windowto_image_filter.ReadFrontBufferOff()
-            windowto_image_filter.Update()
-
-        writer.SetFileName(fileName)
-        writer.SetInputConnection(windowto_image_filter.GetOutputPort())
-        writer.Write()
-    else:
-        raise RuntimeError('Need a filename.')
 
 if __name__ == "__main__":
     main()
