@@ -7,41 +7,50 @@ import vtk
 class MyInteractorStyle(vtk.vtkInteractorStyleTrackballCamera):
 
     def __init__(self, parent=None):
-        self.AddObserver("MiddleButtonPressEvent", self.middleButtonPressEvent)
-        self.AddObserver("MiddleButtonReleaseEvent", self.middleButtonReleaseEvent)
+        self.AddObserver("MiddleButtonPressEvent", self.middle_button_press_event)
+        self.AddObserver("MiddleButtonReleaseEvent", self.middle_button_release_event)
 
-    def middleButtonPressEvent(self, obj, event):
+    def middle_button_press_event(self, obj, event):
         print("Middle Button pressed")
         self.OnMiddleButtonDown()
         return
 
-    def middleButtonReleaseEvent(self, obj, event):
+    def middle_button_release_event(self, obj, event):
         print("Middle Button released")
         self.OnMiddleButtonUp()
         return
 
 
-source = vtk.vtkSphereSource()
-source.SetCenter(0, 0, 0)
-source.SetRadius(1)
-source.Update()
+def main():
+    colors = vtk.vtkNamedColors()
 
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(source.GetOutputPort())
+    source = vtk.vtkSphereSource()
+    source.SetCenter(0, 0, 0)
+    source.SetRadius(1)
+    source.Update()
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(source.GetOutputPort())
 
-renderer = vtk.vtkRenderer()
-renderer.SetBackground(1, 1, 1)
-renderer.AddActor(actor)
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetColor(colors.GetColor3d('AliceBlue'))
 
-renwin = vtk.vtkRenderWindow()
-renwin.AddRenderer(renderer)
+    renderer = vtk.vtkRenderer()
+    renderer.SetBackground(colors.GetColor3d('Silver'))
+    renderer.AddActor(actor)
 
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetInteractorStyle(MyInteractorStyle())
-interactor.SetRenderWindow(renwin)
+    renwin = vtk.vtkRenderWindow()
+    renwin.AddRenderer(renderer)
 
-interactor.Initialize()
-interactor.Start()
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetInteractorStyle(MyInteractorStyle())
+    interactor.SetRenderWindow(renwin)
+
+    interactor.Initialize()
+    renwin.Render()
+    interactor.Start()
+
+
+if __name__ == '__main__':
+    main()

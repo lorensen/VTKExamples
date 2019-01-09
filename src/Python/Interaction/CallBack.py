@@ -80,7 +80,7 @@ def main():
 
     # Set up the callback.
     if use_function_callback:
-         # We are going to output the camera position when the event is triggered
+        # We are going to output the camera position when the event is triggered
         #  so we add the active camera as an attribute.
         GetOrientation.cam = ren.GetActiveCamera()
         # Register the callback with the object that is observing.
@@ -111,23 +111,26 @@ def GetOrientation(caller, ev):
     # Now print the camera orientation.
     CameraOrientation(GetOrientation.cam)
 
+
 class OrientationObserver(object):
     def __init__(self, cam):
         self.cam = cam
+
     def __call__(self, caller, ev):
         # Just do this to demonstrate who called callback and the event that triggered it.
         print(caller.GetClassName(), "Event Id:", ev)
         # Now print the camera orientation.
         CameraOrientation(self.cam)
 
+
 def CameraOrientation(cam):
-        fmt1 = "{:>15s}"
-        fmt2 = "{:9.6g}"
-        print(fmt1.format("Position:"), ', '.join(map(fmt2.format, cam.GetPosition())))
-        print(fmt1.format("Focal point:"), ', '.join(map(fmt2.format, cam.GetFocalPoint())))
-        print(fmt1.format("Clipping range:"), ', '.join(map(fmt2.format, cam.GetClippingRange())))
-        print(fmt1.format("View up:"), ', '.join(map(fmt2.format, cam.GetViewUp())))
-        print(fmt1.format("Distance:"), fmt2.format(cam.GetDistance()))
+    fmt1 = "{:>15s}"
+    fmt2 = "{:9.6g}"
+    print(fmt1.format("Position:"), ', '.join(map(fmt2.format, cam.GetPosition())))
+    print(fmt1.format("Focal point:"), ', '.join(map(fmt2.format, cam.GetFocalPoint())))
+    print(fmt1.format("Clipping range:"), ', '.join(map(fmt2.format, cam.GetClippingRange())))
+    print(fmt1.format("View up:"), ', '.join(map(fmt2.format, cam.GetViewUp())))
+    print(fmt1.format("Distance:"), fmt2.format(cam.GetDistance()))
 
 
 def MakeAxesActor():

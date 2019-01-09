@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Example of how to use Parallel Coordinates View to plot and compare
-# data set attributes,  and then to use selections in the parallel coordinates
+# data set attributes, and then to use selections in the parallel coordinates
 # view to extract and view data points associated with those selections
 # Use the "u" character to toggle between "inspect modes" on the parallel
 # coordinates view (i.e. between selecting data and manipulating axes)
@@ -44,7 +44,7 @@ def main():
     # Set up the Parallel Coordinates View and hook in representation
     view = vtk.vtkParallelCoordinatesView()
     view.SetRepresentation(rep)
-    view.SetInspectMode(1)  # VTK_INSPECT_SELECT_DATA = 1
+    view.SetInspectMode(view.VTK_INSPECT_SELECT_DATA)
     view.SetBrushOperatorToReplace()
     view.SetBrushModeToLasso()
 
@@ -65,26 +65,31 @@ def main():
     extract.SetInputConnection(0, elev.GetOutputPort())
     extract.SetInputConnection(1, annotationLink.GetOutputPort(2))
 
-    def UpdateRenderWindows(obj, event):
+    def update_render_windows(obj, event):
+        """
+        Handle updating of RenderWindow since it's not a "View"
+        and so not covered by vtkViewUpdater
 
-        # Handle updating of RenderWindow since it's not a "View"
-        # and so not covered by vtkViewUpdater
+        :param obj:
+        :param event:
+        :return:
+        """
         # ren.ResetCamera()
         renWin.Render()
 
     # Set up callback to update 3d render window when selections are changed in
     # parallel coordinates view
-    annotationLink.AddObserver("AnnotationChangedEvent", UpdateRenderWindows)
+    annotationLink.AddObserver("AnnotationChangedEvent", update_render_windows)
 
-    def ToggleInspectors(obj, event):
+    def toggle_inspectors(obj, event):
 
-        if (view.GetInspectMode() == 0):
+        if view.GetInspectMode() == 0:
             view.SetInspectMode(1)
         else:
             view.SetInspectMode(0)
 
     # Set up callback to toggle between inspect modes (manip axes & select data)
-    view.GetInteractor().AddObserver("UserEvent", ToggleInspectors)
+    view.GetInteractor().AddObserver("UserEvent", toggle_inspectors)
 
     # 3D outline of image data bounds
     outline = vtk.vtkOutlineFilter()

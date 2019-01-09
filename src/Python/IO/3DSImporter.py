@@ -47,10 +47,8 @@ def main():
 
 def get_program_parameters():
     import argparse
-    description = 'Importing and exporting files in VTK.'
+    description = 'Importing a 3ds file.'
     epilogue = '''
-        Importing and exporting files in VTK.
-
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)

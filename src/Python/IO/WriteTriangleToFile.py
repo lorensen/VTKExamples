@@ -1,14 +1,29 @@
 import vtk
 
 
+def get_program_parameters():
+    import argparse
+    description = 'Generate image data, then write a .stl file.'
+    epilogue = '''
+   '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue)
+    parser.add_argument('filename', help='A required stl filename.', nargs='?',
+                        const='TestWriteTriangleToFile.vtp',
+                        type=str, default='TestWriteTriangleToFile.vtp')
+    args = parser.parse_args()
+    return args.filename
+
+
 def main():
+    filename = get_program_parameters()
+
     Points = vtk.vtkPoints()
     Triangles = vtk.vtkCellArray()
     Triangle = vtk.vtkTriangle()
 
-    id = Points.InsertNextPoint(1.0, 0.0, 0.0)
-    id = Points.InsertNextPoint(0.0, 0.0, 0.0)
-    id = Points.InsertNextPoint(0.0, 1.0, 0.0)
+    Points.InsertNextPoint(1.0, 0.0, 0.0)
+    Points.InsertNextPoint(0.0, 0.0, 0.0)
+    Points.InsertNextPoint(0.0, 1.0, 0.0)
 
     Triangle.GetPointIds().SetId(0, 0)
     Triangle.GetPointIds().SetId(1, 1)
@@ -21,7 +36,7 @@ def main():
     polydata.Modified()
 
     writer = vtk.vtkXMLPolyDataWriter()
-    writer.SetFileName("Triangle.vtp")
+    writer.SetFileName(filename)
     writer.SetInputData(polydata)
     writer.Write()
 

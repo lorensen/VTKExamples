@@ -63,13 +63,13 @@ def main():
 
 def get_program_parameters():
     import argparse
-    description = 'The following example demonstrates how to read a .slc file using vtkSLCReader and how to render it with VTK.'
+    description = 'Read a .slc file.'
     epilogue = ''''''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('filename1', help='vw_knee.slc.')
+    parser.add_argument('filename', help='vw_knee.slc.')
     args = parser.parse_args()
-    return args.filename1
+    return args.filename
 
 
 if __name__ == '__main__':

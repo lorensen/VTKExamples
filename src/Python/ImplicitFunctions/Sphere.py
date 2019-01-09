@@ -1,5 +1,6 @@
 import vtk
 
+
 def main():
     colors = vtk.vtkNamedColors()
 
@@ -49,6 +50,7 @@ def main():
     interactor.Initialize()
     renwin.Render()
     interactor.Start()
+
 
 if __name__ == '__main__':
     main()
