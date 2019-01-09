@@ -161,7 +161,8 @@ int main (int, char *[])
   renderer->AddActor( zLabel );
 
   // custom callback to set the positions of the labels
-  vtkPositionCallback* callback = vtkPositionCallback::New();
+  vtkSmartPointer<vtkPositionCallback> callback =
+    vtkSmartPointer<vtkPositionCallback>::New();
   callback->XLabel = xLabel;
   callback->YLabel = yLabel;
   callback->ZLabel = zLabel;
@@ -178,7 +179,6 @@ int main (int, char *[])
 
   // begin mouse interaction
   renderWindowInteractor->Start();
-  callback->Delete();
 
   return EXIT_SUCCESS;
 }

@@ -25,10 +25,12 @@ int main ( int argc, char* argv[] )
   // Read the images
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkImageReader2 *imgReader1 = readerFactory->CreateImageReader2(argv[1]);
+  vtkSmartPointer<vtkImageReader2> imgReader1 =
+    readerFactory->CreateImageReader2(argv[1]);
   imgReader1->SetFileName(argv[1]);
 
-  vtkImageReader2 *imgReader2 = readerFactory->CreateImageReader2(argv[2]);
+  vtkSmartPointer<vtkImageReader2> imgReader2 =
+    readerFactory->CreateImageReader2(argv[2]);
   imgReader2->SetFileName(argv[2]);
 
   // Combine the images (blend takes multiple connections on the 0th input port)
@@ -56,7 +58,5 @@ int main ( int argc, char* argv[] )
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
 
-  imgReader1->Delete();
-  imgReader2->Delete();
   return EXIT_SUCCESS;
 }

@@ -30,8 +30,7 @@ int main(int argc, char *argv[])
   // Read file
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-
-  vtkImageReader2 *reader =
+  vtkSmartPointer<vtkImageReader2> reader =
     readerFactory->CreateImageReader2(argv[1]);
   reader->SetFileName(argv[1]);
   reader->Update();
@@ -81,8 +80,6 @@ int main(int argc, char *argv[])
   imageViewer->Render();
 
   renderWindowInteractor->Start();
-
-  reader->Delete();
 
   return EXIT_SUCCESS;
 }

@@ -74,7 +74,8 @@ int main(int, char *[])
   MyClass myClass;
   renderWindowInteractor->AddObserver(vtkCommand::KeyPressEvent, &myClass, &MyClass::KeypressCallbackFunction);
 
-  MyInteractorStyle* style = MyInteractorStyle::New();
+  vtkSmartPointer<MyInteractorStyle> style =
+    MyInteractorStyle::New();
   renderWindowInteractor->AddObserver(vtkCommand::KeyPressEvent, style, &MyInteractorStyle::KeypressCallbackFunction);
 
   vtkSmartPointer<MyInteractorStyle> style2 =
@@ -85,8 +86,6 @@ int main(int, char *[])
   renderer->SetBackground(1,1,1); // Background color white
   renderWindow->Render();
   renderWindowInteractor->Start();
-
-  style->Delete();
 
   return EXIT_SUCCESS;
 }

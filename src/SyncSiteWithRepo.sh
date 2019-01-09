@@ -16,7 +16,7 @@ echo "0) Can we access the repo?"
 ping -c 1 $HOST &> /dev/null
 if test "${?}" != 0
   then
-  echo "VTKExamples: $HOST is not accessible. Try again later" | mail -s "SyncSiteWithRepo failed" bill.lorensen@gmail.com
+  echo "VTKExamples: $HOST is not accessible. Try again later"
   exit 1
 fi
 

@@ -39,7 +39,8 @@ int main( int argc, char *argv[] )
   // Read an image
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkImageReader2 *reader = readerFactory->CreateImageReader2(argv[1]);
+  vtkSmartPointer<vtkImageReader2> reader =
+    readerFactory->CreateImageReader2(argv[1]);
   reader->SetFileName(argv[1]);
   reader->Update();
 
@@ -48,7 +49,6 @@ int main( int argc, char *argv[] )
   if( numComponents > 3 )
   {
     std::cout << "Error: cannot process an image with " << numComponents << " components!" << std::endl;
-    reader->Delete();
     return EXIT_FAILURE;
   }
 
@@ -196,6 +196,5 @@ int main( int argc, char *argv[] )
   interactor->Initialize();
   interactor->Start();
 
-  reader->Delete();
   return  EXIT_SUCCESS;
 }

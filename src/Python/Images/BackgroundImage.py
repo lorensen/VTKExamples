@@ -1,14 +1,5 @@
 #!/usr/bin/env python
-"""
-based on:
- - http://www.vtk.org/Wiki/VTK/Examples/Cxx/Images/BackgroundImage
 
-tested with:
- - VTK 6.3, Python 2.7
- - VTK 7.0, Python 3.5
-
->>> python background_image.py image_filename.jpg
-"""
 from __future__ import print_function
 
 import vtk
@@ -18,7 +9,7 @@ def get_program_parameters():
     import argparse
     description = 'Add a background image at a render window.'
     epilogue = '''
-        Add a background image at a render window.
+        Add a background image to a render window.
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
     parser.add_argument('filename', default=None, type=str, nargs='?', help='A required filename.')

@@ -119,7 +119,8 @@ int main ( int argc, char *argv[] )
   int numTris = 0;
   int numVerts = 0;
 
-  vtkCellIterator *it = delaunay3DAlpha->GetOutput()->NewCellIterator();
+  vtkSmartPointer<vtkCellIterator> it =
+    delaunay3DAlpha->GetOutput()->NewCellIterator();
   for (it->InitTraversal(); !it->IsDoneWithTraversal(); it->GoToNextCell())
   {
     if (it->GetCellType() == VTK_TETRA)
@@ -143,7 +144,6 @@ int main ( int argc, char *argv[] )
       cellData->InsertNextTypedTuple(color->GetColor3ub("Lime").GetData());
     }
   }
-  it->Delete();
 
   std::stringstream ss;
   ss << "numTetras: " << numTetras << std::endl;
@@ -275,7 +275,8 @@ public:
     int numTris = 0;
     int numVerts = 0;
 
-    vtkCellIterator *it = this->Delaunay3D->GetOutput()->NewCellIterator();
+    vtkSmartPointer<vtkCellIterator> it =
+      this->Delaunay3D->GetOutput()->NewCellIterator();
     for (it->InitTraversal(); !it->IsDoneWithTraversal(); it->GoToNextCell())
     {
       if (it->GetCellType() == VTK_TETRA)
@@ -299,7 +300,7 @@ public:
         cellData->InsertNextTypedTuple(color->GetColor3ub("Lime").GetData());
       }
     }
-    it->Delete();
+
     this->Delaunay3D->GetOutput()->GetCellData()->SetScalars(cellData);
     std::stringstream ss;
     ss << "numTetras: " << numTetras << std::endl;

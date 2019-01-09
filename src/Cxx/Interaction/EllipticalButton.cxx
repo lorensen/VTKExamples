@@ -128,7 +128,7 @@ vtkSmartPointer<vtkActor> CreateButtonActor(const char *textureFile)
 {
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkImageReader2 * imageReader =
+  vtkSmartPointer<vtkImageReader2> imageReader =
     readerFactory->CreateImageReader2(textureFile);
   imageReader->SetFileName(textureFile);
   imageReader->Update();
@@ -168,7 +168,6 @@ vtkSmartPointer<vtkActor> CreateButtonActor(const char *textureFile)
   buttonActor->SetMapper(buttonMapper);
   buttonActor->SetTexture(texture);
 
-  imageReader->Delete();
   return buttonActor;
 }
 

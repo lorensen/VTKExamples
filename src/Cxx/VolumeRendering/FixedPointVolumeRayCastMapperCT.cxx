@@ -211,8 +211,10 @@ int main(int argc, char *argv[])
   // Create the renderer, render window and interactor
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
-  vtkRenderer *renderer = vtkRenderer::New();
-  vtkRenderWindow *renWin = vtkRenderWindow::New();
+  vtkSmartPointer<vtkRenderer> renderer =
+    vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderWindow> renWin =
+    vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(renderer);
 
   // Connect it all. Note that funny arithematic on the
@@ -220,18 +222,22 @@ int main(int argc, char *argv[])
   // allocated time across all renderers, and the renderer
   // divides it time across all props. If clip is
   // true then there are two props
-  vtkRenderWindowInteractor *iren = vtkRenderWindowInteractor::New();
+  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
   iren->SetDesiredUpdateRate(frameRate / (1+clip) );
 
   iren->GetInteractorStyle()->SetDefaultRenderer(renderer);
 
   // Read the data
-  vtkAlgorithm *reader=0;
-  vtkImageData *input=0;
+  vtkSmartPointer<vtkAlgorithm> reader =
+    vtkSmartPointer<vtkAlgorithm>::New();
+  vtkSmartPointer<vtkImageData> input =
+    vtkSmartPointer<vtkImageData>::New();
   if(dirname)
   {
-    vtkDICOMImageReader *dicomReader = vtkDICOMImageReader::New();
+    vtkSmartPointer<vtkDICOMImageReader> dicomReader =
+      vtkSmartPointer<vtkDICOMImageReader>::New();
     dicomReader->SetDirectoryName(dirname);
     dicomReader->Update();
     input=dicomReader->GetOutput();
@@ -239,7 +245,8 @@ int main(int argc, char *argv[])
   }
   else if ( fileType == VTI_FILETYPE )
   {
-    vtkXMLImageDataReader *xmlReader = vtkXMLImageDataReader::New();
+    vtkSmartPointer<vtkXMLImageDataReader> xmlReader =
+      vtkSmartPointer<vtkXMLImageDataReader>::New();
     xmlReader->SetFileName(fileName);
     xmlReader->Update();
     input=xmlReader->GetOutput();
@@ -247,7 +254,8 @@ int main(int argc, char *argv[])
   }
   else if ( fileType == MHA_FILETYPE )
   {
-    vtkMetaImageReader *metaReader = vtkMetaImageReader::New();
+    vtkSmartPointer<vtkMetaImageReader> metaReader =
+      vtkSmartPointer<vtkMetaImageReader>::New();
     metaReader->SetFileName(fileName);
     metaReader->Update();
     input=metaReader->GetOutput();
@@ -262,6 +270,7 @@ int main(int argc, char *argv[])
   // Verify that we actually have a volume
   int dim[3];
   input->GetDimensions(dim);
+
   if ( dim[0] < 2 ||
        dim[1] < 2 ||
        dim[2] < 2 )
@@ -270,7 +279,8 @@ int main(int argc, char *argv[])
     exit(EXIT_FAILURE);
   }
 
-  vtkImageResample *resample = vtkImageResample::New();
+  vtkSmartPointer<vtkImageResample> resample =
+    vtkSmartPointer<vtkImageResample>::New();
   if ( reductionFactor < 1.0 )
   {
     resample->SetInputConnection( reader->GetOutputPort() );
@@ -280,8 +290,10 @@ int main(int argc, char *argv[])
   }
 
   // Create our volume and mapper
-  vtkVolume *volume = vtkVolume::New();
-  vtkFixedPointVolumeRayCastMapper *mapper = vtkFixedPointVolumeRayCastMapper::New();
+  vtkSmartPointer<vtkVolume> volume =
+    vtkSmartPointer<vtkVolume>::New();
+  vtkSmartPointer<vtkFixedPointVolumeRayCastMapper> mapper =
+    vtkSmartPointer<vtkFixedPointVolumeRayCastMapper>::New();
 
   if ( reductionFactor < 1.0 )
   {
@@ -309,11 +321,13 @@ int main(int argc, char *argv[])
 
 
   // Create our transfer function
-  vtkColorTransferFunction *colorFun = vtkColorTransferFunction::New();
-  vtkPiecewiseFunction *opacityFun = vtkPiecewiseFunction::New();
-
+  vtkSmartPointer<vtkColorTransferFunction> colorFun =
+    vtkSmartPointer<vtkColorTransferFunction>::New();
+  vtkSmartPointer<vtkPiecewiseFunction> opacityFun =
+    vtkSmartPointer<vtkPiecewiseFunction>::New();
   // Create the property and attach the transfer functions
-  vtkVolumeProperty *property = vtkVolumeProperty::New();
+  vtkSmartPointer<vtkVolumeProperty> property =
+    vtkSmartPointer<vtkVolumeProperty>::New();
   property->SetIndependentComponents(independentComponents);
   property->SetColor( colorFun );
   property->SetScalarOpacity( opacityFun );
@@ -471,18 +485,6 @@ int main(int argc, char *argv[])
   renWin->Render();
 
   iren->Start();
-
-  opacityFun->Delete();
-  colorFun->Delete();
-  property->Delete();
-
-  volume->Delete();
-  mapper->Delete();
-  reader->Delete();
-  resample->Delete();
-  renderer->Delete();
-  renWin->Delete();
-  iren->Delete();
 
   return EXIT_SUCCESS;;
 }

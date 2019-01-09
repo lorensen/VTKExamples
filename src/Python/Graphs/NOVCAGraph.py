@@ -1,14 +1,25 @@
 #!/usr/bin/env python
-# Sanjaya Gajurel, Computational Scientist, Case Western Reserve University, April 2015
 
 import vtk
 
-# ------------------------------------------------------------------------------
-# Script Entry Point
-# ------------------------------------------------------------------------------
-if __name__ == "__main__":
 
-    print("vtkGraph: Building a graph using Unstructured Grid & dumping it in a vtk file, vertex.vtu, to be visualized using ParaView")
+def get_program_parameters():
+    import argparse
+    description = 'Building a graph using Unstructured Grid & dumping it in a vtk file.'
+    epilogue = '''
+        Building a graph using Unstructured Grid & dumping it in a vtk file, to be visualized using ParaView.
+        
+        The generated file can then be used in ParaView/VisIt.
+   '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue)
+    parser.add_argument('filename', help='A required vtk filename, e.g. vertex.vtu.', nargs='?', const='vertex.vtu',
+                        type=str, default='vertex.vtu')
+    args = parser.parse_args()
+    return args.filename
+
+
+def main():
+    fn = get_program_parameters()
 
     pointSource = vtk.vtkPointSource()
     pointSource.Update()
@@ -74,9 +85,13 @@ if __name__ == "__main__":
 
     # Dump the graph in VTK unstructured format (.vtu)
     gw = vtk.vtkXMLUnstructuredGridWriter()
-    gw.SetFileName("vertex.vtu")
+    gw.SetFileName(fn)
     gw.SetInputData(G)
     gw.Write()
     print('---> ')
 
     print("Feed the vertex.vtu file in ParaView/VisIt.")
+
+
+if __name__ == '__main__':
+    main()

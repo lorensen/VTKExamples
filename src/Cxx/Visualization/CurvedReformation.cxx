@@ -53,8 +53,8 @@ int main (int argc, char *argv[])
   // Read the volume data
   vtkSmartPointer< vtkImageReader2Factory > imageFactory =
     vtkSmartPointer< vtkImageReader2Factory >::New();
-  vtkImageReader2 *imageReader =
-  imageFactory->CreateImageReader2(volumeFileName.c_str());
+  vtkSmartPointer<vtkImageReader2> imageReader =
+    imageFactory->CreateImageReader2(volumeFileName.c_str());
   imageReader->SetFileName(volumeFileName.c_str());
   imageReader->Update();
 
@@ -134,7 +134,6 @@ int main (int argc, char *argv[])
   renderWindow->Render();
   renderWindowInteractor->Start();
 
-  imageReader->Delete();
   return EXIT_SUCCESS;
 }
 

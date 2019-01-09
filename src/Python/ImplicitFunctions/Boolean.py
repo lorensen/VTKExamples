@@ -1,59 +1,74 @@
 import vtk
 
-# create a sphere
-sphere = vtk.vtkSphere()
-sphere.SetRadius(1)
-sphere.SetCenter(1, 0, 0)
 
-# create a box
-box = vtk.vtkBox()
-box.SetBounds(-1, 1, -1, 1, -1, 1)
+def main():
+    colors = vtk.vtkNamedColors()
 
-# combine the two implicit functions
-boolean = vtk.vtkImplicitBoolean()
-boolean.SetOperationTypeToDifference()
-# boolean.SetOperationTypeToUnion()
-# boolean.SetOperationTypeToIntersection()
-boolean.AddFunction(box)
-boolean.AddFunction(sphere)
+    # create a sphere
+    sphere = vtk.vtkSphere()
+    sphere.SetRadius(1)
+    sphere.SetCenter(1, 0, 0)
 
-# The sample function generates a distance function from the implicit
-# function. This is then contoured to get a polygonal surface.
-sample = vtk.vtkSampleFunction()
-sample.SetImplicitFunction(boolean)
-sample.SetModelBounds(-1, 2, -1, 1, -1, 1)
-sample.SetSampleDimensions(40, 40, 40)
-sample.ComputeNormalsOff()
+    # create a box
+    box = vtk.vtkBox()
+    box.SetBounds(-1, 1, -1, 1, -1, 1)
 
-# contour
-surface = vtk.vtkContourFilter()
-surface.SetInputConnection(sample.GetOutputPort())
-surface.SetValue(0, 0.0)
+    # combine the two implicit functions
+    boolean = vtk.vtkImplicitBoolean()
+    boolean.SetOperationTypeToDifference()
+    # boolean.SetOperationTypeToUnion()
+    # boolean.SetOperationTypeToIntersection()
+    boolean.AddFunction(box)
+    boolean.AddFunction(sphere)
 
-# mapper
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(surface.GetOutputPort())
-mapper.ScalarVisibilityOff()
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
-actor.GetProperty().EdgeVisibilityOn()
-actor.GetProperty().SetEdgeColor(.2, .2, .5)
+    # The sample function generates a distance function from the implicit
+    # function. This is then contoured to get a polygonal surface.
+    sample = vtk.vtkSampleFunction()
+    sample.SetImplicitFunction(boolean)
+    sample.SetModelBounds(-1, 2, -1, 1, -1, 1)
+    sample.SetSampleDimensions(40, 40, 40)
+    sample.ComputeNormalsOff()
 
-# A renderer and render window
-renderer = vtk.vtkRenderer()
-renderer.SetBackground(1, 1, 1)
+    # contour
+    surface = vtk.vtkContourFilter()
+    surface.SetInputConnection(sample.GetOutputPort())
+    surface.SetValue(0, 0.0)
 
-# add the actor
-renderer.AddActor(actor)
+    # mapper
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(surface.GetOutputPort())
+    mapper.ScalarVisibilityOff()
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().EdgeVisibilityOn()
+    actor.GetProperty().SetColor(colors.GetColor3d('AliceBlue'))
+    actor.GetProperty().SetEdgeColor(colors.GetColor3d('SteelBlue'))
 
-# render window
-renwin = vtk.vtkRenderWindow()
-renwin.AddRenderer(renderer)
+    # A renderer and render window
+    renderer = vtk.vtkRenderer()
+    renderer.SetBackground(colors.GetColor3d('Silver'))
 
-# An interactor
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renwin)
+    # add the actor
+    renderer.AddActor(actor)
 
-# Start
-interactor.Initialize()
-interactor.Start()
+    # render window
+    renwin = vtk.vtkRenderWindow()
+    renwin.AddRenderer(renderer)
+
+    # An interactor
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(renwin)
+
+    # Start
+    interactor.Initialize()
+    renwin.Render()
+    # renderer.GetActiveCamera().AddObserver('ModifiedEvent', CameraModifiedCallback)
+    renderer.GetActiveCamera().SetPosition(5.0, -4.0, 1.6)
+    renderer.GetActiveCamera().SetViewUp(0.1, 0.5, 0.9)
+    renderer.GetActiveCamera().SetDistance(6.7)
+    renwin.Render()
+    interactor.Start()
+
+
+if __name__ == '__main__':
+    main()

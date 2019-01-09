@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
   vtkIdType numNewCells = normals->GetOutput()->GetNumberOfCells();
 
   // Iterate over the original cells
-  vtkCellIterator *it = normals->GetOutput()->NewCellIterator();
+  vtkSmartPointer<vtkCellIterator> it = normals->GetOutput()->NewCellIterator();
   vtkIdType numCells = 0;
   for (it->InitTraversal();
        !it->IsDoneWithTraversal() && numCells < numOriginalCells;
@@ -85,7 +85,6 @@ int main(int argc, char *argv[])
     it->GetCell(cell);
     holePolyData->InsertNextCell(it->GetCellType(), cell->GetPointIds());
   }
-  it->Delete();
 
   // We have to use ConnectivtyFilter and not
   // PolyDataConnectivityFilter since the later does not create

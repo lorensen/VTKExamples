@@ -1,16 +1,22 @@
 import vtk
 
-# setup sphere
-sphereSource = vtk.vtkSphereSource()
-sphereSource.Update()
 
-polydata = vtk.vtkPolyData()
-polydata.ShallowCopy(sphereSource.GetOutput())
+def main():
+    # setup sphere
+    sphereSource = vtk.vtkSphereSource()
+    sphereSource.Update()
 
-normals = polydata.GetPointData().GetNormals()
-normals.SetName("TestN")
+    polydata = vtk.vtkPolyData()
+    polydata.ShallowCopy(sphereSource.GetOutput())
 
-writer = vtk.vtkXMLPolyDataWriter()
-writer.SetFileName("Test.vtp")
-writer.SetInput(polydata)
-writer.Write()
+    normals = polydata.GetPointData().GetNormals()
+    normals.SetName("TestN")
+
+    writer = vtk.vtkXMLPolyDataWriter()
+    writer.SetFileName("Test.vtp")
+    writer.SetInput(polydata)
+    writer.Write()
+
+
+if __name__ == '__main__':
+    main()

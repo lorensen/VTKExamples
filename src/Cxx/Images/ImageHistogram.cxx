@@ -31,7 +31,8 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkImageReader2 *reader = readerFactory->CreateImageReader2(argv[1]);
+  vtkSmartPointer<vtkImageReader2> reader =
+    readerFactory->CreateImageReader2(argv[1]);
   reader->SetFileName(argv[1]);
 
   vtkSmartPointer<vtkImageHistogram> histogram =
@@ -115,6 +116,6 @@ int main(int argc, char *argv[])
   iren->Initialize();
   renWin->Render();
   iren->Start();
-  reader->Delete();
+
   return EXIT_SUCCESS;
 }

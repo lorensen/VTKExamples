@@ -73,9 +73,12 @@ void StippledLine(vtkSmartPointer<vtkActor> &actor,
                   int lineStipplePattern,
                   int lineStippleRepeat)
 {
-  vtkDoubleArray *tcoords = vtkDoubleArray::New();
-  vtkImageData *image = vtkImageData::New();
-  vtkTexture *texture = vtkTexture::New();
+  vtkSmartPointer<vtkDoubleArray> tcoords =
+    vtkSmartPointer<vtkDoubleArray>::New();
+  vtkSmartPointer<vtkImageData> image =
+    vtkSmartPointer<vtkImageData>::New();
+  vtkSmartPointer<vtkTexture> texture =
+    vtkSmartPointer<vtkTexture>::New();
 
   // Create texture
   int dimension = 16 * lineStippleRepeat;
@@ -132,8 +135,5 @@ void StippledLine(vtkSmartPointer<vtkActor> &actor,
   texture->RepeatOn();
 
   actor->SetTexture(texture);
-  tcoords->Delete();
-  image->Delete();
-  texture->Delete();
 }
 }

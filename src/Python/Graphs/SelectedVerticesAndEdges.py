@@ -11,7 +11,6 @@ view.AddRepresentationFromInputConnection(source.GetOutputPort())
 
 
 def selectionCallback(caller, event):
-
     # In C++ there is some extra data passed to the callback, but in Python
     # the callback data is lost...
 
@@ -39,7 +38,6 @@ def selectionCallback(caller, event):
 
 
 def printFieldType(field_type):
-
     if field_type == 3:
         print("Vertices Selected:")
     elif field_type == 4:
@@ -48,15 +46,20 @@ def printFieldType(field_type):
         print("Unknown type:")
 
 
-rep = view.GetRepresentation(0)
+def main():
+    rep = view.GetRepresentation(0)
 
-# The vtkRenderedGraphRepresentation should already have a vtkAnnotationLink,
-# so we just want to grab it and add an observer with our callback function
-# attached
-link = rep.GetAnnotationLink()
-link.AddObserver("AnnotationChangedEvent", selectionCallback)
+    # The vtkRenderedGraphRepresentation should already have a vtkAnnotationLink,
+    # so we just want to grab it and add an observer with our callback function
+    # attached
+    link = rep.GetAnnotationLink()
+    link.AddObserver("AnnotationChangedEvent", selectionCallback)
 
-view.GetRenderWindow().SetSize(600, 600)
-view.ResetCamera()
-view.Render()
-view.GetInteractor().Start()
+    view.GetRenderWindow().SetSize(600, 600)
+    view.ResetCamera()
+    view.Render()
+    view.GetInteractor().Start()
+
+
+if __name__ == '__main__':
+    main()

@@ -47,9 +47,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) | vtkEllipticalCylinder | EllipticalCylinder
 [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | ConvexPointSet Visualization
 [Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
-[Cube](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
-[Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
-[Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
+[Disk](/Java/GeometricObjects/Disk) | vtkDiskSource | Disk Visualization
+[Line](/Java/GeometricObjects/Line) | vtkLineSource | Line Visualization
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLine | A visualization of a long line
 [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) | vtkOrientedCylinder |Oriented Cylinder visualization
 [OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow | Oriented Arrow visualization.
@@ -59,6 +58,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [ParametricObjects](/Java/GeometricObjects/ParametricObjects) | vtkParametricObjects| ParametricObjects Visualization
 [Pyramid](/Java/GeometricObjects/Pyramid) | vtkPyramid | Pyramid Visualization
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad | Quad Visualization
+[ShrinkCube](/Java/GeometricObjects/ShrinkCube) | vtkCubeSource vtkShrinkFilter | Applying shrink filter to an object.
 [Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
 [TextActor](/Java/GeometricObjects/TextActor) | vtkTextActor | TextActor Demonstration
 [Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
@@ -87,6 +87,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[Actor2D](/Java/Images/Actor2D) | vtkActor2D | A actor that draws 2D data
 [StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image 
 
 ## Input and Output
@@ -180,6 +181,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [BackgroundGradient](/Java/Visualization/BackgroundGradient) |  | viewport having gradient background using the Background (bottom) and Background2 (top) colors.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
 [Cursor2D](/Java/Visualization/Cursor2D) | vtkCursor2D | Generates a 2D Cursor Representation.
+[Cursor3D](/Java/Visualization/Cursor3D) | vtkCursor3D | Generates a 3D Cursor Representation
 [Cutter](/Java/VisualizationAlgorithms/Cutter) | vtkCutter | How to use vtkCutter by cutting through a cube.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [VectorFieldExample](/Java/Visualization/VectorFieldExample) | vtkXMLUnstructuredGridReader, vtkThresholdPoints, vtkGlyph3D | A vector field visualisation.

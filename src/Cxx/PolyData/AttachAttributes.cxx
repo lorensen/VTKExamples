@@ -9,7 +9,8 @@
 int main(int, char *[]) {
 
   // create a 2-element array
-  vtkDoubleArray* array = vtkDoubleArray::New();
+  vtkSmartPointer<vtkDoubleArray> array =
+    vtkDoubleArray::New();
   array->SetName("array");
   array->SetNumberOfComponents(1);
   array->SetNumberOfTuples(2);
@@ -32,8 +33,6 @@ int main(int, char *[]) {
   // extract the key
   double *vals = info->Get(key);
   std::cout << "extracted values are: " << vals[0] << ", " << vals[1] << ", " << vals[2] << '\n';
-  array->Delete();
-  // array->Delete will also delete key (do not call delete key)
 
   return EXIT_SUCCESS;
 }
