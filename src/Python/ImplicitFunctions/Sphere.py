@@ -1,46 +1,54 @@
 import vtk
 
-sphere = vtk.vtkSphere()
-sphere.SetCenter(0, 0, 0)
-sphere.SetRadius(0.5)
+def main():
+    colors = vtk.vtkNamedColors()
 
-# The sample function generates a distance function from the implicit
-# function. This is then contoured to get a polygonal surface.
-sample = vtk.vtkSampleFunction()
-sample.SetImplicitFunction(sphere)
-sample.SetModelBounds(-.5, .5, -.5, .5, -.5, .5)
-sample.SetSampleDimensions(20, 20, 20)
-sample.ComputeNormalsOff()
+    sphere = vtk.vtkSphere()
+    sphere.SetCenter(0, 0, 0)
+    sphere.SetRadius(0.5)
 
-# contour
-surface = vtk.vtkContourFilter()
-surface.SetInputConnection(sample.GetOutputPort())
-surface.SetValue(0, 0.0)
+    # The sample function generates a distance function from the implicit
+    # function. This is then contoured to get a polygonal surface.
+    sample = vtk.vtkSampleFunction()
+    sample.SetImplicitFunction(sphere)
+    sample.SetModelBounds(-.5, .5, -.5, .5, -.5, .5)
+    sample.SetSampleDimensions(20, 20, 20)
+    sample.ComputeNormalsOff()
 
-# mapper
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(surface.GetOutputPort())
-mapper.ScalarVisibilityOff()
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
-actor.GetProperty().EdgeVisibilityOn()
-actor.GetProperty().SetEdgeColor(.2, .2, .5)
+    # contour
+    surface = vtk.vtkContourFilter()
+    surface.SetInputConnection(sample.GetOutputPort())
+    surface.SetValue(0, 0.0)
 
-# A renderer and render window
-renderer = vtk.vtkRenderer()
-renderer.SetBackground(1, 1, 1)
+    # mapper
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(surface.GetOutputPort())
+    mapper.ScalarVisibilityOff()
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().EdgeVisibilityOn()
+    actor.GetProperty().SetColor(colors.GetColor3d('AliceBlue'))
+    actor.GetProperty().SetEdgeColor(colors.GetColor3d('SteelBlue'))
 
-# add the actor
-renderer.AddActor(actor)
+    # A renderer and render window
+    renderer = vtk.vtkRenderer()
+    renderer.SetBackground(colors.GetColor3d('Silver'))
 
-# render window
-renwin = vtk.vtkRenderWindow()
-renwin.AddRenderer(renderer)
+    # add the actor
+    renderer.AddActor(actor)
 
-# An interactor
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renwin)
+    # render window
+    renwin = vtk.vtkRenderWindow()
+    renwin.AddRenderer(renderer)
 
-# Start
-interactor.Initialize()
-interactor.Start()
+    # An interactor
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(renwin)
+
+    # Start
+    interactor.Initialize()
+    renwin.Render()
+    interactor.Start()
+
+if __name__ == '__main__':
+    main()

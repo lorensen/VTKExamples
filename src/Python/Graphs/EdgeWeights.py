@@ -2,41 +2,49 @@
 
 import vtk
 
-g = vtk.vtkMutableDirectedGraph()
 
-# Create 3 vertices
-v1 = g.AddVertex()
-v2 = g.AddVertex()
-v3 = g.AddVertex()
+def main():
+    # colors = vtk.vtkNamedColors()
 
-# Create a fully connected graph
-g.AddGraphEdge(v1, v2)
-g.AddGraphEdge(v2, v3)
-g.AddGraphEdge(v1, v3)
+    g = vtk.vtkMutableDirectedGraph()
 
-# Create the edge weight array
-weights = vtk.vtkDoubleArray()
-weights.SetNumberOfComponents(1)
-weights.SetName("Weights")
+    # Create 3 vertices
+    v1 = g.AddVertex()
+    v2 = g.AddVertex()
+    v3 = g.AddVertex()
 
-# Set the edge weights
-weights.InsertNextValue(1.0)
-weights.InsertNextValue(1.0)
-weights.InsertNextValue(2.0)
+    # Create a fully connected graph
+    g.AddGraphEdge(v1, v2)
+    g.AddGraphEdge(v2, v3)
+    g.AddGraphEdge(v1, v3)
 
-# Add the edge weight array to the graph
-g.GetEdgeData().AddArray(weights)
+    # Create the edge weight array
+    weights = vtk.vtkDoubleArray()
+    weights.SetNumberOfComponents(1)
+    weights.SetName("Weights")
 
-graphLayoutView = vtk.vtkGraphLayoutView()
-graphLayoutView.AddRepresentationFromInput(g)
-graphLayoutView.SetLayoutStrategy("Simple 2D")
-graphLayoutView.GetLayoutStrategy().SetEdgeWeightField("Weights")
-graphLayoutView.GetLayoutStrategy().SetWeightEdges(1)
-graphLayoutView.SetEdgeLabelArrayName("Weights")
-graphLayoutView.SetEdgeLabelVisibility(1)
-graphLayoutView.ResetCamera()
-graphLayoutView.Render()
+    # Set the edge weights
+    weights.InsertNextValue(1.0)
+    weights.InsertNextValue(1.0)
+    weights.InsertNextValue(2.0)
 
-graphLayoutView.GetLayoutStrategy().SetRandomSeed(0)
+    # Add the edge weight array to the graph
+    g.GetEdgeData().AddArray(weights)
 
-graphLayoutView.GetInteractor().Start()
+    graphLayoutView = vtk.vtkGraphLayoutView()
+    graphLayoutView.AddRepresentationFromInput(g)
+    graphLayoutView.SetLayoutStrategy("Simple 2D")
+    graphLayoutView.GetLayoutStrategy().SetEdgeWeightField("Weights")
+    graphLayoutView.GetLayoutStrategy().SetWeightEdges(1)
+    graphLayoutView.SetEdgeLabelArrayName("Weights")
+    graphLayoutView.SetEdgeLabelVisibility(1)
+    graphLayoutView.ResetCamera()
+    graphLayoutView.Render()
+
+    graphLayoutView.GetLayoutStrategy().SetRandomSeed(0)
+
+    graphLayoutView.GetInteractor().Start()
+
+
+if __name__ == '__main__':
+    main()

@@ -2,20 +2,26 @@
 
 import vtk
 
-g = vtk.vtkMutableDirectedGraph()
 
-v1 = g.AddVertex()
-v2 = g.AddVertex()
+def main():
+    g = vtk.vtkMutableDirectedGraph()
 
-g.AddGraphEdge(v1, v2)
-g.AddGraphEdge(v1, v2)
+    v1 = g.AddVertex()
+    v2 = g.AddVertex()
 
-graphLayoutView = vtk.vtkGraphLayoutView()
-graphLayoutView.AddRepresentationFromInput(g)
-graphLayoutView.SetLayoutStrategy("Simple 2D")
-graphLayoutView.ResetCamera()
-graphLayoutView.Render()
+    g.AddGraphEdge(v1, v2)
+    g.AddGraphEdge(v1, v2)
 
-graphLayoutView.GetLayoutStrategy().SetRandomSeed(0)
+    graphLayoutView = vtk.vtkGraphLayoutView()
+    graphLayoutView.AddRepresentationFromInput(g)
+    graphLayoutView.SetLayoutStrategy("Simple 2D")
+    graphLayoutView.ResetCamera()
+    graphLayoutView.Render()
 
-graphLayoutView.GetInteractor().Start()
+    graphLayoutView.GetLayoutStrategy().SetRandomSeed(0)
+
+    graphLayoutView.GetInteractor().Start()
+
+
+if __name__ == '__main__':
+    main()

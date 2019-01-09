@@ -47,9 +47,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) | vtkEllipticalCylinder | EllipticalCylinder
 [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) | vtkConvexPointSet | ConvexPointSet Visualization
 [Frustum](/Java/GeometricObjects/Frustum) | vtkFrustum | Frustum Visualization
-[Cube](/Java/GeometricObjects/Cube) | vtkCube | Cube Visualization
-[Disk](/Java/GeometricObjects/Disk) | vtkDisk | Disk Visualization
-[Line](/Java/GeometricObjects/Line) | vtkLine | Line Visualization
+[Disk](/Java/GeometricObjects/Disk) | vtkDiskSource | Disk Visualization
+[Line](/Java/GeometricObjects/Line) | vtkLineSource | Line Visualization
 [LongLine](/Java/GeometricObjects/LongLine) | vtkLine | A visualization of a long line
 [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) | vtkOrientedCylinder |Oriented Cylinder visualization
 [OrientedArrow](/Java/GeometricObjects/OrientedArrow) | vtkOrientedArrow | Oriented Arrow visualization.
@@ -59,6 +58,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [ParametricObjects](/Java/GeometricObjects/ParametricObjects) | vtkParametricObjects| ParametricObjects Visualization
 [Pyramid](/Java/GeometricObjects/Pyramid) | vtkPyramid | Pyramid Visualization
 [Quad](/Java/GeometricObjects/Quad) | vtkQuad | Quad Visualization
+[ShrinkCube](/Java/GeometricObjects/ShrinkCube) | vtkCubeSource vtkShrinkFilter | Applying shrink filter to an object.
 [Vertex](/Java/GeometricObjects/Vertex) | vtkVertex | Vertex Visualization
 [TextActor](/Java/GeometricObjects/TextActor) | vtkTextActor | TextActor Demonstration
 [Triangle](/Java/GeometricObjects/Triangle) | vtkTriangle | Triangle Visualization
