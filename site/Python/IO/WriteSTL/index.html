@@ -62,8 +62,23 @@ function registerListener(event, func) {
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
 
+<span class=k>def</span> <span class=nf>get_program_parameters</span><span class=p>():</span>
+    <span class=kn>import</span> <span class=nn>argparse</span>
+    <span class=n>description</span> <span class=o>=</span> <span class=s1>&#39;Generate image data, then write a .stl file.&#39;</span>
+    <span class=n>epilogue</span> <span class=o>=</span> <span class=s1>&#39;&#39;&#39;</span>
+<span class=s1>   &#39;&#39;&#39;</span>
+    <span class=n>parser</span> <span class=o>=</span> <span class=n>argparse</span><span class=o>.</span><span class=n>ArgumentParser</span><span class=p>(</span><span class=n>description</span><span class=o>=</span><span class=n>description</span><span class=p>,</span> <span class=n>epilog</span><span class=o>=</span><span class=n>epilogue</span><span class=p>)</span>
+    <span class=n>parser</span><span class=o>.</span><span class=n>add_argument</span><span class=p>(</span><span class=s1>&#39;filename&#39;</span><span class=p>,</span> <span class=n>help</span><span class=o>=</span><span class=s1>&#39;A required stl filename.&#39;</span><span class=p>,</span> <span class=n>nargs</span><span class=o>=</span><span class=s1>&#39;?&#39;</span><span class=p>,</span>
+                        <span class=n>const</span><span class=o>=</span><span class=s1>&#39;TestWriteSTL.ply&#39;</span><span class=p>,</span>
+                        <span class=nb>type</span><span class=o>=</span><span class=nb>str</span><span class=p>,</span> <span class=n>default</span><span class=o>=</span><span class=s1>&#39;TestWriteSTL.ply&#39;</span><span class=p>)</span>
+    <span class=n>args</span> <span class=o>=</span> <span class=n>parser</span><span class=o>.</span><span class=n>parse_args</span><span class=p>()</span>
+    <span class=k>return</span> <span class=n>args</span><span class=o>.</span><span class=n>filename</span>
+
+
 <span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
-    <span class=n>filename</span> <span class=o>=</span> <span class=s2>&quot;test.stl&quot;</span>
+<span class=hll>    <span class=n>colors</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkNamedColors</span><span class=p>()</span>
+</span>
+    <span class=n>filename</span> <span class=o>=</span> <span class=n>get_program_parameters</span><span class=p>()</span>
 
 <span class=hll>    <span class=n>sphereSource</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSphereSource</span><span class=p>()</span>
 </span>    <span class=n>sphereSource</span><span class=o>.</span><span class=n>Update</span><span class=p>()</span>
@@ -95,6 +110,7 @@ function registerListener(event, func) {
 
     <span class=c1># Assign actor to the renderer</span>
     <span class=n>ren</span><span class=o>.</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>)</span>
+    <span class=n>ren</span><span class=o>.</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>.</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s1>&#39;cobalt_green&#39;</span><span class=p>))</span>
 
     <span class=c1># Enable user interface interactor</span>
     <span class=n>iren</span><span class=o>.</span><span class=n>Initialize</span><span class=p>()</span>

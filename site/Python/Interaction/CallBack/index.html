@@ -139,7 +139,7 @@ function registerListener(event, func) {
 
     <span class=c1># Set up the callback.</span>
     <span class=k>if</span> <span class=n>use_function_callback</span><span class=p>:</span>
-         <span class=c1># We are going to output the camera position when the event is triggered</span>
+        <span class=c1># We are going to output the camera position when the event is triggered</span>
         <span class=c1>#  so we add the active camera as an attribute.</span>
         <span class=n>GetOrientation</span><span class=o>.</span><span class=n>cam</span> <span class=o>=</span> <span class=n>ren</span><span class=o>.</span><span class=n>GetActiveCamera</span><span class=p>()</span>
         <span class=c1># Register the callback with the object that is observing.</span>
@@ -170,23 +170,26 @@ function registerListener(event, func) {
     <span class=c1># Now print the camera orientation.</span>
     <span class=n>CameraOrientation</span><span class=p>(</span><span class=n>GetOrientation</span><span class=o>.</span><span class=n>cam</span><span class=p>)</span>
 
+
 <span class=k>class</span> <span class=nc>OrientationObserver</span><span class=p>(</span><span class=nb>object</span><span class=p>):</span>
     <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>cam</span><span class=p>):</span>
         <span class=bp>self</span><span class=o>.</span><span class=n>cam</span> <span class=o>=</span> <span class=n>cam</span>
+
     <span class=k>def</span> <span class=fm>__call__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>caller</span><span class=p>,</span> <span class=n>ev</span><span class=p>):</span>
         <span class=c1># Just do this to demonstrate who called callback and the event that triggered it.</span>
         <span class=k>print</span><span class=p>(</span><span class=n>caller</span><span class=o>.</span><span class=n>GetClassName</span><span class=p>(),</span> <span class=s2>&quot;Event Id:&quot;</span><span class=p>,</span> <span class=n>ev</span><span class=p>)</span>
         <span class=c1># Now print the camera orientation.</span>
         <span class=n>CameraOrientation</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>cam</span><span class=p>)</span>
 
+
 <span class=k>def</span> <span class=nf>CameraOrientation</span><span class=p>(</span><span class=n>cam</span><span class=p>):</span>
-        <span class=n>fmt1</span> <span class=o>=</span> <span class=s2>&quot;{:&gt;15s}&quot;</span>
-        <span class=n>fmt2</span> <span class=o>=</span> <span class=s2>&quot;{:9.6g}&quot;</span>
-        <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;Position:&quot;</span><span class=p>),</span> <span class=s1>&#39;, &#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>,</span> <span class=n>cam</span><span class=o>.</span><span class=n>GetPosition</span><span class=p>())))</span>
-        <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;Focal point:&quot;</span><span class=p>),</span> <span class=s1>&#39;, &#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>,</span> <span class=n>cam</span><span class=o>.</span><span class=n>GetFocalPoint</span><span class=p>())))</span>
-        <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;Clipping range:&quot;</span><span class=p>),</span> <span class=s1>&#39;, &#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>,</span> <span class=n>cam</span><span class=o>.</span><span class=n>GetClippingRange</span><span class=p>())))</span>
-        <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;View up:&quot;</span><span class=p>),</span> <span class=s1>&#39;, &#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>,</span> <span class=n>cam</span><span class=o>.</span><span class=n>GetViewUp</span><span class=p>())))</span>
-        <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;Distance:&quot;</span><span class=p>),</span> <span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>cam</span><span class=o>.</span><span class=n>GetDistance</span><span class=p>()))</span>
+    <span class=n>fmt1</span> <span class=o>=</span> <span class=s2>&quot;{:&gt;15s}&quot;</span>
+    <span class=n>fmt2</span> <span class=o>=</span> <span class=s2>&quot;{:9.6g}&quot;</span>
+    <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;Position:&quot;</span><span class=p>),</span> <span class=s1>&#39;, &#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>,</span> <span class=n>cam</span><span class=o>.</span><span class=n>GetPosition</span><span class=p>())))</span>
+    <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;Focal point:&quot;</span><span class=p>),</span> <span class=s1>&#39;, &#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>,</span> <span class=n>cam</span><span class=o>.</span><span class=n>GetFocalPoint</span><span class=p>())))</span>
+    <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;Clipping range:&quot;</span><span class=p>),</span> <span class=s1>&#39;, &#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>,</span> <span class=n>cam</span><span class=o>.</span><span class=n>GetClippingRange</span><span class=p>())))</span>
+    <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;View up:&quot;</span><span class=p>),</span> <span class=s1>&#39;, &#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>,</span> <span class=n>cam</span><span class=o>.</span><span class=n>GetViewUp</span><span class=p>())))</span>
+    <span class=k>print</span><span class=p>(</span><span class=n>fmt1</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=s2>&quot;Distance:&quot;</span><span class=p>),</span> <span class=n>fmt2</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>cam</span><span class=o>.</span><span class=n>GetDistance</span><span class=p>()))</span>
 
 
 <span class=k>def</span> <span class=nf>MakeAxesActor</span><span class=p>():</span>

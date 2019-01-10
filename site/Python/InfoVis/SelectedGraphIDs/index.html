@@ -64,90 +64,101 @@ function registerListener(event, func) {
 </span><span class=hll><span class=c1># of a selection from a vtkGraphLayoutView</span>
 </span>
 <span class=kn>from</span> <span class=nn>__future__</span> <span class=kn>import</span> <span class=n>print_function</span>
+
 <span class=hll><span class=kn>import</span> <span class=nn>vtk</span>
 </span>
-<span class=hll><span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRandomGraphSource</span><span class=p>()</span>
-</span><span class=n>source</span><span class=o>.</span><span class=n>DirectedOff</span><span class=p>()</span>
-<span class=n>source</span><span class=o>.</span><span class=n>SetNumberOfVertices</span><span class=p>(</span><span class=mi>100</span><span class=p>)</span>
-<span class=n>source</span><span class=o>.</span><span class=n>SetEdgeProbability</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>  <span class=c1># Basically generates a tree</span>
-<span class=n>source</span><span class=o>.</span><span class=n>SetUseEdgeProbability</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
-<span class=n>source</span><span class=o>.</span><span class=n>SetStartWithTree</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
-<span class=n>source</span><span class=o>.</span><span class=n>IncludeEdgeWeightsOn</span><span class=p>()</span>
 
-<span class=c1># Create force directed layout</span>
-<span class=hll><span class=n>strategy</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSimple2DLayoutStrategy</span><span class=p>()</span>
-</span><span class=n>strategy</span><span class=o>.</span><span class=n>SetInitialTemperature</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
+<span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+<span class=hll>    <span class=n>source</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkRandomGraphSource</span><span class=p>()</span>
+</span>    <span class=n>source</span><span class=o>.</span><span class=n>DirectedOff</span><span class=p>()</span>
+    <span class=n>source</span><span class=o>.</span><span class=n>SetNumberOfVertices</span><span class=p>(</span><span class=mi>100</span><span class=p>)</span>
+    <span class=n>source</span><span class=o>.</span><span class=n>SetEdgeProbability</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>  <span class=c1># Basically generates a tree</span>
+    <span class=n>source</span><span class=o>.</span><span class=n>SetUseEdgeProbability</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
+    <span class=n>source</span><span class=o>.</span><span class=n>SetStartWithTree</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
+    <span class=n>source</span><span class=o>.</span><span class=n>IncludeEdgeWeightsOn</span><span class=p>()</span>
 
-<span class=c1># Create a graph layout view</span>
-<span class=hll><span class=n>view</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkGraphLayoutView</span><span class=p>()</span>
-</span><span class=n>view</span><span class=o>.</span><span class=n>AddRepresentationFromInputConnection</span><span class=p>(</span><span class=n>source</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
-<span class=n>view</span><span class=o>.</span><span class=n>SetVertexLabelArrayName</span><span class=p>(</span><span class=s2>&quot;vertex id&quot;</span><span class=p>)</span>
-<span class=n>view</span><span class=o>.</span><span class=n>SetVertexLabelVisibility</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
-<span class=n>view</span><span class=o>.</span><span class=n>SetVertexColorArrayName</span><span class=p>(</span><span class=s2>&quot;vertex id&quot;</span><span class=p>)</span>
-<span class=n>view</span><span class=o>.</span><span class=n>SetColorVertices</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
-<span class=n>view</span><span class=o>.</span><span class=n>SetEdgeColorArrayName</span><span class=p>(</span><span class=s2>&quot;edge weight&quot;</span><span class=p>)</span>
-<span class=n>view</span><span class=o>.</span><span class=n>SetColorEdges</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
-<span class=n>view</span><span class=o>.</span><span class=n>SetLayoutStrategy</span><span class=p>(</span><span class=n>strategy</span><span class=p>)</span>
+    <span class=c1># Create force directed layout</span>
+<span class=hll>    <span class=n>strategy</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkSimple2DLayoutStrategy</span><span class=p>()</span>
+</span>    <span class=n>strategy</span><span class=o>.</span><span class=n>SetInitialTemperature</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
 
-<span class=c1># Make sure the views are using a pedigree id selection</span>
-<span class=n>view</span><span class=o>.</span><span class=n>GetRepresentation</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>SetSelectionType</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+    <span class=c1># Create a graph layout view</span>
+<span class=hll>    <span class=n>view</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkGraphLayoutView</span><span class=p>()</span>
+</span>    <span class=n>view</span><span class=o>.</span><span class=n>AddRepresentationFromInputConnection</span><span class=p>(</span><span class=n>source</span><span class=o>.</span><span class=n>GetOutputPort</span><span class=p>())</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>SetVertexLabelArrayName</span><span class=p>(</span><span class=s2>&quot;vertex id&quot;</span><span class=p>)</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>SetVertexLabelVisibility</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>SetVertexColorArrayName</span><span class=p>(</span><span class=s2>&quot;vertex id&quot;</span><span class=p>)</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>SetColorVertices</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>SetEdgeColorArrayName</span><span class=p>(</span><span class=s2>&quot;edge weight&quot;</span><span class=p>)</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>SetColorEdges</span><span class=p>(</span><span class=bp>True</span><span class=p>)</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>SetLayoutStrategy</span><span class=p>(</span><span class=n>strategy</span><span class=p>)</span>
 
-<span class=c1># Create a selection link and set both view to use it</span>
-<span class=hll><span class=n>annotationLink</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkAnnotationLink</span><span class=p>()</span>
-</span><span class=n>view</span><span class=o>.</span><span class=n>GetRepresentation</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>SetAnnotationLink</span><span class=p>(</span><span class=n>annotationLink</span><span class=p>)</span>
+    <span class=c1># Make sure the views are using a pedigree id selection</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>GetRepresentation</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>SetSelectionType</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+
+    <span class=c1># Create a selection link and set both view to use it</span>
+<span class=hll>    <span class=n>annotationLink</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkAnnotationLink</span><span class=p>()</span>
+</span>    <span class=n>view</span><span class=o>.</span><span class=n>GetRepresentation</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>SetAnnotationLink</span><span class=p>(</span><span class=n>annotationLink</span><span class=p>)</span>
+
+    <span class=k>def</span> <span class=nf>select_callback</span><span class=p>(</span><span class=n>caller</span><span class=p>,</span> <span class=n>event</span><span class=p>):</span>
+        <span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        In this particular data representation the current selection in the</span>
+<span class=sd>         annotation link should always contain two nodes: one for the edges and</span>
+<span class=sd>         one for the vertices. Which is which is not consistent, so you need to</span>
+<span class=sd>         check the FieldType of each SelectionNode</span>
+
+<span class=sd>        :param caller:</span>
+<span class=sd>        :param event:</span>
+<span class=sd>        :return:</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+
+        <span class=n>sel</span> <span class=o>=</span> <span class=n>caller</span><span class=o>.</span><span class=n>GetCurrentSelection</span><span class=p>()</span>
+
+        <span class=k>for</span> <span class=n>nn</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>sel</span><span class=o>.</span><span class=n>GetNumberOfNodes</span><span class=p>()):</span>
+            <span class=n>sel_ids</span> <span class=o>=</span> <span class=n>sel</span><span class=o>.</span><span class=n>GetNode</span><span class=p>(</span><span class=n>nn</span><span class=p>)</span><span class=o>.</span><span class=n>GetSelectionList</span><span class=p>()</span>
+            <span class=n>field_type</span> <span class=o>=</span> <span class=n>sel</span><span class=o>.</span><span class=n>GetNode</span><span class=p>(</span><span class=n>nn</span><span class=p>)</span><span class=o>.</span><span class=n>GetFieldType</span><span class=p>()</span>
+            <span class=k>if</span> <span class=n>field_type</span> <span class=o>==</span> <span class=mi>3</span><span class=p>:</span>
+                <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Vertex selection Pedigree IDs&quot;</span><span class=p>)</span>
+            <span class=k>if</span> <span class=n>field_type</span> <span class=o>==</span> <span class=mi>4</span><span class=p>:</span>
+                <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Edge selection Pedigree IDs&quot;</span><span class=p>)</span>
+            <span class=k>if</span> <span class=n>sel_ids</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>
+                <span class=k>for</span> <span class=n>ii</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>sel_ids</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()):</span>
+                    <span class=k>print</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>sel_ids</span><span class=o>.</span><span class=n>GetTuple1</span><span class=p>(</span><span class=n>ii</span><span class=p>)))</span>
+            <span class=k>else</span><span class=p>:</span>
+                <span class=k>print</span><span class=p>(</span><span class=s2>&quot;-- empty&quot;</span><span class=p>)</span>
+
+        <span class=k>print</span><span class=p>(</span><span class=s2>&quot;&quot;</span><span class=p>)</span>
+
+    <span class=c1># AnnotationChangedEvent will fire when the selection is changed</span>
+    <span class=n>annotationLink</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;AnnotationChangedEvent&quot;</span><span class=p>,</span> <span class=n>select_callback</span><span class=p>)</span>
+
+    <span class=c1># Set the theme on the view</span>
+<span class=hll>    <span class=n>theme</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkViewTheme</span><span class=o>.</span><span class=n>CreateMellowTheme</span><span class=p>()</span>
+</span>    <span class=n>theme</span><span class=o>.</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetPointSize</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetCellOpacity</span><span class=p>(</span><span class=mf>0.99</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetOutlineColor</span><span class=p>(</span><span class=mf>0.6</span><span class=p>,</span> <span class=mf>0.6</span><span class=p>,</span> <span class=mf>0.6</span><span class=p>)</span>
+    <span class=c1># Vertices</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetSelectedPointColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mf>0.5</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetPointHueRange</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetPointSaturationRange</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetPointValueRange</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
+    <span class=c1># theme.SetPointAlphaRange(0.2, 0.8)</span>
+    <span class=c1># Edges</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetSelectedCellColor</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.95</span><span class=p>,</span> <span class=mf>0.75</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetCellHueRange</span><span class=p>(</span><span class=mf>0.1</span><span class=p>,</span> <span class=mf>0.1</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetCellSaturationRange</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>SetCellValueRange</span><span class=p>(</span><span class=mf>0.5</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
+    <span class=c1># theme.SetPointAlphaRange(0.2, 0.8)</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>ApplyViewTheme</span><span class=p>(</span><span class=n>theme</span><span class=p>)</span>
+    <span class=n>theme</span><span class=o>.</span><span class=n>FastDelete</span><span class=p>()</span>
+
+    <span class=n>view</span><span class=o>.</span><span class=n>GetRenderWindow</span><span class=p>()</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>600</span><span class=p>,</span> <span class=mi>600</span><span class=p>)</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>ResetCamera</span><span class=p>()</span>
+    <span class=n>view</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
+
+    <span class=n>view</span><span class=o>.</span><span class=n>GetInteractor</span><span class=p>()</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
 
 
-<span class=k>def</span> <span class=nf>select_callback</span><span class=p>(</span><span class=n>caller</span><span class=p>,</span> <span class=n>event</span><span class=p>):</span>
-    <span class=c1># In this particular data representation the current selection in the</span>
-    <span class=c1># annotation link should always contain two nodes: one for the edges and</span>
-    <span class=c1># one for the vertices. Which is which is not consistent, so you need to</span>
-    <span class=c1># check the FieldType of each SelectionNode</span>
-
-    <span class=n>sel</span> <span class=o>=</span> <span class=n>caller</span><span class=o>.</span><span class=n>GetCurrentSelection</span><span class=p>()</span>
-
-    <span class=k>for</span> <span class=n>nn</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>sel</span><span class=o>.</span><span class=n>GetNumberOfNodes</span><span class=p>()):</span>
-        <span class=n>sel_ids</span> <span class=o>=</span> <span class=n>sel</span><span class=o>.</span><span class=n>GetNode</span><span class=p>(</span><span class=n>nn</span><span class=p>)</span><span class=o>.</span><span class=n>GetSelectionList</span><span class=p>()</span>
-        <span class=n>field_type</span> <span class=o>=</span> <span class=n>sel</span><span class=o>.</span><span class=n>GetNode</span><span class=p>(</span><span class=n>nn</span><span class=p>)</span><span class=o>.</span><span class=n>GetFieldType</span><span class=p>()</span>
-        <span class=k>if</span> <span class=n>field_type</span> <span class=o>==</span> <span class=mi>3</span><span class=p>:</span>
-            <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Vertex selection Pedigree IDs&quot;</span><span class=p>)</span>
-        <span class=k>if</span> <span class=n>field_type</span> <span class=o>==</span> <span class=mi>4</span><span class=p>:</span>
-            <span class=k>print</span><span class=p>(</span><span class=s2>&quot;Edge selection Pedigree IDs&quot;</span><span class=p>)</span>
-        <span class=k>if</span> <span class=n>sel_ids</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>
-            <span class=k>for</span> <span class=n>ii</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>sel_ids</span><span class=o>.</span><span class=n>GetNumberOfTuples</span><span class=p>()):</span>
-                <span class=k>print</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>sel_ids</span><span class=o>.</span><span class=n>GetTuple1</span><span class=p>(</span><span class=n>ii</span><span class=p>)))</span>
-        <span class=k>else</span><span class=p>:</span>
-            <span class=k>print</span><span class=p>(</span><span class=s2>&quot;-- empty&quot;</span><span class=p>)</span>
-
-    <span class=k>print</span><span class=p>(</span><span class=s2>&quot;&quot;</span><span class=p>)</span>
-
-
-<span class=c1># AnnotationChangedEvent will fire when the selection is changed</span>
-<span class=n>annotationLink</span><span class=o>.</span><span class=n>AddObserver</span><span class=p>(</span><span class=s2>&quot;AnnotationChangedEvent&quot;</span><span class=p>,</span> <span class=n>select_callback</span><span class=p>)</span>
-
-<span class=c1># Set the theme on the view</span>
-<span class=hll><span class=n>theme</span> <span class=o>=</span> <span class=n>vtk</span><span class=o>.</span><span class=n>vtkViewTheme</span><span class=o>.</span><span class=n>CreateMellowTheme</span><span class=p>()</span>
-</span><span class=n>theme</span><span class=o>.</span><span class=n>SetLineWidth</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetPointSize</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetCellOpacity</span><span class=p>(</span><span class=mf>0.99</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetOutlineColor</span><span class=p>(</span><span class=mf>0.6</span><span class=p>,</span> <span class=mf>0.6</span><span class=p>,</span> <span class=mf>0.6</span><span class=p>)</span>
-<span class=c1># Vertices</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetSelectedPointColor</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mf>0.5</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetPointHueRange</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetPointSaturationRange</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetPointValueRange</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
-<span class=c1># theme.SetPointAlphaRange(0.2, 0.8)</span>
-<span class=c1># Edges</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetSelectedCellColor</span><span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>0.95</span><span class=p>,</span> <span class=mf>0.75</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetCellHueRange</span><span class=p>(</span><span class=mf>0.1</span><span class=p>,</span> <span class=mf>0.1</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetCellSaturationRange</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>SetCellValueRange</span><span class=p>(</span><span class=mf>0.5</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>)</span>
-<span class=c1># theme.SetPointAlphaRange(0.2, 0.8)</span>
-<span class=n>view</span><span class=o>.</span><span class=n>ApplyViewTheme</span><span class=p>(</span><span class=n>theme</span><span class=p>)</span>
-<span class=n>theme</span><span class=o>.</span><span class=n>FastDelete</span><span class=p>()</span>
-
-<span class=n>view</span><span class=o>.</span><span class=n>GetRenderWindow</span><span class=p>()</span><span class=o>.</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>600</span><span class=p>,</span> <span class=mi>600</span><span class=p>)</span>
-<span class=n>view</span><span class=o>.</span><span class=n>ResetCamera</span><span class=p>()</span>
-<span class=n>view</span><span class=o>.</span><span class=n>Render</span><span class=p>()</span>
-
-<span class=n>view</span><span class=o>.</span><span class=n>GetInteractor</span><span class=p>()</span><span class=o>.</span><span class=n>Start</span><span class=p>()</span>
+<span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
+    <span class=n>main</span><span class=p>()</span>
 </pre></div> </article> </div> </div> </main> <footer class=md-footer> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid"> <a href=../ParallelCoordinatesView/ title=ParallelCoordinatesView class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i> </div> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Previous </span> ParallelCoordinatesView </span> </div> </a> <a href=../../Interaction/CallBack/ title=CallBack class="md-flex md-footer-nav__link md-footer-nav__link--next" rel=next> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Next </span> CallBack </span> </div> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i> </div> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright> <div class=md-footer-copyright__highlight> <font color=#666>Content is available under </font><a href=https://creativecommons.org/licenses/by/2.5/ title=Attribution2.5>Attribution2.5</a> <font color=#666>unless otherwise noted.</font> </div> powered by <a href=http://www.mkdocs.org title=MkDocs>MkDocs</a> and <a href=http://squidfunk.github.io/mkdocs-material/ title="Material for MkDocs"> Material for MkDocs</a> </div> </div> </div> </footer> </div> <script src=../../../assets/javascripts/application-c35428f87f.js></script> <script>app.initialize({url:{base:"../../.."}})</script> <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML></script> <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-3660134-4","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script> </body> </html>
