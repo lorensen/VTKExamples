@@ -16,83 +16,91 @@
 
 import vtk
 
-# Generate an image data set with multiple attribute arrays to probe and view
-# We will glyph these points with cones and scale/orient/color them with the
-# various attributes
 
-# The Wavelet Source is nice for generating a test vtkImageData set
-rt = vtk.vtkRTAnalyticSource()
-rt.SetWholeExtent(-2, 2, -2, 2, 0, 0)
+def main():
+    colors = vtk.vtkNamedColors()
 
-# Take the gradient of the only scalar 'RTData' to get a vector attribute
-grad = vtk.vtkImageGradient()
-grad.SetDimensionality(3)
-grad.SetInputConnection(rt.GetOutputPort())
+    # Generate an image data set with multiple attribute arrays to probe and view
+    # We will glyph these points with cones and scale/orient/color them with the
+    # various attributes
 
-# Elevation just to generate another scalar attribute that varies nicely over the data range
-elev = vtk.vtkElevationFilter()
-# Elevation values will range from 0 to 1 between the Low and High Points
-elev.SetLowPoint(-2, 0, 0)
-elev.SetHighPoint(2, 0, 0)
-elev.SetInputConnection(grad.GetOutputPort())
+    # The Wavelet Source is nice for generating a test vtkImageData set
+    rt = vtk.vtkRTAnalyticSource()
+    rt.SetWholeExtent(-2, 2, -2, 2, 0, 0)
 
-# Generate the cone for the glyphs
-sph = vtk.vtkConeSource()
-sph.SetRadius(0.1)
-sph.SetHeight(0.5)
+    # Take the gradient of the only scalar 'RTData' to get a vector attribute
+    grad = vtk.vtkImageGradient()
+    grad.SetDimensionality(3)
+    grad.SetInputConnection(rt.GetOutputPort())
 
-# Set up the glyph filter
-glyph = vtk.vtkGlyph3D()
-glyph.SetInputConnection(elev.GetOutputPort())
-glyph.SetSourceConnection(sph.GetOutputPort())
-glyph.ScalingOn()
-glyph.SetScaleModeToScaleByScalar()
-glyph.SetVectorModeToUseVector()
-glyph.OrientOn()
+    # Elevation just to generate another scalar attribute that varies nicely over the data range
+    elev = vtk.vtkElevationFilter()
+    # Elevation values will range from 0 to 1 between the Low and High Points
+    elev.SetLowPoint(-2, 0, 0)
+    elev.SetHighPoint(2, 0, 0)
+    elev.SetInputConnection(grad.GetOutputPort())
 
-# Tell the filter to "clamp" the scalar range
-glyph.ClampingOn()
+    # Generate the cone for the glyphs
+    sph = vtk.vtkConeSource()
+    sph.SetRadius(0.1)
+    sph.SetHeight(0.5)
 
-# Set the overall (multiplicative) scaling factor
-glyph.SetScaleFactor(1)
+    # Set up the glyph filter
+    glyph = vtk.vtkGlyph3D()
+    glyph.SetInputConnection(elev.GetOutputPort())
+    glyph.SetSourceConnection(sph.GetOutputPort())
+    glyph.ScalingOn()
+    glyph.SetScaleModeToScaleByScalar()
+    glyph.SetVectorModeToUseVector()
+    glyph.OrientOn()
 
-# Set the Range to "clamp" the data to
-#   -- see equations above for nonintuitive definition of "clamping"
-# The fact that I'm setting the minimum value of the range below
-#   the minimum of my data (real min=0.0) with the equations above
-#   forces a minimum non-zero glyph size.
+    # Tell the filter to "clamp" the scalar range
+    glyph.ClampingOn()
 
-glyph.SetRange(-0.5, 1)    # Change these values to see effect on cone sizes
+    # Set the overall (multiplicative) scaling factor
+    glyph.SetScaleFactor(1)
 
-# Tell glyph which attribute arrays to use for what
-glyph.SetInputArrayToProcess(0, 0, 0, 0, 'Elevation')		# scalars
-glyph.SetInputArrayToProcess(1, 0, 0, 0, 'RTDataGradient')		# vectors
-# glyph.SetInputArrayToProcess(2,0,0,0,'nothing')		# normals
-glyph.SetInputArrayToProcess(3, 0, 0, 0, 'RTData')		# colors
+    # Set the Range to "clamp" the data to
+    #   -- see equations above for nonintuitive definition of "clamping"
+    # The fact that I'm setting the minimum value of the range below
+    #   the minimum of my data (real min=0.0) with the equations above
+    #   forces a minimum non-zero glyph size.
 
-# Calling update because I'm going to use the scalar range to set the color map range
-glyph.Update()
+    glyph.SetRange(-0.5, 1)  # Change these values to see effect on cone sizes
 
-coloring_by = 'RTData'
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(glyph.GetOutputPort())
-mapper.SetScalarModeToUsePointFieldData()
-mapper.SetColorModeToMapScalars()
-mapper.ScalarVisibilityOn()
-mapper.SetScalarRange(glyph.GetOutputDataObject(0).GetPointData().GetArray(coloring_by).GetRange())
-mapper.SelectColorArray(coloring_by)
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    # Tell glyph which attribute arrays to use for what
+    glyph.SetInputArrayToProcess(0, 0, 0, 0, 'Elevation')  # scalars
+    glyph.SetInputArrayToProcess(1, 0, 0, 0, 'RTDataGradient')  # vectors
+    # glyph.SetInputArrayToProcess(2,0,0,0,'nothing')		# normals
+    glyph.SetInputArrayToProcess(3, 0, 0, 0, 'RTData')  # colors
 
-ren = vtk.vtkRenderer()
-ren.AddActor(actor)
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
-iren = vtk.vtkRenderWindowInteractor()
-istyle = vtk.vtkInteractorStyleTrackballCamera()
-iren.SetInteractorStyle(istyle)
-iren.SetRenderWindow(renWin)
-ren.ResetCamera()
-renWin.Render()
+    # Calling update because I'm going to use the scalar range to set the color map range
+    glyph.Update()
 
-iren.Start()
+    coloring_by = 'RTData'
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(glyph.GetOutputPort())
+    mapper.SetScalarModeToUsePointFieldData()
+    mapper.SetColorModeToMapScalars()
+    mapper.ScalarVisibilityOn()
+    mapper.SetScalarRange(glyph.GetOutputDataObject(0).GetPointData().GetArray(coloring_by).GetRange())
+    mapper.SelectColorArray(coloring_by)
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+
+    ren = vtk.vtkRenderer()
+    ren.AddActor(actor)
+    ren.SetBackground(colors.GetColor3d("MidnightBlue"))
+    renWin = vtk.vtkRenderWindow()
+    renWin.AddRenderer(ren)
+    iren = vtk.vtkRenderWindowInteractor()
+    istyle = vtk.vtkInteractorStyleTrackballCamera()
+    iren.SetInteractorStyle(istyle)
+    iren.SetRenderWindow(renWin)
+    ren.ResetCamera()
+    renWin.Render()
+    iren.Start()
+
+
+if __name__ == '__main__':
+    main()

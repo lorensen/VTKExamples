@@ -122,15 +122,6 @@ def DisplayCone(nc):
 
     renderWindow.Render()
 
-    fnsave = "TestNamedColorsIntegration.png"
-    renLgeIm = vtk.vtkRenderLargeImage()
-    imgWriter = vtk.vtkPNGWriter()
-    renLgeIm.SetInput(renderer)
-    renLgeIm.SetMagnification(1)
-    imgWriter.SetInputConnection(renLgeIm.GetOutputPort())
-    imgWriter.SetFileName(fnsave)
-    # imgWriter.Write()
-
     return renderWindowInteractor
 
 
@@ -150,10 +141,4 @@ def main():
 
 
 if __name__ == "__main__":
-    requiredMajorVersion = 6
-    print(vtk.vtkVersion().GetVTKMajorVersion())
-    if vtk.vtkVersion().GetVTKMajorVersion() < requiredMajorVersion:
-        print("You need VTK Version 6 or greater.")
-        print("The class vtkNamedColors is in VTK version 6 or greater.")
-        exit(0)
     main()

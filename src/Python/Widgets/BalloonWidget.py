@@ -1,55 +1,66 @@
 #!/usr/bin/env python
 import vtk
 
-# Sphere
-sphereSource = vtk.vtkSphereSource()
-sphereSource.SetCenter(-4.0, 0.0, 0.0)
-sphereSource.SetRadius(4.0)
 
-sphereMapper = vtk.vtkPolyDataMapper()
-sphereMapper.SetInputConnection(sphereSource.GetOutputPort())
+def main():
+    colors = vtk.vtkNamedColors()
 
-sphereActor = vtk.vtkActor()
-sphereActor.SetMapper(sphereMapper)
+    # Sphere
+    sphereSource = vtk.vtkSphereSource()
+    sphereSource.SetCenter(-4.0, 0.0, 0.0)
+    sphereSource.SetRadius(4.0)
 
-# Regular Polygon
-regularPolygonSource = vtk.vtkRegularPolygonSource()
-regularPolygonSource.SetCenter(4.0, 0.0, 0.0)
-regularPolygonSource.SetRadius(4.0)
+    sphereMapper = vtk.vtkPolyDataMapper()
+    sphereMapper.SetInputConnection(sphereSource.GetOutputPort())
 
-regularPolygonMapper = vtk.vtkPolyDataMapper()
-regularPolygonMapper.SetInputConnection(regularPolygonSource.GetOutputPort())
+    sphereActor = vtk.vtkActor()
+    sphereActor.SetMapper(sphereMapper)
+    sphereActor.GetProperty().SetColor(colors.GetColor3d("Chocolate"))
 
-regularPolygonActor = vtk.vtkActor()
-regularPolygonActor.SetMapper(regularPolygonMapper)
+    # Regular Polygon
+    regularPolygonSource = vtk.vtkRegularPolygonSource()
+    regularPolygonSource.SetCenter(4.0, 0.0, 0.0)
+    regularPolygonSource.SetRadius(4.0)
 
-# A renderer and render window
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
+    regularPolygonMapper = vtk.vtkPolyDataMapper()
+    regularPolygonMapper.SetInputConnection(regularPolygonSource.GetOutputPort())
 
-# An interactor
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+    regularPolygonActor = vtk.vtkActor()
+    regularPolygonActor.SetMapper(regularPolygonMapper)
+    regularPolygonActor.GetProperty().SetColor(colors.GetColor3d("BurlyWood"))
 
-# Create the widget
-balloonRep = vtk.vtkBalloonRepresentation()
-balloonRep.SetBalloonLayoutToImageRight()
+    # A renderer and render window
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.AddRenderer(renderer)
 
-balloonWidget = vtk.vtkBalloonWidget()
-balloonWidget.SetInteractor(renderWindowInteractor)
-balloonWidget.SetRepresentation(balloonRep)
-balloonWidget.AddBalloon(sphereActor, "This is a sphere")
-balloonWidget.AddBalloon(regularPolygonActor, "This is a regular polygon")
+    # An interactor
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
 
-# Add the actors to the scene
-renderer.AddActor(sphereActor)
-renderer.AddActor(regularPolygonActor)
+    # Create the widget
+    balloonRep = vtk.vtkBalloonRepresentation()
+    balloonRep.SetBalloonLayoutToImageRight()
 
-# Render an image (lights and cameras are created automatically)
-renderWindow.Render()
-balloonWidget.EnabledOn()
+    balloonWidget = vtk.vtkBalloonWidget()
+    balloonWidget.SetInteractor(renderWindowInteractor)
+    balloonWidget.SetRepresentation(balloonRep)
+    balloonWidget.AddBalloon(sphereActor, "This is a sphere")
+    balloonWidget.AddBalloon(regularPolygonActor, "This is a regular polygon")
 
-# Begin mouse interaction
-renderWindowInteractor.Start()
-renderWindowInteractor.Initialize()
+    # Add the actors to the scene
+    renderer.AddActor(sphereActor)
+    renderer.AddActor(regularPolygonActor)
+    renderer.SetBackground(colors.GetColor3d("Wheat"))
+
+    # Render an image (lights and cameras are created automatically)
+    renderWindow.Render()
+    balloonWidget.EnabledOn()
+
+    # Begin mouse interaction
+    renderWindowInteractor.Start()
+    renderWindowInteractor.Initialize()
+
+
+if __name__ == '__main__':
+    main()
