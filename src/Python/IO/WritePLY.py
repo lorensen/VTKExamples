@@ -1,34 +1,55 @@
 import vtk
 
-filename = "writeply.ply"
 
-sphereSource = vtk.vtkSphereSource()
-sphereSource.Update()
+def get_program_parameters():
+    import argparse
+    description = 'Generate image data, then write a .ply file.'
+    epilogue = '''
+   '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue)
+    parser.add_argument('filename', help='A required ply filename.', nargs='?',
+                        const='TestWritePLY.ply',
+                        type=str, default='TestWritePLY.ply')
+    args = parser.parse_args()
+    return args.filename
 
-plyWriter = vtk.vtkPLYWriter()
-plyWriter.SetFileName(filename)
-plyWriter.SetInputConnection(sphereSource.GetOutputPort())
-plyWriter.Write()
 
-# Read and display for verication
-reader = vtk.vtkPLYReader()
-reader.SetFileName(filename)
-reader.Update()
+def main():
+    colors = vtk.vtkNamedColors()
 
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(reader.GetOutputPort())
+    filename = get_program_parameters()
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    sphereSource = vtk.vtkSphereSource()
+    sphereSource.Update()
 
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+    plyWriter = vtk.vtkPLYWriter()
+    plyWriter.SetFileName(filename)
+    plyWriter.SetInputConnection(sphereSource.GetOutputPort())
+    plyWriter.Write()
 
-renderer.AddActor(actor)
-renderer.SetBackground(.3, .6, .3)  # Background color green
+    # Read and display for verification
+    reader = vtk.vtkPLYReader()
+    reader.SetFileName(filename)
+    reader.Update()
 
-renderWindow.Render()
-renderWindowInteractor.Start()
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(reader.GetOutputPort())
+
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
+
+    renderer.AddActor(actor)
+    renderer.SetBackground(colors.GetColor3d('cobalt_green'))
+
+    renderWindow.Render()
+    renderWindowInteractor.Start()
+
+
+if __name__ == '__main__':
+    main()

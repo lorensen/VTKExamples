@@ -1,5 +1,6 @@
 import vtk
 
+colors = vtk.vtkNamedColors()
 NUMBER_OF_SPHERES = 10
 
 
@@ -30,7 +31,7 @@ class MouseInteractorHighLightActor(vtk.vtkInteractorStyleTrackballCamera):
             # restore it next time
             self.LastPickedProperty.DeepCopy(self.NewPickedActor.GetProperty())
             # Highlight the picked actor by changing its properties
-            self.NewPickedActor.GetProperty().SetColor(1.0, 0.0, 0.0)
+            self.NewPickedActor.GetProperty().SetColor(colors.GetColor3d('Red'))
             self.NewPickedActor.GetProperty().SetDiffuse(1.0)
             self.NewPickedActor.GetProperty().SetSpecular(0.0)
 
@@ -41,54 +42,59 @@ class MouseInteractorHighLightActor(vtk.vtkInteractorStyleTrackballCamera):
         return
 
 
-# A renderer and render window
-renderer = vtk.vtkRenderer()
-renderer.SetBackground(.3, .4, .5)
+def main():
+    # A renderer and render window
+    renderer = vtk.vtkRenderer()
+    renderer.SetBackground(colors.GetColor3d('SteelBlue'))
+
+    renwin = vtk.vtkRenderWindow()
+    renwin.AddRenderer(renderer)
+
+    # An interactor
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(renwin)
+
+    # add the custom style
+    style = MouseInteractorHighLightActor()
+    style.SetDefaultRenderer(renderer)
+    interactor.SetInteractorStyle(style)
+
+    # Add spheres to play with
+    for i in range(NUMBER_OF_SPHERES):
+        source = vtk.vtkSphereSource()
+
+        # random position and radius
+        x = vtk.vtkMath.Random(-5, 5)
+        y = vtk.vtkMath.Random(-5, 5)
+        z = vtk.vtkMath.Random(-5, 5)
+        radius = vtk.vtkMath.Random(.5, 1.0)
+
+        source.SetRadius(radius)
+        source.SetCenter(x, y, z)
+        source.SetPhiResolution(11)
+        source.SetThetaResolution(21)
+
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputConnection(source.GetOutputPort())
+        actor = vtk.vtkActor()
+        actor.SetMapper(mapper)
+
+        r = vtk.vtkMath.Random(.4, 1.0)
+        g = vtk.vtkMath.Random(.4, 1.0)
+        b = vtk.vtkMath.Random(.4, 1.0)
+        actor.GetProperty().SetDiffuseColor(r, g, b)
+        actor.GetProperty().SetDiffuse(.8)
+        actor.GetProperty().SetSpecular(.5)
+        actor.GetProperty().SetSpecularColor(1.0, 1.0, 1.0)
+        actor.GetProperty().SetSpecularPower(30.0)
+
+        renderer.AddActor(actor)
+
+    # Start
+    interactor.Initialize()
+    renwin.Render()
+    interactor.Start()
 
 
-renwin = vtk.vtkRenderWindow()
-renwin.AddRenderer(renderer)
-
-# An interactor
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renwin)
-
-# add the custom style
-style = MouseInteractorHighLightActor()
-style.SetDefaultRenderer(renderer)
-interactor.SetInteractorStyle(style)
-
-# Add spheres to play with
-for i in range(NUMBER_OF_SPHERES):
-    source = vtk.vtkSphereSource()
-
-    # random position and radius
-    x = vtk.vtkMath.Random(-5, 5)
-    y = vtk.vtkMath.Random(-5, 5)
-    z = vtk.vtkMath.Random(-5, 5)
-    radius = vtk.vtkMath.Random(.5, 1.0)
-
-    source.SetRadius(radius)
-    source.SetCenter(x, y, z)
-    source.SetPhiResolution(11)
-    source.SetThetaResolution(21)
-
-    mapper = vtk.vtkPolyDataMapper()
-    mapper.SetInputConnection(source.GetOutputPort())
-    actor = vtk.vtkActor()
-    actor.SetMapper(mapper)
-
-    r = vtk.vtkMath.Random(.4, 1.0)
-    g = vtk.vtkMath.Random(.4, 1.0)
-    b = vtk.vtkMath.Random(.4, 1.0)
-    actor.GetProperty().SetDiffuseColor(r, g, b)
-    actor.GetProperty().SetDiffuse(.8)
-    actor.GetProperty().SetSpecular(.5)
-    actor.GetProperty().SetSpecularColor(1.0, 1.0, 1.0)
-    actor.GetProperty().SetSpecularPower(30.0)
-
-    renderer.AddActor(actor)
-
-# Start
-interactor.Initialize()
-interactor.Start()
+if __name__ == '__main__':
+    main()

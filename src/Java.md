@@ -36,6 +36,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Delaunay2D](/Java/Filtering/Delaunay2D) | vtkDelaunay2D | An example to generate set of points and to triangulate using Delaunay2D
 [Glyph2D](/Java/Filtering/Glyph2D) | vtkGlyph2D | Example to copy a polydata to everypoint in the input set. 
 [Glyph3D](/Java/Filtering/Glyph3D) | vtkGlyph3D | This example applies an object at every point using vtkGlyph3D
+[WarpTo](/Java/Filtering/WarpTo) | vtkWarpTo | Deform geometry by warping towards a point
 
 ## GeometricObjects
 
@@ -88,7 +89,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Actor2D](/Java/Images/Actor2D) | vtkActor2D | A actor that draws 2D data
-[StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image 
+[StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image
+[RTAnalyticSource](/Java/Images/RTAnalyticSource) | vtkRTAnalyticSource | Creates an image for regression testing
 
 ## Input and Output
 
@@ -153,6 +155,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [MeshQuality](/Java/PolyData/MeshQuality) | vtkMeshQuality | MeshQuality
 [ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) | vtkColorCellsWithRGB | ColorCellsWithRGB
 [Reflection](/Java/PolyData/Reflection) | vtkReflection | Reflection
+[TransformFilter](/Java/PolyData/TransformFilter) | vtkTransformFilter | Transforms points, associated normals and vectors
 
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -179,6 +182,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Animation](/Java/Visualization/Animation) |  | Move a sphere across a scene
 [BackgroundColor](/Java/Visualization/BackgroundColor) |  |  Example program to set the background color of the render window
 [BackgroundGradient](/Java/Visualization/BackgroundGradient) |  | viewport having gradient background using the Background (bottom) and Background2 (top) colors.
+[CameraActor](/Java/Visualization/CameraActor) | vtkCameraActor | A frustum to represent a camera.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
 [Cursor2D](/Java/Visualization/Cursor2D) | vtkCursor2D | Generates a 2D Cursor Representation.
 [Cursor3D](/Java/Visualization/Cursor3D) | vtkCursor3D | Generates a 3D Cursor Representation
@@ -199,6 +203,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [DistanceBetweenPoints](/Java/SimpleOperations/DistanceBetweenPoints) | vtkMath | Example Program to find squared distance and the Euclidean distance between two 3D points.
 [PerspectiveTransform](/Java/SimpleOperations/PerspectiveTransform) | vtkPerspectiveTransform | It is used to describe the full range of homogeneous transformations. It was designed in particular to describe a camera-view of a scene
+[RandomSequence](/Java/SimpleOperations/RandomSequence) | vtkMinimalStandardRandomSequence | Park and Miller Sequence of pseudo random numbers.
 
 ## Swing Integration
 

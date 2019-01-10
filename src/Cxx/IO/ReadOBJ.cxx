@@ -1,10 +1,15 @@
+#include <vtkSmartPointer.h>
 #include <vtkOBJReader.h>
+
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
+#include <vtkProperty.h>
+#include <vtkCamera.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkSmartPointer.h>
+#include <vtkNamedColors.h>
+
 #include <string>
 
 int main(int argc, char* argv[])
@@ -23,6 +28,11 @@ int main(int argc, char* argv[])
   reader->Update();
 
   // Visualize
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+  vtkColor3d backgroundColor = colors->GetColor3d("SpringGreen");
+  vtkColor3d actorColor      = colors->GetColor3d("HoneyDew");
+
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(reader->GetOutputPort());
@@ -30,11 +40,17 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetDiffuseColor(actorColor.GetData());
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
-  renderer->SetBackground(.3, .6, .3); // Background color green
+  renderer->SetBackground(backgroundColor.GetData());
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(30);
+  renderer->GetActiveCamera()->Elevation(30);
+  renderer->GetActiveCamera()->Dolly(1.5);
+  renderer->ResetCameraClippingRange();
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -43,6 +59,9 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
+
+  renderWindow->SetSize(640, 480);
+  renderWindow->Render();
 
   renderWindowInteractor->Start();
 

@@ -48,8 +48,8 @@ def main():
 
     # Inspect Mode determines whether your interactions manipulate the axes or
     # select data
-    # view.SetInspectMode(0)    # VTK_INSPECT_MANIPULATE_AXES = 0,
-    view.SetInspectMode(1)  # VTK_INSPECT_SELECT_DATA = 1
+    # view.SetInspectMode(view.VTK_INSPECT_MANIPULATE_AXES)    # VTK_INSPECT_MANIPULATE_AXES = 0,
+    view.SetInspectMode(view.VTK_INSPECT_SELECT_DATA)  # VTK_INSPECT_SELECT_DATA = 1
 
     # Brush Mode determines the type of interaction you perform to select data
     view.SetBrushModeToLasso()
@@ -66,7 +66,7 @@ def main():
 
     def ToggleInspectors(obj, event):
         # Define the callback routine which toggles between "Inspect Modes"
-        if (view.GetInspectMode() == 0):
+        if view.GetInspectMode() == 0:
             view.SetInspectMode(1)
         else:
             view.SetInspectMode(0)

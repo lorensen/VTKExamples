@@ -1,2 +1,2 @@
 ### Description
-This example demonstrates how to read a [.obj file|Wavefront OBJ]]([wikipedia:Wavefront) file. The result is displayed.
+This example demonstrates how to read a [Wavefront OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) file. The result is displayed.

@@ -120,7 +120,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | -------------- | ---------------------- | ------------- | ------- |
 [Arrow](/Python/GeometricObjects/Arrow) | vtkArrowSource |
 [Cone](/Python/GeometricObjects/Cone) | vtkConeSource |
-[Cube](/Python/GeometricObjects/Cube) | vtkCubeSource |
+[Cube](/Python/GeometricObjects/Cube) | vtkPolyData | Manually build a polygonal cube.
+[Cube1](/Python/GeometricObjects/Cube1) | vtkCubeSource | A nice simple example that demonstrates the operation of the VTK pipeline.
 [Cylinder](/Python/GeometricObjects/Cylinder) | vtkCylinderSource |
 [Disk](/Python/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Python/GeometricObjects/Frustum) | vtkFrustumSource |

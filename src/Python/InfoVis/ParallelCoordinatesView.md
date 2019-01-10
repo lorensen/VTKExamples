@@ -1,2 +1,3 @@
 ### Description
-[Coordinates View of the example data after selecting low Elevation values with lasso.]]([Image:ParallelCoordinatesView.png|Parallel)
+
+Using Parallel Coordinates View to plot and compare data set attributes.

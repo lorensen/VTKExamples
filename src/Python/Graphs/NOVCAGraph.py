@@ -5,9 +5,9 @@ import vtk
 
 def get_program_parameters():
     import argparse
-    description = 'Building a graph using Unstructured Grid & dumping it in a vtk file.'
+    description = 'Building a graph using Unstructured Grid & dumping it into a vtk file.'
     epilogue = '''
-        Building a graph using Unstructured Grid & dumping it in a vtk file, to be visualized using ParaView.
+        Building a graph using Unstructured Grid & dumping it into a vtk file, to be visualized using ParaView.
         
         The generated file can then be used in ParaView/VisIt.
    '''
