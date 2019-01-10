@@ -1,126 +1,139 @@
 #!/usr/bin/env python
 
-import vtk
-import random
 import numpy
+import vtk
 
-# Make a 32 x 32 grid
-size = 32
 
-# Define z values for the topography (random height)
-topography = numpy.zeros([size, size])
-for i in range(size):
-    for j in range(size):
-        topography[i][j] = random.randrange(0, 5)
+def main():
+    nc = vtk.vtkNamedColors()
 
-# Define points, triangles and colors
-colors = vtk.vtkUnsignedCharArray()
-colors.SetNumberOfComponents(3)
-points = vtk.vtkPoints()
-triangles = vtk.vtkCellArray()
+    # Make a 32 x 32 grid
+    size = 32
 
-# Build the meshgrid manually
-count = 0
-for i in range(size - 1):
-    for j in range(size - 1):
+    rn = vtk.vtkMinimalStandardRandomSequence()
+    rn.SetSeed(1)
 
-        z1 = topography[i][j]
-        z2 = topography[i][j + 1]
-        z3 = topography[i + 1][j]
+    # Define z values for the topography (random height)
+    topography = numpy.zeros([size, size])
+    for i in range(size):
+        for j in range(size):
+            topography[i][j] = rn.GetRangeValue(0, 5)
+            rn.Next()
 
-        # Triangle 1
-        points.InsertNextPoint(i, j, z1)
-        points.InsertNextPoint(i, (j + 1), z2)
-        points.InsertNextPoint((i + 1), j, z3)
+    # Define points, triangles and colors
+    colors = vtk.vtkUnsignedCharArray()
+    colors.SetNumberOfComponents(3)
+    points = vtk.vtkPoints()
+    triangles = vtk.vtkCellArray()
 
-        triangle = vtk.vtkTriangle()
-        triangle.GetPointIds().SetId(0, count)
-        triangle.GetPointIds().SetId(1, count + 1)
-        triangle.GetPointIds().SetId(2, count + 2)
+    # Build the meshgrid manually
+    count = 0
+    for i in range(size - 1):
+        for j in range(size - 1):
+            z1 = topography[i][j]
+            z2 = topography[i][j + 1]
+            z3 = topography[i + 1][j]
 
-        triangles.InsertNextCell(triangle)
+            # Triangle 1
+            points.InsertNextPoint(i, j, z1)
+            points.InsertNextPoint(i, (j + 1), z2)
+            points.InsertNextPoint((i + 1), j, z3)
 
-        z1 = topography[i][j + 1]
-        z2 = topography[i + 1][j + 1]
-        z3 = topography[i + 1][j]
+            triangle = vtk.vtkTriangle()
+            triangle.GetPointIds().SetId(0, count)
+            triangle.GetPointIds().SetId(1, count + 1)
+            triangle.GetPointIds().SetId(2, count + 2)
 
-        # Triangle 2
-        points.InsertNextPoint(i, (j + 1), z1)
-        points.InsertNextPoint((i + 1), (j + 1), z2)
-        points.InsertNextPoint((i + 1), j, z3)
+            triangles.InsertNextCell(triangle)
 
-        triangle = vtk.vtkTriangle()
-        triangle.GetPointIds().SetId(0, count + 3)
-        triangle.GetPointIds().SetId(1, count + 4)
-        triangle.GetPointIds().SetId(2, count + 5)
+            z1 = topography[i][j + 1]
+            z2 = topography[i + 1][j + 1]
+            z3 = topography[i + 1][j]
 
-        count += 6
+            # Triangle 2
+            points.InsertNextPoint(i, (j + 1), z1)
+            points.InsertNextPoint((i + 1), (j + 1), z2)
+            points.InsertNextPoint((i + 1), j, z3)
 
-        triangles.InsertNextCell(triangle)
+            triangle = vtk.vtkTriangle()
+            triangle.GetPointIds().SetId(0, count + 3)
+            triangle.GetPointIds().SetId(1, count + 4)
+            triangle.GetPointIds().SetId(2, count + 5)
 
-        # Add some color
-        r = [int(i / float(size) * 255), int(j / float(size) * 255), 0]
-        colors.InsertNextTypedTuple(r)
-        colors.InsertNextTypedTuple(r)
-        colors.InsertNextTypedTuple(r)
-        colors.InsertNextTypedTuple(r)
-        colors.InsertNextTypedTuple(r)
-        colors.InsertNextTypedTuple(r)
+            count += 6
 
-# Create a polydata object
-trianglePolyData = vtk.vtkPolyData()
+            triangles.InsertNextCell(triangle)
 
-# Add the geometry and topology to the polydata
-trianglePolyData.SetPoints(points)
-trianglePolyData.GetPointData().SetScalars(colors)
-trianglePolyData.SetPolys(triangles)
+            # Add some color
+            r = [int(i / float(size) * 255), int(j / float(size) * 255), 0]
+            colors.InsertNextTypedTuple(r)
+            colors.InsertNextTypedTuple(r)
+            colors.InsertNextTypedTuple(r)
+            colors.InsertNextTypedTuple(r)
+            colors.InsertNextTypedTuple(r)
+            colors.InsertNextTypedTuple(r)
 
-# Clean the polydata so that the edges are shared !
-cleanPolyData = vtk.vtkCleanPolyData()
-cleanPolyData.SetInputData(trianglePolyData)
+    # Create a polydata object
+    trianglePolyData = vtk.vtkPolyData()
 
-# Use a filter to smooth the data (will add triangles and smooth)
-# Use two different filters to show the difference
-smooth_loop = vtk.vtkLoopSubdivisionFilter()
-smooth_loop.SetNumberOfSubdivisions(3)
-smooth_loop.SetInputConnection(cleanPolyData.GetOutputPort())
-smooth_butterfly = vtk.vtkButterflySubdivisionFilter()
-smooth_butterfly.SetNumberOfSubdivisions(3)
-smooth_butterfly.SetInputConnection(cleanPolyData.GetOutputPort())
+    # Add the geometry and topology to the polydata
+    trianglePolyData.SetPoints(points)
+    trianglePolyData.GetPointData().SetScalars(colors)
+    trianglePolyData.SetPolys(triangles)
 
-# Create a mapper and actor for initial dataset
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputData(trianglePolyData)
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    # Clean the polydata so that the edges are shared !
+    cleanPolyData = vtk.vtkCleanPolyData()
+    cleanPolyData.SetInputData(trianglePolyData)
 
-# Create a mapper and actor for smoothed dataset (vtkLoopSubdivisionFilter)
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(smooth_loop.GetOutputPort())
-actor_loop = vtk.vtkActor()
-actor_loop.SetMapper(mapper)
-actor_loop.SetPosition(32, 0, 0)
+    # Use a filter to smooth the data (will add triangles and smooth)
+    # Use two different filters to show the difference
+    smooth_loop = vtk.vtkLoopSubdivisionFilter()
+    smooth_loop.SetNumberOfSubdivisions(3)
+    smooth_loop.SetInputConnection(cleanPolyData.GetOutputPort())
+    smooth_butterfly = vtk.vtkButterflySubdivisionFilter()
+    smooth_butterfly.SetNumberOfSubdivisions(3)
+    smooth_butterfly.SetInputConnection(cleanPolyData.GetOutputPort())
 
-# Create a mapper and actor for smoothed dataset (vtkButterflySubdivisionFilter)
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(smooth_butterfly.GetOutputPort())
-actor_butterfly = vtk.vtkActor()
-actor_butterfly.SetMapper(mapper)
-actor_butterfly.SetPosition(64, 0, 0)
+    # Create a mapper and actor for initial dataset
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputData(trianglePolyData)
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
 
-# Visualise
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+    # Create a mapper and actor for smoothed dataset (vtkLoopSubdivisionFilter)
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(smooth_loop.GetOutputPort())
+    actor_loop = vtk.vtkActor()
+    actor_loop.SetMapper(mapper)
+    actor_loop.SetPosition(32, 0, 0)
 
-# Add actors and render
-renderer.AddActor(actor)
-renderer.AddActor(actor_loop)
-renderer.AddActor(actor_butterfly)
+    # Create a mapper and actor for smoothed dataset (vtkButterflySubdivisionFilter)
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(smooth_butterfly.GetOutputPort())
+    actor_butterfly = vtk.vtkActor()
+    actor_butterfly.SetMapper(mapper)
+    actor_butterfly.SetPosition(64, 0, 0)
 
-renderer.SetBackground(1, 1, 1)  # Background color white
-renderWindow.SetSize(900, 300)
-renderWindow.Render()
-renderWindowInteractor.Start()
+    # Visualise
+    renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
+
+    # Add actors and render
+    renderer.AddActor(actor)
+    renderer.AddActor(actor_loop)
+    renderer.AddActor(actor_butterfly)
+    renderer.SetBackground(nc.GetColor3d("AliceBlue"))
+
+    renderWindow.SetSize(900, 300)
+    renderWindow.Render()
+    renderer.GetActiveCamera().Elevation(-45)
+    renderer.GetActiveCamera().Zoom(3)
+    renderWindow.Render()
+    renderWindowInteractor.Start()
+
+
+if __name__ == '__main__':
+    main()
