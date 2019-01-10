@@ -1,2 +1,4 @@
 ### Description
-[in a Parallel Coordinates View is used to define indices to extract and view in a standard 3d render window]]([Image:ParallelCoordinatesExtraction.png|Selection)
+
+Using Parallel Coordinates View to plot and compare data set attributes, and then using selections in the parallel coordinates
+ view to extract and view data points associated with those selections.

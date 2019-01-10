@@ -3,8 +3,21 @@
 import vtk
 
 
+def get_program_parameters():
+    import argparse
+    description = 'Read a .stl file.'
+    epilogue = ''''''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('filename', help='42400-IDGH.stl')
+    args = parser.parse_args()
+    return args.filename
+
+
 def main():
-    filename = "myfile.stl"
+    colors = vtk.vtkNamedColors()
+
+    filename = get_program_parameters()
 
     reader = vtk.vtkSTLReader()
     reader.SetFileName(filename)
@@ -19,6 +32,7 @@ def main():
     ren = vtk.vtkRenderer()
     renWin = vtk.vtkRenderWindow()
     renWin.AddRenderer(ren)
+    ren.SetBackground(colors.GetColor3d("cobalt_green"))
 
     # Create a renderwindowinteractor
     iren = vtk.vtkRenderWindowInteractor()

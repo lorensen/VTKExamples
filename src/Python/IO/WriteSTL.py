@@ -3,8 +3,23 @@
 import vtk
 
 
+def get_program_parameters():
+    import argparse
+    description = 'Generate image data, then write a .stl file.'
+    epilogue = '''
+   '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue)
+    parser.add_argument('filename', help='A required stl filename.', nargs='?',
+                        const='TestWriteSTL.ply',
+                        type=str, default='TestWriteSTL.ply')
+    args = parser.parse_args()
+    return args.filename
+
+
 def main():
-    filename = "test.stl"
+    colors = vtk.vtkNamedColors()
+
+    filename = get_program_parameters()
 
     sphereSource = vtk.vtkSphereSource()
     sphereSource.Update()
@@ -36,6 +51,7 @@ def main():
 
     # Assign actor to the renderer
     ren.AddActor(actor)
+    ren.SetBackground(colors.GetColor3d('cobalt_green'))
 
     # Enable user interface interactor
     iren.Initialize()
