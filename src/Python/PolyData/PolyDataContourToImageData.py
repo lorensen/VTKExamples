@@ -10,6 +10,7 @@ def main():
     sphereSource.SetThetaResolution(30)
     sphereSource.SetCenter(40, 40, 0)
     sphereSource.SetRadius(20)
+
     # generate circle by cutting the sphere with an implicit plane
     # (through its center, axis-aligned)
     circleCutter = vtk.vtkCutter()
@@ -18,9 +19,11 @@ def main():
     cutPlane.SetOrigin(sphereSource.GetCenter())
     cutPlane.SetNormal(0, 0, 1)
     circleCutter.SetCutFunction(cutPlane)
+
     stripper = vtk.vtkStripper()
     stripper.SetInputConnection(circleCutter.GetOutputPort())  # valid circle
     stripper.Update()
+
     # that's our circle
     circle = stripper.GetOutput()
 
@@ -70,9 +73,9 @@ def main():
     # sweep polygonal data (this is the important thing with contours!)
     extruder = vtk.vtkLinearExtrusionFilter()
     extruder.SetInputData(circle)
-
-    extruder.SetScaleFactor(1.)
-    extruder.SetExtrusionTypeToNormalExtrusion()
+    extruder.SetScaleFactor(1.0)
+    # extruder.SetExtrusionTypeToNormalExtrusion()
+    extruder.SetExtrusionTypeToVectorExtrusion()
     extruder.SetVector(0, 0, 1)
     extruder.Update()
 
@@ -89,7 +92,6 @@ def main():
     imgstenc = vtk.vtkImageStencil()
     imgstenc.SetInputData(whiteImage)
     imgstenc.SetStencilConnection(pol2stenc.GetOutputPort())
-
     imgstenc.ReverseStencilOff()
     imgstenc.SetBackgroundValue(outval)
     imgstenc.Update()

@@ -4,6 +4,8 @@ import vtk
 
 
 def main():
+    colors = vtk.vtkNamedColors()
+
     points = vtk.vtkPoints()
     points.InsertNextPoint(0.0, 0.0, 0.0)
     points.InsertNextPoint(1.0, 0.0, 0.0)
@@ -62,7 +64,7 @@ def main():
 
     renderer = vtk.vtkRenderer()
     renderer.AddActor(actor)
-    renderer.SetBackground(.3, .6, .3)
+    renderer.SetBackground(colors.GetColor3d('cobalt_green'))
 
     renderWindow = vtk.vtkRenderWindow()
     renderWindow.AddRenderer(renderer)
@@ -71,8 +73,6 @@ def main():
     renderWindowInteractor.SetRenderWindow(renderWindow)
     renderWindow.Render()
     renderWindowInteractor.Start()
-
-    return
 
 
 if __name__ == '__main__':

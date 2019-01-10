@@ -3,11 +3,11 @@ import vtk
 
 def get_program_parameters():
     import argparse
-    description = 'Generate image data, then write a .stl file.'
+    description = 'Generate image data, then write a .vtp file.'
     epilogue = '''
    '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
-    parser.add_argument('filename', help='A required stl filename.', nargs='?',
+    parser.add_argument('filename', help='A required vtp filename.', nargs='?',
                         const='TestWriteTriangleToFile.vtp',
                         type=str, default='TestWriteTriangleToFile.vtp')
     args = parser.parse_args()

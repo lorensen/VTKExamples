@@ -1,8 +1,21 @@
 import vtk
 
+def get_program_parameters():
+    import argparse
+    description = 'Generate a solid colored triangle and write it to a .vtp file.'
+    epilogue = '''
+   '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue)
+    parser.add_argument('filename', help='A required vtp filename.', nargs='?',
+                        const='TestSolidColorTriangle.vtp',
+                        type=str, default='TestSolidColorTriangle.vtp')
+    args = parser.parse_args()
+    return args.filename
 
 def main():
     colors = vtk.vtkNamedColors()
+
+    filename = get_program_parameters()
 
     # setup points and vertices
     Points = vtk.vtkPoints()
@@ -32,7 +45,7 @@ def main():
     polydata.Modified()
 
     writer = vtk.vtkXMLPolyDataWriter()
-    writer.SetFileName("TriangleSolidColor.vtp")
+    writer.SetFileName(filename)
     writer.SetInputData(polydata)
     writer.Write()
 
