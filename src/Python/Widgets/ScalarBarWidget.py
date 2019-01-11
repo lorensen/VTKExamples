@@ -6,13 +6,25 @@
 import vtk
 
 
+def get_program_parameters():
+    import argparse
+    description = 'Scalar bar widget.'
+    epilogue = '''
+    '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('filename', help='uGridEx.vtk.')
+    args = parser.parse_args()
+    return args.filename
+
+
 def main():
     colors = vtk.vtkNamedColors()
 
     colors.SetColor('bkg', [0.1, 0.2, 0.4, 1.0])
 
     # The source file
-    file_name = "uGridEx.vtk"
+    file_name = get_program_parameters()
 
     # Create a custom lut. The lut is used both at the mapper and at the
     # scalar_bar
@@ -57,6 +69,10 @@ def main():
     scalar_bar_widget.On()
 
     interactor.Initialize()
+    render_window.Render()
+    renderer.GetActiveCamera().SetPosition(-6.4, 10.3, 1.4)
+    renderer.GetActiveCamera().SetFocalPoint(1.0, 0.5, 3.0)
+    renderer.GetActiveCamera().SetViewUp(0.6, 0.4, -0.7)
     render_window.Render()
     interactor.Start()
 

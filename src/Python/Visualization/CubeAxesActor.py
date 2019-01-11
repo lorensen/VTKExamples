@@ -5,6 +5,7 @@ import vtk
 
 def main():
     colors = vtk.vtkNamedColors()
+
     # Create a superquadric
     superquadricSource = vtk.vtkSuperquadricSource()
     superquadricSource.SetPhiRoundness(3.1)

@@ -1,45 +1,59 @@
 import vtk
 
-# create a rendering window and renderer
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
+def main():
+    colors = vtk.vtkNamedColors()
 
-# create a renderwindowinteractor
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
+    # create a rendering window and renderer
+    ren = vtk.vtkRenderer()
+    renWin = vtk.vtkRenderWindow()
+    renWin.AddRenderer(ren)
 
-# create source
-source = vtk.vtkSphereSource()
-source.SetCenter(0, 0, 0)
-source.SetRadius(5.0)
+    # create a renderwindowinteractor
+    iren = vtk.vtkRenderWindowInteractor()
+    iren.SetRenderWindow(renWin)
 
-# mapper
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(source.GetOutputPort())
+    # create source
+    source = vtk.vtkSphereSource()
+    source.SetCenter(0, 0, 0)
+    source.SetRadius(5.0)
+    source.SetPhiResolution(30)
+    source.SetThetaResolution(30)
 
-# actor
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
 
-# color the actor
-actor.GetProperty().SetColor(1, 0, 0)  # (R,G,B)
+    # mapper
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(source.GetOutputPort())
 
-# assign actor to the renderer
-ren.AddActor(actor)
+    # actor
+    actor = vtk.vtkActor()
+    actor.GetProperty().SetColor(colors.GetColor3d("IndianRed"))
+    actor.GetProperty().SetSpecular(0.6)
+    actor.GetProperty().SetSpecularPower(30)
+    actor.SetMapper(mapper)
 
-renWin.Render()
+    # assign actor to the renderer
+    ren.AddActor(actor)
+    ren.SetBackground(colors.GetColor3d("MistyRose"))
 
-# screenshot code:
-w2if = vtk.vtkWindowToImageFilter()
-w2if.SetInput(renWin)
-w2if.Update()
 
-writer = vtk.vtkPNGWriter()
-writer.SetFileName("screenshot.png")
-writer.SetInputConnection(w2if.GetOutputPort())
-writer.Write()
+    renWin.Render()
 
-# enable user interface interactor
-iren.Initialize()
-iren.Start()
+    # screenshot code:
+    w2if = vtk.vtkWindowToImageFilter()
+    w2if.SetInput(renWin)
+    w2if.SetInputBufferTypeToRGB()
+    w2if.ReadFrontBufferOff()
+    w2if.Update()
+
+    writer = vtk.vtkPNGWriter()
+    writer.SetFileName("TestScreenshot.png")
+    writer.SetInputConnection(w2if.GetOutputPort())
+    writer.Write()
+
+    # enable user interface interactor
+    iren.Initialize()
+    iren.Start()
+
+
+if __name__ == '__main__':
+    main()

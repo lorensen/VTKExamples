@@ -2,6 +2,8 @@ import vtk
 
 
 def main():
+    colors = vtk.vtkNamedColors()
+
     '''One render window, multiple viewports'''
     rw = vtk.vtkRenderWindow()
     iren = vtk.vtkRenderWindowInteractor()
@@ -11,6 +13,9 @@ def main():
     xmaxs = [0.5, 1, 0.5, 1]
     ymins = [0, 0, .5, .5]
     ymaxs = [0.5, 0.5, 1, 1]
+    # Have some fun with colors
+    ren_bkg = ['AliceBlue', 'GhostWhite', 'WhiteSmoke', 'Seashell']
+    actor_color = ['Bisque', 'RosyBrown', 'Goldenrod', 'Chocolate']
     for i in range(4):
         ren = vtk.vtkRenderer()
         rw.AddRenderer(ren)
@@ -25,8 +30,11 @@ def main():
         mapper = vtk.vtkPolyDataMapper()
         mapper.SetInputConnection(sphereSource.GetOutputPort())
         actor = vtk.vtkActor()
+        actor.GetProperty().SetColor(colors.GetColor3d(actor_color[i]))
         actor.SetMapper(mapper)
         ren.AddActor(actor)
+        ren.SetBackground(colors.GetColor3d(ren_bkg[i]))
+
         ren.ResetCamera()
 
     rw.Render()

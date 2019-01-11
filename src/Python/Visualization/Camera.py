@@ -1,36 +1,49 @@
 import vtk
 
 
-# Create a sphere
-sphereSource = vtk.vtkSphereSource()
-sphereSource.SetCenter(0.0, 0.0, 0.0)
-sphereSource.SetRadius(10)
-sphereSource.Update()
+def main():
+    colors = vtk.vtkNamedColors()
 
-# Create a mapper and actor
-mapper = vtk.vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(sphereSource.GetOutputPort())
+    # Create a sphere
+    sphereSource = vtk.vtkSphereSource()
+    sphereSource.SetCenter(0.0, 0.0, 0.0)
+    sphereSource.SetRadius(10)
+    sphereSource.SetPhiResolution(30)
+    sphereSource.SetThetaResolution(30)
+    sphereSource.Update()
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    # Create a mapper and actor
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(sphereSource.GetOutputPort())
 
-camera = vtk.vtkCamera()
-camera.SetPosition(0, 0, 100)
-camera.SetFocalPoint(0, 0, 0)
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetSpecular(0.6)
+    actor.GetProperty().SetSpecularPower(30)
+    actor.GetProperty().SetColor(colors.GetColor3d("LightSkyBlue"))
 
-# Create a renderer, render window, and interactor
-renderer = vtk.vtkRenderer()
-renderer.SetActiveCamera(camera)
+    camera = vtk.vtkCamera()
+    camera.SetPosition(0, 0, 100)
+    camera.SetFocalPoint(0, 0, 0)
 
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+    # Create a renderer, render window, and interactor
+    renderer = vtk.vtkRenderer()
+    renderer.SetActiveCamera(camera)
 
-# Add the actor to the scene
-renderer.AddActor(actor)
-renderer.SetBackground(1, 1, 1)  # Background color white
+    renderWindow = vtk.vtkRenderWindow()
+    renderWindow.AddRenderer(renderer)
+    renderWindowInteractor = vtk.vtkRenderWindowInteractor()
+    renderWindowInteractor.SetRenderWindow(renderWindow)
 
-# Render and interact
-renderWindow.Render()
-renderWindowInteractor.Start()
+    # Add the actor to the scene
+    renderer.AddActor(actor)
+    renderer.SetBackground(colors.GetColor3d("MistyRose"))
+
+    # Render and interact
+    renderWindowInteractor.Initialize()
+    renderWindow.Render()
+    renderWindowInteractor.Start()
+
+
+if __name__ == '__main__':
+    main()

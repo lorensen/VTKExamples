@@ -1,33 +1,42 @@
 import vtk
 
-# create a rendering window and renderer
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
 
-# create a renderwindowinteractor
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
+def main():
+    colors = vtk.vtkNamedColors()
 
-style = vtk.vtkInteractorStyleTrackballActor()
-iren.SetInteractorStyle(style)
+    # create a rendering window and renderer
+    ren = vtk.vtkRenderer()
+    renWin = vtk.vtkRenderWindow()
+    renWin.AddRenderer(ren)
 
-# create source
-sphereSource = vtk.vtkSphereSource()
-sphereSource.Update()
+    # create a renderwindowinteractor
+    iren = vtk.vtkRenderWindowInteractor()
+    iren.SetRenderWindow(renWin)
 
-# mapper
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(sphereSource.GetOutputPort())
+    style = vtk.vtkInteractorStyleTrackballActor()
+    iren.SetInteractorStyle(style)
 
-# actor
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    # create source
+    sphereSource = vtk.vtkSphereSource()
 
-# assign actor to the renderer
-ren.AddActor(actor)
+    # mapper
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(sphereSource.GetOutputPort())
 
-# enable user interface interactor
-iren.Initialize()
-renWin.Render()
-iren.Start()
+    # actor
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetColor(colors.GetColor3d('Chartreuse'))
+
+    # assign actor to the renderer
+    ren.AddActor(actor)
+    ren.SetBackground(colors.GetColor3d('PaleGoldenrod'))
+
+    # enable user interface interactor
+    iren.Initialize()
+    renWin.Render()
+    iren.Start()
+
+
+if __name__ == '__main__':
+    main()

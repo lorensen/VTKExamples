@@ -90,7 +90,19 @@ for ex in ['CSharp', 'Java', 'Python']:
         new_k = pk.replace('Cxx', ex)
         no_image[ex][new_k] = lst
 
-no_image['Java']['Java/IO'].add('WritePolyData')
+no_image['Python']['Python/Filtering'].add('IterativeClosestPoints')
+no_image['Python']['Python/Arrays'] = no_image['Python']['Python/Arrays'] | {'GetValues', 'RenameArray'}
+no_image['Python']['Python/ImageData'].add('SumVTKImages')
+no_image['Python']['Python/IO'].add('SumVTKImages')
+no_image['Python']['Python/PolyData'] = no_image['Python']['Python/PolyData'] | {'ColoredTriangle',
+                                                                                 'SolidColoredTriangle',
+                                                                                 'TriangleColoredPoints',
+                                                                                 'TriangleCornerVertices',
+                                                                                 'TriangleCorners'}
+no_image['Python']['Python/Utilities'].add('VTKVersion')
+no_image['Python']['Python/Untested/HasBugs'].add('UnstructuredTransientVolumeRendering')
+
+no_image['Java']['Java/IO'].add('WriteTriangleToFile')
 
 
 def get_program_parameters():
