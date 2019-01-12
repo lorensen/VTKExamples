@@ -1,59 +1,75 @@
 import vtk
 
-# create a rendering window and renderer
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
 
-# create a renderwindowinteractor
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
+def main():
+    colors = vtk.vtkNamedColors()
 
-# Create the points fot the lines.
-points = vtk.vtkPoints()
-points.InsertPoint(0, 0, 0, 1)
-points.InsertPoint(1, 1, 0, 0)
-points.InsertPoint(2, 0, 1, 0)
-points.InsertPoint(3, 1, 1, 1)
+    # create a rendering window and renderer
+    ren = vtk.vtkRenderer()
+    renWin = vtk.vtkRenderWindow()
+    renWin.AddRenderer(ren)
 
-# Create line1
-line1 = vtk.vtkLine()
-line1.GetPointIds().SetId(0, 0)
-line1.GetPointIds().SetId(1, 1)
+    # create a renderwindowinteractor
+    iren = vtk.vtkRenderWindowInteractor()
+    iren.SetRenderWindow(renWin)
 
-# Create line2
-line2 = vtk.vtkLine()
-line2.GetPointIds().SetId(0, 2)
-line2.GetPointIds().SetId(1, 3)
+    # Create the points fot the lines.
+    points = vtk.vtkPoints()
+    points.InsertPoint(0, 0, 0, 1)
+    points.InsertPoint(1, 1, 0, 0)
+    points.InsertPoint(2, 0, 1, 0)
+    points.InsertPoint(3, 1, 1, 1)
 
-# Create a cellArray containing the lines
-lines = vtk.vtkCellArray()
-lines.InsertNextCell(line1)
-lines.InsertNextCell(line2)
+    # Create line1
+    line1 = vtk.vtkLine()
+    line1.GetPointIds().SetId(0, 0)
+    line1.GetPointIds().SetId(1, 1)
 
-# Create the vtkPolyData to contain the points and cellArray with the lines
-polydata = vtk.vtkPolyData()
-polydata.SetPoints(points)
-polydata.SetLines(lines)
+    # Create line2
+    line2 = vtk.vtkLine()
+    line2.GetPointIds().SetId(0, 2)
+    line2.GetPointIds().SetId(1, 3)
 
-# Create the ruledSurfaceFilter from the polydata containing the lines
-ruledSurfaceFilter = vtk.vtkRuledSurfaceFilter()
-ruledSurfaceFilter.SetInputData(polydata)
-ruledSurfaceFilter.SetResolution(21, 21)
-ruledSurfaceFilter.SetRuledModeToResample()
+    # Create a cellArray containing the lines
+    lines = vtk.vtkCellArray()
+    lines.InsertNextCell(line1)
+    lines.InsertNextCell(line2)
 
-# Create the mapper with the ruledSufaceFilter as input
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(ruledSurfaceFilter.GetOutputPort())
+    # Create the vtkPolyData to contain the points and cellArray with the lines
+    polydata = vtk.vtkPolyData()
+    polydata.SetPoints(points)
+    polydata.SetLines(lines)
 
-# create the actor with the mapper
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    # Create the ruledSurfaceFilter from the polydata containing the lines
+    ruledSurfaceFilter = vtk.vtkRuledSurfaceFilter()
+    ruledSurfaceFilter.SetInputData(polydata)
+    ruledSurfaceFilter.SetResolution(21, 21)
+    ruledSurfaceFilter.SetRuledModeToResample()
 
-# add the actor to the display
-ren.AddActor(actor)
+    # Create the mapper with the ruledSufaceFilter as input
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(ruledSurfaceFilter.GetOutputPort())
 
-# enable user interface interactor
-iren.Initialize()
-renWin.Render()
-iren.Start()
+    # create the actor with the mapper
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+    actor.GetProperty().SetColor(colors.GetColor3d("Gold"))
+    actor.GetProperty().SetSpecular(0.6)
+    actor.GetProperty().SetSpecularPower(30)
+
+    # add the actor to the display
+    ren.AddActor(actor)
+    ren.SetBackground(colors.GetColor3d("MidnightBlue"))
+
+    # enable user interface interactor
+    iren.Initialize()
+    renWin.Render()
+    ren.GetActiveCamera().SetPosition(3.7, -0.5, -0.5)
+    ren.GetActiveCamera().SetFocalPoint(0.5, 0.5, 0.5)
+    ren.GetActiveCamera().SetViewUp(-0.3, 0.1, -1.0)
+    renWin.Render()
+    iren.Start()
+
+
+if __name__ == '__main__':
+    main()

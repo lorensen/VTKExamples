@@ -1,5 +1,6 @@
 import vtk
 
+
 # Call back function to resize the cone
 
 
@@ -9,37 +10,46 @@ def boxCallback(obj, event):
     obj.GetProp3D().SetUserTransform(t)
 
 
-# Create a Cone
-cone = vtk.vtkConeSource()
-cone.SetResolution(20)
-coneMapper = vtk.vtkPolyDataMapper()
-coneMapper.SetInputConnection(cone.GetOutputPort())
-coneActor = vtk.vtkActor()
-coneActor.SetMapper(coneMapper)
+def main():
+    colors = vtk.vtkNamedColors()
 
-# A renderer and render window
-renderer = vtk.vtkRenderer()
-renderer.SetBackground(0, 0, 1)
-renderer.AddActor(coneActor)
+    # Create a Cone
+    cone = vtk.vtkConeSource()
+    cone.SetResolution(20)
+    coneMapper = vtk.vtkPolyDataMapper()
+    coneMapper.SetInputConnection(cone.GetOutputPort())
+    coneActor = vtk.vtkActor()
+    coneActor.SetMapper(coneMapper)
+    coneActor.GetProperty().SetColor(colors.GetColor3d("BurlyWood"))
 
-renwin = vtk.vtkRenderWindow()
-renwin.AddRenderer(renderer)
+    # A renderer and render window
+    renderer = vtk.vtkRenderer()
+    renderer.SetBackground(colors.GetColor3d("Blue"))
+    renderer.AddActor(coneActor)
 
-# An interactor
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renwin)
+    renwin = vtk.vtkRenderWindow()
+    renwin.AddRenderer(renderer)
 
-# A Box widget
-boxWidget = vtk.vtkBoxWidget()
-boxWidget.SetInteractor(interactor)
-boxWidget.SetProp3D(coneActor)
-boxWidget.SetPlaceFactor(1.25)  # Make the box 1.25x larger than the actor
-boxWidget.PlaceWidget()
-boxWidget.On()
+    # An interactor
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(renwin)
 
-# Connect the event to a function
-boxWidget.AddObserver("InteractionEvent", boxCallback)
+    # A Box widget
+    boxWidget = vtk.vtkBoxWidget()
+    boxWidget.SetInteractor(interactor)
+    boxWidget.SetProp3D(coneActor)
+    boxWidget.SetPlaceFactor(1.25)  # Make the box 1.25x larger than the actor
+    boxWidget.PlaceWidget()
+    boxWidget.On()
 
-# Start
-interactor.Initialize()
-interactor.Start()
+    # Connect the event to a function
+    boxWidget.AddObserver("InteractionEvent", boxCallback)
+
+    # Start
+    interactor.Initialize()
+    renwin.Render()
+    interactor.Start()
+
+
+if __name__ == '__main__':
+    main()

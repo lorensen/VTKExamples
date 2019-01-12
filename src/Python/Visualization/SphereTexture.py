@@ -11,8 +11,22 @@
 import vtk
 
 
+def get_program_parameters():
+    import argparse
+    description = 'Texture an object with an image.'
+    epilogue = '''
+   '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('filename', help='masonry-wide.jpg.')
+    args = parser.parse_args()
+    return args.filename
+
+
 def main():
-    jpegfile = "masonry-wide.jpg"
+    colors = vtk.vtkNamedColors()
+
+    jpegfile = get_program_parameters()
 
     # Create a render window
     ren = vtk.vtkRenderer()
@@ -51,6 +65,7 @@ def main():
     actor.SetTexture(texture)
 
     ren.AddActor(actor)
+    ren.SetBackground(colors.GetColor3d('RosyBrown'))
 
     iren.Initialize()
     renWin.Render()

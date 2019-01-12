@@ -1,8 +1,12 @@
 from __future__ import print_function
+
 import vtk
 import vtk.util.numpy_support as VN
 
 # Callback for when selection is changed
+
+# This is global - fix later.
+ren1 = vtk.vtkRenderer()
 
 
 def selectionCallback(caller, eventId):
@@ -24,35 +28,43 @@ def selectionCallback(caller, eventId):
         print('Visible cell IDs: ', VN.vtk_to_numpy(sel_node.GetSelectionList()).tolist())
 
 
-sphere = vtk.vtkSphereSource()
-sphere.SetCenter(0, 0, 0)
-sphere.SetRadius(5.0)
+def main():
+    colors = vtk.vtkNamedColors()
 
-sphereMapper = vtk.vtkPolyDataMapper()
-sphereMapper.SetInputConnection(sphere.GetOutputPort())
+    sphere = vtk.vtkSphereSource()
+    sphere.SetCenter(0, 0, 0)
+    sphere.SetRadius(5.0)
 
-sphereActor = vtk.vtkActor()
-sphereActor.SetMapper(sphereMapper)
+    sphereMapper = vtk.vtkPolyDataMapper()
+    sphereMapper.SetInputConnection(sphere.GetOutputPort())
 
-ren1 = vtk.vtkRenderer()
-ren1.AddActor(sphereActor)
-ren1.SetBackground(0.1, 0.2, 0.4)
-ren1.GetActiveCamera().ParallelProjectionOn()
+    sphereActor = vtk.vtkActor()
+    sphereActor.SetMapper(sphereMapper)
+    sphereActor.GetProperty().SetColor(colors.GetColor3d('Bisque'))
 
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren1)
-renWin.SetSize(300, 300)
+    ren1.AddActor(sphereActor)
+    ren1.SetBackground(0.1, 0.2, 0.4)
+    ren1.GetActiveCamera().ParallelProjectionOn()
+    ren1.SetBackground(colors.GetColor3d('Navy'))
 
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
-iren.AddObserver("UserEvent", selectionCallback)
+    renWin = vtk.vtkRenderWindow()
+    renWin.AddRenderer(ren1)
+    renWin.SetSize(300, 300)
 
-style = vtk.vtkInteractorStyleTrackballCamera()
-iren.SetInteractorStyle(style)
-renWin.GetInteractor().SetInteractorStyle(style)
+    iren = vtk.vtkRenderWindowInteractor()
+    iren.SetRenderWindow(renWin)
+    iren.AddObserver("UserEvent", selectionCallback)
 
-ren1.ResetCamera()
-renWin.Render()
+    style = vtk.vtkInteractorStyleTrackballCamera()
+    iren.SetInteractorStyle(style)
+    renWin.GetInteractor().SetInteractorStyle(style)
 
-iren.Initialize()
-iren.Start()
+    ren1.ResetCamera()
+    renWin.Render()
+
+    iren.Initialize()
+    iren.Start()
+
+
+if __name__ == '__main__':
+    main()

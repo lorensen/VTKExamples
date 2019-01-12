@@ -18,6 +18,7 @@ def main():
 
     actor = vtk.vtkActor()
     actor.SetMapper(mapper)
+    actor.GetProperty().SetColor(colors.GetColor3d("BurlyWood"))
 
     # a renderer and render window
     renderer = vtk.vtkRenderer()
@@ -45,9 +46,9 @@ def main():
     renderWindowInteractor.SetInteractorStyle(style)
 
     # begin interaction
-    renderWindowInteractor.Start()
-    renderWindow.Render()
     renderWindowInteractor.Initialize()
+    renderWindow.Render()
+    renderWindowInteractor.Start()
 
 
 if __name__ == '__main__':

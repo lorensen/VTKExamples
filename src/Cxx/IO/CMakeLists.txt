@@ -48,6 +48,7 @@ set(NEEDS_ARGS
   ReadBMP
   ReadDICOM
   ReadDICOMSeries
+  ReadExodusData
   ReadImageData
   ReadLegacyUnstructuredGrid
   ReadOBJ
@@ -141,6 +142,9 @@ add_test(${KIT}-ReadDICOM ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 add_test(${KIT}-ReadDICOMSeries ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestReadDICOMSeries ${DATA}/DICOMDirectory)
+
+add_test(${KIT}-ReadExodusData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestReadExodusData ${DATA}/mug.e convected)
 
 add_test(${KIT}-ReadImageData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestReadImageData ${DATA}/vase.vti)

@@ -101,6 +101,8 @@ def Other():
 
 
 def PlotFunction(quadric, value):
+    colors = vtk.vtkNamedColors()
+
     # sample the quadric function
     sample = vtk.vtkSampleFunction()
     sample.SetSampleDimensions(50, 50, 50)
@@ -141,7 +143,7 @@ def PlotFunction(quadric, value):
     # create an actor for it
     outlineActor = vtk.vtkActor()
     outlineActor.SetMapper(outlineMapper)
-    outlineActor.GetProperty().SetColor(0, 0, 0)
+    outlineActor.GetProperty().SetColor(colors.GetColor3d('Black'))
 
     # setup the window
     ren1 = vtk.vtkRenderer()
@@ -153,19 +155,26 @@ def PlotFunction(quadric, value):
     # add the actors to the scene
     ren1.AddActor(contourActor)
     ren1.AddActor(outlineActor)
-    ren1.SetBackground(1, 1, 1)  # Background color white
+    ren1.SetBackground(colors.GetColor3d('AliceBlue'))
 
     # render and interact
     renWin.Render()
     iren.Start()
 
 
-Other()
-Sphere()
-Cone()
-Ellipsoid()
-Cylinder()
-HyperboloidOneSheet()
-HyperboloidTwoSheets()
-HyperbolicParaboloid()
-EllipticParaboloid()
+def main():
+    #  Choose one!
+
+    # Other()
+    # Sphere()
+    # Cone()
+    # Ellipsoid()
+    # Cylinder()
+    # HyperboloidOneSheet()
+    # HyperboloidTwoSheets()
+    # HyperbolicParaboloid()
+    EllipticParaboloid()
+
+
+if __name__ == '__main__':
+    main()

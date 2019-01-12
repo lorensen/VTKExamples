@@ -1,81 +1,101 @@
 #!/usr/bin/env python
 
 import vtk
-import random
 
-numTuples = 12
 
-bitter = vtk.vtkFloatArray()
-bitter.SetNumberOfTuples(numTuples)
+def main():
+    colors = vtk.vtkNamedColors()
 
-crispy = vtk.vtkFloatArray()
-crispy.SetNumberOfTuples(numTuples)
+    numTuples = 12
 
-crunchy = vtk.vtkFloatArray()
-crunchy.SetNumberOfTuples(numTuples)
+    bitter = vtk.vtkFloatArray()
+    bitter.SetNumberOfTuples(numTuples)
 
-salty = vtk.vtkFloatArray()
-salty.SetNumberOfTuples(numTuples)
+    crispy = vtk.vtkFloatArray()
+    crispy.SetNumberOfTuples(numTuples)
 
-oily = vtk.vtkFloatArray()
-oily.SetNumberOfTuples(numTuples)
+    crunchy = vtk.vtkFloatArray()
+    crunchy.SetNumberOfTuples(numTuples)
 
-for i in range(numTuples):
-    bitter.SetTuple1(i, random.randint(1, 10))
-    crispy.SetTuple1(i, random.randint(-1, 1))
-    crunchy.SetTuple1(i, random.randint(1, 100))
-    salty.SetTuple1(i, random.randint(0, 10))
-    oily.SetTuple1(i, random.randint(5, 25))
+    salty = vtk.vtkFloatArray()
+    salty.SetNumberOfTuples(numTuples)
 
-dobj = vtk.vtkDataObject()
-dobj.GetFieldData().AddArray(bitter)
-dobj.GetFieldData().AddArray(crispy)
-dobj.GetFieldData().AddArray(crunchy)
-dobj.GetFieldData().AddArray(salty)
-dobj.GetFieldData().AddArray(oily)
+    oily = vtk.vtkFloatArray()
+    oily.SetNumberOfTuples(numTuples)
 
-actor = vtk.vtkSpiderPlotActor()
-actor.SetInputData(dobj)
-actor.SetTitle("spider plot")
-actor.SetIndependentVariablesToColumns()
-actor.GetPositionCoordinate().SetValue(0.05, 0.1, 0.0)
-actor.GetPosition2Coordinate().SetValue(0.95, 0.85, 0.0)
-actor.GetProperty().SetColor(1, 0, 0)
+    rand_seq = vtk.vtkMinimalStandardRandomSequence()
+    rand_seq.SetSeed(1)
 
-actor.SetAxisLabel(0, "Bitter")
-actor.SetAxisRange(0, 1, 10)
+    for i in range(numTuples):
+        bitter.SetTuple1(i, rand_seq.GetRangeValue(1, 10))
+        rand_seq.Next()
+        crispy.SetTuple1(i, rand_seq.GetRangeValue(-1, 1))
+        rand_seq.Next()
+        crunchy.SetTuple1(i, rand_seq.GetRangeValue(1, 100))
+        rand_seq.Next()
+        salty.SetTuple1(i, rand_seq.GetRangeValue(0, 10))
+        rand_seq.Next()
+        oily.SetTuple1(i, rand_seq.GetRangeValue(5, 25))
+        rand_seq.Next()
 
-actor.SetAxisLabel(1, "Crispy")
-actor.SetAxisRange(1, -1, 1)
+    dobj = vtk.vtkDataObject()
+    dobj.GetFieldData().AddArray(bitter)
+    dobj.GetFieldData().AddArray(crispy)
+    dobj.GetFieldData().AddArray(crunchy)
+    dobj.GetFieldData().AddArray(salty)
+    dobj.GetFieldData().AddArray(oily)
 
-actor.SetAxisLabel(2, "Crunchy")
-actor.SetAxisRange(2, 1, 100)
+    actor = vtk.vtkSpiderPlotActor()
+    actor.SetInputData(dobj)
+    actor.SetTitle("Spider Plot")
+    actor.SetIndependentVariablesToColumns()
+    actor.GetPositionCoordinate().SetValue(0.05, 0.1, 0.0)
+    actor.GetPosition2Coordinate().SetValue(0.95, 0.85, 0.0)
+    actor.GetProperty().SetColor(colors.GetColor3d('Bisque'))
 
-actor.SetAxisLabel(3, "Salty")
-actor.SetAxisRange(3, 0, 10)
+    actor.SetAxisLabel(0, "Bitter")
+    actor.SetAxisRange(0, 1, 10)
 
-actor.SetAxisLabel(4, "Oily")
-actor.SetAxisRange(4, 5, 25)
-actor.GetLegendActor().SetNumberOfEntries(numTuples)
+    actor.SetAxisLabel(1, "Crispy")
+    actor.SetAxisRange(1, -1, 1)
 
-for i in range(numTuples):
-    actor.SetPlotColor(i, random.random(), random.random(), random.random())
+    actor.SetAxisLabel(2, "Crunchy")
+    actor.SetAxisRange(2, 1, 100)
 
-actor.LegendVisibilityOn()
+    actor.SetAxisLabel(3, "Salty")
+    actor.SetAxisRange(3, 0, 10)
 
-#  // Set text colors (same as actor for backward compat with test)
-#  actor.GetTitleTextProperty().SetColor(1, 1, 0)
-#  actor.GetLabelTextProperty().SetColor(1, 0, 0)
+    actor.SetAxisLabel(4, "Oily")
+    actor.SetAxisRange(4, 5, 25)
+    actor.GetLegendActor().SetNumberOfEntries(numTuples)
 
-ren1 = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren1)
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
-ren1.AddActor(actor)
-ren1.SetBackground(0, 0, 0)
-renWin.SetSize(500, 500)
+    for i in range(numTuples):
+        r = rand_seq.GetValue()
+        rand_seq.Next()
+        g = rand_seq.GetValue()
+        rand_seq.Next()
+        b = rand_seq.GetValue()
+        rand_seq.Next()
+        actor.SetPlotColor(i, r, g, b)
 
-iren.Initialize()
-renWin.Render()
-iren.Start()
+    actor.LegendVisibilityOn()
+
+    actor.GetTitleTextProperty().SetColor(colors.GetColor3d('Yellow'))
+    actor.GetLabelTextProperty().SetColor(colors.GetColor3d('OrangeRed'))
+
+    ren1 = vtk.vtkRenderer()
+    renWin = vtk.vtkRenderWindow()
+    renWin.AddRenderer(ren1)
+    iren = vtk.vtkRenderWindowInteractor()
+    iren.SetRenderWindow(renWin)
+    ren1.AddActor(actor)
+    ren1.SetBackground(colors.GetColor3d('Black'))
+    renWin.SetSize(800, 800)
+
+    iren.Initialize()
+    renWin.Render()
+    iren.Start()
+
+
+if __name__ == '__main__':
+    main()
