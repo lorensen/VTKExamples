@@ -51,6 +51,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [ParticleReader](/Cxx/IO/ParticleReader) | vtkParticleReader | This example reads ASCII files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
 [ReadAllPolyDataTypes](/Cxx/IO/ReadAllPolyDataTypes) | vtkBYUReader vtkOBJReader vtkPLYReader vtkPolyDataReader vtkSTLReader vtkXMLPolyDataReader | Read any VTK polydata file.
 [ReadAllPolyDataTypesDemo](/Cxx/IO/ReadAllPolyDataTypesDemo) | vtkBYUReader vtkOBJReader vtkPLYReader vtkPolyDataReader vtkSTLReader vtkXMLPolyDataReader | Read all VTK polydata file types.
+[ReadExodusData](/Cxx/IO/ReadExodusData) | vtkExodusIIReader | Read and view ExodusII data.
 [ReadOBJ](/Cxx/IO/ReadOBJ) | vtkOBJReader | Read an OBJ (.obj) file.
 [ReadPDB](/Cxx/IO/ReadPDB) | vtkPDBReader | Read Protein Data Bank Files.
 [ReadPLOT3D](/Cxx/IO/ReadPLOT3D) | vtkPLOT3DReader | Read CFD (computational fluid dynamics) data produced by PLOT3D.
