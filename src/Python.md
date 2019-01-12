@@ -37,7 +37,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [ReadExodusData](/Python/IO/ReadExodusData) | vtkExodusIIReader | A simple script for reading and viewing ExodusII data interactively.
 [ReadSLC](/Python/IO/ReadSLC) | vtkSLCReader | Read an SLC file.
 [ReadSTL](/Python/IO/ReadSTL) | vtkSTLReader | Read an STL file.
-[ReadVTP](/Python/IO/ReadVTP) | vtkXMLPolyDataReader | Needs fixing.
+[ReadVTP](/Python/IO/ReadVTP) | vtkXMLPolyDataReader | Read a VTK XML PolyData file.
 [ReadUnstructuredGrid](/Python/IO/ReadUnstructuredGrid) | vtkUnstructuredGridReader | Using vtkUnstructuredGridReader to read a (legacy) *.vtk file
 
 ###### Importers
