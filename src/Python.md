@@ -187,7 +187,6 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Bottle](/Python/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
 [ColoredTriangle](/Python/PolyData/ColoredTriangle) | vtkTriangle | Creates a file TriangleColored.vtp.
 [CombinePolyData](/Python/Filtering/CombinePolyData) | vtkAppendPolyData | This example combines Polydata objects, and displays the result to the screen.
-[Cube](/Python/DataManipulation/Cube) | vtkPolyData |
 [CurvaturesDemo](/Python/PolyData/CurvaturesDemo) | vtkCurvatures  vtkColorTransferFunction | Demonstrates how to get the Gaussian and Mean curvatures of a surface.
 [ExtractSelection](/Python/PolyData/ExtractSelection) | vtkExtractSelection |
 [ExtractSelectionCells](/Python/PolyData/ExtractSelectionCells) | vtkExtractSelection | Extract cell, select cell.

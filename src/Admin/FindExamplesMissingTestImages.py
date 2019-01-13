@@ -93,7 +93,6 @@ for ex in ['CSharp', 'Java', 'Python']:
 no_image['Python']['Python/Filtering'].add('IterativeClosestPoints')
 no_image['Python']['Python/Arrays'] = no_image['Python']['Python/Arrays'] | {'GetValues', 'RenameArray'}
 no_image['Python']['Python/ImageData'].add('SumVTKImages')
-no_image['Python']['Python/IO'].add('SumVTKImages')
 no_image['Python']['Python/PolyData'] = no_image['Python']['Python/PolyData'] | {'ColoredTriangle',
                                                                                  'SolidColoredTriangle',
                                                                                  'TriangleColoredPoints',
