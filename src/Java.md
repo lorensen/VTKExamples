@@ -155,6 +155,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [MeshQuality](/Java/PolyData/MeshQuality) | vtkMeshQuality | MeshQuality
 [ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) | vtkColorCellsWithRGB | ColorCellsWithRGB
 [Reflection](/Java/PolyData/Reflection) | vtkReflection | Reflection
+[TriangleColoredPoints](/Java/PolyData/TriangleColoredPoints) | vtkUnsignedCharArray | Adding color to each vertex of a triangle
 [TransformFilter](/Java/PolyData/TransformFilter) | vtkTransformFilter | Transforms points, associated normals and vectors
 
 
