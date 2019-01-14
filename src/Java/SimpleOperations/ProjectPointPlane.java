@@ -33,7 +33,7 @@ public class ProjectPointPlane
     double normal[] = new double[] {0.0, 0.0, 1.0};
     double projected[] = new double[3];
 
-    Plane.ProjectPoint(p, origin,normal,projected);
-    System.out.println("Projected:" + " " +projected[0] + " " + projected[1] + " " + projected[2] );
+    Plane.ProjectPoint(p, origin, normal, projected);
+    System.out.println("Projected:" + " " + projected[0] + " " + projected[1] + " " + projected[2] );
   }		  
 }
