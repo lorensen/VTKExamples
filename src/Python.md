@@ -294,6 +294,9 @@ This section includes vtkUnstructuredGrid.
 [MedicalDemo4](/Python/Medical/MedicalDemo4) | vtkFixedPointVolumeRayCastMapper | Create a volume rendering
 
 ### Surface reconstruction
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
 [GaussianSplat](/Python/Filtering/GaussianSplat) | vtkGaussianSplatter | Create a surface from Unorganized Points (Gaussian Splat).
 
 ## Utilities
