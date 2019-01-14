@@ -181,7 +181,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [UnKnownLengthArray](/Java/Utilities/UnKnownLengthArray) | vtkFloatArray | UnKnown Length Array
-[KnownLengthArray](/Java/Utilities/KnownLengthArray) | vtkFloatArray | Known Length Arra
+[KnownLengthArray](/Java/Utilities/KnownLengthArray) | vtkFloatArray | Known Length Array
 
 
 ## Visualization
