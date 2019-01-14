@@ -203,6 +203,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [DistanceBetweenPoints](/Java/SimpleOperations/DistanceBetweenPoints) | vtkMath | Example Program to find squared distance and the Euclidean distance between two 3D points.
 [PerspectiveTransform](/Java/SimpleOperations/PerspectiveTransform) | vtkPerspectiveTransform | It is used to describe the full range of homogeneous transformations. It was designed in particular to describe a camera-view of a scene
+[ProjectPointPlane](/Java/SimpleOperations/ProjectPointPlane) | vtkPlane | Performs various plane computations.
 [RandomSequence](/Java/SimpleOperations/RandomSequence) | vtkMinimalStandardRandomSequence | Park and Miller Sequence of pseudo random numbers.
 
 ## Swing Integration
