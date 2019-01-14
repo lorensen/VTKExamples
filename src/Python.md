@@ -37,7 +37,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [ReadExodusData](/Python/IO/ReadExodusData) | vtkExodusIIReader | A simple script for reading and viewing ExodusII data interactively.
 [ReadSLC](/Python/IO/ReadSLC) | vtkSLCReader | Read an SLC file.
 [ReadSTL](/Python/IO/ReadSTL) | vtkSTLReader | Read an STL file.
-[ReadVTP](/Python/IO/ReadVTP) | vtkXMLPolyDataReader | Needs fixing.
+[ReadVTP](/Python/IO/ReadVTP) | vtkXMLPolyDataReader | Read a VTK XML PolyData file.
 [ReadUnstructuredGrid](/Python/IO/ReadUnstructuredGrid) | vtkUnstructuredGridReader | Using vtkUnstructuredGridReader to read a (legacy) *.vtk file
 
 ###### Importers
@@ -187,7 +187,6 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Bottle](/Python/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
 [ColoredTriangle](/Python/PolyData/ColoredTriangle) | vtkTriangle | Creates a file TriangleColored.vtp.
 [CombinePolyData](/Python/Filtering/CombinePolyData) | vtkAppendPolyData | This example combines Polydata objects, and displays the result to the screen.
-[Cube](/Python/DataManipulation/Cube) | vtkPolyData |
 [CurvaturesDemo](/Python/PolyData/CurvaturesDemo) | vtkCurvatures  vtkColorTransferFunction | Demonstrates how to get the Gaussian and Mean curvatures of a surface.
 [ExtractSelection](/Python/PolyData/ExtractSelection) | vtkExtractSelection |
 [ExtractSelectionCells](/Python/PolyData/ExtractSelectionCells) | vtkExtractSelection | Extract cell, select cell.
