@@ -2,7 +2,7 @@
 
 #### Introduction
 
-This example demonstrates the use of the [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) and [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) .
+This example demonstrates the use of the vtkLinearSubdivisionFilter and vtkButterflySubdivisionFilter.
 
 In order to see the effects of these filters, a triptych is created that demonstrates the effect of applying the filter to a selected source such as a cone.
 

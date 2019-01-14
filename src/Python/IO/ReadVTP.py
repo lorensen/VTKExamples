@@ -3,7 +3,7 @@ import vtk
 
 def get_program_parameters():
     import argparse
-    description = 'Read an unstructured grid file.'
+    description = 'Read a VTK XML PolyData file.'
     epilogue = ''''''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
