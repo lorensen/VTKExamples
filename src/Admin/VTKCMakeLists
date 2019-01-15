@@ -1,15 +1,32 @@
 ###CMakeLists.txt
 ```cmake
-cmake_minimum_required(VERSION 2.8)
- 
+cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
+
 PROJECT(XXX)
- 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
- 
-add_executable(XXX MACOSX_BUNDLE XXX.cxx YYY)
- 
-target_link_libraries(XXX ${VTK_LIBRARIES})
+
+# Need this to define VTK_VERSION
+find_package(VTK)
+if (NOT VTK_FOUND)
+  message("Skipping XXX: ${VTK_NOT_FOUND_MESSAGE}")
+  return ()
+endif()
+message (STATUS "VTK_VERSION: ${VTK_VERSION}")
+if (VTK_VERSION VERSION_LESS "8.90.0")
+  # old system
+  include(${VTK_USE_FILE})
+  add_executable(XXX MACOSX_BUNDLE XXX.cxx )
+  target_link_libraries(XXX PRIVATE ${VTK_LIBRARIES})
+else ()
+  # include all components
+  find_package(VTK COMPONENTS ${VTK_AVAILABLE_COMPONENTS})
+  add_executable(XXX MACOSX_BUNDLE XXX.cxx )
+  target_link_libraries(XXX PRIVATE ${VTK_LIBRARIES})
+  # vtk_module_autoinit is needed
+  vtk_module_autoinit(
+    TARGETS XXX
+    MODULES ${VTK_LIBRARIES}
+    )
+endif () 
 ```
 
 ###Download and Build XXX
@@ -38,4 +55,3 @@ and run it:
 
 !!! note "WINDOWS USERS"
     Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.
-
