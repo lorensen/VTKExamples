@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 PROJECT(XXX)
 
 # Need this to define VTK_VERSION
-find_package(VTK)
+find_package(VTK 8.3.0 REQUIRED)
 if (NOT VTK_FOUND)
   message("Skipping XXX: ${VTK_NOT_FOUND_MESSAGE}")
   return ()

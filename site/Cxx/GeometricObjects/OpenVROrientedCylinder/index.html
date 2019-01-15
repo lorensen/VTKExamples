@@ -216,16 +216,33 @@ function registerListener(event, func) {
 
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>}</span>
-</pre></div> <h3 id=cmakeliststxt>CMakeLists.txt<a class=headerlink href=#cmakeliststxt title="Permanent link">&para;</a></h3> <div class=codehilite><pre><span></span><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>2.8</span><span class=p>)</span>
+</pre></div> <h3 id=cmakeliststxt>CMakeLists.txt<a class=headerlink href=#cmakeliststxt title="Permanent link">&para;</a></h3> <div class=codehilite><pre><span></span><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>3.3</span> <span class=s>FATAL_ERROR</span><span class=p>)</span>
 
 <span class=nb>PROJECT</span><span class=p>(</span><span class=s>OpenVROrientedCylinder</span><span class=p>)</span>
 
-<span class=nb>find_package</span><span class=p>(</span><span class=s>VTK</span> <span class=s>REQUIRED</span><span class=p>)</span>
-<span class=nb>include</span><span class=p>(</span><span class=o>${</span><span class=nv>VTK_USE_FILE</span><span class=o>}</span><span class=p>)</span>
-
-<span class=nb>add_executable</span><span class=p>(</span><span class=s>OpenVROrientedCylinder</span> <span class=s>MACOSX_BUNDLE</span> <span class=s>OpenVROrientedCylinder.cxx</span> <span class=p>)</span>
-
-<span class=nb>target_link_libraries</span><span class=p>(</span><span class=s>OpenVROrientedCylinder</span> <span class=o>${</span><span class=nv>VTK_LIBRARIES</span><span class=o>}</span><span class=p>)</span>
+<span class=c># Need this to define VTK_VERSION</span>
+<span class=nb>find_package</span><span class=p>(</span><span class=s>VTK</span><span class=p>)</span>
+<span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
+  <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping OpenVROrientedCylinder: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>
+  <span class=nb>return</span> <span class=p>()</span>
+<span class=nb>endif</span><span class=p>()</span>
+<span class=nb>message</span> <span class=p>(</span><span class=s>STATUS</span> <span class=s2>&quot;VTK_VERSION: ${VTK_VERSION}&quot;</span><span class=p>)</span>
+<span class=nb>if</span> <span class=p>(</span><span class=s>VTK_VERSION</span> <span class=s>VERSION_LESS</span> <span class=s2>&quot;8.90.0&quot;</span><span class=p>)</span>
+  <span class=c># old system</span>
+  <span class=nb>include</span><span class=p>(</span><span class=o>${</span><span class=nv>VTK_USE_FILE</span><span class=o>}</span><span class=p>)</span>
+  <span class=nb>add_executable</span><span class=p>(</span><span class=s>OpenVROrientedCylinder</span> <span class=s>MACOSX_BUNDLE</span> <span class=s>OpenVROrientedCylinder.cxx</span> <span class=p>)</span>
+  <span class=nb>target_link_libraries</span><span class=p>(</span><span class=s>OpenVROrientedCylinder</span> <span class=s>PRIVATE</span> <span class=o>${</span><span class=nv>VTK_LIBRARIES</span><span class=o>}</span><span class=p>)</span>
+<span class=nb>else</span> <span class=p>()</span>
+  <span class=c># include all components</span>
+  <span class=nb>find_package</span><span class=p>(</span><span class=s>VTK</span> <span class=s>COMPONENTS</span> <span class=o>${</span><span class=nv>VTK_AVAILABLE_COMPONENTS</span><span class=o>}</span><span class=p>)</span>
+  <span class=nb>add_executable</span><span class=p>(</span><span class=s>OpenVROrientedCylinder</span> <span class=s>MACOSX_BUNDLE</span> <span class=s>OpenVROrientedCylinder.cxx</span> <span class=p>)</span>
+  <span class=nb>target_link_libraries</span><span class=p>(</span><span class=s>OpenVROrientedCylinder</span> <span class=s>PRIVATE</span> <span class=o>${</span><span class=nv>VTK_LIBRARIES</span><span class=o>}</span><span class=p>)</span>
+  <span class=c># vtk_module_autoinit is needed</span>
+  <span class=nb>vtk_module_autoinit</span><span class=p>(</span>
+    <span class=s>TARGETS</span> <span class=s>OpenVROrientedCylinder</span>
+    <span class=s>MODULES</span> <span class=o>${</span><span class=nv>VTK_LIBRARIES</span><span class=o>}</span>
+    <span class=p>)</span>
+<span class=nb>endif</span> <span class=p>()</span> 
 </pre></div> <h3 id=download-and-build-openvrorientedcylinder>Download and Build OpenVROrientedCylinder<a class=headerlink href=#download-and-build-openvrorientedcylinder title="Permanent link">&para;</a></h3> <p>Click <a href=https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/OpenVROrientedCylinder.tar>here to download OpenVROrientedCylinder</a> and its <em>CMakeLists.txt</em> file. Once the <em>tarball OpenVROrientedCylinder.tar</em> has been downloaded and extracted,</p> <div class=codehilite><pre><span></span>cd OpenVROrientedCylinder/build 
 </pre></div> <p>If VTK is installed:</p> <div class=codehilite><pre><span></span>cmake ..
 </pre></div> <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p> <div class=codehilite><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
