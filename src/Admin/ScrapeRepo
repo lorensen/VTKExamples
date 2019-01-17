@@ -103,7 +103,7 @@ def GetComponents(CacheDict, VTKSrcDir, srcFile, src):
             componentsCacheHits = componentsCacheHits + 1
             return words[1:]
     componentsCacheMisses = componentsCacheMisses + 1
-    rawWhatOutput = subprocess.check_output([VTKSrcDir + '/Utilities/Maintenance/WhatModulesVTK.py', VTKSrcDir, srcFile])
+    rawWhatOutput = subprocess.check_output(['src/Admin/Maintenance/WhatModulesVTK.py', VTKSrcDir, srcFile])
     components = ParseWhatModulesVTKOutput(rawWhatOutput)
     CacheDict[str(srcFile)] = sha 
     for component in components:
@@ -688,7 +688,7 @@ for lang, langExt in Languages.items():
                         if "vtk" in component:
                             Components += "\n  " + component
                         else:
-                            Components += "\n  " + component
+                            Components += "\n  " + "vtk" + component
                     # If there are no components found, assume we need then all
                     # This occurs when the source file includes another Cxx file
                     #print("Components: " + Components)
@@ -784,6 +784,7 @@ if componentsCacheMisses > 0:
     cf = open(ComponentsCacheFile, 'w')
     for key, contents in ComponentsDict.items():
         if os.path.exists(key) :
+            # add the vtk prefix to the component to support older versions of vtk
             cf.write(key + " " + contents + "\n")
     cf.close()
 
@@ -798,3 +799,5 @@ print("    Doxygen added: " + str(doxyCount))
 print("    Thumbnails added: " + str(thumbCount))
 print("    TinyUrl Cache hits: " + str(cacheHits))
 print("    TinyUrl Cache misses: " + str(cacheMisses))
+print("    Components Cache hits: " + str(componentsCacheHits))
+print("    Components Cache misses: " + str(componentsCacheMisses))
