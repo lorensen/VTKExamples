@@ -103,8 +103,9 @@ def GetComponents(CacheDict, VTKSrcDir, srcFile, src):
             componentsCacheHits = componentsCacheHits + 1
             return words[1:]
     componentsCacheMisses = componentsCacheMisses + 1
-    rawWhatOutput = subprocess.check_output(['src/Admin/Maintenance/WhatModulesVTK.py', VTKSrcDir, srcFile])
+    rawWhatOutput = subprocess.check_output([RepoDir + '/Admin/WhatModulesVTK.py', VTKSrcDir, srcFile])
     components = ParseWhatModulesVTKOutput(rawWhatOutput)
+
     CacheDict[str(srcFile)] = sha 
     for component in components:
         CacheDict[str(srcFile)] += " " + component
@@ -126,15 +127,6 @@ def ParseWhatModulesVTKOutput(rawWhatOutput):
         if word == "":
             continue
         components.append(word.strip())
-        if word.strip() == "RenderingCore":
-            components.append("RenderingOpenGL2")
-            components.append("InteractionStyle")
-        if word.strip() == "DomainsChemistry":
-            components.append("DomainsChemistryOpenGL2")
-        if word.strip() == "RenderingVolume":
-            components.append("RenderingVolumeOpenGL2")
-        if word.strip() == "RenderingContext2D":
-            components.append("RenderingContextOpenGL2")
     return components
 
 # load the tinyurl cache into a dictionary
@@ -330,7 +322,7 @@ def FillQtCMakeLists(S, Name):
 #####################################################################
 
 # Check for args
-if len(sys.argv) < 4:
+if len(sys.argv) < 5:
     displayHelp()
     exit(0)
 

@@ -2,7 +2,7 @@
 ```cmake
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
-PROJECT(XXX)
+project(XXX)
 
 find_package(VTK COMPONENTS ZZZ QUIET)
 if (NOT VTK_FOUND)
