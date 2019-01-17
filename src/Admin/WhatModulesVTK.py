@@ -123,7 +123,7 @@ def main(vtkSourceDir, sourceFiles):
                 for fn in files:
                     allIncludes.update(FindIncludes(os.path.join(path,fn)))
     if len(allIncludes) == 0:
-        raise IOError, f + " does not exist"
+        return
 
     # Build a set that contains all modules referenced in command line files
     allModules = set()
