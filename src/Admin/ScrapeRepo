@@ -8,6 +8,8 @@ import shutil
 import tarfile
 import hashlib
 import tempfile
+import subprocess
+
 try:
     import tinyurl
 except:
@@ -25,11 +27,12 @@ except:
 
 def displayHelp():
     print("""
-Usage: ScrapeRepo RepoDir DocDir RepoURL
+Usage: ScrapeRepo RepoDir DocDir RepoURL VTKSrc
   Create site files from the src repo
     where RepoDir is the directory containing example source core
           DocDir is the directory to receive the markdown pages
           RepoURL is the githib repo URL
+          VTKSrc is a local directory containing VTK source
 """)
     exit(0)
 
@@ -75,7 +78,66 @@ def CopyChapterAndAddLinks(fromFile, toFile):
             outFile.write(line)
     outFile.close()
 
-# load the tiny url cache into a dictionary
+
+# load the component cache into a dictionary
+
+def LoadComponentsCache(CacheFile, CacheDict):
+    cf = open(CacheFile, 'r')
+    for line in cf:
+        words = line.split()
+        CacheDict[words[0]] = ""
+        for word in words[1:]:
+            CacheDict[words[0]] += " " + word
+    cf.close()
+
+# if the source code components are not in the cache, find them
+
+def GetComponents(CacheDict, VTKSrcDir, srcFile, src):
+    global componentsCacheHits
+    global componentsCacheMisses
+    # compute sha of src
+    sha = hashlib.sha256(src).hexdigest()
+    if srcFile in CacheDict.keys():
+        words = CacheDict[srcFile].split()
+        if str(sha) == words[0]:
+            componentsCacheHits = componentsCacheHits + 1
+            return words[1:]
+    componentsCacheMisses = componentsCacheMisses + 1
+    rawWhatOutput = subprocess.check_output([VTKSrcDir + '/Utilities/Maintenance/WhatModulesVTK.py', VTKSrcDir, srcFile])
+    components = ParseWhatModulesVTKOutput(rawWhatOutput)
+    CacheDict[str(srcFile)] = sha 
+    for component in components:
+        CacheDict[str(srcFile)] += " " + component
+    print("cache miss: ",str(srcFile))
+    return components
+
+def ParseWhatModulesVTKOutput(rawWhatOutput):
+    words = rawWhatOutput.split('\n')
+    components =list()
+    for word in words:
+        if "find_package" in word:
+            continue
+        if ")" in word:
+            continue
+        if"Your" in word:
+            continue
+        if "All" in word:
+            continue
+        if word == "":
+            continue
+        components.append(word.strip())
+        if word.strip() == "RenderingCore":
+            components.append("RenderingOpenGL2")
+            components.append("InteractionStyle")
+        if word.strip() == "DomainsChemistry":
+            components.append("DomainsChemistryOpenGL2")
+        if word.strip() == "RenderingVolume":
+            components.append("RenderingVolumeOpenGL2")
+        if word.strip() == "RenderingContext2D":
+            components.append("RenderingContextOpenGL2")
+    return components
+
+# load the tinyurl cache into a dictionary
 
 def LoadTinyUrlCache(CacheFile, CacheDict):
     cf = open(CacheFile, 'r')
@@ -254,9 +316,10 @@ def AddThumbnailsAndLanguageLinks(repoDir, repoURL, fromFile, toFile):
 # Fill in the template parameters in a CMakeLists template file
 # The output is a CMakeLists.txt file with Name substituted for {{{1}}}
 
-def FillCMakeLists(S, Name, ExtraNames):
+def FillCMakeLists(S, Name, ExtraNames, Components):
     r1 = re.sub(r'XXX', Name, S)
-    reg = re.sub(r'YYY', ExtraNames, r1)
+    r2 = re.sub(r'YYY', ExtraNames, r1)
+    reg = re.sub(r'ZZZ', Components, r1)
     return reg
 
 
@@ -275,10 +338,13 @@ if len(sys.argv) < 4:
 RepoDir = sys.argv[1]
 DocDir = sys.argv[2]
 RepoURL = sys.argv[3]
+VTKSrcDir = sys.argv[4]
 
 # Initialize counts
 cacheHits = 0
 cacheMisses = 0
+componentsCacheHits = 0
+componentsCacheMisses = 0
 
 cxxCount = 0
 csCount = 0
@@ -299,6 +365,11 @@ BaselineName = RepoDir + "/Testing/Baseline"
 CacheFile = RepoDir + "/Admin/TinyUrlCache"
 CacheDict = dict()
 LoadTinyUrlCache(CacheFile, CacheDict)
+
+# Load the Component cache
+ComponentsCacheFile = RepoDir + "/Admin/ComponentsCache"
+ComponentsDict = dict()
+LoadComponentsCache(ComponentsCacheFile, ComponentsDict)
 
 # Read the Wiki Templates
 VTKTemplateFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
@@ -555,6 +626,8 @@ for lang, langExt in Languages.items():
             MdFile.write("**" + ExampleName + langExt + "**" + "\n")
             if langExt == ".cxx":
                 MdFile.write("``` c++ " + hiliteLines + "\n")
+                # Get the components used in this example
+                components = GetComponents(ComponentsDict, VTKSrcDir, SrcFileName, src)
                 cxxCount = cxxCount + 1
             elif langExt == ".cs":
                 MdFile.write("```csharp" + hiliteLines + "\n")
@@ -609,7 +682,17 @@ for lang, langExt in Languages.items():
                     CMakeFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
                     CMakeContents = CMakeFile.read()
                     CMakeFile.close()
-                    cmake = FillCMakeLists(CMakeContents, ExampleName, ExtraNames)
+                    # Create component lines
+                    Components = ""
+                    for component in components:
+                        if "vtk" in component:
+                            Components += "\n  " + component
+                        else:
+                            Components += "\n  " + component
+                    # If there are no components found, assume we need then all
+                    # This occurs when the source file includes another Cxx file
+                    #print("Components: " + Components)
+                    cmake = FillCMakeLists(CMakeContents, ExampleName, ExtraNames, Components)
             if lang == "Cxx":
                 exampleToCMake[ExampleName] = GetVTKCMakelists(cmake)
                 MdFile.write(cmake)
@@ -689,12 +772,19 @@ os.utime(tmpDir, (0, refMtime))
 # Cleanup the temporary directories
 shutil.rmtree(tmpDir)
 
-
-# Update the cache file if necessary
+# Update the tinyurl cache file if necessary
 if cacheMisses > 0:
     cf = open(CacheFile, 'w')
     for key in CacheDict:
         cf.write(key + " " + CacheDict[key] + "\n")
+    cf.close()
+
+# Rewrite the components cache file if necessary
+if componentsCacheMisses > 0:
+    cf = open(ComponentsCacheFile, 'w')
+    for key, contents in ComponentsDict.items():
+        if os.path.exists(key) :
+            cf.write(key + " " + contents + "\n")
     cf.close()
 
 # Report stats
