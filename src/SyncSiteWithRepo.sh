@@ -3,12 +3,13 @@
 # SyncSiteWithRepo - synchronize the examples site with the
 #                    examples repo
 #
-if [ $# -lt 1 ]
+if [ $# -lt 2 ]
   then
-  echo "Usage: SyncSiteWithRepo REPO_URL"
+  echo "Usage: SyncSiteWithRepo REPO_URL VTK_SOURCE_DIR"
   exit 1
 fi
 REPO=$1
+VTK_SOURCE_DIR=$2
 # Make sure the repo site is up
 echo "Synchronizing the VTKExamples site with the repository."
 HOST=www.github.com
@@ -34,7 +35,7 @@ echo "2) Create coverage files"
 echo "3) Scrape the repo"
 rm -rf docs/*
 rm -rf site/*
-src/Admin/ScrapeRepo  src docs ${REPO}
+src/Admin/ScrapeRepo  src docs ${REPO} ${VTK_SOURCE_DIR}
 
 echo "4) Check for a successful scrape"
 pushd docs
@@ -43,7 +44,7 @@ popd
 expected=800
 if test $count -lt $expected; then
    echo VTKExamples/Admin/ScrapeRepo failed
-   echo VTKExamples: Expected at least $expected md files but only found $count md | mail -s "SyncSiteWithRepo failed" bill.lorensen@gmail.com
+   echo VTKExamples: Expected at least $expected md files but only found $count md
    git checkout .
    exit 1
 fi
