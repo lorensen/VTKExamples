@@ -36,6 +36,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Delaunay2D](/Java/Filtering/Delaunay2D) | vtkDelaunay2D | An example to generate set of points and to triangulate using Delaunay2D
 [Glyph2D](/Java/Filtering/Glyph2D) | vtkGlyph2D | Example to copy a polydata to everypoint in the input set. 
 [Glyph3D](/Java/Filtering/Glyph3D) | vtkGlyph3D | This example applies an object at every point using vtkGlyph3D
+[PerlinNoise](/Java/Filtering/PerlinNoise) | vtkPerlinNoise | An implicit function that implements Perlin noise.
 [VertexGlyphFilter](/Java/Filtering/VertexGlyphFilter) | vtkVertexGlyphFilter | Creates a set of points and adds a vertex at each point.
 [WarpTo](/Java/Filtering/WarpTo) | vtkWarpTo | Deform geometry by warping towards a point
 
@@ -199,6 +200,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [CursorShape](/Java/Visualization/CursorShape) | | Change the shape of the cursor. 
 [Cutter](/Java/VisualizationAlgorithms/Cutter) | vtkCutter | How to use vtkCutter by cutting through a cube.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
+[OrientedGlyphs](/Java/Visualization/OrientedGlyphs) | vtkGlyph3D | Copies oriented and scaled glyph geometry to every input point
 [VectorFieldExample](/Java/Visualization/VectorFieldExample) | vtkXMLUnstructuredGridReader, vtkThresholdPoints, vtkGlyph3D | A vector field visualisation.
 [WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization.
 
@@ -234,3 +236,4 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [PlaneWidget](/Java/Widgets/PlaneWidget) | vtkPlaneWidget | A finite (bounded) plane that can be interactively placed in a scene.
 [SeedWidget](/Java/Widgets/SeedWidget) | vtkSeedWidget | Places multiple seed points, where a user moves the cursor to and clicks it.
 [SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget | SplineWidget Demonstration
+[TextWidget](/Java/Widgets/TextWidget) | vtkTextWidget | Widget for placing text on overlay plane.
