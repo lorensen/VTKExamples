@@ -248,7 +248,7 @@ function registerListener(event, func) {
 <span class=p>}</span>
 </pre></div> <h3 id=cmakeliststxt>CMakeLists.txt<a class=headerlink href=#cmakeliststxt title="Permanent link">&para;</a></h3> <div class=codehilite><pre><span></span><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>3.3</span> <span class=s>FATAL_ERROR</span><span class=p>)</span>
 
-<span class=nb>PROJECT</span><span class=p>(</span><span class=s>ExtractSurface</span><span class=p>)</span>
+<span class=nb>project</span><span class=p>(</span><span class=s>ExtractSurface</span><span class=p>)</span>
 
 <span class=nb>find_package</span><span class=p>(</span><span class=s>VTK</span> <span class=s>COMPONENTS</span> 
   <span class=s>vtkCommonColor</span>
@@ -259,9 +259,10 @@ function registerListener(event, func) {
   <span class=s>vtkIOGeometry</span>
   <span class=s>vtkIOPLY</span>
   <span class=s>vtkIOXML</span>
+  <span class=s>vtkInteractionStyle</span>
   <span class=s>vtkRenderingCore</span>
-  <span class=s>vtkRenderingOpenGL2</span>
-  <span class=s>vtkInteractionStyle</span> <span class=s>QUIET</span><span class=p>)</span>
+  <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ExtractSurface: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>
   <span class=nb>return</span> <span class=p>()</span>

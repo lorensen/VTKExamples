@@ -308,18 +308,19 @@ function registerListener(event, func) {
 <span class=err>```</span><span class=n>cmake</span>
 <span class=n>cmake_minimum_required</span><span class=p>(</span><span class=n>VERSION</span> <span class=mf>3.3</span> <span class=n>FATAL_ERROR</span><span class=p>)</span>
 
-<span class=n>PROJECT</span><span class=p>(</span><span class=n>CallBack</span><span class=p>)</span>
+<span class=n>project</span><span class=p>(</span><span class=n>CallBack</span><span class=p>)</span>
 
 <span class=n>find_package</span><span class=p>(</span><span class=n>VTK</span> <span class=n>COMPONENTS</span> 
   <span class=n>vtkCommonColor</span>
   <span class=n>vtkCommonCore</span>
   <span class=n>vtkFiltersModeling</span>
   <span class=n>vtkFiltersSources</span>
+  <span class=n>vtkInteractionStyle</span>
   <span class=n>vtkInteractionWidgets</span>
   <span class=n>vtkRenderingAnnotation</span>
   <span class=n>vtkRenderingCore</span>
-  <span class=n>vtkRenderingOpenGL2</span>
-  <span class=n>vtkInteractionStyle</span> <span class=n>QUIET</span><span class=p>)</span>
+  <span class=n>vtkRenderingFreeType</span>
+  <span class=n>vtkRenderingOpenGL2</span> <span class=n>QUIET</span><span class=p>)</span>
 <span class=k>if</span> <span class=p>(</span><span class=n>NOT</span> <span class=n>VTK_FOUND</span><span class=p>)</span>
   <span class=n>message</span><span class=p>(</span><span class=s>&quot;Skipping CallBack: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>
   <span class=k>return</span> <span class=p>()</span>
