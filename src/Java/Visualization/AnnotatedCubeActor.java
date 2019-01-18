@@ -78,12 +78,12 @@ public class AnnotatedCubeActor
     iren.SetRenderWindow(renWin);
 
     // anatomic labelling 
-    Cube.SetXPlusFaceText("V");
-    Cube.SetXMinusFaceText("T");
-    Cube.SetYPlusFaceText("K");
-    Cube.SetYMinusFaceText("V");
-    Cube.SetZPlusFaceText("T");
-    Cube.SetZMinusFaceText("K");
+    Cube.SetXPlusFaceText("A");
+    Cube.SetXMinusFaceText("P");
+    Cube.SetYPlusFaceText("L");
+    Cube.SetYMinusFaceText("R");
+    Cube.SetZPlusFaceText("S");
+    Cube.SetZMinusFaceText("I");
 
     // change the vector text colors
     Cube.GetTextEdgesProperty().SetColor(CubeTextEdge);
