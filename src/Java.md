@@ -37,6 +37,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Glyph2D](/Java/Filtering/Glyph2D) | vtkGlyph2D | Example to copy a polydata to everypoint in the input set. 
 [Glyph3D](/Java/Filtering/Glyph3D) | vtkGlyph3D | This example applies an object at every point using vtkGlyph3D
 [PerlinNoise](/Java/Filtering/PerlinNoise) | vtkPerlinNoise | An implicit function that implements Perlin noise.
+[TransformPolyData](/Java/Filtering/TransformPolyData) | vtkTransformPolyDataFilter | Transforms points, associated normals and vectors for polygonal dataset
 [VertexGlyphFilter](/Java/Filtering/VertexGlyphFilter) | vtkVertexGlyphFilter | Creates a set of points and adds a vertex at each point.
 [WarpTo](/Java/Filtering/WarpTo) | vtkWarpTo | Deform geometry by warping towards a point
 
