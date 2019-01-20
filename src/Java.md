@@ -37,6 +37,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Glyph2D](/Java/Filtering/Glyph2D) | vtkGlyph2D | Example to copy a polydata to everypoint in the input set. 
 [Glyph3D](/Java/Filtering/Glyph3D) | vtkGlyph3D | This example applies an object at every point using vtkGlyph3D
 [PerlinNoise](/Java/Filtering/PerlinNoise) | vtkPerlinNoise | An implicit function that implements Perlin noise.
+[TransformPolyData](/Java/Filtering/TransformPolyData) | vtkTransformPolyDataFilter | Transforms points, associated normals and vectors for polygonal dataset
 [VertexGlyphFilter](/Java/Filtering/VertexGlyphFilter) | vtkVertexGlyphFilter | Creates a set of points and adds a vertex at each point.
 [WarpTo](/Java/Filtering/WarpTo) | vtkWarpTo | Deform geometry by warping towards a point
 
@@ -192,6 +193,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AnimDataCone](/Java/Visualization/AnimDataCone) | vtkRenderWindowInteractor | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
 [Animation](/Java/Visualization/Animation) |  | Move a sphere across a scene
 [BackfaceCulling](/Java/Visualization/BackfaceCulling) | | Turn on/off fast culling of polygons based on orientation of normal with respect to camera.
+[AnnotatedCubeActor](/Java/Visualization/AnnotatedCubeActor) | vtkAnnotatedCubeActor | A 3D cube with face labels.
 [BackgroundColor](/Java/Visualization/BackgroundColor) |  |  Example program to set the background color of the render window
 [BackgroundGradient](/Java/Visualization/BackgroundGradient) |  | viewport having gradient background using the Background (bottom) and Background2 (top) colors.
 [CameraActor](/Java/Visualization/CameraActor) | vtkCameraActor | A frustum to represent a camera.
@@ -234,6 +236,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration
 [AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration
 [BalloonWidget](/Java/Widgets/BalloonWidget) |  vtkBalloonWidget | The balloon text describes each object when you hover it.
+[DistanceWidget](/Java/Widgets/DistanceWidget) | vtkDistanceWidget | Measures the distance between two points.
 [PlaneWidget](/Java/Widgets/PlaneWidget) | vtkPlaneWidget | A finite (bounded) plane that can be interactively placed in a scene.
 [SeedWidget](/Java/Widgets/SeedWidget) | vtkSeedWidget | Places multiple seed points, where a user moves the cursor to and clicks it.
 [SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget | SplineWidget Demonstration
