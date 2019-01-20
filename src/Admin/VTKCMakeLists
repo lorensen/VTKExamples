@@ -2,10 +2,9 @@
 ```cmake
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
-PROJECT(XXX)
+project(XXX)
 
-# Need this to define VTK_VERSION
-find_package(VTK 8.3.0 REQUIRED)
+find_package(VTK COMPONENTS ZZZ QUIET)
 if (NOT VTK_FOUND)
   message("Skipping XXX: ${VTK_NOT_FOUND_MESSAGE}")
   return ()
@@ -18,7 +17,6 @@ if (VTK_VERSION VERSION_LESS "8.90.0")
   target_link_libraries(XXX PRIVATE ${VTK_LIBRARIES})
 else ()
   # include all components
-  find_package(VTK COMPONENTS ${VTK_AVAILABLE_COMPONENTS})
   add_executable(XXX MACOSX_BUNDLE XXX.cxx )
   target_link_libraries(XXX PRIVATE ${VTK_LIBRARIES})
   # vtk_module_autoinit is needed
