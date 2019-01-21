@@ -11,7 +11,7 @@ def main():
     for x in range (0, 10):
         for y in range (0, 10): 
     	   rValue = randomSequence.GetValue()
-	       randomSequence.Next()
+	   randomSequence.Next()
            points.InsertNextPoint(x, y, rValue)
       
     # Add the grid points to a polydata object
