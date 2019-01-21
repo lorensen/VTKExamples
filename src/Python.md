@@ -195,6 +195,8 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [FilledPolygon](/Python/PolyData/FilledPolygon) | vtkCutter |
 [Finance](/Python/Modelling/Finance) | vtkGaussianSplatter | Visualization of multidimensional financial data. The gray/wireframe surface represents the total data population. The red surface represents data points delinquent on loan payment.
 [FinanceFieldData](/Python/Modelling/FinanceFieldData) | vtkGaussianSplatter | Visualization of multidimensional financial data. The yellow surface represents the total data population. The red surface represents data points delinquent on loan payment.
+[Glyph2D](/Python/Filtering/Glyph2D) | vtkGlyph2D |
+[Glyph3D](/Python/Filtering/Glyph3D) | vtkGlyph3D |
 [ImplicitPolyDataDistance](/Python/PolyData/ImplicitPolyDataDistance) | vtkImplicitPolyDataDistance |
 [IterativeClosestPoints](/Python/Filtering/IterativeClosestPoints) | vtkIterativeClosestPointTransform |
 [LineOnMesh](/Python/DataManipulation/LineOnMesh) | vtkCellLocator vtkParametricSpline |
@@ -202,6 +204,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Outline](/Python/PolyData/Outline) | vtkOutlineFilter |
 [PolyDataContourToImageData](/Python/PolyData/PolyDataContourToImageData) | vtkLinearExtrusionFilter vtkPolyDataToImageStencil |
 [PolyDataToImageDataStencil](/Python/PolyData/PolyDataToImageDataStencil) | vtkPolyDataToImageStencil |
+[PerlinNoise](/Python/Filtering/PerlinNoise) | vtkPerlinNoise |
 [RotationAroundLine](/Python/PolyData/RotationAroundLine) | vtkTransformPolyDataFilter |
 [RuledSurfaceFilter](/Python/PolyData/RuledSurfaceFilter) | vtkRuledSurfaceFilter |
 [SmoothMeshGrid](/Python/PolyData/SmoothMeshGrid) | vtkLoopSubdivisionFilter vtkButterflySubdivisionFilter |
@@ -210,6 +213,10 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [TriangleColoredPoints](/Python/PolyData/TriangleColoredPoints) | vtkUnsignedCharArray |
 [TriangleCornerVertices](/Python/PolyData/TriangleCornerVertices) | vtkCellArray |
 [TriangleCorners](/Python/PolyData/TriangleCorners) | vtkXMLPolyDataWriter |
+[TriangulateTerrainMap](/Python/Filtering/TriangulateTerrainMap) | vtkDelaunay2D | Generate heights (z values) on a 10x10 grid (a terrain map) and then triangulate the points to form a surface.
+[TransformPolyData](/Python/Filtering/TransformPolyData) | vtkTransformPolyDataFilter | Apply a Transformation to a PolyData.
+[VertexGlyphFilter](/Python/Filtering/VertexGlyphFilter) | vtkVertexGlyphFilter | Add a vertex to each point.
+[WarpTo](/Python/Filtering/WarpTo) | vtkWarpTo | Deform geometry by warping towards a point.
 [WarpVector](/Python/PolyData/WarpVector) | vtkLine vtkDoubleArray vtkPolyData vtkWarpVector | This example warps/deflects a line.
 [WriteTriangleToFile](/Python/IO/WriteTriangleToFile) | vtkTriangle |
 
