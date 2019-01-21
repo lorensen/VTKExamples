@@ -1,7 +1,8 @@
 ### Description
 
-vtkLight object is a virtual light for 3D rendering. It provides methods to locate and point the light, turn it on and off, and set its brightness and color. 
+!!! note
+    The original source code for this example is [here](https://gitlab.kitware.com/vtk/vtk/blob/73465690278158b9e89661cd6aed26bead781378/Examples/Rendering/Cxx/SpecularSpheres.cxx).
 
-In addition to the basic infinite distance point light source attributes, you also can specify the light attenuation values and cone angle.
-
-These attributes are only used if the light is a positional light. The default is a directional light.
+!!! info
+    Similar examples setting the specular properties are:
+    See [SpecularSpheres.cxx](https://lorensen.github.io/VTKExamples/site/Cxx/Rendering/SpecularSpheres/), [SpecularSpheres.py](https://lorensen.github.io/VTKExamples/site/Python/Rendering/SpecularSpheres/).
