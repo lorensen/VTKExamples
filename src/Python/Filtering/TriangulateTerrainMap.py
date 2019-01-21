@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 
 import vtk
-import random
 
 def main():
-
     colors = vtk.vtkNamedColors()
     # Create points on an XY grid with random Z coordinate
     points = vtk.vtkPoints()
-    
+    randomSequence = vtk.vtkMinimalStandardRandomSequence()
+    randomSequence.SetSeed(1)
     for x in range (0, 10):
         for y in range (0, 10): 
-           points.InsertNextPoint(x, y, random.uniform(0.0, 3.0))
+    	   rValue = randomSequence.GetValue()
+	       randomSequence.Next()
+           points.InsertNextPoint(x, y, rValue)
       
-    
     # Add the grid points to a polydata object
     polydata = vtk.vtkPolyData()
     polydata.SetPoints(points)
