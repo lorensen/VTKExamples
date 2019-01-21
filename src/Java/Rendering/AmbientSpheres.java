@@ -75,9 +75,9 @@ public class AmbientSpheres {
       }
     }
 
-    //  Create the graphics structure. The renderer renders into the
-    //  render window. The render window interactor captures mouse events
-    //  and will perform appropriate camera or actor manipulation
+    // Create the graphics structure. The renderer renders into the
+    // render window. The render window interactor captures mouse events
+    // and will perform appropriate camera or actor manipulation
     // depending on the nature of the events.
     //
     vtkRenderer ren = new vtkRenderer();
@@ -86,7 +86,7 @@ public class AmbientSpheres {
     vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
     iren.SetRenderWindow(renWin);
 
-    //  Add the actors to the renderer, set the background and size.
+    // Add the actors to the renderer, set the background and size.
     for (int i = 0; i < 8; ++i) {
       ren.AddActor(Sphere[i]);
     }
