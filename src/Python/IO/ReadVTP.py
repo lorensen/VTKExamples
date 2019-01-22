@@ -32,7 +32,7 @@ def main():
     ren = vtk.vtkRenderer()
     renWin = vtk.vtkRenderWindow()
     renWin.AddRenderer(ren)
-    ren.SetBackground(colors.GetColor3d('AliceBLue'))
+    ren.SetBackground(colors.GetColor3d('AliceBlue'))
 
     # Create a renderwindowinteractor
     iren = vtk.vtkRenderWindowInteractor()
