@@ -20,6 +20,7 @@ We create a fancy image of a 2D Delaunay triangulation. Points are
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 #include <vtkTubeFilter.h>
 
@@ -35,7 +36,7 @@ int main(int, char *[])
   randomSequence->SetSeed(1);
   double p1;
   double p2;
-  for (auto i = 0; i < 50; ++i)
+  for (vtkIdType i = 0; i < 50; ++i)
   {
     p1 = randomSequence->GetValue();
     randomSequence->Next();

@@ -100,7 +100,9 @@ void SaveSceneToFile(std::string fileName,
 //  Position, orientation, origin, scale, usrmatrix, usertransform
 //Camera
 //  FocalPoint, Position, ViewUp, ViewAngle, ClippingRange
-  std::ofstream saveFile(fileName, std::ofstream::out);
+
+  //std::ofstream saveFile(fileName, std::ofstream::out); // C++11
+  std::ofstream saveFile(fileName.c_str()); // default is ios::out
   double vector[3];
   double scalar;
 
@@ -136,7 +138,8 @@ void RestoreSceneFromFile(std::string fileName,
                           vtkActor * /* actor */,
                           vtkCamera *camera)
 {
-  std::ifstream saveFile(fileName);
+  //std::ifstream saveFile(fileName); // C++11
+  std::ifstream saveFile(fileName.c_str());
   std::string line;
 
   vtksys::RegularExpression reCP("^Camera:Position");

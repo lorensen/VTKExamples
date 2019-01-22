@@ -1,6 +1,7 @@
 #include <vtkSmartPointer.h>
 
 #include <vtkCamera.h>
+#include <vtkCommand.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkShaderProgram.h>

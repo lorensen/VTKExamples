@@ -25,6 +25,7 @@
 #include <vtkCommand.h>
 #include <vtkSliderWidget.h>
 #include <vtkSliderRepresentation2D.h>
+#include <vtkMath.h>
 
 namespace
 {

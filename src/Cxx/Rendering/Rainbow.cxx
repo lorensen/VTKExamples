@@ -43,7 +43,7 @@ int main (int argc, char *argv[])
   vtkStructuredGrid *pl3dOutput =
     vtkStructuredGrid::SafeDownCast(pl3d->GetOutput()->GetBlock(0));
 
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
 
   // Create the 4 renderers
   vtkSmartPointer<vtkRenderer> grayScaleRenderer =

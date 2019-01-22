@@ -11,6 +11,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkStreamTracer.h>
 #include <vtkStructuredPointsReader.h>
 #include <vtkThresholdPoints.h>

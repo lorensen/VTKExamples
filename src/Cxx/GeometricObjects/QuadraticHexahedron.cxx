@@ -104,10 +104,10 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron()
     vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
   points->SetNumberOfPoints(aHexahedron->GetNumberOfPoints());
   rng->SetSeed(5070); // for testing
-  for (auto i = 0; i < aHexahedron->GetNumberOfPoints(); ++i)
+  for (vtkIdType i = 0; i < aHexahedron->GetNumberOfPoints(); ++i)
   {
     double perturbation[3];
-    for (auto j = 0; j < 3; ++j)
+    for (vtkIdType j = 0; j < 3; ++j)
     {
       rng->Next();
       perturbation[j] = rng->GetRangeValue(-0.1, 0.1);

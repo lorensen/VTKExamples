@@ -8,7 +8,7 @@
 #include <vtkPointPicker.h>
 #include <vtkCamera.h>
 #include <vtkInteractorStyleTrackballCamera.h>
-
+#include <vtkObjectFactory.h> // vtkStandardNewMacro
 #include <vtkNamedColors.h>
 
 namespace

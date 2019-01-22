@@ -9,8 +9,20 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 
 #
 # Build all .cxx files in the directory
-
 file(GLOB ALL_FILES *.cxx)
+
+# VTK follows the C++03 standard but some examples require C++11
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresCxxVersion.cmake)
+Requires_CxxVersion(CameraModel1 11 ALL_FILES)
+Requires_CxxVersion(CameraModel2 11 ALL_FILES)
+Requires_CxxVersion(CurvatureBandsWithGlyphs 11 ALL_FILES)
+Requires_CxxVersion(ElevationBandsWithGlyphs 11 ALL_FILES)
+Requires_CxxVersion(FlyingFrogSkinAndTissue 11 ALL_FILES)
+Requires_CxxVersion(Hanoi 11 ALL_FILES)
+Requires_CxxVersion(HanoiInitial 11 ALL_FILES)
+Requires_CxxVersion(HanoiIntermediate 11 ALL_FILES)
+Requires_CxxVersion(Hawaii 11 ALL_FILES)
+Requires_CxxVersion(Kitchen 11 ALL_FILES)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresModule.cmake)
@@ -27,7 +39,10 @@ Requires_Module(ExtrudePolyDataAlongLine SplineDrivenImageSlicer)
 Requires_Version(CurvatureBandsWithGlyphs ${VERSION_MIN} ALL_FILES)
 Requires_Version(PointDataSubdivision ${VERSION_MIN} ALL_FILES)
 Requires_Version(ProjectSphere ${VERSION_MIN} ALL_FILES)
+
 Requires_Version(BillboardTextActor3D "7.1.0" ALL_FILES)
+Requires_Version(Glyph3DMapper "7.1.0" ALL_FILES)
+
 Requires_Module(Shadows vtkRenderingOpenGL)
 #Requires_Setting_Off(StreamLines VTK_LEGACY_REMOVE)
 Requires_GitLfs(Hawaii ALL_FILES)

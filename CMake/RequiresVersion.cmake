@@ -3,5 +3,7 @@ macro(Requires_Version example version_min)
   message(STATUS "VTKWikiExamples: ${example} requires VTK version ${version_min} or newer but the current version is ${VTK_VERSION}")
   string(REGEX REPLACE "[^;]*${example}.cxx"
          "" ALL_FILES "${ALL_FILES}")
+  string(REGEX REPLACE "[^;]*${example}.ui"
+         "" ALL_UI_FILES "${ALL_UI_FILES}")
   endif()
 endmacro()

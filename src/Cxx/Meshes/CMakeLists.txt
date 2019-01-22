@@ -24,6 +24,8 @@ include(${WikiExamples_SOURCE_DIR}/CMake/RequiresModule.cmake)
 set(VERSION_MIN "6.0")
 Requires_Version(DeformPointSet ${VERSION_MIN} ALL_FILES)
 
+Requires_Version(QuadricDecimation "7.1.0" ALL_FILES)
+
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})

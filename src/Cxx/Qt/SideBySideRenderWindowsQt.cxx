@@ -16,12 +16,16 @@ SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
 {
   this->setupUi(this);
 
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
+  // 8.1.0+
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowLeft;
-  this->qvtkWidgetLeft->SetRenderWindow(renderWindowLeft);
-
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowRight;
+#else
+  vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindowLeft = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+  vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindowRight = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+#endif
+  this->qvtkWidgetLeft->SetRenderWindow(renderWindowLeft);
   this->qvtkWidgetRight->SetRenderWindow(renderWindowRight);
-
 
   // Sphere
   vtkSmartPointer<vtkSphereSource> sphereSource =

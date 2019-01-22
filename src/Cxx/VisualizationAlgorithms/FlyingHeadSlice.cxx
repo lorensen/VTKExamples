@@ -53,21 +53,40 @@ int main(int argc, char* argv[])
     std::cout << "Using vtkFlyingEdges2D." << std::endl;
   }
 
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
+  // 8.1.0+
   vtkNew<vtkNamedColors> colors;
+#else
+  vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+#endif
 
   // Create the RenderWindow, Renderer and both Actors.
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
   vtkNew<vtkRenderer> ren1;
   vtkNew<vtkRenderWindow> renWin;
-  renWin->AddRenderer(ren1);
   vtkNew<vtkRenderWindowInteractor> iren;
+#else
+  vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderWindow> renWin = vtkSmartPointer<vtkRenderWindow>::New();
+  vtkSmartPointer<vtkRenderWindowInteractor> iren = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+#endif
+  renWin->AddRenderer(ren1);
   iren->SetRenderWindow(renWin);
 
   // Create the pipeline.
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
   vtkNew<vtkMetaImageReader> reader;
+#else
+  vtkSmartPointer<vtkMetaImageReader> reader = vtkSmartPointer<vtkMetaImageReader>::New();
+#endif
   reader->SetFileName(argv[1]);
   reader->Update();
 
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
   vtkNew<vtkExtractVOI> extractVOI;
+#else
+  vtkSmartPointer<vtkExtractVOI> extractVOI = vtkSmartPointer<vtkExtractVOI>::New();
+#endif
   extractVOI->SetInputConnection(reader->GetOutputPort());
   extractVOI->SetVOI(0, 255, 0, 255, 45, 45);
   extractVOI->Update();
@@ -75,9 +94,16 @@ int main(int argc, char* argv[])
   std::array<double, 2> scalarRange = {{500, 1150}};
   // std::cout << scalarRange[0] << ", " << scalarRange[1] << std::endl;
 
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
   vtkNew<vtkContourFilter> contour;
   vtkNew<vtkFlyingEdges2D> flyingEdges;
   vtkNew<vtkPolyDataMapper> isoMapper;
+#else
+  vtkSmartPointer<vtkContourFilter> contour = vtkSmartPointer<vtkContourFilter>::New();
+  vtkSmartPointer<vtkFlyingEdges2D> flyingEdges = vtkSmartPointer<vtkFlyingEdges2D>::New();
+  vtkSmartPointer<vtkPolyDataMapper> isoMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+#endif
+
   if (useContourFilter)
   {
     contour->SetInputConnection(extractVOI->GetOutputPort());
@@ -93,17 +119,33 @@ int main(int argc, char* argv[])
   isoMapper->ScalarVisibilityOn();
   isoMapper->SetScalarRange(scalarRange.data());
 
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
   vtkNew<vtkActor> isoActor;
+#else
+  vtkSmartPointer<vtkActor> isoActor = vtkSmartPointer<vtkActor>::New();
+#endif
   isoActor->SetMapper(isoMapper);
   isoActor->GetProperty()->SetColor(colors->GetColor3d("Wheat").GetData());
 
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
   vtkNew<vtkOutlineFilter> outline;
+#else
+  vtkSmartPointer<vtkOutlineFilter> outline = vtkSmartPointer<vtkOutlineFilter>::New();
+#endif
   outline->SetInputConnection(extractVOI->GetOutputPort());
 
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
   vtkNew<vtkPolyDataMapper> outlineMapper;
+#else
+  vtkSmartPointer<vtkPolyDataMapper> outlineMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+#endif
   outlineMapper->SetInputConnection(outline->GetOutputPort());
 
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
   vtkNew<vtkActor> outlineActor;
+#else
+  vtkSmartPointer<vtkActor> outlineActor = vtkSmartPointer<vtkActor>::New();
+#endif
   outlineActor->SetMapper(outlineMapper);
 
   // Add the actors to the renderer, set the background and size.

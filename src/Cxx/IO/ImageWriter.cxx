@@ -18,6 +18,7 @@
 #include <vtkTIFFWriter.h>
 #include <vtkWindowToImageFilter.h>
 
+#include <algorithm>
 #include <array>
 #include <locale>
 #include <string>

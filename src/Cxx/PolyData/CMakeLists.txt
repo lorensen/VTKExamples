@@ -14,6 +14,7 @@ file(GLOB ALL_FILES *.cxx)
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
 
 Requires_Version(Curvatures "6.0.0" ALL_FILES)
+Requires_Version(LoopBooleanPolyDataFilter "8.1.0" ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})

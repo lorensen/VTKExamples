@@ -1,6 +1,7 @@
 #include <vtkActor.h>
 #include <vtkActor2D.h>
 #include <vtkCamera.h>
+#include <vtkCommand.h>
 #include <vtkMath.h>
 #include <vtkNamedColors.h>
 #include <vtkParametricFunctionSource.h>

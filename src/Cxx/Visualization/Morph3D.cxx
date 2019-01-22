@@ -9,7 +9,7 @@
 #include <vtkImplicitModeller.h>
 #include <vtkVectorText.h>
 #include <vtkProperty.h>
-
+#include <vtkSmartPointer.h>
 #include <vtkNamedColors.h>
 #include <vtksys/SystemTools.hxx>
 

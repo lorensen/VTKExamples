@@ -11,6 +11,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkStructuredGridOutlineFilter.h>
 
 int main (int argc, char *argv[])

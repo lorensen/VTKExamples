@@ -13,6 +13,14 @@ file(GLOB ALL_FILES *.cxx)
 
 include(${WikiExamples_SOURCE_DIR}/CMake/RequiresGitLfs.cmake)
 
+# VTK follows the C++03 standard but some examples require C++11
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresCxxVersion.cmake)
+Requires_CxxVersion(Finance 11 ALL_FILES)
+
+include(${WikiExamples_SOURCE_DIR}/CMake/RequiresVersion.cmake)
+Requires_Version(Delaunay3D "7.1.0" ALL_FILES)
+Requires_Version(Delaunay3DDemo "7.1.0" ALL_FILES)
+
 Requires_GitLfs(ExtractLargestIsosurface ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})

@@ -10,6 +10,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkRotationalExtrusionFilter.h>
+#include <vtkSmartPointer.h>
 #include <vtkStripper.h>
 #include <vtkTubeFilter.h>
 

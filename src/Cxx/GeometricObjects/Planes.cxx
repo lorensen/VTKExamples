@@ -24,9 +24,12 @@ int main(int, char* [])
     vtkSmartPointer<vtkNamedColors>::New();
 
   // These are the two methods we will use.
-  std::vector<std::string> titles{"Using frustum planes", "Using bounds"};
-  std::vector<vtkSmartPointer<vtkPlanes>> planes;
-  for (auto i = 0; i < titles.size(); ++i)
+  std::vector<std::string> titles;
+  titles.push_back("Using frustum planes");
+  titles.push_back("Using bounds");
+
+  std::vector<vtkSmartPointer<vtkPlanes> > planes;
+  for (std::vector<std::string>::size_type i = 0; i < titles.size(); ++i)
   {
     planes.push_back(vtkSmartPointer<vtkPlanes>::New());
   }
@@ -66,15 +69,15 @@ int main(int, char* [])
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iRen->SetRenderWindow(renWin);
 
-  std::vector<vtkSmartPointer<vtkHull>> hulls;
-  std::vector<vtkSmartPointer<vtkPolyData>> pds;
-  std::vector<vtkSmartPointer<vtkPolyDataMapper>> mappers;
-  std::vector<vtkSmartPointer<vtkActor>> actors;
-  std::vector<vtkSmartPointer<vtkTextMapper>> textMappers;
-  std::vector<vtkSmartPointer<vtkActor2D>> textActors;
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkHull> > hulls;
+  std::vector<vtkSmartPointer<vtkPolyData> > pds;
+  std::vector<vtkSmartPointer<vtkPolyDataMapper> > mappers;
+  std::vector<vtkSmartPointer<vtkActor> > actors;
+  std::vector<vtkSmartPointer<vtkTextMapper> > textMappers;
+  std::vector<vtkSmartPointer<vtkActor2D> > textActors;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
 
-  for (auto i = 0; i < titles.size(); ++i)
+  for (std::vector<std::string>::size_type i = 0; i < titles.size(); ++i)
   {
     hulls.push_back(vtkSmartPointer<vtkHull>::New());
     hulls[i]->SetPlanes(planes[i]);
@@ -115,16 +118,16 @@ int main(int, char* [])
   }
 
   // Setup the viewports
-  auto xGridDimensions = 2;
-  auto yGridDimensions = 1;
-  auto rendererSize = 300;
+  const int xGridDimensions = 2;
+  const int yGridDimensions = 1;
+  const int rendererSize = 300;
   renWin->SetSize(rendererSize * xGridDimensions,
                   rendererSize * yGridDimensions);
-  for (auto row = 0; row < yGridDimensions; ++row)
+  for (int row = 0; row < yGridDimensions; ++row)
   {
-    for (auto col = 0; col < xGridDimensions; ++col)
+    for (int col = 0; col < xGridDimensions; ++col)
     {
-      auto index = row * xGridDimensions + col;
+      const int index = row * xGridDimensions + col;
 
       // (xmin, ymin, xmax, ymax)
       double viewport[4] = {

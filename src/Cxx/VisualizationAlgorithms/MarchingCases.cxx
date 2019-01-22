@@ -14,6 +14,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkShrinkPolyData.h>
 #include <vtkSphereSource.h>
 #include <vtkThresholdPoints.h>
@@ -69,9 +70,9 @@ int main(int argc, char* argv[])
   cases[14] = &case14;
 
   std::vector<int> mcCases;
-  auto mcCase = 7;
-  auto rotation = 0;
-  auto label = true;
+  int mcCase = 7;
+  int rotation = 0;
+  bool label = true;
   if (argc > 1)
   {
     if (argc < 3)
@@ -79,13 +80,13 @@ int main(int argc, char* argv[])
       std::cerr << ProgramParameters(argv[0]) << std::endl;
       return EXIT_FAILURE;
     }
-    auto numberOfCases = std::abs(atoi(argv[1]));
+    int numberOfCases = std::abs(atoi(argv[1]));
     if (argc < numberOfCases + 2)
     {
       std::cerr << ProgramParameters(argv[0]) << std::endl;
       return EXIT_FAILURE;
     }
-    for (auto i = 0; i < numberOfCases; ++i)
+    for (int i = 0; i < numberOfCases; ++i)
     {
       mcCase = atoi(argv[i + 2]);
       if (std::abs(mcCase) < 0 || std::abs(mcCase) > 14)
@@ -140,7 +141,7 @@ int main(int argc, char* argv[])
   iren->SetRenderWindow(renWin);
 
   // Always use a grid of four columns unless number of cases < 4.
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
   int gridSize = ((static_cast<int>(mcCases.size()) + 3) / 4) * 4;
   gridSize = static_cast<int>(mcCases.size()) < 4
       ? static_cast<int>(mcCases.size())

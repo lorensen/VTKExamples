@@ -13,7 +13,7 @@
 #include <vtkQuadric.h>
 #include <vtkSampleFunction.h>
 #include <vtkSphereSource.h>
-
+#include <vtkSmartPointer.h>
 #include <vtkNamedColors.h>
 
 namespace
@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
     return EXIT_FAILURE;
   }
 
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
 
   // Create the 8 renderers
   vtkSmartPointer<vtkRenderer> flatSphereRenderer =

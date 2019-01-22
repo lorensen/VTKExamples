@@ -51,7 +51,7 @@ public:
     this->actor->VisibilityOn();
   }
   EnableActorCallback()
-    : actor(nullptr)
+    : actor(NULL)
   {
   }
   vtkActor* actor;
@@ -69,8 +69,8 @@ public:
     this->renWin->Render();
   }
   LWCallback()
-    : polyData(nullptr)
-    , renWin(nullptr)
+    : polyData(NULL)
+    , renWin(NULL)
   {
   }
   vtkPolyData* polyData;
@@ -95,8 +95,8 @@ int main(int argc, char* argv[])
               << std::endl;
     return EXIT_FAILURE;
   }
-  auto numOfStreamLines = 25;
-  auto illustration = false;
+  int numOfStreamLines = 25;
+  int illustration = false;
   std::string fileName1 = argv[1];
   std::string fileName2 = argv[2];
   if (argc > 3)

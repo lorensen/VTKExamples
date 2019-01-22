@@ -12,6 +12,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkSTLReader.h>
 #include <vtkSphereSource.h>
 #include <vtkXMLPolyDataReader.h>

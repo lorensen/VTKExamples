@@ -15,14 +15,20 @@ else()
 endif()
 #
 
+if (USING_CPP11)
+# vtkTest.cxx needs C++11
 add_executable(AlgorithmFilter AlgorithmFilter vtkTestAlgorithmFilter vtkTest)
 target_link_libraries(AlgorithmFilter ${VTK_LIBRARIES})
 
 add_executable(AlgorithmSource AlgorithmSource vtkTestAlgorithmSource vtkTest1)
 target_link_libraries(AlgorithmSource ${VTK_LIBRARIES})
+endif()
 
+if(NOT ${VTK_VERSION} VERSION_EQUAL "7.0.0")
+# Does not compile with VTK 7.0.0
 add_executable(ProgressReport ProgressReport.cxx vtkTestProgressReportFilter.cxx)
 target_link_libraries(ProgressReport ${VTK_LIBRARIES})
+endif()
 
 add_executable(FilterSelfProgress FilterSelfProgress.cxx vtkTestFilterSelfProgressFilter.cxx)
 target_link_libraries(FilterSelfProgress ${VTK_LIBRARIES})
@@ -36,5 +42,8 @@ target_link_libraries(GraphAlgorithmSource ${VTK_LIBRARIES})
 add_executable(ImageAlgorithmFilter ImageAlgorithmFilter vtkImageAlgorithmFilter.cxx)
 target_link_libraries(ImageAlgorithmFilter ${VTK_LIBRARIES})
 
+if(NOT ${VTK_VERSION} VERSION_EQUAL "7.0.0")
+# Does not compile with VTK 7.0.0
 add_executable(MultipleInputPorts MultipleInputPorts vtkTestMultipleInputPortsFilter)
 target_link_libraries(MultipleInputPorts ${VTK_LIBRARIES})
+endif()

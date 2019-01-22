@@ -66,7 +66,7 @@ int main (int argc, char *argv[])
   // Setup render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
   unsigned int xGridDimensions = 10;
   unsigned int yGridDimensions = 10;
   for (int i = 0; i < static_cast<int>(xGridDimensions  * yGridDimensions); ++i)

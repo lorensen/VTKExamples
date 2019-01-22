@@ -47,7 +47,7 @@ vtkSmartPointer<vtkPolyDataAlgorithm> MakeExtractSurface(vtkPolyData *);
 vtkSmartPointer<vtkPolyDataAlgorithm> MakePoissonExtractSurface(vtkPolyData *);
 vtkSmartPointer<vtkPolyDataAlgorithm> MakePowercrustExtractSurface(vtkPolyData *);
 void MakeViewportGrid(
-  std::vector<vtkSmartPointer<vtkRenderer>> &renderers,
+  std::vector<vtkSmartPointer<vtkRenderer> > &renderers,
   unsigned int renderersize,
   unsigned int xGridDimensions,
   unsigned int yGridDimensions);
@@ -72,7 +72,7 @@ int main (int argc, char *argv[])
   surfaceObjects.push_back(MakePoissonExtractSurface(polyData.GetPointer()));
   surfaceObjects.push_back(MakePowercrustExtractSurface(polyData.GetPointer()));
 
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
 
   // One camera for all
   vtkSmartPointer<vtkCamera> camera =
@@ -339,7 +339,7 @@ vtkSmartPointer<vtkPolyDataAlgorithm> MakePowercrustExtractSurface(vtkPolyData *
 }
 
 void MakeViewportGrid(
-  std::vector<vtkSmartPointer<vtkRenderer>> &renderers,
+  std::vector<vtkSmartPointer<vtkRenderer> > &renderers,
   unsigned int rendererSize,
   unsigned int xGridDimensions,
   unsigned int yGridDimensions)

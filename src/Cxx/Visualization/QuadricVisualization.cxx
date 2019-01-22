@@ -13,6 +13,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSampleFunction.h>
+#include <vtkSmartPointer.h>
 #include <vtkUnstructuredGrid.h>
 
 namespace

@@ -12,7 +12,12 @@ RenderWindowUIMultipleInheritance::RenderWindowUIMultipleInheritance()
 {
   this->setupUi(this);
 
+#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION > 0
+  // 8.1.0+
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+#else
+  vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+#endif
   qvtkWidget->SetRenderWindow(renderWindow);
 
   // Sphere

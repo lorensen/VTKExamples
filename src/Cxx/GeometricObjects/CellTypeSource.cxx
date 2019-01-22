@@ -87,10 +87,10 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkMinimalStandardRandomSequence> rng =
     vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
   rng->SetSeed(5070); // for testing
-  for (auto i = 0; i <points->GetNumberOfPoints(); ++i)
+  for (vtkIdType i = 0; i <points->GetNumberOfPoints(); ++i)
   {
     double perturbation[3];
-    for (auto j = 0; j < 3; ++j)
+    for (vtkIdType j = 0; j < 3; ++j)
     {
       rng->Next();
       perturbation[j] = rng->GetRangeValue(-0.1,0.1);
@@ -103,12 +103,12 @@ int main (int argc, char *argv[])
   }
   source->GetOutput()->SetPoints(points);
 
-  int numCells = source->GetOutput()->GetNumberOfCells();
+  vtkIdType numCells = source->GetOutput()->GetNumberOfCells();
   std::cout << "Number of cells: " << numCells << std::endl;
   vtkSmartPointer<vtkIntArray> idArray =
     vtkSmartPointer<vtkIntArray>::New();
   idArray->SetNumberOfTuples(numCells);
-  for (auto i = 0; i < numCells; ++i)
+  for (vtkIdType i = 0; i < numCells; ++i)
   {
     idArray->InsertTuple1(i, i + 1);
   }

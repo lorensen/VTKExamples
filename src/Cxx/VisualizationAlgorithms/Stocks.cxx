@@ -25,7 +25,7 @@
 
 namespace
 {
-void AddStock(std::vector<vtkSmartPointer<vtkRenderer>> renderers,
+void AddStock(std::vector<vtkSmartPointer<vtkRenderer> > renderers,
               char *filename,
               std::string name,
               double &zPosition,
@@ -38,7 +38,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkNamedColors>::New();
 
   // set up the stocks
-  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
   vtkSmartPointer<vtkRenderer> topRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderer> bottomRenderer =
@@ -100,7 +100,7 @@ int main (int argc, char *argv[])
 namespace
 {
 // create the stocks
-void AddStock(std::vector<vtkSmartPointer<vtkRenderer>> renderers,
+void AddStock(std::vector<vtkSmartPointer<vtkRenderer> > renderers,
               char *filename,
               std::string name,
               double &zPosition,
