@@ -1,7 +1,9 @@
-import vtk.*;
+import vtk.vtkNativeLibrary;
+import vtk.vtkPoints;
+import vtk.vtkPolyData;
+import vtk.vtkXMLPolyDataWriter;
 
-public class WritePolyData
-{
+public class WriteVTP {
 
   // Loading Native Libraries.
   // Now it works in eclipse without any issues.
@@ -16,29 +18,35 @@ public class WritePolyData
     vtkNativeLibrary.DisableOutputWindow(null);
   }
 
-  public static void main(String[] args)
-  {
+  public static void main(String[] args) {
+    //parse command line arguments
+    if (args.length != 1) {
+      System.err.println("Usage: java -classpath ... ReadPolyData Filename(.vtp) e.g WriteVTP.vtp");
+      return;
+    }
+
+    String filename = args[0];
+
     //Create 10 points.
     vtkPoints points = new vtkPoints();
-   
-    for ( int i = 0; i < 10; ++i )
-    {
-      points.InsertNextPoint ( i, i, i );
+
+    for (int i = 0; i < 10; ++i) {
+      points.InsertNextPoint(i, i, i);
     }
-   
+
     //Create a polydata object and add the points to it.
     vtkPolyData polydata = new vtkPolyData();
     polydata.SetPoints(points);
-   
+
     //Write the file
     vtkXMLPolyDataWriter writer = new vtkXMLPolyDataWriter();
-    writer.SetFileName("test.vtp");
-    writer.SetInput(polydata);
-   
+    writer.SetFileName(filename);
+    writer.SetInputData(polydata);
+
     //Optional - set the mode. The default is binary.
     //writer.SetDataModeToBinary();
     //writer.SetDataModeToAscii();
-   
+
     writer.Write();
   }
 }

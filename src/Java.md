@@ -99,9 +99,9 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[Read a polydata(.vtp) file](/Java/IO/ReadPolyData) | vtkXMLPolyDataReader | IO
-[Write a polygonal data (.vtp) file](/Java/IO/WritePolyData) | vtkXMLPolyDataWriter | IO
-[JPEGWriter](/Java/IO/JPEGWriter) | vtkJPEGWriter | vtkJPEGWriter can be used to write JPEG files
+[JPEGWriter](/Java/IO/JPEGWriter) | vtkJPEGWriter | Write a JPEG file.
+[ReadVTP](/Java/IO/ReadVTP) | vtkXMLPolyDataReader | Read a VTK XML PolyData file.
+[WriteVTP](/Java/IO/WriteVTP) | vtkXMLPolyDataWriter | Write a VTK XML PolyData file.
 
 ## Implicit Functions and Iso-surfaces
 
