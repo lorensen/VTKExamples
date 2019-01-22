@@ -21,7 +21,7 @@ public class WriteVTP {
   public static void main(String[] args) {
     //parse command line arguments
     if (args.length != 1) {
-      System.err.println("Usage: java -classpath ... ReadPolyData Filename(.vtp) e.g WriteVTP.vtp");
+      System.err.println("Usage: java -classpath ... WriteVTP Filename(.vtp) e.g WriteVTP.vtp");
       return;
     }
 
