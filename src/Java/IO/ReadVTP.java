@@ -25,7 +25,7 @@ public class ReadVTP {
   public static void main(String[] args) {
     //parse command line arguments
     if (args.length != 1) {
-      System.err.println("Usage: java -classpath ... ReadPolyData Filename(.vtp) e.g horse.vtp");
+      System.err.println("Usage: java -classpath ... ReadVTP Filename(.vtp) e.g horse.vtp");
       return;
     }
 
