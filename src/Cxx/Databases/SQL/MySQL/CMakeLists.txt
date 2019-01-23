@@ -1,8 +1,8 @@
 project (${WIKI}MySQL)
 
 if(NOT WikiExamples_BINARY_DIR)
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+  find_package(VTK REQUIRED)
+  include(${VTK_USE_FILE})
 endif()
 
 if("${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}" LESS 5.8)
@@ -23,5 +23,5 @@ endforeach()
 # Testing
 set(KIT MySQL)
 set(NEEDS_ARGS
-)
+  )
 include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)

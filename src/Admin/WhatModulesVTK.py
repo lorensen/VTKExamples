@@ -126,6 +126,7 @@ def main(vtkSourceDir, sourceFiles):
         return
 
     # Build a set that contains all modules referenced in command line files
+    optionalModules = set()
     allModules = set()
     for inc in allIncludes:
         if inc in includesToPaths:
@@ -137,12 +138,20 @@ def main(vtkSourceDir, sourceFiles):
         allModules.add("VTK::RenderingOpenGL2")
         allModules.add("VTK::InteractionStyle")
         allModules.add("VTK::RenderingFreeType")
+        allModules.add("VTK::RenderingGL2PSOpenGL2")
+        allModules.add("VTK::RenderingContextOpenGL2")
     if "VTK::DomainsChemistry"in allModules:
         allModules.add("VTK::DomainsChemistryOpenGL2")
     if "VTK::RenderingVolume" in allModules:
         allModules.add("VTK::RenderingVolumeOpenGL2")
     if "VTK::RenderingContext2D" in allModules:
         allModules.add("VTK::RenderingContextOpenGL2")
+    if "VTK::IOExport" in allModules:
+        allModules.add("VTK::RenderingContextOpenGL2")
+        allModules.add("VTK::IOExportOpenGL2")
+        allModules.add("VTK::IOExportPDF")
+        allModules.add("VTK::RenderingContextOpenGL2")
+    optionalModules.add("VTK::TestingRendering")
 
     modules = {'All modules referenced in the files:': allModules,
               }

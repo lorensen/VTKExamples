@@ -1,8 +1,27 @@
 project (${WIKI}Annotation)
 
-if(NOT WikiExamples_BINARY_DIR)
-find_package(VTK REQUIRED)
-  include(${VTK_USE_FILE})
+if(NOT VTK_BINARY_DIR)
+  set(VTK_LIBRARIES "")
+  find_package(VTK COMPONENTS
+    vtkCommonColor
+    vtkCommonCore
+    vtkCommonDataModel
+    vtkCommonTransforms
+    vtkFiltersCore
+    vtkFiltersGeneral
+    vtkFiltersSources
+    vtkIOParallel
+    vtkInteractionStyle
+    vtkRenderingAnnotation
+    vtkRenderingCore
+    vtkRenderingFreeType
+    vtkRenderingOpenGL2
+    OPTIONAL_COMPONENTS
+    vtkTestingRendering
+    )
+  if (VTK_VERSION VERSION_LESS "8.90.0")
+    include(${VTK_USE_FILE})
+  endif()
 endif()
 
 set(KIT_LIBS ${VTK_LIBRARIES})
@@ -17,19 +36,25 @@ foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
   add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
   target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
+  if (VTK_VERSION VERSION_GREATER "8.8")
+    vtk_module_autoinit(
+      TARGETS ${WIKI}${EXAMPLE}
+      MODULES ${VTK_LIBRARIES}
+      )
+  endif()
 endforeach()
 
 if (BUILD_TESTING)
-# Testing
-set(KIT Annotation)
-set(NEEDS_ARGS
-  XYPlot
-)
+  # Testing
+  set(KIT Annotation)
+  set(NEEDS_ARGS
+    XYPlot
+    )
 
-set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+  set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
-add_test(${KIT}-XYPlot ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestXYPlot ${DATA}/combxyz.bin ${DATA}/combq.bin)
+  add_test(${KIT}-XYPlot ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestXYPlot ${DATA}/combxyz.bin ${DATA}/combq.bin)
 
-include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
+  include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()

@@ -25,4 +25,10 @@ include(${WikiExamples_SOURCE_DIR}/CMake/vtkTestingObjectFactory.cmake)
 add_executable(${KIT}CxxTests ${KIT}CxxTests.cxx
                ${MyTests})
 target_link_libraries(${KIT}CxxTests ${KIT_LIBS})
+if (VTK_VERSION VERSION_GREATER "8.8")
+  vtk_module_autoinit(
+    TARGETS ${KIT}CxxTests
+    MODULES ${VTK_LIBRARIES}
+    )
+endif()
 endif()

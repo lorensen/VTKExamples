@@ -1,0 +1,11 @@
+# Append a module to the list optional if the module is found in library
+macro(Add_Optional_If_In_Library module library optional)
+  set(moduleTest ${module})
+  if (VTK_VERSION VERSION_GREATER "8.4")
+    string(REGEX REPLACE "vtk" "VTK::" ${module} ${moduleTest})
+  endif()
+  list(FIND ${library} ${moduleTest} found)
+  if(found GREATER -1)
+    list(APPEND optional ${module})
+  endif()
+endmacro()
