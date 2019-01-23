@@ -1,9 +1,31 @@
 // First we import the VTK package that will make available all
 // of the VTK commands to Java.
+
 import vtk.*;
 
-public class AnimDataCone
-{
+public class AnimDataCone {
+
+  // this is an array of transforms to apply to the vtkPolyData.
+  static double moves[][] =
+      {{1.11, 1., 1.}, // expand on x
+          {1.11, 1., 1.}, // expand on x
+          {1.11, 1., 1.}, // expand on x
+          {.9009, 1., 1.}, // contract on x
+          {.9009, 1., 1.}, // contract on x
+          {.9009, 1., 1.}, // contract on x
+          {1., 1.11, 1.}, // expand on y
+          {1., 1.11, 1.}, // expand on y
+          {1., 1.11, 1.}, // expand on y
+          {1., .9009, 1.}, // contract on y
+          {1., .9009, 1.}, // contract on y
+          {1., .9009, 1.}, // contract on y
+          {1., 1., 1.11}, // expand on z
+          {1., 1., 1.11}, // expand on z
+          {1., 1., 1.11}, // expand on z
+          {1., 1., .9009}, // contract on z
+          {1., 1., .9009}, // contract on z
+          {1., 1., .9009} // contract on z
+      };
 
   /**
    * @param args
@@ -22,6 +44,7 @@ public class AnimDataCone
     }
     vtkNativeLibrary.DisableOutputWindow(null);
   }
+
   // declare the interactor as an instance variable so we can refer to it
   // in the timer callback. we will pass the instance pointer to this
   // class for the callback to be invoked on.
@@ -37,46 +60,23 @@ public class AnimDataCone
   // in the moves array.
   int animState = 0;
 
-  // this is an array of transforms to apply to the vtkPolyData.
-  static double moves[][] =
-  { { 1.11, 1., 1. }, // expand on x
-    { 1.11, 1., 1. }, // expand on x
-    { 1.11, 1., 1. }, // expand on x
-    { .9009, 1., 1. }, // contract on x
-    { .9009, 1., 1. }, // contract on x
-    { .9009, 1., 1. }, // contract on x
-    { 1., 1.11, 1. }, // expand on y
-    { 1., 1.11, 1. }, // expand on y
-    { 1., 1.11, 1. }, // expand on y
-    { 1., .9009, 1. }, // contract on y
-    { 1., .9009, 1. }, // contract on y
-    { 1., .9009, 1. }, // contract on y
-    { 1., 1., 1.11 }, // expand on z
-    { 1., 1., 1.11 }, // expand on z
-    { 1., 1., 1.11 }, // expand on z
-    { 1., 1., .9009 }, // contract on z
-    { 1., 1., .9009 }, // contract on z
-    { 1., 1., .9009 } // contract on z
-  };
-
-  public static void main(String[] args)
-  {
+  public static void main(String[] args) {
     // We will start by creating an instance of our AnimDataCone example
     // This example uses callbacks, and for Java that requires an instance
     // object to own the callback logic.
-    
+
     AnimDataCone myCone = new AnimDataCone();
     myCone.doit();
   }
+
   /*
-   * The TimerEvent is specified as the TimerEvent callback 
-   * to the RenderWindowInteractor. The polydata modification 
-   * is done here as well as the call to the renderWindow to 
-   * render the updated scene. 
+   * The TimerEvent is specified as the TimerEvent callback
+   * to the RenderWindowInteractor. The polydata modification
+   * is done here as well as the call to the renderWindow to
+   * render the updated scene.
    */
-  void StartRender()
-  {
-    
+  void StartRender() {
+
     vtkPolyData mpd = pd.GetPolyDataInput(0);
     vtkPoints pts = mpd.GetPoints();
     int ptct = pts.GetNumberOfPoints();
@@ -102,9 +102,13 @@ public class AnimDataCone
    * The doit() function is simply the instance function to perform the
    * construction of the vtk pipeline for this example.
    */
-  void doit()
-  {
-    
+  void doit() {
+    vtkNamedColors colors = new vtkNamedColors();
+
+    double bkg[] = new double[]{0.1, 0.2, 0.4, 1.0};
+    double actorColor[] = new double[4];
+    colors.GetColor("White", actorColor);
+
     // This example illustrates animation via the startrender callback/
     //
     Transform = new vtkTransform();
@@ -138,6 +142,7 @@ public class AnimDataCone
     // set this actor's mapper to be coneMapper which we created above.
     vtkActor coneActor = new vtkActor();
     coneActor.SetMapper(coneMapper);
+    coneActor.GetProperty().SetColor(actorColor);
 
     // Create the Renderer and assign actors to it. A renderer is like a
     // viewport. It is part or all of a window on the screen and it is
@@ -145,8 +150,8 @@ public class AnimDataCone
     // background color here.
     vtkRenderer ren1 = new vtkRenderer();
     ren1.AddActor(coneActor);
-    ren1.SetBackground(0.1, 0.2, 0.4);
-    
+    ren1.SetBackground(bkg);
+
     // Finally we create the render window which will show up on the screen
     // We put our renderer into the render window using AddRenderer. We
     // also set the size to be 300 pixels by 300.
@@ -162,7 +167,7 @@ public class AnimDataCone
     // events can process them as appropriate.
     iren = new vtkRenderWindowInteractor();
     iren.SetRenderWindow(renWin);
-    
+
     // By default the vtkRenderWindowInteractor instantiates an instance
     // of vtkInteractorStyle. vtkInteractorStyle translates a set of events
     // it observes into operations on the camera, actors, and/or properties
@@ -173,17 +178,12 @@ public class AnimDataCone
 
     // Start the event loop.
     iren.Initialize();
+    ren1.Render();
     // Now for every window render we call our callback function to update
     // the model
     // resulting in another render.
     ren1.AddObserver("StartEvent", this, "StartRender");
     iren.CreateRepeatingTimer(50);
-
     iren.Start();
-
-    // There is no explicit need to free any objects at this point.
-    // Once Python exits, memory is automatically freed.
-    
   }
-
 }
