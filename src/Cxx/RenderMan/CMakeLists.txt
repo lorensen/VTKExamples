@@ -17,7 +17,7 @@ if(NOT VTK_BINARY_DIR)
     vtkRenderingContextOpenGL2
     vtkRenderingCore
     vtkRenderingFreeType
-#    ${components}
+    ${components}
     vtkRenderingOpenGL2
     OPTIONAL_COMPONENTS
     vtkTestingRendering
