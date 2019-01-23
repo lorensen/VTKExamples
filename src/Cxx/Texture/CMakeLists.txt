@@ -24,31 +24,9 @@ if(NOT VTK_BINARY_DIR)
     vtkRenderingFreeType
     vtkRenderingGL2PSOpenGL2
     vtkRenderingOpenGL2
-    )
-  find_package(VTK COMPONENTS
-    vtkCommonColor
-    vtkCommonCore
-    vtkCommonDataModel
-    vtkFiltersCore
-    vtkFiltersGeometry
-    vtkFiltersModeling
-    vtkFiltersSources
-    vtkFiltersTexture
-    vtkIOGeometry
-    vtkIOImage
-    vtkIOLegacy
-    vtkIOPLY
-    vtkIOParallel
-    vtkIOXML
-    vtkImagingHybrid
-    vtkInteractionStyle
-    vtkRenderingContextOpenGL2
-    vtkRenderingCore
-    vtkRenderingFreeType
-    vtkRenderingGL2PSOpenGL2
-    vtkRenderingOpenGL2
     OPTIONAL_COMPONENTS
     vtkTestingRendering
+    QUIET
     )
   if (VTK_VERSION VERSION_LESS "8.90.0")
     include(${VTK_USE_FILE})

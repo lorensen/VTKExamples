@@ -38,6 +38,7 @@ if(NOT VTK_BINARY_DIR)
     vtkViewsContext2D
     OPTIONAL_COMPONENTS
     vtkTestingRendering
+    QUIET
     )
   if (VTK_VERSION VERSION_LESS "8.90.0")
     include(${VTK_USE_FILE})

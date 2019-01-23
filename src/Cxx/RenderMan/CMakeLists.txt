@@ -17,10 +17,11 @@ if(NOT VTK_BINARY_DIR)
     vtkRenderingContextOpenGL2
     vtkRenderingCore
     vtkRenderingFreeType
-    ${components}
+#    ${components}
     vtkRenderingOpenGL2
     OPTIONAL_COMPONENTS
     vtkTestingRendering
+    QUIET
     )
   if (VTK_VERSION VERSION_LESS "8.90.0")
     include(${VTK_USE_FILE})
@@ -33,13 +34,11 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
 
-set(VERSION_MIN "6.0")
-Requires_Version(PolyDataRIB ${VERSION_MIN} ALL_FILES)
-
 foreach(SOURCE_FILE ${ALL_FILES})
-  string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
+ message(STATUS "SOURCE_FILE: ${SOURCE_FILE}")
+ string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
-  add_executable(${WIKI}${EXAMPLE}${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
+  add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
   target_link_libraries(${WIKI}${EXAMPLE} PRIVATE ${KIT_LIBS})
   if (NOT VTK_VERSION VERSION_LESS "8.90.0")
     vtk_module_autoinit(

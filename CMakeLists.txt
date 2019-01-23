@@ -23,7 +23,7 @@ else()
 endif()
 
 # Display VTK version
-find_package(VTK CONFIG) 
+find_package(VTK CONFIG QUIET) 
 if (NOT VTK_FOUND)
   message("Skipping Cube: ${VTK_NOT_FOUND_MESSAGE}")
 endif()

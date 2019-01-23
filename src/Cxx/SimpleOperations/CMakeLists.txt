@@ -7,6 +7,7 @@ if(NOT WikiExamples_BINARY_DIR)
     vtkCommonDataModel
     vtkCommonMath
     vtkCommonTransforms
+    QUIET
     )
   if (VTK_VERSION VERSION_LESS "8.90.0")
     include(${VTK_USE_FILE})

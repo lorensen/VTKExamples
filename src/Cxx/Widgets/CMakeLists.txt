@@ -24,6 +24,7 @@ if(NOT VTK_BINARY_DIR)
     vtkRenderingOpenGL2
     OPTIONAL_COMPONENTS
     vtkTestingRendering
+    QUIET
     )
 endif()
 

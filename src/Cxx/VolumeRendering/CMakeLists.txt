@@ -24,6 +24,7 @@ if(NOT WikiExamples_BINARY_DIR)
     vtkRenderingOpenGL2
     vtkRenderingVolume
     vtkRenderingVolumeOpenGL2
+    QUIET
     )
   if (VTK_VERSION VERSION_LESS "8.90.0")
     include(${VTK_USE_FILE})
