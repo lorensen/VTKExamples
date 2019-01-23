@@ -1,9 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
+
 import vtk.*;
 
-public class JFrameRenderer extends JFrame
-{
+public class JFrameRenderer extends JFrame {
 
   static {
     if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
@@ -18,8 +18,14 @@ public class JFrameRenderer extends JFrame
 
   private vtkRenderWindowPanel renderWindowPanel;
 
-  public JFrameRenderer()
-  {
+  public JFrameRenderer() {
+    vtkNamedColors colors = new vtkNamedColors();
+
+    double bkg[] = new double[4];
+    double actorColor[] = new double[4];
+    colors.GetColor("RoyalBlue", bkg);
+    colors.GetColor("LemonChiffon", actorColor);
+
     // Create a sphere source
     vtkSphereSource sphere = new vtkSphereSource();
     sphere.SetRadius(10.0);
@@ -31,6 +37,7 @@ public class JFrameRenderer extends JFrame
     //create sphere actor
     vtkActor sphereActor = new vtkActor();
     sphereActor.SetMapper(sphereMapper);
+    sphereActor.GetProperty().SetColor(actorColor);
 
     // Create a render window panel to display the sphere
     renderWindowPanel = new vtkRenderWindowPanel();
@@ -38,36 +45,31 @@ public class JFrameRenderer extends JFrame
     renderWindowPanel.setInteractorStyle(new vtkInteractorStyleTrackballCamera());
 
     add(renderWindowPanel, BorderLayout.CENTER);
-      
+
     renderWindowPanel.GetRenderer().AddActor(sphereActor);
+    renderWindowPanel.GetRenderer().SetBackground(bkg);
+  }
+
+  public static void main(String[] args) {
+    try {
+      SwingUtilities.invokeLater(new Runnable() {
+        public void run() {
+          JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+          ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
+
+          JFrame frame = new JFrameRenderer();
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          frame.pack();
+          frame.setVisible(true);
+          ((JFrameRenderer) frame).render();
+        }
+      });
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public void render() {
     renderWindowPanel.Render();
-  }
-
-  public static void main(String[] args)
-  {
-    try
-    {
-      javax.swing.SwingUtilities.invokeLater(new Runnable()
-        {
-          public void run()
-          {
-            JPopupMenu.setDefaultLightWeightPopupEnabled(false);
-            ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
-
-            JFrame frame = new JFrameRenderer();
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setVisible(true);
-            frame.render();
-          }
-        });    	
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
   }
 }

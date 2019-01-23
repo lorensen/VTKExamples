@@ -5,10 +5,12 @@ import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
 import vtk.vtkActor;
 import vtk.vtkArrowSource;
 import vtk.vtkCubeSource;
 import vtk.vtkGlyph3D;
+import vtk.vtkNativeLibrary;
 import vtk.vtkObject;
 import vtk.vtkPanel;
 import vtk.vtkPolyData;
@@ -19,6 +21,8 @@ import vtk.vtkXMLUnstructuredGridReader;
 
 
 public class VectorFieldExample implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   // Loading Native Libraries.
   // Now it works in eclipse without any issues.
@@ -32,13 +36,12 @@ public class VectorFieldExample implements Serializable {
     }
     vtkNativeLibrary.DisableOutputWindow(null);
   }
-  private static final long serialVersionUID = 1L;
 
   public static vtkPanel showVectorField(
-    File file,
-    int elementInFile,
-    double threshold,
-    double scaleFactor) {
+      File file,
+      int elementInFile,
+      double threshold,
+      double scaleFactor) {
 
     vtkXMLUnstructuredGridReader reader = new vtkXMLUnstructuredGridReader();
 
@@ -50,8 +53,8 @@ public class VectorFieldExample implements Serializable {
     vtkThresholdPoints thresholdVector = new vtkThresholdPoints();
     thresholdVector.SetInputData(image);
     thresholdVector.SetInputArrayToProcess(
-      elementInFile,
-      image.GetInformation());
+        elementInFile,
+        image.GetInformation());
 
     thresholdVector.ThresholdByUpper(threshold);
     thresholdVector.Update();
@@ -77,8 +80,8 @@ public class VectorFieldExample implements Serializable {
     vectorGlyph.ScalingOn();
     vectorGlyph.OrientOn();
     vectorGlyph.SetInputArrayToProcess(
-      elementInFile,
-      image.GetInformation());
+        elementInFile,
+        image.GetInformation());
 
     vectorGlyph.SetScaleFactor(scaleFactor);
 
@@ -91,36 +94,42 @@ public class VectorFieldExample implements Serializable {
     vectorActor.SetMapper(vectorGlyphMapper);
 
 
-
     vtkPanel vis = new vtkPanel();
     vis.GetRenderer().AddActor(vectorActor);
 
     return vis;
   }
 
-  public static void main(String s[]) throws IOException {
+  //  public static void main(String s[]) throws IOException {
+  public static void main(String[] args) {
+    //parse command line arguments
+    if (args.length != 1) {
+      System.err.println("Usage: java -classpath ... VectorFieldExample Filename(.vtu) e.g tetra.vtu");
+      return;
+    }
 
+    String filename = args[0];
 
     SwingUtilities.invokeLater(new Runnable() {
 
-        @Override
-        public void run() {
+      @Override
+      public void run() {
 
-          JFrame frame = new JFrame("VTKJPanel Demo");
-          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame frame = new JFrame("VTKJPanel Demo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-          File file = new File("../src/Testing/Data/tetra.vtu"); // needs to be replaced
+        File file = new File(filename); // needs to be replaced
 
-          vtkPanel panel = showVectorField(file, 2, 0.001, 0.05); // values need to be replaced
+        vtkPanel panel = showVectorField(file, 2, 0.001, 0.05); // values need to be replaced
 
-          frame.add(panel, BorderLayout.CENTER);
-          frame.setSize(600, 600);
-          frame.setLocationRelativeTo(null);
-          frame.setVisible(true);
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
-          panel.repaint();
+        panel.repaint();
 
-        }
-      });
+      }
+    });
   }
 }
