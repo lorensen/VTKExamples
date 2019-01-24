@@ -1,6 +1,6 @@
 ###CMakeLists.txt
 ```cmake
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
  
 if(POLICY CMP0020)
   cmake_policy(SET CMP0020 NEW)
@@ -8,8 +8,27 @@ endif()
 
 PROJECT(XXX)
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+find_package(VTK COMPONENTS ZZZ))
+if (NOT VTK_FOUND)
+  message("Skipping XXX: ${VTK_NOT_FOUND_MESSAGE}")
+  return ()
+endif()
+message (STATUS "VTK_VERSION: ${VTK_VERSION}")
+if (VTK_VERSION VERSION_LESS "8.90.0")
+  # old system
+  include(${VTK_USE_FILE})
+  add_executable(XXX MACOSX_BUNDLE XXX.cxx )
+  target_link_libraries(XXX PRIVATE ${VTK_LIBRARIES})
+else ()
+  # include all components
+  add_executable(XXX MACOSX_BUNDLE XXX.cxx )
+  target_link_libraries(XXX PRIVATE ${VTK_LIBRARIES})
+  # vtk_module_autoinit is needed
+  vtk_module_autoinit(
+    TARGETS XXX
+    MODULES ${VTK_LIBRARIES}
+    )
+endif () 
 
 if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
   # Instruct CMake to run moc automatically when needed.
