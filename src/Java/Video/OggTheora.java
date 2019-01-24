@@ -1,6 +1,7 @@
 import vtk.vtkNativeLibrary;
 import vtk.vtkImageCanvasSource2D;
 import vtk.vtkOggTheoraWriter;
+import vtk.vtkNamedColors;
 
     
 public class OggTheora 
@@ -26,16 +27,22 @@ public class OggTheora
   public static void main(String args[]) 
   {
 
-    String fileName = "test.avi";
-    for(int i = 0; i < args.length; ++i)
+     //parse command line arguments
+    if (args.length != 1) 
     {
-      switch (i) 
-      {
-        case 0:
-        fileName = args[i];
-        break;
-      }
+        System.err.println("Usage: java -classpath ... OggTheora Filename(.avi) e.g OggTheora.avi");
+        return;
     }
+    
+    String fileName = args[0];
+    
+    vtkNamedColors colors = new vtkNamedColors();
+
+    double bkgcolor[] = new double[] {0, 0,0,1};
+    double boxcolor[] = new double[] {255,0,0,1};
+
+    colors.SetColor("bkgColor", bkgcolor);
+    colors.SetColor("boxColor", boxcolor);
 
     vtkImageCanvasSource2D source = new vtkImageCanvasSource2D();
     source.SetScalarTypeToUnsignedChar();
@@ -50,10 +57,12 @@ public class OggTheora
 
     for(int i = 0; i < 100; i++)
     {
-      source.SetDrawColor(0,0,0,1); //black
+      source.SetDrawColor(bkgcolor); //black
       source.FillBox(0, 100, 0, 100); //clear image
-      source.SetDrawColor(255,0,0,1); //red
+        
+      source.SetDrawColor(boxcolor); //red
       source.FillBox(i, 20, 10, 20);
+        
       source.Update();
       writer.Write();
     }
