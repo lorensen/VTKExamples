@@ -25,33 +25,26 @@ def main():
     # The actor is a grouping mechanism: besides the geometry (mapper), it
     # also has a property, transformation matrix, and/or texture map.
     # In this example we create eight different spheres (two rows of four
-    # spheres) and set the specular lighting coefficients. A little ambient
+    # spheres) and set the diffuse lighting coefficients. A little ambient
     # is turned on so the sphere is not completely black on the back side.
     #
     numberOfSpheres = 8
     spheres = list()
     ambient = 0.3
-    diffuse = 0.5
-    specular = 1.0
-    spBase = 5.0
-    spScale = 1.0
+    diffuse = 0.0
+    specular = 0.0
     position = [0, 0, 0]
     for i in range(0, numberOfSpheres):
-        specularPower = spBase * spScale
         spheres.append(vtk.vtkActor())
         spheres[i].SetMapper(sphereMapper)
         spheres[i].GetProperty().SetColor(colors.GetColor3d("Red"))
         spheres[i].GetProperty().SetAmbient(ambient)
         spheres[i].GetProperty().SetDiffuse(diffuse)
         spheres[i].GetProperty().SetSpecular(specular)
-        spheres[i].GetProperty().SetSpecularPower(specularPower)
-        spheres[i].GetProperty().SetSpecularColor(colors.GetColor3d("White"))
         spheres[i].AddPosition(position)
-        spScale = spScale * 2.0
+        diffuse += 0.125
         position[0] += 1.25
         if i == 3:
-            specular = 0.5
-            spScale = 1.0
             position[0] = 0
             position[1] = 1.25
 
@@ -73,7 +66,7 @@ def main():
 
     ren.SetBackground(colors.GetColor3d("bkg"))
     renWin.SetSize(640, 480)
-    renWin.SetWindowName("Specular Spheres")
+    renWin.SetWindowName("Diffuse Spheres")
 
     # Set up the lighting.
     #
