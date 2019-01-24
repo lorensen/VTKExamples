@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
  
 if(POLICY CMP0020)
   cmake_policy(SET CMP0020 NEW)
+  cmake_policy(SET CMP0071 NEW)
 endif()
 
 PROJECT(XXX)
@@ -14,21 +15,6 @@ if (NOT VTK_FOUND)
   return ()
 endif()
 message (STATUS "VTK_VERSION: ${VTK_VERSION}")
-if (VTK_VERSION VERSION_LESS "8.90.0")
-  # old system
-  include(${VTK_USE_FILE})
-  add_executable(XXX MACOSX_BUNDLE XXX.cxx )
-  target_link_libraries(XXX PRIVATE ${VTK_LIBRARIES})
-else ()
-  # include all components
-  add_executable(XXX MACOSX_BUNDLE XXX.cxx )
-  target_link_libraries(XXX PRIVATE ${VTK_LIBRARIES})
-  # vtk_module_autoinit is needed
-  vtk_module_autoinit(
-    TARGETS XXX
-    MODULES ${VTK_LIBRARIES}
-    )
-endif () 
 
 if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
   # Instruct CMake to run moc automatically when needed.
@@ -47,11 +33,26 @@ file(GLOB CXX_FILES *.cxx)
 
 if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
   qt5_wrap_ui(UISrcs ${UI_FILES} )
+if (VTK_VERSION VERSION_LESS "8.90.0")  
+  # old system
+  include(${VTK_USE_FILE})
   # CMAKE_AUTOMOC in ON so the MOC headers will be automatically wrapped.
   add_executable(XXX MACOSX_BUNDLE
     ${CXX_FILES} ${UISrcs} ${QT_WRAP})
   qt5_use_modules(XXX Core Gui)
   target_link_libraries(XXX ${VTK_LIBRARIES})
+else()
+  # CMAKE_AUTOMOC in ON so the MOC headers will be automatically wrapped.
+  add_executable(XXX MACOSX_BUNDLE
+    ${CXX_FILES} ${UISrcs} ${QT_WRAP})
+  qt5_use_modules(XXX Core Gui)
+  target_link_libraries(XXX ${VTK_LIBRARIES})
+  # vtk_module_autoinit is needed
+  vtk_module_autoinit(
+    TARGETS XXX
+    MODULES ${VTK_LIBRARIES}
+    )
+  endif()
 else()
   QT4_WRAP_UI(UISrcs ${UI_FILES})
   QT4_WRAP_CPP(MOCSrcs ${QT_WRAP})
@@ -59,35 +60,3 @@ else()
   target_link_libraries(XXX ${VTK_LIBRARIES})
 endif()
 ```
-
-###Download and Build XXX
-Click [here to download XXX](https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/XXX.tar) and its *CMakeLists.txt* file.
-Once the tarball *XXX.tar* has been downloaded and extracted,
-```
- cd XXX/build
-```
-This example requires Qt and VTK.
-
-If VTK and Qt are installed:
-```
- cmake ..
-```
-If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:
-```
- cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-```
-If Qt is not found on your system, you will need to tell CMake where to find qmake:
-```
-cmake -DQT_QMAKE_EXECUTABLE:FILEPATH=/usr/something/qmake  ..
-```
-
-Build the project:
-```
-make
-```
-and run it:
-```
-./XXX
-```
-!!! note "WINDOWS USERS"
-    Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time. You may also need to add a Qt related path.
