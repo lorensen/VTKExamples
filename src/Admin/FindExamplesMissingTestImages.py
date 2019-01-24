@@ -100,8 +100,9 @@ no_image['Python']['Python/PolyData'] = no_image['Python']['Python/PolyData'] | 
                                                                                  'TriangleCorners'}
 no_image['Python']['Python/Utilities'].add('VTKVersion')
 no_image['Python']['Python/Untested/HasBugs'].add('UnstructuredTransientVolumeRendering')
+no_image['Python']['Python/IO'].add('WriteTriangleToFile')
 
-no_image['Java']['Java/IO'].add('WriteTriangleToFile')
+no_image['Java']['Java/Imaging'].add('ImageTest')
 
 
 def get_program_parameters():
@@ -137,11 +138,11 @@ def path_splitter(path):
     while True:
         p = os.path.split(path)
         if p[0] == path:
-            # Were done, this is an absolute path.
+            # We are done, this is an absolute path.
             res.insert(0, p[0])
             break
         elif p[1] == path:
-            # Were done, this is a relative path.
+            # We are done, this is a relative path.
             res.insert(0, p[0])
             break
         else:
