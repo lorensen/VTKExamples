@@ -41,11 +41,6 @@ if(NOT VTK_BINARY_DIR)
     if (VTK_VERSION VERSION_LESS "8.90.0")
       include(${VTK_USE_FILE})
     endif()
-
-    )
-  if (VTK_VERSION VERSION_LESS "8.90.0")
-    include(${VTK_USE_FILE})
-  endif()
 endif()
 
 set(KIT_LIBS ${VTK_LIBRARIES})
@@ -88,43 +83,47 @@ foreach(EXAMPLE_FILE ${ALL_UI_FILES})
           MODULES ${VTK_LIBRARIES}
           )
       endif()
+    endif()
+  else()
+    add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
+  endif()
+  target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
+  if (VTK_VERSION VERSION_GREATER "8.8")
+    vtk_module_autoinit(
+      TARGETS ${WIKI}${EXAMPLE}
+      MODULES ${VTK_LIBRARIES}
+      )
+  endif()
+    list(REMOVE_ITEM ALL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}Driver.cxx ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}.cxx)
+endforeach()
+
+# Build all remaining .cxx files.
+foreach(EXAMPLE_FILE ${ALL_FILES})
+  string(REPLACE ".cxx" "" TMP ${EXAMPLE_FILE})
+  string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
+
+  if(VTK_QT_VERSION VERSION_GREATER "4")
+    add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
+    if (Qt5Widgets_VERSION VERSION_LESS "5.11.0")
+      qt5_use_modules(${WIKI}${EXAMPLE} Core Gui Widgets)
+    else()
+      target_link_libraries(${WIKI}${EXAMPLE} Qt5::Core Qt5::Gui Qt5::Widgets)
+      if (VTK_VERSION VERSION_GREATER "8.8")
+        vtk_module_autoinit(
+          TARGETS ${WIKI}${EXAMPLE}
+          MODULES ${VTK_LIBRARIES}
+          )
+      endif()
+    endif()
+      target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
     else()
       add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
+      target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
+      if (VTK_VERSION VERSION_GREATER "8.8")
+        vtk_module_autoinit(
+          TARGETS ${WIKI}${EXAMPLE}
+          MODULES ${VTK_LIBRARIES}
+          )
+      endif()
     endif()
-    target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
-    if (VTK_VERSION VERSION_GREATER "8.8")
-      vtk_module_autoinit(
-        TARGETS ${WIKI}${EXAMPLE}
-        MODULES ${VTK_LIBRARIES}
-        )
-      list(REMOVE_ITEM ALL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}Driver.cxx ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}.cxx)
-    endforeach()
-
-    # Build all remaining .cxx files.
-    foreach(EXAMPLE_FILE ${ALL_FILES})
-      string(REPLACE ".cxx" "" TMP ${EXAMPLE_FILE})
-      string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
-
-      if(VTK_QT_VERSION VERSION_GREATER "4")
-        add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
-        if (Qt5Widgets_VERSION VERSION_LESS "5.11.0")
-          qt5_use_modules(${WIKI}${EXAMPLE} Core Gui Widgets)
-        else()
-          target_link_libraries(${WIKI}${EXAMPLE} Qt5::Core Qt5::Gui Qt5::Widgets)
-          if (VTK_VERSION VERSION_GREATER "8.8")
-            vtk_module_autoinit(
-              TARGETS ${WIKI}${EXAMPLE}
-              MODULES ${VTK_LIBRARIES}
-              )
-          endif()
-          target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
-        else()
-          add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
-          target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
-          if (VTK_VERSION VERSION_GREATER "8.8")
-            vtk_module_autoinit(
-              TARGETS ${WIKI}${EXAMPLE}
-              MODULES ${VTK_LIBRARIES}
-              )
-          endif()
-        endforeach()
+endforeach()
