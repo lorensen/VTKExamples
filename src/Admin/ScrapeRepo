@@ -315,8 +315,9 @@ def FillCMakeLists(S, Name, ExtraNames, Components):
     return reg
 
 
-def FillQtCMakeLists(S, Name):
-    reg = re.sub(r'XXX', Name, S)
+def FillQtCMakeLists(S, Name, Components):
+    r1 = re.sub(r'XXX', Name, S)
+    reg = re.sub(r'ZZZ', Components, r1)
     return reg
 
 #####################################################################
@@ -669,7 +670,17 @@ for lang, langExt in Languages.items():
                     CMakeFile = open(RepoDir + "/Admin/VTKQtCMakeLists", 'r')
                     CMakeContents = CMakeFile.read()
                     CMakeFile.close()
-                    cmake = FillQtCMakeLists(CMakeContents, ExampleName)
+                    # Create component lines
+                    Components = ""
+                    for component in components:
+                        if "vtk" in component:
+                            Components += "\n  " + component
+                        else:
+                            Components += "\n  " + "vtk" + component
+                    # If there are no components found, assume we need then all
+                    # This occurs when the source file includes another Cxx file
+                    #print("Components: " + Components)
+                    cmake = FillQtCMakeLists(CMakeContents, ExampleName, Components)
                 else:
                     CMakeFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
                     CMakeContents = CMakeFile.read()

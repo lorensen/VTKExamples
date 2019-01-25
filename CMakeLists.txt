@@ -23,11 +23,23 @@ else()
 endif()
 
 # Display VTK version
-if(NOT VTK_BINARY_DIR)
-  find_package(VTK REQUIRED)
+find_package(VTK CONFIG QUIET) 
+if (NOT VTK_FOUND)
+  message("Skipping Cube: ${VTK_NOT_FOUND_MESSAGE}")
 endif()
+
+if(NOT VTK_BINARY_DIR)
+  if (VTK_VERSION VERSION_LESS "8.90.0")
+    include(${VTK_USE_FILE})
+  endif()
+  if (NOT VTK_FOUND)
+    message("Skipping build: ${VTK_NOT_FOUND_MESSAGE}")
+    return ()
+  endif()
+endif()
+
 if(NOT VTK_RENDERING_BACKEND)
-  set(VTK_RENDERING_BACKEND OpenGL) # Support VTK version prior to introduction of rendering backend
+  set(VTK_RENDERING_BACKEND OpenGL2) # Support VTK version prior to introduction of rendering backend
 endif()
 message(STATUS "VTKWikiExamples: VTK VERSION: ${VTK_VERSION}(${VTK_RENDERING_BACKEND})")
 
@@ -39,15 +51,18 @@ set(CMAKE_MODULE_PATH
   )
 
 #-----------------------------------------------------------------------------
-include(WikiModuleConfigLegacy)
-if(WikiModuleConfigLegacy_RETURN)
-  return()
+if (VTK_VERSION VERSION_LESS "8.90.0")
+  include(WikiModuleConfigLegacy)
+  if(WikiModuleConfigLegacy_RETURN)
+    return()
+  endif()
+  include(WikiModuleConfig)
 endif()
-include(WikiModuleConfig)
 include(WikiOutputDirectories)
 include(WikiPlatformSpecificChecks)
 include(WikiPolicies)
 include(WikiTestingConfig)
+include(WikiLoadMacros)
 
 #-----------------------------------------------------------------------------
 # Mac specific

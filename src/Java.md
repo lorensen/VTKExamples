@@ -99,9 +99,9 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[Read a polydata(.vtp) file](/Java/IO/ReadPolyData) | vtkXMLPolyDataReader | IO
-[Write a polygonal data (.vtp) file](/Java/IO/WritePolyData) | vtkXMLPolyDataWriter | IO
-[JPEGWriter](/Java/IO/JPEGWriter) | vtkJPEGWriter | vtkJPEGWriter can be used to write JPEG files
+[JPEGWriter](/Java/IO/JPEGWriter) | vtkJPEGWriter | Write a JPEG file.
+[ReadVTP](/Java/IO/ReadVTP) | vtkXMLPolyDataReader | Read a VTK XML PolyData file.
+[WriteVTP](/Java/IO/WriteVTP) | vtkXMLPolyDataWriter | Write a VTK XML PolyData file.
 
 ## Implicit Functions and Iso-surfaces
 
@@ -120,15 +120,17 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | use Java File Dialog to select Image File to Display
-[ShotNoise](/Java/ImageProcessing/ShotNoise) | vtkPNGWriter | Example program to write PNG files
+[ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | use Java File Dialog to select na image file to display.
+[ShotNoise](/Java/ImageProcessing/ShotNoise) | vtkImageCanvasSource2D vtkPNGWriter | Create an image using vtkImageCanvasSource2D and write it to a file.
+
 
 ## Rendering
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[AmbientSpheres](/Java/Rendering/AmbientSpheres) | vtkLight | A virtual light for 3D rendering.
+[AmbientSpheres](/Java/Rendering/AmbientSpheres) | vtkProperty | Demonstrates the effect of ambient lighting on spheres.
 [Cone6](/Java/Rendering/Cone6) | vtkBoxWidget vtkInteractorStyleTrackballCamera | This example introduces 3D widgets. 3D widgets take advantage of the event/observer design pattern. Corresponds to the missing Step 6 Java example from VTK/Examples/Tutorial.
+[Mace](/Java/Rendering/Mace) | | An example of multiple inputs and outputs.
 
 ## Lighting
 
@@ -163,6 +165,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [TransformFilter](/Java/PolyData/TransformFilter) | vtkTransformFilter | Transforms points, associated normals and vectors
 
 
+
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [AVI](/Java/Untested/Video/AVI) | vtkAVIWriter | An example to demonstrate how to make an AVI video using vtkAVIWriter
@@ -179,6 +182,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [FullScreen](/Java/Utilities/FullScreen) | vtkRenderWindow | Example to Display Actors in a Full Screen Render Window
 [TimerLog](/Java/Utilities/TimerLog) | vtkTimerLog | Example to Demonstrate Timer support and logging.
 
+
 ### Arrays
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -186,6 +190,10 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [UnKnownLengthArray](/Java/Utilities/UnKnownLengthArray) | vtkFloatArray | UnKnown Length Array
 [KnownLengthArray](/Java/Utilities/KnownLengthArray) | vtkFloatArray | Known Length Array
 
+## Video
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[OggTheora](/Java/Video/AVI) | vtkOggTheoraWriter | Uses the ogg and theora libraries to write video files.
 
 ## Visualization
 
@@ -197,6 +205,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AnnotatedCubeActor](/Java/Visualization/AnnotatedCubeActor) | vtkAnnotatedCubeActor | A 3D cube with face labels.
 [BackgroundColor](/Java/Visualization/BackgroundColor) |  |  Example program to set the background color of the render window
 [BackgroundGradient](/Java/Visualization/BackgroundGradient) |  | viewport having gradient background using the Background (bottom) and Background2 (top) colors.
+[Camera](/Java/Visualization/Camera) | vtkCamera | A virtual camera for 3D rendering.
 [CameraActor](/Java/Visualization/CameraActor) | vtkCameraActor | A frustum to represent a camera.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
 [Cursor2D](/Java/Visualization/Cursor2D) | vtkCursor2D | Generates a 2D Cursor Representation.
