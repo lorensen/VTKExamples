@@ -81,6 +81,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [EarthSource](/Java/Geovis/EarthSource) | vtkEarthSource | Earth Source Visualization
 [CompassWidget](/Java/Geovis/CompassWidget) | vtkCompassWidget| CompassWidget Visualization
 
+## ImageData
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ImageNormalize](/Java/ImageData/ImageNormalize) | vtkImageNormalize  | Normalizes the scalar components for each point.
+
 ## Graphs
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -139,11 +145,14 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [SpotLight](/Java/Lighting/SpotLight) | vtkSpotLight | vtkSpotLight Demonstration
 [LightActor](/Java/Lighting/LightActor) | vtkLightActor| vtkLightActor Demonstration
 
+
+
 ## Math
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [MatrixInverse](/Java/Math/MatrixInverse) | vtkMatrix3x3 | Represents and manipulates  3x3 transformation matrices.
+
 
 ## Parallel
 
