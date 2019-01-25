@@ -3,9 +3,11 @@ import vtk.vtkRenderWindow;
 import vtk.vtkRenderWindowInteractor;
 import vtk.vtkRenderer;
 import vtk.vtkImageSinusoidSource;
+import vtk.vtkNamedColors;
 import vtk.vtkImageNormalize;
 import vtk.vtkImageCast;
 import vtk.vtkImageActor;
+
 
 public class ImageNormalize 
 {
@@ -29,6 +31,15 @@ public class ImageNormalize
 
   public static void main(String args[]) 
   {
+  
+    vtkNamedColors colors = new vtkNamedColors();
+    
+    double left_bkg[] = new double[]{0.6, 0.5, 0.4, 1.0};
+    double right_bkg[] = new double[]{0.4, 0.5, 0.6, 1.0};
+    
+    colors.SetColor("bkgColor", left_bkg);
+    colors.SetColor("boxColor", right_bkg);
+    
     //  Create an image
     vtkImageSinusoidSource source = new vtkImageSinusoidSource();
     source.Update();
@@ -56,6 +67,7 @@ public class ImageNormalize
     normalizedActor.GetMapper().SetInputConnection(normalizeCastFilter.GetOutputPort());
     
     //  Create the render window and interactor.
+    
     vtkRenderWindow renWin = new vtkRenderWindow();
     vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
     iren.SetRenderWindow(renWin);
@@ -65,16 +77,17 @@ public class ImageNormalize
     double leftViewport[] = new double[] {0.0, 0.0, 0.5, 1.0};
     double rightViewport[] = new double[] {0.5, 0.0, 1.0, 1.0};
     
+    
     //  Setup both renderers
     vtkRenderer leftRenderer = new vtkRenderer();
     renWin.AddRenderer(leftRenderer);
     leftRenderer.SetViewport(leftViewport);
-    leftRenderer.SetBackground(.6, .5, .4);
+    leftRenderer.SetBackground(left_bkg);
 
     vtkRenderer rightRenderer = new vtkRenderer();
     renWin.AddRenderer(rightRenderer);
     rightRenderer.SetViewport(rightViewport);
-    rightRenderer.SetBackground(.4, .5, .6);
+    rightRenderer.SetBackground(right_bkg);
     
     leftRenderer.AddActor(inputActor);
     rightRenderer.AddActor(normalizedActor);
