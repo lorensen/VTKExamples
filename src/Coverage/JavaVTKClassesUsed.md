@@ -2,7 +2,7 @@
 
 ## Java
 
-Out of 2800 available VTK classes, 138 are demonstrated here.
+Out of 2800 available VTK classes, 140 are demonstrated here.
 
 ### Excluded classes
 
@@ -61,7 +61,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html#details) | [SelectGraphVertices](/Java/Graphs/SelectGraphVertices) [VisualizeGraph](/Java/Graphs/VisualizeGraph)  |
 | [vtkHyperTreeGridSource](http://www.vtk.org/doc/nightly/html/classvtkHyperTreeGridSource.html#details) | [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource)  |
 | [vtkImageActor](http://www.vtk.org/doc/nightly/html/classvtkImageActor.html#details) | [ImageTest](/Java/Imaging/ImageTest) [RTAnalyticSource](/Java/Images/RTAnalyticSource)  |
-| [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html#details) | [AVI](/Java/Untested/Video/AVI) [JPEGWriter](/Java/IO/JPEGWriter) [ShotNoise](/Java/ImageProcessing/ShotNoise)  |
+| [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html#details) | [AVI](/Java/Untested/Video/AVI) [JPEGWriter](/Java/IO/JPEGWriter) [OggTheora](/Java/Video/OggTheora) [ShotNoise](/Java/ImageProcessing/ShotNoise)  |
 | [vtkImageReader2Factory](http://www.vtk.org/doc/nightly/html/classvtkImageReader2Factory.html#details) | [ImageTest](/Java/Imaging/ImageTest) [StaticImage](/Java/Images/StaticImage)  |
 | [vtkImageTracerWidget](http://www.vtk.org/doc/nightly/html/classvtkImageTracerWidget.html#details) | [ImageTracerWidgetNonPlanar](/Java/Widgets/ImageTracerWidgetNonPlanar)  |
 | [vtkImageViewer2](http://www.vtk.org/doc/nightly/html/classvtkImageViewer2.html#details) | [StaticImage](/Java/Images/StaticImage)  |
@@ -79,11 +79,13 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkLineSource](http://www.vtk.org/doc/nightly/html/classvtkLineSource.html#details) | [Line](/Java/GeometricObjects/Line) [TubeFilter](/Java/PolyData/TubeFilter) [WarpTo](/Java/Filtering/WarpTo)  |
 | [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html#details) | [ColorCells](/Java/PolyData/ColorCells)  |
 | [vtkMath](http://www.vtk.org/doc/nightly/html/classvtkMath.html#details) | [ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) [DistanceBetweenPoints](/Java/SimpleOperations/DistanceBetweenPoints) [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [RibbonFilter](/Java/PolyData/RibbonFilter)  |
+| [vtkMatrix3x3](http://www.vtk.org/doc/nightly/html/classvtkMatrix3x3.html#details) | [MatrixInverse](/Java/Math/MatrixInverse)  |
 | [vtkMatrix4x4](http://www.vtk.org/doc/nightly/html/classvtkMatrix4x4.html#details) | [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [PerspectiveTransform](/Java/SimpleOperations/PerspectiveTransform)  |
 | [vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html#details) | [MeshQuality](/Java/PolyData/MeshQuality)  |
 | [vtkMinimalStandardRandomSequence](http://www.vtk.org/doc/nightly/html/classvtkMinimalStandardRandomSequence.html#details) | [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [RandomSequence](/Java/SimpleOperations/RandomSequence)  |
 | [vtkMultiBlockDataSet](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockDataSet.html#details) | [CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper)  |
 | [vtkMutableUndirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableUndirectedGraph.html#details) | [VisualizeGraph](/Java/Graphs/VisualizeGraph)  |
+| [vtkOggTheoraWriter](http://www.vtk.org/doc/nightly/html/classvtkOggTheoraWriter.html#details) | [OggTheora](/Java/Video/OggTheora)  |
 | [vtkOutlineFilter](http://www.vtk.org/doc/nightly/html/classvtkOutlineFilter.html#details) | [Outline](/Java/PolyData/Outline)  |
 | [vtkParametricFigure8Klein](http://www.vtk.org/doc/nightly/html/classvtkParametricFigure8Klein.html#details) | [ParametricObjects](/Java/GeometricObjects/ParametricObjects)  |
 | [vtkParametricFunctionSource](http://www.vtk.org/doc/nightly/html/classvtkParametricFunctionSource.html#details) | [KochanekSpline](/Java/PolyData/KochanekSpline) [ParametricObjects](/Java/GeometricObjects/ParametricObjects)  |
