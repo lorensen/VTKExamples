@@ -335,9 +335,16 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ColorEdges](/Python/Graphs/ColorEdges) | vtkGraphLayoutView | Color edges.
 [EdgeWeights](/Python/Graphs/EdgeWeights) | vtkMutableDirectedGraph vtkGraphLayoutView |
+[GraphToPolyData](/Python/Graphs/GraphToPolyData) | vtkGraphToPolyData | Convert a graph to a PolyData.
+[LabelVerticesAndEdges](/Python/Graphs/LabelVerticesAndEdges) | vtkGraphLayoutView | Label vertices and edges.
 [NOVCAGraph](/Python/Graphs/NOVCAGraph) | vtkUnstructuredGrid vtkXMLUnstructuredGridWriter |
+[RandomGraphSource](/Python/Graphs/RandomGraphSource) | vtkRandomGraphSource | Create a random graph.
+[ScaleVertices](/Python/Graphs/ScaleVertices) | vtkGraphLayoutView vtkRenderedGraphRepresentation | Size/scale vertices based on a data array.
 [SelectedVerticesAndEdges](/Python/Graphs/SelectedVerticesAndEdges) | vtkAnnotationLink vtkGraphLayoutView |
+[SideBySideGraphs](/Python/Graphs/SideBySideGraphs) | vtkGraphLayoutView | Display two graphs side by side.
+[VisualizeDirectedGraph](/Python/Graphs/VisualizeDirectedGraph) | vtkGlyphSource2D | Visualize a directed graph.
 [VisualizeGraph](/Python/Graphs/VisualizeGraph) | vtkMutableDirectedGraph vtkGraphLayoutView |
 
 ### Graph Conversions
@@ -355,6 +362,10 @@ This section includes vtkUnstructuredGrid.
 ### Modified BSP Tree
 
 ### HyperTreeGrid
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[HyperTreeGridSource](/Python/HyperTreeGrid/HyperTreeGridSource) | vtkHyperTreeGridSource | Create a vtkHyperTreeGrid.
 
 ## VTK Concepts
 
