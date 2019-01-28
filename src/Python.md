@@ -575,6 +575,9 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [CompassWidget](/Python/Widgets/CompassWidget) | vtkCompassWidget vtkCompassRepresentation | Draws an interactive compass.
+[CompassWidget](/Python/Geovis/CompassWidget) | vtkCompassWidget | Compass Widget.
+[EarthSource](/Python/Geovis/EarthSource) | vtkEarthSource | Create the Earth.
+[GeoGraticle](/Python/Geovis/GeoGraticle) | vtkGeoGraticle | Show lat/long lines that have been distorted.
 [GeoAssignCoordinates](/Python/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates vtkMutableDirectedGraph vtkGraphMapper | Draws a sphere, based on longituds and latitudes.
 [ParallelCoordinatesView](/Python/InfoVis/ParallelCoordinatesView) | vtkRTAnalyticSource vtkParallelCoordinatesView vtkParallelCoordinatesRepresentation | Plotting data attributes in a Parallel Coordinates View
 
