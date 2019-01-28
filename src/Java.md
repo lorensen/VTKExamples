@@ -152,6 +152,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [MatrixInverse](/Java/Math/MatrixInverse) | vtkMatrix3x3 | Represents and manipulates  3x3 transformation matrices.
+[MatrixTranspose](/Java/Math/MatrixTranspose) | vtkMatrix3x3 | The transpose of a matrix is a new matrix whose rows are the columns of the original.
 
 
 ## Parallel
