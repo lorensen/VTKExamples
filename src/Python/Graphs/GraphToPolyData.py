@@ -4,7 +4,7 @@ import vtk
 
 def main():
     colors = vtk.vtkNamedColors()
-	  # Create a graph
+    # Create a graph
     g = vtk.vtkMutableUndirectedGraph()
     
     # Add 4 vertices to the graph
