@@ -8,7 +8,7 @@ def main():
     sourceProjection = vtk.vtkGeoProjection()
     transformGraticle = vtk.vtkTransformFilter()
     
-	  reader = vtk.vtkXMLPolyDataReader()
+    reader = vtk.vtkXMLPolyDataReader()
     transformReader = vtk.vtkTransformFilter()
     graticleMapper = vtk.vtkPolyDataMapper()
     readerMapper = vtk.vtkPolyDataMapper()
