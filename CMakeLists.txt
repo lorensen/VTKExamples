@@ -131,7 +131,7 @@ add_subdirectory(src/Cxx/Widgets)
 
 # add_subdirectory(Python/GeometricObjects)
 
-if(vtkGUISupportQt_LOADED)
+if(vtkGUISupportQt_LOADED OR TARGET VTK::GUISupportQt)
   message(STATUS "VTKWikiExamples: Building Qt examples")
   if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
     # Instruct CMake to run moc automatically when needed.
