@@ -137,6 +137,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AmbientSpheres](/Java/Rendering/AmbientSpheres) | vtkProperty | Demonstrates the effect of ambient lighting on spheres.
 [Cone6](/Java/Rendering/Cone6) | vtkBoxWidget vtkInteractorStyleTrackballCamera | This example introduces 3D widgets. 3D widgets take advantage of the event/observer design pattern. Corresponds to the missing Step 6 Java example from VTK/Examples/Tutorial.
 [Mace](/Java/Rendering/Mace) | | An example of multiple inputs and outputs.
+[SpecularSpheres](/Java/Rendering/SpecularSpheres) | vtkProperty | Demonstrates the effect of specular lighting on spheres.
 
 ## Lighting
 
@@ -153,7 +154,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [MatrixInverse](/Java/Math/MatrixInverse) | vtkMatrix3x3 | Represents and manipulates  3x3 transformation matrices.
 [MatrixTranspose](/Java/Math/MatrixTranspose) | vtkMatrix3x3 | The transpose of a matrix is a new matrix whose rows are the columns of the original.
-
 
 ## Parallel
 
