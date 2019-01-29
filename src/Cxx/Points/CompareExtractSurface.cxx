@@ -162,6 +162,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renderWindow);
 
+  renderWindow->Render();
   iren->Initialize();
   iren->Start();
 
