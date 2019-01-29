@@ -243,7 +243,7 @@ This section includes examples of manipulating meshes.
 | -------------- | ---------------------- | ------------- | ------- |
 [ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
 [DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
-[DeformPointSet](/Python/Meshes/DeformPointSet) | vtkDeformPointSet vtkElevationFilter | use the vtkDeformPointSet filter to deform a vtkSphereSource with arbitrary polydata.
+[DeformPointSet](/Python/Meshes/DeformPointSet) | vtkDeformPointSet vtkElevationFilter | Use the vtkDeformPointSet filter to deform a vtkSphereSource with arbitrary polydata.
 
 #### Clipping
 

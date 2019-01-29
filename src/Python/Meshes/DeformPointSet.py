@@ -2,6 +2,10 @@ import vtk
 
 
 def main():
+    colors = vtk.vtkNamedColors()
+    
+    # Set the background color.
+    colors.SetColor("bkg", [0.2, 0.3, 0.4, 1.0])
 
     # Create a sphere to deform
     sphere = vtk.vtkSphereSource()
@@ -27,29 +31,29 @@ def main():
     pts = vtk.vtkPoints()
     pts.SetNumberOfPoints(6)
     pts.SetPoint(0,
-                 bounds[0] - .1 * (bounds[1] - bounds[0]),
+                 bounds[0] - 0.1 * (bounds[1] - bounds[0]),
                  (bounds[3] + bounds[2]) / 2.0,
                  (bounds[5] + bounds[4]) / 2.0)
     pts.SetPoint(1,
-                 bounds[1] + .1 * (bounds[1] - bounds[0]),
+                 bounds[1] + 0.1 * (bounds[1] - bounds[0]),
                  (bounds[3] + bounds[2]) / 2.0,
                  (bounds[5] + bounds[4]) / 2.0)
     pts.SetPoint(2,
                  (bounds[1] + bounds[0]) / 2.0,
-                 bounds[2] - .1 * (bounds[3] - bounds[2]),
+                 bounds[2] - 0.1 * (bounds[3] - bounds[2]),
                  (bounds[5] + bounds[4]) / 2.0)
     pts.SetPoint(3,
                  (bounds[1] + bounds[0]) / 2.0,
-                 bounds[3] + .1 * (bounds[3] - bounds[2]),
+                 bounds[3] + 0.1 * (bounds[3] - bounds[2]),
                  (bounds[5] + bounds[4]) / 2.0)
     pts.SetPoint(4,
                  (bounds[1] + bounds[0]) / 2.0,
                  (bounds[3] + bounds[2]) / 2.0,
-                 bounds[4] - .1 * (bounds[5] - bounds[4]))
+                 bounds[4] - 0.1 * (bounds[5] - bounds[4]))
     pts.SetPoint(5,
                  (bounds[1] + bounds[0]) / 2.0,
                  (bounds[3] + bounds[2]) / 2.0,
-                 bounds[5] + .1 * (bounds[5] - bounds[4]))
+                 bounds[5] + 0.1 * (bounds[5] - bounds[4]))
     tris = vtk.vtkCellArray()
 
     cells = [[2, 0, 4], [1, 2, 4], [3, 1, 4], [0, 3, 4], [0, 2, 5], [2, 1, 5], [1, 3, 5], [3, 0, 5]]
@@ -68,7 +72,7 @@ def main():
     meshActor = vtk.vtkActor()
     meshActor.SetMapper(meshMapper)
     meshActor.GetProperty().SetRepresentationToWireframe()
-    meshActor.GetProperty().SetColor(0,0,0)
+    meshActor.GetProperty().SetColor(colors.GetColor3d("Black"))
 
     deform = vtk.vtkDeformPointSet()
     deform.SetInputData(ele.GetOutput())
@@ -97,7 +101,7 @@ def main():
 
     renderer.GetActiveCamera().SetPosition(1,1,1)
     renderer.ResetCamera()
-    renderer.SetBackground(.2, .3, .4)
+    renderer.SetBackground(colors.GetColor3d("bkg"))
 
     renWin.SetSize(300,300)
     renWin.Render()
