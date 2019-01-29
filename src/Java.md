@@ -92,6 +92,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkMutableUndirectedGraph  | An example to construct a graph and visualize it.
+[GraphPoints](/Java/InfoVis/GraphPoints) | vtkGraph | Manually set the coordinates of vertices in a graph.
 
 ## Images
 
