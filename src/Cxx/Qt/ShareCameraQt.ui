@@ -24,7 +24,7 @@
    </size>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QVTKOpenGLWidget" name="qvtkWidgetLeft">
+   <widget class="QVTKOpenGLNativeWidget" name="qvtkWidgetLeft">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -34,7 +34,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QVTKOpenGLWidget" name="qvtkWidgetRight">
+   <widget class="QVTKOpenGLNativeWidget" name="qvtkWidgetRight">
     <property name="geometry">
      <rect>
       <x>540</x>
