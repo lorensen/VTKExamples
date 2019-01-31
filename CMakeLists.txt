@@ -23,7 +23,7 @@ else()
 endif()
 
 # Display VTK version
-find_package(VTK CONFIG QUIET) 
+find_package(VTK CONFIG QUIET)
 if (NOT VTK_FOUND)
   message("Skipping Cube: ${VTK_NOT_FOUND_MESSAGE}")
 endif()
@@ -133,19 +133,21 @@ add_subdirectory(src/Cxx/Widgets)
 
 if(vtkGUISupportQt_LOADED OR TARGET VTK::GUISupportQt)
   message(STATUS "VTKWikiExamples: Building Qt examples")
-  if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
+  if (VTK_VERSION VERSION_LESS "8.90.0")
     # Instruct CMake to run moc automatically when needed.
     set(CMAKE_AUTOMOC ON)
-    # We have ui files, this will bring in the macro: qt5_wrap_ui
-    find_package(Qt5Widgets REQUIRED QUIET)
   else()
-    find_package(Qt4 REQUIRED)
-    include(${QT_USE_FILE})
+    # Instruct CMake to run moc automatically when needed.
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTOUIC ON)
   endif()
+  # We have ui files, this will bring in the macro: qt5_wrap_ui
+  find_package(Qt5Widgets REQUIRED QUIET)
   add_subdirectory(src/Cxx/Qt)
 else()
   message(STATUS "VTKWikiExamples: Not building Qt examples")
 endif()
+
 # Is git lfs installed?
 file(READ "${WikiExamples_SOURCE_DIR}/src/Testing/Data/GitLfsInstalled" data)
 if (NOT data STREQUAL "GitLfsInstalled")
