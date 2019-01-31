@@ -1,3 +1,3 @@
 ### Description
 
-Using a QVTKOpenGLWidget with the Qt Multiple Inheritance model. In contrast to the single inheritance example the main widget is here derived from QMainWindow as well as the class defining the form (Ui::RenderWindowUIMultipleInheritance).
+Using a QVTKOpenGLNativeWidget with the Qt Multiple Inheritance model. In contrast to the single inheritance example the main widget is here derived from QMainWindow as well as the class defining the form (Ui::RenderWindowUIMultipleInheritance).

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>RenderWindowUIMultipleInheritance</class>
- <widget class="QMainWindow" name="SimpleView">
+ <widget class="QMainWindow" name="RenderWindowUIMultipleInheritance">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,7 +14,7 @@
    <string>RenderWindowUIMultipleInheritance</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QVTKOpenGLWidget" name="qvtkWidget">
+   <widget class="QVTKOpenGLNativeWidget" name="qvtkWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -56,9 +56,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QVTKOpenGLWidget</class>
+   <class>QVTKOpenGLNativeWidget</class>
    <extends>QWidget</extends>
-   <header>QVTKOpenGLWidget.h</header>
+   <header>QVTKOpenGLNativeWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

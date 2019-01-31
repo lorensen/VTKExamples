@@ -2,9 +2,8 @@ project (${WIKI}Points)
 
 if(NOT VTK_BINARY_DIR)
   set(optional "")
-  Add_Optional_If_In_Library(Powercrust VTK_LIBRARIES optional)
-  Add_Optional_If_In_Library(PoissonReconstruction VTK_LIBRARIES optional)
-  
+  Add_Optional_If_In_Library(Powercrust "${VTK_AVAILABLE_COMPONENTS}" optional)
+  Add_Optional_If_In_Library(PoissonReconstruction "${VTK_AVAILABLE_COMPONENTS}" optional)
   set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
     vtkCommonColor
@@ -34,7 +33,6 @@ if(NOT VTK_BINARY_DIR)
     include(${VTK_USE_FILE})
   endif()
 endif()
-
 set(KIT_LIBS ${VTK_LIBRARIES})
 
 #
@@ -88,13 +86,15 @@ if (BUILD_TESTING)
     )
   set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
-  if(Powercrust_LOADED AND PoissonReconstruction_LOADED)
+  if(TARGET CompareExtractSurface)
     add_test(${KIT}-CompareExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
       TestCompareExtractSurface ${DATA}/horsePoints.vtp -E 40)
   endif()
 
-  add_test(${KIT}-ExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-    TestExtractSurface ${DATA}/Armadillo.ply)
+  if(TARGET ExtractSurface)
+    add_test(${KIT}-ExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+      TestExtractSurface ${DATA}/Armadillo.ply)
+  endif()
   add_test(${KIT}-ExtractSurfaceDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestExtractSurfaceDemo ${DATA}/Armadillo.ply)
   add_test(${KIT}-DensifyPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
