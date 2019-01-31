@@ -1,7 +1,7 @@
 ###CMakeLists.txt
 ```cmake
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
- 
+
 if(POLICY CMP0020)
   cmake_policy(SET CMP0020 NEW)
   cmake_policy(SET CMP0071 NEW)
@@ -9,20 +9,31 @@ endif()
 
 PROJECT(XXX)
 
-find_package(VTK COMPONENTS ZZZ)
+find_package(VTK COMPONENTS
+  ZZZ
+  QUIET
+)
+
 if (NOT VTK_FOUND)
   message("Skipping XXX: ${VTK_NOT_FOUND_MESSAGE}")
   return ()
 endif()
 message (STATUS "VTK_VERSION: ${VTK_VERSION}")
 
-if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
-  # Instruct CMake to run moc automatically when needed.
-  set(CMAKE_AUTOMOC ON)
+if(vtkGUISupportQt_LOADED OR TARGET VTK::GUISupportQt)
+  if (VTK_VERSION VERSION_LESS "8.90.0")
+    # Instruct CMake to run moc automatically when needed.
+    set(CMAKE_AUTOMOC ON)
+  else()
+     # Instruct CMake to run moc automatically when needed.
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTOUIC ON)
+  endif()
+  # We have ui files, this will bring in the macro: qt5_wrap_ui
   find_package(Qt5Widgets REQUIRED QUIET)
 else()
-  find_package(Qt4 REQUIRED)
-  include(${QT_USE_FILE})
+  message(STATUS "GuiSupportQt not found.")
+  return()
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
@@ -31,9 +42,9 @@ file(GLOB UI_FILES *.ui)
 file(GLOB QT_WRAP *.h)
 file(GLOB CXX_FILES *.cxx)
 
-if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
-  qt5_wrap_ui(UISrcs ${UI_FILES} )
-if (VTK_VERSION VERSION_LESS "8.90.0")  
+qt5_wrap_ui(UISrcs ${UI_FILES})
+
+if (VTK_VERSION VERSION_LESS "8.90.0")
   # old system
   include(${VTK_USE_FILE})
   # CMAKE_AUTOMOC in ON so the MOC headers will be automatically wrapped.
@@ -51,13 +62,7 @@ else()
   vtk_module_autoinit(
     TARGETS XXX
     MODULES ${VTK_LIBRARIES}
-    )
-  endif()
-else()
-  QT4_WRAP_UI(UISrcs ${UI_FILES})
-  QT4_WRAP_CPP(MOCSrcs ${QT_WRAP})
-  add_executable(XXX MACOSX_BUNDLE ${CXX_FILES} ${UISrcs} ${MOCSrcs})
-  target_link_libraries(XXX ${VTK_LIBRARIES})
+  )
 endif()
 ```
 
