@@ -101,6 +101,7 @@ int main( int argc, char *argv[] )
   interactor->SetRenderWindow(renderWindow);
 
   // Initialize the event loop and then start it
+  renderWindow->Render();
   interactor->Initialize();
   interactor->Start();
 

@@ -4,6 +4,7 @@ if(NOT VTK_BINARY_DIR)
   set(optional "")
   Add_Optional_If_In_Library(Powercrust "${VTK_AVAILABLE_COMPONENTS}" optional)
   Add_Optional_If_In_Library(PoissonReconstruction "${VTK_AVAILABLE_COMPONENTS}" optional)
+message(STATUS "optional: ${optional}")
   set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
     vtkCommonColor

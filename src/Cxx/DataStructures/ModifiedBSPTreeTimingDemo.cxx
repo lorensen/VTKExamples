@@ -90,6 +90,7 @@ int main(int, char *[])
   //line->GetYAxis()->SetRange(0,0.02);
 
   // Start interactor
+  view->GetRenderWindow()->Render();
   view->GetInteractor()->Initialize();
   view->GetInteractor()->Start();
 
