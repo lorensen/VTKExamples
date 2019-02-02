@@ -115,6 +115,7 @@ int main(int , char * [])
   points->SetWidth(1.0);
 
   renwin->SetMultiSamples(0);
+  renwin->Render();
   iren->Initialize();
   iren->Start();
 

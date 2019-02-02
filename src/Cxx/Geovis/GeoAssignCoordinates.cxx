@@ -64,6 +64,7 @@ int main(int, char* [])
   win->SetInteractor(iren);
   ren->ResetCamera();
 
+  win->Render();
   iren->Initialize();
   iren->Start();
 

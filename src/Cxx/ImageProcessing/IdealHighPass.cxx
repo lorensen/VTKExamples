@@ -126,6 +126,7 @@
   renderWindowInteractor->SetRenderWindow(renderWindow);
   idealRenderer->GetActiveCamera()->Dolly(1.4);
   idealRenderer->ResetCameraClippingRange();
+  renderWindow->Render();
   renderWindowInteractor->Initialize();
 
   renderWindowInteractor->Start();

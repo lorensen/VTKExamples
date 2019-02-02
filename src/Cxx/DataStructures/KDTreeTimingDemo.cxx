@@ -84,6 +84,7 @@ int main(int, char *[])
   line->GetYAxis()->SetTitle("Run time");
 
   view->GetRenderWindow()->SetMultiSamples(0);
+  view->GetRenderWindow()->Render();
 
   // Start interactor
   view->GetInteractor()->Initialize();

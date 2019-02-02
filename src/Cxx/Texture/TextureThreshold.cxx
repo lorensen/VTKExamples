@@ -177,6 +177,7 @@ int main(int argc, char* argv[])
   cam->SetViewUp(-0.0610856, 0.987798, -0.143262);
   ren->SetActiveCamera(cam);
 
+  renWin->Render();
   iren->Initialize();
   iren->Start();
 

@@ -89,6 +89,7 @@ int main(int, char * [])
 
   // Finally render the scene.
   view->GetRenderer()->SetBackground(colors->GetColor3d("Mint").GetData());
+  view->GetRenderWindow()->Render();
   view->GetInteractor()->Initialize();
   view->GetInteractor()->Start();
 

@@ -370,6 +370,7 @@ int main(int /* argc */, char* /* argv */ [])
   text3->SetDisplayPosition(20, 150);
   ren1->AddActor2D(text3);
 
+  renWin->Render();
   iren->Initialize();
   iren->Start();
 
