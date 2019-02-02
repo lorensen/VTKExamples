@@ -2,7 +2,7 @@ project (${WIKI}Remote)
 
 if(NOT VTK_BINARY_DIR)
   set(optional "")
-  Add_Optional_If_In_Library(SplineDrivenImageSlicer VTK_LIBRARIES optional)
+  Add_Optional_If_In_Library(SplineDrivenImageSlicer "${VTK_AVAILABLE_COMPONENTS}" optional)
   set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
     vtkCommonComputationalGeometry
@@ -26,7 +26,6 @@ if(NOT VTK_BINARY_DIR)
     include(${VTK_USE_FILE})
   endif()
 endif()
-
 set(KIT_LIBS ${VTK_LIBRARIES})
 
 #

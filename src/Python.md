@@ -243,6 +243,7 @@ This section includes examples of manipulating meshes.
 | -------------- | ---------------------- | ------------- | ------- |
 [ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
 [DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
+[DeformPointSet](/Python/Meshes/DeformPointSet) | vtkDeformPointSet vtkElevationFilter | Use the vtkDeformPointSet filter to deform a vtkSphereSource with arbitrary polydata.
 
 #### Clipping
 
@@ -335,9 +336,16 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ColorEdges](/Python/Graphs/ColorEdges) | vtkGraphLayoutView | Color edges.
 [EdgeWeights](/Python/Graphs/EdgeWeights) | vtkMutableDirectedGraph vtkGraphLayoutView |
+[GraphToPolyData](/Python/Graphs/GraphToPolyData) | vtkGraphToPolyData | Convert a graph to a PolyData.
+[LabelVerticesAndEdges](/Python/Graphs/LabelVerticesAndEdges) | vtkGraphLayoutView | Label vertices and edges.
 [NOVCAGraph](/Python/Graphs/NOVCAGraph) | vtkUnstructuredGrid vtkXMLUnstructuredGridWriter |
+[RandomGraphSource](/Python/Graphs/RandomGraphSource) | vtkRandomGraphSource | Create a random graph.
+[ScaleVertices](/Python/Graphs/ScaleVertices) | vtkGraphLayoutView vtkRenderedGraphRepresentation | Size/scale vertices based on a data array.
 [SelectedVerticesAndEdges](/Python/Graphs/SelectedVerticesAndEdges) | vtkAnnotationLink vtkGraphLayoutView |
+[SideBySideGraphs](/Python/Graphs/SideBySideGraphs) | vtkGraphLayoutView | Display two graphs side by side.
+[VisualizeDirectedGraph](/Python/Graphs/VisualizeDirectedGraph) | vtkGlyphSource2D | Visualize a directed graph.
 [VisualizeGraph](/Python/Graphs/VisualizeGraph) | vtkMutableDirectedGraph vtkGraphLayoutView |
 
 ### Graph Conversions
@@ -355,6 +363,10 @@ This section includes vtkUnstructuredGrid.
 ### Modified BSP Tree
 
 ### HyperTreeGrid
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[HyperTreeGridSource](/Python/HyperTreeGrid/HyperTreeGridSource) | vtkHyperTreeGridSource | Create a vtkHyperTreeGrid.
 
 ## VTK Concepts
 

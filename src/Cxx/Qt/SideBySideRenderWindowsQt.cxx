@@ -1,20 +1,24 @@
 #include "SideBySideRenderWindowsQt.h"
 
+#include <vtkCamera.h>
+#include <vtkCubeSource.h>
 #include <vtkDataObjectToTable.h>
 #include <vtkElevationFilter.h>
-#include "vtkGenericOpenGLRenderWindow.h"
+#include <vtkGenericOpenGLRenderWindow.h>
+#include <vtkNamedColors.h>
+#include <vtkNew.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkQtTableView.h>
-#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
-#include <vtkSphereSource.h>
-#include <vtkCubeSource.h>
+#include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
 
 // Constructor
-SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
-{
+SideBySideRenderWindowsQt::SideBySideRenderWindowsQt() {
   this->setupUi(this);
+
+  vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowLeft;
   this->qvtkWidgetLeft->SetRenderWindow(renderWindowLeft);
@@ -22,39 +26,52 @@ SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowRight;
   this->qvtkWidgetRight->SetRenderWindow(renderWindowRight);
 
-
   // Sphere
   vtkSmartPointer<vtkSphereSource> sphereSource =
       vtkSmartPointer<vtkSphereSource>::New();
+  sphereSource->SetPhiResolution(30);
+  sphereSource->SetThetaResolution(30);
   sphereSource->Update();
+  vtkNew<vtkElevationFilter> sphereElev;
+  sphereElev->SetInputConnection(sphereSource->GetOutputPort());
+  sphereElev->SetLowPoint(0, -1.0, 0);
+  sphereElev->SetHighPoint(0, 1.0, 0);
   vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
-  sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> sphereActor =
-      vtkSmartPointer<vtkActor>::New();
+  sphereMapper->SetInputConnection(sphereElev->GetOutputPort());
+  vtkSmartPointer<vtkActor> sphereActor = vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
 
   // Cube
   vtkSmartPointer<vtkCubeSource> cubeSource =
       vtkSmartPointer<vtkCubeSource>::New();
   cubeSource->Update();
+  vtkNew<vtkElevationFilter> cubeElev;
+  cubeElev->SetInputConnection(cubeSource->GetOutputPort());
+  cubeElev->SetLowPoint(0, -1.0, 0);
+  cubeElev->SetHighPoint(0, 1.0, 0);
   vtkSmartPointer<vtkPolyDataMapper> cubeMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
-  cubeMapper->SetInputConnection(cubeSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> cubeActor =
-      vtkSmartPointer<vtkActor>::New();
+  cubeMapper->SetInputConnection(cubeElev->GetOutputPort());
+  vtkSmartPointer<vtkActor> cubeActor = vtkSmartPointer<vtkActor>::New();
   cubeActor->SetMapper(cubeMapper);
 
   // VTK Renderer
   vtkSmartPointer<vtkRenderer> leftRenderer =
       vtkSmartPointer<vtkRenderer>::New();
   leftRenderer->AddActor(sphereActor);
+  leftRenderer->SetBackground(colors->GetColor3d("LightSteelBlue").GetData());
 
   vtkSmartPointer<vtkRenderer> rightRenderer =
       vtkSmartPointer<vtkRenderer>::New();
 
   // Add Actor to renderer
   rightRenderer->AddActor(cubeActor);
+  rightRenderer->GetActiveCamera()->SetPosition(1.0, 0.8, 1.0);
+  rightRenderer->GetActiveCamera()->SetFocalPoint(0, 0, 0);
+  rightRenderer->SetBackground(colors->GetColor3d("LightSteelBlue").GetData());
+  rightRenderer->ResetCamera();
+  rightRenderer->GetActiveCamera()->Zoom(0.8);
 
   // VTK/Qt wedded
   this->qvtkWidgetLeft->GetRenderWindow()->AddRenderer(leftRenderer);
@@ -64,7 +81,4 @@ SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
   connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
 }
 
-void SideBySideRenderWindowsQt::slotExit()
-{
-  qApp->exit();
-}
+void SideBySideRenderWindowsQt::slotExit() { qApp->exit(); }

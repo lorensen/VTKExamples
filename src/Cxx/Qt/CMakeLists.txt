@@ -20,6 +20,7 @@ if(NOT VTK_BINARY_DIR)
   set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
     vtkChartsCore
+    vtkCommonColor
     vtkCommonCore
     vtkCommonDataModel
     vtkFiltersCore
@@ -63,30 +64,17 @@ Requires_Module(SideBySideRenderWindowsQtDriver vtkViewsQt)
 Requires_Module(QImageToImageSource vtkRenderingQt)
 
 foreach(EXAMPLE_FILE ${ALL_UI_FILES})
-
   string(REPLACE ".ui" "" TMP ${EXAMPLE_FILE})
-
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
   set(UISrcs)
   set(MOCSrcs)
-
-  if(VTK_QT_VERSION VERSION_GREATER "4")
-    qt5_wrap_ui(UISrcs ${EXAMPLE}.ui)
-    # CMAKE_AUTOMOC in ON so the MocHdrs will be automatically wrapped.
-    add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}Driver.cxx ${EXAMPLE}.cxx ${UISrcs} ${EXAMPLE}.h)
-    if (Qt5Widgets_VERSION VERSION_LESS "5.11.0")
-      qt5_use_modules(${WIKI}${EXAMPLE} Core Gui Widgets)
-    else()
-      target_link_libraries(${WIKI}${EXAMPLE} Qt5::Core Qt5::Gui Qt5::Widgets)
-      if (VTK_VERSION VERSION_GREATER "8.8")
-        vtk_module_autoinit(
-          TARGETS ${WIKI}${EXAMPLE}
-          MODULES ${VTK_LIBRARIES}
-          )
-      endif()
-    endif()
+  qt5_wrap_ui(UISrcs ${EXAMPLE}.ui)
+  # CMAKE_AUTOMOC in ON so the MocHdrs will be automatically wrapped.
+  add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}Driver.cxx ${EXAMPLE}.cxx ${UISrcs} ${EXAMPLE}.h)
+  if (Qt5Widgets_VERSION VERSION_LESS "5.11.0")
+    qt5_use_modules(${WIKI}${EXAMPLE} Core Gui Widgets)
   else()
-    add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
+    target_link_libraries(${WIKI}${EXAMPLE} Qt5::Core Qt5::Gui Qt5::Widgets)
   endif()
   target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
   if (VTK_VERSION VERSION_GREATER "8.8")
@@ -95,36 +83,24 @@ foreach(EXAMPLE_FILE ${ALL_UI_FILES})
       MODULES ${VTK_LIBRARIES}
       )
   endif()
-    list(REMOVE_ITEM ALL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}Driver.cxx ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}.cxx)
+  list(REMOVE_ITEM ALL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}Driver.cxx ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE}.cxx)
 endforeach()
 
 # Build all remaining .cxx files.
 foreach(EXAMPLE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${EXAMPLE_FILE})
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
-
-  if(VTK_QT_VERSION VERSION_GREATER "4")
-    add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
-    if (Qt5Widgets_VERSION VERSION_LESS "5.11.0")
-      qt5_use_modules(${WIKI}${EXAMPLE} Core Gui Widgets)
-    else()
-      target_link_libraries(${WIKI}${EXAMPLE} Qt5::Core Qt5::Gui Qt5::Widgets)
-      if (VTK_VERSION VERSION_GREATER "8.8")
-        vtk_module_autoinit(
-          TARGETS ${WIKI}${EXAMPLE}
-          MODULES ${VTK_LIBRARIES}
-          )
-      endif()
-    endif()
-      target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
-    else()
-      add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
-      target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
-      if (VTK_VERSION VERSION_GREATER "8.8")
-        vtk_module_autoinit(
-          TARGETS ${WIKI}${EXAMPLE}
-          MODULES ${VTK_LIBRARIES}
-          )
-      endif()
-    endif()
+  add_executable(${WIKI}${EXAMPLE} ${EXECUTABLE_FLAG} ${EXAMPLE}.cxx)
+  if (Qt5Widgets_VERSION VERSION_LESS "5.11.0")
+    qt5_use_modules(${WIKI}${EXAMPLE} Core Gui Widgets)
+  else()
+    target_link_libraries(${WIKI}${EXAMPLE} Qt5::Core Qt5::Gui Qt5::Widgets)
+  endif()
+  target_link_libraries(${WIKI}${EXAMPLE} ${KIT_LIBS})
+  if (VTK_VERSION VERSION_GREATER "8.8")
+  vtk_module_autoinit(
+    TARGETS ${WIKI}${EXAMPLE}
+    MODULES ${VTK_LIBRARIES}
+    )
+  endif()
 endforeach()

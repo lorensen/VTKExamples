@@ -3,35 +3,32 @@
 #include <vtkBorderWidget.h>
 #include <vtkCommand.h>
 #include <vtkGenericOpenGLRenderWindow.h>
+#include <vtkNamedColors.h>
 #include <vtkNew.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkRenderer.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
+#include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 
-class BorderCallback : public vtkCommand
-{
-  public:
-    BorderCallback(){}
+class BorderCallback : public vtkCommand {
+public:
+  BorderCallback() {}
 
-    static BorderCallback *New()
-    {
-      return new BorderCallback;
-    }
+  static BorderCallback *New() { return new BorderCallback; }
 
-  virtual void Execute(vtkObject *vtkNotUsed(caller), unsigned long, void*)
-  {
-//      vtkBorderWidget *borderWidget =
-//          reinterpret_cast<vtkBorderWidget*>(caller);
+  virtual void Execute(vtkObject *vtkNotUsed(caller), unsigned long, void *) {
+    //      vtkBorderWidget *borderWidget =
+    //          reinterpret_cast<vtkBorderWidget*>(caller);
   }
-
 };
 
 // Constructor
-BorderWidgetQt::BorderWidgetQt()
-{
+BorderWidgetQt::BorderWidgetQt() {
   this->setupUi(this);
+
+  vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
   this->qvtkWidget->SetRenderWindow(renderWindow);
@@ -43,10 +40,12 @@ BorderWidgetQt::BorderWidgetQt()
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
   vtkNew<vtkActor> sphereActor;
   sphereActor->SetMapper(sphereMapper);
+  sphereActor->GetProperty()->SetColor(colors->GetColor4d("Tomato").GetData());
 
   // VTK Renderer
   vtkNew<vtkRenderer> renderer;
   renderer->AddActor(sphereActor);
+  renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
   // Connect VTK with Qt
   this->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);

@@ -1,53 +1,55 @@
-#include <vtkPointSource.h>
-#include <vtkSphereSource.h>
+#include <vtkActor.h>
+#include <vtkCallbackCommand.h>
+#include <vtkCommand.h>
+#include <vtkInteractorStyleTrackballCamera.h>
+#include <vtkMath.h>
 #include <vtkModifiedBSPTree.h>
-#include <vtkSmartPointer.h>
+#include <vtkNamedColors.h>
+#include <vtkNew.h>
+#include <vtkPointSource.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkPolyData.h>
-#include <vtkSmartPointer.h>
-#include <vtkCommand.h>
-#include <vtkWidgetEvent.h>
-#include <vtkCallbackCommand.h>
-#include <vtkWidgetEventTranslator.h>
-#include <vtkInteractorStyleTrackballCamera.h>
-#include <vtkSliderWidget.h>
-#include <vtkSliderRepresentation2D.h>
 #include <vtkProperty.h>
-#include <vtkMath.h>
+#include <vtkProperty2D.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSliderRepresentation2D.h>
+#include <vtkSliderWidget.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkTextProperty.h>
+#include <vtkWidgetEvent.h>
+#include <vtkWidgetEventTranslator.h>
 
 #include <cmath>
 
-class vtkSliderCallback : public vtkCommand
-{
+namespace {
+class vtkSliderCallback : public vtkCommand {
 public:
-  static vtkSliderCallback *New()
-  {
-    return new vtkSliderCallback;
-  }
-  vtkSliderCallback():BSPTree(0), Level(0), PolyData(0),Renderer(0){}
+  static vtkSliderCallback *New() { return new vtkSliderCallback; }
+  vtkSliderCallback() : BSPTree(0), Level(0), PolyData(0), Renderer(0) {}
 
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast<vtkSliderWidget*>(caller);
-    this->Level = vtkMath::Round(static_cast<vtkSliderRepresentation *>(sliderWidget->GetRepresentation())->GetValue());
+  virtual void Execute(vtkObject *caller, unsigned long, void *) {
+    vtkSliderWidget *sliderWidget = reinterpret_cast<vtkSliderWidget *>(caller);
+    this->Level = vtkMath::Round(static_cast<vtkSliderRepresentation *>(
+                                     sliderWidget->GetRepresentation())
+                                     ->GetValue());
     this->BSPTree->GenerateRepresentation(this->Level, this->PolyData);
     this->Renderer->Render();
   }
 
-  vtkModifiedBSPTree* BSPTree;
+  vtkModifiedBSPTree *BSPTree;
   int Level;
-  vtkPolyData* PolyData;
-  vtkRenderer* Renderer;
+  vtkPolyData *PolyData;
+  vtkRenderer *Renderer;
 };
+} // namespace
 
-int main (int, char *[])
-{
+int main(int, char *[]) {
+
+  vtkNew<vtkNamedColors> colors;
+
   // Create a point cloud - apparently vtkModifiedBSPTree needs cells?
   /*
   vtkSmartPointer<vtkPointSource> inputSource =
@@ -58,62 +60,64 @@ int main (int, char *[])
   */
 
   vtkSmartPointer<vtkSphereSource> inputSource =
-    vtkSmartPointer<vtkSphereSource>::New();
+      vtkSmartPointer<vtkSphereSource>::New();
   inputSource->SetPhiResolution(10);
   inputSource->SetThetaResolution(10);
   inputSource->Update();
 
   vtkSmartPointer<vtkPolyDataMapper> pointsMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+      vtkSmartPointer<vtkPolyDataMapper>::New();
   pointsMapper->SetInputConnection(inputSource->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> pointsActor =
-    vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> pointsActor = vtkSmartPointer<vtkActor>::New();
   pointsActor->SetMapper(pointsMapper);
   pointsActor->GetProperty()->SetInterpolationToFlat();
+  pointsActor->GetProperty()->SetColor(colors->GetColor4d("Tomato").GetData());
 
   // Create the tree
   vtkSmartPointer<vtkModifiedBSPTree> bspTree =
-    vtkSmartPointer<vtkModifiedBSPTree>::New();
+      vtkSmartPointer<vtkModifiedBSPTree>::New();
   bspTree->SetDataSet(inputSource->GetOutput());
   bspTree->BuildLocator();
 
   // Initialize the representation
-  vtkSmartPointer<vtkPolyData> polydata =
-    vtkSmartPointer<vtkPolyData>::New();
+  vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
   bspTree->GenerateRepresentation(0, polydata);
 
   vtkSmartPointer<vtkPolyDataMapper> bspTreeMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+      vtkSmartPointer<vtkPolyDataMapper>::New();
   bspTreeMapper->SetInputData(polydata);
 
-  vtkSmartPointer<vtkActor> bspTreeActor =
-    vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> bspTreeActor = vtkSmartPointer<vtkActor>::New();
   bspTreeActor->SetMapper(bspTreeMapper);
   bspTreeActor->GetProperty()->SetInterpolationToFlat();
   bspTreeActor->GetProperty()->SetRepresentationToWireframe();
+  bspTreeActor->GetProperty()->SetColor(
+      colors->GetColor4d("BurlyWood").GetData());
 
   // A renderer and render window
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
+      vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
   // An interactor
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   // Add the actors to the scene
   renderer->AddActor(pointsActor);
   renderer->AddActor(bspTreeActor);
+  renderer->SetBackground(colors->GetColor3d("SteelBLue").GetData());
 
   // Render an image (lights and cameras are created automatically)
+  renderWindow->SetWindowName("VisualizeModifiedBSPTree");
+  renderWindow->SetSize(600, 600);
   renderWindow->Render();
 
   vtkSmartPointer<vtkSliderRepresentation2D> sliderRep =
-    vtkSmartPointer<vtkSliderRepresentation2D>::New();
+      vtkSmartPointer<vtkSliderRepresentation2D>::New();
   sliderRep->SetMinimumValue(0);
   sliderRep->SetMaximumValue(bspTree->GetLevel());
   sliderRep->SetValue(0);
@@ -125,25 +129,32 @@ int main (int, char *[])
   sliderRep->SetSliderLength(0.075);
   sliderRep->SetSliderWidth(0.05);
   sliderRep->SetEndCapLength(0.05);
+  sliderRep->GetTitleProperty()->SetColor(
+      colors->GetColor3d("Beige").GetData());
+  sliderRep->GetCapProperty()->SetColor(
+      colors->GetColor3d("MistyRose").GetData());
+  sliderRep->GetSliderProperty()->SetColor(
+      colors->GetColor3d("LightBlue").GetData());
+  sliderRep->GetSelectedProperty()->SetColor(
+      colors->GetColor3d("Violet").GetData());
 
   vtkSmartPointer<vtkSliderWidget> sliderWidget =
-    vtkSmartPointer<vtkSliderWidget>::New();
+      vtkSmartPointer<vtkSliderWidget>::New();
   sliderWidget->SetInteractor(renderWindowInteractor);
   sliderWidget->SetRepresentation(sliderRep);
   sliderWidget->SetAnimationModeToAnimate();
   sliderWidget->EnabledOn();
 
   vtkSmartPointer<vtkSliderCallback> callback =
-    vtkSmartPointer<vtkSliderCallback>::New();
+      vtkSmartPointer<vtkSliderCallback>::New();
   callback->BSPTree = bspTree;
   callback->PolyData = polydata;
   callback->Renderer = renderer;
 
-  sliderWidget->AddObserver(vtkCommand::InteractionEvent,callback);
+  sliderWidget->AddObserver(vtkCommand::InteractionEvent, callback);
 
   renderWindowInteractor->Initialize();
   renderWindow->Render();
-
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;
