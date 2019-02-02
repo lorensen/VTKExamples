@@ -77,6 +77,7 @@ int main( int /* argc */, char * /* argv */ [] )
     renderer->ResetCamera(); // Reposition camera to fit the scene elements
 
     // Start the interaction
+    renderWindow->Render();
     interactor->Start();
 
     return EXIT_SUCCESS;

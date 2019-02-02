@@ -74,6 +74,7 @@ int main ( int argc, char* argv[] )
   imageViewer->GetRenderer()->ResetCamera();
   imageViewer->GetRenderer()->SetBackground(1,0,0); //red
 
+  imageViewer->GetRenderWindow()->Render();
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
 

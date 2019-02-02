@@ -120,6 +120,7 @@ int main (int argc, char *argv[])
   aRenderer->ResetCameraClippingRange ();
 
   // Initialize the event loop and then start it.
+  renWin->Render();
   iren->Initialize();
   iren->Start();
 

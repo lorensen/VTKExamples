@@ -119,6 +119,7 @@ int main (int argc, char *argv[])
 
   renderer->AddActor(bond);
 
+  renderWindow->Render();
   interactor->Initialize();
   interactor->Start();
 

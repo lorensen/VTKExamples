@@ -69,6 +69,7 @@ int main(int argc, char *argv[])
   renderer->SetBackground(1, 1, 1);
   renderWindow->SetSize(300, 250);
 
+  renderWindow->Render();
   interactor->Initialize();
   interactor->Start();
 

@@ -86,6 +86,6 @@ if (BUILD_TESTING)
 
   include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 
-  add_subdirectory(ModifiedBSPTree)
+#  add_subdirectory(ModifiedBSPTree)
 
 endif()

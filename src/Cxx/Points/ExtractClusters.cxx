@@ -114,6 +114,7 @@ int main (int, char *[])
   ren1->GetActiveCamera()->Dolly(1.5);
   ren1->ResetCameraClippingRange();
 
+  renWin->Render();
   iren->Initialize();
   iren->Start();
 
