@@ -1,5 +1,7 @@
 #!/usr/bin/env python
+
 import vtk
+
 def main():
     graph = vtk.vtkMutableDirectedGraph()
     
