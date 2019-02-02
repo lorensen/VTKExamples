@@ -4,6 +4,7 @@ if(NOT VTK_BINARY_DIR)
   set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
     vtkChartsCore
+    vtkCommonColor
     vtkCommonCore
     vtkCommonDataModel
     vtkCommonSystem
@@ -71,7 +72,7 @@ if (BUILD_TESTING)
     TestVisualizeOBBTree -E 40)
 
   # These tests will generate different output each time they run.
-  # To avoid regression failures, set the error tolerance to a large number. 
+  # To avoid regression failures, set the error tolerance to a large number.
   add_test(${KIT}-KDTreeTimingDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestKDTreeTimingDemo -E 999999)
   add_test(${KIT}-ModifiedBSPTreeTimingDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
@@ -85,7 +86,5 @@ if (BUILD_TESTING)
     TestOctreeVisualize -E 40)
 
   include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
-
-  add_subdirectory(ModifiedBSPTree)
 
 endif()
