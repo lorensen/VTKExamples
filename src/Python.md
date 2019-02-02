@@ -337,6 +337,10 @@ This section includes vtkUnstructuredGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ColorEdges](/Python/Graphs/ColorEdges) | vtkGraphLayoutView | Color edges.
+[ColorVertexLabels](/Python/Graphs/ColorVertexLabels) | vtkGraphLayoutView vtkRenderedGraphRepresentation | Set the color of vertex labels.
+[ColorVerticesLookupTable](/Python/Graphs/ColorVerticesLookupTable) | vtkGraphLayoutView | Color vertices.
+[ConstructGraph](/Python/Graphs/ConstructGraph) | vtkMutableUndirectedGraph | Construct a graph.
+[ConstructTree](/Python/Graphs/ConstructTree) | vtkTree vtkMutableDirectedGraph | Construct a tree.
 [EdgeWeights](/Python/Graphs/EdgeWeights) | vtkMutableDirectedGraph vtkGraphLayoutView |
 [GraphToPolyData](/Python/Graphs/GraphToPolyData) | vtkGraphToPolyData | Convert a graph to a PolyData.
 [LabelVerticesAndEdges](/Python/Graphs/LabelVerticesAndEdges) | vtkGraphLayoutView | Label vertices and edges.
