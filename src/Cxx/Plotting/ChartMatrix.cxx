@@ -150,6 +150,7 @@ int main( int, char * [] )
 
   // Finally render the scene and compare the image to a reference image
   view->GetRenderer()->SetBackground(colors->GetColor3d("navajo_white").GetData());
+  view->GetRenderWindow()->Render();
   view->GetInteractor()->Initialize();
   view->GetInteractor()->Start();
   return EXIT_SUCCESS;

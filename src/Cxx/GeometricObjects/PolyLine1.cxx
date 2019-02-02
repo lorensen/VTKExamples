@@ -116,6 +116,7 @@ int main(int, char* [])
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
+  renWin->Render();
   iren->Initialize();
   iren->Start();
 

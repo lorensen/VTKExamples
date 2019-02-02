@@ -101,6 +101,7 @@ int main(int, char *[])
     vtkSmartPointer<MouseInteractorStyleDoubleClick>::New();
   renderWindowInteractor->SetInteractorStyle( style );
 
+  renderWindow->Render();
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
 

@@ -67,6 +67,7 @@ int main(int argc, char* argv[])
   view->Update();
   view->ResetCamera();
 
+  view->GetRenderWindow()->Render();
   view->GetInteractor()->Initialize();
   view->GetInteractor()->Start();
 

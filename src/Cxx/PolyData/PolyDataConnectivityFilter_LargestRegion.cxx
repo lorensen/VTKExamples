@@ -78,6 +78,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkRenderWindowInteractor> interactor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
+  renderWindow->Render();
   interactor->Initialize();
   interactor->Start();
   

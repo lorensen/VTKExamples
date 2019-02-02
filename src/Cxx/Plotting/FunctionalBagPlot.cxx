@@ -134,6 +134,7 @@ int main(int, char * [])
   view->GetRenderer()->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
   // Render the scene
+  view->GetRenderWindow()->Render();
   view->GetInteractor()->Initialize();
   view->GetInteractor()->Start();
 

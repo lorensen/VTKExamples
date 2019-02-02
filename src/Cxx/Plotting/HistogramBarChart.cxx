@@ -192,6 +192,7 @@ int main( int argc, char *argv[] )
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow( renderWindow );
 
+  renderWindow->Render();
   // Initialize the event loop and then start it
   interactor->Initialize();
   interactor->Start();
