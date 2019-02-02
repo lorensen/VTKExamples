@@ -93,6 +93,7 @@ int main(int, char *[])
   view->GetRenderWindow()->SetMultiSamples(0);
 
   // Start interactor
+  view->GetRenderWindow()->Render();
   view->GetInteractor()->Initialize();
   view->GetInteractor()->Start();
   return EXIT_SUCCESS;

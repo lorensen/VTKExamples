@@ -183,6 +183,7 @@ int main(int argc, char* argv[])
     }
   }
 
+  renWin->Render();
   iren->Initialize();
   iren->Start();
 

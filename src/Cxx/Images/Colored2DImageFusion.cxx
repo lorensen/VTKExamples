@@ -83,6 +83,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkRenderWindowInteractor> imgInteractor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   imgInteractor->SetRenderWindow( imgRenderWindow );
+  imgRenderWindow->Render();
   imgInteractor->Initialize();
   imgInteractor->Start();
 
