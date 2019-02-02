@@ -7,47 +7,48 @@ import os
 import re
 from collections import defaultdict
 
-# These examples do not produce an image for testing.
-# A dictionary consisting of [example type][directory name][example name ...]
-no_image = defaultdict(lambda: defaultdict(set))
-no_image['Cxx']['Cxx/CompositeData'] = {'Generate2DAMRDataSetWithPulse', 'Generate3DAMRDataSetWithPulse'}
-no_image['Cxx']['Cxx/DataStructures'] = {'BuildLocatorFromKClosestPoints', 'BuildOctree',
+
+def excluded_examples():
+    # These examples do not produce an image for testing.
+    # A dictionary consisting of [example type][directory name][example name ...]
+    no_image = defaultdict(lambda: defaultdict(set))
+    no_image['Cxx']['CompositeData'] = {'Generate2DAMRDataSetWithPulse', 'Generate3DAMRDataSetWithPulse'}
+    no_image['Cxx']['DataStructures'] = {'BuildLocatorFromKClosestPoints', 'BuildOctree',
                                          'IncrementalOctreePointLocator', 'KDTreeAccessPoints',
                                          'KDTreeFindPointsWithinRadius', 'KdTree', 'KdTreePointLocatorClosestPoint',
                                          'ModifiedBSPTreeIntersectWithLine', 'OBBTreeIntersectWithLine',
-                                         'OctreeClosestPoint', 'OctreeFindPointsWithinRadius',
-                                         'OctreeKClosestPoints'}
-no_image['Cxx']['Cxx/DataStructures/KdTreePointLocator'] = {'ClosestNPoints'}
-no_image['Cxx']['Cxx/Databases/SQL/MySQL'] = {'ConnectAndRead', 'CreateDatabase', 'WriteToDatabase'}
-no_image['Cxx']['Cxx/Demos'] = {'VisualDebugging', 'vtkTestFilter'}
-no_image['Cxx']['Cxx/Filtering'] = {'SelectionSource', 'VectorFieldNonZeroExtraction'}
-no_image['Cxx']['Cxx/GeometricObjects'] = {'PlanesIntersection', 'PolygonIntersection'}
-no_image['Cxx']['Cxx/Graphs'] = {'AdjacencyMatrixToEdgeTable', 'BreadthFirstDistance', 'ConnectedComponents',
+                                         'OctreeClosestPoint', 'OctreeFindPointsWithinRadius', 'OctreeKClosestPoints'}
+    no_image['Cxx']['DataStructures/KdTreePointLocator'] = {'ClosestNPoints'}
+    no_image['Cxx']['Databases/SQL/MySQL'] = {'ConnectAndRead', 'CreateDatabase', 'WriteToDatabase'}
+    no_image['Cxx']['Demos'] = {'VisualDebugging', 'vtkTestFilter'}
+    no_image['Cxx']['Filtering'] = {'SelectionSource', 'VectorFieldNonZeroExtraction'}
+    no_image['Cxx']['GeometricObjects'] = {'PlanesIntersection', 'PolygonIntersection'}
+    no_image['Cxx']['Graphs'] = {'AdjacencyMatrixToEdgeTable', 'BreadthFirstDistance', 'ConnectedComponents',
                                  'DepthFirstSearchIterator', 'EdgeListIterator', 'InEdgeIterator',
                                  'MinimumSpanningTree', 'NOVCAGraph', 'OutEdgeIterator', 'RemoveIsolatedVertices',
                                  'TreeBFSIterator'}
-no_image['Cxx']['Cxx/Graphs/Conversions'] = {'DirectedGraphToMutableDirectedGraph',
+    no_image['Cxx']['Graphs/Conversions'] = {'DirectedGraphToMutableDirectedGraph',
                                              'MutableDirectedGraphToDirectedGraph', 'TreeToMutableDirectedGraph'}
-no_image['Cxx']['Cxx/IO'] = {'ConvertFile', 'DumpXMLFile', 'FindAllArrayNames', 'GenericDataObjectReader', 'JPEGWriter',
+    no_image['Cxx']['IO'] = {'ConvertFile', 'DumpXMLFile', 'FindAllArrayNames', 'GenericDataObjectReader', 'JPEGWriter',
                              'PNGWriter', 'ReadPlainTextTriangles', 'SimplePointsWriter', 'WriteLegacyLinearCells',
                              'WriteVTP', 'WriteXMLLinearCells', 'XMLPImageDataWriter', 'XMLPUnstructuredGridWriter',
                              'XMLStructuredGridWriter'}
-no_image['Cxx']['Cxx/ImageData'] = {'CellIdFromGridCoordinates', 'GetCellCenter', 'ImageDataToPointSet',
+    no_image['Cxx']['ImageData'] = {'CellIdFromGridCoordinates', 'GetCellCenter', 'ImageDataToPointSet',
                                     'ImageIterator', 'ImageReslice', 'IterateImageData'}
-no_image['Cxx']['Cxx/ImageProcessing'] = {'RescaleAnImage'}
-no_image['Cxx']['Cxx/Images'] = {'ImageAccumulate', 'ImageExport', 'ImageText', 'ImageValueRange', 'NegativeIndices'}
-no_image['Cxx']['Cxx/ImplicitFunctions'] = {'ImplicitDataSet'}
-no_image['Cxx']['Cxx/InfoVis'] = {'ArrayToTable', 'DelimitedTextWriter', 'PKMeansClustering', 'PassThrough'}
-no_image['Cxx']['Cxx/Interaction'] = {'vtkTestFilter'}
-no_image['Cxx']['Cxx/Math'] = {'1DTupleInterpolation', 'EigenSymmetric', 'HomogeneousLeastSquares', 'LUFactorization',
+    no_image['Cxx']['ImageProcessing'] = {'RescaleAnImage'}
+    no_image['Cxx']['Images'] = {'ImageAccumulate', 'ImageExport', 'ImageText', 'ImageValueRange', 'NegativeIndices'}
+    no_image['Cxx']['ImplicitFunctions'] = {'ImplicitDataSet'}
+    no_image['Cxx']['InfoVis'] = {'ArrayToTable', 'DelimitedTextWriter', 'PKMeansClustering', 'PassThrough'}
+    no_image['Cxx']['Interaction'] = {'vtkTestFilter'}
+    no_image['Cxx']['Math'] = {'1DTupleInterpolation', 'EigenSymmetric', 'HomogeneousLeastSquares', 'LUFactorization',
                                'LeastSquares', 'MatrixInverse', 'MatrixTranspose', 'NormalizeVector',
                                'PerpendicularVector', 'VectorDot', 'VectorNorm'}
-no_image['Cxx']['Cxx/Matlab'] = {'MatlabEngineFilter'}
-no_image['Cxx']['Cxx/Medical'] = {'GenerateModelsFromLabels'}
-no_image['Cxx']['Cxx/Meshes'] = {'AddCell', 'CellEdges'}
-no_image['Cxx']['Cxx/Parallel'] = {'ExodusIIWriter'}
-no_image['Cxx']['Cxx/Parallel'] = {'ExodusIIWriter'}
-no_image['Cxx']['Cxx/PolyData'] = {'AlignFrames', 'AttachAttributes', 'Casting', 'CellLocator', 'CellTreeLocator',
+    no_image['Cxx']['Matlab'] = {'MatlabEngineFilter'}
+    no_image['Cxx']['Medical'] = {'GenerateModelsFromLabels'}
+    no_image['Cxx']['Meshes'] = {'AddCell', 'CellEdges'}
+    no_image['Cxx']['Parallel'] = {'ExodusIIWriter'}
+    no_image['Cxx']['Parallel'] = {'ExodusIIWriter'}
+    no_image['Cxx']['PolyData'] = {'AlignFrames', 'AttachAttributes', 'Casting', 'CellLocator', 'CellTreeLocator',
                                    'CenterOfMass', 'CleanPolyData', 'ClosedSurface', 'CopyAllArrays', 'DataBounds',
                                    'DataSetSurfaceFilter', 'DeletePoint', 'DetermineArrayDataTypes', 'FieldData',
                                    'GeometryFilter', 'GetMiscCellData', 'GetMiscPointData', 'InterpolateTerrain',
@@ -57,19 +58,17 @@ no_image['Cxx']['Cxx/PolyData'] = {'AlignFrames', 'AttachAttributes', 'Casting',
                                    'PolyDataGetPoint', 'PolyDataPointNormals', 'PolyDataToImageData',
                                    'PolyDataToUnstructuredGrid', 'RemoveVertices', 'ReverseSense', 'RotationAroundLine',
                                    'Stripper', 'ThresholdCells', 'ThresholdPoints', 'TriangleArea'}
-no_image['Cxx']['Cxx/Qt'] = {'BorderWidgetQt', 'BorderWidgetQtDriver', 'EventQtSlotConnect', 'EventQtSlotConnectDriver',
-                             'ImageDataToQImage', 'QImageToImageSource', 'QtBarChart', 'RenderWindowNoUiFile',
-                             'RenderWindowUIMultipleInheritance', 'RenderWindowUIMultipleInheritanceDriver',
-                             'RenderWindowUISingleInheritance', 'RenderWindowUISingleInheritanceDriver',
-                             'ShareCameraQt', 'ShareCameraQtDriver', 'ShowEvent', 'ShowEventDriver',
-                             'SideBySideRenderWindowsQt', 'SideBySideRenderWindowsQtDriver'}
-no_image['Cxx']['Cxx/RectilinearGrid'] = {'RectilinearGridToTetrahedra'}
-no_image['Cxx']['Cxx/SimpleOperations'] = {'DistanceBetweenPoints', 'DistancePointToLine', 'FloatingPointExceptions',
+    no_image['Cxx']['Qt'] = {'BorderWidgetQtDriver', 'EventQtSlotConnectDriver', 'ImageDataToQImage',
+                             'QImageToImageSource', 'RenderWindowNoUiFile', 'RenderWindowUIMultipleInheritanceDriver',
+                             'RenderWindowUISingleInheritanceDriver', 'ShareCameraQtDriver', 'ShowEvent',
+                             'ShowEventDriver', 'SideBySideRenderWindowsQtDriver'}
+    no_image['Cxx']['RectilinearGrid'] = {'RectilinearGridToTetrahedra'}
+    no_image['Cxx']['SimpleOperations'] = {'DistanceBetweenPoints', 'DistancePointToLine', 'FloatingPointExceptions',
                                            'GaussianRandomNumber', 'PerspectiveTransform', 'ProjectPointPlane',
                                            'RandomSequence', 'UniformRandomNumber'}
-no_image['Cxx']['Cxx/StructuredGrid'] = {'GetLinearPointId'}
-no_image['Cxx']['Cxx/StructuredPoints'] = {'StructuredPointsToUnstructuredGrid'}
-no_image['Cxx']['Cxx/Utilities'] = {'2DArray', '3DArray', 'ArrayCalculator', 'ArrayLookup', 'ArrayRange', 'ArrayWriter',
+    no_image['Cxx']['StructuredGrid'] = {'GetLinearPointId'}
+    no_image['Cxx']['StructuredPoints'] = {'StructuredPointsToUnstructuredGrid'}
+    no_image['Cxx']['Utilities'] = {'2DArray', '3DArray', 'ArrayCalculator', 'ArrayLookup', 'ArrayRange', 'ArrayWriter',
                                     'BoundingBox', 'BoundingBoxIntersection', 'Box', 'CMakeVTKVersionCheck',
                                     'CardinalSpline', 'CheckVTKVersion', 'ColorLookupTable', 'ColorTransferFunction',
                                     'ConstructTable', 'Coordinate', 'CustomDenseArray', 'DeepCopy', 'DenseArrayRange',
@@ -80,29 +79,28 @@ no_image['Cxx']['Cxx/Utilities'] = {'2DArray', '3DArray', 'ArrayCalculator', 'Ar
                                     'ReportRenderWindowCapabilities', 'ShallowCopy', 'SortDataArray', 'SparseArray',
                                     'TimeStamp', 'TimerLog', 'UnknownLengthArray', 'Variant', 'Vector',
                                     'VectorArrayKnownLength', 'VectorArrayUnknownLength', 'VersionMacros', 'ZBuffer'}
-no_image['Cxx']['Cxx/VTKConcepts'] = {'Scalars'}
-no_image['Cxx']['Cxx/Video'] = {'FFMPEG', 'MPEG2', 'OggTheora'}
-no_image['Cxx']['Cxx/Views'] = {'RenderView'}
-no_image['Cxx']['Cxx/Visualization'] = {'NamedColorPatches', 'ReverseAccess'}
-# For Python, Java and CSharp assume that their layout is the same and images are named the same way.
-for ex in ['CSharp', 'Java', 'Python']:
-    for pk, lst in no_image['Cxx'].items():
-        new_k = pk.replace('Cxx', ex)
-        no_image[ex][new_k] = lst
+    no_image['Cxx']['VTKConcepts'] = {'Scalars'}
+    no_image['Cxx']['Video'] = {'FFMPEG', 'MPEG2', 'OggTheora'}
+    no_image['Cxx']['Views'] = {'RenderView'}
+    no_image['Cxx']['Visualization'] = {'NamedColorPatches', 'ReverseAccess'}
 
-no_image['Python']['Python/Filtering'].add('IterativeClosestPoints')
-no_image['Python']['Python/Arrays'] = no_image['Python']['Python/Arrays'] | {'GetValues', 'RenameArray'}
-no_image['Python']['Python/ImageData'].add('SumVTKImages')
-no_image['Python']['Python/PolyData'] = no_image['Python']['Python/PolyData'] | {'ColoredTriangle',
-                                                                                 'SolidColoredTriangle',
-                                                                                 'TriangleColoredPoints',
-                                                                                 'TriangleCornerVertices',
-                                                                                 'TriangleCorners'}
-no_image['Python']['Python/Utilities'].add('VTKVersion')
-no_image['Python']['Python/Untested/HasBugs'].add('UnstructuredTransientVolumeRendering')
-no_image['Python']['Python/IO'].add('WriteTriangleToFile')
+    # For Python, Java and CSharp assume that their layout is the same and images are named the same way.
+    for ex in ['CSharp', 'Java', 'Python']:
+        for pk, lst in no_image['Cxx'].items():
+            new_k = pk.replace('Cxx', ex)
+            no_image[ex][new_k] = lst
 
-no_image['Java']['Java/Imaging'].add('ImageTest')
+    no_image['Python']['Filtering'] |= {'IterativeClosestPoints'}
+    no_image['Python']['Arrays'] |= {'GetValues', 'RenameArray'}
+    no_image['Python']['ImageData'] |= {'SumVTKImages'}
+    no_image['Python']['PolyData'] |= {'ColoredTriangle', 'SolidColoredTriangle', 'TriangleColoredPoints',
+                                       'TriangleCornerVertices', 'TriangleCorners'}
+    no_image['Python']['Utilities'] |= {'VTKVersion'}
+    no_image['Python']['IO'] |= {'WriteTriangleToFile'}
+
+    no_image['Java']['Imaging'] |= {'ImageTest'}
+
+    return no_image
 
 
 def get_program_parameters():
@@ -158,8 +156,11 @@ class ExamplesMissingTestImages:
 
     def __init__(self, base_directory):
         self.example_types = ['CSharp', 'Cxx', 'Java', 'Python']
-        self.excluded_dirs = ['Cxx/CMakeTechniques', 'Cxx/Developers', 'Cxx/Untested', 'Cxx/Untested/Video',
-                              'Cxx/Untested/HasBugs', 'Java/Untested/Video']
+        self.excluded_dirs = ['Cxx/CMakeTechniques', 'Cxx/Developers']
+        self.excluded_dirs += ['Cxx/Untested', 'Cxx/Untested/Video', 'Cxx/Untested/HasBugs',
+                               'Cxx/Untested/HasBugs/CompositeData']
+        self.excluded_dirs += ['Python/Untested', 'Python/Untested/HasBugs', 'Python/Untested/HasBugs/Visualization']
+        self.excluded_dirs += ['Java/Untested', 'Java/Untested/Video']
         self.base_directory = base_directory
         self.test_images_base_directory = os.path.join(self.base_directory, 'Testing/Baseline')
         # A dictionary consisting of [example type][directory name][example name ...]
@@ -182,7 +183,6 @@ class ExamplesMissingTestImages:
             elif eg == 'Cxx':
                 fn_pattern = re.compile(
                     r'^[0-9a-zA-Z_\-]+\.(hxx|HXX|hpp|HPP|[hH]\+\+|[hH]|cpp|CPP|cxx|CXX|[cC]\+\+|txx|TXX)$')
-
             elif eg == 'Java':
                 fn_pattern = re.compile(r'^[0-9a-zA-Z_\-]+\.java$')
             elif eg == 'Python':
@@ -202,6 +202,8 @@ class ExamplesMissingTestImages:
                     m = fn_pattern.match(filename)
                     if m:
                         examples.add(os.path.splitext(filename)[0])
+                idx = key.index(eg)
+                key = key[idx + len(eg) + 1:]
                 self.all_examples[eg][key] = examples
 
     def get_all_test_images(self):
@@ -229,8 +231,12 @@ class ExamplesMissingTestImages:
                     if s[1] == '.png':
                         if s[0].startswith(prefix):
                             images.add(s[0][len(prefix):])
+                idx = key.index(eg)
+                key = key[idx + len(eg) + 1:]
                 self.all_test_images[eg][key] = images
+
         # Remove those examples that do not produce an image.
+        no_image = excluded_examples()
         for k, v in no_image.items():
             for kk, vv in v.items():
                 if bool(self.all_examples[k][kk]):
@@ -241,6 +247,12 @@ class ExamplesMissingTestImages:
             self.get_all_examples()
         if not self.all_test_images:
             self.get_all_test_images()
+        # We need to manually set a key.
+        if "DataStructures/ModifiedBSPTree" in self.all_examples["Cxx"]:
+            print(self.all_examples["Cxx"]["DataStructures/ModifiedBSPTree"])
+            self.all_examples["Cxx"]["DataStructuresModifiedBSPTree"] |= self.all_examples["Cxx"][
+                "DataStructures/ModifiedBSPTree"]
+            del self.all_examples["Cxx"]["DataStructures/ModifiedBSPTree"]
         for k in self.all_examples.keys():
             for k1 in self.all_examples[k].keys():
                 if bool(self.all_examples[k][k1]):
