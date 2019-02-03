@@ -8,17 +8,39 @@ import re
 from collections import defaultdict
 
 
+def get_program_parameters():
+    import argparse
+    description = 'Produce a list of VTK examples that have missing test images.'
+    epilogue = '''
+Typical usage:
+   For each file in VTKExamples/src look in the corresponding folder in
+      VTKExamples/src/Testing/Baseline for a corresponding image file.
+      If there is none then flag that example as having a missing test image file.
+
+   To produce a list of VTK examples that have no test files:
+      FindMissingTestImages.py some_path/VTKExamples/src
+
+   Note: Some examples may legitimately have no test files.
+         The function excluded_examples() returns a dictionary of these examples.
+'''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue,
+                                     formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument('vtk_example_src_path', help='The path to the VTK example source files.')
+
+    args = parser.parse_args()
+    return args.vtk_example_src_path
+
+
 def excluded_examples():
     # These examples do not produce an image for testing.
     # A dictionary consisting of [example type][directory name][example name ...]
     no_image = defaultdict(lambda: defaultdict(set))
     no_image['Cxx']['CompositeData'] = {'Generate2DAMRDataSetWithPulse', 'Generate3DAMRDataSetWithPulse'}
-    no_image['Cxx']['DataStructures'] = {'BuildLocatorFromKClosestPoints', 'BuildOctree',
+    no_image['Cxx']['DataStructures'] = {'ClosestNPoints', 'BuildLocatorFromKClosestPoints', 'BuildOctree',
                                          'IncrementalOctreePointLocator', 'KDTreeAccessPoints',
                                          'KDTreeFindPointsWithinRadius', 'KdTree', 'KdTreePointLocatorClosestPoint',
                                          'ModifiedBSPTreeIntersectWithLine', 'OBBTreeIntersectWithLine',
                                          'OctreeClosestPoint', 'OctreeFindPointsWithinRadius', 'OctreeKClosestPoints'}
-    no_image['Cxx']['DataStructures/KdTreePointLocator'] = {'ClosestNPoints'}
     no_image['Cxx']['Databases/SQL/MySQL'] = {'ConnectAndRead', 'CreateDatabase', 'WriteToDatabase'}
     no_image['Cxx']['Demos'] = {'VisualDebugging', 'vtkTestFilter'}
     no_image['Cxx']['Filtering'] = {'SelectionSource', 'VectorFieldNonZeroExtraction'}
@@ -101,28 +123,6 @@ def excluded_examples():
     no_image['Java']['Imaging'] |= {'ImageTest'}
 
     return no_image
-
-
-def get_program_parameters():
-    import argparse
-    description = 'Produce a list of VTK examples that have no test images.'
-    epilogue = '''
-Typical usage:
-   For each file in VTKExamples/src look in the corresponding folder in
-      VTKExamples/src/Testing/Baseline for a corresponding image file.
-      If there is none then flag that example as having a missing image file.
-      
-   To produce a list of VTK examples that have no test files:
-      FindExamplesMissingTestImages.py some_path/VTKExamples/src
-      
-   Note: Some examples may legitimately have no test files.
-'''
-    parser = argparse.ArgumentParser(description=description, epilog=epilogue,
-                                     formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('vtk_example_src_path', help='The path to the VTK example source files.')
-
-    args = parser.parse_args()
-    return args.vtk_example_src_path
 
 
 def path_splitter(path):
@@ -247,12 +247,12 @@ class ExamplesMissingTestImages:
             self.get_all_examples()
         if not self.all_test_images:
             self.get_all_test_images()
-        # We need to manually set a key.
-        if "DataStructures/ModifiedBSPTree" in self.all_examples["Cxx"]:
-            print(self.all_examples["Cxx"]["DataStructures/ModifiedBSPTree"])
-            self.all_examples["Cxx"]["DataStructuresModifiedBSPTree"] |= self.all_examples["Cxx"][
-                "DataStructures/ModifiedBSPTree"]
-            del self.all_examples["Cxx"]["DataStructures/ModifiedBSPTree"]
+        # # We need to manually set a key.
+        # if "DataStructures/ModifiedBSPTree" in self.all_examples["Cxx"]:
+        #     print(self.all_examples["Cxx"]["DataStructures/ModifiedBSPTree"])
+        #     self.all_examples["Cxx"]["DataStructuresModifiedBSPTree"] |= self.all_examples["Cxx"][
+        #         "DataStructures/ModifiedBSPTree"]
+        #     del self.all_examples["Cxx"]["DataStructures/ModifiedBSPTree"]
         for k in self.all_examples.keys():
             for k1 in self.all_examples[k].keys():
                 if bool(self.all_examples[k][k1]):
