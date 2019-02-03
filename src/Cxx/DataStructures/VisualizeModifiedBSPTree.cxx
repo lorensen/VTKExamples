@@ -116,6 +116,7 @@ int main(int argc, char *argv[]) {
   renderer->AddActor(pointsActor);
   renderer->AddActor(bspTreeActor);
   renderer->SetBackground(colors->GetColor3d("SteelBLue").GetData());
+  renderer->SetUseDepthPeeling(1);
 
   // Render an image (lights and cameras are created automatically)
   renderWindow->SetWindowName("VisualizeModifiedBSPTree");
