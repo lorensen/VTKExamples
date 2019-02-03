@@ -4,10 +4,10 @@ Files in this folder generate web pages, provide extra data derived from example
 
 | Name | Description |
 | ---- | ----------- |
+| `AddTestPrefix.py` | For each file in `VTKExamples/src/Testing/Baseline` look in the corresponding folder in `VTKExamples/src/Testing/Baseline` for an image file that does not have the Test prefix. Use with care and understand the options! |
 | `FindMissingExamples.py` | Produce a list of examples that are not mentioned in the src/*.md files. |
 | `FindMissingTestImages.py` | Display examples that are missing test image files. The first part of the script has a function that returns a dictionary that lists examples that do not produce image files. |
 | `getDeletedFile.sh` | Given a file, find that file in a git repository, even if it has been deleted. |
-| `RenameFiles.py` | For each file in `VTKExamples/src/Testing/Baseline` look in the corresponding folder in `VTKExamples/src/Testing/Baseline` for an image file that does not have the Test prefix. Use with care and understand the options! |
 | `ScrapeRepo` | Create site files from the src repo. |
 | `sitemap_gen.py` | This script crawls a web site from a given starting URL and generates a Sitemap file in the format that is accepted by Google. |
 | `sitemap.xml` | The generated sitemap file from `sitemap_gen.py`. |

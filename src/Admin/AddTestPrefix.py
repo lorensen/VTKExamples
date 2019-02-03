@@ -8,7 +8,7 @@ import os
 
 def get_program_parameters():
     import argparse
-    description = 'Rename files.'
+    description = 'Add prefix "Test" to test images if missing.'
     epilogue = '''
 Typical usage:
    For each file in VTKExamples/src/Testing/Baseline look in the corresponding folder in
@@ -16,10 +16,10 @@ Typical usage:
       Then rename the file so it has a TestPrefix.
 
    To produce a list of example files that should be renamed:
-      FindExamplesMissingTestImages.py some_path/VTKExamples/src/Testing/Baseline Python png
+      AddTestPrefix.py some_path/VTKExamples/src/Testing/Baseline Python png
 
    To rename the example files:
-      FindExamplesMissingTestImages.py some_path/VTKExamples/src/Testing/Baseline Python png -p Test -r
+      AddTestPrefix.py some_path/VTKExamples/src/Testing/Baseline Python png -p Test -r
 
 '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
