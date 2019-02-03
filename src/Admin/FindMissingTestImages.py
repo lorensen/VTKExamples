@@ -46,9 +46,10 @@ def excluded_examples():
     no_image['Cxx']['Filtering'] = {'SelectionSource', 'VectorFieldNonZeroExtraction'}
     no_image['Cxx']['GeometricObjects'] = {'PlanesIntersection', 'PolygonIntersection'}
     no_image['Cxx']['Graphs'] = {'AdjacencyMatrixToEdgeTable', 'BreadthFirstDistance', 'ConnectedComponents',
-                                 'DepthFirstSearchIterator', 'EdgeListIterator', 'InEdgeIterator',
-                                 'MinimumSpanningTree', 'NOVCAGraph', 'OutEdgeIterator', 'RemoveIsolatedVertices',
-                                 'TreeBFSIterator'}
+                                 'DirectedGraphToMutableDirectedGraph', 'DepthFirstSearchIterator', 'EdgeListIterator',
+                                 'InEdgeIterator', 'MinimumSpanningTree', 'MutableDirectedGraphToDirectedGraph',
+                                 'NOVCAGraph', 'OutEdgeIterator', 'RemoveIsolatedVertices', 'TreeBFSIterator',
+                                 'TreeToMutableDirectedGraph'}
     no_image['Cxx']['Graphs/Conversions'] = {'DirectedGraphToMutableDirectedGraph',
                                              'MutableDirectedGraphToDirectedGraph', 'TreeToMutableDirectedGraph'}
     no_image['Cxx']['IO'] = {'ConvertFile', 'DumpXMLFile', 'FindAllArrayNames', 'GenericDataObjectReader', 'JPEGWriter',
