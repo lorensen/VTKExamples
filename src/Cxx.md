@@ -743,9 +743,9 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[DirectedGraphToMutableDirectedGraph](/Cxx/Graphs/Conversions/DirectedGraphToMutableDirectedGraph) | vtkMutableDirectedGraph vtkDirectedGraph | vtkDirectedGraph to vtkMutableDirectedGraph.
-[MutableDirectedGraphToDirectedGraph](/Cxx/Graphs/Conversions/MutableDirectedGraphToDirectedGraph) | vtkMutableDirectedGraph vtkDirectedGraph | vtkMutableDirectedGraph to vtkDirectedGraph.
-[TreeToMutableDirectedGraph](/Cxx/Graphs/Conversions/TreeToMutableDirectedGraph) | vtkMutableDirectedGraph vtkTree | vtkTree to vtkMutableDirectedGraph
+[DirectedGraphToMutableDirectedGraph](/Cxx/Graphs/DirectedGraphToMutableDirectedGraph) | vtkMutableDirectedGraph vtkDirectedGraph | vtkDirectedGraph to vtkMutableDirectedGraph.
+[MutableDirectedGraphToDirectedGraph](/Cxx/Graphs/MutableDirectedGraphToDirectedGraph) | vtkMutableDirectedGraph vtkDirectedGraph | vtkMutableDirectedGraph to vtkDirectedGraph.
+[TreeToMutableDirectedGraph](/Cxx/Graphs/TreeToMutableDirectedGraph) | vtkMutableDirectedGraph vtkTree | vtkTree to vtkMutableDirectedGraph
 
 ## Data Structures
 
