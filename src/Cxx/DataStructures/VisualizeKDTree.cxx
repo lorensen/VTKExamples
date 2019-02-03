@@ -2,11 +2,10 @@
 #include <vtkCallbackCommand.h>
 #include <vtkCommand.h>
 #include <vtkInteractorStyleTrackballCamera.h>
-#include <vtkKdTreePointLocator.h>
+#include <vtkKdTree.h>
 #include <vtkMath.h>
 #include <vtkNamedColors.h>
 #include <vtkNew.h>
-#include <vtkPointSource.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
@@ -20,6 +19,21 @@
 #include <vtkTextProperty.h>
 #include <vtkWidgetEvent.h>
 #include <vtkWidgetEventTranslator.h>
+
+#include <vtkSphereSource.h>
+#include <vtkBYUReader.h>
+#include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
+#include <vtkPolyDataReader.h>
+#include <vtkSTLReader.h>
+#include <vtkXMLPolyDataReader.h>
+
+#include <vtksys/SystemTools.hxx>
+
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+}
 
 namespace {
 class vtkSliderCallback : public vtkCommand {
@@ -36,26 +50,22 @@ public:
     this->Renderer->Render();
   }
 
-  vtkKdTreePointLocator *KdTree;
+  vtkKdTree *KdTree;
   int Level;
   vtkPolyData *PolyData;
   vtkRenderer *Renderer;
 };
 } // namespace
 
-int main(int, char *[]) {
-  vtkNew<vtkNamedColors> colors;
+int main(int argc, char *argv[]) {
+  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
 
-  // Create a point cloud
-  vtkSmartPointer<vtkPointSource> pointSource =
-      vtkSmartPointer<vtkPointSource>::New();
-  pointSource->SetRadius(4);
-  pointSource->SetNumberOfPoints(1000);
-  pointSource->Update();
+  vtkNew<vtkNamedColors> colors;
 
   vtkSmartPointer<vtkPolyDataMapper> pointsMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
-  pointsMapper->SetInputConnection(pointSource->GetOutputPort());
+  pointsMapper->SetInputData(polyData);
+  pointsMapper->ScalarVisibilityOff();
 
   vtkSmartPointer<vtkActor> pointsActor = vtkSmartPointer<vtkActor>::New();
   pointsActor->SetMapper(pointsMapper);
@@ -64,16 +74,15 @@ int main(int, char *[]) {
 
   int maxLevel = 20;
   // Create the tree
-  vtkSmartPointer<vtkKdTreePointLocator> kdTree =
-      vtkSmartPointer<vtkKdTreePointLocator>::New();
-  kdTree->SetDataSet(pointSource->GetOutput());
-  kdTree->AutomaticOff();
+  vtkSmartPointer<vtkKdTree> kdTree =
+      vtkSmartPointer<vtkKdTree>::New();
+  kdTree->SetDataSet(polyData);
   kdTree->SetMaxLevel(maxLevel);
   kdTree->BuildLocator();
 
   // Initialize the representation
   vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
-  kdTree->GenerateRepresentation(0, polydata);
+  kdTree->GenerateRepresentation(maxLevel / 2, polydata);
 
   vtkSmartPointer<vtkPolyDataMapper> octreeMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -82,7 +91,8 @@ int main(int, char *[]) {
   vtkSmartPointer<vtkActor> octreeActor = vtkSmartPointer<vtkActor>::New();
   octreeActor->SetMapper(octreeMapper);
   octreeActor->GetProperty()->SetInterpolationToFlat();
-  octreeActor->GetProperty()->SetRepresentationToWireframe();
+  octreeActor->GetProperty()->SetOpacity(.6);
+  octreeActor->GetProperty()->EdgeVisibilityOn();
   octreeActor->GetProperty()->SetColor(
       colors->GetColor4d("SpringGreen").GetData());
 
@@ -111,7 +121,7 @@ int main(int, char *[]) {
       vtkSmartPointer<vtkSliderRepresentation2D>::New();
   sliderRep->SetMinimumValue(0);
   sliderRep->SetMaximumValue(kdTree->GetLevel());
-  sliderRep->SetValue(0);
+  sliderRep->SetValue(kdTree->GetLevel() / 2);
   sliderRep->SetTitleText("Level");
   sliderRep->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
   sliderRep->GetPoint1Coordinate()->SetValue(.2, .2);
@@ -141,13 +151,83 @@ int main(int, char *[]) {
   callback->KdTree = kdTree;
   callback->PolyData = polydata;
   callback->Renderer = renderer;
+  callback->Execute(sliderWidget, 0, 0);
 
   sliderWidget->AddObserver(vtkCommand::InteractionEvent, callback);
 
+  // Ensure the current level is set
+  callback->Execute(sliderWidget, 0, 0);
   renderWindowInteractor->Initialize();
   renderWindow->Render();
 
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;
+}
+
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+{
+  vtkSmartPointer<vtkPolyData> polyData;
+  std::string extension = vtksys::SystemTools::GetFilenameLastExtension(std::string(fileName));
+  if (extension == ".ply")
+  {
+    vtkSmartPointer<vtkPLYReader> reader =
+      vtkSmartPointer<vtkPLYReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".vtp")
+  {
+    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+      vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".obj")
+  {
+    vtkSmartPointer<vtkOBJReader> reader =
+      vtkSmartPointer<vtkOBJReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".stl")
+  {
+    vtkSmartPointer<vtkSTLReader> reader =
+      vtkSmartPointer<vtkSTLReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".vtk")
+  {
+    vtkSmartPointer<vtkPolyDataReader> reader =
+      vtkSmartPointer<vtkPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else
+  {
+    vtkSmartPointer<vtkSphereSource> source =
+      vtkSmartPointer<vtkSphereSource>::New();
+    source->SetPhiResolution(11);
+    source->SetThetaResolution(11);
+    source->Update();
+    polyData = source->GetOutput();
+  }
+  return polyData;
+}
 }
