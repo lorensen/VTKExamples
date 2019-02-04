@@ -1,2 +1,5 @@
 ### Description
-Prior to August 20, 2010, the vtkModifiedBSPTree.cxx did not produce a proper data representation. To operate properly, update your vtk source tree.
+This demo shows every level of a ModifiedBSPTree..
+
+!!! seealso
+    [VisualizeKDTree](/Cxx/DataStructures/VisualizeKDTree) and [VisualizeOBBTree](/Cxx/DataStructures/VisualizeOBBTree).
