@@ -118,6 +118,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer< vtkInteractorStyleTerrain > style =
     vtkSmartPointer< vtkInteractorStyleTerrain >::New();
   interactor->SetInteractorStyle( style );
+  window->Render();
   interactor->Initialize();
   interactor->Start();
 

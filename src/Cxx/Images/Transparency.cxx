@@ -101,6 +101,7 @@ int main(int argc, char* argv[])
   renderWindowInteractor->SetInteractorStyle(style);
 
   renderWindowInteractor->SetRenderWindow(renderWindow);
+  renderWindow->Render();
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
 

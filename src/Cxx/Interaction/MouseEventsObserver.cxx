@@ -57,6 +57,7 @@ int main(int, char *[])
   renderWindowInteractor->AddObserver ( vtkCommand::RightButtonPressEvent, clickCallback );
   renderWindowInteractor->AddObserver ( vtkCommand::KeyPressEvent, clickCallback );
   
+  renderWindow->Render();
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
   

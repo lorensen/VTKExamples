@@ -226,6 +226,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderWindowInteractor> interactor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
     interactor->SetRenderWindow(window);
+    window->Render();
     interactor->Initialize();
 
     // Reset the camera to a default view, shared by all

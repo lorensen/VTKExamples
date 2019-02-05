@@ -80,6 +80,7 @@ int main(int, char*[])
 
   //Finally render the scene
   view->GetRenderWindow()->SetMultiSamples(0);
+  view->GetRenderWindow()->Render();
   view->GetInteractor()->Initialize();
   view->GetInteractor()->Start();
 

@@ -743,9 +743,9 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[DirectedGraphToMutableDirectedGraph](/Cxx/Graphs/Conversions/DirectedGraphToMutableDirectedGraph) | vtkMutableDirectedGraph vtkDirectedGraph | vtkDirectedGraph to vtkMutableDirectedGraph.
-[MutableDirectedGraphToDirectedGraph](/Cxx/Graphs/Conversions/MutableDirectedGraphToDirectedGraph) | vtkMutableDirectedGraph vtkDirectedGraph | vtkMutableDirectedGraph to vtkDirectedGraph.
-[TreeToMutableDirectedGraph](/Cxx/Graphs/Conversions/TreeToMutableDirectedGraph) | vtkMutableDirectedGraph vtkTree | vtkTree to vtkMutableDirectedGraph
+[DirectedGraphToMutableDirectedGraph](/Cxx/Graphs/DirectedGraphToMutableDirectedGraph) | vtkMutableDirectedGraph vtkDirectedGraph | vtkDirectedGraph to vtkMutableDirectedGraph.
+[MutableDirectedGraphToDirectedGraph](/Cxx/Graphs/MutableDirectedGraphToDirectedGraph) | vtkMutableDirectedGraph vtkDirectedGraph | vtkMutableDirectedGraph to vtkDirectedGraph.
+[TreeToMutableDirectedGraph](/Cxx/Graphs/TreeToMutableDirectedGraph) | vtkMutableDirectedGraph vtkTree | vtkTree to vtkMutableDirectedGraph
 
 ## Data Structures
 
@@ -773,7 +773,7 @@ This section includes vtkUnstructuredGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [BuildLocatorFromKClosestPoints](/Cxx/DataStructures/BuildLocatorFromKClosestPoints) | vtkKdTree |
-[ClosestNPoints](/Cxx/DataStructures/KdTreePointLocator/ClosestNPoints) | vtkKdTreePointLocator | Find the closest N points to a query point.
+[ClosestNPoints](/Cxx/DataStructures/ClosestNPoints) | vtkKdTreePointLocator | Find the closest N points to a query point.
 [DataStructureComparison](/Cxx/DataStructures/DataStructureComparison) | vtkKdTree vtkOBBTree vtkOctreePointLocator vtkModifiedBSPTree | Illustrates, side by side, the differences between several spatial data structures
 [KDTreeAccessPoints](/Cxx/DataStructures/KDTreeAccessPoints) | vtkKdTree | Access the points of a KDTree.
 [KDTreeFindPointsWithinRadius](/Cxx/DataStructures/KDTreeFindPointsWithinRadius) | vtkKdTreePointLocator | Find points within a specified radius of  a query point.
@@ -806,7 +806,7 @@ This section includes vtkUnstructuredGrid.
 | -------------- | ---------------------- | ------------- | ------- |
 [ModifiedBSPTreeExtractCells](/Cxx/DataStructures/ModifiedBSPTreeExtractCells) | vtkModifiedBSPTree | Intersect a line with a modified BSP Tree and display all intersected cells.
 [ModifiedBSPTreeIntersectWithLine](/Cxx/DataStructures/ModifiedBSPTreeIntersectWithLine) | vtkModifiedBSPTree | Intersect a line with a modified BSP Tree.
-[VisualizeModifiedBSPTree](/Cxx/DataStructures/ModifiedBSPTree/VisualizeModifiedBSPTree) | vtkModifiedBSPTree | Visualize levels of the tree.
+[VisualizeModifiedBSPTree](/Cxx/DataStructures/VisualizeModifiedBSPTree) | vtkModifiedBSPTree | Visualize levels of the tree.
 
 ### HyperTreeGrid
 

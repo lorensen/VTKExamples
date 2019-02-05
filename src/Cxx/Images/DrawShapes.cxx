@@ -31,6 +31,7 @@ int main(int, char *[])
   imageViewer->SetupInteractor(renderWindowInteractor);
   imageViewer->GetRenderer()->ResetCamera();
   imageViewer->GetRenderer()->SetBackground(1,1,1); //white background
+  imageViewer->GetRenderWindow()->Render();
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
   

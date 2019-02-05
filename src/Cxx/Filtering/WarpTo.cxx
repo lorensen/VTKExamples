@@ -53,6 +53,7 @@ int main(int, char*[])
   
   renderer->AddActor(actor);
 
+  renderWindow->Render();
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
 

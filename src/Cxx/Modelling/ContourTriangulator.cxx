@@ -85,6 +85,7 @@ int main(int argc, char* argv[])
   renderer->ResetCamera();
   camera->Azimuth(180);
 
+  renWin->Render();
   iren->Initialize();
   iren->Start();
 

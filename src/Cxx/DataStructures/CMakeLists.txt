@@ -3,27 +3,32 @@ project (${WIKI}DataStructures)
 if(NOT VTK_BINARY_DIR)
   set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
-    vtkChartsCore
-    vtkCommonCore
-    vtkCommonDataModel
-    vtkCommonSystem
-    vtkFiltersExtraction
-    vtkFiltersFlowPaths
-    vtkFiltersGeneral
-    vtkFiltersSources
-    vtkIOXML
-    vtkInteractionStyle
-    vtkInteractionWidgets
-    vtkRenderingContext2D
-    vtkRenderingContextOpenGL2
-    vtkRenderingCore
-    vtkRenderingFreeType
-    vtkRenderingOpenGL2
-    vtkViewsContext2D
-    OPTIONAL_COMPONENTS
-    vtkTestingRendering
-    QUIET
-    )
+ vtkChartsCore
+  vtkCommonColor
+  vtkCommonCore
+  vtkCommonDataModel
+  vtkCommonSystem
+  vtkFiltersExtraction
+  vtkFiltersFlowPaths
+  vtkFiltersGeneral
+  vtkFiltersSources
+  vtkIOGeometry
+  vtkIOLegacy
+  vtkIOPLY
+  vtkIOXML
+  vtkInteractionStyle
+  vtkInteractionWidgets
+  vtkRenderingContext2D
+  vtkRenderingContextOpenGL2
+  vtkRenderingCore
+  vtkRenderingFreeType
+  vtkRenderingGL2PSOpenGL2
+  vtkRenderingOpenGL2
+  vtkViewsContext2D
+  OPTIONAL_COMPONENTS
+  vtkTestingRendering
+  QUIET
+   )
   if (VTK_VERSION VERSION_LESS "8.90.0")
     include(${VTK_USE_FILE})
   endif()
@@ -54,6 +59,7 @@ if (BUILD_TESTING)
     DataStructureComparison
     VisualizeKDTree
     VisualizeOBBTree
+    VisualizeModifiedBSPTree
     KDTreeTimingDemo
     ModifiedBSPTreeTimingDemo
     OBBTreeTimingDemo
@@ -66,12 +72,14 @@ if (BUILD_TESTING)
     TestDataStructureComparison ${DATA}/Bunny.vtp -E 20)
 
   add_test(${KIT}-VisualizeKDTree ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-    TestVisualizeKDTree -E 40)
+    TestVisualizeKDTree ${DATA}/shark.ply)
   add_test(${KIT}-VisualizeOBBTree ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-    TestVisualizeOBBTree -E 40)
+    TestVisualizeOBBTree ${DATA}/shark.ply)
+  add_test(${KIT}-VisualizeModifiedBSPTree ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestVisualizeModifiedBSPTree ${DATA}/shark.ply)
 
   # These tests will generate different output each time they run.
-  # To avoid regression failures, set the error tolerance to a large number. 
+  # To avoid regression failures, set the error tolerance to a large number.
   add_test(${KIT}-KDTreeTimingDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestKDTreeTimingDemo -E 999999)
   add_test(${KIT}-ModifiedBSPTreeTimingDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
@@ -85,7 +93,5 @@ if (BUILD_TESTING)
     TestOctreeVisualize -E 40)
 
   include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
-
-  add_subdirectory(ModifiedBSPTree)
 
 endif()
