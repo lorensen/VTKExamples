@@ -54,6 +54,7 @@ int main (int argc, char *argv[])
   std::vector<vtkSmartPointer<vtkRenderer>> renderers;
   for (int i = 1; i < argc; ++i)
   {
+    std::cout << argv[i] << std::endl;
     vtkSmartPointer<vtkPolyData> polyData =
       ReadPolyData(argv[i]);
     vtkSmartPointer<vtkPolyDataMapper> mapper =
@@ -82,7 +83,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderer> renderer =
       vtkSmartPointer<vtkRenderer>::New();
     renderer->AddActor(actor);
-    renderer->AddActor(textActor);;
+    renderer->AddActor(textActor);
     renderer->SetBackground(colors->GetColor3d("mint").GetData());
     renderers.push_back(renderer);
     renderWindow->AddRenderer(renderer);
@@ -92,13 +93,25 @@ int main (int argc, char *argv[])
   int rendererSize = 400;
   unsigned int xGridDimensions = 3;
   unsigned int yGridDimensions = 2;
+  yGridDimensions = argc / xGridDimensions;
   renderWindow->SetSize(
     rendererSize * xGridDimensions, rendererSize * yGridDimensions);
+  auto blank = argc - 1 + ((argc - 1) % xGridDimensions);
+  for (int i = argc; i < blank; ++i)
+  {
+    vtkSmartPointer<vtkRenderer> renderer =
+      vtkSmartPointer<vtkRenderer>::New();
+    renderer->SetBackground(colors->GetColor3d("White").GetData());
+    renderers.push_back(renderer);
+    renderWindow->AddRenderer(renderer);
+  }
+
   for (int row = 0; row < static_cast<int>(yGridDimensions); row++)
   {
     for (int col = 0; col < static_cast<int>(xGridDimensions); col++)
     {
       int index = row * xGridDimensions + col;
+      
       // (xmin, ymin, xmax, ymax)
       double viewport[4] = {
         static_cast<double>(col) * rendererSize /
