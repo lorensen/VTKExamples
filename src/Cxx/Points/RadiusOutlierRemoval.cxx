@@ -1,8 +1,10 @@
 #include <vtkSmartPointer.h>
 #include <vtkRadiusOutlierRemoval.h>
 
+#include <vtkBYUReader.h>
 #include <vtkPLYReader.h>
 #include <vtkXMLPolyDataReader.h>
+#include <vtkPolyDataReader.h>
 #include <vtkOBJReader.h>
 #include <vtkSTLReader.h>
 #include <vtkPointSource.h>
@@ -145,6 +147,14 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     reader->Update();
     polyData = reader->GetOutput();
   }
+  else if (extension == ".vtk")
+  {
+    vtkSmartPointer<vtkPolyDataReader> reader =
+      vtkSmartPointer<vtkPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
   else if (extension == ".obj")
   {
     vtkSmartPointer<vtkOBJReader> reader =
@@ -158,6 +168,14 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     vtkSmartPointer<vtkSTLReader> reader =
       vtkSmartPointer<vtkSTLReader>::New();
     reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }

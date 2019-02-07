@@ -2,10 +2,13 @@
 #include <vtkImplicitModeller.h>
 
 #include <vtkSmartPointer.h>
-#include <vtkPLYReader.h>
-#include <vtkXMLPolyDataReader.h>
+
+#include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
+#include <vtkPolyDataReader.h>
 #include <vtkSTLReader.h>
+#include <vtkXMLPolyDataReader.h>
 #include <vtkSphereSource.h>
 
 #include <vtkPolyData.h>
@@ -16,7 +19,6 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkContourFilter.h>
-#include <vtkXMLPolyDataReader.h>
 #include <vtkNamedColors.h>
 
 #include <vtksys/SystemTools.hxx>
@@ -105,6 +107,14 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     reader->Update();
     polyData = reader->GetOutput();
   }
+  else if (extension == ".vtk")
+  {
+    vtkSmartPointer<vtkPolyDataReader> reader =
+      vtkSmartPointer<vtkPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
   else if (extension == ".obj")
   {
     vtkSmartPointer<vtkOBJReader> reader =
@@ -118,6 +128,14 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     vtkSmartPointer<vtkSTLReader> reader =
       vtkSmartPointer<vtkSTLReader>::New();
     reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }

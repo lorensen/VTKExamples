@@ -2,17 +2,18 @@
 #include <vtkShepardMethod.h>
 #include <vtkContourFilter.h>
 #include <vtkProbeFilter.h>
+#include <vtkSphereSource.h>
 
 #include <vtkNamedColors.h>
 #include <vtkImageData.h>
 #include <vtkPointData.h>
+
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
 #include <vtkPolyDataReader.h>
 #include <vtkSTLReader.h>
 #include <vtkXMLPolyDataReader.h>
-#include <vtkSphereSource.h>
 #include <vtksys/SystemTools.hxx>
 
 #include <vtkActor.h>

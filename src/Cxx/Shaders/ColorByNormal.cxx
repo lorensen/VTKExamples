@@ -5,14 +5,12 @@
 #include <vtkRenderWindow.h>
 #include <vtkActor.h>
 #include <vtkOpenGLPolyDataMapper.h>
-#include <vtkPLYReader.h>
 #include <vtkProperty.h>
 #include <vtkPolyDataNormals.h>
 #include <vtkTriangleMeshPointNormals.h>
 #include <vtkNamedColors.h>
 #include <vtkRenderWindowInteractor.h>
 
-#include <vtksys/SystemTools.hxx>
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
@@ -20,6 +18,7 @@
 #include <vtkSTLReader.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtkSphereSource.h>
+#include <vtksys/SystemTools.hxx>
 
 namespace
 {
