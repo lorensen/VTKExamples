@@ -79,6 +79,7 @@ int main(int, char *[])
     vtkSmartPointer<customMouseInteractorStyle>::New();
   renderWindowInteractor->SetInteractorStyle( style );
   
+  renderWindow->Render();
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
   

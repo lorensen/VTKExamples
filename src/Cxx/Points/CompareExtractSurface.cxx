@@ -1,6 +1,7 @@
 #include <vtkSmartPointer.h>
 
 #include <vtkBYUReader.h>
+#include <vtkPolyDataReader.h>
 #include <vtkPLYReader.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtkOBJReader.h>
@@ -178,6 +179,14 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkPLYReader> reader =
       vtkSmartPointer<vtkPLYReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".vtk")
+  {
+    vtkSmartPointer<vtkPolyDataReader> reader =
+      vtkSmartPointer<vtkPolyDataReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
     polyData = reader->GetOutput();

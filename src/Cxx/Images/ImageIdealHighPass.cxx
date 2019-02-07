@@ -124,6 +124,7 @@ int main(int, char *[])
   renderWindowInteractor->SetInteractorStyle(style);
 
   renderWindowInteractor->SetRenderWindow(renderWindow);
+  renderWindow->Render();
   renderWindowInteractor->Initialize();
 
   renderWindowInteractor->Start();

@@ -109,6 +109,7 @@ void CreateImageActor(vtkSmartPointer<vtkImageActor> &actor,
   renderWindowInteractor->SetInteractorStyle(style);
 
   renderWindowInteractor->SetRenderWindow(renderWindow);
+  renderWindow->Render();
   renderWindowInteractor->Initialize();
 
   renderWindowInteractor->Start();

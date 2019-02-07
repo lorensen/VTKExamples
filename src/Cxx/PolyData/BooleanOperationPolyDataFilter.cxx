@@ -17,6 +17,7 @@
 #include <vtkPolyDataReader.h>
 #include <vtkSTLReader.h>
 #include <vtkXMLPolyDataReader.h>
+
 #include <vtkSphereSource.h>
 #include <vtksys/SystemTools.hxx>
 

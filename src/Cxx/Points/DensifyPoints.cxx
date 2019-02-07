@@ -1,11 +1,14 @@
 #include <vtkSmartPointer.h>
 #include <vtkDensifyPointCloudFilter.h>
-#include <vtkPLYReader.h>
-#include <vtkXMLPolyDataReader.h>
-#include <vtkOBJReader.h>
-#include <vtkSTLReader.h>
-#include <vtkPointSource.h>
 
+#include <vtkBYUReader.h>
+#include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
+#include <vtkPolyDataReader.h>
+#include <vtkSTLReader.h>
+#include <vtkXMLPolyDataReader.h>
+
+#include <vtkPointSource.h>
 #include <vtkSphereSource.h>
 #include <vtkGlyph3DMapper.h>
 
@@ -117,6 +120,7 @@ int main (int argc, char *argv[])
   ren1->GetActiveCamera()->Dolly(1.0);
   ren1->ResetCameraClippingRange();
 
+  renWin->Render();
   iren->Initialize();
   iren->Start();
 
@@ -145,6 +149,14 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     reader->Update();
     polyData = reader->GetOutput();
   }
+  else if (extension == ".vtk")
+  {
+    vtkSmartPointer<vtkPolyDataReader> reader =
+      vtkSmartPointer<vtkPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
   else if (extension == ".obj")
   {
     vtkSmartPointer<vtkOBJReader> reader =
@@ -158,6 +170,14 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     vtkSmartPointer<vtkSTLReader> reader =
       vtkSmartPointer<vtkSTLReader>::New();
     reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }

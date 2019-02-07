@@ -54,9 +54,10 @@ if (BUILD_TESTING)
     OverlappingAMR
     )
 
-  set (EXCLUDE_TEST
-    HierarchicalBoxPipeline
-    )
+  # This has been moved to Cxx/Untested/HasBugs/CompositeData.
+  # set (EXCLUDE_TEST
+  #   HierarchicalBoxPipeline
+  #   )
 
   add_test(${KIT}-OverlappingAMR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestOverlappingAMR -E 35)

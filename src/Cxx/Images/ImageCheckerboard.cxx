@@ -50,6 +50,7 @@ int main ( int argc, char* argv[] )
   imageViewer->GetRenderer()->ResetCamera();
   imageViewer->GetRenderer()->SetBackground(
     colors->GetColor3d("Wheat").GetData());
+  imageViewer->GetRenderWindow()->Render();
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
 

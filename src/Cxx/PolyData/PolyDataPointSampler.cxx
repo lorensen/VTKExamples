@@ -1,9 +1,12 @@
 #include <vtkSmartPointer.h>
 #include <vtkPolyDataPointSampler.h>
-#include <vtkPLYReader.h>
-#include <vtkXMLPolyDataReader.h>
+
+#include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
+#include <vtkPolyDataReader.h>
 #include <vtkSTLReader.h>
+#include <vtkXMLPolyDataReader.h>
 #include <vtkPointSource.h>
 
 #include <vtkSphereSource.h>
@@ -18,7 +21,10 @@
 
 #include <vtksys/SystemTools.hxx>
 
-static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+}
 
 int main (int argc, char *argv[])
 {
@@ -116,13 +122,16 @@ int main (int argc, char *argv[])
   ren1->GetActiveCamera()->Dolly(1.0);
   ren1->ResetCameraClippingRange();
 
+  renWin->Render();
   iren->Initialize();
   iren->Start();
 
   return EXIT_SUCCESS;
 }
 
-static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
   std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
@@ -138,6 +147,14 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkXMLPolyDataReader> reader =
       vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".vtk")
+  {
+    vtkSmartPointer<vtkPolyDataReader> reader =
+      vtkSmartPointer<vtkPolyDataReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
     polyData = reader->GetOutput();
@@ -158,6 +175,14 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     reader->Update();
     polyData = reader->GetOutput();
   }
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
   else
   {
     vtkSmartPointer<vtkSphereSource> sphere =
@@ -169,4 +194,5 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     polyData = sphere->GetOutput();
   }
   return polyData;
+}
 }

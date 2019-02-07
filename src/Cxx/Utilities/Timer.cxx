@@ -43,6 +43,7 @@ int main(int, char *[])
   interactor->SetRenderWindow(renderWindow);
 
   // Initialize must be called prior to creating timer events.
+  renderWindow->Render();
   interactor->Initialize();
 
   // Sign up to receive TimerEvent

@@ -85,6 +85,7 @@ int main(int, char *[])
   renderWindowInteractor->SetInteractorStyle(style);
 
   // Render and start interaction
+  renderWindow->Render();
   renderWindowInteractor->SetRenderWindow(renderWindow);
   renderWindowInteractor->Initialize();
 
