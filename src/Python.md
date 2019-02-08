@@ -241,6 +241,7 @@ This section includes examples of manipulating meshes.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[BoundaryEdges](/Python/Meshes/BoundaryEdges) | vtkFeatureEdges | Find the edges that are used by only one face.
 [ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
 [DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
 [DeformPointSet](/Python/Meshes/DeformPointSet) | vtkDeformPointSet vtkElevationFilter | Use the vtkDeformPointSet filter to deform a vtkSphereSource with arbitrary polydata.
@@ -513,6 +514,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ImageDataGeometryFilter](/Python/ImageData/ImageDataGeometryFilter) | vtkImageDataGeometryFilter | Convert a vtkImageData to a vtkPolyData.
 [SumVTKImages](/Python/ImageData/SumVTKImages) | vtkImageWeightedSum | A function to simplify the summing of images, where you can pass a list of images and weights.
 [WriteReadVtkImageData](/Python/ImageData/WriteReadVtkImageData) | vtkImageData vtkXMLImageDataReader vtkXMLImageDataWriter | Generate, edit and read out vtk image data.
 

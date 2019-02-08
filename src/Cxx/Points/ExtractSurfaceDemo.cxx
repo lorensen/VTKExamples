@@ -186,8 +186,11 @@ void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
   glyph->OrientOn();
   glyph->Update();
 }
+}
 
-static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
   std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
@@ -255,3 +258,4 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   return polyData;
 }
 }
+
