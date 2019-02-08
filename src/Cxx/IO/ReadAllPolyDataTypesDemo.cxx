@@ -1,27 +1,25 @@
-#include <vtkSmartPointer.h>
-
+#include <vtkActor.h>
+#include <vtkActor2D.h>
 #include <vtkBYUReader.h>
+#include <vtkCamera.h>
+#include <vtkCoordinate.h>
+#include <vtkNamedColors.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
-#include <vtkPolyDataReader.h>
-#include <vtkSTLReader.h>
-#include <vtkXMLPolyDataReader.h>
-#include <vtkSphereSource.h>
-
-#include <vtkCoordinate.h>
-#include <vtkTextProperty.h>
-#include <vtkTextMapper.h>
-#include <vtkActor2D.h>
-#include <vtkActor.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkPolyDataReader.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
-#include <vtkCamera.h>
-
-#include <vtkNamedColors.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
+#include <vtkSTLReader.h>
+#include <vtkTextMapper.h>
+#include <vtkTextProperty.h>
 #include <vtkTimerLog.h>
+#include <vtkXMLPolyDataReader.h>
+
 #include <vtksys/SystemTools.hxx>
 
 namespace
@@ -52,7 +50,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   std::vector<vtkSmartPointer<vtkRenderer>> renderers;
-  for (int i = 1; i < argc; ++i)
+  for (auto i = 1; i < argc; ++i)
   {
     std::cout << argv[i] << std::endl;
     vtkSmartPointer<vtkPolyData> polyData =
@@ -90,14 +88,14 @@ int main (int argc, char *argv[])
   }
 
   // Setup viewports for the renderers
-  int rendererSize = 400;
-  unsigned int xGridDimensions = 3;
-  unsigned int yGridDimensions = 2;
+  auto rendererSize = 400;
+  auto xGridDimensions = 3;
+  auto yGridDimensions = 2;
   yGridDimensions = argc / xGridDimensions;
   renderWindow->SetSize(
     rendererSize * xGridDimensions, rendererSize * yGridDimensions);
   auto blank = argc - 1 + ((argc - 1) % xGridDimensions);
-  for (int i = argc; i < blank; ++i)
+  for (auto i = argc; i < blank; ++i)
   {
     vtkSmartPointer<vtkRenderer> renderer =
       vtkSmartPointer<vtkRenderer>::New();
@@ -106,12 +104,12 @@ int main (int argc, char *argv[])
     renderWindow->AddRenderer(renderer);
   }
 
-  for (int row = 0; row < static_cast<int>(yGridDimensions); row++)
+  for (auto row = 0; row < yGridDimensions; row++)
   {
-    for (int col = 0; col < static_cast<int>(xGridDimensions); col++)
+    for (auto col = 0; col < xGridDimensions; col++)
     {
-      int index = row * xGridDimensions + col;
-      
+      auto index = row * xGridDimensions + col;
+
       // (xmin, ymin, xmax, ymax)
       double viewport[4] = {
         static_cast<double>(col) * rendererSize /
