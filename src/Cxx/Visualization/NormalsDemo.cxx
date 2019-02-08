@@ -4,6 +4,8 @@
 #include <vtkColor.h>
 #include <vtkImplicitBoolean.h>
 #include <vtkNamedColors.h>
+
+#include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
 #include <vtkPolyData.h>
@@ -20,7 +22,10 @@
 #include <vtksys/SystemTools.hxx>
 #include <vtkXMLPolyDataReader.h>
 
-static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+}
 
 int main (int argc, char *argv[])
 {
@@ -139,7 +144,9 @@ int main (int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
-static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
   std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
@@ -183,7 +190,15 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     reader->Update();
     polyData = reader->GetOutput();
   }
-  else
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+ else
   {
     vtkSmartPointer<vtkSphereSource> sphere =
       vtkSmartPointer<vtkSphereSource>::New();
@@ -198,4 +213,5 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   clean->SetInputData(polyData);
   clean->Update();
   return clean->GetOutput();
+}
 }

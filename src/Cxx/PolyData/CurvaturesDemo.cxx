@@ -30,22 +30,21 @@ This example also demonstrates the use of std::vector and the linking
 of the elements of the vector together to form a pipeline.
 */
 
-#include <vtkSmartPointer.h>
-#include <vtkCurvatures.h>
-
-#include <vtkPolyDataAlgorithm.h>
 #include <vtkActor.h>
 #include <vtkActor2D.h>
 #include <vtkCleanPolyData.h>
 #include <vtkColorTransferFunction.h>
+#include <vtkCurvatures.h>
 #include <vtkLookupTable.h>
 #include <vtkNamedColors.h>
 #include <vtkParametricFunctionSource.h>
 #include <vtkParametricRandomHills.h>
+#include <vtkPolyDataAlgorithm.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkSuperquadricSource.h>
 #include <vtkTextMapper.h>
 #include <vtkTextProperty.h>
@@ -53,8 +52,8 @@ of the elements of the vector together to form a pipeline.
 #include <vtkTransformFilter.h>
 #include <vtkTriangleFilter.h>
 
-#include <vector>
 #include <array>
+#include <vector>
 
 int main (int, char *argv[])
 {
@@ -82,7 +81,7 @@ int main (int, char *argv[])
     vtkSmartPointer<vtkTransformFilter>::New();
   torusTF->SetInputConnection(torus->GetOutputPort());
   torusTF->SetTransform(torusT);
-  
+
   // The quadric is made of strips, so pass it through a triangle filter as
   // the curvature filter only operates on polys
   vtkSmartPointer<vtkTriangleFilter> tri =
@@ -126,12 +125,12 @@ int main (int, char *argv[])
 
   // Lookup table.
   std::vector<vtkSmartPointer<vtkLookupTable> > luts;
-  for(size_t idx = 0; idx < sources.size(); ++idx)
+  for(auto idx = 0; idx < sources.size(); ++idx)
   {
     vtkSmartPointer<vtkLookupTable> lut =
       vtkSmartPointer<vtkLookupTable>::New();
     lut->SetNumberOfColors(256);
-    for( int i = 0; i < lut->GetNumberOfColors(); ++i)
+    for(auto i = 0; i < lut->GetNumberOfColors(); ++i)
     {
       std::array<double, 4> color;
       ctf->GetColor(double(i) / lut->GetNumberOfColors(), color.data());
@@ -159,7 +158,7 @@ int main (int, char *argv[])
   }
 
   std::vector<vtkSmartPointer<vtkCurvatures> > curvatures;
-  for (size_t idx = 0; idx < sources.size(); ++idx)
+  for (auto idx = 0; idx < sources.size(); ++idx)
   {
     curvatures.push_back(vtkSmartPointer<vtkCurvatures>::New());
     if (idx % 2 == 0)
@@ -176,7 +175,7 @@ int main (int, char *argv[])
   std::vector<vtkSmartPointer<vtkPolyDataMapper> > mappers;
   std::vector<vtkSmartPointer<vtkTextMapper> > textmappers;
   std::vector<vtkSmartPointer<vtkActor2D> > textactors;
-  for (size_t idx = 0; idx < sources.size(); ++idx)
+  for (auto idx = 0; idx < sources.size(); ++idx)
   {
     mappers.push_back(vtkSmartPointer<vtkPolyDataMapper>::New());
     actors.push_back(vtkSmartPointer<vtkActor>::New());
@@ -197,10 +196,10 @@ int main (int, char *argv[])
   names.push_back("Random Hills - Gaussian Curvature");
   names.push_back("Random Hills - Mean Curvature");
   // Link the pipeline together.
-  for (size_t idx = 0; idx < sources.size(); ++idx)
+  for (auto idx = 0; idx < sources.size(); ++idx)
   {
     curvatures[idx]->SetInputConnection(sources[idx]->GetOutputPort());
- 
+
     mappers[idx]->SetInputConnection(curvatures[idx]->GetOutputPort());
     mappers[idx]->SetLookupTable(luts[idx]);
     mappers[idx]->SetUseLookupTableScalarRange(1);
@@ -217,22 +216,22 @@ int main (int, char *argv[])
 
   // Create the RenderWindow
   //
-  int rendererSize = 512;
-  int gridDimensions = 2;
+  auto rendererSize = 512;
+  auto gridDimensions = 2;
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->SetSize(rendererSize * gridDimensions, rendererSize * gridDimensions);
 
-  for (size_t idx = 0; idx < sources.size(); ++idx)
+  for (auto idx = 0; idx < sources.size(); ++idx)
   {
 
     // Add and position the renders to the render window.
-    for (unsigned int row = 0; row < gridDimensions; ++row)
+    for (auto row = 0; row < gridDimensions; ++row)
     {
-      for (unsigned int col = 0; col < gridDimensions; ++col)
+      for (auto col = 0; col < gridDimensions; ++col)
       {
-        size_t idx = row * gridDimensions + col;
+        auto idx = row * gridDimensions + col;
         renderers[idx]->SetViewport(double(col) / gridDimensions,
                                     double(gridDimensions - (row + 1)) / gridDimensions,
                                     double(col + 1) / gridDimensions,

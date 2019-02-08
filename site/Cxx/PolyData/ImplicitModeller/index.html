@@ -61,10 +61,13 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImplicitModeller.h&gt;</span><span class=cp></span>
 </span>
 <span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
-</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPLYReader.h&gt;</span><span class=cp></span>
-</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkXMLPolyDataReader.h&gt;</span><span class=cp></span>
+</span>
+<span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkBYUReader.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkOBJReader.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPLYReader.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataReader.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSTLReader.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkXMLPolyDataReader.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSphereSource.h&gt;</span><span class=cp></span>
 </span>
 <span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyData.h&gt;</span><span class=cp></span>
@@ -75,7 +78,6 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkContourFilter.h&gt;</span><span class=cp></span>
-</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkXMLPolyDataReader.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkNamedColors.h&gt;</span><span class=cp></span>
 </span>
 <span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtksys/SystemTools.hxx&gt;</span><span class=cp></span>
@@ -164,6 +166,14 @@ function registerListener(event, func) {
     <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=p>}</span>
+<span class=hll>  <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;.vtk&quot;</span><span class=p>)</span>
+</span>  <span class=p>{</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
+    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
+    <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
+  <span class=p>}</span>
   <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;.obj&quot;</span><span class=p>)</span>
   <span class=p>{</span>
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOBJReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
@@ -177,6 +187,14 @@ function registerListener(event, func) {
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSTLReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSTLReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
+    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
+    <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
+  <span class=p>}</span>
+  <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;.g&quot;</span><span class=p>)</span>
+  <span class=p>{</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBYUReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBYUReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetGeometryFileName</span> <span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
     <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=p>}</span>
@@ -202,11 +220,14 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersHybrid</span>
   <span class=s>vtkFiltersSources</span>
   <span class=s>vtkIOGeometry</span>
+  <span class=s>vtkIOLegacy</span>
   <span class=s>vtkIOPLY</span>
   <span class=s>vtkIOXML</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ImplicitModeller: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>
