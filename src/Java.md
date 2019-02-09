@@ -117,6 +117,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet) | | Implicit functions, implicit data set.
 [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | vtkSphere vtkAppendPolyData vtkTubeFilter | ImplicitFunctions, Append poly data, tube filter, sphere
 
+
+## Working with 3D Data
+
+### Point Cloud Operations
+[FitImplicitFunction](/Java/Points/FitImplicitFunction) | vtkFitImplicitFunction | Extract points within a distance to an implicit function.
+
 ## Data Structures
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -269,3 +275,5 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [SeedWidget](/Java/Widgets/SeedWidget) | vtkSeedWidget | Places multiple seed points, where a user moves the cursor to and clicks it.
 [SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget | SplineWidget Demonstration
 [TextWidget](/Java/Widgets/TextWidget) | vtkTextWidget | Widget for placing text on overlay plane.
+
+
