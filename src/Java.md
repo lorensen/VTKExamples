@@ -94,11 +94,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkMutableUndirectedGraph  | An example to construct a graph and visualize it.
 [GraphPoints](/Java/InfoVis/GraphPoints) | vtkGraph | Manually set the coordinates of vertices in a graph.
 
-## Images
+## Working with Images
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Actor2D](/Java/Images/Actor2D) | vtkActor2D | A actor that draws 2D data
+[Cast](/Java/Images/Cast) | vtkImageCast | Image Data type Casting Filter.
 [StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image
 [RTAnalyticSource](/Java/Images/RTAnalyticSource) | vtkRTAnalyticSource | Creates an image for regression testing
 
@@ -117,10 +118,18 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet) | | Implicit functions, implicit data set.
 [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | vtkSphere vtkAppendPolyData vtkTubeFilter | ImplicitFunctions, Append poly data, tube filter, sphere
 
+## Working with Meshes
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[BoundaryEdges](/Java/Meshes/BoundaryEdges) | vtkFeatureEdges | Find the edges that are used by only one face.
+
 
 ## Working with 3D Data
 
 ### Point Cloud Operations
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
 [FitImplicitFunction](/Java/Points/FitImplicitFunction) | vtkFitImplicitFunction | Extract points within a distance to an implicit function.
 
 ## Data Structures
@@ -155,12 +164,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 
 
-## Math
+## Math Operations
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [MatrixInverse](/Java/Math/MatrixInverse) | vtkMatrix3x3 | Represents and manipulates  3x3 transformation matrices.
 [MatrixTranspose](/Java/Math/MatrixTranspose) | vtkMatrix3x3 | The transpose of a matrix is a new matrix whose rows are the columns of the original.
+[NormalizeVector](/Java/Math/vtkMath) | vtkMath | Normalize a vector.
 
 ## Parallel
 
