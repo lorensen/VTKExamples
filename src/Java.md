@@ -118,10 +118,18 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet) | | Implicit functions, implicit data set.
 [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | vtkSphere vtkAppendPolyData vtkTubeFilter | ImplicitFunctions, Append poly data, tube filter, sphere
 
+## Working with Meshes
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[BoundaryEdges](/Java/Meshes/BoundaryEdges) | vtkFeatureEdges | Find the edges that are used by only one face.
+
 
 ## Working with 3D Data
 
 ### Point Cloud Operations
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
 [FitImplicitFunction](/Java/Points/FitImplicitFunction) | vtkFitImplicitFunction | Extract points within a distance to an implicit function.
 
 ## Data Structures
