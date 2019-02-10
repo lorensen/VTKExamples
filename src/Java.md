@@ -94,11 +94,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkMutableUndirectedGraph  | An example to construct a graph and visualize it.
 [GraphPoints](/Java/InfoVis/GraphPoints) | vtkGraph | Manually set the coordinates of vertices in a graph.
 
-## Images
+## Working with Images
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Actor2D](/Java/Images/Actor2D) | vtkActor2D | A actor that draws 2D data
+[Cast](/Java/Images/Cast) | vtkImageCast | Image Data type Casting Filter.
 [StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image
 [RTAnalyticSource](/Java/Images/RTAnalyticSource) | vtkRTAnalyticSource | Creates an image for regression testing
 
