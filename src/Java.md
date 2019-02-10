@@ -122,7 +122,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[Bottle](/Java/Modelling/Bottel) | vtkRotationalExtrusionFilter | sweeps polygonal data creating "skirt" from free edges and lines, and lines from vertices
+[Bottle](/Java/Modelling/Bottle) | vtkRotationalExtrusionFilter | Sweeps polygonal data creating "skirt" from free edges and lines, and lines from vertices
 
 ### Point Cloud Operations
 
