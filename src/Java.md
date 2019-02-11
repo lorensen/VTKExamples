@@ -127,7 +127,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 ## Working with 3D Data
 
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Bottle](/Java/Modelling/Bottle) | vtkRotationalExtrusionFilter | Sweeps polygonal data creating "skirt" from free edges and lines, and lines from vertices
+
 ### Point Cloud Operations
+
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [FitImplicitFunction](/Java/Points/FitImplicitFunction) | vtkFitImplicitFunction | Extract points within a distance to an implicit function.
