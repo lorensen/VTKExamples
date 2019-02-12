@@ -134,6 +134,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [Actor2D](/Java/Images/Actor2D) | vtkActor2D | A actor that draws 2D data
 [Cast](/Java/Images/Cast) | vtkImageCast | Image Data type Casting Filter.
+[ImageSinusoidSource](/Java/Images/ImageSinusoidSource) | vtkImageSinusoidSource | Creates an image with sinusoidal pixel values.
 [StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image
 [RTAnalyticSource](/Java/Images/RTAnalyticSource) | vtkRTAnalyticSource | Creates an image for regression testing
 
