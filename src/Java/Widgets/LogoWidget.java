@@ -8,8 +8,8 @@ import vtk.vtkPolyDataMapper;
 import vtk.vtkActor;
 import vtk.vtkImageCanvasSource2D;
 import vtk.vtkLogoRepresentation;
-import vtk.vtkLogoWidget;
-  
+import vtk.vtkLogoWidget;  
+     
 public class LogoWidget
 {
   // -----------------------------------------------------------------
@@ -40,8 +40,8 @@ public class LogoWidget
     colors.GetColor("Mint", Circlecolor);
     
     //Renderer Background Color
-    double Bgcolor[] = new double[4]; 
-    colors.GetColor("SteelBlue", Bgcolor);
+    double Bgcolor[] = new double[] {0.2, 0.3, 0.4}; 
+    colors.SetColor("Bgcolor", Bgcolor);
 
     //A sphere
     vtkSphereSource sphereSource = new vtkSphereSource();
