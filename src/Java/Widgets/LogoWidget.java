@@ -35,13 +35,8 @@ public class LogoWidget
   
     vtkNamedColors colors = new vtkNamedColors(); 
 
-    //Circle Actor Color
-    double Circlecolor[] = new double[4]; 
-    colors.GetColor("Mint", Circlecolor);
-    
     //Renderer Background Color
     double Bgcolor[] = new double[] {0.2, 0.3, 0.4}; 
-    colors.SetColor("Bgcolor", Bgcolor);
 
     //A sphere
     vtkSphereSource sphereSource = new vtkSphereSource();
@@ -71,9 +66,12 @@ public class LogoWidget
     drawing.SetExtent(0,200,0,200,0,0);
 
     //Clear the image
+    // Note: SetDrawColour() uses double values of the rgb colors in the
+    //       range [0 ... 255]
+    //       So SetDrawColour(255, 255, 255) is white.
     drawing.SetDrawColor(255, 127, 100);
     drawing.FillBox(0,200,0,200);
-    drawing.SetDrawColor(Circlecolor);
+    drawing.SetDrawColor(0, 0, 0);
     drawing.DrawCircle(100, 100, 50);
     drawing.Update();
 
