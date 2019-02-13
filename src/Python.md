@@ -515,6 +515,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ImageDataGeometryFilter](/Python/ImageData/ImageDataGeometryFilter) | vtkImageDataGeometryFilter | Convert a vtkImageData to a vtkPolyData.
+[ImageNormalize](/Python/ImageData/ImageNormalize) | vtkImageNormalize | Normalize an image.
 [SumVTKImages](/Python/ImageData/SumVTKImages) | vtkImageWeightedSum | A function to simplify the summing of images, where you can pass a list of images and weights.
 [WriteReadVtkImageData](/Python/ImageData/WriteReadVtkImageData) | vtkImageData vtkXMLImageDataReader vtkXMLImageDataWriter | Generate, edit and read out vtk image data.
 
