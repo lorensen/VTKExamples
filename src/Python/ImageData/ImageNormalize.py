@@ -4,7 +4,10 @@ import vtk
 
 def main():
     colors = vtk.vtkNamedColors()
-    # Create an image
+    colors.SetColor("right_bkg", [0.4, 0.5, 0.6, 1.0])
+    colors.SetColor("left_bkg", [0.6, 0.5, 0.4, 1.0])
+    
+	# Create an image
     source = vtk.vtkImageSinusoidSource()
     source.Update()
     
@@ -47,12 +50,12 @@ def main():
     leftRenderer = vtk.vtkRenderer()
     renderWindow.AddRenderer(leftRenderer)
     leftRenderer.SetViewport(leftViewport)
-    leftRenderer.SetBackground(colors.GetColor3d("lemon_chiffon"))
+    leftRenderer.SetBackground(colors.GetColor3d("left_bkg"))
     
     rightRenderer = vtk.vtkRenderer()
     renderWindow.AddRenderer(rightRenderer)
     rightRenderer.SetViewport(rightViewport)
-    rightRenderer.SetBackground(colors.GetColor3d("gray"))
+    rightRenderer.SetBackground(colors.GetColor3d("right_bkg"))
     
     leftRenderer.AddActor(inputActor)
     rightRenderer.AddActor(normalizedActor)
@@ -62,7 +65,7 @@ def main():
     rightRenderer.ResetCamera()
     
     renderWindow.Render()
-	interactor.Start()
+    interactor.Start()
 
 if __name__ == '__main__':
     main()
