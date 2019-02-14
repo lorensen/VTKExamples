@@ -441,6 +441,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [CellEdges](/Cxx/Meshes/CellEdges) | vtkCell | Get edges of cells.
 [ClosedSurface](/Cxx/PolyData/ClosedSurface) | vtkFeatureEdges | Check if a surface is closed.
 [ColorDisconnectedRegions](/Cxx/PolyData/ColorDisconnectedRegions) | vtkPolyDataConnectivityFilter | Color each disconnected region of a vtkPolyData a different color.
+[ColorDisconnectedRegionsDemo](/Cxx/PolyData/ColorDisconnectedRegionsDemo) | vtkPolyDataConnectivityFilter | Color each disconnected region of a vtkPolyData a different color for any vtkPolyData.
 [ColoredElevationMap](/Cxx/Meshes/ColoredElevationMap) | vtkLookupTable | Color a mesh by height.
 [Curvatures](/Cxx/PolyData/Curvatures) | vtkCurvatures | Compute Gaussian, Mean, Min, and Max Curvatures.
 [Decimation](/Cxx/Meshes/Decimation) | vtkDecimatePro | Reduce the number of triangles in a mesh.

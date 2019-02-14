@@ -9,29 +9,38 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkAppendPolyData.h>
+#include <vtkNamedColors.h>
 
-#include <vtkBYUReader.h>
-#include <vtkOBJReader.h>
-#include <vtkPLYReader.h>
-#include <vtkPolyDataReader.h>
-#include <vtkSTLReader.h>
-#include <vtkXMLPolyDataReader.h>
-#include <vtkSphereSource.h>
-
-#include <vtksys/SystemTools.hxx>
-
-namespace
+int main(int, char*[])
 {
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
-}
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
-int main(int argc, char*argv[])
-{
-  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
+  // Create some spheres
+  vtkSmartPointer<vtkSphereSource> sphereSource1 =
+    vtkSmartPointer<vtkSphereSource>::New();
+  sphereSource1->Update();
+
+  vtkSmartPointer<vtkSphereSource> sphereSource2 =
+    vtkSmartPointer<vtkSphereSource>::New();
+  sphereSource2->SetCenter(5,0,0);
+  sphereSource2->Update();
+
+  vtkSmartPointer<vtkSphereSource> sphereSource3 =
+    vtkSmartPointer<vtkSphereSource>::New();
+  sphereSource3->SetCenter(10,0,0);
+  sphereSource3->Update();
+
+  vtkSmartPointer<vtkAppendPolyData> appendFilter =
+    vtkSmartPointer<vtkAppendPolyData>::New();
+  appendFilter->AddInputConnection(sphereSource1->GetOutputPort());
+  appendFilter->AddInputConnection(sphereSource2->GetOutputPort());
+  appendFilter->AddInputConnection(sphereSource3->GetOutputPort());
+  appendFilter->Update();
 
   vtkSmartPointer<vtkPolyDataConnectivityFilter> connectivityFilter =
     vtkSmartPointer<vtkPolyDataConnectivityFilter>::New();
-  connectivityFilter->SetInputData(polyData);
+  connectivityFilter->SetInputConnection(appendFilter->GetOutputPort());
   connectivityFilter->SetExtractionModeToAllRegions();
   connectivityFilter->ColorRegionsOn();
   connectivityFilter->Update();
@@ -50,6 +59,7 @@ int main(int argc, char*argv[])
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -59,74 +69,8 @@ int main(int argc, char*argv[])
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
-  renderWindow->Render();
   interactor->Initialize();
   interactor->Start();
 
   return EXIT_SUCCESS;
-}
-
-namespace
-{
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
-{
-  vtkSmartPointer<vtkPolyData> polyData;
-  std::string extension = vtksys::SystemTools::GetFilenameLastExtension(std::string(fileName));
-  if (extension == ".ply")
-  {
-    vtkSmartPointer<vtkPLYReader> reader =
-      vtkSmartPointer<vtkPLYReader>::New();
-    reader->SetFileName (fileName);
-    reader->Update();
-    polyData = reader->GetOutput();
-  }
-  else if (extension == ".vtp")
-  {
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
-      vtkSmartPointer<vtkXMLPolyDataReader>::New();
-    reader->SetFileName (fileName);
-    reader->Update();
-    polyData = reader->GetOutput();
-  }
-  else if (extension == ".obj")
-  {
-    vtkSmartPointer<vtkOBJReader> reader =
-      vtkSmartPointer<vtkOBJReader>::New();
-    reader->SetFileName (fileName);
-    reader->Update();
-    polyData = reader->GetOutput();
-  }
-  else if (extension == ".stl")
-  {
-    vtkSmartPointer<vtkSTLReader> reader =
-      vtkSmartPointer<vtkSTLReader>::New();
-    reader->SetFileName (fileName);
-    reader->Update();
-    polyData = reader->GetOutput();
-  }
-  else if (extension == ".vtk")
-  {
-    vtkSmartPointer<vtkPolyDataReader> reader =
-      vtkSmartPointer<vtkPolyDataReader>::New();
-    reader->SetFileName (fileName);
-    reader->Update();
-    polyData = reader->GetOutput();
-  }
-  else if (extension == ".g")
-  {
-    vtkSmartPointer<vtkBYUReader> reader =
-      vtkSmartPointer<vtkBYUReader>::New();
-    reader->SetGeometryFileName (fileName);
-    reader->Update();
-    polyData = reader->GetOutput();
-  }
-  else
-  {
-    vtkSmartPointer<vtkSphereSource> source =
-      vtkSmartPointer<vtkSphereSource>::New();
-    source->Update();
-    polyData = source->GetOutput();
-  }
-  return polyData;
-}
 }
