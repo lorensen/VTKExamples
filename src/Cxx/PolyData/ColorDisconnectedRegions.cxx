@@ -9,9 +9,13 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkAppendPolyData.h>
+#include <vtkNamedColors.h>
 
 int main(int, char*[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Create some spheres
   vtkSmartPointer<vtkSphereSource> sphereSource1 =
     vtkSmartPointer<vtkSphereSource>::New();
@@ -55,15 +59,16 @@ int main(int, char*[])
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
+  renderWindow->SetSize(640, 480);
 
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
-  renderWindow->Render();
   interactor->Initialize();
   interactor->Start();
 
