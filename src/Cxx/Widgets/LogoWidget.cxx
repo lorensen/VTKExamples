@@ -3,7 +3,6 @@
 #include <vtkLogoRepresentation.h>
 #include <vtkLogoWidget.h>
 #include <vtkNamedColors.h>
-#include <vtkNew.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty2D.h>
@@ -14,7 +13,8 @@
 #include <vtkSphereSource.h>
 
 int main(int, char *[]) {
-  vtkNew<vtkNamedColors> colors;
+  vtkSmartPointer<vtkNamedColors> colors =
+      vtkSmartPointer<vtkNamedColors>::New();
   colors->SetColor("Bkg", 0.2, 0.3, 0.4);
 
   // A sphere
