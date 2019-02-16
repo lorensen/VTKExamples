@@ -1,11 +1,13 @@
 ### Description
-This example requires the remote module ''SplineDrivenImageSampler.'' Check to see if the file ''SplineDrivenImageSlicer.remote.cmake'' exists in VTK/Remote. If it does not, copy [this file](https://gitlab.kitware.com/vtk/vtk/raw/master/Remote/SplineDrivenImageSlicer.remote.cmake) to ''VTK/Remote/SplineDrivenImageSlicer.remote.cmake''.
+
+!!! warning
+    This example requires the remote module ''SplineDrivenImageSampler.''
 
 Next
 
 1. reconfigure with cmake.
 
-2. Then enable the module setting ''Module_SplineDrivenImageSlicer:BOOL=ON''
+2. Then enable the module setting ''Module_SplineDrivenImageSlicer:BOOL=ON'' or ''VTK_MODULE_ENABLE_VTK_SplineDrivenImageSlicer:STRING=WANT''
 
 3. `make`
 
