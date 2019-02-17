@@ -159,6 +159,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Bottle](/Java/Modelling/Bottle) | vtkRotationalExtrusionFilter | Sweeps polygonal data creating "skirt" from free edges and lines, and lines from vertices
+[Spring](/Java/Modelling/Spring) | vtkRotationalExtrusionFilter | Rotation in combination with linear displacement and radius variation.
 
 ### Working with Structured 3D Data
 
