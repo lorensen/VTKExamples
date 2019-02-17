@@ -273,6 +273,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 | -------------- | ---------------------- | ------------- | ------- |
 [FullScreen](/Java/Utilities/FullScreen) | vtkRenderWindow | Example to Display Actors in a Full Screen Render Window
 [TimerLog](/Java/Utilities/TimerLog) | vtkTimerLog | Example to Demonstrate Timer support and logging.
+[ColorLookupTable](/Java/Utilities/ColorLookupTable) | vtkLookupTable | Color Lookup Table.
 
 
 ### Arrays
