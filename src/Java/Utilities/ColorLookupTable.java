@@ -1,5 +1,3 @@
-### Description
-
 import vtk.vtkNativeLibrary;
 import vtk.vtkLookupTable;
 
