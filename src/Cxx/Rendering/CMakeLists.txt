@@ -6,6 +6,7 @@ if(NOT VTK_BINARY_DIR)
     vtkCommonColor
     vtkCommonCore
     vtkCommonDataModel
+    vtkCommonSystem
     vtkCommonTransforms
     vtkFiltersCore
     vtkFiltersGeneral
