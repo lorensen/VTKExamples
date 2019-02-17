@@ -621,6 +621,7 @@ This section includes vtkUnstructuredGrid.
 [FunctionParser](/Cxx/Utilities/FunctionParser) | vtkFunctionParser | String function parser.
 [GetClassName](/Cxx/Utilities/GetClassName) | GetClassName() | Determine the type of a VTK variable.
 [GetDataRoot](/Cxx/Utilities/GetDataRoot) | vtkTesting | Find the path of VTK_DATA_ROOT.
+[InterpolateCamera](Cxx/Utilities/Interpolate) | vtkInterpolateCamera | Move a camera along a path generated from multiple camera views.
 [LUTUtilities](/Cxx/Utilities/LUTUtilities) | vtkLookupTable vtkColorSeries | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.
 [MassProperties](/Cxx/Utilities/MassProperties) | vtkMassProperties | Compute volume and surface area of a closed, triangulated mesh.
 [MultipleRenderWindows](/Cxx/Visualization/MultipleRenderWindows) | vtkRenderWindow | Multiple Render Windows
