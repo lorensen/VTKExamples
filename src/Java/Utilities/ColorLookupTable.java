@@ -1,7 +1,6 @@
 import vtk.vtkNativeLibrary;
 import vtk.vtkLookupTable;
 
-
 public class ColorLookupTable
 {
   // -----------------------------------------------------------------
