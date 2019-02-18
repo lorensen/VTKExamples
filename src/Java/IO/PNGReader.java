@@ -27,7 +27,7 @@ public class PNGReader
   {
     //parse command line arguments
     if (args.length != 1) {
-      System.err.println("Usage: java -classpath ... Filename(.png) e.g Test.png");
+      System.err.println("Usage: java -classpath ... Filename(.png) e.g Gourds.png");
       return;
     }
     //  Read the image
