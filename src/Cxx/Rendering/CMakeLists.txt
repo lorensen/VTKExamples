@@ -6,6 +6,7 @@ if(NOT VTK_BINARY_DIR)
     vtkCommonColor
     vtkCommonCore
     vtkCommonDataModel
+    vtkCommonSystem
     vtkCommonTransforms
     vtkFiltersCore
     vtkFiltersGeneral
@@ -56,6 +57,8 @@ if (BUILD_TESTING)
   set(KIT Rendering)
   set(NEEDS_ARGS
     FlatVersusGouraud
+    HiddenLineRemoval
+    InterpolateCamera
     MotionBlur
     Rainbow
     Rotations
@@ -73,6 +76,12 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-FlatVersusGouraud ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestFlatVersusGouraud ${DATA}/cow.obj)
+
+  add_test(${KIT}-HiddenLineRemoval ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestHiddenLineRemoval ${DATA}/cow.obj)
+
+  add_test(${KIT}-InterpolateCamera ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestInterpolateCamera ${DATA}/spider.ply)
 
   add_test(${KIT}-MotionBlur ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestMotionBlur ${DATA}/Armadillo.ply)

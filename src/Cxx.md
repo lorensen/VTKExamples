@@ -621,6 +621,7 @@ This section includes vtkUnstructuredGrid.
 [FunctionParser](/Cxx/Utilities/FunctionParser) | vtkFunctionParser | String function parser.
 [GetClassName](/Cxx/Utilities/GetClassName) | GetClassName() | Determine the type of a VTK variable.
 [GetDataRoot](/Cxx/Utilities/GetDataRoot) | vtkTesting | Find the path of VTK_DATA_ROOT.
+[InterpolateCamera](Cxx/Utilities/Interpolate) | vtkInterpolateCamera | Move a camera along a path generated from multiple camera views.
 [LUTUtilities](/Cxx/Utilities/LUTUtilities) | vtkLookupTable vtkColorSeries | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.
 [MassProperties](/Cxx/Utilities/MassProperties) | vtkMassProperties | Compute volume and surface area of a closed, triangulated mesh.
 [MultipleRenderWindows](/Cxx/Visualization/MultipleRenderWindows) | vtkRenderWindow | Multiple Render Windows
@@ -832,6 +833,7 @@ This section includes vtkUnstructuredGrid.
 [Cone4](/Cxx/Rendering/Cone4) | vtkRenderWindow | Modifying properties and transformation matrix based on the VTK example Cone4.cxx.
 [DiffuseSpheres](/Cxx/Rendering/DiffuseSpheres) | vtkProperty | Demonstrates the effect of diffuse lighting on spheres.
 [FlatVersusGouraud](/Cxx/Rendering/FlatVersusGouraud) | vtkProperty::SetInterpolationToFlat vtkProperty::SetInterpolationToGouraud | Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look.
+[HiddenLineRemoval](/Cxx/Rendering/HiddenLineRemoval) | vtkProperty::UseHiddenLineRemovalOn | Hidden lines removed.
 [Mace](/Cxx/Rendering/Mace) |  | An example of multiple inputs and outputs.
 [Model](/Cxx/Rendering/Model) | vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Illustrative diagram of graphics objects.
 [MotionBlur](/Cxx/Rendering/MotionBlur) | vtkRenderStepsPass vtkSimpleMotionBlurPass | Example of motion blur.
