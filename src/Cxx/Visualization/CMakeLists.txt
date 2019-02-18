@@ -115,6 +115,7 @@ if (BUILD_TESTING)
     CreateColorSeriesDemo
     CurvedReformation
     DepthSortPolyData
+    EdgePoints
     ExtrudePolyDataAlongLine
     FlyingFrogSkinAndTissue
     FlyingFrogSkinAndTissueB
@@ -188,6 +189,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-CurvedReformation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestCurvedReformation ${DATA}/HeadMRVolume.mhd ${DATA}/polyline.vtk 200)
+
+  add_test(${KIT}-EdgePoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestEdgePoints ${DATA}/FullHead.mhd 500)
 
   add_test(${KIT}-DepthSortPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestDepthSortPolyData 1 100 100 0)

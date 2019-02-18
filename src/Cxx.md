@@ -955,6 +955,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DisplayQuadricSurfaces](/Cxx/Visualization/DisplayQuadricSurfaces) | vtkQuadric vtkSampleFunction vtkContourFilter | Display Quadric Surfaces.
 [DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | vtkDistanceToCamera |
 [DrawText](/Cxx/Visualization/DrawText) | vtkTextActor vtkTextProperty | Display Text.
+[EdgePoints](/Cxx/Visualization/EdgePoints) | vtkEdgePoints | Generate points along an edge.
 [ElevationBandsWithGlyphs](/Cxx/Visualization/ElevationBandsWithGlyphs) | vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
 [ExponentialCosine](/Cxx/VisualizationAlgorithms/ExponentialCosine) | vtkWarpScalar | Carpet plots. Visualization of an exponential cosine function. Function values are indicated by surface displacement. Colors indicate derivative values.
 [ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | vtkRuledSurfaceFilter | Extrude a 2D polydata along a line in 3D space.
