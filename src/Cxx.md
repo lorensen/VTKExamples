@@ -1027,6 +1027,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [PineRootDecimation](/Cxx/VisualizationAlgorithms/PineRootDecimation) | vtkMCubesReader vtkDecimatePro vtkConnectivityFilter | Applying the decimation and connectivity filters to remove noisy isosurfaces and reduce data size.
 [PlateVibration](/Cxx/VisualizationAlgorithms/PlateVibration) | vtkWarpVector vtkVectorDot | Demonstrates the motion of a vibrating beam.
 [PointDataSubdivision](/Cxx/Visualization/PointDataSubdivision) | vtkLinearSubdivisionFilter vtkButterflySubdivisionFilter | Demonstrates the effect of applying these filters on various sources.
+[ProteinRibbons](/Cxx/Visualization/ProteinRibbons) | vtkProteinRibbonFilter | Display pdb ribbons.
 [PointSize](/Cxx/Visualization/PointSize) | vtkActor |
 [ProbeCombustor](/Cxx/VisualizationAlgorithms/ProbeCombustor) | vtkProbeFilter | Probing data in a combustor.  Probes are regular arrays of 50 by 50 points that are then passed through a contouring filter.
 [ProgrammableGlyphFilter](/Cxx/Visualization/ProgrammableGlyphFilter) | vtkProgrammableGlyphFilter | Generate a custom glyph at each point.
