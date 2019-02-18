@@ -138,6 +138,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image
 [RTAnalyticSource](/Java/Images/RTAnalyticSource) | vtkRTAnalyticSource | Creates an image for regression testing
 
+## Image Processing
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Flip](/Java/Images/Flip) | vtkImageFlip | Flips an image.
+
 
 
 ## Implicit Functions and Iso-surfaces
