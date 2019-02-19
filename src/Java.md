@@ -138,6 +138,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image
 [RTAnalyticSource](/Java/Images/RTAnalyticSource) | vtkRTAnalyticSource | Creates an image for regression testing
 
+## Image Processing
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Flip](/Java/Images/Flip) | vtkImageFlip | Flips an image.
+
 
 
 ## Implicit Functions and Iso-surfaces
@@ -152,6 +158,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [BoundaryEdges](/Java/Meshes/BoundaryEdges) | vtkFeatureEdges | Find the edges that are used by only one face.
+[AddCell](/Java/Meshes/AddCell) | vtkPolyData | Add a cell to an existing mesh.
 
 
 ## Working with 3D Data
@@ -159,6 +166,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Bottle](/Java/Modelling/Bottle) | vtkRotationalExtrusionFilter | Sweeps polygonal data creating "skirt" from free edges and lines, and lines from vertices
+[Spring](/Java/Modelling/Spring) | vtkRotationalExtrusionFilter | Rotation in combination with linear displacement and radius variation.
 
 ### Working with Structured 3D Data
 
@@ -273,6 +281,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 | -------------- | ---------------------- | ------------- | ------- |
 [FullScreen](/Java/Utilities/FullScreen) | vtkRenderWindow | Example to Display Actors in a Full Screen Render Window
 [TimerLog](/Java/Utilities/TimerLog) | vtkTimerLog | Example to Demonstrate Timer support and logging.
+[ColorLookupTable](/Java/Utilities/ColorLookupTable) | vtkLookupTable | Color Lookup Table.
 
 
 ### Arrays

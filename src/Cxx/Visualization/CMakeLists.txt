@@ -13,6 +13,7 @@ if(NOT VTK_BINARY_DIR)
     vtkCommonMath
     vtkCommonSystem
     vtkCommonTransforms
+    vtkDomainsChemistry
     vtkFiltersCore
     vtkFiltersFlowPaths
     vtkFiltersGeneral
@@ -115,6 +116,7 @@ if (BUILD_TESTING)
     CreateColorSeriesDemo
     CurvedReformation
     DepthSortPolyData
+    EdgePoints
     ExtrudePolyDataAlongLine
     FlyingFrogSkinAndTissue
     FlyingFrogSkinAndTissueB
@@ -130,6 +132,7 @@ if (BUILD_TESTING)
     Kitchen
     NormalsDemo
     PointDataSubdivision
+    ProteinRibbons
     RenderLargeImage
     SelectWindowRegion
     ShepardInterpolation
@@ -189,6 +192,9 @@ if (BUILD_TESTING)
   add_test(${KIT}-CurvedReformation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestCurvedReformation ${DATA}/HeadMRVolume.mhd ${DATA}/polyline.vtk 200)
 
+  add_test(${KIT}-EdgePoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestEdgePoints ${DATA}/FullHead.mhd 500)
+
   add_test(${KIT}-DepthSortPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestDepthSortPolyData 1 100 100 0)
 
@@ -244,6 +250,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-PointDataSubdivision ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestPointDataSubdivision 2)
+
+  add_test(${KIT}-ProteinRibbons ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestProteinRibbons ${DATA}/2j6g.pdb)
 
   add_test(${KIT}-RenderLargeImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestRenderLargeImage ${DATA}/Bunny.vtp ${TEMP}/Bunny.png 4)

@@ -26,6 +26,7 @@
 #include <iterator>
 #include <thread>
 #include <vector>
+#include <random>
 
 template <class T, std::size_t N>
 ostream &operator<<(ostream &o, const std::array<T, N> &arr)
@@ -50,6 +51,7 @@ void ComputeKeyPoints(vtkPolyData *polyData, std::array<double, 3> &center,
 }
 
 int main(int argc, char *argv[]) {
+
   vtkSmartPointer<vtkNamedColors> colors =
       vtkSmartPointer<vtkNamedColors>::New();
 
@@ -208,7 +210,8 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
 void ComputeKeyPoints(vtkPolyData *polyData, std::array<double, 3> &center,
                       std::vector<std::array<double, 3>> &keyPoints)
 {
-  vtkMath::RandomSeed(4355412); // For repsoducibility
+  std::mt19937 mt(4355412); //Standard mersenne_twister_engine
+  std::uniform_real_distribution<double> dis(1.0, 3.0);
 
   // Get Bounding Box
   std::array<double, 6> bounds;
@@ -254,7 +257,7 @@ void ComputeKeyPoints(vtkPolyData *polyData, std::array<double, 3> &center,
       direction[j] = points[i][j] - center[j];
     }
     vtkMath::Normalize(direction.data());
-    double factor = vtkMath::Random(1, 3);
+    double factor = dis(mt);
     keyPoints.resize(8);
     for (auto j = 0; j < 3; ++j)
     {
