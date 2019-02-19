@@ -317,6 +317,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) | vtkGlyph3D | Copies oriented and scaled glyph geometry to every input point
 [VectorFieldExample](/Java/Visualization/VectorFieldExample) | vtkXMLUnstructuredGridReader, vtkThresholdPoints, vtkGlyph3D | A vector field visualisation.
+[NoShading](/Java/Visualization/NoShading) | vtkActor | 
 [WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization.
 
 ## Graphs
