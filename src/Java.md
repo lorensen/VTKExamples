@@ -48,6 +48,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [JPEGWriter](/Java/IO/JPEGWriter) | vtkJPEGWriter | Write a JPEG file.
+[PNGReader](/Java/IO/PNGReader) | vtkPNGReader | Read a PNG image.
 
 
 ## Annotation
