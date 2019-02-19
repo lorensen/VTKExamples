@@ -986,7 +986,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageOrder](/Cxx/Visualization/ImageOrder) | vtkRenderer | Determine the display order of a stack of images.
 [ImageOrientation](/Cxx/Visualization/ImageOrientation) | vtkInteractorStyleImage | Orientation of the view of an image.
 [ImageTransparency](/Cxx/Visualization/ImageTransparency) | vtkImageData | Set transparency of image pixels.
-[InterpolateCamera](Cxx/Utilities/Interpolate) | vtkInterpolateCamera | Move a camera along a path generated from multiple camera views.
+[InterpolateCamera](Cxx/Rendering/InterpolateCamera) | vtkInterpolateCamera | Move a camera along a path generated from multiple camera views.
 [IronIsoSurface](/Cxx/VisualizationAlgorithms/IronIsoSurface) | vtkContourFilter | Marching cubes surface of iron-protein.
 [IsosurfaceSampling](/Cxx/Visualization/IsosurfaceSampling) | vtkProbeFilter | Demonstrates how to create point data on an isosurface.
 [Kitchen](/Cxx/Visualization/Kitchen) | vtkStreamTracer vtkStructuredGrid | Demonstrates stream tracing in a kitchen.
