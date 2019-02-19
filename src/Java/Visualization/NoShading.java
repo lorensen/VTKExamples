@@ -65,7 +65,7 @@ public class NoShading
     iren.SetRenderWindow(renWin);
     
     ren.AddActor(actor);
-    ren.SetBackground(1,1,1); // Background color white
+    ren.SetBackground(BgColor); // Background color white
     
     renWin.SetSize(300,300);
     renWin.Render();
