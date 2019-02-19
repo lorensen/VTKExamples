@@ -621,7 +621,6 @@ This section includes vtkUnstructuredGrid.
 [FunctionParser](/Cxx/Utilities/FunctionParser) | vtkFunctionParser | String function parser.
 [GetClassName](/Cxx/Utilities/GetClassName) | GetClassName() | Determine the type of a VTK variable.
 [GetDataRoot](/Cxx/Utilities/GetDataRoot) | vtkTesting | Find the path of VTK_DATA_ROOT.
-[InterpolateCamera](Cxx/Utilities/Interpolate) | vtkInterpolateCamera | Move a camera along a path generated from multiple camera views.
 [LUTUtilities](/Cxx/Utilities/LUTUtilities) | vtkLookupTable vtkColorSeries | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.
 [MassProperties](/Cxx/Utilities/MassProperties) | vtkMassProperties | Compute volume and surface area of a closed, triangulated mesh.
 [MultipleRenderWindows](/Cxx/Visualization/MultipleRenderWindows) | vtkRenderWindow | Multiple Render Windows
@@ -987,6 +986,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageOrder](/Cxx/Visualization/ImageOrder) | vtkRenderer | Determine the display order of a stack of images.
 [ImageOrientation](/Cxx/Visualization/ImageOrientation) | vtkInteractorStyleImage | Orientation of the view of an image.
 [ImageTransparency](/Cxx/Visualization/ImageTransparency) | vtkImageData | Set transparency of image pixels.
+[InterpolateCamera](Cxx/Utilities/Interpolate) | vtkInterpolateCamera | Move a camera along a path generated from multiple camera views.
 [IronIsoSurface](/Cxx/VisualizationAlgorithms/IronIsoSurface) | vtkContourFilter | Marching cubes surface of iron-protein.
 [IsosurfaceSampling](/Cxx/Visualization/IsosurfaceSampling) | vtkProbeFilter | Demonstrates how to create point data on an isosurface.
 [Kitchen](/Cxx/Visualization/Kitchen) | vtkStreamTracer vtkStructuredGrid | Demonstrates stream tracing in a kitchen.
