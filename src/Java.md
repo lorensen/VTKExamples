@@ -109,12 +109,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) | vtkHyperTreeGridSource |  Demonstration of a hyper-tree grid source.
 
-## Geovis
+## Geographic Visualization (Geovis)
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [EarthSource](/Java/Geovis/EarthSource) | vtkEarthSource | Earth Source Visualization
 [CompassWidget](/Java/Geovis/CompassWidget) | vtkCompassWidget| CompassWidget Visualization
+[GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates | Convert latitude and longitude coordinates to world coordinates.
 
 ## ImageData
 
@@ -202,9 +203,18 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 
 ## Data Structures
 
+### KD-Tree
+
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [VisualizeKDTree](/Java/DataStructures/VisualizeKDTree) | vtkKdTreePointLocator | Show the levels of a KD Tree.
+
+### Octree
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[BuildOctree](/Java/DataStructures/BuildOctree) | vtkOctreePointLocator | Create an octree.
+
 
 ## Image Processing
 
