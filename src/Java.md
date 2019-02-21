@@ -202,9 +202,18 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 
 ## Data Structures
 
+### KD-Tree
+
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [VisualizeKDTree](/Java/DataStructures/VisualizeKDTree) | vtkKdTreePointLocator | Show the levels of a KD Tree.
+
+### Octree
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[BuildOctree](/Java/DataStructures/BuildOctree) | vtkOctreePointLocator | Create an octree.
+
 
 ## Image Processing
 
