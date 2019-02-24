@@ -117,12 +117,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [CompassWidget](/Java/Geovis/CompassWidget) | vtkCompassWidget| CompassWidget Visualization
 [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates | Convert latitude and longitude coordinates to world coordinates.
 
-## ImageData
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[ImageNormalize](/Java/ImageData/ImageNormalize) | vtkImageNormalize  | Normalizes the scalar components for each point.
-
 ## Graphs
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -176,6 +170,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 
 "ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK. [Here is an overview of these data structures](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes). Image data can represent at typical 2D image, but also, a 3D volume.
+
+#### vtkImageData
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ImageNormalize](/Java/ImageData/ImageNormalize) | vtkImageNormalize  | Normalizes the scalar components for each point.
+[ImageWeightedSum](/Java/ImageData/ImageWeightedSum) | vtkImageWeightedSum | Add two or more images.
 
 #### vtkStructuredGrid
 
