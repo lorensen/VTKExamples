@@ -1,5 +1,4 @@
 #include <vtkSmartPointer.h>
-
 #include <vtkBarChartActor.h>
 
 #include <vtkMath.h>
@@ -25,10 +24,10 @@
 
 namespace
 {
-vtkSmartPointer<vtkIntArray> CreateUniformDistribution(int);
-vtkSmartPointer<vtkIntArray> CreateNormalDistribution(int);
-vtkSmartPointer<vtkIntArray> CreateWeibullDistribution(int);
-vtkSmartPointer<vtkIntArray> CreateGammaDistribution(int);
+vtkSmartPointer<vtkIntArray> CreateUniformDistribution(int, double, double);
+vtkSmartPointer<vtkIntArray> CreateNormalDistribution(int, double, double);
+vtkSmartPointer<vtkIntArray> CreateWeibullDistribution(int, double, double);
+vtkSmartPointer<vtkIntArray> CreateGammaDistribution(int, double, double);
 vtkSmartPointer<vtkIntArray> CreateCauchyDistribution(int, double, double);
 vtkSmartPointer<vtkIntArray> CreateExtremeValueDistribution(int, double, double);
 }
@@ -43,11 +42,11 @@ int main( int, char *[] )
 
   int count = 100000;
   std::map<std::string, vtkSmartPointer<vtkIntArray> > frequencies;
-  frequencies["Uniform Distribution"] = CreateUniformDistribution(count);
-  frequencies["Normal Distribution"] = CreateNormalDistribution(count);
-  frequencies["Weibull Distribution"] = CreateWeibullDistribution(count);
-  frequencies["Gamma Distribution"] = CreateGammaDistribution(count);
-  frequencies["Cauchy Distribution"] = CreateCauchyDistribution(count, -2.0, 1.0);
+  frequencies["Uniform Distribution"] = CreateUniformDistribution(count, -200.0, 200.0);
+  frequencies["Normal Distribution"] = CreateNormalDistribution(count, 0.0, 6.0);
+  frequencies["Weibull Distribution"] = CreateWeibullDistribution(count, 1.5, 1.0);
+  frequencies["Gamma Distribution"] = CreateGammaDistribution(count, 2.0, 2.0);
+  frequencies["Cauchy Distribution"] = CreateCauchyDistribution(count, -1.0, 2.0);
   frequencies["Extreme Value Distribution"] = CreateExtremeValueDistribution(count, .5, 1.0);
 
   std::vector<vtkSmartPointer<vtkRenderer> > renderers;
@@ -145,13 +144,13 @@ int main( int, char *[] )
 }
 namespace
 {
-vtkSmartPointer<vtkIntArray> CreateUniformDistribution(int count)
+vtkSmartPointer<vtkIntArray> CreateUniformDistribution(int count, double a, double b)
 {
-  double rmin, rmax;
   std::mt19937 generator(8775070);
-  rmax = 200.0;
-  rmin = -200.0;
-  std::uniform_real_distribution<double> distribution(rmin, rmax);
+  double rmin, rmax;
+  rmax = b;
+  rmin = a;
+  std::uniform_real_distribution<double> distribution(a, b);
 
   double range = (rmax - rmin);
   int numberOfBins = std::max(51, (int) std::ceil(range / 10));
@@ -183,13 +182,54 @@ vtkSmartPointer<vtkIntArray> CreateUniformDistribution(int count)
   return frequenciesArray;
 }
 
-vtkSmartPointer<vtkIntArray> CreateNormalDistribution(int count)
+vtkSmartPointer<vtkIntArray> CreateNormalDistribution(int count, double a, double b)
 {
   double rmin, rmax;
   std::mt19937 generator(8775070);
-  std::normal_distribution<double> distribution(0.0, 6.0);
-  rmax = 36;
-  rmin = -36.0;
+  std::normal_distribution<double> distribution(a, b);
+  rmax =  6.0 * b; 
+  rmin = -6.0 * b;
+
+  double range = (rmax - rmin);
+  int numberOfBins = std::max(51, (int) std::ceil(range / 10));
+
+  std::valarray<int> frequencies(0, numberOfBins);
+  for (int i = 0; i < count; ++i)
+  {
+    double value = (distribution(generator) - rmin) / range;
+    int bin = (int)(std::floor((numberOfBins) * value));
+    if (bin > numberOfBins - 1)
+    {
+      bin = numberOfBins - 1;
+    } 
+    else if (bin < 0)
+    {
+      bin = 0;
+    }
+   ++frequencies[bin];
+  }
+  frequencies[numberOfBins - 1] = 0;
+
+  vtkSmartPointer<vtkIntArray> frequenciesArray =
+    vtkSmartPointer<vtkIntArray>::New();
+  frequenciesArray->SetNumberOfComponents(1);
+  frequenciesArray->SetNumberOfTuples(numberOfBins);
+  
+  for (int i = 0; i < numberOfBins; ++i)
+  {
+    frequenciesArray->SetTypedTuple(i, &frequencies[i]);
+  }
+  frequenciesArray->SetName("frequencies");
+  
+  return frequenciesArray;
+}
+vtkSmartPointer<vtkIntArray> CreateWeibullDistribution(int count, double a, double b)
+{
+  double rmin, rmax;
+  std::mt19937 generator(8775070);
+  std::weibull_distribution<double> distribution(a, b);
+  rmax = 3.0;
+  rmin = 0.0;
 
   double range = (rmax - rmin);
   int numberOfBins = std::max(51, (int) std::ceil(range / 10));
@@ -220,48 +260,11 @@ vtkSmartPointer<vtkIntArray> CreateNormalDistribution(int count)
   
   return frequenciesArray;
 }
-vtkSmartPointer<vtkIntArray> CreateWeibullDistribution(int count)
+vtkSmartPointer<vtkIntArray> CreateGammaDistribution(int count, double a, double b)
 {
   double rmin, rmax;
   std::mt19937 generator(8775070);
-  std::weibull_distribution<double> distribution(2.0,1.5);
-  rmax = 5.0;
-  rmin = -5.0;;
-
-  double range = (rmax - rmin);
-  int numberOfBins = std::max(51, (int) std::ceil(range / 10));
-
-  std::valarray<int> frequencies(0, numberOfBins);
-  for (int i = 0; i < count; ++i)
-  {
-    double value = (distribution(generator) - rmin) / range;
-    int bin = (int)(std::floor((numberOfBins) * value));
-    if (bin > numberOfBins - 1)
-    {
-      bin = numberOfBins - 1;
-    }
-    ++frequencies[bin];
-  }
-  frequencies[numberOfBins - 1] = 0;
-
-  vtkSmartPointer<vtkIntArray> frequenciesArray =
-    vtkSmartPointer<vtkIntArray>::New();
-  frequenciesArray->SetNumberOfComponents(1);
-  frequenciesArray->SetNumberOfTuples(numberOfBins);
-  
-  for (int i = 0; i < numberOfBins; ++i)
-  {
-    frequenciesArray->SetTypedTuple(i, &frequencies[i]);
-  }
-  frequenciesArray->SetName("frequencies");
-  
-  return frequenciesArray;
-}
-vtkSmartPointer<vtkIntArray> CreateGammaDistribution(int count)
-{
-  double rmin, rmax;
-  std::mt19937 generator(8775070);
-  std::gamma_distribution<double> distribution(1.0, 2.0);
+  std::gamma_distribution<double> distribution(a, b);
   rmax = 20.0;
   rmin = 0.0;
 
@@ -301,38 +304,8 @@ vtkSmartPointer<vtkIntArray> CreateCauchyDistribution(int count, double a, doubl
   std::mt19937 generator(8775070);
   std::cauchy_distribution<double> distribution(a, b);
 
-  double prev = 0.0;
-  for ( double x = -100.0; x < 100.0; x += 1.0)
-  {
-    double p;
-    p =  (1.0 / (vtkMath::Pi() * b));
-    p *= std::pow(b, 2.0);
-    p /= (std::pow(x - a, 2.0)) + std::pow(b, 2.0);
-//    std::cout << "x: " << x << " " << p << std::endl;
-    if (p < .01 && prev > p)
-    {
-      rmin = x;
-      break;
-    }
-    prev = p;
-  }
-
-  prev = 0.0;
-  for ( double x = 100.0; x > -100.0; x -= 1.0)
-  {
-    double p;
-    p =  (1.0 / (vtkMath::Pi() * b));
-    p *= std::pow(b, 2.0);
-    p /= (std::pow(x - a, 2.0)) + std::pow(b, 2.0);
-//    std::cout << "x: " << x << " " << p << std::endl;
-    if (p < .01 && prev > p)
-    {
-      rmax = x;
-      break;
-    }
-    prev = p;
-  }
-  std::cout << "rmax: " << rmin << std::endl;
+  rmin = -10;
+  rmax = 15.0;
 
   double range = (rmax - rmin);
   int numberOfBins = std::max(51, (int) std::ceil(range / 10));
@@ -352,8 +325,8 @@ vtkSmartPointer<vtkIntArray> CreateCauchyDistribution(int count, double a, doubl
     }
     ++frequencies[bin];
   }
-  frequencies[0] = 0;
-  frequencies[numberOfBins - 1] = 0;
+  frequencies[0] = frequencies[1];
+  frequencies[numberOfBins - 1] = frequencies[numberOfBins - 2];
 
   vtkSmartPointer<vtkIntArray> frequenciesArray =
     vtkSmartPointer<vtkIntArray>::New();
@@ -374,40 +347,8 @@ vtkSmartPointer<vtkIntArray> CreateExtremeValueDistribution(int count, double a,
   std::mt19937 generator(8775070);
 
   std::extreme_value_distribution<double> distribution(a, b);
-
-  double prev = 0.0;
-  for ( double x = -20.0; x < 20.0; x += 1.0)
-  {
-    double p;
-    double zx = std::exp(a * (-x/b));
-    p = (1.0 / b) * zx * std::exp(-zx);
-    if (x == -20.0) prev = p;
-//    std::cout << "x: " << x << " " << p << " prev: " << prev << std::endl;
-    if (p < .01 && prev > p)
-    {
-      rmin = x;
-      break;
-    }
-    prev = p;
-  }
-  for ( double x = 200.0; x > -20.0; x -= 1.0)
-  {
-    double prev;
-    double zx = std::exp(a * (-x/b));
-    double p = (1.0 / b) * zx * std::exp(-zx);
-    if (x == 200.0) prev = 0.0;
-//    std::cout << "x: " << x << " " << p << " prev: " << prev << std::endl;
-    if (p < .01 && prev < p)
-    {
-      rmax = x;
-      break;
-    }
-    prev = p;
-  }
   rmax = 5.0;
   rmin = -2.0;
-  std::cout << "rmin: " << rmin << std::endl;
-  std::cout << "rmax: " << rmax << std::endl;
 
   double range = (rmax - rmin);
   int numberOfBins = std::max(51, (int) std::ceil(range / 10));
