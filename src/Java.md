@@ -328,6 +328,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [CursorShape](/Java/Visualization/CursorShape) | | Change the shape of the cursor. 
 [Cutter](/Java/VisualizationAlgorithms/Cutter) | vtkCutter | How to use vtkCutter by cutting through a cube.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
+[Opacity](/Java/Visualization/Opacity) | vtkActor | Transparency, transparent.
 [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) | vtkGlyph3D | Copies oriented and scaled glyph geometry to every input point
 [VectorFieldExample](/Java/Visualization/VectorFieldExample) | vtkXMLUnstructuredGridReader, vtkThresholdPoints, vtkGlyph3D | A vector field visualisation.
 [NoShading](/Java/Visualization/NoShading) | vtkActor | 
