@@ -117,12 +117,6 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [CompassWidget](/Java/Geovis/CompassWidget) | vtkCompassWidget| CompassWidget Visualization
 [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates | Convert latitude and longitude coordinates to world coordinates.
 
-## ImageData
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[ImageNormalize](/Java/ImageData/ImageNormalize) | vtkImageNormalize  | Normalizes the scalar components for each point.
-
 ## Graphs
 
 | Example Name | Classes Demonstrated | Description | Image |
@@ -176,6 +170,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 
 "ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK. [Here is an overview of these data structures](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes). Image data can represent at typical 2D image, but also, a 3D volume.
+
+#### vtkImageData
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ImageNormalize](/Java/ImageData/ImageNormalize) | vtkImageNormalize  | Normalizes the scalar components for each point.
+[ImageWeightedSum](/Java/ImageData/ImageWeightedSum) | vtkImageWeightedSum | Add two or more images.
 
 #### vtkStructuredGrid
 
@@ -318,6 +319,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [AnnotatedCubeActor](/Java/Visualization/AnnotatedCubeActor) | vtkAnnotatedCubeActor | A 3D cube with face labels.
 [BackgroundColor](/Java/Visualization/BackgroundColor) |  |  Example program to set the background color of the render window
 [BackgroundGradient](/Java/Visualization/BackgroundGradient) |  | viewport having gradient background using the Background (bottom) and Background2 (top) colors.
+[BlobbyLogo](/Java/Visualization/BlobbyLogo) | vtkImplicitModeller | Blobby logo from VTK textbook.
 [Camera](/Java/Visualization/Camera) | vtkCamera | A virtual camera for 3D rendering.
 [CameraActor](/Java/Visualization/CameraActor) | vtkCameraActor | A frustum to represent a camera.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
