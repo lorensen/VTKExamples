@@ -575,6 +575,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 | -------------- | ---------------------- | ------------- | ------- |
 [ScatterPlot](/Python/Plotting/ScatterPlot) | vtkChartXY |
 [SpiderPlot](/Python/Plotting/SpiderPlot) | vtkSpiderPlotActor |
+[SurfacePlot](/Python/Plotting/SurfacePlot) | vtkPlotSurface vtkChartXYZ | Surface plot
 
 ## Animation
 
