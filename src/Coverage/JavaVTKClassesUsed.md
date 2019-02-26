@@ -2,7 +2,7 @@
 
 ## Java
 
-Out of 2800 available VTK classes, 163 are demonstrated here.
+Out of 2800 available VTK classes, 166 are demonstrated here.
 
 ### Excluded classes
 
@@ -22,7 +22,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkAngleRepresentation2D](http://www.vtk.org/doc/nightly/html/classvtkAngleRepresentation2D.html#details) | [AngleWidget2D](/Java/Widgets/AngleWidget2D)  |
 | [vtkAngleWidget](http://www.vtk.org/doc/nightly/html/classvtkAngleWidget.html#details) | [AngleWidget](/Java/Widgets/AngleWidget) [AngleWidget2D](/Java/Widgets/AngleWidget2D)  |
 | [vtkAnnotatedCubeActor](http://www.vtk.org/doc/nightly/html/classvtkAnnotatedCubeActor.html#details) | [AnnotatedCubeActor](/Java/Visualization/AnnotatedCubeActor)  |
-| [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [ColorDisconnectedRegions](/Java/PolyData/ColorDisconnectedRegions) [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere)  |
+| [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [BlobbyLogo](/Java/Visualization/BlobbyLogo) [ColorDisconnectedRegions](/Java/PolyData/ColorDisconnectedRegions) [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere)  |
 | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html#details) | [Arrow](/Java/GeometricObjects/Arrow) [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) [TransformFilter](/Java/PolyData/TransformFilter) [VectorFieldExample](/Java/Visualization/VectorFieldExample)  |
 | [vtkAVIWriter](http://www.vtk.org/doc/nightly/html/classvtkAVIWriter.html#details) | [AVI](/Java/Untested/Video/AVI)  |
 | [vtkAxes](http://www.vtk.org/doc/nightly/html/classvtkAxes.html#details) | [TextOrigin](/Java/Annotation/TextOrigin)  |
@@ -38,7 +38,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkCompositeDataDisplayAttributes](http://www.vtk.org/doc/nightly/html/classvtkCompositeDataDisplayAttributes.html#details) | [CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper)  |
 | [vtkCompositePolyDataMapper2](http://www.vtk.org/doc/nightly/html/classvtkCompositePolyDataMapper2.html#details) | [CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper)  |
 | [vtkConeSource](http://www.vtk.org/doc/nightly/html/classvtkConeSource.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [Cone](/Java/GeometricObjects/Cone) [Cone6](/Java/Rendering/Cone6) [Mace](/Java/Rendering/Mace) [Reflection](/Java/PolyData/Reflection)  |
-| [vtkContourFilter](http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html#details) | [PerlinNoise](/Java/Filtering/PerlinNoise)  |
+| [vtkContourFilter](http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html#details) | [BlobbyLogo](/Java/Visualization/BlobbyLogo) [PerlinNoise](/Java/Filtering/PerlinNoise)  |
 | [vtkConvexPointSet](http://www.vtk.org/doc/nightly/html/classvtkConvexPointSet.html#details) | [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet)  |
 | [vtkCoordinate](http://www.vtk.org/doc/nightly/html/classvtkCoordinate.html#details) | [MultiLineText](/Java/Annotation/MultiLineText)  |
 | [vtkCubeSource](http://www.vtk.org/doc/nightly/html/classvtkCubeSource.html#details) | [Cutter](/Java/VisualizationAlgorithms/Cutter) [Follower](/Java/Visualization/Follower) [Glyph3D](/Java/Filtering/Glyph3D) [ShrinkCube](/Java/GeometricObjects/ShrinkCube)  |
@@ -65,17 +65,19 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html#details) | [GraphPoints](/Java/InfoVis/GraphPoints) [SelectGraphVertices](/Java/Graphs/SelectGraphVertices) [VisualizeGraph](/Java/Graphs/VisualizeGraph)  |
 | [vtkGraphMapper](http://www.vtk.org/doc/nightly/html/classvtkGraphMapper.html#details) | [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates)  |
 | [vtkHyperTreeGridSource](http://www.vtk.org/doc/nightly/html/classvtkHyperTreeGridSource.html#details) | [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource)  |
-| [vtkImageActor](http://www.vtk.org/doc/nightly/html/classvtkImageActor.html#details) | [Cast](/Java/Images/Cast) [Flip](/Java/Images/Flip) [ImageNormalize](/Java/ImageData/ImageNormalize) [ImageTest](/Java/Imaging/ImageTest) [RTAnalyticSource](/Java/Images/RTAnalyticSource)  |
+| [vtkImageActor](http://www.vtk.org/doc/nightly/html/classvtkImageActor.html#details) | [Cast](/Java/Images/Cast) [Flip](/Java/Images/Flip) [ImageNormalize](/Java/ImageData/ImageNormalize) [ImageTest](/Java/Imaging/ImageTest) [ImageWeightedSum](/Java/ImageData/ImageWeightedSum) [RTAnalyticSource](/Java/Images/RTAnalyticSource)  |
 | [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html#details) | [AVI](/Java/Untested/Video/AVI) [JPEGWriter](/Java/IO/JPEGWriter) [LogoWidget](/Java/Widgets/LogoWidget) [OggTheora](/Java/Video/OggTheora) [ShotNoise](/Java/ImageProcessing/ShotNoise)  |
-| [vtkImageCast](http://www.vtk.org/doc/nightly/html/classvtkImageCast.html#details) | [Cast](/Java/Images/Cast) [Flip](/Java/Images/Flip) [ImageNormalize](/Java/ImageData/ImageNormalize)  |
+| [vtkImageCast](http://www.vtk.org/doc/nightly/html/classvtkImageCast.html#details) | [Cast](/Java/Images/Cast) [Flip](/Java/Images/Flip) [ImageNormalize](/Java/ImageData/ImageNormalize) [ImageWeightedSum](/Java/ImageData/ImageWeightedSum)  |
 | [vtkImageFlip](http://www.vtk.org/doc/nightly/html/classvtkImageFlip.html#details) | [Flip](/Java/Images/Flip)  |
-| [vtkImageMandelbrotSource](http://www.vtk.org/doc/nightly/html/classvtkImageMandelbrotSource.html#details) | [Cast](/Java/Images/Cast) [Flip](/Java/Images/Flip)  |
+| [vtkImageMandelbrotSource](http://www.vtk.org/doc/nightly/html/classvtkImageMandelbrotSource.html#details) | [Cast](/Java/Images/Cast) [Flip](/Java/Images/Flip) [ImageWeightedSum](/Java/ImageData/ImageWeightedSum)  |
 | [vtkImageNormalize](http://www.vtk.org/doc/nightly/html/classvtkImageNormalize.html#details) | [ImageNormalize](/Java/ImageData/ImageNormalize)  |
 | [vtkImageReader2Factory](http://www.vtk.org/doc/nightly/html/classvtkImageReader2Factory.html#details) | [ImageTest](/Java/Imaging/ImageTest) [StaticImage](/Java/Images/StaticImage)  |
-| [vtkImageSinusoidSource](http://www.vtk.org/doc/nightly/html/classvtkImageSinusoidSource.html#details) | [ImageNormalize](/Java/ImageData/ImageNormalize) [ImageSinusoidSource](/Java/Images/ImageSinusoidSource)  |
+| [vtkImageSinusoidSource](http://www.vtk.org/doc/nightly/html/classvtkImageSinusoidSource.html#details) | [ImageNormalize](/Java/ImageData/ImageNormalize) [ImageSinusoidSource](/Java/Images/ImageSinusoidSource) [ImageWeightedSum](/Java/ImageData/ImageWeightedSum)  |
 | [vtkImageTracerWidget](http://www.vtk.org/doc/nightly/html/classvtkImageTracerWidget.html#details) | [ImageTracerWidgetNonPlanar](/Java/Widgets/ImageTracerWidgetNonPlanar)  |
 | [vtkImageViewer2](http://www.vtk.org/doc/nightly/html/classvtkImageViewer2.html#details) | [ImageSinusoidSource](/Java/Images/ImageSinusoidSource) [PNGReader](/Java/IO/PNGReader) [StaticImage](/Java/Images/StaticImage)  |
+| [vtkImageWeightedSum](http://www.vtk.org/doc/nightly/html/classvtkImageWeightedSum.html#details) | [ImageWeightedSum](/Java/ImageData/ImageWeightedSum)  |
 | [vtkImplicitDataSet](http://www.vtk.org/doc/nightly/html/classvtkImplicitDataSet.html#details) | [ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet)  |
+| [vtkImplicitModeller](http://www.vtk.org/doc/nightly/html/classvtkImplicitModeller.html#details) | [BlobbyLogo](/Java/Visualization/BlobbyLogo)  |
 | [vtkInteractorStyleImage](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleImage.html#details) | [Cast](/Java/Images/Cast) [Flip](/Java/Images/Flip) [Glyph2D](/Java/Filtering/Glyph2D) [Glyph3D](/Java/Filtering/Glyph3D) [ImageTest](/Java/Imaging/ImageTest) [RTAnalyticSource](/Java/Images/RTAnalyticSource)  |
 | [vtkInteractorStyleTrackball](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackball.html#details) | [ImageTracerWidgetNonPlanar](/Java/Widgets/ImageTracerWidgetNonPlanar)  |
 | [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [Cone6](/Java/Rendering/Cone6)  |
@@ -121,7 +123,8 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details) | [Actor2D](/Java/Images/Actor2D) [AddCell](/Java/Meshes/AddCell) [Bottle](/Java/Modelling/Bottle) [BuildOctree](/Java/DataStructures/BuildOctree) [ColoredPoints](/Java/PolyData/ColoredPoints) [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) [Delaunay2D](/Java/Filtering/Delaunay2D) [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) [Glyph2D](/Java/Filtering/Glyph2D) [Glyph3D](/Java/Filtering/Glyph3D) [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) [KochanekSpline](/Java/PolyData/KochanekSpline) [LongLine](/Java/GeometricObjects/LongLine) [MeshQuality](/Java/PolyData/MeshQuality) [MultiLineText](/Java/Annotation/MultiLineText) [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) [Polygon](/Java/GeometricObjects/Polygon) [Quad](/Java/GeometricObjects/Quad) [RibbonFilter](/Java/PolyData/RibbonFilter) [Spring](/Java/Modelling/Spring) [Triangle](/Java/GeometricObjects/Triangle) [TriangleColoredPoints](/Java/PolyData/TriangleColoredPoints) [TriangleStrip](/Java/GeometricObjects/TriangleStrip) [Vertex](/Java/GeometricObjects/Vertex) [VertexGlyphFilter](/Java/Filtering/VertexGlyphFilter) [VisualizeKDTree](/Java/DataStructures/VisualizeKDTree) [WriteVTP](/Java/IO/WriteVTP)  |
 | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html#details) | [ColorDisconnectedRegions](/Java/PolyData/ColorDisconnectedRegions)  |
 | [vtkPolyDataMapper2D](http://www.vtk.org/doc/nightly/html/classvtkPolyDataMapper2D.html#details) | [Actor2D](/Java/Images/Actor2D) [MultiLineText](/Java/Annotation/MultiLineText)  |
-| [vtkPolyDataNormals](http://www.vtk.org/doc/nightly/html/classvtkPolyDataNormals.html#details) | [Spring](/Java/Modelling/Spring)  |
+| [vtkPolyDataNormals](http://www.vtk.org/doc/nightly/html/classvtkPolyDataNormals.html#details) | [BlobbyLogo](/Java/Visualization/BlobbyLogo) [Spring](/Java/Modelling/Spring)  |
+| [vtkPolyDataReader](http://www.vtk.org/doc/nightly/html/classvtkPolyDataReader.html#details) | [BlobbyLogo](/Java/Visualization/BlobbyLogo)  |
 | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html#details) | [Polygon](/Java/GeometricObjects/Polygon)  |
 | [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html#details) | [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder)  |
 | [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html#details) | [Pyramid](/Java/GeometricObjects/Pyramid)  |
@@ -157,9 +160,9 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkThresholdPoints](http://www.vtk.org/doc/nightly/html/classvtkThresholdPoints.html#details) | [VectorFieldExample](/Java/Visualization/VectorFieldExample)  |
 | [vtkTimerLog](http://www.vtk.org/doc/nightly/html/classvtkTimerLog.html#details) | [TimerLog](/Java/Utilities/TimerLog)  |
 | [vtkTimeSourceExample](http://www.vtk.org/doc/nightly/html/classvtkTimeSourceExample.html#details) | [ExodusIIWriter](/Java/Parallel/ExodusIIWriter)  |
-| [vtkTransform](http://www.vtk.org/doc/nightly/html/classvtkTransform.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [Cone6](/Java/Rendering/Cone6) [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [PerspectiveTransform](/Java/SimpleOperations/PerspectiveTransform) [TransformFilter](/Java/PolyData/TransformFilter) [TransformPolyData](/Java/Filtering/TransformPolyData)  |
+| [vtkTransform](http://www.vtk.org/doc/nightly/html/classvtkTransform.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [BlobbyLogo](/Java/Visualization/BlobbyLogo) [Cone6](/Java/Rendering/Cone6) [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [PerspectiveTransform](/Java/SimpleOperations/PerspectiveTransform) [TransformFilter](/Java/PolyData/TransformFilter) [TransformPolyData](/Java/Filtering/TransformPolyData)  |
 | [vtkTransformFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformFilter.html#details) | [TransformFilter](/Java/PolyData/TransformFilter)  |
-| [vtkTransformPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html#details) | [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [TransformPolyData](/Java/Filtering/TransformPolyData)  |
+| [vtkTransformPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html#details) | [BlobbyLogo](/Java/Visualization/BlobbyLogo) [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [TransformPolyData](/Java/Filtering/TransformPolyData)  |
 | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html#details) | [AddCell](/Java/Meshes/AddCell) [Triangle](/Java/GeometricObjects/Triangle) [TriangleColoredPoints](/Java/PolyData/TriangleColoredPoints)  |
 | [vtkTriangleFilter](http://www.vtk.org/doc/nightly/html/classvtkTriangleFilter.html#details) | [MeshQuality](/Java/PolyData/MeshQuality)  |
 | [vtkTriangleStrip](http://www.vtk.org/doc/nightly/html/classvtkTriangleStrip.html#details) | [TriangleStrip](/Java/GeometricObjects/TriangleStrip)  |
