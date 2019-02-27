@@ -73,6 +73,7 @@ if (BUILD_TESTING)
     QuadricClustering
     QuadricDecimation
     SplitPolyData
+    SubdivisionDemo
     TableBasedClipDataSetWithPolyData
     )
   set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
@@ -109,6 +110,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-SplitPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestSplitPolyData ${DATA}/cowHead.vtp)
+
+  add_test(${KIT}-SubdivisionDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestSubdivisionDemo ${DATA}/fsu/footbones.ply 2)
 
   add_test(${KIT}-TableBasedClipDataSetWithPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestTableBasedClipDataSetWithPolyData -E 25)
