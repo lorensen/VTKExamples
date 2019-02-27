@@ -15,6 +15,8 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersModeling
     vtkFiltersProgrammable
     vtkFiltersSources
+    vtkIOGeometry
+    vtkIOPLY
     vtkIOXML
     vtkImagingHybrid
     vtkImagingMath
@@ -59,6 +61,7 @@ if (BUILD_TESTING)
   # Testing
   set(KIT Filtering)
   set(NEEDS_ARGS
+    ConnectivityFilterDemo
     ConstrainedDelaunay2D
     ContoursFromPolyData
     ConstrainedDelaunay2D
@@ -67,6 +70,10 @@ if (BUILD_TESTING)
     )
 
   set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+
+  add_test(${KIT}-ConnectivityFilterDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestConnectivityFilterDemo ${DATA}/fsu/stratocaster.ply)
+
   add_test(${KIT}-ConstrainedDelaunay2D ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestConstrainedDelaunay2D -E 30)
 
