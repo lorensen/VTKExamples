@@ -6,5 +6,5 @@ The default representation is surface. If the user types a "w" in the render win
 
 The example supports any vtkPolyData reader.
 
-!!! "See Also"
+!!! info
     [ConnectivityFilter](/Cxx/Filtering/ConnectivityFilter) illustrates vtkConnectivityFilter on a simple 2 region dataset.
