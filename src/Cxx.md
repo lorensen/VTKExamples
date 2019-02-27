@@ -287,6 +287,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [ColoredPoints](/Cxx/PolyData/ColoredPoints) | vtkUnsignedCharArray | Add three points to a polydata and associate a color with each of them.
 [CombinePolyData](/Cxx/Filtering/CombinePolyData) | vtkAppendPolyData | Combine/Append PolyData.
 [ConnectivityFilter](/Cxx/Filtering/ConnectivityFilter) | vtkConnectivityFilter | Color any dataset type based on connectivity.
+[ConnectivityFilterDemo](/Cxx/Filtering/ConnectivityFilterDemo) | vtkPolyDataConnectivityFilter | Color any dataset type based on connectivity.
 [ContoursFromPolyData](/Cxx/Filtering/ContoursFromPolyData) | vtkCutter | Create contours from PolyData.
 [ContoursToSurface](/Cxx/PolyData/ContoursToSurface) | vtkVoxelContoursToSurfaceFilter | Convert contours to a surface.
 [ConvexHull](/Cxx/PolyData/ConvexHull) | vtkHull | Convex hull using vtkHull.
@@ -470,6 +471,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [SpecifiedRegion](/Cxx/PolyData/PolyDataConnectivityFilter_SpecifiedRegion) | vtkPolyDataConnectivityFilter | Extract a specific (specified) connected region in a polydata.
 [SplitPolyData](/Cxx/Meshes/SplitPolyData) | vtkOBBDicer | Breakup a mesh into pieces and save the pieces into files
 [Subdivision](/Cxx/Meshes/Subdivision) | vtkButterflySubdivisionFilter vtkLoopSubdivisionFilter vtkLinearSubdivisionFilter | Increase the number of triangles in a mesh.
+[SubdivisionDemo](/Cxx/Meshes/SubdivisionDemo) | vtkButterflySubdivisionFilter vtkLoopSubdivisionFilter vtkLinearSubdivisionFilter | Subdivision of any vtkPolyData
 [Triangulate](/Cxx/Meshes/Triangulate) | vtkTriangleFilter | Convert all polygons in a mesh to triangles.
 [WeightedTransformFilter](/Cxx/PolyData/WeightedTransformFilter) | vtkWeightedTransformFilter |
 [WindowedSincPolyDataFilter](/Cxx/Meshes/WindowedSincPolyDataFilter) | vtkWindowedSincPolyDataFilter | Smooth a mesh (windowed sinc filter).
