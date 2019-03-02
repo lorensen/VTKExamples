@@ -10,6 +10,7 @@
 #include <vtkXMLPolyDataReader.h>
 #include <vtkTriangleFilter.h>
 
+#include <vtkLegendBoxActor.h>
 #include <vtkCamera.h>
 #include <vtkProperty.h>
 #include <vtkPolyDataMapper.h>
@@ -142,6 +143,10 @@ int main(int argc, char *argv[])
 
   }
 
+  vtkSmartPointer<vtkLegendBoxActor> legend = 
+    vtkSmartPointer<vtkLegendBoxActor>::New();
+  legend->SetNumberOfEnties(3);
+  legend->SerEntry(0, nullptr, "Linear", 
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;
