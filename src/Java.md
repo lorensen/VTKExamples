@@ -231,6 +231,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [AmbientSpheres](/Java/Rendering/AmbientSpheres) | vtkProperty | Demonstrates the effect of ambient lighting on spheres.
+[ColoredSphere](/Java/Rendering/ColoredSphere) | vtkSphereSource vtkElevationFilter | A simple sphere.
 [Cone6](/Java/Rendering/Cone6) | vtkBoxWidget vtkInteractorStyleTrackballCamera | This example introduces 3D widgets. 3D widgets take advantage of the event/observer design pattern. Corresponds to the missing Step 6 Java example from VTK/Examples/Tutorial.
 [Mace](/Java/Rendering/Mace) | | An example of multiple inputs and outputs.
 [SpecularSpheres](/Java/Rendering/SpecularSpheres) | vtkProperty | Demonstrates the effect of specular lighting on spheres.
