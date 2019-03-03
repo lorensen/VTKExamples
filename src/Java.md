@@ -364,9 +364,12 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration
 [AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration
 [BalloonWidget](/Java/Widgets/BalloonWidget) |  vtkBalloonWidget | The balloon text describes each object when you hover it.
+[CaptionWidget](/Java/Widgets/CaptionWidget) | vtkCaptionWidget | Widget for placing a caption (text plus leader)
 [DistanceWidget](/Java/Widgets/DistanceWidget) | vtkDistanceWidget | Measures the distance between two points.
+[ImagePlaneWidget](/Java/Widgets/ImagePlaneWidget) | vtkImagePlaneWidget | 3D widget for reslicing image data.
 [ImageTracerWidgetNonPlanar](/Java/Widgets/ImageTracerWidgetNonPlanar) | vtkImageTracerWidget | 3D widget for tracing on planar props.
 [LogoWidget](/Java/Widgets/LogoWidget) | vtkLogoWidget | 2D widget for placing and manipulating a logo
+[OrientationMarkerWidget](/Java/widgets/OrientationMarkerWidget) | vtkOrientationMarkerWidget | Display a polydata as an orientation icon.
 [PlaneWidget](/Java/Widgets/PlaneWidget) | vtkPlaneWidget | A finite (bounded) plane that can be interactively placed in a scene.
 [SeedWidget](/Java/Widgets/SeedWidget) | vtkSeedWidget | Places multiple seed points, where a user moves the cursor to and clicks it.
 [SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget | SplineWidget Demonstration
