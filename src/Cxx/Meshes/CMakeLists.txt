@@ -22,6 +22,7 @@ if(NOT VTK_BINARY_DIR)
     vtkIOXML
     vtkImagingCore
     vtkInteractionStyle
+    vtkRenderingAnnotation
     vtkRenderingContextOpenGL2
     vtkRenderingCore
     vtkRenderingFreeType
