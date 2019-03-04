@@ -287,6 +287,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[BrownianPoints](/Java/Utilities/BrownianPoints) | vtkBrownianPoints | Produce a random vector at each point in a dataset.
 [FullScreen](/Java/Utilities/FullScreen) | vtkRenderWindow | Example to Display Actors in a Full Screen Render Window
 [TimerLog](/Java/Utilities/TimerLog) | vtkTimerLog | Example to Demonstrate Timer support and logging.
 [ColorLookupTable](/Java/Utilities/ColorLookupTable) | vtkLookupTable | Color Lookup Table.
