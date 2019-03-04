@@ -134,12 +134,15 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image
 [RTAnalyticSource](/Java/Images/RTAnalyticSource) | vtkRTAnalyticSource | Creates an image for regression testing
 
+
 ## Image Processing
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Flip](/Java/Images/Flip) | vtkImageFlip | Flips an image.
-
+[ImageFFT](/Java/Images/ImageFFT) | vtkImageFFT |  Compute the Fast Fourier Transform of an image.
+[ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | Use Java file dialog to select an image file to display.
+[ShotNoise](/Java/ImageProcessing/ShotNoise) | vtkImageCanvasSource2D vtkPNGWriter | Create an image using vtkImageCanvasSource2D and write it to a file.
 
 
 ## Implicit Functions and Iso-surfaces
@@ -216,14 +219,6 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [BuildOctree](/Java/DataStructures/BuildOctree) | vtkOctreePointLocator | Create an octree.
-
-
-## Image Processing
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | use Java File Dialog to select na image file to display.
-[ShotNoise](/Java/ImageProcessing/ShotNoise) | vtkImageCanvasSource2D vtkPNGWriter | Create an image using vtkImageCanvasSource2D and write it to a file.
 
 
 ## Rendering
