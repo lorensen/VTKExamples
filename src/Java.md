@@ -123,6 +123,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkMutableUndirectedGraph  | An example to construct a graph and visualize it.
 [GraphPoints](/Java/InfoVis/GraphPoints) | vtkGraph | Manually set the coordinates of vertices in a graph.
+[RandomGraphSource](/Java/Graphs/RandomGraphSource) | vtkRandomGraphSource | A graph with random edges.
 
 ## Working with Images
 
