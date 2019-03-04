@@ -332,6 +332,9 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) | vtkGlyph3D | Copies oriented and scaled glyph geometry to every input point
 [VectorFieldExample](/Java/Visualization/VectorFieldExample) | vtkXMLUnstructuredGridReader, vtkThresholdPoints, vtkGlyph3D | A vector field visualisation.
 [NoShading](/Java/Visualization/NoShading) | vtkActor | 
+[VisualizeImageData](/Java/Visualization/VisualizeImageData) | vtkDataSetMapper vtkImageData | Visualize the points of an ImageData.
+[VisualizeVTP](/Java/Visualization/VisualizeVTP) | vtkXMLPolyDataReader vtkPolyDataMapper | Visualize a VTP File.
+[WindowSize](/Java/Visualization/WindowSize) | vtkRenderWindow | Change the size of a window.
 [WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization.
 
 ## Graphs
