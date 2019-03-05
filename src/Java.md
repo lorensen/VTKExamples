@@ -26,6 +26,18 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | -------- |
 [ConvertFile](/Java/IO/ConvertFile) |  | Convert a file from one type to another
 
+#### Standard Formats
+
+##### Input
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ReadPLY](/Java/IO/ReadPLY) | vtkPLYReader | Read PLY (.ply) files
+[ReadSTL](/Java/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files.
+
+
+
+
 #### VTK Formats
 
 ##### Input
@@ -43,11 +55,19 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 ### Image Format
 
+#### Input
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ReadPNM](/Java/IO/ReadPNM) | vtkPNMReader | Read PNM (.pnm) files.
+[ReadTIFF](/Java/IO/ReadTIFF) | vtkTIFFReader | Read TIFF (.tif) files.
+
 ####  Output
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [JPEGWriter](/Java/IO/JPEGWriter) | vtkJPEGWriter | Write a JPEG file.
+[PNGReader](/Java/IO/PNGReader) | vtkPNGReader | Read a PNG image.
 
 
 ## Annotation
@@ -108,18 +128,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) | vtkHyperTreeGridSource |  Demonstration of a hyper-tree grid source.
 
-## Geovis
+## Geographic Visualization (Geovis)
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [EarthSource](/Java/Geovis/EarthSource) | vtkEarthSource | Earth Source Visualization
 [CompassWidget](/Java/Geovis/CompassWidget) | vtkCompassWidget| CompassWidget Visualization
-
-## ImageData
-
-| Example Name | Classes Demonstrated | Description | Image |
-| -------------- | ---------------------- | ------------- | ------- |
-[ImageNormalize](/Java/ImageData/ImageNormalize) | vtkImageNormalize  | Normalizes the scalar components for each point.
+[GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates) | vtkGeoAssignCoordinates | Convert latitude and longitude coordinates to world coordinates.
 
 ## Graphs
 
@@ -127,6 +142,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [VisualizeGraph](/Java/Graphs/VisualizeGraph) | vtkMutableUndirectedGraph  | An example to construct a graph and visualize it.
 [GraphPoints](/Java/InfoVis/GraphPoints) | vtkGraph | Manually set the coordinates of vertices in a graph.
+[RandomGraphSource](/Java/Graphs/RandomGraphSource) | vtkRandomGraphSource | A graph with random edges.
 
 ## Working with Images
 
@@ -134,9 +150,19 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [Actor2D](/Java/Images/Actor2D) | vtkActor2D | A actor that draws 2D data
 [Cast](/Java/Images/Cast) | vtkImageCast | Image Data type Casting Filter.
+[ImageSinusoidSource](/Java/Images/ImageSinusoidSource) | vtkImageSinusoidSource | Creates an image with sinusoidal pixel values.
 [StaticImage](/Java/Images/StaticImage) | vtkImageViewer2 | Displays a 2D image
 [RTAnalyticSource](/Java/Images/RTAnalyticSource) | vtkRTAnalyticSource | Creates an image for regression testing
 
+
+## Image Processing
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Flip](/Java/Images/Flip) | vtkImageFlip | Flips an image.
+[ImageFFT](/Java/Images/ImageFFT) | vtkImageFFT |  Compute the Fast Fourier Transform of an image.
+[ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | Use Java file dialog to select an image file to display.
+[ShotNoise](/Java/ImageProcessing/ShotNoise) | vtkImageCanvasSource2D vtkPNGWriter | Create an image using vtkImageCanvasSource2D and write it to a file.
 
 
 ## Implicit Functions and Iso-surfaces
@@ -145,12 +171,16 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet) | | Implicit functions, implicit data set.
 [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | vtkSphere vtkAppendPolyData vtkTubeFilter | ImplicitFunctions, Append poly data, tube filter, sphere
+[SampleFunction](/Java/ImplicitFunctions/SampleFunction) | vtkSampleFunction | Sample an implicit function over a structured point set.
 
 ## Working with Meshes
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[AddCell](/Java/Meshes/AddCell) | vtkPolyData | Add a cell to an existing mesh.
 [BoundaryEdges](/Java/Meshes/BoundaryEdges) | vtkFeatureEdges | Find the edges that are used by only one face.
+[DelaunayMesh](/Java/Meshes/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
+
 
 
 ## Working with 3D Data
@@ -158,6 +188,39 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Bottle](/Java/Modelling/Bottle) | vtkRotationalExtrusionFilter | Sweeps polygonal data creating "skirt" from free edges and lines, and lines from vertices
+[Spring](/Java/Modelling/Spring) | vtkRotationalExtrusionFilter | Rotation in combination with linear displacement and radius variation.
+
+### Working with Structured 3D Data
+
+
+This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
+
+"ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK. [Here is an overview of these data structures](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes). Image data can represent at typical 2D image, but also, a 3D volume.
+
+#### vtkImageData
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ImageNormalize](/Java/ImageData/ImageNormalize) | vtkImageNormalize  | Normalizes the scalar components for each point.
+[ImageWeightedSum](/Java/ImageData/ImageWeightedSum) | vtkImageWeightedSum | Add two or more images.
+
+#### vtkStructuredGrid
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[StructuredGridOutline](/Java/StructuredGrid/StructuredGridOutline) | vtkStructuredGridOutlineFilter | Creates a wireframe outline for structured grid.
+
+This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
+
+"ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK. [Here is an overview of these data structures](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes). Image data can represent at typical 2D image, but also, a 3D volume.
+
+#### vtkRectilinearGrid
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) | vtkRectilinearGrid | A dataset that is topologically regular with variable spacing in the three coordinate directions
+
+
 
 ### Point Cloud Operations
 
@@ -167,16 +230,17 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 ## Data Structures
 
+### KD-Tree
+
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [VisualizeKDTree](/Java/DataStructures/VisualizeKDTree) | vtkKdTreePointLocator | Show the levels of a KD Tree.
 
-## Image Processing
+### Octree
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
-[ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | use Java File Dialog to select na image file to display.
-[ShotNoise](/Java/ImageProcessing/ShotNoise) | vtkImageCanvasSource2D vtkPNGWriter | Create an image using vtkImageCanvasSource2D and write it to a file.
+[BuildOctree](/Java/DataStructures/BuildOctree) | vtkOctreePointLocator | Create an octree.
 
 
 ## Rendering
@@ -184,6 +248,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [AmbientSpheres](/Java/Rendering/AmbientSpheres) | vtkProperty | Demonstrates the effect of ambient lighting on spheres.
+[ColoredSphere](/Java/Rendering/ColoredSphere) | vtkSphereSource vtkElevationFilter | A simple sphere.
 [Cone6](/Java/Rendering/Cone6) | vtkBoxWidget vtkInteractorStyleTrackballCamera | This example introduces 3D widgets. 3D widgets take advantage of the event/observer design pattern. Corresponds to the missing Step 6 Java example from VTK/Examples/Tutorial.
 [Mace](/Java/Rendering/Mace) | | An example of multiple inputs and outputs.
 [SpecularSpheres](/Java/Rendering/SpecularSpheres) | vtkProperty | Demonstrates the effect of specular lighting on spheres.
@@ -245,8 +310,11 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[BrownianPoints](/Java/Utilities/BrownianPoints) | vtkBrownianPoints | Produce a random vector at each point in a dataset.
 [FullScreen](/Java/Utilities/FullScreen) | vtkRenderWindow | Example to Display Actors in a Full Screen Render Window
 [TimerLog](/Java/Utilities/TimerLog) | vtkTimerLog | Example to Demonstrate Timer support and logging.
+[ColorLookupTable](/Java/Utilities/ColorLookupTable) | vtkLookupTable | Color Lookup Table.
+[PassThrough](/Java/InfoVis/PassThrough) | vtkPassThrough | Shallow copies the input into the output.
 
 
 ### Arrays
@@ -271,6 +339,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AnnotatedCubeActor](/Java/Visualization/AnnotatedCubeActor) | vtkAnnotatedCubeActor | A 3D cube with face labels.
 [BackgroundColor](/Java/Visualization/BackgroundColor) |  |  Example program to set the background color of the render window
 [BackgroundGradient](/Java/Visualization/BackgroundGradient) |  | viewport having gradient background using the Background (bottom) and Background2 (top) colors.
+[BlobbyLogo](/Java/Visualization/BlobbyLogo) | vtkImplicitModeller | Blobby logo from VTK textbook.
 [Camera](/Java/Visualization/Camera) | vtkCamera | A virtual camera for 3D rendering.
 [CameraActor](/Java/Visualization/CameraActor) | vtkCameraActor | A frustum to represent a camera.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
@@ -279,8 +348,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [CursorShape](/Java/Visualization/CursorShape) | | Change the shape of the cursor. 
 [Cutter](/Java/VisualizationAlgorithms/Cutter) | vtkCutter | How to use vtkCutter by cutting through a cube.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
+[Opacity](/Java/Visualization/Opacity) | vtkActor | Transparency, transparent.
 [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) | vtkGlyph3D | Copies oriented and scaled glyph geometry to every input point
 [VectorFieldExample](/Java/Visualization/VectorFieldExample) | vtkXMLUnstructuredGridReader, vtkThresholdPoints, vtkGlyph3D | A vector field visualisation.
+[NoShading](/Java/Visualization/NoShading) | vtkActor | 
+[VisualizeImageData](/Java/Visualization/VisualizeImageData) | vtkDataSetMapper vtkImageData | Visualize the points of an ImageData.
+[VisualizeVTP](/Java/Visualization/VisualizeVTP) | vtkXMLPolyDataReader vtkPolyDataMapper | Visualize a VTP File.
+[WindowSize](/Java/Visualization/WindowSize) | vtkRenderWindow | Change the size of a window.
 [WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization.
 
 ## Graphs
@@ -312,8 +386,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [AngleWidget](/Java/Widgets/AngleWidget) | vtkAngleWidget | AngleWidget Demonstration
 [AngleWidget2D](/Java/Widgets/AngleWidget2D) | vtkAngleWidget2D | AngleWidget2D Demonstration
 [BalloonWidget](/Java/Widgets/BalloonWidget) |  vtkBalloonWidget | The balloon text describes each object when you hover it.
+[CaptionWidget](/Java/Widgets/CaptionWidget) | vtkCaptionWidget | Widget for placing a caption (text plus leader)
 [DistanceWidget](/Java/Widgets/DistanceWidget) | vtkDistanceWidget | Measures the distance between two points.
+[ImagePlaneWidget](/Java/Widgets/ImagePlaneWidget) | vtkImagePlaneWidget | 3D widget for reslicing image data.
 [ImageTracerWidgetNonPlanar](/Java/Widgets/ImageTracerWidgetNonPlanar) | vtkImageTracerWidget | 3D widget for tracing on planar props.
+[LogoWidget](/Java/Widgets/LogoWidget) | vtkLogoWidget | 2D widget for placing and manipulating a logo
+[OrientationMarkerWidget](/Java/widgets/OrientationMarkerWidget) | vtkOrientationMarkerWidget | Display a polydata as an orientation icon.
 [PlaneWidget](/Java/Widgets/PlaneWidget) | vtkPlaneWidget | A finite (bounded) plane that can be interactively placed in a scene.
 [SeedWidget](/Java/Widgets/SeedWidget) | vtkSeedWidget | Places multiple seed points, where a user moves the cursor to and clicks it.
 [SplineWidget](/Java/Widgets/SplineWidget) | vtkSplineWidget | SplineWidget Demonstration

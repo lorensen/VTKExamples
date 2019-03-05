@@ -81,10 +81,10 @@ int main (int argc, char *argv[])
   atom->SetMapper(atomMapper);
   atom->GetProperty()->SetRepresentationToSurface();
   atom->GetProperty()->SetInterpolationToGouraud();
-  atom->GetProperty()->SetAmbient(0.15);
-  atom->GetProperty()->SetDiffuse(0.85);
-  atom->GetProperty()->SetSpecular(0.1);
-  atom->GetProperty()->SetSpecularPower(30);
+  atom->GetProperty()->SetAmbient(0.1);
+  atom->GetProperty()->SetDiffuse(0.7);
+  atom->GetProperty()->SetSpecular(0.5);
+  atom->GetProperty()->SetSpecularPower(80);
   atom->GetProperty()->SetSpecularColor(colors->GetColor3d("White").GetData());
   atom->SetNumberOfCloudPoints(30000);
 
@@ -111,10 +111,10 @@ int main (int argc, char *argv[])
   bond->SetMapper(bondMapper);
   bond->GetProperty()->SetRepresentationToSurface();
   bond->GetProperty()->SetInterpolationToGouraud();
-  bond->GetProperty()->SetAmbient(0.15);
-  bond->GetProperty()->SetDiffuse(0.85);
-  bond->GetProperty()->SetSpecular(0.1);
-  bond->GetProperty()->SetSpecularPower(30);
+  bond->GetProperty()->SetAmbient(0.1);
+  bond->GetProperty()->SetDiffuse(0.7);
+  bond->GetProperty()->SetSpecular(0.5);
+  bond->GetProperty()->SetSpecularPower(80);
   bond->GetProperty()->SetSpecularColor(colors->GetColor3d("White").GetData());
 
   renderer->AddActor(bond);

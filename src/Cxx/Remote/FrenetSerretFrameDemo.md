@@ -1,16 +1,15 @@
 ### Description
-This example illustrates how to control a pipeline inside a callback.
+
+This example shows FrenetSerret frames along a spline. The control points of the spline can changed interactively using the vtkSplineWidget.
 
 !!! warning
     This example requires the remote module ''SplineDrivenImageSampler.''
 
-Check to see if the file ''SplineDrivenImageSlicer.remote.cmake'' exists in VTK/Remote. If it does not, copy [this file](https://gitlab.kitware.com/vtk/vtk/raw/master/Remote/SplineDrivenImageSlicer.remote.cmake) to ''VTK/Remote/SplineDrivenImageSlicer.remote.cmake''.
-
-Next
+To enable the class:
 
 1. reconfigure with cmake.
 
-2. Then enable the module setting ''Module_SplineDrivenImageSlicer:BOOL=ON''
+2. Then enable the module setting ''Module_SplineDrivenImageSlicer:BOOL=ON'' or ''VTK_MODULE_ENABLE_VTK_SplineDrivenImageSlicer:STRING=WANT''
 
 3. make
 

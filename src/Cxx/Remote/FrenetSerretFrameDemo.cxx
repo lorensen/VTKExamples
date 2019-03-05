@@ -19,7 +19,10 @@
 #include <vtkCallbackCommand.h>
 #include <vtkCommand.h>
 
-static void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph);
+namespace
+{
+void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph);
+}
 
 struct Pipeline {
   vtkFrenetSerretFrame *frame;
@@ -175,6 +178,8 @@ int main(int, char *[])
   return EXIT_SUCCESS;
 }
 
+namespace
+{
 void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
 {
   // Source for the glyph filter
@@ -191,4 +196,5 @@ void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
   glyph->SetScaleFactor(size);
   glyph->OrientOn();
   glyph->Update();
+}
 }

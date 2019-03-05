@@ -1,6 +1,7 @@
 project (${WIKI}IO)
 
 if(NOT VTK_BINARY_DIR)
+  set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
     vtkChartsCore
     vtkCommonColor
@@ -8,6 +9,7 @@ if(NOT VTK_BINARY_DIR)
     vtkCommonDataModel
     vtkCommonSystem
     vtkCommonTransforms
+    vtkDomainsChemistry
     vtkFiltersCore
     vtkFiltersExtraction
     vtkFiltersGeneral
@@ -90,6 +92,7 @@ if (BUILD_TESTING)
     ReadAllPolyDataTypes
     ReadAllPolyDataTypesDemo
     ReadBMP
+    ReadCML
     ReadDICOM
     ReadDICOMSeries
     ReadExodusData
@@ -180,6 +183,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-ReadBMP ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestReadBMP ${DATA}/masonry.bmp)
+
+  add_test(${KIT}-ReadCML ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestReadCML ${DATA}/porphyrin.cml)
 
   add_test(${KIT}-ReadDICOM ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestReadDICOM ${DATA}/prostate.img)

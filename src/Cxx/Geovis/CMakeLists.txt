@@ -29,7 +29,7 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 #
 # Build all .cxx files in the directory
 set(DEPRC_SRCS)
-if(VTK_LEGACY_REMOVE)
+if(VTK_LEGACY_REMOVE OR NOT (VTK_VERSION VERSION_LESS "8.90.0"))
   list(APPEND DEPRC_SRCS
     GeoGraticle.cxx
     GeoAssignCoordinates.cxx

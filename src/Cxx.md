@@ -51,6 +51,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [ParticleReader](/Cxx/IO/ParticleReader) | vtkParticleReader | This example reads ASCII files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
 [ReadAllPolyDataTypes](/Cxx/IO/ReadAllPolyDataTypes) | vtkBYUReader vtkOBJReader vtkPLYReader vtkPolyDataReader vtkSTLReader vtkXMLPolyDataReader | Read any VTK polydata file.
 [ReadAllPolyDataTypesDemo](/Cxx/IO/ReadAllPolyDataTypesDemo) | vtkBYUReader vtkOBJReader vtkPLYReader vtkPolyDataReader vtkSTLReader vtkXMLPolyDataReader | Read all VTK polydata file types.
+[ReadCML](/Cxx/IO/ReadCML) | vtkCMLMoleculeReader | Read Chemistry Markup Language files.
 [ReadExodusData](/Cxx/IO/ReadExodusData) | vtkExodusIIReader | Read and view ExodusII data.
 [ReadOBJ](/Cxx/IO/ReadOBJ) | vtkOBJReader | Read an OBJ (.obj) file.
 [ReadPDB](/Cxx/IO/ReadPDB) | vtkPDBReader | Read Protein Data Bank Files.
@@ -286,6 +287,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [ColoredPoints](/Cxx/PolyData/ColoredPoints) | vtkUnsignedCharArray | Add three points to a polydata and associate a color with each of them.
 [CombinePolyData](/Cxx/Filtering/CombinePolyData) | vtkAppendPolyData | Combine/Append PolyData.
 [ConnectivityFilter](/Cxx/Filtering/ConnectivityFilter) | vtkConnectivityFilter | Color any dataset type based on connectivity.
+[ConnectivityFilterDemo](/Cxx/Filtering/ConnectivityFilterDemo) | vtkPolyDataConnectivityFilter | Color any dataset type based on connectivity.
 [ContoursFromPolyData](/Cxx/Filtering/ContoursFromPolyData) | vtkCutter | Create contours from PolyData.
 [ContoursToSurface](/Cxx/PolyData/ContoursToSurface) | vtkVoxelContoursToSurfaceFilter | Convert contours to a surface.
 [ConvexHull](/Cxx/PolyData/ConvexHull) | vtkHull | Convex hull using vtkHull.
@@ -441,6 +443,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [CellEdges](/Cxx/Meshes/CellEdges) | vtkCell | Get edges of cells.
 [ClosedSurface](/Cxx/PolyData/ClosedSurface) | vtkFeatureEdges | Check if a surface is closed.
 [ColorDisconnectedRegions](/Cxx/PolyData/ColorDisconnectedRegions) | vtkPolyDataConnectivityFilter | Color each disconnected region of a vtkPolyData a different color.
+[ColorDisconnectedRegionsDemo](/Cxx/PolyData/ColorDisconnectedRegionsDemo) | vtkPolyDataConnectivityFilter | Color each disconnected region of a vtkPolyData a different color for any vtkPolyData.
 [ColoredElevationMap](/Cxx/Meshes/ColoredElevationMap) | vtkLookupTable | Color a mesh by height.
 [Curvatures](/Cxx/PolyData/Curvatures) | vtkCurvatures | Compute Gaussian, Mean, Min, and Max Curvatures.
 [Decimation](/Cxx/Meshes/Decimation) | vtkDecimatePro | Reduce the number of triangles in a mesh.
@@ -468,6 +471,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [SpecifiedRegion](/Cxx/PolyData/PolyDataConnectivityFilter_SpecifiedRegion) | vtkPolyDataConnectivityFilter | Extract a specific (specified) connected region in a polydata.
 [SplitPolyData](/Cxx/Meshes/SplitPolyData) | vtkOBBDicer | Breakup a mesh into pieces and save the pieces into files
 [Subdivision](/Cxx/Meshes/Subdivision) | vtkButterflySubdivisionFilter vtkLoopSubdivisionFilter vtkLinearSubdivisionFilter | Increase the number of triangles in a mesh.
+[SubdivisionDemo](/Cxx/Meshes/SubdivisionDemo) | vtkButterflySubdivisionFilter vtkLoopSubdivisionFilter vtkLinearSubdivisionFilter | Subdivision of any vtkPolyData
 [Triangulate](/Cxx/Meshes/Triangulate) | vtkTriangleFilter | Convert all polygons in a mesh to triangles.
 [WeightedTransformFilter](/Cxx/PolyData/WeightedTransformFilter) | vtkWeightedTransformFilter |
 [WindowedSincPolyDataFilter](/Cxx/Meshes/WindowedSincPolyDataFilter) | vtkWindowedSincPolyDataFilter | Smooth a mesh (windowed sinc filter).
@@ -831,6 +835,7 @@ This section includes vtkUnstructuredGrid.
 [Cone4](/Cxx/Rendering/Cone4) | vtkRenderWindow | Modifying properties and transformation matrix based on the VTK example Cone4.cxx.
 [DiffuseSpheres](/Cxx/Rendering/DiffuseSpheres) | vtkProperty | Demonstrates the effect of diffuse lighting on spheres.
 [FlatVersusGouraud](/Cxx/Rendering/FlatVersusGouraud) | vtkProperty::SetInterpolationToFlat vtkProperty::SetInterpolationToGouraud | Flat and Gouraud shading. Different shading methods can dramatically improve the look of an object represented with polygons. On the top, flat shading uses a constant surface normal across each polygon. On the bottom, Gouraud shading interpolates normals from polygon vertices to give a smoother look.
+[HiddenLineRemoval](/Cxx/Rendering/HiddenLineRemoval) | vtkProperty::UseHiddenLineRemovalOn | Hidden lines removed.
 [Mace](/Cxx/Rendering/Mace) |  | An example of multiple inputs and outputs.
 [Model](/Cxx/Rendering/Model) | vtkRenderer vtkRenderWindow vtkRenderWindowInteractor | Illustrative diagram of graphics objects.
 [MotionBlur](/Cxx/Rendering/MotionBlur) | vtkRenderStepsPass vtkSimpleMotionBlurPass | Example of motion blur.
@@ -952,6 +957,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DisplayQuadricSurfaces](/Cxx/Visualization/DisplayQuadricSurfaces) | vtkQuadric vtkSampleFunction vtkContourFilter | Display Quadric Surfaces.
 [DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | vtkDistanceToCamera |
 [DrawText](/Cxx/Visualization/DrawText) | vtkTextActor vtkTextProperty | Display Text.
+[EdgePoints](/Cxx/Visualization/EdgePoints) | vtkEdgePoints | Generate points along an edge.
 [ElevationBandsWithGlyphs](/Cxx/Visualization/ElevationBandsWithGlyphs) | vtkBandedPolyDataContourFilter vtkLookupTable vtkColorSeries vtkGlyph3D | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
 [ExponentialCosine](/Cxx/VisualizationAlgorithms/ExponentialCosine) | vtkWarpScalar | Carpet plots. Visualization of an exponential cosine function. Function values are indicated by surface displacement. Colors indicate derivative values.
 [ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | vtkRuledSurfaceFilter | Extrude a 2D polydata along a line in 3D space.
@@ -983,6 +989,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageOrder](/Cxx/Visualization/ImageOrder) | vtkRenderer | Determine the display order of a stack of images.
 [ImageOrientation](/Cxx/Visualization/ImageOrientation) | vtkInteractorStyleImage | Orientation of the view of an image.
 [ImageTransparency](/Cxx/Visualization/ImageTransparency) | vtkImageData | Set transparency of image pixels.
+[InterpolateCamera](Cxx/Rendering/InterpolateCamera) | vtkInterpolateCamera | Move a camera along a path generated from multiple camera views.
 [IronIsoSurface](/Cxx/VisualizationAlgorithms/IronIsoSurface) | vtkContourFilter | Marching cubes surface of iron-protein.
 [IsosurfaceSampling](/Cxx/Visualization/IsosurfaceSampling) | vtkProbeFilter | Demonstrates how to create point data on an isosurface.
 [Kitchen](/Cxx/Visualization/Kitchen) | vtkStreamTracer vtkStructuredGrid | Demonstrates stream tracing in a kitchen.
@@ -1023,6 +1030,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [PineRootDecimation](/Cxx/VisualizationAlgorithms/PineRootDecimation) | vtkMCubesReader vtkDecimatePro vtkConnectivityFilter | Applying the decimation and connectivity filters to remove noisy isosurfaces and reduce data size.
 [PlateVibration](/Cxx/VisualizationAlgorithms/PlateVibration) | vtkWarpVector vtkVectorDot | Demonstrates the motion of a vibrating beam.
 [PointDataSubdivision](/Cxx/Visualization/PointDataSubdivision) | vtkLinearSubdivisionFilter vtkButterflySubdivisionFilter | Demonstrates the effect of applying these filters on various sources.
+[ProteinRibbons](/Cxx/Visualization/ProteinRibbons) | vtkProteinRibbonFilter | Display pdb ribbons.
 [PointSize](/Cxx/Visualization/PointSize) | vtkActor |
 [ProbeCombustor](/Cxx/VisualizationAlgorithms/ProbeCombustor) | vtkProbeFilter | Probing data in a combustor.  Probes are regular arrays of 50 by 50 points that are then passed through a contouring filter.
 [ProgrammableGlyphFilter](/Cxx/Visualization/ProgrammableGlyphFilter) | vtkProgrammableGlyphFilter | Generate a custom glyph at each point.
@@ -1286,6 +1294,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [BoxChart](/Cxx/Plotting/BoxChart) | vtkChartBox | Box plot.
 [ChartMatrix](/Cxx/Plotting/ChartMatrix) | vtkChartMatrix | Create a marix of plots.
 [ChartsOn3DScene](/Cxx/Plotting/ChartsOn3DScene) | vtkChartXY | Draw a chart in a 3D scene.
+[CompareRandomGeneratorsCxx](/Cxx/Plotting/CompareRandomGeneratorsCxx) | vtkBarChartActor | Compare STL random number generators.
 [Diagram](/Cxx/Plotting/Diagram) | vtkContext vtkColorSeries | Draw a custom diagram.
 [FunctionalBagPlot](/Cxx/Plotting/FunctionalBagPlot) | vtkPlotFunctionalBag vtkColorSeries | Functional Bag Plot.
 [Histogram2D](/Cxx/Plotting/Histogram2D) | vtkChartHistogram2D | 2D Histogram of a vtkImageData.

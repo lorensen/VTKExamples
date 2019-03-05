@@ -1,0 +1,39 @@
+---
+# This configuration requires clang-format 3.8 or higher.
+BasedOnStyle: LLVM
+AccessModifierOffset: -2
+AlignAfterOpenBracket: Align
+AlignOperands: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement : true
+  AfterEnum : true
+  AfterFunction : true
+  AfterNamespace : false
+  AfterStruct : true
+  AfterUnion : true
+  BeforeCatch : true
+  BeforeElse : true
+  IndentBraces : false
+BreakBeforeBraces: Custom
+BreakConstructorInitializersBeforeComma: false
+ColumnLimit: 80
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+ConstructorInitializerIndentWidth: 2
+Cpp11BracedListStyle: true
+IndentWidth: 2
+Language: Cpp
+NamespaceIndentation: None
+PointerAlignment: Left
+Standard: Cpp11
+UseTab: Never
+# This requires clang-format 4.1 (at least).
+# FixNamespaceComments: true
+# ReflowComments: false
+...

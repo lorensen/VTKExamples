@@ -70,9 +70,9 @@ if (BUILD_TESTING)
   set(KIT PolyData)
   set(NEEDS_ARGS
     BooleanOperationPolyDataFilter
-    LoopBooleanPolyDataFilter
     CellCentersDemo
     CellLocatorVisualization
+    ColorDisconnectedRegionsDemo
     ColoredPoints
     ConvexHull
     Curvatures
@@ -87,14 +87,15 @@ if (BUILD_TESTING)
     HighlightBadCells
     Hull
     ImplicitModeller
+    LoopBooleanPolyDataFilter
     MiscPointData
     PointLocatorVisualization
     PolyDataIsoLines
     PolyDataPointSampler
     PolyDataToImageData
     RemoveVertices
-    Silhouette
     ShrinkPolyData
+    Silhouette
     ThinPlateSplineTransform
     TriangleColoredPoints
     TriangleSolidColor
@@ -115,6 +116,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-CellLocatorVisualization ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestCellLocatorVisualization -E 50)
+
+  add_test(${KIT}-ColorDisconnectedRegionsDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestColorDisconnectedRegionsDemo ${DATA}/gears.stl)
 
   add_test(${KIT}-ColoredPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestColoredPoints ${TEMP}/coloredpoints.vtp)
