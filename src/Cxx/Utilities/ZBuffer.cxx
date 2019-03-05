@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 
   // Create Depth Map
   filter->SetInput(renWin);
-#if VTK_MAJOR_VERSION >= 8 && VTK_MINOR_VERSION >= 90
+#if VTK_MAJOR_VERSION >= 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   filter->SetScale(1);
 #else
   filter->SetMagnification(1);
