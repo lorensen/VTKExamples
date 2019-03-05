@@ -47,7 +47,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkWindowToImageFilter> windowToImageFilter = 
     vtkSmartPointer<vtkWindowToImageFilter>::New();
   windowToImageFilter->SetInput(renderWindow);
-#if VTK_MAJOR_VERSION >= 8 && VTK_MINOR_VERSION >= 90
+#if VTK_MAJOR_VERSION >= 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   windowToImageFilter->SetScale(2); // image quality
 #else
   windowToImageFilter->SetMagnification(2); //image quality

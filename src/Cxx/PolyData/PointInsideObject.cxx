@@ -49,7 +49,8 @@ int main(int, char *argv[])
     std::cout << "Point " << i << ": " << selectEnclosedPoints->IsInside(i) << std::endl;
   }
 
-  vtkDataArray* insideArray = vtkDataArray::SafeDownCast(selectEnclosedPoints->GetOutput()->GetPointData()->GetArray("SelectedPoints"));
+  vtkDataArray* insideArray =
+    vtkDataArray::SafeDownCast(selectEnclosedPoints->GetOutput()->GetPointData()->GetArray("SelectedPoints"));
 
   for(vtkIdType i = 0; i < insideArray->GetNumberOfTuples(); i++)
   {

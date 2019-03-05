@@ -450,7 +450,7 @@ void Screenshot(std::string fileName, vtkRenderWindow* renWin)
     vtkSmartPointer<vtkWindowToImageFilter>::New();
   windowToImageFilter->SetInput(renWin);
 
-#if VTK_MAJOR_VERSION >= 8 && VTK_MINOR_VERSION >= 90
+#if VTK_MAJOR_VERSION >= 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   windowToImageFilter->SetScale(1); // image quality
 #else
   windowToImageFilter->SetMagnification(1); // image quality
