@@ -14,6 +14,7 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleTrackballCamera.h>
+#include <vtkVersion.h>
 
 #include <vtkXMLPolyDataReader.h>
 
@@ -77,8 +78,8 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkWindowToImageFilter> windowToImageFilter =
     vtkSmartPointer<vtkWindowToImageFilter>::New();
   windowToImageFilter->SetInput(tmp_rW);
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 1
-  windowToImageFilter->SetScale(2); //image quality
+#if VTK_MAJOR_VERSION >= 8 && VTK_MINOR_VERSION >= 90
+  windowToImageFilter->SetScale(2); // image quality
 #else
   windowToImageFilter->SetMagnification(2); //image quality
 #endif

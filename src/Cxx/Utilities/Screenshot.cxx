@@ -7,6 +7,7 @@
 #include <vtkPolyData.h>
 #include <vtkSphereSource.h>
 #include <vtkWindowToImageFilter.h>
+#include <vtkVersion.h>
 #include <vtkPNGWriter.h>
 
 int main(int, char *[])
@@ -46,8 +47,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkWindowToImageFilter> windowToImageFilter = 
     vtkSmartPointer<vtkWindowToImageFilter>::New();
   windowToImageFilter->SetInput(renderWindow);
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 1
-  windowToImageFilter->SetScale(2); //image quality
+#if VTK_MAJOR_VERSION >= 8 && VTK_MINOR_VERSION >= 90
+  windowToImageFilter->SetScale(2); // image quality
 #else
   windowToImageFilter->SetMagnification(2); //image quality
 #endif
