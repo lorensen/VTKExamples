@@ -40,7 +40,7 @@ if (DEPRC_SRCS)
   list(REMOVE_ITEM ALL_FILES ${DEPRC_SRCS})
 endif()
 
-if(NOT VTK_LEGACY_REMOVE)
+if((NOT VTK_LEGACY_REMOVE) AND (VTK_VERSION VERSION_LESS "8.90.0"))
   Requires_Module(GeoGraticle vtkViewsGeovis)
 endif()
 
@@ -59,7 +59,7 @@ endforeach()
 if (BUILD_TESTING)
   # Testing
   set(KIT Geovis)
-  if(NOT VTK_LEGACY_REMOVE)
+  if((NOT VTK_LEGACY_REMOVE) AND (VTK_VERSION VERSION_LESS "8.90.0"))
     set(NEEDS_ARGS
       GeoGraticule
       )
