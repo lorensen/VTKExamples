@@ -219,6 +219,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [WarpTo](/Python/Filtering/WarpTo) | vtkWarpTo | Deform geometry by warping towards a point.
 [WarpVector](/Python/PolyData/WarpVector) | vtkLine vtkDoubleArray vtkPolyData vtkWarpVector | This example warps/deflects a line.
 [WriteTriangleToFile](/Python/IO/WriteTriangleToFile) | vtkTriangle |
+[TubeFilter](/Python/PolyData/TubeFilter) | vtkTubeFilter | Give lines a thickness (produce a cylinder around lines).
 
 ### Data Types
 | Example Name | Classes Demonstrated | Description | Image |
@@ -245,6 +246,7 @@ This section includes examples of manipulating meshes.
 [ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
 [DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
 [DeformPointSet](/Python/Meshes/DeformPointSet) | vtkDeformPointSet vtkElevationFilter | Use the vtkDeformPointSet filter to deform a vtkSphereSource with arbitrary polydata.
+[ColoredElevationMap](/Python/Meshes/ColoredElevationMap) | vtkLookupTable | Color a mesh by height.
 
 #### Clipping
 
