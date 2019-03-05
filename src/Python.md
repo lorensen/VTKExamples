@@ -540,6 +540,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[Actor2D](/Python/Images/Actor2D) | vtkActor2D vtkMapper2D | 2D actor and mapper.
+[Cast](/Python/Images/Cast) | vtkImageCast | Cast an image to a different type.
 [BackgroundImage](/Python/Images/BackgroundImage) | vtkJPEGReader vtkImageCanvasSource2D vtkImageActor vtkSuperquadricSource | Display an image as the "background" of a scene, and render a superquadric in front of it.
 
 ## Image Processing
