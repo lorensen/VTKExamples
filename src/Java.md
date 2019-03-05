@@ -26,6 +26,18 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | -------- |
 [ConvertFile](/Java/IO/ConvertFile) |  | Convert a file from one type to another
 
+#### Standard Formats
+
+##### Input
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ReadPLY](/Java/IO/ReadPLY) | vtkPLYReader | Read PLY (.ply) files
+[ReadSTL](/Java/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files.
+
+
+
+
 #### VTK Formats
 
 ##### Input
@@ -42,6 +54,13 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 
 ### Image Format
+
+#### Input
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ReadPNM](/Java/IO/ReadPNM) | vtkPNMReader | Read PNM (.pnm) files.
+[ReadTIFF](/Java/IO/ReadTIFF) | vtkTIFFReader | Read TIFF (.tif) files.
 
 ####  Output
 
