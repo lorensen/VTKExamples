@@ -2,49 +2,47 @@
 // exact ZBuffer values.
 #include <vtkSmartPointer.h>
 
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderer.h>
+#include <vtkBMPWriter.h>
+#include <vtkImageShiftScale.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkXMLPolyDataReader.h>
-#include <vtkBMPWriter.h>
+#include <vtkRenderer.h>
+#include <vtkVersion.h>
 #include <vtkWindowToImageFilter.h>
-#include <vtkImageShiftScale.h>
+#include <vtkXMLPolyDataReader.h>
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
   if (argc < 3)
   {
-      std::cout << "Usage: " << argv[0]
-                << " input(.vtp) output(.bmp)"
-                << std::endl;
-      return EXIT_FAILURE;
+    std::cout << "Usage: " << argv[0] << " input(.vtp) output(.bmp)"
+              << std::endl;
+    return EXIT_FAILURE;
   }
 
   vtkSmartPointer<vtkPolyDataMapper> mapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
-  vtkSmartPointer<vtkActor> actor =
-    vtkSmartPointer<vtkActor>::New();
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
+      vtkSmartPointer<vtkPolyDataMapper>::New();
+  vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renWin =
-    vtkSmartPointer<vtkRenderWindow>::New();
+      vtkSmartPointer<vtkRenderWindow>::New();
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   vtkSmartPointer<vtkXMLPolyDataReader> fileReader =
-    vtkSmartPointer<vtkXMLPolyDataReader>::New();
+      vtkSmartPointer<vtkXMLPolyDataReader>::New();
   vtkSmartPointer<vtkWindowToImageFilter> filter =
-    vtkSmartPointer<vtkWindowToImageFilter>::New();
+      vtkSmartPointer<vtkWindowToImageFilter>::New();
   vtkSmartPointer<vtkBMPWriter> imageWriter =
-    vtkSmartPointer<vtkBMPWriter>::New();
+      vtkSmartPointer<vtkBMPWriter>::New();
   vtkSmartPointer<vtkImageShiftScale> scale =
-    vtkSmartPointer<vtkImageShiftScale>::New();
+      vtkSmartPointer<vtkImageShiftScale>::New();
 
   // Read .vtp file
   fileReader->SetFileName(argv[1]);
 
-  //Build visualization enviroment
+  // Build visualization enviroment
   mapper->SetInputConnection(fileReader->GetOutputPort());
   actor->SetMapper(mapper);
   renderer->AddActor(actor);
@@ -54,12 +52,12 @@ int main(int argc, char *argv[])
 
   // Create Depth Map
   filter->SetInput(renWin);
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 1
+#if VTK_MAJOR_VERSION >= 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   filter->SetScale(1);
 #else
   filter->SetMagnification(1);
 #endif
-  filter->SetInputBufferTypeToZBuffer();        //Extract z buffer value
+  filter->SetInputBufferTypeToZBuffer(); // Extract z buffer value
 
   scale->SetOutputScalarTypeToUnsignedChar();
   scale->SetInputConnection(filter->GetOutputPort());

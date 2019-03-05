@@ -49,7 +49,8 @@ int main(int, char *argv[])
     std::cout << "Point " << i << ": " << selectEnclosedPoints->IsInside(i) << std::endl;
   }
 
-  vtkDataArray* insideArray = vtkDataArray::SafeDownCast(selectEnclosedPoints->GetOutput()->GetPointData()->GetArray("SelectedPoints"));
+  vtkDataArray* insideArray =
+    vtkDataArray::SafeDownCast(selectEnclosedPoints->GetOutput()->GetPointData()->GetArray("SelectedPoints"));
 
   for(vtkIdType i = 0; i < insideArray->GetNumberOfTuples(); i++)
   {
@@ -73,11 +74,7 @@ int main(int, char *argv[])
   //First, apply vtkVertexGlyphFilter to make cells around points, vtk only render cells.
   vtkSmartPointer<vtkVertexGlyphFilter> vertexGlyphFilter =
   vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vertexGlyphFilter->AddInput(pointsPolydata);
-#else
   vertexGlyphFilter->AddInputData(pointsPolydata);
-#endif
   vertexGlyphFilter->Update();
 
  vtkSmartPointer<vtkPolyDataMapper> pointsMapper =
