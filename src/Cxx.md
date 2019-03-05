@@ -170,6 +170,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [OpenVRTessellatedBoxSource](/Cxx/GeometricObjects/OpenVRTessellatedBoxSource) |  | VTK + OpenVR Example.
 [Planes](/Cxx/GeometricObjects/Planes) | vtkPlanes |
 [PlanesIntersection](/Cxx/GeometricObjects/PlanesIntersection) | vtkPlanesIntersection |
+[PlaneSourceDemo](/Cxx/GeometricObjects/PlaneSourceDemo) | vtkPlaneSource | Display the instance variables that define a vtkPlaneSource.
 [PolygonIntersection](/Cxx/GeometricObjects/PolygonIntersection) | vtkPolygon | Compute the intersection of a line segment with a polygon.
 [ShrinkCube](/Cxx/GeometricObjects/ShrinkCube) | vtkCubeSource | Applying shrink filter to an object.
 [SourceObjectsDemo](/Cxx/GeometricObjects/SourceObjectsDemo) | vtkSphereSource vtkConeSource vtkCylinderSource vtkCubeSource vtkPlaneSource vtkTextSource vtkPointSource vtkDiskSource vtkLineSource | Examples of source objects that procedurally generate polygonal models.  These nine images represent just some of the capability of VTK. From upper left in reading order: sphere, cone, cylinder, cube, plane, text, random point cloud, disk (with or without hole), and line source. Other polygonal source objects are available; check subclasses of vtkPolyDataAlgorithm.
