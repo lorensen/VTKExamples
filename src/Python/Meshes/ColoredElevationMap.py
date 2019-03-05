@@ -10,11 +10,16 @@ def main():
     xx=0.0 
     yy=0.0
     zz=0.0
+    rng = vtk.vtkMinimalStandardRandomSequence()
+    rng.SetSeed(8775586)  # For testing.
     for x in range(0, GridSize):
         for y in range(0, GridSize):
-          xx = x + vtk.vtkMath.Random(-.2, .2)
-          yy = y + vtk.vtkMath.Random(-.2, .2)
-          zz = vtk.vtkMath.Random(-.5, .5)
+          rng.Next()
+          xx = x + rng.GetRangeValue(-.2, .2)
+          rng.Next()
+          yy = y + rng.GetRangeValue(-.2, .2)
+          rng.Next()
+          zz = rng.GetRangeValue(-.5, .5)
           points.InsertNextPoint(xx, yy, zz)
          
  
@@ -98,7 +103,7 @@ def main():
     # Render and interact
     renderWindow.Render()
     renderWindowInteractor.Start()
-
+   
 
 if __name__ == '__main__':
     main()
