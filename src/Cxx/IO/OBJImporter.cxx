@@ -36,10 +36,13 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
 
-  renWin->AddRenderer(renderer);
   renderer->SetBackground2 (colors->GetColor3d("Silver").GetData());
   renderer->SetBackground (colors->GetColor3d("Gold").GetData());
   renderer->GradientBackgroundOn();
+  renWin->AddRenderer(renderer);
+  renderer->UseHiddenLineRemovalOn();
+  renWin->AddRenderer(renderer);
+  renWin->SetSize(640, 480);
 
   iren->SetRenderWindow(renWin);
   importer->SetRenderWindow(renWin);
