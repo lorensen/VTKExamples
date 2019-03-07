@@ -64,6 +64,7 @@ int main (int argc, char *argv[])
 
   renderer->AddActor(actor);
   renderer->SetBackground(colors->GetColor3d("Silver").GetData());
+  renderer->UseHiddenLineRemovalOn();
 
   renderWindow->Render();
   renderWindowInteractor->Start();
