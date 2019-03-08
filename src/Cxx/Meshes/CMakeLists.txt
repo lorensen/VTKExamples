@@ -17,6 +17,7 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersVerdict
     vtkIOExodus
     vtkIOGeometry
+    vtkIOImage
     vtkIOLegacy
     vtkIOPLY
     vtkIOXML
@@ -45,6 +46,7 @@ file(GLOB ALL_FILES *.cxx)
 
 set(VERSION_MIN "6.0")
 Requires_Version(DeformPointSet ${VERSION_MIN} ALL_FILES)
+Requires_Version(FitToHeightMap "8.2" ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -67,6 +69,7 @@ if (BUILD_TESTING)
     ClipDataSetWithPolyData
     Decimation
     FillHoles
+    FitToHeightMap
     IdentifyHoles
     InterpolateFieldDataDemo
     MatrixMathFilter
@@ -96,6 +99,11 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-FillHoles ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestFillHoles ${DATA}/Torso.vtp)
+
+  if(TARGET FitToHeightMap)
+    add_test(${KIT}-FitToHeightMap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+      TestFitToHeightMap ${DATA}/SainteHelens.dem)
+  endif()
 
   add_test(${KIT}-IdentifyHoles ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestIdentifyHoles ${DATA}/Torso.vtp)
