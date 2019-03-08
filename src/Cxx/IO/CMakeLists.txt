@@ -10,6 +10,7 @@ if(NOT VTK_BINARY_DIR)
     vtkCommonSystem
     vtkCommonTransforms
     vtkDomainsChemistry
+    vtkDomainsChemistryOpenGL2
     vtkFiltersCore
     vtkFiltersExtraction
     vtkFiltersGeneral

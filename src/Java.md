@@ -32,10 +32,10 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ReadPLOT3D](/Java/IO/ReadPLOT3D) | vtkPLOT3DReader | Read PLOT3D data files.
 [ReadPLY](/Java/IO/ReadPLY) | vtkPLYReader | Read PLY (.ply) files
 [ReadSTL](/Java/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files.
-
-
+[SimplePointsReader](/Java/IO/SimplePointsReader) | vtkSimplePointsReader | Read a simple "xyz" file of points.
 
 
 #### VTK Formats
@@ -44,6 +44,9 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ReadPolyData](/Java/IO/ReadPolyData) | vtkXMLPolyDataReader | Read VTK XML PolyData files.
+[ReadRectilinearGrid](/Java/IO/ReadRectilinearGrid) | vtkXMLRectilinearGridReader | Read VTK XML RectilinearGrid files.
+[ReadStructuredGrid](/Java/IO/ReadStructuredGrid) | vtkXMLStructuredGridReader | Read VTK XML StructuredGrid files.
 [ReadVTP](/Java/IO/ReadVTP) | vtkXMLPolyDataReader | Read a VTK XML PolyData file.
 
 ##### Output
@@ -59,6 +62,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ReadBMP](/Java/IO/ReadBMP) | vtkBMPReader | Read Windows BMP files.
+[ReadDICOM](/Java/IO/ReadDICOM) | vtkDICOMImageReader | Read DICOM images.
 [ReadPNM](/Java/IO/ReadPNM) | vtkPNMReader | Read PNM (.pnm) files.
 [ReadTIFF](/Java/IO/ReadTIFF) | vtkTIFFReader | Read TIFF (.tif) files.
 

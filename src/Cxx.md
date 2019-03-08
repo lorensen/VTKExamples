@@ -454,6 +454,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [ElevationFilter](/Cxx/Meshes/ElevationFilter) | vtkElevationFilter | Color a mesh by height.
 [ExtractEdges](/Cxx/Meshes/ExtractEdges) | vtkExtractEdges |
 [FillHoles](/Cxx/Meshes/FillHoles) | vtkFillHolesFilter | Close holes in a mesh.
+[FitToHeightMap](/Cxx/Meshes/FitToHeightMap) | vtkFitToHeightMapFilter | Drape a polydata over an elevation map.
 [GreedyTerrainDecimation](/Cxx/PolyData/GreedyTerrainDecimation) | vtkGreedyTerrainDecimation | Create a mesh from an ImageData
 [HighlightBadCells](/Cxx/PolyData/HighlightBadCells) | vtkMeshQuality |
 [IdentifyHoles](/Cxx/Meshes/IdentifyHoles) | vtkFillHolesFilter | Close holes in a mesh and identify the holes.
