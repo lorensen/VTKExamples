@@ -2,7 +2,7 @@
 
 ## Java
 
-Out of 2800 available VTK classes, 182 are demonstrated here.
+Out of 2800 available VTK classes, 189 are demonstrated here.
 
 ### Excluded classes
 
@@ -28,6 +28,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkAxes](http://www.vtk.org/doc/nightly/html/classvtkAxes.html#details) | [TextOrigin](/Java/Annotation/TextOrigin)  |
 | [vtkBalloonRepresentation](http://www.vtk.org/doc/nightly/html/classvtkBalloonRepresentation.html#details) | [BalloonWidget](/Java/Widgets/BalloonWidget)  |
 | [vtkBalloonWidget](http://www.vtk.org/doc/nightly/html/classvtkBalloonWidget.html#details) | [BalloonWidget](/Java/Widgets/BalloonWidget)  |
+| [vtkBMPReader](http://www.vtk.org/doc/nightly/html/classvtkBMPReader.html#details) | [ReadBMP](/Java/IO/ReadBMP)  |
 | [vtkBoundedPointSource](http://www.vtk.org/doc/nightly/html/classvtkBoundedPointSource.html#details) | [FitImplicitFunction](/Java/Points/FitImplicitFunction)  |
 | [vtkBoxWidget](http://www.vtk.org/doc/nightly/html/classvtkBoxWidget.html#details) | [Cone6](/Java/Rendering/Cone6)  |
 | [vtkBrownianPoints](http://www.vtk.org/doc/nightly/html/classvtkBrownianPoints.html#details) | [BrownianPoints](/Java/Utilities/BrownianPoints)  |
@@ -49,8 +50,9 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkCursor3D](http://www.vtk.org/doc/nightly/html/classvtkCursor3D.html#details) | [Cursor3D](/Java/Visualization/Cursor3D)  |
 | [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html#details) | [Cutter](/Java/VisualizationAlgorithms/Cutter)  |
 | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html#details) | [CylinderExample](/Java/GeometricObjects/CylinderExample) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder)  |
-| [vtkDataSetMapper](http://www.vtk.org/doc/nightly/html/classvtkDataSetMapper.html#details) | [ConvexHullShrinkWrap](/Java/PolyData/ConvexHullShrinkWrap) [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) [Frustum](/Java/GeometricObjects/Frustum) [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) [OrientationMarkerWidget](/Java/Widgets/OrientationMarkerWidget) [Pyramid](/Java/GeometricObjects/Pyramid) [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) [Reflection](/Java/PolyData/Reflection) [ShrinkCube](/Java/GeometricObjects/ShrinkCube) [VisualizeImageData](/Java/Visualization/VisualizeImageData)  |
+| [vtkDataSetMapper](http://www.vtk.org/doc/nightly/html/classvtkDataSetMapper.html#details) | [ConvexHullShrinkWrap](/Java/PolyData/ConvexHullShrinkWrap) [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) [Frustum](/Java/GeometricObjects/Frustum) [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) [OrientationMarkerWidget](/Java/Widgets/OrientationMarkerWidget) [Pyramid](/Java/GeometricObjects/Pyramid) [ReadPolyData](/Java/IO/ReadPolyData) [ReadRectilinearGrid](/Java/IO/ReadRectilinearGrid) [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) [Reflection](/Java/PolyData/Reflection) [ShrinkCube](/Java/GeometricObjects/ShrinkCube) [VisualizeImageData](/Java/Visualization/VisualizeImageData)  |
 | [vtkDelaunay2D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay2D.html#details) | [Delaunay2D](/Java/Filtering/Delaunay2D) [DelaunayMesh](/Java/Modelling/DelaunayMesh)  |
+| [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) | [ReadDICOM](/Java/IO/ReadDICOM)  |
 | [vtkDiskSource](http://www.vtk.org/doc/nightly/html/classvtkDiskSource.html#details) | [BoundaryEdges](/Java/Meshes/BoundaryEdges) [Disk](/Java/GeometricObjects/Disk)  |
 | [vtkDistanceWidget](http://www.vtk.org/doc/nightly/html/classvtkDistanceWidget.html#details) | [DistanceWidget](/Java/Widgets/DistanceWidget)  |
 | [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html#details) | [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates) [MeshQuality](/Java/PolyData/MeshQuality) [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid)  |
@@ -83,7 +85,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkImageReader2Factory](http://www.vtk.org/doc/nightly/html/classvtkImageReader2Factory.html#details) | [ImageTest](/Java/Imaging/ImageTest) [StaticImage](/Java/Images/StaticImage)  |
 | [vtkImageSinusoidSource](http://www.vtk.org/doc/nightly/html/classvtkImageSinusoidSource.html#details) | [ImageNormalize](/Java/ImageData/ImageNormalize) [ImageSinusoidSource](/Java/Images/ImageSinusoidSource) [ImageWeightedSum](/Java/ImageData/ImageWeightedSum)  |
 | [vtkImageTracerWidget](http://www.vtk.org/doc/nightly/html/classvtkImageTracerWidget.html#details) | [ImageTracerWidgetNonPlanar](/Java/Widgets/ImageTracerWidgetNonPlanar)  |
-| [vtkImageViewer2](http://www.vtk.org/doc/nightly/html/classvtkImageViewer2.html#details) | [ImageSinusoidSource](/Java/Images/ImageSinusoidSource) [PNGReader](/Java/IO/PNGReader) [ReadPNM](/Java/IO/ReadPNM) [ReadTIFF](/Java/IO/ReadTIFF) [StaticImage](/Java/Images/StaticImage)  |
+| [vtkImageViewer2](http://www.vtk.org/doc/nightly/html/classvtkImageViewer2.html#details) | [ImageSinusoidSource](/Java/Images/ImageSinusoidSource) [PNGReader](/Java/IO/PNGReader) [ReadBMP](/Java/IO/ReadBMP) [ReadDICOM](/Java/IO/ReadDICOM) [ReadPNM](/Java/IO/ReadPNM) [ReadTIFF](/Java/IO/ReadTIFF) [StaticImage](/Java/Images/StaticImage)  |
 | [vtkImageWeightedSum](http://www.vtk.org/doc/nightly/html/classvtkImageWeightedSum.html#details) | [ImageWeightedSum](/Java/ImageData/ImageWeightedSum)  |
 | [vtkImplicitDataSet](http://www.vtk.org/doc/nightly/html/classvtkImplicitDataSet.html#details) | [ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet)  |
 | [vtkImplicitModeller](http://www.vtk.org/doc/nightly/html/classvtkImplicitModeller.html#details) | [BlobbyLogo](/Java/Visualization/BlobbyLogo)  |
@@ -107,6 +109,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html#details) | [MeshQuality](/Java/PolyData/MeshQuality)  |
 | [vtkMinimalStandardRandomSequence](http://www.vtk.org/doc/nightly/html/classvtkMinimalStandardRandomSequence.html#details) | [DelaunayMesh](/Java/Modelling/DelaunayMesh) [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [RandomSequence](/Java/SimpleOperations/RandomSequence)  |
 | [vtkMultiBlockDataSet](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockDataSet.html#details) | [CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper)  |
+| [vtkMultiBlockPLOT3DReader](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockPLOT3DReader.html#details) | [ReadPLOT3D](/Java/IO/ReadPLOT3D)  |
 | [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html#details) | [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates)  |
 | [vtkMutableUndirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableUndirectedGraph.html#details) | [GraphPoints](/Java/InfoVis/GraphPoints) [VisualizeGraph](/Java/Graphs/VisualizeGraph)  |
 | [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html#details) | [BuildOctree](/Java/DataStructures/BuildOctree)  |
@@ -155,6 +158,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkShrinkFilter](http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html#details) | [Frustum](/Java/GeometricObjects/Frustum) [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) [ShrinkCube](/Java/GeometricObjects/ShrinkCube)  |
 | [vtkShrinkPolyData](http://www.vtk.org/doc/nightly/html/classvtkShrinkPolyData.html#details) | [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource)  |
 | [vtkSimple2DLayoutStrategy](http://www.vtk.org/doc/nightly/html/classvtkSimple2DLayoutStrategy.html#details) | [VisualizeGraph](/Java/Graphs/VisualizeGraph)  |
+| [vtkSimplePointsReader](http://www.vtk.org/doc/nightly/html/classvtkSimplePointsReader.html#details) | [SimplePointsReader](/Java/IO/SimplePointsReader)  |
 | [vtkSliderRepresentation2D](http://www.vtk.org/doc/nightly/html/classvtkSliderRepresentation2D.html#details) | [VisualizeKDTree](/Java/DataStructures/VisualizeKDTree)  |
 | [vtkSliderWidget](http://www.vtk.org/doc/nightly/html/classvtkSliderWidget.html#details) | [VisualizeKDTree](/Java/DataStructures/VisualizeKDTree)  |
 | [vtkSmoothPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkSmoothPolyDataFilter.html#details) | [ConvexHullShrinkWrap](/Java/PolyData/ConvexHullShrinkWrap)  |
@@ -164,6 +168,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkSTLReader](http://www.vtk.org/doc/nightly/html/classvtkSTLReader.html#details) | [ReadSTL](/Java/IO/ReadSTL)  |
 | [vtkStripper](http://www.vtk.org/doc/nightly/html/classvtkStripper.html#details) | [Bottle](/Java/Modelling/Bottle) [Stripper](/Java/PolyData/Stripper)  |
 | [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html#details) | [StructuredGridOutline](/Java/StructuredGrid/StructuredGridOutline)  |
+| [vtkStructuredGridGeometryFilter](http://www.vtk.org/doc/nightly/html/classvtkStructuredGridGeometryFilter.html#details) | [ReadPLOT3D](/Java/IO/ReadPLOT3D) [ReadStructuredGrid](/Java/IO/ReadStructuredGrid)  |
 | [vtkStructuredGridOutlineFilter](http://www.vtk.org/doc/nightly/html/classvtkStructuredGridOutlineFilter.html#details) | [StructuredGridOutline](/Java/StructuredGrid/StructuredGridOutline)  |
 | [vtkSuperquadric](http://www.vtk.org/doc/nightly/html/classvtkSuperquadric.html#details) | [SampleFunction](/Java/ImplicitFunctions/SampleFunction)  |
 | [vtkSuperquadricSource](http://www.vtk.org/doc/nightly/html/classvtkSuperquadricSource.html#details) | [OrientationMarkerWidget](/Java/Widgets/OrientationMarkerWidget)  |
@@ -189,6 +194,8 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex.html#details) | [Vertex](/Java/GeometricObjects/Vertex)  |
 | [vtkVertexGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkVertexGlyphFilter.html#details) | [Actor2D](/Java/Images/Actor2D) [ColoredPoints](/Java/PolyData/ColoredPoints) [Delaunay2D](/Java/Filtering/Delaunay2D) [VertexGlyphFilter](/Java/Filtering/VertexGlyphFilter)  |
 | [vtkWarpTo](http://www.vtk.org/doc/nightly/html/classvtkWarpTo.html#details) | [WarpTo](/Java/Filtering/WarpTo)  |
-| [vtkXMLPolyDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataReader.html#details) | [ConvertFile](/Java/IO/ConvertFile) [OrientationMarkerWidget](/Java/Widgets/OrientationMarkerWidget) [ReadVTP](/Java/IO/ReadVTP) [VisualizeVTP](/Java/Visualization/VisualizeVTP)  |
+| [vtkXMLPolyDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataReader.html#details) | [ConvertFile](/Java/IO/ConvertFile) [OrientationMarkerWidget](/Java/Widgets/OrientationMarkerWidget) [ReadPolyData](/Java/IO/ReadPolyData) [ReadVTP](/Java/IO/ReadVTP) [VisualizeVTP](/Java/Visualization/VisualizeVTP)  |
 | [vtkXMLPolyDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataWriter.html#details) | [WriteVTP](/Java/IO/WriteVTP)  |
+| [vtkXMLRectilinearGridReader](http://www.vtk.org/doc/nightly/html/classvtkXMLRectilinearGridReader.html#details) | [ReadRectilinearGrid](/Java/IO/ReadRectilinearGrid)  |
+| [vtkXMLStructuredGridReader](http://www.vtk.org/doc/nightly/html/classvtkXMLStructuredGridReader.html#details) | [ReadStructuredGrid](/Java/IO/ReadStructuredGrid)  |
 | [vtkXMLUnstructuredGridReader](http://www.vtk.org/doc/nightly/html/classvtkXMLUnstructuredGridReader.html#details) | [VectorFieldExample](/Java/Visualization/VectorFieldExample)  |
