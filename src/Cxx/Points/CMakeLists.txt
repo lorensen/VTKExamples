@@ -43,6 +43,7 @@ file(GLOB ALL_FILES *.cxx)
 set(VERSION_MIN "7.0")
 Requires_Version(DensifyPoints ${VERSION_MIN} ALL_FILES)
 Requires_Version(ExtractClusters ${VERSION_MIN} ALL_FILES)
+Requires_Version(ExtractEnclosedPoints ${VERSION_MIN} ALL_FILES)
 Requires_Version(ExtractPointsDemo ${VERSION_MIN} ALL_FILES)
 Requires_Version(ExtractSurface ${VERSION_MIN} ALL_FILES)
 Requires_Version(ExtractSurfaceDemo ${VERSION_MIN} ALL_FILES)
@@ -76,6 +77,7 @@ if (BUILD_TESTING)
   set(KIT Points)
   set(NEEDS_ARGS
     CompareExtractSurface
+    ExtractEnclosedPoints
     ExtractSurface
     ExtractSurfaceDemo
     DensifyPoints
@@ -90,6 +92,11 @@ if (BUILD_TESTING)
   if(TARGET CompareExtractSurface)
     add_test(${KIT}-CompareExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
       TestCompareExtractSurface ${DATA}/horsePoints.vtp -E 40)
+  endif()
+
+  if(TARGET ExtractEnclosedPoints)
+    add_test(${KIT}-ExtractEnclosedPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+      TestExtractEnclosedPoints ${DATA}/k.vtk)
   endif()
 
   if(TARGET ExtractSurface)
