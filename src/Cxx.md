@@ -421,6 +421,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [DensifyPoints](/Cxx/Points/DensifyPoints) | vtkDensifyPointCloudFilter | Add points to a point cloud.
 [DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | vtkCleanPolyData | Down sample a point cloud. Remove points so that there are no points within a tolerance of any point.
 [ExtractClusters](/Cxx/Points/ExtractClusters) | vtkEuclideanClusterExtraction | From a set of randomly distributed spheres, extract connected clusters.
+[ExtractEnclosedPoints](/Cxx/Points/ExtractEnclosedPoints) | vtkExtractEnclosedPoints | Extract points inside a vtkPolyData surface.
 [ExtractPointsDemo](/Cxx/Points/ExtractPointsDemo) | vtkExtractPoints | Extract points inside an implicit function.
 [ExtractSurface](/Cxx/Points/ExtractSurface) | vtkExtractSurface vtkPCANormalEstimation vtkSignedDistance | Create a surface from Unorganized Points using Point filters.
 [ExtractSurfaceDemo](/Cxx/Points/ExtractSurfaceDemo) | vtkExtractSurface vtkPCANormalEstimation vtkSignedDistance | Create a surface from Unorganized Points using Point filters (DEMO).

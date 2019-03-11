@@ -13,8 +13,12 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkCamera.h>
+#include <vtkNamedColors.h>
 
-static void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph);
+namespace
+{
+void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph);
+}
 
 int main (int, char *[])
 {
@@ -36,6 +40,9 @@ int main (int, char *[])
   normals->SetNormalOrientationToGraphTraversal();
   normals->Update();
 
+  vtkSmartPointer<vtkNamedColors>colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkGlyph3D> glyph3D =
     vtkSmartPointer<vtkGlyph3D>::New();
   MakeGlyphs(normals->GetOutput(), radius * .2, glyph3D.GetPointer());
@@ -47,7 +54,7 @@ int main (int, char *[])
   vtkSmartPointer<vtkActor> glyph3DActor =
     vtkSmartPointer<vtkActor>::New();
   glyph3DActor->SetMapper(glyph3DMapper);
-  glyph3DActor->GetProperty()->SetColor(0.8900, 0.8100, 0.3400);
+  glyph3DActor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Banana").GetData());
 
   vtkSmartPointer<vtkSphereSource> sphere =
     vtkSmartPointer<vtkSphereSource>::New();
@@ -62,43 +69,44 @@ int main (int, char *[])
   vtkSmartPointer<vtkActor> sphereActor =
     vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
-  sphereActor->GetProperty()->SetColor(1.0000, 0.4900, 0.2500);
+  sphereActor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Tomato").GetData());
 
   // Create graphics stuff
   //
-  vtkSmartPointer<vtkRenderer> ren1 =
+  vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  ren1->SetBackground(.3, .4, .6);
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
-  vtkSmartPointer<vtkRenderWindow> renWin =
+  vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
-  renWin->AddRenderer(ren1);
-  renWin->SetSize(512,512);
+  renderWindow->AddRenderer(renderer);
+  renderWindow->SetSize(640, 480);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  iren->SetRenderWindow(renWin);
+  interactor->SetRenderWindow(renderWindow);
   
   // Add the actors to the renderer, set the background and size
   //
-  ren1->AddActor(glyph3DActor);
-  ren1->AddActor(sphereActor);
+  renderer->AddActor(glyph3DActor);
+  renderer->AddActor(sphereActor);
 
   // Generate an interesting view
   //
-  ren1->ResetCamera();
-  ren1->GetActiveCamera()->Azimuth(120);
-  ren1->GetActiveCamera()->Elevation(30);
-  ren1->GetActiveCamera()->Dolly(1.0);
-  ren1->ResetCameraClippingRange();
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(120);
+  renderer->GetActiveCamera()->Elevation(30);
+  renderer->GetActiveCamera()->Dolly(1.0);
+  renderer->ResetCameraClippingRange();
 
-  renWin->Render();
-  iren->Initialize();
-  iren->Start();
+  renderWindow->Render();
+  interactor->Initialize();
+  interactor->Start();
 
   return EXIT_SUCCESS;
 }
-
+namespace
+{
 void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
 {
   // Source for the glyph filter
@@ -111,9 +119,9 @@ void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
   glyph->SetSourceConnection(arrow->GetOutputPort());
   glyph->SetInputData(src);
   glyph->SetVectorModeToUseNormal();
-//  glyph->SetColorModeToColorByVector();
   glyph->SetScaleModeToScaleByVector();
   glyph->SetScaleFactor(size);
   glyph->OrientOn();
   glyph->Update();
+}
 }
