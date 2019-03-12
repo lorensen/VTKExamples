@@ -1,23 +1,24 @@
-#include <vtkSmartPointer.h>
-#include <vtkMath.h>
 #include <vtkActor.h>
-#include <vtkProperty.h>
-#include <vtkSphereSource.h>
 #include <vtkInteractorStyleTrackballCamera.h>
+#include <vtkMath.h>
+#include <vtkNamedColors.h>
 #include <vtkObjectFactory.h>
-#include <vtkSphereSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkPropPicker.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
 
 // Handle mouse events
 class MouseInteractorHighLightActor : public vtkInteractorStyleTrackballCamera
 {
 public:
   static MouseInteractorHighLightActor* New();
-  vtkTypeMacro(MouseInteractorHighLightActor, vtkInteractorStyleTrackballCamera);
+  vtkTypeMacro(MouseInteractorHighLightActor,
+               vtkInteractorStyleTrackballCamera);
 
   MouseInteractorHighLightActor()
   {
@@ -28,13 +29,16 @@ public:
   {
     LastPickedProperty->Delete();
   }
-  virtual void OnLeftButtonDown()
+  virtual void OnLeftButtonDown() override
   {
+    vtkSmartPointer<vtkNamedColors> colors =
+        vtkSmartPointer<vtkNamedColors>::New();
+
     int* clickPos = this->GetInteractor()->GetEventPosition();
 
     // Pick from this location.
-    vtkSmartPointer<vtkPropPicker>  picker =
-      vtkSmartPointer<vtkPropPicker>::New();
+    vtkSmartPointer<vtkPropPicker> picker =
+        vtkSmartPointer<vtkPropPicker>::New();
     picker->Pick(clickPos[0], clickPos[1], 0, this->GetDefaultRenderer());
 
     // If we picked something before, reset its property
@@ -49,7 +53,8 @@ public:
       // restore it next time
       this->LastPickedProperty->DeepCopy(this->LastPickedActor->GetProperty());
       // Highlight the picked actor by changing its properties
-      this->LastPickedActor->GetProperty()->SetColor(1.0, 0.0, 0.0);
+      this->LastPickedActor->GetProperty()->SetColor(
+          colors->GetColor3d("Red").GetData());
       this->LastPickedActor->GetProperty()->SetDiffuse(1.0);
       this->LastPickedActor->GetProperty()->SetSpecular(0.0);
     }
@@ -59,15 +64,20 @@ public:
   }
 
 private:
-  vtkActor    *LastPickedActor;
-  vtkProperty *LastPickedProperty;
+  vtkActor* LastPickedActor;
+  vtkProperty* LastPickedProperty;
 };
 
 vtkStandardNewMacro(MouseInteractorHighLightActor);
 
 // Execute application.
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+      vtkSmartPointer<vtkNamedColors>::New();
+
+  colors->SetColor("Bkg", 0.3, 0.4, 0.5);
+
   int numberOfSpheres = 10;
   if (argc > 1)
   {
@@ -75,55 +85,56 @@ int main(int argc, char *argv[])
   }
   // A renderer and render window
   vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
+      vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
-  renderWindow->AddRenderer ( renderer );
+      vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->AddRenderer(renderer);
 
   // An interactor
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  renderWindowInteractor->SetRenderWindow ( renderWindow );
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  renderWindowInteractor->SetRenderWindow(renderWindow);
 
   // Set the custom type to use for interaction.
   vtkSmartPointer<MouseInteractorHighLightActor> style =
-    vtkSmartPointer<MouseInteractorHighLightActor>::New();
+      vtkSmartPointer<MouseInteractorHighLightActor>::New();
   style->SetDefaultRenderer(renderer);
 
-  renderWindowInteractor->SetInteractorStyle( style );
+  renderWindowInteractor->SetInteractorStyle(style);
 
   for (int i = 0; i < numberOfSpheres; ++i)
   {
     vtkSmartPointer<vtkSphereSource> source =
-      vtkSmartPointer<vtkSphereSource>::New();
+        vtkSmartPointer<vtkSphereSource>::New();
     double x, y, z, radius;
-    x = vtkMath::Random(-5,5);
-    y = vtkMath::Random(-5,5);
-    z = vtkMath::Random(-5,5);
-    radius = vtkMath::Random(.5, 1.0);
+    x = vtkMath::Random(-5, 5);
+    y = vtkMath::Random(-5, 5);
+    z = vtkMath::Random(-5, 5);
+    radius = vtkMath::Random(0.5, 1.0);
     source->SetRadius(radius);
     source->SetCenter(x, y, z);
     source->SetPhiResolution(11);
     source->SetThetaResolution(21);
     vtkSmartPointer<vtkPolyDataMapper> mapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
-    mapper->SetInputConnection ( source->GetOutputPort());
+        vtkSmartPointer<vtkPolyDataMapper>::New();
+    mapper->SetInputConnection(source->GetOutputPort());
     vtkSmartPointer<vtkActor> actor =
-      vtkSmartPointer<vtkActor>::New();
-    actor->SetMapper ( mapper );
+        vtkSmartPointer<vtkActor>::New();
+    actor->SetMapper(mapper);
     double r, g, b;
-    r = vtkMath::Random(.4, 1.0);
-    g = vtkMath::Random(.4, 1.0);
-    b = vtkMath::Random(.4, 1.0);
+    r = vtkMath::Random(0.4, 1.0);
+    g = vtkMath::Random(0.4, 1.0);
+    b = vtkMath::Random(0.4, 1.0);
     actor->GetProperty()->SetDiffuseColor(r, g, b);
-    actor->GetProperty()->SetDiffuse(.8);
-    actor->GetProperty()->SetSpecular(.5);
-    actor->GetProperty()->SetSpecularColor(1.0,1.0,1.0);
+    actor->GetProperty()->SetDiffuse(0.8);
+    actor->GetProperty()->SetSpecular(0.5);
+    actor->GetProperty()->SetSpecularColor(
+        colors->GetColor3d("White").GetData());
     actor->GetProperty()->SetSpecularPower(30.0);
-    renderer->AddActor ( actor );
+    renderer->AddActor(actor);
   }
 
-  renderer->SetBackground ( .3, .4, .5 );
+  renderer->SetBackground(colors->GetColor3d("Bkg").GetData());
 
   // Render and interact
   renderWindow->Render();

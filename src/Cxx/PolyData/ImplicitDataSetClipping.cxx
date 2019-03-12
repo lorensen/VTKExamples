@@ -1,5 +1,3 @@
-#include <vtkSmartPointer.h>
-
 #include <vtkActor.h>
 #include <vtkBox.h>
 #include <vtkCamera.h>
@@ -10,36 +8,29 @@
 #include <vtkIdFilter.h>
 #include <vtkIdTypeArray.h>
 #include <vtkImplicitDataSet.h>
+#include <vtkNamedColors.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 #include <vtkXMLPolyDataWriter.h>
 
-namespace
-{
-void WritePolyData(vtkPolyData* const polyData, const std::string& filename)
-{
-    vtkSmartPointer<vtkXMLPolyDataWriter> writer = vtkSmartPointer<vtkXMLPolyDataWriter>::New();
-    writer->SetInputData(polyData);
-    writer->SetFileName(filename.c_str());
-    writer->Write();
-}
+namespace {
+void WritePolyData(vtkPolyData* const polyData, const std::string& filename);
 
-void WriteDataSet(vtkDataSet* const dataSet, const std::string& filename)
-{
-    vtkSmartPointer<vtkDataSetWriter> writer =
-      vtkSmartPointer<vtkDataSetWriter>::New();
-    writer->SetInputData(dataSet);
-    writer->SetFileName(filename.c_str());
-    writer->Write();
-}
-}
+void WriteDataSet(vtkDataSet* const dataSet, const std::string& filename);
+} // namespace
 
-int main(int, char *[])
+int main(int, char*[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+      vtkSmartPointer<vtkNamedColors>::New();
+
+  colors->SetColor("Bkg", 0.2, 0.3, 0.4);
+
   vtkSmartPointer<vtkSphereSource> sphereSource =
       vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->SetCenter(.75, 0, 0);
@@ -49,8 +40,9 @@ int main(int, char *[])
   sphereSource->SetPhiResolution(res);
   sphereSource->Update();
 
-  std::cout << "The sphere has " << sphereSource->GetOutput()->GetNumberOfPoints()
-            << " points." << " and " << sphereSource->GetOutput()->GetNumberOfCells()
+  std::cout << "The sphere has "
+            << sphereSource->GetOutput()->GetNumberOfPoints() << " points."
+            << " and " << sphereSource->GetOutput()->GetNumberOfCells()
             << " cells. " << std::endl;
 
   // Add ids to the points and cells of the sphere
@@ -59,6 +51,10 @@ int main(int, char *[])
   cellIdFilter->SetInputConnection(sphereSource->GetOutputPort());
   cellIdFilter->SetCellIds(true);
   cellIdFilter->SetPointIds(false);
+  // SetIdsArrayName is deprecated in VTK 8.90, use:
+  //   SetPointIdsArrayName/GetPointIdsArrayName or
+  //   SetCellIdsArrayName/GetCellIdsArrayName.
+  // cellIdFilter->SetCellIdsArrayName("CellIds");
   cellIdFilter->SetIdsArrayName("CellIds");
   cellIdFilter->Update();
 
@@ -69,10 +65,14 @@ int main(int, char *[])
   pointIdFilter->SetInputConnection(cellIdFilter->GetOutputPort());
   pointIdFilter->SetCellIds(false);
   pointIdFilter->SetPointIds(true);
+  // SetIdsArrayName is deprecated in VTK 8.90, use:
+  //   SetPointIdsArrayName/GetPointIdsArrayName or
+  //   SetCellIdsArrayName/GetCellIdsArrayName.
+  // pointIdFilter->SetPointIdsArrayName("PointIds");
   pointIdFilter->SetIdsArrayName("PointIds");
   pointIdFilter->Update();
 
- vtkDataSet* sphereWithIds = pointIdFilter->GetOutput();
+  vtkDataSet* sphereWithIds = pointIdFilter->GetOutput();
 
   WriteDataSet(sphereWithIds, "BothIdFilter.vtp");
 
@@ -80,8 +80,7 @@ int main(int, char *[])
       vtkSmartPointer<vtkCubeSource>::New();
   cubeSource->Update();
 
-  vtkSmartPointer<vtkBox> implicitCube =
-      vtkSmartPointer<vtkBox>::New();
+  vtkSmartPointer<vtkBox> implicitCube = vtkSmartPointer<vtkBox>::New();
   implicitCube->SetBounds(cubeSource->GetOutput()->GetBounds());
 
   vtkSmartPointer<vtkClipPolyData> clipper =
@@ -96,14 +95,18 @@ int main(int, char *[])
   // Get the clipped cell ids
   vtkPolyData* clipped = clipper->GetOutput();
 
-  std::cout << "There are " << clipped->GetNumberOfPoints() << " clipped points." << std::endl;
-  std::cout << "There are " << clipped->GetNumberOfCells() << " clipped cells." << std::endl;
+  std::cout << "There are " << clipped->GetNumberOfPoints()
+            << " clipped points." << std::endl;
+  std::cout << "There are " << clipped->GetNumberOfCells() << " clipped cells."
+            << std::endl;
 
-  vtkIdTypeArray* clippedCellIds = vtkIdTypeArray::SafeDownCast(clipped->GetCellData()->GetArray("CellIds"));
+  vtkIdTypeArray* clippedCellIds =
+      vtkIdTypeArray::SafeDownCast(clipped->GetCellData()->GetArray("CellIds"));
 
-  for(vtkIdType i = 0; i < clippedCellIds->GetNumberOfTuples(); i++)
+  for (vtkIdType i = 0; i < clippedCellIds->GetNumberOfTuples(); i++)
   {
-    std::cout << "Clipped cell id " << i << " : " << clippedCellIds->GetValue(i) << std::endl;
+    std::cout << "Clipped cell id " << i << " : " << clippedCellIds->GetValue(i)
+              << std::endl;
   }
 
   // Create a mapper and actor for clipped sphere
@@ -112,8 +115,7 @@ int main(int, char *[])
   clippedMapper->SetInputConnection(clipper->GetOutputPort());
   clippedMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> clippedActor =
-      vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> clippedActor = vtkSmartPointer<vtkActor>::New();
   clippedActor->SetMapper(clippedMapper);
   clippedActor->GetProperty()->SetRepresentationToWireframe();
 
@@ -122,15 +124,13 @@ int main(int, char *[])
       vtkSmartPointer<vtkPolyDataMapper>::New();
   cubeMapper->SetInputConnection(cubeSource->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> cubeActor =
-      vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> cubeActor = vtkSmartPointer<vtkActor>::New();
   cubeActor->SetMapper(cubeMapper);
   cubeActor->GetProperty()->SetRepresentationToWireframe();
   cubeActor->GetProperty()->SetOpacity(0.5);
 
-  //Create a renderer, render window, and interactor
-  vtkSmartPointer<vtkRenderer> renderer =
-      vtkSmartPointer<vtkRenderer>::New();
+  // Create a renderer, render window, and interactor
+  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
       vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
@@ -138,10 +138,10 @@ int main(int, char *[])
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
-  //Add the actor to the scene
+  // Add the actor to the scene
   renderer->AddActor(clippedActor);
   renderer->AddActor(cubeActor);
-  renderer->SetBackground(.2, .3, .4);
+  renderer->SetBackground(colors->GetColor3d("Bkg").GetData());
 
   // Generate an interesting view
   //
@@ -151,9 +151,29 @@ int main(int, char *[])
   renderer->GetActiveCamera()->Dolly(1.1);
   renderer->ResetCameraClippingRange();
 
-  //Render and interact
+  // Render and interact
   renderWindow->Render();
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;
 }
+
+namespace {
+void WritePolyData(vtkPolyData* const polyData, const std::string& filename)
+{
+  vtkSmartPointer<vtkXMLPolyDataWriter> writer =
+      vtkSmartPointer<vtkXMLPolyDataWriter>::New();
+  writer->SetInputData(polyData);
+  writer->SetFileName(filename.c_str());
+  writer->Write();
+}
+
+void WriteDataSet(vtkDataSet* const dataSet, const std::string& filename)
+{
+  vtkSmartPointer<vtkDataSetWriter> writer =
+      vtkSmartPointer<vtkDataSetWriter>::New();
+  writer->SetInputData(dataSet);
+  writer->SetFileName(filename.c_str());
+  writer->Write();
+}
+} // namespace
