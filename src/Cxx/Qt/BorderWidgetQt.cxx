@@ -11,27 +11,40 @@
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+#include <vtkVersion.h>
 
-class BorderCallback : public vtkCommand {
+class BorderCallback : public vtkCommand
+{
 public:
-  BorderCallback() {}
+  BorderCallback()
+  {
+  }
 
-  static BorderCallback *New() { return new BorderCallback; }
+  static BorderCallback* New()
+  {
+    return new BorderCallback;
+  }
 
-  virtual void Execute(vtkObject *vtkNotUsed(caller), unsigned long, void *) {
+  virtual void Execute(vtkObject* vtkNotUsed(caller), unsigned long, void*)
+  {
     //      vtkBorderWidget *borderWidget =
     //          reinterpret_cast<vtkBorderWidget*>(caller);
   }
 };
 
 // Constructor
-BorderWidgetQt::BorderWidgetQt() {
+BorderWidgetQt::BorderWidgetQt()
+{
   this->setupUi(this);
 
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidget->setRenderWindow(renderWindow);
+#else
   this->qvtkWidget->SetRenderWindow(renderWindow);
+#endif
 
   // Sphere
   vtkNew<vtkSphereSource> sphereSource;
@@ -48,11 +61,19 @@ BorderWidgetQt::BorderWidgetQt() {
   renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
   // Connect VTK with Qt
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidget->renderWindow()->AddRenderer(renderer);
+#else
   this->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);
+#endif
 
   // Add a border widget to the right renderer
   vtkNew<vtkBorderWidget> bw;
   this->BorderWidget = bw;
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->BorderWidget->SetInteractor(this->qvtkWidget->interactor());
+#else
   this->BorderWidget->SetInteractor(this->qvtkWidget->GetInteractor());
+#endif
   this->BorderWidget->On();
 }

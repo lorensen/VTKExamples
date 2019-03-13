@@ -12,6 +12,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkSphereSource.h>
+#include <vtkVersion.h>
 
 // Constructor
 RenderWindowUISingleInheritance::RenderWindowUISingleInheritance() {
@@ -21,7 +22,11 @@ RenderWindowUISingleInheritance::RenderWindowUISingleInheritance() {
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->ui->qvtkWidget->setRenderWindow(renderWindow);
+#else
   this->ui->qvtkWidget->SetRenderWindow(renderWindow);
+#endif
 
   // Sphere
   vtkNew<vtkSphereSource> sphereSource;
@@ -38,9 +43,15 @@ RenderWindowUISingleInheritance::RenderWindowUISingleInheritance() {
   renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
   // VTK/Qt wedded
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->ui->qvtkWidget->renderWindow()->AddRenderer(renderer);
+  this->ui->qvtkWidget->renderWindow()->SetWindowName(
+      "RenderWindowUISingleInheritance");
+#else
   this->ui->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);
   this->ui->qvtkWidget->GetRenderWindow()->SetWindowName(
       "RenderWindowUISingleInheritance");
+#endif
   // Set up action signals and slots
   connect(this->ui->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
 }

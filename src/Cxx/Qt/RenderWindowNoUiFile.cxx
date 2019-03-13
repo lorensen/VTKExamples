@@ -9,11 +9,13 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkSphereSource.h>
+#include <vtkVersion.h>
 
 #include <QSurfaceFormat>
 #include <QVTKOpenGLNativeWidget.h>
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv)
+{
   // needed to ensure appropriate OpenGL context is created for VTK rendering.
   QSurfaceFormat::setDefaultFormat(QVTKOpenGLNativeWidget::defaultFormat());
 
@@ -24,7 +26,11 @@ int main(int argc, char **argv) {
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  widget.setRenderWindow(renderWindow);
+#else
   widget.SetRenderWindow(renderWindow);
+#endif
 
   widget.resize(600, 600);
 
@@ -41,8 +47,13 @@ int main(int argc, char **argv) {
   renderer->AddActor(sphereActor);
   renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  widget.renderWindow()->AddRenderer(renderer);
+  widget.renderWindow()->SetWindowName("RenderWindowNoUIFile");
+#else
   widget.GetRenderWindow()->AddRenderer(renderer);
   widget.GetRenderWindow()->SetWindowName("RenderWindowNoUIFile");
+#endif
   widget.show();
 
   app.exec();
