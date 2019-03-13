@@ -11,15 +11,21 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSphereSource.h>
+#include <vtkVersion.h>
 
 // Constructor
-EventQtSlotConnect::EventQtSlotConnect() {
+EventQtSlotConnect::EventQtSlotConnect()
+{
   this->setupUi(this);
 
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidget->setRenderWindow(renderWindow);
+#else
   this->qvtkWidget->SetRenderWindow(renderWindow);
+#endif
 
   vtkNew<vtkEventQtSlotConnect> slotConnector;
   this->Connections = slotConnector;
@@ -39,15 +45,26 @@ EventQtSlotConnect::EventQtSlotConnect() {
   renderer->AddActor(sphereActor);
   renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidget->renderWindow()->AddRenderer(renderer);
+#else
   this->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);
+#endif
 
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->Connections->Connect(
+      this->qvtkWidget->renderWindow()->GetInteractor(),
+      vtkCommand::LeftButtonPressEvent, this,
+      SLOT(slot_clicked(vtkObject*, unsigned long, void*, void*)));
+#else
   this->Connections->Connect(
       this->qvtkWidget->GetRenderWindow()->GetInteractor(),
       vtkCommand::LeftButtonPressEvent, this,
-      SLOT(slot_clicked(vtkObject *, unsigned long, void *, void *)));
+      SLOT(slot_clicked(vtkObject*, unsigned long, void*, void*)));
+#endif
 };
 
-void EventQtSlotConnect::slot_clicked(vtkObject *, unsigned long, void *,
-                                      void *) {
+void EventQtSlotConnect::slot_clicked(vtkObject*, unsigned long, void*, void*)
+{
   std::cout << "Clicked." << std::endl;
 }

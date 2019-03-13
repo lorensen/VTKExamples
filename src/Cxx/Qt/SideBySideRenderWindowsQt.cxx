@@ -13,18 +13,24 @@
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+#include <vtkVersion.h>
 
 // Constructor
-SideBySideRenderWindowsQt::SideBySideRenderWindowsQt() {
+SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
+{
   this->setupUi(this);
 
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowLeft;
-  this->qvtkWidgetLeft->SetRenderWindow(renderWindowLeft);
-
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowRight;
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidgetLeft->setRenderWindow(renderWindowLeft);
+  this->qvtkWidgetRight->setRenderWindow(renderWindowRight);
+#else
+  this->qvtkWidgetLeft->SetRenderWindow(renderWindowLeft);
   this->qvtkWidgetRight->SetRenderWindow(renderWindowRight);
+#endif
 
   // Sphere
   vtkSmartPointer<vtkSphereSource> sphereSource =
@@ -74,11 +80,19 @@ SideBySideRenderWindowsQt::SideBySideRenderWindowsQt() {
   rightRenderer->GetActiveCamera()->Zoom(0.8);
 
   // VTK/Qt wedded
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidgetLeft->renderWindow()->AddRenderer(leftRenderer);
+  this->qvtkWidgetRight->renderWindow()->AddRenderer(rightRenderer);
+#else
   this->qvtkWidgetLeft->GetRenderWindow()->AddRenderer(leftRenderer);
   this->qvtkWidgetRight->GetRenderWindow()->AddRenderer(rightRenderer);
+#endif
 
   // Set up action signals and slots
   connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
 }
 
-void SideBySideRenderWindowsQt::slotExit() { qApp->exit(); }
+void SideBySideRenderWindowsQt::slotExit()
+{
+  qApp->exit();
+}

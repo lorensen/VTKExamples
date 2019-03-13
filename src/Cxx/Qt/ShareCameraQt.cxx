@@ -15,17 +15,24 @@
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+#include <vtkVersion.h>
 
 // Constructor
-ShareCameraQt::ShareCameraQt() {
+ShareCameraQt::ShareCameraQt()
+{
   this->setupUi(this);
 
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowLeft;
-  this->qvtkWidgetLeft->SetRenderWindow(renderWindowLeft);
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowRight;
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidgetLeft->setRenderWindow(renderWindowLeft);
+  this->qvtkWidgetRight->setRenderWindow(renderWindowRight);
+#else
+  this->qvtkWidgetLeft->SetRenderWindow(renderWindowLeft);
   this->qvtkWidgetRight->SetRenderWindow(renderWindowRight);
+#endif
 
   // Sphere
   vtkSmartPointer<vtkSphereSource> sphereSource =
@@ -64,8 +71,13 @@ ShareCameraQt::ShareCameraQt() {
   rightRenderer->SetBackground(colors->GetColor3d("LightSteelBlue").GetData());
 
   // VTK/Qt wedded
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidgetLeft->renderWindow()->AddRenderer(leftRenderer);
+  this->qvtkWidgetRight->renderWindow()->AddRenderer(rightRenderer);
+#else
   this->qvtkWidgetLeft->GetRenderWindow()->AddRenderer(leftRenderer);
   this->qvtkWidgetRight->GetRenderWindow()->AddRenderer(rightRenderer);
+#endif
 
   rightRenderer->ResetCamera();
   leftRenderer->ResetCamera();
@@ -82,12 +94,25 @@ ShareCameraQt::ShareCameraQt() {
   // Set up action signals and slots
   connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
 
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidgetLeft->renderWindow()->AddObserver(
+      vtkCommand::ModifiedEvent, this, &ShareCameraQt::ModifiedHandler);
+#else
   this->qvtkWidgetLeft->GetRenderWindow()->AddObserver(
       vtkCommand::ModifiedEvent, this, &ShareCameraQt::ModifiedHandler);
+#endif
 }
 
-void ShareCameraQt::ModifiedHandler() {
+void ShareCameraQt::ModifiedHandler()
+{
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  this->qvtkWidgetRight->renderWindow()->Render();
+#else
   this->qvtkWidgetRight->GetRenderWindow()->Render();
+#endif
 }
 
-void ShareCameraQt::slotExit() { qApp->exit(); }
+void ShareCameraQt::slotExit()
+{
+  qApp->exit();
+}
