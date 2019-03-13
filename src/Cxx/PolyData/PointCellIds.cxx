@@ -4,6 +4,7 @@
 #include <vtkPointData.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+#include <vtkVersion.h>
 
 int main(int, char*[])
 {
@@ -18,12 +19,12 @@ int main(int, char*[])
 
   vtkSmartPointer<vtkIdFilter> idFilter = vtkSmartPointer<vtkIdFilter>::New();
   idFilter->SetInputConnection(sphereSource->GetOutputPort());
-  // SetIdsArrayName is deprecated in VTK 8.90, use:
-  //   SetPointIdsArrayName/GetPointIdsArrayName or
-  //   SetCellIdsArrayName/GetCellIdsArrayName.
-  // idFilter->SetPointIdsArrayName("ids");
-  // idFilter->SetCellIdsArrayName("ids");
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  idFilter->SetPointIdsArrayName("ids");
+  idFilter->SetCellIdsArrayName("ids");
+#else
   idFilter->SetIdsArrayName("ids");
+#endif
   idFilter->Update();
 
   std::cout << "point arrays: " << std::endl;

@@ -1,7 +1,3 @@
 ### Description
 
 This example demonstrates how to select and highlight cells using a rubber band. Press 'r' to enter selection mode.
-
-!!! note
-    In vtkIdFilter, SetIdsArrayName is deprecated in VTK 8.90, use SetPointIdsArrayName/GetPointIdsArrayName or SetCellIdsArrayName/GetCellIdsArrayName.
-
