@@ -2,7 +2,7 @@
 
 ## Python
 
-Out of 2800 available VTK classes, 382 are demonstrated here.
+Out of 2796 available VTK classes, 380 are demonstrated here.
 
 ### Excluded classes
 
@@ -111,8 +111,6 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkFrustumSource](http://www.vtk.org/doc/nightly/html/classvtkFrustumSource.html#details) | [Frustum](/Python/GeometricObjects/Frustum)  |
 | [vtkGaussianSplatter](http://www.vtk.org/doc/nightly/html/classvtkGaussianSplatter.html#details) | [Finance](/Python/Modelling/Finance) [FinanceFieldData](/Python/Modelling/FinanceFieldData) [GaussianSplat](/Python/Filtering/GaussianSplat) [SingleSplat](/Python/VisualizationAlgorithms/SingleSplat) [SplatFace](/Python/VisualizationAlgorithms/SplatFace)  |
 | [vtkGenericCell](http://www.vtk.org/doc/nightly/html/classvtkGenericCell.html#details) | [QuadraticHexahedronDemo](/Python/GeometricObjects/QuadraticHexahedronDemo) [QuadraticTetraDemo](/Python/GeometricObjects/QuadraticTetraDemo) [ReadLegacyUnstructuredGrid](/Python/IO/ReadLegacyUnstructuredGrid)  |
-| [vtkGeoAssignCoordinates](http://www.vtk.org/doc/nightly/html/classvtkGeoAssignCoordinates.html#details) | [GeoAssignCoordinates](/Python/Geovis/GeoAssignCoordinates)  |
-| [vtkGeoGraticule](http://www.vtk.org/doc/nightly/html/classvtkGeoGraticule.html#details) | [GeoGraticle](/Python/Geovis/GeoGraticle)  |
 | [vtkGeometryFilter](http://www.vtk.org/doc/nightly/html/classvtkGeometryFilter.html#details) | [Blow](/Python/Visualization/Blow)  |
 | [vtkGeoProjection](http://www.vtk.org/doc/nightly/html/classvtkGeoProjection.html#details) | [GeoGraticle](/Python/Geovis/GeoGraticle)  |
 | [vtkGeoTransform](http://www.vtk.org/doc/nightly/html/classvtkGeoTransform.html#details) | [GeoGraticle](/Python/Geovis/GeoGraticle)  |
@@ -388,7 +386,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkXMLDataSetWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLDataSetWriter.html#details) | [WriteXMLLinearCells](/Python/IO/WriteXMLLinearCells)  |
 | [vtkXMLImageDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLImageDataReader.html#details) | [WriteReadVtkImageData](/Python/ImageData/WriteReadVtkImageData)  |
 | [vtkXMLImageDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLImageDataWriter.html#details) | [WriteReadVtkImageData](/Python/ImageData/WriteReadVtkImageData)  |
-| [vtkXMLPolyDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataReader.html#details) | [AnatomicalOrientation](/Python/VisualizationAlgorithms/AnatomicalOrientation) [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) [CutWithScalars](/Python/VisualizationAlgorithms/CutWithScalars) [GeoGraticle](/Python/Geovis/GeoGraticle) [ReadVTP](/Python/IO/ReadVTP)  |
+| [vtkXMLPolyDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataReader.html#details) | [AnatomicalOrientation](/Python/VisualizationAlgorithms/AnatomicalOrientation) [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) [CutWithScalars](/Python/VisualizationAlgorithms/CutWithScalars) [GeoGraticle](/Python/Geovis/GeoGraticle) [ReadPolyData](/Python/IO/ReadPolyData) [ReadVTP](/Python/IO/ReadVTP)  |
 | [vtkXMLPolyDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataWriter.html#details) | [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) [ColoredTriangle](/Python/PolyData/ColoredTriangle) [PolyDataContourToImageData](/Python/PolyData/PolyDataContourToImageData) [RenameArray](/Python/Arrays/RenameArray) [SolidColoredTriangle](/Python/PolyData/SolidColoredTriangle) [TriangleColoredPoints](/Python/PolyData/TriangleColoredPoints) [TriangleCorners](/Python/PolyData/TriangleCorners) [TriangleCornerVertices](/Python/PolyData/TriangleCornerVertices) [WriteTriangleToFile](/Python/IO/WriteTriangleToFile)  |
 | [vtkXMLUnstructuredGridReader](http://www.vtk.org/doc/nightly/html/classvtkXMLUnstructuredGridReader.html#details) | [ReadUnstructuredGrid](/Python/IO/ReadUnstructuredGrid)  |
 | [vtkXMLUnstructuredGridWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLUnstructuredGridWriter.html#details) | [NOVCAGraph](/Python/Graphs/NOVCAGraph) [Polyhedron](/Python/GeometricObjects/Polyhedron)  |
