@@ -37,6 +37,12 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [ReadSTL](/Java/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files.
 [SimplePointsReader](/Java/IO/SimplePointsReader) | vtkSimplePointsReader | Read a simple "xyz" file of points.
 
+##### Output
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[WritePLY](/Java/IO/WritePLY) | vtkPLYWriter | Write PLY (.ply) files.
+[WriteSTL](/Java/IO/WriteSTL) | vtkSTLWriter | Write stereo lithography STL (.stl) files.
 
 #### VTK Formats
 
@@ -54,6 +60,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [WriteVTP](/Java/IO/WriteVTP) | vtkXMLPolyDataWriter | Write a VTK XML PolyData file.
+[XMLPImageDataWriter](/Java/IO/XMLPImageDataWriter) | vtkXMLPImageDataWriter | Write a .pvti file with 4 .vti pieces.
+
 
 
 ### Image Format
@@ -73,6 +81,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [JPEGWriter](/Java/IO/JPEGWriter) | vtkJPEGWriter | Write a JPEG file.
 [PNGReader](/Java/IO/PNGReader) | vtkPNGReader | Read a PNG image.
+[WritePNM](/Java/IO/WritePNM) | vtkPNMWriter | Write a PNM (.pnm) file.
+[WriteTIFF](/Java/IO/WriteTIFF) | vtkTIFFWriter | Write a TIFF (.tif) file.
 
 
 ## Annotation
