@@ -7,18 +7,13 @@ import vtk.vtkNamedColors;
 import vtk.vtkXMLPolyDataReader;
 import vtk.vtkDataSetMapper;
 
-public class ReadPolyData
-{
+public class ReadPolyData {
   // -----------------------------------------------------------------
   // Load VTK library and print which library was not properly loaded
-  static 
-  {
-    if (!vtkNativeLibrary.LoadAllNativeLibraries()) 
-    {
-      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) 
-      {
-        if (!lib.IsLoaded()) 
-        {
+  static {
+    if (!vtkNativeLibrary.LoadAllNativeLibraries()) {
+      for (vtkNativeLibrary lib : vtkNativeLibrary.values()) {
+        if (!lib.IsLoaded()) {
           System.out.println(lib.GetLibraryName() + " not loaded");
         }
       }
@@ -27,34 +22,34 @@ public class ReadPolyData
   }
   // -----------------------------------------------------------------
 
-  public static void main(String args[]) 
-  {
-    
+  public static void main(String args[]) {
+
     //parse command line arguments
-    if (args.length != 1) 
-    {
+    if (args.length != 1) {
       System.err.println("Usage: java -classpath ... Filename(.vtp) e.g Torso.vtp");
       return;
     }
     String inputFilename = args[0];
-    
-    vtkNamedColors Color = new vtkNamedColors(); 
+
+    vtkNamedColors Color = new vtkNamedColors();
 
     //Renderer Background Color
-    double BgColor[] = new double[4];
+    double Bkg[] = new double[4];
+    double ActorColor[] = new double[4];
 
-    //Change Color Name to Use your own Color for Renderer Background
-    Color.GetColor("Seagreen",BgColor);
+    Color.GetColor("Teal", Bkg);
+    Color.GetColor("BurlyWood", ActorColor);
 
     vtkXMLPolyDataReader reader = new vtkXMLPolyDataReader();
     reader.SetFileName(inputFilename);
     reader.Update();
-   
-	    vtkDataSetMapper mapper = new vtkDataSetMapper();
+
+    vtkDataSetMapper mapper = new vtkDataSetMapper();
     mapper.SetInputConnection(reader.GetOutputPort());
 
     vtkActor actor = new vtkActor();
     actor.SetMapper(mapper);
+    actor.GetProperty().SetColor(ActorColor);
 
     // Create the renderer, render window and interactor.
     vtkRenderer ren = new vtkRenderer();
@@ -64,10 +59,14 @@ public class ReadPolyData
     iren.SetRenderWindow(renWin);
 
     ren.AddActor(actor);
-    ren.SetBackground(BgColor);
+    ren.SetBackground(Bkg);
+    ren.GetActiveCamera().Pitch(90);
+    ren.GetActiveCamera().SetViewUp(0, 0, 1);
+    ren.ResetCamera();
 
-    renWin.SetSize(300,300);
+    renWin.SetSize(600, 600);
     renWin.Render();
+    renWin.SetWindowName("ReadPolyData");
 
     iren.Initialize();
     iren.Start();
