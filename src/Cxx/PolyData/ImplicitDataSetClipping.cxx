@@ -16,6 +16,7 @@
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+#include <vtkVersion.h>
 #include <vtkXMLPolyDataWriter.h>
 
 namespace {
@@ -51,11 +52,11 @@ int main(int, char*[])
   cellIdFilter->SetInputConnection(sphereSource->GetOutputPort());
   cellIdFilter->SetCellIds(true);
   cellIdFilter->SetPointIds(false);
-  // SetIdsArrayName is deprecated in VTK 8.90, use:
-  //   SetPointIdsArrayName/GetPointIdsArrayName or
-  //   SetCellIdsArrayName/GetCellIdsArrayName.
-  // cellIdFilter->SetCellIdsArrayName("CellIds");
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  cellIdFilter->SetCellIdsArrayName("CellIds");
+#else
   cellIdFilter->SetIdsArrayName("CellIds");
+#endif
   cellIdFilter->Update();
 
   WriteDataSet(cellIdFilter->GetOutput(), "CellIdFilter.vtp");
@@ -65,11 +66,11 @@ int main(int, char*[])
   pointIdFilter->SetInputConnection(cellIdFilter->GetOutputPort());
   pointIdFilter->SetCellIds(false);
   pointIdFilter->SetPointIds(true);
-  // SetIdsArrayName is deprecated in VTK 8.90, use:
-  //   SetPointIdsArrayName/GetPointIdsArrayName or
-  //   SetCellIdsArrayName/GetCellIdsArrayName.
-  // pointIdFilter->SetPointIdsArrayName("PointIds");
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  pointIdFilter->SetPointIdsArrayName("PointIds");
+#else
   pointIdFilter->SetIdsArrayName("PointIds");
+#endif
   pointIdFilter->Update();
 
   vtkDataSet* sphereWithIds = pointIdFilter->GetOutput();

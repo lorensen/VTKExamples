@@ -20,6 +20,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 #include <vtkUnstructuredGrid.h>
+#include <vtkVersion.h>
 #include <vtkVertexGlyphFilter.h>
 
 #define VTKISRBP_ORIENT 0
@@ -106,12 +107,12 @@ int main(int, char*[])
   vtkSmartPointer<vtkIdFilter> idFilter =
       vtkSmartPointer<vtkIdFilter>::New();
   idFilter->SetInputConnection(sphereSource->GetOutputPort());
-  // SetIdsArrayName is deprecated in VTK 8.90, use:
-  //   SetPointIdsArrayName/GetPointIdsArrayName or
-  //   SetCellIdsArrayName/GetCellIdsArrayName.
-  // idFilter->SetCellIdsArrayName("OriginalIds");
-  // idFilter->SetPointIdsArrayName("OriginalIds");
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  idFilter->SetCellIdsArrayName("OriginalIds");
+  idFilter->SetPointIdsArrayName("OriginalIds");
+#else
   idFilter->SetIdsArrayName("OriginalIds");
+#endif
   idFilter->Update();
 
   // This is needed to convert the ouput of vtkIdFilter (vtkDataSet) back to
