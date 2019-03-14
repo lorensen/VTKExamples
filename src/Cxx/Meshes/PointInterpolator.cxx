@@ -9,12 +9,14 @@
 #include <vtkTableToPolyData.h>
 
 #include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkNamedColors.h>
 #include <vtkPointGaussianMapper.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+
 
 int main(int argc, char *argv[])
 {
@@ -104,16 +106,23 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
+
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
+  renderWindow->SetSize(640, 480);
+
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
   renderer->AddActor(pointsActor);
-  renderer->SetBackground(colors->GetColor3d("White").GetData());
+
+  renderWindow->Render();
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Elevation(-45);
 
   renderWindow->Render();
   iren->Start();

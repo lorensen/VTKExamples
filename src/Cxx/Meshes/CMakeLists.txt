@@ -20,8 +20,6 @@ if(NOT VTK_BINARY_DIR)
     vtkIOImage
     vtkIOInfovis
     vtkIOLegacy
-    vtkIOMPIImage
-    vtkIOMPIParallel
     vtkIOPLY
     vtkIOXML
     vtkImagingCore
@@ -92,6 +90,9 @@ if (BUILD_TESTING)
   add_test(${KIT}-Decimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestDecimation ${DATA}/Torso.vtp)
 
+  add_test(${KIT}-PointInterpolator ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestPointInterpolator ${DATA}/sparsePoints.txt ${DATA}/InterpolatingOnSTL_final.stl)
+
   add_test(${KIT}-QuadricDecimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestQuadricDecimation ${DATA}/Torso.vtp)
 
@@ -117,9 +118,6 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-OBBDicer ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestOBBDicer ${DATA}/Bunny.vtp)
-
-  add_test(${KIT}-PointInterpolator ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-    TestPointInterpolator ${DATA}/points.txt ${DATA}/InterpolatingOnSTL_final.stl)
 
   add_test(${KIT}-MatrixMathFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestMatrixMathFilter ${DATA}/tensors.vtk)
