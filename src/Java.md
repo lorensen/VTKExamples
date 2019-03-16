@@ -32,17 +32,28 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[DEMReader](/Java/IO/DEMReader) | vtkDEMReader | Read DEM (elevation map) files
+[ParticleReader](/Java/IO/ParticleReader) | vtkParticleReader | This example reads ASCII files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
 [ReadPLOT3D](/Java/IO/ReadPLOT3D) | vtkPLOT3DReader | Read PLOT3D data files.
 [ReadPLY](/Java/IO/ReadPLY) | vtkPLYReader | Read PLY (.ply) files
 [ReadSTL](/Java/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files.
 [SimplePointsReader](/Java/IO/SimplePointsReader) | vtkSimplePointsReader | Read a simple "xyz" file of points.
 
+##### Importers
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[ThreeDSImporter](/Java/IO/ThreeDSImporter) | vtk3DSImporter | Import a 3D Studio scene that includes multiple actors.
+[VRMLImporter](/Java/Io/VRMLImporter) | vtkVRMLImporter | Import a VRML 2.0 (WRL) file.
+
 ##### Output
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[SimplePointsWriter](/Java/IO/SimplePointsWriter) | vtkSimplePointsWriter | Write a simple ".xyz" file
 [WritePLY](/Java/IO/WritePLY) | vtkPLYWriter | Write PLY (.ply) files.
 [WriteSTL](/Java/IO/WriteSTL) | vtkSTLWriter | Write stereo lithography STL (.stl) files.
+
 
 #### VTK Formats
 
@@ -61,7 +72,14 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [WriteVTP](/Java/IO/WriteVTP) | vtkXMLPolyDataWriter | Write a VTK XML PolyData file.
 [XMLPImageDataWriter](/Java/IO/XMLPImageDataWriter) | vtkXMLPImageDataWriter | Write a .pvti file with 4 .vti pieces.
+[XMLPUnstructuredGridWriter](/Java/IO/XMLPUnstructuredGridWriter) | vtkXMLPUnstructuredGridWriter | Write a .pvtu with 4 .vtu pieces.
+[XMLStructuredGridWriter](/Java/IO/XMLStructuredGridWriter) | vtkXMLStructuredGridWriter | Write a .vts file from a vtkStructuredGrid.
 
+##### Legacy VTK Formats
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[StructuredPointsReader](/Java/IO/StructuredPointsReader) | vtkStructuredPointsReader | Read a structured points (.vtk) file.
 
 
 ### Image Format
