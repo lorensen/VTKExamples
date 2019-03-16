@@ -248,9 +248,11 @@ This section includes examples of manipulating meshes.
 | -------------- | ---------------------- | ------------- | ------- |
 [BoundaryEdges](/Python/Meshes/BoundaryEdges) | vtkFeatureEdges | Find the edges that are used by only one face.
 [ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
-[DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
-[DeformPointSet](/Python/Meshes/DeformPointSet) | vtkDeformPointSet vtkElevationFilter | Use the vtkDeformPointSet filter to deform a vtkSphereSource with arbitrary polydata.
 [ColoredElevationMap](/Python/Meshes/ColoredElevationMap) | vtkLookupTable | Color a mesh by height.
+[DeformPointSet](/Python/Meshes/DeformPointSet) | vtkDeformPointSet vtkElevationFilter | Use the vtkDeformPointSet filter to deform a vtkSphereSource with arbitrary polydata.
+[DelaunayMesh](/Python/Modelling/DelaunayMesh) | vtkDelaunay2D vtkMinimalStandardRandomSequence vtkExtractEdges vtkGlyph3D vtkTubeFilter | Two-dimensional Delaunay triangulation of a random set of points. Points and edges are shown highlighted with sphere glyphs and tubes.
+[PointInterpolator](/Python/Meshes/PointInterpolator) | vtkPointInterpolator | Plot a scalar field of points onto a PolyData surface.
+
 
 #### Clipping
 
