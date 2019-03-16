@@ -11,6 +11,8 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersGeneral
     vtkFiltersGeometry
     vtkFiltersSources
+    vtkIOGeometry
+    vtkIOPLY
     vtkIOXML
     vtkInteractionStyle
     vtkRenderingContextOpenGL2
@@ -49,6 +51,13 @@ if (BUILD_TESTING)
   # Testing
   set(KIT Picking)
   set(NEEDS_ARGS
+    HighlightSelection
     )
+  set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+  set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+  add_test(${KIT}-HighlightSelection ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestHighlightSelection ${DATA}/cow.g)
+
   include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
