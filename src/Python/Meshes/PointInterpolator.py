@@ -111,6 +111,9 @@ def main():
     renWin.SetSize(640, 480)
     renWin.SetWindowName('PointInterpolator')
 
+    renderer.ResetCamera()
+    renderer.GetActiveCamera().Elevation(-45)
+
     iren.Initialize()
 
     renWin.Render()
