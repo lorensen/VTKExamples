@@ -72,6 +72,7 @@ if (BUILD_TESTING)
     BooleanOperationPolyDataFilter
     CellCentersDemo
     CellLocatorVisualization
+    CellsInsideObject
     ColorDisconnectedRegionsDemo
     ColoredPoints
     ConvexHull
@@ -116,6 +117,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-CellLocatorVisualization ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestCellLocatorVisualization -E 50)
+
+  add_test(${KIT}-CellsInsideObject ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestCellsInsideObject ${DATA}/cow.g)
 
   add_test(${KIT}-ColorDisconnectedRegionsDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestColorDisconnectedRegionsDemo ${DATA}/gears.stl)
