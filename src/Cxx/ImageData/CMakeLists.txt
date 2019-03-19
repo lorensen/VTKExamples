@@ -10,10 +10,16 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersCore
     vtkFiltersGeneral
     vtkFiltersGeometry
+    vtkFiltersModeling
     vtkFiltersSources
+    vtkIOGeometry
+    vtkIOImage
+    vtkIOLegacy
+    vtkIOPLY
     vtkIOXML
     vtkImagingCore
     vtkImagingGeneral
+    vtkImagingHybrid
     vtkImagingMath
     vtkImagingSources
     vtkInteractionImage

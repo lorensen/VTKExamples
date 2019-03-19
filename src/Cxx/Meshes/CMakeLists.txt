@@ -18,6 +18,7 @@ if(NOT VTK_BINARY_DIR)
     vtkIOExodus
     vtkIOGeometry
     vtkIOImage
+    vtkIOInfovis
     vtkIOLegacy
     vtkIOPLY
     vtkIOXML
@@ -74,6 +75,7 @@ if (BUILD_TESTING)
     InterpolateFieldDataDemo
     MatrixMathFilter
     OBBDicer
+    PointInterpolator
     QuadricClustering
     QuadricDecimation
     SplitPolyData
@@ -87,6 +89,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-Decimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestDecimation ${DATA}/Torso.vtp)
+
+  add_test(${KIT}-PointInterpolator ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestPointInterpolator ${DATA}/sparsePoints.txt ${DATA}/InterpolatingOnSTL_final.stl)
 
   add_test(${KIT}-QuadricDecimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestQuadricDecimation ${DATA}/Torso.vtp)
