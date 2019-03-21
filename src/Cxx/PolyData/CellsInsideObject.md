@@ -9,4 +9,4 @@ If two polydata datasets are provided, the example uses the second as the closed
     The example is run with the [cow.g](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/cow.g) data.
 
 !!! warning
-    The surface that contains cells must be closed and manifold. The example does not check for this. Run [ClosedSurface](Cxx/PolyData/ClosedSurface] to check your surface.
+    The surface that contains cells must be closed and manifold. The example does not check for this. Run [ClosedSurface](Cxx/PolyData/ClosedSurface) to check your surface.
