@@ -66,6 +66,7 @@ if (BUILD_TESTING)
     RotationsB
     RotationsC
     RotationsD
+    Shadows
     StripFran
     WalkCow
     WalkCowA
@@ -103,6 +104,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-Rainbow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestRainbow ${DATA}/combxyz.bin ${DATA}/combq.bin)
+
+  add_test(${KIT}-Shadows ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestShadows ${DATA}/dragon.ply)
 
   add_test(${KIT}-StripFran ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestStripFran ${DATA}/fran_cut.vtk)
