@@ -26,14 +26,14 @@ public:
   static MouseInteractorStyle6* New();
   vtkTypeMacro(MouseInteractorStyle6, vtkInteractorStyleTrackballActor);
 
-  virtual void OnLeftButtonDown()
+  virtual void OnLeftButtonDown() override
   {
     std::cout << "Pressed left mouse button." << std::endl;
     // Forward events
     vtkInteractorStyleTrackballActor::OnLeftButtonDown();
   }
 
-  virtual void OnMiddleButtonUp()
+  virtual void OnMiddleButtonUp() override
   {
     //std::cout << "Pressed middle mouse button." << std::endl;
 
@@ -103,7 +103,7 @@ public:
 
   }
 
-  virtual void OnRightButtonDown()
+  virtual void OnRightButtonDown() override
   {
     std::cout << "Pressed right mouse button." << std::endl;
     // Forward events

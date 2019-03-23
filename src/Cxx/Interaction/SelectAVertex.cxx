@@ -56,7 +56,7 @@ class InteractorStyle2 : public vtkInteractorStyleTrackballActor
       this->MoveActor->GetProperty()->SetColor(1,0,0);
     }
 
-    void OnMouseMove()
+    void OnMouseMove() override
     {
       if(!this->Move)
       {
@@ -67,7 +67,7 @@ class InteractorStyle2 : public vtkInteractorStyleTrackballActor
 
     }
 
-    void OnMiddleButtonUp()
+    void OnMiddleButtonUp() override
     {
       this->EndPan();
 
@@ -80,7 +80,7 @@ class InteractorStyle2 : public vtkInteractorStyleTrackballActor
       this->GetCurrentRenderer()->GetRenderWindow()->Render();
 
     }
-    void OnMiddleButtonDown()
+    void OnMiddleButtonDown() override
     {
       // Get the selected point
       int x = this->Interactor->GetEventPosition()[0];

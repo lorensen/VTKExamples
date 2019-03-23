@@ -18,62 +18,62 @@
 // Define interaction style
 class KeyPressInteractorStyle : public vtkInteractorStyleTrackballCamera
 {
-  public:
-    static KeyPressInteractorStyle* New();
-    vtkTypeMacro(KeyPressInteractorStyle, vtkInteractorStyleTrackballCamera);
+public:
+  static KeyPressInteractorStyle* New();
+  vtkTypeMacro(KeyPressInteractorStyle, vtkInteractorStyleTrackballCamera);
 
-    virtual void OnKeyPress()
+  virtual void OnKeyPress() override
+  {
+    // Get the keypress
+    std::string key = this->Interactor->GetKeySym();
+
+    // "s" for "s"elect
+    if(key.compare("s") == 0)
     {
-      // Get the keypress
-      std::string key = this->Interactor->GetKeySym();
-
-      // "s" for "s"elect
-      if(key.compare("s") == 0)
-      {
-        vtkSmartPointer<vtkHardwareSelector> selector =
-          vtkSmartPointer<vtkHardwareSelector>::New();
-        selector->SetRenderer(this->Interactor->GetRenderWindow()->GetRenderers()->GetFirstRenderer());
-        int* temp = this->Interactor->GetRenderWindow()->GetSize();
-        unsigned int windowSize[4];
-        windowSize[0] = temp[2];
-        windowSize[1] = temp[3];
-        windowSize[2] = temp[0];
-        windowSize[3] = temp[1];
-        /*
+      vtkSmartPointer<vtkHardwareSelector> selector =
+        vtkSmartPointer<vtkHardwareSelector>::New();
+      selector->SetRenderer(this->Interactor->GetRenderWindow()->GetRenderers()->GetFirstRenderer());
+      int* temp = this->Interactor->GetRenderWindow()->GetSize();
+      unsigned int windowSize[4];
+      windowSize[0] = temp[2];
+      windowSize[1] = temp[3];
+      windowSize[2] = temp[0];
+      windowSize[3] = temp[1];
+      /*
         for(unsigned int i = 0; i < 4; i++)
           {
           windowSize[i] = temp[i];
           }
         */
-        selector->SetArea(windowSize);
-        selector->SetFieldAssociation(vtkDataObject::FIELD_ASSOCIATION_CELLS);
-        vtkSelection* selection = selector->Select();
-        std::cout << "Selection has " << selection->GetNumberOfNodes() << " nodes." << std::endl;
+      selector->SetArea(windowSize);
+      selector->SetFieldAssociation(vtkDataObject::FIELD_ASSOCIATION_CELLS);
+      vtkSelection* selection = selector->Select();
+      std::cout << "Selection has " << selection->GetNumberOfNodes() << " nodes." << std::endl;
 
-        vtkSmartPointer<vtkExtractSelection> extractSelection =
-          vtkSmartPointer<vtkExtractSelection>::New();
-        extractSelection->SetInputData(0, this->Data);
-        extractSelection->SetInputData(1, selection);
-        extractSelection->Update();
+      vtkSmartPointer<vtkExtractSelection> extractSelection =
+        vtkSmartPointer<vtkExtractSelection>::New();
+      extractSelection->SetInputData(0, this->Data);
+      extractSelection->SetInputData(1, selection);
+      extractSelection->Update();
 
-        vtkSmartPointer<vtkDataSetMapper> mapper =
-          vtkSmartPointer<vtkDataSetMapper>::New();
-        mapper->SetInputConnection(extractSelection->GetOutputPort());
+      vtkSmartPointer<vtkDataSetMapper> mapper =
+        vtkSmartPointer<vtkDataSetMapper>::New();
+      mapper->SetInputConnection(extractSelection->GetOutputPort());
 
-        vtkSmartPointer<vtkActor> actor =
-          vtkSmartPointer<vtkActor>::New();
-        actor->SetMapper(mapper);
-        actor->GetProperty()->SetColor(1,0,0);
-        this->Renderer->AddActor(actor);
+      vtkSmartPointer<vtkActor> actor =
+        vtkSmartPointer<vtkActor>::New();
+      actor->SetMapper(mapper);
+      actor->GetProperty()->SetColor(1,0,0);
+      this->Renderer->AddActor(actor);
 
-      }
-
-      // Forward events
-      vtkInteractorStyleTrackballCamera::OnKeyPress();
     }
 
-    vtkPolyData* Data;
-    vtkRenderer* Renderer;
+    // Forward events
+    vtkInteractorStyleTrackballCamera::OnKeyPress();
+  }
+  
+  vtkPolyData* Data;
+  vtkRenderer* Renderer;
 
 };
 vtkStandardNewMacro(KeyPressInteractorStyle);

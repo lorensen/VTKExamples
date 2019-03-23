@@ -11,7 +11,7 @@ class vtkTestAlgorithmSource : public vtkAlgorithm
 public:
   static vtkTestAlgorithmSource *New();
   vtkTypeMacro(vtkTestAlgorithmSource,vtkAlgorithm);
-  void PrintSelf(ostream& os, vtkIndent indent);
+  void PrintSelf(ostream& os, vtkIndent indent) override;
 
   // Description:
   // Get the output data object for a port on this algorithm.
@@ -23,7 +23,7 @@ public:
   // see vtkAlgorithm for details
   virtual int ProcessRequest(vtkInformation*,
                              vtkInformationVector**,
-                             vtkInformationVector*);
+                             vtkInformationVector*) override;
 
 protected:
   vtkTestAlgorithmSource();
@@ -59,7 +59,7 @@ protected:
     vtkInformationVector**,
     vtkInformationVector* );
 
-  virtual int FillOutputPortInformation( int port, vtkInformation* info );
+  virtual int FillOutputPortInformation( int port, vtkInformation* info ) override;
 
 private:
   vtkTestAlgorithmSource( const vtkTestAlgorithmSource& ); // Not implemented.

@@ -7,14 +7,13 @@ class vtkTestGraphAlgorithmFilter : public vtkGraphAlgorithm
 {
 public:
   vtkTypeMacro(vtkTestGraphAlgorithmFilter,vtkGraphAlgorithm);
-  
   static vtkTestGraphAlgorithmFilter *New();
 	
 protected:
   vtkTestGraphAlgorithmFilter(){}
   ~vtkTestGraphAlgorithmFilter(){}
   
-  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *);
+  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) override;
 
 private:
   vtkTestGraphAlgorithmFilter(const vtkTestGraphAlgorithmFilter&);  // Not implemented.

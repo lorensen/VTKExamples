@@ -12,35 +12,34 @@
 // Define interaction style
 class KeyPressInteractorStyle : public vtkInteractorStyleTrackballCamera
 {
-  public:
-    static KeyPressInteractorStyle* New();
-    vtkTypeMacro(KeyPressInteractorStyle, vtkInteractorStyleTrackballCamera);
+public:
+  static KeyPressInteractorStyle* New();
+  vtkTypeMacro(KeyPressInteractorStyle, vtkInteractorStyleTrackballCamera);
 
-    virtual void OnKeyPress()
+  virtual void OnKeyPress() override
+  {
+    // Get the keypress
+    vtkRenderWindowInteractor *rwi = this->Interactor;
+    std::string key = rwi->GetKeySym();
+
+    // Output the key that was pressed
+    std::cout << "Pressed " << key << std::endl;
+
+    // Handle an arrow key
+    if(key == "Up")
     {
-      // Get the keypress
-      vtkRenderWindowInteractor *rwi = this->Interactor;
-      std::string key = rwi->GetKeySym();
-
-      // Output the key that was pressed
-      std::cout << "Pressed " << key << std::endl;
-
-      // Handle an arrow key
-      if(key == "Up")
-      {
-        std::cout << "The up arrow was pressed." << std::endl;
-      }
-
-      // Handle a "normal" key
-      if(key == "a")
-      {
-        std::cout << "The a key was pressed." << std::endl;
-      }
-
-      // Forward events
-      vtkInteractorStyleTrackballCamera::OnKeyPress();
+      std::cout << "The up arrow was pressed." << std::endl;
     }
 
+    // Handle a "normal" key
+    if(key == "a")
+    {
+      std::cout << "The a key was pressed." << std::endl;
+    }
+
+    // Forward events
+    vtkInteractorStyleTrackballCamera::OnKeyPress();
+  }
 };
 vtkStandardNewMacro(KeyPressInteractorStyle);
 

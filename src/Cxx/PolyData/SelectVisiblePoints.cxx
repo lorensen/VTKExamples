@@ -13,24 +13,23 @@
  
 class MyInteractor : public vtkInteractorStyleTrackballCamera
 {
-  public:
+public:
 
-    static MyInteractor* New();
-    vtkTypeMacro(MyInteractor, vtkInteractorStyleTrackballCamera);
+  static MyInteractor* New();
+  vtkTypeMacro(MyInteractor, vtkInteractorStyleTrackballCamera);
     
-    virtual void OnLeftButtonDown() 
-    {
-      this->VisibleFilter->Update();
-      std::cout << "There are currently: " << this->VisibleFilter->GetOutput()->GetNumberOfPoints() 
-                << " visible." << std::endl;
-      // Forward events
-      vtkInteractorStyleTrackballCamera::OnLeftButtonDown();
-      
-    }
+  virtual void OnLeftButtonDown()  override
+  {
+    this->VisibleFilter->Update();
+    std::cout << "There are currently: " << this->VisibleFilter->GetOutput()->GetNumberOfPoints() 
+              << " visible." << std::endl;
+    // Forward events
+    vtkInteractorStyleTrackballCamera::OnLeftButtonDown();
+  }
     
-    void SetVisibleFilter(vtkSmartPointer<vtkSelectVisiblePoints> vis) {this->VisibleFilter = vis;}
-  private:
-    vtkSmartPointer<vtkSelectVisiblePoints> VisibleFilter;
+  void SetVisibleFilter(vtkSmartPointer<vtkSelectVisiblePoints> vis) {this->VisibleFilter = vis;}
+private:
+  vtkSmartPointer<vtkSelectVisiblePoints> VisibleFilter;
 };
 
 vtkStandardNewMacro(MyInteractor);
