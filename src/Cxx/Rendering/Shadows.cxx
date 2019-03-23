@@ -46,9 +46,14 @@ int main(int argc, char *argv[])
   auto polyData =
     ReadPolyData(argc > 1 ? argv[1] : "");;
 
+  auto colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+  colors->SetColor("HighNoonSun", 1.0, 1.0, .9843, 1.0);  // Color temp. 5400k
+  colors->SetColor("100W Tungsten", 1.0, .8392, .6667, 1.0);  // Color temp. 2850k
+
   auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground(0.3, 0.4, 0.6);
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
   auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -63,16 +68,16 @@ int main(int argc, char *argv[])
     vtkSmartPointer<vtkLight>::New();
   light1->SetFocalPoint(0,0,0);
   light1->SetPosition(0,1,0.2);
-  light1->SetColor(0.95,0.97,1.0);
-  light1->SetIntensity(0.8);
+  light1->SetColor(colors->GetColor3d("HighNoonSun").GetData());
+  light1->SetIntensity(0.3);
   renderer->AddLight(light1);
 
   auto light2 =
     vtkSmartPointer<vtkLight>::New();
   light2->SetFocalPoint(0,0,0);
   light2->SetPosition(1.0,1.0,1.0);
-  light2->SetColor(1.0,0.8,0.7);
-  light2->SetIntensity(0.3);
+  light2->SetColor(colors->GetColor3d("100W Tungsten").GetData());
+  light2->SetIntensity(0.8);
   renderer->AddLight(light2);
 
   auto mapper =
@@ -82,9 +87,9 @@ int main(int argc, char *argv[])
   auto actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
-  actor->GetProperty()->SetAmbientColor(0.135, 0.2225, 0.3);
-  actor->GetProperty()->SetDiffuseColor(0.54, 0.89, 0.63);
-  actor->GetProperty()->SetSpecularColor(1.0, 1.0, 1.0);
+  actor->GetProperty()->SetAmbientColor(colors->GetColor3d("SaddleBrown").GetData());
+  actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Sienna").GetData());
+  actor->GetProperty()->SetSpecularColor(colors->GetColor3d("White").GetData());
   actor->GetProperty()->SetSpecular(0.51);
   actor->GetProperty()->SetDiffuse(0.7);
   actor->GetProperty()->SetAmbient(0.7);
@@ -218,6 +223,8 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     auto source =
       vtkSmartPointer<vtkSphereSource>::New();
+    source->SetThetaResolution(100);
+    source->SetPhiResolution(100);
     source->Update();
     polyData = source->GetOutput();
   }
