@@ -41,7 +41,7 @@ int main (int argc, char *argv[])
   auto polyData2 = vtkSmartPointer<vtkPolyData>::New();
   auto transform = vtkSmartPointer<vtkTransform>::New();
   auto transformPD = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-  // if only one polydata is present, generate a second polydata by
+  // If only one polydata is present, generate a second polydata by
   // rotating the orginal about its center.
   if (argc < 3)
   {
@@ -82,7 +82,7 @@ int main (int argc, char *argv[])
     1, 1,
     vtkDataObject::FIELD_ASSOCIATION_POINTS, "SelectedPoints",
     0, 1);
-  // Border points have a 0 or a 1 in at last one point of cell
+  // Border points have a 0 or a 1 in at least one point of a cell
   int borderId = threshold->AddIntervalSet(
     0, 1,
     vtkMultiThreshold::OPEN, vtkMultiThreshold::OPEN,
@@ -181,10 +181,12 @@ int main (int argc, char *argv[])
   renderer->AddActor(insideActor);
   renderer->AddActor(borderActor);
 
+  renderWindow->SetWindowName("CellsInsideObject");
   renderWindow->Render();
   renderer->GetActiveCamera()->Azimuth(30);
   renderer->GetActiveCamera()->Elevation(30);
   renderer->GetActiveCamera()->Dolly(1.25);
+  renderWindow->Render();
 
   renderWindowInteractor->Start();
 

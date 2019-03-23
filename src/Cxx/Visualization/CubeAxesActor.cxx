@@ -97,6 +97,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
+  renderWindow->SetWindowName("CubeAxesActor");
 
   renderWindow->Render();
   renderWindowInteractor->Start();
