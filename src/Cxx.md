@@ -865,7 +865,7 @@ This section includes vtkUnstructuredGrid.
 | -------------- | ---------------------- | ------------- | ------- |
 [Light](/Cxx/Lighting/Light) | vtkLight | Add a directional light to a scene.
 [LightActor](/Cxx/Lighting/LightActor) | vtkLightActor | Display the location and direction of a light.
-[Shadows](/Cxx/Visualization/Shadows) | vtkShadowMapPass | Create shadows.
+[ShadowsOpenGL](/Cxx/Visualization/ShadowsOpenGL) | vtkShadowMapPass | Create shadows with OpenGL backend.
 [SpotLights](/Cxx/Lighting/SpotLights) | vtkLight | Create two positional(spot) lights.
 
 ## Shaders
