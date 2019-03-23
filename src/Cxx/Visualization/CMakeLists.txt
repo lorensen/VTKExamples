@@ -47,6 +47,7 @@ if(NOT VTK_BINARY_DIR)
   vtkRenderingLOD
   vtkRenderingLabel
   vtkRenderingOpenGL2
+  vtkTestingRendering
   ${optional}  
   QUIET
 )
