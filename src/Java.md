@@ -34,6 +34,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [DEMReader](/Java/IO/DEMReader) | vtkDEMReader | Read DEM (elevation map) files
 [ParticleReader](/Java/IO/ParticleReader) | vtkParticleReader | This example reads ASCII files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
+[ReadCML](/Java/IO/ReadCML) | vtkCMLMoleculeReader | Read Chemistry Markup Language files.
 [ReadPLOT3D](/Java/IO/ReadPLOT3D) | vtkPLOT3DReader | Read PLOT3D data files.
 [ReadPLY](/Java/IO/ReadPLY) | vtkPLYReader | Read PLY (.ply) files
 [ReadSTL](/Java/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files.
