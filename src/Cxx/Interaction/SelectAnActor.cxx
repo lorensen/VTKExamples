@@ -17,24 +17,24 @@
 // Handle mouse events
 class MouseInteractorStyle5 : public vtkInteractorStyleTrackballActor
 {
-  public:
-    static MouseInteractorStyle5* New();
-    vtkTypeMacro(MouseInteractorStyle5, vtkInteractorStyleTrackballActor);
+public:
+  static MouseInteractorStyle5* New();
+  vtkTypeMacro(MouseInteractorStyle5, vtkInteractorStyleTrackballActor);
 
-    virtual void OnLeftButtonDown()
+  virtual void OnLeftButtonDown() override
+  {
+    // Forward events
+    vtkInteractorStyleTrackballActor::OnLeftButtonDown();
+
+    if(this->InteractionProp == this->Cube)
     {
-      // Forward events
-      vtkInteractorStyleTrackballActor::OnLeftButtonDown();
-
-      if(this->InteractionProp == this->Cube)
-      {
-        std::cout << "Picked cube." << std::endl;
-      }
-      else if(this->InteractionProp == this->Sphere)
-      {
-        std::cout << "Picked sphere." << std::endl;
-      }
+      std::cout << "Picked cube." << std::endl;
     }
+    else if(this->InteractionProp == this->Sphere)
+    {
+      std::cout << "Picked sphere." << std::endl;
+    }
+  }
 
   vtkActor* Cube;
   vtkActor* Sphere;

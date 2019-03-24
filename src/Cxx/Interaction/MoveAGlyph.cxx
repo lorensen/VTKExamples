@@ -27,73 +27,72 @@
 // Define interaction style
 class InteractorStyleMoveGlyph : public vtkInteractorStyleTrackballActor
 {
-  public:
-    static InteractorStyleMoveGlyph* New();
-    vtkTypeMacro(InteractorStyleMoveGlyph,vtkInteractorStyleTrackballActor);
+public:
+  static InteractorStyleMoveGlyph* New();
+  vtkTypeMacro(InteractorStyleMoveGlyph,vtkInteractorStyleTrackballActor);
 
-    InteractorStyleMoveGlyph()
+  InteractorStyleMoveGlyph()
+  {
+    this->MoveSphereSource = vtkSmartPointer<vtkSphereSource>::New();
+    this->MoveSphereSource->SetRadius(.1);
+    this->MoveSphereSource->Update();
+
+    this->MoveMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+    this->MoveMapper->SetInputConnection(this->MoveSphereSource->GetOutputPort());
+
+    this->MoveActor = vtkSmartPointer<vtkActor>::New();
+    this->MoveActor->SetMapper(this->MoveMapper);
+    //this->MoveActor->VisibilityOff();
+
+    this->Move = false;
+  }
+
+  void OnMouseMove() override
+  {
+    if(!this->Move)
     {
-      this->MoveSphereSource = vtkSmartPointer<vtkSphereSource>::New();
-      this->MoveSphereSource->SetRadius(.1);
-      this->MoveSphereSource->Update();
+      return;
+    }
+    
+    vtkInteractorStyleTrackballActor::OnMouseMove();
+    
+  }
 
-      this->MoveMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
-      this->MoveMapper->SetInputConnection(this->MoveSphereSource->GetOutputPort());
+  void OnMiddleButtonUp() override
+  {
+    // Forward events
+    vtkInteractorStyleTrackballActor::OnMiddleButtonUp();
+    this->Move = false;
+    this->MoveActor->VisibilityOff();
 
-      this->MoveActor = vtkSmartPointer<vtkActor>::New();
-      this->MoveActor->SetMapper(this->MoveMapper);
-      //this->MoveActor->VisibilityOff();
+    this->Data->GetPoints()->SetPoint(this->SelectedPoint, this->MoveActor->GetPosition());
+    this->Data->Modified();
+    this->GetCurrentRenderer()->Render();
+    this->GetCurrentRenderer()->GetRenderWindow()->Render();
+  }
+  void OnMiddleButtonDown() override
+  {
+    // Forward events
+    vtkInteractorStyleTrackballActor::OnMiddleButtonDown();
+    this->MoveActor->VisibilityOn();
+    if(static_cast<vtkCellPicker*>(this->InteractionPicker)->GetPointId() >= 0)
+    {
+      vtkIdType id = vtkIdTypeArray::SafeDownCast(this->GlyphData->GetPointData()->GetArray("InputPointIds"))
+        ->GetValue(static_cast<vtkCellPicker*>(this->InteractionPicker)->GetPointId());
+      std::cout << "Id: " << id << std::endl;
+      this->Move = true;
+      this->SelectedPoint = id;
 
-      this->Move = false;
+      double p[3];
+      this->Data->GetPoint(id, p);
+      std::cout << "p: " << p[0] << " " << p[1] << " " << p[2] << std::endl;
+      this->MoveActor->SetPosition(p);
     }
 
-    void OnMouseMove()
-    {
-      if(!this->Move)
-      {
-        return;
-      }
+    this->GetCurrentRenderer()->AddActor(this->MoveActor);
+    this->InteractionProp = this->MoveActor;
 
-      vtkInteractorStyleTrackballActor::OnMouseMove();
-
-    }
-
-    void OnMiddleButtonUp()
-    {
-      // Forward events
-      vtkInteractorStyleTrackballActor::OnMiddleButtonUp();
-      this->Move = false;
-      this->MoveActor->VisibilityOff();
-
-      this->Data->GetPoints()->SetPoint(this->SelectedPoint, this->MoveActor->GetPosition());
-      this->Data->Modified();
-      this->GetCurrentRenderer()->Render();
-      this->GetCurrentRenderer()->GetRenderWindow()->Render();
-
-    }
-    void OnMiddleButtonDown()
-    {
-      // Forward events
-      vtkInteractorStyleTrackballActor::OnMiddleButtonDown();
-      this->MoveActor->VisibilityOn();
-      if(static_cast<vtkCellPicker*>(this->InteractionPicker)->GetPointId() >= 0)
-      {
-        vtkIdType id = vtkIdTypeArray::SafeDownCast(this->GlyphData->GetPointData()->GetArray("InputPointIds"))
-                    ->GetValue(static_cast<vtkCellPicker*>(this->InteractionPicker)->GetPointId());
-        std::cout << "Id: " << id << std::endl;
-        this->Move = true;
-        this->SelectedPoint = id;
-
-        double p[3];
-        this->Data->GetPoint(id, p);
-        std::cout << "p: " << p[0] << " " << p[1] << " " << p[2] << std::endl;
-        this->MoveActor->SetPosition(p);
-      }
-
-      this->GetCurrentRenderer()->AddActor(this->MoveActor);
-      this->InteractionProp = this->MoveActor;
-
-    }
+  }
   vtkPolyData* Data;
   vtkPolyData* GlyphData;
 

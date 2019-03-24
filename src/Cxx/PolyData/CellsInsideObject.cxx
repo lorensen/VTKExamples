@@ -1,5 +1,4 @@
 #include <vtkSmartPointer.h>
-#include <vtkMultiBlockDataSet.h>
 #include <vtkSelectEnclosedPoints.h>
 #include <vtkMultiThreshold.h>
 #include <vtkMultiBlockDataSet.h>
@@ -42,7 +41,7 @@ int main (int argc, char *argv[])
   auto polyData2 = vtkSmartPointer<vtkPolyData>::New();
   auto transform = vtkSmartPointer<vtkTransform>::New();
   auto transformPD = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-  // if only one polydata is present, generate a second polydata by
+  // If only one polydata is present, generate a second polydata by
   // rotating the orginal about its center.
   if (argc < 3)
   {
@@ -68,87 +67,127 @@ int main (int argc, char *argv[])
   select->SetInputData(polyData1);
   select->SetSurfaceData(polyData2);
 
-  // Extract two meshes, one inside and one outside
+  // Extract three meshes, one completely inside, one completely
+  // outside and on the border between the inside and outside.
+
   auto threshold =
     vtkSmartPointer<vtkMultiThreshold>::New();
-  threshold->AddBandpassIntervalSet(
+  // Outside points have a 0 value in ALL points of a cell
+  int outsideId = threshold->AddBandpassIntervalSet(
     0, 0,
     vtkDataObject::FIELD_ASSOCIATION_POINTS, "SelectedPoints",
-    0, 0);
-  threshold->AddBandpassIntervalSet(
+    0, 1);
+  // Inside points have a 1 value in ALL points of a cell
+  int insideId = threshold->AddBandpassIntervalSet(
     1, 1,
     vtkDataObject::FIELD_ASSOCIATION_POINTS, "SelectedPoints",
     0, 1);
+  // Border points have a 0 or a 1 in at least one point of a cell
+  int borderId = threshold->AddIntervalSet(
+    0, 1,
+    vtkMultiThreshold::OPEN, vtkMultiThreshold::OPEN,
+    vtkDataObject::FIELD_ASSOCIATION_POINTS, "SelectedPoints",
+    0, 0);
+
   threshold->SetInputConnection(select->GetOutputPort());
-  threshold->OutputSet(0);
-  threshold->OutputSet(1);
+
+  // Select the intervals to be output
+  threshold->OutputSet(outsideId);
+  threshold->OutputSet(insideId);
+  threshold->OutputSet(borderId);
   threshold->Update();
 
   // Visualize
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
+  vtkColor3d outsideColor    = colors->GetColor3d("Crimson");
+  vtkColor3d insideColor     = colors->GetColor3d("Banana");
+  vtkColor3d borderColor     = colors->GetColor3d("Mint");
+  vtkColor3d surfaceColor    = colors->GetColor3d("Peacock");
+  vtkColor3d backgroundColor = colors->GetColor3d("Silver");
 
   // Outside
-  vtkSmartPointer<vtkDataSetMapper> mapper1 =
+  auto outsideMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-  mapper1->SetInputData(
-    vtkUnstructuredGrid::SafeDownCast(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(0))->GetBlock(0)));
-  mapper1->ScalarVisibilityOff();
+  outsideMapper->SetInputData(
+    vtkUnstructuredGrid::SafeDownCast(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(outsideId))->GetBlock(0)));
+  outsideMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> actor1 =
+  auto outsideActor =
     vtkSmartPointer<vtkActor>::New();
-  actor1->SetMapper(mapper1);
-  actor1->GetProperty()->SetDiffuseColor(colors->GetColor3d("Crimson").GetData());
-  actor1->GetProperty()->SetSpecular(.6);
-  actor1->GetProperty()->SetSpecularPower(30);
-;
+  outsideActor->SetMapper(outsideMapper);
+  outsideActor->GetProperty()->SetDiffuseColor(outsideColor.GetData());
+  outsideActor->GetProperty()->SetSpecular(.6);
+  outsideActor->GetProperty()->SetSpecularPower(30);
 
   // Inside
-  vtkSmartPointer<vtkDataSetMapper> mapper2 =
+  auto insideMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-  mapper2->SetInputData(
-    vtkUnstructuredGrid::SafeDownCast(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(1))->GetBlock(0)));
-  mapper2->ScalarVisibilityOff();
+  insideMapper->SetInputData(
+    vtkUnstructuredGrid::SafeDownCast(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(insideId))->GetBlock(0)));
+  insideMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> actor2 =
+  auto insideActor =
     vtkSmartPointer<vtkActor>::New();
-  actor2->SetMapper(mapper2);
-  actor2->GetProperty()->SetDiffuseColor(colors->GetColor3d("Banana").GetData());
-  actor2->GetProperty()->SetSpecular(.6);
-  actor2->GetProperty()->SetSpecularPower(30);
-;
-  vtkSmartPointer<vtkDataSetMapper> surfaceMapper =
+  insideActor->SetMapper(insideMapper);
+  insideActor->GetProperty()->SetDiffuseColor(insideColor.GetData());
+  insideActor->GetProperty()->SetSpecular(.6);
+  insideActor->GetProperty()->SetSpecularPower(30);
+  insideActor->GetProperty()->EdgeVisibilityOn();
+
+  // Border
+  auto borderMapper =
+    vtkSmartPointer<vtkDataSetMapper>::New();
+  borderMapper->SetInputData(
+    vtkUnstructuredGrid::SafeDownCast(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(borderId))->GetBlock(0)));
+  borderMapper->ScalarVisibilityOff();
+
+  auto borderActor =
+    vtkSmartPointer<vtkActor>::New();
+  borderActor->SetMapper(borderMapper);
+  borderActor->GetProperty()->SetDiffuseColor(borderColor.GetData());
+  borderActor->GetProperty()->SetSpecular(.6);
+  borderActor->GetProperty()->SetSpecularPower(30);
+  borderActor->GetProperty()->EdgeVisibilityOn();
+
+  auto surfaceMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   surfaceMapper->SetInputData(polyData2);
   surfaceMapper->ScalarVisibilityOff();
 
-  // Surface of object containing cels
-  vtkSmartPointer<vtkActor> surfaceActor =
+  // Surface of object containing cell
+  auto surfaceActor =
     vtkSmartPointer<vtkActor>::New();
   surfaceActor->SetMapper(surfaceMapper);
-  surfaceActor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Peacock").GetData());
+  surfaceActor->GetProperty()->SetDiffuseColor(surfaceColor.GetData());
   surfaceActor->GetProperty()->SetOpacity(.1);
 
-;
-
-  vtkSmartPointer<vtkRenderer> renderer =
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
   renderWindow->SetSize(640, 480);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  auto renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
-  renderer->AddActor(surfaceActor);
-  renderer->AddActor(actor1);
-  renderer->AddActor(actor2);
-  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
+  renderer->SetBackground(backgroundColor.GetData());
   renderer->UseHiddenLineRemovalOn();
 
+  renderer->AddActor(surfaceActor);
+  renderer->AddActor(outsideActor);
+  renderer->AddActor(insideActor);
+  renderer->AddActor(borderActor);
+
+  renderWindow->SetWindowName("CellsInsideObject");
   renderWindow->Render();
+  renderer->GetActiveCamera()->Azimuth(30);
+  renderer->GetActiveCamera()->Elevation(30);
+  renderer->GetActiveCamera()->Dolly(1.25);
+  renderWindow->Render();
+
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;
@@ -162,7 +201,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   std::string extension = vtksys::SystemTools::GetFilenameLastExtension(std::string(fileName));
   if (extension == ".ply")
   {
-    vtkSmartPointer<vtkPLYReader> reader =
+    auto reader =
       vtkSmartPointer<vtkPLYReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -170,7 +209,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".vtp")
   {
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+    auto reader =
       vtkSmartPointer<vtkXMLPolyDataReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -178,7 +217,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".obj")
   {
-    vtkSmartPointer<vtkOBJReader> reader =
+    auto reader =
       vtkSmartPointer<vtkOBJReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -186,7 +225,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".stl")
   {
-    vtkSmartPointer<vtkSTLReader> reader =
+    auto reader =
       vtkSmartPointer<vtkSTLReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -194,7 +233,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".vtk")
   {
-    vtkSmartPointer<vtkPolyDataReader> reader =
+    auto reader =
       vtkSmartPointer<vtkPolyDataReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -202,7 +241,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".g")
   {
-    vtkSmartPointer<vtkBYUReader> reader =
+    auto reader =
       vtkSmartPointer<vtkBYUReader>::New();
     reader->SetGeometryFileName (fileName);
     reader->Update();
@@ -210,7 +249,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else
   {
-    vtkSmartPointer<vtkSphereSource> source =
+    auto source =
       vtkSmartPointer<vtkSphereSource>::New();
     source->Update();
     polyData = source->GetOutput();

@@ -13,7 +13,7 @@ public:
   
 protected:
 
-  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *);
+  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) override;
 
 private:
   vtkImageAlgorithmFilter(const vtkImageAlgorithmFilter&);  // Not implemented.

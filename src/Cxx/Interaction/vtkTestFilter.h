@@ -14,7 +14,7 @@ public:
 protected:
   vtkTestFilter();
 
-  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *);
+  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) override;
 
 private:
   vtkTestFilter(const vtkTestFilter&);  // Not implemented.

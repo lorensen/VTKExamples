@@ -8,7 +8,7 @@ class vtkTest : public vtkDataObject
   public:
     static vtkTest* New();
     vtkTypeMacro(vtkTest,vtkDataObject);
-    void PrintSelf( ostream& os, vtkIndent indent );
+  void PrintSelf( ostream& os, vtkIndent indent ) override;
     void ShallowCopy(vtkDataObject* t) override;
 
     vtkGetMacro(Value, double);

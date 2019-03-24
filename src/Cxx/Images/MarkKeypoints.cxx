@@ -11,7 +11,6 @@
 #include <vtkTransformPolyDataFilter.h>
 #include <vtkPolyDataMapper2D.h>
 
-//#include <vtkInteractorStyleTrackballCamera.h>
 #include <vtkInteractorStyleImage.h>
 #include <vtkObjectFactory.h>
 #include <vtkPolyData.h>
@@ -30,85 +29,78 @@
 
 class MyStyle : public vtkInteractorStyleImage
 {
-  public:
-    static MyStyle* New();
-    vtkTypeMacro(MyStyle, vtkInteractorStyleImage);
+public:
+  static MyStyle* New();
+  vtkTypeMacro(MyStyle, vtkInteractorStyleImage);
 
-    std::vector<vtkActor2D*> Numbers;
+  std::vector<vtkActor2D*> Numbers;
 
-    void OnLeftButtonDown()
-    {
+  void OnLeftButtonDown() override
+  {
+    this->Interactor->GetPicker()->Pick(this->Interactor->GetEventPosition()[0],
+                                        this->Interactor->GetEventPosition()[1],
+                                        0,  // always zero.
+                                        this->CurrentRenderer );
+    double picked[3];
+    this->Interactor->GetPicker()->GetPickPosition(picked);
+    this->AddNumber(picked);
 
+    // Forward events
+    vtkInteractorStyleImage::OnLeftButtonDown();
 
-      //std::cout << "Picking pixel: " << this->Interactor->GetEventPosition()[0] << " " << this->Interactor->GetEventPosition()[1] << std::endl;
-      this->Interactor->GetPicker()->Pick(this->Interactor->GetEventPosition()[0],
-              this->Interactor->GetEventPosition()[1],
-              0,  // always zero.
-              //this->Interactor->GetRenderWindow()->GetRenderers()->GetFirstRenderer());
-              this->CurrentRenderer );
-      double picked[3];
-      this->Interactor->GetPicker()->GetPickPosition(picked);
-      //std::cout << "Picked point with coordinate: " << picked[0] << " " << picked[1] << " " << picked[2] << std::endl;
+    //this->Interactor->GetRenderWindow()->Render();
+    this->Interactor->Render();
+  }
 
-      this->AddNumber(picked);
+  void AddNumber(double p[3])
+  {
+    std::cout << "Adding marker at " << p[0] << " " << p[1] ;//<< std::endl;
 
-      // Forward events
-      vtkInteractorStyleImage::OnLeftButtonDown();
+    // normally, with an image you would do
+    // double* s = image->GetSpacing();
+    // double* o = image->GetOrigin();
+    // p[0] = static_cast<int>( (p[0] - o[0]) / s[0] + 0.5 );
+    p[0] = static_cast<int>( p[0] + 0.5 );
+    p[1] = static_cast<int>( p[1] + 0.5 );
 
-      //this->Interactor->GetRenderWindow()->Render();
-      this->Interactor->Render();
-    }
+    std::cout << " -> " << p[0] << " " << p[1] << std::endl;
 
-    void AddNumber(double p[3])
-    {
-      std::cout << "Adding marker at " << p[0] << " " << p[1] ;//<< std::endl;
+    // Convert the current number to a string
+    std::stringstream ss;
+    ss << Numbers.size();
 
-      // normally, with an image you would do
-      // double* s = image->GetSpacing();
-      // double* o = image->GetOrigin();
-      // p[0] = static_cast<int>( (p[0] - o[0]) / s[0] + 0.5 );
-      p[0] = static_cast<int>( p[0] + 0.5 );
-      p[1] = static_cast<int>( p[1] + 0.5 );
+    // Create an actor for the text
+    vtkSmartPointer<vtkVectorText> textSource = vtkSmartPointer<vtkVectorText>::New();
+    textSource->SetText( ss.str().c_str() );
 
-      std::cout << " -> " << p[0] << " " << p[1] << std::endl;
+    //get the bounds of the text
+    textSource->Update();
+    double* bounds = textSource->GetOutput()->GetBounds();
+    //transform the polydata to be centered over the pick position
+    double center[3] = {0.5*(bounds[1]+bounds[0]), 0.5*(bounds[3]+bounds[2]), 0.0 };
 
-      // Convert the current number to a string
-      std::stringstream ss;
-      ss << Numbers.size();
+    vtkSmartPointer<vtkTransform> trans = vtkSmartPointer<vtkTransform>::New();
+    trans->Translate( -center[0], -center[1], 0 );
+    trans->Translate( p[0], p[1], 0 );
 
-      // Create an actor for the text
-      vtkSmartPointer<vtkVectorText> textSource = vtkSmartPointer<vtkVectorText>::New();
-      textSource->SetText( ss.str().c_str() );
+    vtkSmartPointer<vtkTransformPolyDataFilter> tpd = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
+    tpd->SetTransform( trans );
+    tpd->SetInputConnection(  textSource->GetOutputPort() );
 
-      //get the bounds of the text
-      textSource->Update();
-      double* bounds = textSource->GetOutput()->GetBounds();
-      //transform the polydata to be centered over the pick position
-      double center[3] = {0.5*(bounds[1]+bounds[0]), 0.5*(bounds[3]+bounds[2]), 0.0 };
+    // Create a mapper
+    vtkSmartPointer<vtkPolyDataMapper2D> mapper = vtkSmartPointer<vtkPolyDataMapper2D>::New();
+    vtkSmartPointer<vtkCoordinate> coordinate = vtkSmartPointer<vtkCoordinate>::New();
+    coordinate->SetCoordinateSystemToWorld();
+    mapper->SetTransformCoordinate( coordinate );
+    mapper->SetInputConnection( tpd->GetOutputPort() );
 
-      vtkSmartPointer<vtkTransform> trans = vtkSmartPointer<vtkTransform>::New();
-      trans->Translate( -center[0], -center[1], 0 );
-      trans->Translate( p[0], p[1], 0 );
+    vtkSmartPointer<vtkActor2D> actor = vtkSmartPointer<vtkActor2D>::New();
+    actor->SetMapper( mapper );
+    actor->GetProperty()->SetColor( 1, 1, 0 ); // yellow
 
-      vtkSmartPointer<vtkTransformPolyDataFilter> tpd = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-      tpd->SetTransform( trans );
-      tpd->SetInputConnection(  textSource->GetOutputPort() );
-
-      // Create a mapper
-      vtkSmartPointer<vtkPolyDataMapper2D> mapper = vtkSmartPointer<vtkPolyDataMapper2D>::New();
-      vtkSmartPointer<vtkCoordinate> coordinate = vtkSmartPointer<vtkCoordinate>::New();
-      coordinate->SetCoordinateSystemToWorld();
-      mapper->SetTransformCoordinate( coordinate );
-      mapper->SetInputConnection( tpd->GetOutputPort() );
-
-      vtkSmartPointer<vtkActor2D> actor = vtkSmartPointer<vtkActor2D>::New();
-      actor->SetMapper( mapper );
-      actor->GetProperty()->SetColor( 1, 1, 0 ); // yellow
-
-      this->CurrentRenderer->AddViewProp( actor );
-
-      this->Numbers.push_back(actor);
-    }
+    this->CurrentRenderer->AddViewProp( actor );
+    this->Numbers.push_back(actor);
+  }
 
 };
 

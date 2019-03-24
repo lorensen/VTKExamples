@@ -11,7 +11,7 @@
 
 class CommandSubclass : public vtkCommand
 {
-  public:
+public:
   vtkTypeMacro(CommandSubclass, vtkCommand);
   static CommandSubclass *New()
   {
@@ -19,7 +19,7 @@ class CommandSubclass : public vtkCommand
   }
 
   void Execute(vtkObject *caller, unsigned long vtkNotUsed(eventId),
-                       void *vtkNotUsed(callData))
+               void *vtkNotUsed(callData)) override
   {
     std::cout << "timer callback" << std::endl;
 
@@ -31,7 +31,6 @@ class CommandSubclass : public vtkCommand
     iren->Render();
 
   }
-
   vtkSmartPointer<vtkProgrammableFilter> ProgrammableFilter;
 
 };

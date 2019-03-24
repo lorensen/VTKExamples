@@ -8,15 +8,15 @@ class vtkTestGraphAlgorithmSource : public vtkGraphAlgorithm
 public:
   static vtkTestGraphAlgorithmSource *New();
   vtkTypeMacro(vtkTestGraphAlgorithmSource,vtkGraphAlgorithm);
-  void PrintSelf(ostream& os, vtkIndent indent);
+  void PrintSelf(ostream& os, vtkIndent indent) override;
 	
 protected:
   vtkTestGraphAlgorithmSource();
   ~vtkTestGraphAlgorithmSource();
   
-  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *);
+  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) override;
   
-  int RequestDataObject(vtkInformation *, vtkInformationVector **, vtkInformationVector *);
+  int RequestDataObject(vtkInformation *, vtkInformationVector **, vtkInformationVector *) override;
 
 private:
   vtkTestGraphAlgorithmSource(const vtkTestGraphAlgorithmSource&);  // Not implemented.

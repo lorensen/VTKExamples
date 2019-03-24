@@ -52,9 +52,11 @@ int main(int, char *[])
   
   vtkSmartPointer<vtkCubeAxesActor> cubeAxesActor =
     vtkSmartPointer<vtkCubeAxesActor>::New();
+  cubeAxesActor->SetUseTextActor3D(1);
   cubeAxesActor->SetBounds(superquadricSource->GetOutput()->GetBounds());
   cubeAxesActor->SetCamera(renderer->GetActiveCamera());
   cubeAxesActor->GetTitleTextProperty(0)->SetColor(axis1Color.GetData());
+  cubeAxesActor->GetTitleTextProperty(0)->SetFontSize(48);
   cubeAxesActor->GetLabelTextProperty(0)->SetColor(axis1Color.GetData());
 
   cubeAxesActor->GetTitleTextProperty(1)->SetColor(axis2Color.GetData());
@@ -95,6 +97,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
+  renderWindow->SetWindowName("CubeAxesActor");
 
   renderWindow->Render();
   renderWindowInteractor->Start();

@@ -11,19 +11,18 @@
  
 class MyRubberBand : public vtkInteractorStyleRubberBand2D
 {
-  public:
-    static MyRubberBand* New();
-    vtkTypeMacro(MyRubberBand, vtkInteractorStyleRubberBand2D);
+public:
+  static MyRubberBand* New();
+  vtkTypeMacro(MyRubberBand, vtkInteractorStyleRubberBand2D);
  
-    virtual void OnLeftButtonUp() 
-    {
-      // Forward events
-      vtkInteractorStyleRubberBand2D::OnLeftButtonUp();
+  virtual void OnLeftButtonUp() override
+  {
+    // Forward events
+    vtkInteractorStyleRubberBand2D::OnLeftButtonUp();
  
-      std::cout << "Start position: " << this->StartPosition[0] << " " << this->StartPosition[1] << std::endl;
-      std::cout << "End position: " << this->EndPosition[0] << " " << this->EndPosition[1] << std::endl;
-    }
- 
+    std::cout << "Start position: " << this->StartPosition[0] << " " << this->StartPosition[1] << std::endl;
+    std::cout << "End position: " << this->EndPosition[0] << " " << this->EndPosition[1] << std::endl;
+  }
 };
 
 vtkStandardNewMacro(MyRubberBand);

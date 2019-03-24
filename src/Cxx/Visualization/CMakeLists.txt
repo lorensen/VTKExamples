@@ -5,51 +5,52 @@ if(NOT VTK_BINARY_DIR)
   Add_Optional_If_In_Library(SplineDrivenImageSlicer "${VTK_AVAILABLE_COMPONENTS}" optional)
   set(VTK_LIBRARIES "")
   find_package(VTK COMPONENTS
-    vtkCommonColor
-    vtkCommonComputationalGeometry
-    vtkCommonCore
-    vtkCommonDataModel
-    vtkCommonExecutionModel
-    vtkCommonMath
-    vtkCommonSystem
-    vtkCommonTransforms
-    vtkDomainsChemistry
-    vtkDomainsChemistryOpenGL2
-    vtkFiltersCore
-    vtkFiltersFlowPaths
-    vtkFiltersGeneral
-    vtkFiltersGeometry
-    vtkFiltersHybrid
-    vtkFiltersModeling
-    vtkFiltersProgrammable
-    vtkFiltersSources
-    vtkFiltersTexture
-    vtkIOGeometry
-    vtkIOImage
-    vtkIOLegacy
-    vtkIOPLY
-    vtkIOParallel
-    vtkIOXML
-    vtkImagingColor
-    vtkImagingCore
-    vtkImagingGeneral
-    vtkImagingHybrid
-    vtkImagingMorphological
-    vtkImagingSources
-    vtkInteractionImage
-    vtkInteractionStyle
-    vtkInteractionWidgets
-    vtkRenderingAnnotation
-    vtkRenderingCore
-    vtkRenderingFreeType
-    vtkRenderingLOD
-    vtkRenderingLabel
-    vtkRenderingOpenGL2
-    ${optional}
-    OPTIONAL_COMPONENTS
-    vtkTestingRendering
-    QUIET
-    )
+  vtkCommonColor
+  vtkCommonComputationalGeometry
+  vtkCommonCore
+  vtkCommonDataModel
+  vtkCommonExecutionModel
+  vtkCommonMath
+  vtkCommonSystem
+  vtkCommonTransforms
+  vtkDomainsChemistry
+  vtkDomainsChemistryOpenGL2
+  vtkFiltersCore
+  vtkFiltersFlowPaths
+  vtkFiltersGeneral
+  vtkFiltersGeometry
+  vtkFiltersHybrid
+  vtkFiltersModeling
+  vtkFiltersProgrammable
+  vtkFiltersSources
+  vtkFiltersTexture
+  vtkIOGeometry
+  vtkIOImage
+  vtkIOLegacy
+  vtkIOPLY
+  vtkIOParallel
+  vtkIOXML
+  vtkImagingColor
+  vtkImagingCore
+  vtkImagingGeneral
+  vtkImagingHybrid
+  vtkImagingMorphological
+  vtkImagingSources
+  vtkInteractionImage
+  vtkInteractionStyle
+  vtkInteractionWidgets
+  vtkRenderingAnnotation
+  vtkRenderingContextOpenGL2
+  vtkRenderingCore
+  vtkRenderingFreeType
+  vtkRenderingGL2PSOpenGL2
+  vtkRenderingLOD
+  vtkRenderingLabel
+  vtkRenderingOpenGL2
+  vtkTestingRendering
+  ${optional}  
+  QUIET
+)
   if (VTK_VERSION VERSION_LESS "8.90.0")
     include(${VTK_USE_FILE})
   endif()
@@ -73,7 +74,7 @@ Requires_Version(CurvatureBandsWithGlyphs ${VERSION_MIN} ALL_FILES)
 Requires_Version(PointDataSubdivision ${VERSION_MIN} ALL_FILES)
 Requires_Version(ProjectSphere ${VERSION_MIN} ALL_FILES)
 Requires_Version(BillboardTextActor3D "7.1.0" ALL_FILES)
-Requires_Module(Shadows vtkRenderingOpenGL)
+Requires_Module(ShadowsOpenGL vtkRenderingOpenGL)
 #Requires_Setting_Off(StreamLines VTK_LEGACY_REMOVE)
 Requires_GitLfs(Hawaii ALL_FILES)
 Requires_GitLfs(FlyingFrogSkinAndTissue ALL_FILES)

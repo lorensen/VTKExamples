@@ -13,30 +13,30 @@
 // Define interaction style
 class customMouseInteractorStyle : public vtkInteractorStyleTrackballCamera
 {
-  public:
-    static customMouseInteractorStyle* New();
-    vtkTypeMacro(customMouseInteractorStyle, vtkInteractorStyleTrackballCamera);
+public:
+  static customMouseInteractorStyle* New();
+  vtkTypeMacro(customMouseInteractorStyle, vtkInteractorStyleTrackballCamera);
 
-    virtual void OnLeftButtonDown() 
-    {
-      std::cout << "Pressed left mouse button." << std::endl;
-      // Forward events
-      vtkInteractorStyleTrackballCamera::OnLeftButtonDown();
-    }
+  virtual void OnLeftButtonDown() override
+  {
+    std::cout << "Pressed left mouse button." << std::endl;
+    // Forward events
+    vtkInteractorStyleTrackballCamera::OnLeftButtonDown();
+  }
     
-    virtual void OnMiddleButtonDown() 
-    {
-      std::cout << "Pressed middle mouse button." << std::endl;
-      // Forward events
-      vtkInteractorStyleTrackballCamera::OnMiddleButtonDown();
-    }
-    
-    virtual void OnRightButtonDown() 
-    {
-      std::cout << "Pressed right mouse button." << std::endl;
-      // Forward events
-      vtkInteractorStyleTrackballCamera::OnRightButtonDown();
-    }
+  virtual void OnMiddleButtonDown() override
+  {
+    std::cout << "Pressed middle mouse button." << std::endl;
+    // Forward events
+    vtkInteractorStyleTrackballCamera::OnMiddleButtonDown();
+  }
+  
+  virtual void OnRightButtonDown() override
+  {
+    std::cout << "Pressed right mouse button." << std::endl;
+    // Forward events
+    vtkInteractorStyleTrackballCamera::OnRightButtonDown();
+  }
 
 };
 
