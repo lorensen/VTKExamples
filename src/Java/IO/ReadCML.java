@@ -40,12 +40,9 @@ public class ReadCML
     
     vtkNamedColors colors = new vtkNamedColors();
 
-    //For Actor Color
-    double actorColor[] = new double[4];
     //Renderer Background Color
     double Bgcolor[] = new double[4];
 
-    colors.GetColor("Tomato", actorColor);
     colors.GetColor("Silver", Bgcolor);
     
     vtkCMLMoleculeReader cmlSource = new vtkCMLMoleculeReader();
