@@ -442,7 +442,8 @@ vtkSmartPointer<vtkOrientationMarkerWidget> MakeOrientationMarker(vtkRenderer* r
 {
   vtkSmartPointer<vtkOrientationMarkerWidget> om =
     vtkSmartPointer<vtkOrientationMarkerWidget>::New();
-  om->SetOrientationMarker(MakeAxesActor());
+  auto axesActor = MakeAxesActor();
+  om->SetOrientationMarker(axesActor);
   // Position lower left in the viewport.
   om->SetViewport(0, 0, 0.2, 0.2);
   om->SetInteractor(iren);
