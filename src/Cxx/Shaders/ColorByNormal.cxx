@@ -11,7 +11,7 @@
 #include <vtkTriangleMeshPointNormals.h>
 #include <vtkVersion.h>
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK_MAJOR_VERSION > 8 || (VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 9)
 #include <vtkShaderProperty.h>
 #endif
 
@@ -32,31 +32,31 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName);
 int main(int argc, char* argv[])
 {
   vtkSmartPointer<vtkPolyData> polyData =
-      ReadPolyData(argc > 1 ? argv[1] : "");
+    ReadPolyData(argc > 1 ? argv[1] : "");
 
   vtkSmartPointer<vtkNamedColors> colors =
-      vtkSmartPointer<vtkNamedColors>::New();
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkActor> actor =
-      vtkSmartPointer<vtkActor>::New();
+    vtkSmartPointer<vtkActor>::New();
   vtkSmartPointer<vtkRenderer> renderer =
-      vtkSmartPointer<vtkRenderer>::New();
+    vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkOpenGLPolyDataMapper> mapper =
-      vtkSmartPointer<vtkOpenGLPolyDataMapper>::New();
+    vtkSmartPointer<vtkOpenGLPolyDataMapper>::New();
   renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
-      vtkSmartPointer<vtkRenderWindow>::New();
+    vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->SetSize(640, 480);
   renderWindow->AddRenderer(renderer);
   renderer->AddActor(actor);
 
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
-      vtkSmartPointer<vtkRenderWindowInteractor>::New();
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
 
   vtkSmartPointer<vtkTriangleMeshPointNormals> norms =
-      vtkSmartPointer<vtkTriangleMeshPointNormals>::New();
+    vtkSmartPointer<vtkTriangleMeshPointNormals>::New();
   norms->SetInputData(polyData);
 
   mapper->SetInputConnection(norms->GetOutputPort());
@@ -82,69 +82,96 @@ int main(int argc, char* argv[])
 #if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   vtkShaderProperty* sp = actor->GetShaderProperty();
   sp->AddVertexShaderReplacement(
+    "//VTK::Normal::Dec",  // replace the normal block
+    true,                  // before the standard replacements
+    "//VTK::Normal::Dec\n" // we still want the default
+    "  varying vec3 myNormalMCVSOutput;\n", // but we add this
+    false                                   // only do it once
+    );
 #else
   mapper->AddShaderReplacement(
-      vtkShader::Vertex,
+    vtkShader::Vertex,
+    "//VTK::Normal::Dec",  // replace the normal block
+    true,                  // before the standard replacements
+    "//VTK::Normal::Dec\n" // we still want the default
+    "  varying vec3 myNormalMCVSOutput;\n", // but we add this
+    false                                   // only do it once
+    );
 #endif
-      "//VTK::Normal::Dec",  // replace the normal block
-      true,                  // before the standard replacements
-      "//VTK::Normal::Dec\n" // we still want the default
-      "  varying vec3 myNormalMCVSOutput;\n", // but we add this
-      false                                   // only do it once
-  );
 #if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   sp->AddVertexShaderReplacement(
+    "//VTK::Normal::Impl",                // replace the normal block
+    true,                                 // before the standard replacements
+    "//VTK::Normal::Impl\n"               // we still want the default
+    "  myNormalMCVSOutput = normalMC;\n", // but we add this
+    false                                 // only do it once
+    );
 #else
   mapper->AddShaderReplacement(
-      vtkShader::Vertex,
+    vtkShader::Vertex,
+    "//VTK::Normal::Impl",                // replace the normal block
+    true,                                 // before the standard replacements
+    "//VTK::Normal::Impl\n"               // we still want the default
+    "  myNormalMCVSOutput = normalMC;\n", // but we add this
+    false                                 // only do it once
+    );
 #endif
-      "//VTK::Normal::Impl",                // replace the normal block
-      true,                                 // before the standard replacements
-      "//VTK::Normal::Impl\n"               // we still want the default
-      "  myNormalMCVSOutput = normalMC;\n", // but we add this
-      false                                 // only do it once
-  );
 #if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   sp->AddVertexShaderReplacement(
+    "//VTK::Color::Impl", // dummy replacement for testing clear method
+    true, "VTK::Color::Impl\n", false);
 #else
   mapper->AddShaderReplacement(
-      vtkShader::Vertex,
+    vtkShader::Vertex,
+    "//VTK::Color::Impl", // dummy replacement for testing clear method
+    true, "VTK::Color::Impl\n", false);
 #endif
-      "//VTK::Color::Impl", // dummy replacement for testing clear method
-      true, "VTK::Color::Impl\n", false);
 #if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   sp->ClearVertexShaderReplacement(
+    "//VTK::Color::Impl", true);
 #else
-  mapper->ClearShaderReplacement(
-    vtkShader::Vertex // clear our dummy replacement
+                                       mapper->ClearShaderReplacement(
+                                         vtkShader::Vertex, // clear our dummy replacement
+                                         "//VTK::Color::Impl", true);
 #endif
-      "//VTK::Color::Impl", true);
 
   // now modify the fragment shader
 #if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   sp->AddFragmentShaderReplacement(
+    "//VTK::Normal::Dec",  // replace the normal block
+    true,                  // before the standard replacements
+    "//VTK::Normal::Dec\n" // we still want the default
+    "  varying vec3 myNormalMCVSOutput;\n", // but we add this
+    false                                   // only do it once
+    );
 #else
   mapper->AddShaderReplacement(
-      vtkShader::Fragment, // in the fragment shader
+    vtkShader::Fragment, // in the fragment shader
+    "//VTK::Normal::Dec",  // replace the normal block
+    true,                  // before the standard replacements
+    "//VTK::Normal::Dec\n" // we still want the default
+    "  varying vec3 myNormalMCVSOutput;\n", // but we add this
+    false                                   // only do it once
+    );
 #endif
-      "//VTK::Normal::Dec",  // replace the normal block
-      true,                  // before the standard replacements
-      "//VTK::Normal::Dec\n" // we still want the default
-      "  varying vec3 myNormalMCVSOutput;\n", // but we add this
-      false                                   // only do it once
-  );
 #if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
   sp->AddFragmentShaderReplacement(
+    "//VTK::Normal::Impl",  // replace the normal block
+    true,                   // before the standard replacements
+    "//VTK::Normal::Impl\n" // we still want the default calc
+    "  diffuseColor = abs(myNormalMCVSOutput);\n", // but we add this
+    false                                          // only do it once
+    );
 #else
   mapper->AddShaderReplacement(
-      vtkShader::Fragment, // in the fragment shader
+    vtkShader::Fragment, // in the fragment shader
+    "//VTK::Normal::Impl",  // replace the normal block
+    true,                   // before the standard replacements
+    "//VTK::Normal::Impl\n" // we still want the default calc
+    "  diffuseColor = abs(myNormalMCVSOutput);\n", // but we add this
+    false                                          // only do it once
+    );
 #endif
-      "//VTK::Normal::Impl",  // replace the normal block
-      true,                   // before the standard replacements
-      "//VTK::Normal::Impl\n" // we still want the default calc
-      "  diffuseColor = abs(myNormalMCVSOutput);\n", // but we add this
-      false                                          // only do it once
-  );
 
   renderWindow->Render();
   renderer->GetActiveCamera()->SetPosition(1.0, 1.0, -1.0);
@@ -167,11 +194,11 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
   std::string extension =
-      vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
+    vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
   if (extension == ".ply")
   {
     vtkSmartPointer<vtkPLYReader> reader =
-        vtkSmartPointer<vtkPLYReader>::New();
+      vtkSmartPointer<vtkPLYReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
@@ -179,7 +206,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
   else if (extension == ".vtp")
   {
     vtkSmartPointer<vtkXMLPolyDataReader> reader =
-        vtkSmartPointer<vtkXMLPolyDataReader>::New();
+      vtkSmartPointer<vtkXMLPolyDataReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
@@ -187,7 +214,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
   else if (extension == ".obj")
   {
     vtkSmartPointer<vtkOBJReader> reader =
-        vtkSmartPointer<vtkOBJReader>::New();
+      vtkSmartPointer<vtkOBJReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
@@ -195,7 +222,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
   else if (extension == ".stl")
   {
     vtkSmartPointer<vtkSTLReader> reader =
-        vtkSmartPointer<vtkSTLReader>::New();
+      vtkSmartPointer<vtkSTLReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
@@ -203,7 +230,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
   else if (extension == ".vtk")
   {
     vtkSmartPointer<vtkPolyDataReader> reader =
-        vtkSmartPointer<vtkPolyDataReader>::New();
+      vtkSmartPointer<vtkPolyDataReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
@@ -211,7 +238,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
   else if (extension == ".g")
   {
     vtkSmartPointer<vtkBYUReader> reader =
-        vtkSmartPointer<vtkBYUReader>::New();
+      vtkSmartPointer<vtkBYUReader>::New();
     reader->SetGeometryFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
@@ -219,7 +246,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
   else
   {
     vtkSmartPointer<vtkSphereSource> source =
-        vtkSmartPointer<vtkSphereSource>::New();
+      vtkSmartPointer<vtkSphereSource>::New();
     source->Update();
     polyData = source->GetOutput();
   }
