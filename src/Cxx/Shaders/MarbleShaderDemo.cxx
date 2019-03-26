@@ -1,28 +1,32 @@
-#include <vtkSmartPointer.h>
-
-#include <vtkNamedColors.h>
-#include <vtkCamera.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkShaderProgram.h>
 #include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkNamedColors.h>
 #include <vtkOpenGLPolyDataMapper.h>
 #include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderer.h>
+#include <vtkShaderProgram.h>
+#include <vtkSmartPointer.h>
+#include <vtkVersion.h>
 
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#include <vtkShaderProperty.h>
+#endif
+
+#include <vtkRenderWindowInteractor.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
-#include <vtkTriangleMeshPointNormals.h>
 #include <vtkTriangleFilter.h>
-#include <vtkRenderWindowInteractor.h>
+#include <vtkTriangleMeshPointNormals.h>
 
-#include <vtksys/SystemTools.hxx>
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
 #include <vtkPolyDataReader.h>
 #include <vtkSTLReader.h>
-#include <vtkXMLPolyDataReader.h>
 #include <vtkSphereSource.h>
+#include <vtkXMLPolyDataReader.h>
+#include <vtksys/SystemTools.hxx>
 
 #include <vtkSliderRepresentation2D.h>
 #include <vtkSliderWidget.h>
@@ -30,17 +34,18 @@
 #include <fstream>
 #include <sstream>
 
-namespace
-{
+namespace {
 // -----------------------------------------------------------------------
 // Update uniform variables in the shader for each render. We do this with a
 // callback for the UpdateShaderEvent
 class ShaderCallback : public vtkCommand
 {
 public:
-  static ShaderCallback *New()
-  { return new ShaderCallback; }
-  vtkRenderer *Renderer;
+  static ShaderCallback* New()
+  {
+    return new ShaderCallback;
+  }
+  vtkRenderer* Renderer;
   float veincolor[3];
   float veinfreq;
   float veinlevels;
@@ -48,9 +53,9 @@ public:
   float warping;
   float sharpness;
 
-  void Execute(vtkObject *, unsigned long, void* calldata) override
+  void Execute(vtkObject*, unsigned long, void* calldata) override
   {
-    vtkShaderProgram *program = reinterpret_cast<vtkShaderProgram*>(calldata);
+    vtkShaderProgram* program = reinterpret_cast<vtkShaderProgram*>(calldata);
     if (program)
     {
       program->SetUniform3f("veincolor", veincolor);
@@ -63,11 +68,9 @@ public:
       Print(std::cout);
     }
   }
-  void Print(std::ostream &os)
+  void Print(std::ostream& os)
   {
-    os << "veincolor: "
-       << veincolor[0] << ", "
-       << veincolor[1] << ", "
+    os << "veincolor: " << veincolor[0] << ", " << veincolor[1] << ", "
        << veincolor[2] << std::endl;
     os << "veinfreq: " << veinfreq << std::endl;
     os << "veinlevels: " << veinlevels << std::endl;
@@ -93,20 +96,23 @@ public:
 class SliderCallbackVeinFreq : public vtkCommand
 {
 public:
-  static SliderCallbackVeinFreq *New()
+  static SliderCallbackVeinFreq* New()
   {
     return new SliderCallbackVeinFreq;
   }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  virtual void Execute(vtkObject* caller, unsigned long, void*)
   {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast<vtkSliderWidget*>(caller);
+    vtkSliderWidget* sliderWidget = reinterpret_cast<vtkSliderWidget*>(caller);
 
-    float value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
+    float value = static_cast<vtkSliderRepresentation2D*>(
+      sliderWidget->GetRepresentation())
+      ->GetValue();
     this->Shader->veinfreq = value;
   }
-  SliderCallbackVeinFreq():Shader(0) {}
-  ShaderCallback *Shader;
+  SliderCallbackVeinFreq() : Shader(0)
+  {
+  }
+  ShaderCallback* Shader;
 };
 
 // These callbacks do the actual work.
@@ -114,69 +120,78 @@ public:
 class SliderCallbackVeinLevels : public vtkCommand
 {
 public:
-  static SliderCallbackVeinLevels *New()
+  static SliderCallbackVeinLevels* New()
   {
     return new SliderCallbackVeinLevels;
   }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  virtual void Execute(vtkObject* caller, unsigned long, void*)
   {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast<vtkSliderWidget*>(caller);
+    vtkSliderWidget* sliderWidget = reinterpret_cast<vtkSliderWidget*>(caller);
 
-    int value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
-    static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->SetValue(value);
+    int value = static_cast<vtkSliderRepresentation2D*>(
+      sliderWidget->GetRepresentation())
+      ->GetValue();
+    static_cast<vtkSliderRepresentation2D*>(sliderWidget->GetRepresentation())
+      ->SetValue(value);
     this->Shader->veinlevels = value;
   }
-  SliderCallbackVeinLevels():Shader(0) {}
-  ShaderCallback *Shader;
+  SliderCallbackVeinLevels() : Shader(0)
+  {
+  }
+  ShaderCallback* Shader;
 };
 
 class SliderCallbackWarpFreq : public vtkCommand
 {
 public:
-  static SliderCallbackWarpFreq *New()
+  static SliderCallbackWarpFreq* New()
   {
     return new SliderCallbackWarpFreq;
   }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  virtual void Execute(vtkObject* caller, unsigned long, void*)
   {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast<vtkSliderWidget*>(caller);
+    vtkSliderWidget* sliderWidget = reinterpret_cast<vtkSliderWidget*>(caller);
 
-    float value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
+    float value = static_cast<vtkSliderRepresentation2D*>(
+      sliderWidget->GetRepresentation())
+      ->GetValue();
     this->Shader->warpfreq = value;
   }
-  SliderCallbackWarpFreq():Shader(0) {}
-  ShaderCallback *Shader;
+  SliderCallbackWarpFreq() : Shader(0)
+  {
+  }
+  ShaderCallback* Shader;
 };
 
 class SliderCallbackWarping : public vtkCommand
 {
 public:
-  static SliderCallbackWarping *New()
+  static SliderCallbackWarping* New()
   {
     return new SliderCallbackWarping;
   }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  virtual void Execute(vtkObject* caller, unsigned long, void*)
   {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast<vtkSliderWidget*>(caller);
+    vtkSliderWidget* sliderWidget = reinterpret_cast<vtkSliderWidget*>(caller);
 
-    float value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
+    float value = static_cast<vtkSliderRepresentation2D*>(
+      sliderWidget->GetRepresentation())
+      ->GetValue();
     this->Shader->warping = value;
   }
-  SliderCallbackWarping():Shader(0) {}
-  ShaderCallback *Shader;
+  SliderCallbackWarping() : Shader(0)
+  {
+  }
+  ShaderCallback* Shader;
 };
 
-}
-namespace
-{
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+} // namespace
+namespace {
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName);
 }
 
 //----------------------------------------------------------------------------
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
   if (argc < 2)
   {
@@ -187,24 +202,24 @@ int main(int argc, char *argv[])
               << "[veinlevels(2)] "
               << "[warpfreq(1)] "
               << "[warping(.5)] "
-              << "[sharpness(8)]"
-              << std::endl;
+              << "[sharpness(8)]" << std::endl;
     return EXIT_FAILURE;
   }
 
-  vtkSmartPointer<vtkPolyData> polyData =
-    ReadPolyData(argc > 2 ? argv[2] : "");
+  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 2 ? argv[2] : "");
 
   std::ifstream shaderFile(argv[1]);
   std::ostringstream shaderCode;
   shaderCode << shaderFile.rdbuf();
 
-// Create a transform to rescale model
+  // Create a transform to rescale model
   double center[3];
   polyData->GetCenter(center);
   double bounds[6];
   polyData->GetBounds(bounds);
-  double maxBound = std::max(std::max(bounds[1] - bounds[0],  bounds[3] - bounds[2]), bounds[5] - bounds[4]);
+  double maxBound =
+    std::max(std::max(bounds[1] - bounds[0], bounds[3] - bounds[2]),
+             bounds[5] - bounds[4]);
 
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
@@ -224,7 +239,7 @@ int main(int argc, char *argv[])
   renderWindow->AddRenderer(renderer);
   renderer->AddActor(actor);
 
-  vtkSmartPointer<vtkRenderWindowInteractor>  interactor =
+  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
 
@@ -232,7 +247,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkTransform> userTransform =
     vtkSmartPointer<vtkTransform>::New();
   userTransform->Translate(-center[0], -center[1], -center[2]);
-  userTransform->Scale(1.0/maxBound, 1.0/maxBound, 1.0/maxBound);
+  userTransform->Scale(1.0 / maxBound, 1.0 / maxBound, 1.0 / maxBound);
   vtkSmartPointer<vtkTransformPolyDataFilter> transform =
     vtkSmartPointer<vtkTransformPolyDataFilter>::New();
   transform->SetTransform(userTransform);
@@ -256,40 +271,68 @@ int main(int argc, char *argv[])
   actor->GetProperty()->SetSpecularPower(50);
 
   // Modify the vertex shader to pass the position of the vertex
-  mapper->AddShaderReplacement(
-    vtkShader::Vertex,
-    "//VTK::Normal::Dec", // replace the normal block
-    true, // before the standard replacements
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  vtkShaderProperty* sp = actor->GetShaderProperty();
+  sp->AddVertexShaderReplacement(
+    "//VTK::Normal::Dec",  // replace the normal block
+    true,                  // before the standard replacements
     "//VTK::Normal::Dec\n" // we still want the default
-    "  out vec4 myVertexMC;\n"
-    ,
+    "  out vec4 myVertexMC;\n",
     false // only do it once
     );
+#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
-    "//VTK::Normal::Impl", // replace the normal block
-    true, // before the standard replacements
-    "//VTK::Normal::Impl\n" // we still want the default
-    "  myVertexMC = vertexMC;\n"
-    ,
+    "//VTK::Normal::Dec",  // replace the normal block
+    true,                  // before the standard replacements
+    "//VTK::Normal::Dec\n" // we still want the default
+    "  out vec4 myVertexMC;\n",
     false // only do it once
     );
+#endif
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  sp->AddVertexShaderReplacement(
+    "//VTK::Normal::Impl",  // replace the normal block
+    true,                   // before the standard replacements
+    "//VTK::Normal::Impl\n" // we still want the default
+    "  myVertexMC = vertexMC;\n",
+    false // only do it once
+    );
+#else
+  mapper->AddShaderReplacement(
+    vtkShader::Vertex,
+    "//VTK::Normal::Impl",  // replace the normal block
+    true,                   // before the standard replacements
+    "//VTK::Normal::Impl\n" // we still want the default
+    "  myVertexMC = vertexMC;\n",
+    false // only do it once
+    );
+#endif
 
   // Add the code to generate noise
   // These functions need to be defined outside of main. Use the System::Dec
   // to declare and implement
-  mapper->AddShaderReplacement(
-    vtkShader::Fragment,
-    "//VTK::System::Dec", 
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  sp->AddFragmentShaderReplacement(
+    "//VTK::System::Dec",
     false, // before the standard replacements
     shaderCode.str(),
     false // only do it once
     );
-  // Define varying and uniforms for the fragment shader here
+#else
   mapper->AddShaderReplacement(
-    vtkShader::Fragment,  // in the fragment shader
-    "//VTK::Normal::Dec", // replace the normal block
-    true, // before the standard replacements
+    vtkShader::Fragment, // in the fragment shader
+    "//VTK::System::Dec",
+    false, // before the standard replacements
+    shaderCode.str(),
+    false // only do it once
+    );
+#endif
+// Define varying and uniforms for the fragment shader here
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  sp->AddFragmentShaderReplacement(
+    "//VTK::Normal::Dec",  // replace the normal block
+    true,                  // before the standard replacements
     "//VTK::Normal::Dec\n" // we still want the default
     "  varying vec4 myVertexMC;\n"
     "  uniform vec3 veincolor = vec3(1.0, 1.0, 1.0);\n"
@@ -297,15 +340,30 @@ int main(int argc, char *argv[])
     "  uniform int veinlevels = 2;\n"
     "  uniform float warpfreq = 1;\n"
     "  uniform float warping = .5;\n"
-    "  uniform float sharpness = 8.0;\n"
-    ,
+    "  uniform float sharpness = 8.0;\n",
+    false // only do it once
+    );
+#else
+  mapper->AddShaderReplacement(
+    vtkShader::Fragment, // in the fragment shader
+    "//VTK::Normal::Dec",  // replace the normal block
+    true,                  // before the standard replacements
+    "//VTK::Normal::Dec\n" // we still want the default
+    "  varying vec4 myVertexMC;\n"
+    "  uniform vec3 veincolor = vec3(1.0, 1.0, 1.0);\n"
+    "  uniform float veinfreq = 10.0;\n"
+    "  uniform int veinlevels = 2;\n"
+    "  uniform float warpfreq = 1;\n"
+    "  uniform float warping = .5;\n"
+    "  uniform float sharpness = 8.0;\n",
     false // only do it once
     );
 
-  mapper->AddShaderReplacement(
-    vtkShader::Fragment,  // in the fragment shader
-    "//VTK::Light::Impl", // replace the light block
-    false, // after the standard replacements
+#endif
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  sp->AddFragmentShaderReplacement(
+    "//VTK::Light::Impl",  // replace the light block
+    false,                 // after the standard replacements
     "//VTK::Light::Impl\n" // we still want the default calc
     "\n"
     "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
@@ -332,30 +390,81 @@ int main(int argc, char *argv[])
     "    myLocalVertexMC.y += offset.y;\n"
     "    myLocalVertexMC.z += offset.z;\n"
     "\n"
-"    /* Now calculate the veining function for the lookup area */\n"
-"    turbsum = 0.0;  freq = 1.0;\n"
-"    myLocalVertexMC *= veinfreq;\n"
-"    for (i = 0;  i < veinlevels;  i += 1) {\n"
-"      turb = abs (snoise (myLocalVertexMC));\n"
-"      turb = pow (smoothstep (0.8, 1.0, 1.0 - turb), sharpness) / freq;\n"
-"      turbsum += (1.0-turbsum) * turb;\n"
-"      freq *= 1.5;\n"
-"      myLocalVertexMC *= 1.5;\n"
-"    }\n"
-"\n"
-"    Ct = mix (diffuseColor, veincolor, turbsum);\n"
-"\n"
+    "    /* Now calculate the veining function for the lookup area */\n"
+    "    turbsum = 0.0;  freq = 1.0;\n"
+    "    myLocalVertexMC *= veinfreq;\n"
+    "    for (i = 0;  i < veinlevels;  i += 1) {\n"
+    "      turb = abs (snoise (myLocalVertexMC));\n"
+    "      turb = pow (smoothstep (0.8, 1.0, 1.0 - turb), sharpness) / "
+    "freq;\n"
+    "      turbsum += (1.0-turbsum) * turb;\n"
+    "      freq *= 1.5;\n"
+    "      myLocalVertexMC *= 1.5;\n"
+    "    }\n"
+    "\n"
+    "    Ct = mix (diffuseColor, veincolor, turbsum);\n"
+    "\n"
     "  fragOutput0.rgb = opacity * (ambientColor + Ct + specular);\n"
-    "  fragOutput0.a = opacity;\n"    
-    ,
+    "  fragOutput0.a = opacity;\n",
     false // only do it once
     );
+#else
+  mapper->AddShaderReplacement(
+    vtkShader::Fragment, // in the fragment shader
+    "//VTK::Light::Impl",  // replace the light block
+    false,                 // after the standard replacements
+    "//VTK::Light::Impl\n" // we still want the default calc
+    "\n"
+    "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
+    "#define snoise(x) (2.0 * pnoise(x) - 1.0)\n"
+    "  vec3 Ct;\n"
+    "  int i;\n"
+    "  float turb, freq;\n"
+    "  float turbsum;\n"
+    "  /* perturb the lookup */\n"
+    "  freq = 1.0;\n"
+    "  vec4 offset = vec4(0.0,0.0,0.0,0.0);\n"
+    "  vec4 noisyPoint;\n"
+    "  vec4 myLocalVertexMC = myVertexMC;\n"
+    "\n"
+    "    for (i = 0;  i < 6;  i += 1) {\n"
+    "      noisyPoint[0] = snoise(warpfreq * freq * myLocalVertexMC);\n"
+    "      noisyPoint[1] = snoise(warpfreq * freq * myLocalVertexMC);\n"
+    "      noisyPoint[2] = snoise(warpfreq * freq * myLocalVertexMC);\n"
+    "      noisyPoint[3] = 1.0;\n"
+    "      offset += 2.0 * warping * (noisyPoint - 0.5)  / freq;\n"
+    "      freq *= 2.0;\n"
+    "    }\n"
+    "    myLocalVertexMC.x += offset.x;\n"
+    "    myLocalVertexMC.y += offset.y;\n"
+    "    myLocalVertexMC.z += offset.z;\n"
+    "\n"
+    "    /* Now calculate the veining function for the lookup area */\n"
+    "    turbsum = 0.0;  freq = 1.0;\n"
+    "    myLocalVertexMC *= veinfreq;\n"
+    "    for (i = 0;  i < veinlevels;  i += 1) {\n"
+    "      turb = abs (snoise (myLocalVertexMC));\n"
+    "      turb = pow (smoothstep (0.8, 1.0, 1.0 - turb), sharpness) / "
+    "freq;\n"
+    "      turbsum += (1.0-turbsum) * turb;\n"
+    "      freq *= 1.5;\n"
+    "      myLocalVertexMC *= 1.5;\n"
+    "    }\n"
+    "\n"
+    "    Ct = mix (diffuseColor, veincolor, turbsum);\n"
+    "\n"
+    "  fragOutput0.rgb = opacity * (ambientColor + Ct + specular);\n"
+    "  fragOutput0.a = opacity;\n",
+    false // only do it once
+    );
+#endif
 
   vtkSmartPointer<ShaderCallback> myCallback =
     vtkSmartPointer<ShaderCallback>::New();
   myCallback->Renderer = renderer;
 
-  std::cout << "Input: " << (argc > 2 ? argv[2] : "Generated Sphere") << std::endl;
+  std::cout << "Input: " << (argc > 2 ? argv[2] : "Generated Sphere")
+            << std::endl;
   myCallback->Print(std::cout);
   mapper->AddObserver(vtkCommand::UpdateShaderEvent, myCallback);
 
@@ -373,9 +482,11 @@ int main(int argc, char *argv[])
   sliderRepVeinFreq->SetValue(7.5);
   sliderRepVeinFreq->SetTitleText("Vein Frequency");
 
-  sliderRepVeinFreq->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepVeinFreq->GetPoint1Coordinate()
+    ->SetCoordinateSystemToNormalizedDisplay();
   sliderRepVeinFreq->GetPoint1Coordinate()->SetValue(.1, .1);
-  sliderRepVeinFreq->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepVeinFreq->GetPoint2Coordinate()
+    ->SetCoordinateSystemToNormalizedDisplay();
   sliderRepVeinFreq->GetPoint2Coordinate()->SetValue(.9, .1);
 
   sliderRepVeinFreq->SetTubeWidth(tubeWidth);
@@ -394,7 +505,8 @@ int main(int argc, char *argv[])
     vtkSmartPointer<SliderCallbackVeinFreq>::New();
   callbackVeinFreq->Shader = myCallback;
 
-  sliderWidgetVeinFreq->AddObserver(vtkCommand::InteractionEvent,callbackVeinFreq);
+  sliderWidgetVeinFreq->AddObserver(vtkCommand::InteractionEvent,
+                                    callbackVeinFreq);
 
   vtkSmartPointer<vtkSliderRepresentation2D> sliderRepVeinLevels =
     vtkSmartPointer<vtkSliderRepresentation2D>::New();
@@ -404,9 +516,11 @@ int main(int argc, char *argv[])
   sliderRepVeinLevels->SetValue(3);
   sliderRepVeinLevels->SetTitleText("Vein Levels");
 
-  sliderRepVeinLevels->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepVeinLevels->GetPoint1Coordinate()
+    ->SetCoordinateSystemToNormalizedDisplay();
   sliderRepVeinLevels->GetPoint1Coordinate()->SetValue(.1, .9);
-  sliderRepVeinLevels->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepVeinLevels->GetPoint2Coordinate()
+    ->SetCoordinateSystemToNormalizedDisplay();
   sliderRepVeinLevels->GetPoint2Coordinate()->SetValue(.9, .9);
 
   sliderRepVeinLevels->SetTubeWidth(tubeWidth);
@@ -427,7 +541,8 @@ int main(int argc, char *argv[])
   myCallback->veincolor[0] = colors->GetColor3d("Green").GetData()[0];
   myCallback->veincolor[1] = colors->GetColor3d("Green").GetData()[1];
   myCallback->veincolor[2] = colors->GetColor3d("Green").GetData()[2];
-  sliderWidgetVeinLevels->AddObserver(vtkCommand::InteractionEvent,callbackVeinLevels);
+  sliderWidgetVeinLevels->AddObserver(vtkCommand::InteractionEvent,
+                                      callbackVeinLevels);
 
   vtkSmartPointer<vtkSliderRepresentation2D> sliderRepWarpFreq =
     vtkSmartPointer<vtkSliderRepresentation2D>::New();
@@ -437,9 +552,11 @@ int main(int argc, char *argv[])
   sliderRepWarpFreq->SetValue(1.5);
   sliderRepWarpFreq->SetTitleText("Warp Frequency");
 
-  sliderRepWarpFreq->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepWarpFreq->GetPoint1Coordinate()
+    ->SetCoordinateSystemToNormalizedDisplay();
   sliderRepWarpFreq->GetPoint1Coordinate()->SetValue(.1, .1);
-  sliderRepWarpFreq->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepWarpFreq->GetPoint2Coordinate()
+    ->SetCoordinateSystemToNormalizedDisplay();
   sliderRepWarpFreq->GetPoint2Coordinate()->SetValue(.1, .9);
 
   sliderRepWarpFreq->SetTubeWidth(tubeWidth);
@@ -458,7 +575,8 @@ int main(int argc, char *argv[])
     vtkSmartPointer<SliderCallbackWarpFreq>::New();
   callbackWarpFreq->Shader = myCallback;
 
-  sliderWidgetWarpFreq->AddObserver(vtkCommand::InteractionEvent,callbackWarpFreq);
+  sliderWidgetWarpFreq->AddObserver(vtkCommand::InteractionEvent,
+                                    callbackWarpFreq);
 
   vtkSmartPointer<vtkSliderRepresentation2D> sliderRepWarping =
     vtkSmartPointer<vtkSliderRepresentation2D>::New();
@@ -468,9 +586,11 @@ int main(int argc, char *argv[])
   sliderRepWarping->SetValue(.5);
   sliderRepWarping->SetTitleText("Warping");
 
-  sliderRepWarping->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepWarping->GetPoint1Coordinate()
+    ->SetCoordinateSystemToNormalizedDisplay();
   sliderRepWarping->GetPoint1Coordinate()->SetValue(.9, .1);
-  sliderRepWarping->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedDisplay();
+  sliderRepWarping->GetPoint2Coordinate()
+    ->SetCoordinateSystemToNormalizedDisplay();
   sliderRepWarping->GetPoint2Coordinate()->SetValue(.9, .9);
 
   sliderRepWarping->SetTubeWidth(tubeWidth);
@@ -489,34 +609,35 @@ int main(int argc, char *argv[])
     vtkSmartPointer<SliderCallbackWarping>::New();
   callbackWarping->Shader = myCallback;
 
-  sliderWidgetWarping->AddObserver(vtkCommand::InteractionEvent,callbackWarping);
+  sliderWidgetWarping->AddObserver(vtkCommand::InteractionEvent,
+                                   callbackWarping);
 
   renderWindow->Render();
   renderer->ResetCamera();
   renderer->GetActiveCamera()->Zoom(1.5);
   renderWindow->Render();
+  renderWindow->SetWindowName("MarbleShaderDemo");
+  renderWindow->Render();
   interactor->Start();
 
   transform->GetOutput()->GetBounds(bounds);
   std::cout << "Range: "
-            << " x " << bounds[1] - bounds[0]
-            << " y " << bounds[3] - bounds[2]
-            << " y " << bounds[5] - bounds[4]
-            << std::endl;
+            << " x " << bounds[1] - bounds[0] << " y " << bounds[3] - bounds[2]
+            << " y " << bounds[5] - bounds[4] << std::endl;
   return EXIT_SUCCESS;
 }
 
-namespace
-{
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+namespace {
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
-  std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
+  std::string extension =
+    vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
   if (extension == ".ply")
   {
     vtkSmartPointer<vtkPLYReader> reader =
       vtkSmartPointer<vtkPLYReader>::New();
-    reader->SetFileName (fileName);
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
@@ -524,7 +645,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkXMLPolyDataReader> reader =
       vtkSmartPointer<vtkXMLPolyDataReader>::New();
-    reader->SetFileName (fileName);
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
@@ -532,7 +653,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkOBJReader> reader =
       vtkSmartPointer<vtkOBJReader>::New();
-    reader->SetFileName (fileName);
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
@@ -540,7 +661,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkSTLReader> reader =
       vtkSmartPointer<vtkSTLReader>::New();
-    reader->SetFileName (fileName);
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
@@ -548,7 +669,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkPolyDataReader> reader =
       vtkSmartPointer<vtkPolyDataReader>::New();
-    reader->SetFileName (fileName);
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
@@ -556,7 +677,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkBYUReader> reader =
       vtkSmartPointer<vtkBYUReader>::New();
-    reader->SetGeometryFileName (fileName);
+    reader->SetGeometryFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
@@ -571,4 +692,4 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   return polyData;
 }
-}
+} // namespace

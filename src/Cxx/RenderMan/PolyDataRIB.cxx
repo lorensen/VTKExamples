@@ -16,8 +16,10 @@
 //                                                const char *specksize,
 //                                                const char *spattercolor,
 //                                                const char *basecolor);
-static vtkSmartPointer<vtkRIBProperty> rmarble(const char *veining);
-
+namespace
+{
+vtkSmartPointer<vtkRIBProperty> rmarble(const char *veining);
+}
 int main ( int argc, char *argv[] )
 {
   // Parse command line arguments
@@ -54,7 +56,9 @@ int main ( int argc, char *argv[] )
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
-  actor->SetProperty(rmarble(freq));
+  
+  auto marble = rmarble(freq);
+  actor->SetProperty(marble);
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
@@ -113,6 +117,8 @@ int main ( int argc, char *argv[] )
 //   return spatterProp;
 // }
 
+namespace
+{
 vtkSmartPointer<vtkRIBProperty> rmarble(const char *veining)
 {
   vtkSmartPointer<vtkRIBProperty> rmarbleProp =
@@ -122,4 +128,5 @@ vtkSmartPointer<vtkRIBProperty> rmarble(const char *veining)
   rmarbleProp->SetSurfaceShader("rmarble");
 
   return rmarbleProp;
+}
 }

@@ -12,30 +12,34 @@
 
 =========================================================================*/
 
-#include <vtkSmartPointer.h>
-
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkImageData.h>
 #include <vtkInteractorStyleTrackballCamera.h>
 #include <vtkJPEGReader.h>
+#include <vtkLight.h>
+#include <vtkNamedColors.h>
 #include <vtkOpenGLPolyDataMapper.h>
 #include <vtkOpenGLRenderWindow.h>
-#include <vtkXMLPolyDataReader.h>
 #include <vtkPolyDataNormals.h>
 #include <vtkProperty.h>
-#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
 #include <vtkShaderProgram.h>
 #include <vtkSkybox.h>
+#include <vtkSmartPointer.h>
 #include <vtkTexture.h>
-#include <vtkNamedColors.h>
+#include <vtkVersion.h>
+#include <vtkXMLPolyDataReader.h>
 
-#include <vtkLight.h>
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#include <vtkShaderProperty.h>
+#endif
+
 
 //----------------------------------------------------------------------------
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
   if (argc < 3)
   {
@@ -57,7 +61,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkLight> light =
     vtkSmartPointer<vtkLight>::New();
   light->SetLightTypeToSceneLight();
-  light->SetPosition(1.0,7.0,1.0);
+  light->SetPosition(1.0, 7.0, 1.0);
   renderer->AddLight(light);
 
   vtkSmartPointer<vtkXMLPolyDataReader> reader =
@@ -95,48 +99,98 @@ int main(int argc, char *argv[])
   actor->GetProperty()->SetSpecularPower(20);
   actor->GetProperty()->SetDiffuse(0.1);
   actor->GetProperty()->SetAmbient(0.1);
-  actor->GetProperty()->SetDiffuseColor(1.0,0.0,0.4);
-  actor->GetProperty()->SetAmbientColor(0.4,0.0,1.0);
+  actor->GetProperty()->SetDiffuseColor(1.0, 0.0, 0.4);
+  actor->GetProperty()->SetAmbientColor(0.4, 0.0, 1.0);
   renderer->AddActor(actor);
   actor->SetTexture(texture);
   actor->SetMapper(mapper);
 
-  mapper->AddShaderReplacement(
-    vtkShader::Vertex,
-    "//VTK::PositionVC::Dec", // replace
-    true, // before the standard replacements
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  vtkShaderProperty* sp = actor->GetShaderProperty();
+  sp->AddVertexShaderReplacement(
+    "//VTK::PositionVC::Dec",  // replace
+    true,                      // before the standard replacements
     "//VTK::PositionVC::Dec\n" // we still want the default
     "out vec3 TexCoords;\n",
     false // only do it once
     );
+#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
-    "//VTK::PositionVC::Impl", // replace
-    true, // before the standard replacements
+    "//VTK::PositionVC::Dec",  // replace
+    true,                      // before the standard replacements
+    "//VTK::PositionVC::Dec\n" // we still want the default
+    "out vec3 TexCoords;\n",
+    false // only do it once
+    );
+#endif
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  sp->AddVertexShaderReplacement(
+    "//VTK::PositionVC::Impl",  // replace
+    true,                       // before the standard replacements
     "//VTK::PositionVC::Impl\n" // we still want the default
     "vec3 camPos = -MCVCMatrix[3].xyz * mat3(MCVCMatrix);\n"
     "TexCoords.xyz = reflect(vertexMC.xyz - camPos, normalize(normalMC));\n",
     false // only do it once
     );
+#else
   mapper->AddShaderReplacement(
-    vtkShader::Fragment,
-    "//VTK::Light::Dec", // replace
-    true, // before the standard replacements
+    vtkShader::Vertex,
+    "//VTK::PositionVC::Impl",  // replace
+    true,                       // before the standard replacements
+    "//VTK::PositionVC::Impl\n" // we still want the default
+    "vec3 camPos = -MCVCMatrix[3].xyz * mat3(MCVCMatrix);\n"
+    "TexCoords.xyz = reflect(vertexMC.xyz - camPos, normalize(normalMC));\n",
+    false // only do it once
+    );
+#endif
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  sp->AddFragmentShaderReplacement(
+    "//VTK::Light::Dec",  // replace
+    true,                 // before the standard replacements
     "//VTK::Light::Dec\n" // we still want the default
     "in vec3 TexCoords;\n",
     false // only do it once
     );
+#else
+  mapper->AddShaderReplacement(
+    vtkShader::Fragment,
+    "//VTK::Light::Dec",  // replace
+    true,                 // before the standard replacements
+    "//VTK::Light::Dec\n" // we still want the default
+    "in vec3 TexCoords;\n",
+    false // only do it once
+    );
+#endif
+
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  sp->AddFragmentShaderReplacement(
+    "//VTK::Light::Impl", // replace
+    true,                 // before the standard replacements
+    "//VTK::Light::Impl\n"
+    "  float phix = length(vec2(TexCoords.x, TexCoords.z));\n"
+    "  vec3 skyColor = texture(actortexture, vec2(0.5*atan(TexCoords.z, "
+    "TexCoords.x)/3.1415927 + 0.5, atan(TexCoords.y,phix)/3.1415927 + "
+    "0.5)).xyz;\n"
+    "  gl_FragData[0] = vec4(ambientColor + diffuse + specular + "
+    "specularColor*skyColor, opacity);\n", // we still want the default
+    false                                  // only do it once
+    );
+#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment,
     "//VTK::Light::Impl", // replace
-    true, // before the standard replacements
+    true,                 // before the standard replacements
     "//VTK::Light::Impl\n"
     "  float phix = length(vec2(TexCoords.x, TexCoords.z));\n"
-    "  vec3 skyColor = texture(actortexture, vec2(0.5*atan(TexCoords.z, TexCoords.x)/3.1415927 + 0.5, atan(TexCoords.y,phix)/3.1415927 + 0.5)).xyz;\n"
-    "  gl_FragData[0] = vec4(ambientColor + diffuse + specular + specularColor*skyColor, opacity);\n"
-    , // we still want the default
-    false // only do it once
+    "  vec3 skyColor = texture(actortexture, vec2(0.5*atan(TexCoords.z, "
+    "TexCoords.x)/3.1415927 + 0.5, atan(TexCoords.y,phix)/3.1415927 + "
+    "0.5)).xyz;\n"
+    "  gl_FragData[0] = vec4(ambientColor + diffuse + specular + "
+    "specularColor*skyColor, opacity);\n", // we still want the default
+    false                                  // only do it once
     );
+#endif
 
   vtkSmartPointer<vtkSkybox> world =
     vtkSmartPointer<vtkSkybox>::New();
@@ -153,6 +207,8 @@ int main(int argc, char *argv[])
   renderer->GetActiveCamera()->Elevation(5);
   renderer->ResetCameraClippingRange();
 
+  renderWindow->Render();
+  renderWindow->SetWindowName("SphereMap");
   renderWindow->Render();
 
   vtkSmartPointer<vtkInteractorStyleTrackballCamera> style =
