@@ -2,7 +2,7 @@
 
 ## Java
 
-Out of 2801 available VTK classes, 204 are demonstrated here.
+Out of 2804 available VTK classes, 206 are demonstrated here.
 
 ### Excluded classes
 
@@ -39,6 +39,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkCaptionWidget](http://www.vtk.org/doc/nightly/html/classvtkCaptionWidget.html#details) | [CaptionWidget](/Java/Widgets/CaptionWidget)  |
 | [vtkCellArray](http://www.vtk.org/doc/nightly/html/classvtkCellArray.html#details) | [AddCell](/Java/Meshes/AddCell) [Bottle](/Java/Modelling/Bottle) [EllipticalCylinder](/Java/GeometricObjects/EllipticalCylinder) [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) [LongLine](/Java/GeometricObjects/LongLine) [MultiLineText](/Java/Annotation/MultiLineText) [Polygon](/Java/GeometricObjects/Polygon) [Pyramid](/Java/GeometricObjects/Pyramid) [Quad](/Java/GeometricObjects/Quad) [RibbonFilter](/Java/PolyData/RibbonFilter) [Spring](/Java/Modelling/Spring) [Triangle](/Java/GeometricObjects/Triangle) [TriangleColoredPoints](/Java/PolyData/TriangleColoredPoints) [TriangleStrip](/Java/GeometricObjects/TriangleStrip) [Vertex](/Java/GeometricObjects/Vertex)  |
 | [vtkCellPicker](http://www.vtk.org/doc/nightly/html/classvtkCellPicker.html#details) | [SwingHandleMouseEvent](/Java/SwingIntegration/SwingHandleMouseEvent)  |
+| [vtkCMLMoleculeReader](http://www.vtk.org/doc/nightly/html/classvtkCMLMoleculeReader.html#details) | [ReadCML](/Java/IO/ReadCML)  |
 | [vtkCompassRepresentation](http://www.vtk.org/doc/nightly/html/classvtkCompassRepresentation.html#details) | [CompassWidget](/Java/Geovis/CompassWidget)  |
 | [vtkCompassWidget](http://www.vtk.org/doc/nightly/html/classvtkCompassWidget.html#details) | [CompassWidget](/Java/Geovis/CompassWidget)  |
 | [vtkCompositeDataDisplayAttributes](http://www.vtk.org/doc/nightly/html/classvtkCompositeDataDisplayAttributes.html#details) | [CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper)  |
@@ -113,6 +114,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkMatrix4x4](http://www.vtk.org/doc/nightly/html/classvtkMatrix4x4.html#details) | [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [PerspectiveTransform](/Java/SimpleOperations/PerspectiveTransform)  |
 | [vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html#details) | [MeshQuality](/Java/PolyData/MeshQuality)  |
 | [vtkMinimalStandardRandomSequence](http://www.vtk.org/doc/nightly/html/classvtkMinimalStandardRandomSequence.html#details) | [DelaunayMesh](/Java/Modelling/DelaunayMesh) [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [RandomSequence](/Java/SimpleOperations/RandomSequence)  |
+| [vtkMoleculeMapper](http://www.vtk.org/doc/nightly/html/classvtkMoleculeMapper.html#details) | [ReadCML](/Java/IO/ReadCML)  |
 | [vtkMultiBlockDataSet](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockDataSet.html#details) | [CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper)  |
 | [vtkMultiBlockPLOT3DReader](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockPLOT3DReader.html#details) | [ReadPLOT3D](/Java/IO/ReadPLOT3D)  |
 | [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html#details) | [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates)  |
