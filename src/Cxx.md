@@ -786,6 +786,7 @@ This section includes vtkUnstructuredGrid.
 [DataStructureComparison](/Cxx/DataStructures/DataStructureComparison) | vtkKdTree vtkOBBTree vtkOctreePointLocator vtkModifiedBSPTree | Illustrates, side by side, the differences between several spatial data structures
 [KDTreeAccessPoints](/Cxx/DataStructures/KDTreeAccessPoints) | vtkKdTree | Access the points of a KDTree.
 [KDTreeFindPointsWithinRadius](/Cxx/DataStructures/KDTreeFindPointsWithinRadius) | vtkKdTreePointLocator | Find points within a specified radius of  a query point.
+[KDTreeFindPointsWithinRadiusDemo](/Cxx/DataStructures/KDTreeFindPointsWithinRadiusDemo) | vtkKdTreePointLocator | Find points within a range of radii.
 [KdTree](/Cxx/DataStructures/KdTree) | vtkKdTree |
 [KdTreePointLocatorClosestPoint](/Cxx/DataStructures/KdTreePointLocatorClosestPoint) | vtkKdTreePointLocator | Find the closest point to a query point.
 [VisualizeKDTree](/Cxx/DataStructures/VisualizeKDTree) | vtkKdTreePointLocator | Visualize levels of the tree.

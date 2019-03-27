@@ -57,14 +57,15 @@ if (BUILD_TESTING)
   set(KIT DataStructures)
   set(NEEDS_ARGS
     DataStructureComparison
-    VisualizeKDTree
-    VisualizeOBBTree
-    VisualizeModifiedBSPTree
+    KDTreeFindPointsWithinRadiusDemo
     KDTreeTimingDemo
     ModifiedBSPTreeTimingDemo
     OBBTreeTimingDemo
     OctreeTimingDemo
     OctreeVisualize
+    VisualizeKDTree
+    VisualizeModifiedBSPTree
+    VisualizeOBBTree
     )
   set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
@@ -77,6 +78,9 @@ if (BUILD_TESTING)
     TestVisualizeOBBTree ${DATA}/shark.ply)
   add_test(${KIT}-VisualizeModifiedBSPTree ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestVisualizeModifiedBSPTree ${DATA}/shark.ply)
+
+  add_test(${KIT}-KDTreeFindPointsWithinRadiusDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestKDTreeFindPointsWithinRadiusDemo ${DATA}/dragon.ply 10)
 
   # These tests will generate different output each time they run.
   # To avoid regression failures, set the error tolerance to a large number.
