@@ -242,6 +242,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[BlankPoint](/Java/vtkStructuredGrid/BlankPoint) | vtkStructuredGrid | Blank a point of a vtkStructuredGrid.
 [StructuredGridOutline](/Java/StructuredGrid/StructuredGridOutline) | vtkStructuredGridOutlineFilter | Creates a wireframe outline for structured grid.
 
 This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
