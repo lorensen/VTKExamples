@@ -61,8 +61,11 @@ if (BUILD_TESTING)
     KDTreeTimingDemo
     ModifiedBSPTreeTimingDemo
     OBBTreeTimingDemo
+    OctreeFindPointsWithinRadiusDemo
     OctreeTimingDemo
     OctreeVisualize
+    PointLocatorFindPointsWithinRadiusDemo
+    StaticLocatorFindPointsWithinRadiusDemo
     VisualizeKDTree
     VisualizeModifiedBSPTree
     VisualizeOBBTree
@@ -81,6 +84,15 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-KDTreeFindPointsWithinRadiusDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestKDTreeFindPointsWithinRadiusDemo ${DATA}/dragon.ply 10)
+
+  add_test(${KIT}-OctreeFindPointsWithinRadiusDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestOctreeFindPointsWithinRadiusDemo ${DATA}/dragon.ply 10)
+
+  add_test(${KIT}-PointLocatorFindPointsWithinRadiusDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestPointLocatorFindPointsWithinRadiusDemo ${DATA}/dragon.ply 10)
+
+  add_test(${KIT}-StaticLocatorFindPointsWithinRadiusDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestStaticLocatorFindPointsWithinRadiusDemo ${DATA}/dragon.ply 10)
 
   # These tests will generate different output each time they run.
   # To avoid regression failures, set the error tolerance to a large number.
