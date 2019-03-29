@@ -37,6 +37,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [ReadCML](/Java/IO/ReadCML) | vtkCMLMoleculeReader | Read Chemistry Markup Language files.
 [ReadPLOT3D](/Java/IO/ReadPLOT3D) | vtkPLOT3DReader | Read PLOT3D data files.
 [ReadPLY](/Java/IO/ReadPLY) | vtkPLYReader | Read PLY (.ply) files
+[ReadSLC](Java/IO/ReadSLC) | vtkSLCReader | Read an SLC volume file.
 [ReadSTL](/Java/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files.
 [SimplePointsReader](/Java/IO/SimplePointsReader) | vtkSimplePointsReader | Read a simple "xyz" file of points.
 
@@ -72,6 +73,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [WriteVTP](/Java/IO/WriteVTP) | vtkXMLPolyDataWriter | Write a VTK XML PolyData file.
+[WriteVTU](/Java/IO/WriteVTU) | vtkXMLUnstructuredGridWriter | Write a .vtu file. VTU is an "Unstructured Grid". This format allows for 3D data to be stored.
 [XMLPImageDataWriter](/Java/IO/XMLPImageDataWriter) | vtkXMLPImageDataWriter | Write a .pvti file with 4 .vti pieces.
 [XMLPUnstructuredGridWriter](/Java/IO/XMLPUnstructuredGridWriter) | vtkXMLPUnstructuredGridWriter | Write a .pvtu with 4 .vtu pieces.
 [XMLStructuredGridWriter](/Java/IO/XMLStructuredGridWriter) | vtkXMLStructuredGridWriter | Write a .vts file from a vtkStructuredGrid.
@@ -242,6 +244,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[BlankPoint](/Java/vtkStructuredGrid/BlankPoint) | vtkStructuredGrid | Blank a point of a vtkStructuredGrid.
 [StructuredGridOutline](/Java/StructuredGrid/StructuredGridOutline) | vtkStructuredGridOutlineFilter | Creates a wireframe outline for structured grid.
 
 This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
