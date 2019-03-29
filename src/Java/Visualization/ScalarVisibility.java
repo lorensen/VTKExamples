@@ -44,6 +44,7 @@ public class ScalarVisibility
     vtkActor actor = new vtkActor();
     actor.SetMapper( mapper );
     actor.GetProperty().SetColor(actorColor);
+    actor.GetProperty().SetPointSize(8);
 	    
     // Create the renderer, render window and interactor.
     vtkRenderer ren = new vtkRenderer();
