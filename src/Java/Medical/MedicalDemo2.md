@@ -1,9 +1,6 @@
 ### Description
 Skin and bone isosurfaces.
 
-!!! example "Usage"
-    MedicalDemo2 FullHead.mhd
-
 !!! info
     The example uses [FullHead.mhd](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/FullHead.mhd) which references [FullHead.raw.gz](https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Data/FullHead.raw.gz?raw=true).
 
