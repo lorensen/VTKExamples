@@ -1,9 +1,6 @@
 ### Description
 The skin extracted from a CT dataset of the head.
 
-!!! example "usage"
-    MedicalDemo1 FullHead.mhd
-
 !!! info
     The example uses [FullHead.mhd](https://raw.githubusercontent.com/lorensen/VTKExamples/master/src/Testing/Data/FullHead.mhd) which references [FullHead.raw.gz](https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Data/FullHead.raw.gz?raw=true).
 
