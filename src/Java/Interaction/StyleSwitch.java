@@ -56,7 +56,7 @@ public class StyleSwitch
     iren.SetRenderWindow(renWin);
     
     // Add the actors to the scene
-	ren.AddActor(Actor);
+    ren.AddActor(Actor);
 	
     ren.SetBackground(Bgcolor);
     
