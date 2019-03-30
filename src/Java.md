@@ -209,6 +209,15 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | vtkSphere vtkAppendPolyData vtkTubeFilter | ImplicitFunctions, Append poly data, tube filter, sphere
 [SampleFunction](/Java/ImplicitFunctions/SampleFunction) | vtkSampleFunction | Sample an implicit function over a structured point set.
 
+## User Interaction
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[Assembly](/Java/Interaction/Assembly) | vtkAssembly | Combine/group actors into an assembly.
+[InteractorStyleTerrain](/Java/Interaction/InteractorStyleTerrain) | vtkInteractorStyleTerrain | Manipulate camera in scene with natural view up.
+[PickableOff](/Java/Interaction/PickableOff) | vtkActor | Disallow interaction with a specific actor.
+[StyleSwitch](/Java/Interaction/StyleSwitch) | vtkInteractorStyleSwitch | Choose between multiple interaction modes.
+
 ## Working with Meshes
 
 | Example Name | Classes Demonstrated | Description | Image |
