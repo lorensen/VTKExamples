@@ -250,6 +250,14 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [ImageNormalize](/Java/ImageData/ImageNormalize) | vtkImageNormalize  | Normalizes the scalar components for each point.
 [ImageWeightedSum](/Java/ImageData/ImageWeightedSum) | vtkImageWeightedSum | Add two or more images.
 
+
+#### vtkStructuredPoints
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[StructuredPointsToUnstructuredGrid](/Java/StructuredPoints/StructuredPointsToUnstructuredGrid) | vtkStructuredPoints vtkUnstructuredGrid | Convert a vtkStructuredPoints to a vtkUnstructuredGrid.
+[Vol](/Java/StructuredPoints/Vol) | vtkStructuredPoints vtkContourFilter | Creating a image data dataset. Scalar data is generated from the equation for a sphere. Volume dimensions are 26 x 26 x 26.
+
 #### vtkStructuredGrid
 
 | Example Name | Classes Demonstrated | Description | Image |
