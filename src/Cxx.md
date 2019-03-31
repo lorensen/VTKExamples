@@ -233,9 +233,8 @@ These examples demonstrate how to create an display one of the many vtkParametri
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ParametricKuenDemo](/Cxx/GeometricObjects/ParametricKuenDemo) | vtkParametricKuen | Interactively change the parameters for a Kuen Surface.
-[ParametricObjects](/Cxx/GeometricObjects/ParametricObjects) |  | Create and display a parametric object. Uncomment the object that you wish to be displayed.
-[ParametricObjectsDemo](/Cxx/GeometricObjects/ParametricObjectsDemo) | vtkParametricBoy vtkParametricConicSpiral vtkParametricCrossCap vtkParametricDini vtkParametricEllipsoid vtkParametricEnneper vtkParametricFigure8Klein vtkParametricKlein vtkParametricMobius vtkParametricRandomHills vtkParametricRoman vtkParametricSpline vtkParametricSuperEllipsoid vtkParametricSuperToroid vtkParametricTorus | Demonstration of of the vtkParametric* classes added by Andrew Maclean. All the objects are displayed in a 4X4 array.
-[ParametricObjectsDemo2](/Cxx/GeometricObjects/ParametricObjectsDemo2) | vtkParametricBohemianDome vtkParametricBour vtkParametricCatalanMinimal vtkParametricHenneberg vtkParametricKuen vtkParametricPluckerConoid vtkParametricPseudosphere | Demonstration of additional vtkParametric* classes added by  Tim Meehan. All the objects are displayed in a 4X2 array.
+[ParametricObjectsDemo](/Cxx/GeometricObjects/ParametricObjectsDemo) |  | Demonstrates the Parametric classes added by Andrew Maclean and additional classes added by Tim Meehan. The parametric spline is also included. Options are provided to display single objects, add backface, add normals and print out an image.
+vtkParametricPluckerConoid vtkParametricPseudosphere | Demonstration of additional vtkParametric* classes added by  Tim Meehan. All the objects are displayed in a 4X2 array.
 [ParametricSuperEllipsoidDemo](/Cxx/GeometricObjects/ParametricSuperEllipsoidDemo) | vtkParametricSuperEllipsoid | Interactively change the parameters for a SuperEllipsoid Surface.
 [ParametricSuperToroidDemo](/Cxx/GeometricObjects/ParametricSuperToroidDemo) | vtkParametricSuperToroid | Interactively change the parameters for a SuperToroid Surface.
 
