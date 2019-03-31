@@ -156,9 +156,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [ParametricKuenDemo](/Python/GeometricObjects/ParametricKuenDemo) | vtkParametricKuen | Interactively change the parameters for a Kuen Surface.
-[ParametricObjects](/Python/GeometricObjects/ParametricObjects) |  | Uncomment the object that you wish to be displayed.
-[ParametricObjectsDemo](/Python/GeometricObjects/ParametricObjectsDemo) | vtkParametricBoy vtkParametricConicSpiral vtkParametricCrossCap vtkParametricDini vtkParametricEllipsoid vtkParametricEnneper vtkParametricFigure8Klein vtkParametricKlein vtkParametricMobius vtkParametricRandomHills vtkParametricRoman vtkParametricSpline vtkParametricSuperEllipsoid vtkParametricSuperToroid vtkParametricTorus | Demonstration of of the vtkParametric classes added by Andrew Maclean. All the objects are displayed in a 4X4 array.
-[ParametricObjectsDemo2](/Python/GeometricObjects/ParametricObjectsDemo2) | vtkParametricBohemianDome vtkParametricBour vtkParametricCatalanMinimal vtkParametricHenneberg vtkParametricKuen vtkParametricPluckerConoid vtkParametricPseudosphere | Demonstration of additional vtkParametric* classes added by  Tim Meehan. All the objects are displayed in a 4X2 array.
+[ParametricObjectsDemo](/Python/GeometricObjects/ParametricObjectsDemo) |  | Demonstrates the Parametric classes added by Andrew Maclean and additional classes added by Tim Meehan. The parametric spline is also included. Options are provided to display single objects, add backface, add normals and print out an image.
 [ParametricSuperEllipsoidDemo](/Python/GeometricObjects/ParametricSuperEllipsoidDemo) | vtkParametricSuperEllipsoid | Interactively change the parameters for a SuperEllipsoid Surface.
 [ParametricSuperToroidDemo](/Python/GeometricObjects/ParametricSuperToroidDemo) | vtkParametricSuperToroid | Interactively change the parameters for a SuperToroid Surface.
 
