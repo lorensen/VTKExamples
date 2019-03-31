@@ -13,7 +13,7 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersGeneral
     vtkFiltersModeling
     vtkFiltersSources
-    IOImage
+    vtkIOImage
     vtkIOXML
     vtkInteractionStyle
     vtkInteractionWidgets
