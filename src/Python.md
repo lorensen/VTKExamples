@@ -59,6 +59,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ReadImageData](/Python/IO/ReadImageData) | vtkXMLImageDataReader | Read an image data (.vti) file
 [ReadPolyData](/Python/IO/ReadPolyData) | vtkXMLPolyDataReader | Read a polygonal data (.vtp) file
 
 ##### Output
