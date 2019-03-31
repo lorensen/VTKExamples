@@ -1,6 +1,6 @@
 ### Description
 
-Display all 21 parametric objects and the parametric spline.
+Demonstrates the Parametric classes added by Andrew Maclean and additional classes added by Tim Meehan. The parametric spline is also included.
 
 Options are provided to:
 
