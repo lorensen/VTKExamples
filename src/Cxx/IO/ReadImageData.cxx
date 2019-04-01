@@ -6,6 +6,7 @@
 #include <vtkXMLImageDataReader.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkNamedColors.h>
 #include <vtkRenderer.h>
 
 int main(int argc, char* argv[])
@@ -20,34 +21,30 @@ int main(int argc, char* argv[])
 
   std::string inputFilename = argv[1];
 
+  auto colors = vtkNamedColors::New();
+
   // Read the file
-  vtkSmartPointer<vtkXMLImageDataReader> reader =
-    vtkSmartPointer<vtkXMLImageDataReader>::New();
+  auto reader = vtkXMLImageDataReader::New();
   reader->SetFileName(inputFilename.c_str());
   reader->Update();
 
   // Visualize
-  vtkSmartPointer<vtkDataSetMapper> mapper =
-    vtkSmartPointer<vtkDataSetMapper>::New();
+   auto mapper = vtkDataSetMapper::New();
   mapper->SetInputConnection(reader->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> actor =
-    vtkSmartPointer<vtkActor>::New();
+  auto actor = vtkActor::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetRepresentationToWireframe();
 
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
+  auto renderer = vtkRenderer::New();
   renderer->AddActor(actor);
   renderer->ResetCamera();
-  renderer->SetBackground(1,1,1);
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
+  auto renderWindow = vtkRenderWindow::New();
   renderWindow->AddRenderer(renderer);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto renderWindowInteractor = vtkRenderWindowInteractor::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
   renderWindow->Render();
   renderWindowInteractor->Initialize();
