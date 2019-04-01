@@ -20,10 +20,6 @@
 #include <vtkTexture.h>
 #include <vtkVersion.h>
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-#include <vtkShaderProperty.h>
-#endif
-
 //----------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
@@ -83,25 +79,16 @@ int main(int argc, char* argv[])
   actor->SetMapper(mapper);
 
   // Add new code in default VTK vertex shader
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  vtkShaderProperty* sp = actor->GetShaderProperty();
-  sp->AddVertexShaderReplacement(
-#else
   mapper->AddShaderReplacement(
       vtkShader::Vertex,
-#endif
       "//VTK::PositionVC::Dec",  // replace the normal block
       true,                      // before the standard replacements
       "//VTK::PositionVC::Dec\n" // we still want the default
       "out vec3 TexCoords;\n",
       false // only do it once
   );
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddVertexShaderReplacement(
-#else
   mapper->AddShaderReplacement(
       vtkShader::Vertex,
-#endif
       "//VTK::PositionVC::Impl",  // replace the normal block
       true,                       // before the standard replacements
       "//VTK::PositionVC::Impl\n" // we still want the default
@@ -111,11 +98,7 @@ int main(int argc, char* argv[])
   );
 
   // Replace VTK fragment shader
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->SetFragmentShaderCode(
-#else
   mapper->SetFragmentShaderCode(
-#endif
       "//VTK::System::Dec\n" // always start with this line
       "//VTK::Output::Dec\n" // always have this line in your FS
       "in vec3 TexCoords;\n"
