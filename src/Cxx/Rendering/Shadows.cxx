@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
   auto plane =
     vtkSmartPointer<vtkCubeSource>::New();
   plane->SetCenter((bounds[1] + bounds[0]) / 2.0,
-                   bounds[2] + THICKNESS / 2.0,
+                   bounds[2] - THICKNESS / 2.0,
                    (bounds[5] + bounds[4]) / 2.0);
   plane->SetXLength(bounds[1] - bounds[0] + (range[0] * expand));
   plane->SetYLength(THICKNESS);
