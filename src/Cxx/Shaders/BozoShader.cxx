@@ -15,10 +15,6 @@
 #include <vtkTriangleMeshPointNormals.h>
 #include <vtkVersion.h>
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-#include <vtkShaderProperty.h>
-#endif
-
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
@@ -147,16 +143,6 @@ int main(int argc, char* argv[])
   actor->GetProperty()->SetOpacity(1.0);
 
   // Modify the vertex shader to pass the position of the vertex
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  vtkShaderProperty* sp = actor->GetShaderProperty();
-  sp->AddVertexShaderReplacement(
-    "//VTK::Normal::Dec",  // replace the normal block
-    true,                  // before the standard replacements
-    "//VTK::Normal::Dec\n" // we still want the default
-    "  out vec4 myVertexMC;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
     "//VTK::Normal::Dec",  // replace the normal block
@@ -165,16 +151,6 @@ int main(int argc, char* argv[])
     "  out vec4 myVertexMC;\n",
     false // only do it once
     );
-#endif
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddVertexShaderReplacement(
-    "//VTK::Normal::Impl",  // replace the normal block
-    true,                   // before the standard replacements
-    "//VTK::Normal::Impl\n" // we still want the default
-    "  myVertexMC = vertexMC;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
     "//VTK::Normal::Impl",  // replace the normal block
@@ -183,20 +159,10 @@ int main(int argc, char* argv[])
     "  myVertexMC = vertexMC;\n",
     false // only do it once
     );
-#endif
 
   // Add the code to generate noise
   // These functions need to be defined outside of main. Use the System::Dec
   // to declare and implement
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::System::Dec",
-    false, // before the standard replacements
-    shaderCode.str(),
-    false // only do it once
-    );
-
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment,
     "//VTK::System::Dec",
@@ -204,19 +170,8 @@ int main(int argc, char* argv[])
     shaderCode.str(),
     false // only do it once
     );
-#endif
 
   // Define varying and uniforms for the fragment shader here
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::Normal::Dec",  // replace the normal block
-    true,                  // before the standard replacements
-    "//VTK::Normal::Dec\n" // we still want the default
-    "  varying vec4 myVertexMC;\n"
-    "  uniform float k = 1.0;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment, // in the fragment shader
     "//VTK::Normal::Dec",  // replace the normal block
@@ -226,47 +181,7 @@ int main(int argc, char* argv[])
     "  uniform float k = 1.0;\n",
     false // only do it once
     );
-#endif
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::Light::Impl",  // replace the light block
-    false,                 // after the standard replacements
-    "//VTK::Light::Impl\n" // we still want the default calc
-    "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
-    "  vec3 noisyColor;\n"
-    "  noisyColor.r = noise(k * 10.0 * myVertexMC);\n"
-    "  noisyColor.g = noise(k * 11.0 * myVertexMC);\n"
-    "  noisyColor.b = noise(k * 12.0 * myVertexMC);\n"
-    "  /* map ranges of noise values into different colors */\n"
-    "  int i;\n"
-    "  float lowerValue = .3;\n"
-    "  float upperValue = .6;\n"
-    "  for ( i=0; i<3; i+=1)\n"
-    "  {\n"
-    "    noisyColor[i] = (noisyColor[i] + 1.0) / 2.0;\n"
-    "    if (noisyColor[i] < lowerValue) \n"
-    "    {\n"
-    "      noisyColor[i] = lowerValue;\n"
-    "    }\n"
-    "    else\n"
-    "    {\n"
-    "      if (noisyColor[i] < upperValue)\n"
-    "      {\n"
-    "        noisyColor[i] = upperValue;\n"
-    "      }\n"
-    "      else\n"
-    "      {\n"
-    "        noisyColor[i] = 1.0;\n"
-    "      }\n"
-    "    }\n"
-    "  }\n"
-    "  fragOutput0.rgb = opacity * vec3(ambientColor + noisyColor * diffuse "
-    "+ specular);\n"
-    "  fragOutput0.a = opacity;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment, // in the fragment shader
     "//VTK::Light::Impl",  // replace the light block
@@ -305,7 +220,6 @@ int main(int argc, char* argv[])
     "  fragOutput0.a = opacity;\n",
     false // only do it once
     );
-#endif
   vtkSmartPointer<vtkShaderCallback> myCallback =
     vtkSmartPointer<vtkShaderCallback>::New();
   myCallback->Renderer = renderer;

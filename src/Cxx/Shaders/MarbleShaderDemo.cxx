@@ -9,10 +9,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkVersion.h>
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-#include <vtkShaderProperty.h>
-#endif
-
 #include <vtkRenderWindowInteractor.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
@@ -271,16 +267,6 @@ int main(int argc, char* argv[])
   actor->GetProperty()->SetSpecularPower(50);
 
   // Modify the vertex shader to pass the position of the vertex
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  vtkShaderProperty* sp = actor->GetShaderProperty();
-  sp->AddVertexShaderReplacement(
-    "//VTK::Normal::Dec",  // replace the normal block
-    true,                  // before the standard replacements
-    "//VTK::Normal::Dec\n" // we still want the default
-    "  out vec4 myVertexMC;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
     "//VTK::Normal::Dec",  // replace the normal block
@@ -289,16 +275,6 @@ int main(int argc, char* argv[])
     "  out vec4 myVertexMC;\n",
     false // only do it once
     );
-#endif
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddVertexShaderReplacement(
-    "//VTK::Normal::Impl",  // replace the normal block
-    true,                   // before the standard replacements
-    "//VTK::Normal::Impl\n" // we still want the default
-    "  myVertexMC = vertexMC;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
     "//VTK::Normal::Impl",  // replace the normal block
@@ -307,19 +283,10 @@ int main(int argc, char* argv[])
     "  myVertexMC = vertexMC;\n",
     false // only do it once
     );
-#endif
 
   // Add the code to generate noise
   // These functions need to be defined outside of main. Use the System::Dec
   // to declare and implement
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::System::Dec",
-    false, // before the standard replacements
-    shaderCode.str(),
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment, // in the fragment shader
     "//VTK::System::Dec",
@@ -327,23 +294,7 @@ int main(int argc, char* argv[])
     shaderCode.str(),
     false // only do it once
     );
-#endif
 // Define varying and uniforms for the fragment shader here
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::Normal::Dec",  // replace the normal block
-    true,                  // before the standard replacements
-    "//VTK::Normal::Dec\n" // we still want the default
-    "  varying vec4 myVertexMC;\n"
-    "  uniform vec3 veincolor = vec3(1.0, 1.0, 1.0);\n"
-    "  uniform float veinfreq = 10.0;\n"
-    "  uniform int veinlevels = 2;\n"
-    "  uniform float warpfreq = 1;\n"
-    "  uniform float warping = .5;\n"
-    "  uniform float sharpness = 8.0;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment, // in the fragment shader
     "//VTK::Normal::Dec",  // replace the normal block
@@ -359,56 +310,6 @@ int main(int argc, char* argv[])
     false // only do it once
     );
 
-#endif
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::Light::Impl",  // replace the light block
-    false,                 // after the standard replacements
-    "//VTK::Light::Impl\n" // we still want the default calc
-    "\n"
-    "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
-    "#define snoise(x) (2.0 * pnoise(x) - 1.0)\n"
-    "  vec3 Ct;\n"
-    "  int i;\n"
-    "  float turb, freq;\n"
-    "  float turbsum;\n"
-    "  /* perturb the lookup */\n"
-    "  freq = 1.0;\n"
-    "  vec4 offset = vec4(0.0,0.0,0.0,0.0);\n"
-    "  vec4 noisyPoint;\n"
-    "  vec4 myLocalVertexMC = myVertexMC;\n"
-    "\n"
-    "    for (i = 0;  i < 6;  i += 1) {\n"
-    "      noisyPoint[0] = snoise(warpfreq * freq * myLocalVertexMC);\n"
-    "      noisyPoint[1] = snoise(warpfreq * freq * myLocalVertexMC);\n"
-    "      noisyPoint[2] = snoise(warpfreq * freq * myLocalVertexMC);\n"
-    "      noisyPoint[3] = 1.0;\n"
-    "      offset += 2.0 * warping * (noisyPoint - 0.5)  / freq;\n"
-    "      freq *= 2.0;\n"
-    "    }\n"
-    "    myLocalVertexMC.x += offset.x;\n"
-    "    myLocalVertexMC.y += offset.y;\n"
-    "    myLocalVertexMC.z += offset.z;\n"
-    "\n"
-    "    /* Now calculate the veining function for the lookup area */\n"
-    "    turbsum = 0.0;  freq = 1.0;\n"
-    "    myLocalVertexMC *= veinfreq;\n"
-    "    for (i = 0;  i < veinlevels;  i += 1) {\n"
-    "      turb = abs (snoise (myLocalVertexMC));\n"
-    "      turb = pow (smoothstep (0.8, 1.0, 1.0 - turb), sharpness) / "
-    "freq;\n"
-    "      turbsum += (1.0-turbsum) * turb;\n"
-    "      freq *= 1.5;\n"
-    "      myLocalVertexMC *= 1.5;\n"
-    "    }\n"
-    "\n"
-    "    Ct = mix (diffuseColor, veincolor, turbsum);\n"
-    "\n"
-    "  fragOutput0.rgb = opacity * (ambientColor + Ct + specular);\n"
-    "  fragOutput0.a = opacity;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment, // in the fragment shader
     "//VTK::Light::Impl",  // replace the light block
@@ -457,7 +358,6 @@ int main(int argc, char* argv[])
     "  fragOutput0.a = opacity;\n",
     false // only do it once
     );
-#endif
 
   vtkSmartPointer<ShaderCallback> myCallback =
     vtkSmartPointer<ShaderCallback>::New();

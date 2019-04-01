@@ -33,11 +33,6 @@
 #include <vtkVersion.h>
 #include <vtkXMLPolyDataReader.h>
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-#include <vtkShaderProperty.h>
-#endif
-
-
 //----------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
@@ -105,16 +100,6 @@ int main(int argc, char* argv[])
   actor->SetTexture(texture);
   actor->SetMapper(mapper);
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  vtkShaderProperty* sp = actor->GetShaderProperty();
-  sp->AddVertexShaderReplacement(
-    "//VTK::PositionVC::Dec",  // replace
-    true,                      // before the standard replacements
-    "//VTK::PositionVC::Dec\n" // we still want the default
-    "out vec3 TexCoords;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
     "//VTK::PositionVC::Dec",  // replace
@@ -123,17 +108,6 @@ int main(int argc, char* argv[])
     "out vec3 TexCoords;\n",
     false // only do it once
     );
-#endif
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddVertexShaderReplacement(
-    "//VTK::PositionVC::Impl",  // replace
-    true,                       // before the standard replacements
-    "//VTK::PositionVC::Impl\n" // we still want the default
-    "vec3 camPos = -MCVCMatrix[3].xyz * mat3(MCVCMatrix);\n"
-    "TexCoords.xyz = reflect(vertexMC.xyz - camPos, normalize(normalMC));\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
     "//VTK::PositionVC::Impl",  // replace
@@ -143,16 +117,6 @@ int main(int argc, char* argv[])
     "TexCoords.xyz = reflect(vertexMC.xyz - camPos, normalize(normalMC));\n",
     false // only do it once
     );
-#endif
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::Light::Dec",  // replace
-    true,                 // before the standard replacements
-    "//VTK::Light::Dec\n" // we still want the default
-    "in vec3 TexCoords;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment,
     "//VTK::Light::Dec",  // replace
@@ -161,22 +125,7 @@ int main(int argc, char* argv[])
     "in vec3 TexCoords;\n",
     false // only do it once
     );
-#endif
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::Light::Impl", // replace
-    true,                 // before the standard replacements
-    "//VTK::Light::Impl\n"
-    "  float phix = length(vec2(TexCoords.x, TexCoords.z));\n"
-    "  vec3 skyColor = texture(actortexture, vec2(0.5*atan(TexCoords.z, "
-    "TexCoords.x)/3.1415927 + 0.5, atan(TexCoords.y,phix)/3.1415927 + "
-    "0.5)).xyz;\n"
-    "  gl_FragData[0] = vec4(ambientColor + diffuse + specular + "
-    "specularColor*skyColor, opacity);\n", // we still want the default
-    false                                  // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment,
     "//VTK::Light::Impl", // replace
@@ -190,7 +139,6 @@ int main(int argc, char* argv[])
     "specularColor*skyColor, opacity);\n", // we still want the default
     false                                  // only do it once
     );
-#endif
 
   vtkSmartPointer<vtkSkybox> world =
     vtkSmartPointer<vtkSkybox>::New();
