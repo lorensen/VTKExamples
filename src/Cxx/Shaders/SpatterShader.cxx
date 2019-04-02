@@ -16,10 +16,6 @@
 #include <vtkVersion.h>
 #include <vtksys/SystemTools.hxx>
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-#include <vtkShaderProperty.h>
-#endif
-
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
@@ -175,16 +171,6 @@ int main(int argc, char* argv[])
   actor->GetProperty()->SetSpecularPower(2);
 
   // Modify the vertex shader to pass the position of the vertex
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  vtkShaderProperty* sp = actor->GetShaderProperty();
-  sp->AddVertexShaderReplacement(
-    "//VTK::Normal::Dec",  // replace the normal block
-    true,                  // before the standard replacements
-    "//VTK::Normal::Dec\n" // we still want the default
-    "  out vec4 myVertexMC;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
     "//VTK::Normal::Dec",  // replace the normal block
@@ -193,16 +179,6 @@ int main(int argc, char* argv[])
     "  out vec4 myVertexMC;\n",
     false // only do it once
     );
-#endif
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddVertexShaderReplacement(
-    "//VTK::Normal::Impl",  // replace the normal block
-    true,                   // before the standard replacements
-    "//VTK::Normal::Impl\n" // we still want the default
-    "  myVertexMC = vertexMC;\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Vertex,
     "//VTK::Normal::Impl",  // replace the normal block
@@ -211,19 +187,10 @@ int main(int argc, char* argv[])
     "  myVertexMC = vertexMC;\n",
     false // only do it once
     );
-#endif
 
   // Add the code to generate noise
   // These functions need to be defined outside of main. Use the System::Dec
   // to declare and implement
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::System::Dec",
-    false, // before the standard replacements
-    shaderCode.str(),
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment,
     "//VTK::System::Dec",
@@ -231,21 +198,7 @@ int main(int argc, char* argv[])
     shaderCode.str(),
     false // only do it once
     );
-#endif
   // Define varying and uniforms for the fragment shader here
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::Normal::Dec",  // replace the normal block
-    true,                  // before the standard replacements
-    "//VTK::Normal::Dec\n" // we still want the default
-    "  varying vec4 myVertexMC;\n"
-    "uniform float specksize = .05;\n"
-    "uniform int sizes = 3;\n"
-    "uniform vec3 basecolor = vec3(.7,.7,.7);\n"
-    "uniform vec3 spattercolor = vec3(0.0, 0.0, 0.0);\n",
-    false // only do it once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment, // in the fragment shader
     "//VTK::Normal::Dec",  // replace the normal block
@@ -258,35 +211,7 @@ int main(int argc, char* argv[])
     "uniform vec3 spattercolor = vec3(0.0, 0.0, 0.0);\n",
     false // only do it once
     );
-#endif
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
-  sp->AddFragmentShaderReplacement(
-    "//VTK::Light::Impl",  // replace the light block
-    false,                 // after the standard replacements
-    "//VTK::Light::Impl\n" // we still want the default calc
-    "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
-    "\n"
-    "float speckle, size, threshold = 0.7;\n"
-    "vec3 paint;\n"
-    "float scalefac;\n"
-    "vec4 myLocalVertexMC = myVertexMC;\n"
-    "scalefac = 1.0/specksize;\n"
-    "paint = basecolor;\n"
-    "for (size=1; size<=sizes; size +=1) {\n"
-    "  speckle = pnoise(myLocalVertexMC * scalefac);\n"
-    "  if (speckle > threshold) {\n"
-    "    paint = spattercolor;\n"
-    "    break;\n"
-    "  }\n"
-    "  scalefac /= 2.0;\n"
-    "}\n"
-    "/* get final color */\n"
-    "fragOutput0.rgb = opacity * vec3(ambientColor + paint + specular);\n"
-    "fragOutput0.a = opacity;\n",
-    false // only do once
-    );
-#else
   mapper->AddShaderReplacement(
     vtkShader::Fragment, // in the fragment shader
     "//VTK::Light::Impl",  // replace the light block
@@ -313,7 +238,6 @@ int main(int argc, char* argv[])
     "fragOutput0.a = opacity;\n",
     false // only do once
     );
-#endif
 
   vtkSmartPointer<ShaderCallback> myCallback =
     vtkSmartPointer<ShaderCallback>::New();

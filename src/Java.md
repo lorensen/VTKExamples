@@ -403,14 +403,19 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [CursorShape](/Java/Visualization/CursorShape) | | Change the shape of the cursor. 
 [Cutter](/Java/VisualizationAlgorithms/Cutter) | vtkCutter | How to use vtkCutter by cutting through a cube.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
-[Legend](/java/Visualization/Legend) | vtkLegendBoxActor | Draw symbols with text
+[Legend](/Java/Visualization/Legend) | vtkLegendBoxActor | Draw symbols with text
+[LoopShrink](/Java/Visualization/LoopShrink) | vtkShrinkFilter| A network with a loop.
 [LineWidth](/Java/Visualization/LineWidth) | vtkActor vtkProperty | Change the width/thickness of lines in an actor.
 [Opacity](/Java/Visualization/Opacity) | vtkActor | Transparency, transparent.
 [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) | vtkGlyph3D | Copies oriented and scaled glyph geometry to every input point
 [VectorFieldExample](/Java/Visualization/VectorFieldExample) | vtkXMLUnstructuredGridReader, vtkThresholdPoints, vtkGlyph3D | A vector field visualisation.
 [NoShading](/Java/Visualization/NoShading) | vtkActor | 
 [ProteinRibbons](/Java/Visualization/ProteinRibbons) | vtkProteinRibbonFilter | Display pdb ribbons.
+[RandomProbe](/Java/Visualization/RandomProbe) | vtkProbeFilter | Demonstrates how to probe a dataset with random points and select points inside the data set.
+[ScalarBarActor](/Java/Visualization/ScalarBarActor) | vtkScalarBarActor | Display a color bar.
+[ScalarBarActorColorSeries](/Java/Visualization/ScalarBarActorColorSeries) | vtkScalarBarActor vtkColorSeries | Display a color bar with a color series lookup table.
 [ScalarVisibility](/Java/Visualization/ScalarVisibility) | vtkDataSetMapper | Switch between coloring the actor and coloring the data.
+[SideBySideViewports](/Java/Visualization/SideBySideViewports) | vtkRenderer | Side by side viewports.
 [VisualizeImageData](/Java/Visualization/VisualizeImageData) | vtkDataSetMapper vtkImageData | Visualize the points of an ImageData.
 [VisualizeVTP](/Java/Visualization/VisualizeVTP) | vtkXMLPolyDataReader vtkPolyDataMapper | Visualize a VTP File.
 [WindowSize](/Java/Visualization/WindowSize) | vtkRenderWindow | Change the size of a window.
