@@ -62,36 +62,92 @@
 #include <iterator>
 #include <locale>
 #include <map>
+#include <set>
+#include <sstream>
 #include <string>
 #include <vector>
 
 namespace {
 
-// For holding the arguments from the command line
-// True/false non-positional parameters with optional value(s)
-// For positional parameters, use the variable name as key,
-// e.g. varName,true,value
+// Holds the arguments from the command line as a map of maps.
+// e.g. name,(true|false,[value_0 ... value_n])
 typedef std::map<std::string, std::pair<bool, std::vector<std::string>>>
     TCmdArgs;
+
+class ComandLineParser
+{
+public:
+  ComandLineParser(std::vector<std::string>& argvArgs,
+                   std::map<std::string, std::string>& argNKV,
+                   std::map<std::string, std::string>& argKV,
+                   std::string const & positionalKName = "_PKN");
+
+  ~ComandLineParser();
+
+public:
+  /**
+   * Parse the parameters from the command line.
+   *
+   * @return true if the parse was successful, false if unsuccessful.
+   */
+  bool Parse();
+
+  /**
+   * Get the parsed command line arguments.
+   *
+   * @return The parsed arguments.
+   */
+  TCmdArgs GetCommandArguments()
+  {
+    return this->cmdArgs;
+  }
+
+  /**
+   * @return The error message if Parse() failed.
+   */
+  std::string GetParseError()
+  {
+    return this->parseError;
+  }
+
+  /**
+   * @return The key name used to identify positional arguments.
+   */
+  std::string getPositionalKeyName()
+  {
+    return this->positionalKName;
+  }
+
+  /**
+   * @return A string of the parsed command argments.
+   */
+  std::string DisplayComandArguments();
+
+private:
+  /**
+   * Take a map and get the set of values in the map.
+   *
+   * @param m: The map.
+   * @param s: The set of values from the map.
+   */
+  template <typename K, typename V>
+  void GetSetOfValues(std::map<K, V> const& m, std::set<V>& s);
+
+private:
+  TCmdArgs cmdArgs;
+  std::vector<std::string> cmdLineVec;
+  std::map<std::string, std::string>& argNKV;
+  std::map<std::string, std::string>& argKV;
+  std::string positionalKName;
+  std::string parseError;
+};
 
 /**
  * Show the command lime parameters.
  *
  * @param fn: The program name.
  */
-void ShowUsage(std::string fn);
-
-/**
- * Parse the parameters from the command line.
- *
- * @param cmdArgs The command arguments (initialised before calling this
- * function)
- * @param cmdArgs The vector of strings from the command line.
- *
- * @return true if the parse was successful, false if unsuccessful or if help
- * was specified.
- */
-bool ParseArgs(TCmdArgs& cmdArgs, std::vector<std::string> const& argvArgs);
+std::string ShowUsage(std::string fn);
 
 /**
  * Create a map of the parametric functions and set some parameters.
@@ -144,29 +200,51 @@ void DisplayBoundingBoxAndCenter(std::string const& name, int const& index,
 
 int main(int argc, char* argv[])
 {
-  //  std::pair<std::map<std::string, bool>, std::pair<std::string, int>>
+  // These two maps need to be filled in by the user.
+  // key: Optional arguments such as -f or --foo with no parameters.
+  // value: A suitable name. For the keys -f or --foo, the name would be the
+  // same e.g f.
+  std::map<std::string, std::string> argNKV;
+  // key: Optional arguments requiring one or more paramters such as -s fn or
+  // --some_file fn. value: A suitable name. For the keys -s or --some_file, the
+  // name would be the same e.g s. To handle non-optional arguments we use a
+  // special key: _PKN (which can be user defined).
+  std::map<std::string, std::string> argKV;
 
-  // These are the default arguments
-  TCmdArgs cmdArgs;
-  cmdArgs["w"].first = false;
-  cmdArgs["b"].first = false;
-  cmdArgs["n"].first = false;
-  cmdArgs["s"].first = false;
+  // Specify key/value pairs for the arguments we want.
+  argNKV["-b"] = "b";
+  argNKV["-n"] = "n";
+  argNKV["-w"] = "w";
 
-  // Let's get any command arguments
-  std::vector<std::string> argvArgs;
+  argKV["-s"] = "s";
+
+  // The command line arguments
+  std::vector<std::string> cmdVec;
   for (auto i = 1; i < argc; ++i)
   {
-    argvArgs.push_back(argv[i]);
+    cmdVec.push_back(argv[i]);
   }
-  if (!argvArgs.empty())
+
+  ComandLineParser clp(cmdVec, argNKV, argKV);
+  if (!cmdVec.empty())
   {
-    if (!ParseArgs(cmdArgs, argvArgs))
+    // Usually -h and --help are reserved for help.
+    for (auto it : cmdVec)
     {
-      ShowUsage(argv[0]);
-      return EXIT_SUCCESS;
+      if (it == "--h" || it == "--help")
+      {
+        std::cout << ShowUsage(argv[0]) << std::endl;
+        return EXIT_SUCCESS;
+      }
+    }
+    if (!clp.Parse())
+    {
+      std::cerr << clp.GetParseError() << std::endl;
+      std::cerr << ShowUsage(argv[0]) << std::endl;
+      return EXIT_FAILURE;
     }
   }
+  TCmdArgs cmdArgs = clp.GetCommandArguments();
 
   std::pair<std::string, int> singleSurface;
   if (cmdArgs["s"].first)
@@ -446,7 +524,7 @@ int main(int argc, char* argv[])
 
 namespace {
 
-void ShowUsage(std::string fn)
+std::string ShowUsage(std::string fn)
 {
   // Remove the folder (if present) then remove the extension in this order
   // since the folder name may contain perionds.
@@ -460,62 +538,17 @@ void ShowUsage(std::string fn)
   {
     fn.erase(period_idx);
   }
-  std::cout << "\nusage: " << fn << "[-h][-s SURFACE_NAME][-w][-b][-n]\n\n"
-            << "Display the parametric surfaces.\n\n"
-            << "optional arguments:\n"
-            << "  -h, --help            show this help message and exit\n"
-            << "  -s SURFACE_NAME, --surface_name SURFACE_NAME\n"
-            << "                        The name of the surface.\n"
-            << "  -w, --write_image     Write out the the image.\n"
-            << "  -b, --back_face       Color the back-face.\n"
-            << "  -n, --normals         Display normals.\n"
-            << std::endl;
-}
-
-bool ParseArgs(TCmdArgs& cmdArgs, std::vector<std::string> const& argvArgs)
-{
-  if (!argvArgs.empty())
-  {
-    for (auto it = argvArgs.begin(); it != argvArgs.end(); ++it)
-    {
-      if (*it == "-w")
-      {
-        cmdArgs["w"].first = true;
-      }
-      if (*it == "-b")
-      {
-        cmdArgs["b"].first = true;
-      }
-      if (*it == "-n")
-      {
-        cmdArgs["n"].first = true;
-      }
-      if (*it == "-s")
-      {
-        if (std::next(it) != argvArgs.end())
-        {
-          ++it;
-          std::string fn = *it;
-          if (fn[0] != '-')
-          {
-            cmdArgs["s"].first = true;
-            cmdArgs["s"].second.push_back(fn);
-          }
-          else
-          {
-            std::cerr << "-s must be followed by a surface name." << std::endl;
-            return false;
-          }
-        }
-        else
-        {
-          std::cerr << "-s must be followed by a surface name." << std::endl;
-          return false;
-        }
-      }
-    }
-  }
-  return true;
+  std::ostringstream os;
+  os << "\nusage: " << fn << "[-h][-s SURFACE_NAME][-w][-b][-n]\n\n"
+     << "Display the parametric surfaces.\n\n"
+     << "optional arguments:\n"
+     << "  -h                    show this help message and exit\n"
+     << "  -s SURFACE_NAME       The name of the surface.\n"
+     << "  -w                    Write out the the image.\n"
+     << "  -b                    Color the back-face.\n"
+     << "  -n                    Display normals.\n"
+     << std::endl;
+  return os.str();
 }
 
 std::map<int, std::map<std::string, vtkSmartPointer<vtkParametricFunction>>>
@@ -735,6 +768,246 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
   }
 
   return;
+}
+
+ComandLineParser::ComandLineParser(std::vector<std::string>& cmdLineVec,
+                                   std::map<std::string, std::string>& argNKV,
+                                   std::map<std::string, std::string>& argKV,
+                                   std::string const & posArgName)
+  : cmdLineVec(cmdLineVec),
+    argNKV(argNKV),
+    argKV(argKV),
+    positionalKName(posArgName)
+{
+  // Make a set of all the values.
+  std::set<std::string> pVals;
+
+  this->GetSetOfValues(this->argNKV, pVals);
+  this->GetSetOfValues(this->argKV, pVals);
+
+  // Set the default arguments
+  for (auto p : pVals)
+  {
+    this->cmdArgs[p].first = false;
+  }
+}
+
+ComandLineParser::~ComandLineParser() = default;
+
+bool ComandLineParser::Parse()
+{
+  this->parseError.clear();
+  std::vector<std::string> cl;
+  if (!this->cmdLineVec.empty())
+  {
+    auto hasKV = !this->argKV.empty();
+    auto hasNKV = !this->argNKV.empty();
+    // Commands like -xy need to be split into -x, y
+    if (hasKV)
+    {
+      for (auto v : this->cmdLineVec)
+      {
+        auto a = v.substr(0, 2);
+        if (this->argKV.count(a) > 0 && v.size() > 2)
+        {
+          cl.push_back(a);
+          cl.push_back(v.substr(2));
+        }
+        else
+        {
+          cl.push_back(v);
+        }
+      }
+    }
+    // Now validate non-positional parmeters.
+    for (auto v : cl)
+    {
+      if (v[0] == '-' || v.substr(0, 2) == "--")
+      {
+        if ((hasKV && this->argKV.count(v) > 0) ||
+            (hasNKV && this->argNKV.count(v) > 0))
+        {
+          continue;
+        }
+        else
+        {
+          std::ostringstream os;
+          os << "Unknown key: " << v << "\n";
+          this->parseError = os.str();
+          return false;
+        }
+      }
+    }
+    // Look for duplicate non-positional parmeters.
+    for (auto k : this->argKV)
+    {
+      if (std::count(cl.begin(), cl.end(), k.first) > 1)
+      {
+        std::ostringstream os;
+        os << "Duplicate key: " << k.first;
+        this->parseError = os.str();
+        return false;
+      }
+    }
+    for (auto k : this->argNKV)
+    {
+      if (std::count(cl.begin(), cl.end(), k.first) > 1)
+      {
+        std::ostringstream os;
+        os << "Duplicate key: " << k.first;
+        this->parseError = os.str();
+        return false;
+      }
+    }
+
+    std::vector<std::string> positionalArguments;
+    for (auto it = cl.begin(); it != cl.end(); ++it)
+    {
+      if (!this->argNKV.empty())
+      {
+        if (this->argNKV.count(*it) > 0)
+        {
+          this->cmdArgs[this->argNKV[*it]].first = true;
+          continue;
+        }
+      }
+      if (!this->argKV.empty())
+      {
+        if (this->argKV.count(*it) > 0)
+        {
+          if (std::next(it) != cl.end())
+          {
+            auto key = this->argKV[*it];
+            while (std::next(it) != cl.end())
+            {
+              if ((*std::next(it))[0] == '-')
+              {
+                break;
+              }
+              ++it;
+
+              std::string fn = *it;
+              if (fn[0] != '-')
+              {
+                if (!this->cmdArgs[key].first)
+                {
+                  this->cmdArgs[key].first = true;
+                }
+                this->cmdArgs[key].second.push_back(fn);
+              }
+              else
+              {
+                if (this->cmdArgs[key].second.empty())
+                {
+                  std::ostringstream os;
+                  os << key << " must be followed by a parameter.";
+                  this->parseError = os.str();
+                  return false;
+                }
+                else
+                {
+                  break;
+                }
+              }
+            }
+          }
+          else
+          {
+            std::ostringstream os;
+            os << *it
+               << " must be followed by a parameter, reached the end of the "
+                  "commands.";
+            this->parseError = os.str();
+            return false;
+          }
+          continue;
+        }
+      }
+      positionalArguments.push_back(*it);
+    }
+    if (!positionalArguments.empty())
+    {
+      this->cmdArgs[positionalKName].first = true;
+      this->cmdArgs[positionalKName].second = positionalArguments;
+    }
+    else
+    {
+      this->cmdArgs[positionalKName].first = false;
+    }
+  }
+  return true;
+}
+
+std::string ComandLineParser::DisplayComandArguments()
+{
+  std::vector<std::string> setParameters;
+  std::vector<std::string> unSetParameters;
+  for (auto k : this->cmdArgs)
+  {
+    if (this->cmdArgs[k.first].first)
+    {
+      setParameters.push_back(k.first);
+    }
+    else
+    {
+      unSetParameters.push_back(k.first);
+    }
+  }
+  // Sort them
+  std::sort(setParameters.begin(), setParameters.end());
+  std::sort(unSetParameters.begin(), unSetParameters.end());
+
+  std::ostringstream os;
+  if (setParameters.size() > 0)
+  {
+    os << "Set parameters:" << std::endl;
+    for (auto k : setParameters)
+    {
+      if (this->cmdArgs[k].first)
+      {
+        os << "  " << k;
+        if (!this->cmdArgs[k].second.empty())
+        {
+          os << ": ";
+          std::copy(std::begin(cmdArgs[k].second),
+                    std::prev(std::end(cmdArgs[k].second)),
+                    std::ostream_iterator<std::string>(os, ", "));
+          os << this->cmdArgs[k].second.back();
+        }
+        os << std::endl;
+      }
+    }
+  }
+
+  if (unSetParameters.size() > 0)
+  {
+    os << "Unset parameters:" << std::endl;
+    for (auto k : unSetParameters)
+    {
+      if (!this->cmdArgs[k].first)
+      {
+        os << "  " << k;
+        if (!this->cmdArgs[k].second.empty())
+        {
+          os << ": ";
+          std::copy(std::begin(this->cmdArgs[k].second),
+                    std::prev(std::end(this->cmdArgs[k].second)),
+                    std::ostream_iterator<std::string>(os, ", "));
+          os << this->cmdArgs[k].second.back();
+        }
+        os << std::endl;
+      }
+    }
+  }
+  return os.str();
+}
+
+template <typename K, typename V>
+void ComandLineParser::GetSetOfValues(std::map<K, V> const& m, std::set<V>& s)
+{
+  std::for_each(m.begin(), m.end(), [&](const std::pair<const K, V>& element) {
+    s.insert(element.second);
+  });
 }
 
 } // namespace

@@ -58,7 +58,7 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
     std::string fn = fileName;
     std::string path;
     std::string ext;
-    std::size_t found = fn.find_last_of(".");
+    auto found = fn.find_last_of(".");
     if (found == std::string::npos)
     {
       path = fn;
@@ -73,8 +73,7 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
     std::locale loc;
     std::transform(ext.begin(), ext.end(), ext.begin(),
                    [=](char const& c) { return std::tolower(c, loc); });
-    vtkSmartPointer<vtkImageWriter> writer =
-      vtkSmartPointer<vtkImageWriter>::New();
+    auto writer = vtkSmartPointer<vtkImageWriter>::New();
     if (ext == ".bmp")
     {
       writer = vtkSmartPointer<vtkBMPWriter>::New();
@@ -103,8 +102,8 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
     {
       writer = vtkSmartPointer<vtkPNGWriter>::New();
     }
-    vtkSmartPointer<vtkWindowToImageFilter> window_to_image_filter =
-      vtkSmartPointer<vtkWindowToImageFilter>::New();
+    auto window_to_image_filter =
+        vtkSmartPointer<vtkWindowToImageFilter>::New();
     window_to_image_filter->SetInput(renWin);
     window_to_image_filter->SetScale(1); // image quality
     if (rgba)
