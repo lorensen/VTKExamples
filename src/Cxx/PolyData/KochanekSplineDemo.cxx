@@ -170,7 +170,7 @@ public:
     vtkSliderWidget *sliderWidget =
       reinterpret_cast<vtkSliderWidget*>(caller);
     double value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
-    vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetXSpline())->SetDefaultTension(value);
+    dynamic_cast<vtkKochanekSpline *>(this->ParametricSpline->GetXSpline())->SetDefaultTension(value);
     vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetYSpline())->SetDefaultTension(value);
     vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetZSpline())->SetDefaultTension(value);
     ParametricSource->Modified();
