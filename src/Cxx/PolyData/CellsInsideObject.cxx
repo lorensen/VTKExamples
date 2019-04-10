@@ -1,15 +1,6 @@
-#include <cxxabi.h>  // needed for abi::__cxa_demangle
 #include <string>
 #include <vector>
 #include <iostream>
-#include <typeinfo>
-
-std::string cppDemangle(const char *mangledName)
-{
-  int         status;
-  std::string unmangled = abi::__cxa_demangle(mangledName, nullptr, nullptr, &status);
-  return unmangled;
-}
 
 #include <vtkSmartPointer.h>
 #include <vtkSelectEnclosedPoints.h>
@@ -73,7 +64,6 @@ int main (int argc, char *argv[])
   {
     polyData2 = polyData;
   }
-  std::cout << typeid(polyData).name() << "-> "<< cppDemangle(typeid(polyData).name()) << std::endl;
   // Mark points inside with 1 and outside with a 0
   auto select =
     vtkSmartPointer<vtkSelectEnclosedPoints>::New();
@@ -118,7 +108,6 @@ int main (int argc, char *argv[])
   vtkColor3d borderColor     = colors->GetColor3d("Mint");
   vtkColor3d surfaceColor    = colors->GetColor3d("Peacock");
   vtkColor3d backgroundColor = colors->GetColor3d("Silver");
-  std::cout << typeid(colors).name() << "-> "<< cppDemangle(typeid(colors).name()) << std::endl;
 
   // Outside
   auto outsideMapper =
