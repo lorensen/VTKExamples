@@ -36,7 +36,7 @@ template<class TReader> vtkDataSet *ReadAnXMLFile(const char*fileName)
   reader->SetFileName(fileName);
   reader->Update();
   reader->GetOutput()->Register(reader);
-  return vtkDataSet::SafeDownCast(reader->GetOutput());
+  return dynamic_cast<vtkDataSet*>(reader->GetOutput());
 }
 
 int main (int argc, char *argv[])

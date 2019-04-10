@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
   pl3d->Update();
 
   vtkStructuredGrid* output =
-    vtkStructuredGrid::SafeDownCast(pl3d->GetOutput()->GetBlock(0));
+    dynamic_cast<vtkStructuredGrid*>(pl3d->GetOutput()->GetBlock(0));
 
   // Make the wall (floor).
   vtkSmartPointer<vtkStructuredGridGeometryFilter> wall =

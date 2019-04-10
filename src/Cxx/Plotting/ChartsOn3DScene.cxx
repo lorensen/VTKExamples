@@ -103,12 +103,12 @@ int main(int , char * [])
   points->SetInputData(table, 0, 1);
   points->SetColor(color3d.GetRed(), color3d.GetGreen(), color3d.GetBlue());
   points->SetWidth(1.0);
-  vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::CROSS);
+  dynamic_cast<vtkPlotPoints*>(points)->SetMarkerStyle(vtkPlotPoints::CROSS);
   points = chart->AddPlot(vtkChart::POINTS);
   points->SetInputData(table, 0, 2);
   points->SetColor(color3d.GetRed(), color3d.GetGreen(), color3d.GetBlue());
   points->SetWidth(1.0);
-  vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::PLUS);
+  dynamic_cast<vtkPlotPoints*>(points)->SetMarkerStyle(vtkPlotPoints::PLUS);
   points = chart->AddPlot(vtkChart::POINTS);
   points->SetInputData(table, 0, 3);
   points->SetColor(color3d.GetRed(), color3d.GetGreen(), color3d.GetBlue());

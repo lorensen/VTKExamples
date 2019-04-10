@@ -93,7 +93,7 @@ int main( int, char * [] )
 
   // Add multiple line plots, setting the colors etc
   vtkColor3d color3d = colors->GetColor3d("tomato");
-  vtkPlotArea* area = vtkPlotArea::SafeDownCast(chart->AddPlot(vtkChart::AREA));
+  vtkPlotArea* area = dynamic_cast<vtkPlotArea*>(chart->AddPlot(vtkChart::AREA));
   area->SetInputData(table);
   area->SetInputArray(0, "X Axis");
   area->SetInputArray(1, "Sine");

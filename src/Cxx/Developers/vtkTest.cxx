@@ -21,6 +21,6 @@ void vtkTest::PrintSelf( ostream& os, vtkIndent indent )
 
 void vtkTest::ShallowCopy(vtkDataObject* t)
 {
-  vtkTest *m = vtkTest::SafeDownCast(t);
+  vtkTest *m = dynamic_cast<vtkTest*>(t);
   this->Value = m->GetValue();
 }

@@ -68,7 +68,7 @@ public:
     this->SelectedMapper->SetInputData(selected);
     this->SelectedMapper->ScalarVisibilityOff();
 
-    vtkIdTypeArray* ids = vtkIdTypeArray::SafeDownCast(
+    vtkIdTypeArray* ids = dynamic_cast<vtkIdTypeArray*>(
         selected->GetPointData()->GetArray("OriginalIds"));
     for (vtkIdType i = 0; i < ids->GetNumberOfTuples(); i++)
     {

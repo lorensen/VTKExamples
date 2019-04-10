@@ -124,7 +124,7 @@ int main (int argc, char *argv[])
   auto outsideMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   outsideMapper->SetInputData(
-    vtkUnstructuredGrid::SafeDownCast(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(outsideId))->GetBlock(0)));
+    dynamic_cast<vtkUnstructuredGrid*>(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(outsideId))->GetBlock(0)));
   outsideMapper->ScalarVisibilityOff();
 
   auto outsideActor =
@@ -138,7 +138,7 @@ int main (int argc, char *argv[])
   auto insideMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   insideMapper->SetInputData(
-    vtkUnstructuredGrid::SafeDownCast(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(insideId))->GetBlock(0)));
+    dynamic_cast<vtkUnstructuredGrid*>(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(insideId))->GetBlock(0)));
   insideMapper->ScalarVisibilityOff();
 
   auto insideActor =
@@ -153,7 +153,7 @@ int main (int argc, char *argv[])
   auto borderMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   borderMapper->SetInputData(
-    vtkUnstructuredGrid::SafeDownCast(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(borderId))->GetBlock(0)));
+    dynamic_cast<vtkUnstructuredGrid*>(vtkMultiBlockDataSet::SafeDownCast(threshold->GetOutput()->GetBlock(borderId))->GetBlock(0)));
   borderMapper->ScalarVisibilityOff();
 
   auto borderActor =

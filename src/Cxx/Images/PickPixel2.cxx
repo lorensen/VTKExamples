@@ -82,7 +82,7 @@ public:
     vtkRenderer* renderer = this->Viewer->GetRenderer();
     vtkImageActor* actor = this->Viewer->GetImageActor();
     vtkImageData* image = this->Viewer->GetInput();
-    vtkInteractorStyle *style = vtkInteractorStyle::SafeDownCast(
+    vtkInteractorStyle *style = dynamic_cast<vtkInteractorStyle*>(
       interactor->GetInteractorStyle());
 
     // Pick at the mouse location provided by the interactor
@@ -103,7 +103,7 @@ public:
       for (int i = 0; i < path->GetNumberOfItems() && !validPick; ++i)
       {
         node = path->GetNextNode(sit);
-        if (actor == vtkImageActor::SafeDownCast(node->GetViewProp()))
+        if (actor == dynamic_cast<vtkImageActor*>(node->GetViewProp()))
         {
           validPick = true;
         }

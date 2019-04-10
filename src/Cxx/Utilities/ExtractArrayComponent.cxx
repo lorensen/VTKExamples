@@ -34,7 +34,7 @@ int main(int, char *[])
   arrayCalculator->Update();
 
   vtkSmartPointer<vtkDoubleArray> outputArray =
-    vtkDoubleArray::SafeDownCast(
+    dynamic_cast<vtkDoubleArray*>(
       arrayCalculator->GetPolyDataOutput()->GetPointData()->GetArray("OutputArray"));
 
   for(vtkIdType i = 0; i < outputArray->GetNumberOfTuples(); i++)

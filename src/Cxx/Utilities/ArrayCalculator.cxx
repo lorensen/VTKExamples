@@ -33,7 +33,7 @@ int main(int, char *[])
   calc1->Update();
 
   vtkSmartPointer<vtkDoubleArray> output1 =
-    vtkDoubleArray::SafeDownCast(
+    dynamic_cast<vtkDoubleArray*>(
       calc1->GetPolyDataOutput()->GetPointData()->GetArray("orig"));
 
   for(vtkIdType i = 0; i < output1->GetNumberOfTuples(); i++)
@@ -51,7 +51,7 @@ int main(int, char *[])
   calc2->Update();
 
   vtkSmartPointer<vtkDoubleArray> output2 =
-    vtkDoubleArray::SafeDownCast(
+    dynamic_cast<vtkDoubleArray*>(
       calc2->GetPolyDataOutput()->GetPointData()->GetArray("new"));
 
   for(vtkIdType i = 0; i < output2->GetNumberOfTuples(); i++)

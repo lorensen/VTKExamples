@@ -53,9 +53,9 @@ public:
 
     this->InteractionProp->GetActors(actors);
     actors->InitTraversal();
-    vtkActor* actor = vtkActor::SafeDownCast(actors->GetNextProp());
+    vtkActor* actor = dynamic_cast<vtkActor*>(actors->GetNextProp());
 
-    vtkPolyData* polydata = vtkPolyData::SafeDownCast(actor->GetMapper()->GetInputAsDataSet());
+    vtkPolyData* polydata = dynamic_cast<vtkPolyData*>(actor->GetMapper()->GetInputAsDataSet());
 
     vtkSmartPointer<vtkTransform> transform =
       vtkSmartPointer<vtkTransform>::New();
@@ -73,7 +73,7 @@ public:
     selectEnclosedPoints->SetSurfaceData(this->Sphere);
     selectEnclosedPoints->Update();
 
-    vtkDataArray* insideArray = vtkDataArray::SafeDownCast(selectEnclosedPoints->GetOutput()->GetPointData()->GetArray("SelectedPoints"));
+    vtkDataArray* insideArray = dynamic_cast<vtkDataArray*>(selectEnclosedPoints->GetOutput()->GetPointData()->GetArray("SelectedPoints"));
 
     bool inside = false;
     for(vtkIdType i = 0; i < insideArray->GetNumberOfTuples(); i++)

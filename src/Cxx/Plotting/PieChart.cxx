@@ -52,7 +52,7 @@ int main(int, char*[])
   colorSeries->SetColorScheme(vtkColorSeries::WARM);
 
   // Add multiple line plots, setting the colors etc
-  vtkPlotPie *pie = vtkPlotPie::SafeDownCast(chart->AddPlot(0));
+  vtkPlotPie *pie = dynamic_cast<vtkPlotPie*>(chart->AddPlot(0));
   pie->SetColorSeries(colorSeries);
   pie->SetInputData(table);
   pie->SetInputArray(0,"2008 Circulation");

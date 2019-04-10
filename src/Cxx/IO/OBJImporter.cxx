@@ -67,7 +67,7 @@ int main (int argc, char *argv[])
       actor->GetTexture()->InterpolateOn();
     }
 
-    vtkPolyData *pd = vtkPolyData::SafeDownCast(actor->GetMapper()->GetInput());
+    vtkPolyData *pd = dynamic_cast<vtkPolyData*>(actor->GetMapper()->GetInput());
     vtkSmartPointer<vtkCleanPolyData> clean =
       vtkSmartPointer<vtkCleanPolyData>::New();
     clean->SetInputData(pd);
@@ -79,7 +79,7 @@ int main (int argc, char *argv[])
     normals->SplittingOff();
     normals->ConsistencyOn();
     normals->Update();
-    vtkPolyDataMapper *mapper = vtkPolyDataMapper::SafeDownCast(actor->GetMapper());
+    vtkPolyDataMapper *mapper = dynamic_cast<vtkPolyDataMapper*>(actor->GetMapper());
     mapper->SetInputData(normals->GetOutput());
     mapper->SetInputData(pd);
   }

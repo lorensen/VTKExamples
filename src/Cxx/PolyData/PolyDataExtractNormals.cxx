@@ -157,7 +157,7 @@ bool GetPointNormals(vtkPolyData* polydata)
   ////////////////////////////////////////////////////////////////
   // Double normals in an array
   vtkDoubleArray* normalDataDouble =
-    vtkDoubleArray::SafeDownCast(polydata->GetPointData()->GetArray("Normals"));
+    dynamic_cast<vtkDoubleArray*>(polydata->GetPointData()->GetArray("Normals"));
 
   if(normalDataDouble)
   {
@@ -170,7 +170,7 @@ bool GetPointNormals(vtkPolyData* polydata)
   ////////////////////////////////////////////////////////////////
   // Double normals in an array
   vtkFloatArray* normalDataFloat =
-    vtkFloatArray::SafeDownCast(polydata->GetPointData()->GetArray("Normals"));
+    dynamic_cast<vtkFloatArray*>(polydata->GetPointData()->GetArray("Normals"));
 
   if(normalDataFloat)
   {
@@ -183,7 +183,7 @@ bool GetPointNormals(vtkPolyData* polydata)
   ////////////////////////////////////////////////////////////////
   // Point normals
   vtkDoubleArray* normalsDouble =
-    vtkDoubleArray::SafeDownCast(polydata->GetPointData()->GetNormals());
+    dynamic_cast<vtkDoubleArray*>(polydata->GetPointData()->GetNormals());
 
   if(normalsDouble)
   {
@@ -195,7 +195,7 @@ bool GetPointNormals(vtkPolyData* polydata)
   ////////////////////////////////////////////////////////////////
   // Point normals
   vtkFloatArray* normalsFloat =
-    vtkFloatArray::SafeDownCast(polydata->GetPointData()->GetNormals());
+    dynamic_cast<vtkFloatArray*>(polydata->GetPointData()->GetNormals());
 
   if(normalsFloat)
   {
@@ -252,7 +252,7 @@ bool GetCellNormals(vtkPolyData* polydata)
   ////////////////////////////////////////////////////////////////
   // Double normals in an array
   vtkDoubleArray* normalDataDouble =
-    vtkDoubleArray::SafeDownCast(polydata->GetCellData()->GetArray("Normals"));
+    dynamic_cast<vtkDoubleArray*>(polydata->GetCellData()->GetArray("Normals"));
 
   if(normalDataDouble)
   {
@@ -265,7 +265,7 @@ bool GetCellNormals(vtkPolyData* polydata)
   ////////////////////////////////////////////////////////////////
   // Double normals in an array
   vtkFloatArray* normalDataFloat =
-    vtkFloatArray::SafeDownCast(polydata->GetCellData()->GetArray("Normals"));
+    dynamic_cast<vtkFloatArray*>(polydata->GetCellData()->GetArray("Normals"));
 
   if(normalDataFloat)
   {
@@ -278,7 +278,7 @@ bool GetCellNormals(vtkPolyData* polydata)
   ////////////////////////////////////////////////////////////////
   // Point normals
   vtkDoubleArray* normalsDouble =
-    vtkDoubleArray::SafeDownCast(polydata->GetCellData()->GetNormals());
+    dynamic_cast<vtkDoubleArray*>(polydata->GetCellData()->GetNormals());
 
   if(normalsDouble)
   {
@@ -290,7 +290,7 @@ bool GetCellNormals(vtkPolyData* polydata)
   ////////////////////////////////////////////////////////////////
   // Point normals
   vtkFloatArray* normalsFloat =
-    vtkFloatArray::SafeDownCast(polydata->GetCellData()->GetNormals());
+    dynamic_cast<vtkFloatArray*>(polydata->GetCellData()->GetNormals());
 
   if(normalsFloat)
   {

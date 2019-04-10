@@ -43,12 +43,12 @@ int main(int, char*[])
               << std::endl;
   }
 
-  vtkIdTypeArray* pointIds = vtkIdTypeArray::SafeDownCast(
+  vtkIdTypeArray* pointIds = dynamic_cast<vtkIdTypeArray*>(
       idFilter->GetOutput()->GetPointData()->GetArray("ids"));
   std::cout << "There are " << pointIds->GetNumberOfTuples() << " point ids"
             << std::endl;
 
-  vtkIdTypeArray* cellIds = vtkIdTypeArray::SafeDownCast(
+  vtkIdTypeArray* cellIds = dynamic_cast<vtkIdTypeArray*>(
       idFilter->GetOutput()->GetCellData()->GetArray("ids"));
   std::cout << "There are " << cellIds->GetNumberOfTuples() << " cell ids"
             << std::endl;

@@ -33,7 +33,7 @@ int main(int, char *[])
   layoutView->AddRepresentationFromInput(g);
   layoutView->ScaledGlyphsOn();
   layoutView->SetScalingArrayName("Scales");
-  vtkRenderedGraphRepresentation::SafeDownCast(layoutView->GetRepresentation())
+  dynamic_cast<vtkRenderedGraphRepresentation*>(layoutView->GetRepresentation())
             ->SetGlyphType(vtkGraphToGlyphs::CIRCLE);
   layoutView->ResetCamera();
   layoutView->Render();

@@ -66,7 +66,7 @@ int main(int, char*[])
 
   // Get the clipped cell ids
   vtkUnstructuredGrid* clipped = clipper->GetOutput();
-  vtkIdTypeArray* originalIds = vtkIdTypeArray::SafeDownCast(clipped->GetCellData()->GetArray("vtkIdFilter_Ids"));
+  vtkIdTypeArray* originalIds = dynamic_cast<vtkIdTypeArray*>(clipped->GetCellData()->GetArray("vtkIdFilter_Ids"));
   for(vtkIdType i = 0; i < originalIds->GetNumberOfTuples(); i++)
   {
     std::cout << "new id " << i << ", original id " << originalIds->GetValue(i) << std::endl;

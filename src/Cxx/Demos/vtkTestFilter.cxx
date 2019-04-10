@@ -28,7 +28,7 @@ int vtkTestFilter::RequestData(vtkInformation *vtkNotUsed(request),
   // Get the info object
   vtkInformation *outInfo = outputVector->GetInformationObject(0);
 
-  vtkPolyData *output = vtkPolyData::SafeDownCast(
+  vtkPolyData *output = dynamic_cast<vtkPolyData*>(
       outInfo->Get(vtkDataObject::DATA_OBJECT()));
 
   this->Output->DeepCopy(output);

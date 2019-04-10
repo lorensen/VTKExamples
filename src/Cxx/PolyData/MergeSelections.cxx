@@ -88,7 +88,7 @@ int main(int, char *[])
   extractSelectionCombined->Update();
 
   // In selection
-  vtkDataSet* ds = vtkDataSet::SafeDownCast(extractSelectionCombined->GetOutput());
+  vtkDataSet* ds = dynamic_cast<vtkDataSet*>(extractSelectionCombined->GetOutput());
   std::cout << "There are " << ds->GetNumberOfPoints() << " points in the selection." << std::endl;
   std::cout << "There are " << ds->GetNumberOfCells() << " cells in the selection." << std::endl;
 
@@ -97,7 +97,7 @@ int main(int, char *[])
   selectionNode1->GetProperties()->Set(vtkSelectionNode::INVERSE(), 1); //invert the selection
   selectionNode2->GetProperties()->Set(vtkSelectionNode::INVERSE(), 1); //invert the selection
   extractSelection->Update();
-  std::cout << "There are " << vtkDataSet::SafeDownCast (extractSelection->GetOutput())->GetNumberOfPoints()
+  std::cout << "There are " << dynamic_cast<vtkDataSet*> (extractSelection->GetOutput())->GetNumberOfPoints()
             << " points not in the selection." << std::endl;
   */
 

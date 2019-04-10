@@ -64,19 +64,19 @@ int main(int, char*[])
   points->SetInputData(table, 0, 1);
   points->SetColor(0, 0, 0, 255);
   points->SetWidth(1.0);
-  vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::CROSS);
+  dynamic_cast<vtkPlotPoints*>(points)->SetMarkerStyle(vtkPlotPoints::CROSS);
 
   points = chart->AddPlot(vtkChart::POINTS);
   points->SetInputData(table, 0, 2);
   points->SetColor(0, 0, 0, 255);
   points->SetWidth(1.0);
-  vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::PLUS);
+  dynamic_cast<vtkPlotPoints*>(points)->SetMarkerStyle(vtkPlotPoints::PLUS);
 
   points = chart->AddPlot(vtkChart::POINTS);
   points->SetInputData(table, 0, 3);
   points->SetColor(0, 0, 255, 255);
   points->SetWidth(1.0);
-  vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::CIRCLE);
+  dynamic_cast<vtkPlotPoints*>(points)->SetMarkerStyle(vtkPlotPoints::CIRCLE);
 
   //Finally render the scene
   view->GetRenderWindow()->SetMultiSamples(0);

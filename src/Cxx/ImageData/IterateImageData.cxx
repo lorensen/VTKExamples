@@ -70,7 +70,7 @@ int main(int, char *[])
   pixel = static_cast<int*>(image->GetScalarPointer(1,1,0));
   pixel[0] = 4;
 
-  vtkIntArray* scalars = vtkIntArray::SafeDownCast(image->GetPointData()->GetArray("ImageScalars"));
+  vtkIntArray* scalars = dynamic_cast<vtkIntArray*>(image->GetPointData()->GetArray("ImageScalars"));
   std::cout << "Scalars has " << scalars->GetNumberOfComponents() << " components" << std::endl;
   std::cout << "Scalars has " << scalars->GetNumberOfTuples() << " tuples" << std::endl;
 

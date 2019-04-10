@@ -50,7 +50,7 @@ class RubberBandStyle : public vtkInteractorStyleRubberBand2D
       edges = selection->GetNode(1);
     }
 
-    vtkIdTypeArray* vertexList = vtkIdTypeArray::SafeDownCast(vertices->GetSelectionList());
+    vtkIdTypeArray* vertexList = dynamic_cast<vtkIdTypeArray*>(vertices->GetSelectionList());
     std::cout << "There are " << vertexList->GetNumberOfTuples() << " vertices selected." << std::endl;
 
     if(vertexList->GetNumberOfTuples() > 0)
@@ -63,7 +63,7 @@ class RubberBandStyle : public vtkInteractorStyleRubberBand2D
     }
 
     std::cout << std::endl;
-    vtkIdTypeArray* edgeList = vtkIdTypeArray::SafeDownCast(edges->GetSelectionList());
+    vtkIdTypeArray* edgeList = dynamic_cast<vtkIdTypeArray*>(edges->GetSelectionList());
     std::cout << "There are " << edgeList->GetNumberOfTuples() << " edges selected." << std::endl;
     if(edgeList->GetNumberOfTuples() > 0)
     {

@@ -71,7 +71,7 @@ int main(int, char *[])
   probe->Update();
 
   vtkDataArray* data = probe->GetOutput()->GetPointData()->GetScalars();
-  vtkDoubleArray* doubleData = vtkDoubleArray::SafeDownCast (data);
+  vtkDoubleArray* doubleData = dynamic_cast<vtkDoubleArray*> (data);
 
   for(int i = 0; i < doubleData->GetNumberOfTuples(); i++)
   {

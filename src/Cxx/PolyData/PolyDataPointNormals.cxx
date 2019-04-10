@@ -42,7 +42,7 @@ int main(int, char *[])
 
   ///////// Get Point Normals ///////////
   vtkSmartPointer<vtkDoubleArray> pointNormalsRetrieved =
-    vtkDoubleArray::SafeDownCast(polydata->GetPointData()->GetNormals());
+    dynamic_cast<vtkDoubleArray*>(polydata->GetPointData()->GetNormals());
   if(pointNormalsRetrieved)
   {
     std::cout << "There are " << pointNormalsRetrieved->GetNumberOfTuples()

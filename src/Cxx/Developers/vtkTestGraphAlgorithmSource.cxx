@@ -31,7 +31,7 @@ int vtkTestGraphAlgorithmSource::RequestData(
   
   vtkInformation *outInfo = outputVector->GetInformationObject(0);
   
-  vtkGraph *output = vtkGraph::SafeDownCast(
+  vtkGraph *output = dynamic_cast<vtkGraph*>(
     outInfo->Get(vtkDataObject::DATA_OBJECT()));
   
   vtkSmartPointer<vtkMutableUndirectedGraph> NewGraph =

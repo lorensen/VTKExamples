@@ -47,7 +47,7 @@ int main (int argc, char *argv[])
   pl3d->Update();
 
   vtkStructuredGrid *pl3dOutput =
-    vtkStructuredGrid::SafeDownCast(pl3d->GetOutput()->GetBlock(0));
+    dynamic_cast<vtkStructuredGrid*>(pl3d->GetOutput()->GetBlock(0));
 
 // A convenience, use this filter to limit data for experimentation.
   vtkSmartPointer<vtkExtractGrid> extract =

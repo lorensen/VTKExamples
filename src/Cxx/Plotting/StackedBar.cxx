@@ -111,7 +111,7 @@ int main(int , char * [])
   // Add multiple line plots, setting the colors etc
   vtkPlotBar *bar = 0;
 
-  bar = vtkPlotBar::SafeDownCast(chart->AddPlot(vtkChart::BAR));
+  bar = dynamic_cast<vtkPlotBar*>(chart->AddPlot(vtkChart::BAR));
   bar->SetColorSeries(colorSeries1);
   bar->SetInputData(table, "Month", "Books 2008");
   bar->SetInputArray(2,"New / Popular 2008");
@@ -123,7 +123,7 @@ int main(int , char * [])
     vtkSmartPointer<vtkColorSeries>::New();
   colorSeries2->SetColorScheme(vtkColorSeries::WILD_FLOWER);
 
-  bar = vtkPlotBar::SafeDownCast(chart->AddPlot(vtkChart::BAR));
+  bar = dynamic_cast<vtkPlotBar*>(chart->AddPlot(vtkChart::BAR));
   bar->SetColorSeries(colorSeries2);
   bar->SetInputData(table, "Month", "Books 2009");
   bar->SetInputArray(2,"New / Popular 2009");

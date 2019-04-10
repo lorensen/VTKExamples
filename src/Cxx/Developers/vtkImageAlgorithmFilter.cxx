@@ -19,10 +19,10 @@ int vtkImageAlgorithmFilter::RequestData(vtkInformation *vtkNotUsed(request),
   vtkInformation *outInfo = outputVector->GetInformationObject(0);
   
   // Get the input and ouptut
-  vtkImageData *input = vtkImageData::SafeDownCast(
+  vtkImageData *input = dynamic_cast<vtkImageData*>(
       inInfo->Get(vtkDataObject::DATA_OBJECT()));
   
-  vtkImageData *output = vtkImageData::SafeDownCast(
+  vtkImageData *output = dynamic_cast<vtkImageData*>(
       outInfo->Get(vtkDataObject::DATA_OBJECT()));
     
   vtkSmartPointer<vtkImageData> image =

@@ -171,8 +171,8 @@ public:
       reinterpret_cast<vtkSliderWidget*>(caller);
     double value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
     dynamic_cast<vtkKochanekSpline *>(this->ParametricSpline->GetXSpline())->SetDefaultTension(value);
-    vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetYSpline())->SetDefaultTension(value);
-    vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetZSpline())->SetDefaultTension(value);
+    dynamic_cast<vtkKochanekSpline*>(this->ParametricSpline->GetYSpline())->SetDefaultTension(value);
+    dynamic_cast<vtkKochanekSpline*>(this->ParametricSpline->GetZSpline())->SetDefaultTension(value);
     ParametricSource->Modified();
     ParametricSource->Update();
   }
@@ -201,7 +201,7 @@ MakeTensionWidget(vtkSmartPointer<vtkSliderWidget> &widget,
 
   sliderRepTension->SetMinimumValue(-1.0);
   sliderRepTension->SetMaximumValue(1.0);
-  sliderRepTension->SetValue(vtkKochanekSpline::SafeDownCast(parametricSpline->GetXSpline())->GetDefaultTension());
+  sliderRepTension->SetValue(dynamic_cast<vtkKochanekSpline*>(parametricSpline->GetXSpline())->GetDefaultTension());
   sliderRepTension->SetTitleText("Tension");
   sliderRepTension->SetRenderer(renderer);
   sliderRepTension->GetPoint1Coordinate()->SetValue(0.1, 0.1);
@@ -244,9 +244,9 @@ public:
     vtkSliderWidget *sliderWidget =
       reinterpret_cast<vtkSliderWidget*>(caller);
     double value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
-    vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetXSpline())->SetDefaultContinuity(value);
-    vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetYSpline())->SetDefaultContinuity(value);
-    vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetZSpline())->SetDefaultContinuity(value);
+    dynamic_cast<vtkKochanekSpline*>(this->ParametricSpline->GetXSpline())->SetDefaultContinuity(value);
+    dynamic_cast<vtkKochanekSpline*>(this->ParametricSpline->GetYSpline())->SetDefaultContinuity(value);
+    dynamic_cast<vtkKochanekSpline*>(this->ParametricSpline->GetZSpline())->SetDefaultContinuity(value);
     ParametricSource->Modified();
     ParametricSource->Update();
   }
@@ -275,7 +275,7 @@ MakeContinuityWidget(vtkSmartPointer<vtkSliderWidget> &widget,
 
   sliderRepContinuity->SetMinimumValue(-1.0);
   sliderRepContinuity->SetMaximumValue(1.0);
-  sliderRepContinuity->SetValue(vtkKochanekSpline::SafeDownCast(parametricSpline->GetXSpline())->GetDefaultContinuity());
+  sliderRepContinuity->SetValue(dynamic_cast<vtkKochanekSpline*>(parametricSpline->GetXSpline())->GetDefaultContinuity());
   sliderRepContinuity->SetTitleText("Continuity");
   sliderRepContinuity->SetRenderer(renderer);
   sliderRepContinuity->GetPoint1Coordinate()->SetValue(0.4, 0.1);
@@ -318,9 +318,9 @@ public:
     vtkSliderWidget *sliderWidget =
       reinterpret_cast<vtkSliderWidget*>(caller);
     double value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
-    vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetXSpline())->SetDefaultBias(value);
-    vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetYSpline())->SetDefaultBias(value);
-    vtkKochanekSpline::SafeDownCast(this->ParametricSpline->GetZSpline())->SetDefaultBias(value);
+    dynamic_cast<vtkKochanekSpline*>(this->ParametricSpline->GetXSpline())->SetDefaultBias(value);
+    dynamic_cast<vtkKochanekSpline*>(this->ParametricSpline->GetYSpline())->SetDefaultBias(value);
+    dynamic_cast<vtkKochanekSpline*>(this->ParametricSpline->GetZSpline())->SetDefaultBias(value);
     ParametricSource->Modified();
     ParametricSource->Update();
   }
@@ -349,7 +349,7 @@ MakeBiasWidget(vtkSmartPointer<vtkSliderWidget> &widget,
 
   sliderRepBias->SetMinimumValue(-1.0);
   sliderRepBias->SetMaximumValue(1.0);
-  sliderRepBias->SetValue(vtkKochanekSpline::SafeDownCast(parametricSpline->GetXSpline())->GetDefaultBias());
+  sliderRepBias->SetValue(dynamic_cast<vtkKochanekSpline*>(parametricSpline->GetXSpline())->GetDefaultBias());
   sliderRepBias->SetTitleText("Bias");
   sliderRepBias->SetRenderer(renderer);
   sliderRepBias->GetPoint1Coordinate()->SetValue(0.7, 0.1);

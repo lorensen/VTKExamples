@@ -19,7 +19,8 @@ int main (int argc, char *argv[])
     reader->SetFileName(argv[arg]);
     reader->Update();
 
-    vtkPointSet *pointSet = vtkPointSet::SafeDownCast(reader->GetOutput());
+//    vtkPointSet *pointSet = vtkPointSet::SafeDownCast(reader->GetOutput());;
+    vtkPointSet *pointSet = dynamic_cast<vtkPointSet *>(reader->GetOutput());;
     vtkSmartPointer<vtkCellIterator> it =
       pointSet->NewCellIterator();
     for (it->InitTraversal(); !it->IsDoneWithTraversal(); it->GoToNextCell())
@@ -35,8 +36,8 @@ int main (int argc, char *argv[])
       }
       cellMap[cellName]++;
     }
+  it->Delete();
   }
-
   std::map <std::string, int>::iterator itm = cellMap.begin();
   for (itm = cellMap.begin(); itm != cellMap.end(); ++itm)
   {

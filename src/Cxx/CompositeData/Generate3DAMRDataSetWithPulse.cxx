@@ -252,7 +252,7 @@ namespace
       myAMRReader->Update();
 
       vtkHierarchicalBoxDataSet* amrData =
-        vtkHierarchicalBoxDataSet::SafeDownCast(myAMRReader->GetOutput());
+        dynamic_cast<vtkHierarchicalBoxDataSet*>(myAMRReader->GetOutput());
       return (amrData);
     }
 

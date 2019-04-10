@@ -75,10 +75,10 @@ void ImportMultiBlockScene(vtkRenderer *renderer, std::string fileName)
     vtkSmartPointer<vtkXMLMultiBlockDataReader>::New();
   reader->SetFileName(fileName.c_str());
   reader->Update();
-  std::cout << "Importing " << vtkMultiBlockDataSet::SafeDownCast(reader->GetOutput())->GetNumberOfBlocks() << " actors" << std::endl;
+  std::cout << "Importing " << dynamic_cast<vtkMultiBlockDataSet*>(reader->GetOutput())->GetNumberOfBlocks() << " actors" << std::endl;
 
   vtkCompositeDataSet *input =
-    vtkCompositeDataSet::SafeDownCast(reader->GetOutput());
+    dynamic_cast<vtkCompositeDataSet*>(reader->GetOutput());
 
   vtkSmartPointer<vtkDataObjectTreeIterator> iter =
     vtkSmartPointer<vtkDataObjectTreeIterator>::New();
@@ -89,7 +89,7 @@ void ImportMultiBlockScene(vtkRenderer *renderer, std::string fileName)
        iter->GoToNextItem())
   {
     vtkDataObject *dso = iter->GetCurrentDataObject();
-    vtkPolyData *pd = vtkPolyData::SafeDownCast(dso);
+    vtkPolyData *pd = dynamic_cast<vtkPolyData*>(dso);
     RestoreCameraFromFieldData("Camera",
                                camera,
                                pd);

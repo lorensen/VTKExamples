@@ -110,8 +110,8 @@ int main (int argc, char *argv[])
       vtkSmartPointer<vtkUnstructuredGrid>::New();
 
     vtkMultiBlockDataSet *coarseMultiBlock =
-      vtkMultiBlockDataSet::SafeDownCast(coarseReader->GetOutput()->GetBlock(0));
-    coarseInterpolatedGrid->DeepCopy(vtkUnstructuredGrid::SafeDownCast(coarseMultiBlock->GetBlock(0)));
+      dynamic_cast<vtkMultiBlockDataSet *>(coarseReader->GetOutput()->GetBlock(0));
+    coarseInterpolatedGrid->DeepCopy(dynamic_cast<vtkUnstructuredGrid*>(coarseMultiBlock->GetBlock(0)));
 
     vtkSmartPointer<vtkStaticPointLocator> locator =
       vtkSmartPointer<vtkStaticPointLocator>::New();

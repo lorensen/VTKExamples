@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
     cellId);
 
   vtkIdTypeArray *cd =
-    vtkIdTypeArray::SafeDownCast(connectivityFilter->GetOutput()->GetCellData()->GetScalars());
+    dynamic_cast<vtkIdTypeArray*>(connectivityFilter->GetOutput()->GetCellData()->GetScalars());
   vtkIdType outsideRegionId = cd->GetTuple1(cellId);
   std::cout << "Id of cell on outside surface: " << cellId << std::endl;
   std::cout << "CellData at " << cellId << ": " << outsideRegionId << std::endl;

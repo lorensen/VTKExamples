@@ -108,7 +108,7 @@ int main(int, char*[])
   vtkPlotStacked *stack = 0;
 
   // Books
-  stack = vtkPlotStacked::SafeDownCast(chart->AddPlot(vtkChart::STACKED));
+  stack = dynamic_cast<vtkPlotStacked*>(chart->AddPlot(vtkChart::STACKED));
   stack->SetUseIndexForXSeries(true);
   stack->SetInputData(table);
   stack->SetInputArray(1,"Books");

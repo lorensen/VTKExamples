@@ -149,7 +149,7 @@ int main(int argc, char *argv[])
 
   // tell the renderer to use our render pass pipeline
   vtkOpenGLRenderer *glrenderer =
-    vtkOpenGLRenderer::SafeDownCast(renderer);
+    dynamic_cast<vtkOpenGLRenderer*>(renderer.GetPointer());
   glrenderer->SetPass(cameraP);
 
   renderer->GetActiveCamera()->SetPosition(-0.2,0.2,1);

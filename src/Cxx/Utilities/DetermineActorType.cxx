@@ -92,7 +92,7 @@ int main(int, char *[])
     vtkActor* nextActor = actorCollection->GetNextActor();
     std::cout << "nextActor " << i << " : " << nextActor->GetClassName() << std::endl;
 
-    if(vtkCubeAxesActor::SafeDownCast(nextActor) != 0)
+    if(dynamic_cast<vtkCubeAxesActor*>(nextActor) != 0)
     {
       std::cout << "nextActor " << i << " is a vtkCubeAxesActor!" << std::endl;
     }

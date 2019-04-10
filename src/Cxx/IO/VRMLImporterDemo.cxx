@@ -78,10 +78,10 @@ int main ( int argc, char *argv[])
       actor->GetProperty()->SetAmbient(.2);
     }
 #endif
-    vtkPolyDataMapper *mapper = vtkPolyDataMapper::SafeDownCast(actor->GetMapper());
+    vtkPolyDataMapper *mapper = dynamic_cast<vtkPolyDataMapper*>(actor->GetMapper());
     if (mapper)
     {
-      vtkPolyData *dataSet = vtkPolyData::SafeDownCast(mapper->GetInput());
+      vtkPolyData *dataSet = dynamic_cast<vtkPolyData*>(mapper->GetInput());
       if (!dataSet->GetPointData()->GetNormals())
       {
         vtkSmartPointer<vtkPolyDataNormals> normals =
@@ -93,7 +93,7 @@ int main ( int argc, char *argv[])
       }
 
       // If there is a lookup table, convert it to point data
-      vtkLookupTable *lut = vtkLookupTable::SafeDownCast(mapper->GetLookupTable());
+      vtkLookupTable *lut = dynamic_cast<vtkLookupTable*>(mapper->GetLookupTable());
       if (lut && mapper->GetScalarVisibility())
       {
         vtkSmartPointer<vtkUnsignedCharArray> pc =

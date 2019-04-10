@@ -39,7 +39,7 @@ int main(int, char *[])
   g->GetEdgeData()->AddArray(weights);
 
   std::cout << "Number of Weights: "
-            << vtkDoubleArray::SafeDownCast(
+            << dynamic_cast<vtkDoubleArray*>(
               g->GetEdgeData()->GetArray("Weights"))->GetNumberOfTuples()
             << std::endl;
 

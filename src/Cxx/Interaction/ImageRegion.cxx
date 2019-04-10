@@ -70,7 +70,7 @@ public:
       {
         node = path->GetNextNode( sit );
         pickedProp = node->GetViewProp();
-        if( this->ImageActor == vtkImageActor::SafeDownCast( pickedProp ) )
+        if( this->ImageActor == dynamic_cast<vtkImageActor*>( pickedProp ) )
         {
           std::cout << "Correct actor picked." << std::endl;
           validPick = true;

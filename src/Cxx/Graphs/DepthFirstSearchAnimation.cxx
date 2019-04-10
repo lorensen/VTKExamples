@@ -34,7 +34,7 @@ public:
     {
       vtkIdType nextVertex = this->DFS->Next();
       std::cout << "Next vertex: " << nextVertex << std::endl;
-      vtkIntArray::SafeDownCast(
+      dynamic_cast<vtkIntArray*>(
         this->Tree->GetVertexData()->GetArray("color"))->SetValue(nextVertex, 10);
       this->Tree->Modified();
       this->GraphLayoutView->AddRepresentationFromInput(this->Tree);

@@ -56,9 +56,9 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkPolyData> output =
     vtkSmartPointer<vtkPolyData>::New();
-  output->ShallowCopy(vtkPolyData::SafeDownCast(elevationFilter->GetOutput()));
+  output->ShallowCopy(dynamic_cast<vtkPolyData*>(elevationFilter->GetOutput()));
 
-  vtkFloatArray* elevation = vtkFloatArray::SafeDownCast(output->GetPointData()->GetArray("Elevation"));
+  vtkFloatArray* elevation = dynamic_cast<vtkFloatArray*>(output->GetPointData()->GetArray("Elevation"));
 
   // Create the color map
   vtkSmartPointer<vtkLookupTable> colorLookupTable =

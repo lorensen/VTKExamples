@@ -36,12 +36,12 @@ void TypeSpecific()
   
   polydata->GetPointData()->SetScalars(weights);
   
-  double weight = vtkDoubleArray::SafeDownCast(polydata->GetPointData()->GetScalars())->GetValue(0);
+  double weight = dynamic_cast<vtkDoubleArray*>(polydata->GetPointData()->GetScalars())->GetValue(0);
   std::cout << "double weight: " << weight << std::endl;
   
   /*
   // This causes a crash because the array is not a vtkFloatArray
-  double weightf = vtkFloatArray::SafeDownCast(polydata->GetPointData()->GetScalars())->GetValue(0);
+  double weightf = dynamic_cast<vtkFloatArray*>(polydata->GetPointData()->GetScalars())->GetValue(0);
   std::cout << "float weight: " << weightf << std::endl;
   */
 }

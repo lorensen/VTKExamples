@@ -118,7 +118,7 @@ void StippledLine(vtkSmartPointer<vtkActor> &actor,
       }
     }
   }
-  vtkPolyData *polyData = vtkPolyData::SafeDownCast(actor->GetMapper()->GetInput());
+  vtkPolyData *polyData = dynamic_cast<vtkPolyData*>(actor->GetMapper()->GetInput());
 
   // Create texture coordnates
   tcoords->SetNumberOfComponents(1);

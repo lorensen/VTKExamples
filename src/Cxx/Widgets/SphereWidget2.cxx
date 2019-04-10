@@ -25,7 +25,7 @@ public:
 
     double center[3], handlePosition[3];
     vtkSphereRepresentation* sphereRepresentation =
-      vtkSphereRepresentation::SafeDownCast( sphereWidget->GetRepresentation() );
+      dynamic_cast<vtkSphereRepresentation*>( sphereWidget->GetRepresentation() );
     sphereRepresentation->GetHandlePosition( handlePosition );
     sphereRepresentation->GetSphere( this->Sphere );
 
@@ -73,7 +73,7 @@ int main( int, char *[] )
   sphereWidget->CreateDefaultRepresentation();
 
   vtkSphereRepresentation* sphereRepresentation =
-    vtkSphereRepresentation::SafeDownCast( sphereWidget->GetRepresentation() );
+    dynamic_cast<vtkSphereRepresentation*>( sphereWidget->GetRepresentation() );
   sphereRepresentation->HandleVisibilityOn();
 
   vtkSmartPointer<vtkSphereCallback> sphereCallback =

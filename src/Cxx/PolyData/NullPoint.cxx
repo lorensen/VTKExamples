@@ -43,8 +43,8 @@ int main(int, char *[])
   {
     double p[3];
     polydata->GetPoint(i,p);
-    vtkFloatArray* pointsFloatArray = vtkFloatArray::SafeDownCast(polydata->GetPointData()->GetArray("FloatArray"));
-    vtkIntArray* pointsIntArray = vtkIntArray::SafeDownCast(polydata->GetPointData()->GetArray("IntArray"));
+    vtkFloatArray* pointsFloatArray = dynamic_cast<vtkFloatArray*>(polydata->GetPointData()->GetArray("FloatArray"));
+    vtkIntArray* pointsIntArray = dynamic_cast<vtkIntArray*>(polydata->GetPointData()->GetArray("IntArray"));
     std::cout << "Point " << i << " : " << p[0] << " " << p[1] << " " << p[2] << " "
               << pointsFloatArray->GetValue(i) << " " << pointsIntArray->GetValue(i) << std::endl;
   }
@@ -56,8 +56,8 @@ int main(int, char *[])
   {
     double p[3];
     polydata->GetPoint(i,p);
-    vtkFloatArray* pointsFloatArray = vtkFloatArray::SafeDownCast(polydata->GetPointData()->GetArray("FloatArray"));
-    vtkIntArray* pointsIntArray = vtkIntArray::SafeDownCast(polydata->GetPointData()->GetArray("IntArray"));
+    vtkFloatArray* pointsFloatArray = dynamic_cast<vtkFloatArray*>(polydata->GetPointData()->GetArray("FloatArray"));
+    vtkIntArray* pointsIntArray = dynamic_cast<vtkIntArray*>(polydata->GetPointData()->GetArray("IntArray"));
     std::cout << "Point " << i << " : " << p[0] << " " << p[1] << " " << p[2] << " "
               << pointsFloatArray->GetValue(i) << " " << pointsIntArray->GetValue(i) << std::endl;
 

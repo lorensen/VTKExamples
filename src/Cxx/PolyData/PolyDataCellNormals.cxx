@@ -61,7 +61,7 @@ int main(int, char *[])
 
   ///////// Get cell normals ///////////
   vtkSmartPointer<vtkDoubleArray> cellNormalsRetrieved =
-      vtkDoubleArray::SafeDownCast(polydata->GetCellData()->GetNormals());
+      dynamic_cast<vtkDoubleArray*>(polydata->GetCellData()->GetNormals());
   if(cellNormalsRetrieved)
   {
     cout << "There are " << cellNormalsRetrieved->GetNumberOfTuples() << " cell normals." << endl;

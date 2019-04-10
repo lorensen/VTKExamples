@@ -29,7 +29,7 @@ int main(int, char *[])
   BFS->SetInput(g);
   BFS->Update();
 
-  vtkIntArray* level = vtkIntArray::SafeDownCast(
+  vtkIntArray* level = dynamic_cast<vtkIntArray*>(
     BFS->GetOutput()->GetVertexData()->GetArray("BFS"));
   for(vtkIdType i = 0; i < level->GetNumberOfTuples(); i++)
   {

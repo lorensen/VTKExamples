@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
     vtkSmartPointer<vtkContourWidget>::New();
   contourWidget->SetInteractor(interactor);
   vtkSmartPointer<vtkOrientedGlyphContourRepresentation> rep =
-    vtkOrientedGlyphContourRepresentation::SafeDownCast(
+    dynamic_cast<vtkOrientedGlyphContourRepresentation*>(
       contourWidget->GetRepresentation());
   rep->GetLinesProperty()->SetColor(1, 0.2, 0);
   rep->GetLinesProperty()->SetLineWidth(3.0);

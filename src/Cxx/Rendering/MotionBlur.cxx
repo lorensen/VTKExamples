@@ -95,7 +95,7 @@ int main(int, char *argv[])
 
   // tell the renderer to use our render pass pipeline
   vtkOpenGLRenderer *glrenderer =
-    vtkOpenGLRenderer::SafeDownCast(renderer);
+    dynamic_cast<vtkOpenGLRenderer*>(renderer.GetPointer());
   glrenderer->SetPass(motion);
 
   int numRenders = 30;
