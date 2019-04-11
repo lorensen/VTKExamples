@@ -10,7 +10,7 @@ int main(int, char *[]) {
 
   // create a 2-element array
   vtkSmartPointer<vtkDoubleArray> array =
-    vtkDoubleArray::New();
+    vtkSmartPointer<vtkDoubleArray>::New();
   array->SetName("array");
   array->SetNumberOfComponents(1);
   array->SetNumberOfTuples(2);

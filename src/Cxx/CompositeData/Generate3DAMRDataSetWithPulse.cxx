@@ -73,7 +73,8 @@ int main(int, char*[])
   SetPulse();
 
   // STEP 1: Get the AMR dataset
-  vtkSmartPointer<vtkOverlappingAMR> amrDataSet = GetAMRDataSet();
+  vtkSmartPointer<vtkOverlappingAMR> amrDataSet;
+  amrDataSet.TakeReference(GetAMRDataSet());
 
   AMRCommon::WriteAMRData(amrDataSet, "Gaussian3D");
   return 0;
@@ -139,7 +140,9 @@ namespace
     origin[0] = origin[1] = origin[2] = -2.0;
     int blockId = 0;
     int level = 0;
-    vtkSmartPointer<vtkUniformGrid> root = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> root;
+    root.TakeReference(
+      AMRCommon::GetGrid(origin, h, ndim));
     vtkAMRBox box(origin, ndim, h, data->GetOrigin(), data->GetGridDescription());
     AttachPulseToGrid(root);
     data->SetSpacing(level, h);
@@ -153,7 +156,9 @@ namespace
     origin[0] = origin[1] = origin[2] = -2.0;
     blockId = 0;
     level = 1;
-    vtkSmartPointer<vtkUniformGrid> grid1 = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> grid1;
+    grid1.TakeReference(
+      AMRCommon::GetGrid(origin, h, ndim));
     vtkAMRBox box1(origin, ndim, h, data->GetOrigin(),
       data->GetGridDescription());
     AttachPulseToGrid(grid1);
@@ -169,9 +174,11 @@ namespace
     origin[1] = origin[2] = -1.0;
     blockId = 1;
     level = 1;
-    vtkSmartPointer<vtkUniformGrid> grid2 = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> grid2;
+    grid2.TakeReference(
+      AMRCommon::GetGrid(origin, h, ndim));
     vtkAMRBox box2(origin, ndim, h, data->GetOrigin(),
-      data->GetGridDescription());
+                   data->GetGridDescription());
     AttachPulseToGrid(grid2);
     data->SetSpacing(level, h);
     data->SetAMRBox(level, blockId, box2);
@@ -185,7 +192,8 @@ namespace
     origin[1] = origin[2] = -1.0;
     blockId = 2;
     level = 1;
-    vtkSmartPointer<vtkUniformGrid> grid3 = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> grid3;
+    grid3.TakeReference(AMRCommon::GetGrid(origin, h, ndim));
     vtkAMRBox box3(origin, ndim, h, data->GetOrigin(),
       data->GetGridDescription());
     AttachPulseToGrid(grid3);

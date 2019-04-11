@@ -31,7 +31,6 @@ namespace AMRCommon
 {
   void WriteUniformGrid(vtkUniformGrid* g, const std::string& prefix);
   void WriteAMRData(vtkOverlappingAMR* amrData, const std::string& prefix);
-  vtkHierarchicalBoxDataSet* ReadAMRData(const std::string& file);
   void WriteMultiBlockData(vtkMultiBlockDataSet* mbds, const std::string& prefix);
   vtkUniformGrid* GetGrid(double* origin, double* h, int* ndim);
   void ComputeCellCenter(vtkUniformGrid* grid, const int cellIdx, double c[3]);
@@ -70,7 +69,8 @@ int main(int, char*[])
   SetPulse();
 
   // STEP 1: Get the AMR dataset
-  vtkSmartPointer<vtkOverlappingAMR> amrDataSet = GetAMRDataSet();
+  vtkSmartPointer<vtkOverlappingAMR> amrDataSet;
+  amrDataSet.TakeReference(GetAMRDataSet());
 
   AMRCommon::WriteAMRData(amrDataSet, "Gaussian2D");
   return EXIT_SUCCESS;
@@ -92,7 +92,8 @@ namespace
   //------------------------------------------------------------------------------
   void AttachPulseToGrid(vtkUniformGrid* grid)
   {
-    vtkSmartPointer<vtkDoubleArray> xyz = vtkSmartPointer<vtkDoubleArray>::New();
+    vtkSmartPointer<vtkDoubleArray> xyz =
+      vtkSmartPointer<vtkDoubleArray>::New();
     xyz->SetName("GaussianPulse");
     xyz->SetNumberOfComponents(1);
     xyz->SetNumberOfTuples(grid->GetNumberOfCells());
@@ -141,7 +142,8 @@ namespace
 
     int blockId = 0;
     int level = 0;
-    vtkSmartPointer<vtkUniformGrid> root = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> root;
+    root.TakeReference(AMRCommon::GetGrid(origin, h, ndim));
     vtkAMRBox box(origin, ndim, h, data->GetOrigin(), data->GetGridDescription());
     AttachPulseToGrid(root);
 
@@ -157,7 +159,8 @@ namespace
     origin[2] = 0.0;
     blockId = 0;
     level = 1;
-    vtkSmartPointer<vtkUniformGrid> grid1 = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> grid1;
+    grid1.TakeReference(AMRCommon::GetGrid(origin, h, ndim));
     vtkAMRBox box1(origin, ndim, h, data->GetOrigin(),
       data->GetGridDescription());
     AttachPulseToGrid(grid1);
@@ -174,7 +177,8 @@ namespace
     origin[1] = origin[2] = 0.0;
     blockId = 1;
     level = 1;
-    vtkSmartPointer<vtkUniformGrid> grid3 = AMRCommon::GetGrid(origin, h, ndim);
+    vtkSmartPointer<vtkUniformGrid> grid3;
+    grid3.TakeReference(AMRCommon::GetGrid(origin, h, ndim));
     vtkAMRBox box3(origin, ndim, h, data->GetOrigin(),
       data->GetGridDescription());
 
@@ -219,30 +223,6 @@ namespace AMRCommon
     writer->SetFileName(oss.str().c_str());
     writer->SetInputData(amrData);
     writer->Write();
-  }
-
-  //------------------------------------------------------------------------------
-  // Description:
-  // Reads AMR data to the given data-structure from the prescribed file.
-  vtkHierarchicalBoxDataSet* ReadAMRData(const std::string& file)
-  {
-    vtkXMLHierarchicalBoxDataReader* myAMRReader =
-      vtkXMLHierarchicalBoxDataReader::New();
-
-    std::ostringstream oss;
-    oss.str("");
-    oss.clear();
-    oss << file << ".vthb";
-
-    std::cout << "Reading AMR Data from: " << oss.str() << std::endl;
-    std::cout.flush();
-
-    myAMRReader->SetFileName(oss.str().c_str());
-    myAMRReader->Update();
-
-    vtkHierarchicalBoxDataSet* amrData =
-      dynamic_cast<vtkHierarchicalBoxDataSet*>(myAMRReader->GetOutput());
-    return (amrData);
   }
 
   //------------------------------------------------------------------------------

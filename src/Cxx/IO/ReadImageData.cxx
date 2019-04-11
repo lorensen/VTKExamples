@@ -21,30 +21,30 @@ int main(int argc, char* argv[])
 
   std::string inputFilename = argv[1];
 
-  auto colors = vtkNamedColors::New();
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
   // Read the file
-  auto reader = vtkXMLImageDataReader::New();
+  auto reader = vtkSmartPointer<vtkXMLImageDataReader>::New();
   reader->SetFileName(inputFilename.c_str());
   reader->Update();
 
   // Visualize
-   auto mapper = vtkDataSetMapper::New();
+   auto mapper = vtkSmartPointer<vtkDataSetMapper>::New();
   mapper->SetInputConnection(reader->GetOutputPort());
 
-  auto actor = vtkActor::New();
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetRepresentationToWireframe();
 
-  auto renderer = vtkRenderer::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
   renderer->ResetCamera();
   renderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
-  auto renderWindow = vtkRenderWindow::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
-  auto renderWindowInteractor = vtkRenderWindowInteractor::New();
+  auto renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
   renderWindow->Render();
   renderWindowInteractor->Initialize();

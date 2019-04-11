@@ -159,8 +159,9 @@ int main (int argc, char *argv[])
                   << " of type " << dataSet->GetFieldData()->GetArray(i)->GetClassName()
              << std::endl;
       }
-    }
+   }
+    dataSet->Delete();
     f++;
-  }
+   }
   return EXIT_SUCCESS;
 }
