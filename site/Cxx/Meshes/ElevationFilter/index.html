@@ -115,9 +115,9 @@ function registerListener(event, func) {
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>output</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>output</span><span class=o>-&gt;</span><span class=n>ShallowCopy</span><span class=p>(</span><span class=n>vtkPolyData</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>elevationFilter</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()));</span>
+</span><span class=hll>  <span class=n>output</span><span class=o>-&gt;</span><span class=n>ShallowCopy</span><span class=p>(</span><span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>elevationFilter</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()));</span>
 </span>
-<span class=hll>  <span class=n>vtkFloatArray</span><span class=o>*</span> <span class=n>elevation</span> <span class=o>=</span> <span class=n>vtkFloatArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>output</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;Elevation&quot;</span><span class=p>));</span>
+<span class=hll>  <span class=n>vtkFloatArray</span><span class=o>*</span> <span class=n>elevation</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>output</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;Elevation&quot;</span><span class=p>));</span>
 </span>
   <span class=c1>// Create the color map</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=n>colorLookupTable</span> <span class=o>=</span>
@@ -187,8 +187,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersCore</span>
   <span class=s>vtkIOXML</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ElevationFilter: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

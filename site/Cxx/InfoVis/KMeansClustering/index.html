@@ -149,12 +149,12 @@ function registerListener(event, func) {
 
 <span class=cm>  // Output the cluster centers</span>
 
-<span class=hll><span class=cm>  vtkMultiBlockDataSet* outputMetaDS = vtkMultiBlockDataSet::SafeDownCast( kMeansStatistics-&gt;GetOutputDataObject( vtkStatisticsAlgorithm::OUTPUT_MODEL ) );</span>
-</span><span class=hll><span class=cm>  vtkSmartPointer&lt;vtkTable&gt; outputMeta = vtkTable::SafeDownCast( outputMetaDS-&gt;GetBlock( 0 ) );</span>
-</span><span class=hll><span class=cm>  //vtkSmartPointer&lt;vtkTable&gt; outputMeta = vtkTable::SafeDownCast( outputMetaDS-&gt;GetBlock( 1 ) );</span>
-</span><span class=hll><span class=cm>  vtkDoubleArray* coord0 = vtkDoubleArray::SafeDownCast(outputMeta-&gt;GetColumnByName(&quot;coord 0&quot;));</span>
-</span><span class=hll><span class=cm>  vtkDoubleArray* coord1 = vtkDoubleArray::SafeDownCast(outputMeta-&gt;GetColumnByName(&quot;coord 1&quot;));</span>
-</span><span class=hll><span class=cm>  vtkDoubleArray* coord2 = vtkDoubleArray::SafeDownCast(outputMeta-&gt;GetColumnByName(&quot;coord 2&quot;));</span>
+<span class=hll><span class=cm>  vtkMultiBlockDataSet* outputMetaDS = dynamic_cast&lt;vtkMultiBlockDataSet*&gt;( kMeansStatistics-&gt;GetOutputDataObject( vtkStatisticsAlgorithm::OUTPUT_MODEL ) );</span>
+</span><span class=hll><span class=cm>  vtkSmartPointer&lt;vtkTable&gt; outputMeta = dynamic_cast&lt;vtkTable*&gt;( outputMetaDS-&gt;GetBlock( 0 ) );</span>
+</span><span class=hll><span class=cm>  //vtkSmartPointer&lt;vtkTable&gt; outputMeta = dynamic_cast&lt;vtkTable*&gt;( outputMetaDS-&gt;GetBlock( 1 ) );</span>
+</span><span class=hll><span class=cm>  vtkDoubleArray* coord0 = dynamic_cast&lt;vtkDoubleArray*&gt;(outputMeta-&gt;GetColumnByName(&quot;coord 0&quot;));</span>
+</span><span class=hll><span class=cm>  vtkDoubleArray* coord1 = dynamic_cast&lt;vtkDoubleArray*&gt;(outputMeta-&gt;GetColumnByName(&quot;coord 1&quot;));</span>
+</span><span class=hll><span class=cm>  vtkDoubleArray* coord2 = dynamic_cast&lt;vtkDoubleArray*&gt;(outputMeta-&gt;GetColumnByName(&quot;coord 2&quot;));</span>
 </span>
 <span class=cm>  for(unsigned int i = 0; i &lt; coord0-&gt;GetNumberOfTuples(); ++i)</span>
 <span class=cm>    {</span>
@@ -225,8 +225,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersStatistics</span>
   <span class=s>vtkIOXML</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping KMeansClustering: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

@@ -65,7 +65,7 @@ function registerListener(event, func) {
 <span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span><span class=p>[])</span>
 <span class=p>{</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMySQLDatabase</span><span class=o>&gt;</span> <span class=n>db</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMySQLDatabase</span><span class=o>&gt;::</span><span class=n>Take</span><span class=p>(</span><span class=n>vtkMySQLDatabase</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkMySQLDatabase</span><span class=o>&gt;::</span><span class=n>Take</span><span class=p>(</span><span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkMySQLDatabase</span><span class=o>*&gt;</span><span class=p>(</span>
 </span><span class=hll>            <span class=n>vtkSQLDatabase</span><span class=o>::</span><span class=n>CreateFromURL</span><span class=p>(</span> <span class=s>&quot;mysql://root@localhost/TestDatabase&quot;</span> <span class=p>)</span> <span class=p>));</span>
 </span>
   <span class=kt>bool</span> <span class=n>status</span> <span class=o>=</span> <span class=n>db</span><span class=o>-&gt;</span><span class=n>Open</span><span class=p>();</span>

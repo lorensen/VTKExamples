@@ -69,7 +69,7 @@ function registerListener(event, func) {
 
   <span class=c1>// create a 2-element array</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>&gt;</span> <span class=n>array</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkDoubleArray</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>array</span><span class=o>-&gt;</span><span class=n>SetName</span><span class=p>(</span><span class=s>&quot;array&quot;</span><span class=p>);</span>
   <span class=n>array</span><span class=o>-&gt;</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
   <span class=n>array</span><span class=o>-&gt;</span><span class=n>SetNumberOfTuples</span><span class=p>(</span><span class=mi>2</span><span class=p>);</span>

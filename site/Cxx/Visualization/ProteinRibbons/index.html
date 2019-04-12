@@ -107,7 +107,7 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>interactor</span><span class=p>;</span>
 </span>  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
 <span class=hll>  <span class=n>vtkInteractorStyleSwitch</span><span class=o>*</span> <span class=n>style</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkInteractorStyleSwitch</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>interactor</span><span class=o>-&gt;</span><span class=n>GetInteractorStyle</span><span class=p>());</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkInteractorStyleSwitch</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>interactor</span><span class=o>-&gt;</span><span class=n>GetInteractorStyle</span><span class=p>());</span>
 </span>  <span class=n>style</span><span class=o>-&gt;</span><span class=n>SetCurrentStyleToTrackballCamera</span><span class=p>();</span>
 
 <span class=hll>  <span class=n>vtkNew</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>colors</span><span class=p>;</span>

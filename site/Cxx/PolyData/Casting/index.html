@@ -93,7 +93,7 @@ function registerListener(event, func) {
   <span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>AddArray</span> <span class=p>(</span> <span class=n>distances</span> <span class=p>);</span>
 
   <span class=c1>// Get the distances from the polydata</span>
-<span class=hll>  <span class=n>vtkDoubleArray</span><span class=o>*</span> <span class=n>array</span> <span class=o>=</span> <span class=n>vtkDoubleArray</span><span class=o>::</span><span class=n>SafeDownCast</span> <span class=p>(</span> <span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span> <span class=p>(</span> <span class=s>&quot;Distances&quot;</span> <span class=p>)</span> <span class=p>);</span>
+<span class=hll>  <span class=n>vtkDoubleArray</span><span class=o>*</span> <span class=n>array</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>*&gt;</span> <span class=p>(</span> <span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span> <span class=p>(</span> <span class=s>&quot;Distances&quot;</span> <span class=p>)</span> <span class=p>);</span>
 </span>
   <span class=k>if</span> <span class=p>(</span> <span class=n>array</span> <span class=p>)</span>
   <span class=p>{</span>
@@ -106,9 +106,9 @@ function registerListener(event, func) {
   <span class=p>}</span>
 
   <span class=c1>// Cast the double distances to ints</span>
-<span class=hll>  <span class=n>vtkDoubleArray</span><span class=o>*</span> <span class=n>doubleDistances</span> <span class=o>=</span> <span class=n>vtkDoubleArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+<span class=hll>  <span class=n>vtkDoubleArray</span><span class=o>*</span> <span class=n>doubleDistances</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>*&gt;</span><span class=p>(</span>
 </span>                   <span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;Distances&quot;</span><span class=p>));</span>
-<span class=hll>  <span class=n>vtkIntArray</span><span class=o>*</span> <span class=n>intDistances</span> <span class=o>=</span> <span class=n>vtkIntArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>doubleDistances</span><span class=p>);</span>
+<span class=hll>  <span class=n>vtkIntArray</span><span class=o>*</span> <span class=n>intDistances</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkIntArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>doubleDistances</span><span class=p>);</span>
 </span>
   <span class=k>if</span><span class=p>(</span><span class=n>intDistances</span><span class=p>)</span>
   <span class=p>{</span>

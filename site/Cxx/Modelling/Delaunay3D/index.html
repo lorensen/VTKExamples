@@ -162,8 +162,7 @@ function registerListener(event, func) {
   <span class=kt>int</span> <span class=n>numTris</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
   <span class=kt>int</span> <span class=n>numVerts</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellIterator</span><span class=o>&gt;</span> <span class=n>it</span> <span class=o>=</span>
-</span>    <span class=n>delaunay3DAlpha</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>NewCellIterator</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>it</span> <span class=o>=</span> <span class=n>delaunay3DAlpha</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>NewCellIterator</span><span class=p>();</span>
   <span class=k>for</span> <span class=p>(</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>InitTraversal</span><span class=p>();</span> <span class=o>!</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>IsDoneWithTraversal</span><span class=p>();</span> <span class=n>it</span><span class=o>-&gt;</span><span class=n>GoToNextCell</span><span class=p>())</span>
   <span class=p>{</span>
     <span class=k>if</span> <span class=p>(</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>GetCellType</span><span class=p>()</span> <span class=o>==</span> <span class=n>VTK_TETRA</span><span class=p>)</span>
@@ -187,6 +186,7 @@ function registerListener(event, func) {
       <span class=n>cellData</span><span class=o>-&gt;</span><span class=n>InsertNextTypedTuple</span><span class=p>(</span><span class=n>color</span><span class=o>-&gt;</span><span class=n>GetColor3ub</span><span class=p>(</span><span class=s>&quot;Lime&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
     <span class=p>}</span>
   <span class=p>}</span>
+  <span class=n>it</span><span class=o>-&gt;</span><span class=n>Delete</span><span class=p>();</span>
 
   <span class=n>std</span><span class=o>::</span><span class=n>stringstream</span> <span class=n>ss</span><span class=p>;</span>
   <span class=n>ss</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;numTetras: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>numTetras</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
@@ -293,8 +293,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersCore</span>
   <span class=s>vtkIOXML</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping Delaunay3D: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

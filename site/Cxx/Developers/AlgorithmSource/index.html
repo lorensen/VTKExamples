@@ -225,7 +225,7 @@ function registerListener(event, func) {
 <span class=c1>//----------------------------------------------------------------------------</span>
 <span class=n>vtkTest1</span><span class=o>*</span> <span class=n>vtkTestAlgorithmSource</span><span class=o>::</span><span class=n>GetOutput</span><span class=p>(</span><span class=kt>int</span> <span class=n>port</span><span class=p>)</span>
 <span class=p>{</span>
-  <span class=k>return</span> <span class=n>vtkTest1</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=k>this</span><span class=o>-&gt;</span><span class=n>GetOutputDataObject</span><span class=p>(</span><span class=n>port</span><span class=p>));</span>
+  <span class=k>return</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkTest1</span><span class=o>*&gt;</span><span class=p>(</span><span class=k>this</span><span class=o>-&gt;</span><span class=n>GetOutputDataObject</span><span class=p>(</span><span class=n>port</span><span class=p>));</span>
 <span class=p>}</span>
 
 <span class=c1>//----------------------------------------------------------------------------</span>
@@ -284,7 +284,7 @@ function registerListener(event, func) {
   <span class=k>for</span> <span class=p>(</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=k>this</span><span class=o>-&gt;</span><span class=n>GetNumberOfOutputPorts</span><span class=p>();</span> <span class=o>++</span><span class=n>i</span> <span class=p>)</span>
   <span class=p>{</span>
     <span class=n>vtkInformation</span><span class=o>*</span> <span class=n>outInfo</span> <span class=o>=</span> <span class=n>outputVector</span><span class=o>-&gt;</span><span class=n>GetInformationObject</span><span class=p>(</span> <span class=n>i</span> <span class=p>);</span>
-    <span class=n>vtkTest1</span><span class=o>*</span> <span class=n>output</span> <span class=o>=</span> <span class=n>vtkTest1</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+    <span class=n>vtkTest1</span><span class=o>*</span> <span class=n>output</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkTest1</span><span class=o>*&gt;</span><span class=p>(</span>
                                             <span class=n>outInfo</span><span class=o>-&gt;</span><span class=n>Get</span><span class=p>(</span> <span class=n>vtkDataObject</span><span class=o>::</span><span class=n>DATA_OBJECT</span><span class=p>()</span> <span class=p>)</span> <span class=p>);</span>
     <span class=k>if</span> <span class=p>(</span> <span class=o>!</span> <span class=n>output</span> <span class=p>)</span>
     <span class=p>{</span>

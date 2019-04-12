@@ -111,7 +111,7 @@ function registerListener(event, func) {
 </span><span class=hll>  <span class=n>colorSeries</span><span class=o>-&gt;</span><span class=n>SetColorScheme</span><span class=p>(</span><span class=n>vtkColorSeries</span><span class=o>::</span><span class=n>WARM</span><span class=p>);</span>
 </span>
   <span class=c1>// Add multiple line plots, setting the colors etc</span>
-<span class=hll>  <span class=n>vtkPlotPie</span> <span class=o>*</span><span class=n>pie</span> <span class=o>=</span> <span class=n>vtkPlotPie</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>chart</span><span class=o>-&gt;</span><span class=n>AddPlot</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
+<span class=hll>  <span class=n>vtkPlotPie</span> <span class=o>*</span><span class=n>pie</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkPlotPie</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>chart</span><span class=o>-&gt;</span><span class=n>AddPlot</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
 </span>  <span class=n>pie</span><span class=o>-&gt;</span><span class=n>SetColorSeries</span><span class=p>(</span><span class=n>colorSeries</span><span class=p>);</span>
   <span class=n>pie</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>table</span><span class=p>);</span>
   <span class=n>pie</span><span class=o>-&gt;</span><span class=n>SetInputArray</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=s>&quot;2008 Circulation&quot;</span><span class=p>);</span>

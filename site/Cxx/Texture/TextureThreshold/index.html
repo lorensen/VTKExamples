@@ -121,7 +121,7 @@ function registerListener(event, func) {
   <span class=n>pl3d</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
 <span class=hll>  <span class=n>vtkStructuredGrid</span><span class=o>*</span> <span class=n>output</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkStructuredGrid</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>pl3d</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkStructuredGrid</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>pl3d</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
 </span>
   <span class=c1>// Make the wall (floor).</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkStructuredGridGeometryFilter</span><span class=o>&gt;</span> <span class=n>wall</span> <span class=o>=</span>

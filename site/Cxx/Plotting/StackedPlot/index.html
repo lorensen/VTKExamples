@@ -167,7 +167,7 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkPlotStacked</span> <span class=o>*</span><span class=n>stack</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
 </span>
   <span class=c1>// Books</span>
-<span class=hll>  <span class=n>stack</span> <span class=o>=</span> <span class=n>vtkPlotStacked</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>chart</span><span class=o>-&gt;</span><span class=n>AddPlot</span><span class=p>(</span><span class=n>vtkChart</span><span class=o>::</span><span class=n>STACKED</span><span class=p>));</span>
+<span class=hll>  <span class=n>stack</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkPlotStacked</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>chart</span><span class=o>-&gt;</span><span class=n>AddPlot</span><span class=p>(</span><span class=n>vtkChart</span><span class=o>::</span><span class=n>STACKED</span><span class=p>));</span>
 </span>  <span class=n>stack</span><span class=o>-&gt;</span><span class=n>SetUseIndexForXSeries</span><span class=p>(</span><span class=nb>true</span><span class=p>);</span>
   <span class=n>stack</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>table</span><span class=p>);</span>
   <span class=n>stack</span><span class=o>-&gt;</span><span class=n>SetInputArray</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=s>&quot;Books&quot;</span><span class=p>);</span>

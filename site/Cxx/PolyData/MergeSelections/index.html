@@ -147,7 +147,7 @@ function registerListener(event, func) {
   <span class=n>extractSelectionCombined</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
   <span class=c1>// In selection</span>
-<span class=hll>  <span class=n>vtkDataSet</span><span class=o>*</span> <span class=n>ds</span> <span class=o>=</span> <span class=n>vtkDataSet</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>extractSelectionCombined</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkDataSet</span><span class=o>*</span> <span class=n>ds</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkDataSet</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>extractSelectionCombined</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
 </span>  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>ds</span><span class=o>-&gt;</span><span class=n>GetNumberOfPoints</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; points in the selection.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>ds</span><span class=o>-&gt;</span><span class=n>GetNumberOfCells</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; cells in the selection.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
@@ -156,7 +156,7 @@ function registerListener(event, func) {
 <span class=hll><span class=cm>  selectionNode1-&gt;GetProperties()-&gt;Set(vtkSelectionNode::INVERSE(), 1); //invert the selection</span>
 </span><span class=hll><span class=cm>  selectionNode2-&gt;GetProperties()-&gt;Set(vtkSelectionNode::INVERSE(), 1); //invert the selection</span>
 </span><span class=cm>  extractSelection-&gt;Update();</span>
-<span class=hll><span class=cm>  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; vtkDataSet::SafeDownCast (extractSelection-&gt;GetOutput())-&gt;GetNumberOfPoints()</span>
+<span class=hll><span class=cm>  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; dynamic_cast&lt;vtkDataSet*&gt; (extractSelection-&gt;GetOutput())-&gt;GetNumberOfPoints()</span>
 </span><span class=cm>            &lt;&lt; &quot; points not in the selection.&quot; &lt;&lt; std::endl;</span>
 <span class=cm>  */</span>
 
@@ -252,8 +252,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersExtraction</span>
   <span class=s>vtkFiltersSources</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping MergeSelections: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

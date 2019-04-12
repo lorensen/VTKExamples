@@ -84,7 +84,7 @@ function registerListener(event, func) {
   <span class=n>graphLayoutView</span><span class=o>-&gt;</span><span class=n>ResetCamera</span><span class=p>();</span>
   <span class=n>graphLayoutView</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
 
-<span class=hll>  <span class=n>vtkSimple2DLayoutStrategy</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>graphLayoutView</span><span class=o>-&gt;</span><span class=n>GetLayoutStrategy</span><span class=p>())</span><span class=o>-&gt;</span><span class=n>SetRandomSeed</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+<span class=hll>  <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkSimple2DLayoutStrategy</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>graphLayoutView</span><span class=o>-&gt;</span><span class=n>GetLayoutStrategy</span><span class=p>())</span><span class=o>-&gt;</span><span class=n>SetRandomSeed</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
 </span>  <span class=n>graphLayoutView</span><span class=o>-&gt;</span><span class=n>GetInteractor</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
 
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
@@ -99,8 +99,10 @@ function registerListener(event, func) {
   <span class=s>vtkIOLegacy</span>
   <span class=s>vtkInfovisLayout</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span>
   <span class=s>vtkViewsInfovis</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>

@@ -100,7 +100,7 @@ function registerListener(event, func) {
   <span class=n>extractSelection</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>selectionSource</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>extractSelection</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
-<span class=hll>  <span class=n>vtkDataSet</span><span class=o>*</span> <span class=n>ds</span> <span class=o>=</span> <span class=n>vtkDataSet</span><span class=o>::</span><span class=n>SafeDownCast</span> <span class=p>(</span><span class=n>extractSelection</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
+<span class=hll>  <span class=n>vtkDataSet</span><span class=o>*</span> <span class=n>ds</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkDataSet</span><span class=o>*&gt;</span> <span class=p>(</span><span class=n>extractSelection</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
 </span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>ds</span><span class=o>-&gt;</span><span class=n>GetNumberOfPoints</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; output points.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 

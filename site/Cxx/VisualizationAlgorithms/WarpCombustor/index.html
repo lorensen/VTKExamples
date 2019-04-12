@@ -103,7 +103,7 @@ function registerListener(event, func) {
   <span class=n>pl3d</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
 <span class=hll>  <span class=n>vtkStructuredGrid</span> <span class=o>*</span><span class=n>pl3dOutput</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkStructuredGrid</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>pl3d</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkStructuredGrid</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>pl3d</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetBlock</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
 </span>
   <span class=c1>// Planes are specified using a imin,imax, jmin,jmax, kmin,kmax coordinate</span>
   <span class=c1>// specification. Min and max i,j,k values are clamped to 0 and maximum value.</span>
@@ -211,8 +211,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersGeometry</span>
   <span class=s>vtkIOParallel</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping WarpCombustor: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

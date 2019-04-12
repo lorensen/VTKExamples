@@ -93,7 +93,7 @@ function registerListener(event, func) {
     <span class=p>{</span>
 <span class=hll>      <span class=n>vtkIdType</span> <span class=n>nextVertex</span> <span class=o>=</span> <span class=k>this</span><span class=o>-&gt;</span><span class=n>DFS</span><span class=o>-&gt;</span><span class=n>Next</span><span class=p>();</span>
 </span>      <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Next vertex: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>nextVertex</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-<span class=hll>      <span class=n>vtkIntArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+<span class=hll>      <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkIntArray</span><span class=o>*&gt;</span><span class=p>(</span>
 </span>        <span class=k>this</span><span class=o>-&gt;</span><span class=n>Tree</span><span class=o>-&gt;</span><span class=n>GetVertexData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;color&quot;</span><span class=p>))</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=n>nextVertex</span><span class=p>,</span> <span class=mi>10</span><span class=p>);</span>
       <span class=k>this</span><span class=o>-&gt;</span><span class=n>Tree</span><span class=o>-&gt;</span><span class=n>Modified</span><span class=p>();</span>
       <span class=k>this</span><span class=o>-&gt;</span><span class=n>GraphLayoutView</span><span class=o>-&gt;</span><span class=n>AddRepresentationFromInput</span><span class=p>(</span><span class=k>this</span><span class=o>-&gt;</span><span class=n>Tree</span><span class=p>);</span>
@@ -192,8 +192,10 @@ function registerListener(event, func) {
   <span class=s>vtkCommonCore</span>
   <span class=s>vtkCommonDataModel</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span>
   <span class=s>vtkViewsCore</span>
   <span class=s>vtkViewsInfovis</span> <span class=s>QUIET</span><span class=p>)</span>

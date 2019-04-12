@@ -225,7 +225,7 @@ function registerListener(event, func) {
 
 <span class=kt>void</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>ShallowCopy</span><span class=p>(</span><span class=n>vtkDataObject</span><span class=o>*</span> <span class=n>t</span><span class=p>)</span>
 <span class=p>{</span>
-  <span class=n>vtkTest</span> <span class=o>*</span><span class=n>m</span> <span class=o>=</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>t</span><span class=p>);</span>
+  <span class=n>vtkTest</span> <span class=o>*</span><span class=n>m</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkTest</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>t</span><span class=p>);</span>
   <span class=k>this</span><span class=o>-&gt;</span><span class=n>Value</span> <span class=o>=</span> <span class=n>m</span><span class=o>-&gt;</span><span class=n>GetValue</span><span class=p>();</span>
 <span class=p>}</span>
 </pre></div> <p><strong>vtkTestAlgorithmFilter.cxx</strong></p> <div class=codehilite><pre><span></span><span class=cp>#include</span> <span class=cpf>&quot;vtkTestAlgorithmFilter.h&quot;</span><span class=cp></span>
@@ -266,7 +266,7 @@ function registerListener(event, func) {
 <span class=c1>//----------------------------------------------------------------------------</span>
 <span class=n>vtkTest</span><span class=o>*</span> <span class=n>vtkTestAlgorithmFilter</span><span class=o>::</span><span class=n>GetOutput</span><span class=p>(</span><span class=kt>int</span> <span class=n>port</span><span class=p>)</span>
 <span class=p>{</span>
-  <span class=k>return</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=k>this</span><span class=o>-&gt;</span><span class=n>GetOutputDataObject</span><span class=p>(</span><span class=n>port</span><span class=p>));</span>
+  <span class=k>return</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkTest</span><span class=o>*&gt;</span><span class=p>(</span><span class=k>this</span><span class=o>-&gt;</span><span class=n>GetOutputDataObject</span><span class=p>(</span><span class=n>port</span><span class=p>));</span>
 <span class=p>}</span>
 
 <span class=c1>//----------------------------------------------------------------------------</span>
@@ -290,7 +290,7 @@ function registerListener(event, func) {
 <span class=c1>//----------------------------------------------------------------------------</span>
 <span class=n>vtkTest</span><span class=o>*</span> <span class=n>vtkTestAlgorithmFilter</span><span class=o>::</span><span class=n>GetLabelHierarchyInput</span><span class=p>(</span><span class=kt>int</span> <span class=n>port</span><span class=p>)</span>
 <span class=p>{</span>
-  <span class=k>return</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=k>this</span><span class=o>-&gt;</span><span class=n>GetInput</span><span class=p>(</span><span class=n>port</span><span class=p>));</span>
+  <span class=k>return</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkTest</span><span class=o>*&gt;</span><span class=p>(</span><span class=k>this</span><span class=o>-&gt;</span><span class=n>GetInput</span><span class=p>(</span><span class=n>port</span><span class=p>));</span>
 <span class=p>}</span>
 
 <span class=c1>//----------------------------------------------------------------------------</span>
@@ -349,7 +349,7 @@ function registerListener(event, func) {
 <span class=c1>//During RDO, each filter is supposed to produce an empty data object of the proper type</span>
 
   <span class=n>vtkInformation</span><span class=o>*</span> <span class=n>outInfo</span> <span class=o>=</span> <span class=n>outputVector</span><span class=o>-&gt;</span><span class=n>GetInformationObject</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
-  <span class=n>vtkTest</span><span class=o>*</span> <span class=n>output</span> <span class=o>=</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+  <span class=n>vtkTest</span><span class=o>*</span> <span class=n>output</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkTest</span><span class=o>*&gt;</span><span class=p>(</span>
     <span class=n>outInfo</span><span class=o>-&gt;</span><span class=n>Get</span><span class=p>(</span> <span class=n>vtkDataObject</span><span class=o>::</span><span class=n>DATA_OBJECT</span><span class=p>()</span> <span class=p>)</span> <span class=p>);</span>
 
   <span class=k>if</span> <span class=p>(</span> <span class=o>!</span> <span class=n>output</span> <span class=p>)</span>
@@ -407,11 +407,11 @@ function registerListener(event, func) {
 <span class=c1>//During RD each filter examines any inputs it has, then fills in that empty data object with real data.</span>
 
   <span class=n>vtkInformation</span><span class=o>*</span> <span class=n>outInfo</span> <span class=o>=</span> <span class=n>outputVector</span><span class=o>-&gt;</span><span class=n>GetInformationObject</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
-  <span class=n>vtkTest</span><span class=o>*</span> <span class=n>output</span> <span class=o>=</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+  <span class=n>vtkTest</span><span class=o>*</span> <span class=n>output</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkTest</span><span class=o>*&gt;</span><span class=p>(</span>
                                           <span class=n>outInfo</span><span class=o>-&gt;</span><span class=n>Get</span><span class=p>(</span> <span class=n>vtkDataObject</span><span class=o>::</span><span class=n>DATA_OBJECT</span><span class=p>()</span> <span class=p>)</span> <span class=p>);</span>
 
   <span class=n>vtkInformation</span> <span class=o>*</span><span class=n>inInfo</span> <span class=o>=</span> <span class=n>inputVector</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>-&gt;</span><span class=n>GetInformationObject</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
-  <span class=n>vtkTest</span> <span class=o>*</span><span class=n>input</span> <span class=o>=</span> <span class=n>vtkTest</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+  <span class=n>vtkTest</span> <span class=o>*</span><span class=n>input</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkTest</span><span class=o>*&gt;</span><span class=p>(</span>
                                          <span class=n>inInfo</span><span class=o>-&gt;</span><span class=n>Get</span><span class=p>(</span><span class=n>vtkDataObject</span><span class=o>::</span><span class=n>DATA_OBJECT</span><span class=p>()));</span>
   <span class=n>output</span><span class=o>-&gt;</span><span class=n>ShallowCopy</span><span class=p>(</span><span class=n>input</span><span class=p>);</span>
   <span class=n>output</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=n>output</span><span class=o>-&gt;</span><span class=n>GetValue</span><span class=p>()</span> <span class=o>+</span> <span class=mf>1.0</span><span class=p>);</span>

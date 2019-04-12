@@ -119,7 +119,7 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkAlgorithm</span><span class=o>&gt;</span> <span class=n>algorithm</span> <span class=o>=</span>
 </span>    <span class=n>sphereActor</span><span class=o>-&gt;</span><span class=n>GetMapper</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetInputConnection</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>GetProducer</span><span class=p>();</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;</span> <span class=n>srcReference</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSphereSource</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>algorithm</span><span class=p>);</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>algorithm</span><span class=p>.</span><span class=n>GetPointer</span><span class=p>());;</span>
 </span>
   <span class=kt>float</span> <span class=n>origRadius</span> <span class=o>=</span> <span class=n>srcReference</span><span class=o>-&gt;</span><span class=n>GetRadius</span><span class=p>();</span>
   <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>360</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
@@ -146,8 +146,10 @@ function registerListener(event, func) {
   <span class=s>vtkCommonExecutionModel</span>
   <span class=s>vtkFiltersSources</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ReverseAccess: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

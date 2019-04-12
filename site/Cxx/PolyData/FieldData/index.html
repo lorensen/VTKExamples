@@ -100,7 +100,7 @@ function registerListener(event, func) {
   <span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetFieldData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>AddArray</span><span class=p>(</span><span class=n>intValue</span><span class=p>);</span>
 
   <span class=c1>// Get the data back out</span>
-<span class=hll>  <span class=n>vtkIntArray</span><span class=o>*</span> <span class=n>retrievedArray</span> <span class=o>=</span> <span class=n>vtkIntArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetFieldData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetAbstractArray</span><span class=p>(</span><span class=s>&quot;MyIntValue&quot;</span><span class=p>));</span>
+<span class=hll>  <span class=n>vtkIntArray</span><span class=o>*</span> <span class=n>retrievedArray</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkIntArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetFieldData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetAbstractArray</span><span class=p>(</span><span class=s>&quot;MyIntValue&quot;</span><span class=p>));</span>
 </span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>retrievedArray</span><span class=o>-&gt;</span><span class=n>GetValue</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 

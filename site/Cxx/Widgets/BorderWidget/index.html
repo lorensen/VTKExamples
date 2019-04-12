@@ -96,7 +96,7 @@ function registerListener(event, func) {
 <span class=hll><span class=kt>void</span> <span class=n>vtkCustomBorderWidget</span><span class=o>::</span><span class=n>EndSelectAction</span><span class=p>(</span><span class=n>vtkAbstractWidget</span> <span class=o>*</span><span class=n>w</span><span class=p>)</span>
 </span><span class=p>{</span>
 <span class=hll>  <span class=n>vtkBorderWidget</span> <span class=o>*</span><span class=n>borderWidget</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkBorderWidget</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>w</span><span class=p>);</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkBorderWidget</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>w</span><span class=p>);</span>
 </span>
   <span class=c1>// Get the actual box coordinates/planes</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>polydata</span> <span class=o>=</span>
@@ -173,8 +173,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersSources</span>
   <span class=s>vtkInteractionStyle</span>
   <span class=s>vtkInteractionWidgets</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping BorderWidget: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

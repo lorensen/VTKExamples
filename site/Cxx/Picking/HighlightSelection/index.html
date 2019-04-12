@@ -136,7 +136,7 @@ function registerListener(event, func) {
       <span class=k>this</span><span class=o>-&gt;</span><span class=n>SelectedMapper</span><span class=o>-&gt;</span><span class=n>ScalarVisibilityOff</span><span class=p>();</span>
 
 <span class=hll>      <span class=c1>//        vtkIdTypeArray* ids =</span>
-</span><span class=hll>      <span class=c1>//        vtkIdTypeArray::SafeDownCast(selected-&gt;GetPointData()-&gt;GetArray(&quot;OriginalIds&quot;));</span>
+</span><span class=hll>      <span class=c1>//        dynamic_cast&lt;vtkIdTypeArray*&gt;(selected-&gt;GetPointData()-&gt;GetArray(&quot;OriginalIds&quot;));</span>
 </span>
       <span class=k>this</span><span class=o>-&gt;</span><span class=n>SelectedActor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span>
           <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;Tomato&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>

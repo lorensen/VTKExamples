@@ -108,7 +108,7 @@ function registerListener(event, func) {
 </span>  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span> <span class=n>renderer</span> <span class=p>);</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span> 
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkInteractorStyle</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>GetInteractorStyle</span><span class=p>())</span><span class=o>-&gt;</span><span class=n>AutoAdjustCameraClippingRangeOn</span><span class=p>();</span>
+</span><span class=hll>  <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkInteractorStyle</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>GetInteractorStyle</span><span class=p>())</span><span class=o>-&gt;</span><span class=n>AutoAdjustCameraClippingRangeOn</span><span class=p>();</span>
 </span>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span> <span class=n>renderWindow</span> <span class=p>);</span>
 
   <span class=c1>// Add the actor to the scene</span>
@@ -134,8 +134,10 @@ function registerListener(event, func) {
   <span class=s>vtkCommonDataModel</span>
   <span class=s>vtkFiltersSources</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping Follower: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

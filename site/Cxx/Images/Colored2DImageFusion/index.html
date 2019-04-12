@@ -98,12 +98,14 @@ function registerListener(event, func) {
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageReader2Factory</span><span class=o>&gt;</span> <span class=n>readerFactory</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageReader2Factory</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageReader2</span><span class=o>&gt;</span> <span class=n>imgReader</span> <span class=o>=</span>
-</span>    <span class=n>readerFactory</span><span class=o>-&gt;</span><span class=n>CreateImageReader2</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
+</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageReader2</span><span class=o>&gt;</span> <span class=n>imgReader</span><span class=p>;</span>
+</span>  <span class=n>imgReader</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span>
+    <span class=n>readerFactory</span><span class=o>-&gt;</span><span class=n>CreateImageReader2</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]));</span>
   <span class=n>imgReader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageReader2</span><span class=o>&gt;</span> <span class=n>imgReaderMoving</span> <span class=o>=</span>
-</span>    <span class=n>readerFactory</span><span class=o>-&gt;</span><span class=n>CreateImageReader2</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]);</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageReader2</span><span class=o>&gt;</span> <span class=n>imgReaderMoving</span><span class=p>;</span>
+</span>  <span class=n>imgReaderMoving</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span>
+    <span class=n>readerFactory</span><span class=o>-&gt;</span><span class=n>CreateImageReader2</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]));</span>
   <span class=n>imgReaderMoving</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]);</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageMapToColors</span><span class=o>&gt;</span> <span class=n>firstColorMapper</span> <span class=o>=</span>

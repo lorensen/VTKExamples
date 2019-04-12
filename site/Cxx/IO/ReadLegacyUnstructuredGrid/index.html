@@ -123,8 +123,9 @@ function registerListener(event, func) {
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVariantArray</span><span class=o>&gt;</span> <span class=n>legendValues</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkVariantArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkCellIterator</span><span class=o>&gt;</span> <span class=n>it</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>NewCellIterator</span><span class=p>();</span>
-</span>  <span class=k>for</span> <span class=p>(</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>InitTraversal</span><span class=p>();</span> <span class=o>!</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>IsDoneWithTraversal</span><span class=p>();</span> <span class=n>it</span><span class=o>-&gt;</span><span class=n>GoToNextCell</span><span class=p>())</span>
+</span>  <span class=k>auto</span> <span class=n>it</span> <span class=o>=</span>
+    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>NewCellIterator</span><span class=p>();</span>
+  <span class=k>for</span> <span class=p>(</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>InitTraversal</span><span class=p>();</span> <span class=o>!</span><span class=n>it</span><span class=o>-&gt;</span><span class=n>IsDoneWithTraversal</span><span class=p>();</span> <span class=n>it</span><span class=o>-&gt;</span><span class=n>GoToNextCell</span><span class=p>())</span>
   <span class=p>{</span>
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGenericCell</span><span class=o>&gt;</span> <span class=n>cell</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkGenericCell</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
@@ -138,6 +139,7 @@ function registerListener(event, func) {
 <span class=cp>#endif</span>
 <span class=hll>    <span class=n>legendValues</span><span class=o>-&gt;</span><span class=n>InsertNextValue</span><span class=p>(</span><span class=n>vtkVariant</span><span class=p>(</span><span class=n>cellName</span><span class=p>));</span>
 </span>  <span class=p>}</span>
+  <span class=n>it</span><span class=o>-&gt;</span><span class=n>Delete</span><span class=p>();</span>
 
   <span class=c1>// Tube the edges</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTubeFilter</span><span class=o>&gt;</span> <span class=n>tubes</span> <span class=o>=</span>
@@ -291,6 +293,7 @@ function registerListener(event, func) {
   <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingLabel</span>
   <span class=s>vtkRenderingOpenGL2</span>
   <span class=s>vtkViewsContext2D</span> <span class=s>QUIET</span><span class=p>)</span>

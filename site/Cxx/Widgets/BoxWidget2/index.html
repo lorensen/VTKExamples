@@ -90,12 +90,12 @@ function registerListener(event, func) {
 <span class=hll>  <span class=k>virtual</span> <span class=kt>void</span> <span class=nf>Execute</span><span class=p>(</span> <span class=n>vtkObject</span> <span class=o>*</span><span class=n>caller</span><span class=p>,</span> <span class=kt>unsigned</span> <span class=kt>long</span><span class=p>,</span> <span class=kt>void</span><span class=o>*</span> <span class=p>)</span>
 </span>  <span class=p>{</span>
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBoxWidget2</span><span class=o>&gt;</span> <span class=n>boxWidget</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkBoxWidget2</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>caller</span><span class=p>);</span>
+</span><span class=hll>      <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkBoxWidget2</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>caller</span><span class=p>);</span>
 </span>
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;</span> <span class=n>t</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTransform</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-<span class=hll>    <span class=n>vtkBoxRepresentation</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span> <span class=n>boxWidget</span><span class=o>-&gt;</span><span class=n>GetRepresentation</span><span class=p>()</span> <span class=p>)</span><span class=o>-&gt;</span><span class=n>GetTransform</span><span class=p>(</span> <span class=n>t</span> <span class=p>);</span>
+<span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkBoxRepresentation</span><span class=o>*&gt;</span><span class=p>(</span> <span class=n>boxWidget</span><span class=o>-&gt;</span><span class=n>GetRepresentation</span><span class=p>()</span> <span class=p>)</span><span class=o>-&gt;</span><span class=n>GetTransform</span><span class=p>(</span> <span class=n>t</span> <span class=p>);</span>
 </span>    <span class=k>this</span><span class=o>-&gt;</span><span class=n>m_actor</span><span class=o>-&gt;</span><span class=n>SetUserTransform</span><span class=p>(</span> <span class=n>t</span> <span class=p>);</span>
   <span class=p>}</span>
 
@@ -161,8 +161,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersSources</span>
   <span class=s>vtkInteractionStyle</span>
   <span class=s>vtkInteractionWidgets</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping BoxWidget2: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

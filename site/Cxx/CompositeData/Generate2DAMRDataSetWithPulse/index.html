@@ -90,7 +90,6 @@ function registerListener(event, func) {
 <span class=p>{</span>
 <span class=hll>  <span class=kt>void</span> <span class=n>WriteUniformGrid</span><span class=p>(</span><span class=n>vtkUniformGrid</span><span class=o>*</span> <span class=n>g</span><span class=p>,</span> <span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&amp;</span> <span class=n>prefix</span><span class=p>);</span>
 </span><span class=hll>  <span class=kt>void</span> <span class=nf>WriteAMRData</span><span class=p>(</span><span class=n>vtkOverlappingAMR</span><span class=o>*</span> <span class=n>amrData</span><span class=p>,</span> <span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&amp;</span> <span class=n>prefix</span><span class=p>);</span>
-</span><span class=hll>  <span class=n>vtkHierarchicalBoxDataSet</span><span class=o>*</span> <span class=nf>ReadAMRData</span><span class=p>(</span><span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&amp;</span> <span class=n>file</span><span class=p>);</span>
 </span><span class=hll>  <span class=kt>void</span> <span class=nf>WriteMultiBlockData</span><span class=p>(</span><span class=n>vtkMultiBlockDataSet</span><span class=o>*</span> <span class=n>mbds</span><span class=p>,</span> <span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&amp;</span> <span class=n>prefix</span><span class=p>);</span>
 </span><span class=hll>  <span class=n>vtkUniformGrid</span><span class=o>*</span> <span class=nf>GetGrid</span><span class=p>(</span><span class=kt>double</span><span class=o>*</span> <span class=n>origin</span><span class=p>,</span> <span class=kt>double</span><span class=o>*</span> <span class=n>h</span><span class=p>,</span> <span class=kt>int</span><span class=o>*</span> <span class=n>ndim</span><span class=p>);</span>
 </span><span class=hll>  <span class=kt>void</span> <span class=nf>ComputeCellCenter</span><span class=p>(</span><span class=n>vtkUniformGrid</span><span class=o>*</span> <span class=n>grid</span><span class=p>,</span> <span class=k>const</span> <span class=kt>int</span> <span class=n>cellIdx</span><span class=p>,</span> <span class=kt>double</span> <span class=n>c</span><span class=p>[</span><span class=mi>3</span><span class=p>]);</span>
@@ -129,8 +128,9 @@ function registerListener(event, func) {
   <span class=n>SetPulse</span><span class=p>();</span>
 
   <span class=c1>// STEP 1: Get the AMR dataset</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOverlappingAMR</span><span class=o>&gt;</span> <span class=n>amrDataSet</span> <span class=o>=</span> <span class=n>GetAMRDataSet</span><span class=p>();</span>
-</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOverlappingAMR</span><span class=o>&gt;</span> <span class=n>amrDataSet</span><span class=p>;</span>
+</span>  <span class=n>amrDataSet</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span><span class=n>GetAMRDataSet</span><span class=p>());</span>
+
   <span class=n>AMRCommon</span><span class=o>::</span><span class=n>WriteAMRData</span><span class=p>(</span><span class=n>amrDataSet</span><span class=p>,</span> <span class=s>&quot;Gaussian2D&quot;</span><span class=p>);</span>
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>}</span>
@@ -151,7 +151,8 @@ function registerListener(event, func) {
   <span class=c1>//------------------------------------------------------------------------------</span>
 <span class=hll>  <span class=kt>void</span> <span class=n>AttachPulseToGrid</span><span class=p>(</span><span class=n>vtkUniformGrid</span><span class=o>*</span> <span class=n>grid</span><span class=p>)</span>
 </span>  <span class=p>{</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>&gt;</span> <span class=n>xyz</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>&gt;</span> <span class=n>xyz</span> <span class=o>=</span>
+</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>xyz</span><span class=o>-&gt;</span><span class=n>SetName</span><span class=p>(</span><span class=s>&quot;GaussianPulse&quot;</span><span class=p>);</span>
     <span class=n>xyz</span><span class=o>-&gt;</span><span class=n>SetNumberOfComponents</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
     <span class=n>xyz</span><span class=o>-&gt;</span><span class=n>SetNumberOfTuples</span><span class=p>(</span><span class=n>grid</span><span class=o>-&gt;</span><span class=n>GetNumberOfCells</span><span class=p>());</span>
@@ -200,8 +201,9 @@ function registerListener(event, func) {
 
     <span class=kt>int</span> <span class=n>blockId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
     <span class=kt>int</span> <span class=n>level</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>root</span> <span class=o>=</span> <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>);</span>
-</span><span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>root</span><span class=p>;</span>
+</span>    <span class=n>root</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span><span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>));</span>
+<span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
 </span>    <span class=n>AttachPulseToGrid</span><span class=p>(</span><span class=n>root</span><span class=p>);</span>
 
     <span class=n>data</span><span class=o>-&gt;</span><span class=n>SetSpacing</span><span class=p>(</span><span class=n>level</span><span class=p>,</span> <span class=n>h</span><span class=p>);</span>
@@ -216,8 +218,9 @@ function registerListener(event, func) {
     <span class=n>origin</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=mf>0.0</span><span class=p>;</span>
     <span class=n>blockId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
     <span class=n>level</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid1</span> <span class=o>=</span> <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>);</span>
-</span><span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box1</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid1</span><span class=p>;</span>
+</span>    <span class=n>grid1</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span><span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>));</span>
+<span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box1</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
 </span>      <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
     <span class=n>AttachPulseToGrid</span><span class=p>(</span><span class=n>grid1</span><span class=p>);</span>
 
@@ -233,8 +236,9 @@ function registerListener(event, func) {
     <span class=n>origin</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>origin</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=mf>0.0</span><span class=p>;</span>
     <span class=n>blockId</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
     <span class=n>level</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid3</span> <span class=o>=</span> <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>);</span>
-</span><span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box3</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid3</span><span class=p>;</span>
+</span>    <span class=n>grid3</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span><span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>));</span>
+<span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box3</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
 </span>      <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
 
     <span class=n>AttachPulseToGrid</span><span class=p>(</span><span class=n>grid3</span><span class=p>);</span>
@@ -278,30 +282,6 @@ function registerListener(event, func) {
     <span class=n>writer</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>oss</span><span class=p>.</span><span class=n>str</span><span class=p>().</span><span class=n>c_str</span><span class=p>());</span>
     <span class=n>writer</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>amrData</span><span class=p>);</span>
     <span class=n>writer</span><span class=o>-&gt;</span><span class=n>Write</span><span class=p>();</span>
-  <span class=p>}</span>
-
-  <span class=c1>//------------------------------------------------------------------------------</span>
-  <span class=c1>// Description:</span>
-  <span class=c1>// Reads AMR data to the given data-structure from the prescribed file.</span>
-<span class=hll>  <span class=n>vtkHierarchicalBoxDataSet</span><span class=o>*</span> <span class=n>ReadAMRData</span><span class=p>(</span><span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&amp;</span> <span class=n>file</span><span class=p>)</span>
-</span>  <span class=p>{</span>
-<span class=hll>    <span class=n>vtkXMLHierarchicalBoxDataReader</span><span class=o>*</span> <span class=n>myAMRReader</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkXMLHierarchicalBoxDataReader</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
-</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>ostringstream</span> <span class=n>oss</span><span class=p>;</span>
-    <span class=n>oss</span><span class=p>.</span><span class=n>str</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>);</span>
-    <span class=n>oss</span><span class=p>.</span><span class=n>clear</span><span class=p>();</span>
-    <span class=n>oss</span> <span class=o>&lt;&lt;</span> <span class=n>file</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;.vthb&quot;</span><span class=p>;</span>
-
-    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Reading AMR Data from: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>oss</span><span class=p>.</span><span class=n>str</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>.</span><span class=n>flush</span><span class=p>();</span>
-
-    <span class=n>myAMRReader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>oss</span><span class=p>.</span><span class=n>str</span><span class=p>().</span><span class=n>c_str</span><span class=p>());</span>
-    <span class=n>myAMRReader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
-
-<span class=hll>    <span class=n>vtkHierarchicalBoxDataSet</span><span class=o>*</span> <span class=n>amrData</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkHierarchicalBoxDataSet</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>myAMRReader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
-</span>    <span class=k>return</span> <span class=p>(</span><span class=n>amrData</span><span class=p>);</span>
   <span class=p>}</span>
 
   <span class=c1>//------------------------------------------------------------------------------</span>

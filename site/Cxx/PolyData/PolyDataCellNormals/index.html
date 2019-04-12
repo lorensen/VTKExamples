@@ -120,7 +120,7 @@ function registerListener(event, func) {
 
   <span class=c1>///////// Get cell normals ///////////</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>&gt;</span> <span class=n>cellNormalsRetrieved</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkDoubleArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNormals</span><span class=p>());</span>
+</span><span class=hll>      <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNormals</span><span class=p>());</span>
 </span>  <span class=k>if</span><span class=p>(</span><span class=n>cellNormalsRetrieved</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>cellNormalsRetrieved</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; cell normals.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>

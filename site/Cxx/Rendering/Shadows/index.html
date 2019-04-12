@@ -208,7 +208,7 @@ function registerListener(event, func) {
 
   <span class=c1>// tell the renderer to use our render pass pipeline</span>
 <span class=hll>  <span class=n>vtkOpenGLRenderer</span> <span class=o>*</span><span class=n>glrenderer</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkOpenGLRenderer</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkOpenGLRenderer</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>renderer</span><span class=p>.</span><span class=n>GetPointer</span><span class=p>());</span>
 </span>  <span class=n>glrenderer</span><span class=o>-&gt;</span><span class=n>SetPass</span><span class=p>(</span><span class=n>cameraP</span><span class=p>);</span>
 
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetPosition</span><span class=p>(</span><span class=o>-</span><span class=mf>0.2</span><span class=p>,</span><span class=mf>0.2</span><span class=p>,</span><span class=mi>1</span><span class=p>);</span>

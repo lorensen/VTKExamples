@@ -125,7 +125,7 @@ function registerListener(event, func) {
 
   <span class=c1>// Get the clipped cell ids</span>
 <span class=hll>  <span class=n>vtkUnstructuredGrid</span><span class=o>*</span> <span class=n>clipped</span> <span class=o>=</span> <span class=n>clipper</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>originalIds</span> <span class=o>=</span> <span class=n>vtkIdTypeArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>clipped</span><span class=o>-&gt;</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;vtkIdFilter_Ids&quot;</span><span class=p>));</span>
+</span><span class=hll>  <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>originalIds</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkIdTypeArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>clipped</span><span class=o>-&gt;</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;vtkIdFilter_Ids&quot;</span><span class=p>));</span>
 </span><span class=hll>  <span class=k>for</span><span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>originalIds</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>();</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
 </span>  <span class=p>{</span>
     <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;new id &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>i</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;, original id &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>originalIds</span><span class=o>-&gt;</span><span class=n>GetValue</span><span class=p>(</span><span class=n>i</span><span class=p>)</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
@@ -201,8 +201,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersSources</span>
   <span class=s>vtkImagingHybrid</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span>
   <span class=s>vtkTestingGenericBridge</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>

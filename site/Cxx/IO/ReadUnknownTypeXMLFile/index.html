@@ -86,11 +86,11 @@ function registerListener(event, func) {
   <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
   <span class=c1>// All of the standard data types can be checked and obtained like this:</span>
-<span class=hll>  <span class=k>if</span><span class=p>(</span><span class=n>vtkPolyData</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()))</span>
+<span class=hll>  <span class=k>if</span><span class=p>(</span><span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()))</span>
 </span>  <span class=p>{</span>
     <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;File is a polydata&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=p>}</span>
-<span class=hll>  <span class=k>else</span> <span class=k>if</span><span class=p>(</span><span class=n>vtkUnstructuredGrid</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()))</span>
+<span class=hll>  <span class=k>else</span> <span class=k>if</span><span class=p>(</span><span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkUnstructuredGrid</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()))</span>
 </span>  <span class=p>{</span>
     <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;File is an unstructured grid&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=p>}</span>
@@ -135,8 +135,10 @@ function registerListener(event, func) {
   <span class=s>vtkCommonDataModel</span>
   <span class=s>vtkIOXML</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ReadUnknownTypeXMLFile: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

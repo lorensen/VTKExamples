@@ -129,7 +129,7 @@ function registerListener(event, func) {
 <span class=cm>  pixel = static_cast&lt;int*&gt;(image-&gt;GetScalarPointer(1,1,0));</span>
 <span class=cm>  pixel[0] = 4;</span>
 
-<span class=hll><span class=cm>  vtkIntArray* scalars = vtkIntArray::SafeDownCast(image-&gt;GetPointData()-&gt;GetArray(&quot;ImageScalars&quot;));</span>
+<span class=hll><span class=cm>  vtkIntArray* scalars = dynamic_cast&lt;vtkIntArray*&gt;(image-&gt;GetPointData()-&gt;GetArray(&quot;ImageScalars&quot;));</span>
 </span><span class=cm>  std::cout &lt;&lt; &quot;Scalars has &quot; &lt;&lt; scalars-&gt;GetNumberOfComponents() &lt;&lt; &quot; components&quot; &lt;&lt; std::endl;</span>
 <span class=cm>  std::cout &lt;&lt; &quot;Scalars has &quot; &lt;&lt; scalars-&gt;GetNumberOfTuples() &lt;&lt; &quot; tuples&quot; &lt;&lt; std::endl;</span>
 

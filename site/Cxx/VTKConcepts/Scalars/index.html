@@ -95,12 +95,12 @@ function registerListener(event, func) {
 
   <span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetScalars</span><span class=p>(</span><span class=n>weights</span><span class=p>);</span>
 
-<span class=hll>  <span class=kt>double</span> <span class=n>weight</span> <span class=o>=</span> <span class=n>vtkDoubleArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetScalars</span><span class=p>())</span><span class=o>-&gt;</span><span class=n>GetValue</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+<span class=hll>  <span class=kt>double</span> <span class=n>weight</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetScalars</span><span class=p>())</span><span class=o>-&gt;</span><span class=n>GetValue</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
 </span>  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;double weight: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>weight</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
   <span class=cm>/*</span>
 <span class=hll><span class=cm>  // This causes a crash because the array is not a vtkFloatArray</span>
-</span><span class=hll><span class=cm>  double weightf = vtkFloatArray::SafeDownCast(polydata-&gt;GetPointData()-&gt;GetScalars())-&gt;GetValue(0);</span>
+</span><span class=hll><span class=cm>  double weightf = dynamic_cast&lt;vtkFloatArray*&gt;(polydata-&gt;GetPointData()-&gt;GetScalars())-&gt;GetValue(0);</span>
 </span><span class=cm>  std::cout &lt;&lt; &quot;float weight: &quot; &lt;&lt; weightf &lt;&lt; std::endl;</span>
 <span class=cm>  */</span>
 <span class=p>}</span>

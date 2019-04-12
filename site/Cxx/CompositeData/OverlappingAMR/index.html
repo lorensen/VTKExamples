@@ -65,8 +65,8 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkContourFilter.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkFloatArray.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkCompositeDataGeometryFilter.h&gt;</span><span class=cp></span>
-</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkOutlineFilter.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkOverlappingAMR.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkOutlineFilter.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPointData.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataMapper.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
@@ -186,9 +186,9 @@ function registerListener(event, func) {
   <span class=n>amr</span><span class=o>-&gt;</span><span class=n>SetDataSet</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=n>ug3</span><span class=p>);</span>
 
   <span class=n>amr</span><span class=o>-&gt;</span><span class=n>SetRefinementRatio</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>2</span><span class=p>);</span>
+
 <span class=hll>  <span class=n>vtkAMRUtilities</span><span class=o>::</span><span class=n>BlankCells</span><span class=p>(</span><span class=n>amr</span><span class=p>);</span>
 </span>
-  <span class=c1>// Render the amr data here</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOutlineFilter</span><span class=o>&gt;</span> <span class=n>of</span> <span class=o>=</span> 
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOutlineFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>of</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>amr</span><span class=p>);</span>
@@ -223,7 +223,7 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>mapper</span> <span class=o>=</span> 
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-  <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>geomFilter</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
+  <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>of</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>actor1</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
@@ -259,8 +259,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersGeometry</span>
   <span class=s>vtkFiltersModeling</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping OverlappingAMR: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

@@ -143,8 +143,8 @@ function registerListener(event, func) {
 </span>  <span class=n>connect</span><span class=o>-&gt;</span><span class=n>SetExtractionModeToLargestRegion</span><span class=p>();</span>
   <span class=n>connect</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;After Connectivity.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-  <span class=c1>// Note the use of vtkPolyData::SafeDownCast here.</span>
-<span class=hll>  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>NumberofTriangles</span><span class=p>(</span><span class=n>vtkPolyData</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+  <span class=c1>// Note the use of dynamic_cast&lt;vtkPolyData*&gt; here.</span>
+<span class=hll>  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>NumberofTriangles</span><span class=p>(</span><span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>*&gt;</span><span class=p>(</span>
 </span><span class=hll>                                  <span class=n>connect</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()))</span>
 </span>            <span class=o>&lt;&lt;</span> <span class=s>&quot; triangles.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
@@ -208,8 +208,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersModeling</span>
   <span class=s>vtkIOGeometry</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping PineRootDecimation: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

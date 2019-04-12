@@ -134,10 +134,10 @@ function registerListener(event, func) {
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLMultiBlockDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>fileName</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
   <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
-<span class=hll>  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Importing &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>vtkMultiBlockDataSet</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>())</span><span class=o>-&gt;</span><span class=n>GetNumberOfBlocks</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; actors&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+<span class=hll>  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Importing &quot;</span> <span class=o>&lt;&lt;</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkMultiBlockDataSet</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>())</span><span class=o>-&gt;</span><span class=n>GetNumberOfBlocks</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; actors&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 </span>
 <span class=hll>  <span class=n>vtkCompositeDataSet</span> <span class=o>*</span><span class=n>input</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkCompositeDataSet</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkCompositeDataSet</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
 </span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataObjectTreeIterator</span><span class=o>&gt;</span> <span class=n>iter</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataObjectTreeIterator</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
@@ -148,7 +148,7 @@ function registerListener(event, func) {
        <span class=n>iter</span><span class=o>-&gt;</span><span class=n>GoToNextItem</span><span class=p>())</span>
   <span class=p>{</span>
 <span class=hll>    <span class=n>vtkDataObject</span> <span class=o>*</span><span class=n>dso</span> <span class=o>=</span> <span class=n>iter</span><span class=o>-&gt;</span><span class=n>GetCurrentDataObject</span><span class=p>();</span>
-</span><span class=hll>    <span class=n>vtkPolyData</span> <span class=o>*</span><span class=n>pd</span> <span class=o>=</span> <span class=n>vtkPolyData</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>dso</span><span class=p>);</span>
+</span><span class=hll>    <span class=n>vtkPolyData</span> <span class=o>*</span><span class=n>pd</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>dso</span><span class=p>);</span>
 </span>    <span class=n>RestoreCameraFromFieldData</span><span class=p>(</span><span class=s>&quot;Camera&quot;</span><span class=p>,</span>
                                <span class=n>camera</span><span class=p>,</span>
                                <span class=n>pd</span><span class=p>);</span>
@@ -254,8 +254,10 @@ function registerListener(event, func) {
   <span class=s>vtkCommonDataModel</span>
   <span class=s>vtkIOXML</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ImportPolyDataScene: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

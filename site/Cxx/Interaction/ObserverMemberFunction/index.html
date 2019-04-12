@@ -134,8 +134,8 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>KeyPressEvent</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>myClass</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>MyClass</span><span class=o>::</span><span class=n>KeypressCallbackFunction</span><span class=p>);</span>
 </span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>MyInteractorStyle</span><span class=o>&gt;</span> <span class=n>style</span> <span class=o>=</span>
-</span>    <span class=n>MyInteractorStyle</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
-<span class=hll>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>KeyPressEvent</span><span class=p>,</span> <span class=n>style</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>MyInteractorStyle</span><span class=o>::</span><span class=n>KeypressCallbackFunction</span><span class=p>);</span>
+</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>MyInteractorStyle</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>KeyPressEvent</span><span class=p>,</span> <span class=n>style</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>MyInteractorStyle</span><span class=o>::</span><span class=n>KeypressCallbackFunction</span><span class=p>);</span>
 </span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>MyInteractorStyle</span><span class=o>&gt;</span> <span class=n>style2</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>MyInteractorStyle</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
@@ -157,8 +157,10 @@ function registerListener(event, func) {
   <span class=s>vtkCommonDataModel</span>
   <span class=s>vtkFiltersSources</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ObserverMemberFunction: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

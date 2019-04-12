@@ -92,7 +92,7 @@ function registerListener(event, func) {
   <span class=n>calc1</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>&gt;</span> <span class=n>output1</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkDoubleArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>*&gt;</span><span class=p>(</span>
 </span>      <span class=n>calc1</span><span class=o>-&gt;</span><span class=n>GetPolyDataOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;orig&quot;</span><span class=p>));</span>
 
 <span class=hll>  <span class=k>for</span><span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>output1</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>();</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
@@ -110,7 +110,7 @@ function registerListener(event, func) {
   <span class=n>calc2</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>&gt;</span> <span class=n>output2</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkDoubleArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>*&gt;</span><span class=p>(</span>
 </span>      <span class=n>calc2</span><span class=o>-&gt;</span><span class=n>GetPolyDataOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;new&quot;</span><span class=p>));</span>
 
 <span class=hll>  <span class=k>for</span><span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>output2</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>();</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>

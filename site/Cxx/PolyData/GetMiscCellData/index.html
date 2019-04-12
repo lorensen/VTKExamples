@@ -93,7 +93,7 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkIdType</span> <span class=n>idNumCellsInFile</span> <span class=o>=</span> <span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetNumberOfCells</span><span class=p>();</span>
 </span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>array</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkFloatArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=n>arrayName</span><span class=p>.</span><span class=n>c_str</span><span class=p>()));</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>polydata</span><span class=o>-&gt;</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=n>arrayName</span><span class=p>.</span><span class=n>c_str</span><span class=p>()));</span>
 </span>
   <span class=k>if</span><span class=p>(</span><span class=n>array</span><span class=p>)</span>
   <span class=p>{</span>

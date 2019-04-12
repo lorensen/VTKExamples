@@ -71,7 +71,7 @@ function registerListener(event, func) {
 </span>  <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>pointNormals</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkFloatArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNormals</span><span class=p>());</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNormals</span><span class=p>());</span>
 </span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Normals: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=c1>// Display the first few normals</span>
@@ -90,7 +90,7 @@ function registerListener(event, func) {
 
 
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>&gt;</span> <span class=n>reversedNormals</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkFloatArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>reverseSense</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNormals</span><span class=p>());</span>
+</span><span class=hll>    <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkFloatArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>reverseSense</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNormals</span><span class=p>());</span>
 </span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Reversed: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=c1>// Display the first few normals to verify that they are flipped</span>

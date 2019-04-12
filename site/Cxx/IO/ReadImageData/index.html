@@ -80,30 +80,30 @@ function registerListener(event, func) {
 
   <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>inputFilename</span> <span class=o>=</span> <span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
 
-<span class=hll>  <span class=k>auto</span> <span class=n>colors</span> <span class=o>=</span> <span class=n>vtkNamedColors</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>colors</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
   <span class=c1>// Read the file</span>
-<span class=hll>  <span class=k>auto</span> <span class=n>reader</span> <span class=o>=</span> <span class=n>vtkXMLImageDataReader</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>reader</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLImageDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>inputFilename</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
   <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
   <span class=c1>// Visualize</span>
-<span class=hll>   <span class=k>auto</span> <span class=n>mapper</span> <span class=o>=</span> <span class=n>vtkDataSetMapper</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>   <span class=k>auto</span> <span class=n>mapper</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkDataSetMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
 
-<span class=hll>  <span class=k>auto</span> <span class=n>actor</span> <span class=o>=</span> <span class=n>vtkActor</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>actor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetRepresentationToWireframe</span><span class=p>();</span>
 
-<span class=hll>  <span class=k>auto</span> <span class=n>renderer</span> <span class=o>=</span> <span class=n>vtkRenderer</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>renderer</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>);</span>
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>ResetCamera</span><span class=p>();</span>
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;Silver&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
 
-<span class=hll>  <span class=k>auto</span> <span class=n>renderWindow</span> <span class=o>=</span> <span class=n>vtkRenderWindow</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>renderWindow</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
 
-<span class=hll>  <span class=k>auto</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span> <span class=n>vtkRenderWindowInteractor</span><span class=o>::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>Initialize</span><span class=p>();</span>

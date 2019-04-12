@@ -262,7 +262,7 @@ function registerListener(event, func) {
     <span class=c1>// Deep copy the polydata because it may be shared with other actors</span>
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>pd</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>    <span class=n>pd</span><span class=o>-&gt;</span><span class=n>DeepCopy</span><span class=p>(</span><span class=n>vtkPolyData</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetMapper</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetInput</span><span class=p>()));</span>
+</span><span class=hll>    <span class=n>pd</span><span class=o>-&gt;</span><span class=n>DeepCopy</span><span class=p>(</span><span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetMapper</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetInput</span><span class=p>()));</span>
 </span>
     <span class=c1>// Set metadata for block</span>
     <span class=n>multiBlockDataset</span><span class=o>-&gt;</span><span class=n>SetBlock</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>pd</span><span class=p>);</span>
@@ -281,7 +281,7 @@ function registerListener(event, func) {
                             <span class=n>pd</span><span class=p>);</span>
     <span class=c1>// Save Mapper</span>
     <span class=n>SaveMapperAsFieldData</span><span class=p>(</span><span class=s>&quot;PolyDataMapper&quot;</span><span class=p>,</span>
-<span class=hll>                          <span class=n>vtkPolyDataMapper</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetMapper</span><span class=p>()),</span>
+<span class=hll>                          <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetMapper</span><span class=p>()),</span>
 </span>                          <span class=n>pd</span><span class=p>);</span>
     <span class=c1>// Save Actor</span>
     <span class=n>SaveActorAsFieldData</span><span class=p>(</span><span class=s>&quot;Actor&quot;</span><span class=p>,</span>
@@ -385,7 +385,7 @@ function registerListener(event, func) {
 </span><span class=hll>    <span class=n>SAVE_SCALAR</span><span class=p>(</span><span class=n>prefix</span><span class=p>,</span> <span class=n>scalarsToColors</span><span class=p>,</span> <span class=n>pd</span><span class=p>,</span> <span class=n>VectorSize</span><span class=p>,</span> <span class=n>vtkIntArray</span><span class=p>);</span>
 </span><span class=hll>    <span class=n>SAVE_SCALAR</span><span class=p>(</span><span class=n>prefix</span><span class=p>,</span> <span class=n>scalarsToColors</span><span class=p>,</span> <span class=n>pd</span><span class=p>,</span> <span class=n>IndexedLookup</span><span class=p>,</span> <span class=n>vtkIntArray</span><span class=p>);</span>
 </span>
-<span class=hll>    <span class=n>vtkLookupTable</span> <span class=o>*</span><span class=n>lut</span> <span class=o>=</span> <span class=n>vtkLookupTable</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>mapper</span><span class=o>-&gt;</span><span class=n>GetLookupTable</span><span class=p>());</span>
+<span class=hll>    <span class=n>vtkLookupTable</span> <span class=o>*</span><span class=n>lut</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>mapper</span><span class=o>-&gt;</span><span class=n>GetLookupTable</span><span class=p>());</span>
 </span><span class=hll>    <span class=n>SAVE_VECTOR</span><span class=p>(</span><span class=n>prefix</span><span class=p>,</span> <span class=n>lut</span><span class=p>,</span> <span class=n>pd</span><span class=p>,</span> <span class=n>TableRange</span><span class=p>,</span> <span class=n>vtkDoubleArray</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
 </span><span class=hll>    <span class=n>SAVE_SCALAR</span><span class=p>(</span><span class=n>prefix</span><span class=p>,</span> <span class=n>lut</span><span class=p>,</span> <span class=n>pd</span><span class=p>,</span> <span class=n>Scale</span><span class=p>,</span> <span class=n>vtkIntArray</span><span class=p>);</span>
 </span><span class=hll>    <span class=n>SAVE_VECTOR</span><span class=p>(</span><span class=n>prefix</span><span class=p>,</span> <span class=n>lut</span><span class=p>,</span> <span class=n>pd</span><span class=p>,</span> <span class=n>HueRange</span><span class=p>,</span> <span class=n>vtkDoubleArray</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
@@ -404,8 +404,8 @@ function registerListener(event, func) {
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUnsignedCharArray</span><span class=o>&gt;</span> <span class=n>Table</span> <span class=o>=</span>
 </span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUnsignedCharArray</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span><span class=c1>//    Table-&gt;SetNumberOfComponents(4);</span>
-<span class=hll><span class=c1>//    Table-&gt;SetNumberOfTuples(vtkLookupTable::SafeDownCast(lut)-&gt;GetTable()-&gt;GetNumberOfTuples());</span>
-</span><span class=hll>    <span class=n>Table</span><span class=o>-&gt;</span><span class=n>DeepCopy</span><span class=p>(</span><span class=n>vtkLookupTable</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>GetTable</span><span class=p>());</span>
+<span class=hll><span class=c1>//    Table-&gt;SetNumberOfTuples(dynamic_cast&lt;vtkLookupTable*&gt;(lut)-&gt;GetTable()-&gt;GetNumberOfTuples());</span>
+</span><span class=hll>    <span class=n>Table</span><span class=o>-&gt;</span><span class=n>DeepCopy</span><span class=p>(</span><span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>lut</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>GetTable</span><span class=p>());</span>
 </span>    <span class=n>Table</span><span class=o>-&gt;</span><span class=n>SetName</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>(</span><span class=n>arrayPrefix</span> <span class=o>+</span> <span class=s>&quot;:LookupTable:&quot;</span> <span class=o>+</span> <span class=s>&quot;Table&quot;</span><span class=p>).</span><span class=n>c_str</span><span class=p>());</span>
     <span class=n>pd</span><span class=o>-&gt;</span><span class=n>GetFieldData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>AddArray</span><span class=p>(</span><span class=n>Table</span><span class=p>);</span>
 
@@ -522,8 +522,10 @@ function registerListener(event, func) {
   <span class=s>vtkIOPLY</span>
   <span class=s>vtkIOXML</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ExportPolyDataScene: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

@@ -109,7 +109,7 @@ function registerListener(event, func) {
       <span class=n>edges</span> <span class=o>=</span> <span class=n>selection</span><span class=o>-&gt;</span><span class=n>GetNode</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
     <span class=p>}</span>
 
-<span class=hll>    <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>vertexList</span> <span class=o>=</span> <span class=n>vtkIdTypeArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>vertices</span><span class=o>-&gt;</span><span class=n>GetSelectionList</span><span class=p>());</span>
+<span class=hll>    <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>vertexList</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkIdTypeArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>vertices</span><span class=o>-&gt;</span><span class=n>GetSelectionList</span><span class=p>());</span>
 </span>    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>vertexList</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; vertices selected.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
     <span class=k>if</span><span class=p>(</span><span class=n>vertexList</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span>
@@ -122,7 +122,7 @@ function registerListener(event, func) {
     <span class=p>}</span>
 
     <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-<span class=hll>    <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>edgeList</span> <span class=o>=</span> <span class=n>vtkIdTypeArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>edges</span><span class=o>-&gt;</span><span class=n>GetSelectionList</span><span class=p>());</span>
+<span class=hll>    <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>edgeList</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkIdTypeArray</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>edges</span><span class=o>-&gt;</span><span class=n>GetSelectionList</span><span class=p>());</span>
 </span>    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>edgeList</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; edges selected.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=k>if</span><span class=p>(</span><span class=n>edgeList</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span>
     <span class=p>{</span>
@@ -180,8 +180,10 @@ function registerListener(event, func) {
   <span class=s>vtkIOLegacy</span>
   <span class=s>vtkInfovisLayout</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span>
   <span class=s>vtkViewsInfovis</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>

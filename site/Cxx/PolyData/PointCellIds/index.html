@@ -102,12 +102,12 @@ function registerListener(event, func) {
               <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=p>}</span>
 
-<span class=hll>  <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>pointIds</span> <span class=o>=</span> <span class=n>vtkIdTypeArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+<span class=hll>  <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>pointIds</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkIdTypeArray</span><span class=o>*&gt;</span><span class=p>(</span>
 </span>      <span class=n>idFilter</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;ids&quot;</span><span class=p>));</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>pointIds</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; point ids&quot;</span>
             <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
-<span class=hll>  <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>cellIds</span> <span class=o>=</span> <span class=n>vtkIdTypeArray</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span>
+<span class=hll>  <span class=n>vtkIdTypeArray</span><span class=o>*</span> <span class=n>cellIds</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkIdTypeArray</span><span class=o>*&gt;</span><span class=p>(</span>
 </span>      <span class=n>idFilter</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetCellData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;ids&quot;</span><span class=p>));</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;There are &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>cellIds</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; cell ids&quot;</span>
             <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>

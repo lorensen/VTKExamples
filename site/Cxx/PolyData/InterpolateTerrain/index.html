@@ -130,7 +130,7 @@ function registerListener(event, func) {
   <span class=n>probe</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
 <span class=hll>  <span class=n>vtkDataArray</span><span class=o>*</span> <span class=n>data</span> <span class=o>=</span> <span class=n>probe</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetScalars</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkDoubleArray</span><span class=o>*</span> <span class=n>doubleData</span> <span class=o>=</span> <span class=n>vtkDoubleArray</span><span class=o>::</span><span class=n>SafeDownCast</span> <span class=p>(</span><span class=n>data</span><span class=p>);</span>
+</span><span class=hll>  <span class=n>vtkDoubleArray</span><span class=o>*</span> <span class=n>doubleData</span> <span class=o>=</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkDoubleArray</span><span class=o>*&gt;</span> <span class=p>(</span><span class=n>data</span><span class=p>);</span>
 </span>
   <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>doubleData</span><span class=o>-&gt;</span><span class=n>GetNumberOfTuples</span><span class=p>();</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
   <span class=p>{</span>

@@ -132,8 +132,9 @@ function registerListener(event, func) {
   <span class=n>SetPulse</span><span class=p>();</span>
 
   <span class=c1>// STEP 1: Get the AMR dataset</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOverlappingAMR</span><span class=o>&gt;</span> <span class=n>amrDataSet</span> <span class=o>=</span> <span class=n>GetAMRDataSet</span><span class=p>();</span>
-</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOverlappingAMR</span><span class=o>&gt;</span> <span class=n>amrDataSet</span><span class=p>;</span>
+</span>  <span class=n>amrDataSet</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span><span class=n>GetAMRDataSet</span><span class=p>());</span>
+
   <span class=n>AMRCommon</span><span class=o>::</span><span class=n>WriteAMRData</span><span class=p>(</span><span class=n>amrDataSet</span><span class=p>,</span> <span class=s>&quot;Gaussian3D&quot;</span><span class=p>);</span>
   <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
 <span class=p>}</span>
@@ -198,8 +199,10 @@ function registerListener(event, func) {
     <span class=n>origin</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=n>origin</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>origin</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=o>-</span><span class=mf>2.0</span><span class=p>;</span>
     <span class=kt>int</span> <span class=n>blockId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
     <span class=kt>int</span> <span class=n>level</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>root</span> <span class=o>=</span> <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>);</span>
-</span><span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>root</span><span class=p>;</span>
+</span>    <span class=n>root</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span>
+      <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>));</span>
+<span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
 </span>    <span class=n>AttachPulseToGrid</span><span class=p>(</span><span class=n>root</span><span class=p>);</span>
     <span class=n>data</span><span class=o>-&gt;</span><span class=n>SetSpacing</span><span class=p>(</span><span class=n>level</span><span class=p>,</span> <span class=n>h</span><span class=p>);</span>
     <span class=n>data</span><span class=o>-&gt;</span><span class=n>SetAMRBox</span><span class=p>(</span><span class=n>level</span><span class=p>,</span> <span class=n>blockId</span><span class=p>,</span> <span class=n>box</span><span class=p>);</span>
@@ -212,8 +215,10 @@ function registerListener(event, func) {
     <span class=n>origin</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=n>origin</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>origin</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=o>-</span><span class=mf>2.0</span><span class=p>;</span>
     <span class=n>blockId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
     <span class=n>level</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid1</span> <span class=o>=</span> <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>);</span>
-</span><span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box1</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid1</span><span class=p>;</span>
+</span>    <span class=n>grid1</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span>
+      <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>));</span>
+<span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box1</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
 </span>      <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
     <span class=n>AttachPulseToGrid</span><span class=p>(</span><span class=n>grid1</span><span class=p>);</span>
     <span class=n>data</span><span class=o>-&gt;</span><span class=n>SetSpacing</span><span class=p>(</span><span class=n>level</span><span class=p>,</span> <span class=n>h</span><span class=p>);</span>
@@ -228,9 +233,11 @@ function registerListener(event, func) {
     <span class=n>origin</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>origin</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=o>-</span><span class=mf>1.0</span><span class=p>;</span>
     <span class=n>blockId</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
     <span class=n>level</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid2</span> <span class=o>=</span> <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>);</span>
-</span><span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box2</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
-</span>      <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid2</span><span class=p>;</span>
+</span>    <span class=n>grid2</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span>
+      <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>));</span>
+<span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box2</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
+</span>                   <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
     <span class=n>AttachPulseToGrid</span><span class=p>(</span><span class=n>grid2</span><span class=p>);</span>
     <span class=n>data</span><span class=o>-&gt;</span><span class=n>SetSpacing</span><span class=p>(</span><span class=n>level</span><span class=p>,</span> <span class=n>h</span><span class=p>);</span>
     <span class=n>data</span><span class=o>-&gt;</span><span class=n>SetAMRBox</span><span class=p>(</span><span class=n>level</span><span class=p>,</span> <span class=n>blockId</span><span class=p>,</span> <span class=n>box2</span><span class=p>);</span>
@@ -244,8 +251,9 @@ function registerListener(event, func) {
     <span class=n>origin</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>origin</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=o>-</span><span class=mf>1.0</span><span class=p>;</span>
     <span class=n>blockId</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
     <span class=n>level</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid3</span> <span class=o>=</span> <span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>);</span>
-</span><span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box3</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkUniformGrid</span><span class=o>&gt;</span> <span class=n>grid3</span><span class=p>;</span>
+</span>    <span class=n>grid3</span><span class=p>.</span><span class=n>TakeReference</span><span class=p>(</span><span class=n>AMRCommon</span><span class=o>::</span><span class=n>GetGrid</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>ndim</span><span class=p>));</span>
+<span class=hll>    <span class=n>vtkAMRBox</span> <span class=nf>box3</span><span class=p>(</span><span class=n>origin</span><span class=p>,</span> <span class=n>ndim</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetOrigin</span><span class=p>(),</span>
 </span>      <span class=n>data</span><span class=o>-&gt;</span><span class=n>GetGridDescription</span><span class=p>());</span>
     <span class=n>AttachPulseToGrid</span><span class=p>(</span><span class=n>grid3</span><span class=p>);</span>
     <span class=n>data</span><span class=o>-&gt;</span><span class=n>SetSpacing</span><span class=p>(</span><span class=n>level</span><span class=p>,</span> <span class=n>h</span><span class=p>);</span>
@@ -311,7 +319,7 @@ function registerListener(event, func) {
       <span class=n>myAMRReader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
 <span class=hll>      <span class=n>vtkHierarchicalBoxDataSet</span><span class=o>*</span> <span class=n>amrData</span> <span class=o>=</span>
-</span><span class=hll>        <span class=n>vtkHierarchicalBoxDataSet</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>myAMRReader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
+</span><span class=hll>        <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkHierarchicalBoxDataSet</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>myAMRReader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
 </span>      <span class=k>return</span> <span class=p>(</span><span class=n>amrData</span><span class=p>);</span>
     <span class=p>}</span>
 

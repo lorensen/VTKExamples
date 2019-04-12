@@ -129,7 +129,7 @@ function registerListener(event, func) {
       <span class=p>{</span>
         <span class=n>node</span> <span class=o>=</span> <span class=n>path</span><span class=o>-&gt;</span><span class=n>GetNextNode</span><span class=p>(</span> <span class=n>sit</span> <span class=p>);</span>
         <span class=n>pickedProp</span> <span class=o>=</span> <span class=n>node</span><span class=o>-&gt;</span><span class=n>GetViewProp</span><span class=p>();</span>
-<span class=hll>        <span class=k>if</span><span class=p>(</span> <span class=k>this</span><span class=o>-&gt;</span><span class=n>ImageActor</span> <span class=o>==</span> <span class=n>vtkImageActor</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span> <span class=n>pickedProp</span> <span class=p>)</span> <span class=p>)</span>
+<span class=hll>        <span class=k>if</span><span class=p>(</span> <span class=k>this</span><span class=o>-&gt;</span><span class=n>ImageActor</span> <span class=o>==</span> <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkImageActor</span><span class=o>*&gt;</span><span class=p>(</span> <span class=n>pickedProp</span> <span class=p>)</span> <span class=p>)</span>
 </span>        <span class=p>{</span>
           <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Correct actor picked.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
           <span class=n>validPick</span> <span class=o>=</span> <span class=nb>true</span><span class=p>;</span>
@@ -263,8 +263,10 @@ function registerListener(event, func) {
   <span class=s>vtkIOImage</span>
   <span class=s>vtkInteractionStyle</span>
   <span class=s>vtkInteractionWidgets</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ImageRegion: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

@@ -92,7 +92,7 @@ function registerListener(event, func) {
 </span>  <span class=n>layoutView</span><span class=o>-&gt;</span><span class=n>AddRepresentationFromInput</span><span class=p>(</span><span class=n>g</span><span class=p>);</span>
   <span class=n>layoutView</span><span class=o>-&gt;</span><span class=n>ScaledGlyphsOn</span><span class=p>();</span>
   <span class=n>layoutView</span><span class=o>-&gt;</span><span class=n>SetScalingArrayName</span><span class=p>(</span><span class=s>&quot;Scales&quot;</span><span class=p>);</span>
-<span class=hll>  <span class=n>vtkRenderedGraphRepresentation</span><span class=o>::</span><span class=n>SafeDownCast</span><span class=p>(</span><span class=n>layoutView</span><span class=o>-&gt;</span><span class=n>GetRepresentation</span><span class=p>())</span>
+<span class=hll>  <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkRenderedGraphRepresentation</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>layoutView</span><span class=o>-&gt;</span><span class=n>GetRepresentation</span><span class=p>())</span>
 </span><span class=hll>            <span class=o>-&gt;</span><span class=n>SetGlyphType</span><span class=p>(</span><span class=n>vtkGraphToGlyphs</span><span class=o>::</span><span class=n>CIRCLE</span><span class=p>);</span>
 </span>  <span class=n>layoutView</span><span class=o>-&gt;</span><span class=n>ResetCamera</span><span class=p>();</span>
   <span class=n>layoutView</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
@@ -109,8 +109,10 @@ function registerListener(event, func) {
   <span class=s>vtkCommonDataModel</span>
   <span class=s>vtkIOLegacy</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span>
   <span class=s>vtkViewsInfovis</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
