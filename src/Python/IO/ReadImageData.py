@@ -33,12 +33,13 @@ def main():
     actor.SetMapper(mapper)
     # show the edges of the image grid
     actor.GetProperty().SetRepresentationToWireframe()
+    actor.GetProperty().SetColor(colors.GetColor3d("DarkSalmon"))
 
     # Create the Renderer
     renderer = vtk.vtkRenderer()
     renderer.AddActor(actor)
     renderer.ResetCamera()
-    renderer.SetBackground(1, 1, 1)  # Set background to white
+    renderer.SetBackground(colors.GetColor3d("Silver"))
 
     # Create the RendererWindow
     renderer_window = vtk.vtkRenderWindow()
