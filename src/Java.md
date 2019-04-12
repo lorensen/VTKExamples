@@ -399,10 +399,13 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [Camera](/Java/Visualization/Camera) | vtkCamera | A virtual camera for 3D rendering.
 [CameraActor](/Java/Visualization/CameraActor) | vtkCameraActor | A frustum to represent a camera.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
+[CornerAnnotation](/Java/Visualization/CornerAnnotation) | vtkCornerAnnotation | Write text in the corners of a window.
+[ComplexV](/Java/Visualization/ComplexV) | vtkHedgeHog | ComplexV from the VTK Textbook.
 [Cursor2D](/Java/Visualization/Cursor2D) | vtkCursor2D | Generates a 2D Cursor Representation.
 [Cursor3D](/Java/Visualization/Cursor3D) | vtkCursor3D | Generates a 3D Cursor Representation
 [CursorShape](/Java/Visualization/CursorShape) | | Change the shape of the cursor. 
 [Cutter](/Java/VisualizationAlgorithms/Cutter) | vtkCutter | How to use vtkCutter by cutting through a cube.
+[DrawText](/Java/Visualization/DrawText) | vtkTextActor vtkTextProperty | Display Text.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [Legend](/Java/Visualization/Legend) | vtkLegendBoxActor | Draw symbols with text
 [LoopShrink](/Java/Visualization/LoopShrink) | vtkShrinkFilter| A network with a loop.
