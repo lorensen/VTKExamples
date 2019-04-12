@@ -42,8 +42,9 @@ int main (int argc, char *argv[])
   // Read texture file
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkSmartPointer<vtkImageReader2> imageReader =
-    readerFactory->CreateImageReader2(argv[1]);
+  vtkSmartPointer<vtkImageReader2> imageReader;
+  imageReader.TakeReference(
+    readerFactory->CreateImageReader2(argv[1]));
   imageReader->SetFileName(argv[1]);
 
   // Create texture

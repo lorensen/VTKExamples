@@ -36,7 +36,7 @@ template<class TReader> vtkDataSet *ReadAnXMLFile(const char*fileName)
   reader->SetFileName(fileName);
   reader->Update();
   reader->GetOutput()->Register(reader);
-  return vtkDataSet::SafeDownCast(reader->GetOutput());
+  return dynamic_cast<vtkDataSet*>(reader->GetOutput());
 }
 
 int main (int argc, char *argv[])
@@ -159,8 +159,9 @@ int main (int argc, char *argv[])
                   << " of type " << dataSet->GetFieldData()->GetArray(i)->GetClassName()
              << std::endl;
       }
-    }
+   }
+    dataSet->Delete();
     f++;
-  }
+   }
   return EXIT_SUCCESS;
 }

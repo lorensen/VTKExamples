@@ -52,7 +52,7 @@ int main (int argc, char *argv[])
     threshold->SetOutValue(0);
     threshold->ReplaceOutOn();
     threshold->Update();
-    imageMask = vtkImageData::SafeDownCast(threshold->GetOutput());
+    imageMask = dynamic_cast<vtkImageData*>(threshold->GetOutput());
   }
   vtkSmartPointer<vtkBoundedPointSource> pointSource =
     vtkSmartPointer<vtkBoundedPointSource>::New();
@@ -151,6 +151,6 @@ static vtkSmartPointer<vtkImageData> CreatePoints()
   threshold->SetOutValue(0);
   threshold->ReplaceOutOn();
   threshold->Update();
-  imageMask = vtkImageData::SafeDownCast(threshold->GetOutput());
+  imageMask = dynamic_cast<vtkImageData*>(threshold->GetOutput());
   return imageMask;
 }

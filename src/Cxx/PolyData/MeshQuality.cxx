@@ -34,7 +34,7 @@ int main(int, char *[])
   qualityFilter->Update();
 
   vtkSmartPointer<vtkDoubleArray> qualityArray =
-    vtkDoubleArray::SafeDownCast(qualityFilter->GetOutput()->GetCellData()->GetArray("Quality"));
+    dynamic_cast<vtkDoubleArray*>(qualityFilter->GetOutput()->GetCellData()->GetArray("Quality"));
 
   std::cout << "There are " << qualityArray->GetNumberOfTuples() << " values." << std::endl;
 

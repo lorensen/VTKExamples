@@ -17,7 +17,7 @@ int main(int, char *[])
   passThrough->SetInputConnection(sphereSource->GetOutputPort());
   passThrough->Update();
   
-  vtkSmartPointer<vtkPolyData> output = vtkPolyData::SafeDownCast(passThrough->GetOutput());
+  vtkSmartPointer<vtkPolyData> output = dynamic_cast<vtkPolyData*>(passThrough->GetOutput());
   
   std::cout << "Points after: " << output->GetNumberOfPoints() << std::endl;
   

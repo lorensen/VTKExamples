@@ -35,7 +35,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkGraphLayoutView>::New();
   graphLayoutView->AddRepresentationFromInput(graph);
   graphLayoutView->SetVertexLabelVisibility(true);
-  vtkRenderedGraphRepresentation::SafeDownCast(graphLayoutView->GetRepresentation())
+  dynamic_cast<vtkRenderedGraphRepresentation*>(graphLayoutView->GetRepresentation())
             ->GetVertexLabelTextProperty()->SetColor(1,0,0);
   graphLayoutView->SetLayoutStrategyToSimple2D();
   graphLayoutView->SetVertexLabelArrayName("VertexIDs");

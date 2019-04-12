@@ -22,10 +22,10 @@ int vtkTestGraphAlgorithmFilter::RequestData(vtkInformation *vtkNotUsed(request)
   vtkInformation *outInfo = outputVector->GetInformationObject(0);
 
   // get the input and ouptut
-  vtkGraph *input = vtkGraph::SafeDownCast(
+  vtkGraph *input = dynamic_cast<vtkGraph*>(
       inInfo->Get(vtkDataObject::DATA_OBJECT()));
 
-  vtkGraph *output = vtkGraph::SafeDownCast(
+  vtkGraph *output = dynamic_cast<vtkGraph*>(
                                     outInfo->Get(vtkDataObject::DATA_OBJECT()));
 
   vtkSmartPointer<vtkMutableDirectedGraph> mdg =

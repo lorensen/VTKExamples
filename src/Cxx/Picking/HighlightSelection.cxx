@@ -77,7 +77,7 @@ public:
       this->SelectedMapper->ScalarVisibilityOff();
 
       //        vtkIdTypeArray* ids =
-      //        vtkIdTypeArray::SafeDownCast(selected->GetPointData()->GetArray("OriginalIds"));
+      //        dynamic_cast<vtkIdTypeArray*>(selected->GetPointData()->GetArray("OriginalIds"));
 
       this->SelectedActor->GetProperty()->SetColor(
           colors->GetColor3d("Tomato").GetData());

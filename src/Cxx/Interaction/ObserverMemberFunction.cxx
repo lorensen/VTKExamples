@@ -75,7 +75,7 @@ int main(int, char *[])
   renderWindowInteractor->AddObserver(vtkCommand::KeyPressEvent, &myClass, &MyClass::KeypressCallbackFunction);
 
   vtkSmartPointer<MyInteractorStyle> style =
-    MyInteractorStyle::New();
+    vtkSmartPointer<MyInteractorStyle>::New();
   renderWindowInteractor->AddObserver(vtkCommand::KeyPressEvent, style, &MyInteractorStyle::KeypressCallbackFunction);
 
   vtkSmartPointer<MyInteractorStyle> style2 =

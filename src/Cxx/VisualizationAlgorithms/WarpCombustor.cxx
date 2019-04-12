@@ -44,7 +44,7 @@ int main (int argc, char *argv[])
   pl3d->Update();
 
   vtkStructuredGrid *pl3dOutput =
-    vtkStructuredGrid::SafeDownCast(pl3d->GetOutput()->GetBlock(0));
+    dynamic_cast<vtkStructuredGrid*>(pl3d->GetOutput()->GetBlock(0));
 
   // Planes are specified using a imin,imax, jmin,jmax, kmin,kmax coordinate
   // specification. Min and max i,j,k values are clamped to 0 and maximum value.

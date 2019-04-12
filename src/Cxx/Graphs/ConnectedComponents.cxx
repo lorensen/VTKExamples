@@ -27,7 +27,7 @@ int main ( int, char *[] )
 
   vtkGraph* outputGraph = connectedComponents->GetOutput();
 
-  vtkIntArray* components = vtkIntArray::SafeDownCast(
+  vtkIntArray* components = dynamic_cast<vtkIntArray*>(
     outputGraph->GetVertexData()->GetArray("component"));
 
   for(vtkIdType i = 0; i < components->GetNumberOfTuples(); i++)

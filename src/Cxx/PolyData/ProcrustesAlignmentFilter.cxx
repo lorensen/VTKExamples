@@ -95,7 +95,7 @@ int main(int, char *[])
       vtkSmartPointer<vtkDataSetMapper>::New();
  
   procrustes1->Update();
-  map2a->SetInputData(vtkDataSet::SafeDownCast(procrustes1->GetOutput()->GetBlock(0)));
+  map2a->SetInputData(dynamic_cast<vtkDataSet*>(procrustes1->GetOutput()->GetBlock(0)));
 
   vtkSmartPointer<vtkActor> Actor2a = 
       vtkSmartPointer<vtkActor>::New();
@@ -105,7 +105,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkDataSetMapper> map2b =
       vtkSmartPointer<vtkDataSetMapper>::New();
   procrustes1->Update();
-  map2b->SetInputData(vtkDataSet::SafeDownCast(procrustes1->GetOutput()->GetBlock(1)));
+  map2b->SetInputData(dynamic_cast<vtkDataSet*>(procrustes1->GetOutput()->GetBlock(1)));
 
   vtkSmartPointer<vtkActor> Actor2b =
     vtkSmartPointer<vtkActor>::New();
@@ -115,7 +115,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkDataSetMapper> map2c =
       vtkSmartPointer<vtkDataSetMapper>::New();
   procrustes1->Update();
-  map2c->SetInputData(vtkDataSet::SafeDownCast(procrustes1->GetOutput()->GetBlock(2)));
+  map2c->SetInputData(dynamic_cast<vtkDataSet*>(procrustes1->GetOutput()->GetBlock(2)));
 
   vtkSmartPointer<vtkActor> Actor2c = 
       vtkSmartPointer<vtkActor>::New();
@@ -131,7 +131,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkDataSetMapper> map3a =
       vtkSmartPointer<vtkDataSetMapper>::New();
   procrustes2->Update();
-  map3a->SetInputData(vtkDataSet::SafeDownCast(procrustes2->GetOutput()->GetBlock(0)));
+  map3a->SetInputData(dynamic_cast<vtkDataSet*>(procrustes2->GetOutput()->GetBlock(0)));
 
   vtkSmartPointer<vtkActor> Actor3a =
       vtkSmartPointer<vtkActor>::New();
@@ -141,7 +141,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkDataSetMapper> map3b =
       vtkSmartPointer<vtkDataSetMapper>::New();
   procrustes2->Update();
-  map3b->SetInputData(vtkDataSet::SafeDownCast(procrustes2->GetOutput()->GetBlock(1)));
+  map3b->SetInputData(dynamic_cast<vtkDataSet*>(procrustes2->GetOutput()->GetBlock(1)));
 
   vtkSmartPointer<vtkActor> Actor3b =
       vtkSmartPointer<vtkActor>::New();
@@ -151,7 +151,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkDataSetMapper> map3c =
       vtkSmartPointer<vtkDataSetMapper>::New();
   procrustes2->Update();
-  map3c->SetInputData(vtkDataSet::SafeDownCast(procrustes2->GetOutput()->GetBlock(2)));
+  map3c->SetInputData(dynamic_cast<vtkDataSet*>(procrustes2->GetOutput()->GetBlock(2)));
 
   vtkSmartPointer<vtkActor> Actor3c =
       vtkSmartPointer<vtkActor>::New();

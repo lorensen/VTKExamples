@@ -47,7 +47,7 @@ int main (int argc, char *argv[])
   pl3d->Update();
 
   vtkStructuredGrid* pl3d_output =
-    vtkStructuredGrid::SafeDownCast(pl3d->GetOutput()->GetBlock(0));
+    dynamic_cast<vtkStructuredGrid*>(pl3d->GetOutput()->GetBlock(0));
 
 // Create three the line source to use for the probe lines.
   vtkSmartPointer<vtkLineSource> line =

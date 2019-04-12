@@ -38,7 +38,7 @@ int main(int, char *[])
   vectorNorm->SetInputData(polydata);
   vectorNorm->Update();
 
-  vtkFloatArray* scalars = vtkFloatArray::SafeDownCast ( vectorNorm->GetOutput()->GetPointData()->GetScalars() );
+  vtkFloatArray* scalars = dynamic_cast<vtkFloatArray*> ( vectorNorm->GetOutput()->GetPointData()->GetScalars() );
 
   for(vtkIdType i = 0; i < scalars->GetNumberOfTuples(); i++)
   {

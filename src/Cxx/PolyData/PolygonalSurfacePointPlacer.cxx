@@ -72,7 +72,7 @@ int main(int, char *[])
   contourWidget->AddObserver(vtkCommand::InteractionEvent,callback);
   
   vtkOrientedGlyphContourRepresentation* rep = 
-    vtkOrientedGlyphContourRepresentation::SafeDownCast(
+    dynamic_cast<vtkOrientedGlyphContourRepresentation*>(
     contourWidget->GetRepresentation());
 
   vtkSmartPointer<vtkPolygonalSurfacePointPlacer> pointPlacer =

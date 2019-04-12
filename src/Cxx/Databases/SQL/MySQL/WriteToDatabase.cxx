@@ -9,7 +9,7 @@ int main(int, char *[])
   // mysql://'[[username[':'password]'@']hostname[':'port]]'/'[dbname]
 
   vtkSmartPointer<vtkMySQLDatabase> db =
-    vtkSmartPointer<vtkMySQLDatabase>::Take(vtkMySQLDatabase::SafeDownCast(
+    vtkSmartPointer<vtkMySQLDatabase>::Take(dynamic_cast<vtkMySQLDatabase*>(
             vtkSQLDatabase::CreateFromURL( "mysql://root@localhost/TestDatabase" ) ));
 
   bool status = db->Open();

@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
   pl3d->Update();
 
   vtkStructuredGrid* pl3dOutput =
-    vtkStructuredGrid::SafeDownCast(pl3d->GetOutput()->GetBlock(0));
+    dynamic_cast<vtkStructuredGrid*>(pl3d->GetOutput()->GetBlock(0));
 
   // What do we know about the data?
   // Get the extent of the data: imin,imax, jmin,jmax, kmin,kmax

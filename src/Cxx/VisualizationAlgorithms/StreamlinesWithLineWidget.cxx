@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
   pl3d->Update();
 
   vtkStructuredGrid* pl3d_output =
-    vtkStructuredGrid::SafeDownCast(pl3d->GetOutput()->GetBlock(0));
+    dynamic_cast<vtkStructuredGrid*>(pl3d->GetOutput()->GetBlock(0));
 
   // Create the Renderer, RenderWindow and RenderWindowInteractor.
   vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();

@@ -103,7 +103,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
-  vtkInteractorStyleSwitch::SafeDownCast(
+  dynamic_cast<vtkInteractorStyleSwitch*>(
     renderWindowInteractor->GetInteractorStyle())->SetCurrentStyleToTrackballCamera();
 
   // Create an affine widget to manipulate the actor
@@ -112,12 +112,12 @@ int main(int, char *[])
     vtkSmartPointer<vtkAffineWidget>::New();
   affineWidget->SetInteractor(renderWindowInteractor);
   affineWidget->CreateDefaultRepresentation();
-  vtkAffineRepresentation2D::SafeDownCast(affineWidget->GetRepresentation())->PlaceWidget(actor->GetBounds());
+  dynamic_cast<vtkAffineRepresentation2D*>(affineWidget->GetRepresentation())->PlaceWidget(actor->GetBounds());
 
   vtkSmartPointer<vtkAffineCallback> affineCallback =
       vtkSmartPointer<vtkAffineCallback>::New();
   affineCallback->Actor = actor;
-  affineCallback->AffineRep = vtkAffineRepresentation2D::SafeDownCast(affineWidget->GetRepresentation());
+  affineCallback->AffineRep = dynamic_cast<vtkAffineRepresentation2D*>(affineWidget->GetRepresentation());
 
   affineWidget->AddObserver(vtkCommand::InteractionEvent,affineCallback);
   affineWidget->AddObserver(vtkCommand::EndInteractionEvent,affineCallback);

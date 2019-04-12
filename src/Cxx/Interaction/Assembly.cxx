@@ -73,7 +73,7 @@ int main(int, char *[])
   collection->InitTraversal();
   for(vtkIdType i = 0; i < collection->GetNumberOfItems(); i++)
   {
-    vtkActor::SafeDownCast(collection->GetNextProp())->GetProperty()->SetOpacity(0.5);
+    dynamic_cast<vtkActor*>(collection->GetNextProp())->GetProperty()->SetOpacity(0.5);
   }
 
   // Visualization

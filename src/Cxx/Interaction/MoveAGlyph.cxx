@@ -77,7 +77,7 @@ public:
     this->MoveActor->VisibilityOn();
     if(static_cast<vtkCellPicker*>(this->InteractionPicker)->GetPointId() >= 0)
     {
-      vtkIdType id = vtkIdTypeArray::SafeDownCast(this->GlyphData->GetPointData()->GetArray("InputPointIds"))
+      vtkIdType id = dynamic_cast<vtkIdTypeArray*>(this->GlyphData->GetPointData()->GetArray("InputPointIds"))
         ->GetValue(static_cast<vtkCellPicker*>(this->InteractionPicker)->GetPointId());
       std::cout << "Id: " << id << std::endl;
       this->Move = true;

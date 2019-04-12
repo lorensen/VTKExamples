@@ -49,7 +49,7 @@ int main(int, char *[])
   renderWindow->AddRenderer( renderer );
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  vtkInteractorStyle::SafeDownCast(renderWindowInteractor->GetInteractorStyle())->AutoAdjustCameraClippingRangeOn();
+  dynamic_cast<vtkInteractorStyle*>(renderWindowInteractor->GetInteractorStyle())->AutoAdjustCameraClippingRangeOn();
   renderWindowInteractor->SetRenderWindow( renderWindow );
 
   // Add the actor to the scene

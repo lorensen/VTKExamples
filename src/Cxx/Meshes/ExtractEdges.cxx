@@ -37,7 +37,7 @@ int main(int, char *[])
   for(vtkIdType i = 0; i < extractEdges->GetOutput()->GetNumberOfCells(); i++)
   {
     //std::cout << "Type: " << extractEdges->GetOutput()->GetCell(i)->GetClassName() << std::endl;
-    vtkSmartPointer<vtkLine> line = vtkLine::SafeDownCast(extractEdges->GetOutput()->GetCell(i));
+    vtkSmartPointer<vtkLine> line = dynamic_cast<vtkLine*>(extractEdges->GetOutput()->GetCell(i));
     std::cout << "Line " << i << " : " << *line << std::endl;
   }
 

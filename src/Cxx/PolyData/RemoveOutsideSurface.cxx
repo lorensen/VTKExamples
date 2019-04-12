@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
     cellId);
 
   vtkIdTypeArray *cd =
-    vtkIdTypeArray::SafeDownCast(connectivityFilter->GetOutput()->GetCellData()->GetScalars());
+    dynamic_cast<vtkIdTypeArray*>(connectivityFilter->GetOutput()->GetCellData()->GetScalars());
   vtkIdType outsideRegionId = cd->GetTuple1(cellId);
   std::cout << "Id of cell on outside surface: " << cellId << std::endl;
   std::cout << "CellData at " << cellId << ": " << outsideRegionId << std::endl;
@@ -130,8 +130,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkGenericCell> cell =
     vtkSmartPointer<vtkGenericCell>::New();
-  vtkSmartPointer<vtkCellIterator> it =
-    connectivityFilter->GetOutput()->NewCellIterator();
+  auto it = connectivityFilter->GetOutput()->NewCellIterator();
   vtkIdType originalCellId = 0;
   for (it->InitTraversal();
        !it->IsDoneWithTraversal();
@@ -144,6 +143,7 @@ int main(int argc, char *argv[])
       insidePolyData->InsertNextCell(it->GetCellType(), cell->GetPointIds());
     }
   }
+  it->Delete();
 
   // Create a mapper and actor for original data
   vtkSmartPointer<vtkPolyDataMapper> originalMapper =

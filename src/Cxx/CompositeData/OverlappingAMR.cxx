@@ -6,8 +6,8 @@
 #include <vtkContourFilter.h>
 #include <vtkFloatArray.h>
 #include <vtkCompositeDataGeometryFilter.h>
-#include <vtkOutlineFilter.h>
 #include <vtkOverlappingAMR.h>
+#include <vtkOutlineFilter.h>
 #include <vtkPointData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderer.h>
@@ -127,9 +127,9 @@ int main (int, char *[])
   amr->SetDataSet(1, 1, ug3);
   
   amr->SetRefinementRatio(0, 2);
+
   vtkAMRUtilities::BlankCells(amr);
   
-  // Render the amr data here
   vtkSmartPointer<vtkOutlineFilter> of = 
     vtkSmartPointer<vtkOutlineFilter>::New();
   of->SetInputData(amr);
@@ -164,7 +164,7 @@ int main (int, char *[])
   vtkSmartPointer<vtkPolyDataMapper> mapper = 
     vtkSmartPointer<vtkPolyDataMapper>::New();
   
-  mapper->SetInputConnection(geomFilter->GetOutputPort());
+  mapper->SetInputConnection(of->GetOutputPort());
   
   vtkSmartPointer<vtkActor> actor1 =
     vtkSmartPointer<vtkActor>::New();

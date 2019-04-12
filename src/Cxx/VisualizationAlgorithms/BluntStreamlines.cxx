@@ -49,7 +49,7 @@ int main(int argc, char *argv[] )
   reader->Update(); //force a read to occur
 
   vtkStructuredGrid *pd =
-    vtkStructuredGrid::SafeDownCast(reader->GetOutput()->GetBlock(0));
+    dynamic_cast<vtkStructuredGrid*>(reader->GetOutput()->GetBlock(0));
   pd->GetCenter(c);
   if ( pd->GetPointData()->GetScalars() )
   {

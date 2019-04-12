@@ -69,20 +69,28 @@
 
 namespace {
 
-// Holds the arguments from the command line as a map of maps.
-// e.g. name,(true|false,[value_0 ... value_n])
+// Holds the arguments from the command line as a map.
+// e.g. key = name; value = (true|false,[value_0 ... value_n])
 typedef std::map<std::string, std::pair<bool, std::vector<std::string>>>
     TCmdArgs;
 
-class ComandLineParser
+class CommandLineParser
 {
 public:
-  ComandLineParser(std::vector<std::string>& argvArgs,
-                   std::map<std::string, std::string>& argNKV,
-                   std::map<std::string, std::string>& argKV,
-                   std::string const & positionalKName = "_PKN");
+  /**
+   * @param argvArgs: the command line arguments as a vector of strings.
+   * @param optArgs: the non-positional keys and their value.
+   * @param optArgsParam: the non-positional keys that have parameters and their
+   * value.
+   * @param posNum: the expected number of positional variables.
+   * @param posNumKName: the name of the positional values.
+   */
+  CommandLineParser(std::vector<std::string>& argvArgs,
+                    std::map<std::string, std::string>& optArgs,
+                    std::map<std::string, std::string>& optArgsParam,
+                    int posNum = 0, std::string const& posName = "_PKN");
 
-  ~ComandLineParser();
+  ~CommandLineParser();
 
 public:
   /**
@@ -115,15 +123,36 @@ public:
    */
   std::string getPositionalKeyName()
   {
-    return this->positionalKName;
+    return this->posName;
   }
 
   /**
-   * @return A string of the parsed command argments.
+   * @return A string of the parsed command arguments.
    */
-  std::string DisplayComandArguments();
+  std::string DisplayCommandArguments();
 
 private:
+  /**
+   * Separate the key from the value, e.g -kv -> k v.
+   *
+   * @return The vector with the keys separated from their value(s).
+   */
+  std::vector<std::string> SeparateKV();
+
+  /**
+   * Find any unknown non-positional keys.
+   *
+   * @return If unknown keys were found, true is returned.
+   */
+  bool HasUnknownKeys();
+
+  /**
+   * Find any duplicate non-positional keys.
+   *
+   * @return If duplicate keys were found, true is returned.
+   */
+  bool HasDuplicateKeys();
+
   /**
    * Take a map and get the set of values in the map.
    *
@@ -133,13 +162,26 @@ private:
   template <typename K, typename V>
   void GetSetOfValues(std::map<K, V> const& m, std::set<V>& s);
 
+  /**
+   * Build a map of aliases for the keys from the key/value pairs.
+   *
+   * @param m: A map of key, value pairs.
+   * @param aliases: A map of aliases keyed by value.
+   */
+  template <typename K, typename V>
+  void FindAliases(std::map<K, V> m,
+                   std::map<V, std::pair<std::vector<K>, int>>& aliases);
+
 private:
   TCmdArgs cmdArgs;
+  std::map<std::string, std::pair<std::vector<std::string>, int>> aliases;
   std::vector<std::string> cmdLineVec;
-  std::map<std::string, std::string>& argNKV;
-  std::map<std::string, std::string>& argKV;
-  std::string positionalKName;
+  std::map<std::string, std::string>& optArgs;
+  std::map<std::string, std::string>& optArgsParam;
+  int posNum;
+  std::string posName;
   std::string parseError;
+  std::vector<std::string> cl;
 };
 
 /**
@@ -204,19 +246,19 @@ int main(int argc, char* argv[])
   // key: Optional arguments such as -f or --foo with no parameters.
   // value: A suitable name. For the keys -f or --foo, the name would be the
   // same e.g f.
-  std::map<std::string, std::string> argNKV;
+  std::map<std::string, std::string> optArgs;
   // key: Optional arguments requiring one or more paramters such as -s fn or
   // --some_file fn. value: A suitable name. For the keys -s or --some_file, the
   // name would be the same e.g s. To handle non-optional arguments we use a
   // special key: _PKN (which can be user defined).
-  std::map<std::string, std::string> argKV;
+  std::map<std::string, std::string> optArgsParam;
 
   // Specify key/value pairs for the arguments we want.
-  argNKV["-b"] = "b";
-  argNKV["-n"] = "n";
-  argNKV["-w"] = "w";
-
-  argKV["-s"] = "s";
+  optArgs["-b"] = "b";
+  optArgs["-n"] = "n";
+  optArgs["-w"] = "w";
+  // These are followed by one or more parameters on the command line.
+  optArgsParam["-s"] = "s";
 
   // The command line arguments
   std::vector<std::string> cmdVec;
@@ -225,7 +267,7 @@ int main(int argc, char* argv[])
     cmdVec.push_back(argv[i]);
   }
 
-  ComandLineParser clp(cmdVec, argNKV, argKV);
+  CommandLineParser clp(cmdVec, optArgs, optArgsParam);
   if (!cmdVec.empty())
   {
     // Usually -h and --help are reserved for help.
@@ -245,6 +287,7 @@ int main(int argc, char* argv[])
     }
   }
   TCmdArgs cmdArgs = clp.GetCommandArguments();
+  // std::cout << clp.DisplayCommandArguments() << std::endl;
 
   std::pair<std::string, int> singleSurface;
   if (cmdArgs["s"].first)
@@ -658,7 +701,7 @@ double GetMaximumLength(const std::vector<double>& bounds)
   {
     return maxLen;
   }
-  for (auto i = 0; i < bounds.size(); i += 2)
+  for (auto i = 0; i < int(bounds.size()); i += 2)
   {
     maxLen = std::max(maxLen, std::abs(bounds[i + 1] - bounds[i]));
   }
@@ -770,115 +813,165 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
   return;
 }
 
-ComandLineParser::ComandLineParser(std::vector<std::string>& cmdLineVec,
-                                   std::map<std::string, std::string>& argNKV,
-                                   std::map<std::string, std::string>& argKV,
-                                   std::string const & posArgName)
+CommandLineParser::CommandLineParser(
+    std::vector<std::string>& cmdLineVec,
+    std::map<std::string, std::string>& optArgs,
+    std::map<std::string, std::string>& optArgsParam, int posNum,
+    std::string const& posName)
   : cmdLineVec(cmdLineVec),
-    argNKV(argNKV),
-    argKV(argKV),
-    positionalKName(posArgName)
+    optArgs(optArgs),
+    optArgsParam(optArgsParam),
+    posNum(posNum),
+    posName(posName)
 {
   // Make a set of all the values.
   std::set<std::string> pVals;
-
-  this->GetSetOfValues(this->argNKV, pVals);
-  this->GetSetOfValues(this->argKV, pVals);
+  this->GetSetOfValues(this->optArgs, pVals);
+  this->GetSetOfValues(this->optArgsParam, pVals);
 
   // Set the default arguments
   for (auto p : pVals)
   {
     this->cmdArgs[p].first = false;
   }
+
+  // Get the aliases
+  this->FindAliases(this->optArgsParam, this->aliases);
+  this->FindAliases(this->optArgs, this->aliases);
+
+  cl = this->SeparateKV();
 }
 
-ComandLineParser::~ComandLineParser() = default;
+CommandLineParser::~CommandLineParser() = default;
 
-bool ComandLineParser::Parse()
+std::vector<std::string> CommandLineParser::SeparateKV()
+{
+  // For keys with parameters, short commands like -xy need to be split into
+  // -x y.
+  std::vector<std::string> cl;
+  if (!this->optArgsParam.empty())
+  {
+    for (auto v : this->cmdLineVec)
+    {
+      auto a = v.substr(0, 2);
+      if (this->optArgsParam.count(a) > 0 && v.size() > 2)
+      {
+        cl.push_back(a);
+        cl.push_back(v.substr(2));
+      }
+      else
+      {
+        cl.push_back(v);
+      }
+    }
+  }
+  return cl;
+}
+
+bool CommandLineParser::HasUnknownKeys()
+{
+  auto hasKV = !this->optArgsParam.empty();
+  auto hasNKV = !this->optArgs.empty();
+  std::vector<std::string> unknownKeys;
+  for (auto v : this->cl)
+  {
+    if (v[0] == '-' || v.substr(0, 2) == "--")
+    {
+      if ((hasKV && this->optArgsParam.count(v) > 0) ||
+          (hasNKV && this->optArgs.count(v) > 0))
+      {
+        continue;
+      }
+      else
+      {
+        unknownKeys.push_back(v);
+      }
+    }
+  }
+  if (unknownKeys.size() > 0)
+  {
+    std::ostringstream os;
+    os << "Unknown parameters found: ";
+    std::copy(std::begin(unknownKeys), std::prev(std::end(unknownKeys)),
+              std::ostream_iterator<std::string>(os, ", "));
+    os << unknownKeys.back();
+    this->parseError = os.str();
+    return true;
+  }
+  return false;
+}
+
+bool CommandLineParser::HasDuplicateKeys()
+{
+  // Look for duplicate non-positional parameters.
+  for (auto k : this->optArgsParam)
+  {
+    auto c = std::count(this->cl.begin(), this->cl.end(), k.first);
+    this->aliases[k.second].second += int(c);
+  }
+  for (auto k : this->optArgs)
+  {
+    auto c = std::count(this->cl.begin(), this->cl.end(), k.first);
+    this->aliases[k.second].second += int(c);
+  }
+  std::map<std::string, std::vector<std::string>> duplicates;
+  for (auto v : this->aliases)
+  {
+    if (v.second.second > 1)
+    {
+      duplicates[v.first] = v.second.first;
+    }
+  }
+  if (duplicates.size() > 0)
+  {
+    std::ostringstream os;
+    os << "Duplicated parameters found: ";
+    for (auto d : duplicates)
+    {
+      os << "(";
+      std::copy(std::begin(d.second), std::prev(std::end(d.second)),
+                std::ostream_iterator<std::string>(os, ", "));
+      os << d.second.back();
+      os << ") ";
+    }
+    // Get rid of trailing spaces
+    auto last = os.str().find_last_not_of(' ');
+    this->parseError = os.str().substr(0, last + 1);
+    return true;
+  }
+  return false;
+}
+
+bool CommandLineParser::Parse()
 {
   this->parseError.clear();
-  std::vector<std::string> cl;
-  if (!this->cmdLineVec.empty())
+
+  if (!this->cl.empty())
   {
-    auto hasKV = !this->argKV.empty();
-    auto hasNKV = !this->argNKV.empty();
-    // Commands like -xy need to be split into -x, y
-    if (hasKV)
+    if (HasUnknownKeys() || HasDuplicateKeys())
     {
-      for (auto v : this->cmdLineVec)
-      {
-        auto a = v.substr(0, 2);
-        if (this->argKV.count(a) > 0 && v.size() > 2)
-        {
-          cl.push_back(a);
-          cl.push_back(v.substr(2));
-        }
-        else
-        {
-          cl.push_back(v);
-        }
-      }
-    }
-    // Now validate non-positional parmeters.
-    for (auto v : cl)
-    {
-      if (v[0] == '-' || v.substr(0, 2) == "--")
-      {
-        if ((hasKV && this->argKV.count(v) > 0) ||
-            (hasNKV && this->argNKV.count(v) > 0))
-        {
-          continue;
-        }
-        else
-        {
-          std::ostringstream os;
-          os << "Unknown key: " << v << "\n";
-          this->parseError = os.str();
-          return false;
-        }
-      }
-    }
-    // Look for duplicate non-positional parmeters.
-    for (auto k : this->argKV)
-    {
-      if (std::count(cl.begin(), cl.end(), k.first) > 1)
-      {
-        std::ostringstream os;
-        os << "Duplicate key: " << k.first;
-        this->parseError = os.str();
-        return false;
-      }
-    }
-    for (auto k : this->argNKV)
-    {
-      if (std::count(cl.begin(), cl.end(), k.first) > 1)
-      {
-        std::ostringstream os;
-        os << "Duplicate key: " << k.first;
-        this->parseError = os.str();
-        return false;
-      }
+      return false;
     }
 
     std::vector<std::string> positionalArguments;
-    for (auto it = cl.begin(); it != cl.end(); ++it)
+    for (auto it = this->cl.begin(); it != this->cl.end(); ++it)
     {
-      if (!this->argNKV.empty())
+      if (!this->optArgs.empty())
       {
-        if (this->argNKV.count(*it) > 0)
+        if (this->optArgs.count(*it) > 0)
         {
-          this->cmdArgs[this->argNKV[*it]].first = true;
+          this->cmdArgs[this->optArgs[*it]].first = true;
           continue;
         }
       }
-      if (!this->argKV.empty())
+      if (!this->optArgsParam.empty())
       {
-        if (this->argKV.count(*it) > 0)
+        if (this->optArgsParam.count(*it) > 0)
         {
-          if (std::next(it) != cl.end())
+          if (std::next(it) != this->cl.end())
           {
-            auto key = this->argKV[*it];
-            while (std::next(it) != cl.end())
+            auto key = this->optArgsParam[*it];
+            while (std::next(it) != this->cl.end())
             {
               if ((*std::next(it))[0] == '-')
               {
@@ -925,20 +1018,28 @@ bool ComandLineParser::Parse()
       }
       positionalArguments.push_back(*it);
     }
+    if (this->posNum != int(positionalArguments.size()))
+    {
+      std::ostringstream os;
+      os << "Expected " << this->posNum << " positional arguments, got "
+         << positionalArguments.size() << " instead.";
+      this->parseError = os.str();
+      return false;
+    }
     if (!positionalArguments.empty())
     {
-      this->cmdArgs[positionalKName].first = true;
-      this->cmdArgs[positionalKName].second = positionalArguments;
+      this->cmdArgs[this->posName].first = true;
+      this->cmdArgs[this->posName].second = positionalArguments;
     }
     else
     {
-      this->cmdArgs[positionalKName].first = false;
+      this->cmdArgs[this->posName].first = false;
     }
   }
   return true;
 }
 
-std::string ComandLineParser::DisplayComandArguments()
+std::string CommandLineParser::DisplayCommandArguments()
 {
   std::vector<std::string> setParameters;
   std::vector<std::string> unSetParameters;
@@ -1003,11 +1104,34 @@ std::string ComandLineParser::DisplayComandArguments()
 }
 
 template <typename K, typename V>
-void ComandLineParser::GetSetOfValues(std::map<K, V> const& m, std::set<V>& s)
+void CommandLineParser::GetSetOfValues(std::map<K, V> const& m, std::set<V>& s)
 {
   std::for_each(m.begin(), m.end(), [&](const std::pair<const K, V>& element) {
     s.insert(element.second);
   });
+}
+
+template <typename K, typename V>
+void CommandLineParser::FindAliases(
+    std::map<K, V> m, std::map<V, std::pair<std::vector<K>, int>>& aliases)
+{
+  std::set<V> values;
+  this->GetSetOfValues(m, values);
+  for (auto v : values)
+  {
+    std::vector<K> a;
+    for (auto it : m)
+    {
+      if (it.second == v)
+      {
+        a.push_back(it.first);
+      }
+    }
+    if (a.size() > 0)
+    {
+      aliases[v] = std::pair<std::vector<K>, int>(a, 0);
+    }
+  }
 }
 
 } // namespace

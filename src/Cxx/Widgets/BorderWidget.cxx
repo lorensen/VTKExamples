@@ -37,7 +37,7 @@ vtkCustomBorderWidget::vtkCustomBorderWidget()
 void vtkCustomBorderWidget::EndSelectAction(vtkAbstractWidget *w)
 {
   vtkBorderWidget *borderWidget =
-    vtkBorderWidget::SafeDownCast(w);
+    dynamic_cast<vtkBorderWidget*>(w);
 
   // Get the actual box coordinates/planes
   vtkSmartPointer<vtkPolyData> polydata =

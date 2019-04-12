@@ -39,8 +39,9 @@ int main( int argc, char *argv[] )
   // Read an image
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkSmartPointer<vtkImageReader2> reader =
-    readerFactory->CreateImageReader2(argv[1]);
+  vtkSmartPointer<vtkImageReader2> reader;
+  reader.TakeReference(
+    readerFactory->CreateImageReader2(argv[1]));
   reader->SetFileName(argv[1]);
   reader->Update();
 

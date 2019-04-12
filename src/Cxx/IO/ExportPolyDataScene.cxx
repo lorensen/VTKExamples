@@ -203,7 +203,7 @@ void ExportMultiBlockScene (vtkRenderer *renderer,
     // Deep copy the polydata because it may be shared with other actors
     vtkSmartPointer<vtkPolyData> pd =
       vtkSmartPointer<vtkPolyData>::New();
-    pd->DeepCopy(vtkPolyData::SafeDownCast(actor->GetMapper()->GetInput()));
+    pd->DeepCopy(dynamic_cast<vtkPolyData*>(actor->GetMapper()->GetInput()));
 
     // Set metadata for block
     multiBlockDataset->SetBlock(a, pd);
@@ -222,7 +222,7 @@ void ExportMultiBlockScene (vtkRenderer *renderer,
                             pd);
     // Save Mapper
     SaveMapperAsFieldData("PolyDataMapper",
-                          vtkPolyDataMapper::SafeDownCast(actor->GetMapper()),
+                          dynamic_cast<vtkPolyDataMapper*>(actor->GetMapper()),
                           pd);
     // Save Actor
     SaveActorAsFieldData("Actor",
@@ -326,7 +326,7 @@ void SaveMapperAsFieldData(std::string arrayPrefix,
     SAVE_SCALAR(prefix, scalarsToColors, pd, VectorSize, vtkIntArray);
     SAVE_SCALAR(prefix, scalarsToColors, pd, IndexedLookup, vtkIntArray);
 
-    vtkLookupTable *lut = vtkLookupTable::SafeDownCast(mapper->GetLookupTable());
+    vtkLookupTable *lut = dynamic_cast<vtkLookupTable*>(mapper->GetLookupTable());
     SAVE_VECTOR(prefix, lut, pd, TableRange, vtkDoubleArray, 2, 1);
     SAVE_SCALAR(prefix, lut, pd, Scale, vtkIntArray);
     SAVE_VECTOR(prefix, lut, pd, HueRange, vtkDoubleArray, 2, 1);
@@ -345,8 +345,8 @@ void SaveMapperAsFieldData(std::string arrayPrefix,
     vtkSmartPointer<vtkUnsignedCharArray> Table =
       vtkSmartPointer<vtkUnsignedCharArray>::New();
 //    Table->SetNumberOfComponents(4);
-//    Table->SetNumberOfTuples(vtkLookupTable::SafeDownCast(lut)->GetTable()->GetNumberOfTuples());
-    Table->DeepCopy(vtkLookupTable::SafeDownCast(lut)->GetTable());
+//    Table->SetNumberOfTuples(dynamic_cast<vtkLookupTable*>(lut)->GetTable()->GetNumberOfTuples());
+    Table->DeepCopy(dynamic_cast<vtkLookupTable*>(lut)->GetTable());
     Table->SetName(std::string(arrayPrefix + ":LookupTable:" + "Table").c_str());
     pd->GetFieldData()->AddArray(Table);
 

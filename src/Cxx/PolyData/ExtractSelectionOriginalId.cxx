@@ -64,7 +64,7 @@ int main(int, char *[])
 
   selected->Print(std::cout);
 
-  vtkIdTypeArray* originalIds = vtkIdTypeArray::SafeDownCast(selected->GetPointData()->GetArray("vtkOriginalPointIds"));
+  vtkIdTypeArray* originalIds = dynamic_cast<vtkIdTypeArray*>(selected->GetPointData()->GetArray("vtkOriginalPointIds"));
 
   for(vtkIdType i = 0; i < originalIds->GetNumberOfTuples(); i++)
   {

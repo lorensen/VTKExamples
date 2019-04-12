@@ -63,6 +63,7 @@ int main (int, char *[])
     cellMap[cell->GetRepresentativeCell()->GetClassName()]++;
     ++numTets;
   }
+  it->Delete();
 
   vtkSmartPointer<vtkDataSetMapper> mapper = 
     vtkSmartPointer<vtkDataSetMapper>::New();

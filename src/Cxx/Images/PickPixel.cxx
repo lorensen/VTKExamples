@@ -67,7 +67,7 @@ public:
       vtkRenderer* renderer = this->Viewer->GetRenderer();
       vtkImageActor* actor = this->Viewer->GetImageActor();
       vtkImageData* image = this->Viewer->GetInput();
-      vtkInteractorStyle *style = vtkInteractorStyle::SafeDownCast(
+      vtkInteractorStyle *style = dynamic_cast<vtkInteractorStyle*>(
           interactor->GetInteractorStyle());
 
       // Pick at the mouse location provided by the interactor
@@ -88,7 +88,7 @@ public:
         for( int i = 0; i < path->GetNumberOfItems() && !validPick; ++i )
         {
           node = path->GetNextNode( sit );
-          if( actor == vtkImageActor::SafeDownCast( node->GetViewProp() ) )
+          if( actor == dynamic_cast<vtkImageActor*>( node->GetViewProp() ) )
           {
             validPick = true;
           }
@@ -189,8 +189,9 @@ int main ( int argc, char* argv[] )
   // Read the image
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkSmartPointer<vtkImageReader2> reader =
-    readerFactory->CreateImageReader2(argv[1]);
+  vtkSmartPointer<vtkImageReader2> reader;
+  reader.TakeReference(
+    readerFactory->CreateImageReader2(argv[1]));
   reader->SetFileName(argv[1]);
 
   // Picker to pick pixels

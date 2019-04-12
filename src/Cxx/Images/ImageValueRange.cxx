@@ -21,7 +21,7 @@ int main(int, char *[])
   }
 
   double valuesRange[2];
-  vtkDoubleArray::SafeDownCast(imageData->GetPointData()->GetArray("ImageScalars"))->GetValueRange(valuesRange);
+  dynamic_cast<vtkDoubleArray*>(imageData->GetPointData()->GetArray("ImageScalars"))->GetValueRange(valuesRange);
   std::cout << "valuesRange = " << valuesRange[0] << " " << valuesRange[1] << std::endl;
 
   // This should also work:

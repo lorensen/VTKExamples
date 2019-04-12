@@ -27,7 +27,7 @@ class vtkTimerCallback2 : public vtkCommand
       }
       std::cout << this->TimerCount << std::endl;
       actor->SetPosition(this->TimerCount, this->TimerCount,0);
-      vtkRenderWindowInteractor *iren = vtkRenderWindowInteractor::SafeDownCast(caller);
+      vtkRenderWindowInteractor *iren = dynamic_cast<vtkRenderWindowInteractor*>(caller);
       iren->GetRenderWindow()->Render();
     }
 

@@ -31,12 +31,12 @@ public:
   virtual void Execute( vtkObject *caller, unsigned long, void* )
   {
     vtkSmartPointer<vtkBoxWidget2> boxWidget =
-      vtkBoxWidget2::SafeDownCast(caller);
+      dynamic_cast<vtkBoxWidget2*>(caller);
 
     vtkSmartPointer<vtkTransform> t =
       vtkSmartPointer<vtkTransform>::New();
 
-    vtkBoxRepresentation::SafeDownCast( boxWidget->GetRepresentation() )->GetTransform( t );
+    dynamic_cast<vtkBoxRepresentation*>( boxWidget->GetRepresentation() )->GetTransform( t );
     this->m_actor->SetUserTransform( t );
   }
 

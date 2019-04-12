@@ -83,8 +83,8 @@ int main(int argc, char* argv[])
   connect->SetExtractionModeToLargestRegion();
   connect->Update();
   std::cout << "After Connectivity." << std::endl;
-  // Note the use of vtkPolyData::SafeDownCast here.
-  std::cout << "There are: " << NumberofTriangles(vtkPolyData::SafeDownCast(
+  // Note the use of dynamic_cast<vtkPolyData*> here.
+  std::cout << "There are: " << NumberofTriangles(dynamic_cast<vtkPolyData*>(
                                   connect->GetOutput()))
             << " triangles." << std::endl;
 

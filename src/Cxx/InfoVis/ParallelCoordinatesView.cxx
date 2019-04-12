@@ -80,22 +80,22 @@ int main(int argc, char* argv[])
 
   for (vtkIdType i = 0; i < table->GetNumberOfColumns(); ++i)
   {
-    if (vtkStringArray::SafeDownCast(table->GetColumn(i)))
+    if (dynamic_cast<vtkStringArray*>(table->GetColumn(i)))
     {
       std::cout << i << " is "
                 << "StringArray named ";
     }
-    else if (vtkDoubleArray::SafeDownCast(table->GetColumn(i)))
+    else if (dynamic_cast<vtkDoubleArray*>(table->GetColumn(i)))
     {
       std::cout << i << " is "
                 << "DoubleArray named ";
     }
-    else if (vtkFloatArray::SafeDownCast(table->GetColumn(i)))
+    else if (dynamic_cast<vtkFloatArray*>(table->GetColumn(i)))
     {
       std::cout << i << " is "
                 << "DoubleArray named ";
     }
-    else if (vtkIntArray::SafeDownCast(table->GetColumn(i)))
+    else if (dynamic_cast<vtkIntArray*>(table->GetColumn(i)))
     {
       std::cout << i << " is "
                 << "IntArray named ";
@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
   // Set up the parallel coordinates Representation to be used in the View
   for (vtkIdType i = 0; i < table->GetNumberOfColumns(); ++i)
   {
-    if (vtkStringArray::SafeDownCast(table->GetColumn(i)))
+    if (dynamic_cast<vtkStringArray*>(table->GetColumn(i)))
     {
       continue;
     }

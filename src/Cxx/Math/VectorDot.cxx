@@ -60,7 +60,7 @@ int main(int, char *[])
   vectorDot->Update();
 
   // Get the results
-  vtkFloatArray* scalars = vtkFloatArray::SafeDownCast ( vectorDot->GetOutput()->GetPointData()->GetScalars() );
+  vtkFloatArray* scalars = dynamic_cast<vtkFloatArray*> ( vectorDot->GetOutput()->GetPointData()->GetScalars() );
 
   // Output the results
   for(vtkIdType i = 0; i < scalars->GetNumberOfTuples(); i++)

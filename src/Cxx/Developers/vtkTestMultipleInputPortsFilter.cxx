@@ -43,17 +43,17 @@ int vtkTestMultipleInputPortsFilter::RequestData(vtkInformation *vtkNotUsed(requ
 
 
   // get the input and ouptut
-  vtkPolyData *input0 = vtkPolyData::SafeDownCast(
+  vtkPolyData *input0 = dynamic_cast<vtkPolyData*>(
       inInfo0->Get(vtkDataObject::DATA_OBJECT()));
 
   std::cout << "input0 has " << input0->GetNumberOfPoints() << " points." << std::endl;
 
-  vtkPolyData *input1 = vtkPolyData::SafeDownCast(
+  vtkPolyData *input1 = dynamic_cast<vtkPolyData*>(
       inInfo1->Get(vtkDataObject::DATA_OBJECT()));
 
   std::cout << "input1 has " << input1->GetNumberOfPoints() << " points." << std::endl;
 
-  vtkPolyData *output = vtkPolyData::SafeDownCast(
+  vtkPolyData *output = dynamic_cast<vtkPolyData*>(
       outInfo->Get(vtkDataObject::DATA_OBJECT()));
 
   output->ShallowCopy(input0);

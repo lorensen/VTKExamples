@@ -50,7 +50,7 @@ int main(int, char *argv[])
   }
 
   vtkDataArray* insideArray =
-    vtkDataArray::SafeDownCast(selectEnclosedPoints->GetOutput()->GetPointData()->GetArray("SelectedPoints"));
+    dynamic_cast<vtkDataArray*>(selectEnclosedPoints->GetOutput()->GetPointData()->GetArray("SelectedPoints"));
 
   for(vtkIdType i = 0; i < insideArray->GetNumberOfTuples(); i++)
   {

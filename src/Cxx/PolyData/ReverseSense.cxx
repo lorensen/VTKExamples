@@ -12,7 +12,7 @@ int main(int, char *[])
   sphereSource->Update();
 
   vtkSmartPointer<vtkFloatArray> pointNormals =
-    vtkFloatArray::SafeDownCast(sphereSource->GetOutput()->GetPointData()->GetNormals());
+    dynamic_cast<vtkFloatArray*>(sphereSource->GetOutput()->GetPointData()->GetNormals());
 
   std::cout << std::endl << "Normals: " << std::endl;
   // Display the first few normals
@@ -31,7 +31,7 @@ int main(int, char *[])
 
 
   vtkSmartPointer<vtkFloatArray> reversedNormals =
-    vtkFloatArray::SafeDownCast(reverseSense->GetOutput()->GetPointData()->GetNormals());
+    dynamic_cast<vtkFloatArray*>(reverseSense->GetOutput()->GetPointData()->GetNormals());
 
   std::cout << std::endl << "Reversed: " << std::endl;
   // Display the first few normals to verify that they are flipped

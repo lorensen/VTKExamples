@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
   vtkIdType idNumCellsInFile = polydata->GetNumberOfCells();
 
   vtkSmartPointer<vtkFloatArray> array =
-    vtkFloatArray::SafeDownCast(polydata->GetCellData()->GetArray(arrayName.c_str()));
+    dynamic_cast<vtkFloatArray*>(polydata->GetCellData()->GetArray(arrayName.c_str()));
 
   if(array)
   {

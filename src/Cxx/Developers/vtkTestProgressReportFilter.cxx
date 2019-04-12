@@ -21,10 +21,10 @@ int vtkTestProgressReportFilter::RequestData(
  
  
   // Get the input and ouptut
-  vtkPolyData *input = vtkPolyData::SafeDownCast(
+  vtkPolyData *input = dynamic_cast<vtkPolyData*>(
     inInfo->Get(vtkDataObject::DATA_OBJECT()));
  
-  vtkPolyData *output = vtkPolyData::SafeDownCast(
+  vtkPolyData *output = dynamic_cast<vtkPolyData*>(
     outInfo->Get(vtkDataObject::DATA_OBJECT()));
  
   for(vtkIdType i = 0; i < input->GetNumberOfPoints(); i++)

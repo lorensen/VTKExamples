@@ -53,8 +53,9 @@ int main (int argc, char *argv[])
   // Read the volume data
   vtkSmartPointer< vtkImageReader2Factory > imageFactory =
     vtkSmartPointer< vtkImageReader2Factory >::New();
-  vtkSmartPointer<vtkImageReader2> imageReader =
-    imageFactory->CreateImageReader2(volumeFileName.c_str());
+  vtkSmartPointer<vtkImageReader2> imageReader;
+  imageReader.TakeReference(
+    imageFactory->CreateImageReader2(volumeFileName.c_str()));
   imageReader->SetFileName(volumeFileName.c_str());
   imageReader->Update();
 

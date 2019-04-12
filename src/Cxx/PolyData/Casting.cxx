@@ -34,7 +34,7 @@ int main(int, char *[])
   polydata->GetPointData()->AddArray ( distances );
 
   // Get the distances from the polydata
-  vtkDoubleArray* array = vtkDoubleArray::SafeDownCast ( polydata->GetPointData()->GetArray ( "Distances" ) );
+  vtkDoubleArray* array = dynamic_cast<vtkDoubleArray*> ( polydata->GetPointData()->GetArray ( "Distances" ) );
 
   if ( array )
   {
@@ -47,9 +47,9 @@ int main(int, char *[])
   }
 
   // Cast the double distances to ints
-  vtkDoubleArray* doubleDistances = vtkDoubleArray::SafeDownCast(
+  vtkDoubleArray* doubleDistances = dynamic_cast<vtkDoubleArray*>(
                    polydata->GetPointData()->GetArray("Distances"));
-  vtkIntArray* intDistances = vtkIntArray::SafeDownCast(doubleDistances);
+  vtkIntArray* intDistances = dynamic_cast<vtkIntArray*>(doubleDistances);
 
   if(intDistances)
   {

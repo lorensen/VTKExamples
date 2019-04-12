@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
   vtkNew<vtkRenderWindowInteractor> interactor;
   interactor->SetRenderWindow(renderWindow);
   vtkInteractorStyleSwitch* style =
-    vtkInteractorStyleSwitch::SafeDownCast(interactor->GetInteractorStyle());
+    dynamic_cast<vtkInteractorStyleSwitch*>(interactor->GetInteractorStyle());
   style->SetCurrentStyleToTrackballCamera();
 
   vtkNew<vtkNamedColors> colors;

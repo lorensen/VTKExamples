@@ -87,7 +87,7 @@ int main(int, char*[])
 
   // tell the renderer to use our render pass pipeline
   vtkOpenGLRenderer *glrenderer =
-    vtkOpenGLRenderer::SafeDownCast(renderer);
+    dynamic_cast<vtkOpenGLRenderer*>(renderer.GetPointer());
   glrenderer->SetPass(cameraP);
 
   auto colors =

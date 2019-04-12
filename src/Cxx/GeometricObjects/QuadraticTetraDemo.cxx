@@ -54,7 +54,8 @@ int main (int, char *[])
   int numTets = 0;
   vtkSmartPointer<vtkGenericCell> cell =
     vtkSmartPointer<vtkGenericCell>::New();
-  vtkSmartPointer<vtkCellIterator> it = tessellate->GetOutput()->NewCellIterator();
+  vtkSmartPointer<vtkCellIterator> it =
+    tessellate->GetOutput()->NewCellIterator();
   for (it->InitTraversal();
        !it->IsDoneWithTraversal();
        it->GoToNextCell())
@@ -63,6 +64,7 @@ int main (int, char *[])
     cellMap[cell->GetRepresentativeCell()->GetClassName()]++;
     ++numTets;
   }
+  it->Delete();
 
   vtkSmartPointer<vtkDataSetMapper> mapper = 
     vtkSmartPointer<vtkDataSetMapper>::New();

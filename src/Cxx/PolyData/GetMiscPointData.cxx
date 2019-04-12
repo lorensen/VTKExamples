@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
   vtkIdType idNumPointsInFile = polydata->GetNumberOfPoints();
 
   vtkSmartPointer<vtkDoubleArray> array =
-    vtkDoubleArray::SafeDownCast(polydata->GetPointData()->GetArray(arrayName.c_str()));
+    dynamic_cast<vtkDoubleArray*>(polydata->GetPointData()->GetArray(arrayName.c_str()));
 
   if(array)
   {

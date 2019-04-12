@@ -36,7 +36,7 @@ vtkTest1* vtkTestAlgorithmSource::GetOutput()
 //----------------------------------------------------------------------------
 vtkTest1* vtkTestAlgorithmSource::GetOutput(int port)
 {
-  return vtkTest1::SafeDownCast(this->GetOutputDataObject(port));
+  return dynamic_cast<vtkTest1*>(this->GetOutputDataObject(port));
 }
 
 //----------------------------------------------------------------------------
@@ -95,7 +95,7 @@ int vtkTestAlgorithmSource::RequestDataObject(
   for ( int i = 0; i < this->GetNumberOfOutputPorts(); ++i )
   {
     vtkInformation* outInfo = outputVector->GetInformationObject( i );
-    vtkTest1* output = vtkTest1::SafeDownCast(
+    vtkTest1* output = dynamic_cast<vtkTest1*>(
                                             outInfo->Get( vtkDataObject::DATA_OBJECT() ) );
     if ( ! output )
     {

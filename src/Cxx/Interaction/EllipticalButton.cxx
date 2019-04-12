@@ -128,8 +128,9 @@ vtkSmartPointer<vtkActor> CreateButtonActor(const char *textureFile)
 {
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkSmartPointer<vtkImageReader2> imageReader =
-    readerFactory->CreateImageReader2(textureFile);
+  vtkSmartPointer<vtkImageReader2> imageReader;
+  imageReader.TakeReference(
+    readerFactory->CreateImageReader2(textureFile));
   imageReader->SetFileName(textureFile);
   imageReader->Update();
 

@@ -36,7 +36,7 @@ vtkTest* vtkTestAlgorithmFilter::GetOutput()
 //----------------------------------------------------------------------------
 vtkTest* vtkTestAlgorithmFilter::GetOutput(int port)
 {
-  return vtkTest::SafeDownCast(this->GetOutputDataObject(port));
+  return dynamic_cast<vtkTest*>(this->GetOutputDataObject(port));
 }
 
 //----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ vtkDataObject* vtkTestAlgorithmFilter::GetInput(int port)
 //----------------------------------------------------------------------------
 vtkTest* vtkTestAlgorithmFilter::GetLabelHierarchyInput(int port)
 {
-  return vtkTest::SafeDownCast(this->GetInput(port));
+  return dynamic_cast<vtkTest*>(this->GetInput(port));
 }
 
 //----------------------------------------------------------------------------
@@ -119,7 +119,7 @@ int vtkTestAlgorithmFilter::FillInputPortInformation(
 //During RDO, each filter is supposed to produce an empty data object of the proper type
 
   vtkInformation* outInfo = outputVector->GetInformationObject(0);
-  vtkTest* output = vtkTest::SafeDownCast(
+  vtkTest* output = dynamic_cast<vtkTest*>(
     outInfo->Get( vtkDataObject::DATA_OBJECT() ) );
 
   if ( ! output )
@@ -177,11 +177,11 @@ int vtkTestAlgorithmFilter::RequestData(
 //During RD each filter examines any inputs it has, then fills in that empty data object with real data.
 
   vtkInformation* outInfo = outputVector->GetInformationObject(0);
-  vtkTest* output = vtkTest::SafeDownCast(
+  vtkTest* output = dynamic_cast<vtkTest*>(
                                           outInfo->Get( vtkDataObject::DATA_OBJECT() ) );
 
   vtkInformation *inInfo = inputVector[0]->GetInformationObject(0);
-  vtkTest *input = vtkTest::SafeDownCast(
+  vtkTest *input = dynamic_cast<vtkTest*>(
                                          inInfo->Get(vtkDataObject::DATA_OBJECT()));
   output->ShallowCopy(input);
   output->SetValue(output->GetValue() + 1.0);

@@ -60,7 +60,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkAlgorithm> algorithm =
     sphereActor->GetMapper()->GetInputConnection(0, 0)->GetProducer();
   vtkSmartPointer<vtkSphereSource> srcReference =
-    vtkSphereSource::SafeDownCast(algorithm);
+    dynamic_cast<vtkSphereSource*>(algorithm.GetPointer());;
 
   float origRadius = srcReference->GetRadius();
   for (int i = 0; i < 360; ++i)

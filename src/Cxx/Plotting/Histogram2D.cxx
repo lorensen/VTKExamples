@@ -67,7 +67,7 @@ int main(int, char * [])
     ->SetFontSize(18);
 
   // Chart Legend
-  vtkColorLegend::SafeDownCast(chart->GetLegend())->DrawBorderOn();
+  dynamic_cast<vtkColorLegend*>(chart->GetLegend())->DrawBorderOn();
   chart->GetLegend()->GetBrush()
     ->SetColor(legendBackgroundColor);
 

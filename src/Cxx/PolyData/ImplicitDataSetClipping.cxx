@@ -102,7 +102,7 @@ int main(int, char*[])
             << std::endl;
 
   vtkIdTypeArray* clippedCellIds =
-      vtkIdTypeArray::SafeDownCast(clipped->GetCellData()->GetArray("CellIds"));
+      dynamic_cast<vtkIdTypeArray*>(clipped->GetCellData()->GetArray("CellIds"));
 
   for (vtkIdType i = 0; i < clippedCellIds->GetNumberOfTuples(); i++)
   {

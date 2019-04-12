@@ -69,7 +69,7 @@ int main( int, char * [] )
   vtkChart *chart = matrix->GetChart(vtkVector2i(0, 0));
   vtkPlot *plot = chart->AddPlot(vtkChart::POINTS);
   plot->SetInputData(table, 0, 1);
-  vtkPlotPoints::SafeDownCast(plot)->SetMarkerStyle(vtkPlotPoints::DIAMOND);
+  dynamic_cast<vtkPlotPoints*>(plot)->SetMarkerStyle(vtkPlotPoints::DIAMOND);
   plot->GetXAxis()->GetGridPen()->SetColorF(colors->GetColor3d("warm_grey").GetData());
   plot->GetYAxis()->GetGridPen()->SetColorF(colors->GetColor3d("warm_grey").GetData());
   plot->SetColor(
@@ -116,7 +116,7 @@ int main( int, char * [] )
 
   plot = chart->AddPlot(vtkChart::POINTS);
   plot->SetInputData(table, 0, 1);
-  vtkPlotPoints::SafeDownCast(plot)->SetMarkerStyle(vtkPlotPoints::CROSS);
+  dynamic_cast<vtkPlotPoints*>(plot)->SetMarkerStyle(vtkPlotPoints::CROSS);
   plot->GetXAxis()->GetGridPen()->SetColorF(colors->GetColor3d("warm_grey").GetData());
   plot->GetYAxis()->GetGridPen()->SetColorF(colors->GetColor3d("warm_grey").GetData());
   plot->SetColor(

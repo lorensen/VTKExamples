@@ -88,12 +88,12 @@ int main(int, char*[])
 
   // Output the cluster centers
 
-  vtkMultiBlockDataSet* outputMetaDS = vtkMultiBlockDataSet::SafeDownCast( pKMeansStatistics->GetOutputDataObject( vtkStatisticsAlgorithm::OUTPUT_MODEL ) );
-  vtkSmartPointer<vtkTable> outputMeta = vtkTable::SafeDownCast( outputMetaDS->GetBlock( 0 ) );
-  //vtkSmartPointer<vtkTable> outputMeta = vtkTable::SafeDownCast( outputMetaDS->GetBlock( 1 ) );
-  vtkDoubleArray* coord0 = vtkDoubleArray::SafeDownCast(outputMeta->GetColumnByName("coord 0"));
-  vtkDoubleArray* coord1 = vtkDoubleArray::SafeDownCast(outputMeta->GetColumnByName("coord 1"));
-  vtkDoubleArray* coord2 = vtkDoubleArray::SafeDownCast(outputMeta->GetColumnByName("coord 2"));
+  vtkMultiBlockDataSet* outputMetaDS = dynamic_cast<vtkMultiBlockDataSet*>( pKMeansStatistics->GetOutputDataObject( vtkStatisticsAlgorithm::OUTPUT_MODEL ) );
+  vtkSmartPointer<vtkTable> outputMeta = dynamic_cast<vtkTable*>( outputMetaDS->GetBlock( 0 ) );
+  //vtkSmartPointer<vtkTable> outputMeta = dynamic_cast<vtkTable*>( outputMetaDS->GetBlock( 1 ) );
+  vtkDoubleArray* coord0 = dynamic_cast<vtkDoubleArray*>(outputMeta->GetColumnByName("coord 0"));
+  vtkDoubleArray* coord1 = dynamic_cast<vtkDoubleArray*>(outputMeta->GetColumnByName("coord 1"));
+  vtkDoubleArray* coord2 = dynamic_cast<vtkDoubleArray*>(outputMeta->GetColumnByName("coord 2"));
 
   for(unsigned int i = 0; i < coord0->GetNumberOfTuples(); ++i)
   {

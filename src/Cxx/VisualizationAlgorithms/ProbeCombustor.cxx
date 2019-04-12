@@ -43,7 +43,7 @@ int main (int argc, char *argv[])
   pl3d->Update();
 
   vtkStructuredGrid *sg =
-    vtkStructuredGrid::SafeDownCast(pl3d->GetOutput()->GetBlock(0));
+    dynamic_cast<vtkStructuredGrid*>(pl3d->GetOutput()->GetBlock(0));
 
 // We create three planes and position them in the correct position
 // using transform filters. They are then appended together and used as

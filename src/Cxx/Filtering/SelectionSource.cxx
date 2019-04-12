@@ -41,7 +41,7 @@ int main(int, char *[])
   extractSelection->SetInputConnection(1, selectionSource->GetOutputPort());
   extractSelection->Update();
 
-  vtkDataSet* ds = vtkDataSet::SafeDownCast (extractSelection->GetOutput());
+  vtkDataSet* ds = dynamic_cast<vtkDataSet*> (extractSelection->GetOutput());
 
   std::cout << "There are " << ds->GetNumberOfPoints() << " output points." << std::endl;
 

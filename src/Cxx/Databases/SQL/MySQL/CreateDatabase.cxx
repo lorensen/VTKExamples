@@ -6,7 +6,7 @@
 int main(int, char *[])
 {
   vtkSmartPointer<vtkMySQLDatabase> db =
-    vtkSmartPointer<vtkMySQLDatabase>::Take(vtkMySQLDatabase::SafeDownCast(
+    vtkSmartPointer<vtkMySQLDatabase>::Take(dynamic_cast<vtkMySQLDatabase*>(
             vtkSQLDatabase::CreateFromURL( "mysql://root@localhost/TestDatabase" ) ));
 
   bool status = db->Open();

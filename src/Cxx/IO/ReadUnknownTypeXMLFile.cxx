@@ -27,11 +27,11 @@ int main(int argc, char *argv[])
   reader->Update();
 
   // All of the standard data types can be checked and obtained like this:
-  if(vtkPolyData::SafeDownCast(reader->GetOutput()))
+  if(dynamic_cast<vtkPolyData*>(reader->GetOutput()))
   {
     std::cout << "File is a polydata" << std::endl;
   }
-  else if(vtkUnstructuredGrid::SafeDownCast(reader->GetOutput()))
+  else if(dynamic_cast<vtkUnstructuredGrid*>(reader->GetOutput()))
   {
     std::cout << "File is an unstructured grid" << std::endl;
   }

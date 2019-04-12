@@ -25,7 +25,7 @@ int main(int, char *[])
   graphLayoutView->ResetCamera();
   graphLayoutView->Render();
   
-  vtkSimple2DLayoutStrategy::SafeDownCast(graphLayoutView->GetLayoutStrategy())->SetRandomSeed(0);
+  dynamic_cast<vtkSimple2DLayoutStrategy*>(graphLayoutView->GetLayoutStrategy())->SetRandomSeed(0);
   graphLayoutView->GetInteractor()->Start();
      
   return EXIT_SUCCESS;

@@ -134,10 +134,10 @@ void  RestoreSceneFromFieldData(vtkDataSet *data,
   std::istringstream buffer;
 
   // Get the saved camera information from the field data
-  if (vtkStringArray::SafeDownCast(
+  if (dynamic_cast<vtkStringArray*>(
         data->GetFieldData()->GetAbstractArray("Camera")))
   {
-    buffer.str(vtkStringArray::SafeDownCast(
+    buffer.str(dynamic_cast<vtkStringArray*>(
                  data->GetFieldData()->GetAbstractArray("Camera"))->GetValue(0));
   }
   else
