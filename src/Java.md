@@ -425,6 +425,12 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [WindowSize](/Java/Visualization/WindowSize) | vtkRenderWindow | Change the size of a window.
 [WireframeSphere](/Java/Visualization/WireframeSphere) | vtkSphere | A Wireframe Sphere Visualization.
 
+## Volume Rendering
+
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[SimpleRayCast](/Java/VolumeRendering/SimpleRayCast) | vtkFixedPointVolumeRayCastMapper | Volume rendering of a high potential iron protein.
+
 ## Graphs
 
 | Example Name | Classes Demonstrated | Description | Image |
