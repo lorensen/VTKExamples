@@ -1,4 +1,5 @@
 #include <vtkSmartPointer.h>
+#include <vtkNamedColors.h>
 #include <vtkProperty.h>
 #include <vtkDataSetMapper.h>
 #include <vtkImageActor.h>
@@ -35,6 +36,7 @@ int main(int argc, char* argv[])
   auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetRepresentationToWireframe();
+  actor->GetProperty()->SetColor(colors->GetColor3d("DarkSalmon").GetData());
 
   auto renderer = vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
