@@ -373,10 +373,12 @@ int main(int argc, char* argv[])
 
   // The count of parametric objects
   auto objCount = 0;
+  std::vector<std::string> sortedNames;
   for (auto t : pfn)
   {
     for (auto obj : t.second)
     {
+      sortedNames.push_back(obj.first);
       if (cmdArgs["s"].first)
       {
         if (obj.first == singleSurface.first)
@@ -463,6 +465,7 @@ int main(int argc, char* argv[])
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
     static_cast<vtkRenderer*>(renderers.back().GetPointer())
         ->SetBackground(colors->GetColor3d("MidnightBlue").GetData());
+    sortedNames.push_back("");
   }
 
   auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
@@ -493,7 +496,9 @@ int main(int argc, char* argv[])
           continue;
         }
         renderers[index]->AddActor(actors[index]);
-        if (cmdArgs["n"].first)
+        // Normals can only be computed for polygons and triangle strips.
+		// The Spline is a line.
+        if (cmdArgs["n"].first && sortedNames[index] != "Spline")
         {
           renderers[index]->AddActor(glyphActor[index]);
         }
@@ -515,7 +520,9 @@ int main(int argc, char* argv[])
           renderWindow->AddRenderer(renderers[index]);
           renderers[index]->SetViewport(viewport);
           renderers[index]->AddActor(actors[index]);
-          if (cmdArgs["n"].first)
+          // Normals can only be computed for polygons and triangle strips.
+          // The Spline is a line.
+          if (cmdArgs["n"].first && singleSurface.first != "Spline")
           {
             renderers[index]->AddActor(glyphActor[index]);
           }
