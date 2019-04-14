@@ -39,10 +39,13 @@ public class CubeAxesActor2D
 
     //For icosahedron_actor Color
     double icosahedronActorColor[] = new double[4];
+    //For outline actor Color
+    double outlineActorColor[] = new double[4];
     //Renderer Background Color
     double Bgcolor[] = new double[4];
 
     colors.GetColor("Magenta", icosahedronActorColor);
+    colors.GetColor("Black", outlineActorColor);
     colors.GetColor("DarkSlateBlue", Bgcolor);
     
     vtkPlatonicSolidSource icosahedron = new vtkPlatonicSolidSource();
@@ -71,7 +74,7 @@ public class CubeAxesActor2D
 
     vtkActor outline_actor = new vtkActor();
     outline_actor.SetMapper(map_outline);
-    outline_actor.GetProperty().SetColor(0., 0., 0.);
+    outline_actor.GetProperty().SetColor(outlineActorColor);
 
     // Create the Renderers.  Assign them the appropriate viewport
     // coordinates, active camera, and light.
