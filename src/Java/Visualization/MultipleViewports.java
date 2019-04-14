@@ -1,5 +1,4 @@
 import vtk.vtkActor;
-import vtk.vtkNamedColors;
 import vtk.vtkNativeLibrary;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkRenderWindow;
@@ -27,18 +26,9 @@ public class MultipleViewports
   }
   // -----------------------------------------------------------------
 
-  public static void main(String s[]) 
+  public static void main(String args[]) 
   {
-    vtkNamedColors colors = new vtkNamedColors();
-
-    //For Actor Color
-    double actorColor[] = new double[4];
-    //Renderer Background Color
-    double Bgcolor[] = new double[4];
-
-    colors.GetColor("Tomato", actorColor);
-    colors.GetColor("DarkSeaGreen", Bgcolor);
-    
+        
     //  Define viewport ranges
     double xmins[] = new double[] {0,.5,0,.5};
     double xmaxs[] = new double[] {0.5,1,0.5,1};
@@ -58,7 +48,7 @@ public class MultipleViewports
      // Create a sphere
      vtkSphereSource sphereSource = new vtkSphereSource();
      sphereSource.SetCenter(0.0, 0.0, 0.0);
-     phereSource.SetRadius(5);
+     sphereSource.SetRadius(5);
      sphereSource.Update();
      
      // Create a mapper and actor
