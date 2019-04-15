@@ -401,6 +401,8 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
 [CornerAnnotation](/Java/Visualization/CornerAnnotation) | vtkCornerAnnotation | Write text in the corners of a window.
 [ComplexV](/Java/Visualization/ComplexV) | vtkHedgeHog | ComplexV from the VTK Textbook.
+[CubeAxesActor](/Java/Visualization/CubeAxesActor) | vtkCubeAxesActor | Display three orthogonal axes with labels.
+[CubeAxesActor2D](/Java/Visualization/CubeAxesActor2D) | vtkCubeAxesActor2D | This example uses the vtkCubeAxesActor2D to show your scene with axes to indicate the spatial extent of your data.
 [Cursor2D](/Java/Visualization/Cursor2D) | vtkCursor2D | Generates a 2D Cursor Representation.
 [Cursor3D](/Java/Visualization/Cursor3D) | vtkCursor3D | Generates a 3D Cursor Representation
 [CursorShape](/Java/Visualization/CursorShape) | | Change the shape of the cursor. 
@@ -410,6 +412,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [Legend](/Java/Visualization/Legend) | vtkLegendBoxActor | Draw symbols with text
 [LoopShrink](/Java/Visualization/LoopShrink) | vtkShrinkFilter| A network with a loop.
 [LineWidth](/Java/Visualization/LineWidth) | vtkActor vtkProperty | Change the width/thickness of lines in an actor.
+[MultipleViewports](/Java/Visualization/MultipleViewports) | vtkRenderer | Multiple Viewports.
 [Opacity](/Java/Visualization/Opacity) | vtkActor | Transparency, transparent.
 [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) | vtkGlyph3D | Copies oriented and scaled glyph geometry to every input point
 [VectorFieldExample](/Java/Visualization/VectorFieldExample) | vtkXMLUnstructuredGridReader, vtkThresholdPoints, vtkGlyph3D | A vector field visualisation.

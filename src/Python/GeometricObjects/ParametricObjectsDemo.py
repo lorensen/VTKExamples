@@ -85,8 +85,10 @@ def main():
 
     single_surface = list()
     obj_count = 0
+    sorted_names = list()
     for t in sorted(pfn.keys()):
         for obj in sorted(pfn[t].keys()):
+            sorted_names.append(obj)
             if surface_name:
                 if obj == surface_name:
                     single_surface = [surface_name, obj_count]
@@ -155,6 +157,7 @@ def main():
     for i in range(obj_count, gridColumnDimensions * gridRowDimensions):
         renderers.append(vtk.vtkRenderer())
         renderers[i].SetBackground(colors.GetColor3d("MidnightBlue"))
+        sorted_names.append(None)
 
     renderWindow = vtk.vtkRenderWindow()
     renderWindow.SetSize(rendererSize * gridColumnDimensions, rendererSize * gridRowDimensions)
@@ -174,7 +177,9 @@ def main():
                 if index > obj_count - 1:
                     continue
                 renderers[index].AddActor(actors[index])
-                if normals:
+                # Normals can only be computed for polygons and triangle strips.
+                # The Spline is a line.
+                if normals and sorted_names[index] != 'Spline':
                     renderers[index].AddActor(glyphActor[index])
                 renderers[index].AddActor(textactors[index])
                 renderers[index].SetBackground(
@@ -190,7 +195,9 @@ def main():
                     renderWindow.AddRenderer(renderers[index])
                     renderers[index].SetViewport(viewport)
                     renderers[index].AddActor(actors[index])
-                    if normals:
+                    # Normals can only be computed for polygons and triangle strips.
+                    # The Spline is a line.
+                    if normals and sorted_names[index] != 'Spline':
                         renderers[index].AddActor(glyphActor[index])
                     renderers[index].AddActor(textactors[index])
                     renderers[index].SetBackground(colors.GetColor3d("MidnightBlue"))
