@@ -52,7 +52,7 @@ public class CubeAxesActor2D
     icosahedron.SetSolidTypeToIcosahedron();
 
     // Create a vtkPolyDataNormals filter to calculate the normals of the data set.
-    vtkPolyDataNormals normals = new vtkPolyDataNormals()	;
+    vtkPolyDataNormals normals = new vtkPolyDataNormals();
     normals.SetInputConnection(icosahedron.GetOutputPort());
 
     // Set up the associated mapper and actor.
