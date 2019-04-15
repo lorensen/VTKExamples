@@ -30,10 +30,10 @@ public class MultipleViewports
   {
         
     //  Define viewport ranges
-    double xmins[] = new double[] {0,.5,0,.5};
-    double xmaxs[] = new double[] {0.5,1,0.5,1};
-    double ymins[] = new double[] {0,0,.5,.5};
-    double ymaxs[] = new double[] {0.5,0.5,1,1};
+    double xmins[] = new double[] {0.0, 0.5, 0.0, 0.5};
+    double xmaxs[] = new double[] {0.5, 1.0, 0.5, 1.0};
+    double ymins[] = new double[] {0.0, 0.0, 0.5, 0.5};
+    double ymaxs[] = new double[] {0.5, 0.5, 1.0, 1.0};
 
     vtkRenderWindow renWin = new vtkRenderWindow();
     vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
