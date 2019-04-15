@@ -80,10 +80,10 @@ public class CubeAxesActor2D
     // coordinates, active camera, and light.
 
     vtkRenderer ren = new vtkRenderer();
-    ren.SetViewport(0, 0, 0.5, 1.0);
+    ren.SetViewport(0.0, 0.0, 0.5, 1.0);
     
     vtkRenderer ren2 = new vtkRenderer();
-    ren2.SetViewport(0.5, 0,1.0, 1.0);;
+    ren2.SetViewport(0.5, 0.0, 1.0, 1.0);;
     ren2.SetActiveCamera(ren.GetActiveCamera());    
     
     vtkRenderWindow renWin = new vtkRenderWindow();
