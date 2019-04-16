@@ -348,7 +348,10 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [MeshQuality](/Java/PolyData/MeshQuality) | vtkMeshQuality | MeshQuality
 [ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) | vtkColorCellsWithRGB | ColorCellsWithRGB
 [Reflection](/Java/PolyData/Reflection) | vtkReflection | Reflection
+[RotationAroundLine](/Java/PolyData/RotationAroundLine) | vtkTransform vtkTransformPolyDataFilter | Rotation around a line.
+[RuledSurfaceFilter](/Java/PolyData/RuledSurfaceFilter) | vtkRuledSurfaceFilter | Create a surface between lines.
 [TriangleColoredPoints](/Java/PolyData/TriangleColoredPoints) | vtkUnsignedCharArray | Adding color to each vertex of a triangle
+[TransformPipeline](/Java/PolyData/TransformPipeline) | vtkTransform | Combining the transformation, in order to manipulate a group of vtkActor. Shown in the example robot arm motion.
 [TransformFilter](/Java/PolyData/TransformFilter) | vtkTransformFilter | Transforms points, associated normals and vectors
 
 
