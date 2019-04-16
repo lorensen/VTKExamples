@@ -70,7 +70,7 @@ public class RotationAroundLine
     
     vtkTransform transform = new vtkTransform();
     //transform.RotateWXYZ(double angle, double x, double y, double z);
-    transform.RotateWXYZ(20, 0, 1, 0);
+    transform.RotateWXYZ(10, 0, 1, 0);
 
     vtkTransformPolyDataFilter transformFilter = new vtkTransformPolyDataFilter();
 	
