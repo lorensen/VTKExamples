@@ -189,6 +189,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [AppendFilter](/Python/Filtering/AppendFilter) | vtkAppendFilter | Append different types of data,
 [BooleanOperationPolyDataFilter](/Python/PolyData/BooleanOperationPolyDataFilter) | vtkBooleanOperationPolyDataFilter | This example performs a boolean operation (Intersection, Union, Difference) of two PolyData
 [Bottle](/Python/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
+[CappedSphere](/Python/Modelling/CappedSphere) | vtkRotationalExtrusionFilter | Rotate an arc to create a capped sphere.
 [CellsInsideObject](/Python/PolyData/CellsInsideObject) | vtkSelectEnclosedPoints vtkMultiThreshold | Extract cells inside a closed surface.
 [ColoredTriangle](/Python/PolyData/ColoredTriangle) | vtkTriangle | Creates a file TriangleColored.vtp.
 [CombinePolyData](/Python/Filtering/CombinePolyData) | vtkAppendPolyData | This example combines Polydata objects, and displays the result to the screen.

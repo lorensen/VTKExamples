@@ -273,7 +273,7 @@ int main(int argc, char* argv[])
     // Usually -h and --help are reserved for help.
     for (auto it : cmdVec)
     {
-      if (it == "--h" || it == "--help")
+      if (it == "-h" || it == "--help")
       {
         std::cout << ShowUsage(argv[0]) << std::endl;
         return EXIT_SUCCESS;
