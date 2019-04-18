@@ -19,6 +19,10 @@
 #include <vtkNamedColors.h>
 #include <vtksys/SystemTools.hxx>
 
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#include <vtkDataObjectTreeRange.h>
+#endif
+
 namespace
 {
 void ImportMultiBlockScene(vtkRenderer *renderer, std::string fileName);
@@ -77,6 +81,40 @@ void ImportMultiBlockScene(vtkRenderer *renderer, std::string fileName)
   reader->Update();
   std::cout << "Importing " << dynamic_cast<vtkMultiBlockDataSet*>(reader->GetOutput())->GetNumberOfBlocks() << " actors" << std::endl;
 
+#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+  vtkDataObjectTree *input =
+    dynamic_cast<vtkDataObjectTree*>(reader->GetOutput());
+
+  using Opts = vtk::DataObjectTreeOptions;
+  for (vtkDataObject *dso : vtk::Range(input, Opts::SkipEmptyNodes |
+                                              Opts::VisitOnlyLeaves))
+  {
+    vtkPolyData *pd = dynamic_cast<vtkPolyData*>(dso);
+    RestoreCameraFromFieldData("Camera",
+                               camera,
+                               pd);
+    vtkSmartPointer<vtkPolyDataMapper> mapper =
+      vtkSmartPointer<vtkPolyDataMapper>::New();
+    mapper->SetInputData(pd);
+
+    vtkSmartPointer<vtkActor> actor =
+      vtkSmartPointer<vtkActor>::New();
+    actor->SetMapper(mapper);
+    RestorePropertyFromFieldData("Property",
+                                 actor->GetProperty(),
+                                 pd);
+    vtkSmartPointer<vtkProperty> backProperty =
+      vtkSmartPointer<vtkProperty>::New();
+    actor->SetBackfaceProperty(backProperty);
+    RestorePropertyFromFieldData("BackfaceProperty",
+                                 actor->GetBackfaceProperty(),
+                                 pd);
+    RestoreActorFromFieldData("Actor",
+                              actor,
+                              pd);
+    renderer->AddActor(actor);
+  }
+#else
   vtkCompositeDataSet *input =
     dynamic_cast<vtkCompositeDataSet*>(reader->GetOutput());
 
@@ -114,6 +152,7 @@ void ImportMultiBlockScene(vtkRenderer *renderer, std::string fileName)
                               pd);
     renderer->AddActor(actor);
   }
+#endif
 }
 void RestoreCameraFromFieldData(std::string arrayPrefix,
                                 vtkCamera *camera,
