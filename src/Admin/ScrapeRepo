@@ -404,6 +404,7 @@ AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "/Java.md")
+AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/JavaScript.md", DocDir + "/JavaScript.md")
 
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Cxx/Snippets.md", DocDir + "/Cxx/Snippets.md")
 AddThumbnailsAndLanguageLinks(RepoDir, RepoURL, RepoDir + "/Python/Snippets.md", DocDir + "/Python/Snippets.md")
