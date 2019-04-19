@@ -2,7 +2,7 @@
 
 ## Cxx
 
-Out of 2804 available VTK classes, 839 are demonstrated here.
+Out of 2804 available VTK classes, 840 are demonstrated here.
 
 ### Excluded classes
 
@@ -182,6 +182,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkDataObjectReader](http://www.vtk.org/doc/nightly/html/classvtkDataObjectReader.html#details) | [FinanceFieldData](/Cxx/Modelling/FinanceFieldData)  |
 | [vtkDataObjectToDataSetFilter](http://www.vtk.org/doc/nightly/html/classvtkDataObjectToDataSetFilter.html#details) | [FinanceFieldData](/Cxx/Modelling/FinanceFieldData)  |
 | [vtkDataObjectToTable](http://www.vtk.org/doc/nightly/html/classvtkDataObjectToTable.html#details) | [ShareCameraQt](/Cxx/Qt/ShareCameraQt) [SideBySideRenderWindowsQt](/Cxx/Qt/SideBySideRenderWindowsQt)  |
+| [vtkDataObjectTree](http://www.vtk.org/doc/nightly/html/classvtkDataObjectTree.html#details) | [ImportPolyDataScene](/Cxx/IO/ImportPolyDataScene)  |
 | [vtkDataObjectTreeIterator](http://www.vtk.org/doc/nightly/html/classvtkDataObjectTreeIterator.html#details) | [ImportPolyDataScene](/Cxx/IO/ImportPolyDataScene)  |
 | [vtkDataRepresentation](http://www.vtk.org/doc/nightly/html/classvtkDataRepresentation.html#details) | [TreeMapView](/Cxx/InfoVis/TreeMapView)  |
 | [vtkDataSet](http://www.vtk.org/doc/nightly/html/classvtkDataSet.html#details) | [Colored2DImageFusion](/Cxx/Images/Colored2DImageFusion) [DumpXMLFile](/Cxx/IO/DumpXMLFile) [Finance](/Cxx/Modelling/Finance) [HighlightBadCells](/Cxx/PolyData/HighlightBadCells) [IndividualVRML](/Cxx/IO/IndividualVRML) [MeshQuality](/Cxx/PolyData/MeshQuality) [ParametricObjectsDemo](/Cxx/GeometricObjects/ParametricObjectsDemo) [TubesWithVaryingRadiusAndColors](/Cxx/VisualizationAlgorithms/TubesWithVaryingRadiusAndColors) [VertexConnectivity](/Cxx/PolyData/VertexConnectivity)  |
