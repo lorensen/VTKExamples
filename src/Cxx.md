@@ -275,6 +275,7 @@ vtkParametricPluckerConoid vtkParametricPseudosphere | Demonstration of addition
 [AppendFilter](/Cxx/Filtering/AppendFilter) | vtkAppendFilter | Append different types of data,
 [BooleanOperationPolyDataFilter](/Cxx/PolyData/BooleanOperationPolyDataFilter) | vtkBoleanOperationPolyDataFilter | Perform boolean operations on two vtkPolyData objects.
 [Bottle](/Cxx/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
+[CappedSphere](/Cxx/Modelling/CappedSphere) | vtkRotationalExtrusionFilter | Rotate an arc to create a capped sphere.
 [CellCenters](/Cxx/PolyData/CellCenters) | vtkCellCenters | Compute points at the center of every cell.
 [CellCentersDemo](/Cxx/PolyData/CellCentersDemo) | vtkCellCenters vtkGlyph3DMapper | Visualize points at the center of every cell.
 [CellEdgeNeighbors](/Cxx/PolyData/CellEdgeNeighbors) | vtkPolyData::GetCellNeighbors | Determine which cells share an edge with a specific cell.
