@@ -234,7 +234,6 @@ These examples demonstrate how to create an display one of the many vtkParametri
 | -------------- | ---------------------- | ------------- | ------- |
 [ParametricKuenDemo](/Cxx/GeometricObjects/ParametricKuenDemo) | vtkParametricKuen | Interactively change the parameters for a Kuen Surface.
 [ParametricObjectsDemo](/Cxx/GeometricObjects/ParametricObjectsDemo) |  | Demonstrates the Parametric classes added by Andrew Maclean and additional classes added by Tim Meehan. The parametric spline is also included. Options are provided to display single objects, add backface, add normals and print out an image.
-vtkParametricPluckerConoid vtkParametricPseudosphere | Demonstration of additional vtkParametric* classes added by  Tim Meehan. All the objects are displayed in a 4X2 array.
 [ParametricSuperEllipsoidDemo](/Cxx/GeometricObjects/ParametricSuperEllipsoidDemo) | vtkParametricSuperEllipsoid | Interactively change the parameters for a SuperEllipsoid Surface.
 [ParametricSuperToroidDemo](/Cxx/GeometricObjects/ParametricSuperToroidDemo) | vtkParametricSuperToroid | Interactively change the parameters for a SuperToroid Surface.
 
