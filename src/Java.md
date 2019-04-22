@@ -216,6 +216,10 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [Assembly](/Java/Interaction/Assembly) | vtkAssembly | Combine/group actors into an assembly.
 [InteractorStyleTerrain](/Java/Interaction/InteractorStyleTerrain) | vtkInteractorStyleTerrain | Manipulate camera in scene with natural view up.
+[RubberBandPick](/Java/Interaction/RubberBandPick) | vtkInteractorStyleRubberBandPick | Pick props underneath a rubber band selection rectangle.
+[RubberBandZoom](/Java/Interaction/RubberBandZoom) | vtkInteractorStyleRubberBandZoom | Zoom in by amount indicated by rubber band box.
+[TrackballActor](/Java/Interaction/TrackballActor) | vtkInteractorStyleTrackballActor | Trackball actor mode.
+[TrackballCamera](/Java/Interaction/TrackballCamera) | vtkInteractorStyleTrackballCamera | Trackball camera mode.
 [PickableOff](/Java/Interaction/PickableOff) | vtkActor | Disallow interaction with a specific actor.
 [StyleSwitch](/Java/Interaction/StyleSwitch) | vtkInteractorStyleSwitch | Choose between multiple interaction modes.
 
