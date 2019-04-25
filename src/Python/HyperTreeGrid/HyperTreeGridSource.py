@@ -52,7 +52,7 @@ def main():
     actor.SetMapper(mapper)
     actor.GetProperty().SetDiffuseColor(colors.GetColor3d("Burlywood"))
 
-    # Create the RenderWindow, Renderer and both Actors
+    # Create the RenderWindow, Renderer and Interactor
     renderer = vtk.vtkRenderer()
     renderWindow = vtk.vtkRenderWindow()
     renderWindow.AddRenderer(renderer)

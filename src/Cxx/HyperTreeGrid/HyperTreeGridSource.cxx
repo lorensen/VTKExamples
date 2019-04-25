@@ -66,7 +66,7 @@ int main(int, char*[])
   actor->GetProperty()->SetDiffuseColor(
       colors->GetColor3d("Burlywood").GetData());
 
-  // Create the RenderWindow, Renderer and both Actors
+  // Create the RenderWindow, Renderer and Interactor
   //
   auto renderer = vtkSmartPointer<vtkRenderer>::New();
   auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
