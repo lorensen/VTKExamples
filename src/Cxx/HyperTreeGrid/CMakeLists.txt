@@ -5,6 +5,7 @@ if(NOT VTK_BINARY_DIR)
   find_package(VTK COMPONENTS
     vtkCommonColor
     vtkFiltersGeneral
+    vtkFiltersHyperTree
     vtkFiltersSources
     vtkInteractionStyle
     vtkRenderingCore
