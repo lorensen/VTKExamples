@@ -23,6 +23,10 @@
 #include <vtkVersion.h>
 #include <vtkVertexGlyphFilter.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 // Define interaction style
 class InteractorStyle : public vtkInteractorStyleRubberBandPick
 {
@@ -39,24 +43,21 @@ public:
 
   virtual void OnLeftButtonUp() override
   {
-  vtkSmartPointer<vtkNamedColors> colors =
-      vtkSmartPointer<vtkNamedColors>::New();
+    auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
-      // Forward events
+    // Forward events
     vtkInteractorStyleRubberBandPick::OnLeftButtonUp();
 
     vtkPlanes* frustum =
         static_cast<vtkAreaPicker*>(this->GetInteractor()->GetPicker())
             ->GetFrustum();
 
-    vtkSmartPointer<vtkExtractGeometry> extractGeometry =
-        vtkSmartPointer<vtkExtractGeometry>::New();
+    auto extractGeometry = vtkSmartPointer<vtkExtractGeometry>::New();
     extractGeometry->SetImplicitFunction(frustum);
     extractGeometry->SetInputData(this->Points);
     extractGeometry->Update();
 
-    vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
-        vtkSmartPointer<vtkVertexGlyphFilter>::New();
+    auto glyphFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
     glyphFilter->SetInputConnection(extractGeometry->GetOutputPort());
     glyphFilter->Update();
 
@@ -98,18 +99,15 @@ vtkStandardNewMacro(InteractorStyle);
 
 int main(int, char*[])
 {
-  vtkSmartPointer<vtkNamedColors> colors =
-      vtkSmartPointer<vtkNamedColors>::New();
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkPointSource> pointSource =
-      vtkSmartPointer<vtkPointSource>::New();
+  auto pointSource = vtkSmartPointer<vtkPointSource>::New();
   pointSource->SetNumberOfPoints(20);
   pointSource->Update();
 
-  vtkSmartPointer<vtkIdFilter> idFilter =
-      vtkSmartPointer<vtkIdFilter>::New();
+  auto idFilter = vtkSmartPointer<vtkIdFilter>::New();
   idFilter->SetInputConnection(pointSource->GetOutputPort());
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   idFilter->SetCellIdsArrayName("OriginalIds");
   idFilter->SetPointIdsArrayName("OriginalIds");
 #else
@@ -117,33 +115,27 @@ int main(int, char*[])
 #endif
   idFilter->Update();
 
-  vtkSmartPointer<vtkDataSetSurfaceFilter> surfaceFilter =
-      vtkSmartPointer<vtkDataSetSurfaceFilter>::New();
+  auto surfaceFilter = vtkSmartPointer<vtkDataSetSurfaceFilter>::New();
   surfaceFilter->SetInputConnection(idFilter->GetOutputPort());
   surfaceFilter->Update();
 
   vtkPolyData* input = surfaceFilter->GetOutput();
 
   // Create a mapper and actor
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputData(input);
   mapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> actor =
-      vtkSmartPointer<vtkActor>::New();
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
 
   // Visualize
-  vtkSmartPointer<vtkRenderer> renderer =
-      vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-      vtkSmartPointer<vtkRenderWindow>::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
-  vtkSmartPointer<vtkAreaPicker> areaPicker =
-      vtkSmartPointer<vtkAreaPicker>::New();
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  auto areaPicker = vtkSmartPointer<vtkAreaPicker>::New();
+  auto renderWindowInteractor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetPicker(areaPicker);
   renderWindowInteractor->SetRenderWindow(renderWindow);
@@ -153,8 +145,7 @@ int main(int, char*[])
 
   renderWindow->Render();
 
-  vtkSmartPointer<InteractorStyle> style =
-      vtkSmartPointer<InteractorStyle>::New();
+  auto style = vtkSmartPointer<InteractorStyle>::New();
   style->SetPoints(input);
   renderWindowInteractor->SetInteractorStyle(style);
 

@@ -11,6 +11,10 @@
 #include <vtkSphereSource.h>
 #include <vtkVersion.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 // Constructor
 RenderWindowUIMultipleInheritance::RenderWindowUIMultipleInheritance()
 {
@@ -19,30 +23,28 @@ RenderWindowUIMultipleInheritance::RenderWindowUIMultipleInheritance()
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   qvtkWidget->setRenderWindow(renderWindow);
 #else
   qvtkWidget->SetRenderWindow(renderWindow);
 #endif
 
   // Sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-      vtkSmartPointer<vtkSphereSource>::New();
+  auto sphereSource = vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->Update();
-  vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto sphereMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> sphereActor = vtkSmartPointer<vtkActor>::New();
+  auto sphereActor = vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
   sphereActor->GetProperty()->SetColor(colors->GetColor4d("Tomato").GetData());
 
   // VTK Renderer
-  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(sphereActor);
   renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
   // VTK/Qt wedded
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidget->renderWindow()->AddRenderer(renderer);
   this->qvtkWidget->renderWindow()->SetWindowName(
       "RenderWindowUIMultipleInheritance");

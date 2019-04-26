@@ -17,6 +17,10 @@
 #include <vtkSphereSource.h>
 #include <vtkVersion.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 // Constructor
 ShareCameraQt::ShareCameraQt()
 {
@@ -26,7 +30,7 @@ ShareCameraQt::ShareCameraQt()
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowLeft;
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowRight;
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidgetLeft->setRenderWindow(renderWindowLeft);
   this->qvtkWidgetRight->setRenderWindow(renderWindowRight);
 #else
@@ -35,43 +39,37 @@ ShareCameraQt::ShareCameraQt()
 #endif
 
   // Sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-      vtkSmartPointer<vtkSphereSource>::New();
+  auto sphereSource = vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->Update();
-  vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto sphereMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> sphereActor = vtkSmartPointer<vtkActor>::New();
+  auto sphereActor = vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
   sphereActor->GetProperty()->SetColor(colors->GetColor4d("Tomato").GetData());
 
   // Cube
-  vtkSmartPointer<vtkCubeSource> cubeSource =
-      vtkSmartPointer<vtkCubeSource>::New();
+  auto cubeSource = vtkSmartPointer<vtkCubeSource>::New();
   cubeSource->Update();
-  vtkSmartPointer<vtkPolyDataMapper> cubeMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto cubeMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   cubeMapper->SetInputConnection(cubeSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> cubeActor = vtkSmartPointer<vtkActor>::New();
+  auto cubeActor = vtkSmartPointer<vtkActor>::New();
   cubeActor->SetMapper(cubeMapper);
   cubeActor->GetProperty()->SetColor(
       colors->GetColor4d("MediumSeaGreen").GetData());
 
   // VTK Renderer
-  vtkSmartPointer<vtkRenderer> leftRenderer =
-      vtkSmartPointer<vtkRenderer>::New();
+  auto leftRenderer = vtkSmartPointer<vtkRenderer>::New();
   leftRenderer->AddActor(sphereActor);
   leftRenderer->SetBackground(colors->GetColor3d("LightSteelBlue").GetData());
 
-  vtkSmartPointer<vtkRenderer> rightRenderer =
-      vtkSmartPointer<vtkRenderer>::New();
+  auto rightRenderer = vtkSmartPointer<vtkRenderer>::New();
 
   // Add Actor to renderer
   rightRenderer->AddActor(cubeActor);
   rightRenderer->SetBackground(colors->GetColor3d("LightSteelBlue").GetData());
 
   // VTK/Qt wedded
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidgetLeft->renderWindow()->AddRenderer(leftRenderer);
   this->qvtkWidgetRight->renderWindow()->AddRenderer(rightRenderer);
 #else
@@ -94,7 +92,7 @@ ShareCameraQt::ShareCameraQt()
   // Set up action signals and slots
   connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidgetLeft->renderWindow()->AddObserver(
       vtkCommand::ModifiedEvent, this, &ShareCameraQt::ModifiedHandler);
 #else
@@ -105,7 +103,7 @@ ShareCameraQt::ShareCameraQt()
 
 void ShareCameraQt::ModifiedHandler()
 {
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidgetRight->renderWindow()->Render();
 #else
   this->qvtkWidgetRight->GetRenderWindow()->Render();

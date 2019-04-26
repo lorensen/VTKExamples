@@ -13,6 +13,10 @@
 #include <vtkSphereSource.h>
 #include <vtkVersion.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 // Constructor
 EventQtSlotConnect::EventQtSlotConnect()
 {
@@ -21,7 +25,7 @@ EventQtSlotConnect::EventQtSlotConnect()
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidget->setRenderWindow(renderWindow);
 #else
   this->qvtkWidget->SetRenderWindow(renderWindow);
@@ -45,13 +49,13 @@ EventQtSlotConnect::EventQtSlotConnect()
   renderer->AddActor(sphereActor);
   renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidget->renderWindow()->AddRenderer(renderer);
 #else
   this->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);
 #endif
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->Connections->Connect(
       this->qvtkWidget->renderWindow()->GetInteractor(),
       vtkCommand::LeftButtonPressEvent, this,
