@@ -1,9 +1,11 @@
 ### Description
+
 Draw the borders of a vtkRenderer's viewports.
 
 To use the snippet, click the *Copy to clipboard* at the upper left of the code blocks.
 
 ### Declaration Section
+
 ``` c++
 #include <vtkRenderer.h>
 #include <vtkPoints.h>
@@ -23,7 +25,9 @@ void ViewportBorders(vtkSmartPointer<vtkRenderer> &renderer,
                      bool last = false);
 }
 ```
+
 ### Implementation Section
+
 ``` c++
 namespace
 {
@@ -33,8 +37,7 @@ void ViewportBorders(vtkSmartPointer<vtkRenderer> &renderer,
                      bool last)
 {
   // points start at upper right and proceed anti-clockwise
-  vtkSmartPointer<vtkPoints> points =
-    vtkSmartPointer<vtkPoints>::New();
+  auto points = vtkSmartPointer<vtkPoints>::New();
   points->SetNumberOfPoints(4);
   points->InsertPoint(0, 1, 1, 0);
   points->InsertPoint(1, 0, 1, 0);
@@ -42,12 +45,10 @@ void ViewportBorders(vtkSmartPointer<vtkRenderer> &renderer,
   points->InsertPoint(3, 1, 0, 0);
 
   // create cells, and lines
-  vtkSmartPointer<vtkCellArray> cells =
-    vtkSmartPointer<vtkCellArray>::New();
+  auto cells =  vtkSmartPointer<vtkCellArray>::New();
   cells->Initialize(); 
 
-  vtkSmartPointer<vtkPolyLine> lines =
-    vtkSmartPointer<vtkPolyLine>::New();
+  auto lines = vtkSmartPointer<vtkPolyLine>::New();
 
   // only draw last line if this is the last viewport
   // this prevents double vertical lines at right border
@@ -72,25 +73,21 @@ void ViewportBorders(vtkSmartPointer<vtkRenderer> &renderer,
   cells->InsertNextCell(lines);
 
   // now make tge polydata and display it
-  vtkSmartPointer<vtkPolyData> poly =
-    vtkSmartPointer<vtkPolyData>::New();
+  auto poly = vtkSmartPointer<vtkPolyData>::New();
   poly->Initialize(); 
   poly->SetPoints(points); 
   poly->SetLines(cells); 
 
   // use normalized viewport coordinates since
   // they are independent of window size
-  vtkSmartPointer<vtkCoordinate> coordinate =
-    vtkSmartPointer<vtkCoordinate>::New();
+  auto coordinate = vtkSmartPointer<vtkCoordinate>::New();
   coordinate->SetCoordinateSystemToNormalizedViewport(); 
 
-  vtkSmartPointer<vtkPolyDataMapper2D> mapper =
-    vtkSmartPointer<vtkPolyDataMapper2D>::New();
+  auto mapper = vtkSmartPointer<vtkPolyDataMapper2D>::New();
   mapper->SetInputData(poly); 
   mapper->SetTransformCoordinate(coordinate); 
 
-  vtkSmartPointer<vtkActor2D> actor =
-    vtkSmartPointer<vtkActor2D>::New();
+  auto actor = vtkSmartPointer<vtkActor2D>::New();
   actor->SetMapper(mapper); 
   actor->GetProperty()->SetColor(color);
   // line width should be at least 2 to be visible at extremes
@@ -99,5 +96,6 @@ void ViewportBorders(vtkSmartPointer<vtkRenderer> &renderer,
 
   renderer->AddViewProp(actor);
 }
-}
+} // namespace
+
 ```
