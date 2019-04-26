@@ -14,15 +14,20 @@
 #include <vtkSphereSource.h>
 #include <vtkVersion.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 // Constructor
-RenderWindowUISingleInheritance::RenderWindowUISingleInheritance() {
+RenderWindowUISingleInheritance::RenderWindowUISingleInheritance()
+{
   this->ui = new Ui_RenderWindowUISingleInheritance;
   this->ui->setupUi(this);
 
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->ui->qvtkWidget->setRenderWindow(renderWindow);
 #else
   this->ui->qvtkWidget->SetRenderWindow(renderWindow);
@@ -43,7 +48,7 @@ RenderWindowUISingleInheritance::RenderWindowUISingleInheritance() {
   renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
   // VTK/Qt wedded
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->ui->qvtkWidget->renderWindow()->AddRenderer(renderer);
   this->ui->qvtkWidget->renderWindow()->SetWindowName(
       "RenderWindowUISingleInheritance");
@@ -56,4 +61,7 @@ RenderWindowUISingleInheritance::RenderWindowUISingleInheritance() {
   connect(this->ui->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
 }
 
-void RenderWindowUISingleInheritance::slotExit() { qApp->exit(); }
+void RenderWindowUISingleInheritance::slotExit()
+{
+  qApp->exit();
+}

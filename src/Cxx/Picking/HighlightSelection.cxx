@@ -23,6 +23,10 @@
 #include <vtkVersion.h>
 #include <vtkVertexGlyphFilter.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
@@ -34,8 +38,7 @@
 #define VTKISRBP_ORIENT 0
 #define VTKISRBP_SELECT 1
 
-namespace
-{
+namespace {
 // Define interaction style
 class HighlightInteractorStyle : public vtkInteractorStyleRubberBandPick
 {
@@ -57,14 +60,13 @@ public:
 
     if (this->CurrentMode == VTKISRBP_SELECT)
     {
-      vtkSmartPointer<vtkNamedColors> colors =
-          vtkSmartPointer<vtkNamedColors>::New();
+      auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
       vtkPlanes* frustum =
           static_cast<vtkAreaPicker*>(this->GetInteractor()->GetPicker())
               ->GetFrustum();
 
-      vtkSmartPointer<vtkExtractPolyDataGeometry> extractPolyDataGeometry =
+      auto extractPolyDataGeometry =
           vtkSmartPointer<vtkExtractPolyDataGeometry>::New();
       extractPolyDataGeometry->SetInputData(this->PolyData);
       extractPolyDataGeometry->SetImplicitFunction(frustum);
@@ -104,23 +106,21 @@ private:
   vtkSmartPointer<vtkDataSetMapper> SelectedMapper;
 };
 vtkStandardNewMacro(HighlightInteractorStyle);
-}
-namespace
+
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName);
+} // namespace
+
+
+int main(int argc, char* argv[])
 {
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
-}
+  auto polyData = ReadPolyData(argc > 1 ? argv[1] : "");
+  ;
 
-int main(int argc, char*argv[])
-{
-  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkNamedColors> colors =
-      vtkSmartPointer<vtkNamedColors>::New();
-
-  vtkSmartPointer<vtkIdFilter> idFilter =
-      vtkSmartPointer<vtkIdFilter>::New();
+  auto idFilter = vtkSmartPointer<vtkIdFilter>::New();
   idFilter->SetInputData(polyData);
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   idFilter->SetCellIdsArrayName("OriginalIds");
   idFilter->SetPointIdsArrayName("OriginalIds");
 #else
@@ -130,37 +130,32 @@ int main(int argc, char*argv[])
 
   // This is needed to convert the ouput of vtkIdFilter (vtkDataSet) back to
   // vtkPolyData
-  vtkSmartPointer<vtkDataSetSurfaceFilter> surfaceFilter =
-      vtkSmartPointer<vtkDataSetSurfaceFilter>::New();
+  auto surfaceFilter = vtkSmartPointer<vtkDataSetSurfaceFilter>::New();
   surfaceFilter->SetInputConnection(idFilter->GetOutputPort());
   surfaceFilter->Update();
 
   vtkPolyData* input = surfaceFilter->GetOutput();
 
   // Create a mapper and actor
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputData(polyData);
   mapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> actor =
-      vtkSmartPointer<vtkActor>::New();
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetPointSize(5);
-  actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Peacock").GetData());
+  actor->GetProperty()->SetDiffuseColor(
+      colors->GetColor3d("Peacock").GetData());
   // Visualize
-  vtkSmartPointer<vtkRenderer> renderer =
-      vtkSmartPointer<vtkRenderer>::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
   renderer->UseHiddenLineRemovalOn();
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-      vtkSmartPointer<vtkRenderWindow>::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
   renderWindow->SetSize(640, 480);
 
-  vtkSmartPointer<vtkAreaPicker> areaPicker =
-      vtkSmartPointer<vtkAreaPicker>::New();
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  auto areaPicker = vtkSmartPointer<vtkAreaPicker>::New();
+  auto renderWindowInteractor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetPicker(areaPicker);
   renderWindowInteractor->SetRenderWindow(renderWindow);
@@ -170,8 +165,7 @@ int main(int argc, char*argv[])
 
   renderWindow->Render();
 
-  vtkSmartPointer<HighlightInteractorStyle> style =
-      vtkSmartPointer<HighlightInteractorStyle>::New();
+  auto style = vtkSmartPointer<HighlightInteractorStyle>::New();
   style->SetPolyData(input);
   renderWindowInteractor->SetInteractorStyle(style);
 
@@ -179,67 +173,60 @@ int main(int argc, char*argv[])
 
   return EXIT_SUCCESS;
 }
-namespace
-{
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+namespace {
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
-  std::string extension = vtksys::SystemTools::GetFilenameLastExtension(std::string(fileName));
+  std::string extension =
+      vtksys::SystemTools::GetFilenameLastExtension(std::string(fileName));
   if (extension == ".ply")
   {
-    vtkSmartPointer<vtkPLYReader> reader =
-      vtkSmartPointer<vtkPLYReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkPLYReader>::New();
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".vtp")
   {
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
-      vtkSmartPointer<vtkXMLPolyDataReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".obj")
   {
-    vtkSmartPointer<vtkOBJReader> reader =
-      vtkSmartPointer<vtkOBJReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkOBJReader>::New();
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".stl")
   {
-    vtkSmartPointer<vtkSTLReader> reader =
-      vtkSmartPointer<vtkSTLReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkSTLReader>::New();
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".vtk")
   {
-    vtkSmartPointer<vtkPolyDataReader> reader =
-      vtkSmartPointer<vtkPolyDataReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkPolyDataReader>::New();
+    reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".g")
   {
-    vtkSmartPointer<vtkBYUReader> reader =
-      vtkSmartPointer<vtkBYUReader>::New();
-    reader->SetGeometryFileName (fileName);
+    auto reader = vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else
   {
-    vtkSmartPointer<vtkSphereSource> source =
-      vtkSmartPointer<vtkSphereSource>::New();
+    auto source = vtkSmartPointer<vtkSphereSource>::New();
     source->Update();
     polyData = source->GetOutput();
   }
   return polyData;
 }
-}
+} // namespace

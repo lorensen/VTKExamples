@@ -6,10 +6,13 @@
 #include <vtkSphereSource.h>
 #include <vtkVersion.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 int main(int, char*[])
 {
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-      vtkSmartPointer<vtkSphereSource>::New();
+  auto sphereSource = vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->Update();
 
   std::cout << "There are " << sphereSource->GetOutput()->GetNumberOfPoints()
@@ -17,9 +20,9 @@ int main(int, char*[])
   std::cout << "There are " << sphereSource->GetOutput()->GetNumberOfCells()
             << " cells." << std::endl;
 
-  vtkSmartPointer<vtkIdFilter> idFilter = vtkSmartPointer<vtkIdFilter>::New();
+  auto idFilter = vtkSmartPointer<vtkIdFilter>::New();
   idFilter->SetInputConnection(sphereSource->GetOutputPort());
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   idFilter->SetPointIdsArrayName("ids");
   idFilter->SetCellIdsArrayName("ids");
 #else
