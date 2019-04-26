@@ -129,7 +129,8 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
 
   return;
 }
-}
+} // namespace
+
 ```
 
 ### Usage
