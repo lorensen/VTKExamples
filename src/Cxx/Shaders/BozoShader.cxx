@@ -24,6 +24,11 @@
 #include <vtkXMLPolyDataReader.h>
 #include <vtksys/SystemTools.hxx>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define USE_SHADER_PROPERTIES 1
+#include <vtkShaderProperty.h>
+#endif
+
 #include <fstream>
 #include <sstream>
 
@@ -75,7 +80,7 @@ int main(int argc, char* argv[])
               << "[k(5)]" << std::endl;
     return EXIT_FAILURE;
   }
-  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 2 ? argv[2] : "");
+  auto polyData = ReadPolyData(argc > 2 ? argv[2] : "");
 
   std::ifstream shaderFile(argv[1]);
   std::ostringstream shaderCode;
@@ -87,46 +92,36 @@ int main(int argc, char* argv[])
   double bounds[6];
   polyData->GetBounds(bounds);
   double maxBound =
-    std::max(std::max(bounds[1] - bounds[0], bounds[3] - bounds[2]),
-             bounds[5] - bounds[4]);
+      std::max(std::max(bounds[1] - bounds[0], bounds[3] - bounds[2]),
+               bounds[5] - bounds[4]);
 
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkActor> actor =
-    vtkSmartPointer<vtkActor>::New();
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkOpenGLPolyDataMapper> mapper =
-    vtkSmartPointer<vtkOpenGLPolyDataMapper>::New();
+  auto actor = vtkSmartPointer<vtkActor>::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto mapper = vtkSmartPointer<vtkOpenGLPolyDataMapper>::New();
   renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->SetSize(640, 480);
   renderWindow->AddRenderer(renderer);
   renderer->AddActor(actor);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
 
   // Rescale polydata to [-1,1]
-  vtkSmartPointer<vtkTransform> userTransform =
-    vtkSmartPointer<vtkTransform>::New();
+  auto userTransform = vtkSmartPointer<vtkTransform>::New();
   userTransform->Translate(-center[0], -center[1], -center[2]);
   userTransform->Scale(1.0 / maxBound, 1.0 / maxBound, 1.0 / maxBound);
-  vtkSmartPointer<vtkTransformPolyDataFilter> transform =
-    vtkSmartPointer<vtkTransformPolyDataFilter>::New();
+  auto transform = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
   transform->SetTransform(userTransform);
   transform->SetInputData(polyData);
 
-  vtkSmartPointer<vtkTriangleFilter> triangles =
-    vtkSmartPointer<vtkTriangleFilter>::New();
+  auto triangles = vtkSmartPointer<vtkTriangleFilter>::New();
   triangles->SetInputConnection(transform->GetOutputPort());
 
-  vtkSmartPointer<vtkTriangleMeshPointNormals> norms =
-    vtkSmartPointer<vtkTriangleMeshPointNormals>::New();
+  auto norms = vtkSmartPointer<vtkTriangleMeshPointNormals>::New();
   norms->SetInputConnection(triangles->GetOutputPort());
 
   mapper->SetInputConnection(norms->GetOutputPort());
@@ -143,85 +138,163 @@ int main(int argc, char* argv[])
   actor->GetProperty()->SetOpacity(1.0);
 
   // Modify the vertex shader to pass the position of the vertex
+#if USE_SHADER_PROPERTIES
+  vtkShaderProperty* sp = actor->GetShaderProperty();
+  sp->AddVertexShaderReplacement(
+      "//VTK::Normal::Dec",  // replace the normal block
+      true,                  // before the standard replacements
+      "//VTK::Normal::Dec\n" // we still want the default
+      "  out vec4 myVertexMC;\n",
+      false // only do it once
+  );
+#else
   mapper->AddShaderReplacement(
-    vtkShader::Vertex,
-    "//VTK::Normal::Dec",  // replace the normal block
-    true,                  // before the standard replacements
-    "//VTK::Normal::Dec\n" // we still want the default
-    "  out vec4 myVertexMC;\n",
-    false // only do it once
-    );
+      vtkShader::Vertex,
+      "//VTK::Normal::Dec",  // replace the normal block
+      true,                  // before the standard replacements
+      "//VTK::Normal::Dec\n" // we still want the default
+      "  out vec4 myVertexMC;\n",
+      false // only do it once
+  );
+#endif
+#if USE_SHADER_PROPERTIES
+  sp->AddVertexShaderReplacement(
+      "//VTK::Normal::Impl",  // replace the normal block
+      true,                   // before the standard replacements
+      "//VTK::Normal::Impl\n" // we still want the default
+      "  myVertexMC = vertexMC;\n",
+      false // only do it once
+  );
+#else
   mapper->AddShaderReplacement(
-    vtkShader::Vertex,
-    "//VTK::Normal::Impl",  // replace the normal block
-    true,                   // before the standard replacements
-    "//VTK::Normal::Impl\n" // we still want the default
-    "  myVertexMC = vertexMC;\n",
-    false // only do it once
-    );
+      vtkShader::Vertex,
+      "//VTK::Normal::Impl",  // replace the normal block
+      true,                   // before the standard replacements
+      "//VTK::Normal::Impl\n" // we still want the default
+      "  myVertexMC = vertexMC;\n",
+      false // only do it once
+  );
+#endif
 
   // Add the code to generate noise
   // These functions need to be defined outside of main. Use the System::Dec
   // to declare and implement
-  mapper->AddShaderReplacement(
-    vtkShader::Fragment,
-    "//VTK::System::Dec",
-    false, // before the standard replacements
-    shaderCode.str(),
-    false // only do it once
-    );
+#if USE_SHADER_PROPERTIES
+  sp->AddFragmentShaderReplacement("//VTK::System::Dec",
+                                   false, // before the standard replacements
+                                   shaderCode.str(),
+                                   false // only do it once
+  );
+
+#else
+  mapper->AddShaderReplacement(vtkShader::Fragment, "//VTK::System::Dec",
+                               false, // before the standard replacements
+                               shaderCode.str(),
+                               false // only do it once
+  );
+#endif
 
   // Define varying and uniforms for the fragment shader here
+#if USE_SHADER_PROPERTIES
+  sp->AddFragmentShaderReplacement(
+      "//VTK::Normal::Dec",  // replace the normal block
+      true,                  // before the standard replacements
+      "//VTK::Normal::Dec\n" // we still want the default
+      "  varying vec4 myVertexMC;\n"
+      "  uniform float k = 1.0;\n",
+      false // only do it once
+  );
+#else
   mapper->AddShaderReplacement(
-    vtkShader::Fragment, // in the fragment shader
-    "//VTK::Normal::Dec",  // replace the normal block
-    true,                  // before the standard replacements
-    "//VTK::Normal::Dec\n" // we still want the default
-    "  varying vec4 myVertexMC;\n"
-    "  uniform float k = 1.0;\n",
-    false // only do it once
-    );
+      vtkShader::Fragment,   // in the fragment shader
+      "//VTK::Normal::Dec",  // replace the normal block
+      true,                  // before the standard replacements
+      "//VTK::Normal::Dec\n" // we still want the default
+      "  varying vec4 myVertexMC;\n"
+      "  uniform float k = 1.0;\n",
+      false // only do it once
+  );
+#endif
 
+#if USE_SHADER_PROPERTIES
+  sp->AddFragmentShaderReplacement(
+      "//VTK::Light::Impl",  // replace the light block
+      false,                 // after the standard replacements
+      "//VTK::Light::Impl\n" // we still want the default calc
+      "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
+      "  vec3 noisyColor;\n"
+      "  noisyColor.r = noise(k * 10.0 * myVertexMC);\n"
+      "  noisyColor.g = noise(k * 11.0 * myVertexMC);\n"
+      "  noisyColor.b = noise(k * 12.0 * myVertexMC);\n"
+      "  /* map ranges of noise values into different colors */\n"
+      "  int i;\n"
+      "  float lowerValue = .3;\n"
+      "  float upperValue = .6;\n"
+      "  for ( i=0; i<3; i+=1)\n"
+      "  {\n"
+      "    noisyColor[i] = (noisyColor[i] + 1.0) / 2.0;\n"
+      "    if (noisyColor[i] < lowerValue) \n"
+      "    {\n"
+      "      noisyColor[i] = lowerValue;\n"
+      "    }\n"
+      "    else\n"
+      "    {\n"
+      "      if (noisyColor[i] < upperValue)\n"
+      "      {\n"
+      "        noisyColor[i] = upperValue;\n"
+      "      }\n"
+      "      else\n"
+      "      {\n"
+      "        noisyColor[i] = 1.0;\n"
+      "      }\n"
+      "    }\n"
+      "  }\n"
+      "  fragOutput0.rgb = opacity * vec3(ambientColor + noisyColor * diffuse "
+      "+ specular);\n"
+      "  fragOutput0.a = opacity;\n",
+      false // only do it once
+  );
+#else
   mapper->AddShaderReplacement(
-    vtkShader::Fragment, // in the fragment shader
-    "//VTK::Light::Impl",  // replace the light block
-    false,                 // after the standard replacements
-    "//VTK::Light::Impl\n" // we still want the default calc
-    "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
-    "  vec3 noisyColor;\n"
-    "  noisyColor.r = noise(k * 10.0 * myVertexMC);\n"
-    "  noisyColor.g = noise(k * 11.0 * myVertexMC);\n"
-    "  noisyColor.b = noise(k * 12.0 * myVertexMC);\n"
-    "  /* map ranges of noise values into different colors */\n"
-    "  int i;\n"
-    "  float lowerValue = .3;\n"
-    "  float upperValue = .6;\n"
-    "  for ( i=0; i<3; i+=1)\n"
-    "  {\n"
-    "    noisyColor[i] = (noisyColor[i] + 1.0) / 2.0;\n"
-    "    if (noisyColor[i] < lowerValue) \n"
-    "    {\n"
-    "      noisyColor[i] = lowerValue;\n"
-    "    }\n"
-    "    else\n"
-    "    {\n"
-    "      if (noisyColor[i] < upperValue)\n"
-    "      {\n"
-    "        noisyColor[i] = upperValue;\n"
-    "      }\n"
-    "      else\n"
-    "      {\n"
-    "        noisyColor[i] = 1.0;\n"
-    "      }\n"
-    "    }\n"
-    "  }\n"
-    "  fragOutput0.rgb = opacity * vec3(ambientColor + noisyColor * diffuse "
-    "+ specular);\n"
-    "  fragOutput0.a = opacity;\n",
-    false // only do it once
-    );
-  vtkSmartPointer<vtkShaderCallback> myCallback =
-    vtkSmartPointer<vtkShaderCallback>::New();
+      vtkShader::Fragment,   // in the fragment shader
+      "//VTK::Light::Impl",  // replace the light block
+      false,                 // after the standard replacements
+      "//VTK::Light::Impl\n" // we still want the default calc
+      "#define pnoise(x) ((noise(x) + 1.0) / 2.0)\n"
+      "  vec3 noisyColor;\n"
+      "  noisyColor.r = noise(k * 10.0 * myVertexMC);\n"
+      "  noisyColor.g = noise(k * 11.0 * myVertexMC);\n"
+      "  noisyColor.b = noise(k * 12.0 * myVertexMC);\n"
+      "  /* map ranges of noise values into different colors */\n"
+      "  int i;\n"
+      "  float lowerValue = .3;\n"
+      "  float upperValue = .6;\n"
+      "  for ( i=0; i<3; i+=1)\n"
+      "  {\n"
+      "    noisyColor[i] = (noisyColor[i] + 1.0) / 2.0;\n"
+      "    if (noisyColor[i] < lowerValue) \n"
+      "    {\n"
+      "      noisyColor[i] = lowerValue;\n"
+      "    }\n"
+      "    else\n"
+      "    {\n"
+      "      if (noisyColor[i] < upperValue)\n"
+      "      {\n"
+      "        noisyColor[i] = upperValue;\n"
+      "      }\n"
+      "      else\n"
+      "      {\n"
+      "        noisyColor[i] = 1.0;\n"
+      "      }\n"
+      "    }\n"
+      "  }\n"
+      "  fragOutput0.rgb = opacity * vec3(ambientColor + noisyColor * diffuse "
+      "+ specular);\n"
+      "  fragOutput0.a = opacity;\n",
+      false // only do it once
+  );
+#endif
+  auto myCallback = vtkSmartPointer<vtkShaderCallback>::New();
   myCallback->Renderer = renderer;
   if (argc == 2 || argc == 3)
   {
@@ -259,58 +332,52 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
   std::string extension =
-    vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
+      vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
   if (extension == ".ply")
   {
-    vtkSmartPointer<vtkPLYReader> reader =
-      vtkSmartPointer<vtkPLYReader>::New();
+    auto reader = vtkSmartPointer<vtkPLYReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".vtp")
   {
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
-      vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    auto reader = vtkSmartPointer<vtkXMLPolyDataReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".obj")
   {
-    vtkSmartPointer<vtkOBJReader> reader =
-      vtkSmartPointer<vtkOBJReader>::New();
+    auto reader = vtkSmartPointer<vtkOBJReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".stl")
   {
-    vtkSmartPointer<vtkSTLReader> reader =
-      vtkSmartPointer<vtkSTLReader>::New();
+    auto reader = vtkSmartPointer<vtkSTLReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".vtk")
   {
-    vtkSmartPointer<vtkPolyDataReader> reader =
-      vtkSmartPointer<vtkPolyDataReader>::New();
+    auto reader = vtkSmartPointer<vtkPolyDataReader>::New();
     reader->SetFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".g")
   {
-    vtkSmartPointer<vtkBYUReader> reader = vtkSmartPointer<vtkBYUReader>::New();
+    auto reader = vtkSmartPointer<vtkBYUReader>::New();
     reader->SetGeometryFileName(fileName);
     reader->Update();
     polyData = reader->GetOutput();
   }
   else
   {
-    vtkSmartPointer<vtkSphereSource> source =
-      vtkSmartPointer<vtkSphereSource>::New();
+    auto source = vtkSmartPointer<vtkSphereSource>::New();
     source->SetPhiResolution(25);
     source->SetThetaResolution(25);
     source->Update();

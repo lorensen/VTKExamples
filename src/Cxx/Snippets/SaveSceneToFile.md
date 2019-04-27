@@ -8,6 +8,7 @@ Given a filename, vtkActor and vtkCamera, save necessary variables to recreate a
 To use the snippet, click the *Copy to clipboard* at the upper right of the code blocks.
 
 ### Declaration Section
+
 ``` c++
 #include <vtkActor.h>
 #include <vtkCamera.h>
@@ -18,11 +19,14 @@ void SaveSceneToFile(std::string fileName,
                      vtkCamera *camera);
 }
 ```
+
 ### Implementation Section
+
 ``` c++
 namespace
 {
 #include <fstream>
+
 void SaveSceneToFile(std::string fileName,
                      vtkActor *actor,
                      vtkCamera *camera)
@@ -59,5 +63,6 @@ void SaveSceneToFile(std::string fileName,
            << vector[1] << std::endl;
   saveFile.close();
 }
-}
+} // namespace
+
 ```

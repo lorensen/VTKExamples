@@ -15,6 +15,10 @@
 #include <vtkSphereSource.h>
 #include <vtkVersion.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 // Constructor
 SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
 {
@@ -24,7 +28,7 @@ SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowLeft;
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindowRight;
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidgetLeft->setRenderWindow(renderWindowLeft);
   this->qvtkWidgetRight->setRenderWindow(renderWindowRight);
 #else
@@ -33,8 +37,7 @@ SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
 #endif
 
   // Sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-      vtkSmartPointer<vtkSphereSource>::New();
+  auto sphereSource = vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->SetPhiResolution(30);
   sphereSource->SetThetaResolution(30);
   sphereSource->Update();
@@ -42,34 +45,29 @@ SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
   sphereElev->SetInputConnection(sphereSource->GetOutputPort());
   sphereElev->SetLowPoint(0, -1.0, 0);
   sphereElev->SetHighPoint(0, 1.0, 0);
-  vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto sphereMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   sphereMapper->SetInputConnection(sphereElev->GetOutputPort());
-  vtkSmartPointer<vtkActor> sphereActor = vtkSmartPointer<vtkActor>::New();
+  auto sphereActor = vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
 
   // Cube
-  vtkSmartPointer<vtkCubeSource> cubeSource =
-      vtkSmartPointer<vtkCubeSource>::New();
+  auto cubeSource = vtkSmartPointer<vtkCubeSource>::New();
   cubeSource->Update();
   vtkNew<vtkElevationFilter> cubeElev;
   cubeElev->SetInputConnection(cubeSource->GetOutputPort());
   cubeElev->SetLowPoint(0, -1.0, 0);
   cubeElev->SetHighPoint(0, 1.0, 0);
-  vtkSmartPointer<vtkPolyDataMapper> cubeMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto cubeMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   cubeMapper->SetInputConnection(cubeElev->GetOutputPort());
-  vtkSmartPointer<vtkActor> cubeActor = vtkSmartPointer<vtkActor>::New();
+  auto cubeActor = vtkSmartPointer<vtkActor>::New();
   cubeActor->SetMapper(cubeMapper);
 
   // VTK Renderer
-  vtkSmartPointer<vtkRenderer> leftRenderer =
-      vtkSmartPointer<vtkRenderer>::New();
+  auto leftRenderer = vtkSmartPointer<vtkRenderer>::New();
   leftRenderer->AddActor(sphereActor);
   leftRenderer->SetBackground(colors->GetColor3d("LightSteelBlue").GetData());
 
-  vtkSmartPointer<vtkRenderer> rightRenderer =
-      vtkSmartPointer<vtkRenderer>::New();
+  auto rightRenderer = vtkSmartPointer<vtkRenderer>::New();
 
   // Add Actor to renderer
   rightRenderer->AddActor(cubeActor);
@@ -80,7 +78,7 @@ SideBySideRenderWindowsQt::SideBySideRenderWindowsQt()
   rightRenderer->GetActiveCamera()->Zoom(0.8);
 
   // VTK/Qt wedded
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidgetLeft->renderWindow()->AddRenderer(leftRenderer);
   this->qvtkWidgetRight->renderWindow()->AddRenderer(rightRenderer);
 #else

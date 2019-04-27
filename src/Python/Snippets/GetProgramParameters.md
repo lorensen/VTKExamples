@@ -1,4 +1,5 @@
 ### Description
+
 Get the program parameters.
 
 This particular snippet requires a file name and an optional figure number.
@@ -6,6 +7,7 @@ This particular snippet requires a file name and an optional figure number.
 To use the snippet, click the *Copy to clipboard* at the upper left of the code blocks.
 
 ### Implementation
+
 ``` python
 
 def get_program_parameters():
@@ -24,6 +26,7 @@ def get_program_parameters():
 ```
 
 ### Typical usage
+
 ``` python
 
 file_name, figure = get_program_parameters()

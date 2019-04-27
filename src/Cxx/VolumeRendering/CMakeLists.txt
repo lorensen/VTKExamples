@@ -66,6 +66,7 @@ if (BUILD_TESTING)
       MinIntensityRendering
       IntermixedUnstructuredGrid
       FixedPointVolumeRayCastMapperCT
+      RayCastIsosurface
       SimpleRayCast
       )
   else()
@@ -91,6 +92,9 @@ if (BUILD_TESTING)
     add_test(${KIT}-MinIntensityRendering ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
       TestMinIntensityRendering ${DATA}/ironProt.vtk)
   endif()
+
+  add_test(${KIT}-RayCastIsosurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestRayCastIsosurface ${DATA}/FullHead.mhd 500 1150)
 
   add_test(${KIT}-SimpleRayCast ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestSimpleRayCast ${DATA}/ironProt.vtk)

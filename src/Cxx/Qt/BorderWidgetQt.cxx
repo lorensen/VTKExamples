@@ -13,6 +13,10 @@
 #include <vtkSphereSource.h>
 #include <vtkVersion.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 class BorderCallback : public vtkCommand
 {
 public:
@@ -40,7 +44,7 @@ BorderWidgetQt::BorderWidgetQt()
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidget->setRenderWindow(renderWindow);
 #else
   this->qvtkWidget->SetRenderWindow(renderWindow);
@@ -61,7 +65,7 @@ BorderWidgetQt::BorderWidgetQt()
   renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
   // Connect VTK with Qt
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->qvtkWidget->renderWindow()->AddRenderer(renderer);
 #else
   this->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);
@@ -70,7 +74,7 @@ BorderWidgetQt::BorderWidgetQt()
   // Add a border widget to the right renderer
   vtkNew<vtkBorderWidget> bw;
   this->BorderWidget = bw;
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   this->BorderWidget->SetInteractor(this->qvtkWidget->interactor());
 #else
   this->BorderWidget->SetInteractor(this->qvtkWidget->GetInteractor());

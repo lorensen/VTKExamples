@@ -8,6 +8,7 @@ Given a vtkDataSet, vtkActor and vtkCamera, save necessary variables in the vtkD
 To use the snippet, click the *Copy to clipboard* at the upper right of the code blocks.
 
 ### Declaration Section
+
 ``` c++
 namespace
 {
@@ -16,9 +17,12 @@ void SaveSceneToFieldData(vtkDataSet *data,
                           vtkCamera *camera);
 }
 ```
+
 ### Implementation Section
+
 ``` c++
 #include <sstream>
+
 namespace
 {
 void SaveSceneToFieldData(vtkDataSet *data,
@@ -58,5 +62,6 @@ void SaveSceneToFieldData(vtkDataSet *data,
   cameraArray->SetName("Camera");
   data->GetFieldData()->AddArray(cameraArray);
 }
-}
+} // namespace
+
 ```

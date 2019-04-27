@@ -8,6 +8,7 @@ Given a vtkDataSet, vtkActor and vtkCamera, restore the necessary variables in t
 To use the snippet, click the *Copy to clipboard* at the upper right of the code blocks.
 
 ### Declaration Section
+
 ``` c++
 #include <vtkActor.h>
 #include <vtkCamera.h>
@@ -23,7 +24,9 @@ void RestoreSceneFromFieldData(vtkDataSet *data,
                                vtkCamera *camera);
 }
 ```
+
 ### Implementation Section
+
 ``` c++
 namespace
 {
@@ -119,5 +122,6 @@ void  RestoreSceneFromFieldData(vtkDataSet *data,
     }
   }
 }
-}
+} // namespace
+
 ```

@@ -2,7 +2,7 @@
 
 ## Python
 
-Out of 2804 available VTK classes, 388 are demonstrated here.
+Out of 2809 available VTK classes, 389 are demonstrated here.
 
 ### Excluded classes
 
@@ -131,6 +131,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkHull](http://www.vtk.org/doc/nightly/html/classvtkHull.html#details) | [Planes](/Python/GeometricObjects/Planes)  |
 | [vtkHyperStreamline](http://www.vtk.org/doc/nightly/html/classvtkHyperStreamline.html#details) | [HyperStreamline](/Python/VisualizationAlgorithms/HyperStreamline)  |
 | [vtkHyperTreeGridSource](http://www.vtk.org/doc/nightly/html/classvtkHyperTreeGridSource.html#details) | [HyperTreeGridSource](/Python/HyperTreeGrid/HyperTreeGridSource)  |
+| [vtkHyperTreeGridToUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkHyperTreeGridToUnstructuredGrid.html#details) | [HyperTreeGridSource](/Python/HyperTreeGrid/HyperTreeGridSource)  |
 | [vtkIdList](http://www.vtk.org/doc/nightly/html/classvtkIdList.html#details) | [Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) [Cube](/Python/GeometricObjects/Cube) [MarchingCases](/Python/VisualizationAlgorithms/MarchingCases) [PineRootConnectivity](/Python/VisualizationAlgorithms/PineRootConnectivity) [PineRootDecimation](/Python/VisualizationAlgorithms/PineRootDecimation) [Polyhedron](/Python/GeometricObjects/Polyhedron)  |
 | [vtkIdTypeArray](http://www.vtk.org/doc/nightly/html/classvtkIdTypeArray.html#details) | [ExtractSelection](/Python/PolyData/ExtractSelection) [ExtractSelectionCells](/Python/PolyData/ExtractSelectionCells)  |
 | [vtkImageActor](http://www.vtk.org/doc/nightly/html/classvtkImageActor.html#details) | [Attenuation](/Python/ImageProcessing/Attenuation) [Cast](/Python/Images/Cast) [EnhanceEdges](/Python/ImageProcessing/EnhanceEdges) [GaussianSmooth](/Python/ImageProcessing/GaussianSmooth) [HybridMedianComparison](/Python/ImageProcessing/HybridMedianComparison) [IdealHighPass](/Python/ImageProcessing/IdealHighPass) [ImageNormalize](/Python/ImageData/ImageNormalize) [ImageWeightedSum](/Python/ImageData/ImageWeightedSum) [MedianComparison](/Python/ImageProcessing/MedianComparison) [MedicalDemo3](/Python/Medical/MedicalDemo3) [MorphologyComparison](/Python/ImageProcessing/MorphologyComparison) [Pad](/Python/ImageProcessing/Pad) [VTKSpectrum](/Python/ImageProcessing/VTKSpectrum)  |

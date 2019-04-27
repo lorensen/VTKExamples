@@ -11,6 +11,10 @@
 #include <vtkSphereSource.h>
 #include <vtkVersion.h>
 
+#if VTK_VERSION_NUMBER >= 89000000000ULL
+#define VTK890 1
+#endif
+
 #include <QSurfaceFormat>
 #include <QVTKOpenGLNativeWidget.h>
 
@@ -26,7 +30,7 @@ int main(int argc, char** argv)
   vtkNew<vtkNamedColors> colors;
 
   vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   widget.setRenderWindow(renderWindow);
 #else
   widget.SetRenderWindow(renderWindow);
@@ -47,7 +51,7 @@ int main(int argc, char** argv)
   renderer->AddActor(sphereActor);
   renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
-#if VTK_MAJOR_VERSION > 8 || VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION >= 90
+#if VTK890
   widget.renderWindow()->AddRenderer(renderer);
   widget.renderWindow()->SetWindowName("RenderWindowNoUIFile");
 #else
