@@ -382,6 +382,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [TimerLog](/Java/Utilities/TimerLog) | vtkTimerLog | Example to Demonstrate Timer support and logging.
 [ColorLookupTable](/Java/Utilities/ColorLookupTable) | vtkLookupTable | Color Lookup Table.
 [PassThrough](/Java/InfoVis/PassThrough) | vtkPassThrough | Shallow copies the input into the output.
+[PiecewiseFunction](/Java/Utilities/PiecewiseFunction) | vtkPiecewiseFunction | Interpolation using a piecewise function.
 [ReportRenderWindowCapabilities](/Java/Utilities/ReportRenderWindowCapabilities) | vtkRenderWindow | Report the capabilities of a render window.
 
 
