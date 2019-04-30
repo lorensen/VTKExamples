@@ -23,6 +23,7 @@
 #include <string>
 #include <algorithm>
 #include <random>
+#include <array>
 
 namespace
 {
