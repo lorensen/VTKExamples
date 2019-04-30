@@ -2,7 +2,7 @@
 
 ## Java
 
-Out of 2809 available VTK classes, 247 are demonstrated here.
+Out of 2809 available VTK classes, 249 are demonstrated here.
 
 ### Excluded classes
 
@@ -48,7 +48,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkCompositeDataDisplayAttributes](http://www.vtk.org/doc/nightly/html/classvtkCompositeDataDisplayAttributes.html#details) | [CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper)  |
 | [vtkCompositePolyDataMapper2](http://www.vtk.org/doc/nightly/html/classvtkCompositePolyDataMapper2.html#details) | [CompositePolyDataMapper](/Java/CompositeData/CompositePolyDataMapper)  |
 | [vtkCone](http://www.vtk.org/doc/nightly/html/classvtkCone.html#details) | [IceCream](/Java/VisualizationAlgorithms/IceCream) [RandomProbe](/Java/Visualization/RandomProbe)  |
-| [vtkConeSource](http://www.vtk.org/doc/nightly/html/classvtkConeSource.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [Cone](/Java/GeometricObjects/Cone) [Cone6](/Java/Rendering/Cone6) [Mace](/Java/Rendering/Mace) [PickableOff](/Java/Interaction/PickableOff) [Reflection](/Java/PolyData/Reflection) [RotationAroundLine](/Java/PolyData/RotationAroundLine) [TrackballActor](/Java/Interaction/TrackballActor) [TrackballCamera](/Java/Interaction/TrackballCamera)  |
+| [vtkConeSource](http://www.vtk.org/doc/nightly/html/classvtkConeSource.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [Cone](/Java/GeometricObjects/Cone) [Cone6](/Java/Rendering/Cone6) [Mace](/Java/Rendering/Mace) [PickableOff](/Java/Interaction/PickableOff) [Reflection](/Java/PolyData/Reflection) [ReportRenderWindowCapabilities](/Java/Utilities/ReportRenderWindowCapabilities) [RotationAroundLine](/Java/PolyData/RotationAroundLine) [TrackballActor](/Java/Interaction/TrackballActor) [TrackballCamera](/Java/Interaction/TrackballCamera)  |
 | [vtkContourFilter](http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html#details) | [BlobbyLogo](/Java/Visualization/BlobbyLogo) [IceCream](/Java/VisualizationAlgorithms/IceCream) [PerlinNoise](/Java/Filtering/PerlinNoise) [ReadSLC](/Java/IO/ReadSLC) [SampleFunction](/Java/ImplicitFunctions/SampleFunction) [Vol](/Java/StructuredPoints/Vol)  |
 | [vtkConvexPointSet](http://www.vtk.org/doc/nightly/html/classvtkConvexPointSet.html#details) | [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet)  |
 | [vtkCoordinate](http://www.vtk.org/doc/nightly/html/classvtkCoordinate.html#details) | [MultiLineText](/Java/Annotation/MultiLineText)  |
@@ -65,6 +65,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkDelaunay3D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay3D.html#details) | [XMLPUnstructuredGridWriter](/Java/IO/XMLPUnstructuredGridWriter)  |
 | [vtkDEMReader](http://www.vtk.org/doc/nightly/html/classvtkDEMReader.html#details) | [DEMReader](/Java/IO/DEMReader)  |
 | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) | [ReadDICOM](/Java/IO/ReadDICOM)  |
+| [vtkDiscretizableColorTransferFunction](http://www.vtk.org/doc/nightly/html/classvtkDiscretizableColorTransferFunction.html#details) | [DiscretizableColorTransferFunction](/Java/Utilities/DiscretizableColorTransferFunction)  |
 | [vtkDiskSource](http://www.vtk.org/doc/nightly/html/classvtkDiskSource.html#details) | [BoundaryEdges](/Java/Meshes/BoundaryEdges) [Disk](/Java/GeometricObjects/Disk)  |
 | [vtkDistanceWidget](http://www.vtk.org/doc/nightly/html/classvtkDistanceWidget.html#details) | [DistanceWidget](/Java/Widgets/DistanceWidget)  |
 | [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html#details) | [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates) [MeshQuality](/Java/PolyData/MeshQuality) [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) [Vol](/Java/StructuredPoints/Vol)  |
@@ -79,6 +80,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html#details) | [ColorCells](/Java/PolyData/ColorCells) [KnownLengthArray](/Java/Utilities/KnownLengthArray) [ScalarBarActor](/Java/Visualization/ScalarBarActor) [ScalarBarActorColorSeries](/Java/Visualization/ScalarBarActorColorSeries) [UnknownLengthArray](/Java/Utilities/UnknownLengthArray)  |
 | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html#details) | [Follower](/Java/Visualization/Follower) [TextOrigin](/Java/Annotation/TextOrigin)  |
 | [vtkFrustumSource](http://www.vtk.org/doc/nightly/html/classvtkFrustumSource.html#details) | [Frustum](/Java/GeometricObjects/Frustum)  |
+| [vtkFunctionParser](http://www.vtk.org/doc/nightly/html/classvtkFunctionParser.html#details) | [FunctionParser](/Java/Utilities/FunctionParser)  |
 | [vtkGlyph2D](http://www.vtk.org/doc/nightly/html/classvtkGlyph2D.html#details) | [Glyph2D](/Java/Filtering/Glyph2D)  |
 | [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html#details) | [BrownianPoints](/Java/Utilities/BrownianPoints) [ConvexHullShrinkWrap](/Java/PolyData/ConvexHullShrinkWrap) [DelaunayMesh](/Java/Modelling/DelaunayMesh) [FitImplicitFunction](/Java/Points/FitImplicitFunction) [Glyph3D](/Java/Filtering/Glyph3D) [Mace](/Java/Rendering/Mace) [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) [RandomProbe](/Java/Visualization/RandomProbe) [VectorFieldExample](/Java/Visualization/VectorFieldExample)  |
 | [vtkGlyph3DMapper](http://www.vtk.org/doc/nightly/html/classvtkGlyph3DMapper.html#details) | [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) [KochanekSpline](/Java/PolyData/KochanekSpline)  |
@@ -155,7 +157,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkPDBReader](http://www.vtk.org/doc/nightly/html/classvtkPDBReader.html#details) | [ProteinRibbons](/Java/Visualization/ProteinRibbons)  |
 | [vtkPerlinNoise](http://www.vtk.org/doc/nightly/html/classvtkPerlinNoise.html#details) | [PerlinNoise](/Java/Filtering/PerlinNoise)  |
 | [vtkPerspectiveTransform](http://www.vtk.org/doc/nightly/html/classvtkPerspectiveTransform.html#details) | [PerspectiveTransform](/Java/SimpleOperations/PerspectiveTransform)  |
-| [vtkPiecewiseFunction](http://www.vtk.org/doc/nightly/html/classvtkPiecewiseFunction.html#details) | [MedicalDemo4](/Java/Medical/MedicalDemo4) [SimpleRayCast](/Java/VolumeRendering/SimpleRayCast)  |
+| [vtkPiecewiseFunction](http://www.vtk.org/doc/nightly/html/classvtkPiecewiseFunction.html#details) | [MedicalDemo4](/Java/Medical/MedicalDemo4) [PiecewiseFunction](/Java/Utilities/PiecewiseFunction) [SimpleRayCast](/Java/VolumeRendering/SimpleRayCast)  |
 | [vtkPlane](http://www.vtk.org/doc/nightly/html/classvtkPlane.html#details) | [Cutter](/Java/VisualizationAlgorithms/Cutter) [IceCream](/Java/VisualizationAlgorithms/IceCream) [ProjectPointPlane](/Java/SimpleOperations/ProjectPointPlane)  |
 | [vtkPlanes](http://www.vtk.org/doc/nightly/html/classvtkPlanes.html#details) | [Frustum](/Java/GeometricObjects/Frustum)  |
 | [vtkPlanesIntersection](http://www.vtk.org/doc/nightly/html/classvtkPlanesIntersection.html#details) | [PlanesIntersection](/Java/GeometricObjects/PlanesIntersection)  |
