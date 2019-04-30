@@ -29,7 +29,7 @@ public:
 		{
 			++this->TimerCount;
 		}
-		if (TimerCount <36)
+		if (TimerCount<36)
 		{
 			actor->RotateZ(5);
 			
