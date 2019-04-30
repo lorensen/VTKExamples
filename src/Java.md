@@ -375,10 +375,16 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [BrownianPoints](/Java/Utilities/BrownianPoints) | vtkBrownianPoints | Produce a random vector at each point in a dataset.
-[FullScreen](/Java/Utilities/FullScreen) | vtkRenderWindow | Example to Display Actors in a Full Screen Render Window
+[DiscretizableColorTransferFunction](/Java/Utilities/DiscretizableColorTransferFunction) | vtkDiscretizableColorTransferFunction | Discretizable Color Transfer Function.
+[FullScreen](/Java/Utilities/FullScreen) | vtkRenderWindow | Example to Display Actors in a Full Screen Render Window.
+[FunctionParser](/Java/Utilities/FunctionParser) | vtkFunctionParser | String function parser.
+[GetDataRoot](/Java/Utilities/GetDataRoot) | vtkTesting | Find the path of VTK_DATA_ROOT.
 [TimerLog](/Java/Utilities/TimerLog) | vtkTimerLog | Example to Demonstrate Timer support and logging.
 [ColorLookupTable](/Java/Utilities/ColorLookupTable) | vtkLookupTable | Color Lookup Table.
 [PassThrough](/Java/InfoVis/PassThrough) | vtkPassThrough | Shallow copies the input into the output.
+[PiecewiseFunction](/Java/Utilities/PiecewiseFunction) | vtkPiecewiseFunction | Interpolation using a piecewise function.
+[ReportRenderWindowCapabilities](/Java/Utilities/ReportRenderWindowCapabilities) | vtkRenderWindow | Report the capabilities of a render window.
+
 
 
 ### Arrays
