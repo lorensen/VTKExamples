@@ -1,16 +1,16 @@
-#include <vtkSmartPointer.h>
-#include <vtkSphereSource.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderer.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkProperty.h>
-#include <vtkNamedColors.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
 
 class vtkTimerCallback2 : public vtkCommand
 {
- public:
+public:
   int timerId;
   static vtkTimerCallback2 *New()
   {
@@ -37,9 +37,11 @@ class vtkTimerCallback2 : public vtkCommand
       iren->DestroyTimer();
     }
   }
- private:
+
+private:
   int TimerCount;
- public:
+
+public:
   vtkActor* actor;
 };
 
