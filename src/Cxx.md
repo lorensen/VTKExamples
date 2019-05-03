@@ -1331,6 +1331,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [AnimationScene](/Cxx/Utilities/AnimationScene) | vtkAnimationScene vtkAnimationCue | Animation (the right way). Zoom in on a sphere.
 [DataAnimation](/Cxx/Utilities/DataAnimation) | vtkCallbackCommand vtkProgrammableFilter | Data Animation. Update points in a dataset every specified interval.
 [DataAnimationSubclass](/Cxx/Utilities/DataAnimationSubclass) | vtkCommand vtkProgrammableFilter | Update points in a dataset every specified interval (using a vtkCommand subclass instead of a callback function.
+[RotatingSphere](/Cxx/Animation/RotatingSphere) | vtkSphereSource | A rotating sphere. 
 
 ## Geographic Visualization (Geovis)
 
