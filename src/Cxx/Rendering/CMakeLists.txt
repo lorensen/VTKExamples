@@ -18,7 +18,10 @@ if(NOT VTK_BINARY_DIR)
     vtkIOPLY
     vtkIOParallel
     vtkIOXML
+    vtkImagingCore
     vtkImagingHybrid
+    vtkImagingSources
+    vtkInteractionImage
     vtkInteractionStyle
     vtkRenderingContextOpenGL2
     vtkRenderingCore
