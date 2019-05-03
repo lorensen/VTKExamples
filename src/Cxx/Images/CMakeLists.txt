@@ -48,12 +48,6 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 # Build all .cxx files in the directory
 file(GLOB ALL_FILES *.cxx)
 
-if(NOT VTK_USE_SYSTEM_FREETYPE)
-  message(STATUS "VTKWikiExamples: ImageText requires VTK_USE_SYSTEM_FREETYPE and will not be built")
-  string(REGEX REPLACE "[^;]*ImageText.cxx"
-    "" ALL_FILES "${ALL_FILES}")
-endif()
-
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
   string(REPLACE ${CMAKE_CURRENT_SOURCE_DIR}/ "" EXAMPLE ${TMP})
