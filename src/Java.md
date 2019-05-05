@@ -422,10 +422,15 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [CursorShape](/Java/Visualization/CursorShape) | | Change the shape of the cursor. 
 [Cutter](/Java/VisualizationAlgorithms/Cutter) | vtkCutter | How to use vtkCutter by cutting through a cube.
 [DrawText](/Java/Visualization/DrawText) | vtkTextActor vtkTextProperty | Display Text.
+[DisplayCoordinateAxes](/Java/Visualization/DisplayCoordinateAxes) | vtkOrientationMarkerWidget | Display coordinate axes.
+[DistanceToCamera](/Java/Visualization/DistanceToCamera) | vtkDistanceToCamera | Calculate distance from points to the camera.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
 [Legend](/Java/Visualization/Legend) | vtkLegendBoxActor | Draw symbols with text
 [LoopShrink](/Java/Visualization/LoopShrink) | vtkShrinkFilter| A network with a loop.
 [LineWidth](/Java/Visualization/LineWidth) | vtkActor vtkProperty | Change the width/thickness of lines in an actor.
+[MoveActor](/Java/Visualization/MoveActor) | vtkInteractorStyleTrackballActor | Moving an Actor.
+[MoveCamera](/Java/Visualization/MoveCamera) | vtkInteractorStyleTrackballCamera | Moving the Camera.
+[MultipleActors](/Java/Visualization/MultipleActors) | vtkActor | Multiple Actors.
 [MultipleViewports](/Java/Visualization/MultipleViewports) | vtkRenderer | Multiple Viewports.
 [Opacity](/Java/Visualization/Opacity) | vtkActor | Transparency, transparent.
 [OrientedGlyphs](/Java/Visualization/OrientedGlyphs) | vtkGlyph3D | Copies oriented and scaled glyph geometry to every input point
