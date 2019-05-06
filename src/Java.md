@@ -414,6 +414,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [CameraActor](/Java/Visualization/CameraActor) | vtkCameraActor | A frustum to represent a camera.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
 [CornerAnnotation](/Java/Visualization/CornerAnnotation) | vtkCornerAnnotation | Write text in the corners of a window.
+[ColorActorEdges](/Java/Visualization/ColorActorEdges) | vtkActor | Color the edges of an Actor.
 [ComplexV](/Java/Visualization/ComplexV) | vtkHedgeHog | ComplexV from the VTK Textbook.
 [CubeAxesActor](/Java/Visualization/CubeAxesActor) | vtkCubeAxesActor | Display three orthogonal axes with labels.
 [CubeAxesActor2D](/Java/Visualization/CubeAxesActor2D) | vtkCubeAxesActor2D | This example uses the vtkCubeAxesActor2D to show your scene with axes to indicate the spatial extent of your data.
@@ -425,7 +426,9 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [DisplayCoordinateAxes](/Java/Visualization/DisplayCoordinateAxes) | vtkOrientationMarkerWidget | Display coordinate axes.
 [DistanceToCamera](/Java/Visualization/DistanceToCamera) | vtkDistanceToCamera | Calculate distance from points to the camera.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
-[Legend](/Java/Visualization/Legend) | vtkLegendBoxActor | Draw symbols with text
+[ImageOrientation](/Java/Visualization/ImageOrientation) | vtkInteractorStyleImage | Orientation of the view of an image.
+[Legend](/Java/Visualization/Legend) | vtkLegendBoxActor | Draw symbols with text.
+[LegendScaleActor](/Java/Visualization/LegendScaleActor) | vtkLegendScaleActor | Display the scale of a scene.
 [LoopShrink](/Java/Visualization/LoopShrink) | vtkShrinkFilter| A network with a loop.
 [LineWidth](/Java/Visualization/LineWidth) | vtkActor vtkProperty | Change the width/thickness of lines in an actor.
 [MoveActor](/Java/Visualization/MoveActor) | vtkInteractorStyleTrackballActor | Moving an Actor.
