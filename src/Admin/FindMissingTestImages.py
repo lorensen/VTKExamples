@@ -43,6 +43,8 @@ def excluded_examples():
                                          'OctreeClosestPoint', 'OctreeFindPointsWithinRadius', 'OctreeKClosestPoints'}
     no_image['Cxx']['Databases/SQL/MySQL'] = {'ConnectAndRead', 'CreateDatabase', 'WriteToDatabase'}
     no_image['Cxx']['Demos'] = {'VisualDebugging', 'vtkTestFilter'}
+    no_image['Cxx']['Deprecated/GeometricObjects'] = {'ParametricObjects', 'ParametricObjectsDemo',
+                                                      'ParametricObjectsDemo2'}
     no_image['Cxx']['Filtering'] = {'SelectionSource', 'VectorFieldNonZeroExtraction'}
     no_image['Cxx']['GeometricObjects'] = {'PlanesIntersection', 'PolygonIntersection'}
     no_image['Cxx']['Graphs'] = {'AdjacencyMatrixToEdgeTable', 'BreadthFirstDistance', 'ConnectedComponents',
