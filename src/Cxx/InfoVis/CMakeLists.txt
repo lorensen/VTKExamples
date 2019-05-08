@@ -10,11 +10,14 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersGeneral
     vtkFiltersSources
     vtkFiltersStatistics
+    vtkImagingCore
+    vtkImagingSources
     vtkIOCore
     vtkIOInfovis
     vtkIOXML
     vtkInfovisCore
     vtkInfovisLayout
+    vtkInteractionImage
     vtkInteractionStyle
     vtkRenderingCore
     vtkRenderingFreeType
