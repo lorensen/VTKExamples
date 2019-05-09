@@ -36,6 +36,22 @@ struct CloudParameters
 {
   CloudParameters() : FontFile(""), DPI(200), MaxFontSize(48), MinFontSize(12), FontMultiplier(6), ColorScheme(""),  BackgroundColorName("MidnightBlue"),  WordColorName(""), Gap(2)
   {};
+  void Print(ostream& os)
+  {
+    os << "Cloud Parameters" << std::endl;
+    os << "  FontFile: " << FontFile << std::endl;
+    os << "  DPI: " << DPI << std::endl;
+    os << "  MaxFontSize: " << MaxFontSize << std::endl;
+    os << "  MinFontSize: " << MinFontSize << std::endl;
+    os << "  FontMultiplier: " << FontMultiplier << std::endl;
+    os << "  Sizes: " << Sizes[0] << ", " << Sizes[1] << std::endl;
+    os << "  OrientationDistribution: " << OrientationDistribution[0] << ", " << OrientationDistribution[1] << std::endl;
+    os << "  ColorDistribution: " << ColorDistribution[0] << ", " << ColorDistribution[1] << std::endl;
+    os << "  ColorScheme: " <<  ColorScheme << std::endl;
+    os << "  BackgroundColorName: " << BackgroundColorName << std::endl;
+    os << "  WordColorName: " << WordColorName << std::endl;
+    os << "  Gap: " << Gap << std::endl;
+  }
   std::string         FontFile;
   int                 DPI;
   int                 MaxFontSize;
@@ -132,6 +148,7 @@ int main (int argc,  char *argv[])
     cloudParameters.Sizes.push_back(480);
   }
 
+  cloudParameters.Print(std::cout);
   // Get the file that contains the text to be converted to a word cloud
   char** newArgv = nullptr;
   int newArgc = 0;
@@ -204,7 +221,7 @@ int main (int argc,  char *argv[])
 
   auto imageViewer = vtkSmartPointer<vtkImageViewer2>::New();
   imageViewer->SetInputData(final->GetOutput());
-  imageViewer->SetSize(cloudParameters.Sizes[0], cloudParameters.Sizes[1]);
+  imageViewer->SetSize(640, 480);
   imageViewer->SetupInteractor(interactor);
   imageViewer->GetRenderer()->SetBackground(colors->GetColor3d("Wheat").GetData());
   imageViewer->GetRenderer()->ResetCamera();
