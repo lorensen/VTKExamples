@@ -2,7 +2,7 @@
 
 ## Java
 
-Out of 2810 available VTK classes, 253 are demonstrated here.
+Out of 2814 available VTK classes, 253 are demonstrated here.
 
 ### Excluded classes
 
