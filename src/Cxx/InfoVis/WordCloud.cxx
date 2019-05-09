@@ -95,7 +95,7 @@ int main (int argc,  char *argv[])
                   argT::SPACE_ARGUMENT, &cloudParameters.ColorScheme, "Color scheme(constant)");
   arg.AddArgument("--backgroundColorName",
                   argT::SPACE_ARGUMENT, &cloudParameters.BackgroundColorName, "Name of he color for the background(MignightBlue)");
-  arg.AddArgument("--dpi`<",
+  arg.AddArgument("--dpi",
                   argT::SPACE_ARGUMENT, &cloudParameters.DPI, "Dots per inch(200)");
   arg.AddArgument("--fontFile",
                   argT::SPACE_ARGUMENT, &cloudParameters.FontFile, "Font file name(\"\")");
