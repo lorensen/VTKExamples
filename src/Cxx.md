@@ -1346,6 +1346,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 | -------------- | ---------------------- | ------------- | ------- |
 [ParallelCoordinatesView](/Cxx/InfoVis/ParallelCoordinatesView) | vtkParallelCoordinatesView | Parallel coordinates.
 [TreeMapView](/Cxx/InfoVis/TreeMapView) | vtkTreeMapView | Tree map.
+[WordCloud](/Cxx/InfoVis/WordCloud) | vtkFreeTypeTools vtkImageBlend vtkImageIterator | Create a word cloud.
 
 ## Qt
 

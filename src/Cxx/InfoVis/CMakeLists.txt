@@ -74,6 +74,7 @@ if (BUILD_TESTING)
   set(NEEDS_ARGS
     DelimitedTextReader
     DelimitedTextWriter
+    WordCloud
     XGMLReader
     )
   if ("${ALL_FILES}" MATCHES ".*TreeMapView.*")
@@ -89,6 +90,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-DelimitedTextWriter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestDelimitedTextWriter ${TEMP}/foo.txt)
+
+  add_test(${KIT}-WordCloud ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestWordCloud ${DATA}/Gettysburg.txt --dpi 150 --fontFile ${DATA}/Canterbury.ttf)
 
   add_test(${KIT}-XGMLReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestXGMLReader ${DATA}/fsm.gml)
