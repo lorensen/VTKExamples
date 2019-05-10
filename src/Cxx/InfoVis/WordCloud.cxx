@@ -40,7 +40,7 @@ namespace
 // Cloud Parameters
 struct CloudParameters
 {
-  CloudParameters() : FontFile(""), MaskFile(""), DPI(200), MaxFontSize(48), MinFontSize(12), FontMultiplier(6), ColorScheme(""),  BackgroundColorName("MidnightBlue"), MaskColorName("black"), BWMask(false), StopListFile(""), WordColorName(""), Gap(2)
+  CloudParameters() : FontFile(""), MaskFile(""), DPI(200), MaxFontSize(48), MinFontSize(12), FontMultiplier(6), ColorScheme(""),  BackgroundColorName("MidnightBlue"), MaskColorName("black"), BWMask(false), WordColorName(""), Gap(2)
   {};
   void Print(ostream& os)
   {
@@ -60,26 +60,31 @@ struct CloudParameters
     os << "  OffsetDistribution: " << OffsetDistribution[0] << " " << OffsetDistribution[1] << std::endl;
     os << "  OrientationDistribution: " << OrientationDistribution[0] << " " << OrientationDistribution[1] << std::endl;
     os << "  Sizes: " << Sizes[0] << " " << Sizes[1] << std::endl;
-    os << "  StopListFile: " << StopListFile << std::endl;
+    os << "  StopWords: ";
+      for (auto s : StopWords)
+      {
+        os << s << " ";
+      }
+    os << std::endl;
     os << "  WordColorName: " << WordColorName << std::endl;
   }
-  std::string         BackgroundColorName;
-  bool                BWMask;
-  std::string         ColorScheme;
-  int                 DPI;
-  std::string         FontFile;
-  int                 Gap;
-  std::string         MaskColorName;
-  std::string         MaskFile;
-  int                 MaxFontSize;
-  int                 MinFontSize;
-  int                 FontMultiplier;
-  std::vector<double> ColorDistribution;
-  std::vector<int>    OffsetDistribution;
-  std::vector<double> OrientationDistribution;
-  std::vector<int>    Sizes;
-  std::string         StopListFile;
-  std::string         WordColorName;
+  std::string              BackgroundColorName;
+  bool                     BWMask;
+  std::string              ColorScheme;
+  int                      DPI;
+  std::string              FontFile;
+  int                      Gap;
+  std::string              MaskColorName;
+  std::string              MaskFile;
+  int                      MaxFontSize;
+  int                      MinFontSize;
+  int                      FontMultiplier;
+  std::vector<double>      ColorDistribution;
+  std::vector<int>         OffsetDistribution;
+  std::vector<double>      OrientationDistribution;
+  std::vector<int>         Sizes;
+  std::vector<std::string> StopWords;
+  std::string              WordColorName;
 };
 bool ProcessCommandLine(vtksys::CommandLineArguments &arg,
                         CloudParameters &cloudParameters);
@@ -89,7 +94,7 @@ typedef std::function<bool(
     std::pair<std::string, int>,
     std::pair<std::string, int>)> Comparator;
 
-std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequency(std::string &);
+std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequency(std::string &, CloudParameters &cloudParameters);
 struct ExtentOffset
 {
    ExtentOffset(int _x = 0.0, int _y = 0.0) : x(_x), y(_y) {}
@@ -147,7 +152,7 @@ int main (int argc,  char *argv[])
   ArchimedesSpiral(offset, cloudParameters.Sizes);
 
   // Sort the word by frequency
-  std::multiset<std::pair<std::string, int>, Comparator> sortedWords = FindWordsSortedByFrequency(s);
+  std::multiset<std::pair<std::string, int>, Comparator> sortedWords = FindWordsSortedByFrequency(s, cloudParameters);
 
   // Create a mask image
   auto colors = vtkSmartPointer<vtkNamedColors>::New();
@@ -259,12 +264,16 @@ int main (int argc,  char *argv[])
 
 namespace
 {
-std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequency(std::string &s)
+std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequency(std::string &s, CloudParameters &cloudParameters)
 {
   // Create a stop list
   std::vector<std::string> stopList;
   CreateStopList(stopList);
-
+  for (auto s : cloudParameters.StopWords)
+  {
+    stopList.push_back(s);
+  }
+  
   // Drop the case of all words
   std::transform(s.begin(), s.end(), s.begin(), ::tolower);
 
@@ -548,13 +557,15 @@ bool ProcessCommandLine(vtksys::CommandLineArguments &arg, CloudParameters &clou
                   argT::MULTI_ARGUMENT, &cloudParameters.OffsetDistribution, "Range of random offsets(-size[0]/100.0 -size{1]/100.0)(-20 20).");
   arg.AddArgument("--orientationDistribution",
                   argT::MULTI_ARGUMENT, &cloudParameters.OrientationDistribution, "Ranges of random orientations(-20 20)");
+  arg.AddArgument("--stopWords",
+                  argT::MULTI_ARGUMENT, &cloudParameters.StopWords, "User provided stop words(). These will ba added to the built-in stop list.");
   arg.AddArgument("--bwMask"
                   , argT::NO_ARGUMENT, &cloudParameters.BWMask, "Mask image has a single channel(false). Mask images normally have three channels (r,g,b).");
   arg.AddArgument("--size"
                   , argT::MULTI_ARGUMENT, &cloudParameters.Sizes, "Size of image(640 480)");
   arg.AddArgument("--wordColorName",
                   argT::SPACE_ARGUMENT, &cloudParameters.WordColorName, "Name of the color for the words(). If the name is empty, the colorDistribution will generate random colors.");
-  bool help;
+  bool help = false;
   arg.AddArgument("--help"
                   , argT::NO_ARGUMENT, &help, "Show help(false)");
   arg.Parse();
