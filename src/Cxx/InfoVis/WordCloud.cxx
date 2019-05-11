@@ -173,9 +173,9 @@ int main (int argc,  char *argv[])
 
   // Create a mask image
   auto colors = vtkSmartPointer<vtkNamedColors>::New();
-
   vtkColor3ub maskColor = colors->GetColor3ub(cloudParameters.MaskColorName.c_str());
   auto maskImage = vtkSmartPointer<vtkImageData>::New();
+  // If a mask file is not defined, create a square mask
   if (cloudParameters.MaskFile == "")
   {
     auto defaultMask = vtkSmartPointer<vtkImageCanvasSource2D>::New();
@@ -189,7 +189,7 @@ int main (int argc,  char *argv[])
   }
   else
   {
-    // Read the image
+    // Read the mask file
     auto readerFactory =
       vtkSmartPointer<vtkImageReader2Factory>::New();
     vtkSmartPointer<vtkImageReader2> reader;
@@ -197,6 +197,8 @@ int main (int argc,  char *argv[])
       readerFactory->CreateImageReader2(cloudParameters.MaskFile.c_str()));
       reader->SetFileName(cloudParameters.MaskFile.c_str());
     reader->Update();
+    int dimensions[3];
+    reader->GetOutput()->GetDimensions(dimensions);
     auto resize = vtkSmartPointer<vtkImageResize>::New();
     resize->SetInputData(reader->GetOutput());
     resize->InterpolateOff();
@@ -307,7 +309,7 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
   std::vector<std::string> stopList;
   CreateStopList(stopList);
 
-  
+  // Add user stop words
   for (auto stop : cloudParameters.StopWords)
   {
     stopList.push_back(stop);
@@ -450,15 +452,16 @@ bool AddWordToFinal(const std::string word,
   textProperty->SetFontSize(fontSize);
   textProperty->SetOrientation(orientation);
 
-  // For each string, create an image and see if it overlaps with other images,
-  // if so, skip it
-  int accepted = 0;
+  // Add gap
   std::string spaces;
   for (int p = 0; p < cloudParameters.Gap; ++p)
   {
     spaces.push_back(' ');
   }
 
+  // For each string, create an image and see if it overlaps with other images,
+  // if so, skip it
+  int accepted = 0;
   auto textImage = vtkSmartPointer<vtkImageData>::New();
   freeType->RenderString(textProperty,
                          spaces + word + spaces,
