@@ -1,8 +1,10 @@
 #include <vtkSmartPointer.h>
-#include <vtkImageBlend.h>
+
 #include <vtkFreeTypeTools.h>
-#include <vtkImageData.h>
+#include <vtkImageBlend.h>
 #include <vtkImageIterator.h>
+#include <vtkImageData.h>
+
 #include <vtkTextProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -59,12 +61,24 @@ struct CloudParameters
     os << "  MaxFontSize: " << MaxFontSize << std::endl;
     os << "  OffsetDistribution: " << OffsetDistribution[0] << " " << OffsetDistribution[1] << std::endl;
     os << "  OrientationDistribution: " << OrientationDistribution[0] << " " << OrientationDistribution[1] << std::endl;
+    os << "  Orientations: ";
+    for (auto o : Orientations)
+    {
+      os << o << " ";
+    }
+    os << std::endl;
+    os << "  ReplacementPairs: ";
+    for (auto p = 0; p < ReplacementPairs.size(); p += 2)
+    {
+      os << ReplacementPairs[p] << "->" << ReplacementPairs[p + 1] << " ";
+    }
+    os << std::endl;
     os << "  Sizes: " << Sizes[0] << " " << Sizes[1] << std::endl;
     os << "  StopWords: ";
-      for (auto s : StopWords)
-      {
-        os << s << " ";
-      }
+    for (auto s : StopWords)
+    {
+      os << s << " ";
+    }
     os << std::endl;
     os << "  WordColorName: " << WordColorName << std::endl;
   }
@@ -82,6 +96,8 @@ struct CloudParameters
   std::vector<double>      ColorDistribution;
   std::vector<int>         OffsetDistribution;
   std::vector<double>      OrientationDistribution;
+  std::vector<double>      Orientations;
+  std::vector<std::string> ReplacementPairs;
   std::vector<int>         Sizes;
   std::vector<std::string> StopWords;
   std::string              WordColorName;
@@ -109,6 +125,7 @@ bool AddWordToFinal(const std::string,
                     const int,
                     const CloudParameters &,
                     std::mt19937 &, 
+                    double orientation,
                     std::vector<ExtentOffset> &,
                     vtkImageBlend *,
                     std::array<int, 6> &);
@@ -214,27 +231,46 @@ int main (int argc,  char *argv[])
 
   // Try to add each word
   int numberSkipped = 0;
-  std::mt19937 mt(4355412); //Standard mersenne twister engine
   std::array<int, 6> extent;
   bool added;
-  for (std::pair<std::string, int> element : sortedWords)
+  // Create a vector of orientations to try.
+  std::mt19937 mt(4355412); //Standard mersenne twister engine
+  auto rng = std::default_random_engine {};
+  for (auto element : sortedWords)
   {
-    added = AddWordToFinal(
-      element.first,
-      element.second,
-      cloudParameters,
-      mt,
-      offset,
-      final,
-      extent);
-    if (added)
+    std::vector<double> orientations;
+    if (cloudParameters.Orientations.size() != 0)
     {
-//      std::cout << element.first << ": " << element.second << std::endl;
+      orientations = cloudParameters.Orientations;
     }
     else
     {
-      numberSkipped++;
+      std::uniform_real_distribution<> orientationDist(
+        cloudParameters.OrientationDistribution[0], cloudParameters.OrientationDistribution[1]);
+      orientations.push_back(orientationDist(mt));
+    }
+    std::shuffle(std::begin(orientations), std::end(orientations), mt);
+    for (auto o : orientations)
+    {
+      added = AddWordToFinal(
+        element.first,
+        element.second,
+        cloudParameters,
+        mt,
+        o,
+        offset,
+        final,
+        extent);
+      if (added)
+      {
+//      std::cout << element.first << ": " << element.second << std::endl;
+        break;
+      }
+      else
+      {
+        numberSkipped++;
 //      std::cout << "skipped: " << element.first << ": " << element.second << std::endl;
+      }
     }
   }
   std::cout << "Skipped " << numberSkipped << " words" << std::endl;
@@ -266,12 +302,15 @@ namespace
 {
 std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequency(std::string &s, CloudParameters &cloudParameters)
 {
+  // Make replacements
   // Create a stop list
   std::vector<std::string> stopList;
   CreateStopList(stopList);
-  for (auto s : cloudParameters.StopWords)
+
+  
+  for (auto stop : cloudParameters.StopWords)
   {
-    stopList.push_back(s);
+    stopList.push_back(stop);
   }
   
   // Drop the case of all words
@@ -304,6 +343,20 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
     {
       keep++;
     }
+
+    // Replace words with another
+    for (auto p = 0; p < cloudParameters.ReplacementPairs.size(); p += 2)
+    {
+      std::string from = cloudParameters.ReplacementPairs[p];
+      std::string to = cloudParameters.ReplacementPairs[p + 1];
+      size_t pos = 0;
+      pos = matchStr.find(from, pos);
+      if (matchStr.length() == from.length() && pos == 0)
+      {
+        matchStr.replace(pos, to.length(), to);
+      }
+    }
+
     // Only include words that have more than N characters
     if (matchStr.size() > N)
     {
@@ -337,6 +390,7 @@ bool AddWordToFinal(const std::string word,
                     const int frequency,
                     const CloudParameters &cloudParameters,
                     std::mt19937 &mt,
+                    double orientation,
                     std::vector<ExtentOffset> &offset,
                     vtkImageBlend *final,
                     std::array<int, 6> &extent)
@@ -352,10 +406,9 @@ bool AddWordToFinal(const std::string word,
   freeType->ScaleToPowerTwoOff();
 
   // Create random distributions
-  std::uniform_real_distribution<> orientationDist(
-    cloudParameters.OrientationDistribution[0], cloudParameters.OrientationDistribution[1]);
   std::uniform_real_distribution<> colorDist(
     cloudParameters.ColorDistribution[0], cloudParameters.ColorDistribution[1]);
+  bool discreteOrientations = cloudParameters.Orientations.size() != 0;
 
   // Setup a property for the strings containing fixed parameters
   auto colors = vtkSmartPointer<vtkNamedColors>::New();
@@ -370,6 +423,7 @@ bool AddWordToFinal(const std::string word,
   }
   textProperty->SetVerticalJustificationToCentered();
   textProperty->SetJustificationToCentered();
+  textProperty->SetLineOffset(4);
 
   // Check if a font file is present
   if (cloudParameters.FontFile.length() > 0)
@@ -381,6 +435,7 @@ bool AddWordToFinal(const std::string word,
   {
     textProperty->SetFontFamilyToArial();
   }
+
   // Set the font size
   int fontSize = cloudParameters.FontMultiplier * frequency;
   if (fontSize > cloudParameters.MaxFontSize)
@@ -393,7 +448,7 @@ bool AddWordToFinal(const std::string word,
   }
 
   textProperty->SetFontSize(fontSize);
-  textProperty->SetOrientation(orientationDist(mt));
+  textProperty->SetOrientation(orientation);
 
   // For each string, create an image and see if it overlaps with other images,
   // if so, skip it
@@ -557,6 +612,8 @@ bool ProcessCommandLine(vtksys::CommandLineArguments &arg, CloudParameters &clou
                   argT::MULTI_ARGUMENT, &cloudParameters.OffsetDistribution, "Range of random offsets(-size[0]/100.0 -size{1]/100.0)(-20 20).");
   arg.AddArgument("--orientationDistribution",
                   argT::MULTI_ARGUMENT, &cloudParameters.OrientationDistribution, "Ranges of random orientations(-20 20)");
+  arg.AddArgument("--orientations",
+                  argT::MULTI_ARGUMENT, &cloudParameters.Orientations, "List of discrete orientations (). If non-empty, these will be used instead of the orientations distribution");
   arg.AddArgument("--stopWords",
                   argT::MULTI_ARGUMENT, &cloudParameters.StopWords, "User provided stop words(). These will ba added to the built-in stop list.");
   arg.AddArgument("--bwMask"
@@ -565,6 +622,8 @@ bool ProcessCommandLine(vtksys::CommandLineArguments &arg, CloudParameters &clou
                   , argT::MULTI_ARGUMENT, &cloudParameters.Sizes, "Size of image(640 480)");
   arg.AddArgument("--wordColorName",
                   argT::SPACE_ARGUMENT, &cloudParameters.WordColorName, "Name of the color for the words(). If the name is empty, the colorDistribution will generate random colors.");
+  arg.AddArgument("--replacementPairs",
+                  argT::MULTI_ARGUMENT, &cloudParameters.ReplacementPairs, "Replace word with another word ().");
   bool help = false;
   arg.AddArgument("--help"
                   , argT::NO_ARGUMENT, &help, "Show help(false)");
