@@ -2,7 +2,7 @@
 
 ## Python
 
-Out of 2814 available VTK classes, 389 are demonstrated here.
+Out of 2815 available VTK classes, 389 are demonstrated here.
 
 ### Excluded classes
 
@@ -378,7 +378,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkVector2i](http://www.vtk.org/doc/nightly/html/classvtkVector2i.html#details) | [SurfacePlot](/Python/Plotting/SurfacePlot)  |
 | [vtkVectorDot](http://www.vtk.org/doc/nightly/html/classvtkVectorDot.html#details) | [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) [PlateVibration](/Python/VisualizationAlgorithms/PlateVibration)  |
 | [vtkVectorText](http://www.vtk.org/doc/nightly/html/classvtkVectorText.html#details) | [AlphaFrequency](/Python/Visualization/AlphaFrequency) [AnatomicalOrientation](/Python/VisualizationAlgorithms/AnatomicalOrientation) [FinanceFieldData](/Python/Modelling/FinanceFieldData) [MarchingCases](/Python/VisualizationAlgorithms/MarchingCases) [Stocks](/Python/VisualizationAlgorithms/Stocks) [TextOrigin](/Python/Annotation/TextOrigin) [VectorText](/Python/Visualization/VectorText)  |
-| [vtkVersion](http://www.vtk.org/doc/nightly/html/classvtkVersion.html#details) | [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) [NamedColorPatches](/Python/Visualization/NamedColorPatches) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision)  |
+| [vtkVersion](http://www.vtk.org/doc/nightly/html/classvtkVersion.html#details) | [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision)  |
 | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex.html#details) | [LinearCellDemo](/Python/GeometricObjects/LinearCellDemo) [Vertex](/Python/GeometricObjects/Vertex) [WriteLegacyLinearCells](/Python/IO/WriteLegacyLinearCells) [WriteXMLLinearCells](/Python/IO/WriteXMLLinearCells)  |
 | [vtkVertexGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkVertexGlyphFilter.html#details) | [Actor2D](/Python/Images/Actor2D) [ImplicitPolyDataDistance](/Python/PolyData/ImplicitPolyDataDistance) [TriangulateTerrainMap](/Python/Filtering/TriangulateTerrainMap) [VertexGlyphFilter](/Python/Filtering/VertexGlyphFilter)  |
 | [vtkViewTheme](http://www.vtk.org/doc/nightly/html/classvtkViewTheme.html#details) | [ColorEdges](/Python/Graphs/ColorEdges) [ColorVerticesLookupTable](/Python/Graphs/ColorVerticesLookupTable)  |
