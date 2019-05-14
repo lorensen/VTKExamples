@@ -13,6 +13,7 @@ if(NOT VTK_BINARY_DIR)
     vtkImagingCore
     vtkImagingSources
     vtkIOCore
+    vtkIOImage
     vtkIOInfovis
     vtkIOXML
     vtkInfovisCore

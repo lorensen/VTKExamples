@@ -2,21 +2,6 @@
 # -*- coding: utf-8 -*-
 
 """
-=========================================================================
-
-  Program:   Visualization Toolkit
-  Module:    NamedColorPatches.py
-
-  Copyright (c) Ken Martin, Will Schroeder, Bill Lorensen
-  All rights reserved.
-  See Copyright.txt or http://www.kitware.com/Copyright.htm for details.
-
-     This software is distributed WITHOUT ANY WARRANTY; without even
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-     PURPOSE.  See the above copyright notice for more information.
-
-=========================================================================
-
 Produce a HTML page called VTKNamedColorPatches.html showing the available
  colors in vtkNamedColors.
 
@@ -31,60 +16,74 @@ from __future__ import print_function
 import vtk
 
 
-def RGBToHTMLColor(rgb):
-    """
-    Convert an [R, G, B] list to #RRGGBB.
-    :param: rgb - The elements of the array rgb are unsigned chars (0..255).
-    :return: The html color.
-    """
-    hexcolor = "#" + ''.join(['{:02x}'.format(x) for x in rgb])
-    return hexcolor
+def main():
+    ncp = HTMLTableMaker()
+    res = ncp.MakeCombinedColorPage()
+    # res = ncp.MakeWebColorPage()
+    # res = ncp.MakeVTKColorPage()
+    # res = ncp.MakeSynonymColorPage()
+    f = open("VTKNamedColorPatches.html", "w", newline="\n")
+    f.write(res)
+    f.close()
 
 
-def HTMLColorToRGB(colorString):
-    """
-    Convert #RRGGBB to a [R, G, B] list.
-    :param: colorString a string in the form: #RRGGBB where RR, GG, BB are hexadecimal.
-    The elements of the array rgb are unsigned chars (0..255).
-    :return: The red, green and blue components as a list.
-    """
-    colorString = colorString.strip()
-    if colorString[0] == '#':
-        colorString = colorString[1:]
-    if len(colorString) != 6:
-        raise ValueError("Input #%s is not in #RRGGBB format" % colorString)
-    r, g, b = colorString[:2], colorString[2:4], colorString[4:]
-    r, g, b = [int(n, 16) for n in (r, g, b)]
-    return [r, g, b]
+class HTMLToFromRGBAColor:
+
+    @staticmethod
+    def RGBToHTMLColor(rgb):
+        """
+        Convert an [R, G, B] list to #RRGGBB.
+        :param: rgb - The elements of the array rgb are unsigned chars (0..255).
+        :return: The html color.
+        """
+        hexcolor = "#" + ''.join(['{:02x}'.format(x) for x in rgb])
+        return hexcolor
+
+    @staticmethod
+    def HTMLColorToRGB(colorString):
+        """
+        Convert #RRGGBB to a [R, G, B] list.
+        :param: colorString a string in the form: #RRGGBB where RR, GG, BB are hexadecimal.
+        The elements of the array rgb are unsigned chars (0..255).
+        :return: The red, green and blue components as a list.
+        """
+        colorString = colorString.strip()
+        if colorString[0] == '#':
+            colorString = colorString[1:]
+        if len(colorString) != 6:
+            raise ValueError("Input #%s is not in #RRGGBB format" % colorString)
+        r, g, b = colorString[:2], colorString[2:4], colorString[4:]
+        r, g, b = [int(n, 16) for n in (r, g, b)]
+        return [r, g, b]
+
+    @staticmethod
+    def RGBToLumaCCIR601(rgb):
+        """
+        RGB -> Luma conversion
+        Digital CCIR601 (gives less weight to the R and B components)
+        :param: rgb - The elements of the array rgb are unsigned chars (0..255).
+        :return: The luminance.
+        """
+        Y = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]
+        return Y
+
+    @staticmethod
+    def FormatRGBForHTML(rgb):
+        """
+        Format the rgb colors for display on a html table.
+        :param: rgb - The elements of the array rgb are unsigned chars (0..255).
+        :return: A formatted string for the html table.
+        """
+        s = ','.join(['{:3d}'.format(x) for x in rgb])
+        s = s.replace(' ', '&#160;')
+        s = s.replace(',', '&#160;&#160;')
+        return s
 
 
-def RGBToLumaCCIR601(rgb):
+class ColorStructures:
     """
-    RGB -> Luma conversion
-    Digital CCIR601 (gives less weight to the R and B components)
-    :param: rgb - The elements of the array rgb are unsigned chars (0..255).
-    :return: The luminance.
-    """
-    Y = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]
-    return Y
-
-
-def FormatRGBForHTML(rgb):
-    """
-    Format the rgb colors for display on a html table.
-    :param: rgb - The elements of the array rgb are unsigned chars (0..255).
-    :return: A formatted string for the html table.
-    """
-    s = ','.join(['{:3d}'.format(x) for x in rgb])
-    s = s.replace(' ', '&#160;')
-    s = s.replace(',', '&#160;&#160;')
-    return s
-
-
-class HTMLTableMaker(object):
-    """
-      This class creates HTML Tables displaying all the colors in
-      the class vtkNamedColors grouped by various categories.
+    Holds the color names, grouped by color class, and information about table
+    layout and ordering.
     """
 
     def __init__(self):
@@ -204,50 +203,148 @@ class HTMLTableMaker(object):
                            'Magentas']
         self.vtkcnStartTable = ['Whites', 'Browns', 'Cyans']
         self.vtkcnEndTable = ['Oranges', 'Greens', 'Magentas']
-        # The vtkNamedColors class.
-        self.nc = vtk.vtkNamedColors()
 
-    def MakeHTMLHeader(self):
+
+class HTMLTableMaker:
+    """
+      This class creates HTML Tables displaying all the colors in
+      the class vtkNamedColors grouped by various categories.
+    """
+
+    def __init__(self):
+        self.cs = ColorStructures()
+        self.nc = vtk.vtkNamedColors()
+        self.htmlRGBA = HTMLToFromRGBAColor()
+
+    @staticmethod
+    def MakeHTMLStyle():
+        s = '  <style>\n'
+        s += '  \n'
+        s += '  body {\n'
+        s += '    background-color: snow\n'
+        s += '  }\n'
+        s += '  h1 {text-align:left;}\n'
+        s += '  h2 {text-align:left;}\n'
+        s += '  h3 {text-align:left;}\n'
+        s += '  h4 {text-align:left;}\n'
+        s += '  h5 {text-align:left;}\n'
+        s += '  h6 {text-align:left;}\n'
+        s += '  \n'
+        s += '  p {text-align:left;}\n'
+        s += '  \n'
+        s += '  table {\n'
+        s += '    font-family: arial, sans-serif;\n'
+        s += '    border-collapse: collapse;\n'
+        s += '    font-size: medium;\n'
+        s += '    padding: 4px;\n'
+        s += '  }\n'
+        s += '\n'
+        s += '  th[colspan]:not([colspan="1"]) {\n'
+        s += '    background: LightSteelBlue;\n'
+        s += '    font-size: x-large;\n'
+        s += '    text-align : center;'
+        s += '    vertical-align : top;\n'
+        s += '  }\n'
+        s += '  th {\n'
+        s += '    background: LightSteelBlue;\n'
+        s += '  }\n'
+        s += '  td, th {\n'
+        s += '    border: 1px solid #dddddd;\n'
+        s += '    text-align: left;\n'
+        s += '    padding: 8px;\n'
+        s += '    font-family: monospace;\n'
+        s += '    font-size: medium;\n'
+        s += '    font-weight: bold;\n'
+        s += '  }\n'
+        s += '\n'
+        s += '  tr {\n'
+        s += '    background: WhiteSmoke;\n'
+        s += '    vertical-align : top;\n'
+        s += '  }\n'
+        s += '\n'
+        s += '  td[colspan]:not([colspan="1"]) {\n'
+        s += '    background: MintCream;\n'
+        s += '    font-size: large;\n'
+        s += '    text-align : center;'
+        s += '    vertical-align : top;\n'
+        s += '  }\n'
+        s += '  td {\n'
+        s += '    background: WhiteSmoke;\n'
+        s += '  }\n'
+        s += '\n'
+        s += '  .cour {\n'
+        s += '    font-family: Courier;\n'
+        s += '  }\n'
+        s += '\n'
+        s += '  html, body {\n'
+        s += '    height: 100%;\n'
+        s += '  }\n'
+        s += '\n'
+        s += '  html {\n'
+        s += '    display: table;\n'
+        s += '    margin: auto;\n'
+        s += '  }\n'
+        s += '\n'
+        s += '  body {\n'
+        s += '    display: table-cell;\n'
+        s += '    vertical-align: middle;\n'
+        s += '  }\n'
+        s += '\n'
+        s += '  thead {color: DarkGreen;}\n'
+        s += '  tbody {color: MidnightBlue;}\n'
+        s += '  tfoot {color: SaddleBrown;}\n'
+        s += '\n'
+        s += '  </style>\n'
+        return s
+
+    @staticmethod
+    def MakeHTMLHeader():
         s = '<!DOCTYPE html>\n'
-        s += '<html lang="en" dir="ltr" class="client-nojs">\n'
+        s += '<html lang="en">\n'
         s += '<head>\n'
-        s += '<title>vtkNamedColors</title>\n'
         s += '<meta charset="UTF-8" />\n'
+        s += '<title>vtkNamedColors</title>\n'
+        s += HTMLTableMaker.MakeHTMLStyle()
         s += '</head>\n'
         return s
 
-    def MakeHTMLIndex(self):
+    @staticmethod
+    def MakeHTMLIndex():
         s = '<h2>Index</h2>\n'
         s += '<ul>\n'
-        s += '\t<li><a href="#WebColorNames">Web color Names</li>\n'
-        s += '\t<li><a href="#VTKColorNames">VTK color Names</li>\n'
-        s += '\t<li><a href="#Synonyms">Synonyms</li>\n'
+        s += '\t<li><a href="#WebColorNames">Web color Names</a>'
+        s += ' These colors correspond to those in'
+        s += ' <a href="http://en.wikipedia.org/wiki/Web_colors"'
+        s += ' title="Web Colors">Web Colors</a>.\n'
+        s += '</li>\n'
+        s += '\t<li><a href="#VTKColorNames">VTK color Names</a>\n'
+        s += ' The colors correspond to additional colors commonly used in VTK.\n'
+        s += '<br>The web colors take precedence over colors with\n'
+        s += ' the same name (case insensitive) here.\n'
+        s += '</li>\n'
+        s += '\t<li><a href="#Synonyms">Synonyms</a></li>\n'
         s += '</ul>\n'
         return s
 
-    def MakeTableHeader(self):
+    @staticmethod
+    def MakeTableHeader(title):
         s = '<tr>\n'
-        s += '<th style="background:lightgrey">HTML name</th>\n'
-        s += '<th style="background:lightgrey">Decimal code<br />\n'
-        s += '&#160;&#160;R&#160;&#160;&#160;&#160;&#160;&#160;'
-        s += 'G&#160;&#160;&#160;&#160;&#160;&#160;B</th>\n'
+        s += '<th>'
+        s += title
+        s += '</th>\n'
+        s += '<th>Decimal code<br>\n'
+        s += '&#160;&#160;R'
+        s += '&#160;&#160;&#160;&#160;G'
+        s += '&#160;&#160;&#160;&#160;B</th>\n'
         s += '</tr>\n'
         return s
 
-    def MakeSynonymTableHeader(self):
+    @staticmethod
+    def MakeTD(name):
         s = '<tr>\n'
-        s += '<th style="background:lightgrey">Synonyms</th>\n'
-        s += '<th style="background:lightgrey">Decimal code<br />\n'
-        s += '&#160;&#160;R&#160;&#160;&#160;&#160;&#160;&#160;'
-        s += 'G&#160;&#160;&#160;&#160;&#160;&#160;B</th>\n'
-        s += '</tr>\n'
-        return s
-
-    def MakeTD(self, name):
-        s = '<tr>\n'
-        s += '<td colspan="2" style="background:whitesmoke;'
-        s += 'color:slategray;text-align:left"><big><b>' + name
-        s += '</b></big></td>\n'
+        s += '<td colspan="2">'
+        s += '<b>' + name + '</b>'
+        s += '</td>\n'
         s += '</tr>\n'
         return s
 
@@ -259,30 +356,30 @@ class HTMLTableMaker(object):
         s += '<td style="background:' + name + ';color:' + textColor
         s += '">' + name + '</td>\n'
         s += '<td style="background:' + name + ';color:' + textColor
-        s += '"><tt>' + FormatRGBForHTML(rgb) + '</tt></td>\n'
+        s += '">' + self.htmlRGBA.FormatRGBForHTML(rgb) + '</td>\n'
         s += '</tr>\n'
         return s
 
-    def MakeVTKTR(self, name, nameColor, rgb, textColor):
+    def MakeTR_HTML(self, name, htmlColor, rgb, textColor):
         """
           Use when the name is not a color name known to the web browser.
         """
         s = '<tr>\n'
-        s += '<td style="background:' + nameColor + ';color:'
+        s += '<td style="background:' + htmlColor + ';color:'
         s += textColor + '">' + name + '</td>\n'
-        s += '<td style="background:' + nameColor + ';color:'
-        s += textColor + '"><tt>' + FormatRGBForHTML(rgb) + '</tt></td>\n'
+        s += '<td style="background:' + htmlColor + ';color:'
+        s += textColor + '">' + self.htmlRGBA.FormatRGBForHTML(rgb) + '</td>\n'
         s += '</tr>\n'
         return s
 
     def FindLongestColorName(self):
         """ Find the longest color name. """
         maxLength = -1
-        for key, value in self.cn.items():
+        for key, value in self.cs.cn.items():
             for val in value:
                 if len(val) > maxLength:
                     maxLength = len(val)
-        for key, value in self.vtkcn.items():
+        for key, value in self.cs.vtkcn.items():
             for val in value:
                 if len(val) > maxLength:
                     maxLength = len(val)
@@ -290,17 +387,17 @@ class HTMLTableMaker(object):
 
     def MakeWebColorTables(self):
         res = ''
-        for key in self.cnOrder:
-            if key in self.cnStartTable:
+        for key in self.cs.cnOrder:
+            if key in self.cs.cnStartTable:
                 res += '<td>\n'
                 res += '<table>\n'
-                res += self.MakeTableHeader()
+                res += self.MakeTableHeader('HTML name')
             # Add in the name of the group in the color table.
             res += self.MakeTD(key + ' colors')
-            values = self.cn[key]
+            values = self.cs.cn[key]
             for name in values:
                 rgb = self.nc.GetColor3ub(name)
-                Y = RGBToLumaCCIR601(rgb)
+                Y = self.htmlRGBA.RGBToLumaCCIR601(rgb)
                 textColor = '#000000'  # Black
                 if Y < 255 / 2.0:
                     textColor = '#ffffff'  # White
@@ -308,34 +405,34 @@ class HTMLTableMaker(object):
                 # Here we use the name to set the background color
                 #  as it is known to the web browser.
                 res += self.MakeTR(name, rgb, textColor)
-            if key in self.cnEndTable:
+            if key in self.cs.cnEndTable:
                 res += '</table>\n'
                 res += '</td>\n'
         return res
 
     def MakeVTKColorTables(self):
         res = ''
-        for key in self.vtkcnOrder:
-            if key in self.vtkcnStartTable:
+        for key in self.cs.vtkcnOrder:
+            if key in self.cs.vtkcnStartTable:
                 res += '<td>\n'
                 res += '<table>\n'
-                res += self.MakeTableHeader()
+                res += self.MakeTableHeader('HTML name')
             # Add in the name of the group in the color table.
             res += self.MakeTD(key)
-            values = self.vtkcn[key]
+            values = self.cs.vtkcn[key]
             for name in values:
                 rgb = self.nc.GetColor3ub(name)
-                Y = RGBToLumaCCIR601(rgb)
+                Y = self.htmlRGBA.RGBToLumaCCIR601(rgb)
                 textColor = '#000000'  # Black
                 if Y < 255 / 2.0:
                     textColor = '#ffffff'  # White
                 # We must set the background color to a specific
                 # HTML color as the color name may not be a standard
                 # name known to the web browser.
-                nameColor = RGBToHTMLColor(rgb)
+                htmlColor = self.htmlRGBA.RGBToHTMLColor(rgb)
                 # Make the row for each color in the group.
-                res += self.MakeVTKTR(name, nameColor, rgb, textColor)
-            if key in self.vtkcnEndTable:
+                res += self.MakeTR_HTML(name, htmlColor, rgb, textColor)
+            if key in self.cs.vtkcnEndTable:
                 res += '</table>\n'
                 res += '</td>\n'
         return res
@@ -349,32 +446,44 @@ class HTMLTableMaker(object):
         for ele in syn:
             synonyms.append(ele.split('\n'))
         cn = list()
-        for key, value in self.cn.items():
+        for key, value in self.cs.cn.items():
             cn = cn + value
         # Create a dictionary where the key is the lowercase name.
         d = dict()
         for n in cn:
             d.update({n.lower(): n})
+        #  End point of first table.
+        end1 = len(synonyms) // 2
+        if end1 * 2 < len(synonyms):
+            end1 += 1
         res = '<td>\n'
         res += '<table>\n'
-        res += self.MakeSynonymTableHeader()
-        for colorNames in synonyms:  # colors.GetSynonyms():
+        res += self.MakeTableHeader('Synonyms')
+        count = 0
+        for colorNames in synonyms:
+            if count == end1:
+                res += '</table>\n'
+                res += '</td>\n'
+                res += '<td>\n'
+                res += '<table>\n'
+                res += self.MakeTableHeader('Synonyms')
             for idx, name in enumerate(colorNames):
                 if name in d:
                     colorNames[idx] = d[name]
             colorNames.sort()
             name = ", ".join(colorNames)
             rgb = self.nc.GetColor3ub(colorNames[0])
-            Y = RGBToLumaCCIR601(rgb)
+            Y = self.htmlRGBA.RGBToLumaCCIR601(rgb)
             textColor = '#000000'  # Black
             if Y < 255 / 2.0:
                 textColor = '#ffffff'  # White
             # We must set the background color to a specific
             # HTML color  names is just a list of
             # synonyms for that particular color.
-            nameColor = RGBToHTMLColor(rgb)
+            htmlColor = self.htmlRGBA.RGBToHTMLColor(rgb)
             # Make the row for each color in the group.
-            res += self.MakeVTKTR(name, nameColor, rgb, textColor)
+            res += self.MakeTR_HTML(name, htmlColor, rgb, textColor)
+            count += 1
         res += '</table>\n'
         res += '</td>\n'
         return res
@@ -383,11 +492,13 @@ class HTMLTableMaker(object):
         res = self.MakeHTMLHeader()
         res += '<body>\n'
         res += '<h1>Colors available in vtkNamedColors</h1>\n'
-        res += '<table style="font-size:90%" cellpadding="4">\n'
-        res += '<caption style="background:lightgrey">Web Color Names'
-        res += '</caption>\n'
-        res += '<tr valign="top">\n'
+        res += '<table>\n'
+        res += '<tr>\n'
+        res += '<th colspan="3">Web Color Names</th>\n'
+        res += '</tr>\n'
+        res += '<tr>\n'
         res += self.MakeWebColorTables()
+        res += '</tr>\n'
         res += '</table>\n'
         res += '</body>\n'
         return res
@@ -396,12 +507,15 @@ class HTMLTableMaker(object):
         res = self.MakeHTMLHeader()
         res += '<body>\n'
         res += '<h1>Colors available in vtkNamedColors</h1>\n'
-        res += '<p>The web colors take precedence over colors of the same'
-        res += ' name in VTK Color Names.</p>\n'
-        res += '<table style="font-size:90%" cellpadding="4">\n'
-        res += '<caption style="background:lightgrey">VTK Color Names</caption>\n'
-        res += '<tr valign="top">\n'
+        res += 'The web colors take precedence over colors of the same'
+        res += ' name in VTK Color Names.\n'
+        res += '<table>\n'
+        res += '<tr>\n'
+        res += '<th colspan="3">VTK Color Names</th>\n'
+        res += '</tr>\n'
+        res += '<tr>\n'
         res += self.MakeVTKColorTables()
+        res += '</tr>\n'
         res += '</table>\n'
         res += '</body>\n'
         return res
@@ -410,10 +524,13 @@ class HTMLTableMaker(object):
         res = self.MakeHTMLHeader()
         res += '<body>\n'
         res += '<h1>Synonyms in vtkNamedColors</h1>\n'
-        res += '<table style="font-size:90%" cellpadding="4">\n'
-        res += '<caption style="background:lightgrey"></caption>\n'
-        res += '<tr valign="top">\n'
+        res += '<table>\n'
+        res += '<tr>\n'
+        res += '<th colspan="2">Synonyms</th>\n'
+        res += '</tr>\n'
+        res += '<tr>\n'
         res += self.MakeSynonymColorTable()
+        res += '</tr>\n'
         res += '</table>\n'
         res += '</body>\n'
         return res
@@ -422,44 +539,42 @@ class HTMLTableMaker(object):
         res = self.MakeHTMLHeader()
         res += '<body>\n'
         res += '<h1>Colors available in vtkNamedColors</h1>\n'
-        res += '<p>The class vtkNamedColors provides color names and their'
-        res += ' values for the convenience of the user.</p>\n'
-        res += '<p>The following tables show the available colors along with'
-        res += ' their red, green and blue values.</p>\n'
+        res += 'The class vtkNamedColors provides color names and their'
+        res += ' values for the convenience of the user.\n'
+        res += '<br>The following tables show the available colors along with'
+        res += ' their red, green and blue values.\n'
         res += self.MakeHTMLIndex()
-        res += '<h2><a id="WebColorNames">Web color Names</h2>'
-        res += 'These colors correspond to those in'
-        res += ' <a href="http://en.wikipedia.org/wiki/Web_colors"'
-        res += ' title="Web Colors">Web Colors</a>.\n'
-        res += '<table style="font-size:90%" cellpadding="4">\n'
-        res += '<tr valign="top">\n'
+        res += '<table>\n'
+        res += '<tr>\n'
+        res += '<th colspan="3"><a id="WebColorNames">Web color Names</a></th>\n'
+        res += '</tr>\n'
+        res += '<tr>\n'
         res += self.MakeWebColorTables()
+        res += '</tr>\n'
         res += '</table>\n'
-        res += '<h2><a id="VTKColorNames">VTK color Names</h2>'
-        res += '<p>The colors mainly correspond to those in vtkColors.txt.\n</p>\n'
-        res += '<p>The web colors (above) take precedence over colors of the'
-        res += ' same name in vtkColors.txt.</p>\n'
-        res += '<table style="font-size:90%" cellpadding="4">\n'
-        res += '<tr valign="top">\n'
+        res += '<br>\n'
+
+        res += '<table>\n'
+        res += '<tr>\n'
+        res += '<th colspan="3"><a id="VTKColorNames">VTK color Names</a></th>\n'
+        res += '</tr>\n'
+        res += '<tr>\n'
         res += self.MakeVTKColorTables()
+        res += '</tr>\n'
         res += '</table>\n'
-        res += '<h2><a id="Synonyms">Synonyms</h2>'
-        res += '<table style="font-size:90%" cellpadding="4">\n'
-        res += '<tr valign="top">\n'
+        res += '<br>\n'
+
+        res += '<table>\n'
+        res += '<tr>\n'
+        res += '<th colspan="2"><a id="Synonyms">Synonyms</a></th>\n'
+        res += '</tr>\n'
+        res += '<tr>\n'
         res += self.MakeSynonymColorTable()
+        res += '</tr>\n'
         res += '</table>\n'
         res += '</body>\n'
         return res
 
 
 if __name__ == "__main__":
-    requiredMajorVersion = 6
-    if vtk.vtkVersion().GetVTKMajorVersion() < requiredMajorVersion:
-        print("You need VTK Version 6 or greater.")
-        print("The class vtkNamedColors is in VTK version 6 or greater.")
-        exit(0)
-    ncp = HTMLTableMaker()
-    res = ncp.MakeCombinedColorPage()
-    f = open("VTKNamedColorPatches.html", "wt")
-    f.write(res)
-    f.close()
+    main()
