@@ -84,6 +84,7 @@ struct CloudParameters
     os << "  Title: " << Title << std::endl;
     os << "  WordColorName: " << WordColorName << std::endl;
   }
+  std::vector<int>         AdjustedSizes;
   std::string              BackgroundColorName;
   bool                     BWMask;
   std::string              ColorSchemeName;
@@ -191,6 +192,8 @@ int main (int argc,  char *argv[])
     defaultMask->FillBox(0, cloudParameters.Sizes[0] - 1, 0, cloudParameters.Sizes[1] - 1);
     defaultMask->Update();
     maskImage = defaultMask->GetOutput();
+    cloudParameters.AdjustedSizes.push_back(cloudParameters.Sizes[0]);
+    cloudParameters.AdjustedSizes.push_back(cloudParameters.Sizes[1]);
   }
   else
   {
@@ -207,8 +210,12 @@ int main (int argc,  char *argv[])
     auto resize = vtkSmartPointer<vtkImageResize>::New();
     resize->SetInputData(reader->GetOutput());
     resize->InterpolateOff();
-    resize->SetOutputDimensions(cloudParameters.Sizes[0],
-                                cloudParameters.Sizes[1],
+    double aspect = static_cast<double>(dimensions[1]) / static_cast<double>(dimensions[0]) *
+      static_cast<double>(cloudParameters.Sizes[0]) / static_cast<double>(cloudParameters.Sizes[1]);
+    cloudParameters.AdjustedSizes.push_back(cloudParameters.Sizes[0]);
+    cloudParameters.AdjustedSizes.push_back(aspect * cloudParameters.Sizes[1]);
+    resize->SetOutputDimensions(cloudParameters.AdjustedSizes[0],
+                                cloudParameters.AdjustedSizes[1],
                                 1);
     if (cloudParameters.BWMask)
     {
@@ -233,7 +240,7 @@ int main (int argc,  char *argv[])
   // Create an image that will hold the final image
   auto final = vtkSmartPointer<vtkImageBlend>::New();
   final->AddInputData(maskImage);
-  final->SetOpacity(0, 0.0);
+  final->SetOpacity(0, .5);
   final->Update();
 
   // Try to add each word
@@ -297,7 +304,7 @@ int main (int argc,  char *argv[])
 
   vtkCamera* camera = imageViewer->GetRenderer()->GetActiveCamera();
   camera->ParallelProjectionOn();
-  camera->SetParallelScale(cloudParameters.Sizes[0] * .4);
+  camera->SetParallelScale(cloudParameters.AdjustedSizes[0] * .4);
 
   imageViewer->GetRenderWindow()->Render();
   interactor->Start();
@@ -516,8 +523,8 @@ bool AddWordToFinal(const std::string word,
     int offsetX = (*it).x + offsetDist(mt); // add some noise to the offset
     int offsetY = (*it).y + offsetDist(mt);
     // Make sure the text image will fit on the final image
-    if (offsetX + bb[1] - bb[0] < cloudParameters.Sizes[0] - 1 &&
-        offsetY + bb[3] - bb[2] < cloudParameters.Sizes[1] - 1 &&
+    if (offsetX + bb[1] - bb[0] < cloudParameters.AdjustedSizes[0] - 1 &&
+        offsetY + bb[3] - bb[2] < cloudParameters.AdjustedSizes[1] - 1 &&
         offsetX >= 0 && offsetY >= 0)
     {
       textImage->SetExtent(offsetX, offsetX + bb[1] - bb[0],
@@ -716,7 +723,7 @@ void ReplaceMaskColorWithBackgroundColor(vtkImageData* finalImage, CloudParamete
       R = *finalSpan;
       G = *(finalSpan + 1);
       B = *(finalSpan + 2);
-      // If the pixel contains the background color, the word will not fit
+      // If the pixel does not contain the background color, the word will not fit
       if (R != maskR && G != maskG && B != maskB)
       {
         finalSpan += 3;
@@ -737,7 +744,7 @@ void ReplaceMaskColorWithBackgroundColor(vtkImageData* finalImage, CloudParamete
 void ShowColorSeriesNames(ostream& os)
 {
   auto colorSeries = vtkSmartPointer<vtkColorSeries>::New();
-  os << "Valid series" << std::endl;
+  os << "Valid schemes" << std::endl;
   for (auto i = 0; i < colorSeries->GetNumberOfColorSchemes(); ++i)
   {
     colorSeries->SetColorScheme(i);
