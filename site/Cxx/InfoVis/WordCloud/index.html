@@ -87,14 +87,14 @@ function registerListener(event, func) {
   --wordColorName opt  Name of the color <span class=k>for</span> the words<span class=o>()</span>. If the name is
                              empty, the colorDistribution will generate random
                              colors.
-</pre></div> <p>The example image was produced with these arguments:</p> <div class=codehilite><pre><span></span>WordCloud <span class=si>${</span><span class=nv>DATA</span><span class=si>}</span>/Gettysburg.txt --dpi <span class=m>150</span> --fontFile <span class=si>${</span><span class=nv>DATA</span><span class=si>}</span>/Canterbury.ttf<span class=o>)</span>
+</pre></div> <p>The example image was produced with these arguments:</p> <div class=codehilite><pre><span></span>WordCloud <span class=si>${</span><span class=nv>DATA</span><span class=si>}</span>/Gettysburg.txt --dpi <span class=m>150</span> --fontFile <span class=si>${</span><span class=nv>DATA</span><span class=si>}</span>/Canterbury.ttf
 </pre></div> <p>and these parameters:</p> <div class=codehilite><pre><span></span>Cloud Parameters
   BackgroundColorName: MidnightBlue
   BWMask: <span class=nb>false</span>
   ColorDistribution: <span class=m>0</span>.6 <span class=m>1</span>
-  ColorScheme: 
+  ColorSchemeName: 
   DPI: <span class=m>150</span>
-  FontFile: ../src/Testing/Data/Canterbury.ttf
+  FontFile: /Canterbury.ttf
   FontMultiplier: <span class=m>6</span>
   Gap: <span class=m>2</span>
   MaskColorName: black
@@ -103,8 +103,11 @@ function registerListener(event, func) {
   MaxFontSize: <span class=m>48</span>
   OffsetDistribution: -6 <span class=m>4</span>
   OrientationDistribution: -20 <span class=m>20</span>
+  Orientations: 
+  ReplacementPairs: 
   Sizes: <span class=m>640</span> <span class=m>480</span>
-  StopListFile: 
+  StopWords: 
+  Title: 
   WordColorName: 
 </pre></div> <p>and produced this output:</p> <div class=codehilite><pre><span></span>Kept <span class=m>94</span> words
 Stopped <span class=m>178</span> words
@@ -125,6 +128,7 @@ Skipped <span class=m>5</span> words
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImageCanvasSource2D.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkMath.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkNamedColors.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkColorSeries.h&gt;</span><span class=cp></span>
 </span>
 <span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImageReader2.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImageReader2Factory.h&gt;</span><span class=cp></span>
@@ -153,7 +157,7 @@ Skipped <span class=m>5</span> words
 <span class=c1>// Cloud Parameters</span>
 <span class=k>struct</span> <span class=n>CloudParameters</span>
 <span class=p>{</span>
-  <span class=n>CloudParameters</span><span class=p>()</span> <span class=o>:</span> <span class=n>FontFile</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>MaskFile</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>DPI</span><span class=p>(</span><span class=mi>200</span><span class=p>),</span> <span class=n>MaxFontSize</span><span class=p>(</span><span class=mi>48</span><span class=p>),</span> <span class=n>MinFontSize</span><span class=p>(</span><span class=mi>12</span><span class=p>),</span> <span class=n>FontMultiplier</span><span class=p>(</span><span class=mi>6</span><span class=p>),</span> <span class=n>ColorScheme</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span>  <span class=n>BackgroundColorName</span><span class=p>(</span><span class=s>&quot;MidnightBlue&quot;</span><span class=p>),</span> <span class=n>MaskColorName</span><span class=p>(</span><span class=s>&quot;black&quot;</span><span class=p>),</span> <span class=n>BWMask</span><span class=p>(</span><span class=nb>false</span><span class=p>),</span> <span class=n>WordColorName</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>Gap</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+  <span class=n>CloudParameters</span><span class=p>()</span> <span class=o>:</span> <span class=n>FontFile</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>MaskFile</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>DPI</span><span class=p>(</span><span class=mi>200</span><span class=p>),</span> <span class=n>MaxFontSize</span><span class=p>(</span><span class=mi>48</span><span class=p>),</span> <span class=n>MinFontSize</span><span class=p>(</span><span class=mi>12</span><span class=p>),</span> <span class=n>FontMultiplier</span><span class=p>(</span><span class=mi>6</span><span class=p>),</span> <span class=n>ColorSchemeName</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span>  <span class=n>BackgroundColorName</span><span class=p>(</span><span class=s>&quot;MidnightBlue&quot;</span><span class=p>),</span> <span class=n>MaskColorName</span><span class=p>(</span><span class=s>&quot;black&quot;</span><span class=p>),</span> <span class=n>BWMask</span><span class=p>(</span><span class=nb>false</span><span class=p>),</span> <span class=n>WordColorName</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>Gap</span><span class=p>(</span><span class=mi>2</span><span class=p>),</span> <span class=n>KeptCount</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
   <span class=p>{};</span>
   <span class=kt>void</span> <span class=nf>Print</span><span class=p>(</span><span class=n>ostream</span><span class=o>&amp;</span> <span class=n>os</span><span class=p>)</span>
   <span class=p>{</span>
@@ -161,7 +165,7 @@ Skipped <span class=m>5</span> words
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  BackgroundColorName: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>BackgroundColorName</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  BWMask: &quot;</span> <span class=o>&lt;&lt;</span> <span class=p>(</span><span class=n>BWMask</span> <span class=o>?</span> <span class=s>&quot;true&quot;</span> <span class=o>:</span> <span class=s>&quot;false&quot;</span><span class=p>)</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  ColorDistribution: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>ColorDistribution</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>ColorDistribution</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
-    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  ColorScheme: &quot;</span> <span class=o>&lt;&lt;</span>  <span class=n>ColorScheme</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  ColorSchemeName: &quot;</span> <span class=o>&lt;&lt;</span>  <span class=n>ColorSchemeName</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  DPI: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>DPI</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  FontFile: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>FontFile</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  FontMultiplier: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>FontMultiplier</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
@@ -191,14 +195,17 @@ Skipped <span class=m>5</span> words
       <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=n>s</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span><span class=p>;</span>
     <span class=p>}</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  Title: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>Title</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  WordColorName: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>WordColorName</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=p>}</span>
+  <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span>         <span class=n>AdjustedSizes</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>string</span>              <span class=n>BackgroundColorName</span><span class=p>;</span>
   <span class=kt>bool</span>                     <span class=n>BWMask</span><span class=p>;</span>
-  <span class=n>std</span><span class=o>::</span><span class=n>string</span>              <span class=n>ColorScheme</span><span class=p>;</span>
+  <span class=n>std</span><span class=o>::</span><span class=n>string</span>              <span class=n>ColorSchemeName</span><span class=p>;</span>
   <span class=kt>int</span>                      <span class=n>DPI</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>string</span>              <span class=n>FontFile</span><span class=p>;</span>
   <span class=kt>int</span>                      <span class=n>Gap</span><span class=p>;</span>
+  <span class=kt>int</span>                      <span class=n>KeptCount</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>string</span>              <span class=n>MaskColorName</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>string</span>              <span class=n>MaskFile</span><span class=p>;</span>
   <span class=kt>int</span>                      <span class=n>MaxFontSize</span><span class=p>;</span>
@@ -211,6 +218,7 @@ Skipped <span class=m>5</span> words
   <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&gt;</span> <span class=n>ReplacementPairs</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span>         <span class=n>Sizes</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&gt;</span> <span class=n>StopWords</span><span class=p>;</span>
+  <span class=n>std</span><span class=o>::</span><span class=n>string</span>              <span class=n>Title</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>string</span>              <span class=n>WordColorName</span><span class=p>;</span>
 <span class=p>};</span>
 <span class=hll><span class=kt>bool</span> <span class=nf>ProcessCommandLine</span><span class=p>(</span><span class=n>vtksys</span><span class=o>::</span><span class=n>CommandLineArguments</span> <span class=o>&amp;</span><span class=n>arg</span><span class=p>,</span>
@@ -234,7 +242,7 @@ Skipped <span class=m>5</span> words
 <span class=p>};</span>
 <span class=kt>bool</span> <span class=nf>AddWordToFinal</span><span class=p>(</span><span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>,</span>
                     <span class=k>const</span> <span class=kt>int</span><span class=p>,</span>
-                    <span class=k>const</span> <span class=n>CloudParameters</span> <span class=o>&amp;</span><span class=p>,</span>
+                    <span class=n>CloudParameters</span> <span class=o>&amp;</span><span class=p>,</span>
                     <span class=n>std</span><span class=o>::</span><span class=n>mt19937</span> <span class=o>&amp;</span><span class=p>,</span> 
                     <span class=kt>double</span> <span class=n>orientation</span><span class=p>,</span>
                     <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>ExtentOffset</span><span class=o>&gt;</span> <span class=o>&amp;</span><span class=p>,</span>
@@ -245,6 +253,7 @@ Skipped <span class=m>5</span> words
 <span class=kt>void</span> <span class=nf>ArchimedesSpiral</span> <span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>ExtentOffset</span><span class=o>&gt;&amp;</span><span class=p>,</span> <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span><span class=p>);</span>
 <span class=hll><span class=kt>void</span> <span class=nf>ReplaceMaskColorWithBackgroundColor</span><span class=p>(</span><span class=n>vtkImageData</span><span class=o>*</span><span class=p>,</span> <span class=n>CloudParameters</span> <span class=o>&amp;</span><span class=p>);</span>
 </span><span class=kt>void</span> <span class=nf>CreateStopList</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>&gt;</span> <span class=o>&amp;</span><span class=n>StopList</span><span class=p>);</span>
+<span class=kt>void</span> <span class=nf>ShowColorSeriesNames</span><span class=p>(</span><span class=n>ostream</span><span class=o>&amp;</span> <span class=n>os</span><span class=p>);</span>
 <span class=p>}</span>
 
 <span class=kt>int</span> <span class=n>main</span> <span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span>  <span class=kt>char</span> <span class=o>*</span><span class=n>argv</span><span class=p>[])</span>
@@ -297,6 +306,8 @@ Skipped <span class=m>5</span> words
     <span class=n>defaultMask</span><span class=o>-&gt;</span><span class=n>FillBox</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=mi>1</span><span class=p>);</span>
     <span class=n>defaultMask</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>maskImage</span> <span class=o>=</span> <span class=n>defaultMask</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
+    <span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>0</span><span class=p>]);</span>
+    <span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
   <span class=p>}</span>
   <span class=k>else</span>
   <span class=p>{</span>
@@ -313,8 +324,12 @@ Skipped <span class=m>5</span> words
 <span class=hll>    <span class=k>auto</span> <span class=n>resize</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageResize</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>resize</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
     <span class=n>resize</span><span class=o>-&gt;</span><span class=n>InterpolateOff</span><span class=p>();</span>
-    <span class=n>resize</span><span class=o>-&gt;</span><span class=n>SetOutputDimensions</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span>
-                                <span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span>
+    <span class=kt>double</span> <span class=n>aspect</span> <span class=o>=</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=n>dimensions</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span> <span class=o>/</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=n>dimensions</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=o>*</span>
+      <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=o>/</span> <span class=k>static_cast</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
+    <span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>0</span><span class=p>]);</span>
+    <span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>aspect</span> <span class=o>*</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
+    <span class=n>resize</span><span class=o>-&gt;</span><span class=n>SetOutputDimensions</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span>
+                                <span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span>
                                 <span class=mi>1</span><span class=p>);</span>
     <span class=k>if</span> <span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>BWMask</span><span class=p>)</span>
     <span class=p>{</span>
@@ -339,7 +354,7 @@ Skipped <span class=m>5</span> words
   <span class=c1>// Create an image that will hold the final image</span>
 <span class=hll>  <span class=k>auto</span> <span class=k>final</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageBlend</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=k>final</span><span class=o>-&gt;</span><span class=n>AddInputData</span><span class=p>(</span><span class=n>maskImage</span><span class=p>);</span>
-  <span class=k>final</span><span class=o>-&gt;</span><span class=n>SetOpacity</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>);</span>
+  <span class=k>final</span><span class=o>-&gt;</span><span class=n>SetOpacity</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mf>.5</span><span class=p>);</span>
   <span class=k>final</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
   <span class=c1>// Try to add each word</span>
@@ -403,7 +418,7 @@ Skipped <span class=m>5</span> words
 
 <span class=hll>  <span class=n>vtkCamera</span><span class=o>*</span> <span class=n>camera</span> <span class=o>=</span> <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetRenderer</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>();</span>
 </span>  <span class=n>camera</span><span class=o>-&gt;</span><span class=n>ParallelProjectionOn</span><span class=p>();</span>
-  <span class=n>camera</span><span class=o>-&gt;</span><span class=n>SetParallelScale</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=mf>.4</span><span class=p>);</span>
+  <span class=n>camera</span><span class=o>-&gt;</span><span class=n>SetParallelScale</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=mf>.4</span><span class=p>);</span>
 
   <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetRenderWindow</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
@@ -437,6 +452,12 @@ Skipped <span class=m>5</span> words
 
   <span class=c1>// Store the words in a map that will contain frequencies</span>
   <span class=n>std</span><span class=o>::</span><span class=n>map</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>,</span> <span class=kt>int</span><span class=o>&gt;</span> <span class=n>wordContainer</span><span class=p>;</span>
+
+  <span class=c1>// If a title is present add it with a high frequency</span>
+  <span class=k>if</span> <span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Title</span><span class=p>.</span><span class=n>length</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>wordContainer</span><span class=p>[</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Title</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1000</span><span class=p>;</span>
+  <span class=p>}</span>
   <span class=k>const</span> <span class=kt>int</span> <span class=n>N</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
   <span class=kt>int</span> <span class=n>stop</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
   <span class=kt>int</span> <span class=n>keep</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
@@ -501,7 +522,7 @@ Skipped <span class=m>5</span> words
 <span class=p>}</span>
 <span class=kt>bool</span> <span class=n>AddWordToFinal</span><span class=p>(</span><span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>word</span><span class=p>,</span>
                     <span class=k>const</span> <span class=kt>int</span> <span class=n>frequency</span><span class=p>,</span>
-                    <span class=k>const</span> <span class=n>CloudParameters</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>,</span>
+                    <span class=n>CloudParameters</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>,</span>
                     <span class=n>std</span><span class=o>::</span><span class=n>mt19937</span> <span class=o>&amp;</span><span class=n>mt</span><span class=p>,</span>
                     <span class=kt>double</span> <span class=n>orientation</span><span class=p>,</span>
                     <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>ExtentOffset</span><span class=o>&gt;</span> <span class=o>&amp;</span><span class=n>offset</span><span class=p>,</span>
@@ -526,9 +547,21 @@ Skipped <span class=m>5</span> words
   <span class=c1>// Setup a property for the strings containing fixed parameters</span>
 <span class=hll>  <span class=k>auto</span> <span class=n>colors</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span><span class=hll>  <span class=k>auto</span> <span class=n>textProperty</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTextProperty</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=k>if</span> <span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>WordColorName</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span>
+</span>  <span class=k>if</span> <span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>WordColorName</span><span class=p>.</span><span class=n>length</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=n>textProperty</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>WordColorName</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=p>}</span>
+  <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>ColorSchemeName</span><span class=p>.</span><span class=n>length</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span>
+  <span class=p>{</span>
+<span class=hll>    <span class=k>auto</span> <span class=n>colorScheme</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkColorSeries</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>    <span class=kt>int</span> <span class=n>index</span> <span class=o>=</span> <span class=n>colorScheme</span><span class=o>-&gt;</span><span class=n>SetColorSchemeByName</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>ColorSchemeName</span><span class=p>);</span>
+<span class=hll>    <span class=n>vtkColor3ub</span> <span class=n>color</span> <span class=o>=</span> <span class=n>colorScheme</span><span class=o>-&gt;</span><span class=n>GetColorRepeating</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>KeptCount</span><span class=p>);</span>
+</span>    <span class=k>if</span> <span class=p>(</span><span class=n>color</span><span class=p>.</span><span class=n>Compare</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3ub</span><span class=p>(</span><span class=s>&quot;black&quot;</span><span class=p>),</span> <span class=mi>1</span><span class=p>)</span> <span class=o>&amp;&amp;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>KeptCount</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span>
+      <span class=p>{</span>
+        <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;The color scheme &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>ColorSchemeName</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; does not exist.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+        <span class=n>ShowColorSeriesNames</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=p>);</span>
+      <span class=p>}</span>
+    <span class=n>textProperty</span><span class=o>-&gt;</span><span class=n>SetColor</span><span class=p>(</span><span class=n>color</span><span class=p>.</span><span class=n>GetRed</span><span class=p>()</span> <span class=o>*</span> <span class=mf>255.0</span><span class=p>,</span> <span class=n>color</span><span class=p>.</span><span class=n>GetGreen</span><span class=p>()</span> <span class=o>*</span> <span class=mf>255.0</span> <span class=p>,</span> <span class=n>color</span><span class=p>.</span><span class=n>GetBlue</span><span class=p>()</span> <span class=o>*</span> <span class=mf>255.0</span><span class=p>);</span>
   <span class=p>}</span>
   <span class=k>else</span>
   <span class=p>{</span>
@@ -559,7 +592,10 @@ Skipped <span class=m>5</span> words
   <span class=p>{</span>
     <span class=n>fontSize</span> <span class=o>=</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>MinFontSize</span><span class=p>;</span>
   <span class=p>}</span>
-
+  <span class=k>if</span> <span class=p>(</span><span class=n>frequency</span> <span class=o>==</span> <span class=mi>1000</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>fontSize</span> <span class=o>*=</span> <span class=mf>1.2</span><span class=p>;;</span>
+  <span class=p>}</span>
   <span class=n>textProperty</span><span class=o>-&gt;</span><span class=n>SetFontSize</span><span class=p>(</span><span class=n>fontSize</span><span class=p>);</span>
   <span class=n>textProperty</span><span class=o>-&gt;</span><span class=n>SetOrientation</span><span class=p>(</span><span class=n>orientation</span><span class=p>);</span>
 
@@ -601,8 +637,8 @@ Skipped <span class=m>5</span> words
     <span class=kt>int</span> <span class=n>offsetX</span> <span class=o>=</span> <span class=p>(</span><span class=o>*</span><span class=n>it</span><span class=p>).</span><span class=n>x</span> <span class=o>+</span> <span class=n>offsetDist</span><span class=p>(</span><span class=n>mt</span><span class=p>);</span> <span class=c1>// add some noise to the offset</span>
     <span class=kt>int</span> <span class=n>offsetY</span> <span class=o>=</span> <span class=p>(</span><span class=o>*</span><span class=n>it</span><span class=p>).</span><span class=n>y</span> <span class=o>+</span> <span class=n>offsetDist</span><span class=p>(</span><span class=n>mt</span><span class=p>);</span>
     <span class=c1>// Make sure the text image will fit on the final image</span>
-    <span class=k>if</span> <span class=p>(</span><span class=n>offsetX</span> <span class=o>+</span> <span class=n>bb</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=n>bb</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=mi>1</span> <span class=o>&amp;&amp;</span>
-        <span class=n>offsetY</span> <span class=o>+</span> <span class=n>bb</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span> <span class=o>-</span> <span class=n>bb</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=mi>1</span> <span class=o>&amp;&amp;</span>
+    <span class=k>if</span> <span class=p>(</span><span class=n>offsetX</span> <span class=o>+</span> <span class=n>bb</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=n>bb</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=mi>1</span> <span class=o>&amp;&amp;</span>
+        <span class=n>offsetY</span> <span class=o>+</span> <span class=n>bb</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span> <span class=o>-</span> <span class=n>bb</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=mi>1</span> <span class=o>&amp;&amp;</span>
         <span class=n>offsetX</span> <span class=o>&gt;=</span> <span class=mi>0</span> <span class=o>&amp;&amp;</span> <span class=n>offsetY</span> <span class=o>&gt;=</span> <span class=mi>0</span><span class=p>)</span>
     <span class=p>{</span>
       <span class=n>textImage</span><span class=o>-&gt;</span><span class=n>SetExtent</span><span class=p>(</span><span class=n>offsetX</span><span class=p>,</span> <span class=n>offsetX</span> <span class=o>+</span> <span class=n>bb</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=n>bb</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span>
@@ -641,6 +677,7 @@ Skipped <span class=m>5</span> words
       <span class=k>if</span> <span class=p>(</span><span class=n>good</span><span class=p>)</span>
       <span class=p>{</span>
         <span class=n>accepted</span><span class=o>++</span><span class=p>;</span>
+        <span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>KeptCount</span><span class=p>)</span><span class=o>++</span><span class=p>;</span>
         <span class=n>image</span><span class=o>-&gt;</span><span class=n>DeepCopy</span><span class=p>(</span><span class=n>textImage</span><span class=p>);</span>
         <span class=k>final</span><span class=o>-&gt;</span><span class=n>AddInputData</span><span class=p>(</span><span class=n>image</span><span class=p>);</span>
         <span class=k>final</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
@@ -704,8 +741,8 @@ Skipped <span class=m>5</span> words
                   <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>BackgroundColorName</span><span class=p>,</span> <span class=s>&quot;Name of the color for the background(MignightBlue)&quot;</span><span class=p>);</span>
   <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--colorDistribution&quot;</span><span class=p>,</span>
                   <span class=n>argT</span><span class=o>::</span><span class=n>MULTI_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>ColorDistribution</span><span class=p>,</span> <span class=s>&quot;Distribution of random colors(.6 1.0). If wordColorName is not empty, random colors are generated with this distribution&quot;</span><span class=p>);</span>
-  <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--colorScheme&quot;</span><span class=p>,</span>
-                  <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>ColorScheme</span><span class=p>,</span> <span class=s>&quot;Color scheme(constant)&quot;</span><span class=p>);</span>
+  <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--colorSchemeName&quot;</span><span class=p>,</span>
+                  <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>ColorSchemeName</span><span class=p>,</span> <span class=s>&quot;Color scheme name()&quot;</span><span class=p>);</span>
   <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--dpi&quot;</span><span class=p>,</span>
                   <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>DPI</span><span class=p>,</span> <span class=s>&quot;Dots per inch(200)&quot;</span><span class=p>);</span>
   <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--fontFile&quot;</span><span class=p>,</span>
@@ -738,6 +775,8 @@ Skipped <span class=m>5</span> words
                   <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>WordColorName</span><span class=p>,</span> <span class=s>&quot;Name of the color for the words(). If the name is empty, the colorDistribution will generate random colors.&quot;</span><span class=p>);</span>
   <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--replacementPairs&quot;</span><span class=p>,</span>
                   <span class=n>argT</span><span class=o>::</span><span class=n>MULTI_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>ReplacementPairs</span><span class=p>,</span> <span class=s>&quot;Replace word with another word ().&quot;</span><span class=p>);</span>
+  <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--title&quot;</span><span class=p>,</span>
+                  <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Title</span><span class=p>,</span> <span class=s>&quot;Use this word and set a high frequency().&quot;</span><span class=p>);</span>
   <span class=kt>bool</span> <span class=n>help</span> <span class=o>=</span> <span class=nb>false</span><span class=p>;</span>
   <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--help&quot;</span>
                   <span class=p>,</span> <span class=n>argT</span><span class=o>::</span><span class=n>NO_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>help</span><span class=p>,</span> <span class=s>&quot;Show help(false)&quot;</span><span class=p>);</span>
@@ -798,7 +837,7 @@ Skipped <span class=m>5</span> words
       <span class=n>R</span> <span class=o>=</span> <span class=o>*</span><span class=n>finalSpan</span><span class=p>;</span>
       <span class=n>G</span> <span class=o>=</span> <span class=o>*</span><span class=p>(</span><span class=n>finalSpan</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
       <span class=n>B</span> <span class=o>=</span> <span class=o>*</span><span class=p>(</span><span class=n>finalSpan</span> <span class=o>+</span> <span class=mi>2</span><span class=p>);</span>
-      <span class=c1>// If the pixel contains the background color, the word will not fit</span>
+      <span class=c1>// If the pixel does not contain the background color, the word will not fit</span>
       <span class=k>if</span> <span class=p>(</span><span class=n>R</span> <span class=o>!=</span> <span class=n>maskR</span> <span class=o>&amp;&amp;</span> <span class=n>G</span> <span class=o>!=</span> <span class=n>maskG</span> <span class=o>&amp;&amp;</span> <span class=n>B</span> <span class=o>!=</span> <span class=n>maskB</span><span class=p>)</span>
       <span class=p>{</span>
         <span class=n>finalSpan</span> <span class=o>+=</span> <span class=mi>3</span><span class=p>;</span>
@@ -813,6 +852,17 @@ Skipped <span class=m>5</span> words
       <span class=n>finalSpan</span> <span class=o>+=</span> <span class=mi>3</span><span class=p>;</span>
     <span class=p>}</span>
   <span class=n>finalIt</span><span class=p>.</span><span class=n>NextSpan</span><span class=p>();</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=kt>void</span> <span class=n>ShowColorSeriesNames</span><span class=p>(</span><span class=n>ostream</span><span class=o>&amp;</span> <span class=n>os</span><span class=p>)</span>
+<span class=p>{</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>colorSeries</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkColorSeries</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Valid schemes&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+  <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>colorSeries</span><span class=o>-&gt;</span><span class=n>GetNumberOfColorSchemes</span><span class=p>();</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>colorSeries</span><span class=o>-&gt;</span><span class=n>SetColorScheme</span><span class=p>(</span><span class=n>i</span><span class=p>);</span>
+    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>colorSeries</span><span class=o>-&gt;</span><span class=n>GetColorSchemeName</span><span class=p>()</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=p>}</span>
 <span class=p>}</span>
 
