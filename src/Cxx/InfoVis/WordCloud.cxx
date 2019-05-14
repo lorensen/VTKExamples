@@ -14,6 +14,7 @@
 #include <vtkImageCanvasSource2D.h>
 #include <vtkMath.h>
 #include <vtkNamedColors.h>
+#include <vtkColorSeries.h>
 
 #include <vtkImageReader2.h>
 #include <vtkImageReader2Factory.h>
@@ -42,7 +43,7 @@ namespace
 // Cloud Parameters
 struct CloudParameters
 {
-  CloudParameters() : FontFile(""), MaskFile(""), DPI(200), MaxFontSize(48), MinFontSize(12), FontMultiplier(6), ColorScheme(""),  BackgroundColorName("MidnightBlue"), MaskColorName("black"), BWMask(false), WordColorName(""), Gap(2)
+  CloudParameters() : FontFile(""), MaskFile(""), DPI(200), MaxFontSize(48), MinFontSize(12), FontMultiplier(6), ColorSchemeName(""),  BackgroundColorName("MidnightBlue"), MaskColorName("black"), BWMask(false), WordColorName(""), Gap(2), KeptCount(0)
   {};
   void Print(ostream& os)
   {
@@ -50,7 +51,7 @@ struct CloudParameters
     os << "  BackgroundColorName: " << BackgroundColorName << std::endl;
     os << "  BWMask: " << (BWMask ? "true" : "false") << std::endl;
     os << "  ColorDistribution: " << ColorDistribution[0] << " " << ColorDistribution[1] << std::endl;
-    os << "  ColorScheme: " <<  ColorScheme << std::endl;
+    os << "  ColorSchemeName: " <<  ColorSchemeName << std::endl;
     os << "  DPI: " << DPI << std::endl;
     os << "  FontFile: " << FontFile << std::endl;
     os << "  FontMultiplier: " << FontMultiplier << std::endl;
@@ -80,14 +81,16 @@ struct CloudParameters
       os << s << " ";
     }
     os << std::endl;
+    os << "  Title: " << Title << std::endl;
     os << "  WordColorName: " << WordColorName << std::endl;
   }
   std::string              BackgroundColorName;
   bool                     BWMask;
-  std::string              ColorScheme;
+  std::string              ColorSchemeName;
   int                      DPI;
   std::string              FontFile;
   int                      Gap;
+  int                      KeptCount;
   std::string              MaskColorName;
   std::string              MaskFile;
   int                      MaxFontSize;
@@ -100,6 +103,7 @@ struct CloudParameters
   std::vector<std::string> ReplacementPairs;
   std::vector<int>         Sizes;
   std::vector<std::string> StopWords;
+  std::string              Title;
   std::string              WordColorName;
 };
 bool ProcessCommandLine(vtksys::CommandLineArguments &arg,
@@ -123,7 +127,7 @@ struct ArchimedesValue
 };
 bool AddWordToFinal(const std::string,
                     const int,
-                    const CloudParameters &,
+                    CloudParameters &,
                     std::mt19937 &, 
                     double orientation,
                     std::vector<ExtentOffset> &,
@@ -134,6 +138,7 @@ bool AddWordToFinal(const std::string,
 void ArchimedesSpiral (std::vector<ExtentOffset>&, std::vector<int>&);
 void ReplaceMaskColorWithBackgroundColor(vtkImageData*, CloudParameters &);
 void CreateStopList(std::vector<std::string> &StopList);
+void ShowColorSeriesNames(ostream& os);
 }
 
 int main (int argc,  char *argv[])
@@ -326,6 +331,12 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
 
   // Store the words in a map that will contain frequencies
   std::map<std::string, int> wordContainer;
+
+  // If a title is present add it with a high frequency
+  if (cloudParameters.Title.length() > 0)
+  {
+    wordContainer[cloudParameters.Title] = 1000;
+  }
   const int N = 1;
   int stop = 0;
   int keep = 0;
@@ -390,7 +401,7 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
 }
 bool AddWordToFinal(const std::string word,
                     const int frequency,
-                    const CloudParameters &cloudParameters,
+                    CloudParameters &cloudParameters,
                     std::mt19937 &mt,
                     double orientation,
                     std::vector<ExtentOffset> &offset,
@@ -415,9 +426,21 @@ bool AddWordToFinal(const std::string word,
   // Setup a property for the strings containing fixed parameters
   auto colors = vtkSmartPointer<vtkNamedColors>::New();
   auto textProperty = vtkSmartPointer<vtkTextProperty>::New();
-  if (cloudParameters.WordColorName.size() > 0)
+  if (cloudParameters.WordColorName.length() > 0)
   {
     textProperty->SetColor(colors->GetColor3d(cloudParameters.WordColorName).GetData());
+  }
+  else if (cloudParameters.ColorSchemeName.length() > 0)
+  {
+    auto colorScheme = vtkSmartPointer<vtkColorSeries>::New();
+    int index = colorScheme->SetColorSchemeByName(cloudParameters.ColorSchemeName);
+    vtkColor3ub color = colorScheme->GetColorRepeating(cloudParameters.KeptCount);
+    if (color.Compare(colors->GetColor3ub("black"), 1) && cloudParameters.KeptCount == 0)
+      {
+        std::cout << "The color scheme " << cloudParameters.ColorSchemeName << " does not exist." << std::endl;
+        ShowColorSeriesNames(std::cout);
+      }
+    textProperty->SetColor(color.GetRed() * 255.0, color.GetGreen() * 255.0 , color.GetBlue() * 255.0);
   }
   else
   {
@@ -448,7 +471,10 @@ bool AddWordToFinal(const std::string word,
   {
     fontSize = cloudParameters.MinFontSize;
   }
-
+  if (frequency == 1000)
+  {
+    fontSize *= 1.2;;
+  }
   textProperty->SetFontSize(fontSize);
   textProperty->SetOrientation(orientation);
 
@@ -530,6 +556,7 @@ bool AddWordToFinal(const std::string word,
       if (good)
       {
         accepted++;
+        (cloudParameters.KeptCount)++;
         image->DeepCopy(textImage);
         final->AddInputData(image);
         final->Update();
@@ -593,8 +620,8 @@ bool ProcessCommandLine(vtksys::CommandLineArguments &arg, CloudParameters &clou
                   argT::SPACE_ARGUMENT, &cloudParameters.BackgroundColorName, "Name of the color for the background(MignightBlue)");
   arg.AddArgument("--colorDistribution",
                   argT::MULTI_ARGUMENT, &cloudParameters.ColorDistribution, "Distribution of random colors(.6 1.0). If wordColorName is not empty, random colors are generated with this distribution");
-  arg.AddArgument("--colorScheme",
-                  argT::SPACE_ARGUMENT, &cloudParameters.ColorScheme, "Color scheme(constant)");
+  arg.AddArgument("--colorSchemeName",
+                  argT::SPACE_ARGUMENT, &cloudParameters.ColorSchemeName, "Color scheme name()");
   arg.AddArgument("--dpi",
                   argT::SPACE_ARGUMENT, &cloudParameters.DPI, "Dots per inch(200)");
   arg.AddArgument("--fontFile",
@@ -627,6 +654,8 @@ bool ProcessCommandLine(vtksys::CommandLineArguments &arg, CloudParameters &clou
                   argT::SPACE_ARGUMENT, &cloudParameters.WordColorName, "Name of the color for the words(). If the name is empty, the colorDistribution will generate random colors.");
   arg.AddArgument("--replacementPairs",
                   argT::MULTI_ARGUMENT, &cloudParameters.ReplacementPairs, "Replace word with another word ().");
+  arg.AddArgument("--title",
+                  argT::SPACE_ARGUMENT, &cloudParameters.Title, "Use this word and set a high frequency().");
   bool help = false;
   arg.AddArgument("--help"
                   , argT::NO_ARGUMENT, &help, "Show help(false)");
@@ -702,6 +731,17 @@ void ReplaceMaskColorWithBackgroundColor(vtkImageData* finalImage, CloudParamete
       finalSpan += 3;
     }
   finalIt.NextSpan();
+  }
+}
+
+void ShowColorSeriesNames(ostream& os)
+{
+  auto colorSeries = vtkSmartPointer<vtkColorSeries>::New();
+  os << "Valid series" << std::endl;
+  for (auto i = 0; i < colorSeries->GetNumberOfColorSchemes(); ++i)
+  {
+    colorSeries->SetColorScheme(i);
+    os << "  " << colorSeries->GetColorSchemeName() << std::endl;
   }
 }
 
