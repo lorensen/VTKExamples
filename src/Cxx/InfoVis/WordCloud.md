@@ -42,7 +42,7 @@ Usage: WordCloud textFileName
 ```
 The example image was produced with these arguments:
 ```bash
-WordCloud ${DATA}/Gettysburg.txt --dpi 150 --fontFile ${DATA}/Canterbury.ttf)
+WordCloud ${DATA}/Gettysburg.txt --dpi 150 --fontFile ${DATA}/Canterbury.ttf
 ```
 and these parameters:
 ```bash
@@ -50,9 +50,9 @@ Cloud Parameters
   BackgroundColorName: MidnightBlue
   BWMask: false
   ColorDistribution: 0.6 1
-  ColorScheme: 
+  ColorSchemeName: 
   DPI: 150
-  FontFile: ../src/Testing/Data/Canterbury.ttf
+  FontFile: /Canterbury.ttf
   FontMultiplier: 6
   Gap: 2
   MaskColorName: black
@@ -61,8 +61,11 @@ Cloud Parameters
   MaxFontSize: 48
   OffsetDistribution: -6 4
   OrientationDistribution: -20 20
+  Orientations: 
+  ReplacementPairs: 
   Sizes: 640 480
-  StopListFile: 
+  StopWords: 
+  Title: 
   WordColorName: 
 ```
 and produced this output:
