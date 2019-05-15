@@ -43,7 +43,7 @@ namespace
 // Cloud Parameters
 struct CloudParameters
 {
-  CloudParameters() : FontFile(""), MaskFile(""), DPI(200), MaxFontSize(48), MinFontSize(12), FontMultiplier(6), ColorSchemeName(""),  BackgroundColorName("MidnightBlue"), MaskColorName("black"), BWMask(false), WordColorName(""), Gap(2), KeptCount(0)
+  CloudParameters() : FontFile(""), MaskFile(""), DPI(200), MaxFontSize(48), MinFontSize(12), MinFrequency(1), FontMultiplier(6), ColorSchemeName(""),  BackgroundColorName("MidnightBlue"), MaskColorName("black"), BWMask(false), WordColorName(""), Gap(2), KeptCount(0)
   {};
   void Print(ostream& os)
   {
@@ -60,6 +60,7 @@ struct CloudParameters
     os << "  MaskFile: " << MaskFile << std::endl;
     os << "  MinFontSize: " << MinFontSize << std::endl;
     os << "  MaxFontSize: " << MaxFontSize << std::endl;
+    os << "  MinFrequency: " << MinFrequency << std::endl;
     os << "  OffsetDistribution: " << OffsetDistribution[0] << " " << OffsetDistribution[1] << std::endl;
     os << "  OrientationDistribution: " << OrientationDistribution[0] << " " << OrientationDistribution[1] << std::endl;
     os << "  Orientations: ";
@@ -96,6 +97,7 @@ struct CloudParameters
   std::string              MaskFile;
   int                      MaxFontSize;
   int                      MinFontSize;
+  int                      MinFrequency;
   int                      FontMultiplier;
   std::vector<double>      ColorDistribution;
   std::vector<int>         OffsetDistribution;
@@ -290,22 +292,19 @@ int main (int argc,  char *argv[])
   std::cout << "Skipped " << numberSkipped << " words" << std::endl;
 
   // If a maskFile is specified, replace the maskColor with the background color
-    ReplaceMaskColorWithBackgroundColor(final->GetOutput(), cloudParameters);
+  ReplaceMaskColorWithBackgroundColor(final->GetOutput(), cloudParameters);
 
   // Display the final image
   auto interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
 
   auto imageViewer = vtkSmartPointer<vtkImageViewer2>::New();
   imageViewer->SetInputData(final->GetOutput());
-  imageViewer->SetSize(640, 480);
   imageViewer->SetupInteractor(interactor);
   imageViewer->GetRenderer()->SetBackground(colors->GetColor3d("Wheat").GetData());
+  imageViewer->SetSize(cloudParameters.Sizes[0], cloudParameters.Sizes[1]);
   imageViewer->GetRenderer()->ResetCamera();
 
-  vtkCamera* camera = imageViewer->GetRenderer()->GetActiveCamera();
-  camera->ParallelProjectionOn();
-  camera->SetParallelScale(cloudParameters.AdjustedSizes[0] * .4);
-
+  imageViewer->GetRenderWindow()->Render();
   imageViewer->GetRenderWindow()->Render();
   interactor->Start();
 
@@ -351,6 +350,20 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
   {
     std::string matchStr = (*i).str();
 
+    // Replace words with another
+    for (auto p = 0; p < cloudParameters.ReplacementPairs.size(); p += 2)
+    {
+      std::string from = cloudParameters.ReplacementPairs[p];
+      std::string to = cloudParameters.ReplacementPairs[p + 1];
+      size_t pos = 0;
+      pos = matchStr.find(from, pos);
+      if (matchStr.length() == from.length() && pos == 0)
+      {
+        matchStr.replace(pos, to.length(), to);
+        stopList.push_back(from);
+      }
+    }
+
     // Skip the word if it is in the stop list or contains a digit
     auto it = std::find (stopList.begin(), stopList.end(), matchStr);
     const auto digit = (*i).str().find_first_of("0123456789");
@@ -362,19 +375,6 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
     else
     {
       keep++;
-    }
-
-    // Replace words with another
-    for (auto p = 0; p < cloudParameters.ReplacementPairs.size(); p += 2)
-    {
-      std::string from = cloudParameters.ReplacementPairs[p];
-      std::string to = cloudParameters.ReplacementPairs[p + 1];
-      size_t pos = 0;
-      pos = matchStr.find(from, pos);
-      if (matchStr.length() == from.length() && pos == 0)
-      {
-        matchStr.replace(pos, to.length(), to);
-      }
     }
 
     // Only include words that have more than N characters
@@ -416,7 +416,7 @@ bool AddWordToFinal(const std::string word,
                     std::array<int, 6> &extent)
 {
   // Skip single character words
-  if (frequency < 1)
+  if (frequency < cloudParameters.MinFrequency)
   {
     return false;
   }
@@ -580,7 +580,8 @@ void ArchimedesSpiral(std::vector<ExtentOffset> &offset, std::vector<int> &sizes
    const int centerY = sizes[1] / 2.0;
 
    const std::size_t N = 10000;
-   const double deltaAngle = M_PI * 20 / N;
+   constexpr auto pi = 3.141592653589793238462643383279502884L; /* pi */
+   const double deltaAngle = pi * 20 / N;
    double maxX = -1000.0;
    double minX = 1000.0;
    double maxY = -1000.0;
@@ -643,6 +644,8 @@ bool ProcessCommandLine(vtksys::CommandLineArguments &arg, CloudParameters &clou
                   argT::SPACE_ARGUMENT, &cloudParameters.MaskFile, "Mask file name(\"\"). If the mask file is specified, if will be used as the mask, otherwise a black square is used as the mask.");
   arg.AddArgument("--minFontSize",
                   argT::SPACE_ARGUMENT, &cloudParameters.MinFontSize, "Minimum font size(8)");
+  arg.AddArgument("--minFrequency",
+                  argT::SPACE_ARGUMENT, &cloudParameters.MinFrequency, "Minimum word frequency accepted(2)");
   arg.AddArgument("--maxFontSize",
                   argT::SPACE_ARGUMENT, &cloudParameters.MaxFontSize, "Maximum font size(48)");
   arg.AddArgument("--offsetDistribution",
