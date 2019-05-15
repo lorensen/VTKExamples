@@ -157,7 +157,7 @@ Skipped <span class=m>5</span> words
 <span class=c1>// Cloud Parameters</span>
 <span class=k>struct</span> <span class=n>CloudParameters</span>
 <span class=p>{</span>
-  <span class=n>CloudParameters</span><span class=p>()</span> <span class=o>:</span> <span class=n>FontFile</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>MaskFile</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>DPI</span><span class=p>(</span><span class=mi>200</span><span class=p>),</span> <span class=n>MaxFontSize</span><span class=p>(</span><span class=mi>48</span><span class=p>),</span> <span class=n>MinFontSize</span><span class=p>(</span><span class=mi>12</span><span class=p>),</span> <span class=n>FontMultiplier</span><span class=p>(</span><span class=mi>6</span><span class=p>),</span> <span class=n>ColorSchemeName</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span>  <span class=n>BackgroundColorName</span><span class=p>(</span><span class=s>&quot;MidnightBlue&quot;</span><span class=p>),</span> <span class=n>MaskColorName</span><span class=p>(</span><span class=s>&quot;black&quot;</span><span class=p>),</span> <span class=n>BWMask</span><span class=p>(</span><span class=nb>false</span><span class=p>),</span> <span class=n>WordColorName</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>Gap</span><span class=p>(</span><span class=mi>2</span><span class=p>),</span> <span class=n>KeptCount</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+  <span class=n>CloudParameters</span><span class=p>()</span> <span class=o>:</span> <span class=n>FontFile</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>MaskFile</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>DPI</span><span class=p>(</span><span class=mi>200</span><span class=p>),</span> <span class=n>MaxFontSize</span><span class=p>(</span><span class=mi>48</span><span class=p>),</span> <span class=n>MinFontSize</span><span class=p>(</span><span class=mi>12</span><span class=p>),</span> <span class=n>MinFrequency</span><span class=p>(</span><span class=mi>1</span><span class=p>),</span> <span class=n>FontMultiplier</span><span class=p>(</span><span class=mi>6</span><span class=p>),</span> <span class=n>ColorSchemeName</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span>  <span class=n>BackgroundColorName</span><span class=p>(</span><span class=s>&quot;MidnightBlue&quot;</span><span class=p>),</span> <span class=n>MaskColorName</span><span class=p>(</span><span class=s>&quot;black&quot;</span><span class=p>),</span> <span class=n>BWMask</span><span class=p>(</span><span class=nb>false</span><span class=p>),</span> <span class=n>WordColorName</span><span class=p>(</span><span class=s>&quot;&quot;</span><span class=p>),</span> <span class=n>Gap</span><span class=p>(</span><span class=mi>2</span><span class=p>),</span> <span class=n>KeptCount</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
   <span class=p>{};</span>
   <span class=kt>void</span> <span class=nf>Print</span><span class=p>(</span><span class=n>ostream</span><span class=o>&amp;</span> <span class=n>os</span><span class=p>)</span>
   <span class=p>{</span>
@@ -174,6 +174,7 @@ Skipped <span class=m>5</span> words
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  MaskFile: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>MaskFile</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  MinFontSize: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>MinFontSize</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  MaxFontSize: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>MaxFontSize</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+    <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  MinFrequency: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>MinFrequency</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  OffsetDistribution: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>OffsetDistribution</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>OffsetDistribution</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  OrientationDistribution: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>OrientationDistribution</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>OrientationDistribution</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
     <span class=n>os</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;  Orientations: &quot;</span><span class=p>;</span>
@@ -210,6 +211,7 @@ Skipped <span class=m>5</span> words
   <span class=n>std</span><span class=o>::</span><span class=n>string</span>              <span class=n>MaskFile</span><span class=p>;</span>
   <span class=kt>int</span>                      <span class=n>MaxFontSize</span><span class=p>;</span>
   <span class=kt>int</span>                      <span class=n>MinFontSize</span><span class=p>;</span>
+  <span class=kt>int</span>                      <span class=n>MinFrequency</span><span class=p>;</span>
   <span class=kt>int</span>                      <span class=n>FontMultiplier</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span>      <span class=n>ColorDistribution</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span>         <span class=n>OffsetDistribution</span><span class=p>;</span>
@@ -404,22 +406,19 @@ Skipped <span class=m>5</span> words
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Skipped &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>numberSkipped</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; words&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
   <span class=c1>// If a maskFile is specified, replace the maskColor with the background color</span>
-    <span class=n>ReplaceMaskColorWithBackgroundColor</span><span class=p>(</span><span class=k>final</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>(),</span> <span class=n>cloudParameters</span><span class=p>);</span>
+  <span class=n>ReplaceMaskColorWithBackgroundColor</span><span class=p>(</span><span class=k>final</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>(),</span> <span class=n>cloudParameters</span><span class=p>);</span>
 
   <span class=c1>// Display the final image</span>
 <span class=hll>  <span class=k>auto</span> <span class=n>interactor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
 <span class=hll>  <span class=k>auto</span> <span class=n>imageViewer</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImageViewer2</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=k>final</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
-  <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>
   <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>SetupInteractor</span><span class=p>(</span><span class=n>interactor</span><span class=p>);</span>
   <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetRenderer</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;Wheat&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>Sizes</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
   <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetRenderer</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>ResetCamera</span><span class=p>();</span>
 
-<span class=hll>  <span class=n>vtkCamera</span><span class=o>*</span> <span class=n>camera</span> <span class=o>=</span> <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetRenderer</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>();</span>
-</span>  <span class=n>camera</span><span class=o>-&gt;</span><span class=n>ParallelProjectionOn</span><span class=p>();</span>
-  <span class=n>camera</span><span class=o>-&gt;</span><span class=n>SetParallelScale</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>AdjustedSizes</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=mf>.4</span><span class=p>);</span>
-
+  <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetRenderWindow</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>imageViewer</span><span class=o>-&gt;</span><span class=n>GetRenderWindow</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
 
@@ -465,6 +464,20 @@ Skipped <span class=m>5</span> words
   <span class=p>{</span>
     <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>matchStr</span> <span class=o>=</span> <span class=p>(</span><span class=o>*</span><span class=n>i</span><span class=p>).</span><span class=n>str</span><span class=p>();</span>
 
+    <span class=c1>// Replace words with another</span>
+    <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>p</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>p</span> <span class=o>&lt;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>ReplacementPairs</span><span class=p>.</span><span class=n>size</span><span class=p>();</span> <span class=n>p</span> <span class=o>+=</span> <span class=mi>2</span><span class=p>)</span>
+    <span class=p>{</span>
+      <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>from</span> <span class=o>=</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>ReplacementPairs</span><span class=p>[</span><span class=n>p</span><span class=p>];</span>
+      <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>to</span> <span class=o>=</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>ReplacementPairs</span><span class=p>[</span><span class=n>p</span> <span class=o>+</span> <span class=mi>1</span><span class=p>];</span>
+      <span class=kt>size_t</span> <span class=n>pos</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+      <span class=n>pos</span> <span class=o>=</span> <span class=n>matchStr</span><span class=p>.</span><span class=n>find</span><span class=p>(</span><span class=n>from</span><span class=p>,</span> <span class=n>pos</span><span class=p>);</span>
+      <span class=k>if</span> <span class=p>(</span><span class=n>matchStr</span><span class=p>.</span><span class=n>length</span><span class=p>()</span> <span class=o>==</span> <span class=n>from</span><span class=p>.</span><span class=n>length</span><span class=p>()</span> <span class=o>&amp;&amp;</span> <span class=n>pos</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span>
+      <span class=p>{</span>
+        <span class=n>matchStr</span><span class=p>.</span><span class=n>replace</span><span class=p>(</span><span class=n>pos</span><span class=p>,</span> <span class=n>to</span><span class=p>.</span><span class=n>length</span><span class=p>(),</span> <span class=n>to</span><span class=p>);</span>
+        <span class=n>stopList</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>from</span><span class=p>);</span>
+      <span class=p>}</span>
+    <span class=p>}</span>
+
     <span class=c1>// Skip the word if it is in the stop list or contains a digit</span>
     <span class=k>auto</span> <span class=n>it</span> <span class=o>=</span> <span class=n>std</span><span class=o>::</span><span class=n>find</span> <span class=p>(</span><span class=n>stopList</span><span class=p>.</span><span class=n>begin</span><span class=p>(),</span> <span class=n>stopList</span><span class=p>.</span><span class=n>end</span><span class=p>(),</span> <span class=n>matchStr</span><span class=p>);</span>
     <span class=k>const</span> <span class=k>auto</span> <span class=n>digit</span> <span class=o>=</span> <span class=p>(</span><span class=o>*</span><span class=n>i</span><span class=p>).</span><span class=n>str</span><span class=p>().</span><span class=n>find_first_of</span><span class=p>(</span><span class=s>&quot;0123456789&quot;</span><span class=p>);</span>
@@ -476,19 +489,6 @@ Skipped <span class=m>5</span> words
     <span class=k>else</span>
     <span class=p>{</span>
       <span class=n>keep</span><span class=o>++</span><span class=p>;</span>
-    <span class=p>}</span>
-
-    <span class=c1>// Replace words with another</span>
-    <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>p</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>p</span> <span class=o>&lt;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>ReplacementPairs</span><span class=p>.</span><span class=n>size</span><span class=p>();</span> <span class=n>p</span> <span class=o>+=</span> <span class=mi>2</span><span class=p>)</span>
-    <span class=p>{</span>
-      <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>from</span> <span class=o>=</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>ReplacementPairs</span><span class=p>[</span><span class=n>p</span><span class=p>];</span>
-      <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>to</span> <span class=o>=</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>ReplacementPairs</span><span class=p>[</span><span class=n>p</span> <span class=o>+</span> <span class=mi>1</span><span class=p>];</span>
-      <span class=kt>size_t</span> <span class=n>pos</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-      <span class=n>pos</span> <span class=o>=</span> <span class=n>matchStr</span><span class=p>.</span><span class=n>find</span><span class=p>(</span><span class=n>from</span><span class=p>,</span> <span class=n>pos</span><span class=p>);</span>
-      <span class=k>if</span> <span class=p>(</span><span class=n>matchStr</span><span class=p>.</span><span class=n>length</span><span class=p>()</span> <span class=o>==</span> <span class=n>from</span><span class=p>.</span><span class=n>length</span><span class=p>()</span> <span class=o>&amp;&amp;</span> <span class=n>pos</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span>
-      <span class=p>{</span>
-        <span class=n>matchStr</span><span class=p>.</span><span class=n>replace</span><span class=p>(</span><span class=n>pos</span><span class=p>,</span> <span class=n>to</span><span class=p>.</span><span class=n>length</span><span class=p>(),</span> <span class=n>to</span><span class=p>);</span>
-      <span class=p>}</span>
     <span class=p>}</span>
 
     <span class=c1>// Only include words that have more than N characters</span>
@@ -530,7 +530,7 @@ Skipped <span class=m>5</span> words
 </span>                    <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>int</span><span class=p>,</span> <span class=mi>6</span><span class=o>&gt;</span> <span class=o>&amp;</span><span class=n>extent</span><span class=p>)</span>
 <span class=p>{</span>
   <span class=c1>// Skip single character words</span>
-  <span class=k>if</span> <span class=p>(</span><span class=n>frequency</span> <span class=o>&lt;</span> <span class=mi>1</span><span class=p>)</span>
+  <span class=k>if</span> <span class=p>(</span><span class=n>frequency</span> <span class=o>&lt;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>MinFrequency</span><span class=p>)</span>
   <span class=p>{</span>
     <span class=k>return</span> <span class=nb>false</span><span class=p>;</span>
   <span class=p>}</span>
@@ -694,7 +694,8 @@ Skipped <span class=m>5</span> words
    <span class=k>const</span> <span class=kt>int</span> <span class=n>centerY</span> <span class=o>=</span> <span class=n>sizes</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>/</span> <span class=mf>2.0</span><span class=p>;</span>
 
    <span class=k>const</span> <span class=n>std</span><span class=o>::</span><span class=kt>size_t</span> <span class=n>N</span> <span class=o>=</span> <span class=mi>10000</span><span class=p>;</span>
-   <span class=k>const</span> <span class=kt>double</span> <span class=n>deltaAngle</span> <span class=o>=</span> <span class=n>M_PI</span> <span class=o>*</span> <span class=mi>20</span> <span class=o>/</span> <span class=n>N</span><span class=p>;</span>
+   <span class=k>constexpr</span> <span class=k>auto</span> <span class=n>pi</span> <span class=o>=</span> <span class=mf>3.141592653589793238462643383279502884</span><span class=n>L</span><span class=p>;</span> <span class=cm>/* pi */</span>
+   <span class=k>const</span> <span class=kt>double</span> <span class=n>deltaAngle</span> <span class=o>=</span> <span class=n>pi</span> <span class=o>*</span> <span class=mi>20</span> <span class=o>/</span> <span class=n>N</span><span class=p>;</span>
    <span class=kt>double</span> <span class=n>maxX</span> <span class=o>=</span> <span class=o>-</span><span class=mf>1000.0</span><span class=p>;</span>
    <span class=kt>double</span> <span class=n>minX</span> <span class=o>=</span> <span class=mf>1000.0</span><span class=p>;</span>
    <span class=kt>double</span> <span class=n>maxY</span> <span class=o>=</span> <span class=o>-</span><span class=mf>1000.0</span><span class=p>;</span>
@@ -757,6 +758,8 @@ Skipped <span class=m>5</span> words
                   <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>MaskFile</span><span class=p>,</span> <span class=s>&quot;Mask file name(</span><span class=se>\&quot;\&quot;</span><span class=s>). If the mask file is specified, if will be used as the mask, otherwise a black square is used as the mask.&quot;</span><span class=p>);</span>
   <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--minFontSize&quot;</span><span class=p>,</span>
                   <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>MinFontSize</span><span class=p>,</span> <span class=s>&quot;Minimum font size(8)&quot;</span><span class=p>);</span>
+  <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--minFrequency&quot;</span><span class=p>,</span>
+                  <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>MinFrequency</span><span class=p>,</span> <span class=s>&quot;Minimum word frequency accepted(2)&quot;</span><span class=p>);</span>
   <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--maxFontSize&quot;</span><span class=p>,</span>
                   <span class=n>argT</span><span class=o>::</span><span class=n>SPACE_ARGUMENT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>MaxFontSize</span><span class=p>,</span> <span class=s>&quot;Maximum font size(48)&quot;</span><span class=p>);</span>
   <span class=n>arg</span><span class=p>.</span><span class=n>AddArgument</span><span class=p>(</span><span class=s>&quot;--offsetDistribution&quot;</span><span class=p>,</span>
