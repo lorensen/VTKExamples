@@ -28,6 +28,22 @@ public class Screenshot
     vtkNativeLibrary.DisableOutputWindow(null);
   }
   // -----------------------------------------------------------------
+  
+  public static void writeImage(vtkRenderWindow renWin, String fn) 
+  { 
+    vtkWindowToImageFilter windowToImageFilter = new vtkWindowToImageFilter();
+    windowToImageFilter.SetInput(renWin);
+    windowToImageFilter.SetScale(1);
+    windowToImageFilter.SetInputBufferTypeToRGB();
+
+    windowToImageFilter.ReadFrontBufferOff();
+    windowToImageFilter.Update();
+
+    vtkPNGWriter writer = new vtkPNGWriter();
+    writer.SetFileName(fn);
+    writer.SetInputConnection(windowToImageFilter.GetOutputPort());
+    writer.Write();
+  }
 
   public static void main(String args[]) 
   {
@@ -45,7 +61,7 @@ public class Screenshot
     double Bgcolor[] = new double[4];
 
     colors.GetColor("White", Bgcolor);
-   
+    
     vtkSphereSource sphereSource = new vtkSphereSource();
     sphereSource.SetCenter(0.0, 0.0, 0.0 );
     sphereSource.SetRadius(4.0);
@@ -71,23 +87,10 @@ public class Screenshot
     
     renWin.SetSize(300, 300);
     renWin.Render();
+   
+    writeImage(renWin, fileName);
     
-    vtkWindowToImageFilter windowToImageFilter = new vtkWindowToImageFilter();
-    windowToImageFilter.SetInput(renWin);
-    windowToImageFilter.SetScale(2);
-    windowToImageFilter.SetInputBufferTypeToRGB();
-
-    windowToImageFilter.ReadFrontBufferOff();
-    windowToImageFilter.Update();
-
-    vtkPNGWriter writer = new vtkPNGWriter();
-    writer.SetFileName(fileName);
-    writer.SetInputConnection(windowToImageFilter.GetOutputPort());
-    writer.Write();
-    
-    renWin.Render();
-    ren.ResetCamera();
-    renWin.Render();
+    iren.Initialize();
     iren.Start();
   }
 }
