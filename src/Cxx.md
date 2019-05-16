@@ -943,6 +943,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CloseWindow](/Cxx/Visualization/CloseWindow) | vtkRenderWindowInteractor vtkRenderWindow | Close a render window.
 [ColorActorEdges](/Cxx/Visualization/ColorActorEdges) | vtkActor | Color the edges of an Actor.
 [ColorAnActor](/Cxx/Visualization/ColorAnActor) | vtkActor | Color an Actor.
+[ColoredAnnotatedCube](/Cxx/VisualizationAlgorithms/ColoredAnnotatedCube) | vtkAnnotatedCubeActor vtkAxesActor vtkCubeSource vtkPropAssembly vtkOrientationMarkerWidget | How to color the individual faces of an annotated cube.
 [ColorGlyphs](/Cxx/Visualization/ColorGlyphs) | vtkGlyph3D vtkGlyph3D | Color glyphs.
 [CombustorIsosurface](/Cxx/VisualizationAlgorithms/CombustorIsosurface) | vtkContourFilter | Marching cubes surface of flow density.
 [ComplexV](/Cxx/Visualization/ComplexV) | vtkHedgeHog | ComplexV from the VTK Textbook.
