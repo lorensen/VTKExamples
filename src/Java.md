@@ -384,6 +384,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [PassThrough](/Java/InfoVis/PassThrough) | vtkPassThrough | Shallow copies the input into the output.
 [PiecewiseFunction](/Java/Utilities/PiecewiseFunction) | vtkPiecewiseFunction | Interpolation using a piecewise function.
 [ReportRenderWindowCapabilities](/Java/Utilities/ReportRenderWindowCapabilities) | vtkRenderWindow | Report the capabilities of a render window.
+[Screenshot](/Java/Utilities/Screenshot) | vtkWindowToImageFilter | Use a vtkWindow as input to image pipeline.
 
 
 
