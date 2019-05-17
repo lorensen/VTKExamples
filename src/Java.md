@@ -427,6 +427,7 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 [DisplayCoordinateAxes](/Java/Visualization/DisplayCoordinateAxes) | vtkOrientationMarkerWidget | Display coordinate axes.
 [DistanceToCamera](/Java/Visualization/DistanceToCamera) | vtkDistanceToCamera | Calculate distance from points to the camera.
 [Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up.
+[SpikeFran](/Java/VisualizationAlgorithms/SpikeFran) | vtkGlyph3D | Glyphs indicate surface normals on model of human face. Glyph positions are randomly selected.
 [ImageOrientation](/Java/Visualization/ImageOrientation) | vtkInteractorStyleImage | Orientation of the view of an image.
 [Legend](/Java/Visualization/Legend) | vtkLegendBoxActor | Draw symbols with text.
 [LegendScaleActor](/Java/Visualization/LegendScaleActor) | vtkLegendScaleActor | Display the scale of a scene.
