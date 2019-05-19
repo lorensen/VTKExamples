@@ -1,14 +1,13 @@
 /*
 This example demonstrates the usage of the vtNamedColor class.
 */
-#include <vtkNamedColors.h>
-
 #include <vtkActor.h>
 #include <vtkAlgorithm.h>
 #include <vtkBandedPolyDataContourFilter.h>
 #include <vtkConeSource.h>
 #include <vtkElevationFilter.h>
 #include <vtkLookupTable.h>
+#include <vtkNamedColors.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
@@ -18,32 +17,17 @@ This example demonstrates the usage of the vtNamedColor class.
 #include <vtkSmartPointer.h>
 
 #include <algorithm>
-#include <cctype>
-#include <cstdlib>
 #include <iostream>
-#include <iterator>
+#include <regex>
+#include <sstream>
 #include <vector>
 
-// In C++0x there is a utility function std::next, however compilers
-// not implementing C++0x will need this equivalent.
-template <typename ForwardIt>
-ForwardIt myNext(ForwardIt iter,
-  typename std::iterator_traits<ForwardIt>::difference_type n = 1);
+namespace {
+// Get the color names.
+std::vector<std::string> GetColorNames(vtkNamedColors* namedColors);
 
-// Test if an iterator points to the last item.
-template <typename Iter, typename Cont>
-bool IsLast(Iter iter, const Cont& cont);
-
-// Parse the color names returning a std::vector<std::string>
-// colorNames is a string formatted with each name separated
-// with a linefeed.
-std::vector<vtkStdString> ParseColorNames(const vtkStdString& colorNames);
-
-// Parse the synonyms returning a std::vector<std::vector<std::string> >
-// synonyms is a string of synonyms separated by a double linefeed where
-// each synonym is two or more color names separated by a linefeed.
-std::vector<std::vector<vtkStdString>> ParseSynonyms(
-  const vtkStdString& synonyms);
+// Get the synonyms.
+std::vector<std::vector<std::string>> GetSynonyms(vtkNamedColors* namedColors);
 
 // Print out the colors.
 void PrintColors(vtkNamedColors* namedColors);
@@ -52,159 +36,19 @@ void PrintColors(vtkNamedColors* namedColors);
 void PrintSynonyms(vtkNamedColors* namedColors);
 
 // Find any synonyms for a specified color.
-void FindSynonyms(const vtkStdString& color, vtkNamedColors* namedColors,
-  vtkStringArray* synonyms);
+std::vector<std::string> FindSynonyms(const std::string& color,
+                                      vtkNamedColors* namedColors);
 
-//-----------------------------------------------------------------------------
-template <typename ForwardIt>
-ForwardIt myNext(
-  ForwardIt iter, typename std::iterator_traits<ForwardIt>::difference_type n)
-{
-  std::advance(iter, n);
-  return iter;
-}
+} // namespace
 
-//-----------------------------------------------------------------------------
-template <typename Iter, typename Cont>
-bool IsLast(Iter iter, const Cont& cont)
-{
-  return (iter != cont.end()) && (myNext(iter) == cont.end());
-}
-
-//-----------------------------------------------------------------------------
-std::vector<vtkStdString> ParseColorNames(const vtkStdString& colorNames)
-{
-  // The delimiter for a color.
-  const std::string colorDelimiter = "\n";
-  std::vector<vtkStdString> cn;
-  size_t start = 0;
-  size_t end = colorNames.find(colorDelimiter);
-  while (end != std::string::npos)
-  {
-    cn.push_back(colorNames.substr(start, end - start));
-    start = end + 1;
-    end = colorNames.find(colorDelimiter, start);
-  }
-  // Get the last color.
-  if (!colorNames.empty())
-  {
-    cn.push_back(colorNames.substr(start, colorNames.size() - start));
-  }
-  return cn;
-}
-
-//-----------------------------------------------------------------------------
-std::vector<std::vector<vtkStdString>> ParseSynonyms(
-  const vtkStdString& synonyms)
-{
-  // The delimiter for a string of synonyms.
-  const std::string synonymDelimiter = "\n\n";
-  size_t start = 0;
-  size_t end = synonyms.find("\n\n"); // The delimiter for a string of synonyms.
-  std::vector<vtkStdString> cn;
-  std::vector<std::vector<vtkStdString>> syn;
-  vtkStdString str;
-  while (end != std::string::npos)
-  {
-    str = synonyms.substr(start, end - start);
-    cn = ParseColorNames(str);
-    syn.push_back(cn);
-    start = end + 2;
-    end = synonyms.find(synonymDelimiter, start);
-  }
-  // Get the last set of synonyms.
-  if (!synonyms.empty())
-  {
-    str = synonyms.substr(start, end - start);
-    cn = ParseColorNames(str);
-    syn.push_back(cn);
-  }
-  return syn;
-}
-
-//-----------------------------------------------------------------------------
-void FindSynonyms(const vtkStdString& color, vtkNamedColors* namedColors,
-  vtkStringArray* synonyms)
-{
-  vtkSmartPointer<vtkStringArray> availableColors =
-    vtkSmartPointer<vtkStringArray>::New();
-  namedColors->GetColorNames(availableColors);
-  // We will be matching on RGB only.
-  vtkColor3ub myColor = namedColors->GetColor3ub(color);
-  // Colors are all stored as lower case, so convert color to lower case.
-  vtkStdString lcColor;
-  std::transform(color.begin(), color.end(), std::back_inserter(lcColor),
-    (int (*)(int))std::tolower);
-  for (vtkIdType i = 0; i < availableColors->GetNumberOfValues(); ++i)
-  {
-    vtkStdString n = availableColors->GetValue(i);
-    vtkColor3ub c = namedColors->GetColor3ub(n);
-    if (myColor.Compare(c, 1) /*&& n != lcColor*/)
-    {
-      synonyms->InsertNextValue(availableColors->GetValue(i));
-    }
-  }
-}
-
-//-----------------------------------------------------------------------------
-void PrintColors(vtkNamedColors* namedColors)
-{
-  // Get the available colors:
-  std::vector<vtkStdString> colors =
-    ParseColorNames(namedColors->GetColorNames());
-  std::cout << "There are " << namedColors->GetNumberOfColors()
-            << " colors:" << std::endl;
-  int n = 0;
-  for (std::vector<vtkStdString>::const_iterator p = colors.begin();
-       p != colors.end(); ++p)
-  {
-    ++n;
-    if (n % 5 == 0)
-    {
-      std::cout << std::endl;
-    }
-    std::cout << *p;
-    if (!IsLast(p, colors))
-    {
-      std::cout << ",";
-    }
-  }
-  std::cout << std::endl;
-}
-
-//-----------------------------------------------------------------------------
-void PrintSynonyms(vtkNamedColors* namedColors)
-{
-  // Get the synonyms:
-  std::vector<std::vector<vtkStdString>> synonyms =
-    ParseSynonyms(namedColors->GetSynonyms());
-  std::cout << "There are " << synonyms.size() << " synonyms:" << std::endl;
-  for (std::vector<std::vector<vtkStdString>>::const_iterator p =
-         synonyms.begin();
-       p != synonyms.end(); ++p)
-  {
-    for (std::vector<vtkStdString>::const_iterator q = p->begin();
-         q != p->end(); ++q)
-    {
-      std::cout << *q;
-      if (!IsLast(q, *p))
-      {
-        std::cout << ",";
-      }
-    }
-    std::cout << std::endl;
-  }
-}
-
-//-----------------------------------------------------------------------------
 // Create a cone, contour it using the banded contour filter and
 // color it with the primary additive and subtractive colors.
-int main(int, char* [])
+int main(int, char*[])
 {
-  vtkSmartPointer<vtkNamedColors> namedColors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  auto namedColors = vtkSmartPointer<vtkNamedColors>::New();
 
-  // We can print out the variables
+  // We can print out the variables.
+  // The color name and RGBA values are displayed.
   // namedColors->PrintSelf(std::cout,vtkIndent(2));
 
   // Here we just print out the colors and any
@@ -213,64 +57,63 @@ int main(int, char* [])
   PrintSynonyms(namedColors);
 
   // Create a cone
-  vtkSmartPointer<vtkConeSource> coneSource =
-    vtkSmartPointer<vtkConeSource>::New();
+  auto coneSource = vtkSmartPointer<vtkConeSource>::New();
   coneSource->SetCenter(0.0, 0.0, 0.0);
   coneSource->SetRadius(5.0);
   coneSource->SetHeight(10);
   coneSource->SetDirection(0, 1, 0);
+  coneSource->SetResolution(6);
   coneSource->Update();
 
   double bounds[6];
   coneSource->GetOutput()->GetBounds(bounds);
 
-  vtkSmartPointer<vtkElevationFilter> elevation =
-    vtkSmartPointer<vtkElevationFilter>::New();
+  auto elevation = vtkSmartPointer<vtkElevationFilter>::New();
   elevation->SetInputConnection(coneSource->GetOutputPort());
   elevation->SetLowPoint(0, bounds[2], 0);
   elevation->SetHighPoint(0, bounds[3], 0);
 
-  vtkSmartPointer<vtkBandedPolyDataContourFilter> bcf =
-    vtkSmartPointer<vtkBandedPolyDataContourFilter>::New();
+  auto bcf = vtkSmartPointer<vtkBandedPolyDataContourFilter>::New();
   bcf->SetInputConnection(elevation->GetOutputPort());
   bcf->SetScalarModeToValue();
   bcf->GenerateContourEdgesOn();
   bcf->GenerateValues(7, elevation->GetScalarRange());
 
-  // Build a simple lookup table of
-  // primary additive and subtractive colors.
-  vtkSmartPointer<vtkLookupTable> lut = vtkSmartPointer<vtkLookupTable>::New();
-  lut->SetNumberOfTableValues(7);
   double rgba[4];
   // Test setting and getting colors here.
   // We are also modifying alpha.
   namedColors->GetColor("Red", rgba);
+  // Make it semitransparent.
   rgba[3] = 0.5;
   namedColors->SetColor("My Red", rgba);
-  namedColors->GetColor("My Red", rgba);
-  lut->SetTableValue(0, rgba);
   // Does "My Red" match anything?
-  vtkSmartPointer<vtkStringArray> matchingColors =
-    vtkSmartPointer<vtkStringArray>::New();
   // Demonstrates how to find synonyms.
-  FindSynonyms("My Red", namedColors, matchingColors);
-  if (matchingColors->GetNumberOfValues() != 0)
+  auto matchingColors = FindSynonyms("My Red", namedColors);
+  if (!matchingColors.empty())
   {
     std::cout << "Matching colors to My Red: ";
-    for (vtkIdType i = 0; i < matchingColors->GetNumberOfValues(); ++i)
+    size_t i = 1;
+    for (auto p : matchingColors)
     {
-      std::cout << matchingColors->GetValue(i);
-      if (i != matchingColors->GetNumberOfValues() - 1)
+      std::cout << p;
+      if (i < matchingColors.size())
       {
-        std::cout << ",";
+        std::cout << ", ";
+        i = 1;
       }
+      ++i;
     }
     std::cout << std::endl;
   }
-  namedColors->GetColor("DarkGreen", rgba);
+  // Build a simple lookup table of
+  // primary additive and subtractive colors.
+  auto lut = vtkSmartPointer<vtkLookupTable>::New();
+  lut->SetNumberOfTableValues(7);
+  lut->SetTableValue(0, namedColors->GetColor4d("My Red").GetData());
+  // Let's make the dark green one partially transparent.
+  namedColors->GetColor("Lime", rgba);
   rgba[3] = 0.3;
   lut->SetTableValue(1, rgba);
-  // Alternatively we can use tuple methods here:
   lut->SetTableValue(2, namedColors->GetColor4d("Blue").GetData());
   lut->SetTableValue(3, namedColors->GetColor4d("Cyan").GetData());
   lut->SetTableValue(4, namedColors->GetColor4d("Magenta").GetData());
@@ -279,39 +122,162 @@ int main(int, char* [])
   lut->SetTableRange(elevation->GetScalarRange());
   lut->Build();
 
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(bcf->GetOutputPort());
   mapper->SetScalarRange(elevation->GetScalarRange());
   mapper->SetLookupTable(lut);
   mapper->SetScalarModeToUseCellData();
 
-  vtkSmartPointer<vtkPolyDataMapper> contourLineMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto contourLineMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   contourLineMapper->SetInputData(bcf->GetContourEdgesOutput());
   contourLineMapper->SetScalarRange(elevation->GetScalarRange());
   contourLineMapper->SetResolveCoincidentTopologyToPolygonOffset();
 
-  vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
 
-  vtkSmartPointer<vtkActor> contourLineActor = vtkSmartPointer<vtkActor>::New();
+  auto contourLineActor = vtkSmartPointer<vtkActor>::New();
   contourLineActor->SetMapper(contourLineMapper);
   contourLineActor->GetProperty()->SetColor(
-    namedColors->GetColor3d("Black").GetData());
+      namedColors->GetColor3d("Black").GetData());
 
-  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto renderWindowInteractor =
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
   renderer->AddActor(contourLineActor);
-  renderer->SetBackground(namedColors->GetColor3d("SteelBlue").GetData());
+  renderer->SetBackground2(namedColors->GetColor3d("RoyalBlue").GetData());
+  renderer->SetBackground(namedColors->GetColor3d("MistyRose").GetData());
+  renderer->GradientBackgroundOn();
+  renderWindow->SetSize(600, 600);
   renderWindow->Render();
+  renderWindow->SetWindowName("NamedColors");
+  renderWindow->Render();
+
   renderWindowInteractor->Start();
   return EXIT_SUCCESS;
 }
+
+namespace {
+std::vector<std::string> GetColorNames(vtkNamedColors* namedColors)
+{
+  std::stringstream ss(namedColors->GetColorNames());
+  std::string color;
+  std::vector<std::string> cn;
+  while (std::getline(ss, color, '\n'))
+  {
+    cn.push_back(std::move(color));
+  }
+  return cn;
+}
+
+std::vector<std::vector<std::string>> GetSynonyms(vtkNamedColors* namedColors)
+{
+  auto ncsyn = namedColors->GetSynonyms();
+  std::stringstream ss(std::regex_replace(ncsyn, std::regex("\n\n"), "*"));
+  std::string synonyms;
+  std::vector<std::vector<std::string>> sn;
+  while (std::getline(ss, synonyms, '*'))
+  {
+    std::vector<std::string> syns;
+    std::stringstream ss1(synonyms);
+    std::string color;
+    while (std::getline(ss1, color, '\n'))
+    {
+      syns.push_back(std::move(color));
+    }
+    sn.push_back(std::move(syns));
+  }
+  return sn;
+}
+
+std::vector<std::string> FindSynonyms(const std::string& color,
+                                      vtkNamedColors* namedColors)
+{
+  auto availableColors = GetColorNames(namedColors);
+  // We will be matching on RGB only.
+  auto myColor = namedColors->GetColor3ub(color);
+  // Colors are all stored as lower case, so convert color to lower case.
+  std::string lcColor;
+  std::transform(color.begin(), color.end(), std::back_inserter(lcColor),
+                 (int (*)(int))std::tolower);
+  std::vector<std::string> synonyms;
+  for (auto p : availableColors)
+  {
+    auto c = namedColors->GetColor3ub(p);
+    if (myColor.Compare(c, 1))
+    {
+      synonyms.push_back(p);
+    }
+  }
+  return synonyms;
+}
+
+void PrintColors(vtkNamedColors* namedColors)
+{
+  // Get the available colors:
+  auto colors = GetColorNames(namedColors);
+  std::cout << "There are " << colors.size() << " colors:" << std::endl;
+  auto max_str =
+      std::max_element(colors.begin(), colors.end(),
+                       [](std::string const& a, std::string const& b) {
+                         return a.size() < b.size();
+                       });
+  auto max_str_len = max_str->size();
+  auto n = 0;
+  std::ostringstream os;
+  for (auto const p : colors)
+  {
+    ++n;
+    if (n % 5 == 0)
+    {
+      os << std::left << p << std::endl;
+    }
+    else
+    {
+      os << std::left << std::setw(max_str_len) << p << " ";
+    }
+  }
+  std::string s = std::regex_replace(os.str(), std::regex("\\s+$"), "\n");
+  std::cout << s << std::endl;
+}
+
+void PrintSynonyms(vtkNamedColors* namedColors)
+{
+  // Get the synonyms:
+  auto synonyms = GetSynonyms(namedColors);
+  std::cout << "There are " << synonyms.size() << " synonyms:" << std::endl;
+  // Get the size of the longest synonym name.
+  size_t max_str_len = 0;
+  for (auto const p : synonyms)
+  {
+    auto max_str = std::max_element(
+        p.begin(), p.end(), [](std::string const& a, std::string const& b) {
+          return a.size() < b.size();
+        });
+    max_str_len =
+        (max_str_len < max_str->size()) ? max_str->size() : max_str_len;
+  }
+  for (auto const p : synonyms)
+  {
+    size_t n = 0;
+    for (auto const q : p)
+    {
+      ++n;
+      if (n < p.size())
+      {
+        std::cout << std::left << std::setw(max_str_len) << q << " ";
+      }
+      else
+      {
+        std::cout << q << std::endl;
+      }
+    }
+  }
+  std::cout << std::endl;
+}
+} // namespace
