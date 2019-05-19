@@ -189,7 +189,7 @@ int main (int argc,  char *argv[])
     auto defaultMask = vtkSmartPointer<vtkImageCanvasSource2D>::New();
     defaultMask->SetScalarTypeToUnsignedChar();
     defaultMask->SetNumberOfScalarComponents(3);
-    defaultMask->SetExtent(0, cloudParameters.Sizes[0], 0, cloudParameters.Sizes[1], 0, 0);
+    defaultMask->SetExtent(0, cloudParameters.Sizes[0] - 1, 0, cloudParameters.Sizes[1] - 1, 0, 0);
     defaultMask->SetDrawColor(maskColor.GetData()[0], maskColor.GetData()[1], maskColor.GetData()[2]);
     defaultMask->FillBox(0, cloudParameters.Sizes[0] - 1, 0, cloudParameters.Sizes[1] - 1);
     defaultMask->Update();
