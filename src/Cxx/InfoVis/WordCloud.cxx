@@ -308,8 +308,12 @@ int main (int argc,  char *argv[])
   imageViewer->SetSize(cloudParameters.Sizes[0], cloudParameters.Sizes[1]);
   imageViewer->GetRenderer()->ResetCamera();
 
+  // Zoom in a bit
+  vtkCamera* camera = imageViewer->GetRenderer()->GetActiveCamera();
+  camera->ParallelProjectionOn();
+  camera->SetParallelScale(cloudParameters.AdjustedSizes[0] * .4);
   imageViewer->GetRenderWindow()->Render();
-  imageViewer->GetRenderWindow()->Render();
+
   interactor->Start();
 
   return EXIT_SUCCESS;
