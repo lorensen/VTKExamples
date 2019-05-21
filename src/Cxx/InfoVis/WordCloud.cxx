@@ -189,9 +189,14 @@ int main (int argc,  char *argv[])
     auto defaultMask = vtkSmartPointer<vtkImageCanvasSource2D>::New();
     defaultMask->SetScalarTypeToUnsignedChar();
     defaultMask->SetNumberOfScalarComponents(3);
-    defaultMask->SetExtent(0, cloudParameters.Sizes[0] - 1, 0, cloudParameters.Sizes[1] - 1, 0, 0);
-    defaultMask->SetDrawColor(maskColor.GetData()[0], maskColor.GetData()[1], maskColor.GetData()[2]);
-    defaultMask->FillBox(0, cloudParameters.Sizes[0] - 1, 0, cloudParameters.Sizes[1] - 1);
+    defaultMask->SetExtent(0, cloudParameters.Sizes[0] - 1,
+                           0, cloudParameters.Sizes[1] - 1,
+                           0, 0);
+    defaultMask->SetDrawColor(maskColor.GetData()[0],
+                              maskColor.GetData()[1],
+                              maskColor.GetData()[2]);
+    defaultMask->FillBox(0, cloudParameters.Sizes[0] - 1,
+                         0, cloudParameters.Sizes[1] - 1);
     defaultMask->Update();
     maskImage = defaultMask->GetOutput();
     cloudParameters.AdjustedSizes.push_back(cloudParameters.Sizes[0]);
@@ -251,7 +256,6 @@ int main (int argc,  char *argv[])
   bool added;
   // Create a vector of orientations to try.
   std::mt19937 mt(4355412); //Standard mersenne twister engine
-  auto rng = std::default_random_engine {};
   for (auto element : sortedWords)
   {
     std::vector<double> orientations;
@@ -365,9 +369,9 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
     }
 
     // Skip the word if it is in the stop list or contains a digit
-    auto it = std::find (stopList.begin(), stopList.end(), matchStr);
+    auto it = std::find (stopList.begin(), stopList.end() - 1, matchStr);
     const auto digit = (*i).str().find_first_of("0123456789");
-    if (it != stopList.end() || digit != std::string::npos)
+    if (*it != *(stopList.end() - 1)|| digit != std::string::npos)
     {
       stop++;
       continue;
@@ -593,7 +597,6 @@ void ArchimedesSpiral(std::vector<ExtentOffset> &offset, std::vector<int> &sizes
    {
      double x, y;
      double angle = deltaAngle * i;
-     double r = angle;
      x = e * angle * std::cos(angle);
      y = e * angle * std::sin(angle);
      archimedes.push_back(ArchimedesValue(x, y));     
