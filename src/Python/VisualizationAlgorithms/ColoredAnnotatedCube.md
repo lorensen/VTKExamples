@@ -3,7 +3,7 @@
 This example demonstrates how to color the individual faces of an annotated cube.
 
 This is based on a very nice example by Rodrigo Figueiredo
-  in this discussion [Colors of vtkAnnotatedCubeActor faces (with vtkOrientationMarkerWidget)](https://discourse.vtk.org/t/colors-of-vtkannotatedcubeactor-faces-with-vtkorientationmarkerwidget/934/3)
+  in [this discussion](https://discourse.vtk.org/t/colors-of-vtkannotatedcubeactor-faces-with-vtkorientationmarkerwidget/934/1).
 
 The process is:
 
