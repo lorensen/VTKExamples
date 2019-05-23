@@ -21,18 +21,12 @@
 #include <iterator>
 #include <locale>
 #include <map>
+#include <regex>
 #include <sstream>
 #include <string>
 #include <vector>
 
 namespace {
-
-//! Replace all occurrences of old_value in a string with new_value.
-void ReplaceAll(std::string& str, const std::string& old_value,
-                const std::string& new_value);
-
-//! Convert a string to lowercase.
-std::string ToLowercase(const std::string& str);
 
 //! Convert to and from HTML color strings.
 class HTMLToFromRGBAColor
@@ -103,9 +97,7 @@ public:
   std::string MakeCombinedColorPage();
 
 private:
-  std::vector<vtkStdString> ParseColorNames(const vtkStdString& colorNames);
-  std::vector<std::vector<vtkStdString>>
-  ParseSynonyms(const vtkStdString& synonyms);
+  std::vector<std::vector<std::string>> GetSynonyms();
   std::string FormatRGBForHTML(vtkColor3ub const& rgb);
   std::string MakeHTMLStyle();
   std::string MakeHTMLHeader();
@@ -116,10 +108,8 @@ private:
   std::string MakeTR(const std::string& name, vtkColor3ub const& rgb,
                      const std::string& textColor);
   //! Use when the name is not a color name known to the web browser.
-  std::string MakeTR_HTML(const std::string& name,
-                            const std::string& htmlColor,
-                            vtkColor3ub const& rgb,
-                            const std::string& textColor);
+  std::string MakeTR_HTML(const std::string& name, const std::string& htmlColor,
+                          vtkColor3ub const& rgb, const std::string& textColor);
   std::string MakeWebColorTables();
   std::string MakeVTKColorTables();
   std::string MakeSynonymColorTable();
@@ -148,27 +138,6 @@ int main(int argc, char* argv[])
 }
 
 namespace {
-
-void ReplaceAll(std::string& str, const std::string& old_value,
-                const std::string& new_value)
-{
-  size_t start_pos = 0;
-  while ((start_pos = str.find(old_value, start_pos)) != std::string::npos)
-  {
-    str.replace(start_pos, old_value.length(), new_value);
-    // It could be that 'new_value' is a substring of 'old_value'.
-    start_pos += new_value.length();
-  }
-}
-
-std::string ToLowercase(const std::string& str)
-{
-  std::string s;
-  s.resize(str.size());
-  std::transform(str.begin(), str.end(), s.begin(),
-                 [](unsigned char const& c) { return std::tolower(c); });
-  return s;
-}
 
 bool HTMLToFromRGBAColor::IsValidHTMLColorString(std::string const& s)
 {
@@ -200,7 +169,7 @@ vtkColor3ub HTMLToFromRGBAColor::HTMLColorToRGB(std::string const& colorString)
   vtkColor3ub c(0, 0, 0);
   if (IsValidHTMLColorString(colorString) && colorString.size() == 7)
   {
-    int i = 1;
+    auto i = 1;
     while (i < static_cast<int>(colorString.size()))
     {
       std::istringstream is(colorString.substr(i, 2));
@@ -457,54 +426,24 @@ std::string HTMLTableMaker::MakeCombinedColorPage()
   return res;
 }
 
-std::vector<vtkStdString>
-HTMLTableMaker::ParseColorNames(const vtkStdString& colorNames)
+std::vector<std::vector<std::string>> HTMLTableMaker::GetSynonyms()
 {
-  // The delimiter for a color.
-  const std::string colorDelimiter = "\n";
-  std::vector<vtkStdString> cn;
-  size_t start = 0;
-  size_t end = colorNames.find(colorDelimiter);
-  while (end != std::string::npos)
+  auto ncsyn = this->nc->GetSynonyms();
+  std::stringstream ss(std::regex_replace(ncsyn, std::regex("\n\n"), "*"));
+  std::string synonyms;
+  std::vector<std::vector<std::string>> sn;
+  while (std::getline(ss, synonyms, '*'))
   {
-    cn.push_back(colorNames.substr(start, end - start));
-    start = end + 1;
-    end = colorNames.find(colorDelimiter, start);
+    std::vector<std::string> syns;
+    std::stringstream ss1(synonyms);
+    std::string color;
+    while (std::getline(ss1, color, '\n'))
+    {
+      syns.push_back(std::move(color));
+    }
+    sn.push_back(std::move(syns));
   }
-  // Get the last color.
-  if (!colorNames.empty())
-  {
-    cn.push_back(colorNames.substr(start, colorNames.size() - start));
-  }
-  return cn;
-}
-
-std::vector<std::vector<vtkStdString>>
-HTMLTableMaker::ParseSynonyms(const vtkStdString& synonyms)
-{
-  // The delimiter for a string of synonyms.
-  const vtkStdString synonymDelimiter = "\n\n";
-  size_t start = 0;
-  size_t end = synonyms.find(synonymDelimiter);
-  std::vector<vtkStdString> cn;
-  std::vector<std::vector<vtkStdString>> syn;
-  vtkStdString str;
-  while (end != std::string::npos)
-  {
-    str = synonyms.substr(start, end - start);
-    cn = ParseColorNames(str);
-    syn.push_back(cn);
-    start = end + 2;
-    end = synonyms.find(synonymDelimiter, start);
-  }
-  // Get the last set of synonyms.
-  if (!synonyms.empty())
-  {
-    str = synonyms.substr(start, end - start);
-    cn = ParseColorNames(str);
-    syn.push_back(cn);
-  }
-  return syn;
+  return sn;
 }
 
 std::string HTMLTableMaker::MakeHTMLStyle()
@@ -646,15 +585,12 @@ std::string HTMLTableMaker::MakeTD(std::string const& name)
 
 std::string HTMLTableMaker::FormatRGBForHTML(vtkColor3ub const& rgb)
 {
-  std::string s;
   std::ostringstream os;
   os << std::setw(3) << static_cast<unsigned int>(rgb.GetRed())
      << "&#160;&#160;" << std::setw(3)
      << static_cast<unsigned int>(rgb.GetGreen()) << "&#160;&#160;"
      << std::setw(3) << static_cast<unsigned int>(rgb.GetBlue());
-  s = os.str();
-  ReplaceAll(s, " ", "&#160;");
-  return s;
+  return std::regex_replace(os.str(), std::regex(" "), "&#160;");
 }
 
 std::string HTMLTableMaker::MakeTR(const std::string& name,
@@ -671,9 +607,9 @@ std::string HTMLTableMaker::MakeTR(const std::string& name,
 }
 
 std::string HTMLTableMaker::MakeTR_HTML(const std::string& name,
-                                          const std::string& htmlColor,
-                                          vtkColor3ub const& rgb,
-                                          const std::string& textColor)
+                                        const std::string& htmlColor,
+                                        vtkColor3ub const& rgb,
+                                        const std::string& textColor)
 {
   std::string s = "<tr>\n";
   s += "<td style=\"background:" + htmlColor + ";color:" + textColor;
@@ -698,12 +634,12 @@ std::string HTMLTableMaker::MakeWebColorTables()
     }
     // Add in the name of the group in the color table.
     res += this->MakeTD(p + " colors");
-    std::vector<std::string> values = this->cs.cn[p];
+    auto values = this->cs.cn[p];
     for (auto q : values)
     {
-      vtkColor3ub rgb = this->nc->GetColor3ub(q);
-      double y = this->htmlRGBA.RGBToLumaCCIR601(rgb);
-      std::string textColor = "#000000"; // Black
+      auto rgb = this->nc->GetColor3ub(q);
+      auto y = this->htmlRGBA.RGBToLumaCCIR601(rgb);
+      std::string textColor{"#000000"}; // Black
       if (y < 255 / 2.0)
       {
         textColor = "#ffffff"; // White
@@ -739,12 +675,12 @@ std::string HTMLTableMaker::MakeVTKColorTables()
     }
     // Add in the name of the group in the color table.
     res += this->MakeTD(p);
-    std::vector<std::string> values = this->cs.vtkcn[p];
+    auto values = this->cs.vtkcn[p];
     for (auto q : values)
     {
-      vtkColor3ub rgb = this->nc->GetColor3ub(q);
-      double y = this->htmlRGBA.RGBToLumaCCIR601(rgb);
-      std::string textColor = "#000000"; // Black
+      auto rgb = this->nc->GetColor3ub(q);
+      auto y = this->htmlRGBA.RGBToLumaCCIR601(rgb);
+      std::string textColor{"#000000"}; // Black
       if (y < 255 / 2.0)
       {
         textColor = "#ffffff"; // White
@@ -752,7 +688,7 @@ std::string HTMLTableMaker::MakeVTKColorTables()
       // We must set the background color to a specific
       // HTML color as the color name may not be a standard
       // name known to the web browser.
-      std::string htmlColor = htmlRGBA.RGBToHTMLColor(rgb);
+      auto htmlColor = htmlRGBA.RGBToHTMLColor(rgb);
       // Make the row for each color in the group.
       res += this->MakeTR_HTML(q, htmlColor, rgb, textColor);
     }
@@ -768,7 +704,7 @@ std::string HTMLTableMaker::MakeVTKColorTables()
 
 std::string HTMLTableMaker::MakeSynonymColorTable()
 {
-  auto synonyms = this->ParseSynonyms(this->nc->GetSynonyms());
+  auto synonyms = this->GetSynonyms();
   std::vector<std::string> cn;
   for (const auto p : this->cs.cn)
   {
@@ -780,7 +716,13 @@ std::string HTMLTableMaker::MakeSynonymColorTable()
   std::map<std::string, std::string> d;
   for (const auto p : cn)
   {
-    d[ToLowercase(p)] = p;
+    // Make a lowercase key.
+    std::string key;
+    key.resize(p.size());
+    std::transform(
+        p.begin(), p.end(), key.begin(),
+        [](unsigned char const & c) -> unsigned char { return std::tolower(c); });
+    d[key] = p;
   }
   // End point of first table.
   auto end1 = synonyms.size() / 2;
@@ -821,9 +763,9 @@ std::string HTMLTableMaker::MakeSynonymColorTable()
         names += ", ";
       }
     }
-    vtkColor3ub rgb = this->nc->GetColor3ub(*(p.begin()));
-    double y = this->htmlRGBA.RGBToLumaCCIR601(rgb);
-    std::string textColor = "#000000"; // Black
+    auto rgb = this->nc->GetColor3ub(*(p.begin()));
+    auto y = this->htmlRGBA.RGBToLumaCCIR601(rgb);
+    std::string textColor{"#000000"}; // Black
     if (y < 255 / 2.0)
     {
       textColor = "#ffffff"; // White
@@ -831,7 +773,7 @@ std::string HTMLTableMaker::MakeSynonymColorTable()
     // We must set the background color to a specific
     // HTML color because names is just a list of
     // synonyms for that particular color.
-    std::string htmlColor = this->htmlRGBA.RGBToHTMLColor(rgb);
+    auto htmlColor = this->htmlRGBA.RGBToHTMLColor(rgb);
     // Make the row for each color in the group.
     res += this->MakeTR_HTML(names, htmlColor, rgb, textColor);
     count++;
