@@ -366,6 +366,7 @@ Skipped <span class=m>5</span> words
 
   <span class=c1>// Try to add each word</span>
   <span class=kt>int</span> <span class=n>numberSkipped</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+  <span class=kt>int</span> <span class=n>keep</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>int</span><span class=p>,</span> <span class=mi>6</span><span class=o>&gt;</span> <span class=n>extent</span><span class=p>;</span>
   <span class=kt>bool</span> <span class=n>added</span><span class=p>;</span>
   <span class=c1>// Create a vector of orientations to try.</span>
@@ -398,6 +399,7 @@ Skipped <span class=m>5</span> words
       <span class=k>if</span> <span class=p>(</span><span class=n>added</span><span class=p>)</span>
       <span class=p>{</span>
 <span class=c1>//      std::cout &lt;&lt; element.first &lt;&lt; &quot;: &quot; &lt;&lt; element.second &lt;&lt; std::endl;</span>
+        <span class=n>keep</span><span class=o>++</span><span class=p>;</span>
         <span class=k>break</span><span class=p>;</span>
       <span class=p>}</span>
       <span class=k>else</span>
@@ -407,6 +409,7 @@ Skipped <span class=m>5</span> words
       <span class=p>}</span>
     <span class=p>}</span>
   <span class=p>}</span>
+  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Kept &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>keep</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; words&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Skipped &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>numberSkipped</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; words&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
   <span class=c1>// If a maskFile is specified, replace the maskColor with the background color</span>
@@ -467,10 +470,8 @@ Skipped <span class=m>5</span> words
   <span class=p>}</span>
   <span class=k>const</span> <span class=kt>int</span> <span class=n>N</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
   <span class=kt>int</span> <span class=n>stop</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-  <span class=kt>int</span> <span class=n>keep</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
   <span class=k>for</span> <span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>sregex_iterator</span> <span class=n>i</span> <span class=o>=</span> <span class=n>wordsBegin</span><span class=p>;</span> <span class=n>i</span> <span class=o>!=</span> <span class=n>wordsEnd</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
-  <span class=p>{</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>matchStr</span> <span class=o>=</span> <span class=p>(</span><span class=o>*</span><span class=n>i</span><span class=p>).</span><span class=n>str</span><span class=p>();</span>
+  <span class=p>{</span>    <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>matchStr</span> <span class=o>=</span> <span class=p>(</span><span class=o>*</span><span class=n>i</span><span class=p>).</span><span class=n>str</span><span class=p>();</span>
 
     <span class=c1>// Replace words with another</span>
     <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>p</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>p</span> <span class=o>&lt;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>ReplacementPairs</span><span class=p>.</span><span class=n>size</span><span class=p>();</span> <span class=n>p</span> <span class=o>+=</span> <span class=mi>2</span><span class=p>)</span>
@@ -494,10 +495,6 @@ Skipped <span class=m>5</span> words
       <span class=n>stop</span><span class=o>++</span><span class=p>;</span>
       <span class=k>continue</span><span class=p>;</span>
     <span class=p>}</span>
-    <span class=k>else</span>
-    <span class=p>{</span>
-      <span class=n>keep</span><span class=o>++</span><span class=p>;</span>
-    <span class=p>}</span>
 
     <span class=c1>// Only include words that have more than N characters</span>
     <span class=k>if</span> <span class=p>(</span><span class=n>matchStr</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>&gt;</span> <span class=n>N</span><span class=p>)</span>
@@ -507,7 +504,6 @@ Skipped <span class=m>5</span> words
       <span class=n>wordContainer</span><span class=p>[</span><span class=n>matchStr</span><span class=p>]</span><span class=o>++</span><span class=p>;</span>
     <span class=p>}</span>
   <span class=p>}</span>
-  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Kept &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>keep</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; words&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Stopped &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>stop</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; words&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 
   <span class=c1>// Defining a lambda function to compare two pairs. It will compare</span>
@@ -563,6 +559,7 @@ Skipped <span class=m>5</span> words
   <span class=p>{</span>
 <span class=hll>    <span class=k>auto</span> <span class=n>colorScheme</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkColorSeries</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=kt>int</span> <span class=n>index</span> <span class=o>=</span> <span class=n>colorScheme</span><span class=o>-&gt;</span><span class=n>SetColorSchemeByName</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>ColorSchemeName</span><span class=p>);</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Index: &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>index</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
 <span class=hll>    <span class=n>vtkColor3ub</span> <span class=n>color</span> <span class=o>=</span> <span class=n>colorScheme</span><span class=o>-&gt;</span><span class=n>GetColorRepeating</span><span class=p>(</span><span class=n>cloudParameters</span><span class=p>.</span><span class=n>KeptCount</span><span class=p>);</span>
 </span>    <span class=k>if</span> <span class=p>(</span><span class=n>color</span><span class=p>.</span><span class=n>Compare</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3ub</span><span class=p>(</span><span class=s>&quot;black&quot;</span><span class=p>),</span> <span class=mi>1</span><span class=p>)</span> <span class=o>&amp;&amp;</span> <span class=n>cloudParameters</span><span class=p>.</span><span class=n>KeptCount</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span>
       <span class=p>{</span>

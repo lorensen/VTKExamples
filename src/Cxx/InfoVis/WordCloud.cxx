@@ -252,6 +252,7 @@ int main (int argc,  char *argv[])
 
   // Try to add each word
   int numberSkipped = 0;
+  int keep = 0;
   std::array<int, 6> extent;
   bool added;
   // Create a vector of orientations to try.
@@ -284,6 +285,7 @@ int main (int argc,  char *argv[])
       if (added)
       {
 //      std::cout << element.first << ": " << element.second << std::endl;
+        keep++;
         break;
       }
       else
@@ -293,6 +295,7 @@ int main (int argc,  char *argv[])
       }
     }
   }
+  std::cout << "Kept " << keep << " words" << std::endl;
   std::cout << "Skipped " << numberSkipped << " words" << std::endl;
 
   // If a maskFile is specified, replace the maskColor with the background color
@@ -353,10 +356,8 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
   }
   const int N = 1;
   int stop = 0;
-  int keep = 0;
   for (std::sregex_iterator i = wordsBegin; i != wordsEnd; ++i)
-  {
-    std::string matchStr = (*i).str();
+  {    std::string matchStr = (*i).str();
 
     // Replace words with another
     for (auto p = 0; p < cloudParameters.ReplacementPairs.size(); p += 2)
@@ -380,10 +381,6 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
       stop++;
       continue;
     }
-    else
-    {
-      keep++;
-    }
 
     // Only include words that have more than N characters
     if (matchStr.size() > N)
@@ -393,7 +390,6 @@ std::multiset<std::pair<std::string, int>, Comparator > FindWordsSortedByFrequen
       wordContainer[matchStr]++;
     }
   }
-  std::cout << "Kept " << keep << " words" << std::endl;
   std::cout << "Stopped " << stop << " words" << std::endl;
 
   // Defining a lambda function to compare two pairs. It will compare
@@ -449,6 +445,7 @@ bool AddWordToFinal(const std::string word,
   {
     auto colorScheme = vtkSmartPointer<vtkColorSeries>::New();
     int index = colorScheme->SetColorSchemeByName(cloudParameters.ColorSchemeName);
+    std::cout << "Index: " << index << std::endl;
     vtkColor3ub color = colorScheme->GetColorRepeating(cloudParameters.KeptCount);
     if (color.Compare(colors->GetColor3ub("black"), 1) && cloudParameters.KeptCount == 0)
       {
