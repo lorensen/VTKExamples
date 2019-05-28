@@ -279,6 +279,8 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) | vtkRectilinearGrid | A dataset that is topologically regular with variable spacing in the three coordinate directions
+[RectilinearGridToTetrahedra](/Java/RectilinearGrid/RectilinearGridToTetrahedra) | vtkRectilinearGridToTetrahedra | Convert a vtkRectilinearGrid to a vtkUnstructuredGrid mesh.
+[VisualizeRectilinearGrid](/Java/RectilinearGrid/VisualizeRectilinearGrid) | vtkRectilinearGrid vtkShrinkFilter| Visualize the cells of a rectilinear grid.
 
 
 
