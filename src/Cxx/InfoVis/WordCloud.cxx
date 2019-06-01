@@ -445,7 +445,6 @@ bool AddWordToFinal(const std::string word,
   {
     auto colorScheme = vtkSmartPointer<vtkColorSeries>::New();
     int index = colorScheme->SetColorSchemeByName(cloudParameters.ColorSchemeName);
-    std::cout << "Index: " << index << std::endl;
     vtkColor3ub color = colorScheme->GetColorRepeating(cloudParameters.KeptCount);
     if (color.Compare(colors->GetColor3ub("black"), 1) && cloudParameters.KeptCount == 0)
       {
