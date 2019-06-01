@@ -2,7 +2,7 @@
 
 ## Python
 
-Out of 2820 available VTK classes, 389 are demonstrated here.
+Out of 2821 available VTK classes, 389 are demonstrated here.
 
 ### Excluded classes
 
@@ -56,7 +56,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkClipDataSet](http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html#details) | [ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData)  |
 | [vtkClipPolyData](http://www.vtk.org/doc/nightly/html/classvtkClipPolyData.html#details) | [ClipSphereCylinder](/Python/VisualizationAlgorithms/ClipSphereCylinder) [CreateBFont](/Python/VisualizationAlgorithms/CreateBFont) [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) [ImplicitDataSet](/Python/ImplicitFunctions/ImplicitDataSet)  |
 | [vtkColor3ub](http://www.vtk.org/doc/nightly/html/classvtkColor3ub.html#details) | [PointDataSubdivision](/Python/Visualization/PointDataSubdivision)  |
-| [vtkColorSeries](http://www.vtk.org/doc/nightly/html/classvtkColorSeries.html#details) | [CellTypeSource](/Python/GeometricObjects/CellTypeSource) [ColoredAnnotatedCube](/Python/VisualizationAlgorithms/ColoredAnnotatedCube) [CreateColorSeriesDemo](/Python/Visualization/CreateColorSeriesDemo) [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) [ElevationBandsWithGlyphs](/Python/Visualization/ElevationBandsWithGlyphs) [Hawaii](/Python/Visualization/Hawaii) [LUTUtilities](/Python/Utilities/LUTUtilities) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) [TensorEllipsoids](/Python/VisualizationAlgorithms/TensorEllipsoids)  |
+| [vtkColorSeries](http://www.vtk.org/doc/nightly/html/classvtkColorSeries.html#details) | [CellTypeSource](/Python/GeometricObjects/CellTypeSource) [ColoredAnnotatedCube](/Python/VisualizationAlgorithms/ColoredAnnotatedCube) [ColorSeriesPatches](/Python/Visualization/ColorSeriesPatches) [CreateColorSeriesDemo](/Python/Visualization/CreateColorSeriesDemo) [CurvatureBandsWithGlyphs](/Python/Visualization/CurvatureBandsWithGlyphs) [ElevationBandsWithGlyphs](/Python/Visualization/ElevationBandsWithGlyphs) [Hawaii](/Python/Visualization/Hawaii) [LUTUtilities](/Python/Utilities/LUTUtilities) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) [TensorEllipsoids](/Python/VisualizationAlgorithms/TensorEllipsoids)  |
 | [vtkColorTransferFunction](http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html#details) | [AssignCellColorsFromLUT](/Python/Visualization/AssignCellColorsFromLUT) [CurvaturesDemo](/Python/PolyData/CurvaturesDemo) [DisplacementPlot](/Python/VisualizationAlgorithms/DisplacementPlot) [MedicalDemo4](/Python/Medical/MedicalDemo4) [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) [SimpleRayCast](/Python/VolumeRendering/SimpleRayCast) [UnstructuredTransientVolumeRendering](/Python/Untested/HasBugs/Visualization/UnstructuredTransientVolumeRendering) [VTKWithNumpy](/Python/Utilities/VTKWithNumpy)  |
 | [vtkCompassRepresentation](http://www.vtk.org/doc/nightly/html/classvtkCompassRepresentation.html#details) | [CompassWidget](/Python/Geovis/CompassWidget)  |
 | [vtkCompassWidget](http://www.vtk.org/doc/nightly/html/classvtkCompassWidget.html#details) | [CompassWidget](/Python/Geovis/CompassWidget)  |
