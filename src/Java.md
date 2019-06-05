@@ -372,6 +372,14 @@ This section includes vtkImageData, vtkStructuredGrid and vtkRectilinearGrid.
 | -------------- | ---------------------- | ------------- | ------- |
 [RenderView](/Java/Views/RenderView) | vtkRenderView | An easier way to make objects appear on the screen using RenderView
 
+
+## Texture Mapping
+| Example Name | Classes Demonstrated | Description | Image |
+| -------------- | ---------------------- | ------------- | ------- |
+[TexturePlane](/Java/Texture/TexturePlane) | vtkTexture | Example of texture mapping.
+[TexturedSphere](/Java/Texture/TexturedSphere) | vtkTexturedSphereSource | Texture a sphere.
+
+
 ## Utilities
 
 | Example Name | Classes Demonstrated | Description | Image |
