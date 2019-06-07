@@ -34,15 +34,15 @@ public class TexturedSphere
   public static void main(String args[]) 
   {
     //parse command line arguments
-    if (args.length < 2) 
+    if (args.length < 1) 
     {
-      System.err.println("Usage: java -classpath ... Filename(.png) translate e.g earthTexture.png 0 ");
+      System.err.println("Usage: java -classpath ... Filename(.png or .ppm) translate e.g earth.ppm 0 ");
       return;
     }
     double translate[] = new double[3];
     String inputFilename = args[0];
     
-    if (args.length > 2)
+    if (args.length > 1)
     {
     	translate[0] = Double.parseDouble(args[1]);
     }
