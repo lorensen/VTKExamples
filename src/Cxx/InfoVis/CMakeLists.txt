@@ -29,13 +29,14 @@ if(NOT VTK_BINARY_DIR)
     vtkTestingRendering
     vtkViewsCore
     vtkViewsInfovis
+    vtksys
     QUIET
     )
   if (VTK_VERSION VERSION_LESS "8.90.0")
     include(${VTK_USE_FILE})
   endif()
 endif()
-
+message(STATUS "INCLUDE_DIRECTORIES: ${INCLUDE_DIRECTORIES}")
 set(KIT_LIBS ${VTK_LIBRARIES})
 
 #
@@ -76,6 +77,7 @@ if (BUILD_TESTING)
     DelimitedTextReader
     DelimitedTextWriter
     WordCloud
+    WordCloudDemo
     XGMLReader
     )
   if ("${ALL_FILES}" MATCHES ".*TreeMapView.*")
@@ -94,6 +96,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-WordCloud ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestWordCloud ${DATA}/Gettysburg.txt --dpi 150 --fontFile ${DATA}/Canterbury.ttf)
+
+  add_test(${KIT}-WordCloudDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestWordCloudDemo ${DATA}/Gettysburg.txt  --title "GettysBurg Address" --size 1280 1024 --orientationDistribution 0 0 --offsetDistribution 0 0 --replacementPairs consecrated consecrate dedicate dedicated --dpi 400 --fontFileName ${DATA}/Canterbury.ttf)
 
   add_test(${KIT}-XGMLReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestXGMLReader ${DATA}/fsm.gml)

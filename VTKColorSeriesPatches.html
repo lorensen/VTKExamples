@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>vtkColorSeries</title>
+  <style>
+
+  body {
+    background-color: snow
+  }
+  h1 {text-align:left;}
+  h2 {text-align:left;}
+  h3 {text-align:left;}
+  h4 {text-align:left;}
+  h5 {text-align:left;}
+  h6 {text-align:left;}
+
+  p {text-align:left;}
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    font-size: medium;
+    padding: 4px;
+  }
+
+  th {
+    background: LightSteelBlue;
+    font-size: medium;
+  }
+
+  th[colspan]:not([colspan="1"]) {
+    background: LightSteelBlue;
+    font-size: medium;
+    text-align : center;
+    vertical-align : top;
+  }
+
+  tr {
+    background: MintCream;
+    vertical-align : top;
+  }
+
+  td {
+    background: MintCream;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    font-family: monospace;
+    font-size: medium;
+    font-weight: bold;
+  }
+
+  td[colspan]:not([colspan="1"]) {
+    text-align : center;
+  }
+
+  .cour {
+    font-family: Courier;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  html {
+    display: table;
+    margin: auto;
+  }
+
+  body {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  thead {color: DarkGreen;}
+  tbody {color: MidnightBlue;}
+  tfoot {color: SaddleBrown;}
+
+  </style>
+</head>
+<body>
+<h1>Color series available in vtkColorSeries</h1>
+<table>
+<tr>
+<th>Index</th>
+<th colspan="12">Name</th>
+</tr>
+<tr>
+<th></th>
+<th colspan="12">Colors in the Series</th>
+</tr>
+<tr>
+<td><b>0</b></td>
+<td colspan="12"><b>Spectrum</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#000000;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#e41a1c;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#377eb8;color:#ffffff">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#4daf4a;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#984ea3;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#ff7f00;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#a65628;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>1</b></td>
+<td colspan="12"><b>Warm</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#791717;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#b50101;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#ef4719;color:#ffffff">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#f98324;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#ffb400;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#ffe506;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td colspan="6"> &#160; </td>
+</tr>
+<tr>
+<td><b>2</b></td>
+<td colspan="12"><b>Cool</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#75b101;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#588029;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#50d7bf;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#1c95cd;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#3b68ab;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#9a68ff;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#5f3380;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>3</b></td>
+<td colspan="12"><b>Blues</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#3b68ab;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#1c95cd;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#4ed9ea;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#739ad5;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#423da9;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#505487;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#102a52;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>4</b></td>
+<td colspan="12"><b>Wild Flower</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#1c95cd;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#3b68ab;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#663eb7;color:#ffffff">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#a254cf;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#de61ce;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#dc6195;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#3d1052;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>5</b></td>
+<td colspan="12"><b>Citrus</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#657c37;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#75b101;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#b2ba30;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#ffe506;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#ffb400;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#f98324;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td colspan="6"> &#160; </td>
+</tr>
+<tr>
+<td><b>6</b></td>
+<td colspan="12"><b>Brewer Diverging Purple-Orange (11)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#7f3b08;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#b35806;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#e08214;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fdb863;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#fee0b6;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#f7f7f7;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#d8daeb;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#b2abd2;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#8073ac;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td style="background:#542788;color:#ffffff">&#160;&#160;9&#160;&#160;</td>
+<td style="background:#2d004b;color:#ffffff">&#160;10&#160;&#160;</td>
+<td colspan="1"> &#160; </td>
+</tr>
+<tr>
+<td><b>7</b></td>
+<td colspan="12"><b>Brewer Diverging Purple-Orange (10)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#7f3b08;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#b35806;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#e08214;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fdb863;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#fee0b6;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#d8daeb;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#b2abd2;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#8073ac;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#542788;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td style="background:#2d004b;color:#ffffff">&#160;&#160;9&#160;&#160;</td>
+<td colspan="2"> &#160; </td>
+</tr>
+<tr>
+<td><b>8</b></td>
+<td colspan="12"><b>Brewer Diverging Purple-Orange (9)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#b35806;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#e08214;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fdb863;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fee0b6;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#f7f7f7;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#d8daeb;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#b2abd2;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#8073ac;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#542788;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td colspan="3"> &#160; </td>
+</tr>
+<tr>
+<td><b>9</b></td>
+<td colspan="12"><b>Brewer Diverging Purple-Orange (8)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#b35806;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#e08214;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fdb863;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fee0b6;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#d8daeb;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#b2abd2;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#8073ac;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#542788;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>10</b></td>
+<td colspan="12"><b>Brewer Diverging Purple-Orange (7)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#b35806;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#f1a340;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fee0b6;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#f7f7f7;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#d8daeb;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#998ec3;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#542788;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>11</b></td>
+<td colspan="12"><b>Brewer Diverging Purple-Orange (6)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#b35806;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#f1a340;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fee0b6;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#d8daeb;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#998ec3;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#542788;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td colspan="6"> &#160; </td>
+</tr>
+<tr>
+<td><b>12</b></td>
+<td colspan="12"><b>Brewer Diverging Purple-Orange (5)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#e66101;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fdb863;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#f7f7f7;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#b2abd2;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#5e3c99;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td colspan="7"> &#160; </td>
+</tr>
+<tr>
+<td><b>13</b></td>
+<td colspan="12"><b>Brewer Diverging Purple-Orange (4)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#e66101;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fdb863;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#b2abd2;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#5e3c99;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td colspan="8"> &#160; </td>
+</tr>
+<tr>
+<td><b>14</b></td>
+<td colspan="12"><b>Brewer Diverging Purple-Orange (3)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#f1a340;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#f7f7f7;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#998ec3;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td colspan="9"> &#160; </td>
+</tr>
+<tr>
+<td><b>15</b></td>
+<td colspan="12"><b>Brewer Diverging Spectral (11)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#9e0142;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#d53e4f;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#f46d43;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fdae61;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#fee08b;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#ffffbf;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#e6f598;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#abdda4;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#66c2a5;color:#000000">&#160;&#160;8&#160;&#160;</td>
+<td style="background:#3288bd;color:#ffffff">&#160;&#160;9&#160;&#160;</td>
+<td style="background:#5e4fa2;color:#ffffff">&#160;10&#160;&#160;</td>
+<td colspan="1"> &#160; </td>
+</tr>
+<tr>
+<td><b>16</b></td>
+<td colspan="12"><b>Brewer Diverging Spectral (10)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#9e0142;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#d53e4f;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#f46d43;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fdae61;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#fee08b;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#e6f598;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#abdda4;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#66c2a5;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#3288bd;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td style="background:#5e4fa2;color:#ffffff">&#160;&#160;9&#160;&#160;</td>
+<td colspan="2"> &#160; </td>
+</tr>
+<tr>
+<td><b>17</b></td>
+<td colspan="12"><b>Brewer Diverging Spectral (9)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#d53e4f;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#f46d43;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fdae61;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fee08b;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#ffffbf;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#e6f598;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#abdda4;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#66c2a5;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#3288bd;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td colspan="3"> &#160; </td>
+</tr>
+<tr>
+<td><b>18</b></td>
+<td colspan="12"><b>Brewer Diverging Spectral (8)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#d53e4f;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#f46d43;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fdae61;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fee08b;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#e6f598;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#abdda4;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#66c2a5;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#3288bd;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>19</b></td>
+<td colspan="12"><b>Brewer Diverging Spectral (7)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#d53e4f;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fc8d59;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fee08b;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#ffffbf;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#e6f598;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#99d594;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#3288bd;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>20</b></td>
+<td colspan="12"><b>Brewer Diverging Spectral (6)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#d53e4f;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fc8d59;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fee08b;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#e6f598;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#99d594;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#3288bd;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td colspan="6"> &#160; </td>
+</tr>
+<tr>
+<td><b>21</b></td>
+<td colspan="12"><b>Brewer Diverging Spectral (5)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#d7191c;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fdae61;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#ffffbf;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#abdda4;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#2b83ba;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td colspan="7"> &#160; </td>
+</tr>
+<tr>
+<td><b>22</b></td>
+<td colspan="12"><b>Brewer Diverging Spectral (4)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#d7191c;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fdae61;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#abdda4;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#2b83ba;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td colspan="8"> &#160; </td>
+</tr>
+<tr>
+<td><b>23</b></td>
+<td colspan="12"><b>Brewer Diverging Spectral (3)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#fc8d59;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#ffffbf;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#99d594;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td colspan="9"> &#160; </td>
+</tr>
+<tr>
+<td><b>24</b></td>
+<td colspan="12"><b>Brewer Diverging Brown-Blue-Green (11)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#543005;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#8c510a;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#bf812d;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#dfc27d;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#f6e8c3;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#f5f5f5;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#c7eae5;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#80cdc1;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#35978f;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td style="background:#01665e;color:#ffffff">&#160;&#160;9&#160;&#160;</td>
+<td style="background:#003c30;color:#ffffff">&#160;10&#160;&#160;</td>
+<td colspan="1"> &#160; </td>
+</tr>
+<tr>
+<td><b>25</b></td>
+<td colspan="12"><b>Brewer Diverging Brown-Blue-Green (10)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#543005;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#8c510a;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#bf812d;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#dfc27d;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#f6e8c3;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#c7eae5;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#80cdc1;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#35978f;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#01665e;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td style="background:#003c30;color:#ffffff">&#160;&#160;9&#160;&#160;</td>
+<td colspan="2"> &#160; </td>
+</tr>
+<tr>
+<td><b>26</b></td>
+<td colspan="12"><b>Brewer Diverging Brown-Blue-Green (9)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#8c510a;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#bf812d;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#dfc27d;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#f6e8c3;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#f5f5f5;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#c7eae5;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#80cdc1;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#35978f;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#01665e;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td colspan="3"> &#160; </td>
+</tr>
+<tr>
+<td><b>27</b></td>
+<td colspan="12"><b>Brewer Diverging Brown-Blue-Green (8)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#8c510a;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#bf812d;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#dfc27d;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#f6e8c3;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#c7eae5;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#80cdc1;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#35978f;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#01665e;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>28</b></td>
+<td colspan="12"><b>Brewer Diverging Brown-Blue-Green (7)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#8c510a;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#d8b365;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#f6e8c3;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#f5f5f5;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#c7eae5;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#5ab4ac;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#01665e;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>29</b></td>
+<td colspan="12"><b>Brewer Diverging Brown-Blue-Green (6)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#8c510a;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#d8b365;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#f6e8c3;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#c7eae5;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#5ab4ac;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#01665e;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td colspan="6"> &#160; </td>
+</tr>
+<tr>
+<td><b>30</b></td>
+<td colspan="12"><b>Brewer Diverging Brown-Blue-Green (5)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#a6611a;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#dfc27d;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#f5f5f5;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#80cdc1;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#018571;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td colspan="7"> &#160; </td>
+</tr>
+<tr>
+<td><b>31</b></td>
+<td colspan="12"><b>Brewer Diverging Brown-Blue-Green (4)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#a6611a;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#dfc27d;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#80cdc1;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#018571;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td colspan="8"> &#160; </td>
+</tr>
+<tr>
+<td><b>32</b></td>
+<td colspan="12"><b>Brewer Diverging Brown-Blue-Green (3)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#d8b365;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#f5f5f5;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#5ab4ac;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td colspan="9"> &#160; </td>
+</tr>
+<tr>
+<td><b>33</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Green (9)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#f7fcfd;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#e5f5f9;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#ccece6;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#99d8c9;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#66c2a4;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#41ae76;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#238b45;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#006d2c;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#00441b;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td colspan="3"> &#160; </td>
+</tr>
+<tr>
+<td><b>34</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Green (8)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#f7fcfd;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#e5f5f9;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#ccece6;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#99d8c9;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#66c2a4;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#41ae76;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#238b45;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#005824;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>35</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Green (7)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#edf8fb;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#ccece6;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#ccece6;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#66c2a4;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#41ae76;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#238b45;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#005824;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>36</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Green (6)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#edf8fb;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#ccece6;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#99d8c9;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#66c2a4;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#2ca25f;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#006d2c;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td colspan="6"> &#160; </td>
+</tr>
+<tr>
+<td><b>37</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Green (5)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#edf8fb;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#b2e2e2;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#66c2a4;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#2ca25f;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#006d2c;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td colspan="7"> &#160; </td>
+</tr>
+<tr>
+<td><b>38</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Green (4)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#edf8fb;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#b2e2e2;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#66c2a4;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#238b45;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td colspan="8"> &#160; </td>
+</tr>
+<tr>
+<td><b>39</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Green (3)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#e5f5f9;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#99d8c9;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#2ca25f;color:#ffffff">&#160;&#160;2&#160;&#160;</td>
+<td colspan="9"> &#160; </td>
+</tr>
+<tr>
+<td><b>40</b></td>
+<td colspan="12"><b>Brewer Sequential Yellow-Orange-Brown (9)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#ffffe5;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fff7bc;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fee391;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fec44f;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#fe9929;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#ec7014;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#cc4c02;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#993404;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#662506;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td colspan="3"> &#160; </td>
+</tr>
+<tr>
+<td><b>41</b></td>
+<td colspan="12"><b>Brewer Sequential Yellow-Orange-Brown (8)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#ffffe5;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fff7bc;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fee391;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fec44f;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#fe9929;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#ec7014;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#cc4c02;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#8c2d04;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>42</b></td>
+<td colspan="12"><b>Brewer Sequential Yellow-Orange-Brown (7)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#ffffd4;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fee391;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fec44f;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fe9929;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#ec7014;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#cc4c02;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#8c2d04;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>43</b></td>
+<td colspan="12"><b>Brewer Sequential Yellow-Orange-Brown (6)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#ffffd4;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fee391;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fec44f;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fe9929;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#d95f0e;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#993404;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td colspan="6"> &#160; </td>
+</tr>
+<tr>
+<td><b>44</b></td>
+<td colspan="12"><b>Brewer Sequential Yellow-Orange-Brown (5)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#ffffd4;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fed98e;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fe9929;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#d95f0e;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#993404;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td colspan="7"> &#160; </td>
+</tr>
+<tr>
+<td><b>45</b></td>
+<td colspan="12"><b>Brewer Sequential Yellow-Orange-Brown (4)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#ffffd4;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fed98e;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fe9929;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#cc4c02;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td colspan="8"> &#160; </td>
+</tr>
+<tr>
+<td><b>46</b></td>
+<td colspan="12"><b>Brewer Sequential Yellow-Orange-Brown (3)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#fff7bc;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fec44f;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#d95f0e;color:#ffffff">&#160;&#160;2&#160;&#160;</td>
+<td colspan="9"> &#160; </td>
+</tr>
+<tr>
+<td><b>47</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Purple (9)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#f7fcfd;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#e0ecf4;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#bfd3e6;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#9ebcda;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#8c96c6;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#8c6bb1;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#88419d;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#810f7c;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#4d004b;color:#ffffff">&#160;&#160;8&#160;&#160;</td>
+<td colspan="3"> &#160; </td>
+</tr>
+<tr>
+<td><b>48</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Purple (8)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#f7fcfd;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#e0ecf4;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#bfd3e6;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#9ebcda;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#8c96c6;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#8c6bb1;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#88419d;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#6e016b;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>49</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Purple (7)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#edf8fb;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#bfd3e6;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#9ebcda;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#8c96c6;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#8c6bb1;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#88419d;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#6e016b;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td colspan="5"> &#160; </td>
+</tr>
+<tr>
+<td><b>50</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Purple (6)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#edf8fb;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#bfd3e6;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#9ebcda;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#8c96c6;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#8856a7;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#810f7c;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td colspan="6"> &#160; </td>
+</tr>
+<tr>
+<td><b>51</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Purple (5)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#edf8fb;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#b3cde3;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#8c96c6;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#8856a7;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#810f7c;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td colspan="7"> &#160; </td>
+</tr>
+<tr>
+<td><b>52</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Purple (4)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#edf8fb;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#b3cde3;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#8c96c6;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#88419d;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td colspan="8"> &#160; </td>
+</tr>
+<tr>
+<td><b>53</b></td>
+<td colspan="12"><b>Brewer Sequential Blue-Purple (3)</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#e0ecf4;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#9ebcda;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#8856a7;color:#ffffff">&#160;&#160;2&#160;&#160;</td>
+<td colspan="9"> &#160; </td>
+</tr>
+<tr>
+<td><b>54</b></td>
+<td colspan="12"><b>Brewer Qualitative Accent</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#7fc97f;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#beaed4;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#fdc086;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#ffff99;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#386cb0;color:#ffffff">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#f0027f;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#bf5b17;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#666666;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>55</b></td>
+<td colspan="12"><b>Brewer Qualitative Dark2</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#1b9e77;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#d95f02;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#7570b3;color:#ffffff">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#e7298a;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#66a61e;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#e6ab02;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#a6761d;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#666666;color:#ffffff">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>56</b></td>
+<td colspan="12"><b>Brewer Qualitative Set2</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#66c2a5;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fc8d62;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#8da0cb;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#e78ac3;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#a6d854;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#ffd92f;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#e5c494;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#b3b3b3;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>57</b></td>
+<td colspan="12"><b>Brewer Qualitative Pastel2</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#b3e2cd;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#fdcdac;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#cbd5e8;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#f4cae4;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#e6f5c9;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#fff2ae;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#f1e2cc;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#cccccc;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td colspan="4"> &#160; </td>
+</tr>
+<tr>
+<td><b>58</b></td>
+<td colspan="12"><b>Brewer Qualitative Pastel1</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#fbb4ae;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#b3cde3;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#ccebc5;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#decbe4;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#fed9a6;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#ffffcc;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#e5d8bd;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#fddaec;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#f2f2f2;color:#000000">&#160;&#160;8&#160;&#160;</td>
+<td colspan="3"> &#160; </td>
+</tr>
+<tr>
+<td><b>59</b></td>
+<td colspan="12"><b>Brewer Qualitative Set1</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#e41a1c;color:#ffffff">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#377eb8;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#4daf4a;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#984ea3;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#ff7f00;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#ffff33;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#a65628;color:#ffffff">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#f781bf;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#999999;color:#000000">&#160;&#160;8&#160;&#160;</td>
+<td colspan="3"> &#160; </td>
+</tr>
+<tr>
+<td><b>60</b></td>
+<td colspan="12"><b>Brewer Qualitative Paired</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#a6cee3;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#1f78b4;color:#ffffff">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#b2df8a;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#33a02c;color:#ffffff">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#fb9a99;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#e31a1c;color:#ffffff">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#fdbf6f;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#ff7f00;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#cab2d6;color:#000000">&#160;&#160;8&#160;&#160;</td>
+<td style="background:#6a3d9a;color:#ffffff">&#160;&#160;9&#160;&#160;</td>
+<td style="background:#ffff99;color:#000000">&#160;10&#160;&#160;</td>
+<td colspan="1"> &#160; </td>
+</tr>
+<tr>
+<td><b>61</b></td>
+<td colspan="12"><b>Brewer Qualitative Set3</b></td>
+</tr>
+<tr>
+<td></td>
+<td style="background:#8dd3c7;color:#000000">&#160;&#160;0&#160;&#160;</td>
+<td style="background:#ffffb3;color:#000000">&#160;&#160;1&#160;&#160;</td>
+<td style="background:#bebada;color:#000000">&#160;&#160;2&#160;&#160;</td>
+<td style="background:#fb8072;color:#000000">&#160;&#160;3&#160;&#160;</td>
+<td style="background:#80b1d3;color:#000000">&#160;&#160;4&#160;&#160;</td>
+<td style="background:#fdb462;color:#000000">&#160;&#160;5&#160;&#160;</td>
+<td style="background:#b3de69;color:#000000">&#160;&#160;6&#160;&#160;</td>
+<td style="background:#fccde5;color:#000000">&#160;&#160;7&#160;&#160;</td>
+<td style="background:#d9d9d9;color:#000000">&#160;&#160;8&#160;&#160;</td>
+<td style="background:#bc80bd;color:#000000">&#160;&#160;9&#160;&#160;</td>
+<td style="background:#ccebc5;color:#000000">&#160;10&#160;&#160;</td>
+<td style="background:#ffed6f;color:#000000">&#160;11&#160;&#160;</td>
+</tr>
+</table>
+</body>

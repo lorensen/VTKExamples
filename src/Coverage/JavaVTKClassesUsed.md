@@ -2,7 +2,7 @@
 
 ## Java
 
-Out of 2820 available VTK classes, 254 are demonstrated here.
+Out of 2821 available VTK classes, 255 are demonstrated here.
 
 ### Excluded classes
 
@@ -61,7 +61,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkCursor3D](http://www.vtk.org/doc/nightly/html/classvtkCursor3D.html#details) | [Cursor3D](/Java/Visualization/Cursor3D)  |
 | [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html#details) | [Cutter](/Java/VisualizationAlgorithms/Cutter)  |
 | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html#details) | [CylinderExample](/Java/GeometricObjects/CylinderExample) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [TransformPipeline](/Java/PolyData/TransformPipeline)  |
-| [vtkDataSetMapper](http://www.vtk.org/doc/nightly/html/classvtkDataSetMapper.html#details) | [BlankPoint](/Java/StructuredGrid/BlankPoint) [ConvexHullShrinkWrap](/Java/PolyData/ConvexHullShrinkWrap) [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) [Frustum](/Java/GeometricObjects/Frustum) [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) [LoopShrink](/Java/Visualization/LoopShrink) [OrientationMarkerWidget](/Java/Widgets/OrientationMarkerWidget) [Pyramid](/Java/GeometricObjects/Pyramid) [RandomProbe](/Java/Visualization/RandomProbe) [ReadPolyData](/Java/IO/ReadPolyData) [ReadRectilinearGrid](/Java/IO/ReadRectilinearGrid) [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) [Reflection](/Java/PolyData/Reflection) [ShrinkCube](/Java/GeometricObjects/ShrinkCube) [VisualizeImageData](/Java/Visualization/VisualizeImageData) [WriteVTU](/Java/IO/WriteVTU)  |
+| [vtkDataSetMapper](http://www.vtk.org/doc/nightly/html/classvtkDataSetMapper.html#details) | [BlankPoint](/Java/StructuredGrid/BlankPoint) [ConvexHullShrinkWrap](/Java/PolyData/ConvexHullShrinkWrap) [ConvexPointSet](/Java/GeometricObjects/ConvexPointSet) [Frustum](/Java/GeometricObjects/Frustum) [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) [LoopShrink](/Java/Visualization/LoopShrink) [OrientationMarkerWidget](/Java/Widgets/OrientationMarkerWidget) [Pyramid](/Java/GeometricObjects/Pyramid) [RandomProbe](/Java/Visualization/RandomProbe) [ReadPolyData](/Java/IO/ReadPolyData) [ReadRectilinearGrid](/Java/IO/ReadRectilinearGrid) [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) [Reflection](/Java/PolyData/Reflection) [ShrinkCube](/Java/GeometricObjects/ShrinkCube) [VisualizeImageData](/Java/Visualization/VisualizeImageData) [VisualizeRectilinearGrid](/Java/RectilinearGrid/VisualizeRectilinearGrid) [WriteVTU](/Java/IO/WriteVTU)  |
 | [vtkDelaunay2D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay2D.html#details) | [Delaunay2D](/Java/Filtering/Delaunay2D) [DelaunayMesh](/Java/Modelling/DelaunayMesh)  |
 | [vtkDelaunay3D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay3D.html#details) | [XMLPUnstructuredGridWriter](/Java/IO/XMLPUnstructuredGridWriter)  |
 | [vtkDEMReader](http://www.vtk.org/doc/nightly/html/classvtkDEMReader.html#details) | [DEMReader](/Java/IO/DEMReader)  |
@@ -70,7 +70,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkDiskSource](http://www.vtk.org/doc/nightly/html/classvtkDiskSource.html#details) | [BoundaryEdges](/Java/Meshes/BoundaryEdges) [Disk](/Java/GeometricObjects/Disk)  |
 | [vtkDistanceToCamera](http://www.vtk.org/doc/nightly/html/classvtkDistanceToCamera.html#details) | [DistanceToCamera](/Java/Visualization/DistanceToCamera)  |
 | [vtkDistanceWidget](http://www.vtk.org/doc/nightly/html/classvtkDistanceWidget.html#details) | [DistanceWidget](/Java/Widgets/DistanceWidget)  |
-| [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html#details) | [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates) [MeshQuality](/Java/PolyData/MeshQuality) [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) [Vol](/Java/StructuredPoints/Vol)  |
+| [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html#details) | [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates) [MeshQuality](/Java/PolyData/MeshQuality) [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) [RectilinearGridToTetrahedra](/Java/RectilinearGrid/RectilinearGridToTetrahedra) [VisualizeRectilinearGrid](/Java/RectilinearGrid/VisualizeRectilinearGrid) [Vol](/Java/StructuredPoints/Vol)  |
 | [vtkEarthSource](http://www.vtk.org/doc/nightly/html/classvtkEarthSource.html#details) | [EarthSource](/Java/Geovis/EarthSource)  |
 | [vtkElevationFilter](http://www.vtk.org/doc/nightly/html/classvtkElevationFilter.html#details) | [ColoredSphere](/Java/Rendering/ColoredSphere) [LoopShrink](/Java/Visualization/LoopShrink) [ProjectSphere](/Java/Visualization/ProjectSphere)  |
 | [vtkExodusIIWriter](http://www.vtk.org/doc/nightly/html/classvtkExodusIIWriter.html#details) | [ExodusIIWriter](/Java/Parallel/ExodusIIWriter)  |
@@ -191,7 +191,8 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html#details) | [Pyramid](/Java/GeometricObjects/Pyramid)  |
 | [vtkQuad](http://www.vtk.org/doc/nightly/html/classvtkQuad.html#details) | [Quad](/Java/GeometricObjects/Quad)  |
 | [vtkRandomGraphSource](http://www.vtk.org/doc/nightly/html/classvtkRandomGraphSource.html#details) | [RandomGraphSource](/Java/Graphs/RandomGraphSource) [SelectGraphVertices](/Java/Graphs/SelectGraphVertices)  |
-| [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html#details) | [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid)  |
+| [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html#details) | [RectilinearGrid](/Java/RectilinearGrid/RectilinearGrid) [RectilinearGridToTetrahedra](/Java/RectilinearGrid/RectilinearGridToTetrahedra) [VisualizeRectilinearGrid](/Java/RectilinearGrid/VisualizeRectilinearGrid)  |
+| [vtkRectilinearGridToTetrahedra](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGridToTetrahedra.html#details) | [RectilinearGridToTetrahedra](/Java/RectilinearGrid/RectilinearGridToTetrahedra)  |
 | [vtkReflectionFilter](http://www.vtk.org/doc/nightly/html/classvtkReflectionFilter.html#details) | [Reflection](/Java/PolyData/Reflection)  |
 | [vtkRegularPolygonSource](http://www.vtk.org/doc/nightly/html/classvtkRegularPolygonSource.html#details) | [BalloonWidget](/Java/Widgets/BalloonWidget) [Circle](/Java/GeometricObjects/Circle) [Glyph2D](/Java/Filtering/Glyph2D) [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource)  |
 | [vtkRenderView](http://www.vtk.org/doc/nightly/html/classvtkRenderView.html#details) | [RenderView](/Java/Views/RenderView)  |
@@ -203,7 +204,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkScalarBarActor](http://www.vtk.org/doc/nightly/html/classvtkScalarBarActor.html#details) | [ScalarBarActor](/Java/Visualization/ScalarBarActor) [ScalarBarActorColorSeries](/Java/Visualization/ScalarBarActorColorSeries)  |
 | [vtkSeedRepresentation](http://www.vtk.org/doc/nightly/html/classvtkSeedRepresentation.html#details) | [SeedWidget](/Java/Widgets/SeedWidget)  |
 | [vtkSeedWidget](http://www.vtk.org/doc/nightly/html/classvtkSeedWidget.html#details) | [SeedWidget](/Java/Widgets/SeedWidget)  |
-| [vtkShrinkFilter](http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html#details) | [Frustum](/Java/GeometricObjects/Frustum) [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) [LoopShrink](/Java/Visualization/LoopShrink) [ShrinkCube](/Java/GeometricObjects/ShrinkCube)  |
+| [vtkShrinkFilter](http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html#details) | [Frustum](/Java/GeometricObjects/Frustum) [HyperTreeGridSource](/Java/HyperTreeGrid/HyperTreeGridSource) [LoopShrink](/Java/Visualization/LoopShrink) [ShrinkCube](/Java/GeometricObjects/ShrinkCube) [VisualizeRectilinearGrid](/Java/RectilinearGrid/VisualizeRectilinearGrid)  |
 | [vtkShrinkPolyData](http://www.vtk.org/doc/nightly/html/classvtkShrinkPolyData.html#details) | [RegularPolygonSource](/Java/GeometricObjects/RegularPolygonSource)  |
 | [vtkSimple2DLayoutStrategy](http://www.vtk.org/doc/nightly/html/classvtkSimple2DLayoutStrategy.html#details) | [VisualizeGraph](/Java/Graphs/VisualizeGraph)  |
 | [vtkSimplePointsReader](http://www.vtk.org/doc/nightly/html/classvtkSimplePointsReader.html#details) | [SimplePointsReader](/Java/IO/SimplePointsReader)  |
@@ -263,4 +264,4 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkXMLStructuredGridReader](http://www.vtk.org/doc/nightly/html/classvtkXMLStructuredGridReader.html#details) | [ReadStructuredGrid](/Java/IO/ReadStructuredGrid)  |
 | [vtkXMLStructuredGridWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLStructuredGridWriter.html#details) | [XMLStructuredGridWriter](/Java/IO/XMLStructuredGridWriter)  |
 | [vtkXMLUnstructuredGridReader](http://www.vtk.org/doc/nightly/html/classvtkXMLUnstructuredGridReader.html#details) | [VectorFieldExample](/Java/Visualization/VectorFieldExample) [WriteVTU](/Java/IO/WriteVTU)  |
-| [vtkXMLUnstructuredGridWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLUnstructuredGridWriter.html#details) | [StructuredPointsToUnstructuredGrid](/Java/StructuredPoints/StructuredPointsToUnstructuredGrid) [WriteVTU](/Java/IO/WriteVTU)  |
+| [vtkXMLUnstructuredGridWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLUnstructuredGridWriter.html#details) | [RectilinearGridToTetrahedra](/Java/RectilinearGrid/RectilinearGridToTetrahedra) [StructuredPointsToUnstructuredGrid](/Java/StructuredPoints/StructuredPointsToUnstructuredGrid) [WriteVTU](/Java/IO/WriteVTU)  |

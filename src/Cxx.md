@@ -945,6 +945,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ColorAnActor](/Cxx/Visualization/ColorAnActor) | vtkActor | Color an Actor.
 [ColoredAnnotatedCube](/Cxx/VisualizationAlgorithms/ColoredAnnotatedCube) | vtkAnnotatedCubeActor vtkAxesActor vtkCubeSource vtkPropAssembly vtkOrientationMarkerWidget | How to color the individual faces of an annotated cube.
 [ColorGlyphs](/Cxx/Visualization/ColorGlyphs) | vtkGlyph3D vtkGlyph3D | Color glyphs.
+[ColorSeriesPatches](/Cxx/Visualization/ColorSeriesPatches) | vtkColorSeries | Creates a HTML file called [VTKColorSeriesPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKColorSeriesPatches.html)
 [CombustorIsosurface](/Cxx/VisualizationAlgorithms/CombustorIsosurface) | vtkContourFilter | Marching cubes surface of flow density.
 [ComplexV](/Cxx/Visualization/ComplexV) | vtkHedgeHog | ComplexV from the VTK Textbook.
 [ContourQuadric](/Cxx/VisualizationAlgorithms/ContourQuadric) | vtkQuadric vtkSampleFunction vtkContourFilter | Contouring a quadric function.
