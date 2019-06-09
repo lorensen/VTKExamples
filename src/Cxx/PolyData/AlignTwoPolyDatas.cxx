@@ -2,15 +2,12 @@
 #include <vtkIterativeClosestPointTransform.h>
 #include <vtkLandmarkTransform.h>
 #include <vtkPoints.h>
-#include <vtkLandmarkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
 #include <vtkTransform.h>
 #include <vtkHausdorffDistancePointSetFilter.h>
 #include <vtkFieldData.h>
 
-#include <vtkBoundingBox.h>
 #include <vtkOBBTree.h>
-#include <vtkMatrix4x4.h>
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
@@ -39,6 +36,14 @@ namespace
 {
 vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
 void AlignBoundingBoxes (vtkPolyData *, vtkPolyData *);
+void BestBoundingBox (
+  std::string axis,
+  vtkPolyData *target,
+  vtkPolyData *source,
+  vtkPolyData *targetLandmarks,
+  vtkPolyData *sourceLandmarks,
+  double      &distance,
+  vtkPoints   *bestPoints);
 }
 
 int main (int argc, char *argv[])
@@ -55,7 +60,7 @@ int main (int argc, char *argv[])
   auto interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
 
-  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
+  renderer->SetBackground(colors->GetColor3d("sea_green_light").GetData());
   renderer->UseHiddenLineRemovalOn();
 
   std::cout << "Loading source: " << argv[1] << std::endl;
@@ -88,7 +93,7 @@ int main (int argc, char *argv[])
   double distanceAfterAlign =
     static_cast<vtkPointSet*>(distance->GetOutput(0))->GetFieldData()->GetArray("HausdorffDistance")->GetComponent(0,0);
 
-  double minDistance = std::min(distanceBeforeAlign, distanceAfterAlign);
+  double bestDistance = std::min(distanceBeforeAlign, distanceAfterAlign);
 
   if (distanceAfterAlign > distanceBeforeAlign)
   {
@@ -123,25 +128,25 @@ int main (int argc, char *argv[])
   double distanceAfterICP =
     static_cast<vtkPointSet*>(distance->GetOutput(0))->GetFieldData()->GetArray("HausdorffDistance")->GetComponent(0,0);
 
-  if (distanceAfterICP < minDistance)
+  if (distanceAfterICP < bestDistance)
   {
-    minDistance = distanceAfterICP;
+    bestDistance = distanceAfterICP;
   }
 
   std::cout << "Distance before, after align, after ICP, min: "
             << distanceBeforeAlign << ", "
             << distanceAfterAlign << ", "
             << distanceAfterICP << ", "
-            << minDistance << std::endl;
+            << bestDistance << std::endl;
 
   // Select
   auto sourceMapper = vtkSmartPointer<vtkDataSetMapper>::New();
-  if (minDistance == distanceBeforeAlign)
+  if (bestDistance == distanceBeforeAlign)
   {
     sourceMapper->SetInputData(originalSourcePolyData);
     std::cout << "Using original alignment" << std::endl;
   }
-  else if (minDistance == distanceAfterAlign)
+  else if (bestDistance == distanceAfterAlign)
   {
     sourceMapper->SetInputData(sourcePolyData);
     std::cout << "Using alignment by OBB" << std::endl;
@@ -242,6 +247,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
 
 void AlignBoundingBoxes (vtkPolyData *source, vtkPolyData *target)
 {
+  // Use OBBTree to create an oriented bounding box for target and source
   auto sourceOBBTree = vtkSmartPointer<vtkOBBTree>::New();
   sourceOBBTree->SetDataSet(source);
   sourceOBBTree->SetMaxLevel(1);
@@ -258,135 +264,38 @@ void AlignBoundingBoxes (vtkPolyData *source, vtkPolyData *target)
   auto targetLandmarks = vtkSmartPointer<vtkPolyData>::New();
   targetOBBTree->GenerateRepresentation(0, targetLandmarks);
 
-  double sourceCenter[3];
-  sourceLandmarks->GetCenter(sourceCenter);
-
-  double minDistance = VTK_DOUBLE_MAX;
-  auto distance =
-    vtkSmartPointer<vtkHausdorffDistancePointSetFilter>::New();
-
-  auto testTransform = vtkSmartPointer<vtkTransform>::New();
-  auto testTransformPD = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-
   auto lmTransform = vtkSmartPointer<vtkLandmarkTransform>::New();
   lmTransform->SetModeToSimilarity();
   lmTransform->SetTargetLandmarks(targetLandmarks->GetPoints());
-
   auto lmTransformPD = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
-  auto testPoints = vtkSmartPointer<vtkPoints>::New();
-  auto delta = 90.0;
-  // X
-  for (auto i = 0; i < 4; ++i)
-  {
-    auto angle = delta * i;
-    // Rotate about center
-    testTransform->Identity();
-    testTransform->Translate(
-      sourceCenter[0], sourceCenter[1], sourceCenter[2]);
-    testTransform->RotateX(angle);
-    testTransform->Translate(
-      -sourceCenter[0], -sourceCenter[1], -sourceCenter[2]);
+  double bestDistance = VTK_DOUBLE_MAX;
+  auto bestPoints = vtkSmartPointer<vtkPoints>::New();
+  BestBoundingBox(
+    "X",
+    target,
+    source,
+    targetLandmarks,
+    sourceLandmarks,
+    bestDistance,
+    bestPoints);
+  BestBoundingBox(
+    "Y",
+    target,
+    source,
+    targetLandmarks,
+    sourceLandmarks,
+    bestDistance,
+    bestPoints);
+  BestBoundingBox(
+    "Z",
+    target,
+    source,
+    targetLandmarks,
+    sourceLandmarks,
+    bestDistance,
+    bestPoints);
 
-    testTransformPD->SetTransform(testTransform);
-    testTransformPD->SetInputData(sourceLandmarks);
-    testTransformPD->Update();
-
-    lmTransform->SetSourceLandmarks(testTransformPD->GetOutput()->GetPoints());
-    lmTransform->Modified();
-
-    lmTransformPD->SetInputData(source);
-    lmTransformPD->SetTransform(lmTransform);
-    lmTransformPD->Update();
-
-    distance->SetInputData(0, target);
-    distance->SetInputData(1, lmTransformPD->GetOutput());
-    distance->Update();
-  
-    double testDistance =
-      static_cast<vtkPointSet*>(distance->GetOutput(0))->GetFieldData()->GetArray("HausdorffDistance")->GetComponent(0,0);
-    std::cout << "testDistance: " << testDistance << std::endl;
-    if (testDistance < minDistance)
-    {
-      minDistance = testDistance;
-      testPoints->DeepCopy(testTransformPD->GetOutput()->GetPoints());
-    }
-  }
-
-  // Y
-  for (auto i = 0; i < 4; ++i)
-  {
-    auto angle = delta * i;
-    // Rotate about center
-    testTransform->Identity();
-    testTransform->Translate(
-      sourceCenter[0], sourceCenter[1], sourceCenter[2]);
-    testTransform->RotateY(angle);
-    testTransform->Translate(
-      -sourceCenter[0], -sourceCenter[1], -sourceCenter[2]);
-
-    testTransformPD->SetTransform(testTransform);
-    testTransformPD->SetInputData(sourceLandmarks);
-    testTransformPD->Update();
-
-    lmTransform->SetSourceLandmarks(testTransformPD->GetOutput()->GetPoints());
-    lmTransform->Modified();
-
-    lmTransformPD->SetInputData(source);
-    lmTransformPD->SetTransform(lmTransform);
-    lmTransformPD->Update();
-
-    distance->SetInputData(0, target);
-    distance->SetInputData(1, lmTransformPD->GetOutput());
-    distance->Update();
-  
-    double testDistance =
-      static_cast<vtkPointSet*>(distance->GetOutput(0))->GetFieldData()->GetArray("HausdorffDistance")->GetComponent(0,0);
-    std::cout << "testDistance: " << testDistance << std::endl;
-    if (testDistance < minDistance)
-    {
-      minDistance = testDistance;
-      testPoints->DeepCopy(testTransformPD->GetOutput()->GetPoints());
-    }
-  }
-
-  // Z
-  for (auto i = 0; i < 4; ++i)
-  {
-    auto angle = delta * i;
-    // Rotate about center
-    testTransform->Identity();
-    testTransform->Translate(
-      sourceCenter[0], sourceCenter[1], sourceCenter[2]);
-    testTransform->RotateZ(angle);
-    testTransform->Translate(
-      -sourceCenter[0], -sourceCenter[1], -sourceCenter[2]);
-
-    testTransformPD->SetTransform(testTransform);
-    testTransformPD->SetInputData(sourceLandmarks);
-    testTransformPD->Update();
-
-    lmTransform->SetSourceLandmarks(testTransformPD->GetOutput()->GetPoints());
-    lmTransform->Modified();
-
-    lmTransformPD->SetInputData(source);
-    lmTransformPD->SetTransform(lmTransform);
-    lmTransformPD->Update();
-
-    distance->SetInputData(0, target);
-    distance->SetInputData(1, lmTransformPD->GetOutput());
-    distance->Update();
-  
-    double testDistance =
-      static_cast<vtkPointSet*>(distance->GetOutput(0))->GetFieldData()->GetArray("HausdorffDistance")->GetComponent(0,0);
-    std::cout << "testDistance: " << testDistance << std::endl;
-    if (testDistance < minDistance)
-    {
-      minDistance = testDistance;
-      testPoints->DeepCopy(testTransformPD->GetOutput()->GetPoints());
-    }
-  }
-
-  lmTransform->SetSourceLandmarks(testPoints);
+  lmTransform->SetSourceLandmarks(bestPoints);
   lmTransform->Modified();
   
   auto transformPD = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
@@ -394,8 +303,79 @@ void AlignBoundingBoxes (vtkPolyData *source, vtkPolyData *target)
   transformPD->SetTransform(lmTransform);
   transformPD->Update();
 
-//  lmTransform->Print(std::cout);
   source->DeepCopy(transformPD->GetOutput());
 
 }
+void BestBoundingBox (
+  std::string axis,
+  vtkPolyData *target,
+  vtkPolyData *source,
+  vtkPolyData *targetLandmarks,
+  vtkPolyData *sourceLandmarks,
+  double      &bestDistance,
+  vtkPoints   *bestPoints)
+{
+  auto distance =
+    vtkSmartPointer<vtkHausdorffDistancePointSetFilter>::New();
+  auto testTransform = vtkSmartPointer<vtkTransform>::New();
+  auto testTransformPD = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
+  auto lmTransform = vtkSmartPointer<vtkLandmarkTransform>::New();
+  auto lmTransformPD = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
+
+  lmTransform->SetModeToSimilarity();
+  lmTransform->SetTargetLandmarks(targetLandmarks->GetPoints());
+
+  double sourceCenter[3];
+  sourceLandmarks->GetCenter(sourceCenter);
+
+  auto delta = 90.0;
+  for (auto i = 0; i < 4; ++i)
+  {
+    auto angle = delta * i;
+    // Rotate about center
+    testTransform->Identity();
+    testTransform->Translate(
+      sourceCenter[0], sourceCenter[1], sourceCenter[2]);
+    if (axis == "X")
+    {
+      testTransform->RotateX(angle);
+    }
+    else if (axis == "Y")
+    {
+      testTransform->RotateY(angle);
+    }
+    else
+    {
+      testTransform->RotateZ(angle);
+    }
+    testTransform->Translate(
+      -sourceCenter[0], -sourceCenter[1], -sourceCenter[2]);
+
+    testTransformPD->SetTransform(testTransform);
+    testTransformPD->SetInputData(sourceLandmarks);
+    testTransformPD->Update();
+
+    lmTransform->SetSourceLandmarks(testTransformPD->GetOutput()->GetPoints());
+    lmTransform->Modified();
+
+    lmTransformPD->SetInputData(source);
+    lmTransformPD->SetTransform(lmTransform);
+    lmTransformPD->Update();
+
+    distance->SetInputData(0, target);
+    distance->SetInputData(1, lmTransformPD->GetOutput());
+    distance->Update();
+  
+    double testDistance =
+      static_cast<vtkPointSet*>(distance->GetOutput(0))->GetFieldData()->GetArray("HausdorffDistance")->GetComponent(0,0);
+    if (testDistance < bestDistance)
+    {
+      bestDistance = testDistance;
+      bestPoints->DeepCopy(testTransformPD->GetOutput()->GetPoints());
+    }
+  }
+  return;
 }
+
+}
+

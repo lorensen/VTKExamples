@@ -51,6 +51,7 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 file(GLOB ALL_FILES *.cxx)
 
 Requires_Version(Curvatures "6.0.0" ALL_FILES)
+Requires_Version(AlignTwoPolyDatas "8.2" ALL_FILES)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   string(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -69,6 +70,7 @@ if (BUILD_TESTING)
   # Testing
   set(KIT PolyData)
   set(NEEDS_ARGS
+    AlignTwoPolyDatas
     BooleanOperationPolyDataFilter
     CellCentersDemo
     CellLocatorVisualization
@@ -105,6 +107,9 @@ if (BUILD_TESTING)
 
   set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
   set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+  add_test(${KIT}-AlignTwoPolyDatas ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestAlignTwoPolyDatas ${DATA}/thingiverse/Grey_Nurse_Shark.stl ${DATA}/shark.ply)
 
   add_test(${KIT}-BooleanOperationPolyDataFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestBooleanOperationPolyDataFilter ${DATA}/Torso.vtp difference ${DATA}/ObliqueCone.vtp)

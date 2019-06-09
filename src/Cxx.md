@@ -270,6 +270,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[AlignTwoPolyDatas](/Cxx/PolyData/AlignTwoPolyDatas) | vtkIterativeClosestPointTransform vtkLandmarkTransform vtkHausdorffDistancePointSetFilter | Align two vtkPolyData's.
 [AlignFrames](/Cxx/PolyData/AlignFrames) | vtkLandmarkTransform | Align coordinate frames.
 [AppendFilter](/Cxx/Filtering/AppendFilter) | vtkAppendFilter | Append different types of data,
 [BooleanOperationPolyDataFilter](/Cxx/PolyData/BooleanOperationPolyDataFilter) | vtkBoleanOperationPolyDataFilter | Perform boolean operations on two vtkPolyData objects.

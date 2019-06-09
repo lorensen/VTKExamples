@@ -2,7 +2,7 @@
 
 ## Java
 
-Out of 2821 available VTK classes, 255 are demonstrated here.
+Out of 2823 available VTK classes, 259 are demonstrated here.
 
 ### Excluded classes
 
@@ -106,7 +106,8 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkImageNormalize](http://www.vtk.org/doc/nightly/html/classvtkImageNormalize.html#details) | [ImageNormalize](/Java/ImageData/ImageNormalize)  |
 | [vtkImagePermute](http://www.vtk.org/doc/nightly/html/classvtkImagePermute.html#details) | [ImageOrientation](/Java/Visualization/ImageOrientation)  |
 | [vtkImagePlaneWidget](http://www.vtk.org/doc/nightly/html/classvtkImagePlaneWidget.html#details) | [ImagePlaneWidget](/Java/Widgets/ImagePlaneWidget)  |
-| [vtkImageReader2Factory](http://www.vtk.org/doc/nightly/html/classvtkImageReader2Factory.html#details) | [ImageTest](/Java/Imaging/ImageTest) [StaticImage](/Java/Images/StaticImage)  |
+| [vtkImageReader2](http://www.vtk.org/doc/nightly/html/classvtkImageReader2.html#details) | [TexturedSphere](/Java/Texture/TexturedSphere) [TexturePlane](/Java/Texture/TexturePlane)  |
+| [vtkImageReader2Factory](http://www.vtk.org/doc/nightly/html/classvtkImageReader2Factory.html#details) | [ImageTest](/Java/Imaging/ImageTest) [StaticImage](/Java/Images/StaticImage) [TexturedSphere](/Java/Texture/TexturedSphere) [TexturePlane](/Java/Texture/TexturePlane)  |
 | [vtkImageReslice](http://www.vtk.org/doc/nightly/html/classvtkImageReslice.html#details) | [ThinPlateSplineTransform](/Java/PolyData/ThinPlateSplineTransform)  |
 | [vtkImageSinusoidSource](http://www.vtk.org/doc/nightly/html/classvtkImageSinusoidSource.html#details) | [ImageNormalize](/Java/ImageData/ImageNormalize) [ImageSinusoidSource](/Java/Images/ImageSinusoidSource) [ImageWeightedSum](/Java/ImageData/ImageWeightedSum)  |
 | [vtkImageTracerWidget](http://www.vtk.org/doc/nightly/html/classvtkImageTracerWidget.html#details) | [ImageTracerWidgetNonPlanar](/Java/Widgets/ImageTracerWidgetNonPlanar)  |
@@ -165,7 +166,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkPlane](http://www.vtk.org/doc/nightly/html/classvtkPlane.html#details) | [Cutter](/Java/VisualizationAlgorithms/Cutter) [IceCream](/Java/VisualizationAlgorithms/IceCream) [ProjectPointPlane](/Java/SimpleOperations/ProjectPointPlane)  |
 | [vtkPlanes](http://www.vtk.org/doc/nightly/html/classvtkPlanes.html#details) | [Frustum](/Java/GeometricObjects/Frustum)  |
 | [vtkPlanesIntersection](http://www.vtk.org/doc/nightly/html/classvtkPlanesIntersection.html#details) | [PlanesIntersection](/Java/GeometricObjects/PlanesIntersection)  |
-| [vtkPlaneSource](http://www.vtk.org/doc/nightly/html/classvtkPlaneSource.html#details) | [ColorCells](/Java/PolyData/ColorCells) [ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) [SpotLight](/Java/Lighting/SpotLight)  |
+| [vtkPlaneSource](http://www.vtk.org/doc/nightly/html/classvtkPlaneSource.html#details) | [ColorCells](/Java/PolyData/ColorCells) [ColorCellsWithRGB](/Java/PolyData/ColorCellsWithRGB) [SpotLight](/Java/Lighting/SpotLight) [TexturePlane](/Java/Texture/TexturePlane)  |
 | [vtkPlaneWidget](http://www.vtk.org/doc/nightly/html/classvtkPlaneWidget.html#details) | [PlaneWidget](/Java/Widgets/PlaneWidget)  |
 | [vtkPlatonicSolidSource](http://www.vtk.org/doc/nightly/html/classvtkPlatonicSolidSource.html#details) | [CubeAxesActor2D](/Java/Visualization/CubeAxesActor2D)  |
 | [vtkPLYReader](http://www.vtk.org/doc/nightly/html/classvtkPLYReader.html#details) | [ReadPLY](/Java/IO/ReadPLY) [WritePLY](/Java/IO/WritePLY)  |
@@ -231,6 +232,8 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkTextMapper](http://www.vtk.org/doc/nightly/html/classvtkTextMapper.html#details) | [MultiLineText](/Java/Annotation/MultiLineText)  |
 | [vtkTextProperty](http://www.vtk.org/doc/nightly/html/classvtkTextProperty.html#details) | [CubeAxesActor2D](/Java/Visualization/CubeAxesActor2D) [MultiLineText](/Java/Annotation/MultiLineText)  |
 | [vtkTextRepresentation](http://www.vtk.org/doc/nightly/html/classvtkTextRepresentation.html#details) | [TextWidget](/Java/Widgets/TextWidget)  |
+| [vtkTexture](http://www.vtk.org/doc/nightly/html/classvtkTexture.html#details) | [TexturedSphere](/Java/Texture/TexturedSphere) [TexturePlane](/Java/Texture/TexturePlane)  |
+| [vtkTexturedSphereSource](http://www.vtk.org/doc/nightly/html/classvtkTexturedSphereSource.html#details) | [TexturedSphere](/Java/Texture/TexturedSphere)  |
 | [vtkTextWidget](http://www.vtk.org/doc/nightly/html/classvtkTextWidget.html#details) | [TextWidget](/Java/Widgets/TextWidget)  |
 | [vtkThinPlateSplineTransform](http://www.vtk.org/doc/nightly/html/classvtkThinPlateSplineTransform.html#details) | [ThinPlateSplineTransform](/Java/PolyData/ThinPlateSplineTransform)  |
 | [vtkThreshold](http://www.vtk.org/doc/nightly/html/classvtkThreshold.html#details) | [RandomProbe](/Java/Visualization/RandomProbe)  |
@@ -242,6 +245,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkTransform](http://www.vtk.org/doc/nightly/html/classvtkTransform.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [Assembly](/Java/Interaction/Assembly) [BlobbyLogo](/Java/Visualization/BlobbyLogo) [Cone6](/Java/Rendering/Cone6) [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [PerspectiveTransform](/Java/SimpleOperations/PerspectiveTransform) [RotationAroundLine](/Java/PolyData/RotationAroundLine) [TransformFilter](/Java/PolyData/TransformFilter) [TransformPipeline](/Java/PolyData/TransformPipeline) [TransformPolyData](/Java/Filtering/TransformPolyData)  |
 | [vtkTransformFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformFilter.html#details) | [TransformFilter](/Java/PolyData/TransformFilter)  |
 | [vtkTransformPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html#details) | [BlobbyLogo](/Java/Visualization/BlobbyLogo) [OrientedArrow](/Java/GeometricObjects/OrientedArrow) [OrientedCylinder](/Java/GeometricObjects/OrientedCylinder) [RotationAroundLine](/Java/PolyData/RotationAroundLine) [TransformPolyData](/Java/Filtering/TransformPolyData)  |
+| [vtkTransformTextureCoords](http://www.vtk.org/doc/nightly/html/classvtkTransformTextureCoords.html#details) | [TexturedSphere](/Java/Texture/TexturedSphere)  |
 | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html#details) | [AddCell](/Java/Meshes/AddCell) [Triangle](/Java/GeometricObjects/Triangle) [TriangleColoredPoints](/Java/PolyData/TriangleColoredPoints)  |
 | [vtkTriangleFilter](http://www.vtk.org/doc/nightly/html/classvtkTriangleFilter.html#details) | [MeshQuality](/Java/PolyData/MeshQuality)  |
 | [vtkTriangleStrip](http://www.vtk.org/doc/nightly/html/classvtkTriangleStrip.html#details) | [TriangleStrip](/Java/GeometricObjects/TriangleStrip)  |
