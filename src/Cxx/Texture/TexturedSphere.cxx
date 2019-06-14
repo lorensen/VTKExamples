@@ -17,7 +17,7 @@ int main (int argc, char *argv[])
   if (argc < 2)
   {
       std::cout << "Usage: " << argv[0]
-                << " texture(.png)"
+                << " texture(.png/.ppm) e.g. earth.ppm"
                 << " [translate]" <<std::endl;
       return EXIT_FAILURE;
   }
