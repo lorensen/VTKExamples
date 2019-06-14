@@ -1,5 +1,4 @@
 #include <vtkSmartPointer.h>
-
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
