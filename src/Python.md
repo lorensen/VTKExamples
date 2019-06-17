@@ -186,6 +186,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[AlignTwoPolyDatas](/Python/PolyData/AlignTwoPolyDatas) | vtkIterativeClosestPointTransform vtkLandmarkTransform vtkHausdorffDistancePointSetFilter | Align two vtkPolyData's.
 [AppendFilter](/Python/Filtering/AppendFilter) | vtkAppendFilter | Append different types of data,
 [BooleanOperationPolyDataFilter](/Python/PolyData/BooleanOperationPolyDataFilter) | vtkBooleanOperationPolyDataFilter | This example performs a boolean operation (Intersection, Union, Difference) of two PolyData
 [Bottle](/Python/Modelling/Bottle) | vtkRotationalExtrusionFilter | Rotationally symmetric objects.
