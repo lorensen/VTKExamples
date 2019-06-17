@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
   if ( argc != 2 )
   {
     std::cout << "Usage: " << argv[0]
-              << " Filename.vts" << std::endl;
+              << " Filename.vts e.g. StructuredGrid.vts" << std::endl;
     return EXIT_FAILURE;
   }
 
