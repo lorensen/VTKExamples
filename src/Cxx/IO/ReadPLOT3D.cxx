@@ -13,7 +13,7 @@ int main ( int argc, char *argv[] )
 {
   if(argc < 3)
   {
-    std::cout << "Required parameters: XYZFilename.bin QFileName.bin" << std::endl;
+    std::cout << "Required parameters: XYZFilename.bin QFileName.bin e.g combxyz.bin combq.bin" << std::endl;
     return EXIT_FAILURE;
   }
 
