@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
   if ( argc != 2 )
   {
     std::cout << "Usage: " << argv[0]
-              << " Filename(.pnm)" << std::endl;
+              << " Filename(.pnm) e.g Gourds.pnm" << std::endl;
     return EXIT_FAILURE;
   }
 
