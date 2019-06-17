@@ -11,7 +11,7 @@ int main ( int argc, char *argv[] )
 {
   if ( argc != 2 )
   {
-    cout << "Required parameters: Filename" << endl;
+    cout << "Required parameters: Filename(.stl) e.g 42400-IDGH.stl" << endl;
     return EXIT_FAILURE;
   }
 
