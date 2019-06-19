@@ -94,6 +94,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | -------------- | ---------------------- | ------------- | ------- |
 [ReadBMP](/Java/IO/ReadBMP) | vtkBMPReader | Read Windows BMP files.
 [ReadDICOM](/Java/IO/ReadDICOM) | vtkDICOMImageReader | Read DICOM images.
+[JPEGReader](/Java/IO/JPEGReader) | vtkJPEGReader | Read a JPEG image.
 [ReadPNM](/Java/IO/ReadPNM) | vtkPNMReader | Read PNM (.pnm) files.
 [ReadTIFF](/Java/IO/ReadTIFF) | vtkTIFFReader | Read TIFF (.tif) files.
 
