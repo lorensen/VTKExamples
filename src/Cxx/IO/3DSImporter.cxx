@@ -14,7 +14,7 @@ int main (int argc, char *argv[])
   if (argc < 2)
   {
     std::cout << "Usage: " << argv[0]
-              << " file.3ds"
+              << " file.3ds e.g. iflamingo.3ds"
               << std::endl;
     return EXIT_FAILURE;
   }

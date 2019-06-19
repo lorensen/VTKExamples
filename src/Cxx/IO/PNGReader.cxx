@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
   if ( argc < 2 )
   {
     std::cout << "Usage: " << argv[0]
-              << " Filename(.png)" << std::endl;
+              << " Filename(.png) e.g. Gourds.png" << std::endl;
     return EXIT_FAILURE;
   }
 
