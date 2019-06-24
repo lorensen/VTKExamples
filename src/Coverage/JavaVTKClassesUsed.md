@@ -2,7 +2,7 @@
 
 ## Java
 
-Out of 2823 available VTK classes, 259 are demonstrated here.
+Out of 2830 available VTK classes, 261 are demonstrated here.
 
 ### Excluded classes
 
@@ -111,7 +111,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkImageReslice](http://www.vtk.org/doc/nightly/html/classvtkImageReslice.html#details) | [ThinPlateSplineTransform](/Java/PolyData/ThinPlateSplineTransform)  |
 | [vtkImageSinusoidSource](http://www.vtk.org/doc/nightly/html/classvtkImageSinusoidSource.html#details) | [ImageNormalize](/Java/ImageData/ImageNormalize) [ImageSinusoidSource](/Java/Images/ImageSinusoidSource) [ImageWeightedSum](/Java/ImageData/ImageWeightedSum)  |
 | [vtkImageTracerWidget](http://www.vtk.org/doc/nightly/html/classvtkImageTracerWidget.html#details) | [ImageTracerWidgetNonPlanar](/Java/Widgets/ImageTracerWidgetNonPlanar)  |
-| [vtkImageViewer2](http://www.vtk.org/doc/nightly/html/classvtkImageViewer2.html#details) | [ImageSinusoidSource](/Java/Images/ImageSinusoidSource) [PNGReader](/Java/IO/PNGReader) [ReadBMP](/Java/IO/ReadBMP) [ReadDICOM](/Java/IO/ReadDICOM) [ReadPNM](/Java/IO/ReadPNM) [ReadTIFF](/Java/IO/ReadTIFF) [StaticImage](/Java/Images/StaticImage)  |
+| [vtkImageViewer2](http://www.vtk.org/doc/nightly/html/classvtkImageViewer2.html#details) | [ImageSinusoidSource](/Java/Images/ImageSinusoidSource) [JPEGReader](/Java/IO/JPEGReader) [PNGReader](/Java/IO/PNGReader) [ReadBMP](/Java/IO/ReadBMP) [ReadDICOM](/Java/IO/ReadDICOM) [ReadPNM](/Java/IO/ReadPNM) [ReadTIFF](/Java/IO/ReadTIFF) [StaticImage](/Java/Images/StaticImage)  |
 | [vtkImageWeightedSum](http://www.vtk.org/doc/nightly/html/classvtkImageWeightedSum.html#details) | [ImageWeightedSum](/Java/ImageData/ImageWeightedSum)  |
 | [vtkImplicitBoolean](http://www.vtk.org/doc/nightly/html/classvtkImplicitBoolean.html#details) | [IceCream](/Java/VisualizationAlgorithms/IceCream)  |
 | [vtkImplicitDataSet](http://www.vtk.org/doc/nightly/html/classvtkImplicitDataSet.html#details) | [ImplicitDataSet](/Java/ImplicitFunctions/ImplicitDataSet)  |
@@ -124,6 +124,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkInteractorStyleTrackball](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackball.html#details) | [ImageTracerWidgetNonPlanar](/Java/Widgets/ImageTracerWidgetNonPlanar)  |
 | [vtkInteractorStyleTrackballActor](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballActor.html#details) | [MoveActor](/Java/Visualization/MoveActor) [TrackballActor](/Java/Interaction/TrackballActor)  |
 | [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html#details) | [AnimDataCone](/Java/Visualization/AnimDataCone) [Cone6](/Java/Rendering/Cone6) [DistanceToCamera](/Java/Visualization/DistanceToCamera) [ImagePlaneWidget](/Java/Widgets/ImagePlaneWidget) [MoveCamera](/Java/Visualization/MoveCamera) [MultipleActors](/Java/Visualization/MultipleActors) [TrackballCamera](/Java/Interaction/TrackballCamera)  |
+| [vtkJPEGReader](http://www.vtk.org/doc/nightly/html/classvtkJPEGReader.html#details) | [JPEGReader](/Java/IO/JPEGReader)  |
 | [vtkJPEGWriter](http://www.vtk.org/doc/nightly/html/classvtkJPEGWriter.html#details) | [JPEGWriter](/Java/IO/JPEGWriter)  |
 | [vtkKdTreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkKdTreePointLocator.html#details) | [VisualizeKDTree](/Java/DataStructures/VisualizeKDTree)  |
 | [vtkKochanekSpline](http://www.vtk.org/doc/nightly/html/classvtkKochanekSpline.html#details) | [KochanekSpline](/Java/PolyData/KochanekSpline)  |
@@ -149,6 +150,7 @@ These classes are excluded since they occur in the majority of the examples:
 | [vtkMultiBlockPLOT3DReader](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockPLOT3DReader.html#details) | [ReadPLOT3D](/Java/IO/ReadPLOT3D)  |
 | [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html#details) | [GeoAssignCoordinates](/Java/Geovis/GeoAssignCoordinates)  |
 | [vtkMutableUndirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableUndirectedGraph.html#details) | [GraphPoints](/Java/InfoVis/GraphPoints) [VisualizeGraph](/Java/Graphs/VisualizeGraph)  |
+| [vtkOBJReader](http://www.vtk.org/doc/nightly/html/classvtkOBJReader.html#details) | [ReadOBJ](/Java/IO/ReadOBJ)  |
 | [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html#details) | [BuildOctree](/Java/DataStructures/BuildOctree)  |
 | [vtkOggTheoraWriter](http://www.vtk.org/doc/nightly/html/classvtkOggTheoraWriter.html#details) | [OggTheora](/Java/Video/OggTheora)  |
 | [vtkOrientationMarkerWidget](http://www.vtk.org/doc/nightly/html/classvtkOrientationMarkerWidget.html#details) | [DisplayCoordinateAxes](/Java/Visualization/DisplayCoordinateAxes) [OrientationMarkerWidget](/Java/Widgets/OrientationMarkerWidget)  |

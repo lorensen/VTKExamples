@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
   if (argc < 2)
   {
     //Pass the filename (<filename>.slc) as parameter to read .slc file 
-    std::cout << "Required parameters: Filename" << std::endl;
+    std::cout << "Required parameters: Filename(.slc) e.g vw_knee.slc" << std::endl;
     return EXIT_FAILURE;
   }
 

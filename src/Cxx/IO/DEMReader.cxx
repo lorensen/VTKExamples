@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
   // Verify arguments
   if(argc < 2)
   {
-    std::cerr << "Required: filename.dem" << std::endl;
+    std::cerr << "Required: filename.dem e.g. SainteHelens.dem" << std::endl;
     return EXIT_FAILURE;
   }
 

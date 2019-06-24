@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
    if ( argc != 2 )
    {
       std::cout << "Usage: " << argv[0]
-      << " Filename(.raw)" << std::endl;
+      << " Filename(.raw) e.g. Particles.raw" << std::endl;
       return EXIT_FAILURE;
    }
 

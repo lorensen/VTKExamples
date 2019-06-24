@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
   if ( argc != 2 )
   {
     std::cout << "Usage: " << argv[0]
-              << " Filename(.tif)" << std::endl;
+              << " Filename(.tif) e.g. ColorCells.tif" << std::endl;
     return EXIT_FAILURE;
   }
 

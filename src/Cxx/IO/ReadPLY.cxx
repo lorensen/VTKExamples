@@ -11,7 +11,7 @@ int main ( int argc, char *argv[] )
 {
   if(argc != 2)
   {
-    std::cout << "Usage: " << argv[0] << "  Filename(.ply)" << std::endl;
+    std::cout << "Usage: " << argv[0] << "  Filename(.ply) e.g. shark.ply" << std::endl;
     return EXIT_FAILURE;
   }
 
