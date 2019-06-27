@@ -240,6 +240,8 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Bottle](/Java/Modelling/Bottle) | vtkRotationalExtrusionFilter | Sweeps polygonal data creating "skirt" from free edges and lines, and lines from vertices
+[CellCenters](/Java/PolyData/CellCenters) | vtkCellCenters | Compute points at the center of every cell.
+[CenterOfMass](/Java/PolyData/vtkCenterOfMass) | vtkCenterOfMass | Compute the center of mass of the points.
 [ProjectSphere](/Java/Visualization/ProjectSphere) | vtkProjectSphereFilter | Unroll a sphere or spherical-like model.
 [Spring](/Java/Modelling/Spring) | vtkRotationalExtrusionFilter | Rotation in combination with linear displacement and radius variation.
 
