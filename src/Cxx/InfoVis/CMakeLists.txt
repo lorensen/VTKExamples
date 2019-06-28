@@ -36,7 +36,6 @@ if(NOT VTK_BINARY_DIR)
     include(${VTK_USE_FILE})
   endif()
 endif()
-message(STATUS "INCLUDE_DIRECTORIES: ${INCLUDE_DIRECTORIES}")
 set(KIT_LIBS ${VTK_LIBRARIES})
 
 #
@@ -46,6 +45,7 @@ file(GLOB ALL_FILES *.cxx)
 set(VERSION_MIN "6.0")
 Requires_Version(TreeMapView ${VERSION_MIN} ALL_FILES)
 Requires_Setting_On (TreeMapView BUILD_TESTING)
+Requires_Class(WordCloudDemo vtkWordCloud)
 
 if(NOT VTK_USE_PARALLEL)
   set(SKIP PKMeansClustering)
