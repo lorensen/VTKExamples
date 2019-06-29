@@ -2,7 +2,7 @@
 
 ## Cxx
 
-Out of 2831 available VTK classes, 845 are demonstrated here.
+Out of 2830 available VTK classes, 845 are demonstrated here.
 
 ### Excluded classes
 
