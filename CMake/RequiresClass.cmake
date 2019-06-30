@@ -1,0 +1,10 @@
+macro(Requires_Class example class)
+message(STATUS "VTK_INCLUDE_DIR: ${VTK_INCLUDE_DIR}") 
+  include(CheckIncludeFile)
+  check_include_file(${class}.h INCLUDE_FOUND)
+  if (NOT INCLUDE_FILE)
+    message(STATUS "VTKWikiExamples: ${example} requires the class ${class} and will not be built..")
+  string(REGEX REPLACE "[^;]*${example}.cxx"
+         "" ALL_FILES "${ALL_FILES}")
+  endif()
+endmacro()
