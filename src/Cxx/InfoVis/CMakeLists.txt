@@ -43,7 +43,7 @@ set(KIT_LIBS ${VTK_LIBRARIES})
 file(GLOB ALL_FILES *.cxx)
 
 set(VERSION_MIN "6.0")
-Requires_Version(TreeMapView ${VERSION_MIN} ALL_FILES)
+Requires_Version(TreeMapView ${VERSION_MIN})
 Requires_Setting_On (TreeMapView BUILD_TESTING)
 Requires_Class(WordCloudDemo vtkWordCloud)
 
@@ -77,13 +77,19 @@ if (BUILD_TESTING)
     DelimitedTextReader
     DelimitedTextWriter
     WordCloud
-    WordCloudDemo
     XGMLReader
     )
+
   if ("${ALL_FILES}" MATCHES ".*TreeMapView.*")
     set(NEEDS_ARGS "${NEEDS_ARGS};TreeMapView")
     add_test(${KIT}-TreeMapView ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
       TestTreeMapView ${DATA}/Infovis-XML-vtkclasses.xml ${DATA}/Infovis-XML-vtklibrary.xml)
+  endif()
+
+  if ("${ALL_FILES}" MATCHES ".*WordCloudDemo.*")
+    set(NEEDS_ARGS "${NEEDS_ARGS};WordCloudDemo")
+  add_test(${KIT}-WordCloudDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestWordCloudDemo ${DATA}/Gettysburg.txt  --title "GettysBurg Address" --size 1280 1024 --orientationDistribution 0 0 --offsetDistribution 0 0 --replacementPairs consecrated consecrate dedicate dedicated --dpi 400 --fontFileName ${DATA}/Canterbury.ttf)
   endif()
 
   set(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
@@ -96,9 +102,6 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-WordCloud ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestWordCloud ${DATA}/Gettysburg.txt --dpi 150 --fontFile ${DATA}/Canterbury.ttf)
-
-  add_test(${KIT}-WordCloudDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-    TestWordCloudDemo ${DATA}/Gettysburg.txt  --title "GettysBurg Address" --size 1280 1024 --orientationDistribution 0 0 --offsetDistribution 0 0 --replacementPairs consecrated consecrate dedicate dedicated --dpi 400 --fontFileName ${DATA}/Canterbury.ttf)
 
   add_test(${KIT}-XGMLReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestXGMLReader ${DATA}/fsm.gml)
