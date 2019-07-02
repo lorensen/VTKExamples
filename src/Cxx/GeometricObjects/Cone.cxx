@@ -1,41 +1,50 @@
-#include <vtkConeSource.h>
-#include <vtkPolyData.h>
 #include <vtkSmartPointer.h>
-#include <vtkPolyDataMapper.h>
+#include <vtkConeSource.h>
+
 #include <vtkActor.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
   //Create a cone
-  vtkSmartPointer<vtkConeSource> coneSource =
+  auto coneSource =
     vtkSmartPointer<vtkConeSource>::New();
   coneSource->Update();
 
   //Create a mapper and actor
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
+  auto mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(coneSource->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> actor =
+  auto colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  auto actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("bisque").GetData());
 
   //Create a renderer, render window, and interactor
-  vtkSmartPointer<vtkRenderer> renderer =
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  renderWindow->SetSize(640, 480);
+
+  auto renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   //Add the actors to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.3, .2, .1); // Background color dark red
+  renderer->SetBackground(colors->GetColor3d("Salmon").GetData());
 
   //Render and interact
   renderWindow->Render();
