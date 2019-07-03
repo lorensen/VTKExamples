@@ -122,7 +122,7 @@ int main(int, char*[])
   renderer->AddActor(actor);
   renderer->AddActor(sphereActor);
   renderer->SetBackground(namedColors->GetColor3d("Burlywood").GetData());
-
+  renderer->UseHiddenLineRemovalOn();
   // Render and interact
   renderWindow->Render();
   renderWindowInteractor->Start();
