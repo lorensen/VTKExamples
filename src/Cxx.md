@@ -201,7 +201,8 @@ These are fully independent, compilable examples. There is significant overlap i
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [Arrow](/Cxx/GeometricObjects/Arrow) | vtkArrowSource |
-[Cone](/Cxx/GeometricObjects/Cone) | vtkConeSource |
+[Cone](/Cxx/GeometricObjects/Cone) | vtkConeSource | Display a cone
+[ConeDemo](/Cxx/GeometricObjects/ConeDemo) | vtkConeSource | Disolay four different resolution cones.
 [Cylinder](/Cxx/GeometricObjects/Cylinder) | vtkCylinderSource |
 [Disk](/Cxx/GeometricObjects/Disk) | vtkDiskSource | A circle with a hole in it.
 [Frustum](/Cxx/GeometricObjects/Frustum) | vtkFrustumSource |
