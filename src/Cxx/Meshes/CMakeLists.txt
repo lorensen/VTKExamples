@@ -66,6 +66,7 @@ if (BUILD_TESTING)
   # Testing
   set(KIT Meshes)
   set(NEEDS_ARGS
+    ClipCap
     ClipFrustum
     ClipDataSetWithPolyData
     Decimation
@@ -83,6 +84,9 @@ if (BUILD_TESTING)
     TableBasedClipDataSetWithPolyData
     )
   set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+
+  add_test(${KIT}-ClipCap ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestClipCap ${DATA}/cow.g)
 
   add_test(${KIT}-ClipFrustum ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestClipFrustum ${DATA}/Armadillo.ply)
