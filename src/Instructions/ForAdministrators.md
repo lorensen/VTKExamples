@@ -4,7 +4,7 @@ VTKExamples Administrators have write access to the [git repository](https://git
 
 The VTKExamples are stored in a [git repository](https://github.com/lorensen/VTKExamples.git) hosted at [github.com](http://www.github.com/). The repository contains several types of files.
 
-All example source code, descriptions, test data and test baselines are stored in the *src/* tree.
+All example source code, descriptions, test data, and test baselines are stored in the *src/* tree.
 
 ## VTKExamples Repository
 
@@ -14,7 +14,7 @@ The major elements of the tree are:
 |-- VTKExamples
   |-- CMakeLists.txt   # To build all of the examples
   |-- _layouts         # Contains _default.html
-  |-- custom_theme     # tweaks to material theme
+  |-- custom_theme     # tweaks to the material theme
   |-- mkdocs.yml       # config file for MkDocs
   |-- src              # all of the content to create site/
     |-- SyncSiteWithRepo.sh  # master script to update site/
@@ -41,7 +41,7 @@ The major elements of the tree are:
 ```
 
 ## Look and Feel
-A priority in moving from the wiki media [VTK Wiki Examples](http://www.vtk.org/Wiki/VTK/Examples) to the github pages [VTKExamples](https://lorensen.github.io/VTKExamples/site/) was to provide a modern, familiar look and feel. We also wanted to support tablet and mobile platforms. We chose [MkDocs](http://www.mkdocs.org/) because it generated static html pages that can be hosted anywhere.
+A priority in moving from the wiki media [VTK Wiki Examples](http://www.vtk.org/Wiki/VTK/Examples) to the Github pages [VTKExamples](https://lorensen.github.io/VTKExamples/site/) was to provide a modern, familiar look and feel. We also wanted to support tablet and mobile platforms. We chose [MkDocs](http://www.mkdocs.org/) because it generated static HTML pages that can be hosted anywhere.
 
 <img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/OldVersusNew.png?raw=true" />
 
@@ -82,10 +82,10 @@ For example:
     This is a note or seealso admonition
 
 !!! summary
-    This is a summary or tldr admonition
+    This is a summary or todo admonition
 
 !!! info
-    This is a info or todo admonition
+    This is an info or todo admonition
 
 !!! tip
     This is a tip, hint or important admonition
@@ -127,16 +127,16 @@ The Materials theme is built using Google's [Material Design](https://material.i
 The materials theme is selected using the *material* keyword in the *mkdocs.yml* file.
 
 ## [Google Analytics](https://analytics.google.com/)
-Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage you need to register the url with the Google Analytics System. After registration, an html snippet is provided to include on every web page to be tracked.
+Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage, you need to register the URL with the Google Analytics System. After registration, an HTML snippet is provided to include on every web page to be tracked.
 
 ### Configuring Google Analytics
 
-The *google_analytics* keyword in the *mkdocs.yml" file specifies the google analytics unique code for this web site. The *custom_theme/main.html* file defines the meta data for the google site verification:
-```html
+The *google_analytics* keyword in the *mkdocs.yml" file specifies the google analytics unique code for this web site. The *custom_theme/main.html* file defines the metadata for the google site verification:
+HTML
 <meta name="google-site-verification" content="8hi6AHNlzKOmFDV4W8tLmySODRzQvtqMEIfZdc3WTLA" />
 ```
 ## [Google Custom Search Engine](https://cse.google.com/cse/)
-The overall look and feel is established at [https://cse.google.com/cse/](https://cse.google.com/cse/). After setting up the search engine, you can get the code to add to the web pages.
+The overall look and feel are established at [https://cse.google.com/cse/](https://cse.google.com/cse/). After setting up the search engine, you can get the code to add to the web pages.
 
 ```javascript
 <script>
@@ -166,15 +166,15 @@ The search box is added to the web pages by adding the gcse search box html
 ## Performance
 ### [Lazy Image Loading](https://davidwalsh.name/lazyload-image-fade)
 
-The first implementation had problems loading the [Cxx summary](/Cxx). The number of embedded images exceeded the throttle limits of github. A lazy image load solution solved the problem. Now, images are only loaded if they appear in the browser window.
+The first implementation had problems loading the [Cxx summary](/Cxx). The number of embedded images exceeded the throttle limits of Github. A lazy image load solution solved the problem. Now, images are only loaded if they appear in the browser window.
 
-The Lazy Image Loading is implemented in javascript. The javascript is stored in *custom_theme/main.html*. If uses a clever *trick*. Images that should be lazy loaded use a *<img>* tag with a *class=lazy* and attribute *data_src*. If the image is in the view port, the *data_src* is removed and the image renders.
+The Lazy Image Loading is implemented in javascript. The javascript is stored in *custom_theme/main.html*. It uses a clever *trick*. Images that should be lazy loaded use a *<img>* tag with a *class=lazy* and attribute *data_src*. If the image is in the viewport, the *data_src* is removed, and the image renders.
 
 ### Tiny URLs
 
-The VTKExamples web pages have many url's that link to images and VTK doxygen pages. The long length of these url's can increase page load tines, especially on the language summary pages. 
+The VTKExamples web pages have many URL's that link to images and VTK doxygen pages. The long length of these URLs can increase page load times, especially on the language summary pages. 
 
-[http://tinyurl.com](http://tinyurl.com) provides a service to map the long url's into shorted url's. There is a python package, [tinyurl](https://pypi.python.org/pypi/TinyUrl/), that converts the long url's. Unfortunately, this process is slow. To speed up the process, we cache the long/short url's in a file [src/Admin/TinyUrlCache](https://github.com/lorensen/VTKExamples/raw/master/src/Admin/TinyUrlCache). *ScrapeRepo* uses this cache to only convert url's that are not in the cache. *ScrapeRepo* updates the cache after each run.
+[http://tinyurl.com](http://tinyurl.com) provides a service to map the long URL's into shorted URLs. There is a python package, [tinyurl](https://pypi.python.org/pypi/TinyUrl/) that converts the long URL's. Unfortunately, this process is slow. To speed up the process, we cache the long/short URLs in a file [src/Admin/TinyUrlCache](https://github.com/lorensen/VTKExamples/raw/master/src/Admin/TinyUrlCache). *ScrapeRepo* uses this cache to only convert URLs that are not in the cache. *ScrapeRepo* updates the cache after each run.
 
 *tinyurl* must be installed:
 ```bash
@@ -182,7 +182,7 @@ pip install tinyurl
 ```
 ### Minify HTML pages
 
-*mkdocs* generates HTML pages from the markdown files in *doc*. These pages have lots of white space. We use the python package [htmlmin](https://htmlmin.readthedocs.io/en/latest/) to compress the generated HTML. The compressed pages are abput 30% smaller after running *htmlmin*. We use the command line to process each *index.html* file in *site/*.
+*mkdocs* generates HTML pages from the markdown files in *doc*. These pages have lots of white space. We use the python package [htmlmin](https://htmlmin.readthedocs.io/en/latest/) to compress the generated HTML. The compressed pages are about 30% smaller after running *htmlmin*. We use the command line to process each *index.html* file in *site/*.
 
 *htmlmin* must be installed:
 ```bash
@@ -227,15 +227,15 @@ The *SyncSiteWithRepo.sh* shell script executes all of the steps to update the s
 
 4. Wipes the *docs* directory
 
-     The *docs* directory contains all of the md and html files for the site. A clean directory prevents old files from being used.
+     The *docs* directory contains all of the md and HTML files for the site. A clean directory prevents old files from being used.
 
 5. Runs the [ScrapeRepo script](https://lorensen.github.io/VTKExamples/site/Instructions/ForAdministrators/#scraperepo)
 
-     This will populate the *docs* directory.
+     populate the *docs* directory.
 
 6. Checks for a successful scrape
 
-     This sanity check sees if a reasonable number of files have been updated.
+     This sanity check sees if a reasonable number of files have Pbeen updated.
 
 7. Copies the *src/stylesheets* directory ino *docs/stylesheets*
 
@@ -243,14 +243,13 @@ The *SyncSiteWithRepo.sh* shell script executes all of the steps to update the s
 
      This file is updated periodically by [sitemapGenerator](https://github.com/lorensen/VTKExamples/blob/master/src/Admin/sitemapGenerator)
 
-9. Minify the html
+9. Minify the HTML
 
-10. Process any modified, added or deleted file
-
+10. Process any modified added or deleted files
 11. Update the tarballs
 
 12. Push the changes
 
-     After a *short* time github will update the github pages.
+     After a *short* time GitHub will update the Github pages.
 
 ## How to Become an Administrator

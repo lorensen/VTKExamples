@@ -2,7 +2,7 @@
 
 The success of the VTK Examples depends on the contributions from the VTK user community. If you wish to contribute to this valuable resource, please follow these guidelines. If you are a VTK Example User, [go here](../Instructions/ForUsers) or an Example Administrator [go here](../Instructions/ForAdministrators).
 
-C++, C#,  Python and Java examples are welcome! Examples should illustrate a single concept.
+C++, C#,  Python, and Java examples are welcome! Examples should illustrate a single concept.
 
 ## Follow the Coding Guidelines
 
@@ -16,7 +16,7 @@ Some additional steps need to be done for Python C# and Java, see the sections b
 
 1. Sign into [github](https://github.com/login).
 
-    If you do not have an account, you can register on the signin page.
+    If you do not have an account, you can register on the sign-in page.
 
 2. Fork the [VTKExamples repository](https://github.com/lorensen/VTKExamples)
 
@@ -38,7 +38,7 @@ Some additional steps need to be done for Python C# and Java, see the sections b
     git clone git@github.com:YOURNAME/VTKExamples.git
     ```
 
-    where **YOURNAME** is your github username.
+    where **YOURNAME** is your GitHub username.
 
 5. Add the VTKExamples repository as a *remote* called *upstream*
 
@@ -46,7 +46,7 @@ Some additional steps need to be done for Python C# and Java, see the sections b
     git remote add upstream https://github.com/lorensen/VTKExamples
     ```
 
-6. Before adding your examples, sync your repository with the VTKExamples repository. Remember that in order to run the following commands you need to be in the **VTKExamples** directory.
+6. Before adding your examples, sync your repository with the VTKExamples repository. Remember that to run the following commands, you need to be in the **VTKExamples** directory.
 
     ```
     git fetch upstream
@@ -93,7 +93,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 #### Write the source
 
-**Note**: Steps 4, 5 and 7 are applicable to C++. For Python, Java and C# see the steps in the section **Steps for Python, Java and C#**.
+**Note**: Steps 4, 5 and 7 apply to C++. For Python, Java, and C# see the steps in the section **Steps for Python, Java and C#**.
 
 1. Create a branch in your repository
 
@@ -143,13 +143,13 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 5. If your C++ example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test**MyNewExample**.png.
 
-6. Copy the image into: VTKExamples/src/Testing/Baseline/**LANG**/**TOPIC**/. For python and other languages, create an image with the proper name using a screen capture and copy that image into the proper location.
+6. Copy the image into: VTKExamples/src/Testing/Baseline/**LANG**/**TOPIC**/. For Python and other languages, create an image with the proper name using a screen capture and copy that image into the proper location.
 
 7. Rerun ctest and the test should pass.
 
 #### Steps for Python, Java and C#
 
-If you are basing your code on a Cxx example use the same name as the Cxx example. This insures that cross-referencing works.
+If you are basing your code on a Cxx example use the same name as the Cxx example. This ensures that cross-referencing works.
 
 Keep the same directory structure as that in Cxx.
 
@@ -189,19 +189,19 @@ git add Testing/Baseline/LANG/TOPIC/TestMyNewExample.png
 git commit
 ```
 
-#### Push the changes to github
+#### Push the changes to GitHub
 
 ```
 git push origin MyNewExample
 ```
 
-#### Go to your github project and [generate a pull request](https://help.github.com/articles/creating-a-pull-request/).
+#### Go to your GitHub project and [generate a pull request](https://help.github.com/articles/creating-a-pull-request/).
 
 ### Advanced usage
 
 #### Add a description
 
-If your example could benefit from an extended description, you can create a file **MyNewExample**.md. Store the file along side your source code. Use [markdown](https://guides.github.com/features/mastering-markdown/) to format the description.
+If your example could benefit from an extended description, you can create a file **MyNewExample**.md. Store the file alongside your source code. Use [markdown](https://guides.github.com/features/mastering-markdown/) to format the description.
 
 #### Add arguments to the test
 
@@ -219,13 +219,13 @@ the same prefix as the example name and a *.extras* suffix. List each
 extra filename in the *.extras* file, one filename per line.
 
 !!! warning
-    If you add extra files to the example, but do not add their filenames to the *.extras* file, they will appear in the left hand file menus **and** will not be included in the tar file for the example.
+    If you add extra files to the example, but do not add their filenames to the *.extras* file, they will appear in the left-hand file menus **and** will not be included in the tar file for the example.
 
 #### Review changes in a browser
 
-If you want to preview your changes in a browser (**NOTE:** You must have python installed on your system)
+If you want to preview your changes in a browser (**NOTE:** You must have Python installed on your system)
 
-  1. Install the markdown package for python. Go [here](https://pythonhosted.org/Markdown/install.html)
+  1. Install the markdown package for Python. Go [here](https://pythonhosted.org/Markdown/install.html)
 
   2. Install the material theme for markdown. Go [here](http://squidfunk.github.io/mkdocs-material/#quick-start).
 

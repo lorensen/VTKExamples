@@ -1,4 +1,4 @@
-If you want to use [VTK Examples](https://github.com/lorensen/VTKExamples) you have several options. If you are a VTK Example Developer, [go here](../Instructions/ForDevelopers) or a VTK Example Administrator [go here](../Instructions/ForAdministrators).
+If you want to use [VTK Examples](https://github.com/lorensen/VTKExamples), you have several options. If you are a VTK Example Developer, [go here](../Instructions/ForDevelopers) or a VTK Example Administrator [go here](../Instructions/ForAdministrators).
 
 ## Build an example
 
@@ -6,8 +6,8 @@ At the bottom of each example page, there are instructions on how to build the e
 
 ## Build all of the examples
 
-If you are really getting excited about learning VTK and are tried of
-downloading individual examples you can build them all.
+If you are getting excited about learning VTK and are tired of
+downloading individual examples, you can build them all.
 
 1. As a VTK Remote module
 
