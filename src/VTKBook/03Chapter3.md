@@ -550,51 +550,65 @@ The use of object factories as implemented using the New() method allows us to c
 
 This section works through some simple applications implemented with VTK graphics objects. The focus is on the basics: how to create renderers, lights, cameras, and actors. Later chapters tie together these basic principles to create applications for data visualization.
 
-**<b id="Render a Cone"></b>.** The following C++ code uses most of the objects introduced in this section to create an image of a cone. The vtkConeSource generates a polygonal representation of a cone and vtkPolyDataMapper maps the geometry (in conjunction with the actor) to the underlying graphics library. (The source code to this example can be found in Cone.cxx. The source code contains additional documentation as well.)
-
+**<b id="Render a Cone"></b>.** The following C++ code uses most of the objects introduced in this section to create an image of a cone. The vtkConeSource generates a polygonal representation of a cone and vtkPolyDataMapper maps the geometry (in conjunction with the actor) to the underlying graphics library. (The source code to this example can be found in <a href="../../Cxx/GeometricObjects/Cone" title="Cone"> Cone.cxx</a>. The source code contains additional documentation as well.)
+2
 ``` c++
-#include "vtkConeSource.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkRenderWindow.h"
-#include "vtkCamera.h"
-#include "vtkActor.h"
-#include "vtkRenderer.h"
+#include <vtkSmartPointer.h>
+#include <vtkConeSource.h>
 
-int main( int argc, char *argv[])
+#include <vtkActor.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkNamedColors.h>
+
+int main(int, char *[])
 {
-  vtkConeSource *cone = vtkConeSource::New();
-  cone->SetHeight( 3.0);
-  cone->SetRadius( 1.0);
-  cone->SetResolution( 10);
+  //Create a cone
+  auto coneSource =
+    vtkSmartPointer<vtkConeSource>::New();
+  coneSource->SetHeight( 3.0);
+  coneSource->SetRadius( 1.0);
+  coneSource->SetResolution( 10);
+  coneSource->Update();
 
-  vtkPolyDataMapper *coneMapper = vtkPolyDataMapper::New();
-  coneMapper->SetInputConnection( cone->GetOutputPort() );
-  vtkActor *coneActor = vtkActor::New();
-  coneActor->SetMapper( coneMapper );
+  //Create a mapper and actor
+  auto mapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
+  mapper->SetInputConnection(coneSource->GetOutputPort());
 
-  vtkRenderer *ren1= vtkRenderer::New();
-  ren1->AddActor( coneActor );
-  ren1->SetBackground( 0.1, 0.2, 0.4 );
+  auto colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkRenderWindow *renWin = vtkRenderWindow::New();
-  renWin->AddRenderer( ren1 ); renWin->SetSize( 300, 300 );
+  auto actor =
+    vtkSmartPointer<vtkActor>::New();
+  actor->SetMapper(mapper);
+  actor->GetProperty()->SetDiffuseColor(colors->GetColor3d("bisque").GetData());
 
-  int i;
-  for (i = 0; i < 360; ++i)
-    {
-// render the image
-     renWin->Render();
-// rotate the active camera by one degree
-     ren1->GetActiveCamera()->Azimuth( 1 );
-    }
-  cone->Delete();
-  coneMapper->Delete();
-  coneActor->Delete();
-// cleanup
-  ren1->Delete();
-  renWin->Delete();
+  //Create a renderer, render window, and interactor
+  auto renderer =
+    vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow =
+    vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->AddRenderer(renderer);
+  renderWindow->SetSize(640, 480);
 
-  return 0;
+  auto renderWindowInteractor =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  renderWindowInteractor->SetRenderWindow(renderWindow);
+
+  //Add the actors to the scene
+  renderer->AddActor(actor);
+  renderer->SetBackground(colors->GetColor3d("Salmon").GetData());
+
+  //Render and interact
+  renderWindow->Render();
+  renderWindowInteractor->Start();
+  
+  return EXIT_SUCCESS;
 }
 ```
 
