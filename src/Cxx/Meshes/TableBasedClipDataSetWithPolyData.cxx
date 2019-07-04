@@ -200,13 +200,11 @@ int main (int, char *[])
     cellMap[clipper->GetOutput()->GetCellType(i)]++;
   }
 
-  CellContainer::const_iterator it = cellMap.begin();
-  while (it != cellMap.end())
+  for (auto c : cellMap)
   {
     std::cout << "\tCell type "
-              << vtkCellTypes::GetClassNameFromTypeId(it->first)
-              << " occurs " << it->second << " times." << std::endl;
-    ++it;
+              << vtkCellTypes::GetClassNameFromTypeId(c.first)
+              << " occurs " << c.second << " times." << std::endl;
   }
 
   numberOfCells = clipper->GetClippedOutput()->GetNumberOfCells();
@@ -221,13 +219,11 @@ int main (int, char *[])
     outsideCellMap[clipper->GetClippedOutput()->GetCellType(i)]++;
   }
 
-  it = outsideCellMap.begin();
-  while (it != outsideCellMap.end())
+  for (auto c : outsideCellMap)
   {
     std::cout << "\tCell type "
-              << vtkCellTypes::GetClassNameFromTypeId(it->first)
-              << " occurs " << it->second << " times." << std::endl;
-    ++it;
+              << vtkCellTypes::GetClassNameFromTypeId(c.first)
+              << " occurs " << c.second << " times." << std::endl;
   }
 
   return EXIT_SUCCESS;
