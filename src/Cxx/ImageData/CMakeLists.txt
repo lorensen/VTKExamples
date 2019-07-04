@@ -61,13 +61,18 @@ if (BUILD_TESTING)
   set(NEEDS_ARGS
     ExtractVOI
     ImageNormalize
+    VoxelsOnBoundary
     )
+  set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
   add_test(${KIT}-ExtractVOI ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestExtractVOI -E 50)
 
   add_test(${KIT}-ImageNormalize ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestImageNormalize -E 35)
+
+  add_test(${KIT}-VoxelsOnBoundary ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestVoxelsOnBoundary ${DATA}/FullHead.mhd)
 
   include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 

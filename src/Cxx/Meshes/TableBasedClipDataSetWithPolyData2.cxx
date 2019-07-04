@@ -48,31 +48,35 @@
 // cubic cell at each point. A checkerboard pattern is used for
 // simplicity.
 
-vtkSmartPointer<vtkRectilinearGrid> makeImage(int n) {
+vtkSmartPointer<vtkRectilinearGrid> makeImage(int n)
+{
   // This is a simplification of a program that uses actual image data
   // as a source for the rectilinear grid.  In order to recreate the
   // same vtk calls, create a dummy image here.
-  vtkSmartPointer<vtkImageData> image0 = vtkSmartPointer<vtkImageData>::New();
+  auto image0 = vtkSmartPointer<vtkImageData>::New();
   image0->SetDimensions(n, n, n);
   image0->AllocateScalars(VTK_UNSIGNED_CHAR, 1);
   image0->SetSpacing(CUBESIZE/n, CUBESIZE/n, CUBESIZE/n);
   int checkerSize = n / 8;
-  for(int z=0; z<n; z++) {
-    for(int y=0; y<n; y++) {
-      for(int x=0; x<n; x++) {
+  for(int z=0; z<n; z++)
+  {
+    for(int y=0; y<n; y++)
+    {
+      for(int x=0; x<n; x++)
+      {
 	unsigned char *ptr = (unsigned char*) image0->GetScalarPointer(x, y, z);
 	*ptr = (x/checkerSize+y/checkerSize+z/checkerSize)%2; // checkerboard
       }
     }
   }
   
-  vtkSmartPointer<vtkLookupTable> lut = vtkSmartPointer<vtkLookupTable>::New();
+  auto lut = vtkSmartPointer<vtkLookupTable>::New();
   lut->SetNumberOfTableValues(2);
   lut->SetTableRange(0, 1);
   lut->SetTableValue(0, IMAGE_R, IMAGE_G, IMAGE_B, IMAGE_A);
   lut->SetTableValue(1, DIM*IMAGE_R, DIM*IMAGE_G, DIM*IMAGE_B, IMAGE_A);
 
-  vtkSmartPointer<vtkImageMapToColors> map =
+  auto map =
     vtkSmartPointer<vtkImageMapToColors>::New();
   map->SetLookupTable(lut);
   map->SetOutputFormatToRGBA();
@@ -83,7 +87,7 @@ vtkSmartPointer<vtkRectilinearGrid> makeImage(int n) {
   // Convert the image to a rectilinear grid.  Each point in the image
   // becomes a cubic cell in the grid.
   
-  vtkSmartPointer<vtkRectilinearGrid> rectgrid =
+  auto rectgrid =
     vtkSmartPointer<vtkRectilinearGrid>::New();
 
   int extent[6];
@@ -93,18 +97,19 @@ vtkSmartPointer<vtkRectilinearGrid> makeImage(int n) {
   extent[5] += 1;
   rectgrid->SetExtent(extent);
 
-  vtkSmartPointer<vtkDoubleArray> xcoords =
+  auto xcoords =
     vtkSmartPointer<vtkDoubleArray>::New();
-  vtkSmartPointer<vtkDoubleArray> ycoords =
+  auto ycoords =
     vtkSmartPointer<vtkDoubleArray>::New();
-  vtkSmartPointer<vtkDoubleArray> zcoords =
+  auto zcoords =
     vtkSmartPointer<vtkDoubleArray>::New();
   xcoords->SetNumberOfValues(n+1);
   ycoords->SetNumberOfValues(n+1);
   zcoords->SetNumberOfValues(n+1);
   double spacing[3];
   image->GetSpacing(spacing);
-  for(vtkIdType i=0; i<=n; i++) {
+  for(vtkIdType i=0; i<=n; i++)
+  {
     xcoords->InsertValue(i, i*spacing[0]);
     ycoords->InsertValue(i, i*spacing[1]);
     zcoords->InsertValue(i, i*spacing[2]);
@@ -122,7 +127,8 @@ vtkSmartPointer<vtkRectilinearGrid> makeImage(int n) {
 /////////////////////
 ////////////////////
 
-int main(int, char *[]) {
+int main(int, char *[])
+{
 
   vtkMapper::SetResolveCoincidentTopologyToPolygonOffset();
   

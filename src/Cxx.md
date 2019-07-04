@@ -1091,6 +1091,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Visualize2DPoints](/Cxx/Visualization/Visualize2DPoints) | vtkPolyDataMapper2D vtkProperty2D | Visualize a 2D Set of Points.
 [VisualizeImageData](/Cxx/Visualization/VisualizeImageData) | vtkDataSetMapper | Visualize the points of an ImageData.
 [VisualizeVTP](/Cxx/Visualization/VisualizeVTP) | vtkXMLPolyDataReader vtkPolyDataMapper | Visualize a VTP File.
+[VoxelsOnBoundary](/Cxx/ImageData/VoxelsOnBoundary) | vtkMultiThreshold vtkMetaImageReader | Extract voxels on the border of an isosurface.
 [WarpCombustor](/Cxx/VisualizationAlgorithms/WarpCombustor) | vtkWarpScalar vtkMultiBlockPLOT3DReader | Carpet plots. Carpet plot of combustor flow energy in a structured grid. Colors and plane displacement represent energy values.
 [WindowSize](/Cxx/Visualization/WindowSize) | vtkRenderWindow:SetSize | Change the size of a window.
 [WindowTitle](/Cxx/Visualization/WindowTitle) | vtkRenderWindow | Change the title of a window.
