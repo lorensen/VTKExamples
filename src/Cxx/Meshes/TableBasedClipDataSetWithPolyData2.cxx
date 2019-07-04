@@ -126,19 +126,20 @@ int main(int, char *[]) {
 
   vtkMapper::SetResolveCoincidentTopologyToPolygonOffset();
   
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
-  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
   renderer->SetBackground(colors->GetColor3d("Wheat").GetData());
+  renderer->UseHiddenLineRemovalOn();
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
   renderWindow->SetSize(640, 480);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
+  auto interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  vtkSmartPointer<vtkInteractorStyleSwitch> style =
+  auto style =
     vtkSmartPointer<vtkInteractorStyleSwitch>::New();
   interactor->SetInteractorStyle(style);
   interactor->SetRenderWindow(renderWindow);
@@ -146,9 +147,9 @@ int main(int, char *[]) {
   vtkSmartPointer<vtkRectilinearGrid> image = makeImage(IMAGESIZE);
 
   // Clipping planes in the X and Y direction.
-  vtkSmartPointer<vtkDoubleArray> normals
+  auto normals
     = vtkSmartPointer<vtkDoubleArray>::New();
-  vtkSmartPointer<vtkPoints> clipPts = vtkSmartPointer<vtkPoints>::New();
+  auto clipPts = vtkSmartPointer<vtkPoints>::New();
   normals->SetNumberOfComponents(3);
   double xnorm[3] = {-1., 0., 0.};
   double ynorm[3] = {0., -1., 0.};
@@ -158,18 +159,19 @@ int main(int, char *[]) {
   normals->InsertNextTuple(ynorm);
   clipPts->InsertNextPoint(xpt);
   clipPts->InsertNextPoint(ypt);
-  vtkSmartPointer<vtkPlanes> clipPlanes = vtkSmartPointer<vtkPlanes>::New();
+
+  auto clipPlanes = vtkSmartPointer<vtkPlanes>::New();
   clipPlanes->SetNormals(normals);
   clipPlanes->SetPoints(clipPts);
 
-  vtkSmartPointer<vtkTableBasedClipDataSet> clipper =
+  auto clipper =
     vtkSmartPointer<vtkTableBasedClipDataSet>::New();
   clipper->SetClipFunction(clipPlanes);
   clipper->SetInputData(image);
 
-  vtkSmartPointer<vtkDataSetMapper> imageMapper =
+  auto imageMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
-  vtkSmartPointer<vtkActor> imageActor = vtkSmartPointer<vtkActor>::New();
+  auto imageActor = vtkSmartPointer<vtkActor>::New();
   imageActor->SetMapper(imageMapper);
   renderer->AddViewProp(imageActor);
   imageMapper->SetInputConnection(clipper->GetOutputPort());

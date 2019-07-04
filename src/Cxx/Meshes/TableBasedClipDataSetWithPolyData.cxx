@@ -23,7 +23,7 @@ int main (int, char *[])
 {
   // Create polydata to slice the grid with. In this case, use a cone. This could
   // be any polydata including a stl file.
-  vtkSmartPointer<vtkConeSource> cone =
+  auto cone =
     vtkSmartPointer<vtkConeSource>::New();
   cone->SetResolution(50);
   cone->SetDirection(0,0,-1);
@@ -32,25 +32,25 @@ int main (int, char *[])
   cone->Update();
 
   // Implicit function that will be used to slice the mesh
-  vtkSmartPointer<vtkImplicitPolyDataDistance> implicitPolyDataDistance =
+  auto implicitPolyDataDistance =
     vtkSmartPointer<vtkImplicitPolyDataDistance>::New();
   implicitPolyDataDistance->SetInput(cone->GetOutput());
 
   // create a grid
   unsigned int dimension = 51;
-  vtkSmartPointer<vtkFloatArray> xCoords =
+  auto xCoords =
     vtkSmartPointer<vtkFloatArray>::New();
   for (unsigned int i = 0; i < dimension; ++i)
   {
     xCoords->InsertNextValue(-1.0 + i * 2.0 / static_cast<float>(dimension-1));
   }
-  vtkSmartPointer<vtkFloatArray> yCoords =
+  auto yCoords =
     vtkSmartPointer<vtkFloatArray>::New();
   for (unsigned int i = 0; i < dimension; ++i)
   {
     yCoords->InsertNextValue(-1.0 + i * 2.0 / static_cast<float>(dimension-1));
   }
-  vtkSmartPointer<vtkFloatArray> zCoords =
+  auto zCoords =
     vtkSmartPointer<vtkFloatArray>::New();
   for (unsigned int i = 0; i < dimension; ++i)
   {
@@ -59,7 +59,7 @@ int main (int, char *[])
   // The coordinates are assigned to the rectilinear grid. Make sure that
   // the number of values in each of the XCoordinates, YCoordinates,
   // and ZCoordinates is equal to what is defined in SetDimensions().
-  vtkSmartPointer<vtkRectilinearGrid> rgrid =
+  auto rgrid =
     vtkSmartPointer<vtkRectilinearGrid>::New();
   rgrid->SetDimensions(xCoords->GetNumberOfTuples(),
                        yCoords->GetNumberOfTuples(),
@@ -69,7 +69,7 @@ int main (int, char *[])
   rgrid->SetZCoordinates(zCoords);
 
   // Create an array to hold distance information
-  vtkSmartPointer<vtkFloatArray> signedDistances =
+  auto signedDistances =
     vtkSmartPointer<vtkFloatArray>::New();
   signedDistances->SetNumberOfComponents(1);
   signedDistances->SetName("SignedDistances");
@@ -87,7 +87,7 @@ int main (int, char *[])
   rgrid->GetPointData()->SetScalars(signedDistances);
 
   // Use vtkTableBasedClipDataSet to slice the grid with the polydata
-  vtkSmartPointer<vtkTableBasedClipDataSet> clipper =
+  auto clipper =
     vtkSmartPointer<vtkTableBasedClipDataSet>::New();
   clipper->SetInputData(rgrid);
   clipper->InsideOutOn();
@@ -97,47 +97,47 @@ int main (int, char *[])
 
   // --- mappers, actors, render, etc. ---
   // mapper and actor to view the cone
-  vtkSmartPointer<vtkPolyDataMapper> coneMapper =
+  auto coneMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   coneMapper->SetInputConnection(cone->GetOutputPort());
-  vtkSmartPointer<vtkActor> coneActor =
+  auto coneActor =
     vtkSmartPointer<vtkActor>::New();
   coneActor->SetMapper(coneMapper);
 
   // geometry filter to view the background grid
-  vtkSmartPointer<vtkRectilinearGridGeometryFilter> geometryFilter =
+  auto geometryFilter =
     vtkSmartPointer<vtkRectilinearGridGeometryFilter>::New();
   geometryFilter->SetInputData(rgrid);
   geometryFilter->SetExtent(0, dimension, 0, dimension, dimension/2, dimension/2);
   geometryFilter->Update();
 
-  vtkSmartPointer<vtkPolyDataMapper> rgridMapper =
+  auto rgridMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   rgridMapper->SetInputConnection(geometryFilter->GetOutputPort());
   rgridMapper->SetScalarRange(rgrid->GetPointData()->GetArray("SignedDistances")->GetRange());
 
-  vtkSmartPointer<vtkActor> wireActor =
+  auto wireActor =
     vtkSmartPointer<vtkActor>::New();
   wireActor->SetMapper(rgridMapper);
   wireActor->GetProperty()->SetRepresentationToWireframe();
 
   // mapper and actor to view the clipped mesh
-  vtkSmartPointer<vtkDataSetMapper> clipperMapper =
+  auto clipperMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   clipperMapper->SetInputConnection(clipper->GetOutputPort());
   clipperMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkDataSetMapper> clipperOutsideMapper =
+  auto clipperOutsideMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   clipperOutsideMapper->SetInputConnection(clipper->GetOutputPort(1));
   clipperOutsideMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> clipperActor =
+  auto clipperActor =
     vtkSmartPointer<vtkActor>::New();
   clipperActor->SetMapper(clipperMapper);
   clipperActor->GetProperty()->SetColor(0.89,0.81,0.34); // banana
 
-  vtkSmartPointer<vtkActor> clipperOutsideActor =
+  auto clipperOutsideActor =
     vtkSmartPointer<vtkActor>::New();
   clipperOutsideActor->SetMapper(clipperOutsideMapper);
   clipperOutsideActor->GetProperty()->SetColor(0.89,0.81,0.34); // banana
@@ -145,32 +145,34 @@ int main (int, char *[])
   // A renderer and render window
   // Create a renderer, render window, and interactor
   double leftViewport[4] = {0.0, 0.0, 0.5, 1.0};
-  vtkSmartPointer<vtkRenderer> leftRenderer =
+  auto leftRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   leftRenderer->SetViewport(leftViewport);
   leftRenderer->SetBackground(.4, .5, .6);
+  leftRenderer->UseHiddenLineRemovalOn();
 
   double rightViewport[4] = {0.5, 0.0, 1.0, 1.0};
-  vtkSmartPointer<vtkRenderer> rightRenderer =
+  auto rightRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   rightRenderer->SetViewport(rightViewport);
   rightRenderer->SetBackground(.5, .6, .6);
+  rightRenderer->UseHiddenLineRemovalOn();
 
   // add the actors
   leftRenderer->AddActor(wireActor);
   leftRenderer->AddActor(clipperActor);
   rightRenderer->AddActor(clipperOutsideActor);
 
-  vtkSmartPointer<vtkRenderWindow> renwin =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
-  renwin->SetSize(640, 480);
-  renwin->AddRenderer(leftRenderer);
-  renwin->AddRenderer(rightRenderer);
+  renderWindow->SetSize(640, 480);
+  renderWindow->AddRenderer(leftRenderer);
+  renderWindow->AddRenderer(rightRenderer);
 
   // An interactor
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
+  auto interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  interactor->SetRenderWindow(renwin);
+  interactor->SetRenderWindow(renderWindow);
 
   // Share the camera
 
@@ -182,7 +184,7 @@ int main (int, char *[])
   leftRenderer->ResetCamera();
   rightRenderer->SetActiveCamera(leftRenderer->GetActiveCamera());
 
-  renwin->Render();
+  renderWindow->Render();
   interactor->Start();
 
   // Generate a report
