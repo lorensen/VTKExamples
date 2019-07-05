@@ -5,13 +5,15 @@
 #include <vtkUnstructuredGridReader.h>
 #include <vtkUnstructuredGrid.h>
 
-#include <vtkDataSetSurfaceFilter.h>
 #include <vtkDataSetMapper.h>
 #include <vtkCamera.h>
 #include <vtkActor.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+
+#include <vtkNamedColors.h>
+#include <vtkColor.h>
 
 int main(int argc, char *argv[])
 {
@@ -21,8 +23,12 @@ int main(int argc, char *argv[])
     return EXIT_FAILURE;
   }
 
+  auto colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+  vtkColor3d backgroundColor = colors->GetColor3d("Silver");
+
   // Read the data
-  vtkSmartPointer<vtkUnstructuredGridReader> reader =
+  auto reader =
     vtkSmartPointer<vtkUnstructuredGridReader>::New();
   reader->SetFileName (argv[1]);
   reader->Update();
@@ -42,7 +48,7 @@ int main(int argc, char *argv[])
   maxBoxPoint[1] = bounds[3];
   maxBoxPoint[2] = bounds[5];
 
-  vtkSmartPointer<vtkBoxClipDataSet> boxClip =
+  auto boxClip =
     vtkSmartPointer<vtkBoxClipDataSet>::New();
   boxClip->SetInputConnection (reader->GetOutputPort());
   boxClip->GenerateClippedOutputOn();
@@ -61,37 +67,29 @@ int main(int argc, char *argv[])
                       plusz, maxBoxPoint);
 
   // Define a lut
-  vtkSmartPointer<vtkLookupTable> lut1 =
+  auto lut1 =
     vtkSmartPointer<vtkLookupTable>::New();
   lut1->SetHueRange (.667, 0);
 
-  vtkSmartPointer<vtkDataSetSurfaceFilter> surfaceIn =
-    vtkSmartPointer<vtkDataSetSurfaceFilter>::New();
-  surfaceIn->SetInputConnection (boxClip->GetOutputPort(0));
-
-  vtkSmartPointer<vtkDataSetMapper> mapperIn =
-    vtkSmartPointer<vtkDataSetMapper>::New();
-  mapperIn->SetInputConnection(surfaceIn->GetOutputPort());
+  auto mapperIn =
+  vtkSmartPointer<vtkDataSetMapper>::New();
+  mapperIn->SetInputConnection(boxClip->GetOutputPort());
   mapperIn->SetScalarRange(reader->GetOutput()->GetScalarRange());
   mapperIn->SetLookupTable(lut1);
   mapperIn->SetColorModeToMapScalars();
 
-  vtkSmartPointer<vtkActor> actorIn = 
+  auto actorIn = 
     vtkSmartPointer<vtkActor>::New();
   actorIn->SetMapper(mapperIn);
  
-  vtkSmartPointer<vtkDataSetSurfaceFilter> surfaceOut =
-    vtkSmartPointer<vtkDataSetSurfaceFilter>::New();
-  surfaceOut->SetInputConnection (boxClip->GetOutputPort(1));
-
-  vtkSmartPointer<vtkDataSetMapper> mapperOut =
+  auto mapperOut =
     vtkSmartPointer<vtkDataSetMapper>::New();
-  mapperOut->SetInputConnection(surfaceOut->GetOutputPort());
+  mapperOut->SetInputConnection(boxClip->GetOutputPort(1));
   mapperOut->SetScalarRange(reader->GetOutput()->GetScalarRange());
   mapperOut->SetLookupTable(lut1);
   mapperOut->SetColorModeToMapScalars();
 
-  vtkSmartPointer<vtkActor> actorOut = 
+  auto actorOut = 
     vtkSmartPointer<vtkActor>::New();
   actorOut->SetMapper(mapperOut);
   actorOut->AddPosition(-.5 * (maxBoxPoint[0] - minBoxPoint[0]),
@@ -99,14 +97,17 @@ int main(int argc, char *argv[])
                         -.5 * (maxBoxPoint[2] - minBoxPoint[2]));
  
   // Create a renderer, render window, and interactor
-  vtkSmartPointer<vtkRenderer> renderer = 
+  auto renderer = 
     vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground(.5, .5, .5);
+  renderer->SetBackground(backgroundColor.GetData());
+  renderer->UseHiddenLineRemovalOn();
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow = 
+  auto renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
+  renderWindow->SetSize(640, 480);
+
+  auto renderWindowInteractor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
  
