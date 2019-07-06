@@ -6,7 +6,9 @@ if(NOT VTK_BINARY_DIR)
     vtkCommonColor
     vtkCommonCore
     vtkCommonDataModel
+    vtkFiltersGeneral
     vtkInteractionStyle
+    vtkIOLegacy
     vtkRenderingCore
     vtkRenderingFreeType
     vtkRenderingOpenGL2
@@ -40,5 +42,12 @@ endforeach()
 if (BUILD_TESTING)
   # Testing
   set(KIT UnstructuredGrid)
+  set(NEEDS_ARGS
+    ClipUnstructuredGridWithPlane
+  )
+
+  add_test(${KIT}-ClipUnstructuredGridWithPlane ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestClipUnstructuredGridWithPlane ${DATA}/treemesh.vtk)
+
   include(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
