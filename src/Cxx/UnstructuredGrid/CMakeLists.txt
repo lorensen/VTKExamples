@@ -46,6 +46,8 @@ if (BUILD_TESTING)
     ClipUnstructuredGridWithPlane
   )
 
+  set(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+
   add_test(${KIT}-ClipUnstructuredGridWithPlane ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestClipUnstructuredGridWithPlane ${DATA}/treemesh.vtk)
 

@@ -567,6 +567,7 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ClipUnstructuredGridWithPlane](/Cxx/UnstructuredGrid/ClipUnstructuredGridWithPlane) | vtkTableBasedClipDataSet vtkUnstructuredGrid | Clip a UGrid with a plane.
 [UGrid](/Cxx/UnstructuredGrid/UGrid) | vtkUnstructuredGrid | Creation of an unstructured grid.
 
 ### Registration

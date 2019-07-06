@@ -1,25 +1,16 @@
 #include <vtkSmartPointer.h>
-
 #include <vtkTableBasedClipDataSet.h>
 #include <vtkUnstructuredGridReader.h>
 #include <vtkUnstructuredGrid.h>
+#include <vtkPlane.h>
 #include <vtkTransform.h>
+
 #include <vtkActor.h>
 #include <vtkCamera.h>
-#include <vtkCellData.h>
 #include <vtkCellTypes.h>
 #include <vtkDataSetMapper.h>
-#include <vtkDoubleArray.h>
-#include <vtkExecutive.h>
-#include <vtkImageData.h>
-#include <vtkInteractorStyleSwitch.h>
 #include <vtkLookupTable.h>
-#include <vtkMapper.h>
-#include <vtkPlane.h>
-#include <vtkPointData.h>
-#include <vtkPoints.h>
 #include <vtkProperty.h>
-#include <vtkRectilinearGrid.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
@@ -59,9 +50,6 @@ int main(int argc, char *argv[])
 
   auto interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  auto style =
-    vtkSmartPointer<vtkInteractorStyleSwitch>::New();
-  interactor->SetInteractorStyle(style);
   interactor->SetRenderWindow(renderWindow);
 
   double xnorm[3] = {-1.0, -1.0, 1.0};
