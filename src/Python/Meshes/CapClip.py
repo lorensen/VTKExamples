@@ -29,7 +29,6 @@ def CapClip(filePath = None):
 
         polyData = clipper.GetOutput()
         
-
     clipMapper = vtk.vtkDataSetMapper()
     if vtk.VTK_MAJOR_VERSION < 5:
         clipMapper.SetInput(polyData)
