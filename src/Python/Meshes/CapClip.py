@@ -32,9 +32,11 @@ def CapClip(filePath = None):
     clipMapper = vtk.vtkDataSetMapper()
     clipMapper.SetInputData(polyData)
 
+    colors = vtk.vtkNamedColors()
+
     clipActor = vtk.vtkActor()
     clipActor.SetMapper(clipMapper)
-    clipActor.GetProperty().SetColor(1.0000, 0.3882, 0.2784)
+    clipActor.GetProperty().SetColor(colors.GetColor3d('Tomato'))
     clipActor.GetProperty().SetInterpolationToFlat()
 
     # Now extract feature edges
@@ -60,7 +62,7 @@ def CapClip(filePath = None):
 
     boundaryActor = vtk.vtkActor()
     boundaryActor.SetMapper(boundaryMapper)
-    boundaryActor.GetProperty().SetColor(0.8900, 0.8100, 0.3400)
+    boundaryActor.GetProperty().SetColor(colors.GetColor3d("Banana"))
 
     # create render window, renderer and interactor
     renderWindow = vtk.vtkRenderWindow()
@@ -70,7 +72,7 @@ def CapClip(filePath = None):
     iren.SetRenderWindow(renderWindow)
 
     # set background color
-    renderer.SetBackground(.2, .3, .4)
+    renderer.SetBackground(colors.GetColor3d('steel_blue'))
 
     # add our actor to the renderer
     renderer.AddActor(clipActor)
