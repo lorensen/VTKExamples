@@ -249,6 +249,7 @@ This section includes examples of manipulating meshes.
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [BoundaryEdges](/Python/Meshes/BoundaryEdges) | vtkFeatureEdges | Find the edges that are used by only one face.
+[CapClip](/Python/Meshes/CapClip) | vtkClipPolyData | Cap a clipped polydata with a polygon.
 [ClipDataSetWithPolyData](/Python/Meshes/ClipDataSetWithPolyData) | vtkClipDataSet vtkImplicitPolyDataDistance vtkRectilinearGrid | clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
 [ClosedSurface](/Python/PolyData/ClosedSurface) | vtkFeatureEdges | Check if a surface is closed.
 [ColoredElevationMap](/Python/Meshes/ColoredElevationMap) | vtkLookupTable | Color a mesh by height.
