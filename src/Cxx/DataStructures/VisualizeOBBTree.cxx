@@ -1,11 +1,12 @@
 #include <vtkActor.h>
+#include <vtkOBBTree.h>
+
 #include <vtkCallbackCommand.h>
 #include <vtkCommand.h>
+#include <vtkSliderRepresentation2D.h>
+#include <vtkSliderWidget.h>
+
 #include <vtkInteractorStyleTrackballCamera.h>
-#include <vtkMath.h>
-#include <vtkNamedColors.h>
-#include <vtkNew.h>
-#include <vtkOBBTree.h>
 #include <vtkPointSource.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
@@ -28,6 +29,9 @@
 #include <vtkPolyDataReader.h>
 #include <vtkSTLReader.h>
 #include <vtkXMLPolyDataReader.h>
+
+#include <vtkMath.h>
+#include <vtkNamedColors.h>
 
 #include <vtksys/SystemTools.hxx>
 
@@ -61,37 +65,56 @@ public:
 
 int main(int argc, char *argv[]) {
 
-  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
+  auto polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
 
-  vtkNew<vtkNamedColors> colors;
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkPolyDataMapper> pointsMapper =
+  auto pointsMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
   pointsMapper->SetInputData(polyData);
   pointsMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> pointsActor = vtkSmartPointer<vtkActor>::New();
+  auto pointsActor = vtkSmartPointer<vtkActor>::New();
   pointsActor->SetMapper(pointsMapper);
   pointsActor->GetProperty()->SetInterpolationToFlat();
   pointsActor->GetProperty()->SetColor(colors->GetColor4d("Yellow").GetData());
   pointsActor->GetProperty()->SetOpacity(.3);
 
-  int maxLevel = 10;
+  int maxLevel = 50;
   // Create the tree
-  vtkSmartPointer<vtkOBBTree> obbTree = vtkSmartPointer<vtkOBBTree>::New();
+  auto obbTree = vtkSmartPointer<vtkOBBTree>::New();
   obbTree->SetDataSet(polyData);
   obbTree->SetMaxLevel(maxLevel);
   obbTree->BuildLocator();
 
+  double corner[3] = {0.0, 0.0 ,0.0};
+  double max[3] = {0.0, 0.0 ,0.0};
+  double mid[3] = {0.0, 0.0, 0.0};
+  double min[3] = {0.0, 0.0, 0.0};
+  double size[3] = {0.0, 0.0, 0.0};
+
+  obbTree->ComputeOBB(polyData, corner, max, mid, min, size);
+
+  std::cout << "Corner:\t"
+            << corner[0] << ", " << corner[1] << ", " << corner[2] << std::endl
+            << "Max:\t"
+            << max[0] << ", " << max[1] << ", " << max[2] << std::endl
+            << "Mid:\t"
+            << mid[0] << ", " << mid[1] << ", " << mid[2] << std::endl
+            << "Min:\t"
+            << min[0] << ", " << min[1] << ", " << min[2] << std::endl
+            << "Size:\t"
+            << size[0] << ", " << size[1] << ", " << size[2] << std::endl;
+
   // Initialize the representation
-  vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
+  auto polydata = vtkSmartPointer<vtkPolyData>::New();
   obbTree->GenerateRepresentation(0, polydata);
 
-  vtkSmartPointer<vtkPolyDataMapper> obbtreeMapper =
+  auto obbtreeMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
   obbtreeMapper->SetInputData(polydata);
 
-  vtkSmartPointer<vtkActor> obbtreeActor = vtkSmartPointer<vtkActor>::New();
+  auto obbtreeActor = vtkSmartPointer<vtkActor>::New();
   obbtreeActor->SetMapper(obbtreeMapper);
   obbtreeActor->GetProperty()->SetInterpolationToFlat();
   obbtreeActor->GetProperty()->SetOpacity(.5);
@@ -100,13 +123,13 @@ int main(int argc, char *argv[]) {
       colors->GetColor4d("SpringGreen").GetData());
 
   // A renderer and render window
-  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow =
       vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
   // An interactor
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  auto renderWindowInteractor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
@@ -114,14 +137,14 @@ int main(int argc, char *argv[]) {
   renderer->AddActor(pointsActor);
   renderer->AddActor(obbtreeActor);
   renderer->SetBackground(colors->GetColor3d("MidnightBlue").GetData());
-  renderer->SetUseDepthPeeling(1);
+  renderer->UseHiddenLineRemovalOn();
 
   // Render an image (lights and cameras are created automatically)
   renderWindow->SetWindowName("VisualizeOBBTree");
   renderWindow->SetSize(600, 600);
   renderWindow->Render();
 
-  vtkSmartPointer<vtkSliderRepresentation2D> sliderRep =
+  auto sliderRep =
       vtkSmartPointer<vtkSliderRepresentation2D>::New();
   sliderRep->SetMinimumValue(0);
   sliderRep->SetMaximumValue(obbTree->GetLevel());
@@ -143,14 +166,14 @@ int main(int argc, char *argv[]) {
   sliderRep->GetSelectedProperty()->SetColor(
       colors->GetColor3d("Violet").GetData());
 
-  vtkSmartPointer<vtkSliderWidget> sliderWidget =
+  auto sliderWidget =
       vtkSmartPointer<vtkSliderWidget>::New();
   sliderWidget->SetInteractor(renderWindowInteractor);
   sliderWidget->SetRepresentation(sliderRep);
   sliderWidget->SetAnimationModeToAnimate();
   sliderWidget->EnabledOn();
 
-  vtkSmartPointer<vtkSliderCallback> callback =
+  auto callback =
       vtkSmartPointer<vtkSliderCallback>::New();
   callback->OBBTree = obbTree;
   callback->PolyData = polydata;

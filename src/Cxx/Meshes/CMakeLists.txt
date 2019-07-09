@@ -121,7 +121,7 @@ if (BUILD_TESTING)
     TestInterpolateFieldDataDemo ${DATA}/coarseGrid.e ${DATA}/fineGrid.e-s002)
 
   add_test(${KIT}-OBBDicer ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-    TestOBBDicer ${DATA}/Bunny.vtp)
+    TestOBBDicer ${DATA}/Armadillo.ply 20)
 
   add_test(${KIT}-MatrixMathFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestMatrixMathFilter ${DATA}/tensors.vtk)
