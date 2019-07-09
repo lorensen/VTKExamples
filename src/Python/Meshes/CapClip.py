@@ -30,10 +30,7 @@ def CapClip(filePath = None):
         polyData = clipper.GetOutput()
         
     clipMapper = vtk.vtkDataSetMapper()
-    if vtk.VTK_MAJOR_VERSION < 5:
-        clipMapper.SetInput(polyData)
-    else:
-        clipMapper.SetInputData(polyData)
+    clipMapper.SetInputData(polyData)
 
     clipActor = vtk.vtkActor()
     clipActor.SetMapper(clipMapper)
@@ -42,10 +39,7 @@ def CapClip(filePath = None):
 
     # Now extract feature edges
     boundaryEdges = vtk.vtkFeatureEdges()
-    if vtk.VTK_MAJOR_VERSION < 5:
-        boundaryEdges.SetInput(polyData)
-    else:
-        boundaryEdges.SetInputData(polyData)
+    boundaryEdges.SetInputData(polyData)
 
     boundaryEdges.BoundaryEdgesOn()
     boundaryEdges.FeatureEdgesOff()
@@ -62,10 +56,7 @@ def CapClip(filePath = None):
     boundaryPoly.SetPolys(boundaryStrips.GetOutput().GetLines())
 
     boundaryMapper = vtk.vtkPolyDataMapper()
-    if vtk.VTK_MAJOR_VERSION < 5:
-        boundaryMapper.SetInput(boundaryPoly)
-    else:
-        boundaryMapper.SetInputData(boundaryPoly)
+    boundaryMapper.SetInputData(boundaryPoly)
 
     boundaryActor = vtk.vtkActor()
     boundaryActor.SetMapper(boundaryMapper)
