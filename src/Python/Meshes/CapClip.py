@@ -1,9 +1,27 @@
 import vtk
 
 
+def get_program_parameters():
+    import argparse
+    import sys
+    if not len(sys.argv) > 1:
+        return None
+    description = 'Clip polydata using a plane.'
+    epilogue = '''
+    This is a simple example that uses vtkClipPolyData to clip input polydata, if provided, or a sphere otherwise.
+    '''
+    parser = argparse.ArgumentParser(description=description, epilog=epilogue)
+    parser.add_argument('filename', help='Optional input filename e.g polydata.vtp.')
+    args = parser.parse_args()
+    return args.filename
+
+
 def CapClip(filePath = None):
     # PolyData to process
     polyData = vtk.vtkPolyData()
+
+    # Input optional polydata
+    filePath = get_program_parameters()
 
     if filePath != None:
         reader = vtk.vtkXMLPolyDataReader()
