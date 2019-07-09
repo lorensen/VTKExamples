@@ -71,8 +71,11 @@ function registerListener(event, func) {
 <span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImplicitPolyDataDistance.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSampleFunction.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkClipVolume.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkTableBasedClipDataSet.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkPolyDataNormals.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkReverseSense.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkImageData.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkUnstructuredGrid.h&gt;</span><span class=cp></span>
 </span>
 <span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkActor.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkDataSetMapper.h&gt;</span><span class=cp></span>
@@ -96,16 +99,19 @@ function registerListener(event, func) {
 <span class=p>{</span>
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>polyData</span> <span class=o>=</span> <span class=n>ReadPolyData</span><span class=p>(</span><span class=n>argc</span> <span class=o>&gt;</span> <span class=mi>1</span> <span class=o>?</span> <span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>:</span> <span class=s>&quot;&quot;</span><span class=p>);;</span>
 </span>
+  <span class=k>auto</span> <span class=n>reverse</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkReverseSense</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>reverse</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>polyData</span><span class=p>);</span>
+
   <span class=k>auto</span> <span class=n>normals</span> <span class=o>=</span>
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataNormals</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>normals</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>polyData</span><span class=p>);</span>
+</span>  <span class=n>normals</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>reverse</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>normals</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
   <span class=c1>// create a volume of distances to the input polydata</span>
   <span class=k>auto</span> <span class=n>implicitFunction</span> <span class=o>=</span>
 <span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkImplicitPolyDataDistance</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>implicitFunction</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=n>normals</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
-  <span class=n>implicitFunction</span><span class=o>-&gt;</span><span class=n>SetInput</span><span class=p>(</span><span class=n>polyData</span><span class=p>);</span>
 
   <span class=n>std</span><span class=o>::</span><span class=n>array</span><span class=o>&lt;</span><span class=kt>double</span><span class=p>,</span> <span class=mi>6</span><span class=o>&gt;</span> <span class=n>bounds</span><span class=p>;</span>
   <span class=n>polyData</span><span class=o>-&gt;</span><span class=n>GetBounds</span><span class=p>(</span><span class=n>bounds</span><span class=p>.</span><span class=n>data</span><span class=p>());</span>
@@ -122,17 +128,21 @@ function registerListener(event, func) {
 </span>  <span class=n>sampleFunction</span><span class=o>-&gt;</span><span class=n>SetSampleDimensions</span><span class=p>(</span><span class=mi>64</span><span class=p>,</span> <span class=mi>64</span><span class=p>,</span> <span class=mi>64</span><span class=p>);</span>
   <span class=n>sampleFunction</span><span class=o>-&gt;</span><span class=n>SetSampleDimensions</span><span class=p>(</span><span class=mi>128</span><span class=p>,</span> <span class=mi>128</span><span class=p>,</span> <span class=mi>128</span><span class=p>);</span>
   <span class=n>sampleFunction</span><span class=o>-&gt;</span><span class=n>SetModelBounds</span><span class=p>(</span>
-    <span class=n>bounds</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=mf>.1</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=mf>.1</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span>
-    <span class=n>bounds</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>-</span> <span class=mf>.1</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span> <span class=o>+</span> <span class=mf>.1</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span>
-    <span class=n>bounds</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span> <span class=o>-</span> <span class=mf>.1</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=mf>.1</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>);</span>
+    <span class=n>bounds</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=mf>.21</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=mf>.21</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span>
+    <span class=n>bounds</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>-</span> <span class=mf>.21</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span> <span class=o>+</span> <span class=mf>.21</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span>
+    <span class=n>bounds</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span> <span class=o>-</span> <span class=mf>.21</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>,</span> <span class=n>bounds</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=mf>.21</span> <span class=o>*</span> <span class=n>maxRange</span><span class=p>);</span>
   <span class=n>sampleFunction</span><span class=o>-&gt;</span><span class=n>SetImplicitFunction</span><span class=p>(</span><span class=n>implicitFunction</span><span class=p>);</span>
   <span class=n>sampleFunction</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
-  <span class=k>auto</span> <span class=n>clipVolume</span> <span class=o>=</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkClipVolume</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>clipVolume</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=n>maxRange</span> <span class=o>*</span> <span class=mf>.01</span><span class=p>);</span>
+<span class=c1>//  auto clipVolume =</span>
+<span class=hll><span class=c1>//    vtkSmartPointer&lt;vtkClipVolume&gt;::New();</span>
+</span>  <span class=k>auto</span> <span class=n>clipVolume</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTableBasedClipDataSet</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>
+  <span class=n>clipVolume</span><span class=o>-&gt;</span><span class=n>SetValue</span><span class=p>(</span><span class=n>maxRange</span> <span class=o>*</span> <span class=mf>.01</span><span class=p>);</span>
   <span class=n>clipVolume</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>sampleFunction</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>());</span>
   <span class=n>clipVolume</span><span class=o>-&gt;</span><span class=n>InsideOutOn</span><span class=p>();</span>
+  <span class=n>clipVolume</span><span class=o>-&gt;</span><span class=n>InsideOutOff</span><span class=p>();</span>
 
   <span class=c1>// Visualize</span>
   <span class=k>auto</span> <span class=n>colors</span> <span class=o>=</span>
@@ -171,6 +181,26 @@ function registerListener(event, func) {
 
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
+
+  <span class=c1>// Generate a report</span>
+<span class=hll>  <span class=n>vtkIdType</span> <span class=n>numberOfCells</span> <span class=o>=</span> <span class=n>clipVolume</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetNumberOfCells</span><span class=p>();</span>
+</span>  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;------------------------&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;The inside dataset contains a &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span>
+            <span class=o>&lt;&lt;</span> <span class=n>clipVolume</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetClassName</span><span class=p>()</span>
+            <span class=o>&lt;&lt;</span>  <span class=s>&quot; that has &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>numberOfCells</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; cells&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+  <span class=k>typedef</span> <span class=n>std</span><span class=o>::</span><span class=n>map</span><span class=o>&lt;</span><span class=kt>int</span><span class=p>,</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>CellContainer</span><span class=p>;</span>
+  <span class=n>CellContainer</span> <span class=n>cellMap</span><span class=p>;</span>
+<span class=hll>  <span class=k>for</span> <span class=p>(</span><span class=n>vtkIdType</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>numberOfCells</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span>  <span class=p>{</span>
+    <span class=n>cellMap</span><span class=p>[</span><span class=n>clipVolume</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetCellType</span><span class=p>(</span><span class=n>i</span><span class=p>)]</span><span class=o>++</span><span class=p>;</span>
+  <span class=p>}</span>
+
+  <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=nl>c</span> <span class=p>:</span> <span class=n>cellMap</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;</span><span class=se>\t</span><span class=s>Cell type &quot;</span>
+<span class=hll>              <span class=o>&lt;&lt;</span> <span class=n>vtkCellTypes</span><span class=o>::</span><span class=n>GetClassNameFromTypeId</span><span class=p>(</span><span class=n>c</span><span class=p>.</span><span class=n>first</span><span class=p>)</span>
+</span>              <span class=o>&lt;&lt;</span> <span class=s>&quot; occurs &quot;</span> <span class=o>&lt;&lt;</span> <span class=n>c</span><span class=p>.</span><span class=n>second</span> <span class=o>&lt;&lt;</span> <span class=s>&quot; times.&quot;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+  <span class=p>}</span>
 
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
 <span class=p>}</span>
