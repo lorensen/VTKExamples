@@ -24,11 +24,11 @@
 
 int main (int argc, char *argv[])
 {
-  vtkSmartPointer<vtkPolyData> polyData =
+  auto polyData =
     vtkSmartPointer<vtkPolyData>::New();
   if (argc > 1)
   {
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+    auto reader =
       vtkSmartPointer<vtkXMLPolyDataReader>::New();
     reader->SetFileName ( argv[1] );
     reader->Update();
@@ -36,43 +36,47 @@ int main (int argc, char *argv[])
   }
   else
   {
-    vtkSmartPointer<vtkSphereSource> modelSource =
+    auto modelSource =
       vtkSmartPointer<vtkSphereSource>::New();
     modelSource->Update();
     polyData = modelSource->GetOutput();
   }
 
-  vtkSmartPointer<vtkPlane> plane =
+  double length = polyData->GetLength();
+  
+  auto plane =
     vtkSmartPointer<vtkPlane>::New();
-  plane->SetNormal(0, 0, 1);
+  plane->SetNormal(0, 1, 1);
+  plane->SetOrigin(polyData->GetCenter());
 
-  vtkSmartPointer<vtkCutter> cutter =
+  auto cutter =
     vtkSmartPointer<vtkCutter>::New();
   cutter->SetInputData(polyData);
   cutter->SetCutFunction(plane);
   cutter->GenerateValues(1, 0.0, 0.0);
 
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkPolyDataMapper> modelMapper =
+  auto modelMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   modelMapper->SetInputData(polyData);
 
-  vtkSmartPointer<vtkActor> model =
+  auto model =
     vtkSmartPointer<vtkActor>::New();
   model->SetMapper(modelMapper);
   model->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
+  model->GetProperty()->SetInterpolationToFlat();
 
-  vtkSmartPointer<vtkStripper> stripper =
+  auto stripper =
     vtkSmartPointer<vtkStripper>::New();
   stripper->SetInputConnection(cutter->GetOutputPort());
 
-  vtkSmartPointer<vtkKochanekSpline> spline =
+  auto spline =
     vtkSmartPointer<vtkKochanekSpline>::New();
   spline->SetDefaultTension(.5);
 
-  vtkSmartPointer<vtkSplineFilter> sf =
+  auto sf =
     vtkSmartPointer<vtkSplineFilter>::New();
   sf->SetInputConnection(stripper->GetOutputPort());
   sf->SetSubdivideToSpecified();
@@ -80,44 +84,47 @@ int main (int argc, char *argv[])
   sf->SetSpline(spline);
   sf->GetSpline()->ClosedOn();
 
-  vtkSmartPointer<vtkTubeFilter> tubes =
+  auto tubes =
     vtkSmartPointer<vtkTubeFilter>::New();
   tubes->SetInputConnection( sf->GetOutputPort());
   tubes->SetNumberOfSides(8);
-  tubes->SetRadius(.02);
+  tubes->SetRadius(length/100.0);
 
-  vtkSmartPointer<vtkPolyDataMapper> linesMapper =
+  auto linesMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   linesMapper->SetInputConnection(tubes->GetOutputPort());
   linesMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> lines =
+  auto lines =
     vtkSmartPointer<vtkActor>::New();
   lines->SetMapper(linesMapper);
   lines->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
 
-  vtkSmartPointer<vtkRenderer> ren =
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin =
+  renderer->UseHiddenLineRemovalOn();
+
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+  auto interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  iren->SetRenderWindow(renWin);
+  interactor->SetRenderWindow(renderWindow);
 
   // Add the actors to the renderer
-  ren->AddActor(model);
-  ren->AddActor(lines);
+  renderer->AddActor(model);
+  renderer->AddActor(lines);
 
-  ren->ResetCamera();
-  ren->SetBackground(colors->GetColor3d("SlateGray").GetData());
-  ren->GetActiveCamera()->Azimuth(300);
-  ren->GetActiveCamera()->Elevation(30);
-  renWin->AddRenderer(ren);
+  renderer->ResetCamera();
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
+  renderer->GetActiveCamera()->Azimuth(300);
+  renderer->GetActiveCamera()->Elevation(30);
+  renderWindow->AddRenderer(renderer);
+  renderWindow->SetSize(640, 480);
 
   // This starts the event loop and as a side effect causes an initial
   // render.
-  renWin->Render();
-  iren->Start();
+  renderWindow->Render();
+  interactor->Start();
 
 
   // Extract the lines from the polydata

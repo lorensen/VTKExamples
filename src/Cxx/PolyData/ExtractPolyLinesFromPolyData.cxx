@@ -12,61 +12,76 @@
 #include <vtkPoints.h>
 #include <vtkCellArray.h>
 
+#include <vtkNamedColors.h>
+#include <vtkColor.h>
+
 int main (int, char *[])
 {
-  vtkSmartPointer<vtkSphereSource> modelSource =
+  // Define colors for example
+  auto colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+  vtkColor3d lineColor = colors->GetColor3d("peacock");
+  vtkColor3d modelColor = colors->GetColor3d("silver");
+  vtkColor3d backgroundColor = colors->GetColor3d("wheat");
+
+  auto modelSource =
     vtkSmartPointer<vtkSphereSource>::New();
 
-  vtkSmartPointer<vtkPlane> plane =
+  auto plane =
     vtkSmartPointer<vtkPlane>::New();
 
-  vtkSmartPointer<vtkCutter> cutter =
+  auto cutter =
     vtkSmartPointer<vtkCutter>::New();
   cutter->SetInputConnection(modelSource->GetOutputPort());
   cutter->SetCutFunction(plane);
   cutter->GenerateValues(10, -.5, .5);
 
-  vtkSmartPointer<vtkPolyDataMapper> modelMapper =
+  auto modelMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   modelMapper->SetInputConnection(modelSource->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> model =
+  auto model =
     vtkSmartPointer<vtkActor>::New();
   model->SetMapper(modelMapper);
+  model->GetProperty()->SetDiffuseColor(modelColor.GetData());
+  model->GetProperty()->SetInterpolationToFlat();
 
-  vtkSmartPointer<vtkStripper> stripper =
+  auto stripper =
     vtkSmartPointer<vtkStripper>::New();
   stripper->SetInputConnection(cutter->GetOutputPort());
+  stripper->JoinContiguousSegmentsOn();
 
-  vtkSmartPointer<vtkPolyDataMapper> linesMapper =
+  auto linesMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   linesMapper->SetInputConnection(stripper->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> lines =
+  auto lines =
     vtkSmartPointer<vtkActor>::New();
   lines->SetMapper(linesMapper);
-  lines->GetProperty()->SetDiffuseColor(.2, .2, .2);
+  lines->GetProperty()->SetDiffuseColor(lineColor.GetData());
+  lines->GetProperty()->SetLineWidth(3.0);
 
-  vtkSmartPointer<vtkRenderer> ren =
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
 
-  renWin->AddRenderer(ren);
+  renderWindow->AddRenderer(renderer);
+  renderWindow->SetSize(640, 480);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+  auto interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  iren->SetRenderWindow(renWin);
+  interactor->SetRenderWindow(renderWindow);
 
   // Add the actors to the renderer
-  ren->AddActor(model);
-  ren->AddActor(lines);
-  ren->SetBackground(0.1, 0.2, 0.4);
+  renderer->AddActor(model);
+  renderer->AddActor(lines);
+  renderer->SetBackground(backgroundColor.GetData());
 
   // This starts the event loop and as a side effect causes an initial
   // render.
-  renWin->Render();
-  iren->Start();
+  renderWindow->Render();
+  interactor->Start();
 
 
   // Extract the lines from the polydata
