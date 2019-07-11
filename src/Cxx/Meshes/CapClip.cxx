@@ -24,7 +24,6 @@
 #include <vtkSphereSource.h>
 
 #include <vtkNamedColors.h>
-#include <vtkColor.h>
 #include <vtksys/SystemTools.hxx>
 
 namespace {
@@ -130,6 +129,8 @@ int main (int argc, char *argv[])
   renderer->ResetCameraClippingRange();
 
   renderWindow->Render();
+  renderWindow->SetWindowName("ClipCap");
+  renderWindow->Render();
 
   interactor->Start();
 
@@ -192,6 +193,8 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
   else
   {
     auto source = vtkSmartPointer<vtkSphereSource>::New();
+    source->SetThetaResolution(20);
+    source->SetPhiResolution(11);
     source->Update();
     polyData = source->GetOutput();
   }
