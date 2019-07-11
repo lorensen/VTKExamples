@@ -1,66 +1,62 @@
+#!/usr/bin/env python
+
 import vtk
 
 
 def get_program_parameters():
     import argparse
-    import sys
-    if not len(sys.argv) > 1:
-        return None
     description = 'Clip polydata using a plane.'
     epilogue = '''
-    This is a simple example that uses vtkClipPolyData to clip input polydata, if provided, or a sphere otherwise.
+    This is an example using vtkClipPolyData to clip input polydata, if provided, or a sphere otherwise.
     '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
-    parser.add_argument('filename', help='Optional input filename e.g polydata.vtp.')
+    parser.add_argument('filename', nargs='?', default=None, help='Optional input filename e.g cow.g.')
     args = parser.parse_args()
     return args.filename
 
 
-def CapClip(filePath = None):
-    # PolyData to process
-    polyData = vtk.vtkPolyData()
-
-    # Input optional polydata
+def main():
     filePath = get_program_parameters()
 
-    if filePath != None:
-        reader = vtk.vtkXMLPolyDataReader()
-        reader.SetFileName(filePath)
-        reader.Update()
-        polyData = reader.GetOutput()
-        
+    # Define colors
+    colors = vtk.vtkNamedColors()
+    backgroundColor = colors.GetColor3d("steel_blue")
+    boundaryColor = colors.GetColor3d("Banana")
+    clipColor = colors.GetColor3d("Tomato")
+
+    if filePath:
+        polyData = ReadPolyData(filePath)
+
     else:
         # Create a sphere
-        sphereSource = vtk.vtkSphereSource()
-        sphereSource.SetThetaResolution(20)
-        sphereSource.SetPhiResolution(11)
+        polyData = vtk.vtkSphereSource()
+        polyData.SetThetaResolution(20)
+        polyData.SetPhiResolution(11)
 
-        plane = vtk.vtkPlane()
-        plane.SetOrigin(0, 0, 0)
-        plane.SetNormal(1.0, -1.0, -1.0)
+    plane = vtk.vtkPlane()
+    plane.SetOrigin(polyData.GetCenter())
+    plane.SetNormal(1.0, -1.0, -1.0)
 
-        clipper = vtk.vtkClipPolyData()
-        clipper.SetInputConnection(sphereSource.GetOutputPort())
-        clipper.SetClipFunction(plane)
-        clipper.SetValue(0)
-        clipper.Update()
+    clipper = vtk.vtkClipPolyData()
+    clipper.SetInputData(polyData)
+    clipper.SetClipFunction(plane)
+    clipper.SetValue(0)
+    clipper.Update()
 
-        polyData = clipper.GetOutput()
-        
+    polyData = clipper.GetOutput()
+
     clipMapper = vtk.vtkDataSetMapper()
     clipMapper.SetInputData(polyData)
 
-    colors = vtk.vtkNamedColors()
-
     clipActor = vtk.vtkActor()
     clipActor.SetMapper(clipMapper)
-    clipActor.GetProperty().SetColor(colors.GetColor3d('Tomato'))
+    clipActor.GetProperty().SetDiffuseColor(clipColor)
     clipActor.GetProperty().SetInterpolationToFlat()
+    clipActor.GetProperty().EdgeVisibilityOn()
 
     # Now extract feature edges
     boundaryEdges = vtk.vtkFeatureEdges()
     boundaryEdges.SetInputData(polyData)
-
     boundaryEdges.BoundaryEdgesOn()
     boundaryEdges.FeatureEdgesOff()
     boundaryEdges.NonManifoldEdgesOff()
@@ -80,17 +76,18 @@ def CapClip(filePath = None):
 
     boundaryActor = vtk.vtkActor()
     boundaryActor.SetMapper(boundaryMapper)
-    boundaryActor.GetProperty().SetColor(colors.GetColor3d("Banana"))
+    boundaryActor.GetProperty().SetDiffuseColor(boundaryColor)
 
-    # create render window, renderer and interactor
-    renderWindow = vtk.vtkRenderWindow()
+    # create renderer render window, and interactor
     renderer = vtk.vtkRenderer()
+    renderWindow = vtk.vtkRenderWindow()
     renderWindow.AddRenderer(renderer)
-    iren = vtk.vtkRenderWindowInteractor()
-    iren.SetRenderWindow(renderWindow)
+    interactor = vtk.vtkRenderWindowInteractor()
+    interactor.SetRenderWindow(renderWindow)
 
-    # set background color
-    renderer.SetBackground(colors.GetColor3d('steel_blue'))
+    # set background color and size
+    renderer.SetBackground(backgroundColor)
+    renderWindow.SetSize(640, 480)
 
     # add our actor to the renderer
     renderer.AddActor(clipActor)
@@ -104,8 +101,51 @@ def CapClip(filePath = None):
     renderer.ResetCameraClippingRange()
 
     renderWindow.Render()
-    iren.Start()
+    renderWindow.SetWindowName('ClipCap')
+    renderWindow.Render()
+
+    interactor.Start()
+
+
+def ReadPolyData(file_name):
+    import os
+    path, extension = os.path.splitext(file_name)
+    extension = extension.lower()
+    if extension == ".ply":
+        reader = vtk.vtkPLYReader()
+        reader.SetFileName(file_name)
+        reader.Update()
+        poly_data = reader.GetOutput()
+    elif extension == ".vtp":
+        reader = vtk.vtkXMLpoly_dataReader()
+        reader.SetFileName(file_name)
+        reader.Update()
+        poly_data = reader.GetOutput()
+    elif extension == ".obj":
+        reader = vtk.vtkOBJReader()
+        reader.SetFileName(file_name)
+        reader.Update()
+        poly_data = reader.GetOutput()
+    elif extension == ".stl":
+        reader = vtk.vtkSTLReader()
+        reader.SetFileName(file_name)
+        reader.Update()
+        poly_data = reader.GetOutput()
+    elif extension == ".vtk":
+        reader = vtk.vtkpoly_dataReader()
+        reader.SetFileName(file_name)
+        reader.Update()
+        poly_data = reader.GetOutput()
+    elif extension == ".g":
+        reader = vtk.vtkBYUReader()
+        reader.SetGeometryFileName(file_name)
+        reader.Update()
+        poly_data = reader.GetOutput()
+    else:
+        # Return a None if the extension is unknown.
+        poly_data = None
+    return poly_data
 
 
 if __name__ == '__main__':
-    CapClip()
+    main()
