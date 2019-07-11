@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import os.path
+
 import vtk
 
 
@@ -24,14 +26,12 @@ def main():
     boundaryColor = colors.GetColor3d("Banana")
     clipColor = colors.GetColor3d("Tomato")
 
-    if filePath:
+    if filePath and os.path.isfile(filePath):
         polyData = ReadPolyData(filePath)
-
+        if not polyData:
+            polyData = GetSpherePD()
     else:
-        # Create a sphere
-        polyData = vtk.vtkSphereSource()
-        polyData.SetThetaResolution(20)
-        polyData.SetPhiResolution(11)
+        polyData = GetSpherePD()
 
     plane = vtk.vtkPlane()
     plane.SetOrigin(polyData.GetCenter())
@@ -145,6 +145,17 @@ def ReadPolyData(file_name):
         # Return a None if the extension is unknown.
         poly_data = None
     return poly_data
+
+
+def GetSpherePD():
+    """
+    :return: The PolyData representation of a sphere.
+    """
+    source = vtk.vtkSphereSource()
+    source.SetThetaResolution(20)
+    source.SetPhiResolution(11)
+    source.Update()
+    return source.GetOutput()
 
 
 if __name__ == '__main__':
