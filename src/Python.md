@@ -301,6 +301,8 @@ This section includes vtkUnstructuredGrid.
 
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
+[ClipUnstructuredGridWithPlane](/Python/UnstructuredGrid/ClipUnstructuredGridWithPlane) | vtkTableBasedClipDataSet vtkUnstructuredGrid | Clip a UGrid with a plane.
+[ClipUnstructuredGridWithPlane2](/Python/UnstructuredGrid/ClipUnstructuredGridWithPlane2) | vtkClipDataSet vtkUnstructuredGrid | Clip a UGrid with a plane.
 [UGrid](/Python/UnstructuredGrid/UGrid) | vtkUnstructuredGrid | Creation of an unstructured grid.
 
 ### Registration

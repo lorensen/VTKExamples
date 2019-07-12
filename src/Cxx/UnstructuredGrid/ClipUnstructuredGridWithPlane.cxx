@@ -112,7 +112,9 @@ int main(int argc, char *argv[])
   renderer->GetActiveCamera()->Dolly(1.4);
   renderer->ResetCameraClippingRange();
   renderWindow->Render();
-  
+  renderWindow->SetWindowName("ClipUnstructuredGridWithPlane");
+  renderWindow->Render();
+
   interactor->Start();
 
   // Generate a report
