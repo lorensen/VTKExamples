@@ -92,6 +92,7 @@ if (BUILD_TESTING)
     PNGWriter
     ReadAllPolyDataTypes
     ReadAllPolyDataTypesDemo
+    ReadAllUnstructuredGridTypes
     ReadBMP
     ReadCML
     ReadDICOM
@@ -181,6 +182,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-ReadAllPolyDataTypesDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestReadAllPolyDataTypesDemo ${DATA}/teapot.g ${DATA}/cowHead.vtp ${DATA}/horse.ply ${DATA}/trumpet.obj ${DATA}/42400-IDGH.stl ${DATA}/v.vtk)
+
+  add_test(${KIT}-ReadAllUnstructuredGridTypes ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestReadAllUnstructuredGridTypes ${DATA}/blow.vtk)
 
   add_test(${KIT}-ReadBMP ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestReadBMP ${DATA}/masonry.bmp)

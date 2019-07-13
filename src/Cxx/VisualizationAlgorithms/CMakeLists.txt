@@ -13,6 +13,7 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersExtraction
     vtkFiltersFlowPaths
     vtkFiltersGeneral
+    vtkFiltersGeneric
     vtkFiltersGeometry
     vtkFiltersHybrid
     vtkFiltersModeling
@@ -20,6 +21,7 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersTexture
     vtkIOGeometry
     vtkIOImage
+    vtkIOImport
     vtkIOLegacy
     vtkIOParallel
     vtkIOXML
@@ -87,6 +89,7 @@ if (BUILD_TESTING)
     DisplacementPlot
     FilledContours
     FindCellIntersections
+    FireFlow
     FlyingHeadSlice
     HeadBone
     HeadSlice
@@ -160,6 +163,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-FindCellIntersections ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestFindCellIntersections ${DATA}/Disc_BiQuadraticQuads_0_0.vtu)
+
+  add_test(${KIT}-FireFlow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestFireFlow ${DATA}/room_vis.wrl ${DATA}/fire_ug.vtu)
 
   add_test(${KIT}-FlyingHeadSlice ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestFlyingHeadSlice ${DATA}/FullHead.mhd)
