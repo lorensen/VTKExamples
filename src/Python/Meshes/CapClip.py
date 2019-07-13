@@ -101,7 +101,7 @@ def main():
     renderer.ResetCameraClippingRange()
 
     renderWindow.Render()
-    renderWindow.SetWindowName('ClipCap')
+    renderWindow.SetWindowName('CapClip')
     renderWindow.Render()
 
     interactor.Start()
