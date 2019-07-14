@@ -24,6 +24,9 @@ int main (int argc, char *argv[])
 {
   auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
+  vtkColor3d isoSurfaceColor = colors->GetColor3d("WhiteSmoke");
+  vtkColor3d sphereColor = colors->GetColor3d("hotpink");
+  vtkColor3d backgroundColor = colors->GetColor3d("SlateGray");
 
   auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
@@ -105,6 +108,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkActor>::New();
   isoSurfaceActor->SetMapper(isoSurfaceMapper);
   isoSurfaceActor->GetProperty()->SetOpacity(.5);
+  isoSurfaceActor->GetProperty()->SetDiffuseColor(isoSurfaceColor.GetData());
 
   auto sphere =
     vtkSmartPointer<vtkSphereSource>::New();
@@ -120,12 +124,15 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
   sphereActor->GetProperty()->SetOpacity(1.0);
+  sphereActor->GetProperty()->SetSpecular(.4);
+  sphereActor->GetProperty()->SetSpecularPower(80);
+  sphereActor->GetProperty()->SetDiffuseColor(sphereColor.GetData());
 
   renderer->AddActor(tubesActor);
   renderer->AddActor(sphereActor);
   renderer->AddActor(isoSurfaceActor);
 
-  renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
+  renderer->SetBackground(backgroundColor.GetData());
   renderWindow->SetSize(640, 512);
   renderWindow->Render();
   renderer->GetActiveCamera()->Azimuth(15.0);

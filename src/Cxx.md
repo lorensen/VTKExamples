@@ -982,6 +982,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [FastSplatter](/Cxx/Visualization/FastSplatter) | vtkFastSplatter | Convolve a splat image with every point in an input image.
 [FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | vtkCellLocator | Find the intersection of a line and the cells in an unstructured dataset
 [FireFlow](/Cxx/VisualizationAlgorithms/FireFlow) | vtkPointSource vtkStreamTracer vtkContourFilter vtkVRMLImporter vtkXMLUnstructuredGridReader| Combine geometry from a VRML file and a solution from a vtkUnstructuredGrid file.
+[FireFlowDemo](/Cxx/VisualizationAlgorithms/FireFlowDemo) | vtkPointSource vtkStreamTracer vtkContourFilter vtkVRMLImporter vtkXMLUnstructuredGridReader vtkSliderWidget| Combine geometry from a VRML file and a solution from a vtkUnstructuredGrid file (interactive).
 [FlatShading](/Cxx/Visualization/FlatShading) | vtkActor |
 [FlyingFrogSkinAndTissue](/Cxx/Visualization/FlyingFrogSkinAndTissue) | vtkMetaImageReader vtkFlyingEdges3D vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth | All frog parts and translucent skin.
 [FlyingFrogSkinAndTissueB](/Cxx/Visualization/FlyingFrogSkinAndTissueB) | vtkMetaImageReader vtkFlyingEdges3D vtkWindowedSincPolyDataFilter vtkImageGaussianSmooth | All frog parts and translucent skin.

@@ -90,6 +90,7 @@ if (BUILD_TESTING)
     FilledContours
     FindCellIntersections
     FireFlow
+    FireFlowDemo
     FlyingHeadSlice
     HeadBone
     HeadSlice
@@ -166,6 +167,9 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-FireFlow ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestFireFlow ${DATA}/room_vis.wrl ${DATA}/fire_ug.vtu)
+
+  add_test(${KIT}-FireFlowDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestFireFlowDemo ${DATA}/room_vis.wrl ${DATA}/fire_ug.vtu)
 
   add_test(${KIT}-FlyingHeadSlice ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestFlyingHeadSlice ${DATA}/FullHead.mhd)
