@@ -13,7 +13,7 @@ def get_program_parameters():
     '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
     parser.add_argument('filename', nargs='?', default=None, help='Optional input filename e.g cow.g.')
-    parser.add_argument('reduction', nargs='?', type = float, default=None, help='Optional reduction percentage e.g 0.9')
+    parser.add_argument('reduction', nargs='?', type = float, default=.9, help='Sets the decimation target reduction, (default is 0.9).')
     args = parser.parse_args()
     return args.filename, args.reduction
 
@@ -33,9 +33,6 @@ def main():
             inputPolyData = GetSpherePD()
     else:
         inputPolyData = GetSpherePD()
-
-    if not reduction:
-        reduction = .9 # 90% reduction
 
     print("Before decimation")
     print(f"There are {inputPolyData.GetNumberOfPoints()} points.")
