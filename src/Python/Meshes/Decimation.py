@@ -26,6 +26,8 @@ def main():
     backFaceColor = colors.GetColor3d("gold")
     inputActorColor = colors.GetColor3d("flesh")
     decimatedActorColor = colors.GetColor3d("flesh")
+    colors.SetColor('leftBkg', [0.6, 0.5, 0.4, 1.0])
+    colors.SetColor('rightBkg', [0.4, 0.5, 0.6, 1.0])
 
     if filePath and os.path.isfile(filePath):
         inputPolyData = ReadPolyData(filePath)
@@ -90,12 +92,12 @@ def main():
     leftRenderer = vtk.vtkRenderer()
     renderWindow.AddRenderer(leftRenderer)
     leftRenderer.SetViewport(leftViewport)
-    leftRenderer.SetBackground(.6, .5, .4)
+    leftRenderer.SetBackground((colors.GetColor3d('leftBkg')))
 
     rightRenderer = vtk.vtkRenderer()
     renderWindow.AddRenderer(rightRenderer)
     rightRenderer.SetViewport(rightViewport)
-    rightRenderer.SetBackground(.4, .5, .6)
+    rightRenderer.SetBackground((colors.GetColor3d('rightBkg')))
 
     # Add the sphere to the left and the cube to the right
     leftRenderer.AddActor(inputActor)
