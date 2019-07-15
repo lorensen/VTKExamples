@@ -12,7 +12,7 @@ def get_program_parameters():
     This is an example using vtkDecimatePro to decimate input polydata, if provided, or a sphere otherwise.
     '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
-    parser.add_argument('filename', nargs='?', default=None, help='Optional input filename e.g cow.g.')
+    parser.add_argument('filename', nargs='?', default=None, help='Optional input filename e.g Torso.vtp.')
     parser.add_argument('reduction', nargs='?', type = float, default=.9, help='Sets the decimation target reduction, (default is 0.9).')
     args = parser.parse_args()
     return args.filename, args.reduction
