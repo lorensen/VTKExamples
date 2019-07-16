@@ -5,6 +5,7 @@
 #include <vtkPointData.h>
 #include <vtkUnstructuredGrid.h>
 #include <vtkFloatArray.h>
+#include <vtkCellTypes.h>
 #include <vtkRectilinearGrid.h>
 #include <vtkTableBasedClipDataSet.h>
 #include <vtkPolyDataMapper.h>
