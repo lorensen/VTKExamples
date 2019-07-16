@@ -12,6 +12,8 @@
 #include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
 
+namespace
+{
 // Handle mouse events
 class MouseInteractorHighLightActor : public vtkInteractorStyleTrackballCamera
 {
@@ -31,13 +33,12 @@ public:
   }
   virtual void OnLeftButtonDown() override
   {
-    vtkSmartPointer<vtkNamedColors> colors =
-        vtkSmartPointer<vtkNamedColors>::New();
+    auto colors =   vtkSmartPointer<vtkNamedColors>::New();
 
     int* clickPos = this->GetInteractor()->GetEventPosition();
 
     // Pick from this location.
-    vtkSmartPointer<vtkPropPicker> picker =
+    auto picker =
         vtkSmartPointer<vtkPropPicker>::New();
     picker->Pick(clickPos[0], clickPos[1], 0, this->GetDefaultRenderer());
 
@@ -57,6 +58,7 @@ public:
           colors->GetColor3d("Red").GetData());
       this->LastPickedActor->GetProperty()->SetDiffuse(1.0);
       this->LastPickedActor->GetProperty()->SetSpecular(0.0);
+      this->LastPickedActor->GetProperty()->EdgeVisibilityOn();
     }
 
     // Forward events
@@ -67,13 +69,14 @@ private:
   vtkActor* LastPickedActor;
   vtkProperty* LastPickedProperty;
 };
+}
 
 vtkStandardNewMacro(MouseInteractorHighLightActor);
 
 // Execute application.
 int main(int argc, char* argv[])
 {
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
       vtkSmartPointer<vtkNamedColors>::New();
 
   colors->SetColor("Bkg", 0.3, 0.4, 0.5);
@@ -84,19 +87,20 @@ int main(int argc, char* argv[])
     numberOfSpheres = atoi(argv[1]);
   }
   // A renderer and render window
-  vtkSmartPointer<vtkRenderer> renderer =
+  auto renderer =
       vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderWindow =
       vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetSize(640, 480);
   renderWindow->AddRenderer(renderer);
 
   // An interactor
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  auto renderWindowInteractor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   // Set the custom type to use for interaction.
-  vtkSmartPointer<MouseInteractorHighLightActor> style =
+  auto style =
       vtkSmartPointer<MouseInteractorHighLightActor>::New();
   style->SetDefaultRenderer(renderer);
 
@@ -104,7 +108,7 @@ int main(int argc, char* argv[])
 
   for (int i = 0; i < numberOfSpheres; ++i)
   {
-    vtkSmartPointer<vtkSphereSource> source =
+    auto source =
         vtkSmartPointer<vtkSphereSource>::New();
     double x, y, z, radius;
     x = vtkMath::Random(-5, 5);
@@ -115,10 +119,10 @@ int main(int argc, char* argv[])
     source->SetCenter(x, y, z);
     source->SetPhiResolution(11);
     source->SetThetaResolution(21);
-    vtkSmartPointer<vtkPolyDataMapper> mapper =
+    auto mapper =
         vtkSmartPointer<vtkPolyDataMapper>::New();
     mapper->SetInputConnection(source->GetOutputPort());
-    vtkSmartPointer<vtkActor> actor =
+    auto actor =
         vtkSmartPointer<vtkActor>::New();
     actor->SetMapper(mapper);
     double r, g, b;
