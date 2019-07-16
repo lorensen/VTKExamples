@@ -12,3 +12,7 @@ src/Testing/Data/Frog/frogtissue.mhd filter=lfs diff=lfs merge=lfs -text
 src/Testing/Data/vw_knee.slc filter=lfs diff=lfs merge=lfs -text
 src/Testing/Data/labels.raw filter=lfs diff=lfs merge=lfs -text
 src/Testing/Data/labels.mhd filter=lfs diff=lfs merge=lfs -text
+src/Testing/Data/glTF/* filter=lfs diff=lfs merge=lfs -text
+src/Testing/Data/glTF/*/* filter=lfs diff=lfs merge=lfs -text
+src/Testing/Data/glTF/*/* filter=lfs diff=lfs merge=lfs -text
+src/Testing/Data/glTF/*/*/* filter=lfs diff=lfs merge=lfs -text

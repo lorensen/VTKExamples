@@ -69,6 +69,7 @@ These are fully independent, compilable examples. There is significant overlap i
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [3DSImporter](/Cxx/IO/3DSImporter) | vtk3DSImporter | Import a 3D Studio scene that includes multiple actors.
+[GLTFImporter](/Cxx/IO/GLTFImporter) | vtkGLTFImporter | Import a glTF scene.
 [ImportPolyDataScene](/Cxx/IO/ImportPolyDataScene) | vtkXMLMultiBlockDataReader vtkDataObjectTreeIterator | Import a polydata scene using multiblock datasets.
 [OBJImporter](/Cxx/IO/OBJImporter) | vtkOBJImporter | Import an OBJ scene that includes actors, materials and textures.
 [VRMLImporter](/Cxx/IO/VRMLImporter) | vtkVRMLImporter | Import a VRML 2.0 (WRL) file.
