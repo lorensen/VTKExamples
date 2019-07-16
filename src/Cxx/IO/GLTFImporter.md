@@ -12,4 +12,5 @@ There are many sources of *glTF* file including:
     When you run the example, be sure to specify the full pathname of the .glTF file. There is currently a bug in the vtkGLTFImporter. For example, if your home directry is /home/janedoe the the full pathname of the FlightHelmet data is /home/janedoe/VTKExamples/src/Testing/Data/gltf/FlightHelmet/FlightHelmet.gltf.
 
 !!! warning
-    The gltf files are stored using git's [lfs large file system](https://git-lfs.github.com/). If you do not have lfs installed, you may access the FlightHelmet Data directly from the TKExamples github repository.
+    The gltf files are stored using git's [lfs large file system](https://git-lfs.github.com/). If you do not have git lfs installed, you may access the [FlightHelmet Data](https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0/FlightHelmet)) directly from the orignal repo. Be sure to download all of the files.
+
