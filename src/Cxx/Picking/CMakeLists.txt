@@ -10,6 +10,7 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersExtraction
     vtkFiltersGeneral
     vtkFiltersGeometry
+    vtkFiltersHybrid
     vtkFiltersSources
     vtkIOGeometry
     vtkIOPLY

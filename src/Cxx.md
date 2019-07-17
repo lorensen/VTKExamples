@@ -1128,9 +1128,10 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DoubleClick](/Cxx/Interaction/DoubleClick) | vtkInteractorStyleTrackballCamera | Catch a double click.
 [EllipticalButton](/Cxx/Interaction/EllipticalButton) | vtkEllipticalButtonSource vtkButtonWidget | Create an elliptical button.
 [Game](/Cxx/Interaction/Game) | vtkInteractorStyleTrackballActor | Move a cube into a sphere.
-[HighlightPickedActor](/Cxx/Picking/HighlightPickedActor) | vtkPropPicker | Highlight a picked actor.
+[HighlightPickedActor](/Cxx/Picking/HighlightPickedActor) | vtkPropPicker | Highlight a picked actor by changing its color.
 [HighlightSelectedPoints](/Cxx/Picking/HighlightSelectedPoints) | vtkExtractGeometry | Highlight Selected Points.
 [HighlightSelection](/Cxx/Picking/HighlightSelection) | vtkExtractPolyDataGeometry | Highlight selection.
+[HighlightWithSilhouette](/Cxx/Picking/HighlightWithSilhouette) | vtkPropPicker vtkPolyDataSilhouette| Highlight a picked actor by adding a silhouette.
 [ImageClip](/Cxx/Interaction/ImageClip) | vtkImageClip | Demonstrates how to interactively select and display a region of an image.
 [ImageRegion](/Cxx/Interaction/ImageRegion) | vtkCommand | Select a region of an image.
 [InteractorStyleTerrain](/Cxx/Interaction/InteractorStyleTerrain) | vtkInteractorStyleTerrain | Terrain mode.
