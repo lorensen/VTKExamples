@@ -548,7 +548,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 | Example Name | Classes Demonstrated | Description | Image |
 | -------------- | ---------------------- | ------------- | ------- |
 [CallBack](/Python/Interaction/CallBack) | vtkCallbackCommand vtkOrientationMarkerWidget | Setting up a callback with client data. Two different methods are demonstrated.
-[HighlightPickedActor](/Python/Interaction/HighlightPickedActor) | vtkPropPicker vtkInteractorStyleTrackballCamera | Pick and highlight an actor based on mouse clicks.
+[HighlightPickedActor](/Python/Picking/HighlightPickedActor) | vtkPropPicker vtkInteractorStyleTrackballCamera | Pick and highlight an actor based on mouse clicks.
+[HighlightWithSilhouette](/Python/Picking/HighlightWithSilhouette) | vtkPropPicker vtkPolyDataSilhouette| Highlight a picked actor by adding a silhouette.
 [MouseEvents](/Python/Interaction/MouseEvents) | vtkInteractorStyleTrackballCamera | Subclass the interactor style.
 [MouseEventsObserver](/Python/Interaction/MouseEventsObserver) | vtkCallbackCommand | Use an observer.
 
