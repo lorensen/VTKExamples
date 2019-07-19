@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
   double dx = 1.0/ static_cast<double>(numSteps) * 2.0;
   transform0->Translate(-numSteps * dx - .3, 0.0, 0.0);
   renderWindow->Render();
-  renderer->GetActiveCamera()->Azimuth(-45);
+  renderer->GetActiveCamera()->Azimuth(-60);
   renderer->GetActiveCamera()->Elevation(45);
   renderer->GetActiveCamera()->Dolly(1.2);
 
