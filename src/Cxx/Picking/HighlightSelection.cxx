@@ -84,6 +84,7 @@ public:
       this->SelectedActor->GetProperty()->SetColor(
           colors->GetColor3d("Tomato").GetData());
       this->SelectedActor->GetProperty()->SetPointSize(5);
+      this->SelectedActor->GetProperty()->SetRepresentationToWireframe();
 
       this->GetInteractor()
           ->GetRenderWindow()
@@ -224,6 +225,8 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
   else
   {
     auto source = vtkSmartPointer<vtkSphereSource>::New();
+    source->SetPhiResolution(21);
+    source->SetThetaResolution(40);
     source->Update();
     polyData = source->GetOutput();
   }

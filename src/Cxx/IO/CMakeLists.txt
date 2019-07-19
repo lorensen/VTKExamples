@@ -18,6 +18,7 @@ if(NOT VTK_BINARY_DIR)
     vtkFiltersModeling
     vtkFiltersSources
     vtkIOExodus
+    vtkIOExport
     vtkIOGeometry
     vtkIOImage
     vtkIOImport
@@ -79,6 +80,7 @@ if (BUILD_TESTING)
     ConvertFile
     DEMReader
     DumpXMLFile
+    GLTFExporter
     ExportPolyDataScene
     GenericDataObjectReader
     GLTFImporter
@@ -115,7 +117,7 @@ if (BUILD_TESTING)
     ReadStructuredGrid
     ReadTIFF
     ReadTextFile
-    ReadUnknownTypeXMLFile
+    ReadUnknownTypeXMLFiel
     ReadUnstructuredGrid
     SimplePointsReader
     StructuredPointsReader
@@ -151,6 +153,12 @@ if (BUILD_TESTING)
 
   add_test(${KIT}-GenericDataObjectReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestGenericDataObjectReader ${DATA}/Bunny.vtp)
+
+  add_test(${KIT}-GLTFImporterExporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestGLTFImporter ${TEMP}/GLTFExporter.gltf -V ${DATA}/Baseline/Cxx/IO/TestGLTFImporterExporter.png)
+  add_test(${KIT}-GLTFExporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestGLTFExporter ${TEMP}/GLTFExporter.gltf)
+  set_property(TEST IO-GLTFImporterExporter PROPERTY DEPENDS IO-GLTFExporter)
 
   if(GIT_LFS)
     add_test(${KIT}-GLTFImporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
