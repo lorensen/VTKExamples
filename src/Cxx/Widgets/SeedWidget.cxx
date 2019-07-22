@@ -50,6 +50,7 @@ int main( int vtkNotUsed( argc ), char* vtkNotUsed( argv )[] )
   seedWidget->SetRepresentation( widgetRep );
 
   seedWidget->On();
+  window->Render();
   interactor->Start();
 
   return EXIT_SUCCESS;

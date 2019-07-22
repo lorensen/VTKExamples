@@ -103,6 +103,7 @@ int main(int, char * [])
   transferFunction->Build();
   chart->SetTransferFunction(transferFunction);
 
+  view->GetRenderWindow()->Render();
   view->GetInteractor()->Start();
 
   return EXIT_SUCCESS;

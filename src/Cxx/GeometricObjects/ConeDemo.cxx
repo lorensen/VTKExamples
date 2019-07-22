@@ -102,6 +102,8 @@ int main(int, char *[])
   auto style =
     vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
   renderWindowInteractor->SetInteractorStyle(style);
+  renderWindow->Render();
+
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;

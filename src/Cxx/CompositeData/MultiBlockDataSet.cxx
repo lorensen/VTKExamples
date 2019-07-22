@@ -89,6 +89,7 @@ int main (int, char *[])
   actor->SetMapper(mapper);
   aren->AddActor(actor);
 
+  renWin->Render();
   iren->Start();
 
   return EXIT_SUCCESS;

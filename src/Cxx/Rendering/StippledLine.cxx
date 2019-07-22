@@ -62,6 +62,7 @@ int main (int, char *[])
   iren->SetRenderWindow(renWin);
   ren1->AddActor(actor);
 
+  renWin->Render();
   iren->Start();
 
   return EXIT_SUCCESS;

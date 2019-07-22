@@ -68,6 +68,7 @@ int main(int, char *[]) {
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   // This starts the event loop and as a side effect causes an initial render.
+  renderWindow->Render();
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;

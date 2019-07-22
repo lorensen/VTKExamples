@@ -76,6 +76,7 @@ int main( int vtkNotUsed( argc ), char* vtkNotUsed( argv )[] )
 
   boxWidget->On();
 
+  window->Render();
   interactor->Start();
 
   return EXIT_SUCCESS;
