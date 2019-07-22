@@ -57,6 +57,7 @@ int main ( int argc, char* argv[] )
   imageViewer->GetRenderer()->SetBackground(
     colors->GetColor3d("Wheat").GetData());
 
+  imageViewer->GetRenderer()->Render();
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
 

@@ -88,6 +88,7 @@ int main( int vtkNotUsed( argc ), char* vtkNotUsed( argv )[] )
 
   boxWidget->On();
 
+  renderWindow->Render();
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;

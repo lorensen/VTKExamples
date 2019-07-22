@@ -64,6 +64,7 @@ int main(int, char *[])
   // Render and start interaction
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
+  renderWindow->Render();;
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;

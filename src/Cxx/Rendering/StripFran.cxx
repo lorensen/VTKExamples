@@ -112,6 +112,7 @@ int main (int argc, char *argv[])
   cam1->Dolly(1.4);
   renderer1->ResetCameraClippingRange();
 
+  renderWindow->Start();
   interactor->Start();
 
   return EXIT_SUCCESS;

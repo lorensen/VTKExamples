@@ -156,6 +156,7 @@ int main(int, char *[])
   camera->SetFocalPoint(200, 0, 0);
   camera->SetViewUp(0, 0, 1);
 
+  renderWindow->Render();
   renderWindowInteractor->Start();
 
   return EXIT_SUCCESS;

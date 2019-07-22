@@ -126,6 +126,7 @@ int main( int argc, char *argv[] )
   renWin->SetSize(640, 480);
 
   // interact with data
+  renWin->Render();
   iren->Start();
 
   return EXIT_SUCCESS;

@@ -74,6 +74,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkInteractorStyleImage>::New();
   renderWindowInteractor->SetInteractorStyle(style);
 
+  renderWindow->Render();
   renderWindowInteractor->Start();
   return EXIT_SUCCESS;
 }

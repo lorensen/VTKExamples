@@ -60,6 +60,7 @@ int main(int argc, char* argv[])
   interactor->SetInteractorStyle(style);
   
   // Render and start interaction
+  window->Render();
   interactor->Start();
 
   return EXIT_SUCCESS;
