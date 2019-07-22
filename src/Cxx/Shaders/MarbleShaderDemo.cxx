@@ -9,6 +9,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkVersion.h>
 
+#include <vtkInteractorStyleTrackballCamera.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
@@ -34,7 +35,10 @@
 
 #include <fstream>
 #include <sstream>
+#include <chrono>
+#include <thread>
 
+#define DELAY 200
 namespace {
 // -----------------------------------------------------------------------
 // Update uniform variables in the shader for each render. We do this with a
@@ -109,6 +113,7 @@ public:
                       sliderWidget->GetRepresentation())
                       ->GetValue();
     this->Shader->veinfreq = value;
+    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY));
   }
   SliderCallbackVeinFreq() : Shader(0)
   {
@@ -135,6 +140,7 @@ public:
     static_cast<vtkSliderRepresentation2D*>(sliderWidget->GetRepresentation())
         ->SetValue(value);
     this->Shader->veinlevels = value;
+    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY));
   }
   SliderCallbackVeinLevels() : Shader(0)
   {
@@ -157,6 +163,7 @@ public:
                       sliderWidget->GetRepresentation())
                       ->GetValue();
     this->Shader->warpfreq = value;
+    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY));
   }
   SliderCallbackWarpFreq() : Shader(0)
   {
@@ -179,6 +186,7 @@ public:
                       sliderWidget->GetRepresentation())
                       ->GetValue();
     this->Shader->warping = value;
+    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY));
   }
   SliderCallbackWarping() : Shader(0)
   {
@@ -235,8 +243,12 @@ int main(int argc, char* argv[])
   renderWindow->AddRenderer(renderer);
   renderer->AddActor(actor);
 
+  auto style =
+    vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
+
   auto interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
+  interactor->SetInteractorStyle(style);
 
   // Rescale polydata to [-1,1]
   auto userTransform = vtkSmartPointer<vtkTransform>::New();
@@ -484,7 +496,8 @@ int main(int argc, char* argv[])
   auto sliderWidgetVeinFreq = vtkSmartPointer<vtkSliderWidget>::New();
   sliderWidgetVeinFreq->SetInteractor(interactor);
   sliderWidgetVeinFreq->SetRepresentation(sliderRepVeinFreq);
-  sliderWidgetVeinFreq->SetAnimationModeToJump();
+  sliderWidgetVeinFreq->SetAnimationModeToAnimate();
+  sliderWidgetVeinFreq->SetNumberOfAnimationSteps(10);
   sliderWidgetVeinFreq->EnabledOn();
 
   auto callbackVeinFreq = vtkSmartPointer<SliderCallbackVeinFreq>::New();
@@ -515,7 +528,8 @@ int main(int argc, char* argv[])
   auto sliderWidgetVeinLevels = vtkSmartPointer<vtkSliderWidget>::New();
   sliderWidgetVeinLevels->SetInteractor(interactor);
   sliderWidgetVeinLevels->SetRepresentation(sliderRepVeinLevels);
-  sliderWidgetVeinLevels->SetAnimationModeToJump();
+  sliderWidgetVeinLevels->SetAnimationModeToAnimate();
+  sliderWidgetVeinLevels->SetNumberOfAnimationSteps(10);
   sliderWidgetVeinLevels->EnabledOn();
 
   auto callbackVeinLevels = vtkSmartPointer<SliderCallbackVeinLevels>::New();
@@ -548,7 +562,8 @@ int main(int argc, char* argv[])
   auto sliderWidgetWarpFreq = vtkSmartPointer<vtkSliderWidget>::New();
   sliderWidgetWarpFreq->SetInteractor(interactor);
   sliderWidgetWarpFreq->SetRepresentation(sliderRepWarpFreq);
-  sliderWidgetWarpFreq->SetAnimationModeToJump();
+  sliderWidgetWarpFreq->SetAnimationModeToAnimate();
+  sliderWidgetWarpFreq->SetNumberOfAnimationSteps(10);
   sliderWidgetWarpFreq->EnabledOn();
 
   auto callbackWarpFreq = vtkSmartPointer<SliderCallbackWarpFreq>::New();
@@ -579,7 +594,8 @@ int main(int argc, char* argv[])
   auto sliderWidgetWarping = vtkSmartPointer<vtkSliderWidget>::New();
   sliderWidgetWarping->SetInteractor(interactor);
   sliderWidgetWarping->SetRepresentation(sliderRepWarping);
-  sliderWidgetWarping->SetAnimationModeToJump();
+  sliderWidgetWarping->SetAnimationModeToAnimate();
+  sliderWidgetWarping->SetNumberOfAnimationSteps(10);
   sliderWidgetWarping->EnabledOn();
 
   auto callbackWarping = vtkSmartPointer<SliderCallbackWarping>::New();
