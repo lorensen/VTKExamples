@@ -127,7 +127,7 @@ if (BUILD_TESTING)
     TestCellsInsideObject ${DATA}/cow.g)
 
   add_test(${KIT}-ColorDisconnectedRegionsDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-    TestColorDisconnectedRegionsDemo ${DATA}/gears.stl)
+    TestColorDisconnectedRegionsDemo ${DATA}/fsu/footbones.ply)
 
   add_test(${KIT}-ColoredPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestColoredPoints ${TEMP}/coloredpoints.vtp)
