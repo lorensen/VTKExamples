@@ -215,6 +215,7 @@ function registerListener(event, func) {
   <span class=n>camera</span><span class=o>-&gt;</span><span class=n>SetFocalPoint</span><span class=p>(</span><span class=mi>200</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
   <span class=n>camera</span><span class=o>-&gt;</span><span class=n>SetViewUp</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
 
+  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
 
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
@@ -230,8 +231,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersGeneral</span>
   <span class=s>vtkImagingHybrid</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping ShepardMethod: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

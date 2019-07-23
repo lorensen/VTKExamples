@@ -109,6 +109,7 @@ int main(int, char *[])
   renderer->AddActor(lineActor);
   renderer->AddActor(tubeActor);
   renderer->SetBackground(.4, .5, .6);
+
   renderWindow->Render();
   renderWindowInteractor->Start();
 

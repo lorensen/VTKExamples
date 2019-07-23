@@ -171,6 +171,7 @@ function registerListener(event, func) {
   <span class=n>cam1</span><span class=o>-&gt;</span><span class=n>Dolly</span><span class=p>(</span><span class=mf>1.4</span><span class=p>);</span>
   <span class=n>renderer1</span><span class=o>-&gt;</span><span class=n>ResetCameraClippingRange</span><span class=p>();</span>
 
+  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
 
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
@@ -184,8 +185,10 @@ function registerListener(event, func) {
   <span class=s>vtkFiltersCore</span>
   <span class=s>vtkIOLegacy</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>
 <span class=nb>if</span> <span class=p>(</span><span class=s>NOT</span> <span class=s>VTK_FOUND</span><span class=p>)</span>
   <span class=nb>message</span><span class=p>(</span><span class=s2>&quot;Skipping StripFran: ${VTK_NOT_FOUND_MESSAGE}&quot;</span><span class=p>)</span>

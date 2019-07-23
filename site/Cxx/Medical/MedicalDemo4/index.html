@@ -199,6 +199,7 @@ function registerListener(event, func) {
   <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>
 
   <span class=c1>// Interact with the data.</span>
+  <span class=n>renWin</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>iren</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
 
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>
@@ -213,8 +214,10 @@ function registerListener(event, func) {
   <span class=s>vtkCommonDataModel</span>
   <span class=s>vtkIOImage</span>
   <span class=s>vtkInteractionStyle</span>
+  <span class=s>vtkRenderingContextOpenGL2</span>
   <span class=s>vtkRenderingCore</span>
   <span class=s>vtkRenderingFreeType</span>
+  <span class=s>vtkRenderingGL2PSOpenGL2</span>
   <span class=s>vtkRenderingOpenGL2</span>
   <span class=s>vtkRenderingVolume</span>
   <span class=s>vtkRenderingVolumeOpenGL2</span> <span class=s>QUIET</span><span class=p>)</span>

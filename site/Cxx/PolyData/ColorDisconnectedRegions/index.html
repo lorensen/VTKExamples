@@ -128,7 +128,8 @@ function registerListener(event, func) {
 <span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>interactor</span> <span class=o>=</span>
 </span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
-  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Initialize</span><span class=p>();</span>
+
+  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
 
   <span class=k>return</span> <span class=n>EXIT_SUCCESS</span><span class=p>;</span>

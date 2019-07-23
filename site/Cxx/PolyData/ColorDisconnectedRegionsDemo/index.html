@@ -68,6 +68,7 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindow.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkRenderWindowInteractor.h&gt;</span><span class=cp></span>
+</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkLookupTable.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkNamedColors.h&gt;</span><span class=cp></span>
 </span>
@@ -79,40 +80,51 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkXMLPolyDataReader.h&gt;</span><span class=cp></span>
 </span>
 <span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtksys/SystemTools.hxx&gt;</span><span class=cp></span>
-</span>
+</span><span class=cp>#include</span> <span class=cpf>&lt;random&gt;</span><span class=cp></span>
+
 <span class=k>namespace</span>
 <span class=p>{</span>
 <span class=hll><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>ReadPolyData</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>fileName</span><span class=p>);</span>
+</span><span class=hll><span class=kt>void</span> <span class=nf>RandomColors</span><span class=p>(</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=o>&amp;</span><span class=n>lut</span><span class=p>,</span> <span class=kt>int</span> <span class=n>numberOfColors</span><span class=p>);</span>
 </span><span class=p>}</span>
 
 <span class=kt>int</span> <span class=n>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span><span class=o>*</span><span class=n>argv</span><span class=p>[])</span>
 <span class=p>{</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>polyData</span> <span class=o>=</span> <span class=n>ReadPolyData</span><span class=p>(</span><span class=n>argc</span> <span class=o>&gt;</span> <span class=mi>1</span> <span class=o>?</span> <span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>:</span> <span class=s>&quot;&quot;</span><span class=p>);;</span>
+<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyData</span><span class=o>&gt;</span> <span class=n>polyData</span> <span class=o>=</span>
+</span>    <span class=n>ReadPolyData</span><span class=p>(</span><span class=n>argc</span> <span class=o>&gt;</span> <span class=mi>1</span> <span class=o>?</span> <span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>:</span> <span class=s>&quot;&quot;</span><span class=p>);</span>
+
+  <span class=k>auto</span> <span class=n>colors</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>colors</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataConnectivityFilter</span><span class=o>&gt;</span> <span class=n>connectivityFilter</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataConnectivityFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>connectivityFilter</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataConnectivityFilter</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>connectivityFilter</span><span class=o>-&gt;</span><span class=n>SetInputData</span><span class=p>(</span><span class=n>polyData</span><span class=p>);</span>
   <span class=n>connectivityFilter</span><span class=o>-&gt;</span><span class=n>SetExtractionModeToAllRegions</span><span class=p>();</span>
   <span class=n>connectivityFilter</span><span class=o>-&gt;</span><span class=n>ColorRegionsOn</span><span class=p>();</span>
   <span class=n>connectivityFilter</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
   <span class=c1>// Visualize</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>mapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>numberOfRegions</span> <span class=o>=</span> <span class=n>connectivityFilter</span><span class=o>-&gt;</span><span class=n>GetNumberOfExtractedRegions</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>lut</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetNumberOfTableValues</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>max</span><span class=p>(</span><span class=n>numberOfRegions</span><span class=p>,</span> <span class=mi>10</span><span class=p>));</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>Build</span><span class=p>();</span>
+  <span class=n>RandomColors</span><span class=p>(</span><span class=n>lut</span><span class=p>,</span> <span class=n>numberOfRegions</span><span class=p>);</span>
+  <span class=k>auto</span> <span class=n>mapper</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>connectivityFilter</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
   <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetScalarRange</span><span class=p>(</span><span class=n>connectivityFilter</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetPointData</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=s>&quot;RegionId&quot;</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>GetRange</span><span class=p>());</span>
+  <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetLookupTable</span><span class=p>(</span><span class=n>lut</span><span class=p>);</span>
   <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>actor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>actor</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>renderer</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>);</span>
+  <span class=k>auto</span> <span class=n>renderer</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>UseHiddenLineRemovalOn</span><span class=p>();</span>
+  <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>AddActor</span><span class=p>(</span><span class=n>actor</span><span class=p>);</span>
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>SetBackground</span><span class=p>(</span><span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor3d</span><span class=p>(</span><span class=s>&quot;Silver&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
 
   <span class=c1>// Create a useful view</span>
@@ -122,14 +134,17 @@ function registerListener(event, func) {
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>Dolly</span><span class=p>(</span><span class=mf>1.2</span><span class=p>);</span>
   <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>ResetCameraClippingRange</span><span class=p>();</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renderWindow</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>renderWindow</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>interactor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span>  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
+  <span class=k>auto</span> <span class=n>style</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkInteractorStyleTrackballCamera</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=k>auto</span> <span class=n>interactor</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>SetInteractorStyle</span><span class=p>(</span><span class=n>style</span><span class=p>);</span>
+  <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>Render</span><span class=p>();</span>
   <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Initialize</span><span class=p>();</span>
   <span class=n>interactor</span><span class=o>-&gt;</span><span class=n>Start</span><span class=p>();</span>
@@ -145,60 +160,89 @@ function registerListener(event, func) {
 </span><span class=hll>  <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>extension</span> <span class=o>=</span> <span class=n>vtksys</span><span class=o>::</span><span class=n>SystemTools</span><span class=o>::</span><span class=n>GetFilenameLastExtension</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>(</span><span class=n>fileName</span><span class=p>));</span>
 </span>  <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;.ply&quot;</span><span class=p>)</span>
   <span class=p>{</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPLYReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPLYReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+    <span class=k>auto</span> <span class=n>reader</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPLYReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
     <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=p>}</span>
   <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;.vtp&quot;</span><span class=p>)</span>
   <span class=p>{</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+    <span class=k>auto</span> <span class=n>reader</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
     <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=p>}</span>
   <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;.obj&quot;</span><span class=p>)</span>
   <span class=p>{</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOBJReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOBJReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+    <span class=k>auto</span> <span class=n>reader</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkOBJReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
     <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=p>}</span>
   <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;.stl&quot;</span><span class=p>)</span>
   <span class=p>{</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSTLReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSTLReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+    <span class=k>auto</span> <span class=n>reader</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSTLReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
     <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=p>}</span>
 <span class=hll>  <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;.vtk&quot;</span><span class=p>)</span>
 </span>  <span class=p>{</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+    <span class=k>auto</span> <span class=n>reader</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span> <span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
     <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=p>}</span>
   <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>extension</span> <span class=o>==</span> <span class=s>&quot;.g&quot;</span><span class=p>)</span>
   <span class=p>{</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBYUReader</span><span class=o>&gt;</span> <span class=n>reader</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBYUReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+    <span class=k>auto</span> <span class=n>reader</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkBYUReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetGeometryFileName</span> <span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
     <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>polyData</span> <span class=o>=</span> <span class=n>reader</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=p>}</span>
   <span class=k>else</span>
   <span class=p>{</span>
-<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;</span> <span class=n>source</span> <span class=o>=</span>
-</span><span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+    <span class=k>auto</span> <span class=n>source</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>    <span class=n>source</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
     <span class=n>polyData</span> <span class=o>=</span> <span class=n>source</span><span class=o>-&gt;</span><span class=n>GetOutput</span><span class=p>();</span>
   <span class=p>}</span>
   <span class=k>return</span> <span class=n>polyData</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=hll><span class=kt>void</span> <span class=n>RandomColors</span><span class=p>(</span><span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkLookupTable</span><span class=o>&gt;</span> <span class=o>&amp;</span><span class=n>lut</span><span class=p>,</span> <span class=kt>int</span> <span class=n>numberOfColors</span><span class=p>)</span>
+</span><span class=p>{</span>
+  <span class=c1>// Fill in a few known colors, the rest will be generated if needed</span>
+  <span class=k>auto</span> <span class=n>colors</span> <span class=o>=</span>
+<span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span>  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Gold&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Banana&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Tomato&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Wheat&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>4</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Lavender&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>5</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Flesh&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>6</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Raspberry&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>7</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Salmon&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>8</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Mint&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+  <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=mi>9</span><span class=p>,</span> <span class=n>colors</span><span class=o>-&gt;</span><span class=n>GetColor4d</span><span class=p>(</span><span class=s>&quot;Peacock&quot;</span><span class=p>).</span><span class=n>GetData</span><span class=p>());</span>
+
+  <span class=c1>// If the number of color is larger than the number of specified colors,</span>
+  <span class=c1>// generate some random colors.</span>
+  <span class=k>if</span> <span class=p>(</span><span class=n>numberOfColors</span> <span class=o>&gt;</span> <span class=mi>9</span><span class=p>)</span>
+  <span class=p>{</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>mt19937</span> <span class=n>mt</span><span class=p>(</span><span class=mi>4355412</span><span class=p>);</span> <span class=c1>//Standard mersenne_twister_engine</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>uniform_real_distribution</span><span class=o>&lt;</span><span class=kt>double</span><span class=o>&gt;</span> <span class=n>distribution</span><span class=p>(</span><span class=mf>.6</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
+    <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>10</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>numberOfColors</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+    <span class=p>{</span>
+      <span class=n>lut</span><span class=o>-&gt;</span><span class=n>SetTableValue</span><span class=p>(</span><span class=n>i</span><span class=p>,</span> <span class=n>distribution</span><span class=p>(</span><span class=n>mt</span><span class=p>),</span> <span class=n>distribution</span><span class=p>(</span><span class=n>mt</span><span class=p>),</span> <span class=n>distribution</span><span class=p>(</span><span class=n>mt</span><span class=p>),</span> <span class=mf>1.0</span><span class=p>);</span>
+    <span class=p>}</span>
+  <span class=p>}</span>
 <span class=p>}</span>
 <span class=p>}</span>
 </pre></div> <h3 id=cmakeliststxt>CMakeLists.txt<a class=headerlink href=#cmakeliststxt title="Permanent link">&para;</a></h3> <div class=codehilite><pre><span></span><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>3.3</span> <span class=s>FATAL_ERROR</span><span class=p>)</span>
