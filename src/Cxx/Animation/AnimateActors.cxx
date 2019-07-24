@@ -1,54 +1,47 @@
 #include "AnimateActors.h"
-#include <vtkSmartPointer.h>
+
 #include <vtkAnimationCue.h>
-#include <vtkRenderer.h>
-#include <vtkSphereSource.h>
-#include <vtkConeSource.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkCommand.h>
 #include <vtkAnimationScene.h>
+#include <vtkCamera.h>
+#include <vtkColor.h>
+#include <vtkCommand.h>
+#include <vtkConeSource.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkCamera.h>
-#include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
 
-#include <vtkNamedColors.h>
-#include <vtkColor.h>
-
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
   // Colors
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
   vtkColor3d coneColor = colors->GetColor3d("Tomato");
   vtkColor3d sphereColor = colors->GetColor3d("Banana");
   vtkColor3d backgroundColor = colors->GetColor3d("Peacock");
 
   // Create the graphics structure. The renderer renders into the
   // render window.
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  vtkSmartPointer<vtkRenderer> ren1 =
-    vtkSmartPointer<vtkRenderer>::New();
+  auto iren = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto ren1 = vtkSmartPointer<vtkRenderer>::New();
   ren1->SetBackground(backgroundColor.GetData());
 
-  vtkSmartPointer<vtkRenderWindow> renWin =
-    vtkSmartPointer<vtkRenderWindow>::New();
+  auto renWin = vtkSmartPointer<vtkRenderWindow>::New();
   renWin->SetMultiSamples(0);
   iren->SetRenderWindow(renWin);
   renWin->AddRenderer(ren1);
 
   // Generate a sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-    vtkSmartPointer<vtkSphereSource>::New();
+  auto sphereSource = vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->SetPhiResolution(31);
   sphereSource->SetThetaResolution(31);
 
-  vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
-  sphereMapper->SetInputConnection( sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> sphere =
-    vtkSmartPointer<vtkActor>::New();
+  auto sphereMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+  sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
+  auto sphere = vtkSmartPointer<vtkActor>::New();
   sphere->SetMapper(sphereMapper);
   sphere->GetProperty()->SetDiffuseColor(sphereColor.GetData());
   sphere->GetProperty()->SetDiffuse(.7);
@@ -58,24 +51,20 @@ int main(int argc, char *argv[])
   ren1->AddActor(sphere);
 
   // Generate a cone
-  vtkSmartPointer<vtkConeSource> coneSource =
-    vtkSmartPointer<vtkConeSource>::New();
+  auto coneSource = vtkSmartPointer<vtkConeSource>::New();
   coneSource->SetResolution(31);
 
-  vtkSmartPointer<vtkPolyDataMapper> coneMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
-  coneMapper->SetInputConnection( coneSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> cone =
-    vtkSmartPointer<vtkActor>::New();
+  auto coneMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+  coneMapper->SetInputConnection(coneSource->GetOutputPort());
+  auto cone = vtkSmartPointer<vtkActor>::New();
   cone->SetMapper(coneMapper);
   cone->GetProperty()->SetDiffuseColor(coneColor.GetData());
 
   ren1->AddActor(cone);
 
   // Create an Animation Scene
-  vtkSmartPointer<vtkAnimationScene> scene =
-    vtkSmartPointer<vtkAnimationScene>::New();
-  if(argc>=2 && strcmp(argv[1],"-real")==0)
+  auto scene = vtkSmartPointer<vtkAnimationScene>::New();
+  if (argc >= 2 && strcmp(argv[1], "-real") == 0)
   {
     cout << "real-time mode" << endl;
     scene->SetModeToRealTime();
@@ -91,19 +80,17 @@ int main(int argc, char *argv[])
   scene->SetEndTime(20);
 
   vtkSmartPointer<AnimationSceneObserver> sceneObserver =
-    vtkSmartPointer<AnimationSceneObserver>::New();
+      vtkSmartPointer<AnimationSceneObserver>::New();
   sceneObserver->SetRenderWindow(renWin);
-  scene->AddObserver(vtkCommand::AnimationCueTickEvent,sceneObserver);
+  scene->AddObserver(vtkCommand::AnimationCueTickEvent, sceneObserver);
 
   // Create an Animation Cue for each actor
-  vtkSmartPointer<vtkAnimationCue> cue1 =
-    vtkSmartPointer<vtkAnimationCue>::New();
+  auto cue1 = vtkSmartPointer<vtkAnimationCue>::New();
   cue1->SetStartTime(5);
   cue1->SetEndTime(23);
   scene->AddCue(cue1);
 
-  vtkSmartPointer<vtkAnimationCue> cue2 =
-    vtkSmartPointer<vtkAnimationCue>::New();
+  auto cue2 = vtkSmartPointer<vtkAnimationCue>::New();
   cue2->SetStartTime(1);
   cue2->SetEndTime(10);
   scene->AddCue(cue2);
@@ -115,9 +102,9 @@ int main(int argc, char *argv[])
 
   ActorAnimator animateCone;
   std::vector<double> endCone(3);
-    endCone[0] = -1;
-    endCone[1] = -1;
-    endCone[2] = -1;
+  endCone[0] = -1;
+  endCone[1] = -1;
+  endCone[2] = -1;
   animateCone.SetEndPosition(endCone);
   animateCone.SetActor(cone);
   animateCone.AddObserversToCue(cue2);
