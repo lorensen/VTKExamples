@@ -11,18 +11,21 @@
 class vtkTimerCallback2 : public vtkCommand
 {
 public:
-  int timerId;
-  static vtkTimerCallback2 *New()
+  vtkTimerCallback2() = default;
+  ~vtkTimerCallback2() = default;
+
+  int timerId = 0;
+  static vtkTimerCallback2* New()
   {
-    vtkTimerCallback2 *cb = new vtkTimerCallback2;
+    vtkTimerCallback2* cb = new vtkTimerCallback2;
     cb->TimerCount = 0;
     return cb;
   }
-  virtual void Execute(vtkObject *caller, unsigned long eventId,
-    void * vtkNotUsed(callData))
+  virtual void Execute(vtkObject* caller, unsigned long eventId,
+                       void* vtkNotUsed(callData))
   {
-    vtkRenderWindowInteractor *iren =
-      dynamic_cast<vtkRenderWindowInteractor*>(caller);
+    vtkRenderWindowInteractor* iren =
+        dynamic_cast<vtkRenderWindowInteractor*>(caller);
     if (vtkCommand::TimerEvent == eventId)
     {
       ++this->TimerCount;
@@ -39,7 +42,7 @@ public:
   }
 
 private:
-  int TimerCount;
+  int TimerCount = 0;
 
 public:
   vtkActor* actor;
@@ -47,12 +50,10 @@ public:
 
 int main(int, char*[])
 {
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
   // Create a sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-    vtkSmartPointer<vtkSphereSource>::New();
+  auto sphereSource = vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->SetCenter(0.0, 0.0, 0.0);
   sphereSource->SetRadius(1.0);
   sphereSource->SetThetaResolution(15);
@@ -60,24 +61,21 @@ int main(int, char*[])
   sphereSource->Update();
 
   // Create a mapper and actor
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->RotateX(90);
   actor->GetProperty()->SetRepresentationToWireframe();
 
   // Create a renderer, render window, and interactor
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
   renderWindow->SetSize(640, 480);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto renderWindowInteractor =
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   // Add the actor to the scene
@@ -91,8 +89,7 @@ int main(int, char*[])
   renderWindowInteractor->Initialize();
 
   // Sign up to receive TimerEvent
-  vtkSmartPointer<vtkTimerCallback2> cb =
-    vtkSmartPointer<vtkTimerCallback2>::New();
+  auto cb = vtkSmartPointer<vtkTimerCallback2>::New();
   cb->actor = actor;
 
   renderWindowInteractor->AddObserver(vtkCommand::TimerEvent, cb);
