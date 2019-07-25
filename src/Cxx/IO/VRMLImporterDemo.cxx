@@ -1,12 +1,8 @@
-#include <vtkSmartPointer.h>
-#include <vtkVRMLImporter.h>
-
-#include <vtkUnsignedCharArray.h>
 #include <vtkActor.h>
 #include <vtkActorCollection.h>
 #include <vtkCamera.h>
-#include <vtkMapper.h>
 #include <vtkLookupTable.h>
+#include <vtkMapper.h>
 #include <vtkPointData.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
@@ -15,12 +11,15 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkUnsignedCharArray.h>
+#include <vtkVRMLImporter.h>
 
 #include <vtkNamedColors.h>
 
-int main ( int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-  if(argc < 2)
+  if (argc < 2)
   {
     std::cout << "Required arguments: Filename" << std::endl;
     return EXIT_FAILURE;
@@ -29,37 +28,33 @@ int main ( int argc, char *argv[])
   std::string filename = argv[1];
   std::cout << "Reading " << filename << std::endl;
 
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto renderWindowInteractor =
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   // VRML Import
-  vtkSmartPointer<vtkVRMLImporter> importer =
-    vtkSmartPointer<vtkVRMLImporter>::New();
-  importer->SetFileName ( filename.c_str() );
+  auto importer = vtkSmartPointer<vtkVRMLImporter>::New();
+  importer->SetFileName(filename.c_str());
   importer->SetRenderWindow(renderWindow);
   importer->Update();
 
-  vtkSmartPointer<vtkActorCollection> actors =
-    vtkSmartPointer<vtkActorCollection>::New();
-  actors = renderer->GetActors();
-  std::cout << "There are " << actors->GetNumberOfItems() << " actors" << std::endl;
+  auto actors = renderer->GetActors();
+  std::cout << "There are " << actors->GetNumberOfItems() << " actors"
+            << std::endl;
   actors->InitTraversal();
   for (vtkIdType a = 0; a < actors->GetNumberOfItems(); ++a)
   {
-    vtkActor * actor = actors->GetNextActor();
+    vtkActor* actor = actors->GetNextActor();
 
-    // The importer shininess parameter is between 0 and 1. VTK specular power is usually 10-100.
-    // Also, the default for the specular factor for VRML is 1, while VTK's is 0
+    // The importer shininess parameter is between 0 and 1. VTK specular power
+    // is usually 10-100. Also, the default for the specular factor for VRML is
+    // 1, while VTK's is 0
     double specularPower = actor->GetProperty()->GetSpecularPower();
     if (specularPower <= 1.0)
     {
@@ -78,14 +73,14 @@ int main ( int argc, char *argv[])
       actor->GetProperty()->SetAmbient(.2);
     }
 #endif
-    vtkPolyDataMapper *mapper = dynamic_cast<vtkPolyDataMapper*>(actor->GetMapper());
+    vtkPolyDataMapper* mapper =
+        dynamic_cast<vtkPolyDataMapper*>(actor->GetMapper());
     if (mapper)
     {
-      vtkPolyData *dataSet = dynamic_cast<vtkPolyData*>(mapper->GetInput());
+      vtkPolyData* dataSet = dynamic_cast<vtkPolyData*>(mapper->GetInput());
       if (!dataSet->GetPointData()->GetNormals())
       {
-        vtkSmartPointer<vtkPolyDataNormals> normals =
-          vtkSmartPointer<vtkPolyDataNormals>::New();
+        auto normals = vtkSmartPointer<vtkPolyDataNormals>::New();
         normals->SetInputData(dataSet);
         normals->SplittingOff();
         normals->Update();
@@ -93,16 +88,16 @@ int main ( int argc, char *argv[])
       }
 
       // If there is a lookup table, convert it to point data
-      vtkLookupTable *lut = dynamic_cast<vtkLookupTable*>(mapper->GetLookupTable());
+      vtkLookupTable* lut =
+          dynamic_cast<vtkLookupTable*>(mapper->GetLookupTable());
       if (lut && mapper->GetScalarVisibility())
       {
-        vtkSmartPointer<vtkUnsignedCharArray> pc =
-          vtkSmartPointer<vtkUnsignedCharArray>::New();
+        auto pc = vtkSmartPointer<vtkUnsignedCharArray>::New();
         pc->SetNumberOfComponents(4);
         pc->SetNumberOfTuples(lut->GetNumberOfColors());
         for (int t = 0; t < lut->GetNumberOfColors(); ++t)
         {
-          double *lutc = lut->GetTableValue(t);
+          double* lutc = lut->GetTableValue(t);
           unsigned char lutuc[4];
           lut->GetColorAsUnsignedChars(lutc, lutuc);
           pc->SetTypedTuple(t, lutuc);

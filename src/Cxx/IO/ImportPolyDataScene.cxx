@@ -64,8 +64,6 @@ void ImportMultiBlockScene(vtkRenderer* renderer, std::string fileName)
 {
   vtkCamera* camera = renderer->GetActiveCamera();
 
-  std::string prefix;
-
   // Read the multiblock data
   auto reader = vtkSmartPointer<vtkXMLMultiBlockDataReader>::New();
   reader->SetFileName(fileName.c_str());
