@@ -3,8 +3,8 @@
 #include <vtkCamera.h>
 #include <vtkCellData.h>
 #include <vtkCellType.h>
-#include <vtkCellTypes.h>
 #include <vtkCellTypeSource.h>
+#include <vtkCellTypes.h>
 #include <vtkColorSeries.h>
 #include <vtkDataSetMapper.h>
 #include <vtkIntArray.h>
@@ -13,9 +13,9 @@
 #include <vtkMinimalStandardRandomSequence.h>
 #include <vtkNamedColors.h>
 #include <vtkProperty.h>
-#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
 #include <vtkShrinkFilter.h>
 #include <vtkSmartPointer.h>
 #include <vtkTessellatorFilter.h>
@@ -25,7 +25,7 @@
 
 #include <map>
 
-int main (int argc, char *argv[])
+int main(int argc, char* argv[])
 {
   std::string cellName = "vtkTetra";
   if (argc > 1)
@@ -34,79 +34,68 @@ int main (int argc, char *argv[])
   }
 
   // Store cell class names in a map
-  std::map<std::string,int> cellMap;
-  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_LINE)] =
-    VTK_LINE;
+  std::map<std::string, int> cellMap;
+  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_LINE)] = VTK_LINE;
   cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_QUADRATIC_EDGE)] =
-    VTK_QUADRATIC_EDGE;
+      VTK_QUADRATIC_EDGE;
   cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_CUBIC_LINE)] =
-    VTK_CUBIC_LINE;
+      VTK_CUBIC_LINE;
 
-  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_TRIANGLE)] =
-    VTK_TRIANGLE;
+  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_TRIANGLE)] = VTK_TRIANGLE;
   cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_QUADRATIC_TRIANGLE)] =
-    VTK_QUADRATIC_TRIANGLE;
-  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_QUAD)] =
-    VTK_QUAD;
+      VTK_QUADRATIC_TRIANGLE;
+  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_QUAD)] = VTK_QUAD;
   cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_QUADRATIC_QUAD)] =
-    VTK_QUADRATIC_QUAD;
+      VTK_QUADRATIC_QUAD;
 
-  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_TETRA)] =
-    VTK_TETRA;
+  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_TETRA)] = VTK_TETRA;
   cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_HEXAHEDRON)] =
-    VTK_HEXAHEDRON;
-  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_WEDGE)] =
-    VTK_WEDGE;
-  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_PYRAMID)] =
-    VTK_PYRAMID;
+      VTK_HEXAHEDRON;
+  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_WEDGE)] = VTK_WEDGE;
+  cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_PYRAMID)] = VTK_PYRAMID;
   cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_QUADRATIC_WEDGE)] =
-    VTK_QUADRATIC_WEDGE;
+      VTK_QUADRATIC_WEDGE;
   cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_QUADRATIC_PYRAMID)] =
-    VTK_QUADRATIC_PYRAMID;
+      VTK_QUADRATIC_PYRAMID;
   cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_QUADRATIC_HEXAHEDRON)] =
-    VTK_QUADRATIC_HEXAHEDRON;
+      VTK_QUADRATIC_HEXAHEDRON;
   cellMap[vtkCellTypes::GetClassNameFromTypeId(VTK_QUADRATIC_TETRA)] =
-    VTK_QUADRATIC_TETRA;
+      VTK_QUADRATIC_TETRA;
 
   if (cellMap[std::string(cellName)] == 0)
-    {
-      std::cout << "Cell type " << cellName << " is not supported." << std::endl;
-      return EXIT_FAILURE;
-    }
-  vtkSmartPointer<vtkCellTypeSource> source =
-    vtkSmartPointer<vtkCellTypeSource>::New();
+  {
+    std::cout << "Cell type " << cellName << " is not supported." << std::endl;
+    return EXIT_FAILURE;
+  }
+  auto source = vtkSmartPointer<vtkCellTypeSource>::New();
   source->SetCellType(cellMap[cellName]);
   source->Update();
-  std::cout << "Cell: "
-            << cellName << std::endl;
+  std::cout << "Cell: " << cellName << std::endl;
 
-  vtkPoints *originalPoints = source->GetOutput()->GetPoints();
-  vtkSmartPointer<vtkPoints> points =
-    vtkSmartPointer<vtkPoints>::New();
+  vtkPoints* originalPoints = source->GetOutput()->GetPoints();
+  auto points = vtkSmartPointer<vtkPoints>::New();
   points->SetNumberOfPoints(source->GetOutput()->GetNumberOfPoints());
-  vtkSmartPointer<vtkMinimalStandardRandomSequence> rng =
-    vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
+  auto rng = vtkSmartPointer<vtkMinimalStandardRandomSequence>::New();
   rng->SetSeed(5070); // for testing
-  for (auto i = 0; i <points->GetNumberOfPoints(); ++i)
+  for (auto i = 0; i < points->GetNumberOfPoints(); ++i)
   {
     double perturbation[3];
     for (auto j = 0; j < 3; ++j)
     {
       rng->Next();
-      perturbation[j] = rng->GetRangeValue(-0.1,0.1);
+      perturbation[j] = rng->GetRangeValue(-0.1, 0.1);
     }
     double currentPoint[3];
     originalPoints->GetPoint(i, currentPoint);
-    points->SetPoint(i,currentPoint[0] + perturbation[0],
-                       currentPoint[1] + perturbation[1],
-                       currentPoint[2] + perturbation[2]);
+    points->SetPoint(i, currentPoint[0] + perturbation[0],
+                     currentPoint[1] + perturbation[1],
+                     currentPoint[2] + perturbation[2]);
   }
   source->GetOutput()->SetPoints(points);
 
   int numCells = source->GetOutput()->GetNumberOfCells();
   std::cout << "Number of cells: " << numCells << std::endl;
-  vtkSmartPointer<vtkIntArray> idArray =
-    vtkSmartPointer<vtkIntArray>::New();
+  auto idArray = vtkSmartPointer<vtkIntArray>::New();
   idArray->SetNumberOfTuples(numCells);
   for (auto i = 0; i < numCells; ++i)
   {
@@ -116,36 +105,28 @@ int main (int argc, char *argv[])
   source->GetOutput()->GetCellData()->AddArray(idArray);
   source->GetOutput()->GetCellData()->SetActiveScalars("Ids");
 
-  vtkSmartPointer<vtkShrinkFilter> shrink =
-    vtkSmartPointer<vtkShrinkFilter>::New();
+  auto shrink = vtkSmartPointer<vtkShrinkFilter>::New();
   shrink->SetInputConnection(source->GetOutputPort());
   shrink->SetShrinkFactor(.8);
 
-  vtkSmartPointer<vtkTessellatorFilter> tessellate =
-    vtkSmartPointer<vtkTessellatorFilter>::New();
+  auto tessellate = vtkSmartPointer<vtkTessellatorFilter>::New();
   tessellate->SetInputConnection(shrink->GetOutputPort());
   tessellate->SetMaximumNumberOfSubdivisions(3);
 
   // Create a lookup table to map cell data to colors
-  vtkSmartPointer<vtkNamedColors> namedColors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  auto lut = vtkSmartPointer<vtkLookupTable>::New();
 
-  vtkSmartPointer<vtkLookupTable> lut =
-    vtkSmartPointer<vtkLookupTable>::New();
-
-  vtkSmartPointer<vtkColorSeries> colorSeries =
-    vtkSmartPointer<vtkColorSeries>::New();
-  int seriesEnum = colorSeries->BREWER_QUALITATIVE_SET3;;
+  auto colorSeries = vtkSmartPointer<vtkColorSeries>::New();
+  int seriesEnum = colorSeries->BREWER_QUALITATIVE_SET3;
+  ;
   colorSeries->SetColorScheme(seriesEnum);
   colorSeries->BuildLookupTable(lut, colorSeries->ORDINAL);
 
   // Fill in a few known colors, the rest will be generated if needed
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
-  //Create a mapper and actor
-  vtkSmartPointer<vtkDataSetMapper> mapper =
-    vtkSmartPointer<vtkDataSetMapper>::New();
+  // Create a mapper and actor
+  auto mapper = vtkSmartPointer<vtkDataSetMapper>::New();
   mapper->SetInputConnection(source->GetOutputPort());
   mapper->SetInputConnection(shrink->GetOutputPort());
   mapper->SetScalarRange(0, numCells + 1);
@@ -161,40 +142,34 @@ int main (int argc, char *argv[])
   {
     mapper->SetInputConnection(tessellate->GetOutputPort());
   }
-  vtkSmartPointer<vtkActor> actor =
-    vtkSmartPointer<vtkActor>::New();
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->EdgeVisibilityOn();
-//  actor->GetProperty()->SetLineWidth(3);
+  //  actor->GetProperty()->SetLineWidth(3);
 
-  vtkSmartPointer<vtkTextProperty> textProperty =
-    vtkSmartPointer<vtkTextProperty>::New();
+  auto textProperty = vtkSmartPointer<vtkTextProperty>::New();
   textProperty->SetFontSize(20);
   textProperty->SetJustificationToCentered();
   textProperty->SetColor(colors->GetColor3d("Lamp_Black").GetData());
 
-  vtkSmartPointer<vtkTextMapper> textMapper =
-    vtkSmartPointer<vtkTextMapper>::New();
+  auto textMapper = vtkSmartPointer<vtkTextMapper>::New();
   textMapper->SetInput(cellName.c_str());
   textMapper->SetTextProperty(textProperty);
 
-  vtkSmartPointer<vtkActor2D> textActor =
-    vtkSmartPointer<vtkActor2D>::New();
+  auto textActor = vtkSmartPointer<vtkActor2D>::New();
   textActor->SetMapper(textMapper);
   textActor->SetPosition(320, 20);
 
-  //Create a renderer, render window, and interactor
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
+  // Create a renderer, render window, and interactor
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->SetWindowName("Cell Type Source");
   renderWindow->AddRenderer(renderer);
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto renderWindowInteractor =
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
-  //Add the actors to the scene
+  // Add the actors to the scene
   renderer->AddViewProp(textActor);
   renderer->AddActor(actor);
   renderer->SetBackground(colors->GetColor3d("Silver").GetData());
@@ -204,7 +179,7 @@ int main (int argc, char *argv[])
   renderer->GetActiveCamera()->Elevation(30);
   renderer->ResetCameraClippingRange();
 
-  //Render and interact
+  // Render and interact
   renderWindow->SetSize(640, 480);
   renderWindow->Render();
   renderWindowInteractor->Start();
