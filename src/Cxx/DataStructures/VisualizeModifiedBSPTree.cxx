@@ -64,36 +64,37 @@ int main(int argc, char *argv[]) {
 
   vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
 
-  vtkNew<vtkNamedColors> colors;
+  auto colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkPolyDataMapper> pointsMapper =
+  auto pointsMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
   pointsMapper->SetInputData(polyData);
   pointsMapper->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> pointsActor = vtkSmartPointer<vtkActor>::New();
+  auto pointsActor = vtkSmartPointer<vtkActor>::New();
   pointsActor->SetMapper(pointsMapper);
   pointsActor->GetProperty()->SetInterpolationToFlat();
   pointsActor->GetProperty()->SetOpacity(.3);
   pointsActor->GetProperty()->SetColor(colors->GetColor4d("Yellow").GetData());
 
   // Create the tree
-  vtkSmartPointer<vtkModifiedBSPTree> bspTree =
+  auto bspTree =
       vtkSmartPointer<vtkModifiedBSPTree>::New();
   bspTree->SetDataSet(polyData);
   bspTree->BuildLocator();
 
-  int maxLevel = 10;
+  int maxLevel = 5;
   // Initialize the representation
-  vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
+  auto polydata = vtkSmartPointer<vtkPolyData>::New();
   bspTree->SetMaxLevel(maxLevel);
   bspTree->GenerateRepresentation(0, polydata);
 
-  vtkSmartPointer<vtkPolyDataMapper> bspTreeMapper =
+  auto bspTreeMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
   bspTreeMapper->SetInputData(polydata);
 
-  vtkSmartPointer<vtkActor> bspTreeActor = vtkSmartPointer<vtkActor>::New();
+  auto bspTreeActor = vtkSmartPointer<vtkActor>::New();
   bspTreeActor->SetMapper(bspTreeMapper);
   bspTreeActor->GetProperty()->SetInterpolationToFlat();
   bspTreeActor->GetProperty()->SetOpacity(.5);
@@ -102,28 +103,31 @@ int main(int argc, char *argv[]) {
     colors->GetColor4d("SpringGreen").GetData());
 
   // A renderer and render window
-  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow =
       vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
   // An interactor
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  auto style =
+    vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
+  auto renderWindowInteractor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
+  renderWindowInteractor->SetInteractorStyle(style);
 
   // Add the actors to the scene
   renderer->AddActor(pointsActor);
   renderer->AddActor(bspTreeActor);
   renderer->SetBackground(colors->GetColor3d("SteelBLue").GetData());
-  renderer->SetUseDepthPeeling(1);
+  renderer->UseHiddenLineRemovalOn();
 
   // Render an image (lights and cameras are created automatically)
   renderWindow->SetWindowName("VisualizeModifiedBSPTree");
   renderWindow->SetSize(600, 600);
   renderWindow->Render();
 
-  vtkSmartPointer<vtkSliderRepresentation2D> sliderRep =
+  auto sliderRep =
       vtkSmartPointer<vtkSliderRepresentation2D>::New();
   sliderRep->SetMinimumValue(0);
   sliderRep->SetMaximumValue(bspTree->GetLevel());
@@ -145,14 +149,14 @@ int main(int argc, char *argv[]) {
   sliderRep->GetSelectedProperty()->SetColor(
       colors->GetColor3d("Violet").GetData());
 
-  vtkSmartPointer<vtkSliderWidget> sliderWidget =
+  auto sliderWidget =
       vtkSmartPointer<vtkSliderWidget>::New();
   sliderWidget->SetInteractor(renderWindowInteractor);
   sliderWidget->SetRepresentation(sliderRep);
   sliderWidget->SetAnimationModeToAnimate();
   sliderWidget->EnabledOn();
 
-  vtkSmartPointer<vtkSliderCallback> callback =
+  auto callback =
       vtkSmartPointer<vtkSliderCallback>::New();
   callback->BSPTree = bspTree;
   callback->PolyData = polydata;
@@ -176,7 +180,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   std::string extension = vtksys::SystemTools::GetFilenameLastExtension(std::string(fileName));
   if (extension == ".ply")
   {
-    vtkSmartPointer<vtkPLYReader> reader =
+    auto reader =
       vtkSmartPointer<vtkPLYReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -184,7 +188,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".vtp")
   {
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+    auto reader =
       vtkSmartPointer<vtkXMLPolyDataReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -192,7 +196,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".obj")
   {
-    vtkSmartPointer<vtkOBJReader> reader =
+    auto reader =
       vtkSmartPointer<vtkOBJReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -200,7 +204,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".stl")
   {
-    vtkSmartPointer<vtkSTLReader> reader =
+    auto reader =
       vtkSmartPointer<vtkSTLReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -208,7 +212,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".vtk")
   {
-    vtkSmartPointer<vtkPolyDataReader> reader =
+    auto reader =
       vtkSmartPointer<vtkPolyDataReader>::New();
     reader->SetFileName (fileName);
     reader->Update();
@@ -216,7 +220,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   }
   else if (extension == ".g")
   {
-    vtkSmartPointer<vtkBYUReader> reader =
+    auto reader =
       vtkSmartPointer<vtkBYUReader>::New();
     reader->SetGeometryFileName (fileName);
     reader->Update();

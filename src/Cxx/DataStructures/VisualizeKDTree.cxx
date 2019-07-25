@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
   pointsActor->GetProperty()->SetInterpolationToFlat();
   pointsActor->GetProperty()->SetColor(colors->GetColor4d("Yellow").GetData());
 
-  int maxLevel = 20;
+  int maxLevel = 5;
   // Create the tree
   auto kdTree = vtkSmartPointer<vtkKdTree>::New();
   kdTree->SetDataSet(polyData);

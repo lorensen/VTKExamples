@@ -70,18 +70,21 @@ function registerListener(event, func) {
 <span class=hll><span class=k>class</span> <span class=nc>vtkTimerCallback2</span> <span class=o>:</span> <span class=k>public</span> <span class=n>vtkCommand</span>
 </span><span class=p>{</span>
 <span class=k>public</span><span class=o>:</span>
-  <span class=kt>int</span> <span class=n>timerId</span><span class=p>;</span>
-<span class=hll>  <span class=k>static</span> <span class=n>vtkTimerCallback2</span> <span class=o>*</span><span class=nf>New</span><span class=p>()</span>
+<span class=hll>  <span class=n>vtkTimerCallback2</span><span class=p>()</span> <span class=o>=</span> <span class=k>default</span><span class=p>;</span>
+</span><span class=hll>  <span class=o>~</span><span class=n>vtkTimerCallback2</span><span class=p>()</span> <span class=o>=</span> <span class=k>default</span><span class=p>;</span>
+</span>
+  <span class=kt>int</span> <span class=n>timerId</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+<span class=hll>  <span class=k>static</span> <span class=n>vtkTimerCallback2</span><span class=o>*</span> <span class=nf>New</span><span class=p>()</span>
 </span>  <span class=p>{</span>
-<span class=hll>    <span class=n>vtkTimerCallback2</span> <span class=o>*</span><span class=n>cb</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkTimerCallback2</span><span class=p>;</span>
+<span class=hll>    <span class=n>vtkTimerCallback2</span><span class=o>*</span> <span class=n>cb</span> <span class=o>=</span> <span class=k>new</span> <span class=n>vtkTimerCallback2</span><span class=p>;</span>
 </span>    <span class=n>cb</span><span class=o>-&gt;</span><span class=n>TimerCount</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
     <span class=k>return</span> <span class=n>cb</span><span class=p>;</span>
   <span class=p>}</span>
-<span class=hll>  <span class=k>virtual</span> <span class=kt>void</span> <span class=nf>Execute</span><span class=p>(</span><span class=n>vtkObject</span> <span class=o>*</span><span class=n>caller</span><span class=p>,</span> <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>eventId</span><span class=p>,</span>
-</span><span class=hll>    <span class=kt>void</span> <span class=o>*</span> <span class=n>vtkNotUsed</span><span class=p>(</span><span class=n>callData</span><span class=p>))</span>
+<span class=hll>  <span class=k>virtual</span> <span class=kt>void</span> <span class=nf>Execute</span><span class=p>(</span><span class=n>vtkObject</span><span class=o>*</span> <span class=n>caller</span><span class=p>,</span> <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>eventId</span><span class=p>,</span>
+</span><span class=hll>                       <span class=kt>void</span><span class=o>*</span> <span class=n>vtkNotUsed</span><span class=p>(</span><span class=n>callData</span><span class=p>))</span>
 </span>  <span class=p>{</span>
-<span class=hll>    <span class=n>vtkRenderWindowInteractor</span> <span class=o>*</span><span class=n>iren</span> <span class=o>=</span>
-</span><span class=hll>      <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>caller</span><span class=p>);</span>
+<span class=hll>    <span class=n>vtkRenderWindowInteractor</span><span class=o>*</span> <span class=n>iren</span> <span class=o>=</span>
+</span><span class=hll>        <span class=k>dynamic_cast</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>*&gt;</span><span class=p>(</span><span class=n>caller</span><span class=p>);</span>
 </span><span class=hll>    <span class=k>if</span> <span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>TimerEvent</span> <span class=o>==</span> <span class=n>eventId</span><span class=p>)</span>
 </span>    <span class=p>{</span>
       <span class=o>++</span><span class=k>this</span><span class=o>-&gt;</span><span class=n>TimerCount</span><span class=p>;</span>
@@ -98,7 +101,7 @@ function registerListener(event, func) {
   <span class=p>}</span>
 
 <span class=k>private</span><span class=o>:</span>
-  <span class=kt>int</span> <span class=n>TimerCount</span><span class=p>;</span>
+  <span class=kt>int</span> <span class=n>TimerCount</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
 
 <span class=k>public</span><span class=o>:</span>
 <span class=hll>  <span class=n>vtkActor</span><span class=o>*</span> <span class=n>actor</span><span class=p>;</span>
@@ -106,12 +109,10 @@ function registerListener(event, func) {
 
 <span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>char</span><span class=o>*</span><span class=p>[])</span>
 <span class=p>{</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;</span> <span class=n>colors</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>colors</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkNamedColors</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>
   <span class=c1>// Create a sphere</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;</span> <span class=n>sphereSource</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>sphereSource</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkSphereSource</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>SetCenter</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>);</span>
   <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>SetRadius</span><span class=p>(</span><span class=mf>1.0</span><span class=p>);</span>
   <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>SetThetaResolution</span><span class=p>(</span><span class=mi>15</span><span class=p>);</span>
@@ -119,24 +120,21 @@ function registerListener(event, func) {
   <span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
 
   <span class=c1>// Create a mapper and actor</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;</span> <span class=n>mapper</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>mapper</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkPolyDataMapper</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>mapper</span><span class=o>-&gt;</span><span class=n>SetInputConnection</span><span class=p>(</span><span class=n>sphereSource</span><span class=o>-&gt;</span><span class=n>GetOutputPort</span><span class=p>());</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;</span> <span class=n>actor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>actor</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkActor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>actor</span><span class=o>-&gt;</span><span class=n>SetMapper</span><span class=p>(</span><span class=n>mapper</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>RotateX</span><span class=p>(</span><span class=mi>90</span><span class=p>);</span>
   <span class=n>actor</span><span class=o>-&gt;</span><span class=n>GetProperty</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>SetRepresentationToWireframe</span><span class=p>();</span>
 
   <span class=c1>// Create a renderer, render window, and interactor</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;</span> <span class=n>renderer</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;</span> <span class=n>renderWindow</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>renderer</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderer</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+</span><span class=hll>  <span class=k>auto</span> <span class=n>renderWindow</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindow</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>AddRenderer</span><span class=p>(</span><span class=n>renderer</span><span class=p>);</span>
   <span class=n>renderWindow</span><span class=o>-&gt;</span><span class=n>SetSize</span><span class=p>(</span><span class=mi>640</span><span class=p>,</span> <span class=mi>480</span><span class=p>);</span>
 
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+  <span class=k>auto</span> <span class=n>renderWindowInteractor</span> <span class=o>=</span>
+<span class=hll>      <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkRenderWindowInteractor</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>SetRenderWindow</span><span class=p>(</span><span class=n>renderWindow</span><span class=p>);</span>
 
   <span class=c1>// Add the actor to the scene</span>
@@ -150,8 +148,7 @@ function registerListener(event, func) {
   <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>Initialize</span><span class=p>();</span>
 
   <span class=c1>// Sign up to receive TimerEvent</span>
-<span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTimerCallback2</span><span class=o>&gt;</span> <span class=n>cb</span> <span class=o>=</span>
-</span><span class=hll>    <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTimerCallback2</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
+<span class=hll>  <span class=k>auto</span> <span class=n>cb</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkTimerCallback2</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>cb</span><span class=o>-&gt;</span><span class=n>actor</span> <span class=o>=</span> <span class=n>actor</span><span class=p>;</span>
 
 <span class=hll>  <span class=n>renderWindowInteractor</span><span class=o>-&gt;</span><span class=n>AddObserver</span><span class=p>(</span><span class=n>vtkCommand</span><span class=o>::</span><span class=n>TimerEvent</span><span class=p>,</span> <span class=n>cb</span><span class=p>);</span>

@@ -73,7 +73,6 @@ function registerListener(event, func) {
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkSmartPointer.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkVersion.h&gt;</span><span class=cp></span>
 </span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtkXMLMultiBlockDataReader.h&gt;</span><span class=cp></span>
-</span><span class=hll><span class=cp>#include</span> <span class=cpf>&lt;vtksys/SystemTools.hxx&gt;</span><span class=cp></span>
 </span>
 <span class=cp>#if VTK_VERSION_NUMBER &gt;= 89000000000ULL</span>
 <span class=cp>#define VTK890 1</span>
@@ -82,11 +81,11 @@ function registerListener(event, func) {
 
 <span class=k>namespace</span> <span class=p>{</span>
 <span class=hll><span class=kt>void</span> <span class=n>ImportMultiBlockScene</span><span class=p>(</span><span class=n>vtkRenderer</span><span class=o>*</span> <span class=n>renderer</span><span class=p>,</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>fileName</span><span class=p>);</span>
-</span><span class=hll><span class=kt>void</span> <span class=nf>RestoreCameraFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>,</span> <span class=n>vtkCamera</span><span class=o>*</span><span class=p>,</span> <span class=n>vtkPolyData</span><span class=o>*</span><span class=p>);</span>
-</span><span class=hll><span class=kt>void</span> <span class=nf>RestorePropertyFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>,</span> <span class=n>vtkProperty</span><span class=o>*</span><span class=p>,</span> <span class=n>vtkPolyData</span><span class=o>*</span><span class=p>);</span>
-</span><span class=hll><span class=kt>void</span> <span class=nf>RestoreActorFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>,</span> <span class=n>vtkActor</span><span class=o>*</span><span class=p>,</span> <span class=n>vtkPolyData</span><span class=o>*</span><span class=p>);</span>
-</span><span class=hll><span class=c1>// void RestoreMapperFromFieldData(std::string, vtkPolyDataMapper *, vtkPolyData</span>
-</span><span class=hll><span class=c1>// *); void RestoreLookupTableFromFieldData(std::string, vtkScalarsToColors *,</span>
+</span><span class=hll><span class=kt>void</span> <span class=nf>RestoreCameraFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=k>const</span><span class=o>&amp;</span><span class=p>,</span> <span class=n>vtkCamera</span><span class=o>*</span><span class=p>,</span> <span class=n>vtkPolyData</span><span class=o>*</span><span class=p>);</span>
+</span><span class=hll><span class=kt>void</span> <span class=nf>RestorePropertyFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=k>const</span><span class=o>&amp;</span><span class=p>,</span> <span class=n>vtkProperty</span><span class=o>*</span><span class=p>,</span> <span class=n>vtkPolyData</span><span class=o>*</span><span class=p>);</span>
+</span><span class=hll><span class=kt>void</span> <span class=nf>RestoreActorFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=k>const</span><span class=o>&amp;</span><span class=p>,</span> <span class=n>vtkActor</span><span class=o>*</span><span class=p>,</span> <span class=n>vtkPolyData</span><span class=o>*</span><span class=p>);</span>
+</span><span class=hll><span class=c1>// void RestoreMapperFromFieldData(std::string const&amp;, vtkPolyDataMapper *, vtkPolyData</span>
+</span><span class=hll><span class=c1>// *); void RestoreLookupTableFromFieldData(std::string const&amp;, vtkScalarsToColors *,</span>
 </span><span class=hll><span class=c1>// vtkPolyData *);</span>
 </span><span class=p>}</span> <span class=c1>// namespace</span>
 
@@ -124,12 +123,8 @@ function registerListener(event, func) {
 </span><span class=p>{</span>
 <span class=hll>  <span class=n>vtkCamera</span><span class=o>*</span> <span class=n>camera</span> <span class=o>=</span> <span class=n>renderer</span><span class=o>-&gt;</span><span class=n>GetActiveCamera</span><span class=p>();</span>
 </span>
-  <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>prefix</span><span class=p>;</span>
-<span class=hll>  <span class=n>prefix</span> <span class=o>=</span> <span class=n>vtksys</span><span class=o>::</span><span class=n>SystemTools</span><span class=o>::</span><span class=n>GetFilenameName</span><span class=p>(</span><span class=n>fileName</span><span class=p>);</span>
-</span>
   <span class=c1>// Read the multiblock data</span>
 <span class=hll>  <span class=k>auto</span> <span class=n>reader</span> <span class=o>=</span> <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLMultiBlockDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
-</span><span class=hll>  <span class=n>vtkSmartPointer</span><span class=o>&lt;</span><span class=n>vtkXMLMultiBlockDataReader</span><span class=o>&gt;::</span><span class=n>New</span><span class=p>();</span>
 </span>  <span class=n>reader</span><span class=o>-&gt;</span><span class=n>SetFileName</span><span class=p>(</span><span class=n>fileName</span><span class=p>.</span><span class=n>c_str</span><span class=p>());</span>
   <span class=n>reader</span><span class=o>-&gt;</span><span class=n>Update</span><span class=p>();</span>
   <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&quot;Importing &quot;</span>
@@ -188,7 +183,7 @@ function registerListener(event, func) {
   <span class=p>}</span>
 <span class=cp>#endif</span>
 <span class=p>}</span>
-<span class=hll><span class=kt>void</span> <span class=n>RestoreCameraFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>arrayPrefix</span><span class=p>,</span> <span class=n>vtkCamera</span><span class=o>*</span> <span class=n>camera</span><span class=p>,</span>
+<span class=hll><span class=kt>void</span> <span class=n>RestoreCameraFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=k>const</span><span class=o>&amp;</span> <span class=n>arrayPrefix</span><span class=p>,</span> <span class=n>vtkCamera</span><span class=o>*</span> <span class=n>camera</span><span class=p>,</span>
 </span><span class=hll>                                <span class=n>vtkPolyData</span><span class=o>*</span> <span class=n>pd</span><span class=p>)</span>
 </span><span class=p>{</span>
 <span class=hll>  <span class=n>vtkFieldData</span><span class=o>*</span> <span class=n>fd</span> <span class=o>=</span> <span class=n>pd</span><span class=o>-&gt;</span><span class=n>GetFieldData</span><span class=p>();</span>
@@ -208,7 +203,7 @@ function registerListener(event, func) {
       <span class=n>fd</span><span class=o>-&gt;</span><span class=n>GetArray</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=p>(</span><span class=n>arrayPrefix</span> <span class=o>+</span> <span class=s>&quot;:&quot;</span> <span class=o>+</span> <span class=s>&quot;ViewAngle&quot;</span><span class=p>).</span><span class=n>c_str</span><span class=p>())</span>
           <span class=o>-&gt;</span><span class=n>GetTuple1</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
 <span class=p>}</span>
-<span class=kt>void</span> <span class=n>RestorePropertyFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>arrayPrefix</span><span class=p>,</span>
+<span class=kt>void</span> <span class=n>RestorePropertyFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=k>const</span><span class=o>&amp;</span> <span class=n>arrayPrefix</span><span class=p>,</span>
 <span class=hll>                                  <span class=n>vtkProperty</span><span class=o>*</span> <span class=n>property</span><span class=p>,</span> <span class=n>vtkPolyData</span><span class=o>*</span> <span class=n>pd</span><span class=p>)</span>
 </span><span class=p>{</span>
   <span class=k>if</span> <span class=p>(</span><span class=n>property</span><span class=p>)</span>
@@ -306,7 +301,7 @@ function registerListener(event, func) {
             <span class=o>:</span> <span class=nb>false</span><span class=p>);</span>
   <span class=p>}</span>
 <span class=p>}</span>
-<span class=hll><span class=kt>void</span> <span class=n>RestoreActorFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>arrayPrefix</span><span class=p>,</span> <span class=n>vtkActor</span><span class=o>*</span> <span class=n>actor</span><span class=p>,</span>
+<span class=hll><span class=kt>void</span> <span class=n>RestoreActorFromFieldData</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=k>const</span><span class=o>&amp;</span> <span class=n>arrayPrefix</span><span class=p>,</span> <span class=n>vtkActor</span><span class=o>*</span> <span class=n>actor</span><span class=p>,</span>
 </span><span class=hll>                               <span class=n>vtkPolyData</span><span class=o>*</span> <span class=n>pd</span><span class=p>)</span>
 </span><span class=p>{</span>
 <span class=hll>  <span class=n>vtkFieldData</span><span class=o>*</span> <span class=n>fd</span> <span class=o>=</span> <span class=n>pd</span><span class=o>-&gt;</span><span class=n>GetFieldData</span><span class=p>();</span>

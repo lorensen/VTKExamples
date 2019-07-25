@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
   pointsActor->GetProperty()->SetColor(colors->GetColor4d("Yellow").GetData());
   pointsActor->GetProperty()->SetOpacity(.3);
 
-  int maxLevel = 50;
+  int maxLevel = 5;
   // Create the tree
   auto obbTree = vtkSmartPointer<vtkOBBTree>::New();
   obbTree->SetDataSet(polyData);
@@ -129,9 +129,12 @@ int main(int argc, char *argv[]) {
   renderWindow->AddRenderer(renderer);
 
   // An interactor
+  auto style =
+    vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
   auto renderWindowInteractor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
+  renderWindowInteractor->SetInteractorStyle(style);
 
   // Add the actors to the scene
   renderer->AddActor(pointsActor);

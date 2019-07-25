@@ -96,18 +96,15 @@ function registerListener(event, func) {
   <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>fileName</span><span class=p>.</span><span class=n>empty</span><span class=p>())</span>
   <span class=p>{</span>
     <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>fn</span> <span class=o>=</span> <span class=n>fileName</span><span class=p>;</span>
-    <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>path</span><span class=p>;</span>
     <span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>ext</span><span class=p>;</span>
     <span class=k>auto</span> <span class=n>found</span> <span class=o>=</span> <span class=n>fn</span><span class=p>.</span><span class=n>find_last_of</span><span class=p>(</span><span class=s>&quot;.&quot;</span><span class=p>);</span>
     <span class=k>if</span> <span class=p>(</span><span class=n>found</span> <span class=o>==</span> <span class=n>std</span><span class=o>::</span><span class=n>string</span><span class=o>::</span><span class=n>npos</span><span class=p>)</span>
     <span class=p>{</span>
-      <span class=n>path</span> <span class=o>=</span> <span class=n>fn</span><span class=p>;</span>
       <span class=n>ext</span> <span class=o>=</span> <span class=s>&quot;.png&quot;</span><span class=p>;</span>
       <span class=n>fn</span> <span class=o>+=</span> <span class=n>ext</span><span class=p>;</span>
     <span class=p>}</span>
     <span class=k>else</span>
     <span class=p>{</span>
-      <span class=n>path</span> <span class=o>=</span> <span class=n>fileName</span><span class=p>.</span><span class=n>substr</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>found</span><span class=p>);</span>
       <span class=n>ext</span> <span class=o>=</span> <span class=n>fileName</span><span class=p>.</span><span class=n>substr</span><span class=p>(</span><span class=n>found</span><span class=p>,</span> <span class=n>fileName</span><span class=p>.</span><span class=n>size</span><span class=p>());</span>
     <span class=p>}</span>
     <span class=n>std</span><span class=o>::</span><span class=n>locale</span> <span class=n>loc</span><span class=p>;</span>
