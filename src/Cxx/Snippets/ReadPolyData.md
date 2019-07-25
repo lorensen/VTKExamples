@@ -16,7 +16,12 @@ To use the snippet, click the *Copy to clipboard* at the upper right of the code
 #include <vtkSTLReader.h>
 #include <vtkXMLPolyDataReader.h>
 
+#include <vtkPolyData.h>
 #include <vtkSphereSource.h>
+
+#include <algorithm> // For transform()
+#include <string> // For find_last_of()
+#include <cctype> // For to_lower
 
 namespace {
 vtkSmartPointer<vtkPolyData> ReadPolyData(std::string const& fileName);
