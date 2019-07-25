@@ -22,57 +22,51 @@
 #include <locale>
 #include <string>
 
-namespace
-{
+namespace {
 
 /**
-*  Write the render window view to an image file.
-*
-*  Image types supported are:
-*    BMP, JPEG, PNM, PNG, PostScript, TIFF.
-*  The default parameters are used for all writers, change as needed.
-*
-*  @param fileName The file name, if no extension then PNG is assumed.
-*  @param renWin The render window.
-*  @param rgba Used to set the buffer type.
-*
-*/
+ *  Write the render window view to an image file.
+ *
+ *  Image types supported are:
+ *    BMP, JPEG, PNM, PNG, PostScript, TIFF.
+ *  The default parameters are used for all writers, change as needed.
+ *
+ *  @param fileName The file name, if no extension then PNG is assumed.
+ *  @param renWin The render window.
+ *  @param rgba Used to set the buffer type.
+ *
+ */
 void WriteImage(std::string const& fileName, vtkRenderWindow* renWin,
                 bool rgba = true);
-}
+} // namespace
 
-int main(int, char* [])
+int main(int, char*[])
 {
 
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
 
   // Set the background color.
-  std::array<unsigned char , 4> bkg{{26, 51, 102, 255}};
-    colors->SetColor("BkgColor", bkg.data());
+  std::array<unsigned char, 4> bkg{{26, 51, 102, 255}};
+  colors->SetColor("BkgColor", bkg.data());
 
   // Create the rendering window, renderer, and interactive renderer.
-  vtkSmartPointer<vtkRenderer> ren = vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin =
-    vtkSmartPointer<vtkRenderWindow>::New();
+  auto ren = vtkSmartPointer<vtkRenderer>::New();
+  auto renWin = vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(ren);
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto iren = vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
 
   // Create the source.
-  vtkSmartPointer<vtkSphereSource> source =
-    vtkSmartPointer<vtkSphereSource>::New();
+  auto source = vtkSmartPointer<vtkSphereSource>::New();
   source->SetCenter(0, 0, 0);
   source->SetRadius(5.0);
 
   // mapper
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(source->GetOutputPort());
 
   // actor
-  vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
 
   // color the actor
@@ -87,10 +81,8 @@ int main(int, char* [])
   std::vector<std::string> ext = {{""},      {".png"}, {".jpg"}, {".ps"},
                                   {".tiff"}, {".bmp"}, {".pnm"}};
   std::vector<std::string> filenames;
-  for (auto e : ext)
-  {
-    filenames.push_back("ImageWriter" + e);
-  }
+  std::transform(ext.begin(), ext.end(), std::back_inserter(filenames),
+                 [](const std::string& e) { return "ImageWriter" + e; });
   filenames[0] = filenames[0] + '1';
   for (auto f : filenames)
   {
@@ -103,33 +95,28 @@ int main(int, char* [])
   return EXIT_SUCCESS;
 }
 
-namespace
-{
+namespace {
 
 void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
 {
   if (!fileName.empty())
   {
     std::string fn = fileName;
-    std::string path;
     std::string ext;
-    std::size_t found = fn.find_last_of(".");
+    auto found = fn.find_last_of(".");
     if (found == std::string::npos)
     {
-      path = fn;
       ext = ".png";
       fn += ext;
     }
     else
     {
-      path = fileName.substr(0, found);
       ext = fileName.substr(found, fileName.size());
     }
     std::locale loc;
     std::transform(ext.begin(), ext.end(), ext.begin(),
                    [=](char const& c) { return std::tolower(c, loc); });
-    vtkSmartPointer<vtkImageWriter> writer =
-      vtkSmartPointer<vtkImageWriter>::New();
+    auto writer = vtkSmartPointer<vtkImageWriter>::New();
     if (ext == ".bmp")
     {
       writer = vtkSmartPointer<vtkBMPWriter>::New();
@@ -158,8 +145,8 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
     {
       writer = vtkSmartPointer<vtkPNGWriter>::New();
     }
-    vtkSmartPointer<vtkWindowToImageFilter> window_to_image_filter =
-      vtkSmartPointer<vtkWindowToImageFilter>::New();
+    auto window_to_image_filter =
+        vtkSmartPointer<vtkWindowToImageFilter>::New();
     window_to_image_filter->SetInput(renWin);
     window_to_image_filter->SetScale(1); // image quality
     if (rgba)
@@ -185,4 +172,5 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
 
   return;
 }
-}
+
+} // namespace

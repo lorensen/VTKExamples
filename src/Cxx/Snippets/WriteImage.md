@@ -56,18 +56,15 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
   if (!fileName.empty())
   {
     std::string fn = fileName;
-    std::string path;
     std::string ext;
     auto found = fn.find_last_of(".");
     if (found == std::string::npos)
     {
-      path = fn;
       ext = ".png";
       fn += ext;
     }
     else
     {
-      path = fileName.substr(0, found);
       ext = fileName.substr(found, fileName.size());
     }
     std::locale loc;
