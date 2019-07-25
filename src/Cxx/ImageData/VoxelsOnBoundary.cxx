@@ -1,7 +1,3 @@
-#include <string>
-#include <vector>
-#include <iostream>
-
 #include <vtkSmartPointer.h>
 #include <vtkMultiThreshold.h>
 #include <vtkMultiBlockDataSet.h>
@@ -12,7 +8,6 @@
 #include <vtkImageShrink3D.h>
 #include <vtkImageData.h>
 #include <vtkPointSet.h>
-
 #include <vtkActor.h>
 #include <vtkDataSetMapper.h>
 #include <vtkProperty.h>
@@ -20,8 +15,12 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkCamera.h>
-
 #include <vtkNamedColors.h>
+
+#include <string>
+#include <vector>
+#include <iostream>
+
 
 int main (int argc, char *argv[])
 {
@@ -69,10 +68,10 @@ int main (int argc, char *argv[])
   // Visualize
   auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
-  vtkColor3d outsideColor    = colors->GetColor3d("Crimson");
+  //vtkColor3d outsideColor    = colors->GetColor3d("Crimson");
   vtkColor3d insideColor     = colors->GetColor3d("Banana");
   vtkColor3d borderColor     = colors->GetColor3d("Mint");
-  vtkColor3d surfaceColor    = colors->GetColor3d("Peacock");
+  //vtkColor3d surfaceColor    = colors->GetColor3d("Peacock");
   vtkColor3d backgroundColor = colors->GetColor3d("Silver");
 
   auto plane =
