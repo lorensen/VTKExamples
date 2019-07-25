@@ -271,13 +271,12 @@ int main(int argc, char* argv[])
   if (!cmdVec.empty())
   {
     // Usually -h and --help are reserved for help.
-    for (auto it : cmdVec)
+    if (std::any_of(cmdVec.begin(), cmdVec.end(), [](const std::string& str) {
+          return str.size() > 0 && (str == "-h" || str == "--help");
+        }))
     {
-      if (it == "-h" || it == "--help")
-      {
-        std::cout << ShowUsage(argv[0]) << std::endl;
-        return EXIT_SUCCESS;
-      }
+      std::cout << ShowUsage(argv[0]) << std::endl;
+      return EXIT_SUCCESS;
     }
     if (!clp.Parse())
     {
@@ -497,7 +496,7 @@ int main(int argc, char* argv[])
         }
         renderers[index]->AddActor(actors[index]);
         // Normals can only be computed for polygons and triangle strips.
-		// The Spline is a line.
+        // The Spline is a line.
         if (cmdArgs["n"].first && sortedNames[index] != "Spline")
         {
           renderers[index]->AddActor(glyphActor[index]);
@@ -746,18 +745,15 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
   if (!fileName.empty())
   {
     std::string fn = fileName;
-    std::string path;
     std::string ext;
     auto found = fn.find_last_of(".");
     if (found == std::string::npos)
     {
-      path = fn;
       ext = ".png";
       fn += ext;
     }
     else
     {
-      path = fileName.substr(0, found);
       ext = fileName.substr(found, fileName.size());
     }
     std::locale loc;
@@ -819,6 +815,7 @@ void WriteImage(std::string const& fileName, vtkRenderWindow* renWin, bool rgba)
 
   return;
 }
+
 
 CommandLineParser::CommandLineParser(
     std::vector<std::string>& cmdLineVec,

@@ -14,7 +14,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkVersion.h>
 #include <vtkXMLMultiBlockDataReader.h>
-#include <vtksys/SystemTools.hxx>
 
 #if VTK_VERSION_NUMBER >= 89000000000ULL
 #define VTK890 1
@@ -23,11 +22,11 @@
 
 namespace {
 void ImportMultiBlockScene(vtkRenderer* renderer, std::string fileName);
-void RestoreCameraFromFieldData(std::string, vtkCamera*, vtkPolyData*);
-void RestorePropertyFromFieldData(std::string, vtkProperty*, vtkPolyData*);
-void RestoreActorFromFieldData(std::string, vtkActor*, vtkPolyData*);
-// void RestoreMapperFromFieldData(std::string, vtkPolyDataMapper *, vtkPolyData
-// *); void RestoreLookupTableFromFieldData(std::string, vtkScalarsToColors *,
+void RestoreCameraFromFieldData(std::string const&, vtkCamera*, vtkPolyData*);
+void RestorePropertyFromFieldData(std::string const&, vtkProperty*, vtkPolyData*);
+void RestoreActorFromFieldData(std::string const&, vtkActor*, vtkPolyData*);
+// void RestoreMapperFromFieldData(std::string const&, vtkPolyDataMapper *, vtkPolyData
+// *); void RestoreLookupTableFromFieldData(std::string const&, vtkScalarsToColors *,
 // vtkPolyData *);
 } // namespace
 
@@ -66,11 +65,9 @@ void ImportMultiBlockScene(vtkRenderer* renderer, std::string fileName)
   vtkCamera* camera = renderer->GetActiveCamera();
 
   std::string prefix;
-  prefix = vtksys::SystemTools::GetFilenameName(fileName);
 
   // Read the multiblock data
   auto reader = vtkSmartPointer<vtkXMLMultiBlockDataReader>::New();
-  vtkSmartPointer<vtkXMLMultiBlockDataReader>::New();
   reader->SetFileName(fileName.c_str());
   reader->Update();
   std::cout << "Importing "
@@ -129,7 +126,7 @@ void ImportMultiBlockScene(vtkRenderer* renderer, std::string fileName)
   }
 #endif
 }
-void RestoreCameraFromFieldData(std::string arrayPrefix, vtkCamera* camera,
+void RestoreCameraFromFieldData(std::string const& arrayPrefix, vtkCamera* camera,
                                 vtkPolyData* pd)
 {
   vtkFieldData* fd = pd->GetFieldData();
@@ -149,7 +146,7 @@ void RestoreCameraFromFieldData(std::string arrayPrefix, vtkCamera* camera,
       fd->GetArray(std::string(arrayPrefix + ":" + "ViewAngle").c_str())
           ->GetTuple1(0));
 }
-void RestorePropertyFromFieldData(std::string arrayPrefix,
+void RestorePropertyFromFieldData(std::string const& arrayPrefix,
                                   vtkProperty* property, vtkPolyData* pd)
 {
   if (property)
@@ -247,7 +244,7 @@ void RestorePropertyFromFieldData(std::string arrayPrefix,
             : false);
   }
 }
-void RestoreActorFromFieldData(std::string arrayPrefix, vtkActor* actor,
+void RestoreActorFromFieldData(std::string const& arrayPrefix, vtkActor* actor,
                                vtkPolyData* pd)
 {
   vtkFieldData* fd = pd->GetFieldData();
