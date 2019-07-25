@@ -1,7 +1,9 @@
 ### Description
-This demo displays level of a vtkKdTree using a slider. A KdTree is an [k-d tree](https://en.wikipedia.org/wiki/K-d_tree). It is used in fast intersection tests, collision detection.
+This demo displays the level of a vtkKdTree using a slider. A KdTree is an [k-d tree](https://en.wikipedia.org/wiki/K-d_tree). It is used in fast intersection tests, collision detection and point location.
 
-A youtube video shows [an interactive session](https://www.youtube.com/watch?v=tfpb-2aBiyk).
+Here's the embedded video:
+<br>
+<iframe width="256" src="https://www.youtube.com/embed/tfpb-2aBiyk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>a
 
-!!! seealsoa
+!!! seealso
     [VisualizeOBBTree](/Cxx/DataStructures/VisualizeOBBTree) and [VisualizeModifiedBSPTree](/Cxx/DataStructures/VisualizeModifiedBSPTree).
