@@ -611,6 +611,11 @@ for lang, langExt in Languages.items():
                 MdFile.write(seeAlso)
                 MdFile.write("\n")
 
+            # Add email contact for questions
+                question = '\n!!! question\n    If you have a question contact us at <a href=mailto:VTKExamplesProject@gmail.com?subject=' + ExampleName + langExt + '&body=' + 'https://lorensen.github.io/VTKExamples/site/' + lang + '/' + KitName + '/' + ExampleName + '>VTKExamplesProject</a>\n'
+                MdFile.write(question)
+                MdFile.write("\n")
+
             SrcFileName = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
             SrcFile = open(SrcFileName, 'r')
             src = SrcFile.read()
