@@ -1,58 +1,55 @@
-#include <vtkVertexGlyphFilter.h>
-#include <vtkPolyData.h>
-#include <vtkSmartPointer.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
+#include <vtkNamedColors.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
- 
-int main(int , char *[])
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkVertexGlyphFilter.h>
+
+int main(int, char*[])
 {
- 
-  vtkSmartPointer<vtkPoints> points =
-    vtkSmartPointer<vtkPoints>::New();
-  points->InsertNextPoint(0,0,0);
-  points->InsertNextPoint(1,1,1);
-  points->InsertNextPoint(2,2,2);
- 
-  vtkSmartPointer<vtkPolyData> polydata =
-    vtkSmartPointer<vtkPolyData>::New();
+  auto namedColors = vtkSmartPointer<vtkNamedColors>::New();
+  namedColors->SetColor("Bkg", 0.3, 0.6, 0.3);
+
+  auto points = vtkSmartPointer<vtkPoints>::New();
+  points->InsertNextPoint(0, 0, 0);
+  points->InsertNextPoint(1, 1, 1);
+  points->InsertNextPoint(2, 2, 2);
+
+  auto polydata = vtkSmartPointer<vtkPolyData>::New();
   polydata->SetPoints(points);
- 
-  vtkSmartPointer<vtkVertexGlyphFilter> vertexGlyphFilter =
-    vtkSmartPointer<vtkVertexGlyphFilter>::New();
+
+  auto vertexGlyphFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
   vertexGlyphFilter->AddInputData(polydata);
   vertexGlyphFilter->Update();
- 
+
   // Create a mapper and actor
-  vtkSmartPointer<vtkPolyDataMapper> mapper = 
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(vertexGlyphFilter->GetOutputPort());
- 
-  vtkSmartPointer<vtkActor> actor = 
-    vtkSmartPointer<vtkActor>::New();
+
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetPointSize(3);
-  
+
   // Create a renderer, render window, and interactor
-  vtkSmartPointer<vtkRenderer> renderer = 
-    vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow = 
-    vtkSmartPointer<vtkRenderWindow>::New();
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto renderWindowInteractor =
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
- 
+
   // Add the actor to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.3, .6, .3); // Background color green
- 
+  renderer->SetBackground(
+      namedColors->GetColor3d("Bkg").GetData()); // Background color green
+
   // Render and interact
   renderWindow->Render();
   renderWindowInteractor->Start();
- 
+
   return EXIT_SUCCESS;
 }
