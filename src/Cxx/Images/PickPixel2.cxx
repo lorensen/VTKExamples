@@ -225,7 +225,10 @@ int main(int argc, char* argv[])
 
   // disable interpolation, so we can see each pixel
   imageActor->InterpolateOff();
-
+  
+  // Image should be opaque for the HardwareSelector to work
+  imageActor->ForceOpaqueOn();
+  
   // Visualize
   auto renderWindowInteractor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
