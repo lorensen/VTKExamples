@@ -2,7 +2,7 @@
 
 ## Python
 
-Out of 2832 available VTK classes, 395 are demonstrated here.
+Out of 2841 available VTK classes, 395 are demonstrated here.
 
 ### Excluded classes
 
