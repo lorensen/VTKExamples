@@ -611,10 +611,10 @@ for lang, langExt in Languages.items():
                 MdFile.write(seeAlso)
                 MdFile.write("\n")
 
-                # Add email contact for questions
-                question = '\n!!! question\n    If you have a simple question about this example contact us at <a href=mailto:VTKExamplesProject@gmail.com?subject=' + ExampleName + langExt + '&body=' + 'https://lorensen.github.io/VTKExamples/site/' + lang + '/' + KitName + '/' + ExampleName + '>VTKExamplesProject</a>\n    If your question is more complex and may require extended discussion, please use the [VTK Discourse Forum](https://discourse.vtk.org/)\n'
-                MdFile.write(question)
-                MdFile.write("\n")
+            # Add email contact for questions
+            question = '\n!!! question\n    If you have a simple question about this example contact us at <a href=mailto:VTKExamplesProject@gmail.com?subject=' + ExampleName + langExt + '&body=' + 'https://lorensen.github.io/VTKExamples/site/' + lang + '/' + KitName + '/' + ExampleName + '>VTKExamplesProject</a>\n    If your question is more complex and may require extended discussion, please use the [VTK Discourse Forum](https://discourse.vtk.org/)\n'
+            MdFile.write(question)
+            MdFile.write("\n")
 
             SrcFileName = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
             SrcFile = open(SrcFileName, 'r')
