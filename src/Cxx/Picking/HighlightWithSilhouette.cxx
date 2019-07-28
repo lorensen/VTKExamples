@@ -27,7 +27,9 @@ public:
 
   MouseInteractorHighLightActor()
   {
-    LastPickedActor = NULL;
+    LastPickedActor = nullptr;
+    SilhouetteActor = nullptr;
+    Silhouette = nullptr;
   }
   virtual ~MouseInteractorHighLightActor()
   {
