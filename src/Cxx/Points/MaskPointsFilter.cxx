@@ -1,18 +1,14 @@
 #include <vtkSmartPointer.h>
 #include <vtkMaskPointsFilter.h>
-
 #include <vtkBoundedPointSource.h>
 #include <vtkImageData.h>
 #include <vtkCone.h>
 #include <vtkSampleImplicitFunctionFilter.h>
 #include <vtkImageThreshold.h>
 #include <vtkBoundedPointSource.h>
-
 #include <vtkMetaImageReader.h>
-
 #include <vtkSphereSource.h>
 #include <vtkGlyph3D.h>
-
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
@@ -125,8 +121,7 @@ int main (int argc, char *argv[])
 
 static vtkSmartPointer<vtkImageData> CreatePoints()
 {
-  vtkSmartPointer<vtkImageData> imageMask =
-    vtkSmartPointer<vtkImageData>::New();
+  vtkSmartPointer<vtkImageData> imageMask;
 
   vtkSmartPointer<vtkImageData> image =
     vtkSmartPointer<vtkImageData>::New();
