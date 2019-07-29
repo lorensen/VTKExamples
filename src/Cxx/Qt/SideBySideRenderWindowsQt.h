@@ -7,18 +7,18 @@
 
 #include "ui_SideBySideRenderWindowsQt.h"
 
-class SideBySideRenderWindowsQt : public QMainWindow, private Ui::SideBySideRenderWindowsQt
+class SideBySideRenderWindowsQt : public QMainWindow,
+                                  private Ui::SideBySideRenderWindowsQt
 {
   Q_OBJECT
 public:
-
   // Constructor/Destructor
-  SideBySideRenderWindowsQt(); 
-  ~SideBySideRenderWindowsQt() {};
+  SideBySideRenderWindowsQt();
+  ~SideBySideRenderWindowsQt() = default;
 
 public slots:
 
-  virtual void slotExit();
+  void slotExit();
 };
 
 #endif

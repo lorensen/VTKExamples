@@ -4,7 +4,6 @@
 
 #include "RenderWindowUIMultipleInheritance.h"
 
-
 int main(int argc, char** argv)
 {
   // needed to ensure appropriate OpenGL context is created for VTK rendering.
