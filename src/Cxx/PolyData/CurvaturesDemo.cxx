@@ -41,9 +41,9 @@ of the elements of the vector together to form a pipeline.
 #include <vtkParametricRandomHills.h>
 #include <vtkPolyDataAlgorithm.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
 #include <vtkSuperquadricSource.h>
 #include <vtkTextMapper.h>
@@ -55,14 +55,12 @@ of the elements of the vector together to form a pipeline.
 #include <array>
 #include <vector>
 
-int main (int, char *argv[])
+int main(int, char* argv[])
 {
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  auto colors = vtkSmartPointer<vtkNamedColors>::New();
   // We are going to handle two different sources.
   // The first source is a superquadric source.
-  vtkSmartPointer<vtkSuperquadricSource> torus =
-    vtkSmartPointer<vtkSuperquadricSource>::New();
+  auto torus = vtkSmartPointer<vtkSuperquadricSource>::New();
   torus->SetCenter(0.0, 0.0, 0.0);
   torus->SetScale(1.0, 1.0, 1.0);
   torus->SetPhiResolution(64);
@@ -73,64 +71,54 @@ int main (int, char *argv[])
   torus->SetToroidal(1);
 
   // Rotate the torus towards the observer (around the x-axis)
-  vtkSmartPointer<vtkTransform> torusT =
-    vtkSmartPointer<vtkTransform>::New();
+  auto torusT = vtkSmartPointer<vtkTransform>::New();
   torusT->RotateX(55);
 
-  vtkSmartPointer<vtkTransformFilter> torusTF =
-    vtkSmartPointer<vtkTransformFilter>::New();
+  auto torusTF = vtkSmartPointer<vtkTransformFilter>::New();
   torusTF->SetInputConnection(torus->GetOutputPort());
   torusTF->SetTransform(torusT);
 
   // The quadric is made of strips, so pass it through a triangle filter as
   // the curvature filter only operates on polys
-  vtkSmartPointer<vtkTriangleFilter> tri =
-    vtkSmartPointer<vtkTriangleFilter>::New();
+  auto tri = vtkSmartPointer<vtkTriangleFilter>::New();
   tri->SetInputConnection(torusTF->GetOutputPort());
 
   // The quadric has nasty discontinuities from the way the edges are generated
   // so let's pass it though a CleanPolyDataFilter and merge any points which
   // are coincident, or very close
-  vtkSmartPointer<vtkCleanPolyData> cleaner =
-    vtkSmartPointer<vtkCleanPolyData>::New();
+  auto cleaner = vtkSmartPointer<vtkCleanPolyData>::New();
   cleaner->SetInputConnection(tri->GetOutputPort());
   cleaner->SetTolerance(0.005);
 
   // The next source will be a parametric function
-  vtkSmartPointer<vtkParametricRandomHills> rh =
-    vtkSmartPointer<vtkParametricRandomHills>::New();
-  vtkSmartPointer<vtkParametricFunctionSource> rhFnSrc =
-    vtkSmartPointer<vtkParametricFunctionSource>::New();
+  auto rh = vtkSmartPointer<vtkParametricRandomHills>::New();
+  auto rhFnSrc = vtkSmartPointer<vtkParametricFunctionSource>::New();
   rhFnSrc->SetParametricFunction(rh);
 
   // Now we have the sources, lets put them into a vector
-  std::vector<vtkSmartPointer<vtkPolyDataAlgorithm> > sources;
+  std::vector<vtkSmartPointer<vtkPolyDataAlgorithm>> sources;
   sources.push_back(cleaner);
   sources.push_back(cleaner);
   sources.push_back(rhFnSrc);
   sources.push_back(rhFnSrc);
 
   // Colour transfer function.
-  vtkSmartPointer<vtkColorTransferFunction> ctf =
-    vtkSmartPointer<vtkColorTransferFunction>::New();
+  auto ctf = vtkSmartPointer<vtkColorTransferFunction>::New();
   ctf->SetColorSpaceToDiverging();
-  ctf->AddRGBPoint(0.0,
-                   colors->GetColor3d("MidnightBlue").GetRed(),
+  ctf->AddRGBPoint(0.0, colors->GetColor3d("MidnightBlue").GetRed(),
                    colors->GetColor3d("MidnightBlue").GetGreen(),
                    colors->GetColor3d("MidnightBlue").GetBlue());
-  ctf->AddRGBPoint(1.0,
-                   colors->GetColor3d("DarkOrange").GetRed(),
+  ctf->AddRGBPoint(1.0, colors->GetColor3d("DarkOrange").GetRed(),
                    colors->GetColor3d("DarkOrange").GetGreen(),
                    colors->GetColor3d("DarkOrange").GetBlue());
 
   // Lookup table.
-  std::vector<vtkSmartPointer<vtkLookupTable> > luts;
-  for(auto idx = 0; idx < sources.size(); ++idx)
+  std::vector<vtkSmartPointer<vtkLookupTable>> luts;
+  for (auto idx = 0; idx < sources.size(); ++idx)
   {
-    vtkSmartPointer<vtkLookupTable> lut =
-      vtkSmartPointer<vtkLookupTable>::New();
+    auto lut = vtkSmartPointer<vtkLookupTable>::New();
     lut->SetNumberOfColors(256);
-    for(auto i = 0; i < lut->GetNumberOfColors(); ++i)
+    for (auto i = 0; i < lut->GetNumberOfColors(); ++i)
     {
       std::array<double, 4> color;
       ctf->GetColor(double(i) / lut->GetNumberOfColors(), color.data());
@@ -157,7 +145,7 @@ int main (int, char *argv[])
     luts.push_back(lut);
   }
 
-  std::vector<vtkSmartPointer<vtkCurvatures> > curvatures;
+  std::vector<vtkSmartPointer<vtkCurvatures>> curvatures;
   for (auto idx = 0; idx < sources.size(); ++idx)
   {
     curvatures.push_back(vtkSmartPointer<vtkCurvatures>::New());
@@ -170,11 +158,11 @@ int main (int, char *argv[])
       curvatures[idx]->SetCurvatureTypeToMean();
     }
   }
-  std::vector<vtkSmartPointer<vtkRenderer> > renderers;
-  std::vector<vtkSmartPointer<vtkActor> > actors;
-  std::vector<vtkSmartPointer<vtkPolyDataMapper> > mappers;
-  std::vector<vtkSmartPointer<vtkTextMapper> > textmappers;
-  std::vector<vtkSmartPointer<vtkActor2D> > textactors;
+  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkActor>> actors;
+  std::vector<vtkSmartPointer<vtkPolyDataMapper>> mappers;
+  std::vector<vtkSmartPointer<vtkTextMapper>> textmappers;
+  std::vector<vtkSmartPointer<vtkActor2D>> textactors;
   for (auto idx = 0; idx < sources.size(); ++idx)
   {
     mappers.push_back(vtkSmartPointer<vtkPolyDataMapper>::New());
@@ -185,12 +173,11 @@ int main (int, char *argv[])
   }
 
   // Create a common text property.
-  vtkSmartPointer<vtkTextProperty> textProperty =
-    vtkSmartPointer<vtkTextProperty>::New();
+  auto textProperty = vtkSmartPointer<vtkTextProperty>::New();
   textProperty->SetFontSize(24);
   textProperty->SetJustificationToCentered();
 
-  std::vector<std::string>  names;
+  std::vector<std::string> names;
   names.push_back("Torus - Gaussian Curvature");
   names.push_back("Torus - Mean Curvature");
   names.push_back("Random Hills - Gaussian Curvature");
@@ -211,7 +198,6 @@ int main (int, char *argv[])
 
     textactors[idx]->SetMapper(textmappers[idx]);
     textactors[idx]->SetPosition(250, 16);
-
   }
 
   // Create the RenderWindow
@@ -219,33 +205,31 @@ int main (int, char *argv[])
   auto rendererSize = 512;
   auto gridDimensions = 2;
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
-  renderWindow->SetSize(rendererSize * gridDimensions, rendererSize * gridDimensions);
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetSize(rendererSize * gridDimensions,
+                        rendererSize * gridDimensions);
 
-  for (auto idx = 0; idx < sources.size(); ++idx)
+  // Add and position the renders to the render window.
+  for (auto row = 0; row < gridDimensions; ++row)
   {
-
-    // Add and position the renders to the render window.
-    for (auto row = 0; row < gridDimensions; ++row)
+    for (auto col = 0; col < gridDimensions; ++col)
     {
-      for (auto col = 0; col < gridDimensions; ++col)
-      {
-        auto idx = row * gridDimensions + col;
-        renderers[idx]->SetViewport(double(col) / gridDimensions,
-                                    double(gridDimensions - (row + 1)) / gridDimensions,
-                                    double(col + 1) / gridDimensions,
-                                    double(gridDimensions - row) / gridDimensions);
-        renderWindow->AddRenderer(renderers[idx]);
+      auto idx = row * gridDimensions + col;
+      renderers[idx]->SetViewport(
+          double(col) / gridDimensions,
+          double(gridDimensions - (row + 1)) / gridDimensions,
+          double(col + 1) / gridDimensions,
+          double(gridDimensions - row) / gridDimensions);
+      renderWindow->AddRenderer(renderers[idx]);
 
-        renderers[idx]->AddActor(actors[idx]);
-        renderers[idx]->AddActor(textactors[idx]);
-        renderers[idx]->SetBackground(colors->GetColor3d("CornflowerBlue").GetData());
-      }
+      renderers[idx]->AddActor(actors[idx]);
+      renderers[idx]->AddActor(textactors[idx]);
+      renderers[idx]->SetBackground(
+          colors->GetColor3d("CornflowerBlue").GetData());
     }
   }
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+
+  auto interactor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
 
   renderWindow->Render();

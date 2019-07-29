@@ -1,37 +1,39 @@
+#include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkDataSetMapper.h>
 #include <vtkFieldData.h>
 #include <vtkHausdorffDistancePointSetFilter.h>
 #include <vtkIterativeClosestPointTransform.h>
 #include <vtkLandmarkTransform.h>
-#include <vtkPoints.h>
-#include <vtkSmartPointer.h>
-#include <vtkTransform.h>
-#include <vtkTransformPolyDataFilter.h>
-
-#include <vtkBYUReader.h>
+#include <vtkNamedColors.h>
 #include <vtkOBBTree.h>
-#include <vtkOBJReader.h>
-#include <vtkPLYReader.h>
-#include <vtkPolyDataReader.h>
-#include <vtkSTLReader.h>
-#include <vtkSphereSource.h>
-#include <vtkXMLPolyDataReader.h>
-
-#include <vtkActor.h>
-#include <vtkCamera.h>
-#include <vtkDataSetMapper.h>
+#include <vtkPoints.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkTransform.h>
+#include <vtkTransformPolyDataFilter.h>
 
-#include <vtkNamedColors.h>
-#include <vtksys/SystemTools.hxx>
+// Readers
+#include <vtkBYUReader.h>
+#include <vtkOBJReader.h>
+#include <vtkPLYReader.h>
+#include <vtkPolyDataReader.h>
+#include <vtkSTLReader.h>
+#include <vtkXMLPolyDataReader.h>
 
-#include <algorithm>
+#include <vtkPolyData.h>
+#include <vtkSphereSource.h>
+
+#include <algorithm> // For transform()
+#include <cctype>    // For to_lower
+#include <string>    // For find_last_of()
+
 #include <array>
 #include <random>
 #include <sstream>
-#include <string>
 
 namespace {
 /**
@@ -41,11 +43,12 @@ namespace {
  */
 std::string ShowUsage(std::string fn);
 
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName);
+vtkSmartPointer<vtkPolyData> ReadPolyData(std::string const& fileName);
 void AlignBoundingBoxes(vtkPolyData*, vtkPolyData*);
-void BestBoundingBox(std::string axis, vtkPolyData* target, vtkPolyData* source,
-                     vtkPolyData* targetLandmarks, vtkPolyData* sourceLandmarks,
-                     double& distance, vtkPoints* bestPoints);
+void BestBoundingBox(std::string const& axis, vtkPolyData* target,
+                     vtkPolyData* source, vtkPolyData* targetLandmarks,
+                     vtkPolyData* sourceLandmarks, double& distance,
+                     vtkPoints* bestPoints);
 } // namespace
 
 int main(int argc, char* argv[])
@@ -89,8 +92,8 @@ int main(int argc, char* argv[])
   // greatWhite.stl as the target, you need to uncomment the following
   // two rotations.
   auto trnf = vtkSmartPointer<vtkTransform>::New();
-  //trnf->RotateX(90);
-  //trnf->RotateY(-90);
+  // trnf->RotateX(90);
+  // trnf->RotateY(-90);
   auto tpd = vtkSmartPointer<vtkTransformPolyDataFilter>::New();
   tpd->SetTransform(trnf);
   tpd->SetInputData(targetPolyData);
@@ -238,61 +241,65 @@ std::string ShowUsage(std::string fn)
   return os.str();
 }
 
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char* fileName)
+vtkSmartPointer<vtkPolyData> ReadPolyData(std::string const& fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
-  std::string extension =
-      vtksys::SystemTools::GetFilenameLastExtension(std::string(fileName));
-
-  // Drop the case of the extension
+  std::string extension = "";
+  if (fileName.find_last_of(".") != std::string::npos)
+  {
+    extension = fileName.substr(fileName.find_last_of("."));
+  }
+  // Make the extension lowercase
   std::transform(extension.begin(), extension.end(), extension.begin(),
                  ::tolower);
-
   if (extension == ".ply")
   {
     auto reader = vtkSmartPointer<vtkPLYReader>::New();
-    reader->SetFileName(fileName);
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".vtp")
   {
     auto reader = vtkSmartPointer<vtkXMLPolyDataReader>::New();
-    reader->SetFileName(fileName);
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".obj")
   {
     auto reader = vtkSmartPointer<vtkOBJReader>::New();
-    reader->SetFileName(fileName);
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".stl")
   {
     auto reader = vtkSmartPointer<vtkSTLReader>::New();
-    reader->SetFileName(fileName);
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".vtk")
   {
     auto reader = vtkSmartPointer<vtkPolyDataReader>::New();
-    reader->SetFileName(fileName);
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".g")
   {
     auto reader = vtkSmartPointer<vtkBYUReader>::New();
-    reader->SetGeometryFileName(fileName);
+    reader->SetGeometryFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else
   {
+    // Return a polydata sphere if the extension is unknown.
     auto source = vtkSmartPointer<vtkSphereSource>::New();
+    source->SetThetaResolution(20);
+    source->SetPhiResolution(11);
     source->Update();
     polyData = source->GetOutput();
   }
@@ -341,9 +348,10 @@ void AlignBoundingBoxes(vtkPolyData* source, vtkPolyData* target)
 
   source->DeepCopy(transformPD->GetOutput());
 }
-void BestBoundingBox(std::string axis, vtkPolyData* target, vtkPolyData* source,
-                     vtkPolyData* targetLandmarks, vtkPolyData* sourceLandmarks,
-                     double& bestDistance, vtkPoints* bestPoints)
+void BestBoundingBox(std::string const& axis, vtkPolyData* target,
+                     vtkPolyData* source, vtkPolyData* targetLandmarks,
+                     vtkPolyData* sourceLandmarks, double& bestDistance,
+                     vtkPoints* bestPoints)
 {
   auto distance = vtkSmartPointer<vtkHausdorffDistancePointSetFilter>::New();
   auto testTransform = vtkSmartPointer<vtkTransform>::New();
