@@ -5,17 +5,17 @@
 
 #include <QMainWindow>
 
-class RenderWindowUIMultipleInheritance : public QMainWindow, private Ui::RenderWindowUIMultipleInheritance
+class RenderWindowUIMultipleInheritance
+  : public QMainWindow,
+    private Ui::RenderWindowUIMultipleInheritance
 {
   Q_OBJECT
 public:
-
   RenderWindowUIMultipleInheritance();
 
 public slots:
 
-  virtual void slotExit();
-
+  void slotExit();
 };
 
 #endif

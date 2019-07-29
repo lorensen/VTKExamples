@@ -1,24 +1,23 @@
 #ifndef ShareCameraQt_H
 #define ShareCameraQt_H
 
-#include <QMainWindow>
 #include "ui_ShareCameraQt.h"
+#include <QMainWindow>
 
 class ShareCameraQt : public QMainWindow, public Ui::ShareCameraQt
 {
   Q_OBJECT
 public:
-
   // Constructor/Destructor
-  ShareCameraQt(); 
-  ~ShareCameraQt() {};
+  ShareCameraQt();
+  ~ShareCameraQt() = default;
 
 public slots:
 
-  virtual void slotExit();
+  void slotExit();
 
 protected:
-   void ModifiedHandler();
+  void ModifiedHandler();
 };
 
 #endif
