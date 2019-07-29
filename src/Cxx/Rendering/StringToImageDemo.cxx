@@ -47,7 +47,6 @@ int main (int argc,  char *argv[])
 
   // Create an image of the string
   int dpi = 150;
-  int fontSize = 24;
   vtkFreeTypeTools *freeType = vtkFreeTypeTools::GetInstance();
   freeType->ScaleToPowerTwoOff();
 
