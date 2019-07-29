@@ -69,6 +69,7 @@ git commit -m "SYNC: Files modified in the repo." `git status | grep modified: |
 
 echo "8.1) Process new files"
 find . "(" -name \*.html ")" -exec git add {} \;
+(cd site; git add assets)
 git commit -m "SYNC: Files added to the repo."
 
 echo "8.2) Process deleted files"
@@ -83,4 +84,4 @@ if ( test -d src/Tarballs ); then
 fi
 
 echo "10) Push the changes"
-#git push
+git push
