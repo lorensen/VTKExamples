@@ -1,81 +1,71 @@
-#include <vtkSmartPointer.h>
-#include <vtkPoints.h>
-#include <vtkXMLPolyDataWriter.h>
-#include <vtkPolyData.h>
-#include <vtkCellData.h>
+#include <vtkActor.h>
 #include <vtkCellArray.h>
+#include <vtkCellData.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkTriangle.h>
 #include <vtkUnsignedCharArray.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkActor.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
- 
+#include <vtkXMLPolyDataWriter.h>
+
 // For compatibility with new VTK generic data arrays
 #ifdef vtkGenericDataArray_h
 #define InsertNextTupleValue InsertNextTypedTuple
 #endif
 
-int main(int, char *[])
+int main(int, char*[])
 {
   // Setup points
-  vtkSmartPointer<vtkPoints> points =
-    vtkSmartPointer<vtkPoints>::New();
-  vtkSmartPointer<vtkCellArray> vertices =
-    vtkSmartPointer<vtkCellArray>::New();
+  auto points = vtkSmartPointer<vtkPoints>::New();
+  //auto vertices = vtkSmartPointer<vtkCellArray>::New();
   points->InsertNextPoint(0.0, 0.0, 0.0);
   points->InsertNextPoint(1.0, 0.0, 0.0);
   points->InsertNextPoint(0.0, 1.0, 0.0);
- 
+
   // Setup colors
-  unsigned char red[3] = {255, 0, 0};
- 
-  vtkSmartPointer<vtkUnsignedCharArray> colors =
-    vtkSmartPointer<vtkUnsignedCharArray>::New();
+  unsigned char red[3]{255, 0, 0};
+
+  auto colors = vtkSmartPointer<vtkUnsignedCharArray>::New();
   colors->SetNumberOfComponents(3);
   colors->SetName("Colors");
   colors->InsertNextTupleValue(red);
- 
-  vtkSmartPointer<vtkCellArray> triangles =
-    vtkSmartPointer<vtkCellArray>::New();
-  vtkSmartPointer<vtkTriangle> triangle =
-    vtkSmartPointer<vtkTriangle>::New();
+
+  auto triangles = vtkSmartPointer<vtkCellArray>::New();
+  auto triangle = vtkSmartPointer<vtkTriangle>::New();
   triangle->GetPointIds()->SetId(0, 0);
   triangle->GetPointIds()->SetId(1, 1);
   triangle->GetPointIds()->SetId(2, 2);
   triangles->InsertNextCell(triangle);
- 
-  vtkSmartPointer<vtkPolyData> polydata =
-    vtkSmartPointer<vtkPolyData>::New();
- 
+
+  auto polydata = vtkSmartPointer<vtkPolyData>::New();
+
   polydata->SetPoints(points);
   polydata->SetPolys(triangles);
   polydata->GetCellData()->SetScalars(colors);
- 
+
   // Visualize
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputData(polydata);
- 
-  vtkSmartPointer<vtkActor> actor =
-    vtkSmartPointer<vtkActor>::New();
+
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
- 
-  vtkSmartPointer<vtkRenderer> renderer =
-    vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
-    vtkSmartPointer<vtkRenderWindow>::New();
+
+  auto renderer = vtkSmartPointer<vtkRenderer>::New();
+  auto renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto renderWindowInteractor =
+      vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
- 
+
   renderer->AddActor(actor);
   renderer->ResetCamera();
- 
+
   renderWindow->Render();
   renderWindowInteractor->Start();
- 
+
   return EXIT_SUCCESS;
 }
