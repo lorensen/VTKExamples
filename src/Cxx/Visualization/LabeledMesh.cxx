@@ -123,6 +123,7 @@ int main(int /* argc */, char * /* argv */ [] )
   // Create the renderer here because vtkSelectVisiblePoints needs it.
   vtkSmartPointer<vtkRenderer> ren1 =
     vtkSmartPointer<vtkRenderer>::New();
+  ren1->UseHiddenLineRemovalOn();
 
   // Create labels for points
   vtkSmartPointer<vtkSelectVisiblePoints> visPts = vtkSmartPointer<vtkSelectVisiblePoints>::New();
