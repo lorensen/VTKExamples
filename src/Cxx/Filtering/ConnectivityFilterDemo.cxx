@@ -15,19 +15,26 @@
 #include <vtkScalarsToColors.h>
 #include <vtkNamedColors.h>
 
+// Readers
 #include <vtkBYUReader.h>
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
 #include <vtkPolyDataReader.h>
 #include <vtkSTLReader.h>
 #include <vtkXMLPolyDataReader.h>
-#include <vtksys/SystemTools.hxx>
+
+#include <vtkPolyData.h>
+#include <vtkSphereSource.h>
+
+#include <algorithm> // For transform()
+#include <string> // For find_last_of()
+#include <cctype> // For to_lower
 
 #include <random>
 
 namespace
 {
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+vtkSmartPointer<vtkPolyData> ReadPolyData(std::string const& fileName);
 }
 
 int main(int argc, char*argv[])
@@ -35,7 +42,7 @@ int main(int argc, char*argv[])
   vtkSmartPointer<vtkPolyData> polyData =
     ReadPolyData(argc > 1 ? argv[1] : "");
 
-  vtkSmartPointer<vtkPolyDataConnectivityFilter> connectivityFilter =
+  auto connectivityFilter =
     vtkSmartPointer<vtkPolyDataConnectivityFilter>::New();
   connectivityFilter->SetInputData(polyData);
   connectivityFilter->SetExtractionModeToAllRegions();
@@ -52,13 +59,13 @@ int main(int argc, char*argv[])
     {
       std::cout << "Generated data" << " contains " << numberOfRegions << " regions" << std::endl;
     }
-  vtkSmartPointer<vtkLookupTable> lut =
+  auto lut =
     vtkSmartPointer<vtkLookupTable>::New();
   lut->SetNumberOfTableValues(std::max(numberOfRegions, 10));
   lut->Build();
 
   // Fill in a few known colors, the rest will be generated if needed
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
   lut->SetTableValue(0, colors->GetColor4d("Gold").GetData());
   lut->SetTableValue(1, colors->GetColor4d("Banana").GetData());
@@ -76,30 +83,30 @@ int main(int argc, char*argv[])
   if (numberOfRegions > 9)
   {
     std::mt19937 mt(4355412); //Standard mersenne_twister_engine
-    std::uniform_real_distribution<double> distribution(.6, 1.0);
+    std::uniform_real_distribution<double> distribution(.4, 1.0);
     for (auto i = 10; i < numberOfRegions; ++i)
     {
       lut->SetTableValue(i, distribution(mt), distribution(mt), distribution(mt), 1.0);
     }
   }
-  vtkSmartPointer<vtkDataSetMapper> mapper =
+  auto mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   mapper->SetInputConnection(connectivityFilter->GetOutputPort());
   mapper->SetScalarRange(0, connectivityFilter->GetNumberOfExtractedRegions() - 1);
   mapper->SetLookupTable(lut);
   mapper->Update();
 
-  vtkSmartPointer<vtkActor> actor =
+  auto  actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
 
-  vtkSmartPointer<vtkRenderer> renderer =
+  auto  renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
   renderer->UseHiddenLineRemovalOn();
   renderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto  renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
   renderWindow->SetSize(640, 480);
@@ -115,7 +122,7 @@ int main(int argc, char*argv[])
   renderer->ResetCameraClippingRange();
   renderWindow->Render();
 
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
+  auto  interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
   interactor->Initialize();
@@ -123,78 +130,69 @@ int main(int argc, char*argv[])
 
   return EXIT_SUCCESS;
 }
-namespace
-{
-vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+namespace {
+vtkSmartPointer<vtkPolyData> ReadPolyData(std::string const& fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
-  std::string extension = vtksys::SystemTools::GetFilenameLastExtension(std::string(fileName));
+  std::string extension = "";
+  if (fileName.find_last_of(".") != std::string::npos)
+  {
+    extension = fileName.substr(fileName.find_last_of("."));
+  }
+  // Make the extension lowercase
+  std::transform(extension.begin(), extension.end(), extension.begin(),
+                 ::tolower);
   if (extension == ".ply")
   {
-    vtkSmartPointer<vtkPLYReader> reader =
-      vtkSmartPointer<vtkPLYReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkPLYReader>::New();
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".vtp")
   {
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
-      vtkSmartPointer<vtkXMLPolyDataReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".obj")
   {
-    vtkSmartPointer<vtkOBJReader> reader =
-      vtkSmartPointer<vtkOBJReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkOBJReader>::New();
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".stl")
   {
-    vtkSmartPointer<vtkSTLReader> reader =
-      vtkSmartPointer<vtkSTLReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkSTLReader>::New();
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".vtk")
   {
-    vtkSmartPointer<vtkPolyDataReader> reader =
-      vtkSmartPointer<vtkPolyDataReader>::New();
-    reader->SetFileName (fileName);
+    auto reader = vtkSmartPointer<vtkPolyDataReader>::New();
+    reader->SetFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else if (extension == ".g")
   {
-    vtkSmartPointer<vtkBYUReader> reader =
-      vtkSmartPointer<vtkBYUReader>::New();
-    reader->SetGeometryFileName (fileName);
+    auto reader = vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName(fileName.c_str());
     reader->Update();
     polyData = reader->GetOutput();
   }
   else
   {
-    vtkSmartPointer<vtkSphereSource> sphereSource1 =
-      vtkSmartPointer<vtkSphereSource>::New();
-    sphereSource1->Update();
-
-    vtkSmartPointer<vtkSphereSource> sphereSource2 =
-      vtkSmartPointer<vtkSphereSource>::New();
-    sphereSource2->SetCenter(5,0,0);
-    sphereSource2->Update();
-
-    vtkSmartPointer<vtkAppendPolyData> appendFilter =
-      vtkSmartPointer<vtkAppendPolyData>::New();
-    appendFilter->AddInputConnection(sphereSource1->GetOutputPort());
-    appendFilter->AddInputConnection(sphereSource2->GetOutputPort());
-    appendFilter->Update();
-    polyData = appendFilter->GetOutput();
+    // Return a polydata sphere if the extension is unknown.
+    auto source = vtkSmartPointer<vtkSphereSource>::New();
+    source->SetThetaResolution(20);
+    source->SetPhiResolution(11);
+    source->Update();
+    polyData = source->GetOutput();
   }
   return polyData;
 }
-}
+} // namespace
