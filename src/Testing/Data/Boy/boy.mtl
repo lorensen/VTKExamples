@@ -1,0 +1,83 @@
+# 
+# Wavefront material file
+# Converted by the DEEP Exploration  Deep Exploration 5.5 5.5.3.2642 Release
+# Right Hemisphere, LTD
+# http://www.righthemisphere.com/
+# 
+
+newmtl c7d648bf_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd c7d648bf.png
+refl 
+
+newmtl 5bd6bc7_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd 15bd6bc7.png
+map_d 15bd6bc7.png
+refl 
+
+newmtl 2d1e816_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd 62d1e816.png
+refl 
+
+newmtl 88a78da_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd 488a78da.png
+refl 
+
+newmtl feb7db1_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd 5feb7db1.png
+refl 
+
+newmtl a1c1b0f5_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd a1c1b0f5.png
+refl 
+
+newmtl 4bd0ac9_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd 04bd0ac9.png
+refl 
+
+newmtl db8f38ac_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd db8f38ac.png
+refl 
+
+newmtl c161e48_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd 9c161e48.png
+refl 
+
+newmtl d6428c57_dds
+Kd 1 1 1
+Ks 0 0 0
+illum 2
+map_Kd d6428c57.png
+refl 
+
+newmtl Material__3577
+Kd 0.7 0.7 0.7
+Ks 0 0 0
+illum 2
+refl 
