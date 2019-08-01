@@ -69,9 +69,7 @@ int main(int, char *[])
   }
 
   // Add the scalars to the polydata
-  auto tubePolyData =
-    vtkSmartPointer<vtkPolyData>::New();
-  tubePolyData = functionSource->GetOutput();
+  auto tubePolyData = functionSource->GetOutput();
   tubePolyData->GetPointData()->AddArray(tubeRadius);
   tubePolyData->GetPointData()->SetActiveScalars("TubeRadius");
 
@@ -94,10 +92,12 @@ int main(int, char *[])
   tubeMapper->SetInputConnection(tuber->GetOutputPort());
   tubeMapper->SetScalarRange(tubePolyData->GetScalarRange());
 
-  auto lineActor = vtkSmartPointer<vtkActor>::New();
+  auto lineActor =
+    vtkSmartPointer<vtkActor>::New();
   lineActor->SetMapper(lineMapper);
   lineActor->GetProperty()->SetLineWidth(3);
-  auto tubeActor = vtkSmartPointer<vtkActor>::New();
+  auto tubeActor =
+    vtkSmartPointer<vtkActor>::New();
   tubeActor->SetMapper(tubeMapper);
   tubeActor->GetProperty()->SetOpacity(.6);
 

@@ -225,9 +225,9 @@ public:
     PointSource->Update();
     std::this_thread::sleep_for(std::chrono::milliseconds(DELAY));
   }
-  SliderCallbackX():PointSource(0) {}
-  vtkPointSource *PointSource;
-  vtkSphereSource *SphereSource;
+  SliderCallbackX() = default;
+  vtkPointSource *PointSource = nullptr;
+  vtkSphereSource *SphereSource = nullptr;
 };
 
 void
@@ -301,9 +301,9 @@ public:
     PointSource->Update();
     std::this_thread::sleep_for(std::chrono::milliseconds(DELAY));
   }
-  SliderCallbackY():PointSource(0) {}
-  vtkPointSource *PointSource;
-  vtkSphereSource *SphereSource;
+  SliderCallbackY() = default;
+  vtkPointSource *PointSource = nullptr;
+  vtkSphereSource *SphereSource = nullptr;
 };
 
 void
@@ -378,9 +378,9 @@ public:
     PointSource->Update();
     std::this_thread::sleep_for(std::chrono::milliseconds(DELAY));
   }
-  SliderCallbackZ():PointSource(0) {}
-  vtkPointSource *PointSource;
-  vtkSphereSource *SphereSource;
+  SliderCallbackZ() = default;
+  vtkPointSource* PointSource = nullptr;
+  vtkSphereSource* SphereSource = nullptr;
 };
 
 void

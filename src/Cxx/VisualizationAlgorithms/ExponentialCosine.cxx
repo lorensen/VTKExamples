@@ -19,35 +19,32 @@
 #include <vtkTransformPolyDataFilter.h>
 #include <vtkWarpScalar.h>
 
-int main( int , char *[] )
+int main(int, char*[])
 {
-  int i, numPts;
-  double x[3];
-  double r, deriv;
 
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkRenderer> ren =
+  auto ren =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin =
+  auto renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(ren);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+  auto iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
 
   // create plane to warp
-  vtkSmartPointer<vtkPlaneSource> plane =
+  auto plane =
     vtkSmartPointer<vtkPlaneSource>::New();
-  plane->SetResolution (300,300);
+  plane->SetResolution(300, 300);
 
-  vtkSmartPointer<vtkTransform> transform =
+  auto transform =
     vtkSmartPointer<vtkTransform>::New();
-  transform->Scale(10.0,10.0,1.0);
+  transform->Scale(10.0, 10.0, 1.0);
 
-  vtkSmartPointer<vtkTransformPolyDataFilter> transF =
+  auto transF =
     vtkSmartPointer<vtkTransformPolyDataFilter>::New();
   transF->SetInputConnection(plane->GetOutputPort());
   transF->SetTransform(transform);
@@ -56,56 +53,58 @@ int main( int , char *[] )
   // compute Bessel function and derivatives. This portion could be
   // encapsulated into source or filter object.
   //
-  vtkSmartPointer<vtkPolyData> input = transF->GetOutput();
-  numPts = input->GetNumberOfPoints();
+  auto input = transF->GetOutput();
+  auto numPts = input->GetNumberOfPoints();
 
-  vtkSmartPointer<vtkPoints> newPts =
+  auto newPts =
     vtkSmartPointer<vtkPoints>::New();
   newPts->SetNumberOfPoints(numPts);
 
-  vtkSmartPointer<vtkDoubleArray> derivs =
+  auto derivs =
     vtkSmartPointer<vtkDoubleArray>::New();
   derivs->SetNumberOfTuples(numPts);
 
-  vtkSmartPointer<vtkPolyData> bessel =
+  auto bessel =
     vtkSmartPointer<vtkPolyData>::New();
   bessel->CopyStructure(input);
   bessel->SetPoints(newPts);
   bessel->GetPointData()->SetScalars(derivs);
 
-  for (i=0; i<numPts; i++)
-    {
-    input->GetPoint(i,x);
-    r = sqrt(static_cast<double>(x[0]*x[0]) + x[1]*x[1]);
-    x[2] = exp(-r) * cos (10.0*r);
-    newPts->SetPoint(i,x);
-    deriv = -exp(-r) * (cos(10.0*r) + 10.0*sin(10.0*r));
-    derivs->SetValue(i,deriv);
-    }
+  double x[3];
+
+  for (auto i = 0; i < numPts; i++)
+  {
+    input->GetPoint(i, x);
+    auto r = sqrt(static_cast<double>(x[0] * x[0]) + x[1] * x[1]);
+    x[2] = exp(-r) * cos(10.0 * r);
+    newPts->SetPoint(i, x);
+    auto deriv = -exp(-r) * (cos(10.0 * r) + 10.0 * sin(10.0 * r));
+    derivs->SetValue(i, deriv);
+  }
 
   // warp plane
-  vtkSmartPointer<vtkWarpScalar> warp =
+  auto warp =
     vtkSmartPointer<vtkWarpScalar>::New();
   warp->SetInputData(bessel);
   warp->XYPlaneOn();
   warp->SetScaleFactor(0.5);
 
   // mapper and actor
-  vtkSmartPointer<vtkDataSetMapper> mapper =
+  auto mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   mapper->SetInputConnection(warp->GetOutputPort());
   double tmp[2];
   bessel->GetScalarRange(tmp);
-  mapper->SetScalarRange(tmp[0],tmp[1]);
+  mapper->SetScalarRange(tmp[0], tmp[1]);
 
-  vtkSmartPointer<vtkActor> carpet =
+  auto carpet =
     vtkSmartPointer<vtkActor>::New();
   carpet->SetMapper(mapper);
 
   // assign our actor to the renderer
   ren->AddActor(carpet);
   ren->SetBackground(colors->GetColor3d("Beige").GetData());
-  renWin->SetSize(640,480);
+  renWin->SetSize(640, 480);
 
   // draw the resulting scene
   ren->ResetCamera();
