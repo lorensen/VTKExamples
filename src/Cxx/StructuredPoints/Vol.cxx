@@ -13,28 +13,27 @@
 
 int main(int, char*[])
 {
-  double sp;
+  auto colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkNamedColors> colors =
-      vtkSmartPointer<vtkNamedColors>::New();
-
-  vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin =
-      vtkSmartPointer<vtkRenderWindow>::New();
+  auto renderer =
+    vtkSmartPointer<vtkRenderer>::New();
+  auto renWin =
+    vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(renderer);
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
-      vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto iren =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
 
-  vtkSmartPointer<vtkStructuredPoints> vol =
-      vtkSmartPointer<vtkStructuredPoints>::New();
+  auto vol =
+    vtkSmartPointer<vtkStructuredPoints>::New();
   vol->SetDimensions(26, 26, 26);
   vol->SetOrigin(-0.5, -0.5, -0.5);
-  sp = 1.0 / 25.0;
+  auto sp = 1.0 / 25.0;
   vol->SetSpacing(sp, sp, sp);
 
-  vtkSmartPointer<vtkDoubleArray> scalars =
-      vtkSmartPointer<vtkDoubleArray>::New();
+  auto scalars =
+    vtkSmartPointer<vtkDoubleArray>::New();
   scalars->SetNumberOfComponents(1);
   scalars->SetNumberOfTuples(26 * 26 * 26);
   for (auto k = 0; k < 26; k++)
@@ -56,16 +55,17 @@ int main(int, char*[])
   }
   vol->GetPointData()->SetScalars(scalars);
 
-  vtkSmartPointer<vtkContourFilter> contour =
-      vtkSmartPointer<vtkContourFilter>::New();
+  auto contour =
+    vtkSmartPointer<vtkContourFilter>::New();
   contour->SetInputData(vol);
   contour->SetValue(0, 0.0);
 
-  vtkSmartPointer<vtkPolyDataMapper> volMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+  auto volMapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
   volMapper->SetInputConnection(contour->GetOutputPort());
   volMapper->ScalarVisibilityOff();
-  vtkSmartPointer<vtkActor> volActor = vtkSmartPointer<vtkActor>::New();
+  auto volActor =
+    vtkSmartPointer<vtkActor>::New();
   volActor->SetMapper(volMapper);
   volActor->GetProperty()->EdgeVisibilityOn();
   volActor->GetProperty()->SetColor(colors->GetColor3d("Salmon").GetData());

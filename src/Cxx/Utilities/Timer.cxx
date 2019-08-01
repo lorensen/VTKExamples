@@ -1,45 +1,59 @@
-#include <vtkSmartPointer.h>
 #include <vtkCommand.h>
-#include <vtkRenderer.h>
-#include <vtkRendererCollection.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkRendererCollection.h>
+#include <vtkSmartPointer.h>
 
 class vtkTimerCallback : public vtkCommand
 {
-  public:
-    static vtkTimerCallback *New()
-    {
-      vtkTimerCallback *cb = new vtkTimerCallback;
-      cb->TimerCount = 0;
-      return cb;
-    }
+public:
+  vtkTimerCallback() = default;
 
-    virtual void Execute(vtkObject *vtkNotUsed(caller), unsigned long eventId,
-                         void *vtkNotUsed(callData))
+  static vtkTimerCallback* New()
+  {
+    vtkTimerCallback* cb = new vtkTimerCallback;
+    cb->TimerCount = 0;
+    return cb;
+  }
+
+  virtual void Execute(vtkObject* caller, unsigned long eventId,
+                       void* vtkNotUsed(callData))
+  {
+    if (vtkCommand::TimerEvent == eventId)
     {
-      if (vtkCommand::TimerEvent == eventId)
+      ++this->TimerCount;
+    }
+    std::cout << this->TimerCount << std::endl;
+    if (this->TimerCount >= this->maxCount)
+    {
+      vtkRenderWindowInteractor* iren =
+          dynamic_cast<vtkRenderWindowInteractor*>(caller);
+      if (this->timerId > -1)
       {
-        ++this->TimerCount;
+        iren->DestroyTimer(this->timerId);
       }
-        cout << this->TimerCount << endl;
     }
+  }
 
-  private:
-    int TimerCount;
+private:
+  int TimerCount = 0;
 
+public:
+  int maxCount = 0;
+  int timerId = -1;
 };
 
-int main(int, char *[])
+int main(int, char*[])
 {
   // Setup renderer, render window, and interactor
-  vtkSmartPointer<vtkRenderer> renderer =
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
-      vtkSmartPointer<vtkRenderWindowInteractor>::New();
+  auto interactor =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
 
   // Initialize must be called prior to creating timer events.
@@ -47,13 +61,17 @@ int main(int, char *[])
   interactor->Initialize();
 
   // Sign up to receive TimerEvent
-  vtkSmartPointer<vtkTimerCallback> cb =
+  auto cb =
     vtkSmartPointer<vtkTimerCallback>::New();
   interactor->AddObserver(vtkCommand::TimerEvent, cb);
 
   int timerId = interactor->CreateRepeatingTimer(100);
   std::cout << "timerId: " << timerId << std::endl;
+  // Destroy the timer when maxCount is reached.
+  cb->maxCount = 10;
+  cb->timerId = timerId;
 
+  // Note: nothing is displayed in the render window.
   // Start the interaction and timer
   interactor->Start();
 
