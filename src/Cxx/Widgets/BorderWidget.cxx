@@ -1,91 +1,91 @@
-#include <vtkSmartPointer.h>
-#include <vtkWidgetCallbackMapper.h>
-#include <vtkCommand.h>
-#include <vtkWidgetEvent.h>
-#include <vtkObjectFactory.h>
 #include <vtkActor.h>
 #include <vtkBorderRepresentation.h>
 #include <vtkBorderWidget.h>
+#include <vtkCommand.h>
+#include <vtkObjectFactory.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+#include <vtkWidgetCallbackMapper.h>
+#include <vtkWidgetEvent.h>
 
 class vtkCustomBorderWidget : public vtkBorderWidget
 {
 public:
-  static vtkCustomBorderWidget *New();
+  static vtkCustomBorderWidget* New();
   vtkTypeMacro(vtkCustomBorderWidget, vtkBorderWidget);
 
-  static void EndSelectAction(vtkAbstractWidget *w);
-  
-  vtkCustomBorderWidget();
+  static void EndSelectAction(vtkAbstractWidget* w);
 
+  vtkCustomBorderWidget();
 };
 
 vtkStandardNewMacro(vtkCustomBorderWidget);
 
 vtkCustomBorderWidget::vtkCustomBorderWidget()
 {
-  this->CallbackMapper->SetCallbackMethod(vtkCommand::MiddleButtonReleaseEvent,
-                                        vtkWidgetEvent::EndSelect,
-                                        this, vtkCustomBorderWidget::EndSelectAction);
+  this->CallbackMapper->SetCallbackMethod(
+      vtkCommand::MiddleButtonReleaseEvent, vtkWidgetEvent::EndSelect, this,
+      vtkCustomBorderWidget::EndSelectAction);
 }
 
-void vtkCustomBorderWidget::EndSelectAction(vtkAbstractWidget *w)
+void vtkCustomBorderWidget::EndSelectAction(vtkAbstractWidget* w)
 {
-  vtkBorderWidget *borderWidget =
-    dynamic_cast<vtkBorderWidget*>(w);
+  vtkBorderWidget* borderWidget = dynamic_cast<vtkBorderWidget*>(w);
 
   // Get the actual box coordinates/planes
-  vtkSmartPointer<vtkPolyData> polydata =
-    vtkSmartPointer<vtkPolyData>::New();
+  // vtkSmartPointer<vtkPolyData> polydata =
+  //  vtkSmartPointer<vtkPolyData>::New();
 
   // Get the bottom left corner
-  double* lowerLeft;
-  lowerLeft = static_cast<vtkBorderRepresentation*>(borderWidget->GetRepresentation())->GetPosition();
-  std::cout << "Lower left: " << lowerLeft[0] << " "
-            << lowerLeft[1] << std::endl;
+  auto lowerLeft =
+      static_cast<vtkBorderRepresentation*>(borderWidget->GetRepresentation())
+          ->GetPosition();
+  std::cout << "Lower left: " << lowerLeft[0] << " " << lowerLeft[1]
+            << std::endl;
 
-  double* upperRight;
-  upperRight = static_cast<vtkBorderRepresentation*>(borderWidget->GetRepresentation())->GetPosition2();
-  std::cout << "Upper right: " << upperRight[0] << " "
-            << upperRight[1] << std::endl;
+  auto upperRight =
+      static_cast<vtkBorderRepresentation*>(borderWidget->GetRepresentation())
+          ->GetPosition2();
+  std::cout << "Upper right: " << upperRight[0] << " " << upperRight[1]
+            << std::endl;
 
   vtkBorderWidget::EndSelectAction(w);
 }
 
-int main(int, char *[])
+int main(int, char*[])
 {
   // Sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource =
+  auto sphereSource =
     vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->SetRadius(4.0);
   sphereSource->Update();
-  
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
+
+  auto mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(sphereSource->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> actor =
+  auto actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
 
   // A renderer and render window
-  vtkSmartPointer<vtkRenderer> renderer =
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
   // An interactor
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  auto renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
-  vtkSmartPointer<vtkCustomBorderWidget> borderWidget =
+  auto borderWidget =
     vtkSmartPointer<vtkCustomBorderWidget>::New();
   borderWidget->SetInteractor(renderWindowInteractor);
   borderWidget->CreateDefaultRepresentation();

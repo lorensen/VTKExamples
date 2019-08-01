@@ -1,53 +1,53 @@
-#include <vtkSmartPointer.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindow.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkSphereSource.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkSeedWidget.h>
-#include <vtkSeedRepresentation.h>
 #include <vtkPointHandleRepresentation2D.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkProperty2D.h> // For setting the color in the handles
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSeedRepresentation.h>
+#include <vtkSeedWidget.h>
+#include <vtkSmartPointer.h>
+#include <vtkSphereSource.h>
 
-int main( int vtkNotUsed( argc ), char* vtkNotUsed( argv )[] )
+int main(int vtkNotUsed(argc), char* vtkNotUsed(argv)[])
 {
-  vtkSmartPointer<vtkSphereSource> sphereSource = 
+  auto sphereSource =
     vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->Update();
 
   // Create a mapper and actor
-  vtkSmartPointer<vtkPolyDataMapper> mapper = 
+  auto mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> actor = 
+  auto actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
-  
-  vtkSmartPointer<vtkRenderer> renderer =
+
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
 
-  vtkSmartPointer<vtkRenderWindow> window =
+  auto window =
     vtkSmartPointer<vtkRenderWindow>::New();
-  window->AddRenderer( renderer );
+  window->AddRenderer(renderer);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
+  auto interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  interactor->SetRenderWindow( window );
+  interactor->SetRenderWindow(window);
 
   // Create the representation for the seed widget and for its handles
-  vtkSmartPointer<vtkPointHandleRepresentation2D> handleRep =
+  auto handleRep =
     vtkSmartPointer<vtkPointHandleRepresentation2D>::New();
-  handleRep->GetProperty()->SetColor( 1, 1, 0 ); // Make the handles yellow
-  vtkSmartPointer<vtkSeedRepresentation> widgetRep =
+  handleRep->GetProperty()->SetColor(1, 1, 0); // Make the handles yellow
+  auto widgetRep =
     vtkSmartPointer<vtkSeedRepresentation>::New();
-  widgetRep->SetHandleRepresentation( handleRep );
+  widgetRep->SetHandleRepresentation(handleRep);
 
   // Create the seed widget
-  vtkSmartPointer<vtkSeedWidget> seedWidget =
+  auto seedWidget =
     vtkSmartPointer<vtkSeedWidget>::New();
-  seedWidget->SetInteractor( interactor );
-  seedWidget->SetRepresentation( widgetRep );
+  seedWidget->SetInteractor(interactor);
+  seedWidget->SetRepresentation(widgetRep);
 
   seedWidget->On();
   window->Render();
