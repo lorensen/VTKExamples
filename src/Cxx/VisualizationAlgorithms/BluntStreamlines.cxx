@@ -16,117 +16,118 @@
 #include <vtkStructuredGridGeometryFilter.h>
 #include <vtkStructuredGridOutlineFilter.h>
 
-int main(int argc, char *argv[] )
+int main(int argc, char* argv[])
 {
   if (argc != 3)
   {
-    std::cout << "Usage: " << argv[0] << " bluntfinxyz.bin bluntfinq.bin" << std::endl;
+    std::cout << "Usage: " << argv[0] << " bluntfinxyz.bin bluntfinq.bin"
+              << std::endl;
     return EXIT_FAILURE;
   }
 
   double range[2], c[3];
-  double maxVelocity = 0.0, maxTime = 0.0;
-  
-  vtkSmartPointer<vtkNamedColors> colors =
+  double maxTime = 0.0;
+
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkRenderer> aren =
+  auto aren =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin =
+  auto renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(aren);
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+  auto iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
 
   std::string xyzFilename = argv[1];
   std::string qFilename = argv[2];
 
-  vtkSmartPointer<vtkMultiBlockPLOT3DReader> reader =
+  auto reader =
     vtkSmartPointer<vtkMultiBlockPLOT3DReader>::New();
   reader->SetXYZFileName(xyzFilename.c_str());
   reader->SetQFileName(qFilename.c_str());
-  reader->Update(); //force a read to occur
+  reader->Update(); // force a read to occur
 
-  vtkStructuredGrid *pd =
-    dynamic_cast<vtkStructuredGrid*>(reader->GetOutput()->GetBlock(0));
+  vtkStructuredGrid* pd =
+      dynamic_cast<vtkStructuredGrid*>(reader->GetOutput()->GetBlock(0));
   pd->GetCenter(c);
-  if ( pd->GetPointData()->GetScalars() )
+  if (pd->GetPointData()->GetScalars())
   {
     pd->GetPointData()->GetScalars()->GetRange(range);
   }
-  if ( pd->GetPointData()->GetVectors() )
+  if (pd->GetPointData()->GetVectors())
   {
-    maxVelocity = pd->GetPointData()->GetVectors()->GetMaxNorm();
-    maxTime = 20.0*pd->GetLength()/maxVelocity ;
+    auto maxVelocity = pd->GetPointData()->GetVectors()->GetMaxNorm();
+    maxTime = 20.0 * pd->GetLength() / maxVelocity;
   }
 
-  vtkSmartPointer<vtkStructuredGridOutlineFilter> outlineF =
+  auto outlineF =
     vtkSmartPointer<vtkStructuredGridOutlineFilter>::New();
   outlineF->SetInputData(pd);
 
-  vtkSmartPointer<vtkPolyDataMapper> outlineMapper =
+  auto outlineMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   outlineMapper->SetInputConnection(outlineF->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> outline =
+  auto outline =
     vtkSmartPointer<vtkActor>::New();
   outline->SetMapper(outlineMapper);
   outline->GetProperty()->SetColor(colors->GetColor3d("Moccasin").GetData());
   outline->GetProperty()->SetLineWidth(2.0);
 
-//
-// Some geometry for context
-//
-  vtkSmartPointer<vtkStructuredGridGeometryFilter> wall =
+  //
+  // Some geometry for context
+  //
+  auto wall =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
   wall->SetInputData(pd);
   wall->SetExtent(0, 100, 0, 100, 0, 0);
 
-  vtkSmartPointer<vtkPolyDataMapper> wallMap =
+  auto wallMap =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   wallMap->SetInputConnection(wall->GetOutputPort());
   wallMap->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> wallActor =
+  auto wallActor =
     vtkSmartPointer<vtkActor>::New();
   wallActor->SetMapper(wallMap);
   wallActor->GetProperty()->SetColor(colors->GetColor3d("Silver").GetData());
 
-  vtkSmartPointer<vtkStructuredGridGeometryFilter> fin =
+  auto fin =
     vtkSmartPointer<vtkStructuredGridGeometryFilter>::New();
   fin->SetInputData(pd);
-  fin->SetExtent(0,100,0,0,0,100);
+  fin->SetExtent(0, 100, 0, 0, 0, 100);
 
-  vtkSmartPointer<vtkPolyDataMapper> finMap =
+  auto finMap =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   finMap->SetInputConnection(fin->GetOutputPort());
   finMap->ScalarVisibilityOff();
 
-  vtkSmartPointer<vtkActor> finActor =
+  auto finActor =
     vtkSmartPointer<vtkActor>::New();
   finActor->SetMapper(finMap);
   finActor->GetProperty()->SetColor(colors->GetColor3d("Silver").GetData());
-//
-// regular streamlines
-//
-  vtkSmartPointer<vtkLineSource> line1 =
+  //
+  // regular streamlines
+  //
+  auto line1 =
     vtkSmartPointer<vtkLineSource>::New();
   line1->SetResolution(25);
   line1->SetPoint1(-6.36, 0.25, 0.06);
   line1->SetPoint2(-6.36, 0.25, 5.37);
 
-  vtkSmartPointer<vtkPolyDataMapper> rakeMapper =
+  auto rakeMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   rakeMapper->SetInputConnection(line1->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> rake1 =
+  auto rake1 =
     vtkSmartPointer<vtkActor>::New();
   rake1->SetMapper(rakeMapper);
-  rake1->GetProperty()->SetColor(0.0,0.0,0.0);
+  rake1->GetProperty()->SetColor(0.0, 0.0, 0.0);
   rake1->GetProperty()->SetLineWidth(5);
 
-  vtkSmartPointer<vtkStreamTracer> streamers =
+  auto streamers =
     vtkSmartPointer<vtkStreamTracer>::New();
   //  streamers->DebugOn();
   streamers->SetInputConnection(reader->GetOutputPort());
@@ -137,12 +138,12 @@ int main(int argc, char *argv[] )
   streamers->SetIntegratorType(2);
   streamers->Update();
 
-  vtkSmartPointer<vtkPolyDataMapper> streamersMapper =
+  auto streamersMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   streamersMapper->SetInputConnection(streamers->GetOutputPort());
   streamersMapper->SetScalarRange(range);
 
-  vtkSmartPointer<vtkActor> lines =
+  auto lines =
     vtkSmartPointer<vtkActor>::New();
   lines->SetMapper(streamersMapper);
 
@@ -151,7 +152,7 @@ int main(int argc, char *argv[] )
   aren->AddActor(finActor);
   aren->AddActor(rake1);
   aren->AddActor(lines);
-  aren->SetBackground(0.5,0.5,0.5);
+  aren->SetBackground(0.5, 0.5, 0.5);
 
   aren->ResetCamera();
   aren->GetActiveCamera()->Elevation(30.0);
