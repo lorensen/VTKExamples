@@ -18,7 +18,7 @@
 int main(int, char*[])
 {
   // Create an image
-  vtkSmartPointer<vtkImageData> image =
+  auto image =
     vtkSmartPointer<vtkImageData>::New();
 
   // Specify the size of the image data
@@ -34,7 +34,7 @@ int main(int, char*[])
     {
       for (auto x = 0; x < dims[0]; ++x)
       {
-        float* pixel = static_cast<float*>(image->GetScalarPointer(x, y, z));
+        auto pixel = static_cast<float*>(image->GetScalarPointer(x, y, z));
         pixel[0] = 0.0;
         pixel[1] = 0.0;
         pixel[2] = 0.0;
@@ -43,13 +43,13 @@ int main(int, char*[])
   }
 
   {
-    float* pixel = static_cast<float*>(image->GetScalarPointer(20, 20, 0));
+    auto pixel = static_cast<float*>(image->GetScalarPointer(20, 20, 0));
     pixel[0] = -10.0;
     pixel[1] = 5.0;
   }
 
   {
-    float* pixel = static_cast<float*>(image->GetScalarPointer(30, 30, 0));
+    auto pixel = static_cast<float*>(image->GetScalarPointer(30, 30, 0));
     pixel[0] = 10.0;
     pixel[1] = 10.0;
   }
@@ -58,15 +58,15 @@ int main(int, char*[])
   // correctness).
   // std::cout << image->GetPointData()->GetScalars()->GetName() << std::endl;
   image->GetPointData()->SetActiveVectors(
-    image->GetPointData()->GetScalars()->GetName());
+      image->GetPointData()->GetScalars()->GetName());
   // image->GetPointData()->SetActiveVectors("ImageScalars");
 
   // Setup the arrows
-  vtkSmartPointer<vtkArrowSource> arrowSource =
+  auto arrowSource =
     vtkSmartPointer<vtkArrowSource>::New();
   arrowSource->Update();
 
-  vtkSmartPointer<vtkGlyph2D> glyphFilter =
+  auto glyphFilter =
     vtkSmartPointer<vtkGlyph2D>::New();
   glyphFilter->SetSourceConnection(arrowSource->GetOutputPort());
   glyphFilter->OrientOn();
@@ -75,37 +75,38 @@ int main(int, char*[])
   glyphFilter->Update();
 
   // Create actors
-  vtkSmartPointer<vtkImageSliceMapper> imageMapper =
+  auto imageMapper =
     vtkSmartPointer<vtkImageSliceMapper>::New();
   imageMapper->SetInputData(image);
 
-  vtkSmartPointer<vtkImageSlice> imageSlice =
+  auto imageSlice =
     vtkSmartPointer<vtkImageSlice>::New();
   imageSlice->SetMapper(imageMapper);
 
-  vtkSmartPointer<vtkPolyDataMapper> vectorMapper =
+  auto vectorMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   vectorMapper->SetInputConnection(glyphFilter->GetOutputPort());
-  vtkSmartPointer<vtkActor> vectorActor = vtkSmartPointer<vtkActor>::New();
+  auto vectorActor =
+    vtkSmartPointer<vtkActor>::New();
   vectorActor->SetMapper(vectorMapper);
 
   // Setup renderer
-  vtkSmartPointer<vtkRenderer> renderer =
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddViewProp(imageSlice);
   renderer->AddViewProp(vectorActor);
   renderer->ResetCamera();
 
   // Setup render window
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
   // Setup render window interactor
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  auto renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  vtkSmartPointer<vtkInteractorStyleImage> style =
-    vtkSmartPointer<vtkInteractorStyleImage>::New();
+  // auto style =
+  //  vtkSmartPointer<vtkInteractorStyleImage>::New();
   // renderWindowInteractor->SetInteractorStyle(style);
 
   // Render and start interaction

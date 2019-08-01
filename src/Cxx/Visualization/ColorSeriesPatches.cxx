@@ -68,10 +68,7 @@ class HTMLTableMaker
 {
 
 public:
-  HTMLTableMaker()
-  {
-    this->nc = vtkSmartPointer<vtkNamedColors>::New();
-  }
+  HTMLTableMaker() = default;
 
   ~HTMLTableMaker() = default;
 
@@ -87,7 +84,7 @@ private:
   std::string MakeTable();
 
 private:
-  vtkSmartPointer<vtkNamedColors> nc;
+  vtkSmartPointer<vtkNamedColors> nc = vtkSmartPointer<vtkNamedColors>::New();
   ColorStructures cs = ColorStructures();
   HTMLToFromRGBAColor htmlRGBA = HTMLToFromRGBAColor();
 };

@@ -1,33 +1,32 @@
 #include <vtkSmartPointer.h>
 
-#include <vtkTextActor.h>
-#include <vtkRenderer.h>
+#include <vtkMath.h>
+#include <vtkNamedColors.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkTextActor.h>
 #include <vtkTextProperty.h>
-#include <vtkMath.h>
 
-#include <vtksys/SystemTools.hxx>
 #include <sstream>
 #include <string>
+#include <vtksys/SystemTools.hxx>
 
-#include <vtkNamedColors.h>
-namespace
-{
+namespace {
 // Given a color, find a contrasting color. If the goven color is "light",
 // use the lightColor otherwise use the darkColor
-void ChooseContrastingColor(double *rgbIn,
-                            double *rgbOut,
+void ChooseContrastingColor(double* rgbIn, double* rgbOut,
                             const double threshold = .5,
-                            const std::string lightColor = "white",
-                            const std::string darkColor = "black");
-}
- 
-int main (int argc, char *argv[])
+                            const std::string& lightColor = "white",
+                            const std::string& darkColor = "black");
+} // namespace
+
+int main(int argc, char* argv[])
 {
   if (argc < 2)
   {
-    std::cerr << "Usage: " << argv[0] << " font.ttf [backColor] [lightColor] [darkColor]" << std::endl;
+    std::cerr << "Usage: " << argv[0]
+              << " font.ttf [backColor] [lightColor] [darkColor]" << std::endl;
     return EXIT_FAILURE;
   }
 
@@ -54,51 +53,46 @@ int main (int argc, char *argv[])
   str << "Font: "
       << vtksys::SystemTools::GetFilenameWithoutExtension(std::string(argv[1]))
       << "\n"
-      << "Background: " << backColor
-      << "\n"
-      << "Light Color: " << lightColor
-      << "\n"
+      << "Background: " << backColor << "\n"
+      << "Light Color: " << lightColor << "\n"
       << "Dark Color: " << darkColor;
-  
+
   int width = 640;
   int height = 480;
 
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkTextActor> actor =
+  auto actor =
     vtkSmartPointer<vtkTextActor>::New();
   actor->GetTextProperty()->SetJustificationToCentered();
   actor->GetTextProperty()->SetVerticalJustificationToCentered();
   actor->SetTextScaleModeToViewport();
   actor->SetInput(str.str().c_str());
-  actor->SetPosition(width/2, height/2);
+  actor->SetPosition(width / 2, height / 2);
   actor->GetTextProperty()->BoldOff();
   actor->GetTextProperty()->SetFontSize(40);
   actor->GetTextProperty()->SetFontFamily(VTK_FONT_FILE);
   actor->GetTextProperty()->SetFontFile(fontFile.c_str());
 
-  vtkSmartPointer<vtkRenderer> renderer =
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->SetBackground(colors->GetColor3d(backColor.c_str()).GetData());
 
   // Compute a good color for text on the renderer background
   double rgb[3];
-  ChooseContrastingColor(renderer->GetBackground(),
-                         rgb,
-                         threshold,
-                         lightColor,
+  ChooseContrastingColor(renderer->GetBackground(), rgb, threshold, lightColor,
                          darkColor);
   std::cout << rgb[0] << "," << rgb[1] << "," << rgb[2] << std::endl;
   actor->GetTextProperty()->SetColor(rgb);
 
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
 
   renderWindow->SetSize(width, height);
   renderWindow->AddRenderer(renderer);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> interactor =
+  auto interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
 
@@ -111,15 +105,13 @@ int main (int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
-namespace
-{
-void ChooseContrastingColor(double *rgbIn,
-                            double *rgbOut,
+namespace {
+void ChooseContrastingColor(double* rgbIn, double* rgbOut,
                             const double threshold,
-                            const std::string lightColor,
-                            const std::string darkColor)
+                            const std::string& lightColor,
+                            const std::string& darkColor)
 {
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   double hsv[3];
@@ -134,4 +126,4 @@ void ChooseContrastingColor(double *rgbIn,
     colors->GetColor(darkColor.c_str(), rgbOut[0], rgbOut[1], rgbOut[2]);
   }
 }
-}
+} // namespace

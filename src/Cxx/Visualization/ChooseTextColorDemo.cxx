@@ -1,46 +1,42 @@
 #include <vtkSmartPointer.h>
 
-#include <vtkBYUReader.h>
-#include <vtkOBJReader.h>
-#include <vtkPLYReader.h>
-#include <vtkPolyDataReader.h>
-#include <vtkSTLReader.h>
-#include <vtkXMLPolyDataReader.h>
-#include <vtkSphereSource.h>
-
-#include <vtkMath.h>
-#include <vtkCoordinate.h>
-#include <vtkTextProperty.h>
-#include <vtkTextActor.h>
 #include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkCoordinate.h>
+#include <vtkMath.h>
+#include <vtkNamedColors.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
-#include <vtkCamera.h>
+#include <vtkTextActor.h>
+#include <vtkTextProperty.h>
 
-#include <vtkNamedColors.h>
+// For drawing the vieport border.
+#include <vtkActor2D.h>
+#include <vtkCellArray.h>
+#include <vtkCoordinate.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper2D.h>
+#include <vtkPolyLine.h>
+#include <vtkProperty2D.h>
+#include <vtkRenderer.h>
 
-#include <vtkNamedColors.h>
-namespace
-{
-// Given a color, find a contrasting color. If the goven color is "light",
+namespace {
+// Given a color, find a contrasting color. If the given color is "light",
 // use the lightColor otherwise use the darkColor
-void ChooseContrastingColor(double *rgbIn,
-                            double *rgbOut,
+void ChooseContrastingColor(double* rgbIn, double* rgbOut,
                             double threshold = .5,
-                            const std::string lightColor = "white",
-                            const std::string darkColor = "black");
-}
+                            const std::string& lightColor = "white",
+                            const std::string& darkColor = "black");
 
-namespace
-{
-void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
-                    double *color,
+void ViewportBorder(vtkSmartPointer<vtkRenderer>& renderer, double* color,
                     bool last = false);
-}
-int main (int argc, char *argv[])
+} // namespace
+
+int main(int argc, char* argv[])
 {
   vtkMath::RandomSeed(4355412); // for test result consistency
 
@@ -60,19 +56,19 @@ int main (int argc, char *argv[])
     darkColor = argv[3];
   }
   // Visualize
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Setup render window
-  vtkSmartPointer<vtkRenderWindow> renderWindow =
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   std::vector<vtkSmartPointer<vtkRenderer>> renderers;
   unsigned int xGridDimensions = 10;
   unsigned int yGridDimensions = 10;
-  for (int i = 0; i < static_cast<int>(xGridDimensions  * yGridDimensions); ++i)
+  for (auto i = 0; i < static_cast<int>(xGridDimensions * yGridDimensions); ++i)
   {
     // Create textActors
-    vtkSmartPointer<vtkTextActor> textActor =
+    auto textActor =
       vtkSmartPointer<vtkTextActor>::New();
     textActor->GetTextProperty()->SetJustificationToCentered();
     textActor->GetTextProperty()->SetVerticalJustificationToCentered();
@@ -82,9 +78,10 @@ int main (int argc, char *argv[])
     textActor->GetTextProperty()->SetFontSize(20);
 
     // Setup renderer
-    vtkSmartPointer<vtkRenderer> renderer =
+    auto renderer =
       vtkSmartPointer<vtkRenderer>::New();
-    renderer->AddActor(textActor);;
+    renderer->AddActor(textActor);
+    ;
     double hsv[3];
     hsv[0] = vtkMath::Random(0.0, 1.0);
     hsv[1] = vtkMath::Random(0.0, 1.0);
@@ -92,43 +89,39 @@ int main (int argc, char *argv[])
     double rgb[3];
     vtkMath::HSVToRGB(hsv, rgb);
     renderer->SetBackground(rgb);
-  // Compute a good color for text on the renderer background
-  ChooseContrastingColor(renderer->GetBackground(),
-                         rgb,
-                         threshold,
-                         lightColor,
-                         darkColor);
-  textActor->GetTextProperty()->SetColor(rgb);
+    // Compute a good color for text on the renderer background
+    ChooseContrastingColor(renderer->GetBackground(), rgb, threshold,
+                           lightColor, darkColor);
+    textActor->GetTextProperty()->SetColor(rgb);
     renderers.push_back(renderer);
     renderWindow->AddRenderer(renderer);
   }
 
   // Setup viewports for the renderers
   int rendererSize = 100;
-  renderWindow->SetSize(
-    rendererSize * xGridDimensions, rendererSize * yGridDimensions);
-  for (int row = 0; row < static_cast<int>(yGridDimensions); row++)
+  renderWindow->SetSize(rendererSize * xGridDimensions,
+                        rendererSize * yGridDimensions);
+  for (auto row = 0; row < static_cast<int>(yGridDimensions); row++)
   {
-    for (int col = 0; col < static_cast<int>(xGridDimensions); col++)
+    for (auto col = 0; col < static_cast<int>(xGridDimensions); col++)
     {
-      int index = row * xGridDimensions + col;
+      auto index = row * xGridDimensions + col;
       // (xmin, ymin, xmax, ymax)
-      double viewport[4] = {
-        static_cast<double>(col) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - (row + 1)) * rendererSize /
-        (yGridDimensions * rendererSize),
-        static_cast<double>(col + 1) * rendererSize /
-        (xGridDimensions * rendererSize),
-        static_cast<double>(yGridDimensions - row) * rendererSize /
-        (yGridDimensions * rendererSize)};
+      double viewport[4] = {static_cast<double>(col) * rendererSize /
+                                (xGridDimensions * rendererSize),
+                            static_cast<double>(yGridDimensions - (row + 1)) *
+                                rendererSize / (yGridDimensions * rendererSize),
+                            static_cast<double>(col + 1) * rendererSize /
+                                (xGridDimensions * rendererSize),
+                            static_cast<double>(yGridDimensions - row) *
+                                rendererSize /
+                                (yGridDimensions * rendererSize)};
       renderers[index]->SetViewport(viewport);
-      ViewportBorder(renderers[index],
-                     colors->GetColor3d("White").GetData(),
+      ViewportBorder(renderers[index], colors->GetColor3d("White").GetData(),
                      col == static_cast<int>(xGridDimensions));
     }
   }
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+  auto renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
@@ -138,24 +131,13 @@ int main (int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
-#include <vtkRenderer.h>
-#include <vtkPoints.h>
-#include <vtkCellArray.h>
-#include <vtkPolyData.h>
-#include <vtkPolyLine.h>
-#include <vtkPolyDataMapper2D.h>
-#include <vtkCoordinate.h>
-#include <vtkActor2D.h>
-#include <vtkProperty2D.h>
-namespace
-{
+namespace {
 // draw the borders of a renderer's viewport
-void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
-                    double *color,
+void ViewportBorder(vtkSmartPointer<vtkRenderer>& renderer, double* color,
                     bool last)
 {
   // points start at upper right and proceed anti-clockwise
-  vtkSmartPointer<vtkPoints> points =
+  auto points =
     vtkSmartPointer<vtkPoints>::New();
   points->SetNumberOfPoints(4);
   points->InsertPoint(0, 1, 1, 0);
@@ -164,11 +146,11 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
   points->InsertPoint(3, 1, 0, 0);
 
   // create cells, and lines
-  vtkSmartPointer<vtkCellArray> cells =
+  auto cells =
     vtkSmartPointer<vtkCellArray>::New();
   cells->Initialize();
 
-  vtkSmartPointer<vtkPolyLine> lines =
+  auto lines =
     vtkSmartPointer<vtkPolyLine>::New();
 
   // only draw last line if this is the last viewport
@@ -181,11 +163,11 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
   }
   else
   {
-  lines->GetPointIds()->SetNumberOfIds(4);
+    lines->GetPointIds()->SetNumberOfIds(4);
   }
-  for(unsigned int i = 0; i < 4; ++i)
+  for (unsigned int i = 0; i < 4; ++i)
   {
-    lines->GetPointIds()->SetId(i,i);
+    lines->GetPointIds()->SetId(i, i);
   }
   if (last)
   {
@@ -194,7 +176,7 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
   cells->InsertNextCell(lines);
 
   // now make tge polydata and display it
-  vtkSmartPointer<vtkPolyData> poly =
+  auto poly =
     vtkSmartPointer<vtkPolyData>::New();
   poly->Initialize();
   poly->SetPoints(points);
@@ -202,17 +184,16 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
 
   // use normalized viewport coordinates since
   // they are independent of window size
-  vtkSmartPointer<vtkCoordinate> coordinate =
+  auto coordinate =
     vtkSmartPointer<vtkCoordinate>::New();
   coordinate->SetCoordinateSystemToNormalizedViewport();
 
-  vtkSmartPointer<vtkPolyDataMapper2D> mapper =
+  auto mapper =
     vtkSmartPointer<vtkPolyDataMapper2D>::New();
   mapper->SetInputData(poly);
   mapper->SetTransformCoordinate(coordinate);
 
-  vtkSmartPointer<vtkActor2D> actor =
-    vtkSmartPointer<vtkActor2D>::New();
+  auto actor = vtkSmartPointer<vtkActor2D>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetColor(color);
   // line width should be at least 2 to be visible at extremes
@@ -221,16 +202,12 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
 
   renderer->AddViewProp(actor);
 }
-}
-namespace
+
+void ChooseContrastingColor(double* rgbIn, double* rgbOut, double threshold,
+                            const std::string& lightColor,
+                            const std::string& darkColor)
 {
-void ChooseContrastingColor(double *rgbIn,
-                            double *rgbOut,
-                            double threshold,
-                            const std::string lightColor,
-                            const std::string darkColor)
-{
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   double hsv[3];
@@ -245,4 +222,4 @@ void ChooseContrastingColor(double *rgbIn,
     colors->GetColor(darkColor.c_str(), rgbOut[0], rgbOut[1], rgbOut[2]);
   }
 }
-}
+} // namespace

@@ -83,10 +83,7 @@ class HTMLTableMaker
 {
 
 public:
-  HTMLTableMaker()
-  {
-    this->nc = vtkSmartPointer<vtkNamedColors>::New();
-  }
+  HTMLTableMaker() = default;
 
   ~HTMLTableMaker() = default;
 
@@ -115,11 +112,12 @@ private:
   std::string MakeSynonymColorTable();
 
 private:
-  vtkSmartPointer<vtkNamedColors> nc;
+  vtkSmartPointer<vtkNamedColors> nc = vtkSmartPointer<vtkNamedColors>::New();
   ColorStructures cs = ColorStructures();
   HTMLToFromRGBAColor htmlRGBA = HTMLToFromRGBAColor();
 };
 } // namespace
+
 
 int main(int argc, char* argv[])
 {
@@ -708,10 +706,7 @@ std::string HTMLTableMaker::MakeSynonymColorTable()
   std::vector<std::string> cn;
   for (const auto p : this->cs.cn)
   {
-    for (const auto q : p.second)
-    {
-      cn.push_back(q);
-    }
+    std::copy(p.second.begin(), p.second.end(), std::back_inserter(cn));
   }
   std::map<std::string, std::string> d;
   for (const auto p : cn)
