@@ -1,60 +1,60 @@
-#include <vtkSmartPointer.h>
 #include <vtkCameraActor.h>
+#include <vtkSmartPointer.h>
 
-#include <vtkNamedColors.h>
-#include <vtkSphereSource.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkCamera.h>
-#include <vtkPlanes.h>
 #include <vtkMapper.h>
+#include <vtkNamedColors.h>
+#include <vtkPlanes.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSphereSource.h>
 
-int main(int, char *[])
+int main(int, char*[])
 {
-  vtkSmartPointer<vtkNamedColors> namedColors =
+  auto namedColors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Sphere
-  vtkSmartPointer<vtkSphereSource> sphereSource = 
+  auto sphereSource =
     vtkSmartPointer<vtkSphereSource>::New();
   sphereSource->SetRadius(400);
   sphereSource->Update();
-  
-  vtkSmartPointer<vtkPolyDataMapper> sphereMapper = 
+
+  auto sphereMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkActor> sphereActor = 
+  auto sphereActor =
     vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
   sphereActor->GetProperty()->SetDiffuseColor(
-    namedColors->GetColor3d("Tomato").GetData());
-  
+      namedColors->GetColor3d("Tomato").GetData());
+
   // Camera
-  vtkSmartPointer<vtkCamera> camera = 
+  auto camera =
     vtkSmartPointer<vtkCamera>::New();
 
-  vtkSmartPointer<vtkCameraActor> cameraActor = 
+  auto cameraActor =
     vtkSmartPointer<vtkCameraActor>::New();
   cameraActor->SetCamera(camera);
   cameraActor->GetProperty()->SetColor(0, 0, 0);
 
   // (Xmin,Xmax,Ymin,Ymax,Zmin,Zmax).
-  double* bounds = new double[6];
-  bounds = cameraActor->GetBounds();
-  std::cout << "bounds: " << bounds[0] << " " << bounds[1] << " " << bounds[2] << " " << 
-      bounds[3] << " " << bounds[4] << " " << bounds[5] << std::endl;
+  auto bounds = cameraActor->GetBounds();
+  std::cout << "bounds: " << bounds[0] << " " << bounds[1] << " " << bounds[2]
+            << " " << bounds[3] << " " << bounds[4] << " " << bounds[5]
+            << std::endl;
 
   // Visualize
-  vtkSmartPointer<vtkRenderer> renderer = 
+  auto renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renderWindow = 
+  auto renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
+  auto renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
@@ -78,6 +78,6 @@ int main(int, char *[])
 
   renderWindow->Render();
   renderWindowInteractor->Start();
-  
- return EXIT_SUCCESS;
+
+  return EXIT_SUCCESS;
 }

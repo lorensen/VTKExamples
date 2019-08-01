@@ -1,10 +1,8 @@
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
-#include <vtkProperty.h>
 #include <vtkCommand.h>
 #include <vtkConeSource.h>
-#include <vtkSphereSource.h>
 #include <vtkGlyph3D.h>
 #include <vtkPointWidget.h>
 #include <vtkPolyData.h>
@@ -14,6 +12,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSphereSource.h>
 #include <vtkTextActor.h>
 #include <vtkTextProperty.h>
 #include <vtkXMLPolyDataReader.h>
@@ -27,36 +26,37 @@
 class vtkmyPWCallback : public vtkCommand
 {
 public:
-  static vtkmyPWCallback *New()
+  vtkmyPWCallback() = default;
+
+  static vtkmyPWCallback* New()
   {
     return new vtkmyPWCallback;
   }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  virtual void Execute(vtkObject* caller, unsigned long, void*)
   {
-    vtkPointWidget *pointWidget = reinterpret_cast<vtkPointWidget*>(caller);
+    vtkPointWidget* pointWidget = reinterpret_cast<vtkPointWidget*>(caller);
     pointWidget->GetPolyData(this->PolyData);
     double position[3];
     pointWidget->GetPosition(position);
     std::ostringstream text;
-    text << "cursor: "
-         << std::fixed << std::setprecision(4)
-         << position[0] << ", " << position[1] << ", " << position[2];
+    text << "cursor: " << std::fixed << std::setprecision(4) << position[0]
+         << ", " << position[1] << ", " << position[2];
     this->PositionActor->SetInput(text.str().c_str());
     this->CursorActor->VisibilityOn();
   }
-  vtkmyPWCallback():PolyData(0),CursorActor(0) {}
-  vtkPolyData  *PolyData;
-  vtkActor     *CursorActor;
-  vtkTextActor *PositionActor;
+
+  vtkPolyData* PolyData = nullptr;
+  vtkActor* CursorActor = nullptr;
+  vtkTextActor* PositionActor = nullptr;
 };
 
-int main( int argc, char *argv[] )
+int main(int argc, char* argv[])
 {
   vtkSmartPointer<vtkPolyData> inputPolyData;
 
-  if(argc > 1)
+  if (argc > 1)
   {
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+    auto reader =
       vtkSmartPointer<vtkXMLPolyDataReader>::New();
     reader->SetFileName(argv[1]);
     reader->Update();
@@ -64,7 +64,7 @@ int main( int argc, char *argv[] )
   }
   else
   {
-    vtkSmartPointer<vtkSphereSource> sphereSource =
+    auto sphereSource =
       vtkSmartPointer<vtkSphereSource>::New();
     sphereSource->SetPhiResolution(15);
     sphereSource->SetThetaResolution(15);
@@ -72,23 +72,23 @@ int main( int argc, char *argv[] )
     inputPolyData = sphereSource->GetOutput();
   }
 
-  vtkSmartPointer<vtkNamedColors> colors =
+  auto colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkPolyData> point =
+  auto point =
     vtkSmartPointer<vtkPolyData>::New();
 
-  vtkSmartPointer<vtkProbeFilter> probe =
+  auto probe =
     vtkSmartPointer<vtkProbeFilter>::New();
   probe->SetInputData(point);
   probe->SetSourceData(inputPolyData);
 
   // create glyph
-  vtkSmartPointer<vtkConeSource> cone =
+  auto cone =
     vtkSmartPointer<vtkConeSource>::New();
   cone->SetResolution(16);
 
-  vtkSmartPointer<vtkGlyph3D> glyph =
+  auto glyph =
     vtkSmartPointer<vtkGlyph3D>::New();
   glyph->SetInputConnection(probe->GetOutputPort());
   glyph->SetSourceConnection(cone->GetOutputPort());
@@ -96,48 +96,47 @@ int main( int argc, char *argv[] )
   glyph->SetScaleModeToDataScalingOff();
   glyph->SetScaleFactor(inputPolyData->GetLength() * 0.1);
 
-  vtkSmartPointer<vtkPolyDataMapper> glyphMapper =
+  auto glyphMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   glyphMapper->SetInputConnection(glyph->GetOutputPort());
 
-  vtkSmartPointer<vtkActor> glyphActor =
+  auto glyphActor =
     vtkSmartPointer<vtkActor>::New();
   glyphActor->SetMapper(glyphMapper);
   glyphActor->VisibilityOn();
 
-  vtkSmartPointer<vtkPolyDataMapper> mapper =
+  auto mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputData(inputPolyData);
 
-  vtkSmartPointer<vtkActor> actor =
-    vtkSmartPointer<vtkActor>::New();
+  auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetRepresentationToWireframe();
   actor->GetProperty()->SetColor(colors->GetColor3d("gold").GetData());
 
-  vtkSmartPointer<vtkTextActor> textActor =
+  auto textActor =
     vtkSmartPointer<vtkTextActor>::New();
-  textActor->GetTextProperty()->SetFontSize ( 12 );
-  textActor->SetPosition ( 10, 20 );
-  textActor->SetInput ( "cursor:" );
-  textActor->GetTextProperty()->SetColor (colors->GetColor3d("White").GetData());
+  textActor->GetTextProperty()->SetFontSize(12);
+  textActor->SetPosition(10, 20);
+  textActor->SetInput("cursor:");
+  textActor->GetTextProperty()->SetColor(colors->GetColor3d("White").GetData());
 
   // Create the RenderWindow, Render1er and both Actors
   //
-  vtkSmartPointer<vtkRenderer> ren1 =
+  auto ren1 =
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin =
+  auto renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(ren1);
 
-  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+  auto iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
 
   // The SetInteractor method is how 3D widgets are associated with the render
   // window interactor. Internally, SetInteractor sets up a bunch of callbacks
   // using the Command/Observer mechanism (AddObserver()).
-  vtkSmartPointer<vtkmyPWCallback> myCallback =
+  auto myCallback =
     vtkSmartPointer<vtkmyPWCallback>::New();
   myCallback->PolyData = point;
   myCallback->CursorActor = glyphActor;
@@ -145,17 +144,17 @@ int main( int argc, char *argv[] )
 
   // The point widget is used probe the dataset.
   //
-  vtkSmartPointer<vtkPointWidget> pointWidget =
+  auto pointWidget =
     vtkSmartPointer<vtkPointWidget>::New();
   pointWidget->SetInteractor(iren);
   pointWidget->SetInputData(inputPolyData);
   pointWidget->AllOff();
   pointWidget->PlaceWidget();
-  pointWidget->AddObserver(vtkCommand::InteractionEvent,myCallback);
+  pointWidget->AddObserver(vtkCommand::InteractionEvent, myCallback);
 
   ren1->AddActor(glyphActor);
   ren1->AddActor(actor);
-  ren1->AddActor2D ( textActor );
+  ren1->AddActor2D(textActor);
 
   // Add the actors to the renderer, set the background and size
   //

@@ -325,7 +325,6 @@ std::vector<std::vector<double>> MakeCustomBands(
                 ? static_cast<size_t>(numberOfBands)
                 : x.size();
   // Adjust the last band.
-  std::vector<double> t = x[sz - 1];
   if (x[sz - 1][0] > dR[1])
   {
     x[sz - 1][0] = dR[0];
