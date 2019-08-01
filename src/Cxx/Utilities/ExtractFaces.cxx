@@ -1,47 +1,48 @@
-#include <vtkSmartPointer.h>
 #include <vtkCellIterator.h>
-#include <vtkGenericDataSet.h>
-#include <vtkGenericCell.h>
-#include <vtkXMLGenericDataObjectReader.h>
-#include <vtkPointSet.h>
 #include <vtkCellTypes.h>
+#include <vtkGenericCell.h>
+#include <vtkGenericDataSet.h>
+#include <vtkPointSet.h>
+#include <vtkSmartPointer.h>
+#include <vtkXMLGenericDataObjectReader.h>
 
 #include <map>
 
-int main (int argc, char *argv[])
+int main(int argc, char* argv[])
 {
   std::map<std::string, int> cellMap;
 
   for (int arg = 1; arg < argc; ++arg)
   {
-    vtkSmartPointer<vtkXMLGenericDataObjectReader> reader =
+    auto reader =
       vtkSmartPointer<vtkXMLGenericDataObjectReader>::New();
     reader->SetFileName(argv[arg]);
     reader->Update();
 
-//    vtkPointSet *pointSet = vtkPointSet::SafeDownCast(reader->GetOutput());;
-    vtkPointSet *pointSet = dynamic_cast<vtkPointSet *>(reader->GetOutput());;
-    vtkSmartPointer<vtkCellIterator> it =
-      pointSet->NewCellIterator();
+    //    vtkPointSet *pointSet =
+    //    vtkPointSet::SafeDownCast(reader->GetOutput());;
+    vtkPointSet* pointSet = dynamic_cast<vtkPointSet*>(reader->GetOutput());
+    ;
+    auto it = pointSet->NewCellIterator();
     for (it->InitTraversal(); !it->IsDoneWithTraversal(); it->GoToNextCell())
     {
-      vtkSmartPointer<vtkGenericCell> cell =
-        vtkSmartPointer<vtkGenericCell>::New();
+      auto cell = vtkSmartPointer<vtkGenericCell>::New();
       it->GetCell(cell);
-      std::string cellName = vtkCellTypes::GetClassNameFromTypeId(cell->GetCellType());
+      std::string cellName =
+          vtkCellTypes::GetClassNameFromTypeId(cell->GetCellType());
       if (cellMap.count(cellName) == 0)
       {
-        std::cout << "Type: " << cellName
-                  << " has " << cell->GetNumberOfFaces() << " faces" << std::endl;
+        std::cout << "Type: " << cellName << " has " << cell->GetNumberOfFaces()
+                  << " faces" << std::endl;
       }
       cellMap[cellName]++;
     }
-  it->Delete();
+    it->Delete();
   }
-  std::map <std::string, int>::iterator itm = cellMap.begin();
-  for (itm = cellMap.begin(); itm != cellMap.end(); ++itm)
+  for (auto itm = cellMap.begin(); itm != cellMap.end(); ++itm)
   {
-    std::cout << itm->first << " occurs " << itm->second << " times" << std::endl;
+    std::cout << itm->first << " occurs " << itm->second << " times"
+              << std::endl;
   }
 
   return EXIT_SUCCESS;
